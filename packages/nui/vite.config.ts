@@ -1,0 +1,39 @@
+/// <reference types="vitest" />
+import vue from "@vitejs/plugin-vue";
+import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+import { configDefaults } from "vitest/config";
+import packageJson from "./package.json";
+
+// https://vitejs.dev/config
+export default defineConfig({
+  plugins: [vue(), dts({ tsconfigPath: getFilePath("./tsconfig.app.json") })],
+  resolve: {
+    alias: {
+      "@": getFilePath("./src"),
+    },
+  },
+  build: {
+    lib: {
+      entry: getFilePath("./src/index.ts"),
+      formats: ["es", "cjs"],
+      fileName: "index",
+    },
+    rollupOptions: {
+      // make sure to externalize dependencies that shouldn't be bundled into the library
+      external: Object.keys(packageJson.peerDependencies),
+    },
+  },
+  test: {
+    root: getFilePath("./"),
+    environment: "jsdom",
+    exclude: [...configDefaults.exclude, "src/**/*.spec.tsx"],
+    passWithNoTests: true,
+  },
+});
+
+/** Gets the given path while ensuring cross-platform and correct decoding */
+function getFilePath(path: string) {
+  return fileURLToPath(new URL(path, import.meta.url));
+}

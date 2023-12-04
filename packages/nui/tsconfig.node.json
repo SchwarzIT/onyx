@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": ["vite.config.ts", "playwright.config.ts", "package.json"],
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"]
+  }
+}

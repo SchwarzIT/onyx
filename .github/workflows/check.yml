@@ -1,0 +1,60 @@
+name: Check code quality
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check code quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+        working-directory: packages/nui
+
+      - name: 🔎 Lint
+        run: pnpm run lint
+
+      - name: 🔎 Check formatting
+        run: pnpm run format:check
+
+      - name: 🛠️ Build
+        run: pnpm run build
+        working-directory: packages/nui
+
+      - name: 🚨 Run unit tests
+        run: pnpm run test:unit:coverage
+        working-directory: packages/nui
+
+      # install system dependencies for Playwright
+      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
+      - name: 📦 Install Playwright system dependencies
+        run: pnpm exec playwright install-deps
+        working-directory: packages/nui
+
+      - name: 🚨 Run component tests
+        run: pnpm run test:components
+        working-directory: packages/nui
+
+      - name: Run publint
+        run: pnpm run publint
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always() # needed to also upload test results when they failed (useful for debugging)
+        with:
+          name: test-results
+          path: |
+            packages/nui/coverage
+            packages/nui/playwright-report
+            packages/nui/test-results

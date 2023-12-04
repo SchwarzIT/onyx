@@ -19,3 +19,8 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+test-results/
+playwright-report/
+/blob-report/
+**/.cache

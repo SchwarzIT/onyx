@@ -1,0 +1,3 @@
+# Prettier ignores all files inside .gitignore by default so this file only contains
+# files that are checked into git but should not be formatted
+pnpm-lock.yaml
