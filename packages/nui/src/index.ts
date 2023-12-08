@@ -1,3 +1,3 @@
 import "@/styles/index.scss";
 
-export { default as TestButton } from "@/components/TestButton/TestButton.vue";
+export { default as TestInput } from "@/components/TestInput/TestInput.vue";

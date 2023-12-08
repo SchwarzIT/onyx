@@ -1,0 +1,10 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "types": ["node"],
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "lib": ["ES2021.String"]
+  }
+}

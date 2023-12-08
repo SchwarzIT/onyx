@@ -58,6 +58,26 @@ The following scripts are available inside [`packages/nui`](packages/nui):
 pnpm run build
 ```
 
+#### Run Storybook in dev mode
+
+```sh
+pnpm run dev
+```
+
+#### Build Storybook
+
+```sh
+pnpm run build:storybook
+```
+
+#### Preview Storybook (prod mode)
+
+The Storybook build command needs to be run first.
+
+```sh
+pnpm run preview
+```
+
 #### Run Unit Tests with [Vitest](https://vitest.dev)
 
 ```sh

@@ -32,6 +32,10 @@ jobs:
         run: pnpm run build
         working-directory: packages/nui
 
+      - name: 🛠️ Build Storybook
+        run: pnpm run build:storybook
+        working-directory: packages/nui
+
       - name: 🚨 Run unit tests
         run: pnpm run test:unit:coverage
         working-directory: packages/nui
@@ -49,7 +53,11 @@ jobs:
       - name: Run publint
         run: pnpm run publint
 
-      - name: Upload test results
+      - name: 🔎 Type check Storybook utils
+        run: pnpm run type-check
+        working-directory: packages/storybook-utils
+
+      - name: Upload test results artifact
         uses: actions/upload-artifact@v3
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
@@ -58,3 +66,9 @@ jobs:
             packages/nui/coverage
             packages/nui/playwright-report
             packages/nui/test-results
+
+      - name: Upload Storybook artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook
+          path: packages/nui/storybook-static

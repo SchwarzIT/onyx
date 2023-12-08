@@ -24,3 +24,4 @@ test-results/
 playwright-report/
 /blob-report/
 **/.cache
+storybook-static

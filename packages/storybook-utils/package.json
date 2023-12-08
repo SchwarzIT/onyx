@@ -1,0 +1,21 @@
+{
+  "name": "@nui/storybook-utils",
+  "description": "Storybook utilities for Vue",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@storybook/client-api": ">= 7",
+    "@storybook/vue3": ">= 7"
+  },
+  "dependencies": {
+    "deepmerge-ts": "^5.1.0"
+  }
+}
