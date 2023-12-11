@@ -1,0 +1,47 @@
+name: Cloud Foundry Push
+description: Pushes / Deploys an application to Cloud Foundry using CLI version 8
+
+inputs:
+  cf-endpoint:
+    required: true
+    description: API endpoint of Cloud Foundry
+  cf-org:
+    required: true
+    description: Name of the Cloud Foundry organization
+  cf-username:
+    required: true
+    description: Username of the Cloud Foundry service account
+  cf-password:
+    required: true
+    description: Password of the Cloud Foundry service account
+  cf-space:
+    required: true
+    description: Space to push to (e.g. dev, prod etc.). A corresponding manifest with name "manifest-<space>.yml" is expected
+  working-directory:
+    required: true
+    description: Directory where the push command is executed in (manifest, Staticfile etc. must be placed inside this folder)
+
+runs:
+  using: "composite"
+  steps:
+    # according to: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html#pkg-linux
+    - name: Install Cloud Foundry CLI 8
+      shell: bash
+      run: |
+        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        sudo apt-get update
+        sudo apt-get install cf8-cli
+
+    - name: Login to Cloud Foundry
+      shell: bash
+      run: cf login -u "${{ inputs.cf-username }}" -p "${{ inputs.cf-password }}" -a "${{ inputs.cf-endpoint }}" -o "${{ inputs.cf-org }}" -s "${{ inputs.cf-space }}"
+
+    - name: Deploy (${{ inputs.cf-space }})
+      shell: bash
+      run: cf push --manifest "./manifest-${{ inputs.cf-space }}.yml" --strategy rolling
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Logout from Cloud Foundry
+      shell: bash
+      run: cf logout

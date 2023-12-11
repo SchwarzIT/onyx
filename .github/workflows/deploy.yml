@@ -1,0 +1,70 @@
+name: Deploy Storybook
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/nui/**"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Stage to deploy to
+        type: choice
+        required: true
+        default: dev
+        options:
+          - "dev"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🛠️ Build Storybook
+        run: pnpm run build:storybook
+        working-directory: packages/nui
+
+      - name: Upload Storybook artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-static
+          path: packages/nui/storybook-static
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: storybook-static
+          path: packages/nui/.cloud-foundry/storybook-static
+
+      - name: Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          cf-endpoint: ${{ secrets.CF_ENDPOINT }}
+          cf-org: ${{ secrets.CF_ORG }}
+          cf-username: ${{ secrets.CF_USERNAME }}
+          cf-password: ${{ secrets.CF_PASSWORD }}
+          # we need to define a fallback value here because the default for the input
+          # is only assigned when the workflow is triggered manually. When triggered e.g. on push
+          # the input will be unset so a fallback is needed here
+          cf-space: ${{ inputs.stage || 'dev' }}
+          working-directory: packages/nui/.cloud-foundry

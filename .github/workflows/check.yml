@@ -20,7 +20,6 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install
-        working-directory: packages/nui
 
       - name: 🔎 Lint
         run: pnpm run lint
@@ -70,5 +69,5 @@ jobs:
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v3
         with:
-          name: storybook
+          name: storybook-static
           path: packages/nui/storybook-static
