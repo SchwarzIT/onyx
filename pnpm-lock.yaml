@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@nui/figma-export':
+        specifier: workspace:^
+        version: link:packages/figma-export
       '@rushstack/eslint-patch':
         specifier: ^1.6.0
         version: 1.6.0
