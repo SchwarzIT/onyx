@@ -53,9 +53,9 @@ jobs:
         run: pnpm run type-check
         working-directory: packages/storybook-utils
 
-      - name: 🛠️ Build Figma export utils
+      - name: 🛠️ Build Figma utils
         run: pnpm run build
-        working-directory: packages/figma-export
+        working-directory: packages/figma-utils
 
       # make sure that publint is only run after all packages have been built
       - name: Run publint
@@ -79,7 +79,7 @@ jobs:
 
       # TODO: remove everything below this comment. This is just for testing!
       - name: Export variables
-        run: npx @nui/figma-export export --file-key "${{ secrets.FIGMA_FILE_KEY }}" --token "${{ secrets.FIGMA_TOKEN }}" --prefix nui
+        run: npx @nui/figma-utils export --file-key "${{ secrets.FIGMA_FILE_KEY }}" --token "${{ secrets.FIGMA_TOKEN }}" --prefix nui
         working-directory: packages/nui/src/styles
 
       - name: Upload variables artifact

@@ -1,10 +1,10 @@
 {
-  "name": "@nui/figma-export",
+  "name": "@nui/figma-utils",
   "description": "CLI tool for exporting data from the Figma API.",
   "version": "0.0.0",
   "type": "module",
   "bin": {
-    "@nui/figma-export": "./dist/index.js"
+    "@nui/figma-utils": "./dist/index.js"
   },
   "exports": {
     ".": {
