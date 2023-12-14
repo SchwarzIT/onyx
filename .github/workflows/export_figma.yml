@@ -25,7 +25,7 @@ jobs:
         working-directory: packages/figma-export
 
       - name: Export variables
-        run: npx @nui/figma-export export --file-key ${{ secrets.FIGMA_FILE_KEY }} --token ${{ secrets.FIGMA_TOKEN }} --prefix nui
+        run: npx @nui/figma-export export --file-key "${{ secrets.FIGMA_FILE_KEY }}" --token "${{ secrets.FIGMA_TOKEN }}" --prefix nui
         working-directory: packages/nui/src/styles
 
       - name: Upload variables artifact
@@ -33,19 +33,6 @@ jobs:
         with:
           name: variables
           path: packages/nui/src/styles/variables.css
-
-  pr:
-    name: Create PR
-    runs-on: ubuntu-latest
-    needs: export
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download variables artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: variables
-          path: packages/nui/src/styles
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5

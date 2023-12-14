@@ -78,7 +78,7 @@ jobs:
 
       # TODO: remove everything below this comment. This is just for testing!
       - name: Export variables
-        run: npx @nui/figma-export export --file-key ${{ secrets.FIGMA_FILE_KEY }} --token ${{ secrets.FIGMA_TOKEN }} --prefix nui
+        run: npx @nui/figma-export export --file-key "${{ secrets.FIGMA_FILE_KEY }}" --token "${{ secrets.FIGMA_TOKEN }}" --prefix nui
         working-directory: packages/nui/src/styles
 
       - name: Upload variables artifact
@@ -86,3 +86,13 @@ jobs:
         with:
           name: variables
           path: packages/nui/src/styles/variables.css
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "feat: update Figma variables"
+          title: "feat: update Figma variables"
+          body: This is an auto-generated pull request. All Figma variables have been updated / exported.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}

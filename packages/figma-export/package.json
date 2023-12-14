@@ -6,6 +6,12 @@
   "bin": {
     "@nui/figma-export": "./dist/index.js"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc"
   },
