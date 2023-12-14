@@ -75,3 +75,14 @@ jobs:
         with:
           name: storybook-static
           path: packages/nui/storybook-static
+
+      # TODO: remove everything below this comment. This is just for testing!
+      - name: Export variables
+        run: npx @nui/figma-export export --file-key ${{ secrets.FIGMA_FILE_KEY }} --token ${{ secrets.FIGMA_TOKEN }} --prefix nui
+        working-directory: packages/nui/src/styles
+
+      - name: Upload variables artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: variables
+          path: packages/nui/src/styles/variables.css
