@@ -90,9 +90,6 @@ importers:
         specifier: '>= 3'
         version: 3.3.10(typescript@5.3.2)
     devDependencies:
-      '@nui/figma-utils':
-        specifier: workspace:^
-        version: link:../figma-utils
       '@nui/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils

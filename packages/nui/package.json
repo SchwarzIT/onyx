@@ -29,7 +29,6 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@nui/figma-utils": "workspace:^",
     "@nui/storybook-utils": "workspace:^",
     "@playwright/experimental-ct-vue": "^1.40.1",
     "@playwright/test": "^1.40.1",

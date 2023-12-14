@@ -9,6 +9,7 @@ type ExportCommandOptions = {
   filename: string;
   prefix?: string;
   keepRawFiles?: boolean;
+  dir?: string;
 };
 
 export const exportCommand = new Command("export")
@@ -25,6 +26,10 @@ export const exportCommand = new Command("export")
     "Whether to keep the temporary JSON files that contain the raw parsed variables from Figma.",
     false,
   )
+  .option(
+    "-d, --dir <string>",
+    "Working directory to use. Defaults to current working directory of the script.",
+  )
   .action(async (options: ExportCommandOptions) => {
     console.log("Fetching variables from Figma API...");
     const data = await fetchFigmaVariables(options.fileKey, options.token);
@@ -34,7 +39,7 @@ export const exportCommand = new Command("export")
 
     console.log("Generating variables for: CSS and SCSS...");
     writeStyleDictionaryVariables(parsedVariables, {
-      workingDirectory: process.cwd(),
+      workingDirectory: options.dir ?? process.cwd(),
       prefix: options.prefix,
       filename: options.filename,
       keepRawFiles: options.keepRawFiles,

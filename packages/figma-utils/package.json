@@ -13,7 +13,8 @@
     }
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "@nui/figma-utils": "node ./dist/index.js"
   },
   "dependencies": {
     "commander": "^11.1.0",
