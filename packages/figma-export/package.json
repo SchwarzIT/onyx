@@ -1,0 +1,16 @@
+{
+  "name": "@nui/figma-export",
+  "description": "CLI tool for exporting data from the Figma API.",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "@nui/figma-export": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "style-dictionary": "^3.9.1"
+  }
+}
