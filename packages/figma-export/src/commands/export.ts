@@ -26,9 +26,13 @@ export const exportCommand = new Command("export")
     false,
   )
   .action(async (options: ExportCommandOptions) => {
+    console.log("Fetching variables from Figma API...");
     const data = await fetchFigmaVariables(options.fileKey, options.token);
+
+    console.log("Parsing Figma variables...");
     const parsedVariables = parseFigmaVariables(data);
 
+    console.log("Generating variables for: CSS and SCSS...");
     writeStyleDictionaryVariables(parsedVariables, {
       workingDirectory: process.cwd(),
       prefix: options.prefix,
