@@ -18,12 +18,18 @@ export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
    * Loop through each variable and mode and create a new object.
    */
   Object.values(apiResponse.meta.variables).forEach((variable) => {
+    if (variable.hiddenFromPublishing) return;
+
     const { name, valuesByMode, variableCollectionId } = variable;
 
-    const { defaultModeId } = apiResponse.meta.variableCollections[variableCollectionId];
+    const collection = apiResponse.meta.variableCollections[variableCollectionId];
+    if (collection.hiddenFromPublishing) return;
 
-    const defaultModeValue = valuesByMode?.[defaultModeId]
-      ? resolveFigmaVariableValue(valuesByMode[defaultModeId], apiResponse.meta.variables)
+    const defaultModeValue = valuesByMode?.[collection.defaultModeId]
+      ? resolveFigmaVariableValue(
+          valuesByMode[collection.defaultModeId],
+          apiResponse.meta.variables,
+        )
       : undefined;
 
     Object.values(apiResponse.meta.variableCollections[variableCollectionId].modes).forEach(

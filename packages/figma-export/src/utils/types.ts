@@ -7,6 +7,7 @@ export type FigmaVariablesApiResponse = {
 
 export type VariablesCollection = {
   defaultModeId: string;
+  hiddenFromPublishing: boolean;
   modes: Mode[];
 };
 
@@ -18,6 +19,7 @@ export type Mode = {
 export type Variable = {
   name: string;
   variableCollectionId: string;
+  hiddenFromPublishing: boolean;
   valuesByMode: Record<string, ColorValue>;
 };
 
