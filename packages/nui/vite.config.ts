@@ -3,7 +3,6 @@ import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import { configDefaults } from "vitest/config";
 import packageJson from "./package.json";
 
 // https://vitejs.dev/config
@@ -28,8 +27,12 @@ export default defineConfig({
   test: {
     root: getFilePath("./"),
     environment: "jsdom",
-    exclude: [...configDefaults.exclude, "src/**/*.spec.tsx"],
     passWithNoTests: true,
+    include: ["src/**/*.spec.ts"],
+    coverage: {
+      include: ["src"],
+      exclude: ["src/**/*.stories.ts"],
+    },
   },
 });
 
