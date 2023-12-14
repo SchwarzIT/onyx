@@ -49,9 +49,6 @@ jobs:
         run: pnpm run test:components
         working-directory: packages/nui
 
-      - name: Run publint
-        run: pnpm run publint
-
       - name: 🔎 Type check Storybook utils
         run: pnpm run type-check
         working-directory: packages/storybook-utils
@@ -59,6 +56,10 @@ jobs:
       - name: 🛠️ Build Figma export utils
         run: pnpm run build
         working-directory: packages/figma-export
+
+      # make sure that publint is only run after all packages have been built
+      - name: Run publint
+        run: pnpm run publint
 
       - name: Upload test results artifact
         uses: actions/upload-artifact@v3
