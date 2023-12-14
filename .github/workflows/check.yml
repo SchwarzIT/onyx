@@ -99,8 +99,9 @@ jobs:
         working-directory: packages/figma-utils
 
       - name: Export variables
-        run: npx @nui/figma-utils export --file-key "${{ secrets.FIGMA_FILE_KEY }}" --token "${{ secrets.FIGMA_TOKEN }}" --prefix nui
-        working-directory: packages/nui/src/styles
+        run: |
+          pnpm @nui/figma-utils export --file-key "${{ secrets.FIGMA_FILE_KEY }}" --token "${{ secrets.FIGMA_TOKEN }}" --prefix nui --dir "../nui/src/styles"
+        working-directory: packages/figma-utils
 
       - name: Upload variables artifact
         uses: actions/upload-artifact@v3
