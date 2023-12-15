@@ -106,3 +106,29 @@ pnpm run test:components tests/example.spec.ts
 # Runs the tests in debug mode
 pnpm run test:components --debug
 ```
+
+<br />
+
+### Documentation
+
+The following scripts are available inside [`apps/docs`](apps/docs):
+
+#### Build
+
+```sh
+pnpm run build
+```
+
+#### Run in dev mode
+
+```sh
+pnpm run dev
+```
+
+#### Preview (prod mode)
+
+The build command needs to be run first.
+
+```sh
+pnpm run preview
+```

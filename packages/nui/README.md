@@ -1,10 +1,7 @@
 <p>
   <a href="https://gruppe.schwarz">
-    <div align="center">
-      <img src="../../.github/schwarz-logo.svg" width="160px" />
-    </div>
-    <div align="center">
-      <img src="../../.github/schwarz-group.svg" width="512px" />
+  <div align="center">
+    <img src="../../.github/schwarz-group.svg" width="400px" />
     </div>
   </a>
 </p>
@@ -24,7 +21,7 @@ Install the npm package with your corresponding package manager:
 ### pnpm
 
 ```sh
-pnpm install nui
+pnpm add nui
 ```
 
 ### npm
@@ -43,6 +40,8 @@ After that, import the global CSS file in your `main.ts` file:
 
 ```ts
 import "nui/style.css";
+// if you override some NUI styles (e.g. CSS variables),
+// make sure to import your custom CSS file after the default "nui/style.css"
 ```
 
 Components are now ready to be used, e.g.:

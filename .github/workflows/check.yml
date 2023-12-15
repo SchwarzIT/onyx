@@ -35,6 +35,10 @@ jobs:
         run: pnpm run build:storybook
         working-directory: packages/nui
 
+      - name: 🛠️ Build documentation
+        run: pnpm run build
+        working-directory: apps/docs
+
       - name: 🚨 Run unit tests
         run: pnpm run test:unit:coverage
         working-directory: packages/nui
@@ -71,3 +75,9 @@ jobs:
         with:
           name: storybook-static
           path: packages/nui/storybook-static
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: apps/docs/src/.vitepress/dist

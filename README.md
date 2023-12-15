@@ -1,10 +1,7 @@
 <p>
   <a href="https://gruppe.schwarz">
-    <div align="center">
-      <img src="./.github/schwarz-logo.svg" width="160px" />
-    </div>
-    <div align="center">
-      <img src="./.github/schwarz-group.svg" width="512px" />
+  <div align="center">
+    <img src="./.github/schwarz-group.svg" width="400px" />
     </div>
   </a>
 </p>

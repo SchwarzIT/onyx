@@ -1,0 +1,41 @@
+:root {
+  $home-primary: #bd34fe;
+  $home-secondary: #41d1ff;
+
+  // https://vitepress.dev/reference/default-theme-home-page#customizing-the-name-color
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #{$home-primary},
+    #{$home-secondary}
+  );
+
+  // Home page logo
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #{$home-primary} 50%,
+    #{$home-secondary} 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+
+  @media (min-width: 960px) {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+
+  @media (min-width: 640px) {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+.VPNavBarTitle {
+  .logo {
+    // increase logo margin so it does not look so cluttered since it contains text
+    margin-right: 1.5rem;
+  }
+}
+
+.VPHomeHero {
+  .image-src {
+    border-radius: 12px; // same as feature section in home page
+  }
+}

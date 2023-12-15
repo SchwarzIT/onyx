@@ -1,0 +1,6 @@
+root: dist
+force_https: true
+http_strict_transport_security: true
+http_strict_transport_security_preload: true
+status_codes:
+  404: /404.html
