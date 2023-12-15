@@ -1,14 +1,15 @@
 import { Command } from "commander";
+import fs from "node:fs";
+import path from "node:path";
 import { fetchFigmaVariables } from "../utils/fetch.js";
+import { generateAsCSS, generateAsSass } from "../utils/generate.js";
 import { parseFigmaVariables } from "../utils/parse.js";
-import { writeStyleDictionaryVariables } from "../utils/style-dictionary.js";
 
 type ExportCommandOptions = {
   fileKey: string;
   token: string;
   filename: string;
-  prefix?: string;
-  keepRawFiles?: boolean;
+  format: string;
   dir?: string;
 };
 
@@ -19,29 +20,36 @@ export const exportCommand = new Command("export")
     "-t, --token <string>",
     "Figma access token with scope `file_variables:read` (required)",
   )
-  .option("-p, --prefix <string>", "Prefix to append to all generated variables")
+  .option("-f, --format <string>", "Output format. Supported are: css, scss", "css")
   .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
-  .option(
-    "--keep-raw-files",
-    "Whether to keep the temporary JSON files that contain the raw parsed variables from Figma.",
-    false,
-  )
   .option(
     "-d, --dir <string>",
     "Working directory to use. Defaults to current working directory of the script.",
   )
   .action(async (options: ExportCommandOptions) => {
+    const generators = {
+      css: generateAsCSS,
+      scss: generateAsSass,
+    };
+
+    if (!(options.format in generators)) {
+      throw new Error(
+        `Unknown format: ${options.format}. Supported: ${Object.keys(generators).join(", ")}`,
+      );
+    }
+
     console.log("Fetching variables from Figma API...");
     const data = await fetchFigmaVariables(options.fileKey, options.token);
 
     console.log("Parsing Figma variables...");
     const parsedVariables = parseFigmaVariables(data);
 
-    console.log("Generating variables for: CSS and SCSS...");
-    writeStyleDictionaryVariables(parsedVariables, {
-      workingDirectory: options.dir ?? process.cwd(),
-      prefix: options.prefix,
-      filename: options.filename,
-      keepRawFiles: options.keepRawFiles,
-    });
+    const outputDirectory = options.dir ?? process.cwd();
+    const filename = options.filename ?? "variables";
+
+    console.log(`Generating ${options.format} variables...`);
+    fs.writeFileSync(
+      path.join(outputDirectory, `${filename}.${options.format}`),
+      generators[options.format as keyof typeof generators](parsedVariables),
+    );
   });

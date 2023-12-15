@@ -23,7 +23,6 @@
     "@nui/figma-utils": "node ./dist/index.js"
   },
   "dependencies": {
-    "commander": "^11.1.0",
-    "style-dictionary": "^3.9.1"
+    "commander": "^11.1.0"
   }
 }
