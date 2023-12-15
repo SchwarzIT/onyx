@@ -1,0 +1,48 @@
+name: Report a bug 🐞
+description: You found a bug in NUI? You can report it with the form below.
+title: "[Bug]: "
+labels:
+  - bug
+
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: In which version did you find the bug?
+      placeholder: x.x.x
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: >-
+        Please describe the bug in detail and what should be the expected
+        behaviour in your opinion.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: >-
+        Describe in short and expressive steps how the bug can be reproduced.
+        You may also want to attach a minimal code snippet.
+      placeholder: 1. Click on ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have checked that there is not already a bug report for my issue.
+          required: true
+        - label: >-
+            I confirm that are no sensitive information included in this bug
+            report. e.g. credentials, internal project details (for employees of the Schwarz Group) etc.
+          required: true
