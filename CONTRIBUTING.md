@@ -22,6 +22,14 @@ TypeScript cannot handle type information for `.vue` imports by default. In VS C
 
 <br />
 
+## Creating a Pull Request
+
+Pull Requests are very welcome!
+
+1. You will need to [create a fork](https://github.com/larsrickert/temp-nui/fork) to commit and push your changes to.
+2. When your changes affect the user you need to [add a changeset](./.changeset/README.md).
+3. Then [create a PR](https://github.com/larsrickert/temp-nui/compare) to merge your changes back into our repository.
+
 ## Scripts
 
 ### Monorepo root
@@ -97,4 +105,30 @@ pnpm run test:components --project=chromium
 pnpm run test:components tests/example.spec.ts
 # Runs the tests in debug mode
 pnpm run test:components --debug
+```
+
+<br />
+
+### Documentation
+
+The following scripts are available inside [`apps/docs`](apps/docs):
+
+#### Build
+
+```sh
+pnpm run build
+```
+
+#### Run in dev mode
+
+```sh
+pnpm run dev
+```
+
+#### Preview (prod mode)
+
+The build command needs to be run first.
+
+```sh
+pnpm run preview
 ```

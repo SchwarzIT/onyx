@@ -1,0 +1,42 @@
+name: Prerelease
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  prerelease:
+    name: Prerelease
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+          registry-url: "https://registry.npmjs.org/"
+          scope: temp-nui
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 👷 Build packages
+        run: pnpm build-all
+
+      - name: ⛴️ Version and Publish
+        run: |
+          git config user.name "Release Bot[bot]"
+          git config user.email "bot@example.com"
+          npx changeset version
+          npx changeset publish
+          git add .
+          git commit --amend --no-edit
+          git push --follow-tags

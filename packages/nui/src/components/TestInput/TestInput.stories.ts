@@ -1,4 +1,4 @@
-import { defineStorybookActionsAndVModels } from "@nui/storybook-utils";
+import { defineStorybookActionsAndVModels } from "@temp-nui/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import TestInput from "./TestInput.vue";
 

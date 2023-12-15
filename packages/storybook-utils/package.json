@@ -1,5 +1,5 @@
 {
-  "name": "@nui/storybook-utils",
+  "name": "@temp-nui/storybook-utils",
   "description": "Storybook utilities for Vue",
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,11 @@
   },
   "peerDependencies": {
     "@storybook/client-api": ">= 7",
-    "@storybook/vue3": ">= 7"
+    "@storybook/core-events": ">= 7",
+    "@storybook/preview-api": ">= 7",
+    "@storybook/theming": ">= 7",
+    "@storybook/vue3": ">= 7",
+    "storybook-dark-mode": ">= 3"
   },
   "dependencies": {
     "deepmerge-ts": "^5.1.0"

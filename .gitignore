@@ -24,4 +24,5 @@ test-results/
 playwright-report/
 /blob-report/
 **/.cache
+**/.vitepress/cache
 storybook-static

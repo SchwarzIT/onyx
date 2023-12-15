@@ -15,7 +15,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined, // opt out of parallel tests on CI
   reporter: [["html", { open: "never" }]],
   use: {
-    trace: "on-first-retry",
+    trace: process.env.CI ? "retain-on-failure" : "off",
+    video: process.env.CI ? "retain-on-failure" : "off",
     ctPort: 3100,
     ctViteConfig: {
       plugins: [vue()],
