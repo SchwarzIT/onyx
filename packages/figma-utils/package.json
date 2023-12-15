@@ -1,5 +1,5 @@
 {
-  "name": "@nui/figma-utils",
+  "name": "@temp-nui/figma-utils",
   "description": "CLI tool for exporting data from the Figma API.",
   "version": "0.0.0",
   "type": "module",

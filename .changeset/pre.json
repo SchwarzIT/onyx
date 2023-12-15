@@ -2,6 +2,7 @@
   "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
+    "@temp-nui/figma-utils": "0.0.0",
     "@temp-nui/nui": "0.0.0",
     "@temp-nui/storybook-utils": "0.0.0"
   },
