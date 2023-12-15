@@ -1,7 +1,7 @@
 import { ParsedVariable } from "../types/figma.js";
 
 type GenericGeneratorOptions = {
-  data: ParsedVariable[];
+  data: ParsedVariable;
   /**
    * Function which returns the full variable name depending on the used format.
    *
@@ -25,11 +25,11 @@ type GenericGeneratorOptions = {
 };
 
 /**
- * Generates the given variables into CSS variables.
+ * Generates the given parsed Figma variables into CSS variables.
  *
  * @returns File content of the .css file
  */
-export const generateAsCSS = (data: ParsedVariable[]): string => {
+export const generateAsCSS = (data: ParsedVariable): string => {
   return genericGenerator({
     data,
     nameTransformer: (name) => `--${name}`,
@@ -38,11 +38,11 @@ export const generateAsCSS = (data: ParsedVariable[]): string => {
 };
 
 /**
- * Generates the given variables into Sass/SCSS variables.
+ * Generates the given parsed Figma variables into Sass/SCSS variables.
  *
  * @returns File content of the .scss file
  */
-export const generateAsSass = (data: ParsedVariable[]): string => {
+export const generateAsSass = (data: ParsedVariable): string => {
   return genericGenerator({
     data,
     nameTransformer: (name) => `$${name}`,
@@ -55,25 +55,13 @@ export const generateAsSass = (data: ParsedVariable[]): string => {
  * Will take care of defining selectors and formatting.
  */
 const genericGenerator = (options: GenericGeneratorOptions) => {
-  let content = "";
-
-  options.data.forEach(({ modeName, variables }) => {
-    const selector = modeName == undefined ? ":root" : `:root[theme="${modeName}"]`;
-
-    content += `${selector} {
-${Object.entries(variables)
-  .map(([name, value]) => {
+  const variableContent = Object.entries(options.data.variables).map(([name, value]) => {
     const { isAlias, variableName } = isAliasVariable(value);
     const variableValue = isAlias ? options.aliasTransformer(variableName) : value;
     return `  ${options.nameTransformer(name)}: ${variableValue};`;
-  })
-  .join("\n")}
-}
-
-`;
   });
 
-  return content;
+  return `:root {\n${variableContent.join("\n")}\n}\n`;
 };
 
 /**

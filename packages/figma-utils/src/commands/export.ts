@@ -48,8 +48,11 @@ export const exportCommand = new Command("export")
     const filename = options.filename ?? "variables";
 
     console.log(`Generating ${options.format} variables...`);
-    fs.writeFileSync(
-      path.join(outputDirectory, `${filename}.${options.format}`),
-      generators[options.format as keyof typeof generators](parsedVariables),
-    );
+
+    parsedVariables.forEach((data) => {
+      const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
+      const fullPath = path.join(outputDirectory, `${baseName}.${options.format}`);
+
+      fs.writeFileSync(fullPath, generators[options.format as keyof typeof generators](data));
+    });
   });
