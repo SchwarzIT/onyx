@@ -1,3 +1,6 @@
+/**
+ * Figma API response when fetching from https://api.figma.com/v1/files/${fileKey}/variables/local
+ */
 export type FigmaVariablesApiResponse = {
   meta: {
     variableCollections: Record<string, VariablesCollection>;
@@ -33,8 +36,22 @@ export type RGBAValue = {
 };
 
 export type ColorsAlias = {
-  type: string;
+  type: "VARIABLE_ALIAS";
   id: string;
 };
 
-export type ParsedFigmaVariables = Record<string, Record<string, { value: unknown }>>;
+export type ParsedVariable = {
+  /** Figma mode name or undefined if its the default mode. */
+  modeName?: string;
+  /**
+   * Mapping from variable name to its value.
+   * @example
+   * ```json
+   * {
+   *    "primary-100": "#ffffff",
+   *    "border-radius-s": "1rem",
+   * }
+   * ```
+   */
+  variables: Record<string, string>;
+};

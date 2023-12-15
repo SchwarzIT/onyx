@@ -1,10 +1,10 @@
 {
   "name": "@temp-nui/figma-utils",
-  "description": "CLI tool for exporting data from the Figma API.",
+  "description": "Utility functions and CLI for exporting data from the Figma API.",
   "version": "0.0.0",
   "type": "module",
   "bin": {
-    "@nui/figma-utils": "./dist/index.js"
+    "@temp-nui/figma-utils": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "@nui/figma-utils": "node ./dist/index.js"
+    "@temp-nui/figma-utils": "node ./dist/cli.js"
   },
   "dependencies": {
     "commander": "^11.1.0"

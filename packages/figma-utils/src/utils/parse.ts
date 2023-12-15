@@ -1,19 +1,22 @@
-import { ColorValue, FigmaVariablesApiResponse, RGBAValue, Variable } from "./types.js";
+import {
+  ColorValue,
+  FigmaVariablesApiResponse,
+  ParsedVariable,
+  RGBAValue,
+  Variable,
+} from "../types/figma.js";
 
-export type ParsedVariable = {
-  /** Figma mode name or undefined if its the default mode. */
-  modeName?: string;
-  variables: Record<string, string>;
-};
+/** Default mode name if only one mode exists. */
+const DEFAULT_MODE_NAME = "Mode 1" as const;
 
 /**
- * Parses Figma variables received from the Figma API to a format that is useable with style-dictionary.
+ * Parses Figma variables received from the Figma API to a minimal JSON.
+ * Numeric / pixel values will be transformed to rem.
+ * Variables / collections that are hidden from publishing will not be parsed.
  *
  * @param apiResponse Variables response body received from the Figma API.
  */
 export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
-  const DEFAULT_MODE_NAME = "Mode 1" as const;
-
   const parsedData: ParsedVariable[] = [];
 
   /**
@@ -23,34 +26,22 @@ export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
     const collection = apiResponse.meta.variableCollections[variable.variableCollectionId];
     if (variable.hiddenFromPublishing || collection.hiddenFromPublishing) return;
 
-    const defaultModeValue = variable.valuesByMode?.[collection.defaultModeId]
-      ? resolveFigmaVariableValue(
-          variable.valuesByMode[collection.defaultModeId],
-          apiResponse.meta.variables,
-        )
-      : undefined;
-
     // parse variable value for every mode
     Object.values(collection.modes).forEach((mode) => {
-      const modeValue = variable.valuesByMode?.[mode.modeId];
       const variableName = normalizeVariableName(variable.name);
+      const variableValue = resolveFigmaVariableValue(
+        variable.valuesByMode?.[mode.modeId],
+        apiResponse.meta.variables,
+      );
 
-      /**
-       * If a variable is not defined for a given mode, we'll fall back to the default mode.
-       */
-      const variableValue =
-        (resolveFigmaVariableValue(modeValue, apiResponse.meta.variables) || defaultModeValue) ??
-        "";
-
+      // add/update parsed variable value
       const existingIndex = parsedData.findIndex((i) => i.modeName === mode.name);
       if (existingIndex !== -1) {
         parsedData[existingIndex].variables[variableName] = variableValue;
       } else {
         parsedData.push({
           modeName: mode.name,
-          variables: {
-            [variableName]: variableValue,
-          },
+          variables: { [variableName]: variableValue },
         });
       }
     });
@@ -71,12 +62,16 @@ export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
 };
 
 /**
- * Resolves the given Figma color value to a string value.
+ * Resolves the given Figma color value to a string value. Value types:
+ * - number: converted to rem, e.g. 16 => "1rem"
+ * - color: converted to HEX color, e.g. {r:1, g: 1, b: 1, a: 1} => "#ffffff"
+ * - alias: referenced with variable name, e.g. "--primary-100" => "{--primary-100}"
+ * (curly brackets will indicate that the value is an alias / reference)
  *
  * @param value Figma variable value
  * @param allVariables Object of all variables. Needed for variables that use aliases.
  */
-const resolveFigmaVariableValue = (
+export const resolveFigmaVariableValue = (
   value: ColorValue,
   allVariables: Record<string, Variable>,
 ): string => {
@@ -103,8 +98,9 @@ const resolveFigmaVariableValue = (
 
 /**
  * Converts a RGBA value to a hex color.
+ * Transparency will only be added if its not 1, e.g. "#000000ff" instead of "#000000"
  */
-const rgbaToHex = (value: RGBAValue): string => {
+export const rgbaToHex = (value: RGBAValue): string => {
   const hex = Object.values(value)
     .map((color) => Math.floor(color * 255))
     .map((color) => color.toString(16))
@@ -116,6 +112,12 @@ const rgbaToHex = (value: RGBAValue): string => {
   return hex;
 };
 
-const normalizeVariableName = (name: string): string => {
+/**
+ * Normalizes the given variable name by apply these transformations:
+ * - replace slashes with "-"
+ * - replace whitespace with "-"
+ * - transform all to lower case
+ */
+export const normalizeVariableName = (name: string): string => {
   return name.replaceAll("/", "-").replaceAll(" ", "-").toLowerCase();
 };
