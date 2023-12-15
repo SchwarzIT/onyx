@@ -1,5 +1,5 @@
 {
-  "name": "nui",
+  "name": "@temp-nui/nui",
   "version": "0.0.0",
   "type": "module",
   "license": "Apache-2.0",
@@ -29,7 +29,7 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@nui/storybook-utils": "workspace:^",
+    "@temp-nui/storybook-utils": "workspace:^",
     "@playwright/experimental-ct-vue": "^1.40.1",
     "@playwright/test": "^1.40.1",
     "@storybook/addon-essentials": "^7.6.3",
