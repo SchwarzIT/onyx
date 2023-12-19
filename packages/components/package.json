@@ -1,5 +1,5 @@
 {
-  "name": "@sit-onyx/components",
+  "name": "sit-onyx",
   "description": "A Vue.js UI component library and Design System created by Schwarz IT",
   "version": "0.0.0",
   "type": "module",
