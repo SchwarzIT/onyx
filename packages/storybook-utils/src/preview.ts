@@ -6,7 +6,7 @@ import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 
 /**
- * Creates a default Storybook preview configuration for NUI with the following features:
+ * Creates a default Storybook preview configuration for 'Onyx' with the following features:
  * - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
  * - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file

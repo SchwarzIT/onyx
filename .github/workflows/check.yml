@@ -29,11 +29,11 @@ jobs:
 
       - name: 🛠️ Build
         run: pnpm run build
-        working-directory: packages/nui
+        working-directory: packages/components
 
       - name: 🛠️ Build Storybook
         run: pnpm run build:storybook
-        working-directory: packages/nui
+        working-directory: packages/components
 
       - name: 🛠️ Build documentation
         run: pnpm run build
@@ -41,17 +41,17 @@ jobs:
 
       - name: 🚨 Run unit tests
         run: pnpm run test:unit:coverage
-        working-directory: packages/nui
+        working-directory: packages/components
 
       # install system dependencies for Playwright
       # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
       - name: 📦 Install Playwright system dependencies
         run: pnpm exec playwright install-deps
-        working-directory: packages/nui
+        working-directory: packages/components
 
       - name: 🚨 Run component tests
         run: pnpm run test:components
-        working-directory: packages/nui
+        working-directory: packages/components
 
       - name: Run publint
         run: pnpm run publint
@@ -66,15 +66,15 @@ jobs:
         with:
           name: test-results
           path: |
-            packages/nui/coverage
-            packages/nui/playwright-report
-            packages/nui/test-results
+            packages/components/coverage
+            packages/components/playwright-report
+            packages/components/test-results
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v3
         with:
           name: storybook-static
-          path: packages/nui/storybook-static
+          path: packages/components/storybook-static
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v3

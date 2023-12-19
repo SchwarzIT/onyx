@@ -1,10 +1,10 @@
 import { defineConfig } from "vitepress";
-import packageJson from "../../../../packages/nui/package.json";
+import packageJson from "../../../../packages/components/package.json";
 import { getComponents } from "./utils";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "NUI",
+  title: "Onyx",
   description: "Vue.js component library and design system",
   themeConfig: {
     externalLinkIcon: true,
@@ -26,7 +26,7 @@ export default defineConfig({
     nav: [
       { text: "Getting Started", link: "/getting-started" },
       { text: "Report a bug", link: packageJson.bugs.url },
-      { text: "Q&A", link: "https://github.com/schwarzit/nui/discussions/categories/q-a" },
+      { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
     socialLinks: [{ icon: "github", link: packageJson.repository.url }],
     sidebar: [

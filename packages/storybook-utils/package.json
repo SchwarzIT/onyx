@@ -1,5 +1,5 @@
 {
-  "name": "@temp-nui/storybook-utils",
+  "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
   "version": "0.0.0",
   "type": "module",

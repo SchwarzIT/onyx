@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: NUI
+  name: Onyx
   text: Design system
   tagline: A Vue.js component library and design system created by Schwarz IT.
   image:
@@ -16,21 +16,21 @@ hero:
 
 features:
   - title: Powerful
-    details: NUIs advanced components are designed for enterprise grade applications. Including everything you need to build your next enterprise or even personal project.
+    details: Onyx's advanced components are designed for enterprise grade applications. Including everything you need to build your next enterprise or even personal project.
     icon: 🚀
   - title: Flexible and modular
-    details: You can build a whole application with NUI or only use a few of our customizable components into an existing application.
+    details: You can build a whole application with Onyx or only use a few of our customizable components into an existing application.
     icon: 📦
   - title: Themeable
     details: We provide a well crafted theme out-of-the-box. Feel free to customize it to perfectly fit your look and feel.
     icon: 🎨
   - title: First class DX
-    details: Developer Experience is our top priority. NUI is fully written in TypeScript with great type support and generically typed components.
+    details: Developer Experience is our top priority. Onyx is fully written in TypeScript with great type support and generically typed components.
     icon:
       src: /icons/typescript.svg
       alt: TypeScript logo
   - title: Figma library
-    details: NUI also offers a Figma library for design purposes. Connecting Design and Development.
+    details: Onyx also offers a Figma library for design purposes. Connecting Design and Development.
     icon:
       src: /icons/figma.svg
       alt: Figma logo

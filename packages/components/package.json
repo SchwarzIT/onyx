@@ -1,5 +1,5 @@
 {
-  "name": "@temp-nui/nui",
+  "name": "@sit-onyx/components",
   "description": "A Vue.js UI component library and Design System created by Schwarz IT",
   "version": "0.0.0",
   "type": "module",
@@ -17,11 +17,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/nui",
-    "directory": "packages/nui"
+    "url": "https://github.com/schwarzit/onx",
+    "directory": "packages/components"
   },
   "bugs": {
-    "url": "https://github.com/schwarzit/nui/issues"
+    "url": "https://github.com/schwarzit/onyx/issues"
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
@@ -38,7 +38,7 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@temp-nui/storybook-utils": "workspace:^",
+    "@sit-onyx/storybook-utils": "workspace:^",
     "@playwright/experimental-ct-vue": "^1.40.1",
     "@playwright/test": "^1.40.1",
     "@storybook/addon-essentials": "^7.6.4",

@@ -6,11 +6,11 @@
   </a>
 </p>
 
-# NUI
+# Onyx
 
 A Vue.js UI component library and Design System created by [Schwarz IT](https://it.schwarz).
 
-> **Work in progress**: This library is currently in early / active development. <br /> **Working title**: The name `NUI` is only a working title and will be changed in the future.
+> **Work in progress**: This library is currently in early / active development.
 
 <br />
 
@@ -21,38 +21,38 @@ Install the npm package with your corresponding package manager:
 ### pnpm
 
 ```sh
-pnpm add nui
+pnpm add @sit-onyx/components
 ```
 
 ### npm
 
 ```sh
-npm install nui
+npm install @sit-onyx/components
 ```
 
 ### yarn
 
 ```sh
-yarn install nui
+yarn install @sit-onyx/components
 ```
 
 After that, import the global CSS file in your `main.ts` file:
 
 ```ts
-import "nui/style.css";
-// if you override some NUI styles (e.g. CSS variables),
-// make sure to import your custom CSS file after the default "nui/style.css"
+import "@sit-onyx/components/style.css";
+// if you override some Onyx styles (e.g. CSS variables),
+// make sure to import your custom CSS file after the default "@sit-onyx/components/style.css"
 ```
 
 Components are now ready to be used, e.g.:
 
 ```vue
 <script lang="ts" setup>
-import { NuiButton } from "nui";
+import { OnyxButton } from "@sit-onyx/components";
 </script>
 
 <template>
-  <NuiButton label="Click me" />
+  <OnyxButton label="Click me" />
 </template>
 ```
 

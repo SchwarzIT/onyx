@@ -87,7 +87,7 @@ importers:
         specifier: ^1.0.0-rc.31
         version: 1.0.0-rc.31(@algolia/client-search@4.21.0)(@types/node@20.10.4)(sass@1.69.5)(search-insights@2.13.0)(typescript@5.3.3)
 
-  packages/nui:
+  packages/components:
     dependencies:
       vue:
         specifier: '>= 3'
@@ -111,7 +111,7 @@ importers:
       '@storybook/vue3-vite':
         specifier: ^7.6.4
         version: 7.6.4(@vue/compiler-core@3.3.11)(typescript@5.3.3)(vite@5.0.7)(vue@3.3.11)
-      '@temp-nui/storybook-utils':
+      '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
       '@vue/compiler-dom':

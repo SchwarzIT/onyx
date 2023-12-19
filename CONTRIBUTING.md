@@ -1,4 +1,4 @@
-# NUI Contributing Guide
+# Onyx Contributing Guide
 
 ## Prerequisites / Technical setup
 
@@ -26,9 +26,9 @@ TypeScript cannot handle type information for `.vue` imports by default. In VS C
 
 Pull Requests are very welcome!
 
-1. You will need to [create a fork](https://github.com/larsrickert/temp-nui/fork) to commit and push your changes to.
+1. You will need to [create a fork](https://github.com/SchwarzIT/onyx/fork) to commit and push your changes to.
 2. When your changes affect the user you need to [add a changeset](./.changeset/README.md).
-3. Then [create a PR](https://github.com/larsrickert/temp-nui/compare) to merge your changes back into our repository.
+3. Then [create a PR](https://github.com/SchwarzIT/onyx/compare) to merge your changes back into our repository.
 
 ## Scripts
 
@@ -56,9 +56,9 @@ pnpm run format
 
 <br />
 
-### NUI
+### Onyx
 
-The following scripts are available inside [`packages/nui`](packages/nui):
+The following scripts are available inside [`packages/components`](packages/components):
 
 #### Type-Check, Compile and Minify for Production
 
