@@ -1,4 +1,4 @@
-import { createPreview } from "@temp-nui/storybook-utils";
+import { createPreview } from "@sit-onyx/storybook-utils";
 import docsTemplate from "./docs-template.mdx";
 
 import "@/styles/index.scss";

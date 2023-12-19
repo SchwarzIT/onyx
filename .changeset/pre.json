@@ -2,8 +2,8 @@
   "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
-    "@temp-nui/nui": "0.0.0",
-    "@temp-nui/storybook-utils": "0.0.0"
+    "sit-onyx": "0.0.0",
+    "@sit-onyx/storybook-utils": "0.0.0"
   },
   "changesets": []
 }

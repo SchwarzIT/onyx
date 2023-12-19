@@ -21,7 +21,7 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
           registry-url: "https://registry.npmjs.org/"
-          scope: temp-nui
+          scope: sit-onyx
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

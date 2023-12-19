@@ -11,7 +11,7 @@ import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } fr
  * @example
  * ```ts
  * // Input.stories.ts
- * import { defineStorybookActionsAndVModels } from '@temp-nui/storybook-utils';
+ * import { defineStorybookActionsAndVModels } from '@sit-onyx/storybook-utils';
  * import type { Meta } from '@storybook/vue3';
  * import Input from './Input.vue';
  *
