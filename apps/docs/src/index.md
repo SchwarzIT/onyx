@@ -5,7 +5,7 @@ layout: home
 hero:
   name: Onyx
   text: Design system
-  tagline: A Vue.js component library and design system created by Schwarz IT.
+  tagline: A design system and Vue.js component library created by Schwarz IT.
   image:
     src: /schwarz-group.svg
     alt: Logo of the Schwarz Group
