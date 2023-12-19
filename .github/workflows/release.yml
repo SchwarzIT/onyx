@@ -51,5 +51,7 @@ jobs:
         run: |
           # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
           rm -f .changeset/pre.json
+          # Add empty changeset so we always have a new snapshot release for each new run
+          npx changeset add --empty
           npx changeset version --snapshot
           npx changeset publish --tag snapshot
