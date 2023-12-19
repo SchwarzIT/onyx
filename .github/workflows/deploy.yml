@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "packages/components/**"
+      - "packages/sit-onyx/**"
   workflow_dispatch:
     inputs:
       stage:
@@ -35,7 +35,7 @@ jobs:
 
       - name: 🛠️ Build Storybook
         run: pnpm run build:storybook
-        working-directory: packages/components
+        working-directory: packages/sit-onyx
 
       - name: 🛠️ Build documentation
         run: pnpm run build
@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: storybook-static
-          path: packages/components/storybook-static
+          path: packages/sit-onyx/storybook-static
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v3
@@ -64,7 +64,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: storybook-static
-          path: packages/components/.cloud-foundry/storybook-static
+          path: packages/sit-onyx/.cloud-foundry/storybook-static
 
       - name: Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
@@ -77,7 +77,7 @@ jobs:
           # is only assigned when the workflow is triggered manually. When triggered e.g. on push
           # the input will be unset so a fallback is needed here
           cf-space: ${{ inputs.stage || 'dev' }}
-          working-directory: packages/components/.cloud-foundry
+          working-directory: packages/sit-onyx/.cloud-foundry
 
   deploy_documentation:
     name: Deploy documentation

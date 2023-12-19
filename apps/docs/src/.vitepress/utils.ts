@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
  */
 export const getComponents = () => {
   const path = fileURLToPath(
-    new URL("../../../../packages/components/src/components", import.meta.url),
+    new URL("../../../../packages/sit-onyx/src/components", import.meta.url),
   );
   return fs.readdirSync(path);
 };

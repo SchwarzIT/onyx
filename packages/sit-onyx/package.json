@@ -18,7 +18,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/schwarzit/onyx",
-    "directory": "packages/components"
+    "directory": "packages/sit-onyx"
   },
   "bugs": {
     "url": "https://github.com/schwarzit/onyx/issues"

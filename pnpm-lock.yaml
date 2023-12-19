@@ -87,7 +87,7 @@ importers:
         specifier: ^1.0.0-rc.31
         version: 1.0.0-rc.31(@algolia/client-search@4.21.0)(@types/node@20.10.4)(sass@1.69.5)(search-insights@2.13.0)(typescript@5.3.3)
 
-  packages/components:
+  packages/sit-onyx:
     dependencies:
       vue:
         specifier: '>= 3'

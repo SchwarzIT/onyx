@@ -58,7 +58,7 @@ pnpm run format
 
 ### Onyx
 
-The following scripts are available inside [`packages/components`](packages/components):
+The following scripts are available inside [`packages/sit-onyx`](packages/sit-onyx):
 
 #### Type-Check, Compile and Minify for Production
 

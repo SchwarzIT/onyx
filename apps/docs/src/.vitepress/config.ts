@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import packageJson from "../../../../packages/components/package.json";
+import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getComponents } from "./utils";
 
 // https://vitepress.dev/reference/site-config
