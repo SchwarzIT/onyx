@@ -10,7 +10,7 @@
 
 A composable headless library for Vue created by [Schwarz IT](https://it.schwarz).
 
-Inspired by [melt](https://melt-ui.com/).
+Inspired by [Melt UI](https://melt-ui.com/).
 
 > **Work in progress**: This library is currently in early / active development.
 
