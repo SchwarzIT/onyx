@@ -11,9 +11,11 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --noEmit"
   },
   "dependencies": {
+    "typescript": "^5.3.3",
     "vue": "^3.3.12"
   }
 }
