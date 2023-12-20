@@ -88,7 +88,7 @@ importers:
         version: 1.0.0-rc.32(@algolia/client-search@4.22.0)(@types/node@20.10.5)(sass@1.69.5)(search-insights@2.13.0)(typescript@5.3.3)
 
   packages/headless:
-    dependencies:
+    devDependencies:
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
