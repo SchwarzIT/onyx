@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/headless",
-  "description": "Headless Composables for Vue",
+  "description": "Headless composables for Vue",
   "version": "0.0.0",
   "type": "module",
   "author": "Schwarz IT KG",
