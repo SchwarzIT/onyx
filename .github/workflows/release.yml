@@ -1,12 +1,13 @@
-name: Prerelease
+name: Release
 on:
   push:
     branches:
       - "main"
+  workflow_dispatch:
 
 jobs:
   prerelease:
-    name: Prerelease
+    name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -31,12 +32,26 @@ jobs:
       - name: 👷 Build packages
         run: pnpm build-all
 
-      - name: ⛴️ Version and Publish
+      - name: 🤖 Configure Git Bot
         run: |
           git config user.name "Release Bot[bot]"
           git config user.email "bot@example.com"
+
+      - name: ⛴️ Version and Publish
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
           npx changeset version
           npx changeset publish
-          git add .
+          git add --all
           git commit --amend --no-edit
           git push --follow-tags
+
+      - name: 📸 Snapshot and Publish
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
+          rm -f .changeset/pre.json
+          # Add empty changeset so we always have a new snapshot release for each new run
+          npx changeset add --empty
+          npx changeset version --snapshot
+          npx changeset publish --tag snapshot
