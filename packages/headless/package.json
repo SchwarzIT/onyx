@@ -1,0 +1,19 @@
+{
+  "name": "@sit-onyx/headless",
+  "description": "Headless Composables for Vue",
+  "version": "0.0.0",
+  "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "vue": "^3.3.12"
+  }
+}
