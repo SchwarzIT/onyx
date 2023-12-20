@@ -1,1 +1,1 @@
-export { createComboBox } from "./composables/createComboBox";
+export * from "./composables/createComboBox";
