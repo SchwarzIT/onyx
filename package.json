@@ -9,7 +9,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint . --ext .vue,.ts,.tsx --ignore-path .gitignore",
     "lint:fix": "pnpm run lint --fix",
-    "publint": "pnpm -r --parallel --aggregate-output exec npx publint",
+    "publint": "pnpm -r --parallel --aggregate-output exec publint",
     "prepare": "simple-git-hooks",
     "preinstall": "npx only-allow pnpm"
   },
@@ -30,6 +30,7 @@
     "lint-staged": "^15.2.0",
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.1.1",
+    "publint": "^0.2.6",
     "sass": "^1.69.5",
     "simple-git-hooks": "^2.9.0",
     "typescript": "~5.3.3",
