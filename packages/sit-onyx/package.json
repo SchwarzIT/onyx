@@ -25,6 +25,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
+    "start": "storybook dev -p 6006",
     "build": "pnpm run '/type-check|build-only/'",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static --open",

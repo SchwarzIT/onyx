@@ -8,10 +8,22 @@ const props = withDefaults(
     /** Label to show next to the input */
     label?: string;
     required?: boolean;
+    minlength?: number;
+    maxlength?: number;
+    min?: number;
+    max?: number;
+    type?: string;
+    pattern?: string;
   }>(),
   {
     modelValue: "",
     label: "",
+    minlength: undefined,
+    maxlength: undefined,
+    min: undefined,
+    max: undefined,
+    type: undefined,
+    pattern: undefined,
   },
 );
 
@@ -38,7 +50,17 @@ const handleChange = (event: Event) => {
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
     </span>
-    <input v-model="value" :required="props.required" @change="handleChange" />
+    <input
+      v-model="value"
+      :required="props.required"
+      :minlength="props.minlength"
+      :maxlength="props.maxlength"
+      :min="props.min"
+      :max="props.max"
+      :type="props.type"
+      :pattern="props.pattern"
+      @change="handleChange"
+    />
     <p>Model value: {{ value }}</p>
   </label>
 </template>
