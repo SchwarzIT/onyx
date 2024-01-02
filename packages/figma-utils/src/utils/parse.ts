@@ -6,8 +6,16 @@ import {
   Variable,
 } from "../types/figma.js";
 
-/** Default mode name if only one mode exists. */
-const DEFAULT_MODE_NAME = "Mode 1" as const;
+export type ParseFigmaVariablesOptions = {
+  /**
+   * Base for converting pixel in rem. Set to `false` for disabling rem conversion and use pixel values.
+   * @default 16
+   */
+  remBase?: number | false;
+};
+
+/** Default Figma mode name if only one mode exists. */
+export const DEFAULT_MODE_NAME = "Mode 1" as const;
 
 /**
  * Parses Figma variables received from the Figma API to a minimal JSON.
@@ -16,7 +24,10 @@ const DEFAULT_MODE_NAME = "Mode 1" as const;
  *
  * @param apiResponse Variables response body received from the Figma API.
  */
-export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
+export const parseFigmaVariables = (
+  apiResponse: FigmaVariablesApiResponse,
+  options?: ParseFigmaVariablesOptions,
+) => {
   const parsedData: ParsedVariable[] = [];
 
   /**
@@ -32,6 +43,7 @@ export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
       const variableValue = resolveFigmaVariableValue(
         variable.valuesByMode?.[mode.modeId],
         apiResponse.meta.variables,
+        options?.remBase,
       );
 
       // add/update parsed variable value
@@ -74,10 +86,15 @@ export const parseFigmaVariables = (apiResponse: FigmaVariablesApiResponse) => {
 export const resolveFigmaVariableValue = (
   value: ColorValue,
   allVariables: Record<string, Variable>,
+  remBase: ParseFigmaVariablesOptions["remBase"] = 16,
 ): string => {
   if (typeof value === "number") {
-    const remValue = value / 16;
-    return remValue ? `${remValue}rem` : "0";
+    if (remBase === false || remBase <= 0) {
+      return value !== 0 ? `${value}px` : "0";
+    }
+
+    const remValue = value / remBase;
+    return remValue !== 0 ? `${remValue}rem` : "0";
   }
 
   if ("type" in value) {
