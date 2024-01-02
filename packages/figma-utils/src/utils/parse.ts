@@ -116,6 +116,7 @@ export const rgbaToHex = (value: RGBAValue): string => {
  * Normalizes the given variable name by apply these transformations:
  * - replace slashes with "-"
  * - replace whitespace with "-"
+ * - replace "+" to "-"
  * - transform all to lower case
  */
 export const normalizeVariableName = (name: string): string => {
