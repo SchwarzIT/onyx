@@ -14,7 +14,7 @@ export type ParseFigmaVariablesOptions = {
   remBase?: number | false;
 };
 
-/** Default Figma mode name if only one mode exists. */
+/** Default Figma mode name if only one mode exists and no other name is specified by the designer. */
 export const DEFAULT_MODE_NAME = "Mode 1" as const;
 
 /**
