@@ -61,7 +61,7 @@ const onSubmit = (event: Event) => {
       :minlength="5"
     ></TestInput>
 
-    <!-- todo we get a type error because TestInput requires handle string values, but below input is type number. -->
+    <!-- formData.maxInput must currently be type string because TestInput requires string values, even though input is type number... -->
     <TestInput v-model="formData.maxInput" label="Max 9000" type="number" :max="9000"></TestInput>
 
     <TestInput v-model="formData.typeInput" label="Type mail" type="email"> </TestInput>

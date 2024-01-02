@@ -51,6 +51,11 @@ const handleChange = (event: Event) => {
   <label class="input" :class="{ 'input--touched': isTouched }">
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
+      <!-- 
+        <span aria-label="required">*</span> 
+        should we use the above instead of the "after"?
+        see https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#full_example
+      -->
     </span>
     <input v-model="value" v-bind="props" @change="handleChange" @blur="isTouched = true" />
     <p>Model value: {{ value }}</p>
