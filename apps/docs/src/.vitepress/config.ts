@@ -41,12 +41,6 @@ export default defineConfig({
           ],
         },
         {
-          text: "Components",
-          base: "/components",
-          collapsed: false,
-          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
-        },
-        {
           text: "Advanced",
           collapsed: false,
           items: [
@@ -55,6 +49,12 @@ export default defineConfig({
               link: "/packages/",
             },
           ],
+        },
+        {
+          text: "Components",
+          base: "/components",
+          collapsed: false,
+          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
         },
       ],
       // standalone sidebar for documentation about our additional packages
