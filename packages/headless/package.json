@@ -13,12 +13,8 @@
   "scripts": {
     "build": "tsc --noEmit"
   },
-  "devDependencies": {
-    "typescript": "^5.3.3",
-    "vue": "^3.3.12"
-  },
   "peerDependencies": {
-    "typescript": "^5.3.3",
-    "vue": "^3.3.12"
+    "typescript": ">= 5",
+    "vue": ">= 3"
   }
 }
