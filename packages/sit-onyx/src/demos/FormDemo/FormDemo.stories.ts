@@ -6,7 +6,7 @@ import FormDemo from "./FormDemo.vue";
  * The input component can be used to...
  */
 const meta: Meta<typeof FormDemo> = {
-  title: "components/FormDemo",
+  title: "demos/FormDemo",
   ...defineStorybookActionsAndVModels({
     component: FormDemo,
     events: ["submit"],
@@ -40,7 +40,7 @@ export const Invalid = {
     formData: {
       defaultInput: "No Validation",
       requiredInput: "",
-      minlengthInput: "Too short",
+      minlengthInput: "",
       maxInput: "9001",
       typeInput: "Not a mail",
       patternInput: "NO UPPERCASE ALLOWED",
