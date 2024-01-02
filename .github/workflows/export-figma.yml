@@ -26,7 +26,7 @@ jobs:
 
       - name: Export variables
         run: |
-          pnpm run @sit-onyx/figma-utils export-variables -k "$FIGMA_FILE_KEY" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles"
+          pnpm run @sit-onyx/figma-utils export-variables -k "$FIGMA_FILE_KEY" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx
         working-directory: packages/figma-utils
 
       - name: Create pull request

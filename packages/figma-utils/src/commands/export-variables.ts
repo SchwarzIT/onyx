@@ -2,6 +2,7 @@ import { Command } from "commander";
 import fs from "node:fs";
 import path from "node:path";
 import {
+  DEFAULT_MODE_NAME,
   fetchFigmaVariables,
   generateAsCSS,
   generateAsSass,
@@ -14,6 +15,7 @@ type ExportCommandOptions = {
   filename: string;
   format: string;
   dir?: string;
+  mode?: string;
 };
 
 export const exportCommand = new Command("export-variables")
@@ -28,6 +30,10 @@ export const exportCommand = new Command("export-variables")
   .option(
     "-d, --dir <string>",
     "Working directory to use. Defaults to current working directory of the script.",
+  )
+  .option(
+    "-m, --mode <string>",
+    "Can be used to only export a specific Figma mode. If unset, all modes will be exported as a separate file.",
   )
   .action(async (options: ExportCommandOptions) => {
     const generators = {
@@ -47,12 +53,26 @@ export const exportCommand = new Command("export-variables")
     console.log("Parsing Figma variables...");
     const parsedVariables = parseFigmaVariables(data);
 
+    if (options.mode && !parsedVariables.find((i) => i.modeName === options.mode)) {
+      const availableModes = parsedVariables.map((i) => i.modeName ?? DEFAULT_MODE_NAME);
+
+      throw new Error(
+        `Mode not found: ${options.mode}. Available modes: ${Object.keys(availableModes).join(
+          ", ",
+        )}`,
+      );
+    }
+
     const outputDirectory = options.dir ?? process.cwd();
     const filename = options.filename ?? "variables";
 
     console.log(`Generating ${options.format} variables...`);
 
     parsedVariables.forEach((data) => {
+      if (options.mode && data.modeName !== undefined && data.modeName !== options.mode) {
+        return;
+      }
+
       const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
       const fullPath = path.join(outputDirectory, `${baseName}.${options.format}`);
       fs.writeFileSync(fullPath, generators[options.format as keyof typeof generators](data));
