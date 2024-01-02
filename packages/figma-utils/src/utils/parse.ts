@@ -67,7 +67,7 @@ export const parseFigmaVariables = (
   });
 
   if (parsedData[0].modeName === DEFAULT_MODE_NAME) {
-    parsedData[0].modeName = undefined;
+    delete parsedData[0].modeName;
   }
 
   return parsedData;
@@ -89,6 +89,7 @@ export const resolveFigmaVariableValue = (
   remBase: ParseFigmaVariablesOptions["remBase"] = 16,
 ): string => {
   if (typeof value === "number") {
+    // numeric value, parse es rem or pixel value
     if (remBase === false || remBase <= 0) {
       return value !== 0 ? `${value}px` : "0";
     }
@@ -98,6 +99,7 @@ export const resolveFigmaVariableValue = (
   }
 
   if ("type" in value) {
+    // parse value as alias
     if (value.type !== "VARIABLE_ALIAS") {
       throw new Error(`Unknown color value type: ${value.type}`);
     }
