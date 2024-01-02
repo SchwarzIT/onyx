@@ -5,8 +5,8 @@ import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } fr
 
 /**
  * Utility to define Storybook meta for a given Vue component which will take care of defining argTypes for
- * the given events as well as implementing v-model handlers.
- * Should be preferred over manually defining argTypes for a *.stories.ts file.
+ * the given events as well as implementing v-model handlers so that the Storybook controls are updated when you interact with the component.
+ * Should be preferred over manually defining argTypes for *.stories.ts files.
  *
  * @example
  * ```ts
