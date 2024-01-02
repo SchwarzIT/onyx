@@ -22,7 +22,7 @@ const props = withDefaults(
     maxlength: undefined,
     min: undefined,
     max: undefined,
-    type: undefined,
+    type: "text",
     pattern: undefined,
   },
 );
@@ -52,18 +52,7 @@ const handleChange = (event: Event) => {
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
     </span>
-    <input
-      v-model="value"
-      :required="props.required"
-      :minlength="props.minlength"
-      :maxlength="props.maxlength"
-      :min="props.min"
-      :max="props.max"
-      :type="props.type"
-      :pattern="props.pattern"
-      @change="handleChange"
-      @blur="isTouched = true"
-    />
+    <input v-model="value" v-bind="props" @change="handleChange" @blur="isTouched = true" />
     <p>Model value: {{ value }}</p>
   </label>
 </template>
