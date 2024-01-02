@@ -15,6 +15,10 @@ npx @sit-onyx/figma-utils --help
 This package also provides utility functions for exporting data from the Figma API.
 This is useful if you want customize the CLI commands to have full control over the output.
 
+```sh
+npm install @sit-onyx/figma-utils
+```
+
 ### Examples
 
 ```ts
