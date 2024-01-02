@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -34,6 +34,8 @@ const emit = defineEmits<{
   change: [value: string];
 }>();
 
+const isTouched = ref(false);
+
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
@@ -46,7 +48,7 @@ const handleChange = (event: Event) => {
 </script>
 
 <template>
-  <label>
+  <label class="input" :class="{ 'input--touched': isTouched }">
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
     </span>
@@ -60,6 +62,7 @@ const handleChange = (event: Event) => {
       :type="props.type"
       :pattern="props.pattern"
       @change="handleChange"
+      @blur="isTouched = true"
     />
     <p>Model value: {{ value }}</p>
   </label>
@@ -75,6 +78,15 @@ const handleChange = (event: Event) => {
         content: "*";
         color: red;
       }
+    }
+  }
+
+  &--touched {
+    input:valid {
+      border-bottom-color: green;
+    }
+    input:invalid {
+      border-bottom-color: red;
     }
   }
 }

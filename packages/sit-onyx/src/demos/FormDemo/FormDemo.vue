@@ -50,8 +50,16 @@ const onSubmit = (event: Event) => {
 
     <TestInput v-model="formData.requiredInput" label="Requires a value" required></TestInput>
 
-    <!-- todo minlength does not work out of the box -->
-    <TestInput v-model="formData.minlengthInput" label="Minlength of 12" :maxlength="2"></TestInput>
+    <div>
+      Info: minlength only triggers when the user has typed something, it ignores the initial value.
+    </div>
+    <TestInput
+      v-model="formData.minlengthInput"
+      label="Minlength 5"
+      type="text"
+      required
+      :minlength="5"
+    ></TestInput>
 
     <!-- todo we get a type error because TestInput requires handle string values, but below input is type number. -->
     <TestInput v-model="formData.maxInput" label="Max 9000" type="number" :max="9000"></TestInput>
