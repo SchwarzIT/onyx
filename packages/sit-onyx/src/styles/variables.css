@@ -1,0 +1,69 @@
+/**
+ * Do not edit directly.
+ * Exported from Figma API on Tue, 02 Jan 2024 14:47:33 GMT
+ */
+:root {
+  --color-text-primary-default: var(--color-brand-primary-500);
+  --color-text-primary-hover: var(--color-brand-primary-300);
+  --color-text-primary-pressed: var(--color-brand-primary-600);
+  --color-text-primary-disabled: var(--color-brand-primary-200);
+  --color-text-secondary-default: var(--color-brand-secondary-500);
+  --color-text-secondary-hover: var(--color-brand-secondary-300);
+  --color-text-secondary-pressed: var(--color-brand-secondary-600);
+  --color-text-secondary-disabled: var(--color-brand-secondary-200);
+  --color-text-neutral-dark: var(--color-brand-neutral-700);
+  --color-text-neutral-medium: var(--color-brand-neutral-500);
+  --color-text-neutral-light: var(--color-brand-neutral-400);
+  --color-text-neutral-invert: var(--color-universal-black-white-100);
+  --color-text-error-dark: var(--color-universal-red-700);
+  --color-text-error-medium: var(--color-universal-red-500);
+  --color-text-error-light: var(--color-universal-red-200);
+  --color-text-error-invert: var(--color-universal-black-white-100);
+  --color-text-warning-dark: var(--color-universal-orange-700);
+  --color-text-warning-medium: var(--color-universal-orange-500);
+  --color-text-warning-light: var(--color-universal-orange-200);
+  --color-text-warning-invert: var(--color-universal-black-white-100);
+  --color-text-success-dark: var(--color-universal-green-700);
+  --color-text-success-medium: var(--color-universal-green-500);
+  --color-text-success-light: var(--color-universal-green-200);
+  --color-text-success-invert: var(--color-universal-black-white-100);
+  --color-text-info-dark: var(--color-universal-purple-700);
+  --color-text-info-medium: var(--color-universal-purple-500);
+  --color-text-info-light: var(--color-universal-purple-200);
+  --color-text-info-invert: var(--color-universal-black-white-100);
+  --color-surface-primary-default: var(--color-brand-primary-500);
+  --color-surface-primary-hover: var(--color-brand-primary-300);
+  --color-surface-primary-pressed: var(--color-brand-primary-600);
+  --color-surface-primary-disabled: var(--color-brand-primary-200);
+  --color-surface-secondary-default: var(--color-brand-secondary-500);
+  --color-surface-secondary-hover: var(--color-brand-secondary-300);
+  --color-surface-secondary-pressed: var(--color-brand-secondary-600);
+  --color-surface-secondary-disabled: var(--color-brand-secondary-200);
+  --color-surface-neutral-secondary-default: var(--color-brand-neutral-500);
+  --color-surface-neutral-secondary-hover: var(--color-brand-neutral-300);
+  --color-surface-neutral-secondary-pressed: var(--color-brand-neutral-600);
+  --color-surface-neutral-secondary-disabled: var(--color-brand-neutral-200);
+  --color-surface-error-dark: var(--color-universal-red-700);
+  --color-surface-error-medium: var(--color-universal-red-500);
+  --color-surface-error-light: var(--color-universal-red-200);
+  --color-surface-warning-dark: var(--color-universal-orange-700);
+  --color-surface-warning-medium: var(--color-universal-orange-500);
+  --color-surface-warning-light: var(--color-universal-orange-200);
+  --color-surface-success-dark: var(--color-universal-green-700);
+  --color-surface-success-medium: var(--color-universal-green-500);
+  --color-surface-success-light: var(--color-universal-green-200);
+  --color-surface-info-dark: var(--color-universal-purple-700);
+  --color-surface-info-medium: var(--color-universal-purple-500);
+  --color-surface-info-light: var(--color-universal-purple-200);
+  --color-border-primary-dark: var(--color-brand-primary-700);
+  --color-border-primary-medium: var(--color-brand-primary-500);
+  --color-border-primary-light: var(--color-brand-primary-300);
+  --color-border-secondary-dark: var(--color-brand-secondary-700);
+  --color-border-secondary-medium: var(--color-brand-secondary-500);
+  --color-border-secondary-light: var(--color-brand-secondary-300);
+  --color-border-neutral-dark: var(--color-brand-secondary-700);
+  --color-border-neutral-medium: var(--color-brand-secondary-500);
+  --color-border-neutral-light: var(--color-brand-secondary-300);
+  --color-surface-bg-tinted: var(--color-brand-neutral-100);
+  --color-surface-bg-neutral: var(--color-universal-black-white-100);
+}
