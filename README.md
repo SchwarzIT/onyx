@@ -6,11 +6,11 @@
   </a>
 </p>
 
-# NUI
+# Onyx
 
-A Vue.js UI component library and Design System created by [Schwarz IT](https://it.schwarz).
+A design system and Vue.js component library created by [Schwarz IT](https://it.schwarz).
 
-> **Work in progress**: This library is currently in early / active development. <br /> **Working title**: The name `NUI` is only a working title and will be changed in the future.
+> **Work in progress**: This library is currently in early / active development. <br />
 
 <br />
 

@@ -1,10 +1,10 @@
 {
-  "name": "@temp-nui/figma-utils",
+  "name": "@sit-onyx/figma-utils",
   "description": "Utility functions and CLI for exporting data from the Figma API.",
   "version": "0.0.0",
   "type": "module",
   "bin": {
-    "@temp-nui/figma-utils": "./dist/cli.js"
+    "@sit-onyx/figma-utils": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "@temp-nui/figma-utils": "node ./dist/cli.js"
+    "@sit-onyx/figma-utils": "node ./dist/cli.js"
   },
   "dependencies": {
     "commander": "^11.1.0"

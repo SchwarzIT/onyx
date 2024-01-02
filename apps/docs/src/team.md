@@ -56,11 +56,9 @@ const members = [
 
 # Meet the team 👋
 
-NUI is maintained by [Schwarz IT](https://it.schwarz). Below you will find the members of our Core Team.
+Onyx is maintained by [Schwarz IT](https://it.schwarz). Below you will find the members of our Core Team.
 
-Are you looking for a bug report or feature request? Then please use our [GitHub issues](https://github.com/schwarzit/nui/issues).
-For general Q&A, announcements and polls feel free to visit our community space via [GitHub discussions](https://github.com/schwarzit/nui/discussions/categories/q-a).
-
-For business requests you can [contact Martin Hofmann](mailto:martin.hofmann@mail.schwarz).
+Are you looking for a bug report or feature request? Then please use our [GitHub issues](https://github.com/schwarzit/onyx/issues).
+For general Q&A, announcements and polls feel free to visit our community space via [GitHub discussions](https://github.com/schwarzit/onyx/discussions/categories/q-a).
 
 <VPTeamMembers size="small" :members="members" />
