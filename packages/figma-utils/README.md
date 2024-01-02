@@ -7,7 +7,7 @@ Utility functions and CLI for exporting data from the Figma API.
 For a list of supported commands and options, run:
 
 ```sh
-npx @sit-onyx/figma-utils --help
+npx @sit-onyx/figma-utils@latest --help
 ```
 
 ## Use as npm package
