@@ -46,7 +46,7 @@ const onSubmit = (event: Event) => {
 
 <template>
   <form @submit="onSubmit($event)">
-    <TestInput v-model="formData.defaultInput" label="Default"></TestInput>
+    <TestInput v-model="formData.defaultInput" label="Default" />
 
     <TestInput v-model="formData.requiredInput" label="Requires a value" required></TestInput>
 
