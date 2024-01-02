@@ -13,7 +13,7 @@ type ExportCommandOptions = {
   dir?: string;
 };
 
-export const exportCommand = new Command("export")
+export const exportCommand = new Command("export-variables")
   .description("CLI tool to export Figma variables into CSS, SCSS etc. variables.")
   .requiredOption("-k, --file-key <string>", "Figma file key (required)")
   .requiredOption(
@@ -52,7 +52,8 @@ export const exportCommand = new Command("export")
     parsedVariables.forEach((data) => {
       const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
       const fullPath = path.join(outputDirectory, `${baseName}.${options.format}`);
-
       fs.writeFileSync(fullPath, generators[options.format as keyof typeof generators](data));
     });
+
+    console.log("Done.");
   });

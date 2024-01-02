@@ -61,7 +61,13 @@ const genericGenerator = (options: GenericGeneratorOptions) => {
     return `  ${options.nameTransformer(name)}: ${variableValue};`;
   });
 
-  return `:root {\n${variableContent.join("\n")}\n}\n`;
+  const timestamp = new Date().toUTCString();
+
+  return `/**
+ * Do not edit directly.
+ * Exported from Figma API on ${timestamp}
+ */
+:root {\n${variableContent.join("\n")}\n}\n`;
 };
 
 /**

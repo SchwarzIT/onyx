@@ -119,5 +119,12 @@ export const rgbaToHex = (value: RGBAValue): string => {
  * - transform all to lower case
  */
 export const normalizeVariableName = (name: string): string => {
-  return name.replaceAll("/", "-").replaceAll(" ", "-").toLowerCase();
+  return (
+    name
+      .toLowerCase()
+      .replaceAll("/", "-")
+      .replaceAll(" ", "-")
+      // if the Figma name includes a "&", it will be transformed to "+" by the Figma API
+      .replaceAll("+", "-")
+  );
 };
