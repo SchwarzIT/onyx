@@ -1,11 +1,18 @@
 name: Export Figma variables
 on:
   workflow_dispatch:
+    inputs:
+      stage:
+        description: Stage to use for the export
+        type: environment
+        required: true
+        default: dev
 
 jobs:
   export:
     name: Export Figma variables
     runs-on: ubuntu-latest
+    environment: ${{ inputs.stage }}
     steps:
       - uses: actions/checkout@v4
 
