@@ -26,14 +26,8 @@ jobs:
 
       - name: Export variables
         run: |
-          pnpm run @nui/figma-utils export-variables -k "${{ secrets.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../nui/src/styles"
+          pnpm run @sit-onyx/figma-utils export-variables -k "$FIGMA_FILE_KEY" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles"
         working-directory: packages/figma-utils
-
-      - name: Upload variables artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: variables
-          path: packages/nui/src/styles/variables.css
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
