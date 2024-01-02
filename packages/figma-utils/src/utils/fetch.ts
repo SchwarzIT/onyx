@@ -16,10 +16,11 @@ export const fetchFigmaVariables = async (
     },
   });
 
+  const body = await response.json();
+
   if (response.status !== 200) {
-    throw new Error("Figma API request failed, status is not 200");
+    throw new Error(`Figma API request failed. Response body: ${JSON.stringify(body)}`);
   }
 
-  const data = (await response.json()) as FigmaVariablesApiResponse;
-  return data;
+  return body as FigmaVariablesApiResponse;
 };

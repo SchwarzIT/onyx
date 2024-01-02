@@ -117,15 +117,7 @@ export const rgbaToHex = (value: RGBAValue): string => {
  * - replace slashes with "-"
  * - replace whitespace with "-"
  * - replace "+" to "-"
- * - transform all to lower case
  */
 export const normalizeVariableName = (name: string): string => {
-  return (
-    name
-      .toLowerCase()
-      .replaceAll("/", "-")
-      .replaceAll(" ", "-")
-      // if the Figma name includes a "&", it will be transformed to "+" by the Figma API
-      .replaceAll("+", "-")
-  );
+  return name.replaceAll("/", "-").replaceAll(" ", "-").replaceAll("+", "-");
 };

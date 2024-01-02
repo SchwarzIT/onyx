@@ -1,9 +1,12 @@
 import { Command } from "commander";
 import fs from "node:fs";
 import path from "node:path";
-import { fetchFigmaVariables } from "../utils/fetch.js";
-import { generateAsCSS, generateAsSass } from "../utils/generate.js";
-import { parseFigmaVariables } from "../utils/parse.js";
+import {
+  fetchFigmaVariables,
+  generateAsCSS,
+  generateAsSass,
+  parseFigmaVariables,
+} from "../index.js";
 
 type ExportCommandOptions = {
   fileKey: string;
