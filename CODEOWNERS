@@ -1,1 +1,6 @@
-* @JoCa96 @BoppLi @larsrickert
+# Global code owners (developers)
+- @JoCa96 @BoppLi @larsrickert
+
+# Define designers as code owners for screenshots to automatically
+# request them as reviewer if visual changes exist
+/packages/sit-onyx/playwright/snapshots/ @jannick-ux
