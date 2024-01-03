@@ -10,6 +10,9 @@ export default defineConfig({
   snapshotDir: "./playwright/snapshots",
   // custom snapshotPathTemplate to remove the testFileName folder that we don't want
   snapshotPathTemplate: "{snapshotDir}/{testFileDir}/{arg}-{projectName}-{platform}{ext}",
+  // we don't want to update snapshots on the local machine of each developer.
+  // if you want to update snapshots for your branch, use the corresponding GitHub action.
+  updateSnapshots: "none",
   timeout: 10 * 1000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
