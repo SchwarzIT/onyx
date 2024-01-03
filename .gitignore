@@ -26,3 +26,4 @@ playwright-report/
 **/.cache
 **/.vitepress/cache
 storybook-static
+eslint-results.sarif
