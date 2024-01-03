@@ -89,7 +89,7 @@ export const resolveFigmaVariableValue = (
   remBase: ParseFigmaVariablesOptions["remBase"] = 16,
 ): string => {
   if (typeof value === "number") {
-    // numeric value, parse es rem or pixel value
+    // numeric value, parse as rem or pixel value
     if (remBase === false || remBase <= 0) {
       return value !== 0 ? `${value}px` : "0";
     }
