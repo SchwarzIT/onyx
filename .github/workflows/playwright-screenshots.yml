@@ -1,0 +1,39 @@
+name: Update Playwright screenshots
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Update Playwright screenshots
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🗑️ Delete existing screenshots
+        run: rm -rf ./playwright/snapshots
+        working-directory: packages/sit-onyx
+
+      - name: 🔎 Update Playwright screenshots
+        run: pnpm run test --update-snapshots
+        working-directory: packages/sit-onyx
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: update Playwright screenshots"
+          title: "chore: update Playwright screenshots"
+          body: This is an auto-generated pull request. All Playwright screenshots have been updated.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
