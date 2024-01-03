@@ -22,7 +22,12 @@ jobs:
         run: pnpm install
 
       - name: 🔎 Lint
-        run: pnpm run lint
+        run: pnpm run lint:ci
+
+      - name: Upload eslint results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: eslint-results.sarif
 
       - name: 🔎 Check formatting
         run: pnpm run format:check

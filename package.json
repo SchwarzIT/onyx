@@ -9,6 +9,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint . --ext .vue,.ts,.tsx --ignore-path .gitignore",
     "lint:fix": "pnpm run lint --fix",
+    "lint:ci": "pnpm run lint --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
     "publint": "pnpm -r --parallel --aggregate-output exec publint",
     "prepare": "simple-git-hooks",
     "preinstall": "npx only-allow pnpm"
