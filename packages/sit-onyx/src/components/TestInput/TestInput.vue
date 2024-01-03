@@ -1,31 +1,32 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 
-const props = withDefaults(
-  defineProps<{
-    /** The current input value */
-    modelValue?: string;
-    /** Label to show next to the input */
-    label?: string;
-    required?: boolean;
-    minlength?: number;
-    maxlength?: number;
-    min?: number;
-    max?: number;
-    type?: string;
-    pattern?: string;
-  }>(),
-  {
-    modelValue: "",
-    label: "",
-    minlength: undefined,
-    maxlength: undefined,
-    min: undefined,
-    max: undefined,
-    type: "text",
-    pattern: undefined,
-  },
-);
+/** equivalent to Pick<HTMLInputElement,
+ * "required" | "minLength" | "maxLength" | "min" | "max" | "type" | "pattern" | "title"
+ * >;
+ */
+type NativeInputProps = Partial<{
+  required: boolean;
+  pattern: string;
+  type: string;
+  max: number | string;
+  maxLength: number;
+  min: number | string;
+  minLength: number;
+  title: string;
+}>;
+export type TestInputProps = {
+  /** The current input value */
+  modelValue?: string;
+  /** Label to show next to the input */
+  label?: string;
+} & NativeInputProps;
+
+const props = withDefaults(defineProps<TestInputProps>(), {
+  modelValue: "",
+  label: "",
+  type: "text",
+});
 
 const emit = defineEmits<{
   /** Emitted when input value changes */
@@ -58,7 +59,7 @@ const handleChange = (event: Event) => {
       -->
     </span>
     <input v-model="value" v-bind="props" @change="handleChange" @blur="isTouched = true" />
-    <p>Model value: {{ value }}</p>
+    <p class="input__info">Model value: {{ value }}</p>
   </label>
 </template>
 
@@ -76,6 +77,9 @@ const handleChange = (event: Event) => {
         color: red;
       }
     }
+  }
+  &__info {
+    color: grey;
   }
 
   &--touched {
