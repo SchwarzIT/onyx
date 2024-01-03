@@ -37,6 +37,19 @@ const emit = defineEmits<{
 
 const isTouched = ref(false);
 
+const coreElement = ref<HTMLInputElement | null>(null);
+
+const isValid = computed<boolean>(() => {
+  return coreElement.value?.validity.valid || false;
+});
+
+const errorMessage = computed<string>(() => {
+  if (coreElement.value && !isValid.value) {
+    return coreElement.value.validationMessage;
+  }
+  return "";
+});
+
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
@@ -58,8 +71,16 @@ const handleChange = (event: Event) => {
         see https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#full_example
       -->
     </span>
-    <input v-model="value" v-bind="props" @change="handleChange" @blur="isTouched = true" />
-    <p class="input__info">Model value: {{ value }}</p>
+    <input
+      v-bind="props"
+      ref="coreElement"
+      v-model="value"
+      @click="console.log(coreElement?.validity)"
+      @change="handleChange"
+      @blur="isTouched = true"
+    />
+    <p v-if="isTouched && !isValid" class="input__error">{{ errorMessage }}</p>
+    <p class="input__info">Model value: "{{ value }}", is valid: {{ isValid }}</p>
   </label>
 </template>
 
@@ -77,6 +98,10 @@ const handleChange = (event: Event) => {
         color: red;
       }
     }
+  }
+  &__error {
+    color: darkred;
+    margin: 0;
   }
   &__info {
     color: grey;
