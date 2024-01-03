@@ -26,8 +26,10 @@ jobs:
 
       - name: Upload eslint results to GitHub
         uses: github/codeql-action/upload-sarif@v2
+        if: always() # needed to also upload eslint results when eslint found errors
         with:
           sarif_file: eslint-results.sarif
+          wait-for-processing: true
 
       - name: 🔎 Check formatting
         run: pnpm run format:check
