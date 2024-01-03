@@ -25,5 +25,16 @@ module.exports = {
         caughtErrorsIgnorePattern: "^_",
       },
     ],
+    "vue/html-self-closing": [
+      // see https://eslint.vuejs.org/rules/html-self-closing
+      "error",
+      {
+        html: {
+          void: "always",
+          normal: "never",
+          component: "always",
+        },
+      },
+    ],
   },
 };

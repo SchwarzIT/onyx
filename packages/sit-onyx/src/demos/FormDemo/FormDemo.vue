@@ -48,7 +48,7 @@ const onSubmit = (event: Event) => {
   <form @submit="onSubmit($event)">
     <TestInput v-model="formData.defaultInput" label="Default" />
 
-    <TestInput v-model="formData.requiredInput" label="Requires a value" required></TestInput>
+    <TestInput v-model="formData.requiredInput" label="Requires a value" required />
 
     <div>
       Info: minlength only triggers when the user has typed something, it ignores the initial value.
@@ -59,18 +59,18 @@ const onSubmit = (event: Event) => {
       type="text"
       required
       :minlength="5"
-    ></TestInput>
+    />
 
     <!-- formData.maxInput must currently be type string because TestInput requires string values, even though input is type number... -->
-    <TestInput v-model="formData.maxInput" label="Max 9000" type="number" :max="9000"></TestInput>
+    <TestInput v-model="formData.maxInput" label="Max 9000" type="number" :max="9000" />
 
-    <TestInput v-model="formData.typeInput" label="Type mail" type="email"> </TestInput>
+    <TestInput v-model="formData.typeInput" label="Type mail" type="email" />
 
     <TestInput
       v-model="formData.patternInput"
       label="Pattern lowercase characters"
       pattern="[a-z ]*"
-    ></TestInput>
+    />
 
     <button>Submit</button>
   </form>
