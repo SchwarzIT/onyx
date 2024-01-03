@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { TestInput } from "@/index";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps<{
   formData: {
@@ -17,14 +17,20 @@ const emit = defineEmits<{
   submit: [data: object];
 }>();
 
+const formElement = ref<HTMLFormElement | null>(null);
+
 const { formData } = props;
+
+const customErrorExample = ref("");
+
+const isValid = computed<boolean>(() => {
+  return formElement.value?.checkValidity() || false;
+});
 
 const onSubmit = (event: Event) => {
   event.preventDefault();
   emit("submit", formData);
 };
-
-const customErrorExample = ref("");
 
 const onValidityChange = (state: ValidityState) => {
   customErrorExample.value = state.patternMismatch
@@ -34,7 +40,9 @@ const onValidityChange = (state: ValidityState) => {
 </script>
 
 <template>
-  <form class="demo" @submit="onSubmit($event)">
+  <form ref="formElement" class="demo" @submit="onSubmit($event)">
+    <h3>This form is {{ isValid ? "" : "in" }}valid.</h3>
+
     <TestInput v-model="formData.defaultInput" label="Default" />
 
     <TestInput v-model="formData.requiredInput" label="Requires a value" required />
@@ -67,6 +75,7 @@ const onValidityChange = (state: ValidityState) => {
     <div>
       <input type="reset" value="Reset" />
       <button>Submit</button>
+      <button :disabled="!isValid">Submits on valid</button>
     </div>
   </form>
 </template>
