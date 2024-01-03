@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 export default defineConfig({
   testDir: "./src/components",
   snapshotDir: "./playwright/snapshots",
+  // custom snapshotPathTemplate to remove the testFileName folder that we don't want
+  snapshotPathTemplate: "{snapshotDir}/{testFileDir}/{arg}-{projectName}-{platform}{ext}",
   timeout: 10 * 1000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
