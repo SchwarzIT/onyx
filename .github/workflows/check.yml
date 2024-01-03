@@ -100,6 +100,12 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install
 
+      # install system dependencies for Playwright
+      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
+      - name: 📦 Install Playwright system dependencies
+        run: pnpm exec playwright install-deps
+        working-directory: packages/sit-onyx
+
       - name: 🗑️ Delete existing screenshots
         run: rm -rf ./playwright/snapshots
         working-directory: packages/sit-onyx
