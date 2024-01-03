@@ -9,7 +9,6 @@
     "preview": "vitepress preview src"
   },
   "devDependencies": {
-    "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "vitepress": "^1.0.0-rc.34"
   }
 }
