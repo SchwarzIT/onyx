@@ -42,7 +42,7 @@ export const Invalid = {
       requiredInput: "",
       minlengthInput: "",
       maxInput: "9001",
-      typeInput: "Not a mail",
+      typeInput: "NotAmail",
       patternInput: "NO UPPERCASE ALLOWED",
     },
   },

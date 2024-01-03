@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { TestInput } from "@/index";
+import { ref } from "vue";
 
 const props = defineProps<{
   formData: {
@@ -21,6 +22,14 @@ const { formData } = props;
 const onSubmit = (event: Event) => {
   event.preventDefault();
   emit("submit", formData);
+};
+
+const customErrorExample = ref("");
+
+const onValidityChange = (state: ValidityState) => {
+  customErrorExample.value = state.patternMismatch
+    ? "Allows only lowercase characters or space"
+    : "";
 };
 </script>
 
@@ -48,9 +57,11 @@ const onSubmit = (event: Event) => {
 
     <TestInput
       v-model="formData.patternInput"
-      title="Must be lowercase characters or space only."
+      title="Sorry, but the content must be lowercase characters or space only."
       label="Pattern lowercase characters"
       pattern="[a-z ]*"
+      :custom-error-message="customErrorExample"
+      @validity-change="onValidityChange"
     />
 
     <div>

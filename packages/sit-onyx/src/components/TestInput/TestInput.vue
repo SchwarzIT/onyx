@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 type NativeInputProps = Partial<{
   required: boolean;
   pattern: string;
+  // TODO: we probably want to have number inputs separated from the others in the future.
   type: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
   max: number | string;
   maxLength: number;
@@ -12,38 +13,44 @@ type NativeInputProps = Partial<{
   title: string;
 }>;
 export type TestInputProps = {
-  /** The current input value */
-  modelValue?: string;
+  /** The current input value
+   * TODO: remove the "number" once we separated number inputs from the other types.
+   */
+  modelValue?: string | number;
   /** Label to show next to the input */
   label?: string;
+  /** A custom error message that will be shown (only when the input is invalid) */
+  customErrorMessage?: string;
 } & NativeInputProps;
 
 const props = withDefaults(defineProps<TestInputProps>(), {
   modelValue: "",
   label: "",
   type: "text",
+  customErrorMessage: undefined,
 });
 
 const emit = defineEmits<{
-  /** Emitted when input value changes */
-  "update:modelValue": [value: string];
+  /** Emitted when input value changes
+   * TODO: remove the "number" once we separated number inputs from the other types.
+   */
+  "update:modelValue": [value: string | number];
   /** Emitted on blur when the input value changes */
   change: [value: string];
+  /** Emitted whenever the validity state of the input changes */
+  validityChange: [state: ValidityState];
 }>();
 
 const isTouched = ref(false);
 
 const coreElement = ref<HTMLInputElement | null>(null);
 
-const isValid = computed<boolean>(() => {
-  return coreElement.value?.validity.valid || false;
-});
+const isValid = ref(coreElement.value?.validity.valid || false);
 
 const errorMessage = computed<string>(() => {
-  if (coreElement.value && !isValid.value) {
-    return coreElement.value.validationMessage;
-  }
-  return "";
+  if (isValid.value) return "";
+
+  return props.customErrorMessage || coreElement.value?.validationMessage || "";
 });
 
 const value = computed({
@@ -55,6 +62,27 @@ const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("change", target.value);
 };
+
+onMounted(() => {
+  /* element will always be truthy onMounted */
+  const element = coreElement.value;
+  if (element) {
+    /* we need to watch for value changes, 
+    using computed on element.validity.valid 
+    unfortunately misses the validity resetting */
+    watch(
+      value,
+      () => {
+        const newIsValid = element.validity.valid;
+        if (newIsValid !== isValid.value) {
+          isValid.value = newIsValid;
+          emit("validityChange", element.validity);
+        }
+      },
+      { immediate: true },
+    );
+  }
+});
 </script>
 
 <template>
@@ -71,7 +99,6 @@ const handleChange = (event: Event) => {
       v-bind="props"
       ref="coreElement"
       v-model="value"
-      @click="console.log(coreElement?.validity)"
       @change="handleChange"
       @blur="isTouched = true"
     />
