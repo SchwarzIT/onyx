@@ -5,8 +5,8 @@ import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } fr
 
 /**
  * Utility to define Storybook meta for a given Vue component which will take care of defining argTypes for
- * the given events as well as implementing v-model handlers.
- * Should be preferred over manually defining argTypes for a *.stories.ts file.
+ * the given events as well as implementing v-model handlers so that the Storybook controls are updated when you interact with the component.
+ * Should be preferred over manually defining argTypes for *.stories.ts files.
  *
  * @example
  * ```ts
@@ -35,7 +35,6 @@ export const defineStorybookActionsAndVModels = <T>(
     decorators: [
       (story, context) => {
         // provide the `updateArgs` function so we can use it in the render() function below
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, updateArgs] = useArgs();
         return story({ ...context, updateArgs });
       },
@@ -107,8 +106,7 @@ const defineRenderFunctionForVModels = <T>(
     }, {});
 
     return {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      components: { [componentName]: options.component } as Record<string, any>,
+      components: { [componentName]: options.component },
       setup: () => ({ args, ...eventHandlers }),
       /**
        * Add v-model event handlers to source code

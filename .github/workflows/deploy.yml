@@ -9,11 +9,9 @@ on:
     inputs:
       stage:
         description: Stage to deploy to
-        type: choice
+        type: environment
         required: true
         default: dev
-        options:
-          - "dev"
 
 jobs:
   build:
@@ -70,14 +68,14 @@ jobs:
       - name: Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
         with:
-          cf-endpoint: ${{ secrets.CF_ENDPOINT }}
-          cf-org: ${{ secrets.CF_ORG }}
-          cf-username: ${{ secrets.CF_USERNAME }}
-          cf-password: ${{ secrets.CF_PASSWORD }}
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
           # we need to define a fallback value here because the default for the input
           # is only assigned when the workflow is triggered manually. When triggered e.g. on push
           # the input will be unset so a fallback is needed here
-          cf-space: ${{ inputs.stage || 'dev' }}
+          space: ${{ inputs.stage || 'dev' }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
   deploy_documentation:
@@ -97,12 +95,12 @@ jobs:
       - name: Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
         with:
-          cf-endpoint: ${{ secrets.CF_ENDPOINT }}
-          cf-org: ${{ secrets.CF_ORG }}
-          cf-username: ${{ secrets.CF_USERNAME }}
-          cf-password: ${{ secrets.CF_PASSWORD }}
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
           # we need to define a fallback value here because the default for the input
           # is only assigned when the workflow is triggered manually. When triggered e.g. on push
           # the input will be unset so a fallback is needed here
-          cf-space: ${{ inputs.stage || 'dev' }}
+          space: ${{ inputs.stage || 'dev' }}
           working-directory: apps/docs/.cloud-foundry

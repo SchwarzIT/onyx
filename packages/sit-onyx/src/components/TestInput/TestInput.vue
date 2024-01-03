@@ -64,6 +64,9 @@ const handleChange = (event: Event) => {
 
 <style lang="scss" scoped>
 .input {
+  width: max-content;
+  display: inline-block;
+
   &__label {
     margin-right: 8px;
 
