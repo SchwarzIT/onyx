@@ -105,7 +105,7 @@ jobs:
         working-directory: packages/sit-onyx
 
       - name: 🔎 Update Playwright screenshots
-        run: pnpm run test --update-snapshots
+        run: pnpm run test:components --update-snapshots
         working-directory: packages/sit-onyx
 
       - name: Create pull request
