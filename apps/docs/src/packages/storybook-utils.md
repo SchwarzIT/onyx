@@ -14,7 +14,7 @@ import packageJson from "../../../../packages/storybook-utils/package.json";
 
 <!--
 Make sure that this chapter is kept up to date with installation steps in
-packages/headless/README.md file.
+packages/storybook-utils/README.md file.
  -->
 
 Install the npm package with your corresponding package manager:
