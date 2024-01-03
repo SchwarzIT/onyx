@@ -1,15 +1,6 @@
 <script lang="ts" setup>
 import { TestInput } from "@/index";
 
-/** todo remaining material to include
-Build-in errors like:
-https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/badInput
-https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/valueMissing
-https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch
-- const input = document.getElementById("age");
-- => input.validity.badInput
-*/
-
 const props = defineProps<{
   formData: {
     defaultInput: string;
