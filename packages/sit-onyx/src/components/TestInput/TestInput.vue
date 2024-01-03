@@ -1,14 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 
-/** equivalent to Pick<HTMLInputElement,
- * "required" | "minLength" | "maxLength" | "min" | "max" | "type" | "pattern" | "title"
- * >;
- */
 type NativeInputProps = Partial<{
   required: boolean;
   pattern: string;
-  type: string;
+  type: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
   max: number | string;
   maxLength: number;
   min: number | string;
