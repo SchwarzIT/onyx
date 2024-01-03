@@ -15,7 +15,7 @@ export type ExtractVueEventNames<VueComponent> = Extract<
     // this generic type will extract ALL props and events from the given Vue component
     ComponentPropsAndSlots<VueComponent>,
     // emits are declared as functions, so we only take props/events that are functions and ignore the rest
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We must use any here to match the type defined by Vue
     ((...args: any) => any) | undefined
   >,
   // filter out potential function properties by just picking events that start with "on"

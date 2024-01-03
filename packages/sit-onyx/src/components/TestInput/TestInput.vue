@@ -22,8 +22,6 @@ const emit = defineEmits<{
   change: [value: string];
 }>();
 
-const eslintTest = 42;
-
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),

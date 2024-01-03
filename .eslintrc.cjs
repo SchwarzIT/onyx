@@ -15,4 +15,15 @@ module.exports = {
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier/skip-formatting",
   ],
+  rules: {
+    // allow unused vars if they start with an underscore. Useful e.g. if destructuring arrays
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+      },
+    ],
+  },
 };
