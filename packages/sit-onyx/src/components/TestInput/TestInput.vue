@@ -34,7 +34,7 @@ const handleChange = (event: Event) => {
 </script>
 
 <template>
-  <label class="input__wrapper">
+  <label class="input">
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
     </span>
@@ -45,10 +45,8 @@ const handleChange = (event: Event) => {
 
 <style lang="scss" scoped>
 .input {
-  &__wrapper {
-    width: max-content;
-    display: inline-block;
-  }
+  width: max-content;
+  display: inline-block;
 
   &__label {
     margin-right: 8px;
