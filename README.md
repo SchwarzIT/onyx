@@ -14,6 +14,6 @@ A design system and Vue.js component library created by [Schwarz IT](https://it.
 
 <br />
 
-## [Documentation](https://dev.onyx.schwarz)
+## [Documentation](https://onyx.schwarz)
 
 ## [Contributing](CONTRIBUTING.md)

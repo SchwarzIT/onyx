@@ -13,7 +13,7 @@
       "default": "./src/index.ts"
     }
   },
-  "homepage": "https://dev.onyx.schwarz/packages/storybook-utils.html",
+  "homepage": "https://onyx.schwarz/packages/storybook-utils.html",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",

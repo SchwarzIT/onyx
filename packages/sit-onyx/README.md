@@ -14,4 +14,4 @@ A design system and Vue.js component library created by [Schwarz IT](https://it.
 
 <br />
 
-## [Documentation](https://dev.onyx.schwarz/packages/headless.html)
+## [Documentation](https://onyx.schwarz/packages/headless.html)

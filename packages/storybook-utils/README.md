@@ -12,4 +12,4 @@
 
 <br />
 
-## [Documentation](https://dev.onyx.schwarz/packages/headless.html)
+## [Documentation](https://onyx.schwarz/packages/headless.html)
