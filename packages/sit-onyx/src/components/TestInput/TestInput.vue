@@ -47,11 +47,12 @@ const coreElement = ref<HTMLInputElement | null>(null);
 
 const isValid = ref(coreElement.value?.validity.valid || false);
 
-const errorMessage = computed<string>(() => {
+const getErrorMessage = (): string => {
   if (isValid.value) return "";
 
   return props.customErrorMessage || coreElement.value?.validationMessage || "";
-});
+};
+const errorMessage = ref(getErrorMessage());
 
 const value = computed({
   get: () => props.modelValue,
@@ -73,10 +74,16 @@ onMounted(() => {
     watch(
       value,
       () => {
+        /* todo we could use a composable or util for the "only update when it changed" pattern? */
         const newIsValid = element.validity.valid;
         if (newIsValid !== isValid.value) {
           isValid.value = newIsValid;
           emit("validityChange", element.validity);
+        }
+
+        const newErrorMessage = getErrorMessage();
+        if (newErrorMessage !== errorMessage.value) {
+          errorMessage.value = newErrorMessage;
         }
       },
       { immediate: true },
