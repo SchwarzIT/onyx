@@ -36,5 +36,6 @@ module.exports = {
         },
       },
     ],
+    "vue/require-default-prop": "off",
   },
 };

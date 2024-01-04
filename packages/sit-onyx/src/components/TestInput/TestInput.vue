@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import {
+  useFormValidationMessage,
+  type SupportedErrorLangs,
+} from "@/composables/formValidationMessage";
 import { computed, onMounted, ref, watch } from "vue";
 
 type NativeInputProps = Partial<{
@@ -24,13 +28,14 @@ export type TestInputProps = {
   label?: string;
   /** A custom error message that will be shown (only when the input is invalid) */
   customErrorMessage?: string;
+  /** The selected language key */
+  lang?: SupportedErrorLangs;
 } & NativeInputProps;
 
 const props = withDefaults(defineProps<TestInputProps>(), {
   modelValue: "",
   label: "",
   type: "text",
-  customErrorMessage: undefined,
 });
 
 const emit = defineEmits<{
@@ -51,9 +56,17 @@ const coreElement = ref<HTMLInputElement | null>(null);
 const validityState = ref<ValidityState | undefined>(coreElement.value?.validity);
 
 const errorMessage = computed(() => {
+  /* when the validity state is uninitialized or the form is valid, we don't show an error. */
   if (!validityState.value || validityState.value.valid) return "";
+  /* a custom error message always is considered first */
+  if (props.customErrorMessage) return props.customErrorMessage;
 
-  return props.customErrorMessage || coreElement.value?.validationMessage || "";
+  const element = coreElement.value;
+  /* when a language key is provided, we offer our own translations of the error messages 
+  to match the rest of the user's application */
+  if (props.lang && element) return useFormValidationMessage(props.lang, element.validity);
+  /* we default to the browser's standard validation message that relies on the browser language */
+  return element?.validationMessage || "";
 });
 
 const value = computed({
@@ -103,7 +116,9 @@ onMounted(() => {
       @change="handleChange"
       @blur="isTouched = true"
     />
-    <p v-if="isTouched && !validityState?.valid" class="input__error">{{ errorMessage }}</p>
+    <p v-if="isTouched && !validityState?.valid" class="input__error" aria-live="polite">
+      {{ errorMessage }}
+    </p>
     <p class="input__info">Model value: "{{ value }}", is valid: {{ validityState?.valid }}</p>
   </label>
 </template>
