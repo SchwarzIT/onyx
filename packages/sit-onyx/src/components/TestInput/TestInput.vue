@@ -14,7 +14,6 @@ type NativeInputProps = Partial<{
    * as soon as a user interacts with the input (types something).
    */
   minLength: number;
-  title: string;
 }>;
 export type TestInputProps = {
   /** The current input value

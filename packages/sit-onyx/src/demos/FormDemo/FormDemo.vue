@@ -65,7 +65,6 @@ const onValidityChange = (state: ValidityState) => {
 
     <TestInput
       v-model="formData.patternInput"
-      title="Sorry, but the content must be lowercase characters or space only."
       label="Pattern lowercase characters"
       pattern="[a-z ]*"
       :custom-error-message="customErrorExample"
