@@ -9,6 +9,10 @@ type NativeInputProps = Partial<{
   max: number | string;
   maxLength: number;
   min: number | string;
+  /** expected minimal length of a string value. Warning: when the value is (pre)set by code,
+   * the input invalidity can not be detected by the browser, it will only show as invalid
+   * as soon as a user interacts with the input (types something).
+   */
   minLength: number;
   title: string;
 }>;
