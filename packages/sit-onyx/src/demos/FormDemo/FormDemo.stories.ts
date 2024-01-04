@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof FormDemo>;
 
 /**
- * This example shows the primary input.
+ * This example shows a valid form.
  */
 export const Primary = {
   args: {
@@ -33,7 +33,7 @@ export const Primary = {
 } satisfies Story;
 
 /**
- * This example shows the primary input.
+ * This example shows an invalid form.
  */
 export const Invalid = {
   args: {
@@ -48,23 +48,18 @@ export const Invalid = {
   },
 } satisfies Story;
 
-/** https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#using_built-in_form_validation
-- required: Specifies whether a form field needs to be filled in before the form can be submitted.
-- minlength and maxlength: Specifies the minimum and maximum length of textual data (strings).
-- min and max: Specifies the minimum and maximum values of numerical input types.
-- type: Specifies whether the data needs to be a number, an email address, or some other specific preset type.
-- pattern: Specifies a regular expression that defines a pattern the entered data needs to follow.
-
-https://developer.mozilla.org/en-US/docs/Web/CSS/:valid
-- The element matches the :valid or :invalid CSS pseudo-class
-
-build-in errors like:
-https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/badInput
-https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/valueMissing
-https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch
-- const input = document.getElementById("age");
-- => input.validity.badInput
-test("respects standard form validations", ()=>{
-  
-})
-*/
+/**
+ * This example shows an empty form.
+ */
+export const Empty = {
+  args: {
+    formData: {
+      defaultInput: "",
+      requiredInput: "",
+      minlengthInput: "",
+      maxInput: "",
+      typeInput: "",
+      patternInput: "",
+    },
+  },
+} satisfies Story;
