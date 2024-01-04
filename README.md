@@ -10,8 +10,10 @@
 
 A design system and Vue.js component library created by [Schwarz IT](https://it.schwarz).
 
-> **Work in progress**: This library is currently in early / active development. <br />
+> **Work in progress**: This library is currently in early / active development.
 
 <br />
+
+## [Documentation](https://dev.onyx.schwarz)
 
 ## [Contributing](CONTRIBUTING.md)

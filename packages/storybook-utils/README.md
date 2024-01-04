@@ -6,11 +6,9 @@
   </a>
 </p>
 
-# Onyx
+# Onyx Storybook utils
 
-A design system and Vue.js component library created by [Schwarz IT](https://it.schwarz).
-
-> **Work in progress**: This library is currently in early / active development.
+[Storybook](https://storybook.js.org) utilities for Vue created by [Schwarz IT](https://it.schwarz).
 
 <br />
 

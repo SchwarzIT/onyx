@@ -3,6 +3,7 @@
   "description": "A design system and Vue.js component library created by Schwarz IT",
   "version": "0.0.0",
   "type": "module",
+  "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
     "dist"
@@ -15,13 +16,14 @@
     },
     "./style.css": "./dist/style.css"
   },
+  "homepage": "https://dev.onyx.schwarz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/onyx",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/sit-onyx"
   },
   "bugs": {
-    "url": "https://github.com/schwarzit/onyx/issues"
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",

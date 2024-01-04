@@ -13,6 +13,15 @@
       "default": "./src/index.ts"
     }
   },
+  "homepage": "https://dev.onyx.schwarz/packages/headless.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/headless"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "scripts": {
     "build": "tsc --noEmit"
   },
