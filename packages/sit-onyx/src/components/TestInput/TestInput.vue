@@ -49,14 +49,13 @@ const isTouched = ref(false);
 
 const coreElement = ref<HTMLInputElement | null>(null);
 
-const isValid = ref(coreElement.value?.validity.valid || false);
+const validityState = ref<ValidityState | undefined>(coreElement.value?.validity);
 
-const getErrorMessage = (): string => {
-  if (isValid.value) return "";
+const errorMessage = computed(() => {
+  if (!validityState.value || validityState.value.valid) return "";
 
   return props.customErrorMessage || coreElement.value?.validationMessage || "";
-};
-const errorMessage = ref(getErrorMessage());
+});
 
 const value = computed({
   get: () => props.modelValue,
@@ -72,25 +71,22 @@ onMounted(() => {
   /* element will always be truthy onMounted */
   const element = coreElement.value;
   if (element) {
-    /* we need to watch for value changes, 
-    using computed on element.validity.valid 
-    unfortunately misses the validity resetting */
     watch(
       value,
       () => {
-        /* todo we could use a composable or util for the "only update when it changed" pattern? */
-        const newIsValid = element.validity.valid;
-        if (newIsValid !== isValid.value) {
-          isValid.value = newIsValid;
-          emit("validityChange", element.validity);
-        }
-
-        const newErrorMessage = getErrorMessage();
-        if (newErrorMessage !== errorMessage.value) {
-          errorMessage.value = newErrorMessage;
-        }
+        /* we need to destructure so that the emitter below fires properly. */
+        validityState.value = { ...element.validity };
       },
       { immediate: true },
+    );
+    watch(
+      validityState,
+      () => {
+        if (element.validity) {
+          emit("validityChange", element.validity);
+        }
+      },
+      { deep: true },
     );
   }
 });
@@ -100,11 +96,6 @@ onMounted(() => {
   <label class="input" :class="{ 'input--touched': isTouched }">
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
-      <!-- 
-        <span aria-label="required">*</span> 
-        should we use the above instead of the "after"?
-        see https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#full_example
-      -->
     </span>
     <input
       v-bind="props"
@@ -113,8 +104,8 @@ onMounted(() => {
       @change="handleChange"
       @blur="isTouched = true"
     />
-    <p v-if="isTouched && !isValid" class="input__error">{{ errorMessage }}</p>
-    <p class="input__info">Model value: "{{ value }}", is valid: {{ isValid }}</p>
+    <p v-if="isTouched && !validityState?.valid" class="input__error">{{ errorMessage }}</p>
+    <p class="input__info">Model value: "{{ value }}", is valid: {{ validityState?.valid }}</p>
   </label>
 </template>
 

@@ -9,7 +9,7 @@ const meta: Meta<typeof TestInput> = {
   title: "components/TestInput",
   ...defineStorybookActionsAndVModels({
     component: TestInput,
-    events: ["update:modelValue", "change"],
+    events: ["update:modelValue", "change", "validityChange"],
   }),
 };
 
