@@ -25,8 +25,8 @@ module.exports = {
         caughtErrorsIgnorePattern: "^_",
       },
     ],
+    // see https://eslint.vuejs.org/rules/html-self-closing
     "vue/html-self-closing": [
-      // see https://eslint.vuejs.org/rules/html-self-closing
       "error",
       {
         html: {
@@ -36,6 +36,8 @@ module.exports = {
         },
       },
     ],
+    // This rule is less relevant for the composition API.
+    // Docs with options API example where it makes sense: https://eslint.vuejs.org/rules/require-default-prop
     "vue/require-default-prop": "off",
   },
 };
