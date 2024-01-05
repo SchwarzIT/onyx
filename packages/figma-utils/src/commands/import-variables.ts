@@ -74,6 +74,10 @@ export const importCommand = new Command("import-variables")
     console.log(`Generating ${options.format} variables...`);
 
     parsedVariables.forEach((data) => {
+      // if the user passed specific modes to be exported, we will only generate those
+      // otherwise all modes will be exported.
+      // the default mode (undefined data.modeName) is always generated because its mode name can
+      // not be specified by the designer in Figma
       const isModeIncluded =
         !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
       if (!isModeIncluded) return;
