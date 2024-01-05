@@ -2,23 +2,10 @@
 import {
   useFormValidationMessage,
   type SupportedErrorLangs,
+  type FormElementProps,
 } from "@/composables/formValidationMessage";
 import { computed, onMounted, ref, watch } from "vue";
 
-type NativeInputProps = Partial<{
-  required: boolean;
-  pattern: string;
-  // TODO: we probably want to have number inputs separated from the others in the future.
-  type: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
-  max: number | string;
-  maxLength: number;
-  min: number | string;
-  /** expected minimal length of a string value. Warning: when the value is (pre)set by code,
-   * the input invalidity can not be detected by the browser, it will only show as invalid
-   * as soon as a user interacts with the input (types something).
-   */
-  minLength: number;
-}>;
 export type TestInputProps = {
   /** The current input value
    * TODO: remove the "number" once we separated number inputs from the other types.
@@ -30,7 +17,7 @@ export type TestInputProps = {
   customErrorMessage?: string;
   /** The selected language key */
   lang?: SupportedErrorLangs;
-} & NativeInputProps;
+} & FormElementProps;
 
 const props = withDefaults(defineProps<TestInputProps>(), {
   modelValue: "",
@@ -64,7 +51,7 @@ const errorMessage = computed(() => {
   const element = coreElement.value;
   /* when a language key is provided, we offer our own translations of the error messages 
   to match the rest of the user's application */
-  if (props.lang && element) return useFormValidationMessage(props.lang, element.validity);
+  if (props.lang && element) return useFormValidationMessage(props.lang, element.validity, props);
   /* we default to the browser's standard validation message that relies on the browser language */
   return element?.validationMessage || "";
 });

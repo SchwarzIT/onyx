@@ -45,9 +45,9 @@ const onValidityChange = (state: ValidityState) => {
 
     <TestInput v-model="formData.defaultInput" label="Default" />
 
-    <TestInput v-model="formData.requiredInput" label="Requires a value" required lang="en" />
+    <TestInput v-model="formData.requiredInput" label="[EN] Requires a value" required lang="en" />
 
-    <TestInput v-model="formData.requiredInput" label="Benötigt Wert" required lang="de" />
+    <TestInput v-model="formData.requiredInput" label="[DE] Benötigt Wert" required lang="de" />
 
     <em>
       Info: minlength only triggers when the user has typed something, it ignores the initial value.
