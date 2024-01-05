@@ -22,7 +22,7 @@ npx @sit-onyx/figma-utils@latest --help
 
 ::: tip Usage in CI
 If you are using the CLI in CI (e.g. via GitHub actions or Azure pipelines), we recommend that you specify the major version that you want to
-use to prevent possible future breaking changes that might break your pipeline. Example:
+use to prevent possible future breaking changes that might disrupt your pipeline. Example:
 
 ```sh
 npx @sit-onyx/figma-utils@1 --help
@@ -33,7 +33,7 @@ npx @sit-onyx/figma-utils@1 --help
 ## Use as npm package
 
 If you don't want to use the CLI, this package also provides utility functions for importing data from the Figma API.
-This is useful if you want customize the CLI commands to have full control over the output.
+This is useful if you want to further customize the CLI commands to have full control over the output.
 
 Install the npm package with your corresponding package manager:
 
@@ -55,7 +55,7 @@ yarn install @sit-onyx/figma-utils
 
 ### Examples
 
-#### Import Figma variables to CSS/SCSS variables
+#### Import Figma variables to CSS variables
 
 ```ts
 import fs from "node:fs";
