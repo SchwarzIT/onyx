@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": ["src", "vite.config.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "types": ["node"]
+  }
+}
