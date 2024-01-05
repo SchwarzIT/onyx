@@ -1,6 +1,5 @@
 {
   "test": {
-    "helloWorld": "Hello World!",
-    "a": "a"
+    "helloWorld": "Hello World!"
   }
 }

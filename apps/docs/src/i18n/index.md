@@ -63,6 +63,8 @@ That's it. All built-in component texts are not also available in German and the
 
 You can customize specific messages or even provide a whole custom language will full TypeScript support.
 
+Some messages also support pluralization or placeholders for values. Please take a look at the [English texts](#build-in-languages) to see which format is used for a specific message.
+
 ### Change a single message
 
 ::: code-group
