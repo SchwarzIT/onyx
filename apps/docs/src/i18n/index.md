@@ -47,15 +47,15 @@ That's it. All built-in component texts are not also available in German and the
 
 ## Build-in languages
 
+<ul>
+  <li v-for="language in data.languages" :key="language">{{ language }}</li>
+</ul>
+
 ::: details Which texts are translated?
 Below you can find all translatable texts that are used by our components.
 
 <<< ../../../../packages/sit-onyx/src/i18n/locales/en-US.json
 :::
-
-<ul>
-  <li v-for="language in data.languages" :key="language">{{ language }}</li>
-</ul>
 
 ## Custom translations
 
