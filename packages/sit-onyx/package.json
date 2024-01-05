@@ -5,13 +5,17 @@
   "type": "module",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "dist",
+    "src/i18n/locales"
   ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./locales": {
+      "default": "./src/i18n/locales"
     },
     "./style.css": "./dist/style.css"
   },

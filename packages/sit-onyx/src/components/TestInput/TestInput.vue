@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useI18n } from "@/i18n";
 import { computed } from "vue";
 
 const props = withDefaults(
@@ -22,6 +23,8 @@ const emit = defineEmits<{
   change: [value: string];
 }>();
 
+const { t } = useI18n();
+
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
@@ -34,6 +37,7 @@ const handleChange = (event: Event) => {
 </script>
 
 <template>
+  {{ t("test.helloWorld") }}
   <label class="input">
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}
