@@ -83,14 +83,18 @@ const knownTranslations = {
     valueMissing: "Fülle dieses Feld aus.",
   },
   en: {
-    tooShort: (value: string | number, limit: number) =>
-      `Please lengthen this text to ${limit} characters or more (you are currently using ${
+    tooShort: (value: string | number, limit: number) => {
+      const length = value.toString().length;
+      return `Please lengthen this text to ${limit} characters or more (you are currently using ${length} character${
+        length === 1 ? "" : "s"
+      }).`;
+    },
+    tooLong: (value: string | number, limit: number) => {
+      const length = value.toString().length;
+      return `Please shorten this text to ${limit} characters or less (you are currently using ${
         value.toString().length
-      } characters).`,
-    tooLong: (value: string | number, limit: number) =>
-      `Please shorten this text to ${limit} characters or less (you are currently using ${
-        value.toString().length
-      } characters).`,
+      } character${length === 1 ? "" : "s"}).`;
+    },
     rangeOverflow: (limit: string) => `Value must be less than or equal to ${limit}.`,
     rangeUnderflow: (limit: string) => `Value must be greater than or equal to ${limit}.`,
     typeMismatch: (value: string | number, type: FormElementType) => {
