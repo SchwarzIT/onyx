@@ -1,9 +1,9 @@
 import {
-  ColorValue,
   FigmaVariablesApiResponse,
   ParsedVariable,
   RGBAValue,
   Variable,
+  VariableValue,
 } from "../types/figma.js";
 
 export type ParseFigmaVariablesOptions = {
@@ -74,7 +74,7 @@ export const parseFigmaVariables = (
 };
 
 /**
- * Resolves the given Figma color value to a string value. Value types:
+ * Resolves the given Figma variable value to a string value. Value types:
  * - number: converted to rem, e.g. 16 => "1rem"
  * - color: converted to HEX color, e.g. {r:1, g: 1, b: 1, a: 1} => "#ffffff"
  * - alias: referenced with variable name, e.g. "--primary-100" => "{--primary-100}"
@@ -84,29 +84,26 @@ export const parseFigmaVariables = (
  * @param allVariables Object of all variables. Needed for variables that use aliases.
  */
 export const resolveFigmaVariableValue = (
-  value: ColorValue,
+  value: VariableValue,
   allVariables: Record<string, Variable>,
   remBase: ParseFigmaVariablesOptions["remBase"] = 16,
 ): string => {
   if (typeof value === "number") {
     // numeric value, parse as rem or pixel value
-    if (remBase === false || remBase <= 0) {
-      return value !== 0 ? `${value}px` : "0";
-    }
-
-    const remValue = value / remBase;
-    return remValue !== 0 ? `${remValue}rem` : "0";
+    if (value === 0) return "0";
+    if (remBase === false || remBase <= 0) return `${value}px`;
+    return `${value / remBase}rem`;
   }
 
   if ("type" in value) {
     // parse value as alias
     if (value.type !== "VARIABLE_ALIAS") {
-      throw new Error(`Unknown color value type: ${value.type}`);
+      throw new Error(`Unknown variable value type: ${value.type}`);
     }
 
     const reference = allVariables[value.id];
     if (!reference) {
-      throw new Error(`Could not find variables alias ${value.id}`);
+      throw new Error(`Could not find variables alias with ID "${value.id}"`);
     }
 
     return `{${normalizeVariableName(reference.name)}}`;
@@ -117,7 +114,7 @@ export const resolveFigmaVariableValue = (
 
 /**
  * Converts a RGBA value to a hex color.
- * Transparency will only be added if its not 1, e.g. "#000000ff" instead of "#000000"
+ * Transparency will only be added if its not 1, e.g. "#000000" instead of "#000000ff"
  */
 export const rgbaToHex = (value: RGBAValue): string => {
   const hex = Object.values(value)
@@ -135,8 +132,9 @@ export const rgbaToHex = (value: RGBAValue): string => {
  * Normalizes the given variable name by apply these transformations:
  * - replace slashes with "-"
  * - replace whitespace with "-"
- * - replace "+" to "-"
+ * - replace "+" with "-"
+ * - replace "&" with "-"
  */
 export const normalizeVariableName = (name: string): string => {
-  return name.replaceAll("/", "-").replaceAll(" ", "-").replaceAll("+", "-");
+  return name.replaceAll("/", "-").replaceAll(" ", "-").replaceAll("+", "-").replaceAll("&", "-");
 };

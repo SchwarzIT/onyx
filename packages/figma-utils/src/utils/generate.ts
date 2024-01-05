@@ -38,11 +38,11 @@ export const generateAsCSS = (data: ParsedVariable): string => {
 };
 
 /**
- * Generates the given parsed Figma variables into Sass/SCSS variables.
+ * Generates the given parsed Figma variables into SCSS variables.
  *
  * @returns File content of the .scss file
  */
-export const generateAsSass = (data: ParsedVariable): string => {
+export const generateAsSCSS = (data: ParsedVariable): string => {
   return genericGenerator({
     data,
     nameTransformer: (name) => `$${name}`,

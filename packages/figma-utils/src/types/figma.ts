@@ -23,10 +23,10 @@ export type Variable = {
   name: string;
   variableCollectionId: string;
   hiddenFromPublishing: boolean;
-  valuesByMode: Record<string, ColorValue>;
+  valuesByMode: Record<string, VariableValue>;
 };
 
-export type ColorValue = RGBAValue | ColorsAlias | number;
+export type VariableValue = RGBAValue | ColorsAlias | number;
 
 export type RGBAValue = {
   r: number;

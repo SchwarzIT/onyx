@@ -5,7 +5,7 @@ import {
   DEFAULT_MODE_NAME,
   fetchFigmaVariables,
   generateAsCSS,
-  generateAsSass,
+  generateAsSCSS,
   parseFigmaVariables,
 } from "../index.js";
 
@@ -15,7 +15,7 @@ type ExportCommandOptions = {
   filename: string;
   format: string;
   dir?: string;
-  mode?: string;
+  modes?: string[];
 };
 
 export const exportCommand = new Command("export-variables")
@@ -25,20 +25,20 @@ export const exportCommand = new Command("export-variables")
     "-t, --token <string>",
     "Figma access token with scope `file_variables:read` (required)",
   )
-  .option("-f, --format <string>", "Output format. Supported are: css, scss", "css")
+  .option("-f, --format <string>", "Output format. Supported are: CSS, SCSS", "CSS")
   .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
   .option(
     "-d, --dir <string>",
     "Working directory to use. Defaults to current working directory of the script.",
   )
   .option(
-    "-m, --mode <string>",
-    "Can be used to only export a specific Figma mode. If unset, all modes will be exported as a separate file.",
+    "-m, --modes <strings...>",
+    "Can be used to only export specific Figma modes. If unset, all modes will be exported as a separate file.",
   )
   .action(async (options: ExportCommandOptions) => {
     const generators = {
-      css: generateAsCSS,
-      scss: generateAsSass,
+      CSS: generateAsCSS,
+      SCSS: generateAsSCSS,
     };
 
     if (!(options.format in generators)) {
@@ -53,14 +53,19 @@ export const exportCommand = new Command("export-variables")
     console.log("Parsing Figma variables...");
     const parsedVariables = parseFigmaVariables(data);
 
-    if (options.mode && !parsedVariables.find((i) => i.modeName === options.mode)) {
-      const availableModes = parsedVariables.map((i) => i.modeName ?? DEFAULT_MODE_NAME);
+    if (options.modes?.length) {
+      // verify that all modes are found
+      for (const mode of options.modes) {
+        if (parsedVariables.find((i) => i.modeName === mode)) continue;
 
-      throw new Error(
-        `Mode not found: ${options.mode}. Available modes: ${Object.keys(availableModes).join(
-          ", ",
-        )}`,
-      );
+        const availableModes = parsedVariables
+          .map((i) => i.modeName ?? DEFAULT_MODE_NAME)
+          .map((mode) => `"${mode}"`);
+
+        throw new Error(
+          `Mode "${mode}" not found. Available modes: ${Object.values(availableModes).join(", ")}`,
+        );
+      }
     }
 
     const outputDirectory = options.dir ?? process.cwd();
@@ -69,9 +74,9 @@ export const exportCommand = new Command("export-variables")
     console.log(`Generating ${options.format} variables...`);
 
     parsedVariables.forEach((data) => {
-      if (options.mode && data.modeName !== undefined && data.modeName !== options.mode) {
-        return;
-      }
+      const isModeIncluded =
+        !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
+      if (!isModeIncluded) return;
 
       const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
       const fullPath = path.join(outputDirectory, `${baseName}.${options.format}`);
