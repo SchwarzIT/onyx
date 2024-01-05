@@ -2,19 +2,19 @@ name: Cloud Foundry Push
 description: Pushes / Deploys an application to Cloud Foundry using CLI version 8
 
 inputs:
-  cf-endpoint:
+  endpoint:
     required: true
     description: API endpoint of Cloud Foundry
-  cf-org:
+  org:
     required: true
     description: Name of the Cloud Foundry organization
-  cf-username:
+  username:
     required: true
     description: Username of the Cloud Foundry service account
-  cf-password:
+  password:
     required: true
     description: Password of the Cloud Foundry service account
-  cf-space:
+  space:
     required: true
     description: Space to push to (e.g. dev, prod etc.). A corresponding manifest with name "manifest-<space>.yml" is expected
   working-directory:
@@ -35,11 +35,11 @@ runs:
 
     - name: Login to Cloud Foundry
       shell: bash
-      run: cf login -u "${{ inputs.cf-username }}" -p "${{ inputs.cf-password }}" -a "${{ inputs.cf-endpoint }}" -o "${{ inputs.cf-org }}" -s "${{ inputs.cf-space }}"
+      run: cf login -u "${{ inputs.username }}" -p "${{ inputs.password }}" -a "${{ inputs.endpoint }}" -o "${{ inputs.org }}" -s "${{ inputs.space }}"
 
-    - name: Deploy (${{ inputs.cf-space }})
+    - name: Deploy (${{ inputs.space }})
       shell: bash
-      run: cf push --manifest "./manifest-${{ inputs.cf-space }}.yml" --strategy rolling
+      run: cf push --manifest "./manifest-${{ inputs.space }}.yml" --strategy rolling
       working-directory: ${{ inputs.working-directory }}
 
     - name: Logout from Cloud Foundry
