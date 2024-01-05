@@ -27,7 +27,8 @@ export type SupportedErrorLangs = keyof typeof knownTranslations;
  *   'en',
  *   { valid: false, valueMissing: true, ... },
  *   { modelValue: '', ... }
- * ) => "Please fill in this field."
+ * )
+ * @returns "Please fill in this field."
  * ```
  */
 export const useFormValidationMessage = (
