@@ -3,17 +3,17 @@ import { toValue, type MaybeRefOrGetter } from "vue";
 type FormElementType = "email" | "number" | "password" | "search" | "tel" | "text" | "url";
 
 export type FormElementProps = Partial<{
-  required: boolean;
-  pattern: string;
+  required: HTMLInputElement["required"];
+  pattern: HTMLInputElement["pattern"];
   type: FormElementType;
-  max: number | string;
-  maxLength: number;
-  min: number | string;
+  max: HTMLInputElement["max"];
+  maxLength: HTMLInputElement["maxLength"];
+  min: HTMLInputElement["min"];
   /** expected minimal length of a string value. Warning: when the value is (pre)set by code,
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
-  minLength: number;
+  minLength: HTMLInputElement["minLength"];
 }>;
 
 export type SupportedErrorLangs = keyof typeof knownTranslations;
