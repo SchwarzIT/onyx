@@ -15,7 +15,8 @@ export type TestInputProps = {
   label?: string;
   /** A custom error message that will be shown (only when the input is invalid) */
   customErrorMessage?: string;
-  /** The selected language key */
+  /** The selected language key, used for error messages of invalid inputs.
+   * If empty, error messages will default to the browser language. */
   lang?: SupportedErrorLangs;
 } & FormElementProps;
 
