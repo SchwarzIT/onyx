@@ -15,6 +15,20 @@ that are used by our Onyx components like texts for cancel / confirm buttons or 
 English is always supported so you don't need to do anything if you only need English texts.
 :::
 
+## Build-in languages
+
+<ul>
+  <li v-for="language in data.languages" :key="language">
+    {{ language.name }} ({{ Math.round(language.keyCount / data.totalKeys * 100) }}% translated)
+  </li>
+</ul>
+
+::: details Which texts are translated?
+Below you can find all translatable texts that are used by our components.
+
+<<< ../../../../packages/sit-onyx/src/i18n/locales/en-US.json
+:::
+
 ## Usage
 
 You need to globally provide the i18n instance for Onyx. We assume that you are already using some third-party library such as `vue-i18n`
@@ -44,18 +58,6 @@ provideI18n({
 :::
 
 That's it. All built-in component texts are not also available in German and the locale is synced with `vue-i18n`.
-
-## Build-in languages
-
-<ul>
-  <li v-for="language in data.languages" :key="language">{{ language }}</li>
-</ul>
-
-::: details Which texts are translated?
-Below you can find all translatable texts that are used by our components.
-
-<<< ../../../../packages/sit-onyx/src/i18n/locales/en-US.json
-:::
 
 ## Custom translations
 
