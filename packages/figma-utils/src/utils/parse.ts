@@ -59,16 +59,9 @@ export const parseFigmaVariables = (
     });
   });
 
-  // sort default mode to be
-  parsedData.sort((a, b) => {
-    if (a.modeName === DEFAULT_MODE_NAME) return -1;
-    if (b.modeName === DEFAULT_MODE_NAME) return 1;
-    return 0;
+  parsedData.forEach((data) => {
+    if (data.modeName === "DEFAULT_MODE_NAME") delete data.modeName;
   });
-
-  if (parsedData[0].modeName === DEFAULT_MODE_NAME) {
-    delete parsedData[0].modeName;
-  }
 
   return parsedData;
 };

@@ -79,7 +79,7 @@ export const importCommand = new Command("import-variables")
       if (!isModeIncluded) return;
 
       const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
-      const fullPath = path.join(outputDirectory, `${baseName}.${options.format}`);
+      const fullPath = path.join(outputDirectory, `${baseName}.${options.format.toLowerCase()}`);
       fs.writeFileSync(fullPath, generators[options.format as keyof typeof generators](data));
     });
 
