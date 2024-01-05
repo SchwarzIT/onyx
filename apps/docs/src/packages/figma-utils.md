@@ -30,7 +30,7 @@ npx @sit-onyx/figma-utils@1 --help
 
 ## Use as npm package
 
-If you don't want to use the CLI, this package also provides utility functions for exporting data from the Figma API.
+If you don't want to use the CLI, this package also provides utility functions for importing data from the Figma API.
 This is useful if you want customize the CLI commands to have full control over the output.
 
 Install the npm package with your corresponding package manager:
@@ -53,7 +53,7 @@ yarn install @sit-onyx/figma-utils
 
 ### Examples
 
-#### Export Figma variables
+#### Import Figma variables to CSS/SCSS variables
 
 ```ts
 import fs from "node:fs";

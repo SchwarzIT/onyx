@@ -68,7 +68,7 @@ const genericGenerator = (options: GenericGeneratorOptions) => {
  * Do not edit directly.${
    mode ? `\n * This file contains the specific variables for the "${mode}" theme.` : ""
  }
- * Exported from Figma API on ${timestamp}
+ * Imported from Figma API on ${timestamp}
  */
 :root {\n${variableContent.join("\n")}\n}\n`;
 };

@@ -1,16 +1,16 @@
-name: Export Figma variables
+name: Import Figma variables
 on:
   workflow_dispatch:
     inputs:
       stage:
-        description: Stage to use for the export
+        description: Stage to use for the import
         type: environment
         required: true
         default: dev
 
 jobs:
-  export:
-    name: Export Figma variables
+  import:
+    name: Import Figma variables
     runs-on: ubuntu-latest
     environment: ${{ inputs.stage }}
     steps:
@@ -31,9 +31,9 @@ jobs:
         run: pnpm run build
         working-directory: packages/figma-utils
 
-      - name: Export variables
+      - name: Import variables
         run: |
-          pnpm run @sit-onyx/figma-utils export-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx light dark
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx light dark
         working-directory: packages/figma-utils
 
       - name: Create pull request
@@ -41,7 +41,7 @@ jobs:
         with:
           commit-message: "feat: update Figma variables"
           title: "feat: update Figma variables"
-          body: This is an auto-generated pull request. All Figma variables have been updated / exported.
+          body: This is an auto-generated pull request. All Figma variables have been updated.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}

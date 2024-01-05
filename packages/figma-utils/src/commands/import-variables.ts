@@ -9,7 +9,7 @@ import {
   parseFigmaVariables,
 } from "../index.js";
 
-type ExportCommandOptions = {
+type ImportCommandOptions = {
   fileKey: string;
   token: string;
   filename: string;
@@ -18,8 +18,8 @@ type ExportCommandOptions = {
   modes?: string[];
 };
 
-export const exportCommand = new Command("export-variables")
-  .description("CLI tool to export Figma variables into CSS, SCSS etc. variables.")
+export const importCommand = new Command("import-variables")
+  .description("CLI tool to import Figma variables into CSS, SCSS etc. variables.")
   .requiredOption("-k, --file-key <string>", "Figma file key (required)")
   .requiredOption(
     "-t, --token <string>",
@@ -35,7 +35,7 @@ export const exportCommand = new Command("export-variables")
     "-m, --modes <strings...>",
     "Can be used to only export specific Figma modes. If unset, all modes will be exported as a separate file.",
   )
-  .action(async (options: ExportCommandOptions) => {
+  .action(async (options: ImportCommandOptions) => {
     const generators = {
       CSS: generateAsCSS,
       SCSS: generateAsSCSS,

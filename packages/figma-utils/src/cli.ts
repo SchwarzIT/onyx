@@ -2,7 +2,7 @@
 import { Command } from "commander";
 import fs from "node:fs";
 import { fileURLToPath, URL } from "node:url";
-import { exportCommand } from "./commands/export-variables.js";
+import { importCommand } from "./commands/import-variables.js";
 
 const packageJson = JSON.parse(
   fs.readFileSync(fileURLToPath(new URL("../package.json", import.meta.url)), "utf8"),
@@ -11,7 +11,7 @@ const packageJson = JSON.parse(
 const cli = new Command();
 cli.version(packageJson.version, "-v, --version").description(packageJson.description);
 
-const availableCommands = [exportCommand];
+const availableCommands = [importCommand];
 availableCommands.forEach((command) => cli.addCommand(command));
 
 cli.parse();

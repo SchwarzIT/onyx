@@ -1,6 +1,6 @@
 # @sit-onyx/figma-utils
 
-Utility functions and CLI for exporting data from the Figma API.
+Utility functions and CLI for importing data from the Figma API into CSS/SCSS variables.
 
 ## Use as CLI
 
@@ -12,7 +12,7 @@ npx @sit-onyx/figma-utils@latest --help
 
 ## Use as npm package
 
-This package also provides utility functions for exporting data from the Figma API.
+This package also provides utility functions for importing data from the Figma API.
 This is useful if you want customize the CLI commands to have full control over the output.
 
 ```sh
