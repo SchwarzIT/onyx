@@ -48,7 +48,7 @@ provideI18n({
   // The Onyx locale will be updated whenever your vue-i18n locale changes
   locale,
   fallbackLocale,
-  // make sure that the key for each langauge is the same that you are using
+  // make sure that the key for each language is the same that you are using
   // for your vue-i18n JSON files
   messages: { "de-DE": deDE },
 });
