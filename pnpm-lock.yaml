@@ -141,9 +141,6 @@ importers:
 
   packages/storybook-utils:
     dependencies:
-      '@storybook/client-api':
-        specifier: '>= 7'
-        version: 7.6.7
       '@storybook/core-events':
         specifier: '>= 7'
         version: 7.6.7
@@ -3510,13 +3507,6 @@ packages:
       - supports-color
       - utf-8-validate
     dev: true
-
-  /@storybook/client-api@7.6.7:
-    resolution: {integrity: sha512-nhQL2dtr6/MHY+FPmK55lyLR0by+J6wnfbs8znkSC08zhRXwHBYQpX7TrBwq2RrmzWbIcqgWvIHpbDsKonMNjA==}
-    dependencies:
-      '@storybook/client-logger': 7.6.7
-      '@storybook/preview-api': 7.6.7
-    dev: false
 
   /@storybook/client-logger@7.6.7:
     resolution: {integrity: sha512-A16zpWgsa0gSdXMR9P3bWVdC9u/1B1oG4H7Z1+JhNzgnL3CdyOYO0qFSiAtNBso4nOjIAJVb6/AoBzdRhmSVQg==}

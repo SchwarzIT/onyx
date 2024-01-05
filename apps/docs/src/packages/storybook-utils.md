@@ -22,15 +22,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/storybook-utils storybook-dark-mode
+pnpm add -D @sit-onyx/storybook-utils
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/storybook-utils storybook-dark-mode
+npm install -D @sit-onyx/storybook-utils
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/storybook-utils storybook-dark-mode
+yarn install -D @sit-onyx/storybook-utils
 ```
 
 :::
