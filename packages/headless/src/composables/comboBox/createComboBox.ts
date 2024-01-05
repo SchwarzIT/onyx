@@ -1,6 +1,6 @@
 import { computed, ref, type Ref } from "vue";
-import { createId } from "../utils/id";
-import { createBuilder, computeIterated } from "../utils/builder";
+import { createId } from "../../utils/id";
+import { createBuilder, computeIterated } from "../../utils/builder";
 
 export const createComboBox = createBuilder(
   ({
@@ -81,7 +81,7 @@ export const createComboBox = createBuilder(
           id: labelId,
         },
         listBox: computed(() => ({
-          role: "listBox",
+          role: "listbox",
           id: controlsId,
         })),
         option: computeIterated<{ key: string; label: string; disabled: boolean }>(
@@ -101,7 +101,7 @@ export const createComboBox = createBuilder(
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
           "aria-labelledby": labelId,
-          "aria-activedescendant": activeKey.value,
+          "aria-activedescendant": activeKey.value ? getOptionId(activeKey.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
           onBlur: handleBlur,
