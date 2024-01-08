@@ -35,9 +35,9 @@ export type SupportedErrorLangs = keyof typeof knownTranslations;
  */
 export const useFormValidationMessage = (
   validityState: MaybeRefOrGetter<ValidityState>,
-  props: FormElementProps & { modelValue: string | number; lang: SupportedErrorLangs },
+  props: FormElementProps & { modelValue: string | number; lang?: SupportedErrorLangs },
 ) => {
-  if (toValue(validityState).valid) return "";
+  if (toValue(validityState).valid || !props.lang) return "";
 
   const errorMessage = knownTranslations[toValue(props.lang)];
   const currentState = toValue(validityState);
