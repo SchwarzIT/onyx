@@ -1,11 +1,11 @@
 import { toValue, type MaybeRefOrGetter } from "vue";
 
-type FormElementType = "email" | "number" | "password" | "search" | "tel" | "text" | "url";
+export type InputType = "email" | "number" | "password" | "search" | "tel" | "text" | "url";
 
 export type FormElementProps = Partial<{
   required: HTMLInputElement["required"];
   pattern: HTMLInputElement["pattern"];
-  type: FormElementType;
+  type: InputType;
   max: HTMLInputElement["max"];
   maxLength: HTMLInputElement["maxLength"];
   min: HTMLInputElement["min"];
@@ -65,7 +65,7 @@ const knownTranslations = {
       } Zeichen.`,
     rangeOverflow: (limit: string) => `Wert muss kleiner als oder gleich ${limit} sein.`,
     rangeUnderflow: (limit: string) => `Wert muss größer als oder gleich ${limit} sein.`,
-    typeMismatch: (value: string | number, type: FormElementType) => {
+    typeMismatch: (value: string | number, type: InputType) => {
       switch (type) {
         case "email":
           return `'${value}' muss eine Valide E-Mail-Adresse sein.${
@@ -99,7 +99,7 @@ const knownTranslations = {
     },
     rangeOverflow: (limit: string) => `Value must be less than or equal to ${limit}.`,
     rangeUnderflow: (limit: string) => `Value must be greater than or equal to ${limit}.`,
-    typeMismatch: (value: string | number, type: FormElementType) => {
+    typeMismatch: (value: string | number, type: InputType) => {
       switch (type) {
         case "email":
           return `'${value}' must be a valid email address.${
