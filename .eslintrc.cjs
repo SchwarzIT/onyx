@@ -36,8 +36,8 @@ module.exports = {
         },
       },
     ],
-    // This rule is less relevant for the composition API.
-    // Docs with options API example where it makes sense: https://eslint.vuejs.org/rules/require-default-prop
+    // this rule is only really relevant for the options API so we disable it here
+    // see: https://eslint.vuejs.org/rules/require-default-prop
     "vue/require-default-prop": "off",
   },
 };

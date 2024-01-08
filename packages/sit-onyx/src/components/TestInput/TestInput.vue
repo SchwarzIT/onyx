@@ -13,10 +13,15 @@ export type TestInputProps = {
   modelValue?: string | number;
   /** Label to show next to the input */
   label?: string;
-  /** A custom error message that will be shown (only when the input is invalid) */
-  customErrorMessage?: string;
-  /** The selected language key, used for error messages of invalid inputs.
-   * If empty, error messages will default to the browser language. */
+  /**
+   * Error message to show when the input is invalid.
+   * @default Default message depending on the browser language and validation
+   */
+  errorMessage?: string;
+  /** 
+   * Language to use for error messages.
+   * If empty, the error message defaults to the browser language and validation
+   */
   lang?: SupportedErrorLangs;
 } & FormElementProps;
 
@@ -41,7 +46,7 @@ const isTouched = ref(false);
 
 const coreElement = ref<HTMLInputElement | null>(null);
 
-const validityState = ref<ValidityState | undefined>(coreElement.value?.validity);
+const validityState = ref(coreElement.value?.validity);
 
 const errorMessage = computed(() => {
   /* when the validity state is uninitialized or the form is valid, we don't show an error. */
@@ -67,29 +72,20 @@ const handleChange = (event: Event) => {
   emit("change", target.value);
 };
 
-onMounted(() => {
-  /* element will always be truthy onMounted */
-  const element = coreElement.value;
-  if (element) {
-    watch(
-      value,
-      () => {
-        /* we need to destructure so that the emitter below fires properly. */
-        validityState.value = { ...element.validity };
-      },
-      { immediate: true },
-    );
-    watch(
-      validityState,
-      () => {
-        if (element.validity) {
-          emit("validityChange", element.validity);
-        }
-      },
-      { deep: true },
-    );
-  }
+watch([value, coreElement], () => {
+  // update validity state when value changes
+  if (!coreElement.value) return;
+  validityState.value = coreElement.value.validity;
 });
+
+watch(
+  validityState,
+  (newValidity) => {
+    if (!newValidity) return;
+    emit("validityChange", newValidity);
+  },
+  { deep: true },
+);
 </script>
 
 <template>

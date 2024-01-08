@@ -10,7 +10,7 @@ test("should display label", async ({ mount }) => {
 test("should validate required inputs", async ({ mount }) => {
   const component = await mount(<TestInput label="Demo" required lang="en" />);
   const input = component.getByLabel('DemoModel value: "",');
-  await input.click();
-  await input.press("Tab");
+  await input.focus();
+  await input.blur();
   await expect(component).toContainText("Please fill in this field.");
 });
