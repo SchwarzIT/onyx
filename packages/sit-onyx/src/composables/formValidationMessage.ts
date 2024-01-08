@@ -9,7 +9,8 @@ export type FormElementProps = Partial<{
   max: HTMLInputElement["max"];
   maxLength: HTMLInputElement["maxLength"];
   min: HTMLInputElement["min"];
-  /** expected minimal length of a string value. Warning: when the value is (pre)set by code,
+  /**
+   * Expected minimal length of a string value. Warning: when the value is (pre)set by code,
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
@@ -18,7 +19,8 @@ export type FormElementProps = Partial<{
 
 export type SupportedErrorLangs = keyof typeof knownTranslations;
 
-/** Analyses the given validity state and returns the corresponding error message in the given language.
+/**
+ * Analyses the given validity state and returns the corresponding error message in the given language.
  * Returns an empty string in case there is no error.
  *
  * @example

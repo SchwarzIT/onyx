@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import {
   useFormValidationMessage,
-  type SupportedErrorLangs,
   type FormElementProps,
+  type SupportedErrorLangs,
 } from "@/composables/formValidationMessage";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 export type TestInputProps = {
-  /** The current input value
+  /**
+   * The current input value
    * TODO: remove the "number" once we separated number inputs from the other types.
    */
   modelValue?: string | number;
@@ -18,7 +19,7 @@ export type TestInputProps = {
    * @default Default message depending on the browser language and validation
    */
   errorMessage?: string;
-  /** 
+  /**
    * Language to use for error messages.
    * If empty, the error message defaults to the browser language and validation
    */
@@ -32,7 +33,8 @@ const props = withDefaults(defineProps<TestInputProps>(), {
 });
 
 const emit = defineEmits<{
-  /** Emitted when input value changes
+  /**
+   * Emitted when input value changes
    * TODO: remove the "number" once we separated number inputs from the other types.
    */
   "update:modelValue": [value: string | number];
