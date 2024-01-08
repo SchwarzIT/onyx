@@ -1,7 +1,7 @@
 /** All available Storybook breakpoints / viewports supported by Onyx. */
 export const ONYX_BREAKPOINTS = {
-  xsmall2 : {
-    name: "2xsmall",
+  xsmall2: {
+    name: "xsmall2",
     styles: {
       width: "320px",
       height: "100%",
