@@ -96,7 +96,6 @@ export const createComboBox = createBuilder(
         ),
         /** this is an input */
         input: computed(() => ({
-          "v-bind:is": "input",
           role: "combobox",
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
