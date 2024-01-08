@@ -1,6 +1,7 @@
 import { expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { provideI18n, useI18n } from ".";
+import type { ObjectToDottedStrings, Translation } from "..";
 
 vi.mock("vue", async (importOriginal) => {
   const module: typeof vue = await importOriginal();
@@ -22,6 +23,13 @@ vi.mock("./locales/en-US.json", () => {
     },
   };
 });
+
+/**
+ * This type is needed to type cast keys in the tests below
+ * because we will use custom test messages/keys which will not fit the type
+ * of our "real" component translations
+ */
+type TestTranslationKey = ObjectToDottedStrings<Translation>;
 
 test("should provide/inject i18n", () => {
   provideI18n({ locale: "test" });
@@ -53,17 +61,18 @@ test("should translate with/without placeholders", () => {
 
   const { t } = useI18n();
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  let message = t.value("plain" as any);
+  let message = t.value("plain" as TestTranslationKey);
   expect(message).toBe("Hello World");
 
-  message = t.value("placeholder" as any, { firstName: "John", lastName: "Doe" });
+  message = t.value("placeholder" as TestTranslationKey, {
+    firstName: "John",
+    lastName: "Doe",
+  });
   expect(message).toBe("Hello John Doe");
 
   // should return empty string for missing translation
-  message = t.value("does.not.exist" as any);
+  message = t.value("does.not.exist" as TestTranslationKey);
   expect(message).toBe("");
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 });
 
 test("should translate with pluralization", () => {
@@ -80,40 +89,38 @@ test("should translate with pluralization", () => {
 
   const { t } = useI18n();
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  let message = t.value("pluralization" as any, { n: 0 });
+  let message = t.value("pluralization" as TestTranslationKey, { n: 0 });
   expect(message).toBe("Zero items");
 
-  message = t.value("pluralization" as any, { n: 1 });
+  message = t.value("pluralization" as TestTranslationKey, { n: 1 });
   expect(message).toBe("1 item");
 
-  message = t.value("pluralization" as any, { n: 2 });
+  message = t.value("pluralization" as TestTranslationKey, { n: 2 });
   expect(message).toBe("2 items");
 
-  message = t.value("pluralization" as any, { n: -1 });
+  message = t.value("pluralization" as TestTranslationKey, { n: -1 });
   expect(message).toBe("-1 items");
 
-  message = t.value("pluralization" as any);
+  message = t.value("pluralization" as TestTranslationKey);
   expect(message).toBe("1 item");
 
-  message = t.value("pluralizationWithoutZero" as any, { n: 0 });
+  message = t.value("pluralizationWithoutZero" as TestTranslationKey, { n: 0 });
   expect(message).toBe("0 items");
 
-  message = t.value("pluralizationWithoutZero" as any, { n: 1 });
+  message = t.value("pluralizationWithoutZero" as TestTranslationKey, { n: 1 });
   expect(message).toBe("1 item");
 
-  message = t.value("pluralizationWithoutZero" as any, { n: 2 });
+  message = t.value("pluralizationWithoutZero" as TestTranslationKey, { n: 2 });
   expect(message).toBe("2 items");
 
-  message = t.value("withoutPluralization" as any, { n: 0 });
+  message = t.value("withoutPluralization" as TestTranslationKey, { n: 0 });
   expect(message).toBe("0 items");
 
-  message = t.value("withoutPluralization" as any, { n: 1 });
+  message = t.value("withoutPluralization" as TestTranslationKey, { n: 1 });
   expect(message).toBe("1 items");
 
-  message = t.value("withoutPluralization" as any, { n: 2 });
+  message = t.value("withoutPluralization" as TestTranslationKey, { n: 2 });
   expect(message).toBe("2 items");
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 });
 
 test("should update translation when locale changes", () => {
@@ -131,15 +138,13 @@ test("should update translation when locale changes", () => {
   });
   const { t } = useI18n();
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  let message = t.value("helloWorld" as any);
+  let message = t.value("helloWorld" as TestTranslationKey);
   expect(message).toBe("Hello World");
 
   locale.value = "de-DE";
 
-  message = t.value("helloWorld" as any);
+  message = t.value("helloWorld" as TestTranslationKey);
   expect(message).toBe("Hallo Welt");
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 });
 
 test("should use English fallback if translation is missing", () => {
@@ -153,10 +158,8 @@ test("should use English fallback if translation is missing", () => {
   });
   const { t } = useI18n();
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const message = t.value("helloWorld" as any);
+  const message = t.value("helloWorld" as TestTranslationKey);
 
   // see mock of module "./locales/en-US.json" at the top of the file
   expect(message).toBe("Hello World");
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 });
