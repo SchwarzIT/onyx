@@ -15,6 +15,14 @@ vi.mock("vue", async (importOriginal) => {
   };
 });
 
+vi.mock("./locales/en-US.json", () => {
+  return {
+    default: {
+      helloWorld: "Hello World",
+    },
+  };
+});
+
 test("should provide/inject i18n", () => {
   provideI18n({ locale: "test" });
   let i18n = useI18n();
@@ -131,5 +139,24 @@ test("should update translation when locale changes", () => {
 
   message = t.value("helloWorld" as any);
   expect(message).toBe("Hallo Welt");
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+});
+
+test("should use English fallback if translation is missing", () => {
+  provideI18n({
+    locale: "de-DE",
+    messages: {
+      "de-DE": {
+        notHelloWorld: "Hallo Welt",
+      },
+    },
+  });
+  const { t } = useI18n();
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const message = t.value("helloWorld" as any);
+
+  // see mock of module "./locales/en-US.json" at the top of the file
+  expect(message).toBe("Hello World");
   /* eslint-enable @typescript-eslint/no-explicit-any */
 });
