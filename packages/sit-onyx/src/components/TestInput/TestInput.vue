@@ -37,7 +37,7 @@ const handleChange = (event: Event) => {
 </script>
 
 <template>
-  {{ t("test.helloWorld") }}
+  {{ t("test.placeholder", { name: "Onyx" }) }}
   <label class="input">
     <span class="input__label" :class="{ 'input__label--required': props.required }">
       {{ props.label }}

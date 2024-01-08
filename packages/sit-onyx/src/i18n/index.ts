@@ -29,10 +29,10 @@ export type ProvideI18nOptions = {
    * }
    * ```
    */
-  messages?: Record<string, DeepPartial<Translation>>;
+  messages?: Record<string, DeepPartial<Translation> | Record<string, TranslationValue>>;
 };
 
-const I18N_INJECTION_KEY = Symbol() as InjectionKey<NonNullable<typeof i18n>>;
+const I18N_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createI18n>>;
 
 const createI18n = (options?: ProvideI18nOptions) => {
   const locale = computed(() => unref(options?.locale) ?? "en-US");
@@ -45,50 +45,79 @@ const createI18n = (options?: ProvideI18nOptions) => {
   });
 
   /**
-   * Resolves the given dotted key (e.g. `a.b.c`) to the translation value of the given messages.
-   * @returns Message value or undefined if translation does not exist.
-   */
-  const resolveMessage = (
-    key: ObjectToDottedStrings<Translation>,
-    messages: DeepPartial<Translation>,
-  ): string | undefined => {
-    // see https://stackoverflow.com/a/6394168
-    const message = key.split(".").reduce<TranslationValue | undefined>((obj, i) => {
-      if (!obj || typeof obj === "string") return obj;
-      return obj[i];
-    }, messages);
-
-    return message && typeof message === "string" ? message : undefined;
-  };
-
-  /**
    * Gets the translation for the given key.
    * If message is not found for current locale, English fallback will be used.
+   * @param placeholders Placeholders that will be replaced in the message string
+   * For pluralization, you must provide the placeholder `n`.
    */
   const t = computed(() => {
-    return (key: ObjectToDottedStrings<Translation>): string => {
-      const message = resolveMessage(key, messages.value);
+    return (
+      key: ObjectToDottedStrings<Translation>,
+      placeholders: Record<string, string | number> = {},
+    ): string => {
       // use English message as fallback
-      return message ?? resolveMessage(key, enUS) ?? "";
+      let message = resolveMessage(key, messages.value) ?? resolveMessage(key, enUS) ?? "";
+
+      if (placeholders) {
+        Object.entries(placeholders).forEach(([key, value]) => {
+          // "gi" is used to replace all occurrences because String.replaceAll() is not available
+          // in our specified EcmaScript target
+          message = message.replace(new RegExp(`{${key}}`, "gi"), value.toString());
+        });
+      }
+
+      return resolvePluralization(message, +placeholders.n);
     };
   });
 
   return { locale, t };
 };
 
-let i18n: ReturnType<typeof createI18n> | undefined;
-
 /**
  * Provides a global i18n instance that is used by Onyx.
- * Should only be called once in the `App.vue` file.
- * Otherwise the `i18n` will be overridden which can cause unexpected behavior.
+ * Must only be called once in the `App.vue` file.
  */
 export const provideI18n = (options: ProvideI18nOptions) => {
-  i18n = createI18n(options);
-  provide(I18N_INJECTION_KEY, i18n);
+  provide(I18N_INJECTION_KEY, createI18n(options));
 };
 
+/** Injects the Onyx i18n instance. */
 export const useI18n = () => {
   const fallbackValue = createI18n();
   return inject(I18N_INJECTION_KEY, fallbackValue);
+};
+
+/**
+ * Resolves the given dotted key (e.g. `a.b.c`) to the translation value of the given messages.
+ * @returns Message value or undefined if translation does not exist.
+ */
+const resolveMessage = (
+  key: ObjectToDottedStrings<Translation>,
+  messages: DeepPartial<Translation>,
+): string | undefined => {
+  // see https://stackoverflow.com/a/6394168
+  const message = key.split(".").reduce<TranslationValue | undefined>((obj, i) => {
+    if (!obj || typeof obj === "string") return obj;
+    return obj[i];
+  }, messages);
+
+  return message && typeof message === "string" ? message : undefined;
+};
+
+/**
+ * Returns the pluralized message (if multiple formats are defined using `" | "` separator.
+ */
+const resolvePluralization = (message: string, value?: number) => {
+  const formats = message.split(" | ").map((i) => i.trim());
+  if (formats.length <= 1) return message;
+
+  let pluralization: 0 | 1 | 2 = 1;
+  if (value === 0) pluralization = 0;
+  if (value && (value <= 0 || value > 1)) pluralization = 2;
+
+  if (formats.length === 2) {
+    return pluralization === 1 ? formats[0] : formats[1];
+  }
+
+  return formats[pluralization];
 };
