@@ -1,42 +1,42 @@
 /** All available Storybook breakpoints / viewports supported by Onyx. */
 export const ONYX_BREAKPOINTS = {
-  xsmall2: {
-    name: "xsmall2",
+  "2xs": {
+    name: "2xs",
     styles: {
       width: "320px",
       height: "100%",
     },
   },
-  xsmall: {
-    name: "xsmall",
+  xs: {
+    name: "xs",
     styles: {
       width: "576px",
       height: "100%",
     },
   },
-  small: {
-    name: "small",
+  sm: {
+    name: "sm",
     styles: {
       width: "768px",
       height: "100%",
     },
   },
-  medium: {
-    name: "medium",
+  md: {
+    name: "md",
     styles: {
       width: "992px",
       height: "100%",
     },
   },
-  large: {
-    name: "large",
+  lg: {
+    name: "lg",
     styles: {
       width: "1440px",
       height: "100%",
     },
   },
-  xlarge: {
-    name: "xlarge",
+  xl: {
+    name: "xl",
     styles: {
       width: "1920px",
       height: "100%",
