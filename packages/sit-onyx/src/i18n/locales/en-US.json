@@ -1,6 +1,3 @@
 {
-  "test": {
-    "placeholder": "Hello {name}!",
-    "plural": "0 items | 1 item | {n} items"
-  }
+  "helloWorld": "Hello World"
 }
