@@ -15,6 +15,10 @@ const meta: Meta<typeof TestInput> = {
         options: ["email", "number", "password", "search", "tel", "text", "url"],
         control: { type: "select" },
       },
+      lang: {
+        options: ["de", "en"],
+        control: { type: "select" },
+      },
     },
   }),
 };
