@@ -1,0 +1,28 @@
+{
+  "name": "@sit-onyx/figma-utils",
+  "description": "Utility functions and CLI for importing data from the Figma API into CSS/SCSS variables",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "@sit-onyx/figma-utils": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "@sit-onyx/figma-utils": "node ./dist/cli.js"
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  }
+}
