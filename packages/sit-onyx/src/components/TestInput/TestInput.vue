@@ -5,8 +5,6 @@ import {
 } from "@/composables/formValidationMessage";
 import { computed, ref, watch } from "vue";
 
-export type InputType = "email" | "number" | "password" | "search" | "tel" | "text" | "url";
-
 export type TestInputProps = {
   /**
    * The current input value
@@ -26,27 +24,27 @@ export type TestInputProps = {
    */
   lang?: SupportedErrorLangs;
   /** For validation: Whether a non-empty value is required */
-  required?: HTMLInputElement["required"];
+  required?: boolean;
   /** For validation: The pattern that the value must match */
-  pattern?: HTMLInputElement["pattern"];
+  pattern?: string;
   /** For validation: The expected type of the input's value */
-  type?: InputType;
+  type?: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
   /** For validation: The upper limit of a number value */
-  max?: HTMLInputElement["max"];
+  max?: number;
   /**
    * For validation: Expected maximal length of a string value. Warning: when the value is (pre)set by code,
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
-  maxLength?: HTMLInputElement["maxLength"];
+  maxLength?: number;
   /** For validation: The lower limit of a number value */
-  min?: HTMLInputElement["min"];
+  min?: number;
   /**
    * For validation:Expected minimal length of a string value. Warning: when the value is (pre)set by code,
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
-  minLength: HTMLInputElement["minLength"];
+  minLength: number;
 };
 
 const props = withDefaults(defineProps<TestInputProps>(), {

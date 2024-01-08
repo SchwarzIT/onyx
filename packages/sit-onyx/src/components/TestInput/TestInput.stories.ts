@@ -10,6 +10,12 @@ const meta: Meta<typeof TestInput> = {
   ...defineStorybookActionsAndVModels({
     component: TestInput,
     events: ["update:modelValue", "change", "validityChange"],
+    argTypes: {
+      type: {
+        options: ["email", "number", "password", "search", "tel", "text", "url"],
+        control: { type: "select" },
+      },
+    },
   }),
 };
 
