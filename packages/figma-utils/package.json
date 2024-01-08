@@ -18,6 +18,15 @@
       "import": "./dist/index.js"
     }
   },
+  "homepage": "https://onyx.schwarz/packages/figma-utils.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/figma-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "@sit-onyx/figma-utils": "node ./dist/cli.js"
