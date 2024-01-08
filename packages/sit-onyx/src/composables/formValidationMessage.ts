@@ -34,13 +34,12 @@ export type SupportedErrorLangs = keyof typeof knownTranslations;
  * ```
  */
 export const useFormValidationMessage = (
-  language: MaybeRefOrGetter<SupportedErrorLangs>,
   validityState: MaybeRefOrGetter<ValidityState>,
-  props: FormElementProps & { modelValue: string | number },
+  props: FormElementProps & { modelValue: string | number; lang: SupportedErrorLangs },
 ) => {
   if (toValue(validityState).valid) return "";
 
-  const errorMessage = knownTranslations[toValue(language)];
+  const errorMessage = knownTranslations[toValue(props.lang)];
   const currentState = toValue(validityState);
   if (currentState.valueMissing) return errorMessage.valueMissing;
   if (currentState.patternMismatch) return errorMessage.patternMismatch;

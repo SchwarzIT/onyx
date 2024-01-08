@@ -46,20 +46,20 @@ const emit = defineEmits<{
 
 const isTouched = ref(false);
 
-const coreElement = ref<HTMLInputElement | null>(null);
+const inputElement = ref<HTMLInputElement | null>(null);
 
-const validityState = ref(coreElement.value?.validity);
+const validityState = ref(inputElement.value?.validity);
 
 const errorMessage = computed(() => {
   /* when the validity state is uninitialized or the form is valid, we don't show an error. */
   if (!validityState.value || validityState.value.valid) return "";
   /* a custom error message always is considered first */
-  if (props.customErrorMessage) return props.customErrorMessage;
+  if (props.errorMessage) return props.errorMessage;
 
-  const element = coreElement.value;
+  const element = inputElement.value;
   /* when a language key is provided, we offer our own translations of the error messages 
   to match the rest of the user's application */
-  if (props.lang && element) return useFormValidationMessage(props.lang, element.validity, props);
+  if (props.lang && element) return useFormValidationMessage(element.validity, props);
   /* we default to the browser's standard validation message that relies on the browser language */
   return element?.validationMessage || "";
 });
@@ -74,10 +74,10 @@ const handleChange = (event: Event) => {
   emit("change", target.value);
 };
 
-watch([value, coreElement], () => {
+watch([value, inputElement], () => {
   // update validity state when value changes
-  if (!coreElement.value) return;
-  validityState.value = coreElement.value.validity;
+  if (!inputElement.value) return;
+  validityState.value = inputElement.value.validity;
 });
 
 watch(
@@ -97,7 +97,7 @@ watch(
     </span>
     <input
       v-bind="props"
-      ref="coreElement"
+      ref="inputElement"
       v-model="value"
       @change="handleChange"
       @blur="isTouched = true"
