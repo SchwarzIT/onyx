@@ -1,4 +1,4 @@
-import type { DeepPartial, ObjectToDottedStrings } from "@/types";
+import type { DeepPartial, ObjectToDottedStrings, TranslationValue } from "@/types";
 import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 
@@ -9,15 +9,11 @@ export type ProvideI18nOptions = {
    * Current locale / language to use.
    * If a ref is passed (e.g. the locale from the `vue-i18n` package)
    * all Onyx messages will be updated if it changes (if locale is supported).
+   * If a message is missing for your currently set locale, English will be used as fallback.
    *
    * @default "en-US"
    */
   locale?: MaybeRef<string>;
-  /**
-   * Locale to use a translation is missing for the current locale.
-   * @default "en-US"
-   */
-  fallbackLocale?: MaybeRef<string>;
   /**
    * Available translations / messages. English is always supported. For build-in translations, see:
    * https://github.com/SchwarzIT/onyx/tree/main/packages/sit-onyx/src/i18n/locales
@@ -48,12 +44,32 @@ const createI18n = (options?: ProvideI18nOptions) => {
     return enUS;
   });
 
-  /** Gets the translation for the given key. */
+  /**
+   * Resolves the given dotted key (e.g. `a.b.c`) to the translation value of the given messages.
+   * @returns Message value or undefined if translation does not exist.
+   */
+  const resolveMessage = (
+    key: ObjectToDottedStrings<Translation>,
+    messages: DeepPartial<Translation>,
+  ): string | undefined => {
+    // see https://stackoverflow.com/a/6394168
+    const message = key.split(".").reduce<TranslationValue | undefined>((obj, i) => {
+      if (!obj || typeof obj === "string") return obj;
+      return obj[i];
+    }, messages);
+
+    return message && typeof message === "string" ? message : undefined;
+  };
+
+  /**
+   * Gets the translation for the given key.
+   * If message is not found for current locale, English fallback will be used.
+   */
   const t = computed(() => {
     return (key: ObjectToDottedStrings<Translation>): string => {
-      // see https://stackoverflow.com/a/6394168
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return key.split(".").reduce((obj, i) => (obj as any)[i], messages.value);
+      const message = resolveMessage(key, messages.value);
+      // use English message as fallback
+      return message ?? resolveMessage(key, enUS) ?? "";
     };
   });
 
@@ -65,9 +81,10 @@ let i18n: ReturnType<typeof createI18n> | undefined;
 /**
  * Provides a global i18n instance that is used by Onyx.
  * Should only be called once in the `App.vue` file.
+ * Otherwise the `i18n` will be overridden which can cause unexpected behavior.
  */
 export const provideI18n = (options: ProvideI18nOptions) => {
-  if (!i18n) i18n = createI18n(options);
+  i18n = createI18n(options);
   provide(I18N_INJECTION_KEY, i18n);
 };
 

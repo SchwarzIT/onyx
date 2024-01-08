@@ -42,12 +42,11 @@ import { provideI18n } from "sit-onyx";
 import deDE from "sit-onyx/locales/de-DE.json";
 import { useI18n } from "vue-i18n";
 
-const { locale, fallbackLocale } = useI18n();
+const { locale } = useI18n();
 
 provideI18n({
   // The Onyx locale will be updated whenever your vue-i18n locale changes
   locale,
-  fallbackLocale,
   // make sure that the key for each language is the same that you are using
   // for your vue-i18n JSON files
   messages: { "de-DE": deDE },

@@ -25,6 +25,25 @@ type Join<T extends string[], D extends string> = T extends []
         : never
       : string;
 
+type NestedMessage = { [key: string]: string | NestedMessage };
+
+/**
+ * Translation value. Can either by a string or nested object with more translation values.
+ * @example
+ * ```ts
+ * // simple value
+ * { someKey: "Hello World" }
+ *
+ * // nested value
+ * {
+ *   someKey: {
+ *     someOtherKey: "Hello World"
+ *   }
+ * }
+ * ```
+ */
+export type TranslationValue = string | { [key: string]: string | NestedMessage };
+
 /**
  * Gets a union type of deeply joined keys from an object.
  *
@@ -41,7 +60,4 @@ type Join<T extends string[], D extends string> = T extends []
  * ```
  * @see https://stackoverflow.com/a/47058976
  */
-export type ObjectToDottedStrings<T extends Record<string, string | object>> = Join<
-  PathsToStringProps<T>,
-  "."
->;
+export type ObjectToDottedStrings<T extends TranslationValue> = Join<PathsToStringProps<T>, ".">;
