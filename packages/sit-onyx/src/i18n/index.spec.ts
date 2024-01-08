@@ -107,3 +107,29 @@ test("should translate with pluralization", () => {
   expect(message).toBe("2 items");
   /* eslint-enable @typescript-eslint/no-explicit-any */
 });
+
+test("should update translation when locale changes", () => {
+  const locale = vue.ref("en-US");
+  provideI18n({
+    locale,
+    messages: {
+      "en-US": {
+        helloWorld: "Hello World",
+      },
+      "de-DE": {
+        helloWorld: "Hallo Welt",
+      },
+    },
+  });
+  const { t } = useI18n();
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  let message = t.value("helloWorld" as any);
+  expect(message).toBe("Hello World");
+
+  locale.value = "de-DE";
+
+  message = t.value("helloWorld" as any);
+  expect(message).toBe("Hallo Welt");
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+});
