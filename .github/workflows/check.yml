@@ -41,29 +41,16 @@ jobs:
       - name: 🚨 Run unit tests
         run: pnpm run test:unit:coverage:all
 
-      # install system dependencies for Playwright
-      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
-      - name: 📦 Install Playwright system dependencies
-        run: pnpm exec playwright install-deps
-        working-directory: packages/sit-onyx
-
-      - name: 🚨 Run component tests
-        run: pnpm run test:components
-        working-directory: packages/sit-onyx
-
       # make sure that publint is only run after all packages have been built
       - name: Run publint
         run: pnpm run publint:all
 
-      - name: Upload test results artifact
+      - name: Upload code coverage artifact
         uses: actions/upload-artifact@v3
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
-          name: test-results
-          path: |
-            packages/sit-onyx/coverage
-            packages/sit-onyx/playwright-report
-            packages/sit-onyx/test-results
+          name: coverage
+          path: packages/sit-onyx/coverage
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v3
@@ -76,3 +63,26 @@ jobs:
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
+
+  playwright:
+    name: Component tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🚨 Run component tests
+        uses: ./.github/templates/playwright
+        with:
+          script: test:components
+          working-directory: packages/sit-onyx
