@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import {
   useFormValidationMessage,
-  type FormElementProps,
   type SupportedErrorLangs,
 } from "@/composables/formValidationMessage";
 import { computed, ref, watch } from "vue";
+
+export type InputType = "email" | "number" | "password" | "search" | "tel" | "text" | "url";
 
 export type TestInputProps = {
   /**
@@ -24,7 +25,29 @@ export type TestInputProps = {
    * If empty, the error message defaults to the browser language and validation
    */
   lang?: SupportedErrorLangs;
-} & FormElementProps;
+  /** For validation: Whether a non-empty value is required */
+  required?: HTMLInputElement["required"];
+  /** For validation: The pattern that the value must match */
+  pattern?: HTMLInputElement["pattern"];
+  /** For validation: The expected type of the input's value */
+  type?: InputType;
+  /** For validation: The upper limit of a number value */
+  max?: HTMLInputElement["max"];
+  /**
+   * For validation: Expected maximal length of a string value. Warning: when the value is (pre)set by code,
+   * the input invalidity can not be detected by the browser, it will only show as invalid
+   * as soon as a user interacts with the input (types something).
+   */
+  maxLength?: HTMLInputElement["maxLength"];
+  /** For validation: The lower limit of a number value */
+  min?: HTMLInputElement["min"];
+  /**
+   * For validation:Expected minimal length of a string value. Warning: when the value is (pre)set by code,
+   * the input invalidity can not be detected by the browser, it will only show as invalid
+   * as soon as a user interacts with the input (types something).
+   */
+  minLength: HTMLInputElement["minLength"];
+};
 
 const props = withDefaults(defineProps<TestInputProps>(), {
   modelValue: "",

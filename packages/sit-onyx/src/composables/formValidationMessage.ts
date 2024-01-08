@@ -1,21 +1,6 @@
+import type { TestInputProps } from "@/components/TestInput/TestInput.vue";
 import { toValue, type MaybeRefOrGetter } from "vue";
-
-export type InputType = "email" | "number" | "password" | "search" | "tel" | "text" | "url";
-
-export type FormElementProps = Partial<{
-  required: HTMLInputElement["required"];
-  pattern: HTMLInputElement["pattern"];
-  type: InputType;
-  max: HTMLInputElement["max"];
-  maxLength: HTMLInputElement["maxLength"];
-  min: HTMLInputElement["min"];
-  /**
-   * Expected minimal length of a string value. Warning: when the value is (pre)set by code,
-   * the input invalidity can not be detected by the browser, it will only show as invalid
-   * as soon as a user interacts with the input (types something).
-   */
-  minLength: HTMLInputElement["minLength"];
-}>;
+import type { InputType } from "zlib";
 
 export type SupportedErrorLangs = keyof typeof knownTranslations;
 
@@ -35,7 +20,7 @@ export type SupportedErrorLangs = keyof typeof knownTranslations;
  */
 export const useFormValidationMessage = (
   validityState: MaybeRefOrGetter<ValidityState>,
-  props: FormElementProps & { modelValue: string | number; lang?: SupportedErrorLangs },
+  props: TestInputProps,
 ) => {
   if (toValue(validityState).valid || !props.lang) return "";
 
@@ -43,11 +28,12 @@ export const useFormValidationMessage = (
   const currentState = toValue(validityState);
   if (currentState.valueMissing) return errorMessage.valueMissing;
   if (currentState.patternMismatch) return errorMessage.patternMismatch;
-  if (currentState.tooLong) return errorMessage.tooLong(props.modelValue, props.maxLength!);
-  if (currentState.tooShort) return errorMessage.tooShort(props.modelValue, props.minLength!);
+  if (currentState.tooLong) return errorMessage.tooLong(props.modelValue || "", props.maxLength!);
+  if (currentState.tooShort) return errorMessage.tooShort(props.modelValue || "", props.minLength!);
   if (currentState.rangeOverflow) return errorMessage.rangeOverflow(`${props.max}`);
   if (currentState.rangeUnderflow) return errorMessage.rangeUnderflow(`${props.min}`);
-  if (currentState.typeMismatch) return errorMessage.typeMismatch(props.modelValue, props.type!);
+  if (currentState.typeMismatch)
+    return errorMessage.typeMismatch(props.modelValue || "", props.type!);
 
   return "";
 };
