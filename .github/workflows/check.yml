@@ -22,7 +22,7 @@ jobs:
         run: pnpm install
 
       - name: 🔎 Lint
-        run: pnpm run lint:ci
+        run: pnpm run lint:ci:all
         # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
         continue-on-error: true
 
@@ -33,23 +33,13 @@ jobs:
           wait-for-processing: true
 
       - name: 🔎 Check formatting
-        run: pnpm run format:check
+        run: pnpm run format:check:all
 
-      - name: 🛠️ Build
-        run: pnpm run build
-        working-directory: packages/sit-onyx
-
-      - name: 🛠️ Build Storybook
-        run: pnpm run build:storybook
-        working-directory: packages/sit-onyx
-
-      - name: 🛠️ Build documentation
-        run: pnpm run build
-        working-directory: apps/docs
+      - name: 🛠️ Build packages
+        run: pnpm run build:all
 
       - name: 🚨 Run unit tests
-        run: pnpm run test:unit:coverage
-        working-directory: packages/sit-onyx
+        run: pnpm run test:unit:coverage:all
 
       # install system dependencies for Playwright
       # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
@@ -61,17 +51,9 @@ jobs:
         run: pnpm run test:components
         working-directory: packages/sit-onyx
 
-      - name: 🔎 Type check Storybook utils
-        run: pnpm run type-check
-        working-directory: packages/storybook-utils
-
-      - name: 🛠️ Build Figma utils
-        run: pnpm run build
-        working-directory: packages/figma-utils
-
       # make sure that publint is only run after all packages have been built
       - name: Run publint
-        run: pnpm run publint
+        run: pnpm run publint:all
 
       - name: Upload test results artifact
         uses: actions/upload-artifact@v3

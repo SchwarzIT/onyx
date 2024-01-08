@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "type-check": "tsc --noEmit"
+    "build": "tsc --noEmit"
   },
   "peerDependencies": {
     "@storybook/client-api": ">= 7",
