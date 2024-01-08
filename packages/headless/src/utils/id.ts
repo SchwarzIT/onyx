@@ -1,9 +1,9 @@
 /**
  * ⛔️ DO NOT USE DIRECTLY! ⛔️
- * Use the {@link nextID} function instead!
+ * Use the {@link nextId} function instead!
  */
-let continuousID = 0;
+let globalCounter = 0;
 
-const nextID = () => continuousID++;
+const nextId = () => globalCounter++;
 
-export const createId = (name: string) => `${name}-${nextID()}`;
+export const createId = (name: string) => `${name}-${nextId()}`;
