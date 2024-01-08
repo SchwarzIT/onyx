@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import figmaUtilsPackageJson from "../../../../packages/figma-utils/package.json";
 import headlessPackageJson from "../../../../packages/headless/package.json";
 import storybookUtilsPackageJson from "../../../../packages/storybook-utils/package.json";
 
 // make sure to also add a sidebar item in ../.vitepress/config.ts and a file matching the package name in this folder
 // to make the link below work when adding another package to this list.
-const packages = [headlessPackageJson, storybookUtilsPackageJson];
+const packages = [figmaUtilsPackageJson, headlessPackageJson, storybookUtilsPackageJson];
 </script>
 
 # Additional packages

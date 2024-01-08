@@ -43,8 +43,12 @@ jobs:
           npx changeset version
           npx changeset publish
           git add --all
-          git commit --amend --no-edit
-          git push --follow-tags
+          if [[ `git status --porcelain` ]]; then
+            git commit --amend --no-edit
+            git push --follow-tags
+          else
+            echo "No new version. Nothing to commit."
+          fi
 
       - name: 📸 Snapshot and Publish
         if: ${{ github.ref != 'refs/heads/main' }}

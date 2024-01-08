@@ -4,6 +4,8 @@
 This library is currently in early / active development.
 :::
 
+[![npm version](https://badge.fury.io/js/sit-onyx.svg)](https://www.npmjs.com/package/sit-onyx)
+
 ## Installation
 
 Install the npm package with your corresponding package manager:

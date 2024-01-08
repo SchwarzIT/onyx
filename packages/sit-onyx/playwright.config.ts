@@ -13,6 +13,7 @@ export default defineConfig({
   // we don't want to update snapshots on the local machine of each developer.
   // if you want to update snapshots for your branch, use the corresponding GitHub action:
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
+  ignoreSnapshots: !process.env.CI,
   updateSnapshots: "none",
   timeout: 10 * 1000,
   fullyParallel: true,

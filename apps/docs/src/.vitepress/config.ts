@@ -71,6 +71,10 @@ export default defineConfig({
           base: "/packages",
           items: [
             {
+              text: "@sit-onyx/figma-utils",
+              link: "/figma-utils",
+            },
+            {
               text: "@sit-onyx/headless",
               link: "/headless",
             },

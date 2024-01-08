@@ -8,6 +8,8 @@ import packageJson from "../../../../packages/storybook-utils/package.json";
 
 # @sit-onyx/storybook-utils
 
+[![npm version](https://badge.fury.io/js/@sit-onyx%2Fstorybook-utils.svg)](https://www.npmjs.com/package/@sit-onyx/storybook-utils)
+
 {{ packageJson.description }}.
 
 ## Installation
@@ -40,6 +42,7 @@ Creates a default Storybook preview configuration for a project that uses `Onyx`
 - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
 - Setup for dark mode (including docs page). Requires addon [`storybook-dark-mode`](https://storybook.js.org/addons/storybook-dark-mode) to be enabled in .storybook/main.ts file
 - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`).
+- Configure viewports / breakpoints as defined by Onyx
 
 ::: code-group
 
