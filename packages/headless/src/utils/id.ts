@@ -1,9 +1,10 @@
 /**
- * ⛔️ DO NOT USE DIRECTLY! ⛔️
- * Use the {@link nextId} function instead!
+ * Returns a unique global id string
  */
-let globalCounter = 0;
-
-const nextId = () => globalCounter++;
+// ⚠️ we make use of an IIFE to encapsulate the globalCounter so it can never accidentally be used somewhere else.
+const nextId = (() => {
+  let globalCounter = 0;
+  return () => globalCounter++;
+})();
 
 export const createId = (name: string) => `${name}-${nextId()}`;
