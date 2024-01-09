@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ssh-key: ${{secrets.GH_PUSH_PROTECTED_KEY}}
+          ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
 
       - uses: pnpm/action-setup@v2
 
