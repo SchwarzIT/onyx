@@ -22,7 +22,8 @@ export type TestInputProps = {
   label?: string;
   /**
    * Error message to show when the input is invalid.
-   * @default Default message depending on the browser language and validation
+   * If unset, a default error message is used that is provided by Onyx depending
+   * on your current locale/langauge and validation.
    */
   errorMessage?: string;
   /** For validation: Whether a non-empty value is required */
@@ -44,7 +45,7 @@ export type TestInputProps = {
   /** Step if type is "number" */
   step?: number;
   /**
-   * For validation:Expected minimal length of a string value. Warning: when the value is (pre)set by code,
+   * For validation: Expected minimal length of a string value. Warning: when the value is (pre)set by code,
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
