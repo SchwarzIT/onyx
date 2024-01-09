@@ -39,3 +39,14 @@
     border-radius: 12px; // same as feature section in home page
   }
 }
+
+// allow hiding external link indicator (e.g. for npm badges)
+.external-link {
+  &--hide {
+    a {
+      &::after {
+        display: none !important;
+      }
+    }
+  }
+}
