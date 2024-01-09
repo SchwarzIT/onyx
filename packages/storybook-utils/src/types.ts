@@ -45,3 +45,8 @@ export type DefineStorybookActionsAndVModelsOptions<T> = Meta<T> & {
   component: NonNullable<T>;
   events: ExtractVueEventNames<T>[];
 };
+
+/**
+ * A utility type that gets the type of an array element.
+ */
+export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
