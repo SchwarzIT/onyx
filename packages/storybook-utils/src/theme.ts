@@ -120,4 +120,8 @@ export const ONYX_BREAKPOINTS = {
   },
 } as const;
 
-export const remToNumber = (value: string) => +value.replace("rem", "") * 16;
+/**
+ * Converts a rem string into a numeric value with a rem base of 16.
+ * @example "1rem" => 16
+ */
+const remToNumber = (value: string) => +value.replace("rem", "") * 16;
