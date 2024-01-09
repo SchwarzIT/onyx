@@ -38,7 +38,7 @@ export const createTheme = (
 
 const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: onyxVariables["onyx-color-universal-grey-white"],
+    background: onyxVariables["onyx-color-universal-greyscale-white"],
     contentBackground: onyxVariables["onyx-color-brand-neutral-100"],
     text: onyxVariables["onyx-color-brand-neutral-800"],
     textMuted: onyxVariables["onyx-color-brand-neutral-900"],
