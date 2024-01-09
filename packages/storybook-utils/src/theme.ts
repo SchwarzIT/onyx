@@ -42,9 +42,9 @@ const getLightTheme = (): Partial<ThemeVars> => {
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
-  const textColor = onyxVariables["onyx-color-brand-neutral-300"];
+  const textColor = onyxVariables["onyx-color-universal-grey-white"];
   const appBg = onyxVariables["onyx-color-brand-neutral-1100"];
-  const appBorderColor = onyxVariables["onyx-color-brand-neutral-700"];
+  const appBorderColor = onyxVariables["onyx-color-brand-neutral-1000"];
   const appContentBg = onyxVariables["onyx-color-brand-neutral-1200"];
 
   return {
@@ -70,7 +70,7 @@ const getDarkTheme = (): Partial<ThemeVars> => {
     booleanSelectedBg: appContentBg,
     buttonBg: appBg,
     buttonBorder: appBorderColor,
-    textMutedColor: onyxVariables["onyx-color-brand-neutral-400"],
+    textMutedColor: onyxVariables["onyx-color-brand-neutral-300"],
   };
 };
 
