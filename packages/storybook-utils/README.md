@@ -12,4 +12,6 @@
 
 <br />
 
-## [Documentation](https://onyx.schwarz/packages/headless.html)
+## Documentation
+
+You can find our documentation [here](https://onyx.schwarz/packages/storybook-utils.html).

@@ -14,4 +14,6 @@ A composable headless library for Vue created by [Schwarz IT](https://it.schwarz
 
 <br />
 
-## [Documentation](https://onyx.schwarz/packages/headless.html)
+## Documentation
+
+You can find our documentation [here](https://onyx.schwarz/packages/headless.html).
