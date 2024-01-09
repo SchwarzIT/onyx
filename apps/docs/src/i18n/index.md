@@ -56,7 +56,7 @@ provideI18n({
 
 :::
 
-That's it. All built-in component texts are not also available in German and the locale is synced with `vue-i18n`.
+That's it. All built-in component texts are now available in English (default) and German. The locale is synced with `vue-i18n`.
 
 ## Custom translations
 
