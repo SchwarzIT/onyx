@@ -17,7 +17,6 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@storybook/client-api": ">= 7",
     "@storybook/core-events": ">= 7",
     "@storybook/preview-api": ">= 7",
     "@storybook/theming": ">= 7",
