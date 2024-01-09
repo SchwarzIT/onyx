@@ -53,20 +53,22 @@ const createI18n = (options?: ProvideI18nOptions) => {
   const t = computed(() => {
     return (
       key: ObjectToDottedStrings<Translation>,
-      placeholders: Record<string, string | number> = {},
+      placeholders: Record<string, string | number | undefined> = {},
     ): string => {
       // use English message as fallback
       let message = resolveMessage(key, messages.value) ?? resolveMessage(key, enUS) ?? "";
 
       if (placeholders) {
         Object.entries(placeholders).forEach(([key, value]) => {
+          if (value === undefined) return;
           // "gi" is used to replace all occurrences because String.replaceAll() is not available
           // in our specified EcmaScript target
           message = message.replace(new RegExp(`{${key}}`, "gi"), value.toString());
         });
       }
 
-      return resolvePluralization(message, +placeholders.n);
+      if (typeof placeholders.n === "number") return resolvePluralization(message, placeholders.n);
+      return message;
     };
   });
 
