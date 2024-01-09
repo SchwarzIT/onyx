@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "packages/sit-onyx/**"
   workflow_dispatch:
     inputs:
       stage:

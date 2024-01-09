@@ -59,6 +59,9 @@ importers:
       publint:
         specifier: ^0.2.7
         version: 0.2.7
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
       sass:
         specifier: ^1.69.6
         version: 1.69.6
@@ -89,6 +92,12 @@ importers:
       vitepress:
         specifier: ^1.0.0-rc.34
         version: 1.0.0-rc.34(@algolia/client-search@4.22.0)(@types/node@20.10.6)(sass@1.69.6)(search-insights@2.13.0)(typescript@5.3.3)
+
+  packages/figma-utils:
+    dependencies:
+      commander:
+        specifier: ^11.1.0
+        version: 11.1.0
 
   packages/headless:
     dependencies:
@@ -5335,7 +5344,6 @@ packages:
   /commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
-    dev: true
 
   /commander@6.2.1:
     resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
@@ -8977,6 +8985,14 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rimraf@5.0.5:
+    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.3.10
     dev: true
 
   /rollup@3.29.4:
