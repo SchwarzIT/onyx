@@ -10,7 +10,7 @@
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./style.scss": "./src/index.scss"
+    "./style.css": "./src/index.css"
   },
   "scripts": {
     "type-check": "tsc --noEmit"
