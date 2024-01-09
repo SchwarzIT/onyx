@@ -74,11 +74,6 @@ const getDarkTheme = (): Partial<ThemeVars> => {
   };
 };
 
-export const themes = {
-  light: createTheme(),
-  dark: createTheme({ base: "dark" }),
-};
-
 /** All available Storybook breakpoints / viewports supported by Onyx. */
 export const ONYX_BREAKPOINTS = {
   "2xs": {
