@@ -50,7 +50,7 @@ export type TestInputProps = {
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
-  minLength: number;
+  minLength?: number;
 };
 
 const props = withDefaults(defineProps<TestInputProps>(), {
