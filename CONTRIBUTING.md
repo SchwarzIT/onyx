@@ -45,13 +45,13 @@ pnpm install
 #### Lint with [ESLint](https://eslint.org)
 
 ```sh
-pnpm run lint:fix
+pnpm run lint:fix:all
 ```
 
 #### Format with [Prettier](https://prettier.io)
 
 ```sh
-pnpm run format
+pnpm run format:all
 ```
 
 <br />
@@ -89,9 +89,9 @@ pnpm run preview
 #### Run Unit Tests with [Vitest](https://vitest.dev)
 
 ```sh
-pnpm run test:unit
+pnpm run test
 # Runs unit tests with coverage
-pnpm run test:unit:coverage
+pnpm run test:coverage
 ```
 
 #### Run component tests with [Playwright](https://playwright.dev)

@@ -1,0 +1,34 @@
+name: 🚨 Run component tests
+description: Runs Playwright component tests (node and pnpm must be setup before)
+
+inputs:
+  script:
+    required: true
+    description: npm script to run
+  working-directory:
+    required: true
+    description: Directory where the push command is executed in (manifest, Staticfile etc. must be placed inside this folder)
+
+runs:
+  using: "composite"
+  steps:
+    # install system dependencies for Playwright
+    # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
+    - name: 📦 Install Playwright system dependencies
+      shell: bash
+      run: pnpm exec playwright install-deps
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: 🚨 Run component tests
+      shell: bash
+      run: pnpm run ${{ inputs.script }}
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Upload test results artifact
+      uses: actions/upload-artifact@v3
+      if: always() # needed to also upload test results when they failed (useful for debugging)
+      with:
+        name: test-results
+        path: |
+          ${{ inputs.working-directory }}/playwright-report
+          ${{ inputs.working-directory }}/test-results
