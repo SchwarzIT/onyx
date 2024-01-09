@@ -15,10 +15,6 @@ const meta: Meta<typeof TestInput> = {
         options: INPUT_TYPES,
         control: { type: "select" },
       },
-      lang: {
-        options: ["de", "en"],
-        control: { type: "select" },
-      },
     },
   }),
 };

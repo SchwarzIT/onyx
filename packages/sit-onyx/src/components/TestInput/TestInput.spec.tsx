@@ -8,7 +8,7 @@ test("should display label", async ({ mount }) => {
 });
 
 test("should validate required inputs", async ({ mount }) => {
-  const component = await mount(<TestInput label="Demo" required lang="en" />);
+  const component = await mount(<TestInput label="Demo" required />);
   const input = component.getByLabel('DemoModel value: "",');
   await input.focus();
   await input.blur();
