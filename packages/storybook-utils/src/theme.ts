@@ -37,41 +37,58 @@ export const createTheme = (
 };
 
 const getLightTheme = (): Partial<ThemeVars> => {
-  // TODO: implement
-  return {};
+  return defineTheme({
+    background: onyxVariables["onyx-color-universal-grey-white"],
+    contentBackground: onyxVariables["onyx-color-brand-neutral-100"],
+    text: onyxVariables["onyx-color-brand-neutral-800"],
+    textMuted: onyxVariables["onyx-color-brand-neutral-900"],
+    border: onyxVariables["onyx-color-brand-neutral-200"],
+  });
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
-  const textColor = onyxVariables["onyx-color-universal-grey-white"];
-  const appBg = onyxVariables["onyx-color-brand-neutral-1100"];
-  const appBorderColor = onyxVariables["onyx-color-brand-neutral-1000"];
-  const appContentBg = onyxVariables["onyx-color-brand-neutral-1200"];
+  return defineTheme({
+    background: onyxVariables["onyx-color-brand-neutral-1100"],
+    contentBackground: onyxVariables["onyx-color-brand-neutral-1200"],
+    text: onyxVariables["onyx-color-brand-neutral-200"],
+    textMuted: onyxVariables["onyx-color-brand-neutral-300"],
+    border: onyxVariables["onyx-color-brand-neutral-1000"],
+  });
+};
 
+/** Define a full Onyx Storybook color theme based on the given 5 main colors. */
+const defineTheme = (colors: {
+  text: string;
+  textMuted: string;
+  background: string;
+  border: string;
+  contentBackground: string;
+}) => {
   return {
     // UI
-    appBg,
-    appContentBg,
-    appPreviewBg: appContentBg,
-    appBorderColor,
+    appBg: colors.background,
+    appContentBg: colors.contentBackground,
+    appPreviewBg: colors.contentBackground,
+    appBorderColor: colors.border,
 
     // Text colors
-    textColor,
-    textInverseColor: appContentBg,
+    textColor: colors.text,
+    textInverseColor: colors.contentBackground,
 
     // Toolbar default and active/hover colors
-    barTextColor: textColor,
-    barBg: appBg,
+    barTextColor: colors.text,
+    barBg: colors.background,
 
     // Form colors
-    inputBg: appBg,
-    inputBorder: appBorderColor,
-    inputTextColor: textColor,
-    booleanBg: appBg,
-    booleanSelectedBg: appContentBg,
-    buttonBg: appBg,
-    buttonBorder: appBorderColor,
-    textMutedColor: onyxVariables["onyx-color-brand-neutral-300"],
-  };
+    inputBg: colors.background,
+    inputBorder: colors.border,
+    inputTextColor: colors.text,
+    booleanBg: colors.background,
+    booleanSelectedBg: colors.contentBackground,
+    buttonBg: colors.background,
+    buttonBorder: colors.border,
+    textMutedColor: colors.textMuted,
+  } satisfies Partial<ThemeVars>;
 };
 
 /** All available Storybook breakpoints / viewports supported by Onyx. */

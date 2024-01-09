@@ -1,0 +1,31 @@
+@use "../../sit-onyx/src/styles/variables-onyx.css";
+
+.onyx-disclaimer {
+  border-radius: 8px;
+  padding: 16px;
+  line-height: 24px;
+  color: rgba(60, 60, 67);
+  background-color: rgba(100, 108, 255, 0.14);
+  margin: 16px 0;
+
+  &__title {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// the Storybook table of content headline is always black so we need to manually set it for the dark mode
+.dark {
+  #storybook-docs {
+    .sbdocs-wrapper {
+      > div:nth-child(2) {
+        // same as Storybook color "textMuted"
+        color: var(--onyx-color-brand-neutral-300);
+      }
+    }
+  }
+}

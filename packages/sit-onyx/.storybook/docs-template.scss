@@ -1,21 +1,3 @@
-.storybook-disclaimer {
-  border-radius: 8px;
-  padding: 16px;
-  line-height: 24px;
-  color: rgba(60, 60, 67);
-  background-color: rgba(100, 108, 255, 0.14);
-  margin: 16px 0;
-
-  &__title {
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  p {
-    margin: 0;
-  }
-}
-
 #storybook-docs {
   > .sbdocs {
     // adjust padding to better fit in our VitePress documentation when embedded

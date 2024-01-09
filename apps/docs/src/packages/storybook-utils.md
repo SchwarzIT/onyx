@@ -54,6 +54,7 @@ Creates a default Storybook preview configuration for a project that uses `Onyx`
 
 ```ts [.storybook/preview.ts]
 import { createPreview } from "@sit-onyx/storybook-utils";
+import "@sit-onyx/storybook-utils/style.scss";
 
 const preview = {
   // we need to destructure here because as of Storybook 7.6
