@@ -39,7 +39,7 @@ jobs:
         run: pnpm run build:all
 
       - name: 🚨 Run unit tests
-        run: pnpm run test:unit:coverage:all
+        run: pnpm run test:unit:all
 
       # make sure that publint is only run after all packages have been built
       - name: Run publint
