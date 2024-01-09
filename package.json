@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build:all": "pnpm -r --if-present build",
-    "test:unit:all": "pnpm -r --if-present test:unit:coverage",
+    "test:all": "pnpm -r --if-present test:coverage",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint . --ext .vue,.ts,.tsx --ignore-path .gitignore",
