@@ -31,9 +31,14 @@ jobs:
         run: pnpm run build
         working-directory: packages/figma-utils
 
-      - name: Import variables
+      - name: Import Onyx variables
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx light dark
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx
+        working-directory: packages/figma-utils
+
+      - name: Import light/dark variables
+        run: |
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m light dark -s html
         working-directory: packages/figma-utils
 
       - name: Create pull request
