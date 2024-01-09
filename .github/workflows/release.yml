@@ -6,13 +6,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  prerelease:
+  release:
     name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
 
       - uses: pnpm/action-setup@v2
 
