@@ -24,10 +24,10 @@
     "url": "https://github.com/schwarzit/onyx/issues"
   },
   "scripts": {
-    "dev": "storybook dev -p 6006 --no-open",
+    "dev": "storybook dev -p 6006",
     "build": "pnpm run '/type-check|build-only/'",
     "build:storybook": "storybook build",
-    "preview": "vite serve storybook-static",
+    "preview": "vite serve storybook-static --open",
     "test:unit": "vitest",
     "test:unit:coverage": "pnpm run test:unit --coverage",
     "test:components": "playwright install && playwright test",
@@ -45,7 +45,7 @@
     "@storybook/blocks": "^7.6.7",
     "@storybook/vue3": "^7.6.7",
     "@storybook/vue3-vite": "^7.6.7",
-    "@vue/compiler-dom": "^3.4.3",
+    "@vue/compiler-dom": "^3.4.5",
     "eslint-plugin-playwright": "~0.21.0",
     "react": "^18.2.0",
     "storybook": "^7.6.7"
