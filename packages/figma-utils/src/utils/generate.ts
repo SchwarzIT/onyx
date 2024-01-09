@@ -1,40 +1,24 @@
 import { ParsedVariable } from "../types/figma.js";
 
-type GenericGeneratorOptions = {
-  data: ParsedVariable;
-  /**
-   * Function which returns the full variable name depending on the used format.
-   *
-   * @example
-   * ```ts
-   * // for CSS:
-   * (name) => `--${name}`
-   * ```
-   */
-  nameTransformer: (name: string) => string;
-  /**
-   * Function which returns the full variable value if its an alias / reference to another variable.
-   *
-   * @example
-   * ```ts
-   * // for CSS:
-   * (name) => `var(--${name})`
-   * ```
-   */
-  aliasTransformer: (name: string) => string;
-};
-
 /**
  * Generates the given parsed Figma variables into CSS variables.
  *
+ * @param selector CSS selector to use. The mode name will be added to the selector
+ * if its set to something other than ":root", e.g. "html.dark" is the selector is set to "html"
  * @returns File content of the .css file
  */
-export const generateAsCSS = (data: ParsedVariable): string => {
-  return genericGenerator({
-    data,
-    nameTransformer: (name) => `--${name}`,
-    aliasTransformer: (name) => `var(--${name})`,
+export const generateAsCSS = (data: ParsedVariable, selector: string = ":root"): string => {
+  const variableContent = Object.entries(data.variables).map(([name, value]) => {
+    const { isAlias, variableName } = isAliasVariable(value);
+    const variableValue = isAlias ? `var(--${variableName})` : value;
+    return `  --${name}: ${variableValue};`;
   });
+
+  selector = selector.trim();
+  if (selector !== ":root") selector += `.${data.modeName}`;
+
+  return `${generateTimestampComment(data.modeName)}
+${selector} {\n${variableContent.join("\n")}\n}\n`;
 };
 
 /**
@@ -43,34 +27,25 @@ export const generateAsCSS = (data: ParsedVariable): string => {
  * @returns File content of the .scss file
  */
 export const generateAsSCSS = (data: ParsedVariable): string => {
-  return genericGenerator({
-    data,
-    nameTransformer: (name) => `$${name}`,
-    aliasTransformer: (name) => `$${name}`,
+  const variableContent = Object.entries(data.variables).map(([name, value]) => {
+    const { isAlias, variableName } = isAliasVariable(value);
+    const variableValue = isAlias ? `$${variableName}` : value;
+    return `$${name}: ${variableValue};`;
   });
+
+  return `${generateTimestampComment(data.modeName)}\n${variableContent.join("\n")}\n`;
 };
 
 /**
- * Generic base generator for CSS, SCSS etc. files.
- * Will take care of defining selectors and formatting.
+ * Generates the timestamp comment that is added to the start of every generated file.
  */
-const genericGenerator = (options: GenericGeneratorOptions) => {
-  const variableContent = Object.entries(options.data.variables).map(([name, value]) => {
-    const { isAlias, variableName } = isAliasVariable(value);
-    const variableValue = isAlias ? options.aliasTransformer(variableName) : value;
-    return `  ${options.nameTransformer(name)}: ${variableValue};`;
-  });
-
-  const timestamp = new Date().toUTCString();
-  const mode = options.data.modeName;
-
+export const generateTimestampComment = (modeName?: string): string => {
   return `/**
  * Do not edit directly.${
-   mode ? `\n * This file contains the specific variables for the "${mode}" theme.` : ""
+   modeName ? `\n * This file contains the specific variables for the "${modeName}" theme.` : ""
  }
- * Imported from Figma API on ${timestamp}
- */
-:root {\n${variableContent.join("\n")}\n}\n`;
+ * Imported from Figma API on ${new Date().toUTCString()}
+ */`;
 };
 
 /**
