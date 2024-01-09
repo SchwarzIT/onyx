@@ -51,6 +51,23 @@ export const generateAsSCSS = (data: ParsedVariable): string => {
 };
 
 /**
+ * Generates the given parsed Figma variables as JSON.
+ *
+ * @returns File content of the .json file
+ */
+export const generateAsJSON = (data: ParsedVariable): string => {
+  const variables = structuredClone(data.variables);
+
+  for (const name in variables) {
+    const { isAlias, variableName } = isAliasVariable(variables[name]);
+    if (!isAlias) continue;
+    variables[name] = variables[variableName];
+  }
+
+  return JSON.stringify(variables, null, 2);
+};
+
+/**
  * Generic base generator for CSS, SCSS etc. files.
  * Will take care of defining selectors and formatting.
  */

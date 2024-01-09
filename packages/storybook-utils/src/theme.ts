@@ -1,3 +1,84 @@
+import type { ThemeVars, ThemeVarsPartial } from "@storybook/theming";
+import { create } from "@storybook/theming/create";
+import onyxVariables from "../../sit-onyx/src/styles/variables-onyx.json";
+import storybookLogo from "./assets/logo-storybook-default.svg";
+import storybookLogoInverse from "./assets/logo-storybook-inverse.svg";
+
+/**
+ * Custom Onyx theme for Storybook.
+ *
+ * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
+ */
+const createTheme = (
+  options?: Pick<ThemeVarsPartial, "base" | "brandTitle" | "brandImage" | "brandUrl">,
+) => {
+  const base = options?.base ?? "light";
+  const defaultBrandImage = base === "light" ? storybookLogo : storybookLogoInverse;
+  const themeColors = base === "light" ? getLightTheme() : getDarkTheme();
+
+  const remToNumber = (value: string) => +value.replace("rem", "") * 16;
+
+  return create({
+    brandTitle: options?.brandTitle ?? "Onyx Storybook",
+    brandUrl: options?.brandUrl ?? "https://onyx.schwarz",
+    brandTarget: "_blank",
+    base: base,
+    brandImage: options?.brandImage ?? defaultBrandImage,
+    appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-400"]),
+    inputBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),
+    ...themeColors,
+  }) satisfies ThemeVars;
+};
+
+const getLightTheme = (): Partial<ThemeVars> => {
+  // TODO: implement
+  return {};
+};
+
+const getDarkTheme = (): Partial<ThemeVars> => {
+  const primaryColor = onyxVariables["onyx-color-brand-primary-500"];
+  const textColor = onyxVariables["onyx-color-brand-neutral-300"];
+  const appBg = onyxVariables["onyx-color-brand-neutral-1100"];
+  const appBorderColor = onyxVariables["onyx-color-brand-neutral-700"];
+  const appContentBg = onyxVariables["onyx-color-brand-neutral-1200"];
+
+  return {
+    // brand
+    colorPrimary: primaryColor,
+    colorSecondary: onyxVariables["onyx-color-brand-secondary-500"],
+
+    appBg,
+    appContentBg,
+    appPreviewBg: appContentBg,
+    appBorderColor,
+
+    // Text colors
+    textColor,
+    textInverseColor: appContentBg,
+
+    // Toolbar default and active/hover colors
+    barTextColor: textColor,
+    barSelectedColor: primaryColor,
+    barHoverColor: primaryColor,
+    barBg: appBg,
+
+    // Form colors
+    inputBg: appBg,
+    inputBorder: appBorderColor,
+    inputTextColor: textColor,
+    booleanBg: appBg,
+    booleanSelectedBg: appContentBg,
+    buttonBg: appBg,
+    buttonBorder: appBorderColor,
+    textMutedColor: onyxVariables["onyx-color-brand-neutral-400"],
+  };
+};
+
+export const themes = {
+  light: createTheme(),
+  dark: createTheme({ base: "dark" }),
+};
+
 /** All available Storybook breakpoints / viewports supported by Onyx. */
 export const ONYX_BREAKPOINTS = {
   "2xs": {

@@ -5,6 +5,7 @@ import {
   DEFAULT_MODE_NAME,
   fetchFigmaVariables,
   generateAsCSS,
+  generateAsJSON,
   generateAsSCSS,
   parseFigmaVariables,
 } from "../index.js";
@@ -25,7 +26,7 @@ export const importCommand = new Command("import-variables")
     "-t, --token <string>",
     "Figma access token with scope `file_variables:read` (required)",
   )
-  .option("-f, --format <string>", "Output format. Supported are: CSS, SCSS", "CSS")
+  .option("-f, --format <string>", "Output format. Supported are: CSS, SCSS, JSON", "CSS")
   .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
   .option(
     "-d, --dir <string>",
@@ -39,6 +40,7 @@ export const importCommand = new Command("import-variables")
     const generators = {
       CSS: generateAsCSS,
       SCSS: generateAsSCSS,
+      JSON: generateAsJSON,
     };
 
     if (!(options.format in generators)) {
