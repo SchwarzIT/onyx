@@ -58,10 +58,16 @@ export const generateAsSCSS = (data: ParsedVariable): string => {
 export const generateAsJSON = (data: ParsedVariable): string => {
   const variables = structuredClone(data.variables);
 
+  // recursively resolve aliases to plain values since keys can not be referenced in a .json file
+  // like we could e.g. in a .css file
+  const resolveValue = (name: string): string => {
+    const { isAlias, aliasName } = isAliasVariable(variables[name]);
+    if (!isAlias) return variables[name];
+    return resolveValue(aliasName);
+  };
+
   for (const name in variables) {
-    const { isAlias, variableName } = isAliasVariable(variables[name]);
-    if (!isAlias) continue;
-    variables[name] = variables[variableName];
+    variables[name] = resolveValue(name);
   }
 
   return JSON.stringify(variables, null, 2);
@@ -73,8 +79,8 @@ export const generateAsJSON = (data: ParsedVariable): string => {
  */
 const genericGenerator = (options: GenericGeneratorOptions) => {
   const variableContent = Object.entries(options.data.variables).map(([name, value]) => {
-    const { isAlias, variableName } = isAliasVariable(value);
-    const variableValue = isAlias ? options.aliasTransformer(variableName) : value;
+    const { isAlias, aliasName } = isAliasVariable(value);
+    const variableValue = isAlias ? options.aliasTransformer(aliasName) : value;
     return `  ${options.nameTransformer(name)}: ${variableValue};`;
   });
 
@@ -95,10 +101,10 @@ const genericGenerator = (options: GenericGeneratorOptions) => {
  * Alias values are enclosed by curly braces.
  *
  * @example "{your-variable-name}"
- * @returns `isAlias` whether the variable is an alias and `variableName` the raw variable name without curly braces.
+ * @returns `isAlias` whether the variable is an alias and `aliasName` the raw variable name without curly braces.
  */
 export const isAliasVariable = (variableValue: string) => {
   const isAlias = /{.*}/.exec(variableValue);
-  const variableName = variableValue.replace("{", "").replace("}", "");
-  return { isAlias, variableName };
+  const aliasName = variableValue.replace("{", "").replace("}", "");
+  return { isAlias, aliasName };
 };
