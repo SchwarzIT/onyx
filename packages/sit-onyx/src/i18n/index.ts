@@ -67,8 +67,8 @@ const createI18n = (options?: ProvideI18nOptions) => {
         });
       }
 
-      if (typeof placeholders.n === "number") return resolvePluralization(message, placeholders.n);
-      return message;
+      const pluralizationValue = typeof placeholders.n === "number" ? placeholders.n : undefined;
+      return resolvePluralization(message, pluralizationValue);
     };
   });
 
