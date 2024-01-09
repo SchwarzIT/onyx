@@ -93,10 +93,23 @@ We are open for accepting community contributions, if you want to add a missing 
 You can simply add the translations inside the [locales folder](https://github.com/SchwarzIT/onyx/tree/main/packages/sit-onyx/src/i18n/locales).
 :::
 
-```ts [Using TypeScript]
+::: code-group
+
+```ts [Only for your project]
 import type { Translation } from "sit-onyx";
 
 const myCustomLanguage: Translation = {
   // add your translations here...
+  someMessage: "Hello World",
 };
 ```
+
+```json [When contributing to Onyx]
+// simply create a new json file for your language (e.g. "en-US")
+// in the locales folder linked above and place your translations there
+{
+  "someMessage": "Hello World"
+}
+```
+
+:::
