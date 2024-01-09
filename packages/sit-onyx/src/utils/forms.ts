@@ -1,4 +1,7 @@
-/** Extracts the first invalid validity type from the given validity state. */
+/**
+ * Extracts the first invalid validity type from the given HTML ValidityState.
+ * "valueMissing" is prioritized over other types to align with the default browser behavior.
+ */
 export const getFirstInvalidType = (validity: ValidityState) => {
   // since the types are getters of the ValidityState we need to get the keys using "Object.getOwnPropertyDescriptors"
   const availableValidityTypes = Object.entries(

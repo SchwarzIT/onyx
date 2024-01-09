@@ -2,6 +2,7 @@ import type { DeepPartial, ObjectToDottedStrings, TranslationValue } from "@/typ
 import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 
+/** Available translations that are used by Onyx components. */
 export type Translation = typeof enUS;
 
 export type ProvideI18nOptions = {
@@ -16,7 +17,7 @@ export type ProvideI18nOptions = {
   locale?: MaybeRef<string>;
   /**
    * Available translations / messages. English is always supported. For build-in translations, see:
-   * https://github.com/SchwarzIT/onyx/tree/main/packages/sit-onyx/src/i18n/locales
+   * https://onyx.schwarz/i18n/
    *
    * @example
    * ```ts
@@ -34,7 +35,14 @@ export type ProvideI18nOptions = {
 
 const I18N_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createI18n>>;
 
+/**
+ * Creates a new i18n instance.
+ */
 const createI18n = (options?: ProvideI18nOptions) => {
+  /**
+   * Current locale.
+   * @default "en-US"
+   */
   const locale = computed(() => unref(options?.locale) ?? "en-US");
 
   const messages = computed(() => {
@@ -83,7 +91,9 @@ export const provideI18n = (options: ProvideI18nOptions) => {
   provide(I18N_INJECTION_KEY, createI18n(options));
 };
 
-/** Injects the Onyx i18n instance. */
+/**
+ * Injects the Onyx i18n instance.
+ */
 export const injectI18n = () => {
   const fallbackValue = createI18n();
   return inject(I18N_INJECTION_KEY, fallbackValue);

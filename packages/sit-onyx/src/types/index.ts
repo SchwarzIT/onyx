@@ -1,20 +1,32 @@
 /**
  * Recursive / deep implementation of TypeScript's built-in `Partial<T>` type.
  */
-export type DeepPartial<T> = T extends object
-  ? {
-      [P in keyof T]?: DeepPartial<T[P]>;
-    }
-  : T;
+export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
-/** @see https://stackoverflow.com/a/47058976 */
-type PathsToStringProps<T> = T extends string
+/**
+ * Gets a union type from an object that contains all combinations of nested keys as arrays.
+ *
+ * @see https://stackoverflow.com/a/47058976
+ * @example
+ * ```ts
+ * type Test = PathsToStringProps<{ a: "foo"; b: { c: "bar"; d: "baz" } }>;
+ * // type Test = ["a"] | ["b", "c"] | ["b", "d"]
+ * ```
+ */
+type ObjectToKeyPaths<T> = T extends string
   ? []
-  : {
-      [K in Extract<keyof T, string>]: [K, ...PathsToStringProps<T[K]>];
-    }[Extract<keyof T, string>];
+  : { [K in Extract<keyof T, string>]: [K, ...ObjectToKeyPaths<T[K]>] }[Extract<keyof T, string>];
 
-/** @see https://stackoverflow.com/a/47058976 */
+/**
+ * Joins the elements in the given type `T` with the separator `D`.
+ *
+ * @see https://stackoverflow.com/a/47058976
+ * @example
+ * ```ts
+ * type Test = Join<["foo", "bar"], ".">
+ * // type Test = "foo.bar"
+ * ```
+ */
 type Join<T extends string[], D extends string> = T extends []
   ? never
   : T extends [infer F]
@@ -29,6 +41,7 @@ type NestedMessage = { [key: string]: string | NestedMessage };
 
 /**
  * Translation value. Can either by a string or nested object with more translation values.
+ *
  * @example
  * ```ts
  * // simple value
@@ -60,4 +73,4 @@ export type TranslationValue = string | { [key: string]: string | NestedMessage 
  * ```
  * @see https://stackoverflow.com/a/47058976
  */
-export type ObjectToDottedStrings<T extends TranslationValue> = Join<PathsToStringProps<T>, ".">;
+export type ObjectToDottedStrings<T extends TranslationValue> = Join<ObjectToKeyPaths<T>, ".">;

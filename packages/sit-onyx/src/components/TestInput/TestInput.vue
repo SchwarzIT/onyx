@@ -2,7 +2,10 @@
 export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];
 
-/** Must be up to date with i18n/locales/en-US.json */
+/**
+ * Input types that have a translation for their validation error message.
+ * Must be up to date with i18n/locales/en-US.json.
+ */
 const TRANSLATED_INPUT_TYPES = ["email", "number", "tel", "url"] as const satisfies InputType[];
 type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 </script>

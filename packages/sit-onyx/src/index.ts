@@ -1,7 +1,6 @@
 import "@/styles/index.scss";
 
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
-
 export * from "@/types";
 
 // export everything except "injectI18n" because we don't want that the import is suggested
