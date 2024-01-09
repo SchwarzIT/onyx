@@ -107,6 +107,22 @@ importers:
       vue:
         specifier: '>= 3'
         version: 3.4.5(typescript@5.3.3)
+    devDependencies:
+      '@playwright/experimental-ct-vue':
+        specifier: ^1.40.1
+        version: 1.40.1(@types/node@20.10.6)(sass@1.69.7)(vite@5.0.11)(vue@3.4.5)
+      '@playwright/test':
+        specifier: ^1.40.1
+        version: 1.40.1
+      '@types/node':
+        specifier: ^20.10.6
+        version: 20.10.6
+      '@vue/compiler-dom':
+        specifier: ^3.4.3
+        version: 3.4.5
+      eslint-plugin-playwright:
+        specifier: ~0.21.0
+        version: 0.21.0(eslint@8.56.0)
 
   packages/sit-onyx:
     dependencies:
@@ -2561,6 +2577,25 @@ packages:
       - vue
     dev: true
 
+  /@playwright/experimental-ct-vue@1.40.1(@types/node@20.10.6)(sass@1.69.7)(vite@5.0.11)(vue@3.4.5):
+    resolution: {integrity: sha512-JyhExIPIDP3X9IN4iGvvy9eRxNo5kceViDhM9HdIu8anLUrYB7qyTHbM3N3RMCkj9E+EdbtVEYBceilI0Y7EyA==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      '@playwright/experimental-ct-core': 1.40.1(@types/node@20.10.6)(sass@1.69.7)
+      '@vitejs/plugin-vue': 4.5.2(vite@5.0.11)(vue@3.4.5)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - terser
+      - vite
+      - vue
+    dev: true
+
   /@playwright/test@1.40.1:
     resolution: {integrity: sha512-EaaawMTOeEItCRvfmkI9v6rBkF1svM8wjl/YPRrg2N2Wmp+4qJYkWtJsbew1szfKKDm6fPLy4YAanBhIlf9dWw==}
     engines: {node: '>=16'}
@@ -4484,6 +4519,17 @@ packages:
     dependencies:
       vite: 5.0.11(@types/node@20.10.6)(sass@1.69.7)
       vue: 3.3.11(typescript@5.3.3)
+    dev: true
+
+  /@vitejs/plugin-vue@4.5.2(vite@5.0.11)(vue@3.4.5):
+    resolution: {integrity: sha512-UGR3DlzLi/SaVBPX0cnSyE37vqxU3O6chn8l0HJNzQzDia6/Au2A4xKv+iIJW8w2daf80G7TYHhi1pAUjdZ0bQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^4.0.0 || ^5.0.0
+      vue: ^3.2.25
+    dependencies:
+      vite: 5.0.11(@types/node@20.10.6)(sass@1.69.7)
+      vue: 3.4.5(typescript@5.3.3)
     dev: true
 
   /@vitejs/plugin-vue@5.0.2(vite@5.0.11)(vue@3.4.5):

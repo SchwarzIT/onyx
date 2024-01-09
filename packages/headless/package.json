@@ -14,7 +14,15 @@
     }
   },
   "scripts": {
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "test": "playwright install && playwright test"
+  },
+  "devDependencies": {
+    "@playwright/experimental-ct-vue": "^1.40.1",
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.6",
+    "@vue/compiler-dom": "^3.4.3",
+    "eslint-plugin-playwright": "~0.21.0"
   },
   "peerDependencies": {
     "typescript": ">= 5",
