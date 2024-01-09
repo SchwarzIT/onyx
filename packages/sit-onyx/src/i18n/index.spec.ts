@@ -1,6 +1,6 @@
 import { expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { provideI18n, useI18n } from ".";
+import { injectI18n, provideI18n } from ".";
 import type { ObjectToDottedStrings, Translation } from "..";
 
 vi.mock("vue", async (importOriginal) => {
@@ -33,7 +33,7 @@ type TestTranslationKey = ObjectToDottedStrings<Translation>;
 
 test("should provide/inject i18n", () => {
   provideI18n({ locale: "test" });
-  let i18n = useI18n();
+  let i18n = injectI18n();
 
   expect(i18n).toBeDefined();
   expect(i18n.locale.value).toBe("test");
@@ -41,7 +41,7 @@ test("should provide/inject i18n", () => {
   // should keep locale up to date if a ref is passed as option
   const locale = vue.ref("a");
   provideI18n({ locale });
-  i18n = useI18n();
+  i18n = injectI18n();
 
   expect(i18n.locale.value).toBe("a");
   locale.value = "b";
@@ -59,7 +59,7 @@ test("should translate with/without placeholders", () => {
     },
   });
 
-  const { t } = useI18n();
+  const { t } = injectI18n();
 
   let message = t.value("plain" as TestTranslationKey);
   expect(message).toBe("Hello World");
@@ -87,7 +87,7 @@ test("should translate with pluralization", () => {
     },
   });
 
-  const { t } = useI18n();
+  const { t } = injectI18n();
 
   let message = t.value("pluralization" as TestTranslationKey, { n: 0 });
   expect(message).toBe("Zero items");
@@ -136,7 +136,7 @@ test("should update translation when locale changes", () => {
       },
     },
   });
-  const { t } = useI18n();
+  const { t } = injectI18n();
 
   let message = t.value("helloWorld" as TestTranslationKey);
   expect(message).toBe("Hello World");
@@ -156,7 +156,7 @@ test("should use English fallback if translation is missing", () => {
       },
     },
   });
-  const { t } = useI18n();
+  const { t } = injectI18n();
 
   const message = t.value("helloWorld" as TestTranslationKey);
 

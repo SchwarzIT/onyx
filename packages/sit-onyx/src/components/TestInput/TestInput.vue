@@ -8,7 +8,7 @@ type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 </script>
 
 <script lang="ts" setup>
-import { useI18n } from "@/i18n";
+import { injectI18n } from "@/i18n";
 import { getFirstInvalidType } from "@/utils/forms";
 import { computed, ref, watch } from "vue";
 
@@ -23,7 +23,7 @@ export type TestInputProps = {
   /**
    * Error message to show when the input is invalid.
    * If unset, a default error message is used that is provided by Onyx depending
-   * on your current locale/langauge and validation.
+   * on your current locale/language and validation.
    */
   errorMessage?: string;
   /** For validation: Whether a non-empty value is required */
@@ -70,7 +70,7 @@ const emit = defineEmits<{
   validityChange: [state: ValidityState];
 }>();
 
-const { t } = useI18n();
+const { t } = injectI18n();
 
 const value = computed({
   get: () => props.modelValue,
@@ -90,6 +90,7 @@ const errorMessage = computed(() => {
   // a custom error message always is considered first
   if (props.errorMessage || errorType === "customError") return props.errorMessage;
 
+  // if the error is "typeMismatch", we will use an error message depending on the type property
   if (errorType === "typeMismatch") {
     const type = TRANSLATED_INPUT_TYPES.includes(props.type as TranslatedInputType)
       ? (props.type as TranslatedInputType)
@@ -100,6 +101,8 @@ const errorMessage = computed(() => {
   return t.value(`validations.${errorType}`, {
     value: value.value,
     n: value.value.toString().length,
+    minLength: props.minLength,
+    maxLength: props.maxLength,
     min: props.min,
     max: props.max,
     step: props.step,

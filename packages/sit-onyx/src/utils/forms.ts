@@ -7,6 +7,13 @@ export const getFirstInvalidType = (validity: ValidityState) => {
     .filter(([key, value]) => key !== "valid" && value.enumerable)
     .map(([key]) => key) as Exclude<keyof ValidityState, "valid">[];
 
+  // sort valueMissing first to align with the default browser behavior
+  availableValidityTypes.sort((a, b) => {
+    if (a === "valueMissing") return -1;
+    if (b === "valueMissing") return 1;
+    return 0;
+  });
+
   // get first invalid type
   for (const type of availableValidityTypes) {
     if (type in validity && validity[type]) return type;
