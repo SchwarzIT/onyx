@@ -33,8 +33,7 @@ export const generateAsSCSS = (data: ParsedVariable): string => {
     return `$${name}: ${variableValue};`;
   });
 
-  return `${generateTimestampComment(data.modeName)}
-${variableContent.join("\n")}\n`;
+  return `${generateTimestampComment(data.modeName)}\n${variableContent.join("\n")}\n`;
 };
 
 /**
