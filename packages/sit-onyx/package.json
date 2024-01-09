@@ -45,7 +45,7 @@
     "@storybook/blocks": "^7.6.7",
     "@storybook/vue3": "^7.6.7",
     "@storybook/vue3-vite": "^7.6.7",
-    "@vue/compiler-dom": "^3.4.3",
+    "@vue/compiler-dom": "^3.4.5",
     "eslint-plugin-playwright": "~0.21.0",
     "react": "^18.2.0",
     "storybook": "^7.6.7"
