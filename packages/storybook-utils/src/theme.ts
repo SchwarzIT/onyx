@@ -5,11 +5,11 @@ import storybookLogo from "./assets/logo-storybook-default.svg";
 import storybookLogoInverse from "./assets/logo-storybook-inverse.svg";
 
 /**
- * Custom Onyx theme for Storybook.
+ * Creates a custom theme for Storybook that uses Onyx colors.
  *
  * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
  */
-const createTheme = (
+export const createTheme = (
   options?: Pick<ThemeVarsPartial, "base" | "brandTitle" | "brandImage" | "brandUrl">,
 ) => {
   const base = options?.base ?? "light";
@@ -17,14 +17,12 @@ const createTheme = (
   const themeColors = base === "light" ? getLightTheme() : getDarkTheme();
   const primaryColor = onyxVariables["onyx-color-brand-primary-500"];
 
-  const remToNumber = (value: string) => +value.replace("rem", "") * 16;
-
   return create({
     brandTitle: options?.brandTitle ?? "Onyx Storybook",
     brandUrl: options?.brandUrl ?? "https://onyx.schwarz",
+    brandImage: options?.brandImage ?? defaultBrandImage,
     brandTarget: "_blank",
     base: base,
-    brandImage: options?.brandImage ?? defaultBrandImage,
 
     // default theme values that are independent of the light/dark mode:
     colorPrimary: primaryColor,
@@ -125,3 +123,5 @@ export const ONYX_BREAKPOINTS = {
     },
   },
 } as const;
+
+export const remToNumber = (value: string) => +value.replace("rem", "") * 16;

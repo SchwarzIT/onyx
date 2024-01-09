@@ -46,6 +46,7 @@ Creates a default Storybook preview configuration for a project that uses `Onyx`
 - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
 - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
 - Setup for dark mode (including docs page). Requires addon [`storybook-dark-mode`](https://storybook.js.org/addons/storybook-dark-mode) to be enabled in .storybook/main.ts file
+- Custom Storybook theme using Onyx colors (light and dark mode)
 - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`).
 - Configure viewports / breakpoints as defined by Onyx
 
@@ -104,6 +105,49 @@ const meta: Meta<typeof TestInput> = {
 
 export default meta;
 type Story = StoryObj<typeof TestInput>;
+```
+
+:::
+
+### createTheme
+
+Creates a custom theme for Storybook that uses Onyx colors.
+See the [Storybook Theming docs](https://storybook.js.org/docs/configure/theming) for further information.
+
+::: tip
+If you are using [`createPreview()`](#createpreview), the custom light and dark theme will already be set up for you.
+:::
+
+Make sure you have installed the `@storybook/manager-api` package.
+
+::: code-group
+
+```ts [.storybook/manager.ts]
+import { createTheme } from "@sit-onyx/storybook-utils";
+import { addons } from "@storybook/manager-api";
+
+addons.setConfig({
+  theme: createTheme({
+    base: "light", // choose whether to want a light or dark theme
+  }),
+});
+```
+
+```ts [.storybook/preview.ts]
+import { createTheme } from "@sit-onyx/storybook-utils";
+import type { Preview } from "@storybook/vue3";
+
+const preview: Preview = {
+  parameters: {
+    docs: {
+      theme: createTheme({
+        base: "light", // choose whether to want a light or dark theme
+      }),
+    },
+  },
+};
+
+export default preview;
 ```
 
 :::
