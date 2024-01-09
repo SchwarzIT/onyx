@@ -1,9 +1,15 @@
+<script lang="ts">
+export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
+</script>
+
 <script lang="ts" setup>
 import {
   useFormValidationMessage,
   type SupportedErrorLangs,
 } from "@/composables/formValidationMessage";
 import { computed, ref, watch } from "vue";
+
+export type InputType = (typeof INPUT_TYPES)[number];
 
 export type TestInputProps = {
   /**
@@ -28,7 +34,7 @@ export type TestInputProps = {
   /** For validation: The pattern that the value must match */
   pattern?: string;
   /** For validation: The expected type of the input's value */
-  type?: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
+  type?: InputType;
   /** For validation: The upper limit of a number value */
   max?: number;
   /**
