@@ -6,7 +6,7 @@
   </a>
 </p>
 
-# Onyx Figma utils
+# Onyx Figma Utils
 
 Utility functions and CLI for importing data from the Figma API into CSS/SCSS variables created by [Schwarz IT](https://it.schwarz).
 
