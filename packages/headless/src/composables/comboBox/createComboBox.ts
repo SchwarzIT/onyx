@@ -70,8 +70,6 @@ export const createComboBox = createBuilder(
         case "End":
           onLast();
           break;
-        default:
-          break;
       }
     };
 
