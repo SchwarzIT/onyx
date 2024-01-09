@@ -15,6 +15,7 @@ const createTheme = (
   const base = options?.base ?? "light";
   const defaultBrandImage = base === "light" ? storybookLogo : storybookLogoInverse;
   const themeColors = base === "light" ? getLightTheme() : getDarkTheme();
+  const primaryColor = onyxVariables["onyx-color-brand-primary-500"];
 
   const remToNumber = (value: string) => +value.replace("rem", "") * 16;
 
@@ -24,6 +25,12 @@ const createTheme = (
     brandTarget: "_blank",
     base: base,
     brandImage: options?.brandImage ?? defaultBrandImage,
+
+    // default theme values that are independent of the light/dark mode:
+    colorPrimary: primaryColor,
+    colorSecondary: onyxVariables["onyx-color-brand-secondary-500"],
+    barSelectedColor: primaryColor,
+    barHoverColor: primaryColor,
     appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-400"]),
     inputBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),
     ...themeColors,
@@ -36,17 +43,13 @@ const getLightTheme = (): Partial<ThemeVars> => {
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
-  const primaryColor = onyxVariables["onyx-color-brand-primary-500"];
   const textColor = onyxVariables["onyx-color-brand-neutral-300"];
   const appBg = onyxVariables["onyx-color-brand-neutral-1100"];
   const appBorderColor = onyxVariables["onyx-color-brand-neutral-700"];
   const appContentBg = onyxVariables["onyx-color-brand-neutral-1200"];
 
   return {
-    // brand
-    colorPrimary: primaryColor,
-    colorSecondary: onyxVariables["onyx-color-brand-secondary-500"],
-
+    // UI
     appBg,
     appContentBg,
     appPreviewBg: appContentBg,
@@ -58,8 +61,6 @@ const getDarkTheme = (): Partial<ThemeVars> => {
 
     // Toolbar default and active/hover colors
     barTextColor: textColor,
-    barSelectedColor: primaryColor,
-    barHoverColor: primaryColor,
     barBg: appBg,
 
     // Form colors
