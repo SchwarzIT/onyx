@@ -47,6 +47,8 @@ yarn install -D @sit-onyx/vitepress-theme
 
 ## Usage
 
+You can check the [VitePress documentation](https://vitepress.dev/guide/custom-theme) for further information.
+
 ::: code-group
 
 ```ts [.vitepress/theme/index.ts]
