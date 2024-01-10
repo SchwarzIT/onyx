@@ -60,4 +60,12 @@
   --vp-c-border: var(--onyx-color-border-brand-neutral-300);
   --vp-c-divider: var(--onyx-color-border-brand-neutral-400);
   --vp-c-gutter: var(--onyx-color-border-brand-neutral-400);
+
+  .vp-sponsor-grid-item {
+    // VitePress shows a ful white background when hovering in dark mode
+    // which is really flashy so we use a more subtle color
+    &:hover {
+      background-color: var(--onyx-color-border-brand-neutral-200);
+    }
+  }
 }
