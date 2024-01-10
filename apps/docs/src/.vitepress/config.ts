@@ -45,7 +45,7 @@ export default defineConfig({
         items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
       },
       {
-        text: "Other npm packages",
+        text: "Other Onyx npm packages",
         base: "/packages",
         collapsed: false,
         items: [
