@@ -1,0 +1,63 @@
+@use "../../sit-onyx/src/styles/variables-onyx.css";
+@use "../../sit-onyx/src/styles/variables-light.css";
+@use "../../sit-onyx/src/styles/variables-dark.css";
+@use "mixins.scss";
+
+// override default VitePress CSS variables to apply Onyx theming
+// see: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css#L178
+:root {
+  // color palette
+  @include mixins.define-vitepress-color(brand, --onyx-color-brand-primary);
+  @include mixins.define-vitepress-color(tip, --onyx-color-surface-info);
+  @include mixins.define-vitepress-color(warning, --onyx-color-surface-warning);
+  @include mixins.define-vitepress-color(danger, --onyx-color-surface-danger);
+  @include mixins.define-vitepress-color(default, --onyx-color-surface-brand-neutral, -200);
+
+  // background
+  --vp-c-bg: var(--onyx-color-surface-bg-tinted);
+  --vp-c-bg-alt: var(--onyx-color-surface-bg-blank);
+  --vp-c-bg-elv: var(--onyx-color-surface-bg-tinted);
+  --vp-c-bg-soft: var(--onyx-color-surface-bg-blank);
+
+  // borders
+  // used for separators (e.g. below h2 headline)
+  --vp-c-border: var(--onyx-color-border-brand-neutral-300);
+  // border on interactive components (e.g. button outline)
+  --vp-c-divider: var(--onyx-color-border-brand-neutral-200);
+  // divide components in the page (e.g. header and page content)
+  --vp-c-gutter: var(--onyx-color-border-brand-neutral-200);
+
+  // typography
+  --vp-c-text-1: var(--onyx-color-text-body-paragraph-intense); // regular text
+  --vp-c-text-2: var(--onyx-color-text-body-paragraph-medium); // muted text (e.g. inactive menu)
+  --vp-c-text-3: var(--onyx-color-text-body-paragraph-soft); // subtle text (e.g. placeholders)
+
+  // remove the following lines when this VitePress PR is merged:
+  // https://github.com/vuejs/vitepress/pull/3434
+  --vp-badge-tip-text: var(--vp-c-tip-1);
+  --vp-badge-tip-bg: var(--vp-c-tip-soft);
+  --vp-custom-block-tip-bg: var(--vp-c-tip-soft);
+  --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
+  --vp-code-line-warning-color: var(--vp-c-warning-soft);
+  --vp-code-line-error-color: var(--vp-c-danger-soft);
+
+  @include mixins.home-page-gradients(
+    var(--onyx-color-brand-primary-400),
+    var(--onyx-color-text-info-400)
+  );
+}
+
+.dark {
+  // TODO: discuss with Jannick if its okay to override some colors in dark theme or if other variables should be used
+  --vp-c-default-1: var(--onyx-color-surface-brand-neutral-400);
+  --vp-c-default-2: var(--onyx-color-surface-brand-neutral-500);
+  --vp-c-default-3: var(--onyx-color-surface-brand-neutral-600);
+  @include mixins.hex-to-soft-color(
+    --vp-c-default-soft,
+    var(--onyx-color-surface-brand-neutral-700)
+  );
+
+  --vp-c-border: var(--onyx-color-border-brand-neutral-300);
+  --vp-c-divider: var(--onyx-color-border-brand-neutral-400);
+  --vp-c-gutter: var(--onyx-color-border-brand-neutral-400);
+}

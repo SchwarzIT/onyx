@@ -1,0 +1,54 @@
+/**
+* Converts the given color (e.g. CSS variable or HEX color) to a VitePress "soft" color
+* by adding 25% of transparency to it.
+*/
+@mixin hex-to-soft-color($property, $color) {
+  #{$property}: color-mix(in srgb, $color 25%, transparent);
+}
+
+/**
+* Defines the 4 scaled VitePress color CSS variables for the given Onyx variable name.
+*
+* @example
+* $name: "brand" , $onyx-color-base: "--onyx-test"
+* --vp-c-brand-1: var(--onyx-test-700);
+* --vp-c-brand-2: var(--onyx-test-600);
+* --vp-c-brand-3: var(--onyx-test-500);
+* --vp-c-brand-soft: var(--onyx-test-400) // will add transparency to color value;
+*/
+@mixin define-vitepress-color($name, $onyx-color-base, $offset: 0) {
+  // VitePress color logic (see https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css#L18)
+  // XXX-1: default color (most solid)
+  // XXX-2: hover
+  // XXX-3: solid color (e.g. button background)
+  // XXX-soft: subtle background (must be semi-transparent)
+  --vp-c-#{$name}-1: var(#{$onyx-color-base}-#{700 + $offset});
+  --vp-c-#{$name}-2: var(#{$onyx-color-base}-#{600 + $offset});
+  --vp-c-#{$name}-3: var(#{$onyx-color-base}-#{500 + $offset});
+  @include hex-to-soft-color(--vp-c-#{$name}-soft, var(#{$onyx-color-base}-#{400 + $offset}));
+}
+
+/**
+* Adds CSS for using a colored gradient for the name and logo background on the home page
+*/
+@mixin home-page-gradients($primary, $secondary) {
+  // https://vitepress.dev/reference/default-theme-home-page#customizing-the-name-color
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(30deg, #{$primary}, #{$secondary});
+
+  // Home page logo
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #{$primary} 50%,
+    #{$secondary} 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+
+  @media (min-width: 960px) {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+
+  @media (min-width: 640px) {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
