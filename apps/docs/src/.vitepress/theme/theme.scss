@@ -41,12 +41,10 @@
 }
 
 // allow hiding external link indicator (e.g. for npm badges)
-.external-link {
-  &--hide {
-    a {
-      &::after {
-        display: none !important;
-      }
+.hide-external-link {
+  a {
+    &::after {
+      display: none !important;
     }
   }
 }

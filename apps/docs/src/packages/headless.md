@@ -8,7 +8,7 @@ import packageJson from "../../../../packages/headless/package.json";
 
 # @sit-onyx/headless
 
-<div class="external-link--hide">
+<div class="hide-external-link">
 
 [![npm version](https://badge.fury.io/js/@sit-onyx%2Fheadless.svg)](https://www.npmjs.com/package/@sit-onyx/headless)
 

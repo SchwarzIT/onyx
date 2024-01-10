@@ -8,7 +8,7 @@ import packageJson from "../../../../packages/storybook-utils/package.json";
 
 # @sit-onyx/storybook-utils
 
-<div class="external-link--hide">
+<div class="hide-external-link">
 
 [![npm version](https://badge.fury.io/js/@sit-onyx%2Fstorybook-utils.svg)](https://www.npmjs.com/package/@sit-onyx/storybook-utils)
 
