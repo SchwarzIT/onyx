@@ -21,12 +21,12 @@ describe("import-variables.ts", () => {
     vi.spyOn(process, "cwd").mockReturnValue("test-cwd");
   });
 
-  test("should throw error for unknown formats", async () => {
+  test("should throw error for unknown formats", () => {
     const promise = () => importCommandAction({ ...mockOptions, format: "does-not-exist" });
     expect(promise).rejects.toThrowError("Unknown format: does-not-exist. Supported: CSS, SCSS");
   });
 
-  test("should throw error for unknown modes", async () => {
+  test("should throw error for unknown modes", () => {
     vi.spyOn(functions, "parseFigmaVariables").mockReturnValue([
       { modeName: "test-mode-1", variables: {} },
     ]);
