@@ -3,8 +3,9 @@ import { ParsedVariable } from "../types/figma.js";
 /**
  * Generates the given parsed Figma variables into CSS variables.
  *
- * @param selector CSS selector to use. The mode name will be added to the selector
- * if its set to something other than ":root", e.g. "html.dark" is the selector is set to "html"
+ * @param data Parsed Figma variables
+ * @param selector CSS selector to use for the CSS format. The mode name will be added to the selector
+ * if it is set to something other than ":root", e.g. for the mode named "dark", passing the selector "html" will result in "html.dark"
  * @returns File content of the .css file
  */
 export const generateAsCSS = (data: ParsedVariable, selector: string = ":root"): string => {

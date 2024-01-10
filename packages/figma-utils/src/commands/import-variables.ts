@@ -39,7 +39,7 @@ export const importCommand = new Command("import-variables")
   )
   .option(
     "-s, --selector <string>",
-    'CSS selector to use if using the CSS format. The mode name will be added to the selector if its set to something other than ":root", e.g. "html.dark" is the selector is set to "html"',
+    'CSS selector to use for the CSS format. The mode name will be added to the selector if it is set to something other than ":root", e.g. for the mode named "dark", passing the selector "html" will result in "html.dark"',
     ":root",
   )
   .action(async (options: ImportCommandOptions) => {
