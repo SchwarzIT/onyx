@@ -38,11 +38,9 @@ describe("generate.ts", () => {
  * This file contains the specific variables for the "test-mode-1" theme.
  * Imported from Figma API on Sun, 07 Jan 2024 12:42:00 GMT
  */
-:root {
-  $test-1: #ffffff;
-  $test-2: 1rem;
-  $test-3: $test-2;
-}
+$test-1: #ffffff;
+$test-2: 1rem;
+$test-3: $test-2;
 `);
   });
 });
