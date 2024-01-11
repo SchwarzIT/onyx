@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "dark" theme.
- * Imported from Figma API on Wed, 10 Jan 2024 10:40:20 GMT
+ * Imported from Figma API on Thu, 11 Jan 2024 13:09:47 GMT
  */
 html.dark {
   --onyx-color-text-body-paragraph-intense: var(--onyx-color-brand-neutral-200);
@@ -10,23 +10,23 @@ html.dark {
   --onyx-color-text-body-paragraph-inverted: var(--onyx-color-brand-neutral-1200);
   --onyx-color-text-body-link-default: var(--onyx-color-brand-primary-700);
   --onyx-color-text-body-link-hover: var(--onyx-color-brand-primary-500);
-  --onyx-color-text-body-danger-bold: var(--onyx-color-universal-red-500);
+  --onyx-color-text-body-danger-bold: var(--onyx-color-universal-red-400);
   --onyx-color-text-body-link-pressed: var(--onyx-color-brand-primary-400);
-  --onyx-color-text-body-danger-intense: var(--onyx-color-universal-red-700);
-  --onyx-color-text-body-danger-medium: var(--onyx-color-universal-red-900);
-  --onyx-color-text-body-danger-soft: var(--onyx-color-universal-red-1000);
-  --onyx-color-text-body-warning-bold: var(--onyx-color-universal-orange-500);
-  --onyx-color-text-body-warning-intense: var(--onyx-color-universal-orange-700);
-  --onyx-color-text-body-warning-medium: var(--onyx-color-universal-orange-900);
-  --onyx-color-text-body-warning-soft: var(--onyx-color-universal-orange-1000);
-  --onyx-color-text-body-success-bold: var(--onyx-color-universal-green-500);
-  --onyx-color-text-body-success-intense: var(--onyx-color-universal-green-700);
-  --onyx-color-text-body-success-medium: var(--onyx-color-universal-green-900);
-  --onyx-color-text-body-success-soft: var(--onyx-color-universal-green-1000);
-  --onyx-color-text-body-info-bold: var(--onyx-color-universal-purple-500);
-  --onyx-color-text-body-info-intense: var(--onyx-color-universal-purple-700);
-  --onyx-color-text-body-info-medium: var(--onyx-color-universal-purple-900);
-  --onyx-color-text-body-info-soft: var(--onyx-color-universal-purple-1000);
+  --onyx-color-text-body-danger-intense: var(--onyx-color-universal-red-500);
+  --onyx-color-text-body-danger-medium: var(--onyx-color-universal-red-700);
+  --onyx-color-text-body-danger-soft: var(--onyx-color-universal-red-900);
+  --onyx-color-text-body-warning-bold: var(--onyx-color-universal-orange-400);
+  --onyx-color-text-body-warning-intense: var(--onyx-color-universal-orange-500);
+  --onyx-color-text-body-warning-medium: var(--onyx-color-universal-orange-700);
+  --onyx-color-text-body-warning-soft: var(--onyx-color-universal-orange-900);
+  --onyx-color-text-body-success-bold: var(--onyx-color-universal-green-400);
+  --onyx-color-text-body-success-intense: var(--onyx-color-universal-green-500);
+  --onyx-color-text-body-success-medium: var(--onyx-color-universal-green-700);
+  --onyx-color-text-body-success-soft: var(--onyx-color-universal-green-900);
+  --onyx-color-text-body-info-bold: var(--onyx-color-universal-purple-400);
+  --onyx-color-text-body-info-intense: var(--onyx-color-universal-purple-500);
+  --onyx-color-text-body-info-medium: var(--onyx-color-universal-purple-700);
+  --onyx-color-text-body-info-soft: var(--onyx-color-universal-purple-900);
   --onyx-color-text-brand-neutral-100: var(--onyx-color-brand-neutral-1100);
   --onyx-color-text-brand-neutral-200: var(--onyx-color-brand-neutral-1000);
   --onyx-color-text-brand-neutral-300: var(--onyx-color-brand-neutral-900);

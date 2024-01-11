@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Wed, 10 Jan 2024 10:40:20 GMT
+ * Imported from Figma API on Thu, 11 Jan 2024 13:09:40 GMT
  */
 :root {
   --onyx-color-brand-primary-100: #e9f7f1;
@@ -43,9 +43,9 @@
   --onyx-color-universal-greyscale-white: #ffffff;
   --onyx-color-universal-greyscale-black: #000000;
   --onyx-color-universal-red-100: #fbefee;
-  --onyx-color-universal-red-200: #f1c0be;
-  --onyx-color-universal-red-300: #e6918f;
-  --onyx-color-universal-red-400: #dc625f;
+  --onyx-color-universal-red-200: #f1d2d1;
+  --onyx-color-universal-red-300: #e6a7a5;
+  --onyx-color-universal-red-400: #dc716e;
   --onyx-color-universal-red-500: #d1332f;
   --onyx-color-universal-red-600: #bc2d2a;
   --onyx-color-universal-red-700: #a82824;
@@ -55,9 +55,9 @@
   --onyx-color-universal-red-1100: #400c09;
   --onyx-color-universal-red-1200: #400c09;
   --onyx-color-universal-orange-100: #faf6f2;
-  --onyx-color-universal-orange-200: #f8dfc8;
-  --onyx-color-universal-orange-300: #f6c89e;
-  --onyx-color-universal-orange-400: #f4b074;
+  --onyx-color-universal-orange-200: #f8e7d8;
+  --onyx-color-universal-orange-300: #f6d1b1;
+  --onyx-color-universal-orange-400: #f4b57e;
   --onyx-color-universal-orange-500: #f2994a;
   --onyx-color-universal-orange-600: #d98841;
   --onyx-color-universal-orange-700: #bf7737;
@@ -67,7 +67,7 @@
   --onyx-color-universal-orange-1100: #593412;
   --onyx-color-universal-orange-1200: #402309;
   --onyx-color-universal-green-100: #ecf8f2;
-  --onyx-color-universal-green-200: #c2e4d3;
+  --onyx-color-universal-green-200: #c6e4d5;
   --onyx-color-universal-green-300: #98d1b3;
   --onyx-color-universal-green-400: #6ebe94;
   --onyx-color-universal-green-500: #44aa75;
@@ -79,18 +79,18 @@
   --onyx-color-universal-green-1100: #064023;
   --onyx-color-universal-green-1200: #064023;
   --onyx-color-universal-purple-100: #f4f1f8;
-  --onyx-color-universal-purple-200: #e6dcf2;
-  --onyx-color-universal-purple-300: #cab4e5;
-  --onyx-color-universal-purple-400: #aa89d1;
+  --onyx-color-universal-purple-200: #dbcfea;
+  --onyx-color-universal-purple-300: #c2addc;
+  --onyx-color-universal-purple-400: #a98ace;
   --onyx-color-universal-purple-500: #9068c0;
-  --onyx-color-universal-purple-600: #7b52ab;
-  --onyx-color-universal-purple-700: #613990;
-  --onyx-color-universal-purple-800: #3a1664;
+  --onyx-color-universal-purple-600: #805aae;
+  --onyx-color-universal-purple-700: #704c9b;
+  --onyx-color-universal-purple-800: #603e89;
   --onyx-number-spacing-50: 0;
-  --onyx-color-universal-purple-900: #210640;
-  --onyx-color-universal-purple-1000: #210640;
+  --onyx-color-universal-purple-900: #513077;
+  --onyx-color-universal-purple-1000: #412265;
   --onyx-number-spacing-100: 0.125rem;
-  --onyx-color-universal-purple-1100: #210640;
+  --onyx-color-universal-purple-1100: #311452;
   --onyx-color-universal-purple-1200: #210640;
   --onyx-number-spacing-200: 0.25rem;
   --onyx-number-spacing-300: 0.5rem;

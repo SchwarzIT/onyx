@@ -1,10 +1,9 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "light" theme.
- * Imported from Figma API on Wed, 10 Jan 2024 10:40:20 GMT
+ * Imported from Figma API on Thu, 11 Jan 2024 13:09:40 GMT
  */
-:root,
-html.light {
+:root {
   --onyx-color-text-body-paragraph-intense: var(--onyx-color-brand-neutral-800);
   --onyx-color-text-body-paragraph-medium: var(--onyx-color-brand-neutral-500);
   --onyx-color-text-body-paragraph-soft: var(--onyx-color-brand-neutral-400);

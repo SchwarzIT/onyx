@@ -25,7 +25,7 @@ It extends the default VitePress theme so you can use the same [config](https://
 The theme includes the following features:
 
 - light and dark theme that matches the Onyx design
-- [colored gradient](/) for the name and logo background on the home page
+- colored name and gradient logo background on the [home page](/)
 
 ## Installation
 

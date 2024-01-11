@@ -42,28 +42,18 @@
   --vp-code-line-error-color: var(--vp-c-danger-soft);
 
   @include mixins.home-page-gradients(
-    var(--onyx-color-brand-primary-400),
-    var(--onyx-color-text-info-400)
+    var(--onyx-color-brand-primary-500),
+    var(--onyx-color-text-info-500)
   );
 }
 
 .dark {
-  // TODO: discuss with Jannick if its okay to override some colors in dark theme or if other variables should be used
-  --vp-c-default-1: var(--onyx-color-surface-brand-neutral-400);
-  --vp-c-default-2: var(--onyx-color-surface-brand-neutral-500);
-  --vp-c-default-3: var(--onyx-color-surface-brand-neutral-600);
-  @include mixins.hex-to-soft-color(
-    --vp-c-default-soft,
-    var(--onyx-color-surface-brand-neutral-700)
-  );
+  // use lighter neutral color in dark mode since its too dark otherwise
+  @include mixins.define-vitepress-color(default, --onyx-color-surface-brand-neutral, 200);
 
-  --vp-c-border: var(--onyx-color-border-brand-neutral-300);
-  --vp-c-divider: var(--onyx-color-border-brand-neutral-400);
-  --vp-c-gutter: var(--onyx-color-border-brand-neutral-400);
-
+  // VitePress shows a ful white background when hovering in dark mode
+  // which is really flashy so we use a more subtle color
   .vp-sponsor-grid-item {
-    // VitePress shows a ful white background when hovering in dark mode
-    // which is really flashy so we use a more subtle color
     &:hover {
       background-color: var(--onyx-color-border-brand-neutral-200);
     }
