@@ -15,11 +15,11 @@ export const generateAsCSS = (data: ParsedVariable, selector: string = ":root"):
     return `  --${name}: ${variableValue};`;
   });
 
-  selector = selector.trim();
-  if (selector !== ":root") selector += `.${data.modeName}`;
+  let fullSelector = selector.trim();
+  if (fullSelector !== ":root") fullSelector += `.${data.modeName}`;
 
   return `${generateTimestampComment(data.modeName)}
-${selector} {\n${variableContent.join("\n")}\n}\n`;
+${fullSelector} {\n${variableContent.join("\n")}\n}\n`;
 };
 
 /**
