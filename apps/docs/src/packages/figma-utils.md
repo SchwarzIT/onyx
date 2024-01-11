@@ -8,7 +8,11 @@ import packageJson from "../../../../packages/figma-utils/package.json";
 
 # @sit-onyx/figma-utils
 
+<div class="hide-external-link">
+
 [![npm version](https://badge.fury.io/js/@sit-onyx%2Ffigma-utils.svg)](https://www.npmjs.com/package/@sit-onyx/figma-utils)
+
+</div>
 
 {{ packageJson.description }}.
 
