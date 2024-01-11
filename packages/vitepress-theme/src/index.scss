@@ -32,6 +32,11 @@
   --vp-c-text-2: var(--onyx-color-text-body-paragraph-medium); // muted text (e.g. inactive menu)
   --vp-c-text-3: var(--onyx-color-text-body-paragraph-soft); // subtle text (e.g. placeholders)
 
+  @include mixins.home-page-gradients(
+    var(--onyx-color-brand-primary-500),
+    var(--onyx-color-text-info-500)
+  );
+
   // remove the following lines when this VitePress PR is merged:
   // https://github.com/vuejs/vitepress/pull/3434
   --vp-badge-tip-text: var(--vp-c-tip-1);
@@ -40,11 +45,6 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
   --vp-code-line-warning-color: var(--vp-c-warning-soft);
   --vp-code-line-error-color: var(--vp-c-danger-soft);
-
-  @include mixins.home-page-gradients(
-    var(--onyx-color-brand-primary-500),
-    var(--onyx-color-text-info-500)
-  );
 }
 
 .dark {
