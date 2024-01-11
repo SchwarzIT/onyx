@@ -13,6 +13,7 @@ describe("import-variables.ts", () => {
     filename: "test-file-name",
     format: "CSS",
     token: "test-token",
+    selector: ":root",
   } satisfies ImportCommandOptions;
 
   beforeEach(() => {
