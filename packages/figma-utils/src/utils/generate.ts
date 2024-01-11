@@ -83,7 +83,7 @@ export const generateAsJSON = (data: ParsedVariable): string => {
     variables[name] = resolveValue(name, variables);
   }
 
-  return JSON.stringify(variables, null, 2);
+  return `${JSON.stringify(variables, null, 2)}\n`;
 };
 
 /**
