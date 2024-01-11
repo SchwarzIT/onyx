@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   DEFAULT_MODE_NAME,
+  ParsedVariable,
   fetchFigmaVariables,
   generateAsCSS,
   generateAsJSON,
@@ -17,6 +18,7 @@ type ImportCommandOptions = {
   format: string[];
   dir?: string;
   modes?: string[];
+  selector: string;
 };
 
 export const importCommand = new Command("import-variables")
@@ -36,9 +38,14 @@ export const importCommand = new Command("import-variables")
     "-m, --modes <strings...>",
     "Can be used to only export specific Figma modes. If unset, all modes will be exported as a separate file.",
   )
+  .option(
+    "-s, --selector <string>",
+    'CSS selector to use for the CSS format. The mode name will be added to the selector if it is set to something other than ":root", e.g. for the mode named "dark", passing the selector "html" will result in "html.dark"',
+    ":root",
+  )
   .action(async (options: ImportCommandOptions) => {
     const generators = {
-      CSS: generateAsCSS,
+      CSS: (data: ParsedVariable) => generateAsCSS(data, options.selector),
       SCSS: generateAsSCSS,
       JSON: generateAsJSON,
     };
