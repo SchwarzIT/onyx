@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "light" theme.
- * Imported from Figma API on Thu, 11 Jan 2024 13:09:40 GMT
+ * Imported from Figma API on Thu, 11 Jan 2024 14:59:14 GMT
  */
 :root {
   --onyx-color-text-body-paragraph-intense: var(--onyx-color-brand-neutral-800);
@@ -281,29 +281,6 @@
   --onyx-spacing-xl: var(--onyx-number-spacing-700);
   --onyx-spacing-2xl: var(--onyx-number-spacing-800);
   --onyx-spacing-3xl: var(--onyx-number-spacing-900);
-  --onyx-size-object-1: var(--onyx-number-size-50);
-  --onyx-size-object-2: var(--onyx-number-size-100);
-  --onyx-size-object-4: var(--onyx-number-size-150);
-  --onyx-size-object-8: var(--onyx-number-size-200);
-  --onyx-size-object-10: var(--onyx-number-size-250);
-  --onyx-size-object-12: var(--onyx-number-size-300);
-  --onyx-size-object-16: var(--onyx-number-size-350);
-  --onyx-size-object-20: var(--onyx-number-size-400);
-  --onyx-size-object-24: var(--onyx-number-size-450);
-  --onyx-size-object-32: var(--onyx-number-size-500);
-  --onyx-size-object-40: var(--onyx-number-size-550);
-  --onyx-size-object-48: var(--onyx-number-size-600);
-  --onyx-size-object-54: var(--onyx-number-size-650);
-  --onyx-size-object-58: var(--onyx-number-size-700);
-  --onyx-size-object-64: var(--onyx-number-size-750);
-  --onyx-size-object-72: var(--onyx-number-size-800);
-  --onyx-size-object-80: var(--onyx-number-size-850);
-  --onyx-size-object-96: var(--onyx-number-size-900);
-  --onyx-size-object-128: var(--onyx-number-size-950);
-  --onyx-size-border-none: 0;
-  --onyx-size-border-sm: var(--onyx-number-size-50);
-  --onyx-size-border-md: var(--onyx-number-size-100);
-  --onyx-size-border-lg: var(--onyx-number-size-150);
   --onyx-component-navbar-text-default: var(--onyx-color-text-body-paragraph-intense);
   --onyx-component-navbar-text-hover: var(--onyx-color-text-body-paragraph-intense);
   --onyx-component-navbar-text-active: var(--onyx-color-text-body-link-default);

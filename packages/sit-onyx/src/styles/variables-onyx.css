@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Thu, 11 Jan 2024 13:09:40 GMT
+ * Imported from Figma API on Thu, 11 Jan 2024 14:59:14 GMT
  */
 :root {
   --onyx-color-brand-primary-100: #e9f7f1;
@@ -86,8 +86,8 @@
   --onyx-color-universal-purple-600: #805aae;
   --onyx-color-universal-purple-700: #704c9b;
   --onyx-color-universal-purple-800: #603e89;
-  --onyx-number-spacing-50: 0;
   --onyx-color-universal-purple-900: #513077;
+  --onyx-number-spacing-50: 0;
   --onyx-color-universal-purple-1000: #412265;
   --onyx-number-spacing-100: 0.125rem;
   --onyx-color-universal-purple-1100: #311452;
@@ -100,25 +100,6 @@
   --onyx-number-spacing-700: 3rem;
   --onyx-number-spacing-800: 4rem;
   --onyx-number-spacing-900: 6rem;
-  --onyx-number-size-50: 0.0625rem;
-  --onyx-number-size-100: 0.125rem;
-  --onyx-number-size-150: 0.25rem;
-  --onyx-number-size-200: 0.5rem;
-  --onyx-number-size-250: 0.625rem;
-  --onyx-number-size-300: 0.75rem;
-  --onyx-number-size-350: 1rem;
-  --onyx-number-size-400: 1.25rem;
-  --onyx-number-size-450: 1.5rem;
-  --onyx-number-size-500: 2rem;
-  --onyx-number-size-550: 2.5rem;
-  --onyx-number-size-600: 3rem;
-  --onyx-number-size-650: 3.375rem;
-  --onyx-number-size-700: 3.625rem;
-  --onyx-number-size-750: 4rem;
-  --onyx-number-size-800: 4.5rem;
-  --onyx-number-size-850: 5rem;
-  --onyx-number-size-900: 6rem;
-  --onyx-number-size-950: 8rem;
   --onyx-number-radius-100: 0;
   --onyx-number-radius-200: 0.125rem;
   --onyx-number-radius-300: 0.25rem;
