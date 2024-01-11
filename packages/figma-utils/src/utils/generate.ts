@@ -26,8 +26,7 @@ export type GenerateAsCSSOptions = BaseGenerateOptions & {
  * Generates the given parsed Figma variables into CSS variables.
  *
  * @param data Parsed Figma variables
- * @param selector CSS selector to use for the CSS format. The mode name will be added to the selector
- * if it is set to something other than ":root", e.g. for the mode named "dark", passing the selector "html" will result in "html.dark"
+ * @param options Optional options to fine-tune the generated output
  * @returns File content of the .css file
  */
 export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptions): string => {
