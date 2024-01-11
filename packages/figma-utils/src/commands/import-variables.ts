@@ -45,7 +45,7 @@ export const importCommand = new Command("import-variables")
   )
   .action(async (options: ImportCommandOptions) => {
     const generators = {
-      CSS: (data: ParsedVariable) => generateAsCSS(data, options.selector),
+      CSS: (data: ParsedVariable) => generateAsCSS(data, { selector: options.selector }),
       SCSS: generateAsSCSS,
       JSON: generateAsJSON,
     };
