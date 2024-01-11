@@ -1,6 +1,4 @@
-@use "../../sit-onyx/src/styles/variables-onyx.css";
-@use "../../sit-onyx/src/styles/variables-light.css";
-@use "../../sit-onyx/src/styles/variables-dark.css";
+@use "../../sit-onyx/src/styles/index.scss";
 @use "mixins.scss";
 
 // override default VitePress CSS variables to apply Onyx theming
