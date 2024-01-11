@@ -84,7 +84,7 @@ const errorMessage = computed(() => {
   if (props.errorMessage) return props.errorMessage;
 
   const element = inputElement.value;
-  /* when a language key is provided, we offer our own translations of the error messages 
+  /* when a language key is provided, we offer our own translations of the error messages
   to match the rest of the user's application */
   if (props.lang && element) return useFormValidationMessage(element.validity, props);
   /* we default to the browser's standard validation message that relies on the browser language */
@@ -140,6 +140,7 @@ watch(
 .input {
   width: max-content;
   display: inline-block;
+  font-family: var(--onyx-font-family);
 
   &__label {
     margin-right: 8px;

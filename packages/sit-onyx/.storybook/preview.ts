@@ -2,6 +2,8 @@ import { createPreview } from "@sit-onyx/storybook-utils";
 import docsTemplate from "./docs-template.mdx";
 
 import "@/styles/index.scss";
+import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/source-sans-3";
 import "./docs-template.scss";
 
 const preview = {
