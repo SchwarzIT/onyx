@@ -105,10 +105,10 @@ const myCustomLanguage: Translation = {
 ```
 
 ```json [When contributing to Onyx]
-// simply create a new json file for your language (e.g. "en-US")
+// simply create a new json file for your language (e.g. "fr-FR")
 // in the locales folder linked above and place your translations there
 {
-  "someMessage": "Hello World"
+  "someMessage": "Bonjour le monde"
 }
 ```
 
