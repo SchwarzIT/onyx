@@ -1,12 +1,15 @@
 <script lang="ts">
+import enUS from "@/i18n/locales/en-US.json";
+
 export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];
 
 /**
  * Input types that have a translation for their validation error message.
- * Must be up to date with i18n/locales/en-US.json.
  */
-const TRANSLATED_INPUT_TYPES = ["email", "number", "tel", "url"] as const satisfies InputType[];
+const TRANSLATED_INPUT_TYPES = Object.keys(
+  enUS.validations.typeMismatch,
+) as (keyof typeof enUS.validations.typeMismatch)[];
 type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 </script>
 
@@ -45,7 +48,7 @@ export type TestInputProps = {
   maxLength?: number;
   /** For validation: The lower limit of a number value */
   min?: number;
-  /** Step if type is "number" */
+  /** Step size of a number value */
   step?: number;
   /**
    * For validation: Expected minimal length of a string value. Warning: when the value is (pre)set by code,
@@ -75,14 +78,14 @@ const emit = defineEmits<{
 
 const { t } = injectI18n();
 
+const isTouched = ref(false);
+const inputElement = ref<HTMLInputElement | null>(null);
+const validityState = ref(inputElement.value?.validity);
+
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-
-const isTouched = ref(false);
-const inputElement = ref<HTMLInputElement | null>(null);
-const validityState = ref(inputElement.value?.validity);
 
 const errorMessage = computed(() => {
   if (!validityState.value || validityState.value.valid) return "";
@@ -98,7 +101,7 @@ const errorMessage = computed(() => {
     const type = TRANSLATED_INPUT_TYPES.includes(props.type as TranslatedInputType)
       ? (props.type as TranslatedInputType)
       : "generic";
-    return t.value(`validations.typeMismatch.${type}`);
+    return t.value(`validations.typeMismatch.${type}`, { value: value.value });
   }
 
   return t.value(`validations.${errorType}`, {
