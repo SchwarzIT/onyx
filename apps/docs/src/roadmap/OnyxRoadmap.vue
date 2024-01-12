@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import packageJson from "../../../../packages/sit-onyx/package.json";
+import ComponentGrid from "./ComponentGrid.vue";
 import RoadmapCard from "./RoadmapCard.vue";
+import TabGroup from "./TabGroup.vue";
 import { data } from "./roadmap.data";
 </script>
 
@@ -10,7 +12,6 @@ import { data } from "./roadmap.data";
       <div class="sections">
         <section>
           <h2 class="roadmap__headline">KPIs</h2>
-
           <p class="roadmap__timestamp">Last updated on: {{ data.timestamp }}</p>
 
           <div class="grid">
@@ -19,7 +20,6 @@ import { data } from "./roadmap.data";
               :description="data.componentCount === 1 ? 'Component' : 'Components'"
               href="/getting-started"
             />
-
             <RoadmapCard
               :title="data.variantCount"
               description="Component variants"
@@ -57,13 +57,11 @@ import { data } from "./roadmap.data";
         <section>
           <h2 class="roadmap__headline">Components</h2>
 
-          Lorem ipsum...
-        </section>
-
-        <section>
-          <h2 class="roadmap__headline">Lorem ipsum...</h2>
-
-          Lorem ipsum...
+          <TabGroup :tabs="data.componentTabs">
+            <template v-for="tab in data.componentTabs" :key="tab.id" #[tab.id]>
+              <ComponentGrid v-bind="tab" />
+            </template>
+          </TabGroup>
         </section>
       </div>
     </div>

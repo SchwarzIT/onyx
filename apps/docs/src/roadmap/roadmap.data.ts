@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineLoader } from "vitepress";
+import type { ComponentGridProps } from "./ComponentGrid.vue";
+import type { Tab } from "./TabGroup.vue";
 
 export type Data = {
   componentCount: number;
@@ -11,6 +13,13 @@ export type Data = {
   timestamp: string;
   downloads: number;
   packageCount: number;
+  componentTabs: (Tab & ComponentGridProps)[];
+};
+
+/** @see https://docs.github.com/en/rest/issues/milestones?apiVersion=2022-11-28#get-a-milestone */
+export type GitHubMilestone = {
+  title: string;
+  due_on?: string;
 };
 
 declare const data: Data;
@@ -46,6 +55,71 @@ export default defineLoader({
     const commitCount = await searchGitHub("commits", `committer-date:<=${dateString}`);
     const downloads = await getNpmDownloadCount(npmPackageNames);
 
+    const componentTabs: Data["componentTabs"] = [
+      {
+        id: "t0",
+        label: "Basic components",
+        description:
+          "Basic components with top priority that we consider as must-have for building a simple web application.",
+        dueDate: (await getGitHubMilestone(2)).due_on,
+        components: [
+          { name: "Button", comingSoon: true },
+          { name: "Radio button", comingSoon: true },
+          { name: "Simple table", comingSoon: true },
+          { name: "Headline", comingSoon: true },
+          { name: "Footer", comingSoon: true },
+          { name: "Header", comingSoon: true },
+          { name: "Dropdown", comingSoon: true },
+          { name: "Textarea", comingSoon: true },
+          { name: "Input", comingSoon: true },
+          { name: "Switch", comingSoon: true },
+          { name: "Checkbox", comingSoon: true },
+        ],
+      },
+      {
+        id: "t1",
+        label: "Priority 2",
+        description:
+          "Commonly used components but that are not critical to implement simple applications.",
+        components: [
+          { name: "Advanced Table", comingSoon: true },
+          { name: "Filter", comingSoon: true },
+          { name: "Notification", comingSoon: true },
+          { name: "Sidebar", comingSoon: true },
+          { name: "Card", comingSoon: true },
+          { name: "Popover", comingSoon: true },
+          { name: "Dialog", comingSoon: true },
+          { name: "Pagination", comingSoon: true },
+        ],
+      },
+      {
+        id: "t2",
+        label: "Priority 3",
+        description:
+          "Nice to have components. A basic or Priority 2 component can be used as alternative in the meantime.",
+        components: [
+          { name: "Datepicker", comingSoon: true },
+          { name: "Timepicker", comingSoon: true },
+          { name: "Calendar", comingSoon: true },
+          { name: "Accordion", comingSoon: true },
+          { name: "Slider", comingSoon: true },
+          { name: "Stepper", comingSoon: true },
+          { name: "Upload", comingSoon: true },
+        ],
+      },
+      {
+        id: "t3",
+        label: "Priority 4",
+        description: "Low priority components.",
+        components: [
+          { name: "Breadcrumb", comingSoon: true },
+          { name: "Table of Content", comingSoon: true },
+          { name: "Wizard", comingSoon: true },
+          { name: "Tabs", comingSoon: true },
+        ],
+      },
+    ];
+
     return {
       componentCount: watchedFiles.length,
       variantCount,
@@ -55,10 +129,14 @@ export default defineLoader({
       timestamp: today.toUTCString(),
       downloads,
       packageCount: packageFolders.length,
+      componentTabs,
     };
   },
 });
 
+/**
+ * Counts the occurrences of the word in the given content.
+ */
 const countWord = (content: string, word: string): number => {
   return content.split(word).length - 1;
 };
@@ -95,6 +173,29 @@ const searchGitHub = async (
   }
 
   return body.total_count;
+};
+
+/**
+ * Gets the data for the given GitHub milestone.
+ *
+ * @see: https://docs.github.com/en/rest/issues/milestones?apiVersion=2022-11-28#get-a-milestone
+ */
+const getGitHubMilestone = async (milestoneNumber: number): Promise<GitHubMilestone> => {
+  const response = await fetch(
+    `https://api.github.com/repos/SchwarzIT/onyx/milestones/${milestoneNumber}`,
+    {
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    },
+  );
+  const body = await response.json();
+
+  if (response.status < 200 || response.status >= 300) {
+    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
+  }
+
+  return body;
 };
 
 /**
