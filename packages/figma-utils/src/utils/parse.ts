@@ -60,7 +60,7 @@ export const parseFigmaVariables = (
   });
 
   parsedData.forEach((data) => {
-    if (data.modeName === "DEFAULT_MODE_NAME") delete data.modeName;
+    if (data.modeName === DEFAULT_MODE_NAME) delete data.modeName;
   });
 
   return parsedData;
