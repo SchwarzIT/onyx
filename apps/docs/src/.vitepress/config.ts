@@ -25,6 +25,7 @@ export default defineConfig({
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
       { text: "Getting Started", link: "/getting-started" },
+      { text: "Roadmap", link: "/roadmap/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],

@@ -43,11 +43,36 @@
   );
   --vp-home-hero-image-filter: blur(44px);
 
-  @media (min-width: 960px) {
+  @include breakpoint(l, min) {
     --vp-home-hero-image-filter: blur(68px);
   }
 
-  @media (min-width: 640px) {
+  @include breakpoint(s, min) {
     --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+/**
+ * Mixin for applying VitePress breakpoints (xs - xxl).
+ * @param {string} $breakpoint - name of the VitePress breakpoint
+ * @param {string} $min-max - Whether the breakpoint should be considered as min or max width. Default: max
+ *
+ * @example breakpoint(m)
+ * @example breakpoint(m, min)
+ */
+@mixin breakpoint($name, $min-max: max) {
+  $breakpoints: (
+    xs: 375px,
+    s: 640px,
+    m: 768px,
+    l: 960px,
+    xl: 1280px,
+    xxl: 1440px,
+  );
+
+  @if map-has-key($breakpoints, $name) {
+    @media (#{$min-max}-width: #{map-get($breakpoints, $name)}) {
+      @content;
+    }
   }
 }
