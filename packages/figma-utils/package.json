@@ -23,8 +23,8 @@
     "build-only": "rimraf dist && tsc -p tsconfig.node.json --composite false",
     "type-check": "tsc --noEmit -p tsconfig.vitest.json --composite false",
     "@sit-onyx/figma-utils": "node ./dist/cli.js",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test": "TZ=UTC vitest",
+    "test:coverage": "TZ=UTC vitest run --coverage"
   },
   "dependencies": {
     "commander": "^11.1.0"
