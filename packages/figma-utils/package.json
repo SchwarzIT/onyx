@@ -19,8 +19,12 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc",
-    "@sit-onyx/figma-utils": "node ./dist/cli.js"
+    "build": "pnpm run '/type-check|build-only/'",
+    "build-only": "rimraf dist && tsc -p tsconfig.node.json --composite false",
+    "type-check": "tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "@sit-onyx/figma-utils": "node ./dist/cli.js",
+    "test": "vitest",
+    "test:coverage": "pnpm run test --coverage"
   },
   "dependencies": {
     "commander": "^11.1.0"
