@@ -1,12 +1,10 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineLoader } from "vitepress";
-import { version } from "../../../../packages/sit-onyx/package.json";
 
 export type Data = {
   componentCount: number;
   variantCount: number;
-  version: string;
   mergedPRCount: number;
   closedIssueCount: number;
   commitCount: number;
@@ -51,7 +49,6 @@ export default defineLoader({
     return {
       componentCount: watchedFiles.length,
       variantCount,
-      version,
       mergedPRCount,
       closedIssueCount,
       commitCount,

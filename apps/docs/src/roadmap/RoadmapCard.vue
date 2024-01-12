@@ -4,6 +4,7 @@ import { onMounted, ref, watchEffect } from "vue";
 const props = defineProps<{
   title?: string | number;
   description?: string;
+  href?: string;
 }>();
 
 const value = ref(0);
@@ -19,7 +20,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card">
+  <component
+    :is="props.href ? 'a' : 'div'"
+    :href="props.href"
+    :target="props.href?.startsWith('http') ? '_blank' : '_self'"
+    class="card"
+    :class="{ 'card--clickable': props.href }"
+  >
     <article class="card__content">
       <p
         v-if="typeof props.title === 'number'"
@@ -29,7 +36,7 @@ onMounted(() => {
       <p v-else class="card__title">{{ props.title }}</p>
       <h4 class="card__description">{{ props.description }}</h4>
     </article>
-  </div>
+  </component>
 </template>
 
 <style lang="scss" scoped>
@@ -48,6 +55,12 @@ onMounted(() => {
   transition:
     border-color 0.25s,
     background-color 0.25s;
+
+  &--clickable {
+    &:hover {
+      background-color: var(--vp-c-default-soft);
+    }
+  }
 
   &__content {
     display: flex;

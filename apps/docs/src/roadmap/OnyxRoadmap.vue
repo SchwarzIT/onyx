@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { data } from "./roadmap.data";
+import packageJson from "../../../../packages/sit-onyx/package.json";
 import RoadmapCard from "./RoadmapCard.vue";
+import { data } from "./roadmap.data";
 </script>
 
 <template>
@@ -16,15 +17,40 @@ import RoadmapCard from "./RoadmapCard.vue";
             <RoadmapCard
               :title="data.componentCount"
               :description="data.componentCount === 1 ? 'Component' : 'Components'"
+              href="/getting-started"
             />
 
-            <RoadmapCard :title="data.variantCount" description="Component variants" />
-            <RoadmapCard :title="data.downloads" description="downloads last month" />
-            <RoadmapCard :title="data.version" description="Version" />
-            <RoadmapCard :title="data.packageCount" description="npm packages" />
-            <RoadmapCard :title="data.mergedPRCount" description="Merged Pull requests" />
-            <RoadmapCard :title="data.closedIssueCount" description="Closed issues" />
-            <RoadmapCard :title="data.commitCount" description="Commits" />
+            <RoadmapCard
+              :title="data.variantCount"
+              description="Component variants"
+              href="/getting-started"
+            />
+            <RoadmapCard :title="data.downloads" description="downloads (last month)" />
+            <RoadmapCard
+              :title="packageJson.version"
+              description="Onyx Version"
+              href="https://www.npmjs.com/package/sit-onyx"
+            />
+            <RoadmapCard
+              :title="data.packageCount"
+              description="npm packages"
+              href="https://www.npmjs.com/search?q=sit-onyx"
+            />
+            <RoadmapCard
+              :title="data.mergedPRCount"
+              description="Merged Pull requests"
+              :href="`${packageJson.repository.url}/pulls`"
+            />
+            <RoadmapCard
+              :title="data.closedIssueCount"
+              description="Closed issues"
+              :href="packageJson.bugs.url"
+            />
+            <RoadmapCard
+              :title="data.commitCount"
+              description="Commits"
+              :href="`${packageJson.repository.url}/commits/main`"
+            />
           </div>
         </section>
 
