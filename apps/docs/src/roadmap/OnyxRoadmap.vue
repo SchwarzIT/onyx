@@ -4,6 +4,14 @@ import ComponentGrid from "./ComponentGrid.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 import TabGroup from "./TabGroup.vue";
 import { data } from "./roadmap.data";
+
+const kpiTimestamp = Intl.DateTimeFormat("en-US", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+}).format(new Date(data.timestamp));
 </script>
 
 <template>
@@ -12,7 +20,7 @@ import { data } from "./roadmap.data";
       <div class="sections">
         <section>
           <h2 class="roadmap__headline">KPIs</h2>
-          <p class="roadmap__timestamp">Last updated on: {{ data.timestamp }}</p>
+          <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
 
           <div class="grid">
             <RoadmapCard
