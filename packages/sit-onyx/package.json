@@ -29,7 +29,7 @@
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static --open",
     "test": "vitest",
-    "test:coverage": "pnpm run test --coverage",
+    "test:coverage": "vitest run --coverage",
     "test:components": "playwright install && playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
