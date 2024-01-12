@@ -12,6 +12,4 @@ hero:
 import OnyxRoadmap from "./OnyxRoadmap.vue"
 </script>
 
-<OnyxRoadmap>
-
-</OnyxRoadmap>
+<OnyxRoadmap />
