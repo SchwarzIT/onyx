@@ -25,5 +25,19 @@ module.exports = {
         caughtErrorsIgnorePattern: "^_",
       },
     ],
+    // see https://eslint.vuejs.org/rules/html-self-closing
+    "vue/html-self-closing": [
+      "error",
+      {
+        html: {
+          void: "always",
+          normal: "never",
+          component: "always",
+        },
+      },
+    ],
+    // this rule is only really relevant for the options API so we disable it here
+    // see: https://eslint.vuejs.org/rules/require-default-prop
+    "vue/require-default-prop": "off",
   },
 };

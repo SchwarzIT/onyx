@@ -90,8 +90,8 @@ importers:
   apps/docs:
     devDependencies:
       vitepress:
-        specifier: ^1.0.0-rc.34
-        version: 1.0.0-rc.35(@algolia/client-search@4.21.0)(@types/node@20.10.6)(sass@1.69.7)(search-insights@2.13.0)(typescript@5.3.3)
+        specifier: ^1.0.0-rc.36
+        version: 1.0.0-rc.36(@algolia/client-search@4.21.0)(@types/node@20.10.6)(sass@1.69.7)(search-insights@2.13.0)(typescript@5.3.3)
 
   packages/figma-utils:
     dependencies:
@@ -136,7 +136,7 @@ importers:
         specifier: ^7.6.7
         version: 7.6.7(typescript@5.3.3)(vite@5.0.11)(vue@3.3.11)
       '@vue/compiler-dom':
-        specifier: ^3.4.3
+        specifier: ^3.4.5
         version: 3.4.5
       eslint-plugin-playwright:
         specifier: ~0.21.0
@@ -150,9 +150,6 @@ importers:
 
   packages/storybook-utils:
     dependencies:
-      '@storybook/client-api':
-        specifier: '>= 7'
-        version: 7.6.4
       '@storybook/core-events':
         specifier: '>= 7'
         version: 7.6.4
@@ -3529,13 +3526,6 @@ packages:
       - supports-color
       - utf-8-validate
     dev: true
-
-  /@storybook/client-api@7.6.4:
-    resolution: {integrity: sha512-EzuOUdbjK78Y4y71drpRg1DC/iuzEMB6FIey64EI8edgfs+HAmEtzH8bNfmX7gxgA82RwxO0TGuXFF0CmWOABA==}
-    dependencies:
-      '@storybook/client-logger': 7.6.4
-      '@storybook/preview-api': 7.6.4
-    dev: false
 
   /@storybook/client-logger@7.6.4:
     resolution: {integrity: sha512-vJwMShC98tcoFruRVQ4FphmFqvAZX1FqZqjFyk6IxtFumPKTVSnXJjlU1SnUIkSK2x97rgdUMqkdI+wAv/tugQ==}
@@ -10484,12 +10474,12 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.35(@algolia/client-search@4.21.0)(@types/node@20.10.6)(sass@1.69.7)(search-insights@2.13.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-+2VnFwtYIiKWWAnMjWg7ik0PfsUdrNoZIZKeu5dbJtrkzKO/mTvlA3owiT5VBKJsZAgI17B5UV37aYfUvGrN6g==}
+  /vitepress@1.0.0-rc.36(@algolia/client-search@4.21.0)(@types/node@20.10.6)(sass@1.69.7)(search-insights@2.13.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-2z4dpM9PplN/yvTifhavOIAazlCR6OJ5PvLoRbc+7LdcFeIlCsuDGENLX4HjMW18jQZF5/j7++PNqdBfeazxUA==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4.3.2
-      postcss: ^8.4.32
+      postcss: ^8.4.33
     peerDependenciesMeta:
       markdown-it-mathjax3:
         optional: true

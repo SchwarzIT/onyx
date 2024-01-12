@@ -4,11 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev src",
+    "dev": "vitepress dev src --open",
     "build": "vitepress build src",
     "preview": "vitepress preview src"
   },
   "devDependencies": {
-    "vitepress": "^1.0.0-rc.34"
+    "vitepress": "^1.0.0-rc.36"
   }
 }

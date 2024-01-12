@@ -8,7 +8,11 @@ import packageJson from "../../../../packages/storybook-utils/package.json";
 
 # @sit-onyx/storybook-utils
 
+<div class="hide-external-link">
+
 [![npm version](https://badge.fury.io/js/@sit-onyx%2Fstorybook-utils.svg)](https://www.npmjs.com/package/@sit-onyx/storybook-utils)
+
+</div>
 
 {{ packageJson.description }}.
 
@@ -24,15 +28,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/storybook-utils storybook-dark-mode
+pnpm add -D @sit-onyx/storybook-utils
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/storybook-utils storybook-dark-mode
+npm install -D @sit-onyx/storybook-utils
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/storybook-utils storybook-dark-mode
+yarn install -D @sit-onyx/storybook-utils
 ```
 
 :::
