@@ -20,19 +20,15 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install
 
-      # install system dependencies for Playwright
-      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
-      - name: 📦 Install Playwright system dependencies
-        run: pnpm exec playwright install-deps
-        working-directory: packages/sit-onyx
-
       - name: 🗑️ Delete existing screenshots
         run: rm -rf ./playwright/snapshots
         working-directory: packages/sit-onyx
 
       - name: 🔎 Update Playwright screenshots
-        run: pnpm run test:components --update-snapshots
-        working-directory: packages/sit-onyx
+        uses: ./.github/templates/playwright
+        with:
+          script: test:components --update-snapshots
+          working-directory: packages/sit-onyx
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
@@ -40,6 +36,7 @@ jobs:
           commit-message: "chore: update Playwright screenshots"
           title: "chore: update Playwright screenshots"
           body: This is an auto-generated pull request. All Playwright screenshots have been updated.
+          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}

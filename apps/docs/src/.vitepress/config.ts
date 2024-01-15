@@ -35,6 +35,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "Getting Started", link: "/getting-started" },
+          { text: "i18n", link: "/i18n/" },
           { text: "Typography", link: "/typography" },
           { text: "The Team", link: "/team" },
         ],

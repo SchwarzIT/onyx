@@ -1,15 +1,22 @@
 <script lang="ts">
+import enUS from "@/i18n/locales/en-US.json";
+
 export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
+export type InputType = (typeof INPUT_TYPES)[number];
+
+/**
+ * Input types that have a translation for their validation error message.
+ */
+const TRANSLATED_INPUT_TYPES = Object.keys(
+  enUS.validations.typeMismatch,
+) as (keyof typeof enUS.validations.typeMismatch)[];
+type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 </script>
 
 <script lang="ts" setup>
-import {
-  useFormValidationMessage,
-  type SupportedErrorLangs,
-} from "@/composables/formValidationMessage";
+import { injectI18n } from "@/i18n";
+import { getFirstInvalidType } from "@/utils/forms";
 import { computed, ref, watch } from "vue";
-
-export type InputType = (typeof INPUT_TYPES)[number];
 
 export type TestInputProps = {
   /**
@@ -21,14 +28,10 @@ export type TestInputProps = {
   label?: string;
   /**
    * Error message to show when the input is invalid.
-   * @default Default message depending on the browser language and validation
+   * If unset, a default error message is used that is provided by Onyx depending
+   * on your current locale/language and validation.
    */
   errorMessage?: string;
-  /**
-   * Language to use for error messages.
-   * If empty, the error message defaults to the browser language and validation
-   */
-  lang?: SupportedErrorLangs;
   /** For validation: Whether a non-empty value is required */
   required?: boolean;
   /** For validation: The pattern that the value must match */
@@ -45,8 +48,10 @@ export type TestInputProps = {
   maxLength?: number;
   /** For validation: The lower limit of a number value */
   min?: number;
+  /** Step size of a number value */
+  step?: number;
   /**
-   * For validation:Expected minimal length of a string value. Warning: when the value is (pre)set by code,
+   * For validation: Expected minimal length of a string value. Warning: when the value is (pre)set by code,
    * the input invalidity can not be detected by the browser, it will only show as invalid
    * as soon as a user interacts with the input (types something).
    */
@@ -71,29 +76,42 @@ const emit = defineEmits<{
   validityChange: [state: ValidityState];
 }>();
 
+const { t } = injectI18n();
+
 const isTouched = ref(false);
-
 const inputElement = ref<HTMLInputElement | null>(null);
-
 const validityState = ref(inputElement.value?.validity);
-
-const errorMessage = computed(() => {
-  /* when the validity state is uninitialized or the form is valid, we don't show an error. */
-  if (!validityState.value || validityState.value.valid) return "";
-  /* a custom error message always is considered first */
-  if (props.errorMessage) return props.errorMessage;
-
-  const element = inputElement.value;
-  /* when a language key is provided, we offer our own translations of the error messages
-  to match the rest of the user's application */
-  if (props.lang && element) return useFormValidationMessage(element.validity, props);
-  /* we default to the browser's standard validation message that relies on the browser language */
-  return element?.validationMessage || "";
-});
 
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
+});
+
+const errorMessage = computed(() => {
+  if (!validityState.value || validityState.value.valid) return "";
+
+  const errorType = getFirstInvalidType(validityState.value);
+  // a custom error message always is considered first
+  if (props.errorMessage || errorType === "customError") return props.errorMessage;
+  if (!errorType) return "";
+
+  // if the error is "typeMismatch", we will use an error message depending on the type property
+  if (errorType === "typeMismatch") {
+    const type = TRANSLATED_INPUT_TYPES.includes(props.type as TranslatedInputType)
+      ? (props.type as TranslatedInputType)
+      : "generic";
+    return t.value(`validations.typeMismatch.${type}`, { value: value.value });
+  }
+
+  return t.value(`validations.${errorType}`, {
+    value: value.value,
+    n: value.value.toString().length,
+    minLength: props.minLength,
+    maxLength: props.maxLength,
+    min: props.min,
+    max: props.max,
+    step: props.step,
+  });
 });
 
 const handleChange = (event: Event) => {
