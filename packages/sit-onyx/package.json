@@ -5,7 +5,8 @@
   "type": "module",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "dist",
+    "src/i18n/locales"
   ],
   "exports": {
     ".": {
@@ -13,6 +14,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./locales": "./src/i18n/locales",
     "./style.css": "./dist/style.css"
   },
   "repository": {
