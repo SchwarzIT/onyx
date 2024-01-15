@@ -14,12 +14,10 @@ const sponsors = [
       {
         name: "WaWi Nexus",
         img: new URL("../../assets/wawi-logo.svg", import.meta.url).href,
-        url: "https://nexus.schwarz",
       },
       {
         name: "CoreUI",
         img: new URL("../../assets/coreui-logo.svg", import.meta.url).href,
-        url: "https://core-ui.schwarz",
       },
     ],
   },
