@@ -15,6 +15,6 @@ For this reason, onyx provides a selected set of animations that fullfills these
 | `slide`     | Object slides from position x to position y. | Notification messages slide from outside the screen to their positions. |
 | `bounce`    | Object "jumps" into its position.            | Toast message appears for giving the iser feedback.                     |
 | `fade`      | Object appears/disappears with opacity.      | Notification messages are fading out when they disappear.               |
-| `expand`    | Object                                       | 16 px                                                                   |
-| `collapse`  | 1.5 rem                                      | 24 px                                                                   |
-| `rearrange` | 1.5 rem                                      | 24 px                                                                   |
+| `expand`    | Object gets larger.                          | Flyout appears in combo box.                                            |
+| `collapse`  | Object gets smaller.                         | Flyout disappears in combo box.                                         |
+| `rearrange` | Objects are filling the empty space.         | Cards replace another card that was deleted previously.                 |

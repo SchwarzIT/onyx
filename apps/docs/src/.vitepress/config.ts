@@ -61,7 +61,7 @@ export default defineConfig({
       ],
       "/basics": [
         {
-          text: "Guidelines",
+          text: "Foundations",
           collapsed: false,
           base: "/basics",
           items: [
