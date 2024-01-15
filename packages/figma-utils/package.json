@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/figma-utils",
   "description": "Utility functions and CLI for importing data from the Figma API into CSS/SCSS variables",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "type": "module",
   "bin": {
     "@sit-onyx/figma-utils": "./dist/cli.js"
