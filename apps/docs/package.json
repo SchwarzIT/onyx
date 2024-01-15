@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev src --open",
+    "dev": "vitepress dev src",
     "build": "vitepress build src",
     "preview": "vitepress preview src"
   },
