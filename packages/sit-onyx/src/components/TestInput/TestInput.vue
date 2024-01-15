@@ -91,10 +91,9 @@ const errorMessage = computed(() => {
   if (!validityState.value || validityState.value.valid) return "";
 
   const errorType = getFirstInvalidType(validityState.value);
-  if (!errorType) return "";
-
   // a custom error message always is considered first
   if (props.errorMessage || errorType === "customError") return props.errorMessage;
+  if (!errorType) return "";
 
   // if the error is "typeMismatch", we will use an error message depending on the type property
   if (errorType === "typeMismatch") {
