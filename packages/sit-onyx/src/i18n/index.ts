@@ -1,9 +1,10 @@
-import type { DeepPartial, ObjectToDottedStrings, TranslationValue } from "@/types";
+import type { ObjectToDottedStrings, TranslationValue } from "@/types/i18n";
+import type { DeepPartial } from "@/types/utils";
 import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 
 /** Available translations that are used by Onyx components. */
-export type Translation = typeof enUS;
+export type OnyxTranslations = typeof enUS;
 
 export type ProvideI18nOptions = {
   /**
@@ -30,7 +31,7 @@ export type ProvideI18nOptions = {
    * }
    * ```
    */
-  messages?: Record<string, DeepPartial<Translation> | Record<string, TranslationValue>>;
+  messages?: Record<string, DeepPartial<OnyxTranslations> | Record<string, TranslationValue>>;
 };
 
 const I18N_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createI18n>>;
@@ -60,7 +61,7 @@ const createI18n = (options?: ProvideI18nOptions) => {
    */
   const t = computed(() => {
     return (
-      key: ObjectToDottedStrings<Translation>,
+      key: ObjectToDottedStrings<OnyxTranslations>,
       placeholders: Record<string, string | number | undefined> = {},
     ): string => {
       // use English message as fallback
@@ -85,7 +86,7 @@ const createI18n = (options?: ProvideI18nOptions) => {
 
 /**
  * Provides a global i18n instance that is used by Onyx.
- * Must only be called once in the `App.vue` file.
+ * Must only be called once in the `App.vue` file of a project that consumes Onyx.
  */
 export const provideI18n = (options: ProvideI18nOptions) => {
   provide(I18N_INJECTION_KEY, createI18n(options));
@@ -104,8 +105,8 @@ export const injectI18n = () => {
  * @returns Message value or undefined if translation does not exist.
  */
 const resolveMessage = (
-  key: ObjectToDottedStrings<Translation>,
-  messages: DeepPartial<Translation>,
+  key: ObjectToDottedStrings<OnyxTranslations>,
+  messages: DeepPartial<OnyxTranslations>,
 ): string | undefined => {
   // see https://stackoverflow.com/a/6394168
   const message = key.split(".").reduce<TranslationValue | undefined>((obj, i) => {

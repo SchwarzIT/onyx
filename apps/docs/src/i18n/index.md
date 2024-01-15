@@ -96,9 +96,9 @@ You can simply add the translations inside the [locales folder](https://github.c
 ::: code-group
 
 ```ts [Only for your project]
-import type { Translation } from "sit-onyx";
+import type { OnyxTranslations } from "sit-onyx";
 
-const myCustomLanguage: Translation = {
+const myCustomLanguage: OnyxTranslations = {
   // add your translations here...
   someMessage: "Hello World",
 };

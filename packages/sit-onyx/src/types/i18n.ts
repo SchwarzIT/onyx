@@ -1,15 +1,10 @@
 /**
- * Recursive / deep implementation of TypeScript's built-in `Partial<T>` type.
- */
-export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
-
-/**
  * Gets a union type from an object that contains all combinations of nested keys as arrays.
  *
  * @see https://stackoverflow.com/a/47058976
  * @example
  * ```ts
- * type Test = PathsToStringProps<{ a: "foo"; b: { c: "bar"; d: "baz" } }>;
+ * type Test = ObjectToKeyPaths<{ a: "foo"; b: { c: "bar"; d: "baz" } }>;
  * // type Test = ["a"] | ["b", "c"] | ["b", "d"]
  * ```
  */
@@ -55,21 +50,18 @@ type NestedMessage = { [key: string]: string | NestedMessage };
  * }
  * ```
  */
-export type TranslationValue = string | { [key: string]: string | NestedMessage };
+export type TranslationValue = string | NestedMessage;
 
 /**
  * Gets a union type of deeply joined keys from an object.
  *
  * @example
  * ```ts
- * // resulting type: "a" | "b.c"
- * const obj = {
+ * ObjectToDottedStrings<{
  *   a: "test",
- *   b: {
- *     c: "test"
- *   }
- * }
- *
+ *   b: { c: "test" }
+ * }>
+ * // results in: "a" | "b.c"
  * ```
  * @see https://stackoverflow.com/a/47058976
  */

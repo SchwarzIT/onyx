@@ -1,7 +1,7 @@
 import { expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { injectI18n, provideI18n } from ".";
-import type { ObjectToDottedStrings, Translation } from "..";
+import type { ObjectToDottedStrings, OnyxTranslations } from "..";
 
 vi.mock("vue", async (importOriginal) => {
   const module: typeof vue = await importOriginal();
@@ -29,7 +29,7 @@ vi.mock("./locales/en-US.json", () => {
  * because we will use custom test messages/keys which will not fit the type
  * of our "real" component translations
  */
-type TestTranslationKey = ObjectToDottedStrings<Translation>;
+type TestTranslationKey = ObjectToDottedStrings<OnyxTranslations>;
 
 test("should provide/inject i18n", () => {
   provideI18n({ locale: "test" });
