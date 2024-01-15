@@ -5,7 +5,8 @@
     "@sit-onyx/figma-utils": "0.0.0",
     "sit-onyx": "0.0.0",
     "@sit-onyx/storybook-utils": "0.0.0",
-    "@sit-onyx/headless": "0.0.0"
+    "@sit-onyx/headless": "0.0.0",
+    "@sit-onyx/vitepress-theme": "0.0.0"
   },
   "changesets": []
 }
