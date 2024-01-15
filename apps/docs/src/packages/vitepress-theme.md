@@ -55,7 +55,7 @@ You can check the [VitePress documentation](https://vitepress.dev/guide/custom-t
 ```ts [.vitepress/theme/index.ts]
 import OnyxTheme from "@sit-onyx/vitepress-theme";
 
-// if you use/override custom styles, they must be imported after the theme
+// if you use/override custom styles, they must be imported after the theme, e.g.
 // import "./styles.css";
 
 export default OnyxTheme;

@@ -51,7 +51,7 @@
   // use lighter neutral color in dark mode since its too dark otherwise
   @include mixins.define-vitepress-color(default, --onyx-color-surface-brand-neutral, 200);
 
-  // VitePress shows a ful white background when hovering in dark mode
+  // VitePress shows a fully white background when hovering in dark mode
   // which is really flashy so we use a more subtle color
   .vp-sponsor-grid-item {
     &:hover {
