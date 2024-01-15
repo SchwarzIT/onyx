@@ -32,24 +32,35 @@ vi.mock("./locales/en-US.json", () => {
 type TestTranslationKey = ObjectToDottedStrings<OnyxTranslations>;
 type TestMessages = ProvideI18nOptions["messages"];
 
-test("should provide/inject i18n", () => {
+test("should provide/inject i18n with a string", () => {
+  // ARRANGE
   provideI18n({ locale: "test" });
-  let i18n = injectI18n();
+  const i18n = injectI18n();
 
+  // ASSERT
   expect(i18n).toBeDefined();
   expect(i18n.locale.value).toBe("test");
+});
 
+test("should provide/inject i18n with a ref", () => {
+  // ARRANGE
   // should keep locale up to date if a ref is passed as option
   const locale = vue.ref("a");
   provideI18n({ locale });
-  i18n = injectI18n();
+  const i18n = injectI18n();
 
+  // ASSERT
   expect(i18n.locale.value).toBe("a");
+
+  // ACT
   locale.value = "b";
+
+  // ASSERT
   expect(i18n.locale.value).toBe("b");
 });
 
 test("should translate with/without placeholders", () => {
+  // ARRANGE
   provideI18n({
     locale: "en-US",
     messages: {
@@ -62,28 +73,37 @@ test("should translate with/without placeholders", () => {
 
   const { t } = injectI18n();
 
+  // ACT #1
   let message = t.value("plain" as TestTranslationKey);
+  // ASSERT #1
   expect(message).toBe("Hello World");
 
+  // ACT #2
   message = t.value("placeholder" as TestTranslationKey, {
     firstName: "John",
     lastName: "Doe",
   });
+  // ASSERT #2
   expect(message).toBe("Hello John Doe");
 
+  // ACT #3
   // should return empty string for missing translation
   message = t.value("does.not.exist" as TestTranslationKey);
+  // ASSERT #3
   expect(message).toBe("");
 
+  // ACT #4
   // removes the original placeholders if no values were provided (same behavior as "vue-i18n")
   message = t.value("placeholder" as TestTranslationKey, {
     firstName: undefined,
     lastName: undefined,
   });
+  // ASSERT #4
   expect(message).toBe("Hello");
 });
 
 test("should translate with pluralization", () => {
+  // ARRANGE
   provideI18n({
     locale: "en-US",
     messages: {
@@ -97,41 +117,64 @@ test("should translate with pluralization", () => {
 
   const { t } = injectI18n();
 
+  // ACT
   let message = t.value("pluralization" as TestTranslationKey, { n: 0 });
+  // ASSERT
   expect(message).toBe("Zero items");
 
+  // ACT
   message = t.value("pluralization" as TestTranslationKey, { n: 1 });
+  // ASSERT
   expect(message).toBe("1 item");
 
+  // ACT
   message = t.value("pluralization" as TestTranslationKey, { n: 2 });
+  // ASSERT
   expect(message).toBe("2 items");
 
+  // ACT
   message = t.value("pluralization" as TestTranslationKey, { n: -1 });
+  // ASSERT
   expect(message).toBe("-1 items");
 
+  // ACT
   message = t.value("pluralization" as TestTranslationKey);
+  // ASSERT
   expect(message).toBe("1 item");
 
+  // ACT
   message = t.value("pluralizationWithoutZero" as TestTranslationKey, { n: 0 });
+  // ASSERT
   expect(message).toBe("0 items");
 
+  // ACT
   message = t.value("pluralizationWithoutZero" as TestTranslationKey, { n: 1 });
+  // ASSERT
   expect(message).toBe("1 item");
 
+  // ACT
   message = t.value("pluralizationWithoutZero" as TestTranslationKey, { n: 2 });
+  // ASSERT
   expect(message).toBe("2 items");
 
+  // ACT
   message = t.value("withoutPluralization" as TestTranslationKey, { n: 0 });
+  // ASSERT
   expect(message).toBe('0 items and pipe "|" is part of the text');
 
+  // ACT
   message = t.value("withoutPluralization" as TestTranslationKey, { n: 1 });
+  // ASSERT
   expect(message).toBe('1 items and pipe "|" is part of the text');
 
+  // ACT
   message = t.value("withoutPluralization" as TestTranslationKey, { n: 2 });
+  // ASSERT
   expect(message).toBe('2 items and pipe "|" is part of the text');
 });
 
 test("should update translation when locale changes", () => {
+  // ARRANGE
   const locale = vue.ref("en-US");
   provideI18n({
     locale,
@@ -146,15 +189,19 @@ test("should update translation when locale changes", () => {
   });
   const { t } = injectI18n();
 
+  // ACT #1
   const message = vue.computed(() => t.value("helloWorld" as TestTranslationKey));
+  // ASSERT #1
   expect(message.value).toBe("Hello World");
 
+  // ACT #2
   locale.value = "de-DE";
-
+  // ASSERT #2
   expect(message.value).toBe("Hallo Welt");
 });
 
 test("should use English fallback if translation is missing", () => {
+  // ARRANGE
   provideI18n({
     locale: "de-DE",
     messages: {
@@ -165,8 +212,10 @@ test("should use English fallback if translation is missing", () => {
   });
   const { t } = injectI18n();
 
+  // ACT
   const message = t.value("helloWorld" as TestTranslationKey);
 
+  // ASSERT
   // see mock of module "./locales/en-US.json" at the top of the file
   expect(message).toBe("Hello World");
 });

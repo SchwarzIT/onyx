@@ -136,8 +136,8 @@ watch(
 </script>
 
 <template>
-  <label class="input" :class="{ 'input--touched': isTouched }">
-    <span class="input__label" :class="{ 'input__label--required': props.required }">
+  <label class="onyx-input" :class="{ 'onyx-input--touched': isTouched }">
+    <span class="onyx-input__label" :class="{ 'onyx-input__label--required': props.required }">
       {{ props.label }}
     </span>
     <input
@@ -147,15 +147,15 @@ watch(
       @change="handleChange"
       @blur="isTouched = true"
     />
-    <p v-if="isTouched && !validityState?.valid" class="input__error" aria-live="polite">
+    <p v-if="isTouched && !validityState?.valid" class="onyx-input__error" aria-live="polite">
       {{ errorMessage }}
     </p>
-    <p class="input__info">Model value: "{{ value }}", is valid: {{ validityState?.valid }}</p>
+    <p class="onyx-input__info">Model value: "{{ value }}", is valid: {{ validityState?.valid }}</p>
   </label>
 </template>
 
 <style lang="scss" scoped>
-.input {
+.onyx-input {
   width: max-content;
   display: inline-block;
   font-family: var(--onyx-font-family);
