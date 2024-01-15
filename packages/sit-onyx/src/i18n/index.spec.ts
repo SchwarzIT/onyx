@@ -1,7 +1,7 @@
 import { expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { injectI18n, provideI18n } from ".";
-import type { ObjectToDottedStrings, OnyxTranslations } from "..";
+import type { ObjectToDottedStrings, OnyxTranslations, ProvideI18nOptions } from "..";
 
 vi.mock("vue", async (importOriginal) => {
   const module: typeof vue = await importOriginal();
@@ -25,11 +25,12 @@ vi.mock("./locales/en-US.json", () => {
 });
 
 /**
- * This type is needed to type cast keys in the tests below
+ * These two types are needed to type cast messages/keys in the tests below
  * because we will use custom test messages/keys which will not fit the type
  * of our "real" component translations
  */
 type TestTranslationKey = ObjectToDottedStrings<OnyxTranslations>;
+type TestMessages = ProvideI18nOptions["messages"];
 
 test("should provide/inject i18n", () => {
   provideI18n({ locale: "test" });
@@ -56,7 +57,7 @@ test("should translate with/without placeholders", () => {
         plain: "Hello World",
         placeholder: "Hello {firstName} {lastName}",
       },
-    },
+    } as TestMessages,
   });
 
   const { t } = injectI18n();
@@ -84,7 +85,7 @@ test("should translate with pluralization", () => {
         pluralizationWithoutZero: "1 item | {n} items",
         withoutPluralization: "{n} items",
       },
-    },
+    } as TestMessages,
   });
 
   const { t } = injectI18n();
@@ -134,7 +135,7 @@ test("should update translation when locale changes", () => {
       "de-DE": {
         helloWorld: "Hallo Welt",
       },
-    },
+    } as TestMessages,
   });
   const { t } = injectI18n();
 
@@ -154,7 +155,7 @@ test("should use English fallback if translation is missing", () => {
       "de-DE": {
         notHelloWorld: "Hallo Welt",
       },
-    },
+    } as TestMessages,
   });
   const { t } = injectI18n();
 

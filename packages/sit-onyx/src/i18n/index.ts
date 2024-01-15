@@ -31,7 +31,7 @@ export type ProvideI18nOptions = {
    * }
    * ```
    */
-  messages?: Record<string, DeepPartial<OnyxTranslations> | Record<string, TranslationValue>>;
+  messages?: Record<string, DeepPartial<OnyxTranslations>>;
 };
 
 const I18N_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createI18n>>;
