@@ -35,6 +35,8 @@ type TestMessages = ProvideI18nOptions["messages"];
 test("should provide/inject i18n with a string", () => {
   // ARRANGE
   provideI18n({ locale: "test" });
+
+  // ACT
   const i18n = injectI18n();
 
   // ASSERT
@@ -47,6 +49,8 @@ test("should provide/inject i18n with a ref", () => {
   // should keep locale up to date if a ref is passed as option
   const locale = vue.ref("a");
   provideI18n({ locale });
+
+  // ACT
   const i18n = injectI18n();
 
   // ASSERT
