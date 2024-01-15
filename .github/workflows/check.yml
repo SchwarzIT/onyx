@@ -22,7 +22,7 @@ jobs:
         run: pnpm install
 
       - name: 🔎 Lint
-        run: pnpm run lint:ci
+        run: pnpm run lint:ci:all
         # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
         continue-on-error: true
 
@@ -33,55 +33,24 @@ jobs:
           wait-for-processing: true
 
       - name: 🔎 Check formatting
-        run: pnpm run format:check
+        run: pnpm run format:check:all
 
-      - name: 🛠️ Build
-        run: pnpm run build
-        working-directory: packages/sit-onyx
-
-      - name: 🛠️ Build Storybook
-        run: pnpm run build:storybook
-        working-directory: packages/sit-onyx
-
-      - name: 🛠️ Build documentation
-        run: pnpm run build
-        working-directory: apps/docs
+      - name: 🛠️ Build packages
+        run: pnpm run build:all
 
       - name: 🚨 Run unit tests
-        run: pnpm run test:unit:coverage
-        working-directory: packages/sit-onyx
-
-      # install system dependencies for Playwright
-      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
-      - name: 📦 Install Playwright system dependencies
-        run: pnpm exec playwright install-deps
-        working-directory: packages/sit-onyx
-
-      - name: 🚨 Run component tests
-        run: pnpm run test:components
-        working-directory: packages/sit-onyx
-
-      - name: 🔎 Type check Storybook utils
-        run: pnpm run type-check
-        working-directory: packages/storybook-utils
-
-      - name: 🛠️ Build Figma utils
-        run: pnpm run build
-        working-directory: packages/figma-utils
+        run: pnpm run test:all
 
       # make sure that publint is only run after all packages have been built
       - name: Run publint
-        run: pnpm run publint
+        run: pnpm run publint:all
 
-      - name: Upload test results artifact
+      - name: Upload code coverage artifact
         uses: actions/upload-artifact@v3
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
-          name: test-results
-          path: |
-            packages/sit-onyx/coverage
-            packages/sit-onyx/playwright-report
-            packages/sit-onyx/test-results
+          name: coverage
+          path: packages/sit-onyx/coverage
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v3
@@ -94,3 +63,26 @@ jobs:
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
+
+  playwright:
+    name: Component tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🚨 Run component tests
+        uses: ./.github/templates/playwright
+        with:
+          script: test:components
+          working-directory: packages/sit-onyx
