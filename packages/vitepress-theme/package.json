@@ -9,7 +9,8 @@
     "src"
   ],
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./mixins.scss": "./src/mixins.scss"
   },
   "homepage": "https://onyx.schwarz/packages/vitepress-theme.html",
   "repository": {
