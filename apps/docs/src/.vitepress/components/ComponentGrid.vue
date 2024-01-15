@@ -57,7 +57,7 @@ const sortedComponents = computed(() => {
 <style lang="scss" scoped>
 .description {
   color: var(--vp-c-text-2);
-  margin-bottom: 1rem;
+  margin: 2rem;
 }
 
 .grid {
