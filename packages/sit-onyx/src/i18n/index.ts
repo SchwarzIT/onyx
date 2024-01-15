@@ -110,6 +110,8 @@ const resolveMessage = (
 ): string | undefined => {
   // see https://stackoverflow.com/a/6394168
   const message = key.split(".").reduce<TranslationValue | undefined>((obj, i) => {
+    // this condition can logically not be reached but we need it for TypeScript
+    // due to the .reduce() function
     if (!obj || typeof obj === "string") return obj;
     return obj[i];
   }, messages);
