@@ -43,24 +43,10 @@ features:
 ---
 
 <script lang="ts" setup>
-import { VPHomeSponsors } from "vitepress/theme";
 import OnyxRoadmap from "./.vitepress/components/OnyxRoadmap.vue"
-
-const sponsors = [
-  {
-    tier: "Special Partners",
-    size: "big",
-    items: [
-      {
-        name: "STACKIT",
-        img: "/runs-on-stackit.svg",
-        url: "https://www.stackit.de",
-      },
-    ],
-  },
-];
+import OnyxPartners from "./.vitepress/components/OnyxPartners.vue"
 </script>
 
 <OnyxRoadmap />
 
-<VPHomeSponsors message="Thanks to our Partners" :data="sponsors" />
+<OnyxPartners />
