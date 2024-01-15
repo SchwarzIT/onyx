@@ -6,7 +6,16 @@
     "sit-onyx": "0.0.0",
     "@sit-onyx/storybook-utils": "0.0.0",
     "@sit-onyx/headless": "0.0.0",
-    "@sit-onyx/vitepress-theme": "0.0.0"
+    "@sit-onyx/vitepress-theme": "0.0.0",
+    "docs": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "eight-eyes-switch",
+    "lemon-dragons-shop",
+    "olive-forks-mate",
+    "sharp-years-lie",
+    "shiny-lies-cough",
+    "tall-keys-flow",
+    "tame-adults-cheat"
+  ]
 }
