@@ -74,6 +74,12 @@ test("should translate with/without placeholders", () => {
   // should return empty string for missing translation
   message = t.value("does.not.exist" as TestTranslationKey);
   expect(message).toBe("");
+
+  // shows the original placeholders if no values were provided
+  message = t.value("placeholder" as TestTranslationKey, {
+    firstName: undefined,
+  });
+  expect(message).toBe("Hello {firstName} {lastName}");
 });
 
 test("should translate with pluralization", () => {
@@ -83,7 +89,7 @@ test("should translate with pluralization", () => {
       "en-US": {
         pluralization: "Zero items | 1 item | {n} items",
         pluralizationWithoutZero: "1 item | {n} items",
-        withoutPluralization: "{n} items",
+        withoutPluralization: '{n} items and pipe "|" is part of the text',
       },
     } as TestMessages,
   });
@@ -115,13 +121,13 @@ test("should translate with pluralization", () => {
   expect(message).toBe("2 items");
 
   message = t.value("withoutPluralization" as TestTranslationKey, { n: 0 });
-  expect(message).toBe("0 items");
+  expect(message).toBe('0 items and pipe "|" is part of the text');
 
   message = t.value("withoutPluralization" as TestTranslationKey, { n: 1 });
-  expect(message).toBe("1 items");
+  expect(message).toBe('1 items and pipe "|" is part of the text');
 
   message = t.value("withoutPluralization" as TestTranslationKey, { n: 2 });
-  expect(message).toBe("2 items");
+  expect(message).toBe('2 items and pipe "|" is part of the text');
 });
 
 test("should update translation when locale changes", () => {
@@ -139,13 +145,12 @@ test("should update translation when locale changes", () => {
   });
   const { t } = injectI18n();
 
-  let message = t.value("helloWorld" as TestTranslationKey);
-  expect(message).toBe("Hello World");
+  const message = vue.computed(() => t.value("helloWorld" as TestTranslationKey));
+  expect(message.value).toBe("Hello World");
 
   locale.value = "de-DE";
 
-  message = t.value("helloWorld" as TestTranslationKey);
-  expect(message).toBe("Hallo Welt");
+  expect(message.value).toBe("Hallo Welt");
 });
 
 test("should use English fallback if translation is missing", () => {
