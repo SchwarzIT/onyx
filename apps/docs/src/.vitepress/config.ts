@@ -25,9 +25,8 @@ export default defineConfig({
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
       { text: "Brand", link: "/brand/" },
+      { text: "Basics", link: "/basics/" },
       { text: "Components", link: "/components/" },
-      { text: "Foundations", link: "/foundations/" },
-      { text: "Patterns", link: "/patterns/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -56,23 +55,39 @@ export default defineConfig({
           items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
         },
       ],
-      "/foundations": [
+      "/basics": [
         {
-          text: "Introduction",
+          text: "Guidelines",
           collapsed: false,
-          base: "/foundations",
+          base: "/basics",
           items: [
-            { text: "Foundations", link: "/" },
+            { text: "Cheatsheet", link: "/cheatsheet" },
             { text: "Colors", link: "/colors" },
-          ],
+            { text: "Breakpoints & Grid", link: "/breakpoints_grid" },
+            { text: "Layout", link: "/layout" },
+            { text: "Appearance", link: "/appearance" },
+            { text: "Motion", link: "/motion" },
+            { text: "States", link: "/states" },
+            { text: "Density", link: "/density" },
+            { text: "Truncation", link: "/truncation" },
+            { text: "Elevation", link: "/elevation" },
+            { text: "Iconography", link: "/iconography" },
+            { text: "Images", link: "/images" },
+            { text: "Tokens", link: "/tokens" },
+            { text: "Accessibility", link: "/accessibility" },
+            { text: "Infographics", link: "/infographics" },
+          ].sort((a, b) => a.text.localeCompare(b.text)),
         },
-      ],
-      "/patterns": [
         {
-          text: "Introduction",
+          text: "Patterns",
           collapsed: false,
-          base: "/patterns",
-          items: [{ text: "Patterns", link: "/" }],
+          base: "/basics",
+          items: [
+            { text: "Navigation", link: "/navigation" },
+            { text: "Notifications", link: "/notification" },
+            { text: "Search behavior", link: "/searchbehavior" },
+            { text: "Dialogs", link: "/dialogs" },
+          ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
       // default sidebar

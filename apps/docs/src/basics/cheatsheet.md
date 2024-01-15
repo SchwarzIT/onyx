@@ -1,4 +1,4 @@
-# Colors
+# Cheatsheet
 
 Lorem ipsum...
 Test 123
