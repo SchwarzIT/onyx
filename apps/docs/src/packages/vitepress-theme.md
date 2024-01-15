@@ -26,6 +26,7 @@ The theme includes the following features:
 
 - light and dark theme that matches the Onyx design
 - colored name and gradient logo background on the [home page](/)
+- Font families matching the [Onyx typography system](/typography)
 
 ## Installation
 
