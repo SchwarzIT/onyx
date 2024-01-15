@@ -158,6 +158,7 @@ watch(
 .input {
   width: max-content;
   display: inline-block;
+  font-family: var(--onyx-font-family);
 
   &__label {
     margin-right: 8px;

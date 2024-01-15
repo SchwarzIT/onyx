@@ -114,9 +114,15 @@ importers:
         specifier: '>= 3'
         version: 3.4.5(typescript@5.3.3)
     devDependencies:
+      '@fontsource-variable/source-code-pro':
+        specifier: ^5.0.17
+        version: 5.0.17
+      '@fontsource-variable/source-sans-3':
+        specifier: ^5.0.19
+        version: 5.0.19
       '@playwright/experimental-ct-vue':
         specifier: ^1.40.1
-        version: 1.40.1(@types/node@20.10.6)(sass@1.69.6)(vite@5.0.10)(vue@3.4.5)
+        version: 1.40.1(@types/node@20.10.6)(sass@1.69.6)(vite@5.0.11)(vue@3.4.5)
       '@playwright/test':
         specifier: ^1.40.1
         version: 1.40.1
@@ -134,7 +140,7 @@ importers:
         version: 7.6.7(vue@3.4.5)
       '@storybook/vue3-vite':
         specifier: ^7.6.7
-        version: 7.6.7(typescript@5.3.3)(vite@5.0.10)(vue@3.4.5)
+        version: 7.6.7(typescript@5.3.3)(vite@5.0.11)(vue@3.4.5)
       '@vue/compiler-dom':
         specifier: ^3.4.5
         version: 3.4.5
@@ -2277,6 +2283,14 @@ packages:
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
 
+  /@fontsource-variable/source-code-pro@5.0.17:
+    resolution: {integrity: sha512-O1Hn0QamTJDfFauR68ALijno0xTOy/sJAE/cORyP2s5unEiJOZj0EBQIhHymHdS7XI+xccAfSEdaZNmz9rhttA==}
+    dev: true
+
+  /@fontsource-variable/source-sans-3@5.0.19:
+    resolution: {integrity: sha512-tLw2C4Su5gY+xZLQgkia/EdtsU/Sx5PnFGI+nUzcQPN2Nd2vCXu9gc819Eop+hU9uKeS2RPzja+fKoAJM+QpDg==}
+    dev: true
+
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
     engines: {node: '>=10.10.0'}
@@ -2541,13 +2555,13 @@ packages:
       - terser
     dev: true
 
-  /@playwright/experimental-ct-vue@1.40.1(@types/node@20.10.6)(sass@1.69.6)(vite@5.0.10)(vue@3.4.5):
+  /@playwright/experimental-ct-vue@1.40.1(@types/node@20.10.6)(sass@1.69.6)(vite@5.0.11)(vue@3.4.5):
     resolution: {integrity: sha512-JyhExIPIDP3X9IN4iGvvy9eRxNo5kceViDhM9HdIu8anLUrYB7qyTHbM3N3RMCkj9E+EdbtVEYBceilI0Y7EyA==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
       '@playwright/experimental-ct-core': 1.40.1(@types/node@20.10.6)(sass@1.69.6)
-      '@vitejs/plugin-vue': 4.6.2(vite@5.0.10)(vue@3.4.5)
+      '@vitejs/plugin-vue': 4.6.2(vite@5.0.11)(vue@3.4.5)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3417,7 +3431,7 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/builder-vite@7.6.7(typescript@5.3.3)(vite@5.0.10):
+  /@storybook/builder-vite@7.6.7(typescript@5.3.3)(vite@5.0.11):
     resolution: {integrity: sha512-Sv+0ROFU9k+mkvIPsPHC0lkKDzBeMpvfO9uFRl1RDSsXBfcPPZKNo5YK7U7fOhesH0BILzurGA+U/aaITMSZ9g==}
     peerDependencies:
       '@preact/preset-vite': '*'
@@ -3449,7 +3463,7 @@ packages:
       magic-string: 0.30.5
       rollup: 3.29.4
       typescript: 5.3.3
-      vite: 5.0.10(@types/node@20.10.6)(sass@1.69.6)
+      vite: 5.0.11(@types/node@20.10.6)(sass@1.69.6)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -3820,18 +3834,18 @@ packages:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  /@storybook/vue3-vite@7.6.7(typescript@5.3.3)(vite@5.0.10)(vue@3.4.5):
+  /@storybook/vue3-vite@7.6.7(typescript@5.3.3)(vite@5.0.11)(vue@3.4.5):
     resolution: {integrity: sha512-V6BdWxaROWrHP4134WBd9e4L5kcV406PpdydiXrXEcw7hBF8nhXoLc7B0Fh8+aj428ZcvE6MRs4xz8tDyHqazg==}
     engines: {node: ^14.18 || >=16}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0
     dependencies:
-      '@storybook/builder-vite': 7.6.7(typescript@5.3.3)(vite@5.0.10)
+      '@storybook/builder-vite': 7.6.7(typescript@5.3.3)(vite@5.0.11)
       '@storybook/core-server': 7.6.7
       '@storybook/vue3': 7.6.7(vue@3.4.5)
-      '@vitejs/plugin-vue': 4.6.2(vite@5.0.10)(vue@3.4.5)
+      '@vitejs/plugin-vue': 4.6.2(vite@5.0.11)(vue@3.4.5)
       magic-string: 0.30.5
-      vite: 5.0.10(@types/node@20.10.6)(sass@1.69.6)
+      vite: 5.0.11(@types/node@20.10.6)(sass@1.69.6)
       vue-docgen-api: 4.75.1(vue@3.4.5)
     transitivePeerDependencies:
       - '@preact/preset-vite'
@@ -4255,14 +4269,14 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@vitejs/plugin-vue@4.6.2(vite@5.0.10)(vue@3.4.5):
+  /@vitejs/plugin-vue@4.6.2(vite@5.0.11)(vue@3.4.5):
     resolution: {integrity: sha512-kqf7SGFoG+80aZG6Pf+gsZIVvGSCKE98JbiWqcCV9cThtg91Jav0yvYFC9Zb+jKetNGF6ZKeoaxgZfND21fWKw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0 || ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.0.10(@types/node@20.10.6)(sass@1.69.6)
+      vite: 5.0.11(@types/node@20.10.6)(sass@1.69.6)
       vue: 3.4.5(typescript@5.3.3)
     dev: true
 
