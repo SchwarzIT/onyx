@@ -1,22 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, ref, watchEffect } from "vue";
-
 const props = defineProps<{
   title?: string | number;
   description?: string;
   href?: string;
 }>();
-
-const value = ref(0);
-
-onMounted(() => {
-  watchEffect(() => {
-    setTimeout(() => {
-      if (typeof props.title !== "number") return;
-      value.value = props.title;
-    }, 50);
-  });
-});
 </script>
 
 <template>
@@ -28,24 +15,13 @@ onMounted(() => {
     :class="{ 'card--clickable': props.href }"
   >
     <article class="card__content">
-      <p
-        v-if="typeof props.title === 'number'"
-        class="card__title card__title--animated"
-        :style="`--num: ${value}`"
-      ></p>
-      <p v-else class="card__title">{{ props.title }}</p>
+      <p class="card__title">{{ props.title?.toLocaleString() }}</p>
       <h4 class="card__description">{{ props.description }}</h4>
     </article>
   </component>
 </template>
 
 <style lang="scss" scoped>
-@property --num {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
-}
-
 .card {
   display: block;
   border: 1px solid var(--vp-c-bg-soft);
@@ -74,15 +50,6 @@ onMounted(() => {
     line-height: 2.5rem;
     margin-bottom: 1rem;
     font-weight: 700;
-
-    &--animated {
-      transition: --num 1s;
-      counter-reset: num var(--num);
-
-      &::after {
-        content: counter(num);
-      }
-    }
   }
 
   &__description {
