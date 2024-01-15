@@ -38,6 +38,8 @@
     "vue": ">= 3"
   },
   "devDependencies": {
+    "@fontsource-variable/source-code-pro": "^5.0.17",
+    "@fontsource-variable/source-sans-3": "^5.0.19",
     "@playwright/experimental-ct-vue": "^1.40.1",
     "@playwright/test": "^1.40.1",
     "@sit-onyx/storybook-utils": "workspace:^",

@@ -16,8 +16,6 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@fontsource-variable/source-code-pro": "^5.0.17",
-    "@fontsource-variable/source-sans-3": "^5.0.19",
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@rushstack/eslint-patch": "^1.6.1",
     "@tsconfig/node20": "^20.1.2",

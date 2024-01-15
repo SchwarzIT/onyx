@@ -1,48 +1,23 @@
 # Typography
 
-All Onyx components rely on a default an a monospace font family.
-However, we don't bundle any font families with the components to keep the bundle size small and to allow you to use whatever font family you like.
+The Onyx design system relies on a default (sans-serif) and a monospace font family.
 
-We recommend to use the following font families where you will also find installation instructions below.
+Onyx is intended to be used with the following font families which are open-source
+and free to use under the [SIL Open Font License](https://en.wikipedia.org/wiki/SIL_Open_Font_License):
 
 - Default: [Source Sans 3](https://fontsource.org/fonts/source-sans-3)
 - Monospace: [Source Code Pro](https://fontsource.org/fonts/source-code-pro)
 
-## Installation
-
-Font families can easily be installed as npm package so you don't need to download and copy them into your source code.
-
-::: code-group
-
-```sh [pnpm]
-pnpm add -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
-```
-
-```sh [npm]
-npm install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
-```
-
-```sh [yarn]
-yarn install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
-```
-
-:::
-
-After that, import the styles into your `main.ts` file:
-
-::: code-group
-
-```ts [main.ts]
-import "@fontsource-variable/source-code-pro";
-import "@fontsource-variable/source-sans-3";
-```
-
-:::
-
 ## Using custom font families
 
-If you don't install the default Onyx font families mentioned above, you should override the following CSS variables with your custom installed font family.
-Otherwise all components will use the browsers default font family for `sans-serif` and `monospace`.
+::: info Default font families
+The above default font families are already bundled into the component library
+so you don't need to install them manually.
+:::
+
+If you want to use custom font families, you need to install them and override the following CSS variables manually.
+
+We recommend installing font families as npm package using [Fontsource](https://fontsource.org).
 
 ::: code-group
 

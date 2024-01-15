@@ -11,12 +11,6 @@ importers:
       '@changesets/cli':
         specifier: ^2.27.1
         version: 2.27.1
-      '@fontsource-variable/source-code-pro':
-        specifier: ^5.0.17
-        version: 5.0.17
-      '@fontsource-variable/source-sans-3':
-        specifier: ^5.0.19
-        version: 5.0.19
       '@microsoft/eslint-formatter-sarif':
         specifier: ^3.0.0
         version: 3.0.0
@@ -120,6 +114,12 @@ importers:
         specifier: '>= 3'
         version: 3.4.5(typescript@5.3.3)
     devDependencies:
+      '@fontsource-variable/source-code-pro':
+        specifier: ^5.0.17
+        version: 5.0.17
+      '@fontsource-variable/source-sans-3':
+        specifier: ^5.0.19
+        version: 5.0.19
       '@playwright/experimental-ct-vue':
         specifier: ^1.40.1
         version: 1.40.1(@types/node@20.10.6)(sass@1.69.6)(vite@5.0.11)(vue@3.4.5)
