@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import packageJson from "../../../../packages/sit-onyx/package.json";
+import packageJson from "../../../../../packages/sit-onyx/package.json";
+import { data } from "../../index.data";
 import ComponentGrid from "./ComponentGrid.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 import TabGroup from "./TabGroup.vue";
-import { data } from "./roadmap.data";
 
 const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   day: "2-digit",
@@ -18,6 +18,21 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   <section class="roadmap">
     <div class="roadmap__container">
       <div class="sections">
+        <section>
+          <h2 class="roadmap__headline">Components</h2>
+
+          <p class="roadmap__description">
+            Onyx is currently in active development. Below you can find a list of component that we
+            are planning to implement as well as their estimated due date.
+          </p>
+
+          <TabGroup :tabs="data.componentTabs">
+            <template v-for="tab in data.componentTabs" :key="tab.id" #[tab.id]>
+              <ComponentGrid v-bind="tab" />
+            </template>
+          </TabGroup>
+        </section>
+
         <section>
           <h2 class="roadmap__headline">KPIs</h2>
           <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
@@ -61,16 +76,6 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
             />
           </div>
         </section>
-
-        <section>
-          <h2 class="roadmap__headline">Components</h2>
-
-          <TabGroup :tabs="data.componentTabs">
-            <template v-for="tab in data.componentTabs" :key="tab.id" #[tab.id]>
-              <ComponentGrid v-bind="tab" />
-            </template>
-          </TabGroup>
-        </section>
       </div>
     </div>
   </section>
@@ -85,6 +90,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
 
   // padding and max-width are aligned with the top "home" section of the page
   // which comes from VitePress directly
+  margin-top: 7rem;
   padding: 5rem 1.5rem;
 
   @include mixins.breakpoint(s, min) {
@@ -112,6 +118,10 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   &__timestamp {
     color: var(--vp-c-text-2);
     margin: 1rem 0;
+  }
+
+  &__description {
+    margin-bottom: 2rem;
   }
 }
 

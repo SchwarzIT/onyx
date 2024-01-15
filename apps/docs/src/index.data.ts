@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineLoader } from "vitepress";
-import type { ComponentGridProps } from "./ComponentGrid.vue";
-import type { Tab } from "./TabGroup.vue";
+import type { ComponentGridProps } from "./.vitepress/components/ComponentGrid.vue";
+import type { Tab } from "./.vitepress/components/TabGroup.vue";
 
 export type Data = {
   componentCount: number;
@@ -30,7 +30,7 @@ export { data };
  * @see https://vitepress.dev/guide/data-loading
  */
 export default defineLoader({
-  watch: ["../../../../packages/sit-onyx/src/components/*/*.stories.ts"],
+  watch: ["../../../packages/sit-onyx/src/components/*/*.stories.ts"],
   async load(watchedFiles): Promise<Data> {
     const variantCount = watchedFiles.reduce((total, file) => {
       const fileContent = fs.readFileSync(file, "utf-8");
@@ -38,7 +38,7 @@ export default defineLoader({
     }, 0);
 
     // get package count
-    const path = fileURLToPath(new URL("../../../../packages", import.meta.url));
+    const path = fileURLToPath(new URL("../../../packages", import.meta.url));
     const packageFolders = fs.readdirSync(path);
 
     const npmPackageNames = packageFolders.map((packageName) =>

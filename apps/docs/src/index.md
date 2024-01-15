@@ -44,6 +44,7 @@ features:
 
 <script lang="ts" setup>
 import { VPHomeSponsors } from "vitepress/theme";
+import OnyxRoadmap from "./.vitepress/components/OnyxRoadmap.vue"
 
 const sponsors = [
   {
@@ -59,5 +60,7 @@ const sponsors = [
   },
 ];
 </script>
+
+<OnyxRoadmap />
 
 <VPHomeSponsors message="Thanks to our Partners" :data="sponsors" />
