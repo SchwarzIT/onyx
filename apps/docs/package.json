@@ -9,6 +9,7 @@
     "preview": "vitepress preview src"
   },
   "devDependencies": {
+    "@sit-onyx/vitepress-theme": "workspace:^",
     "vitepress": "^1.0.0-rc.36"
   }
 }

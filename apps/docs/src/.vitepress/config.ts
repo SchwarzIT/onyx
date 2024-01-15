@@ -35,6 +35,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "Getting Started", link: "/getting-started" },
+          { text: "i18n", link: "/i18n/" },
+          { text: "Typography", link: "/typography" },
           { text: "The Team", link: "/team" },
         ],
       },
@@ -52,6 +54,7 @@ export default defineConfig({
           { text: "Figma utilities", link: "/figma-utils" },
           { text: "Headless composables", link: "/headless" },
           { text: "Storybook utilities", link: "/storybook-utils" },
+          { text: "VitePress theme", link: "/vitepress-theme" },
         ],
       },
     ],
