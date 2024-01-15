@@ -2,11 +2,7 @@
 
 ## Supported Versions
 
-The following versions of onyx are currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 0.0.0   | :white_check_mark: |
+Onyx is currently still in alpha development. Once we published 1.0.0 of our packages, we'll show the information on wich versions of which packages are being supported with security updates below.
 
 ## Reporting a Vulnerability
 
