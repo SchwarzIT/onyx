@@ -33,7 +33,7 @@ describe("generate.ts", () => {
   });
 
   test("should generate as CSS with custom selector", () => {
-    const fileContent = generateAsCSS(mockData, "html");
+    const fileContent = generateAsCSS(mockData, { selector: "html" });
 
     expect(fileContent).toBe(`/**
  * Do not edit directly.
