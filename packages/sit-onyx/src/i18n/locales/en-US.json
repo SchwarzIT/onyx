@@ -1,0 +1,19 @@
+{
+  "validations": {
+    "tooShort": "Please lengthen this text to {minLength} characters or more (you are currently using 1 character) | Please lengthen this text to {minLength} characters or more (you are currently using {n} characters)",
+    "tooLong": "Please shorten this text to {maxLength} characters or less (you are currently using 1 character) | Please shorten this text to {maxLength} characters or less (you are currently using {n} characters)",
+    "rangeUnderflow": "Value must be greater than or equal to {min}",
+    "rangeOverflow": "Value must be less than or equal to {max}",
+    "patternMismatch": "Please match the format requested.",
+    "valueMissing": "Please fill in this field.",
+    "stepMismatch": "Please enter a value that is a multiple of {step}.",
+    "badInput": "\"{value}\" does not match the expected type.",
+    "typeMismatch": {
+      "generic": "\"{value}\" does not match the expected type.",
+      "email": "\"{value}\" must be a valid email address.",
+      "number": "\"{value}\" must be a number.",
+      "tel": "\"{value}\" must be a valid phone number.",
+      "url": "\"{value}\" must a valid URL."
+    }
+  }
+}

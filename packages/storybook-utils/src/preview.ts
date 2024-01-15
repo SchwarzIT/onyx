@@ -64,17 +64,20 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
            * @see https://storybook.js.org/docs/react/api/doc-block-source
            */
           transform: (sourceCode: string): string => {
-            return (
-              sourceCode
-                // replace event bindings with shortcut
-                .replaceAll("v-on:", "@")
-                // remove empty event handlers, e.g. @click="()=>({})" will be removed
-                .replaceAll(/ @.*['"]\(\)=>\({}\)['"]/g, "")
-                // remove empty v-binds, e.g. v-bind="{}" will be removed
-                .replaceAll(/ v-bind=['"]{}['"]/g, "")
-                // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
-                .replaceAll(/:(.*)=['"]true['"]/g, "$1")
-            );
+            const replacements = [
+              // replace event bindings with shortcut
+              { searchValue: "v-on:", replaceValue: "@" },
+              // remove empty event handlers, e.g. @click="()=>({})" will be removed
+              { searchValue: / @.*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
+              // remove empty v-binds, e.g. v-bind="{}" will be removed
+              { searchValue: / v-bind=['"]{}['"]/g, replaceValue: "" },
+              // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
+              { searchValue: /:(.*)=['"]true['"]/g, replaceValue: "$1" },
+            ];
+
+            return replacements.reduce((code, replacement) => {
+              return replaceAll(code, replacement.searchValue, replacement.replaceValue);
+            }, sourceCode);
           },
         },
       },
@@ -109,4 +112,12 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   });
 
   return deepmerge<[T, typeof defaultPreview]>(overrides ?? ({} as T), defaultPreview);
+};
+
+/**
+ * Custom String.replaceAll implementation using a RegExp
+ * because String.replaceAll() is not available in our specified EcmaScript target in tsconfig.json
+ */
+const replaceAll = (message: string, searchValue: string | RegExp, replaceValue: string) => {
+  return message.replace(new RegExp(searchValue, "gi"), replaceValue);
 };

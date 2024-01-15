@@ -117,6 +117,12 @@ importers:
         specifier: '>= 3'
         version: 3.4.5(typescript@5.3.3)
     devDependencies:
+      '@fontsource-variable/source-code-pro':
+        specifier: ^5.0.17
+        version: 5.0.17
+      '@fontsource-variable/source-sans-3':
+        specifier: ^5.0.19
+        version: 5.0.19
       '@playwright/experimental-ct-vue':
         specifier: ^1.40.1
         version: 1.40.1(@types/node@20.10.6)(sass@1.69.6)(vite@5.0.11)(vue@3.4.5)
@@ -2244,6 +2250,14 @@ packages:
 
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
+
+  /@fontsource-variable/source-code-pro@5.0.17:
+    resolution: {integrity: sha512-O1Hn0QamTJDfFauR68ALijno0xTOy/sJAE/cORyP2s5unEiJOZj0EBQIhHymHdS7XI+xccAfSEdaZNmz9rhttA==}
+    dev: true
+
+  /@fontsource-variable/source-sans-3@5.0.19:
+    resolution: {integrity: sha512-tLw2C4Su5gY+xZLQgkia/EdtsU/Sx5PnFGI+nUzcQPN2Nd2vCXu9gc819Eop+hU9uKeS2RPzja+fKoAJM+QpDg==}
+    dev: true
 
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}

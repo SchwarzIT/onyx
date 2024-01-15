@@ -1,4 +1,12 @@
-// global styles
+// global component styles
+// DO NOT ADD ANY STYLES HERE THAT HAVE SIDE EFFECTS ON THE GLOBAL APPLICATION (e.g. body, <a> etc.)
+@use "@fontsource-variable/source-code-pro";
+@use "@fontsource-variable/source-sans-3";
 @use "variables-onyx.css";
 @use "variables-light.css";
 @use "variables-dark.css";
+
+:root {
+  --onyx-font-family: "Source Sans 3 Variable", sans-serif;
+  --onyx-font-family-mono: "Source Code Pro Variable", monospace;
+}

@@ -26,6 +26,7 @@ The theme includes the following features:
 
 - light and dark theme that matches the Onyx design
 - colored name and gradient logo background on the [home page](/)
+- Font families matching the [Onyx typography system](/typography)
 
 ## Installation
 
@@ -54,7 +55,7 @@ You can check the [VitePress documentation](https://vitepress.dev/guide/custom-t
 ```ts [.vitepress/theme/index.ts]
 import OnyxTheme from "@sit-onyx/vitepress-theme";
 
-// if you use/override custom styles, they must be imported after the theme
+// if you use/override custom styles, they must be imported after the theme, e.g.
 // import "./styles.css";
 
 export default OnyxTheme;
