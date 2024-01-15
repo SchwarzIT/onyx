@@ -22,15 +22,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add sit-onyx
+pnpm add sit-onyx@alpha
 ```
 
 ```sh [npm]
-npm install sit-onyx
+npm install sit-onyx@alpha
 ```
 
 ```sh [yarn]
-yarn install sit-onyx
+yarn install sit-onyx@alpha
 ```
 
 :::
