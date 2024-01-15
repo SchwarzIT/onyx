@@ -67,17 +67,10 @@ const createI18n = (options?: ProvideI18nOptions) => {
       // use English message as fallback
       let message = resolveMessage(key, messages.value) ?? resolveMessage(key, enUS) ?? "";
 
-      if (placeholders) {
-        Object.entries(placeholders).forEach(([key, value]) => {
-          if (value === undefined) return;
-          // "gi" is used to replace all occurrences because String.replaceAll() is not available
-          // in our specified EcmaScript target
-          message = message.replace(new RegExp(`{${key}}`, "gi"), value.toString());
-        });
-      }
-
       const pluralizationValue = typeof placeholders.n === "number" ? placeholders.n : undefined;
-      return resolvePluralization(message, pluralizationValue);
+      message = resolvePluralization(message, pluralizationValue);
+
+      return replacePlaceholders(message, placeholders);
     };
   });
 
@@ -135,4 +128,26 @@ const resolvePluralization = (message: string, value?: number) => {
   }
 
   return formats[pluralization];
+};
+
+/**
+ * Replaces all placeholders in the given message.
+ * If a value is provided, it will be replaced accordingly. Otherwise the placeholder
+ * will be removed from the message (same behavior as "vue-i18n").
+ */
+const replacePlaceholders = (
+  message: string,
+  placeholders: Record<string, string | number | undefined>,
+): string => {
+  if (!placeholders) return message;
+
+  const replacedMessage = Object.entries(placeholders).reduce((replacedMessage, [key, value]) => {
+    if (value === undefined) return replacedMessage;
+    // "gi" is used to replace all occurrences because String.replaceAll() is not available
+    // in our specified EcmaScript target
+    return replacedMessage.replace(new RegExp(`{${key}}`, "gi"), value.toString());
+  }, message);
+
+  // remove all left-over placeholders that have no provided value to align with "vue-i18n"
+  return replacedMessage.replace(/\s?{.*}\s?/gi, "");
 };

@@ -75,11 +75,12 @@ test("should translate with/without placeholders", () => {
   message = t.value("does.not.exist" as TestTranslationKey);
   expect(message).toBe("");
 
-  // shows the original placeholders if no values were provided
+  // removes the original placeholders if no values were provided (same behavior as "vue-i18n")
   message = t.value("placeholder" as TestTranslationKey, {
     firstName: undefined,
+    lastName: undefined,
   });
-  expect(message).toBe("Hello {firstName} {lastName}");
+  expect(message).toBe("Hello");
 });
 
 test("should translate with pluralization", () => {
