@@ -91,7 +91,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   // padding and max-width are aligned with the top "home" section of the page
   // which comes from VitePress directly
   margin-top: 7rem;
-  padding: 5rem 1.5rem;
+  padding: 5rem 1.5rem 0;
 
   @include mixins.breakpoint(s, min) {
     padding-left: 3rem;
