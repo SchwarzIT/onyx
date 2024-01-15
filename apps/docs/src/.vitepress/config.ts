@@ -54,6 +54,7 @@ export default defineConfig({
           { text: "Figma utilities", link: "/figma-utils" },
           { text: "Headless composables", link: "/headless" },
           { text: "Storybook utilities", link: "/storybook-utils" },
+          { text: "VitePress theme", link: "/vitepress-theme" },
         ],
       },
     ],
