@@ -31,8 +31,8 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install
 
-      - name: 👷 Build packages
-        run: pnpm build-all
+      - name: 🛠️ Build packages
+        run: pnpm build:all
 
       - name: 🤖 Configure Git Bot
         run: |

@@ -5,7 +5,8 @@
   "type": "module",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "dist",
+    "src/i18n/locales"
   ],
   "exports": {
     ".": {
@@ -13,6 +14,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./locales": "./src/i18n/locales",
     "./style.css": "./dist/style.css"
   },
   "repository": {
@@ -28,8 +30,8 @@
     "build": "pnpm run '/type-check|build-only/'",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static --open",
-    "test:unit": "vitest",
-    "test:unit:coverage": "pnpm run test:unit --coverage",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:components": "playwright install && playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
@@ -38,6 +40,8 @@
     "vue": ">= 3"
   },
   "devDependencies": {
+    "@fontsource-variable/source-code-pro": "^5.0.17",
+    "@fontsource-variable/source-sans-3": "^5.0.19",
     "@playwright/experimental-ct-vue": "^1.40.1",
     "@playwright/test": "^1.40.1",
     "@sit-onyx/storybook-utils": "workspace:^",
