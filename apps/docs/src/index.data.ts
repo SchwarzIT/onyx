@@ -61,7 +61,7 @@ export default defineLoader({
         label: "Basic components",
         description:
           "Basic components with top priority that we consider as must-have for building a simple web application.",
-        dueDate: (await getGitHubMilestone(2)).due_on,
+        dueDate: new Date(2024, 3, 15).toISOString(),
         components: [
           { name: "Button", comingSoon: true },
           { name: "Radio button", comingSoon: true },
@@ -173,29 +173,6 @@ const searchGitHub = async (
   }
 
   return body.total_count;
-};
-
-/**
- * Gets the data for the given GitHub milestone.
- *
- * @see: https://docs.github.com/en/rest/issues/milestones?apiVersion=2022-11-28#get-a-milestone
- */
-const getGitHubMilestone = async (milestoneNumber: number): Promise<GitHubMilestone> => {
-  const response = await fetch(
-    `https://api.github.com/repos/SchwarzIT/onyx/milestones/${milestoneNumber}`,
-    {
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    },
-  );
-  const body = await response.json();
-
-  if (response.status < 200 || response.status >= 300) {
-    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
-  }
-
-  return body;
 };
 
 /**
