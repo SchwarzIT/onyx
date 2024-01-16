@@ -52,6 +52,6 @@
     "@vue/compiler-dom": "^3.4.5",
     "eslint-plugin-playwright": "~0.21.0",
     "react": "^18.2.0",
-    "storybook": "^7.6.7"
+    "storybook": "^7.6.8"
   }
 }
