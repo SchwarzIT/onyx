@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -15,7 +17,11 @@ module.exports = {
       const hasFixture = ["expect", "test"].includes(node.imported.name);
       if (!hasFixture) return;
 
-      if (node.parent.source.value === "@playwright/test") {
+      if (
+        "source" in node.parent &&
+        "value" in node.parent.source &&
+        node.parent.source.value === "@playwright/test"
+      ) {
         context.report({
           node,
           loc: node.loc,
