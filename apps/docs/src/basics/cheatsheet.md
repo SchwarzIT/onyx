@@ -33,7 +33,7 @@ New line
 
 <!-- du kannst so auch ein Video einbinden -->
 
-![Logo](../public/logo-light.svg)
+![Logo](/assets/image_placeholder.png)
 
 - Stichpunkt 1
 - Stichpunkt 2
