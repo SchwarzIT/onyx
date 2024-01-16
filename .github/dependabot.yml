@@ -7,8 +7,12 @@ updates:
     directory: "/"
     versioning-strategy: "increase"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     groups:
-      dependencies:
-        patterns:
-          - "*"
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
+      major:
+        update-types:
+          - "major"
