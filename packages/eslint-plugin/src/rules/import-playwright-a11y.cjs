@@ -14,6 +14,9 @@ module.exports = {
   },
   create: (context) => ({
     ImportSpecifier(node) {
+      // allow the fixture itself to import from Playwright directly
+      if (context.filename.endsWith("/playwright-axe.ts")) return;
+
       const hasFixture = ["expect", "test"].includes(node.imported.name);
       if (!hasFixture) return;
 
