@@ -4,12 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev src --open",
+    "dev": "vitepress dev src",
     "build": "vitepress build src",
     "preview": "vitepress preview src"
   },
   "devDependencies": {
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "vitepress": "^1.0.0-rc.36"
+    "vitepress": "^1.0.0-rc.39",
+    "vue": "^3.4.14"
   }
 }
