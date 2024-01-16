@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
 
 env:
-  REMOVE_ME: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+  REMOVE_ME: ${{ github.ref_name != 'main' && 'prod' || 'dev' }}
 
 jobs:
   check:
     name: Check code quality
     runs-on: ubuntu-latest
     steps:
-      - run: echo $REMOVE_ME && exit 0
+      - run: echo $REMOVE_ME && exit 1
 
       - uses: actions/checkout@v4
 
