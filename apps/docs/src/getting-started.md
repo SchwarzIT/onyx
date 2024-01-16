@@ -4,7 +4,11 @@
 This library is currently in early / active development.
 :::
 
+<div class="hide-external-link">
+
 [![npm version](https://badge.fury.io/js/sit-onyx.svg)](https://www.npmjs.com/package/sit-onyx)
+
+</div>
 
 ## Installation
 
@@ -18,15 +22,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add sit-onyx
+pnpm add sit-onyx@alpha
 ```
 
 ```sh [npm]
-npm install sit-onyx
+npm install sit-onyx@alpha
 ```
 
 ```sh [yarn]
-yarn install sit-onyx
+yarn install sit-onyx@alpha
 ```
 
 :::

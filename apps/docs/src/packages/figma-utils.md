@@ -8,7 +8,11 @@ import packageJson from "../../../../packages/figma-utils/package.json";
 
 # @sit-onyx/figma-utils
 
+<div class="hide-external-link">
+
 [![npm version](https://badge.fury.io/js/@sit-onyx%2Ffigma-utils.svg)](https://www.npmjs.com/package/@sit-onyx/figma-utils)
+
+</div>
 
 {{ packageJson.description }}.
 
@@ -17,7 +21,7 @@ import packageJson from "../../../../packages/figma-utils/package.json";
 For a list of supported commands and options, run:
 
 ```sh
-npx @sit-onyx/figma-utils@latest --help
+npx @sit-onyx/figma-utils@alpha --help
 ```
 
 ::: tip Usage in CI
@@ -40,15 +44,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/figma-utils
+pnpm add @sit-onyx/figma-utils@alpha
 ```
 
 ```sh [npm]
-npm install @sit-onyx/figma-utils
+npm install @sit-onyx/figma-utils@alpha
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/figma-utils
+yarn install @sit-onyx/figma-utils@alpha
 ```
 
 :::

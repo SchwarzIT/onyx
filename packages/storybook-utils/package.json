@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -14,10 +14,9 @@
     }
   },
   "scripts": {
-    "type-check": "tsc --noEmit"
+    "build": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@storybook/client-api": ">= 7",
     "@storybook/core-events": ">= 7",
     "@storybook/preview-api": ">= 7",
     "@storybook/theming": ">= 7",

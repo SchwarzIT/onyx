@@ -8,7 +8,7 @@
 
 # Onyx
 
-A design system and Vue.js component library created by [Schwarz IT](https://it.schwarz).
+A design system and Vue.js component library for enterprise grade applications created by [Schwarz IT](https://it.schwarz).
 
 > **Work in progress**: This library is currently in early / active development. <br />
 
