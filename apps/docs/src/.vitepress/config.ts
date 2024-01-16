@@ -76,6 +76,7 @@ export default defineConfig({
             { text: "Truncation", link: "/truncation" },
             { text: "Elevation", link: "/elevation" },
             { text: "Iconography", link: "/iconography" },
+            { text: "Typography", link: "/typography" },
             { text: "Images", link: "/images" },
             { text: "Tokens", link: "/tokens" },
             { text: "Accessibility", link: "/accessibility" },
