@@ -27,6 +27,7 @@ export default defineConfig({
       { text: "Brand", link: "/brand/" },
       { text: "Basics", link: "/basics/" },
       { text: "Components", link: "/components/" },
+      { text: "Resources", link: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -93,6 +94,11 @@ export default defineConfig({
             { text: "Search behavior", link: "/searchbehavior" },
             { text: "Dialogs", link: "/dialogs" },
           ].sort((a, b) => a.text.localeCompare(b.text)),
+        },
+      ],
+      "/resources": [
+        {
+          items: [{ text: "test", link: "/resources" }],
         },
       ],
       // default sidebar

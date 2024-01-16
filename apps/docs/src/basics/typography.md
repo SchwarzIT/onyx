@@ -305,6 +305,48 @@ To create a flowing readability the line leght is key. There are no struct rules
 
 ![image](/assets/image_placeholder.png)
 
-The wider the line the more difficult to read.
+Generally speaking: the wider the line the harder to read and to follow. The optimal range for readability is usually between 60 and 80 characters. If the text is way longer than this guideline, just use a second text column instead.
 
 ## Writing style
+
+If you want to use text in your application, please take the following principles into account.
+
+::: details Focus
+
+Formulate your text purposefully and concisely. Do not use unnecessary verbiage. Nevertheless, form short, complete and grammatically correct sentences.
+
+:::
+
+::: details Descriptive
+
+Describe prompts clearly and use the imperative (especially with buttons). Buttons are always titled with verbs and should at best consist of only one word. More than one word is possible in exceptional cases.
+
+:::
+
+::: details Hierarchy
+
+Hierarchy is key to a well working user experience. Always be aware on how to use section titles and element headlines.
+Also use [color and contrast](/basics/colors) for creating hierarchy in a subtle way.
+
+:::
+
+::: details Context
+
+Texts must always have a connection to the things that are going on in the screen, in terms of content.
+Never text about content, the user cannot relate to.
+
+:::
+
+::: details Consistency
+
+Texts never are built with uppercases. Always use the provided line hight for spacing. Do not try to squeeze characters or textblocks. Less is more - Minimalism is key.
+
+:::
+
+## Links
+
+Links are the tool of choise to referr to another or external page. Please use the `link` font style. By default links have a underline and are primary-colored. Under consideration of the text styling principles the text-color can be changed in exceptional usecases. Please doublecheck with your assigned UX-Designer.
+
+## Truncation
+
+For more details about truncation and how to use it, please visit the [accessibility foundations](/basics/accessibility).
