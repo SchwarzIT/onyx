@@ -174,9 +174,6 @@ watch(
     color: darkred;
     margin: 0;
   }
-  &__info {
-    color: grey;
-  }
 
   &--touched {
     input:valid {
