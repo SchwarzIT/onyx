@@ -8,3 +8,7 @@ updates:
     versioning-strategy: "increase"
     schedule:
       interval: "weekly"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
