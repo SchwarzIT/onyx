@@ -102,7 +102,7 @@ pnpm run test:components
 # Runs the tests only on Chromium
 pnpm run test:components --project=chromium
 # Runs the tests of a specific file
-pnpm run test:components tests/example.spec.ts
+pnpm run test:components tests/example.ct.ts
 # Runs the tests in debug mode
 pnpm run test:components --debug
 ```
