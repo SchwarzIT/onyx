@@ -33,7 +33,7 @@ Please consider our [Technical Guidelines](https://github.com/SchwarzIT/onyx/wik
 2. When your changes affect the user, you need to [add a changeset](./.changeset/README.md).
 3. Then [create a PR](https://github.com/SchwarzIT/onyx/compare) to merge your changes back into our repository.
 
-When your PR gets accepted, you can expect an alpha release immediately after it is merged. Production releases are published every 2 weeks.
+When your PR gets accepted, you can expect an alpha release immediately after it is merged. Production releases are planned to be published every 2 weeks after the release of 1.0.0.
 
 ## Scripts
 
