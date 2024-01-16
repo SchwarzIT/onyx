@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
  */
 export default defineConfig({
   testDir: "./src/components",
+  // based on the default value, but use `ct` instead of `spec`
   testMatch: `**/*.@(ct).?(c|m)[jt]s?(x)`,
   snapshotDir: "./playwright/snapshots",
   // custom snapshotPathTemplate to remove the testFileName folder that we don't want
