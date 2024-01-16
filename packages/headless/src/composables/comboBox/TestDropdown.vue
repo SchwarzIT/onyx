@@ -10,7 +10,6 @@ const selectedIndex = computed<number | undefined>(() => {
   return index !== -1 ? index : undefined;
 });
 
-// According to spec options must be focusable (not disabled) => should we move that logic to
 const onFirst = () => (activeKey.value = elements[0]);
 const onLast = () => (activeKey.value = elements[elements.length - 1]);
 const onNext = () => {
