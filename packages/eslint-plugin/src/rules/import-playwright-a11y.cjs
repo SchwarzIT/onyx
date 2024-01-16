@@ -17,11 +17,16 @@ module.exports = {
       const hasFixture = ["expect", "test"].includes(node.imported.name);
       if (!hasFixture) return;
 
-      if (
-        "source" in node.parent &&
-        "value" in node.parent.source &&
-        node.parent.source.value === "@playwright/test"
-      ) {
+      // type check that node.parent.source.value exists
+      if (!("source" in node.parent) || !("value" in node.parent.source)) {
+        return;
+      }
+
+      const isDisallowedImport = ["@playwright/test", "@playwright/experimental-ct-vue"].includes(
+        node.parent.source.value.toString(),
+      );
+
+      if (isDisallowedImport) {
         context.report({
           node,
           loc: node.loc,
