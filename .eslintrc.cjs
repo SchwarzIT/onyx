@@ -10,6 +10,7 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-recommended",
     "eslint:recommended",
+    "plugin:vuejs-accessibility/recommended",
     // @vue/eslint-config-typescript must be placed after all other configs except @vue/eslint-config-prettier
     // see: https://github.com/vuejs/eslint-config-typescript#vueeslint-config-typescriptrecommended
     "@vue/eslint-config-typescript/recommended",
@@ -39,5 +40,16 @@ module.exports = {
     // this rule is only really relevant for the options API so we disable it here
     // see: https://eslint.vuejs.org/rules/require-default-prop
     "vue/require-default-prop": "off",
+    "vuejs-accessibility/label-has-for": [
+      "error",
+      {
+        required: {
+          // by default all labels must have a "for" even when an input is nested inside it
+          // we soften this rule to pass in this case
+          // see https://vue-a11y.github.io/eslint-plugin-vuejs-accessibility/rules/label-has-for.html
+          some: ["nesting", "id"],
+        },
+      },
+    ],
   },
 };
