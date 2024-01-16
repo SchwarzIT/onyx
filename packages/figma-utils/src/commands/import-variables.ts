@@ -55,13 +55,13 @@ export async function importCommandAction(options: ImportCommandOptions) {
     JSON: generateAsJSON,
   };
 
-  for (const format of options.format) {
+  options.format.forEach((format) => {
     if (!(format in generators)) {
       throw new Error(
         `Unknown format "${format}". Supported: ${Object.keys(generators).join(", ")}`,
       );
     }
-  }
+  });
 
   console.log("Fetching variables from Figma API...");
   const data = await fetchFigmaVariables(options.fileKey, options.token);
@@ -71,8 +71,8 @@ export async function importCommandAction(options: ImportCommandOptions) {
 
   if (options.modes?.length) {
     // verify that all modes are found
-    for (const mode of options.modes) {
-      if (parsedVariables.find((i) => i.modeName === mode)) continue;
+    options.modes.forEach((mode) => {
+      if (parsedVariables.find((i) => i.modeName === mode)) return;
 
       const availableModes = parsedVariables
         .map((i) => i.modeName ?? DEFAULT_MODE_NAME)
@@ -81,7 +81,7 @@ export async function importCommandAction(options: ImportCommandOptions) {
       throw new Error(
         `Mode "${mode}" not found. Available modes: ${Object.values(availableModes).join(", ")}`,
       );
-    }
+    });
   }
 
   const outputDirectory = options.dir ?? process.cwd();

@@ -31,7 +31,7 @@ jobs:
         run: pnpm run build
         working-directory: packages/figma-utils
 
-      # we need to separately import the themes because they are all need in different formats and selectors
+      # we need to separately import the themes because they are all needed in different formats and selectors
       - name: Import Onyx variables
         run: |
           pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx -f CSS JSON

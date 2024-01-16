@@ -149,7 +149,7 @@ import { addons } from "@storybook/manager-api";
 
 addons.setConfig({
   theme: createTheme({
-    base: "light", // choose whether to want a light or dark theme
+    base: "light", // choose whether you want a light or dark theme
   }),
 });
 ```
@@ -162,7 +162,7 @@ const preview: Preview = {
   parameters: {
     docs: {
       theme: createTheme({
-        base: "light", // choose whether to want a light or dark theme
+        base: "light", // choose whether you want a light or dark theme
       }),
     },
   },
