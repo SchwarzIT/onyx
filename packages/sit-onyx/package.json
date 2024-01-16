@@ -45,7 +45,7 @@
     "@playwright/experimental-ct-vue": "^1.40.1",
     "@playwright/test": "^1.40.1",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^7.6.7",
+    "@storybook/addon-essentials": "^7.6.8",
     "@storybook/blocks": "^7.6.7",
     "@storybook/vue3": "^7.6.7",
     "@storybook/vue3-vite": "^7.6.7",
