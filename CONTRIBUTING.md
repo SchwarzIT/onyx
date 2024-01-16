@@ -112,7 +112,7 @@ pnpm run test:components tests/example.spec.ts
 pnpm run test:components --debug
 ```
 
-_Info: Screenshot tests will only be performed in our Workflows to ensure consistency of the resulting images which vary on different operating systems._
+_Info: Screenshot tests will only be performed in our Workflows to ensure consistency of the resulting images which vary on different operating systems. You can use [this Workflow](https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml) to update the screenshots._
 
 <br />
 
