@@ -95,6 +95,9 @@ importers:
       vitepress:
         specifier: ^1.0.0-rc.38
         version: 1.0.0-rc.38(@algolia/client-search@4.22.1)(@types/node@20.11.3)(sass@1.69.7)(search-insights@2.13.0)(typescript@5.3.3)
+      vue:
+        specifier: ^3.4.14
+        version: 3.4.14(typescript@5.3.3)
 
   packages/figma-utils:
     dependencies:
