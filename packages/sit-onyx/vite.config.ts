@@ -28,7 +28,7 @@ export default defineConfig({
     root: getFilePath("./"),
     environment: "jsdom",
     passWithNoTests: true,
-    include: ["src/**/*.spec.ts"],
+    include: ["src/**/*.spec.(ts|tsx)"],
     coverage: {
       include: ["src"],
       exclude: ["src/**/*.stories.ts"],
