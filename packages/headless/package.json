@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "tsc --noEmit",
-    "test": "playwright install && playwright test"
+    "test:components": "playwright install && playwright test"
   },
   "devDependencies": {
     "@playwright/experimental-ct-vue": "^1.40.1",
