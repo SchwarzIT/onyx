@@ -71,12 +71,9 @@ export const parseFigmaVariables = (
       .sort((a, b) => {
         const aAsNumber = numberRegex.exec(a)?.[0] ?? "";
         const bAsNumber = numberRegex.exec(b)?.[0] ?? "";
-        const haveSameBaseName = a.replace(aAsNumber, "") === b.replace(bAsNumber, "");
+        const isSameBaseName = a.replace(aAsNumber, "") === b.replace(bAsNumber, "");
 
-        if (aAsNumber && bAsNumber && haveSameBaseName) {
-          return +aAsNumber - +bAsNumber;
-        }
-
+        if (aAsNumber && bAsNumber && isSameBaseName) return +aAsNumber - +bAsNumber;
         return a.localeCompare(b);
       })
       .reduce<Record<string, string>>((variables, key) => {
