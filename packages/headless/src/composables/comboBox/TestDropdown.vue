@@ -40,7 +40,6 @@ const {
 defineExpose({ comboBox });
 </script>
 <template>
-  <!-- TODO: https://w3c.github.io/aria/#aria-autocomplete -->
   <div>
     <label v-bind="label">some label:</label>
     <input
@@ -48,7 +47,6 @@ defineExpose({ comboBox });
       @keydown.arrow-down="isExpanded = true"
       @keydown.esc="isExpanded = false"
     />
-    <!-- btn optional but must have tabindex -1 -->
     <button v-bind="button">
       <template v-if="isExpanded">⬆️</template>
       <template v-else>⬇️</template>
