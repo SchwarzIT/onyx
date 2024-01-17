@@ -1,5 +1,12 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-alpha.1
+
+### Minor Changes
+
+- abaefa6: feat: support JSON format
+- abaefa6: feat: support multiple formats
+
 ## 1.0.0-alpha.0
 
 ### Major Changes
