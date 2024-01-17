@@ -4,7 +4,7 @@
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
-    "build:all": "pnpm -r --if-present build",
+    "build:all": "pnpm -r --if-present '/^build/'",
     "test:all": "pnpm -r --if-present test:coverage",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
