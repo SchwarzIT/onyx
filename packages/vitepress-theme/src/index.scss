@@ -36,15 +36,6 @@
     var(--onyx-color-brand-primary-500),
     var(--onyx-color-text-info-500)
   );
-
-  // remove the following lines when this VitePress PR is merged:
-  // https://github.com/vuejs/vitepress/pull/3434
-  --vp-badge-tip-text: var(--vp-c-tip-1);
-  --vp-badge-tip-bg: var(--vp-c-tip-soft);
-  --vp-custom-block-tip-bg: var(--vp-c-tip-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
-  --vp-code-line-warning-color: var(--vp-c-warning-soft);
-  --vp-code-line-error-color: var(--vp-c-danger-soft);
 }
 
 .dark {
