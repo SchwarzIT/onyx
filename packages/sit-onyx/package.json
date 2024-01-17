@@ -42,8 +42,8 @@
   "devDependencies": {
     "@fontsource-variable/source-code-pro": "^5.0.17",
     "@fontsource-variable/source-sans-3": "^5.0.19",
-    "@playwright/experimental-ct-vue": "^1.40.1",
-    "@playwright/test": "^1.40.1",
+    "@playwright/experimental-ct-vue": "^1.41.0",
+    "@playwright/test": "^1.41.0",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^7.6.8",
     "@storybook/blocks": "^7.6.8",

@@ -5,6 +5,10 @@ on:
       - "main"
   workflow_dispatch:
 
+env:
+  # The release + deployment will be done on "prod" stage if on main branch, on "dev" stage otherwise
+  STAGE: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+
 jobs:
   release:
     name: Release
@@ -34,13 +38,25 @@ jobs:
       - name: 🛠️ Build packages
         run: pnpm build:all
 
+      - name: Upload Storybook artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-static
+          path: packages/sit-onyx/storybook-static
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: apps/docs/src/.vitepress/dist
+
       - name: 🤖 Configure Git Bot
         run: |
           git config user.name "Release Bot[bot]"
           git config user.email "bot@example.com"
 
       - name: ⛴️ Version and Publish
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ env.STAGE == 'prod' }}
         run: |
           npx changeset version
           npx changeset publish
@@ -53,7 +69,7 @@ jobs:
           fi
 
       - name: 📸 Snapshot and Publish
-        if: ${{ github.ref != 'refs/heads/main' }}
+        if: ${{ env.STAGE != 'prod' }}
         run: |
           # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
           rm -f .changeset/pre.json
@@ -61,3 +77,57 @@ jobs:
           npx changeset add --empty
           npx changeset version --snapshot
           npx changeset publish --tag snapshot
+
+  deploy_storybook:
+    name: Deploy Storybook
+    runs-on: ubuntu-latest
+    needs: release
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: storybook-static
+          path: packages/sit-onyx/.cloud-foundry/storybook-static
+
+      - name: Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          # we need to define a fallback value here because the default for the input
+          # is only assigned when the workflow is triggered manually. When triggered e.g. on push
+          # the input will be unset so a fallback is needed here
+          space: ${{ env.STAGE }}
+          working-directory: packages/sit-onyx/.cloud-foundry
+
+  deploy_documentation:
+    name: Deploy documentation
+    runs-on: ubuntu-latest
+    needs: release
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: documentation
+          path: apps/docs/.cloud-foundry/dist
+
+      - name: Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          # we need to define a fallback value here because the default for the input
+          # is only assigned when the workflow is triggered manually. When triggered e.g. on push
+          # the input will be unset so a fallback is needed here
+          space: ${{ env.STAGE }}
+          working-directory: apps/docs/.cloud-foundry
