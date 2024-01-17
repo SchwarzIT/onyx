@@ -34,7 +34,7 @@ const props = defineProps<{
 
   &--clickable {
     &:hover {
-      background-color: var(--onyx-color-surface-brand-neutral-200);
+      background-color: var(--vp-c-default-soft);
     }
   }
 
