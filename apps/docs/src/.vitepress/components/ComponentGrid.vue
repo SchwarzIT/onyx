@@ -10,7 +10,7 @@ export type ComponentGridProps = {
 
 export type Component = {
   name: string;
-  comingSoon?: boolean;
+  implemented?: boolean;
 };
 
 const props = defineProps<ComponentGridProps>();
@@ -28,12 +28,12 @@ const formattedDueDate = computed(() => {
 const sortedComponents = computed(() => {
   return props.components
     .slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
     .sort((a, b) => {
-      if (a.comingSoon && !b.comingSoon) return 1;
-      if (b.comingSoon && !a.comingSoon) return -1;
+      if (a.implemented && !b.implemented) return -1;
+      if (!a.implemented && b.implemented) return 1;
       return 0;
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
+    });
 });
 </script>
 

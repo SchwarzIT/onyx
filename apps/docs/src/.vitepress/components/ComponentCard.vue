@@ -1,14 +1,19 @@
 <script lang="ts" setup>
 const props = defineProps<{
   name: string;
-  comingSoon?: boolean;
+  implemented?: boolean;
 }>();
 </script>
 
 <template>
   <div class="card">
     <article class="card__content">
-      <Badge v-if="props.comingSoon" class="card__badge" text="Coming Soon" type="info" />
+      <Badge
+        v-if="props.implemented"
+        class="card__badge card__badge--implemented"
+        text="Implemented"
+      />
+      <Badge v-else class="card__badge" text="Coming Soon" type="info" />
       <h4 class="card__title">{{ props.name }}</h4>
     </article>
   </div>
@@ -42,6 +47,11 @@ const props = defineProps<{
     width: max-content;
     margin-left: 0;
     margin-bottom: 0.5rem;
+
+    &--implemented {
+      color: var(--vp-c-brand-2);
+      background-color: var(--vp-c-brand-soft);
+    }
   }
 }
 </style>
