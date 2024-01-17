@@ -1,6 +1,6 @@
 import { ParsedVariable } from "src/index.js";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { generateAsCSS, generateAsSCSS } from "./generate.js";
+import { generateAsCSS, generateAsJSON, generateAsSCSS } from "./generate.js";
 
 describe("generate.ts", () => {
   const mockData = {
@@ -48,6 +48,22 @@ html.test-mode-1 {
 `);
   });
 
+  test("should generate as CSS with resolved aliases", () => {
+    const fileContent = generateAsCSS(mockData, { resolveAlias: true });
+
+    expect(fileContent).toBe(`/**
+ * Do not edit directly.
+ * This file contains the specific variables for the "test-mode-1" theme.
+ * Imported from Figma API on Sun, 07 Jan 2024 13:42:00 GMT
+ */
+:root {
+  --test-1: #ffffff;
+  --test-2: 1rem;
+  --test-3: 1rem;
+}
+`);
+  });
+
   test("should generate as SCSS", () => {
     const fileContent = generateAsSCSS(mockData);
 
@@ -60,5 +76,15 @@ $test-1: #ffffff;
 $test-2: 1rem;
 $test-3: $test-2;
 `);
+  });
+
+  test("should generate as JSON", () => {
+    const fileContent = generateAsJSON(mockData);
+
+    expect(JSON.parse(fileContent)).toStrictEqual({
+      "test-1": "#ffffff",
+      "test-2": "1rem",
+      "test-3": "1rem",
+    });
   });
 });
