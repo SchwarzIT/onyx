@@ -38,8 +38,6 @@ const comboboxTesting = async (
     "In the collapsed state, the optional button element is visible.",
   ).toBeVisible();
 
-  // A combobox is said to be expanded when both the combobox element showing its current value and
-  // its associated popup element are visible.
   await button.click();
   await expect(
     combobox,
@@ -62,9 +60,6 @@ const comboboxTesting = async (
   ).toHaveAttribute("aria-expanded", "true");
   await button.click();
 
-  // If the user interface includes an additional icon that allows the visibility of the popup to be controlled via pointer and touch events,
-  // authors SHOULD ensure that element has role button, that it is focusable but not included in the page Tab sequence,
-  // and that it is not a descendant of the element with role combobox.
   await button.focus();
   await expectToHaveFocus(button, "authors SHOULD ensure that the button is focusable");
   await expect(
@@ -76,10 +71,6 @@ const comboboxTesting = async (
     "authors SHOULD ensure that the button is not a descendant of the element with role combobox",
   ).toHaveCount(0);
 
-  // In addition, to be keyboard accessible, authors SHOULD provide keyboard mechanisms for moving focus between the combobox element and elements contained in the popup.
-  // For example, one common convention is that Down Arrow moves focus from the input to the first focusable descendant of the popup element.
-  // If the popup element supports aria-activedescendant, in lieu of moving focus, such keyboard mechanisms can control the value of aria-activedescendant on the combobox element.
-  // When a descendant of the popup element is active, authors MAY set aria-activedescendant on the combobox to a value that refers to the active element within the popup while focus remains on the combobox element.
   const firstElement = options.first();
 
   await combobox.focus();
