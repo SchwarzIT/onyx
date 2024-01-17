@@ -26,7 +26,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
             are planning to implement as well as their estimated due date.
           </p>
 
-          <TabGroup :tabs="data.componentTabs">
+          <TabGroup class="roadmap__tabs" :tabs="data.componentTabs">
             <template v-for="tab in data.componentTabs" :key="tab.id" #[tab.id]>
               <ComponentGrid v-bind="tab" />
             </template>
@@ -122,6 +122,11 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
 
   &__description {
     margin-bottom: 2rem;
+  }
+
+  &__tabs {
+    background-color: var(--vp-c-bg-alt);
+    border-radius: 8px;
   }
 }
 

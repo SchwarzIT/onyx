@@ -38,10 +38,12 @@ const sortedComponents = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="content">
     <div class="description">
       <p>{{ props.description }}</p>
-      <p>Estimated due date: {{ formattedDueDate ?? "Not planned yet" }}</p>
+      <p class="description__date">
+        Estimated due date: {{ formattedDueDate ?? "Not planned yet" }}
+      </p>
     </div>
 
     <div class="grid">
@@ -55,9 +57,17 @@ const sortedComponents = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+.content {
+  padding: 1rem 2rem 2rem;
+}
+
 .description {
   color: var(--vp-c-text-2);
-  margin: 2rem;
+  margin-bottom: 2rem;
+
+  &__date {
+    margin-top: 0.5rem;
+  }
 }
 
 .grid {

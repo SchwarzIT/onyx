@@ -24,7 +24,7 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .card {
   display: block;
-  border: 1px solid var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-default-soft);
   border-radius: 12px;
   height: 100%;
   background-color: var(--vp-c-bg-soft);
@@ -34,7 +34,7 @@ const props = defineProps<{
 
   &--clickable {
     &:hover {
-      background-color: var(--vp-c-default-soft);
+      background-color: var(--onyx-color-surface-brand-neutral-200);
     }
   }
 
@@ -57,6 +57,16 @@ const props = defineProps<{
     font-size: 1.25rem;
     line-height: 1.25rem;
     font-weight: 500;
+  }
+}
+
+.dark {
+  .card {
+    &--clickable {
+      &:hover {
+        background-color: var(--onyx-color-surface-brand-neutral-300);
+      }
+    }
   }
 }
 </style>
