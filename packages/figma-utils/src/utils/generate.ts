@@ -30,16 +30,12 @@ export type GenerateAsCSSOptions = BaseGenerateOptions & {
  * @returns File content of the .css file
  */
 export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptions): string => {
-  const variableContent = Object.entries(data.variables).map(([name, value]) => {
-    const { isAlias, aliasName } = isAliasVariable(value);
-    let variableValue = isAlias ? `var(--${aliasName})` : value;
-
-    if (isAlias && options?.resolveAlias) {
-      variableValue = resolveValue(name, data.variables);
-    }
-
-    return `  --${name}: ${variableValue};`;
-  });
+  const variableContent = getCssOrScssVariableContent(
+    data.variables,
+    (name) => `  --${name}`,
+    (name) => `var(--${name})`,
+    options,
+  );
 
   let fullSelector = options?.selector?.trim() || ":root";
   if (fullSelector !== ":root") fullSelector += `.${data.modeName}`;
@@ -54,16 +50,12 @@ ${fullSelector} {\n${variableContent.join("\n")}\n}\n`;
  * @returns File content of the .scss file
  */
 export const generateAsSCSS = (data: ParsedVariable, options?: BaseGenerateOptions): string => {
-  const variableContent = Object.entries(data.variables).map(([name, value]) => {
-    const { isAlias, aliasName } = isAliasVariable(value);
-    let variableValue = isAlias ? `$${aliasName}` : value;
-
-    if (isAlias && options?.resolveAlias) {
-      variableValue = resolveValue(name, data.variables);
-    }
-
-    return `$${name}: ${variableValue};`;
-  });
+  const variableContent = getCssOrScssVariableContent(
+    data.variables,
+    (name) => `$${name}`,
+    (name) => `$${name}`,
+    options,
+  );
 
   return `${generateTimestampComment(data.modeName)}\n${variableContent.join("\n")}\n`;
 };
@@ -133,4 +125,31 @@ export const isAliasVariable = (variableValue: string) => {
   const isAlias = /{.*}/.exec(variableValue);
   const aliasName = variableValue.replace("{", "").replace("}", "");
   return { isAlias, aliasName };
+};
+
+/**
+ * Gets the variable file content of the CSS or SCSS file as array where each element
+ * represents a single line of the file.
+ *
+ * @param variables Variable data (name + value)
+ * @param nameFormatter Function to format the variable name
+ * @param aliasFormatter Function to format a reference to another variable (e.g. `var(--name)` for CSS)
+ * @param options Generator options
+ */
+const getCssOrScssVariableContent = (
+  variables: Record<string, string>,
+  nameFormatter: (name: string) => string,
+  aliasFormatter: (name: string) => string,
+  options?: BaseGenerateOptions,
+) => {
+  return Object.entries(variables).map(([name, value]) => {
+    const { isAlias, aliasName } = isAliasVariable(value);
+    let variableValue = isAlias ? aliasFormatter(aliasName) : value;
+
+    if (isAlias && options?.resolveAlias) {
+      variableValue = resolveValue(name, variables);
+    }
+
+    return `${nameFormatter(name)}: ${variableValue};`;
+  });
 };
