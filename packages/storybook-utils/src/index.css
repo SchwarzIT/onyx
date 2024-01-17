@@ -2,16 +2,17 @@
 
 .onyx-disclaimer {
   border-radius: 8px;
-  padding: 16px;
-  line-height: 24px;
-  color: rgba(60, 60, 67);
-  background-color: rgba(100, 108, 255, 0.14);
-  margin: 16px 0;
+  padding: 1rem;
+  line-height: 1.5rem;
+  margin: 1rem 0;
+
+  /* same color as VitePress var(--vp-c-tip-soft) */
+  background-color: color-mix(in srgb, var(--onyx-color-surface-info-400) 25%, transparent);
 }
 
 .onyx-disclaimer__title {
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .onyx-disclaimer p {

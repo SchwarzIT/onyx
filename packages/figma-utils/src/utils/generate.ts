@@ -3,7 +3,7 @@ import { ParsedVariable } from "../types/figma.js";
 export type BaseGenerateOptions = {
   /**
    * If `true`, alias variable values will be resolved to their actual value instead
-   * of using a reference by its name.
+   * of using a reference by their name.
    *
    * @default false
    */
@@ -34,7 +34,7 @@ export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptio
     const { isAlias, aliasName } = isAliasVariable(value);
     let variableValue = isAlias ? `var(--${aliasName})` : value;
 
-    if (options?.resolveAlias) {
+    if (isAlias && options?.resolveAlias) {
       variableValue = resolveValue(name, data.variables);
     }
 
@@ -58,7 +58,7 @@ export const generateAsSCSS = (data: ParsedVariable, options?: BaseGenerateOptio
     const { isAlias, aliasName } = isAliasVariable(value);
     let variableValue = isAlias ? `$${aliasName}` : value;
 
-    if (options?.resolveAlias) {
+    if (isAlias && options?.resolveAlias) {
       variableValue = resolveValue(name, data.variables);
     }
 
@@ -79,9 +79,9 @@ export const generateAsJSON = (data: ParsedVariable): string => {
 
   // recursively resolve aliases to plain values since keys can not be referenced in a .json file
   // like we could e.g. in a .css file
-  for (const name in variables) {
+  Object.keys(variables).forEach((name) => {
     variables[name] = resolveValue(name, variables);
-  }
+  });
 
   return `${JSON.stringify(variables, null, 2)}\n`;
 };
