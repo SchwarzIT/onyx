@@ -1,4 +1,3 @@
-/* eslint-disable playwright/expect-expect */
 import { expect, test } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 import TestDropdown from "./TestDropdown.vue";
@@ -11,9 +10,6 @@ const expectToHaveFocus = async (
   await expect(result.jsonValue(), messageOptions).resolves.toBeTruthy();
 };
 
-/**
- * Based on https://w3c.github.io/aria/#combobox
- */
 test("combobox", async ({ mount, page }) => {
   await mount(<TestDropdown />);
   const listbox = page.getByRole("listbox");
@@ -25,7 +21,7 @@ test("combobox", async ({ mount, page }) => {
 });
 
 /**
- * Based on https://w3c.github.io/aria/#combobox
+ * Test an implementation of the combobox based on https://w3c.github.io/aria/#combobox
  */
 const comboboxTesting = async (
   page: Page,
