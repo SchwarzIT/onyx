@@ -26,6 +26,7 @@ export default defineConfig({
     nav: [
       { text: "Brand", link: "/brand/" },
       { text: "Basics", link: "/basics/" },
+      { text: "Tokens", link: "/tokens/" },
       { text: "Components", link: "/components/" },
       { text: "Resources", link: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
@@ -35,10 +36,13 @@ export default defineConfig({
     sidebar: {
       "/brand": [
         {
-          text: "Introduction",
           items: [
-            { text: "Brand", link: "/brand/" },
             { text: "The Team", link: "/brand/team" },
+            { text: "Ideology", link: "/brand/ideology" },
+            { text: "Principles", link: "/brand/principles" },
+            { text: "Dependencies", link: "/brand/dependencies" },
+            { text: "Roadmap", link: "/brand/roadmap" },
+            { text: "Changelog", link: "/brand/changelog" },
           ],
         },
       ],
@@ -72,14 +76,13 @@ export default defineConfig({
             { text: "Layout", link: "/layout" },
             { text: "Appearance", link: "/appearance" },
             { text: "Motion", link: "/motion" },
-            { text: "States", link: "/states" },
+            { text: "Component states", link: "/states" },
             { text: "Density", link: "/density" },
             { text: "Truncation", link: "/truncation" },
             { text: "Elevation", link: "/elevation" },
             { text: "Iconography", link: "/iconography" },
             { text: "Typography", link: "/typography" },
             { text: "Images", link: "/images" },
-            { text: "Tokens", link: "/tokens" },
             { text: "Accessibility", link: "/accessibility" },
             { text: "Infographics", link: "/infographics" },
           ].sort((a, b) => a.text.localeCompare(b.text)),
@@ -99,6 +102,11 @@ export default defineConfig({
       "/resources": [
         {
           items: [{ text: "test", link: "/resources" }],
+        },
+      ],
+      "/tokens": [
+        {
+          items: [{ text: "Overview", link: "/tokens/overview" }],
         },
       ],
       // default sidebar

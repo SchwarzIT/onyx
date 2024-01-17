@@ -42,8 +42,38 @@ This is just an example layout for showing the posibilities of having several se
 
 ## Alignment
 
-Column grids for the whole page layout are always `left aligned` by default. An `center aligned`version is possible alternatively. The alignemnt inside an object (component) is a different story.
+### Page layout
 
-::: warning
-The layout of a component is **always** left aligned without any exception.
-:::
+Column grids for the whole page layout are always `left aligned` by default.
+
+An `center aligned`version is possible alternatively. The choise of alignment doesn't follow strict rules. But please consider the balance of the target screensize, the target user group, the target usecase and the content you are building/designing for.
+
+![Logo](/assets/image_placeholder.png)
+
+### Component layout
+
+The local structure of components is always `left aligned`. The only exception here are the center aligned and right aligned options for table columns.
+
+![Logo](/assets/image_placeholder.png)
+
+## Structure of content
+
+### Vertical structure
+
+For structuring the content of the page, a vertical layout, that can scroll down, is the easiest way by default.
+
+![Logo](/assets/image_placeholder.png)
+
+### Horizontal structure
+
+Another alternative the horizontal layout approach. By having two sections of content next to each other horizontally, the user got a better side by side comparision/interactivity between the conten groups. This could be a big advantage for some usecases. Nevertheless you are limited with available space due to screensize restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
+
+![Logo](/assets/image_placeholder.png)
+
+## Visual rhythm
+
+In every designated section of the layout, it is crucial to organize components and internal elements under a manner that maintains visual and functional connections among elements, regardless of the size of the screen.
+
+To guarantee an smooth overall appearance, it is key to keep the proportions of content section in balance.
+
+To establish a sense of structure in a layout, the initial phase involves visually grouping objects. Elements within a layout that share similarcontent or functionality can be clustered together and distinguished from other elements through the use of open space, typography and dividers for example.
