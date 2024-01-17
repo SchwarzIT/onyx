@@ -38,7 +38,7 @@ const comboboxTesting = async (
     "In the collapsed state, the optional button element is visible.",
   ).toBeVisible();
 
-  await button.click();
+  await button.click(); // toggle to be expanded
   await expect(
     combobox,
     "A combobox is said to be expanded when the combobox element shows its current value",
@@ -47,18 +47,18 @@ const comboboxTesting = async (
     listbox,
     "A combobox is said to be expanded when the associated popup is visible",
   ).toBeVisible();
-  await button.click();
+  await button.click(); // toggle to be closed
 
   await expect(
     combobox,
     "Authors MUST set aria-expanded to false when it is collapsed.",
   ).toHaveAttribute("aria-expanded", "false");
-  await button.click();
+  await button.click(); // toggle to be expanded
   await expect(
     combobox,
     "Authors MUST set aria-expanded to true when it is expanded.",
   ).toHaveAttribute("aria-expanded", "true");
-  await button.click();
+  await button.click(); // toggle to be closed
 
   await button.focus();
   await expectToHaveFocus(button, "authors SHOULD ensure that the button is focusable");
@@ -73,6 +73,7 @@ const comboboxTesting = async (
 
   const firstElement = options.first();
 
+  // open and select first option
   await combobox.focus();
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
