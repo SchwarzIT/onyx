@@ -9,9 +9,8 @@
     "src"
   ],
   "exports": {
-    ".": {
-      "default": "./src/index.ts"
-    }
+    ".": "./src/index.ts",
+    "./style.css": "./src/index.css"
   },
   "scripts": {
     "build": "tsc --noEmit"

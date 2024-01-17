@@ -1,6 +1,6 @@
 # @sit-onyx/figma-utils
 
-Utility functions and CLI for importing data from the Figma API into CSS/SCSS variables.
+Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.).
 
 ## Use as CLI
 
