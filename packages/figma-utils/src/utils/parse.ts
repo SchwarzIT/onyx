@@ -61,6 +61,28 @@ export const parseFigmaVariables = (
 
   parsedData.forEach((data) => {
     if (data.modeName === DEFAULT_MODE_NAME) delete data.modeName;
+
+    const numberRegex = /\d+/;
+
+    // sort variables by name
+    // for variables with the same name that just end with a different number (e.g. my-var-100 and my-var-200)
+    // sort them by number instead of alphabetically so e.g. 100 is sorted before 1000
+    data.variables = Object.keys(data.variables)
+      .sort((a, b) => {
+        const aAsNumber = numberRegex.exec(a)?.[0] ?? "";
+        const bAsNumber = numberRegex.exec(b)?.[0] ?? "";
+        const haveSameBaseName = a.replace(aAsNumber, "") === b.replace(bAsNumber, "");
+
+        if (aAsNumber && bAsNumber && haveSameBaseName) {
+          return +aAsNumber - +bAsNumber;
+        }
+
+        return a.localeCompare(b);
+      })
+      .reduce<Record<string, string>>((variables, key) => {
+        variables[key] = data.variables[key];
+        return variables;
+      }, {});
   });
 
   return parsedData;
