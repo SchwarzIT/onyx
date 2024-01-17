@@ -78,7 +78,7 @@ export default defineLoader({
       },
       {
         id: "t1",
-        label: "Priority 2",
+        label: "Milestone 2",
         description:
           "Commonly used components but that are not critical to implement simple applications.",
         components: [
@@ -94,7 +94,7 @@ export default defineLoader({
       },
       {
         id: "t2",
-        label: "Priority 3",
+        label: "Milestone 3",
         description:
           "Nice to have components. A basic or Priority 2 component can be used as alternative in the meantime.",
         components: [
@@ -109,7 +109,7 @@ export default defineLoader({
       },
       {
         id: "t3",
-        label: "Priority 4",
+        label: "Milestone 4",
         description: "Low priority components.",
         components: [
           { name: "Breadcrumb", comingSoon: true },

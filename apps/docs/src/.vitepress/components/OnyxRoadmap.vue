@@ -22,8 +22,10 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
           <h2 class="roadmap__headline">Components</h2>
 
           <p class="roadmap__description">
-            Onyx is currently in active development. Below you can find a list of component that we
-            are planning to implement as well as their estimated due date.
+            Onyx is currently in early / active development. Below you can find a list of components
+            that we are planning to implement as well as their estimated due date.
+            <br />
+            Feel free to check this page regularly, we will keep it up to date with our progress.
           </p>
 
           <TabGroup class="roadmap__tabs" :tabs="data.componentTabs">
