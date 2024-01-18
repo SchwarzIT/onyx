@@ -67,7 +67,7 @@ const props = defineProps<{
   .card {
     &--clickable {
       &:hover {
-        background-color: var(--onyx-color-surface-brand-neutral-300);
+        background-color: var(--onyx-color-base-neutral-300);
       }
     }
   }

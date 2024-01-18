@@ -7,7 +7,7 @@
   margin: 1rem 0;
 
   /* same color as VitePress var(--vp-c-tip-soft) */
-  background-color: color-mix(in srgb, var(--onyx-color-surface-info-400) 25%, transparent);
+  background-color: color-mix(in srgb, var(--onyx-color-base-info-400) 25%, transparent);
 }
 
 .onyx-disclaimer__title {
@@ -22,5 +22,5 @@
 /* the Storybook table of content headline is always black so we need to manually set it for the dark mode */
 .dark #storybook-docs .sbdocs-wrapper > div:nth-child(2) {
   /* same as Storybook color "textMuted" inside ./theme.ts */
-  color: var(--onyx-color-brand-neutral-300);
+  color: var(--onyx-color-base-neutral-300);
 }
