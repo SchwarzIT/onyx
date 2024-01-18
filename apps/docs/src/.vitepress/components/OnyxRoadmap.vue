@@ -36,7 +36,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
         </section>
 
         <section>
-          <h2 class="roadmap__headline">KPIs</h2>
+          <h2 class="roadmap__headline">Facts and numbers</h2>
           <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
 
           <div class="grid">

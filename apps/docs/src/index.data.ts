@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineLoader } from "vitepress";
 import type { ComponentGridProps } from "./.vitepress/components/ComponentGrid.vue";
@@ -38,8 +39,11 @@ export default defineLoader({
     }, 0);
 
     // get package count
-    const path = fileURLToPath(new URL("../../../packages", import.meta.url));
-    const packageFolders = fs.readdirSync(path);
+    const packagePath = fileURLToPath(new URL("../../../packages", import.meta.url));
+    const packageFolders = fs.readdirSync(packagePath).filter((packageName) => {
+      const stat = fs.statSync(path.join(packagePath, packageName));
+      return stat.isDirectory();
+    });
 
     const npmPackageNames = packageFolders.map((packageName) =>
       packageName === "sit-onyx" ? packageName : `@sit-onyx/${packageName}`,
@@ -78,7 +82,7 @@ export default defineLoader({
       },
       {
         id: "t1",
-        label: "Milestone 2",
+        label: "Expansion 2",
         description:
           "Commonly used components but that are not critical to implement simple applications.",
         components: [
@@ -94,7 +98,7 @@ export default defineLoader({
       },
       {
         id: "t2",
-        label: "Milestone 3",
+        label: "Expansion 3",
         description:
           "Nice to have components. A basic or Priority 2 component can be used as alternative in the meantime.",
         components: [
@@ -109,7 +113,7 @@ export default defineLoader({
       },
       {
         id: "t3",
-        label: "Milestone 4",
+        label: "Expansion 4",
         description: "Low priority components.",
         components: [
           { name: "Breadcrumb", implemented: false },

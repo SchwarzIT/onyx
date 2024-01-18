@@ -19,7 +19,6 @@ const formattedDueDate = computed(() => {
   if (!props.dueDate) return;
   const date = new Date(props.dueDate);
   return Intl.DateTimeFormat("en-US", {
-    day: "2-digit",
     month: "long",
     year: "numeric",
   }).format(date);
