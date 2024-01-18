@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { useData } from "vitepress";
-import { computed, ref } from "vue";
+import { computed } from "vue";
+import xIcon from "../../assets/x.svg";
 import type { ColorStep } from "./ColorPalette.vue";
 
 export type ColorValueProps = {
   base: `--onyx-color-${string}`;
   textBase: `--onyx-color-text-${string}`;
   step: ColorStep;
+  selected?: boolean;
 };
 
 const props = defineProps<ColorValueProps>();
@@ -25,88 +27,64 @@ const textColor = computed(() => {
   const textStep = props.step <= threshold ? 900 : 100;
   return `var(${props.textBase}-${textStep})`;
 });
-
-const copyButtonTransitionTime = 250 as const;
-const hasCopied = ref(false);
-
-const handleCopy = async () => {
-  await navigator.clipboard.writeText(`var(${cssVariableName.value})`);
-  hasCopied.value = true;
-};
-
-const handleMouseLeave = () => {
-  if (!hasCopied.value) return;
-  setTimeout(() => (hasCopied.value = false), copyButtonTransitionTime);
-};
 </script>
 
 <template>
   <div
     class="color"
+    tabindex="0"
     :style="{
       backgroundColor: `var(${cssVariableName})`,
       color: textColor,
     }"
-    tabindex="0"
-    @click="handleCopy"
-    @mouseleave="handleMouseLeave"
-    @keyup.enter="handleCopy"
+    :class="{ 'color--selected': props.selected }"
   >
-    <div>
-      <p v-if="props.step === 500" class="color__title">default color</p>
-      <h4 class="color__step">{{ props.step }}</h4>
-      <p class="color__value">{{ colorValue }}</p>
-    </div>
-
-    <button
-      class="color__copy"
-      title="Copy Code"
-      :style="{ transitionDuration: `${copyButtonTransitionTime}ms` }"
-      tabindex="-1"
-    >
-      {{ hasCopied ? "✓ Copied" : "Copy" }}
-    </button>
+    <h4 class="color__step">{{ props.step }}</h4>
+    <img class="color__icon" :src="xIcon" alt="x icon" />
   </div>
 </template>
 
 <style lang="scss" scoped>
+$height: 16rem;
+$iconSize: 0.75rem;
+
 .color {
-  padding: var(--onyx-spacing-lg) var(--onyx-spacing-sm) var(--onyx-spacing-sm);
-  box-sizing: content-box;
-  height: 64px;
+  padding: var(--onyx-spacing-sm);
+  height: $height;
   display: flex;
-  gap: var(--onyx-spacing-sm);
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  transition: all 0.25s;
+  margin-bottom: var(--onyx-spacing-lg);
   cursor: pointer;
 
-  &__title {
-    margin: 0;
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
-  }
-
   &__step {
-    margin: 0;
     font-weight: 600;
   }
 
-  &__value {
-    font-family: var(--onyx-font-family-mono);
-    margin: 0;
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
-  }
-
-  &__copy {
-    opacity: 0;
-    line-height: 1.25rem;
-    transition: opacity;
+  &__icon {
+    margin-top: var(--onyx-spacing-xs);
+    display: none;
+    height: $iconSize;
+    width: $iconSize;
   }
 
   &:hover,
-  &:focus-visible {
-    .color__copy {
-      opacity: 1;
+  &:focus-within,
+  &--selected {
+    height: calc(#{$height} + var(--onyx-spacing-lg));
+    border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
+    margin-bottom: 0;
+
+    .color {
+      &__step {
+        margin-bottom: $iconSize;
+      }
+
+      &__icon {
+        display: block;
+      }
     }
   }
 }
