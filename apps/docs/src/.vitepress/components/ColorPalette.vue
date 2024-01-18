@@ -5,7 +5,7 @@ import ColorValue, { type ColorValueProps } from "./ColorValue.vue";
 const COLOR_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
 export type ColorStep = (typeof COLOR_STEPS)[number];
 
-const props = defineProps<Pick<ColorValueProps, "base" | "textBase">>();
+const props = defineProps<Pick<ColorValueProps, "variableName">>();
 
 const selectedStep = ref<ColorStep>();
 </script>
@@ -18,8 +18,7 @@ const selectedStep = ref<ColorStep>();
         v-for="step in COLOR_STEPS"
         :key="step"
         :step="step"
-        :base="props.base"
-        :text-base="props.textBase"
+        :variable-name="props.variableName"
         :selected="step === selectedStep"
         @keyup.enter="selectedStep = step"
         @click="selectedStep = step"

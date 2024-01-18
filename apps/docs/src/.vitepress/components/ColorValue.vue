@@ -5,8 +5,7 @@ import xIcon from "../../assets/x.svg";
 import type { ColorStep } from "./ColorPalette.vue";
 
 export type ColorValueProps = {
-  base: `--onyx-color-${string}`;
-  textBase: `--onyx-color-text-${string}`;
+  variableName: `--onyx-color-${string}`;
   step: ColorStep;
   selected?: boolean;
 };
@@ -15,7 +14,7 @@ const props = defineProps<ColorValueProps>();
 
 const { isDark } = useData();
 
-const cssVariableName = computed(() => `${props.base}-${props.step}`);
+const cssVariableName = computed(() => `${props.variableName}-${props.step}`);
 
 const colorValue = computed(() => {
   isDark.value; // just call isDark here so that this computed is re-calculated when light/dark mode changes
@@ -25,7 +24,7 @@ const colorValue = computed(() => {
 const textColor = computed(() => {
   const threshold = isDark.value ? 500 : 400;
   const textStep = props.step <= threshold ? 900 : 100;
-  return `var(${props.textBase}-${textStep})`;
+  return `var(${props.variableName}-${textStep})`;
 });
 </script>
 
