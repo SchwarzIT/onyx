@@ -4,6 +4,6 @@
   "compilerOptions": {
     "moduleResolution": "Bundler",
     "rootDir": "./src",
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+  },
 }

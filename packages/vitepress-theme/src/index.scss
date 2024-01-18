@@ -31,6 +31,7 @@
   --vp-c-text-3: var(--onyx-color-text-body-paragraph-soft); // subtle text (e.g. placeholders)
   --vp-font-family-base: var(--onyx-font-family);
   --vp-font-family-mono: var(--onyx-font-family-mono);
+  --vp-code-color: var(--vp-c-brand-2);
 
   @include mixins.home-page-gradients(
     var(--onyx-color-brand-primary-500),
@@ -49,4 +50,11 @@
       background-color: var(--onyx-color-surface-brand-neutral-300);
     }
   }
+}
+
+.custom-block.tip a,
+.custom-block.tip code {
+  // use a higher contrast color for links/code inside tip blocks
+  // because the default contrast is too low
+  color: var(--onyx-color-text-info-800);
 }
