@@ -1,0 +1,30 @@
+@use './variables.scss' as vars;
+
+/** Shorthand for applying horizontal margins */
+@mixin margin-horizontal($value) {
+  margin-left: $value;
+  margin-right: $value;
+}
+
+/** Shorthand for applying vertical margins */
+@mixin margin-vertical($value) {
+  margin-top: $value;
+  margin-bottom: $value;
+}
+
+/**
+ * Breakpoints might be consistently applied via the defined breakpoints (s, m or l)
+ * @param {string} $breakpoint - the (globally defined) breakpoint
+ * @param {string} $min-max - Whether the breakpoint should be considered as min or max width. Default: max
+ *
+ * @example breakpoint(m)
+ * @example breakpoint(m, min)
+ * @see https://vue-blueprint.schwarz/advanced/folders.html#styles
+ */
+@mixin breakpoint($breakpoint, $min-max: max) {
+  @if map-has-key(vars.$breakpoints, $breakpoint) {
+    @media (#{$min-max}-width: #{map-get(vars.$breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+}

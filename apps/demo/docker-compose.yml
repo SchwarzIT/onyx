@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    user: '1001' # Not running the container as root as ODJ will run it as user with uid 1001 too
+    env_file: .env.development
+    ports:
+      - 8100:8080

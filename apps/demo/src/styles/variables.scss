@@ -1,0 +1,48 @@
+/**
+ * Styleguide conform variables, mostly provided by CoreUI.
+ * A comprehensive list can be found here: https://core-ui.schwarz/design-guidelines/colors
+ */
+
+:root {
+  /* grey scales */
+  --sit-color-eggshell: #f8f8f8;
+  --sit-color-lightgrey: #ededed;
+  --sit-color-grey: #d2d2d2;
+  --sit-color-darkgrey: #a9a9a9;
+  --sit-color-lightblack: #464646;
+
+  /** spaces */
+  /* xs base: 8px */
+  --sit-space-xs: 0.5rem;
+  /* s base: 16px */
+  --sit-space-s: 1rem;
+  /* m base: 24px */
+  --sit-space-m: 1.5rem;
+  /* l base: 32px */
+  --sit-space-l: 2rem;
+  /* xl base: 64px */
+  --sit-space-xl: 4rem;
+  /* xxl base: 128px */
+  --sit-space-xxl: 8rem;
+}
+
+/**
+/* The CSS variables below are mapped to specific core ui variables for easier usage.
+/* Since they are depending on the current scu-theme the selector must not be [scu-theme] instead
+/* of :root. Otherwise they values would not update accordingly.
+*/
+[scu-theme] {
+  /* main theme color */
+  --sit-color-primary: var(--brand-primary-5);
+
+  /* status colors */
+  --sit-color-green: var(--green-5);
+  --sit-color-orange: var(--orange-5);
+  --sit-color-red: var(--red-5);
+}
+
+$breakpoints: (
+  s: 600px,
+  m: 960px,
+  l: 1600px,
+);

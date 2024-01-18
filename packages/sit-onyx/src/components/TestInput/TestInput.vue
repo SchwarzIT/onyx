@@ -135,7 +135,7 @@ watch(
 );
 
 watch(
-  [props.errorMessage, inputElement],
+  [() => props.errorMessage, inputElement],
   () => {
     if (!inputElement.value) return;
     // by using setCustomValidity, the ValidityState will turn invalid

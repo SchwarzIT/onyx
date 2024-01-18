@@ -44,7 +44,9 @@ const createI18n = (options?: ProvideI18nOptions) => {
    * Current locale.
    * @default "en-US"
    */
-  const locale = computed(() => unref(options?.locale) ?? "en-US");
+  const locale = computed(() => {
+    return unref(options?.locale) ?? "en-US";
+  });
 
   const messages = computed(() => {
     if (options?.messages && locale.value in options.messages) {
@@ -89,8 +91,8 @@ export const provideI18n = (options: ProvideI18nOptions) => {
  * Injects the Onyx i18n instance.
  */
 export const injectI18n = () => {
-  const fallbackInstance = createI18n();
-  return inject(I18N_INJECTION_KEY, fallbackInstance);
+  // const fallbackInstance = createI18n();
+  return inject(I18N_INJECTION_KEY, () => createI18n(), true);
 };
 
 /**

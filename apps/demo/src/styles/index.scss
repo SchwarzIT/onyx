@@ -1,0 +1,11 @@
+@use 'variables';
+@use 'mixins';
+@use 'layout';
+@use 'fonts';
+
+body {
+  /* 16px is the base for all rem calculations */
+  font-size: 16px;
+  margin: 0;
+  background-color: var(--sit-color-eggshell);
+}

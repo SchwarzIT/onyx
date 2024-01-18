@@ -1,0 +1,104 @@
+trigger:
+  batch: true
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      ref: refs/heads/master
+      name: schwarzit.odj-pipeline-templates/odj-deliver-templates
+
+variables:
+  - group: odj-technical-product-properties
+  - group: odj-component-vue-blueprint-properties
+
+parameters:
+  - name: stage
+    displayName: Stage to deploy to
+    type: string
+    default: auto
+    values:
+      - auto
+      - dev
+      - test
+      - qa
+      - prod
+
+extends:
+  template: templates/technologies/pnpm/v2/odj-pipeline-template-technology-pnpm.yml@templates
+  parameters:
+    odj_devenv_static_code_analysis:
+      - sonarqube_saas
+    odj_devenv_artifact_repository:
+      - artifactory_saas
+    odj_devenv_dependency_scanner:
+      - snyk_saas_dependency
+      - snyk_saas_dockerfile
+    odj_devenv_pipeline: azuredevops # Managed by ODJ, do not modify
+    odj_devenv_code_repository: azuredevops # Managed by ODJ, do not modify
+    odj_runenv_runtime: none # Managed by ODJ, do not modify
+    odj_runenv_provider: none # Managed by ODJ, do not modify
+    odj_runenv_component_type: deployable # Managed by ODJ, do not modify
+    productive_branch: refs/heads/main
+
+    ### Everything up to here should already be given by ODJ, so don't modify it
+    # Added by [Vue Blueprint](https://vue-blueprint.schwarz):
+
+    # This block allows you to deploy any branch you like to dev or test as a preview.
+    # You can select the stage to deploy to when manually triggering the pipeline.
+    ${{ if and(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(parameters.stage, 'auto')) }}:
+      odj_deploy_stages:
+        # This pipeline will only deploy to prod by default, just add any other stage that you want to deploy to by default
+        - prod
+    ${{ else }}:
+      odj_deploy_stages:
+        - ${{ parameters.stage }}
+
+    node_version: '20.x'
+    pnpm_cli_version: 'v8.12'
+    dockerfile: '$(component_path)/Dockerfile'
+
+    # Disabling OpenAPI spec upload and linting as this blueprint is for frontend projects
+    openapi_enabled: false
+    openapi_linting_enabled: false
+
+    # Specify the pnpm command used for building the app during ci
+    build_command: 'build:ci'
+    # Specify the pnpm command used for linting during ci
+    lint_command: 'lint:ci && pnpm format:check'
+    # Specify the pnpm command used for running the unit tests
+    test_command: 'test:unit:ci'
+
+    # Enabling test result and coverage reporting to Azure Devops, the used files are created by vitest plugins configured inside the vitest config
+    publish_test_results: true
+    test_results_files: '$(component_path)/coverage/junit.xml'
+    coverage_file: '$(component_path)/coverage/cobertura-coverage.xml'
+
+    # This step automatically creates a .npmrc with credentials for the cloud artifactory.
+    # With this there is no need to store your own credentials somewhere, just don't commit your local .npmrc file to git.
+    preSourcecodeBuild:
+      - template: templates/support/create-npmrc/v2/create-npmrc.yml@templates
+        parameters:
+          set_npm_registry: true
+          npm_registry: 'https://schwarzit.jfrog.io/artifactory/api/npm/npm/'
+          target_path: '$(component_path)'
+
+    # This step runs the component and integration tests using playwright.
+    postSourcecodeBuild:
+      - script: 'CI=true pnpm run test:component'
+        displayName: '🎭 Running component tests'
+        workingDirectory: '$(component_path)'
+
+      - script: 'CI=true pnpm run test:integration'
+        displayName: '🎭 Running integration tests'
+        workingDirectory: '$(component_path)'
+
+      - publish: $(component_path)/playwright-report
+        displayName: 'Publish Playwright report'
+        condition: always()
+        artifact: playwright-report
+
+      - publish: $(component_path)/test-results
+        displayName: 'Publish Playwright test results'
+        condition: always()
+        artifact: test-results

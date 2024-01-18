@@ -14,7 +14,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./locales": "./src/i18n/locales",
+    "./locales/*": "./src/i18n/locales/*",
     "./style.css": "./dist/style.css"
   },
   "repository": {

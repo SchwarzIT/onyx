@@ -1,0 +1,16 @@
+.font {
+  &--small {
+    /* base: 13px */
+    font-size: 0.8125rem;
+  }
+
+  &--semi-bold {
+    font-weight: 600;
+  }
+
+  &--truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

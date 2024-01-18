@@ -1,0 +1,24 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "src/types/env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "package.json",
+    "src/i18n/locales/en-US.json",
+    "tests/unit/**/*",
+    "tests/component/**/*",
+    "tests/integration/**/*",
+    "playwright/**/*"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["@intlify/unplugin-vue-i18n/messages"]
+  }
+}
