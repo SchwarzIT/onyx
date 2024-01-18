@@ -106,7 +106,7 @@ export default defineConfig({
       ],
       "/tokens": [
         {
-          items: [{ text: "Overview", link: "/tokens/overview" }],
+          items: [{ text: "Introduction", link: "/tokens/introduction" }],
         },
       ],
       // default sidebar

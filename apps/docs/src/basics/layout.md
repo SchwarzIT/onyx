@@ -20,7 +20,7 @@ This section defines the anatomy of the whole page layout. If you want to learn 
 
 In a maximum expression, a typical onyx layout consists of these regions.
 
-![Logo](/assets/image_placeholder.png)
+![Logo](/assets/anatomy.png)
 
 ::: details 1. Main Navigation
 Primary navigation to jump between major pages inside the application. In addition, global interactions can be placed here. This section always sticks to the top (alternatively to the left side) and is independend from scrolling.
@@ -46,15 +46,17 @@ This is just an example layout for showing the posibilities of having several se
 
 Column grids for the whole page layout are always `left aligned` by default.
 
+![Logo](/assets/layout_alignment_left.png)
+
 An `center aligned`version is possible alternatively. The choise of alignment doesn't follow strict rules. But please consider the balance of the target screensize, the target user group, the target usecase and the content you are building/designing for.
 
-![Logo](/assets/image_placeholder.png)
+![Logo](/assets/layout_alignment_center.png)
 
 ### Component layout
 
 The local structure of components is always `left aligned`. The only exception here are the center aligned and right aligned options for table columns.
 
-![Logo](/assets/image_placeholder.png)
+![Logo](/assets/component_alignment.png)
 
 ## Structure of content
 
@@ -62,13 +64,13 @@ The local structure of components is always `left aligned`. The only exception h
 
 For structuring the content of the page, a vertical layout, that can scroll down, is the easiest way by default.
 
-![Logo](/assets/image_placeholder.png)
+![Logo](/assets/vertical_content_structure.png)
 
 ### Horizontal structure
 
 Another alternative the horizontal layout approach. By having two sections of content next to each other horizontally, the user got a better side by side comparision/interactivity between the conten groups. This could be a big advantage for some usecases. Nevertheless you are limited with available space due to screensize restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
 
-![Logo](/assets/image_placeholder.png)
+![Logo](/assets/horizontal_content_structure.png)
 
 ## Visual rhythm
 

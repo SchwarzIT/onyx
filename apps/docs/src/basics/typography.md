@@ -299,11 +299,9 @@ It is important to keep the usage of font styles consistent throughout the whole
 
 ## Line length
 
-_custom component/image for showing optimal line lenght_
-
 To create a flowing readability the line leght is key. There are no struct rules on the usage, due to the dependency of [screensize, breakpoint and column grid](/basics/breakpoints_grid). Nevertheless onyx got some guidelines and recommendations for your implementation.
 
-![image](/assets/image_placeholder.png)
+![image](/assets/line_length.png)
 
 Generally speaking: the wider the line the harder to read and to follow. The optimal range for readability is usually between 60 and 80 characters. If the text is way longer than this guideline, just use a second text column instead.
 

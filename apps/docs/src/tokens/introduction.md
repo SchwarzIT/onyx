@@ -1,4 +1,4 @@
-# Overview
+# Introduction
 
 Understanding the logic, structure and usage of tokens is crucial for creating onyx applications. Here is everything you need to know. Please feel free to contact the departments of UX/UI or Web Frontend Enterprise if you got further questions.
 
@@ -24,6 +24,8 @@ For example `onyx-color-universal-white` is just the value for white color in ge
 Global tokens are not used within the process of designing and developing an application! As a result they are hidden to minimize sources of errors. Imagine them like the invisible base for your product
 :::
 
+![Logo](/assets/global_token.png)
+
 ### Semantic tokens
 
 This stage of tokens puts the base token collection into context. At this point, semntic tokens differentiate between loght mode and dark mode and connects a usecase or purpose to the values, that were defined in the global token collection. The naming of semantic tokens is less generic and more specific to the intended use.
@@ -34,6 +36,8 @@ For example `onyx-color-surface-bg-blank` is exclusively used for a blank backgr
 Semantic tokens are used from both developers and designers to build applications with existing standard components. With the use of those tokens a seamless switch between light mode and dark mode is guaranteed. Otherwise ist will not work without additional effort of building.
 :::
 
+![Logo](/assets/semantic_token.png)
+
 ### Component tokens
 
 The third level of tokens is used for building components exclusively. Important to know is: To keep things a little simpler, not every component is built with third-level-tokens. They are only used in case of irregularities or exceptions between the provided color themes.
@@ -43,6 +47,8 @@ For example `onyx-component-button-primary-bg-hover` is exclusively used for the
 ::: warning Important
 Only the maintainers (onyx designers and developers) of the design system are able to use component tokens on a regular basis. All others do not have access to minimize sources of errors. Instead all application-designers and -developers do benefit from component tokens by using standard onyx components in their project.
 :::
+
+![Logo](/assets/component_token.png)
 
 ## Why is it important?
 
@@ -78,22 +84,12 @@ Design tokens serve as a form of documentation for the design system. They provi
 
 ## How to read tokens?
 
-## Token overview
+The naming of tokens is a very complicated and individual thing. For better assignment and understanding the onyx token taxonomy follows a strict way for keeping things consistent.
 
-::: details Global tokens
-| Token name | Value |
-| -------- | --: |
-| `example` | value example |
+::: tip
+Design tokens of the onyx design system always begin with the prefix `onyx-` so you always can be sure to know the source of your token.
 :::
 
-::: details Semantic tokens
-| Token name | Value |
-| -------- | --: |
-| `example` | value example |
-:::
+Color tokens in general are a little more complicated than unit tokens because of their sepecific usage. To get more details about the color palette system and the transmission into the token system (considering light mode and dark mode) please visit the [color documentation](/basics/colors).
 
-::: details Component tokens
-| Token name | Value |
-| -------- | --: |
-| `example` | value example |
-:::
+![Logo](/assets/token_naming.png)
