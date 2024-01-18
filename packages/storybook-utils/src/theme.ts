@@ -14,7 +14,7 @@ export const createTheme = (
 ) => {
   const base = options?.base ?? "light";
   const defaultBrandImage = base === "light" ? storybookLogo : storybookLogoInverse;
-  const primaryColor = onyxVariables["onyx-color-brand-primary-500"];
+  const primaryColor = onyxVariables["onyx-color-themed-brand-500"];
 
   return create({
     brandTitle: options?.brandTitle ?? "Onyx Storybook",
@@ -25,7 +25,7 @@ export const createTheme = (
 
     // default theme values that are independent of the light/dark mode:
     colorPrimary: primaryColor,
-    colorSecondary: onyxVariables["onyx-color-brand-secondary-500"],
+    colorSecondary: onyxVariables["onyx-color-themed-action-500"],
     barSelectedColor: primaryColor,
     barHoverColor: primaryColor,
     appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),
@@ -39,20 +39,20 @@ export const createTheme = (
 const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
     background: onyxVariables["onyx-color-universal-greyscale-white"],
-    contentBackground: onyxVariables["onyx-color-brand-neutral-100"],
-    text: onyxVariables["onyx-color-brand-neutral-800"],
-    textMuted: onyxVariables["onyx-color-brand-neutral-900"],
-    border: onyxVariables["onyx-color-brand-neutral-200"],
+    contentBackground: onyxVariables["onyx-color-themed-neutral-100"],
+    text: onyxVariables["onyx-color-themed-neutral-800"],
+    textMuted: onyxVariables["onyx-color-themed-neutral-900"],
+    border: onyxVariables["onyx-color-themed-neutral-200"],
   });
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: onyxVariables["onyx-color-brand-neutral-1100"],
-    contentBackground: onyxVariables["onyx-color-brand-neutral-1200"],
-    text: onyxVariables["onyx-color-brand-neutral-200"],
-    textMuted: onyxVariables["onyx-color-brand-neutral-300"],
-    border: onyxVariables["onyx-color-brand-neutral-1000"],
+    background: onyxVariables["onyx-color-themed-neutral-1100"],
+    contentBackground: onyxVariables["onyx-color-themed-neutral-1200"],
+    text: onyxVariables["onyx-color-themed-neutral-200"],
+    textMuted: onyxVariables["onyx-color-themed-neutral-300"],
+    border: onyxVariables["onyx-color-themed-neutral-1000"],
   });
 };
 
