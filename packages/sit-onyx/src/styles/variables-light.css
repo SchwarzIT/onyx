@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "light" theme.
- * Imported from Figma API on Thu, 18 Jan 2024 10:14:03 GMT
+ * Imported from Figma API on Thu, 18 Jan 2024 10:51:19 GMT
  */
 :root {
   --onyx-color-base-action-100: var(--onyx-color-themed-action-100);
@@ -96,14 +96,14 @@
   --onyx-color-icon-danger-intense: var(--onyx-color-universal-red-500);
   --onyx-color-icon-danger-medium: var(--onyx-color-universal-red-300);
   --onyx-color-icon-danger-soft: var(--onyx-color-universal-red-200);
-  --onyx-color-icon-default-intense: var(--onyx-color-themed-neutral-700);
-  --onyx-color-icon-default-inverted: var(--onyx-color-universal-greyscale-white);
-  --onyx-color-icon-default-medium: var(--onyx-color-themed-neutral-500);
-  --onyx-color-icon-default-soft: var(--onyx-color-themed-neutral-400);
   --onyx-color-icon-info-bold: var(--onyx-color-universal-purple-700);
   --onyx-color-icon-info-intense: var(--onyx-color-universal-purple-500);
   --onyx-color-icon-info-medium: var(--onyx-color-universal-purple-300);
   --onyx-color-icon-info-soft: var(--onyx-color-universal-purple-200);
+  --onyx-color-icon-neutral-intense: var(--onyx-color-themed-neutral-700);
+  --onyx-color-icon-neutral-inverted: var(--onyx-color-universal-greyscale-white);
+  --onyx-color-icon-neutral-medium: var(--onyx-color-themed-neutral-500);
+  --onyx-color-icon-neutral-soft: var(--onyx-color-themed-neutral-400);
   --onyx-color-icon-success-bold: var(--onyx-color-universal-green-700);
   --onyx-color-icon-success-intense: var(--onyx-color-universal-green-500);
   --onyx-color-icon-success-medium: var(--onyx-color-universal-green-300);
@@ -128,10 +128,10 @@
   --onyx-color-text-info-intense: var(--onyx-color-universal-purple-500);
   --onyx-color-text-info-medium: var(--onyx-color-universal-purple-300);
   --onyx-color-text-info-soft: var(--onyx-color-universal-purple-200);
-  --onyx-color-text-paragraph-intense: var(--onyx-color-themed-neutral-700);
-  --onyx-color-text-paragraph-inverted: var(--onyx-color-universal-greyscale-white);
-  --onyx-color-text-paragraph-medium: var(--onyx-color-themed-neutral-500);
-  --onyx-color-text-paragraph-soft: var(--onyx-color-themed-neutral-400);
+  --onyx-color-text-neutral-intense: var(--onyx-color-themed-neutral-700);
+  --onyx-color-text-neutral-inverted: var(--onyx-color-universal-greyscale-white);
+  --onyx-color-text-neutral-medium: var(--onyx-color-themed-neutral-500);
+  --onyx-color-text-neutral-soft: var(--onyx-color-themed-neutral-400);
   --onyx-color-text-success-bold: var(--onyx-color-universal-green-700);
   --onyx-color-text-success-intense: var(--onyx-color-universal-green-500);
   --onyx-color-text-success-medium: var(--onyx-color-universal-green-300);
