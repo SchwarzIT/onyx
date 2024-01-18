@@ -4,6 +4,6 @@
   "compilerOptions": {
     "types": ["node"],
     "rootDir": "./src",
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+  },
 }
