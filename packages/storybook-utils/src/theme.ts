@@ -28,8 +28,8 @@ export const createTheme = (
     colorSecondary: onyxVariables["onyx-color-brand-secondary-500"],
     barSelectedColor: primaryColor,
     barHoverColor: primaryColor,
-    appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-400"]),
-    inputBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),
+    appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),
+    inputBorderRadius: remToNumber(onyxVariables["onyx-number-radius-200"]),
 
     // custom colors depending on light/dark theme
     ...(base === "light" ? getLightTheme() : getDarkTheme()),
