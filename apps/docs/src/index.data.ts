@@ -5,15 +5,27 @@ import { defineLoader } from "vitepress";
 import type { ComponentGridProps } from "./.vitepress/components/ComponentGrid.vue";
 import type { Tab } from "./.vitepress/components/TabGroup.vue";
 
+/**
+ * Build-time data for the home page (components, facts/numbers etc.)
+ */
 export type Data = {
+  /** Total number of implemented Onyx components. */
   componentCount: number;
+  /** Total number of component variants/stories across all implemented components as documented with Storybook. */
   variantCount: number;
+  /** Total number of merged pull requests on GitHub. */
   mergedPRCount: number;
+  /** Total number of closed issues on GitHub. */
   closedIssueCount: number;
+  /** Total number of GitHub commits on the main branch. */
   commitCount: number;
+  /** Timestamp when this data has been fetched. */
   timestamp: string;
+  /** Total number of npm downloads for all Onyx npm packages in the last month. */
   downloads: number;
+  /** Number of npm packages inside the `packages` folder of this monorepo. */
   packageCount: number;
+  /** Component tabs / sets / roadmap. */
   componentTabs: (Tab & ComponentGridProps)[];
 };
 
@@ -35,10 +47,12 @@ export default defineLoader({
   async load(watchedFiles): Promise<Data> {
     const variantCount = watchedFiles.reduce((total, file) => {
       const fileContent = fs.readFileSync(file, "utf-8");
+      // stories are defined with e.g. "export const Primary =" so we can
+      // check the occurrences of "export const" to get the number of available stories
       return total + countWord(fileContent, "export const");
     }, 0);
 
-    // get package count
+    // get available onyx npm packages
     const packagePath = fileURLToPath(new URL("../../../packages", import.meta.url));
     const packageFolders = fs.readdirSync(packagePath).filter((packageName) => {
       const stat = fs.statSync(path.join(packagePath, packageName));
@@ -49,15 +63,15 @@ export default defineLoader({
       packageName === "sit-onyx" ? packageName : `@sit-onyx/${packageName}`,
     );
 
-    const today = new Date();
-    const dateString = `${today.getFullYear()}-${(today.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
+    const timestamp = new Date();
 
+    const downloads = await getNpmDownloadCount(npmPackageNames);
     const mergedPRCount = await searchGitHub("issues", "type:pr is:merged");
     const closedIssueCount = await searchGitHub("issues", "type:issue is:closed");
-    const commitCount = await searchGitHub("commits", `committer-date:<=${dateString}`);
-    const downloads = await getNpmDownloadCount(npmPackageNames);
+    const commitCount = await searchGitHub(
+      "commits",
+      `committer-date:<=${timestamp.toISOString().split("T")[0]}`,
+    );
 
     /** Checks whether the given component is implemented (meaning a Storybook file exists) */
     const isImplemented = (componentName: string) => {
@@ -66,7 +80,7 @@ export default defineLoader({
 
     const componentTabs: Data["componentTabs"] = [
       {
-        id: "t0",
+        id: "basic",
         label: "Basic components",
         description:
           "Basic components with top priority that we consider as must-have for building a simple web application.",
@@ -86,7 +100,7 @@ export default defineLoader({
         ],
       },
       {
-        id: "t1",
+        id: "expansion-2",
         label: "Expansion 2",
         description:
           "Commonly used components but that are not critical to implement simple applications.",
@@ -104,7 +118,7 @@ export default defineLoader({
         ],
       },
       {
-        id: "t2",
+        id: "expansion-3",
         label: "Expansion 3",
         description:
           "Nice to have components. A basic or Priority 2 component can be used as alternative in the meantime.",
@@ -119,7 +133,7 @@ export default defineLoader({
         ],
       },
       {
-        id: "t3",
+        id: "expansion-4",
         label: "Expansion 4",
         description: "Low priority components.",
         components: [
@@ -137,7 +151,7 @@ export default defineLoader({
       mergedPRCount,
       closedIssueCount,
       commitCount,
-      timestamp: today.toUTCString(),
+      timestamp: timestamp.toUTCString(),
       downloads,
       packageCount: packageFolders.length,
       componentTabs,
@@ -211,6 +225,5 @@ const getNpmDownloadCount = async (packages: string[]): Promise<number> => {
   });
 
   const downloads = await Promise.all(promises);
-
   return downloads.reduce((total, downloads) => total + downloads, 0);
 };

@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-const props = defineProps<{
+export type ComponentCardProps = {
+  /** Component name. */
   name: string;
+  /** If true a "Implemented" badge will be shown, "Coming Soon" otherwise. */
   implemented?: boolean;
-}>();
+};
+
+const props = defineProps<ComponentCardProps>();
 </script>
 
 <template>

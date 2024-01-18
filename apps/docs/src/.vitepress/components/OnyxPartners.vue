@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { VPHomeSponsors } from "vitepress/theme";
 
-const sponsors = [
+const partners = [
   {
     tier: "Special Partners",
     size: "big",
@@ -50,5 +50,5 @@ const sponsors = [
 </script>
 
 <template>
-  <VPHomeSponsors message="Thanks to our Partners" :data="sponsors" />
+  <VPHomeSponsors message="Thanks to our Partners" :data="partners" />
 </template>

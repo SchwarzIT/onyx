@@ -7,6 +7,7 @@ export type Tab = {
 };
 
 const props = defineProps<{
+  /** Tabs to show. Same as Vitepress code group but arbitrary tab content can be shown. */
   tabs: Tab[];
 }>();
 

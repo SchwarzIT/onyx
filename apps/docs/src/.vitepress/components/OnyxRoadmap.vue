@@ -128,7 +128,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
 
   &__tabs {
     background-color: var(--vp-c-bg-alt);
-    border-radius: 8px;
+    border-radius: 0.5rem;
   }
 }
 

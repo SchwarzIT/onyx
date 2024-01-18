@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 const props = defineProps<{
-  title?: string | number;
-  description?: string;
+  /** Title. If a number is passed it will be formatted with `.toLocaleString()` */
+  title: string | number;
+  /** Description / sub title. */
+  description: string;
+  /** Link to open. */
   href?: string;
 }>();
 </script>
@@ -25,7 +28,7 @@ const props = defineProps<{
 .card {
   display: block;
   border: 1px solid var(--vp-c-default-soft);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   height: 100%;
   background-color: var(--vp-c-bg-soft);
   transition:

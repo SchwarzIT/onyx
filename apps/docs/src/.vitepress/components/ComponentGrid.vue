@@ -1,16 +1,14 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import ComponentCard from "./ComponentCard.vue";
+import ComponentCard, { type ComponentCardProps } from "./ComponentCard.vue";
 
 export type ComponentGridProps = {
+  /** Description to show above the grid. */
   description: string;
-  components: Component[];
+  /** List of components to show. */
+  components: ComponentCardProps[];
+  /** Timestamp of estimated due date (will be formatted as month + year). */
   dueDate?: string;
-};
-
-export type Component = {
-  name: string;
-  implemented?: boolean;
 };
 
 const props = defineProps<ComponentGridProps>();
@@ -24,6 +22,9 @@ const formattedDueDate = computed(() => {
   }).format(date);
 });
 
+/**
+ * Sorts components by: (1.) implemented first and (2.) alphabetically.
+ */
 const sortedComponents = computed(() => {
   return props.components
     .slice()
