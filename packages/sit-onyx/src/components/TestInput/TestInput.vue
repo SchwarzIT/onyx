@@ -142,7 +142,7 @@ watch(
     // as long as it's not an empty string
     inputElement.value.setCustomValidity(props.errorMessage || "");
   },
-  { deep: true },
+  { immediate: true },
 );
 </script>
 
