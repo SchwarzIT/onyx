@@ -133,6 +133,17 @@ watch(
   },
   { deep: true },
 );
+
+watch(
+  [props.errorMessage, inputElement],
+  () => {
+    if (!inputElement.value) return;
+    // by using setCustomValidity, the ValidityState will turn invalid
+    // as long as it's not an empty string
+    inputElement.value.setCustomValidity(props.errorMessage || "");
+  },
+  { deep: true },
+);
 </script>
 
 <template>
