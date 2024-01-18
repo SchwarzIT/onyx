@@ -5,49 +5,49 @@
 // see: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css#L178
 :root {
   // color palette
-  @include mixins.define-vitepress-color(brand, --onyx-color-brand-primary);
-  @include mixins.define-vitepress-color(tip, --onyx-color-surface-info);
-  @include mixins.define-vitepress-color(warning, --onyx-color-surface-warning);
-  @include mixins.define-vitepress-color(danger, --onyx-color-surface-danger);
-  @include mixins.define-vitepress-color(default, --onyx-color-surface-brand-neutral, -200);
+  @include mixins.define-vitepress-color(brand, --onyx-color-base-brand);
+  @include mixins.define-vitepress-color(tip, --onyx-color-base-info);
+  @include mixins.define-vitepress-color(warning, --onyx-color-base-warning);
+  @include mixins.define-vitepress-color(danger, --onyx-color-base-danger);
+  @include mixins.define-vitepress-color(default, --onyx-color-base-neutral, -200);
 
   // background
-  --vp-c-bg: var(--onyx-color-surface-bg-tinted);
-  --vp-c-bg-alt: var(--onyx-color-surface-bg-blank);
-  --vp-c-bg-elv: var(--onyx-color-surface-bg-tinted);
-  --vp-c-bg-soft: var(--onyx-color-surface-bg-blank);
+  --vp-c-bg: var(--onyx-color-base-background-tinted);
+  --vp-c-bg-alt: var(--onyx-color-base-background-blank);
+  --vp-c-bg-elv: var(--onyx-color-base-background-tinted);
+  --vp-c-bg-soft: var(--onyx-color-base-background-blank);
 
   // borders
   // used for separators (e.g. below h2 headline)
-  --vp-c-border: var(--onyx-color-border-brand-neutral-300);
+  --vp-c-border: var(--onyx-color-base-neutral-300);
   // border on interactive components (e.g. button outline)
-  --vp-c-divider: var(--onyx-color-border-brand-neutral-200);
+  --vp-c-divider: var(--onyx-color-base-neutral-200);
   // divide components in the page (e.g. header and page content)
-  --vp-c-gutter: var(--onyx-color-border-brand-neutral-200);
+  --vp-c-gutter: var(--onyx-color-base-neutral-200);
 
   // typography
-  --vp-c-text-1: var(--onyx-color-text-body-paragraph-intense); // regular text
-  --vp-c-text-2: var(--onyx-color-text-body-paragraph-medium); // muted text (e.g. inactive menu)
-  --vp-c-text-3: var(--onyx-color-text-body-paragraph-soft); // subtle text (e.g. placeholders)
+  --vp-c-text-1: var(--onyx-color-text-neutral-intense); // regular text
+  --vp-c-text-2: var(--onyx-color-text-neutral-medium); // muted text (e.g. inactive menu)
+  --vp-c-text-3: var(--onyx-color-text-neutral-soft); // subtle text (e.g. placeholders)
   --vp-font-family-base: var(--onyx-font-family);
   --vp-font-family-mono: var(--onyx-font-family-mono);
   --vp-code-color: var(--vp-c-brand-2);
 
   @include mixins.home-page-gradients(
-    var(--onyx-color-brand-primary-500),
-    var(--onyx-color-text-info-500)
+    var(--onyx-color-base-brand-500),
+    var(--onyx-color-base-info-500)
   );
 }
 
 .dark {
   // use lighter neutral color in dark mode since its too dark otherwise
-  @include mixins.define-vitepress-color(default, --onyx-color-surface-brand-neutral, 200);
+  @include mixins.define-vitepress-color(default, --onyx-color-base-neutral, 200);
 
   // VitePress shows a fully white background when hovering in dark mode
   // which is really flashy so we use a more subtle color
   .vp-sponsor-grid-item {
     &:hover {
-      background-color: var(--onyx-color-border-brand-neutral-200);
+      background-color: var(--onyx-color-base-neutral-200);
     }
   }
 }
@@ -56,5 +56,5 @@
 .custom-block.tip code {
   // use a higher contrast color for links/code inside tip blocks
   // because the default contrast is too low
-  color: var(--onyx-color-text-info-800);
+  color: var(--onyx-color-text-info-bold);
 }
