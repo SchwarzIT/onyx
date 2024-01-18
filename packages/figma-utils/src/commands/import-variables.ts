@@ -6,6 +6,7 @@ import {
   ParsedVariable,
   fetchFigmaVariables,
   generateAsCSS,
+  generateAsJSON,
   generateAsSCSS,
   parseFigmaVariables,
 } from "../index.js";
@@ -14,7 +15,7 @@ export type ImportCommandOptions = {
   fileKey: string;
   token: string;
   filename: string;
-  format: string;
+  format: string[];
   dir?: string;
   modes?: string[];
   selector: string;
@@ -27,7 +28,7 @@ export const importCommand = new Command("import-variables")
     "-t, --token <string>",
     "Figma access token with scope `file_variables:read` (required)",
   )
-  .option("-f, --format <string>", "Output format. Supported are: CSS, SCSS", "CSS")
+  .option("-f, --format <strings...>", "Output formats. Supported are: CSS, SCSS, JSON", ["CSS"])
   .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
   .option(
     "-d, --dir <string>",
@@ -49,15 +50,18 @@ export const importCommand = new Command("import-variables")
  */
 export async function importCommandAction(options: ImportCommandOptions) {
   const generators = {
-    CSS: (data: ParsedVariable) => generateAsCSS(data, options.selector),
+    CSS: (data: ParsedVariable) => generateAsCSS(data, { selector: options.selector }),
     SCSS: generateAsSCSS,
+    JSON: generateAsJSON,
   };
 
-  if (!(options.format in generators)) {
-    throw new Error(
-      `Unknown format: ${options.format}. Supported: ${Object.keys(generators).join(", ")}`,
-    );
-  }
+  options.format.forEach((format) => {
+    if (!(format in generators)) {
+      throw new Error(
+        `Unknown format "${format}". Supported: ${Object.keys(generators).join(", ")}`,
+      );
+    }
+  });
 
   console.log("Fetching variables from Figma API...");
   const data = await fetchFigmaVariables(options.fileKey, options.token);
@@ -67,8 +71,8 @@ export async function importCommandAction(options: ImportCommandOptions) {
 
   if (options.modes?.length) {
     // verify that all modes are found
-    for (const mode of options.modes) {
-      if (parsedVariables.find((i) => i.modeName === mode)) continue;
+    options.modes.forEach((mode) => {
+      if (parsedVariables.find((i) => i.modeName === mode)) return;
 
       const availableModes = parsedVariables
         .map((i) => i.modeName ?? DEFAULT_MODE_NAME)
@@ -77,7 +81,7 @@ export async function importCommandAction(options: ImportCommandOptions) {
       throw new Error(
         `Mode "${mode}" not found. Available modes: ${Object.values(availableModes).join(", ")}`,
       );
-    }
+    });
   }
 
   const outputDirectory = options.dir ?? process.cwd();
@@ -85,18 +89,22 @@ export async function importCommandAction(options: ImportCommandOptions) {
 
   console.log(`Generating ${options.format} variables...`);
 
-  parsedVariables.forEach((data) => {
-    // if the user passed specific modes to be exported, we will only generate those
-    // otherwise all modes will be exported.
-    // the default mode (undefined data.modeName) is always generated because its mode name can
-    // not be specified by the designer in Figma
-    const isModeIncluded =
-      !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
-    if (!isModeIncluded) return;
+  options.format.forEach((format) => {
+    console.log(`Generating ${format} variables...`);
 
-    const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
-    const fullPath = path.join(outputDirectory, `${baseName}.${options.format.toLowerCase()}`);
-    fs.writeFileSync(fullPath, generators[options.format as keyof typeof generators](data));
+    parsedVariables.forEach((data) => {
+      // if the user passed specific modes to be exported, we will only generate those
+      // otherwise all modes will be exported.
+      // the default mode (undefined data.modeName) is always generated because its mode name can
+      // not be specified by the designer in Figma
+      const isModeIncluded =
+        !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
+      if (!isModeIncluded) return;
+
+      const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
+      const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
+      fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
+    });
   });
 
   console.log("Done.");

@@ -81,8 +81,8 @@ jobs:
   deploy_storybook:
     name: Deploy Storybook
     runs-on: ubuntu-latest
-    needs: build
-    environment: ${{ env.STAGE }}
+    needs: release
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -108,8 +108,8 @@ jobs:
   deploy_documentation:
     name: Deploy documentation
     runs-on: ubuntu-latest
-    needs: build
-    environment: ${{ env.STAGE }}
+    needs: release
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
       - uses: actions/checkout@v4
 

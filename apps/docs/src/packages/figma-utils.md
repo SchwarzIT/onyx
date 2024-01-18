@@ -73,6 +73,9 @@ const FIGMA_TOKEN = "your-figma-access-token";
 const data = await fetchFigmaVariables(FILE_KEY, FIGMA_TOKEN);
 
 // parse variables into a readable and normalized format
+// note: variables and collections that are set to "Hide from publishing" in Figma
+// will not be parsed. If you face missing variables, please ask your UX designer
+// to check the Figma settings
 const parsedVariables = parseFigmaVariables(data);
 
 // generate .css files for every Figma mode
