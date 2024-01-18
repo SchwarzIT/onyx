@@ -14,6 +14,12 @@ importers:
       '@microsoft/eslint-formatter-sarif':
         specifier: ^3.0.0
         version: 3.0.0
+      '@playwright/experimental-ct-vue':
+        specifier: ^1.41.0
+        version: 1.41.0(@types/node@20.11.5)(sass@1.69.7)(vite@5.0.11)(vue@3.4.14)
+      '@playwright/test':
+        specifier: ^1.41.0
+        version: 1.41.0
       '@rushstack/eslint-patch':
         specifier: ^1.7.0
         version: 1.7.0
@@ -32,6 +38,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^1.2.1
         version: 1.2.1(vitest@1.2.1)
+      '@vue/compiler-dom':
+        specifier: ^3.4.14
+        version: 3.4.14
       '@vue/eslint-config-prettier':
         specifier: ^9.0.0
         version: 9.0.0(eslint@8.56.0)(prettier@3.2.4)
@@ -44,6 +53,9 @@ importers:
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
+      eslint-plugin-playwright:
+        specifier: ~0.21.0
+        version: 0.21.0(eslint@8.56.0)
       eslint-plugin-vue:
         specifier: ^9.20.1
         version: 9.20.1(eslint@8.56.0)
@@ -113,22 +125,6 @@ importers:
       vue:
         specifier: '>= 3'
         version: 3.4.14(typescript@5.3.3)
-    devDependencies:
-      '@playwright/experimental-ct-vue':
-        specifier: ^1.40.1
-        version: 1.41.0(@types/node@20.11.5)(sass@1.69.7)(vite@5.0.11)(vue@3.4.14)
-      '@playwright/test':
-        specifier: ^1.40.1
-        version: 1.41.0
-      '@types/node':
-        specifier: ^20.10.6
-        version: 20.11.5
-      '@vue/compiler-dom':
-        specifier: ^3.4.3
-        version: 3.4.14
-      eslint-plugin-playwright:
-        specifier: ~0.21.0
-        version: 0.21.0(eslint@8.56.0)
 
   packages/sit-onyx:
     dependencies:
@@ -142,12 +138,6 @@ importers:
       '@fontsource-variable/source-sans-3':
         specifier: ^5.0.19
         version: 5.0.19
-      '@playwright/experimental-ct-vue':
-        specifier: ^1.41.0
-        version: 1.41.0(@types/node@20.11.5)(sass@1.69.7)(vite@5.0.11)(vue@3.4.14)
-      '@playwright/test':
-        specifier: ^1.41.0
-        version: 1.41.0
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
@@ -163,12 +153,6 @@ importers:
       '@storybook/vue3-vite':
         specifier: ^7.6.9
         version: 7.6.9(typescript@5.3.3)(vite@5.0.11)(vue@3.4.14)
-      '@vue/compiler-dom':
-        specifier: ^3.4.14
-        version: 3.4.14
-      eslint-plugin-playwright:
-        specifier: ~0.21.0
-        version: 0.21.0(eslint@8.56.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
