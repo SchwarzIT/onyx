@@ -11,7 +11,7 @@ describe("import-variables.ts", () => {
   const mockOptions = {
     fileKey: "test-file-key",
     filename: "test-file-name",
-    format: "CSS",
+    format: ["CSS"],
     token: "test-token",
     selector: ":root",
   } satisfies ImportCommandOptions;
@@ -23,8 +23,10 @@ describe("import-variables.ts", () => {
   });
 
   test("should throw error for unknown formats", () => {
-    const promise = () => importCommandAction({ ...mockOptions, format: "does-not-exist" });
-    expect(promise).rejects.toThrowError("Unknown format: does-not-exist. Supported: CSS, SCSS");
+    const promise = () => importCommandAction({ ...mockOptions, format: ["does-not-exist"] });
+    expect(promise).rejects.toThrowError(
+      'Unknown format "does-not-exist". Supported: CSS, SCSS, JSON',
+    );
   });
 
   test("should throw error for unknown modes", () => {

@@ -1,16 +1,22 @@
 import { DOCS_RENDERED } from "@storybook/core-events";
 import { addons } from "@storybook/preview-api";
-import { themes, type ThemeVars } from "@storybook/theming";
+import { type ThemeVars } from "@storybook/theming";
 import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
-import { ONYX_BREAKPOINTS } from "./theme";
+import { ONYX_BREAKPOINTS, createTheme } from "./theme";
+
+const themes = {
+  light: createTheme(),
+  dark: createTheme({ base: "dark" }),
+} as const;
 
 /**
  * Creates a default Storybook preview configuration for 'Onyx' with the following features:
  * - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
  * - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file
+ * - Custom Storybook theme using Onyx colors (light and dark mode)
  * - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`)
  * - Configure viewports / breakpoints as defined by Onyx
  *

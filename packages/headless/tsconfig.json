@@ -4,6 +4,6 @@
   "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
     "rootDir": "./src",
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+  },
 }
