@@ -14,7 +14,8 @@
     }
   },
   "scripts": {
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "test:components": "playwright install && playwright test"
   },
   "peerDependencies": {
     "typescript": ">= 5",

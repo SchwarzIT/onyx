@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 0.1.0-alpha.1
+
+### Minor Changes
+
+- abaefa6: feat: support custom Onyx theme for `createPreview` and `createTheme`
+
 ## 0.1.0-alpha.0
 
 ### Minor Changes
