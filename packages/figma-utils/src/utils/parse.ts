@@ -68,15 +68,19 @@ export const parseFigmaVariables = (
     // for variables with the same name that just end with a different number (e.g. my-var-100 and my-var-200)
     // sort them by number instead of alphabetically so e.g. 100 is sorted before 1000
     data.variables = Object.keys(data.variables)
-      .sort((a, b) => {
-        const aAsNumber = numberRegex.exec(a)?.[0] ?? "";
-        const bAsNumber = numberRegex.exec(b)?.[0] ?? "";
-        const isSameBaseName = a.replace(aAsNumber, "") === b.replace(bAsNumber, "");
-
-        if (aAsNumber && bAsNumber && isSameBaseName) return +aAsNumber - +bAsNumber;
-        return a.localeCompare(b);
+      .map((key) => {
+        const asNumber = numberRegex.exec(key)?.[0] ?? "";
+        return {
+          key,
+          asNumber: +asNumber || undefined, // prevent NaN
+          base: key.replace(asNumber, ""),
+        };
       })
-      .reduce<Record<string, string>>((variables, key) => {
+      .sort((a, b) => {
+        if (a.asNumber && b.asNumber && a.base === b.base) return a.asNumber - b.asNumber;
+        return a.key.localeCompare(b.key);
+      })
+      .reduce<Record<string, string>>((variables, { key }) => {
         variables[key] = data.variables[key];
         return variables;
       }, {});
