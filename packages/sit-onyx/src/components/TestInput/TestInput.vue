@@ -27,7 +27,7 @@ export type TestInputProps = {
   /** Label to show next to the input */
   label?: string;
   /**
-   * Error message to show when the input is invalid.
+   * Error message to show when the input is invalid. Will only show up after the input was touched.
    * If unset, a default error message is used that is provided by Onyx depending
    * on your current locale/language and validation.
    */
