@@ -1,6 +1,6 @@
 import type { ThemeVars, ThemeVarsPartial } from "@storybook/theming";
 import { create } from "@storybook/theming/create";
-import onyxVariables from "../../sit-onyx/src/styles/variables-onyx.json";
+import onyxVariables from "sit-onyx/src/styles/variables-onyx.json";
 import storybookLogo from "./assets/logo-storybook-default.svg";
 import storybookLogoInverse from "./assets/logo-storybook-inverse.svg";
 

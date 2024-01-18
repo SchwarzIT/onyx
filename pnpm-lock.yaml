@@ -177,6 +177,9 @@ importers:
       deepmerge-ts:
         specifier: ^5.1.0
         version: 5.1.0
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../sit-onyx
       storybook-dark-mode:
         specifier: '>= 3'
         version: 3.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -186,6 +189,9 @@ importers:
       sass:
         specifier: '>= 1'
         version: 1.69.7
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../sit-onyx
       vitepress:
         specifier: '>= 1.0.0-rc.0'
         version: 1.0.0-rc.38(@algolia/client-search@4.22.1)(@types/node@20.11.5)(sass@1.69.7)(search-insights@2.13.0)(typescript@5.3.3)
