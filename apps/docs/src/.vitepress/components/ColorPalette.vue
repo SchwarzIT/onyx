@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
+import DesignToken from "./DesignToken.vue";
 
 const BUTTON_TYPES = ["Base", "Text", "Icon"] as const;
 type ButtonType = (typeof BUTTON_TYPES)[number];
@@ -68,7 +69,7 @@ let copyTimeout: ReturnType<typeof setTimeout> | undefined;
 
 const handleCopy = async (color: string) => {
   await navigator.clipboard.writeText(color);
-  copiedColor.value = color;
+  copiedColor.value = color.replace(/var\(--(.*)\)/, "$1");
   clearTimeout(copyTimeout);
   copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000);
 };
@@ -104,7 +105,7 @@ const handleCopy = async (color: string) => {
         />
       </div>
 
-      <div v-if="copiedColor">Copied color: {{ copiedColor }}</div>
+      <DesignToken class="palette__copied" v-if="copiedColor" :name="copiedColor" is-copied />
     </div>
   </section>
 </template>
@@ -127,6 +128,10 @@ const handleCopy = async (color: string) => {
     &--4 {
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+
+  &__copied {
+    margin-top: var(--onyx-spacing-lg);
   }
 }
 
