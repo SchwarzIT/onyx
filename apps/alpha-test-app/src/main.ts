@@ -12,6 +12,4 @@ const i18n = createI18n({
   messages: { "en-US": enUS, "de-DE": deDE },
 });
 
-// await import(`./locales/${locale}.json`);
-
 createApp(App).use(i18n).mount("#app");
