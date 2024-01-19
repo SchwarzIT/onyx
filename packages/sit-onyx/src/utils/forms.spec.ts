@@ -1,12 +1,5 @@
-import { getFirstInvalidType } from "./forms";
 import { expect, test } from "vitest";
-
-test("should return the given ValidityState as a pure object", () => {
-  // ARRANGE
-  // ACT
-  // ASSERT
-  expect(true).toBeTruthy();
-});
+import { getFirstInvalidType } from "./forms";
 
 const getTestState = (overrideData: Partial<ValidityState>): ValidityState => ({
   valid: false,

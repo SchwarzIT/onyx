@@ -1,3 +1,4 @@
+// since the types are getters of the ValidityState we need to get the keys using "Object.getOwnPropertyDescriptors"
 const getValidityStateProperties = () =>
   Object.entries(Object.getOwnPropertyDescriptors(ValidityState.prototype))
     .filter(([_, value]) => value.enumerable)
@@ -28,7 +29,6 @@ export const getFirstInvalidType = (validity: ValidityState) => {
   // prefer valueMissing to align with the default browser behavior
   if (validity.valueMissing) return "valueMissing";
 
-  // since the types are getters of the ValidityState we need to get the keys using "Object.getOwnPropertyDescriptors"
   const availableValidityTypes = getValidityStateProperties()
     .filter((key): key is Exclude<keyof ValidityState, "valid"> => key !== "valid")
     .sort();
