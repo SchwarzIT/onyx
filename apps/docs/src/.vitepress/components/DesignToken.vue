@@ -43,7 +43,7 @@ const cssVariable = computed(() => `var(--${props.name})`);
     gap: var(--onyx-spacing-sm);
 
     &::after {
-      content: "Copied ✓";
+      content: "copied ✓";
       display: inline-flex;
       color: var(--onyx-color-text-success-intense);
       font-size: 0.8125rem;

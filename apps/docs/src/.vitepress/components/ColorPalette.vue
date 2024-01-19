@@ -112,8 +112,6 @@ const handleCopy = async (color: string) => {
 
 <style lang="scss" scoped>
 .palette {
-  margin-bottom: var(--onyx-spacing-lg);
-
   &__content {
     padding: var(--onyx-spacing-lg);
     border-radius: var(--onyx-radius-md);
