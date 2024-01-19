@@ -2,7 +2,9 @@
 import { computed } from "vue";
 
 const props = defineProps<{
+  /** Token name. */
   name: string;
+  /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
   isCopied?: boolean;
 }>();
 

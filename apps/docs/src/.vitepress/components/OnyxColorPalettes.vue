@@ -2,14 +2,6 @@
 import { useData } from "vitepress";
 import ColorPalette from "./ColorPalette.vue";
 
-const props = defineProps<{
-  modelValue?: unknown;
-}>();
-
-const emit = defineEmits<{
-  "update:modelValue": [value: unknown];
-}>();
-
 const { isDark } = useData();
 </script>
 
@@ -17,17 +9,21 @@ const { isDark } = useData();
   <div class="palettes">
     <div class="themes">
       <Badge
+        tabindex="0"
         class="themes__badge"
         :class="{ 'themes__badge--active': !isDark }"
         text="Light colors"
         type="info"
+        @keyup.enter="isDark = false"
         @click="isDark = false"
       />
       <Badge
+        tabindex="0"
         class="themes__badge"
         :class="{ 'themes__badge--active': isDark }"
         text="Dark colors"
         type="info"
+        @keyup.enter="isDark = true"
         @click="isDark = true"
       />
     </div>

@@ -3,70 +3,77 @@ import { capitalize, computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
 import DesignToken from "./DesignToken.vue";
 
-const BUTTON_TYPES = ["Base", "Text", "Icon"] as const;
-type ButtonType = (typeof BUTTON_TYPES)[number];
+const AVAILABLE_TABS = ["Base", "Text", "Icon"] as const;
+type AvailableTab = (typeof AVAILABLE_TABS)[number];
 
 const props = defineProps<{
   name: "action" | "brand" | "neutral" | "success" | "warning" | "danger" | "info";
 }>();
 
-const activeButton = ref<ButtonType>("Base");
-const activeButtonColor = computed(() => {
+const currentTab = ref<AvailableTab>("Base");
+
+const currentTabColor = computed(() => {
+  // for the neutral color palette, we need to use the action color
+  // for highlighting the active tab because neutral would be basically the same as inactive tabs
   const color = props.name !== "neutral" ? props.name : "action";
   return `var(--onyx-color-text-${color}-intense)`;
 });
 
+/** Speaking names for base color steps. */
+const baseStepNames: Record<number, string> = {
+  200: "soft",
+  500: "default",
+  700: "intense",
+};
+
+const whiteTextColor = "var(--onyx-color-base-greyscale-white)";
+
+/**
+ * Available color steps to display for the currently active tab (e.g. 100-900 for base colors).
+ */
 const colorSteps = computed<ColorPaletteValueProps[]>(() => {
-  const whiteTextColor = "var(--onyx-color-base-greyscale-white)";
-
-  if (activeButton.value === "Base") {
-    const stepMap: Record<number, string> = {
-      200: "soft",
-      500: "default",
-      700: "intense",
-    };
-
+  if (currentTab.value === "Base") {
     return Array.from({ length: 9 }, (_, index) => {
       const step = (index + 1) * 100;
       return {
         description: step,
+        name: baseStepNames[step],
         color: `var(--onyx-color-base-${props.name}-${step})`,
-        name: stepMap[step],
         textColor: step < 500 ? `var(--onyx-color-text-${props.name}-bold)` : whiteTextColor,
       };
     });
   } else {
-    const activeButtonValue = activeButton.value.toLowerCase();
+    const currentTabLowercase = currentTab.value.toLowerCase();
     const textColor =
-      props.name !== "neutral" ? `var(--onyx-color-text-${props.name}-bold)` : whiteTextColor;
+      props.name === "neutral" ? whiteTextColor : `var(--onyx-color-text-${props.name}-bold)`;
 
     return [
       {
         description: "soft",
-        color: `var(--onyx-color-${activeButtonValue}-${props.name}-soft)`,
+        color: `var(--onyx-color-${currentTabLowercase}-${props.name}-soft)`,
         textColor,
       },
       {
         description: "medium",
-        color: `var(--onyx-color-${activeButtonValue}-${props.name}-medium)`,
+        color: `var(--onyx-color-${currentTabLowercase}-${props.name}-medium)`,
         textColor,
       },
       {
         description: "intense",
-        color: `var(--onyx-color-${activeButtonValue}-${props.name}-intense)`,
+        color: `var(--onyx-color-${currentTabLowercase}-${props.name}-intense)`,
         textColor: whiteTextColor,
       },
-      props.name !== "neutral"
+      props.name === "neutral"
         ? {
-            description: "bold",
-            color: `var(--onyx-color-${activeButtonValue}-${props.name}-bold)`,
-            textColor: whiteTextColor,
+            description: "inverted",
+            color: `var(--onyx-color-${currentTabLowercase}-inverted)`,
+            textColor: `var(--onyx-color-${currentTabLowercase}-intense)`,
+            showBorder: true,
           }
         : {
-            description: "inverted",
-            color: `var(--onyx-color-${activeButtonValue}-inverted)`,
-            textColor: `var(--onyx-color-${activeButtonValue}-intense)`,
-            showBorder: true,
+            description: "bold",
+            color: `var(--onyx-color-${currentTabLowercase}-${props.name}-bold)`,
+            textColor: whiteTextColor,
           },
     ];
   }
@@ -75,9 +82,15 @@ const colorSteps = computed<ColorPaletteValueProps[]>(() => {
 const copiedColor = ref("");
 let copyTimeout: ReturnType<typeof setTimeout> | undefined;
 
+/**
+ * Copies the given color to the clipboard and sets the `copiedColor` to its value for 3 seconds.
+ */
 const handleCopy = async (color: string) => {
   await navigator.clipboard.writeText(color);
   copiedColor.value = color.replace(/var\(--(.*)\)/, "$1");
+
+  // if multiple colors are copied quickly after each other, we need to
+  // clear the previous timeout so we prevent race-conditions
   clearTimeout(copyTimeout);
   copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000);
 };
@@ -88,16 +101,16 @@ const handleCopy = async (color: string) => {
     <div class="header">
       <h4 class="header__name">{{ capitalize(props.name) }}</h4>
 
-      <div class="header__buttons">
+      <div class="header__tabs">
         <button
-          v-for="type in BUTTON_TYPES"
-          :key="type"
-          class="header__button"
-          :class="{ 'header__button--active': activeButton === type }"
-          @click="activeButton = type"
-          @keyup.enter="activeButton = type"
+          v-for="tab in AVAILABLE_TABS"
+          :key="tab"
+          class="header__tab"
+          :class="{ 'header__tab--active': currentTab === tab }"
+          @click="currentTab = tab"
+          @keyup.enter="currentTab = tab"
         >
-          {{ type }}
+          {{ tab }}
         </button>
       </div>
     </div>
@@ -150,18 +163,18 @@ const handleCopy = async (color: string) => {
     color: var(--onyx-color-text-neutral-intense);
   }
 
-  &__buttons {
+  &__tabs {
     display: flex;
     gap: var(--onyx-spacing-md);
   }
 
-  &__button {
+  &__tab {
     color: var(--onyx-color-text-neutral-medium);
     font-weight: 600;
     font-size: 1rem;
 
     &--active {
-      color: v-bind("activeButtonColor");
+      color: v-bind("currentTabColor");
     }
   }
 }
