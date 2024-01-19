@@ -17,7 +17,7 @@ type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 <script lang="ts" setup>
 import { injectI18n } from "@/i18n";
 import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/forms";
-import { computed, ref, watch } from "vue";
+import { computed, ref, toRefs, watch } from "vue";
 
 export type TestInputProps = {
   /**
@@ -79,6 +79,7 @@ const emit = defineEmits<{
 
 const { t } = injectI18n();
 
+const { errorMessage } = toRefs(props);
 const isTouched = ref(false);
 const inputElement = ref<HTMLInputElement | null>(null);
 const validityState = ref(inputElement.value?.validity);
@@ -88,7 +89,7 @@ const value = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
-const errorMessage = computed(() => {
+const displayedErrorMessage = computed(() => {
   if (!validityState.value || validityState.value.valid) return "";
 
   const errorType = getFirstInvalidType(validityState.value);
@@ -120,23 +121,23 @@ const handleChange = (event: Event) => {
   emit("change", target.value);
 };
 
-watch([value, inputElement], () => {
+watch([inputElement, errorMessage], () => {
   if (!inputElement.value) return;
-  const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
-  // only update + emit the validity state when value changes
-  if (!validityState.value || areObjectsFlatEqual(newValidityState, validityState.value)) {
-    validityState.value = newValidityState;
-    emit("validityChange", validityState.value);
-  }
+  // by using setCustomValidity, the ValidityState will turn invalid
+  // as long as it is not an empty string
+  inputElement.value.setCustomValidity(props.errorMessage || "");
 });
 
 watch(
-  [() => props.errorMessage, inputElement],
+  [inputElement, value, errorMessage],
   () => {
     if (!inputElement.value) return;
-    // by using setCustomValidity, the ValidityState will turn invalid
-    // as long as it's not an empty string
-    inputElement.value.setCustomValidity(props.errorMessage || "");
+    const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
+    //  only update + emit the validity state when it changed
+    if (!validityState.value || !areObjectsFlatEqual(newValidityState, validityState.value)) {
+      validityState.value = newValidityState;
+      emit("validityChange", validityState.value);
+    }
   },
   { immediate: true },
 );
@@ -155,7 +156,7 @@ watch(
       @blur="isTouched = true"
     />
     <p v-if="isTouched && !validityState?.valid" class="onyx-input__error" aria-live="polite">
-      {{ errorMessage }}
+      {{ displayedErrorMessage }}
     </p>
     <p class="onyx-input__info">Model value: "{{ value }}", is valid: {{ validityState?.valid }}</p>
   </label>
