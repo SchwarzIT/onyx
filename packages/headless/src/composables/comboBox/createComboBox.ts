@@ -2,6 +2,10 @@ import { computed, ref, type Ref } from "vue";
 import { createId } from "../../utils/id";
 import { createBuilder, computeIterated } from "../../utils/builder";
 
+// TODO: https://w3c.github.io/aria/#aria-autocomplete
+// TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+// TODO: button as optional
+
 export const createComboBox = createBuilder(
   ({
     isExpanded,
@@ -75,9 +79,15 @@ export const createComboBox = createBuilder(
 
     return {
       elements: {
+        /**
+         * The label element for the combobox input element.
+         */
         label: {
           id: labelId,
         },
+        /**
+         * The listbox associated with the combobox.
+         */
         listBox: computed(() => ({
           role: "listbox",
           id: controlsId,
@@ -92,8 +102,12 @@ export const createComboBox = createBuilder(
             onClick: () => onSelect(key),
           }),
         ),
-        /** this is an input */
+        /**
+         * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.
+         * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.
+         */
         input: computed(() => ({
+          value: inputValue.value,
           role: "combobox",
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
@@ -103,6 +117,9 @@ export const createComboBox = createBuilder(
           onKeydown: handleKeydown,
           onBlur: handleBlur,
         })),
+        /**
+         * An optional button to control the visibility of the popup.
+         */
         button: computed(() => ({
           tabindex: "-1",
           onClick: onToggle,

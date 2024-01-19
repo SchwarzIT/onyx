@@ -40,3 +40,13 @@ export const Required = {
     required: true,
   },
 } satisfies Story;
+
+/**
+ * This example shows an input with a custom error.
+ */
+export const CustomError = {
+  args: {
+    label: "Click + blur to see the error",
+    errorMessage: "This is a custom error",
+  },
+} satisfies Story;

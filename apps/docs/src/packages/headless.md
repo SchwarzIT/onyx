@@ -34,15 +34,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/headless
+pnpm add @sit-onyx/headless@alpha
 ```
 
 ```sh [npm]
-npm install @sit-onyx/headless
+npm install @sit-onyx/headless@alpha
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/headless
+yarn install @sit-onyx/headless@alpha
 ```
 
 :::

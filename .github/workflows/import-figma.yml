@@ -1,18 +1,11 @@
 name: Import Figma variables
 on:
   workflow_dispatch:
-    inputs:
-      stage:
-        description: Stage to use for the import
-        type: environment
-        required: true
-        default: dev
 
 jobs:
   import:
     name: Import Figma variables
     runs-on: ubuntu-latest
-    environment: ${{ inputs.stage }}
     steps:
       - uses: actions/checkout@v4
 
@@ -31,9 +24,15 @@ jobs:
         run: pnpm run build
         working-directory: packages/figma-utils
 
-      - name: Import Onyx and light variables
+      # we need to separately import the themes because they are all needed in different formats and selectors
+      - name: Import Onyx variables
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx light
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx -f CSS JSON
+        working-directory: packages/figma-utils
+
+      - name: Import light variables
+        run: |
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m light
         working-directory: packages/figma-utils
 
       - name: Import dark variables

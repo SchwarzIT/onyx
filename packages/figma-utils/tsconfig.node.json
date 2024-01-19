@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "include": ["src"],
-  "exclude": ["src/**/*.spec.ts"],
+  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",
