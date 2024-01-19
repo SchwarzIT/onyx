@@ -8,8 +8,8 @@ import { data } from './languages.data';
 
 # Internationalization
 
-Onyx supports internationalization out-of-the-box. This includes commonly used translations
-that are used by our Onyx components like texts for cancel / confirm buttons or "No data" scenarios.
+onyx supports internationalization out-of-the-box. This includes commonly used translations
+that are used by our onyx components like texts for cancel / confirm buttons or "No data" scenarios.
 
 ::: tip Default translations
 English is always supported so you don't need to do anything if you only need English texts.
@@ -31,8 +31,8 @@ Below you can find all translatable texts that are used by our components.
 
 ## Usage
 
-You need to globally provide the i18n instance for Onyx. We assume that you are already using some third-party library such as `vue-i18n`
-for managing your app translations so Onyx will integrate nicely into your setup.
+You need to globally provide the i18n instance for onyx. We assume that you are already using some third-party library such as `vue-i18n`
+for managing your app translations so onyx will integrate nicely into your setup.
 
 ::: code-group
 
@@ -45,7 +45,7 @@ import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
 
 provideI18n({
-  // The Onyx locale will be updated whenever your vue-i18n locale changes
+  // The onyx locale will be updated whenever your vue-i18n locale changes
   locale,
   // make sure that the key for each language is the same that you are using
   // for your vue-i18n JSON files
@@ -89,7 +89,7 @@ provideI18n({
 You can add a whole new language with full TypeScript support. But please note that you might need to manually update any keys that we might add/remove in the future.
 
 ::: tip Contribution
-We are open for accepting community contributions, if you want to add a missing language, feel free to [create a Pull request](https://github.com/SchwarzIT/onyx/pulls) so all Onyx users can benefit from it.
+We are open for accepting community contributions, if you want to add a missing language, feel free to [create a Pull request](https://github.com/SchwarzIT/onyx/pulls) so all onyx users can benefit from it.
 You can simply add the translations inside the [locales folder](https://github.com/SchwarzIT/onyx/tree/main/packages/sit-onyx/src/i18n/locales).
 :::
 
@@ -104,7 +104,7 @@ const myCustomLanguage: OnyxTranslations = {
 };
 ```
 
-```json [When contributing to Onyx]
+```json [When contributing to onyx]
 // simply create a new json file for your language (e.g. "fr-FR")
 // in the locales folder linked above and place your translations there
 {
