@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-
 export type ColorPaletteValueProps = {
-  step: number;
+  /** Text to show below the value. */
+  description: number | string;
   color: string;
   textColor: string;
+  /** Optional name to show inside of the color. */
   name?: string;
 };
 
@@ -13,12 +13,6 @@ const props = defineProps<ColorPaletteValueProps>();
 const emit = defineEmits<{
   select: [];
 }>();
-
-const textColor = computed(() => {
-  return props.step < 500
-    ? `var(--onyx-color-text-${props.textColor}-bold)`
-    : "var(--onyx-color-base-greyscale-white)";
-});
 </script>
 
 <template>
@@ -39,7 +33,7 @@ const textColor = computed(() => {
         />
       </svg>
     </div>
-    <p class="step__value">{{ props.step }}</p>
+    <p class="step__description">{{ props.description }}</p>
   </div>
 </template>
 
@@ -63,7 +57,7 @@ const textColor = computed(() => {
   &:hover,
   &:focus-visible {
     background-color: v-bind("props.color");
-    color: v-bind("textColor");
+    color: v-bind("props.textColor");
     border-radius: var(--onyx-radius-sm);
 
     .step {
@@ -89,14 +83,14 @@ const textColor = computed(() => {
     min-height: 1.5rem;
     box-sizing: content-box;
     background-color: v-bind("props.color");
-    color: v-bind("textColor");
+    color: v-bind("props.textColor");
   }
 
   &__icon {
     display: none;
   }
 
-  &__value {
+  &__description {
     margin: 0;
     font-size: 0.8125rem;
     line-height: 1.25rem;

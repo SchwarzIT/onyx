@@ -32,13 +32,13 @@ const { isDark } = useData();
       />
     </div>
 
-    <ColorPalette name="Primary" variable-name="onyx-color-base-action" text-color="action" />
-    <ColorPalette name="Secondary" variable-name="onyx-color-base-brand" text-color="brand" />
-    <ColorPalette name="Neutral" variable-name="onyx-color-base-neutral" text-color="neutral" />
-    <ColorPalette name="Success" variable-name="onyx-color-base-success" text-color="success" />
-    <ColorPalette name="Warning" variable-name="onyx-color-base-warning" text-color="warning" />
-    <ColorPalette name="Danger" variable-name="onyx-color-base-danger" text-color="danger" />
-    <ColorPalette name="Info" variable-name="onyx-color-base-info" text-color="info" />
+    <ColorPalette name="action" />
+    <ColorPalette name="brand" />
+    <ColorPalette name="neutral" />
+    <ColorPalette name="success" />
+    <ColorPalette name="warning" />
+    <ColorPalette name="danger" />
+    <ColorPalette name="info" />
   </div>
 </template>
 

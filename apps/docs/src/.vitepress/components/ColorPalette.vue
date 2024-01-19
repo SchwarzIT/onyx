@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { capitalize, computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
 import DesignToken from "./DesignToken.vue";
 
@@ -7,60 +7,67 @@ const BUTTON_TYPES = ["Base", "Text", "Icon"] as const;
 type ButtonType = (typeof BUTTON_TYPES)[number];
 
 const props = defineProps<{
-  name: string;
-  variableName: string;
-  textColor: string;
+  name: "action" | "brand" | "neutral" | "success" | "warning" | "danger" | "info";
 }>();
 
 const activeButton = ref<ButtonType>("Base");
 const activeButtonColor = computed(() => {
-  const color = props.textColor !== "neutral" ? props.textColor : "action";
+  const color = props.name !== "neutral" ? props.name : "action";
   return `var(--onyx-color-text-${color}-intense)`;
 });
 
-const colorSteps = computed<Omit<ColorPaletteValueProps, "textColor">[]>(() => {
-  switch (activeButton.value) {
-    case "Base": {
-      const stepMap: Record<number, string> = {
-        200: "soft",
-        500: "default",
-        700: "intense",
-      };
+const colorSteps = computed<ColorPaletteValueProps[]>(() => {
+  const whiteTextColor = "var(--onyx-color-base-greyscale-white)";
 
-      return Array.from({ length: 9 }, (_, index) => {
-        const step = (index + 1) * 100;
-        return {
-          step,
-          color: `var(--${props.variableName}-${step})`,
-          name: stepMap[step],
-        };
-      });
-    }
-    case "Icon":
-    // fall through case to text
-    case "Text":
-      return [
-        {
-          step: 200,
-          name: "soft",
-          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-soft)`,
-        },
-        {
-          step: 300,
-          name: "medium",
-          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-medium)`,
-        },
-        {
-          step: 500,
-          name: "intense",
-          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-intense)`,
-        },
-        {
-          step: 700,
-          name: "bold",
-          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-bold)`,
-        },
-      ];
+  if (activeButton.value === "Base") {
+    const stepMap: Record<number, string> = {
+      200: "soft",
+      500: "default",
+      700: "intense",
+    };
+
+    return Array.from({ length: 9 }, (_, index) => {
+      const step = (index + 1) * 100;
+      return {
+        description: step,
+        color: `var(--onyx-color-base-${props.name}-${step})`,
+        name: stepMap[step],
+        textColor: step < 500 ? `var(--onyx-color-text-${props.name}-bold)` : whiteTextColor,
+      };
+    });
+  } else {
+    const activeButtonValue = activeButton.value.toLowerCase();
+    const textColor =
+      props.name !== "neutral" ? `var(--onyx-color-text-${props.name}-bold)` : whiteTextColor;
+
+    return [
+      {
+        description: "soft",
+        color: `var(--onyx-color-${activeButtonValue}-${props.name}-soft)`,
+        textColor,
+      },
+      {
+        description: "medium",
+        color: `var(--onyx-color-${activeButtonValue}-${props.name}-medium)`,
+        textColor,
+      },
+      {
+        description: "intense",
+        color: `var(--onyx-color-${activeButtonValue}-${props.name}-intense)`,
+        textColor: whiteTextColor,
+      },
+      props.name !== "neutral"
+        ? {
+            description: "bold",
+            color: `var(--onyx-color-${activeButtonValue}-${props.name}-bold)`,
+            textColor: whiteTextColor,
+          }
+        : {
+            description: "inverted",
+            color: `var(--onyx-color-${activeButtonValue}-inverted)`,
+            textColor: `var(--onyx-color-${activeButtonValue}-intense)`,
+          },
+    ];
   }
 });
 
@@ -78,7 +85,7 @@ const handleCopy = async (color: string) => {
 <template>
   <section class="palette">
     <div class="header">
-      <h4 class="header__name">{{ props.name }}</h4>
+      <h4 class="header__name">{{ capitalize(props.name) }}</h4>
 
       <div class="header__buttons">
         <button
@@ -98,9 +105,8 @@ const handleCopy = async (color: string) => {
       <div class="palette__steps" :class="{ 'palette__steps--4': colorSteps.length === 4 }">
         <ColorPaletteValue
           v-for="step in colorSteps"
-          :key="step.step"
+          :key="step.description"
           v-bind="step"
-          :text-color="props.textColor"
           @select="handleCopy(step.color)"
         />
       </div>
