@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "sit-onyx": "file:../../packages/sit-onyx",
+    "sit-onyx": "workspace:^",
     "vue": "^3.4.15",
     "vue-i18n": "^9.8.0"
   },
