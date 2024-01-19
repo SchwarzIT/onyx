@@ -79,7 +79,7 @@ export default defineLoader({
         components: [
           { name: "Button", implemented: isImplemented("OnyxButton") },
           { name: "Radio button", implemented: isImplemented("OnyxRadioButton") },
-          { name: "Simple table", implemented: isImplemented("OnyxTable") },
+          { name: "Minimalistic table", implemented: isImplemented("OnyxTable") },
           { name: "Headline", implemented: isImplemented("OnyxHeadline") },
           { name: "Footer", implemented: isImplemented("OnyxFooter") },
           { name: "Header", implemented: isImplemented("OnyxHeader") },
