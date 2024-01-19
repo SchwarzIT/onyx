@@ -1,9 +1,0 @@
-Dockerfile
-docker-compose.yml
-node_modules
-.idea
-.vscode
-.azuredevops
-.nyc_output
-coverage
-storybook-static

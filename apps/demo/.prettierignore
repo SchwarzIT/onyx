@@ -1,5 +1,0 @@
-# This file defines all files that should not be formatted by prettier.
-# All files listed inside the .gitignore are already excluded you only need to list additional files which are tracked by git here.
-
-pnpm-lock.yaml
-readme-odj.md
