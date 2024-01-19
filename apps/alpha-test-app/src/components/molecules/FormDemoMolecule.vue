@@ -2,7 +2,7 @@
 import { TestInput } from "sit-onyx";
 import { ref, watch } from "vue";
 
-type Props = {
+type FormData = {
   defaultInput: string;
   requiredInput: string;
   minlengthInput: string;
@@ -11,23 +11,18 @@ type Props = {
   patternInput: string;
 };
 const props = defineProps<{
-  formData: Props;
+  formData: FormData;
 }>();
 
-const formState = ref<Props | undefined>();
+const formState = ref<FormData>();
 
 const emit = defineEmits<{
-  submit: [data: object];
+  submit: [data: FormData];
 }>();
 
 const formElement = ref<HTMLFormElement | null>(null);
 
 const customErrorExample = ref("");
-
-const onSubmit = (event: Event) => {
-  event.preventDefault();
-  emit("submit", props);
-};
 
 const onPatternValidityChange = (state: ValidityState) => {
   customErrorExample.value = state.patternMismatch
@@ -45,7 +40,7 @@ watch(
 </script>
 
 <template>
-  <form v-if="formState" ref="formElement" class="demo" @submit="onSubmit($event)">
+  <form v-if="formState" ref="formElement" class="demo" @submit.prevent="emit('submit', props)">
     <h3>This form is <span class="demo__invalid">in</span>valid.</h3>
 
     <TestInput v-model="formState.defaultInput" label="Default" />
