@@ -123,7 +123,10 @@ watch([value, inputElement], () => {
   if (!inputElement.value) return;
   const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
   // only update + emit the validity state when value changes
-  if (JSON.stringify(newValidityState) !== JSON.stringify(validityState.value)) {
+  if (
+    !validityState.value ||
+    Object.values(newValidityState).toString() != Object.values(validityState.value).toString()
+  ) {
     validityState.value = newValidityState;
     emit("validityChange", validityState.value);
   }
