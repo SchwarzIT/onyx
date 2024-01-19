@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 
 /**
- * Gets a list of all available Onyx component names.
+ * Gets a list of all available onyx component names.
  */
 export const getComponents = () => {
   const path = fileURLToPath(
