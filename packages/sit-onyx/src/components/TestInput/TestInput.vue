@@ -15,7 +15,7 @@ type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 <script lang="ts" setup>
 import { injectI18n } from "@/i18n";
-import { getFirstInvalidType, getValidityStateProperties } from "@/utils/forms";
+import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/forms";
 import { computed, ref, watch } from "vue";
 
 export type TestInputProps = {
@@ -120,17 +120,9 @@ const handleChange = (event: Event) => {
 };
 
 watch([value, inputElement], () => {
-  // update validity state when value changes
   if (!inputElement.value) return;
-  const newValidityState = getValidityStateProperties().reduce<
-    Record<keyof ValidityState, boolean>
-  >(
-    (validityStateCopy, key) => {
-      validityStateCopy[key] = inputElement.value!.validity[key];
-      return validityStateCopy;
-    },
-    {} as Record<keyof ValidityState, boolean>,
-  );
+  const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
+  // only update + emit the validity state when value changes
   if (JSON.stringify(newValidityState) !== JSON.stringify(validityState.value)) {
     validityState.value = newValidityState;
     emit("validityChange", validityState.value);

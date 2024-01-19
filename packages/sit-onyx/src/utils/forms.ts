@@ -1,7 +1,22 @@
-export const getValidityStateProperties = () =>
+const getValidityStateProperties = () =>
   Object.entries(Object.getOwnPropertyDescriptors(ValidityState.prototype))
     .filter(([_, value]) => value.enumerable)
     .map(([key]) => key) as (keyof ValidityState)[];
+
+/**
+ * The standard HTML ValidityState is an object with getter properties.
+ * This makes it hard to compare changes. With below function, we iterate through all
+ * getters and transform them to properties of a new blanc object.
+ */
+export const transformValidityStateToObject = (validityState: ValidityState): ValidityState => {
+  return getValidityStateProperties().reduce<Record<keyof ValidityState, boolean>>(
+    (validityStateCopy, key) => {
+      validityStateCopy[key] = validityState[key];
+      return validityStateCopy;
+    },
+    {} as Record<keyof ValidityState, boolean>,
+  );
+};
 
 /**
  * Extracts the first invalid validity type from the given HTML ValidityState.
