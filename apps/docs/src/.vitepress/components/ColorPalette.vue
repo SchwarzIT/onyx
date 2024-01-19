@@ -66,6 +66,7 @@ const colorSteps = computed<ColorPaletteValueProps[]>(() => {
             description: "inverted",
             color: `var(--onyx-color-${activeButtonValue}-inverted)`,
             textColor: `var(--onyx-color-${activeButtonValue}-intense)`,
+            showBorder: true,
           },
     ];
   }

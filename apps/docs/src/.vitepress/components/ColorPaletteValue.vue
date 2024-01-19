@@ -6,6 +6,7 @@ export type ColorPaletteValueProps = {
   textColor: string;
   /** Optional name to show inside of the color. */
   name?: string;
+  showBorder?: boolean;
 };
 
 const props = defineProps<ColorPaletteValueProps>();
@@ -17,12 +18,12 @@ const emit = defineEmits<{
 
 <template>
   <div class="step" tabindex="0" @keyup.enter="emit('select')" @click="emit('select')">
-    <div class="step__color">
+    <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
       <span v-if="props.name" class="step__name">{{ props.name }}</span>
       <svg
         class="step__icon"
         width="24"
-        height="24"
+        height="25"
         viewBox="0 0 25 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -84,6 +85,11 @@ const emit = defineEmits<{
     box-sizing: content-box;
     background-color: v-bind("props.color");
     color: v-bind("props.textColor");
+    border: 1px solid transparent;
+
+    &--with-border {
+      border-color: var(--onyx-color-base-border-default);
+    }
   }
 
   &__icon {
