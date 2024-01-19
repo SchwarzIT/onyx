@@ -1,12 +1,13 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.2",
   "type": "module",
   "license": "Apache-2.0",
   "files": [
     "dist",
-    "src/i18n/locales"
+    "src/i18n/locales",
+    "src/styles"
   ],
   "exports": {
     ".": {
@@ -14,8 +15,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./locales": "./src/i18n/locales",
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./locales/*": "./src/i18n/locales/*",
+    "./src/styles/*": "./src/styles/*"
   },
   "repository": {
     "type": "git",
@@ -44,11 +46,11 @@
     "@fontsource-variable/source-sans-3": "^5.0.19",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^7.6.9",
-    "@storybook/blocks": "^7.6.9",
-    "@storybook/vue3": "^7.6.9",
-    "@storybook/vue3-vite": "^7.6.9",
+    "@storybook/addon-essentials": "^7.6.10",
+    "@storybook/blocks": "^7.6.10",
+    "@storybook/vue3": "^7.6.10",
+    "@storybook/vue3-vite": "^7.6.10",
     "react": "^18.2.0",
-    "storybook": "^7.6.9"
+    "storybook": "^7.6.10"
   }
 }

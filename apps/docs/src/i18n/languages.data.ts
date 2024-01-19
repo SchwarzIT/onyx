@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { defineLoader } from "vitepress";
 
 export type Data = {
-  /** List of available Onyx languages. */
+  /** List of available onyx languages. */
   languages: Language[];
   /** Total number of available translation keys (from the English file). */
   totalKeys: number;

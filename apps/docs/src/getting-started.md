@@ -41,7 +41,7 @@ After that, import the global CSS file:
 
 ```ts [main.ts]
 import "sit-onyx/style.css";
-// if you override some Onyx styles (e.g. CSS variables),
+// if you override some onyx styles (e.g. CSS variables),
 // make sure to import your custom CSS file after the default "sit-onyx/style.css"
 ```
 
