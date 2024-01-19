@@ -138,6 +138,9 @@ importers:
       '@fontsource-variable/source-sans-3':
         specifier: ^5.0.19
         version: 5.0.19
+      '@sit-onyx/headless':
+        specifier: workspace:^
+        version: link:../headless
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils

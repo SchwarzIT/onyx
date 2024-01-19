@@ -11,6 +11,9 @@
   "exports": {
     ".": {
       "default": "./src/index.ts"
+    },
+    "./playwright": {
+      "default": "./src/playwright.ts"
     }
   },
   "scripts": {
