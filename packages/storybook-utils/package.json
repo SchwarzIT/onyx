@@ -20,6 +20,7 @@
     "@storybook/preview-api": ">= 7",
     "@storybook/theming": ">= 7",
     "@storybook/vue3": ">= 7",
+    "sit-onyx": "workspace:^",
     "storybook-dark-mode": ">= 3"
   },
   "dependencies": {

@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 0.1.0-alpha.1
+
+### Patch Changes
+
+- 07e862f: Ensure that the i18n instance is not reset when it has been provided
+
 ## 0.1.0-alpha.0
 
 ### Minor Changes
