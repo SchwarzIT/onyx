@@ -1,58 +1,158 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import ColorValue, { type ColorValueProps } from "./ColorValue.vue";
+import { computed, ref } from "vue";
+import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
 
-const COLOR_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
-export type ColorStep = (typeof COLOR_STEPS)[number];
+const BUTTON_TYPES = ["Base", "Text", "Icon"] as const;
+type ButtonType = (typeof BUTTON_TYPES)[number];
 
-const props = defineProps<Pick<ColorValueProps, "variableName">>();
+const props = defineProps<{
+  name: string;
+  variableName: string;
+  textColor: string;
+}>();
 
-const selectedStep = ref<ColorStep>();
+const activeButton = ref<ButtonType>("Base");
+const activeButtonColor = computed(() => {
+  const color = props.textColor !== "neutral" ? props.textColor : "action";
+  return `var(--onyx-color-text-${color}-intense)`;
+});
+
+const colorSteps = computed<Omit<ColorPaletteValueProps, "textColor">[]>(() => {
+  switch (activeButton.value) {
+    case "Base": {
+      const stepMap: Record<number, string> = {
+        200: "soft",
+        500: "default",
+        700: "intense",
+      };
+
+      return Array.from({ length: 9 }, (_, index) => {
+        const step = (index + 1) * 100;
+        return {
+          step,
+          color: `var(--${props.variableName}-${step})`,
+          name: stepMap[step],
+        };
+      });
+    }
+    case "Icon":
+    // fall through case to text
+    case "Text":
+      return [
+        {
+          step: 200,
+          name: "soft",
+          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-soft)`,
+        },
+        {
+          step: 300,
+          name: "medium",
+          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-medium)`,
+        },
+        {
+          step: 500,
+          name: "intense",
+          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-intense)`,
+        },
+        {
+          step: 700,
+          name: "bold",
+          color: `var(--onyx-color-${activeButton.value.toLowerCase()}-${props.textColor}-bold)`,
+        },
+      ];
+  }
+});
+
+const copiedColor = ref("");
+let copyTimeout: ReturnType<typeof setTimeout> | undefined;
+
+const handleCopy = async (color: string) => {
+  await navigator.clipboard.writeText(color);
+  copiedColor.value = color;
+  clearTimeout(copyTimeout);
+  copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000);
+};
 </script>
 
 <template>
-  <section>
-    <div class="palette">
-      <ColorValue
-        class="palette__color"
-        v-for="step in COLOR_STEPS"
-        :key="step"
-        :step="step"
-        :variable-name="props.variableName"
-        :selected="step === selectedStep"
-        @keyup.enter="selectedStep = step"
-        @click="selectedStep = step"
-      />
+  <section class="palette">
+    <div class="header">
+      <h4 class="header__name">{{ props.name }}</h4>
+
+      <div class="header__buttons">
+        <button
+          v-for="type in BUTTON_TYPES"
+          :key="type"
+          class="header__button"
+          :class="{ 'header__button--active': activeButton === type }"
+          @click="activeButton = type"
+          @keyup.enter="activeButton = type"
+        >
+          {{ type }}
+        </button>
+      </div>
     </div>
 
-    <p class="headline">Related tokens</p>
-    <p class="placeholder">Please select a color to show the related tokens</p>
+    <div class="palette__content">
+      <div class="palette__steps" :class="{ 'palette__steps--4': colorSteps.length === 4 }">
+        <ColorPaletteValue
+          v-for="step in colorSteps"
+          :key="step.step"
+          v-bind="step"
+          :text-color="props.textColor"
+          @select="handleCopy(step.color)"
+        />
+      </div>
+
+      <div v-if="copiedColor">Copied color: {{ copiedColor }}</div>
+    </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .palette {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  margin-bottom: var(--onyx-spacing-lg);
 
-  &__color {
-    &:first-child {
-      border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
-    }
+  &__content {
+    padding: var(--onyx-spacing-lg);
+    border-radius: var(--onyx-radius-md);
+    border: 1px solid var(--onyx-color-base-border-default);
+    background: var(--onyx-color-base-background-blank);
+  }
 
-    &:last-child {
-      border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+  &__steps {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+
+    &--4 {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
 
-.headline {
-  font-weight: 600;
-  margin-top: var(--onyx-spacing-md);
-  margin-bottom: var(--onyx-spacing-sm);
-}
+.header {
+  margin-bottom: var(--onyx-spacing-xs);
+  display: flex;
+  justify-content: space-between;
 
-.placeholder {
-  color: var(--onyx-color-text-neutral-medium);
+  &__name {
+    font-weight: 600;
+    color: var(--onyx-color-text-neutral-intense);
+  }
+
+  &__buttons {
+    display: flex;
+    gap: var(--onyx-spacing-md);
+  }
+
+  &__button {
+    color: var(--onyx-color-text-neutral-medium);
+    font-weight: 600;
+    font-size: 1rem;
+
+    &--active {
+      color: v-bind("activeButtonColor");
+    }
+  }
 }
 </style>
