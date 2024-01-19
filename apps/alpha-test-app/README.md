@@ -3,9 +3,13 @@
 During the alpha phase of onyx, we use this minimalistic app to try out onyx components in a user-near environment and detect problems that Storybook can not show.
 This app will be removed once onyx leaves the alpha phase. As it is temporary, it will not be mentioned in our documentation app.
 
+**Important**: To test changes in onyx, make sure to run `pnpm build` in `packages/sit-onyx/package.json`. Only then will the changes be reflected in the Alpha Test App.
+
 ## Vue 3 + TypeScript + Vite
 
 This app was created with `pnpm create vite alpha-test-app --template vue-ts`.
+
+Below documentation was kept from the starter-app.
 
 ## Recommended IDE Setup
 
