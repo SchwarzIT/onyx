@@ -38,7 +38,7 @@ for managing your app translations so onyx will integrate nicely into your setup
 
 ```vue [App.vue]
 <script lang="ts" setup>
-import { OnyxTranslations, provideI18n } from "sit-onyx";
+import { provideI18n } from "sit-onyx";
 import deDE from "sit-onyx/locales/de-DE.json";
 import { useI18n } from "vue-i18n";
 
@@ -49,7 +49,7 @@ provideI18n({
   locale,
   // make sure that the key for each language is the same that you are using
   // for your vue-i18n JSON files
-  messages: { "de-DE": deDE as OnyxTranslations },
+  messages: { "de-DE": deDE },
 });
 </script>
 ```
