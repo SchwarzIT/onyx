@@ -1,1 +1,77 @@
-test
+# Colors
+
+Colors in a user interface play a cruicial role in enhancing the visual appeal and user experience. They go beyond than just aesthetics, serving as powerful tools to convey information, establish hierarchy, and evoke emotions. The usage of a well-thought-out color scheme can guide users, highlight important elements, and create a cohesive and memorable design. The coice of colors significantly influences how users perceive and interact with the interface, making it an integral aspect of effective design.
+
+## Understanding light & dark mode
+
+The onyx color scheme is tightly connecte to the design token systematic, that applies the values to the interface. Therefore, please familiarize yourself with the logic of [token levels](/tokens/introduction) used with onyx. This will be the basis of understanding how colors will be interpretated for light and dark mode.
+
+### Global color scheme
+
+In order to establish a versatile foundation that offers to both light and dark modes, onyx colors are based on a comprehensive global color palette designed to function as a universally adaptable scheme. This palette spans from the lightest luminosity to the deepest darkness, covering a broad spectrum. However, it's important to note that the extremes at both ends of the palette are not suitable for all modes. Specifically, the delineation is set by values of 100 and 1200, demarcating the boundaries for usability in different modes. It's important to know that this nuanced palette of global shades is intentionally excluded from the design and development process of creating an onyx user interface.
+
+### Semantic color scheme
+
+The color values within the global color scheme have been percisely translated into the semantic context of light and dark modes. This refinement involves condensing the scale to a series of 9 values in increments of 100, with the pivotal point of 500 serving as the default reference for both light and dark modes. Notably, the semantic color schemes for the light mode now referres to a distinct spectrum when compared to their dark mode counterparts.
+
+Semantic colors are defined in relation to the background, dynamically adjusting luminance to harmonize with the unique characteristics of each mode. This intentional differentiation ensures that the visual aesthetics of the interface remain optimal in both light and dark settings.
+
+### Example
+
+![Image](/assets/color_systematic.png)
+
+## Themes
+
+Beyond the different shades, the hues in a color scheme also significantly impact the overall appearance. onyx offers two main types of color palettes: "themed color palettes" and "universal color palettes." Themed colors set the brand's tone in the UI, defining its unique look. Universal colors, on the other hand, support system information and are used across all themes to complete the brand's color range. This thoughtful approach ensures a good balance between expressing the brand's style and maintaining clarity and functionality for users.
+
+_color palette component by dev_
+
+To have access to the color token set for your implementation, please visit the [token documentation](/tokens/color).
+
+## Roles of themed colors
+
+Themed colors reflect the brand's identity, adapting their main colors. While primary and secondary colors vary between the themes, the usage of them is constant.
+
+Primary colors highlight call-to-action elements and direct the focus of the user to the most important interactions. Brand-neutrals are used in the background and secondary actions, providing a subtle backdrop that allows primary colors to shine.
+
+## Roles of universal colors
+
+Universal colors serve a specific role independent from the chosen theme. This is the hierarchical logic behind it:
+
+### Danger
+
+![image](/assets/danger.png)
+
+The danger color is used for urgent situations that need immediate attention. It's specifically for critical notifications or interactions linked to deletions and should be used carefully to convey seriousness.
+
+### Warning
+
+![image](/assets/warning.png)
+
+The warning color communicates medium-urgent situations and is less important than the danger color. It's suitable for scenarios like security questions where caution is needed.
+
+### Success
+
+![image](/assets/success.png)
+
+The success color shows positive outcomes or successful task completion, giving a sense of achievement. It's used when announcing successful operations or good news.
+
+### Info
+
+![image](/assets/info.png)
+
+The info color is for sharing non-emotional information and is the least important among universal colors. It's used when giving straightforward information without any emotional tone.
+
+### Quantitatives
+
+Quantitative colors help make infographics look good. They're used to distinguish between different parts in graphs, charts, or other visuals, making it easier to understand quantitative information.
+
+## Usage ratio
+
+The recommendation for working with colors is described with the 60-30-10 guideline, aiming to achieve a harmonious visual composition. The principle suggests allocating 60% of the interface being blank, serving as a cohesive backdrop.
+
+The 30% functions as a supportive element, complementing the blank hue, with the usage of brand-neutal colors.
+
+The remaining 10% is dedicated to an accent color, strategically applied to highlight the key elements and call-to-actions. This in fact, is always the brand-primary in the onyx design system.
+
+## Contrast
