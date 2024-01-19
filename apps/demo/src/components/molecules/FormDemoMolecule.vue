@@ -1,17 +1,22 @@
 <script lang="ts" setup>
 import { TestInput } from 'sit-onyx';
-import { computed, ref } from 'vue';
+import { computed, ref, unref, watch } from 'vue';
 
+type StringInput = { modelValue: string; isValid?: boolean };
+type NumberInput = { modelValue: number; isValid?: boolean };
+type Props = {
+  defaultInput: StringInput;
+  requiredInput: StringInput;
+  minlengthInput: StringInput;
+  maxInput: NumberInput;
+  typeInput: StringInput;
+  patternInput: StringInput;
+};
 const props = defineProps<{
-  formData: {
-    defaultInput: string;
-    requiredInput: string;
-    minlengthInput: string;
-    maxInput: string;
-    typeInput: string;
-    patternInput: string;
-  };
+  formData: Props;
 }>();
+
+const formState = ref<Props | undefined>();
 
 const emit = defineEmits<{
   submit: [data: object];
@@ -19,46 +24,94 @@ const emit = defineEmits<{
 
 const formElement = ref<HTMLFormElement | null>(null);
 
-const { formData } = props;
-
 const customErrorExample = ref('');
 
-const isValid = computed<boolean>(() => {
-  return formElement.value?.checkValidity() || false;
+const isValid = computed(() => {
+  return (
+    formState.value &&
+    formState.value.defaultInput.isValid &&
+    formState.value.requiredInput.isValid &&
+    formState.value.minlengthInput.isValid &&
+    formState.value.maxInput.isValid &&
+    formState.value.typeInput.isValid &&
+    formState.value.patternInput.isValid
+  );
 });
 
 const onSubmit = (event: Event) => {
   event.preventDefault();
-  emit('submit', formData);
+  emit('submit', props);
+  console.log('# submitting, form is ', isValid.value, unref(props.formData));
 };
 
-const onValidityChange = (state: ValidityState) => {
+const onPatternValidityChange = (state: ValidityState) => {
+  if (!formState.value) return;
+  formState.value.patternInput.isValid = state.valid;
   customErrorExample.value = state.patternMismatch ? 'Allows only lowercase characters or space' : '';
 };
+
+const onValidityChange = (inputData: NumberInput | StringInput, state: ValidityState) => {
+  inputData.isValid = state.valid;
+  console.log('# validity changed', inputData);
+};
+
+watch(
+  props,
+  () => {
+    formState.value = { ...props.formData };
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <form ref="formElement" class="demo" @submit="onSubmit($event)">
+  <form v-if="formState" ref="formElement" class="demo" @submit="onSubmit($event)">
     <h3>This form is {{ isValid ? '' : 'in' }}valid.</h3>
 
-    <TestInput v-model="formData.defaultInput" label="Default" />
-
-    <TestInput v-model="formData.requiredInput" label="Requires a value" required lang="en" />
-
-    <em> Info: minlength only triggers when the user has typed something, it ignores the initial value. </em>
-    <TestInput v-model="formData.minlengthInput" label="Minlength 5" type="text" required :min-length="5" />
-
-    <!-- formData.maxInput must currently be type string because TestInput requires string values, even though input is type number... -->
-    <TestInput v-model="formData.maxInput" label="Max 9000" type="number" :max="9000" />
-
-    <TestInput v-model="formData.typeInput" label="Type mail" type="email" />
+    <TestInput
+      v-model="formState.defaultInput.modelValue"
+      label="Default"
+      @validity-change="onValidityChange(formState.defaultInput, $event)"
+    />
 
     <TestInput
-      v-model="formData.patternInput"
+      v-model="formState.requiredInput.modelValue"
+      label="Requires a value"
+      required
+      @validity-change="onValidityChange(formState.requiredInput, $event)"
+    />
+
+    <em> Info: minlength only triggers when the user has typed something, it ignores the initial value. </em>
+    <TestInput
+      v-model="formState.minlengthInput.modelValue"
+      label="Minlength 5"
+      type="text"
+      required
+      :min-length="5"
+      @validity-change="formState.minlengthInput.isValid = $event.valid"
+    />
+
+    <TestInput
+      v-model="formState.maxInput.modelValue"
+      label="Max 9000"
+      type="number"
+      :max="9000"
+      @validity-change="formState.maxInput.isValid = $event.valid"
+    />
+
+    <TestInput
+      v-model="formState.typeInput.modelValue"
+      label="Type mail"
+      type="email"
+      @validity-change="formState.typeInput.isValid = $event.valid"
+    />
+
+    <TestInput
+      v-model="formState.patternInput.modelValue"
       label="Pattern lowercase characters"
       pattern="[a-z ]*"
       :error-message="customErrorExample"
-      @validity-change="onValidityChange"
+      @validity-change="onPatternValidityChange"
     />
 
     <div>
@@ -73,5 +126,9 @@ const onValidityChange = (state: ValidityState) => {
 .demo {
   display: flex;
   flex-direction: column;
+
+  &:invalid {
+    background-color: pink;
+  }
 }
 </style>

@@ -15,7 +15,7 @@ type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 <script lang="ts" setup>
 import { injectI18n } from "@/i18n";
-import { getFirstInvalidType } from "@/utils/forms";
+import { getFirstInvalidType, getValidityStateProperties } from "@/utils/forms";
 import { computed, ref, watch } from "vue";
 
 export type TestInputProps = {
@@ -122,17 +122,20 @@ const handleChange = (event: Event) => {
 watch([value, inputElement], () => {
   // update validity state when value changes
   if (!inputElement.value) return;
-  validityState.value = inputElement.value.validity;
+  const newValidityState = getValidityStateProperties().reduce<
+    Record<keyof ValidityState, boolean>
+  >(
+    (validityStateCopy, key) => {
+      validityStateCopy[key] = inputElement.value!.validity[key];
+      return validityStateCopy;
+    },
+    {} as Record<keyof ValidityState, boolean>,
+  );
+  if (JSON.stringify(newValidityState) !== JSON.stringify(validityState.value)) {
+    validityState.value = newValidityState;
+    emit("validityChange", validityState.value);
+  }
 });
-
-watch(
-  validityState,
-  (newValidity) => {
-    if (!newValidity) return;
-    emit("validityChange", newValidity);
-  },
-  { deep: true },
-);
 
 watch(
   [() => props.errorMessage, inputElement],
@@ -158,6 +161,7 @@ watch(
       @change="handleChange"
       @blur="isTouched = true"
     />
+    valid: {{ validityState?.valid }}
     <p v-if="isTouched && !validityState?.valid" class="onyx-input__error" aria-live="polite">
       {{ errorMessage }}
     </p>
