@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- abaefa6: feat: support custom Onyx theme for `createPreview` and `createTheme`
+- abaefa6: feat: support custom onyx theme for `createPreview` and `createTheme`
 
 ## 0.1.0-alpha.0
 

@@ -6,9 +6,9 @@
   </a>
 </p>
 
-# Onyx VitePress theme
+# onyx VitePress theme
 
-VitePress theme that uses the Onyx design system created by [Schwarz IT](https://it.schwarz).
+VitePress theme that uses the onyx design system created by [Schwarz IT](https://it.schwarz).
 
 ## Documentation
 

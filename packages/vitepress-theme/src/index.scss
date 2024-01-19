@@ -1,7 +1,7 @@
 @use "../../sit-onyx/src/styles/index.scss";
 @use "mixins.scss";
 
-// override default VitePress CSS variables to apply Onyx theming
+// override default VitePress CSS variables to apply onyx theming
 // see: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css#L178
 :root {
   // color palette

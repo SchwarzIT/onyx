@@ -1,6 +1,6 @@
-# Onyx Contributing Guide
+# onyx Contributing Guide
 
-When contributing to Onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md).
+When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## Prerequisites / Technical setup
 
@@ -26,8 +26,8 @@ TypeScript cannot handle type information for `.vue` imports by default. In VSCo
 
 ## Creating a Pull Request
 
-Pull Requests are very welcome!  
-Please consider our [Technical Guidelines](https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines) when contributing to Onyx.
+Pull Requests are very welcome!
+Please consider our [Technical Guidelines](https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines) when contributing to onyx.
 
 1. You will need to [create a fork](https://github.com/SchwarzIT/onyx/fork) to commit and push your changes to.
 2. When your changes affect the user, you need to [add a changeset](./.changeset/README.md).
@@ -61,7 +61,7 @@ pnpm run format:all
 
 <br />
 
-### Onyx
+### onyx
 
 The following scripts are available inside [`packages/sit-onyx`](packages/sit-onyx):
 
