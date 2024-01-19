@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 0.1.0-alpha.2
+
+### Patch Changes
+
+- 530af96: fix: support importing json files from `sit-onyx/locales` with intellisense
+
 ## 0.1.0-alpha.1
 
 ### Patch Changes
