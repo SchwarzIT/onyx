@@ -3,14 +3,14 @@ import type { DeepPartial } from "@/types/utils";
 import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 
-/** Available translations that are used by Onyx components. */
+/** Available translations that are used by onyx components. */
 export type OnyxTranslations = typeof enUS;
 
 export type ProvideI18nOptions = {
   /**
    * Current locale / language to use.
    * If a ref is passed (e.g. the locale from the `vue-i18n` package)
-   * all Onyx messages will be updated if it changes (if locale is supported).
+   * all onyx messages will be updated if it changes (if locale is supported).
    * If a message is missing for your currently set locale, English will be used as fallback.
    *
    * @default "en-US"
@@ -78,19 +78,19 @@ const createI18n = (options?: ProvideI18nOptions) => {
 };
 
 /**
- * Provides a global i18n instance that is used by Onyx.
- * Must only be called once in the `App.vue` file of a project that consumes Onyx.
+ * Provides a global i18n instance that is used by onyx.
+ * Must only be called once in the `App.vue` file of a project that consumes onyx.
  */
 export const provideI18n = (options: ProvideI18nOptions) => {
   provide(I18N_INJECTION_KEY, createI18n(options));
 };
 
 /**
- * Injects the Onyx i18n instance.
+ * Injects the onyx i18n instance.
+ * Creates a fallback if provide was never called.
  */
 export const injectI18n = () => {
-  const fallbackInstance = createI18n();
-  return inject(I18N_INJECTION_KEY, fallbackInstance);
+  return inject(I18N_INJECTION_KEY, () => createI18n(), true);
 };
 
 /**

@@ -6,7 +6,7 @@
   </a>
 </p>
 
-# Onyx
+# onyx
 
 A design system and Vue.js component library for enterprise grade applications created by [Schwarz IT](https://it.schwarz).
 

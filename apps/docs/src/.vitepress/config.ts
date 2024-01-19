@@ -4,7 +4,7 @@ import { getComponents } from "./utils";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Onyx",
+  title: "onyx",
   description: "Vue.js component library and design system",
   themeConfig: {
     externalLinkIcon: true,
@@ -48,7 +48,7 @@ export default defineConfig({
         items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
       },
       {
-        text: "Other Onyx npm packages",
+        text: "Other onyx npm packages",
         base: "/packages",
         collapsed: false,
         items: [
