@@ -3,4 +3,4 @@
 
 # Define designers as code owners for screenshots to automatically
 # request them as reviewer if visual changes exist
-/packages/sit-onyx/playwright/snapshots/ @jannick-ux @martihofmann
+/packages/sit-onyx/playwright/snapshots/ @jannick-ux @mj-hof
