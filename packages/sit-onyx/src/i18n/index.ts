@@ -87,10 +87,10 @@ export const provideI18n = (options: ProvideI18nOptions) => {
 
 /**
  * Injects the onyx i18n instance.
+ * Creates a fallback if provide was never called.
  */
 export const injectI18n = () => {
-  const fallbackInstance = createI18n();
-  return inject(I18N_INJECTION_KEY, fallbackInstance);
+  return inject(I18N_INJECTION_KEY, () => createI18n(), true);
 };
 
 /**
