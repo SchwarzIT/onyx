@@ -94,7 +94,7 @@ export default defineLoader({
         id: "expansion-2",
         label: "Expansion 2",
         description:
-          "Commonly used components but that are not critical to implement simple applications.",
+          "Commonly used components which are not critical to implement simple applications.",
         components: [
           // we can not use "isImplemented" for the advanced table because it will be
           // the same component as the "simple" table
@@ -112,7 +112,7 @@ export default defineLoader({
         id: "expansion-3",
         label: "Expansion 3",
         description:
-          "Nice to have components. A basic or Priority 2 component can be used as alternative in the meantime.",
+          "Nice to have components. A basic or Expansion 2 component can be used as alternative in the meantime.",
         components: [
           { name: "Datepicker", implemented: isImplemented("OnyxDatepicker") },
           { name: "Timepicker", implemented: isImplemented("OnyxTimepicker") },

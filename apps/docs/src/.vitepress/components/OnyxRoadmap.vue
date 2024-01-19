@@ -36,7 +36,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
         </section>
 
         <section>
-          <h2 class="roadmap__headline">Facts and numbers</h2>
+          <h2 class="roadmap__headline">Facts and figures</h2>
           <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
 
           <div class="grid">
@@ -64,12 +64,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
             <RoadmapCard
               :title="data.mergedPRCount"
               description="Merged Pull requests"
-              :href="`${packageJson.repository.url}/pulls`"
+              :href="`${packageJson.repository.url}/pulls?q=${encodeURIComponent('is:pr is:merged')}`"
             />
             <RoadmapCard
               :title="data.closedIssueCount"
               description="Closed issues"
-              :href="packageJson.bugs.url"
+              :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
             />
             <RoadmapCard
               :title="data.contributorCount"
