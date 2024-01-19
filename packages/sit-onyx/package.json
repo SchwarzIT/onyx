@@ -6,7 +6,8 @@
   "license": "Apache-2.0",
   "files": [
     "dist",
-    "src/i18n/locales"
+    "src/i18n/locales",
+    "src/styles"
   ],
   "exports": {
     ".": {
@@ -14,8 +15,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./locales": "./src/i18n/locales",
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./locales/*": "./src/i18n/locales/*",
+    "./src/styles/*": "./src/styles/*"
   },
   "repository": {
     "type": "git",

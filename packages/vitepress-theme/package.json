@@ -25,6 +25,7 @@
   },
   "peerDependencies": {
     "sass": ">= 1",
+    "sit-onyx": "workspace:^",
     "vitepress": ">= 1.0.0-rc.0"
   }
 }
