@@ -44,9 +44,7 @@ const createI18n = (options?: ProvideI18nOptions) => {
    * Current locale.
    * @default "en-US"
    */
-  const locale = computed(() => {
-    return unref(options?.locale) ?? "en-US";
-  });
+  const locale = computed(() => unref(options?.locale) ?? "en-US");
 
   const messages = computed(() => {
     if (options?.messages && locale.value in options.messages) {
