@@ -161,7 +161,6 @@ watch(
       @change="handleChange"
       @blur="isTouched = true"
     />
-    valid: {{ validityState?.valid }}
     <p v-if="isTouched && !validityState?.valid" class="onyx-input__error" aria-live="polite">
       {{ errorMessage }}
     </p>

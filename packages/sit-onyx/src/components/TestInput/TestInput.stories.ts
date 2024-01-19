@@ -38,7 +38,6 @@ export const Required = {
   args: {
     ...Primary.args,
     required: true,
-    minLength: 5,
   },
 } satisfies Story;
 

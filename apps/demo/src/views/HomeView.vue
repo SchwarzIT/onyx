@@ -3,20 +3,20 @@ import FormDemoMolecule from '@/components/molecules/FormDemoMolecule.vue';
 import { ScuHeadline } from '@scu/vue';
 
 const validFormData = {
-  defaultInput: { modelValue: 'No Validation' },
-  requiredInput: { modelValue: 'Is filled' },
-  minlengthInput: { modelValue: 'Is long enough' },
-  maxInput: { modelValue: 42 },
-  typeInput: { modelValue: 'john.doe@mail.schwarz' },
-  patternInput: { modelValue: 'only lowercase or space' },
+  defaultInput: 'No Validation',
+  requiredInput: 'Is filled',
+  minlengthInput: 'Is long enough',
+  maxInput: 42,
+  typeInput: 'john.doe@mail.schwarz',
+  patternInput: 'only lowercase or space',
 };
 const invalidFormData = {
-  defaultInput: { modelValue: 'No Validation' },
-  requiredInput: { modelValue: '' },
-  minlengthInput: { modelValue: '' },
-  maxInput: { modelValue: 9001 },
-  typeInput: { modelValue: 'NotAmail' },
-  patternInput: { modelValue: 'NO UPPERCASE ALLOWED' },
+  defaultInput: 'No Validation',
+  requiredInput: '',
+  minlengthInput: '',
+  maxInput: 9001,
+  typeInput: 'NotAmail',
+  patternInput: 'NO UPPERCASE ALLOWED',
 };
 </script>
 
@@ -25,7 +25,10 @@ const invalidFormData = {
     <ScuHeadline element="h1">Valid example</ScuHeadline>
     <FormDemoMolecule :form-data="validFormData" />
 
+    <br />
+    <br />
+
     <ScuHeadline element="h1">Invalid example</ScuHeadline>
-    <!-- <FormDemoMolecule :form-data="invalidFormData" /> -->
+    <FormDemoMolecule :form-data="invalidFormData" />
   </div>
 </template>
