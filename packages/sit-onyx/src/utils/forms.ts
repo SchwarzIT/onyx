@@ -8,7 +8,9 @@ const getValidityStateProperties = () =>
  * This makes it hard to compare changes. This function iterates through all
  * getters and transforms them to properties of a new plain object.
  */
-export const transformValidityStateToObject = (validityState: ValidityState): ValidityState => {
+export const transformValidityStateToObject = (
+  validityState: ValidityState,
+): Record<keyof ValidityState, boolean> => {
   return getValidityStateProperties().reduce(
     (validityStateCopy, key) => {
       validityStateCopy[key] = validityState[key];

@@ -1,5 +1,6 @@
 <script lang="ts">
 import enUS from "@/i18n/locales/en-US.json";
+import { areObjectsFlatEqual } from "@/utils/comparator";
 
 export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];
@@ -123,10 +124,7 @@ watch([value, inputElement], () => {
   if (!inputElement.value) return;
   const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
   // only update + emit the validity state when value changes
-  if (
-    !validityState.value ||
-    Object.values(newValidityState).toString() != Object.values(validityState.value).toString()
-  ) {
+  if (!validityState.value || areObjectsFlatEqual(newValidityState, validityState.value)) {
     validityState.value = newValidityState;
     emit("validityChange", validityState.value);
   }
