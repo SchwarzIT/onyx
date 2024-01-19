@@ -29,9 +29,9 @@ export const getFirstInvalidType = (validity: ValidityState) => {
   if (validity.valueMissing) return "valueMissing";
 
   // since the types are getters of the ValidityState we need to get the keys using "Object.getOwnPropertyDescriptors"
-  const availableValidityTypes = getValidityStateProperties().filter(
-    (key): key is Exclude<keyof ValidityState, "valid"> => key !== "valid",
-  );
+  const availableValidityTypes = getValidityStateProperties()
+    .filter((key): key is Exclude<keyof ValidityState, "valid"> => key !== "valid")
+    .sort();
 
   // get first invalid type
   for (const type of availableValidityTypes) {
