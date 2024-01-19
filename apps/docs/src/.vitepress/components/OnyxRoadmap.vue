@@ -72,9 +72,9 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
               :href="packageJson.bugs.url"
             />
             <RoadmapCard
-              :title="data.commitCount"
-              description="Commits"
-              :href="`${packageJson.repository.url}/commits/main`"
+              :title="data.contributorCount"
+              description="Contributors"
+              :href="`${packageJson.repository.url}/graphs/contributors`"
             />
           </div>
         </section>

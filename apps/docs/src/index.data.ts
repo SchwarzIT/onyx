@@ -17,8 +17,8 @@ export type Data = {
   mergedPRCount: number;
   /** Total number of closed issues on GitHub. */
   closedIssueCount: number;
-  /** Total number of GitHub commits on the main branch. */
-  commitCount: number;
+  /** Total number of GitHub contributors. */
+  contributorCount: number;
   /** Timestamp when this data has been fetched. */
   timestamp: string;
   /** Total number of npm downloads for all Onyx npm packages in the last month. */
@@ -27,12 +27,6 @@ export type Data = {
   packageCount: number;
   /** Component tabs / sets / roadmap. */
   componentTabs: (Tab & ComponentGridProps)[];
-};
-
-/** @see https://docs.github.com/en/rest/issues/milestones?apiVersion=2022-11-28#get-a-milestone */
-export type GitHubMilestone = {
-  title: string;
-  due_on?: string;
 };
 
 declare const data: Data;
@@ -68,10 +62,7 @@ export default defineLoader({
     const downloads = await getNpmDownloadCount(npmPackageNames);
     const mergedPRCount = await searchGitHub("issues", "type:pr is:merged");
     const closedIssueCount = await searchGitHub("issues", "type:issue is:closed");
-    const commitCount = await searchGitHub(
-      "commits",
-      `committer-date:<=${timestamp.toISOString().split("T")[0]}`,
-    );
+    const contributorCount = await getGitHubContributorCount();
 
     /** Checks whether the given component is implemented (meaning a Storybook file exists) */
     const isImplemented = (componentName: string) => {
@@ -150,7 +141,7 @@ export default defineLoader({
       variantCount,
       mergedPRCount,
       closedIssueCount,
-      commitCount,
+      contributorCount,
       timestamp: timestamp.toUTCString(),
       downloads,
       packageCount: packageFolders.length,
@@ -198,6 +189,31 @@ const searchGitHub = async (
   }
 
   return body.total_count;
+};
+
+/**
+ * Gets the number of contributors.
+ *
+ * @see: https://docs.github.com/en/rest/metrics/statistics?apiVersion=2022-11-28#get-all-contributor-commit-activity
+ */
+const getGitHubContributorCount = async (): Promise<number> => {
+  // since we only need the total_count, we can decrease the per_page to 1 to improve request speeds
+  const response = await fetch("https://api.github.com/repos/SchwarzIT/onyx/stats/contributors", {
+    headers: {
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
+  const body = await response.json();
+
+  if (response.status < 200 || response.status >= 300) {
+    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
+  }
+
+  if (!Array.isArray(body)) {
+    throw new Error("GitHub contributors data is not an array");
+  }
+
+  return body.length;
 };
 
 /**
