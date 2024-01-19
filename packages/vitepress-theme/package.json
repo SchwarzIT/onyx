@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/vitepress-theme",
-  "description": "VitePress theme that uses the Onyx design system",
-  "version": "0.0.0",
+  "description": "VitePress theme that uses the onyx design system",
+  "version": "0.0.1-alpha.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -26,6 +26,7 @@
   },
   "peerDependencies": {
     "sass": ">= 1",
+    "sit-onyx": "workspace:^",
     "vitepress": ">= 1.0.0-rc.0"
   }
 }

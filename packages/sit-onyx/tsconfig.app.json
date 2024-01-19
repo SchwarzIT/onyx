@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "src/**/*"],
-  "exclude": ["src/**/*.(spec|ct).*"],
+  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",

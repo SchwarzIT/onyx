@@ -14,7 +14,7 @@ import packageJson from "../../../../packages/vitepress-theme/package.json";
 
 </div>
 
-Custom [VitePress](https://vitepress.dev) theme that uses the Onyx design system.
+Custom [VitePress](https://vitepress.dev) theme that uses the onyx design system.
 
 The documentation that you are currently reading is created using this custom theme.
 
@@ -24,9 +24,9 @@ It extends the default VitePress theme so you can use the same [config](https://
 
 The theme includes the following features:
 
-- light and dark theme that matches the Onyx design
+- light and dark theme that matches the onyx design
 - colored name and gradient logo background on the [home page](/)
-- Font families matching the [Onyx typography system](/typography)
+- Font families matching the [onyx typography system](/typography)
 
 ## Installation
 
