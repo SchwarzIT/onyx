@@ -21,7 +21,7 @@ const cssVariable = computed(() => `var(--${props.name})`);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs) var(--onyx-spacing-2xs)
       var(--onyx-spacing-sm);
     border-radius: var(--onyx-radius-sm);
-    border: 1px solid var(--onyx-color-base-neutral-200);
+    border: 1px solid var(--onyx-color-base-border-default);
     font-family: var(--onyx-font-family-mono);
     width: max-content;
     display: flex;
@@ -34,6 +34,7 @@ const cssVariable = computed(() => `var(--${props.name})`);
       height: 1.25rem;
       background-color: v-bind("cssVariable");
       border-radius: var(--onyx-radius-sm);
+      border: 1px solid var(--onyx-color-base-border-default);
     }
   }
 
