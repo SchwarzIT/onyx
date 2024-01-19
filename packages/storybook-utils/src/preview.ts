@@ -12,13 +12,13 @@ const themes = {
 } as const;
 
 /**
- * Creates a default Storybook preview configuration for 'Onyx' with the following features:
+ * Creates a default Storybook preview configuration for 'onyx' with the following features:
  * - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
  * - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file
- * - Custom Storybook theme using Onyx colors (light and dark mode)
+ * - Custom Storybook theme using onyx colors (light and dark mode)
  * - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`)
- * - Configure viewports / breakpoints as defined by Onyx
+ * - Configure viewports / breakpoints as defined by onyx
  *
  * @param overrides Custom preview / overrides, will be deep merged with the default preview.
  *

@@ -1,8 +1,8 @@
 # Typography
 
-The Onyx design system relies on a default (sans-serif) and a monospace font family.
+The onyx design system relies on a default (sans-serif) and a monospace font family.
 
-Onyx is intended to be used with the following font families which are open-source
+onyx is intended to be used with the following font families which are open-source
 and free to use under the [SIL Open Font License](https://en.wikipedia.org/wiki/SIL_Open_Font_License):
 
 - Default: [Source Sans 3](https://fontsource.org/fonts/source-sans-3)
