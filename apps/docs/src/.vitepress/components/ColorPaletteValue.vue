@@ -51,9 +51,7 @@ const emit = defineEmits<{
 
   @include mixins.breakpoint(s) {
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
-    gap: var(--onyx-spacing-sm);
   }
 
   &:first-child {
@@ -126,7 +124,7 @@ const emit = defineEmits<{
     padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
 
     @include mixins.breakpoint(s) {
-      width: 6rem;
+      width: 6.5rem;
     }
   }
 }
