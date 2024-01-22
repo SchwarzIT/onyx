@@ -17,7 +17,7 @@
     }
   },
   "scripts": {
-    "build": "tsc --noEmit",
+    "build": "vue-tsc --build --force",
     "test:components": "playwright install && playwright test"
   },
   "peerDependencies": {
