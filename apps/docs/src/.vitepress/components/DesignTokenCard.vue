@@ -30,6 +30,8 @@ const handleCopy = async () => {
 </template>
 
 <style lang="scss" scoped>
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
 .card {
   border-radius: var(--onyx-radius-md);
   border: 1px solid var(--onyx-color-base-border-default);
@@ -37,16 +39,25 @@ const handleCopy = async () => {
   display: flex;
   align-items: center;
 
-  &__container {
-    padding: var(--onyx-spacing-sm) var(--onyx-spacing-xl);
+  @include mixins.breakpoint(s) {
+    padding: var(--onyx-spacing-sm);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--onyx-spacing-sm);
+  }
 
-    &--left {
-      border-right: 1px solid var(--onyx-color-base-border-default);
-      width: 75%;
-    }
+  @include mixins.breakpoint(s, min) {
+    &__container {
+      padding: var(--onyx-spacing-sm) var(--onyx-spacing-xl);
 
-    &--right {
-      width: 25%;
+      &--left {
+        border-right: 1px solid var(--onyx-color-base-border-default);
+        width: 75%;
+      }
+
+      &--right {
+        width: 25%;
+      }
     }
   }
 }
