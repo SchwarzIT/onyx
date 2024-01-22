@@ -22,13 +22,13 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="step" tabindex="0" @keyup.enter="emit('select')" @click="emit('select')">
+  <button class="step" @keyup.enter="emit('select')" @click="emit('select')">
     <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
       <span v-if="props.name" class="step__name">{{ props.name }}</span>
       <CopyIcon class="step__icon" />
     </div>
     <p class="step__description">{{ props.description }}</p>
-  </div>
+  </button>
 </template>
 
 <style lang="scss" scoped>
@@ -98,7 +98,7 @@ const emit = defineEmits<{
     width: calc(100% - 2 * var(--onyx-spacing-sm));
 
     &--with-border {
-      border-color: var(--onyx-color-base-border-default);
+      border: 1px solid var(--onyx-color-base-border-default);
     }
   }
 
