@@ -59,10 +59,14 @@ export default defineLoader({
 
     const timestamp = new Date();
 
-    const downloads = await getNpmDownloadCount(npmPackageNames);
-    const mergedPRCount = await searchGitHub("issues", "type:pr is:merged");
-    const closedIssueCount = await searchGitHub("issues", "type:issue is:closed");
-    const contributorCount = await getGitHubContributorCount();
+    // we only want to fetch the data from GitHub / npmjs API on build, not when running locally
+    // to improve the startup time and prevent rate limits
+    const isDev = process.env.NODE_ENV === "development";
+
+    const downloads = isDev ? 0 : await getNpmDownloadCount(npmPackageNames);
+    const mergedPRCount = isDev ? 0 : await searchGitHub("issues", "type:pr is:merged");
+    const closedIssueCount = isDev ? 0 : await searchGitHub("issues", "type:issue is:closed");
+    const contributorCount = isDev ? 0 : await getGitHubContributorCount();
 
     /** Checks whether the given component is implemented (meaning a Storybook file exists) */
     const isImplemented = (componentName: string) => {
