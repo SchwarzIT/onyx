@@ -4,10 +4,11 @@ import { getCssVariableValue } from "../utils-browser";
 import DesignToken from "./DesignToken.vue";
 
 const props = defineProps<{
+  /** Token name. */
   name: string;
 }>();
 
-const value = computed(() => getCssVariableValue(`--${props.name}`));
+const value = computed(() => getCssVariableValue(props.name));
 const isCopied = ref(false);
 
 const handleCopy = async () => {
