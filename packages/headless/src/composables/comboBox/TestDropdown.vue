@@ -41,12 +41,15 @@ defineExpose({ comboBox });
 </script>
 <template>
   <div>
-    <label v-bind="label">some label:</label>
-    <input
-      v-bind="input"
-      @keydown.arrow-down="isExpanded = true"
-      @keydown.esc="isExpanded = false"
-    />
+    <label v-bind="label">
+      some label:
+      <input
+        v-bind="input"
+        @keydown.arrow-down="isExpanded = true"
+        @keydown.esc="isExpanded = false"
+      />
+    </label>
+
     <button v-bind="button">
       <template v-if="isExpanded">⬆️</template>
       <template v-else>⬇️</template>
