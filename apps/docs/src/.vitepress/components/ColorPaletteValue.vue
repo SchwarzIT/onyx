@@ -45,6 +45,7 @@ const emit = defineEmits<{
 .step {
   text-align: center;
   cursor: pointer;
+  width: 100%;
 
   &:first-child {
     .step__color {

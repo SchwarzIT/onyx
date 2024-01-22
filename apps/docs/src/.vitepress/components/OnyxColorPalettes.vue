@@ -40,7 +40,8 @@ const { isDark } = useData();
 
 <style lang="scss" scoped>
 .palettes {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--onyx-spacing-lg);
 }
 

@@ -116,7 +116,7 @@ const handleCopy = async (color: string) => {
     </div>
 
     <div class="palette__content">
-      <div class="palette__steps" :class="{ 'palette__steps--4': colorSteps.length === 4 }">
+      <div class="palette__steps">
         <ColorPaletteValue
           v-for="step in colorSteps"
           :key="step.description"
@@ -140,12 +140,7 @@ const handleCopy = async (color: string) => {
   }
 
   &__steps {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-
-    &--4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
+    display: flex;
   }
 
   &__copied {
