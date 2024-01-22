@@ -23,7 +23,6 @@ const props = defineProps<ComponentCardProps>();
 
 <style lang="scss" scoped>
 .card {
-  display: block;
   border: 1px solid var(--vp-c-default-soft);
   border-radius: 0.75rem;
   height: 100%;

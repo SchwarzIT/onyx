@@ -38,15 +38,13 @@ const sortedComponents = computed(() => {
 </script>
 
 <template>
-  <div class="content">
-    <div class="description">
+  <div class="tier">
+    <div class="tier__description">
       <p>{{ props.description }}</p>
-      <p class="description__date">
-        Estimated due date: {{ formattedDueDate ?? "Not planned yet" }}
-      </p>
+      <p class="tier__date">Estimated due date: {{ formattedDueDate ?? "Not planned yet" }}</p>
     </div>
 
-    <div class="grid">
+    <div class="tier__content">
       <ComponentCard
         v-for="component in sortedComponents"
         :key="component.name"
@@ -57,22 +55,22 @@ const sortedComponents = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.content {
-  padding: 1rem 2rem 2rem;
-}
+.tier {
+  padding: 0.5rem 2rem 2rem;
 
-.description {
-  color: var(--vp-c-text-2);
-  margin-bottom: 2rem;
+  &__description {
+    color: var(--vp-c-text-2);
+    margin-bottom: 1.5rem;
+  }
 
   &__date {
     margin-top: 0.5rem;
   }
-}
 
-.grid {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  &__content {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
 }
 </style>
