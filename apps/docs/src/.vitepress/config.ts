@@ -38,6 +38,7 @@ export default defineConfig({
           { text: "i18n", link: "/i18n/" },
           { text: "Typography", link: "/typography" },
           { text: "Borders", link: "/borders" },
+          { text: "Spacings", link: "/spacings" },
           { text: "The Team", link: "/team" },
         ],
       },
