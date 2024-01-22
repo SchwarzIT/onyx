@@ -45,7 +45,6 @@ features:
 <script lang="ts" setup>
 import { VPHomeSponsors } from "vitepress/theme";
 
-
 const sponsors = [
   {
     tier: "Special Partners",
