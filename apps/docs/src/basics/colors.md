@@ -34,6 +34,18 @@ Themed colors reflect the brand's identity, adapting their main colors. While pr
 
 Primary colors highlight call-to-action elements and direct the focus of the user to the most important interactions. Brand-neutrals are used in the background and secondary actions, providing a subtle backdrop that allows primary colors to shine.
 
+::: details Page background
+The background color of the whole page is always set to `color-tinted`, which referrs to the brand-neutral palette, to be a very subtle color for having contrast to white.
+:::
+
+::: details Component background
+The default background color of components is always `color-blank` to be white is light mode und very dark in dark mode.
+:::
+
+::: details Call-to-actions
+Call-to-actions are always used with the `brand-primary-500` value.
+:::
+
 ## Roles of universal colors
 
 Universal colors serve a specific role independent from the chosen theme. This is the hierarchical logic behind it:
@@ -66,7 +78,7 @@ The info color is for sharing non-emotional information and is the least importa
 
 Quantitative colors help make infographics look good. They're used to distinguish between different parts in graphs, charts, or other visuals, making it easier to understand quantitative information.
 
-## Usage ratio
+## Ratio
 
 The recommendation for working with colors is described with the 60-30-10 guideline, aiming to achieve a harmonious visual composition. The principle suggests allocating 60% of the interface being blank, serving as a cohesive backdrop.
 
@@ -75,3 +87,17 @@ The 30% functions as a supportive element, complementing the blank hue, with the
 The remaining 10% is dedicated to an accent color, strategically applied to highlight the key elements and call-to-actions. This in fact, is always the brand-primary in the onyx design system.
 
 ## Contrast
+
+To ensure a good contrast, orient yourself on the following principles.
+
+::: details Balance brightness
+Esure a clear distinction between foreground and background colors by balancing their brightness. A well considered contrast through brightness enhances legibility and visual harmony.
+:::
+
+::: details Text color ratio
+Adhere to the onyx [accessibility standards](/basics/accessibility), aiming for sufficient contrast ratios between text and background colors. This ensures readability for users with different visual abilities.
+:::
+
+::: details Hierarchy through intensity
+Establish hierarchy by varying color intensity, using the color shade palette.
+:::
