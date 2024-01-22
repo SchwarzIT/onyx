@@ -2,7 +2,7 @@
 export type ComponentCardProps = {
   /** Component name. */
   name: string;
-  /** If true an "Implemented" badge will be shown, "Coming Soon" otherwise. */
+  /** If true an "Implemented" badge will be shown, "Planned" otherwise. */
   implemented?: boolean;
 };
 
@@ -17,7 +17,7 @@ const props = defineProps<ComponentCardProps>();
         class="card__badge card__badge--implemented"
         text="Implemented"
       />
-      <Badge v-else class="card__badge" text="Coming Soon" type="info" />
+      <Badge v-else class="card__badge" text="Planned" type="info" />
       <h4 class="card__title">{{ props.name }}</h4>
     </article>
   </div>
