@@ -125,7 +125,14 @@ const handleCopy = async (color: string) => {
         />
       </div>
 
-      <DesignToken class="palette__copied" v-if="copiedColor" :name="copiedColor" is-copied />
+      <DesignToken
+        class="palette__copied"
+        v-if="copiedColor"
+        :name="copiedColor"
+        :value="`var(--${copiedColor})`"
+        type="color"
+        is-copied
+      />
     </div>
   </section>
 </template>
