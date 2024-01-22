@@ -92,7 +92,7 @@ const handleCopy = async (color: string) => {
   // if multiple colors are copied quickly after each other, we need to
   // clear the previous timeout so we prevent race-conditions
   clearTimeout(copyTimeout);
-  copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000000);
+  copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000);
 };
 </script>
 
