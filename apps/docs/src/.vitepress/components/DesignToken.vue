@@ -87,6 +87,7 @@ const cssVariable = computed(() => `var(--${props.name})`);
     align-items: center;
     gap: var(--onyx-spacing-lg);
     outline-color: var(--onyx-color-base-action-300);
+    background-color: var(--onyx-color-base-background-blank);
   }
 
   &__value {
