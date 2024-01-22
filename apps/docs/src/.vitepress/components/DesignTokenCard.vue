@@ -21,7 +21,9 @@ const handleCopy = async () => {
 <template>
   <div class="card">
     <div class="card__container card__container--left">
-      <DesignToken :name="props.name" :value="value" :is-copied="isCopied" @copy="handleCopy" />
+      <ClientOnly>
+        <DesignToken :name="props.name" :value="value" :is-copied="isCopied" @copy="handleCopy" />
+      </ClientOnly>
     </div>
 
     <div class="card__container card__container--right">
