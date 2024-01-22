@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import CopyIcon from "./icons/CopyIcon.vue";
+
 export type ColorPaletteValueProps = {
   /** Text to show below the value. */
   description: number | string;
@@ -23,19 +25,7 @@ const emit = defineEmits<{
   <div class="step" tabindex="0" @keyup.enter="emit('select')" @click="emit('select')">
     <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
       <span v-if="props.name" class="step__name">{{ props.name }}</span>
-      <svg
-        class="step__icon"
-        width="24"
-        height="25"
-        viewBox="0 0 25 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M15.2777 6V1.5H3.27771V18H9.27771V22.5H21.2777V6H15.2777ZM4.77771 16.5V3H13.7777V6H9.27771V16.5H4.77771ZM19.7777 21H10.7777V7.5H19.7777V21Z"
-          fill="currentColor"
-        />
-      </svg>
+      <CopyIcon class="step__icon" />
     </div>
     <p class="step__description">{{ props.description }}</p>
   </div>
