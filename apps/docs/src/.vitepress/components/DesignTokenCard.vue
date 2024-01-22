@@ -35,7 +35,6 @@ const handleCopy = async () => {
   border: 1px solid var(--onyx-color-base-border-default);
   background: var(--onyx-color-base-background-blank);
   display: flex;
-  // justify-content: space-between;
   align-items: center;
 
   &__container {
