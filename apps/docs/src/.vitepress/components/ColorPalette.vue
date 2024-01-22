@@ -92,7 +92,7 @@ const handleCopy = async (color: string) => {
   // if multiple colors are copied quickly after each other, we need to
   // clear the previous timeout so we prevent race-conditions
   clearTimeout(copyTimeout);
-  copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000);
+  copyTimeout = setTimeout(() => (copiedColor.value = ""), 3000000);
 };
 </script>
 
@@ -131,16 +131,26 @@ const handleCopy = async (color: string) => {
 </template>
 
 <style lang="scss" scoped>
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
 .palette {
   &__content {
     padding: var(--onyx-spacing-lg);
     border-radius: var(--onyx-radius-md);
     border: 1px solid var(--onyx-color-base-border-default);
     background: var(--onyx-color-base-background-blank);
+
+    @include mixins.breakpoint(s) {
+      padding: var(--onyx-spacing-sm);
+    }
   }
 
   &__steps {
     display: flex;
+
+    @include mixins.breakpoint(s) {
+      display: block;
+    }
   }
 
   &__copied {

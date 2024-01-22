@@ -32,7 +32,9 @@ const cssVariable = computed(() => `var(--${props.name})`);
 
     &::after {
       content: "";
+      display: inline-block;
       width: 1.25rem;
+      min-width: 1.25rem;
       height: 1.25rem;
       background-color: v-bind("cssVariable");
       border-radius: var(--onyx-radius-sm);
@@ -48,6 +50,7 @@ const cssVariable = computed(() => `var(--${props.name})`);
     &::after {
       content: "copied ✓";
       display: inline-flex;
+      text-align: center;
       color: var(--onyx-color-text-success-intense);
       font-size: 0.8125rem;
     }
