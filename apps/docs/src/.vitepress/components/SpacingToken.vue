@@ -11,9 +11,9 @@ const cssVariable = computed(() => `var(--${props.name})`);
 
 <template>
   <DesignTokenCard :name="props.name">
-    <div class="spacing">
-      <div class="spacing__area" :style="{ height: cssVariable }"></div>
-    </div>
+    <figure class="spacing">
+      <figure class="spacing__area" :style="{ height: cssVariable }"></figure>
+    </figure>
   </DesignTokenCard>
 </template>
 

@@ -12,11 +12,11 @@ const cssVariable = computed(() => `var(--${props.name})`);
 
 <template>
   <DesignTokenCard :name="props.name">
-    <div
+    <figure
       class="radius"
       :class="{ 'radius--large': props.large }"
       :style="{ borderTopRightRadius: cssVariable, borderBottomRightRadius: cssVariable }"
-    ></div>
+    ></figure>
   </DesignTokenCard>
 </template>
 
