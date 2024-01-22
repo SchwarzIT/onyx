@@ -33,7 +33,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-playwright": "~0.22.1",
     "eslint-plugin-vue": "^9.20.1",
-    "jsdom": "^23.2.0",
+    "jsdom": "^24.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.4",
     "publint": "^0.2.7",
