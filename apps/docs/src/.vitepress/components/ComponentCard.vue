@@ -10,40 +10,31 @@ const props = defineProps<ComponentCardProps>();
 </script>
 
 <template>
-  <div class="card">
-    <article class="card__content">
-      <Badge
-        v-if="props.implemented"
-        class="card__badge card__badge--implemented"
-        text="Implemented"
-      />
-      <Badge v-else class="card__badge" text="Planned" type="info" />
-      <h4 class="card__title">{{ props.name }}</h4>
-    </article>
-  </div>
+  <article class="card">
+    <Badge
+      v-if="props.implemented"
+      class="card__badge card__badge--implemented"
+      text="Implemented"
+    />
+    <Badge v-else class="card__badge" text="Planned" type="info" />
+    <h4 class="card__title">{{ props.name }}</h4>
+  </article>
 </template>
 
 <style lang="scss" scoped>
 .card {
   display: block;
   border: 1px solid var(--vp-c-default-soft);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   height: 100%;
   background-color: var(--vp-c-bg);
+  padding: 1.5rem;
   transition:
     border-color 0.25s,
     background-color 0.25s;
 
-  &__content {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    height: 100%;
-  }
-
   &__title {
     font-size: 1.5rem;
-    line-height: 1.5rem;
     font-weight: 700;
   }
 
