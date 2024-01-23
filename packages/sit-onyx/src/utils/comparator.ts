@@ -5,9 +5,16 @@ type FlatObject = Record<string, string | boolean | number | null | undefined>;
  * @returns whether all values match, ignoring in which order they appear
  */
 export const areObjectsFlatEqual = (obj1: FlatObject, obj2: FlatObject): boolean => {
-  if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
-  const notEqualItems = Object.entries(obj1).filter(([name, value]) => {
-    return value !== obj2[name];
-  });
-  return notEqualItems.length === 0;
+  const noUndefinedEntries1 = Object.entries(obj1).filter(([_, value]) => value !== undefined);
+  const noUndefinedEntries2 = Object.entries(obj2).filter(([_, value]) => value !== undefined);
+
+  // { } and { a: undefined } are equal, so we ignored all undefined properties to get a more reliable comparison
+  if (noUndefinedEntries1.length !== noUndefinedEntries2.length) return false;
+
+  return (
+    -1 ===
+    noUndefinedEntries1.findIndex(([name, value]) => {
+      return value !== obj2[name];
+    })
+  );
 };
