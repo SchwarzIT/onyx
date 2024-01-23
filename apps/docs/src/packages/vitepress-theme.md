@@ -62,3 +62,49 @@ export default OnyxTheme;
 ```
 
 :::
+
+## Utilities
+
+This package also includes some VitePress utilities that you can use on-demand.
+
+### Breakpoint SCSS mixin
+
+Applies CSS only to the given VitePress breakpoint.
+
+::: details Available VitePress breakpoints
+
+| Breakpoint name | Value    |
+| --------------- | -------- |
+| xs              | `375px`  |
+| s               | `640px`  |
+| m               | `768px`  |
+| l               | `960px`  |
+| xl              | `1280px` |
+| xxl             | `1440px` |
+
+:::
+
+```scss
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
+.some-class {
+  @include mixins.breakpoint(max, m) {
+    // your styles for m breakpoint and smaller
+  }
+
+  @include mixins.breakpoint(min, m) {
+    // your styles for m breakpoint and larger
+  }
+
+  // the breakpoint is inclusive so if you e.g. want to use
+  // min and max for the same breakpoint you should
+  // define an offset for either min or max
+  @include mixins.breakpoint(max, xl) {
+    // your styles for smaller and equal xl breakpoint
+  }
+
+  @include mixins.breakpoint(min, xl, 1) {
+    // your styles for greater than xl breakpoint (exclusive)
+  }
+}
+```
