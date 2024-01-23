@@ -56,6 +56,7 @@
  * Applies CSS only to the given VitePress breakpoint.
  * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
  * @param {string} $name - name of the VitePress breakpoint. One of: xs, s, m, l, xl or xxl
+ * @param {number} $offset - optional offset to add to the min/max width. Useful if both min and max are used for the same breakpoint
  *
  * @example breakpoint(min, m)
  * @example breakpoint(max, m)
