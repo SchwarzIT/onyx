@@ -36,54 +36,14 @@ test("should return true for equal objects ignoring undefined keys", () => {
   expect(result).toBeTruthy();
 });
 
-test("should return false for objects with different properties", () => {
+test.each([
   // ARRANGE
-  const compareObj = { foo: 42 };
-
-  // ACT
-  const result = areObjectsFlatEqual(referenceObj, compareObj);
-
-  // ASSERT
-  expect(result).toBeFalsy();
-});
-
-test("should return false for objects with different number values", () => {
-  // ARRANGE
-  const compareObj = { ...referenceObj, a: 0 };
-
-  // ACT
-  const result = areObjectsFlatEqual(referenceObj, compareObj);
-
-  // ASSERT
-  expect(result).toBeFalsy();
-});
-
-test("should return false for objects with different string values", () => {
-  // ARRANGE
-  const compareObj = { ...referenceObj, b: "bar" };
-
-  // ACT
-  const result = areObjectsFlatEqual(referenceObj, compareObj);
-
-  // ASSERT
-  expect(result).toBeFalsy();
-});
-
-test("should return false for objects with different nullish values", () => {
-  // ARRANGE
-  const compareObj = { ...referenceObj, c: undefined };
-
-  // ACT
-  const result = areObjectsFlatEqual(referenceObj, compareObj);
-
-  // ASSERT
-  expect(result).toBeFalsy();
-});
-
-test("should return false for objects with different boolean values", () => {
-  // ARRANGE
-  const compareObj = { ...referenceObj, d: false };
-
+  { label: "the existing properties", compareObj: { foo: 42 } },
+  { label: "the value of a number property", compareObj: { ...referenceObj, a: 0 } },
+  { label: "the value of a string property", compareObj: { ...referenceObj, b: "bar" } },
+  { label: "the value of a nullish property", compareObj: { ...referenceObj, c: undefined } },
+  { label: "the value of a boolean property", compareObj: { ...referenceObj, d: false } },
+])("should return false when objects differentiate by $label", ({ compareObj }) => {
   // ACT
   const result = areObjectsFlatEqual(referenceObj, compareObj);
 
