@@ -43,7 +43,7 @@ export default defineConfig({
           text: "Foundations",
           collapsed: false,
           base: "/basics",
-          items: [{ text: "Introduction", link: "/" }].sort((a, b) => a.text.localeCompare(b.text)),
+          items: [{ text: "Introduction", link: "/" }],
         },
         {
           text: "Patterns",
@@ -75,7 +75,7 @@ export default defineConfig({
           items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
         },
         {
-          text: "Other Onyx npm packages",
+          text: "Other onyx npm packages",
           base: "/development/packages",
           collapsed: false,
           items: [
