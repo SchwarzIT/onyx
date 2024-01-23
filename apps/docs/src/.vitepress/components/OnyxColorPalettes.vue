@@ -31,9 +31,9 @@ const { isDark } = useData();
     <ColorPalette name="action" />
     <ColorPalette name="brand" />
     <ColorPalette name="neutral" />
-    <ColorPalette name="success" />
-    <ColorPalette name="warning" />
     <ColorPalette name="danger" />
+    <ColorPalette name="warning" />
+    <ColorPalette name="success" />
     <ColorPalette name="info" />
   </div>
 </template>
