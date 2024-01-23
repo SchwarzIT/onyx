@@ -174,19 +174,7 @@ const searchGitHub = async (
   const queryString = encodeURIComponent(`repo:SchwarzIT/onyx ${filterString}`);
 
   // since we only need the total_count, we can decrease the per_page to 1 to improve request speeds
-  const response = await fetch(
-    `https://api.github.com/search/${endpoint}?q=${queryString}&per_page=1`,
-    {
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    },
-  );
-  const body = await response.json();
-
-  if (response.status < 200 || response.status >= 300) {
-    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
-  }
+  const body = await executeGitHubRequest(`search/${endpoint}?q=${queryString}&per_page=1`);
 
   if (typeof body !== "object" || typeof body.total_count !== "number") {
     throw new Error(
@@ -203,16 +191,7 @@ const searchGitHub = async (
  * @see: https://docs.github.com/en/rest/metrics/statistics?apiVersion=2022-11-28#get-all-contributor-commit-activity
  */
 const getGitHubContributorCount = async (): Promise<number> => {
-  const response = await fetch("https://api.github.com/repos/SchwarzIT/onyx/stats/contributors", {
-    headers: {
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-  });
-  const body = await response.json();
-
-  if (response.status < 200 || response.status >= 300) {
-    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
-  }
+  const body = await executeGitHubRequest("repos/SchwarzIT/onyx/stats/contributors");
 
   if (!Array.isArray(body)) {
     throw new Error(
@@ -251,4 +230,31 @@ const getNpmDownloadCount = async (packages: string[]): Promise<number> => {
 
   const downloads = await Promise.all(promises);
   return downloads.reduce((total, downloads) => total + downloads, 0);
+};
+
+/**
+ * Executes a GET request to the given GitHub API route.
+ *
+ * @param apiRoute API route without "https://api.github.com/". Must not start with a trailing slash.
+ * @throws Error if API request was not successful
+ * @returns JSON response body.
+ */
+const executeGitHubRequest = async (apiRoute: string) => {
+  // GitHub token can be used to have a higher rate limit (useful if used in CI)
+  // see: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#about-primary-rate-limits
+  const accessToken = process.env.VITEPRESS_GITHUB_ACCESS_TOKEN;
+
+  const response = await fetch(`https://api.github.com/${apiRoute}`, {
+    headers: {
+      "X-GitHub-Api-Version": "2022-11-28",
+      Authorization: accessToken ? `Bearer ${accessToken}` : "",
+    },
+  });
+  const body = await response.json();
+
+  if (response.status < 200 || response.status >= 300) {
+    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
+  }
+
+  return body;
 };
