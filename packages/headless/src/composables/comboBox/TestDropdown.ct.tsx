@@ -23,7 +23,7 @@ test("combobox", async ({ mount, page }) => {
 /**
  * Test an implementation of the combobox based on https://w3c.github.io/aria/#combobox
  */
-const comboboxTesting = async (
+export const comboboxTesting = async (
   page: Page,
   listbox: Locator,
   combobox: Locator,
