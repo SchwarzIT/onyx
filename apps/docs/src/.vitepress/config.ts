@@ -27,7 +27,7 @@ export default defineConfig({
       { text: "Brand", link: "/brand/team" },
       { text: "Basics", link: "/basics/" },
       { text: "Tokens", link: "/tokens/" },
-      { text: "Components", link: "/components/getting-started" },
+      { text: "Development", link: "/development/getting-started" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -57,11 +57,11 @@ export default defineConfig({
           items: [{ text: "Introduction", link: "/tokens/" }],
         },
       ],
-      "/components": [
+      "/development": [
         {
           text: "Introduction",
           collapsed: false,
-          base: "/components",
+          base: "/development",
           items: [
             { text: "Getting Started", link: "/getting-started" },
             { text: "i18n", link: "/i18n" },
@@ -70,13 +70,13 @@ export default defineConfig({
         },
         {
           text: "Components",
-          base: "/components",
+          base: "/development",
           collapsed: false,
           items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
         },
         {
           text: "Other Onyx npm packages",
-          base: "/components/packages",
+          base: "/development/packages",
           collapsed: false,
           items: [
             { text: "Figma utilities", link: "/figma-utils" },
