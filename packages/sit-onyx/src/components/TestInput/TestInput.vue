@@ -170,6 +170,7 @@ watch(
   width: max-content;
   display: inline-block;
   font-family: var(--onyx-font-family);
+  color: var(--onyx-color-text-neutral-intense);
 
   &__label {
     margin-right: 8px;
