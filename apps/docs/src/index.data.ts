@@ -33,7 +33,7 @@ declare const data: HomePageData;
 export { data };
 
 /**
- * Build-Time data loader to get a list of available languages
+ * Build-Time data loader to get the home page data
  * @see https://vitepress.dev/guide/data-loading
  */
 export default defineLoader({
@@ -41,9 +41,9 @@ export default defineLoader({
   async load(watchedFiles): Promise<HomePageData> {
     const variantCount = watchedFiles.reduce((total, file) => {
       const fileContent = fs.readFileSync(file, "utf-8");
-      // stories are defined with e.g. "export const Primary =" so we can
-      // check the occurrences of "export const" to get the number of available stories
-      return total + countWord(fileContent, "export const");
+      // stories are defined using "satisfies Story;" so we can count
+      // the occurrences to get the number of stories/variants
+      return total + countWord(fileContent, "satisfies Story;");
     }, 0);
 
     // get available onyx npm packages
@@ -201,7 +201,6 @@ const searchGitHub = async (
  * @see: https://docs.github.com/en/rest/metrics/statistics?apiVersion=2022-11-28#get-all-contributor-commit-activity
  */
 const getGitHubContributorCount = async (): Promise<number> => {
-  // since we only need the total_count, we can decrease the per_page to 1 to improve request speeds
   const response = await fetch("https://api.github.com/repos/SchwarzIT/onyx/stats/contributors", {
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
