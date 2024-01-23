@@ -1,0 +1,95 @@
+<script lang="ts" setup>
+import ColorStrip from "./ColorStrip.vue";
+
+const primaryColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-action-${(index + 1) * 100})`;
+});
+
+const secondaryColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-brand-${(index + 1) * 100})`;
+});
+
+const neutralColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-neutral-${(index + 1) * 100})`;
+});
+
+const warningColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-warning-${(index + 1) * 100})`;
+});
+
+const dangerColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-danger-${(index + 1) * 100})`;
+});
+
+const successColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-success-${(index + 1) * 100})`;
+});
+
+const infoColors = Array.from({ length: 9 }, (_, index) => {
+  return `var(--onyx-color-base-info-${(index + 1) * 100})`;
+});
+</script>
+
+<template>
+  <div class="theme">
+    <div class="theme__container">
+      <h3 class="theme__headline">Themed color palette</h3>
+
+      <div class="theme__colors theme__colors--themed">
+        <ColorStrip name="primary" :colors="primaryColors" />
+        <ColorStrip name="secondary" :colors="secondaryColors" />
+        <ColorStrip name="neutral" :colors="neutralColors" />
+      </div>
+    </div>
+
+    <div class="theme__container">
+      <h3 class="theme__headline">Universal color palette</h3>
+
+      <div class="theme__colors theme__colors--universal">
+        <ColorStrip name="danger" :colors="dangerColors" />
+        <ColorStrip name="warning" :colors="warningColors" />
+        <ColorStrip name="success" :colors="successColors" />
+        <ColorStrip name="info" :colors="infoColors" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.theme {
+  border-radius: var(--onyx-radius-md);
+  border: 1px solid var(--onyx-color-base-border-default);
+  background: var(--onyx-color-base-background-blank);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &__container {
+    padding: var(--onyx-spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-sm);
+
+    &:last-child {
+      border-left: 1px solid var(--onyx-color-base-border-default);
+    }
+  }
+
+  &__headline {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__colors {
+    display: grid;
+    gap: var(--onyx-spacing-sm);
+
+    &--themed {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    &--universal {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}
+</style>
