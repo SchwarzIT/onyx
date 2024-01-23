@@ -11,10 +11,13 @@
   "exports": {
     ".": {
       "default": "./src/index.ts"
+    },
+    "./playwright": {
+      "default": "./src/playwright.ts"
     }
   },
   "scripts": {
-    "build": "tsc --noEmit",
+    "build": "vue-tsc --build --force",
     "test:components": "playwright install && playwright test"
   },
   "peerDependencies": {
