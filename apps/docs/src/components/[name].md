@@ -4,9 +4,9 @@ layout: page
 
 <script lang="ts" setup>
 import { useData } from "vitepress";
-import StorybookDocs from "./StorybookDocs.vue";
+import StorybookIFrame from "../.vitepress/components/StorybookIFrame.vue";
 
 const { params } = useData();
 </script>
 
-<StorybookDocs :component="params.name" />
+<StorybookIFrame :component="params.name" />

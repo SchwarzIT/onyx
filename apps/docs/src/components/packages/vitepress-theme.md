@@ -3,7 +3,7 @@ outline: [2, 3]
 ---
 
 <script lang="ts" setup>
-import packageJson from "../../../../packages/vitepress-theme/package.json";
+import packageJson from "../../../../../packages/vitepress-theme/package.json";
 </script>
 
 # @sit-onyx/vitepress-theme
@@ -26,7 +26,7 @@ The theme includes the following features:
 
 - light and dark theme that matches the onyx design
 - colored name and gradient logo background on the [home page](/)
-- Font families matching the [onyx typography system](/typography)
+- Font families matching the [onyx typography system](/components/typography)
 
 ## Installation
 
