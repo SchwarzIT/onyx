@@ -42,14 +42,14 @@ const handleCopy = async () => {
   display: flex;
   align-items: center;
 
-  @include mixins.breakpoint(s) {
+  @include mixins.breakpoint(max, s, -1) {
     padding: var(--onyx-spacing-sm);
     flex-direction: column;
     align-items: flex-start;
     gap: var(--onyx-spacing-sm);
   }
 
-  @include mixins.breakpoint(s, min) {
+  @include mixins.breakpoint(min, s) {
     &__container {
       padding: var(--onyx-spacing-sm) var(--onyx-spacing-xl);
 
