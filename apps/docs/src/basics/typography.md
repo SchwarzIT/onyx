@@ -4,7 +4,7 @@
 Still content to create!
 :::
 
-The onyx font system includes three different font families that can be used througout your application, pending on the usecase. It contains several headline styles as well as paragraph styles and mono space styles.
+The onyx font system includes three different font families that can be used throughout your application, pending on the usecase. It contains several headline styles as well as paragraph styles and mono space styles.
 
 ::: info
 The font families that can be used with onyx are:
@@ -24,7 +24,7 @@ In case you are working on a Kaufland application or Lidl application, you are f
 ::: warning Attention
 Please note that only the `Kaufland Regular` may be implemented in the Kaufland theme and only the `Lidl Font Pro` in the Lidl theme!
 
-For all the other color themes, `Source Sans` remains the font of choise!
+For all the other color themes, `Source Sans` remains the font of choice!
 :::
 
 ### How to import
@@ -122,7 +122,7 @@ Used for bold labels and table column headers.
 :::
 
 ::: tip
-H5 and h6 are not part of the onyx font system and should not be used therefore. Althoug they are defined in the code the same way like h4.
+H5 and h6 are not part of the onyx font system and should not be used therefore. Although they are defined in the code the same way like h4.
 :::
 
 ### Paragraph
@@ -299,7 +299,7 @@ It is important to keep the usage of font styles consistent throughout the whole
 
 ## Line length
 
-To create a flowing readability the line leght is key. There are no struct rules on the usage, due to the dependency of [screensize, breakpoint and column grid](/basics/breakpoints_grid). Nevertheless onyx got some guidelines and recommendations for your implementation.
+To create a flowing readability the line length is key. There are no struct rules on the usage, due to the dependency of [screensize, breakpoint and column grid](/basics/breakpoints_grid). Nevertheless onyx got some guidelines and recommendations for your implementation.
 
 ![image](/assets/line_length.png)
 
@@ -343,7 +343,7 @@ Texts never are built with uppercases. Always use the provided line hight for sp
 
 ## Links
 
-Links are the tool of choise to referr to another or external page. Please use the `link` font style. By default links have a underline and are primary-colored. Under consideration of the text styling principles the text-color can be changed in exceptional usecases. Please doublecheck with your assigned UX-Designer.
+Links are the tool of choice to refer to another or external page. Please use the `link` font style. By default links have a underline and are primary-colored. Under consideration of the text styling principles the text-color can be changed in exceptional usecases. Please doublecheck with your assigned UX-Designer.
 
 ## Truncation
 

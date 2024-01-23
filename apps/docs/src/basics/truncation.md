@@ -16,13 +16,13 @@ Truncation is essential when there is limited space, such as cards or narrow col
 
 ![image](/assets/truncation.png)
 
-Truncation is effective in preventing clutter, especially when dealing with long titles, headlines or labels. When using truncation, please ensure that the element is still redable and understandable. If not, please have a look at the [abbreviations section](#abbreviations).
+Truncation is effective in preventing clutter, especially when dealing with long titles, headlines or labels. When using truncation, please ensure that the element is still readable and understandable. If not, please have a look at the [abbreviations section](#abbreviations).
 
 In responsive usecases, truncation can be employed to adopt content to varying screen sizes.
 
 ## Abbreviations
 
-Abbreviations can be powerful tools in designing and building an interface for coveying information succinctly. However, their effective use requires careful consideration to ensure clarity and a positive user experience. Here are some key points to focus on:
+Abbreviations can be powerful tools in designing and building an interface for conveying information succinctly. However, their effective use requires careful consideration to ensure clarity and a positive user experience. Here are some key points to focus on:
 
 ::: details Clarity is key
 Prioritize clarity over brevity. Users should easily understand abbreviations without confusion. Use widely recognized abbreviations or provide clear explanations.
@@ -33,7 +33,7 @@ Maintain consistency in how abbreviations are used throughout the whole applicat
 :::
 
 ::: details Avoid overuse
-Avoid densley clustering abbreviations in a single space. Overuse can overwhelm users visually. Prioritize for the most important and common abbreviations.
+Avoid densely clustering abbreviations in a single space. Overuse can overwhelm users visually. Prioritize for the most important and common abbreviations.
 :::
 
 ::: details Tooltips

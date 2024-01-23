@@ -1,10 +1,10 @@
 # Accessibility
 
-Web accessibility guidelines and laws are cruical to ensuring that the digital content is inclusive and accessible to individuals with disabilities.
+Web accessibility guidelines and laws are crucial to ensuring that the digital content is inclusive and accessible to individuals with disabilities.
 
 ## WCAG
 
-[The Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html#introduction-fourprincs-head) developed by the Web Accessibiliy Initiative (WAI), are a set of guidelines that purpose is to provide a comprehensive intentionally recognized framework for making web content more accessible.
+[The Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html#introduction-fourprincs-head) developed by the Web Accessibility Initiative (WAI), are a set of guidelines that purpose is to provide a comprehensive intentionally recognized framework for making web content more accessible.
 
 ::: info
 The accessibility is graded into three levels:
@@ -23,7 +23,7 @@ To make sure products are accessible to everyone, follow the four principles of 
 
 ## Assistive technology
 
-Assistive technology enhances the functional abilities of individuals with disabilities, promoting increased independance. Supporting devices such as keyboards and screen readers, people can engage with technology.
+Assistive technology enhances the functional abilities of individuals with disabilities, promoting increased independence. Supporting devices such as keyboards and screen readers, people can engage with technology.
 
 ### Keyboard support
 
@@ -31,11 +31,11 @@ Assistive technology enhances the functional abilities of individuals with disab
 Content to be produced!
 :::
 
-UI components from the onyx design system are fully supported with keyboard controlling. This not just alignes to the WCAG but also allows the user to navigate alternatively to the cursor and enhances efficiency for power users.
+UI components from the onyx design system are fully supported with keyboard controlling. This not just aligns to the WCAG but also allows the user to navigate alternatively to the cursor and enhances efficiency for power users.
 
 ### Screen readers
 
-A screen reader is a software (mostly integrated in your browser natively) that either uses braille display or reads text aloud. In common, the programm identifies and localizes **visible and hidden** content, including paragraphs, buttons and alternative texts, what leads to a sensitive handling with the content and the components.
+A screen reader is a software (mostly integrated in your browser natively) that either uses braille display or reads text aloud. In common, the program identifies and localizes **visible and hidden** content, including paragraphs, buttons and alternative texts, what leads to a sensitive handling with the content and the components.
 
 #### Structure & Hierarchy
 

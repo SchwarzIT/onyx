@@ -1,10 +1,10 @@
 # Colors
 
-Colors in a user interface play a cruicial role in enhancing the visual appeal and user experience. They go beyond than just aesthetics, serving as powerful tools to convey information, establish hierarchy, and evoke emotions. The usage of a well-thought-out color scheme can guide users, highlight important elements, and create a cohesive and memorable design. The coice of colors significantly influences how users perceive and interact with the interface, making it an integral aspect of effective design.
+Colors in a user interface play a crucial role in enhancing the visual appeal and user experience. They go beyond than just aesthetics, serving as powerful tools to convey information, establish hierarchy, and evoke emotions. The usage of a well-thought-out color scheme can guide users, highlight important elements, and create a cohesive and memorable design. The choice of colors significantly influences how users perceive and interact with the interface, making it an integral aspect of effective design.
 
 ## Understanding light & dark mode
 
-The onyx color scheme is tightly connecte to the design token systematic, that applies the values to the interface. Therefore, please familiarize yourself with the logic of [token levels](/tokens/introduction) used with onyx. This will be the basis of understanding how colors will be interpretated for light and dark mode.
+The onyx color scheme is tightly connect to the design token systematic, that applies the values to the interface. Therefore, please familiarize yourself with the logic of [token levels](/tokens/introduction) used with onyx. This will be the basis of understanding how colors will be interpreted for light and dark mode.
 
 ### Global color scheme
 
@@ -12,7 +12,7 @@ In order to establish a versatile foundation that offers to both light and dark 
 
 ### Semantic color scheme
 
-The color values within the global color scheme have been percisely translated into the semantic context of light and dark modes. This refinement involves condensing the scale to a series of 9 values in increments of 100, with the pivotal point of 500 serving as the default reference for both light and dark modes. Notably, the semantic color schemes for the light mode now referres to a distinct spectrum when compared to their dark mode counterparts.
+The color values within the global color scheme have been precisely translated into the semantic context of light and dark modes. This refinement involves condensing the scale to a series of 9 values in increments of 100, with the pivotal point of 500 serving as the default reference for both light and dark modes. Notably, the semantic color schemes for the light mode now referres to a distinct spectrum when compared to their dark mode counterparts.
 
 Semantic colors are defined in relation to the background, dynamically adjusting luminance to harmonize with the unique characteristics of each mode. This intentional differentiation ensures that the visual aesthetics of the interface remain optimal in both light and dark settings.
 
@@ -91,7 +91,7 @@ The remaining 10% is dedicated to an accent color, strategically applied to high
 To ensure a good contrast, orient yourself on the following principles.
 
 ::: details Balance brightness
-Esure a clear distinction between foreground and background colors by balancing their brightness. A well considered contrast through brightness enhances legibility and visual harmony.
+Ensure a clear distinction between foreground and background colors by balancing their brightness. A well considered contrast through brightness enhances legibility and visual harmony.
 :::
 
 ::: details Text color ratio

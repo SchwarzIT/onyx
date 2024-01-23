@@ -4,10 +4,10 @@ Understanding the logic, structure and usage of tokens is crucial for creating o
 
 ## What is a design token?
 
-A design token is a fundamental, reusable building block for design systems like onyx. It represents a specific aspect of a design , such as colors, typography, spacing or other visual elements, and is defined as a named value or parameter. Design tokens help maintain consistency and streamline the design and development process across various plattforms and applications.
+A design token is a fundamental, reusable building block for design systems like onyx. It represents a specific aspect of a design , such as colors, typography, spacing or other visual elements, and is defined as a named value or parameter. Design tokens help maintain consistency and streamline the design and development process across various platforms and applications.
 
 ::: tip Important
-Design tokens are variables, that are used equally in development and design to ensure the customizability under the consideration of the consitency across all onyx applications.
+Design tokens are variables, that are used equally in development and design to ensure the customizability under the consideration of the consistency across all onyx applications.
 :::
 
 ## How do they work?
@@ -28,9 +28,9 @@ Global tokens are not used within the process of designing and developing an app
 
 ### Semantic tokens
 
-This stage of tokens puts the base token collection into context. At this point, semntic tokens differentiate between loght mode and dark mode and connects a usecase or purpose to the values, that were defined in the global token collection. The naming of semantic tokens is less generic and more specific to the intended use.
+This stage of tokens puts the base token collection into context. At this point, semantic tokens differentiate between light mode and dark mode and connects a usecase or purpose to the values, that were defined in the global token collection. The naming of semantic tokens is less generic and more specific to the intended use.
 
-For example `onyx-color-surface-bg-blank` is exclusively used for a blank background color. To have a more detailled view about the color token system and how light and dark modes are implemented, please check out the [color documentation](/basics/colors).
+For example `onyx-color-surface-bg-blank` is exclusively used for a blank background color. To have a more detailed view about the color token system and how light and dark modes are implemented, please check out the [color documentation](/basics/colors).
 
 ::: warning Important
 Semantic tokens are used from both developers and designers to build applications with existing standard components. With the use of those tokens a seamless switch between light mode and dark mode is guaranteed. Otherwise ist will not work without additional effort of building.
@@ -90,6 +90,6 @@ The naming of tokens is a very complicated and individual thing. For better assi
 Design tokens of the onyx design system always begin with the prefix `onyx-` so you always can be sure to know the source of your token.
 :::
 
-Color tokens in general are a little more complicated than unit tokens because of their sepecific usage. To get more details about the color palette system and the transmission into the token system (considering light mode and dark mode) please visit the [color documentation](/basics/colors).
+Color tokens in general are a little more complicated than unit tokens because of their specific usage. To get more details about the color palette system and the transmission into the token system (considering light mode and dark mode) please visit the [color documentation](/basics/colors).
 
 ![Logo](/assets/token_naming.png)

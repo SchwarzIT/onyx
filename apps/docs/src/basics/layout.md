@@ -11,7 +11,7 @@ Using a [column grid](/basics/breakpoints_grid) for creating interfaces with ony
 :::
 
 ::: details Content related
-Whether implementing a sidebar for horizontan content structure or building a vertical only scrollable page, the layout always has to match the content - not the other way around. First think about how to structure the content and second put it in a fitting layout.
+Whether implementing a sidebar for horizontal content structure or building a vertical only scrollable page, the layout always has to match the content - not the other way around. First think about how to structure the content and second put it in a fitting layout.
 :::
 
 ## Anatomy
@@ -23,22 +23,22 @@ In a maximum expression, a typical onyx layout consists of these regions.
 ![Logo](/assets/anatomy.png)
 
 ::: details 1. Main Navigation
-Primary navigation to jump between major pages inside the application. In addition, global interactions can be placed here. This section always sticks to the top (alternatively to the left side) and is independend from scrolling.
+Primary navigation to jump between major pages inside the application. In addition, global interactions can be placed here. This section always sticks to the top (alternatively to the left side) and is independent from scrolling.
 :::
 
 ::: details 2. Side Navigation
-Secondary navigation to jump between pages that are part of the master-detail-structure. In order to be a flexible object, secondary interactions and information can also be entered here. This section always sticks to the side of the screen and is independend from scrolling.
+Secondary navigation to jump between pages that are part of the master-detail-structure. In order to be a flexible object, secondary interactions and information can also be entered here. This section always sticks to the side of the screen and is independent from scrolling.
 :::
 
 ::: details 3. Body
-The main content is displayed here. This is totally fexible in its representantion and depends on the used grid and components. This section is the main scroll container of the interface.
+The main content is displayed here. This is totally flexible in its representation and depends on the used grid and components. This section is the main scroll container of the interface.
 :::
 
 ::: details 4. Confirmation
-Global confirmations are triggered by a global section at the bottom of the screen. It is independend from scrolling and sticks to the bottom. This section can also be applied to objects.
+Global confirmations are triggered by a global section at the bottom of the screen. It is independent from scrolling and sticks to the bottom. This section can also be applied to objects.
 :::
 
-This is just an example layout for showing the posibilities of having several sections. It is important to be aligned to the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components of main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
+This is just an example layout for showing the possibilities of having several sections. It is important to be aligned to the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components of main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
 
 ## Alignment
 
@@ -48,7 +48,7 @@ Column grids for the whole page layout are always `left aligned` by default.
 
 ![Logo](/assets/layout_alignment_left.png)
 
-An `center aligned`version is possible alternatively. The choise of alignment doesn't follow strict rules. But please consider the balance of the target screensize, the target user group, the target usecase and the content you are building/designing for.
+An `center aligned`version is possible alternatively. The choice of alignment doesn't follow strict rules. But please consider the balance of the target screensize, the target user group, the target usecase and the content you are building/designing for.
 
 ![Logo](/assets/layout_alignment_center.png)
 
@@ -68,7 +68,7 @@ For structuring the content of the page, a vertical layout, that can scroll down
 
 ### Horizontal structure
 
-Another alternative the horizontal layout approach. By having two sections of content next to each other horizontally, the user got a better side by side comparision/interactivity between the conten groups. This could be a big advantage for some usecases. Nevertheless you are limited with available space due to screensize restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
+Another alternative the horizontal layout approach. By having two sections of content next to each other horizontally, the user got a better side by side comparison/interactivity between the content groups. This could be a big advantage for some usecases. Nevertheless you are limited with available space due to screensize restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
 
 ![Logo](/assets/horizontal_content_structure.png)
 
@@ -78,4 +78,4 @@ In every designated section of the layout, it is crucial to organize components 
 
 To guarantee an smooth overall appearance, it is key to keep the proportions of content section in balance.
 
-To establish a sense of structure in a layout, the initial phase involves visually grouping objects. Elements within a layout that share similarcontent or functionality can be clustered together and distinguished from other elements through the use of open space, typography and dividers for example.
+To establish a sense of structure in a layout, the initial phase involves visually grouping objects. Elements within a layout that share similar content or functionality can be clustered together and distinguished from other elements through the use of open space, typography and dividers for example.

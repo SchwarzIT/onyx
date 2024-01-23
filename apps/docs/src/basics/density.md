@@ -12,7 +12,7 @@ Striking a balance between information density and visual comfort, default compo
 
 ## Cozy
 
-Designed for users who appreciate a more spacious and visually relaxed interface, cozy density introduces plenty of whitespace between and inside elements. This level of density enhances readability and provides visually appealing experiance, suitable for users who prioritize on a more leisure interaction.
+Designed for users who appreciate a more spacious and visually relaxed interface, cozy density introduces plenty of whitespace between and inside elements. This level of density enhances readability and provides visually appealing experience, suitable for users who prioritize on a more leisure interaction.
 
 ## Properties
 

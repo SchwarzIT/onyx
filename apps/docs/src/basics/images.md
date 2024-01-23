@@ -20,7 +20,7 @@ Images need to be optimized for accessibility by including descriptive alt text.
 
 ## Sources
 
-In general you are free to use the source you want to use. But pay attention on the licencing for those images. The onyx design system is not responsible for any kind of licence violation or other legal fallacies and dissociates itself from any kind of licence violation.
+In general you are free to use the source you want to use. But pay attention on the licensing for those images. The onyx design system is not responsible for any kind of license violation or other legal fallacies and dissociates itself from any kind of license violation.
 
 To prevent any kind of legal issues, onyx recommends to use either your own copyright images or royalty free sources like:
 

@@ -5,7 +5,7 @@ Component states in UI design refer to the various conditions or interactions a 
 The onyx design system follows the web standards for component stats to provide the easiest usage and implementation.
 
 ::: tip Important
-Not every component uses every state that exists. The choise of the states are an individual thing for every single component.
+Not every component uses every state that exists. The choice of the states are an individual thing for every single component.
 :::
 
 ## Passive component states

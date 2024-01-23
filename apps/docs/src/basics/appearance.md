@@ -4,7 +4,7 @@ A unit system helps to simplify the structure of components layouts. Employing a
 
 ## 4 px system
 
-The onyx unit system is based around the value of 4, which is scaled by multification. This leads to a restricted set of values that guarantees a harmonious appearance. All of those values are described by tokens, that can be used for building the interface.
+The onyx unit system is based around the value of 4, which is scaled by multiplication. This leads to a restricted set of values that guarantees a harmonious appearance. All of those values are described by tokens, that can be used for building the interface.
 
 ::: tip REM
 Although the unit system is based on pixel values, rem is used in development.
@@ -16,7 +16,7 @@ The reason for using rem is to ensure the scalability of components and layouts,
 
 ## Spacing
 
-Spacing between elements or components are essential for creating visual hierarchy. Only with a consitent use you can create homogenous and visual appealing interfaces that work on all devices. Therefore layout spacings and margins are pending on the [column grid](/basics/breakpoints_grid), that is based on the breakpoint or screen size.
+Spacing between elements or components are essential for creating visual hierarchy. Only with a consistent use you can create homogenous and visual appealing interfaces that work on all devices. Therefore layout spacings and margins are pending on the [column grid](/basics/breakpoints_grid), that is based on the breakpoint or screen size.
 For more information about your provided screendesign please contact your assigned XU-Designer.
 
 ### Space tokens
@@ -39,7 +39,7 @@ Those tokens are named like t-shirt sizes for easy usage. Use them for visual co
 
 ## Radius
 
-The choise of radius has a big impact to the whole appearance of an UI. With radius tokens it is easy to customize this visual basis.
+The choice of radius has a big impact to the whole appearance of an UI. With radius tokens it is easy to customize this visual basis.
 
 ::: warning Attention
 The base value for radius that is used for components is `4 px`.
