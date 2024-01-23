@@ -8,24 +8,23 @@ const { isDark } = useData();
 <template>
   <div class="palettes">
     <div class="themes">
-      <Badge
-        tabindex="0"
-        class="themes__badge"
-        :class="{ 'themes__badge--active': !isDark }"
-        text="Light colors"
-        type="info"
-        @keyup.enter="isDark = false"
-        @click="isDark = false"
-      />
-      <Badge
-        tabindex="0"
-        class="themes__badge"
-        :class="{ 'themes__badge--active': isDark }"
-        text="Dark colors"
-        type="info"
-        @keyup.enter="isDark = true"
-        @click="isDark = true"
-      />
+      <button @click="isDark = false">
+        <Badge
+          class="themes__badge"
+          :class="{ 'themes__badge--active': !isDark }"
+          text="Light colors"
+          type="info"
+        />
+      </button>
+
+      <button @click="isDark = true">
+        <Badge
+          class="themes__badge"
+          :class="{ 'themes__badge--active': isDark }"
+          text="Dark colors"
+          type="info"
+        />
+      </button>
     </div>
 
     <ColorPalette name="action" />
