@@ -189,7 +189,9 @@ const searchGitHub = async (
   }
 
   if (typeof body !== "object" || typeof body.total_count !== "number") {
-    throw new Error("GitHub search response does not contain total_count");
+    throw new Error(
+      `GitHub search response does not contain total_count. Response body: ${JSON.stringify(body)}`,
+    );
   }
 
   return body.total_count;
@@ -213,7 +215,9 @@ const getGitHubContributorCount = async (): Promise<number> => {
   }
 
   if (!Array.isArray(body)) {
-    throw new Error("GitHub contributors data is not an array");
+    throw new Error(
+      `GitHub contributors data is not an array. Response body: ${JSON.stringify(body)}`,
+    );
   }
 
   return body.length;
@@ -237,7 +241,9 @@ const getNpmDownloadCount = async (packages: string[]): Promise<number> => {
     }
 
     if (typeof body !== "object" || typeof body.downloads !== "number") {
-      throw new Error("npm response does not contain downloads");
+      throw new Error(
+        `npm response does not contain downloads. Response body: ${JSON.stringify(body)}`,
+      );
     }
 
     return body.downloads as number;
