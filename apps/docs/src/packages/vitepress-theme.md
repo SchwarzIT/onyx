@@ -104,7 +104,7 @@ Applies CSS only to the given VitePress breakpoint.
   }
 
   @include mixins.breakpoint(min, xl, 1) {
-    // your styles for grater than xl breakpoint (exclusive)
+    // your styles for greater than xl breakpoint (exclusive)
   }
 }
 ```
