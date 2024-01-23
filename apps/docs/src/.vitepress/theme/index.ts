@@ -8,6 +8,8 @@ import "./theme.scss";
 const theme: Theme = {
   extends: OnyxTheme,
   enhanceApp: (ctx) => {
+    // register commonly used custom components globally so they can
+    // be used without needing to import them
     ctx.app.component("TopicOverviewCard", TopicOverviewCard);
   },
 };

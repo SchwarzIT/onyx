@@ -8,12 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <a
-    class="card"
-    tabindex="0"
-    :href="props.href"
-    :target="props.href.startsWith('http') ? '_blank' : '_self'"
-  >
+  <a class="card" tabindex="0" :href="props.href">
     <img :src="props.image" :alt="props.title" width="7rem" height="7rem" class="card__image" />
 
     <div class="card__content">
