@@ -76,7 +76,7 @@ export default defineConfig({
             { text: "Layout", link: "/layout" },
             { text: "Appearance", link: "/appearance" },
             { text: "Motion", link: "/motion" },
-            { text: "Component states", link: "/states" },
+            //{ text: "Component states", link: "/states" },
             { text: "Density", link: "/density" },
             { text: "Truncation", link: "/truncation" },
             { text: "Elevation", link: "/elevation" },
