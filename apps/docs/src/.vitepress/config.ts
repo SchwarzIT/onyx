@@ -27,7 +27,7 @@ export default defineConfig({
       { text: "Brand", link: "/brand/" },
       { text: "Basics", link: "/basics/" },
       { text: "Tokens", link: "/tokens/" },
-      { text: "Development", link: "/development/getting-started" },
+      { text: "Development", link: "/development/" },
       { text: "Resources", link: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
@@ -83,7 +83,11 @@ export default defineConfig({
       ],
       "/tokens": [
         {
-          items: [{ text: "Introduction", link: "/tokens/introduction" }],
+          base: "/tokens",
+          items: [
+            { text: "Introduction", link: "/introduction" },
+            { text: "Colors", link: "/colors" },
+          ],
         },
       ],
       "/development": [
@@ -92,7 +96,7 @@ export default defineConfig({
           collapsed: false,
           base: "/development",
           items: [
-            { text: "Getting Started", link: "/getting-started" },
+            { text: "Getting Started", link: "/" },
             { text: "i18n", link: "/i18n" },
             { text: "Typography", link: "/typography" },
           ],

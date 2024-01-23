@@ -21,7 +21,7 @@ For more information about your provided screendesign please contact your assign
 
 ### Space tokens
 
-To use space tokens you have to use the [semantic token collection](/basics/tokens).
+To use space tokens you have to use the [semantic token collection](/tokens/).
 Those tokens are named like t-shirt sizes for easy usage. Use them for visual consistency.
 
 | Token name |       REM | Pixels |
@@ -49,7 +49,7 @@ For examples, buttons are using this value. Sometimes buttons or other elements 
 
 ### Radius tokens
 
-To use radius tokens you have to use the [semantic token collection](/basics/tokens).
+To use radius tokens you have to use the [semantic token collection](/tokens/).
 Those tokens are named like t-shirt sizes for easy usage.
 
 | Token name |       REM |  Pixels |

@@ -26,7 +26,7 @@ Beyond the different shades, the hues in a color scheme also significantly impac
 
 _color palette component by dev_
 
-To have access to the color token set for your implementation, please visit the [token documentation](/tokens/color).
+To have access to the color token set for your implementation, please visit the [token documentation](/tokens/colors).
 
 ## Roles of themed colors
 

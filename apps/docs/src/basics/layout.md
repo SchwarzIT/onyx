@@ -16,7 +16,7 @@ Whether implementing a sidebar for horizontan content structure or building a ve
 
 ## Anatomy
 
-This section defines the anatomy of the whole page layout. If you want to learn more about the anatomy of single components in particular, please visit the [component documentation](/components).
+This section defines the anatomy of the whole page layout. If you want to learn more about the anatomy of single components in particular, please visit the [component documentation](/development/).
 
 In a maximum expression, a typical onyx layout consists of these regions.
 
@@ -38,7 +38,7 @@ The main content is displayed here. This is totally fexible in its representanti
 Global confirmations are triggered by a global section at the bottom of the screen. It is independend from scrolling and sticks to the bottom. This section can also be applied to objects.
 :::
 
-This is just an example layout for showing the posibilities of having several sections. It is important to be aligned to the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components of main navigation, side navigation and confirmation, please visit the [component documentation](/components).
+This is just an example layout for showing the posibilities of having several sections. It is important to be aligned to the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components of main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
 
 ## Alignment
 
