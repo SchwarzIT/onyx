@@ -88,12 +88,23 @@ Applies CSS only to the given VitePress breakpoint.
 @use "@sit-onyx/vitepress-theme/mixins.scss";
 
 .some-class {
-  @include mixins.breakpoint(m, max) {
+  @include mixins.breakpoint(max, m) {
     // your styles for m breakpoint and smaller
   }
 
-  @include mixins.breakpoint(m, min) {
+  @include mixins.breakpoint(min, m) {
     // your styles for m breakpoint and larger
+  }
+
+  // the breakpoint is inclusive so if you e.g. want to use
+  // min and max for the same breakpoint you should
+  // define an offset for either min or max
+  @include mixins.breakpoint(max, xl) {
+    // your styles for smaller and equal xl breakpoint
+  }
+
+  @include mixins.breakpoint(min, xl, 1) {
+    // your styles for grater than xl breakpoint (exclusive)
   }
 }
 ```

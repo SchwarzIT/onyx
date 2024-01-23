@@ -10,7 +10,7 @@ Example usage:
 @use "@sit-onyx/vitepress-theme/mixins.scss";
 
 .some-class {
-  @include mixins.breakpoint(m, max) {
+  @include mixins.breakpoint(max, m) {
     // your styles for m breakpoint
   }
 }

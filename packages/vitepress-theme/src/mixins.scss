@@ -43,24 +43,24 @@
   );
   --vp-home-hero-image-filter: blur(44px);
 
-  @include breakpoint(l, min) {
+  @include breakpoint(min, l) {
     --vp-home-hero-image-filter: blur(68px);
   }
 
-  @include breakpoint(s, min) {
+  @include breakpoint(min, s) {
     --vp-home-hero-image-filter: blur(56px);
   }
 }
 
 /**
  * Applies CSS only to the given VitePress breakpoint.
- * @param {string} $name - name of the VitePress breakpoint. One of: xs, s, m, l, xl or xxl
  * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
+ * @param {string} $name - name of the VitePress breakpoint. One of: xs, s, m, l, xl or xxl
  *
- * @example breakpoint(m, min)
- * @example breakpoint(m, max)
+ * @example breakpoint(min, m)
+ * @example breakpoint(max, m)
  */
-@mixin breakpoint($name, $min-max) {
+@mixin breakpoint($min-max, $name, $offset: 0) {
   $breakpoints: (
     xs: 375px,
     s: 640px,
@@ -70,7 +70,7 @@
     xxl: 1440px,
   );
 
-  @media (#{$min-max}-width: #{map-get($breakpoints, $name)}) {
+  @media (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
     @content;
   }
 }
