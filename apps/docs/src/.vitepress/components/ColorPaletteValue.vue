@@ -83,6 +83,10 @@ const emit = defineEmits<{
 
       &__color {
         padding-bottom: var(--onyx-spacing-xs);
+
+        &--with-border {
+          padding-bottom: var(--onyx-spacing-sm);
+        }
       }
     }
   }
@@ -94,11 +98,12 @@ const emit = defineEmits<{
     box-sizing: content-box;
     background-color: v-bind("props.color");
     color: v-bind("props.textColor");
-    border: 1px solid transparent;
     width: calc(100% - 2 * var(--onyx-spacing-sm));
 
     &--with-border {
       border: 1px solid var(--onyx-color-base-border-default);
+      min-height: calc(1.5rem - 2px);
+      height: calc(1.5rem - 2px);
     }
   }
 
