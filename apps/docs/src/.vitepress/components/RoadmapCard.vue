@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+
 const props = defineProps<{
   /** Title. If a number is passed it will be formatted with `.toLocaleString()` */
   title: string | number;
@@ -7,13 +9,16 @@ const props = defineProps<{
   /** Link to open. */
   href?: string;
 }>();
+
+const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_self"));
 </script>
 
 <template>
   <component
     :is="props.href ? 'a' : 'div'"
     :href="props.href"
-    :target="props.href?.startsWith('http') ? '_blank' : '_self'"
+    :target="target"
+    :rel="target === '_blank' ? 'noopener noreferrer' : undefined"
     class="card"
     :class="{ 'card--clickable': props.href }"
   >
@@ -26,7 +31,6 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .card {
-  display: block;
   border: 1px solid var(--vp-c-default-soft);
   border-radius: 0.75rem;
   height: 100%;
@@ -44,6 +48,7 @@ const props = defineProps<{
   &__content {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     padding: 1.5rem;
     height: 100%;
   }

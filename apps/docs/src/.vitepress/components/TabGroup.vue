@@ -15,7 +15,7 @@ const activeTab = ref();
 
 watchEffect(() => {
   if (!props.tabs.length) return;
-  if (!props.tabs.find((tab) => tab.id === activeTab.value)) {
+  if (!activeTab.value || !props.tabs.find((tab) => tab.id === activeTab.value)) {
     activeTab.value = props.tabs[0].id;
   }
 });
@@ -36,9 +36,7 @@ watchEffect(() => {
       </template>
     </div>
 
-    <template v-for="tab in props.tabs" :key="tab.id">
-      <slot v-if="tab.id === activeTab" :name="tab.id"></slot>
-    </template>
+    <slot v-if="activeTab" :name="activeTab"></slot>
   </div>
 </template>
 
