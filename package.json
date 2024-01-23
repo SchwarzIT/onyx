@@ -34,7 +34,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-playwright": "~0.22.1",
     "eslint-plugin-vue": "^9.20.1",
-    "eslint-plugin-vuejs-accessibility": "^2.2.0",
+    "eslint-plugin-vuejs-accessibility": "^2.2.1",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.4",

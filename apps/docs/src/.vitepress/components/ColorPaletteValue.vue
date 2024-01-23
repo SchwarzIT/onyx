@@ -39,7 +39,7 @@ const emit = defineEmits<{
   cursor: pointer;
   width: 100%;
 
-  @include mixins.breakpoint(s) {
+  @include mixins.breakpoint(max, s) {
     display: flex;
     align-items: center;
   }
@@ -48,7 +48,7 @@ const emit = defineEmits<{
     .step__color {
       border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
 
-      @include mixins.breakpoint(s) {
+      @include mixins.breakpoint(max, s) {
         border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
       }
     }
@@ -58,7 +58,7 @@ const emit = defineEmits<{
     .step__color {
       border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
 
-      @include mixins.breakpoint(s) {
+      @include mixins.breakpoint(max, s) {
         border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
       }
     }
@@ -118,7 +118,7 @@ const emit = defineEmits<{
     font-family: var(--onyx-font-family-mono);
     padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
 
-    @include mixins.breakpoint(s) {
+    @include mixins.breakpoint(max, s) {
       width: 6.5rem;
     }
   }

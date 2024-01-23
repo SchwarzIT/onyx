@@ -146,7 +146,7 @@ const handleCopy = async (color: string) => {
     border: 1px solid var(--onyx-color-base-border-default);
     background: var(--onyx-color-base-background-blank);
 
-    @include mixins.breakpoint(s) {
+    @include mixins.breakpoint(max, s) {
       padding: var(--onyx-spacing-sm);
     }
   }
@@ -154,7 +154,7 @@ const handleCopy = async (color: string) => {
   &__steps {
     display: flex;
 
-    @include mixins.breakpoint(s) {
+    @include mixins.breakpoint(max, s) {
       display: block;
     }
   }
