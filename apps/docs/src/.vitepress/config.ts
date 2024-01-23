@@ -37,6 +37,7 @@ export default defineConfig({
           { text: "Getting Started", link: "/getting-started" },
           { text: "i18n", link: "/i18n/" },
           { text: "Typography", link: "/typography" },
+          { text: "Colors", link: "/colors" },
           { text: "The Team", link: "/team" },
         ],
       },
