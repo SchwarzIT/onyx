@@ -36,7 +36,8 @@ export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptio
     options,
   );
 
-  const fullSelector = options?.selector?.trim().replace("{mode}", data.modeName ?? "") || ":root";
+  const fullSelector =
+    options?.selector?.trim().replaceAll("{mode}", data.modeName ?? "") || ":root";
 
   return `${generateTimestampComment(data.modeName)}
 ${fullSelector} {\n${variableContent.join("\n")}\n}\n`;
