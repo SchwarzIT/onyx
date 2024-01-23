@@ -5,7 +5,26 @@
     "@sit-onyx/figma-utils": "0.0.0",
     "sit-onyx": "0.0.0",
     "@sit-onyx/storybook-utils": "0.0.0",
-    "@sit-onyx/headless": "0.0.0"
+    "@sit-onyx/headless": "0.0.0",
+    "@sit-onyx/vitepress-theme": "0.0.0",
+    "docs": "0.0.0",
+    "@sit-onyx/eslint-plugin": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "brave-lobsters-wonder",
+    "eight-eyes-switch",
+    "giant-seas-know",
+    "lemon-dragons-shop",
+    "modern-dingos-melt",
+    "nasty-mails-play",
+    "olive-forks-mate",
+    "purple-years-unite",
+    "sharp-years-lie",
+    "shiny-lies-cough",
+    "tall-keys-flow",
+    "tame-adults-cheat",
+    "twenty-colts-film",
+    "unlucky-jars-chew",
+    "wild-days-admire"
+  ]
 }

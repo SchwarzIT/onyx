@@ -1,10 +1,9 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["src"],
+  "include": ["src", "svg.d.ts"],
   "compilerOptions": {
     "types": ["node"],
     "rootDir": "./src",
     "baseUrl": ".",
-    "lib": ["ES2021.String", "DOM"]
-  }
+  },
 }

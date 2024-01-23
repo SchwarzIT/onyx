@@ -1,6 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import TestInput from "./TestInput.vue";
+import TestInput, { INPUT_TYPES } from "./TestInput.vue";
 
 /**
  * The input component can be used to...
@@ -9,7 +9,13 @@ const meta: Meta<typeof TestInput> = {
   title: "components/TestInput",
   ...defineStorybookActionsAndVModels({
     component: TestInput,
-    events: ["update:modelValue", "change"],
+    events: ["update:modelValue", "change", "validityChange"],
+    argTypes: {
+      type: {
+        options: INPUT_TYPES,
+        control: { type: "select" },
+      },
+    },
   }),
 };
 
@@ -32,5 +38,15 @@ export const Required = {
   args: {
     ...Primary.args,
     required: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an input with a custom error.
+ */
+export const CustomError = {
+  args: {
+    label: "Click + blur to see the error",
+    errorMessage: "This is a custom error",
   },
 } satisfies Story;

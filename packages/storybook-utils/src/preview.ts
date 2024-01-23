@@ -1,18 +1,24 @@
 import { DOCS_RENDERED } from "@storybook/core-events";
 import { addons } from "@storybook/preview-api";
-import { themes, type ThemeVars } from "@storybook/theming";
+import { type ThemeVars } from "@storybook/theming";
 import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
-import { ONYX_BREAKPOINTS } from "./theme";
+import { ONYX_BREAKPOINTS, createTheme } from "./theme";
+
+const themes = {
+  light: createTheme(),
+  dark: createTheme({ base: "dark" }),
+} as const;
 
 /**
- * Creates a default Storybook preview configuration for 'Onyx' with the following features:
+ * Creates a default Storybook preview configuration for 'onyx' with the following features:
  * - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
  * - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file
+ * - Custom Storybook theme using onyx colors (light and dark mode)
  * - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`)
- * - Configure viewports / breakpoints as defined by Onyx
+ * - Configure viewports / breakpoints as defined by onyx
  *
  * @param overrides Custom preview / overrides, will be deep merged with the default preview.
  *
@@ -64,17 +70,20 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
            * @see https://storybook.js.org/docs/react/api/doc-block-source
            */
           transform: (sourceCode: string): string => {
-            return (
-              sourceCode
-                // replace event bindings with shortcut
-                .replaceAll("v-on:", "@")
-                // remove empty event handlers, e.g. @click="()=>({})" will be removed
-                .replaceAll(/ @.*['"]\(\)=>\({}\)['"]/g, "")
-                // remove empty v-binds, e.g. v-bind="{}" will be removed
-                .replaceAll(/ v-bind=['"]{}['"]/g, "")
-                // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
-                .replaceAll(/:(.*)=['"]true['"]/g, "$1")
-            );
+            const replacements = [
+              // replace event bindings with shortcut
+              { searchValue: "v-on:", replaceValue: "@" },
+              // remove empty event handlers, e.g. @click="()=>({})" will be removed
+              { searchValue: / @.*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
+              // remove empty v-binds, e.g. v-bind="{}" will be removed
+              { searchValue: / v-bind=['"]{}['"]/g, replaceValue: "" },
+              // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
+              { searchValue: /:(.*)=['"]true['"]/g, replaceValue: "$1" },
+            ];
+
+            return replacements.reduce((code, replacement) => {
+              return replaceAll(code, replacement.searchValue, replacement.replaceValue);
+            }, sourceCode);
           },
         },
       },
@@ -109,4 +118,12 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   });
 
   return deepmerge<[T, typeof defaultPreview]>(overrides ?? ({} as T), defaultPreview);
+};
+
+/**
+ * Custom String.replaceAll implementation using a RegExp
+ * because String.replaceAll() is not available in our specified EcmaScript target in tsconfig.json
+ */
+const replaceAll = (message: string, searchValue: string | RegExp, replaceValue: string) => {
+  return message.replace(new RegExp(searchValue, "gi"), replaceValue);
 };

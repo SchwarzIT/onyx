@@ -4,7 +4,7 @@ import { getComponents } from "./utils";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Onyx",
+  title: "onyx",
   description: "Vue.js component library and design system",
   themeConfig: {
     externalLinkIcon: true,
@@ -29,62 +29,34 @@ export default defineConfig({
       { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
     ],
     socialLinks: [{ icon: "github", link: packageJson.repository.url }],
-    sidebar: {
-      // default sidebar items
-      "/": [
-        {
-          text: "Introduction",
-          collapsed: false,
-          items: [
-            { text: "Getting Started", link: "/getting-started" },
-            { text: "The Team", link: "/team" },
-          ],
-        },
-        {
-          text: "Advanced",
-          collapsed: false,
-          items: [
-            {
-              text: "Additional packages",
-              link: "/packages/",
-            },
-          ],
-        },
-        {
-          text: "Components",
-          base: "/components",
-          collapsed: false,
-          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
-        },
-      ],
-      // standalone sidebar for documentation about our additional packages
-      "/packages/": [
-        {
-          text: "Introduction",
-          items: [
-            { text: "Back to Onyx", link: "/getting-started" },
-            { text: "About", link: "/packages/" },
-          ],
-        },
-        {
-          text: "Additional packages",
-          base: "/packages",
-          items: [
-            {
-              text: "@sit-onyx/figma-utils",
-              link: "/figma-utils",
-            },
-            {
-              text: "@sit-onyx/headless",
-              link: "/headless",
-            },
-            {
-              text: "@sit-onyx/storybook-utils",
-              link: "/storybook-utils",
-            },
-          ],
-        },
-      ],
-    },
+    sidebar: [
+      {
+        text: "Introduction",
+        collapsed: false,
+        items: [
+          { text: "Getting Started", link: "/getting-started" },
+          { text: "i18n", link: "/i18n/" },
+          { text: "Typography", link: "/typography" },
+          { text: "The Team", link: "/team" },
+        ],
+      },
+      {
+        text: "Components",
+        base: "/components",
+        collapsed: false,
+        items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
+      },
+      {
+        text: "Other onyx npm packages",
+        base: "/packages",
+        collapsed: false,
+        items: [
+          { text: "Figma utilities", link: "/figma-utils" },
+          { text: "Headless composables", link: "/headless" },
+          { text: "Storybook utilities", link: "/storybook-utils" },
+          { text: "VitePress theme", link: "/vitepress-theme" },
+        ],
+      },
+    ],
   },
 });

@@ -1,0 +1,32 @@
+{
+  "name": "@sit-onyx/vitepress-theme",
+  "description": "VitePress theme that uses the onyx design system",
+  "version": "0.1.0-alpha.1",
+  "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./mixins.scss": "./src/mixins.scss"
+  },
+  "homepage": "https://onyx.schwarz/packages/vitepress-theme.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/vitepress-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "scripts": {
+    "build": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "sass": ">= 1",
+    "sit-onyx": "workspace:^",
+    "vitepress": ">= 1.0.0-rc.0"
+  }
+}

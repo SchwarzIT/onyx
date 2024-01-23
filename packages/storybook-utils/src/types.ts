@@ -9,22 +9,23 @@ import type { ComponentPropsAndSlots, Meta } from "@storybook/vue3";
  * type InputEvents = ExtractVueEventNames<typeof Input>; // e.g. "input" | "change"
  * ```
  */
-export type ExtractVueEventNames<VueComponent> = Extract<
-  // extract all props/events of the vue component that are functions
-  ExtractKeysByValueType<
-    // this generic type will extract ALL props and events from the given Vue component
-    ComponentPropsAndSlots<VueComponent>,
-    // emits are declared as functions, so we only take props/events that are functions and ignore the rest
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We must use any here to match the type defined by Vue
-    ((...args: any) => any) | undefined
-  >,
-  // filter out potential function properties by just picking events that start with "on"
-  `on${string}`
-> extends `on${infer EventName}`
-  ? // until now the extracted event names still start with "on" but we want to have the plain event name
-    // so we will remove the "on" prefix and uncapitalized the first letter so e.g. "onClick" becomes "click"
-    Uncapitalize<EventName>
-  : never;
+export type ExtractVueEventNames<VueComponent> =
+  Extract<
+    // extract all props/events of the vue component that are functions
+    ExtractKeysByValueType<
+      // this generic type will extract ALL props and events from the given Vue component
+      ComponentPropsAndSlots<VueComponent>,
+      // emits are declared as functions, so we only take props/events that are functions and ignore the rest
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We must use any here to match the type defined by Vue
+      ((...args: any) => any) | undefined
+    >,
+    // filter out potential function properties by just picking events that start with "on"
+    `on${string}`
+  > extends `on${infer EventName}`
+    ? // until now the extracted event names still start with "on" but we want to have the plain event name
+      // so we will remove the "on" prefix and uncapitalized the first letter so e.g. "onClick" becomes "click"
+      Uncapitalize<EventName>
+    : never;
 
 /**
  * Extracts only the keys from T whose value type satisfies U.
@@ -45,3 +46,8 @@ export type DefineStorybookActionsAndVModelsOptions<T> = Meta<T> & {
   component: NonNullable<T>;
   events: ExtractVueEventNames<T>[];
 };
+
+/**
+ * A utility type that gets the type of an array element.
+ */
+export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;

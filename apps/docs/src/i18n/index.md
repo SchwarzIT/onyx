@@ -1,0 +1,115 @@
+---
+outline: [2, 3]
+---
+
+<script lang="ts" setup>
+import { data } from './languages.data';
+</script>
+
+# Internationalization
+
+onyx supports internationalization out-of-the-box. This includes commonly used translations
+that are used by our onyx components like texts for cancel / confirm buttons or "No data" scenarios.
+
+::: tip Default translations
+English is always supported so you don't need to do anything if you only need English texts.
+:::
+
+## Build-in languages
+
+<ul>
+  <li v-for="language in data.languages" :key="language">
+    {{ language.name }} ({{ Math.round(language.keyCount / data.totalKeys * 100) }}% translated)
+  </li>
+</ul>
+
+::: details Which texts are translated?
+Below you can find all translatable texts that are used by our components.
+
+<<< ../../../../packages/sit-onyx/src/i18n/locales/en-US.json
+:::
+
+## Usage
+
+You need to globally provide the i18n instance for onyx. We assume that you are already using some third-party library such as `vue-i18n`
+for managing your app translations so onyx will integrate nicely into your setup.
+
+::: code-group
+
+```vue [App.vue]
+<script lang="ts" setup>
+import { provideI18n } from "sit-onyx";
+import deDE from "sit-onyx/locales/de-DE.json";
+import { useI18n } from "vue-i18n";
+
+const { locale } = useI18n();
+
+provideI18n({
+  // The onyx locale will be updated whenever your vue-i18n locale changes
+  locale,
+  // make sure that the key for each language is the same that you are using
+  // for your vue-i18n JSON files
+  messages: { "de-DE": deDE },
+});
+</script>
+```
+
+:::
+
+That's it. All built-in component texts are now available in English (default) and German. The locale is synced with `vue-i18n`.
+
+## Custom translations
+
+You can customize specific messages or even provide a whole custom language will full TypeScript support.
+
+Some messages also support pluralization or placeholders for values. Please take a look at the [English texts](#build-in-languages) to see which format is used for a specific message.
+
+### Change a single message
+
+::: code-group
+
+```vue [App.vue]
+<script lang="ts" setup>
+import { provideI18n } from "sit-onyx";
+import enUS from "sit-onyx/locales/en-US.json";
+
+enUS.someMessage = "Custom translation";
+
+provideI18n({
+  // ...
+  messages: { "en-US": enUS },
+});
+</script>
+```
+
+:::
+
+### Additional languages
+
+You can add a whole new language with full TypeScript support. But please note that you might need to manually update any keys that we might add/remove in the future.
+
+::: tip Contribution
+We are open for accepting community contributions, if you want to add a missing language, feel free to [create a Pull request](https://github.com/SchwarzIT/onyx/pulls) so all onyx users can benefit from it.
+You can simply add the translations inside the [locales folder](https://github.com/SchwarzIT/onyx/tree/main/packages/sit-onyx/src/i18n/locales).
+:::
+
+::: code-group
+
+```ts [Only for your project]
+import type { OnyxTranslations } from "sit-onyx";
+
+const myCustomLanguage: OnyxTranslations = {
+  // add your translations here...
+  someMessage: "Hello World",
+};
+```
+
+```json [When contributing to onyx]
+// simply create a new json file for your language (e.g. "fr-FR")
+// in the locales folder linked above and place your translations there
+{
+  "someMessage": "Bonjour le monde"
+}
+```
+
+:::

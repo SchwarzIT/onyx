@@ -4,7 +4,11 @@
 This library is currently in early / active development.
 :::
 
+<div class="hide-external-link">
+
 [![npm version](https://badge.fury.io/js/sit-onyx.svg)](https://www.npmjs.com/package/sit-onyx)
+
+</div>
 
 ## Installation
 
@@ -13,15 +17,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add sit-onyx
+pnpm add sit-onyx@alpha
 ```
 
 ```sh [npm]
-npm install sit-onyx
+npm install sit-onyx@alpha
 ```
 
 ```sh [yarn]
-yarn install sit-onyx
+yarn install sit-onyx@alpha
 ```
 
 :::
@@ -32,7 +36,7 @@ After that, import the global CSS file:
 
 ```ts [main.ts]
 import "sit-onyx/style.css";
-// if you override some Onyx styles (e.g. CSS variables),
+// if you override some onyx styles (e.g. CSS variables),
 // make sure to import your custom CSS file after the default "sit-onyx/style.css"
 ```
 

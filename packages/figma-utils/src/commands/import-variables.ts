@@ -3,19 +3,22 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   DEFAULT_MODE_NAME,
+  ParsedVariable,
   fetchFigmaVariables,
   generateAsCSS,
+  generateAsJSON,
   generateAsSCSS,
   parseFigmaVariables,
 } from "../index.js";
 
-type ImportCommandOptions = {
+export type ImportCommandOptions = {
   fileKey: string;
   token: string;
   filename: string;
-  format: string;
+  format: string[];
   dir?: string;
   modes?: string[];
+  selector: string;
 };
 
 export const importCommand = new Command("import-variables")
@@ -25,7 +28,7 @@ export const importCommand = new Command("import-variables")
     "-t, --token <string>",
     "Figma access token with scope `file_variables:read` (required)",
   )
-  .option("-f, --format <string>", "Output format. Supported are: CSS, SCSS", "CSS")
+  .option("-f, --format <strings...>", "Output formats. Supported are: CSS, SCSS, JSON", ["CSS"])
   .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
   .option(
     "-d, --dir <string>",
@@ -35,43 +38,59 @@ export const importCommand = new Command("import-variables")
     "-m, --modes <strings...>",
     "Can be used to only export specific Figma modes. If unset, all modes will be exported as a separate file.",
   )
-  .action(async (options: ImportCommandOptions) => {
-    const generators = {
-      CSS: generateAsCSS,
-      SCSS: generateAsSCSS,
-    };
+  .option(
+    "-s, --selector <string>",
+    'CSS selector to use for the CSS format. The mode name will be added to the selector if it is set to something other than ":root", e.g. for the mode named "dark", passing the selector "html" will result in "html.dark"',
+    ":root",
+  )
+  .action(importCommandAction);
 
-    if (!(options.format in generators)) {
+/**
+ * Action to run when executing the import action. Only intended to be called manually for testing.
+ */
+export async function importCommandAction(options: ImportCommandOptions) {
+  const generators = {
+    CSS: (data: ParsedVariable) => generateAsCSS(data, { selector: options.selector }),
+    SCSS: generateAsSCSS,
+    JSON: generateAsJSON,
+  };
+
+  options.format.forEach((format) => {
+    if (!(format in generators)) {
       throw new Error(
-        `Unknown format: ${options.format}. Supported: ${Object.keys(generators).join(", ")}`,
+        `Unknown format "${format}". Supported: ${Object.keys(generators).join(", ")}`,
       );
     }
+  });
 
-    console.log("Fetching variables from Figma API...");
-    const data = await fetchFigmaVariables(options.fileKey, options.token);
+  console.log("Fetching variables from Figma API...");
+  const data = await fetchFigmaVariables(options.fileKey, options.token);
 
-    console.log("Parsing Figma variables...");
-    const parsedVariables = parseFigmaVariables(data);
+  console.log("Parsing Figma variables...");
+  const parsedVariables = parseFigmaVariables(data);
 
-    if (options.modes?.length) {
-      // verify that all modes are found
-      for (const mode of options.modes) {
-        if (parsedVariables.find((i) => i.modeName === mode)) continue;
+  if (options.modes?.length) {
+    // verify that all modes are found
+    options.modes.forEach((mode) => {
+      if (parsedVariables.find((i) => i.modeName === mode)) return;
 
-        const availableModes = parsedVariables
-          .map((i) => i.modeName ?? DEFAULT_MODE_NAME)
-          .map((mode) => `"${mode}"`);
+      const availableModes = parsedVariables
+        .map((i) => i.modeName ?? DEFAULT_MODE_NAME)
+        .map((mode) => `"${mode}"`);
 
-        throw new Error(
-          `Mode "${mode}" not found. Available modes: ${Object.values(availableModes).join(", ")}`,
-        );
-      }
-    }
+      throw new Error(
+        `Mode "${mode}" not found. Available modes: ${Object.values(availableModes).join(", ")}`,
+      );
+    });
+  }
 
-    const outputDirectory = options.dir ?? process.cwd();
-    const filename = options.filename ?? "variables";
+  const outputDirectory = options.dir ?? process.cwd();
+  const filename = options.filename ?? "variables";
 
-    console.log(`Generating ${options.format} variables...`);
+  console.log(`Generating ${options.format} variables...`);
+
+  options.format.forEach((format) => {
+    console.log(`Generating ${format} variables...`);
 
     parsedVariables.forEach((data) => {
       // if the user passed specific modes to be exported, we will only generate those
@@ -83,9 +102,10 @@ export const importCommand = new Command("import-variables")
       if (!isModeIncluded) return;
 
       const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
-      const fullPath = path.join(outputDirectory, `${baseName}.${options.format.toLowerCase()}`);
-      fs.writeFileSync(fullPath, generators[options.format as keyof typeof generators](data));
+      const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
+      fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
     });
-
-    console.log("Done.");
   });
+
+  console.log("Done.");
+}

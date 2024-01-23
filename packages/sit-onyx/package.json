@@ -1,12 +1,14 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.2",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "dist",
+    "src/i18n/locales",
+    "src/styles"
   ],
   "exports": {
     ".": {
@@ -14,7 +16,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./locales/*": "./src/i18n/locales/*",
+    "./src/styles/*": "./src/styles/*"
   },
   "homepage": "https://onyx.schwarz",
   "repository": {
@@ -30,8 +34,8 @@
     "build": "pnpm run '/type-check|build-only/'",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
-    "test:unit": "vitest",
-    "test:unit:coverage": "pnpm run test:unit --coverage",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:components": "playwright install && playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
@@ -40,16 +44,15 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@playwright/experimental-ct-vue": "^1.40.1",
-    "@playwright/test": "^1.40.1",
+    "@axe-core/playwright": "^4.8.3",
+    "@fontsource-variable/source-code-pro": "^5.0.17",
+    "@fontsource-variable/source-sans-3": "^5.0.19",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^7.6.7",
-    "@storybook/blocks": "^7.6.7",
-    "@storybook/vue3": "^7.6.7",
-    "@storybook/vue3-vite": "^7.6.7",
-    "@vue/compiler-dom": "^3.4.3",
-    "eslint-plugin-playwright": "~0.21.0",
+    "@storybook/addon-essentials": "^7.6.10",
+    "@storybook/blocks": "^7.6.10",
+    "@storybook/vue3": "^7.6.10",
+    "@storybook/vue3-vite": "^7.6.10",
     "react": "^18.2.0",
-    "storybook": "^7.6.7"
+    "storybook": "^7.6.10"
   }
 }

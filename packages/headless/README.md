@@ -6,7 +6,7 @@
   </a>
 </p>
 
-# Onyx Headless
+# onyx Headless
 
 A composable headless library for Vue created by [Schwarz IT](https://it.schwarz).
 

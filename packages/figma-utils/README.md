@@ -8,7 +8,8 @@
 
 # Onyx Figma Utils
 
-Utility functions and CLI for importing data from the Figma API into CSS/SCSS variables created by [Schwarz IT](https://it.schwarz).
+Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.).
+Created by [Schwarz IT](https://it.schwarz).
 
 ## Use as CLI
 
