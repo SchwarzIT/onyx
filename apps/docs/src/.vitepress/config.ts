@@ -4,7 +4,7 @@ import { getComponents } from "./utils";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Onyx",
+  title: "onyx",
   description: "Vue.js component library and design system",
   themeConfig: {
     externalLinkIcon: true,
