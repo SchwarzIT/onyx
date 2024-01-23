@@ -7,7 +7,8 @@
     "@sit-onyx/storybook-utils": "0.0.0",
     "@sit-onyx/headless": "0.0.0",
     "@sit-onyx/vitepress-theme": "0.0.0",
-    "docs": "0.0.0"
+    "docs": "0.0.0",
+    "@sit-onyx/eslint-plugin": "0.0.0"
   },
   "changesets": [
     "brave-lobsters-wonder",
@@ -15,6 +16,7 @@
     "giant-seas-know",
     "lemon-dragons-shop",
     "modern-dingos-melt",
+    "nasty-mails-play",
     "olive-forks-mate",
     "purple-years-unite",
     "sharp-years-lie",

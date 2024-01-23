@@ -96,12 +96,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   margin-top: 7rem;
   padding: 5rem 1.5rem 0;
 
-  @include mixins.breakpoint(s, min) {
+  @include mixins.breakpoint(min, s) {
     padding-left: 3rem;
     padding-right: 3rem;
   }
 
-  @include mixins.breakpoint(l, min) {
+  @include mixins.breakpoint(min, l) {
     padding-left: 4rem;
     padding-right: 4rem;
   }
