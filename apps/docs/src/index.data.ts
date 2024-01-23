@@ -8,7 +8,7 @@ import type { Tab } from "./.vitepress/components/TabGroup.vue";
 /**
  * Build-time data for the home page (components, facts/numbers etc.)
  */
-export type Data = {
+export type HomePageData = {
   /** Total number of implemented onyx components. */
   componentCount: number;
   /** Total number of component variants/stories across all implemented components as documented with Storybook. */
@@ -29,7 +29,7 @@ export type Data = {
   componentTabs: (Tab & ComponentGridProps)[];
 };
 
-declare const data: Data;
+declare const data: HomePageData;
 export { data };
 
 /**
@@ -38,7 +38,7 @@ export { data };
  */
 export default defineLoader({
   watch: ["../../../packages/sit-onyx/src/components/*/*.stories.ts"],
-  async load(watchedFiles): Promise<Data> {
+  async load(watchedFiles): Promise<HomePageData> {
     const variantCount = watchedFiles.reduce((total, file) => {
       const fileContent = fs.readFileSync(file, "utf-8");
       // stories are defined with e.g. "export const Primary =" so we can
@@ -73,7 +73,7 @@ export default defineLoader({
       return watchedFiles.includes(`${componentName}.stories.ts`);
     };
 
-    const componentTabs: Data["componentTabs"] = [
+    const componentTabs: HomePageData["componentTabs"] = [
       {
         id: "basic",
         label: "Basic components",
