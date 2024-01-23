@@ -108,7 +108,6 @@ const handleCopy = async (color: string) => {
           class="header__tab"
           :class="{ 'header__tab--active': currentTab === tab }"
           @click="currentTab = tab"
-          @keyup.enter="currentTab = tab"
         >
           {{ tab }}
         </button>
