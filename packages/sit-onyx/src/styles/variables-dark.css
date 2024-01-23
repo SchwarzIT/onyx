@@ -3,7 +3,7 @@
  * This file contains the specific variables for the "dark" theme.
  * Imported from Figma API on Fri, 19 Jan 2024 09:37:12 GMT
  */
-html.dark {
+.dark {
   --onyx-color-base-action-100: var(--onyx-color-themed-action-1100);
   --onyx-color-base-action-200: var(--onyx-color-themed-action-1000);
   --onyx-color-base-action-300: var(--onyx-color-themed-action-900);
