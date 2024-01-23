@@ -7,7 +7,7 @@
 }
 
 /**
-* Defines the 4 scaled VitePress color CSS variables for the given Onyx variable name.
+* Defines the 4 scaled VitePress color CSS variables for the given onyx variable name.
 *
 * @example
 * $name: "brand" , $onyx-color-base: "--onyx-test"
@@ -43,11 +43,35 @@
   );
   --vp-home-hero-image-filter: blur(44px);
 
-  @media (min-width: 960px) {
+  @include breakpoint(min, l) {
     --vp-home-hero-image-filter: blur(68px);
   }
 
-  @media (min-width: 640px) {
+  @include breakpoint(min, s) {
     --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+/**
+ * Applies CSS only to the given VitePress breakpoint.
+ * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
+ * @param {string} $name - name of the VitePress breakpoint. One of: xs, s, m, l, xl or xxl
+ * @param {number} $offset - optional offset to add to the min/max width. Useful if both min and max are used for the same breakpoint
+ *
+ * @example breakpoint(min, m)
+ * @example breakpoint(max, m)
+ */
+@mixin breakpoint($min-max, $name, $offset: 0) {
+  $breakpoints: (
+    xs: 375px,
+    s: 640px,
+    m: 768px,
+    l: 960px,
+    xl: 1280px,
+    xxl: 1440px,
+  );
+
+  @media (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
+    @content;
   }
 }

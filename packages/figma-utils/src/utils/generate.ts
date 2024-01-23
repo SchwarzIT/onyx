@@ -12,12 +12,11 @@ export type BaseGenerateOptions = {
 
 export type GenerateAsCSSOptions = BaseGenerateOptions & {
   /**
-   * Selector to use for the CSS format. The mode name will be added to the selector
-   * if it is set to something other than ":root"
+   * Selector to use for the CSS format. You can use {mode} as placeholder for the mode name.
    *
    * @default ":root"
    * @example
-   * for the mode named "dark", passing the selector "html" will result in "html.dark"
+   * for the mode named "dark", passing the selector "html.{mode}" will result in "html.dark"
    */
   selector?: string;
 };
@@ -37,8 +36,8 @@ export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptio
     options,
   );
 
-  let fullSelector = options?.selector?.trim() || ":root";
-  if (fullSelector !== ":root") fullSelector += `.${data.modeName}`;
+  const fullSelector =
+    options?.selector?.trim().replaceAll("{mode}", data.modeName ?? "") || ":root";
 
   return `${generateTimestampComment(data.modeName)}
 ${fullSelector} {\n${variableContent.join("\n")}\n}\n`;

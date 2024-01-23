@@ -4,11 +4,11 @@ import { VPTeamMembers } from 'vitepress/theme'
 // https://vitepress.dev/reference/default-theme-team-page#show-team-members-in-a-page
 const members = [
   {
-    avatar: 'https://www.github.com/martihofmann.png',
+    avatar: 'https://www.github.com/mj-hof.png',
     name: 'Martin Hofmann',
     title: 'Product Owner',
     links: [
-      { icon: 'github', link: 'https://github.com/martihofmann' },
+      { icon: 'github', link: 'https://github.com/mj-hof' },
     ]
   },
   {
@@ -56,7 +56,7 @@ const members = [
 
 # Meet the team 👋
 
-Onyx is maintained by [Schwarz IT](https://it.schwarz). Below you will find the members of our Core Team.
+onyx is maintained by [Schwarz IT](https://it.schwarz). Below you will find the members of our Core Team.
 
 Are you looking for a bug report or feature request? Then please use our [GitHub issues](https://github.com/schwarzit/onyx/issues).
 For general Q&A, announcements and polls feel free to visit our community space via [GitHub discussions](https://github.com/schwarzit/onyx/discussions/categories/q-a).

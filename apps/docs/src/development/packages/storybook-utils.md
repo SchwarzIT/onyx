@@ -3,7 +3,7 @@ outline: [2, 3]
 ---
 
 <script lang="ts" setup>
-import packageJson from "../../../../packages/storybook-utils/package.json";
+import packageJson from "../../../../../packages/storybook-utils/package.json";
 </script>
 
 # @sit-onyx/storybook-utils
@@ -45,14 +45,14 @@ yarn install -D @sit-onyx/storybook-utils@alpha
 
 ### createPreview
 
-Creates a default Storybook preview configuration for a project that uses `Onyx`. Includes the following features:
+Creates a default Storybook preview configuration for a project that uses `onyx`. Includes the following features:
 
 - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
 - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
 - Setup for dark mode (including docs page). Requires addon [`storybook-dark-mode`](https://storybook.js.org/addons/storybook-dark-mode) to be enabled in .storybook/main.ts file
-- Custom Storybook theme using Onyx colors (light and dark mode)
+- Custom Storybook theme using onyx colors (light and dark mode)
 - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`).
-- Configure viewports / breakpoints as defined by Onyx
+- Configure viewports / breakpoints as defined by onyx
 
 ::: code-group
 
@@ -116,7 +116,7 @@ type Story = StoryObj<typeof TestInput>;
 
 ### createTheme
 
-Creates a custom theme for Storybook that uses Onyx colors.
+Creates a custom theme for Storybook that uses onyx colors.
 See the [Storybook Theming docs](https://storybook.js.org/docs/configure/theming) for further information.
 
 ::: tip

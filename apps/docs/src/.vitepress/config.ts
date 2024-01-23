@@ -4,7 +4,7 @@ import { getComponents } from "./utils";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Onyx",
+  title: "onyx",
   description: "Vue.js component library and design system",
   themeConfig: {
     externalLinkIcon: true,
@@ -27,7 +27,7 @@ export default defineConfig({
       { text: "Brand", link: "/brand/" },
       { text: "Basics", link: "/basics/" },
       { text: "Tokens", link: "/tokens/" },
-      { text: "Components", link: "/components/" },
+      { text: "Development", link: "/development/getting-started" },
       { text: "Resources", link: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
@@ -44,24 +44,6 @@ export default defineConfig({
             { text: "Roadmap", link: "/brand/roadmap" },
             { text: "Changelog", link: "/brand/changelog" },
           ],
-        },
-      ],
-      "/components": [
-        {
-          text: "Introduction",
-          collapsed: false,
-          base: "/components",
-          items: [
-            { text: "Getting Started", link: "/" },
-            { text: "i18n", link: "/i18n/" },
-            { text: "Typography", link: "/typography" },
-          ],
-        },
-        {
-          text: "Components",
-          base: "/components",
-          collapsed: false,
-          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
         },
       ],
       "/basics": [
@@ -99,21 +81,31 @@ export default defineConfig({
           ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
-      "/resources": [
-        {
-          items: [{ text: "test", link: "/resources" }],
-        },
-      ],
       "/tokens": [
         {
           items: [{ text: "Introduction", link: "/tokens/introduction" }],
         },
       ],
-      // default sidebar
-      "/": [
+      "/development": [
         {
-          text: "Other Onyx npm packages",
-          base: "/packages",
+          text: "Introduction",
+          collapsed: false,
+          base: "/development",
+          items: [
+            { text: "Getting Started", link: "/getting-started" },
+            { text: "i18n", link: "/i18n" },
+            { text: "Typography", link: "/typography" },
+          ],
+        },
+        {
+          text: "Components",
+          base: "/development",
+          collapsed: false,
+          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
+        },
+        {
+          text: "Other onyx npm packages",
+          base: "/development/packages",
           collapsed: false,
           items: [
             { text: "Figma utilities", link: "/figma-utils" },
@@ -123,8 +115,11 @@ export default defineConfig({
           ],
         },
       ],
-      // sidebar for UX content
-      "/design": [],
+      "/resources": [
+        {
+          items: [{ text: "test", link: "/resources" }],
+        },
+      ],
     },
   },
 });

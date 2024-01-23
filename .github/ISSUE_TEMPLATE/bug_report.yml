@@ -1,5 +1,5 @@
 name: Report a bug 🐞
-description: You found a bug in Onyx? You can report it with the form below.
+description: You found a bug in onyx? You can report it with the form below.
 title: "[Bug]: "
 labels:
   - bug

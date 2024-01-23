@@ -1,11 +1,11 @@
 import type { ThemeVars, ThemeVarsPartial } from "@storybook/theming";
 import { create } from "@storybook/theming/create";
-import onyxVariables from "../../sit-onyx/src/styles/variables-onyx.json";
+import onyxVariables from "sit-onyx/src/styles/variables-onyx.json";
 import storybookLogo from "./assets/logo-storybook-default.svg";
 import storybookLogoInverse from "./assets/logo-storybook-inverse.svg";
 
 /**
- * Creates a custom theme for Storybook that uses Onyx colors.
+ * Creates a custom theme for Storybook that uses onyx colors.
  *
  * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
  */
@@ -17,7 +17,7 @@ export const createTheme = (
   const primaryColor = onyxVariables["onyx-color-themed-brand-500"];
 
   return create({
-    brandTitle: options?.brandTitle ?? "Onyx Storybook",
+    brandTitle: options?.brandTitle ?? "onyx Storybook",
     brandUrl: options?.brandUrl ?? "https://onyx.schwarz",
     brandImage: options?.brandImage ?? defaultBrandImage,
     brandTarget: "_blank",
@@ -38,7 +38,7 @@ export const createTheme = (
 
 const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: onyxVariables["onyx-color-universal-greyscale-white"],
+    background: onyxVariables["onyx-color-universal-grayscale-white"],
     contentBackground: onyxVariables["onyx-color-themed-neutral-100"],
     text: onyxVariables["onyx-color-themed-neutral-800"],
     textMuted: onyxVariables["onyx-color-themed-neutral-900"],
@@ -56,7 +56,7 @@ const getDarkTheme = (): Partial<ThemeVars> => {
   });
 };
 
-/** Define a full Onyx Storybook color theme based on the given 5 main colors. */
+/** Define a full onyx Storybook color theme based on the given 5 main colors. */
 const defineTheme = (colors: {
   text: string;
   textMuted: string;
@@ -91,7 +91,7 @@ const defineTheme = (colors: {
   } satisfies Partial<ThemeVars>;
 };
 
-/** All available Storybook breakpoints / viewports supported by Onyx. */
+/** All available Storybook breakpoints / viewports supported by onyx. */
 export const ONYX_BREAKPOINTS = {
   "2xs": {
     name: "2xs",
