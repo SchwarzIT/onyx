@@ -34,7 +34,7 @@ test("should prioritize valueMissing over other invalid types", () => {
   expect(result).toBe("valueMissing");
 });
 
-test("should return a single invalid type", () => {
+test("should return the name of the invalid state if only one is active", () => {
   // ARRANGE
   const testState = getTestState({ tooShort: true });
   // ACT
@@ -43,7 +43,7 @@ test("should return a single invalid type", () => {
   expect(result).toBe("tooShort");
 });
 
-test("should return the first invalid type that is found", () => {
+test("should return the name of the invalid state that appears first alphabetically if multiple are active", () => {
   // ARRANGE
   const testState = getTestState({ typeMismatch: true, tooShort: true, badInput: true });
   // ACT
