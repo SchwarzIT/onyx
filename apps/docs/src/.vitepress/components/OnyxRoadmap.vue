@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import packageJson from "../../../../../packages/sit-onyx/package.json";
-import { data } from "../../index.data";
+import { data as roadmapData } from "../../index.data";
 import ComponentGrid from "./ComponentGrid.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 import TabGroup from "./TabGroup.vue";
@@ -11,74 +11,75 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   year: "numeric",
   hour: "2-digit",
   minute: "2-digit",
-}).format(new Date(data.timestamp));
+}).format(new Date(roadmapData.timestamp));
 </script>
 
 <template>
   <section class="roadmap">
-    <div class="roadmap__container">
-      <div class="sections">
-        <section>
-          <h2 class="roadmap__headline">Components</h2>
+    <div class="roadmap__sections">
+      <section>
+        <h2 class="roadmap__headline">Components</h2>
 
-          <p class="roadmap__description">
-            Onyx is currently in early / active development. Below you can find a list of components
+        <div class="roadmap__description">
+          <p>
+            onyx is currently in early / active development. Below you can find a list of components
             that we are planning to implement as well as their estimated due date.
-            <br />
+          </p>
+          <p>
             Feel free to check this page regularly, we will keep it up to date with our progress.
           </p>
+        </div>
 
-          <TabGroup class="roadmap__tabs" :tabs="data.componentTabs">
-            <template v-for="tab in data.componentTabs" :key="tab.id" #[tab.id]>
-              <ComponentGrid v-bind="tab" />
-            </template>
-          </TabGroup>
-        </section>
+        <TabGroup class="roadmap__tabs" :tabs="roadmapData.componentTabs">
+          <template v-for="tab in roadmapData.componentTabs" :key="tab.id" #[tab.id]>
+            <ComponentGrid v-bind="tab" />
+          </template>
+        </TabGroup>
+      </section>
 
-        <section>
-          <h2 class="roadmap__headline">Facts and figures</h2>
-          <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
+      <section>
+        <h2 class="roadmap__headline">Facts and figures</h2>
+        <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
 
-          <div class="grid">
-            <RoadmapCard
-              :title="data.componentCount"
-              :description="data.componentCount === 1 ? 'Component' : 'Components'"
-              href="/getting-started"
-            />
-            <RoadmapCard
-              :title="data.variantCount"
-              description="Component variants"
-              href="/getting-started"
-            />
-            <RoadmapCard :title="data.downloads" description="downloads (last month)" />
-            <RoadmapCard
-              :title="packageJson.version"
-              description="Onyx Version"
-              href="https://www.npmjs.com/package/sit-onyx"
-            />
-            <RoadmapCard
-              :title="data.packageCount"
-              description="npm packages"
-              href="https://www.npmjs.com/search?q=sit-onyx"
-            />
-            <RoadmapCard
-              :title="data.mergedPRCount"
-              description="Merged Pull requests"
-              :href="`${packageJson.repository.url}/pulls?q=${encodeURIComponent('is:pr is:merged')}`"
-            />
-            <RoadmapCard
-              :title="data.closedIssueCount"
-              description="Closed issues"
-              :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
-            />
-            <RoadmapCard
-              :title="data.contributorCount"
-              description="Contributors"
-              :href="`${packageJson.repository.url}/graphs/contributors`"
-            />
-          </div>
-        </section>
-      </div>
+        <div class="roadmap__facts">
+          <RoadmapCard
+            :title="roadmapData.componentCount"
+            :description="roadmapData.componentCount === 1 ? 'Component' : 'Components'"
+            href="/getting-started"
+          />
+          <RoadmapCard
+            :title="roadmapData.variantCount"
+            description="Component variants"
+            href="/getting-started"
+          />
+          <RoadmapCard :title="roadmapData.downloads" description="Downloads (last month)" />
+          <RoadmapCard
+            :title="packageJson.version"
+            description="onyx Version"
+            href="https://www.npmjs.com/package/sit-onyx"
+          />
+          <RoadmapCard
+            :title="roadmapData.packageCount"
+            description="npm packages"
+            href="https://www.npmjs.com/search?q=sit-onyx"
+          />
+          <RoadmapCard
+            :title="roadmapData.mergedPRCount"
+            description="Merged pull requests"
+            :href="`${packageJson.repository.url}/pulls?q=${encodeURIComponent('is:pr is:merged')}`"
+          />
+          <RoadmapCard
+            :title="roadmapData.closedIssueCount"
+            description="Closed issues"
+            :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
+          />
+          <RoadmapCard
+            :title="roadmapData.contributorCount"
+            description="Contributors"
+            :href="`${packageJson.repository.url}/graphs/contributors`"
+          />
+        </div>
+      </section>
     </div>
   </section>
 </template>
@@ -105,9 +106,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
     padding-right: 4rem;
   }
 
-  &__container {
+  &__sections {
     margin: 0 auto;
     max-width: 1152px;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
   }
 
   &__headline {
@@ -130,17 +134,11 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
     background-color: var(--vp-c-bg-alt);
     border-radius: 0.5rem;
   }
-}
 
-.sections {
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
-}
-
-.grid {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  &__facts {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
 }
 </style>
