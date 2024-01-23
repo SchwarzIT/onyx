@@ -56,12 +56,18 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 </template>
 
 <style lang="scss" scoped>
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
 .theme {
   border-radius: var(--onyx-radius-md);
   border: 1px solid var(--onyx-color-base-border-default);
   background: var(--onyx-color-base-background-blank);
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @include mixins.breakpoint(max, s) {
+    display: block;
+  }
 
   &__container {
     padding: var(--onyx-spacing-lg);
@@ -70,7 +76,9 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
     gap: var(--onyx-spacing-sm);
 
     &:last-child {
-      border-left: 1px solid var(--onyx-color-base-border-default);
+      @include mixins.breakpoint(min, s, 1) {
+        border-left: 1px solid var(--onyx-color-base-border-default);
+      }
     }
   }
 
