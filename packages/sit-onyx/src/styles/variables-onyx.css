@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Thu, 18 Jan 2024 10:51:42 GMT
+ * Imported from Figma API on Tue, 23 Jan 2024 12:10:50 GMT
  */
 :root {
   --onyx-color-themed-action-100: #e9f7f1;
@@ -29,17 +29,19 @@
   --onyx-color-themed-brand-1100: var(--onyx-color-themed-action-1100);
   --onyx-color-themed-brand-1200: var(--onyx-color-themed-action-1200);
   --onyx-color-themed-neutral-100: #fafbfc;
-  --onyx-color-themed-neutral-200: #dee5ea;
-  --onyx-color-themed-neutral-300: #9ba5ad;
-  --onyx-color-themed-neutral-400: #6b7a86;
-  --onyx-color-themed-neutral-500: #465a69;
-  --onyx-color-themed-neutral-600: #334654;
-  --onyx-color-themed-neutral-700: #2a3c4a;
-  --onyx-color-themed-neutral-800: #223340;
-  --onyx-color-themed-neutral-900: #192a37;
+  --onyx-color-themed-neutral-200: #e3eaf0;
+  --onyx-color-themed-neutral-300: #c9d6e0;
+  --onyx-color-themed-neutral-400: #9db3c4;
+  --onyx-color-themed-neutral-500: #7392aa;
+  --onyx-color-themed-neutral-600: #506e84;
+  --onyx-color-themed-neutral-700: #3e596e;
+  --onyx-color-themed-neutral-800: #31495c;
+  --onyx-color-themed-neutral-900: #22384a;
   --onyx-color-themed-neutral-1000: #11212d;
   --onyx-color-themed-neutral-1100: #081723;
   --onyx-color-themed-neutral-1200: #000e19;
+  --onyx-color-universal-grayscale-black: #000000;
+  --onyx-color-universal-grayscale-white: #ffffff;
   --onyx-color-universal-green-100: #ecf8f2;
   --onyx-color-universal-green-200: #c6e4d5;
   --onyx-color-universal-green-300: #98d1b3;
@@ -52,8 +54,6 @@
   --onyx-color-universal-green-1000: #185e3a;
   --onyx-color-universal-green-1100: #064023;
   --onyx-color-universal-green-1200: #064023;
-  --onyx-color-universal-greyscale-black: #000000;
-  --onyx-color-universal-greyscale-white: #ffffff;
   --onyx-color-universal-orange-100: #faf6f2;
   --onyx-color-universal-orange-200: #f8e7d8;
   --onyx-color-universal-orange-300: #f6d1b1;
