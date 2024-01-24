@@ -26,7 +26,7 @@ test.each([
   { label: "the value of a string property", compareObj: { ...referenceObj, b: "bar" } },
   { label: "the value of a nullish property", compareObj: { ...referenceObj, c: undefined } },
   { label: "the value of a boolean property", compareObj: { ...referenceObj, d: false } },
-])("should return false when objects differentiate by $label", ({ compareObj }) => {
+])("should return false when objects differ by $label", ({ compareObj }) => {
   // ACT
   const result = areObjectsFlatEqual(referenceObj, compareObj);
 
