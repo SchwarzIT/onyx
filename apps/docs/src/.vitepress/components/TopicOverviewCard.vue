@@ -8,18 +8,18 @@ const props = defineProps<{
 </script>
 
 <template>
-  <a class="card" tabindex="0" :href="props.href">
-    <img :src="props.image" :alt="props.title" width="7rem" height="7rem" class="card__image" />
+  <a class="topic" tabindex="0" :href="props.href">
+    <img :src="props.image" :alt="props.title" width="7rem" height="7rem" class="topic__image" />
 
-    <div class="card__content">
-      <h3 class="card__title">{{ props.title }}</h3>
-      <p class="card__subtitle">{{ props.subtitle }}</p>
+    <div class="topic__content">
+      <h3 class="topic__title">{{ props.title }}</h3>
+      <p class="topic__subtitle">{{ props.subtitle }}</p>
     </div>
   </a>
 </template>
 
 <style lang="scss" scoped>
-.card {
+.topic {
   padding: var(--onyx-spacing-xs);
   display: flex;
   border-radius: var(--onyx-radius-md);
@@ -65,7 +65,7 @@ const props = defineProps<{
   &:focus-visible {
     border-color: var(--onyx-color-base-action-300);
 
-    .card {
+    .topic {
       &__title {
         color: var(--onyx-color-text-action-intense);
       }
