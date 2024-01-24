@@ -4,11 +4,11 @@ import { VPTeamMembers } from 'vitepress/theme'
 // https://vitepress.dev/reference/default-theme-team-page#show-team-members-in-a-page
 const members = [
   {
-    avatar: 'https://www.github.com/martihofmann.png',
+    avatar: 'https://www.github.com/mj-hof.png',
     name: 'Martin Hofmann',
     title: 'Product Owner',
     links: [
-      { icon: 'github', link: 'https://github.com/martihofmann' },
+      { icon: 'github', link: 'https://github.com/mj-hof' },
     ]
   },
   {

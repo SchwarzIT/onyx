@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "light" theme.
- * Imported from Figma API on Thu, 18 Jan 2024 10:51:19 GMT
+ * Imported from Figma API on Tue, 23 Jan 2024 12:10:44 GMT
  */
 :root {
   --onyx-color-base-action-100: var(--onyx-color-themed-action-100);
@@ -13,9 +13,10 @@
   --onyx-color-base-action-700: var(--onyx-color-themed-action-700);
   --onyx-color-base-action-800: var(--onyx-color-themed-action-800);
   --onyx-color-base-action-900: var(--onyx-color-themed-action-900);
-  --onyx-color-base-background-blank: var(--onyx-color-universal-greyscale-white);
+  --onyx-color-base-background-blank: var(--onyx-color-universal-grayscale-white);
   --onyx-color-base-background-tinted: var(--onyx-color-themed-neutral-100);
-  --onyx-color-base-border-default: var(--onyx-color-base-neutral-200);
+  --onyx-color-base-border-active: var(--onyx-color-base-action-300);
+  --onyx-color-base-border-default: var(--onyx-color-base-neutral-300);
   --onyx-color-base-brand-100: var(--onyx-color-themed-brand-100);
   --onyx-color-base-brand-200: var(--onyx-color-themed-brand-200);
   --onyx-color-base-brand-300: var(--onyx-color-themed-brand-300);
@@ -34,8 +35,8 @@
   --onyx-color-base-danger-700: var(--onyx-color-universal-red-700);
   --onyx-color-base-danger-800: var(--onyx-color-universal-red-800);
   --onyx-color-base-danger-900: var(--onyx-color-universal-red-900);
-  --onyx-color-base-greyscale-black: var(--onyx-color-universal-greyscale-black);
-  --onyx-color-base-greyscale-white: var(--onyx-color-universal-greyscale-white);
+  --onyx-color-base-grayscale-black: var(--onyx-color-universal-grayscale-black);
+  --onyx-color-base-grayscale-white: var(--onyx-color-universal-grayscale-white);
   --onyx-color-base-info-100: var(--onyx-color-universal-purple-100);
   --onyx-color-base-info-200: var(--onyx-color-universal-purple-200);
   --onyx-color-base-info-300: var(--onyx-color-universal-purple-300);
@@ -101,9 +102,9 @@
   --onyx-color-icon-info-medium: var(--onyx-color-universal-purple-300);
   --onyx-color-icon-info-soft: var(--onyx-color-universal-purple-200);
   --onyx-color-icon-neutral-intense: var(--onyx-color-themed-neutral-700);
-  --onyx-color-icon-neutral-inverted: var(--onyx-color-universal-greyscale-white);
-  --onyx-color-icon-neutral-medium: var(--onyx-color-themed-neutral-500);
-  --onyx-color-icon-neutral-soft: var(--onyx-color-themed-neutral-400);
+  --onyx-color-icon-neutral-inverted: var(--onyx-color-universal-grayscale-white);
+  --onyx-color-icon-neutral-medium: var(--onyx-color-themed-neutral-600);
+  --onyx-color-icon-neutral-soft: var(--onyx-color-themed-neutral-500);
   --onyx-color-icon-success-bold: var(--onyx-color-universal-green-700);
   --onyx-color-icon-success-intense: var(--onyx-color-universal-green-500);
   --onyx-color-icon-success-medium: var(--onyx-color-universal-green-300);
@@ -129,9 +130,9 @@
   --onyx-color-text-info-medium: var(--onyx-color-universal-purple-300);
   --onyx-color-text-info-soft: var(--onyx-color-universal-purple-200);
   --onyx-color-text-neutral-intense: var(--onyx-color-themed-neutral-700);
-  --onyx-color-text-neutral-inverted: var(--onyx-color-universal-greyscale-white);
-  --onyx-color-text-neutral-medium: var(--onyx-color-themed-neutral-500);
-  --onyx-color-text-neutral-soft: var(--onyx-color-themed-neutral-400);
+  --onyx-color-text-neutral-inverted: var(--onyx-color-universal-grayscale-white);
+  --onyx-color-text-neutral-medium: var(--onyx-color-themed-neutral-600);
+  --onyx-color-text-neutral-soft: var(--onyx-color-themed-neutral-500);
   --onyx-color-text-success-bold: var(--onyx-color-universal-green-700);
   --onyx-color-text-success-intense: var(--onyx-color-universal-green-500);
   --onyx-color-text-success-medium: var(--onyx-color-universal-green-300);
