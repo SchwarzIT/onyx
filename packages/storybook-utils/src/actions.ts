@@ -1,12 +1,8 @@
 import { useArgs } from "@storybook/preview-api";
-import type { ArgTypes, Meta } from "@storybook/vue3";
+import type { ArgTypes, Decorator, Meta } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { isReactive, reactive, watch } from "vue";
-import type {
-  ArrayElement,
-  DefineStorybookActionsAndVModelsOptions,
-  ExtractVueEventNames,
-} from ".";
+import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } from ".";
 
 /**
  * Utility to define Storybook meta for a given Vue component which will take care of defining argTypes for
@@ -31,14 +27,14 @@ import type {
  */
 export const defineStorybookActionsAndVModels = <T>(
   options: DefineStorybookActionsAndVModelsOptions<T>,
-): Meta<T> => {
+): Meta => {
   const defaultMeta = {
     argTypes: {
       ...defineActions(options.events),
       ...{}, // this is needed to fix a type issue
     },
     decorators: [withVModelDecorator(options.events)],
-  } satisfies Meta<T>;
+  } satisfies Meta;
 
   return deepmerge(options, defaultMeta);
 };
@@ -81,9 +77,7 @@ export const defineActions = <T>(events: ExtractVueEventNames<T>[]): ArgTypes =>
  * }
  * ```
  */
-export const withVModelDecorator = <T>(
-  events: ExtractVueEventNames<T>[],
-): ArrayElement<Meta<T>["decorators"]> => {
+export const withVModelDecorator = <T>(events: ExtractVueEventNames<T>[]): Decorator => {
   return (story, ctx) => {
     const vModelEvents = events.filter((event) => event.startsWith("update:"));
     if (!vModelEvents.length) return story();

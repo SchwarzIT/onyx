@@ -1,9 +1,9 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "dark" theme.
- * Imported from Figma API on Thu, 18 Jan 2024 10:51:34 GMT
+ * Imported from Figma API on Tue, 23 Jan 2024 12:10:40 GMT
  */
-html.dark {
+.dark {
   --onyx-color-base-action-100: var(--onyx-color-themed-action-1100);
   --onyx-color-base-action-200: var(--onyx-color-themed-action-1000);
   --onyx-color-base-action-300: var(--onyx-color-themed-action-900);
@@ -15,7 +15,8 @@ html.dark {
   --onyx-color-base-action-900: var(--onyx-color-themed-action-300);
   --onyx-color-base-background-blank: var(--onyx-color-themed-neutral-1100);
   --onyx-color-base-background-tinted: var(--onyx-color-themed-neutral-1200);
-  --onyx-color-base-border-default: var(--onyx-color-base-neutral-200);
+  --onyx-color-base-border-active: var(--onyx-color-base-action-300);
+  --onyx-color-base-border-default: var(--onyx-color-base-neutral-300);
   --onyx-color-base-brand-100: var(--onyx-color-themed-brand-1100);
   --onyx-color-base-brand-200: var(--onyx-color-themed-brand-1000);
   --onyx-color-base-brand-300: var(--onyx-color-themed-brand-900);
@@ -34,8 +35,8 @@ html.dark {
   --onyx-color-base-danger-700: var(--onyx-color-universal-red-500);
   --onyx-color-base-danger-800: var(--onyx-color-universal-red-400);
   --onyx-color-base-danger-900: var(--onyx-color-universal-red-300);
-  --onyx-color-base-greyscale-black: var(--onyx-color-universal-greyscale-black);
-  --onyx-color-base-greyscale-white: var(--onyx-color-universal-greyscale-white);
+  --onyx-color-base-grayscale-black: var(--onyx-color-universal-grayscale-black);
+  --onyx-color-base-grayscale-white: var(--onyx-color-universal-grayscale-white);
   --onyx-color-base-info-100: var(--onyx-color-universal-purple-1100);
   --onyx-color-base-info-200: var(--onyx-color-universal-purple-1000);
   --onyx-color-base-info-300: var(--onyx-color-universal-purple-900);

@@ -32,15 +32,15 @@ describe("generate.ts", () => {
 `);
   });
 
-  test("should generate as CSS with custom selector", () => {
-    const fileContent = generateAsCSS(mockData, { selector: "html" });
+  test("should generate as CSS with custom selector and replace mode placeholder", () => {
+    const fileContent = generateAsCSS(mockData, { selector: "html.{mode}, .selector-{mode}" });
 
     expect(fileContent).toBe(`/**
  * Do not edit directly.
  * This file contains the specific variables for the "test-mode-1" theme.
  * Imported from Figma API on Sun, 07 Jan 2024 13:42:00 GMT
  */
-html.test-mode-1 {
+html.test-mode-1, .selector-test-mode-1 {
   --test-1: #ffffff;
   --test-2: 1rem;
   --test-3: var(--test-2);

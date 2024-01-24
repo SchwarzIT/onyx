@@ -3,7 +3,7 @@ outline: [2, 3]
 ---
 
 <script lang="ts" setup>
-import packageJson from "../../../../packages/figma-utils/package.json";
+import packageJson from "../../../../../packages/figma-utils/package.json";
 </script>
 
 # @sit-onyx/figma-utils
