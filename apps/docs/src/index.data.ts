@@ -239,13 +239,9 @@ const getOnyxNpmPackages = () => {
   const packagePath = fileURLToPath(new URL("../../../packages", import.meta.url));
 
   const packageFolders = fs.readdirSync(packagePath).filter((packageName) => {
-    const stat = fs.statSync(path.join(packagePath, packageName));
-    if (!stat.isDirectory()) return false;
-
     try {
-      const packageJson = JSON.parse(
-        fs.readFileSync(path.join(packagePath, packageName, "package.json"), "utf-8"),
-      );
+      const packageJsonPath = path.join(packagePath, packageName, "package.json");
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
       return !packageJson.private;
     } catch {
       // folder is invalid npm package because it does not contain a valid package.json file
