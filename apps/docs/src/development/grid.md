@@ -21,7 +21,7 @@ The dynamic grid has the following advantages over a fixed column grid:
 
 The grid layout is configured via the following classes. They must be set on the main element of your application.
 
-- `onyx-grid`: Sets up the Grid wrapper, which configures the grid layout depending on the breakpoint. Should be set on the main element of an application.
+- `onyx-grid`: Sets up the grid wrapper which configures the grid layout depending on the breakpoint. Should be set on the main element of the application.
 
 Additionally there are some optional modifier classes available.
 
