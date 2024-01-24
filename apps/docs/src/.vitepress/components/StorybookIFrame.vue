@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useData } from "vitepress";
 import { computed } from "vue";
-import { vitepressEnv } from "../.vitepress/env";
+import { vitepressEnv } from "../env";
 
 /**
  * This component is expected to be put in a markdown file with the layout set to "page"
