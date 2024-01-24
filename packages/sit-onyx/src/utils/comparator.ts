@@ -11,10 +11,5 @@ export const areObjectsFlatEqual = (obj1: FlatObject, obj2: FlatObject): boolean
   // { } and { a: undefined } are equal, so we ignored all undefined properties to get a more reliable comparison
   if (noUndefinedEntries1.length !== noUndefinedEntries2.length) return false;
 
-  return (
-    -1 ===
-    noUndefinedEntries1.findIndex(([name, value]) => {
-      return value !== obj2[name];
-    })
-  );
+  return noUndefinedEntries1.every(([name, value]) => value === obj2[name]);
 };

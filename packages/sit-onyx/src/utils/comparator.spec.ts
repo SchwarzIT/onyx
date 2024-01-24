@@ -3,32 +3,15 @@ import { areObjectsFlatEqual } from "./comparator";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 
-test("should return true for equal objects with the same ordered key-values", () => {
+test.each([
   // ARRANGE
-  const compareObj = { ...referenceObj };
-
-  // ACT
-  const result = areObjectsFlatEqual(referenceObj, compareObj);
-
-  // ASSERT
-  expect(result).toBeTruthy();
-});
-
-test("should return true for equal objects with differently ordered key-values", () => {
-  // ARRANGE
-  const compareObj = { d: true, b: "foo", c: null, a: 42 };
-
-  // ACT
-  const result = areObjectsFlatEqual(referenceObj, compareObj);
-
-  // ASSERT
-  expect(result).toBeTruthy();
-});
-
-test("should return true for equal objects ignoring undefined keys", () => {
-  // ARRANGE
-  const compareObj = { ...referenceObj, e: undefined };
-
+  { label: "with the same ordered key-values", compareObj: { ...referenceObj } },
+  {
+    label: "with differently ordered key-values",
+    compareObj: { d: true, b: "foo", c: null, a: 42 },
+  },
+  { label: "ignoring undefined keys", compareObj: { ...referenceObj, e: undefined } },
+])("should return true for equal objects $label", ({ compareObj }) => {
   // ACT
   const result = areObjectsFlatEqual(referenceObj, compareObj);
 
