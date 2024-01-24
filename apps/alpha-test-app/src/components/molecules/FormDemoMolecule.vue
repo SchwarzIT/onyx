@@ -40,7 +40,12 @@ watch(
 </script>
 
 <template>
-  <form v-if="formState" ref="formElement" class="demo" @submit.prevent="emit('submit', props)">
+  <form
+    v-if="formState"
+    ref="formElement"
+    class="demo"
+    @submit.prevent="emit('submit', props.formData)"
+  >
     <h3>This form is <span class="demo__invalid">in</span>valid.</h3>
 
     <TestInput v-model="formState.defaultInput" label="Default" />
