@@ -25,6 +25,6 @@ The grid layout is configured via the following CSS classes which must be set on
 
 Additionally, there are some optional modifier classes available.
 
-- `onyx-grid-xl-20`: Increases the column count from 16 to 20 for the `xl` breakpoint.
+- `onyx-grid-xl-20`: Increases the column count from 16 to 20 for the `xl` breakpoint (useful for 4k screens).
 - `onyx-grid-max-md`: Caps the width before the `lg` breakpoint (`1440px`)
 - `onyx-grid-max-lg`: Caps the width before the `xl` breakpoint (`1920px`)
