@@ -26,7 +26,7 @@ const baseStepNames: Record<number, string> = {
   700: "intense",
 };
 
-const whiteTextColor = "var(--onyx-color-base-greyscale-white)";
+const whiteTextColor = "var(--onyx-color-base-grayscale-white)";
 
 /**
  * Available color steps to display for the currently active tab (e.g. 100-900 for base colors).
