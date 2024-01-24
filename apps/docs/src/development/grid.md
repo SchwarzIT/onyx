@@ -4,7 +4,7 @@
 This library is currently in early / active development.
 :::
 
-The grid implementation in **onyx** differs from more popular grid system implementation, that you might know.
+The grid implementation in **onyx** differs from other design system implementations that you might know.
 Instead of having a fixed 12 column grid, we have a dynamic grid with 4, 8, 12, 16 and optionally 20 columns.
 The amount of columns differs based on the active breakpoint.
 You can find a detailed description of the system in the design system docs (TODO: Add link to grid UX definition).
