@@ -2,14 +2,14 @@
 const props = defineProps<{
   title: string;
   subtitle: string;
-  image: string;
+  imageSrc: string;
   href: string;
 }>();
 </script>
 
 <template>
   <a class="topic" tabindex="0" :href="props.href">
-    <img :src="props.image" :alt="props.title" width="7rem" height="7rem" class="topic__image" />
+    <img :src="props.imageSrc" :alt="props.title" width="7rem" height="7rem" class="topic__image" />
 
     <div class="topic__content">
       <h3 class="topic__title">{{ props.title }}</h3>
