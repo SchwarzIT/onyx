@@ -37,6 +37,10 @@ jobs:
 
       - name: 🛠️ Build packages
         run: pnpm build:all
+        env:
+          # needed for increase rate limit for the GitHub API that is used when building
+          # the VitePress documentation
+          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v3

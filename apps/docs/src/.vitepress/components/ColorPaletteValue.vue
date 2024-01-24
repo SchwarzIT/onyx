@@ -1,0 +1,126 @@
+<script lang="ts" setup>
+import CopyIcon from "./icons/CopyIcon.vue";
+
+export type ColorPaletteValueProps = {
+  /** Text to show below the value. */
+  description: number | string;
+  /** CSS variable of the color value to use as background color. */
+  color: string;
+  /** Text color (should have good contrast to `color` property). */
+  textColor: string;
+  /** Optional name to show inside of the color. */
+  name?: string;
+  /** If true, a border is shown around the color value. Useful for very light/dark colors with low contrast. */
+  showBorder?: boolean;
+};
+
+const props = defineProps<ColorPaletteValueProps>();
+
+const emit = defineEmits<{
+  select: [];
+}>();
+</script>
+
+<template>
+  <button class="step" @click="emit('select')">
+    <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
+      <span v-if="props.name" class="step__name">{{ props.name }}</span>
+      <CopyIcon class="step__icon" />
+    </div>
+    <p class="step__description">{{ props.description }}</p>
+  </button>
+</template>
+
+<style lang="scss" scoped>
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
+.step {
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+
+  @include mixins.breakpoint(max, s) {
+    display: flex;
+    align-items: center;
+  }
+
+  &:first-child {
+    .step__color {
+      border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+
+      @include mixins.breakpoint(max, s) {
+        border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
+      }
+    }
+  }
+
+  &:last-child {
+    .step__color {
+      border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+
+      @include mixins.breakpoint(max, s) {
+        border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
+      }
+    }
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: v-bind("props.color");
+    color: v-bind("props.textColor");
+    border-radius: var(--onyx-radius-sm);
+
+    .step {
+      &__name {
+        display: block;
+        visibility: hidden;
+        height: 0;
+      }
+
+      &__icon {
+        display: inline-block;
+      }
+
+      &__color {
+        padding-bottom: var(--onyx-spacing-xs);
+
+        &--with-border {
+          padding-bottom: var(--onyx-spacing-sm);
+        }
+      }
+    }
+  }
+
+  &__color {
+    padding: var(--onyx-spacing-sm);
+    font-weight: 600;
+    min-height: 1.5rem;
+    box-sizing: content-box;
+    background-color: v-bind("props.color");
+    color: v-bind("props.textColor");
+    width: calc(100% - 2 * var(--onyx-spacing-sm));
+
+    &--with-border {
+      border: 1px solid var(--onyx-color-base-border-default);
+      min-height: calc(1.5rem - 2px);
+      height: calc(1.5rem - 2px);
+    }
+  }
+
+  &__icon {
+    display: none;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-family: var(--onyx-font-family-mono);
+    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
+
+    @include mixins.breakpoint(max, s) {
+      width: 6.5rem;
+    }
+  }
+}
+</style>
