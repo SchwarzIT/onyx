@@ -1,6 +1,6 @@
 # Motion
 
-Microanimations bring a user interface to life. However, careful handling is necessary here, because the minimalistic motto is
+Microanimations bring a user interface to life. However, careful handling is necessary here, because the minimalistic motto is:
 
 ::: tip Less is more!
 The user should not be distracted by elaborate animations. Instead, they should support the user in his workflow, provide feedback and make the entire application easier to understand.
