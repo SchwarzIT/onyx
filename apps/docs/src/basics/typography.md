@@ -337,7 +337,7 @@ Never text about content, the user cannot relate to.
 
 ::: details Consistency
 
-Texts never are built with uppercases. Always use the provided line hight for spacing. Do not try to squeeze characters or textblocks. Less is more - Minimalism is key.
+Texts should never be built in uppercase. Always use the provided line height for spacing. Do not try to squeeze characters or text blocks. Less is more - Minimalism is key.
 
 :::
 
