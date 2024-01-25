@@ -37,6 +37,10 @@ jobs:
 
       - name: 🛠️ Build packages
         run: pnpm run build:all
+        env:
+          # needed for increase rate limit for the GitHub API that is used when building
+          # the VitePress documentation
+          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all
@@ -46,20 +50,20 @@ jobs:
         run: pnpm run publint:all
 
       - name: Upload code coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
           name: coverage
           path: packages/sit-onyx/coverage
 
       - name: Upload Storybook artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/storybook-static
 
       - name: Upload documentation artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist

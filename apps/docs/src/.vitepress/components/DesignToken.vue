@@ -30,11 +30,16 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="token" :class="{ 'token--color': props.type === 'color' }">
-    <button class="token__name" @click="emit('copy')" @keyup.enter="emit('copy')">
+  <button
+    class="token"
+    :class="{ 'token--color': props.type === 'color' }"
+    @click="emit('copy')"
+    @keyup.enter="emit('copy')"
+  >
+    <div class="token__name">
       <span>{{ props.name }}</span>
       <span v-if="props.type === 'value'" class="token__value">{{ props.value }}</span>
-    </button>
+    </div>
 
     <span v-if="props.isCopied" class="token__copied">
       <CheckIcon />
@@ -42,10 +47,12 @@ const emit = defineEmits<{
     </span>
 
     <CopyIcon v-else class="token__copy" color="var(--onyx-color-icon-action-intense)" />
-  </div>
+  </button>
 </template>
 
 <style lang="scss" scoped>
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
 .token {
   display: flex;
   align-items: center;
@@ -61,10 +68,16 @@ const emit = defineEmits<{
     width: max-content;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--onyx-spacing-lg);
     outline-color: var(--onyx-color-base-action-300);
     background-color: var(--onyx-color-base-background-blank);
     cursor: pointer;
+    min-width: 16rem;
+
+    @include mixins.breakpoint(max, xs) {
+      min-width: unset;
+    }
   }
 
   &__value {

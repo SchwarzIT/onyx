@@ -24,11 +24,11 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "Brand", link: "/brand/" },
-      { text: "Basics", link: "/basics/" },
-      { text: "Tokens", link: "/tokens/" },
-      { text: "Development", link: "/development/" },
-      { text: "Resources", link: "/resources/" },
+      { text: "Brand", link: "/brand/", activeMatch: "/brand/" },
+      { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
+      { text: "Tokens", link: "/tokens/", activeMatch: "/tokens/" },
+      { text: "Development", link: "/development/", activeMatch: "/development/" },
+      { text: "Resources", link: "/resources/", activeMatch: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -99,6 +99,7 @@ export default defineConfig({
           items: [
             { text: "Getting Started", link: "/" },
             { text: "i18n", link: "/i18n" },
+            { text: "Grid", link: "/grid" },
             { text: "Typography", link: "/typography" },
           ],
         },

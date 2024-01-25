@@ -3,8 +3,18 @@ import type { DeepPartial } from "@/types/utils";
 import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 
+/**
+ * The type of the imported `enUS` above is a concrete type so the value type of each message
+ * is e.g. "{ myKey: 'HelloWorld'}" but it should be "{ myKey: string }".
+ * This utility type converts all values to be of type string (more generic)
+ * so we can actually use other locales as well.
+ */
+type GetTypeOfTranslations<T> = T extends object
+  ? { [P in keyof T]?: GetTypeOfTranslations<T[P]> }
+  : string;
+
 /** Available translations that are used by onyx components. */
-export type OnyxTranslations = typeof enUS;
+export type OnyxTranslations = GetTypeOfTranslations<typeof enUS>;
 
 export type ProvideI18nOptions = {
   /**

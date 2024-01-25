@@ -1,0 +1,57 @@
+//
+// Default Grid Variants
+//
+
+// prettier-ignore
+$gridVariants: (
+//  NAME     BREAKPOINT  COLUMNS  GUTTER  MARGIN
+    "2xs"    0px         4        1rem    1rem,
+    "xs"     576px       8        1rem    1rem,
+    "sm"     768px       8        1.5rem  2rem,
+    "md"     992px       12       1.5rem  4rem,
+    "lg"     1440px      16       2rem    4rem,
+    "xl"     1920px      16       2rem    4rem,
+);
+
+.onyx-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--onyx-grid-columns), minmax(0, 1fr));
+  gap: var(--onyx-grid-gutter);
+  margin: var(--onyx-grid-margin);
+  max-width: var(--onyx-grid-max-width, none);
+}
+
+@each $name, $breakpoint, $columns, $gutter, $margin in $gridVariants {
+  @media screen and (min-width: $breakpoint) {
+    :where(:root) {
+      --onyx-grid-columns: #{$columns};
+      --onyx-grid-gutter: #{$gutter};
+      --onyx-grid-margin: #{$margin};
+    }
+  }
+}
+
+//
+// Grid variants with max width
+//
+
+// prettier-ignore
+$gridMaxVariants: (
+//  NAME  MAX-WIDTH
+    "md"  1440px,
+    "lg"  1920px,
+);
+
+@each $name, $maxWidth in $gridMaxVariants {
+  .onyx-grid-max-#{$name} {
+    --onyx-grid-max-width: #{$maxWidth};
+  }
+}
+
+//
+// Alternative grid variants
+//
+
+.onyx-grid-xl-20 {
+  --onyx-grid-columns: 20;
+}

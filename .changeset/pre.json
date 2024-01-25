@@ -8,7 +8,8 @@
     "@sit-onyx/headless": "0.0.0",
     "@sit-onyx/vitepress-theme": "0.0.0",
     "docs": "0.0.0",
-    "@sit-onyx/eslint-plugin": "0.0.0"
+    "@sit-onyx/eslint-plugin": "0.0.0",
+    "alpha-test-app": "0.0.0"
   },
   "changesets": [
     "brave-lobsters-wonder",
