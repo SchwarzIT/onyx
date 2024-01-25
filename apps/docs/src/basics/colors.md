@@ -12,7 +12,7 @@ In order to establish a versatile foundation that offers both, a light and dark 
 
 ### Semantic color scheme
 
-The color values within the global color scheme have been precisely translated into the semantic context of light and dark modes. This refinement involves condensing the scale to a series of 9 values in increments of 100, with the pivotal point of 500 serving as the default reference for both light and dark modes. Notably, the semantic color schemes for the light mode now referres to a distinct spectrum when compared to their dark mode counterparts.
+The color values within the global color scheme have been precisely translated into the semantic context of light and dark mode. This refinement involves condensing the scale to a series of 9 values in increments of 100, with the pivotal point of 500 serving as the default reference for both light and dark modes. Notably, the semantic color schemes for the light mode now referres to a distinct spectrum when compared to their dark mode counterparts.
 
 Semantic colors are defined in relation to the background, dynamically adjusting luminance to harmonize with the unique characteristics of each mode. This intentional differentiation ensures that the visual aesthetics of the interface remain optimal in both light and dark settings.
 
