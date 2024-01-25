@@ -7,11 +7,3 @@ The onyx design system follows the web standards for component states to provide
 ::: tip Important
 Not every component uses all available states. Only states that are supported by a specific component will be implemented.
 :::
-
-## Passive component states
-
-_List component by Devs to be used_
-
-## Active component states
-
-_List component by Devs to be used_

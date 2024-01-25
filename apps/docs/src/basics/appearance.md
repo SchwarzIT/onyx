@@ -16,7 +16,7 @@ The reason for using rem is to ensure the scalability of components and layouts,
 
 ## Spacing
 
-Spacing between elements or components are essential for creating visual hierarchy. A consistent use supports homogenous and visual appealing interfaces that work on all devices. Therefore, layout spacings and margins are pending on the [column grid](/basics/breakpoints_grid), that is based on the breakpoint or screen size.
+Spacing between elements or components are essential for creating visual hierarchy. A consistent use supports homogenous and visual appealing interfaces that work on all devices. Therefore, layout spacings and margins are pending on the [column grid](/basics/breakpoints-grid), that is based on the breakpoint or screen size.
 For more information about your provided screendesign please contact your assigned XU-Designer.
 
 ### Spacing tokens

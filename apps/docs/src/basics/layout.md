@@ -3,11 +3,11 @@
 Different layouts are the best way to focus the users attention and create hierarchy. Additionally, a well chosen layout serves as a guiding hand for the user to work with the application. Our recommended way to create both an attractive and accessible layout is to follow the principles below.
 
 ::: details Responsive
-Layouts should be adaptive in their structure displayed on [multiple devices and screensizes](/basics/breakpoints_grid).
+Layouts should be adaptive in their structure displayed on [multiple devices and screensizes](/basics/breakpoints-grid).
 :::
 
 ::: details Clean
-Using a [column grid](/basics/breakpoints_grid) for creating interfaces with onyx is not only mandatory but also the best way to build pixel perfect and adaptive layouts.
+Using a [column grid](/basics/breakpoints-grid) for creating interfaces with onyx is not only mandatory but also the best way to build pixel perfect and adaptive layouts.
 :::
 
 ::: details Content related
@@ -38,7 +38,7 @@ The main content is displayed here. This is totally flexible in its representati
 Global confirmations are triggered by a global section at the bottom of the screen. It is independent from scrolling and sticks to the bottom. This section can also be applied to objects.
 :::
 
-This is just an example layout for showing the possibilities of having several sections. It is important to be aligned with the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components for main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
+This is just an example layout for showing the possibilities of having several sections. It is important to be aligned with the [column grid](/basics/breakpoints-grid), that is provided by onyx. For more information about the components for main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
 
 ## Alignment
 

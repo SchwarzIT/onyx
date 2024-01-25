@@ -1,47 +1,22 @@
 # Typography
 
-::: danger
-Still content to create!
-:::
-
-The onyx font system includes three different font families that can be used throughout your application, pending on the usecase. It contains several headline styles as well as paragraph styles and mono space styles.
+The onyx font system includes two different font families that can be used throughout your application, pending on the usecase. It contains several headline styles as well as paragraph styles and mono space styles.
 
 ::: info
 The font families that can be used with onyx are:
 
 - [Source Sans 3](https://fonts.google.com/specimen/Source+Sans+3)
 - [Source Code Pro](https://fonts.google.com/specimen/Source+Code+Pro?query=source)
-- [Lidl Font Pro](https://www.brand.lidl/brandelements/brandelements/view/id/664#headline_2486)
-- [Kaufland Regular](https://google.com)
-  :::
+
+Lidl and Kaufland font families are coming soon.
+
+:::
 
 ## Brand typography
 
 The default font family is defined to be the Source Sans and Source Code Pro (monospace). If you are creating a new onyx project, this will always be included out-of-the-box. In the initial phase, Source Sans applies to all color themes that are provided by onyx.
 
 If you want to use custom font families, please take a look at the [technical documentation](/development/typography).
-
-::: warning Attention
-Please note that only the `Kaufland Regular` may be implemented in the Kaufland theme and only the `Lidl Font Pro` in the Lidl theme!
-
-For all the other color themes, `Source Sans` remains the font of choice!
-:::
-
-### How to import
-
-To import Kaufland Regular and Lidl Font Pro follow the steps below.
-
-::: code-group
-
-```txt [Kaufland Regular]
-Lorem Ipsum
-```
-
-```txt [Lidl Font Pro]
-Lorem Ipsum
-```
-
-:::
 
 ## Font stacks
 
@@ -58,11 +33,11 @@ This is the page title. It can only be used once per page at the very top.
 | Property            |          Value |
 | ------------------- | -------------: |
 | `weight`            | SemiBold - 600 |
-| `size`              |          28 px |
-| `line height`       |          40 px |
-| `letter spacing`    |           0 px |
+| `size`              |           28px |
+| `line height`       |           40px |
+| `letter spacing`    |            0px |
 | `text decoration`   |           none |
-| `paragraph spacing` |           0 px |
+| `paragraph spacing` |            0px |
 | `case`              |       original |
 
 :::
@@ -76,11 +51,11 @@ Used for section titles and navigation in the navbar.
 | Property            |          Value |
 | ------------------- | -------------: |
 | `weight`            | SemiBold - 600 |
-| `size`              |          20 px |
-| `line height`       |          28 px |
-| `letter spacing`    |           0 px |
+| `size`              |           20px |
+| `line height`       |           28px |
+| `letter spacing`    |            0px |
 | `text decoration`   |           none |
-| `paragraph spacing` |           0 px |
+| `paragraph spacing` |            0px |
 | `case`              |       original |
 
 :::
@@ -94,11 +69,11 @@ Used for element headlines and buttons.
 | Property            |          Value |
 | ------------------- | -------------: |
 | `weight`            | SemiBold - 600 |
-| `size`              |          16 px |
-| `line height`       |          24 px |
-| `letter spacing`    |           0 px |
+| `size`              |           16px |
+| `line height`       |           24px |
+| `letter spacing`    |            0px |
 | `text decoration`   |           none |
-| `paragraph spacing` |           0 px |
+| `paragraph spacing` |            0px |
 | `case`              |       original |
 
 :::
@@ -112,11 +87,11 @@ Used for bold labels and table column headers.
 | Property            |          Value |
 | ------------------- | -------------: |
 | `weight`            | SemiBold - 600 |
-| `size`              |          13 px |
-| `line height`       |          20 px |
-| `letter spacing`    |           0 px |
+| `size`              |           13px |
+| `line height`       |           20px |
+| `letter spacing`    |            0px |
 | `text decoration`   |           none |
-| `paragraph spacing` |           0 px |
+| `paragraph spacing` |            0px |
 | `case`              |       original |
 
 :::
@@ -136,11 +111,11 @@ Used for inactive navigation in the navbar.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         20 px |
-| `line height`       |         28 px |
-| `letter spacing`    |          0 px |
+| `size`              |          20px |
+| `line height`       |          28px |
+| `letter spacing`    |           0px |
 | `text decoration`   |          none |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -154,11 +129,11 @@ Used for default font for paragraph-text.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         16 px |
-| `line height`       |         24 px |
-| `letter spacing`    |          0 px |
+| `size`              |          16px |
+| `line height`       |          24px |
+| `letter spacing`    |           0px |
 | `text decoration`   |          none |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -172,11 +147,11 @@ Used for small font for paragraph-text.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         13 px |
-| `line height`       |         20 px |
-| `letter spacing`    |          0 px |
+| `size`              |          13px |
+| `line height`       |          20px |
+| `letter spacing`    |           0px |
 | `text decoration`   |          none |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -192,11 +167,11 @@ Used for big sized links.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         20 px |
-| `line height`       |         28 px |
-| `letter spacing`    |          0 px |
+| `size`              |          20px |
+| `line height`       |          28px |
+| `letter spacing`    |           0px |
 | `text decoration`   |     underline |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -210,11 +185,11 @@ Used for default sized links.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         16 px |
-| `line height`       |         24 px |
-| `letter spacing`    |          0 px |
+| `size`              |          16px |
+| `line height`       |          24px |
+| `letter spacing`    |           0px |
 | `text decoration`   |     underline |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -228,11 +203,11 @@ Used for small sized links.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         13 px |
-| `line height`       |         20 px |
-| `letter spacing`    |          0 px |
+| `size`              |          13px |
+| `line height`       |          20px |
+| `letter spacing`    |           0px |
 | `text decoration`   |     underline |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -248,11 +223,11 @@ Used for big sized calculations.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         20 px |
-| `line height`       |         28 px |
-| `letter spacing`    |          0 px |
+| `size`              |          20px |
+| `line height`       |          28px |
+| `letter spacing`    |           0px |
 | `text decoration`   |          none |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -266,11 +241,11 @@ Used for default sized calculations.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         16 px |
-| `line height`       |         24 px |
-| `letter spacing`    |          0 px |
+| `size`              |          16px |
+| `line height`       |          24px |
+| `letter spacing`    |           0px |
 | `text decoration`   |          none |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -284,11 +259,11 @@ Used for small sized calculations.
 | Property            |         Value |
 | ------------------- | ------------: |
 | `weight`            | Regular - 400 |
-| `size`              |         13 px |
-| `line height`       |         20 px |
-| `letter spacing`    |          0 px |
+| `size`              |          13px |
+| `line height`       |          20px |
+| `letter spacing`    |           0px |
 | `text decoration`   |          none |
-| `paragraph spacing` |          0 px |
+| `paragraph spacing` |           0px |
 | `case`              |      original |
 
 :::
@@ -299,7 +274,7 @@ It is important to keep the usage of font styles consistent throughout the whole
 
 ## Line length
 
-To create a flowing readability, the line length is key. There are no strict rules on the usage, due to the dependency on [screen size, breakpoint and column grid](/basics/breakpoints_grid). Nevertheless onyx provides some guidelines and recommendations for your implementation.
+To create a flowing readability, the line length is key. There are no strict rules on the usage, due to the dependency on [screen size, breakpoint and column grid](/basics/breakpoints-grid). Nevertheless onyx provides some guidelines and recommendations for your implementation.
 
 ![image](/assets/line_length.png)
 

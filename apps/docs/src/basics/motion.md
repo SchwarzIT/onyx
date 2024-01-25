@@ -29,7 +29,6 @@ Every transition/animation that is applied to a component uses a recommended dur
 
 | Duration name | Duration |
 | ------------- | -------: |
-| `none`        |     0ms |
-| `sm`          |   400ms |
-| `md`          |   700ms |
-| `lg`          |  1000ms |
+| `sm`          |    400ms |
+| `md`          |    700ms |
+| `lg`          |   1000ms |
