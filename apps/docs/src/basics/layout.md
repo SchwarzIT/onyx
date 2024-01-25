@@ -48,7 +48,7 @@ Column grids for the whole page layout are always **left aligned** by default.
 
 ![Logo](/assets/layout_alignment_left.png)
 
-An `center aligned`version is possible alternatively. The choice of alignment doesn't follow strict rules. But please consider the balance of the target screensize, the target user group, the target usecase and the content you are building/designing for.
+A **center aligned** version is possible alternatively. The choice of alignment doesn't follow strict rules. But please consider the balance of the target screen size, the target user group, the target use-case and the content you are building/designing for.
 
 ![Logo](/assets/layout_alignment_center.png)
 
