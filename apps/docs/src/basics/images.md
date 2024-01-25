@@ -33,6 +33,7 @@ To prevent any kind of legal issues, onyx recommends to use either your own copy
 ### Reduce color gamut
 
 The image should employ a reduced color gamut. This means for instance that it is mainly blue, green, or red but not at the same time equally blue, green, and red. Different color gamuts can be used in an application for different pages to distinguish them from each other.
+
 ![Image](/assets/color_gamut.png)
 
 ### Natural light
