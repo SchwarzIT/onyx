@@ -17,7 +17,7 @@ The font families that can be used with onyx are:
 
 ## Brand typography
 
-The standard font family is defined to be the Source Sans. If you are creating a new onyx project, this will always be the startingpoint. In the initial phase the Source Sans applies to all color themes that are provided by onyx.
+The default font family is defined to be the Source Sans and Source Code Pro (monospace). If you are creating a new onyx project, this will always be included out-of-the-box. In the initial phase, Source Sans applies to all color themes that are provided by onyx.
 
 In case you are working on a Kaufland application or Lidl application, you are free to switch into the brand font families of Kaufland Regular or Lidl Font Pro.
 
