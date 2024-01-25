@@ -1,6 +1,6 @@
 # Introduction
 
-Understanding the logic, structure and usage of tokens is crucial for creating onyx applications. Here is everything you need to know. Please feel free to contact the departments of UX/UI or Web Frontend Enterprise if you got further questions.
+Understanding the logic, structure and usage of tokens is crucial for creating onyx applications. Here is everything you need to know. Please feel free to visit our [Q&A](https://github.com/SchwarzIT/onyx/discussions/categories/q-a) if you have any questions.
 
 ## What is a design token?
 
