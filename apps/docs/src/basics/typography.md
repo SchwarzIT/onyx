@@ -347,4 +347,4 @@ Links are the tool of choice to refer to another page. Please use the `link` fon
 
 ## Truncation
 
-For more details about truncation and how to use it, please visit the [accessibility foundations](/basics/accessibility).
+For more details about truncation and how to use it, please visit the [truncation basics](/basics/truncation).
