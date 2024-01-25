@@ -44,7 +44,7 @@ The choice of radius has a big impact to the whole appearance of an UI. With rad
 ::: warning Attention
 The base value for radius that is used for components is `4px`.
 
-For examples, buttons are using this value. Sometimes buttons or other elements are used inside another component. This leads to a larger radius of the outside component to keep the visual appearance homogenous.
+For example, buttons are using this value. Sometimes buttons or other elements are used inside another component. This leads to a larger radius of the outside component to keep the visual appearance homogenous.
 :::
 
 ### Radius tokens
