@@ -16,10 +16,4 @@ Designed for users who appreciate a more spacious and visually relaxed interface
 
 ## Properties
 
-Due to using the onyx token system, densities can be switched very fast and easily. The following properties are helping with that.
-
-| Property  |
-| --------- |
-| `compact` |
-| `default` |
-| `cozy`    |
+The density can be easily switched via the `density` property of supported components. Please take a look at the [components](/development/) for further information.
