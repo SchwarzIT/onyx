@@ -54,11 +54,11 @@ const handleCopy = async () => {
       padding: var(--onyx-spacing-sm) var(--onyx-spacing-xl);
 
       &--left {
-        border-right: 1px solid var(--onyx-color-base-border-default);
         width: 75%;
       }
 
       &--right {
+        border-left: 1px solid var(--onyx-color-base-border-default);
         width: 25%;
       }
     }
