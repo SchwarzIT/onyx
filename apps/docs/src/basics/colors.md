@@ -1,6 +1,6 @@
 # Colors
 
-Colors in a user interface play a crucial role in enhancing the visual appeal and user experience. They go beyond than just aesthetics, serving as powerful tools to convey information, establish hierarchy, and evoke emotions. The usage of a well-thought-out color scheme can guide users, highlight important elements, and create a cohesive and memorable design. The choice of colors significantly influences how users perceive and interact with the interface, making it an integral aspect of effective design.
+Colors play a crucial role in an user interface for enhancing the visual appeal and user experience. They go beyond just aesthetics, serving as powerful tools to convey information, establish hierarchy, and evoke emotions. The usage of a well-thought-out color scheme can guide users, highlight important elements and create a cohesive and memorable design. The choice of colors significantly influences how users perceive and interact with the interface, making it an integral aspect of an effective design.
 
 ## Understanding light & dark mode
 
