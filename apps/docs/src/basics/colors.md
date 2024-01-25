@@ -84,7 +84,7 @@ The recommendation for working with colors is described with the 60-30-10 guidel
 
 30% of colors should be used as supportive elements, complementing the blank hue, with the usage of brand-neutal colors.
 
-The remaining 10% is dedicated to an accent color, strategically applied to highlight the key elements and call-to-actions. This in fact, is always the brand-primary in the onyx design system.
+The remaining 10% are dedicated to an accent color, strategically applied to highlight the key elements and call-to-actions. This in fact, is always the brand-primary color in the onyx design system.
 
 ## Contrast
 
