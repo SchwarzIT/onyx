@@ -6,7 +6,7 @@ Images in a user interface serve as visual elements designed to convey informati
 Images are powerful tools for conveying messages and information quickly. They can communicate concepts, emotions, and information more effectively than text alone.
 :::
 
-::: details Information Enhancement
+::: details Information enhancement
 Images can complement textual information, making it more digestible and memorable. Infographics, charts, and diagrams are examples of how images can enhance the presentation of complex data or concepts.
 :::
 
