@@ -47,7 +47,7 @@ Recognizing that each added element increases UI complexity, strive for simplici
 
 ## Color & contrast
 
-In adhering to AA/AAA accessibility standards, the color palette is meticulously preconfigured and readily available for implementation. However, achieving high contrast relies not just on color selection but on utilizing the appropriate shades within the chosen colors. It's imperative to strike a balance by employing two complementary colors — one from the lighter spectrum and another from the darker spectrum of the palette — especially when dealing with text and background elements.
+In adhering to AA/AAA accessibility standards, the onyx color palette is meticulously preconfigured and readily available for implementation. However, achieving high contrast relies not just on color selection but on utilizing the appropriate shades within the chosen colors. It's imperative to strike a balance by employing two complementary colors — one from the lighter spectrum and another from the darker spectrum of the palette — especially when dealing with text and background elements.
 
 ![image](/assets/contrast.png)
 
