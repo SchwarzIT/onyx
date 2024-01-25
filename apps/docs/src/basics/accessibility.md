@@ -53,7 +53,7 @@ In adhering to AA/AAA accessibility standards, the onyx color palette is meticul
 
 Furthermore, an effective strategy involves adopting the traffic light color system to harmonize content and visuals seamlessly. This system, inspired by the familiar traffic light colors, ensures a coherent and visually intuitive combination, enhancing not only accessibility but also the overall user experience.
 
-## Feedback
+## Notifications
 
 Ensuring a transparent and communicative user experience involves providing timely feedback on screen interactions. It's essential for users to be informed about the success or failure of their actions. Employing diverse feedback mechanisms amplifies user understanding, and incorporating components such as toast messages, notifications, error labels, and icons proves to be highly effective.
 
