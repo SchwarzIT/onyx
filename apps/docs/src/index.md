@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Getting Started
-      link: /components/getting-started
+      link: /development/getting-started
 
 features:
   - title: Powerful

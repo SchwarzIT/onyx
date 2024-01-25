@@ -25,7 +25,7 @@ runs:
       working-directory: ${{ inputs.working-directory }}
 
     - name: Upload test results artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always() # needed to also upload test results when they failed (useful for debugging)
       with:
         name: test-results
