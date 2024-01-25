@@ -80,7 +80,7 @@ Quantitative colors help makeing [infographics](/basics/infographics) look good.
 
 ## Ratio
 
-The recommendation for working with colors is described with the 60-30-10 guideline, aiming to achieve a harmonious visual composition. The principle suggests allocating 60% of the interface being blank, serving as a cohesive backdrop.
+The recommendation for working with colors is described with the 60-30-10 guideline, aiming to achieve a harmonious visual composition. This principle suggests allocating 60% of the interface being blank, serving as a cohesive backdrop.
 
 The 30% functions as a supportive element, complementing the blank hue, with the usage of brand-neutal colors.
 
