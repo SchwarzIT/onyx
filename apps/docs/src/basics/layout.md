@@ -38,7 +38,7 @@ The main content is displayed here. This is totally flexible in its representati
 Global confirmations are triggered by a global section at the bottom of the screen. It is independent from scrolling and sticks to the bottom. This section can also be applied to objects.
 :::
 
-This is just an example layout for showing the possibilities of having several sections. It is important to be aligned to the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components of main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
+This is just an example layout for showing the possibilities of having several sections. It is important to be aligned with the [column grid](/basics/breakpoints_grid), that is provided by onyx. For more information about the components for main navigation, side navigation and confirmation, please visit the [component documentation](/development/).
 
 ## Alignment
 
