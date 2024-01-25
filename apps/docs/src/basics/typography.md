@@ -343,7 +343,7 @@ Texts should never be built in uppercase. Always use the provided line height fo
 
 ## Links
 
-Links are the tool of choice to refer to another or external page. Please use the `link` font style. By default links have a underline and are primary-colored. Under consideration of the text styling principles the text-color can be changed in exceptional usecases. Please doublecheck with your assigned UX-Designer.
+Links are the tool of choice to refer to another page. Please use the `link` font style. By default, links have an underline and are primary-colored. Under consideration of the text styling principles, the text color can be changed in exceptional usecases. Please doublecheck with your assigned UX-Designer.
 
 ## Truncation
 
