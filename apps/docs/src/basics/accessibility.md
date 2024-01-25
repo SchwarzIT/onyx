@@ -1,6 +1,6 @@
 # Accessibility
 
-Web accessibility guidelines and laws are crucial to ensuring that the digital content is inclusive and accessible to individuals with disabilities.
+Web accessibility guidelines and laws are crucial for ensuring that the digital content is inclusive and accessible to individuals with disabilities.
 
 ## WCAG
 
