@@ -12,37 +12,40 @@ const tokens = [
 </script>
 
 <template>
-  <div class="tokens">
-    <DesignTokenCard v-for="borderRadius in tokens" :key="borderRadius" :name="borderRadius">
-      <figure
-        class="radius"
-        :class="{ 'radius--large': borderRadius.endsWith('-xl') || borderRadius.endsWith('-full') }"
-        :style="{
-          borderTopRightRadius: `var(--${borderRadius})`,
-          borderBottomRightRadius: `var(--${borderRadius})`,
-        }"
-      ></figure>
-    </DesignTokenCard>
-  </div>
+  <DesignTokenCard
+    v-for="borderRadius in tokens"
+    :key="borderRadius"
+    :name="borderRadius"
+    class="token"
+  >
+    <figure
+      class="token__preview"
+      :class="{
+        'token__preview--large': borderRadius.endsWith('-xl') || borderRadius.endsWith('-full'),
+      }"
+      :style="{
+        borderTopRightRadius: `var(--${borderRadius})`,
+        borderBottomRightRadius: `var(--${borderRadius})`,
+      }"
+    ></figure>
+  </DesignTokenCard>
 </template>
 
 <style lang="scss" scoped>
-.tokens {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-md);
-}
+.token {
+  margin-bottom: var(--onyx-spacing-md);
 
-.radius {
-  width: 4rem;
-  height: 4rem;
-  border-width: 1px 1px 1px 0;
-  border-color: var(--onyx-color-base-warning-500);
-  border-style: solid;
-  background: var(--onyx-color-base-neutral-100);
+  &__preview {
+    width: 4rem;
+    height: 4rem;
+    border-width: 1px 1px 1px 0;
+    border-color: var(--onyx-color-base-warning-500);
+    border-style: solid;
+    background: var(--onyx-color-base-neutral-100);
 
-  &--large {
-    height: 5rem;
+    &--large {
+      height: 5rem;
+    }
   }
 }
 </style>

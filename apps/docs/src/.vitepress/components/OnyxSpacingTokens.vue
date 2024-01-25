@@ -15,23 +15,19 @@ const spacings = [
 </script>
 
 <template>
-  <div class="tokens">
-    <DesignTokenCard v-for="spacing in spacings" :key="spacing" :name="spacing">
-      <figure class="spacing">
-        <figure class="spacing__area" :style="{ height: `var(--${spacing})` }"></figure>
-      </figure>
-    </DesignTokenCard>
-  </div>
+  <DesignTokenCard v-for="spacing in spacings" :key="spacing" :name="spacing" class="token">
+    <figure class="preview">
+      <figure class="preview__area" :style="{ height: `var(--${spacing})` }"></figure>
+    </figure>
+  </DesignTokenCard>
 </template>
 
 <style lang="scss" scoped>
-.tokens {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-md);
+.token {
+  margin-bottom: var(--onyx-spacing-md);
 }
 
-.spacing {
+.preview {
   width: 4rem;
   min-height: 4rem;
   border-radius: var(--onyx-radius-sm);
