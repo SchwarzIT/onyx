@@ -68,7 +68,7 @@ For structuring the content of the page, a vertical layout, that can scroll down
 
 ### Horizontal structure
 
-Another alternative the horizontal layout approach. By having two sections of content next to each other horizontally, the user got a better side by side comparison/interactivity between the content groups. This could be a big advantage for some usecases. Nevertheless you are limited with available space due to screensize restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
+Another alternative is the horizontal layout. By having two sections of content next to each other horizontally, the user gets a better side by side comparison/interactivity between the content groups. This could be a big advantage for some usecases. Nevertheless, you are limited by available space due to screen size restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
 
 ![Logo](/assets/horizontal_content_structure.png)
 
