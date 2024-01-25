@@ -15,7 +15,7 @@ Images have the power to evoke emotions and connect with users on a more persona
 :::
 
 ::: warning Accessibility
-Images need to be optimized for accessibility by including descriptive alt text. This ensures that users with visual impairments or those using [screen readers](/basics/accessibility) can still understand the content conveyed by the images.
+Images need to be optimized for accessibility by including descriptive alt text. This ensures that users with visual impairments or those using [screen readers](/basics/accessibility#screen-readers) can still understand the content conveyed by the images.
 :::
 
 ## Sources
