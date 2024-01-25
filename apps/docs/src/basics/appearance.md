@@ -2,7 +2,7 @@
 
 A unit system helps to simplify the structure of components layouts. Employing a systematic approach to all units like margin, padding and radius leads to a more seamless, balanced and unified user experience. It not only establishes the groundwork for responsive design but also paves the way for a customizable UI density system. This, in turn, contributes to the overall improvement of all onyx product's quality and accessibility.
 
-## 4 px system
+## 4px system
 
 The onyx unit system is based around the value of 4, which is scaled by multiplication. This leads to a restricted set of values that guarantees a harmonious appearance. All of those values are described by tokens, that can be used for building the interface.
 
