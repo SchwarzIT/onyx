@@ -18,7 +18,7 @@ Whether implementing a sidebar for horizontal content structure or building a ve
 
 This section defines the anatomy of the whole page layout. If you want to learn more about the anatomy of single components in particular, please visit the [component documentation](/development/).
 
-In a maximum expression, a typical onyx layout consists of these regions.
+In a maximum expression, a typical page layout consists of these regions.
 
 ![Logo](/assets/anatomy.png)
 
