@@ -19,9 +19,9 @@ The reason for using rem is to ensure the scalability of components and layouts,
 Spacing between elements or components are essential for creating visual hierarchy. A consistent use supports homogenous and visual appealing interfaces that work on all devices. Therefore, layout spacings and margins are pending on the [column grid](/basics/breakpoints_grid), that is based on the breakpoint or screen size.
 For more information about your provided screendesign please contact your assigned XU-Designer.
 
-### Space tokens
+### Spacing tokens
 
-To use space tokens you have to use the [semantic token collection](/tokens/).
+To use spacing tokens you have to use the [semantic token collection](/tokens/).
 Those tokens are named like t-shirt sizes for easy usage. Use them for visual consistency.
 
 | Token name |       REM | Pixels |
