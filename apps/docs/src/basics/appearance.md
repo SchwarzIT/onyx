@@ -4,7 +4,7 @@ A unit system helps to simplify the structure of components layouts. Employing a
 
 ## 4px system
 
-The onyx unit system is based around the value of 4, which is scaled by multiplication. This leads to a restricted set of values that guarantees a harmonious appearance. All of those values are described by tokens, that can be used for building the interface.
+The onyx unit system is based on the value `4`, which is scaled by multiplication. This leads to a restricted set of values that guarantees a harmonious appearance. All of those values are described by [tokens](/tokens/), that can be used for building the interface.
 
 ::: tip REM
 Although the unit system is based on pixel values, rem is used in development.
