@@ -54,7 +54,7 @@ A **center aligned** version is possible alternatively. The choice of alignment 
 
 ### Component layout
 
-The local structure of components is always `left aligned`. The only exception here are the center aligned and right aligned options for table columns.
+The local structure of components is always **left aligned**. The only exception here are the center aligned and right aligned options for table columns.
 
 ![Logo](/assets/component_alignment.png)
 
