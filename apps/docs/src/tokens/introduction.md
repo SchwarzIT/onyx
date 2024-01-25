@@ -40,7 +40,7 @@ Semantic tokens are used from both developers and designers to build application
 
 ### Component tokens
 
-The third level of tokens is used for building components exclusively. Important to know is: To keep things a little simpler, not every component is built with third-level-tokens. They are only used in case of irregularities or exceptions between the provided color themes.
+The third and last token layer is used for building components exclusively. Important to know is: To keep things simple, not every component is built with component tokens. They are only used in case of irregularities or exceptions between the provided color themes.
 
 For example `onyx-component-button-primary-bg-hover` is exclusively used for the hover effect color of the onyx primary button.
 
