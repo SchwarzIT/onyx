@@ -55,7 +55,7 @@ Furthermore, an effective strategy involves adopting the traffic light color sys
 
 ## Feedback
 
-Ensuring a transparent and communicative user experience involves providing timely feedback on screen interactions. It's essential for users to be informed about the success or failure of their actions. Employing diverse feedback mechanisms amplifies user understanding, and incorporating components such as toast messages, notifications, error labels, and icons proves highly effective.
+Ensuring a transparent and communicative user experience involves providing timely feedback on screen interactions. It's essential for users to be informed about the success or failure of their actions. Employing diverse feedback mechanisms amplifies user understanding, and incorporating components such as toast messages, notifications, error labels, and icons proves to be highly effective.
 
 The use of a toast component offers subtle, non-intrusive messages that appear briefly, notifying users without disrupting their flow. Notifications, on the other hand, provide more detailed and persistent feedback, offering clarity on the outcome of their interactions.
 Error messaging through labels plays a crucial role in guiding users when issues arise, presenting information in a clear and comprehensible manner. Icons serve as visual indicators, enhancing the communicative aspect of feedback.
