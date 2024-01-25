@@ -70,7 +70,7 @@ When a website is in the process of loading, providing feedback through skeleton
 
 ![image](/assets/skeleton.png)
 
-### Loading Indicator
+### Loading indicators
 
 In the realm of user experience, loading states are essential for individual components. It's crucial to differentiate them from skeleton states: loading states signify ongoing processes within a component's content, while skeletons indicate the entire component, including its structure, is loading. These states collectively contribute to user-centric transparency, ensuring users stay informed and engaged during various loading stages.
 
