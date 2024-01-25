@@ -40,9 +40,9 @@ const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
     background: onyxVariables["onyx-color-universal-grayscale-white"],
     contentBackground: onyxVariables["onyx-color-themed-neutral-100"],
-    text: onyxVariables["onyx-color-themed-neutral-800"],
-    textMuted: onyxVariables["onyx-color-themed-neutral-900"],
-    border: onyxVariables["onyx-color-themed-neutral-200"],
+    text: onyxVariables["onyx-color-themed-neutral-700"],
+    textMuted: onyxVariables["onyx-color-themed-neutral-600"],
+    border: onyxVariables["onyx-color-themed-neutral-300"],
   });
 };
 
@@ -51,8 +51,8 @@ const getDarkTheme = (): Partial<ThemeVars> => {
     background: onyxVariables["onyx-color-themed-neutral-1100"],
     contentBackground: onyxVariables["onyx-color-themed-neutral-1200"],
     text: onyxVariables["onyx-color-themed-neutral-200"],
-    textMuted: onyxVariables["onyx-color-themed-neutral-300"],
-    border: onyxVariables["onyx-color-themed-neutral-1000"],
+    textMuted: onyxVariables["onyx-color-themed-neutral-400"],
+    border: onyxVariables["onyx-color-themed-neutral-900"],
   });
 };
 

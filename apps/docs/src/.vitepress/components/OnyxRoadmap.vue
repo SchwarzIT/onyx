@@ -55,7 +55,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
           <RoadmapCard :title="roadmapData.downloads" description="Downloads (last month)" />
           <RoadmapCard
             :title="packageJson.version"
-            description="onyx Version"
+            description="onyx version"
             href="https://www.npmjs.com/package/sit-onyx"
           />
           <RoadmapCard
@@ -72,11 +72,6 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
             :title="roadmapData.closedIssueCount"
             description="Closed issues"
             :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
-          />
-          <RoadmapCard
-            :title="roadmapData.contributorCount"
-            description="Contributors"
-            :href="`${packageJson.repository.url}/graphs/contributors`"
           />
         </div>
       </section>

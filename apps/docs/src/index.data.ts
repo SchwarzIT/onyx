@@ -17,8 +17,6 @@ export type HomePageData = {
   mergedPRCount: number;
   /** Total number of closed issues on GitHub. */
   closedIssueCount: number;
-  /** Total number of GitHub contributors. */
-  contributorCount: number;
   /** Timestamp when this data has been fetched. */
   timestamp: string;
   /** Total number of npm downloads for all onyx npm packages in the last month. */
@@ -46,13 +44,7 @@ export default defineLoader({
       return total + countWord(fileContent, "satisfies Story;");
     }, 0);
 
-    // get available onyx npm packages
-    const packagePath = fileURLToPath(new URL("../../../packages", import.meta.url));
-    const packageFolders = fs.readdirSync(packagePath).filter((packageName) => {
-      const stat = fs.statSync(path.join(packagePath, packageName));
-      return stat.isDirectory();
-    });
-
+    const packageFolders = getOnyxNpmPackages();
     const npmPackageNames = packageFolders.map((packageName) =>
       packageName === "sit-onyx" ? packageName : `@sit-onyx/${packageName}`,
     );
@@ -66,7 +58,6 @@ export default defineLoader({
     const downloads = isDev ? 0 : await getNpmDownloadCount(npmPackageNames);
     const mergedPRCount = isDev ? 0 : await searchGitHub("issues", "type:pr is:merged");
     const closedIssueCount = isDev ? 0 : await searchGitHub("issues", "type:issue is:closed");
-    const contributorCount = isDev ? 0 : await getGitHubContributorCount();
 
     /** Checks whether the given component is implemented (meaning a Storybook file exists) */
     const isImplemented = (componentName: string) => {
@@ -145,7 +136,6 @@ export default defineLoader({
       variantCount,
       mergedPRCount,
       closedIssueCount,
-      contributorCount,
       timestamp: timestamp.toUTCString(),
       downloads,
       packageCount: packageFolders.length,
@@ -183,23 +173,6 @@ const searchGitHub = async (
   }
 
   return body.total_count;
-};
-
-/**
- * Gets the number of contributors.
- *
- * @see: https://docs.github.com/en/rest/metrics/statistics?apiVersion=2022-11-28#get-all-contributor-commit-activity
- */
-const getGitHubContributorCount = async (): Promise<number> => {
-  const body = await executeGitHubRequest("repos/SchwarzIT/onyx/stats/contributors");
-
-  if (!Array.isArray(body)) {
-    throw new Error(
-      `GitHub contributors data is not an array. Response body: ${JSON.stringify(body)}`,
-    );
-  }
-
-  return body.length;
 };
 
 /**
@@ -257,4 +230,24 @@ const executeGitHubRequest = async (apiRoute: string) => {
   }
 
   return body;
+};
+
+/**
+ * Gets a list of public onyx npm packages names.
+ */
+const getOnyxNpmPackages = () => {
+  const packagePath = fileURLToPath(new URL("../../../packages", import.meta.url));
+
+  const packageFolders = fs.readdirSync(packagePath).filter((packageName) => {
+    try {
+      const packageJsonPath = path.join(packagePath, packageName, "package.json");
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
+      return !packageJson.private;
+    } catch {
+      // folder is invalid npm package because it does not contain a valid package.json file
+      return false;
+    }
+  });
+
+  return packageFolders;
 };
