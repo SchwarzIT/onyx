@@ -54,7 +54,12 @@ export default defineConfig({
       ],
       "/tokens": [
         {
-          items: [{ text: "Introduction", link: "/tokens/" }],
+          base: "/tokens",
+          items: [
+            { text: "Introduction", link: "/" },
+            { text: "Spacings", link: "/spacings" },
+            { text: "Borders", link: "/borders" },
+          ],
         },
       ],
       "/development": [
