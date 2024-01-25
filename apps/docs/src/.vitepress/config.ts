@@ -24,9 +24,9 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "Brand", link: "/brand/team" },
-      { text: "Basics", link: "/basics/" },
-      { text: "Tokens", link: "/tokens/" },
+      { text: "Brand", link: "/brand/team", activeMatch: "/brand/" },
+      { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
+      { text: "Tokens", link: "/tokens/", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/getting-started" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
