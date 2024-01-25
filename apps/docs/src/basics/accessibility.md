@@ -39,7 +39,7 @@ A screen reader is a software (mostly integrated natively in your browser) that 
 
 #### Structure & Hierarchy
 
-It is important to understand the view of a screen reader to apply it to on your application. Streamlining navigation enhances user understanding of app structure and prioritizes essential information. Employing various visual and textual cues, including color, shape, text, and motion, contributes to clarity by emphasizing important content.
+It is important to understand the view of a screen reader to apply it to a web application. Streamlining navigation enhances the user's understanding of app structures and prioritization of essential information. Employing various visual and textual cues (including color, shape, text, and motion) contributes to clarity by emphasizing important content.
 
 ![image](/assets/structure.png)
 
