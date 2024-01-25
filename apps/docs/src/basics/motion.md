@@ -25,7 +25,7 @@ If the performance of your application is low or you just don't want to use any 
 
 ## Duration
 
-Every animation that is applied to a component by default comes always with the recommended duration. Although you are free to customize it with the duration set that is provided by onyx.
+Every transition/animation that is applied to a component uses a recommended duration by default. Although you are free to customize it with the durations that are provided by onyx.
 
 | Duration name | Duration |
 | ------------- | -------: |
