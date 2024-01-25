@@ -1,5 +1,5 @@
-::: danger
-Here will be a overview page with cards.
+# Tokens
 
-Cards to be under construction.
+::: warning Work in progress
+Here will be a overview page with cards.
 :::

@@ -52,11 +52,10 @@ export default defineConfig({
           collapsed: false,
           base: "/basics",
           items: [
-            { text: "Cheatsheet", link: "/cheatsheet" },
             { text: "Colors", link: "/colors" },
             { text: "Breakpoints & Grid", link: "/breakpoints-grid" },
             { text: "Layout", link: "/layout" },
-            { text: "Appearance", link: "/appearance" },
+            { text: "Units", link: "/units" },
             { text: "Motion", link: "/motion" },
             { text: "Component states", link: "/states" },
             { text: "Density", link: "/density" },
@@ -75,7 +74,7 @@ export default defineConfig({
           base: "/basics",
           items: [
             { text: "Navigation", link: "/navigation" },
-            { text: "Notifications", link: "/notification" },
+            { text: "Notifications", link: "/notifications" },
             { text: "Search behavior", link: "/search-behavior" },
             { text: "Dialogs", link: "/dialogs" },
           ].sort((a, b) => a.text.localeCompare(b.text)),
@@ -87,6 +86,8 @@ export default defineConfig({
           items: [
             { text: "Introduction", link: "/introduction" },
             { text: "Colors", link: "/colors" },
+            { text: "Spacings", link: "/spacings" },
+            { text: "Borders", link: "/borders" },
           ],
         },
       ],

@@ -65,11 +65,3 @@ Avoid images on which text, graphics, or 3D elements were placed afterwards. Als
 Make sure to use images of high quality. You should never be able to see individual pixels.
 
 ![Image](/assets/image_quality.png)
-
-## Positioning
-
-With onyx, image placement is flexible to the context. Although some forms are established for usage.
-
-::: tip Important
-Only use images in a subtle way. They should never distract the focus of the user.
-:::

@@ -1,15 +1,11 @@
 # Foundations
 
-::: danger
+::: warning Work in progress
 Here will be a overview page with cards.
-
-Cards to be under construction.
 :::
 
 # Patterns
 
-::: danger
+::: warning Work in progress
 Here will be a overview page with cards.
-
-Cards to be under construction.
 :::
