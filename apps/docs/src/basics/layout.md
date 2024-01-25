@@ -1,6 +1,6 @@
 # Layout
 
-Different layouts are the best way to focus the users attention and create hierarchy. On top a well chosen layout serves as a guiding hand for the user to work with the application. The best way to create both an attractive and accessible layout is to follow the principles below.
+Different layouts are the best way to focus the users attention and create hierarchy. Additionally, a well chosen layout serves as a guiding hand for the user to work with the application. Our recommended way to create both an attractive and accessible layout is to follow the principles below.
 
 ::: details Responsive
 Layouts should be adaptive in their structure displayed on [multiple devices and screensizes](/basics/breakpoints_grid).
