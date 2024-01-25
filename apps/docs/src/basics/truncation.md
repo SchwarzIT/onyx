@@ -6,7 +6,7 @@ The decision to use line break or truncation depends on various factors, includi
 
 Use line breaks when maintaining the readability and flow of the text is crucial. Breaking content into multiple lines can make it easier for users to scan and comprehend.
 
-![image](/assets/line_break.png)
+![image](/assets/line_break.webp)
 
 Line breaks are suitable when the nature of the content benefits from a more extended and continuous presentation. They can help leverage whitespace effectively, creating a visually balanced layout. This is particularly useful for interfaces, where a more open and spacious design is preferred.
 
@@ -14,7 +14,7 @@ Line breaks are suitable when the nature of the content benefits from a more ext
 
 Truncation is essential when there is limited space, such as cards or narrow columns. It allows to present concise information without sacrificing the overall layout.
 
-![image](/assets/truncation.png)
+![image](/assets/truncation.webp)
 
 Truncation is effective in preventing clutter, especially when dealing with long titles, headlines or labels. When using truncation, please ensure that the element is still readable and understandable. If not, please have a look at the [abbreviations section](#abbreviations).
 

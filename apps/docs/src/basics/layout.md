@@ -20,7 +20,7 @@ This section defines the anatomy of the whole page layout. If you want to learn 
 
 In a maximum expression, a typical page layout consists of these regions.
 
-![Logo](/assets/anatomy.png)
+![Logo](/assets/anatomy.webp)
 
 ::: details 1. Main Navigation
 Primary navigation to jump between major pages inside the application. In addition, global interactions can be placed here. This section always sticks to the top (alternatively to the left side) and is independent from scrolling.
@@ -46,17 +46,17 @@ This is just an example layout for showing the possibilities of having several s
 
 Column grids for the whole page layout are always **left aligned** by default.
 
-![Logo](/assets/layout_alignment_left.png)
+![Logo](/assets/layout_alignment_left.webp)
 
 A **center aligned** version is possible alternatively. The choice of alignment doesn't follow strict rules. But please consider the balance of the target screen size, the target user group, the target use-case and the content you are building/designing for.
 
-![Logo](/assets/layout_alignment_center.png)
+![Logo](/assets/layout_alignment_center.webp)
 
 ### Component layout
 
 The local structure of components is always **left aligned**. The only exception here are the center aligned and right aligned options for table columns.
 
-![Logo](/assets/component_alignment.png)
+![Logo](/assets/component_alignment.webp)
 
 ## Structure of content
 
@@ -64,13 +64,13 @@ The local structure of components is always **left aligned**. The only exception
 
 For structuring the content of the page, a vertical layout, that can scroll down, is the easiest way by default.
 
-![Logo](/assets/vertical_content_structure.png)
+![Logo](/assets/vertical_content_structure.webp)
 
 ### Horizontal structure
 
 Another alternative is the horizontal layout. By having two sections of content next to each other horizontally, the user gets a better side by side comparison/interactivity between the content groups. This could be a big advantage for some usecases. Nevertheless, you are limited by available space due to screen size restrictions, what marks the big disadvantage on the other side. So please assess your content and your use case carefully to find the right layout for your application.
 
-![Logo](/assets/horizontal_content_structure.png)
+![Logo](/assets/horizontal_content_structure.webp)
 
 ## Visual rhythm
 

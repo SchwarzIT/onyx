@@ -18,7 +18,7 @@ Semantic colors are defined in relation to the background, dynamically adjusting
 
 ### Example
 
-![Image](/assets/color_systematic.png)
+![Image](/assets/color_systematic.webp)
 
 ## Themes
 
@@ -52,25 +52,25 @@ Universal colors serve a specific role independent from the chosen theme. This i
 
 ### Danger
 
-![image](/assets/danger.png)
+![image](/assets/danger.webp)
 
 The danger color is used for urgent situations that need immediate attention. It's specifically for critical notifications or interactions linked to deletions and should be used carefully to convey seriousness.
 
 ### Warning
 
-![image](/assets/warning.png)
+![image](/assets/warning.webp)
 
 The warning color communicates medium-urgent situations and is less important than the danger color. It's suitable for scenarios like security questions where caution is needed.
 
 ### Success
 
-![image](/assets/success.png)
+![image](/assets/success.webp)
 
 The success color shows positive outcomes or successful task completion, giving a sense of achievement. It's used when announcing successful operations or good news.
 
 ### Info
 
-![image](/assets/info.png)
+![image](/assets/info.webp)
 
 The info color is for sharing non-emotional information and is the least important among universal colors. It's used when giving straightforward information without any emotional tone.
 

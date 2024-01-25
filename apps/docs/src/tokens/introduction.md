@@ -24,7 +24,7 @@ For example `onyx-color-universal-white` is just the value for white color in ge
 Global tokens are not used within the process of designing and developing an application! As a result they are hidden to minimize sources of errors. Imagine them like the invisible base for your product.
 :::
 
-![Logo](/assets/global_token.png)
+![Logo](/assets/global_token.webp)
 
 ### Semantic tokens
 
@@ -36,7 +36,7 @@ For example `onyx-color-surface-bg-blank` is exclusively used for a blank backgr
 Semantic tokens are used from both developers and designers to build applications with existing standard components. With the use of those tokens, a seamless switch between light and dark mode is guaranteed. Otherwise, this will not work without additional effort.
 :::
 
-![Logo](/assets/semantic_token.png)
+![Logo](/assets/semantic_token.webp)
 
 ### Component tokens
 
@@ -48,7 +48,7 @@ For example `onyx-component-button-primary-bg-hover` is exclusively used for the
 Only the maintainers (onyx designers and developers) of the design system are able to use component tokens on a regular basis. All others do not have access to minimize sources of errors. Instead all application-designers and -developers do benefit from component tokens by using standard onyx components in their project.
 :::
 
-![Logo](/assets/component_token.png)
+![Logo](/assets/component_token.webp)
 
 ## Why is it important?
 
@@ -92,4 +92,4 @@ Design tokens of the onyx design system are always prefixed with `onyx-` so they
 
 To get more details about the color palette system and the transmission into the token system (considering light and dark mode), please visit the [color documentation](/basics/colors).
 
-![Logo](/assets/token_naming.png)
+![Logo](/assets/token_naming.webp)
