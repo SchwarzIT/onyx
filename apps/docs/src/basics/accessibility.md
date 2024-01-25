@@ -23,7 +23,7 @@ To make sure products are accessible to everyone, onyx is committed to follow th
 
 ## Assistive technology
 
-Assistive technology enhances the functional abilities of individuals with disabilities, promoting increased independence. Supporting devices such as keyboards and screen readers, people can engage with technology.
+Assistive technology enhances the functional abilities of individuals with disabilities, promoting increased independence. Supporting devices such as keyboards and screen readers support people when interacting with technology.
 
 ### Keyboard support
 
