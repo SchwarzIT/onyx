@@ -12,7 +12,7 @@ const { isDark } = useData();
         <Badge
           class="themes__badge"
           :class="{ 'themes__badge--active': !isDark }"
-          text="Light colors"
+          text="Light mode"
           type="info"
         />
       </button>
@@ -21,7 +21,7 @@ const { isDark } = useData();
         <Badge
           class="themes__badge"
           :class="{ 'themes__badge--active': isDark }"
-          text="Dark colors"
+          text="Dark mode"
           type="info"
         />
       </button>

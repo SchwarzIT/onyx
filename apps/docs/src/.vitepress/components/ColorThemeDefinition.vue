@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { useData } from "vitepress";
 import ColorStrip from "./ColorStrip.vue";
+
+const { isDark } = useData();
 
 const primaryColors = Array.from({ length: 9 }, (_, index) => {
   return `var(--onyx-color-base-action-${(index + 1) * 100})`;
@@ -32,24 +35,43 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
 <template>
   <div class="theme">
-    <div class="theme__container">
-      <h3 class="theme__headline">Themed color palette</h3>
-
-      <div class="theme__colors theme__colors--themed">
-        <ColorStrip name="primary" :colors="primaryColors" />
-        <ColorStrip name="secondary" :colors="secondaryColors" />
-        <ColorStrip name="neutral" :colors="neutralColors" />
-      </div>
+    <div class="theme__header">
+      <button
+        class="theme__button"
+        :class="{ 'theme__button--active': !isDark }"
+        @click="isDark = false"
+      >
+        Light mode
+      </button>
+      <button
+        class="theme__button"
+        :class="{ 'theme__button--active': isDark }"
+        @click="isDark = true"
+      >
+        Dark mode
+      </button>
     </div>
 
-    <div class="theme__container">
-      <h3 class="theme__headline">Universal color palette</h3>
+    <div class="theme__content">
+      <div class="theme__container">
+        <h3 class="theme__headline">Themed color palette</h3>
 
-      <div class="theme__colors theme__colors--universal">
-        <ColorStrip name="danger" :colors="dangerColors" />
-        <ColorStrip name="warning" :colors="warningColors" />
-        <ColorStrip name="success" :colors="successColors" />
-        <ColorStrip name="info" :colors="infoColors" />
+        <div class="theme__colors theme__colors--themed">
+          <ColorStrip name="primary" :colors="primaryColors" />
+          <ColorStrip name="secondary" :colors="secondaryColors" />
+          <ColorStrip name="neutral" :colors="neutralColors" />
+        </div>
+      </div>
+
+      <div class="theme__container">
+        <h3 class="theme__headline">Universal color palette</h3>
+
+        <div class="theme__colors theme__colors--universal">
+          <ColorStrip name="danger" :colors="dangerColors" />
+          <ColorStrip name="warning" :colors="warningColors" />
+          <ColorStrip name="success" :colors="successColors" />
+          <ColorStrip name="info" :colors="infoColors" />
+        </div>
       </div>
     </div>
   </div>
@@ -59,14 +81,31 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 @use "@sit-onyx/vitepress-theme/mixins.scss";
 
 .theme {
-  border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-border-default);
-  background: var(--onyx-color-base-background-blank);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--onyx-spacing-md);
+    margin-bottom: var(--onyx-spacing-xs);
+  }
 
-  @include mixins.breakpoint(max, s) {
-    display: block;
+  &__button {
+    font-weight: 600;
+
+    &--active {
+      color: var(--onyx-color-text-action-intense);
+    }
+  }
+
+  &__content {
+    border-radius: var(--onyx-radius-md);
+    border: 1px solid var(--onyx-color-base-border-default);
+    background: var(--onyx-color-base-background-blank);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include mixins.breakpoint(max, s) {
+      display: block;
+    }
   }
 
   &__container {
