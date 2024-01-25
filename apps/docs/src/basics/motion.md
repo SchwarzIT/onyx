@@ -8,7 +8,7 @@ The user should not be distracted by elaborate animations. Instead, they should 
 
 For this reason, onyx provides a selected set of transitions and animations that fulfills these requirements. Default transitions/animations are already part of the components.
 
-## Types of animations
+## Types of motions
 
 ::: details Don't use animations, if it doesn't make sense!
 If the performance of your application is low or you just don't want to use any kind of animation, you don't have to use it. They are a feature for a better accessibility but it is not mandatory to implement. You can always switch it off.
