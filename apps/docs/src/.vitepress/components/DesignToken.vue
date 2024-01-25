@@ -51,6 +51,8 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss" scoped>
+@use "@sit-onyx/vitepress-theme/mixins.scss";
+
 .token {
   display: flex;
   align-items: center;
@@ -66,10 +68,16 @@ const emit = defineEmits<{
     width: max-content;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--onyx-spacing-lg);
     outline-color: var(--onyx-color-base-action-300);
     background-color: var(--onyx-color-base-background-blank);
     cursor: pointer;
+    min-width: 16rem;
+
+    @include mixins.breakpoint(max, xs) {
+      min-width: unset;
+    }
   }
 
   &__value {
