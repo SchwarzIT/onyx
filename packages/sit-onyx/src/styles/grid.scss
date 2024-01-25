@@ -21,12 +21,20 @@ $gridVariants: (
   max-width: var(--onyx-grid-max-width, none);
 }
 
+@mixin gridBreakpointProperties($columns, $gutter, $margin) {
+  :where(:root) {
+    --onyx-grid-columns: #{$columns};
+    --onyx-grid-gutter: #{$gutter};
+    --onyx-grid-margin: #{$margin};
+  }
+}
+
 @each $name, $breakpoint, $columns, $gutter, $margin in $gridVariants {
-  @media screen and (min-width: $breakpoint) {
-    :where(:root) {
-      --onyx-grid-columns: #{$columns};
-      --onyx-grid-gutter: #{$gutter};
-      --onyx-grid-margin: #{$margin};
+  @if $breakpoint == "none" {
+    @include gridBreakpointProperties($columns, $gutter, $margin);
+  } @else {
+    @media screen and (min-width: $breakpoint) {
+      @include gridBreakpointProperties($columns, $gutter, $margin);
     }
   }
 }
@@ -54,4 +62,34 @@ $gridMaxVariants: (
 
 .onyx-grid-xl-20 {
   --onyx-grid-columns: 20;
+}
+
+//
+// Grid elements
+//
+
+@for $i from 1 through 20 {
+  .onyx-grid-span-#{$i} {
+    grid-column-end: span $i;
+  }
+}
+
+@mixin gridBreakpointSpan($name, $breakpoint, $span) {
+  @media screen and (min-width: $breakpoint) {
+    .onyx-grid-#{$name}-span-#{$span} {
+      grid-column-end: span $span;
+    }
+  }
+}
+
+@each $name, $breakpoint, $columns, $gutter, $margin in $gridVariants {
+  @for $i from 1 through $columns {
+    @include gridBreakpointSpan($name, $breakpoint, $i);
+  }
+
+  @if $name == "xl" {
+    @for $i from 17 through 20 {
+      @include gridBreakpointSpan($name, $breakpoint, $i);
+    }
+  }
 }
