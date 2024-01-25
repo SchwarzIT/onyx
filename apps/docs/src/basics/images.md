@@ -7,7 +7,7 @@ Images are powerful tools for conveying messages and information quickly. They c
 :::
 
 ::: details Information enhancement
-Images can complement textual information, making it more digestible and memorable. Infographics, charts, and diagrams are examples of how images can enhance the presentation of complex data or concepts.
+Images can complement textual information, making it more digestible and memorable. [Infographics, charts, and diagrams](/basics/infographics) are examples of how images can enhance the presentation of complex data or concepts.
 :::
 
 ::: details Emotional connection
