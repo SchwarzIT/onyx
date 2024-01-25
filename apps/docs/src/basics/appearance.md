@@ -10,7 +10,7 @@ The onyx unit system is based on the value `4`, which is scaled by multiplicatio
 Although the unit system is based on pixel values, rem is used in development.
 This is a **relative unit** that is based on the default font size of the web application (usually 16px).
 
-For example, a value of `24 px` would be defined as `1.5 rem`, as this is one and a half times the value of 16.
+For example, a value of `24px` would be defined as `1.5rem`.
 The reason for using rem is to ensure the scalability of components and layouts, which leads to a smoother responsiveness.
 :::
 
