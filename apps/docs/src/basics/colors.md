@@ -35,15 +35,15 @@ Themed colors reflect the brand's identity, adapting their main colors. While pr
 Primary colors highlight call-to-action elements and direct the focus of the user to the most important interactions. Brand-neutrals are used in the background and secondary actions, providing a subtle backdrop that allows primary colors to shine.
 
 ::: details Page background
-The background color of the whole page is always set to `color-tinted`, which referrs to the brand-neutral palette, to be a very subtle color for having contrast to white.
+The background color of the whole page is always set to `onyx-color-base-background-tinted`, which referrs to the brand-neutral palette, to be a very subtle color for having contrast to white.
 :::
 
 ::: details Component background
-The default background color of components is always `color-blank` to be white is light mode und very dark in dark mode.
+The default background color of components is always `onyx-color-base-background-blank` to be white in light mode und very dark in dark mode.
 :::
 
 ::: details Call-to-actions
-Call-to-actions are always used with the `brand-primary-500` value.
+Call-to-actions are always used with the `onyx-color-base-action-500` value.
 :::
 
 ## Roles of universal colors
