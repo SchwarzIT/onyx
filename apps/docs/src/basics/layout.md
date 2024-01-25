@@ -11,7 +11,7 @@ Using a [column grid](/basics/breakpoints_grid) for creating interfaces with ony
 :::
 
 ::: details Content related
-Whether implementing a sidebar for horizontal content structure or building a vertical only scrollable page, the layout always has to match the content - not the other way around. First think about how to structure the content and second put it in a fitting layout.
+Whether implementing a sidebar for horizontal content structure or building a vertical only scrollable page, the layout always has to match the content - not the other way around. First think about how to structure the content and put it in a fitting layout afterwards.
 :::
 
 ## Anatomy
