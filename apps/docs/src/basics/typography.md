@@ -15,7 +15,7 @@ The font families that can be used with onyx are:
 - [Kaufland Regular](https://google.com)
   :::
 
-## Brand Typography
+## Brand typography
 
 The standard font family is defined to be the Source Sans. If you are creating a new onyx project, this will always be the startingpoint. In the initial phase the Source Sans applies to all color themes that are provided by onyx.
 
