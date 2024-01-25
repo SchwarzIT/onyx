@@ -28,7 +28,7 @@ Global tokens are not used within the process of designing and developing an app
 
 ### Semantic tokens
 
-This stage of tokens puts the base token collection into context. At this point, semantic tokens differentiate between light mode and dark mode and connects a usecase or purpose to the values, that were defined in the global token collection. The naming of semantic tokens is less generic and more specific to the intended use.
+This token layer puts the global tokens into context. At this point, semantic tokens differentiate between light and dark mode and connect a usecase or purpose to the values, that were defined in the global tokens. The naming of semantic tokens is less generic and more specific to the intended use.
 
 For example `onyx-color-surface-bg-blank` is exclusively used for a blank background color. To have a more detailed view about the color token system and how light and dark modes are implemented, please check out the [color documentation](/basics/colors).
 
