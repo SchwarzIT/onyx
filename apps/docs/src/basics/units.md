@@ -6,7 +6,7 @@ A unit system helps to simplify the structure of components layouts. Employing a
 
 The onyx unit system is based on the value `4`, which is scaled by multiplication. This leads to a restricted set of values that guarantees a harmonious appearance. All of those values are described by [tokens](/tokens/), that can be used for building the interface.
 
-::: tiprem
+::: tip rem
 Although the unit system is based on pixel values,rem is used in development.
 This is a **relative unit** that is based on the default font size of the web application (usually 16px).
 
