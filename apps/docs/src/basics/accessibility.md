@@ -35,7 +35,7 @@ UI components from the onyx design system offer full keyboard support. This not 
 
 ### Screen readers
 
-A screen reader is a software (mostly integrated in your browser natively) that either uses braille display or reads text aloud. In common, the program identifies and localizes **visible and hidden** content, including paragraphs, buttons and alternative texts, what leads to a sensitive handling with the content and the components.
+A screen reader is a software (mostly integrated natively in your browser) that either uses braille display or reads text aloud. In common, the program identifies and localizes **visible and hidden** content (including paragraphs, buttons and alternative texts) which leads to an accessible handling of the content and components.
 
 #### Structure & Hierarchy
 
