@@ -6,23 +6,20 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div>
-    <figure class="strip" :class="{ 'strip--border': props.showBorder }">
-      <div
-        class="strip__color"
-        v-for="color in props.colors"
-        :key="color"
-        :style="{ backgroundColor: color }"
-      ></div>
-    </figure>
-
+  <figure class="strip">
+    <div
+      class="strip__color"
+      v-for="color in props.colors"
+      :key="color"
+      :style="{ backgroundColor: color }"
+    ></div>
     <figcaption class="strip__name">{{ props.name }}</figcaption>
-  </div>
+  </figure>
 </template>
 
 <style lang="scss" scoped>
 .strip {
-  height: 18rem;
+  height: 19.5rem; // 18rem for the colors, 1.5rem line height for the name
   display: flex;
   flex-direction: column;
 
