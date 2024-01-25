@@ -12,7 +12,7 @@ Design tokens are variables, that are used equally in development and design to 
 
 ## How do they work?
 
-First of all it is essential to understand the basic systematic of tokens. Tokens are leveled into three layers, that are related to each other. Every stage of tokens got its own purpose, but not all stages are used in the design and development process.
+First of all, it is essential to understand the basic systematic of tokens. Tokens are categorised into three layers, that are related to each other. Every token layer has its own responsibility, but not all layers are used directly in the design and development process.
 
 ### Global tokens
 
