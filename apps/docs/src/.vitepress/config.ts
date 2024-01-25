@@ -70,6 +70,7 @@ export default defineConfig({
           items: [
             { text: "Getting Started", link: "/getting-started" },
             { text: "i18n", link: "/i18n" },
+            { text: "Grid", link: "/grid" },
             { text: "Typography", link: "/typography" },
           ],
         },
