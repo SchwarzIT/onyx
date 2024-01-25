@@ -1,6 +1,6 @@
 # Appearance
 
-A unit system helps to simplify the structure of components layouts. Employing a systematic approach to all units like margin, padding and radius leads to a more seamless and balanced user experience. It not only establishes the groundwork for responsive design but also paves the way for a customizable UI density system. This, in turn, contributes to the overall improvement of all onyx product's quality and accessibility.
+A unit system helps to simplify the structure of components layouts. Employing a systematic approach to all units like margin, padding and radius leads to a more seamless, balanced and unified user experience. It not only establishes the groundwork for responsive design but also paves the way for a customizable UI density system. This, in turn, contributes to the overall improvement of all onyx product's quality and accessibility.
 
 ## 4 px system
 
