@@ -6,7 +6,7 @@ Microanimations bring a user interface to life. However, careful handling is nec
 The user should not be distracted by elaborate animations. Instead, they should support the user in his workflow, provide feedback and make the entire application easier to understand.
 :::
 
-For this reason, onyx provides a selected set of animations that fulfills these requirements. Default animations are already part of the components.
+For this reason, onyx provides a selected set of transitions and animations that fulfills these requirements. Default transitions/animations are already part of the components.
 
 ## Types of animations
 
