@@ -299,7 +299,7 @@ It is important to keep the usage of font styles consistent throughout the whole
 
 ## Line length
 
-To create a flowing readability the line length is key. There are no struct rules on the usage, due to the dependency of [screensize, breakpoint and column grid](/basics/breakpoints_grid). Nevertheless onyx got some guidelines and recommendations for your implementation.
+To create a flowing readability, the line length is key. There are no strict rules on the usage, due to the dependency on [screen size, breakpoint and column grid](/basics/breakpoints_grid). Nevertheless onyx provides some guidelines and recommendations for your implementation.
 
 ![image](/assets/line_length.png)
 
