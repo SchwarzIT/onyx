@@ -35,7 +35,7 @@ Themed colors reflect the brand's identity, adapting their main colors. While pr
 Primary colors highlight call-to-action elements and direct the focus of the user to the most important interactions. Brand-neutrals are used in the background and secondary actions, providing a subtle backdrop that allows primary colors to shine.
 
 ::: details Page background
-The background color of the whole page is always set to `onyx-color-base-background-tinted`, which referrs to the brand-neutral palette, to be a very subtle color for having contrast to white.
+The background color of the whole page is always set to `onyx-color-base-background-tinted`, which referrs to the brand-neutral palette, to be a very subtle color.
 :::
 
 ::: details Component background
