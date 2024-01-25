@@ -27,7 +27,7 @@ Primary navigation to jump between major pages inside the application. In additi
 :::
 
 ::: details 2. Side Navigation
-Secondary navigation to jump between pages that are part of the master-detail-structure. In order to be a flexible object, secondary interactions and information can also be entered here. This section always sticks to the side of the screen and is independent from scrolling.
+Secondary navigation to jump between pages that are part of the master-detail-structure. In order to be a flexible object, secondary interactions and information can also be placed here. This section always sticks to the side of the screen and is independent from scrolling.
 :::
 
 ::: details 3. Body
