@@ -21,7 +21,7 @@ Global tokens are the fundamental elements of every design system to establish a
 For example `onyx-color-universal-white` is just the value for white color in general.
 
 ::: warning Important
-Global tokens are not used within the process of designing and developing an application! As a result they are hidden to minimize sources of errors. Imagine them like the invisible base for your product
+Global tokens are not used within the process of designing and developing an application! As a result they are hidden to minimize sources of errors. Imagine them like the invisible base for your product.
 :::
 
 ![Logo](/assets/global_token.png)
