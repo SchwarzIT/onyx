@@ -17,6 +17,12 @@ The dynamic grid has the following advantages over a fixed column grid:
 - Ensures reasonable minimal and maximal size for individual elements
   :::
 
+Grid elements span the number of columns that is assigned to them.
+If there are less columns then an element is assigned, it will span all columns of the row.
+
+Additionally an element can be also be configured to span a specific column amount for a minium breakpoint (TODO: add link to UX breakpoint definition).
+Multiple span definition can then be combined to resize an element based on the breakpoint.
+
 ## Usage
 
 The grid layout is configured via the following CSS classes which must be set on the main element of your application.
@@ -28,3 +34,16 @@ Additionally, there are some optional modifier classes available.
 - `onyx-grid-xl-20`: Increases the column count from 16 to 20 for the `xl` breakpoint.
 - `onyx-grid-max-md`: Caps the width before the `lg` breakpoint (`1440px`)
 - `onyx-grid-max-lg`: Caps the width before the `xl` breakpoint (`1920px`)
+
+For configuring the amount of columns an element should be spanning use the class `onyx-grid-span-<number>`, where `<number>` is the number of columns from `1` to `20`.
+
+To set the column number for a minium screen width use the class `onyx-grid-<breakpoint>-span-<number>`, where `<breakpoint>` and `<number>` are taken from the following table:
+
+| breakpoint | max number |
+| ---------- | ---------- |
+| 2xs        | 4          |
+| xs         | 8          |
+| sm         | 8          |
+| md         | 12         |
+| lg         | 16         |
+| xl         | 16 or 20   |
