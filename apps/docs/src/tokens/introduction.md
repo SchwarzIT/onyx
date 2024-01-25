@@ -4,7 +4,7 @@ Understanding the logic, structure and usage of tokens is crucial for creating o
 
 ## What is a design token?
 
-A design token is a fundamental, reusable building block for design systems like onyx. It represents a specific aspect of a design , such as colors, typography, spacing or other visual elements, and is defined as a named value or parameter. Design tokens help maintain consistency and streamline the design and development process across various platforms and applications.
+A design token is a fundamental, reusable building block for design systems like onyx. It represents a specific aspect of a design as a key-value pair such as color, typography, spacing or another visual element. Design tokens help maintain consistency and streamlining the design and development process across various platforms and applications.
 
 ::: tip Important
 Design tokens are variables, that are used equally in development and design to ensure the customizability under the consideration of the consistency across all onyx applications.
