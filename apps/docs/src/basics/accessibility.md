@@ -14,7 +14,7 @@ The WCAG are split into three levels:
 - AAA (highest)
   :::
 
-To make sure products are accessible to everyone, follow the four principles of the Web Content Accessibility Guidelines:
+To make sure products are accessible to everyone, onyx is committed to follow the four principles of the Web Content Accessibility Guidelines as well as being compliant with level `AA` for all of our components:
 
 - **Perceivable**: It can be perceived by at least one of a person's senses.
 - **Operable**: All interactions are operable through a variation of input methods.
