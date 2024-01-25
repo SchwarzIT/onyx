@@ -90,6 +90,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
   &__button {
     font-weight: 600;
+    font-size: 1rem;
 
     &--active {
       color: var(--onyx-color-text-action-intense);
