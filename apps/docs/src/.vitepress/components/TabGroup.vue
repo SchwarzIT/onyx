@@ -41,14 +41,7 @@ watchEffect(() => {
 </template>
 
 <style lang="scss" scoped>
-@use "@sit-onyx/vitepress-theme/mixins.scss";
-
 .tabs {
-  margin-bottom: 1rem;
-
-  @include mixins.breakpoint(max, s) {
-    margin-left: 0;
-    margin-right: 0;
-  }
+  margin: 0 0 1rem;
 }
 </style>
