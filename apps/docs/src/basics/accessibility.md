@@ -31,7 +31,7 @@ Assistive technology enhances the functional abilities of individuals with disab
 Content to be produced!
 :::
 
-UI components from the onyx design system are fully supported with keyboard controlling. This not just aligns to the WCAG but also allows the user to navigate alternatively to the cursor and enhances efficiency for power users.
+UI components from the onyx design system offer full keyboard support. This not just aligns to the WCAG but also allows the user to navigate alternatively to the cursor and enhances efficiency for power users.
 
 ### Screen readers
 
