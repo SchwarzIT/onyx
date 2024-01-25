@@ -62,7 +62,7 @@ Error messaging through labels plays a crucial role in guiding users when issues
 
 ![image](/assets/feedback.png)
 
-In addition, integrating these feedback components with the traffic light color system adds a layer of accessibility refinement. Aligning feedback with this system—using colors like green for success, yellow for warnings, and red for errors—creates a cohesive and universally recognizable visual language. This not only ensures users are promptly informed about their actions but also contributes to an inclusive and user-friendly interface.
+In addition, integrating these feedback components with the traffic light color system adds a layer of accessibility refinement. Aligning feedback with this system—using colors like green for success, yellow for warnings, and red for errors— creates a cohesive and universally recognizable visual language. This not only ensures that users are promptly informed about their actions but also contributes to an inclusive and user-friendly interface.
 
 ### Skeletons
 
