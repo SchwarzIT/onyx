@@ -84,12 +84,12 @@ Design tokens serve as a form of documentation for the design system. They provi
 
 ## How to read tokens?
 
-The naming of tokens is a very complicated and individual thing. For better assignment and understanding the onyx token taxonomy follows a strict way for keeping things consistent.
+onyx uses a strict naming convention for the tokens to keep consistency. For a better understanding of the naming convention, see the information below.
 
 ::: tip
-Design tokens of the onyx design system always begin with the prefix `onyx-` so you always can be sure to know the source of your token.
+Design tokens of the onyx design system are always prefixed with `onyx-` so they can always be differentiated with custom tokens of your application.
 :::
 
-Color tokens in general are a little more complicated than unit tokens because of their specific usage. To get more details about the color palette system and the transmission into the token system (considering light mode and dark mode) please visit the [color documentation](/basics/colors).
+To get more details about the color palette system and the transmission into the token system (considering light and dark mode), please visit the [color documentation](/basics/colors).
 
 ![Logo](/assets/token_naming.png)
