@@ -4,7 +4,7 @@ Web accessibility guidelines and laws are crucial for ensuring that the digital 
 
 ## WCAG
 
-[The Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html#introduction-fourprincs-head) developed by the Web Accessibility Initiative (WAI), are a set of guidelines that purpose is to provide a comprehensive intentionally recognized framework for making web content more accessible.
+[The Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/UNDERSTANDING-WCAG20/intro.html#introduction-fourprincs-head) developed by the Web Accessibility Initiative (WAI), are a set of guidelines which purpose is to provide a comprehensive intentionally recognized framework for making web content more accessible.
 
 ::: info
 The accessibility is graded into three levels:
