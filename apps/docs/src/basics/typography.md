@@ -295,7 +295,7 @@ Used for small sized calculations.
 
 ## Usage
 
-It is important to keep the usage of font styles consistent throughout the whole application. Only by following the principles a clean and hierarchical UI structure can be guaranteed. You should focus on the correct usage for headlines in particular! If you got questions about it, please contact your assigned UX-Designer.
+It is important to keep the usage of font styles consistent throughout the whole application. Only by following this principle, a clean and hierarchical UI structure can be guaranteed. You should focus on the correct usage for headlines in particular! If you have questions about it, please contact your assigned UX-Designer.
 
 ## Line length
 
