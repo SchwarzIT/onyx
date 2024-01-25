@@ -44,7 +44,7 @@ This is just an example layout for showing the possibilities of having several s
 
 ### Page layout
 
-Column grids for the whole page layout are always `left aligned` by default.
+Column grids for the whole page layout are always **left aligned** by default.
 
 ![Logo](/assets/layout_alignment_left.png)
 
