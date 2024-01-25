@@ -42,7 +42,7 @@ Those tokens are named like t-shirt sizes for easy usage. Use them for visual co
 The choice of radius has a big impact to the whole appearance of an UI. With radius tokens it is easy to customize this visual basis.
 
 ::: warning Attention
-The base value for radius that is used for components is `4 px`.
+The base value for radius that is used for components is `4px`.
 
 For examples, buttons are using this value. Sometimes buttons or other elements are used inside another component. This leads to a larger radius of the outside component to keep the visual appearance homogenous.
 :::
