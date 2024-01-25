@@ -76,7 +76,7 @@ The info color is for sharing non-emotional information and is the least importa
 
 ### Quantitatives
 
-Quantitative colors help make infographics look good. They're used to distinguish between different parts in graphs, charts, or other visuals, making it easier to understand quantitative information.
+Quantitative colors help makeing [infographics](/basics/infographics) look good. They're used to distinguish between different parts in graphs, charts, or other visuals, making it easier to understand quantitative information.
 
 ## Ratio
 
