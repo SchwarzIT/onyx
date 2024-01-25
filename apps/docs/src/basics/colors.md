@@ -82,7 +82,7 @@ Quantitative colors help makeing [infographics](/basics/infographics) look good.
 
 The recommendation for working with colors is described with the 60-30-10 guideline, aiming to achieve a harmonious visual composition. This principle suggests allocating 60% of the interface being blank, serving as a cohesive backdrop.
 
-The 30% functions as a supportive element, complementing the blank hue, with the usage of brand-neutal colors.
+30% of colors should be used as supportive elements, complementing the blank hue, with the usage of brand-neutal colors.
 
 The remaining 10% is dedicated to an accent color, strategically applied to highlight the key elements and call-to-actions. This in fact, is always the brand-primary in the onyx design system.
 
