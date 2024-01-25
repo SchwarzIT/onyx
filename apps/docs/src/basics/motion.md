@@ -23,7 +23,7 @@ If the performance of your application is low or you just don't want to use any 
 | `collapse`  | Object gets smaller.                         | Flyout disappears in combo box.                                         |
 | `rearrange` | Objects are filling the empty space.         | Cards replace another card that was deleted previously.                 |
 
-## Duration of animations
+## Duration
 
 Every animation that is applied to a component by default comes always with the recommended duration. Although you are free to customize it with the duration set that is provided by onyx.
 
