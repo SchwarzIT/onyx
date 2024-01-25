@@ -33,7 +33,7 @@ This token layer puts the global tokens into context. At this point, semantic to
 For example `onyx-color-surface-bg-blank` is exclusively used for a blank background color. To have a more detailed view about the color token system and how light and dark modes are implemented, please check out the [color documentation](/basics/colors).
 
 ::: warning Important
-Semantic tokens are used from both developers and designers to build applications with existing standard components. With the use of those tokens a seamless switch between light mode and dark mode is guaranteed. Otherwise ist will not work without additional effort of building.
+Semantic tokens are used from both developers and designers to build applications with existing standard components. With the use of those tokens, a seamless switch between light and dark mode is guaranteed. Otherwise, this will not work without additional effort.
 :::
 
 ![Logo](/assets/semantic_token.png)
