@@ -24,10 +24,11 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "Brand", link: "/brand/team", activeMatch: "/brand/" },
+      { text: "Brand", link: "/brand/", activeMatch: "/brand/" },
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
       { text: "Tokens", link: "/tokens/", activeMatch: "/tokens/" },
-      { text: "Development", link: "/development/getting-started", activeMatch: "/development/" },
+      { text: "Development", link: "/development/", activeMatch: "/development/" },
+      { text: "Resources", link: "/resources/", activeMatch: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -35,7 +36,14 @@ export default defineConfig({
     sidebar: {
       "/brand": [
         {
-          items: [{ text: "The Team", link: "/brand/team" }],
+          items: [
+            { text: "The Team", link: "/brand/team" },
+            { text: "Ideology", link: "/brand/ideology" },
+            { text: "Principles", link: "/brand/principles" },
+            { text: "Dependencies", link: "/brand/dependencies" },
+            { text: "Roadmap", link: "/brand/roadmap" },
+            { text: "Changelog", link: "/brand/changelog" },
+          ],
         },
       ],
       "/basics": [
@@ -43,20 +51,40 @@ export default defineConfig({
           text: "Foundations",
           collapsed: false,
           base: "/basics",
-          items: [{ text: "Introduction", link: "/" }],
+          items: [
+            { text: "Colors", link: "/colors" },
+            { text: "Breakpoints & Grid", link: "/breakpoints-grid" },
+            { text: "Layout", link: "/layout" },
+            { text: "Units", link: "/units" },
+            { text: "Motion", link: "/motion" },
+            { text: "Component states", link: "/states" },
+            { text: "Density", link: "/density" },
+            { text: "Truncation", link: "/truncation" },
+            { text: "Elevation", link: "/elevation" },
+            { text: "Iconography", link: "/iconography" },
+            { text: "Typography", link: "/typography" },
+            { text: "Images", link: "/images" },
+            { text: "Accessibility", link: "/accessibility" },
+            { text: "Infographics", link: "/infographics" },
+          ].sort((a, b) => a.text.localeCompare(b.text)),
         },
         {
           text: "Patterns",
           collapsed: false,
           base: "/basics",
-          items: [],
+          items: [
+            { text: "Navigation", link: "/navigation" },
+            { text: "Notifications", link: "/notifications" },
+            { text: "Search behavior", link: "/search-behavior" },
+            { text: "Dialogs", link: "/dialogs" },
+          ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
       "/tokens": [
         {
           base: "/tokens",
           items: [
-            { text: "Introduction", link: "/" },
+            { text: "Introduction", link: "/introduction" },
             { text: "Colors", link: "/colors" },
             { text: "Spacings", link: "/spacings" },
             { text: "Borders", link: "/borders" },
@@ -69,8 +97,9 @@ export default defineConfig({
           collapsed: false,
           base: "/development",
           items: [
-            { text: "Getting Started", link: "/getting-started" },
+            { text: "Getting Started", link: "/" },
             { text: "i18n", link: "/i18n" },
+            { text: "Grid", link: "/grid" },
             { text: "Typography", link: "/typography" },
           ],
         },
@@ -90,6 +119,11 @@ export default defineConfig({
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
+        },
+      ],
+      "/resources": [
+        {
+          items: [{ text: "test", link: "/resources" }],
         },
       ],
     },
