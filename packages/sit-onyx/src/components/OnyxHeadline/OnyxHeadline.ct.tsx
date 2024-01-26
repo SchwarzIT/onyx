@@ -4,7 +4,7 @@ import OnyxHeadline from "./OnyxHeadline.vue";
 test("should display h1-h6 headlines", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div>
+    <div style="width: max-content">
       <OnyxHeadline is="h1">Hello World h1</OnyxHeadline>
       <OnyxHeadline is="h2">Hello World h2</OnyxHeadline>
       <OnyxHeadline is="h3">Hello World h3</OnyxHeadline>
@@ -33,7 +33,7 @@ test("should display h1-h6 headlines", async ({ mount, makeAxeBuilder }) => {
 test("should display monospace h1-h6 headlines", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div>
+    <div style="width: max-content">
       <OnyxHeadline is="h1" monospace>
         Hello World h1
       </OnyxHeadline>
