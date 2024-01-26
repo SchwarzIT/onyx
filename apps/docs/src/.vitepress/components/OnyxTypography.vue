@@ -20,14 +20,7 @@ const props = defineProps<{
 }>();
 
 const previewText = "onyx design system" as const;
-const copiedClass = ref<string>();
 const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
-
-const handleCopy = async (className: string) => {
-  await navigator.clipboard.writeText(`class="${className}"`);
-  copiedClass.value = className;
-  setTimeout(() => (copiedClass.value = undefined), 3000);
-};
 </script>
 
 <template>
@@ -45,15 +38,17 @@ const handleCopy = async (className: string) => {
         :wide-name="props.wideName"
       >
         <template #name>
-          <component :is="token.htmlTag" :class="token.className">{{ previewText }}</component>
+          <component
+            :is="token.htmlTag"
+            :class="token.className"
+            :href="token.htmlTag === 'a' ? '#' : undefined"
+          >
+            {{ previewText }}
+          </component>
         </template>
 
         <template #default="{ name }">
-          <DesignToken
-            :name="name"
-            :is-copied="copiedClass === token.className"
-            @copy="handleCopy(token.className)"
-          />
+          <DesignToken :name="name" />
         </template>
       </DesignTokenCard>
     </div>

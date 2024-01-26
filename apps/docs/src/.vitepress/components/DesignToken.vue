@@ -16,6 +16,8 @@ const props = withDefaults(
      * @default "value"
      */
     type?: "color" | "value";
+    /** If true, the user will be able to click the token to copy its value. */
+    allowCopy?: boolean;
     /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
     isCopied?: boolean;
   }>(),
@@ -32,7 +34,8 @@ const emit = defineEmits<{
 <template>
   <button
     class="token"
-    :class="{ 'token--color': props.type === 'color' }"
+    :class="{ 'token--color': props.type === 'color', 'token--copyable': props.allowCopy }"
+    :disabled="!props.allowCopy"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
   >
@@ -61,6 +64,7 @@ const emit = defineEmits<{
   gap: var(--onyx-spacing-sm);
   width: max-content;
   max-width: 100%;
+  pointer-events: none;
 
   &__name {
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs) var(--onyx-spacing-2xs)
@@ -94,15 +98,19 @@ const emit = defineEmits<{
     display: none;
   }
 
-  &:hover,
-  &:focus-within {
-    .token {
-      &__name {
-        border: 1px solid var(--onyx-color-base-action-300);
-      }
+  &--copyable {
+    pointer-events: unset;
 
-      &__copy {
-        display: inline-block;
+    &:hover,
+    &:focus-within {
+      .token {
+        &__name {
+          border: 1px solid var(--onyx-color-base-action-300);
+        }
+
+        &__copy {
+          display: inline-block;
+        }
       }
     }
   }
