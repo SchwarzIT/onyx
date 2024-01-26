@@ -47,3 +47,18 @@ To set the column number for a minium screen width use the class `onyx-grid-<bre
 | md         | 12         |
 | lg         | 16         |
 | xl         | 16 or 20   |
+
+The `onyx-grid-span` classes can be combined as necessary.
+
+### Example
+
+E.g. `class="onyx-grid-span-6 onyx-grid-md-span-8 onyx-grid-lg-span-12"` would result in the following element sizes:
+
+| breakpoint | spanning n columns | relevant class       |
+| ---------- | ------------------ | -------------------- |
+| 2xs        | 4                  | onyx-grid-span-6     |
+| xs         | 6                  | onyx-grid-span-6     |
+| sm         | 6                  | onyx-grid-span-6     |
+| md         | 8                  | onyx-grid-md-span-8  |
+| lg         | 12                 | onyx-grid-lg-span-12 |
+| xl         | 12                 | onyx-grid-lg-span-12 |
