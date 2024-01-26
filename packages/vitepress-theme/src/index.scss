@@ -33,10 +33,16 @@
   --vp-font-family-mono: var(--onyx-font-family-mono);
   --vp-code-color: var(--vp-c-brand-2);
 
-  @include mixins.home-page-gradients(
-    var(--onyx-color-base-primary-500),
-    var(--onyx-color-base-info-500)
-  );
+  // add colored gradient background to the logo on the home page
+  // the gradient colors are exceptions so we don't have CSS variables for them
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, #008ca0 50%, #00dce6 50%);
+  --vp-home-hero-image-filter: blur(44px);
+  @include mixins.breakpoint(min, l) {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+  @include mixins.breakpoint(min, s) {
+    --vp-home-hero-image-filter: blur(56px);
+  }
 }
 
 .dark {
