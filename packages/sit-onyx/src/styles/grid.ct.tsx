@@ -30,10 +30,7 @@ const createGridElement = (
 );
 
 const expectActualGridSpan = async (element: Locator, toBe: number) => {
-  const jsValue = await element.evaluateHandle(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (e) => window.getComputedStyle(e)["grid-column-end" as any],
-  );
+  const jsValue = await element.evaluateHandle((e) => window.getComputedStyle(e).gridColumnEnd);
   const value = await jsValue.jsonValue();
   return expect(value).toBe(`span ${toBe}`);
 };
