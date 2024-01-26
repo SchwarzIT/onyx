@@ -1,41 +1,72 @@
 import { expect, test } from "../../playwright-axe";
 import OnyxHeadline from "./OnyxHeadline.vue";
-import { HEADLINE_TYPES } from "./types";
 
 test("should display h1-h6 headlines", async ({ mount, makeAxeBuilder }) => {
-  for (const type of HEADLINE_TYPES) {
-    // ARRANGE
-    const component = await mount(<OnyxHeadline is={type}>Hello World</OnyxHeadline>);
+  // ARRANGE
+  const component = await mount(
+    <div>
+      <OnyxHeadline is="h1">Hello World h1</OnyxHeadline>
+      <OnyxHeadline is="h2">Hello World h2</OnyxHeadline>
+      <OnyxHeadline is="h3">Hello World h3</OnyxHeadline>
+      <OnyxHeadline is="h4">Hello World h4</OnyxHeadline>
+      <OnyxHeadline is="h5">Hello World h5</OnyxHeadline>
+      <OnyxHeadline is="h6">Hello World h6</OnyxHeadline>
+    </div>,
+  );
 
-    // ASSERT
-    await expect(component).toContainText("Hello World");
-    await expect(component).toHaveScreenshot(`${type}.png`);
+  // ASSERT
+  await expect(component).toContainText("Hello World h1");
+  await expect(component).toContainText("Hello World h2");
+  await expect(component).toContainText("Hello World h3");
+  await expect(component).toContainText("Hello World h4");
+  await expect(component).toContainText("Hello World h5");
+  await expect(component).toContainText("Hello World h6");
+  await expect(component).toHaveScreenshot("default.png");
 
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-  }
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
 test("should display monospace h1-h6 headlines", async ({ mount, makeAxeBuilder }) => {
-  for (const type of HEADLINE_TYPES) {
-    // ARRANGE
-    const component = await mount(
-      <OnyxHeadline is={type} monospace>
-        Hello World
-      </OnyxHeadline>,
-    );
+  // ARRANGE
+  const component = await mount(
+    <div>
+      <OnyxHeadline is="h1" monospace>
+        Hello World h1
+      </OnyxHeadline>
+      <OnyxHeadline is="h2" monospace>
+        Hello World h2
+      </OnyxHeadline>
+      <OnyxHeadline is="h3" monospace>
+        Hello World h3
+      </OnyxHeadline>
+      <OnyxHeadline is="h4" monospace>
+        Hello World h4
+      </OnyxHeadline>
+      <OnyxHeadline is="h5" monospace>
+        Hello World h5
+      </OnyxHeadline>
+      <OnyxHeadline is="h6" monospace>
+        Hello World h6
+      </OnyxHeadline>
+    </div>,
+  );
 
-    // ASSERT
-    await expect(component).toContainText("Hello World");
-    await expect(component).toHaveScreenshot(`monospace-${type}.png`);
+  // ASSERT
+  await expect(component).toContainText("Hello World h1");
+  await expect(component).toContainText("Hello World h2");
+  await expect(component).toContainText("Hello World h3");
+  await expect(component).toContainText("Hello World h4");
+  await expect(component).toContainText("Hello World h5");
+  await expect(component).toContainText("Hello World h6");
+  await expect(component).toHaveScreenshot("default.png");
 
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-  }
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });
