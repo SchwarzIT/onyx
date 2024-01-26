@@ -24,7 +24,11 @@ Semantic colors are defined in relation to the background, dynamically adjusting
 
 Beyond the different shades, the hues in a color scheme also significantly impact the overall appearance. onyx offers two main types of color palettes: "themed color palettes" and "universal color palettes". Themed colors set the brand's tone in the UI, defining its unique look. Universal colors, on the other hand, support system information and are used across all themes to complete the brand's color range. This thoughtful approach ensures a good balance between expressing the brand's style and maintaining clarity and functionality for users.
 
-_color palette component by dev_
+<script lang="ts" setup>
+import OnyxColorThemeDefinitions from "../.vitepress/components/OnyxColorThemeDefinitions.vue";
+</script>
+
+<OnyxColorThemeDefinitions />
 
 To have access to the color token set for your implementation, please visit the [token documentation](/tokens/colors).
 
