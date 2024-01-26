@@ -35,34 +35,34 @@ test("should display monospace h1-h6 headlines", async ({ mount, makeAxeBuilder 
   const component = await mount(
     <div style="width: max-content">
       <OnyxHeadline is="h1" monospace>
-        Hello World h1
+        Hello World monospace h1
       </OnyxHeadline>
       <OnyxHeadline is="h2" monospace>
-        Hello World h2
+        Hello World monospace h2
       </OnyxHeadline>
       <OnyxHeadline is="h3" monospace>
-        Hello World h3
+        Hello World monospace h3
       </OnyxHeadline>
       <OnyxHeadline is="h4" monospace>
-        Hello World h4
+        Hello World monospace h4
       </OnyxHeadline>
       <OnyxHeadline is="h5" monospace>
-        Hello World h5
+        Hello World monospace h5
       </OnyxHeadline>
       <OnyxHeadline is="h6" monospace>
-        Hello World h6
+        Hello World monospace h6
       </OnyxHeadline>
     </div>,
   );
 
   // ASSERT
-  await expect(component).toContainText("Hello World h1");
-  await expect(component).toContainText("Hello World h2");
-  await expect(component).toContainText("Hello World h3");
-  await expect(component).toContainText("Hello World h4");
-  await expect(component).toContainText("Hello World h5");
-  await expect(component).toContainText("Hello World h6");
-  await expect(component).toHaveScreenshot("default.png");
+  await expect(component).toContainText("Hello World monospace h1");
+  await expect(component).toContainText("Hello World monospace h2");
+  await expect(component).toContainText("Hello World monospace h3");
+  await expect(component).toContainText("Hello World monospace h4");
+  await expect(component).toContainText("Hello World monospace h5");
+  await expect(component).toContainText("Hello World monospace h6");
+  await expect(component).toHaveScreenshot("monospace.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
