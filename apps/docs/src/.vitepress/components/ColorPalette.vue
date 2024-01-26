@@ -2,7 +2,6 @@
 import { capitalize, computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
 import DesignToken from "./DesignToken.vue";
-import DesignTokenHeader from "./DesignTokenHeader.vue";
 
 const AVAILABLE_TABS = ["Base", "Text", "Icon"] as const;
 type AvailableTab = (typeof AVAILABLE_TABS)[number];
@@ -11,7 +10,7 @@ const props = defineProps<{
   name: "action" | "brand" | "neutral" | "success" | "warning" | "danger" | "info";
 }>();
 
-const currentTab = ref<AvailableTab>(AVAILABLE_TABS[0]);
+const currentTab = ref<AvailableTab>("Base");
 
 const currentTabColor = computed(() => {
   // for the neutral color palette, we need to use the action color
@@ -99,12 +98,21 @@ const handleCopy = async (color: string) => {
 
 <template>
   <section class="palette">
-    <DesignTokenHeader
-      class="palette__header"
-      v-model="currentTab"
-      :headline="capitalize(props.name)"
-      :tabs="AVAILABLE_TABS"
-    />
+    <div class="header">
+      <h4 class="header__name">{{ capitalize(props.name) }}</h4>
+
+      <div class="header__tabs">
+        <button
+          v-for="tab in AVAILABLE_TABS"
+          :key="tab"
+          class="header__tab"
+          :class="{ 'header__tab--active': currentTab === tab }"
+          @click="currentTab = tab"
+        >
+          {{ tab }}
+        </button>
+      </div>
+    </div>
 
     <div class="palette__content">
       <div class="palette__steps">
@@ -154,9 +162,31 @@ const handleCopy = async (color: string) => {
   &__copied {
     margin-top: var(--onyx-spacing-lg);
   }
+}
 
-  &__header {
-    --active-color: v-bind("currentTabColor");
+.header {
+  margin-bottom: var(--onyx-spacing-xs);
+  display: flex;
+  justify-content: space-between;
+
+  &__name {
+    font-weight: 600;
+    color: var(--onyx-color-text-neutral-intense);
+  }
+
+  &__tabs {
+    display: flex;
+    gap: var(--onyx-spacing-md);
+  }
+
+  &__tab {
+    color: var(--onyx-color-text-neutral-medium);
+    font-weight: 600;
+    font-size: 1rem;
+
+    &--active {
+      color: v-bind("currentTabColor");
+    }
   }
 }
 </style>

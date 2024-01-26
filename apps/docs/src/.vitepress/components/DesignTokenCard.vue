@@ -6,8 +6,6 @@ import DesignToken from "./DesignToken.vue";
 const props = defineProps<{
   /** Token name. */
   name: string;
-  /** If true, both columns will take up 50% of the available width. */
-  wideName?: boolean;
 }>();
 
 const value = computed(() => getCssVariableValue(props.name));
@@ -21,17 +19,15 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div class="card" :class="{ 'card--wide': props.wideName }">
-    <div class="card__container">
-      <slot name="name">
-        <ClientOnly>
-          <DesignToken :name="props.name" :value="value" :is-copied="isCopied" @copy="handleCopy" />
-        </ClientOnly>
-      </slot>
+  <div class="card">
+    <div class="card__container card__container--left">
+      <ClientOnly>
+        <DesignToken :name="props.name" :value="value" :is-copied="isCopied" @copy="handleCopy" />
+      </ClientOnly>
     </div>
 
-    <div class="card__container">
-      <slot v-bind="{ name }"></slot>
+    <div class="card__container card__container--right">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -43,29 +39,27 @@ const handleCopy = async () => {
   border-radius: var(--onyx-radius-md);
   border: 1px solid var(--onyx-color-base-border-default);
   background: var(--onyx-color-base-background-blank);
-  display: grid;
-  grid-template-columns: 1fr 25%;
-
-  &--wide {
-    grid-template-columns: 1fr 1fr;
-  }
+  display: flex;
+  align-items: center;
 
   @include mixins.breakpoint(max, s, -1) {
     padding: var(--onyx-spacing-sm);
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--onyx-spacing-sm);
   }
 
   @include mixins.breakpoint(min, s) {
     &__container {
       padding: var(--onyx-spacing-sm) var(--onyx-spacing-xl);
-      height: 100%;
-      display: flex;
-      align-items: center;
 
-      &:last-child {
+      &--left {
+        width: 75%;
+      }
+
+      &--right {
         border-left: 1px solid var(--onyx-color-base-border-default);
-        justify-content: center;
+        width: 25%;
       }
     }
   }
