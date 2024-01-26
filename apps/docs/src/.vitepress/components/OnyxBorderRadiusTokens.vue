@@ -47,5 +47,9 @@ const tokens = [
       height: 5rem;
     }
   }
+
+  :deep(.token__name) {
+    min-width: 16rem;
+  }
 }
 </style>

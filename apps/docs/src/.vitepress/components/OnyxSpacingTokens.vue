@@ -25,6 +25,10 @@ const spacings = [
 <style lang="scss" scoped>
 .token {
   margin-bottom: var(--onyx-spacing-md);
+
+  :deep(.token__name) {
+    min-width: 16rem;
+  }
 }
 
 .preview {
