@@ -6,6 +6,9 @@ const props = withDefaults(defineProps<OnyxHeadlineProps>(), {
 });
 
 defineSlots<{
+  /**
+   * Headline content.
+   */
   default(): unknown;
 }>();
 </script>

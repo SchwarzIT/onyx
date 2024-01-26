@@ -16,6 +16,9 @@ const meta: Meta<typeof OnyxHeadline> = {
         options: HEADLINE_TYPES,
         control: { type: "select" },
       },
+      default: {
+        control: false,
+      },
     },
     render: (args) => ({
       components: { OnyxHeadline },
