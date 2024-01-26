@@ -2,8 +2,6 @@
 
 closes #
 
-## Description
-
 <!-- Briefly describe the changes of this PR. -->
 
 ## Checklist

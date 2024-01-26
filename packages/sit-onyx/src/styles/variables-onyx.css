@@ -1,9 +1,10 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Tue, 23 Jan 2024 12:10:50 GMT
+ * Imported from Figma API on Wed, 24 Jan 2024 15:57:36 GMT
  */
-:root {
+:where(:root),
+.onyx-default {
   --onyx-color-themed-action-100: #e9f7f1;
   --onyx-color-themed-action-200: #caf0df;
   --onyx-color-themed-action-300: #a0e7c8;

@@ -42,6 +42,6 @@ watchEffect(() => {
 
 <style lang="scss" scoped>
 .tabs {
-  margin-bottom: 1rem;
+  margin: 0 0 1rem;
 }
 </style>
