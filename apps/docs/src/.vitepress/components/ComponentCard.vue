@@ -4,13 +4,20 @@ export type ComponentCardProps = {
   name: string;
   /** If true an "Implemented" badge will be shown, "Planned" otherwise. */
   implemented?: boolean;
+  /** Link to the implemented component. */
+  href?: string;
 };
 
 const props = defineProps<ComponentCardProps>();
 </script>
 
 <template>
-  <article class="card">
+  <component
+    :is="props.href ? 'a' : 'article'"
+    class="card"
+    :class="{ 'card--linked': props.href }"
+    :href="props.href"
+  >
     <Badge
       v-if="props.implemented"
       class="card__badge card__badge--implemented"
@@ -18,7 +25,7 @@ const props = defineProps<ComponentCardProps>();
     />
     <Badge v-else class="card__badge" text="Planned" type="info" />
     <h4 class="card__title">{{ props.name }}</h4>
-  </article>
+  </component>
 </template>
 
 <style lang="scss" scoped>
@@ -31,6 +38,13 @@ const props = defineProps<ComponentCardProps>();
   transition:
     border-color 0.25s,
     background-color 0.25s;
+
+  &--linked {
+    &:hover,
+    &:focus-visible {
+      background-color: var(--onyx-color-base-action-100);
+    }
+  }
 
   &__title {
     font-size: 1.5rem;
