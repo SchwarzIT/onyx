@@ -1,6 +1,6 @@
 /* eslint-disable playwright/expect-expect */
 import { expect, test } from "../playwright-axe";
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 const GRIDS = {
   "2xs": { breakpoint: 321, columns: 4 },
@@ -38,6 +38,10 @@ const expectActualGridSpan = async (element: Locator, toBe: number) => {
   return expect(value).toBe(`span ${toBe}`);
 };
 
+const fullPageScreenshot = (page: Page, name: string) => {
+  return expect(page).toHaveScreenshot(name, { fullPage: true });
+};
+
 Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint`, async ({
     mount,
@@ -52,6 +56,7 @@ Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
     );
 
     // ASSERT
+    await fullPageScreenshot(page, `grid-${name}.png`);
     for (const loc of await page.locator("onyx-grid > div").all()) {
       await expectActualGridSpan(loc, Math.min(i, columns));
     }
