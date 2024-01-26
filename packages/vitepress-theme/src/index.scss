@@ -5,7 +5,7 @@
 // see: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css#L178
 :root {
   // color palette
-  @include mixins.define-vitepress-color(brand, --onyx-color-base-brand);
+  @include mixins.define-vitepress-color(brand, --onyx-color-base-primary);
   @include mixins.define-vitepress-color(tip, --onyx-color-base-info);
   @include mixins.define-vitepress-color(warning, --onyx-color-base-warning);
   @include mixins.define-vitepress-color(danger, --onyx-color-base-danger);
@@ -34,7 +34,7 @@
   --vp-code-color: var(--vp-c-brand-2);
 
   @include mixins.home-page-gradients(
-    var(--onyx-color-base-brand-500),
+    var(--onyx-color-base-primary-500),
     var(--onyx-color-base-info-500)
   );
 }

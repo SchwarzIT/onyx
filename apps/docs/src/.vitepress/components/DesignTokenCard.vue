@@ -37,28 +37,28 @@ const handleCopy = async () => {
 
 .card {
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-border-default);
+  border: 1px solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
   display: flex;
   align-items: center;
 
   @include mixins.breakpoint(max, s, -1) {
-    padding: var(--onyx-spacing-sm);
+    padding: var(--onyx-spacing-md);
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--onyx-spacing-sm);
+    gap: var(--onyx-spacing-md);
   }
 
   @include mixins.breakpoint(min, s) {
     &__container {
-      padding: var(--onyx-spacing-sm) var(--onyx-spacing-xl);
+      padding: var(--onyx-spacing-md) var(--onyx-spacing-2xl);
 
       &--left {
         width: 75%;
       }
 
       &--right {
-        border-left: 1px solid var(--onyx-color-base-border-default);
+        border-left: 1px solid var(--onyx-color-base-neutral-300);
         width: 25%;
       }
     }
