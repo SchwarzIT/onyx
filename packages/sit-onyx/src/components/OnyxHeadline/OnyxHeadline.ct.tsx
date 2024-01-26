@@ -30,7 +30,7 @@ test("should display monospace h1-h6 headlines", async ({ mount, makeAxeBuilder 
 
     // ASSERT
     await expect(component).toContainText("Hello World");
-    await expect(component).toHaveScreenshot(`${type}.png`);
+    await expect(component).toHaveScreenshot(`monospace-${type}.png`);
 
     // ACT
     const accessibilityScanResults = await makeAxeBuilder().analyze();
