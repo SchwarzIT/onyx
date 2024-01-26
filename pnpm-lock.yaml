@@ -21,8 +21,8 @@ importers:
         specifier: ^1.41.1
         version: 1.41.1
       '@rushstack/eslint-patch':
-        specifier: ^1.7.1
-        version: 1.7.1
+        specifier: ^1.7.2
+        version: 1.7.2
       '@sit-onyx/eslint-plugin':
         specifier: workspace:^
         version: link:packages/eslint-plugin
@@ -161,8 +161,8 @@ importers:
         version: 3.4.15(typescript@5.3.3)
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.8.3
-        version: 4.8.3(playwright-core@1.41.1)
+        specifier: ^4.8.4
+        version: 4.8.4(playwright-core@1.41.1)
       '@fontsource-variable/source-code-pro':
         specifier: ^5.0.17
         version: 5.0.17
@@ -367,8 +367,8 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.8.3(playwright-core@1.41.1):
-    resolution: {integrity: sha512-YtbkAWeOp5oQeI8vS6KYqJDa5yTl5O1wJP8KOZAAVjhxeiK/Y1ssxnZuGRobARyVh3eS6O3jdxTv/iCK1RfgaA==}
+  /@axe-core/playwright@4.8.4(playwright-core@1.41.1):
+    resolution: {integrity: sha512-xpwd+T0BODt19hnXW0eX9xf+H/Ns1rdWwZNmuCV9UoTqjZ9mGm1F80pvh/A1r317ooltq8nwqcoVO9jbHWKSdA==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
@@ -3212,8 +3212,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@rushstack/eslint-patch@1.7.1:
-    resolution: {integrity: sha512-irBNt5094vHloql4QzY8RdeI8Tns2kGsaiJ/m6jENWx9xCz/m/F4gKQ1dAailFmpL0Id9tgWLqZbTUO4SINM/Q==}
+  /@rushstack/eslint-patch@1.7.2:
+    resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
     dev: true
 
   /@rushstack/node-core-library@3.62.0(@types/node@20.11.6):
