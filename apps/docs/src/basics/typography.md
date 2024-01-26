@@ -24,6 +24,8 @@ _custom component for displaying font definitions_
 
 ### Headlines
 
+For the technical implementation of the headlines, please see the [technical documentation](/development/OnyxHeadline).
+
 ::: details h1
 
 This is the page title. It can only be used once per page at the very top.
