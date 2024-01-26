@@ -73,6 +73,74 @@ const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
   }
 }
 
+.onyx {
+  &-h1 {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+  }
+
+  &-h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+
+  &-h3 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+  }
+
+  &-h4 {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+
+  &-h5,
+  &-h6 {
+    @extend .onyx-h4;
+  }
+
+  &-paragraph {
+    &-big {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      font-weight: 400;
+    }
+
+    &-default {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: 400;
+    }
+
+    &-small {
+      font-size: 0.8125rem;
+      line-height: 1.25rem;
+      font-weight: 400;
+    }
+  }
+
+  &-link {
+    &-big {
+      @extend .onyx-paragraph-big;
+      text-decoration: underline;
+    }
+
+    &-default {
+      @extend .onyx-paragraph-default;
+      text-decoration: underline;
+    }
+
+    &-small {
+      @extend .onyx-paragraph-small;
+      text-decoration: underline;
+    }
+  }
+}
+
 .typography {
   &__content {
     display: flex;
