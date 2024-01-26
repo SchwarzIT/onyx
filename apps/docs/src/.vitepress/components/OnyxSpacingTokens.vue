@@ -26,6 +26,7 @@ const spacings = [
 .token {
   margin-bottom: var(--onyx-spacing-md);
 
+  // override token width so all spacings token names have the same width
   :deep(.token__name) {
     min-width: 16rem;
   }

@@ -24,6 +24,11 @@ const handleCopy = async () => {
   <div class="card" :class="{ 'card--wide': props.wideName }">
     <div class="card__container">
       <slot name="name">
+        <!--
+          client only is needed because we are using "value" here which is
+          using the "getCssVariableValue" function but this is only available
+          inside the browser/client
+         -->
         <ClientOnly>
           <DesignToken
             :name="props.name"

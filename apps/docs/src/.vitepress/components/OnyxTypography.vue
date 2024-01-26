@@ -5,8 +5,19 @@ import DesignTokenCard from "./DesignTokenCard.vue";
 import DesignTokenHeader from "./DesignTokenHeader.vue";
 
 export type TypographyToken = {
+  /**
+   * Human readable token name
+   * @example "h1"
+   */
   name: string;
+  /**
+   * Class to apply for the text preview. Available classes:
+   * - onyx-h1 to onyx-h6
+   * - onyx-paragraph-big, onyx-paragraph-default, onyx-paragraph-small
+   * - onyx-link-big, onyx-link-default, onyx-link-small
+   */
   className: string;
+  /** HTML element to render. */
   htmlTag: string;
 };
 

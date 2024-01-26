@@ -48,6 +48,7 @@ const tokens = [
     }
   }
 
+  // override token width so all border radius token names have the same width
   :deep(.token__name) {
     min-width: 16rem;
   }
