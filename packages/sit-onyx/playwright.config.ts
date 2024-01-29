@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./src/components",
+  testDir: "./src",
   testMatch: `**/*.ct.tsx`,
   snapshotDir: "./playwright/snapshots",
   // custom snapshotPathTemplate to remove the testFileName folder that we don't want

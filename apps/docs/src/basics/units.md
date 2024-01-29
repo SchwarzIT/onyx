@@ -26,15 +26,17 @@ Those tokens are named like t-shirt sizes for easy usage. Use them for visual co
 
 | Token name |      rem | Pixels |
 | ---------- | -------: | -----: |
-| `3xs`      | 0.125rem |    2px |
-| `2xs`      |  0.25rem |    4px |
+| `4xs`      | 0.125rem |    2px |
+| `3xs`      |  0.25rem |    4px |
+| `2xs`      | 0.375rem |    6px |
 | `xs`       |   0.5rem |    8px |
-| `sm`       |     1rem |   16px |
-| `md`       |   1.5rem |   24px |
-| `lg`       |     2rem |   32px |
-| `xl`       |     3rem |   48px |
-| `2xl`      |     4rem |   64px |
-| `3xl`      |     6rem |   96px |
+| `sm`       |  0.75rem |   12px |
+| `md`       |     1rem |   16px |
+| `lg`       |   1.5rem |   24px |
+| `xl`       |     2rem |   32px |
+| `2xl`      |     3rem |   48px |
+| `3xl`      |     4rem |   64px |
+| `4xl`      |     6rem |   96px |
 
 ## Border radius
 

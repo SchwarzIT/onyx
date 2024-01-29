@@ -1,5 +1,16 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-alpha.2
+
+### Minor Changes
+
+- 9f7e8d1: feat: update default "onyx" theme
+
+### Patch Changes
+
+- Updated dependencies [9f7e8d1]
+  - sit-onyx@0.1.0-alpha.3
+
 ## 0.1.0-alpha.1
 
 ### Minor Changes

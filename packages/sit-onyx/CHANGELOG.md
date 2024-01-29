@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 0.1.0-alpha.3
+
+### Minor Changes
+
+- 9f7e8d1: feat: update default "onyx" theme
+
 ## 0.1.0-alpha.2
 
 ### Patch Changes

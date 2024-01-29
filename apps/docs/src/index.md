@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: onyx
-  text: Design system
+  text: design system
   tagline: A design system and Vue.js component library created by Schwarz IT.
   image:
     src: /schwarz-group.svg

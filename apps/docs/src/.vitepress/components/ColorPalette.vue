@@ -7,7 +7,7 @@ const AVAILABLE_TABS = ["Base", "Text", "Icon"] as const;
 type AvailableTab = (typeof AVAILABLE_TABS)[number];
 
 const props = defineProps<{
-  name: "action" | "brand" | "neutral" | "success" | "warning" | "danger" | "info";
+  name: "primary" | "secondary" | "neutral" | "success" | "warning" | "danger" | "info";
 }>();
 
 const currentTab = ref<AvailableTab>("Base");
@@ -141,13 +141,13 @@ const handleCopy = async (color: string) => {
 
 .palette {
   &__content {
-    padding: var(--onyx-spacing-lg);
+    padding: var(--onyx-spacing-xl);
     border-radius: var(--onyx-radius-md);
-    border: 1px solid var(--onyx-color-base-border-default);
+    border: 1px solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
 
     @include mixins.breakpoint(max, s) {
-      padding: var(--onyx-spacing-sm);
+      padding: var(--onyx-spacing-md);
     }
   }
 
@@ -160,7 +160,7 @@ const handleCopy = async (color: string) => {
   }
 
   &__copied {
-    margin-top: var(--onyx-spacing-lg);
+    margin-top: var(--onyx-spacing-xl);
   }
 }
 
@@ -176,7 +176,7 @@ const handleCopy = async (color: string) => {
 
   &__tabs {
     display: flex;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-lg);
   }
 
   &__tab {

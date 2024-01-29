@@ -42,7 +42,7 @@ const props = defineProps<ComponentCardProps>();
   &--linked {
     &:hover,
     &:focus-visible {
-      background-color: var(--onyx-color-base-action-100);
+      background-color: var(--onyx-color-base-primary-100);
     }
   }
 
