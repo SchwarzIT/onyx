@@ -101,6 +101,7 @@ export default defineConfig({
             { text: "i18n", link: "/i18n" },
             { text: "Grid", link: "/grid" },
             { text: "Typography", link: "/typography" },
+            { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },
         {
