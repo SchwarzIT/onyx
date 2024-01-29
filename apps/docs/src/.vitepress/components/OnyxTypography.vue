@@ -156,7 +156,7 @@ const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
   &__content {
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-lg);
 
     &--mono {
       font-family: var(--onyx-font-family-mono);

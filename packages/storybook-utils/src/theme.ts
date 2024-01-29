@@ -14,7 +14,7 @@ export const createTheme = (
 ) => {
   const base = options?.base ?? "light";
   const defaultBrandImage = base === "light" ? storybookLogo : storybookLogoInverse;
-  const primaryColor = onyxVariables["onyx-color-themed-brand-500"];
+  const primaryColor = onyxVariables["onyx-color-themed-primary-500"];
 
   return create({
     brandTitle: options?.brandTitle ?? "onyx Storybook",
@@ -25,7 +25,7 @@ export const createTheme = (
 
     // default theme values that are independent of the light/dark mode:
     colorPrimary: primaryColor,
-    colorSecondary: onyxVariables["onyx-color-themed-action-500"],
+    colorSecondary: onyxVariables["onyx-color-themed-secondary-500"],
     barSelectedColor: primaryColor,
     barHoverColor: primaryColor,
     appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),

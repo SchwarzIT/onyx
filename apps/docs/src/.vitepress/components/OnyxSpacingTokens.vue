@@ -2,6 +2,7 @@
 import DesignTokenCard from "./DesignTokenCard.vue";
 
 const spacings = [
+  "onyx-spacing-4xs",
   "onyx-spacing-3xs",
   "onyx-spacing-2xs",
   "onyx-spacing-xs",
@@ -11,6 +12,7 @@ const spacings = [
   "onyx-spacing-xl",
   "onyx-spacing-2xl",
   "onyx-spacing-3xl",
+  "onyx-spacing-4xl",
 ];
 </script>
 
@@ -24,7 +26,7 @@ const spacings = [
 
 <style lang="scss" scoped>
 .token {
-  margin-bottom: var(--onyx-spacing-md);
+  margin-bottom: var(--onyx-spacing-lg);
 
   // override token width so all spacings token names have the same width
   :deep(.token__name) {
@@ -36,7 +38,7 @@ const spacings = [
   width: 4rem;
   min-height: 4rem;
   border-radius: var(--onyx-radius-sm);
-  border: 1px solid var(--onyx-color-base-border-default);
+  border: 1px solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-neutral-100);
   display: flex;
   flex-direction: column;

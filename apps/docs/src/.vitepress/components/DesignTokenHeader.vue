@@ -45,7 +45,7 @@ const emit = defineEmits<{
 
   &__tabs {
     display: flex;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-lg);
   }
 
   &__tab {
@@ -54,7 +54,7 @@ const emit = defineEmits<{
     font-size: 1rem;
 
     &--active {
-      color: var(--active-color, var(--onyx-color-text-action-intense));
+      color: var(--active-color, var(--onyx-color-text-primary-intense));
     }
   }
 }

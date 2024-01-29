@@ -51,7 +51,7 @@ const emit = defineEmits<{
       copied
     </span>
 
-    <CopyIcon v-else class="token__copy" color="var(--onyx-color-icon-action-intense)" />
+    <CopyIcon v-else class="token__copy" color="var(--onyx-color-icon-primary-intense)" />
   </button>
 </template>
 
@@ -61,23 +61,23 @@ const emit = defineEmits<{
 .token {
   display: flex;
   align-items: center;
-  gap: var(--onyx-spacing-sm);
+  gap: var(--onyx-spacing-md);
   width: max-content;
   max-width: 100%;
   pointer-events: none;
 
   &__name {
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs) var(--onyx-spacing-2xs)
-      var(--onyx-spacing-sm);
+    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-xs) var(--onyx-spacing-3xs)
+      var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-sm);
-    border: 1px solid var(--onyx-color-base-border-default);
+    border: 1px solid var(--onyx-color-base-neutral-300);
     font-family: var(--onyx-font-family-mono);
     width: max-content;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--onyx-spacing-lg);
-    outline-color: var(--onyx-color-base-action-300);
+    gap: var(--onyx-spacing-xl);
+    outline-color: var(--onyx-color-base-primary-300);
     background-color: var(--onyx-color-base-background-blank);
     cursor: pointer;
 
@@ -105,7 +105,7 @@ const emit = defineEmits<{
     &:focus-within {
       .token {
         &__name {
-          border: 1px solid var(--onyx-color-base-action-300);
+          border: 1px solid var(--onyx-color-base-primary-300);
         }
 
         &__copy {
@@ -126,7 +126,7 @@ const emit = defineEmits<{
           height: 1.25rem;
           background-color: v-bind("props.value");
           border-radius: var(--onyx-radius-sm);
-          border: 1px solid var(--onyx-color-base-border-default);
+          border: 1px solid var(--onyx-color-base-neutral-300);
         }
       }
     }
