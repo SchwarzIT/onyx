@@ -8,13 +8,10 @@
   "files": [
     "src"
   ],
+  "types": "./src/index.ts",
   "exports": {
-    ".": {
-      "default": "./src/index.ts"
-    },
-    "./playwright": {
-      "default": "./src/playwright.ts"
-    }
+    ".": "./src/index.ts",
+    "./playwright": "./src/playwright.ts"
   },
   "scripts": {
     "build": "vue-tsc --build --force",
