@@ -27,8 +27,8 @@ const { isDark } = useData();
       </button>
     </div>
 
-    <ColorPalette name="action" />
-    <ColorPalette name="brand" />
+    <ColorPalette name="primary" />
+    <ColorPalette name="secondary" />
     <ColorPalette name="neutral" />
     <ColorPalette name="danger" />
     <ColorPalette name="warning" />
@@ -41,7 +41,7 @@ const { isDark } = useData();
 .palettes {
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-spacing-lg);
+  gap: var(--onyx-spacing-xl);
 }
 
 .themes {
@@ -53,7 +53,7 @@ const { isDark } = useData();
     cursor: pointer;
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-full);
 
     &--active {

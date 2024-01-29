@@ -48,7 +48,7 @@ The default background color of components is always `onyx-color-base-background
 :::
 
 ::: details Call-to-actions
-Call-to-actions are always used with the `onyx-color-base-action-500` value.
+Call-to-actions are always used with the `onyx-color-base-primary-500` value.
 :::
 
 ## Roles of universal colors

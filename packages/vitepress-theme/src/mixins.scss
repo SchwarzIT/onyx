@@ -29,30 +29,6 @@
 }
 
 /**
-* Adds CSS for using a colored gradient for the name and logo background on the home page
-*/
-@mixin home-page-gradients($primary, $secondary) {
-  // https://vitepress.dev/reference/default-theme-home-page#customizing-the-name-color
-  --vp-home-hero-name-color: #{$primary};
-
-  // Home page logo
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #{$primary} 50%,
-    #{$secondary} 50%
-  );
-  --vp-home-hero-image-filter: blur(44px);
-
-  @include breakpoint(min, l) {
-    --vp-home-hero-image-filter: blur(68px);
-  }
-
-  @include breakpoint(min, s) {
-    --vp-home-hero-image-filter: blur(56px);
-  }
-}
-
-/**
  * Applies CSS only to the given VitePress breakpoint.
  * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
  * @param {string} $name - name of the VitePress breakpoint. One of: xs, s, m, l, xl or xxl
