@@ -22,10 +22,10 @@ const colors = computed(() => {
 
 <style lang="scss" scoped>
 .card {
-  padding: var(--onyx-spacing-md);
+  padding: var(--onyx-spacing-lg);
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-border-default);
+  border: 1px solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
-  margin: var(--onyx-spacing-sm) 0;
+  margin: var(--onyx-spacing-md) 0;
 }
 </style>

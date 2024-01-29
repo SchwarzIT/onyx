@@ -5,11 +5,11 @@ import ColorStrip from "./ColorStrip.vue";
 const { isDark } = useData();
 
 const primaryColors = Array.from({ length: 9 }, (_, index) => {
-  return `var(--onyx-color-base-action-${(index + 1) * 100})`;
+  return `var(--onyx-color-base-primary-${(index + 1) * 100})`;
 });
 
 const secondaryColors = Array.from({ length: 9 }, (_, index) => {
-  return `var(--onyx-color-base-brand-${(index + 1) * 100})`;
+  return `var(--onyx-color-base-secondary-${(index + 1) * 100})`;
 });
 
 const neutralColors = Array.from({ length: 9 }, (_, index) => {
@@ -84,7 +84,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
   &__header {
     display: flex;
     justify-content: flex-end;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-lg);
     margin-bottom: var(--onyx-spacing-xs);
   }
 
@@ -93,13 +93,13 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
     font-size: 1rem;
 
     &--active {
-      color: var(--onyx-color-text-action-intense);
+      color: var(--onyx-color-text-primary-intense);
     }
   }
 
   &__content {
     border-radius: var(--onyx-radius-md);
-    border: 1px solid var(--onyx-color-base-border-default);
+    border: 1px solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -110,14 +110,14 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
   }
 
   &__container {
-    padding: var(--onyx-spacing-lg);
+    padding: var(--onyx-spacing-xl);
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-spacing-sm);
+    gap: var(--onyx-spacing-md);
 
     &:last-child {
       @include mixins.breakpoint(min, s, 1) {
-        border-left: 1px solid var(--onyx-color-base-border-default);
+        border-left: 1px solid var(--onyx-color-base-neutral-300);
       }
     }
   }
@@ -129,7 +129,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
   &__colors {
     display: grid;
-    gap: var(--onyx-spacing-sm);
+    gap: var(--onyx-spacing-md);
 
     &--themed {
       grid-template-columns: repeat(3, minmax(0, 1fr));
