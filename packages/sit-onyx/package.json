@@ -39,12 +39,12 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "peerDependencies": {
+    "@fontsource-variable/source-code-pro": ">= 5",
+    "@fontsource-variable/source-sans-3": ">= 5",
     "vue": ">= 3"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.8.4",
-    "@fontsource-variable/source-code-pro": "^5.0.17",
-    "@fontsource-variable/source-sans-3": "^5.0.19",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^7.6.10",
