@@ -156,6 +156,12 @@ importers:
 
   packages/sit-onyx:
     dependencies:
+      '@fontsource-variable/source-code-pro':
+        specifier: '>= 5'
+        version: 5.0.17
+      '@fontsource-variable/source-sans-3':
+        specifier: '>= 5'
+        version: 5.0.19
       vue:
         specifier: '>= 3'
         version: 3.4.15(typescript@5.3.3)
@@ -163,12 +169,6 @@ importers:
       '@axe-core/playwright':
         specifier: ^4.8.4
         version: 4.8.4(playwright-core@1.41.1)
-      '@fontsource-variable/source-code-pro':
-        specifier: ^5.0.17
-        version: 5.0.17
-      '@fontsource-variable/source-sans-3':
-        specifier: ^5.0.19
-        version: 5.0.19
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
@@ -2299,11 +2299,11 @@ packages:
 
   /@fontsource-variable/source-code-pro@5.0.17:
     resolution: {integrity: sha512-O1Hn0QamTJDfFauR68ALijno0xTOy/sJAE/cORyP2s5unEiJOZj0EBQIhHymHdS7XI+xccAfSEdaZNmz9rhttA==}
-    dev: true
+    dev: false
 
   /@fontsource-variable/source-sans-3@5.0.19:
     resolution: {integrity: sha512-tLw2C4Su5gY+xZLQgkia/EdtsU/Sx5PnFGI+nUzcQPN2Nd2vCXu9gc819Eop+hU9uKeS2RPzja+fKoAJM+QpDg==}
-    dev: true
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
