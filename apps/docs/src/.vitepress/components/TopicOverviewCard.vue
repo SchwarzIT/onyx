@@ -23,10 +23,10 @@ const props = defineProps<{
   padding: var(--onyx-spacing-xs);
   display: flex;
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-border-default);
+  border: 1px solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
   cursor: pointer;
-  outline-color: var(--onyx-color-base-action-300);
+  outline-color: var(--onyx-color-base-primary-300);
   text-decoration: none;
 
   // hide VitePress external link icon
@@ -47,7 +47,7 @@ const props = defineProps<{
     flex-direction: column;
     gap: var(--onyx-spacing-xs);
     font-weight: 600;
-    padding: var(--onyx-spacing-xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-spacing-xs) var(--onyx-spacing-md);
   }
 
   &__title {
@@ -63,11 +63,11 @@ const props = defineProps<{
 
   &:hover,
   &:focus-visible {
-    border-color: var(--onyx-color-base-action-300);
+    border-color: var(--onyx-color-base-primary-300);
 
     .topic {
       &__title {
-        color: var(--onyx-color-text-action-intense);
+        color: var(--onyx-color-text-primary-intense);
       }
     }
   }

@@ -33,7 +33,7 @@ const tokens = [
 
 <style lang="scss" scoped>
 .token {
-  margin-bottom: var(--onyx-spacing-md);
+  margin-bottom: var(--onyx-spacing-lg);
 
   &__preview {
     width: 4rem;
