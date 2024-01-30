@@ -43,7 +43,7 @@ export default defineLoader({
       return total + countWord(fileContent, "satisfies Story;");
     }, 0);
 
-    const packageFolders = getOnyxNpmPackages();
+    const packageFolders = await getOnyxNpmPackages();
     const npmPackageNames = packageFolders.map((packageName) =>
       packageName === "sit-onyx" ? packageName : `@sit-onyx/${packageName}`,
     );
