@@ -21,6 +21,10 @@ $gridVariants: (
   max-width: var(--onyx-grid-max-width, none);
 }
 
+.onyx-grid-center {
+  --onyx-grid-max-margin-x: auto;
+}
+
 //
 // Alternative grid variants
 //
@@ -60,7 +64,7 @@ $gridVariants: (
 @mixin generateGridMax($breakpoint, $maxVariant, $margin) {
   .onyx-grid-max-#{$maxVariant} {
     --onyx-grid-max-width: #{$breakpoint - 1};
-    --onyx-grid-margin: #{$margin} auto;
+    --onyx-grid-margin: #{$margin} var(--onyx-grid-max-margin-x, #{$margin});
   }
 }
 
