@@ -39,6 +39,8 @@ const fullPageScreenshot = (page: Page, name: string) => {
   return expect(page).toHaveScreenshot(name, { fullPage: true });
 };
 
+test.beforeEach(({ page }) => page.addStyleTag({ content: "body { margin: 0; }" }));
+
 Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint`, async ({
     mount,
@@ -145,4 +147,56 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
 
   // ASSERT
   await expectActualGridSpan(element, 4);
+});
+
+test(`grid with optional max width should be left aligned`, async ({ mount, page }) => {
+  // ARRANGE
+  const VIEWPORT_WIDTH = 2000;
+  await page.setViewportSize({
+    width: VIEWPORT_WIDTH,
+    height: 400,
+  });
+  await mount(
+    <main class="onyx-grid onyx-grid-max-md" style={{ outline: "1px solid red" }}>
+      {createGridElement(1)}
+    </main>,
+  );
+  const element = page.locator("main");
+  const box = await element
+    .evaluateHandle((el) => el.getBoundingClientRect())
+    .then((res) => res.jsonValue());
+
+  const MARGIN = 64;
+  const BREAKPOINT_MAX = GRIDS.lg.breakpoint - 1;
+  const EXPECTED_LEFT = MARGIN;
+  expect(box.left).toBe(EXPECTED_LEFT);
+  const EXPECTED_RIGHT = MARGIN + BREAKPOINT_MAX;
+  expect(box.right).toBe(EXPECTED_RIGHT);
+});
+
+test(`grid with optional max width and centering should be positioned correctly`, async ({
+  mount,
+  page,
+}) => {
+  // ARRANGE
+  const VIEWPORT_WIDTH = 2000;
+  await page.setViewportSize({
+    width: VIEWPORT_WIDTH,
+    height: 400,
+  });
+  await mount(
+    <main class="onyx-grid onyx-grid-max-md onyx-grid-center" style={{ outline: "1px solid red" }}>
+      {createGridElement(1)}
+    </main>,
+  );
+  const element = page.locator("main");
+  const box = await element
+    .evaluateHandle((el) => el.getBoundingClientRect())
+    .then((res) => res.jsonValue());
+
+  const BREAKPOINT_MAX = GRIDS.lg.breakpoint - 1;
+  const EXPECTED_LEFT = (VIEWPORT_WIDTH - BREAKPOINT_MAX) / 2;
+  expect(box.left).toBe(EXPECTED_LEFT);
+  const EXPECTED_RIGHT = EXPECTED_LEFT + BREAKPOINT_MAX;
+  expect(box.right).toBe(EXPECTED_RIGHT);
 });
