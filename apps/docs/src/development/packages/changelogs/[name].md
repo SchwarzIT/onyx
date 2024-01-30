@@ -38,4 +38,5 @@ const { params } = useData();
 <div v-else>
   <h1>Changelogs</h1>
   <p>No changelog found for package "{{ params.name }}".</p>
+  <p>Please create a bug report using the link in the header above.</p>
 </div>
