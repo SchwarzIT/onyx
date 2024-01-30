@@ -1,7 +1,3 @@
-//
-// Default Grid Variants
-//
-
 // prettier-ignore
 $gridVariants: (
 //  NAME     BREAKPOINT  MAX-VARIANT  COLUMNS  GUTTER  MARGIN
@@ -13,6 +9,9 @@ $gridVariants: (
     "xl"     1921px      "lg"         16       2rem    4rem,
 );
 
+/**
+ * Grid container base class
+ */
 .onyx-grid {
   display: grid;
   grid-template-columns: repeat(var(--onyx-grid-columns), minmax(0, 1fr));
@@ -21,24 +20,25 @@ $gridVariants: (
   max-width: var(--onyx-grid-max-width, none);
 }
 
+/**
+ * Grid container class to allow optional centering for grids with max width 
+ */
 .onyx-grid-center {
   --onyx-grid-max-margin-x: auto;
 }
 
-//
-// Alternative grid variants
-//
-
+/**
+ * Grid container class for "xl" breakpoint variant with 20 columns
+ */
 @media screen and (min-width: 1921px) {
   .onyx-grid-xl-20 {
     --onyx-grid-columns: 20;
   }
 }
 
-//
-// Grid elements
-//
-
+/**
+ * Grid element class for defining how many columns the element spans
+ */
 @for $i from 1 through 20 {
   .onyx-grid-span-#{$i} {
     grid-column-end: span min($i, var(--onyx-grid-columns));
@@ -53,6 +53,9 @@ $gridVariants: (
   }
 }
 
+/**
+ * Grid element class for defining breakpoint specific column count
+ */
 @mixin generateSpans($first, $last, $name) {
   @for $span from $first through $last {
     .onyx-grid-#{$name}-span-#{$span} {
@@ -61,6 +64,9 @@ $gridVariants: (
   }
 }
 
+/**
+ * Grid container class for defining breakpoint specific max width
+ */
 @mixin generateGridMax($breakpoint, $maxVariant, $margin) {
   .onyx-grid-max-#{$maxVariant} {
     --onyx-grid-max-width: #{$breakpoint - 1};
