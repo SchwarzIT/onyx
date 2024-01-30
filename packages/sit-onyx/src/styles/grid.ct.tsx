@@ -149,54 +149,72 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
   await expectActualGridSpan(element, 4);
 });
 
-test(`grid with optional max width should be left aligned`, async ({ mount, page }) => {
-  // ARRANGE
-  const VIEWPORT_WIDTH = 2000;
-  await page.setViewportSize({
-    width: VIEWPORT_WIDTH,
-    height: 400,
-  });
-  await mount(
-    <main class="onyx-grid onyx-grid-max-md" style={{ outline: "1px solid red" }}>
-      {createGridElement(1)}
-    </main>,
-  );
-  const element = page.locator("main");
-  const box = await element
-    .evaluateHandle((el) => el.getBoundingClientRect())
-    .then((res) => res.jsonValue());
+const MAX_WIDTH_TEST_SETUP = [
+  {
+    breakpoint: "lg" as keyof typeof GRIDS,
+    className: "onyx-grid-max-md",
+  },
+  {
+    breakpoint: "xl" as keyof typeof GRIDS,
+    className: "onyx-grid-max-lg",
+  },
+];
 
-  const MARGIN = 64;
-  const BREAKPOINT_MAX = GRIDS.lg.breakpoint - 1;
-  const EXPECTED_LEFT = MARGIN;
-  expect(box.left).toBe(EXPECTED_LEFT);
-  const EXPECTED_RIGHT = MARGIN + BREAKPOINT_MAX;
-  expect(box.right).toBe(EXPECTED_RIGHT);
+MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
+  test(`grid with optional max width should be left aligned for ${breakpoint}`, async ({
+    mount,
+    page,
+  }) => {
+    // ARRANGE
+    const VIEWPORT_WIDTH = GRIDS[breakpoint].breakpoint + 1000;
+    await page.setViewportSize({
+      width: VIEWPORT_WIDTH,
+      height: 400,
+    });
+    await mount(
+      <main class={`onyx-grid ${className}`} style={{ outline: "1px solid red" }}>
+        {createGridElement(1)}
+      </main>,
+    );
+    const element = page.locator("main");
+    const box = await element
+      .evaluateHandle((el) => el.getBoundingClientRect())
+      .then((res) => res.jsonValue());
+
+    const MARGIN = 64;
+    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
+    const EXPECTED_LEFT = MARGIN;
+    expect(box.left).toBe(EXPECTED_LEFT);
+    const EXPECTED_RIGHT = MARGIN + BREAKPOINT_MAX;
+    expect(box.right).toBe(EXPECTED_RIGHT);
+  });
 });
 
-test(`grid with optional max width and centering should be positioned correctly`, async ({
-  mount,
-  page,
-}) => {
-  // ARRANGE
-  const VIEWPORT_WIDTH = 2000;
-  await page.setViewportSize({
-    width: VIEWPORT_WIDTH,
-    height: 400,
-  });
-  await mount(
-    <main class="onyx-grid onyx-grid-max-md onyx-grid-center" style={{ outline: "1px solid red" }}>
-      {createGridElement(1)}
-    </main>,
-  );
-  const element = page.locator("main");
-  const box = await element
-    .evaluateHandle((el) => el.getBoundingClientRect())
-    .then((res) => res.jsonValue());
+MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
+  test(`grid with optional max width and centering should be positioned correctly for ${className}`, async ({
+    mount,
+    page,
+  }) => {
+    // ARRANGE
+    const VIEWPORT_WIDTH = GRIDS[breakpoint].breakpoint + 1000;
+    await page.setViewportSize({
+      width: VIEWPORT_WIDTH,
+      height: 400,
+    });
+    await mount(
+      <main class={`onyx-grid ${className} onyx-grid-center`} style={{ outline: "1px solid red" }}>
+        {createGridElement(1)}
+      </main>,
+    );
+    const element = page.locator("main");
+    const box = await element
+      .evaluateHandle((el) => el.getBoundingClientRect())
+      .then((res) => res.jsonValue());
 
-  const BREAKPOINT_MAX = GRIDS.lg.breakpoint - 1;
-  const EXPECTED_LEFT = (VIEWPORT_WIDTH - BREAKPOINT_MAX) / 2;
-  expect(box.left).toBe(EXPECTED_LEFT);
-  const EXPECTED_RIGHT = EXPECTED_LEFT + BREAKPOINT_MAX;
-  expect(box.right).toBe(EXPECTED_RIGHT);
+    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
+    const EXPECTED_LEFT = (VIEWPORT_WIDTH - BREAKPOINT_MAX) / 2;
+    expect(box.left).toBe(EXPECTED_LEFT);
+    const EXPECTED_RIGHT = EXPECTED_LEFT + BREAKPOINT_MAX;
+    expect(box.right).toBe(EXPECTED_RIGHT);
+  });
 });
