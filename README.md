@@ -1,8 +1,12 @@
 <p>
   <a href="https://gruppe.schwarz">
   <div align="center">
-    <img src="./.github/schwarz-group.svg" width="400px" />
-    </div>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/onyx-logo-light.svg">
+      <source media="(prefers-color-scheme: light)" srcset="./.github/onyx-logo-dark.svg">
+      <img alt="onyx logo" src="./.github/onyx-logo-dark.svg" width="400px">
+    </picture>
+  </div>
   </a>
 </p>
 
