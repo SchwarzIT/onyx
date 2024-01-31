@@ -6,10 +6,6 @@
   </picture>
 </div>
 
-# onyx VitePress theme
+# onyx Storybook utils
 
-VitePress theme that uses the onyx design system created by [Schwarz IT](https://it.schwarz).
-
-## Documentation
-
-You can find our documentation [here](https://onyx.schwarz/development/packages/vitepress-theme.html).
+Storybook utilities for Vue created by [Schwarz IT](https://it.schwarz).
