@@ -23,6 +23,19 @@ const meta: Meta<typeof OnyxIcon> = {
       },
     },
   }),
+  parameters: {
+    docs: {
+      source: {
+        // improve code snippet by adding the icon import
+        transform: (sourceCode: string) => {
+          return `<script lang="ts" setup>
+          import happyIcon from "@sit-onyx/icons/emoji-happy-1.svg?raw";
+          </script>
+          ${sourceCode.replace("icon='()=>({})'", ':icon="happyIcon"')}`;
+        },
+      },
+    },
+  },
 };
 
 export default meta;
