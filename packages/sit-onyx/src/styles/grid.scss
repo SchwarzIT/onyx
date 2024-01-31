@@ -16,7 +16,10 @@ $gridVariants: (
   display: grid;
   grid-template-columns: repeat(var(--onyx-grid-columns), minmax(0, 1fr));
   gap: var(--onyx-grid-gutter);
-  margin: var(--onyx-grid-margin);
+  // Its called margin in the UX concept. So we keep that name for consistency, even when it is implemented through a padding.
+  padding: var(--onyx-grid-margin);
+  // often web projects override the default box-sizing, but it is important for the max-width and alignment to work correctly
+  box-sizing: content-box;
   max-width: var(--onyx-grid-max-width, none);
 }
 
@@ -24,7 +27,7 @@ $gridVariants: (
  * Grid container class to allow optional centering for grids with max width 
  */
 .onyx-grid-center {
-  --onyx-grid-max-margin-x: auto;
+  margin: 0 auto;
 }
 
 /**
@@ -70,7 +73,6 @@ $gridVariants: (
 @mixin generateGridMax($breakpoint, $maxVariant, $margin) {
   .onyx-grid-max-#{$maxVariant} {
     --onyx-grid-max-width: #{$breakpoint - 1};
-    --onyx-grid-margin: #{$margin} var(--onyx-grid-max-margin-x, #{$margin});
   }
 }
 
