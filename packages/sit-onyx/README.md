@@ -6,6 +6,8 @@
   </picture>
 </div>
 
+<br>
+
 # onyx
 
 A design system and Vue.js component library created by [Schwarz IT](https://it.schwarz).

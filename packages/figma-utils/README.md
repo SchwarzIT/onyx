@@ -6,6 +6,8 @@
   </picture>
 </div>
 
+<br>
+
 # @sit-onyx/figma-utils
 
 Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.).

@@ -6,6 +6,8 @@
   </picture>
 </div>
 
+<br>
+
 # onyx Storybook utils
 
 Storybook utilities for Vue created by [Schwarz IT](https://it.schwarz).

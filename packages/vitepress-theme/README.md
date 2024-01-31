@@ -6,6 +6,8 @@
   </picture>
 </div>
 
+<br>
+
 # onyx VitePress theme
 
 VitePress theme that uses the onyx design system created by [Schwarz IT](https://it.schwarz).
