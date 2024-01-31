@@ -1,7 +1,7 @@
 import { ONYX_COLORS } from "@/index";
 import happyIcon from "@sit-onyx/icons/emoji-happy-1.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryContext, StoryObj } from "@storybook/vue3";
 import OnyxIcon from "./OnyxIcon.vue";
 import { ICON_SIZES } from "./types";
 
@@ -51,11 +51,14 @@ const meta: Meta<typeof OnyxIcon> = {
     docs: {
       source: {
         // improve code snippet by adding the icon import
-        transform: (sourceCode: string) => {
+        transform: (sourceCode: string, ctx: StoryContext) => {
+          const iconName =
+            typeof ctx.args.icon === "string" ? iconLabels[ctx.args.icon] : "emoji-happy-1";
+
           return `<script lang="ts" setup>
-          import happyIcon from "@sit-onyx/icons/emoji-happy-1.svg?raw";
+          import icon from "@sit-onyx/icons/${iconName}.svg?raw";
           </script>
-          ${sourceCode.replace("icon='()=>({})'", ':icon="happyIcon"')}`;
+          ${sourceCode.replace("icon='()=>({})'", ':icon="icon"')}`;
         },
       },
     },
