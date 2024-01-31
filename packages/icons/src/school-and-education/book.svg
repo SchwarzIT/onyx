@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve" enable-background="new 0 0 32 32">
-    <path d="M27 25V5c0-1.654-1.346-3-3-3H8C6.346 2 5 3.346 5 5v21.5C5 28.43 6.57 30 8.5 30H27v-2h-3v-3h3zM7 5c0-.551.448-1 1-1h16c.552 0 1 .449 1 1v18H8.5c-.536 0-1.045.121-1.5.338V5zm15 23H8.5c-.827 0-1.5-.673-1.5-1.5S7.673 25 8.5 25H22v3z"/>
-    <path d="M10 8h12v2H10zM10 12h8v2h-8z"/>
-</svg>
