@@ -2,6 +2,8 @@ import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getComponents } from "./utils";
 
+const componentNames = await getComponents();
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "onyx",
@@ -107,7 +109,7 @@ export default defineConfig({
           text: "Components",
           base: "/development",
           collapsed: false,
-          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
+          items: componentNames.map((name) => ({ text: name, link: `/${name}` })),
         },
         {
           text: "Other onyx npm packages",
