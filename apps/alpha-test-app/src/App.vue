@@ -16,11 +16,3 @@ provideI18n({ locale, messages: { "de-DE": deDE } });
   </div>
   <HelloWorld />
 </template>
-
-<style lang="scss" scoped>
-.icons {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
-}
-</style>
