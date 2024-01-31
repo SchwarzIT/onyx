@@ -4,7 +4,7 @@ Colors play a crucial role in an user interface for enhancing the visual appeal 
 
 ## Understanding light & dark mode
 
-The onyx color scheme is tightly connect to the [design token systematic](/tokens/), that applies the values to the interface. Therefore, please get familiar with the logic of [token levels](/tokens/introduction) used in onyx. This will be the foundation of understanding how colors will be interpreted for light and dark mode.
+The onyx color scheme is tightly connect to the [design token systematic](/tokens/introduction), that applies the values to the interface. Therefore, please get familiar with the logic of [token levels](/tokens/introduction) used in onyx. This will be the foundation of understanding how colors will be interpreted for light and dark mode.
 
 ### Global color scheme
 

@@ -24,11 +24,10 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "Brand", link: "/brand/", activeMatch: "/brand/" },
+      { text: "The Team", link: "/brand/team", activeMatch: "/brand/" },
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
-      { text: "Tokens", link: "/tokens/", activeMatch: "/tokens/" },
+      { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/", activeMatch: "/development/" },
-      { text: "Resources", link: "/resources/", activeMatch: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -36,14 +35,8 @@ export default defineConfig({
     sidebar: {
       "/brand": [
         {
-          items: [
-            { text: "The Team", link: "/brand/team" },
-            { text: "Ideology", link: "/brand/ideology" },
-            { text: "Principles", link: "/brand/principles" },
-            { text: "Dependencies", link: "/brand/dependencies" },
-            { text: "Roadmap", link: "/brand/roadmap" },
-            { text: "Changelog", link: "/brand/changelog" },
-          ],
+          text: "Brand",
+          items: [{ text: "The Team", link: "/brand/team" }],
         },
       ],
       "/basics": [
@@ -82,6 +75,7 @@ export default defineConfig({
       ],
       "/tokens": [
         {
+          text: "Design Tokens",
           base: "/tokens",
           items: [
             { text: "Introduction", link: "/introduction" },
@@ -119,11 +113,6 @@ export default defineConfig({
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
-        },
-      ],
-      "/resources": [
-        {
-          items: [{ text: "test", link: "/resources" }],
         },
       ],
     },

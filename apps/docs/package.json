@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "start": "pnpm run dev",
     "dev": "vitepress dev src",
     "build": "vitepress build src",
     "preview": "vitepress preview src"
