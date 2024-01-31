@@ -28,6 +28,11 @@ export default defineConfig({
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
       { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/", activeMatch: "/development/" },
+      {
+        text: "Resources",
+        activeMatch: "/resources/",
+        items: [{ text: "Icons", link: "/resources/icons" }],
+      },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -113,6 +118,13 @@ export default defineConfig({
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
+        },
+      ],
+      "/resources": [
+        {
+          text: "Resources",
+          base: "/resources",
+          items: [{ text: "Icons", link: "/icons" }],
         },
       ],
     },
