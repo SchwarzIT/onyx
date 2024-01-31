@@ -178,6 +178,9 @@ importers:
       '@fontsource-variable/source-sans-3':
         specifier: '>= 5'
         version: 5.0.19
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../icons
       vue:
         specifier: '>= 3'
         version: 3.4.15(typescript@5.3.3)
