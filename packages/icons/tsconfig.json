@@ -4,8 +4,6 @@
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": ".",
-    "outDir": "dist",
-    "declaration": true,
     "types": ["node"],
   },
 }

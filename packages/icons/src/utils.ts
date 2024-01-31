@@ -3,6 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { optimize } from "svgo";
 
+/**
+ * Optimizes the given SVG content and removes all fills so the color can be set via CSS.
+ */
 export function optimizeSvg(svgContent: string) {
   const { data } = optimize(svgContent, {
     path: svgContent,
@@ -20,6 +23,9 @@ export function optimizeSvg(svgContent: string) {
   return data;
 }
 
+/**
+ * Checks whether the given path is a directory.
+ */
 export async function isDirectory(path: string) {
   try {
     const stat = await fs.stat(path);
@@ -29,24 +35,13 @@ export async function isDirectory(path: string) {
   }
 }
 
+/**
+ * Gets a list of all available icons (full file path).
+ */
 export async function readAllIconPaths() {
   const INPUT_FOLDER = fileURLToPath(new URL("./assets", import.meta.url));
-  const folders = await fs.readdir(INPUT_FOLDER, "utf-8");
-
-  /** List of all available icons paths. */
-  const ALL_ICON_PATHS: string[] = [];
-
-  for (const folder of folders) {
-    const folderPath = path.join(INPUT_FOLDER, folder);
-    if (!(await isDirectory(folderPath))) continue;
-    const icons = await fs.readdir(folderPath, "utf-8");
-
-    const iconPaths = icons
-      .map((filename) => path.join(folderPath, filename))
-      .filter((path) => path.endsWith(".svg"));
-
-    ALL_ICON_PATHS.push(...iconPaths);
-  }
-
-  return ALL_ICON_PATHS;
+  const allIcons = await fs.readdir(INPUT_FOLDER, "utf-8");
+  return allIcons
+    .filter((filename) => filename.endsWith(".svg"))
+    .map((filename) => path.join(INPUT_FOLDER, filename));
 }

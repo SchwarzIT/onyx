@@ -1,6 +1,7 @@
 //
-// Optimizes all SVG assets in order to:
+// Optimizes all SVG assets in order to
 // - reduce file size
+// - remove "fill" so the icon color can be set via CSS
 //
 import fs from "node:fs/promises";
 import { optimizeSvg, readAllIconPaths } from "./utils.js";
