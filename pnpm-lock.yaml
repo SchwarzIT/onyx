@@ -119,6 +119,9 @@ importers:
 
   apps/docs:
     devDependencies:
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../../packages/icons
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
