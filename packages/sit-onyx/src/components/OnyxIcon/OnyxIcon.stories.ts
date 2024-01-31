@@ -17,11 +17,9 @@ const meta: Meta<typeof OnyxIcon> = {
     argTypes: {
       size: {
         options: ICON_SIZES,
-        control: { type: "select" },
       },
       color: {
         options: ["currentColor", ...ONYX_COLORS],
-        control: { type: "select" },
       },
     },
   }),
