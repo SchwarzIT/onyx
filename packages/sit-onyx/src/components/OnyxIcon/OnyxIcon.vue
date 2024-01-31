@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   --icon-size: 24px;
   --icon-color: currentColor;
 
-  display: block;
+  display: inline-block;
   font-style: normal; // reset styles for <i>
   width: var(--icon-size);
   height: var(--icon-size);
