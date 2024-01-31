@@ -39,6 +39,8 @@ const fullPageScreenshot = (page: Page, name: string) => {
   return expect(page).toHaveScreenshot(name, { fullPage: true });
 };
 
+test.beforeEach(({ page }) => page.addStyleTag({ content: "body { margin: 0; }" }));
+
 Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint`, async ({
     mount,
@@ -145,4 +147,77 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
 
   // ASSERT
   await expectActualGridSpan(element, 4);
+});
+
+const MAX_WIDTH_TEST_SETUP = [
+  {
+    breakpoint: "lg" as keyof typeof GRIDS,
+    className: "onyx-grid-max-md",
+  },
+  {
+    breakpoint: "xl" as keyof typeof GRIDS,
+    className: "onyx-grid-max-lg",
+  },
+];
+
+MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
+  test(`grid with optional max width should be left aligned for ${breakpoint}`, async ({
+    mount,
+    page,
+  }) => {
+    // ARRANGE
+    const VIEWPORT_WIDTH = GRIDS[breakpoint].breakpoint + 1000;
+    await page.setViewportSize({
+      width: VIEWPORT_WIDTH,
+      height: 400,
+    });
+    await mount(
+      <main class={`onyx-grid ${className}`} style={{ outline: "1px solid red" }}>
+        {createGridElement(1)}
+      </main>,
+    );
+    const element = page.locator("main");
+    const box = await element
+      .evaluateHandle((el) => el.getBoundingClientRect())
+      .then((res) => res.jsonValue());
+
+    const EXPECTED_LEFT = 0;
+    expect(box.left).toBe(EXPECTED_LEFT);
+    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
+    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
+    const MARGIN = 64;
+    const EXPECTED_RIGHT = 2 * MARGIN + BREAKPOINT_MAX;
+    expect(box.right).toBe(EXPECTED_RIGHT);
+  });
+});
+
+MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
+  test(`grid with optional max width and centering should be positioned correctly for ${className}`, async ({
+    mount,
+    page,
+  }) => {
+    // ARRANGE
+    const VIEWPORT_WIDTH = GRIDS[breakpoint].breakpoint + 1000;
+    await page.setViewportSize({
+      width: VIEWPORT_WIDTH,
+      height: 400,
+    });
+    await mount(
+      <main class={`onyx-grid ${className} onyx-grid-center`} style={{ outline: "1px solid red" }}>
+        {createGridElement(1)}
+      </main>,
+    );
+    const element = page.locator("main");
+    const box = await element
+      .evaluateHandle((el) => el.getBoundingClientRect())
+      .then((res) => res.jsonValue());
+
+    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
+    const MARGIN = 64;
+    const BOX_MAX_WIDTH = GRIDS[breakpoint].breakpoint - 1 + 2 * MARGIN;
+    const EXPECTED_LEFT = (VIEWPORT_WIDTH - BOX_MAX_WIDTH) / 2;
+    expect(box.left).toBe(EXPECTED_LEFT);
+    const EXPECTED_RIGHT = EXPECTED_LEFT + BOX_MAX_WIDTH;
+    expect(box.right).toBe(EXPECTED_RIGHT);
+  });
 });

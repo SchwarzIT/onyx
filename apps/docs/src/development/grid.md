@@ -35,6 +35,7 @@ Additionally, there are some optional modifier classes available.
 - `onyx-grid-xl-20`: Increases the column count from 16 to 20 for the `xl` breakpoint (useful for 4k screens).
 - `onyx-grid-max-md`: Caps the width before the `lg` breakpoint (`1440px`)
 - `onyx-grid-max-lg`: Caps the width before the `xl` breakpoint (`1920px`)
+- `onyx-grid-center`: Centers the grid when it has a max defined. Per default it is left aligned.
 
 For configuring the amount of columns an element should be spanning, use the class `onyx-grid-span-<number>`, where `<number>` is the number of columns from `1` to `20`.
 
