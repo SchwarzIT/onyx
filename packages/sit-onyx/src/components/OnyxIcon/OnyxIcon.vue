@@ -36,27 +36,27 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   // icon sizes:
   //
   &--2xs {
-    --icon-size: 12px;
+    --icon-size: 0.75rem;
   }
 
   &--xs {
-    --icon-size: 16px;
+    --icon-size: 1rem;
   }
 
   &--md {
-    --icon-size: 32px;
+    --icon-size: 2rem;
   }
 
   &--lg {
-    --icon-size: 48px;
+    --icon-size: 3rem;
   }
 
   &--xl {
-    --icon-size: 64px;
+    --icon-size: 4rem;
   }
 
   &--2xl {
-    --icon-size: 96px;
+    --icon-size: 6rem;
   }
 
   //
