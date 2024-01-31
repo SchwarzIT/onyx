@@ -1,6 +1,6 @@
 export type OnyxHeadlineProps = {
   /**
-   * Headline type. Not that only h1-h4 are intended to be used from UX perspective.
+   * Headline type. Please note that only h1-h4 are intended to be used from UX perspective.
    * h5 and h6 will have the same styles as h4 and should only be used for semantic reasons.
    */
   is: HeadlineType;
