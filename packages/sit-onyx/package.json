@@ -49,11 +49,11 @@
     "@axe-core/playwright": "^4.8.4",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^7.6.10",
-    "@storybook/blocks": "^7.6.10",
-    "@storybook/vue3": "^7.6.10",
-    "@storybook/vue3-vite": "^7.6.10",
+    "@storybook/addon-essentials": "^7.6.11",
+    "@storybook/blocks": "^7.6.11",
+    "@storybook/vue3": "^7.6.11",
+    "@storybook/vue3-vite": "^7.6.11",
     "react": "^18.2.0",
-    "storybook": "^7.6.10"
+    "storybook": "^7.6.11"
   }
 }
