@@ -16,7 +16,9 @@ for (const iconPath of ALL_ICON_PATHS) {
 }
 
 if (iconsToOptimize.length > 0) {
-  console.log(`${iconsToOptimize.length} icons need optimization.`);
+  console.log(
+    `${iconsToOptimize.length} icons need optimization. Please run "pnpm optimize" to optimize all icons.`,
+  );
   exit(1);
 } else {
   console.log("All icons are already optimized.");
