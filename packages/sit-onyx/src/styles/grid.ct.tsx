@@ -181,11 +181,12 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
       .evaluateHandle((el) => el.getBoundingClientRect())
       .then((res) => res.jsonValue());
 
-    const MARGIN = 64;
-    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
-    const EXPECTED_LEFT = MARGIN;
+    const EXPECTED_LEFT = 0;
     expect(box.left).toBe(EXPECTED_LEFT);
-    const EXPECTED_RIGHT = MARGIN + BREAKPOINT_MAX;
+    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
+    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
+    const MARGIN = 64;
+    const EXPECTED_RIGHT = 2 * MARGIN + BREAKPOINT_MAX;
     expect(box.right).toBe(EXPECTED_RIGHT);
   });
 });
@@ -211,10 +212,12 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
       .evaluateHandle((el) => el.getBoundingClientRect())
       .then((res) => res.jsonValue());
 
-    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
-    const EXPECTED_LEFT = (VIEWPORT_WIDTH - BREAKPOINT_MAX) / 2;
+    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
+    const MARGIN = 64;
+    const BOX_MAX_WIDTH = GRIDS[breakpoint].breakpoint - 1 + 2 * MARGIN;
+    const EXPECTED_LEFT = (VIEWPORT_WIDTH - BOX_MAX_WIDTH) / 2;
     expect(box.left).toBe(EXPECTED_LEFT);
-    const EXPECTED_RIGHT = EXPECTED_LEFT + BREAKPOINT_MAX;
+    const EXPECTED_RIGHT = EXPECTED_LEFT + BOX_MAX_WIDTH;
     expect(box.right).toBe(EXPECTED_RIGHT);
   });
 });
