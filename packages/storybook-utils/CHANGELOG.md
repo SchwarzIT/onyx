@@ -1,5 +1,14 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.4
+
+### Patch Changes
+
+- a190f80: fix: prevent type error when importing as library
+- Updated dependencies [a190f80]
+- Updated dependencies [a190f80]
+  - sit-onyx@0.1.0-alpha.4
+
 ## 1.0.0-alpha.3
 
 ### Minor Changes
