@@ -1,0 +1,21 @@
+{
+  "name": "@sit-onyx/icons",
+  "description": "Icons for the onyx design system",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schwarzit/onyx",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/schwarzit/onyx/issues"
+  },
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./*": "./src/*"
+  }
+}

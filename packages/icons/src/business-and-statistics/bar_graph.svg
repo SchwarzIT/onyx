@@ -1,0 +1,10 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g clip-path="url(#bar-graph_svg__a)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="m10.382 10.929-3.34-3.333-2.248 2.247L3.73 8.787l3.311-3.311 3.341 3.333 4.3-4.3H12V3.011h5.243v5.244h-1.498v-2.69l-5.363 5.364Zm-2.127 10.06H3.76V11.25h4.495v9.738Zm-1.498-8.24H5.258v6.742h1.499v-6.742Zm2.996 8.24h4.494v-7.49H9.753v7.49Zm1.498-5.993h1.498v4.495h-1.498v-4.495Zm4.494 5.993V9.753h4.495v11.236h-4.495Zm1.498-1.498h1.499v-8.24h-1.499v8.24Z"/>
+    </g>
+    <defs>
+        <clipPath id="bar-graph_svg__a">
+            <path d="M0 0h24v24H0z"/>
+        </clipPath>
+    </defs>
+</svg>

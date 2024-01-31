@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import * as ICONS from "@sit-onyx/icons-vue";
 import { provideI18n } from "sit-onyx";
 import deDE from "sit-onyx/locales/de-DE.json";
 import { useI18n } from "vue-i18n";
@@ -10,9 +11,21 @@ provideI18n({ locale, messages: { "de-DE": deDE } });
 
 <template>
   <div>
+    <div class="icons">
+      <component :is="icon" v-for="icon in ICONS" :key="icon.__name" />
+    </div>
+
     <p>{{ t("message") }} in {{ locale }}</p>
     <button @click="locale = 'de-DE'">Deutsch</button>
     <button @click="locale = 'en-US'">English</button>
   </div>
   <HelloWorld />
 </template>
+
+<style lang="scss" scoped>
+.icons {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+}
+</style>

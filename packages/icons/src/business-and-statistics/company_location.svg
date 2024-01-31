@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve" enable-background="new 0 0 32 32">
+    <circle cx="23.5" cy="19.5" r="1.5"/>
+    <path d="M23.5 14a5.5 5.5 0 0 0-5.5 5.5C18 25 23.5 30 23.5 30S29 25 29 19.5a5.5 5.5 0 0 0-5.5-5.5zm0 13.09c-1.435-1.681-3.5-4.617-3.5-7.59 0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5c0 2.973-2.066 5.91-3.5 7.59zM9 7h2v2H9zM9 11h2v2H9zM9 15h2v2H9zM14 7h2v2h-2zM14 11h2v2h-2zM14 15h2v2h-2z"/>
+    <path d="M16 20H9v4H7V4h11v8h2V7h5v5h2V5h-7V2H5v22H3v2h13.96v-2H16v-4zm-5 4v-2h3v2h-3z"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg id="file-globe_svg__Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.04 32.04">
+    <defs/>
+    <path d="M13.02 28.02h-6c-1.1 0-2-.9-2-2v-15l6.67-7h11.33v8" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px"/>
+    <path d="M12.02 4.02v7h-6.8M8.02 16.02h5M8.02 20.02h3" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px"/>
+    <circle cx="22.02" cy="22.02" r="7" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px"/>
+    <ellipse cx="22.02" cy="22.02" rx="3" ry="7" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px"/>
+    <path d="M15.02 22.02h14" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px"/>
+</svg>
