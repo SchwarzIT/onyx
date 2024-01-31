@@ -24,12 +24,13 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 <style lang="scss">
 .onyx-icon {
   --icon-size: 24px;
+  --icon-color: currentColor;
 
   display: block;
   font-style: normal; // reset styles for <i>
   width: var(--icon-size);
   height: var(--icon-size);
-  fill: currentColor;
+  fill: var(--icon-color);
 
   //
   // icon sizes:
@@ -62,31 +63,31 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   // icon colors:
   //
   &--primary {
-    fill: var(--onyx-color-icon-primary-intense);
+    --icon-color: var(--onyx-color-icon-primary-intense);
   }
 
   &--secondary {
-    fill: var(--onyx-color-icon-secondary-intense);
+    --icon-color: var(--onyx-color-icon-secondary-intense);
   }
 
   &--neutral {
-    fill: var(--onyx-color-icon-neutral-intense);
+    --icon-color: var(--onyx-color-icon-neutral-intense);
   }
 
   &--danger {
-    fill: var(--onyx-color-icon-danger-intense);
+    --icon-color: var(--onyx-color-icon-danger-intense);
   }
 
   &--warning {
-    fill: var(--onyx-color-icon-warning-intense);
+    --icon-color: var(--onyx-color-icon-warning-intense);
   }
 
   &--success {
-    fill: var(--onyx-color-icon-success-intense);
+    --icon-color: var(--onyx-color-icon-success-intense);
   }
 
   &--info {
-    fill: var(--onyx-color-icon-info-intense);
+    --icon-color: var(--onyx-color-icon-info-intense);
   }
 }
 </style>
