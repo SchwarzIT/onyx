@@ -15,7 +15,7 @@ const props = defineProps<ComponentCardProps>();
   <component
     :is="props.href ? 'a' : 'article'"
     class="card"
-    :class="{ 'card--linked': props.href }"
+    :class="{ 'card--clickable': props.href }"
     :href="props.href"
   >
     <Badge
@@ -39,7 +39,7 @@ const props = defineProps<ComponentCardProps>();
     border-color 0.25s,
     background-color 0.25s;
 
-  &--linked {
+  &--clickable {
     &:hover,
     &:focus-visible {
       background-color: var(--onyx-color-base-primary-100);
