@@ -4,6 +4,12 @@ import DesignToken from "./DesignToken.vue";
 import DesignTokenCard from "./DesignTokenCard.vue";
 import DesignTokenHeader from "./DesignTokenHeader.vue";
 
+import OnyxHeadline from "../../../../../packages/sit-onyx/src/components/OnyxHeadline/OnyxHeadline.vue";
+import {
+  HEADLINE_TYPES,
+  type HeadlineType,
+} from "../../../../../packages/sit-onyx/src/components/OnyxHeadline/types";
+
 export type TypographyToken = {
   /**
    * Human readable token name
@@ -49,7 +55,16 @@ const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
         :wide-name="props.wideName"
       >
         <template #name>
+          <OnyxHeadline
+            v-if="HEADLINE_TYPES.includes(token.htmlTag as HeadlineType)"
+            :is="token.htmlTag as HeadlineType"
+            :monospace="currentTab === 'Source Code Pro'"
+          >
+            {{ previewText }}
+          </OnyxHeadline>
+
           <component
+            v-else
             :is="token.htmlTag"
             :class="token.className"
             :href="token.htmlTag === 'a' ? '#' : undefined"
@@ -85,35 +100,6 @@ const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
 }
 
 .onyx {
-  &-h1 {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-    font-weight: 600;
-  }
-
-  &-h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-  }
-
-  &-h3 {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 600;
-  }
-
-  &-h4 {
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
-    font-weight: 600;
-  }
-
-  &-h5,
-  &-h6 {
-    @extend .onyx-h4;
-  }
-
   &-paragraph {
     &-big {
       font-size: 1.25rem;
