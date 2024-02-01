@@ -43,6 +43,8 @@ const linkTokens: TypographyToken[] = [
 
 The onyx design system offers four types of headlines. H1 is reserved for the main title of the page because it establishes primary focus and captures the user’s attention. The h2 style is used for describing sections in the interface. Its main goal is to cluster different types of content into groups and labelling them. Single elements, on the other hand, are described by the h3 style. The least impact, and therefore the lowest hierarchy, has the h4. It is used for structuring information inside a single component. Table column headlines is a good example at this point.
 
+For the technical implementation of the headlines, please see the [technical documentation](/development/OnyxHeadline).
+
 ::: warning
 Note that h5 and h6 headlines are not part of the onyx font system and should not be used therefore.
 Because they can occur on technical side for semantic reasons, they are styled the same as h4.
