@@ -1,9 +1,8 @@
 import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { defineLoader } from "vitepress";
 import type { ComponentGridProps } from "./.vitepress/components/ComponentGrid.vue";
 import type { Tab } from "./.vitepress/components/TabGroup.vue";
+import { getOnyxNpmPackages } from "./.vitepress/utils";
 
 /**
  * Build-time data for the home page (components, facts/numbers etc.)
@@ -44,7 +43,7 @@ export default defineLoader({
       return total + countWord(fileContent, "satisfies Story;");
     }, 0);
 
-    const packageFolders = getOnyxNpmPackages();
+    const packageFolders = await getOnyxNpmPackages();
     const npmPackageNames = packageFolders.map((packageName) =>
       packageName === "sit-onyx" ? packageName : `@sit-onyx/${packageName}`,
     );
@@ -234,24 +233,4 @@ const executeGitHubRequest = async (apiRoute: string) => {
   }
 
   return body;
-};
-
-/**
- * Gets a list of public onyx npm packages names.
- */
-const getOnyxNpmPackages = () => {
-  const packagePath = fileURLToPath(new URL("../../../packages", import.meta.url));
-
-  const packageFolders = fs.readdirSync(packagePath).filter((packageName) => {
-    try {
-      const packageJsonPath = path.join(packagePath, packageName, "package.json");
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-      return !packageJson.private;
-    } catch {
-      // folder is invalid npm package because it does not contain a valid package.json file
-      return false;
-    }
-  });
-
-  return packageFolders;
 };

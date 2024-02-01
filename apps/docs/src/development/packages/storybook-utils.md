@@ -16,6 +16,10 @@ import packageJson from "../../../../../packages/storybook-utils/package.json";
 
 {{ packageJson.description }}.
 
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/storybook-utils).
+
 ## Installation
 
 <!--
