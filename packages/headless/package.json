@@ -1,20 +1,17 @@
 {
   "name": "@sit-onyx/headless",
   "description": "Headless composables for Vue",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
     "src"
   ],
+  "types": "./src/index.ts",
   "exports": {
-    ".": {
-      "default": "./src/index.ts"
-    },
-    "./playwright": {
-      "default": "./src/playwright.ts"
-    }
+    ".": "./src/index.ts",
+    "./playwright": "./src/playwright.ts"
   },
   "scripts": {
     "build": "vue-tsc --build --force",

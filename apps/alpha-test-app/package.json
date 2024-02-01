@@ -1,9 +1,10 @@
 {
   "name": "alpha-test-app",
   "private": true,
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "type": "module",
   "scripts": {
+    "start": "pnpm run dev",
     "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/alpha-test-app && vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
@@ -11,6 +12,6 @@
   "dependencies": {
     "sit-onyx": "workspace:^",
     "vue": "^3.4.15",
-    "vue-i18n": "^9.8.0"
+    "vue-i18n": "^9.9.1"
   }
 }

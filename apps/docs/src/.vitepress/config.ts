@@ -2,16 +2,24 @@ import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getComponents } from "./utils";
 
+const componentNames = await getComponents();
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "onyx",
   description: packageJson.description,
+  head: [
+    ["link", { rel: "icon", href: "/favicon.svg" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" }],
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+    ["link", { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#0c1f2d" }],
+    ["meta", { name: "msapplication-TileColor", content: "#0c1f2d" }],
+    ["meta", { name: "theme-color", content: "#0c1f2d" }],
+  ],
   themeConfig: {
     externalLinkIcon: true,
-    logo: {
-      light: "/logo-light.svg",
-      dark: "/logo-dark.svg",
-    },
+    logo: "/logo.svg",
+    siteTitle: false,
     footer: {
       message: "Released under the Apache-2.0 License.",
       copyright: "Copyright © 2023-present Schwarz IT KG",
@@ -24,11 +32,10 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "Brand", link: "/brand/", activeMatch: "/brand/" },
+      { text: "The Team", link: "/brand/team", activeMatch: "/brand/" },
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
-      { text: "Tokens", link: "/tokens/", activeMatch: "/tokens/" },
+      { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/", activeMatch: "/development/" },
-      { text: "Resources", link: "/resources/", activeMatch: "/resources/" },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -36,14 +43,8 @@ export default defineConfig({
     sidebar: {
       "/brand": [
         {
-          items: [
-            { text: "The Team", link: "/brand/team" },
-            { text: "Ideology", link: "/brand/ideology" },
-            { text: "Principles", link: "/brand/principles" },
-            { text: "Dependencies", link: "/brand/dependencies" },
-            { text: "Roadmap", link: "/brand/roadmap" },
-            { text: "Changelog", link: "/brand/changelog" },
-          ],
+          text: "Brand",
+          items: [{ text: "The Team", link: "/brand/team" }],
         },
       ],
       "/basics": [
@@ -82,6 +83,7 @@ export default defineConfig({
       ],
       "/tokens": [
         {
+          text: "Design Tokens",
           base: "/tokens",
           items: [
             { text: "Introduction", link: "/introduction" },
@@ -107,7 +109,7 @@ export default defineConfig({
           text: "Components",
           base: "/development",
           collapsed: false,
-          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
+          items: componentNames.map((name) => ({ text: name, link: `/${name}` })),
         },
         {
           text: "Other onyx npm packages",
@@ -119,11 +121,6 @@ export default defineConfig({
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
-        },
-      ],
-      "/resources": [
-        {
-          items: [{ text: "test", link: "/resources" }],
         },
       ],
     },

@@ -1,13 +1,14 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.5",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
     "src"
   ],
+  "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./style.css": "./src/index.css"
