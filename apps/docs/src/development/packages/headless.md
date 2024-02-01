@@ -22,6 +22,10 @@ This library is currently in early / active development.
 
 Inspired by [Melt UI](https://melt-ui.com).
 
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/headless).
+
 ## Installation
 
 <!--
