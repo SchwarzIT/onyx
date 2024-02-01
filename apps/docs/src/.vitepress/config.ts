@@ -58,7 +58,7 @@ export default defineConfig({
             { text: "Layout", link: "/layout" },
             { text: "Units", link: "/units" },
             { text: "Motion", link: "/motion" },
-            { text: "Component states", link: "/states" },
+            { text: "States", link: "/states" },
             { text: "Density", link: "/density" },
             { text: "Truncation", link: "/truncation" },
             { text: "Elevation", link: "/elevation" },
