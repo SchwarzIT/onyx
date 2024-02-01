@@ -1,5 +1,7 @@
 import "@/styles/index.scss";
 
+export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
+export * from "@/components/OnyxHeadline/types";
 export { default as OnyxIcon } from "@/components/OnyxIcon/OnyxIcon.vue";
 export * from "@/components/OnyxIcon/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
