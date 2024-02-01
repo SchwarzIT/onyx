@@ -27,15 +27,15 @@ defineSlots<{
 </template>
 
 <style lang="scss">
-// use :where for styles that should be able to be easily overridden by the user
+// use :where for styles that can be easily overwritten by the user
 :where(.onyx-headline) {
   margin: 0; // remove default browser margins
+  color: var(--onyx-color-text-neutral-intense);
 }
 
 .onyx-headline {
   font-weight: 600;
   font-family: var(--onyx-font-family);
-  color: var(--onyx-color-text-neutral-intense);
 
   &--monospace {
     font-family: var(--onyx-font-family-mono);
