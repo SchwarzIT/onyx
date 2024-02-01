@@ -16,7 +16,8 @@
     "src"
   ],
   "exports": {
-    "./*": "./src/assets/*"
+    "./*": "./src/assets/*",
+    "./metadata.ts": "./src/metadata.ts"
   },
   "scripts": {
     "optimize:check": "tsx ./src/check.ts",
