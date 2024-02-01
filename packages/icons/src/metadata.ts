@@ -1,3 +1,6 @@
+/**
+ * Metadata for all available onyx icons.
+ */
 export const ICON_METADATA = {
   "24h": {
     category: "Help & Support",
@@ -1763,10 +1766,51 @@ export const ICON_METADATA = {
   "zoom-out": {
     category: "Action & Interface",
   },
-} satisfies Record<string, IconMetadata>;
+} as const satisfies Record<string, IconMetadata>;
+
+/**
+ * Grouped metadata of all available icons by category.
+ */
+export const ICON_CATEGORIES = groupIconsByCategory();
 
 export type IconMetadata = {
   category: string;
   deprecated?: boolean;
   aliases?: string[];
 };
+
+export type GroupedIconCategory = {
+  iconName: keyof typeof ICON_METADATA;
+  metadata: IconMetadata;
+};
+
+export type IconCategories = Record<string, GroupedIconCategory[]>;
+
+/**
+ * Groups all available icon metadata by category.
+ * Categories and icons will be sorted alphabetically.
+ */
+function groupIconsByCategory() {
+  const categories = Object.entries(ICON_METADATA).reduce<IconCategories>(
+    (categories, [iconName, metadata]) => {
+      const icons = categories[metadata.category] ?? [];
+      icons.push({ iconName: iconName as GroupedIconCategory["iconName"], metadata });
+      categories[metadata.category] = icons;
+      return categories;
+    },
+    {},
+  );
+
+  const sortedCategories: typeof categories = {};
+
+  Object.keys(categories)
+    .sort()
+    .forEach((category) => {
+      const sortedMetadata = categories[category].slice().sort((a, b) => {
+        return a.iconName.localeCompare(b.iconName);
+      });
+      sortedCategories[category] = sortedMetadata;
+    });
+
+  return sortedCategories;
+}

@@ -1,5 +1,5 @@
 import { ONYX_COLORS, type OnyxIconProps } from "@/index";
-import happyIcon from "@sit-onyx/icons/emoji-happy-1.svg?raw";
+import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryContext, StoryObj } from "@storybook/vue3";
 import OnyxIcon from "./OnyxIcon.vue";

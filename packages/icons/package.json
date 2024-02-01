@@ -15,9 +15,10 @@
   "files": [
     "src"
   ],
+  "types": "./src/metadata.ts",
   "exports": {
-    "./*": "./src/assets/*",
-    "./metadata.ts": "./src/metadata.ts"
+    ".": "./src/metadata.ts",
+    "./*": "./src/assets/*"
   },
   "scripts": {
     "optimize:check": "tsx ./src/check.ts",
