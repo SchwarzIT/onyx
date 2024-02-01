@@ -59,6 +59,16 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
           const isDark = themeParam
             ? themeParam === "dark"
             : parent.document.body.classList.contains("dark");
+          console.log(isDark);
+
+          if (isDark) {
+            document.body.classList.remove("light");
+            document.body.classList.add("dark");
+          } else {
+            document.body.classList.remove("dark");
+            document.body.classList.add("light");
+          }
+
           return isDark ? themes.dark : themes.light;
         },
         source: {
