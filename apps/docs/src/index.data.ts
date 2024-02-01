@@ -58,9 +58,13 @@ export default defineLoader({
     const mergedPRCount = isDev ? 0 : await searchGitHub("issues", "type:pr is:merged");
     const closedIssueCount = isDev ? 0 : await searchGitHub("issues", "type:issue is:closed");
 
-    /** Checks whether the given component is implemented (meaning a Storybook file exists) */
-    const isImplemented = (componentName: string) => {
-      return watchedFiles.includes(`${componentName}.stories.ts`);
+    /**
+     * Checks whether the given component is implemented (meaning a Storybook file exists).
+     * Also returns a `href` property with the link to the implemented component (only if implemented).
+     */
+    const getImplementedStatus = (componentName: string) => {
+      const implemented = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
+      return { implemented, href: implemented ? `/development/${componentName}` : undefined };
     };
 
     const componentTabs: HomePageData["componentTabs"] = [
@@ -71,17 +75,17 @@ export default defineLoader({
           "Basic components with top priority that we consider as must-have for building a simple web application.",
         dueDate: new Date(2024, 3, 15).toISOString(),
         components: [
-          { name: "Button", implemented: isImplemented("OnyxButton") },
-          { name: "Radio button", implemented: isImplemented("OnyxRadioButton") },
-          { name: "Minimalistic table", implemented: isImplemented("OnyxTable") },
-          { name: "Headline", implemented: isImplemented("OnyxHeadline") },
-          { name: "Footer", implemented: isImplemented("OnyxFooter") },
-          { name: "Header", implemented: isImplemented("OnyxHeader") },
-          { name: "Dropdown", implemented: isImplemented("OnyxDropdown") },
-          { name: "Textarea", implemented: isImplemented("OnyxTextarea") },
-          { name: "Input", implemented: isImplemented("OnyxInput") },
-          { name: "Switch", implemented: isImplemented("OnyxSwitch") },
-          { name: "Checkbox", implemented: isImplemented("OnyxCheckbox") },
+          { name: "Button", ...getImplementedStatus("OnyxButton") },
+          { name: "Radio button", ...getImplementedStatus("OnyxRadioButton") },
+          { name: "Minimalistic table", ...getImplementedStatus("OnyxTable") },
+          { name: "Headline", ...getImplementedStatus("OnyxHeadline") },
+          { name: "Footer", ...getImplementedStatus("OnyxFooter") },
+          { name: "Header", ...getImplementedStatus("OnyxHeader") },
+          { name: "Dropdown", ...getImplementedStatus("OnyxDropdown") },
+          { name: "Textarea", ...getImplementedStatus("OnyxTextarea") },
+          { name: "Input", ...getImplementedStatus("OnyxInput") },
+          { name: "Switch", ...getImplementedStatus("OnyxSwitch") },
+          { name: "Checkbox", ...getImplementedStatus("OnyxCheckbox") },
         ],
       },
       {
@@ -93,13 +97,13 @@ export default defineLoader({
           // we can not use "isImplemented" for the advanced table because it will be
           // the same component as the "simple" table
           { name: "Advanced Table", implemented: false },
-          { name: "Filter", implemented: isImplemented("OnyxFilter") },
-          { name: "Notification", implemented: isImplemented("OnyxNotification") },
-          { name: "Sidebar", implemented: isImplemented("OnyxSidebar") },
-          { name: "Card", implemented: isImplemented("OnyxCard") },
-          { name: "Popover", implemented: isImplemented("OnyxPopover") },
-          { name: "Dialog", implemented: isImplemented("OnyxDialog") },
-          { name: "Pagination", implemented: isImplemented("OnyxPagination") },
+          { name: "Filter", ...getImplementedStatus("OnyxFilter") },
+          { name: "Notification", ...getImplementedStatus("OnyxNotification") },
+          { name: "Sidebar", ...getImplementedStatus("OnyxSidebar") },
+          { name: "Card", ...getImplementedStatus("OnyxCard") },
+          { name: "Popover", ...getImplementedStatus("OnyxPopover") },
+          { name: "Dialog", ...getImplementedStatus("OnyxDialog") },
+          { name: "Pagination", ...getImplementedStatus("OnyxPagination") },
         ],
       },
       {
@@ -108,13 +112,13 @@ export default defineLoader({
         description:
           "Nice to have components. A basic or Expansion 2 component can be used as alternative in the meantime.",
         components: [
-          { name: "Datepicker", implemented: isImplemented("OnyxDatepicker") },
-          { name: "Timepicker", implemented: isImplemented("OnyxTimepicker") },
-          { name: "Calendar", implemented: isImplemented("OnyxCalendar") },
-          { name: "Accordion", implemented: isImplemented("OnyxAccordion") },
-          { name: "Slider", implemented: isImplemented("OnyxSlider") },
-          { name: "Stepper", implemented: isImplemented("OnyxStepper") },
-          { name: "Upload", implemented: isImplemented("OnyxUpload") },
+          { name: "Datepicker", ...getImplementedStatus("OnyxDatepicker") },
+          { name: "Timepicker", ...getImplementedStatus("OnyxTimepicker") },
+          { name: "Calendar", ...getImplementedStatus("OnyxCalendar") },
+          { name: "Accordion", ...getImplementedStatus("OnyxAccordion") },
+          { name: "Slider", ...getImplementedStatus("OnyxSlider") },
+          { name: "Stepper", ...getImplementedStatus("OnyxStepper") },
+          { name: "Upload", ...getImplementedStatus("OnyxUpload") },
         ],
       },
       {
@@ -122,10 +126,10 @@ export default defineLoader({
         label: "Expansion 4",
         description: "Low priority components.",
         components: [
-          { name: "Breadcrumb", implemented: isImplemented("OnyxBreadcrumb") },
-          { name: "Table of Content", implemented: isImplemented("OnyxTableOfContent") },
-          { name: "Wizard", implemented: isImplemented("OnyxWizard") },
-          { name: "Tabs", implemented: isImplemented("OnyxTabs") },
+          { name: "Breadcrumb", ...getImplementedStatus("OnyxBreadcrumb") },
+          { name: "Table of Content", ...getImplementedStatus("OnyxTableOfContent") },
+          { name: "Wizard", ...getImplementedStatus("OnyxWizard") },
+          { name: "Tabs", ...getImplementedStatus("OnyxTabs") },
         ],
       },
     ];
