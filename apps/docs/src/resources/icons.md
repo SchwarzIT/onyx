@@ -4,6 +4,8 @@ onyx includes a set of well-crafted SVG icons that are free to use.
 
 If you want to download the icons as SVG, please head over to our [GitHub repository](https://github.com/SchwarzIT/onyx/tree/main/packages/icons/src/assets).
 
+A full changelog can be found [here](/development/packages/changelogs/icons).
+
 ## Installation
 
 To get started, install the npm package with your corresponding package manager:
