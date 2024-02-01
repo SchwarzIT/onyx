@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { exit } from "node:process";
-import { optimizeSvg, readAllIconPaths } from "./utils.js";
+import { optimizeSvg, readAllIconPaths } from "./utils-node.js";
 
 /** List of all available icons paths. */
 const ALL_ICON_PATHS = await readAllIconPaths();

@@ -4,7 +4,7 @@
 // - remove "fill" so the icon color can be set via CSS
 //
 import fs from "node:fs/promises";
-import { optimizeSvg, readAllIconPaths } from "./utils.js";
+import { optimizeSvg, readAllIconPaths } from "./utils-node.js";
 
 /** List of all available icons paths. */
 const ALL_ICON_PATHS = await readAllIconPaths();
