@@ -6,9 +6,9 @@ import { optimize } from "svgo";
 /**
  * Optimizes the given SVG content and removes all fills so the color can be set via CSS.
  */
-export function optimizeSvg(svgContent: string) {
+export function optimizeSvg(svgContent: string, path: string) {
   const { data } = optimize(svgContent, {
-    path: svgContent,
+    path,
     multipass: true,
     plugins: [
       {

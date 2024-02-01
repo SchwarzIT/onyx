@@ -11,7 +11,7 @@ const iconsToOptimize: string[] = [];
 
 for (const iconPath of ALL_ICON_PATHS) {
   const iconContent = await fs.readFile(iconPath, "utf-8");
-  const optimizedIconContent = optimizeSvg(iconContent);
+  const optimizedIconContent = optimizeSvg(iconContent, iconPath);
   if (iconContent !== optimizedIconContent) iconsToOptimize.push(iconContent);
 }
 

@@ -13,7 +13,7 @@ console.log(`Optimizing ${ALL_ICON_PATHS.length} icons...`);
 
 for (const iconPath of ALL_ICON_PATHS) {
   const iconContent = await fs.readFile(iconPath, "utf-8");
-  const optimizedIconContent = optimizeSvg(iconContent);
+  const optimizedIconContent = optimizeSvg(iconContent, iconPath);
   await fs.writeFile(iconPath, optimizedIconContent);
 }
 
