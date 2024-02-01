@@ -15,7 +15,7 @@ const getIconContent = (iconName: string) => {
 <template>
   <div>
     <section v-for="(icons, category) in ICON_CATEGORIES" :key="category" class="category">
-      <h4 class="category__headline">{{ category }}</h4>
+      <h3 class="category__headline">{{ category }}</h3>
 
       <div class="category__icons">
         <OnyxIcon

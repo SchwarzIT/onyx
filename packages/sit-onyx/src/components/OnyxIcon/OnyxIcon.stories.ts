@@ -26,7 +26,7 @@ const iconLabels = Object.entries(ALL_ICONS).reduce<Record<string, string>>(
  * Component to display icons. Supports all inline SVG icon libraries.
  * We recommend using the official icons from `@sit-onyx/icons`.
  *
- * When importing icons, make sure to add `?raw` after the file name as shown in the examples to import the SVG content
+ * When importing SVG icon files, make sure to add `?raw` after the file name as shown in the examples to import the SVG content
  * instead of the file system path to the file.
  */
 const meta: Meta<typeof OnyxIcon> = {

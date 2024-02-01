@@ -35,59 +35,29 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   //
   // icon sizes:
   //
-  &--2xs {
-    --icon-size: 0.75rem;
-  }
+  $sizes:
+    2xs 0.75rem,
+    xs 1rem,
+    md 2rem,
+    lg 3rem,
+    xl 4rem,
+    2xl 6rem;
 
-  &--xs {
-    --icon-size: 1rem;
-  }
-
-  &--md {
-    --icon-size: 2rem;
-  }
-
-  &--lg {
-    --icon-size: 3rem;
-  }
-
-  &--xl {
-    --icon-size: 4rem;
-  }
-
-  &--2xl {
-    --icon-size: 6rem;
+  @each $name, $size in $sizes {
+    &--#{$name} {
+      --icon-size: #{$size};
+    }
   }
 
   //
   // icon colors:
   //
-  &--primary {
-    --icon-color: var(--onyx-color-icon-primary-intense);
-  }
+  $colors: primary, secondary, neutral, danger, warning, success, info;
 
-  &--secondary {
-    --icon-color: var(--onyx-color-icon-secondary-intense);
-  }
-
-  &--neutral {
-    --icon-color: var(--onyx-color-icon-neutral-intense);
-  }
-
-  &--danger {
-    --icon-color: var(--onyx-color-icon-danger-intense);
-  }
-
-  &--warning {
-    --icon-color: var(--onyx-color-icon-warning-intense);
-  }
-
-  &--success {
-    --icon-color: var(--onyx-color-icon-success-intense);
-  }
-
-  &--info {
-    --icon-color: var(--onyx-color-icon-info-intense);
+  @each $color in $colors {
+    &--#{$color} {
+      --icon-color: var(--onyx-color-icon-#{$color}-intense);
+    }
   }
 }
 </style>
