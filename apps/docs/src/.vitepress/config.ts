@@ -2,16 +2,24 @@ import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getComponents } from "./utils";
 
+const componentNames = await getComponents();
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "onyx",
   description: packageJson.description,
+  head: [
+    ["link", { rel: "icon", href: "/favicon.svg" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" }],
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+    ["link", { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#0c1f2d" }],
+    ["meta", { name: "msapplication-TileColor", content: "#0c1f2d" }],
+    ["meta", { name: "theme-color", content: "#0c1f2d" }],
+  ],
   themeConfig: {
     externalLinkIcon: true,
-    logo: {
-      light: "/logo-light.svg",
-      dark: "/logo-dark.svg",
-    },
+    logo: "/logo.svg",
+    siteTitle: false,
     footer: {
       message: "Released under the Apache-2.0 License.",
       copyright: "Copyright © 2023-present Schwarz IT KG",
@@ -106,7 +114,7 @@ export default defineConfig({
           text: "Components",
           base: "/development",
           collapsed: false,
-          items: getComponents().map((name) => ({ text: name, link: `/${name}` })),
+          items: componentNames.map((name) => ({ text: name, link: `/${name}` })),
         },
         {
           text: "Other onyx npm packages",
