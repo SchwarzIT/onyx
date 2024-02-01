@@ -124,6 +124,7 @@ export default defineConfig({
           items: [
             { text: "Figma utilities", link: "/figma-utils" },
             { text: "Headless composables", link: "/headless" },
+            { text: "Icons", link: "/icons" },
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
