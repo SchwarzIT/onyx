@@ -24,7 +24,12 @@ Semantic colors are defined in relation to the background, dynamically adjusting
 
 Beyond the different shades, the hues in a color scheme also significantly impact the overall appearance. onyx offers two main types of color palettes: "themed color palettes" and "universal color palettes". Themed colors set the brand's tone in the UI, defining its unique look. Universal colors, on the other hand, support system information and are used across all themes to complete the brand's color range. This thoughtful approach ensures a good balance between expressing the brand's style and maintaining clarity and functionality for users.
 
-_color palette component by dev_
+<script lang="ts" setup>
+import OnyxColorThemeDefinitions from "../.vitepress/components/OnyxColorThemeDefinitions.vue";
+import HorizontalColorStripCard from "../.vitepress/components/HorizontalColorStripCard.vue";
+</script>
+
+<OnyxColorThemeDefinitions />
 
 To have access to the color token set for your implementation, please visit the [token documentation](/tokens/colors).
 
@@ -52,25 +57,25 @@ Universal colors serve a specific role independent from the chosen theme. This i
 
 ### Danger
 
-![image](/assets/danger.webp)
+<HorizontalColorStripCard color="danger" />
 
 The danger color is used for urgent situations that need immediate attention. It's specifically for critical notifications or interactions linked to deletions and should be used carefully to convey seriousness.
 
 ### Warning
 
-![image](/assets/warning.webp)
+<HorizontalColorStripCard color="warning" />
 
 The warning color communicates medium-urgent situations and is less important than the danger color. It's suitable for scenarios like security questions where caution is needed.
 
 ### Success
 
-![image](/assets/success.webp)
+<HorizontalColorStripCard color="success" />
 
 The success color shows positive outcomes or successful task completion, giving a sense of achievement. It's used when announcing successful operations or good news.
 
 ### Info
 
-![image](/assets/info.webp)
+<HorizontalColorStripCard color="info" />
 
 The info color is for sharing non-emotional information and is the least important among universal colors. It's used when giving straightforward information without any emotional tone.
 
