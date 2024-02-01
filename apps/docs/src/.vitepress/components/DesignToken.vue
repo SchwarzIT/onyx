@@ -7,7 +7,7 @@ const props = withDefaults(
     /** Token name. */
     name: string;
     /** Value to display */
-    value: string;
+    value?: string;
     /**
      * Value type.
      * - color: shows a color preview
@@ -16,6 +16,8 @@ const props = withDefaults(
      * @default "value"
      */
     type?: "color" | "value";
+    /** If true, the user will be able to click the token to copy its value. */
+    allowCopy?: boolean;
     /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
     isCopied?: boolean;
   }>(),
@@ -32,13 +34,16 @@ const emit = defineEmits<{
 <template>
   <button
     class="token"
-    :class="{ 'token--color': props.type === 'color' }"
+    :class="{ 'token--color': props.type === 'color', 'token--copyable': props.allowCopy }"
+    :disabled="!props.allowCopy"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
   >
-    <div class="token__name">
+    <div class="token__name" :class="{ 'token__name--no-value': !props.value }">
       <span>{{ props.name }}</span>
-      <span v-if="props.type === 'value'" class="token__value">{{ props.value }}</span>
+      <span v-if="props.value && props.type === 'value'" class="token__value">
+        {{ props.value }}
+      </span>
     </div>
 
     <span v-if="props.isCopied" class="token__copied">
@@ -58,6 +63,8 @@ const emit = defineEmits<{
   align-items: center;
   gap: var(--onyx-spacing-md);
   width: max-content;
+  max-width: 100%;
+  pointer-events: none;
 
   &__name {
     padding: var(--onyx-spacing-3xs) var(--onyx-spacing-xs) var(--onyx-spacing-3xs)
@@ -73,10 +80,13 @@ const emit = defineEmits<{
     outline-color: var(--onyx-color-base-primary-300);
     background-color: var(--onyx-color-base-background-blank);
     cursor: pointer;
-    min-width: 16rem;
 
     @include mixins.breakpoint(max, xs) {
       min-width: unset;
+    }
+
+    &--no-value {
+      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs);
     }
   }
 
@@ -88,15 +98,19 @@ const emit = defineEmits<{
     display: none;
   }
 
-  &:hover,
-  &:focus-within {
-    .token {
-      &__name {
-        border: 1px solid var(--onyx-color-base-primary-300);
-      }
+  &--copyable {
+    pointer-events: unset;
 
-      &__copy {
-        display: inline-block;
+    &:hover,
+    &:focus-within {
+      .token {
+        &__name {
+          border: 1px solid var(--onyx-color-base-primary-300);
+        }
+
+        &__copy {
+          display: inline-block;
+        }
       }
     }
   }

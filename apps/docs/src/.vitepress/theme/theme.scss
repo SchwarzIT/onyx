@@ -1,7 +1,7 @@
 .VPNavBarTitle {
   .logo {
-    // increase logo margin so it does not look so cluttered since it contains text
-    margin-right: 1.5rem;
+    // remove logo margin since we do not display a logo text (themeConfig.siteTitle in config.ts)
+    margin: 0;
   }
 }
 

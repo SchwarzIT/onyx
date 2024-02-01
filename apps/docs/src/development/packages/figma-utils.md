@@ -16,6 +16,10 @@ import packageJson from "../../../../../packages/figma-utils/package.json";
 
 {{ packageJson.description }}.
 
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/figma-utils).
+
 ## Use as CLI <Badge text="recommended" />
 
 For a list of supported commands and options, run:
