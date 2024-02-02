@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import checkIcon from "@sit-onyx/icons/check-small.svg?raw";
 import copyIcon from "@sit-onyx/icons/copy.svg?raw";
-import OnyxIcon from "../../../../../packages/sit-onyx/src/components/OnyxIcon/OnyxIcon.vue";
+import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 const props = withDefaults(
   defineProps<{

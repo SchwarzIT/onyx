@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getComponents } from "./utils";
@@ -6,6 +7,13 @@ const componentNames = await getComponents();
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+    resolve: {
+      alias: {
+        "~components": getFilePath("../../../../packages/sit-onyx/src/components"),
+      },
+    },
+  },
   title: "onyx",
   description: packageJson.description,
   head: [
@@ -140,3 +148,8 @@ export default defineConfig({
     },
   },
 });
+
+/** Gets the given path while ensuring cross-platform and correct decoding */
+function getFilePath(path: string) {
+  return fileURLToPath(new URL(path, import.meta.url));
+}

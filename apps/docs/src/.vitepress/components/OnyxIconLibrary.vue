@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ICON_CATEGORIES } from "@sit-onyx/icons";
-import OnyxIcon from "../../../../../packages/sit-onyx/src/components/OnyxIcon/OnyxIcon.vue";
+import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
   as: "raw",
