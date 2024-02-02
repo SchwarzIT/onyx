@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <i
+  <figure
     class="onyx-icon"
     :class="[
       props.size !== 'sm' ? `onyx-icon--${props.size}` : '',
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
     ]"
     aria-hidden="true"
     v-html="props.icon"
-  ></i>
+  ></figure>
   <!-- eslint-enable vue/no-v-html -->
 </template>
 
@@ -27,7 +27,6 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   --icon-color: currentColor;
 
   display: inline-block;
-  font-style: normal; // reset styles for <i>
   width: var(--icon-size);
   height: var(--icon-size);
   fill: var(--icon-color);
