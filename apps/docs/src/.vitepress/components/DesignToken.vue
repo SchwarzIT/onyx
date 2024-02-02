@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import CheckIcon from "./icons/CheckIcon.vue";
-import CopyIcon from "./icons/CopyIcon.vue";
+import checkIcon from "@sit-onyx/icons/check-small.svg?raw";
+import copyIcon from "@sit-onyx/icons/copy.svg?raw";
+import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -47,11 +48,11 @@ const emit = defineEmits<{
     </div>
 
     <span v-if="props.isCopied" class="token__copied">
-      <CheckIcon />
+      <OnyxIcon :icon="checkIcon" />
       copied
     </span>
 
-    <CopyIcon v-else class="token__copy" color="var(--onyx-color-icon-primary-intense)" />
+    <OnyxIcon v-else class="token__copy" :icon="copyIcon" color="primary" />
   </button>
 </template>
 

@@ -35,6 +35,12 @@ const { params } = useData();
 
 </div>
 
+<div v-else-if="params.name === 'icons'">
+
+<!--@include: @/../../../packages/icons/CHANGELOG.md-->
+
+</div>
+
 <div v-else>
   <h1>Changelogs</h1>
   <p>No changelog found for package "{{ params.name }}".</p>
