@@ -17,6 +17,7 @@ export const optimizeSvg = (svgContent: string, path: string) => {
     path,
     multipass: true,
     plugins: [
+      { name: "preset-default" },
       {
         name: "removeAttrs",
         params: {
