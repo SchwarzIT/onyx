@@ -23,19 +23,19 @@ import OnyxTypography from "../.vitepress/components/OnyxTypography.vue";
 
 const headlineTokens = Array.from<unknown, TypographyToken>({ length: 6 }, (_, index) => {
   const name = `h${index + 1}`;
-  return { name, className: `onyx-${name}`, htmlTag: name };
+  return { name, htmlTag: name };
 });
 
 const paragraphTokens: TypographyToken[] = [
-  { name: "paragraph-big", className: "onyx-paragraph-big", htmlTag: "p" },
-  { name: "paragraph-default", className: "onyx-paragraph-default", htmlTag: "p" },
-  { name: "paragraph-small", className: "onyx-paragraph-small", htmlTag: "p" },
+  { name: "paragraph-big", fontSize: "big", htmlTag: "p" },
+  { name: "paragraph-default", fontSize: "default", htmlTag: "p" },
+  { name: "paragraph-small", fontSize: "small", htmlTag: "p" },
 ];
 
 const linkTokens: TypographyToken[] = [
-  { name: "link-big", className: "onyx-link-big", htmlTag: "a" },
-  { name: "link-default", className: "onyx-link-default", htmlTag: "a" },
-  { name: "link-small", className: "onyx-link-small", htmlTag: "a" },
+  { name: "link-big", fontSize: "big", htmlTag: "a" },
+  { name: "link-default", fontSize: "default", htmlTag: "a" },
+  { name: "link-small", fontSize: "small", htmlTag: "a" },
 ];
 </script>
 
