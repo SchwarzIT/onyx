@@ -2,6 +2,8 @@
 
 In designing and developing user interfaces, the density of components plays a pivotal role in shaping the user experience. Introducing three levels of density - **compact**, **default** and **cozy** - onyx provides a flexible toolkit to build applications for multiple user preferences and device capabilities.
 
+![density](/assets/density.png)
+
 ## Compact
 
 This is ideal for users, who prefer a more condensed layout. Compact density maximizes the amount of information displayed on the screen. It's particularly beneficial for offering an efficient use of limited space.
