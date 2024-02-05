@@ -1,6 +1,6 @@
 # Iconography
 
-:::warning Attention
+::: warning Attention
 Check out the whole icon palette in the [resources](/resources/icons) documentation.
 Feel free to browse through all the assets there.
 :::
