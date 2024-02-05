@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import GridElement from "./GridElement.vue";
 import GridElementsIndicator, { GridSettings } from "./GridElementsIndicator.vue";
 
@@ -43,17 +43,23 @@ const deleteElement = () => {
 };
 
 const updateGridSettings = () => {
+  const computedGrid = getComputedStyle(gridElement.value!);
   gridSettings.value = {
-    columns: parseInt(getComputedStyle(gridElement.value!).getPropertyValue("--onyx-grid-columns")),
-    gutterSize: getComputedStyle(gridElement.value!).getPropertyValue("--onyx-grid-gutter"),
-    marginSize: getComputedStyle(gridElement.value!).getPropertyValue("--onyx-grid-margin"),
+    gridTemplateColumns: computedGrid.gridTemplateColumns,
+    gutterSize: computedGrid.getPropertyValue("--onyx-grid-gutter"),
+    marginSize: computedGrid.getPropertyValue("--onyx-grid-margin"),
+    maxWidth: computedGrid.getPropertyValue("--onyx-grid-max-width"),
+    isCentered: isCentered.value,
   };
 };
+
+watch([isMaxMd, isMaxLg, isCentered, is20Xl], () => updateGridSettings());
 
 onMounted(() => {
   resizeObserver.observe(document.body);
   resizeObserver.observe(gridElement.value!);
 });
+
 onBeforeUnmount(() => {
   resizeObserver.unobserve(document.body);
   resizeObserver.unobserve(gridElement.value!);
