@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.6",
   "type": "module",
   "license": "Apache-2.0",
   "files": [
@@ -43,6 +43,7 @@
   "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
     "@fontsource-variable/source-sans-3": ">= 5",
+    "@sit-onyx/icons": "workspace:^",
     "vue": ">= 3"
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "@storybook/blocks": "^7.6.12",
     "@storybook/vue3": "^7.6.12",
     "@storybook/vue3-vite": "^7.6.12",
+    "eslint-plugin-vue-scoped-css": "^2.7.2",
     "react": "^18.2.0",
     "storybook": "^7.6.12"
   }

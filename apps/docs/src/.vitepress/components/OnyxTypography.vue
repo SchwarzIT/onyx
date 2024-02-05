@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import OnyxHeadline from "../../../../../packages/sit-onyx/src/components/OnyxHeadline/OnyxHeadline.vue";
+import type { HeadlineType } from "../../../../../packages/sit-onyx/src/components/OnyxHeadline/types";
 import DesignToken from "./DesignToken.vue";
 import DesignTokenCard from "./DesignTokenCard.vue";
 import DesignTokenHeader from "./DesignTokenHeader.vue";
@@ -10,15 +12,10 @@ export type TypographyToken = {
    * @example "h1"
    */
   name: string;
-  /**
-   * Class to apply for the text preview. Available classes:
-   * - onyx-h1 to onyx-h6
-   * - onyx-paragraph-big, onyx-paragraph-default, onyx-paragraph-small
-   * - onyx-link-big, onyx-link-default, onyx-link-small
-   */
-  className: string;
   /** HTML element to render. */
-  htmlTag: string;
+  htmlTag: HeadlineType | "p" | "a";
+  /** Font size to use if `htmlTag` is <p> or <a> */
+  fontSize?: "big" | "default" | "small";
 };
 
 const AVAILABLE_FONT_TABS = ["Source Sans 3", "Source Code Pro"] as const;
@@ -49,13 +46,20 @@ const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
         :wide-name="props.wideName"
       >
         <template #name>
-          <component
-            :is="token.htmlTag"
-            :class="token.className"
-            :href="token.htmlTag === 'a' ? '#' : undefined"
+          <p v-if="token.htmlTag === 'p'" :class="`font-size--${token.fontSize ?? 'default'}`">
+            {{ previewText }}
+          </p>
+          <a
+            v-else-if="token.htmlTag === 'a'"
+            :class="`font-size--${token.fontSize ?? 'default'}`"
+            href="#"
           >
             {{ previewText }}
-          </component>
+          </a>
+
+          <OnyxHeadline v-else :is="token.htmlTag" :monospace="currentTab === 'Source Code Pro'">
+            {{ previewText }}
+          </OnyxHeadline>
         </template>
 
         <template #default="{ name }">
@@ -84,71 +88,23 @@ const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
   }
 }
 
-.onyx {
-  &-h1 {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-    font-weight: 600;
-  }
-
-  &-h2 {
+.font-size {
+  &--big {
     font-size: 1.25rem;
     line-height: 1.75rem;
-    font-weight: 600;
+    font-weight: 400;
   }
 
-  &-h3 {
+  &--default {
     font-size: 1rem;
     line-height: 1.5rem;
-    font-weight: 600;
+    font-weight: 400;
   }
 
-  &-h4 {
+  &--small {
     font-size: 0.8125rem;
     line-height: 1.25rem;
-    font-weight: 600;
-  }
-
-  &-h5,
-  &-h6 {
-    @extend .onyx-h4;
-  }
-
-  &-paragraph {
-    &-big {
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-      font-weight: 400;
-    }
-
-    &-default {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      font-weight: 400;
-    }
-
-    &-small {
-      font-size: 0.8125rem;
-      line-height: 1.25rem;
-      font-weight: 400;
-    }
-  }
-
-  &-link {
-    &-big {
-      @extend .onyx-paragraph-big;
-      text-decoration: underline;
-    }
-
-    &-default {
-      @extend .onyx-paragraph-default;
-      text-decoration: underline;
-    }
-
-    &-small {
-      @extend .onyx-paragraph-small;
-      text-decoration: underline;
-    }
+    font-weight: 400;
   }
 }
 

@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getComponents } from "./utils";
@@ -6,6 +7,13 @@ const componentNames = await getComponents();
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+    resolve: {
+      alias: {
+        "~components": getFilePath("../../../../packages/sit-onyx/src/components"),
+      },
+    },
+  },
   title: "onyx",
   description: packageJson.description,
   head: [
@@ -36,6 +44,11 @@ export default defineConfig({
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
       { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/", activeMatch: "/development/" },
+      {
+        text: "Resources",
+        activeMatch: "/resources/",
+        items: [{ text: "Icons", link: "/resources/icons" }],
+      },
       { text: "Report a bug", link: packageJson.bugs.url },
       { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
@@ -58,7 +71,7 @@ export default defineConfig({
             { text: "Layout", link: "/layout" },
             { text: "Units", link: "/units" },
             { text: "Motion", link: "/motion" },
-            { text: "Component states", link: "/states" },
+            { text: "States", link: "/states" },
             { text: "Density", link: "/density" },
             { text: "Truncation", link: "/truncation" },
             { text: "Elevation", link: "/elevation" },
@@ -103,6 +116,7 @@ export default defineConfig({
             { text: "i18n", link: "/i18n" },
             { text: "Grid", link: "/grid" },
             { text: "Typography", link: "/typography" },
+            { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },
         {
@@ -118,11 +132,24 @@ export default defineConfig({
           items: [
             { text: "Figma utilities", link: "/figma-utils" },
             { text: "Headless composables", link: "/headless" },
+            { text: "Icons", link: "/icons" },
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
         },
       ],
+      "/resources": [
+        {
+          text: "Resources",
+          base: "/resources",
+          items: [{ text: "Icons", link: "/icons" }],
+        },
+      ],
     },
   },
 });
+
+/** Gets the given path while ensuring cross-platform and correct decoding */
+function getFilePath(path: string) {
+  return fileURLToPath(new URL(path, import.meta.url));
+}

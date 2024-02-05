@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "types": ["node"],
+  },
+}

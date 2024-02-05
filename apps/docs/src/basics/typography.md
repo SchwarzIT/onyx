@@ -23,25 +23,27 @@ import OnyxTypography from "../.vitepress/components/OnyxTypography.vue";
 
 const headlineTokens = Array.from<unknown, TypographyToken>({ length: 6 }, (_, index) => {
   const name = `h${index + 1}`;
-  return { name, className: `onyx-${name}`, htmlTag: name };
+  return { name, htmlTag: name };
 });
 
 const paragraphTokens: TypographyToken[] = [
-  { name: "paragraph-big", className: "onyx-paragraph-big", htmlTag: "p" },
-  { name: "paragraph-default", className: "onyx-paragraph-default", htmlTag: "p" },
-  { name: "paragraph-small", className: "onyx-paragraph-small", htmlTag: "p" },
+  { name: "paragraph-big", fontSize: "big", htmlTag: "p" },
+  { name: "paragraph-default", fontSize: "default", htmlTag: "p" },
+  { name: "paragraph-small", fontSize: "small", htmlTag: "p" },
 ];
 
 const linkTokens: TypographyToken[] = [
-  { name: "link-big", className: "onyx-link-big", htmlTag: "a" },
-  { name: "link-default", className: "onyx-link-default", htmlTag: "a" },
-  { name: "link-small", className: "onyx-link-small", htmlTag: "a" },
+  { name: "link-big", fontSize: "big", htmlTag: "a" },
+  { name: "link-default", fontSize: "default", htmlTag: "a" },
+  { name: "link-small", fontSize: "small", htmlTag: "a" },
 ];
 </script>
 
 ## Headlines
 
 The onyx design system offers four types of headlines. H1 is reserved for the main title of the page because it establishes primary focus and captures the user’s attention. The h2 style is used for describing sections in the interface. Its main goal is to cluster different types of content into groups and labelling them. Single elements, on the other hand, are described by the h3 style. The least impact, and therefore the lowest hierarchy, has the h4. It is used for structuring information inside a single component. Table column headlines is a good example at this point.
+
+For the technical implementation of the headlines, please see the [technical documentation](/development/OnyxHeadline).
 
 ::: warning
 Note that h5 and h6 headlines are not part of the onyx font system and should not be used therefore.
