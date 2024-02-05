@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import GridElement from "./GridElement.vue";
 import GridElementsIndicator, { GridSettings } from "./GridElementsIndicator.vue";
 
+// TODO: Create single source of truth for grid definitions and remove from this component
 const BREAKPOINTS = {
   "2xs": {
     cols: 4,
@@ -130,7 +131,7 @@ onBeforeUnmount(() => {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .onyx-grid-playground {
   color: var(--onyx-color-text-neutral-intense);
 
