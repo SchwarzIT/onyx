@@ -39,7 +39,7 @@ The distance between parallel strokes is at least 2px. There are a few exception
 
 ## Angles
 
-The basic angle is 45 °. If necessary, the increments of 15° and 5° are the next steps.
+The basic angle is 45°. If necessary, the increments of 15° and 5° are the next steps.
 
 ![Image](/assets/icons-angles.png)
 
