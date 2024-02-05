@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import GridElement from "./GridElement.vue";
-import GridElementsIndicator, { GridSettings } from "./GridElementsIndicator.vue";
+import GridElementsIndicator, { type GridSettings } from "./GridElementsIndicator.vue";
 
 // TODO: Create single source of truth for grid definitions and remove from this component
 const BREAKPOINTS = {

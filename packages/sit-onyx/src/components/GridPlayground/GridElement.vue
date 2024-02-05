@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { GridElementSettings } from "./GridPlayground.vue";
+import type { GridElementSettings } from "./GridPlayground.vue";
 
 const props = defineProps<{ settings: GridElementSettings; selected?: boolean }>();
 
