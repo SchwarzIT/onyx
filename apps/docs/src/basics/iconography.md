@@ -53,7 +53,7 @@ Unified corner radius ensure the element is recognizable and in harmony with the
 
 All icons are created as vector graphics and due to the base unit, the icons are limited to specific sizes.
 
-In most cases the default size is 24px Square, but we also use a smaller and a larger variant based on the system patterns.
+The default size is 24x24px, but we also use a smaller and a larger variant based on the system patterns.
 
 | Name | Size        |
 | ---- | ----------- |
