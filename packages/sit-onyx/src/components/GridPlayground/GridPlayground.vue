@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import GridElement from "./GridElement.vue";
+import GridElementsIndicator, { GridSettings } from "./GridElementsIndicator.vue";
 
 const BREAKPOINTS = {
   "2xs": {
@@ -27,6 +28,9 @@ export type GridElementSettings = { breakpoint?: GridBreakpoints; spans: number 
 
 const elements = ref<GridElementSettings[]>([]);
 const selectedElement = ref<GridElementSettings | null>(null);
+const gridElement = ref<HTMLElement>();
+const gridSettings = ref<GridSettings>();
+const resizeObserver = new ResizeObserver(() => updateGridSettings());
 
 const isMaxMd = ref(false);
 const isMaxLg = ref(false);
@@ -37,6 +41,23 @@ const deleteElement = () => {
   elements.value = elements.value.filter((e) => e !== selectedElement.value);
   selectedElement.value = null;
 };
+
+const updateGridSettings = () => {
+  gridSettings.value = {
+    columns: parseInt(getComputedStyle(gridElement.value!).getPropertyValue("--onyx-grid-columns")),
+    gutterSize: getComputedStyle(gridElement.value!).getPropertyValue("--onyx-grid-gutter"),
+    marginSize: getComputedStyle(gridElement.value!).getPropertyValue("--onyx-grid-margin"),
+  };
+};
+
+onMounted(() => {
+  resizeObserver.observe(document.body);
+  resizeObserver.observe(gridElement.value!);
+});
+onBeforeUnmount(() => {
+  resizeObserver.unobserve(document.body);
+  resizeObserver.unobserve(gridElement.value!);
+});
 </script>
 
 <template>
@@ -80,7 +101,9 @@ const deleteElement = () => {
       </template>
     </fieldset>
   </form>
+  <GridElementsIndicator v-if="gridSettings" :settings="gridSettings" />
   <main
+    ref="gridElement"
     :class="{
       'onyx-grid': true,
       'onyx-grid-center': isCentered,
