@@ -33,7 +33,7 @@ The weighting of different icons should be the same as possible and should not l
 
 ![Image](/assets/icons-stroke-1.png)
 
-The distance between parallel strokes is at least 2px. There are a few exceptions which occurs when the icon is complex or has a certain density of line
+The distance between parallel strokes is at least 2px. There are a few exceptions which occurs when the icon is complex or has a certain density of line.
 
 ![Image](/assets/icons-stroke-2.png)
 
