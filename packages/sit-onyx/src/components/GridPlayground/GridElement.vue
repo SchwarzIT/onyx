@@ -28,7 +28,7 @@ const gridElementClasses = computed(() =>
   </button>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .onyx-grid-playground-element {
   height: 100px;
   border: 0.125rem dashed var(--onyx-color-base-primary-500);

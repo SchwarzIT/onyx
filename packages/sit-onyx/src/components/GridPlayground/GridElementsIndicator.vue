@@ -69,7 +69,7 @@ const gridConfig = computed(() => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .onyx-grid-playground-indicator {
   display: grid;
   color: var(--onyx-color-text-neutral-inverted);
