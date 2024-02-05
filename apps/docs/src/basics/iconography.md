@@ -45,7 +45,7 @@ The basic angle is 45°. If necessary, the increments of 15° and 5° are the ne
 
 ## Corners
 
-Unified corner radius ensure the element is recognizable and in harmony with the set. 2 px is the standard radius and can be increased in further steps of two.
+Unified corner radius ensure the element is recognizable and in harmony with the set. 2px is the standard radius and can be increased in further steps of two.
 
 ![Image](/assets/icons-corners.png)
 
