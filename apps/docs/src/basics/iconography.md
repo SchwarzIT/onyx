@@ -5,7 +5,7 @@ Check out the whole icon palette in the [resources](/resources/icons) documentat
 Feel free to browse through all the assets there.
 :::
 
-Our system icons are designed to be simple with a touch of detail. They are characteristic yet easy to understand.
+Our system icons are designed to be simple with a touch of detail. They are characteristic, yet easy to understand.
 
 ![Image](/assets/icons-overview.png)
 
