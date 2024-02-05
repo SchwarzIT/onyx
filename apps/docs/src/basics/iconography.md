@@ -17,7 +17,7 @@ The square format with the 1px grid is the foundation for all of our system icon
 
 ## Basic layout
 
-the icons are created on a base grid of 32x32px and then reduced or enlarged to the appropriate size. The grid comes with a padding of 2 px. The padding should only be exceeded if it is necessary to give additional visual weighting or if a certain element is required to give the icon its characteristic or meaning.
+The icons are created on a base grid of 32x32px and then reduced or enlarged to the appropriate size. The grid comes with a padding of 2px. The padding should only be exceeded if it is necessary to give additional visual weighting or if a certain element is required to give the icon its characteristic or meaning.
 
 ![Image](/assets/icons-layout-1.png)
 
