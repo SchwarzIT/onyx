@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import Grid from "./GridPlayground.vue";
 
 /**
- * The input component can be used to...
+ * The GridPlayground allows to test and play around with the Onyx grid system
  */
 const meta: Meta<typeof Grid> = {
   title: "utility/GridPlayground",
@@ -17,9 +17,6 @@ const meta: Meta<typeof Grid> = {
 export default meta;
 type Story = StoryObj<typeof Grid>;
 
-/**
- * This example shows the primary input.
- */
 export const Default = {
   args: {},
 } satisfies Story;
