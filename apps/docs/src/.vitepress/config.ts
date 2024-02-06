@@ -47,10 +47,12 @@ export default defineConfig({
       {
         text: "Resources",
         activeMatch: "/resources/",
-        items: [{ text: "Icons", link: "/resources/icons" }],
+        items: [
+          { text: "Icons", link: "/resources/icons" },
+          { text: "Report a bug", link: packageJson.bugs.url },
+          { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
+        ],
       },
-      { text: "Report a bug", link: packageJson.bugs.url },
-      { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
     ],
     socialLinks: [{ icon: "github", link: packageJson.repository.url }],
     sidebar: {
