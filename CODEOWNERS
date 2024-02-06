@@ -1,5 +1,5 @@
 # Global code owners (developers)
-* @JoCa96 @BoppLi @larsrickert
+* @JoCa96 @BoppLi @larsrickert MajaZarkova
 
 # Define designers as code owners for screenshots to automatically
 # request them as reviewer if visual changes exist
