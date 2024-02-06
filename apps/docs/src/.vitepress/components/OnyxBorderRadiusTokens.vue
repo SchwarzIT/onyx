@@ -33,7 +33,7 @@ const tokens = [
 
 <style lang="scss" scoped>
 .token {
-  margin-bottom: var(--onyx-spacing-md);
+  margin-bottom: var(--onyx-spacing-lg);
 
   &__preview {
     width: 4rem;
@@ -46,6 +46,11 @@ const tokens = [
     &--large {
       height: 5rem;
     }
+  }
+
+  // override token width so all border radius token names have the same width
+  :deep(.token__name) {
+    min-width: 16rem;
   }
 }
 </style>

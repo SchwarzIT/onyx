@@ -162,7 +162,7 @@ watch(
   </label>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .onyx-input {
   width: max-content;
   display: inline-block;

@@ -66,3 +66,5 @@ The default size is 24x24px, but we also use a smaller and a larger variant base
 | 2xl  | 96px square |
 
 <!--@include: @/.vitepress/to-be-done.md-->
+
+For a full list of icons, please take a look at the [icon resources](/resources/icons).

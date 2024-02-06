@@ -18,255 +18,51 @@ The default font family is defined to be the Source Sans and Source Code Pro (mo
 
 If you want to use custom font families, please take a look at the [technical documentation](/development/typography).
 
-## Font stacks
+<script lang="ts" setup>
+import OnyxTypography from "../.vitepress/components/OnyxTypography.vue";
 
-_custom component for displaying font definitions_
+const headlineTokens = Array.from<unknown, TypographyToken>({ length: 6 }, (_, index) => {
+  const name = `h${index + 1}`;
+  return { name, htmlTag: name };
+});
 
-### Headlines
+const paragraphTokens: TypographyToken[] = [
+  { name: "paragraph-big", fontSize: "big", htmlTag: "p" },
+  { name: "paragraph-default", fontSize: "default", htmlTag: "p" },
+  { name: "paragraph-small", fontSize: "small", htmlTag: "p" },
+];
 
-::: details h1
+const linkTokens: TypographyToken[] = [
+  { name: "link-big", fontSize: "big", htmlTag: "a" },
+  { name: "link-default", fontSize: "default", htmlTag: "a" },
+  { name: "link-small", fontSize: "small", htmlTag: "a" },
+];
+</script>
 
-This is the page title. It can only be used once per page at the very top.
+## Headlines
 
-#### Details
+The onyx design system offers four types of headlines. H1 is reserved for the main title of the page because it establishes primary focus and captures the user’s attention. The h2 style is used for describing sections in the interface. Its main goal is to cluster different types of content into groups and labelling them. Single elements, on the other hand, are described by the h3 style. The least impact, and therefore the lowest hierarchy, has the h4. It is used for structuring information inside a single component. Table column headlines is a good example at this point.
 
-| Property            |          Value |
-| ------------------- | -------------: |
-| `weight`            | SemiBold - 600 |
-| `size`              |           28px |
-| `line height`       |           40px |
-| `letter spacing`    |            0px |
-| `text decoration`   |           none |
-| `paragraph spacing` |            0px |
-| `case`              |       original |
+For the technical implementation of the headlines, please see the [technical documentation](/development/OnyxHeadline).
 
+::: warning
+Note that h5 and h6 headlines are not part of the onyx font system and should not be used therefore.
+Because they can occur on technical side for semantic reasons, they are styled the same as h4.
 :::
 
-::: details h2
+<OnyxTypography :tokens="headlineTokens" />
 
-Used for section titles and navigation in the navbar.
+## Paragraphs
 
-#### Details
+Paragraph texts are used for all kinds of information, explanations, narratives and continuous text in general. The default size is used as standard throughout all applications. The small-sized paragraph style is used for labels and is therefore in a lower hierarchical order. The largest paragraph style is used for very strong and eye-catchy information, because it has the biggest visual impact.
 
-| Property            |          Value |
-| ------------------- | -------------: |
-| `weight`            | SemiBold - 600 |
-| `size`              |           20px |
-| `line height`       |           28px |
-| `letter spacing`    |            0px |
-| `text decoration`   |           none |
-| `paragraph spacing` |            0px |
-| `case`              |       original |
+<OnyxTypography :tokens="paragraphTokens" wide-name />
 
-:::
+## Links
 
-::: details h3
+Links are the tool of choice to refer to another page. By default, links have an underline and are primary-colored. Under consideration of the text styling principles, the text color can be changed in exceptional usecases. Please double check with your assigned UX-Designer.
 
-Used for element headlines and buttons.
-
-#### Details
-
-| Property            |          Value |
-| ------------------- | -------------: |
-| `weight`            | SemiBold - 600 |
-| `size`              |           16px |
-| `line height`       |           24px |
-| `letter spacing`    |            0px |
-| `text decoration`   |           none |
-| `paragraph spacing` |            0px |
-| `case`              |       original |
-
-:::
-
-::: details h4
-
-Used for bold labels and table column headers.
-
-#### Details
-
-| Property            |          Value |
-| ------------------- | -------------: |
-| `weight`            | SemiBold - 600 |
-| `size`              |           13px |
-| `line height`       |           20px |
-| `letter spacing`    |            0px |
-| `text decoration`   |           none |
-| `paragraph spacing` |            0px |
-| `case`              |       original |
-
-:::
-
-::: tip
-H5 and h6 are not part of the onyx font system and should not be used therefore. Although they are defined in the code the same way like h4.
-:::
-
-### Paragraph
-
-::: details paragraph-big
-
-Used for inactive navigation in the navbar.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          20px |
-| `line height`       |          28px |
-| `letter spacing`    |           0px |
-| `text decoration`   |          none |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-::: details paragraph-default
-
-Used for default font for paragraph-text.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          16px |
-| `line height`       |          24px |
-| `letter spacing`    |           0px |
-| `text decoration`   |          none |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-::: details paragraph-small
-
-Used for small font for paragraph-text.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          13px |
-| `line height`       |          20px |
-| `letter spacing`    |           0px |
-| `text decoration`   |          none |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-### Link
-
-::: details link-big
-
-Used for big sized links.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          20px |
-| `line height`       |          28px |
-| `letter spacing`    |           0px |
-| `text decoration`   |     underline |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-::: details link-default
-
-Used for default sized links.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          16px |
-| `line height`       |          24px |
-| `letter spacing`    |           0px |
-| `text decoration`   |     underline |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-::: details link-small
-
-Used for small sized links.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          13px |
-| `line height`       |          20px |
-| `letter spacing`    |           0px |
-| `text decoration`   |     underline |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-### Monospace
-
-::: details mono-big
-
-Used for big sized calculations.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          20px |
-| `line height`       |          28px |
-| `letter spacing`    |           0px |
-| `text decoration`   |          none |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-::: details mono-default
-
-Used for default sized calculations.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          16px |
-| `line height`       |          24px |
-| `letter spacing`    |           0px |
-| `text decoration`   |          none |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
-
-::: details mono-small
-
-Used for small sized calculations.
-
-#### Details
-
-| Property            |         Value |
-| ------------------- | ------------: |
-| `weight`            | Regular - 400 |
-| `size`              |          13px |
-| `line height`       |          20px |
-| `letter spacing`    |           0px |
-| `text decoration`   |          none |
-| `paragraph spacing` |           0px |
-| `case`              |      original |
-
-:::
+<OnyxTypography :tokens="linkTokens" wide-name />
 
 ## Usage
 
@@ -315,10 +111,6 @@ Never text about content, the user cannot relate to.
 Texts should never be built in uppercase. Always use the provided line height for spacing. Do not try to squeeze characters or text blocks. Less is more - Minimalism is key.
 
 :::
-
-## Links
-
-Links are the tool of choice to refer to another page. Please use the `link` font style. By default, links have an underline and are primary-colored. Under consideration of the text styling principles, the text color can be changed in exceptional usecases. Please doublecheck with your assigned UX-Designer.
 
 ## Truncation
 

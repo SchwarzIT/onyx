@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import CopyIcon from "./icons/CopyIcon.vue";
+import copyIcon from "@sit-onyx/icons/copy.svg?raw";
+import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 export type ColorPaletteValueProps = {
   /** Text to show below the value. */
@@ -25,7 +26,7 @@ const emit = defineEmits<{
   <button class="step" @click="emit('select')">
     <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
       <span v-if="props.name" class="step__name">{{ props.name }}</span>
-      <CopyIcon class="step__icon" />
+      <OnyxIcon class="step__icon" :icon="copyIcon" />
     </div>
     <p class="step__description">{{ props.description }}</p>
   </button>
@@ -85,23 +86,23 @@ const emit = defineEmits<{
         padding-bottom: var(--onyx-spacing-xs);
 
         &--with-border {
-          padding-bottom: var(--onyx-spacing-sm);
+          padding-bottom: var(--onyx-spacing-md);
         }
       }
     }
   }
 
   &__color {
-    padding: var(--onyx-spacing-sm);
+    padding: var(--onyx-spacing-md);
     font-weight: 600;
     min-height: 1.5rem;
     box-sizing: content-box;
     background-color: v-bind("props.color");
     color: v-bind("props.textColor");
-    width: calc(100% - 2 * var(--onyx-spacing-sm));
+    width: calc(100% - 2 * var(--onyx-spacing-md));
 
     &--with-border {
-      border: 1px solid var(--onyx-color-base-border-default);
+      border: 1px solid var(--onyx-color-base-neutral-300);
       min-height: calc(1.5rem - 2px);
       height: calc(1.5rem - 2px);
     }
@@ -116,7 +117,7 @@ const emit = defineEmits<{
     font-size: 0.8125rem;
     line-height: 1.25rem;
     font-family: var(--onyx-font-family-mono);
-    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
+    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-3xs);
 
     @include mixins.breakpoint(max, s) {
       width: 6.5rem;

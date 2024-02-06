@@ -4,13 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "start": "pnpm run dev",
     "dev": "vitepress dev src",
     "build": "vitepress build src",
     "preview": "vitepress preview src"
   },
   "devDependencies": {
+    "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "vitepress": "^1.0.0-rc.40",
+    "vitepress": "^1.0.0-rc.41",
     "vue": "^3.4.15"
   }
 }

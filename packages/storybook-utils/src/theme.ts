@@ -1,8 +1,7 @@
 import type { ThemeVars, ThemeVarsPartial } from "@storybook/theming";
 import { create } from "@storybook/theming/create";
 import onyxVariables from "sit-onyx/src/styles/variables-onyx.json";
-import storybookLogo from "./assets/logo-storybook-default.svg";
-import storybookLogoInverse from "./assets/logo-storybook-inverse.svg";
+import onyxLogo from "./assets/logo-onyx.svg";
 
 /**
  * Creates a custom theme for Storybook that uses onyx colors.
@@ -13,19 +12,18 @@ export const createTheme = (
   options?: Pick<ThemeVarsPartial, "base" | "brandTitle" | "brandImage" | "brandUrl">,
 ) => {
   const base = options?.base ?? "light";
-  const defaultBrandImage = base === "light" ? storybookLogo : storybookLogoInverse;
-  const primaryColor = onyxVariables["onyx-color-themed-brand-500"];
+  const primaryColor = onyxVariables["onyx-color-themed-primary-500"];
 
   return create({
     brandTitle: options?.brandTitle ?? "onyx Storybook",
     brandUrl: options?.brandUrl ?? "https://onyx.schwarz",
-    brandImage: options?.brandImage ?? defaultBrandImage,
+    brandImage: options?.brandImage ?? onyxLogo,
     brandTarget: "_blank",
     base: base,
 
     // default theme values that are independent of the light/dark mode:
     colorPrimary: primaryColor,
-    colorSecondary: onyxVariables["onyx-color-themed-action-500"],
+    colorSecondary: onyxVariables["onyx-color-themed-secondary-500"],
     barSelectedColor: primaryColor,
     barHoverColor: primaryColor,
     appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),

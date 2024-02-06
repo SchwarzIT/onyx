@@ -13,7 +13,6 @@ const meta: Meta<typeof TestInput> = {
     argTypes: {
       type: {
         options: INPUT_TYPES,
-        control: { type: "select" },
       },
     },
   }),
