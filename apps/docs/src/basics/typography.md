@@ -72,7 +72,7 @@ It is important to keep the usage of font styles consistent throughout the whole
 
 To create a flowing readability, the line length is key. There are no strict rules on the usage, due to the dependency on [screen size, breakpoint and column grid](/basics/breakpoints-grid). Nevertheless onyx provides some guidelines and recommendations for your implementation.
 
-![image](/assets/line_length.webp)
+![narrow, ideal and wide line length](/assets/line_length.webp)
 
 Generally speaking: the wider the line the harder to read and to follow. The optimal range for readability is usually between 60 and 80 characters. If the text is way longer than this guideline, just use a second text column instead.
 
