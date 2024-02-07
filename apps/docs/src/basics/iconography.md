@@ -9,7 +9,7 @@ Our system icons are designed to be simple with a touch of detail. They are char
 
 ![overview of icons](/assets/icons-overview.png)
 
-## Grid and keyline shapes
+## Grid and keylines
 
 The square format with the 1px grid is the foundation for all of our system icons. This ensures the look of the set in terms of thickness, proportion, shape and weight are the same. The grid helps to design a unified set of icons and still be as flexible as possible.
 
@@ -23,7 +23,7 @@ The icons are created on a base grid of 32x32px and then reduced or enlarged to 
 
 ![highlight of multiple common icon shapes](/assets/icons-layout-2.png)
 
-The key lines shapes ensure a certain consistency in shape and proportion in the overall icon set. In exceptional cases and if the design of the icon does not allow otherwise, the design can go beyond the shape.
+The keylines ensure a certain consistency in shape and proportion in the overall icon set. In exceptional cases and if the design of the icon does not allow otherwise, the design can go beyond the shape.
 
 ![implementation of common icon shapes](/assets/icons-layout-3.png)
 
