@@ -34,6 +34,8 @@ test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
 });
 
 test("should display correctly when preselected", async ({ mount, makeAxeBuilder, page }) => {
+  const updates: SelectionOption<unknown>[] = [];
+
   // ARRANGE
   await mount(
     <OnyxRadioButtonGroup
@@ -41,6 +43,7 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
       label="radio group label"
       name="radio-selection"
       modelValue={EXAMPLE_OPTIONS[0]}
+      onUpdate:modelValue={(u) => updates.push(u)}
     />,
   );
 
@@ -48,10 +51,11 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
   await expect(page.getByRole("radio", { name: EXAMPLE_OPTIONS[0].label })).toBeChecked();
 
   // ACT
-  page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label }).click();
+  await page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label }).click();
 
   // ASSERT
   await expect(page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label })).toBeChecked();
+  expect(updates).toEqual([EXAMPLE_OPTIONS[1]]);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();

@@ -1,6 +1,9 @@
 <script lang="ts" setup generic="T">
+import type { TargetEvent } from "@/types/dom";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
+
+type ChangeEvent = TargetEvent<HTMLInputElement>;
 
 const props = defineProps<{
   /**
@@ -17,14 +20,17 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  "update:modelValue": [SelectionOption<T>];
+  "update:modelValue": [selected: SelectionOption<T>];
 }>();
+
+const handleChange = (event: ChangeEvent) =>
+  emit("update:modelValue", props.options.find(({ id }) => event.target.value === id)!);
 </script>
 
 <!-- TODO: loading -->
 <!-- TODO: readonly -->
 <template>
-  <fieldset class="onyx-radio-button-group">
+  <fieldset class="onyx-radio-button-group" @change="handleChange($event as ChangeEvent)">
     <legend v-if="props.label" class="onyx-radio-button-group__label">{{ props.label }}</legend>
     <OnyxRadioButton
       v-for="option in props.options"
@@ -37,7 +43,6 @@ const emit = defineEmits<{
       :is-disabled="props.isDisabled || option.isDisabled"
       :is-readonly="props.isReadonly || option.isReadonly"
       :is-loading="props.isLoading || option.isLoading"
-      @input="emit('update:modelValue', option)"
     />
   </fieldset>
 </template>
