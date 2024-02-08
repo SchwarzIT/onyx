@@ -26,7 +26,7 @@ export const getEnrichedIconCategoryList = (ALL_ICONS: Record<string, string>) =
       ...getIconContextData(icon.iconName, ALL_ICONS),
       metadata: {
         ...icon.metadata,
-        // make the search more reliable
+        // make the searchability more reliable
         aliases: icon.metadata.aliases?.map((alias) => alias.toLowerCase()),
       },
     })),

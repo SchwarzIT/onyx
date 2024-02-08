@@ -18,10 +18,27 @@ const value = computed({
 </script>
 
 <template>
-  <label aria-label="Search">
-    <input placeholder="Search" type="search" v-model="value" />
+  <label aria-label="Search" class="search">
+    <input class="search__input" placeholder="Search" type="search" v-model="value" size="31" />
     <OnyxIcon :icon="searchIcon" />
   </label>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search {
+  display: flex;
+  width: 296px;
+  padding: var(--onyx-spacing-2xs, 8px);
+  justify-content: space-between;
+  border-radius: var(--onyx-radius-md, 8px);
+  border: 1px solid var(--onyx-color-base-neutral-300);
+  background: var(--onyx-color-base-background-blank);
+
+  &__input {
+    color: var(--onyx-color-text-icons-neutral-intense);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
+</style>

@@ -41,7 +41,6 @@ const filteredCategories = computed(() => {
           v-for="icon in category.icons"
           :key="icon.iconName"
           :icon="icon.content"
-          size="md"
           :title="icon.tooltipName"
           :color="icon.metadata.deprecated ? 'secondary' : 'currentColor'"
         />
