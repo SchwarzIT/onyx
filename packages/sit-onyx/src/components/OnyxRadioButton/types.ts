@@ -1,0 +1,10 @@
+export type SelectionOption<T> = {
+  id: string;
+  label: string;
+  value: T;
+  isDisabled?: boolean;
+  isReadonly?: boolean;
+  isLoading?: boolean;
+};
+
+export type SelectionProps<T> = SelectionOption<T> & { modelValue?: boolean };
