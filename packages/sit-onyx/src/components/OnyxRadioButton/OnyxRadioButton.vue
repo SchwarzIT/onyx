@@ -17,7 +17,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
       type="radio"
       :name="props.name"
       :value="props.id"
-      :checked="props.modelValue"
+      :checked="props.selected"
       :disabled="props.isDisabled"
     />
     <!-- TODO: unique ids attributes -->

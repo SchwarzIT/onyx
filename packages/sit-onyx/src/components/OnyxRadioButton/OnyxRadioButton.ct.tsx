@@ -19,7 +19,7 @@ test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should display correctly when checked", async ({ mount, makeAxeBuilder, page }) => {
+test("should display correctly when selected", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   await mount(
     <OnyxRadioButton
@@ -27,7 +27,7 @@ test("should display correctly when checked", async ({ mount, makeAxeBuilder, pa
       label="radio label"
       name="radio form"
       value="radio-value"
-      modelValue
+      selected
     />,
   );
 

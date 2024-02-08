@@ -7,4 +7,4 @@ export type SelectionOption<T> = {
   isLoading?: boolean;
 };
 
-export type SelectionProps<T> = SelectionOption<T> & { modelValue?: boolean };
+export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };
