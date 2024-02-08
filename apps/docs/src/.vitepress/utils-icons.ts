@@ -1,7 +1,7 @@
 import { ICON_CATEGORIES } from "@sit-onyx/icons";
 import { capitalize } from "vue";
 
-const getIconContextData = (iconName: string, ALL_ICONS: Record<string, string>) => {
+const getIconContextData = (iconName: string, allIconContents: Record<string, string>) => {
   const parts = iconName.split("-");
   // bell-disabled => `Bell Disabled`
   const tooltipName = parts.map((word) => capitalize(word)).join(" ");
@@ -13,17 +13,18 @@ const getIconContextData = (iconName: string, ALL_ICONS: Record<string, string>)
     })
     .join("");
   // svg content for OnyxIcon `icon` prop
-  const content = ALL_ICONS[`../../../node_modules/@sit-onyx/icons/src/assets/${iconName}.svg`];
+  const content =
+    allIconContents[`../../../node_modules/@sit-onyx/icons/src/assets/${iconName}.svg`];
   return { tooltipName, importName, content };
 };
 
 // Collects all needed icon context data and provides them as a list.
-export const getEnrichedIconCategoryList = (ALL_ICONS: Record<string, string>) =>
+export const getEnrichedIconCategoryList = (allIconContents: Record<string, string>) =>
   Object.entries(ICON_CATEGORIES).map(([category, icons]) => ({
     name: category,
     icons: icons.map((icon) => ({
       ...icon,
-      ...getIconContextData(icon.iconName, ALL_ICONS),
+      ...getIconContextData(icon.iconName, allIconContents),
       metadata: {
         ...icon.metadata,
         // make the searchability more reliable

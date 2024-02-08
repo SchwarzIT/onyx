@@ -27,10 +27,10 @@ const value = computed({
 <style lang="scss" scoped>
 .search {
   display: flex;
-  width: 296px;
-  padding: var(--onyx-spacing-2xs, 8px);
+  width: 18.5rem;
+  padding: var(--onyx-spacing-2xs, 0.5rem);
   justify-content: space-between;
-  border-radius: var(--onyx-radius-md, 8px);
+  border-radius: var(--onyx-radius-md, 0.5rem);
   border: 1px solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
 
@@ -38,7 +38,7 @@ const value = computed({
     color: var(--onyx-color-text-icons-neutral-intense);
     font-size: 1rem;
     font-weight: 400;
-    line-height: 24px;
+    line-height: 1.5rem;
   }
 }
 </style>

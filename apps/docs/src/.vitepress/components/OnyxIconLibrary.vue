@@ -8,24 +8,26 @@ const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/as
   as: "raw",
   eager: true,
 });
-const ENRICHED_ICON_CATEGORY_LIST = getEnrichedIconCategoryList(ALL_ICONS);
+const enrichedIconCategoryList = getEnrichedIconCategoryList(ALL_ICONS);
 
 const search = ref("");
 
 const filteredCategories = computed(() => {
   const lowerCaseSearch = search.value.toLowerCase();
-  return ENRICHED_ICON_CATEGORY_LIST.map((category) => {
-    if (category.name.toLowerCase().includes(lowerCaseSearch)) return category;
+  return enrichedIconCategoryList
+    .map((category) => {
+      if (category.name.toLowerCase().includes(lowerCaseSearch)) return category;
 
-    return {
-      ...category,
-      icons: category.icons.filter(
-        (icon) =>
-          icon.iconName.toLowerCase().includes(lowerCaseSearch) ||
-          icon.metadata.aliases?.some((alias) => alias.includes(lowerCaseSearch)),
-      ),
-    };
-  }).filter((category) => category.icons.length);
+      return {
+        ...category,
+        icons: category.icons.filter(
+          (icon) =>
+            icon.iconName.toLowerCase().includes(lowerCaseSearch) ||
+            icon.metadata.aliases?.some((alias) => alias.includes(lowerCaseSearch)),
+        ),
+      };
+    })
+    .filter((category) => category.icons.length);
 });
 </script>
 
