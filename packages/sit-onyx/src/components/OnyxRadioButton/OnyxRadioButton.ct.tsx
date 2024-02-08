@@ -40,3 +40,27 @@ test("should display correctly when selected", async ({ mount, makeAxeBuilder, p
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+test("should display correctly when disabled", async ({ mount, makeAxeBuilder, page }) => {
+  // ARRANGE
+  await mount(
+    <OnyxRadioButton
+      id="my-id"
+      label="radio label"
+      name="radio form"
+      value="radio-value"
+      selected
+      isDisabled
+    />,
+  );
+
+  // ASSERT
+  await expect(page.getByRole("radio")).toBeDisabled();
+  await expect(page.getByRole("radio")).toBeChecked();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
