@@ -31,11 +31,71 @@ const props = defineProps<RadioButtonProps<TValue>>();
 </template>
 <style lang="scss">
 .onyx-radio-button {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  gap: 0.75rem;
+
   &__label {
-    color: var(--onyx-color-icon-neutral-intense);
+    font-family: var(--onyx-font-family);
+    color: var(--onyx-color-text-neutral-intense);
+    line-height: 1.5rem;
+
+    .onyx-radio-button__input:disabled + & {
+      color: var(--onyx-color-text-neutral-soft);
+    }
   }
+
   &__input {
-    // TODO: appearance: auto;
+    outline: none;
+    appearance: none;
+    box-sizing: border-box;
+    margin: 0;
+
+    height: 1rem;
+    width: 1rem;
+
+    border-radius: 100%;
+    border: 1px solid var(--onyx-color-base-primary-300);
+    background-color: var(--onyx-color-base-background-blank);
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: box-shadow 200ms;
+
+    &:checked {
+      border: none;
+      background-color: var(--onyx-color-base-primary-500);
+    }
+
+    &:focus-visible,
+    &:hover {
+      box-shadow: 0 0 0 0.75rem var(--onyx-color-base-primary-200);
+    }
+
+    &:enabled {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      box-shadow: none;
+      border-color: var(--onyx-color-base-neutral-200);
+    }
+
+    &:disabled:checked {
+      background-color: var(--onyx-color-base-neutral-300);
+    }
+
+    &::before {
+      content: " ";
+      box-sizing: border-box;
+      height: 0.375rem;
+      width: 0.375rem;
+      background-color: var(--onyx-color-base-background-blank);
+      border-radius: 100%;
+    }
   }
 }
 </style>
