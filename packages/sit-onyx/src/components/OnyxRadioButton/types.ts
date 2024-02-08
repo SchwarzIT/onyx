@@ -1,3 +1,6 @@
+/**
+ * TODO: move to dedicated file
+ */
 export type SelectionOption<T> = {
   id: string;
   label: string;
