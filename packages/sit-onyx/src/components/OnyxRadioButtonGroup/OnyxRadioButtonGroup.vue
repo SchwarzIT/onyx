@@ -25,7 +25,7 @@ const emit = defineEmits<{
 <!-- TODO: readonly -->
 <template>
   <fieldset class="onyx-radio-button-group">
-    <legend v-if="props.label" class="onyx-radio-button-group__legend">{{ props.label }}</legend>
+    <legend v-if="props.label" class="onyx-radio-button-group__label">{{ props.label }}</legend>
     <OnyxRadioButton
       v-for="option in props.options"
       :id="option.id"

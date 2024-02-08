@@ -14,7 +14,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
 </script>
 
 <template>
-  <!-- TODO: decide on support prefix -->
+  <!-- TODO: decide on support prefix and/or folder -->
   <!-- TODO: using the class name "onyx-radio-button__label" for an element which is not a label element might be misleading -->
   <label class="onyx-radio-button">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
