@@ -4,7 +4,11 @@
 export type SelectionOption<T> = {
   id: string;
   label: string;
-  value: T;
+  /**
+   * An optional value.
+   * It's not actually used by the selection controls, but can be used to associate data with this option.
+   */
+  value?: T;
   isDisabled?: boolean;
   isReadonly?: boolean;
   isLoading?: boolean;
