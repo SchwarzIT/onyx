@@ -1,6 +1,6 @@
 # Density
 
-In designing and developing user interfaces, the density of components plays a pivotal role in shaping the user experience. Introducing three levels of density - **compact**, **default** and **cozy** - onyx provides a flexible toolkit to build applications for multiple user preferences and device capabilities.
+In designing and developing user interfaces, the density of components plays a pivotal role in shaping the user experience. Introducing three levels of density - **compact**, **default** and **cozy** - onyx provides a flexible toolkit to build applications for multiple user preferences and device capabilities. The three densities are always based around the specific values of **32px**, **40px**, and **48px**.
 
 ![density](/assets/density.png)
 
