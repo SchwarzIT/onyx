@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-alpha.4
+
+### Patch Changes
+
+- a190f80: fix: prevent type error when importing as library
+
 ## 1.0.0-alpha.3
 
 ### Major Changes

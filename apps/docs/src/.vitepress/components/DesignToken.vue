@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import CheckIcon from "./icons/CheckIcon.vue";
-import CopyIcon from "./icons/CopyIcon.vue";
+import checkIcon from "@sit-onyx/icons/check-small.svg?raw";
+import copyIcon from "@sit-onyx/icons/copy.svg?raw";
+import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 const props = withDefaults(
   defineProps<{
     /** Token name. */
     name: string;
     /** Value to display */
-    value: string;
+    value?: string;
     /**
      * Value type.
      * - color: shows a color preview
@@ -16,6 +17,8 @@ const props = withDefaults(
      * @default "value"
      */
     type?: "color" | "value";
+    /** If true, the user will be able to click the token to copy its value. */
+    allowCopy?: boolean;
     /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
     isCopied?: boolean;
   }>(),
@@ -32,21 +35,24 @@ const emit = defineEmits<{
 <template>
   <button
     class="token"
-    :class="{ 'token--color': props.type === 'color' }"
+    :class="{ 'token--color': props.type === 'color', 'token--copyable': props.allowCopy }"
+    :disabled="!props.allowCopy"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
   >
-    <div class="token__name">
+    <div class="token__name" :class="{ 'token__name--no-value': !props.value }">
       <span>{{ props.name }}</span>
-      <span v-if="props.type === 'value'" class="token__value">{{ props.value }}</span>
+      <span v-if="props.value && props.type === 'value'" class="token__value">
+        {{ props.value }}
+      </span>
     </div>
 
     <span v-if="props.isCopied" class="token__copied">
-      <CheckIcon />
+      <OnyxIcon :icon="checkIcon" />
       copied
     </span>
 
-    <CopyIcon v-else class="token__copy" color="var(--onyx-color-icon-action-intense)" />
+    <OnyxIcon v-else class="token__copy" :icon="copyIcon" color="primary" />
   </button>
 </template>
 
@@ -56,27 +62,32 @@ const emit = defineEmits<{
 .token {
   display: flex;
   align-items: center;
-  gap: var(--onyx-spacing-sm);
+  gap: var(--onyx-spacing-md);
   width: max-content;
+  max-width: 100%;
+  pointer-events: none;
 
   &__name {
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs) var(--onyx-spacing-2xs)
-      var(--onyx-spacing-sm);
+    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-xs) var(--onyx-spacing-3xs)
+      var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-sm);
-    border: 1px solid var(--onyx-color-base-border-default);
+    border: 1px solid var(--onyx-color-base-neutral-300);
     font-family: var(--onyx-font-family-mono);
     width: max-content;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--onyx-spacing-lg);
-    outline-color: var(--onyx-color-base-action-300);
+    gap: var(--onyx-spacing-xl);
+    outline-color: var(--onyx-color-base-primary-300);
     background-color: var(--onyx-color-base-background-blank);
     cursor: pointer;
-    min-width: 16rem;
 
     @include mixins.breakpoint(max, xs) {
       min-width: unset;
+    }
+
+    &--no-value {
+      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs);
     }
   }
 
@@ -88,15 +99,19 @@ const emit = defineEmits<{
     display: none;
   }
 
-  &:hover,
-  &:focus-within {
-    .token {
-      &__name {
-        border: 1px solid var(--onyx-color-base-action-300);
-      }
+  &--copyable {
+    pointer-events: unset;
 
-      &__copy {
-        display: inline-block;
+    &:hover,
+    &:focus-within {
+      .token {
+        &__name {
+          border: 1px solid var(--onyx-color-base-primary-300);
+        }
+
+        &__copy {
+          display: inline-block;
+        }
       }
     }
   }
@@ -112,7 +127,7 @@ const emit = defineEmits<{
           height: 1.25rem;
           background-color: v-bind("props.value");
           border-radius: var(--onyx-radius-sm);
-          border: 1px solid var(--onyx-color-base-border-default);
+          border: 1px solid var(--onyx-color-base-neutral-300);
         }
       }
     }

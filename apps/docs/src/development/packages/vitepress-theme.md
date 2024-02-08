@@ -20,12 +20,16 @@ The documentation that you are currently reading is created using this custom th
 
 It extends the default VitePress theme so you can use the same [config](https://vitepress.dev/reference/default-theme-config) that you are already familiar with (which includes search, sidebar etc.).
 
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/vitepress-theme).
+
 ## Features
 
 The theme includes the following features:
 
 - light and dark theme that matches the onyx design
-- colored name and gradient logo background on the [home page](/)
+- colored gradient logo background on the [home page](/)
 - Font families matching the [onyx typography system](/development/typography)
 
 ## Installation

@@ -45,12 +45,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
           <RoadmapCard
             :title="roadmapData.componentCount"
             :description="roadmapData.componentCount === 1 ? 'Component' : 'Components'"
-            href="/getting-started"
+            href="/development/"
           />
           <RoadmapCard
             :title="roadmapData.variantCount"
             description="Component variants"
-            href="/getting-started"
+            href="/development/"
           />
           <RoadmapCard :title="roadmapData.downloads" description="Downloads (last month)" />
           <RoadmapCard
