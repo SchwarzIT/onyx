@@ -4,7 +4,8 @@ import type { SelectionOption } from "../OnyxRadioButton/types";
 
 const props = defineProps<{
   /**
-   * name for the radio buttons
+   * Name for the radio button group form element.
+   * Warning: Never use a name for form elements twice!
    */
   name: string;
   modelValue?: SelectionOption<T>;
