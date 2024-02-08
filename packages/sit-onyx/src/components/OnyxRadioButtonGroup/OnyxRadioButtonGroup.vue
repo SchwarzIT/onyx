@@ -20,6 +20,8 @@ const emit = defineEmits<{
 }>();
 </script>
 
+<!-- TODO: loading -->
+<!-- TODO: readonly -->
 <template>
   <fieldset class="onyx-radio-button-group">
     <legend v-if="props.label" class="onyx-radio-button-group__legend">{{ props.label }}</legend>
