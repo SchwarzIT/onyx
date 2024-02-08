@@ -1,7 +1,14 @@
 <script lang="ts" setup generic="TValue">
 import type { SelectionProps } from "./types";
 
-export type RadioButtonProps<TValue> = SelectionProps<TValue> & { name: string };
+export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
+  /**
+   * Identifier for the radio buttons in the group.
+   * All radio buttons that should belong to the same radio group must have the same name.
+   * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
+   */
+  name: string;
+};
 
 const props = defineProps<RadioButtonProps<TValue>>();
 </script>
@@ -10,7 +17,6 @@ const props = defineProps<RadioButtonProps<TValue>>();
   <!-- TODO: decide on support prefix -->
   <div class="onyx-radio-button">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
-    <!-- TODO: needs name attribute: https://html.spec.whatwg.org/multipage/input.html#radio-button-group -->
     <input
       :id="props.id"
       class="onyx-radio-button__input"
