@@ -26,8 +26,8 @@ type Story = StoryObj<typeof OnyxRadioButton> & { args: RadioButtonProps<unknown
 export const Default = {
   args: {
     id: "my-id",
-    label: "radio button",
-    name: "radio form",
-    value: "some-value",
+    label: "radio-label",
+    name: "radio-name",
+    value: "radio-value",
   },
 } satisfies Story;
