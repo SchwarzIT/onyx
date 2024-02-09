@@ -40,3 +40,14 @@ export const Default = {
     options: EXAMPLE_OPTIONS,
   },
 } satisfies Story;
+
+/**
+ * This example shows a preselected radio button.
+ */
+export const Preselected = {
+  args: {
+    name: "another radio group",
+    options: EXAMPLE_OPTIONS,
+    modelValue: EXAMPLE_OPTIONS[2],
+  },
+} satisfies Story;
