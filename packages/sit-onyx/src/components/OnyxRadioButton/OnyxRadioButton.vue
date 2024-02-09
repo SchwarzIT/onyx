@@ -1,4 +1,5 @@
 <script lang="ts" setup generic="TValue">
+import { ref, watch } from "vue";
 import type { SelectionProps } from "./types";
 
 export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
@@ -8,9 +9,18 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
    * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
    */
   name: string;
+  errorMessage?: string;
 };
 
 const props = defineProps<RadioButtonProps<TValue>>();
+
+const selector = ref<HTMLInputElement>();
+
+watch(
+  () => props.errorMessage,
+  () => selector.value?.setCustomValidity(props.errorMessage ?? ""),
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -18,6 +28,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
   <label class="onyx-radio-button">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <input
+      ref="selector"
       class="onyx-radio-button__selector"
       type="radio"
       :name="props.name"
@@ -44,6 +55,12 @@ const props = defineProps<RadioButtonProps<TValue>>();
   &:has(&__selector:checked) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-500);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-500);
+  }
+
+  &:has(&__selector:invalid) {
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
+    --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
+    --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
   }
 
   &:has(&__selector:focus-visible) {
@@ -74,16 +91,23 @@ const props = defineProps<RadioButtonProps<TValue>>();
     margin: 0;
     cursor: inherit;
 
-    outline: solid var(--onyx-radio-button-selector-outline-width, 0)
-      var(--onyx-color-base-primary-200);
+    outline: {
+      style: solid;
+      width: var(--onyx-radio-button-selector-outline-width, 0);
+      color: var(--onyx-radio-button-selector-outline-color, var(--onyx-color-base-primary-200));
+    }
     transition: outline 200ms;
 
     height: 1rem;
     width: 1rem;
 
+    border: {
+      style: solid;
+      width: 1px;
+      color: var(--onyx-radio-button-selector-border-color, var(--onyx-color-base-neutral-400));
+    }
     border-radius: 100%;
-    border: 1px solid
-      var(--onyx-radio-button-selector-border-color, var(--onyx-color-base-neutral-400));
+
     background-color: var(
       --onyx-radio-button-selector-background-color,
       var(--onyx-color-base-background-blank)
