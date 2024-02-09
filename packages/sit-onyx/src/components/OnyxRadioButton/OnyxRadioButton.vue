@@ -18,7 +18,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
   <label class="onyx-radio-button">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <input
-      class="onyx-radio-button__input"
+      class="onyx-radio-button__selector"
       type="radio"
       :name="props.name"
       :value="props.id"
@@ -34,7 +34,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
   &__label {
     color: var(--onyx-color-icon-neutral-intense);
   }
-  &__input {
+  &__selector {
     // TODO: appearance: auto;
   }
 }
