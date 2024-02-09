@@ -25,8 +25,9 @@ watch(
 
 <template>
   <!-- TODO: decide on support prefix and/or folder -->
-  <label class="onyx-radio-button">
+  <label class="onyx-radio-button" :title="props.errorMessage">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
+    <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       ref="selector"
       class="onyx-radio-button__selector"
@@ -34,7 +35,7 @@ watch(
       :name="props.name"
       :value="props.id"
       :checked="props.selected"
-      :disabled="props.isDisabled"
+      :disabled="props.isDisabled || props.isReadonly"
     />
     <span class="onyx-radio-button__label">{{ props.label }}</span>
   </label>
