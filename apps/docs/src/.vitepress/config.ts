@@ -40,7 +40,7 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "The Team", link: "/brand/team", activeMatch: "/brand/" },
+      { text: "Brand", link: "/brand/team", activeMatch: "/brand/" },
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
       { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/", activeMatch: "/development/" },
@@ -59,7 +59,10 @@ export default defineConfig({
       "/brand": [
         {
           text: "Brand",
-          items: [{ text: "The Team", link: "/brand/team" }],
+          items: [
+            { text: "The Team", link: "/brand/team" },
+            { text: "Philosophy", link: "/brand/philosophy" },
+          ],
         },
       ],
       "/basics": [
