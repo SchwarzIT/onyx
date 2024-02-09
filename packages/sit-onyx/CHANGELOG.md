@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 0.1.0-alpha.7
+
+### Minor Changes
+
+- fdada3a: Implemented barebone RadioButtonGroup and RadioButton support component
+
 ## 0.1.0-alpha.6
 
 ### Minor Changes
