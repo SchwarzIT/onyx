@@ -35,61 +35,63 @@ const props = defineProps<RadioButtonProps<TValue>>();
   align-items: center;
   height: 2.5rem;
   gap: 0.75rem;
+  cursor: var(--onyx-radio-button-cursor, pointer);
+
+  &:has(&__selector:hover) {
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
+  }
+
+  &:has(&__selector:checked) {
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-500);
+    --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-500);
+  }
+
+  &:has(&__selector:focus-visible) {
+    --onyx-radio-button-selector-outline-width: 0.75rem;
+  }
+
+  &:has(&__selector:disabled) {
+    --onyx-radio-button-selector-outline-width: 0;
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-200);
+    --onyx-radio-button-label-color: var(--onyx-color-text-neutral-soft);
+    --onyx-radio-button-cursor: default;
+  }
+
+  &:has(&__selector:disabled:checked) {
+    --onyx-radio-button-selector-background-color: var(--onyx-color-base-neutral-300);
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-300);
+  }
 
   &__label {
     font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-neutral-intense);
+    color: var(--onyx-radio-button-label-color, var(--onyx-color-text-neutral-intense));
     line-height: 1.5rem;
-
-    .onyx-radio-button__selector:disabled + & {
-      color: var(--onyx-color-text-neutral-soft);
-    }
   }
 
   &__selector {
-    outline: solid 0 var(--onyx-color-base-primary-200);
     appearance: none;
     box-sizing: border-box;
     margin: 0;
+    cursor: inherit;
+
+    outline: solid var(--onyx-radio-button-selector-outline-width, 0)
+      var(--onyx-color-base-primary-200);
+    transition: outline 200ms;
 
     height: 1rem;
     width: 1rem;
 
     border-radius: 100%;
-    border: 1px solid var(--onyx-color-base-neutral-400);
-    background-color: var(--onyx-color-base-background-blank);
+    border: 1px solid
+      var(--onyx-radio-button-selector-border-color, var(--onyx-color-base-neutral-400));
+    background-color: var(
+      --onyx-radio-button-selector-background-color,
+      var(--onyx-color-base-background-blank)
+    );
 
     display: inline-flex;
     justify-content: center;
     align-items: center;
-
-    transition: outline 200ms;
-
-    &:checked {
-      border: none;
-      background-color: var(--onyx-color-base-primary-500);
-    }
-
-    &:hover {
-      border-color: var(--onyx-color-base-primary-300);
-    }
-
-    &:focus-visible {
-      outline-width: 0.75rem;
-    }
-
-    &:enabled {
-      cursor: pointer;
-    }
-
-    &:disabled {
-      outline: none;
-      border-color: var(--onyx-color-base-neutral-200);
-    }
-
-    &:disabled:checked {
-      background-color: var(--onyx-color-base-neutral-300);
-    }
 
     &::before {
       content: " ";
