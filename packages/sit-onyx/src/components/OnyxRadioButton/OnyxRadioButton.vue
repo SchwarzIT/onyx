@@ -17,7 +17,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
 const selector = ref<HTMLInputElement>();
 
 watch(
-  () => props.errorMessage,
+  [() => props.errorMessage, selector],
   () => selector.value?.setCustomValidity(props.errorMessage ?? ""),
   { immediate: true },
 );
