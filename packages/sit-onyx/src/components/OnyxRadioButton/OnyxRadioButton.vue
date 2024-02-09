@@ -29,6 +29,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
     <span class="onyx-radio-button__label">{{ props.label }}</span>
   </label>
 </template>
+
 <style lang="scss">
 .onyx-radio-button {
   &__label {
