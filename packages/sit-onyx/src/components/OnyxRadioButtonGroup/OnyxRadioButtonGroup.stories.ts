@@ -32,7 +32,7 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
 ];
 
 /**
- * This example shows a standalone radio button.
+ * This example shows a radio button group.
  */
 export const Default = {
   args: {
