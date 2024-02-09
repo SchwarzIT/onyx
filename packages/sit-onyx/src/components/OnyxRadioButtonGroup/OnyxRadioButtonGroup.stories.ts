@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxRadioButtonGroup> = {
   title: "components/OnyxRadioButtonGroup",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButtonGroup,
-    events: [],
+    events: ["update:modelValue"],
     argTypes: {
       isReadonly: { type: "boolean" },
       isLoading: { type: "boolean" },
@@ -32,11 +32,22 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
 ];
 
 /**
- * This example shows a standalone radio button.
+ * This example shows a radio button group.
  */
 export const Default = {
   args: {
     name: "radio button name",
     options: EXAMPLE_OPTIONS,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a preselected radio button.
+ */
+export const Preselected = {
+  args: {
+    name: "another radio group",
+    options: EXAMPLE_OPTIONS,
+    modelValue: EXAMPLE_OPTIONS[2],
   },
 } satisfies Story;

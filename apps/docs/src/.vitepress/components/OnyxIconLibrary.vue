@@ -1,29 +1,50 @@
 <script lang="ts" setup>
-import { ICON_CATEGORIES } from "@sit-onyx/icons";
+import { computed, ref } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
+import Search from "./Search.vue";
+import { getEnrichedIconCategoryList } from "../utils-icons";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
   as: "raw",
   eager: true,
 });
+const enrichedIconCategoryList = getEnrichedIconCategoryList(ALL_ICONS);
 
-const getIconContent = (iconName: string) => {
-  return ALL_ICONS[`../../../node_modules/@sit-onyx/icons/src/assets/${iconName}.svg`];
-};
+const search = ref("");
+
+const filteredCategories = computed(() => {
+  const lowerCaseSearch = search.value.toLowerCase();
+  return enrichedIconCategoryList
+    .map((category) => {
+      if (category.name.toLowerCase().includes(lowerCaseSearch)) return category;
+
+      return {
+        ...category,
+        icons: category.icons.filter(
+          (icon) =>
+            icon.iconName.toLowerCase().includes(lowerCaseSearch) ||
+            icon.metadata.aliases?.some((alias) => alias.includes(lowerCaseSearch)),
+        ),
+      };
+    })
+    .filter((category) => category.icons.length);
+});
 </script>
 
 <template>
   <div>
-    <section v-for="(icons, category) in ICON_CATEGORIES" :key="category" class="category">
-      <h3 class="category__headline">{{ category }}</h3>
+    <Search v-model="search" />
+
+    <section v-for="category in filteredCategories" :key="category.name" class="category">
+      <h3 class="category__headline">{{ category.name }}</h3>
 
       <div class="category__icons">
         <OnyxIcon
-          v-for="icon in icons"
+          v-for="icon in category.icons"
           :key="icon.iconName"
-          :icon="getIconContent(icon.iconName)"
-          size="md"
-          :title="`${icon.iconName}.svg`"
+          :icon="icon.content"
+          :title="icon.tooltipName"
+          :color="icon.metadata.deprecated ? 'secondary' : 'currentColor'"
         />
       </div>
     </section>

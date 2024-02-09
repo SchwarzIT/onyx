@@ -14,12 +14,11 @@ const props = defineProps<RadioButtonProps<TValue>>();
 </script>
 
 <template>
-  <!-- TODO: decide on support prefix -->
-  <!-- TODO: using the class name "onyx-radio-button__label" for an element which is not a label element might be misleading -->
+  <!-- TODO: decide on support prefix and/or folder -->
   <label class="onyx-radio-button">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <input
-      class="onyx-radio-button__input"
+      class="onyx-radio-button__selector"
       type="radio"
       :name="props.name"
       :value="props.id"
@@ -29,6 +28,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
     <span class="onyx-radio-button__label">{{ props.label }}</span>
   </label>
 </template>
+
 <style lang="scss">
 .onyx-radio-button {
   display: inline-flex;
@@ -41,12 +41,12 @@ const props = defineProps<RadioButtonProps<TValue>>();
     color: var(--onyx-color-text-neutral-intense);
     line-height: 1.5rem;
 
-    .onyx-radio-button__input:disabled + & {
+    .onyx-radio-button__selector:disabled + & {
       color: var(--onyx-color-text-neutral-soft);
     }
   }
 
-  &__input {
+  &__selector {
     outline: none;
     appearance: none;
     box-sizing: border-box;

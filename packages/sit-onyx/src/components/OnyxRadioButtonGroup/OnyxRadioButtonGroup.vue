@@ -1,10 +1,14 @@
 <script lang="ts" setup generic="T">
+import type { TargetEvent } from "@/types/dom";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 
+type ChangeEvent = TargetEvent<HTMLInputElement>;
+
 const props = defineProps<{
   /**
-   * name for the radio buttons
+   * Name for the radio button group form element.
+   * Warning: Never use a name for form elements twice!
    */
   name: string;
   modelValue?: SelectionOption<T>;
@@ -16,15 +20,18 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  "update:modelValue": [SelectionOption<T>];
+  "update:modelValue": [selected: SelectionOption<T>];
 }>();
+
+const handleChange = (event: ChangeEvent) =>
+  emit("update:modelValue", props.options.find(({ id }) => event.target.value === id)!);
 </script>
 
 <!-- TODO: loading -->
 <!-- TODO: readonly -->
 <template>
-  <fieldset class="onyx-radio-button-group">
-    <legend v-if="props.label" class="onyx-radio-button-group__legend">{{ props.label }}</legend>
+  <fieldset class="onyx-radio-button-group" @change="handleChange($event as ChangeEvent)">
+    <legend v-if="props.label" class="onyx-radio-button-group__label">{{ props.label }}</legend>
     <OnyxRadioButton
       v-for="option in props.options"
       :id="option.id"
@@ -36,7 +43,6 @@ const emit = defineEmits<{
       :is-disabled="props.isDisabled || option.isDisabled"
       :is-readonly="props.isReadonly || option.isReadonly"
       :is-loading="props.isLoading || option.isLoading"
-      @input="emit('update:modelValue', option)"
     />
   </fieldset>
 </template>

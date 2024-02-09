@@ -6,9 +6,9 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "dummy.1", value: "1", id: "1" },
   { label: "dummy.2", value: "2", id: "2" },
   { label: "dummy.3", value: "3", id: "3" },
-  { label: "dummy.4", value: "4", id: "4", isLoading: true },
-  { label: "dummy.5", value: "5", id: "5", isReadonly: true },
-  { label: "dummy.6", value: "6", id: "6", isDisabled: true },
+  { label: "Loading", value: "4", id: "4", isLoading: true },
+  { label: "Readonly", value: "5", id: "5", isReadonly: true },
+  { label: "Disabled", value: "6", id: "6", isDisabled: true },
 ];
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
@@ -34,6 +34,8 @@ test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
 });
 
 test("should display correctly when preselected", async ({ mount, makeAxeBuilder, page }) => {
+  const updates: SelectionOption<unknown>[] = [];
+
   // ARRANGE
   await mount(
     <OnyxRadioButtonGroup
@@ -41,6 +43,7 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
       label="radio group label"
       name="radio-selection"
       modelValue={EXAMPLE_OPTIONS[0]}
+      onUpdate:modelValue={(u) => updates.push(u)}
     />,
   );
 
@@ -48,10 +51,11 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
   await expect(page.getByRole("radio", { name: EXAMPLE_OPTIONS[0].label })).toBeChecked();
 
   // ACT
-  page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label }).click();
+  await page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label }).click();
 
   // ASSERT
   await expect(page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label })).toBeChecked();
+  expect(updates).toEqual([EXAMPLE_OPTIONS[1]]);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -59,3 +63,5 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+// TODO: add further test cases and screenshot tests
