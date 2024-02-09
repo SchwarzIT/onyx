@@ -47,7 +47,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
   }
 
   &__selector {
-    outline: none;
+    outline: solid 0 var(--onyx-color-base-primary-200);
     appearance: none;
     box-sizing: border-box;
     margin: 0;
@@ -56,23 +56,26 @@ const props = defineProps<RadioButtonProps<TValue>>();
     width: 1rem;
 
     border-radius: 100%;
-    border: 1px solid var(--onyx-color-base-primary-300);
+    border: 1px solid var(--onyx-color-base-neutral-400);
     background-color: var(--onyx-color-base-background-blank);
 
     display: inline-flex;
     justify-content: center;
     align-items: center;
 
-    transition: box-shadow 200ms;
+    transition: outline 200ms;
 
     &:checked {
       border: none;
       background-color: var(--onyx-color-base-primary-500);
     }
 
-    &:focus-visible,
     &:hover {
-      box-shadow: 0 0 0 0.75rem var(--onyx-color-base-primary-200);
+      border-color: var(--onyx-color-base-primary-300);
+    }
+
+    &:focus-visible {
+      outline-width: 0.75rem;
     }
 
     &:enabled {
@@ -80,7 +83,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
     }
 
     &:disabled {
-      box-shadow: none;
+      outline: none;
       border-color: var(--onyx-color-base-neutral-200);
     }
 
