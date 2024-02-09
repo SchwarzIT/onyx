@@ -1,5 +1,12 @@
 # alpha-test-app
 
+## 0.0.1-alpha.4
+
+### Patch Changes
+
+- Updated dependencies [fdada3a]
+  - sit-onyx@0.1.0-alpha.7
+
 ## 0.0.1-alpha.3
 
 ### Patch Changes
