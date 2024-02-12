@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue">
-import { ref, watch } from "vue";
+import { ref, watchEffect } from "vue";
 import type { SelectionProps } from "./types";
 
 export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
@@ -17,11 +17,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
 
 const selectorRef = ref<HTMLInputElement>();
 
-watch(
-  [() => props.errorMessage, selectorRef],
-  () => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""),
-  { immediate: true },
-);
+watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""));
 </script>
 
 <template>
