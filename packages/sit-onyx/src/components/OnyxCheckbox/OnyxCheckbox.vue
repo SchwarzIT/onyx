@@ -46,9 +46,9 @@ watchEffect(() => {
 <style lang="scss">
 .onyx-checkbox {
   font-family: var(--onyx-font-family);
+  color: var(--onyx-color-text-neutral-intense);
   display: inline-flex;
   align-items: center;
-  color: var(--onyx-color-text-neutral-intense);
   cursor: pointer;
 
   &:hover {
@@ -64,9 +64,9 @@ watchEffect(() => {
   }
 
   &__container {
-    padding: var(--onyx-spacing-sm);
     display: inline-flex;
     align-items: center;
+    padding: var(--onyx-spacing-sm);
     border-radius: var(--onyx-radius-full);
   }
 
@@ -77,9 +77,9 @@ watchEffect(() => {
     margin: 0;
     border-radius: var(--onyx-radius-sm);
     border: 1px solid var(--onyx-color-base-neutral-400);
+    outline: none;
     background: var(--onyx-color-base-background-blank);
     cursor: inherit;
-    outline: none;
 
     background-position: 50%;
     background-repeat: no-repeat;
