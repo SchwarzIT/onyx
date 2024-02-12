@@ -19,19 +19,19 @@ const executeCheckboxTest = async (
   expect(accessibilityScanResults.violations).toEqual([]);
 
   // ASSERT
-  await expect(component).toHaveScreenshot(`${screenshotPrefix}}default.png`);
+  await expect(component).toHaveScreenshot(`${screenshotPrefix}default.png`);
 
   // ACT
   await component.hover();
 
   // ASSERT
-  await expect(component).toHaveScreenshot(`${screenshotPrefix}}hover.png`);
+  await expect(component).toHaveScreenshot(`${screenshotPrefix}hover.png`);
 
   // ACT
   await page.mouse.down();
 
   // ASSERT
-  await expect(component).toHaveScreenshot(`${screenshotPrefix}}active.png`);
+  await expect(component).toHaveScreenshot(`${screenshotPrefix}active.png`);
 };
 
 test("should render unchecked", async ({ page, mount, makeAxeBuilder }) => {
