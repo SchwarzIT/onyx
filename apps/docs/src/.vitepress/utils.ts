@@ -59,7 +59,7 @@ export const getOnyxNpmPackages = async () => {
 export const getStorybookSidebarFolders = async () => {
   /**
    * List of story titles. Can contain folders
-   * @example "components/OnyxHeadline"
+   * @example ["components/OnyxHeadline"]
    */
   const storyTitles: string[] = [];
 
@@ -69,7 +69,6 @@ export const getStorybookSidebarFolders = async () => {
 
     try {
       const storybookContent = await fs.readFile(storybookPath, "utf-8");
-
       const storyTitle = extractMetaTitleFromStorybook(storybookContent) || componentName;
       storyTitles.push(storyTitle);
     } catch {
@@ -109,7 +108,8 @@ const extractMetaTitleFromStorybook = (fileContent: string): string | undefined 
 
 /**
  *
- * Groups the given Storybook meat titles by folder. Only supports one level of nesting.
+ * Groups the given Storybook meta titles by folder. Only supports one level of nesting.
+ * All titles must have a folder.
  *
  * @param storyTitles Storybook meta titles, may contain folders (represented by slashes, e.g. "components/OnyxHeadline")
  */

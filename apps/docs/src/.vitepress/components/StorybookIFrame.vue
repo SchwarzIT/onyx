@@ -14,7 +14,7 @@ const props = defineProps<{
   component: string;
   /**
    * Storybook folder name (lowercase) as defined in the meta.title property in the *.stories.ts file
-   * @example "components"
+   * @example "components" for meta title "components/MyInput"
    */
   folderName: string;
 }>();

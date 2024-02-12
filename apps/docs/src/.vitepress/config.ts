@@ -120,7 +120,7 @@ export default defineConfig({
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },
-        await getComponentSidebar(),
+        await getComponentsSidebar(),
         {
           text: "Other onyx npm packages",
           base: "/development/packages",
@@ -153,8 +153,9 @@ function getFilePath(path: string) {
 /**
  * Gets the sidebar item for the components with the same folder structure as in Storybook.
  * Only supports one level of nesting, so e.g. "components/forms/OnyxInput" is not supported yet.
+ * Folders other than "Components" will be placed below all regular components and are collapsed by default.
  */
-async function getComponentSidebar(): Promise<DefaultTheme.SidebarItem> {
+async function getComponentsSidebar(): Promise<DefaultTheme.SidebarItem> {
   const { components: componentsFolder, ...remainingFolders } = await getStorybookSidebarFolders();
 
   return {
