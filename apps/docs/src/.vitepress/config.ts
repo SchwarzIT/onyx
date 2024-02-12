@@ -1,9 +1,8 @@
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitepress";
+import { defineConfig, type DefaultTheme } from "vitepress";
+import { capitalize } from "vue";
 import packageJson from "../../../../packages/sit-onyx/package.json";
-import { getComponents } from "./utils";
-
-const componentNames = await getComponents();
+import { getStorybookSidebarFolders } from "./utils";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -121,12 +120,7 @@ export default defineConfig({
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },
-        {
-          text: "Components",
-          base: "/development",
-          collapsed: false,
-          items: componentNames.map((name) => ({ text: name, link: `/${name}` })),
-        },
+        await getComponentSidebar(),
         {
           text: "Other onyx npm packages",
           base: "/development/packages",
@@ -154,4 +148,36 @@ export default defineConfig({
 /** Gets the given path while ensuring cross-platform and correct decoding */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
+}
+
+/**
+ * Gets the sidebar item for the components with the same folder structure as in Storybook.
+ * Only supports one level of nesting, so e.g. "components/forms/OnyxInput" is not supported yet.
+ */
+async function getComponentSidebar(): Promise<DefaultTheme.SidebarItem> {
+  const { components: componentsFolder, ...remainingFolders } = await getStorybookSidebarFolders();
+
+  return {
+    text: "Components",
+    base: "/development",
+    items: [
+      ...componentsFolder.map<DefaultTheme.SidebarItem>((componentName) => ({
+        text: componentName,
+        link: `/components/${componentName}`,
+      })),
+      ...Object.entries(remainingFolders).map<DefaultTheme.SidebarItem>(
+        ([folderName, components]) => {
+          return {
+            text: capitalize(folderName),
+            base: `/development/${folderName}`,
+            collapsed: true,
+            items: components.map<DefaultTheme.SidebarItem>((componentName) => ({
+              text: componentName,
+              link: `/${componentName}`,
+            })),
+          };
+        },
+      ),
+    ],
+  };
 }

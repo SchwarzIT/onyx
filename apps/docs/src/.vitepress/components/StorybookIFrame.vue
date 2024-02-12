@@ -12,12 +12,17 @@ const props = defineProps<{
    * @example MyInput
    */
   component: string;
+  /**
+   * Storybook folder name (lowercase) as defined in the meta.title property in the *.stories.ts file
+   * @example "components"
+   */
+  folderName: string;
 }>();
 
 const { isDark } = useData();
 
 const iframeSrc = computed(() => {
-  const id = `components-${props.component.toLowerCase()}--docs`;
+  const id = `${props.folderName}-${props.component.toLowerCase()}--docs`;
   const theme = isDark.value ? "dark" : "light";
   return `${vitepressEnv.storybookHost}/iframe.html?id=${id}&theme=${theme}`;
 });
