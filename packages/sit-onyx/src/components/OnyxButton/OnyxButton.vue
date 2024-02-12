@@ -142,14 +142,9 @@ const emit = defineEmits<{
 
     &__label {
       display: flex;
-      padding: 0rem var(--onyx-spacing-4xs, 0.25rem);
-      justify-content: center;
-      align-items: center;
-      gap: 0.625rem;
+      padding: 0 var(--onyx-spacing-4xs);
       max-width: 12.25rem;
       color: var(--color);
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: 1rem;
