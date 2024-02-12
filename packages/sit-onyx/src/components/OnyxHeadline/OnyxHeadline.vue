@@ -31,7 +31,6 @@ defineSlots<{
   font-weight: 600;
   font-family: var(--onyx-font-family);
 
-  // use :where for styles that can be easily overwritten by the user
   :where(&) {
     margin: 0; // remove default browser margins
     color: var(--onyx-color-text-neutral-intense);
