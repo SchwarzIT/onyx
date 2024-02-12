@@ -13,6 +13,7 @@ const props = defineProps<{
   name: string;
   modelValue?: SelectionOption<T>;
   label?: string;
+  isRequired?: boolean;
   isDisabled?: boolean;
   isReadonly?: boolean;
   isLoading?: boolean;

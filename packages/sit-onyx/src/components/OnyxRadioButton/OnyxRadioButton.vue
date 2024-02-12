@@ -9,6 +9,7 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
    * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
    */
   name: string;
+  isRequired?: boolean;
   errorMessage?: string;
 };
 
@@ -32,6 +33,7 @@ watch(
       ref="selector"
       class="onyx-radio-button__selector"
       type="radio"
+      :required="props.isRequired"
       :name="props.name"
       :value="props.id"
       :checked="props.selected"
@@ -46,7 +48,6 @@ watch(
   display: inline-flex;
   align-items: center;
   height: 2.5rem;
-  gap: 0.75rem;
   cursor: var(--onyx-radio-button-cursor, pointer);
 
   &:has(&__selector:hover) {
@@ -60,8 +61,11 @@ watch(
 
   &:has(&__selector:invalid) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
-    --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
     --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
+  }
+
+  &:has(&__selector:invalid:checked) {
+    --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
   }
 
   &:has(&__selector:focus-visible) {
@@ -83,6 +87,7 @@ watch(
   &__label {
     font-family: var(--onyx-font-family);
     color: var(--onyx-radio-button-label-color, var(--onyx-color-text-neutral-intense));
+    padding-left: 0.75rem;
     line-height: 1.5rem;
   }
 
