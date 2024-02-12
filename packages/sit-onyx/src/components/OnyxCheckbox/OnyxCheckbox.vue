@@ -4,9 +4,8 @@ import type { OnyxCheckboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
-  indeterminate: false,
   label: "",
-  disabled: false,
+  indeterminate: false,
 });
 
 const emit = defineEmits<{

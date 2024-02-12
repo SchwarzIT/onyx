@@ -4,11 +4,11 @@ export type OnyxCheckboxProps = {
    */
   modelValue?: boolean;
   /**
-   * If `true`, an indeterminate indicator is shown.
-   */
-  indeterminate?: boolean;
-  /**
    * Label to show.
    */
   label?: string;
+  /**
+   * If `true`, an indeterminate indicator is shown.
+   */
+  indeterminate?: boolean;
 };

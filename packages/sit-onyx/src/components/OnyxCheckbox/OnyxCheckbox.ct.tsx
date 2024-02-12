@@ -4,7 +4,7 @@ import OnyxCheckbox from "./OnyxCheckbox.vue";
 type PlaywrightTestParameters = Parameters<Parameters<typeof test>[1]>[0];
 
 /**
- * Executes default, hover and active tests for the given checkbox component.
+ * Executes default, hover and focus-visible tests for the given checkbox component.
  * Will also generate screenshots.
  */
 const executeCheckboxTest = async (
