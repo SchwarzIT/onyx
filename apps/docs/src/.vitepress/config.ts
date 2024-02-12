@@ -26,7 +26,7 @@ export default defineConfig({
   ],
   themeConfig: {
     externalLinkIcon: true,
-    logo: "/logo.svg",
+    logo: "/images/logo.svg",
     siteTitle: false,
     footer: {
       message: "Released under the Apache-2.0 License.",

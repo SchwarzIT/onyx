@@ -18,7 +18,7 @@ Semantic colors are defined in relation to the background, dynamically adjusting
 
 ### Example
 
-![large spectrum of color shades that are split into two sections, which refer to light mode and dark mode](/assets/color_systematic.webp)
+![large spectrum of color shades that are split into two sections, which refer to light mode and dark mode](/images/color_systematic.webp)
 
 ## Themes
 
