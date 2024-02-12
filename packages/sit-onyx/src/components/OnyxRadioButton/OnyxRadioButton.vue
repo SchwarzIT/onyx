@@ -15,7 +15,7 @@ const props = defineProps<RadioButtonProps<TValue>>();
 
 <template>
   <!-- TODO: decide on support prefix and/or folder -->
-  <label class="onyx-radio-button">
+  <label class="onyx-radio-button onyx-util-mandatory-marker">
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <input
       class="onyx-radio-button__selector"

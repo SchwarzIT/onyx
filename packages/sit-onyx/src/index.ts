@@ -12,3 +12,5 @@ export * from "@/types/utils";
 // export everything except "injectI18n" because we don't want that the import is suggested
 // to projects using this library because they probably use "vue-i18n"
 export { provideI18n, type OnyxTranslations, type ProvideI18nOptions } from "@/i18n";
+
+export { default as onyx } from "@/utils/plugin";

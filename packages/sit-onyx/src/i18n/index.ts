@@ -1,6 +1,6 @@
 import type { ObjectToDottedStrings, TranslationValue } from "@/types/i18n";
 import type { DeepPartial } from "@/types/utils";
-import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
+import { computed, inject, provide, unref, type InjectionKey, type MaybeRef, type App } from "vue";
 import enUS from "./locales/en-US.json";
 
 /**
@@ -91,8 +91,12 @@ const createI18n = (options?: ProvideI18nOptions) => {
  * Provides a global i18n instance that is used by onyx.
  * Must only be called once in the `App.vue` file of a project that consumes onyx.
  */
-export const provideI18n = (options: ProvideI18nOptions) => {
-  provide(I18N_INJECTION_KEY, createI18n(options));
+export const provideI18n = (options?: ProvideI18nOptions, app?: App) => {
+  if (app) {
+    app.provide(I18N_INJECTION_KEY, createI18n(options));
+  } else {
+    provide(I18N_INJECTION_KEY, createI18n(options));
+  }
 };
 
 /**
