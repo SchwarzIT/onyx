@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-
 export type ButtonProps = {
   label?: string;
   isLoading?: boolean;
@@ -30,152 +28,6 @@ const emit = defineEmits<{
 const handleClick = () => {
   emit("click");
 };
-
-const backgroundColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default") {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-base-primary-500, #0079ce)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-base-background-blank, #FFF)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-base-danger-200, #F1D3D2)";
-    }
-  } else {
-    resultColor = "transparent";
-  }
-
-  return resultColor;
-});
-
-const backgroundHoverColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default") {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-base-primary-400, #3B98D9)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-base-neutral-200, #EAEDF0)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-base-danger-100, #FBEFEE)";
-    }
-  } else {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-base-primary-100, #EDF4FA)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-base-neutral-200, #EAEDF0)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-base-danger-200, #F1D3D2)";
-    }
-  }
-
-  return resultColor;
-});
-
-const backgroundDisabledColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default") {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-base-primary-200, #BFDDF3)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-base-background-blank, #FFF)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-base-danger-100, #FBEFEE)";
-    }
-  } else {
-    resultColor = "transparent";
-  }
-
-  return resultColor;
-});
-
-const color = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default" && props.color === "primary") {
-    resultColor = "var(--onyx-color-text-icons-neutral-inverted, #FFF)";
-  } else {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-text-icons-primary-intense, #0079CE)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-text-icons-neutral-intense, #52626D)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-text-icons-danger-intense, #D1332F)";
-    }
-  }
-
-  return resultColor;
-});
-
-const disabledColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default" && props.color === "primary") {
-    resultColor = "var(--onyx-color-text-icons-neutral-inverted, #FFF)";
-  } else {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-text-icons-primary-soft, #BFDDF3)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-text-icons-neutral-soft, #95A1AA)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-text-icons-danger-medium, #E6A7A6)";
-    }
-  }
-
-  return resultColor;
-});
-
-const borderColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default" || props.variant === "outline") {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-base-primary-500, #0079ce)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-base-neutral-400, #B7BFC5)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-base-danger-500, #D1332F)";
-    }
-  } else {
-    resultColor = "transparent";
-  }
-
-  return resultColor;
-});
-
-const disabledBorderColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.variant === "default" || props.variant === "outline") {
-    if (props.color === "primary") {
-      resultColor = "var(--onyx-color-base-primary-200, #BFDDF3)";
-    } else if (props.color === "secondary") {
-      resultColor = "var(--onyx-color-base-neutral-200, #EAEDF0)";
-    } else if (props.color === "danger") {
-      resultColor = "var(--onyx-color-base-danger-200, #F1D3D2)";
-    }
-  } else {
-    resultColor = "transparent";
-  }
-
-  return resultColor;
-});
-
-const focusOutlineColor = computed(() => {
-  let resultColor = "transparent";
-
-  if (props.color === "primary") {
-    resultColor = "var(--onyx-color-base-primary-200, #BFDDF3)";
-  } else if (props.color === "secondary") {
-    resultColor = "var(--onyx-color-base-neutral-300, #D8DDE1)";
-  } else {
-    resultColor = "var(--onyx-color-base-danger-300, #E6A7A6)";
-  }
-
-  return resultColor;
-});
 </script>
 
 <template>
@@ -184,6 +36,8 @@ const focusOutlineColor = computed(() => {
     class="onyx-button"
     :class="{
       'onyx-button--disabled': props.isDisabled,
+      [`onyx-button--${props.color}`]: true,
+      [`onyx-button--${props.variant}--${props.color}`]: true,
     }"
   >
     <button
@@ -201,34 +55,96 @@ const focusOutlineColor = computed(() => {
 <style lang="scss">
 .onyx-button {
   display: inline-flex;
-  padding: var(--onyx-spacing-2xs, 8px) var(--onyx-spacing-sm, 12px);
+  padding: var(--onyx-spacing-2xs, 0.5rem) var(--onyx-spacing-sm, 0.75rem);
   justify-content: center;
   align-items: center;
-  gap: var(--onyx-spacing-4xs, 4px);
-  border-radius: var(--onyx-radius-sm, 4px);
-  background-color: v-bind(backgroundColor);
-  border: 1px solid v-bind(borderColor);
+  gap: var(--onyx-spacing-4xs, 0.25rem);
+  border-radius: var(--onyx-radius-sm, 0.25rem);
+
+  --background-color: transparent;
+  --background-hover-color: var(--onyx-color-base-primary-100, #edf4fa);
+  --background-disabled-color: transparent;
+
+  --color: var(--onyx-color-text-icons-primary-intense, #0079ce);
+  --disabled-color: var(--onyx-color-text-icons-neutral-inverted, #fff);
+  --border-color: transparent;
+  --disabled-border-color: transparent;
+  --focus-outline-color: var(--onyx-color-base-primary-200, #bfddf3);
+
+  &--secondary {
+    --background-hover-color: var(--onyx-color-base-neutral-200, #eaedf0);
+    --focus-outline-color: var(--onyx-color-base-neutral-300, #d8dde1);
+    --color: var(--onyx-color-text-icons-neutral-intense, #52626d);
+    --disabled-color: var(--onyx-color-text-icons-primary-soft, #bfddf3);
+  }
+
+  &--danger {
+    --background-hover-color: var(--onyx-color-base-danger-200, #f1d3d2);
+    --focus-outline-color: var(--onyx-color-base-danger-300, #e6a7a6);
+    --color: var(--onyx-color-text-icons-danger-intense, #d1332f);
+    --disabled-color: var(--onyx-color-text-icons-danger-medium, #e6a7a6);
+  }
+
+  &--default--primary {
+    --background-color: var(--onyx-color-base-primary-500, #0079ce);
+    --background-hover-color: var(--onyx-color-base-primary-400, #3b98d9);
+    --background-disabled-color: var(--onyx-color-base-primary-200, #bfddf3);
+    --color: var(--onyx-color-text-icons-neutral-inverted, #fff);
+    --disabled-color: var(--onyx-color-text-icons-neutral-inverted, #fff);
+    --border-color: var(--onyx-color-base-primary-500, #0079ce);
+    --disabled-border-color: var(--onyx-color-base-primary-200, #bfddf3);
+  }
+
+  &--default--secondary {
+    --background-color: var(--onyx-color-base-background-blank, #fff);
+    --background-hover-color: var(--onyx-color-base-neutral-200, #eaedf0);
+    --background-disabled-color: var(--onyx-color-base-background-blank, #fff);
+    --border-color: var(--onyx-color-base-neutral-400, #b7bfc5);
+    --disabled-border-color: var(--onyx-color-base-neutral-200, #eaedf0);
+  }
+
+  &--default--danger {
+    --background-color: var(--onyx-color-base-danger-200, #f1d3d2);
+    --background-hover-color: var(--onyx-color-base-danger-100, #fbefee);
+    --background-disabled-color: var(--onyx-color-base-danger-100, #fbefee);
+    --border-color: var(--onyx-color-base-danger-500, #d1332f);
+    --disabled-border-color: var(--onyx-color-base-danger-200, #f1d3d2);
+  }
+
+  &--outline--primary {
+    --border-color: var(--onyx-color-base-primary-500, #0079ce);
+    --disabled-border-color: var(--onyx-color-base-primary-200, #bfddf3);
+  }
+
+  &--outline--secondary {
+    --border-color: var(--onyx-color-base-neutral-400, #b7bfc5);
+    --disabled-border-color: var(--onyx-color-base-neutral-200, #eaedf0);
+  }
+
+  &--outline--danger {
+    --border-color: var(--onyx-color-base-danger-500, #d1332f);
+    --disabled-border-color: var(--onyx-color-base-danger-200, #f1d3d2);
+  }
+
+  background-color: var(--background-color);
+  border: 0.063rem solid var(--border-color);
 
   &:hover {
-    background: v-bind(backgroundHoverColor);
+    background: var(--background-hover-color);
   }
 
   &:focus-visible {
-    outline: 4px solid v-bind(focusOutlineColor);
-  }
-
-  .onyx-button__element__label {
-    color: v-bind(color);
+    outline: 0.25rem solid var(--focus-outline-color);
   }
 
   &--disabled {
     cursor: none;
     pointer-events: none;
-    background-color: v-bind(backgroundDisabledColor);
-    border-color: v-bind(disabledBorderColor);
+    background-color: var(--background-disabled-color);
+    border-color: var(--disabled-border-color);
 
     .onyx-button__element__label {
-      color: v-bind(disabledColor);
+      color: var(--disabled-color);
     }
   }
 
@@ -246,19 +162,20 @@ const focusOutlineColor = computed(() => {
 
     &__label {
       display: flex;
-      padding: 0px var(--onyx-spacing-4xs, 4px);
+      padding: 0rem var(--onyx-spacing-4xs, 0.25rem);
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      max-width: 196px;
+      gap: 0.625rem;
+      max-width: 12.25rem;
+      color: var(--color);
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: 16px;
+      font-size: 1rem;
       font-style: normal;
       font-weight: 600;
-      line-height: 24px;
+      line-height: 1.5rem;
     }
   }
 }
