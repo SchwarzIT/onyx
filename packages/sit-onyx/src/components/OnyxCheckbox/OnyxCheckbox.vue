@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import type { OnyxCheckboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
@@ -13,8 +13,6 @@ const emit = defineEmits<{
   "update:modelValue": [value: boolean];
 }>();
 
-const inputRef = ref<HTMLInputElement | null>(null);
-
 const isChecked = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
@@ -25,7 +23,6 @@ const isChecked = computed({
   <label class="onyx-checkbox">
     <div class="onyx-checkbox__container">
       <input
-        ref="inputRef"
         v-model="isChecked"
         class="onyx-checkbox__input"
         type="checkbox"
