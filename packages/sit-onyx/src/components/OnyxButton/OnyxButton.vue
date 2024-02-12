@@ -29,7 +29,6 @@ const emit = defineEmits<{
     tabindex="0"
     class="onyx-button"
     :class="{
-      'onyx-button--disabled': props.isDisabled,
       [`onyx-button--${props.color}`]: true,
       [`onyx-button--${props.variant}--${props.color}`]: true,
     }"
@@ -125,7 +124,7 @@ const emit = defineEmits<{
     outline: 0.25rem solid var(--focus-outline-color);
   }
 
-  &--disabled {
+  &:has(&__element:disabled) {
     cursor: none;
     pointer-events: none;
     background-color: var(--background-disabled-color);
