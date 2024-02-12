@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 export type ButtonProps = {
-  label?: string;
-  isLoading?: boolean;
+  label: string;
   isDisabled?: boolean;
   type?: "button" | "submit" | "reset";
   color?: "primary" | "secondary" | "danger";
   variant?: "default" | "outline" | "plain";
-  icon?: string;
 };
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -24,10 +22,6 @@ const emit = defineEmits<{
    */
   click: [];
 }>();
-
-const handleClick = () => {
-  emit("click");
-};
 </script>
 
 <template>
@@ -40,13 +34,7 @@ const handleClick = () => {
       [`onyx-button--${props.variant}--${props.color}`]: true,
     }"
   >
-    <button
-      v-bind="props"
-      ref="buttonElement"
-      :disabled="props.isDisabled"
-      class="onyx-button__element"
-      @click="handleClick"
-    >
+    <button :disabled="props.isDisabled" class="onyx-button__element" @click="emit('click')">
       <span class="onyx-button__element__label">{{ props.label }}</span>
     </button>
   </div>
