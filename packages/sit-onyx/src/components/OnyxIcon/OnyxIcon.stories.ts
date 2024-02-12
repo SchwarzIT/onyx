@@ -6,9 +6,10 @@ import OnyxIcon from "./OnyxIcon.vue";
 import { ICON_SIZES } from "./types";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
-  as: "raw",
+  query: "?raw",
+  import: "default",
   eager: true,
-});
+}) as Record<string, string>;
 
 /**
  * Mapping between icon SVG content (key) and icon name (value).
