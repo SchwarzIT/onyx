@@ -15,11 +15,11 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
 
 const props = defineProps<RadioButtonProps<TValue>>();
 
-const selector = ref<HTMLInputElement>();
+const selectorRef = ref<HTMLInputElement>();
 
 watch(
-  [() => props.errorMessage, selector],
-  () => selector.value?.setCustomValidity(props.errorMessage ?? ""),
+  [() => props.errorMessage, selectorRef],
+  () => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""),
   { immediate: true },
 );
 </script>
@@ -30,7 +30,7 @@ watch(
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
-      ref="selector"
+      ref="selectorRef"
       class="onyx-radio-button__selector"
       type="radio"
       :required="props.isRequired"
