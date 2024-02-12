@@ -1,6 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxButton from "./OnyxButton.vue";
+import { BUTTON_COLORS, BUTTON_TYPES, BUTTON_VARIANTS } from "./types";
 
 /**
  * Buttons serve as fundamental components in UI design,
@@ -16,6 +17,20 @@ const meta: Meta<typeof OnyxButton> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxButton,
     events: ["click"],
+    argTypes: {
+      type: {
+        options: BUTTON_TYPES,
+        control: { type: "select" },
+      },
+      color: {
+        options: BUTTON_COLORS,
+        control: { type: "select" },
+      },
+      variant: {
+        options: BUTTON_VARIANTS,
+        control: { type: "select" },
+      },
+    },
   }),
 };
 

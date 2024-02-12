@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-export type ButtonProps = {
-  label: string;
-  isDisabled?: boolean;
-  type?: "button" | "submit" | "reset";
-  color?: "primary" | "secondary" | "danger";
-  variant?: "default" | "outline" | "plain";
-};
-
+import type { ButtonProps } from "./types";
 const props = withDefaults(defineProps<ButtonProps>(), {
   label: "",
   isLoading: false,
