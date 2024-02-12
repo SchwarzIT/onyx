@@ -45,9 +45,6 @@ watchEffect(() => {
 
 <style lang="scss">
 .onyx-checkbox {
-  --border-color: var(--onyx-color-base-neutral-400);
-  --background-color: transparent;
-
   font-family: var(--onyx-font-family);
   display: inline-flex;
   align-items: center;
@@ -55,11 +52,15 @@ watchEffect(() => {
   cursor: pointer;
 
   &:hover {
-    --border-color: var(--onyx-color-base-primary-300);
+    .onyx-checkbox__input {
+      border-color: var(--onyx-color-base-primary-300);
+    }
   }
 
-  &:active {
-    --background-color: var(--onyx-color-base-primary-200);
+  &:has(&__input:focus-visible) {
+    .onyx-checkbox__container {
+      background-color: var(--onyx-color-base-primary-200);
+    }
   }
 
   &__container {
@@ -67,7 +68,6 @@ watchEffect(() => {
     display: inline-flex;
     align-items: center;
     border-radius: var(--onyx-radius-full);
-    background-color: var(--background-color);
   }
 
   &__input {
@@ -76,9 +76,10 @@ watchEffect(() => {
     appearance: none;
     margin: 0;
     border-radius: var(--onyx-radius-sm);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--onyx-color-base-neutral-400);
     background: var(--onyx-color-base-background-blank);
     cursor: inherit;
+    outline: none;
 
     background-position: 50%;
     background-repeat: no-repeat;
@@ -86,11 +87,11 @@ watchEffect(() => {
 
     &:checked,
     &:indeterminate {
-      --border-color: var(--onyx-color-base-primary-500);
+      border-color: var(--onyx-color-base-primary-500);
       background-color: var(--onyx-color-base-primary-500);
 
       &:hover {
-        --border-color: var(--onyx-color-base-primary-300);
+        border-color: var(--onyx-color-base-primary-300);
         background-color: var(--onyx-color-base-primary-300);
       }
     }

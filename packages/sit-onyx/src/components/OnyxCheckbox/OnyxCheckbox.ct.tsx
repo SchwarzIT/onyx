@@ -28,10 +28,10 @@ const executeCheckboxTest = async (
   await expect(component).toHaveScreenshot(`${screenshotPrefix}hover.png`);
 
   // ACT
-  await page.mouse.down();
+  await page.keyboard.press("Tab");
 
   // ASSERT
-  await expect(component).toHaveScreenshot(`${screenshotPrefix}active.png`);
+  await expect(component).toHaveScreenshot(`${screenshotPrefix}focus-visible.png`);
 };
 
 test("should render unchecked", async ({ page, mount, makeAxeBuilder }) => {
