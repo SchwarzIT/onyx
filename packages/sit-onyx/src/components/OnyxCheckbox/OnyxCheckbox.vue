@@ -29,13 +29,7 @@ watchEffect(() => {
 <template>
   <label class="onyx-checkbox">
     <div class="onyx-checkbox__container">
-      <input
-        ref="inputRef"
-        v-model="isChecked"
-        class="onyx-checkbox__input"
-        type="checkbox"
-        :disabled="props.disabled"
-      />
+      <input ref="inputRef" v-model="isChecked" class="onyx-checkbox__input" type="checkbox" />
     </div>
 
     <p v-if="props.label" class="onyx-checkbox__label">{{ props.label }}</p>
