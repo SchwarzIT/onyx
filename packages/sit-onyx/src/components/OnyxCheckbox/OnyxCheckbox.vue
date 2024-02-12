@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref } from "vue";
 import type { OnyxCheckboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
@@ -19,17 +19,18 @@ const isChecked = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-
-watchEffect(() => {
-  if (!inputRef.value) return;
-  inputRef.value.indeterminate = props.indeterminate;
-});
 </script>
 
 <template>
   <label class="onyx-checkbox">
     <div class="onyx-checkbox__container">
-      <input ref="inputRef" v-model="isChecked" class="onyx-checkbox__input" type="checkbox" />
+      <input
+        ref="inputRef"
+        v-model="isChecked"
+        class="onyx-checkbox__input"
+        type="checkbox"
+        :indeterminate="props.indeterminate"
+      />
     </div>
 
     <p v-if="props.label" class="onyx-checkbox__label">{{ props.label }}</p>
