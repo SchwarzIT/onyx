@@ -1,6 +1,6 @@
-// `onyx-util-mandatory-marker` is used internally to populate the the "::after" pseudo element with the correct optional or mandatory label
+// `onyx-util-required-marker` is used internally to populate the the "::after" pseudo element with the correct optional or mandatory label
 // the user can set `onyx-use-optional` to switch from the default "required" indicator to the "optional" indicators.
-.onyx-util-mandatory-marker {
+.onyx-util-required-marker {
   .onyx-use-optional &::after {
     font-family: var(--onyx-font-family);
     content: var(--onyx-global-optional-text, "(optional)");
