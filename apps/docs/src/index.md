@@ -7,7 +7,7 @@ hero:
   text: design system
   tagline: A design system and Vue.js component library created by Schwarz IT.
   image:
-    src: /schwarz-group.svg
+    src: /images/schwarz-group.svg
     alt: Logo of the Schwarz Group
   actions:
     - theme: brand
