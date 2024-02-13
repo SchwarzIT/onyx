@@ -1,6 +1,23 @@
 import { ICON_CATEGORIES } from "@sit-onyx/icons";
 import { capitalize } from "vue";
 
+export type EnrichedIcon = {
+  metadata: {
+    aliases: string[] | undefined;
+    category: string;
+    deprecated?: boolean | undefined;
+  };
+  tooltipName: string;
+  importName: string;
+  content: string;
+  iconName: string;
+};
+
+type EnrichedCategory = {
+  name: string;
+  icons: EnrichedIcon[];
+};
+
 const getIconContextData = (iconName: string, allIconContents: Record<string, string>) => {
   const parts = iconName.split("-");
   // bell-disabled => `Bell Disabled`
@@ -19,7 +36,9 @@ const getIconContextData = (iconName: string, allIconContents: Record<string, st
 };
 
 // Collects all needed icon context data and provides them as a list.
-export const getEnrichedIconCategoryList = (allIconContents: Record<string, string>) =>
+export const getEnrichedIconCategoryList = (
+  allIconContents: Record<string, string>,
+): EnrichedCategory[] =>
   Object.entries(ICON_CATEGORIES).map(([category, icons]) => ({
     name: category,
     icons: icons.map((icon) => ({
