@@ -67,9 +67,9 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
     <div style="display: grid;">
-      <OnyxCheckbox label="Default" indeterminate={true} />
-      <OnyxCheckbox label="Hover" indeterminate={true} />
-      <OnyxCheckbox label="Focus visible" indeterminate={true} />
+      <OnyxCheckbox label="Default" indeterminate />
+      <OnyxCheckbox label="Hover" indeterminate />
+      <OnyxCheckbox label="Focus visible" indeterminate />
     </div>,
   );
 
@@ -103,21 +103,21 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
       <div style="display: grid;">
         <OnyxCheckbox
           label="Default"
-          disabled={true}
           modelValue={testCase === "checked"}
           indeterminate={testCase === "indeterminate"}
+          disabled
         />
         <OnyxCheckbox
           label="Hover"
-          disabled={true}
           modelValue={testCase === "checked"}
           indeterminate={testCase === "indeterminate"}
+          disabled
         />
         <OnyxCheckbox
           label="Focus visible"
-          disabled={true}
           modelValue={testCase === "checked"}
           indeterminate={testCase === "indeterminate"}
+          disabled
         />
       </div>,
     );
