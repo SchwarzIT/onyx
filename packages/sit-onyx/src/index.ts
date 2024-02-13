@@ -1,6 +1,5 @@
 import "@/styles/index.scss";
 
-export { default as OnyxCheckbox } from "@/components/OnyxCheckbox/OnyxCheckbox.vue";
 export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export * from "@/components/OnyxHeadline/types";

@@ -7,7 +7,7 @@ import OnyxCheckbox from "./OnyxCheckbox.vue";
  * They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
  */
 const meta: Meta<typeof OnyxCheckbox> = {
-  title: "components/OnyxCheckbox",
+  title: "support/OnyxCheckbox",
   ...defineStorybookActionsAndVModels({
     component: OnyxCheckbox,
     events: ["update:modelValue"],
