@@ -20,11 +20,14 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div class="icon" tabindex="0" @click="handleCopy" @keyup.enter="handleCopy">
-    <OnyxIcon
-      :icon="props.icon.content"
-      :color="props.icon.metadata.deprecated ? 'secondary' : 'currentColor'"
-    />
+  <div
+    class="icon"
+    :class="{ 'icon--deprecated': icon.metadata.deprecated }"
+    tabindex="0"
+    @click="handleCopy"
+    @keyup.enter="handleCopy"
+  >
+    <OnyxIcon :icon="props.icon.content" />
     <span class="icon__tooltip">
       {{ props.icon.tooltipName }}
       <div v-if="isCopied">Import copy successful!</div>
@@ -43,6 +46,10 @@ const handleCopy = async () => {
   cursor: pointer;
   border: 0.0625rem solid transparent;
   position: relative;
+
+  &--deprecated {
+    color: var(--onyx-color-base-neutral-400);
+  }
 
   &__tooltip {
     position: absolute;
