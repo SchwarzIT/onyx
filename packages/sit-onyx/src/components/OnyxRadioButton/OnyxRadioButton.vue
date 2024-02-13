@@ -41,10 +41,17 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
 <style lang="scss">
 .onyx-radio-button {
+  --onyx-radio-button-cursor: pointer;
+  --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-400);
+  --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
+  --onyx-radio-button-selector-outline-color: var(--onyx-color-base-background-blank);
+  --onyx-radio-button-selector-outline-width: 0;
+  --onyx-radio-button-label-color: var(--onyx-color-text-neutral-intense);
+
   display: inline-flex;
   align-items: center;
   height: 2.5rem;
-  cursor: var(--onyx-radio-button-cursor, pointer);
+  cursor: var(--onyx-radio-button-cursor);
 
   &:has(&__selector:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
@@ -82,7 +89,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
   &__label {
     font-family: var(--onyx-font-family);
-    color: var(--onyx-radio-button-label-color, var(--onyx-color-text-neutral-intense));
+    color: var(--onyx-radio-button-label-color);
     padding-left: 0.75rem;
     line-height: 1.5rem;
   }
@@ -95,8 +102,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
     outline: {
       style: solid;
-      width: var(--onyx-radio-button-selector-outline-width, 0);
-      color: var(--onyx-radio-button-selector-outline-color, var(--onyx-color-base-primary-200));
+      width: var(--onyx-radio-button-selector-outline-width);
+      color: var(--onyx-radio-button-selector-outline-color);
     }
     transition: outline 200ms;
 
@@ -106,14 +113,11 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     border: {
       style: solid;
       width: 1px;
-      color: var(--onyx-radio-button-selector-border-color, var(--onyx-color-base-neutral-400));
+      color: var(--onyx-radio-button-selector-border-color);
     }
     border-radius: 100%;
 
-    background-color: var(
-      --onyx-radio-button-selector-background-color,
-      var(--onyx-color-base-background-blank)
-    );
+    background-color: var(--onyx-radio-button-selector-background-color);
 
     display: inline-flex;
     justify-content: center;
