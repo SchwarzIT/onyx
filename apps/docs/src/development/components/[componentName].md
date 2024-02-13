@@ -6,4 +6,4 @@ layout: page
 import StorybookIFrame from "../../.vitepress/components/StorybookIFrame.vue";
 </script>
 
-<StorybookIFrame :component="$params.componentName" :folder-name="$params.folderName"  />
+<StorybookIFrame :component="$params.componentName"  />

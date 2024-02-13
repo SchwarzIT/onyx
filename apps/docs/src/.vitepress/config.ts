@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig, type DefaultTheme } from "vitepress";
-import { capitalize } from "vue";
 import packageJson from "../../../../packages/sit-onyx/package.json";
+import { vitepressEnv } from "./env";
 import { getStorybookSidebarFolders } from "./utils";
 
 // https://vitepress.dev/reference/site-config
@@ -48,6 +48,7 @@ export default defineConfig({
         activeMatch: "/resources/",
         items: [
           { text: "Icons", link: "/resources/icons" },
+          { text: "Storybook", link: vitepressEnv.storybookHost },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
         ],
@@ -156,29 +157,14 @@ function getFilePath(path: string) {
  * Folders other than "Components" will be placed below all regular components and are collapsed by default.
  */
 async function getComponentsSidebar(): Promise<DefaultTheme.SidebarItem> {
-  const { components: componentsFolder, ...remainingFolders } = await getStorybookSidebarFolders();
+  const { components } = await getStorybookSidebarFolders();
 
   return {
     text: "Components",
-    base: "/development",
-    items: [
-      ...componentsFolder.map<DefaultTheme.SidebarItem>((componentName) => ({
-        text: componentName,
-        link: `/components/${componentName}`,
-      })),
-      ...Object.entries(remainingFolders).map<DefaultTheme.SidebarItem>(
-        ([folderName, components]) => {
-          return {
-            text: capitalize(folderName),
-            base: `/development/${folderName}`,
-            collapsed: true,
-            items: components.map<DefaultTheme.SidebarItem>((componentName) => ({
-              text: componentName,
-              link: `/${componentName}`,
-            })),
-          };
-        },
-      ),
-    ],
+    base: "/development/components",
+    items: components.map<DefaultTheme.SidebarItem>((componentName) => ({
+      text: componentName,
+      link: `/${componentName}`,
+    })),
   };
 }
