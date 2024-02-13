@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the documentation of the onyx design system! We are very delighted, that you are decided to work with onyx!
+Welcome to the documentation of the onyx design system! We are very delighted, that you decided to work with onyx!
 
 First things first. User experience is key to us, so we developed 10 commandments to follow. If you stick to those, very happy end users will be the result. So please, feel free to explore whole documentation of onyx!
 
@@ -12,7 +12,7 @@ Expand the boxes to discover more details.
 Strive for simplicity in design to facilitate a user experience that is both intuitive and efficient. Prioritize clarity by employing straightforward language, eliminating unnecessary elements, and ensuring that each visual component serves a distinct purpose. Maintain a clean and uncluttered layout to enhance comprehension, allowing users to navigate with ease and focus on essential information.
 :::
 
-::: details 02 consistency
+::: details 02 Consistency
 Consistency is paramount for creating a visually cohesive and harmonious interface. By adhering to consistent design elements, users experience a sense of familiarity, reducing cognitive friction and reinforcing the brand's visual identity.
 :::
 
@@ -53,7 +53,7 @@ Embrace progressive disclosure to guide users through the interface progressivel
 
 <div class="topic-overview">
   <TopicOverviewCard title="Accessibility" subtitle="Making applications accessible" image-src="/assets/accessibility-thumbnail.png" href="/basics/accessibility" />
-  <TopicOverviewCard title="Breakpoints & Grid" subtitle="Basics for responsiveness" image-src="/assets/grid-thumbnail.png" href="/basics/breakpoints-grid" />
+  <TopicOverviewCard title="Breakpoints & grid" subtitle="Basics for responsiveness" image-src="/assets/grid-thumbnail.png" href="/basics/breakpoints-grid" />
   <TopicOverviewCard title="Colors" subtitle="Understanding the color system" image-src="/assets/colors-thumbnail.png" href="/basics/colors" />
   <TopicOverviewCard title="Component states" subtitle="Behavior and interactivity" image-src="/assets/states-thumbnail.png" href="/basics/states" />
   <TopicOverviewCard title="Density" subtitle="Compact and cozy layout variations" image-src="/assets/density-thumbnail.png" href="/basics/density" />
