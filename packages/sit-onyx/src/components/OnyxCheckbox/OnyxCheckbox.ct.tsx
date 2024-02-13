@@ -11,6 +11,12 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
     </div>,
   );
 
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
   const checkboxes = await component.getByRole("checkbox").all();
 
   // ACT
@@ -22,14 +28,8 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
     await expect(checkbox).not.toBeChecked();
   }
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
   // ASSERT
   await expect(component).toHaveScreenshot("default.png");
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
 test("should render checked", async ({ mount, makeAxeBuilder }) => {
@@ -42,6 +42,12 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
     </div>,
   );
 
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
   const checkboxes = await component.getByRole("checkbox").all();
 
   // ACT
@@ -53,14 +59,8 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
     await expect(checkbox).toBeChecked();
   }
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
   // ASSERT
   await expect(component).toHaveScreenshot("checked.png");
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
 test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
@@ -73,6 +73,12 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
     </div>,
   );
 
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
   const checkboxes = await component.getByRole("checkbox").all();
 
   // ACT
@@ -84,14 +90,8 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
     await expect(checkbox).toHaveJSProperty("indeterminate", true);
   }
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
   // ASSERT
   await expect(component).toHaveScreenshot("indeterminate.png");
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
 test("should render disabled", async ({ mount, makeAxeBuilder }) => {
@@ -122,6 +122,12 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
       </div>,
     );
 
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+
     const checkboxes = await component.getByRole("checkbox").all();
 
     // ACT
@@ -133,13 +139,7 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
       await expect(checkbox).toBeDisabled();
     }
 
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
-
     // ASSERT
     await expect(component).toHaveScreenshot(`disabled-${testCase}.png`);
-
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
   }
 });
