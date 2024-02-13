@@ -64,7 +64,10 @@ export default defineLoader({
      */
     const getImplementedStatus = (componentName: string) => {
       const implemented = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
-      return { implemented, href: implemented ? `/development/${componentName}` : undefined };
+      return {
+        implemented,
+        href: implemented ? `/development/components/${componentName}` : undefined,
+      };
     };
 
     const componentTabs: HomePageData["componentTabs"] = [
@@ -76,7 +79,7 @@ export default defineLoader({
         dueDate: new Date(2024, 3, 15).toISOString(),
         components: [
           { name: "Button", ...getImplementedStatus("OnyxButton") },
-          { name: "Radio button", ...getImplementedStatus("OnyxRadioButton") },
+          { name: "Radio button group", ...getImplementedStatus("OnyxRadioButtonGroup") },
           { name: "Minimalistic table", ...getImplementedStatus("OnyxTable") },
           { name: "Headline", ...getImplementedStatus("OnyxHeadline") },
           { name: "Footer", ...getImplementedStatus("OnyxFooter") },
@@ -85,7 +88,7 @@ export default defineLoader({
           { name: "Textarea", ...getImplementedStatus("OnyxTextarea") },
           { name: "Input", ...getImplementedStatus("OnyxInput") },
           { name: "Switch", ...getImplementedStatus("OnyxSwitch") },
-          { name: "Checkbox", ...getImplementedStatus("OnyxCheckbox") },
+          { name: "Checkbox group", ...getImplementedStatus("OnyxCheckboxGroup") },
         ],
       },
       {
