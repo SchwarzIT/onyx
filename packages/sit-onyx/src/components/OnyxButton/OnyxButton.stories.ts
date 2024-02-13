@@ -20,15 +20,12 @@ const meta: Meta<typeof OnyxButton> = {
     argTypes: {
       type: {
         options: BUTTON_TYPES,
-        control: { type: "select" },
       },
       color: {
         options: BUTTON_COLORS,
-        control: { type: "select" },
       },
       variant: {
         options: BUTTON_VARIANTS,
-        control: { type: "select" },
       },
     },
   }),

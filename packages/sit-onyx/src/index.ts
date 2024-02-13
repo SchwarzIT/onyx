@@ -3,6 +3,7 @@ import "@/styles/index.scss";
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export { default as OnyxButton } from "@/components/OnyxButton/OnyxButton.vue";
 export * from "@/components/OnyxHeadline/types";
+export * from "@/components/OnyxButton/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 export * from "@/types/i18n";
 export * from "@/types/utils";

@@ -21,13 +21,10 @@ const emit = defineEmits<{
   <div
     tabindex="0"
     class="onyx-button"
-    :class="{
-      [`onyx-button--${props.color}`]: true,
-      [`onyx-button--${props.variant}--${props.color}`]: true,
-    }"
+    :class="[`onyx-button--${props.color}`, `onyx-button--${props.variant}`]"
   >
     <button :disabled="props.isDisabled" class="onyx-button__element" @click="emit('click')">
-      <span class="onyx-button__element__label">{{ props.label }}</span>
+      <span class="onyx-button__label">{{ props.label }}</span>
     </button>
   </div>
 </template>
@@ -42,68 +39,68 @@ const emit = defineEmits<{
   border-radius: var(--onyx-radius-sm, 0.25rem);
 
   --background-color: transparent;
-  --background-hover-color: var(--onyx-color-base-primary-100, #edf4fa);
+  --background-hover-color: var(--onyx-color-base-primary-100);
   --background-disabled-color: transparent;
 
-  --color: var(--onyx-color-text-icons-primary-intense, #0079ce);
-  --disabled-color: var(--onyx-color-text-icons-neutral-inverted, #fff);
+  --color: var(--onyx-color-text-primary-intense);
+  --disabled-color: var(--onyx-color-text-neutral-inverted);
   --border-color: transparent;
   --disabled-border-color: transparent;
-  --focus-outline-color: var(--onyx-color-base-primary-200, #bfddf3);
+  --focus-outline-color: var(--onyx-color-base-primary-200);
 
   &--secondary {
-    --background-hover-color: var(--onyx-color-base-neutral-200, #eaedf0);
-    --focus-outline-color: var(--onyx-color-base-neutral-300, #d8dde1);
-    --color: var(--onyx-color-text-icons-neutral-intense, #52626d);
-    --disabled-color: var(--onyx-color-text-icons-primary-soft, #bfddf3);
+    --background-hover-color: var(--onyx-color-base-neutral-200);
+    --focus-outline-color: var(--onyx-color-base-neutral-300);
+    --color: var(--onyx-color-text-neutral-intense);
+    --disabled-color: var(--onyx-color-text-primary-soft);
   }
 
   &--danger {
-    --background-hover-color: var(--onyx-color-base-danger-200, #f1d3d2);
-    --focus-outline-color: var(--onyx-color-base-danger-300, #e6a7a6);
-    --color: var(--onyx-color-text-icons-danger-intense, #d1332f);
-    --disabled-color: var(--onyx-color-text-icons-danger-medium, #e6a7a6);
+    --background-hover-color: var(--onyx-color-base-danger-200);
+    --focus-outline-color: var(--onyx-color-base-danger-300);
+    --color: var(--onyx-color-text-danger-intense);
+    --disabled-color: var(--onyx-color-text-danger-medium);
   }
 
-  &--default--primary {
-    --background-color: var(--onyx-color-base-primary-500, #0079ce);
-    --background-hover-color: var(--onyx-color-base-primary-400, #3b98d9);
-    --background-disabled-color: var(--onyx-color-base-primary-200, #bfddf3);
-    --color: var(--onyx-color-text-icons-neutral-inverted, #fff);
-    --disabled-color: var(--onyx-color-text-icons-neutral-inverted, #fff);
-    --border-color: var(--onyx-color-base-primary-500, #0079ce);
-    --disabled-border-color: var(--onyx-color-base-primary-200, #bfddf3);
+  &--primary.onyx-button--default {
+    --background-color: var(--onyx-color-base-primary-500);
+    --background-hover-color: var(--onyx-color-base-primary-400);
+    --background-disabled-color: var(--onyx-color-base-primary-200);
+    --color: var(--onyx-color-text-neutral-inverted);
+    --disabled-color: var(--onyx-color-text-neutral-inverted);
+    --border-color: var(--onyx-color-base-primary-500);
+    --disabled-border-color: var(--onyx-color-base-primary-200);
   }
 
-  &--default--secondary {
-    --background-color: var(--onyx-color-base-background-blank, #fff);
-    --background-hover-color: var(--onyx-color-base-neutral-200, #eaedf0);
-    --background-disabled-color: var(--onyx-color-base-background-blank, #fff);
-    --border-color: var(--onyx-color-base-neutral-400, #b7bfc5);
-    --disabled-border-color: var(--onyx-color-base-neutral-200, #eaedf0);
+  &--secondary.onyx-button--default {
+    --background-color: var(--onyx-color-base-background-blank);
+    --background-hover-color: var(--onyx-color-base-neutral-200);
+    --background-disabled-color: var(--onyx-color-base-background-blank);
+    --border-color: var(--onyx-color-base-neutral-400);
+    --disabled-border-color: var(--onyx-color-base-neutral-200);
   }
 
-  &--default--danger {
-    --background-color: var(--onyx-color-base-danger-200, #f1d3d2);
-    --background-hover-color: var(--onyx-color-base-danger-100, #fbefee);
-    --background-disabled-color: var(--onyx-color-base-danger-100, #fbefee);
-    --border-color: var(--onyx-color-base-danger-500, #d1332f);
-    --disabled-border-color: var(--onyx-color-base-danger-200, #f1d3d2);
+  &--danger.onyx-button--default {
+    --background-color: var(--onyx-color-base-danger-200);
+    --background-hover-color: var(--onyx-color-base-danger-100);
+    --background-disabled-color: var(--onyx-color-base-danger-100);
+    --border-color: var(--onyx-color-base-danger-500);
+    --disabled-border-color: var(--onyx-color-base-danger-200);
   }
 
-  &--outline--primary {
-    --border-color: var(--onyx-color-base-primary-500, #0079ce);
-    --disabled-border-color: var(--onyx-color-base-primary-200, #bfddf3);
+  &--primary.onyx-button--outline {
+    --border-color: var(--onyx-color-base-primary-500);
+    --disabled-border-color: var(--onyx-color-base-primary-200);
   }
 
-  &--outline--secondary {
-    --border-color: var(--onyx-color-base-neutral-400, #b7bfc5);
-    --disabled-border-color: var(--onyx-color-base-neutral-200, #eaedf0);
+  &--secondary.onyx-button--outline {
+    --border-color: var(--onyx-color-base-neutral-400);
+    --disabled-border-color: var(--onyx-color-base-neutral-200);
   }
 
-  &--outline--danger {
-    --border-color: var(--onyx-color-base-danger-500, #d1332f);
-    --disabled-border-color: var(--onyx-color-base-danger-200, #f1d3d2);
+  &--danger.onyx-button--outline {
+    --border-color: var(--onyx-color-base-danger-500);
+    --disabled-border-color: var(--onyx-color-base-danger-200);
   }
 
   background-color: var(--background-color);
@@ -123,7 +120,7 @@ const emit = defineEmits<{
     background-color: var(--background-disabled-color);
     border-color: var(--disabled-border-color);
 
-    .onyx-button__element__label {
+    .onyx-button__label {
       color: var(--disabled-color);
     }
   }
@@ -140,7 +137,7 @@ const emit = defineEmits<{
       outline: none;
     }
 
-    &__label {
+    .onyx-button__label {
       display: flex;
       padding: 0 var(--onyx-spacing-4xs);
       max-width: 12.25rem;
