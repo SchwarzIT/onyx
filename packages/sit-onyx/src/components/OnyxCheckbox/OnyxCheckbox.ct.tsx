@@ -11,11 +11,7 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
     </div>,
   );
 
-  const checkboxes = [
-    component.getByLabel("Default"),
-    component.getByLabel("Hover"),
-    component.getByLabel("Focus visible"),
-  ];
+  const checkboxes = await component.getByRole("checkbox").all();
 
   // ACT
   await checkboxes[1].hover();
@@ -46,11 +42,7 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
     </div>,
   );
 
-  const checkboxes = [
-    component.getByLabel("Default"),
-    component.getByLabel("Hover"),
-    component.getByLabel("Focus visible"),
-  ];
+  const checkboxes = await component.getByRole("checkbox").all();
 
   // ACT
   await checkboxes[1].hover();
@@ -81,11 +73,7 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
     </div>,
   );
 
-  const checkboxes = [
-    component.getByLabel("Default"),
-    component.getByLabel("Hover"),
-    component.getByLabel("Focus visible"),
-  ];
+  const checkboxes = await component.getByRole("checkbox").all();
 
   // ACT
   await checkboxes[1].hover();
@@ -134,11 +122,7 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
       </div>,
     );
 
-    const checkboxes = [
-      component.getByLabel("Default"),
-      component.getByLabel("Hover"),
-      component.getByLabel("Focus visible"),
-    ];
+    const checkboxes = await component.getByRole("checkbox").all();
 
     // ACT
     await checkboxes[1].hover();
