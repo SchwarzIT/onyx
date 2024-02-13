@@ -3,9 +3,9 @@ import { capitalize } from "vue";
 
 export type EnrichedIcon = {
   metadata: {
-    aliases: string[] | undefined;
     category: string;
-    deprecated?: boolean | undefined;
+    aliases?: string[];
+    deprecated?: boolean;
   };
   tooltipName: string;
   importName: string;
