@@ -11,4 +11,8 @@ export type OnyxCheckboxProps = {
    * If `true`, an indeterminate indicator is shown.
    */
   indeterminate?: boolean;
+  /**
+   * Whether to disable the checkbox and prevent user interaction.
+   */
+  disabled: boolean;
 };
