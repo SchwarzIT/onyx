@@ -18,15 +18,15 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div
+  <button
     tabindex="0"
     class="onyx-button"
     :class="[`onyx-button--${props.color}`, `onyx-button--${props.variant}`]"
+    :disabled="props.isDisabled"
+    @click="emit('click')"
   >
-    <button :disabled="props.isDisabled" class="onyx-button__element" @click="emit('click')">
-      <span class="onyx-button__label">{{ props.label }}</span>
-    </button>
-  </div>
+    <span class="onyx-button__label">{{ props.label }}</span>
+  </button>
 </template>
 
 <style lang="scss">
@@ -37,6 +37,7 @@ const emit = defineEmits<{
   align-items: center;
   gap: var(--onyx-spacing-4xs, 0.25rem);
   border-radius: var(--onyx-radius-sm, 0.25rem);
+  cursor: pointer;
 
   --background-color: transparent;
   --background-hover-color: var(--onyx-color-base-primary-100);
@@ -114,41 +115,28 @@ const emit = defineEmits<{
     outline: 0.25rem solid var(--focus-outline-color);
   }
 
-  &:has(&__element:disabled) {
+  &:disabled {
     cursor: none;
     pointer-events: none;
     background-color: var(--background-disabled-color);
     border-color: var(--disabled-border-color);
 
-    .onyx-button__label {
+    &__label {
       color: var(--disabled-color);
     }
   }
 
-  &__element {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-
-    &:focus-visible {
-      outline: none;
-    }
-
-    .onyx-button__label {
-      display: flex;
-      padding: 0 var(--onyx-spacing-4xs);
-      max-width: 12.25rem;
-      color: var(--color);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 1rem;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 1.5rem;
-    }
+  &__label {
+    display: flex;
+    padding: 0 var(--onyx-spacing-3xs);
+    max-width: 12.25rem;
+    color: var(--color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
   }
 }
 </style>
