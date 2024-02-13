@@ -4,7 +4,7 @@ import OnyxCheckbox from "./OnyxCheckbox.vue";
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div style="display: grid;">
+    <div style="display: grid; width: max-content;">
       <OnyxCheckbox label="Default" />
       <OnyxCheckbox label="Hover" />
       <OnyxCheckbox label="Focus visible" />
@@ -35,7 +35,7 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
 test("should render checked", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div style="display: grid;">
+    <div style="display: grid; width: max-content;">
       <OnyxCheckbox label="Default" modelValue={true} />
       <OnyxCheckbox label="Hover" modelValue={true} />
       <OnyxCheckbox label="Focus visible" modelValue={true} />
@@ -66,7 +66,7 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
 test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div style="display: grid;">
+    <div style="display: grid; width: max-content;">
       <OnyxCheckbox label="Default" indeterminate />
       <OnyxCheckbox label="Hover" indeterminate />
       <OnyxCheckbox label="Focus visible" indeterminate />
@@ -100,7 +100,7 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
   for (const testCase of testCases) {
     // ARRANGE
     const component = await mount(
-      <div style="display: grid;">
+      <div style="display: grid; width: max-content;">
         <OnyxCheckbox
           label="Default"
           modelValue={testCase === "checked"}
