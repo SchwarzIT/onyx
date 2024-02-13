@@ -1,19 +1,34 @@
 <script lang="ts" setup>
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 import type { EnrichedIcon } from "../utils-icons";
+import { ref } from "vue";
 
 const props = defineProps<{
   icon: EnrichedIcon;
 }>();
+
+const isCopied = ref(false);
+
+const handleCopy = async () => {
+  const { importName, iconName } = props.icon;
+  await navigator.clipboard.writeText(
+    `import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`,
+  );
+  isCopied.value = true;
+  setTimeout(() => (isCopied.value = false), 3000);
+};
 </script>
 
 <template>
-  <div class="icon" tabindex="0">
+  <div class="icon" tabindex="0" @click="handleCopy" @keyup.enter="handleCopy">
     <OnyxIcon
       :icon="props.icon.content"
       :color="props.icon.metadata.deprecated ? 'secondary' : 'currentColor'"
     />
-    <span class="icon__tooltip">{{ props.icon.tooltipName }}</span>
+    <span class="icon__tooltip">
+      {{ props.icon.tooltipName }}
+      <div v-if="isCopied">Import copy successful!</div>
+    </span>
   </div>
 </template>
 
@@ -41,6 +56,7 @@ const props = defineProps<{
     color: var(--onyx-color-icon-neutral-inverted);
     font-size: 0.8125rem;
     line-height: 1.25rem;
+    text-align: center;
     white-space: nowrap;
   }
 
