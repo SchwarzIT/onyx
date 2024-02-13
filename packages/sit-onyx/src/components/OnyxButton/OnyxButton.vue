@@ -39,91 +39,105 @@ const emit = defineEmits<{
   border-radius: var(--onyx-radius-sm, 0.25rem);
   cursor: pointer;
 
-  --background-color: transparent;
-  --background-hover-color: var(--onyx-color-base-primary-100);
-  --background-disabled-color: transparent;
-
-  --color: var(--onyx-color-text-primary-intense);
-  --disabled-color: var(--onyx-color-text-neutral-inverted);
-  --border-color: transparent;
-  --disabled-border-color: transparent;
-  --focus-outline-color: var(--onyx-color-base-primary-200);
+  &--primary {
+    &:disabled {
+      --color: var(--onyx-color-text-primary-soft);
+    }
+  }
 
   &--secondary {
     --background-hover-color: var(--onyx-color-base-neutral-200);
     --focus-outline-color: var(--onyx-color-base-neutral-300);
     --color: var(--onyx-color-text-neutral-intense);
-    --disabled-color: var(--onyx-color-text-primary-soft);
+
+    &:disabled {
+      --color: var(--onyx-color-text-neutral-soft);
+    }
   }
 
   &--danger {
     --background-hover-color: var(--onyx-color-base-danger-200);
     --focus-outline-color: var(--onyx-color-base-danger-300);
     --color: var(--onyx-color-text-danger-intense);
-    --disabled-color: var(--onyx-color-text-danger-medium);
+
+    &:disabled {
+      --color: var(--onyx-color-text-danger-medium);
+    }
   }
 
   &--primary.onyx-button--default {
     --background-color: var(--onyx-color-base-primary-500);
     --background-hover-color: var(--onyx-color-base-primary-400);
-    --background-disabled-color: var(--onyx-color-base-primary-200);
     --color: var(--onyx-color-text-neutral-inverted);
-    --disabled-color: var(--onyx-color-text-neutral-inverted);
     --border-color: var(--onyx-color-base-primary-500);
-    --disabled-border-color: var(--onyx-color-base-primary-200);
+
+    &:disabled {
+      --background-color: var(--onyx-color-base-primary-200);
+      --border-color: var(--onyx-color-base-primary-200);
+      --color: var(--onyx-color-text-neutral-inverted);
+    }
   }
 
   &--secondary.onyx-button--default {
     --background-color: var(--onyx-color-base-background-blank);
     --background-hover-color: var(--onyx-color-base-neutral-200);
-    --background-disabled-color: var(--onyx-color-base-background-blank);
     --border-color: var(--onyx-color-base-neutral-400);
-    --disabled-border-color: var(--onyx-color-base-neutral-200);
+
+    &:disabled {
+      --background-color: var(--onyx-color-base-background-blank);
+      --border-color: var(--onyx-color-base-neutral-200);
+    }
   }
 
   &--danger.onyx-button--default {
     --background-color: var(--onyx-color-base-danger-200);
     --background-hover-color: var(--onyx-color-base-danger-100);
-    --background-disabled-color: var(--onyx-color-base-danger-100);
     --border-color: var(--onyx-color-base-danger-500);
-    --disabled-border-color: var(--onyx-color-base-danger-200);
+
+    &:disabled {
+      --background-color: var(--onyx-color-base-danger-100);
+      --border-color: var(--onyx-color-base-danger-200);
+    }
   }
 
   &--primary.onyx-button--outline {
     --border-color: var(--onyx-color-base-primary-500);
-    --disabled-border-color: var(--onyx-color-base-primary-200);
+
+    &:disabled {
+      --border-color: var(--onyx-color-base-primary-200);
+    }
   }
 
   &--secondary.onyx-button--outline {
     --border-color: var(--onyx-color-base-neutral-400);
-    --disabled-border-color: var(--onyx-color-base-neutral-200);
+
+    &:disabled {
+      --border-color: var(--onyx-color-base-neutral-200);
+    }
   }
 
   &--danger.onyx-button--outline {
     --border-color: var(--onyx-color-base-danger-500);
-    --disabled-border-color: var(--onyx-color-base-danger-200);
+
+    &:disabled {
+      --border-color: var(--onyx-color-base-neutral-200);
+    }
   }
 
-  background-color: var(--background-color);
-  border: 0.063rem solid var(--border-color);
+  background-color: var(--background-color, transparent);
+  border: 1px solid var(--border-color, transparent);
 
   &:hover {
-    background: var(--background-hover-color);
+    background: var(--background-hover-color, var(--onyx-color-base-primary-100));
   }
 
   &:focus-visible {
-    outline: 0.25rem solid var(--focus-outline-color);
+    outline: 0.25rem solid var(--focus-outline-color, var(--onyx-color-base-primary-200));
   }
 
   &:disabled {
     cursor: none;
     pointer-events: none;
-    background-color: var(--background-disabled-color);
-    border-color: var(--disabled-border-color);
-
-    &__label {
-      color: var(--disabled-color);
-    }
   }
 
   &__label {
