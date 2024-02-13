@@ -20,7 +20,7 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <button type="button" class="icon" tabindex="0" @click="handleCopy">
+  <button type="button" class="icon" @click="handleCopy">
     <OnyxIcon :icon="props.icon.content" />
     <span class="icon__tooltip">
       {{ props.icon.tooltipName }}
