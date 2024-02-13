@@ -47,7 +47,7 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.8.4",
+    "@axe-core/playwright": "^4.8.5",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^7.6.14",
