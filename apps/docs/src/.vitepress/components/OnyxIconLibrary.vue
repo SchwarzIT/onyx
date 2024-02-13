@@ -54,7 +54,7 @@ const filteredCategories = computed(() => {
 
 <style lang="scss" scoped>
 .category {
-  margin-bottom: var(--onyx-spacing-2xl);
+  margin-bottom: var(--onyx-spacing-xl);
 
   &__headline {
     margin-bottom: var(--onyx-spacing-md);
