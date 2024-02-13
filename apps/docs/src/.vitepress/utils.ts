@@ -67,14 +67,20 @@ export const getStorybookSidebarFolders = async () => {
   for (const componentName of await getComponents()) {
     const storybookPath = path.join(COMPONENTS_PATH, componentName, `${componentName}.stories.ts`);
 
+    let storybookContent: string;
+
     try {
-      const storybookContent = await fs.readFile(storybookPath, "utf-8");
-      const storyTitle = extractMetaTitleFromStorybook(storybookContent) || componentName;
-      storyTitles.push(storyTitle);
+      storybookContent = await fs.readFile(storybookPath, "utf-8");
     } catch {
       // Storybook file does not exist
       continue;
     }
+
+    const storyTitle = extractMetaTitleFromStorybook(storybookContent);
+    if (!storyTitle) {
+      throw new Error(`no Storybook folders found in the title for component "${componentName}"`);
+    }
+    storyTitles.push(storyTitle);
   }
 
   return groupComponentsByFolders(storyTitles);
