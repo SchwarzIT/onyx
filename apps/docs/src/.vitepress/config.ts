@@ -1,8 +1,12 @@
+import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { defineConfig, type DefaultTheme } from "vitepress";
+import { defineConfig, loadEnv, type DefaultTheme } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getStorybookHost } from "./env";
 import { getStorybookSidebarFolders } from "./utils";
+
+const env = loadEnv("", path.join(process.cwd(), "src"));
+const STORYBOOK_HOST = getStorybookHost(env);
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -48,7 +52,7 @@ export default defineConfig({
         activeMatch: "/resources/",
         items: [
           { text: "Icons", link: "/resources/icons" },
-          { text: "Storybook", link: getStorybookHost() },
+          { text: "Storybook", link: STORYBOOK_HOST },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
         ],
