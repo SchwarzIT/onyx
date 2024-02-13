@@ -64,7 +64,10 @@ export default defineLoader({
      */
     const getImplementedStatus = (componentName: string) => {
       const implemented = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
-      return { implemented, href: implemented ? `/development/${componentName}` : undefined };
+      return {
+        implemented,
+        href: implemented ? `/development/components/${componentName}` : undefined,
+      };
     };
 
     const componentTabs: HomePageData["componentTabs"] = [
