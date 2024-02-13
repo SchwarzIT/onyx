@@ -40,13 +40,13 @@ const filteredCategories = computed(() => {
       <h3 class="category__headline">{{ category.name }}</h3>
 
       <div class="category__icons">
-        <OnyxIcon
-          v-for="icon in category.icons"
-          :key="icon.iconName"
-          :icon="icon.content"
-          :title="icon.tooltipName"
-          :color="icon.metadata.deprecated ? 'secondary' : 'currentColor'"
-        />
+        <div class="category__icon" v-for="icon in category.icons" :key="icon.iconName">
+          <OnyxIcon
+            :icon="icon.content"
+            :title="icon.tooltipName"
+            :color="icon.metadata.deprecated ? 'secondary' : 'currentColor'"
+          />
+        </div>
       </div>
     </section>
   </div>
@@ -62,8 +62,23 @@ const filteredCategories = computed(() => {
 
   &__icons {
     display: grid;
-    grid-gap: var(--onyx-spacing-lg);
-    grid-template-columns: repeat(auto-fit, 2rem);
+    grid-template-columns: repeat(auto-fit, 3.5rem);
+    grid-template-rows: repeat(auto-fit, 3.5rem);
+  }
+
+  &__icon {
+    padding: var(--onyx-spacing-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 0.0625rem solid transparent;
+
+    &:hover {
+      border-radius: var(--onyx-radius-md);
+      border: 0.0625rem solid var(--onyx-color-base-neutral-300);
+      background: var(--onyx-color-base-background-blank);
+    }
   }
 }
 </style>
