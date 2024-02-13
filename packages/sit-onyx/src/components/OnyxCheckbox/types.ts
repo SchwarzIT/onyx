@@ -14,5 +14,5 @@ export type OnyxCheckboxProps = {
   /**
    * Whether to disable the checkbox and prevent user interaction.
    */
-  disabled: boolean;
+  disabled?: boolean;
 };
