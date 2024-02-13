@@ -20,13 +20,13 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div class="icon" tabindex="0" @click="handleCopy" @keyup.enter="handleCopy">
+  <button type="button" class="icon" tabindex="0" @click="handleCopy">
     <OnyxIcon :icon="props.icon.content" />
     <span class="icon__tooltip">
       {{ props.icon.tooltipName }}
       <div v-if="isCopied">Import copy successful!</div>
     </span>
-  </div>
+  </button>
 </template>
 
 <style lang="scss" scoped>
@@ -37,7 +37,6 @@ const handleCopy = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   border: 0.0625rem solid transparent;
   position: relative;
 
