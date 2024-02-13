@@ -1,4 +1,3 @@
-import { capitalize } from "vue";
 import { expect, test } from "../../playwright-axe";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
@@ -103,7 +102,7 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
     const component = await mount(
       <div style="display: grid; width: max-content;">
         <OnyxCheckbox
-          label={capitalize(testCase)}
+          label={`Disabled ${testCase}`}
           modelValue={testCase === "checked"}
           indeterminate={testCase === "indeterminate"}
           disabled
