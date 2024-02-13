@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig, type DefaultTheme } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
-import { vitepressEnv } from "./env";
+import { getStorybookHost } from "./env";
 import { getStorybookSidebarFolders } from "./utils";
 
 // https://vitepress.dev/reference/site-config
@@ -48,7 +48,7 @@ export default defineConfig({
         activeMatch: "/resources/",
         items: [
           { text: "Icons", link: "/resources/icons" },
-          { text: "Storybook", link: vitepressEnv.storybookHost },
+          { text: "Storybook", link: getStorybookHost() },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
         ],
@@ -163,7 +163,7 @@ async function getComponentsSidebar(): Promise<DefaultTheme.SidebarItem> {
     text: "Components",
     base: "/development/components",
     items: components.map<DefaultTheme.SidebarItem>((componentName) => ({
-      text: componentName,
+      text: componentName.replace("Onyx", ""),
       link: `/${componentName}`,
     })),
   };
