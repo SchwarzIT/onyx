@@ -6,7 +6,7 @@ import OnyxRadioButton from "./OnyxRadioButton.vue";
  * The input component can be used to...
  */
 const meta: Meta<typeof OnyxRadioButton> = {
-  title: "internal/OnyxRadioButton",
+  title: "support/OnyxRadioButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButton,
     events: ["update:modelValue"],
