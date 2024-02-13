@@ -31,6 +31,10 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   height: var(--icon-size);
   fill: var(--icon-color);
 
+  :where(&) {
+    margin: 0;
+  }
+
   //
   // icon sizes:
   //

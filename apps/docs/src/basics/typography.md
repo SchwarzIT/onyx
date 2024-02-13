@@ -43,7 +43,7 @@ const linkTokens: TypographyToken[] = [
 
 The onyx design system offers four types of headlines. H1 is reserved for the main title of the page because it establishes primary focus and captures the user’s attention. The h2 style is used for describing sections in the interface. Its main goal is to cluster different types of content into groups and labelling them. Single elements, on the other hand, are described by the h3 style. The least impact, and therefore the lowest hierarchy, has the h4. It is used for structuring information inside a single component. Table column headlines is a good example at this point.
 
-For the technical implementation of the headlines, please see the [technical documentation](/development/OnyxHeadline).
+For the technical implementation of the headlines, please see the [technical documentation](/development/components/OnyxHeadline).
 
 ::: warning
 Note that h5 and h6 headlines are not part of the onyx font system and should not be used therefore.
@@ -72,7 +72,7 @@ It is important to keep the usage of font styles consistent throughout the whole
 
 To create a flowing readability, the line length is key. There are no strict rules on the usage, due to the dependency on [screen size, breakpoint and column grid](/basics/breakpoints-grid). Nevertheless onyx provides some guidelines and recommendations for your implementation.
 
-![narrow, ideal and wide line length](/assets/line_length.webp)
+![narrow, ideal and wide line length](/images/line_length.webp)
 
 Generally speaking: the wider the line the harder to read and to follow. The optimal range for readability is usually between 60 and 80 characters. If the text is way longer than this guideline, just use a second text column instead.
 

@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 0.1.0-alpha.8
+
+### Patch Changes
+
+- c62476d: fix(OnyxIcon): remove default browser margin
+
 ## 0.1.0-alpha.7
 
 ### Minor Changes

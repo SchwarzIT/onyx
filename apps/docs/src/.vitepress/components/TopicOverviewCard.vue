@@ -52,6 +52,7 @@ const props = defineProps<{
 
   &__title {
     font-size: 1.25rem;
+    line-height: 1.75rem;
     margin: 0;
     color: var(--onyx-color-text-neutral-intense);
   }
@@ -59,6 +60,7 @@ const props = defineProps<{
   &__subtitle {
     color: var(--onyx-color-text-neutral-medium);
     margin: 0;
+    line-height: 1.5rem;
   }
 
   &:hover,

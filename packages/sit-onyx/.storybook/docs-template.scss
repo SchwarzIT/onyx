@@ -2,5 +2,18 @@
   > .sbdocs {
     // adjust padding to better fit in our VitePress documentation when embedded
     padding: 32px 24px;
+
+    // fix responsive overflow for the props/events table
+    // to be horizontally scrollable instead of overflowing the page width
+    div {
+      &:has(> .docblock-argstable) {
+        overflow-x: auto;
+
+        > .docblock-argstable {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+    }
   }
 }

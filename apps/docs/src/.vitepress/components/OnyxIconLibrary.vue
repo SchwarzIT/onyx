@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
-import Search from "./Search.vue";
 import { getEnrichedIconCategoryList } from "../utils-icons";
+import Search from "./Search.vue";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
-  as: "raw",
+  query: "?raw",
+  import: "default",
   eager: true,
-});
+}) as Record<string, string>;
 const enrichedIconCategoryList = getEnrichedIconCategoryList(ALL_ICONS);
 
 const search = ref("");
