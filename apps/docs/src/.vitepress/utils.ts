@@ -77,15 +77,7 @@ export const getStorybookSidebarFolders = async () => {
     }
   }
 
-  const folders = groupComponentsByFolders(storyTitles);
-
-  // sort folders and components alphabetically
-  return Object.keys(folders)
-    .sort()
-    .reduce<typeof folders>((obj, folderName) => {
-      obj[folderName] = folders[folderName].sort();
-      return obj;
-    }, {});
+  return groupComponentsByFolders(storyTitles);
 };
 
 /**
@@ -109,25 +101,25 @@ const extractMetaTitleFromStorybook = (fileContent: string): string | undefined 
 /**
  *
  * Groups the given Storybook meta titles by folder. Only supports one level of nesting.
- * All titles must have a folder.
+ * All titles must have a folder. Folders and components will be sorted alphabetically.
  *
  * @param storyTitles Storybook meta titles, may contain folders (represented by slashes, e.g. "components/OnyxHeadline")
  */
 const groupComponentsByFolders = (storyTitles: string[]): Record<string, string[]> => {
-  return storyTitles.reduce<Record<string, string[]>>((groupedFolders, storyTitle) => {
-    // folders, component name will be the last element
-    const folders = storyTitle.split("/");
+  const folders = storyTitles.reduce<Record<string, string[]>>((groupedFolders, storyTitle) => {
+    // folder name(s) come first, component name will be the last element
+    const pathParts = storyTitle.split("/");
 
-    if (folders.length > 2) {
+    if (pathParts.length > 2) {
       throw new Error(
         "Multiple levels of component folders are not supported yet. Please implement it or change the Storybook meta title.",
       );
-    } else if (folders.length === 1) {
-      throw new Error(`no folders found for Storybook title "${folders[0]}"`);
+    } else if (pathParts.length === 1) {
+      throw new Error(`no folders found for Storybook title "${pathParts[0]}"`);
     }
 
-    const folderName = folders[0];
-    const componentName = folders[1];
+    const folderName = pathParts[0];
+    const componentName = pathParts[1];
 
     const folderItems = groupedFolders[folderName] ?? [];
     folderItems.push(componentName);
@@ -135,4 +127,12 @@ const groupComponentsByFolders = (storyTitles: string[]): Record<string, string[
     groupedFolders[folderName] = folderItems;
     return groupedFolders;
   }, {});
+
+  // sort folders and components alphabetically
+  return Object.keys(folders)
+    .sort()
+    .reduce<typeof folders>((obj, folderName) => {
+      obj[folderName] = folders[folderName].sort();
+      return obj;
+    }, {});
 };
