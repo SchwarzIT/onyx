@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 import { getEnrichedIconCategoryList } from "../utils-icons";
 import Search from "./Search.vue";
+import IconLibraryItem from "./IconLibraryItem.vue";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
   query: "?raw",
@@ -40,13 +40,7 @@ const filteredCategories = computed(() => {
       <h3 class="category__headline">{{ category.name }}</h3>
 
       <div class="category__icons">
-        <OnyxIcon
-          v-for="icon in category.icons"
-          :key="icon.iconName"
-          :icon="icon.content"
-          :title="icon.tooltipName"
-          :color="icon.metadata.deprecated ? 'secondary' : 'currentColor'"
-        />
+        <IconLibraryItem v-for="icon in category.icons" :key="icon.iconName" :icon="icon" />
       </div>
     </section>
   </div>
@@ -54,7 +48,7 @@ const filteredCategories = computed(() => {
 
 <style lang="scss" scoped>
 .category {
-  margin-bottom: var(--onyx-spacing-2xl);
+  margin-bottom: var(--onyx-spacing-xl);
 
   &__headline {
     margin-bottom: var(--onyx-spacing-md);
@@ -62,8 +56,8 @@ const filteredCategories = computed(() => {
 
   &__icons {
     display: grid;
-    grid-gap: var(--onyx-spacing-lg);
-    grid-template-columns: repeat(auto-fit, 2rem);
+    grid-template-columns: repeat(auto-fit, 3.5rem);
+    grid-template-rows: repeat(auto-fit, 3.5rem);
   }
 }
 </style>
