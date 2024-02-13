@@ -152,9 +152,9 @@ function getFilePath(path: string) {
 }
 
 /**
- * Gets the sidebar item for the components with the same folder structure as in Storybook.
+ * Gets the sidebar item for the onyx components.
  * Only supports one level of nesting, so e.g. "components/forms/OnyxInput" is not supported yet.
- * Folders other than "Components" will be placed below all regular components and are collapsed by default.
+ * Folders other than "Components" will be excluded.
  */
 async function getComponentsSidebar(): Promise<DefaultTheme.SidebarItem> {
   const { components } = await getStorybookSidebarFolders();
