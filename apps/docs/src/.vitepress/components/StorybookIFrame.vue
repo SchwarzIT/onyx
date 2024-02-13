@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useData } from "vitepress";
 import { computed } from "vue";
-import { vitepressEnv } from "../env";
+import { getStorybookHost } from "../env";
 
 /**
  * This component is expected to be put in a markdown file with the layout set to "page"
@@ -15,11 +15,12 @@ const props = defineProps<{
 }>();
 
 const { isDark } = useData();
+const storybookHost = getStorybookHost();
 
 const iframeSrc = computed(() => {
   const id = `components-${props.component.toLowerCase()}--docs`;
   const theme = isDark.value ? "dark" : "light";
-  return `${vitepressEnv.storybookHost}/iframe.html?id=${id}&theme=${theme}`;
+  return `${storybookHost}/iframe.html?id=${id}&theme=${theme}`;
 });
 </script>
 
