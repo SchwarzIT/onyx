@@ -29,7 +29,7 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
   }
 
   // ASSERT
-  await expect(component).toHaveScreenshot(`default.png`);
+  await expect(component).toHaveScreenshot("default.png");
 });
 
 test("should render checked", async ({ mount, makeAxeBuilder }) => {
@@ -60,7 +60,7 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
   }
 
   // ASSERT
-  await expect(component).toHaveScreenshot(`checked.png`);
+  await expect(component).toHaveScreenshot("checked.png");
 });
 
 test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
@@ -103,7 +103,7 @@ test("should render required", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component).toHaveScreenshot(`required.png`);
+  await expect(component).toHaveScreenshot("required.png");
 });
 
 const disabledTestCases = [
