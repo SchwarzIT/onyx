@@ -3,10 +3,10 @@ import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxButton label="Button" />);
+  const component = await mount(<OnyxButton label="Button" color="secondary" />);
 
   // ASSERT
-  await expect(component).toHaveJSProperty("label", "Button");
+  await expect(component).toContainText("Button");
   await expect(component).toHaveScreenshot("default.png");
 
   // ACT
