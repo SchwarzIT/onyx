@@ -74,7 +74,7 @@ const isChecked = computed({
     appearance: none;
     margin: 0;
     border-radius: var(--onyx-radius-sm);
-    border: 1px solid var(--onyx-color-base-neutral-400);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
     outline: none;
     background: var(--onyx-color-base-background-blank);
     cursor: inherit;
