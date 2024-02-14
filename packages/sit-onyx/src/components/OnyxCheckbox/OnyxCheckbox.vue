@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   label: "",
   indeterminate: false,
   disabled: false,
+  required: false,
 });
 
 const emit = defineEmits<{
@@ -29,6 +30,7 @@ const isChecked = computed({
         type="checkbox"
         :indeterminate="props.indeterminate"
         :disabled="props.disabled"
+        :required="props.required"
       />
     </div>
 
@@ -45,14 +47,24 @@ const isChecked = computed({
   cursor: pointer;
 
   &:hover {
-    .onyx-checkbox__input:enabled {
-      border-color: var(--onyx-color-base-primary-300);
+    .onyx-checkbox__input {
+      &:enabled {
+        border-color: var(--onyx-color-base-primary-300);
+      }
+
+      &:invalid {
+        border-color: var(--onyx-color-base-danger-300);
+      }
     }
   }
 
   &:has(&__input:focus-visible) {
     .onyx-checkbox__container {
       background-color: var(--onyx-color-base-primary-200);
+
+      &:has(.onyx-checkbox__input:invalid) {
+        background-color: var(--onyx-color-base-danger-200);
+      }
     }
   }
 
@@ -90,18 +102,29 @@ const isChecked = computed({
 
       &:enabled {
         &:hover {
-          border-color: var(--onyx-color-base-primary-300);
           background-color: var(--onyx-color-base-primary-300);
+
+          &:invalid {
+            background-color: var(--onyx-color-base-danger-300);
+          }
         }
       }
 
       &:disabled {
         background-color: var(--onyx-color-base-neutral-300);
       }
+
+      &:invalid {
+        background-color: var(--onyx-color-base-danger-500);
+      }
     }
 
     &:disabled {
       border-color: var(--onyx-color-base-neutral-300);
+    }
+
+    &:invalid {
+      border-color: var(--onyx-color-base-danger-500);
     }
 
     &:checked {
@@ -120,6 +143,16 @@ const isChecked = computed({
     margin: 0;
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  &:has(&__input:required) {
+    .onyx-checkbox__label {
+      &::after {
+        content: "*";
+        color: var(--onyx-color-text-icons-danger-intense);
+        padding-left: var(--onyx-spacing-5xs);
+      }
+    }
   }
 }
 </style>

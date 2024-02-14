@@ -15,4 +15,8 @@ export type OnyxCheckboxProps = {
    * Whether to disable the checkbox and prevent user interaction.
    */
   disabled?: boolean;
+  /**
+   * Whether the checkbox is required / has to be checked.
+   */
+  required?: boolean;
 };
