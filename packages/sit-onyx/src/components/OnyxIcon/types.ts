@@ -8,7 +8,6 @@ export type OnyxIconProps = {
   icon: string;
   /**
    * Icon size. Pixel values will be translated to the according rem value.
-   * Note to swap out `.` with `-`, e.g. for `1.5rem` use `1-5rem`.
    * @default 24px
    */
   size?: IconSize;
