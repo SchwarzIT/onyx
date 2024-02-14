@@ -39,20 +39,13 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   // icon sizes:
   //
   $sizes:
-    "12px" 0.75rem,
-    "16px" 1rem,
-    "24px" 1.5rem,
-    "32px" 2rem,
-    "48px" 3rem,
-    "64px" 4rem,
-    "96px" 6rem,
-    "0-75rem" 0.75rem,
-    "1rem" 1rem,
-    "1-5rem" 1.5rem,
-    "2rem" 2rem,
-    "3rem" 3rem,
-    "4rem" 4rem,
-    "6rem" 6rem;
+    12px 0.75rem,
+    16px 1rem,
+    24px 1.5rem,
+    32px 2rem,
+    48px 3rem,
+    64px 4rem,
+    96px 6rem;
 
   @each $name, $size in $sizes {
     &--#{$name} {
