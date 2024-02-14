@@ -2,8 +2,7 @@
 import type { ButtonProps } from "./types";
 const props = withDefaults(defineProps<ButtonProps>(), {
   label: "",
-  isLoading: false,
-  isDisabled: false,
+  disabled: false,
   type: "button",
   color: "primary",
   variant: "default",
@@ -21,7 +20,7 @@ const emit = defineEmits<{
   <button
     class="onyx-button"
     :class="[`onyx-button--${props.color}`, `onyx-button--${props.variant}`]"
-    :disabled="props.isDisabled"
+    :disabled="props.disabled"
     @click="emit('click')"
   >
     <span class="onyx-button__label">{{ props.label }}</span>

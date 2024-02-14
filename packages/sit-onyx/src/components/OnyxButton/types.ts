@@ -6,7 +6,7 @@ export type ButtonProps = {
   /**
    * If the button should be disabled or not.
    */
-  isDisabled?: boolean;
+  disabled?: boolean;
   /**
    * The button type.
    */
