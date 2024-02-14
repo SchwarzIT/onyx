@@ -28,9 +28,9 @@ const value = computed({
 .search {
   display: flex;
   width: 18.5rem;
-  padding: var(--onyx-spacing-3xs, 0.5rem);
+  padding: var(--onyx-spacing-3xs);
   justify-content: space-between;
-  border-radius: var(--onyx-radius-md, 0.5rem);
+  border-radius: var(--onyx-radius-md);
   border: 1px solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
 
