@@ -85,7 +85,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
     display: flex;
     justify-content: flex-end;
     gap: var(--onyx-spacing-lg);
-    margin-bottom: var(--onyx-spacing-xs);
+    margin-bottom: var(--onyx-spacing-2xs);
   }
 
   &__button {
@@ -93,7 +93,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
     font-size: 1rem;
 
     &--active {
-      color: var(--onyx-color-text-primary-intense);
+      color: var(--onyx-color-text-icons-primary-intense);
     }
   }
 

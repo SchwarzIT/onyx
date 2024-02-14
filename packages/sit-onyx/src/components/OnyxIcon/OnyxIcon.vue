@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 
   @each $color in $colors {
     &--#{$color} {
-      --icon-color: var(--onyx-color-icon-#{$color}-intense);
+      --icon-color: var(--onyx-color-text-icons-#{$color}-intense);
     }
   }
 }

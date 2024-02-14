@@ -68,7 +68,7 @@ const emit = defineEmits<{
   pointer-events: none;
 
   &__name {
-    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-xs) var(--onyx-spacing-3xs)
+    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
       var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-sm);
     border: 1px solid var(--onyx-color-base-neutral-300);
@@ -87,7 +87,7 @@ const emit = defineEmits<{
     }
 
     &--no-value {
-      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-xs);
+      padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
     }
   }
 
@@ -136,7 +136,7 @@ const emit = defineEmits<{
   &__copied {
     display: flex;
     text-align: center;
-    color: var(--onyx-color-text-success-intense);
+    color: var(--onyx-color-text-icons-success-intense);
     font-size: 0.8125rem;
   }
 }

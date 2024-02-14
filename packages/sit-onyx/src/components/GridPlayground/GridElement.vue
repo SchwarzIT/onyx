@@ -39,18 +39,18 @@ const gridElementClasses = computed(() =>
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: var(--onyx-color-text-neutral-intense);
+  color: var(--onyx-color-text-icons-neutral-intense);
 
   &:hover {
     background-color: var(--onyx-color-base-primary-500);
-    color: var(--onyx-color-text-neutral-inverted);
+    color: var(--onyx-color-text-icons-neutral-inverted);
   }
 
   &--selected {
     border-style: solid;
     background-color: var(--onyx-color-base-primary-400);
     border-color: var(--onyx-color-base-primary-500);
-    color: var(--onyx-color-text-neutral-inverted);
+    color: var(--onyx-color-text-icons-neutral-inverted);
   }
 }
 </style>

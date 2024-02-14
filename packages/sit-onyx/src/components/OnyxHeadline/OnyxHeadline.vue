@@ -33,7 +33,7 @@ defineSlots<{
 
   :where(&) {
     margin: 0; // remove default browser margins
-    color: var(--onyx-color-text-neutral-intense);
+    color: var(--onyx-color-text-icons-neutral-intense);
   }
 
   &--monospace {
