@@ -8,7 +8,7 @@ Agile work is key to us, meaning we can quickly adapt to changes. We break our t
 
 ## Community
 
-Community is the heart of what we do. We value value our community strongly and love to connect with you all. That's why we use GitHub as a platform. It allows us to engage with you effectively, sharing updates and gathering some feedback. It's all about the improvement of the product. You input shapes our work. Everything we do, is aimed at serving you.
+Community is the heart of what we do. We value value our community strongly and love to connect with you all. That's why we use GitHub as a platform. It allows us to engage with you effectively, sharing updates and gathering some feedback. It's all about the improvement of the product. Your input shapes our work. Everything we do, is aimed at improving onyx for you.
 
 ## Flexibility
 
