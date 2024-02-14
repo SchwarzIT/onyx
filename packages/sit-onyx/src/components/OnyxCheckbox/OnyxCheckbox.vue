@@ -45,18 +45,14 @@ const isTouched = ref(false);
 
 <style lang="scss">
 @mixin define-hover-border($state, $color) {
-  .onyx-checkbox__input {
-    &#{$state} {
-      border-color: var(--onyx-color-base-#{$color}-300);
-    }
+  .onyx-checkbox__input#{$state} {
+    border-color: var(--onyx-color-base-#{$color}-300);
   }
 }
 
 @mixin define-focus-ring($state, $color) {
-  .onyx-checkbox__container {
-    &:has(.onyx-checkbox__input#{$state}) {
-      background-color: var(--onyx-color-base-#{$color}-200);
-    }
+  .onyx-checkbox__container:has(.onyx-checkbox__input#{$state}) {
+    background-color: var(--onyx-color-base-#{$color}-200);
   }
 }
 

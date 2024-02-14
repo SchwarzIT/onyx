@@ -1,10 +1,9 @@
 import { expect, test } from "../../playwright-axe";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
-test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
-  const testCases = [{ name: "default" }, { name: "required", required: true }];
-
-  for (const testCase of testCases) {
+const uncheckedTestCases = [{ name: "default" }, { name: "required", required: true }];
+for (const testCase of uncheckedTestCases) {
+  test(`should render unchecked (${testCase.name})`, async ({ mount, makeAxeBuilder }) => {
     // ARRANGE
     const component = await mount(
       <div style="display: grid; width: max-content;">
@@ -33,13 +32,12 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
 
     // ASSERT
     await expect(component).toHaveScreenshot(`unchecked-${testCase.name}.png`);
-  }
-});
+  });
+}
 
-test("should render checked", async ({ mount, makeAxeBuilder }) => {
-  const testCases = [{ name: "default" }, { name: "required", required: true }];
-
-  for (const testCase of testCases) {
+const checkedTestCases = [{ name: "default" }, { name: "required", required: true }];
+for (const testCase of checkedTestCases) {
+  test(`should render checked (${testCase.name})`, async ({ mount, makeAxeBuilder }) => {
     // ARRANGE
     const component = await mount(
       <div style="display: grid; width: max-content;">
@@ -72,8 +70,8 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
 
     // ASSERT
     await expect(component).toHaveScreenshot(`checked-${testCase.name}.png`);
-  }
-});
+  });
+}
 
 test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
@@ -106,14 +104,13 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
   await expect(component).toHaveScreenshot("indeterminate.png");
 });
 
-test("should render disabled", async ({ mount, makeAxeBuilder }) => {
-  const testCases = [
-    { name: "unchecked" },
-    { name: "checked", modelValue: true },
-    { name: "indeterminate", indeterminate: true },
-  ];
-
-  for (const testCase of testCases) {
+const disabledTestCases = [
+  { name: "unchecked" },
+  { name: "checked", modelValue: true },
+  { name: "indeterminate", indeterminate: true },
+];
+for (const testCase of disabledTestCases) {
+  test(`should render disabled (${testCase.name})`, async ({ mount, makeAxeBuilder }) => {
     // ARRANGE
     const component = await mount(
       <div style="display: grid; width: max-content;">
@@ -157,18 +154,17 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
 
     // ASSERT
     await expect(component).toHaveScreenshot(`disabled-${testCase.name}.png`);
-  }
-});
+  });
+}
 
-test("should render invalid", async ({ mount, makeAxeBuilder }) => {
-  const testCases = [
-    { name: "unchecked" },
-    { name: "unchecked (disabled)", disabled: true },
-    { name: "indeterminate", indeterminate: true },
-    { name: "indeterminate (disabled)", indeterminate: true, disabled: true },
-  ];
-
-  for (const testCase of testCases) {
+const invalidTestCases = [
+  { name: "unchecked" },
+  { name: "unchecked (disabled)", disabled: true },
+  { name: "indeterminate", indeterminate: true },
+  { name: "indeterminate (disabled)", indeterminate: true, disabled: true },
+];
+for (const testCase of invalidTestCases) {
+  test(`should render invalid (${testCase.name})`, async ({ mount, makeAxeBuilder }) => {
     // ARRANGE
     const component = await mount(
       <div style="display: grid; width: max-content;">
@@ -213,5 +209,5 @@ test("should render invalid", async ({ mount, makeAxeBuilder }) => {
 
     // ASSERT
     await expect(component).toHaveScreenshot(`invalid-${testCase.name}.png`);
-  }
-});
+  });
+}
