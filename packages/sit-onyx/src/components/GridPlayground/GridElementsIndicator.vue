@@ -72,10 +72,10 @@ const gridConfig = computed(() => {
 <style lang="scss">
 .onyx-grid-playground-indicator {
   display: grid;
-  color: var(--onyx-color-text-neutral-inverted);
+  color: var(--onyx-color-text-icons-neutral-inverted);
 
   &__element {
-    color: var(--onyx-color-text-neutral-inverted);
+    color: var(--onyx-color-text-icons-neutral-inverted);
     writing-mode: vertical-rl;
     text-orientation: mixed;
     padding: 0.5rem 0;

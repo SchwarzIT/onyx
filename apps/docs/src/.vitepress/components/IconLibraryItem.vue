@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 import type { EnrichedIcon } from "../utils-icons";
-import { ref } from "vue";
 
 const props = defineProps<{
   icon: EnrichedIcon;
@@ -46,10 +46,10 @@ const handleCopy = async () => {
     z-index: 1;
     visibility: hidden;
 
-    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs);
+    padding: var(--onyx-spacing-5xs) var(--onyx-spacing-3xs);
     border-radius: var(--onyx-radius-xs);
     background: var(--onyx-color-base-neutral-900);
-    color: var(--onyx-color-icon-neutral-inverted);
+    color: var(--onyx-color-text-icons-neutral-inverted);
     font-size: 0.8125rem;
     line-height: 1.25rem;
     text-align: center;

@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .onyx-grid-playground {
-  color: var(--onyx-color-text-neutral-intense);
+  color: var(--onyx-color-text-icons-neutral-intense);
 
   &__settings {
     display: flex;
