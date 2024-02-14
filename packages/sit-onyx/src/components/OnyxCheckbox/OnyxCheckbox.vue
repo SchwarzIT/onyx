@@ -6,6 +6,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
   label: "",
   indeterminate: false,
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -27,6 +28,7 @@ const isChecked = computed({
         class="onyx-checkbox__input"
         type="checkbox"
         :indeterminate="props.indeterminate"
+        :disabled="props.disabled"
       />
     </div>
 
@@ -43,7 +45,7 @@ const isChecked = computed({
   cursor: pointer;
 
   &:hover {
-    .onyx-checkbox__input {
+    .onyx-checkbox__input:enabled {
       border-color: var(--onyx-color-base-primary-300);
     }
   }
@@ -52,6 +54,11 @@ const isChecked = computed({
     .onyx-checkbox__container {
       background-color: var(--onyx-color-base-primary-200);
     }
+  }
+
+  &:has(&__input:disabled) {
+    cursor: default;
+    color: var(--onyx-color-text-neutral-soft);
   }
 
   &__container {
@@ -81,10 +88,20 @@ const isChecked = computed({
       border-color: var(--onyx-color-base-primary-500);
       background-color: var(--onyx-color-base-primary-500);
 
-      &:hover {
-        border-color: var(--onyx-color-base-primary-300);
-        background-color: var(--onyx-color-base-primary-300);
+      &:enabled {
+        &:hover {
+          border-color: var(--onyx-color-base-primary-300);
+          background-color: var(--onyx-color-base-primary-300);
+        }
       }
+
+      &:disabled {
+        background-color: var(--onyx-color-base-neutral-300);
+      }
+    }
+
+    &:disabled {
+      border-color: var(--onyx-color-base-neutral-300);
     }
 
     &:checked {

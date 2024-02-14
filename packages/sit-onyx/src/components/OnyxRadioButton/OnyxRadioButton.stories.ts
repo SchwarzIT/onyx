@@ -15,6 +15,7 @@ const meta: Meta<typeof OnyxRadioButton> = {
       isLoading: { type: "boolean" },
       isDisabled: { type: "boolean" },
       selected: { type: "boolean" },
+      errorMessage: { type: "string" },
     },
   }),
 };
