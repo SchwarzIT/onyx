@@ -41,7 +41,7 @@ The determination of the optimal number of columns is closely tied to the concep
 
 With the onyx design approach, we recognize the significance of tailoring the layout to different screen sizes through the implementation of specific breakpoints. Each breakpoint corresponds to a distinct grid system, carefully crafted to accommodate the diverse needs of onyx applications. From small mobile screens to expansive desktop displays, onyx offers a range of specifications and adjustments for the column grid, ensuring seamless adaption across various devices and screen resolution.
 
-![description of breakpoints with all units included](/assets/breakpoints.png)
+![All breakpoints layed out on top of each-other with their units included. The details can be found in the following section.](/assets/breakpoints.png)
 
 ::: details 2xs breakpoint
 The smallest breakpoint starts at 320px and ends at 576px screen size. It is mostly used with smartphone screens.
