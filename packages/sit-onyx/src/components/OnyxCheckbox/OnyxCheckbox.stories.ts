@@ -35,3 +35,14 @@ export const Indeterminate = {
     indeterminate: true,
   },
 } satisfies Story;
+
+/**
+ * A disabled checkbox that can not be interacted with.
+ */
+export const Disabled = {
+  args: {
+    ...Default.args,
+    modelValue: true,
+    disabled: true,
+  },
+} satisfies Story;
