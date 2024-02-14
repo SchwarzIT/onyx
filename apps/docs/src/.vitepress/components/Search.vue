@@ -31,7 +31,7 @@ const value = computed({
   padding: var(--onyx-spacing-3xs);
   justify-content: space-between;
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
 
   &__input {
