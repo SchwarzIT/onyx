@@ -186,7 +186,7 @@ This is the default side of the sidebar.
 
 Pixel density refers to the concentration of pixels within an inch, dictating the level of detail and clarity in digital displays. Higher pixel density results in sharper images and text. For instance, an image sized at 100x100 pixels appears larger on devices with lower pixel density compared to those with higher density. Modern smartphone displays boast exceptionally high resolutions, rendering individual pixels virtually indistinguishable to the naked eye. In fact, the pixel count on a 5-inch smartphone screen can rival that of a standard 27-inch monitor. However, directly adopting dimensions and font sizes from traditional PC monitors would render elements and text too small for comfortable viewing. To address this, content is automatically scaled on high-resolution screens to ensure optimal readability and usability.
 
-![high density screen vs. low density screen](/assets/screen-density.png)
+![Comparison of a screen with high pixel density and a screen with low pixel density](/assets/screen-density.png)
 
 ### Scaling factor
 
