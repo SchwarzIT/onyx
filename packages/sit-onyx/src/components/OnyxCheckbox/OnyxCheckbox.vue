@@ -57,7 +57,7 @@ const isChecked = computed({
   }
 
   &:has(&__input:disabled) {
-    cursor: not-allowed;
+    cursor: default;
     color: var(--onyx-color-text-neutral-soft);
   }
 
