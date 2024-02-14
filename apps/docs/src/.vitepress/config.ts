@@ -1,11 +1,22 @@
-import { defineConfig } from "vitepress";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { defineConfig, loadEnv, type DefaultTheme } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
-import { getComponents } from "./utils";
+import { getStorybookHost } from "./env";
+import { getStorybookSidebarFolders } from "./utils";
 
-const componentNames = await getComponents();
+const env = loadEnv("", path.join(process.cwd(), "src"));
+const STORYBOOK_HOST = getStorybookHost(env);
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+    resolve: {
+      alias: {
+        "~components": getFilePath("../../../../packages/sit-onyx/src/components"),
+      },
+    },
+  },
   title: "onyx",
   description: packageJson.description,
   head: [
@@ -18,7 +29,7 @@ export default defineConfig({
   ],
   themeConfig: {
     externalLinkIcon: true,
-    logo: "/logo.svg",
+    logo: "/images/logo.svg",
     siteTitle: false,
     footer: {
       message: "Released under the Apache-2.0 License.",
@@ -36,8 +47,16 @@ export default defineConfig({
       { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
       { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
       { text: "Development", link: "/development/", activeMatch: "/development/" },
-      { text: "Report a bug", link: packageJson.bugs.url },
-      { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
+      {
+        text: "Resources",
+        activeMatch: "/resources/",
+        items: [
+          { text: "Icons", link: "/resources/icons" },
+          { text: "Storybook", link: STORYBOOK_HOST },
+          { text: "Report a bug", link: packageJson.bugs.url },
+          { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
+        ],
+      },
     ],
     socialLinks: [{ icon: "github", link: packageJson.repository.url }],
     sidebar: {
@@ -106,12 +125,7 @@ export default defineConfig({
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },
-        {
-          text: "Components",
-          base: "/development",
-          collapsed: false,
-          items: componentNames.map((name) => ({ text: name, link: `/${name}` })),
-        },
+        await getComponentsSidebar(),
         {
           text: "Other onyx npm packages",
           base: "/development/packages",
@@ -119,11 +133,42 @@ export default defineConfig({
           items: [
             { text: "Figma utilities", link: "/figma-utils" },
             { text: "Headless composables", link: "/headless" },
+            { text: "Icons", link: "/icons" },
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ],
         },
       ],
+      "/resources": [
+        {
+          text: "Resources",
+          base: "/resources",
+          items: [{ text: "Icons", link: "/icons" }],
+        },
+      ],
     },
   },
 });
+
+/** Gets the given path while ensuring cross-platform and correct decoding */
+function getFilePath(path: string) {
+  return fileURLToPath(new URL(path, import.meta.url));
+}
+
+/**
+ * Gets the sidebar item for the onyx components.
+ * Only supports one level of nesting, so e.g. "components/forms/OnyxInput" is not supported yet.
+ * Folders other than "Components" will be excluded.
+ */
+async function getComponentsSidebar(): Promise<DefaultTheme.SidebarItem> {
+  const { components } = await getStorybookSidebarFolders();
+
+  return {
+    text: "Components",
+    base: "/development/components",
+    items: components.map<DefaultTheme.SidebarItem>((componentName) => ({
+      text: componentName.replace("Onyx", ""),
+      link: `/${componentName}`,
+    })),
+  };
+}

@@ -13,7 +13,7 @@ const members = [
   },
   {
     avatar: 'https://www.github.com/jannick-ux.png',
-    name: 'Jannick Lenz',
+    name: 'Jannick Keller',
     title: 'Lead Designer',
     links: [
       { icon: 'github', link: 'https://github.com/jannick-ux' },
