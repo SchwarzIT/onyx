@@ -96,36 +96,31 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
 
 test("should render disabled", async ({ mount, makeAxeBuilder }) => {
   const testCases = [
-    "unchecked",
-    "checked",
-    "indeterminate",
-    "unchecked-invalid",
-    "indeterminate-invalid",
-  ] as const;
+    { name: "unchecked" },
+    { name: "checked", modelValue: true },
+    { name: "indeterminate", indeterminate: true },
+  ];
 
   for (const testCase of testCases) {
     // ARRANGE
     const component = await mount(
       <div style="display: grid; width: max-content;">
         <OnyxCheckbox
-          label={`Disabled ${testCase}`}
-          modelValue={testCase === "checked"}
-          indeterminate={testCase.includes("indeterminate")}
-          required={testCase.endsWith("-invalid")}
+          label={`Disabled ${testCase.name}`}
+          modelValue={testCase.modelValue}
+          indeterminate={testCase.indeterminate}
           disabled
         />
         <OnyxCheckbox
           label="Hover"
-          modelValue={testCase === "checked"}
-          indeterminate={testCase.includes("indeterminate")}
-          required={testCase.endsWith("-invalid")}
+          modelValue={testCase.modelValue}
+          indeterminate={testCase.indeterminate}
           disabled
         />
         <OnyxCheckbox
           label="Focus visible"
-          modelValue={testCase === "checked"}
-          indeterminate={testCase.includes("indeterminate")}
-          required={testCase.endsWith("-invalid")}
+          modelValue={testCase.modelValue}
+          indeterminate={testCase.indeterminate}
           disabled
         />
       </div>,
@@ -149,24 +144,47 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
     }
 
     // ASSERT
-    await expect(component).toHaveScreenshot(`disabled-${testCase}.png`);
+    await expect(component).toHaveScreenshot(`disabled-${testCase.name}.png`);
   }
 });
 
-test("should render invalid", async ({ mount, makeAxeBuilder }) => {
-  const testCases = ["unchecked", "indeterminate"] as const;
+test("should render required", async ({ mount, makeAxeBuilder }) => {
+  const testCases = [
+    { name: "unchecked" },
+    { name: "unchecked (touched)", touched: true },
+    { name: "unchecked (disabled + touched)", disabled: true, touched: true },
+    { name: "indeterminate", indeterminate: true },
+    { name: "indeterminate (touched)", indeterminate: true, touched: true },
+    {
+      name: "indeterminate (disabled + touched)",
+      indeterminate: true,
+      disabled: true,
+      touched: true,
+    },
+  ];
 
   for (const testCase of testCases) {
     // ARRANGE
     const component = await mount(
       <div style="display: grid; width: max-content;">
         <OnyxCheckbox
-          label={`Invalid ${testCase}`}
-          indeterminate={testCase === "indeterminate"}
+          label={`Required ${testCase.name}`}
+          indeterminate={testCase.indeterminate}
+          disabled={testCase.disabled}
           required
         />
-        <OnyxCheckbox label="Hover" indeterminate={testCase === "indeterminate"} required />
-        <OnyxCheckbox label="Focus visible" indeterminate={testCase === "indeterminate"} required />
+        <OnyxCheckbox
+          label="Hover"
+          indeterminate={testCase.indeterminate}
+          disabled={testCase.disabled}
+          required
+        />
+        <OnyxCheckbox
+          label="Focus visible"
+          indeterminate={testCase.indeterminate}
+          disabled={testCase.disabled}
+          required
+        />
       </div>,
     );
 
@@ -178,11 +196,19 @@ test("should render invalid", async ({ mount, makeAxeBuilder }) => {
 
     const checkboxes = await component.getByRole("checkbox").all();
 
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    if (testCase.touched) {
+      for (const checkbox of checkboxes) {
+        await checkbox.focus();
+        await checkbox.blur();
+      }
+    }
+
     // ACT
     await checkboxes[1].hover();
     await checkboxes[2].focus();
 
     // ASSERT
-    await expect(component).toHaveScreenshot(`invalid-${testCase}.png`);
+    await expect(component).toHaveScreenshot(`required-${testCase.name}.png`);
   }
 });
