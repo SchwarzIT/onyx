@@ -26,10 +26,11 @@ Those tokens are named like t-shirt sizes for easy usage. Use them for visual co
 
 | Token name |      rem | Pixels |
 | ---------- | -------: | -----: |
-| `4xs`      | 0.125rem |    2px |
-| `3xs`      |  0.25rem |    4px |
-| `2xs`      | 0.375rem |    6px |
-| `xs`       |   0.5rem |    8px |
+| `5xs`      | 0.125rem |    2px |
+| `4xs`      |  0.25rem |    4px |
+| `3xs`      | 0.375rem |    6px |
+| `2xs`      |   0.5rem |    8px |
+| `xs`       | 0.625rem |   10px |
 | `sm`       |  0.75rem |   12px |
 | `md`       |     1rem |   16px |
 | `lg`       |   1.5rem |   24px |

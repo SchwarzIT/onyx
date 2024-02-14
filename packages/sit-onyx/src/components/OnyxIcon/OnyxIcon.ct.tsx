@@ -29,7 +29,7 @@ test("should render different colors", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <div>
       {ONYX_COLORS.map((color) => (
-        <OnyxIcon size="2xl" icon={happyIcon} color={color} key={color} />
+        <OnyxIcon size="96px" icon={happyIcon} color={color} key={color} />
       ))}
     </div>,
   );

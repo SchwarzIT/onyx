@@ -46,7 +46,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
   --onyx-radio-button-selector-outline-color: var(--onyx-color-base-background-blank);
   --onyx-radio-button-selector-outline-width: 0;
-  --onyx-radio-button-label-color: var(--onyx-color-text-neutral-intense);
+  --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-intense);
 
   display: inline-flex;
   align-items: center;
@@ -78,7 +78,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   &:has(&__selector:disabled) {
     --onyx-radio-button-selector-outline-width: 0;
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-200);
-    --onyx-radio-button-label-color: var(--onyx-color-text-neutral-soft);
+    --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-soft);
     --onyx-radio-button-cursor: default;
   }
 

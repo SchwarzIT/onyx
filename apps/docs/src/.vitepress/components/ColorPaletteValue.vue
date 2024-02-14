@@ -83,7 +83,7 @@ const emit = defineEmits<{
       }
 
       &__color {
-        padding-bottom: var(--onyx-spacing-xs);
+        padding-bottom: var(--onyx-spacing-2xs);
 
         &--with-border {
           padding-bottom: var(--onyx-spacing-md);
@@ -117,7 +117,7 @@ const emit = defineEmits<{
     font-size: 0.8125rem;
     line-height: 1.25rem;
     font-family: var(--onyx-font-family-mono);
-    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-3xs);
+    padding: var(--onyx-spacing-5xs) var(--onyx-spacing-4xs);
 
     @include mixins.breakpoint(max, s) {
       width: 6.5rem;

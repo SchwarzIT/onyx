@@ -2,6 +2,7 @@
 import DesignTokenCard from "./DesignTokenCard.vue";
 
 const spacings = [
+  "onyx-spacing-5xs",
   "onyx-spacing-4xs",
   "onyx-spacing-3xs",
   "onyx-spacing-2xs",
@@ -49,7 +50,7 @@ const spacings = [
     border-bottom: 1px solid var(--onyx-color-base-warning-500);
     background: var(--onyx-color-base-warning-200);
     width: 100%;
-    margin: var(--onyx-spacing-xs) 0;
+    margin: var(--onyx-spacing-2xs) 0;
   }
 }
 </style>

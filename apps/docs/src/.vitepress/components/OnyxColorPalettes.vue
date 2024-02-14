@@ -47,13 +47,13 @@ const { isDark } = useData();
 .themes {
   display: flex;
   align-items: center;
-  gap: var(--onyx-spacing-xs);
+  gap: var(--onyx-spacing-2xs);
 
   &__badge {
     cursor: pointer;
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-md);
+    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-full);
 
     &--active {
