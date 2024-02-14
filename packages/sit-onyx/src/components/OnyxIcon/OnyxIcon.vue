@@ -2,7 +2,7 @@
 import type { OnyxIconProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxIconProps>(), {
-  size: "24",
+  size: "24px",
   color: "currentColor",
 });
 </script>
@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   <figure
     class="onyx-icon"
     :class="[
-      props.size !== '24' ? `onyx-icon--${props.size}` : '',
+      props.size !== '24px' ? `onyx-icon--${props.size}` : '',
       props.color !== 'currentColor' ? `onyx-icon--${props.color}` : '',
     ]"
     aria-hidden="true"
@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 
 <style lang="scss">
 .onyx-icon {
-  --icon-size: 24px;
+  --icon-size: 1.5rem;
   --icon-color: currentColor;
 
   display: inline-block;
@@ -39,13 +39,20 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
   // icon sizes:
   //
   $sizes:
-    12 0.75rem,
-    16 1rem,
-    24 1.5rem,
-    32 2rem,
-    48 3rem,
-    64 4rem,
-    96 6rem;
+    "12px" 0.75rem,
+    "16px" 1rem,
+    "24px" 1.5rem,
+    "32px" 2rem,
+    "48px" 3rem,
+    "64px" 4rem,
+    "96px" 6rem,
+    "0-75rem" 0.75rem,
+    "1rem" 1rem,
+    "1-5rem" 1.5rem,
+    "2rem" 2rem,
+    "3rem" 3rem,
+    "4rem" 4rem,
+    "6rem" 6rem;
 
   @each $name, $size in $sizes {
     &--#{$name} {

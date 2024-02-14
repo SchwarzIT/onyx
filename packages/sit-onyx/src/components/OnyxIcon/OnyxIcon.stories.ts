@@ -86,7 +86,7 @@ export const Default = {
 export const WithSize = {
   args: {
     ...Default.args,
-    size: "96",
+    size: "96px",
   },
 } satisfies Story;
 
