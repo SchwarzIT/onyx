@@ -2,7 +2,7 @@
 
 In designing and developing user interfaces, the density of components plays a pivotal role in shaping the user experience. Introducing three levels of density - **compact**, **default** and **cozy** - onyx provides a flexible toolkit to build applications for multiple user preferences and device capabilities. The three densities are always based around the specific values of **32px**, **40px**, and **48px**.
 
-![density](/assets/density.png)
+![Component density level examples for a button. The first button has almost no padding around the button text (compact), the second button has a medium padding (default) and the last button has a larger padding.](/assets/density.png)
 
 ## Compact
 
