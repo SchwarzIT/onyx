@@ -6,11 +6,14 @@ export type OnyxIconProps = {
    * not be sanitized.
    */
   icon: string;
-  /** Icon size. */
+  /**
+   * Icon size. Pixel values will be translated to the according rem value.
+   * @default 24px
+   */
   size?: IconSize;
   /** Icon color. */
   color?: OnyxColor | "currentColor";
 };
 
-export const ICON_SIZES = ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"] as const;
+export const ICON_SIZES = ["12px", "16px", "24px", "32px", "48px", "64px", "96px"] as const;
 export type IconSize = (typeof ICON_SIZES)[number];
