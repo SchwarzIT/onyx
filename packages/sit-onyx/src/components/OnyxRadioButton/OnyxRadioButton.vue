@@ -28,7 +28,7 @@ type ShallowProps<TValue> = {
    * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
    */
   name: string;
-  isRequired?: boolean;
+  required?: boolean;
   errorMessage?: string;
 };
 
@@ -48,7 +48,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       ref="selectorRef"
       class="onyx-radio-button__selector"
       type="radio"
-      :required="props.isRequired"
+      :required="props.required"
       :name="props.name"
       :value="props.id"
       :checked="props.selected"
@@ -63,7 +63,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   --onyx-radio-button-cursor: pointer;
   --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-400);
   --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
-  --onyx-radio-button-selector-outline-color: var(--onyx-color-base-background-blank);
+  --onyx-radio-button-selector-outline-color: var(--onyx-color-base-primary-200);
   --onyx-radio-button-selector-outline-width: 0;
   --onyx-radio-button-label-color: var(--onyx-color-text-neutral-intense);
 
@@ -124,6 +124,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       width: var(--onyx-radio-button-selector-outline-width);
       color: var(--onyx-radio-button-selector-outline-color);
     }
+    outline-offset: 0;
     transition: outline 200ms;
 
     height: 1rem;
