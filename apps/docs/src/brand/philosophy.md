@@ -20,4 +20,4 @@ We aim for nothing less than the best. Our goal? To stand shoulder-to-shoulder w
 
 ## Cooperation
 
-Cooperation is at the core of our team's DNA. We've got a blend of talents here, with both designers and developers bringing their a-game to the table. We believe in the power of collaboration, where everyone's skills and expertise are valued equally. By working closely together and putting our trust in each other's abilities, we are able to achieve remarkable things. It's all about teamwork and mutual respect, driving us towards our goals.
+Cooperation is at the core of our team's DNA. We've got a blend of talents here, with both designers and developers bringing their A-game to the table. We believe in the power of collaboration, where everyone's skills and expertise are valued equally. By working closely together and putting our trust in each other's abilities, we are able to achieve remarkable things. It's all about teamwork and mutual respect, driving us towards our goals.
