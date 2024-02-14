@@ -8,7 +8,7 @@ To see the grid and breakpoints in action, feel free to have a look on the [grid
 
 To understand the anatomy of a column grid, it is essential to comprehend its key components: margins, columns and gutters, which function harmoniously together. Visual examples and further details can be found below.
 
-![description of grid units](/assets/grid-explanation.png)
+![Description of how the grid key components are layed out. Multiple vertical tracks are stretching over the whole page: the outermost tracks are "margins". Inbetween is an odd amount of columns, where every even column is a "gutter" and every odd track is a "column"](/assets/grid-explanation.png)
 
 ::: details 1 Margins
 Margins delineate the outer boundaries of the grid, providing spacing between the content and the edges of the interface. The margin has always a fixed value, that adopts to the breakpoint of the screen.
