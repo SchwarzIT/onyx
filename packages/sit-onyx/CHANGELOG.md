@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.11
+
+### Major Changes
+
+- 97da8df: refactor(OnyxIcon): rewrite icon size map to reflect Figma pixel values
+
 ## 1.0.0-alpha.10
 
 ### Major Changes
