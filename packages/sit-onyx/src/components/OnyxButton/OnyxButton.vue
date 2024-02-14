@@ -30,31 +30,31 @@ const emit = defineEmits<{
 <style lang="scss">
 .onyx-button {
   display: inline-flex;
-  padding: var(--onyx-spacing-2xs, 0.5rem) var(--onyx-spacing-sm, 0.75rem);
+  padding: var(--onyx-spacing-3xs) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
-  gap: var(--onyx-spacing-4xs, 0.25rem);
-  border-radius: var(--onyx-radius-sm, 0.25rem);
+  gap: var(--onyx-spacing-5xs);
+  border-radius: var(--onyx-radius-sm);
   cursor: pointer;
   font-family: var(--onyx-font-family);
 
   &--primary {
-    --color: var(--onyx-color-text-primary-intense);
+    --color: var(--onyx-color-text-icons-primary-intense);
 
     &:disabled {
-      --color: var(--onyx-color-text-primary-soft);
+      --color: var(--onyx-color-text-icons-primary-soft);
     }
 
     &.onyx-button--default {
       --background-color: var(--onyx-color-base-primary-500);
       --background-hover-color: var(--onyx-color-base-primary-400);
-      --color: var(--onyx-color-text-neutral-inverted);
+      --color: var(--onyx-color-text-icons-neutral-inverted);
       --border-color: var(--onyx-color-base-primary-500);
 
       &:disabled {
         --background-color: var(--onyx-color-base-primary-200);
         --border-color: var(--onyx-color-base-primary-200);
-        --color: var(--onyx-color-text-neutral-inverted);
+        --color: var(--onyx-color-text-icons-neutral-inverted);
       }
     }
 
@@ -70,10 +70,10 @@ const emit = defineEmits<{
   &--secondary {
     --background-hover-color: var(--onyx-color-base-neutral-200);
     --focus-outline-color: var(--onyx-color-base-neutral-300);
-    --color: var(--onyx-color-text-neutral-intense);
+    --color: var(--onyx-color-text-icons-neutral-intense);
 
     &:disabled {
-      --color: var(--onyx-color-text-neutral-soft);
+      --color: var(--onyx-color-text-icons-neutral-soft);
     }
 
     &.onyx-button--default {
@@ -99,10 +99,10 @@ const emit = defineEmits<{
   &--danger {
     --background-hover-color: var(--onyx-color-base-danger-200);
     --focus-outline-color: var(--onyx-color-base-danger-300);
-    --color: var(--onyx-color-text-danger-intense);
+    --color: var(--onyx-color-text-icons-danger-intense);
 
     &:disabled {
-      --color: var(--onyx-color-text-danger-medium);
+      --color: var(--onyx-color-text-icons-danger-medium);
     }
 
     &.onyx-button--default {
@@ -143,7 +143,7 @@ const emit = defineEmits<{
 
   &__label {
     display: flex;
-    padding: 0 var(--onyx-spacing-3xs);
+    padding: 0 var(--onyx-spacing-4xs);
     max-width: 12.25rem;
     color: var(--color);
     overflow: hidden;
