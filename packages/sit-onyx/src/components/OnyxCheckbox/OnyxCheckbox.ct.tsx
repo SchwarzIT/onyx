@@ -95,7 +95,13 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
 });
 
 test("should render disabled", async ({ mount, makeAxeBuilder }) => {
-  const testCases = ["unchecked", "checked", "indeterminate"] as const;
+  const testCases = [
+    "unchecked",
+    "checked",
+    "indeterminate",
+    "unchecked-invalid",
+    "indeterminate-invalid",
+  ] as const;
 
   for (const testCase of testCases) {
     // ARRANGE
@@ -104,19 +110,22 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
         <OnyxCheckbox
           label={`Disabled ${testCase}`}
           modelValue={testCase === "checked"}
-          indeterminate={testCase === "indeterminate"}
+          indeterminate={testCase.includes("indeterminate")}
+          required={testCase.endsWith("-invalid")}
           disabled
         />
         <OnyxCheckbox
           label="Hover"
           modelValue={testCase === "checked"}
-          indeterminate={testCase === "indeterminate"}
+          indeterminate={testCase.includes("indeterminate")}
+          required={testCase.endsWith("-invalid")}
           disabled
         />
         <OnyxCheckbox
           label="Focus visible"
           modelValue={testCase === "checked"}
-          indeterminate={testCase === "indeterminate"}
+          indeterminate={testCase.includes("indeterminate")}
+          required={testCase.endsWith("-invalid")}
           disabled
         />
       </div>,
@@ -141,5 +150,39 @@ test("should render disabled", async ({ mount, makeAxeBuilder }) => {
 
     // ASSERT
     await expect(component).toHaveScreenshot(`disabled-${testCase}.png`);
+  }
+});
+
+test("should render invalid", async ({ mount, makeAxeBuilder }) => {
+  const testCases = ["unchecked", "indeterminate"] as const;
+
+  for (const testCase of testCases) {
+    // ARRANGE
+    const component = await mount(
+      <div style="display: grid; width: max-content;">
+        <OnyxCheckbox
+          label={`Invalid ${testCase}`}
+          indeterminate={testCase === "indeterminate"}
+          required
+        />
+        <OnyxCheckbox label="Hover" indeterminate={testCase === "indeterminate"} required />
+        <OnyxCheckbox label="Focus visible" indeterminate={testCase === "indeterminate"} required />
+      </div>,
+    );
+
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+
+    const checkboxes = await component.getByRole("checkbox").all();
+
+    // ACT
+    await checkboxes[1].hover();
+    await checkboxes[2].focus();
+
+    // ASSERT
+    await expect(component).toHaveScreenshot(`invalid-${testCase}.png`);
   }
 });
