@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import searchIcon from "@sit-onyx/icons/search.svg?raw";
 import { computed } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
-import searchIcon from "@sit-onyx/icons/search.svg?raw";
 
 const props = defineProps<{
   modelValue?: string;
@@ -28,7 +28,7 @@ const value = computed({
 .search {
   display: flex;
   width: 18.5rem;
-  padding: var(--onyx-spacing-2xs, 0.5rem);
+  padding: var(--onyx-spacing-3xs, 0.5rem);
   justify-content: space-between;
   border-radius: var(--onyx-radius-md, 0.5rem);
   border: 1px solid var(--onyx-color-base-neutral-300);

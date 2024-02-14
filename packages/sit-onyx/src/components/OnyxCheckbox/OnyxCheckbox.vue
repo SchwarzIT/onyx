@@ -39,7 +39,7 @@ const isChecked = computed({
 <style lang="scss">
 .onyx-checkbox {
   font-family: var(--onyx-font-family);
-  color: var(--onyx-color-text-neutral-intense);
+  color: var(--onyx-color-text-icons-neutral-intense);
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -58,7 +58,7 @@ const isChecked = computed({
 
   &:has(&__input:disabled) {
     cursor: default;
-    color: var(--onyx-color-text-neutral-soft);
+    color: var(--onyx-color-text-icons-neutral-soft);
   }
 
   &__container {

@@ -20,7 +20,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .topic {
-  padding: var(--onyx-spacing-xs);
+  padding: var(--onyx-spacing-2xs);
   display: flex;
   border-radius: var(--onyx-radius-md);
   border: 1px solid var(--onyx-color-base-neutral-300);
@@ -45,20 +45,20 @@ const props = defineProps<{
   &__content {
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-spacing-xs);
+    gap: var(--onyx-spacing-2xs);
     font-weight: 600;
-    padding: var(--onyx-spacing-xs) var(--onyx-spacing-md);
+    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
   }
 
   &__title {
     font-size: 1.25rem;
     line-height: 1.75rem;
     margin: 0;
-    color: var(--onyx-color-text-neutral-intense);
+    color: var(--onyx-color-text-icons-neutral-intense);
   }
 
   &__subtitle {
-    color: var(--onyx-color-text-neutral-medium);
+    color: var(--onyx-color-text-icons-neutral-medium);
     margin: 0;
     line-height: 1.5rem;
   }
@@ -69,7 +69,7 @@ const props = defineProps<{
 
     .topic {
       &__title {
-        color: var(--onyx-color-text-primary-intense);
+        color: var(--onyx-color-text-icons-primary-intense);
       }
     }
   }
