@@ -1,8 +1,27 @@
 <script lang="ts" setup generic="TValue">
 import { ref, watchEffect } from "vue";
-import type { SelectionProps } from "./types";
+import type { Equals, TypeEqualityGuard } from "@/index";
+import type { RadioButtonProps } from "./types";
 
-export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
+// TODO: remove workaround
+// Temporary solution: storybook cannot use complex types, but we can duplicate them and use this type to ensure that they are equal.
+type _SHOULD_BE_EQUAL = Equals<TypeEqualityGuard<RadioButtonProps<TValue>, ShallowProps<TValue>>>;
+
+type ShallowProps<TValue> = {
+  /**
+   * id of the selection option, not of the radio button input
+   */
+  id: string;
+  label: string;
+  /**
+   * An optional value.
+   * It's not actually used by the selection controls, but can be used to associate data with this option.
+   */
+  value?: TValue;
+  disabled?: boolean;
+  readonly?: boolean;
+  loading?: boolean;
+  selected?: boolean;
   /**
    * Identifier for the radio buttons in the group.
    * All radio buttons that should belong to the same radio group must have the same name.
@@ -13,7 +32,7 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
   errorMessage?: string;
 };
 
-const props = defineProps<RadioButtonProps<TValue>>();
+const props = defineProps<ShallowProps<TValue>>();
 
 const selectorRef = ref<HTMLInputElement>();
 
@@ -33,7 +52,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       :name="props.name"
       :value="props.id"
       :checked="props.selected"
-      :disabled="props.isDisabled || props.isReadonly"
+      :disabled="props.disabled || props.readonly"
     />
     <span class="onyx-radio-button__label">{{ props.label }}</span>
   </label>
