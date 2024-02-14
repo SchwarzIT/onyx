@@ -133,7 +133,7 @@ Overall, the grid and breakpoints for the sidebar operate the same way like thos
 
 To dive deeper into understanding the sidebar's structure, behavior, and usage, please visit the dedicated [component page](/development/sidebar) that provides comprehensive information on its functionality and implementation.
 
-![description of all sidebar breakpoints with all units included](/assets/sidebar-breakpoints.png)
+![All sidebar breakpoints layed out on top of each-other with their units included. The details can also be found in the following section.](/assets/sidebar-breakpoints.png)
 
 ::: details sm breakpoint
 This is the default side of the sidebar.
