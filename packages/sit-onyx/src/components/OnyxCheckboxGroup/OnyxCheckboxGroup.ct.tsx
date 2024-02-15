@@ -66,7 +66,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
   await masterCheckBox.uncheck();
   expect(modelValue).toStrictEqual([]);
   await component.update({ props: { modelValue }, on: eventHandlers });
-  await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
+  await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from unchecking
 
   // ASSERT
   await expect(masterCheckBox).not.toBeChecked();
