@@ -19,6 +19,6 @@ export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };
 
 export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
   name: string;
-  isRequired?: boolean;
+  required?: boolean;
   errorMessage?: string;
 };
