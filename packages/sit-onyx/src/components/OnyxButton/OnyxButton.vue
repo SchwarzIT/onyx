@@ -29,6 +29,8 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   border-radius: var(--onyx-radius-sm);
   cursor: pointer;
   font-family: var(--onyx-font-family);
+  background-color: var(--background-color, transparent);
+  border: var(--onyx-1px-in-rem) solid var(--border-color, transparent);
 
   &--primary {
     --color: var(--onyx-color-text-icons-primary-intense);
@@ -117,11 +119,8 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     }
   }
 
-  background-color: var(--background-color, transparent);
-  border: var(--onyx-1px-in-rem) solid var(--border-color, transparent);
-
   &:hover {
-    background: var(--background-hover-color, var(--onyx-color-base-primary-100));
+    --background-color: var(--background-hover-color, var(--onyx-color-base-primary-100));
   }
 
   &:focus-visible {
@@ -129,8 +128,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   }
 
   &:disabled {
-    cursor: none;
-    pointer-events: none;
+    cursor: default;
   }
 
   &__label {
