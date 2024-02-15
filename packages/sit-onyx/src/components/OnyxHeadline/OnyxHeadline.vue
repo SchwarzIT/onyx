@@ -12,7 +12,7 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const headlineSize = computed( () => (props.style || props.level)  );
+const headlineSize = computed( () => (props.size || props.level)  );
 </script>
 
 <template>
