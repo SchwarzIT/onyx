@@ -82,7 +82,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
   margin: 0;
   padding: 0;
   border: none;
-  width: max-content;
+  max-width: max-content;
 
   &__label {
     margin-bottom: var(--onyx-spacing-2xs);
