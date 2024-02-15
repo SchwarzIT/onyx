@@ -38,7 +38,7 @@ const tokens = [
   &__preview {
     width: 4rem;
     height: 4rem;
-    border-width: 1px 1px 1px 0;
+    border-width: var(--onyx-1px-in-rem) var(--onyx-1px-in-rem) var(--onyx-1px-in-rem) 0;
     border-color: var(--onyx-color-base-warning-500);
     border-style: solid;
     background: var(--onyx-color-base-neutral-100);

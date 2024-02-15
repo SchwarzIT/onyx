@@ -71,7 +71,7 @@ const emit = defineEmits<{
     padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
       var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-sm);
-    border: 1px solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     font-family: var(--onyx-font-family-mono);
     width: max-content;
     display: flex;
@@ -106,7 +106,7 @@ const emit = defineEmits<{
     &:focus-within {
       .token {
         &__name {
-          border: 1px solid var(--onyx-color-base-primary-300);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-300);
         }
 
         &__copy {
@@ -127,7 +127,7 @@ const emit = defineEmits<{
           height: 1.25rem;
           background-color: v-bind("props.value");
           border-radius: var(--onyx-radius-sm);
-          border: 1px solid var(--onyx-color-base-neutral-300);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         }
       }
     }

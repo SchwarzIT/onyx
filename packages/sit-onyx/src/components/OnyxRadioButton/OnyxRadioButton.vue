@@ -112,7 +112,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
     border: {
       style: solid;
-      width: 1px;
+      width: var(--onyx-1px-in-rem);
       color: var(--onyx-radio-button-selector-border-color);
     }
     border-radius: 100%;

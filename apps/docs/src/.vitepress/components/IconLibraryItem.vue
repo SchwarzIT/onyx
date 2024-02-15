@@ -37,7 +37,7 @@ const handleCopy = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0.0625rem solid transparent;
+  border: var(--onyx-1px-in-rem) solid transparent;
   position: relative;
 
   &__tooltip {
@@ -59,7 +59,7 @@ const handleCopy = async () => {
   &:hover,
   &:focus-visible {
     border-radius: var(--onyx-radius-md);
-    border: 0.0625rem solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
     outline-style: unset;
 
