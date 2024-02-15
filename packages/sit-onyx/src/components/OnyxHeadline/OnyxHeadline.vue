@@ -11,6 +11,8 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+
+const headlineSize = computed( () => (props.style || props.level)  );
 </script>
 
 <template>
@@ -18,7 +20,7 @@ defineSlots<{
     :is="props.is"
     :class="[
       'onyx-headline',
-      `onyx-headline--${props.is}`,
+      `onyx-headline--${headlineSize}`,
       props.monospace ? 'onyx-headline--monospace' : '',
     ]"
   >
