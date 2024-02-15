@@ -31,7 +31,7 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
 
 <style lang="scss" scoped>
 .card {
-  border: 1px solid var(--vp-c-default-soft);
+  border: var(--onyx-1px-in-rem) solid var(--vp-c-default-soft);
   border-radius: 0.75rem;
   height: 100%;
   background-color: var(--vp-c-bg-soft);

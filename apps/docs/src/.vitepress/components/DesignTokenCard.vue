@@ -52,7 +52,7 @@ const handleCopy = async () => {
 
 .card {
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
   display: grid;
   grid-template-columns: 1fr 25%;
@@ -75,7 +75,7 @@ const handleCopy = async () => {
       align-items: center;
 
       &:last-child {
-        border-left: 1px solid var(--onyx-color-base-neutral-300);
+        border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         justify-content: center;
       }
     }

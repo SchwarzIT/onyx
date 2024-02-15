@@ -83,7 +83,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
 @use "@sit-onyx/vitepress-theme/mixins.scss";
 
 .roadmap {
-  border-top: 1px solid var(--vp-c-gutter);
+  border-top: var(--onyx-1px-in-rem) solid var(--vp-c-gutter);
   background-color: var(--vp-c-bg);
 
   // padding and max-width are aligned with the top "home" section of the page

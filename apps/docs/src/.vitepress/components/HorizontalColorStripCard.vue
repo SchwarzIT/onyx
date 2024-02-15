@@ -24,7 +24,7 @@ const colors = computed(() => {
 .card {
   padding: var(--onyx-spacing-lg);
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-background-blank);
   margin: var(--onyx-spacing-md) 0;
 }

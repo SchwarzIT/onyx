@@ -39,15 +39,15 @@ const spacings = [
   width: 4rem;
   min-height: 4rem;
   border-radius: var(--onyx-radius-sm);
-  border: 1px solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-neutral-100);
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   &__area {
-    border-top: 1px solid var(--onyx-color-base-warning-500);
-    border-bottom: 1px solid var(--onyx-color-base-warning-500);
+    border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-warning-500);
+    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-warning-500);
     background: var(--onyx-color-base-warning-200);
     width: 100%;
     margin: var(--onyx-spacing-2xs) 0;
