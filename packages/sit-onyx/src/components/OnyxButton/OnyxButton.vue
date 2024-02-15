@@ -126,7 +126,7 @@ const emit = defineEmits<{
   }
 
   background-color: var(--background-color, transparent);
-  border: 1px solid var(--border-color, transparent);
+  border: var(--onyx-1px-in-rem) solid var(--border-color, transparent);
 
   &:hover {
     background: var(--background-hover-color, var(--onyx-color-base-primary-100));
