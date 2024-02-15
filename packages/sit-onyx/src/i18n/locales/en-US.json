@@ -15,5 +15,6 @@
       "tel": "\"{value}\" must be a valid phone number.",
       "url": "\"{value}\" must a valid URL."
     }
-  }
+  },
+  "selectAll": "Select all"
 }

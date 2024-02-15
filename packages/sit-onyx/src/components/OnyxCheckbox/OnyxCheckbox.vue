@@ -73,6 +73,7 @@ const isTouched = ref(false);
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  width: max-content;
 
   &:hover {
     @include define-hover-border($state: ":enabled", $color: primary);
