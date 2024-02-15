@@ -17,7 +17,7 @@ const headlineSize = computed( () => (props.style || props.level)  );
 
 <template>
   <component
-    :is="props.is"
+    :is="props.level"
     :class="[
       'onyx-headline',
       `onyx-headline--${headlineSize}`,
