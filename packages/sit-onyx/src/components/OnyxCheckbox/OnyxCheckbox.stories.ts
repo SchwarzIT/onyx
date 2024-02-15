@@ -46,3 +46,13 @@ export const Disabled = {
     disabled: true,
   },
 } satisfies Story;
+
+/**
+ * A required checkbox that must be checked.
+ */
+export const Required = {
+  args: {
+    ...Default.args,
+    required: true,
+  },
+} satisfies Story;
