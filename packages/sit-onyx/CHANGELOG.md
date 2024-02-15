@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.12
+
+### Minor Changes
+
+- 95b6e75: feat(OnyxCheckbox): add property `required`
+
 ## 1.0.0-alpha.11
 
 ### Major Changes
