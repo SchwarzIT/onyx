@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { OnyxIcon } from "@/index";
 import type { ButtonProps } from "./types";
 const props = withDefaults(defineProps<ButtonProps>(), {
   label: "",
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
   >
+    <OnyxIcon v-if="props.icon" class="onyx-button__icon" :icon="props.icon" size="24px"/>
     <span class="onyx-button__label">{{ props.label }}</span>
   </button>
 </template>
@@ -28,10 +30,10 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: flex;
-  padding: var(--onyx-spacing-3xs) var(--onyx-spacing-sm);
+  padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
-  gap: var(--onyx-spacing-5xs);
+  gap: var(--onyx-spacing-4xs);
   border-radius: var(--onyx-radius-sm);
   cursor: pointer;
   font-family: var(--onyx-font-family);
@@ -146,6 +148,10 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     font-style: normal;
     font-weight: 600;
     line-height: 1.5rem;
+  }
+
+  &__icon {
+    color: var(--onyx-button-text-color);
   }
 }
 </style>

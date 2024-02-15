@@ -15,3 +15,18 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+test("should display correctly when disabled", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxButton label="Button" variation="secondary" disabled />);
+
+  // ASSERT
+  await expect(component).toContainText("Button");
+  await expect(component).toBeDisabled();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
