@@ -13,9 +13,11 @@ const props = defineProps<{
   name: string;
   modelValue?: SelectionOption<T>;
   label?: string;
-  isDisabled?: boolean;
-  isReadonly?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
   isLoading?: boolean;
+  errorMessage?: string;
   options: SelectionOption<T>[];
 }>();
 
@@ -28,9 +30,13 @@ const handleChange = (event: ChangeEvent) =>
 </script>
 
 <!-- TODO: loading -->
-<!-- TODO: readonly -->
+<!-- TODO: check with @jannick if only selected element should be show as invalid -->
 <template>
-  <fieldset class="onyx-radio-button-group" @change="handleChange($event as ChangeEvent)">
+  <fieldset
+    class="onyx-radio-button-group"
+    :disabled="props.disabled"
+    @change="handleChange($event as ChangeEvent)"
+  >
     <legend v-if="props.label" class="onyx-radio-button-group__label">{{ props.label }}</legend>
     <OnyxRadioButton
       v-for="option in props.options"
@@ -39,10 +45,11 @@ const handleChange = (event: ChangeEvent) =>
       :name="props.name"
       :label="option.label"
       :value="option.value"
+      :error-message="option.id === props.modelValue?.id ? props.errorMessage : ''"
       :selected="option.id === props.modelValue?.id"
-      :is-disabled="props.isDisabled || option.isDisabled"
-      :is-readonly="props.isReadonly || option.isReadonly"
-      :is-loading="props.isLoading || option.isLoading"
+      :disabled="option.disabled"
+      :readonly="props.readonly || option.readonly"
+      :loading="props.isLoading || option.loading"
     />
   </fieldset>
 </template>

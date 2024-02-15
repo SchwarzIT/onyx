@@ -1,7 +1,7 @@
 {
   "name": "alpha-test-app",
   "private": true,
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.9",
   "type": "module",
   "scripts": {
     "start": "pnpm run dev",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "sit-onyx": "workspace:^",
-    "vue": "^3.4.15",
+    "vue": "^3.4.19",
     "vue-i18n": "^9.9.1"
   }
 }

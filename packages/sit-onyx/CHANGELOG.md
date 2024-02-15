@@ -1,5 +1,44 @@
 # sit-onyx
 
+## 1.0.0-alpha.12
+
+### Minor Changes
+
+- 95b6e75: feat(OnyxCheckbox): add property `required`
+
+## 1.0.0-alpha.11
+
+### Major Changes
+
+- 97da8df: refactor(OnyxIcon): rewrite icon size map to reflect Figma pixel values
+
+## 1.0.0-alpha.10
+
+### Major Changes
+
+- a4df4af: refactor: update CSS variables
+
+  | Old                   |                         New |
+  | --------------------- | --------------------------: |
+  | `--onyx-spacing-4xs`  |        `--onyx-spacing-5xs` |
+  | `--onyx-spacing-3xs`  |        `--onyx-spacing-4xs` |
+  | `--onyx-spacing-2xs`  |        `--onyx-spacing-3xs` |
+  | `--onyx-spacing-xs`   |        `--onyx-spacing-2xs` |
+  | `--onyx-color-text-*` | `--onyx-color-text-icons-*` |
+  | `--onyx-color-icon-*` | `--onyx-color-text-icons-*` |
+
+## 0.1.0-alpha.9
+
+### Minor Changes
+
+- eda3982: feat(OnyxCheckbox): add property `disabled`
+
+## 0.1.0-alpha.8
+
+### Patch Changes
+
+- c62476d: fix(OnyxIcon): remove default browser margin
+
 ## 0.1.0-alpha.7
 
 ### Minor Changes

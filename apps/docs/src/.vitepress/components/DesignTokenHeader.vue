@@ -34,13 +34,13 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 .header {
-  margin-bottom: var(--onyx-spacing-xs);
+  margin-bottom: var(--onyx-spacing-2xs);
   display: flex;
   justify-content: space-between;
 
   &__headline {
     font-weight: 600;
-    color: var(--onyx-color-text-neutral-intense);
+    color: var(--onyx-color-text-icons-neutral-intense);
   }
 
   &__tabs {
@@ -49,12 +49,12 @@ const emit = defineEmits<{
   }
 
   &__tab {
-    color: var(--onyx-color-text-neutral-medium);
+    color: var(--onyx-color-text-icons-neutral-medium);
     font-weight: 600;
     font-size: 1rem;
 
     &--active {
-      color: var(--active-color, var(--onyx-color-text-primary-intense));
+      color: var(--active-color, var(--onyx-color-text-icons-primary-intense));
     }
   }
 }

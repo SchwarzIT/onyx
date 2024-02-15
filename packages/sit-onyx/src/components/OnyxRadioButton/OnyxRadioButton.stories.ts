@@ -10,12 +10,6 @@ const meta: Meta<typeof OnyxRadioButton> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButton,
     events: ["update:modelValue"],
-    argTypes: {
-      isReadonly: { type: "boolean" },
-      isLoading: { type: "boolean" },
-      isDisabled: { type: "boolean" },
-      selected: { type: "boolean" },
-    },
   }),
 };
 
