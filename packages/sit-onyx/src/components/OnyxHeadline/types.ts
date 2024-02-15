@@ -3,7 +3,9 @@ export type OnyxHeadlineProps = {
    * Headline type. Please note that only h1-h4 are intended to be used from UX perspective.
    * h5 and h6 will have the same styles as h4 and should only be used for semantic reasons.
    */
-  is: HeadlineType;
+  level: HeadlineType;
+  /*+ if defined the style can different from the level  */
+  style?: HeadlineType;
   /** If `true`, the monospace font family will be used instead of the default one. */
   monospace?: boolean;
 };
