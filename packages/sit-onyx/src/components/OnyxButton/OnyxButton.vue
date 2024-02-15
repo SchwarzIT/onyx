@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
   >
-    <OnyxIcon v-if="props.icon" class="onyx-button__icon" :icon="props.icon" size="24px"/>
+    <OnyxIcon v-if="props.icon" class="onyx-button__icon" :icon="props.icon" size="24px" />
     <span class="onyx-button__label">{{ props.label }}</span>
   </button>
 </template>
