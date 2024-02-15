@@ -1,5 +1,5 @@
 ---
-"sit-onyx": patch
+"sit-onyx": minor
 ---
 
 Add icon property to OnyxButton
