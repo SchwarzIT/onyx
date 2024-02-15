@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.13
+
+### Minor Changes
+
+- 1c52657: Add new OnyxButton component
+
 ## 1.0.0-alpha.12
 
 ### Minor Changes
