@@ -5,15 +5,13 @@ export type OnyxPluginOptions = {
   i18n?: ProvideI18nOptions;
 };
 
-export default {
-  install: (app, options) => {
+export const createOnyx = (options: OnyxPluginOptions): Plugin<[]> => ({
+  install: (app) => {
     provideI18n(options.i18n, app);
     const i18n = app.runWithContext(() => injectI18n());
-    watchEffect(() =>
-      globalThis.document.body.style.setProperty(
-        "--onyx-global-optional-text",
-        `"${i18n.t.value("optional")}"`,
-      ),
-    );
+    watchEffect(() => syncGlobalOptionalText(i18n.t.value("optional")));
   },
-} satisfies Plugin<OnyxPluginOptions>;
+});
+
+const syncGlobalOptionalText = (text: string) =>
+  globalThis.document.body.style.setProperty("--onyx-global-optional-text", text);

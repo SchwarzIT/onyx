@@ -13,4 +13,4 @@ export * from "@/types/utils";
 // to projects using this library because they probably use "vue-i18n"
 export { provideI18n, type OnyxTranslations, type ProvideI18nOptions } from "@/i18n";
 
-export { default as onyx } from "@/utils/plugin";
+export { createOnyx } from "@/utils/plugin";
