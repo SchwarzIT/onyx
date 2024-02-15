@@ -5,7 +5,7 @@ export type OnyxHeadlineProps = {
    */
   level: HeadlineType;
   /*+ if defined the style can different from the level  */
-  style?: HeadlineType;
+  size?: HeadlineType;
   /** If `true`, the monospace font family will be used instead of the default one. */
   monospace?: boolean;
 };
