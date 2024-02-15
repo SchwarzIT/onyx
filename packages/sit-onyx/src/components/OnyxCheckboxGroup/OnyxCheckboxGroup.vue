@@ -32,6 +32,12 @@ const handleMasterCheckboxChange = (isChecked: boolean) => {
   emit("update:modelValue", newValue);
 };
 
+/**
+ * Current master checkbox state.
+ * - checked if all options are checked
+ * - indeterminate if at least one but not all options are checked
+ * - unchecked if no options are checked
+ */
 const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
   const availableOptionIds = enabledOptions.value.map(({ id }) => id);
   const currentValues = props.modelValue.filter((i) => availableOptionIds.includes(i));
