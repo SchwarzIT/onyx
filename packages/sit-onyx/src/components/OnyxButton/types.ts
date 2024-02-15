@@ -14,18 +14,18 @@ export type ButtonProps = {
   /**
    * The color of the button.
    */
-  color?: ButtonColor;
+  variation?: ButtonVariation;
   /**
    * The style of the button.
    */
-  variant?: ButtonVariant;
+  mode?: ButtonMode;
 };
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 export type ButtonType = (typeof BUTTON_TYPES)[number];
 
-export const BUTTON_COLORS = ["primary", "secondary", "danger"] as const;
-export type ButtonColor = (typeof BUTTON_COLORS)[number];
+export const BUTTON_VARIATIONS = ["primary", "secondary", "danger"] as const;
+export type ButtonVariation = (typeof BUTTON_VARIATIONS)[number];
 
-export const BUTTON_VARIANTS = ["default", "outline", "plain"] as const;
-export type ButtonVariant = (typeof BUTTON_VARIANTS)[number];
+export const BUTTON_MODES = ["default", "outline", "plain"] as const;
+export type ButtonMode = (typeof BUTTON_MODES)[number];

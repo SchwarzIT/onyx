@@ -1,7 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxButton from "./OnyxButton.vue";
-import { BUTTON_COLORS, BUTTON_TYPES, BUTTON_VARIANTS } from "./types";
+import { BUTTON_VARIATIONS, BUTTON_TYPES, BUTTON_MODES } from "./types";
 
 /**
  * Buttons serve as fundamental components in UI design,
@@ -21,11 +21,11 @@ const meta: Meta<typeof OnyxButton> = {
       type: {
         options: BUTTON_TYPES,
       },
-      color: {
-        options: BUTTON_COLORS,
+      variation: {
+        options: BUTTON_VARIATIONS,
       },
-      variant: {
-        options: BUTTON_VARIANTS,
+      mode: {
+        options: BUTTON_MODES,
       },
     },
   }),
@@ -35,7 +35,7 @@ export default meta;
 type Story = StoryObj<typeof OnyxButton>;
 
 /**
- * This example shows the button in primary color
+ * This example shows the button in primary variation
  */
 export const Primary = {
   args: {
@@ -44,21 +44,21 @@ export const Primary = {
 } satisfies Story;
 
 /**
- * This example shows the button in secondary color
+ * This example shows the button in secondary variation
  */
 export const Secondary = {
   args: {
     label: "Button",
-    color: "secondary",
+    variation: "secondary",
   },
 } satisfies Story;
 
 /**
- * This example shows the button in danger color
+ * This example shows the button in danger variation
  */
 export const Danger = {
   args: {
     label: "Button",
-    color: "danger",
+    variation: "danger",
   },
 } satisfies Story;

@@ -4,24 +4,16 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   label: "",
   disabled: false,
   type: "button",
-  color: "primary",
-  variant: "default",
+  variation: "primary",
+  mode: "default",
 });
-
-const emit = defineEmits<{
-  /**
-   * Emitted when the button is clicked
-   */
-  click: [];
-}>();
 </script>
 
 <template>
   <button
     class="onyx-button"
-    :class="[`onyx-button--${props.color}`, `onyx-button--${props.variant}`]"
+    :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
-    @click="emit('click')"
   >
     <span class="onyx-button__label">{{ props.label }}</span>
   </button>
@@ -29,7 +21,7 @@ const emit = defineEmits<{
 
 <style lang="scss">
 .onyx-button {
-  display: inline-flex;
+  display: flex;
   padding: var(--onyx-spacing-3xs) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;

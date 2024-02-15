@@ -3,7 +3,7 @@ import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxButton label="Button" color="secondary" />);
+  const component = await mount(<OnyxButton label="Button" variation="secondary" />);
 
   // ASSERT
   await expect(component).toContainText("Button");
