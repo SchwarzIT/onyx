@@ -72,7 +72,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   height: 2.5rem;
   cursor: var(--onyx-radio-button-cursor);
 
-  &:has(&__selector:hover) {
+  &:has(&__selector:hover),
+  .pw-hover & {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
   }
 
@@ -90,7 +91,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
   }
 
-  &:has(&__selector:focus-visible) {
+  &:has(&__selector:focus-visible),
+  .pw-focus-visible & {
     --onyx-radio-button-selector-outline-width: 0.75rem;
   }
 
