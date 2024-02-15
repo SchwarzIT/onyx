@@ -1,4 +1,4 @@
-// `onyx-util-required-marker` is used internally to populate the the "::after" pseudo element with the optional or required indicator.
+// `onyx-required-marker` and `onyx-optional-marker` is used internally to populate the the "::after" pseudo element with the required indicator.
 // the user can set `onyx-use-optional` to switch from the default "required" indicator to the "optional" indicators.
 .onyx-util-required-marker {
   &::after {
