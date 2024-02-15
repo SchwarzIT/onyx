@@ -1,19 +1,38 @@
 <script lang="ts" setup generic="TValue">
 import { ref, watchEffect } from "vue";
-import type { SelectionProps } from "./types";
+import type { Equals, TypeEqualityGuard } from "@/index";
+import type { RadioButtonProps } from "./types";
 
-export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
+// TODO: remove workaround
+// Temporary solution: storybook cannot use complex types, but we can duplicate them and use this type to ensure that they are equal.
+type _SHOULD_BE_EQUAL = Equals<TypeEqualityGuard<RadioButtonProps<TValue>, ShallowProps<TValue>>>;
+
+type ShallowProps<TValue> = {
+  /**
+   * id of the selection option, not of the radio button input
+   */
+  id: string;
+  label: string;
+  /**
+   * An optional value.
+   * It's not actually used by the selection controls, but can be used to associate data with this option.
+   */
+  value?: TValue;
+  disabled?: boolean;
+  readonly?: boolean;
+  loading?: boolean;
+  selected?: boolean;
   /**
    * Identifier for the radio buttons in the group.
    * All radio buttons that should belong to the same radio group must have the same name.
    * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
    */
   name: string;
-  isRequired?: boolean;
+  required?: boolean;
   errorMessage?: string;
 };
 
-const props = defineProps<RadioButtonProps<TValue>>();
+const props = defineProps<ShallowProps<TValue>>();
 
 const selectorRef = ref<HTMLInputElement>();
 
@@ -29,11 +48,11 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       ref="selectorRef"
       class="onyx-radio-button__selector"
       type="radio"
-      :required="props.isRequired"
+      :required="props.required"
       :name="props.name"
       :value="props.id"
       :checked="props.selected"
-      :disabled="props.isDisabled || props.isReadonly"
+      :disabled="props.disabled || props.readonly"
     />
     <span class="onyx-radio-button__label">{{ props.label }}</span>
   </label>
@@ -44,7 +63,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   --onyx-radio-button-cursor: pointer;
   --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-400);
   --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
-  --onyx-radio-button-selector-outline-color: var(--onyx-color-base-background-blank);
+  --onyx-radio-button-selector-outline-color: var(--onyx-color-base-primary-200);
   --onyx-radio-button-selector-outline-width: 0;
   --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-intense);
 
@@ -105,6 +124,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       width: var(--onyx-radio-button-selector-outline-width);
       color: var(--onyx-radio-button-selector-outline-color);
     }
+    outline-offset: 0;
     transition: outline 200ms;
 
     height: 1rem;

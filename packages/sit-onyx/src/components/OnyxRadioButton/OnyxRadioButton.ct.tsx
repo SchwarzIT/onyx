@@ -50,7 +50,7 @@ test("should display correctly when disabled", async ({ mount, makeAxeBuilder, p
       name="radio form"
       value="radio-value"
       selected
-      isDisabled
+      disabled
     />,
   );
 
