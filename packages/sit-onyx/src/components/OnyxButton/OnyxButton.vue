@@ -21,6 +21,12 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 
 <style lang="scss">
 .onyx-button {
+  --onyx-button-background-color: transparent;
+  --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
+  --onyx-button-border-color: transparent;
+  --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+  --onyx-button-outline-color: var(--onyx-color-base-primary-200);
+
   display: flex;
   padding: var(--onyx-spacing-3xs) var(--onyx-spacing-sm);
   justify-content: center;
@@ -29,102 +35,100 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   border-radius: var(--onyx-radius-sm);
   cursor: pointer;
   font-family: var(--onyx-font-family);
-  background-color: var(--background-color, transparent);
-  border: var(--onyx-1px-in-rem) solid var(--border-color, transparent);
+  background-color: var(--onyx-button-background-color);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-button-border-color);
 
   &--primary {
-    --color: var(--onyx-color-text-icons-primary-intense);
-
     &:disabled {
-      --color: var(--onyx-color-text-icons-primary-soft);
+      --onyx-button-text-color: var(--onyx-color-text-icons-primary-soft);
     }
 
     &.onyx-button--default {
-      --background-color: var(--onyx-color-base-primary-500);
-      --background-hover-color: var(--onyx-color-base-primary-400);
-      --color: var(--onyx-color-text-icons-neutral-inverted);
-      --border-color: var(--onyx-color-base-primary-500);
+      --onyx-button-background-color: var(--onyx-color-base-primary-500);
+      --onyx-button-background-hover-color: var(--onyx-color-base-primary-400);
+      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
+      --onyx-button-border-color: var(--onyx-color-base-primary-500);
 
       &:disabled {
-        --background-color: var(--onyx-color-base-primary-200);
-        --border-color: var(--onyx-color-base-primary-200);
-        --color: var(--onyx-color-text-icons-neutral-inverted);
+        --onyx-button-background-color: var(--onyx-color-base-primary-200);
+        --onyx-button-border-color: var(--onyx-color-base-primary-200);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
       }
     }
 
     &.onyx-button--outline {
-      --border-color: var(--onyx-color-base-primary-500);
+      --onyx-button-border-color: var(--onyx-color-base-primary-500);
 
       &:disabled {
-        --border-color: var(--onyx-color-base-primary-200);
+        --onyx-button-border-color: var(--onyx-color-base-primary-200);
       }
     }
   }
 
   &--secondary {
-    --background-hover-color: var(--onyx-color-base-neutral-200);
-    --focus-outline-color: var(--onyx-color-base-neutral-300);
-    --color: var(--onyx-color-text-icons-neutral-intense);
+    --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
+    --onyx-button-outline-color: var(--onyx-color-base-neutral-300);
+    --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
 
     &:disabled {
-      --color: var(--onyx-color-text-icons-neutral-soft);
+      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
     }
 
     &.onyx-button--default {
-      --background-color: var(--onyx-color-base-background-blank);
-      --background-hover-color: var(--onyx-color-base-neutral-200);
-      --border-color: var(--onyx-color-base-neutral-400);
+      --onyx-button-background-color: var(--onyx-color-base-background-blank);
+      --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
+      --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
       &:disabled {
-        --background-color: var(--onyx-color-base-background-blank);
-        --border-color: var(--onyx-color-base-neutral-200);
+        --onyx-button-background-color: var(--onyx-color-base-background-blank);
+        --onyx-button-border-color: var(--onyx-color-base-neutral-200);
       }
     }
 
     &.onyx-button--outline {
-      --border-color: var(--onyx-color-base-neutral-400);
+      --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
       &:disabled {
-        --border-color: var(--onyx-color-base-neutral-200);
+        --onyx-button-border-color: var(--onyx-color-base-neutral-200);
       }
     }
   }
 
   &--danger {
-    --background-hover-color: var(--onyx-color-base-danger-200);
-    --focus-outline-color: var(--onyx-color-base-danger-300);
-    --color: var(--onyx-color-text-icons-danger-intense);
+    --onyx-button-background-hover-color: var(--onyx-color-base-danger-200);
+    --onyx-button-outline-color: var(--onyx-color-base-danger-300);
+    --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
     &:disabled {
-      --color: var(--onyx-color-text-icons-danger-medium);
+      --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
     }
 
     &.onyx-button--default {
-      --background-color: var(--onyx-color-base-danger-200);
-      --background-hover-color: var(--onyx-color-base-danger-100);
-      --border-color: var(--onyx-color-base-danger-500);
+      --onyx-button-background-color: var(--onyx-color-base-danger-200);
+      --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
+      --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
       &:disabled {
-        --background-color: var(--onyx-color-base-danger-100);
-        --border-color: var(--onyx-color-base-danger-200);
+        --onyx-button-background-color: var(--onyx-color-base-danger-100);
+        --onyx-button-border-color: var(--onyx-color-base-danger-200);
       }
     }
 
     &.onyx-button--outline {
-      --border-color: var(--onyx-color-base-danger-500);
+      --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
       &:disabled {
-        --border-color: var(--onyx-color-base-danger-200);
+        --onyx-button-border-color: var(--onyx-color-base-danger-200);
       }
     }
   }
 
   &:hover {
-    --background-color: var(--background-hover-color, var(--onyx-color-base-primary-100));
+    --onyx-button-background-color: var(--onyx-button-background-hover-color);
   }
 
   &:focus-visible {
-    outline: 0.25rem solid var(--focus-outline-color, var(--onyx-color-base-primary-200));
+    outline: 0.25rem solid var(--onyx-button-outline-color);
   }
 
   &:disabled {
@@ -135,7 +139,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     display: flex;
     padding: 0 var(--onyx-spacing-4xs);
     max-width: 12.25rem;
-    color: var(--color);
+    color: var(--onyx-button-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
