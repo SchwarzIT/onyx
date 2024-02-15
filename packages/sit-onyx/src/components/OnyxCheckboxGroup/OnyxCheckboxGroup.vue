@@ -9,6 +9,7 @@ const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
   direction: "vertical",
   showCheckAll: false,
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -49,7 +50,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
 </script>
 
 <template>
-  <fieldset class="onyx-checkbox-group">
+  <fieldset class="onyx-checkbox-group" :disabled="props.disabled">
     <legend v-if="props.headline" class="onyx-checkbox-group__label">
       <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
     </legend>

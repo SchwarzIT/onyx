@@ -29,6 +29,10 @@ export type OnyxCheckboxGroupProps<
    * If unset, a default label will be shown depending on the current locale/language.
    */
   checkAllLabel?: string;
+  /**
+   * Whether all checkboxes should be disabled.
+   */
+  disabled?: boolean;
 };
 
 export type CheckboxGroupOption<T extends string | number | boolean> = Omit<

@@ -8,7 +8,7 @@ const mockOptions: OnyxCheckboxGroupProps["options"] = [
   { label: "Disabled", id: "id-3", disabled: true },
 ];
 
-test("should render", async ({ mount, makeAxeBuilder }) => {
+test("should render", async ({ page, mount, makeAxeBuilder }) => {
   let modelValue: string[] = [];
 
   const eventHandlers = {
@@ -40,6 +40,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   await component.getByLabel("Default").check();
   expect(modelValue).toStrictEqual(["id-1"]);
   await component.update({ props: { modelValue }, on: eventHandlers });
+  await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
   // ASSERT
   await expect(masterCheckBox).not.toBeChecked();
@@ -50,6 +51,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   await masterCheckBox.check();
   expect(modelValue).toStrictEqual(["id-1", "id-2"]);
   await component.update({ props: { modelValue }, on: eventHandlers });
+  await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
   // ASSERT
   await expect(masterCheckBox).toBeChecked();
@@ -57,12 +59,14 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   await expect(component.getByLabel("Default")).toBeChecked();
   await expect(component.getByLabel("Required")).toBeChecked();
   await expect(component.getByLabel("Disabled")).not.toBeChecked();
+
   await expect(component).toHaveScreenshot("checked.png");
 
   // ACT
   await masterCheckBox.uncheck();
   expect(modelValue).toStrictEqual([]);
   await component.update({ props: { modelValue }, on: eventHandlers });
+  await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
   // ASSERT
   await expect(masterCheckBox).not.toBeChecked();
@@ -74,7 +78,13 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 
 test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxCheckboxGroup options={mockOptions} direction="horizontal" />);
+  const component = await mount(
+    <OnyxCheckboxGroup
+      options={mockOptions}
+      headline="Horizontal group headline"
+      direction="horizontal"
+    />,
+  );
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -82,4 +92,18 @@ test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
   await expect(component).toHaveScreenshot("horizontal.png");
+});
+
+test("should disabled all checkboxes if group is disabled", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxCheckboxGroup options={mockOptions} headline="Disabled group headline" disabled />,
+  );
+
+  // ASSERT
+  const checkboxes = await component.getByRole("checkbox").all();
+
+  for (const checkbox of checkboxes) {
+    await expect(checkbox).toBeDisabled();
+  }
 });

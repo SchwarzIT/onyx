@@ -58,3 +58,13 @@ export const WithCheckAll = {
     showCheckAll: true,
   },
 } satisfies Story;
+
+/**
+ * A disabled checkbox group where all checkboxes are disabled.
+ */
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;
