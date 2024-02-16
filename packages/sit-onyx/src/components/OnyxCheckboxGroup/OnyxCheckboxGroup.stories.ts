@@ -55,7 +55,7 @@ export const Horizontal = {
 export const WithCheckAll = {
   args: {
     ...Default.args,
-    showCheckAll: true,
+    withCheckAll: true,
   },
 } satisfies Story;
 

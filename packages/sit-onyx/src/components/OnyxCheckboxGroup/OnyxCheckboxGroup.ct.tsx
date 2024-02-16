@@ -20,7 +20,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
     props: {
       options: mockOptions,
       headline: "Checkbox group headline",
-      showCheckAll: true,
+      withCheckAll: true,
     } satisfies OnyxCheckboxGroupProps,
     on: eventHandlers,
   });

@@ -8,7 +8,7 @@ import type { OnyxCheckboxGroupProps } from "./types";
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
   direction: "vertical",
-  showCheckAll: false,
+  withCheckAll: false,
   disabled: false,
 });
 
@@ -45,7 +45,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
 
   if (!availableOptionIds.length || !currentValues.length) return { modelValue: false };
   if (currentValues.length === availableOptionIds.length) return { modelValue: true };
-  return { indeterminate: true };
+  return { indeterminate: true, modelValue: false };
 });
 </script>
 
@@ -60,7 +60,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
       :class="{ 'onyx-checkbox-group__content--horizontal': props.direction === 'horizontal' }"
     >
       <OnyxCheckbox
-        v-if="props.showCheckAll"
+        v-if="props.withCheckAll"
         v-bind="masterCheckboxState"
         :label="props.checkAllLabel || t('selectAll')"
         @update:model-value="handleMasterCheckboxChange"

@@ -12,7 +12,7 @@ export type OnyxCheckboxGroupProps<
    */
   modelValue?: TValue[];
   /**
-   * Headline to show above all checkboxes.
+   * Headline to show above all checkboxes which is also the fieldset legend.
    */
   headline?: string;
   /**
@@ -21,11 +21,11 @@ export type OnyxCheckboxGroupProps<
   direction?: CheckboxGroupDirection;
   /**
    * If true, an additional checkbox will be displayed to check/uncheck all options.
-   * Disabled checkboxes will not be excluded from the check/uncheck behavior.
+   * Disabled checkboxes will be excluded from the check/uncheck behavior.
    */
-  showCheckAll?: boolean;
+  withCheckAll?: boolean;
   /**
-   * Checkbox label if property `showCheckAll` is enabled.
+   * Checkbox label if property `withCheckAll` is enabled.
    * If unset, a default label will be shown depending on the current locale/language.
    */
   checkAllLabel?: string;
