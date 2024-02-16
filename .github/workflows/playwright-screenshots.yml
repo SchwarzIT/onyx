@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,7 +31,7 @@ jobs:
           working-directory: packages/sit-onyx
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "chore: update Playwright screenshots"
           title: "chore: update Playwright screenshots"

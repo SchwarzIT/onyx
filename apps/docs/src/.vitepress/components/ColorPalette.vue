@@ -4,7 +4,7 @@ import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteVa
 import DesignToken from "./DesignToken.vue";
 import DesignTokenHeader from "./DesignTokenHeader.vue";
 
-const AVAILABLE_TABS = ["Base", "Text", "Icon"] as const;
+const AVAILABLE_TABS = ["Base", "Text & Icons"] as const;
 type AvailableTab = (typeof AVAILABLE_TABS)[number];
 
 const props = defineProps<{
@@ -17,7 +17,7 @@ const currentTabColor = computed(() => {
   // for the neutral color palette, we need to use the action color
   // for highlighting the active tab because neutral would be basically the same as inactive tabs
   const color = props.name !== "neutral" ? props.name : "action";
-  return `var(--onyx-color-text-${color}-intense)`;
+  return `var(--onyx-color-text-icons-${color}-intense)`;
 });
 
 /** Speaking names for base color steps. */
@@ -40,40 +40,39 @@ const colorSteps = computed<ColorPaletteValueProps[]>(() => {
         description: step,
         name: baseStepNames[step],
         color: `var(--onyx-color-base-${props.name}-${step})`,
-        textColor: step < 500 ? `var(--onyx-color-text-${props.name}-bold)` : whiteTextColor,
+        textColor: step < 500 ? `var(--onyx-color-text-icons-${props.name}-bold)` : whiteTextColor,
       };
     });
   } else {
-    const currentTabLowercase = currentTab.value.toLowerCase();
     const textColor =
-      props.name === "neutral" ? whiteTextColor : `var(--onyx-color-text-${props.name}-bold)`;
+      props.name === "neutral" ? whiteTextColor : `var(--onyx-color-text-icons-${props.name}-bold)`;
 
     return [
       {
         description: "soft",
-        color: `var(--onyx-color-${currentTabLowercase}-${props.name}-soft)`,
+        color: `var(--onyx-color-text-icons-${props.name}-soft)`,
         textColor,
       },
       {
         description: "medium",
-        color: `var(--onyx-color-${currentTabLowercase}-${props.name}-medium)`,
+        color: `var(--onyx-color-text-icons-${props.name}-medium)`,
         textColor,
       },
       {
         description: "intense",
-        color: `var(--onyx-color-${currentTabLowercase}-${props.name}-intense)`,
+        color: `var(--onyx-color-text-icons-${props.name}-intense)`,
         textColor: whiteTextColor,
       },
       props.name === "neutral"
         ? {
             description: "inverted",
-            color: `var(--onyx-color-${currentTabLowercase}-inverted)`,
-            textColor: `var(--onyx-color-${currentTabLowercase}-intense)`,
+            color: `var(--onyx-color-text-icons-inverted)`,
+            textColor: `var(--onyx-color-text-icons-intense)`,
             showBorder: true,
           }
         : {
             description: "bold",
-            color: `var(--onyx-color-${currentTabLowercase}-${props.name}-bold)`,
+            color: `var(--onyx-color-text-icons-${props.name}-bold)`,
             textColor: whiteTextColor,
           },
     ];
@@ -135,7 +134,7 @@ const handleCopy = async (color: string) => {
   &__content {
     padding: var(--onyx-spacing-xl);
     border-radius: var(--onyx-radius-md);
-    border: 1px solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
 
     @include mixins.breakpoint(max, s) {

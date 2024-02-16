@@ -1,4 +1,5 @@
 {
+  "optional": "(optional)",
   "validations": {
     "tooShort": "Please lengthen this text to {minLength} characters or more (you are currently using 1 character) | Please lengthen this text to {minLength} characters or more (you are currently using {n} characters)",
     "tooLong": "Please shorten this text to {maxLength} characters or less (you are currently using 1 character) | Please shorten this text to {maxLength} characters or less (you are currently using {n} characters)",
@@ -15,5 +16,6 @@
       "tel": "\"{value}\" must be a valid phone number.",
       "url": "\"{value}\" must a valid URL."
     }
-  }
+  },
+  "selectAll": "Select all"
 }

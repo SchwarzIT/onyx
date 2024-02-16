@@ -85,7 +85,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
     display: flex;
     justify-content: flex-end;
     gap: var(--onyx-spacing-lg);
-    margin-bottom: var(--onyx-spacing-xs);
+    margin-bottom: var(--onyx-spacing-2xs);
   }
 
   &__button {
@@ -93,13 +93,13 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
     font-size: 1rem;
 
     &--active {
-      color: var(--onyx-color-text-primary-intense);
+      color: var(--onyx-color-text-icons-primary-intense);
     }
   }
 
   &__content {
     border-radius: var(--onyx-radius-md);
-    border: 1px solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -117,7 +117,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
     &:last-child {
       @include mixins.breakpoint(min, s, 1) {
-        border-left: 1px solid var(--onyx-color-base-neutral-300);
+        border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       }
     }
   }

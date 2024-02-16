@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Fri, 26 Jan 2024 09:58:57 GMT
+ * Imported from Figma API on Wed, 14 Feb 2024 08:54:54 GMT
  */
 :where(:root),
 .onyx-default {
@@ -18,7 +18,7 @@
   --onyx-color-themed-neutral-1100: #081723;
   --onyx-color-themed-neutral-1200: #000e19;
   --onyx-color-themed-primary-100: #f2f7f7;
-  --onyx-color-themed-primary-200: #b5eaed;
+  --onyx-color-themed-primary-200: #bbeaed;
   --onyx-color-themed-primary-300: #79dde2;
   --onyx-color-themed-primary-400: #3dd0d8;
   --onyx-color-themed-primary-500: #00c3cd;
@@ -113,6 +113,7 @@
   --onyx-number-spacing-200: 0.25rem;
   --onyx-number-spacing-250: 0.375rem;
   --onyx-number-spacing-300: 0.5rem;
+  --onyx-number-spacing-325: 0.625rem;
   --onyx-number-spacing-350: 0.75rem;
   --onyx-number-spacing-400: 1rem;
   --onyx-number-spacing-500: 1.5rem;

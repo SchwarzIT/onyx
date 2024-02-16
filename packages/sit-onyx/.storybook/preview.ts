@@ -15,7 +15,7 @@ const preview = {
         toc: {
           title: "Table of Contents",
           // add our custom "Properties, Events and Slots" headline from docs-template.mdx to the table of contents
-          headingSelector: "h3, #properties-events-and-slots",
+          headingSelector: ".sb-anchor > h3, #properties-events-and-slots",
         },
       },
     },
