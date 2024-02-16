@@ -2,7 +2,12 @@
 
 Column grids in ui design and development establish a structured layout, organizing content, components and elements cohesively. They provide a framework for alignment and distribution, ensuring consistency and hierarchy. Additionally, grids serve as the foundation for smooth responsive behavior, allowing seamless adoption to different screen sizes and resolutions, ultimately enhancing usability and overall user experience.
 
-To see the grid and breakpoints in action, feel free to have a look on the [grid playground](/exapmle).
+<script lang="ts" setup>
+import { getStorybookHost } from "../.vitepress/env";
+</script>
+
+To see the grid and breakpoints in action, feel free to have a look on the
+<a :href="`${getStorybookHost()}/?path=/docs/utilities-gridplayground--docs`" target="_blank">grid playground</a>.
 
 ## Understanding the grid
 
@@ -131,7 +136,8 @@ By default, all grids are `left aligned` to the edge of the screen. For having m
 
 Overall, the grid and breakpoints for the sidebar operate the same way like those employed for the whole screen, in terms of logic. Similar to the whole-screen-grid- the sidebar incorporates margins, columns, and gutters, that dynamically adapt to its width. However, the values used for the sidebar grid and breakpoints are varying. For detailed specifications, refer to the definitions provided below.
 
-To dive deeper into understanding the sidebar's structure, behavior, and usage, please visit the dedicated [component page](/development/sidebar) that provides comprehensive information on its functionality and implementation.
+<!-- TODO: comment in when sidebar component is implemented -->
+<!-- To dive deeper into understanding the sidebar's structure, behavior, and usage, please visit the dedicated [component page](/development/sidebar) that provides comprehensive information on its functionality and implementation. -->
 
 ![All sidebar breakpoints layed out on top of each-other with their units included. The details can also be found in the following section.](/assets/sidebar-breakpoints.png)
 
