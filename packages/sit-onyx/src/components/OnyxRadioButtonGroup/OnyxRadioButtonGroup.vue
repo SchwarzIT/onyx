@@ -2,6 +2,7 @@
 import type { TargetEvent } from "@/types/dom";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
@@ -12,7 +13,10 @@ const props = defineProps<{
    */
   name: string;
   modelValue?: SelectionOption<T>;
-  label?: string;
+  /**
+   * Headline shown above the radio button group, which is also the fieldset legend.
+   */
+  headline?: string;
   required?: boolean;
   disabled?: boolean;
   readonly?: boolean;
@@ -37,7 +41,9 @@ const handleChange = (event: ChangeEvent) =>
     :disabled="props.disabled"
     @change="handleChange($event as ChangeEvent)"
   >
-    <legend v-if="props.label" class="onyx-radio-button-group__label">{{ props.label }}</legend>
+    <legend v-if="props.headline" class="onyx-radio-button-group__headline">
+      <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+    </legend>
     <OnyxRadioButton
       v-for="option in props.options"
       :id="option.id"
