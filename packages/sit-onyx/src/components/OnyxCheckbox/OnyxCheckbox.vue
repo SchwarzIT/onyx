@@ -25,7 +25,13 @@ const isTouched = ref(false);
 </script>
 
 <template>
-  <label class="onyx-checkbox">
+  <label
+    class="onyx-checkbox"
+    :class="{
+      'onyx-required-marker': props.required,
+      'onyx-optional-marker': !props.required,
+    }"
+  >
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
@@ -157,16 +163,6 @@ const isTouched = ref(false);
     margin: 0;
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-
-  &:has(&__input:required) {
-    .onyx-checkbox__label {
-      &::after {
-        content: "*";
-        color: var(--onyx-color-text-icons-danger-intense);
-        padding-left: var(--onyx-spacing-5xs);
-      }
-    }
   }
 }
 </style>
