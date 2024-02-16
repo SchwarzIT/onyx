@@ -1,17 +1,16 @@
-import { expect, test, vi } from "vitest";
+import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { injectI18n, provideI18n } from ".";
-import type { ObjectToDottedStrings, OnyxTranslations, ProvideI18nOptions } from "..";
+import { injectI18n, provideI18n, type ProvideI18nOptions } from ".";
+import type { ObjectToDottedStrings, OnyxTranslations } from "..";
+
+// keep track of provide/inject because they need to be mocked
+let provided = new Map();
 
 vi.mock("vue", async (importOriginal) => {
   const module: typeof vue = await importOriginal();
 
-  // keep track of provide/inject because they need to be mocked
-  const provided = new Map();
-
   return {
     ...module,
-    provide: vi.fn((key, value) => provided.set(key, value)) satisfies (typeof vue)["provide"],
     inject: vi.fn((key) => provided.get(key)) satisfies (typeof vue)["inject"],
   };
 });
@@ -24,6 +23,14 @@ vi.mock("./locales/en-US.json", () => {
   };
 });
 
+const app = {
+  provide: vi.fn((key, value) => provided.set(key, value)) satisfies (typeof vue)["provide"],
+} as unknown as vue.App;
+
+beforeEach(() => {
+  provided = new Map();
+});
+
 /**
  * These two types are needed to type cast messages/keys in the tests below
  * because we will use custom test messages/keys which will not fit the type
@@ -34,7 +41,7 @@ type TestMessages = ProvideI18nOptions["messages"];
 
 test("should provide/inject i18n with a string", () => {
   // ARRANGE
-  provideI18n({ locale: "test" });
+  provideI18n(app, { locale: "test" });
 
   // ACT
   const i18n = injectI18n();
@@ -48,7 +55,7 @@ test("should provide/inject i18n with a ref", () => {
   // ARRANGE
   // should keep locale up to date if a ref is passed as option
   const locale = vue.ref("a");
-  provideI18n({ locale });
+  provideI18n(app, { locale });
 
   // ACT
   const i18n = injectI18n();
@@ -65,7 +72,7 @@ test("should provide/inject i18n with a ref", () => {
 
 test("should translate with/without placeholders", () => {
   // ARRANGE
-  provideI18n({
+  provideI18n(app, {
     locale: "en-US",
     messages: {
       "en-US": {
@@ -108,7 +115,7 @@ test("should translate with/without placeholders", () => {
 
 test("should translate with pluralization", () => {
   // ARRANGE
-  provideI18n({
+  provideI18n(app, {
     locale: "en-US",
     messages: {
       "en-US": {
@@ -180,7 +187,7 @@ test("should translate with pluralization", () => {
 test("should update translation when locale changes", () => {
   // ARRANGE
   const locale = vue.ref("en-US");
-  provideI18n({
+  provideI18n(app, {
     locale,
     messages: {
       "en-US": {
@@ -206,7 +213,7 @@ test("should update translation when locale changes", () => {
 
 test("should use English fallback if translation is missing", () => {
   // ARRANGE
-  provideI18n({
+  provideI18n(app, {
     locale: "de-DE",
     messages: {
       "de-DE": {

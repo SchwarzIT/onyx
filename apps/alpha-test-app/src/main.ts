@@ -5,6 +5,8 @@ import App from "./App.vue";
 import { createI18n } from "vue-i18n";
 import enUS from "./i18n/locales/en-US.json";
 import deDE from "./i18n/locales/de-DE.json";
+import onyxDeDE from "sit-onyx/locales/de-DE.json";
+import { createOnyx } from "sit-onyx";
 
 const i18n = createI18n({
   legacy: false,
@@ -12,4 +14,6 @@ const i18n = createI18n({
   messages: { "en-US": enUS, "de-DE": deDE },
 });
 
-createApp(App).use(i18n).mount("#app");
+const onyx = createOnyx({ i18n: { locale: i18n.global.locale, messages: { "de-DE": onyxDeDE } } });
+
+createApp(App).use(i18n).use(onyx).mount("#app");

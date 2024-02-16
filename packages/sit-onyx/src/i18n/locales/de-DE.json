@@ -1,4 +1,5 @@
 {
+  "optional": "(optional)",
   "validations": {
     "tooShort": "Verlängere diesen Text auf mindestens {minLength} Zeichen. Derzeit verwendest du {n} Zeichen.",
     "tooLong": "Kürze diesen Text auf max. {maxLength} Zeichen. Zurzeit verwendest du {n} Zeichen.",
