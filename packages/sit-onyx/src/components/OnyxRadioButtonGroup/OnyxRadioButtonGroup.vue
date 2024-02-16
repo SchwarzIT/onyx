@@ -14,7 +14,7 @@ const props = defineProps<{
   name: string;
   modelValue?: SelectionOption<T>;
   /**
-   * Headline and legend shown above the radio button group
+   * Headline shown above the radio button group, which is also the fieldset legend.
    */
   headline?: string;
   required?: boolean;
