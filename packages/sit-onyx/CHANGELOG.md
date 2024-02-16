@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.14
+
+### Minor Changes
+
+- c605dbb: feat: add component `OnyxCheckboxGroup`
+
 ## 1.0.0-alpha.13
 
 ### Minor Changes
