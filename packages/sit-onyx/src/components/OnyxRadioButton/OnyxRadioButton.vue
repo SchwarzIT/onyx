@@ -44,8 +44,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   <label
     :class="{
       'onyx-radio-button': true,
-      'onyx-util-required-marker': props.required,
-      'onyx-util-optional-marker': !props.required,
+      'onyx-required-marker': props.required,
+      'onyx-optional-marker': !props.required,
     }"
     :title="props.errorMessage"
   >
