@@ -41,7 +41,7 @@ const handleChange = (event: ChangeEvent) =>
     :disabled="props.disabled"
     @change="handleChange($event as ChangeEvent)"
   >
-    <legend v-if="props.headline" class="onyx-radio-button-group__label">
+    <legend v-if="props.headline" class="onyx-radio-button-group__headline">
       <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
     </legend>
     <OnyxRadioButton
