@@ -1,4 +1,4 @@
-import { generatePermutations } from "../../utils/playwright";
+import { createMatrixScreenshot } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
@@ -90,46 +90,22 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
 });
 
 const STATES = {
-  state: ["default", "disabled", "invalid", "required"],
-  select: ["selected", "unselected"],
-  focus: ["", "hover", "focus-visible"],
+  state: ["default", "disabled", "invalid", "required", "optional"],
+  select: ["unselected", "selected"],
+  focusState: ["", "hover", "focus-visible"],
 } as const;
 
-const testSetup = generatePermutations(STATES);
-
-test("Screenshot test", async ({ mount, page }) => {
-  const component = await mount(
-    <div
-      data-testid="screenshot-root"
-      style="display: grid; grid-template-columns: repeat(6, 300px)"
-    >
-      {testSetup.map(({ select, state, focus }, i) => {
-        const label = `${state} ${select} ${focus}`;
-        return (
-          <div class={focus && `pw-${focus}`} key={i}>
-            <OnyxRadioButton
-              selected={select === "selected"}
-              disabled={state === "disabled"}
-              required={state === "required"}
-              errorMessage={state === "invalid" ? "invalid" : ""}
-              name={label}
-              label={label}
-              id={label}
-              key={label}
-            />
-          </div>
-        );
-      })}
-    </div>,
-  );
-
-  const { width, height } = await page.getByTestId("screenshot-root").evaluate((e) => ({
-    height: e.scrollHeight + 50,
-    width: e.scrollWidth + 50,
-  }));
-
-  await page.setViewportSize({ width, height });
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("radio-button-states.png");
-});
+test(
+  "Screenshot test",
+  createMatrixScreenshot(STATES, "radio-button-matrix.png", ({ select, state }, i) => (
+    <OnyxRadioButton
+      selected={select === "selected"}
+      disabled={state === "disabled"}
+      required={state === "required"}
+      errorMessage={state === "invalid" ? "invalid" : ""}
+      name={`name-${i}`}
+      label="label"
+      id={`id-${i}`}
+    />
+  )),
+);
