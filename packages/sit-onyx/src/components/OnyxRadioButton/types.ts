@@ -10,9 +10,15 @@ export type SelectionOption<T> = {
    */
   value?: T;
   // TODO: JSDocs -> document which wins in collisions (e.g. isDisabled as well as isReadonly is true)
-  isDisabled?: boolean;
-  isReadonly?: boolean;
-  isLoading?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+  loading?: boolean;
 };
 
 export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };
+
+export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
+  name: string;
+  required?: boolean;
+  errorMessage?: string;
+};

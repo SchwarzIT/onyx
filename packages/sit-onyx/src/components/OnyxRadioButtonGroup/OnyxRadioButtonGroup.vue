@@ -2,6 +2,7 @@
 import type { TargetEvent } from "@/types/dom";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
@@ -12,10 +13,13 @@ const props = defineProps<{
    */
   name: string;
   modelValue?: SelectionOption<T>;
-  label?: string;
-  isRequired?: boolean;
-  isDisabled?: boolean;
-  isReadonly?: boolean;
+  /**
+   * Headline shown above the radio button group, which is also the fieldset legend.
+   */
+  headline?: string;
+  required?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
   isLoading?: boolean;
   errorMessage?: string;
   options: SelectionOption<T>[];
@@ -34,10 +38,12 @@ const handleChange = (event: ChangeEvent) =>
 <template>
   <fieldset
     class="onyx-radio-button-group"
-    :disabled="props.isDisabled"
+    :disabled="props.disabled"
     @change="handleChange($event as ChangeEvent)"
   >
-    <legend v-if="props.label" class="onyx-radio-button-group__label">{{ props.label }}</legend>
+    <legend v-if="props.headline" class="onyx-radio-button-group__headline">
+      <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+    </legend>
     <OnyxRadioButton
       v-for="option in props.options"
       :id="option.id"
@@ -47,9 +53,9 @@ const handleChange = (event: ChangeEvent) =>
       :value="option.value"
       :error-message="option.id === props.modelValue?.id ? props.errorMessage : ''"
       :selected="option.id === props.modelValue?.id"
-      :is-disabled="option.isDisabled"
-      :is-readonly="props.isReadonly || option.isReadonly"
-      :is-loading="props.isLoading || option.isLoading"
+      :disabled="option.disabled"
+      :readonly="props.readonly || option.readonly"
+      :loading="props.isLoading || option.loading"
     />
   </fieldset>
 </template>

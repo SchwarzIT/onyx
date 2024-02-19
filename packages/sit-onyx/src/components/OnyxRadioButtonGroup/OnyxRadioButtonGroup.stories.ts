@@ -11,11 +11,6 @@ const meta: Meta<typeof OnyxRadioButtonGroup> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButtonGroup,
     events: ["update:modelValue"],
-    argTypes: {
-      isReadonly: { type: "boolean" },
-      isLoading: { type: "boolean" },
-      isDisabled: { type: "boolean" },
-    },
   }),
 };
 
@@ -26,9 +21,9 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "dummy.1", value: "1", id: "1" },
   { label: "dummy.2", value: "2", id: "2" },
   { label: "dummy.3", value: "3", id: "3" },
-  { label: "dummy.4", value: "4", id: "4", isLoading: true },
-  { label: "dummy.5", value: "5", id: "5", isReadonly: true },
-  { label: "dummy.6", value: "6", id: "6", isDisabled: true },
+  { label: "dummy.4", value: "4", id: "4", loading: true },
+  { label: "dummy.5", value: "5", id: "5", readonly: true },
+  { label: "dummy.6", value: "6", id: "6", disabled: true },
 ];
 
 /**

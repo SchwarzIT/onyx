@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import type { OnyxCheckboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   label: "",
   indeterminate: false,
   disabled: false,
+  required: false,
 });
 
 const emit = defineEmits<{
@@ -18,17 +19,29 @@ const isChecked = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
+
+/** True if the user has interacted with the checkbox once. */
+const isTouched = ref(false);
 </script>
 
 <template>
-  <label class="onyx-checkbox">
+  <label
+    class="onyx-checkbox"
+    :class="{
+      'onyx-required-marker': props.required,
+      'onyx-optional-marker': !props.required,
+    }"
+  >
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
         class="onyx-checkbox__input"
+        :class="{ 'onyx-checkbox__input--touched': isTouched }"
         type="checkbox"
         :indeterminate="props.indeterminate"
         :disabled="props.disabled"
+        :required="props.required"
+        @blur="isTouched = true"
       />
     </div>
 
@@ -37,22 +50,50 @@ const isChecked = computed({
 </template>
 
 <style lang="scss">
+@mixin define-hover-border($state, $color) {
+  .onyx-checkbox__input#{$state} {
+    border-color: var(--onyx-color-base-#{$color}-300);
+  }
+}
+
+@mixin define-focus-ring($state, $color) {
+  .onyx-checkbox__container:has(.onyx-checkbox__input#{$state}) {
+    background-color: var(--onyx-color-base-#{$color}-200);
+  }
+}
+
+@mixin define-checked-background($state, $color) {
+  &#{$state} {
+    border-color: var(--onyx-color-base-#{$color}-500);
+    background-color: var(--onyx-color-base-#{$color}-500);
+
+    &:hover {
+      background-color: var(--onyx-color-base-#{$color}-300);
+    }
+  }
+}
+
 .onyx-checkbox {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  max-width: max-content;
 
   &:hover {
-    .onyx-checkbox__input:enabled {
-      border-color: var(--onyx-color-base-primary-300);
+    @include define-hover-border($state: ":enabled", $color: primary);
+
+    &:has(.onyx-checkbox__input--touched) {
+      @include define-hover-border($state: ":invalid", $color: danger);
     }
   }
 
   &:has(&__input:focus-visible) {
-    .onyx-checkbox__container {
-      background-color: var(--onyx-color-base-primary-200);
+    @include define-focus-ring($state: ":enabled", $color: primary);
+
+    &:has(.onyx-checkbox__input--touched) {
+      @include define-focus-ring($state: ":invalid", $color: danger);
     }
   }
 
@@ -85,14 +126,10 @@ const isChecked = computed({
 
     &:checked,
     &:indeterminate {
-      border-color: var(--onyx-color-base-primary-500);
-      background-color: var(--onyx-color-base-primary-500);
+      @include define-checked-background(":enabled", primary);
 
-      &:enabled {
-        &:hover {
-          border-color: var(--onyx-color-base-primary-300);
-          background-color: var(--onyx-color-base-primary-300);
-        }
+      &.onyx-checkbox__input--touched {
+        @include define-checked-background(":invalid", danger);
       }
 
       &:disabled {
@@ -102,6 +139,12 @@ const isChecked = computed({
 
     &:disabled {
       border-color: var(--onyx-color-base-neutral-300);
+    }
+
+    &--touched {
+      &:invalid {
+        border-color: var(--onyx-color-base-danger-500);
+      }
     }
 
     &:checked {

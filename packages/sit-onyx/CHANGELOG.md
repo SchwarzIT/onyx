@@ -1,5 +1,29 @@
 # sit-onyx
 
+## 1.0.0-alpha.15
+
+### Minor Changes
+
+- 1de4414: Add icon property to OnyxButton
+
+## 1.0.0-alpha.14
+
+### Minor Changes
+
+- c605dbb: feat: add component `OnyxCheckboxGroup`
+
+## 1.0.0-alpha.13
+
+### Minor Changes
+
+- 1c52657: Add new OnyxButton component
+
+## 1.0.0-alpha.12
+
+### Minor Changes
+
+- 95b6e75: feat(OnyxCheckbox): add property `required`
+
 ## 1.0.0-alpha.11
 
 ### Major Changes

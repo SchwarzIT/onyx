@@ -5,6 +5,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import deDE from "./i18n/locales/de-DE.json";
 import enUS from "./i18n/locales/en-US.json";
+import onyxDeDE from "sit-onyx/locales/de-DE.json";
+import { createOnyx } from "sit-onyx";
 import { routes } from "./router";
 import "./style.css";
 
@@ -15,6 +17,10 @@ async function setupApp() {
     messages: { "en-US": enUS, "de-DE": deDE },
   });
 
+  const onyx = createOnyx({
+    i18n: { locale: i18n.global.locale, messages: { "de-DE": onyxDeDE } },
+  });
+
   const router = createRouter({
     history: createWebHistory("/"),
     scrollBehavior: (_, __, savedPosition) => {
@@ -23,7 +29,7 @@ async function setupApp() {
     routes,
   });
 
-  const app = createApp(App).use(i18n).use(router);
+  const app = createApp(App).use(i18n).use(router).use(onyx);
   await router.isReady();
 
   app.mount("#app");
