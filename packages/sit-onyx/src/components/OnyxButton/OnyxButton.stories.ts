@@ -3,20 +3,9 @@ import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxButton from "./OnyxButton.vue";
 import { BUTTON_VARIATIONS, BUTTON_TYPES, BUTTON_MODES } from "./types";
+import { defineIconSelectArgType } from "@/utils/storybook";
 
-const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
-
-const iconLabels = Object.entries(ALL_ICONS).reduce<Record<string, string>>(
-  (labels, [filePath, content]) => {
-    labels[content] = filePath.split("/").at(-1)!.replace(".svg", "");
-    return labels;
-  },
-  {},
-);
+const iconArgType = defineIconSelectArgType();
 
 /**
  * Buttons serve as fundamental components in UI design,
@@ -42,13 +31,7 @@ const meta: Meta<typeof OnyxButton> = {
       mode: {
         options: BUTTON_MODES,
       },
-      icon: {
-        options: Object.keys(iconLabels),
-        control: {
-          type: "select",
-          labels: iconLabels,
-        },
-      },
+      icon: iconArgType,
     },
   }),
 };
