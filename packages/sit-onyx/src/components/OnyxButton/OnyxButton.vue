@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
   >
-    <OnyxIcon v-if="props.icon" class="onyx-button__icon" :icon="props.icon" size="24px" />
+    <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
     <span class="onyx-button__label">{{ props.label }}</span>
   </button>
 </template>
@@ -39,6 +39,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   font-family: var(--onyx-font-family);
   background-color: var(--onyx-button-background-color);
   border: var(--onyx-1px-in-rem) solid var(--onyx-button-border-color);
+  color: var(--onyx-button-text-color);
 
   &--primary {
     &:disabled {
@@ -141,17 +142,12 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     display: flex;
     padding: 0 var(--onyx-spacing-4xs);
     max-width: 12.25rem;
-    color: var(--onyx-button-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: 1.5rem;
-  }
-
-  &__icon {
-    color: var(--onyx-button-text-color);
   }
 }
 </style>
