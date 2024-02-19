@@ -15,15 +15,6 @@ const meta: Meta<typeof OnyxHeadline> = {
         control: false,
       },
     },
-    render: (args) => ({
-      components: { OnyxHeadline },
-      setup: () => ({ args }),
-      template: `
-        <OnyxHeadline v-bind="args">
-          Lorem ipsum dolor sit amet
-        </OnyxHeadline>
-      `,
-    }),
   }),
 };
 
@@ -36,6 +27,7 @@ type Story = StoryObj<typeof OnyxHeadline>;
 export const Default = {
   args: {
     is: "h1",
+    default: () => "Lorem ipsum dolor sit amet",
   },
 } satisfies Story;
 
