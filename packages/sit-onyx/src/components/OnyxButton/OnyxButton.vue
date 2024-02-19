@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { ButtonProps } from "./types";
+
 const props = withDefaults(defineProps<ButtonProps>(), {
   label: "",
   disabled: false,
@@ -7,6 +8,11 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   variation: "primary",
   mode: "default",
 });
+
+const emit = defineEmits<{
+  /** Emitted when the button is clicked (and is not disabled). */
+  click: [];
+}>();
 </script>
 
 <template>
@@ -14,6 +20,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     class="onyx-button"
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
+    @click="emit('click')"
   >
     <span class="onyx-button__label">{{ props.label }}</span>
   </button>
