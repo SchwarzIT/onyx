@@ -19,6 +19,10 @@ export type ButtonProps = {
    * The style of the button.
    */
   mode?: ButtonMode;
+  /**
+   * An icon which will be displayed on the left side of the label.
+   */
+  icon?: string;
 };
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
