@@ -1,6 +1,6 @@
 import type { ObjectToDottedStrings, TranslationValue } from "@/types/i18n";
 import type { DeepPartial } from "@/types/utils";
-import { computed, inject, unref, type InjectionKey, type MaybeRef, type App } from "vue";
+import { computed, inject, unref, type App, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 
 /**
@@ -28,7 +28,7 @@ export type ProvideI18nOptions = {
   locale?: MaybeRef<string>;
   /**
    * Available translations / messages. English is always supported. For build-in translations, see:
-   * https://onyx.schwarz/i18n/
+   * https://onyx.schwarz/development/i18n.html
    *
    * @example
    * ```ts

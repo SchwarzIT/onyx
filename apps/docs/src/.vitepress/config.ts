@@ -54,7 +54,7 @@ export default defineConfig({
           { text: "Icons", link: "/resources/icons" },
           { text: "Storybook", link: STORYBOOK_HOST },
           { text: "Report a bug", link: packageJson.bugs.url },
-          { text: "Q&A", link: "https://github.com/schwarzit/onyx/discussions/categories/q-a" },
+          { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
         ],
       },
     ],
