@@ -1,6 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import TestInput, { INPUT_TYPES } from "./TestInput.vue";
+import TestInput from "./TestInput.vue";
 
 /**
  * The input component can be used to...
@@ -10,11 +10,6 @@ const meta: Meta<typeof TestInput> = {
   ...defineStorybookActionsAndVModels({
     component: TestInput,
     events: ["update:modelValue", "change", "validityChange"],
-    argTypes: {
-      type: {
-        options: INPUT_TYPES,
-      },
-    },
   }),
 };
 

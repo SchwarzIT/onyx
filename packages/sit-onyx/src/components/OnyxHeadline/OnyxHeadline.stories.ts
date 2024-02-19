@@ -1,7 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxHeadline from "./OnyxHeadline.vue";
-import { HEADLINE_TYPES } from "./types";
 
 /**
  * Headline that can e.g. be used to structure the page content.
@@ -12,10 +11,6 @@ const meta: Meta<typeof OnyxHeadline> = {
     component: OnyxHeadline,
     events: [],
     argTypes: {
-      is: {
-        options: HEADLINE_TYPES,
-        control: { type: "select" },
-      },
       default: {
         control: false,
       },

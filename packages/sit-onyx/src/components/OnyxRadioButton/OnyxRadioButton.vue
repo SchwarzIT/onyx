@@ -1,38 +1,8 @@
 <script lang="ts" setup generic="TValue">
 import { ref, watchEffect } from "vue";
-import type { Equals, TypeEqualityGuard } from "@/index";
 import type { RadioButtonProps } from "./types";
 
-// TODO: remove workaround
-// Temporary solution: storybook cannot use complex types, but we can duplicate them and use this type to ensure that they are equal.
-type _SHOULD_BE_EQUAL = Equals<TypeEqualityGuard<RadioButtonProps<TValue>, ShallowProps<TValue>>>;
-
-type ShallowProps<TValue> = {
-  /**
-   * id of the selection option, not of the radio button input
-   */
-  id: string;
-  label: string;
-  /**
-   * An optional value.
-   * It's not actually used by the selection controls, but can be used to associate data with this option.
-   */
-  value?: TValue;
-  disabled?: boolean;
-  readonly?: boolean;
-  loading?: boolean;
-  selected?: boolean;
-  /**
-   * Identifier for the radio buttons in the group.
-   * All radio buttons that should belong to the same radio group must have the same name.
-   * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
-   */
-  name: string;
-  required?: boolean;
-  errorMessage?: string;
-};
-
-const props = defineProps<ShallowProps<TValue>>();
+const props = defineProps<RadioButtonProps<TValue>>();
 
 const selectorRef = ref<HTMLInputElement>();
 

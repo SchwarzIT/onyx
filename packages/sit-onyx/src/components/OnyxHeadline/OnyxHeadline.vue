@@ -9,7 +9,8 @@ defineSlots<{
   /**
    * Headline content.
    */
-  default(): unknown;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  default(props: {}): unknown;
 }>();
 </script>
 
