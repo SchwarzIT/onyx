@@ -19,8 +19,6 @@ type ShallowProps<TValue> = {
    */
   value?: TValue;
   disabled?: boolean;
-  readonly?: boolean;
-  loading?: boolean;
   selected?: boolean;
   /**
    * Identifier for the radio buttons in the group.
