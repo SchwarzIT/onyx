@@ -28,11 +28,6 @@ A full changelog can be found [here](/development/packages/changelogs/headless).
 
 ## Installation
 
-<!--
-Make sure that this chapter is kept up to date with installation steps in
-packages/headless/README.md file.
- -->
-
 Install the npm package with your corresponding package manager:
 
 ::: code-group

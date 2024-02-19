@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -12,6 +12,15 @@
   "exports": {
     ".": "./src/index.ts",
     "./style.css": "./src/index.css"
+  },
+  "homepage": "https://onyx.schwarz/development/packages/storybook-utils.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/storybook-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
     "build": "tsc --noEmit"

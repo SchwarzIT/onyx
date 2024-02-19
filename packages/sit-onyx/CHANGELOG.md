@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.15
+
+### Minor Changes
+
+- 1de4414: Add icon property to OnyxButton
+
 ## 1.0.0-alpha.14
 
 ### Minor Changes
