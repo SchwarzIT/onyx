@@ -1,3 +1,4 @@
+import { createMatrixScreenshot } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
@@ -213,3 +214,23 @@ for (const testCase of invalidTestCases) {
     await expect(component).toHaveScreenshot(`invalid-${testCase.name}.png`);
   });
 }
+
+const STATES = {
+  state: ["default", "disabled", "invalid", "required", "optional"],
+  select: ["unselected", "selected", "indeterminate"],
+  focusState: ["", "hover", "focus-visible"],
+  labeled: ["labeled", "unlabeled"],
+} as const;
+
+test(
+  "Screenshot matrix",
+  createMatrixScreenshot(STATES, "matrix.png", ({ select, state, labeled }) => (
+    <OnyxCheckbox
+      modelValue={select === "selected"}
+      label={labeled === "labeled" ? "label" : ""}
+      indeterminate={select === "indeterminate"}
+      disabled={state === "disabled"}
+      required={state === "required"}
+    />
+  )),
+);

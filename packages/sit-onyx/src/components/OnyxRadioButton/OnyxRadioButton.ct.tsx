@@ -96,7 +96,7 @@ const STATES = {
 } as const;
 
 test(
-  "Screenshot test",
+  "Screenshot matrix",
   createMatrixScreenshot(STATES, "radio-button-matrix.png", ({ select, state }, i) => (
     <OnyxRadioButton
       selected={select === "selected"}
