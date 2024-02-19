@@ -107,6 +107,9 @@ importers:
 
   apps/alpha-test-app:
     dependencies:
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../../packages/icons
       sit-onyx:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
