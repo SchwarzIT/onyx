@@ -18,31 +18,42 @@ export default meta;
 type Story = StoryObj<typeof OnyxRadioButtonGroup>;
 
 const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
-  { label: "dummy.1", value: "1", id: "1" },
-  { label: "dummy.2", value: "2", id: "2" },
-  { label: "dummy.3", value: "3", id: "3" },
-  { label: "dummy.4", value: "4", id: "4", loading: true },
-  { label: "dummy.5", value: "5", id: "5", readonly: true },
-  { label: "dummy.6", value: "6", id: "6", disabled: true },
+  { label: "default", value: "1", id: "1" },
+  { label: "initially checked", value: "2", id: "2" },
+  { label: "disabled", value: "3", id: "3", disabled: true },
 ];
 
 /**
- * This example shows a radio button group.
+ * This example shows a radio button group with a headline.
  */
 export const Default = {
   args: {
-    name: "radio button name",
+    headline: "Headline",
     options: EXAMPLE_OPTIONS,
+    modelValue: EXAMPLE_OPTIONS[2],
   },
 } satisfies Story;
 
 /**
- * This example shows a preselected radio button.
+ * This example shows a disabled radio button group.
  */
-export const Preselected = {
+export const Disabled = {
   args: {
-    name: "another radio group",
+    headline: "Headline",
     options: EXAMPLE_OPTIONS,
     modelValue: EXAMPLE_OPTIONS[2],
+    disabled: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows radio button group thats layed out vertically.
+ */
+export const Horizontal = {
+  args: {
+    headline: "Headline",
+    options: EXAMPLE_OPTIONS,
+    modelValue: EXAMPLE_OPTIONS[2],
+    direction: "horizontal",
   },
 } satisfies Story;
