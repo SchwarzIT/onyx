@@ -41,7 +41,14 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
 <template>
   <!-- TODO: decide on support prefix and/or folder -->
-  <label class="onyx-radio-button" :title="props.errorMessage">
+  <label
+    :class="{
+      'onyx-radio-button': true,
+      'onyx-required-marker': props.required,
+      'onyx-optional-marker': !props.required,
+    }"
+    :title="props.errorMessage"
+  >
     <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input

@@ -16,7 +16,7 @@ test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
     <OnyxRadioButtonGroup
       options={EXAMPLE_OPTIONS}
-      label="radio group label"
+      headline="radio group label"
       name="radio-selection"
     />,
   );
@@ -40,7 +40,7 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
   await mount(
     <OnyxRadioButtonGroup
       options={EXAMPLE_OPTIONS}
-      label="radio group label"
+      headline="radio group label"
       name="radio-selection"
       modelValue={EXAMPLE_OPTIONS[0]}
       onUpdate:modelValue={(u) => updates.push(u)}

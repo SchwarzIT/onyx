@@ -25,7 +25,7 @@ const iframeSrc = computed(() => {
 </script>
 
 <template>
-  <iframe class="iframe" :src="iframeSrc" :title="props.component"></iframe>
+  <iframe class="iframe" :src="iframeSrc" :title="props.component" allow="clipboard-write"></iframe>
 </template>
 
 <style lang="scss" scoped>

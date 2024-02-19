@@ -1,27 +1,12 @@
 import { ONYX_COLORS, type OnyxIconProps } from "@/index";
+import { defineIconSelectArgType } from "@/utils/storybook";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryContext, StoryObj } from "@storybook/vue3";
 import OnyxIcon from "./OnyxIcon.vue";
 import { ICON_SIZES } from "./types";
 
-const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
-
-/**
- * Mapping between icon SVG content (key) and icon name (value).
- * Needed to display a labelled dropdown list of all available icons.
- */
-const iconLabels = Object.entries(ALL_ICONS).reduce<Record<string, string>>(
-  (labels, [filePath, content]) => {
-    labels[content] = filePath.split("/").at(-1)!.replace(".svg", "");
-    return labels;
-  },
-  {},
-);
+const iconArgType = defineIconSelectArgType();
 
 /**
  * Component to display icons. Supports all inline SVG icon libraries.
@@ -42,13 +27,7 @@ const meta: Meta<typeof OnyxIcon> = {
       color: {
         options: ["currentColor", ...ONYX_COLORS],
       },
-      icon: {
-        options: Object.keys(iconLabels),
-        control: {
-          type: "select",
-          labels: iconLabels,
-        },
-      },
+      icon: iconArgType,
     },
   }),
   parameters: {
@@ -56,7 +35,7 @@ const meta: Meta<typeof OnyxIcon> = {
       source: {
         // improve code snippet by adding the icon import
         transform: (sourceCode: string, ctx: StoryContext) => {
-          const iconName = iconLabels[ctx.args.icon as OnyxIconProps["icon"]];
+          const iconName = iconArgType.control.labels[ctx.args.icon as OnyxIconProps["icon"]];
 
           return `<script lang="ts" setup>
           import icon from "@sit-onyx/icons/${iconName}.svg?raw";
