@@ -20,7 +20,7 @@ jobs:
         with:
           ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -37,15 +37,19 @@ jobs:
 
       - name: 🛠️ Build packages
         run: pnpm build:all
+        env:
+          # needed for increase rate limit for the GitHub API that is used when building
+          # the VitePress documentation
+          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Storybook artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/storybook-static
 
       - name: Upload documentation artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
@@ -87,7 +91,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download Storybook artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/.cloud-foundry/storybook-static
@@ -114,7 +118,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download Storybook artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: documentation
           path: apps/docs/.cloud-foundry/dist

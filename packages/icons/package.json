@@ -1,0 +1,31 @@
+{
+  "name": "@sit-onyx/icons",
+  "description": "SVG icons for the onyx design system",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schwarzit/onyx",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/schwarzit/onyx/issues"
+  },
+  "files": [
+    "src"
+  ],
+  "types": "./src/metadata.ts",
+  "exports": {
+    ".": "./src/metadata.ts",
+    "./*": "./src/assets/*"
+  },
+  "scripts": {
+    "optimize:check": "tsx ./src/check.ts",
+    "optimize": "tsx ./src/optimize.ts"
+  },
+  "devDependencies": {
+    "svgo": "^3.2.0",
+    "tsx": "^4.7.1"
+  }
+}

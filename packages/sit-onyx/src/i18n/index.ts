@@ -1,10 +1,20 @@
 import type { ObjectToDottedStrings, TranslationValue } from "@/types/i18n";
 import type { DeepPartial } from "@/types/utils";
-import { computed, inject, provide, unref, type InjectionKey, type MaybeRef } from "vue";
+import { computed, inject, unref, type InjectionKey, type MaybeRef, type App } from "vue";
 import enUS from "./locales/en-US.json";
 
+/**
+ * The type of the imported `enUS` above is a concrete type so the value type of each message
+ * is e.g. "{ myKey: 'HelloWorld'}" but it should be "{ myKey: string }".
+ * This utility type converts all values to be of type string (more generic)
+ * so we can actually use other locales as well.
+ */
+type GetTypeOfTranslations<T> = T extends object
+  ? { [P in keyof T]?: GetTypeOfTranslations<T[P]> }
+  : string;
+
 /** Available translations that are used by onyx components. */
-export type OnyxTranslations = typeof enUS;
+export type OnyxTranslations = GetTypeOfTranslations<typeof enUS>;
 
 export type ProvideI18nOptions = {
   /**
@@ -81,9 +91,8 @@ const createI18n = (options?: ProvideI18nOptions) => {
  * Provides a global i18n instance that is used by onyx.
  * Must only be called once in the `App.vue` file of a project that consumes onyx.
  */
-export const provideI18n = (options: ProvideI18nOptions) => {
-  provide(I18N_INJECTION_KEY, createI18n(options));
-};
+export const provideI18n = (app: App, options?: ProvideI18nOptions) =>
+  app.provide(I18N_INJECTION_KEY, createI18n(options));
 
 /**
  * Injects the onyx i18n instance.

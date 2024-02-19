@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,7 +27,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload eslint results to GitHub
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
@@ -37,6 +37,10 @@ jobs:
 
       - name: 🛠️ Build packages
         run: pnpm run build:all
+        env:
+          # needed for increase rate limit for the GitHub API that is used when building
+          # the VitePress documentation
+          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all
@@ -46,20 +50,20 @@ jobs:
         run: pnpm run publint:all
 
       - name: Upload code coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
           name: coverage
           path: packages/sit-onyx/coverage
 
       - name: Upload Storybook artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/storybook-static
 
       - name: Upload documentation artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
@@ -70,7 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

@@ -1,7 +1,7 @@
 .VPNavBarTitle {
   .logo {
-    // increase logo margin so it does not look so cluttered since it contains text
-    margin-right: 1.5rem;
+    // remove logo margin since we do not display a logo text (themeConfig.siteTitle in config.ts)
+    margin: 0;
   }
 }
 
@@ -18,4 +18,10 @@
       display: none !important;
     }
   }
+}
+
+.topic-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
 }

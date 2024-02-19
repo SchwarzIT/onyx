@@ -1,14 +1,16 @@
-<p>
-  <a href="https://gruppe.schwarz">
-  <div align="center">
-    <img src="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/schwarz-group.svg" width="400px" />
-    </div>
-  </a>
-</p>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo-light.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo-dark.svg">
+    <img alt="onyx logo" src="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo-dark.svg" width="160px">
+  </picture>
+</div>
 
-# Onyx Storybook utils
+<br>
 
-[Storybook](https://storybook.js.org) utilities for Vue created by [Schwarz IT](https://it.schwarz).
+# onyx Storybook utils
+
+Storybook utilities for Vue created by [Schwarz IT](https://it.schwarz).
 
 <br />
 

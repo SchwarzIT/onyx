@@ -5,7 +5,7 @@
 // see: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css#L178
 :root {
   // color palette
-  @include mixins.define-vitepress-color(brand, --onyx-color-base-brand);
+  @include mixins.define-vitepress-color(brand, --onyx-color-base-primary);
   @include mixins.define-vitepress-color(tip, --onyx-color-base-info);
   @include mixins.define-vitepress-color(warning, --onyx-color-base-warning);
   @include mixins.define-vitepress-color(danger, --onyx-color-base-danger);
@@ -26,17 +26,23 @@
   --vp-c-gutter: var(--onyx-color-base-neutral-200);
 
   // typography
-  --vp-c-text-1: var(--onyx-color-text-neutral-intense); // regular text
-  --vp-c-text-2: var(--onyx-color-text-neutral-medium); // muted text (e.g. inactive menu)
-  --vp-c-text-3: var(--onyx-color-text-neutral-soft); // subtle text (e.g. placeholders)
+  --vp-c-text-1: var(--onyx-color-text-icons-neutral-intense); // regular text
+  --vp-c-text-2: var(--onyx-color-text-icons-neutral-medium); // muted text (e.g. inactive menu)
+  --vp-c-text-3: var(--onyx-color-text-icons-neutral-soft); // subtle text (e.g. placeholders)
   --vp-font-family-base: var(--onyx-font-family);
   --vp-font-family-mono: var(--onyx-font-family-mono);
   --vp-code-color: var(--vp-c-brand-2);
 
-  @include mixins.home-page-gradients(
-    var(--onyx-color-base-brand-500),
-    var(--onyx-color-base-info-500)
-  );
+  // add colored gradient background to the logo on the home page
+  // the gradient colors are exceptions so we don't have CSS variables for them
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, #008ca0 50%, #00dce6 50%);
+  --vp-home-hero-image-filter: blur(44px);
+  @include mixins.breakpoint(min, l) {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+  @include mixins.breakpoint(min, s) {
+    --vp-home-hero-image-filter: blur(56px);
+  }
 }
 
 .dark {
@@ -56,5 +62,5 @@
 .custom-block.tip code {
   // use a higher contrast color for links/code inside tip blocks
   // because the default contrast is too low
-  color: var(--onyx-color-text-info-bold);
+  color: var(--onyx-color-text-icons-info-bold);
 }

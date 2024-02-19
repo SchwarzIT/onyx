@@ -20,7 +20,7 @@
 }
 
 /* the Storybook table of content headline is always black so we need to manually set it for the dark mode */
-.dark #storybook-docs .sbdocs-wrapper > div:nth-child(2) {
+#storybook-docs .sbdocs-wrapper > div:nth-child(2) {
   /* same as Storybook color "textMuted" inside ./theme.ts */
-  color: var(--onyx-color-base-neutral-300);
+  color: var(--onyx-color-text-icons-neutral-medium);
 }

@@ -1,5 +1,35 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-alpha.4
+
+### Patch Changes
+
+- a190f80: fix: prevent type error when importing as library
+
+## 1.0.0-alpha.3
+
+### Major Changes
+
+- d1fe8e3: feat: support {mode} placeholder for CSS selector
+
+  Previously the mode name was automatically appended to the selector if the selector was
+  something other than `:root`. This is no longer the case.
+  Instead use the more explicit/flexible placeholder `{mode}` for this.
+
+  **Old**
+
+  ```sh
+  npx @sit-onyx/figma-utils import-variables -k "your-file-key" -t "your-token" -m dark -s html
+  # resulted in selector "html.dark"
+  ```
+
+  **New**
+
+  ```sh
+  npx @sit-onyx/figma-utils import-variables -k "your-file-key" -t "your-token" -m dark -s html.{mode}
+  # results in selector "html.dark"
+  ```
+
 ## 1.0.0-alpha.2
 
 ### Minor Changes
