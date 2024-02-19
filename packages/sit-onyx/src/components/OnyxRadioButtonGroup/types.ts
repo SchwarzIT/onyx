@@ -7,19 +7,34 @@ export type OnyxRadioButtonGroupProps<TValue> = {
    * Warning: Never use a name for form elements twice!
    */
   name?: string;
+  /**
+   * The selected radio button option.
+   */
   modelValue?: SelectionOption<TValue>;
   /**
    * Headline shown above the radio button group, which is also the fieldset legend.
    */
   headline?: string;
+  /**
+   * Set the radio button group to be required.
+   */
   required?: boolean;
+  /**
+   * Disable the radio button group.
+   */
   disabled?: boolean;
+  /**
+   * Set the radio button group into the error state with the given error message.
+   */
   errorMessage?: string;
 
   /**
-   * Direction of the checkboxes.
+   * Direction of the checkboxes. Can be vertical (default) or horizontal.
    */
   direction?: RadioButtonGroupDirection;
+  /**
+   * Options for the individual radio buttons of the group.
+   */
   options: SelectionOption<TValue>[];
 };
 
