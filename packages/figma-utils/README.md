@@ -23,4 +23,4 @@ npx @sit-onyx/figma-utils@latest --help
 
 ## Documentation
 
-You can find our documentation [here](https://onyx.schwarz/packages/figma-utils.html).
+You can find our documentation [here](https://onyx.schwarz/development/packages/figma-utils.html).

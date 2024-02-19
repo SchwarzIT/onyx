@@ -19,7 +19,7 @@
       "import": "./dist/index.js"
     }
   },
-  "homepage": "https://onyx.schwarz/packages/figma-utils.html",
+  "homepage": "https://onyx.schwarz/development/packages/figma-utils.html",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
