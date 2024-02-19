@@ -1,3 +1,5 @@
+import { createOnyx } from "sit-onyx";
+import onyxDeDE from "sit-onyx/locales/de-DE.json";
 import "sit-onyx/style.css";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
@@ -5,8 +7,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import deDE from "./i18n/locales/de-DE.json";
 import enUS from "./i18n/locales/en-US.json";
-import onyxDeDE from "sit-onyx/locales/de-DE.json";
-import { createOnyx } from "sit-onyx";
 import { routes } from "./router";
 import "./style.css";
 

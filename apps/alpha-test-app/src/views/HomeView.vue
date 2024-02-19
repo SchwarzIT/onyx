@@ -1,11 +1,8 @@
 <script lang="ts" setup>
-import { provideI18n } from "sit-onyx";
-import deDE from "sit-onyx/locales/de-DE.json";
 import { useI18n } from "vue-i18n";
 import HelloWorld from "../components/HelloWorld.vue";
 
 const { t, locale } = useI18n();
-provideI18n({ locale, messages: { "de-DE": deDE } });
 </script>
 
 <template>
