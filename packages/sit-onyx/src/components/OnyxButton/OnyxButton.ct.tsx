@@ -1,3 +1,4 @@
+import { createMatrixScreenshot } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxButton from "./OnyxButton.vue";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
@@ -48,3 +49,23 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+const STATES = {
+  state: ["default", "disabled", "icon"],
+  variation: ["primary", "secondary", "danger"],
+  mode: ["default", "outline", "plain"],
+  focusState: ["", "hover", "focus-visible"],
+} as const;
+
+test(
+  "Screenshot matrix",
+  createMatrixScreenshot(STATES, "matrix.png", ({ variation, state, mode }) => (
+    <OnyxButton
+      label={"label"}
+      variation={variation}
+      mode={mode}
+      disabled={state === "disabled"}
+      icon={state === "icon" ? happyIcon : ""}
+    />
+  )),
+);

@@ -116,7 +116,7 @@ const generateScreenshotMatrix = <S extends ComponentStates>(
         fontFamily: "var(--onyx-font-family-mono)",
         padding: "1rem",
         display: "grid",
-        gap: "0.5rem",
+        gap: "0.75rem",
         "grid-template-areas": template,
       }}
     >
