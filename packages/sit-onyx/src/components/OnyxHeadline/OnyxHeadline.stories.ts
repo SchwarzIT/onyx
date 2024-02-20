@@ -1,7 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxHeadline from "./OnyxHeadline.vue";
-import { HEADLINE_TYPES } from "./types";
 
 /**
  * Headline that can e.g. be used to structure the page content.
@@ -12,23 +11,10 @@ const meta: Meta<typeof OnyxHeadline> = {
     component: OnyxHeadline,
     events: [],
     argTypes: {
-      is: {
-        options: HEADLINE_TYPES,
-        control: { type: "select" },
-      },
       default: {
         control: false,
       },
     },
-    render: (args) => ({
-      components: { OnyxHeadline },
-      setup: () => ({ args }),
-      template: `
-        <OnyxHeadline v-bind="args">
-          Lorem ipsum dolor sit amet
-        </OnyxHeadline>
-      `,
-    }),
   }),
 };
 
@@ -41,6 +27,7 @@ type Story = StoryObj<typeof OnyxHeadline>;
 export const Default = {
   args: {
     is: "h1",
+    default: () => "Lorem ipsum dolor sit amet",
   },
 } satisfies Story;
 

@@ -1,11 +1,8 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import { defineIconSelectArgType } from "@/utils/storybook";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxButton from "./OnyxButton.vue";
-import { BUTTON_VARIATIONS, BUTTON_TYPES, BUTTON_MODES } from "./types";
-import { defineIconSelectArgType } from "@/utils/storybook";
-
-const iconArgType = defineIconSelectArgType();
 
 /**
  * Buttons serve as fundamental components in UI design,
@@ -22,16 +19,7 @@ const meta: Meta<typeof OnyxButton> = {
     component: OnyxButton,
     events: ["click"],
     argTypes: {
-      type: {
-        options: BUTTON_TYPES,
-      },
-      variation: {
-        options: BUTTON_VARIATIONS,
-      },
-      mode: {
-        options: BUTTON_MODES,
-      },
-      icon: iconArgType,
+      icon: defineIconSelectArgType(),
     },
   }),
 };

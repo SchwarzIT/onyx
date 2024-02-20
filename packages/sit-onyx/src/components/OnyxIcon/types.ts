@@ -1,4 +1,4 @@
-import type { OnyxColor } from "@/index";
+import type { OnyxColor } from "../../types/colors";
 
 export type OnyxIconProps = {
   /**
