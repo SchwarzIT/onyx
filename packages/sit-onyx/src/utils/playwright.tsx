@@ -98,12 +98,11 @@ const generateScreenshotMatrix = <S extends ComponentStates>(
   states: S,
   caseBuilder: CaseBuilder<S>,
 ) => {
-  const [rowStates] = Object.values(states);
-  const colStates = generatePermutations(Object.fromEntries(Object.entries(states).slice(1))).map(
-    (e) => Object.values(e),
-  );
+  const [rowStates] = Object.values(states); // the first entry is used for the row headlines
+  const colStates = Object.fromEntries(Object.entries(states).slice(1)); // all other entries are used to build the column headlines
+  const colStatesCombinations = generatePermutations(colStates).map((e) => Object.values(e)); // we need all combinations of the columns to fill the headlines
 
-  const columns = colStates.length;
+  const columns = colStatesCombinations.length;
   const rows = rowStates.length;
   const template = buildGridTemplate(rows, columns);
 
@@ -122,7 +121,7 @@ const generateScreenshotMatrix = <S extends ComponentStates>(
     >
       {
         // Create column headlines
-        colStates.map((state, i) => (
+        colStatesCombinations.map((state, i) => (
           <div
             key={i}
             style={{
