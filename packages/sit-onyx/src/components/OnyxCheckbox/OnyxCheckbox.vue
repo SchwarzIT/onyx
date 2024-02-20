@@ -35,6 +35,7 @@ const isTouched = ref(false);
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
+        :aria-label="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
         :class="{ 'onyx-checkbox__input--touched': isTouched }"
         type="checkbox"
@@ -45,7 +46,7 @@ const isTouched = ref(false);
       />
     </div>
 
-    <p v-if="props.label" class="onyx-checkbox__label">{{ props.label }}</p>
+    <p v-if="props.label && !props.hideLabel" class="onyx-checkbox__label">{{ props.label }}</p>
   </label>
 </template>
 
