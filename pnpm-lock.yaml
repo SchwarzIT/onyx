@@ -215,16 +215,16 @@ importers:
   packages/storybook-utils:
     dependencies:
       '@storybook/core-events':
-        specifier: '>= 8.0.0-beta.3'
+        specifier: '>= 7 || >= 8.0.0-beta.3'
         version: 8.0.0-beta.3
       '@storybook/preview-api':
-        specifier: '>= 8.0.0-beta.3'
+        specifier: '>= 7 || >= 8.0.0-beta.3'
         version: 8.0.0-beta.3
       '@storybook/theming':
-        specifier: '>= 8.0.0-beta.3'
+        specifier: '>= 7 || >= 8.0.0-beta.3'
         version: 8.0.0-beta.3(react-dom@18.2.0)(react@18.2.0)
       '@storybook/vue3':
-        specifier: '>= 8.0.0-beta.3'
+        specifier: '>= 7 || >= 8.0.0-beta.3'
         version: 8.0.0-beta.3(vue@3.4.19)
       deepmerge-ts:
         specifier: ^5.1.0
