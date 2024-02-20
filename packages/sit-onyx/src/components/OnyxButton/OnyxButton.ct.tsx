@@ -61,11 +61,11 @@ test(
   "Screenshot matrix",
   createMatrixScreenshot(STATES, "matrix.png", ({ variation, state, mode }) => (
     <OnyxButton
-      label={"label"}
+      label="label"
       variation={variation}
       mode={mode}
       disabled={state === "disabled"}
-      icon={state === "icon" ? happyIcon : ""}
+      icon={state === "icon" ? happyIcon : undefined}
     />
   )),
 );
