@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 import FormDemoMolecule from "../components/molecules/FormDemoMolecule.vue";
+import { useRouter } from "vue-router";
 
 const { t, locale } = useI18n();
+const router = useRouter();
 
 const validFormData = {
   defaultInput: "No Validation",
@@ -29,6 +31,7 @@ const invalidFormData = {
       <button @click="locale = 'de-DE'">Deutsch</button>
       <button @click="locale = 'en-US'">English</button>
     </div>
+    <button @click="router.push('/layers-demo')">Move to layers demo</button>
 
     <div data-testid="home-view" class="page">
       <h1 element="h1">Initially Invalid example</h1>

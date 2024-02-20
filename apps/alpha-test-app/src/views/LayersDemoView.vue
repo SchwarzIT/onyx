@@ -38,7 +38,19 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     }"
   >
     <!-- grid top row -->
-    <div class="demo top-nav">Top nav bar</div>
+    <div class="demo top-nav">
+      Top nav bar |
+
+      <label>
+        Demo Drop Down:
+        <span class="flyout-parent">
+          <input @click="options.showFlyout = !options.showFlyout" />
+          <div v-if="options.showFlyout" class="demo flyout">
+            <LayersDemoOptionsMolecule v-model="options" />
+          </div>
+        </span>
+      </label>
+    </div>
 
     <!-- grid left col -->
     <div class="demo side-bar">
@@ -51,6 +63,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <div v-if="options.showNotification" class="demo notification">
         Global Info Tile / Notification
       </div>
+
       Scrollable page content
 
       <p>
@@ -198,6 +211,7 @@ body {
 
 .top-nav {
   grid-area: top;
+  z-index: 20;
 }
 
 .popover {
