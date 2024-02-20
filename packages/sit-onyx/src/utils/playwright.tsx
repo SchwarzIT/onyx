@@ -53,13 +53,13 @@ const generatePermutations = <T extends Record<string, readonly string[]>>(obj: 
  */
 const buildGridTemplate = (rows: number, columns: number) =>
   Array.from({ length: rows + 1 })
-    .map((_, ri) =>
+    .map((_, rowIndex) =>
       Array.from({ length: columns + 1 })
-        .map((_, ci) => {
-          if (ri === 0 && ci === 0) return ".";
-          if (ri === 0) return `colHeadline${ci - 1}`;
-          if (ci === 0) return `rowHeadline${ri - 1}`;
-          else return `case${(ri - 1) * columns + ci - 1}`;
+        .map((_, colIndex) => {
+          if (rowIndex === 0 && colIndex === 0) return ".";
+          if (rowIndex === 0) return `colHeadline${colIndex - 1}`;
+          if (colIndex === 0) return `rowHeadline${rowIndex - 1}`;
+          else return `case${(rowIndex - 1) * columns + colIndex - 1}`;
         })
         .join(" "),
     )
