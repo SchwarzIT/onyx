@@ -9,7 +9,7 @@ const meta: Meta<typeof OnyxRadioButton> = {
   title: "support/OnyxRadioButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButton,
-    events: ["update:modelValue"],
+    events: [],
   }),
 };
 
@@ -27,5 +27,3 @@ export const Default = {
     value: "radio-value",
   },
 } satisfies Story;
-
-// TODO: add other variations

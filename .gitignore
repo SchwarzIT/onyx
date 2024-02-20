@@ -25,5 +25,6 @@ playwright-report/
 /blob-report/
 **/.cache
 **/.vitepress/cache
+**/.vitepress/config.ts.timestamp-*.mjs
 storybook-static
 eslint-results.sarif

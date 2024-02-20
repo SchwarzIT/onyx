@@ -215,6 +215,21 @@ for (const testCase of invalidTestCases) {
   });
 }
 
+test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxCheckbox label="Test label" hideLabel />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  // ASSERT
+  await expect(component).not.toContainText("Test label");
+  await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
 const STATES = {
   state: ["default", "disabled", "invalid", "required", "optional"],
   select: ["unselected", "selected", "indeterminate"],

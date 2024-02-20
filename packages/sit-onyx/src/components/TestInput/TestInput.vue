@@ -1,23 +1,9 @@
-<script lang="ts">
-import enUS from "@/i18n/locales/en-US.json";
-import { areObjectsFlatEqual } from "@/utils/comparator";
-
-export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
-export type InputType = (typeof INPUT_TYPES)[number];
-
-/**
- * Input types that have a translation for their validation error message.
- */
-const TRANSLATED_INPUT_TYPES = Object.keys(
-  enUS.validations.typeMismatch,
-) as (keyof typeof enUS.validations.typeMismatch)[];
-type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
-</script>
-
 <script lang="ts" setup>
 import { injectI18n } from "@/i18n";
+import { areObjectsFlatEqual } from "@/utils/comparator";
 import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/forms";
 import { computed, ref, toRefs, watch } from "vue";
+import { TRANSLATED_INPUT_TYPES, type InputType, type TranslatedInputType } from "./types";
 
 export type TestInputProps = {
   /**
