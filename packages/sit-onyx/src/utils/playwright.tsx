@@ -154,6 +154,37 @@ const generateScreenshotMatrix = <S extends ComponentStates>(
 
 type TestArg = Parameters<Parameters<typeof test>[1]>[0];
 
+/**
+ * Creates a playwright screenshot of a matrix with all permutations of the given component states.
+ * First define the possible States in an Object.
+ * The first key in the object will define the number and naming of the columns.
+ * All other keys will be used to define and label the columns.
+ *
+ * @example
+ * ```tsx
+ * const STATES = {
+ *   state: ["default", "disabled"],
+ *   select: ["unselected", "selected"],
+ *   focusState: ["", "hover", "focus-visible"],
+ * } as const;
+ *
+ * test(
+ *   "Screenshot matrix",
+ *   createMatrixScreenshot(STATES, "matrix.png", ({ select, state }, i) => (
+ *     <Component
+ *       selected={select === "selected"}
+ *       disabled={state === "disabled"}
+ *       label="label"
+ *       id={`id-${i}`}
+ *     />
+ *   )),
+ * );
+ * ```
+ *
+ * @param states All possible states of the matrix for which permutations will be generated. Use `as const` to allow type support for the values. The first key in the object will be used for columns in the table.
+ * @param screenshotName Name of the screenshot that will be passed to `expect(...).toHaveScreenshot(screenshotName)`
+ * @param caseBuilder Build function that will be called for every permutation to generate JSX for the given component state.
+ */
 export const createMatrixScreenshot =
   <S extends Readonly<Record<string, ReadonlyArray<string>>>>(
     states: S,
@@ -165,7 +196,7 @@ export const createMatrixScreenshot =
     const mountable = generateScreenshotMatrix(states, caseBuilder);
     const component = await mount(mountable);
 
-    // We don't want any scrollbars on our screenshot, so we get our element height and add some buffer
+    // We don't want any scrollbars on our screenshot, so we get our element size and add some buffer
     const { width, height } = await page.getByTestId("screenshot-root").evaluate((e) => ({
       height: e.scrollHeight + 50,
       width: e.scrollWidth + 50,
