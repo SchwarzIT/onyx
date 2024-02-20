@@ -1,3 +1,5 @@
+import { defineIconSelectArgType } from "@/utils/storybook";
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxButton from "./OnyxButton.vue";
@@ -16,6 +18,9 @@ const meta: Meta<typeof OnyxButton> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxButton,
     events: ["click"],
+    argTypes: {
+      icon: defineIconSelectArgType(),
+    },
   }),
 };
 
@@ -48,5 +53,15 @@ export const Danger = {
   args: {
     label: "Button",
     variation: "danger",
+  },
+} satisfies Story;
+
+/**
+ * This example shows the button with icon
+ */
+export const WithIcon = {
+  args: {
+    label: "Button",
+    icon: checkSmall,
   },
 } satisfies Story;

@@ -14,4 +14,10 @@ A design system and Vue.js component library for enterprise grade applications c
 
 <br>
 
-## [Contributing](CONTRIBUTING.md)
+## Documentation
+
+You can find our documentation [here](https://onyx.schwarz).
+
+## Contributing
+
+You can find our contributing guide [here](CONTRIBUTING.md).

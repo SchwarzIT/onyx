@@ -58,7 +58,7 @@ const members = [
 
 onyx is maintained by [Schwarz IT](https://it.schwarz). Below you will find the members of our Core Team.
 
-Are you looking for a bug report or feature request? Then please use our [GitHub issues](https://github.com/schwarzit/onyx/issues).
-For general Q&A, announcements and polls feel free to visit our community space via [GitHub discussions](https://github.com/schwarzit/onyx/discussions/categories/q-a).
+Are you looking for a bug report or feature request? Then please use our [GitHub issues](https://github.com/SchwarzIT/onyx/issues).
+For general Q&A, announcements and polls feel free to visit our community space via [GitHub discussions](https://github.com/SchwarzIT/onyx/discussions/categories/q-a).
 
 <VPTeamMembers size="small" :members="members" />

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { OnyxIcon } from "@/index";
 import type { ButtonProps } from "./types";
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -22,6 +23,7 @@ const emit = defineEmits<{
     :disabled="props.disabled"
     @click="emit('click')"
   >
+    <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
     <span class="onyx-button__label">{{ props.label }}</span>
   </button>
 </template>
@@ -35,15 +37,16 @@ const emit = defineEmits<{
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: flex;
-  padding: var(--onyx-spacing-3xs) var(--onyx-spacing-sm);
+  padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
-  gap: var(--onyx-spacing-5xs);
+  gap: var(--onyx-spacing-4xs);
   border-radius: var(--onyx-radius-sm);
   cursor: pointer;
   font-family: var(--onyx-font-family);
   background-color: var(--onyx-button-background-color);
   border: var(--onyx-1px-in-rem) solid var(--onyx-button-border-color);
+  color: var(--onyx-button-text-color);
 
   &--primary {
     &:disabled {
@@ -146,7 +149,6 @@ const emit = defineEmits<{
     display: flex;
     padding: 0 var(--onyx-spacing-4xs);
     max-width: 12.25rem;
-    color: var(--onyx-button-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
