@@ -50,66 +50,62 @@ const isTouched = ref(false);
 </template>
 
 <style lang="scss">
-@mixin define-hover-border($state, $color) {
-  .onyx-checkbox__input#{$state} {
-    border-color: var(--onyx-color-base-#{$color}-300);
-  }
-}
-
-@mixin define-focus-ring($state, $color) {
-  .onyx-checkbox__container:has(.onyx-checkbox__input#{$state}) {
-    background-color: var(--onyx-color-base-#{$color}-200);
-  }
-}
-
-@mixin define-checked-background($state, $color) {
-  &#{$state} {
-    border-color: var(--onyx-color-base-#{$color}-500);
-    background-color: var(--onyx-color-base-#{$color}-500);
-
-    &:hover,
-    [data-sim-hover] & {
-      background-color: var(--onyx-color-base-#{$color}-300);
-    }
-  }
-}
-
 .onyx-checkbox {
+  --onyx-checkbox-input-border-color: var(--onyx-color-base-neutral-400);
+  --onyx-checkbox-input-background-color: var(--onyx-color-base-background-blank);
+  --onyx-checkbox-container-outline-width: none;
+  --onyx-checkbox-container-outline-color: transparent;
+  --onyx-checkbox-input-label-color: var(--onyx-color-text-icons-neutral-intense);
+  --onyx-checkbox-cursor: pointer;
+
   font-family: var(--onyx-font-family);
-  color: var(--onyx-color-text-icons-neutral-intense);
+  color: var(--onyx-checkbox-input-label-color);
   display: inline-flex;
   align-items: center;
-  cursor: pointer;
+  cursor: var(--onyx-checkbox-cursor);
   max-width: max-content;
 
-  &:hover,
+  &:has(&__input:hover),
   [data-sim-hover] & {
-    @include define-hover-border($state: ":enabled", $color: primary);
+    --onyx-checkbox-input-border-color: var(--onyx-color-base-primary-300);
+  }
 
-    &:has(.onyx-checkbox__input--touched) {
-      @include define-hover-border($state: ":invalid", $color: danger);
-    }
+  &:has(&__input:checked),
+  &:has(&__input:indeterminate) {
+    --onyx-checkbox-input-border-color: var(--onyx-color-base-primary-500);
+    --onyx-checkbox-input-background-color: var(--onyx-color-base-primary-500);
+  }
+
+  &:has(&__input:invalid.onyx-checkbox__input--touched) {
+    --onyx-checkbox-input-border-color: var(--onyx-color-base-danger-500);
+  }
+
+  &:has(&__input:invalid:checked.onyx-checkbox__input--touched) {
+    --onyx-checkbox-input-border-color: var(--onyx-color-base-danger-500);
+    --onyx-checkbox-input-background-color: var(--onyx-color-base-danger-500);
+  }
+
+  &:has(&__input:invalid:checked:hover) {
+    --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-300);
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-300);
   }
 
   &:has(&__input:focus-visible),
-  [data-sim-focus-visible] &:has(&__input) {
-    @include define-focus-ring($state: ":enabled", $color: primary);
-
-    &:has(.onyx-checkbox__input--touched) {
-      @include define-focus-ring($state: ":invalid", $color: danger);
-    }
+  [data-sim-focus-visible] & {
+    --onyx-checkbox-container-outline-width: 0.75rem;
+    --onyx-checkbox-container-outline-color: var(--onyx-color-base-primary-200);
   }
 
   &:has(&__input:disabled) {
-    cursor: default;
-    color: var(--onyx-color-text-icons-neutral-soft);
+    --onyx-checkbox-container-outline-width: 0;
+    --onyx-checkbox-input-border-color: var(--onyx-color-base-neutral-300);
+    --onyx-checkbox-input-label-color: var(--onyx-color-text-icons-neutral-soft);
+    --onyx-checkbox-cursor: default;
   }
 
-  &__container {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--onyx-spacing-sm);
-    border-radius: var(--onyx-radius-full);
+  &:has(&__input:disabled:checked) {
+    --onyx-checkbox-input-background-color: var(--onyx-color-base-neutral-300);
+    --onyx-checkbox-input-border-color: var(--onyx-color-base-neutral-300);
   }
 
   &__input {
@@ -118,37 +114,22 @@ const isTouched = ref(false);
     appearance: none;
     margin: 0;
     border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
-    outline: none;
-    background: var(--onyx-color-base-background-blank);
+    border: {
+      width: var(--onyx-1px-in-rem);
+      style: solid;
+      color: var(--onyx-checkbox-input-border-color);
+    }
+    outline: {
+      width: var(--onyx-checkbox-container-outline-width);
+      style: solid;
+      color: var(--onyx-checkbox-container-outline-color);
+    }
+    background: var(--onyx-checkbox-input-background-color);
     cursor: inherit;
 
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-
-    &:checked,
-    &:indeterminate {
-      @include define-checked-background(":enabled", primary);
-
-      &.onyx-checkbox__input--touched {
-        @include define-checked-background(":invalid", danger);
-      }
-
-      &:disabled {
-        background-color: var(--onyx-color-base-neutral-300);
-      }
-    }
-
-    &:disabled {
-      border-color: var(--onyx-color-base-neutral-300);
-    }
-
-    &--touched {
-      &:invalid {
-        border-color: var(--onyx-color-base-danger-500);
-      }
-    }
 
     &:checked {
       // icon (with added fill='white'): check-small.svg

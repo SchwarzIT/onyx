@@ -96,6 +96,12 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
   &:has(&__selector:invalid:checked) {
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
+  }
+
+  &:has(&__selector:invalid:checked:hover) {
+    --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-400);
+    --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-400);
   }
 
   &:has(&__selector:focus-visible),
