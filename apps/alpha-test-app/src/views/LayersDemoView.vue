@@ -19,7 +19,7 @@ const options = ref({
   showTempOverlay: false,
   showMobileFlyIn: false,
   fullSizePopup: false,
-  showLoadingPage: true,
+  showPageLoader: false,
 
   showNotification: false,
   showToast: false,
@@ -128,15 +128,15 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         detail footer
       </div>
     </div>
-  </div>
 
-  <!----------- GRID full overlay excluding top bar ----------->
-  <div v-if="options.showLoadingPage" class="loading-page">
-    <section>
-      <h3>Loading page overlay</h3>
+    <!----------- GRID full overlay excluding top bar ----------->
+    <div v-if="options.showPageLoader" class="loading-page">
+      <section>
+        <h3>Page loader overlay</h3>
 
-      <LayersDemoOptionsMolecule v-model="options" highlight-label="showLoadingPage" />
-    </section>
+        <LayersDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
+      </section>
+    </div>
   </div>
 
   <!----------- APP cover overlays ----------->
@@ -209,13 +209,13 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
 <style lang="scss">
 :root {
-  --onyx-layer-temp-overlay: 50;
-  --onyx-layer-overlay: 50;
-  --onyx-layer-top-nav: 40;
+  --onyx-layer-temp-overlay: 60;
+  --onyx-layer-overlay: 60;
+  --onyx-layer-top-nav: 50;
+  --onyx-layer-page-loader: 40;
   --onyx-layer-notification: 30;
   --onyx-layer-flyout: 20;
   --onyx-layer-tooltip: 10;
-  --onyx-layer-loading-page: 10;
 }
 
 // decorations
@@ -241,6 +241,7 @@ body {
   color: white;
   padding: 16px;
 }
+.top-nav,
 .bottom-bar {
   height: 50px;
 }
@@ -272,7 +273,7 @@ body {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 50px 1fr max-content;
+  grid-template-rows: max-content 1fr max-content;
   grid-template-columns: 200px auto;
   grid-template-areas:
     "top top"
@@ -419,12 +420,9 @@ body {
 
 .loading-page {
   background-color: rgba(212, 212, 212, 0.78);
-  position: fixed;
-  top: 50px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-layer-loading-page);
+  grid-row: 1 / -1;
+  grid-column: 1 / -1;
+  z-index: var(--onyx-layer-page-loader);
   backdrop-filter: blur(4px);
 }
 </style>
