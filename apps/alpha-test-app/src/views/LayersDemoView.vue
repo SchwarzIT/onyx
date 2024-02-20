@@ -54,7 +54,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <span class="flyout-parent">
           <input @click="options.showFlyout = !options.showFlyout" />
           <div v-if="options.showFlyout" class="demo flyout">
-            <LayersDemoOptionsMolecule v-model="options" />
+            <LayersDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
           </div>
         </span>
       </label>
@@ -95,7 +95,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
           <span class="flyout-parent">
             <input @click="options.showFlyout = !options.showFlyout" />
             <div v-if="options.showFlyout" class="demo flyout">
-              <LayersDemoOptionsMolecule v-model="options" />
+              <LayersDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
             </div>
           </span>
         </label>
@@ -142,7 +142,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <div class="demo popover">
         Popover / Modal content
 
-        <LayersDemoOptionsMolecule v-model="options" />
+        <LayersDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
 
         <!-- demo tooltip -->
         <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -160,7 +160,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <div class="mobile-fly-in__content">
           Mobile fly-in
 
-          <LayersDemoOptionsMolecule v-model="options" />
+          <LayersDemoOptionsMolecule v-model="options" highlight-label="showMobileFlyIn" />
         </div>
         <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
       </div>
@@ -177,7 +177,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       </button>
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
         Temp overlay
-        <LayersDemoOptionsMolecule v-model="options" />
+        <LayersDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->
         <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -223,8 +223,12 @@ body {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    width: 150px;
+    width: 250px;
   }
+}
+.side-bar,
+.page {
+  padding: 16px;
 }
 
 // positions
@@ -233,7 +237,7 @@ body {
   width: 100vw;
   display: grid;
   grid-template-rows: 50px auto max-content;
-  grid-template-columns: 150px auto;
+  grid-template-columns: 200px auto;
   grid-template-areas:
     "top top"
     "side main"

@@ -5,6 +5,7 @@ type Options = Record<string, boolean>;
 
 const props = defineProps<{
   modelValue: Options;
+  highlightLabel?: string;
 }>();
 
 const emit = defineEmits<{
@@ -22,7 +23,12 @@ const options = computed({
     Demo options
     <label v-for="(isChecked, label) of options" :key="label">
       <input type="checkbox" :checked="isChecked" @change="options[label] = !isChecked" />
-      {{ label }}
+      <span
+        class="label"
+        :class="{ 'label--highlighted': highlightLabel === label, 'label--checked': isChecked }"
+      >
+        {{ label }}
+      </span>
     </label>
   </div>
 </template>
@@ -31,5 +37,16 @@ const options = computed({
 .options {
   display: flex;
   flex-direction: column;
+}
+
+.label {
+  color: rgb(96, 96, 96);
+  &--checked {
+    color: black;
+  }
+  &--highlighted {
+    font-weight: bold;
+    color: green;
+  }
 }
 </style>
