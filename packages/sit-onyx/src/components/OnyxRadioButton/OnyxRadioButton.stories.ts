@@ -9,7 +9,7 @@ const meta: Meta<typeof OnyxRadioButton> = {
   title: "support/OnyxRadioButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButton,
-    events: ["update:modelValue"],
+    events: [],
   }),
 };
 
