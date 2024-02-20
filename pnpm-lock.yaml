@@ -126,8 +126,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
       vitepress:
-        specifier: 1.0.0-rc.43
-        version: 1.0.0-rc.43(@algolia/client-search@4.22.1)(@types/node@20.11.19)(sass@1.71.0)(search-insights@2.13.0)(typescript@5.3.3)
+        specifier: 1.0.0-rc.44
+        version: 1.0.0-rc.44(@algolia/client-search@4.22.1)(@types/node@20.11.19)(sass@1.71.0)(search-insights@2.13.0)(typescript@5.3.3)
       vue:
         specifier: ^3.4.19
         version: 3.4.19(typescript@5.3.3)
@@ -10821,8 +10821,8 @@ packages:
       - universal-cookie
     dev: false
 
-  /vitepress@1.0.0-rc.43(@algolia/client-search@4.22.1)(@types/node@20.11.19)(sass@1.71.0)(search-insights@2.13.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-XZ9xaN76/LxCBqvk6U+3ne3T60JOavdOlk+FMQBlXYK/9pyyKGfjnEra4yKYvOdZdStoTg8VXTAj4wcsCTlJaQ==}
+  /vitepress@1.0.0-rc.44(@algolia/client-search@4.22.1)(@types/node@20.11.19)(sass@1.71.0)(search-insights@2.13.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-tO5taxGI7fSpBK1D8zrZTyJJERlyU9nnt0jHSt3fywfq3VKn977Hg0wUuTkEmwXlFYwuW26+6+3xorf4nD3XvA==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4.3.2
