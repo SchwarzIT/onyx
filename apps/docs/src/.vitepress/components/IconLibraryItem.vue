@@ -39,6 +39,7 @@ const handleCopy = async () => {
   align-items: center;
   border: var(--onyx-1px-in-rem) solid transparent;
   position: relative;
+  color: var(--onyx-color-text-icons-neutral-soft);
 
   &__tooltip {
     position: absolute;
@@ -62,6 +63,7 @@ const handleCopy = async () => {
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
     outline-style: unset;
+    color: unset;
 
     .icon__tooltip {
       visibility: inherit;
