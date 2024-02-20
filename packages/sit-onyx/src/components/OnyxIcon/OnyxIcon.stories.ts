@@ -33,7 +33,7 @@ const meta: Meta<typeof OnyxIcon> = {
           return `<script lang="ts" setup>
           import icon from "@sit-onyx/icons/${iconName}.svg?raw";
           </script>
-          ${sourceCode.replace("icon='()=>({})'", ':icon="icon"')}`;
+          ${sourceCode.replace(/ icon=['"].*['"]/, ' :icon="icon"')}`;
         },
       },
     },
