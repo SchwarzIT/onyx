@@ -56,3 +56,13 @@ export const Required = {
     required: true,
   },
 } satisfies Story;
+
+/**
+ * A checkbox without a label.
+ */
+export const WithoutLabel = {
+  args: {
+    ...Default.args,
+    hideLabel: true,
+  },
+} satisfies Story;
