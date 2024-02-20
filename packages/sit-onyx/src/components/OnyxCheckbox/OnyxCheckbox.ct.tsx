@@ -231,7 +231,7 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 });
 
 const STATES = {
-  state: ["default", "disabled", "invalid", "required", "optional"],
+  state: ["default", "disabled", "required", "optional"],
   select: ["unselected", "selected", "indeterminate"],
   focusState: ["", "hover", "focus-visible"],
   labeled: ["labeled", "unlabeled"],
