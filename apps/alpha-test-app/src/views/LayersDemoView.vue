@@ -7,7 +7,6 @@ import LayersDemoOptionsMolecule from "../components/molecules/LayersDemoOptions
 
 /** TASK LIST
  * - try alternative approach without grid?
- * - mobile top nav drop down/overlay
  */
 
 const options = ref({
@@ -21,6 +20,7 @@ const options = ref({
   showMobileFlyIn: false,
   fullSizePopup: false,
   showPageLoader: false,
+  topBarFlyout: false,
 
   showNotification: false,
   showToast: false,
@@ -131,11 +131,24 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     </div>
 
     <!----------- GRID full overlay excluding top bar ----------->
-    <div v-if="options.showPageLoader" class="loading-page">
+    <div v-if="options.showPageLoader" class="page-loader">
       <section>
         <h3>Page loader overlay</h3>
 
         <LayersDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
+      </section>
+    </div>
+    <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
+      <section class="top-bar-fly-out__content">
+        <h3>Mobile Top Bar Flyout</h3>
+
+        <LayersDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
+
+        <!-- demo tooltip -->
+        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+          Tooltip parent
+          <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
+        </div>
       </section>
     </div>
   </div>
@@ -259,14 +272,20 @@ body {
 }
 .side-bar,
 .page__content,
-.loading-page {
+.page-loader {
   padding: 16px;
   box-sizing: border-box;
 }
-.loading-page {
+.page-loader {
+  background-color: rgba(212, 212, 212, 0.78);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.top-bar-fly-out__content {
+  background-color: white;
+  padding: 4px;
 }
 
 // positions
@@ -419,11 +438,16 @@ body {
   }
 }
 
-.loading-page {
-  background-color: rgba(212, 212, 212, 0.78);
+.page-loader,
+.top-bar-fly-out {
   grid-row: 1 / -1;
   grid-column: 1 / -1;
   z-index: var(--onyx-layer-page-loader);
-  backdrop-filter: blur(4px);
+}
+
+.top-bar-fly-out {
+  top: unset;
+  position: unset;
+  grid-row: 2 / -1;
 }
 </style>
