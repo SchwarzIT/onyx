@@ -31,7 +31,7 @@ const invalidFormData = {
       <button @click="locale = 'de-DE'">Deutsch</button>
       <button @click="locale = 'en-US'">English</button>
     </div>
-    <button @click="router.push('/layers-demo')">Move to layers demo</button>
+    <button @click="router.push('/layout-demo')">Move to layout demo</button>
 
     <div data-testid="home-view" class="page">
       <h1 element="h1">Initially Invalid example</h1>

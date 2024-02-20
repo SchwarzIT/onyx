@@ -11,9 +11,9 @@ export const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
-    path: "/layers-demo",
-    name: "layersDemo",
-    component: () => import("../views/LayersDemoView.vue"),
+    path: "/layout-demo",
+    name: "layoutDemo",
+    component: () => import("../views/LayoutDemoView.vue"),
     meta: { requiresAuth: false },
   },
 ];

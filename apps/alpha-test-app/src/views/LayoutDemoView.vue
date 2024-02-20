@@ -3,11 +3,7 @@ import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
-import LayersDemoOptionsMolecule from "../components/molecules/LayersDemoOptionsMolecule.vue";
-
-/** TASK LIST
- * - try alternative approach without grid?
- */
+import LayoutDemoOptionsMolecule from "../components/molecules/LayoutDemoOptionsMolecule.vue";
 
 const options = ref({
   title0: "Page length:",
@@ -26,6 +22,7 @@ const options = ref({
   topBarFlyout: false,
 
   title3: "Docking content:",
+  showSideBar: true,
   showNotification: false,
   showToast: false,
   detailFooter: true,
@@ -41,6 +38,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <div
     class="app"
     :class="{
+      'app--sidebar': options.showSideBar,
       'app--full-footer': options.fullFooter || (options.showToast && !options.detailFooter),
       'app--detail-footer': options.detailFooter,
     }"
@@ -55,7 +53,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <span class="flyout-parent">
           <input @click="options.showFlyout = !options.showFlyout" />
           <div v-if="options.showFlyout" class="demo flyout">
-            <LayersDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+            <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
           </div>
         </span>
       </label>
@@ -68,10 +66,10 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       </span>
     </div>
 
-    <!----------- GRID left col ----------->
-    <div class="demo side-bar">
+    <!----------- GRID sidebar (left col) ----------->
+    <div v-if="options.showSideBar" class="demo side-bar">
       <h3>Sidebar</h3>
-      <LayersDemoOptionsMolecule v-model="options" />
+      <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" />
 
       <!-- demo tooltip -->
       <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -80,7 +78,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       </div>
     </div>
 
-    <!----------- GRID right col ----------->
+    <!----------- GRID main (right col) ----------->
     <div class="page" :class="{ 'page--full-height': !options.fullFooter }">
       <!-- demo global info tile -->
       <div v-if="options.showNotification" class="demo notification">
@@ -97,7 +95,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
             <span class="flyout-parent">
               <input @click="options.showFlyout = !options.showFlyout" />
               <div v-if="options.showFlyout" class="demo flyout">
-                <LayersDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+                <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
               </div>
             </span>
           </label>
@@ -108,6 +106,8 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
           Tooltip parent
           <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
         </div>
+
+        <LayoutDemoOptionsMolecule v-if="!options.showSideBar" v-model="options" />
 
         <!-- demo page content -->
         <template v-if="options.longPageContent">
@@ -139,14 +139,14 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <section>
         <h3>Page loader overlay</h3>
 
-        <LayersDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
+        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
       </section>
     </div>
     <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
       <section class="top-bar-fly-out__content">
         <h3>Mobile Top Bar Flyout</h3>
 
-        <LayersDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
+        <LayoutDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
 
         <!-- demo tooltip -->
         <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -164,7 +164,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <div class="demo popover">
         <h3>Popover / Modal content</h3>
 
-        <LayersDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
+        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
 
         <!-- demo tooltip -->
         <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -178,11 +178,11 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <!-- full size popup -->
   <Teleport v-if="options.fullSizePopup" to="body">
     <div class="demo full-size-popup">
-      <div>
+      <div class="full-size-popup__content">
         <h3>This is a full size popup. Usually used in mobile apps</h3>
         Try it with "fullFooter".
 
-        <LayersDemoOptionsMolecule v-model="options" highlight-label="fullSizePopup" />
+        <LayoutDemoOptionsMolecule v-model="options" highlight-label="fullSizePopup" />
       </div>
 
       <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
@@ -196,7 +196,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <div class="mobile-fly-in__content">
           <h3>Mobile fly-in</h3>
 
-          <LayersDemoOptionsMolecule v-model="options" highlight-label="showMobileFlyIn" />
+          <LayoutDemoOptionsMolecule v-model="options" highlight-label="showMobileFlyIn" />
         </div>
         <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
       </div>
@@ -213,7 +213,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       </button>
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
         <h3>Temp overlay</h3>
-        <LayersDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
+        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->
         <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -226,15 +226,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 </template>
 
 <style lang="scss">
-:root {
-  --onyx-layer-overlay: 60;
-  --onyx-layer-top-nav: 50;
-  --onyx-layer-page-loader: 40;
-  --onyx-layer-notification: 30;
-  --onyx-layer-flyout: 20;
-  --onyx-layer-tooltip: 10;
-}
-
 // positions
 .app {
   height: 100vh;
@@ -244,20 +235,35 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   grid-template-columns: 200px auto;
   grid-template-areas:
     "top top"
-    "side main"
-    "side main";
+    "main main"
+    "main main";
 
-  &--detail-footer {
-    grid-template-areas:
-      "top top"
-      "side main"
-      "side footer";
-  }
+  &--detail-footer,
   &--full-footer {
     grid-template-areas:
       "top top"
-      "side main"
+      "main main"
       "footer footer";
+  }
+
+  &--sidebar {
+    grid-template-areas:
+      "top top"
+      "side main"
+      "side main";
+
+    &.app--detail-footer {
+      grid-template-areas:
+        "top top"
+        "side main"
+        "side footer";
+    }
+    &.app--full-footer {
+      grid-template-areas:
+        "top top"
+        "side main"
+        "footer footer";
+    }
   }
 }
 
@@ -269,6 +275,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
 .side-bar {
   grid-area: side;
+  overflow: hidden auto;
 }
 
 .footer {
@@ -279,7 +286,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
 .top-nav {
   grid-area: top;
-  z-index: var(--onyx-layer-top-nav);
+  z-index: var(--onyx-z-index-top-nav);
 }
 
 .popover {
@@ -311,7 +318,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: var(--onyx-layer-overlay);
+  z-index: var(--onyx-z-index-overlay);
   position: absolute;
 }
 
@@ -320,11 +327,13 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: var(--onyx-layer-overlay);
+  z-index: var(--onyx-z-index-overlay);
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: 1fr 50px;
+  &__content {
+    overflow: auto;
+  }
 }
 
 .flyout-parent {
@@ -333,7 +342,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
 .flyout {
   position: absolute;
-  z-index: var(--onyx-layer-flyout);
+  z-index: var(--onyx-z-index-flyout);
   height: fit-content;
   min-width: 100px;
   right: 0;
@@ -342,7 +351,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
 .temp-overlay {
   position: absolute;
-  z-index: var(--onyx-layer-overlay);
+  z-index: var(--onyx-z-index-overlay);
   right: 0;
   bottom: 0;
   top: 0;
@@ -361,7 +370,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 .notification {
   position: sticky;
   top: 0;
-  z-index: var(--onyx-layer-notification);
+  z-index: var(--onyx-z-index-global-info);
 }
 
 .tooltip {
@@ -378,7 +387,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     position: absolute;
     top: 28px;
     left: 0;
-    z-index: var(--onyx-layer-tooltip);
+    z-index: var(--onyx-z-index-tooltip);
     visibility: hidden;
   }
 }
@@ -387,7 +396,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 .top-bar-fly-out {
   grid-row: 1 / -1;
   grid-column: 1 / -1;
-  z-index: var(--onyx-layer-page-loader);
+  z-index: var(--onyx-z-index-page-loader);
 }
 
 .top-bar-fly-out {
