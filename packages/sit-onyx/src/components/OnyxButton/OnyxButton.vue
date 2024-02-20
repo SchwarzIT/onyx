@@ -127,12 +127,12 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   }
 
   &:hover,
-  .pw-hover & {
+  [data-sim-hover] & {
     --onyx-button-background-color: var(--onyx-button-background-hover-color);
   }
 
   &:focus-visible,
-  .pw-focus-visible & {
+  [data-sim-focus-visible] & {
     outline: 0.25rem solid var(--onyx-button-outline-color);
   }
 

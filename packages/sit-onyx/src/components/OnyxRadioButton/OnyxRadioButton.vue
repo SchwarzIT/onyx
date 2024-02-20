@@ -80,7 +80,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   cursor: var(--onyx-radio-button-cursor);
 
   &:has(&__selector:hover),
-  .pw-hover & {
+  [data-sim-hover] & {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
   }
 
@@ -99,7 +99,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   }
 
   &:has(&__selector:focus-visible),
-  .pw-focus-visible & {
+  [data-sim-focus-visible] & {
     --onyx-radio-button-selector-outline-width: 0.75rem;
   }
 

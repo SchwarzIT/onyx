@@ -68,7 +68,7 @@ const isTouched = ref(false);
     background-color: var(--onyx-color-base-#{$color}-500);
 
     &:hover,
-    .pw-hover & {
+    [data-sim-hover] & {
       background-color: var(--onyx-color-base-#{$color}-300);
     }
   }
@@ -83,7 +83,7 @@ const isTouched = ref(false);
   max-width: max-content;
 
   &:hover,
-  .pw-hover & {
+  [data-sim-hover] & {
     @include define-hover-border($state: ":enabled", $color: primary);
 
     &:has(.onyx-checkbox__input--touched) {
@@ -92,7 +92,7 @@ const isTouched = ref(false);
   }
 
   &:has(&__input:focus-visible),
-  .pw-focus-visible &:has(&__input) {
+  [data-sim-focus-visible] &:has(&__input) {
     @include define-focus-ring($state: ":enabled", $color: primary);
 
     &:has(.onyx-checkbox__input--touched) {

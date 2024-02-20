@@ -81,8 +81,8 @@ const createTestCases = <S extends ComponentStates>(
       style={{ gridArea: `case${i}` }}
       key={i}
       // Handle common cases
+      {...{ [`data-sim-${testCase["focusState"]}`]: !!testCase["focusState"] || undefined }}
       class={{
-        [`pw-${testCase["focusState"]}`]: testCase["focusState"],
         "onyx-use-optional": testCase["state"] === "optional",
       }}
     >
