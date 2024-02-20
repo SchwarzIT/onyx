@@ -1,7 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
-import { CHECKBOX_GROUP_DIRECTIONS } from "./types";
 
 /**
  * Checkboxes are a fundamental UI element, that allows users to make a binary selection.
@@ -12,11 +11,6 @@ const meta: Meta<typeof OnyxCheckboxGroup> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxCheckboxGroup,
     events: ["update:modelValue"],
-    argTypes: {
-      direction: {
-        options: CHECKBOX_GROUP_DIRECTIONS,
-      },
-    },
   }),
 };
 

@@ -1,8 +1,9 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "type": "module",
+  "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
     "dist",
@@ -20,13 +21,14 @@
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*"
   },
+  "homepage": "https://onyx.schwarz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/onyx",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/sit-onyx"
   },
   "bugs": {
-    "url": "https://github.com/schwarzit/onyx/issues"
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
     "start": "pnpm run dev",
@@ -50,12 +52,12 @@
     "@axe-core/playwright": "^4.8.5",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^7.6.16",
-    "@storybook/blocks": "^7.6.16",
-    "@storybook/vue3": "^7.6.16",
-    "@storybook/vue3-vite": "^7.6.16",
+    "@storybook/addon-essentials": "0.0.0-pr-22285-sha-21557c1b",
+    "@storybook/blocks": "0.0.0-pr-22285-sha-21557c1b",
+    "@storybook/vue3": "0.0.0-pr-22285-sha-21557c1b",
+    "@storybook/vue3-vite": "0.0.0-pr-22285-sha-21557c1b",
     "eslint-plugin-vue-scoped-css": "^2.7.2",
     "react": "^18.2.0",
-    "storybook": "^7.6.16"
+    "storybook": "0.0.0-pr-22285-sha-21557c1b"
   }
 }

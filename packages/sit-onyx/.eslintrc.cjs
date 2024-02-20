@@ -12,4 +12,11 @@ module.exports = {
     // see https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
   },
+  overrides: [
+    // disable playwright rules for vitest (unit test) files
+    {
+      files: ["src/**/*.spec.ts"],
+      rules: { "playwright/no-standalone-expect": "off" },
+    },
+  ],
 };

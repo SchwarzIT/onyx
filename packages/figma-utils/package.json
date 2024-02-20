@@ -19,6 +19,15 @@
       "import": "./dist/index.js"
     }
   },
+  "homepage": "https://onyx.schwarz/development/packages/figma-utils.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/figma-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "scripts": {
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "rimraf dist && tsc -p tsconfig.node.json --composite false",

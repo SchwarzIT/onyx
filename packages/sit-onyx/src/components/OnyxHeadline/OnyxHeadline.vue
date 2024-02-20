@@ -9,7 +9,7 @@ defineSlots<{
   /**
    * Headline content.
    */
-  default(): unknown;
+  default(props: Record<string, never>): unknown;
 }>();
 </script>
 
