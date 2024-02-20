@@ -76,17 +76,17 @@ const createTestCases = <S extends ComponentStates>(
   testCases: Permutation<S>[],
   caseBuilder: CaseBuilder<S>,
 ) =>
-  testCases.map((tC, i) => (
+  testCases.map((testCase, i) => (
     <div
       style={{ gridArea: `case${i}` }}
       key={i}
       // Handle common cases
       class={{
-        [`pw-${tC["focusState"]}`]: tC["focusState"],
-        "onyx-use-optional": tC["state"] === "optional",
+        [`pw-${testCase["focusState"]}`]: testCase["focusState"],
+        "onyx-use-optional": testCase["state"] === "optional",
       }}
     >
-      {caseBuilder(tC, i)}
+      {caseBuilder(testCase, i)}
     </div>
   ));
 
