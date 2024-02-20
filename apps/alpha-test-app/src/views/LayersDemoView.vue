@@ -25,10 +25,8 @@ const options = ref({
 
   showNotification: false,
   showToast: false,
-  // don't combine with detail footer
-  fullFooter: false,
-  // don't combine with full footer
   detailFooter: true,
+  fullFooter: false,
 });
 
 const tempOverlayOpen = ref(true);
@@ -86,31 +84,33 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         Global Info Tile / Notification
       </div>
 
-      Scrollable page content
+      <div class="page__content">
+        Scrollable page content
 
-      <!-- demo flyout -->
-      <p>
-        <label>
-          Demo Drop Down:
-          <span class="flyout-parent">
-            <input @click="options.showFlyout = !options.showFlyout" />
-            <div v-if="options.showFlyout" class="demo flyout">
-              <LayersDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
-            </div>
-          </span>
-        </label>
-      </p>
+        <!-- demo flyout -->
+        <p>
+          <label>
+            Demo Drop Down:
+            <span class="flyout-parent">
+              <input @click="options.showFlyout = !options.showFlyout" />
+              <div v-if="options.showFlyout" class="demo flyout">
+                <LayersDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+              </div>
+            </span>
+          </label>
+        </p>
 
-      <!-- demo tooltip -->
-      <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-        Tooltip parent
-        <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
+        <!-- demo tooltip -->
+        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+          Tooltip parent
+          <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
+        </div>
+
+        <!-- demo page content -->
+        <template v-if="options.longPageContent">
+          <p v-for="content in muchContent" :key="content">{{ content }}</p>
+        </template>
       </div>
-
-      <!-- demo page content -->
-      <template v-if="options.longPageContent">
-        <p v-for="content in muchContent" :key="content">{{ content }}</p>
-      </template>
     </div>
 
     <!----------- GRID bottom row ----------->
@@ -190,6 +190,15 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 </template>
 
 <style lang="scss">
+:root {
+  --onyx-layer-temp-overlay: 50;
+  --onyx-layer-overlay: 50;
+  --onyx-layer-top-nav: 40;
+  --onyx-layer-notification: 30;
+  --onyx-layer-flyout: 20;
+  --onyx-layer-tooltip: 10;
+}
+
 // decorations
 body {
   margin: 0;
@@ -198,11 +207,12 @@ body {
   outline: 1px solid lightgrey;
   background-color: white;
 }
-.app {
+.page {
   background-color: #efefef;
 }
 .notification {
   border: 1px solid #eee;
+  background-color: #f9f9f9;
   padding: 24px;
 }
 .toast {
@@ -227,8 +237,9 @@ body {
   }
 }
 .side-bar,
-.page {
+.page__content {
   padding: 16px;
+  box-sizing: border-box;
 }
 
 // positions
@@ -236,7 +247,7 @@ body {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 50px auto max-content;
+  grid-template-rows: 50px 1fr max-content;
   grid-template-columns: 200px auto;
   grid-template-areas:
     "top top"
@@ -275,7 +286,7 @@ body {
 
 .top-nav {
   grid-area: top;
-  z-index: 20;
+  z-index: var(--onyx-layer-top-nav);
 }
 
 .popover {
@@ -308,7 +319,7 @@ body {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 20;
+  z-index: var(--onyx-layer-overlay);
   position: absolute;
 }
 
@@ -318,7 +329,7 @@ body {
 
 .flyout {
   position: absolute;
-  z-index: 10;
+  z-index: var(--onyx-layer-flyout);
   height: fit-content;
   min-width: 100px;
   right: 0;
@@ -327,7 +338,7 @@ body {
 
 .temp-overlay {
   position: absolute;
-  z-index: 20;
+  z-index: var(--onyx-layer-temp-overlay);
   right: 0;
   bottom: 0;
   top: 0;
@@ -346,7 +357,7 @@ body {
 .notification {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: var(--onyx-layer-notification);
 }
 
 .tooltip {
@@ -363,7 +374,7 @@ body {
     position: absolute;
     top: 28px;
     left: 0;
-    z-index: 5;
+    z-index: var(--onyx-layer-tooltip);
     visibility: hidden;
   }
 }
