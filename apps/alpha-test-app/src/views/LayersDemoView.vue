@@ -10,11 +10,14 @@ import LayersDemoOptionsMolecule from "../components/molecules/LayersDemoOptions
  */
 
 const options = ref({
+  title0: "Page length:",
   longPageContent: true,
 
+  title1: "Small overlays:",
   showFlyout: false,
   forceTooltip: false,
 
+  title2: "Full overlays:",
   showPopover: false,
   showTempOverlay: false,
   showMobileFlyIn: false,
@@ -22,6 +25,7 @@ const options = ref({
   showPageLoader: false,
   topBarFlyout: false,
 
+  title3: "Docking content:",
   showNotification: false,
   showToast: false,
   detailFooter: true,
@@ -223,69 +227,12 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
 <style lang="scss">
 :root {
-  --onyx-layer-temp-overlay: 60;
   --onyx-layer-overlay: 60;
   --onyx-layer-top-nav: 50;
   --onyx-layer-page-loader: 40;
   --onyx-layer-notification: 30;
   --onyx-layer-flyout: 20;
   --onyx-layer-tooltip: 10;
-}
-
-// decorations
-body {
-  margin: 0;
-}
-.demo {
-  outline: 1px solid lightgrey;
-  background-color: white;
-}
-.page {
-  background-color: #efefef;
-}
-.notification {
-  border: 1px solid #eee;
-  background-color: #f9f9f9;
-  padding: 24px;
-}
-.toast {
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  outline: 1px solid #efefef;
-  color: white;
-  padding: 16px;
-}
-.top-nav,
-.bottom-bar {
-  height: 50px;
-}
-.tooltip {
-  padding: 4px;
-  width: fit-content;
-  &__text {
-    padding: 4px;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    width: 250px;
-  }
-}
-.side-bar,
-.page__content,
-.page-loader {
-  padding: 16px;
-  box-sizing: border-box;
-}
-.page-loader {
-  background-color: rgba(212, 212, 212, 0.78);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.top-bar-fly-out__content {
-  background-color: white;
-  padding: 4px;
 }
 
 // positions
@@ -360,7 +307,6 @@ body {
 }
 
 .backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   bottom: 0;
@@ -370,7 +316,6 @@ body {
 }
 
 .full-size-popup {
-  background-color: white;
   top: 0;
   left: 0;
   bottom: 0;
@@ -397,7 +342,7 @@ body {
 
 .temp-overlay {
   position: absolute;
-  z-index: var(--onyx-layer-temp-overlay);
+  z-index: var(--onyx-layer-overlay);
   right: 0;
   bottom: 0;
   top: 0;
@@ -449,5 +394,65 @@ body {
   top: unset;
   position: unset;
   grid-row: 2 / -1;
+}
+
+// decorations
+body {
+  margin: 0;
+}
+.demo {
+  outline: 1px solid lightgrey;
+  background-color: white;
+}
+.page {
+  background-color: #efefef;
+}
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.notification {
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+  padding: 24px;
+}
+.toast {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  outline: 1px solid #efefef;
+  color: white;
+  padding: 16px;
+}
+.top-nav,
+.bottom-bar {
+  height: 50px;
+}
+.tooltip {
+  padding: 4px;
+  width: fit-content;
+  &__text {
+    padding: 4px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    width: 250px;
+  }
+}
+.side-bar,
+.page__content,
+.page-loader {
+  padding: 16px;
+  box-sizing: border-box;
+}
+.page-loader {
+  background-color: rgba(212, 212, 212, 0.78);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top-bar-fly-out__content,
+.full-size-popup {
+  background-color: white;
+  padding: 4px;
 }
 </style>

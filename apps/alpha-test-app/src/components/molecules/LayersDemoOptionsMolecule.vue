@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 
-type Options = Record<string, boolean>;
+type Options = Record<string, boolean | string>;
 
 const props = defineProps<{
   modelValue: Options;
@@ -21,15 +21,18 @@ const options = computed({
 <template>
   <div class="options">
     Demo options
-    <label v-for="(isChecked, label) of options" :key="label">
-      <input type="checkbox" :checked="isChecked" @change="options[label] = !isChecked" />
-      <span
-        class="label"
-        :class="{ 'label--highlighted': highlightLabel === label, 'label--checked': isChecked }"
-      >
-        {{ label }}
-      </span>
-    </label>
+    <template v-for="(value, label) of options" :key="label">
+      <label v-if="typeof value === 'boolean'">
+        <input type="checkbox" :checked="value" @change="options[label] = !value" />
+        <span
+          class="label"
+          :class="{ 'label--highlighted': highlightLabel === label, 'label--checked': value }"
+        >
+          {{ label }}
+        </span>
+      </label>
+      <em v-else class="title">{{ value }}</em>
+    </template>
   </div>
 </template>
 
@@ -48,5 +51,9 @@ const options = computed({
     font-weight: bold;
     color: green;
   }
+}
+
+.title {
+  margin-top: 8px;
 }
 </style>
