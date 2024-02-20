@@ -19,7 +19,6 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     }"
     :title="props.errorMessage"
   >
-    <!-- TODO: readonly is not supported on native radio input: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly#description -->
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       ref="selectorRef"
@@ -29,7 +28,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       :name="props.name"
       :value="props.id"
       :checked="props.selected"
-      :disabled="props.disabled || props.readonly"
+      :disabled="props.disabled"
     />
     <span class="onyx-radio-button__label">{{ props.label }}</span>
   </label>

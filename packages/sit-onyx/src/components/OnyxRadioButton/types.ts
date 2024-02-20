@@ -12,10 +12,7 @@ export type SelectionOption<T> = {
    * It's not actually used by the selection controls, but can be used to associate data with this option.
    */
   value?: T;
-  // TODO: JSDocs -> document which wins in collisions (e.g. disabled as well as readonly is true)
   disabled?: boolean;
-  readonly?: boolean;
-  loading?: boolean;
 };
 
 export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };

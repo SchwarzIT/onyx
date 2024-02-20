@@ -7,4 +7,8 @@ const nextId = (() => {
   return () => globalCounter++;
 })();
 
+/**
+ * Creates a globally unique string using a counter.
+ * The given name is the prefix.
+ */
 export const createId = (name: string) => `${name}-${nextId()}`;
