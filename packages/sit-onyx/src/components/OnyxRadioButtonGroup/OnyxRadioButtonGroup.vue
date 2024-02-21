@@ -11,6 +11,11 @@ type ChangeEvent = TargetEvent<HTMLInputElement>;
 const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   name: () => createId("radio-button-group-name"), // the name must be globally unique
   direction: "vertical",
+  headline: "",
+  required: false,
+  disabled: false,
+  errorMessage: "",
+  options: () => [],
 });
 
 const emit = defineEmits<{
@@ -29,7 +34,14 @@ const handleChange = (event: ChangeEvent) =>
     @change="handleChange($event as ChangeEvent)"
   >
     <legend v-if="props.headline" class="onyx-radio-button-group__headline">
-      <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+      <OnyxHeadline
+        is="h3"
+        :class="{
+          'onyx-required-marker': props.required,
+          'onyx-optional-marker': !props.required,
+        }"
+        >{{ props.headline }}</OnyxHeadline
+      >
     </legend>
 
     <div
@@ -46,6 +58,7 @@ const handleChange = (event: ChangeEvent) =>
         :error-message="option.id === props.modelValue?.id ? props.errorMessage : ''"
         :selected="option.id === props.modelValue?.id"
         :disabled="option.disabled"
+        :required="props.required"
       />
     </div>
   </fieldset>
