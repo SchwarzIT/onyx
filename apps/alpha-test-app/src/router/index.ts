@@ -14,6 +14,5 @@ export const routes: RouteRecordRaw[] = [
     path: "/layout-demo",
     name: "layoutDemo",
     component: () => import("../views/LayoutDemoView.vue"),
-    meta: { requiresAuth: false },
   },
 ];
