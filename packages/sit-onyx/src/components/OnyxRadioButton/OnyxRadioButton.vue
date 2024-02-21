@@ -11,7 +11,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
 <template>
   <!-- TODO: decide on support prefix and/or folder -->
-  <label :title="props.errorMessage">
+  <label class="onyx-radio-button" :title="props.errorMessage">
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       ref="selectorRef"
