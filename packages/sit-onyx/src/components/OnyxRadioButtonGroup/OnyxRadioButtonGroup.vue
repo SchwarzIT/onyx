@@ -9,7 +9,7 @@ import { createId } from "@sit-onyx/headless";
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
 const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
-  name: createId("radio-button-group-name"), // the name must be globally unique
+  name: () => createId("radio-button-group-name"), // the name must be globally unique
   direction: "vertical",
 });
 
