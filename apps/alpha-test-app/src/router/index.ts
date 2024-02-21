@@ -1,9 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
-/** List of all routes the user can navigate to.
- *  Please declare, whether authentication is enabled/disabled via the meta parameter.
- */
+/** List of all routes the user can navigate to. */
 export const routes: RouteRecordRaw[] = [
   {
     path: "/",
