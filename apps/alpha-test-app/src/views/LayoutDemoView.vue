@@ -24,8 +24,7 @@ const options = ref({
   title3: "Docking content:",
   showSideBar: true,
   showStickyContent: false,
-  showToast: false, // relative to the footer, if no footer, centered to page.
-  // overlays the page content.
+  showToast: true,
   detailFooter: true,
   fullFooter: false,
 });
@@ -39,9 +38,9 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <div
     class="app"
     :class="{
-      'app--sidebar': options.showSideBar,
-      'app--full-footer': options.fullFooter || (options.showToast && !options.detailFooter),
       'app--detail-footer': options.detailFooter,
+      'app--full-footer': options.fullFooter,
+      'app--sidebar': options.showSideBar,
     }"
   >
     <!----------- GRID top row ----------->
@@ -119,20 +118,18 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
     <!----------- GRID bottom row ----------->
     <div
-      v-if="options.detailFooter || options.fullFooter || options.showToast"
-      class="footer"
+      v-if="options.detailFooter || options.fullFooter"
+      class="demo footer bottom-bar"
       :class="{ 'footer--detail': options.detailFooter }"
     >
-      <!-- demo toast -->
-      <template v-if="options.showToast">
-        <div class="demo toast">Toast message 1</div>
-        <div v-if="options.showToast" class="demo toast">Toast message 2</div>
-      </template>
+      <span v-if="options.fullFooter">Full </span><span v-else>Detail</span> footer
+    </div>
 
-      <!-- demo bottom-bar -->
-      <div v-if="options.detailFooter || options.fullFooter" class="demo bottom-bar">
-        detail footer
-      </div>
+    <!----------- GRID page overlay ----------->
+    <!-- demo toast -->
+    <div v-if="options.showToast" class="toast-controller">
+      <div class="demo toast">Toast message 1</div>
+      <div v-if="options.showToast" class="demo toast">Toast message 2</div>
     </div>
 
     <!----------- GRID full overlay excluding top bar ----------->
@@ -290,22 +287,31 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 // *** GRID footer (bottom row)
 .footer {
   grid-area: footer;
-  display: flex;
-  flex-direction: column;
 }
 
-// *** GRID full overlay excluding top bar
+// *** GRID partial overlays
 .page-loader,
 .top-bar-fly-out {
   grid-row: 1 / -1;
   grid-column: 1 / -1;
   z-index: var(--onyx-z-index-content-overlay);
 }
-
 .top-bar-fly-out {
   top: unset;
   position: unset;
   grid-row: 2 / -1;
+}
+.app--full-footer .toast-controller,
+.toast-controller {
+  grid-row: 2 / 3;
+  grid-column: 1 / -1;
+  z-index: var(--onyx-z-index-notification);
+  align-self: end;
+  justify-self: center;
+}
+.app--detail-footer .toast-controller {
+  grid-row: 2 / 3;
+  grid-column: 2 / -1;
 }
 
 // *** local overlays
@@ -324,9 +330,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   position: sticky;
   top: 0;
   z-index: var(--onyx-z-index-sticky-content);
-}
-.toast {
-  z-index: var(--onyx-z-index-notification);
 }
 .tooltip {
   position: relative;
@@ -428,9 +431,13 @@ body {
   background-color: #f9f9f9;
   padding: 24px;
 }
+.toast-controller {
+  width: 60%;
+  min-width: min(500px, 100%);
+  height: fit-content;
+}
 .toast {
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   outline: 1px solid #efefef;
   color: white;
   padding: 16px;
