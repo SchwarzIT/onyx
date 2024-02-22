@@ -37,6 +37,7 @@ const emit = defineEmits<{
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: flex;
+  height: 2.5rem;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
@@ -143,6 +144,7 @@ const emit = defineEmits<{
 
   &:disabled {
     cursor: default;
+    pointer-events: none;
   }
 
   &__label {
