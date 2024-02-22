@@ -30,7 +30,7 @@ export const Default = {
   args: {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
-    modelValue: EXAMPLE_OPTIONS[2],
+    modelValue: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -41,7 +41,7 @@ export const Disabled = {
   args: {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
-    modelValue: EXAMPLE_OPTIONS[2],
+    modelValue: EXAMPLE_OPTIONS[0],
     disabled: true,
   },
 } satisfies Story;
@@ -53,7 +53,7 @@ export const Horizontal = {
   args: {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
-    modelValue: EXAMPLE_OPTIONS[2],
+    modelValue: EXAMPLE_OPTIONS[0],
     direction: "horizontal",
   },
 } satisfies Story;
