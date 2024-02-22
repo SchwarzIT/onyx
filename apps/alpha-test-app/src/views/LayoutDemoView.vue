@@ -23,8 +23,9 @@ const options = ref({
 
   title3: "Docking content:",
   showSideBar: true,
-  showNotification: false,
-  showToast: false,
+  showStickyContent: false,
+  showToast: false, // relative to the footer, if no footer, centered to page.
+  // overlays the page content.
   detailFooter: true,
   fullFooter: false,
 });
@@ -44,7 +45,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     }"
   >
     <!----------- GRID top row ----------->
-    <div class="demo top-nav">
+    <div class="demo nav-bar">
       <strong>Top nav bar</strong> |
 
       <!-- demo flyout -->
@@ -80,13 +81,13 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
     <!----------- GRID main (right col) ----------->
     <div class="page" :class="{ 'page--full-height': !options.fullFooter }">
-      <!-- demo global info tile -->
-      <div v-if="options.showNotification" class="demo notification">
-        Global Info Tile / Notification
-      </div>
-
       <div class="page__content">
         <h2>Scrollable page content</h2>
+
+        <!-- demo sticky content -->
+        <div v-if="options.showStickyContent" class="demo sticky-content">
+          Sticky content. Example: Breadcrumb bar, Table header, Headlines
+        </div>
 
         <!-- demo flyout -->
         <p>
@@ -226,7 +227,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 </template>
 
 <style lang="scss">
-// positions
+// ****** POSITIONS ******
 .app {
   height: 100vh;
   width: 100vw;
@@ -267,79 +268,50 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   }
 }
 
+// *** GRID top (nav bar)
+.nav-bar {
+  grid-area: top;
+  z-index: var(--onyx-z-index-nav-bar);
+}
+
+// *** GRID side (left col)
+.side-bar {
+  grid-area: side;
+  overflow: hidden auto;
+}
+
+// *** GRID main (right col)
 .page {
   grid-area: main;
   overflow: hidden auto;
   position: relative;
 }
 
-.side-bar {
-  grid-area: side;
-  overflow: hidden auto;
-}
-
+// *** GRID footer (bottom row)
 .footer {
   grid-area: footer;
   display: flex;
   flex-direction: column;
 }
 
-.top-nav {
-  grid-area: top;
-  z-index: var(--onyx-z-index-top-nav);
+// *** GRID full overlay excluding top bar
+.page-loader,
+.top-bar-fly-out {
+  grid-row: 1 / -1;
+  grid-column: 1 / -1;
+  z-index: var(--onyx-z-index-content-overlay);
 }
 
-.popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  max-width: 400px;
-  max-height: fit-content;
-  margin: auto;
+.top-bar-fly-out {
+  top: unset;
+  position: unset;
+  grid-row: 2 / -1;
 }
 
-.mobile-fly-in {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  max-height: fit-content;
-  margin: auto;
-  display: grid;
-  &--split {
-    grid-template-rows: auto 50px;
-  }
-}
-
-.backdrop {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-z-index-overlay);
-  position: absolute;
-}
-
-.full-size-popup {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-z-index-overlay);
-  position: absolute;
-  display: grid;
-  grid-template-rows: 1fr 50px;
-  &__content {
-    overflow: auto;
-  }
-}
-
+// *** local overlays
 .flyout-parent {
   position: relative;
 }
-
 .flyout {
   position: absolute;
   z-index: var(--onyx-z-index-flyout);
@@ -348,31 +320,14 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   right: 0;
   left: 0;
 }
-
-.temp-overlay {
-  position: absolute;
-  z-index: var(--onyx-z-index-overlay);
-  right: 0;
-  bottom: 0;
-  top: 0;
-  display: flex;
-
-  &__content {
-    width: 250px;
-  }
-
-  &__hinge {
-    max-height: 50px;
-    margin: auto 0;
-  }
-}
-
-.notification {
+.sticky-content {
   position: sticky;
   top: 0;
-  z-index: var(--onyx-z-index-global-info);
+  z-index: var(--onyx-z-index-sticky-content);
 }
-
+.toast {
+  z-index: var(--onyx-z-index-notification);
+}
 .tooltip {
   position: relative;
 
@@ -392,20 +347,69 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   }
 }
 
-.page-loader,
-.top-bar-fly-out {
-  grid-row: 1 / -1;
-  grid-column: 1 / -1;
-  z-index: var(--onyx-z-index-page-loader);
+// *** APP cover overlays
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-width: 400px;
+  max-height: fit-content;
+  margin: auto;
+}
+.mobile-fly-in {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-height: fit-content;
+  margin: auto;
+  display: grid;
+  &--split {
+    grid-template-rows: auto 50px;
+  }
+}
+.backdrop {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: var(--onyx-z-index-overlay);
+  position: absolute;
+}
+.full-size-popup {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: var(--onyx-z-index-overlay);
+  position: absolute;
+  display: grid;
+  grid-template-rows: 1fr 50px;
+  &__content {
+    overflow: auto;
+  }
+}
+.temp-overlay {
+  position: absolute;
+  z-index: var(--onyx-z-index-overlay);
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+
+  &__content {
+    width: 250px;
+  }
+
+  &__hinge {
+    max-height: 50px;
+    margin: auto 0;
+  }
 }
 
-.top-bar-fly-out {
-  top: unset;
-  position: unset;
-  grid-row: 2 / -1;
-}
-
-// decorations
+// ****** DECORATIONS ******
 body {
   margin: 0;
 }
@@ -419,7 +423,7 @@ body {
 .backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.notification {
+.sticky-content {
   border: 1px solid #eee;
   background-color: #f9f9f9;
   padding: 24px;
@@ -431,7 +435,7 @@ body {
   color: white;
   padding: 16px;
 }
-.top-nav,
+.nav-bar,
 .bottom-bar {
   height: 50px;
 }

@@ -1,9 +1,10 @@
-// all z-indices used in the onyx design system
+// all z-indices that are needed in the onyx design system
 :root {
-  --onyx-z-index-overlay: 60;
-  --onyx-z-index-top-nav: 50;
-  --onyx-z-index-page-loader: 40;
-  --onyx-z-index-global-info: 30;
+  --onyx-z-index-overlay: 70;
+  --onyx-z-index-nav-bar: 60;
+  --onyx-z-index-content-overlay: 50;
+  --onyx-z-index-notification: 40;
+  --onyx-z-index-sticky-content: 30;
   --onyx-z-index-flyout: 20;
   --onyx-z-index-tooltip: 10;
 }
