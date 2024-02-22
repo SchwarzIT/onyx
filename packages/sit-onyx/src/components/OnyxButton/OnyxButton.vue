@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { OnyxIcon } from "@/index";
-import type { ButtonProps } from "./types";
+import type { OnyxButtonProps } from "./types";
 
-const props = withDefaults(defineProps<ButtonProps>(), {
+const props = withDefaults(defineProps<OnyxButtonProps>(), {
   label: "",
   disabled: false,
   type: "button",
