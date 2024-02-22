@@ -25,7 +25,6 @@ const handleChange = (event: ChangeEvent) =>
   emit("update:modelValue", props.options.find(({ id }) => event.target.value === id)!);
 </script>
 
-<!-- TODO: check with @jannick if only selected element should be show as invalid -->
 <template>
   <fieldset
     class="onyx-radio-button-group"
@@ -55,7 +54,7 @@ const handleChange = (event: ChangeEvent) =>
         :name="props.name"
         :label="option.label"
         :value="option.value"
-        :error-message="option.id === props.modelValue?.id ? props.errorMessage : ''"
+        :error-message="props.errorMessage"
         :selected="option.id === props.modelValue?.id"
         :disabled="option.disabled"
         :required="props.required"
