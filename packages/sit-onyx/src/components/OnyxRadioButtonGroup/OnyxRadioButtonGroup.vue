@@ -40,8 +40,9 @@ const handleChange = (event: ChangeEvent) =>
           'onyx-required-marker': props.required,
           'onyx-optional-marker': !props.required,
         }"
-        >{{ props.headline }}</OnyxHeadline
       >
+        {{ props.headline }}
+      </OnyxHeadline>
     </legend>
 
     <div
