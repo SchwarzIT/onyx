@@ -15,7 +15,6 @@ const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   required: false,
   disabled: false,
   errorMessage: "",
-  options: () => [],
 });
 
 const emit = defineEmits<{
