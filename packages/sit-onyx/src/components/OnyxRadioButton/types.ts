@@ -24,6 +24,11 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
    * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
    */
   name: string;
+  /**
+   * If any radio button of a group is required, a radio button of the group must be checked.
+   * But it doesn't have to be this particular option.
+   * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
+   */
   required?: boolean;
   errorMessage?: string;
 };
