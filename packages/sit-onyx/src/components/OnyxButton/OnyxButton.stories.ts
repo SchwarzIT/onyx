@@ -33,7 +33,6 @@ type Story = StoryObj<typeof OnyxButton>;
 export const Primary = {
   args: {
     label: "Button",
-    mode: "outline",
   },
 } satisfies Story;
 
