@@ -1,7 +1,7 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
 version: 2
+
 updates:
   - package-ecosystem: npm
     directory: /
@@ -16,6 +16,12 @@ updates:
       major:
         update-types:
           - major
+    # temporary ignore Storybook updates because we use a canary release (see packages/sit-onyx/package.json)
+    # until this PR is officially merged/released in Storybook:
+    # https://github.com/storybookjs/storybook/pull/22285
+    ignore:
+      - dependency-name: storybook
+      - dependency-name: "@storybook/*"
 
   - package-ecosystem: github-actions
     directory: /

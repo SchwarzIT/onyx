@@ -13,10 +13,12 @@ export type OnyxRadioButtonGroupProps<TValue> = {
   modelValue?: SelectionOption<TValue>;
   /**
    * Headline shown above the radio button group, which is also the fieldset legend.
+   * It will also show the required indicator, if `require` is set to `true`
    */
   headline?: string;
   /**
    * Set the radio button group to be required.
+   * If no `headline` is defined then no required indicator will be visible.
    */
   required?: boolean;
   /**
@@ -27,7 +29,6 @@ export type OnyxRadioButtonGroupProps<TValue> = {
    * Set the radio button group into the error state with the given error message.
    */
   errorMessage?: string;
-
   /**
    * Direction of the checkboxes. Can be vertical (default) or horizontal.
    */
