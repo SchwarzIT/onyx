@@ -13,6 +13,13 @@ const options = ref({
   showFlyout: false,
   forceTooltip: false,
 
+  title3: "Docking content:",
+  showSideBar: true,
+  showStickyContent: false,
+  showToast: false,
+  detailFooter: true,
+  fullFooter: false,
+
   title2: "Full overlays:",
   showPopover: false,
   showTempOverlay: false,
@@ -20,13 +27,6 @@ const options = ref({
   fullSizePopup: false,
   showPageLoader: false,
   topBarFlyout: false,
-
-  title3: "Docking content:",
-  showSideBar: true,
-  showStickyContent: false,
-  showToast: true,
-  detailFooter: true,
-  fullFooter: false,
 });
 
 const tempOverlayOpen = ref(true);
@@ -268,7 +268,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 // *** GRID top (nav bar)
 .nav-bar {
   grid-area: top;
-  z-index: var(--onyx-z-index-nav-bar);
+  z-index: var(--onyx-z-index-navigation);
 }
 
 // *** GRID side (left col)
@@ -345,7 +345,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     position: absolute;
     top: 28px;
     left: 0;
-    z-index: var(--onyx-z-index-tooltip);
+    z-index: var(--onyx-z-index-flyout);
     visibility: hidden;
   }
 }
@@ -454,7 +454,7 @@ body {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    width: 250px;
+    width: 150px;
   }
 }
 .side-bar,
