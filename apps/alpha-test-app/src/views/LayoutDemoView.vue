@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
+import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
-import LayoutDemoOptions from "../components/layout-demo/LayoutDemoOptions.vue";
-import FlyoutDemo from "../components/layout-demo/FlyoutDemo.vue";
-import TooltipDemo from "../components/layout-demo/TooltipDemo.vue";
+import { FlyoutDemo, LayoutDemoOptions, TooltipDemo } from "../components/layout-demo";
 
 const options = ref({
   title0: "Page length:",
