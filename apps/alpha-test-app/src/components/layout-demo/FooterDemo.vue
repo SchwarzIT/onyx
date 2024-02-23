@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-// import { defineModel } from "vue";
-// const todo = defineModel<boolean>();
+defineProps<{
+  detailFooter?: boolean;
+}>();
 </script>
 
 <template>
-  <div>
-    <slot></slot>
+  <div class="demo footer bottom-bar" :class="{ 'footer--detail': detailFooter }">
+    <span v-if="detailFooter">Detail</span> Footer
   </div>
 </template>
 

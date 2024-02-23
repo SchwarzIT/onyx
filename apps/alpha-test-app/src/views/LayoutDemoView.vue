@@ -9,7 +9,7 @@ import {
   TooltipDemo,
   SidebarDemo,
   StickyDemo,
-  // FooterDemo,
+  FooterDemo,
   // ToastDemo,
   // BusyIndicatorDemo,
   // MobileNavFlyoutDemo,
@@ -104,13 +104,10 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     </div>
 
     <!----------- GRID bottom row ----------->
-    <div
+    <FooterDemo
       v-if="options.detailFooter || options.fullFooter"
-      class="demo footer bottom-bar"
-      :class="{ 'footer--detail': options.detailFooter }"
-    >
-      <span v-if="options.fullFooter">Full </span><span v-else>Detail</span> footer
-    </div>
+      :detail-footer="options.detailFooter"
+    />
 
     <!----------- GRID page overlay ----------->
     <!-- demo toast -->
@@ -164,7 +161,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptions v-model="options" highlight-label="fullSizePopup" />
       </div>
 
-      <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
+      <FooterDemo v-if="options.fullFooter" />
     </div>
   </Teleport>
 
@@ -177,7 +174,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
           <LayoutDemoOptions v-model="options" highlight-label="showMobileFlyIn" />
         </div>
-        <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
+        <FooterDemo v-if="options.fullFooter" />
       </div>
     </div>
   </Teleport>
