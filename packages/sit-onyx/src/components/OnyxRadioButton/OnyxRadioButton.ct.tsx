@@ -90,22 +90,35 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
 });
 
 const STATES = {
-  state: ["default", "disabled", "invalid", "required", "optional"],
+  state: ["default", "disabled", "invalid"],
   select: ["unselected", "selected"],
-  focusState: ["", "hover", "focus-visible"],
+  focusState: ["none", "hover", "focus-visible"],
 } as const;
 
 test(
-  "Screenshot matrix",
-  createMatrixScreenshot(STATES, "radio-button-matrix.png", ({ select, state }, i) => (
-    <OnyxRadioButton
-      selected={select === "selected"}
-      disabled={state === "disabled"}
-      required={state === "required"}
-      errorMessage={state === "invalid" ? "invalid" : ""}
-      name={`name-${i}`}
-      label="label"
-      id={`id-${i}`}
-    />
-  )),
+  "State screenshots",
+  createMatrixScreenshot(
+    STATES,
+    "radio-button",
+    async ({ select, state, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxRadioButton
+          selected={select === "selected"}
+          disabled={state === "disabled"}
+          errorMessage={state === "invalid" ? "invalid" : ""}
+          name={`name`}
+          label="label"
+          id={`id`}
+        />,
+      );
+
+      const radioInput = component.getByRole("radio");
+      if (focusState === "focus-visible") {
+        await radioInput.blur();
+        await page.keyboard.press("Tab");
+      }
+      if (focusState === "hover") await radioInput.hover();
+      return component;
+    },
+  ),
 );

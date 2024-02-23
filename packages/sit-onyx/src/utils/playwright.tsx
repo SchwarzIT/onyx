@@ -1,5 +1,7 @@
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
+import type { Locator } from "@playwright/test";
+import {} from "@playwright/experimental-ct-vue";
 
 type Permutation<T extends Record<string, readonly string[]>> = {
   [key in keyof T]: T[key][number];
@@ -39,119 +41,19 @@ const generatePermutations = <T extends Record<string, readonly string[]>>(obj: 
   return _generatePermutations(obj, keys);
 };
 
-/**
- * Builds a grid-template-area value for the screenshot matrix test.
- *
- * @example
- * ```
- * ". rowHeadline0 rowHeadline1 rowHeadline2"
- * "colHeadline0 case0 case1 case2"
- * "colHeadline1 case3 case4 case5"
- * "colHeadline2 case6 case7 case8"
- * "colHeadline3 case9 case10 case11"
- * ```
- */
-const buildGridTemplate = (rows: number, columns: number) =>
-  Array.from({ length: rows + 1 })
-    .map((_, rowIndex) =>
-      Array.from({ length: columns + 1 })
-        .map((_, colIndex) => {
-          if (rowIndex === 0 && colIndex === 0) return ".";
-          if (rowIndex === 0) return `colHeadline${colIndex - 1}`;
-          if (colIndex === 0) return `rowHeadline${rowIndex - 1}`;
-          else return `case${(rowIndex - 1) * columns + colIndex - 1}`;
-        })
-        .join(" "),
-    )
-    .map((v) => `"${v}"`) // every row is surrounded by "
-    .join("\n"); // every column has its own line
+type TestArg = Parameters<Parameters<typeof test>[1]>[0];
+type MountResultJsx = {
+  unmount(): Promise<void>;
+  update(component: JSX.Element): Promise<void>;
+} & Locator;
 
 type ComponentStates = Readonly<Record<string, ReadonlyArray<string>>>;
-type CaseBuilder<S extends ComponentStates> = (c: Permutation<S>, i: number) => JSX.Element;
-
-/**
- * Generates a test case in the grid and places it accordingly.
- */
-const createTestCases = <S extends ComponentStates>(
-  testCases: Permutation<S>[],
-  caseBuilder: CaseBuilder<S>,
-) =>
-  testCases.map((testCase, i) => (
-    <div
-      style={{ gridArea: `case${i}` }}
-      key={i}
-      // Handle common cases
-      {...{ [`data-sim-${testCase["focusState"]}`]: !!testCase["focusState"] || undefined }}
-      class={{
-        "onyx-use-optional": testCase["state"] === "optional",
-      }}
-    >
-      {caseBuilder(testCase, i)}
-    </div>
-  ));
-
-/**
- * Generates the jsx for the screenshot matrix test.
- * It uses a grid with named areas to place all test cases, the row and column headlines.
- */
-const generateScreenshotMatrix = <S extends ComponentStates>(
-  states: S,
-  caseBuilder: CaseBuilder<S>,
-) => {
-  const [rowStates] = Object.values(states); // the first entry is used for the row headlines
-  const colStates = Object.fromEntries(Object.entries(states).slice(1)); // all other entries are used to build the column headlines
-  const colStatesCombinations = generatePermutations(colStates).map((e) => Object.values(e)); // we need all combinations of the columns to fill the headlines
-
-  const columns = colStatesCombinations.length;
-  const rows = rowStates.length;
-  const template = buildGridTemplate(rows, columns);
-
-  const testCases = generatePermutations(states);
-
-  return (
-    <main
-      data-testid="screenshot-root"
-      style={{
-        fontFamily: "var(--onyx-font-family-mono)",
-        padding: "1rem",
-        display: "grid",
-        gap: "0.75rem",
-        "grid-template-areas": template,
-      }}
-    >
-      {
-        // Create column headlines
-        colStatesCombinations.map((state, i) => (
-          <div
-            key={i}
-            style={{
-              gridArea: `colHeadline${i}`,
-              display: "flex",
-              flexDirection: "column",
-              writingMode: "vertical-lr",
-              textOrientation: "mixed",
-            }}
-          >
-            {state.map((s) => (
-              <span key={s}>{s}</span>
-            ))}
-          </div>
-        ))
-      }
-      {
-        // Create row headlines
-        rowStates.map((state, i) => (
-          <div key={i} style={{ gridArea: `rowHeadline${i}` }}>
-            {state}
-          </div>
-        ))
-      }
-      {createTestCases(testCases, caseBuilder)}
-    </main>
-  );
-};
-
-type TestArg = Parameters<Parameters<typeof test>[1]>[0];
+type WrappedMount = (jsx: JSX.Element, options?: { optional?: boolean }) => Promise<MountResultJsx>;
+type CaseBuilder<S extends ComponentStates> = (
+  c: Permutation<S>,
+  mount: WrappedMount,
+  page: TestArg["page"],
+) => Promise<MountResultJsx>;
 
 /**
  * Creates a playwright screenshot of a matrix with all permutations of the given component states.
@@ -181,27 +83,39 @@ type TestArg = Parameters<Parameters<typeof test>[1]>[0];
  * ```
  *
  * @param states All possible states of the matrix for which permutations will be generated. Use `as const` to allow type support for the values. The first key in the object will be used for columns in the table.
- * @param screenshotName Name of the screenshot that will be passed to `expect(...).toHaveScreenshot(screenshotName)`
+ * @param baseName Name of the screenshot that will be passed to `expect(...).toHaveScreenshot(screenshotName)`
  * @param caseBuilder Build function that will be called for every permutation to generate JSX for the given component state.
  */
 export const createMatrixScreenshot =
   <S extends Readonly<Record<string, ReadonlyArray<string>>>>(
     states: S,
-    screenshotName: string,
-    caseBuilder: (c: Permutation<S>, i: number) => JSX.Element,
+    baseName: string,
+    caseBuilder: CaseBuilder<S>,
   ) =>
   async ({ mount, page }: TestArg) => {
-    // ARRANGE
-    const mountable = generateScreenshotMatrix(states, caseBuilder);
-    const component = await mount(mountable);
+    const permutations = generatePermutations(states);
 
-    // We don't want any scrollbars on our screenshot, so we get our element size and add some buffer
-    const { width, height } = await page.getByTestId("screenshot-root").evaluate((e) => ({
-      height: e.scrollHeight + 50,
-      width: e.scrollWidth + 50,
-    }));
-    await page.setViewportSize({ width, height });
+    for (const testCase of permutations) {
+      // ARRANGE
+      const wrappedMount = ((jsx: JSX.Element, options?: { optional?: boolean }) =>
+        mount(
+          <div
+            style={{ width: "min-content", padding: "1rem" }}
+            class={{
+              "onyx-use-optional": options?.optional,
+            }}
+          >
+            {jsx}
+          </div>,
+        )) as WrappedMount;
 
-    // ASSERT
-    await expect(component).toHaveScreenshot(screenshotName);
+      const component = await caseBuilder(testCase, wrappedMount, page);
+
+      // ASSERT
+      const screenshotName = [
+        baseName,
+        ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
+      ].join("-");
+      await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+    }
   };

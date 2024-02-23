@@ -133,13 +133,11 @@ const emit = defineEmits<{
     }
   }
 
-  &:hover,
-  [data-sim-hover] & {
+  &:hover {
     --onyx-button-background-color: var(--onyx-button-background-hover-color);
   }
 
-  &:focus-visible,
-  [data-sim-focus-visible] & {
+  &:focus-visible {
     outline: 0.25rem solid var(--onyx-button-outline-color);
   }
 
