@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
 import {
   FlyoutDemo,
@@ -14,10 +11,9 @@ import {
   BusyIndicatorDemo,
   // FloatingActionButtonDemo,
   MobileNavFlyoutDemo,
-  // MobileBottomFlyoutDemo,
   PopoverDemo,
   MobileBottomFlyoutDemo,
-  // TempOverlayDemo,
+  TempOverlayDemo,
 } from "../components/layout-demo";
 
 const options = ref({
@@ -42,8 +38,6 @@ const options = ref({
   showPageLoader: false,
   topBarFlyout: false,
 });
-
-const tempOverlayOpen = ref(true);
 
 const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor ${index}`);
 </script>
@@ -136,21 +130,11 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   </MobileBottomFlyoutDemo>
 
   <!-- demo temporary overlay from right -->
-  <Teleport v-if="options.showTempOverlay" to="body">
-    <div v-if="tempOverlayOpen" class="backdrop"></div>
-    <div class="temp-overlay">
-      <button class="demo temp-overlay__hinge" @click="tempOverlayOpen = !tempOverlayOpen">
-        <OnyxIcon v-if="tempOverlayOpen" :icon="chevronRightSmall" />
-        <OnyxIcon v-else :icon="chevronLeftSmall" />
-      </button>
-      <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
-        <h3>Temp overlay</h3>
-        <LayoutDemoOptions v-model="options" highlight-label="showTempOverlay" />
-
-        <TooltipDemo :force-tooltip="options.forceTooltip" />
-      </div>
-    </div>
-  </Teleport>
+  <TempOverlayDemo v-if="options.showTempOverlay">
+    <button @click="options.showTempOverlay = false">Close</button>
+    <LayoutDemoOptions v-model="options" highlight-label="showTempOverlay" />
+    <TooltipDemo :force-tooltip="options.forceTooltip" />
+  </TempOverlayDemo>
 </template>
 
 <style lang="scss">
