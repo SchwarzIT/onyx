@@ -1,3 +1,5 @@
+import type { Decorator } from "@storybook/vue3";
+
 /**
  * Defines the control for a Storybook argType to be a select/dropdown of
  * all available onyx icons.
@@ -38,3 +40,16 @@ export const defineIconSelectArgType = () => {
     },
   };
 };
+
+/**
+ * Storybook decorator that wraps the story with a <div> that sets the text color
+ * to neutral intense.
+ * Useful if the component uses "currentColor" in its CSS.
+ */
+export const textColorDecorator: Decorator = (story) => ({
+  components: { story },
+  template: `
+  <div style="color: var(--onyx-color-text-icons-neutral-intense)">
+    <story />
+  </div>`,
+});
