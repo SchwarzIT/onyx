@@ -1,11 +1,9 @@
-<script lang="ts" setup>
-// import { defineModel } from "vue";
-// const todo = defineModel<boolean>();
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div>
-    <slot></slot>
+  <div class="toast-controller">
+    <div class="demo toast">Toast message 1</div>
+    <div class="demo toast">Toast message 2</div>
   </div>
 </template>
 

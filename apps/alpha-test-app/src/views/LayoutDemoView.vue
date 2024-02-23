@@ -10,7 +10,7 @@ import {
   SidebarDemo,
   StickyDemo,
   FooterDemo,
-  // ToastDemo,
+  ToastDemo,
   // BusyIndicatorDemo,
   // MobileNavFlyoutDemo,
   // MobileBottomFlyoutDemo,
@@ -60,13 +60,11 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     <div class="demo nav-bar">
       <strong>Top nav bar</strong> |
 
-      <!-- demo flyout -->
       <FlyoutDemo v-model="options.showFlyout">
         <LayoutDemoOptions v-model="options" highlight-label="showFlyout" />
       </FlyoutDemo>
 
       |
-      <!-- demo tooltip -->
       <TooltipDemo :force-tooltip="options.forceTooltip" style="display: inline-block" />
     </div>
 
@@ -84,14 +82,12 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <!-- demo sticky content -->
         <StickyDemo v-if="options.showStickyContent" />
 
-        <!-- demo flyout -->
         <p>
           <FlyoutDemo v-model="options.showFlyout">
             <LayoutDemoOptions v-model="options" highlight-label="showFlyout" />
           </FlyoutDemo>
         </p>
 
-        <!-- demo tooltip -->
         <TooltipDemo :force-tooltip="options.forceTooltip" />
 
         <LayoutDemoOptions v-if="!options.showSideBar" v-model="options" />
@@ -109,14 +105,9 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       :detail-footer="options.detailFooter"
     />
 
-    <!----------- GRID page overlay ----------->
-    <!-- demo toast -->
-    <div v-if="options.showToast" class="toast-controller">
-      <div class="demo toast">Toast message 1</div>
-      <div v-if="options.showToast" class="demo toast">Toast message 2</div>
-    </div>
+    <!----------- GRID content overlays ----------->
+    <ToastDemo v-if="options.showToast" />
 
-    <!----------- GRID full overlay excluding top bar ----------->
     <div v-if="options.showPageLoader" class="page-loader">
       <section>
         <h3>Page loader overlay</h3>
@@ -130,7 +121,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
         <LayoutDemoOptions v-model="options" highlight-label="topBarFlyout" />
 
-        <!-- demo tooltip -->
         <TooltipDemo :force-tooltip="options.forceTooltip" />
       </section>
     </div>
@@ -145,13 +135,12 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
         <LayoutDemoOptions v-model="options" highlight-label="showPopover" />
 
-        <!-- demo tooltip -->
         <TooltipDemo :force-tooltip="options.forceTooltip" />
       </div>
     </div>
   </Teleport>
 
-  <!-- full size popup -->
+  <!-- demo full size popup -->
   <Teleport v-if="options.fullSizePopup" to="body">
     <div class="demo full-size-popup">
       <div class="full-size-popup__content">
@@ -191,7 +180,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <h3>Temp overlay</h3>
         <LayoutDemoOptions v-model="options" highlight-label="showTempOverlay" />
 
-        <!-- demo tooltip -->
         <TooltipDemo :force-tooltip="options.forceTooltip" />
       </div>
     </div>
