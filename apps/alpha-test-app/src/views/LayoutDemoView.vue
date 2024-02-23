@@ -16,6 +16,7 @@ import {
   MobileNavFlyoutDemo,
   // MobileBottomFlyoutDemo,
   PopoverDemo,
+  MobileBottomFlyoutDemo,
   // TempOverlayDemo,
 } from "../components/layout-demo";
 
@@ -120,24 +121,19 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
   <!----------- APP cover overlays ----------->
   <PopoverDemo v-if="options.showPopover">
+    <button @click="options.showPopover = false">Close</button>
     <LayoutDemoOptions v-model="options" highlight-label="showPopover" />
     <TooltipDemo :force-tooltip="options.forceTooltip" />
-    <button @click="options.showPopover = false">Close</button>
   </PopoverDemo>
 
   <!-- demo mobile fly-in -->
-  <Teleport v-if="options.showMobileFlyIn" to="body">
-    <div class="backdrop">
-      <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': options.fullFooter }">
-        <div class="mobile-fly-in__content">
-          <h3>Mobile fly-in</h3>
-
-          <LayoutDemoOptions v-model="options" highlight-label="showMobileFlyIn" />
-        </div>
-        <FooterDemo v-if="options.fullFooter" />
-      </div>
-    </div>
-  </Teleport>
+  <MobileBottomFlyoutDemo
+    v-if="options.showMobileFlyIn"
+    :show-footer="options.fullFooter || options.detailFooter"
+  >
+    <button @click="options.showMobileFlyIn = false">Close</button>
+    <LayoutDemoOptions v-model="options" highlight-label="showMobileFlyIn" />
+  </MobileBottomFlyoutDemo>
 
   <!-- demo temporary overlay from right -->
   <Teleport v-if="options.showTempOverlay" to="body">
@@ -302,10 +298,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   right: 0;
   max-height: fit-content;
   margin: auto;
-  display: grid;
-  &--split {
-    grid-template-rows: auto 50px;
-  }
 }
 .backdrop {
   top: 0;
