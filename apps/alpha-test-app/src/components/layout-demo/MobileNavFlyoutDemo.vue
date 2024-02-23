@@ -2,12 +2,14 @@
 
 <template>
   <section class="backdrop top-bar-fly-out">
-    <!-- todo flatten? -->
-    <div class="top-bar-fly-out__content">
-      <h3>Mobile Top Bar Flyout</h3>
-      <slot></slot>
-    </div>
+    <h3>Mobile Top Bar Flyout</h3>
+    <slot></slot>
   </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.top-bar-fly-out {
+  background-color: white;
+  padding: 4px;
+}
+</style>

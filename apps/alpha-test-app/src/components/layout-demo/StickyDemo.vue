@@ -6,4 +6,10 @@
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sticky-content {
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+  padding: 24px;
+}
+</style>

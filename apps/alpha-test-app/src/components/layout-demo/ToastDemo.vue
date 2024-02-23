@@ -7,4 +7,16 @@
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.toast-controller {
+  width: 60%;
+  min-width: min(500px, 100%);
+  height: fit-content;
+}
+.toast {
+  background-color: rgba(0, 0, 0, 0.6);
+  outline: 1px solid #efefef;
+  color: white;
+  padding: 16px;
+}
+</style>

@@ -291,19 +291,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   z-index: var(--onyx-z-index-overlay);
   position: absolute;
 }
-.full-size-popup {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-z-index-overlay);
-  position: absolute;
-  display: grid;
-  grid-template-rows: 1fr 50px;
-  &__content {
-    overflow: auto;
-  }
-}
 .temp-overlay {
   position: absolute;
   z-index: var(--onyx-z-index-overlay);
@@ -322,28 +309,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   }
 }
 
-.dialog {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-z-index-overlay);
-  position: absolute;
-}
-
-dialog::backdrop {
-  background-color: salmon;
-}
-// ::backdrop {
-// background-color: rgba(0, 0, 0, 0.5);
-// top: 0;
-// left: 0;
-// bottom: 0;
-// right: 0;
-// z-index: var(--onyx-z-index-overlay);
-// position: absolute;
-// }
-
 // ****** DECORATIONS ******
 body {
   margin: 0;
@@ -358,53 +323,13 @@ body {
 .backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.sticky-content {
-  border: 1px solid #eee;
-  background-color: #f9f9f9;
-  padding: 24px;
-}
-.toast-controller {
-  width: 60%;
-  min-width: min(500px, 100%);
-  height: fit-content;
-}
-.toast {
-  background-color: rgba(0, 0, 0, 0.6);
-  outline: 1px solid #efefef;
-  color: white;
-  padding: 16px;
-}
-.nav-bar,
-.bottom-bar {
+.nav-bar {
   height: 50px;
-}
-.tooltip {
-  padding: 4px;
-  width: fit-content;
-  &__text {
-    padding: 4px;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    width: 150px;
-  }
 }
 .side-bar,
 .page__content,
 .page-loader {
   padding: 16px;
   box-sizing: border-box;
-}
-.page-loader {
-  background-color: rgba(212, 212, 212, 0.78);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.top-bar-fly-out__content,
-.full-size-popup {
-  background-color: white;
-  padding: 4px;
 }
 </style>

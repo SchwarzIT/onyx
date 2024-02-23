@@ -5,9 +5,13 @@ defineProps<{
 </script>
 
 <template>
-  <div class="demo footer bottom-bar" :class="{ 'footer--detail': detailFooter }">
+  <div class="demo footer" :class="{ 'footer--detail': detailFooter }">
     <span v-if="detailFooter">Detail</span> Footer
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.footer {
+  height: 50px;
+}
+</style>

@@ -8,4 +8,12 @@
   </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page-loader {
+  background-color: rgba(212, 212, 212, 0.78);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
