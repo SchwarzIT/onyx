@@ -1,4 +1,4 @@
-export type ButtonProps = {
+export type OnyxButtonProps = {
   /**
    * The text content of the button.
    */
