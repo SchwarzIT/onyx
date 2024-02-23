@@ -4,6 +4,8 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
 import LayoutDemoOptionsMolecule from "../components/molecules/LayoutDemoOptionsMolecule.vue";
+import FlyoutDemoAtom from "../components/atoms/FlyoutDemoAtom.vue";
+import TooltipDemoAtom from "../components/atoms/TooltipDemoAtom.vue";
 
 const options = ref({
   title0: "Page length:",
@@ -48,22 +50,13 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <strong>Top nav bar</strong> |
 
       <!-- demo flyout -->
-      <label>
-        Demo Drop Down:
-        <span class="flyout-parent">
-          <input @click="options.showFlyout = !options.showFlyout" />
-          <div v-if="options.showFlyout" class="demo flyout">
-            <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
-          </div>
-        </span>
-      </label>
+      <FlyoutDemoAtom v-model="options.showFlyout">
+        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+      </FlyoutDemoAtom>
 
       |
       <!-- demo tooltip -->
-      <span class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-        Tooltip parent
-        <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
-      </span>
+      <TooltipDemoAtom v-model="options.forceTooltip" />
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
@@ -72,10 +65,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" />
 
       <!-- demo tooltip -->
-      <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-        Tooltip parent
-        <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
-      </div>
+      <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
     </div>
 
     <!----------- GRID main (right col) ----------->
@@ -90,22 +80,13 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
         <!-- demo flyout -->
         <p>
-          <label>
-            Demo Drop Down:
-            <span class="flyout-parent">
-              <input @click="options.showFlyout = !options.showFlyout" />
-              <div v-if="options.showFlyout" class="demo flyout">
-                <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
-              </div>
-            </span>
-          </label>
+          <FlyoutDemoAtom v-model="options.showFlyout">
+            <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+          </FlyoutDemoAtom>
         </p>
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-          Tooltip parent
-          <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
-        </div>
+        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
 
         <LayoutDemoOptionsMolecule v-if="!options.showSideBar" v-model="options" />
 
@@ -147,10 +128,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-          Tooltip parent
-          <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
-        </div>
+        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
       </section>
     </div>
   </div>
@@ -165,10 +143,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-          Tooltip parent
-          <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
-        </div>
+        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
       </div>
     </div>
   </Teleport>
@@ -214,10 +189,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
-          Tooltip parent
-          <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
-        </div>
+        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
       </div>
     </div>
   </Teleport>
