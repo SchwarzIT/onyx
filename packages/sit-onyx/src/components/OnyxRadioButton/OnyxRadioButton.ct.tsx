@@ -113,10 +113,7 @@ test(
       );
 
       const radioInput = component.getByRole("radio");
-      if (focusState === "focus-visible") {
-        await radioInput.blur();
-        await page.keyboard.press("Tab");
-      }
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await radioInput.hover();
       return component;
     },

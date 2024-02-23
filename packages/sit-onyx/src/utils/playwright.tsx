@@ -109,6 +109,8 @@ export const createMatrixScreenshot =
           </div>,
         )) as WrappedMount;
 
+      await page.getByRole("document").focus(); // reset focus
+      await page.getByRole("document").hover(); // reset mouse
       const component = await caseBuilder(testCase, wrappedMount, page);
 
       // ASSERT
