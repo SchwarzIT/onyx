@@ -1,4 +1,4 @@
-import { createMatrixScreenshot } from "../../utils/playwright";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
@@ -97,7 +97,7 @@ const STATES = {
 
 test(
   "State screenshots",
-  createMatrixScreenshot(
+  createScreenshotsForAllStates(
     STATES,
     "radio-button",
     async ({ select, state, focusState }, mount, page) => {

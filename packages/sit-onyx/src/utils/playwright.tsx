@@ -48,7 +48,10 @@ type MountResultJsx = {
 } & Locator;
 
 type ComponentStates = Readonly<Record<string, ReadonlyArray<string>>>;
-type WrappedMount = (jsx: JSX.Element, options?: { optional?: boolean }) => Promise<MountResultJsx>;
+type WrappedMount = (
+  jsx: JSX.Element,
+  options?: { useOptional?: boolean },
+) => Promise<MountResultJsx>;
 type CaseBuilder<S extends ComponentStates> = (
   c: Permutation<S>,
   mount: WrappedMount,
@@ -56,37 +59,48 @@ type CaseBuilder<S extends ComponentStates> = (
 ) => Promise<MountResultJsx>;
 
 /**
- * Creates a playwright screenshot of a matrix with all permutations of the given component states.
- * First define the possible States in an Object.
- * The first key in the object will define the number and naming of the columns.
- * All other keys will be used to define and label the columns.
+ * Creates screenshots for all permutations of the given component states.
+ * Will create a screenshot for each permutation.
+ * Define the possible States in an `const` object literal.
  *
  * @example
  * ```tsx
  * const STATES = {
- *   state: ["default", "disabled"],
+ *   state: ["default", "required", "optional", "disabled"],
  *   select: ["unselected", "selected"],
  *   focusState: ["", "hover", "focus-visible"],
  * } as const;
  *
+ *
  * test(
  *   "Screenshot matrix",
- *   createMatrixScreenshot(STATES, "matrix.png", ({ select, state }, i) => (
- *     <Component
- *       selected={select === "selected"}
- *       disabled={state === "disabled"}
- *       label="label"
- *       id={`id-${i}`}
- *     />
- *   )),
+ *   createScreenshotsForAllStates(
+ *     STATES,
+ *     "component-name",
+ *     async ({ select, state, focusState }, mount, page) => {
+ *       const component = await mount(
+ *         <Component
+ *           modelValue={select === "selected"}
+ *           disabled={state === "disabled"}
+ *           required={state === "required"}
+ *         />,
+ *         { useOptional: state === "optional" },
+ *       );
+ *
+ *       const input = component.getByRole("textbox");
+ *       if (focusState === "focus-visible") await page.keyboard.press("Tab");
+ *       if (focusState === "hover") await input.hover();
+ *       return component;
+ *     },
+ *   ),
  * );
  * ```
  *
- * @param states All possible states of the matrix for which permutations will be generated. Use `as const` to allow type support for the values. The first key in the object will be used for columns in the table.
- * @param baseName Name of the screenshot that will be passed to `expect(...).toHaveScreenshot(screenshotName)`
- * @param caseBuilder Build function that will be called for every permutation to generate JSX for the given component state.
+ * @param states All possible states for which permutations will be generated. Use `as const` to allow type support for the values.
+ * @param baseName Prefix of the generated screenshot file names.
+ * @param caseBuilder Build function that will be called for every permutation to generate JSX and perform setup interactions for the given component state.
  */
-export const createMatrixScreenshot =
+export const createScreenshotsForAllStates =
   <S extends Readonly<Record<string, ReadonlyArray<string>>>>(
     states: S,
     baseName: string,

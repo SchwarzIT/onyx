@@ -1,4 +1,4 @@
-import { createMatrixScreenshot } from "../../utils/playwright";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxButton from "./OnyxButton.vue";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
@@ -59,9 +59,9 @@ const STATES = {
 
 test(
   "Screenshot matrix",
-  createMatrixScreenshot(
+  createScreenshotsForAllStates(
     STATES,
-    "matrix.png",
+    "button",
     async ({ variation, state, mode, focusState }, mount, page) => {
       const component = await mount(
         <OnyxButton

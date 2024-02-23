@@ -1,4 +1,4 @@
-import { createMatrixScreenshot } from "../../utils/playwright";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
@@ -239,9 +239,9 @@ const STATES = {
 
 test(
   "Screenshot matrix",
-  createMatrixScreenshot(
+  createScreenshotsForAllStates(
     STATES,
-    "matrix.png",
+    "checkbox",
     async ({ select, state, labeled, focusState }, mount, page) => {
       const component = await mount(
         <OnyxCheckbox
@@ -251,7 +251,7 @@ test(
           disabled={state === "disabled"}
           required={state === "required"}
         />,
-        { optional: state === "optional" },
+        { useOptional: state === "optional" },
       );
 
       const checkbox = component.getByRole("checkbox");
