@@ -58,7 +58,7 @@ const STATES = {
 } as const;
 
 test(
-  "Screenshot matrix",
+  "State screenshot testing",
   createScreenshotsForAllStates(
     STATES,
     "button",

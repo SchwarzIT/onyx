@@ -96,7 +96,7 @@ const STATES = {
 } as const;
 
 test(
-  "State screenshots",
+  "State screenshot testing",
   createScreenshotsForAllStates(
     STATES,
     "radio-button",
