@@ -56,7 +56,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
       |
       <!-- demo tooltip -->
-      <TooltipDemoAtom v-model="options.forceTooltip" />
+      <TooltipDemoAtom v-model="options.forceTooltip" style="display: inline-block" />
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
@@ -65,7 +65,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" />
 
       <!-- demo tooltip -->
-      <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
+      <TooltipDemoAtom v-model="options.forceTooltip" />
     </div>
 
     <!----------- GRID main (right col) ----------->
@@ -86,7 +86,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         </p>
 
         <!-- demo tooltip -->
-        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
+        <TooltipDemoAtom v-model="options.forceTooltip" />
 
         <LayoutDemoOptionsMolecule v-if="!options.showSideBar" v-model="options" />
 
@@ -128,7 +128,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
 
         <!-- demo tooltip -->
-        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
+        <TooltipDemoAtom v-model="options.forceTooltip" />
       </section>
     </div>
   </div>
@@ -143,7 +143,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
 
         <!-- demo tooltip -->
-        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
+        <TooltipDemoAtom v-model="options.forceTooltip" />
       </div>
     </div>
   </Teleport>
@@ -189,7 +189,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->
-        <div><TooltipDemoAtom v-model="options.forceTooltip" /></div>
+        <TooltipDemoAtom v-model="options.forceTooltip" />
       </div>
     </div>
   </Teleport>
