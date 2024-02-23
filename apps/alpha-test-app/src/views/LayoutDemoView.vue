@@ -3,9 +3,9 @@ import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
-import LayoutDemoOptionsMolecule from "../components/molecules/LayoutDemoOptionsMolecule.vue";
-import FlyoutDemoAtom from "../components/atoms/FlyoutDemoAtom.vue";
-import TooltipDemoAtom from "../components/atoms/TooltipDemoAtom.vue";
+import LayoutDemoOptions from "../components/layout-demo/LayoutDemoOptions.vue";
+import FlyoutDemo from "../components/layout-demo/FlyoutDemo.vue";
+import TooltipDemo from "../components/layout-demo/TooltipDemo.vue";
 
 const options = ref({
   title0: "Page length:",
@@ -50,22 +50,22 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <strong>Top nav bar</strong> |
 
       <!-- demo flyout -->
-      <FlyoutDemoAtom v-model="options.showFlyout">
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
-      </FlyoutDemoAtom>
+      <FlyoutDemo v-model="options.showFlyout">
+        <LayoutDemoOptions v-model="options" highlight-label="showFlyout" />
+      </FlyoutDemo>
 
       |
       <!-- demo tooltip -->
-      <TooltipDemoAtom v-model="options.forceTooltip" style="display: inline-block" />
+      <TooltipDemo v-model="options.forceTooltip" style="display: inline-block" />
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
     <div v-if="options.showSideBar" class="demo side-bar">
       <h3>Sidebar</h3>
-      <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" />
+      <LayoutDemoOptions v-model="options" highlight-label="showSideBar" />
 
       <!-- demo tooltip -->
-      <TooltipDemoAtom v-model="options.forceTooltip" />
+      <TooltipDemo v-model="options.forceTooltip" />
     </div>
 
     <!----------- GRID main (right col) ----------->
@@ -80,15 +80,15 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
         <!-- demo flyout -->
         <p>
-          <FlyoutDemoAtom v-model="options.showFlyout">
-            <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
-          </FlyoutDemoAtom>
+          <FlyoutDemo v-model="options.showFlyout">
+            <LayoutDemoOptions v-model="options" highlight-label="showFlyout" />
+          </FlyoutDemo>
         </p>
 
         <!-- demo tooltip -->
-        <TooltipDemoAtom v-model="options.forceTooltip" />
+        <TooltipDemo v-model="options.forceTooltip" />
 
-        <LayoutDemoOptionsMolecule v-if="!options.showSideBar" v-model="options" />
+        <LayoutDemoOptions v-if="!options.showSideBar" v-model="options" />
 
         <!-- demo page content -->
         <template v-if="options.longPageContent">
@@ -118,17 +118,17 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <section>
         <h3>Page loader overlay</h3>
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
+        <LayoutDemoOptions v-model="options" highlight-label="showPageLoader" />
       </section>
     </div>
     <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
       <section class="top-bar-fly-out__content">
         <h3>Mobile Top Bar Flyout</h3>
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
+        <LayoutDemoOptions v-model="options" highlight-label="topBarFlyout" />
 
         <!-- demo tooltip -->
-        <TooltipDemoAtom v-model="options.forceTooltip" />
+        <TooltipDemo v-model="options.forceTooltip" />
       </section>
     </div>
   </div>
@@ -140,10 +140,10 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <div class="demo popover">
         <h3>Popover / Modal content</h3>
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
+        <LayoutDemoOptions v-model="options" highlight-label="showPopover" />
 
         <!-- demo tooltip -->
-        <TooltipDemoAtom v-model="options.forceTooltip" />
+        <TooltipDemo v-model="options.forceTooltip" />
       </div>
     </div>
   </Teleport>
@@ -155,7 +155,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <h3>This is a full size popup. Usually used in mobile apps</h3>
         Try it with "fullFooter".
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="fullSizePopup" />
+        <LayoutDemoOptions v-model="options" highlight-label="fullSizePopup" />
       </div>
 
       <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
@@ -169,7 +169,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <div class="mobile-fly-in__content">
           <h3>Mobile fly-in</h3>
 
-          <LayoutDemoOptionsMolecule v-model="options" highlight-label="showMobileFlyIn" />
+          <LayoutDemoOptions v-model="options" highlight-label="showMobileFlyIn" />
         </div>
         <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
       </div>
@@ -186,10 +186,10 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       </button>
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
         <h3>Temp overlay</h3>
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
+        <LayoutDemoOptions v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->
-        <TooltipDemoAtom v-model="options.forceTooltip" />
+        <TooltipDemo v-model="options.forceTooltip" />
       </div>
     </div>
   </Teleport>
