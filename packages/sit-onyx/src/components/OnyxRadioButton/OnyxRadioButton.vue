@@ -113,7 +113,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       style: solid;
       width: var(--onyx-1px-in-rem);
       color: var(--onyx-radio-button-selector-border-color);
-      radius: 100%;
+      radius: var(--onyx-radius-full);
     }
 
     background-color: var(--onyx-radio-button-selector-background-color);
