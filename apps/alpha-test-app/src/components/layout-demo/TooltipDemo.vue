@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const forceTooltip = defineModel<boolean>();
+defineProps<{
+  forceTooltip: boolean;
+}>();
 </script>
 
 <template>

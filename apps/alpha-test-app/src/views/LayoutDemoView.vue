@@ -8,7 +8,7 @@ import {
   LayoutDemoOptions,
   TooltipDemo,
   SidebarDemo,
-  // StickyDemo,
+  StickyDemo,
   // FooterDemo,
   // ToastDemo,
   // BusyIndicatorDemo,
@@ -67,13 +67,13 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
       |
       <!-- demo tooltip -->
-      <TooltipDemo v-model="options.forceTooltip" style="display: inline-block" />
+      <TooltipDemo :force-tooltip="options.forceTooltip" style="display: inline-block" />
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
-    <SidebarDemo v-model="options.showSideBar">
+    <SidebarDemo v-if="options.showSideBar">
       <LayoutDemoOptions v-model="options" highlight-label="showSideBar" />
-      <TooltipDemo v-model="options.forceTooltip" />
+      <TooltipDemo :force-tooltip="options.forceTooltip" />
     </SidebarDemo>
 
     <!----------- GRID main (right col) ----------->
@@ -82,9 +82,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <h2>Scrollable page content</h2>
 
         <!-- demo sticky content -->
-        <div v-if="options.showStickyContent" class="demo sticky-content">
-          Sticky content. Example: Breadcrumb bar, Table header, Headlines
-        </div>
+        <StickyDemo v-if="options.showStickyContent" />
 
         <!-- demo flyout -->
         <p>
@@ -94,7 +92,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         </p>
 
         <!-- demo tooltip -->
-        <TooltipDemo v-model="options.forceTooltip" />
+        <TooltipDemo :force-tooltip="options.forceTooltip" />
 
         <LayoutDemoOptions v-if="!options.showSideBar" v-model="options" />
 
@@ -136,7 +134,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptions v-model="options" highlight-label="topBarFlyout" />
 
         <!-- demo tooltip -->
-        <TooltipDemo v-model="options.forceTooltip" />
+        <TooltipDemo :force-tooltip="options.forceTooltip" />
       </section>
     </div>
   </div>
@@ -151,7 +149,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptions v-model="options" highlight-label="showPopover" />
 
         <!-- demo tooltip -->
-        <TooltipDemo v-model="options.forceTooltip" />
+        <TooltipDemo :force-tooltip="options.forceTooltip" />
       </div>
     </div>
   </Teleport>
@@ -197,7 +195,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutDemoOptions v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->
-        <TooltipDemo v-model="options.forceTooltip" />
+        <TooltipDemo :force-tooltip="options.forceTooltip" />
       </div>
     </div>
   </Teleport>

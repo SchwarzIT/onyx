@@ -1,11 +1,7 @@
-<script lang="ts" setup>
-import { defineModel } from "vue";
-
-const showSideBar = defineModel<boolean>();
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div v-if="showSideBar" class="demo side-bar">
+  <div class="demo side-bar">
     <h3>Sidebar</h3>
     <slot></slot>
   </div>
