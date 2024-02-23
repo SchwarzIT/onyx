@@ -4,7 +4,8 @@ import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 
 /**
- * The input component can be used to...
+ * Radio buttons in UI design are interactive elements that allow users to make a single selection from a set of mutually exclusive options.
+ * Users can choose only one option at the time, making radio buttons ideal for scenarios where a single, distinct choice is required.
  */
 const meta: Meta<typeof OnyxRadioButtonGroup> = {
   title: "components/OnyxRadioButtonGroup",
