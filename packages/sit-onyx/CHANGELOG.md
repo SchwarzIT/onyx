@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.18
+
+### Minor Changes
+
+- ce944e1: feat: create z-index CSS variables for onyx
+
 ## 1.0.0-alpha.17
 
 ### Patch Changes
