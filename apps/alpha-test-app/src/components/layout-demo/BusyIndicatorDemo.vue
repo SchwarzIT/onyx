@@ -1,12 +1,11 @@
-<script lang="ts" setup>
-// import { defineModel } from "vue";
-// const todo = defineModel<boolean>();
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div>
+  <section class="page-loader">
+    <h3>Page loader overlay</h3>
+
     <slot></slot>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped></style>

@@ -11,7 +11,7 @@ import {
   StickyDemo,
   FooterDemo,
   ToastDemo,
-  // BusyIndicatorDemo,
+  BusyIndicatorDemo,
   // MobileNavFlyoutDemo,
   // MobileBottomFlyoutDemo,
   // PopoverDemo,
@@ -108,13 +108,10 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     <!----------- GRID content overlays ----------->
     <ToastDemo v-if="options.showToast" />
 
-    <div v-if="options.showPageLoader" class="page-loader">
-      <section>
-        <h3>Page loader overlay</h3>
+    <BusyIndicatorDemo v-if="options.showPageLoader">
+      <LayoutDemoOptions v-model="options" highlight-label="showPageLoader" />
+    </BusyIndicatorDemo>
 
-        <LayoutDemoOptions v-model="options" highlight-label="showPageLoader" />
-      </section>
-    </div>
     <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
       <section class="top-bar-fly-out__content">
         <h3>Mobile Top Bar Flyout</h3>
