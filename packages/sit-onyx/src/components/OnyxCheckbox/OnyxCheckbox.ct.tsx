@@ -239,13 +239,25 @@ const STATES = {
 
 test(
   "Screenshot matrix",
-  createMatrixScreenshot(STATES, "matrix.png", ({ select, state, labeled }) => (
-    <OnyxCheckbox
-      modelValue={select === "selected"}
-      label={labeled === "labeled" ? "label" : ""}
-      indeterminate={select === "indeterminate"}
-      disabled={state === "disabled"}
-      required={state === "required"}
-    />
-  )),
+  createMatrixScreenshot(
+    STATES,
+    "matrix.png",
+    async ({ select, state, labeled, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxCheckbox
+          modelValue={select === "selected"}
+          label={labeled === "labeled" ? "label" : ""}
+          indeterminate={select === "indeterminate"}
+          disabled={state === "disabled"}
+          required={state === "required"}
+        />,
+        { optional: state === "optional" },
+      );
+
+      const checkbox = component.getByRole("checkbox");
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await checkbox.hover();
+      return component;
+    },
+  ),
 );

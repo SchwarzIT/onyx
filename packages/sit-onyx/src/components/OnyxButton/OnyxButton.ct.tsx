@@ -59,13 +59,24 @@ const STATES = {
 
 test(
   "Screenshot matrix",
-  createMatrixScreenshot(STATES, "matrix.png", ({ variation, state, mode }) => (
-    <OnyxButton
-      label="label"
-      variation={variation}
-      mode={mode}
-      disabled={state === "disabled"}
-      icon={state === "icon" ? happyIcon : undefined}
-    />
-  )),
+  createMatrixScreenshot(
+    STATES,
+    "matrix.png",
+    async ({ variation, state, mode, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxButton
+          label="label"
+          variation={variation}
+          mode={mode}
+          disabled={state === "disabled"}
+          icon={state === "icon" ? happyIcon : undefined}
+        />,
+      );
+
+      const button = component.getByRole("button");
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await button.hover();
+      return component;
+    },
+  ),
 );
