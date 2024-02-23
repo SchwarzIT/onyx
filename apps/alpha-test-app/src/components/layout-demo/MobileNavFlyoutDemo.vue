@@ -1,12 +1,13 @@
-<script lang="ts" setup>
-// import { defineModel } from "vue";
-// const todo = defineModel<boolean>();
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div>
-    <slot></slot>
-  </div>
+  <section class="backdrop top-bar-fly-out">
+    <!-- todo flatten? -->
+    <div class="top-bar-fly-out__content">
+      <h3>Mobile Top Bar Flyout</h3>
+      <slot></slot>
+    </div>
+  </section>
 </template>
 
 <style lang="scss" scoped></style>

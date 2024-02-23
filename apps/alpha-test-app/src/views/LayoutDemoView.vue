@@ -12,9 +12,10 @@ import {
   FooterDemo,
   ToastDemo,
   BusyIndicatorDemo,
-  // MobileNavFlyoutDemo,
+  // FloatingActionButtonDemo,
+  MobileNavFlyoutDemo,
   // MobileBottomFlyoutDemo,
-  // PopoverDemo,
+  PopoverDemo,
   // TempOverlayDemo,
 } from "../components/layout-demo";
 
@@ -37,7 +38,6 @@ const options = ref({
   showPopover: false,
   showTempOverlay: false,
   showMobileFlyIn: false,
-  fullSizePopup: false,
   showPageLoader: false,
   topBarFlyout: false,
 });
@@ -112,44 +112,18 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <LayoutDemoOptions v-model="options" highlight-label="showPageLoader" />
     </BusyIndicatorDemo>
 
-    <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
-      <section class="top-bar-fly-out__content">
-        <h3>Mobile Top Bar Flyout</h3>
-
-        <LayoutDemoOptions v-model="options" highlight-label="topBarFlyout" />
-
-        <TooltipDemo :force-tooltip="options.forceTooltip" />
-      </section>
-    </div>
+    <MobileNavFlyoutDemo v-if="options.topBarFlyout">
+      <LayoutDemoOptions v-model="options" highlight-label="topBarFlyout" />
+      <TooltipDemo :force-tooltip="options.forceTooltip" />
+    </MobileNavFlyoutDemo>
   </div>
 
   <!----------- APP cover overlays ----------->
-  <!-- demo popover / modal -->
-  <Teleport v-if="options.showPopover" to="body">
-    <div class="backdrop">
-      <div class="demo popover">
-        <h3>Popover / Modal content</h3>
-
-        <LayoutDemoOptions v-model="options" highlight-label="showPopover" />
-
-        <TooltipDemo :force-tooltip="options.forceTooltip" />
-      </div>
-    </div>
-  </Teleport>
-
-  <!-- demo full size popup -->
-  <Teleport v-if="options.fullSizePopup" to="body">
-    <div class="demo full-size-popup">
-      <div class="full-size-popup__content">
-        <h3>This is a full size popup. Usually used in mobile apps</h3>
-        Try it with "fullFooter".
-
-        <LayoutDemoOptions v-model="options" highlight-label="fullSizePopup" />
-      </div>
-
-      <FooterDemo v-if="options.fullFooter" />
-    </div>
-  </Teleport>
+  <PopoverDemo v-if="options.showPopover">
+    <LayoutDemoOptions v-model="options" highlight-label="showPopover" />
+    <TooltipDemo :force-tooltip="options.forceTooltip" />
+    <button @click="options.showPopover = false">Close</button>
+  </PopoverDemo>
 
   <!-- demo mobile fly-in -->
   <Teleport v-if="options.showMobileFlyIn" to="body">
@@ -371,6 +345,28 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     margin: auto 0;
   }
 }
+
+.dialog {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: var(--onyx-z-index-overlay);
+  position: absolute;
+}
+
+dialog::backdrop {
+  background-color: salmon;
+}
+// ::backdrop {
+// background-color: rgba(0, 0, 0, 0.5);
+// top: 0;
+// left: 0;
+// bottom: 0;
+// right: 0;
+// z-index: var(--onyx-z-index-overlay);
+// position: absolute;
+// }
 
 // ****** DECORATIONS ******
 body {
