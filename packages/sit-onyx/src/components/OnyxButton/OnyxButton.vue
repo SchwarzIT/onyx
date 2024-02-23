@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { OnyxIcon } from "@/index";
-import type { ButtonProps } from "./types";
+import type { OnyxButtonProps } from "./types";
 
-const props = withDefaults(defineProps<ButtonProps>(), {
+const props = withDefaults(defineProps<OnyxButtonProps>(), {
   label: "",
   disabled: false,
   type: "button",
@@ -37,6 +37,8 @@ const emit = defineEmits<{
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: flex;
+  height: 2.5rem;
+  box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
@@ -133,7 +135,7 @@ const emit = defineEmits<{
     }
   }
 
-  &:hover {
+  &:hover:enabled {
     --onyx-button-background-color: var(--onyx-button-background-hover-color);
   }
 
