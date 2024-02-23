@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-// import { defineModel } from "vue";
-// const todo = defineModel<boolean>();
+import { defineModel } from "vue";
+
+const showSideBar = defineModel<boolean>();
 </script>
 
 <template>
-  <div>
+  <div v-if="showSideBar" class="demo side-bar">
+    <h3>Sidebar</h3>
     <slot></slot>
   </div>
 </template>

@@ -3,7 +3,20 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
-import { FlyoutDemo, LayoutDemoOptions, TooltipDemo } from "../components/layout-demo";
+import {
+  FlyoutDemo,
+  LayoutDemoOptions,
+  TooltipDemo,
+  SidebarDemo,
+  // StickyDemo,
+  // FooterDemo,
+  // ToastDemo,
+  // BusyIndicatorDemo,
+  // MobileNavFlyoutDemo,
+  // MobileBottomFlyoutDemo,
+  // PopoverDemo,
+  // TempOverlayDemo,
+} from "../components/layout-demo";
 
 const options = ref({
   title0: "Page length:",
@@ -58,13 +71,10 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
-    <div v-if="options.showSideBar" class="demo side-bar">
-      <h3>Sidebar</h3>
+    <SidebarDemo v-model="options.showSideBar">
       <LayoutDemoOptions v-model="options" highlight-label="showSideBar" />
-
-      <!-- demo tooltip -->
       <TooltipDemo v-model="options.forceTooltip" />
-    </div>
+    </SidebarDemo>
 
     <!----------- GRID main (right col) ----------->
     <div class="page" :class="{ 'page--full-height': !options.fullFooter }">
