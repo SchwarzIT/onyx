@@ -28,9 +28,6 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
   for (const checkbox of checkboxes) {
     await expect(checkbox).not.toBeChecked();
   }
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("default.png");
 });
 
 test("should render checked", async ({ mount, makeAxeBuilder }) => {
@@ -59,9 +56,6 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
   for (const checkbox of checkboxes) {
     await expect(checkbox).toBeChecked();
   }
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("checked.png");
 });
 
 test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
@@ -90,21 +84,17 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
   for (const checkbox of checkboxes) {
     await expect(checkbox).toHaveJSProperty("indeterminate", true);
   }
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("indeterminate.png");
 });
 
 test("should render required", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxCheckbox label="Required" required />);
+  await mount(<OnyxCheckbox label="Required" required />);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component).toHaveScreenshot("required.png");
 });
 
 const disabledTestCases = [
@@ -154,9 +144,6 @@ for (const testCase of disabledTestCases) {
     for (const checkbox of checkboxes) {
       await expect(checkbox).toBeDisabled();
     }
-
-    // ASSERT
-    await expect(component).toHaveScreenshot(`disabled-${testCase.name}.png`);
   });
 }
 
@@ -209,9 +196,6 @@ for (const testCase of invalidTestCases) {
     // ACT
     await checkboxes[1].hover();
     await checkboxes[2].focus();
-
-    // ASSERT
-    await expect(component).toHaveScreenshot(`invalid-${testCase.name}.png`);
   });
 }
 

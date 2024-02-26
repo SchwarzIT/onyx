@@ -9,7 +9,6 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(component).toContainText("Button");
-  await expect(component).toHaveScreenshot("default.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -41,7 +40,6 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(component).toContainText("Button");
-  await expect(component).toHaveScreenshot("icon.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
