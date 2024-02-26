@@ -47,9 +47,7 @@ const isChecked = computed({
       :required="props.required"
     />
     <span class="onyx-switch__container">
-      <span class="onyx-switch__position">
-        <OnyxIcon class="onyx-switch__icon" :icon="isChecked ? checkSmall : xSmall" size="24px" />
-      </span>
+      <OnyxIcon class="onyx-switch__icon" :icon="isChecked ? checkSmall : xSmall" size="24px" />
     </span>
     <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
   </label>
@@ -70,37 +68,28 @@ const isChecked = computed({
     &:checked + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-500);
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-themed-neutral-100);
         transform: translateX(14px);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
+        color: var(--onyx-color-text-icons-primary-intense);
       }
     }
 
     &:checked:disabled + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-200);
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-base-background-blank);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-primary-soft);
-        }
+        color: var(--onyx-color-text-icons-primary-soft);
       }
     }
 
     &:disabled + .onyx-switch__container {
       background-color: var(--onyx-color-base-neutral-200);
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-base-neutral-300);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-neutral-inverted);
-        }
+        color: var(--onyx-color-text-icons-neutral-inverted);
       }
     }
 
@@ -110,49 +99,37 @@ const isChecked = computed({
       height: 1.375rem;
       width: 2.25rem;
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-base-danger-500);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-neutral-inverted);
-        }
+        color: var(--onyx-color-text-icons-neutral-inverted);
       }
     }
 
     &--invalid:checked + .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-500);
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-base-background-blank);
         transform: translateX(12px);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-danger-intense);
-        }
+        color: var(--onyx-color-text-icons-danger-intense);
       }
     }
 
     &--readonly + .onyx-switch__container {
       background-color: var(--onyx-color-base-neutral-200);
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-base-neutral-300);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-neutral-inverted);
-        }
+        color: var(--onyx-color-text-icons-neutral-inverted);
       }
     }
 
     &--readonly:checked + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-200);
 
-      .onyx-switch__position {
+      .onyx-switch__icon {
         background-color: var(--onyx-color-base-background-blank);
-
-        .onyx-switch__icon {
-          color: var(--onyx-color-text-icons-primary-soft);
-        }
+        color: var(--onyx-color-text-icons-primary-soft);
       }
     }
   }
@@ -167,7 +144,7 @@ const isChecked = computed({
     border-radius: var(--onyx-radius-full);
     transition: background-color 0.2s ease;
 
-    .onyx-switch__position {
+    .onyx-switch__icon {
       display: flex;
       flex-wrap: wrap;
       align-content: baseline;
@@ -182,10 +159,7 @@ const isChecked = computed({
         transform 0.2s ease,
         background-color 0.2s ease;
       overflow: hidden;
-
-      .onyx-switch__icon {
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
+      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 
