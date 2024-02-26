@@ -47,12 +47,11 @@ const isChecked = computed({
       :required="props.required"
     />
     <span class="onyx-switch__container">
-      <span class="onyx-switch__track"></span>
       <span class="onyx-switch__position">
         <OnyxIcon class="onyx-switch__icon" :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
-    <span v-if="props.label && !props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
+    <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
   </label>
 </template>
 
@@ -69,9 +68,7 @@ const isChecked = computed({
     opacity: 0;
 
     &:checked + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-primary-500);
-      }
+      background-color: var(--onyx-color-base-primary-500);
 
       .onyx-switch__position {
         background-color: var(--onyx-color-themed-neutral-100);
@@ -84,9 +81,7 @@ const isChecked = computed({
     }
 
     &:checked:disabled + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-primary-200);
-      }
+      background-color: var(--onyx-color-base-primary-200);
 
       .onyx-switch__position {
         background-color: var(--onyx-color-base-background-blank);
@@ -98,9 +93,7 @@ const isChecked = computed({
     }
 
     &:disabled + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-neutral-200);
-      }
+      background-color: var(--onyx-color-base-neutral-200);
 
       .onyx-switch__position {
         background-color: var(--onyx-color-base-neutral-300);
@@ -112,12 +105,10 @@ const isChecked = computed({
     }
 
     &--invalid + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-danger-200);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
-        height: 1.375rem;
-        width: 2.25rem;
-      }
+      background-color: var(--onyx-color-base-danger-200);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
+      height: 1.375rem;
+      width: 2.25rem;
 
       .onyx-switch__position {
         background-color: var(--onyx-color-base-danger-500);
@@ -129,12 +120,11 @@ const isChecked = computed({
     }
 
     &--invalid:checked + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-danger-500);
-      }
+      background-color: var(--onyx-color-base-danger-500);
 
       .onyx-switch__position {
         background-color: var(--onyx-color-base-background-blank);
+        transform: translateX(12px);
 
         .onyx-switch__icon {
           color: var(--onyx-color-text-icons-danger-intense);
@@ -143,9 +133,7 @@ const isChecked = computed({
     }
 
     &--readonly + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-neutral-200);
-      }
+      background-color: var(--onyx-color-base-neutral-200);
 
       .onyx-switch__position {
         background-color: var(--onyx-color-base-neutral-300);
@@ -157,9 +145,7 @@ const isChecked = computed({
     }
 
     &--readonly:checked + .onyx-switch__container {
-      .onyx-switch__track {
-        background-color: var(--onyx-color-base-primary-200);
-      }
+      background-color: var(--onyx-color-base-primary-200);
 
       .onyx-switch__position {
         background-color: var(--onyx-color-base-background-blank);
@@ -173,29 +159,21 @@ const isChecked = computed({
 
   &__container {
     position: relative;
-    display: block;
+    display: inline-flex;
     margin: var(--onyx-spacing-2xs);
     width: 2.375rem;
     height: 1.5rem;
-
-    .onyx-switch__track {
-      position: absolute;
-      width: 100%;
-      height: 1.5rem;
-      background-color: var(--onyx-color-base-neutral-300);
-      border-radius: var(--onyx-radius-full);
-      transition: background-color 0.2s ease;
-    }
+    background-color: var(--onyx-color-base-neutral-300);
+    border-radius: var(--onyx-radius-full);
+    transition: background-color 0.2s ease;
 
     .onyx-switch__position {
-      position: absolute;
       display: flex;
       flex-wrap: wrap;
-      align-content: normal;
-      left: 0.125rem;
-      top: 0.125rem;
-      right: 0.125rem;
-      bottom: 0.125rem;
+      align-content: baseline;
+      align-self: center;
+      justify-content: flex-end;
+      margin: 0.125rem;
       width: 1.25rem;
       height: 1.25rem;
       background-color: var(--onyx-color-themed-neutral-100);
@@ -213,7 +191,6 @@ const isChecked = computed({
 
   &__label {
     padding: var(--onyx-spacing-2xs) 0;
-    align-items: flex-end;
     overflow: hidden;
     color: var(--onyx-color-text-icons-neutral-intense);
     text-overflow: ellipsis;
@@ -225,19 +202,19 @@ const isChecked = computed({
   }
 
   &:hover {
-    &:has(.onyx-switch__input:enabled) .onyx-switch__track {
+    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
       background-color: var(--onyx-color-base-neutral-400);
     }
 
-    &:has(.onyx-switch__input:enabled:checked) .onyx-switch__track {
+    &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-400);
     }
 
-    &:has(.onyx-switch__input--invalid:enabled) .onyx-switch__track {
+    &:has(.onyx-switch__input--invalid:enabled) .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-300);
     }
 
-    &:has(.onyx-switch__input--invalid:enabled:checked) .onyx-switch__track {
+    &:has(.onyx-switch__input--invalid:enabled:checked) .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-400);
     }
   }
@@ -245,19 +222,19 @@ const isChecked = computed({
   &:focus-visible {
     outline: none;
 
-    &:has(.onyx-switch__input:enabled) .onyx-switch__track {
+    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
       outline: 0.25rem solid var(--onyx-color-base-neutral-200);
     }
 
-    &:has(.onyx-switch__input:checked:enabled) .onyx-switch__track {
+    &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
 
-    &:has(.onyx-switch__input--invalid:enabled) .onyx-switch__track {
+    &:has(.onyx-switch__input--invalid:enabled) .onyx-switch__container {
       outline: 0.25rem solid var(--onyx-color-base-danger-300);
     }
 
-    &:has(.onyx-switch__input--invalid:checked:enabled) .onyx-switch__track {
+    &:has(.onyx-switch__input--invalid:checked:enabled) .onyx-switch__container {
       outline: 0.25rem solid var(--onyx-color-base-danger-200);
     }
   }
