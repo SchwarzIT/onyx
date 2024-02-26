@@ -70,7 +70,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   }
 
   &:has(&__selector:focus-visible) {
-    --onyx-radio-button-selector-outline-width: 0.75rem;
+    --onyx-radio-button-selector-outline-width: var(--onyx-spacing-sm);
   }
 
   &:has(&__selector:disabled) {
@@ -88,14 +88,13 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   &__label {
     font-family: var(--onyx-font-family);
     color: var(--onyx-radio-button-label-color);
-    padding-left: 0.75rem;
-    line-height: 1.5rem;
+    line-height: var(--onyx-spacing-lg);
   }
 
   &__selector {
     appearance: none;
     box-sizing: border-box;
-    margin: 0;
+    margin: var(--onyx-spacing-sm);
     cursor: inherit;
 
     outline: {
@@ -106,8 +105,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     }
     transition: outline 200ms;
 
-    height: 1rem;
-    width: 1rem;
+    height: var(--onyx-spacing-md);
+    width: var(--onyx-spacing-md);
 
     border: {
       style: solid;
@@ -125,8 +124,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     &::before {
       content: " ";
       box-sizing: border-box;
-      height: 0.375rem;
-      width: 0.375rem;
+      height: var(--onyx-spacing-3xs);
+      width: var(--onyx-spacing-3xs);
       background-color: var(--onyx-color-base-background-blank);
       border-radius: 100%;
     }
