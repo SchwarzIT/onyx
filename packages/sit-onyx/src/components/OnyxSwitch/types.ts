@@ -6,7 +6,7 @@ export type OnyxSwitchProps = {
   /**
    * The label of the switch.
    */
-  label?: string;
+  label: string;
   /**
    * Whether to disable the switch and prevent user interaction.
    */

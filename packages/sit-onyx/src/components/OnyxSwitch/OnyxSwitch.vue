@@ -6,7 +6,6 @@ import type { OnyxSwitchProps } from "./types";
 import { computed } from "vue";
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
-  label: "Onyx Switch",
   disabled: false,
   required: false,
   readonly: false,
