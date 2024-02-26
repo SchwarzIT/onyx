@@ -1,7 +1,7 @@
 import "@/styles/index.scss";
 
-export { default as OnyxButton } from "@/components/OnyxButton/OnyxButton.vue";
 export * from "@/components/OnyxButton/types";
+export { default as OnyxButton } from "@/components/OnyxButton/OnyxButton.vue";
 export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "@/components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "@/components/OnyxCheckboxGroup/types";
@@ -10,6 +10,8 @@ export * from "@/components/OnyxHeadline/types";
 export { default as OnyxIcon } from "@/components/OnyxIcon/OnyxIcon.vue";
 export * from "@/components/OnyxIcon/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
+export * from "@/components/OnyxSwitch/types";
+export { default as OnyxSwitch } from "@/components/OnyxSwitch/OnyxSwitch.vue";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types/colors";
 export * from "@/types/i18n";
