@@ -105,9 +105,6 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     }
     transition: outline 200ms;
 
-    height: var(--onyx-spacing-md);
-    width: var(--onyx-spacing-md);
-
     border: {
       style: solid;
       width: var(--onyx-1px-in-rem);
@@ -120,6 +117,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    width: var(--onyx-spacing-md);
+    aspect-ratio: 1;
 
     &::before {
       content: " ";
