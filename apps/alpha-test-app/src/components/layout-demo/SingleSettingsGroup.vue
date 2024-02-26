@@ -12,12 +12,7 @@ const props = defineProps<{
 
 const options = computed<SelectionOption<Settings>[]>(() =>
   props.options.map(
-    (option) =>
-      ({
-        ...option,
-        label: option.id + option.label,
-        value: { [option.id]: true },
-      }) as SelectionOption<Settings>,
+    (option) => ({ ...option, value: { [option.id]: true } }) as SelectionOption<Settings>,
   ),
 );
 

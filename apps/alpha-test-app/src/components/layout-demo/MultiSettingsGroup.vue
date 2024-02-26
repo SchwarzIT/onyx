@@ -31,7 +31,6 @@ watch(
 </script>
 
 <template>
-  model: {{ activeSettings }} selected internal: {{ selectedOptions }}
   <OnyxCheckboxGroup v-model="selectedOptions" :headline="headline" :options="options" />
 </template>
 
