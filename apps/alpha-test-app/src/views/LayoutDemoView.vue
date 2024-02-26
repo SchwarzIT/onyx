@@ -4,7 +4,10 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
 import LayoutDemoOptionsMolecule from "../components/molecules/LayoutDemoOptionsMolecule.vue";
-import LayoutSettings from "../components/layout-demo/LayoutSettings.vue";
+import LayoutSettings, {
+  type SettingsSections,
+} from "../components/layout-demo/LayoutSettings.vue";
+import { OnyxHeadline } from "sit-onyx";
 
 const options = ref({
   title0: "Page length:",
@@ -28,6 +31,13 @@ const options = ref({
   fullSizePopup: false,
   showPageLoader: false,
   topBarFlyout: false,
+});
+
+const settings = ref<SettingsSections>({
+  content: { longPageContent: true },
+  sideBar: { showSideBar: true },
+  footer: { detailFooter: true },
+  overlay: {},
 });
 
 const tempOverlayOpen = ref(true);
@@ -69,8 +79,8 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
     <!----------- GRID sidebar (left col) ----------->
     <div v-if="options.showSideBar" class="demo side-bar">
-      <h3>Sidebar</h3>
-      <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" />
+      <!-- <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" /> -->
+      <LayoutSettings v-model="settings" hide-overlay-settings />
 
       <!-- demo tooltip -->
       <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
@@ -82,9 +92,9 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     <!----------- GRID main (right col) ----------->
     <div class="page" :class="{ 'page--full-height': !options.fullFooter }">
       <div class="page__content">
-        <h2>Scrollable page content</h2>
+        <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
 
-        <LayoutSettings />
+        <LayoutSettings v-model="settings" horizontal />
         <!-- <LayoutDemoOptions /> -->
         <!-- demo sticky content -->
         <div v-if="options.showStickyContent" class="demo sticky-content">
@@ -138,14 +148,14 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     <!----------- GRID full overlay excluding top bar ----------->
     <div v-if="options.showPageLoader" class="page-loader">
       <section>
-        <h3>Page loader overlay</h3>
+        <OnyxHeadline is="h3">Page loader overlay</OnyxHeadline>
 
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
       </section>
     </div>
     <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
       <section class="top-bar-fly-out__content">
-        <h3>Mobile Top Bar Flyout</h3>
+        <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
 
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
 
@@ -163,7 +173,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <Teleport v-if="options.showPopover" to="body">
     <div class="backdrop">
       <div class="demo popover">
-        <h3>Popover / Modal content</h3>
+        <OnyxHeadline is="h3">Popover / Modal content</OnyxHeadline>
 
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
 
@@ -180,7 +190,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <Teleport v-if="options.fullSizePopup" to="body">
     <div class="demo full-size-popup">
       <div class="full-size-popup__content">
-        <h3>This is a full size popup. Usually used in mobile apps</h3>
+        <OnyxHeadline is="h3">This is a full size popup. Usually used in mobile apps</OnyxHeadline>
         Try it with "fullFooter".
 
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="fullSizePopup" />
@@ -195,7 +205,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     <div class="backdrop">
       <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': options.fullFooter }">
         <div class="mobile-fly-in__content">
-          <h3>Mobile fly-in</h3>
+          <OnyxHeadline is="h3">Mobile fly-in</OnyxHeadline>
 
           <LayoutDemoOptionsMolecule v-model="options" highlight-label="showMobileFlyIn" />
         </div>
@@ -213,7 +223,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <OnyxIcon v-else :icon="chevronLeftSmall" />
       </button>
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
-        <h3>Temp overlay</h3>
+        <OnyxHeadline is="h3">Temp overlay</OnyxHeadline>
         <LayoutDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
 
         <!-- demo tooltip -->

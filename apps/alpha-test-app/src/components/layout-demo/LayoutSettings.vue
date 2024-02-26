@@ -15,22 +15,30 @@ export type Settings = {
 
   showSideBar?: true;
   showSideBarCollapse?: true;
-  showTempOverlay?: true;
   showTempOverlayTransparent?: true;
+  showTempOverlay?: true;
 
   detailFooter?: true;
   fullFooter?: true;
 };
 
-// const value = defineModel<unknown>();
+export type SettingsSection = "content" | "sideBar" | "footer" | "overlay";
+export type SettingsSections = Record<SettingsSection, Settings>;
 
-// const props = defineProps<{
-//   prop?: unknown;
-// }>();
+const props = defineProps<{
+  modelValue: SettingsSections;
+  horizontal?: boolean;
+  hideContentSettings?: boolean;
+  hideSidebarSettings?: boolean;
+  hideFooterSettings?: boolean;
+  hideOverlaySettings?: boolean;
+}>();
 
 const emit = defineEmits<{
-  settingsChange: [value: Settings];
+  "update:modelValue": [value: SettingsSections];
 }>();
+
+const noneOption = { id: "none", label: "None" };
 
 const contentOptions: SelectionOption<undefined>[] = [
   { id: "longPageContent", label: "Scrollable Page Content" },
@@ -39,25 +47,49 @@ const contentOptions: SelectionOption<undefined>[] = [
   { id: "showStickyContent", label: "Sticky Content" },
   { id: "showToast", label: "Toast" },
 ];
-const activeContentSetting = ref<Settings>({ longPageContent: true });
-
+const overlayOptions: SelectionOption<undefined>[] = [
+  noneOption,
+  { id: "showPopover", label: "Popover/Modal" },
+  { id: "showMobileFlyIn", label: "Mobile Fly-in" },
+  { id: "showPageLoader", label: "Page loader" },
+  { id: "topBarFlyout", label: "Top bar flyout" },
+];
 const sidebarOptions: SelectionOption<undefined>[] = [
-  { id: "none", label: "No Sidebar" },
+  noneOption,
   { id: "showSideBar", label: "Fixed Sidebar" },
   { id: "showSideBarCollapse", label: "Collapsible Sidebar" },
-  { id: "showTempOverlay", label: "Overlay Sidebar" },
-  { id: "showTempOverlayTransparent", label: "Overlay Sidebar transparent" },
+  { id: "showTempOverlay", label: "Overlay Sidebar with backdrop" },
+  { id: "showTempOverlayTransparent", label: "Overlay Sidebar" },
 ];
-const activeSidebarSetting = ref<Settings>({
-  showSideBar: true,
-});
-
 const detailFooter = { id: "detailFooter", label: "Detail Footer" };
 const fullFooter = { id: "fullFooter", label: "Full Footer" };
-const baseFooterOptions = [{ id: "none", label: "No Footer" }, fullFooter];
-const sidebarFooterOptions = [{ id: "none", label: "No Footer" }, detailFooter, fullFooter];
+const baseFooterOptions = [noneOption, fullFooter];
+const sidebarFooterOptions = [noneOption, detailFooter, fullFooter];
 const footerOptions = ref<SelectionOption<undefined>[]>(sidebarFooterOptions);
-const activeFooterSetting = ref<Settings>({ detailFooter: true });
+
+const activeContentSetting = computed({
+  get: () => props.modelValue.content || {},
+  set: (value) => emit("update:modelValue", { ...props.modelValue, content: value }),
+});
+const activeSidebarSetting = computed({
+  get: () => props.modelValue.sideBar || {},
+  set: (value) => emit("update:modelValue", { ...props.modelValue, sideBar: value }),
+});
+const activeFooterSetting = computed({
+  get: () => props.modelValue.footer || {},
+  set: (value) => emit("update:modelValue", { ...props.modelValue, footer: value }),
+});
+const activeOverlaySetting = computed({
+  get: () => props.modelValue.overlay || {},
+  set: (value) => emit("update:modelValue", { ...props.modelValue, overlay: value }),
+});
+
+const blockOverlays = computed(() => {
+  return (
+    activeSidebarSetting.value.showTempOverlay ||
+    activeSidebarSetting.value.showTempOverlayTransparent
+  );
+});
 
 /** Adust footer configs depending on the availability of a sidebar */
 watch(
@@ -71,38 +103,47 @@ watch(
   },
   { immediate: true },
 );
-
-/** expose all the settings */
-const allSettings = computed<Settings>(() => ({
-  ...activeSidebarSetting.value,
-  ...activeContentSetting.value,
-}));
-watch(allSettings, (newSettings) => emit("settingsChange", newSettings), { immediate: true });
 </script>
 
 <template>
-  <div>
+  <div :key="modelValue.toString()">
     <OnyxHeadline is="h2">Demo Settings</OnyxHeadline>
 
     <MultiSettingsGroup
+      v-if="!hideContentSettings"
+      :key="JSON.stringify(activeContentSetting)"
       v-model="activeContentSetting"
       headline="Content Options"
       :options="contentOptions"
+      :horizontal="horizontal"
     />
 
     <SingleSettingsGroup
+      v-if="!hideSidebarSettings"
+      :key="JSON.stringify(activeSidebarSetting)"
       v-model="activeSidebarSetting"
       headline="Sidebar Options"
       :options="sidebarOptions"
+      :horizontal="horizontal"
     />
 
     <SingleSettingsGroup
+      v-if="!hideFooterSettings"
+      :key="JSON.stringify(activeFooterSetting)"
       v-model="activeFooterSetting"
       headline="Footer Options"
       :options="footerOptions"
+      :horizontal="horizontal"
     />
 
-    {{ allSettings }}
+    <SingleSettingsGroup
+      v-if="!hideOverlaySettings || blockOverlays"
+      :key="JSON.stringify(activeOverlaySetting)"
+      v-model="activeOverlaySetting"
+      headline="Overlay Options"
+      :options="overlayOptions"
+      :horizontal="horizontal"
+    />
   </div>
 </template>
 

@@ -8,6 +8,7 @@ const activeSetting = defineModel<Settings>();
 const props = defineProps<{
   headline: string;
   options: SelectionOption<undefined>[];
+  horizontal?: boolean;
 }>();
 
 const options = computed<SelectionOption<Settings>[]>(() =>
@@ -26,7 +27,12 @@ watch(selectedOption, (setting) => (activeSetting.value = setting ? setting.valu
 </script>
 
 <template>
-  <OnyxRadioButtonGroup v-model="selectedOption" :headline="headline" :options="options" />
+  <OnyxRadioButtonGroup
+    v-model="selectedOption"
+    :headline="headline"
+    :options="options"
+    :direction="horizontal ? 'horizontal' : 'vertical'"
+  />
 </template>
 
 <style lang="scss" scoped></style>

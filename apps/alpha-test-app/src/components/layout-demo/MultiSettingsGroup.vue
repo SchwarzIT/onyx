@@ -8,6 +8,7 @@ const activeSettings = defineModel<Settings>();
 const props = defineProps<{
   headline: string;
   options: SelectionOption<undefined>[];
+  horizontal?: boolean;
 }>();
 
 const options = computed<SelectionOption<Settings>[]>(() =>
@@ -31,7 +32,12 @@ watch(
 </script>
 
 <template>
-  <OnyxCheckboxGroup v-model="selectedOptions" :headline="headline" :options="options" />
+  <OnyxCheckboxGroup
+    v-model="selectedOptions"
+    :headline="headline"
+    :options="options"
+    :direction="horizontal ? 'horizontal' : 'vertical'"
+  />
 </template>
 
 <style lang="scss" scoped></style>
