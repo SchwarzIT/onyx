@@ -3,35 +3,10 @@ import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
-import LayoutDemoOptionsMolecule from "../components/molecules/LayoutDemoOptionsMolecule.vue";
 import LayoutSettings, {
   type SettingsSections,
 } from "../components/layout-demo/LayoutSettings.vue";
 import { OnyxHeadline } from "sit-onyx";
-
-const options = ref({
-  title0: "Page length:",
-  longPageContent: true,
-
-  title1: "Small overlays:",
-  showFlyout: false,
-  forceTooltip: false,
-
-  title3: "Docking content:",
-  showSideBar: true,
-  showStickyContent: false,
-  showToast: false,
-  detailFooter: true,
-  fullFooter: false,
-
-  title2: "Full overlays:",
-  showPopover: false,
-  showTempOverlay: false,
-  showMobileFlyIn: false,
-  fullSizePopup: false,
-  showPageLoader: false,
-  topBarFlyout: false,
-});
 
 const settings = ref<SettingsSections>({
   content: { longPageContent: true },
@@ -49,9 +24,9 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <div
     class="app"
     :class="{
-      'app--detail-footer': options.detailFooter,
-      'app--full-footer': options.fullFooter,
-      'app--sidebar': options.showSideBar,
+      'app--detail-footer': settings.footer.detailFooter,
+      'app--full-footer': settings.footer.fullFooter,
+      'app--sidebar': settings.sideBar.showSideBar,
     }"
   >
     <!----------- GRID top row ----------->
@@ -62,42 +37,51 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <label>
         Demo Drop Down:
         <span class="flyout-parent">
-          <input @click="options.showFlyout = !options.showFlyout" />
-          <div v-if="options.showFlyout" class="demo flyout">
-            <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+          <input @click="settings.content.showFlyout = !settings.content.showFlyout" />
+          <div v-if="settings.content.showFlyout" class="demo flyout">
+            <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+            <!-- <LayoutDemoOptionsMolecule
+              v-model="options"
+              highlight-label="settings.content.showFlyout"
+            /> -->
           </div>
         </span>
       </label>
 
       |
       <!-- demo tooltip -->
-      <span class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+      <span class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
         Tooltip parent
         <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
       </span>
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
-    <div v-if="options.showSideBar" class="demo side-bar">
-      <!-- <LayoutDemoOptionsMolecule v-model="options" highlight-label="showSideBar" /> -->
+    <div v-if="settings.sideBar.showSideBar" class="demo side-bar">
+      <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+      <!-- <LayoutDemoOptionsMolecule v-model="options" highlight-label="settings.sideBar.showSideBar" /> -->
       <LayoutSettings v-model="settings" hide-overlay-settings />
 
       <!-- demo tooltip -->
-      <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+      <div class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
         Tooltip parent
         <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
       </div>
     </div>
 
     <!----------- GRID main (right col) ----------->
-    <div class="page" :class="{ 'page--full-height': !options.fullFooter }">
+    <div class="page" :class="{ 'page--full-height': !settings.footer.fullFooter }">
       <div class="page__content">
         <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
 
         <LayoutSettings v-model="settings" horizontal />
         <!-- <LayoutDemoOptions /> -->
         <!-- demo sticky content -->
-        <div v-if="options.showStickyContent" class="demo sticky-content">
+        <div v-if="settings.content.showStickyContent" class="demo sticky-content">
           Sticky content. Example: Breadcrumb bar, Table header, Headlines
         </div>
 
@@ -106,24 +90,32 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
           <label>
             Demo Drop Down:
             <span class="flyout-parent">
-              <input @click="options.showFlyout = !options.showFlyout" />
-              <div v-if="options.showFlyout" class="demo flyout">
-                <LayoutDemoOptionsMolecule v-model="options" highlight-label="showFlyout" />
+              <input @click="settings.content.showFlyout = !settings.content.showFlyout" />
+              <div v-if="settings.content.showFlyout" class="demo flyout">
+                <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+                <!-- <LayoutDemoOptionsMolecule
+                  v-model="options"
+                  highlight-label="settings.content.showFlyout"
+                /> -->
               </div>
             </span>
           </label>
         </p>
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+        <div class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
           Tooltip parent
           <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
         </div>
 
-        <LayoutDemoOptionsMolecule v-if="!options.showSideBar" v-model="options" />
+        <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             --><!-- <LayoutDemoOptionsMolecule v-if="!settings.sideBar.showSideBar" v-model="options" /> -->
 
         <!-- demo page content -->
-        <template v-if="options.longPageContent">
+        <template v-if="settings.content.longPageContent">
           <p v-for="content in muchContent" :key="content">{{ content }}</p>
         </template>
       </div>
@@ -131,36 +123,47 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
     <!----------- GRID bottom row ----------->
     <div
-      v-if="options.detailFooter || options.fullFooter"
+      v-if="settings.footer.detailFooter || settings.footer.fullFooter"
       class="demo footer bottom-bar"
-      :class="{ 'footer--detail': options.detailFooter }"
+      :class="{ 'footer--detail': settings.footer.detailFooter }"
     >
-      <span v-if="options.fullFooter">Full </span><span v-else>Detail</span> footer
+      <span v-if="settings.footer.fullFooter">Full </span><span v-else>Detail</span> footer
     </div>
 
     <!----------- GRID page overlay ----------->
     <!-- demo toast -->
-    <div v-if="options.showToast" class="toast-controller">
+    <div v-if="settings.content.showToast" class="toast-controller">
       <div class="demo toast">Toast message 1</div>
-      <div v-if="options.showToast" class="demo toast">Toast message 2</div>
+      <div v-if="settings.content.showToast" class="demo toast">Toast message 2</div>
     </div>
 
     <!----------- GRID full overlay excluding top bar ----------->
-    <div v-if="options.showPageLoader" class="page-loader">
+    <div v-if="settings.overlay.showPageLoader" class="page-loader">
       <section>
         <OnyxHeadline is="h3">Page loader overlay</OnyxHeadline>
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPageLoader" />
+        <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+        <!-- <LayoutDemoOptionsMolecule
+          v-model="options"
+          highlight-label="settings.overlay.showPageLoader"
+        /> -->
       </section>
     </div>
-    <div v-if="options.topBarFlyout" class="backdrop top-bar-fly-out">
+    <div v-if="settings.overlay.topBarFlyout" class="backdrop top-bar-fly-out">
       <section class="top-bar-fly-out__content">
         <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="topBarFlyout" />
+        <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             --><!-- <LayoutDemoOptionsMolecule
+          v-model="options"
+          highlight-label="settings.overlay.topBarFlyout"
+        /> -->
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+        <div class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
           Tooltip parent
           <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
         </div>
@@ -170,15 +173,21 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
   <!----------- APP cover overlays ----------->
   <!-- demo popover / modal -->
-  <Teleport v-if="options.showPopover" to="body">
+  <Teleport v-if="settings.overlay.showPopover" to="body">
     <div class="backdrop">
       <div class="demo popover">
         <OnyxHeadline is="h3">Popover / Modal content</OnyxHeadline>
 
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showPopover" />
+        <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+        <!-- <LayoutDemoOptionsMolecule
+          v-model="options"
+          highlight-label="settings.overlay.showPopover"
+        /> -->
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+        <div class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
           Tooltip parent
           <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
         </div>
@@ -186,36 +195,31 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     </div>
   </Teleport>
 
-  <!-- full size popup -->
-  <Teleport v-if="options.fullSizePopup" to="body">
-    <div class="demo full-size-popup">
-      <div class="full-size-popup__content">
-        <OnyxHeadline is="h3">This is a full size popup. Usually used in mobile apps</OnyxHeadline>
-        Try it with "fullFooter".
-
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="fullSizePopup" />
-      </div>
-
-      <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
-    </div>
-  </Teleport>
-
   <!-- demo mobile fly-in -->
-  <Teleport v-if="options.showMobileFlyIn" to="body">
+  <Teleport v-if="settings.overlay.showMobileFlyIn" to="body">
     <div class="backdrop">
-      <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': options.fullFooter }">
+      <div
+        class="demo mobile-fly-in"
+        :class="{ 'mobile-fly-in--split': settings.footer.fullFooter }"
+      >
         <div class="mobile-fly-in__content">
           <OnyxHeadline is="h3">Mobile fly-in</OnyxHeadline>
 
-          <LayoutDemoOptionsMolecule v-model="options" highlight-label="showMobileFlyIn" />
+          <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+          <!-- <LayoutDemoOptionsMolecule
+            v-model="options"
+            highlight-label="settings.overlay.showMobileFlyIn"
+          /> -->
         </div>
-        <div v-if="options.fullFooter" class="demo bottom-bar">full footer</div>
+        <div v-if="settings.footer.fullFooter" class="demo bottom-bar">full footer</div>
       </div>
     </div>
   </Teleport>
 
   <!-- demo temporary overlay from right -->
-  <Teleport v-if="options.showTempOverlay" to="body">
+  <Teleport v-if="settings.sideBar.showTempOverlay" to="body">
     <div v-if="tempOverlayOpen" class="backdrop"></div>
     <div class="temp-overlay">
       <button class="demo temp-overlay__hinge" @click="tempOverlayOpen = !tempOverlayOpen">
@@ -224,10 +228,16 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       </button>
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
         <OnyxHeadline is="h3">Temp overlay</OnyxHeadline>
-        <LayoutDemoOptionsMolecule v-model="options" highlight-label="showTempOverlay" />
+        <!-- TODO: 
+      <LayoutSettings v-model="settings" hide-overlay-settings />
+             -->
+        <!-- <LayoutDemoOptionsMolecule
+          v-model="options"
+          highlight-label="settings.sideBar.showTempOverlay"
+        /> -->
 
         <!-- demo tooltip -->
-        <div class="demo tooltip" :class="{ 'tooltip--forced': options.forceTooltip }">
+        <div class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
           Tooltip parent
           <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
         </div>

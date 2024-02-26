@@ -7,19 +7,24 @@ import type { SelectionOption } from "sit-onyx";
 import { OnyxHeadline } from "sit-onyx";
 
 export type Settings = {
-  longPageContent?: true;
-  showFlyout?: true;
-  forceTooltip?: true;
-  showStickyContent?: true;
-  showToast?: true;
+  longPageContent?: boolean;
+  showFlyout?: boolean;
+  forceTooltip?: boolean;
+  showStickyContent?: boolean;
+  showToast?: boolean;
 
-  showSideBar?: true;
-  showSideBarCollapse?: true;
-  showTempOverlayTransparent?: true;
-  showTempOverlay?: true;
+  showSideBar?: boolean;
+  showSideBarCollapse?: boolean;
+  showTempOverlayTransparent?: boolean;
+  showTempOverlay?: boolean;
 
-  detailFooter?: true;
-  fullFooter?: true;
+  detailFooter?: boolean;
+  fullFooter?: boolean;
+
+  showPopover?: boolean;
+  showMobileFlyIn?: boolean;
+  showPageLoader?: boolean;
+  topBarFlyout?: boolean;
 };
 
 export type SettingsSection = "content" | "sideBar" | "footer" | "overlay";
