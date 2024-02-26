@@ -1,3 +1,4 @@
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
@@ -87,3 +88,34 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+const STATES = {
+  state: ["default", "disabled", "invalid"],
+  select: ["unselected", "selected"],
+  focusState: ["none", "hover", "focus-visible"],
+} as const;
+
+test(
+  "State screenshot testing",
+  createScreenshotsForAllStates(
+    STATES,
+    "radio-button",
+    async ({ select, state, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxRadioButton
+          selected={select === "selected"}
+          disabled={state === "disabled"}
+          errorMessage={state === "invalid" ? "invalid" : ""}
+          name={`name`}
+          label="label"
+          id={`id`}
+        />,
+      );
+
+      const radioInput = component.getByRole("radio");
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await radioInput.hover();
+      return component;
+    },
+  ),
+);

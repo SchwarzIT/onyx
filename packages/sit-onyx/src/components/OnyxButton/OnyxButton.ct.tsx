@@ -1,3 +1,4 @@
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxButton from "./OnyxButton.vue";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
@@ -8,7 +9,6 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(component).toContainText("Button");
-  await expect(component).toHaveScreenshot("default.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -40,7 +40,6 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(component).toContainText("Button");
-  await expect(component).toHaveScreenshot("icon.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -48,3 +47,34 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+const STATES = {
+  state: ["default", "disabled", "icon"],
+  variation: ["primary", "secondary", "danger"],
+  mode: ["default", "outline", "plain"],
+  focusState: ["", "hover", "focus-visible"],
+} as const;
+
+test(
+  "State screenshot testing",
+  createScreenshotsForAllStates(
+    STATES,
+    "button",
+    async ({ variation, state, mode, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxButton
+          label="label"
+          variation={variation}
+          mode={mode}
+          disabled={state === "disabled"}
+          icon={state === "icon" ? happyIcon : undefined}
+        />,
+      );
+
+      const button = component.getByRole("button");
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await button.hover();
+      return component;
+    },
+  ),
+);
