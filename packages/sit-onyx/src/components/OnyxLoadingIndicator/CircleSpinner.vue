@@ -1,29 +1,33 @@
+<script lang="ts" setup></script>
+
 <template>
-  <div class="onyx-circle-spinner"></div>
+  <svg class="onyx-circle-spinner" viewBox="0 0 50 50">
+    <circle class="onyx-circle-spinner__circle" cx="50%" cy="50%" r="45%" />
+  </svg>
 </template>
 
 <style lang="scss">
 .onyx-circle-spinner {
   :where(&) {
     --indicator-size: 24px;
-    --stroke-width: 2px;
     --stroke-color: currentColor;
   }
 
-  // stroke gap (missing part of the circle), same as in icon loading-circle.svg
-  $stroke-gap: 25%;
+  $timing: ease-out;
 
   width: var(--indicator-size);
   aspect-ratio: 1;
-  border-radius: var(--onyx-radius-full);
-  background:
-    radial-gradient(farthest-side, var(--stroke-color) 94%, #0000) top/var(--stroke-width)
-      var(--stroke-width) no-repeat,
-    conic-gradient(#0000 #{$stroke-gap}, var(--stroke-color));
-  mask: radial-gradient(farthest-side, #0000 calc(100% - var(--stroke-width)), #000 0);
+  animation: onyx-circle-spinner var(--onyx-duration-lg) $timing infinite;
 
-  animation: 0.8s cubic-bezier(0.5, 0.25, 0.4, 0.9) 0s infinite normal none running
-    onyx-circle-spinner;
+  &__circle {
+    fill: transparent;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-dasharray: 300%;
+    stroke: var(--stroke-color);
+    stroke-dashoffset: 90%;
+    animation: onyx-circle-spinner-stroke var(--onyx-duration-lg) $timing infinite;
+  }
 
   @keyframes onyx-circle-spinner {
     100% {
@@ -31,8 +35,16 @@
     }
   }
 
-  @media (prefers-reduced-motion) {
-    animation: none;
+  @keyframes onyx-circle-spinner-stroke {
+    0% {
+      stroke-dashoffset: 90%;
+    }
+    80% {
+      stroke-dashoffset: 270%;
+    }
+    100% {
+      stroke-dashoffset: 90%;
+    }
   }
 }
 </style>
