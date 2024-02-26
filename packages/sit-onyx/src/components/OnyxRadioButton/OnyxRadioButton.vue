@@ -118,6 +118,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     justify-content: center;
     align-items: center;
     width: var(--onyx-spacing-md);
+    min-width: var(--onyx-spacing-md);
+    max-width: var(--onyx-spacing-md);
     aspect-ratio: 1;
 
     &::before {
