@@ -103,7 +103,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       color: var(--onyx-radio-button-selector-outline-color);
       offset: 0;
     }
-    transition: outline 200ms;
+    transition: outline 400ms;
 
     border: {
       style: solid;
