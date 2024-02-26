@@ -185,7 +185,7 @@ importers:
         version: link:../icons
       vue:
         specifier: '>= 3'
-        version: 3.4.19(typescript@5.3.3)
+        version: 3.4.19
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.8.5
@@ -211,9 +211,6 @@ importers:
       eslint-plugin-vue-scoped-css:
         specifier: ^2.7.2
         version: 2.7.2(eslint@8.57.0)(vue-eslint-parser@9.4.2)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
       storybook:
         specifier: ^8.0.0-beta.5
         version: 8.0.0-beta.5(react-dom@18.2.0)(react@18.2.0)
@@ -3497,7 +3494,7 @@ packages:
       magic-string: 0.30.7
       ts-dedent: 2.2.0
       typescript: 5.3.3
-      vite: 5.1.4(@types/node@20.11.20)(sass@1.71.1)
+      vite: 5.1.4
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4007,7 +4004,7 @@ packages:
       find-package-json: 1.2.0
       magic-string: 0.30.7
       typescript: 5.3.3
-      vite: 5.1.4(@types/node@20.11.20)(sass@1.71.1)
+      vite: 5.1.4
       vue-component-meta: 1.8.27(typescript@5.3.3)
       vue-docgen-api: 4.75.1(vue@3.4.19)
     transitivePeerDependencies:
@@ -4036,7 +4033,7 @@ packages:
       lodash: 4.17.21
       ts-dedent: 2.2.0
       type-fest: 2.19.0
-      vue: 3.4.19(typescript@5.3.3)
+      vue: 3.4.19
       vue-component-type-helpers: 1.8.27
     transitivePeerDependencies:
       - encoding
@@ -4653,7 +4650,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.19
       '@vue/shared': 3.4.19
-      vue: 3.4.19(typescript@5.3.3)
+      vue: 3.4.19
 
   /@vue/shared@3.4.19:
     resolution: {integrity: sha512-/KliRRHMF6LoiThEy+4c1Z4KB/gbPrGjWwJR+crg2otgrf/egKzRaCPvJ51S5oetgsgXLfc4Rm5ZgrKHZrtMSw==}
@@ -10300,6 +10297,41 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /vite@5.1.4:
+    resolution: {integrity: sha512-n+MPqzq+d9nMVTKyewqw6kSt+R3CkvF9QAKY8obiQn8g1fwTscKxyfaYnC632HtBXAQGc1Yjomphwn1dtwGAHg==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.19.12
+      postcss: 8.4.35
+      rollup: 4.12.0
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
   /vite@5.1.4(@types/node@20.11.20)(sass@1.71.1):
     resolution: {integrity: sha512-n+MPqzq+d9nMVTKyewqw6kSt+R3CkvF9QAKY8obiQn8g1fwTscKxyfaYnC632HtBXAQGc1Yjomphwn1dtwGAHg==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -10499,7 +10531,7 @@ packages:
       pug: 3.0.2
       recast: 0.23.4
       ts-map: 1.0.3
-      vue: 3.4.19(typescript@5.3.3)
+      vue: 3.4.19
       vue-inbrowser-compiler-independent-utils: 4.71.1(vue@3.4.19)
     dev: true
 
@@ -10538,7 +10570,7 @@ packages:
     peerDependencies:
       vue: '>=2'
     dependencies:
-      vue: 3.4.19(typescript@5.3.3)
+      vue: 3.4.19
     dev: true
 
   /vue-router@4.3.0(vue@3.4.19):
@@ -10568,6 +10600,20 @@ packages:
       semver: 7.6.0
       typescript: 5.3.3
     dev: true
+
+  /vue@3.4.19:
+    resolution: {integrity: sha512-W/7Fc9KUkajFU8dBeDluM4sRGc/aa4YJnOYck8dkjgZoXtVsn3OeTGni66FV1l3+nvPA7VBFYtPioaGKUmEADw==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/compiler-dom': 3.4.19
+      '@vue/compiler-sfc': 3.4.19
+      '@vue/runtime-dom': 3.4.19
+      '@vue/server-renderer': 3.4.19(vue@3.4.19)
+      '@vue/shared': 3.4.19
 
   /vue@3.4.19(typescript@5.3.3):
     resolution: {integrity: sha512-W/7Fc9KUkajFU8dBeDluM4sRGc/aa4YJnOYck8dkjgZoXtVsn3OeTGni66FV1l3+nvPA7VBFYtPioaGKUmEADw==}
