@@ -4,6 +4,7 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 import { ref } from "vue";
 import LayoutDemoOptionsMolecule from "../components/molecules/LayoutDemoOptionsMolecule.vue";
+import LayoutSettings from "../components/layout-demo/LayoutSettings.vue";
 
 const options = ref({
   title0: "Page length:",
@@ -83,6 +84,8 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
       <div class="page__content">
         <h2>Scrollable page content</h2>
 
+        <LayoutSettings />
+        <!-- <LayoutDemoOptions /> -->
         <!-- demo sticky content -->
         <div v-if="options.showStickyContent" class="demo sticky-content">
           Sticky content. Example: Breadcrumb bar, Table header, Headlines

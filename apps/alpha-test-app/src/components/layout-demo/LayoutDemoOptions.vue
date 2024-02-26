@@ -19,6 +19,10 @@ import { watch } from "vue";
 //   get: () => props.modelValue,
 //   set: (value) => emit("update:modelValue", value),
 // });
+const detailFooter = { id: "detailFooter", label: "Detail Footer" };
+const fullFooter = { id: "fullFooter", label: "Full Footer" };
+const baseFooterOptions = [{ id: "none", label: "No Footer" }, fullFooter];
+const sidebarFooterOptions = [{ id: "none", label: "No Footer" }, detailFooter, fullFooter];
 
 const overlayOptions: SelectionOption<undefined>[] = [
   { id: "none", label: "None" },
@@ -47,13 +51,7 @@ const sidebarOptions: SelectionOption<undefined>[] = [
 ];
 const selectedSidebar = ref(sidebarOptions[1]);
 
-const detailFooter = { id: "detailFooter", label: "Detail Footer" };
-const fullFooter = { id: "fullFooter", label: "Full Footer" };
-const footerOptions = ref<SelectionOption<undefined>[]>([
-  { id: "none", label: "No Footer" },
-  detailFooter,
-  fullFooter,
-]);
+const footerOptions = ref<SelectionOption<undefined>[]>(sidebarFooterOptions);
 const selectedFooter = ref(detailFooter);
 
 const settings = computed(() => ({
@@ -81,14 +79,15 @@ const settings = computed(() => ({
 watch(
   settings,
   (newSettings) => {
+    console.log("### value here");
     if (!newSettings.showSideBar && !newSettings.showSideBarCollapse) {
       // if there is no sidebar, remove the option for detail footer
       if (newSettings.detailFooter) {
         selectedFooter.value = fullFooter;
       }
-      footerOptions.value = [{ id: "none", label: "No Footer" }, fullFooter];
+      footerOptions.value = baseFooterOptions;
     } else {
-      footerOptions.value = [{ id: "none", label: "No Footer" }, detailFooter, fullFooter];
+      footerOptions.value = sidebarFooterOptions;
     }
   },
   { immediate: true },
