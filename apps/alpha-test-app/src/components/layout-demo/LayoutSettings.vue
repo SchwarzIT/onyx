@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SelectionOption } from "sit-onyx";
 import { OnyxHeadline } from "sit-onyx";
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import MultiSettingsGroup from "./MultiSettingsGroup.vue";
 import SingleSettingsGroup from "./SingleSettingsGroup.vue";
 
@@ -67,9 +67,16 @@ const sidebarOptions: SelectionOption[] = [
 ];
 const showDetailFooter = { id: "showDetailFooter", label: "Detail Footer" };
 const showFullFooter = { id: "showFullFooter", label: "Full Footer" };
-const baseFooterOptions = [noneOption, showFullFooter];
-const sidebarFooterOptions = [noneOption, showDetailFooter, showFullFooter];
-const footerOptions = ref<SelectionOption[]>(sidebarFooterOptions);
+/** Adust footer configs depending on the availability of a sidebar */
+const footerOptions = computed<SelectionOption[]>(() => {
+  const { showSideBar, showSideBarCollapse } = activeSidebarSetting.value;
+  const isDetailFooterRelevant = showSideBar || showSideBarCollapse;
+  if (isDetailFooterRelevant) {
+    return [noneOption, showDetailFooter, showFullFooter];
+  } else {
+    return [noneOption, showFullFooter];
+  }
+});
 
 const activeContentSetting = computed({
   get: () => props.modelValue.content || {},
@@ -105,19 +112,6 @@ const enabledSections = computed(() => {
   }
   return sectionsToShow;
 });
-
-/** Adust footer configs depending on the availability of a sidebar */
-watch(
-  activeSidebarSetting,
-  (sidebarSetting) => {
-    if (!sidebarSetting.showSideBar && !sidebarSetting.showSideBarCollapse) {
-      footerOptions.value = baseFooterOptions;
-    } else {
-      footerOptions.value = sidebarFooterOptions;
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
