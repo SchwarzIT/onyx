@@ -6,26 +6,23 @@ import { watch } from "vue";
 import type { SelectionOption } from "sit-onyx";
 import { OnyxHeadline } from "sit-onyx";
 
-export type Settings = {
-  longPageContent?: boolean;
-  showFlyout?: boolean;
-  forceTooltip?: boolean;
-  showStickyContent?: boolean;
-  showToast?: boolean;
-
-  showSideBar?: boolean;
-  showSideBarCollapse?: boolean;
-  showTempOverlayTransparent?: boolean;
-  showTempOverlay?: boolean;
-
-  detailFooter?: boolean;
-  fullFooter?: boolean;
-
-  showPopover?: boolean;
-  showMobileFlyIn?: boolean;
-  showPageLoader?: boolean;
-  topBarFlyout?: boolean;
-};
+export type Settings = Partial<{
+  showLongPageContent: boolean;
+  showFlyout: boolean;
+  forceTooltip: boolean;
+  showStickyContent: boolean;
+  showToast: boolean;
+  showSideBar: boolean;
+  showSideBarCollapse: boolean;
+  showTempOverlayTransparent: boolean;
+  showTempOverlay: boolean;
+  showDetailFooter: boolean;
+  showFullFooter: boolean;
+  showPopover: boolean;
+  showMobileFlyIn: boolean;
+  showPageLoader: boolean;
+  showTopBarFlyout: boolean;
+}>;
 
 export type SettingsSection = "content" | "sideBar" | "footer" | "overlay";
 export type SettingsSections = Record<SettingsSection, Settings>;
@@ -49,7 +46,7 @@ const emit = defineEmits<{
 const noneOption = { id: "none", label: "None" };
 
 const contentOptions: SelectionOption[] = [
-  { id: "longPageContent", label: "Scrollable Page Content" },
+  { id: "showLongPageContent", label: "Scrollable Page Content" },
   { id: "showFlyout", label: "Flyout" },
   { id: "forceTooltip", label: "Tooltip" },
   { id: "showStickyContent", label: "Sticky Content" },
@@ -60,7 +57,7 @@ const overlayOptions: SelectionOption[] = [
   { id: "showPopover", label: "Popover/Modal" },
   { id: "showMobileFlyIn", label: "Mobile Fly-in" },
   { id: "showPageLoader", label: "Page loader" },
-  { id: "topBarFlyout", label: "Top bar flyout" },
+  { id: "showTopBarFlyout", label: "Top bar flyout" },
 ];
 const sidebarOptions: SelectionOption[] = [
   noneOption,
@@ -69,10 +66,10 @@ const sidebarOptions: SelectionOption[] = [
   { id: "showTempOverlay", label: "Overlay Sidebar with backdrop" },
   { id: "showTempOverlayTransparent", label: "Overlay Sidebar" },
 ];
-const detailFooter = { id: "detailFooter", label: "Detail Footer" };
-const fullFooter = { id: "fullFooter", label: "Full Footer" };
-const baseFooterOptions = [noneOption, fullFooter];
-const sidebarFooterOptions = [noneOption, detailFooter, fullFooter];
+const showDetailFooter = { id: "showDetailFooter", label: "Detail Footer" };
+const showFullFooter = { id: "showFullFooter", label: "Full Footer" };
+const baseFooterOptions = [noneOption, showFullFooter];
+const sidebarFooterOptions = [noneOption, showDetailFooter, showFullFooter];
 const footerOptions = ref<SelectionOption[]>(sidebarFooterOptions);
 
 const activeContentSetting = computed({

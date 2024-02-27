@@ -8,9 +8,9 @@ import LayoutSettings, {
 } from "../components/layout-demo/LayoutSettings.vue";
 
 const settings = ref<SettingsSections>({
-  content: { longPageContent: true },
+  content: { showLongPageContent: true },
   sideBar: { showSideBar: true },
-  footer: { detailFooter: true },
+  footer: { showDetailFooter: true },
   overlay: {},
 });
 
@@ -23,8 +23,8 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <div
     class="app"
     :class="{
-      'app--detail-footer': settings.footer.detailFooter,
-      'app--full-footer': settings.footer.fullFooter,
+      'app--detail-footer': settings.footer.showDetailFooter,
+      'app--full-footer': settings.footer.showFullFooter,
       'app--sidebar': settings.sideBar.showSideBar,
     }"
   >
@@ -63,7 +63,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     </div>
 
     <!----------- GRID main (right col) ----------->
-    <div class="page" :class="{ 'page--full-height': !settings.footer.fullFooter }">
+    <div class="page" :class="{ 'page--full-height': !settings.footer.showFullFooter }">
       <div class="page__content">
         <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
 
@@ -94,7 +94,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         </div>
 
         <!-- demo page content -->
-        <template v-if="settings.content.longPageContent">
+        <template v-if="settings.content.showLongPageContent">
           <p v-for="content in muchContent" :key="content">{{ content }}</p>
         </template>
       </div>
@@ -102,11 +102,11 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
     <!----------- GRID bottom row ----------->
     <div
-      v-if="settings.footer.detailFooter || settings.footer.fullFooter"
+      v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter"
       class="demo footer bottom-bar"
-      :class="{ 'footer--detail': settings.footer.detailFooter }"
+      :class="{ 'footer--detail': settings.footer.showDetailFooter }"
     >
-      <span v-if="settings.footer.fullFooter">Full </span><span v-else>Detail</span> footer
+      <span v-if="settings.footer.showFullFooter">Full </span><span v-else>Detail</span> footer
     </div>
 
     <!----------- GRID page overlay ----------->
@@ -124,7 +124,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <LayoutSettings v-model="settings" :show="['overlay']" />
       </section>
     </div>
-    <div v-if="settings.overlay.topBarFlyout" class="backdrop top-bar-fly-out">
+    <div v-if="settings.overlay.showTopBarFlyout" class="backdrop top-bar-fly-out">
       <section class="top-bar-fly-out__content">
         <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
 
@@ -162,14 +162,14 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
     <div class="backdrop">
       <div
         class="demo mobile-fly-in"
-        :class="{ 'mobile-fly-in--split': settings.footer.fullFooter }"
+        :class="{ 'mobile-fly-in--split': settings.footer.showFullFooter }"
       >
         <div class="mobile-fly-in__content">
           <OnyxHeadline is="h3">Mobile fly-in</OnyxHeadline>
 
           <LayoutSettings v-model="settings" :show="['overlay']" />
         </div>
-        <div v-if="settings.footer.fullFooter" class="demo bottom-bar">full footer</div>
+        <div v-if="settings.footer.showFullFooter" class="demo bottom-bar">full footer</div>
       </div>
     </div>
   </Teleport>
