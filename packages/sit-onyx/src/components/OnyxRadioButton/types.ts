@@ -1,7 +1,7 @@
 /**
  * TODO: move to dedicated file
  */
-export type SelectionOption<T> = {
+export type SelectionOption<T = unknown> = {
   /**
    * id of the selection option, not of the radio button input
    */
