@@ -137,7 +137,6 @@ const isChecked = computed({
   }
 
   &__container {
-    position: relative;
     display: inline-flex;
     margin: var(--onyx-spacing-2xs);
     width: 2.375rem;
