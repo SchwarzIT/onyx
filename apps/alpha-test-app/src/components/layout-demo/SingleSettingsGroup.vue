@@ -11,19 +11,11 @@ const props = defineProps<{
   horizontal?: boolean;
 }>();
 
-const options = computed<SelectionOption<Settings>[]>(() =>
-  props.options.map(
-    (option) => ({ ...option, value: { [option.id]: true } }) as SelectionOption<Settings>,
-  ),
-);
+const settingsToSelection = (settings?: Settings): SelectionOption | undefined =>
+  settings ? props.options.find((option) => option.id === Object.keys(settings)[0]) : undefined;
 
-const settingsToSelection = (settings?: Settings): SelectionOption<Settings> | undefined => {
-  return settings
-    ? options.value.find((option) => option.id === Object.keys(settings)[0])
-    : undefined;
-};
-const selectionToSettings = (selection?: SelectionOption<Settings>): Settings => {
-  return selection && selection.value ? selection.value : {};
+const selectionToSettings = (selection?: SelectionOption): Settings => {
+  return selection ? { [selection.id]: true } : {};
 };
 
 const selectedOption = computed({

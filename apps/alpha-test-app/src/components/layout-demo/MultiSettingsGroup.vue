@@ -5,17 +5,11 @@ import type { Settings } from "./LayoutSettings.vue";
 
 const activeSettings = defineModel<Settings>();
 
-const props = defineProps<{
+defineProps<{
   headline: string;
   options: SelectionOption[];
   horizontal?: boolean;
 }>();
-
-const options = computed<SelectionOption<Settings>[]>(() =>
-  props.options.map(
-    (option) => ({ ...option, value: { [option.id]: true } }) as SelectionOption<Settings>,
-  ),
-);
 
 const settingsToSelection = (settings?: Settings): (keyof Settings)[] => {
   return settings ? (Object.keys(settings) as (keyof Settings)[]) : [];

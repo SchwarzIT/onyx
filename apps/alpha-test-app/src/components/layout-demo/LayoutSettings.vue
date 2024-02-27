@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import SingleSettingsGroup from "./SingleSettingsGroup.vue";
-import MultiSettingsGroup from "./MultiSettingsGroup.vue";
-import { watch } from "vue";
 import type { SelectionOption } from "sit-onyx";
 import { OnyxHeadline } from "sit-onyx";
+import { computed, ref, watch } from "vue";
+import MultiSettingsGroup from "./MultiSettingsGroup.vue";
+import SingleSettingsGroup from "./SingleSettingsGroup.vue";
 
 export type Settings = Partial<{
   showLongPageContent: boolean;
