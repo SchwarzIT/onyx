@@ -41,5 +41,3 @@ const selectedOptions = computed({
     :direction="horizontal ? 'horizontal' : 'vertical'"
   />
 </template>
-
-<style lang="scss" scoped></style>

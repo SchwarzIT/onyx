@@ -89,7 +89,7 @@ const activeOverlaySetting = computed({
   set: (value) => emit("update:modelValue", { ...props.modelValue, overlay: value }),
 });
 
-const showSections = computed(() => {
+const enabledSections = computed(() => {
   const sectionsToShow = props.show.reduce<Partial<Record<SettingsSection, boolean>>>(
     (visibleSections, section) => {
       visibleSections[section] = true;
@@ -122,11 +122,11 @@ watch(
 </script>
 
 <template>
-  <div :key="modelValue.toString()">
+  <div class="settings">
     <OnyxHeadline is="h2">Demo Settings</OnyxHeadline>
 
     <MultiSettingsGroup
-      v-if="showSections.content"
+      v-if="enabledSections.content"
       v-model="activeContentSetting"
       headline="Content Options"
       :options="contentOptions"
@@ -134,7 +134,7 @@ watch(
     />
 
     <SingleSettingsGroup
-      v-if="showSections.sideBar"
+      v-if="enabledSections.sideBar"
       v-model="activeSidebarSetting"
       headline="Sidebar Options"
       :options="sidebarOptions"
@@ -142,7 +142,7 @@ watch(
     />
 
     <SingleSettingsGroup
-      v-if="showSections.footer"
+      v-if="enabledSections.footer"
       v-model="activeFooterSetting"
       headline="Footer Options"
       :options="footerOptions"
@@ -150,7 +150,7 @@ watch(
     />
 
     <SingleSettingsGroup
-      v-if="showSections.overlay"
+      v-if="enabledSections.overlay"
       v-model="activeOverlaySetting"
       headline="Overlay Options"
       :options="overlayOptions"
@@ -159,4 +159,10 @@ watch(
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+</style>
