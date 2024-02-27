@@ -18,10 +18,4 @@
   --onyx-duration-sm: 400ms;
   --onyx-duration-md: 700ms;
   --onyx-duration-lg: 1s;
-
-  @media (prefers-reduced-motion) {
-    --onyx-duration-sm: 0;
-    --onyx-duration-md: 0;
-    --onyx-duration-lg: 0;
-  }
 }
