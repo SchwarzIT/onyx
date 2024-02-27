@@ -47,7 +47,9 @@ const isChecked = computed({
       :required="props.required"
     />
     <span class="onyx-switch__container">
-      <OnyxIcon class="onyx-switch__icon" :icon="isChecked ? checkSmall : xSmall" size="24px" />
+      <span class="onyx-switch__icon">
+        <OnyxIcon :icon="isChecked ? checkSmall : xSmall" size="24px" />
+      </span>
     </span>
     <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
   </label>
