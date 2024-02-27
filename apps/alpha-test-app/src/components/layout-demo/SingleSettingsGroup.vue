@@ -11,8 +11,18 @@ const props = defineProps<{
   horizontal?: boolean;
 }>();
 
-const settingsToSelection = (settings?: Settings): SelectionOption | undefined =>
-  settings ? props.options.find((option) => option.id === Object.keys(settings)[0]) : undefined;
+/** returns the option with the key of the first `true` setting */
+const settingsToSelection = (setting?: Settings): SelectionOption | undefined => {
+  // for single settings, this will be an array of 0 or 1 element.
+  const trueKeys: string[] | undefined =
+    setting &&
+    Object.entries(setting)
+      .filter(([_, value]) => value === true)
+      .map(([key, _]) => key);
+  if (trueKeys) {
+    return setting ? props.options.find((option) => trueKeys.includes(option.id)) : undefined;
+  }
+};
 
 const selectionToSettings = (selection?: SelectionOption): Settings => {
   return selection ? { [selection.id]: true } : {};

@@ -11,8 +11,13 @@ defineProps<{
   horizontal?: boolean;
 }>();
 
+/** returns the attribute names of all `true` settings keys */
 const settingsToSelection = (settings?: Settings): (keyof Settings)[] => {
-  return settings ? (Object.keys(settings) as (keyof Settings)[]) : [];
+  return settings
+    ? Object.keys(settings).filter(
+        (key): key is keyof Settings => settings[key as keyof Settings] === true,
+      )
+    : [];
 };
 const selectionToSettings = (selection: (keyof Settings)[]): Settings => {
   return selection.reduce((settings: Settings, selectedKey) => {
