@@ -31,21 +31,6 @@ test("should render disabled OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render invalid OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxSwitch label="Switch" invalid />);
-
-  // ASSERT
-  await expect(component).toContainText("Switch");
-  await expect(component).toHaveScreenshot("invalid.png");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
 test("should render readonly OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<OnyxSwitch label="Switch" readonly />);

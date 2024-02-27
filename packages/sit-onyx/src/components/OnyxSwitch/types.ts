@@ -20,9 +20,9 @@ export type OnyxSwitchProps = {
    */
   required?: boolean;
   /**
-   * Whether the switch should be invalid or not.
+   * The error message that will be displayed if the input is invalid.
    */
-  invalid?: boolean;
+  errorMessage?: string;
   /**
    * If `true`, the label will be visually hidden.
    * For accessibility / screen readers, the aria-label will still be set.

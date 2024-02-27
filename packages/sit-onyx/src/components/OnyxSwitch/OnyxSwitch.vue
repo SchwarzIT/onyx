@@ -9,10 +9,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   disabled: false,
   required: false,
   readonly: false,
-  invalid: false,
 });
-
-// TODO: Implement invalid disabled state.
 
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
@@ -37,7 +34,6 @@ const isChecked = computed({
       v-model="isChecked"
       class="onyx-switch__input"
       :class="{
-        'onyx-switch__input--invalid': props.invalid,
         'onyx-switch__input--readonly': props.readonly,
         'onyx-switch__input--disabled': props.disabled,
       }"
@@ -45,6 +41,8 @@ const isChecked = computed({
       type="checkbox"
       :disabled="props.disabled || props.readonly"
       :required="props.required"
+      oninvalid="this.setCustomValidity(props.errorMessage)"
+      onchange="this.setCustomValidity('')"
     />
     <span class="onyx-switch__container">
       <span class="onyx-switch__icon">
@@ -95,7 +93,7 @@ const isChecked = computed({
       }
     }
 
-    &--invalid + .onyx-switch__container {
+    &:invalid + .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-200);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
       height: 1.375rem;
@@ -107,7 +105,7 @@ const isChecked = computed({
       }
     }
 
-    &--invalid:checked + .onyx-switch__container {
+    &:invalid:checked + .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-500);
 
       .onyx-switch__icon {
@@ -185,11 +183,11 @@ const isChecked = computed({
       background-color: var(--onyx-color-base-primary-400);
     }
 
-    &:has(.onyx-switch__input--invalid:enabled) .onyx-switch__container {
+    &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-300);
     }
 
-    &:has(.onyx-switch__input--invalid:enabled:checked) .onyx-switch__container {
+    &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-400);
     }
   }
@@ -205,11 +203,11 @@ const isChecked = computed({
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
 
-    &:has(.onyx-switch__input--invalid:enabled) .onyx-switch__container {
+    &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
       outline: 0.25rem solid var(--onyx-color-base-danger-300);
     }
 
-    &:has(.onyx-switch__input--invalid:checked:enabled) .onyx-switch__container {
+    &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
       outline: 0.25rem solid var(--onyx-color-base-danger-200);
     }
   }
