@@ -67,9 +67,13 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
     },
     decorators: [
       (Story, context) => {
-        const mandatoryMode = context.globals.mandatoryMode;
-        const className = mandatoryMode === "optional-indicator" ? "onyx-use-optional" : "";
-        return h("div", { class: className }, [h(Story())]);
+        const mandatoryMode = context.globals.mandatoryMode as MandatoryIndicator;
+        const a = h("div", { class: { ["onyx-use-optional"]: mandatoryMode === "optional" } }, [
+          h(Story(context)),
+        ]);
+        console.log(a);
+
+        return a;
       },
     ],
     parameters: {
@@ -124,6 +128,9 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
             ];
 
             return replacements.reduce((code, replacement) => {
+              console.log("🚀 ~ createPreview ~ a:", a);
+              console.log("🚀 ~ createPreview ~ a:", a);
+              console.log("🚀 ~ createPreview ~ a:", a);
               return replaceAll(code, replacement.searchValue, replacement.replaceValue);
             }, sourceCode);
           },
