@@ -16,7 +16,12 @@
 
 .onyx-optional-marker {
   .onyx-use-optional &::after {
-    font-family: var(--onyx-font-family);
+    font: {
+      family: var(--onyx-font-family);
+      size: 1rem;
+      weight: 400;
+      style: normal;
+    }
     content: var(--onyx-global-optional-text, "(optional)");
     color: var(--onyx-color-text-icons-neutral-soft);
     padding-left: var(--onyx-spacing-2xs);
