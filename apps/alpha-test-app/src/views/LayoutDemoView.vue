@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import { OnyxIcon } from "sit-onyx";
+import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
 import { ref } from "vue";
 import LayoutSettings, {
   type SettingsSections,
 } from "../components/layout-demo/LayoutSettings.vue";
-import { OnyxHeadline } from "sit-onyx";
 
 const settings = ref<SettingsSections>({
   content: { longPageContent: true },
@@ -179,10 +178,12 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   <Teleport v-if="settings.sideBar.showTempOverlay" to="body">
     <div v-if="tempOverlayOpen" class="backdrop"></div>
     <div class="temp-overlay">
-      <button class="demo temp-overlay__hinge" @click="tempOverlayOpen = !tempOverlayOpen">
-        <OnyxIcon v-if="tempOverlayOpen" :icon="chevronRightSmall" />
-        <OnyxIcon v-else :icon="chevronLeftSmall" />
-      </button>
+      <OnyxButton
+        class="temp-overlay__hinge"
+        :icon="tempOverlayOpen ? chevronRightSmall : chevronLeftSmall"
+        variation="secondary"
+        @click="tempOverlayOpen = !tempOverlayOpen"
+      />
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
         <OnyxHeadline is="h3">Temp overlay</OnyxHeadline>
 
@@ -382,7 +383,6 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
   }
 
   &__hinge {
-    max-height: 50px;
     margin: auto 0;
   }
 }
