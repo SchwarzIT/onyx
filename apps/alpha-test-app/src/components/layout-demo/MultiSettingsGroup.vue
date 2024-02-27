@@ -20,7 +20,7 @@ const settingsToSelection = (settings?: Settings): (keyof Settings)[] => {
     : [];
 };
 const selectionToSettings = (selection: (keyof Settings)[]): Settings => {
-  return selection.reduce((settings: Settings, selectedKey) => {
+  return selection.reduce<Settings>((settings, selectedKey) => {
     settings[selectedKey] = true;
     return settings;
   }, {});

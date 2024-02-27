@@ -6,6 +6,7 @@ import MultiSettingsGroup from "./MultiSettingsGroup.vue";
 import SingleSettingsGroup from "./SingleSettingsGroup.vue";
 
 export type Settings = Partial<{
+  none: boolean;
   showLongPageContent: boolean;
   showFlyout: boolean;
   forceTooltip: boolean;

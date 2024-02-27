@@ -11,12 +11,12 @@ const settings = ref<SettingsSections>({
   content: { showLongPageContent: true },
   sideBar: { showSideBar: true },
   footer: { showDetailFooter: true },
-  overlay: {},
+  overlay: { none: true },
 });
 
 const tempOverlayOpen = ref(true);
 
-const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor ${index}`);
+const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
 </script>
 
 <template>
