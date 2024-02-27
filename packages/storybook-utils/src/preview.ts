@@ -130,11 +130,11 @@ export const sourceCodeTransformer = (sourceCode: string): string => {
     // replace event bindings with shortcut
     { searchValue: "v-on:", replaceValue: "@" },
     // remove empty event handlers, e.g. @click="()=>({})" will be removed
-    { searchValue: / @.*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
-    // remove empty v-binds, e.g. v-bind="{}" will be removed
+    { searchValue: / @\S*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
+    // // remove empty v-binds, e.g. v-bind="{}" will be removed
     { searchValue: / v-bind=['"]{}['"]/g, replaceValue: "" },
-    // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
-    { searchValue: /:(.*)=['"]true['"]/g, replaceValue: "$1" },
+    // // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
+    { searchValue: /:?(\S*)=['"]true['"]/g, replaceValue: "$1" },
   ];
 
   return replacements.reduce((code, replacement) => {
