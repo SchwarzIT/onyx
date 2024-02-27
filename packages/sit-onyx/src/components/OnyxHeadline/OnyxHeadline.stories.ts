@@ -12,7 +12,7 @@ const meta: Meta<typeof OnyxHeadline> = {
     events: [],
     argTypes: {
       default: {
-        control: false,
+        control: { disabled: true },
       },
     },
   }),
