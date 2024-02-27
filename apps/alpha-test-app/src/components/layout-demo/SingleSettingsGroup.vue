@@ -7,7 +7,7 @@ const activeSetting = defineModel<Settings>();
 
 const props = defineProps<{
   headline: string;
-  options: SelectionOption<undefined>[];
+  options: SelectionOption[];
   horizontal?: boolean;
 }>();
 

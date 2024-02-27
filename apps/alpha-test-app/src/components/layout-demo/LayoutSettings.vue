@@ -48,21 +48,21 @@ const emit = defineEmits<{
 
 const noneOption = { id: "none", label: "None" };
 
-const contentOptions: SelectionOption<undefined>[] = [
+const contentOptions: SelectionOption[] = [
   { id: "longPageContent", label: "Scrollable Page Content" },
   { id: "showFlyout", label: "Flyout" },
   { id: "forceTooltip", label: "Tooltip" },
   { id: "showStickyContent", label: "Sticky Content" },
   { id: "showToast", label: "Toast" },
 ];
-const overlayOptions: SelectionOption<undefined>[] = [
+const overlayOptions: SelectionOption[] = [
   noneOption,
   { id: "showPopover", label: "Popover/Modal" },
   { id: "showMobileFlyIn", label: "Mobile Fly-in" },
   { id: "showPageLoader", label: "Page loader" },
   { id: "topBarFlyout", label: "Top bar flyout" },
 ];
-const sidebarOptions: SelectionOption<undefined>[] = [
+const sidebarOptions: SelectionOption[] = [
   noneOption,
   { id: "showSideBar", label: "Fixed Sidebar" },
   { id: "showSideBarCollapse", label: "Collapsible Sidebar" },
@@ -73,7 +73,7 @@ const detailFooter = { id: "detailFooter", label: "Detail Footer" };
 const fullFooter = { id: "fullFooter", label: "Full Footer" };
 const baseFooterOptions = [noneOption, fullFooter];
 const sidebarFooterOptions = [noneOption, detailFooter, fullFooter];
-const footerOptions = ref<SelectionOption<undefined>[]>(sidebarFooterOptions);
+const footerOptions = ref<SelectionOption[]>(sidebarFooterOptions);
 
 const activeContentSetting = computed({
   get: () => props.modelValue.content || {},
