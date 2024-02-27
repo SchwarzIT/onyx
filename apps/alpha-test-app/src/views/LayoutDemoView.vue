@@ -39,13 +39,8 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
         <span class="flyout-parent">
           <input @click="settings.content.showFlyout = !settings.content.showFlyout" />
           <div v-if="settings.content.showFlyout" class="demo flyout">
-            <!-- TODO: 
-      <LayoutSettings v-model="settings" hide-overlay-settings />
-             -->
-            <!-- <LayoutDemoOptionsMolecule
-              v-model="options"
-              highlight-label="settings.content.showFlyout"
-            /> -->
+            Hello world Hello world Hello world Hello world Hello world Hello world Hello world
+            Hello world
           </div>
         </span>
       </label>
@@ -60,11 +55,7 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
 
     <!----------- GRID sidebar (left col) ----------->
     <div v-if="settings.sideBar.showSideBar" class="demo side-bar">
-      <!-- TODO: 
-      <LayoutSettings v-model="settings" hide-overlay-settings />
-             -->
-      <!-- <LayoutDemoOptionsMolecule v-model="options" highlight-label="settings.sideBar.showSideBar" /> -->
-      <LayoutSettings v-model="settings" hide-overlay-settings />
+      <LayoutSettings v-model="settings" :show="['content', 'footer', 'sideBar']" />
 
       <!-- demo tooltip -->
       <div class="demo tooltip" :class="{ 'tooltip--forced': settings.content.forceTooltip }">
@@ -92,13 +83,8 @@ const muchContent = new Array(100).fill("").map((_, index) => `Lorem ipsum dolor
             <span class="flyout-parent">
               <input @click="settings.content.showFlyout = !settings.content.showFlyout" />
               <div v-if="settings.content.showFlyout" class="demo flyout">
-                <!-- TODO: 
-      <LayoutSettings v-model="settings" hide-overlay-settings />
-             -->
-                <!-- <LayoutDemoOptionsMolecule
-                  v-model="options"
-                  highlight-label="settings.content.showFlyout"
-                /> -->
+                Hello world Hello world Hello world Hello world Hello world Hello world Hello world
+                Hello world
               </div>
             </span>
           </label>

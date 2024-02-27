@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { OnyxRadioButtonGroup, type SelectionOption } from "sit-onyx";
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import type { Settings } from "./LayoutSettings.vue";
 
 const activeSetting = defineModel<Settings>();
@@ -17,13 +17,19 @@ const options = computed<SelectionOption<Settings>[]>(() =>
   ),
 );
 
-const selectedOption = ref(
-  activeSetting.value
-    ? options.value.find((option) => option.id === Object.keys(activeSetting.value!)[0])
-    : undefined,
-);
+const settingsToSelection = (settings?: Settings): SelectionOption<Settings> | undefined => {
+  return settings
+    ? options.value.find((option) => option.id === Object.keys(settings)[0])
+    : undefined;
+};
+const selectionToSettings = (selection?: SelectionOption<Settings>): Settings => {
+  return selection && selection.value ? selection.value : {};
+};
 
-watch(selectedOption, (setting) => (activeSetting.value = setting ? setting.value : {}));
+const selectedOption = computed({
+  get: () => settingsToSelection(activeSetting.value),
+  set: (value) => (activeSetting.value = selectionToSettings(value)),
+});
 </script>
 
 <template>

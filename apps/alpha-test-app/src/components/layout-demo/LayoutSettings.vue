@@ -30,14 +30,17 @@ export type Settings = {
 export type SettingsSection = "content" | "sideBar" | "footer" | "overlay";
 export type SettingsSections = Record<SettingsSection, Settings>;
 
-const props = defineProps<{
-  modelValue: SettingsSections;
-  horizontal?: boolean;
-  hideContentSettings?: boolean;
-  hideSidebarSettings?: boolean;
-  hideFooterSettings?: boolean;
-  hideOverlaySettings?: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    modelValue: SettingsSections;
+    horizontal?: boolean;
+    show?: SettingsSection[];
+  }>(),
+  {
+    horizontal: false,
+    show: () => ["content", "sideBar", "footer", "overlay"],
+  },
+);
 
 const emit = defineEmits<{
   "update:modelValue": [value: SettingsSections];
@@ -89,11 +92,22 @@ const activeOverlaySetting = computed({
   set: (value) => emit("update:modelValue", { ...props.modelValue, overlay: value }),
 });
 
-const blockOverlays = computed(() => {
-  return (
+const showSections = computed(() => {
+  const sectionsToShow = props.show.reduce<Partial<Record<SettingsSection, boolean>>>(
+    (visibleSections, section) => {
+      visibleSections[section] = true;
+      return visibleSections;
+    },
+    {},
+  );
+  if (
     activeSidebarSetting.value.showTempOverlay ||
     activeSidebarSetting.value.showTempOverlayTransparent
-  );
+  ) {
+    // block overlays when the temporary overlay is open
+    sectionsToShow.overlay = false;
+  }
+  return sectionsToShow;
 });
 
 /** Adust footer configs depending on the availability of a sidebar */
@@ -115,8 +129,7 @@ watch(
     <OnyxHeadline is="h2">Demo Settings</OnyxHeadline>
 
     <MultiSettingsGroup
-      v-if="!hideContentSettings"
-      :key="JSON.stringify(activeContentSetting)"
+      v-if="showSections.content"
       v-model="activeContentSetting"
       headline="Content Options"
       :options="contentOptions"
@@ -124,8 +137,7 @@ watch(
     />
 
     <SingleSettingsGroup
-      v-if="!hideSidebarSettings"
-      :key="JSON.stringify(activeSidebarSetting)"
+      v-if="showSections.sideBar"
       v-model="activeSidebarSetting"
       headline="Sidebar Options"
       :options="sidebarOptions"
@@ -133,8 +145,7 @@ watch(
     />
 
     <SingleSettingsGroup
-      v-if="!hideFooterSettings"
-      :key="JSON.stringify(activeFooterSetting)"
+      v-if="showSections.footer"
       v-model="activeFooterSetting"
       headline="Footer Options"
       :options="footerOptions"
@@ -142,8 +153,7 @@ watch(
     />
 
     <SingleSettingsGroup
-      v-if="!hideOverlaySettings || blockOverlays"
-      :key="JSON.stringify(activeOverlaySetting)"
+      v-if="showSections.overlay"
       v-model="activeOverlaySetting"
       headline="Overlay Options"
       :options="overlayOptions"

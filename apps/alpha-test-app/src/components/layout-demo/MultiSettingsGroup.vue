@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { OnyxCheckboxGroup, type SelectionOption } from "sit-onyx";
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import type { Settings } from "./LayoutSettings.vue";
 
 const activeSettings = defineModel<Settings>();
@@ -17,18 +17,20 @@ const options = computed<SelectionOption<Settings>[]>(() =>
   ),
 );
 
-const selectedOptions = ref<(keyof Settings)[]>(
-  activeSettings.value ? (Object.keys(activeSettings.value) as (keyof Settings)[]) : [],
-);
+const settingsToSelection = (settings?: Settings): (keyof Settings)[] => {
+  return settings ? (Object.keys(settings) as (keyof Settings)[]) : [];
+};
+const selectionToSettings = (selection: (keyof Settings)[]): Settings => {
+  return selection.reduce((settings: Settings, selectedKey) => {
+    settings[selectedKey] = true;
+    return settings;
+  }, {});
+};
 
-watch(
-  selectedOptions,
-  (settings) =>
-    (activeSettings.value = settings.reduce((settings: Settings, selectedKey) => {
-      settings[selectedKey] = true;
-      return settings;
-    }, {})),
-);
+const selectedOptions = computed({
+  get: () => settingsToSelection(activeSettings.value),
+  set: (value) => (activeSettings.value = selectionToSettings(value)),
+});
 </script>
 
 <template>
