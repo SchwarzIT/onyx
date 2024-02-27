@@ -45,7 +45,7 @@ export const defineIconSelectArgType = () => {
 export const createIconSourceCodeTransformer = (propertyName: string) => {
   const iconArgType = defineIconSelectArgType();
 
-  return (sourceCode: string, ctx: StoryContext) => {
+  return (sourceCode: string, ctx: Pick<StoryContext, "args">) => {
     // using this custom transformer would override the default one
     // so we are calling the default transformer here
     const code = sourceCodeTransformer(sourceCode);
@@ -54,8 +54,8 @@ export const createIconSourceCodeTransformer = (propertyName: string) => {
     const iconName = iconArgType.control.labels[ctx.args[propertyName] as string];
 
     return `<script lang="ts" setup>
-    import icon from "@sit-onyx/icons/${iconName}.svg?raw";
-    </script>
-    ${code.replace(new RegExp(` ${propertyName}=['"].*['"]`), ` :${propertyName}="icon"`)}`;
+import icon from "@sit-onyx/icons/${iconName}.svg?raw";
+</script>
+${code.replace(new RegExp(` ${propertyName}=['"].*['"]`), ` :${propertyName}="icon"`)}`;
   };
 };
