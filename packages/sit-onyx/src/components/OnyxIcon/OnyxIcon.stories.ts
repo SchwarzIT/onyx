@@ -1,11 +1,8 @@
-import { type OnyxIconProps } from "@/index";
-import { defineIconSelectArgType } from "@/utils/storybook";
+import { createIconSourceCodeTransformer, defineIconSelectArgType } from "@/utils/storybook";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryContext, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxIcon from "./OnyxIcon.vue";
-
-const iconArgType = defineIconSelectArgType();
 
 /**
  * Component to display icons. Supports all inline SVG icon libraries.
@@ -20,21 +17,14 @@ const meta: Meta<typeof OnyxIcon> = {
     component: OnyxIcon,
     events: [],
     argTypes: {
-      icon: iconArgType,
+      icon: defineIconSelectArgType(),
     },
   }),
   parameters: {
     docs: {
       source: {
         // improve code snippet by adding the icon import
-        transform: (sourceCode: string, ctx: StoryContext) => {
-          const iconName = iconArgType.control.labels[ctx.args.icon as OnyxIconProps["icon"]];
-
-          return `<script lang="ts" setup>
-          import icon from "@sit-onyx/icons/${iconName}.svg?raw";
-          </script>
-          ${sourceCode.replace(/ icon=['"].*['"]/, ' :icon="icon"')}`;
-        },
+        transform: createIconSourceCodeTransformer("icon"),
       },
     },
   },
