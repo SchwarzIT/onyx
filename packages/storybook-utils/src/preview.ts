@@ -59,8 +59,8 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
         toolbar: {
           icon: "flag",
           items: [
-            { value: "required", right: "*", title: "Required indicator" },
-            { value: "optional", right: "(optional)", title: "Optional indicator" },
+            { value: "required", right: "*", title: "Required indicator:" },
+            { value: "optional", right: "(optional)", title: "Optional indicator:" },
           ],
         },
       } satisfies MandatoryGlobalType,
