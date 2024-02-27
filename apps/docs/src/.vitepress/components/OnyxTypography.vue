@@ -16,8 +16,8 @@ export type TypographyToken = {
   name: string;
   /** HTML element to render. */
   htmlTag: HeadlineType | "p" | "a";
-  /** Font size to use if `htmlTag` is <p> or <a> */
-  fontSize?: TextSize;
+  /** Text size to use if `htmlTag` is <p> or <a> */
+  textSize?: TextSize;
 };
 
 const AVAILABLE_FONT_TABS = ["Source Sans 3", "Source Code Pro"] as const;
@@ -33,13 +33,18 @@ const previewText = "onyx design system" as const;
 const currentTab = ref<AvailableFontTab>(AVAILABLE_FONT_TABS[0]);
 
 const isMonospace = computed(() => currentTab.value === "Source Code Pro");
+
+const getTextSizeClass = (fontSize?: TextSize) => {
+  if (!fontSize || fontSize === "default") return "";
+  return `onyx-text--${fontSize}`;
+};
 </script>
 
 <template>
   <section class="typography">
     <DesignTokenHeader v-model="currentTab" :tabs="AVAILABLE_FONT_TABS" />
 
-    <div class="typography__content">
+    <div class="typography__content" :class="isMonospace ? 'onyx-text--monospace' : ''">
       <DesignTokenCard
         v-for="token in props.tokens"
         :key="token.name"
@@ -50,10 +55,7 @@ const isMonospace = computed(() => currentTab.value === "Source Code Pro");
           <p
             v-if="token.htmlTag === 'p'"
             class="onyx-text"
-            :class="[
-              token.fontSize && token.fontSize !== 'default' ? `onyx-text--${token.fontSize}` : '',
-              isMonospace ? 'onyx-text--monospace' : '',
-            ]"
+            :class="getTextSizeClass(token.textSize)"
           >
             {{ previewText }}
           </p>
@@ -61,8 +63,8 @@ const isMonospace = computed(() => currentTab.value === "Source Code Pro");
           <OnyxLink
             v-else-if="token.htmlTag === 'a'"
             href="#"
-            :size="token.fontSize"
-            :monospace="isMonospace"
+            class="onyx-text"
+            :class="getTextSizeClass(token.textSize)"
           >
             {{ previewText }}
           </OnyxLink>

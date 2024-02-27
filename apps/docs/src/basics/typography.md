@@ -27,15 +27,15 @@ const headlineTokens = Array.from<unknown, TypographyToken>({ length: 6 }, (_, i
 });
 
 const paragraphTokens: TypographyToken[] = [
-  { name: "paragraph-large", fontSize: "large", htmlTag: "p" },
-  { name: "paragraph-default", fontSize: "default", htmlTag: "p" },
-  { name: "paragraph-small", fontSize: "small", htmlTag: "p" },
+  { name: "paragraph-large", textSize: "large", htmlTag: "p" },
+  { name: "paragraph-default", textSize: "default", htmlTag: "p" },
+  { name: "paragraph-small", textSize: "small", htmlTag: "p" },
 ];
 
 const linkTokens: TypographyToken[] = [
-  { name: "link-large", fontSize: "large", htmlTag: "a" },
-  { name: "link-default", fontSize: "default", htmlTag: "a" },
-  { name: "link-small", fontSize: "small", htmlTag: "a" },
+  { name: "link-large", textSize: "large", htmlTag: "a" },
+  { name: "link-default", textSize: "default", htmlTag: "a" },
+  { name: "link-small", textSize: "small", htmlTag: "a" },
 ];
 </script>
 

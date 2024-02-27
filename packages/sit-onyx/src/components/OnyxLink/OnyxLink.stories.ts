@@ -15,6 +15,15 @@ const meta: Meta<typeof OnyxLink> = {
         control: { disabled: true },
       },
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `
+      <div class="onyx-text" style="font-family: var(--onyx-font-family);">
+        <story />
+      </div>`,
+      }),
+    ],
   }),
 };
 
