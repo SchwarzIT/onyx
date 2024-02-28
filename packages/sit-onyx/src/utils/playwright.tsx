@@ -1,7 +1,7 @@
+import {} from "@playwright/experimental-ct-vue";
+import type { Locator } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
-import type { Locator } from "@playwright/test";
-import {} from "@playwright/experimental-ct-vue";
 
 type Permutation<T extends Record<string, readonly string[]>> = {
   [key in keyof T]: T[key][number];
@@ -114,7 +114,7 @@ export const createScreenshotsForAllStates =
       const wrappedMount = ((jsx: JSX.Element, options?: { optional?: boolean }) =>
         mount(
           <div
-            style={{ width: "min-content", padding: "1rem" }}
+            style={{ width: "max-content", padding: "1rem" }}
             class={{
               "onyx-use-optional": options?.optional,
             }}
