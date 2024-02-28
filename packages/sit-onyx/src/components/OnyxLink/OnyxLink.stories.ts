@@ -51,12 +51,13 @@ export const NewTab = {
 } satisfies Story;
 
 /**
- * By default external links that point to another website will show an icon.
- * If you use internal links that point to the same website, the icon will be hidden.
+ * Link without the external icon.
+ * For relative/internal links or protocols like mailto:, tel: etc. you don't need to set
+ * the `hideExternalIcon` property, it will be hidden automatically.
  */
-export const InternalLink = {
+export const WithoutExternalIcon = {
   args: {
-    default: () => "Click me",
-    href: "#",
+    ...Default.args,
+    hideExternalIcon: true,
   },
 } satisfies Story;
