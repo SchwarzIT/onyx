@@ -3,7 +3,9 @@ import { OnyxIcon } from "@/index";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import type { OnyxSwitchProps } from "./types";
-import { computed } from "vue";
+import { areObjectsFlatEqual } from "@/utils/comparator";
+import { transformValidityStateToObject } from "@/utils/forms";
+import { computed, ref, toRefs, watch } from "vue";
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
@@ -14,7 +16,13 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
   "update:modelValue": [value: boolean];
+  /** Emitted whenever the validity state of the input changes */
+  validityChange: [state: ValidityState];
 }>();
+
+const { errorMessage } = toRefs(props);
+const inputElement = ref<HTMLInputElement | null>(null);
+const validityState = ref(inputElement.value?.validity);
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -22,6 +30,28 @@ const isChecked = computed({
     emit("update:modelValue", value);
   },
 });
+
+watch([inputElement, errorMessage], () => {
+  if (!inputElement.value) return;
+  // by using setCustomValidity, the ValidityState will turn invalid
+  // as long as it is not an empty string
+  inputElement.value.setCustomValidity(props.errorMessage || "");
+});
+
+watch(
+  [inputElement, isChecked, errorMessage],
+  () => {
+    if (!inputElement.value) return;
+
+    const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
+    //  only update + emit the validity state when it changed
+    if (!validityState.value || !areObjectsFlatEqual(newValidityState, validityState.value)) {
+      validityState.value = newValidityState;
+      emit("validityChange", validityState.value);
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -31,6 +61,7 @@ const isChecked = computed({
     :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
   >
     <input
+      ref="inputElement"
       v-model="isChecked"
       class="onyx-switch__input"
       :class="{
@@ -41,8 +72,6 @@ const isChecked = computed({
       type="checkbox"
       :disabled="props.disabled || props.readonly"
       :required="props.required"
-      oninvalid="this.setCustomValidity(props.errorMessage)"
-      onchange="this.setCustomValidity('')"
     />
     <span class="onyx-switch__container">
       <span class="onyx-switch__icon">
@@ -51,6 +80,9 @@ const isChecked = computed({
     </span>
     <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
   </label>
+  <p v-if="!validityState?.valid" class="onyx-input__error" aria-live="polite">
+    {{ props.errorMessage }}
+  </p>
 </template>
 
 <style lang="scss">
