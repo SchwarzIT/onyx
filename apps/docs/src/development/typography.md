@@ -35,3 +35,14 @@ import "custom.css";
 ```
 
 :::
+
+## Font styles
+
+onyx provides some utility CSS classes for font styles that can be used to style custom text components like `<p>` or `<span>`.
+
+| Class                                    | Description                                            |
+| ---------------------------------------- | ------------------------------------------------------ |
+| `class="onyx-text"`                      | Sets the default font size and line height             |
+| `class="onyx-text onyx-text--small"`     | Same as `onyx-text` but in small size and line height  |
+| `class="onyx-text onyx-text--large"`     | Same as `onyx-text` but in large size and line height  |
+| `class="onyx-text onyx-text--monospace"` | Same as `onyx-text` but with the monospace font family |
