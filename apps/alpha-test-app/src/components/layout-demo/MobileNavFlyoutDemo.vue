@@ -5,7 +5,7 @@ import { OnyxHeadline } from "sit-onyx";
 <template>
   <section class="backdrop top-bar-fly-out">
     <div class="top-bar-fly-out__content">
-      <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
+      <OnyxHeadline is="h2">Mobile Top Bar Flyout</OnyxHeadline>
       <slot></slot>
     </div>
   </section>

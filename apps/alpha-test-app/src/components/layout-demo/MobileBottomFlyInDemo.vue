@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
 import { FooterDemo } from ".";
 defineProps<{
   showFooter?: boolean;
@@ -10,7 +11,7 @@ defineProps<{
     <div class="backdrop">
       <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': showFooter }">
         <div class="mobile-fly-in__content">
-          <h3>Mobile fly-in</h3>
+          <OnyxHeadline is="h2">Mobile fly-in</OnyxHeadline>
 
           <slot></slot>
         </div>

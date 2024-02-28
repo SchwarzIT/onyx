@@ -6,7 +6,7 @@ import { OnyxHeadline } from "sit-onyx";
   <Teleport to="body">
     <div class="backdrop">
       <div class="demo popover">
-        <OnyxHeadline is="h3">Popover / Modal content</OnyxHeadline>
+        <OnyxHeadline is="h2">Popover / Modal content</OnyxHeadline>
         <slot></slot>
       </div>
     </div>

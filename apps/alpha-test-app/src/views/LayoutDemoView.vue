@@ -7,7 +7,7 @@ import {
   FlyoutDemo,
   FooterDemo,
   LayoutSettings,
-  MobileBottomFlyoutDemo,
+  MobileBottomFlyInDemo,
   MobileNavFlyoutDemo,
   PopoverDemo,
   SidebarDemo,
@@ -107,13 +107,13 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
     <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
   </PopoverDemo>
 
-  <MobileBottomFlyoutDemo
+  <MobileBottomFlyInDemo
     v-if="settings.overlay.showMobileFlyIn"
     :show-footer="settings.footer.showFullFooter || settings.footer.showDetailFooter"
   >
     <OnyxButton label="Close" @click="settings.overlay.showMobileFlyIn = false" />
     <LayoutSettings v-model="settings" :show="['overlay']" />
-  </MobileBottomFlyoutDemo>
+  </MobileBottomFlyInDemo>
 
   <TempOverlayDemo v-if="settings.sideBar.showTempOverlay">
     <OnyxButton label="Close" @click="settings.overlay.showTempOverlay = false" />

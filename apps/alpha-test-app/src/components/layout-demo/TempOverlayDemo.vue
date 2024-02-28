@@ -18,7 +18,7 @@ const tempOverlayOpen = ref(true);
         @click="tempOverlayOpen = !tempOverlayOpen"
       />
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
-        <OnyxHeadline is="h3">Temp overlay</OnyxHeadline>
+        <OnyxHeadline is="h2">Temp overlay</OnyxHeadline>
         <slot></slot>
       </div>
     </div>

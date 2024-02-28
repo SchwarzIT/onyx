@@ -4,7 +4,7 @@ export { default as FlyoutDemo } from "./FlyoutDemo.vue";
 export { default as FooterDemo } from "./FooterDemo.vue";
 export * from "./LayoutSettings.vue";
 export { default as LayoutSettings } from "./LayoutSettings.vue";
-export { default as MobileBottomFlyoutDemo } from "./MobileBottomFlyoutDemo.vue";
+export { default as MobileBottomFlyInDemo } from "./MobileBottomFlyInDemo.vue";
 export { default as MobileNavFlyoutDemo } from "./MobileNavFlyoutDemo.vue";
 export { default as PopoverDemo } from "./PopoverDemo.vue";
 export { default as SidebarDemo } from "./SidebarDemo.vue";
