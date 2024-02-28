@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { OnyxIcon } from "sit-onyx";
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
 import { ref } from "vue";
 
 const tempOverlayOpen = ref(true);
@@ -11,12 +11,14 @@ const tempOverlayOpen = ref(true);
   <Teleport to="body">
     <div v-if="tempOverlayOpen" class="backdrop"></div>
     <div class="temp-overlay">
-      <button class="demo temp-overlay__hinge" @click="tempOverlayOpen = !tempOverlayOpen">
-        <OnyxIcon v-if="tempOverlayOpen" :icon="chevronRightSmall" />
-        <OnyxIcon v-else :icon="chevronLeftSmall" />
-      </button>
+      <OnyxButton
+        class="temp-overlay__hinge"
+        :icon="tempOverlayOpen ? chevronRightSmall : chevronLeftSmall"
+        variation="secondary"
+        @click="tempOverlayOpen = !tempOverlayOpen"
+      />
       <div v-if="tempOverlayOpen" class="demo temp-overlay__content">
-        <h3>Temp overlay</h3>
+        <OnyxHeadline is="h3">Temp overlay</OnyxHeadline>
         <slot></slot>
       </div>
     </div>

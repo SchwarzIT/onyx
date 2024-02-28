@@ -1,10 +1,12 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
+</script>
 
 <template>
   <Teleport to="body">
     <div class="backdrop">
       <div class="demo popover">
-        <h3>Popover / Modal content</h3>
+        <OnyxHeadline is="h3">Popover / Modal content</OnyxHeadline>
         <slot></slot>
       </div>
     </div>

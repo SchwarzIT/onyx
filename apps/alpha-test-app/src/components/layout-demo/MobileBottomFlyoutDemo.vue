@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { FooterDemo } from ".";
 defineProps<{
-  showFooter: boolean;
+  showFooter?: boolean;
 }>();
 </script>
 

@@ -12,7 +12,7 @@
   "dependencies": {
     "sit-onyx": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
-    "vue": "^3.4.19",
+    "vue": "^3.4.20",
     "vue-i18n": "^9.9.1",
     "vue-router": "^4.3.0"
   }

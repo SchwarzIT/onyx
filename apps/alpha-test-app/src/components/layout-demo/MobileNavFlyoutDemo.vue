@@ -1,8 +1,10 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
+</script>
 
 <template>
   <section class="backdrop top-bar-fly-out">
-    <h3>Mobile Top Bar Flyout</h3>
+    <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
     <slot></slot>
   </section>
 </template>

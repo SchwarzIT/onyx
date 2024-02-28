@@ -1,8 +1,10 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
+</script>
 
 <template>
   <section class="page-loader">
-    <h3>Page loader overlay</h3>
+    <OnyxHeadline is="h3">Page loader overlay</OnyxHeadline>
 
     <slot></slot>
   </section>

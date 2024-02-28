@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineProps<{
-  forceTooltip: boolean;
+  forceTooltip?: boolean;
 }>();
 </script>
 
