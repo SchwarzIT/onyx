@@ -11,6 +11,8 @@ export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.
 export * from "@/components/OnyxHeadline/types";
 export { default as OnyxIcon } from "@/components/OnyxIcon/OnyxIcon.vue";
 export * from "@/components/OnyxIcon/types";
+export { default as OnyxLoadingIndicator } from "@/components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+export * from "@/components/OnyxLoadingIndicator/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types/colors";

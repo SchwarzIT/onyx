@@ -1,5 +1,5 @@
 import { sourceCodeTransformer } from "@sit-onyx/storybook-utils";
-import type { StoryContext } from "@storybook/vue3";
+import type { Decorator, StoryContext } from "@storybook/vue3";
 
 /**
  * Defines the control for a Storybook argType to be a select/dropdown of
@@ -59,3 +59,16 @@ import icon from "@sit-onyx/icons/${iconName}.svg?raw";
 ${code.replace(new RegExp(` ${propertyName}=['"].*['"]`), ` :${propertyName}="icon"`)}`;
   };
 };
+
+/**
+ * Storybook decorator that wraps the story with a <div> that sets the text color
+ * to neutral intense.
+ * Useful if the component uses "currentColor" in its CSS.
+ */
+export const textColorDecorator: Decorator = (story) => ({
+  components: { story },
+  template: `
+  <div style="color: var(--onyx-color-text-icons-neutral-intense)">
+    <story />
+  </div>`,
+});
