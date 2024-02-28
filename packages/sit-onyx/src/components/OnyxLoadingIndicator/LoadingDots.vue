@@ -8,21 +8,25 @@
 
 <style lang="scss">
 .onyx-loading-dots {
-  --duration: var(--onyx-duration-md);
+  :where(&) {
+    --indicator-size: 24px;
+  }
 
-  width: 24px;
+  width: var(--indicator-size);
   aspect-ratio: 1;
   fill: currentColor;
 
+  $duration: var(--onyx-duration-md);
+
   &__circle {
-    animation: onyx-loading-dots var(--duration) infinite alternate;
+    animation: onyx-loading-dots $duration infinite alternate;
 
     &:nth-child(2) {
-      animation-delay: calc(var(--duration) / 2);
+      animation-delay: calc(#{$duration} / 2);
     }
 
     &:last-child {
-      animation-delay: var(--duration);
+      animation-delay: $duration;
     }
   }
 
