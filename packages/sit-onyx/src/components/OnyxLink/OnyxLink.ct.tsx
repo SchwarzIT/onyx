@@ -3,15 +3,18 @@ import { createScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxLink from "./OnyxLink.vue";
 
 const STATES = {
-  state: ["default"],
+  state: ["default", "external"],
   focusState: ["", "hover", "focus-visible"],
 } as const;
 
 test(
   "State screenshot testing",
-  createScreenshotsForAllStates(STATES, "link", async ({ focusState }, mount, page) => {
+  createScreenshotsForAllStates(STATES, "link", async ({ state, focusState }, mount, page) => {
     const component = await mount(
-      <OnyxLink href="#" style="font-family: var(--onyx-font-family);">
+      <OnyxLink
+        href={state === "external" ? "https://onyx.schwarz" : "#"}
+        style="font-family: var(--onyx-font-family);"
+      >
         Click me
       </OnyxLink>,
     );
