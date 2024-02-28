@@ -23,7 +23,9 @@
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "peerDependencies": {
     "@storybook/core-events": ">= 8.0.0-beta.5",
