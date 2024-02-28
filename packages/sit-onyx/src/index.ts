@@ -11,6 +11,8 @@ export { default as OnyxIcon } from "@/components/OnyxIcon/OnyxIcon.vue";
 export * from "@/components/OnyxIcon/types";
 export { default as OnyxLink } from "@/components/OnyxLink/OnyxLink.vue";
 export * from "@/components/OnyxLink/types";
+export { default as OnyxLoadingIndicator } from "@/components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+export * from "@/components/OnyxLoadingIndicator/types";
 export * from "@/components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "@/components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
