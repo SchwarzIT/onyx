@@ -98,28 +98,32 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
       <LayoutSettings v-model="settings" :show="['overlay']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </MobileNavFlyoutDemo>
+
+    <TempOverlayDemo v-if="settings.sideBar.showTempOverlay">
+      <OnyxButton label="Close" @click="settings.overlay.showTempOverlay = false" />
+      <LayoutSettings v-model="settings" :show="['sideBar']" />
+      <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+    </TempOverlayDemo>
   </div>
 
   <!----------- APP cover overlays ----------->
-  <PopoverDemo v-if="settings.overlay.showPopover">
-    <OnyxButton label="Close" @click="settings.overlay.showPopover = false" />
-    <LayoutSettings v-model="settings" :show="['overlay']" />
-    <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-  </PopoverDemo>
+  <Teleport v-if="settings.overlay.showPopover || settings.overlay.showMobileFlyIn" to="body">
+    <div class="backdrop">
+      <PopoverDemo v-if="settings.overlay.showPopover">
+        <OnyxButton label="Close" @click="settings.overlay.showPopover = false" />
+        <LayoutSettings v-model="settings" :show="['overlay']" />
+        <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+      </PopoverDemo>
 
-  <MobileBottomFlyInDemo
-    v-if="settings.overlay.showMobileFlyIn"
-    :show-footer="settings.footer.showFullFooter || settings.footer.showDetailFooter"
-  >
-    <OnyxButton label="Close" @click="settings.overlay.showMobileFlyIn = false" />
-    <LayoutSettings v-model="settings" :show="['overlay']" />
-  </MobileBottomFlyInDemo>
-
-  <TempOverlayDemo v-if="settings.sideBar.showTempOverlay">
-    <OnyxButton label="Close" @click="settings.overlay.showTempOverlay = false" />
-    <LayoutSettings v-model="settings" :show="['sideBar']" />
-    <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-  </TempOverlayDemo>
+      <MobileBottomFlyInDemo
+        v-if="settings.overlay.showMobileFlyIn"
+        :show-footer="settings.footer.showFullFooter || settings.footer.showDetailFooter"
+      >
+        <OnyxButton label="Close" @click="settings.overlay.showMobileFlyIn = false" />
+        <LayoutSettings v-model="settings" :show="['overlay']" />
+      </MobileBottomFlyInDemo>
+    </div>
+  </Teleport>
 </template>
 
 <style lang="scss">

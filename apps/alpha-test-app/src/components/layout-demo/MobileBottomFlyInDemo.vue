@@ -7,18 +7,14 @@ defineProps<{
 </script>
 
 <template>
-  <Teleport to="body">
-    <div class="backdrop">
-      <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': showFooter }">
-        <div class="mobile-fly-in__content">
-          <OnyxHeadline is="h2">Mobile fly-in</OnyxHeadline>
+  <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': showFooter }">
+    <div class="mobile-fly-in__content">
+      <OnyxHeadline is="h2">Mobile fly-in</OnyxHeadline>
 
-          <slot></slot>
-        </div>
-        <FooterDemo v-if="showFooter" />
-      </div>
+      <slot></slot>
     </div>
-  </Teleport>
+    <FooterDemo v-if="showFooter" />
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
