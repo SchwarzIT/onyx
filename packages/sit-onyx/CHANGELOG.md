@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.20
+
+### Minor Changes
+
+- 6045208: feat: add OnyxLoading indicator (circle)
+
 ## 1.0.0-alpha.19
 
 ### Minor Changes
