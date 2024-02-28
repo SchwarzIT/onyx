@@ -4,13 +4,15 @@ import { OnyxHeadline } from "sit-onyx";
 
 <template>
   <section class="backdrop top-bar-fly-out">
-    <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
-    <slot></slot>
+    <div class="top-bar-fly-out__content">
+      <OnyxHeadline is="h3">Mobile Top Bar Flyout</OnyxHeadline>
+      <slot></slot>
+    </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-.top-bar-fly-out {
+.top-bar-fly-out__content {
   background-color: white;
   padding: 4px;
 }
