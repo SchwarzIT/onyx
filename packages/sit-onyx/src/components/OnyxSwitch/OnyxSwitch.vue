@@ -80,9 +80,6 @@ watch(
     </span>
     <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
   </label>
-  <p v-if="!validityState?.valid" class="onyx-input__error" aria-live="polite">
-    {{ props.errorMessage }}
-  </p>
 </template>
 
 <style lang="scss">
