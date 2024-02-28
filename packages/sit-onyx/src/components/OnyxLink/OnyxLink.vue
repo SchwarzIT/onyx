@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { isExternalLink } from "@/utils";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
+import { isExternalLink } from "../../utils";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxLinkProps } from "./types";
 
