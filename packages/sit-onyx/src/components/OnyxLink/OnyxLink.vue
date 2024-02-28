@@ -39,5 +39,23 @@ defineSlots<{
 
   // other styles like size, font family etc. should be inherited
   // so we don't define them here
+
+  &:visited {
+    color: var(--onyx-color-text-icons-primary-bold);
+  }
+
+  // make sure that hover has higher specificity than visited so that the hover color is also
+  // applied to visited links
+  &:hover {
+    color: var(--onyx-color-text-icons-primary-medium);
+  }
+
+  &:focus-visible {
+    color: var(--onyx-color-text-icons-primary-medium);
+  }
+
+  &:active {
+    color: var(--onyx-color-text-icons-primary-bold);
+  }
 }
 </style>
