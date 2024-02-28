@@ -10,9 +10,9 @@ export type OnyxLinkProps = {
   target?: LinkTarget;
   /**
    * Whether to hide the external link icon if `href` points to an external website.
-   * For internal/relative links or protocols like mailto:, tel: etc. it will be hidden automatically.
+   * For links not starting with "http://" or "https://" it will be hidden automatically.
    */
-  hideExternalLink?: boolean;
+  hideExternalIcon?: boolean;
 };
 
 export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;
