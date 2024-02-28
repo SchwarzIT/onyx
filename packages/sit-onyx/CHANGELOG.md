@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.21
+
+### Minor Changes
+
+- 6324d32: feat: add `OnyxLink` component
+
 ## 1.0.0-alpha.20
 
 ### Minor Changes
