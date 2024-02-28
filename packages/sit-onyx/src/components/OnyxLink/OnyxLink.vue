@@ -1,8 +1,12 @@
 <script lang="ts" setup>
+import { isExternalLink } from "@/utils";
+import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",
+  hideExternalLink: false,
 });
 
 const emit = defineEmits<{
@@ -29,6 +33,11 @@ defineSlots<{
     @click="emit('click')"
   >
     <slot></slot>
+    <OnyxIcon
+      v-if="!props.hideExternalLink && isExternalLink(props.href)"
+      :icon="expandWindow"
+      size="16px"
+    />
   </a>
 </template>
 
@@ -36,26 +45,36 @@ defineSlots<{
 .onyx-link {
   text-decoration: underline;
   color: var(--onyx-color-text-icons-primary-intense);
+  border: 1px solid transparent;
+
+  display: inline-flex;
+  gap: var(--onyx-spacing-2xs);
+  align-items: center;
 
   // other styles like size, font family etc. should be inherited
   // so we don't define them here
 
-  &:visited {
-    color: var(--onyx-color-text-icons-primary-bold);
-  }
-
-  // make sure that hover has higher specificity than visited so that the hover color is also
-  // applied to visited links
   &:hover {
     color: var(--onyx-color-text-icons-primary-medium);
   }
 
   &:focus-visible {
-    color: var(--onyx-color-text-icons-primary-medium);
+    color: var(--onyx-color-text-icons-primary-intense);
+    border-radius: var(--onyx-radius-sm);
+    border-color: var(--onyx-color-base-primary-300);
+    outline: none;
   }
 
   &:active {
     color: var(--onyx-color-text-icons-primary-bold);
+  }
+
+  &:visited {
+    color: var(--onyx-color-text-icons-primary-bold);
+
+    &:hover {
+      color: var(--onyx-color-text-icons-primary-intense);
+    }
   }
 }
 </style>

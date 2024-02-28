@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxLink from "./OnyxLink.vue";
 
 /**
- * Links are the tool of choice to refer to another page.
+ * Links are a navigational elements that direct users to other pages, whether they are internal or external.
  */
 const meta: Meta<typeof OnyxLink> = {
   title: "components/OnyxLink",
@@ -47,5 +47,16 @@ export const NewTab = {
   args: {
     ...Default.args,
     target: "_blank",
+  },
+} satisfies Story;
+
+/**
+ * By default external links that point to another website will show an icon.
+ * If you use internal links that point to the same website, the icon will be hidden.
+ */
+export const InternalLink = {
+  args: {
+    default: () => "Click me",
+    href: "#",
   },
 } satisfies Story;
