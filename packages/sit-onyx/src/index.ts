@@ -4,6 +4,7 @@ export { default as OnyxButton } from "@/components/OnyxButton/OnyxButton.vue";
 export * from "@/components/OnyxButton/types";
 export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "@/components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
+export * from "@/components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "@/components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 export * from "@/components/OnyxCheckboxGroup/types";
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
