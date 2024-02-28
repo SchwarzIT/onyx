@@ -10,7 +10,6 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
   required: false,
-  readonly: false,
 });
 
 const emit = defineEmits<{
@@ -64,13 +63,9 @@ watch(
       ref="inputElement"
       v-model="isChecked"
       class="onyx-switch__input"
-      :class="{
-        'onyx-switch__input--readonly': props.readonly,
-        'onyx-switch__input--disabled': props.disabled,
-      }"
-      :aria-label="props.hideLabel ? props.label : undefined"
       type="checkbox"
-      :disabled="props.disabled || props.readonly"
+      :aria-label="props.hideLabel ? props.label : undefined"
+      :disabled="props.disabled"
       :required="props.required"
     />
     <span class="onyx-switch__container">
@@ -141,24 +136,6 @@ watch(
         background-color: var(--onyx-color-base-background-blank);
         transform: translateX(12px);
         color: var(--onyx-color-text-icons-danger-intense);
-      }
-    }
-
-    &--readonly + .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-neutral-300);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &--readonly:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-primary-soft);
       }
     }
   }
@@ -243,10 +220,10 @@ watch(
 
   &:has(.onyx-switch__input:disabled) {
     cursor: default;
-  }
 
-  &:has(.onyx-switch__input--disabled) .onyx-switch__label {
-    color: var(--onyx-color-text-icons-neutral-soft);
+    .onyx-switch__label {
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
   }
 }
 </style>

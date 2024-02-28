@@ -12,15 +12,11 @@ export type OnyxSwitchProps = {
    */
   disabled?: boolean;
   /**
-   * Whether the switch should be readonly or not.
-   */
-  readonly?: boolean;
-  /**
    * Whether the switch is required / has to be checked.
    */
   required?: boolean;
   /**
-   * The error message that will be displayed if the input is invalid.
+   * The error message will set switch to invalid state.
    */
   errorMessage?: string;
   /**

@@ -31,13 +31,13 @@ test("should render disabled OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render readonly OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
+test("should render invalid OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSwitch label="Switch" readonly />);
+  const component = await mount(<OnyxSwitch label="Switch" errorMessage="Error message" />);
 
   // ASSERT
   await expect(component).toContainText("Switch");
-  await expect(component).toHaveScreenshot("readonly.png");
+  await expect(component).toHaveScreenshot("invalid.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();

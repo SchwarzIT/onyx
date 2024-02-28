@@ -38,11 +38,11 @@ export const DefaultUnchecked = {
 } satisfies Story;
 
 /**
- * This example shows the readonly state of the switch.
+ * This example shows the invalid state of the switch.
  */
-export const Readonly = {
+export const Invalid = {
   args: {
     ...DefaultChecked.args,
-    readonly: true,
+    errorMessage: "Error message",
   },
 } satisfies Story;
