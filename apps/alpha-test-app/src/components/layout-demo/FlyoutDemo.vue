@@ -16,4 +16,16 @@ const showFlyout = defineModel<boolean>();
   </label>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.flyout-parent {
+  position: relative;
+}
+.flyout {
+  position: absolute;
+  z-index: var(--onyx-z-index-flyout);
+  height: fit-content;
+  min-width: 100px;
+  right: 0;
+  left: 0;
+}
+</style>

@@ -25,4 +25,21 @@ const tempOverlayOpen = ref(true);
   </Teleport>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.temp-overlay {
+  position: absolute;
+  z-index: var(--onyx-z-index-overlay);
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+
+  &__content {
+    width: 250px;
+  }
+
+  &__hinge {
+    margin: auto 0;
+  }
+}
+</style>

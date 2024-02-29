@@ -216,43 +216,7 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
   grid-column: 2 / -1;
 }
 
-// *** local overlays
-.flyout-parent {
-  position: relative;
-}
-.flyout {
-  position: absolute;
-  z-index: var(--onyx-z-index-flyout);
-  height: fit-content;
-  min-width: 100px;
-  right: 0;
-  left: 0;
-}
-.sticky-content {
-  position: sticky;
-  top: 0;
-  z-index: var(--onyx-z-index-sticky-content);
-}
-
 // *** APP cover overlays
-.popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  max-width: 400px;
-  max-height: fit-content;
-  margin: auto;
-}
-.mobile-fly-in {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  max-height: fit-content;
-  margin: auto;
-}
 .backdrop {
   top: 0;
   left: 0;
@@ -260,22 +224,7 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
   right: 0;
   z-index: var(--onyx-z-index-overlay);
   position: absolute;
-}
-.temp-overlay {
-  position: absolute;
-  z-index: var(--onyx-z-index-overlay);
-  right: 0;
-  bottom: 0;
-  top: 0;
-  display: flex;
-
-  &__content {
-    width: 250px;
-  }
-
-  &__hinge {
-    margin: auto 0;
-  }
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 // ****** DECORATIONS ******
@@ -288,9 +237,6 @@ body {
 }
 .page {
   background-color: #efefef;
-}
-.backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
 }
 .nav-bar {
   height: 50px;

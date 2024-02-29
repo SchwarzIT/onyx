@@ -41,7 +41,7 @@ defineProps<{
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    width: 450px;
+    width: 150px;
   }
 }
 </style>

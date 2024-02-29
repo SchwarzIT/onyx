@@ -17,4 +17,13 @@ defineProps<{
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.mobile-fly-in {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-height: fit-content;
+  margin: auto;
+}
+</style>
