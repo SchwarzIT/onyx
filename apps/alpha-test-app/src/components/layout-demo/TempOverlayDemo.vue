@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
+
+defineProps<{ transparent?: boolean }>();
 </script>
 
 <template>
-  <div class="backdrop temp-overlay">
+  <div class="backdrop temp-overlay" :class="{ 'backdrop--transparent': transparent }">
     <div class="demo temp-overlay__sidebar">
       <OnyxHeadline is="h2">Temp overlay</OnyxHeadline>
       <slot></slot>
@@ -18,5 +20,8 @@ import { OnyxHeadline } from "sit-onyx";
     height: 100%;
     overflow-y: auto;
   }
+}
+.backdrop--transparent {
+  background-color: transparent;
 }
 </style>

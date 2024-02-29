@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { OnyxButton, OnyxHeadline } from "sit-onyx";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import {
-  // FloatingActionButtonDemo,
   BusyIndicatorDemo,
   FlyoutDemo,
   FooterDemo,
@@ -16,16 +15,27 @@ import {
   ToastDemo,
   TooltipDemo,
   type SettingsSections,
+  FloatingButtonDemo,
 } from "../components/layout-demo";
 
 const settings = ref<SettingsSections>({
   content: { showLongPageContent: true },
-  sideBar: { showSideBar: true },
+  sideBar: { showSideBar: false, showSideBarCollapse: true },
   footer: { showDetailFooter: true },
   overlay: { none: true },
 });
 
 const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
+
+const isSidebarOpen = ref(true);
+const showSideBarOpen = computed<boolean>(() => {
+  const { showSideBar, showSideBarCollapse } = settings.value.sideBar;
+  return showSideBar || (isSidebarOpen.value && showSideBarCollapse);
+});
+const showTempSideBarOpen = computed<boolean>(() => {
+  const { showTempOverlayTransparent, showTempOverlay } = settings.value.sideBar;
+  return isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent);
+});
 </script>
 
 <template>
@@ -34,7 +44,7 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
     :class="{
       'app--detail-footer': settings.footer.showDetailFooter,
       'app--full-footer': settings.footer.showFullFooter,
-      'app--sidebar': settings.sideBar.showSideBar,
+      'app--sidebar': showSideBarOpen,
     }"
   >
     <!----------- GRID top row ----------->
@@ -50,7 +60,7 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
-    <SidebarDemo v-if="settings.sideBar.showSideBar">
+    <SidebarDemo v-if="showSideBarOpen">
       <LayoutSettings v-model="settings" :show="['content', 'footer', 'sideBar']" />
 
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
@@ -99,10 +109,22 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </MobileNavFlyoutDemo>
 
-    <TempOverlayDemo v-if="settings.sideBar.showTempOverlay">
+    <TempOverlayDemo
+      v-if="showTempSideBarOpen"
+      :transparent="settings.sideBar.showTempOverlayTransparent"
+    >
       <LayoutSettings v-model="settings" :show="['sideBar']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </TempOverlayDemo>
+
+    <FloatingButtonDemo
+      v-if="
+        settings.sideBar.showTempOverlay ||
+        settings.sideBar.showTempOverlayTransparent ||
+        settings.sideBar.showSideBarCollapse
+      "
+      v-model="isSidebarOpen"
+    />
   </div>
 
   <!----------- APP cover overlays ----------->
@@ -187,6 +209,10 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
 // *** GRID side (left col)
 .side-bar {
   grid-area: side;
+}
+
+.floating-button {
+  // todo!
 }
 
 // *** GRID main (right col)

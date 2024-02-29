@@ -1,5 +1,5 @@
 export { default as BusyIndicatorDemo } from "./BusyIndicatorDemo.vue";
-export { default as FloatingActionButtonDemo } from "./FloatingActionButtonDemo.vue";
+export { default as FloatingButtonDemo } from "./FloatingButtonDemo.vue";
 export { default as FlyoutDemo } from "./FlyoutDemo.vue";
 export { default as FooterDemo } from "./FooterDemo.vue";
 export * from "./LayoutSettings.vue";
