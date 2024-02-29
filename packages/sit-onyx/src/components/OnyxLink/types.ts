@@ -9,10 +9,11 @@ export type OnyxLinkProps = {
    */
   target?: LinkTarget;
   /**
-   * Whether to hide the external link icon if `href` points to an external website.
-   * For links not starting with "http://" or "https://" it will be hidden automatically.
+   * Whether to show the external link icon.
+   * If set to `auto`, it will be shown when the `href` leads to another website
+   * and will be hidden otherwise.
    */
-  hideExternalIcon?: boolean;
+  externalIcon?: boolean | "auto";
 };
 
 export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;

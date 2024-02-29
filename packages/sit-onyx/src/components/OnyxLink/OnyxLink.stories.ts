@@ -14,6 +14,10 @@ const meta: Meta<typeof OnyxLink> = {
       default: {
         control: { disabled: true },
       },
+      externalIcon: {
+        options: ["auto", true, false],
+        control: { type: "radio" },
+      },
     },
     decorators: [
       (story) => ({
@@ -52,12 +56,13 @@ export const NewTab = {
 
 /**
  * Link without the external icon.
- * For relative/internal links or protocols like mailto:, tel: etc. you don't need to set
- * the `hideExternalIcon` property, it will be hidden automatically.
+ * For relative/internal links or protocols like mailto:, tel: etc. you don't need to disable
+ * the `externalIcon` property manually, you can leave it on "auto" and the icon will
+ * be hidden automatically.
  */
 export const WithoutExternalIcon = {
   args: {
     ...Default.args,
-    hideExternalIcon: true,
+    externalIcon: false,
   },
 } satisfies Story;

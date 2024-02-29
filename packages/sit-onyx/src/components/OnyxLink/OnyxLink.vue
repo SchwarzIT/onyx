@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
+import { computed } from "vue";
 import { isExternalLink } from "../../utils";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",
-  hideExternalIcon: false,
+  externalIcon: "auto",
 });
 
 const emit = defineEmits<{
@@ -22,6 +23,11 @@ defineSlots<{
    */
   default(props: Record<string, never>): unknown;
 }>();
+
+const shouldShowExternalIcon = computed(() => {
+  if (props.externalIcon !== "auto") return props.externalIcon;
+  return isExternalLink(props.href);
+});
 </script>
 
 <template>
@@ -34,7 +40,7 @@ defineSlots<{
   >
     <slot></slot>
     <OnyxIcon
-      v-if="!props.hideExternalIcon && isExternalLink(props.href)"
+      v-if="shouldShowExternalIcon"
       class="onyx-link__icon"
       :icon="arrowSmallUpRight"
       size="16px"
