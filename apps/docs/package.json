@@ -13,6 +13,6 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
     "vitepress": "1.0.0-rc.44",
-    "vue": "^3.4.20"
+    "vue": "^3.4.21"
   }
 }
