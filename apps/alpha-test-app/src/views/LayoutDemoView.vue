@@ -30,11 +30,11 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
 const isSidebarOpen = ref(true);
 const showSideBarOpen = computed<boolean>(() => {
   const { showSideBar, showSideBarCollapse } = settings.value.sideBar;
-  return showSideBar || (isSidebarOpen.value && showSideBarCollapse);
+  return showSideBar || (isSidebarOpen.value && showSideBarCollapse) || false;
 });
 const showTempSideBarOpen = computed<boolean>(() => {
   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sideBar;
-  return isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent);
+  return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
 });
 </script>
 
