@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.22
+
+### Minor Changes
+
+- f859db6: feat(OnyxLoadingIndicator): animate dots
+
 ## 1.0.0-alpha.21
 
 ### Minor Changes
