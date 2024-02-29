@@ -1,10 +1,18 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
+</script>
 
 <template>
   <div class="demo side-bar">
-    <h3>Sidebar</h3>
+    <OnyxHeadline is="h2">Sidebar</OnyxHeadline>
     <slot></slot>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.side-bar {
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+</style>

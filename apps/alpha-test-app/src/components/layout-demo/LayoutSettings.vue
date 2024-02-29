@@ -56,7 +56,7 @@ const overlayOptions: SelectionOption[] = [
   noneOption,
   { id: "showPopover", label: "Popover/Modal" },
   { id: "showMobileFlyIn", label: "Mobile Fly-in" },
-  { id: "showPageLoader", label: "Page loader" },
+  { id: "showPageLoader", label: "Busy indicator" },
   { id: "showTopBarFlyout", label: "Top bar flyout" },
 ];
 const sidebarOptions: SelectionOption[] = [

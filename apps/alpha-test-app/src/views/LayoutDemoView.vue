@@ -19,7 +19,7 @@ import {
 } from "../components/layout-demo";
 
 const settings = ref<SettingsSections>({
-  content: { showLongPageContent: true },
+  content: { showLongPageContent: true, forceTooltip: true },
   sideBar: { showSideBar: true },
   footer: { showDetailFooter: true },
   overlay: { none: true },
@@ -177,7 +177,6 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
 // *** GRID side (left col)
 .side-bar {
   grid-area: side;
-  overflow: hidden auto;
 }
 
 // *** GRID main (right col)
@@ -233,24 +232,6 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
   position: sticky;
   top: 0;
   z-index: var(--onyx-z-index-sticky-content);
-}
-.tooltip {
-  position: relative;
-
-  &:hover,
-  &--forced {
-    .tooltip__text {
-      visibility: inherit;
-    }
-  }
-
-  &__text {
-    position: absolute;
-    top: 28px;
-    left: 0;
-    z-index: var(--onyx-z-index-flyout);
-    visibility: hidden;
-  }
 }
 
 // *** APP cover overlays
@@ -314,9 +295,7 @@ body {
 .nav-bar {
   height: 50px;
 }
-.side-bar,
-.page__content,
-.page-loader {
+.page__content {
   padding: 16px;
   box-sizing: border-box;
 }
