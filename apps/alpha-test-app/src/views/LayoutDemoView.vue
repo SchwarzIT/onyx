@@ -22,7 +22,7 @@ const settings = ref<SettingsSections>({
   content: { showLongPageContent: true, forceTooltip: true },
   sideBar: { showSideBar: true },
   footer: { showDetailFooter: true },
-  overlay: { none: true },
+  overlay: { none: false, showPageLoader: true },
 });
 
 const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);

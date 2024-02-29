@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
+import { FooterDemo } from ".";
 </script>
 
 <template>
-  <section class="page-loader">
-    <OnyxHeadline is="h2">Busy indicator overlay</OnyxHeadline>
+  <div class="page-loader">
+    <section class="page-loader__content">
+      <OnyxHeadline is="h2">Busy indicator overlay</OnyxHeadline>
 
-    <slot></slot>
-  </section>
+      <slot></slot>
+    </section>
+    <FooterDemo />
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -16,9 +20,16 @@ import { OnyxHeadline } from "sit-onyx";
   backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  box-sizing: border-box;
+  justify-content: space-between;
+
+  &__content {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
 }
 </style>
