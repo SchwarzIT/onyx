@@ -19,10 +19,10 @@ import {
 } from "../components/layout-demo";
 
 const settings = ref<SettingsSections>({
-  content: { showLongPageContent: true, forceTooltip: true },
+  content: { showLongPageContent: true },
   sideBar: { showSideBar: true },
   footer: { showDetailFooter: true },
-  overlay: { none: false, showPageLoader: true },
+  overlay: { none: true },
 });
 
 const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
@@ -100,7 +100,6 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
     </MobileNavFlyoutDemo>
 
     <TempOverlayDemo v-if="settings.sideBar.showTempOverlay">
-      <OnyxButton label="Close" @click="settings.overlay.showTempOverlay = false" />
       <LayoutSettings v-model="settings" :show="['sideBar']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </TempOverlayDemo>
@@ -168,6 +167,17 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
   }
 }
 
+// *** APP cover overlays
+.backdrop {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: var(--onyx-z-index-overlay);
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 // *** GRID top (nav bar)
 .nav-bar {
   grid-area: top;
@@ -192,16 +202,24 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
 }
 
 // *** GRID partial overlays
-.page-loader,
-.top-bar-fly-out {
+.page-loader {
   grid-row: 1 / -1;
   grid-column: 1 / -1;
   z-index: var(--onyx-z-index-content-overlay);
 }
 .top-bar-fly-out {
+  grid-column: 1 / -1;
+  grid-row: 2 / -1;
+  z-index: var(--onyx-z-index-content-overlay);
   top: unset;
   position: unset;
+}
+.temp-overlay {
+  grid-column: 1 / -1;
   grid-row: 2 / -1;
+  z-index: var(--onyx-z-index-content-overlay);
+  top: unset;
+  position: unset;
 }
 .app--full-footer .toast-controller,
 .toast-controller {
@@ -214,17 +232,6 @@ const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor
 .app--detail-footer .toast-controller {
   grid-row: 2 / 3;
   grid-column: 2 / -1;
-}
-
-// *** APP cover overlays
-.backdrop {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-z-index-overlay);
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 // ****** DECORATIONS ******
