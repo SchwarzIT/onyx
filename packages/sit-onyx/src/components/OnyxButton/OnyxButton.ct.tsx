@@ -1,7 +1,7 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
-import { expect, test } from "../../playwright-axe";
-import OnyxButton from "./OnyxButton.vue";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { expect, test } from "../../playwright-axe";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
+import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
