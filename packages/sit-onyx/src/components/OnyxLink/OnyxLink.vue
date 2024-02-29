@@ -7,7 +7,7 @@ import type { OnyxLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",
-  externalIcon: "auto",
+  withExternalIcon: "auto",
 });
 
 const emit = defineEmits<{
@@ -25,7 +25,7 @@ defineSlots<{
 }>();
 
 const shouldShowExternalIcon = computed(() => {
-  if (props.externalIcon !== "auto") return props.externalIcon;
+  if (props.withExternalIcon !== "auto") return props.withExternalIcon;
   return isExternalLink(props.href);
 });
 </script>

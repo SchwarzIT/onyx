@@ -13,7 +13,7 @@ export type OnyxLinkProps = {
    * If set to `auto`, it will be shown when the `href` leads to another website
    * and will be hidden otherwise.
    */
-  externalIcon?: boolean | "auto";
+  withExternalIcon?: boolean | "auto";
 };
 
 export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;
