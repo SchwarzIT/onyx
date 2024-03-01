@@ -20,7 +20,7 @@ import {
 
 const settings = ref<SettingsSections>({
   content: { showLongPageContent: true },
-  sideBar: { showSideBar: true },
+  sidebar: { showSidebar: true },
   footer: { showDetailFooter: true },
   overlay: { none: true },
 });
@@ -28,12 +28,12 @@ const settings = ref<SettingsSections>({
 const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
 
 const isSidebarOpen = ref(true);
-const showSideBarOpen = computed<boolean>(() => {
-  const { showSideBar, showSideBarCollapse } = settings.value.sideBar;
-  return showSideBar || (isSidebarOpen.value && showSideBarCollapse) || false;
+const showSidebarOpen = computed<boolean>(() => {
+  const { showSidebar, showSidebarCollapse } = settings.value.sidebar;
+  return showSidebar || (isSidebarOpen.value && showSidebarCollapse) || false;
 });
-const showTempSideBarOpen = computed<boolean>(() => {
-  const { showTempOverlayTransparent, showTempOverlay } = settings.value.sideBar;
+const showTempSidebarOpen = computed<boolean>(() => {
+  const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
   return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
 });
 </script>
@@ -44,7 +44,7 @@ const showTempSideBarOpen = computed<boolean>(() => {
     :class="{
       'app--detail-footer': settings.footer.showDetailFooter,
       'app--full-footer': settings.footer.showFullFooter,
-      'app--sidebar': showSideBarOpen,
+      'app--sidebar': showSidebarOpen,
     }"
   >
     <!----------- GRID top row ----------->
@@ -60,8 +60,8 @@ const showTempSideBarOpen = computed<boolean>(() => {
     </div>
 
     <!----------- GRID sidebar (left col) ----------->
-    <SidebarDemo v-if="showSideBarOpen">
-      <LayoutSettings v-model="settings" :show="['content', 'footer', 'sideBar']" />
+    <SidebarDemo v-if="showSidebarOpen">
+      <LayoutSettings v-model="settings" :show="['content', 'footer', 'sidebar']" />
 
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </SidebarDemo>
@@ -110,23 +110,23 @@ const showTempSideBarOpen = computed<boolean>(() => {
     </MobileNavFlyoutDemo>
 
     <TempOverlayDemo
-      v-if="showTempSideBarOpen"
+      v-if="showTempSidebarOpen"
       v-model="isSidebarOpen"
-      :transparent="settings.sideBar.showTempOverlayTransparent"
+      :transparent="settings.sidebar.showTempOverlayTransparent"
     >
-      <LayoutSettings v-model="settings" :show="['sideBar']" />
+      <LayoutSettings v-model="settings" :show="['sidebar']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </TempOverlayDemo>
 
     <FloatingButtonDemo
       v-if="
-        settings.sideBar.showTempOverlay ||
-        settings.sideBar.showTempOverlayTransparent ||
-        settings.sideBar.showSideBarCollapse
+        settings.sidebar.showTempOverlay ||
+        settings.sidebar.showTempOverlayTransparent ||
+        settings.sidebar.showSidebarCollapse
       "
       v-model="isSidebarOpen"
       :is-overlay="
-        settings.sideBar.showTempOverlay || settings.sideBar.showTempOverlayTransparent || false
+        settings.sidebar.showTempOverlay || settings.sidebar.showTempOverlayTransparent || false
       "
     />
   </div>
@@ -211,7 +211,7 @@ const showTempSideBarOpen = computed<boolean>(() => {
 }
 
 // *** GRID side (left col)
-.side-bar {
+.sidebar {
   grid-area: side;
 }
 
@@ -225,8 +225,6 @@ const showTempSideBarOpen = computed<boolean>(() => {
     grid-area: side;
   }
   &--overlay {
-    // grid-column: 1 / span 1;
-    // grid-row: span 1 / -1;
     grid-area: main;
   }
 }

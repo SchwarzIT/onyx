@@ -3,14 +3,14 @@ import { OnyxHeadline } from "sit-onyx";
 </script>
 
 <template>
-  <div class="demo side-bar">
+  <div class="demo sidebar">
     <OnyxHeadline is="h2">Sidebar</OnyxHeadline>
     <slot></slot>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.side-bar {
+.sidebar {
   overflow-y: auto;
   padding: 1rem;
   box-sizing: border-box;
