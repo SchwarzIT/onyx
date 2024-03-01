@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxIconLibrary from "./OnyxIconLibrary.vue";
 
 const meta: Meta<typeof OnyxIconLibrary> = {
-  title: "icons/OnyxIconLibrary",
+  title: "Icon Library/OnyxIconLibrary",
   ...defineStorybookActionsAndVModels({
     component: OnyxIconLibrary,
     events: [],

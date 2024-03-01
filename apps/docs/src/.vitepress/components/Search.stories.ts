@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import Search from "./Search.vue";
 
 const meta: Meta<typeof Search> = {
-  title: "icons/Search",
+  title: "Icon Library/Search",
   ...defineStorybookActionsAndVModels({
     component: Search,
     events: ["update:modelValue"],
