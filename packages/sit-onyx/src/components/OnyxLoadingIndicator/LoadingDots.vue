@@ -28,7 +28,7 @@ $duration: var(--onyx-duration-lg);
     position: relative;
     bottom: $offset;
     width: $dot-size;
-    height: $dot-size;
+    aspect-ratio: 1;
     border-radius: var(--onyx-radius-full);
     box-shadow: 0 0 0 $max-shrink;
 
@@ -42,20 +42,20 @@ $duration: var(--onyx-duration-lg);
       display: inline-block;
       position: absolute;
       width: $dot-size;
-      height: $dot-size;
+      aspect-ratio: 1;
       border-radius: var(--onyx-radius-full);
       animation: $animation;
     }
 
     &::before {
       box-shadow: 0 0 0 $max-shrink;
-      left: calc(-1 * $dot-size);
+      left: calc(-1.5 * $dot-size);
     }
 
     &::after {
       box-shadow: 0 0 0 $max-shrink;
       animation-delay: calc($duration / 3);
-      right: calc(-1 * $dot-size);
+      right: calc(-1.5 * $dot-size);
     }
   }
 
