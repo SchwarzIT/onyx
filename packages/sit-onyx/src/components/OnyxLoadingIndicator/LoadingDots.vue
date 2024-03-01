@@ -5,10 +5,24 @@
 </template>
 
 <style lang="scss">
-$dot-size: calc(0.25 * var(--indicator-size));
-$max-shrink: calc(-1 * $dot-size / 2);
-$offset: calc(-0.5 * var(--indicator-size) - $dot-size / 2);
+/** Animation duration. */
 $duration: var(--onyx-duration-lg);
+
+/** Default (non-animated) size of a single dot. */
+$dot-size: calc(0.25 * var(--indicator-size));
+
+$max-shrink: calc(-1 * $dot-size / 2);
+$default-box-shadow: 0 $dot-size 0 $max-shrink;
+
+@mixin define-dot() {
+  position: absolute;
+  background-color: transparent;
+  width: $dot-size;
+  aspect-ratio: 1;
+  border-radius: var(--onyx-radius-full);
+  box-shadow: $default-box-shadow;
+  animation: onyx-loading-dots $duration infinite linear;
+}
 
 .onyx-loading-dots {
   :where(&) {
@@ -17,57 +31,46 @@ $duration: var(--onyx-duration-lg);
 
   width: var(--indicator-size);
   aspect-ratio: 1;
+  position: relative;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
   &__dot {
-    background-color: transparent;
-
-    position: relative;
-    bottom: $offset;
-    width: $dot-size;
-    aspect-ratio: 1;
-    border-radius: var(--onyx-radius-full);
-    box-shadow: 0 0 0 $max-shrink;
-
-    $animation: onyx-loading-dots $duration infinite linear;
-    animation: $animation;
+    @include define-dot();
+    top: calc(0.5 * $dot-size);
     animation-delay: calc($duration / 6);
 
     &::before,
     &::after {
       content: "";
       display: inline-block;
-      position: absolute;
-      width: $dot-size;
-      aspect-ratio: 1;
-      border-radius: var(--onyx-radius-full);
-      animation: $animation;
+      @include define-dot();
     }
 
+    $dot-offset: calc(-1.5 * $dot-size);
+
     &::before {
-      box-shadow: 0 0 0 $max-shrink;
-      left: calc(-1.5 * $dot-size);
+      left: $dot-offset;
     }
 
     &::after {
-      box-shadow: 0 0 0 $max-shrink;
+      right: $dot-offset;
       animation-delay: calc($duration / 3);
-      right: calc(-1.5 * $dot-size);
     }
   }
 
   @keyframes onyx-loading-dots {
     0% {
-      box-shadow: 0 $offset 0 $max-shrink;
+      box-shadow: $default-box-shadow;
     }
     30% {
-      box-shadow: 0 $offset 0 0px;
+      // this will hide the dot (scale it to 0)
+      box-shadow: 0 $dot-size 0 0;
     }
     60% {
-      box-shadow: 0 $offset 0 $max-shrink;
+      box-shadow: $default-box-shadow;
     }
   }
 }
