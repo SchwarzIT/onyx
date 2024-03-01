@@ -20,7 +20,7 @@ import {
 
 const settings = ref<SettingsSections>({
   content: { showLongPageContent: true },
-  sideBar: { showSideBar: false, showSideBarCollapse: true },
+  sideBar: { showSideBar: true },
   footer: { showDetailFooter: true },
   overlay: { none: true },
 });
@@ -111,6 +111,7 @@ const showTempSideBarOpen = computed<boolean>(() => {
 
     <TempOverlayDemo
       v-if="showTempSideBarOpen"
+      v-model="isSidebarOpen"
       :transparent="settings.sideBar.showTempOverlayTransparent"
     >
       <LayoutSettings v-model="settings" :show="['sideBar']" />
@@ -124,6 +125,9 @@ const showTempSideBarOpen = computed<boolean>(() => {
         settings.sideBar.showSideBarCollapse
       "
       v-model="isSidebarOpen"
+      :is-overlay="
+        settings.sideBar.showTempOverlay || settings.sideBar.showTempOverlayTransparent || false
+      "
     />
   </div>
 
@@ -212,7 +216,19 @@ const showTempSideBarOpen = computed<boolean>(() => {
 }
 
 .floating-button {
-  // todo!
+  grid-area: main;
+  align-self: end;
+  justify-self: left;
+  z-index: var(--onyx-z-index-notification);
+
+  &--open {
+    grid-area: side;
+  }
+  &--overlay {
+    // grid-column: 1 / span 1;
+    // grid-row: span 1 / -1;
+    grid-area: main;
+  }
 }
 
 // *** GRID main (right col)
@@ -275,7 +291,7 @@ body {
   height: 50px;
 }
 .page__content {
-  padding: 16px;
+  padding: 2rem;
   box-sizing: border-box;
 }
 </style>
