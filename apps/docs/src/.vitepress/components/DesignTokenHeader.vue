@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+
 const props = defineProps<{
   /** Headline to show on the left side of the header. */
   headline?: string;
@@ -16,7 +18,7 @@ const emit = defineEmits<{
 
 <template>
   <div class="header">
-    <h4 class="header__headline">{{ props.headline }}</h4>
+    <OnyxHeadline is="h3" class="header__headline">{{ props.headline }}</OnyxHeadline>
 
     <div class="header__tabs">
       <button
@@ -39,8 +41,7 @@ const emit = defineEmits<{
   justify-content: space-between;
 
   &__headline {
-    font-weight: 600;
-    color: var(--onyx-color-text-icons-neutral-intense);
+    margin: 0;
   }
 
   &__tabs {
