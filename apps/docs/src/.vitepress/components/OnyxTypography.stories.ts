@@ -25,9 +25,9 @@ export const Headlines = {
 export const Paragraphs = {
   args: {
     tokens: [
-      { name: "paragraph-big", fontSize: "big", htmlTag: "p" },
-      { name: "paragraph-default", fontSize: "default", htmlTag: "p" },
-      { name: "paragraph-small", fontSize: "small", htmlTag: "p" },
+      { name: "paragraph-big", textSize: "large", htmlTag: "p" },
+      { name: "paragraph-default", textSize: "default", htmlTag: "p" },
+      { name: "paragraph-small", textSize: "small", htmlTag: "p" },
     ],
     wideName: true,
   },
@@ -36,9 +36,9 @@ export const Paragraphs = {
 export const Links = {
   args: {
     tokens: [
-      { name: "link-big", fontSize: "big", htmlTag: "a" },
-      { name: "link-default", fontSize: "default", htmlTag: "a" },
-      { name: "link-small", fontSize: "small", htmlTag: "a" },
+      { name: "link-big", textSize: "large", htmlTag: "a" },
+      { name: "link-default", textSize: "default", htmlTag: "a" },
+      { name: "link-small", textSize: "small", htmlTag: "a" },
     ],
     wideName: true,
   },
