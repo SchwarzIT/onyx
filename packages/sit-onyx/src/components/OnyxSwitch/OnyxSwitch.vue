@@ -42,7 +42,7 @@ watch(
   () => {
     if (!inputElement.value) return;
 
-    const newValidityState = transformValidityStateToObject(inputElement.value!.validity);
+    const newValidityState = transformValidityStateToObject(inputElement.value.validity);
     //  only update + emit the validity state when it changed
     if (!validityState.value || !areObjectsFlatEqual(newValidityState, validityState.value)) {
       validityState.value = newValidityState;
