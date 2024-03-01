@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import HorizontalColorStripCard from "./HorizontalColorStripCard.vue";
 
 const meta: Meta<typeof HorizontalColorStripCard> = {
-  title: "components/HorizontalColorStripCard",
+  title: "colors/HorizontalColorStripCard",
   ...defineStorybookActionsAndVModels({
     component: HorizontalColorStripCard,
     events: [],

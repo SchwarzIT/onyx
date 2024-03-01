@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import ColorStrip from "./ColorStrip.vue";
 
 const meta: Meta<typeof ColorStrip> = {
-  title: "components/ColorStrip",
+  title: "colors/ColorStrip",
   ...defineStorybookActionsAndVModels({
     component: ColorStrip,
     events: [],

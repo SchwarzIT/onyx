@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import DesignTokenHeader from "./DesignTokenHeader.vue";
 
 const meta: Meta<typeof DesignTokenHeader> = {
-  title: "components/DesignTokenHeader",
+  title: "tokens/DesignTokenHeader",
   ...defineStorybookActionsAndVModels({
     component: DesignTokenHeader,
     events: ["update:modelValue"],

@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import IconLibraryItem from "./IconLibraryItem.vue";
 
 const meta: Meta<typeof IconLibraryItem> = {
-  title: "components/IconLibraryItem",
+  title: "icons/IconLibraryItem",
   ...defineStorybookActionsAndVModels({
     component: IconLibraryItem,
     events: [],

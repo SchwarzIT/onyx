@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import ColorPalette from "./ColorPalette.vue";
 
 const meta: Meta<typeof ColorPalette> = {
-  title: "components/ColorPalette",
+  title: "colors/ColorPalette",
   ...defineStorybookActionsAndVModels({
     component: ColorPalette,
     events: [],

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxBorderRadiusTokens from "./OnyxBorderRadiusTokens.vue";
 
 const meta: Meta<typeof OnyxBorderRadiusTokens> = {
-  title: "components/OnyxBorderRadiusTokens",
+  title: "tokens/OnyxBorderRadiusTokens",
   ...defineStorybookActionsAndVModels({
     component: OnyxBorderRadiusTokens,
     events: [],

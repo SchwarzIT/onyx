@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import TopicOverviewCard from "./TopicOverviewCard.vue";
 
 const meta: Meta<typeof TopicOverviewCard> = {
-  title: "components/TopicOverviewCard",
+  title: "TopicOverviewCard",
   ...defineStorybookActionsAndVModels({
     component: TopicOverviewCard,
     events: [],

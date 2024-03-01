@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import DesignToken from "./DesignToken.vue";
 
 const meta: Meta<typeof DesignToken> = {
-  title: "components/DesignToken",
+  title: "tokens/DesignToken",
   ...defineStorybookActionsAndVModels({
     component: DesignToken,
     events: ["copy"],

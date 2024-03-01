@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxTypography, { type TypographyToken } from "./OnyxTypography.vue";
 
 const meta: Meta<typeof OnyxTypography> = {
-  title: "components/OnyxTypography",
+  title: "OnyxTypography",
   ...defineStorybookActionsAndVModels({
     component: OnyxTypography,
     events: [],
