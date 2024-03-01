@@ -20,7 +20,7 @@ const emit = defineEmits<{
 }>();
 
 const { errorMessage } = toRefs(props);
-const inputElement = ref<HTMLInputElement | null>(null);
+const inputElement = ref<HTMLInputElement>();
 const validityState = ref(inputElement.value?.validity);
 
 const isChecked = computed({
