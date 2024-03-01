@@ -5,16 +5,15 @@
 </template>
 
 <style lang="scss">
-$max-shrink: calc(-1 * var(--dot-size) / 2);
-$offset: calc(-0.5 * var(--indicator-size) - var(--dot-size) / 2);
+$dot-size: calc(0.25 * var(--indicator-size));
+$max-shrink: calc(-1 * $dot-size / 2);
+$offset: calc(-0.5 * var(--indicator-size) - $dot-size / 2);
+$duration: var(--onyx-duration-lg);
 
 .onyx-loading-dots {
   :where(&) {
     --indicator-size: 24px;
   }
-
-  --dot-size: calc(0.25 * var(--indicator-size));
-  --duration: var(--onyx-duration-lg);
 
   width: var(--indicator-size);
   aspect-ratio: 1;
@@ -28,35 +27,35 @@ $offset: calc(-0.5 * var(--indicator-size) - var(--dot-size) / 2);
 
     position: relative;
     bottom: $offset;
-    width: var(--dot-size);
-    height: var(--dot-size);
+    width: $dot-size;
+    height: $dot-size;
     border-radius: var(--onyx-radius-full);
     box-shadow: 0 0 0 $max-shrink;
 
-    $animation: onyx-loading-dots var(--duration) infinite linear;
+    $animation: onyx-loading-dots $duration infinite linear;
     animation: $animation;
-    animation-delay: calc(var(--duration) / 6);
+    animation-delay: calc($duration / 6);
 
     &::before,
     &::after {
       content: "";
       display: inline-block;
       position: absolute;
-      width: var(--dot-size);
-      height: var(--dot-size);
+      width: $dot-size;
+      height: $dot-size;
       border-radius: var(--onyx-radius-full);
       animation: $animation;
     }
 
     &::before {
       box-shadow: 0 0 0 $max-shrink;
-      left: calc(-1 * var(--dot-size));
+      left: calc(-1 * $dot-size);
     }
 
     &::after {
       box-shadow: 0 0 0 $max-shrink;
-      animation-delay: calc(var(--duration) / 3);
-      right: calc(-1 * var(--dot-size));
+      animation-delay: calc($duration / 3);
+      right: calc(-1 * $dot-size);
     }
   }
 
