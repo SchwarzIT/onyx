@@ -6,20 +6,7 @@
 
 <style lang="scss">
 $max-shrink: calc(-1 * var(--dot-size) / 2);
-
-@mixin define-keyframes($name, $offset) {
-  @keyframes #{$name} {
-    0% {
-      box-shadow: $offset 0 0 $max-shrink;
-    }
-    30% {
-      box-shadow: $offset 0 0 1px;
-    }
-    60% {
-      box-shadow: $offset 0 0 $max-shrink;
-    }
-  }
-}
+$offset: calc(-0.5 * var(--indicator-size) - var(--dot-size) / 2);
 
 .onyx-loading-dots {
   :where(&) {
@@ -36,20 +23,18 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
   align-items: center;
   justify-content: center;
 
-  $offset-dot-1: var(--indicator-size);
-  $offset-dot-2: calc($offset-dot-1 + var(--indicator-size) / 3);
-  $offset-dot-3: calc($offset-dot-1 + 2 * var(--indicator-size) / 3);
-
   &__dot {
+    background-color: transparent;
+
     position: relative;
-    left: calc(-1 * $offset-dot-2);
+    bottom: $offset;
     width: var(--dot-size);
     height: var(--dot-size);
     border-radius: var(--onyx-radius-full);
-    background-color: currentColor;
-    color: currentColor;
-    box-shadow: $offset-dot-2 0 0 $max-shrink;
-    animation: onyx-loading-dots var(--duration) infinite linear;
+    box-shadow: 0 0 0 $max-shrink;
+
+    $animation: onyx-loading-dots var(--duration) infinite linear;
+    animation: $animation;
     animation-delay: calc(var(--duration) / 6);
 
     &::before,
@@ -57,26 +42,34 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
       content: "";
       display: inline-block;
       position: absolute;
-      top: 0;
       width: var(--dot-size);
       height: var(--dot-size);
       border-radius: var(--onyx-radius-full);
+      animation: $animation;
     }
 
     &::before {
-      box-shadow: $offset-dot-1 0 0 $max-shrink;
-      animation: onyx-loading-dots-before var(--duration) infinite linear;
+      box-shadow: 0 0 0 $max-shrink;
+      left: calc(-1 * var(--dot-size));
     }
 
     &::after {
-      box-shadow: $offset-dot-3 0 0 $max-shrink;
-      animation: onyx-loading-dots-after var(--duration) infinite linear;
+      box-shadow: 0 0 0 $max-shrink;
       animation-delay: calc(var(--duration) / 3);
+      right: calc(-1 * var(--dot-size));
     }
   }
 
-  @include define-keyframes(onyx-loading-dots-before, $offset-dot-1);
-  @include define-keyframes(onyx-loading-dots, $offset-dot-2);
-  @include define-keyframes(onyx-loading-dots-after, $offset-dot-3);
+  @keyframes onyx-loading-dots {
+    0% {
+      box-shadow: 0 $offset 0 $max-shrink;
+    }
+    30% {
+      box-shadow: 0 $offset 0 0px;
+    }
+    60% {
+      box-shadow: 0 $offset 0 $max-shrink;
+    }
+  }
 }
 </style>
