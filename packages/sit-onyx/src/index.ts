@@ -16,6 +16,8 @@ export * from "@/components/OnyxLoadingIndicator/types";
 export * from "@/components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "@/components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
+export { default as OnyxAppLayout } from "@/components/OnyxAppLayout/OnyxAppLayout.vue";
+export { default as OnyxPageLayout } from "@/components/OnyxPageLayout/OnyxPageLayout.vue";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types/colors";
 export * from "@/types/fonts";
