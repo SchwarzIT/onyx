@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 <template>
   <div class="header">
-    <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+    <OnyxHeadline is="h3" class="header__headline">{{ props.headline }}</OnyxHeadline>
 
     <div class="header__tabs">
       <button
@@ -39,6 +39,10 @@ const emit = defineEmits<{
   margin-bottom: var(--onyx-spacing-2xs);
   display: flex;
   justify-content: space-between;
+
+  &__headline {
+    margin: 0;
+  }
 
   &__tabs {
     display: flex;
