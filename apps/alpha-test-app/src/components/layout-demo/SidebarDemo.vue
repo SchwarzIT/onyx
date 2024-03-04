@@ -11,7 +11,6 @@ import { OnyxHeadline } from "sit-onyx";
 
 <style lang="scss" scoped>
 .sidebar {
-  height: 100%;
   padding: 1rem;
   box-sizing: border-box;
 }
