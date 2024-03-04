@@ -10,6 +10,7 @@ const props = defineProps<{
   components: ComponentCardProps[];
 }>();
 
+/** If true, all components should be shown instead of only the first 12. */
 const showAll = ref(false);
 
 /**
@@ -35,11 +36,16 @@ const usedStatus = computed(() => {
   return [...new Set(status)];
 });
 
+/**
+ * Components that should be displayed (considers the show all button).
+ */
 const displayedComponents = computed(() => {
-  if (showAll.value) return sortedComponents.value;
-  return sortedComponents.value.slice(0, 12);
+  return sortedComponents.value.slice(0, showAll.value ? undefined : 12);
 });
 
+/**
+ * Whether the "show more" / "show less" button should be shown.
+ */
 const shouldShowAllButton = computed(() => {
   return showAll.value || displayedComponents.value.length < sortedComponents.value.length;
 });

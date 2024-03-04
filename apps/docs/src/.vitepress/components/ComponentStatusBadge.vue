@@ -40,16 +40,14 @@ const icons = {
 
 <style lang="scss" scoped>
 .status {
-  --icon-size: 1.5rem;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--onyx-spacing-2xs);
 
   &__icon {
-    width: var(--icon-size);
-    height: var(--icon-size);
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: var(--onyx-radius-full);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-neutral-200);

@@ -62,12 +62,10 @@ export default defineLoader({
      * Also returns a `href` property with the link to the implemented component (only if implemented).
      */
     const getImplementedStatus = (componentName: string) => {
-      const doesFileExist = watchedFiles.some((file) =>
-        file.endsWith(`${componentName}.stories.ts`),
-      );
+      const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
       return {
-        status: doesFileExist ? "in-progress" : "planned",
-        href: doesFileExist ? `/development/components/${componentName}` : undefined,
+        status: fileExist ? "in-progress" : "planned",
+        href: fileExist ? `/development/components/${componentName}` : undefined,
       } satisfies Partial<ComponentCardProps>;
     };
 
