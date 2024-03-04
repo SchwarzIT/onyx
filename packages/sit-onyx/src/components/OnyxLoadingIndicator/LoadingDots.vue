@@ -1,6 +1,6 @@
 <template>
   <div class="onyx-loading-dots">
-    <span class="onyx-loading-dots__dot"></span>
+    <span class="onyx-loading-dots__center"></span>
   </div>
 </template>
 
@@ -41,7 +41,7 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
   aspect-ratio: 1;
   position: relative;
 
-  &__dot {
+  &__center {
     @include define-dot;
     animation-delay: calc($duration / 6);
 
