@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout, OnyxButton } from "sit-onyx";
 import { computed, ref } from "vue";
 import {
   // BusyIndicatorDemo,
   FlyoutDemo,
   FooterDemo,
   LayoutSettings,
-  // MobileBottomFlyInDemo,
+  MobileBottomFlyInDemo,
   // MobileNavFlyoutDemo,
   NavBarDemo,
-  // PopoverDemo,
+  PopoverDemo,
   SidebarDemo,
   StickyDemo,
   // TempOverlayDemo,
@@ -76,32 +76,46 @@ const footerBehavior = computed(() => {
         </SidebarDemo>
       </template>
 
-      <div class="page" :class="{ 'page--full-height': !settings.footer.showFullFooter }">
-        <div class="page__content">
-          <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
+      <div class="page">
+        <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
 
-          <LayoutSettings v-model="settings" horizontal />
+        <LayoutSettings v-model="settings" horizontal />
 
-          <StickyDemo v-if="settings.content.showStickyContent" />
+        <StickyDemo v-if="settings.content.showStickyContent" />
 
-          <p>
-            <FlyoutDemo v-model="settings.content.showFlyout">
-              <LayoutSettings v-model="settings" :show="['content']" />
-            </FlyoutDemo>
-          </p>
+        <p>
+          <FlyoutDemo v-model="settings.content.showFlyout">
+            <LayoutSettings v-model="settings" :show="['content']" />
+          </FlyoutDemo>
+        </p>
 
-          <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+        <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
 
-          <template v-if="settings.content.showLongPageContent">
-            <p v-for="content in muchContent" :key="content">{{ content }}</p>
-          </template>
-        </div>
+        <template v-if="settings.content.showLongPageContent">
+          <p v-for="content in muchContent" :key="content">{{ content }}</p>
+        </template>
       </div>
 
       <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
         <FooterDemo :detail-footer="settings.footer.showDetailFooter" />
       </template>
     </OnyxPageLayout>
+
+    <template v-if="settings.overlay.showPopover || settings.overlay.showMobileFlyIn" #overlay>
+      <PopoverDemo v-if="settings.overlay.showPopover">
+        <OnyxButton label="Close" @click="settings.overlay.showPopover = false" />
+        <LayoutSettings v-model="settings" :show="['overlay']" />
+        <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+      </PopoverDemo>
+
+      <MobileBottomFlyInDemo
+        v-if="settings.overlay.showMobileFlyIn"
+        :show-footer="settings.footer.showFullFooter || settings.footer.showDetailFooter"
+      >
+        <OnyxButton label="Close" @click="settings.overlay.showMobileFlyIn = false" />
+        <LayoutSettings v-model="settings" :show="['overlay']" />
+      </MobileBottomFlyInDemo>
+    </template>
   </OnyxAppLayout>
 </template>
 
@@ -111,11 +125,7 @@ body {
 }
 
 .page {
-  background-color: #efefef;
-}
-.page__content {
   padding: 2rem;
   box-sizing: border-box;
 }
 </style>
-computed,

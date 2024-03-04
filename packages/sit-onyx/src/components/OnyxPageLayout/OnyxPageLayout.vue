@@ -90,6 +90,8 @@ const pageModifier = computed(() => {
     grid-area: main;
     overflow: hidden auto;
     position: relative;
+
+    background-color: #efefef;
   }
   &__footer {
     grid-area: footer;

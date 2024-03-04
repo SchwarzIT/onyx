@@ -25,5 +25,8 @@ defineProps<{
   right: 0;
   max-height: fit-content;
   margin: auto;
+
+  outline: 1px solid lightgrey;
+  background-color: white;
 }
 </style>

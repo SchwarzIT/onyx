@@ -19,5 +19,8 @@ import { OnyxHeadline } from "sit-onyx";
   max-width: 400px;
   max-height: fit-content;
   margin: auto;
+
+  outline: 1px solid lightgrey;
+  background-color: white;
 }
 </style>
