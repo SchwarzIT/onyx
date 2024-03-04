@@ -29,7 +29,7 @@ const icons = {
 </script>
 
 <template>
-  <div class="status">
+  <div class="status" :aria-label="props.showLabel ? undefined : icons[props.status].label">
     <div class="status__icon" :class="[`status__icon--${props.status}`]">
       <OnyxIcon :icon="icons[props.status].icon" size="16px" />
     </div>
