@@ -72,7 +72,7 @@ export const LeftNav = {
 } satisfies Story;
 
 /** TODO */
-export const withAppOverlay = {
+export const AppOverlay = {
   args: {
     ...Default.args,
   },
@@ -95,7 +95,7 @@ export const withAppOverlay = {
 } satisfies Story;
 
 /** TODO */
-export const withPageOverlay = {
+export const PageOverlay = {
   args: {
     ...Default.args,
   },

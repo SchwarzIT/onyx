@@ -61,8 +61,7 @@ const slots = useSlots();
     position: relative;
   }
   &__page-overlay {
-    grid-column: 1 / -1;
-    grid-row: 2 / -1;
+    grid-area: page;
     z-index: var(--onyx-z-index-page-overlay);
   }
   &__app-overlay {
