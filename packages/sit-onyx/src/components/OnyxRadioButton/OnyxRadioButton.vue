@@ -28,10 +28,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       :checked="props.selected"
       :disabled="props.disabled"
     />
-    <span
-      class="onyx-radio-button__label"
-      :class="{ 'onyx-truncation-ellipsis': props.truncation === 'ellipsis' }"
-    >
+    <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
       {{ props.label }}
     </span>
   </label>

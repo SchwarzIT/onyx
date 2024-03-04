@@ -52,7 +52,7 @@ const isTouched = ref(false);
     <p
       v-if="props.label && !props.hideLabel"
       class="onyx-checkbox__label"
-      :class="{ 'onyx-truncation-ellipsis': props.truncation === 'ellipsis' }"
+      :class="[`onyx-truncation-${props.truncation}`]"
     >
       {{ props.label }}
     </p>
