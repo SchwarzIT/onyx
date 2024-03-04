@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.23
+
+### Minor Changes
+
+- a3bc165: feat(OnyxLink): add CSS states and external link icon
+
 ## 1.0.0-alpha.22
 
 ### Minor Changes
