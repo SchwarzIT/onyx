@@ -8,6 +8,12 @@ export type OnyxLinkProps = {
    * For `_blank`, the `rel="noopener noreferrer"` will be set automatically.
    */
   target?: LinkTarget;
+  /**
+   * Whether to show the external link icon.
+   * If set to `auto`, it will be shown when the `href` leads to another website
+   * (starting with "http://" or "https://") and will be hidden otherwise.
+   */
+  withExternalIcon?: boolean | "auto";
 };
 
 export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;
