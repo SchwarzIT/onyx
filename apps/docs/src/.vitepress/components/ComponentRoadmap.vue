@@ -86,6 +86,7 @@ const shouldShowAllButton = computed(() => {
 .components {
   display: grid;
   gap: var(--onyx-spacing-lg);
+  color: var(--onyx-color-text-icons-neutral-intense);
 
   &__headline {
     font-size: 2.5rem;
