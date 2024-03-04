@@ -7,13 +7,19 @@ defineProps<{ isClosable?: boolean }>();
 </script>
 
 <template>
-  <div class="demo sidebar">
+  <div class="sidebar" :class="{ 'sidebar--closed': isClosable && !isOpen }">
     <section>
       <OnyxHeadline is="h2">Sidebar</OnyxHeadline>
       <slot></slot>
     </section>
 
-    <OnyxButton class="sidebar__close" :icon="xSmall" label="Close" @click="isOpen = false" />
+    <OnyxButton
+      v-if="isClosable"
+      class="sidebar__close"
+      :icon="xSmall"
+      label="Close"
+      @click="isOpen = false"
+    />
   </div>
 </template>
 
@@ -25,6 +31,14 @@ defineProps<{ isClosable?: boolean }>();
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  // when the sidebar is closed,
+  // it uses a minimal space for the grid layout
+  &--closed {
+    width: 1px;
+    padding: 0;
+    overflow: hidden;
+  }
 
   &__close {
     justify-self: flex-end;

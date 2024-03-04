@@ -9,7 +9,7 @@ const isLeftAligned = defineModel<boolean>();
     <strong>Top nav bar</strong> |
 
     <slot></slot>
-    |
+
     <OnyxButton
       style="display: inline-block"
       label="switch nav"
@@ -26,6 +26,7 @@ const isLeftAligned = defineModel<boolean>();
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  gap: 1rem;
 
   &--left {
     flex-flow: column nowrap;
