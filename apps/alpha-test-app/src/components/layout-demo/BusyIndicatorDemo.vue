@@ -4,8 +4,8 @@ import { FooterDemo } from ".";
 </script>
 
 <template>
-  <div class="page-loader">
-    <section class="page-loader__content">
+  <div class="busy-indicator">
+    <section class="busy-indicator__content">
       <OnyxHeadline is="h2">Busy indicator overlay</OnyxHeadline>
 
       <slot></slot>
@@ -15,12 +15,13 @@ import { FooterDemo } from ".";
 </template>
 
 <style lang="scss" scoped>
-.page-loader {
+.busy-indicator {
   background-color: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 
   &__content {
     margin: auto;

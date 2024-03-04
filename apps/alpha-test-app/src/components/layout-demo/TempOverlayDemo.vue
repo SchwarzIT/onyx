@@ -26,8 +26,20 @@ defineProps<{ transparent?: boolean }>();
 </template>
 
 <style lang="scss" scoped>
+.backdrop {
+  height: 100%;
+  widows: 100%;
+  z-index: var(--onyx-z-index-app-overlay);
+  background-color: rgba(0, 0, 0, 0.5);
+
+  &--transparent {
+    background-color: transparent;
+  }
+}
 .temp-overlay {
   &__sidebar {
+    outline: 1px solid lightgrey;
+    background-color: white;
     width: 250px;
     height: 100%;
     overflow-y: auto;
@@ -40,8 +52,5 @@ defineProps<{ transparent?: boolean }>();
   &__close {
     justify-self: flex-end;
   }
-}
-.backdrop--transparent {
-  background-color: transparent;
 }
 </style>

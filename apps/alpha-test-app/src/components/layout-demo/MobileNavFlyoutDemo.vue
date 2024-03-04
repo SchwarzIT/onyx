@@ -12,6 +12,13 @@ import { OnyxHeadline } from "sit-onyx";
 </template>
 
 <style lang="scss" scoped>
+.backdrop {
+  height: 100%;
+  widows: 100%;
+  z-index: var(--onyx-z-index-app-overlay);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .top-bar-fly-out__content {
   background-color: white;
   padding: 4px;

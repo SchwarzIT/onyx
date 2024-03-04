@@ -1,11 +1,19 @@
 <script lang="ts" setup>
-import { OnyxHeadline } from "sit-onyx";
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
+import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+
+const isOpen = defineModel<boolean>();
+defineProps<{ isClosable?: boolean }>();
 </script>
 
 <template>
   <div class="demo sidebar">
-    <OnyxHeadline is="h2">Sidebar</OnyxHeadline>
-    <slot></slot>
+    <section>
+      <OnyxHeadline is="h2">Sidebar</OnyxHeadline>
+      <slot></slot>
+    </section>
+
+    <OnyxButton class="sidebar__close" :icon="xSmall" label="Close" @click="isOpen = false" />
   </div>
 </template>
 
@@ -13,5 +21,13 @@ import { OnyxHeadline } from "sit-onyx";
 .sidebar {
   padding: 1rem;
   box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__close {
+    justify-self: flex-end;
+  }
 }
 </style>
