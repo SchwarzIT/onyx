@@ -21,12 +21,14 @@ export type ComponentCardProps = {
 
 const props = defineProps<ComponentCardProps>();
 
+const dateFormatter = Intl.DateTimeFormat("en-US", {
+  month: "2-digit",
+  year: "numeric",
+});
+
 const estimationValue = computed(() => {
   if (!props.estimation) return "n/a";
-  return Intl.DateTimeFormat("en-US", {
-    month: "2-digit",
-    year: "numeric",
-  }).format(new Date(props.estimation));
+  return dateFormatter.format(new Date(props.estimation));
 });
 </script>
 
