@@ -13,6 +13,7 @@
     "alpha-test-app": "0.0.0"
   },
   "changesets": [
+    "angry-teachers-tickle",
     "big-ears-cheer",
     "brave-lobsters-wonder",
     "chilly-scissors-whisper",

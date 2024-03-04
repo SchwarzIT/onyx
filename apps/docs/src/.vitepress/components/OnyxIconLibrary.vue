@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
+import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import { getEnrichedIconCategoryList } from "../utils-icons";
-import Search from "./Search.vue";
 import IconLibraryItem from "./IconLibraryItem.vue";
+import Search from "./Search.vue";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
   query: "?raw",
@@ -37,7 +38,7 @@ const filteredCategories = computed(() => {
     <Search v-model="search" />
 
     <section v-for="category in filteredCategories" :key="category.name" class="category">
-      <h3 class="category__headline">{{ category.name }}</h3>
+      <OnyxHeadline is="h3" class="category__headline">{{ category.name }}</OnyxHeadline>
 
       <div class="category__icons">
         <IconLibraryItem v-for="icon in category.icons" :key="icon.iconName" :icon="icon" />
@@ -51,6 +52,7 @@ const filteredCategories = computed(() => {
   margin-bottom: var(--onyx-spacing-xl);
 
   &__headline {
+    margin-top: var(--onyx-spacing-xl);
     margin-bottom: var(--onyx-spacing-md);
   }
 
