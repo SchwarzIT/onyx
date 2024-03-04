@@ -2,17 +2,19 @@
 import { defineModel } from "vue";
 
 const showFlyout = defineModel<boolean>();
+
+defineProps<{ small?: boolean }>();
 </script>
 
 <template>
-  <label>
+  <label class="flyout-demo">
     Demo Drop Down:
-    <span class="flyout-parent">
-      <input @click="showFlyout = !showFlyout" />
+    <div class="flyout-parent">
+      <input :class="{ 'small-input': small }" width="10px" @click="showFlyout = !showFlyout" />
       <div v-if="showFlyout" class="demo flyout">
         <slot></slot>
       </div>
-    </span>
+    </div>
   </label>
 </template>
 
@@ -21,11 +23,21 @@ const showFlyout = defineModel<boolean>();
   position: relative;
 }
 .flyout {
+  outline: 1px solid lightgrey;
+  background-color: white;
   position: absolute;
   z-index: var(--onyx-z-index-flyout);
   height: fit-content;
   min-width: 100px;
   right: 0;
   left: 0;
+}
+.flyout-demo {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.small-input {
+  width: 90%;
 }
 </style>
