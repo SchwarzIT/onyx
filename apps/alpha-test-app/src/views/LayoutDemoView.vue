@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout, OnyxButton } from "sit-onyx";
+import { OnyxAppLayout, OnyxButton, OnyxPageLayout } from "sit-onyx";
 import { computed, ref } from "vue";
 import {
   BusyIndicatorDemo,
@@ -9,14 +9,12 @@ import {
   MobileBottomFlyInDemo,
   MobileNavFlyoutDemo,
   NavBarDemo,
+  PageDemo,
   PopoverDemo,
   SidebarDemo,
-  StickyDemo,
   TempOverlayDemo,
-  // ToastDemo,
   TooltipDemo,
   type SettingsSections,
-  FloatingButtonDemo,
 } from "../components/layout-demo";
 
 const settings = ref<SettingsSections>({
@@ -28,21 +26,11 @@ const settings = ref<SettingsSections>({
 
 const navBarLeft = ref(false);
 
-const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
-
 const isSidebarOpen = ref(true);
+
 const showTempSidebarOpen = computed<boolean>(() => {
   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
   return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
-});
-const showSidebarOpenButton = computed<boolean>(() => {
-  const { showSidebarCollapse, showTempOverlayTransparent, showTempOverlay } =
-    settings.value.sidebar;
-  return (
-    (!isSidebarOpen.value &&
-      (showSidebarCollapse || showTempOverlayTransparent || showTempOverlay)) ||
-    false
-  );
 });
 
 const footerAsideSidebar = computed<boolean>(
@@ -73,33 +61,11 @@ const footerAsideSidebar = computed<boolean>(
         </SidebarDemo>
       </template>
 
-      <div class="page">
-        <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
-
-        <LayoutSettings v-model="settings" horizontal />
-
-        <StickyDemo v-if="settings.content.showStickyContent" />
-
-        <p>
-          <FlyoutDemo v-model="settings.content.showFlyout">
-            <LayoutSettings v-model="settings" :show="['content']" />
-          </FlyoutDemo>
-        </p>
-
-        <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-
-        <template v-if="settings.content.showLongPageContent">
-          <p v-for="content in muchContent" :key="content">{{ content }}</p>
-        </template>
-
-        <FloatingButtonDemo
-          v-if="showSidebarOpenButton"
-          v-model="isSidebarOpen"
-          :is-overlay="
-            settings.sidebar.showTempOverlay || settings.sidebar.showTempOverlayTransparent || false
-          "
-        />
-      </div>
+      <PageDemo
+        v-model="settings"
+        :is-sidebar-open="isSidebarOpen"
+        @is-sidebar-open="isSidebarOpen = $event"
+      />
 
       <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
         <FooterDemo :detail-footer="footerAsideSidebar" />
@@ -154,10 +120,5 @@ const footerAsideSidebar = computed<boolean>(
 <style lang="scss">
 body {
   margin: 0;
-}
-
-.page {
-  padding: 2rem;
-  box-sizing: border-box;
 }
 </style>
