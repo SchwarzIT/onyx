@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import { computed, useSlots } from "vue";
 
-const props = withDefaults(
-  defineProps<{
-    sidebarBehavior: "sticky" | "collapsible" | "overlay";
-    footerBehavior: "main" | "full";
-  }>(),
-  { sidebarBehavior: "sticky", footerBehavior: "full" },
-);
+const props = defineProps<{
+  footerAsideSidebar?: boolean;
+}>();
+
 defineSlots<{
   default(props: Record<string, never>): unknown;
   sidebar(props: Record<string, never>): unknown;
@@ -21,22 +18,21 @@ const pageModifier = computed(() => {
   if (!slots.footer && slots.sidebar) mode = "onyx-page--side-main";
   if (slots.footer && !slots.sidebar) mode = "onyx-page--main-footer";
   if (slots.footer && slots.sidebar) {
-    if (props.footerBehavior === "full" || props.sidebarBehavior === "overlay") {
-      mode = "onyx-page--side-main-full-footer";
+    if (props.footerAsideSidebar) {
+      mode = "onyx-page--side-main-footer-partial";
     } else {
-      mode = "onyx-page--side-main-part-footer";
+      mode = "onyx-page--side-main-footer-full";
     }
   }
-
   return mode;
 });
 </script>
 
 <template>
   <div class="onyx-page" :class="pageModifier">
-    <nav v-if="slots.sidebar" class="onyx-page__sidebar">
+    <aside v-if="slots.sidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
-    </nav>
+    </aside>
     <main class="onyx-page__main">
       <slot></slot>
     </main>
@@ -68,14 +64,14 @@ const pageModifier = computed(() => {
       "main"
       "footer";
   }
-  &--side-main-full-footer {
+  &--side-main-footer-full {
     grid-template-columns: max-content 1fr;
     grid-template-rows: 1fr max-content;
     grid-template-areas:
       "side main"
       "footer footer";
   }
-  &--side-main-part-footer {
+  &--side-main-footer-partial {
     grid-template-columns: max-content 1fr;
     grid-template-rows: 1fr max-content;
     grid-template-areas:

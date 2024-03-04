@@ -40,20 +40,9 @@ const showSidebarOpen = computed<boolean>(() => {
 //   return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
 // });
 
-const sidebarBehavior = computed(() => {
-  const { showSidebar, showSidebarCollapse, showTempOverlayTransparent, showTempOverlay } =
-    settings.value.sidebar;
-  if (showSidebar) return "sticky";
-  if (showSidebarCollapse) return "collapsible";
-  if (showTempOverlayTransparent || showTempOverlay) return "overlay";
-  return undefined;
-});
-const footerBehavior = computed(() => {
-  const { showFullFooter, showDetailFooter } = settings.value.footer;
-  if (showFullFooter) return "full";
-  if (showDetailFooter) return "main";
-  return undefined;
-});
+const footerAsideSidebar = computed<boolean>(
+  () => (settings.value.footer.showDetailFooter && isSidebarOpen.value) || false,
+);
 </script>
 
 <template>
@@ -68,7 +57,7 @@ const footerBehavior = computed(() => {
       </NavBarDemo>
     </template>
 
-    <OnyxPageLayout :sidebar-behavior="sidebarBehavior" :footer-behavior="footerBehavior">
+    <OnyxPageLayout :footer-aside-sidebar="footerAsideSidebar">
       <template v-if="showSidebarOpen" #sidebar>
         <SidebarDemo>
           <LayoutSettings v-model="settings" :show="['content', 'footer', 'sidebar']" />
@@ -97,7 +86,7 @@ const footerBehavior = computed(() => {
       </div>
 
       <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
-        <FooterDemo :detail-footer="settings.footer.showDetailFooter" />
+        <FooterDemo :detail-footer="footerAsideSidebar" />
       </template>
     </OnyxPageLayout>
 

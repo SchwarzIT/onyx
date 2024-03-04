@@ -52,22 +52,20 @@ export const WithFooter = {
 } satisfies Story;
 
 /** TODO */
-export const WithCollapsibleSidebar = {
+export const WithPartialFooter = {
   args: {
     ...Default.args,
     sidebar: () => "Sidebar",
     footer: () => "Footer",
-    sidebarBehavior: "collapsible",
-    footerBehavior: "main",
+    footerAsideSidebar: true,
   },
 } satisfies Story;
 
-// /** TODO overlays all of storybook. bad idea. */
+// /** TODO */
 // export const WithOverlaySidebar = {
 //   args: {
 //     ...Default.args,
 //     sidebar: () => "Sidebar",
 //     footer: () => "Footer",
-//     sidebarBehavior: "overlay",
 //   },
 // } satisfies Story;
