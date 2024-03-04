@@ -2,7 +2,11 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
-/** TODO */
+/**
+ * Layout component that structures your application.
+ * Includes space for a nav bar, page content, and overlays above the page or the whole app.
+ * Recommended to use on App.vue level of an application.
+ */
 const meta: Meta<typeof OnyxAppLayout> = {
   title: "layout component/OnyxAppLayout",
   ...defineStorybookActionsAndVModels({
@@ -44,12 +48,12 @@ const meta: Meta<typeof OnyxAppLayout> = {
 export default meta;
 type Story = StoryObj<typeof OnyxAppLayout>;
 
-/** TODO */
+/** Standard app layout with a nav bar and some content. */
 export const Default = {
   args: {},
 } satisfies Story;
 
-/** TODO */
+/** App layout where the nav bar is left aligned. */
 export const LeftNav = {
   args: {
     ...Default.args,
@@ -57,7 +61,7 @@ export const LeftNav = {
   },
 } satisfies Story;
 
-/** TODO */
+/** Example of an overlay that covers the whole application. */
 export const AppOverlay = {
   args: {
     ...Default.args,
@@ -80,7 +84,7 @@ export const AppOverlay = {
   }),
 } satisfies Story;
 
-/** TODO */
+/** Example of an overlay that covers the whole page section of an application. */
 export const PageOverlay = {
   args: {
     ...Default.args,

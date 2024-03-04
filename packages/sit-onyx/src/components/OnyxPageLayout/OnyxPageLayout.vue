@@ -10,13 +10,13 @@ const props = defineProps<{
 }>();
 
 defineSlots<{
-  /** main content area of the page */
+  /** Main content area of the page */
   default(props: Record<string, never>): unknown;
-  /** optional sidebar of the page */
+  /** Optional sidebar of the page */
   sidebar(props: Record<string, never>): unknown;
-  /** optional footer of the page*/
+  /** Optional footer of the page*/
   footer(props: Record<string, never>): unknown;
-  /** toast message that sticks to the bottom */
+  /** Toast message that sticks to the bottom */
   toasts(props: Record<string, never>): unknown;
 }>();
 const slots = useSlots();

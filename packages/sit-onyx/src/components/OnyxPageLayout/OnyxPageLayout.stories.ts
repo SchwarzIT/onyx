@@ -2,7 +2,11 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
-/** TODO */
+/**
+ * Layout component that structures your page.
+ * Includes space for a sidebar, page content, footer and toasts.
+ * Recommended to use on view level of an application.
+ */
 const meta: Meta<typeof OnyxPageLayout> = {
   title: "layout component/OnyxPageLayout",
   ...defineStorybookActionsAndVModels({
@@ -16,9 +20,6 @@ const meta: Meta<typeof OnyxPageLayout> = {
         control: { disabled: true },
       },
       footer: {
-        control: { disabled: true },
-      },
-      mainOverlay: {
         control: { disabled: true },
       },
       toasts: {
@@ -46,12 +47,12 @@ const meta: Meta<typeof OnyxPageLayout> = {
 export default meta;
 type Story = StoryObj<typeof OnyxPageLayout>;
 
-/** TODO */
+/** A standard page with some content. */
 export const Default = {
   args: {},
 } satisfies Story;
 
-/** TODO */
+/** A standard page with a fixed sidebar. */
 export const WithSidebar = {
   args: {
     ...Default.args,
@@ -62,7 +63,7 @@ export const WithSidebar = {
   }),
 } satisfies Story;
 
-/** TODO */
+/** A standard page with a footer. */
 export const WithFooter = {
   args: {
     ...Default.args,
@@ -73,7 +74,7 @@ export const WithFooter = {
   }),
 } satisfies Story;
 
-/** TODO */
+/** A page that shows a sidebar and a footer next to it. */
 export const WithPartialFooter = {
   args: {
     ...Default.args,
@@ -85,7 +86,7 @@ export const WithPartialFooter = {
   }),
 } satisfies Story;
 
-/** TODO */
+/** A page that shows a toast. */
 export const WithToast = {
   args: {
     ...Default.args,

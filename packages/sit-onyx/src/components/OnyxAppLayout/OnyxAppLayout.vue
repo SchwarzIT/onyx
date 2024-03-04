@@ -3,19 +3,19 @@ import { useSlots } from "vue";
 
 const props = withDefaults(
   defineProps<{
-    /** whether the nav bar will stick to the left or to the top of the app */
+    /** Whether the nav bar will stick to the left or to the top of the app */
     navBarAlignment: "top" | "left";
   }>(),
   { navBarAlignment: "top" },
 );
 defineSlots<{
-  /** navigation area of the application */
+  /** Navigation area of the application */
   navBar(props: Record<string, never>): unknown;
-  /** page content area of the application */
+  /** Page content area of the application */
   default(props: Record<string, never>): unknown;
-  /** overlays that cover the page and exclude the nav area */
+  /** Overlays that cover the page and exclude the nav area */
   pageOverlay(props: Record<string, never>): unknown;
-  /** overlays that cover the complete page */
+  /** Overlays that cover the complete page */
   appOverlay(props: Record<string, never>): unknown;
 }>();
 
