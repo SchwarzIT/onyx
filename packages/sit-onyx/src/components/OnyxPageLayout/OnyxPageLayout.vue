@@ -53,21 +53,34 @@ const pageModifier = computed(() => {
 .onyx-page {
   height: 100%;
   width: 100%;
+  display: grid;
   grid-template-rows: auto;
   grid-template-columns: auto;
   grid-template-areas: "main";
 
   &--side-main {
-    // todo grid area
+    grid-template-columns: max-content auto;
+    grid-template-areas: "side main";
   }
   &--main-footer {
-    // todo grid area
+    grid-template-rows: auto max-content;
+    grid-template-areas:
+      "main"
+      "footer";
   }
   &--side-main-full-footer {
-    // todo grid area
+    grid-template-columns: max-content auto;
+    grid-template-rows: auto max-content;
+    grid-template-areas:
+      "side main"
+      "footer footer";
   }
   &--side-main-part-footer {
-    // todo grid area
+    grid-template-columns: max-content auto;
+    grid-template-rows: auto max-content;
+    grid-template-areas:
+      "side main"
+      "side footer";
   }
 }
 </style>
