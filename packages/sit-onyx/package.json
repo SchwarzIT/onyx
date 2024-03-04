@@ -51,12 +51,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.8.5",
     "@sit-onyx/headless": "workspace:^",
-    "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^8.0.0-rc.0",
-    "@storybook/blocks": "^8.0.0-rc.0",
-    "@storybook/vue3": "^8.0.0-rc.0",
-    "@storybook/vue3-vite": "^8.0.0-rc.0",
-    "eslint-plugin-vue-scoped-css": "^2.7.2",
-    "storybook": "^8.0.0-rc.0"
+    "eslint-plugin-vue-scoped-css": "^2.7.2"
   }
 }
