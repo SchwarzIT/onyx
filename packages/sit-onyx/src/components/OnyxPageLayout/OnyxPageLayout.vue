@@ -43,7 +43,7 @@ const pageModifier = computed(() => {
     <footer v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </footer>
-    <div v-if="slots.mainOverlay" class="main-overlay">
+    <div v-if="slots.mainOverlay" class="onyx-page__overlay">
       <slot name="mainOverlay"></slot>
     </div>
   </div>
@@ -59,28 +59,40 @@ const pageModifier = computed(() => {
   grid-template-areas: "main";
 
   &--side-main {
-    grid-template-columns: max-content auto;
+    grid-template-columns: max-content 1fr;
     grid-template-areas: "side main";
   }
   &--main-footer {
-    grid-template-rows: auto max-content;
+    grid-template-rows: 1fr max-content;
     grid-template-areas:
       "main"
       "footer";
   }
   &--side-main-full-footer {
-    grid-template-columns: max-content auto;
-    grid-template-rows: auto max-content;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: 1fr max-content;
     grid-template-areas:
       "side main"
       "footer footer";
   }
   &--side-main-part-footer {
-    grid-template-columns: max-content auto;
-    grid-template-rows: auto max-content;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: 1fr max-content;
     grid-template-areas:
       "side main"
       "side footer";
+  }
+
+  &__sidebar {
+    grid-area: side;
+  }
+  &__main {
+    grid-area: main;
+    overflow: hidden auto;
+    position: relative;
+  }
+  &__footer {
+    grid-area: footer;
   }
 }
 </style>

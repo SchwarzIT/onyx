@@ -1,12 +1,22 @@
 <script lang="ts" setup>
-import { OnyxAppLayout } from "sit-onyx";
-import { ref } from "vue";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
+import { computed, ref } from "vue";
 import {
+  // BusyIndicatorDemo,
   FlyoutDemo,
+  FooterDemo,
   LayoutSettings,
+  // MobileBottomFlyInDemo,
+  // MobileNavFlyoutDemo,
   NavBarDemo,
+  // PopoverDemo,
+  SidebarDemo,
+  StickyDemo,
+  // TempOverlayDemo,
+  // ToastDemo,
   TooltipDemo,
   type SettingsSections,
+  // FloatingButtonDemo,
 } from "../components/layout-demo";
 
 const settings = ref<SettingsSections>({
@@ -17,6 +27,33 @@ const settings = ref<SettingsSections>({
 });
 
 const navBarLeft = ref(false);
+
+const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
+
+const isSidebarOpen = ref(true);
+const showSidebarOpen = computed<boolean>(() => {
+  const { showSidebar, showSidebarCollapse } = settings.value.sidebar;
+  return showSidebar || (isSidebarOpen.value && showSidebarCollapse) || false;
+});
+// const showTempSidebarOpen = computed<boolean>(() => {
+//   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
+//   return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
+// });
+
+const sidebarBehavior = computed(() => {
+  const { showSidebar, showSidebarCollapse, showTempOverlayTransparent, showTempOverlay } =
+    settings.value.sidebar;
+  if (showSidebar) return "sticky";
+  if (showSidebarCollapse) return "collapsible";
+  if (showTempOverlayTransparent || showTempOverlay) return "overlay";
+  return undefined;
+});
+const footerBehavior = computed(() => {
+  const { showFullFooter, showDetailFooter } = settings.value.footer;
+  if (showFullFooter) return "full";
+  if (showDetailFooter) return "main";
+  return undefined;
+});
 </script>
 
 <template>
@@ -30,7 +67,41 @@ const navBarLeft = ref(false);
         <TooltipDemo :force-tooltip="settings.content.forceTooltip" style="display: inline-block" />
       </NavBarDemo>
     </template>
-    <div>Page</div>
+
+    <OnyxPageLayout :sidebar-behavior="sidebarBehavior" :footer-behavior="footerBehavior">
+      <template v-if="showSidebarOpen" #sidebar>
+        <SidebarDemo>
+          <LayoutSettings v-model="settings" :show="['content', 'footer', 'sidebar']" />
+          <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+        </SidebarDemo>
+      </template>
+
+      <div class="page" :class="{ 'page--full-height': !settings.footer.showFullFooter }">
+        <div class="page__content">
+          <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
+
+          <LayoutSettings v-model="settings" horizontal />
+
+          <StickyDemo v-if="settings.content.showStickyContent" />
+
+          <p>
+            <FlyoutDemo v-model="settings.content.showFlyout">
+              <LayoutSettings v-model="settings" :show="['content']" />
+            </FlyoutDemo>
+          </p>
+
+          <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+
+          <template v-if="settings.content.showLongPageContent">
+            <p v-for="content in muchContent" :key="content">{{ content }}</p>
+          </template>
+        </div>
+      </div>
+
+      <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
+        <FooterDemo :detail-footer="settings.footer.showDetailFooter" />
+      </template>
+    </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
 
@@ -38,4 +109,13 @@ const navBarLeft = ref(false);
 body {
   margin: 0;
 }
+
+.page {
+  background-color: #efefef;
+}
+.page__content {
+  padding: 2rem;
+  box-sizing: border-box;
+}
 </style>
+computed,
