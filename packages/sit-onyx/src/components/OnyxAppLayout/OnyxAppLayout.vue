@@ -24,12 +24,9 @@ const slots = useSlots();
     <div class="onyx-app__page">
       <slot></slot>
     </div>
-    <!-- todo teleport does not work on storybook? -->
-    <Teleport v-if="slots.overlay" to="body">
-      <div class="onyx-backdrop">
-        <slot name="overlay"></slot>
-      </div>
-    </Teleport>
+    <div v-if="slots.overlay" class="onyx-app__overlay">
+      <slot name="overlay"></slot>
+    </div>
   </div>
 </template>
 
@@ -59,15 +56,16 @@ const slots = useSlots();
     overflow: hidden auto;
     position: relative;
   }
-}
-
-.onyx-backdrop {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: var(--onyx-z-index-overlay);
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  &__overlay {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: var(--onyx-z-index-overlay);
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 </style>
