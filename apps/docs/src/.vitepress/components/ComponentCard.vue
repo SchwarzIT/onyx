@@ -23,10 +23,10 @@ const props = defineProps<ComponentCardProps>();
 
 const estimationValue = computed(() => {
   if (!props.estimation) return "n/a";
-
-  const date = new Date(props.estimation);
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  return `${month}/${date.getFullYear()}`;
+  return Intl.DateTimeFormat("en-US", {
+    month: "2-digit",
+    year: "numeric",
+  }).format(new Date(props.estimation));
 });
 </script>
 
