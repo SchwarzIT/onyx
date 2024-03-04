@@ -85,14 +85,31 @@ export const WithPartialFooter = {
   }),
 } satisfies Story;
 
-// /** TODO */
-// export const WithOverlaySidebar = {
-//   args: {
-//     ...Default.args,
-//     sidebar: () => "Sidebar",
-//     footer: () => "Footer",
-//   },
-// } satisfies Story;
+/** TODO */
+export const WithToast = {
+  args: {
+    ...Default.args,
+    footerAsideSidebar: true,
+  },
+  render: (args) => ({
+    setup: () => ({ args }),
+    ...getPageRenderContent(
+      { sidebar: true, footer: true },
+      `
+    <template #toasts>
+      <div style="display: flex;
+                  justify-content: center;
+                  width: 90%;
+                  background-color: rgba(0, 0, 0, 0.7);
+                  color: white;
+                  margin: auto;">
+        This is the place for a toast
+      </div>
+    </template>
+    `,
+    ),
+  }),
+} satisfies Story;
 
 const getPageRenderContent = (
   options?: { sidebar?: boolean; footer?: boolean },

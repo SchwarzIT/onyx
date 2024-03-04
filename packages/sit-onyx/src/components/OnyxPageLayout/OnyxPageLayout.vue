@@ -10,10 +10,13 @@ const props = defineProps<{
 }>();
 
 defineSlots<{
+  /** main content area of the page */
   default(props: Record<string, never>): unknown;
+  /** optional sidebar of the page */
   sidebar(props: Record<string, never>): unknown;
+  /** optional footer of the page*/
   footer(props: Record<string, never>): unknown;
-  mainOverlay(props: Record<string, never>): unknown;
+  /** toast message that sticks to the bottom */
   toasts(props: Record<string, never>): unknown;
 }>();
 const slots = useSlots();
@@ -46,9 +49,6 @@ const pageModifier = computed(() => {
     </footer>
     <div v-if="slots.toasts" class="onyx-page__toasts">
       <slot name="toasts"></slot>
-    </div>
-    <div v-if="slots.mainOverlay" class="onyx-page__overlay">
-      <slot name="mainOverlay"></slot>
     </div>
   </div>
 </template>
