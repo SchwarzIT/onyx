@@ -10,7 +10,8 @@ const props = withDefaults(
 defineSlots<{
   navBar(props: Record<string, never>): unknown;
   default(props: Record<string, never>): unknown;
-  overlay(props: Record<string, never>): unknown;
+  pageOverlay(props: Record<string, never>): unknown;
+  appOverlay(props: Record<string, never>): unknown;
 }>();
 
 const slots = useSlots();
@@ -24,8 +25,11 @@ const slots = useSlots();
     <div class="onyx-app__page">
       <slot></slot>
     </div>
-    <div v-if="slots.overlay" class="onyx-app__overlay">
-      <slot name="overlay"></slot>
+    <div v-if="slots.pageOverlay" class="onyx-app__page-overlay">
+      <slot name="pageOverlay"></slot>
+    </div>
+    <div v-if="slots.appOverlay" class="onyx-app__app-overlay">
+      <slot name="appOverlay"></slot>
     </div>
   </div>
 </template>
@@ -56,14 +60,19 @@ const slots = useSlots();
     overflow: hidden auto;
     position: relative;
   }
-  &__overlay {
+  &__page-overlay {
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    z-index: var(--onyx-z-index-page-overlay);
+  }
+  &__app-overlay {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: var(--onyx-z-index-overlay);
+    z-index: var(--onyx-z-index-app-overlay);
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
   }

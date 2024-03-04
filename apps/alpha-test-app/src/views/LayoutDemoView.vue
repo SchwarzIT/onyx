@@ -90,7 +90,7 @@ const footerAsideSidebar = computed<boolean>(
       </template>
     </OnyxPageLayout>
 
-    <template v-if="settings.overlay.showPopover || settings.overlay.showMobileFlyIn" #overlay>
+    <template v-if="settings.overlay.showPopover || settings.overlay.showMobileFlyIn" #app-overlay>
       <PopoverDemo v-if="settings.overlay.showPopover">
         <OnyxButton label="Close" @click="settings.overlay.showPopover = false" />
         <LayoutSettings v-model="settings" :show="['overlay']" />

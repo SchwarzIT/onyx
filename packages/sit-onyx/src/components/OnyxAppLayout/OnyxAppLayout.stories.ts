@@ -2,6 +2,20 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
+const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string): string => `
+<OnyxAppLayout v-bind="args">
+  <template #navBar>
+    <div style="background-color: white; border: 1px solid lightgrey; ${
+      alignNavLeft ? "height: 100%" : ""
+    }">
+      Nav bar
+    </div>
+  </template>
+  <div>This is the page content.</div>
+  ${otherSlotContent ?? ""}
+</OnyxAppLayout>
+`;
+
 /** TODO */
 const meta: Meta<typeof OnyxAppLayout> = {
   title: "layout component/OnyxAppLayout",
@@ -15,7 +29,15 @@ const meta: Meta<typeof OnyxAppLayout> = {
       default: {
         control: { disabled: true },
       },
+      pageOverlay: {
+        control: { disabled: true },
+      },
+      appOverlay: {
+        control: { disabled: true },
+      },
     },
+    // storybook adds 1rem padding. The app layout fills the full available space
+    // so we need to counteract the padding with a negative margin.
     decorators: [
       (story) => ({
         components: { story },
@@ -28,18 +50,7 @@ const meta: Meta<typeof OnyxAppLayout> = {
     render: (args) => ({
       setup: () => ({ args }),
       components: { OnyxAppLayout },
-      template: `
-        <OnyxAppLayout v-bind="args">
-          <template #navBar>
-            <div style="background-color: white; border: 1px solid lightgrey; ${
-              args.navBarAlignment === "left" ? "height: 100%" : ""
-            }">
-              Nav bar
-            </div>
-          </template>
-          <div>This is the page content.</div>
-        </OnyxAppLayout>
-        `,
+      template: getAppTemplate(args.navBarAlignment === "left"),
     }),
   }),
 };
@@ -59,32 +70,52 @@ export const LeftNav = {
     navBarAlignment: "left",
   },
 } satisfies Story;
+
 /** TODO */
-export const withOverlay = {
+export const withAppOverlay = {
   args: {
     ...Default.args,
   },
   render: (args) => ({
     setup: () => ({ args }),
     components: { OnyxAppLayout },
-    template: `
-      <OnyxAppLayout v-bind="args">
-        <template #navBar>
-          <div style="background-color: white; border: 1px solid lightgrey;">
-            This is the nav bar.
-          </div>
-        </template>
-        <div>This is the page content.</div>
-        <template #overlay>
+    template: getAppTemplate(
+      args.navBarAlignment === "left",
+      `<template #appOverlay>
           <div style="background-color: white; 
                       position: absolute;
                       inset: 10rem;
                       min-width: 5rem;
                       min-height: 1rem;">
-            This is an overlay.
+            This is an overlay that covers the whole app.
           </div>
-        </template>
-      </OnyxAppLayout>
-    `,
+        </template>`,
+    ),
+  }),
+} satisfies Story;
+
+/** TODO */
+export const withPageOverlay = {
+  args: {
+    ...Default.args,
+  },
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxAppLayout },
+    template: getAppTemplate(
+      args.navBarAlignment === "left",
+      `<template #pageOverlay>
+          <div style="background-color: #ffffffC7;
+                      backdrop-filter: blur(4px);
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: center;
+                      height: 100%;
+                      align-items: center;">
+            <div>This is an overlay that covers the page content.</div>
+            <div>The nav bar is excluded.</div>
+          </div>
+        </template>`,
+    ),
   }),
 } satisfies Story;
