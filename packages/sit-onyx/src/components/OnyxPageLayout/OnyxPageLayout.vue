@@ -81,6 +81,7 @@ const pageModifier = computed(() => {
 
   &__sidebar {
     grid-area: side;
+    overflow: hidden auto;
   }
   &__main {
     grid-area: main;
