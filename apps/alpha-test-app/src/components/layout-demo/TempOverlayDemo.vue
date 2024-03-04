@@ -7,7 +7,7 @@ defineProps<{ transparent?: boolean }>();
 </script>
 
 <template>
-  <div class="backdrop temp-overlay" :class="{ 'backdrop--transparent': transparent }">
+  <div class="temp-overlay" :class="{ 'temp-overlay--transparent': transparent }">
     <div class="temp-overlay__sidebar">
       <section>
         <OnyxHeadline is="h2">Temp overlay</OnyxHeadline>
@@ -26,17 +26,16 @@ defineProps<{ transparent?: boolean }>();
 </template>
 
 <style lang="scss" scoped>
-.backdrop {
+.temp-overlay {
   height: 100%;
   widows: 100%;
-  z-index: var(--onyx-z-index-app-overlay);
+  z-index: var(--onyx-z-index-page-overlay);
   background-color: rgba(0, 0, 0, 0.5);
 
   &--transparent {
     background-color: transparent;
   }
-}
-.temp-overlay {
+
   &__sidebar {
     outline: 1px solid lightgrey;
     background-color: white;

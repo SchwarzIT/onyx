@@ -8,9 +8,8 @@ defineProps<{
 
 <template>
   <div class="mobile-fly-in" :class="{ 'mobile-fly-in--split': showFooter }">
-    <div class="mobile-fly-in__content">
+    <div>
       <OnyxHeadline is="h2">Mobile fly-in</OnyxHeadline>
-
       <slot></slot>
     </div>
     <FooterDemo v-if="showFooter" />

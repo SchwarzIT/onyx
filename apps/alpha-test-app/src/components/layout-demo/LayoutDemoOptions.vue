@@ -31,7 +31,7 @@ const options = computed({
           {{ label }}
         </span>
       </label>
-      <em v-else class="title">{{ value }}</em>
+      <em v-else class="options__title">{{ value }}</em>
     </template>
   </div>
 </template>
@@ -40,6 +40,10 @@ const options = computed({
 .options {
   display: flex;
   flex-direction: column;
+
+  &__title {
+    margin-top: 8px;
+  }
 }
 
 .label {
@@ -51,9 +55,5 @@ const options = computed({
     font-weight: bold;
     color: green;
   }
-}
-
-.title {
-  margin-top: 8px;
 }
 </style>
