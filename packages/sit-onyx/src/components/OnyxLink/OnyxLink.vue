@@ -52,7 +52,7 @@ const shouldShowExternalIcon = computed(() => {
 .onyx-link {
   text-decoration: underline;
   color: var(--onyx-color-text-icons-primary-intense);
-  border: 1px solid transparent;
+  display: inline-block;
 
   // other styles like size, font family etc. should be inherited
   // so we don't define them here
@@ -64,8 +64,7 @@ const shouldShowExternalIcon = computed(() => {
   &:focus-visible {
     color: var(--onyx-color-text-icons-primary-intense);
     border-radius: var(--onyx-radius-sm);
-    border-color: var(--onyx-color-base-primary-300);
-    outline: none;
+    outline-color: var(--onyx-color-base-primary-300);
   }
 
   &:active {
