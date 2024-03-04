@@ -5,18 +5,7 @@ import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
-import { h } from "vue";
-
-type MandatoryIndicator = "required" | "optional";
-type MandatoryGlobalType = {
-  name: string;
-  description: string;
-  defaultValue: MandatoryIndicator;
-  toolbar: {
-    icon: string;
-    items: { value: MandatoryIndicator; right: string; title: string }[];
-  };
-};
+import { mandatoryGlobalType, withMandatory } from "./mandatory";
 
 const themes = {
   light: createTheme(),
@@ -52,27 +41,9 @@ const themes = {
 export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   const defaultPreview = {
     globalTypes: {
-      mandatoryMode: {
-        name: "Mandatory mode",
-        description: "Switch between 'required' and 'optional' indicator",
-        defaultValue: "required",
-        toolbar: {
-          icon: "flag",
-          items: [
-            { value: "required", right: "*", title: "Required indicator" },
-            { value: "optional", right: "(optional)", title: "Optional indicator" },
-          ],
-        },
-      } satisfies MandatoryGlobalType,
+      ...mandatoryGlobalType,
     },
-    decorators: [
-      (Story, context) => {
-        const mandatoryMode = context.globals.mandatoryMode as MandatoryIndicator;
-        return h("div", { class: { ["onyx-use-optional"]: mandatoryMode === "optional" } }, [
-          h(Story()),
-        ]);
-      },
-    ],
+    decorators: [withMandatory],
     parameters: {
       controls: {
         matchers: {
