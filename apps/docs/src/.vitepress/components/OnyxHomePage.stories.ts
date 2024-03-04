@@ -4,7 +4,7 @@ import { Default as ComponentRoadmapStory } from "./ComponentRoadmap.stories";
 import OnyxHomePage from "./OnyxHomePage.vue";
 
 /**
- * Note: The padding when previewing in Storybook might look a little off
+ * **Note:** The padding when previewing in Storybook might look a little off
  * but this is intended because the component is used inside the VitePress home page
  * so we need to align the spacings.
  */

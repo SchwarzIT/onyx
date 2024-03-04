@@ -7,6 +7,12 @@ const meta: Meta<typeof ComponentCard> = {
   ...defineStorybookActionsAndVModels({
     component: ComponentCard,
     events: [],
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="width: 16rem;"> <story /> </div>`,
+      }),
+    ],
   }),
 };
 
