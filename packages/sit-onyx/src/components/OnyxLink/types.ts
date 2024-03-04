@@ -11,7 +11,7 @@ export type OnyxLinkProps = {
   /**
    * Whether to show the external link icon.
    * If set to `auto`, it will be shown when the `href` leads to another website
-   * and will be hidden otherwise.
+   * (starting with "http://" or "https://") and will be hidden otherwise.
    */
   withExternalIcon?: boolean | "auto";
 };
