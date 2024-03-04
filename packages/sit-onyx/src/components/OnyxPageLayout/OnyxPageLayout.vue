@@ -116,6 +116,9 @@ const pageModifier = computed(() => {
   }
   &__footer {
     grid-area: footer;
+
+    // todo need design token from UX
+    background-color: var(--onyx-color-universal-grayscale-white);
   }
 }
 </style>

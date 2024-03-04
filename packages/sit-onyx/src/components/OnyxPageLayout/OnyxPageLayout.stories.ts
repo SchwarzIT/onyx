@@ -104,14 +104,22 @@ const getPageRenderContent = (
     ${
       options?.sidebar
         ? `<template #sidebar>
-            <div style="background-color: white; outline: 1px solid lightgrey;">
+            <div style="height: 100%; border: 1px solid lightgrey;">
             Side Bar Content
             </div>
            </template>`
         : ""
     }
     <div>This is the page content.</div>
-    ${options?.footer ? `<template #footer>Footer Content</footer>` : ""}
+    ${
+      options?.footer
+        ? `<template #footer>
+            <div style="border: 1px solid lightgrey;">
+              Footer Content
+            </div>
+           </template>`
+        : ""
+    }
     ${otherSlotContent ?? ""}
   </OnyxPageLayout>
 `,
