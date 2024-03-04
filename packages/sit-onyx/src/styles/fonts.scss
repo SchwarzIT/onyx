@@ -17,3 +17,11 @@
     font-family: var(--onyx-font-family-mono);
   }
 }
+
+.onyx-truncation {
+  &-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

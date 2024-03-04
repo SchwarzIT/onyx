@@ -24,7 +24,7 @@ const emit = defineEmits<{
     @click="emit('click')"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
-    <span class="onyx-button__label">{{ props.label }}</span>
+    <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
 </template>
 
@@ -38,6 +38,7 @@ const emit = defineEmits<{
 
   display: flex;
   height: 2.5rem;
+  max-width: 100%;
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
@@ -148,11 +149,7 @@ const emit = defineEmits<{
   }
 
   &__label {
-    display: flex;
     padding: 0 var(--onyx-spacing-4xs);
-    max-width: 12.25rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;

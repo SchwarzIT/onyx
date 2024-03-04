@@ -1,3 +1,5 @@
+import type { TruncationType } from "../../types/fonts";
+
 /**
  * TODO: move to dedicated file
  */
@@ -31,4 +33,8 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
    */
   required?: boolean;
   errorMessage?: string;
+  /**
+   * How to truncate the label if it exceeds the max width.
+   */
+  truncation?: TruncationType;
 };

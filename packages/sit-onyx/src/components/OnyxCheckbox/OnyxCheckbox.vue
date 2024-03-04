@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   indeterminate: false,
   disabled: false,
   required: false,
+  truncation: "ellipsis",
 });
 
 const emit = defineEmits<{
@@ -37,7 +38,9 @@ const isTouched = ref(false);
         v-model="isChecked"
         :aria-label="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
-        :class="{ 'onyx-checkbox__input--touched': isTouched }"
+        :class="{
+          'onyx-checkbox__input--touched': isTouched,
+        }"
         type="checkbox"
         :indeterminate="props.indeterminate"
         :disabled="props.disabled"
@@ -46,7 +49,13 @@ const isTouched = ref(false);
       />
     </div>
 
-    <p v-if="props.label && !props.hideLabel" class="onyx-checkbox__label">{{ props.label }}</p>
+    <p
+      v-if="props.label && !props.hideLabel"
+      class="onyx-checkbox__label"
+      :class="{ 'onyx-truncation-ellipsis': props.truncation === 'ellipsis' }"
+    >
+      {{ props.label }}
+    </p>
   </label>
 </template>
 
@@ -80,7 +89,8 @@ const isTouched = ref(false);
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  max-width: max-content;
+  width: max-content;
+  max-width: 100%;
 
   &:hover {
     @include define-hover-border($state: ":enabled", $color: primary);

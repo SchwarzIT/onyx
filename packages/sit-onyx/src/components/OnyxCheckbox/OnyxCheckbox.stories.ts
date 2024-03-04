@@ -1,3 +1,4 @@
+import { createTruncationDecorator } from "@/utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
@@ -65,4 +66,15 @@ export const WithoutLabel = {
     ...Default.args,
     hideLabel: true,
   },
+} satisfies Story;
+
+/**
+ * A checkbox with truncation. You can set the "truncation" property to choose between the different truncation types.
+ */
+export const WithTruncation = {
+  args: {
+    ...Default.args,
+    label: "Very long label that will be truncated",
+  },
+  decorators: [createTruncationDecorator("200px")],
 } satisfies Story;
