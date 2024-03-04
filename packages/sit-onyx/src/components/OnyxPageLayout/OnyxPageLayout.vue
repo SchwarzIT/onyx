@@ -2,6 +2,10 @@
 import { computed, useSlots } from "vue";
 
 const props = defineProps<{
+  /** When the page includes a sidebar as well as a footer,
+   * footerAsideSidebar will restrict the footer to span
+   * the main area next to the sidebar.
+   */
   footerAsideSidebar?: boolean;
 }>();
 
@@ -90,13 +94,16 @@ const pageModifier = computed(() => {
   &__sidebar {
     grid-area: side;
     overflow: hidden auto;
+
+    // todo need design token from UX
+    background-color: var(--onyx-color-universal-grayscale-white);
   }
   &__main {
     grid-area: main;
     overflow: hidden auto;
     position: relative;
 
-    background-color: #efefef;
+    background-color: var(--onyx-color-base-neutral-100);
   }
   &__toasts {
     grid-row: 1 / -2;

@@ -26,6 +26,21 @@ const meta: Meta<typeof OnyxPageLayout> = {
       },
     },
   }),
+  // storybook adds 1rem padding. The app layout fills the full available space
+  // so we need to counteract the padding with a negative margin.
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+        <div style="margin: -1rem; height: 20rem;" >
+          <story />
+        </div>`,
+    }),
+  ],
+  render: (args) => ({
+    setup: () => ({ args }),
+    ...getPageRenderContent(),
+  }),
 };
 
 export default meta;
@@ -33,35 +48,41 @@ type Story = StoryObj<typeof OnyxPageLayout>;
 
 /** TODO */
 export const Default = {
-  args: {
-    default: () => "Page content",
-  },
+  args: {},
 } satisfies Story;
 
 /** TODO */
 export const WithSidebar = {
   args: {
     ...Default.args,
-    sidebar: () => "Sidebar",
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    ...getPageRenderContent({ sidebar: true }),
+  }),
 } satisfies Story;
 
 /** TODO */
 export const WithFooter = {
   args: {
     ...Default.args,
-    footer: () => "Footer",
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    ...getPageRenderContent({ footer: true }),
+  }),
 } satisfies Story;
 
 /** TODO */
 export const WithPartialFooter = {
   args: {
     ...Default.args,
-    sidebar: () => "Sidebar",
-    footer: () => "Footer",
     footerAsideSidebar: true,
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    ...getPageRenderContent({ sidebar: true, footer: true }),
+  }),
 } satisfies Story;
 
 // /** TODO */
@@ -72,3 +93,26 @@ export const WithPartialFooter = {
 //     footer: () => "Footer",
 //   },
 // } satisfies Story;
+
+const getPageRenderContent = (
+  options?: { sidebar?: boolean; footer?: boolean },
+  otherSlotContent?: string,
+) => ({
+  components: { OnyxPageLayout },
+  template: `
+  <OnyxPageLayout v-bind="args">
+    ${
+      options?.sidebar
+        ? `<template #sidebar>
+            <div style="background-color: white; outline: 1px solid lightgrey;">
+            Side Bar Content
+            </div>
+           </template>`
+        : ""
+    }
+    <div>This is the page content.</div>
+    ${options?.footer ? `<template #footer>Footer Content</footer>` : ""}
+    ${otherSlotContent ?? ""}
+  </OnyxPageLayout>
+`,
+});

@@ -2,20 +2,6 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
-const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string): string => `
-<OnyxAppLayout v-bind="args">
-  <template #navBar>
-    <div style="background-color: white; border: 1px solid lightgrey; ${
-      alignNavLeft ? "height: 100%" : ""
-    }">
-      Nav bar
-    </div>
-  </template>
-  <div>This is the page content.</div>
-  ${otherSlotContent ?? ""}
-</OnyxAppLayout>
-`;
-
 /** TODO */
 const meta: Meta<typeof OnyxAppLayout> = {
   title: "layout component/OnyxAppLayout",
@@ -42,7 +28,7 @@ const meta: Meta<typeof OnyxAppLayout> = {
       (story) => ({
         components: { story },
         template: `
-          <div id="app-layout-wrapper" style="margin: -1rem; position: relative" >
+          <div style="margin: -1rem;" >
             <story />
           </div>`,
       }),
@@ -119,3 +105,17 @@ export const PageOverlay = {
     ),
   }),
 } satisfies Story;
+
+const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string): string => `
+<OnyxAppLayout v-bind="args">
+  <template #navBar>
+    <div style="background-color: white; border: 1px solid lightgrey; ${
+      alignNavLeft ? "height: 100%" : ""
+    }">
+      Nav bar
+    </div>
+  </template>
+  <div>This is the page content.</div>
+  ${otherSlotContent ?? ""}
+</OnyxAppLayout>
+`;
