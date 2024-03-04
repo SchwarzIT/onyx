@@ -3,7 +3,7 @@ import { OnyxHeadline } from "sit-onyx";
 </script>
 
 <template>
-  <div class="demo popover">
+  <div class="popover">
     <OnyxHeadline is="h2">Popover / Modal content</OnyxHeadline>
     <slot></slot>
   </div>

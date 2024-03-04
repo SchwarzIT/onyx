@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div class="tooltip-parent">
-    <div class="demo tooltip" :class="{ 'tooltip--forced': forceTooltip }">
+    <div class="tooltip" :class="{ 'tooltip--forced': forceTooltip }">
       Tooltip parent
       <div class="tooltip__text">Hello world Hello world Hello world Hello world</div>
     </div>

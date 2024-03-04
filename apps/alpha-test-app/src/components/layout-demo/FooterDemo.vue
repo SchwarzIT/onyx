@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="demo footer" :class="{ 'footer--detail': detailFooter }">
+  <div class="footer" :class="{ 'footer--detail': detailFooter }">
     <span v-if="detailFooter">Detail</span> Footer
   </div>
 </template>
@@ -14,5 +14,6 @@ defineProps<{
 .footer {
   height: 50px;
   border: 1px solid lightgrey;
+  background-color: white;
 }
 </style>

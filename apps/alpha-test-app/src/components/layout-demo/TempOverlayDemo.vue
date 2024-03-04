@@ -8,7 +8,7 @@ defineProps<{ transparent?: boolean }>();
 
 <template>
   <div class="backdrop temp-overlay" :class="{ 'backdrop--transparent': transparent }">
-    <div class="demo temp-overlay__sidebar">
+    <div class="temp-overlay__sidebar">
       <section>
         <OnyxHeadline is="h2">Temp overlay</OnyxHeadline>
 
@@ -40,6 +40,7 @@ defineProps<{ transparent?: boolean }>();
   &__sidebar {
     outline: 1px solid lightgrey;
     background-color: white;
+
     width: 250px;
     height: 100%;
     overflow-y: auto;

@@ -2,8 +2,8 @@
 
 <template>
   <div class="toast-controller">
-    <div class="demo toast">Toast message 1</div>
-    <div class="demo toast">Toast message 2</div>
+    <div class="toast">Toast message 1</div>
+    <div class="toast">Toast message 2</div>
   </div>
 </template>
 

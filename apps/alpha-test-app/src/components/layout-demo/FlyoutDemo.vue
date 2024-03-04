@@ -11,7 +11,7 @@ defineProps<{ small?: boolean }>();
     Demo Drop Down:
     <div class="flyout-parent">
       <input :class="{ 'small-input': small }" width="10px" @click="showFlyout = !showFlyout" />
-      <div v-if="showFlyout" class="demo flyout">
+      <div v-if="showFlyout" class="flyout">
         <slot></slot>
       </div>
     </div>

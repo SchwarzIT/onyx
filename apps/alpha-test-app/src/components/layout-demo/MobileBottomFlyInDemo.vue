@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="demo mobile-fly-in" :class="{ 'mobile-fly-in--split': showFooter }">
+  <div class="mobile-fly-in" :class="{ 'mobile-fly-in--split': showFooter }">
     <div class="mobile-fly-in__content">
       <OnyxHeadline is="h2">Mobile fly-in</OnyxHeadline>
 

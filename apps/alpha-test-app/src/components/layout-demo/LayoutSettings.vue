@@ -55,7 +55,9 @@ const contentOptions: SelectionOption[] = [
 const overlayOptions: SelectionOption[] = [
   noneOption,
   { id: "showPopover", label: "Popover/Modal" },
-  { id: "showMobileFlyIn", label: "Mobile Fly-in" },
+  // the mobile fly in should not be promoted for now,
+  // but we should keep it to re-enable it if needed.
+  // { id: "showMobileFlyIn", label: "Mobile Fly-in" },
   { id: "showPageLoader", label: "Busy indicator" },
   { id: "showTopBarFlyout", label: "Top bar flyout" },
 ];
