@@ -30,10 +30,16 @@ const meta: Meta<typeof OnyxAppLayout> = {
       components: { OnyxAppLayout },
       template: `
         <OnyxAppLayout v-bind="args">
-          <template #navBar><div style="background-color: white">nav bar</div></template>
-          <div>Page content</div>
-          </OnyxAppLayout>
-          `,
+          <template #navBar>
+            <div style="background-color: white; border: 1px solid lightgrey; ${
+              args.navBarAlignment === "left" ? "height: 100%" : ""
+            }">
+              Nav bar
+            </div>
+          </template>
+          <div>This is the page content.</div>
+        </OnyxAppLayout>
+        `,
     }),
   }),
 };
@@ -63,10 +69,22 @@ export const withOverlay = {
     components: { OnyxAppLayout },
     template: `
       <OnyxAppLayout v-bind="args">
-        <template #navBar><div style="background-color: white">This is the nav bar.</div></template>
+        <template #navBar>
+          <div style="background-color: white; border: 1px solid lightgrey;">
+            This is the nav bar.
+          </div>
+        </template>
         <div>This is the page content.</div>
-        <template #overlay><span style="background-color: white">This is an overlay.</span></template>
+        <template #overlay>
+          <div style="background-color: white; 
+                      position: absolute;
+                      inset: 10rem;
+                      min-width: 5rem;
+                      min-height: 1rem;">
+            This is an overlay.
+          </div>
+        </template>
       </OnyxAppLayout>
-      `,
+    `,
   }),
 } satisfies Story;
