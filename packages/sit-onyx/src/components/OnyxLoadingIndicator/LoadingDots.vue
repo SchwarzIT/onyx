@@ -57,7 +57,7 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
       @include define-dot;
     }
 
-    $dot-offset: calc(-1.5 * var(--dot-size));
+    $dot-offset: calc(-0.5 * var(--indicator-size) + 0.5 * var(--dot-size));
 
     &::before {
       left: $dot-offset;
