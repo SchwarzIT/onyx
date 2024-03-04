@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-alpha.24
+
+### Patch Changes
+
+- Updated dependencies [5ac259d]
+  - @sit-onyx/icons@0.1.0-alpha.0
+
 ## 1.0.0-alpha.23
 
 ### Minor Changes
