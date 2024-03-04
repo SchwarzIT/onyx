@@ -1,7 +1,7 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
-import { expect, test } from "../../playwright-axe";
-import OnyxButton from "./OnyxButton.vue";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { expect, test } from "../../playwright-axe";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
+import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
@@ -46,6 +46,19 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should truncate text", async ({ mount }) => {
+  const label = "Very long label that should be truncated";
+
+  // ARRANGE
+  const component = await mount(<OnyxButton label={label} style="max-width: 128px;" />);
+
+  // ASSERT
+  await expect(component).toContainText(label);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("truncation-ellipsis.png");
 });
 
 const STATES = {
