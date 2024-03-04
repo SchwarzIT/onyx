@@ -92,34 +92,33 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
     max-width: 1152px;
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    gap: var(--onyx-spacing-4xl);
   }
 
   &__headline {
-    margin-bottom: 1rem;
+    margin-bottom: var(--onyx-spacing-md);
     font-size: 2.5rem;
     line-height: 2.5rem;
   }
 
   &__timestamp {
     color: var(--vp-c-text-2);
-    margin: 1rem 0;
+    margin: var(--onyx-spacing-md) 0;
   }
 
   &__description {
-    margin-bottom: 2rem;
+    margin-bottom: var(--onyx-spacing-xl);
   }
 
   &__tabs {
     background-color: var(--vp-c-bg-alt);
-    border-radius: 0.5rem;
+    border-radius: var(--onyx-radius-md);
   }
 
   &__facts {
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: var(--onyx-spacing-md);
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   }
 }
 </style>
-./ComponentRoadmap.vue
