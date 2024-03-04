@@ -32,9 +32,16 @@ const props = withDefaults(
   &--horizontal {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    height: 3.5rem;
+    height: max-content;
+
+    .strip__name {
+      // make name full width
+      grid-column: span 9;
+    }
 
     .strip__color {
+      height: 3.5rem;
+
       &:first-child {
         border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
       }

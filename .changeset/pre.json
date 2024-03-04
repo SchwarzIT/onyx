@@ -13,6 +13,7 @@
     "alpha-test-app": "0.0.0"
   },
   "changesets": [
+    "angry-teachers-tickle",
     "big-ears-cheer",
     "brave-lobsters-wonder",
     "chilly-scissors-whisper",
@@ -30,6 +31,7 @@
     "modern-dingos-melt",
     "nasty-impalas-reflect",
     "nasty-mails-play",
+    "nervous-monkeys-destroy",
     "new-crabs-sell",
     "olive-forks-mate",
     "purple-years-unite",
