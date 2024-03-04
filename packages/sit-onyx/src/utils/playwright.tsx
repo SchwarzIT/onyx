@@ -1,7 +1,5 @@
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
-import type { Locator } from "@playwright/test";
-import {} from "@playwright/experimental-ct-vue";
 
 type Permutation<T extends Record<string, readonly string[]>> = {
   [key in keyof T]: T[key][number];
@@ -41,17 +39,16 @@ const generatePermutations = <T extends Record<string, readonly string[]>>(obj: 
   return _generatePermutations(obj, keys);
 };
 
-type TestArg = Parameters<Parameters<typeof test>[1]>[0];
-type MountResultJsx = {
-  unmount(): Promise<void>;
-  update(component: JSX.Element): Promise<void>;
-} & Locator;
+type TestArg = Parameters<Parameters<typeof test>[2]>[0];
+type MountResultJsx = Awaited<ReturnType<TestArg["mount"]>>;
 
 type ComponentStates = Readonly<Record<string, ReadonlyArray<string>>>;
+
 type WrappedMount = (
   jsx: JSX.Element,
   options?: { useOptional?: boolean },
 ) => Promise<MountResultJsx>;
+
 type CaseBuilder<S extends ComponentStates> = (
   c: Permutation<S>,
   mount: WrappedMount,
@@ -111,17 +108,17 @@ export const createScreenshotsForAllStates =
 
     for (const testCase of permutations) {
       // ARRANGE
-      const wrappedMount = ((jsx: JSX.Element, options?: { optional?: boolean }) =>
+      const wrappedMount = ((jsx, options) =>
         mount(
           <div
             style={{ width: "min-content", padding: "1rem" }}
             class={{
-              "onyx-use-optional": options?.optional,
+              "onyx-use-optional": options?.useOptional,
             }}
           >
             {jsx}
           </div>,
-        )) as WrappedMount;
+        )) satisfies WrappedMount;
 
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover(); // reset mouse
