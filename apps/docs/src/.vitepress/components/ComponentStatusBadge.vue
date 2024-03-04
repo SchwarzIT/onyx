@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import check from "@sit-onyx/icons/check.svg?raw";
+import history from "@sit-onyx/icons/history.svg?raw";
+import loadingDots from "@sit-onyx/icons/loading-dots.svg?raw";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 export type ComponentStatus = "implemented" | "in-progress" | "planned";
@@ -16,11 +18,11 @@ const icons = {
     label: "Implemented",
   },
   "in-progress": {
-    icon: check,
+    icon: loadingDots,
     label: "In progress",
   },
   planned: {
-    icon: check,
+    icon: history,
     label: "Planned",
   },
 } satisfies Record<ComponentStatus, { icon: string; label: string }>;

@@ -1,14 +1,33 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+import type { ComponentStatus } from "./ComponentStatusBadge.vue";
+import ComponentStatusBadge from "./ComponentStatusBadge.vue";
+
 export type ComponentCardProps = {
   /** Component name. */
   name: string;
-  /** If true an "Implemented" badge will be shown, "Planned" otherwise. */
-  implemented?: boolean;
-  /** Link to the implemented component. */
+  /** Component status. */
+  status: ComponentStatus;
+  /** Link to the component. */
   href?: string;
+  /**
+   * Estimation date when the component will be implemented.
+   * Only the month and year of the date will be shown.
+   * If unset, "n/a" will be displayed.
+   */
+  estimation?: ConstructorParameters<typeof Date>[0];
 };
 
 const props = defineProps<ComponentCardProps>();
+
+const estimationValue = computed(() => {
+  if (!props.estimation) return "n/a";
+
+  const date = new Date(props.estimation);
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  return `${month}/${date.getFullYear()}`;
+});
 </script>
 
 <template>
@@ -18,26 +37,32 @@ const props = defineProps<ComponentCardProps>();
     :class="{ 'card--clickable': props.href }"
     :href="props.href"
   >
-    <Badge
-      v-if="props.implemented"
-      class="card__badge card__badge--implemented"
-      text="Implemented"
-    />
-    <Badge v-else class="card__badge" text="Planned" type="info" />
-    <h4 class="card__title">{{ props.name }}</h4>
+    <ComponentStatusBadge :status="props.status" class="card__status" />
+    <OnyxHeadline is="h2">{{ props.name }}</OnyxHeadline>
+    <p class="estimation">
+      Estimation:
+      <span class="estimation__value">{{ estimationValue }}</span>
+    </p>
   </component>
 </template>
 
 <style lang="scss" scoped>
 .card {
   border: var(--onyx-1px-in-rem) solid var(--vp-c-default-soft);
-  border-radius: 0.75rem;
-  height: 100%;
-  background-color: var(--vp-c-bg);
-  padding: 1.5rem;
+  border-radius: var(--onyx-radius-lg);
+  background-color: var(--onyx-color-base-background-blank);
+  padding: var(--onyx-spacing-md);
   transition:
-    border-color 0.25s,
-    background-color 0.25s;
+    border-color var(--onyx-duration-sm),
+    background-color var(--onyx-duration-sm);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--onyx-spacing-4xs);
+
+  outline-color: var(--onyx-color-base-primary-500);
 
   &--clickable {
     &:hover,
@@ -46,19 +71,16 @@ const props = defineProps<ComponentCardProps>();
     }
   }
 
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 700;
+  &__status {
+    margin-left: auto;
   }
 
-  &__badge {
-    width: max-content;
-    margin-left: 0;
-    margin-bottom: 0.5rem;
+  .estimation {
+    margin: 0;
+    color: var(--onyx-color-text-icons-neutral-medium);
 
-    &--implemented {
-      color: var(--vp-c-brand-2);
-      background-color: var(--vp-c-brand-soft);
+    &__value {
+      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }

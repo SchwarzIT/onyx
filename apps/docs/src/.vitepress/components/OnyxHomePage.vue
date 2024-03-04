@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
-import { data as roadmapData } from "../../index.data";
-import ComponentGrid from "./ComponentGrid.vue";
+import type { HomePageData } from "../../index.data";
+import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
-import TabGroup from "./TabGroup.vue";
+
+const props = defineProps<{
+  data: HomePageData;
+}>();
 
 const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   day: "2-digit",
@@ -11,65 +15,47 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   year: "numeric",
   hour: "2-digit",
   minute: "2-digit",
-}).format(new Date(roadmapData.timestamp));
+}).format(new Date(props.data.timestamp));
 </script>
 
 <template>
   <section class="roadmap">
     <div class="roadmap__sections">
-      <section>
-        <h2 class="roadmap__headline">Components</h2>
-
-        <div class="roadmap__description">
-          <p>
-            onyx is currently in early / active development. Below you can find a list of components
-            that we are planning to implement as well as their estimated due date.
-          </p>
-          <p>
-            Feel free to check this page regularly, we will keep it up to date with our progress.
-          </p>
-        </div>
-
-        <TabGroup class="roadmap__tabs" :tabs="roadmapData.componentTabs">
-          <template v-for="tab in roadmapData.componentTabs" :key="tab.id" #[tab.id]>
-            <ComponentGrid v-bind="tab" />
-          </template>
-        </TabGroup>
-      </section>
+      <ComponentRoadmap :components="props.data.components" />
 
       <section>
-        <h2 class="roadmap__headline">Facts and figures</h2>
+        <OnyxHeadline is="h2" class="roadmap__headline">Facts and figures</OnyxHeadline>
         <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
 
         <div class="roadmap__facts">
           <RoadmapCard
-            :title="roadmapData.componentCount"
-            :description="roadmapData.componentCount === 1 ? 'Component' : 'Components'"
+            :title="props.data.componentCount"
+            :description="props.data.componentCount === 1 ? 'Component' : 'Components'"
             href="/development/"
           />
           <RoadmapCard
-            :title="roadmapData.variantCount"
+            :title="props.data.variantCount"
             description="Component variants"
             href="/development/"
           />
-          <RoadmapCard :title="roadmapData.downloads" description="Downloads (last month)" />
+          <RoadmapCard :title="props.data.downloads" description="Downloads (last month)" />
           <RoadmapCard
             :title="packageJson.version"
             description="onyx version"
-            href="https://www.npmjs.com/package/sit-onyx"
+            href="https://www.npmjs.com/package/sit-onyx?activeTab=versions"
           />
           <RoadmapCard
-            :title="roadmapData.packageCount"
+            :title="props.data.packageCount"
             description="npm packages"
             href="https://www.npmjs.com/search?q=sit-onyx"
           />
           <RoadmapCard
-            :title="roadmapData.mergedPRCount"
+            :title="props.data.mergedPRCount"
             description="Merged pull requests"
             :href="`${packageJson.repository.url}/pulls?q=${encodeURIComponent('is:pr is:merged')}`"
           />
           <RoadmapCard
-            :title="roadmapData.closedIssueCount"
+            :title="props.data.closedIssueCount"
             description="Closed issues"
             :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
           />
@@ -110,10 +96,9 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   }
 
   &__headline {
+    margin-bottom: 1rem;
     font-size: 2.5rem;
     line-height: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
   }
 
   &__timestamp {
@@ -137,3 +122,4 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   }
 }
 </style>
+./ComponentRoadmap.vue

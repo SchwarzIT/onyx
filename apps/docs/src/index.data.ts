@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import { defineLoader } from "vitepress";
-import type { ComponentGridProps } from "./.vitepress/components/ComponentGrid.vue";
-import type { Tab } from "./.vitepress/components/TabGroup.vue";
+import type { ComponentCardProps } from "./.vitepress/components/ComponentCard.vue";
 import { getOnyxNpmPackages } from "./.vitepress/utils";
 
 /**
@@ -22,8 +21,8 @@ export type HomePageData = {
   downloads: number;
   /** Number of npm packages inside the `packages` folder of this monorepo. */
   packageCount: number;
-  /** Component tabs / sets / roadmap. */
-  componentTabs: (Tab & ComponentGridProps)[];
+  /** Component information. */
+  components: ComponentCardProps[];
 };
 
 declare const data: HomePageData;
@@ -63,78 +62,92 @@ export default defineLoader({
      * Also returns a `href` property with the link to the implemented component (only if implemented).
      */
     const getImplementedStatus = (componentName: string) => {
-      const implemented = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
+      const doesFileExist = watchedFiles.some((file) =>
+        file.endsWith(`${componentName}.stories.ts`),
+      );
       return {
-        implemented,
-        href: implemented ? `/development/components/${componentName}` : undefined,
-      };
+        status: doesFileExist ? "in-progress" : "planned",
+        href: doesFileExist ? `/development/components/${componentName}` : undefined,
+      } satisfies Partial<ComponentCardProps>;
     };
 
-    const componentTabs: HomePageData["componentTabs"] = [
+    const basicComponentsEstimation = new Date(2024, 4);
+
+    const components: HomePageData["components"] = [
       {
-        id: "basic",
-        label: "Basic components",
-        description:
-          "Basic components with top priority that we consider as must-have for building a simple web application.",
-        dueDate: new Date(2024, 3, 15).toISOString(),
-        components: [
-          { name: "Button", ...getImplementedStatus("OnyxButton") },
-          { name: "Radio button group", ...getImplementedStatus("OnyxRadioButtonGroup") },
-          { name: "Minimalistic table", ...getImplementedStatus("OnyxTable") },
-          { name: "Headline", ...getImplementedStatus("OnyxHeadline") },
-          { name: "Footer", ...getImplementedStatus("OnyxFooter") },
-          { name: "Header", ...getImplementedStatus("OnyxHeader") },
-          { name: "Dropdown", ...getImplementedStatus("OnyxDropdown") },
-          { name: "Textarea", ...getImplementedStatus("OnyxTextarea") },
-          { name: "Input", ...getImplementedStatus("OnyxInput") },
-          { name: "Switch", ...getImplementedStatus("OnyxSwitch") },
-          { name: "Checkbox group", ...getImplementedStatus("OnyxCheckboxGroup") },
-        ],
+        name: "Button",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxButton"),
       },
       {
-        id: "expansion-2",
-        label: "Expansion 2",
-        description:
-          "Commonly used components which are not critical to implement simple applications.",
-        components: [
-          // we can not use "isImplemented" for the advanced table because it will be
-          // the same component as the "simple" table
-          { name: "Advanced Table", implemented: false },
-          { name: "Filter", ...getImplementedStatus("OnyxFilter") },
-          { name: "Notification", ...getImplementedStatus("OnyxNotification") },
-          { name: "Sidebar", ...getImplementedStatus("OnyxSidebar") },
-          { name: "Card", ...getImplementedStatus("OnyxCard") },
-          { name: "Popover", ...getImplementedStatus("OnyxPopover") },
-          { name: "Dialog", ...getImplementedStatus("OnyxDialog") },
-          { name: "Pagination", ...getImplementedStatus("OnyxPagination") },
-        ],
+        name: "Radio button group",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxRadioButtonGroup"),
       },
       {
-        id: "expansion-3",
-        label: "Expansion 3",
-        description:
-          "Nice to have components. A basic or Expansion 2 component can be used as alternative in the meantime.",
-        components: [
-          { name: "Datepicker", ...getImplementedStatus("OnyxDatepicker") },
-          { name: "Timepicker", ...getImplementedStatus("OnyxTimepicker") },
-          { name: "Calendar", ...getImplementedStatus("OnyxCalendar") },
-          { name: "Accordion", ...getImplementedStatus("OnyxAccordion") },
-          { name: "Slider", ...getImplementedStatus("OnyxSlider") },
-          { name: "Stepper", ...getImplementedStatus("OnyxStepper") },
-          { name: "Upload", ...getImplementedStatus("OnyxUpload") },
-        ],
+        name: "Minimalistic table",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxTable"),
       },
       {
-        id: "expansion-4",
-        label: "Expansion 4",
-        description: "Low priority components.",
-        components: [
-          { name: "Breadcrumb", ...getImplementedStatus("OnyxBreadcrumb") },
-          { name: "Table of Content", ...getImplementedStatus("OnyxTableOfContent") },
-          { name: "Wizard", ...getImplementedStatus("OnyxWizard") },
-          { name: "Tabs", ...getImplementedStatus("OnyxTabs") },
-        ],
+        name: "Headline",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxHeadline"),
       },
+      {
+        name: "Footer",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxFooter"),
+      },
+      {
+        name: "Header",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxHeader"),
+      },
+      {
+        name: "Combobox",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxCombobox"),
+      },
+      {
+        name: "Textarea",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxTextarea"),
+      },
+      {
+        name: "Input",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxInput"),
+      },
+      {
+        name: "Switch",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxSwitch"),
+      },
+      {
+        name: "Checkbox group",
+        estimation: basicComponentsEstimation,
+        ...getImplementedStatus("OnyxCheckboxGroup"),
+      },
+      { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
+      { name: "Filter", ...getImplementedStatus("OnyxFilter") },
+      { name: "Notification", ...getImplementedStatus("OnyxNotification") },
+      { name: "Sidebar", ...getImplementedStatus("OnyxSidebar") },
+      { name: "Card", ...getImplementedStatus("OnyxCard") },
+      { name: "Popover", ...getImplementedStatus("OnyxPopover") },
+      { name: "Dialog", ...getImplementedStatus("OnyxDialog") },
+      { name: "Pagination", ...getImplementedStatus("OnyxPagination") },
+      { name: "Datepicker", ...getImplementedStatus("OnyxDatepicker") },
+      { name: "Timepicker", ...getImplementedStatus("OnyxTimepicker") },
+      { name: "Calendar", ...getImplementedStatus("OnyxCalendar") },
+      { name: "Accordion", ...getImplementedStatus("OnyxAccordion") },
+      { name: "Slider", ...getImplementedStatus("OnyxSlider") },
+      { name: "Stepper", ...getImplementedStatus("OnyxStepper") },
+      { name: "Upload", ...getImplementedStatus("OnyxUpload") },
+      { name: "Breadcrumb", ...getImplementedStatus("OnyxBreadcrumb") },
+      { name: "Table of Content", ...getImplementedStatus("OnyxTableOfContent") },
+      { name: "Wizard", ...getImplementedStatus("OnyxWizard") },
+      { name: "Tabs", ...getImplementedStatus("OnyxTabs") },
     ];
 
     return {
@@ -145,7 +158,7 @@ export default defineLoader({
       timestamp: timestamp.toUTCString(),
       downloads,
       packageCount: packageFolders.length,
-      componentTabs,
+      components,
     };
   },
 });
