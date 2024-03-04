@@ -21,6 +21,9 @@ const meta: Meta<typeof OnyxPageLayout> = {
       mainOverlay: {
         control: { disabled: true },
       },
+      toasts: {
+        control: { disabled: true },
+      },
     },
   }),
 };

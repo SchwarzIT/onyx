@@ -1,13 +1,6 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
-import {
-  FloatingButtonDemo,
-  FlyoutDemo,
-  LayoutSettings,
-  StickyDemo,
-  // ToastDemo,
-  TooltipDemo,
-} from ".";
+import { FloatingButtonDemo, FlyoutDemo, LayoutSettings, StickyDemo, TooltipDemo } from ".";
 import type { SettingsSections } from ".";
 import { computed } from "vue";
 

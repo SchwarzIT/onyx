@@ -13,6 +13,7 @@ import {
   PopoverDemo,
   SidebarDemo,
   TempOverlayDemo,
+  ToastDemo,
   TooltipDemo,
   type SettingsSections,
 } from "../components/layout-demo";
@@ -66,6 +67,10 @@ const footerAsideSidebar = computed<boolean>(
         :is-sidebar-open="isSidebarOpen"
         @is-sidebar-open="isSidebarOpen = $event"
       />
+
+      <template v-if="settings.content.showToast" #toasts>
+        <ToastDemo />
+      </template>
 
       <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
         <FooterDemo :detail-footer="footerAsideSidebar" />

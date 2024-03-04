@@ -10,6 +10,7 @@ defineSlots<{
   sidebar(props: Record<string, never>): unknown;
   footer(props: Record<string, never>): unknown;
   mainOverlay(props: Record<string, never>): unknown;
+  toasts(props: Record<string, never>): unknown;
 }>();
 const slots = useSlots();
 
@@ -39,6 +40,9 @@ const pageModifier = computed(() => {
     <footer v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </footer>
+    <div v-if="slots.toasts" class="onyx-page__toasts">
+      <slot name="toasts"></slot>
+    </div>
     <div v-if="slots.mainOverlay" class="onyx-page__overlay">
       <slot name="mainOverlay"></slot>
     </div>
@@ -77,6 +81,10 @@ const pageModifier = computed(() => {
     grid-template-areas:
       "side main"
       "side footer";
+
+    .onyx-page__toasts {
+      grid-column: 2 / -1;
+    }
   }
 
   &__sidebar {
@@ -89,6 +97,15 @@ const pageModifier = computed(() => {
     position: relative;
 
     background-color: #efefef;
+  }
+  &__toasts {
+    grid-row: 1 / -2;
+    grid-column: 1 / -1;
+    z-index: var(--onyx-z-index-notification);
+    align-self: end;
+    justify-self: center;
+    position: relative;
+    width: 100%;
   }
   &__footer {
     grid-area: footer;

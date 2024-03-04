@@ -9,12 +9,16 @@
 
 <style lang="scss" scoped>
 .toast-controller {
-  width: 60%;
-  min-width: min(500px, 100%);
+  width: min(500px, calc(100% - 6rem));
   height: fit-content;
+  position: absolute;
+  bottom: 0;
+  left: 3rem;
+  right: 3rem;
+  margin: auto;
 }
 .toast {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   outline: 1px solid #efefef;
   color: white;
   padding: 16px;
