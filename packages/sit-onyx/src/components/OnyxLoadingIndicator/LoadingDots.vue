@@ -8,6 +8,7 @@
 /** Animation duration. */
 $duration: var(--onyx-duration-lg);
 
+/** Max size the dot should shrink in the animation. Must be a negative value. */
 $max-shrink: calc(-1 * var(--dot-size) / 2);
 
 /**
@@ -18,6 +19,9 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
   box-shadow: 0 var(--dot-size) 0 $shrink;
 }
 
+/**
+ * Defines a single dot.
+ */
 @mixin define-dot() {
   @include define-box-shadow;
 
@@ -74,10 +78,11 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
   */
   @keyframes onyx-loading-dots {
     0% {
+      // this will show the dot by setting the shrink to 0.
       @include define-box-shadow(0);
     }
     30% {
-      // this will show the dot by setting the shrink to 0.
+      // shrink dot so its getting smaller
       @include define-box-shadow($max-shrink);
     }
     60% {
