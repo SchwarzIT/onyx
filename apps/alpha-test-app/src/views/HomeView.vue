@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
-import FormDemoMolecule from "../components/molecules/FormDemoMolecule.vue";
+import FormDemo from "../components/form-demo/FormDemo.vue";
 import { useRouter } from "vue-router";
 
 const { t, locale } = useI18n();
@@ -35,13 +35,13 @@ const invalidFormData = {
 
     <div data-testid="home-view" class="page">
       <h1 element="h1">Initially Invalid example</h1>
-      <FormDemoMolecule :form-data="invalidFormData" />
+      <FormDemo :form-data="invalidFormData" />
 
       <br />
       <hr />
 
       <h1 element="h1">Initially Valid example</h1>
-      <FormDemoMolecule :form-data="validFormData" />
+      <FormDemo :form-data="validFormData" />
     </div>
   </div>
 </template>

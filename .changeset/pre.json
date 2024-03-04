@@ -13,6 +13,7 @@
     "alpha-test-app": "0.0.0"
   },
   "changesets": [
+    "angry-teachers-tickle",
     "big-ears-cheer",
     "brave-lobsters-wonder",
     "chilly-scissors-whisper",
@@ -30,10 +31,12 @@
     "modern-dingos-melt",
     "nasty-impalas-reflect",
     "nasty-mails-play",
+    "nervous-monkeys-destroy",
     "new-crabs-sell",
     "olive-forks-mate",
     "purple-years-unite",
     "selfish-gifts-draw",
+    "selfish-phones-pull",
     "sharp-ravens-stare",
     "sharp-years-lie",
     "shiny-lies-cough",
@@ -41,6 +44,7 @@
     "silly-waves-applaud",
     "small-rats-swim",
     "smooth-onions-clap",
+    "stale-keys-crash",
     "tall-keys-flow",
     "tame-adults-cheat",
     "tender-chairs-clap",

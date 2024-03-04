@@ -97,9 +97,11 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
           if (isDark) {
             document.body.classList.remove("light");
             document.body.classList.add("dark");
+            document.documentElement.style.colorScheme = "dark";
           } else {
             document.body.classList.remove("dark");
             document.body.classList.add("light");
+            document.documentElement.style.colorScheme = "light";
           }
 
           return isDark ? themes.dark : themes.light;
@@ -112,22 +114,7 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
            * we want it to look.
            * @see https://storybook.js.org/docs/react/api/doc-block-source
            */
-          transform: (sourceCode: string): string => {
-            const replacements = [
-              // replace event bindings with shortcut
-              { searchValue: "v-on:", replaceValue: "@" },
-              // remove empty event handlers, e.g. @click="()=>({})" will be removed
-              { searchValue: / @.*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
-              // remove empty v-binds, e.g. v-bind="{}" will be removed
-              { searchValue: / v-bind=['"]{}['"]/g, replaceValue: "" },
-              // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
-              { searchValue: /:(.*)=['"]true['"]/g, replaceValue: "$1" },
-            ];
-
-            return replacements.reduce((code, replacement) => {
-              return replaceAll(code, replacement.searchValue, replacement.replaceValue);
-            }, sourceCode);
-          },
+          transform: sourceCodeTransformer,
         },
       },
       darkMode: {
@@ -166,6 +153,29 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   });
 
   return deepmerge<[T, typeof defaultPreview]>(overrides ?? ({} as T), defaultPreview);
+};
+
+/**
+ * Custom transformer for the story source code to better fit to our
+ * Vue.js code because storybook per default does not render it exactly how
+ * we want it to look.
+ * @see https://storybook.js.org/docs/react/api/doc-block-source
+ */
+export const sourceCodeTransformer = (sourceCode: string): string => {
+  const replacements = [
+    // replace event bindings with shortcut
+    { searchValue: "v-on:", replaceValue: "@" },
+    // remove empty event handlers, e.g. @click="()=>({})" will be removed
+    { searchValue: / @\S*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
+    // // remove empty v-binds, e.g. v-bind="{}" will be removed
+    { searchValue: / v-bind=['"]{}['"]/g, replaceValue: "" },
+    // // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
+    { searchValue: /:?(\S*)=['"]true['"]/g, replaceValue: "$1" },
+  ];
+
+  return replacements.reduce((code, replacement) => {
+    return replaceAll(code, replacement.searchValue, replacement.replaceValue);
+  }, sourceCode);
 };
 
 /**

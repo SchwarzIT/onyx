@@ -1,5 +1,32 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.24
+
+### Minor Changes
+
+- 778bc7d: feat: set browser color scheme depending on selected theme
+
+## 1.0.0-alpha.23
+
+### Patch Changes
+
+- Updated dependencies [f859db6]
+  - sit-onyx@1.0.0-alpha.22
+
+## 1.0.0-alpha.22
+
+### Patch Changes
+
+- Updated dependencies [6324d32]
+  - sit-onyx@1.0.0-alpha.21
+
+## 1.0.0-alpha.21
+
+### Patch Changes
+
+- Updated dependencies [6045208]
+  - sit-onyx@1.0.0-alpha.20
+
 ## 1.0.0-alpha.20
 
 ### Patch Changes

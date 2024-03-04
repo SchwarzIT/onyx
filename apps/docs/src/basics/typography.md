@@ -27,15 +27,15 @@ const headlineTokens = Array.from<unknown, TypographyToken>({ length: 6 }, (_, i
 });
 
 const paragraphTokens: TypographyToken[] = [
-  { name: "paragraph-big", fontSize: "big", htmlTag: "p" },
-  { name: "paragraph-default", fontSize: "default", htmlTag: "p" },
-  { name: "paragraph-small", fontSize: "small", htmlTag: "p" },
+  { name: "paragraph-large", textSize: "large", htmlTag: "p" },
+  { name: "paragraph-default", textSize: "default", htmlTag: "p" },
+  { name: "paragraph-small", textSize: "small", htmlTag: "p" },
 ];
 
 const linkTokens: TypographyToken[] = [
-  { name: "link-big", fontSize: "big", htmlTag: "a" },
-  { name: "link-default", fontSize: "default", htmlTag: "a" },
-  { name: "link-small", fontSize: "small", htmlTag: "a" },
+  { name: "link-large", textSize: "large", htmlTag: "a" },
+  { name: "link-default", textSize: "default", htmlTag: "a" },
+  { name: "link-small", textSize: "small", htmlTag: "a" },
 ];
 </script>
 
@@ -56,11 +56,15 @@ Because they can occur on technical side for semantic reasons, they are styled t
 
 Paragraph texts are used for all kinds of information, explanations, narratives and continuous text in general. The default size is used as standard throughout all applications. The small-sized paragraph style is used for labels and is therefore in a lower hierarchical order. The largest paragraph style is used for very strong and eye-catchy information, because it has the biggest visual impact.
 
+For the technical implementation of the paragraphs, please see the [technical documentation](/development/typography#font-styles).
+
 <OnyxTypography :tokens="paragraphTokens" wide-name />
 
 ## Links
 
 Links are the tool of choice to refer to another page. By default, links have an underline and are primary-colored. Under consideration of the text styling principles, the text color can be changed in exceptional usecases. Please double check with your assigned UX-Designer.
+
+For the technical implementation of the links, please see the [technical documentation](/development/components/OnyxLink).
 
 <OnyxTypography :tokens="linkTokens" wide-name />
 
