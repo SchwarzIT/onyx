@@ -31,6 +31,7 @@ defineProps<{ isClosable?: boolean }>();
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
   &__close {
     justify-self: flex-end;

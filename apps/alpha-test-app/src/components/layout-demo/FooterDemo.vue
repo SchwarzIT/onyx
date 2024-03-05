@@ -11,7 +11,7 @@ defineProps<{
 <style lang="scss" scoped>
 .footer {
   height: 3.125rem;
-  border: 1px solid lightgrey;
+  border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   background-color: white;
 }
 </style>
