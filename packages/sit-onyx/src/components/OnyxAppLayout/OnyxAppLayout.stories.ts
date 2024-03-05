@@ -39,8 +39,7 @@ const meta: Meta<typeof OnyxAppLayout> = {
     ],
     render: (args) => ({
       setup: () => ({ args }),
-      components: { OnyxAppLayout },
-      template: getAppTemplate(args.navBarAlignment === "left"),
+      ...getAppTemplate(args.navBarAlignment === "left"),
     }),
   }),
 };
@@ -68,8 +67,7 @@ export const AppOverlay = {
   },
   render: (args) => ({
     setup: () => ({ args }),
-    components: { OnyxAppLayout },
-    template: getAppTemplate(
+    ...getAppTemplate(
       args.navBarAlignment === "left",
       `<template #appOverlay>
           <div style="background-color: var(--onyx-color-base-background-tinted);
@@ -91,8 +89,7 @@ export const PageOverlay = {
   },
   render: (args) => ({
     setup: () => ({ args }),
-    components: { OnyxAppLayout },
-    template: getAppTemplate(
+    ...getAppTemplate(
       args.navBarAlignment === "left",
       `<template #pageOverlay>
           <div style="background-color: #ffffffC7;
@@ -110,7 +107,9 @@ export const PageOverlay = {
   }),
 } satisfies Story;
 
-const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string): string => `
+const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string) => ({
+  components: { OnyxAppLayout },
+  template: `
 <OnyxAppLayout v-bind="args">
   <template #navBar>
     <div style="border: 1px solid lightgrey; ${alignNavLeft ? "height: 100%" : ""}">
@@ -120,4 +119,5 @@ const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string): strin
   <div>This is the page content.</div>
   ${otherSlotContent ?? ""}
 </OnyxAppLayout>
-`;
+`,
+});

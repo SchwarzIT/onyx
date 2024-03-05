@@ -45,6 +45,9 @@ const slots = defineSlots<{
     "nav"
     "page";
 
+  font-family: var(--onyx-font-family);
+  color: var(--onyx-color-text-icons-neutral-intense);
+
   &--horizontal {
     grid-template-rows: none;
     grid-template-columns: max-content 1fr;
