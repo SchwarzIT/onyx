@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.27
+
+### Minor Changes
+
+- 827a893: feat: create components `OnyxAppLayout` and `OnyxPageLayout`
+
+## 1.0.0-alpha.26
+
+### Minor Changes
+
+- 2bc861c: Implement basic OnyxSwitch
+
 ## 1.0.0-alpha.25
 
 ### Minor Changes
