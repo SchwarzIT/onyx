@@ -18,7 +18,7 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
     :is="props.href ? 'a' : 'div'"
     :href="props.href"
     :target="target"
-    :rel="target === '_blank' ? 'noopener noreferrer' : undefined"
+    :rel="target === '_blank' ? 'noreferrer' : undefined"
     class="card"
     :class="{ 'card--clickable': props.href }"
   >
