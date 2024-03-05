@@ -67,11 +67,7 @@ const footerAsideSidebar = computed<boolean>(
         </SidebarDemo>
       </template>
 
-      <PageDemo
-        v-model="settings"
-        :is-sidebar-open="isSidebarOpen"
-        @is-sidebar-open="isSidebarOpen = $event"
-      />
+      <PageDemo v-model="settings" v-model:is-sidebar-open="isSidebarOpen" />
 
       <template v-if="settings.content.showToast" #toasts>
         <ToastDemo />

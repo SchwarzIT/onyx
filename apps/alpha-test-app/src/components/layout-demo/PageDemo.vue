@@ -5,17 +5,7 @@ import type { SettingsSections } from ".";
 import { computed } from "vue";
 
 const settings = defineModel<SettingsSections>();
-
-const props = defineProps<{
-  isSidebarOpen: boolean;
-}>();
-const emit = defineEmits<{
-  isSidebarOpen: [value: boolean];
-}>();
-const isSidebarOpen = computed({
-  get: () => props.isSidebarOpen,
-  set: (value) => emit("isSidebarOpen", value),
-});
+const isSidebarOpen = defineModel<boolean>("isSidebarOpen");
 
 const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
 
@@ -24,7 +14,7 @@ const showSidebarOpenButton = computed<boolean>(() => {
   const { showSidebarCollapse, showTempOverlayTransparent, showTempOverlay } =
     settings.value.sidebar;
   return (
-    (!props.isSidebarOpen &&
+    (!isSidebarOpen.value &&
       (showSidebarCollapse || showTempOverlayTransparent || showTempOverlay)) ??
     false
   );
