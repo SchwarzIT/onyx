@@ -39,12 +39,16 @@ const estimationValue = computed(() => {
     :class="{ 'card--clickable': props.href }"
     :href="props.href"
   >
-    <ComponentStatusBadge :status="props.status" class="card__status" />
+    <div class="card__header">
+      <p class="estimation">
+        Estimation:
+        <span class="estimation__value">{{ estimationValue }}</span>
+      </p>
+
+      <ComponentStatusBadge :status="props.status" class="card__status" />
+    </div>
+
     <OnyxHeadline is="h2">{{ props.name }}</OnyxHeadline>
-    <p class="estimation">
-      Estimation:
-      <span class="estimation__value">{{ estimationValue }}</span>
-    </p>
   </component>
 </template>
 
@@ -75,6 +79,14 @@ const estimationValue = computed(() => {
 
   &__status {
     margin-left: auto;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--onyx-spacing-3xs);
+    width: 100%;
   }
 
   .estimation {
