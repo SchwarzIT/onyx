@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat: create app and page layout components
+feat: create components `OnyxAppLayout` and `OnyxPageLayout`

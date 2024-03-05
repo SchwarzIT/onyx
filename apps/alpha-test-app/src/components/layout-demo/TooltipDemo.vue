@@ -18,17 +18,17 @@ defineProps<{
   position: relative;
 }
 .tooltip {
-  padding: 4px;
+  padding: var(--onyx-spacing-4xs);
   width: fit-content;
 
   &__text {
-    padding: 4px;
-    border-radius: 4px;
+    padding: var(--onyx-spacing-4xs);
+    border-radius: var(--onyx-radius-sm);
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    width: 150px;
+    width: 9.375rem;
     position: absolute;
-    top: 28px;
+    top: 1.75rem;
     left: 0;
     z-index: var(--onyx-z-index-flyout);
     visibility: hidden;

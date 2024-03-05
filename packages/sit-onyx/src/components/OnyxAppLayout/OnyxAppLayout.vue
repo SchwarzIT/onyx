@@ -4,11 +4,11 @@ import { useSlots } from "vue";
 const props = withDefaults(
   defineProps<{
     /** Whether the nav bar will stick to the left or to the top of the app */
-    navBarAlignment: "top" | "left";
+    navBarAlignment?: "top" | "left";
   }>(),
   { navBarAlignment: "top" },
 );
-defineSlots<{
+const slots = defineSlots<{
   /** Navigation area of the application */
   navBar(props: Record<string, never>): unknown;
   /** Page content area of the application */
@@ -18,13 +18,11 @@ defineSlots<{
   /** Overlays that cover the complete page */
   appOverlay(props: Record<string, never>): unknown;
 }>();
-
-const slots = useSlots();
 </script>
 
 <template>
   <div class="onyx-app" :class="{ 'onyx-app--horizontal': props.navBarAlignment === 'left' }">
-    <nav class="onyx-app__nav">
+    <nav v-if="slots.navBar" class="onyx-app__nav">
       <slot name="navBar"></slot>
     </nav>
     <div class="onyx-app__page">

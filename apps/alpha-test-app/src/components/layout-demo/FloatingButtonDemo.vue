@@ -13,8 +13,8 @@ defineProps<{ isOverlay: boolean }>();
 <style lang="scss" scoped>
 .floating-button {
   position: sticky;
-  bottom: 2rem;
-  left: 2rem;
+  bottom: var(--onyx-spacing-xl);
+  left: var(--onyx-spacing-xl);
   z-index: var(--onyx-z-index-notification);
 }
 </style>

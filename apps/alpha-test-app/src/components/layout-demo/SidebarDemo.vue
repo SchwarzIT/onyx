@@ -25,7 +25,7 @@ defineProps<{ isClosable?: boolean }>();
 
 <style lang="scss" scoped>
 .sidebar {
-  padding: 1rem;
+  padding: var(--onyx-spacing-md);
   box-sizing: border-box;
   height: 100%;
   display: flex;

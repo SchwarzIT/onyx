@@ -25,7 +25,7 @@ const showSidebarOpenButton = computed<boolean>(() => {
     settings.value.sidebar;
   return (
     (!props.isSidebarOpen &&
-      (showSidebarCollapse || showTempOverlayTransparent || showTempOverlay)) ||
+      (showSidebarCollapse || showTempOverlayTransparent || showTempOverlay)) ??
     false
   );
 });
@@ -63,7 +63,7 @@ const showSidebarOpenButton = computed<boolean>(() => {
 
 <style lang="scss" scoped>
 .page {
-  padding: 2rem;
+  padding: var(--onyx-spacing-xl);
   box-sizing: border-box;
 }
 </style>

@@ -4,8 +4,8 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
 
 /**
  * Layout component that structures your page.
- * Includes space for a sidebar, page content, footer and toasts.
- * Recommended to use on view level of an application.
+ * Includes slots for a sidebar, page content, footer and notifications.
+ * Recommended to use on view/page level of an application.
  */
 const meta: Meta<typeof OnyxPageLayout> = {
   title: "layout component/OnyxPageLayout",
@@ -33,7 +33,7 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 20rem;" >
+        <div style="margin: -1rem; height: 20rem; font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
     }),

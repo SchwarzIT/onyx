@@ -10,7 +10,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .footer {
-  height: 50px;
+  height: 3.125rem;
   border: 1px solid lightgrey;
   background-color: white;
 }

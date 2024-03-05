@@ -40,13 +40,13 @@ defineProps<{ transparent?: boolean }>();
     outline: 1px solid lightgrey;
     background-color: white;
 
-    width: 250px;
+    width: 15.625rem;
     height: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem;
+    padding: var(--onyx-spacing-md);
     box-sizing: border-box;
   }
   &__close {

@@ -19,7 +19,7 @@ import { OnyxHeadline } from "sit-onyx";
 
   &__content {
     background-color: white;
-    padding: 4px;
+    padding: var(--onyx-spacing-4xs);
   }
 }
 </style>

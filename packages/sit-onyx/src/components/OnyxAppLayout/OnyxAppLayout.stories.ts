@@ -4,11 +4,11 @@ import OnyxAppLayout from "./OnyxAppLayout.vue";
 
 /**
  * Layout component that structures your application.
- * Includes space for a nav bar, page content, and overlays above the page or the whole app.
+ * Includes slots for a nav bar, page content, and overlays above the page or the whole app.
  * Recommended to use on App.vue level of an application.
  */
 const meta: Meta<typeof OnyxAppLayout> = {
-  title: "layout component/OnyxAppLayout",
+  title: "layout/OnyxAppLayout",
   ...defineStorybookActionsAndVModels({
     component: OnyxAppLayout,
     events: [],
@@ -72,7 +72,7 @@ export const AppOverlay = {
     template: getAppTemplate(
       args.navBarAlignment === "left",
       `<template #appOverlay>
-          <div style="background-color: white; 
+          <div style="background-color: var(--onyx-color-base-background-tinted);
                       position: absolute;
                       inset: 10rem;
                       min-width: 5rem;

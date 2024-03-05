@@ -13,7 +13,7 @@ const props = defineProps<{
   hideSidebar?: boolean;
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /** Main content area of the page */
   default(props: Record<string, never>): unknown;
   /** Optional sidebar of the page */
@@ -23,7 +23,6 @@ defineSlots<{
   /** Toast message that sticks to the bottom */
   toasts(props: Record<string, never>): unknown;
 }>();
-const slots = useSlots();
 
 const pageModifier = computed(() => {
   let mode = "";

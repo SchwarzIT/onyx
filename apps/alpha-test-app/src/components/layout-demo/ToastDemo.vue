@@ -9,18 +9,18 @@
 
 <style lang="scss" scoped>
 .toast-controller {
-  width: min(500px, calc(100% - 6rem));
+  width: min(31.25rem, calc(100% - 6rem));
   height: fit-content;
   position: absolute;
   bottom: 0;
-  left: 3rem;
-  right: 3rem;
+  left: var(--onyx-spacing-2xl);
+  right: var(--onyx-spacing-2xl);
   margin: auto;
 }
 .toast {
   background-color: rgba(0, 0, 0, 0.7);
   outline: 1px solid #efefef;
   color: white;
-  padding: 16px;
+  padding: var(--onyx-spacing-md);
 }
 </style>

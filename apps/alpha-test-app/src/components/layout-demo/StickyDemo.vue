@@ -11,6 +11,6 @@
   z-index: var(--onyx-z-index-sticky-content);
   border: 1px solid #eee;
   background-color: #f9f9f9;
-  padding: 24px;
+  padding: var(--onyx-spacing-lg);
 }
 </style>

@@ -16,7 +16,7 @@ import { OnyxHeadline } from "sit-onyx";
   left: 0;
   bottom: 0;
   right: 0;
-  max-width: 400px;
+  max-width: 25rem;
   max-height: fit-content;
   margin: auto;
 

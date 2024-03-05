@@ -17,7 +17,7 @@ import { FooterDemo } from ".";
 <style lang="scss" scoped>
 .busy-indicator {
   background-color: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(0.25rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,7 +29,7 @@ import { FooterDemo } from ".";
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px;
+    padding: var(--onyx-spacing-md);
     box-sizing: border-box;
   }
 }

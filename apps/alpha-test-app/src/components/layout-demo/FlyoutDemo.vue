@@ -33,7 +33,7 @@ defineProps<{ small?: boolean }>();
     position: absolute;
     z-index: var(--onyx-z-index-flyout);
     height: fit-content;
-    min-width: 100px;
+    min-width: 6.25rem;
     right: 0;
     left: 0;
   }

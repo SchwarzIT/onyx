@@ -21,15 +21,15 @@ const isLeftAligned = defineModel<boolean>();
 <style lang="scss" scoped>
 .nav-bar {
   outline: 1px solid lightgrey;
-  height: 50px;
+  height: 3.125rem;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 1rem;
+  gap: var(--onyx-spacing-md);
 
   &--left {
     flex-flow: column nowrap;
-    width: 70px;
+    width: 4.375rem;
     height: 100%;
   }
 }
