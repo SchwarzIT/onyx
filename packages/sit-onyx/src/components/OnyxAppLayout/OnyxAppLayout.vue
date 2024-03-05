@@ -1,11 +1,7 @@
 <script lang="ts" setup>
-const props = withDefaults(
-  defineProps<{
-    /** Whether the nav bar will stick to the left or to the top of the app */
-    navBarAlignment?: "top" | "left";
-  }>(),
-  { navBarAlignment: "top" },
-);
+import type { OnyxAppLayoutProps } from "./types";
+
+const props = withDefaults(defineProps<OnyxAppLayoutProps>(), { navBarAlignment: "top" });
 const slots = defineSlots<{
   /** Navigation area of the application */
   navBar?(props: Record<string, never>): unknown;
