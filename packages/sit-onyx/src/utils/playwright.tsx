@@ -1,3 +1,5 @@
+import {} from "@playwright/experimental-ct-vue";
+import type { Locator } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
 
@@ -111,7 +113,7 @@ export const createScreenshotsForAllStates =
       const wrappedMount = ((jsx, options) =>
         mount(
           <div
-            style={{ width: "min-content", padding: "1rem" }}
+            style={{ width: "max-content", padding: "1rem" }}
             class={{
               "onyx-use-optional": options?.useOptional,
             }}
