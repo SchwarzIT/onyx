@@ -102,8 +102,9 @@ export const WithToast = {
     <template #toasts>
       <div style="display: flex;
                   justify-content: center;
-                  width: 90%;
-                  background-color: rgba(0, 0, 0, 0.7);
+                  width: 90%;  
+                  background-color: var(--onyx-color-base-neutral-900);
+                  opacity: 0.9;
                   color: white;
                   margin: auto;">
         This is the place for a toast
