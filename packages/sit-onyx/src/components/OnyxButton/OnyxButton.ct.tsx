@@ -1,7 +1,6 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { createScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
-import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
@@ -35,7 +34,7 @@ test("should display correctly when disabled", async ({ mount, makeAxeBuilder })
 test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxButton label="Button" variation="secondary" icon={happyIcon} />,
+    <OnyxButton label="Button" variation="secondary" icon={mockPlaywrightIcon} />,
   );
 
   // ASSERT
@@ -67,7 +66,7 @@ test(
           variation={variation}
           mode={mode}
           disabled={state === "disabled"}
-          icon={state === "icon" ? happyIcon : undefined}
+          icon={state === "icon" ? mockPlaywrightIcon : undefined}
         />,
       );
 
