@@ -113,9 +113,7 @@ export const PageOverlay = {
 const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string): string => `
 <OnyxAppLayout v-bind="args">
   <template #navBar>
-    <div style="background-color: white; border: 1px solid lightgrey; ${
-      alignNavLeft ? "height: 100%" : ""
-    }">
+    <div style="border: 1px solid lightgrey; ${alignNavLeft ? "height: 100%" : ""}">
       Nav bar
     </div>
   </template>
