@@ -8,6 +8,10 @@
     margin: 0;
     display: inline-block;
     border-radius: var(--onyx-radius-sm);
+
+    // inherit size by default if not set explicitly
+    height: 100%;
+    width: 100%;
   }
 
   background: linear-gradient(

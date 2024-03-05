@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSkeleton from "./OnyxSkeleton.vue";
 
 /**
- * **Note**: You need to set the skeleton width and height via CSS, otherwise it will not show.
+ * **Note**: If the height/width is not set via CSS, it will use/inherit the full available space.
  */
 const meta: Meta<typeof OnyxSkeleton> = {
   title: "components/OnyxSkeleton",
@@ -22,4 +22,7 @@ const meta: Meta<typeof OnyxSkeleton> = {
 export default meta;
 type Story = StoryObj<typeof OnyxSkeleton>;
 
+/**
+ * A default skeleton.
+ */
 export const Default = { args: {} } satisfies Story;
