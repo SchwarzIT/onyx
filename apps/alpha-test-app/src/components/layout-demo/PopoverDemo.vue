@@ -21,6 +21,6 @@ import { OnyxHeadline } from "sit-onyx";
   margin: auto;
 
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-  background-color: white;
+  background-color: var(--onyx-color-base-background-blank);
 }
 </style>

@@ -25,7 +25,7 @@ defineProps<{
     padding: var(--onyx-spacing-4xs);
     border-radius: var(--onyx-radius-sm);
     background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    color: var(--onyx-color-base-background-blank);
     width: 9.375rem;
     position: absolute;
     top: 1.75rem;
