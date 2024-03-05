@@ -111,7 +111,8 @@ const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string) => ({
   template: `
 <OnyxAppLayout v-bind="args">
   <template #navBar>
-    <div style="border: 1px solid lightgrey; ${alignNavLeft ? "height: 100%" : ""}">
+    <div style="border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300); 
+                ${alignNavLeft ? "height: 100%" : ""}">
       Nav bar
     </div>
   </template>
