@@ -11,19 +11,6 @@ When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https
 
 [VSCode](https://code.visualstudio.com) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
 
-### Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default. In VSCode, make sure to enable Volar's [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) the first time you work with this repository by following the below steps:
-
-1. Disable the built-in TypeScript Extension
-
-   1. Open the extensions tab and search for `@builtin typescript`
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-
-2. Restart VSCode.
-
-<br />
-
 ## Creating a Pull Request
 
 Pull Requests are very welcome!
