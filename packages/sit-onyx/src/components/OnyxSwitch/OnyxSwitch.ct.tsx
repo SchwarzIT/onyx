@@ -89,7 +89,7 @@ test(
       const component = await mount(
         <OnyxSwitch
           modelValue={select === "selected"}
-          label={labeled === "labeled" ? "label" : undefined}
+          label={labeled === "labeled" ? "label" : ""}
           disabled={state === "disabled"}
           required={state === "required"}
         />,
