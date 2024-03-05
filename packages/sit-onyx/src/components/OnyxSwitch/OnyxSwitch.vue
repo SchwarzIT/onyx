@@ -95,7 +95,7 @@ watch(
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-themed-neutral-100);
-        transform: translateX(14px);
+        transform: translateX(0.875rem);
         color: var(--onyx-color-text-icons-primary-intense);
       }
     }
@@ -135,7 +135,7 @@ watch(
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-base-background-blank);
-        transform: translateX(12px);
+        transform: translateX(0.75rem);
         color: var(--onyx-color-text-icons-danger-intense);
       }
     }
