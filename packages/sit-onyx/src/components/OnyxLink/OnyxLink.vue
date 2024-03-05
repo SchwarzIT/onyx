@@ -35,7 +35,7 @@ const shouldShowExternalIcon = computed(() => {
     class="onyx-link"
     :href="props.href"
     :target="props.target"
-    :rel="props.target === '_blank' ? 'noopener noreferrer' : undefined"
+    :rel="props.target === '_blank' ? 'noreferrer' : undefined"
     @click="emit('click')"
   >
     <slot></slot>
