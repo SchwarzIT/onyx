@@ -86,6 +86,7 @@ watch(
   height: 1.5rem;
 
   &__input {
+    // position: absolute is needed here in order to hide the native checkbox.
     position: absolute;
     opacity: 0;
 
