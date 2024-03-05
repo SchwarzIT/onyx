@@ -56,7 +56,6 @@ watch(
 
 <template>
   <label
-    tabindex="0"
     class="onyx-switch"
     :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
   >
@@ -200,7 +199,7 @@ watch(
     }
   }
 
-  &:focus-visible {
+  &:has(&__input:focus-visible) {
     outline: none;
 
     &:has(.onyx-switch__input:enabled) .onyx-switch__container {
