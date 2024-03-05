@@ -14,16 +14,16 @@ const props = defineProps<{
 const showAll = ref(false);
 
 /**
- * Sorts components by: (1.) status (2.) estimation date and (3.) alphabetically.
+ * Sorts components by: (1.) status (2.) due date and (3.) alphabetically.
  */
 const sortedComponents = computed(() => {
   return props.components
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name))
     .sort((a, b) => {
-      if (!a.estimation) return 1;
-      if (!b.estimation) return -1;
-      return new Date(a.estimation).getTime() - new Date(b.estimation).getTime();
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
     })
     .sort((a, b) => a.status.localeCompare(b.status));
 });

@@ -69,62 +69,62 @@ export default defineLoader({
       } satisfies Partial<ComponentCardProps>;
     };
 
-    const basicComponentsEstimation = new Date(2024, 4);
+    const basicComponentsDueDate = new Date(2024, 4);
 
     const components: HomePageData["components"] = [
       {
         name: "Button",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxButton"),
       },
       {
         name: "Radio button group",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxRadioButtonGroup"),
       },
       {
         name: "Minimalistic table",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxTable"),
       },
       {
         name: "Headline",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxHeadline"),
       },
       {
         name: "Footer",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxFooter"),
       },
       {
         name: "Header",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxHeader"),
       },
       {
         name: "Combobox",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxCombobox"),
       },
       {
         name: "Textarea",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxTextarea"),
       },
       {
         name: "Input",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxInput"),
       },
       {
         name: "Switch",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxSwitch"),
       },
       {
         name: "Checkbox group",
-        estimation: basicComponentsEstimation,
+        dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxCheckboxGroup"),
       },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },

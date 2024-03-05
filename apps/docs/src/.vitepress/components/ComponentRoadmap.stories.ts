@@ -23,8 +23,7 @@ export const Default = {
       return {
         name: `Component ${id}`,
         status: id % 2 === 0 ? "in-progress" : "implemented",
-        estimation:
-          id % 2 === 0 ? new Date(today.getFullYear(), today.getMonth() + index) : undefined,
+        dueDate: id % 2 === 0 ? new Date(today.getFullYear(), today.getMonth() + index) : undefined,
         href: "#",
       };
     }),

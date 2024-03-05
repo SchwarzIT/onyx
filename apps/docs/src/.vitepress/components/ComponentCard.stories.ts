@@ -24,7 +24,7 @@ export const Implemented = {
     name: "Component name",
     status: "implemented",
     href: "#",
-    estimation: new Date(),
+    dueDate: new Date(),
   },
 } satisfies Story;
 

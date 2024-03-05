@@ -12,11 +12,12 @@ export type ComponentCardProps = {
   /** Link to the component. */
   href?: string;
   /**
-   * Estimation date when the component will be implemented.
+   * Due date when the component will be implemented.
    * Only the month and year of the date will be shown.
+   * Will only be shown if status is not "implemented".
    * If unset, "n/a" will be displayed.
    */
-  estimation?: ConstructorParameters<typeof Date>[0];
+  dueDate?: ConstructorParameters<typeof Date>[0];
 };
 
 const props = defineProps<ComponentCardProps>();
@@ -26,9 +27,9 @@ const dateFormatter = Intl.DateTimeFormat("en-US", {
   year: "numeric",
 });
 
-const estimationValue = computed(() => {
-  if (!props.estimation) return "n/a";
-  return dateFormatter.format(new Date(props.estimation));
+const dueDateValue = computed(() => {
+  if (!props.dueDate) return "n/a";
+  return dateFormatter.format(new Date(props.dueDate));
 });
 </script>
 
@@ -40,11 +41,7 @@ const estimationValue = computed(() => {
     :href="props.href"
   >
     <div class="card__header">
-      <p class="estimation">
-        Estimation:
-        <span class="estimation__value">{{ estimationValue }}</span>
-      </p>
-
+      <p class="card__due-date" v-if="props.status !== 'implemented'">Due: {{ dueDateValue }}</p>
       <ComponentStatusBadge :status="props.status" class="card__status" />
     </div>
 
@@ -84,18 +81,13 @@ const estimationValue = computed(() => {
   &__header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: var(--onyx-spacing-3xs);
     width: 100%;
   }
 
-  .estimation {
+  .due-date {
     margin: 0;
-    color: var(--onyx-color-text-icons-neutral-medium);
-
-    &__value {
-      color: var(--onyx-color-text-icons-neutral-soft);
-    }
+    color: var(--onyx-color-text-icons-neutral-soft);
   }
 }
 </style>
