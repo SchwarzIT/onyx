@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxLink from "./OnyxLink.vue";
 
 /**
- * Links are the tool of choice to refer to another page.
+ * Links are navigational elements that direct users to other pages, whether they are internal or external.
  */
 const meta: Meta<typeof OnyxLink> = {
   title: "components/OnyxLink",
@@ -13,6 +13,10 @@ const meta: Meta<typeof OnyxLink> = {
     argTypes: {
       default: {
         control: { disabled: true },
+      },
+      withExternalIcon: {
+        options: ["auto", true, false],
+        control: { type: "radio" },
       },
     },
     decorators: [
@@ -47,5 +51,18 @@ export const NewTab = {
   args: {
     ...Default.args,
     target: "_blank",
+  },
+} satisfies Story;
+
+/**
+ * Link without the external icon.
+ * For relative/internal links or protocols like mailto:, tel: etc. you don't need to disable
+ * the `withExternalIcon` property manually, you can leave it on "auto" and the icon will
+ * be hidden automatically.
+ */
+export const WithoutExternalIcon = {
+  args: {
+    ...Default.args,
+    withExternalIcon: false,
   },
 } satisfies Story;

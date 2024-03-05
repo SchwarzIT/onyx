@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/vitepress-theme",
   "description": "VitePress theme that uses the onyx design system",
-  "version": "1.0.0-alpha.20",
+  "version": "1.0.0-alpha.24",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -11,6 +11,7 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./index.scss": "./src/index.scss",
     "./mixins.scss": "./src/mixins.scss"
   },
   "homepage": "https://onyx.schwarz/development/packages/vitepress-theme.html",

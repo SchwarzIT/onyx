@@ -1,4 +1,4 @@
-import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { mockPlaywrightIcon } from "@/utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import { ONYX_COLORS } from "../../types/colors";
 import OnyxIcon from "./OnyxIcon.vue";
@@ -9,7 +9,7 @@ test("should render different sizes", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <div>
       {ICON_SIZES.map((size) => (
-        <OnyxIcon icon={happyIcon} size={size} key={size} />
+        <OnyxIcon icon={mockPlaywrightIcon} size={size} key={size} />
       ))}
     </div>,
   );
@@ -29,7 +29,7 @@ test("should render different colors", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <div>
       {ONYX_COLORS.map((color) => (
-        <OnyxIcon size="96px" icon={happyIcon} color={color} key={color} />
+        <OnyxIcon size="96px" icon={mockPlaywrightIcon} color={color} key={color} />
       ))}
     </div>,
   );
