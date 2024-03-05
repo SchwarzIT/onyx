@@ -41,3 +41,10 @@ export const Planned = {
     status: "planned",
   },
 } satisfies Story;
+
+export const WithoutDueDate = {
+  args: {
+    ...Planned.args,
+    dueDate: undefined,
+  },
+} satisfies Story;
