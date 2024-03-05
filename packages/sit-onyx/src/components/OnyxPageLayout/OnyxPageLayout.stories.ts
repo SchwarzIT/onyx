@@ -125,7 +125,7 @@ const getPageRenderContent = (
     ${
       options?.sidebar
         ? `<template #sidebar>
-            <div style="height: 100%; border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
+            <div style="height: 100%; border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
             Side Bar Content
             </div>
            </template>`
@@ -135,7 +135,7 @@ const getPageRenderContent = (
     ${
       options?.footer
         ? `<template #footer>
-            <div style="border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
+            <div style="border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
               Footer Content
             </div>
            </template>`
