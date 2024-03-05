@@ -5,6 +5,7 @@ import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
+import { requiredGlobalType, withRequired } from "./required";
 
 const themes = {
   light: createTheme(),
@@ -39,6 +40,10 @@ const themes = {
  */
 export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   const defaultPreview = {
+    globalTypes: {
+      ...requiredGlobalType,
+    },
+    decorators: [withRequired],
     parameters: {
       controls: {
         matchers: {
