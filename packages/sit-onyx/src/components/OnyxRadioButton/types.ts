@@ -15,6 +15,10 @@ export type SelectionOption<T = unknown> = {
    */
   value?: T;
   disabled?: boolean;
+  /**
+   * How to truncate the label if it exceeds the max width.
+   */
+  truncation?: TruncationType;
 };
 
 export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };
@@ -33,8 +37,4 @@ export type RadioButtonProps<TValue> = SelectionProps<TValue> & {
    */
   required?: boolean;
   errorMessage?: string;
-  /**
-   * How to truncate the label if it exceeds the max width.
-   */
-  truncation?: TruncationType;
 };
