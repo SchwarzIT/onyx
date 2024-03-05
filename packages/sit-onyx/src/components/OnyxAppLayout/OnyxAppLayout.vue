@@ -74,7 +74,8 @@ const slots = defineSlots<{
     right: 0;
     z-index: var(--onyx-z-index-app-overlay);
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
+    // todo we need a rgba css variable for that
+    background-color: rgba(125, 125, 125, 0.9);
   }
 }
 </style>
