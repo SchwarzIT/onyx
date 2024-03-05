@@ -32,4 +32,3 @@ Every transition/animation that is applied to a component uses a recommended dur
 | `sm`          |    400ms |
 | `md`          |    700ms |
 | `lg`          |   1000ms |
-| `xl`          |   1500ms |

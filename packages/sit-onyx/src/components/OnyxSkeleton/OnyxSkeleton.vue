@@ -17,7 +17,7 @@
     var(--onyx-color-base-neutral-200) 60%
   );
   background-size: 500% 100%;
-  animation: onyx-skeleton var(--onyx-duration-xl) ease infinite;
+  animation: onyx-skeleton var(--onyx-duration-lg) ease infinite;
 
   @keyframes onyx-skeleton {
     0% {
