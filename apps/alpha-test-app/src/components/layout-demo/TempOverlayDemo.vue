@@ -37,7 +37,7 @@ defineProps<{ transparent?: boolean }>();
   }
 
   &__sidebar {
-    outline: 1px solid lightgrey;
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background-color: white;
 
     width: 15.625rem;

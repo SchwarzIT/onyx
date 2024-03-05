@@ -18,8 +18,9 @@
   margin: auto;
 }
 .toast {
-  background-color: rgba(0, 0, 0, 0.7);
-  outline: 1px solid #efefef;
+  background-color: var(--onyx-color-base-neutral-900);
+  opacity: 0.9;
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-100);
   color: white;
   padding: var(--onyx-spacing-md);
 }

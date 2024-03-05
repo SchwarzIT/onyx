@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useSlots } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{
   /** When the page includes a sidebar as well as a footer,
@@ -17,11 +17,11 @@ const slots = defineSlots<{
   /** Main content area of the page */
   default(props: Record<string, never>): unknown;
   /** Optional sidebar of the page */
-  sidebar(props: Record<string, never>): unknown;
+  sidebar?(props: Record<string, never>): unknown;
   /** Optional footer of the page*/
-  footer(props: Record<string, never>): unknown;
-  /** Toast message that sticks to the bottom */
-  toasts(props: Record<string, never>): unknown;
+  footer?(props: Record<string, never>): unknown;
+  /** Slot for toast messages that stick at the bottom (above footer) */
+  toasts?(props: Record<string, never>): unknown;
 }>();
 
 const pageModifier = computed(() => {

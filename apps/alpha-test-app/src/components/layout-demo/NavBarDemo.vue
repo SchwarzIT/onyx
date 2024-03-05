@@ -20,7 +20,7 @@ const isLeftAligned = defineModel<boolean>();
 
 <style lang="scss" scoped>
 .nav-bar {
-  outline: 1px solid lightgrey;
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   height: 3.125rem;
   display: flex;
   flex-wrap: nowrap;

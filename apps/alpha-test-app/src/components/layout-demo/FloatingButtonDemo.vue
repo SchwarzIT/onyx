@@ -3,7 +3,6 @@ import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { OnyxButton } from "sit-onyx";
 
 const isOpen = defineModel<boolean>();
-defineProps<{ isOverlay: boolean }>();
 </script>
 
 <template>

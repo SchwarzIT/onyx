@@ -28,7 +28,7 @@ defineProps<{ small?: boolean }>();
     position: relative;
   }
   &__flyout {
-    outline: 1px solid lightgrey;
+    border: 1px solid lightgrey;
     background-color: white;
     position: absolute;
     z-index: var(--onyx-z-index-flyout);

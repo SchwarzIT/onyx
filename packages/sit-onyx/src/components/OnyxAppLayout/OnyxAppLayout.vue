@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { useSlots } from "vue";
-
 const props = withDefaults(
   defineProps<{
     /** Whether the nav bar will stick to the left or to the top of the app */
@@ -10,13 +8,13 @@ const props = withDefaults(
 );
 const slots = defineSlots<{
   /** Navigation area of the application */
-  navBar(props: Record<string, never>): unknown;
+  navBar?(props: Record<string, never>): unknown;
   /** Page content area of the application */
   default(props: Record<string, never>): unknown;
   /** Overlays that cover the page and exclude the nav area */
-  pageOverlay(props: Record<string, never>): unknown;
+  pageOverlay?(props: Record<string, never>): unknown;
   /** Overlays that cover the complete page */
-  appOverlay(props: Record<string, never>): unknown;
+  appOverlay?(props: Record<string, never>): unknown;
 }>();
 </script>
 
@@ -43,13 +41,12 @@ const slots = defineSlots<{
   width: 100vw;
   display: grid;
   grid-template-rows: max-content 1fr;
-  grid-template-columns: 1fr;
   grid-template-areas:
     "nav"
     "page";
 
   &--horizontal {
-    grid-template-rows: 1fr;
+    grid-template-rows: none;
     grid-template-columns: max-content 1fr;
     grid-template-areas: "nav page";
   }
