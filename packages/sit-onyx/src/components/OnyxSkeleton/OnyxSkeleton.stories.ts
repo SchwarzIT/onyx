@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSkeleton from "./OnyxSkeleton.vue";
 
 /**
+ * The skeleton can be used during the process of building up / loading the initial page.
+ *
  * **Note**: If the height/width is not set via CSS, it will use/inherit the full available space.
  */
 const meta: Meta<typeof OnyxSkeleton> = {
