@@ -21,7 +21,7 @@ $radius: 45;
 
 .onyx-circle-spinner {
   :where(&) {
-    --indicator-size: 24px;
+    --indicator-size: 1.5rem;
     --stroke-color: currentColor;
   }
 
