@@ -5,7 +5,7 @@ export type OnyxLinkProps = {
   href: string;
   /**
    * Where to display the linked URL (same tab, new tab etc.).
-   * For `_blank`, the `rel="noopener noreferrer"` will be set automatically.
+   * For `_blank`, the `rel="noreferrer"` will be set automatically.
    */
   target?: LinkTarget;
   /**
