@@ -105,7 +105,7 @@ export const WithToast = {
                   width: 90%;  
                   background-color: var(--onyx-color-base-neutral-900);
                   opacity: 0.9;
-                  color: var(--onyx-color-text-icons-neutral-intense);
+                  color: var(--onyx-color-text-icons-neutral-inverted);
                   margin: auto;">
         This is the place for a toast
       </div>
