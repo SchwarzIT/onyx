@@ -33,7 +33,9 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 20rem; font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-intense);" >
+        <div style="margin: -1rem; height: 20rem; 
+                    font-family: var(--onyx-font-family); 
+                    color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
     }),
@@ -122,7 +124,7 @@ const getPageRenderContent = (
     ${
       options?.sidebar
         ? `<template #sidebar>
-            <div style="height: 100%; border: 1px solid lightgrey;">
+            <div style="height: 100%; border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
             Side Bar Content
             </div>
            </template>`
@@ -132,7 +134,7 @@ const getPageRenderContent = (
     ${
       options?.footer
         ? `<template #footer>
-            <div style="border: 1px solid lightgrey;">
+            <div style="border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
               Footer Content
             </div>
            </template>`
