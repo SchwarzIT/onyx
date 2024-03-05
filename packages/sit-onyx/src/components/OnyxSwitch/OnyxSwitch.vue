@@ -6,6 +6,7 @@ import type { OnyxSwitchProps } from "./types";
 import { areObjectsFlatEqual } from "@/utils/comparator";
 import { transformValidityStateToObject } from "@/utils/forms";
 import { computed, ref, toRefs, watch } from "vue";
+
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,

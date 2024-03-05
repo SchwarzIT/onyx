@@ -20,20 +20,19 @@ type Story = StoryObj<typeof OnyxSwitch>;
 /**
  * This example shows the default checked state of the switch.
  */
-export const DefaultChecked = {
+export const Default = {
   args: {
     label: "Switch",
-    modelValue: true,
   },
 } satisfies Story;
 
 /**
  * This example shows the default unchecked state of the switch.
  */
-export const DefaultUnchecked = {
+export const Checked = {
   args: {
     label: "Switch",
-    modelValue: false,
+    modelValue: true,
   },
 } satisfies Story;
 
@@ -42,7 +41,7 @@ export const DefaultUnchecked = {
  */
 export const Invalid = {
   args: {
-    ...DefaultChecked.args,
+    ...Default.args,
     errorMessage: "Error message",
   },
 } satisfies Story;

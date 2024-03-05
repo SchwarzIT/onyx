@@ -22,6 +22,7 @@ test("should render disabled OnyxSwitch", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(component).toContainText("Switch");
+  await expect(component).toBeDisabled();
   await expect(component).toHaveScreenshot("disabled.png");
 
   // ACT
