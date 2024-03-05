@@ -31,11 +31,11 @@ const isSidebarOpen = ref(true);
 
 const showTempSidebarOpen = computed<boolean>(() => {
   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
-  return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
+  return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) ?? false;
 });
 
 const footerAsideSidebar = computed<boolean>(
-  () => (settings.value.footer.showDetailFooter && isSidebarOpen.value) || false,
+  () => (settings.value.footer.showDetailFooter && isSidebarOpen.value) ?? false,
 );
 </script>
 
