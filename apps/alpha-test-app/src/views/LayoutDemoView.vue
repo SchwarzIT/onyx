@@ -51,7 +51,12 @@ const footerAsideSidebar = computed<boolean>(
       </NavBarDemo>
     </template>
 
-    <OnyxPageLayout :footer-aside-sidebar="footerAsideSidebar">
+    <!-- key is not needed in a real application where the slots aren't constantly hidden and revealed -->
+    <OnyxPageLayout
+      :key="JSON.stringify(settings)"
+      :footer-aside-sidebar="footerAsideSidebar"
+      :hide-sidebar="!isSidebarOpen && !settings.sidebar.showSidebar"
+    >
       <template
         v-if="settings.sidebar.showSidebar || settings.sidebar.showSidebarCollapse"
         #sidebar

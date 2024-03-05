@@ -7,7 +7,7 @@ defineProps<{ isClosable?: boolean }>();
 </script>
 
 <template>
-  <div class="sidebar" :class="{ 'sidebar--closed': isClosable && !isOpen }">
+  <div class="sidebar">
     <section>
       <OnyxHeadline is="h2">Sidebar</OnyxHeadline>
       <slot></slot>
@@ -31,14 +31,6 @@ defineProps<{ isClosable?: boolean }>();
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  // when the sidebar is closed,
-  // it uses a minimal space for the grid layout
-  &--closed {
-    width: 1px;
-    padding: 0;
-    overflow: hidden;
-  }
 
   &__close {
     justify-self: flex-end;

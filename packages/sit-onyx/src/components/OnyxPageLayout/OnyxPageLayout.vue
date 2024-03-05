@@ -7,6 +7,10 @@ const props = defineProps<{
    * the main area next to the sidebar.
    */
   footerAsideSidebar?: boolean;
+  /** Hides the sidebar even if the slot is filled.
+   * Useful e.g. for implementing a collapsible sidebar.
+   */
+  hideSidebar?: boolean;
 }>();
 
 defineSlots<{
@@ -24,7 +28,7 @@ const slots = useSlots();
 const pageModifier = computed(() => {
   let mode = "";
   if (!slots.footer && slots.sidebar) mode = "onyx-page--side-main";
-  if (slots.footer && !slots.sidebar) mode = "onyx-page--main-footer";
+  if (slots.footer && (!slots.sidebar || props.hideSidebar)) mode = "onyx-page--main-footer";
   if (slots.footer && slots.sidebar) {
     if (props.footerAsideSidebar) {
       mode = "onyx-page--side-main-footer-partial";
@@ -38,7 +42,7 @@ const pageModifier = computed(() => {
 
 <template>
   <div class="onyx-page" :class="pageModifier">
-    <aside v-if="slots.sidebar" class="onyx-page__sidebar">
+    <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>
     <main class="onyx-page__main">
