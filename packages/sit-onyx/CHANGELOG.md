@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.25
+
+### Minor Changes
+
+- 743d6b9: refactor(OnyxLoadingIndicator): update dots animation
+
 ## 1.0.0-alpha.24
 
 ### Patch Changes
