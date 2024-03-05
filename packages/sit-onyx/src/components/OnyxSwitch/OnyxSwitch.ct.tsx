@@ -96,9 +96,8 @@ test(
         { useOptional: state === "optional" },
       );
 
-      const onyxSwitch = component.getByRole("checkbox");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await onyxSwitch.hover();
+      if (focusState === "hover") await component.hover();
       return component;
     },
   ),
