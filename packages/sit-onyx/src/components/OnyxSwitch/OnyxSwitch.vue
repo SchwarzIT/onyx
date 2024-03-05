@@ -147,7 +147,7 @@ watch(
     height: 1.5rem;
     background-color: var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-full);
-    transition: background-color 0.2s ease;
+    transition: background-color var(--onyx-duration-sm) ease;
 
     .onyx-switch__icon {
       display: flex;
@@ -155,14 +155,14 @@ watch(
       align-content: baseline;
       align-self: center;
       justify-content: flex-end;
-      margin: 0.125rem;
+      margin: var(--onyx-spacing-5xs);
       width: 1.25rem;
       height: 1.25rem;
       background-color: var(--onyx-color-themed-neutral-100);
       border-radius: 50%;
       transition:
-        transform 0.2s ease,
-        background-color 0.2s ease;
+        transform var(--onyx-duration-sm) ease,
+        background-color var(--onyx-duration-sm) ease;
       overflow: hidden;
       color: var(--onyx-color-text-icons-neutral-soft);
     }
