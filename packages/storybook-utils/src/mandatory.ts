@@ -1,16 +1,8 @@
 import { type Decorator } from "@storybook/vue3";
 import { ref, watch } from "vue";
+import type { StorybookGlobalType } from "./types";
 
 type MandatoryIndicator = "required" | "optional";
-type MandatoryGlobalType = {
-  name: string;
-  description: string;
-  defaultValue: MandatoryIndicator;
-  toolbar: {
-    icon: string;
-    items: { value: MandatoryIndicator; right: string; title: string }[];
-  };
-};
 
 export const mandatoryGlobalType = {
   mandatoryMode: {
@@ -24,7 +16,7 @@ export const mandatoryGlobalType = {
         { value: "optional", right: "(optional)", title: "Optional indicator" },
       ],
     },
-  } satisfies MandatoryGlobalType,
+  } satisfies StorybookGlobalType<MandatoryIndicator>,
 };
 
 const mandatoryMode = ref<MandatoryIndicator>("required");
