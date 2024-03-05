@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.28
+
+### Minor Changes
+
+- 62c8d65: feat: add component `OnyxSkeleton`
+
 ## 1.0.0-alpha.27
 
 ### Minor Changes
