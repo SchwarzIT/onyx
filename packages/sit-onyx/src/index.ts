@@ -19,6 +19,7 @@ export * from "@/components/OnyxPageLayout/types";
 export { default as OnyxPageLayout } from "@/components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "@/components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "@/components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
+export { default as OnyxSkeleton } from "@/components/OnyxSkeleton/OnyxSkeleton.vue";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 export * from "@/components/OnyxSwitch/types";
 export { default as OnyxSwitch } from "@/components/OnyxSwitch/OnyxSwitch.vue";
