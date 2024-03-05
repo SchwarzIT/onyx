@@ -85,5 +85,5 @@ export const WithTruncation = {
   args: {
     label: "Button with a very long text that gets truncated",
   },
-  decorators: createTruncationDecorator("256px"),
+  decorators: createTruncationDecorator("16rem"),
 } satisfies Story;

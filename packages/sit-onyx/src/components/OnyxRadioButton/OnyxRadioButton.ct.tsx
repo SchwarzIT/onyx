@@ -99,7 +99,7 @@ TRUNCATION_TYPES.forEach((truncation) => {
       <OnyxRadioButton
         label={label}
         truncation={truncation}
-        style="max-width: 160px;"
+        style="max-width: 10rem;"
         id={truncation}
         name={truncation}
       />,

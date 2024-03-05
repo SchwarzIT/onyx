@@ -221,7 +221,7 @@ TRUNCATION_TYPES.forEach((truncation) => {
 
     // ARRANGE
     const component = await mount(
-      <OnyxCheckbox label={label} truncation={truncation} style="max-width: 160px;" />,
+      <OnyxCheckbox label={label} truncation={truncation} style="max-width: 10rem;" />,
     );
 
     // ASSERT

@@ -38,5 +38,5 @@ export const WithTruncation = {
     ...Default.args,
     label: "Very long label that will be truncated",
   },
-  decorators: [createTruncationDecorator("200px")],
+  decorators: [createTruncationDecorator("12rem")],
 } satisfies Story;

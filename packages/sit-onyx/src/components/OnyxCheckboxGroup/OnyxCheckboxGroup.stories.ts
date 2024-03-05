@@ -27,8 +27,8 @@ export const Default = {
     options: [
       { label: "Default", id: "id-1" },
       { label: "Initially checked", id: "id-2" },
-      { label: "Required", id: "id-4", required: true },
-      { label: "Disabled", id: "id-3", disabled: true },
+      { label: "Required", id: "id-3", required: true },
+      { label: "Disabled", id: "id-4", disabled: true },
     ],
   },
 } satisfies Story;
