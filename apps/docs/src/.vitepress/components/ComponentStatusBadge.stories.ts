@@ -1,0 +1,35 @@
+import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import type { Meta, StoryObj } from "@storybook/vue3";
+import ComponentStatusBadge from "./ComponentStatusBadge.vue";
+
+const meta: Meta<typeof ComponentStatusBadge> = {
+  title: "roadmap/ComponentStatusBadge",
+  ...defineStorybookActionsAndVModels({
+    component: ComponentStatusBadge,
+    events: [],
+  }),
+};
+
+export default meta;
+type Story = StoryObj<typeof ComponentStatusBadge>;
+
+export const Implemented = {
+  args: {
+    status: "implemented",
+    showLabel: true,
+  },
+} satisfies Story;
+
+export const InProgress = {
+  args: {
+    status: "in-progress",
+    showLabel: true,
+  },
+} satisfies Story;
+
+export const Planned = {
+  args: {
+    status: "planned",
+    showLabel: true,
+  },
+} satisfies Story;
