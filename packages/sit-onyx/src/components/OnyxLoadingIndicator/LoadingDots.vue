@@ -81,11 +81,11 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
       // this will show the dot by setting the shrink to 0.
       @include define-box-shadow(0);
     }
-    30% {
+    33% {
       // shrink dot so its getting smaller
       @include define-box-shadow($max-shrink);
     }
-    60% {
+    66% {
       @include define-box-shadow($max-shrink);
     }
   }
