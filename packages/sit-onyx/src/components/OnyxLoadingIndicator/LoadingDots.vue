@@ -35,7 +35,7 @@ $max-shrink: calc(-1 * var(--dot-size) / 2);
 
 .onyx-loading-dots {
   :where(&) {
-    --indicator-size: 24px;
+    --indicator-size: 1.5rem;
   }
 
   /** Default (non-animated) size of a single dot. */
