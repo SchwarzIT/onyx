@@ -34,9 +34,9 @@ const slots = defineSlots<{
 <style lang="scss">
 .onyx-app {
   :where(&) {
-    --onyx-app-layout-background-color-nav: var(--onyx-color-base-background-blank);
+    --background-color-nav: var(--onyx-color-base-background-blank);
     // TODO: we need a rgba css variable in figma
-    --onyx-app-layout-background-color-overlay-backdrop: rgba(125, 125, 125, 0.9);
+    --background-color-overlay-backdrop: rgba(125, 125, 125, 0.9);
   }
 
   height: 100vh;
@@ -60,7 +60,7 @@ const slots = defineSlots<{
     grid-area: nav;
     z-index: var(--onyx-z-index-navigation);
 
-    background-color: var(--onyx-app-layout-background-color-nav);
+    background-color: var(--background-color-nav);
   }
   &__page {
     grid-area: page;
@@ -80,7 +80,7 @@ const slots = defineSlots<{
     right: 0;
     z-index: var(--onyx-z-index-app-overlay);
     position: absolute;
-    background-color: var(--onyx-app-layout-background-color-overlay-backdrop);
+    background-color: var(--background-color-overlay-backdrop);
   }
 }
 </style>
