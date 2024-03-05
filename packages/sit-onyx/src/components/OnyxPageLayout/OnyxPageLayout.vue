@@ -99,15 +99,14 @@ const pageModifier = computed(() => {
     grid-area: side;
     overflow: hidden auto;
 
-    // todo need design token from UX
-    background-color: var(--onyx-color-universal-grayscale-white);
+    background-color: var(--onyx-color-base-background-blank);
   }
   &__main {
     grid-area: main;
     overflow: hidden auto;
     position: relative;
 
-    background-color: var(--onyx-color-base-neutral-100);
+    background-color: var(--onyx-color-base-background-tinted);
   }
   &__toasts {
     grid-row: 1 / -2;
@@ -121,8 +120,7 @@ const pageModifier = computed(() => {
   &__footer {
     grid-area: footer;
 
-    // todo need design token from UX
-    background-color: var(--onyx-color-universal-grayscale-white);
+    background-color: var(--onyx-color-base-background-blank);
   }
 }
 </style>

@@ -59,6 +59,8 @@ const slots = useSlots();
   &__nav {
     grid-area: nav;
     z-index: var(--onyx-z-index-navigation);
+
+    background-color: var(--onyx-color-base-background-blank);
   }
   &__page {
     grid-area: page;
