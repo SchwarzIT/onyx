@@ -159,7 +159,7 @@ watch(
       width: 1.25rem;
       height: 1.25rem;
       background-color: var(--onyx-color-themed-neutral-100);
-      border-radius: 50%;
+      border-radius: var(--onyx-radius-full);
       transition:
         transform var(--onyx-duration-sm) ease,
         background-color var(--onyx-duration-sm) ease;
