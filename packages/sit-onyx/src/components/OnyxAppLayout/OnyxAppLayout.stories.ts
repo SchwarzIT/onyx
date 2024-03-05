@@ -92,8 +92,7 @@ export const PageOverlay = {
     ...getAppTemplate(
       args.navBarAlignment === "left",
       `<template #pageOverlay>
-          <div style="background-color: #ffffffC7;
-                      backdrop-filter: blur(4px);
+          <div style="backdrop-filter: blur(4px);
                       display: flex;
                       flex-direction: column;
                       justify-content: center;
