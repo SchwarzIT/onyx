@@ -1768,6 +1768,18 @@ export const ICON_METADATA = {
   "zoom-out": {
     category: "Action & Interface",
   },
+  "chevron-down-up": {
+    category: "Arrows",
+  },
+  "kubernetes-lock": {
+    category: "Software & Services",
+  },
+  "plus-minus": {
+    category: "Essentials",
+  },
+  "server-lock": {
+    category: "Network & Infrastructure",
+  },
 } as const satisfies Record<string, IconMetadata>;
 
 /**
