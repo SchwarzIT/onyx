@@ -23,7 +23,7 @@
     "@rushstack/eslint-patch": "^1.7.2",
     "@sit-onyx/eslint-plugin": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-essentials": "^8.0.0-rc.1",
+    "@storybook/addon-essentials": "^8.0.0-rc.2",
     "@storybook/blocks": "^8.0.0-rc.1",
     "@storybook/vue3": "^8.0.0-rc.1",
     "@storybook/vue3-vite": "^8.0.0-rc.1",
