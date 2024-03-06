@@ -92,6 +92,10 @@ const isTouched = ref(false);
   width: max-content;
   max-width: 100%;
 
+  &:has(&__label) {
+    padding-right: var(--onyx-spacing-2xs);
+  }
+
   &:hover {
     @include define-hover-border($state: ":enabled", $color: primary);
 

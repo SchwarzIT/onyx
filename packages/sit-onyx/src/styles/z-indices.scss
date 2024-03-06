@@ -1,9 +1,15 @@
 // all z-indices that are needed in the onyx design system
 :root {
-  --onyx-z-index-overlay: 60;
+  // used for full app overlays, e.g. modals/pop-ups
+  --onyx-z-index-app-overlay: 60;
+  // used for the nav-bar of the application
   --onyx-z-index-navigation: 50;
-  --onyx-z-index-content-overlay: 40;
+  // used for overlays that cover the page (everything except the nav-bar)
+  --onyx-z-index-page-overlay: 40;
+  // used e.g. for toasts, floating buttons or messages from a notification-center
   --onyx-z-index-notification: 30;
+  // used for sticky contents that dock on to the page, e.g. a breadcrumb bar, table header or headlines
   --onyx-z-index-sticky-content: 20;
+  // used for tooltips and fly-outs of a nav menu or a combo-box
   --onyx-z-index-flyout: 10;
 }

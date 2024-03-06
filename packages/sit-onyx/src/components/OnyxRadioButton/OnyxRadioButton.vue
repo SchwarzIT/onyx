@@ -47,6 +47,10 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   max-width: 100%;
   cursor: var(--onyx-radio-button-cursor);
 
+  &:has(&__label) {
+    padding-right: var(--onyx-spacing-2xs);
+  }
+
   &:has(&__selector:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
   }

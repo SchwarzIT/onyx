@@ -51,10 +51,11 @@ features:
 ---
 
 <script lang="ts" setup>
-import OnyxRoadmap from "./.vitepress/components/OnyxRoadmap.vue"
+import OnyxHomePage from "./.vitepress/components/OnyxHomePage.vue"
 import OnyxPartners from "./.vitepress/components/OnyxPartners.vue"
+import { data } from "./index.data";
 </script>
 
-<OnyxRoadmap />
+<OnyxHomePage :data="data" />
 
 <OnyxPartners />

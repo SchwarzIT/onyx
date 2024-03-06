@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxIcon } from "@/index";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {

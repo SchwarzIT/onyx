@@ -46,3 +46,13 @@ export type DefineStorybookActionsAndVModelsOptions<T> = Meta<T> & {
   component: NonNullable<T>;
   events: ExtractVueEventNames<T>[];
 };
+
+export type StorybookGlobalType<TValue> = {
+  name: string;
+  description: string;
+  defaultValue: TValue;
+  toolbar: {
+    icon: string;
+    items: { value: TValue; right: string; title: string }[];
+  };
+};
