@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.30
+
+### Patch Changes
+
+- c785597: fix: add padding-right for checkbox and radio button label
+
 ## 1.0.0-alpha.29
 
 ### Patch Changes
