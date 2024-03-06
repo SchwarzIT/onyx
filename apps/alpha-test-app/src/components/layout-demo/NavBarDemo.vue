@@ -10,11 +10,7 @@ const isLeftAligned = defineModel<boolean>();
 
     <slot></slot>
 
-    <OnyxButton
-      style="display: inline-block"
-      label="switch nav"
-      @click="isLeftAligned = !isLeftAligned"
-    />
+    <OnyxButton label="switch nav" @click="isLeftAligned = !isLeftAligned" />
   </div>
 </template>
 
