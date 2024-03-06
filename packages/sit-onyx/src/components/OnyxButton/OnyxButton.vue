@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
@@ -8,6 +9,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   type: "button",
   variation: "primary",
   mode: "default",
+  skeleton: false,
 });
 
 const emit = defineEmits<{
@@ -17,7 +19,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
+  <OnyxSkeleton v-if="props.skeleton" class="onyx-button onyx-button--skeleton" />
   <button
+    v-else
     class="onyx-button"
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
@@ -157,6 +161,11 @@ const emit = defineEmits<{
     font-style: normal;
     font-weight: 600;
     line-height: 1.5rem;
+  }
+
+  &--skeleton {
+    width: var(--onyx-spacing-4xl);
+    cursor: default;
   }
 }
 </style>

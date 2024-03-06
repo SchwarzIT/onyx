@@ -5,12 +5,14 @@ import { transformValidityStateToObject } from "@/utils/forms";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
   required: false,
+  skeleton: false,
 });
 
 const emit = defineEmits<{
@@ -55,7 +57,13 @@ watch(
 </script>
 
 <template>
+  <div v-if="props.skeleton" class="onyx-switch">
+    <OnyxSkeleton class="onyx-switch__container onyx-switch__container--skeleton" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch__label onyx-switch__label--skeleton" />
+  </div>
+
   <label
+    v-else
     class="onyx-switch"
     :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
   >
@@ -73,6 +81,7 @@ watch(
         <OnyxIcon :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
+
     <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
   </label>
 </template>
@@ -86,6 +95,10 @@ watch(
 
   $container-padding: var(--onyx-1px-in-rem);
   $icon-size: 1.25rem;
+
+  &:has(.onyx-skeleton) {
+    cursor: default;
+  }
 
   &__input {
     // position: absolute is needed here in order to hide the native checkbox.
@@ -170,6 +183,11 @@ watch(
         --icon-size: #{$icon-size};
       }
     }
+
+    &--skeleton {
+      // icon size + padding top/bottom + border top/bottom
+      height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
+    }
   }
 
   &__label {
@@ -181,6 +199,11 @@ watch(
     font-style: normal;
     font-weight: 400;
     line-height: 1.5rem;
+
+    &--skeleton {
+      height: var(--onyx-spacing-md);
+      width: var(--onyx-spacing-3xl);
+    }
   }
 
   &:hover {
