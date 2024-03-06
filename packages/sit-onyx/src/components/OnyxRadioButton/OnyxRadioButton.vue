@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="TValue">
 import { ref, watchEffect } from "vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps } from "./types";
 
 const props = defineProps<RadioButtonProps<TValue>>();
@@ -10,8 +11,12 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </script>
 
 <template>
-  <!-- TODO: decide on support prefix and/or folder -->
-  <label class="onyx-radio-button" :title="props.errorMessage">
+  <div v-if="props.skeleton" class="onyx-radio-button-skeleton">
+    <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
+    <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
+  </div>
+
+  <label v-else class="onyx-radio-button" :title="props.errorMessage">
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       ref="selectorRef"
@@ -28,6 +33,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </template>
 
 <style lang="scss">
+$input-size: var(--onyx-spacing-md);
+
 .onyx-radio-button {
   --onyx-radio-button-cursor: pointer;
   --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-400);
@@ -107,7 +114,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       color: var(--onyx-radio-button-selector-outline-color);
       offset: 0;
     }
-    transition: outline 400ms;
+    transition: outline var(--onyx-duration-sm);
 
     border: {
       style: solid;
@@ -121,9 +128,9 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: var(--onyx-spacing-md);
-    min-width: var(--onyx-spacing-md);
-    max-width: var(--onyx-spacing-md);
+    width: $input-size;
+    min-width: $input-size;
+    max-width: $input-size;
     aspect-ratio: 1;
 
     &::before {
@@ -134,6 +141,24 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       background-color: var(--onyx-color-base-background-blank);
       border-radius: 100%;
     }
+  }
+}
+
+.onyx-radio-button-skeleton {
+  padding: var(--onyx-spacing-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--onyx-spacing-sm);
+
+  &__input {
+    height: $input-size;
+    width: $input-size;
+    border-radius: var(--onyx-radius-full);
+  }
+
+  &__label {
+    height: var(--onyx-spacing-md);
+    width: var(--onyx-spacing-3xl);
   }
 }
 </style>

@@ -27,3 +27,13 @@ export const Default = {
     value: "radio-value",
   },
 } satisfies Story;
+
+/**
+ * This example shows a skeleton radio button.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

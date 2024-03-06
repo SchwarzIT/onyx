@@ -13,6 +13,10 @@ export type SelectionOption<T = unknown> = {
    */
   value?: T;
   disabled?: boolean;
+  /**
+   * Whether to show a skeleton button.
+   */
+  skeleton?: boolean;
 };
 
 export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };

@@ -1,10 +1,10 @@
 <script lang="ts" setup generic="TValue">
 import type { TargetEvent } from "@/types/dom";
+import { createId } from "@sit-onyx/headless";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxRadioButtonGroupProps } from "./types";
-import { createId } from "@sit-onyx/headless";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
@@ -49,14 +49,11 @@ const handleChange = (event: ChangeEvent) =>
     >
       <OnyxRadioButton
         v-for="option in props.options"
-        :id="option.id"
+        v-bind="option"
         :key="option.id"
         :name="props.name"
-        :label="option.label"
-        :value="option.value"
         :error-message="props.errorMessage"
         :selected="option.id === props.modelValue?.id"
-        :disabled="option.disabled"
         :required="props.required"
       />
     </div>

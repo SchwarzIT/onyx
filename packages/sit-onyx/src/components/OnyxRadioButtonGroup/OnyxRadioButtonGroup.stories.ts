@@ -1,7 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
+import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
 /**
  * Radio buttons in UI design are interactive elements that allow users to make a single selection from a set of mutually exclusive options.
@@ -22,6 +22,7 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "Default", value: "1", id: "1" },
   { label: "Initially checked", value: "2", id: "2" },
   { label: "Disabled", value: "3", id: "3", disabled: true },
+  { label: "Skeleton", value: "4", id: "4", skeleton: true },
 ];
 
 /**
