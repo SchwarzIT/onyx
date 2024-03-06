@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat: add truncation for button, checkbox and radio button
+feat: add truncation for OnyxButton, OnyxCheckbox, OnyxRadioButton and OnyxSwitch
