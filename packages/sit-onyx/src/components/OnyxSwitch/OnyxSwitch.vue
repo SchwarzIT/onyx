@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { OnyxIcon } from "@/index";
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import type { OnyxSwitchProps } from "./types";
 import { areObjectsFlatEqual } from "@/utils/comparator";
 import { transformValidityStateToObject } from "@/utils/forms";
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
+import type { OnyxSwitchProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
@@ -82,20 +82,26 @@ watch(
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  margin: var(--onyx-spacing-2xs);
-  height: 1.5rem;
+  gap: var(--onyx-spacing-2xs);
+
+  $container-padding: var(--onyx-1px-in-rem);
+  $icon-size: 1.25rem;
 
   &__input {
     // position: absolute is needed here in order to hide the native checkbox.
     position: absolute;
     opacity: 0;
+    cursor: inherit;
+    width: 0;
+    height: 0;
+    margin: 0;
 
     &:checked + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-500);
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-themed-neutral-100);
-        transform: translateX(0.875rem);
+        transform: translateX(calc(75% - $container-padding));
         color: var(--onyx-color-text-icons-primary-intense);
       }
     }
@@ -120,9 +126,7 @@ watch(
 
     &:invalid + .onyx-switch__container {
       background-color: var(--onyx-color-base-danger-200);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
-      height: 1.375rem;
-      width: 2.25rem;
+      border-color: var(--onyx-color-base-danger-500);
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-base-danger-500);
@@ -135,7 +139,6 @@ watch(
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-base-background-blank);
-        transform: translateX(0.75rem);
         color: var(--onyx-color-text-icons-danger-intense);
       }
     }
@@ -143,22 +146,18 @@ watch(
 
   &__container {
     display: inline-flex;
-    margin: var(--onyx-spacing-2xs);
-    width: 2.375rem;
-    height: 1.5rem;
+    width: calc(2 * $icon-size - 2 * $container-padding);
+    padding: $container-padding;
+    box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-full);
+    border: var(--onyx-1px-in-rem) solid transparent;
     transition: background-color var(--onyx-duration-sm) ease;
 
     .onyx-switch__icon {
       display: flex;
-      flex-wrap: wrap;
-      align-content: baseline;
       align-self: center;
-      justify-content: flex-end;
-      margin: var(--onyx-spacing-5xs);
-      width: 1.25rem;
-      height: 1.25rem;
+      justify-content: center;
       background-color: var(--onyx-color-themed-neutral-100);
       border-radius: var(--onyx-radius-full);
       transition:
@@ -166,11 +165,14 @@ watch(
         background-color var(--onyx-duration-sm) ease;
       overflow: hidden;
       color: var(--onyx-color-text-icons-neutral-soft);
+
+      .onyx-icon {
+        --icon-size: #{$icon-size};
+      }
     }
   }
 
   &__label {
-    padding: var(--onyx-spacing-2xs) 0;
     overflow: hidden;
     color: var(--onyx-color-text-icons-neutral-intense);
     text-overflow: ellipsis;
