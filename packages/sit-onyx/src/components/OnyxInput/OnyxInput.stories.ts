@@ -11,6 +11,12 @@ const meta: Meta<typeof OnyxInput> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxInput,
     events: [],
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="width: 16rem;"> <story /> </div>`,
+      }),
+    ],
   }),
 };
 
@@ -23,5 +29,15 @@ type Story = StoryObj<typeof OnyxInput>;
 export const Default = {
   args: {
     label: "Label",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a input with a placeholder.
+ */
+export const Placeholder = {
+  args: {
+    label: "Label",
+    placeholder: "Enter something...",
   },
 } satisfies Story;
