@@ -1,17 +1,26 @@
 import { expect, test } from "../../playwright-axe";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
-const navStyle = "style='background-color: honeydew; height: 100%; width: 100%'";
-const pageStyle = "style='background-color: floralwhite; height: 100%; width: 100%'";
-const standardSlots = {
-  navBar: `<div ${navStyle}>Nav</div>`,
-  default: `<div ${pageStyle}>Page</div>`,
+const demoElement = `<div style="min-width: 4rem; min-height: 4rem;"></div>`;
+const defaultProps = {
+  style: `
+  --background-color-nav: peachpuff;
+  --background-color-overlay-backdrop: rgba(125,125,125,0.5)
+  `,
+};
+const defaultSlots = {
+  navBar: demoElement,
+  default: demoElement,
+};
+const defaultConfig = {
+  props: defaultProps,
+  slots: defaultSlots,
 };
 
-test("should render standard page", async ({ mount, makeAxeBuilder }) => {
+test("should render standard app", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxAppLayout, {
-    slots: standardSlots,
+    ...defaultConfig,
   });
 
   // ASSERT
@@ -28,9 +37,10 @@ test("should render nav left", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxAppLayout, {
     props: {
+      ...defaultProps,
       navBarAlignment: "left",
     },
-    slots: standardSlots,
+    slots: defaultSlots,
   });
 
   // ASSERT
@@ -46,14 +56,10 @@ test("should render nav left", async ({ mount, makeAxeBuilder }) => {
 test("should render app overlay", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxAppLayout, {
-    props: {
-      navBarAlignment: "left",
-    },
+    props: defaultProps,
     slots: {
-      ...standardSlots,
-      appOverlay: `<div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center;">
-      <div style="background-color: white; padding: 1rem">App Overlay</div>
-      </div>`,
+      ...defaultSlots,
+      appOverlay: demoElement,
     },
   });
 
@@ -70,12 +76,10 @@ test("should render app overlay", async ({ mount, makeAxeBuilder }) => {
 test("should render page overlay", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxAppLayout, {
-    props: {
-      navBarAlignment: "left",
-    },
+    props: defaultProps,
     slots: {
-      ...standardSlots,
-      pageOverlay: `<div style='background-color: ivory; height: 100%; width: 100%'>App Overlay</div>`,
+      ...defaultSlots,
+      pageOverlay: `<div style='background-color: ivory; height: 100%; width: 100%'></div>`,
     },
   });
 
