@@ -1,5 +1,6 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { TRUNCATION_TYPES } from "../../types/fonts";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -71,6 +72,21 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   // ASSERT
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
+TRUNCATION_TYPES.forEach((truncation) => {
+  test(`should truncate with ${truncation}`, async ({ mount }) => {
+    const label = "Very long label that should be truncated";
+
+    // ARRANGE
+    const component = await mount(
+      <OnyxSwitch label={label} truncation={truncation} style="max-width: 10rem;" />,
+    );
+
+    // ASSERT
+    await expect(component).toContainText(label);
+    await expect(component).toHaveScreenshot(`truncation-${truncation}.png`);
+  });
 });
 
 const STATES = {

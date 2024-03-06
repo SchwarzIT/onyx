@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
   required: false,
+  truncation: "ellipsis",
 });
 
 const emit = defineEmits<{
@@ -73,7 +74,13 @@ watch(
         <OnyxIcon :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
-    <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
+    <span
+      v-if="!props.hideLabel"
+      class="onyx-switch__label"
+      :class="[`onyx-truncation-${props.truncation}`]"
+    >
+      {{ props.label }}
+    </span>
   </label>
 </template>
 
@@ -83,6 +90,7 @@ watch(
   align-items: center;
   cursor: pointer;
   gap: var(--onyx-spacing-2xs);
+  max-width: 100%;
 
   $container-padding: var(--onyx-1px-in-rem);
   $icon-size: 1.25rem;
@@ -145,8 +153,11 @@ watch(
   }
 
   &__container {
+    $width: calc(2 * $icon-size - 2 * $container-padding);
+
     display: inline-flex;
-    width: calc(2 * $icon-size - 2 * $container-padding);
+    width: $width;
+    min-width: $width;
     padding: $container-padding;
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
@@ -173,9 +184,7 @@ watch(
   }
 
   &__label {
-    overflow: hidden;
     color: var(--onyx-color-text-icons-neutral-intense);
-    text-overflow: ellipsis;
     font-family: var(--onyx-font-family);
     font-size: 1rem;
     font-style: normal;
