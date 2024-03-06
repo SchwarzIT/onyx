@@ -18,6 +18,7 @@
   }
 }
 
+// when adding styles for new truncation types, make sure to also add them inside types/fonts.ts
 .onyx-truncation {
   &-ellipsis {
     white-space: nowrap;
