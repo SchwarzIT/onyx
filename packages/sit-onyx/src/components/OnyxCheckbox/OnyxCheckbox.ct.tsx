@@ -216,7 +216,12 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 
 test("should render skeleton", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(<OnyxCheckbox label="Test label" skeleton />);
+  const component = await mount(
+    <div style="display:grid; width:max-content;">
+      <OnyxCheckbox label="Test label" skeleton />
+      <OnyxCheckbox label="Test label hidden" skeleton hideLabel />
+    </div>,
+  );
 
   // ASSERT
   await expect(component).toHaveScreenshot("skeleton.png");
