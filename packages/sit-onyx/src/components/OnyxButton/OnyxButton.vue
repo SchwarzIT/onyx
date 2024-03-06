@@ -19,7 +19,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <OnyxSkeleton v-if="props.skeleton" class="onyx-button onyx-button--skeleton" />
+  <OnyxSkeleton v-if="props.skeleton" class="onyx-button-skeleton" />
   <button
     v-else
     class="onyx-button"
@@ -33,6 +33,8 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
+$button-height: 2.5rem;
+
 .onyx-button {
   --onyx-button-background-color: transparent;
   --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
@@ -41,7 +43,7 @@ const emit = defineEmits<{
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: flex;
-  height: 2.5rem;
+  height: $button-height;
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
@@ -162,10 +164,10 @@ const emit = defineEmits<{
     font-weight: 600;
     line-height: 1.5rem;
   }
+}
 
-  &--skeleton {
-    width: var(--onyx-spacing-4xl);
-    cursor: default;
-  }
+.onyx-button-skeleton {
+  width: var(--onyx-spacing-4xl);
+  height: $button-height;
 }
 </style>

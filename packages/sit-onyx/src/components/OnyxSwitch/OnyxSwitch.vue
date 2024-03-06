@@ -57,9 +57,9 @@ watch(
 </script>
 
 <template>
-  <div v-if="props.skeleton" class="onyx-switch">
-    <OnyxSkeleton class="onyx-switch__container onyx-switch__container--skeleton" />
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch__label onyx-switch__label--skeleton" />
+  <div v-if="props.skeleton" class="onyx-switch-skeleton">
+    <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
   <label
@@ -87,18 +87,15 @@ watch(
 </template>
 
 <style lang="scss">
+$container-padding: var(--onyx-1px-in-rem);
+$icon-size: 1.25rem;
+$input-width: calc(2 * $icon-size - 2 * $container-padding);
+
 .onyx-switch {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
   gap: var(--onyx-spacing-2xs);
-
-  $container-padding: var(--onyx-1px-in-rem);
-  $icon-size: 1.25rem;
-
-  &:has(.onyx-skeleton) {
-    cursor: default;
-  }
 
   &__input {
     // position: absolute is needed here in order to hide the native checkbox.
@@ -159,7 +156,7 @@ watch(
 
   &__container {
     display: inline-flex;
-    width: calc(2 * $icon-size - 2 * $container-padding);
+    width: $input-width;
     padding: $container-padding;
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
@@ -183,11 +180,6 @@ watch(
         --icon-size: #{$icon-size};
       }
     }
-
-    &--skeleton {
-      // icon size + padding top/bottom + border top/bottom
-      height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
-    }
   }
 
   &__label {
@@ -199,11 +191,6 @@ watch(
     font-style: normal;
     font-weight: 400;
     line-height: 1.5rem;
-
-    &--skeleton {
-      height: var(--onyx-spacing-md);
-      width: var(--onyx-spacing-3xl);
-    }
   }
 
   &:hover {
@@ -250,6 +237,24 @@ watch(
     .onyx-switch__label {
       color: var(--onyx-color-text-icons-neutral-soft);
     }
+  }
+}
+
+.onyx-switch-skeleton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--onyx-spacing-2xs);
+
+  &__input {
+    // icon size + padding top/bottom + border top/bottom
+    height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
+    border-radius: var(--onyx-radius-full);
+    width: $input-width;
+  }
+
+  &__label {
+    height: var(--onyx-spacing-md);
+    width: var(--onyx-spacing-3xl);
   }
 }
 </style>
