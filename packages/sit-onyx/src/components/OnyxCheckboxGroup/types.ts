@@ -21,7 +21,7 @@ export type OnyxCheckboxGroupProps<
   direction?: CheckboxGroupDirection;
   /**
    * If true, an additional checkbox will be displayed to check/uncheck all options.
-   * Disabled checkboxes will be excluded from the check/uncheck behavior.
+   * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
    */
   withCheckAll?: boolean;
   /**
