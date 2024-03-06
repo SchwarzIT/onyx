@@ -47,6 +47,14 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxButton label="Test label" skeleton />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("skeleton.png");
+});
+
 const STATES = {
   state: ["default", "disabled", "icon"],
   variation: ["primary", "secondary", "danger"],

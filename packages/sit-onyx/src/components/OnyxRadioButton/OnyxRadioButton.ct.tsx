@@ -1,5 +1,5 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
@@ -87,6 +87,16 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxRadioButton label="Test label" name="skeleton" id="1" skeleton />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("skeleton.png");
 });
 
 const STATES = {

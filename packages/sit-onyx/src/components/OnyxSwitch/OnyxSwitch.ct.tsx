@@ -1,5 +1,5 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -71,6 +71,14 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   // ASSERT
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
+test("should render skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxSwitch label="Test label" skeleton />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("skeleton.png");
 });
 
 const STATES = {
