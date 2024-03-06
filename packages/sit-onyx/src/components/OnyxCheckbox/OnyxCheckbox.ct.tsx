@@ -243,7 +243,7 @@ test(
       const component = await mount(
         <OnyxCheckbox
           modelValue={select === "selected"}
-          label="label"
+          label={labeled}
           indeterminate={select === "indeterminate"}
           disabled={state === "disabled"}
           required={state === "required"}
