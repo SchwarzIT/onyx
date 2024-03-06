@@ -127,6 +127,8 @@ watch(
       .onyx-switch__icon {
         background-color: var(--onyx-color-base-danger-500);
         color: var(--onyx-color-text-icons-neutral-inverted);
+        height: 1.125rem;
+        width: 1.125rem;
       }
     }
 
@@ -135,7 +137,6 @@ watch(
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-base-background-blank);
-        transform: translateX(0.75rem);
         color: var(--onyx-color-text-icons-danger-intense);
       }
     }
