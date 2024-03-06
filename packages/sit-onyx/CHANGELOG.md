@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.29
+
+### Patch Changes
+
+- f04d083: fix(OnyxSwitch): update styles
+
 ## 1.0.0-alpha.28
 
 ### Minor Changes
