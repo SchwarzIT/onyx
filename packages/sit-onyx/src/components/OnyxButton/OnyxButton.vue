@@ -167,7 +167,6 @@ $button-height: 2.5rem;
 }
 
 .onyx-button-skeleton {
-  display: block;
   width: var(--onyx-spacing-4xl);
   height: $button-height;
 }
