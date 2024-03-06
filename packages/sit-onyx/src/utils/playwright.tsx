@@ -1,5 +1,4 @@
 import {} from "@playwright/experimental-ct-vue";
-import type { Locator } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
 

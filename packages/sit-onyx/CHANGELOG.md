@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-alpha.29
+
+### Patch Changes
+
+- f04d083: fix(OnyxSwitch): update styles
+
+## 1.0.0-alpha.28
+
+### Minor Changes
+
+- 62c8d65: feat: add component `OnyxSkeleton`
+
+## 1.0.0-alpha.27
+
+### Minor Changes
+
+- 827a893: feat: create components `OnyxAppLayout` and `OnyxPageLayout`
+
 ## 1.0.0-alpha.26
 
 ### Minor Changes

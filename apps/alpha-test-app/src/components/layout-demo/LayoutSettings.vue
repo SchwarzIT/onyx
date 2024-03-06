@@ -12,8 +12,8 @@ export type Settings = Partial<{
   forceTooltip: boolean;
   showStickyContent: boolean;
   showToast: boolean;
-  showSideBar: boolean;
-  showSideBarCollapse: boolean;
+  showSidebar: boolean;
+  showSidebarCollapse: boolean;
   showTempOverlayTransparent: boolean;
   showTempOverlay: boolean;
   showDetailFooter: boolean;
@@ -24,7 +24,7 @@ export type Settings = Partial<{
   showTopBarFlyout: boolean;
 }>;
 
-export type SettingsSection = "content" | "sideBar" | "footer" | "overlay";
+export type SettingsSection = "content" | "sidebar" | "footer" | "overlay";
 export type SettingsSections = Record<SettingsSection, Settings>;
 
 const props = withDefaults(
@@ -35,7 +35,7 @@ const props = withDefaults(
   }>(),
   {
     horizontal: false,
-    show: () => ["content", "sideBar", "footer", "overlay"],
+    show: () => ["content", "sidebar", "footer", "overlay"],
   },
 );
 
@@ -55,14 +55,16 @@ const contentOptions: SelectionOption[] = [
 const overlayOptions: SelectionOption[] = [
   noneOption,
   { id: "showPopover", label: "Popover/Modal" },
-  { id: "showMobileFlyIn", label: "Mobile Fly-in" },
-  { id: "showPageLoader", label: "Page loader" },
+  // the mobile fly in should not be promoted for now,
+  // but we should keep it to re-enable it if needed.
+  // { id: "showMobileFlyIn", label: "Mobile Fly-in" },
+  { id: "showPageLoader", label: "Busy indicator" },
   { id: "showTopBarFlyout", label: "Top bar flyout" },
 ];
 const sidebarOptions: SelectionOption[] = [
   noneOption,
-  { id: "showSideBar", label: "Fixed Sidebar" },
-  { id: "showSideBarCollapse", label: "Collapsible Sidebar" },
+  { id: "showSidebar", label: "Fixed Sidebar" },
+  { id: "showSidebarCollapse", label: "Collapsible Sidebar" },
   { id: "showTempOverlay", label: "Overlay Sidebar with backdrop" },
   { id: "showTempOverlayTransparent", label: "Overlay Sidebar" },
 ];
@@ -70,8 +72,8 @@ const showDetailFooter = { id: "showDetailFooter", label: "Detail Footer" };
 const showFullFooter = { id: "showFullFooter", label: "Full Footer" };
 /** Adust footer configs depending on the availability of a sidebar */
 const footerOptions = computed<SelectionOption[]>(() => {
-  const { showSideBar, showSideBarCollapse } = activeSidebarSetting.value;
-  const isDetailFooterRelevant = showSideBar || showSideBarCollapse;
+  const { showSidebar, showSidebarCollapse } = activeSidebarSetting.value;
+  const isDetailFooterRelevant = showSidebar || showSidebarCollapse;
   if (isDetailFooterRelevant) {
     return [noneOption, showDetailFooter, showFullFooter];
   } else {
@@ -84,8 +86,8 @@ const activeContentSetting = computed({
   set: (value) => emit("update:modelValue", { ...props.modelValue, content: value }),
 });
 const activeSidebarSetting = computed({
-  get: () => props.modelValue.sideBar || {},
-  set: (value) => emit("update:modelValue", { ...props.modelValue, sideBar: value }),
+  get: () => props.modelValue.sidebar || {},
+  set: (value) => emit("update:modelValue", { ...props.modelValue, sidebar: value }),
 });
 const activeFooterSetting = computed({
   get: () => props.modelValue.footer || {},
@@ -128,7 +130,7 @@ const enabledSections = computed(() => {
     />
 
     <SingleSettingsGroup
-      v-if="enabledSections.sideBar"
+      v-if="enabledSections.sidebar"
       v-model="activeSidebarSetting"
       headline="Sidebar Options"
       :options="sidebarOptions"
