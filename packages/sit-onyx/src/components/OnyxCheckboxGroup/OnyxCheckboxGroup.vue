@@ -26,7 +26,7 @@ const handleUpdate = (id: TValue, isChecked: boolean) => {
   emit("update:modelValue", newValue);
 };
 
-const enabledOptions = computed(() => props.options.filter((i) => !i.disabled));
+const enabledOptions = computed(() => props.options.filter((i) => !i.disabled && !i.skeleton));
 
 const handleMasterCheckboxChange = (isChecked: boolean) => {
   const newValue = isChecked ? enabledOptions.value.map(({ id }) => id) : [];
