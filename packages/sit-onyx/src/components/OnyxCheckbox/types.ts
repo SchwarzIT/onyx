@@ -25,4 +25,8 @@ export type OnyxCheckboxProps = {
    * For accessibility / screen readers, the aria-label will still be set.
    */
   hideLabel?: boolean;
+  /**
+   * Whether to show a skeleton button.
+   */
+  skeleton?: boolean;
 };

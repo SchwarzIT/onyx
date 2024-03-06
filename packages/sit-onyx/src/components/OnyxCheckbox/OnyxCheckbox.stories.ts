@@ -66,3 +66,13 @@ export const WithoutLabel = {
     hideLabel: true,
   },
 } satisfies Story;
+
+/**
+ * This example shows a skeleton checkbox.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

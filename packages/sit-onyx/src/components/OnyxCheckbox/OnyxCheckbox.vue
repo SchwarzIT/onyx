@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
@@ -8,6 +9,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   indeterminate: false,
   disabled: false,
   required: false,
+  skeleton: false,
 });
 
 const emit = defineEmits<{
@@ -25,7 +27,13 @@ const isTouched = ref(false);
 </script>
 
 <template>
+  <div v-if="props.skeleton" class="onyx-checkbox-skeleton">
+    <OnyxSkeleton class="onyx-checkbox-skeleton__input" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
+  </div>
+
   <label
+    v-else
     class="onyx-checkbox"
     :class="{
       'onyx-required-marker': props.required,
@@ -46,7 +54,7 @@ const isTouched = ref(false);
       />
     </div>
 
-    <p v-if="props.label && !props.hideLabel" class="onyx-checkbox__label">{{ props.label }}</p>
+    <p v-if="!props.hideLabel" class="onyx-checkbox__label">{{ props.label }}</p>
   </label>
 </template>
 
@@ -73,6 +81,9 @@ const isTouched = ref(false);
     }
   }
 }
+
+$input-padding: var(--onyx-spacing-sm);
+$input-size: 1rem;
 
 .onyx-checkbox {
   font-family: var(--onyx-font-family);
@@ -110,21 +121,20 @@ const isTouched = ref(false);
   &__container {
     display: inline-flex;
     align-items: center;
-    padding: var(--onyx-spacing-sm);
+    padding: $input-padding;
     border-radius: var(--onyx-radius-full);
   }
 
   &__input {
-    height: 1rem;
-    width: 1rem;
+    height: $input-size;
+    width: $input-size;
     appearance: none;
     margin: 0;
     border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
     outline: none;
-    background: var(--onyx-color-base-background-blank);
     cursor: inherit;
-
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
+    background: var(--onyx-color-base-background-blank);
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -168,6 +178,24 @@ const isTouched = ref(false);
     margin: 0;
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+}
+
+.onyx-checkbox-skeleton {
+  display: flex;
+  align-items: center;
+  gap: var(--onyx-spacing-md);
+  padding: $input-padding;
+  width: max-content;
+
+  &__input {
+    height: $input-size;
+    width: $input-size;
+  }
+
+  &__label {
+    height: var(--onyx-spacing-md);
+    width: var(--onyx-spacing-3xl);
   }
 }
 </style>
