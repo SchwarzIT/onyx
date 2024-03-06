@@ -6,6 +6,7 @@ const mockOptions: OnyxCheckboxGroupProps["options"] = [
   { label: "Default", id: "id-1" },
   { label: "Required", id: "id-2", required: true },
   { label: "Disabled", id: "id-3", disabled: true },
+  { label: "Skeleton", id: "id-4", skeleton: true },
 ];
 
 test("should render", async ({ page, mount, makeAxeBuilder }) => {
