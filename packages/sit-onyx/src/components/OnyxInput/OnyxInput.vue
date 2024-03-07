@@ -11,6 +11,18 @@ const emit = defineEmits<{
    * Emitted when the current value changes.
    */
   "update:modelValue": [value: string];
+  /**
+   * Emitted when the current value changes but only when the input is blurred.
+   */
+  change: [value: string];
+  /**
+   * Emitted when the input is focussed.
+   */
+  focus: [];
+  /**
+   * Emitted when the input is blurred.
+   */
+  blur: [];
 }>();
 
 /**
@@ -20,6 +32,11 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
+
+const handleChange = (event: Event) => {
+  const inputValue = (event.target as HTMLInputElement).value;
+  emit("change", inputValue);
+};
 </script>
 
 <template>
@@ -27,7 +44,14 @@ const value = computed({
     <p class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</p>
 
     <div class="onyx-input__wrapper">
-      <input v-model="value" class="onyx-input__native" :placeholder="props.placeholder" />
+      <input
+        v-model="value"
+        class="onyx-input__native"
+        :placeholder="props.placeholder"
+        @change="handleChange"
+        @focus="emit('focus')"
+        @blur="emit('blur')"
+      />
     </div>
   </label>
 </template>
