@@ -61,12 +61,12 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
 const STATES = {
   variant: ["default", "placeholder", "initialValue"],
-  focusState: ["", "hover", "focus-visible"],
+  focusState: ["", "hover", "focus"],
 } as const;
 
 test(
   "State screenshot testing",
-  createScreenshotsForAllStates(STATES, "button", async ({ variant, focusState }, mount, page) => {
+  createScreenshotsForAllStates(STATES, "button", async ({ variant, focusState }, mount) => {
     const component = await mount(
       <OnyxInput
         label="Label"
@@ -75,8 +75,8 @@ test(
       />,
     );
 
-    if (focusState === "focus-visible") await page.keyboard.press("Tab");
     if (focusState === "hover") await component.hover();
+    if (focusState === "focus") await component.focus();
     return component;
   }),
 );
