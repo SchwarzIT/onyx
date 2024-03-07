@@ -38,12 +38,12 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const inputElement = component.getByLabel("Label");
 
   // ACT
-  await inputElement.fill("Test value");
+  await inputElement.pressSequentially("Test");
 
   // ASSERT
-  await expect(inputElement).toHaveValue("Test value");
+  await expect(inputElement).toHaveValue("Test");
   expect(events).toMatchObject({
-    updateModelValue: ["Test value"],
+    updateModelValue: ["T", "Te", "Tes", "Test"],
     change: [],
     focusCount: 1,
     blurCount: 0,
@@ -52,8 +52,8 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   // ACT
   await inputElement.blur();
   expect(events).toMatchObject({
-    updateModelValue: ["Test value"],
-    change: ["Test value"],
+    updateModelValue: ["T", "Te", "Tes", "Test"],
+    change: ["Test"],
     focusCount: 1,
     blurCount: 1,
   });
