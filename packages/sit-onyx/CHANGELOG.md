@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.31
+
+### Minor Changes
+
+- 69f1569: feat: add truncation for OnyxButton, OnyxCheckbox, OnyxRadioButton and OnyxSwitch
+
 ## 1.0.0-alpha.30
 
 ### Patch Changes
