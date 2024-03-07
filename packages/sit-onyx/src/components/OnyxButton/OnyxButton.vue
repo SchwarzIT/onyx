@@ -3,7 +3,6 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
-  label: "",
   disabled: false,
   type: "button",
   variation: "primary",
