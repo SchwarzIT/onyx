@@ -5,6 +5,7 @@ import { transformValidityStateToObject } from "@/utils/forms";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   disabled: false,
   required: false,
   truncation: "ellipsis",
+  skeleton: false,
 });
 
 const emit = defineEmits<{
@@ -56,7 +58,13 @@ watch(
 </script>
 
 <template>
+  <div v-if="props.skeleton" class="onyx-switch-skeleton">
+    <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
+  </div>
+
   <label
+    v-else
     class="onyx-switch"
     :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
   >
@@ -74,6 +82,7 @@ watch(
         <OnyxIcon :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
+
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
@@ -85,15 +94,16 @@ watch(
 </template>
 
 <style lang="scss">
+$container-padding: var(--onyx-1px-in-rem);
+$icon-size: 1.25rem;
+$input-width: calc(2 * $icon-size - 2 * $container-padding);
+
 .onyx-switch {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
   gap: var(--onyx-spacing-2xs);
   max-width: 100%;
-
-  $container-padding: var(--onyx-1px-in-rem);
-  $icon-size: 1.25rem;
 
   &__input {
     // position: absolute is needed here in order to hide the native checkbox.
@@ -156,8 +166,8 @@ watch(
     $width: calc(2 * $icon-size - 2 * $container-padding);
 
     display: inline-flex;
-    width: $width;
-    min-width: $width;
+    width: $input-width;
+    min-width: $input-width;
     padding: $container-padding;
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
@@ -236,6 +246,24 @@ watch(
     .onyx-switch__label {
       color: var(--onyx-color-text-icons-neutral-soft);
     }
+  }
+}
+
+.onyx-switch-skeleton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--onyx-spacing-2xs);
+
+  &__input {
+    // icon size + padding top/bottom + border top/bottom
+    height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
+    border-radius: var(--onyx-radius-full);
+    width: $input-width;
+  }
+
+  &__label {
+    height: var(--onyx-spacing-md);
+    width: var(--onyx-spacing-3xl);
   }
 }
 </style>

@@ -89,6 +89,19 @@ TRUNCATION_TYPES.forEach((truncation) => {
   });
 });
 
+test("should render skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <div style="display:grid; width:max-content; gap: 1rem;">
+      <OnyxSwitch label="Test label" skeleton />
+      <OnyxSwitch label="Test label hidden" skeleton hideLabel />
+    </div>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("skeleton.png");
+});
+
 const STATES = {
   state: ["default", "disabled", "required", "optional"],
   select: ["unselected", "selected"],
