@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.32
+
+### Minor Changes
+
+- c147e3d: feat: add property `skeleton` to OnyxButton, OnyxCheckbox, OnyxRadioButton and OnyxSwitch
+
 ## 1.0.0-alpha.31
 
 ### Minor Changes
