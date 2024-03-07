@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
@@ -8,6 +9,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   type: "button",
   variation: "primary",
   mode: "default",
+  skeleton: false,
 });
 
 const emit = defineEmits<{
@@ -17,18 +19,22 @@ const emit = defineEmits<{
 </script>
 
 <template>
+  <OnyxSkeleton v-if="props.skeleton" class="onyx-button-skeleton" />
   <button
+    v-else
     class="onyx-button"
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
     @click="emit('click')"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
-    <span class="onyx-button__label">{{ props.label }}</span>
+    <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
 </template>
 
 <style lang="scss">
+$button-height: 2.5rem;
+
 .onyx-button {
   --onyx-button-background-color: transparent;
   --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
@@ -37,7 +43,8 @@ const emit = defineEmits<{
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: flex;
-  height: 2.5rem;
+  height: $button-height;
+  max-width: 100%;
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   justify-content: center;
@@ -148,15 +155,16 @@ const emit = defineEmits<{
   }
 
   &__label {
-    display: flex;
     padding: 0 var(--onyx-spacing-4xs);
-    max-width: 12.25rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: 1.5rem;
   }
+}
+
+.onyx-button-skeleton {
+  width: var(--onyx-spacing-4xl);
+  height: $button-height;
 }
 </style>

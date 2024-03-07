@@ -1,5 +1,6 @@
-import { createScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { TRUNCATION_TYPES } from "../../types/fonts";
+import { createScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -214,6 +215,34 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component.getByLabel("Test label")).toBeAttached();
 });
 
+TRUNCATION_TYPES.forEach((truncation) => {
+  test(`should truncate with ${truncation}`, async ({ mount }) => {
+    const label = "Very long label that should be truncated";
+
+    // ARRANGE
+    const component = await mount(
+      <OnyxCheckbox label={label} truncation={truncation} style="max-width: 10rem;" />,
+    );
+
+    // ASSERT
+    await expect(component).toContainText(label);
+    await expect(component).toHaveScreenshot(`truncation-${truncation}.png`);
+  });
+});
+
+test("should render skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <div style="display:grid; width:max-content;">
+      <OnyxCheckbox label="Test label" skeleton />
+      <OnyxCheckbox label="Test label hidden" skeleton hideLabel />
+    </div>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("skeleton.png");
+});
+
 const STATES = {
   state: ["default", "disabled", "required", "optional"],
   select: ["unselected", "selected", "indeterminate"],
@@ -230,10 +259,11 @@ test(
       const component = await mount(
         <OnyxCheckbox
           modelValue={select === "selected"}
-          label={labeled === "labeled" ? "label" : ""}
+          label="label"
           indeterminate={select === "indeterminate"}
           disabled={state === "disabled"}
           required={state === "required"}
+          hideLabel={labeled === "unlabeled"}
         />,
         { useOptional: state === "optional" },
       );
