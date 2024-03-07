@@ -21,10 +21,14 @@ const meta: Meta<typeof OnyxLoadingIndicator> = {
 export default meta;
 type Story = StoryObj<typeof OnyxLoadingIndicator>;
 
-export const Circle = { args: {} } satisfies Story;
-
 export const Dots = {
   args: {
     type: "dots",
+  },
+} satisfies Story;
+
+export const Circle = {
+  args: {
+    type: "circle",
   },
 } satisfies Story;
