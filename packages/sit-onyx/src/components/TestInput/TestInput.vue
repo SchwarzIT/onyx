@@ -25,7 +25,7 @@ export type TestInputProps = {
   /** For validation: The pattern that the value must match */
   pattern?: string;
   /** For validation: The expected type of the input's value */
-  type?: InputType;
+  type?: InputType | "number";
   /** For validation: The upper limit of a number value */
   max?: number;
   /**
