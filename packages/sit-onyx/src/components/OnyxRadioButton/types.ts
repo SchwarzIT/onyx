@@ -1,3 +1,5 @@
+import type { TruncationType } from "../../types/fonts";
+
 /**
  * TODO: move to dedicated file
  */
@@ -13,6 +15,10 @@ export type SelectionOption<T = unknown> = {
    */
   value?: T;
   disabled?: boolean;
+  /**
+   * How to truncate the label if it exceeds the max width.
+   */
+  truncation?: TruncationType;
 };
 
 export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };

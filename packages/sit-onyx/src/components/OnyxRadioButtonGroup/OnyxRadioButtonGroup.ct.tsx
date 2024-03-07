@@ -1,6 +1,7 @@
 import { expect, test } from "../../playwright-axe";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
+import type { OnyxRadioButtonGroupProps } from "./types";
 
 const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "dummy.1", value: "1", id: "1" },
@@ -84,4 +85,27 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should truncate", async ({ mount }) => {
+  const options: OnyxRadioButtonGroupProps<string>["options"] = [
+    { label: "Very long label that will be truncated", id: "id-1" },
+    { label: "Very long required label that will be truncated", id: "id-2" },
+    {
+      label: "Very long label that will be truncated with multiline",
+      id: "id-3",
+      truncation: "multiline",
+    },
+  ];
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxRadioButtonGroup
+      options={options}
+      headline="Truncated group headline"
+      style="max-width: 16rem;"
+    />,
+  );
+
+  await expect(component).toHaveScreenshot("truncation-vertical.png");
 });
