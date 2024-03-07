@@ -61,6 +61,7 @@ const value = computed({
 
     &:has(.onyx-input__native:enabled:focus) {
       border-color: var(--onyx-color-base-primary-500);
+      caret-color: var(--onyx-color-base-primary-500);
     }
   }
 
