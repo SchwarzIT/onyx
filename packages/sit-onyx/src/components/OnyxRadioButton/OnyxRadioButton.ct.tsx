@@ -111,6 +111,16 @@ TRUNCATION_TYPES.forEach((truncation) => {
   });
 });
 
+test("should render skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxRadioButton label="Test label" name="skeleton" id="1" skeleton />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("skeleton.png");
+});
+
 const STATES = {
   state: ["default", "disabled", "invalid"],
   select: ["unselected", "selected"],

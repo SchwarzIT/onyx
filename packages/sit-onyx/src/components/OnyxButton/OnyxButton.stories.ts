@@ -87,3 +87,13 @@ export const WithTruncation = {
   },
   decorators: createTruncationDecorator("16rem"),
 } satisfies Story;
+
+/**
+ * This example shows a skeleton button.
+ */
+export const Skeleton = {
+  args: {
+    ...Primary.args,
+    skeleton: true,
+  },
+} satisfies Story;

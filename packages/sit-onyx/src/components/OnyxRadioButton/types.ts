@@ -19,6 +19,10 @@ export type SelectionOption<T = unknown> = {
    * How to truncate the label if it exceeds the max width.
    */
   truncation?: TruncationType;
+  /**
+   * Whether to show a skeleton button.
+   */
+  skeleton?: boolean;
 };
 
 export type SelectionProps<T> = SelectionOption<T> & { selected?: boolean };
