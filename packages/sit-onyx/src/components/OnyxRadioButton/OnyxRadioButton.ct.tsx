@@ -1,4 +1,5 @@
 import { expect, test } from "../../playwright-axe";
+import { TRUNCATION_TYPES } from "../../types/fonts";
 import { createScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
@@ -87,6 +88,27 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+TRUNCATION_TYPES.forEach((truncation) => {
+  test(`should truncate with ${truncation}`, async ({ mount }) => {
+    const label = "Very long label that should be truncated";
+
+    // ARRANGE
+    const component = await mount(
+      <OnyxRadioButton
+        label={label}
+        truncation={truncation}
+        style="max-width: 10rem;"
+        id={truncation}
+        name={truncation}
+      />,
+    );
+
+    // ASSERT
+    await expect(component).toContainText(label);
+    await expect(component).toHaveScreenshot(`truncation-${truncation}.png`);
+  });
 });
 
 test("should render skeleton", async ({ mount }) => {

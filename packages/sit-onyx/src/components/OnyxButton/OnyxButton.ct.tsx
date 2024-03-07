@@ -47,6 +47,19 @@ test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should truncate text", async ({ mount }) => {
+  const label = "Very long label that should be truncated";
+
+  // ARRANGE
+  const component = await mount(<OnyxButton label={label} style="max-width: 8rem;" />);
+
+  // ASSERT
+  await expect(component).toContainText(label);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("truncation-ellipsis.png");
+});
+
 test("should render skeleton", async ({ mount }) => {
   // ARRANGE
   const component = await mount(<OnyxButton label="Test label" skeleton />);

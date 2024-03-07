@@ -49,8 +49,8 @@ const handleChange = (event: ChangeEvent) =>
     >
       <OnyxRadioButton
         v-for="option in props.options"
-        v-bind="option"
         :key="option.id"
+        v-bind="option"
         :name="props.name"
         :error-message="props.errorMessage"
         :selected="option.id === props.modelValue?.id"
@@ -66,6 +66,7 @@ const handleChange = (event: ChangeEvent) =>
   padding: 0;
   border: none;
   max-width: max-content;
+  min-width: unset;
 
   &__label {
     margin-bottom: var(--onyx-spacing-2xs);

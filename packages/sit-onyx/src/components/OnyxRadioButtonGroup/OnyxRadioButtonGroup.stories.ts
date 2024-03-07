@@ -1,3 +1,4 @@
+import { createTruncationDecorator } from "@/utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { SelectionOption } from "../OnyxRadioButton/types";
@@ -58,4 +59,24 @@ export const Horizontal = {
     modelValue: EXAMPLE_OPTIONS[0],
     direction: "horizontal",
   },
+} satisfies Story;
+
+/**
+ * A radio group with long labels that will be truncated.
+ * You can set the "truncation" property of the options to choose between the different truncation types.
+ */
+export const WithTruncation = {
+  args: {
+    ...Default.args,
+    options: [
+      { label: "Very long label that will be truncated", id: "id-1" },
+      { label: "Very long required label that will be truncated", id: "id-2" },
+      {
+        label: "Very long label that will be truncated with multiline",
+        id: "id-3",
+        truncation: "multiline",
+      },
+    ],
+  },
+  decorators: [createTruncationDecorator("16rem")],
 } satisfies Story;

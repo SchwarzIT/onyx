@@ -3,7 +3,12 @@ import { ref, watchEffect } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps } from "./types";
 
-const props = defineProps<RadioButtonProps<TValue>>();
+const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
+  disabled: false,
+  required: false,
+  selected: false,
+  truncation: "ellipsis",
+});
 
 const selectorRef = ref<HTMLInputElement>();
 
@@ -28,7 +33,9 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       :checked="props.selected"
       :disabled="props.disabled"
     />
-    <span class="onyx-radio-button__label">{{ props.label }}</span>
+    <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
+      {{ props.label }}
+    </span>
   </label>
 </template>
 
@@ -45,7 +52,7 @@ $input-size: var(--onyx-spacing-md);
 
   display: inline-flex;
   align-items: center;
-  height: 2.5rem;
+  max-width: 100%;
   cursor: var(--onyx-radio-button-cursor);
 
   &:has(&__label) {

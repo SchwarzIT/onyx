@@ -12,6 +12,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
   required: false,
+  truncation: "ellipsis",
   skeleton: false,
 });
 
@@ -82,7 +83,13 @@ watch(
       </span>
     </span>
 
-    <span v-if="!props.hideLabel" class="onyx-switch__label">{{ props.label }}</span>
+    <span
+      v-if="!props.hideLabel"
+      class="onyx-switch__label"
+      :class="[`onyx-truncation-${props.truncation}`]"
+    >
+      {{ props.label }}
+    </span>
   </label>
 </template>
 
@@ -96,6 +103,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
   align-items: center;
   cursor: pointer;
   gap: var(--onyx-spacing-2xs);
+  max-width: 100%;
 
   &__input {
     // position: absolute is needed here in order to hide the native checkbox.
@@ -155,8 +163,11 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
   }
 
   &__container {
+    $width: calc(2 * $icon-size - 2 * $container-padding);
+
     display: inline-flex;
     width: $input-width;
+    min-width: $input-width;
     padding: $container-padding;
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
@@ -183,9 +194,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
   }
 
   &__label {
-    overflow: hidden;
     color: var(--onyx-color-text-icons-neutral-intense);
-    text-overflow: ellipsis;
     font-family: var(--onyx-font-family);
     font-size: 1rem;
     font-style: normal;

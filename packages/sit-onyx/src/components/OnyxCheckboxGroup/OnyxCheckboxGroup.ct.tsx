@@ -108,3 +108,26 @@ test("should disabled all checkboxes if group is disabled", async ({ mount }) =>
     await expect(checkbox).toBeDisabled();
   }
 });
+
+test("should truncate", async ({ mount }) => {
+  const options: OnyxCheckboxGroupProps["options"] = [
+    { label: "Very long label that will be truncated", id: "id-1" },
+    { label: "Very long required label that will be truncated", id: "id-2", required: true },
+    {
+      label: "Very long label that will be truncated with multiline",
+      id: "id-3",
+      truncation: "multiline",
+    },
+  ];
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxCheckboxGroup
+      options={options}
+      headline="Truncated group headline"
+      style="max-width: 16rem;"
+    />,
+  );
+
+  await expect(component).toHaveScreenshot("truncation-vertical.png");
+});

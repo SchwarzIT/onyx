@@ -1,4 +1,8 @@
-import { createIconSourceCodeTransformer, defineIconSelectArgType } from "@/utils/storybook";
+import {
+  createIconSourceCodeTransformer,
+  createTruncationDecorator,
+  defineIconSelectArgType,
+} from "@/utils/storybook";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
@@ -72,6 +76,16 @@ export const WithIcon = {
     label: "Button",
     icon: checkSmall,
   },
+} satisfies Story;
+
+/**
+ * This example shows the button with truncation.
+ */
+export const WithTruncation = {
+  args: {
+    label: "Button with a very long text that gets truncated",
+  },
+  decorators: createTruncationDecorator("16rem"),
 } satisfies Story;
 
 /**
