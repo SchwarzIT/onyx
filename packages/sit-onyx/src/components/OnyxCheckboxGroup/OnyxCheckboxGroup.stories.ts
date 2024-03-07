@@ -30,6 +30,7 @@ export const Default = {
       { label: "Initially checked", id: "id-2" },
       { label: "Required", id: "id-3", required: true },
       { label: "Disabled", id: "id-4", disabled: true },
+      { label: "Skeleton", id: "id-5", skeleton: true },
     ],
   },
 } satisfies Story;

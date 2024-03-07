@@ -23,6 +23,7 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "Default", value: "1", id: "1" },
   { label: "Initially checked", value: "2", id: "2" },
   { label: "Disabled", value: "3", id: "3", disabled: true },
+  { label: "Skeleton", value: "4", id: "4", skeleton: true },
 ];
 
 /**

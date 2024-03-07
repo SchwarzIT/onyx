@@ -57,3 +57,13 @@ export const WithTruncation = {
   },
   decorators: [createTruncationDecorator("12rem")],
 } satisfies Story;
+
+/**
+ * This example shows a skeleton switch.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

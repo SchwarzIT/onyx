@@ -23,6 +23,10 @@ export type OnyxButtonProps = {
    * An icon which will be displayed on the left side of the label.
    */
   icon?: string;
+  /**
+   * Whether to show a skeleton button.
+   */
+  skeleton?: boolean;
 };
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;

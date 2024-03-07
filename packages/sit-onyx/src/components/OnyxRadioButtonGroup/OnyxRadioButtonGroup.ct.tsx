@@ -8,6 +8,7 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "dummy.2", value: "2", id: "2" },
   { label: "dummy.3", value: "3", id: "3" },
   { label: "dummy.4", value: "4", id: "4", disabled: true },
+  { label: "dummy.5", value: "5", id: "5", skeleton: true },
 ];
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {

@@ -1,5 +1,12 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.34
+
+### Patch Changes
+
+- Updated dependencies [c147e3d]
+  - sit-onyx@1.0.0-alpha.32
+
 ## 1.0.0-alpha.33
 
 ### Patch Changes
