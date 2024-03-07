@@ -24,7 +24,7 @@ const value = computed({
 
 <template>
   <label class="onyx-input">
-    <p class="onyx-input__label onyx-text--small">{{ props.label }}</p>
+    <p class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</p>
 
     <div class="onyx-input__wrapper">
       <input v-model="value" class="onyx-input__native" :placeholder="props.placeholder" />
@@ -54,6 +54,14 @@ const value = computed({
 
     font-size: 1rem;
     line-height: 1.5rem;
+
+    &:has(.onyx-input__native:enabled:hover) {
+      border-color: var(--onyx-color-base-primary-400);
+    }
+
+    &:has(.onyx-input__native:enabled:focus) {
+      border-color: var(--onyx-color-base-primary-500);
+    }
   }
 
   &__native {
@@ -63,6 +71,7 @@ const value = computed({
     background-color: transparent;
     color: inherit;
     width: 100%;
+    outline: none;
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
