@@ -108,6 +108,7 @@ const handleChange = (event: Event) => {
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
+      opacity: 1;
     }
   }
 }
