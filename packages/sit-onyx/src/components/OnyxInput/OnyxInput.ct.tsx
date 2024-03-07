@@ -61,24 +61,31 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
 const STATES = {
   variant: ["default", "placeholder", "initialValue"],
+  writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
 
 test(
   "State screenshot testing",
-  createScreenshotsForAllStates(STATES, "button", async ({ variant, focusState }, mount) => {
-    const component = await mount(
-      <OnyxInput
-        label="Label"
-        modelValue={variant === "initialValue" ? "Test value" : undefined}
-        placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
-      />,
-    );
+  createScreenshotsForAllStates(
+    STATES,
+    "button",
+    async ({ variant, writeMode, focusState }, mount) => {
+      const component = await mount(
+        <OnyxInput
+          label="Label"
+          modelValue={variant === "initialValue" ? "Test value" : undefined}
+          placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
+          readonly={writeMode === "readonly"}
+          disabled={writeMode === "disabled"}
+        />,
+      );
 
-    const input = component.getByLabel("Label");
+      const input = component.getByLabel("Label");
 
-    if (focusState === "hover") await input.hover();
-    if (focusState === "focus") await input.focus();
-    return component;
-  }),
+      if (focusState === "hover") await input.hover();
+      if (focusState === "focus") await input.focus();
+      return component;
+    },
+  ),
 );

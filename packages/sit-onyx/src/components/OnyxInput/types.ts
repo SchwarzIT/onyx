@@ -15,6 +15,14 @@ export type OnyxInputProps = {
    * Placeholder to show when the value is empty.
    */
   placeholder?: string;
+  /**
+   * Whether the input should be readonly.
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input should be disabled.
+   */
+  disabled?: boolean;
 };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
