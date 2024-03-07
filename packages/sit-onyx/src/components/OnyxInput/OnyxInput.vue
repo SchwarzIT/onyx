@@ -98,7 +98,6 @@ const handleChange = (event: Event) => {
 
     &:has(.onyx-input__native:enabled:focus) {
       border-color: var(--border-color);
-      caret-color: var(--border-color);
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
     }
   }
