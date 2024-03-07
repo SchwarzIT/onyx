@@ -41,3 +41,14 @@ export const Placeholder = {
     placeholder: "Enter something...",
   },
 } satisfies Story;
+
+/**
+ * This example shows a input with a maxlength.
+ */
+export const Maxlength = {
+  args: {
+    ...Default.args,
+    maxlength: 16,
+    withCounter: true,
+  },
+} satisfies Story;

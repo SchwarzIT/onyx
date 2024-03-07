@@ -41,21 +41,29 @@ const handleChange = (event: Event) => {
 </script>
 
 <template>
-  <label class="onyx-input">
-    <p class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</p>
+  <div class="onyx-input">
+    <label>
+      <p class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</p>
 
-    <div class="onyx-input__wrapper">
-      <input
-        v-model="value"
-        class="onyx-input__native"
-        :placeholder="props.placeholder"
-        :type="props.type"
-        @change="handleChange"
-        @focus="emit('focus')"
-        @blur="emit('blur')"
-      />
+      <div class="onyx-input__wrapper">
+        <input
+          v-model="value"
+          class="onyx-input__native"
+          :placeholder="props.placeholder"
+          :type="props.type"
+          :minlength="props.minlength"
+          :maxlength="props.maxlength"
+          @change="handleChange"
+          @focus="emit('focus')"
+          @blur="emit('blur')"
+        />
+      </div>
+    </label>
+
+    <div v-if="props.withCounter && props.maxlength" class="onyx-input__footer onyx-text--small">
+      <span class="onyx-input__counter"> {{ value.length }}/{{ props.maxlength }} </span>
     </div>
-  </label>
+  </div>
 </template>
 
 <style lang="scss">
@@ -65,9 +73,12 @@ const handleChange = (event: Event) => {
 
   font-family: var(--onyx-font-family);
 
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-5xs);
+
   &__label {
-    margin-top: 0;
-    margin-bottom: var(--onyx-spacing-5xs);
+    margin: 0;
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 
@@ -123,6 +134,20 @@ const handleChange = (event: Event) => {
     &::selection {
       background: var(--selection-color);
     }
+  }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-xs);
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &__counter {
+    margin-left: auto;
+    display: block;
+    width: max-content;
   }
 }
 </style>
