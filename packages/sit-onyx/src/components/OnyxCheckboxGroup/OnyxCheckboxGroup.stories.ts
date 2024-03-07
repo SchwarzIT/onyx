@@ -1,3 +1,4 @@
+import { createTruncationDecorator } from "@/utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
@@ -27,8 +28,8 @@ export const Default = {
     options: [
       { label: "Default", id: "id-1" },
       { label: "Initially checked", id: "id-2" },
-      { label: "Required", id: "id-4", required: true },
-      { label: "Disabled", id: "id-3", disabled: true },
+      { label: "Required", id: "id-3", required: true },
+      { label: "Disabled", id: "id-4", disabled: true },
     ],
   },
 } satisfies Story;
@@ -61,4 +62,24 @@ export const Disabled = {
     ...Default.args,
     disabled: true,
   },
+} satisfies Story;
+
+/**
+ * A checkbox group with long labels that will be truncated.
+ * You can set the "truncation" property of the options to choose between the different truncation types.
+ */
+export const WithTruncation = {
+  args: {
+    ...Default.args,
+    options: [
+      { label: "Very long label that will be truncated", id: "id-1" },
+      { label: "Very long required label that will be truncated", id: "id-2", required: true },
+      {
+        label: "Very long label that will be truncated with multiline",
+        id: "id-3",
+        truncation: "multiline",
+      },
+    ],
+  },
+  decorators: [createTruncationDecorator("16rem")],
 } satisfies Story;

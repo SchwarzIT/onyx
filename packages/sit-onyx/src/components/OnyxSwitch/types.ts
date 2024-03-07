@@ -1,3 +1,5 @@
+import type { TruncationType } from "../../types/fonts";
+
 export type OnyxSwitchProps = {
   /**
    * Whether the switch should be checked or not.
@@ -24,4 +26,8 @@ export type OnyxSwitchProps = {
    * For accessibility / screen readers, the aria-label will still be set.
    */
   hideLabel?: boolean;
+  /**
+   * How to truncate the label if it exceeds the max width.
+   */
+  truncation?: TruncationType;
 };
