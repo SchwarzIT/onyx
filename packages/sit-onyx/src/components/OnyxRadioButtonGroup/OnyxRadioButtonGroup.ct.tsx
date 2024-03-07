@@ -1,14 +1,13 @@
 import { expect, test } from "../../playwright-axe";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
-import type { OnyxRadioButtonGroupProps } from "./types";
+import { RADIO_BUTTON_GROUP_DIRECTIONS, type OnyxRadioButtonGroupProps } from "./types";
 
 const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "dummy.1", value: "1", id: "1" },
   { label: "dummy.2", value: "2", id: "2" },
   { label: "dummy.3", value: "3", id: "3" },
   { label: "dummy.4", value: "4", id: "4", disabled: true },
-  { label: "dummy.5", value: "5", id: "5", skeleton: true },
 ];
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
@@ -109,4 +108,21 @@ test("should truncate", async ({ mount }) => {
   );
 
   await expect(component).toHaveScreenshot("truncation-vertical.png");
+});
+
+RADIO_BUTTON_GROUP_DIRECTIONS.forEach((direction) => {
+  test(`should render ${direction} skeletons`, async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(
+      <OnyxRadioButtonGroup
+        options={[]}
+        headline="Skeleton group headline"
+        skeleton={3}
+        direction={direction}
+      />,
+    );
+
+    // ASSERT
+    await expect(component).toHaveScreenshot(`skeleton-${direction}.png`);
+  });
 });

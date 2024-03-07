@@ -33,6 +33,10 @@ export type OnyxCheckboxGroupProps<
    * Whether all checkboxes should be disabled.
    */
   disabled?: boolean;
+  /**
+   * If set, the specified number of skeleton radio buttons will be shown.
+   */
+  skeleton?: number;
 };
 
 export type CheckboxGroupOption<T extends string | number | boolean> = Omit<
