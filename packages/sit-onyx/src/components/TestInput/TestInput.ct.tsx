@@ -19,7 +19,7 @@ test("should display label", async ({ mount, makeAxeBuilder }) => {
 test("should validate required inputs", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<TestInput label="Demo" required />);
-  const input = component.getByLabel('DemoModel value: "",');
+  const input = component.getByLabel("Demo");
 
   // ACT
   await input.focus();
