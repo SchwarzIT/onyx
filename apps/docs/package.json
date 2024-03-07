@@ -13,7 +13,7 @@
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "vitepress": "1.0.0-rc.44",
+    "vitepress": "1.0.0-rc.45",
     "vue": "^3.4.21"
   }
 }
