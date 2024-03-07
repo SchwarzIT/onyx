@@ -17,6 +17,11 @@ const meta: Meta<typeof OnyxInput> = {
         template: `<div style="width: 16rem;"> <story /> </div>`,
       }),
     ],
+    argTypes: {
+      pattern: {
+        control: { type: "text" },
+      },
+    },
   }),
 };
 
