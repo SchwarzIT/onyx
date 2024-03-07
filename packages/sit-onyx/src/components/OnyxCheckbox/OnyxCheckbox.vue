@@ -26,13 +26,7 @@ const isTouched = ref(false);
 </script>
 
 <template>
-  <label
-    class="onyx-checkbox"
-    :class="{
-      'onyx-required-marker': props.required,
-      'onyx-optional-marker': !props.required,
-    }"
-  >
+  <label class="onyx-checkbox">
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
@@ -52,7 +46,10 @@ const isTouched = ref(false);
     <p
       v-if="props.label && !props.hideLabel"
       class="onyx-checkbox__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[
+        `onyx-truncation-${props.truncation}`,
+        `onyx-${props.required ? 'required' : 'optional'}-marker`,
+      ]"
     >
       {{ props.label }}
     </p>
@@ -87,14 +84,10 @@ const isTouched = ref(false);
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
   width: max-content;
   max-width: 100%;
-
-  &:has(&__label) {
-    padding-right: var(--onyx-spacing-2xs);
-  }
 
   &:hover {
     @include define-hover-border($state: ":enabled", $color: primary);
@@ -176,6 +169,7 @@ const isTouched = ref(false);
   &__label {
     display: inline-block;
     margin: 0;
+    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) 0;
     font-size: 1rem;
     line-height: 1.5rem;
   }

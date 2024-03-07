@@ -43,13 +43,9 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-intense);
 
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   max-width: 100%;
   cursor: var(--onyx-radio-button-cursor);
-
-  &:has(&__label) {
-    padding-right: var(--onyx-spacing-2xs);
-  }
 
   &:has(&__selector:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
@@ -99,6 +95,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     font-family: var(--onyx-font-family);
     color: var(--onyx-radio-button-label-color);
     line-height: var(--onyx-spacing-lg);
+    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) 0;
   }
 
   &__selector {

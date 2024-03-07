@@ -87,7 +87,7 @@ watch(
 <style lang="scss">
 .onyx-switch {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
   gap: var(--onyx-spacing-2xs);
   max-width: 100%;
