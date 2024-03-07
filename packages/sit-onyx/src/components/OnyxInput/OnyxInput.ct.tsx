@@ -82,8 +82,3 @@ test(
     return component;
   }),
 );
-
-test("debug", async ({ mount }) => {
-  const component = await mount(<OnyxInput label="Label" modelValue="Test 123" />);
-  await component.focus();
-});
