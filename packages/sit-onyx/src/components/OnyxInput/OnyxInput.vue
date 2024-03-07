@@ -38,6 +38,10 @@ const handleChange = (event: Event) => {
   const inputValue = (event.target as HTMLInputElement).value;
   emit("change", inputValue);
 };
+
+const shouldShowCounter = computed(() => {
+  return props.withCounter && props.maxlength;
+});
 </script>
 
 <template>
@@ -60,8 +64,11 @@ const handleChange = (event: Event) => {
       </div>
     </label>
 
-    <div v-if="props.withCounter && props.maxlength" class="onyx-input__footer onyx-text--small">
-      <span class="onyx-input__counter"> {{ value.length }}/{{ props.maxlength }} </span>
+    <div v-if="props.description || shouldShowCounter" class="onyx-input__footer onyx-text--small">
+      <span v-if="props.description" class="onyx-truncation-ellipsis">{{ props.description }}</span>
+      <span v-if="shouldShowCounter" class="onyx-input__counter">
+        {{ value.length }}/{{ props.maxlength }}
+      </span>
     </div>
   </div>
 </template>
@@ -140,7 +147,7 @@ const handleChange = (event: Event) => {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-xs);
+    gap: var(--onyx-spacing-2xs);
     color: var(--onyx-color-text-icons-neutral-soft);
   }
 

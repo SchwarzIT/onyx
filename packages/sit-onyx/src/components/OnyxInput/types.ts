@@ -31,6 +31,10 @@ export type OnyxInputProps = {
    * If `true`, a character counter will be displayed if `maxLength` is set.
    */
   withCounter?: boolean;
+  /**
+   * Description / help text to display below the input.
+   */
+  description?: string;
 };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
