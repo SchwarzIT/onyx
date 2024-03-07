@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxInput> = {
   title: "components/OnyxInput",
   ...defineStorybookActionsAndVModels({
     component: OnyxInput,
-    events: [],
+    events: ["update:modelValue"],
     decorators: [
       (story) => ({
         components: { story },
