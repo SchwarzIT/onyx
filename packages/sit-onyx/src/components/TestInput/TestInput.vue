@@ -3,7 +3,8 @@ import { injectI18n } from "@/i18n";
 import { areObjectsFlatEqual } from "@/utils/comparator";
 import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/forms";
 import { computed, ref, toRefs, watch } from "vue";
-import { TRANSLATED_INPUT_TYPES, type InputType, type TranslatedInputType } from "./types";
+import type { InputType } from "../OnyxInput/types";
+import { TRANSLATED_INPUT_TYPES, type TranslatedInputType } from "./types";
 
 export type TestInputProps = {
   /**

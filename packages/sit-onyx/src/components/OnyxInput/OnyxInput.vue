@@ -4,6 +4,7 @@ import type { OnyxInputProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
+  type: "text",
 });
 
 const emit = defineEmits<{
@@ -48,6 +49,7 @@ const handleChange = (event: Event) => {
         v-model="value"
         class="onyx-input__native"
         :placeholder="props.placeholder"
+        :type="props.type"
         @change="handleChange"
         @focus="emit('focus')"
         @blur="emit('blur')"
