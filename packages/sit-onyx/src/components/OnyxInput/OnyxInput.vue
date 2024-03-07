@@ -60,6 +60,9 @@ const handleChange = (event: Event) => {
 
 <style lang="scss">
 .onyx-input {
+  --border-color: var(--onyx-color-base-primary-500);
+  --selection-color: var(--onyx-color-base-primary-200);
+
   font-family: var(--onyx-font-family);
 
   &__label {
@@ -92,9 +95,9 @@ const handleChange = (event: Event) => {
     }
 
     &:has(.onyx-input__native:enabled:focus) {
-      border-color: var(--onyx-color-base-primary-500);
+      border-color: var(--border-color);
+      caret-color: var(--border-color);
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
-      caret-color: var(--onyx-color-base-primary-500);
     }
   }
 
@@ -115,6 +118,10 @@ const handleChange = (event: Event) => {
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
       opacity: 1;
+    }
+
+    &::selection {
+      background: var(--selection-color);
     }
   }
 }
