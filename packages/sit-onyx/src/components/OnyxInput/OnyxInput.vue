@@ -87,18 +87,24 @@ const handleChange = (event: Event) => {
 
     &:has(.onyx-input__native:enabled:focus) {
       border-color: var(--onyx-color-base-primary-500);
+      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
       caret-color: var(--onyx-color-base-primary-500);
     }
   }
 
   &__native {
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+
+    // reset native input styles so they are inherited from the parent
     border: none;
     border-radius: inherit;
     background-color: transparent;
     color: inherit;
     width: 100%;
     outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);

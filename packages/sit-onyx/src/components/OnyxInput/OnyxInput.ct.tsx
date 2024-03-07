@@ -75,8 +75,15 @@ test(
       />,
     );
 
-    if (focusState === "hover") await component.hover();
-    if (focusState === "focus") await component.focus();
+    const input = component.getByLabel("Label");
+
+    if (focusState === "hover") await input.hover();
+    if (focusState === "focus") await input.focus();
     return component;
   }),
 );
+
+test("debug", async ({ mount }) => {
+  const component = await mount(<OnyxInput label="Label" modelValue="Test 123" />);
+  await component.focus();
+});
