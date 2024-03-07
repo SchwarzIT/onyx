@@ -68,6 +68,9 @@ const handleChange = (event: Event) => {
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 
+  $padding-vertical: var(--onyx-spacing-2xs);
+  $line-height: 1.5rem;
+
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
@@ -79,7 +82,10 @@ const handleChange = (event: Event) => {
     gap: var(--onyx-spacing-2xs);
 
     font-size: 1rem;
-    line-height: 1.5rem;
+    line-height: $line-height;
+
+    height: calc($line-height + 2 * $padding-vertical);
+    box-sizing: border-box;
 
     &:has(.onyx-input__native:enabled:hover) {
       border-color: var(--onyx-color-base-primary-400);
@@ -93,7 +99,7 @@ const handleChange = (event: Event) => {
   }
 
   &__native {
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+    padding: $padding-vertical var(--onyx-spacing-sm);
 
     // reset native input styles so they are inherited from the parent
     border: none;
