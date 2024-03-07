@@ -23,10 +23,15 @@ const isChecked = computed({
 
 /** True if the user has interacted with the checkbox once. */
 const isTouched = ref(false);
+
+const requiredMarkerClass = computed(() => {
+  if (props.hideLabel) return "";
+  return `onyx-${props.required ? "required" : "optional"}-marker`;
+});
 </script>
 
 <template>
-  <label class="onyx-checkbox">
+  <label class="onyx-checkbox" :class="[requiredMarkerClass]">
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
@@ -46,10 +51,7 @@ const isTouched = ref(false);
     <p
       v-if="props.label && !props.hideLabel"
       class="onyx-checkbox__label"
-      :class="[
-        `onyx-truncation-${props.truncation}`,
-        `onyx-${props.required ? 'required' : 'optional'}-marker`,
-      ]"
+      :class="[`onyx-truncation-${props.truncation}`]"
     >
       {{ props.label }}
     </p>
@@ -88,6 +90,18 @@ const isTouched = ref(false);
   cursor: pointer;
   width: max-content;
   max-width: 100%;
+  box-sizing: border-box;
+
+  &:has(&__label) {
+    padding-right: var(--onyx-spacing-2xs);
+  }
+
+  $label-padding: var(--onyx-spacing-2xs);
+
+  &::after {
+    // since the checkbox is flex-start aligned, we need to adjust the padding of the asterisk / required marker
+    padding-top: $label-padding;
+  }
 
   &:hover {
     @include define-hover-border($state: ":enabled", $color: primary);
@@ -169,7 +183,7 @@ const isTouched = ref(false);
   &__label {
     display: inline-block;
     margin: 0;
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) 0;
+    padding: $label-padding 0;
     font-size: 1rem;
     line-height: 1.5rem;
   }

@@ -53,13 +53,15 @@ watch(
   },
   { immediate: true },
 );
+
+const requiredMarkerClass = computed(() => {
+  if (props.hideLabel) return "";
+  return `onyx-${props.required ? "required" : "optional"}-marker`;
+});
 </script>
 
 <template>
-  <label
-    class="onyx-switch"
-    :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
-  >
+  <label class="onyx-switch" :class="[requiredMarkerClass]">
     <input
       ref="inputElement"
       v-model="isChecked"

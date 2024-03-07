@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(OnyxCheckbox): do not show Asterisk / optional label when label is hidden
+fix: do not show Asterisk / optional label when label is hidden for OnyxCheckbox and OnyxSwitch
