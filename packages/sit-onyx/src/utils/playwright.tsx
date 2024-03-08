@@ -124,7 +124,6 @@ export const createScreenshotsForAllStates =
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover(); // reset mouse
       await page.mouse.up(); // reset mouse
-      await page.mouse.up();
       const component = await caseBuilder(testCase, wrappedMount, page);
 
       // ASSERT
