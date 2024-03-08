@@ -17,11 +17,6 @@ const meta: Meta<typeof OnyxInput> = {
         template: `<div style="width: 16rem;"> <story /> </div>`,
       }),
     ],
-    argTypes: {
-      pattern: {
-        control: { type: "text" },
-      },
-    },
   }),
 };
 
@@ -44,17 +39,6 @@ export const Placeholder = {
   args: {
     label: "Label",
     placeholder: "Enter something...",
-  },
-} satisfies Story;
-
-/**
- * This example shows a input with a maxlength.
- */
-export const Maxlength = {
-  args: {
-    ...Default.args,
-    maxlength: 16,
-    withCounter: true,
   },
 } satisfies Story;
 

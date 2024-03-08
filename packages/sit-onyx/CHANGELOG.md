@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.33
+
+### Minor Changes
+
+- ab2fbb8: feat: add basic OnyxInput component
+
 ## 1.0.0-alpha.32
 
 ### Minor Changes

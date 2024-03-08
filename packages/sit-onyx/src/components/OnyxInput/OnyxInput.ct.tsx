@@ -99,6 +99,7 @@ test(
         label="Label"
         modelValue={variant === "initialValue" ? "Test value" : undefined}
         placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
+        style="width: 12rem;"
       />,
     );
 

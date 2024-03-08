@@ -4,7 +4,7 @@ import LoadingDots from "./LoadingDots.vue";
 import type { OnyxLoadingIndicatorProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLoadingIndicatorProps>(), {
-  type: "circle",
+  type: "dots",
 });
 </script>
 
