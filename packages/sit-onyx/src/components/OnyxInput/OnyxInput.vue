@@ -40,11 +40,6 @@ const handleChange = (event: Event) => {
   emit("change", inputValue);
 };
 
-const joinedAutocomplete = computed(() => {
-  if (Array.isArray(props.autocomplete)) return props.autocomplete.join(" ");
-  return props.autocomplete;
-});
-
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
   return props.pattern;
@@ -58,13 +53,17 @@ const patternSource = computed(() => {
     </span>
 
     <div class="onyx-input__wrapper">
+      <!-- eslint-disable vuejs-accessibility/no-autofocus -
+         We want to provide the flexibility to have the autofocus property.
+         The JSDoc description includes a warning that it should be used carefully.
+      -->
       <input
         v-model="value"
         class="onyx-input__native"
         :placeholder="props.placeholder"
         :type="props.type"
         :autocapitalize="props.autocapitalize"
-        :autocomplete="joinedAutocomplete"
+        :autocomplete="props.autocomplete"
         :autofocus="props.autofocus"
         :name="props.name"
         :pattern="patternSource"
@@ -72,6 +71,7 @@ const patternSource = computed(() => {
         @focus="emit('focus')"
         @blur="emit('blur')"
       />
+      <!-- eslint-enable vuejs-accessibility/no-autofocus -->
     </div>
   </label>
 </template>

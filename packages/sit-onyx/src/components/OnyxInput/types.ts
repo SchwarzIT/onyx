@@ -36,6 +36,8 @@ export type OnyxInputProps = {
    * Whether to focus the input on page load or when dialog/popover become shown if used inside a dialog/popover.
    * Can only be enabled for one element inside a page/dialog/popover.
    * Note: Has no effect when set after the component has been mounted.
+   *
+   * **UX / Accessibility**: autofocus should be used carefully since it can reduce usability and accessibility for users.
    */
   autofocus?: boolean;
   /**
