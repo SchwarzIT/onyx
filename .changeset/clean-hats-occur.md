@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxInput): add additional properties
+feat(OnyxInput): add properties autocapitalize, autocomplete, autofocus, name and pattern
