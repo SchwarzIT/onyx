@@ -25,10 +25,6 @@ export { default as OnyxSkeleton } from "@/components/OnyxSkeleton/OnyxSkeleton.
 export { default as OnyxSwitch } from "@/components/OnyxSwitch/OnyxSwitch.vue";
 export * from "@/components/OnyxSwitch/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
-export { default as OnyxAppLayout } from "@/components/OnyxAppLayout/OnyxAppLayout.vue";
-export * from "@/components/OnyxAppLayout/types";
-export { default as OnyxPageLayout } from "@/components/OnyxPageLayout/OnyxPageLayout.vue";
-export * from "@/components/OnyxPageLayout/types";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types/colors";
 export * from "@/types/fonts";
