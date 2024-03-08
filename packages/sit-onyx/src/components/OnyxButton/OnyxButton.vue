@@ -4,7 +4,6 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
-  label: "",
   disabled: false,
   type: "button",
   variation: "primary",

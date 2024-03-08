@@ -6,7 +6,12 @@ const isOpen = defineModel<boolean>();
 </script>
 
 <template>
-  <OnyxButton class="floating-button" :icon="chevronRightSmall" @click="isOpen = !isOpen" />
+  <OnyxButton
+    label="Open Sidebar"
+    class="floating-button"
+    :icon="chevronRightSmall"
+    @click="isOpen = !isOpen"
+  />
 </template>
 
 <style lang="scss" scoped>
