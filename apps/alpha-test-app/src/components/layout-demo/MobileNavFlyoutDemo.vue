@@ -18,7 +18,7 @@ import { OnyxHeadline } from "sit-onyx";
   background-color: rgba(0, 0, 0, 0.5);
 
   &__content {
-    background-color: white;
+    background-color: var(--onyx-color-base-background-blank);
     padding: var(--onyx-spacing-4xs);
   }
 }

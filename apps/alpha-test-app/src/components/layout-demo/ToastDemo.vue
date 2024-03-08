@@ -21,7 +21,7 @@
   background-color: var(--onyx-color-base-neutral-900);
   opacity: 0.9;
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-100);
-  color: white;
+  color: var(--onyx-color-text-icons-neutral-inverted);
   padding: var(--onyx-spacing-md);
 }
 </style>

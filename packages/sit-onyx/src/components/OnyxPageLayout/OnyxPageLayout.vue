@@ -49,6 +49,12 @@ const pageModifier = computed(() => {
 
 <style lang="scss">
 .onyx-page {
+  :where(&) {
+    --background-color-sidebar: var(--onyx-color-base-background-blank);
+    --background-color-main: var(--onyx-color-base-background-tinted);
+    --background-color-footer: var(--onyx-color-base-background-blank);
+  }
+
   height: 100%;
   width: 100%;
   display: grid;
@@ -89,14 +95,14 @@ const pageModifier = computed(() => {
     grid-area: side;
     overflow: hidden auto;
 
-    background-color: var(--onyx-color-base-background-blank);
+    background-color: var(--background-color-sidebar);
   }
   &__main {
     grid-area: main;
     overflow: hidden auto;
     position: relative;
 
-    background-color: var(--onyx-color-base-background-tinted);
+    background-color: var(--background-color-main);
   }
   &__toasts {
     grid-row: 1 / -2;
@@ -110,7 +116,7 @@ const pageModifier = computed(() => {
   &__footer {
     grid-area: footer;
 
-    background-color: var(--onyx-color-base-background-blank);
+    background-color: var(--background-color-footer);
   }
 }
 </style>

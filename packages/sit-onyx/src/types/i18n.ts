@@ -22,7 +22,7 @@ type ObjectToKeyPaths<T> = T extends string
  * // type Test = "foo.bar"
  * ```
  */
-type Join<T extends string[], D extends string> = T extends []
+type Join<T extends unknown[], D extends string> = T extends []
   ? never
   : T extends [infer F]
     ? F

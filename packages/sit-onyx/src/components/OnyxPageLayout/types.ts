@@ -1,7 +1,7 @@
 export type OnyxPageLayoutProps = {
   /** When the page includes a sidebar as well as a footer,
    * footerAsideSidebar will restrict the footer to span
-   * the main area next to the sidebar.
+   * only the page main area and not the sidebar.
    */
   footerAsideSidebar?: boolean;
   /** Hides the sidebar even if the slot is filled.

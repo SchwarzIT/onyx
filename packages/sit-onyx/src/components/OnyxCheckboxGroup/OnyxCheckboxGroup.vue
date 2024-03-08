@@ -26,7 +26,7 @@ const handleUpdate = (id: TValue, isChecked: boolean) => {
   emit("update:modelValue", newValue);
 };
 
-const enabledOptions = computed(() => props.options.filter((i) => !i.disabled));
+const enabledOptions = computed(() => props.options.filter((i) => !i.disabled && !i.skeleton));
 
 const handleMasterCheckboxChange = (isChecked: boolean) => {
   const newValue = isChecked ? enabledOptions.value.map(({ id }) => id) : [];
@@ -83,6 +83,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
   padding: 0;
   border: none;
   max-width: max-content;
+  min-width: unset;
 
   &__label {
     margin-bottom: var(--onyx-spacing-2xs);

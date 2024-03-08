@@ -33,7 +33,9 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 20rem; font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-intense);" >
+        <div style="margin: -1rem; height: 20rem; 
+                    font-family: var(--onyx-font-family); 
+                    color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
     }),
@@ -100,9 +102,10 @@ export const WithToast = {
     <template #toasts>
       <div style="display: flex;
                   justify-content: center;
-                  width: 90%;
-                  background-color: rgba(0, 0, 0, 0.7);
-                  color: white;
+                  width: 90%;  
+                  background-color: var(--onyx-color-base-neutral-900);
+                  opacity: 0.9;
+                  color: var(--onyx-color-text-icons-neutral-inverted);
                   margin: auto;">
         This is the place for a toast
       </div>
@@ -122,7 +125,7 @@ const getPageRenderContent = (
     ${
       options?.sidebar
         ? `<template #sidebar>
-            <div style="height: 100%; border: 1px solid lightgrey;">
+            <div style="height: 100%; border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
             Side Bar Content
             </div>
            </template>`
@@ -132,7 +135,7 @@ const getPageRenderContent = (
     ${
       options?.footer
         ? `<template #footer>
-            <div style="border: 1px solid lightgrey;">
+            <div style="border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);">
               Footer Content
             </div>
            </template>`

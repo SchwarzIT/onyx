@@ -31,11 +31,11 @@ const isSidebarOpen = ref(true);
 
 const showTempSidebarOpen = computed<boolean>(() => {
   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
-  return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) || false;
+  return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) ?? false;
 });
 
 const footerAsideSidebar = computed<boolean>(
-  () => (settings.value.footer.showDetailFooter && isSidebarOpen.value) || false,
+  () => (settings.value.footer.showDetailFooter && isSidebarOpen.value) ?? false,
 );
 </script>
 
@@ -67,11 +67,7 @@ const footerAsideSidebar = computed<boolean>(
         </SidebarDemo>
       </template>
 
-      <PageDemo
-        v-model="settings"
-        :is-sidebar-open="isSidebarOpen"
-        @is-sidebar-open="isSidebarOpen = $event"
-      />
+      <PageDemo v-model="settings" v-model:is-sidebar-open="isSidebarOpen" />
 
       <template v-if="settings.content.showToast" #toasts>
         <ToastDemo />

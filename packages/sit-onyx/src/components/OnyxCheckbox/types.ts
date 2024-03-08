@@ -1,3 +1,5 @@
+import type { TruncationType } from "../../types/fonts";
+
 export type OnyxCheckboxProps = {
   /**
    * Whether the checkbox is checked.
@@ -25,4 +27,12 @@ export type OnyxCheckboxProps = {
    * For accessibility / screen readers, the aria-label will still be set.
    */
   hideLabel?: boolean;
+  /**
+   * How to truncate the label if it exceeds the max width.
+   */
+  truncation?: TruncationType;
+  /**
+   * Whether to show a skeleton button.
+   */
+  skeleton?: boolean;
 };

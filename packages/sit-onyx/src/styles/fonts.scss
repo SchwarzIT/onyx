@@ -17,3 +17,18 @@
     font-family: var(--onyx-font-family-mono);
   }
 }
+
+// when adding styles for new truncation types, make sure to also add them inside types/fonts.ts
+.onyx-truncation {
+  &-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-multiline {
+    // needed to wrap the text to a newline even when its one long word,
+    // otherwise the max width would be overflown
+    overflow-wrap: anywhere;
+  }
+}

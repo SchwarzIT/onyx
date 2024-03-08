@@ -1,3 +1,4 @@
+import { createTruncationDecorator } from "@/utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
@@ -25,5 +26,27 @@ export const Default = {
     label: "radio-label",
     name: "radio-name",
     value: "radio-value",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a radio truncated radio button.
+ * You can set the "truncation" property to choose between the different truncation types.
+ */
+export const WithTruncation = {
+  args: {
+    ...Default.args,
+    label: "Very long label that will be truncated",
+  },
+  decorators: [createTruncationDecorator("12rem")],
+} satisfies Story;
+
+/**
+ * This example shows a skeleton radio button.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
