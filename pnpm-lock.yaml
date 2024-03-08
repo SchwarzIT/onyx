@@ -201,6 +201,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
+      typescript:
+        specifier: '>= 5.2.2'
+        version: 5.4.2
       vue:
         specifier: '>= 3'
         version: 3.4.21(typescript@5.4.2)
