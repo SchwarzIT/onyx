@@ -39,9 +39,7 @@ const handleChange = (event: Event) => {
   emit("change", inputValue);
 };
 
-const shouldShowCounter = computed(() => {
-  return props.withCounter && props.maxlength;
-});
+const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </script>
 
 <template>
