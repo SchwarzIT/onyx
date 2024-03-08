@@ -119,4 +119,8 @@ export const AUTOCOMPLETE = [
   "photo",
   "webauthn",
 ] as const;
+
+// Note: Since TypeScript version 5.2, there is a native "AutoFill" type that we can use
+// so we don't need to maintain this here. But unfortunately the Vue compiler currently does
+// not support it because the union type is too complex
 export type Autocomplete = (typeof AUTOCOMPLETE)[number];
