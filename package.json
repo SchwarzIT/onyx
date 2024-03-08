@@ -24,7 +24,7 @@
     "@sit-onyx/eslint-plugin": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^8.0.0-rc.2",
-    "@storybook/blocks": "^8.0.0-rc.2",
+    "@storybook/blocks": "^8.0.0-rc.3",
     "@storybook/vue3": "^8.0.0-rc.2",
     "@storybook/vue3-vite": "^8.0.0-rc.2",
     "@tsconfig/node20": "^20.1.2",
