@@ -5,6 +5,7 @@ import type { OnyxInputProps } from "./types";
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
   type: "text",
+  required: false,
 });
 
 const emit = defineEmits<{
@@ -42,9 +43,12 @@ const handleChange = (event: Event) => {
 
 <template>
   <label class="onyx-input">
-    <span class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">
-      {{ props.label }}
-    </span>
+    <div
+      class="onyx-input__label onyx-text--small"
+      :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
+    >
+      <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+    </div>
 
     <div class="onyx-input__wrapper">
       <input
@@ -52,6 +56,7 @@ const handleChange = (event: Event) => {
         class="onyx-input__native"
         :placeholder="props.placeholder"
         :type="props.type"
+        :required="props.required"
         @change="handleChange"
         @focus="emit('focus')"
         @blur="emit('blur')"
@@ -66,11 +71,17 @@ const handleChange = (event: Event) => {
   --selection-color: var(--onyx-color-base-primary-200);
 
   font-family: var(--onyx-font-family);
+  display: block;
 
   &__label {
-    display: block;
+    display: flex;
     margin-bottom: var(--onyx-spacing-5xs);
     color: var(--onyx-color-text-icons-neutral-medium);
+
+    // optional marker should be displayed at the very end of the label
+    &.onyx-optional-marker {
+      justify-content: space-between;
+    }
   }
 
   $padding-vertical: var(--onyx-spacing-2xs);

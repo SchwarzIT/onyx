@@ -41,3 +41,13 @@ export const Placeholder = {
     placeholder: "Enter something...",
   },
 } satisfies Story;
+
+/**
+ * This example shows a required input.
+ */
+export const Required = {
+  args: {
+    ...Default.args,
+    required: true,
+  },
+} satisfies Story;
