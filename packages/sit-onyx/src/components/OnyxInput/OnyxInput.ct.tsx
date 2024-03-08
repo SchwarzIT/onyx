@@ -78,6 +78,7 @@ test(
           placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
+          style="width: 12rem;"
         />,
       );
 
