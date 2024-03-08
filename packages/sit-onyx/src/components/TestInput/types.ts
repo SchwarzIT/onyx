@@ -1,8 +1,5 @@
 import enUS from "@/i18n/locales/en-US.json";
 
-export const INPUT_TYPES = ["email", "number", "password", "search", "tel", "text", "url"] as const;
-export type InputType = (typeof INPUT_TYPES)[number];
-
 /**
  * Input types that have a translation for their validation error message.
  */
