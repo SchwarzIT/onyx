@@ -59,11 +59,11 @@ export const Maxlength = {
 } satisfies Story;
 
 /**
- * This example shows a input with a description / help text.
+ * This example shows a input with a message / help text.
  */
-export const Description = {
+export const WithMessage = {
   args: {
     ...Default.args,
-    description: "Example description text",
+    message: "Example message",
   },
 } satisfies Story;

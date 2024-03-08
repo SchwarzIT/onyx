@@ -64,20 +64,20 @@ const STATES = {
   focusState: ["", "hover", "focus"],
 } as const;
 
-test("should show description", async ({ mount }) => {
+test("should show message", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxInput label="Label" description="Test description" style="width: 12rem;" />,
+    <OnyxInput label="Label" message="Test message" style="width: 12rem;" />,
   );
   const input = component.getByLabel("Label");
 
   // ACT
-  await component.getByText("Test description").focus();
+  await component.getByText("Test message").focus();
 
   // ASSERT
-  await expect(component).toContainText("Test description");
+  await expect(component).toContainText("Test message");
   await expect(input).not.toBeFocused();
-  await expect(component).toHaveScreenshot("description.png");
+  await expect(component).toHaveScreenshot("message.png");
 });
 
 test("should show counter", async ({ mount }) => {

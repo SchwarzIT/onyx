@@ -32,9 +32,9 @@ export type OnyxInputProps = {
    */
   withCounter?: boolean;
   /**
-   * Description / help text to display below the input.
+   * Message / help text to display below the input.
    */
-  description?: string;
+  message?: string;
   /**
    * Pattern the value must match to be valid.
    */

@@ -71,8 +71,8 @@ const pattern = computed(() => {
       </div>
     </label>
 
-    <div v-if="props.description || shouldShowCounter" class="onyx-input__footer onyx-text--small">
-      <span v-if="props.description" class="onyx-truncation-ellipsis">{{ props.description }}</span>
+    <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
+      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
