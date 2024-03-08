@@ -44,7 +44,9 @@ const handleChange = (event: Event) => {
 
 <template>
   <label class="onyx-input">
-    <p class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</p>
+    <span class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">
+      {{ props.label }}
+    </span>
 
     <div class="onyx-input__wrapper">
       <input
@@ -70,7 +72,7 @@ const handleChange = (event: Event) => {
   font-family: var(--onyx-font-family);
 
   &__label {
-    margin-top: 0;
+    display: block;
     margin-bottom: var(--onyx-spacing-5xs);
     color: var(--onyx-color-text-icons-neutral-medium);
   }
@@ -100,7 +102,6 @@ const handleChange = (event: Event) => {
 
     &:has(.onyx-input__native:enabled:focus) {
       --border-color: var(--onyx-color-base-primary-500);
-      caret-color: var(--border-color);
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
     }
 
