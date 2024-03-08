@@ -1,6 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxInput from "./OnyxInput.vue";
+import { AUTOCOMPLETE } from "./types";
 
 /**
  * Text inputs are essential UI elements where users can enter textual information.
@@ -17,6 +18,10 @@ const meta: Meta<typeof OnyxInput> = {
         template: `<div style="width: 16rem;"> <story /> </div>`,
       }),
     ],
+    argTypes: {
+      autocomplete: { options: AUTOCOMPLETE },
+      pattern: { control: { type: "text" } },
+    },
   }),
 };
 

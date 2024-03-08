@@ -5,6 +5,7 @@ import type { OnyxInputProps } from "./types";
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
   type: "text",
+  autocapitalize: "sentences",
 });
 
 const emit = defineEmits<{
@@ -38,6 +39,16 @@ const handleChange = (event: Event) => {
   const inputValue = (event.target as HTMLInputElement).value;
   emit("change", inputValue);
 };
+
+const joinedAutocomplete = computed(() => {
+  if (Array.isArray(props.autocomplete)) return props.autocomplete.join(" ");
+  return props.autocomplete;
+});
+
+const patternSource = computed(() => {
+  if (props.pattern instanceof RegExp) return props.pattern.source;
+  return props.pattern;
+});
 </script>
 
 <template>
@@ -52,6 +63,11 @@ const handleChange = (event: Event) => {
         class="onyx-input__native"
         :placeholder="props.placeholder"
         :type="props.type"
+        :autocapitalize="props.autocapitalize"
+        :autocomplete="joinedAutocomplete"
+        :autofocus="props.autofocus"
+        :name="props.name"
+        :pattern="patternSource"
         @change="handleChange"
         @focus="emit('focus')"
         @blur="emit('blur')"
