@@ -35,10 +35,6 @@ export type OnyxInputProps = {
    * Message / help text to display below the input.
    */
   message?: string;
-  /**
-   * Pattern the value must match to be valid.
-   */
-  pattern?: string | RegExp;
 };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

@@ -42,12 +42,6 @@ const handleChange = (event: Event) => {
 const shouldShowCounter = computed(() => {
   return props.withCounter && props.maxlength;
 });
-
-const pattern = computed(() => {
-  if (!props.pattern) return;
-  if (props.pattern instanceof RegExp) return props.pattern.source;
-  return props.pattern;
-});
 </script>
 
 <template>
@@ -65,7 +59,6 @@ const pattern = computed(() => {
           :type="props.type"
           :minlength="props.minlength"
           :maxlength="props.maxlength"
-          :pattern="pattern"
           @change="handleChange"
           @focus="emit('focus')"
           @blur="emit('blur')"
