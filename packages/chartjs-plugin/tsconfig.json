@@ -1,0 +1,10 @@
+{
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*", "src/stories/**/*"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "outDir": "dist"
+  }
+}
