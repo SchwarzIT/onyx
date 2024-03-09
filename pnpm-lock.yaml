@@ -143,18 +143,27 @@ importers:
 
   apps/docs:
     devDependencies:
+      '@sit-onyx/chartjs-plugin':
+        specifier: workspace:^
+        version: link:../../packages/chartjs-plugin
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
+      chart.js:
+        specifier: ^4.4.2
+        version: 4.4.2
       vitepress:
         specifier: 1.0.0-rc.45
         version: 1.0.0-rc.45(@algolia/client-search@4.22.1)(@types/node@20.11.25)(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)(search-insights@2.13.0)(typescript@5.4.2)
       vue:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.4.2)
+      vue-chartjs:
+        specifier: ^5.3.0
+        version: 5.3.0(chart.js@4.4.2)(vue@3.4.21)
 
   packages/chartjs-plugin:
     dependencies:

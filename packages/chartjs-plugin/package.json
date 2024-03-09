@@ -6,15 +6,11 @@
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "src"
   ],
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+    ".": "./src/index.ts"
   },
   "homepage": "https://onyx.schwarz/development/packages/chartjs-plugin.html",
   "repository": {

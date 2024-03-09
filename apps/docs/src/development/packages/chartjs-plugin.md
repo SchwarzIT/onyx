@@ -4,6 +4,7 @@ outline: [2, 3]
 
 <script lang="ts" setup>
 import packageJson from "../../../../../packages/chartjs-plugin/package.json";
+import LineChart from "../../.vitepress/components/LineChart.vue"
 </script>
 
 # @sit-onyx/chartjs-plugin
@@ -34,15 +35,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/chartjs-plugin@alpha chart.js vue-chartjs
+pnpm add @sit-onyx/chartjs-plugin@alpha chart.js
 ```
 
 ```sh [npm]
-npm install @sit-onyx/chartjs-plugin@alpha chart.js vue-chartjs
+npm install @sit-onyx/chartjs-plugin@alpha chart.js
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/chartjs-plugin@alpha chart.js vue-chartjs
+yarn install @sit-onyx/chartjs-plugin@alpha chart.js
 ```
 
 :::
@@ -56,3 +57,33 @@ import "sit-onyx/style.css";
 
 Chart.register(plugin);
 ```
+
+## Examples
+
+The following examples assume you have also installed `vue-chartjs`.
+
+::: code-group
+
+```sh [pnpm]
+pnpm add vue-chartjs
+```
+
+```sh [npm]
+npm install vue-chartjs
+```
+
+```sh [yarn]
+yarn install chart.js
+```
+
+:::
+
+### Line chart
+
+<ClientOnly>
+  <LineChart />
+</ClientOnly>
+
+::: details View the code
+<<< @/.vitepress/components/LineChart.vue
+:::

@@ -47,10 +47,13 @@ export const plugin: Plugin = {
       if (oldTheme !== newTheme) chart.update();
     });
 
-    darkModeObserver.observe(document.body, {
+    const observerOptions: MutationObserverInit = {
       attributeFilter: ["class"],
       attributeOldValue: true,
-    });
+    };
+
+    darkModeObserver.observe(document.body, observerOptions);
+    darkModeObserver.observe(document.documentElement, observerOptions);
   },
 };
 
