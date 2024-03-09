@@ -50,7 +50,7 @@ yarn install @sit-onyx/chartjs-plugin@alpha chart.js vue-chartjs
 ## Usage
 
 ```ts
-import { Chart, registerables } from "chart.js";
+import { Chart } from "chart.js";
 import { plugin } from "@sit-onyx/chartjs-plugin";
 import "sit-onyx/style.css";
 
