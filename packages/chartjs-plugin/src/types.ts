@@ -1,6 +1,9 @@
 import type { ChartType } from "chart.js";
 
 export type OnyxChartOptions = {
+  /**
+   * Main chart color.
+   */
   color: OnyxColor;
 };
 
@@ -18,6 +21,9 @@ export type OnyxColor = (typeof ONYX_COLORS)[number];
 declare module "chart.js" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
+    /**
+     * onyx chart options. Can be set to `false` for disabling the plugin.
+     */
     onyx: OnyxChartOptions | false;
   }
 }

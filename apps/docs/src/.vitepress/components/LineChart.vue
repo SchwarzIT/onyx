@@ -49,9 +49,9 @@ const chartOptions: ChartOptions<"line"> = {
       intersect: false,
     },
     // you can easily use a different color from the onyx color palette like this
-    // onyx: {
-    //   color: "info",
-    // },
+    onyx: {
+      color: "info",
+    },
   },
 };
 </script>
