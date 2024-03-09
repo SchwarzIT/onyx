@@ -1,12 +1,16 @@
-import type { ChartDataset, Plugin, ScaleOptions } from "chart.js";
+import type { ChartDataset, ChartType, Plugin, ScaleOptions } from "chart.js";
+import type { OnyxChartOptions } from "./types";
 
-export const plugin: Plugin = {
+export const plugin: Plugin<ChartType, OnyxChartOptions> = {
   id: "onyx",
-  beforeLayout: (chart) => {
-    chart.config.data.datasets.forEach((dataset) => {
-      const primaryColor = getCSSVariableValue("--onyx-color-base-primary-500");
-      const backgroundColor = hexToRgb(primaryColor);
+  defaults: {
+    color: "primary",
+  },
+  beforeLayout: (chart, args, options) => {
+    const primaryColor = getCSSVariableValue(`--onyx-color-base-${options.color}-500`);
+    const backgroundColor = hexToRgb(primaryColor);
 
+    chart.config.data.datasets.forEach((dataset) => {
       dataset.borderColor = primaryColor;
       dataset.backgroundColor = `rgba(${backgroundColor}, 0.15)`;
       dataset.hoverBackgroundColor = `rgba(${backgroundColor}, 0.4)`;
