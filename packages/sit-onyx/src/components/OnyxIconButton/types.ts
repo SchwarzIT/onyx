@@ -24,7 +24,7 @@ export type OnyxIconButtonProps = {
    */
   loading?: boolean;
   /**
-   * The icon which will be displayed. Doesn't have an effect when custom content is passed via the `default` slot.
+   * The icon which will be displayed. The custom content in the `default` won't have an effect if the `icon` property is set.
    */
   icon?: string;
   /**
