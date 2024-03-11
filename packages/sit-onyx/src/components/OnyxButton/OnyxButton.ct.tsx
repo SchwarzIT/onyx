@@ -97,5 +97,6 @@ test(
       if (focusState === "active") await page.mouse.down();
       return component;
     },
+    { disableAxeCheck: true },
   ),
 );

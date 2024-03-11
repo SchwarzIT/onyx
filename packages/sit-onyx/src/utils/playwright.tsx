@@ -56,6 +56,14 @@ type CaseBuilder<S extends ComponentStates> = (
   page: TestArg["page"],
 ) => Promise<MountResultJsx>;
 
+type CreateScreenshotsForAllStatesOptions = {
+  /**
+   * By default axe accessibility tests are performed before each screenshot.
+   * Avoid disabling the axe checks!
+   */
+  disableAxeCheck?: boolean;
+};
+
 /**
  * Creates screenshots for all permutations of the given component states.
  * Will create a screenshot for each permutation.
@@ -103,35 +111,51 @@ export const createScreenshotsForAllStates =
     states: S,
     baseName: string,
     caseBuilder: CaseBuilder<S>,
+    options?: CreateScreenshotsForAllStatesOptions,
   ) =>
-  async ({ mount, page }: TestArg) => {
+  async ({ mount, page, makeAxeBuilder }: TestArg) => {
+    /* eslint-disable playwright/no-standalone-expect */
+
+    const axeBuilder = makeAxeBuilder();
+    const performAxeScan = options?.disableAxeCheck
+      ? () => Promise.resolve()
+      : async () => axeBuilder.analyze().then((r) => expect(r.violations).toEqual([]));
+
     const permutations = generatePermutations(states);
 
+    test.setTimeout(permutations.length * 1000);
+
     for (const testCase of permutations) {
-      // ARRANGE
-      const wrappedMount = ((jsx, options) =>
-        mount(
-          <div
-            style={{ width: "max-content", padding: "1rem" }}
-            class={{
-              "onyx-use-optional": options?.useOptional,
-            }}
-          >
-            {jsx}
-          </div>,
-        )) satisfies WrappedMount;
-
-      await page.getByRole("document").focus(); // reset focus
-      await page.getByRole("document").hover(); // reset mouse
-      await page.mouse.up(); // reset mouse
-      const component = await caseBuilder(testCase, wrappedMount, page);
-
-      // ASSERT
-      const screenshotName = [
+      const stepName = [
         baseName,
         ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
       ].join("-");
-      await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+
+      await test.step(stepName, async () => {
+        // ARRANGE
+        const wrappedMount = ((jsx, options) =>
+          mount(
+            <div
+              style={{ width: "max-content", padding: "1rem" }}
+              class={{
+                "onyx-use-optional": options?.useOptional,
+              }}
+            >
+              {jsx}
+            </div>,
+          )) satisfies WrappedMount;
+
+        await page.getByRole("document").focus(); // reset focus
+        await page.getByRole("document").hover(); // reset mouse
+        await page.mouse.up(); // reset mouse
+        const component = await caseBuilder(testCase, wrappedMount, page);
+
+        // ASSERT
+        const screenshotResult = expect(component).toHaveScreenshot(`${stepName}.png`);
+        const accessibilityScanResult = performAxeScan();
+
+        await Promise.all([screenshotResult, accessibilityScanResult]);
+      });
     }
   };
 
