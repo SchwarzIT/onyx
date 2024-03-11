@@ -4,7 +4,7 @@ outline: [2, 3]
 
 <script lang="ts" setup>
 import packageJson from "../../../../../packages/chartjs-plugin/package.json";
-import LineChart from "../../.vitepress/components/LineChart.vue"
+import LineChartExample from "../../.vitepress/components/LineChartExample.vue"
 </script>
 
 # @sit-onyx/chartjs-plugin
@@ -82,9 +82,9 @@ yarn install chart.js
 ### Line chart
 
 <ClientOnly>
-  <LineChart />
+  <LineChartExample />
 </ClientOnly>
 
 ::: details View the code
-<<< @/.vitepress/components/LineChart.vue
+<<< @/.vitepress/components/LineChartExample.vue
 :::
