@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.40
+
+### Minor Changes
+
+- 179a847: Implement OnyxIconButton
+
 ## 1.0.0-alpha.39
 
 ### Minor Changes
