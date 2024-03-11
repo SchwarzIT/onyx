@@ -68,6 +68,17 @@ export const Disabled = {
 } satisfies Story;
 
 /**
+ * This example shows a loading input. User interaction is disabled while loading.
+ */
+export const Loading = {
+  args: {
+    ...Default.args,
+    modelValue: "Test value",
+    loading: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a input with a maxlength and counter.
  */
 export const Maxlength = {

@@ -58,6 +58,10 @@ export type OnyxInputProps = {
    */
   disabled?: boolean;
   /**
+   * Whether the input is loading. User interaction will be disabled.
+   */
+  loading?: boolean;
+  /**
    * Maximum number of characters that are allowed to be entered.
    */
   maxlength?: number;

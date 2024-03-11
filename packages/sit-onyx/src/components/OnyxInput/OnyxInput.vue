@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { OnyxLoadingIndicator } from "@/index";
 import { computed } from "vue";
 import type { OnyxInputProps } from "./types";
 
@@ -8,6 +9,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   autocapitalize: "sentences",
   readonly: false,
   disabled: false,
+  loading: false,
 });
 
 const emit = defineEmits<{
@@ -58,6 +60,8 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
       </span>
 
       <div class="onyx-input__wrapper">
+        <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
+
         <!-- eslint-disable vuejs-accessibility/no-autofocus -
          We want to provide the flexibility to have the autofocus property.
          The JSDoc description includes a warning that it should be used carefully.
@@ -73,7 +77,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           :name="props.name"
           :pattern="patternSource"
           :readonly="props.readonly"
-          :disabled="props.disabled"
+          :disabled="props.disabled || props.loading"
           :minlength="props.minlength"
           :maxlength="props.maxlength"
           @change="handleChange"
@@ -127,8 +131,9 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     font-size: 1rem;
     line-height: $line-height;
 
-    height: calc($line-height + 2 * $padding-vertical);
     box-sizing: border-box;
+    padding: $padding-vertical var(--onyx-spacing-sm);
+    height: calc($line-height + 2 * $padding-vertical);
 
     &:has(.onyx-input__native:read-write:hover) {
       border-color: var(--onyx-color-base-primary-400);
@@ -159,8 +164,6 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   }
 
   &__native {
-    padding: $padding-vertical var(--onyx-spacing-sm);
-
     // reset native input styles so they are inherited from the parent
     border: none;
     border-radius: inherit;
@@ -192,6 +195,10 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
   }
 
   &__footer {
