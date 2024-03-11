@@ -4,7 +4,6 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
-  label: "",
   disabled: false,
   type: "button",
   variation: "primary",
@@ -142,7 +141,7 @@ $button-height: 2.5rem;
     }
   }
 
-  &:hover:enabled {
+  &:hover:enabled:not(:active) {
     --onyx-button-background-color: var(--onyx-button-background-hover-color);
   }
 

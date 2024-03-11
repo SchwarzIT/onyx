@@ -3,7 +3,8 @@ import { injectI18n } from "@/i18n";
 import { areObjectsFlatEqual } from "@/utils/comparator";
 import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/forms";
 import { computed, ref, toRefs, watch } from "vue";
-import { TRANSLATED_INPUT_TYPES, type InputType, type TranslatedInputType } from "./types";
+import type { InputType } from "../OnyxInput/types";
+import { TRANSLATED_INPUT_TYPES, type TranslatedInputType } from "./types";
 
 export type TestInputProps = {
   /**
@@ -24,7 +25,7 @@ export type TestInputProps = {
   /** For validation: The pattern that the value must match */
   pattern?: string;
   /** For validation: The expected type of the input's value */
-  type?: InputType;
+  type?: InputType | "number";
   /** For validation: The upper limit of a number value */
   max?: number;
   /**
@@ -130,8 +131,11 @@ watch(
 </script>
 
 <template>
-  <label class="onyx-input" :class="{ 'onyx-input--touched': isTouched }">
-    <span class="onyx-input__label" :class="{ 'onyx-input__label--required': props.required }">
+  <label class="onyx-test-input" :class="{ 'onyx-test-input--touched': isTouched }">
+    <span
+      class="onyx-test-input__label"
+      :class="{ 'onyx-test-input__label--required': props.required }"
+    >
       {{ props.label }}
     </span>
     <input
@@ -141,15 +145,17 @@ watch(
       @change="handleChange"
       @blur="isTouched = true"
     />
-    <p v-if="isTouched && !validityState?.valid" class="onyx-input__error" aria-live="polite">
+    <p v-if="isTouched && !validityState?.valid" class="onyx-test-input__error" aria-live="polite">
       {{ displayedErrorMessage }}
     </p>
-    <p class="onyx-input__info">Model value: "{{ value }}", is valid: {{ validityState?.valid }}</p>
+    <p class="onyx-test-input__info">
+      Model value: "{{ value }}", is valid: {{ validityState?.valid }}
+    </p>
   </label>
 </template>
 
 <style lang="scss">
-.onyx-input {
+.onyx-test-input {
   width: max-content;
   display: inline-block;
   font-family: var(--onyx-font-family);
