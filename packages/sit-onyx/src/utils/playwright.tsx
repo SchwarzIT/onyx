@@ -126,12 +126,12 @@ export const createScreenshotsForAllStates =
     test.setTimeout(permutations.length * 1000);
 
     for (const testCase of permutations) {
-      const stepName = [
+      const screenshotName = [
         baseName,
         ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
       ].join("-");
 
-      await test.step(stepName, async () => {
+      await test.step(screenshotName, async () => {
         // ARRANGE
         const wrappedMount = ((jsx, options) =>
           mount(
@@ -151,7 +151,7 @@ export const createScreenshotsForAllStates =
         const component = await caseBuilder(testCase, wrappedMount, page);
 
         // ASSERT
-        const screenshotResult = expect(component).toHaveScreenshot(`${stepName}.png`);
+        const screenshotResult = expect(component).toHaveScreenshot(`${screenshotName}.png`);
         const accessibilityScanResult = performAxeScan();
 
         await Promise.all([screenshotResult, accessibilityScanResult]);
