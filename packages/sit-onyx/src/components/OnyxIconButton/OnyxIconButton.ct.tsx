@@ -12,7 +12,7 @@ test(
   "State screenshot testing",
   createScreenshotsForAllStates(
     STATES,
-    "button",
+    "icon-button",
     async ({ variation, state, focusState }, mount, page) => {
       const component = await mount(
         <OnyxIconButton
