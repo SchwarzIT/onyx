@@ -73,7 +73,7 @@ export const Disabled = {
 export const Loading = {
   args: {
     ...Default.args,
-    placeholder: "Placeholder...",
+    modelValue: "Test value",
     loading: true,
   },
 } satisfies Story;

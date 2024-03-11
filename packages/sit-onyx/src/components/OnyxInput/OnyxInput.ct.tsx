@@ -74,7 +74,7 @@ test(
       const component = await mount(
         <OnyxInput
           label="Label"
-          modelValue={variant === "initialValue" ? "Test value" : undefined}
+          modelValue={["initialValue", "loading"].includes(variant) ? "Test value" : undefined}
           placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
