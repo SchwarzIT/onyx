@@ -57,6 +57,10 @@ export type OnyxInputProps = {
    * Whether the input should be disabled.
    */
   disabled?: boolean;
+  /**
+   * Whether the input is loading. User interaction will be disabled.
+   */
+  loading?: boolean;
 };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
