@@ -1,5 +1,38 @@
 # sit-onyx
 
+## 1.0.0-alpha.37
+
+### Minor Changes
+
+- d30c0b6: feat: add auto hyphens for multiline truncation
+
+### Patch Changes
+
+- d30c0b6: fix: top algin checkbox, radio button and switch when using multiline truncation
+- d30c0b6: fix: do not show Asterisk / optional label when label is hidden for OnyxCheckbox and OnyxSwitch
+
+## 1.0.0-alpha.36
+
+### Major Changes
+
+- e4e1983: bump minimum TypeScript version to 5.2.2
+
+### Minor Changes
+
+- e4e1983: feat(OnyxInput): add properties autocapitalize, autocomplete, autofocus, name and pattern
+
+## 1.0.0-alpha.35
+
+### Minor Changes
+
+- 3198059: feat: add property `skeleton` to `OnyxCheckboxGroup` and `OnyxRadioButtonGroup`
+
+## 1.0.0-alpha.34
+
+### Patch Changes
+
+- a8ad4ff: fix(OnyxButton): add active state
+
 ## 1.0.0-alpha.33
 
 ### Minor Changes
