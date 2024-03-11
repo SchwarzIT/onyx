@@ -44,3 +44,25 @@ export const Placeholder = {
     placeholder: "Enter something...",
   },
 } satisfies Story;
+
+/**
+ * This example shows a readonly input that can not be edited.
+ */
+export const Readonly = {
+  args: {
+    ...Default.args,
+    readonly: true,
+    modelValue: "Test value",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a disabled input that can not be edited and is therefore not included in any form data.
+ */
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+    modelValue: "Test value",
+  },
+} satisfies Story;
