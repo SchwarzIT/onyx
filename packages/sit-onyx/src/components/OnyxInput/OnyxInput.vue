@@ -77,6 +77,27 @@ const patternSource = computed(() => {
 </template>
 
 <style lang="scss">
+/**
+* Gets a comma separated CSS selector for the input autofill.
+* Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
+*/
+@function get-autofill-selectors($prefix: "") {
+  $output: "";
+  $selectors: (":autofill", "[data-test-autofill]", "[data-com-onepassword-filled]");
+
+  @each $selector in $selectors {
+    $prefixed-selector: $prefix + $selector;
+
+    @if $output == "" {
+      $output: $prefixed-selector;
+    } @else {
+      $output: $output + ", " + $prefixed-selector;
+    }
+  }
+
+  @return $output;
+}
+
 .onyx-input {
   --border-color: var(--onyx-color-base-primary-500);
   --selection-color: var(--onyx-color-base-primary-200);
@@ -119,8 +140,7 @@ const patternSource = computed(() => {
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
     }
 
-    &:has(.onyx-input__native:autofill),
-    &:has(.onyx-input__native[data-test-autofill]) {
+    &:has(#{get-autofill-selectors(".onyx-input__native")}) {
       background-color: var(--onyx-color-base-warning-100);
     }
   }
@@ -148,8 +168,7 @@ const patternSource = computed(() => {
       background: var(--selection-color);
     }
 
-    &:autofill,
-    &[data-test-autofill] {
+    #{get-autofill-selectors("&")} {
       background-color: transparent;
       -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
 
