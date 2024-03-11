@@ -23,7 +23,7 @@ export type OnyxIconButtonProps = {
    */
   loading?: boolean;
   /**
-   * An icon which will be displayed on the left side of the label.
+   * The icon which will be displayed. Doesn't have an effect when custom content is passed via the `default` slot.
    */
   icon?: string;
 };
