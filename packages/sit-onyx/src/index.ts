@@ -11,6 +11,8 @@ export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.
 export * from "@/components/OnyxHeadline/types";
 export { default as OnyxIcon } from "@/components/OnyxIcon/OnyxIcon.vue";
 export * from "@/components/OnyxIcon/types";
+export { default as OnyxIconButton } from "@/components/OnyxIconButton/OnyxIconButton.vue";
+export * from "@/components/OnyxIconButton/types";
 export { default as OnyxInput } from "@/components/OnyxInput/OnyxInput.vue";
 export * from "@/components/OnyxInput/types";
 export { default as OnyxLink } from "@/components/OnyxLink/OnyxLink.vue";

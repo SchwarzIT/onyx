@@ -23,7 +23,6 @@ const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "Default", value: "1", id: "1" },
   { label: "Initially checked", value: "2", id: "2" },
   { label: "Disabled", value: "3", id: "3", disabled: true },
-  { label: "Skeleton", value: "4", id: "4", skeleton: true },
 ];
 
 /**
@@ -50,7 +49,7 @@ export const Disabled = {
 } satisfies Story;
 
 /**
- * This example shows radio button group thats layed out vertically.
+ * This example shows a radio button group thats layed out vertically.
  */
 export const Horizontal = {
   args: {
@@ -79,4 +78,15 @@ export const WithTruncation = {
     ],
   },
   decorators: [createTruncationDecorator("16rem")],
+} satisfies Story;
+
+/**
+ * This example shows a skeleton radio button group.
+ * The number of skeleton options shown can be set via the `skeleton` property.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: 3,
+  },
 } satisfies Story;

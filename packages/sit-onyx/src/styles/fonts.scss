@@ -30,5 +30,6 @@
     // needed to wrap the text to a newline even when its one long word,
     // otherwise the max width would be overflown
     overflow-wrap: anywhere;
+    hyphens: auto;
   }
 }
