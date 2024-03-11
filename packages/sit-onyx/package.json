@@ -46,6 +46,7 @@
     "@fontsource-variable/source-code-pro": ">= 5",
     "@fontsource-variable/source-sans-3": ">= 5",
     "@sit-onyx/icons": "workspace:^",
+    "typescript": ">= 5.2.2",
     "vue": ">= 3"
   },
   "devDependencies": {
