@@ -36,7 +36,7 @@ type Story = StoryObj<typeof OnyxIconButton>;
 export const Primary = {
   args: {
     label: "Button",
-    icon: checkSmall,
+    icon: messageDots,
   },
 } satisfies Story;
 
@@ -47,7 +47,7 @@ export const Secondary = {
   args: {
     label: "Button",
     variation: "secondary",
-    icon: checkSmall,
+    icon: messageDots,
   },
 } satisfies Story;
 
@@ -58,7 +58,7 @@ export const Danger = {
   args: {
     label: "Button",
     variation: "danger",
-    icon: checkSmall,
+    icon: messageDots,
   },
 } satisfies Story;
 
@@ -84,6 +84,6 @@ export const Loading = {
   args: {
     label: "Button",
     loading: true,
-    icon: checkSmall,
+    icon: messageDots,
   },
 } satisfies Story;
