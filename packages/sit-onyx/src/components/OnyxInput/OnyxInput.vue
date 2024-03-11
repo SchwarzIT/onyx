@@ -161,8 +161,10 @@ const patternSource = computed(() => {
       }
     }
 
-    &:has(#{get-autofill-selectors(".onyx-input__native")}) {
-      background-color: var(--onyx-color-base-warning-100);
+    &:has(.onyx-input__native:read-write) {
+      &:has(#{get-autofill-selectors(".onyx-input__native")}) {
+        background-color: var(--onyx-color-base-warning-100);
+      }
     }
   }
 
