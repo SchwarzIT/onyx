@@ -60,7 +60,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  variant: ["default", "placeholder", "initialValue"],
+  variant: ["default", "placeholder", "initialValue", "autofill"],
   focusState: ["", "hover", "focus"],
 } as const;
 
@@ -72,11 +72,16 @@ test(
         label="Label"
         modelValue={variant === "initialValue" ? "Test value" : undefined}
         placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
+        autocomplete={variant === "autofill" ? "name" : undefined}
         style="width: 12rem;"
       />,
     );
 
     const input = component.getByLabel("Label");
+
+    if (variant == "autofill") {
+      await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+    }
 
     if (focusState === "hover") await input.hover();
     if (focusState === "focus") await input.focus();

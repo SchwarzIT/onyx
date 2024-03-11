@@ -92,11 +92,12 @@ const patternSource = computed(() => {
 
   $padding-vertical: var(--onyx-spacing-2xs);
   $line-height: 1.5rem;
+  $height: calc($line-height + 2 * $padding-vertical);
 
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-    background: var(--onyx-color-base-background-blank);
+    background-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     display: flex;
@@ -106,7 +107,7 @@ const patternSource = computed(() => {
     font-size: 1rem;
     line-height: $line-height;
 
-    height: calc($line-height + 2 * $padding-vertical);
+    height: $height;
     box-sizing: border-box;
 
     &:has(.onyx-input__native:enabled:hover) {
@@ -116,6 +117,11 @@ const patternSource = computed(() => {
     &:has(.onyx-input__native:enabled:focus) {
       border-color: var(--border-color);
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+    }
+
+    &:has(.onyx-input__native:autofill),
+    &:has(.onyx-input__native[data-test-autofill]) {
+      background-color: var(--onyx-color-base-warning-100);
     }
   }
 
@@ -140,6 +146,17 @@ const patternSource = computed(() => {
 
     &::selection {
       background: var(--selection-color);
+    }
+
+    &:autofill,
+    &[data-test-autofill] {
+      background-color: transparent;
+      -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
+
+      // many browsers use "!important" to set the autofill background so we need this
+      // transition workaround to make the background transparent
+      $one-year-in-seconds: 31536000s;
+      transition: background-color $one-year-in-seconds;
     }
   }
 }
