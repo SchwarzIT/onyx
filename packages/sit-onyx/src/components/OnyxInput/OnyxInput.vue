@@ -204,8 +204,6 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
   &__counter {
     margin-left: auto;
-    display: block;
-    width: max-content;
   }
 }
 </style>
