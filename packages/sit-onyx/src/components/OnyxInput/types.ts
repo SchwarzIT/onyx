@@ -59,14 +59,10 @@ export type OnyxInputProps = {
   disabled?: boolean;
   /**
    * Maximum number of characters that are allowed to be entered.
-   * For validation: If the value is set by code, the browser can not detect the validity
-   * so it will only get invalid when the user interacts with the component.
    */
   maxlength?: number;
   /**
    * Minimum number of characters that have to to be entered.
-   * For validation: If the value is set by code, the browser can not detect the validity
-   * so it will only get invalid when the user interacts with the component.
    */
   minlength?: number;
   /**
