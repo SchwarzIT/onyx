@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.35
+
+### Minor Changes
+
+- 3198059: feat: add property `skeleton` to `OnyxCheckboxGroup` and `OnyxRadioButtonGroup`
+
 ## 1.0.0-alpha.34
 
 ### Patch Changes
