@@ -17,6 +17,9 @@ const meta: Meta<typeof OnyxInput> = {
         template: `<div style="width: 16rem;"> <story /> </div>`,
       }),
     ],
+    argTypes: {
+      pattern: { control: { type: "text" } },
+    },
   }),
 };
 
@@ -49,5 +52,38 @@ export const Required = {
   args: {
     ...Default.args,
     required: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a readonly input that can not be edited.
+ */
+export const Readonly = {
+  args: {
+    ...Default.args,
+    readonly: true,
+    modelValue: "Test value",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a disabled input that can not be edited and is therefore not included in any form data.
+ */
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+    modelValue: "Test value",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a loading input. User interaction is disabled while loading.
+ */
+export const Loading = {
+  args: {
+    ...Default.args,
+    modelValue: "Test value",
+    loading: true,
   },
 } satisfies Story;

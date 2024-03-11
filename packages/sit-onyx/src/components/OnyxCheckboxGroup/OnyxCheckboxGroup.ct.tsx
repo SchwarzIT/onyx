@@ -1,12 +1,11 @@
 import { expect, test } from "../../playwright-axe";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
-import type { OnyxCheckboxGroupProps } from "./types";
+import { CHECKBOX_GROUP_DIRECTIONS, type OnyxCheckboxGroupProps } from "./types";
 
 const mockOptions: OnyxCheckboxGroupProps["options"] = [
   { label: "Default", id: "id-1" },
   { label: "Required", id: "id-2", required: true },
   { label: "Disabled", id: "id-3", disabled: true },
-  { label: "Skeleton", id: "id-4", skeleton: true },
 ];
 
 test("should render", async ({ page, mount, makeAxeBuilder }) => {
@@ -130,4 +129,21 @@ test("should truncate", async ({ mount }) => {
   );
 
   await expect(component).toHaveScreenshot("truncation-vertical.png");
+});
+
+CHECKBOX_GROUP_DIRECTIONS.forEach((direction) => {
+  test(`should render ${direction} skeletons`, async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(
+      <OnyxCheckboxGroup
+        options={[]}
+        headline="Skeleton group headline"
+        skeleton={3}
+        direction={direction}
+      />,
+    );
+
+    // ASSERT
+    await expect(component).toHaveScreenshot(`skeleton-${direction}.png`);
+  });
 });
