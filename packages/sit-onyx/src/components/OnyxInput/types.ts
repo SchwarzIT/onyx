@@ -50,6 +50,14 @@ export type OnyxInputProps = {
    */
   pattern?: string | RegExp;
   /**
+   * Whether the input should be readonly.
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input should be disabled.
+   */
+  disabled?: boolean;
+  /**
    * Maximum number of characters that are allowed to be entered.
    * For validation: If the value is set by code, the browser can not detect the validity
    * so it will only get invalid when the user interacts with the component.
