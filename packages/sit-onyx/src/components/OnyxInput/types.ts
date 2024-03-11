@@ -49,6 +49,14 @@ export type OnyxInputProps = {
    * Pattern the value must match to be valid.
    */
   pattern?: string | RegExp;
+  /**
+   * Whether the input should be readonly.
+   */
+  readonly?: boolean;
+  /**
+   * Whether the input should be disabled.
+   */
+  disabled?: boolean;
 };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

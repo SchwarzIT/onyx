@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.38
+
+### Minor Changes
+
+- 5678b46: feat(OnyxInput): add property `readonly` and `disabled`
+
 ## 1.0.0-alpha.37
 
 ### Minor Changes
