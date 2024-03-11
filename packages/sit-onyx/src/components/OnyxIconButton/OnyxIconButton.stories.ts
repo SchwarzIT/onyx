@@ -1,5 +1,5 @@
 import { createIconSourceCodeTransformer, defineIconSelectArgType } from "@/utils/storybook";
-import checkSmall from "@sit-onyx/icons/message-dots.svg?raw";
+import messageDots from "@sit-onyx/icons/message-dots.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxIconButton from "./OnyxIconButton.vue";
