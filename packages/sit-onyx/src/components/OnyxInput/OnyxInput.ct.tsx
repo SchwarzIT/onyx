@@ -60,7 +60,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  variant: ["default", "placeholder", "initialValue", "autofill"],
+  variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
   writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
@@ -74,10 +74,11 @@ test(
       const component = await mount(
         <OnyxInput
           label="Label"
-          modelValue={variant === "initialValue" ? "Test value" : undefined}
+          modelValue={["initialValue", "loading"].includes(variant) ? "Test value" : undefined}
           placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
+          loading={variant === "loading"}
           autocomplete={variant === "autofill" ? "name" : undefined}
           style="width: 12rem;"
         />,

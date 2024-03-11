@@ -68,6 +68,17 @@ export const Disabled = {
 } satisfies Story;
 
 /**
+ * This example shows a loading input. User interaction is disabled while loading.
+ */
+export const Loading = {
+  args: {
+    ...Default.args,
+    modelValue: "Test value",
+    loading: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a input with autocomplete where the browser suggest to fill the input value.
  * Note: For this example you need to have set your name in your browser settings.
  */
