@@ -1,5 +1,16 @@
 # sit-onyx
 
+## 1.0.0-alpha.37
+
+### Minor Changes
+
+- d30c0b6: feat: add auto hyphens for multiline truncation
+
+### Patch Changes
+
+- d30c0b6: fix: top algin checkbox, radio button and switch when using multiline truncation
+- d30c0b6: fix: do not show Asterisk / optional label when label is hidden for OnyxCheckbox and OnyxSwitch
+
 ## 1.0.0-alpha.36
 
 ### Major Changes
