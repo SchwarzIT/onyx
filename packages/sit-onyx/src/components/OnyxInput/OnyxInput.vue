@@ -157,6 +157,7 @@ const patternSource = computed(() => {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    padding: 0;
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
