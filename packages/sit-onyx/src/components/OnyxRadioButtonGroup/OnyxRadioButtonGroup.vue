@@ -47,15 +47,28 @@ const handleChange = (event: ChangeEvent) =>
       class="onyx-radio-button-group__content"
       :class="{ 'onyx-radio-button-group__content--horizontal': props.direction === 'horizontal' }"
     >
-      <OnyxRadioButton
-        v-for="option in props.options"
-        :key="option.id"
-        v-bind="option"
-        :name="props.name"
-        :error-message="props.errorMessage"
-        :selected="option.id === props.modelValue?.id"
-        :required="props.required"
-      />
+      <template v-if="props.skeleton === undefined">
+        <OnyxRadioButton
+          v-for="option in props.options"
+          :key="option.id"
+          v-bind="option"
+          :name="props.name"
+          :error-message="props.errorMessage"
+          :selected="option.id === props.modelValue?.id"
+          :required="props.required"
+        />
+      </template>
+
+      <template v-else>
+        <OnyxRadioButton
+          v-for="i in props.skeleton"
+          :id="`skeleton-${i}`"
+          :key="i"
+          label="Skeleton ${i}"
+          :name="props.name"
+          skeleton
+        />
+      </template>
     </div>
   </fieldset>
 </template>

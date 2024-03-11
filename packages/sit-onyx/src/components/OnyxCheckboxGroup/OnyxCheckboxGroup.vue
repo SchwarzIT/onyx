@@ -59,20 +59,26 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
       class="onyx-checkbox-group__content"
       :class="{ 'onyx-checkbox-group__content--horizontal': props.direction === 'horizontal' }"
     >
-      <OnyxCheckbox
-        v-if="props.withCheckAll"
-        v-bind="masterCheckboxState"
-        :label="props.checkAllLabel || t('selectAll')"
-        @update:model-value="handleMasterCheckboxChange"
-      />
+      <template v-if="props.skeleton === undefined">
+        <OnyxCheckbox
+          v-if="props.withCheckAll"
+          v-bind="masterCheckboxState"
+          :label="props.checkAllLabel || t('selectAll')"
+          @update:model-value="handleMasterCheckboxChange"
+        />
 
-      <OnyxCheckbox
-        v-for="option in props.options"
-        :key="option.id.toString()"
-        v-bind="option"
-        :model-value="props.modelValue.includes(option.id)"
-        @update:model-value="handleUpdate(option.id, $event)"
-      />
+        <OnyxCheckbox
+          v-for="option in props.options"
+          :key="option.id.toString()"
+          v-bind="option"
+          :model-value="props.modelValue.includes(option.id)"
+          @update:model-value="handleUpdate(option.id, $event)"
+        />
+      </template>
+
+      <template v-else>
+        <OnyxCheckbox v-for="i in props.skeleton" :key="i" :label="`Skeleton ${i}`" skeleton />
+      </template>
     </div>
   </fieldset>
 </template>
