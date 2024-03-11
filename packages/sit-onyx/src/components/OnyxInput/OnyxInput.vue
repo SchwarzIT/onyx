@@ -113,7 +113,6 @@ const patternSource = computed(() => {
 
   $padding-vertical: var(--onyx-spacing-2xs);
   $line-height: 1.5rem;
-  $height: calc($line-height + 2 * $padding-vertical);
 
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
@@ -128,7 +127,7 @@ const patternSource = computed(() => {
     font-size: 1rem;
     line-height: $line-height;
 
-    height: $height;
+    height: calc($line-height + 2 * $padding-vertical);
     box-sizing: border-box;
 
     &:has(.onyx-input__native:enabled:hover) {
