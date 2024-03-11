@@ -45,6 +45,10 @@ const chartOptions: ChartOptions<"line"> = {
     intersect: false,
   },
   plugins: {
+    title: {
+      display: true,
+      text: "Example title",
+    },
     tooltip: {
       intersect: false,
     },
