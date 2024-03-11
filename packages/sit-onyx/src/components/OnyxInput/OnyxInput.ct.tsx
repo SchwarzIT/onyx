@@ -61,30 +61,37 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
 const STATES = {
   variant: ["default", "placeholder", "initialValue", "autofill"],
+  writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
 
 test(
   "State screenshot testing",
-  createScreenshotsForAllStates(STATES, "button", async ({ variant, focusState }, mount) => {
-    const component = await mount(
-      <OnyxInput
-        label="Label"
-        modelValue={variant === "initialValue" ? "Test value" : undefined}
-        placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
-        autocomplete={variant === "autofill" ? "name" : undefined}
-        style="width: 12rem;"
-      />,
-    );
+  createScreenshotsForAllStates(
+    STATES,
+    "button",
+    async ({ variant, writeMode, focusState }, mount) => {
+      const component = await mount(
+        <OnyxInput
+          label="Label"
+          modelValue={variant === "initialValue" ? "Test value" : undefined}
+          placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
+          readonly={writeMode === "readonly"}
+          disabled={writeMode === "disabled"}
+          autocomplete={variant === "autofill" ? "name" : undefined}
+          style="width: 12rem;"
+        />,
+      );
 
-    const input = component.getByLabel("Label");
+      const input = component.getByLabel("Label");
 
-    if (variant == "autofill") {
-      await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-    }
+      if (variant == "autofill") {
+        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+      }
 
-    if (focusState === "hover") await input.hover();
-    if (focusState === "focus") await input.focus();
-    return component;
-  }),
+      if (focusState === "hover") await input.hover();
+      if (focusState === "focus") await input.focus();
+      return component;
+    },
+  ),
 );

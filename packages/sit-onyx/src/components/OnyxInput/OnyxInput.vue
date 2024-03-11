@@ -6,6 +6,8 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
   type: "text",
   autocapitalize: "sentences",
+  readonly: false,
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -67,6 +69,8 @@ const patternSource = computed(() => {
         :autofocus="props.autofocus"
         :name="props.name"
         :pattern="patternSource"
+        :readonly="props.readonly"
+        :disabled="props.disabled"
         @change="handleChange"
         @focus="emit('focus')"
         @blur="emit('blur')"
@@ -99,7 +103,7 @@ const patternSource = computed(() => {
 }
 
 .onyx-input {
-  --border-color: var(--onyx-color-base-primary-500);
+  --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-primary-200);
 
   font-family: var(--onyx-font-family);
@@ -116,8 +120,8 @@ const patternSource = computed(() => {
 
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-    background-color: var(--onyx-color-base-background-blank);
+    border: var(--onyx-1px-in-rem) solid var(--border-color);
+    background-color-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     display: flex;
@@ -130,13 +134,31 @@ const patternSource = computed(() => {
     height: calc($line-height + 2 * $padding-vertical);
     box-sizing: border-box;
 
-    &:has(.onyx-input__native:enabled:hover) {
+    &:has(.onyx-input__native:read-write:hover) {
       border-color: var(--onyx-color-base-primary-400);
     }
 
     &:has(.onyx-input__native:enabled:focus) {
-      border-color: var(--border-color);
+      --border-color: var(--onyx-color-base-primary-500);
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+    }
+
+    // :read-only is valid for readonly and disabled state so we put shared styles for both states here
+    &:has(.onyx-input__native:read-only) {
+      --selection-color: var(--onyx-color-base-neutral-200);
+      background-color: var(--onyx-color-base-background-tinted);
+    }
+
+    // styles for readonly but NOT disabled
+    &:has(.onyx-input__native:enabled:read-only) {
+      &:has(.onyx-input__native:hover) {
+        --border-color: var(--onyx-color-base-neutral-400);
+      }
+
+      &:has(.onyx-input__native:focus) {
+        --border-color: var(--onyx-color-base-neutral-500);
+        outline-color: var(--onyx-color-base-neutral-200);
+      }
     }
 
     &:has(#{get-autofill-selectors(".onyx-input__native")}) {
@@ -175,6 +197,18 @@ const patternSource = computed(() => {
       // transition workaround to make the background transparent
       $one-year-in-seconds: 31536000s;
       transition: background-color $one-year-in-seconds;
+    }
+  }
+
+  &:has(&__native:disabled) {
+    .onyx-input {
+      &__label {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
+
+      &__wrapper {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
   }
 }
