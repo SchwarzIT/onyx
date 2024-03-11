@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
 });
 
 defineSlots<{
-  /** Slot for an custom icon */
+  /** Slot for an custom icon. Property `icon` will have no effect if custom content is passed. */
   default(props: Record<string, never>): unknown;
 }>();
 
