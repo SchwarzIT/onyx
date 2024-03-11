@@ -11,16 +11,17 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
     const primaryColor = getCSSVariableValue(`--onyx-color-base-${options.color}-500`);
     const backgroundColor = hexToRgb(primaryColor);
 
+    // style each available dataset
     chart.config.data.datasets.forEach((dataset) => {
+      // generic styles (apply to all chart types)
       dataset.borderColor = primaryColor;
       dataset.backgroundColor = `rgba(${backgroundColor}, 0.15)`;
       dataset.hoverBackgroundColor = `rgba(${backgroundColor}, 0.4)`;
 
-      if ("type" in chart.config) {
-        switch (chart.config.type) {
-          case "line":
-            styleLineDataset(dataset as ChartDataset<"line">, primaryColor);
-        }
+      // special styles depending on the chart type
+      if (!("type" in chart.config)) return;
+      if (chart.config.type === "line") {
+        styleLineDataset(dataset as ChartDataset<"line">, primaryColor);
       }
     });
 
