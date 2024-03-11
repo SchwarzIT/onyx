@@ -6,7 +6,7 @@ import OnyxIconButton from "./OnyxIconButton.vue";
 import { h } from "vue";
 
 /**
- * Icon Buttons are special button which has no visual label.
+ * The icon button is a special button which has no visual label.
  */
 const meta: Meta<typeof OnyxIconButton> = {
   title: "components/OnyxIconButton",
