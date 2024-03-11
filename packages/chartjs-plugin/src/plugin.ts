@@ -8,28 +8,22 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
     color: "primary",
   },
   beforeUpdate: (chart, args, options) => {
+    const plugins = chart.options.plugins ?? {};
+
     // style default Chart.js plugins (tooltips, legend etc.)
-    if (chart.options.plugins?.tooltip) {
-      chart.options.plugins.tooltip.backgroundColor = getCSSVariableValue(
-        "--onyx-color-base-neutral-900",
-      );
-
+    if (plugins.tooltip) {
       const invertedTextColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-
-      chart.options.plugins.tooltip.titleColor = invertedTextColor;
-      chart.options.plugins.tooltip.bodyColor = invertedTextColor;
+      plugins.tooltip.titleColor = invertedTextColor;
+      plugins.tooltip.bodyColor = invertedTextColor;
+      plugins.tooltip.backgroundColor = getCSSVariableValue("--onyx-color-base-neutral-900");
     }
 
-    if (chart.options.plugins?.legend?.labels) {
-      chart.options.plugins.legend.labels.color = getCSSVariableValue(
-        "--onyx-color-text-icons-neutral-medium",
-      );
+    if (plugins.legend?.labels) {
+      plugins.legend.labels.color = getCSSVariableValue("--onyx-color-text-icons-neutral-medium");
     }
 
-    if (chart.options.plugins?.title) {
-      chart.options.plugins.title.color = getCSSVariableValue(
-        "--onyx-color-text-icons-neutral-intense",
-      );
+    if (plugins.title) {
+      plugins.title.color = getCSSVariableValue("--onyx-color-text-icons-neutral-intense");
     }
 
     const primaryColor = getCSSVariableValue(`--onyx-color-base-${options.color}-500`);
