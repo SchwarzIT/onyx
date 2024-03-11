@@ -7,7 +7,31 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
   defaults: {
     color: "primary",
   },
-  beforeLayout: (chart, args, options) => {
+  beforeUpdate: (chart, args, options) => {
+    // style default Chart.js plugins (tooltips, legend etc.)
+    if (chart.options.plugins?.tooltip) {
+      chart.options.plugins.tooltip.backgroundColor = getCSSVariableValue(
+        "--onyx-color-base-neutral-900",
+      );
+
+      const invertedTextColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+
+      chart.options.plugins.tooltip.titleColor = invertedTextColor;
+      chart.options.plugins.tooltip.bodyColor = invertedTextColor;
+    }
+
+    if (chart.options.plugins?.legend?.labels) {
+      chart.options.plugins.legend.labels.color = getCSSVariableValue(
+        "--onyx-color-text-icons-neutral-medium",
+      );
+    }
+
+    if (chart.options.plugins?.title) {
+      chart.options.plugins.title.color = getCSSVariableValue(
+        "--onyx-color-text-icons-neutral-intense",
+      );
+    }
+
     const primaryColor = getCSSVariableValue(`--onyx-color-base-${options.color}-500`);
     const backgroundColor = hexToRgb(primaryColor);
 
@@ -18,14 +42,12 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
         dataset.borderColor = primaryColor;
       }
       if (!dataset.backgroundColor) {
-        dataset.backgroundColor = `rgba(${backgroundColor}, 0.15)`;
+        dataset.backgroundColor = `rgba(${backgroundColor}, 0.3)`;
       }
 
       // special styles depending on the chart type
       if (!("type" in chart.config)) return;
-      if (chart.config.type === "line") {
-        styleLineDataset(dataset as ChartDataset<"line">, primaryColor);
-      }
+      if (chart.config.type === "line") styleLineDataset(dataset as ChartDataset<"line">);
     });
 
     if (!chart.config.options) chart.config.options = {};
@@ -33,17 +55,6 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
     Object.values(chart.config.options.scales ?? {}).forEach((scale) => {
       if (!scale) return;
       styleScale(scale);
-    });
-
-    if (chart.config.options.plugins?.title) {
-      chart.config.options.plugins.title.color = getCSSVariableValue(
-        "--onyx-color-text-icons-neutral-intense",
-      );
-    }
-  },
-  beforeDraw: (chart) => {
-    chart.legend?.legendItems?.forEach((item) => {
-      item.fontColor = getCSSVariableValue("--onyx-color-text-icons-neutral-intense");
     });
   },
   /**
@@ -59,6 +70,7 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
 
       // update chart so the colors are updated to light/dark mode
       if (oldTheme !== newTheme) chart.update();
+      // chart.reset()
     });
 
     const observerOptions: MutationObserverInit = {
@@ -79,11 +91,11 @@ const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["titl
 
   scale.grid = {
     ...scale.grid,
-    color: getCSSVariableValue("--onyx-color-base-neutral-200"),
+    color: getCSSVariableValue("--onyx-color-base-neutral-300"),
   };
   scale.ticks = {
     ...scale.ticks,
-    color: getCSSVariableValue("--onyx-color-text-icons-neutral-soft"),
+    color: getCSSVariableValue("--onyx-color-text-icons-neutral-medium"),
     font: {
       family: fontFamily,
       size: 13,
@@ -92,7 +104,7 @@ const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["titl
 
   scale.title = {
     ...scale.title,
-    color: getCSSVariableValue("--onyx-color-text-icons-neutral-intense"),
+    color: getCSSVariableValue("--onyx-color-text-icons-neutral-soft"),
     font: {
       family: fontFamily,
       size: 16,
@@ -100,14 +112,11 @@ const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["titl
   };
 };
 
-const styleLineDataset = (data: ChartDataset<"line">, primaryColor: string) => {
+const styleLineDataset = (data: ChartDataset<"line">) => {
   if (!data.pointBorderColor) {
-    data.pointBorderColor = primaryColor;
+    data.pointBorderColor = getCSSVariableValue("--onyx-color-base-neutral-700");
   }
   if (!data.pointBackgroundColor) {
-    data.pointBackgroundColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-  }
-  if (!data.pointHoverBackgroundColor) {
-    data.pointHoverBackgroundColor = primaryColor;
+    data.pointBackgroundColor = getCSSVariableValue("--onyx-color-base-neutral-100");
   }
 };
