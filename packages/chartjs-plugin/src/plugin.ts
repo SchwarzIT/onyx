@@ -14,9 +14,12 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
     // style each available dataset
     chart.config.data.datasets.forEach((dataset) => {
       // generic styles (apply to all chart types)
-      dataset.borderColor = primaryColor;
-      dataset.backgroundColor = `rgba(${backgroundColor}, 0.15)`;
-      dataset.hoverBackgroundColor = `rgba(${backgroundColor}, 0.4)`;
+      if (!dataset.borderColor) {
+        dataset.borderColor = primaryColor;
+      }
+      if (!dataset.backgroundColor) {
+        dataset.backgroundColor = `rgba(${backgroundColor}, 0.15)`;
+      }
 
       // special styles depending on the chart type
       if (!("type" in chart.config)) return;
@@ -98,7 +101,13 @@ const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["titl
 };
 
 const styleLineDataset = (data: ChartDataset<"line">, primaryColor: string) => {
-  data.pointBorderColor = primaryColor;
-  data.pointBackgroundColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-  data.pointHoverBackgroundColor = primaryColor;
+  if (!data.pointBorderColor) {
+    data.pointBorderColor = primaryColor;
+  }
+  if (!data.pointBackgroundColor) {
+    data.pointBackgroundColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+  }
+  if (!data.pointHoverBackgroundColor) {
+    data.pointHoverBackgroundColor = primaryColor;
+  }
 };
