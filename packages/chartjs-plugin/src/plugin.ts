@@ -1,5 +1,6 @@
 import type { ChartDataset, ChartType, Plugin, ScaleOptions } from "chart.js";
 import type { OnyxChartOptions } from "./types";
+import { getCSSVariableValue, hexToRgb } from "./utils";
 
 export const plugin: Plugin<ChartType, OnyxChartOptions> = {
   id: "onyx",
@@ -24,12 +25,17 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
     });
 
     if (!chart.config.options) chart.config.options = {};
-    if (!chart.config.options.plugins) chart.config.options.plugins = {};
 
     Object.values(chart.config.options.scales ?? {}).forEach((scale) => {
       if (!scale) return;
       styleScale(scale);
     });
+
+    if (chart.config.options.plugins?.title) {
+      chart.config.options.plugins.title.color = getCSSVariableValue(
+        "--onyx-color-text-icons-neutral-intense",
+      );
+    }
   },
   beforeDraw: (chart) => {
     chart.legend?.legendItems?.forEach((item) => {
@@ -62,19 +68,8 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
 };
 
 /**
- * Gets the current value of the given CSS variable.
- * @param CSS variable name, e.g. `--onyx-color-base-primary-500`
+ * Styles the given scale (e.g. x or y). Sets the grid, tickets and title font styles.
  */
-export const getCSSVariableValue = (variableName: string) => {
-  return getComputedStyle(document.body).getPropertyValue(variableName);
-};
-
-const styleLineDataset = (data: ChartDataset<"line">, primaryColor: string) => {
-  data.pointBorderColor = primaryColor;
-  data.pointBackgroundColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-  data.pointHoverBackgroundColor = primaryColor;
-};
-
 const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["title"] }) => {
   const fontFamily = getCSSVariableValue("--onyx-font-family");
 
@@ -101,13 +96,8 @@ const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["titl
   };
 };
 
-/**
- * Converts the given HEX color to rgb.
- */
-const hexToRgb = (hex: string) => {
-  const bigint = parseInt(hex.replace("#", ""), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
-  return `${r}, ${g}, ${b}`;
+const styleLineDataset = (data: ChartDataset<"line">, primaryColor: string) => {
+  data.pointBorderColor = primaryColor;
+  data.pointBackgroundColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+  data.pointHoverBackgroundColor = primaryColor;
 };

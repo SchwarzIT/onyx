@@ -6,8 +6,6 @@ import { Line } from "vue-chartjs";
 export type ChartItem = {
   label: string;
   value: number;
-  /** Can be set to change label inside the tooltip. If not set, `label` will be used. */
-  tooltipLabel?: string;
 };
 
 const props = defineProps<{
@@ -49,9 +47,6 @@ const chartOptions = computed<ChartOptions<"line">>(() => {
           display: true,
           text: props.yScaleLabel,
         },
-        grid: {
-          lineWidth: (context) => (context.tick.value == 0 ? 3 : 1),
-        },
       },
     },
     hover: {
@@ -60,12 +55,10 @@ const chartOptions = computed<ChartOptions<"line">>(() => {
     plugins: {
       tooltip: {
         intersect: false,
-        callbacks: {
-          label: (item) => {
-            const chartItem = props.items[item.dataIndex];
-            return chartItem?.tooltipLabel ?? item.label;
-          },
-        },
+      },
+      title: {
+        text: "Example chart title",
+        display: true,
       },
     },
   };
