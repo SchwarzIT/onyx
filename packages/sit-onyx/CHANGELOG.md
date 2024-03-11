@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.0.0-alpha.36
+
+### Major Changes
+
+- e4e1983: bump minimum TypeScript version to 5.2.2
+
+### Minor Changes
+
+- e4e1983: feat(OnyxInput): add properties autocapitalize, autocomplete, autofocus, name and pattern
+
 ## 1.0.0-alpha.35
 
 ### Minor Changes
