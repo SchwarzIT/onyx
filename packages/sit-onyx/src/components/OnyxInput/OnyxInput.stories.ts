@@ -66,3 +66,14 @@ export const Disabled = {
     modelValue: "Test value",
   },
 } satisfies Story;
+
+/**
+ * This example shows a loading input. User interacting is disabled while loading.
+ */
+export const Loading = {
+  args: {
+    ...Default.args,
+    placeholder: "Placeholder...",
+    loading: true,
+  },
+} satisfies Story;
