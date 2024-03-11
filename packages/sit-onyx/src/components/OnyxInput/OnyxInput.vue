@@ -121,7 +121,7 @@ const patternSource = computed(() => {
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
-    background-color-color: var(--onyx-color-base-background-blank);
+    background-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     display: flex;
