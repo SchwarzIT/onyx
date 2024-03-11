@@ -1,4 +1,5 @@
 import type { ButtonType, ButtonVariation } from "../OnyxButton/types";
+import type { IconSize } from "../OnyxIcon/types";
 
 export type OnyxIconButtonProps = {
   /**
@@ -26,4 +27,9 @@ export type OnyxIconButtonProps = {
    * The icon which will be displayed. Doesn't have an effect when custom content is passed via the `default` slot.
    */
   icon?: string;
+  /**
+   * Icon size. Pixel values will be translated to the according `rem` value by the base of `16px`=`1rem`.
+   * @default 24px
+   */
+  size?: IconSize;
 };
