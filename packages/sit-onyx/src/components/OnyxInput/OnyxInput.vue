@@ -82,6 +82,7 @@ const patternSource = computed(() => {
   --selection-color: var(--onyx-color-base-primary-200);
 
   font-family: var(--onyx-font-family);
+  display: block;
 
   &__label {
     display: block;
