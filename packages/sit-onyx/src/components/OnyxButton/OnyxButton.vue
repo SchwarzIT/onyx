@@ -141,7 +141,7 @@ $button-height: 2.5rem;
     }
   }
 
-  &:hover:enabled {
+  &:hover:enabled:not(:active) {
     --onyx-button-background-color: var(--onyx-button-background-hover-color);
   }
 

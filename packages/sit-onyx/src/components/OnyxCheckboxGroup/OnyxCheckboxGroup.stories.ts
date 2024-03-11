@@ -30,7 +30,6 @@ export const Default = {
       { label: "Initially checked", id: "id-2" },
       { label: "Required", id: "id-3", required: true },
       { label: "Disabled", id: "id-4", disabled: true },
-      { label: "Skeleton", id: "id-5", skeleton: true },
     ],
   },
 } satisfies Story;
@@ -83,4 +82,15 @@ export const WithTruncation = {
     ],
   },
   decorators: [createTruncationDecorator("16rem")],
+} satisfies Story;
+
+/**
+ * This example shows a skeleton checkbox group.
+ * The number of skeleton options shown can be set via the `skeleton` property.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: 3,
+  },
 } satisfies Story;

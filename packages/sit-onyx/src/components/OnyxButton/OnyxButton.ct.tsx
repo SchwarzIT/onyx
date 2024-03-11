@@ -72,7 +72,7 @@ const STATES = {
   state: ["default", "disabled", "icon"],
   variation: ["primary", "secondary", "danger"],
   mode: ["default", "outline", "plain"],
-  focusState: ["", "hover", "focus-visible"],
+  focusState: ["", "hover", "focus-visible", "active"],
 } as const;
 
 test(
@@ -94,6 +94,7 @@ test(
       const button = component.getByRole("button");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await button.hover();
+      if (focusState === "active") await page.mouse.down();
       return component;
     },
   ),

@@ -37,6 +37,10 @@ export type OnyxRadioButtonGroupProps<TValue> = {
    * Options for the individual radio buttons of the group.
    */
   options: SelectionOption<TValue>[];
+  /**
+   * If set, the specified number of skeleton radio buttons will be shown.
+   */
+  skeleton?: number;
 };
 
 export const RADIO_BUTTON_GROUP_DIRECTIONS = ["horizontal", "vertical"] as const;
