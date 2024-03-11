@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.34
+
+### Patch Changes
+
+- a8ad4ff: fix(OnyxButton): add active state
+
 ## 1.0.0-alpha.33
 
 ### Minor Changes
