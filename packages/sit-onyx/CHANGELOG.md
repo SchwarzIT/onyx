@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.39
+
+### Minor Changes
+
+- c4d1c19: feat(OnyxInput): add property `loading`
+
 ## 1.0.0-alpha.38
 
 ### Minor Changes
