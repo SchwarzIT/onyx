@@ -60,7 +60,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  variant: ["default", "placeholder", "initialValue"],
+  variant: ["default", "placeholder", "initialValue", "loading"],
   writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
@@ -78,6 +78,7 @@ test(
           placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
+          loading={variant === "loading"}
           style="width: 12rem;"
         />,
       );

@@ -68,7 +68,7 @@ export const Disabled = {
 } satisfies Story;
 
 /**
- * This example shows a loading input. User interacting is disabled while loading.
+ * This example shows a loading input. User interaction is disabled while loading.
  */
 export const Loading = {
   args: {
