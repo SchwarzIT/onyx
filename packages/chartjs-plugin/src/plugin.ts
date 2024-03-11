@@ -64,7 +64,6 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
 
       // update chart so the colors are updated to light/dark mode
       if (oldTheme !== newTheme) chart.update();
-      // chart.reset()
     });
 
     const observerOptions: MutationObserverInit = {
