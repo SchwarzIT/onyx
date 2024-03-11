@@ -1,5 +1,5 @@
 {
-  "optional": "(optional)",
+  "optional": "(선택사항)",
   "validations": {
     "tooShort": "{minLength}자 이상으로 입력하세요. (현재 1글자 입력 중) | {minLength}자 이상으로 입력하세요. (현재 {n}글자 입력 중)",
     "tooLong": "{maxLength}자 이하로 입력하세요. (현재 1글자 입력 중) | {maxLength}자 이하로 입력하세요. (현재 {n}글자 입력 중)",
