@@ -1,9 +1,9 @@
-export const DENSITY = ["cozy", "default", "compact"] as const;
+const DENSITY = ["cozy", "default", "compact"] as const;
 export type DensityType = (typeof DENSITY)[number];
 
 export type DensityProp = {
   /**
-   * Density setting aseaes
+   * Density defines the base height of the interactive main element of a component.
    */
   density?: DensityType;
 };
