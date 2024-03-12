@@ -52,11 +52,15 @@ yarn install @sit-onyx/chartjs-plugin@alpha chart.js
 ## Usage
 
 ```ts
-import { Chart } from "chart.js";
-import { plugin } from "@sit-onyx/chartjs-plugin";
+import { Chart, registerables } from "chart.js";
+import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
 import "sit-onyx/style.css";
 
-Chart.register(plugin);
+// register default Chart.js plugins
+Chart.register(...registerables);
+
+// register custom onyx plugin
+registerOnyxPlugin(Chart);
 ```
 
 ## Examples

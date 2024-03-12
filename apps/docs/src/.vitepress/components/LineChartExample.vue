@@ -4,7 +4,6 @@ import { Chart, registerables, type ChartData, type ChartOptions } from "chart.j
 import { Line } from "vue-chartjs";
 
 Chart.register(...registerables);
-
 registerOnyxPlugin(Chart);
 
 const items = [
