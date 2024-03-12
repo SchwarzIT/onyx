@@ -97,6 +97,6 @@ test(
       if (focusState === "active") await page.mouse.down();
       return component;
     },
-    { disableAxeCheck: true },
+    { disableAxeCheck: true }, // TODO: must be addressed by UX, see [#577](https://github.com/orgs/SchwarzIT/projects/5?pane=issue&itemId=56062129)
   ),
 );
