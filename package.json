@@ -47,7 +47,7 @@
     "rimraf": "^5.0.5",
     "sass": "^1.71.1",
     "simple-git-hooks": "^2.10.0",
-    "storybook": "^8.0.0-rc.3",
+    "storybook": "^8.0.0",
     "typescript": "~5.4.2",
     "vite": "^5.1.5",
     "vite-plugin-dts": "^3.7.3",
