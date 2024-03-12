@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.41
+
+### Minor Changes
+
+- 05b233a: feat(i18n): support Korean Language for i18n
+
 ## 1.0.0-alpha.40
 
 ### Minor Changes
