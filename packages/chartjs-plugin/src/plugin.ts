@@ -55,6 +55,10 @@ export const registerOnyxPlugin = (chart: typeof Chart) => {
     size: 16,
   };
 
+  chart.defaults.scales.radialLinear.ticks.backdropColor = () => {
+    return getCSSVariableValue("--onyx-color-base-background-tinted");
+  };
+
   Object.entries(chart.defaults.scales).forEach(([key, scale]) => {
     // exclude radialLinear scale because it does not support a title
     if (key === "radialLinear") return;
