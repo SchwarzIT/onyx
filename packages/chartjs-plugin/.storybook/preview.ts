@@ -1,6 +1,6 @@
 import { createPreview } from "@sit-onyx/storybook-utils";
 import { setup } from "@storybook/vue3";
-import { Chart as ChartJS, registerables } from "chart.js";
+import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "../src";
 
 import "@sit-onyx/storybook-utils/style.css";
@@ -15,6 +15,6 @@ const preview = {
 export default preview;
 
 setup(() => {
-  ChartJS.register(...registerables);
-  registerOnyxPlugin(ChartJS);
+  Chart.register(...registerables);
+  registerOnyxPlugin(Chart);
 });

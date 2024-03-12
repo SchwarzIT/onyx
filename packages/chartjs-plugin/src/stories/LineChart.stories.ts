@@ -1,5 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { ONYX_COLORS } from "../types";
 import LineChart from "./LineChart.vue";
 
 const meta: Meta<typeof LineChart> = {
@@ -7,22 +8,16 @@ const meta: Meta<typeof LineChart> = {
   ...defineStorybookActionsAndVModels({
     component: LineChart,
     events: [],
+    argTypes: {
+      color: {
+        options: ONYX_COLORS,
+        control: { type: "select" },
+      },
+    },
   }),
 };
 
 export default meta;
 type Story = StoryObj<typeof LineChart>;
 
-export const Default = {
-  args: {
-    xScaleLabel: "x scale label",
-    yScaleLabel: "y scale label",
-    items: [
-      { label: "01.01.2022", value: 19.99 },
-      { label: "01.02.2022", value: -42 },
-      { label: "01.03.2022", value: 39.98 },
-      { label: "01.04.2022", value: 59.97 },
-      { label: "01.05.2022", value: 42 },
-    ],
-  },
-} satisfies Story;
+export const Default = { args: {} } satisfies Story;

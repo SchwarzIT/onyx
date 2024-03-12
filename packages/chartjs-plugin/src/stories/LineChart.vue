@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import { type ChartData, type ChartOptions } from "chart.js";
+import type { ChartData, ChartOptions } from "chart.js";
 import { computed } from "vue";
 import { Line } from "vue-chartjs";
-
-export type ChartItem = {
-  label: string;
-  value: number;
-};
+import type { OnyxColor } from "../types";
 
 const props = defineProps<{
-  items: ChartItem[];
-  xScaleLabel: string;
-  yScaleLabel: string;
+  color?: OnyxColor;
 }>();
 
-const chartData = computed<ChartData<"line">>(() => {
-  return {
-    labels: props.items.map((item) => item.label),
-    datasets: [
-      {
-        data: props.items.map((item) => item.value),
-        label: "Label",
-        fill: true,
-      },
-    ],
-  };
-});
+const items = [
+  { label: "01.01.2024", value: 19.99 },
+  { label: "01.02.2024", value: -42 },
+  { label: "01.03.2024", value: 39.98 },
+  { label: "01.04.2024", value: 59.97 },
+  { label: "01.05.2024", value: 42 },
+];
+
+const chartData: ChartData<"line"> = {
+  labels: items.map((item) => item.label),
+  datasets: [
+    {
+      data: items.map((item) => item.value),
+      label: "Label",
+      fill: true,
+    },
+  ],
+};
 
 const chartOptions = computed<ChartOptions<"line">>(() => {
   return {
@@ -35,16 +35,13 @@ const chartOptions = computed<ChartOptions<"line">>(() => {
       x: {
         title: {
           display: true,
-          text: props.xScaleLabel,
-        },
-        ticks: {
-          autoSkip: true,
+          text: "x scale label",
         },
       },
       y: {
         title: {
           display: true,
-          text: props.yScaleLabel,
+          text: "y scale label",
         },
       },
     },
@@ -52,12 +49,15 @@ const chartOptions = computed<ChartOptions<"line">>(() => {
       intersect: false,
     },
     plugins: {
+      title: {
+        display: true,
+        text: "Example title",
+      },
       tooltip: {
         intersect: false,
       },
-      title: {
-        text: "Example chart title",
-        display: true,
+      onyx: {
+        color: props.color,
       },
     },
   };
