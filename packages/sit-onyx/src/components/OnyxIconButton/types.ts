@@ -1,3 +1,4 @@
+import type { DensityProp } from "../../styles/density";
 import type { ButtonType, ButtonVariation } from "../OnyxButton/types";
 import type { IconSize } from "../OnyxIcon/types";
 
@@ -32,4 +33,4 @@ export type OnyxIconButtonProps = {
    * @default 24px
    */
   size?: IconSize;
-};
+} & DensityProp;

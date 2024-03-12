@@ -27,7 +27,10 @@ const handleChange = (event: ChangeEvent) =>
 
 <template>
   <fieldset
-    class="onyx-radio-button-group"
+    :class="{
+      'onyx-radio-button-group': true,
+      [`onyx-density-${props.density}`]: props.density,
+    }"
     :disabled="props.disabled"
     @change="handleChange($event as ChangeEvent)"
   >

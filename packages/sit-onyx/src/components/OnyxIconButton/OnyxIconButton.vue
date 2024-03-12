@@ -23,11 +23,12 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="onyx-icon-button"
     :aria-label="props.label"
     :class="{
+      'onyx-icon-button': true,
       [`onyx-icon-button--${props.variation}`]: true,
       'onyx-icon-button--loading': props.loading,
+      [`onyx-density-${props.density}`]: props.density,
     }"
     :disabled="props.disabled || props.loading"
     @click="emit('click')"
@@ -46,7 +47,8 @@ const emit = defineEmits<{
 
   display: grid;
   place-items: center;
-  padding: var(--onyx-spacing-2xs);
+  height: var(--onyx-density);
+  aspect-ratio: 1;
   color: var(--icon-button-color);
   cursor: var(--icon-button-cursor);
 

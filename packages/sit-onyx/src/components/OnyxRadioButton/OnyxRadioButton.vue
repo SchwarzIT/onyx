@@ -21,7 +21,11 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-radio-button" :title="props.errorMessage">
+  <label
+    v-else
+    :class="{ 'onyx-radio-button': true, [`onyx-density-${props.density}`]: props.density }"
+    :title="props.errorMessage"
+  >
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       ref="selectorRef"
@@ -54,6 +58,7 @@ $input-size: var(--onyx-spacing-md);
   align-items: flex-start;
   max-width: 100%;
   cursor: var(--onyx-radio-button-cursor);
+  height: var(--onyx-density);
 
   &:has(&__selector:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
@@ -103,7 +108,7 @@ $input-size: var(--onyx-spacing-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-radio-button-label-color);
     line-height: var(--onyx-spacing-lg);
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) var(--onyx-spacing-2xs) 0;
+    padding-top: var(--onyx-spacing-2xs);
   }
 
   &__selector {

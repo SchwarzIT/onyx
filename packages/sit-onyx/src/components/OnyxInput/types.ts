@@ -1,3 +1,5 @@
+import type { DensityProp } from "../../styles/density";
+
 export type OnyxInputProps = {
   /**
    * Label to show above the input.
@@ -61,7 +63,7 @@ export type OnyxInputProps = {
    * Whether the input is loading. User interaction will be disabled.
    */
   loading?: boolean;
-};
+} & DensityProp;
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];

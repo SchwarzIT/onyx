@@ -56,7 +56,12 @@ const patternSource = computed(() => {
       {{ props.label }}
     </span>
 
-    <div class="onyx-input__wrapper">
+    <div
+      :class="{
+        ['onyx-input__wrapper']: true,
+        [`onyx-density-${props.density}`]: props.density,
+      }"
+    >
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
 
       <!-- eslint-disable vuejs-accessibility/no-autofocus -
@@ -116,7 +121,7 @@ const patternSource = computed(() => {
 
     box-sizing: border-box;
     padding: $padding-vertical var(--onyx-spacing-sm);
-    height: calc($line-height + 2 * $padding-vertical);
+    height: var(--onyx-density);
 
     &:has(.onyx-input__native:read-write:hover) {
       border-color: var(--onyx-color-base-primary-400);
