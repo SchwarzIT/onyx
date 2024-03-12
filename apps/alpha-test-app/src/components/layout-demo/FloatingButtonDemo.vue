@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { OnyxButton } from "sit-onyx";
+import { OnyxIconButton } from "sit-onyx";
 
 const isOpen = defineModel<boolean>();
 </script>
 
 <template>
-  <OnyxButton
+  <OnyxIconButton
     label="Open Sidebar"
     class="floating-button"
     :icon="chevronRightSmall"
