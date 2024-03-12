@@ -87,6 +87,33 @@ const STATES = {
   focusState: ["", "hover", "focus"],
 } as const;
 
+test("should show message", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxInput label="Label" message="Test message" style="width: 12rem;" />,
+  );
+  const input = component.getByLabel("Label");
+
+  // ACT
+  await component.getByText("Test message").focus();
+
+  // ASSERT
+  await expect(component).toContainText("Test message");
+  await expect(input).not.toBeFocused();
+  await expect(component).toHaveScreenshot("message.png");
+});
+
+test("should show counter", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxInput label="Label" maxlength={16} modelValue="Test" withCounter style="width: 12rem;" />,
+  );
+
+  // ASSERT
+  await expect(component).toContainText("4/16");
+  await expect(component).toHaveScreenshot("counter.png");
+});
+
 test(
   "State screenshot testing",
   createScreenshotsForAllStates(
