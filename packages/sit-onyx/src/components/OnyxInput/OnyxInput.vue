@@ -49,44 +49,57 @@ const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
   return props.pattern;
 });
+
+const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </script>
 
 <template>
-  <label class="onyx-input">
-    <div
-      class="onyx-input__label onyx-text--small"
-      :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
-    >
-      <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
-    </div>
+  <div class="onyx-input">
+    <label>
+      <div
+        class="onyx-input__label onyx-text--small"
+        :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
+      >
+        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+      </div>
 
-    <div class="onyx-input__wrapper">
-      <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
+      <div class="onyx-input__wrapper">
+        <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
 
-      <!-- eslint-disable vuejs-accessibility/no-autofocus -
+        <!-- eslint-disable vuejs-accessibility/no-autofocus -
          We want to provide the flexibility to have the autofocus property.
          The JSDoc description includes a warning that it should be used carefully.
       -->
-      <input
-        v-model="value"
-        class="onyx-input__native"
-        :placeholder="props.placeholder"
-        :type="props.type"
-        :required="props.required"
-        :autocapitalize="props.autocapitalize"
-        :autocomplete="props.autocomplete"
-        :autofocus="props.autofocus"
-        :name="props.name"
-        :pattern="patternSource"
-        :readonly="props.readonly"
-        :disabled="props.disabled || props.loading"
-        @change="handleChange"
-        @focus="emit('focus')"
-        @blur="emit('blur')"
-      />
-      <!-- eslint-enable vuejs-accessibility/no-autofocus -->
+        <input
+          v-model="value"
+          class="onyx-input__native"
+          :placeholder="props.placeholder"
+          :type="props.type"
+          :required="props.required"
+          :autocapitalize="props.autocapitalize"
+          :autocomplete="props.autocomplete"
+          :autofocus="props.autofocus"
+          :name="props.name"
+          :pattern="patternSource"
+          :readonly="props.readonly"
+          :disabled="props.disabled || props.loading"
+          :minlength="props.minlength"
+          :maxlength="props.maxlength"
+          @change="handleChange"
+          @focus="emit('focus')"
+          @blur="emit('blur')"
+        />
+        <!-- eslint-enable vuejs-accessibility/no-autofocus -->
+      </div>
+    </label>
+
+    <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
+      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <span v-if="shouldShowCounter" class="onyx-input__counter">
+        {{ value.length }}/{{ props.maxlength }}
+      </span>
     </div>
-  </label>
+  </div>
 </template>
 
 <style lang="scss">
@@ -96,6 +109,10 @@ const patternSource = computed(() => {
 
   font-family: var(--onyx-font-family);
   display: block;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-5xs);
 
   &__label {
     display: flex;
@@ -193,6 +210,19 @@ const patternSource = computed(() => {
 
   &__loading {
     color: var(--onyx-color-text-icons-primary-intense);
+  }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-2xs);
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &__counter {
+    text-align: right;
+    flex-grow: 1;
   }
 }
 </style>
