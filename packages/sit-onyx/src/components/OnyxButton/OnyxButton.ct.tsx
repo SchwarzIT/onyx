@@ -69,7 +69,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "icon"],
+  state: ["default", "disabled", "icon", "loading"],
   variation: ["primary", "secondary", "danger"],
   mode: ["default", "outline", "plain"],
   focusState: ["", "hover", "focus-visible", "active"],
@@ -87,6 +87,7 @@ test(
           variation={variation}
           mode={mode}
           disabled={state === "disabled"}
+          loading={state === "loading"}
           icon={state === "icon" ? mockPlaywrightIcon : undefined}
         />,
       );

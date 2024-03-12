@@ -1,4 +1,5 @@
 <script lang="ts" setup generic="TValue">
+import { OnyxLoadingIndicator } from "@/index";
 import { ref, watchEffect } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps } from "./types";
@@ -7,6 +8,7 @@ const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
   disabled: false,
   required: false,
   selected: false,
+  loading: false,
   truncation: "ellipsis",
 });
 
@@ -22,8 +24,10 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   </div>
 
   <label v-else class="onyx-radio-button" :title="props.errorMessage">
+    <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
+      v-else
       ref="selectorRef"
       class="onyx-radio-button__selector"
       type="radio"
@@ -94,6 +98,10 @@ $input-size: var(--onyx-spacing-md);
     --onyx-radio-button-cursor: default;
   }
 
+  &:has(&__loading) {
+    --onyx-radio-button-cursor: default;
+  }
+
   &:has(&__selector:disabled:checked) {
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-neutral-300);
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-300);
@@ -145,6 +153,14 @@ $input-size: var(--onyx-spacing-md);
       background-color: var(--onyx-color-base-background-blank);
       border-radius: 100%;
     }
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+    width: 1rem;
+    height: 1rem;
+    margin: var(--onyx-spacing-sm);
+    align-self: center;
   }
 }
 

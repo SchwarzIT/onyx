@@ -7,11 +7,13 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
+import { OnyxLoadingIndicator } from "@/index";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
   required: false,
+  loading: false,
   truncation: "ellipsis",
   skeleton: false,
 });
@@ -75,12 +77,17 @@ const requiredMarkerClass = computed(() => {
       class="onyx-switch__input"
       type="checkbox"
       :aria-label="props.hideLabel ? props.label : undefined"
-      :disabled="props.disabled"
+      :disabled="props.disabled || props.loading"
       :required="props.required"
     />
     <span class="onyx-switch__container">
       <span class="onyx-switch__icon">
-        <OnyxIcon :icon="isChecked ? checkSmall : xSmall" size="24px" />
+        <OnyxLoadingIndicator
+          v-if="!props.disabled && props.loading"
+          class="onyx-switch__loading"
+          type="circle"
+        />
+        <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
 
@@ -123,9 +130,13 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         transform: translateX(calc(75% - $container-padding));
         color: var(--onyx-color-text-icons-primary-intense);
       }
+
+      .onyx-switch__loading {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
     }
 
-    &:checked:disabled + .onyx-switch__container {
+    &:checked:disabled &:not(.onyx-switch__loading) + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-200);
 
       .onyx-switch__icon {
@@ -134,7 +145,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
       }
     }
 
-    &:disabled + .onyx-switch__container {
+    &:disabled &:not(.onyx-switch__loading) + .onyx-switch__container {
       background-color: var(--onyx-color-base-neutral-200);
 
       .onyx-switch__icon {
@@ -187,9 +198,15 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         background-color var(--onyx-duration-sm) ease;
       overflow: hidden;
       color: var(--onyx-color-text-icons-neutral-soft);
+      height: $icon-size;
+      width: $icon-size;
 
       .onyx-icon {
         --icon-size: #{$icon-size};
+      }
+
+      .onyx-switch__loading {
+        color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
   }

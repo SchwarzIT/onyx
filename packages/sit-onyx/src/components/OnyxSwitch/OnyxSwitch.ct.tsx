@@ -103,7 +103,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "required", "optional"],
+  state: ["default", "disabled", "required", "optional", "loading"],
   select: ["unselected", "selected"],
   focusState: ["", "hover", "focus-visible"],
   labeled: ["labeled", "unlabeled"],
@@ -121,6 +121,7 @@ test(
           label={labeled}
           hideLabel={labeled === "unlabeled"}
           disabled={state === "disabled"}
+          loading={state === "loading"}
           required={state === "required"}
         />,
         { useOptional: state === "optional" },

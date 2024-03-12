@@ -122,7 +122,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "invalid"],
+  state: ["default", "disabled", "invalid", "loading"],
   select: ["unselected", "selected"],
   focusState: ["none", "hover", "focus-visible"],
 } as const;
@@ -137,6 +137,7 @@ test(
         <OnyxRadioButton
           selected={select === "selected"}
           disabled={state === "disabled"}
+          loading={state === "loading"}
           errorMessage={state === "invalid" ? "invalid" : ""}
           name={`name`}
           label="label"
@@ -146,7 +147,7 @@ test(
 
       const radioInput = component.getByRole("radio");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await radioInput.hover();
+      if (focusState === "hover" && state != "loading") await radioInput.hover();
       return component;
     },
   ),

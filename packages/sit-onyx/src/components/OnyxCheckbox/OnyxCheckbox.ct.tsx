@@ -98,6 +98,17 @@ test("should render required", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render loading", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  await mount(<OnyxCheckbox label="Required" loading />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 const disabledTestCases = [
   { name: "unchecked" },
   { name: "checked", modelValue: true },
@@ -244,7 +255,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "required", "optional"],
+  state: ["default", "disabled", "required", "optional", "loading"],
   select: ["unselected", "selected", "indeterminate"],
   focusState: ["", "hover", "focus-visible"],
   labeled: ["labeled", "unlabeled"],
@@ -263,6 +274,7 @@ test(
           indeterminate={select === "indeterminate"}
           disabled={state === "disabled"}
           required={state === "required"}
+          loading={state === "loading"}
           hideLabel={labeled === "unlabeled"}
         />,
         { useOptional: state === "optional" },
@@ -270,7 +282,7 @@ test(
 
       const checkbox = component.getByRole("checkbox");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await checkbox.hover();
+      if (focusState === "hover" && state != "loading") await checkbox.hover();
       return component;
     },
   ),
