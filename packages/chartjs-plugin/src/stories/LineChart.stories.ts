@@ -1,20 +1,16 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { ONYX_COLORS } from "../types";
+import { ONYX_COLORS } from "sit-onyx/types";
 import LineChart from "./LineChart.vue";
 
 const meta: Meta<typeof LineChart> = {
   title: "examples/LineChart",
-  ...defineStorybookActionsAndVModels({
-    component: LineChart,
-    events: [],
-    argTypes: {
-      color: {
-        options: ONYX_COLORS,
-        control: { type: "select" },
-      },
+  component: LineChart,
+  argTypes: {
+    color: {
+      options: ONYX_COLORS,
+      control: { type: "select" },
     },
-  }),
+  },
 };
 
 export default meta;

@@ -7,7 +7,8 @@ import type {
   ScaleOptionsByType,
   ScaleTypeRegistry,
 } from "chart.js";
-import type { DeepPartial, OnyxChartOptions, OnyxColor } from "./types";
+import type { DeepPartial, OnyxColor } from "sit-onyx/types";
+import type { OnyxChartOptions } from "./types";
 import { getCSSVariableValue, hexToRgb } from "./utils";
 
 const defaultPluginOptions = {

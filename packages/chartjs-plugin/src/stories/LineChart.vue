@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { ChartData, ChartOptions } from "chart.js";
+import type { OnyxColor } from "sit-onyx/types";
 import { computed } from "vue";
 import { Line } from "vue-chartjs";
-import type { OnyxColor } from "../types";
 
 const props = defineProps<{
   color?: OnyxColor;
