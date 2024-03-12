@@ -16,6 +16,10 @@ export type OnyxInputProps = {
    */
   placeholder?: string;
   /**
+   * Whether the input is required.
+   */
+  required?: boolean;
+  /**
    * If and how text should be automatically be capitalized when using non-physical keyboards
    * (such as virtual keyboard on mobile devices or voice input).
    *

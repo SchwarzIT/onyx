@@ -6,6 +6,7 @@ import type { OnyxInputProps } from "./types";
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
   type: "text",
+  required: false,
   autocapitalize: "sentences",
   readonly: false,
   disabled: false,
@@ -55,9 +56,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 <template>
   <div class="onyx-input">
     <label>
-      <span class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">
-        {{ props.label }}
-      </span>
+      <div
+        class="onyx-input__label onyx-text--small"
+        :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
+      >
+        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+      </div>
 
       <div class="onyx-input__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
@@ -71,6 +75,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           class="onyx-input__native"
           :placeholder="props.placeholder"
           :type="props.type"
+          :required="props.required"
           :autocapitalize="props.autocapitalize"
           :autocomplete="props.autocomplete"
           :autofocus="props.autofocus"
@@ -110,9 +115,14 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   gap: var(--onyx-spacing-5xs);
 
   &__label {
-    display: block;
+    display: flex;
     margin-bottom: var(--onyx-spacing-5xs);
     color: var(--onyx-color-text-icons-neutral-medium);
+
+    // optional marker should be displayed at the very end of the label
+    &.onyx-optional-marker {
+      justify-content: space-between;
+    }
   }
 
   $padding-vertical: var(--onyx-spacing-2xs);
@@ -174,6 +184,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    padding: 0;
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
