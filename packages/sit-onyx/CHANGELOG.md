@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.42
+
+### Patch Changes
+
+- 6874b99: fix(OnyxInput): remove default padding of native input
+
 ## 1.0.0-alpha.41
 
 ### Minor Changes
