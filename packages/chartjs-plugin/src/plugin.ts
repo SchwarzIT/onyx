@@ -1,6 +1,7 @@
 import {
   Chart,
   DoughnutController,
+  PieController,
   PolarAreaController,
   type ChartDataset,
   type ChartType,
@@ -99,6 +100,23 @@ const plugin: Plugin<ChartType, undefined> = {
         i++;
       }
     });
+
+    // due to some reason the doughnut and pie charts do not use the default font size
+    // for the scale titles so we need to manually set them here
+    const controller = chart.getDatasetMeta(0).controller;
+    if (controller instanceof DoughnutController || controller instanceof PieController) {
+      Object.values(chart.config.options?.scales ?? {}).forEach((scale) => {
+        if (!scale) return;
+        const typedScale = scale as ScaleOptionsByType<
+          Exclude<keyof ScaleTypeRegistry, "radialLinear">
+        >;
+
+        typedScale.title.font = {
+          ...typedScale.title.font,
+          size: 16,
+        };
+      });
+    }
   },
   /**
    * Update chart whenever the light/dark mode changes so that the colors are updated
