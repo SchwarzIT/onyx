@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.44
+
+### Minor Changes
+
+- 3ec3d94: feat(OnyxInput): add property `maxlength`, `minLength`, `withCounter` and `message`
+
 ## 1.0.0-alpha.43
 
 ### Minor Changes
