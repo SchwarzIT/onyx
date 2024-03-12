@@ -21,7 +21,6 @@ const chartData: ChartData<"line"> = {
     {
       data: items.map((item) => item.value),
       label: "Label",
-      tension: 0.4,
       fill: true,
     },
   ],

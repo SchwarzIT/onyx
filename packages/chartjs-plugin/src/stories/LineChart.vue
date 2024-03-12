@@ -21,7 +21,6 @@ const chartData = computed<ChartData<"line">>(() => {
       {
         data: props.items.map((item) => item.value),
         label: "Label",
-        tension: 0.4,
         fill: true,
       },
     ],
