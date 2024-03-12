@@ -59,8 +59,30 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   });
 });
 
+test("should show required marker", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxInput label="Label" style="width: 12rem;" required />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("required.png");
+});
+
+test("should show optional marker", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxInput
+      label="Very long label that should be truncated"
+      style="width: 12rem;"
+      class="onyx-use-optional"
+    />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("optional.png");
+});
+
 const STATES = {
-  variant: ["default", "placeholder", "initialValue"],
+  variant: ["default", "placeholder", "initialValue", "loading"],
   writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
@@ -74,10 +96,11 @@ test(
       const component = await mount(
         <OnyxInput
           label="Label"
-          modelValue={variant === "initialValue" ? "Test value" : undefined}
+          modelValue={["initialValue", "loading"].includes(variant) ? "Test value" : undefined}
           placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
+          loading={variant === "loading"}
           style="width: 12rem;"
         />,
       );

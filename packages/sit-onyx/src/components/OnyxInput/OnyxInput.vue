@@ -1,13 +1,16 @@
 <script lang="ts" setup>
+import { OnyxLoadingIndicator } from "@/index";
 import { computed } from "vue";
 import type { OnyxInputProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
   type: "text",
+  required: false,
   autocapitalize: "sentences",
   readonly: false,
   disabled: false,
+  loading: false,
 });
 
 const emit = defineEmits<{
@@ -50,11 +53,16 @@ const patternSource = computed(() => {
 
 <template>
   <label class="onyx-input">
-    <span class="onyx-input__label onyx-text--small onyx-truncation-ellipsis">
-      {{ props.label }}
-    </span>
+    <div
+      class="onyx-input__label onyx-text--small"
+      :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
+    >
+      <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+    </div>
 
     <div class="onyx-input__wrapper">
+      <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
+
       <!-- eslint-disable vuejs-accessibility/no-autofocus -
          We want to provide the flexibility to have the autofocus property.
          The JSDoc description includes a warning that it should be used carefully.
@@ -64,13 +72,14 @@ const patternSource = computed(() => {
         class="onyx-input__native"
         :placeholder="props.placeholder"
         :type="props.type"
+        :required="props.required"
         :autocapitalize="props.autocapitalize"
         :autocomplete="props.autocomplete"
         :autofocus="props.autofocus"
         :name="props.name"
         :pattern="patternSource"
         :readonly="props.readonly"
-        :disabled="props.disabled"
+        :disabled="props.disabled || props.loading"
         @change="handleChange"
         @focus="emit('focus')"
         @blur="emit('blur')"
@@ -89,9 +98,14 @@ const patternSource = computed(() => {
   display: block;
 
   &__label {
-    display: block;
+    display: flex;
     margin-bottom: var(--onyx-spacing-5xs);
     color: var(--onyx-color-text-icons-neutral-medium);
+
+    // optional marker should be displayed at the very end of the label
+    &.onyx-optional-marker {
+      justify-content: space-between;
+    }
   }
 
   $padding-vertical: var(--onyx-spacing-2xs);
@@ -110,8 +124,9 @@ const patternSource = computed(() => {
     font-size: 1rem;
     line-height: $line-height;
 
-    height: calc($line-height + 2 * $padding-vertical);
     box-sizing: border-box;
+    padding: $padding-vertical var(--onyx-spacing-sm);
+    height: calc($line-height + 2 * $padding-vertical);
 
     &:has(.onyx-input__native:read-write:hover) {
       border-color: var(--onyx-color-base-primary-400);
@@ -142,8 +157,6 @@ const patternSource = computed(() => {
   }
 
   &__native {
-    padding: $padding-vertical var(--onyx-spacing-sm);
-
     // reset native input styles so they are inherited from the parent
     border: none;
     border-radius: inherit;
@@ -154,6 +167,7 @@ const patternSource = computed(() => {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    padding: 0;
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
@@ -175,6 +189,10 @@ const patternSource = computed(() => {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
   }
 }
 </style>
