@@ -4,14 +4,14 @@ import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
 test("should behave correctly", async ({ mount }) => {
-  const clicks: undefined[] = [];
+  let clicks = 0;
   const setup = {
     props: {
       label: "trigger something",
       icon: mockPlaywrightIcon,
     } satisfies OnyxIconButtonProps,
     on: {
-      click: async (e: undefined) => clicks.push(e),
+      click: () => clicks++,
     },
   };
 
@@ -22,7 +22,7 @@ test("should behave correctly", async ({ mount }) => {
     // ACT
     await component.click();
     // ASSERT
-    expect(clicks).toHaveLength(1);
+    expect(clicks).toBe(1);
   });
 
   await test.step("not interactive when disabled ", async () => {
@@ -45,7 +45,7 @@ test("should behave correctly", async ({ mount }) => {
     // ACT
     await component.click();
     // ASSERT
-    expect(clicks).toHaveLength(2);
+    expect(clicks).toBe(2);
   });
 });
 
