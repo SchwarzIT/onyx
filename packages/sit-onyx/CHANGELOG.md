@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-alpha.43
+
+### Minor Changes
+
+- fc36296: feat(OnyxInput): add property `required`
+
+## 1.0.0-alpha.42
+
+### Patch Changes
+
+- 6874b99: fix(OnyxInput): remove default padding of native input
+
+## 1.0.0-alpha.41
+
+### Minor Changes
+
+- 05b233a: feat(i18n): support Korean Language for i18n
+
 ## 1.0.0-alpha.40
 
 ### Minor Changes
