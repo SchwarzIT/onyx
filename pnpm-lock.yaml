@@ -155,6 +155,9 @@ importers:
       chart.js:
         specifier: ^4.4.2
         version: 4.4.2
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../../packages/sit-onyx
       vitepress:
         specifier: 1.0.0-rc.45
         version: 1.0.0-rc.45(@algolia/client-search@4.22.1)(@types/node@20.11.26)(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)(search-insights@2.13.0)(typescript@5.4.2)

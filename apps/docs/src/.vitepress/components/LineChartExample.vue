@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { ONYX_COLORS, registerOnyxPlugin, type OnyxColor } from "@sit-onyx/chartjs-plugin";
+import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
 import { Chart, registerables, type ChartData, type ChartOptions } from "chart.js";
+import { ONYX_COLORS, type OnyxColor } from "sit-onyx";
 import { computed, ref } from "vue";
 import { Line } from "vue-chartjs";
 
