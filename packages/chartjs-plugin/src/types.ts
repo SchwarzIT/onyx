@@ -22,8 +22,13 @@ declare module "chart.js" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- we don't need the generic here but it is needed because of "All declarations of 'PluginOptionsByType' must have identical type parameters." error
   interface PluginOptionsByType<TType extends ChartType> {
     /**
-     * onyx chart options. Can be set to `false` for disabling the plugin.
+     * onyx chart plugin options.
      */
-    onyx: OnyxChartOptions | false;
+    onyx: DeepPartial<OnyxChartOptions>;
   }
 }
+
+/**
+ * Recursive / deep implementation of TypeScript's built-in `Partial<T>` type.
+ */
+export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;

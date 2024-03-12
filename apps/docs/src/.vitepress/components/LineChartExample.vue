@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { plugin } from "@sit-onyx/chartjs-plugin";
+import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
 import { Chart, registerables, type ChartData, type ChartOptions } from "chart.js";
 import { Line } from "vue-chartjs";
 
-Chart.register(...registerables, plugin);
+Chart.register(...registerables);
+
+registerOnyxPlugin(Chart);
 
 const items = [
   { label: "01.01.2024", value: 19.99 },

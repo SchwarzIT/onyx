@@ -1,55 +1,102 @@
-import type { ChartDataset, ChartType, Plugin, ScaleOptions } from "chart.js";
-import type { OnyxChartOptions } from "./types";
+import type {
+  Chart,
+  ChartType,
+  Color,
+  LineControllerDatasetOptions,
+  Plugin,
+  ScaleOptionsByType,
+  ScaleTypeRegistry,
+} from "chart.js";
+import type { DeepPartial, OnyxChartOptions, OnyxColor } from "./types";
 import { getCSSVariableValue, hexToRgb } from "./utils";
 
-export const plugin: Plugin<ChartType, OnyxChartOptions> = {
+const defaultPluginOptions = {
+  color: "primary",
+} as const satisfies OnyxChartOptions;
+
+/**
+ * Registers the onyx Chart.js plugin and updates the default styles (colors, fonts etc.) to match
+ * the onyx design system. Will disable Chart.js default "color" plugin to avoid conflicts.
+ *
+ * Styles will be updated accordingly if the application is switched between light/dark mode.
+ *
+ * @example
+ * ```ts
+ * import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
+ * import { Chart, registerables } from "chart.js";
+ *
+ * Chart.register(...registerables);
+ * registerOnyxPlugin(Chart);
+ * ```
+ */
+export const registerOnyxPlugin = (
+  chart: typeof Chart,
+  overrideDefaults?: DeepPartial<OnyxChartOptions>,
+) => {
+  chart.register(plugin);
+  chart.defaults.plugins.onyx = overrideDefaults ?? defaultPluginOptions;
+  chart.defaults.plugins.colors.enabled = false;
+
+  //
+  // General default styles for all chart types
+  //
+  chart.defaults.font.family = getCSSVariableValue("--onyx-font-family");
+  chart.defaults.font.size = 13;
+
+  chart.defaults.borderColor = () => getCSSVariableValue("--onyx-color-base-neutral-300");
+  chart.defaults.color = () => getCSSVariableValue("--onyx-color-text-icons-neutral-medium");
+
+  chart.defaults.plugins.tooltip.backgroundColor = () => {
+    return getCSSVariableValue("--onyx-color-base-neutral-900");
+  };
+  chart.defaults.plugins.tooltip.titleColor = () => {
+    return getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+  };
+  chart.defaults.plugins.tooltip.bodyColor = () => {
+    return getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+  };
+
+  chart.defaults.plugins.title.color = createColorGetter("--onyx-color-text-icons-neutral-intense");
+  chart.defaults.plugins.title.font = {
+    weight: "bold",
+    size: 16,
+  };
+
+  Object.entries(chart.defaults.scales).forEach(([key, scale]) => {
+    // exclude radialLinear scale because it does not support a title
+    if (key === "radialLinear") return;
+    const typedScale = scale as ScaleOptionsByType<
+      Exclude<keyof ScaleTypeRegistry, "radialLinear">
+    >;
+
+    typedScale.title = {
+      ...typedScale.title,
+      color: createColorGetter("--onyx-color-text-icons-neutral-soft"),
+      font: {
+        size: 16,
+      },
+    };
+  });
+
+  const onyxColor = chart.defaults.plugins.onyx.color ?? defaultPluginOptions.color;
+
+  //
+  // Line chart
+  //
+  applyLineChartStyles(chart.defaults.datasets.line, onyxColor);
+};
+
+const plugin: Plugin<ChartType, OnyxChartOptions> = {
   id: "onyx",
-  defaults: {
-    color: "primary",
-  },
+  defaults: defaultPluginOptions,
+  /**
+   * We use the "beforeUpdate" hook to apply styles that can be overridden
+   * per chart individually with plugin options.
+   */
   beforeUpdate: (chart, args, options) => {
-    const plugins = chart.options.plugins ?? {};
-
-    // style default Chart.js plugins (tooltips, legend etc.)
-    if (plugins.tooltip) {
-      const invertedTextColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-      plugins.tooltip.titleColor = invertedTextColor;
-      plugins.tooltip.bodyColor = invertedTextColor;
-      plugins.tooltip.backgroundColor = getCSSVariableValue("--onyx-color-base-neutral-900");
+    if (chart.options.datasets?.line) {
+      applyLineChartStyles(chart.options.datasets.line, options.color);
     }
-
-    if (plugins.legend?.labels) {
-      plugins.legend.labels.color = getCSSVariableValue("--onyx-color-text-icons-neutral-medium");
-    }
-
-    if (plugins.title) {
-      plugins.title.color = getCSSVariableValue("--onyx-color-text-icons-neutral-intense");
-    }
-
-    const primaryColor = getCSSVariableValue(`--onyx-color-base-${options.color}-500`);
-    const backgroundColor = hexToRgb(primaryColor);
-
-    // style each available dataset
-    chart.config.data.datasets.forEach((dataset) => {
-      // generic styles (apply to all chart types)
-      if (!dataset.borderColor) {
-        dataset.borderColor = primaryColor;
-      }
-      if (!dataset.backgroundColor) {
-        dataset.backgroundColor = `rgba(${backgroundColor}, 0.3)`;
-      }
-
-      // special styles depending on the chart type
-      if (!("type" in chart.config)) return;
-      if (chart.config.type === "line") styleLineDataset(dataset as ChartDataset<"line">);
-    });
-
-    if (!chart.config.options) chart.config.options = {};
-
-    Object.values(chart.config.options.scales ?? {}).forEach((scale) => {
-      if (!scale) return;
-      styleScale(scale);
-    });
   },
   /**
    * Update chart whenever the light/dark mode changes so that the colors are updated
@@ -77,39 +124,35 @@ export const plugin: Plugin<ChartType, OnyxChartOptions> = {
 };
 
 /**
- * Styles the given scale (e.g. x or y). Sets the grid, tickets and title font styles.
+ * Some Chart.js color properties are actually typed incorrect
+ * because they support getters but are typed as static colors.
+ * This function will create a color getter which is type casted as static "Color".
  */
-const styleScale = (scale: ScaleOptions & { title?: ScaleOptions<"linear">["title"] }) => {
-  const fontFamily = getCSSVariableValue("--onyx-font-family");
-
-  scale.grid = {
-    ...scale.grid,
-    color: getCSSVariableValue("--onyx-color-base-neutral-300"),
-  };
-  scale.ticks = {
-    ...scale.ticks,
-    color: getCSSVariableValue("--onyx-color-text-icons-neutral-medium"),
-    font: {
-      family: fontFamily,
-      size: 13,
-    },
-  };
-
-  scale.title = {
-    ...scale.title,
-    color: getCSSVariableValue("--onyx-color-text-icons-neutral-soft"),
-    font: {
-      family: fontFamily,
-      size: 16,
-    },
-  };
+const createColorGetter = (color: string) => {
+  const getter = () => getCSSVariableValue(color);
+  return getter as unknown as Color;
 };
 
-const styleLineDataset = (data: ChartDataset<"line">) => {
-  if (!data.pointBorderColor) {
-    data.pointBorderColor = getCSSVariableValue("--onyx-color-base-neutral-700");
-  }
-  if (!data.pointBackgroundColor) {
-    data.pointBackgroundColor = getCSSVariableValue("--onyx-color-base-neutral-100");
-  }
+const applyLineChartStyles = (
+  line: DeepPartial<
+    Pick<
+      LineControllerDatasetOptions,
+      "borderColor" | "backgroundColor" | "pointBorderColor" | "pointBackgroundColor"
+    >
+  >,
+  baseColor: OnyxColor,
+) => {
+  line.borderColor = () => {
+    return getCSSVariableValue(`--onyx-color-base-${baseColor}-500`);
+  };
+  line.backgroundColor = () => {
+    const color = getCSSVariableValue(`--onyx-color-base-${baseColor}-500`);
+    return `rgba(${hexToRgb(color)}, 0.3)`;
+  };
+  line.pointBorderColor = () => {
+    return getCSSVariableValue("--onyx-color-base-neutral-700");
+  };
+  line.pointBackgroundColor = () => {
+    return getCSSVariableValue("--onyx-color-base-neutral-100");
+  };
 };
