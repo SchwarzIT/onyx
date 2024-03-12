@@ -210,7 +210,8 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   }
 
   &__counter {
-    margin-left: auto;
+    text-align: right;
+    flex-grow: 1;
   }
 }
 </style>
