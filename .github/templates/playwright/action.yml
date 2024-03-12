@@ -16,7 +16,7 @@ runs:
       run: pnpm exec playwright install-deps
 
     - name: 🗑️ Delete existing screenshots
-      if: ${{ inputs.update-snapshots == "true" }}
+      if: ${{ inputs.update-snapshots == 'true' }}
       shell: bash
       run: |
         rm -rf  ./packages/chartjs-plugin/playwright/snapshots
@@ -25,7 +25,7 @@ runs:
 
     - name: 🚨 Run component tests
       shell: bash
-      run: pnpm run test:components:all ${{ inputs.update-snapshots == "true" && '--update-snapshots' || '' }}
+      run: pnpm run test:components:all ${{ inputs.update-snapshots == 'true' && '--update-snapshots' || '' }}
 
     - name: Upload test results artifact
       uses: actions/upload-artifact@v4
