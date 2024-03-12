@@ -16,15 +16,16 @@ runs:
       run: pnpm exec playwright install-deps
 
     - name: 🗑️ Delete existing screenshots
-      if: ${{ inputs.update-snapshots == true }}
+      if: ${{ inputs.update-snapshots == "true" }}
       shell: bash
       run: |
-        rm -rf ./packages/sit-onyx/playwright/snapshots
         rm -rf  ./packages/chartjs-plugin/playwright/snapshots
+        rm -rf ./packages/headless/playwright/snapshots
+        rm -rf ./packages/sit-onyx/playwright/snapshots
 
     - name: 🚨 Run component tests
       shell: bash
-      run: pnpm run test:components:all ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
+      run: pnpm run test:components:all ${{ inputs.update-snapshots == "true" && '--update-snapshots' || '' }}
 
     - name: Upload test results artifact
       uses: actions/upload-artifact@v4
@@ -32,7 +33,9 @@ runs:
       with:
         name: test-results
         path: |
-          packages/sit-onyx/playwright-report
-          packages/sit-onyx/test-results
           packages/chartjs-plugin/playwright-report
           packages/chartjs-plugin/test-results
+          packages/headless/playwright-report
+          packages/headless/test-results
+          packages/sit-onyx/playwright-report
+          packages/sit-onyx/test-results

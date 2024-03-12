@@ -6,7 +6,7 @@
   "scripts": {
     "build:all": "pnpm -r --if-present '/^build/'",
     "test:all": "pnpm -r --if-present test:coverage",
-    "test:components:all": "pnpm -r --if-present test:components",
+    "test:components:all": "pnpm -r --if-present --sequential  test:components",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint . --ext .vue,.ts,.tsx --ignore-path .gitignore",
