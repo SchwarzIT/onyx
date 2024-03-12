@@ -23,7 +23,8 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc",
+    "test:components": "playwright install && playwright test"
   },
   "peerDependencies": {
     "chart.js": ">= 4.0.0",

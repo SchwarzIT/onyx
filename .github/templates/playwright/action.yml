@@ -2,12 +2,9 @@ name: 🚨 Run component tests
 description: Runs Playwright component tests (node and pnpm must be setup before)
 
 inputs:
-  script:
-    required: true
-    description: npm script to run
-  working-directory:
-    required: true
-    description: Directory where the push command is executed in (manifest, Staticfile etc. must be placed inside this folder)
+  update-snapshots:
+    required: false
+    description: Whether to update the Playwright snapshots
 
 runs:
   using: "composite"
@@ -17,12 +14,17 @@ runs:
     - name: 📦 Install Playwright system dependencies
       shell: bash
       run: pnpm exec playwright install-deps
-      working-directory: ${{ inputs.working-directory }}
+
+    - name: 🗑️ Delete existing screenshots
+      if: ${{ inputs.update-snapshots == true }}
+      shell: bash
+      run: |
+        rm -rf ./packages/sit-onyx/playwright/snapshots
+        rm -rf  ./packages/chartjs-plugin/playwright/snapshots
 
     - name: 🚨 Run component tests
       shell: bash
-      run: pnpm run ${{ inputs.script }}
-      working-directory: ${{ inputs.working-directory }}
+      run: pnpm run test:components:all ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
 
     - name: Upload test results artifact
       uses: actions/upload-artifact@v4
@@ -30,5 +32,7 @@ runs:
       with:
         name: test-results
         path: |
-          ${{ inputs.working-directory }}/playwright-report
-          ${{ inputs.working-directory }}/test-results
+          packages/sit-onyx/playwright-report
+          packages/sit-onyx/test-results
+          packages/chartjs-plugin/playwright-report
+          packages/chartjs-plugin/test-results
