@@ -1,12 +1,39 @@
+$density-compact: 2rem;
+$density-default: 2.5rem;
+$density-cozy: 3rem;
+
 .onyx-density-compact {
-  --onyx-density: 2rem;
+  --onyx-density: $density-compact;
 }
 
 :root,
 .onyx-density-default {
-  --onyx-density: 2.5rem;
+  --onyx-density: $density-default;
 }
 
 .onyx-density-cozy {
-  --onyx-density: 3rem;
+  --onyx-density: $density-cozy;
+}
+
+@media (pointer: fine) {
+  .onyx-density-fine-compact {
+    --onyx-density: $density-compact;
+  }
+  .onyx-density-fine-default {
+    --onyx-density: $density-default;
+  }
+  .onyx-density-fine-cozy {
+    --onyx-density: $density-cozy;
+  }
+}
+@media (pointer: coarse) {
+  .onyx-density-coarse-compact {
+    --onyx-density: $density-compact;
+  }
+  .onyx-density-coarse-default {
+    --onyx-density: $density-default;
+  }
+  .onyx-density-coarse-cozy {
+    --onyx-density: $density-cozy;
+  }
 }
