@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
+import { ONYX_COLORS, registerOnyxPlugin, type OnyxColor } from "@sit-onyx/chartjs-plugin";
 import { Chart, registerables, type ChartData, type ChartOptions } from "chart.js";
+import { computed, ref } from "vue";
 import { Line } from "vue-chartjs";
 
 Chart.register(...registerables);
@@ -26,47 +27,71 @@ const chartData: ChartData<"line"> = {
   ],
 };
 
-const chartOptions: ChartOptions<"line"> = {
-  responsive: true,
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: "x scale label",
+const onyxColor = ref<OnyxColor>("primary");
+
+const chartOptions = computed<ChartOptions<"line">>(() => {
+  return {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "x scale label",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "y scale label",
+        },
       },
     },
-    y: {
-      title: {
-        display: true,
-        text: "y scale label",
-      },
-    },
-  },
-  hover: {
-    intersect: false,
-  },
-  plugins: {
-    title: {
-      display: true,
-      text: "Example title",
-    },
-    tooltip: {
+    hover: {
       intersect: false,
     },
-    // you can easily use a different color from the onyx color palette like this
-    // onyx: {
-    //   color: "info",
-    // },
-  },
-};
+    plugins: {
+      title: {
+        display: true,
+        text: "Example title",
+      },
+      tooltip: {
+        intersect: false,
+      },
+      // you can easily use a different color from the onyx color palette like this
+      onyx: {
+        color: onyxColor.value,
+      },
+    },
+  };
+});
 </script>
 
 <template>
-  <Line :data="chartData" :options="chartOptions" class="chart" />
+  <div>
+    <label>
+      Select chart color:
+      <select v-model="onyxColor" class="color-select">
+        <option v-for="color in ONYX_COLORS" :key="color" :value="color">
+          {{ color }}
+        </option>
+      </select>
+    </label>
+
+    <Line :data="chartData" :options="chartOptions" class="chart" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .chart {
   height: 32rem;
+}
+
+.color-select {
+  background-color: transparent;
+  padding: 0 var(--onyx-spacing-md);
+  text-align: center;
+  margin-left: var(--onyx-spacing-md);
+  cursor: pointer;
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 }
 </style>
