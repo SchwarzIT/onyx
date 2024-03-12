@@ -27,7 +27,8 @@ The following features are included in this plugin:
 
 - Set default colors/styles for charts, labels, borders etc.
 - Update chart when switched between light/dark mode
-- Option to set the chart color to one of the [onyx color palette colors](/tokens/colors) (globally or individual per chart)
+- Default dataset colors based on the [onyx color palette colors](/tokens/colors)
+- Utility to set the dataset color to one of the [onyx color palette colors](/tokens/colors)
 
 ## Installation
 

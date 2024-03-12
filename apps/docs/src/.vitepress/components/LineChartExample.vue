@@ -57,10 +57,6 @@ const chartOptions = computed<ChartOptions<"line">>(() => {
       tooltip: {
         intersect: false,
       },
-      // you can easily use a different color from the onyx color palette like this
-      onyx: {
-        color: onyxColor.value,
-      },
     },
   };
 });

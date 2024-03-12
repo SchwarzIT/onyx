@@ -8,12 +8,7 @@ import type {
   ScaleTypeRegistry,
 } from "chart.js";
 import type { DeepPartial, OnyxColor } from "sit-onyx/types";
-import type { OnyxChartOptions } from "./types";
 import { getCSSVariableValue, hexToRgb } from "./utils";
-
-const defaultPluginOptions = {
-  color: "primary",
-} as const satisfies OnyxChartOptions;
 
 /**
  * Registers the onyx Chart.js plugin and updates the default styles (colors, fonts etc.) to match
@@ -30,12 +25,8 @@ const defaultPluginOptions = {
  * registerOnyxPlugin(Chart);
  * ```
  */
-export const registerOnyxPlugin = (
-  chart: typeof Chart,
-  overrideDefaults?: DeepPartial<OnyxChartOptions>,
-) => {
+export const registerOnyxPlugin = (chart: typeof Chart) => {
   chart.register(plugin);
-  chart.defaults.plugins.onyx = overrideDefaults ?? defaultPluginOptions;
   chart.defaults.plugins.colors.enabled = false;
 
   //
@@ -78,25 +69,17 @@ export const registerOnyxPlugin = (
       },
     };
   });
-
-  const onyxColor = chart.defaults.plugins.onyx.color ?? defaultPluginOptions.color;
-
-  //
-  // Line chart
-  //
-  applyLineChartStyles(chart.defaults.datasets.line, onyxColor);
 };
 
-const plugin: Plugin<ChartType, OnyxChartOptions> = {
+const plugin: Plugin<ChartType, undefined> = {
   id: "onyx",
-  defaults: defaultPluginOptions,
   /**
    * We use the "beforeUpdate" hook to apply styles that can be overridden
    * per chart individually with plugin options.
    */
-  beforeUpdate: (chart, args, options) => {
+  beforeUpdate: (chart) => {
     if (chart.options.datasets?.line) {
-      applyLineChartStyles(chart.options.datasets.line, options.color);
+      applyLineChartStyles(chart.options.datasets.line, "primary");
     }
   },
   /**
