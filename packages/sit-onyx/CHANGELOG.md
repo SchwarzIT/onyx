@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.43
+
+### Minor Changes
+
+- fc36296: feat(OnyxInput): add property `required`
+
 ## 1.0.0-alpha.42
 
 ### Patch Changes
