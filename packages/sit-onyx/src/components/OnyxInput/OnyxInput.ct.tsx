@@ -82,7 +82,7 @@ test("should show optional marker", async ({ mount }) => {
 });
 
 const STATES = {
-  variant: ["default", "placeholder", "initialValue", "loading"],
+  variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
   writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
@@ -128,11 +128,16 @@ test(
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
           loading={variant === "loading"}
+          autocomplete={variant === "autofill" ? "name" : undefined}
           style="width: 12rem;"
         />,
       );
 
       const input = component.getByLabel("Label");
+
+      if (variant == "autofill") {
+        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+      }
 
       if (focusState === "hover") await input.hover();
       if (focusState === "focus") await input.focus();
