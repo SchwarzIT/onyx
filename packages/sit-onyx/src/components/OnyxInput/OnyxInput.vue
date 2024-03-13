@@ -200,7 +200,7 @@ const patternSource = computed(() => {
 
       // many browsers use "!important" to set the autofill background so we need this
       // transition workaround to make the background transparent
-      transition: background-color calc(infinity * 1ms);
+      transition: background-color calc(infinity * 1s);
     }
   }
 
