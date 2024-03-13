@@ -98,17 +98,6 @@ test("should render required", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render loading", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  await mount(<OnyxCheckbox label="Required" loading />);
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
 const disabledTestCases = [
   { name: "unchecked" },
   { name: "checked", modelValue: true },
@@ -282,7 +271,7 @@ test(
 
       const checkbox = component.getByRole("checkbox");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover" && state != "loading") await checkbox.hover();
+      if (focusState === "hover") await checkbox.hover();
       return component;
     },
   ),
