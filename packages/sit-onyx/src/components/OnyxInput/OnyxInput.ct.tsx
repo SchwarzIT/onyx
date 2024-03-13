@@ -114,6 +114,22 @@ test("should show counter", async ({ mount }) => {
   await expect(component).toHaveScreenshot("counter.png");
 });
 
+test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxInput label="Test label" style="width: 12rem;" hideLabel />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  // ASSERT
+  await expect(component).not.toContainText("Test label");
+  await expect(component.getByLabel("Test label")).toBeAttached();
+  await expect(component).toHaveScreenshot();
+});
+
 test(
   "State screenshot testing",
   createScreenshotsForAllStates(

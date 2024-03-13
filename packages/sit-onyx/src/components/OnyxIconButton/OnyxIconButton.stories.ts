@@ -1,5 +1,5 @@
 import { createIconSourceCodeTransformer, defineIconSelectArgType } from "@/utils/storybook";
-import messageDots from "@sit-onyx/icons/message-dots.svg?raw";
+import trash from "@sit-onyx/icons/trash.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxIconButton from "./OnyxIconButton.vue";
@@ -36,7 +36,7 @@ type Story = StoryObj<typeof OnyxIconButton>;
 export const Primary = {
   args: {
     label: "Button",
-    icon: messageDots,
+    icon: trash,
   },
 } satisfies Story;
 
@@ -47,7 +47,7 @@ export const Secondary = {
   args: {
     label: "Button",
     variation: "secondary",
-    icon: messageDots,
+    icon: trash,
   },
 } satisfies Story;
 
@@ -58,7 +58,7 @@ export const Danger = {
   args: {
     label: "Button",
     variation: "danger",
-    icon: messageDots,
+    icon: trash,
   },
 } satisfies Story;
 
@@ -84,6 +84,6 @@ export const Loading = {
   args: {
     label: "Button",
     loading: true,
-    icon: messageDots,
+    icon: trash,
   },
 } satisfies Story;
