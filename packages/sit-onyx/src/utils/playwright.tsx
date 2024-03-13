@@ -154,10 +154,8 @@ export const createScreenshotsForAllStates =
         const component = await caseBuilder(testCase, wrappedMount, page);
 
         // ASSERT
-        const screenshotResult = expect(component).toHaveScreenshot(`${screenshotName}.png`);
-        const accessibilityScanResult = performAxeScan();
-
-        await Promise.all([screenshotResult, accessibilityScanResult]);
+        await performAxeScan();
+        await expect(component).toHaveScreenshot(`${screenshotName}.png`);
       });
     }
   };
