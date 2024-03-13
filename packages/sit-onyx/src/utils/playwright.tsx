@@ -119,11 +119,11 @@ export const createScreenshotsForAllStates =
     const axeBuilder = makeAxeBuilder();
     const performAxeScan = options?.disableAxeCheck
       ? () => Promise.resolve()
-      : async () => axeBuilder.analyze().then((r) => expect(r.violations).toEqual([]));
+      : () => axeBuilder.analyze().then((r) => expect(r.violations).toEqual([]));
 
     const permutations = generatePermutations(states);
 
-    // give a maximum of 2 second per test case
+    // give a maximum of 1 second per test case
     test.setTimeout(permutations.length * 1000);
 
     for (const testCase of permutations) {
@@ -156,6 +156,7 @@ export const createScreenshotsForAllStates =
         // ASSERT
         await expect(component).toHaveScreenshot(`${screenshotName}.png`);
         await performAxeScan();
+        await component.unmount();
       });
     }
   };
