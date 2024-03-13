@@ -118,7 +118,7 @@ test(
   "State screenshot testing",
   createScreenshotsForAllStates(
     STATES,
-    "button",
+    "input",
     async ({ variant, writeMode, focusState }, mount) => {
       const component = await mount(
         <OnyxInput
