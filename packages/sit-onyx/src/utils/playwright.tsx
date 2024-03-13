@@ -124,7 +124,7 @@ export const createScreenshotsForAllStates =
     const permutations = generatePermutations(states);
 
     // give a maximum of 2 second per test case
-    test.setTimeout(permutations.length * 2000);
+    test.setTimeout(permutations.length * 1000);
 
     for (const testCase of permutations) {
       const screenshotName = [
@@ -154,8 +154,8 @@ export const createScreenshotsForAllStates =
         const component = await caseBuilder(testCase, wrappedMount, page);
 
         // ASSERT
-        await performAxeScan();
         await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+        await performAxeScan();
       });
     }
   };
