@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { OnyxLoadingIndicator } from "@/index";
 import { computed } from "vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
