@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-Implement loading state
+Add property 'loading' for OnyxButton, OnyxCheckbox, OnyxRadioButton and OnyxSwitch
