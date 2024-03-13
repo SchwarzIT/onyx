@@ -18,6 +18,10 @@ export type OnyxInputProps = {
    */
   placeholder?: string;
   /**
+   * Whether the input is required.
+   */
+  required?: boolean;
+  /**
    * If and how text should be automatically be capitalized when using non-physical keyboards
    * (such as virtual keyboard on mobile devices or voice input).
    *
@@ -63,6 +67,22 @@ export type OnyxInputProps = {
    * Whether the input is loading. User interaction will be disabled.
    */
   loading?: boolean;
+  /**
+   * Maximum number of characters that are allowed to be entered.
+   */
+  maxlength?: number;
+  /**
+   * Minimum number of characters that have to to be entered.
+   */
+  minlength?: number;
+  /**
+   * If `true`, a character counter will be displayed if `maxLength` is set.
+   */
+  withCounter?: boolean;
+  /**
+   * Message / help text to display below the input.
+   */
+  message?: string;
 } & DensityProp;
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
