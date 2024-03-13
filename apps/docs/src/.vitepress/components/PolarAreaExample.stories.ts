@@ -1,16 +1,16 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import LineChartExample from "./LineChartExample.vue";
+import PolarAreaExample from "./PolarAreaExample.vue";
 
-const meta: Meta<typeof LineChartExample> = {
-  title: "charts/LineChartExample",
+const meta: Meta<typeof PolarAreaExample> = {
+  title: "charts/PolarAreaExample",
   ...defineStorybookActionsAndVModels({
-    component: LineChartExample,
+    component: PolarAreaExample,
     events: [],
   }),
 };
 
 export default meta;
-type Story = StoryObj<typeof LineChartExample>;
+type Story = StoryObj<typeof PolarAreaExample>;
 
 export const Default = { args: {} } satisfies Story;

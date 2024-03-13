@@ -4,7 +4,7 @@ outline: [2, 3]
 
 <script lang="ts" setup>
 import packageJson from "../../../../../packages/chartjs-plugin/package.json";
-import LineChartExample from "../../.vitepress/components/LineChartExample.vue"
+import PolarAreaExample from "../../.vitepress/components/PolarAreaExample.vue"
 </script>
 
 # @sit-onyx/chartjs-plugin
@@ -84,12 +84,12 @@ yarn install chart.js
 
 :::
 
-### Line chart
+### Polar area chart
 
 <ClientOnly>
-  <LineChartExample />
+  <PolarAreaExample />
 </ClientOnly>
 
 ::: details View the code
-<<< @/.vitepress/components/LineChartExample.vue
+<<< @/.vitepress/components/PolarAreaExample.vue
 :::
