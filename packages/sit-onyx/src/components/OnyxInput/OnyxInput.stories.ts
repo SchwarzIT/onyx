@@ -36,7 +36,7 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows a input with a placeholder.
+ * This example shows an input with a placeholder.
  */
 export const Placeholder = {
   args: {
@@ -89,7 +89,7 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This example shows a input with a maxlength and counter.
+ * This example shows an input with a maxlength and counter.
  */
 export const Maxlength = {
   args: {
@@ -100,7 +100,7 @@ export const Maxlength = {
 } satisfies Story;
 
 /**
- * This example shows a input with a message / help text.
+ * This example shows an input with a message / help text.
  */
 export const WithMessage = {
   args: {
@@ -110,12 +110,23 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * This example shows a input with autocomplete where the browser suggest to fill the input value.
+ * This example shows an input with autocomplete where the browser suggest to fill the input value.
  * Note: For this example you need to have set your name in your browser settings.
  */
 export const Autocomplete = {
   args: {
     label: "Label",
     autocomplete: "name",
+  },
+} satisfies Story;
+
+/**
+ * This example shows an input without a visual label.
+ * For accessibility / screen readers it must still be passed.
+ */
+export const HiddenLabel = {
+  args: {
+    label: "Label",
+    hideLabel: true,
   },
 } satisfies Story;

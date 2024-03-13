@@ -57,6 +57,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   <div class="onyx-input">
     <label>
       <div
+        v-if="!props.hideLabel"
         class="onyx-input__label onyx-text--small"
         :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
       >
@@ -85,6 +86,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           :disabled="props.disabled || props.loading"
           :minlength="props.minlength"
           :maxlength="props.maxlength"
+          :aria-label="props.hideLabel ? props.label : undefined"
           @change="handleChange"
           @focus="emit('focus')"
           @blur="emit('blur')"
