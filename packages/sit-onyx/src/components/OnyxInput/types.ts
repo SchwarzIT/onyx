@@ -1,6 +1,7 @@
 export type OnyxInputProps = {
   /**
-   * Label to show above the input.
+   * Label to show above the input. Required due to accessibility / screen readers.
+   * If you want to visually hide the label, use the `hideLabel` property.
    */
   label: string;
   /**
