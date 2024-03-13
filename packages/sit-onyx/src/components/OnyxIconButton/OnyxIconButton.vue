@@ -7,7 +7,6 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   disabled: false,
   type: "button",
   variation: "primary",
-  size: "24px",
 });
 
 defineSlots<{
@@ -33,7 +32,7 @@ const emit = defineEmits<{
     @click="emit('click')"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
-    <OnyxIcon v-else-if="props.icon" :icon="props.icon" :size="props.size" />
+    <OnyxIcon v-else-if="props.icon" :icon="props.icon" />
     <slot v-else></slot>
   </button>
 </template>
