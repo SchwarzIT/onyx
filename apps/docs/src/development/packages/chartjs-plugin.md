@@ -93,3 +93,22 @@ yarn install chart.js
 ::: details View the code
 <<< @/.vitepress/components/PolarAreaExample.vue
 :::
+
+### Custom dataset colors
+
+By default, the dataset colors will be automatically set in order based on the [onyx quantitative colors](/basics/colors#quantitatives). If you want to set a specific color for a dataset, you can use the `getDatasetColors` utility.
+
+For example to use the primary color for a line chart:
+
+```ts
+const chartData: ChartData<"line"> = {
+  labels: ["A", "B", "C"],
+  datasets: [
+    {
+      label: "Dataset A",
+      data: [1, 2, 3],
+      ...getDatasetColors("primary"),
+    },
+  ],
+};
+```

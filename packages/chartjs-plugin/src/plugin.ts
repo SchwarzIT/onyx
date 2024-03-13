@@ -10,6 +10,7 @@ import {
   type ScaleOptionsByType,
   type ScaleTypeRegistry,
 } from "chart.js";
+import type { OnyxColor } from "sit-onyx/types";
 import { getCSSVariableValue, hexToRgb } from "./utils";
 
 /**
@@ -75,6 +76,35 @@ export const registerOnyxPlugin = (chart: typeof Chart) => {
       },
     };
   });
+};
+
+/**
+ * Utility for easily styling a Chart.js dataset with a specific onyx color.
+ *
+ * @example
+ * ```ts
+ * const chartData: ChartData<"line"> = {
+ *   labels: ["A", "B", "C"],
+ *   datasets: [
+ *     {
+ *       label: "Dataset A",
+ *       data: [1, 2, 3],
+ *       ...getDatasetColors("primary"),
+ *     },
+ *   ],
+ * };
+ * ```
+ */
+export const getDatasetColors = (
+  color: OnyxColor | `quantitatives-${100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900}`,
+) => {
+  const cssVariable = `--onyx-color-base-${color.startsWith("quantitatives-") ? color : `${color}-500`}`;
+  const baseColor = getCSSVariableValue(cssVariable);
+
+  return {
+    borderColor: baseColor,
+    backgroundColor: `rgba(${hexToRgb(baseColor)}, 0.3)`,
+  };
 };
 
 const plugin: Plugin<ChartType, undefined> = {
@@ -160,13 +190,20 @@ const createColorGetter = (color: string) => {
  * @param allData Set this to true for doughnut, pie and polar area chart type so every data has a separate color.
  */
 const colorizeDataset = (dataset: ChartDataset, offset = 0, allData = false) => {
-  if (allData) {
-    dataset.borderColor = dataset.data.map((_, index) => getBorderColor(offset + index));
-    dataset.backgroundColor = dataset.data.map((_, index) => getBackgroundColor(offset + index));
-  } else {
-    dataset.borderColor = getBorderColor(offset);
-    dataset.backgroundColor = getBackgroundColor(offset);
-  }
+  const borderColorizer = () => {
+    if (dataset.borderColor) return dataset.borderColor;
+    if (allData) return dataset.data.map((_, index) => getBorderColor(offset + index));
+    return getBorderColor(offset);
+  };
+
+  const backgroundColorizer = () => {
+    if (dataset.backgroundColor) return dataset.backgroundColor;
+    if (allData) return dataset.data.map((_, index) => getBackgroundColor(offset + index));
+    return getBackgroundColor(offset);
+  };
+
+  dataset.borderColor = borderColorizer();
+  dataset.backgroundColor = backgroundColorizer();
 };
 
 /**
