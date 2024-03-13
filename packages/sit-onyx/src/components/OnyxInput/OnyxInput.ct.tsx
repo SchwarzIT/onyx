@@ -59,17 +59,66 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   });
 });
 
+test("should show required marker", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxInput label="Label" style="width: 12rem;" required />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("required.png");
+});
+
+test("should show optional marker", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxInput
+      label="Very long label that should be truncated"
+      style="width: 12rem;"
+      class="onyx-use-optional"
+    />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("optional.png");
+});
+
 const STATES = {
   variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
   writeMode: ["write", "readonly", "disabled"],
   focusState: ["", "hover", "focus"],
 } as const;
 
+test("should show message", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxInput label="Label" message="Test message" style="width: 12rem;" />,
+  );
+  const input = component.getByLabel("Label");
+
+  // ACT
+  await component.getByText("Test message").focus();
+
+  // ASSERT
+  await expect(component).toContainText("Test message");
+  await expect(input).not.toBeFocused();
+  await expect(component).toHaveScreenshot("message.png");
+});
+
+test("should show counter", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxInput label="Label" maxlength={16} modelValue="Test" withCounter style="width: 12rem;" />,
+  );
+
+  // ASSERT
+  await expect(component).toContainText("4/16");
+  await expect(component).toHaveScreenshot("counter.png");
+});
+
 test(
   "State screenshot testing",
   createScreenshotsForAllStates(
     STATES,
-    "button",
+    "input",
     async ({ variant, writeMode, focusState }, mount) => {
       const component = await mount(
         <OnyxInput

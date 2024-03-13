@@ -46,6 +46,16 @@ export const Placeholder = {
 } satisfies Story;
 
 /**
+ * This example shows a required input.
+ */
+export const Required = {
+  args: {
+    ...Default.args,
+    required: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a readonly input that can not be edited.
  */
 export const Readonly = {
@@ -75,6 +85,27 @@ export const Loading = {
     ...Default.args,
     modelValue: "Test value",
     loading: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a input with a maxlength and counter.
+ */
+export const Maxlength = {
+  args: {
+    ...Default.args,
+    maxlength: 16,
+    withCounter: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a input with a message / help text.
+ */
+export const WithMessage = {
+  args: {
+    ...Default.args,
+    message: "Example message",
   },
 } satisfies Story;
 
