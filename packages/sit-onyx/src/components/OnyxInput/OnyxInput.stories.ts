@@ -108,3 +108,14 @@ export const WithMessage = {
     message: "Example message",
   },
 } satisfies Story;
+
+/**
+ * This example shows a input with autocomplete where the browser suggest to fill the input value.
+ * Note: For this example you need to have set your name in your browser settings.
+ */
+export const Autocomplete = {
+  args: {
+    label: "Label",
+    autocomplete: "name",
+  },
+} satisfies Story;
