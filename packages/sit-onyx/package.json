@@ -8,7 +8,8 @@
   "files": [
     "dist",
     "src/i18n/locales",
-    "src/styles"
+    "src/styles",
+    "src/types"
   ],
   "types": "./dist/index.d.ts",
   "exports": {
@@ -19,7 +20,8 @@
     },
     "./style.css": "./dist/style.css",
     "./locales/*": "./src/i18n/locales/*",
-    "./src/styles/*": "./src/styles/*"
+    "./src/styles/*": "./src/styles/*",
+    "./types": "./src/types/index.ts"
   },
   "homepage": "https://onyx.schwarz",
   "repository": {
