@@ -28,8 +28,8 @@ const emit = defineEmits<{
     :disabled="props.disabled || props.loading"
     @click="emit('click')"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" size="24px" />
-    <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" type="dots" />
+    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
+    <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span v-else class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
 </template>
