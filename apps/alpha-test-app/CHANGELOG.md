@@ -1,5 +1,12 @@
 # alpha-test-app
 
+## 0.0.1-alpha.43
+
+### Patch Changes
+
+- Updated dependencies [fd86fa1]
+  - sit-onyx@1.0.0-alpha.46
+
 ## 0.0.1-alpha.42
 
 ### Patch Changes
