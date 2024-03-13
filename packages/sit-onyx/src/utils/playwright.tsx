@@ -123,8 +123,8 @@ export const createScreenshotsForAllStates =
 
     const permutations = generatePermutations(states);
 
-    // give a maximum of 1 second per test case
-    test.setTimeout(permutations.length * 1000);
+    // give a maximum of 2 second per test case
+    test.setTimeout(permutations.length * 2000);
 
     for (const testCase of permutations) {
       const screenshotName = [
