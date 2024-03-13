@@ -37,10 +37,11 @@ const filteredCategories = computed(() => {
   <div>
     <OnyxInput
       v-model="search"
-      label="Search icons"
+      label="Search icon or category name"
       placeholder="Icon or category name..."
       class="search"
       type="search"
+      hide-label
     />
 
     <section v-for="category in filteredCategories" :key="category.name" class="category">
