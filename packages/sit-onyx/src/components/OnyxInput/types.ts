@@ -81,6 +81,11 @@ export type OnyxInputProps = {
    * Message / help text to display below the input.
    */
   message?: string;
+  /**
+   * If `true`, the label will be visually hidden.
+   * For accessibility / screen readers, the aria-label will still be set.
+   */
+  hideLabel?: boolean;
 };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
