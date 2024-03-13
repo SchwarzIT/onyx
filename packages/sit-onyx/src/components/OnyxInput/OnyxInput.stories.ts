@@ -87,3 +87,35 @@ export const Loading = {
     loading: true,
   },
 } satisfies Story;
+
+/**
+ * This example shows a input with a maxlength and counter.
+ */
+export const Maxlength = {
+  args: {
+    ...Default.args,
+    maxlength: 16,
+    withCounter: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a input with a message / help text.
+ */
+export const WithMessage = {
+  args: {
+    ...Default.args,
+    message: "Example message",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a input with autocomplete where the browser suggest to fill the input value.
+ * Note: For this example you need to have set your name in your browser settings.
+ */
+export const Autocomplete = {
+  args: {
+    label: "Label",
+    autocomplete: "name",
+  },
+} satisfies Story;
