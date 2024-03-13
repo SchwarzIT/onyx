@@ -89,11 +89,8 @@ const plugin: Plugin<ChartType, undefined> = {
     chart.config.data.datasets.forEach((dataset, index) => {
       const controller = chart.getDatasetMeta(index).controller;
 
-      if (controller instanceof DoughnutController) {
-        colorizeDoughnutDataset(dataset, i);
-        i += dataset.data.length;
-      } else if (controller instanceof PolarAreaController) {
-        colorizePolarAreaDataset(dataset, i);
+      if (controller instanceof DoughnutController || controller instanceof PolarAreaController) {
+        colorizeDoughnutOrPolarAreaDataset(dataset, i);
         i += dataset.data.length;
       } else if (controller) {
         colorizeDefaultDataset(dataset, i);
@@ -162,18 +159,9 @@ const colorizeDefaultDataset = (dataset: ChartDataset, i: number) => {
 };
 
 /**
- * Colorizes the given dataset for a doughnut chart.
+ * Colorizes the given dataset for a doughnut or polar area chart.
  */
-const colorizeDoughnutDataset = (dataset: ChartDataset, i: number) => {
-  dataset.backgroundColor = dataset.data.map((_, index) => getBorderColor(i + index));
-  // TODO: check borderColor
-  dataset.borderColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-};
-
-/**
- * Colorizes the given dataset for a polar area chart.
- */
-const colorizePolarAreaDataset = (dataset: ChartDataset, i: number) => {
+const colorizeDoughnutOrPolarAreaDataset = (dataset: ChartDataset, i: number) => {
   dataset.backgroundColor = dataset.data.map((_, index) => getBackgroundColor(i + index));
   dataset.borderColor = dataset.data.map((_, index) => getBorderColor(i + index));
 };
