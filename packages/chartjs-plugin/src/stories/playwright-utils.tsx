@@ -1,9 +1,8 @@
 import { expect, type MountResult } from "@playwright/experimental-ct-vue";
 import type { Page } from "@playwright/test";
 
-export const switchTheme = async (page: Page, theme: string) => {
-  await page.evaluate((theme) => document.documentElement.classList.add(theme), theme);
-};
+export const switchTheme = (page: Page, theme: string) =>
+  page.evaluate((theme) => document.documentElement.classList.add(theme), theme);
 
 export const executeChartScreenshotTest = async (
   page: Page,

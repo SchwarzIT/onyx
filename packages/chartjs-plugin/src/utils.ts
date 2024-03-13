@@ -41,9 +41,9 @@ export const getCSSVariableValue = (variableName: string) => {
  * Converts the given HEX color to rgb.
  */
 export const hexToRgb = (hex: string) => {
-  const bigint = parseInt(hex.replace("#", ""), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
+  const number = parseInt(hex.replace("#", ""), 16);
+  const r = (number >> 16) & 255;
+  const g = (number >> 8) & 255;
+  const b = number & 255;
   return `${r}, ${g}, ${b}`;
 };

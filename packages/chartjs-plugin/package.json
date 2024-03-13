@@ -24,6 +24,8 @@
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
     "build": "vue-tsc --noEmit",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:components": "playwright install && playwright test"
   },
   "peerDependencies": {

@@ -136,6 +136,9 @@ const plugin: Plugin<ChartType, undefined> = {
       attributeOldValue: true,
     };
 
+    // TODO: see https://github.com/SchwarzIT/onyx/issues/618
+    // change to media query once the above ticket is implemented
+    // for example implementation see: https://css-tricks.com/working-with-javascript-media-queries/#aa-listen-for-changes
     darkModeObserver.observe(document.body, observerOptions);
     darkModeObserver.observe(document.documentElement, observerOptions);
   },
