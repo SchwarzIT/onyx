@@ -24,7 +24,11 @@ const emit = defineEmits<{
   <button
     v-else
     class="onyx-button"
-    :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
+    :class="{
+      [`onyx-button--${props.variation}`]: true,
+      [`onyx-button--${props.mode}`]: true,
+      'onyx-button--loading': props.loading,
+    }"
     :disabled="props.disabled || props.loading"
     @click="emit('click')"
   >
@@ -60,7 +64,7 @@ $button-height: 2.5rem;
   color: var(--onyx-button-text-color);
 
   &--primary {
-    &:disabled &:not(.onyx-button__loading) {
+    &:disabled:not(.onyx-button--loading) {
       --onyx-button-text-color: var(--onyx-color-text-icons-primary-soft);
     }
 
@@ -70,7 +74,7 @@ $button-height: 2.5rem;
       --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
       --onyx-button-border-color: var(--onyx-color-base-primary-500);
 
-      &:disabled &:not(.onyx-button__loading) {
+      &:disabled:not(.onyx-button--loading) {
         --onyx-button-background-color: var(--onyx-color-base-primary-200);
         --onyx-button-border-color: var(--onyx-color-base-primary-200);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
@@ -80,7 +84,7 @@ $button-height: 2.5rem;
     &.onyx-button--outline {
       --onyx-button-border-color: var(--onyx-color-base-primary-500);
 
-      &:disabled &:not(.onyx-button__loading) {
+      &:disabled:not(.onyx-button--loading) {
         --onyx-button-border-color: var(--onyx-color-base-primary-200);
       }
     }
@@ -91,7 +95,7 @@ $button-height: 2.5rem;
     --onyx-button-outline-color: var(--onyx-color-base-neutral-300);
     --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
 
-    &:disabled &:not(.onyx-button__loading) {
+    &:disabled:not(.onyx-button--loading) {
       --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
     }
 
@@ -100,7 +104,7 @@ $button-height: 2.5rem;
       --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
       --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
-      &:disabled &:not(.onyx-button__loading) {
+      &:disabled:not(.onyx-button--loading) {
         --onyx-button-background-color: var(--onyx-color-base-background-blank);
         --onyx-button-border-color: var(--onyx-color-base-neutral-200);
       }
@@ -109,7 +113,7 @@ $button-height: 2.5rem;
     &.onyx-button--outline {
       --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
-      &:disabled &:not(.onyx-button__loading) {
+      &:disabled:not(.onyx-button--loading) {
         --onyx-button-border-color: var(--onyx-color-base-neutral-200);
       }
     }
@@ -120,7 +124,7 @@ $button-height: 2.5rem;
     --onyx-button-outline-color: var(--onyx-color-base-danger-300);
     --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
-    &:disabled &:not(.onyx-button__loading) {
+    &:disabled:not(.onyx-button--loading) {
       --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
     }
 
@@ -129,7 +133,7 @@ $button-height: 2.5rem;
       --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
       --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
-      &:disabled &:not(.onyx-button__loading) {
+      &:disabled:not(.onyx-button--loading) {
         --onyx-button-background-color: var(--onyx-color-base-danger-100);
         --onyx-button-border-color: var(--onyx-color-base-danger-200);
       }
@@ -138,7 +142,7 @@ $button-height: 2.5rem;
     &.onyx-button--outline {
       --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
-      &:disabled &:not(.onyx-button__loading) {
+      &:disabled:not(.onyx-button--loading) {
         --onyx-button-border-color: var(--onyx-color-base-danger-200);
       }
     }

@@ -74,7 +74,7 @@ const requiredMarkerClass = computed(() => {
     <input
       ref="inputElement"
       v-model="isChecked"
-      class="onyx-switch__input"
+      :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
       type="checkbox"
       :aria-label="props.hideLabel ? props.label : undefined"
       :disabled="props.disabled || props.loading"
@@ -82,11 +82,7 @@ const requiredMarkerClass = computed(() => {
     />
     <span class="onyx-switch__container">
       <span class="onyx-switch__icon">
-        <OnyxLoadingIndicator
-          v-if="!props.disabled && props.loading"
-          class="onyx-switch__loading"
-          type="circle"
-        />
+        <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
         <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
@@ -131,12 +127,12 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         color: var(--onyx-color-text-icons-primary-intense);
       }
 
-      .onyx-switch__loading {
+      .onyx-switch__spinner {
         color: var(--onyx-color-text-icons-primary-intense);
       }
     }
 
-    &:checked:disabled &:not(.onyx-switch__loading) + .onyx-switch__container {
+    &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-200);
 
       .onyx-switch__icon {
@@ -145,7 +141,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
       }
     }
 
-    &:disabled &:not(.onyx-switch__loading) + .onyx-switch__container {
+    &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
       background-color: var(--onyx-color-base-neutral-200);
 
       .onyx-switch__icon {
@@ -205,7 +201,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         --icon-size: #{$icon-size};
       }
 
-      .onyx-switch__loading {
+      .onyx-switch__spinner {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
