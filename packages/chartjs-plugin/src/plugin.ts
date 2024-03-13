@@ -84,17 +84,18 @@ const plugin: Plugin<ChartType, undefined> = {
    * of the chart.
    */
   beforeLayout: (chart) => {
-    let i = 0;
+    /** Color offset / index so every dataset gets a unique color. */
+    let colorOffset = 0;
 
     chart.config.data.datasets.forEach((dataset, index) => {
       const controller = chart.getDatasetMeta(index).controller;
 
       if (controller instanceof DoughnutController || controller instanceof PolarAreaController) {
-        colorizeDoughnutOrPolarAreaDataset(dataset, i);
-        i += dataset.data.length;
+        colorizeDataset(dataset, colorOffset, true);
+        colorOffset += dataset.data.length;
       } else if (controller) {
-        colorizeDefaultDataset(dataset, i);
-        i++;
+        colorizeDataset(dataset, colorOffset);
+        colorOffset++;
       }
     });
 
@@ -151,19 +152,21 @@ const createColorGetter = (color: string) => {
 };
 
 /**
- * Colorizes the given dataset for all chart types except doughnut and polar area.
+ * Colorizes the given dataset with colors from the onyx design system.
+ *
+ * @param dataset Dataset to colorize
+ * @param offset Offset for the colors. Useful if multiple datasets are used inside a chart which
+ * should have different colors.
+ * @param allData Set this to true for doughnut, pie and polar area chart type so every data has a separate color.
  */
-const colorizeDefaultDataset = (dataset: ChartDataset, i: number) => {
-  dataset.borderColor = getBorderColor(i);
-  dataset.backgroundColor = getBackgroundColor(i);
-};
-
-/**
- * Colorizes the given dataset for a doughnut or polar area chart.
- */
-const colorizeDoughnutOrPolarAreaDataset = (dataset: ChartDataset, i: number) => {
-  dataset.backgroundColor = dataset.data.map((_, index) => getBackgroundColor(i + index));
-  dataset.borderColor = dataset.data.map((_, index) => getBorderColor(i + index));
+const colorizeDataset = (dataset: ChartDataset, offset = 0, allData = false) => {
+  if (allData) {
+    dataset.borderColor = dataset.data.map((_, index) => getBorderColor(offset + index));
+    dataset.backgroundColor = dataset.data.map((_, index) => getBackgroundColor(offset + index));
+  } else {
+    dataset.borderColor = getBorderColor(offset);
+    dataset.backgroundColor = getBackgroundColor(offset);
+  }
 };
 
 /**
