@@ -29,8 +29,8 @@ export default defineConfig({
   },
   /* Configure projects for major browsers */
   projects: [
+    // one browser is sufficient for the screenshot tests
+    // since its responsibility of Chart.js itself to be cross-browser compatible
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
-    { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
 });
