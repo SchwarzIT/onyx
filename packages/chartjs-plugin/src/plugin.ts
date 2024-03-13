@@ -1,19 +1,16 @@
-import type {
+import {
   Chart,
-  ChartType,
-  Color,
-  LineControllerDatasetOptions,
-  Plugin,
-  ScaleOptionsByType,
-  ScaleTypeRegistry,
+  DoughnutController,
+  PieController,
+  PolarAreaController,
+  type ChartDataset,
+  type ChartType,
+  type Color,
+  type Plugin,
+  type ScaleOptionsByType,
+  type ScaleTypeRegistry,
 } from "chart.js";
-import type { DeepPartial, OnyxColor } from "sit-onyx/types";
-import type { OnyxChartOptions } from "./types";
 import { getCSSVariableValue, hexToRgb } from "./utils";
-
-const defaultPluginOptions = {
-  color: "primary",
-} as const satisfies OnyxChartOptions;
 
 /**
  * Registers the onyx Chart.js plugin and updates the default styles (colors, fonts etc.) to match
@@ -30,12 +27,8 @@ const defaultPluginOptions = {
  * registerOnyxPlugin(Chart);
  * ```
  */
-export const registerOnyxPlugin = (
-  chart: typeof Chart,
-  overrideDefaults?: DeepPartial<OnyxChartOptions>,
-) => {
+export const registerOnyxPlugin = (chart: typeof Chart) => {
   chart.register(plugin);
-  chart.defaults.plugins.onyx = overrideDefaults ?? defaultPluginOptions;
   chart.defaults.plugins.colors.enabled = false;
 
   //
@@ -63,6 +56,10 @@ export const registerOnyxPlugin = (
     size: 16,
   };
 
+  chart.defaults.scales.radialLinear.ticks.backdropColor = () => {
+    return getCSSVariableValue("--onyx-color-base-background-tinted");
+  };
+
   Object.entries(chart.defaults.scales).forEach(([key, scale]) => {
     // exclude radialLinear scale because it does not support a title
     if (key === "radialLinear") return;
@@ -78,25 +75,47 @@ export const registerOnyxPlugin = (
       },
     };
   });
-
-  const onyxColor = chart.defaults.plugins.onyx.color ?? defaultPluginOptions.color;
-
-  //
-  // Line chart
-  //
-  applyLineChartStyles(chart.defaults.datasets.line, onyxColor);
 };
 
-const plugin: Plugin<ChartType, OnyxChartOptions> = {
+const plugin: Plugin<ChartType, undefined> = {
   id: "onyx",
-  defaults: defaultPluginOptions,
   /**
-   * We use the "beforeUpdate" hook to apply styles that can be overridden
-   * per chart individually with plugin options.
+   * We use the "beforeUpdate" hook to apply styles to the individual datasets
+   * of the chart.
    */
-  beforeUpdate: (chart, args, options) => {
-    if (chart.options.datasets?.line) {
-      applyLineChartStyles(chart.options.datasets.line, options.color);
+  beforeLayout: (chart) => {
+    let i = 0;
+
+    chart.config.data.datasets.forEach((dataset, index) => {
+      const controller = chart.getDatasetMeta(index).controller;
+
+      if (controller instanceof DoughnutController) {
+        colorizeDoughnutDataset(dataset, i);
+        i += dataset.data.length;
+      } else if (controller instanceof PolarAreaController) {
+        colorizePolarAreaDataset(dataset, i);
+        i += dataset.data.length;
+      } else if (controller) {
+        colorizeDefaultDataset(dataset, i);
+        i++;
+      }
+    });
+
+    // due to some reason the doughnut and pie charts do not use the default font size
+    // for the scale titles so we need to manually set them here
+    const controller = chart.getDatasetMeta(0).controller;
+    if (controller instanceof DoughnutController || controller instanceof PieController) {
+      Object.values(chart.config.options?.scales ?? {}).forEach((scale) => {
+        if (!scale) return;
+        const typedScale = scale as ScaleOptionsByType<
+          Exclude<keyof ScaleTypeRegistry, "radialLinear">
+        >;
+
+        typedScale.title.font = {
+          ...typedScale.title.font,
+          size: 16,
+        };
+      });
     }
   },
   /**
@@ -134,26 +153,55 @@ const createColorGetter = (color: string) => {
   return getter as unknown as Color;
 };
 
-const applyLineChartStyles = (
-  line: DeepPartial<
-    Pick<
-      LineControllerDatasetOptions,
-      "borderColor" | "backgroundColor" | "pointBorderColor" | "pointBackgroundColor"
-    >
-  >,
-  baseColor: OnyxColor,
-) => {
-  line.borderColor = () => {
-    return getCSSVariableValue(`--onyx-color-base-${baseColor}-500`);
-  };
-  line.backgroundColor = () => {
-    const color = getCSSVariableValue(`--onyx-color-base-${baseColor}-500`);
-    return `rgba(${hexToRgb(color)}, 0.3)`;
-  };
-  line.pointBorderColor = () => {
-    return getCSSVariableValue("--onyx-color-base-neutral-700");
-  };
-  line.pointBackgroundColor = () => {
-    return getCSSVariableValue("--onyx-color-base-neutral-100");
-  };
+/**
+ * Colorizes the given dataset for all chart types except doughnut and polar area.
+ */
+const colorizeDefaultDataset = (dataset: ChartDataset, i: number) => {
+  dataset.borderColor = getBorderColor(i);
+  dataset.backgroundColor = getBackgroundColor(i);
+};
+
+/**
+ * Colorizes the given dataset for a doughnut chart.
+ */
+const colorizeDoughnutDataset = (dataset: ChartDataset, i: number) => {
+  dataset.backgroundColor = dataset.data.map((_, index) => getBorderColor(i + index));
+  // TODO: check borderColor
+  dataset.borderColor = getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+};
+
+/**
+ * Colorizes the given dataset for a polar area chart.
+ */
+const colorizePolarAreaDataset = (dataset: ChartDataset, i: number) => {
+  dataset.backgroundColor = dataset.data.map((_, index) => getBackgroundColor(i + index));
+  dataset.borderColor = dataset.data.map((_, index) => getBorderColor(i + index));
+};
+
+/**
+ * Available colors to choose from for default dataset styles.
+ */
+const COLORS = [
+  "--onyx-color-base-quantitatives-100",
+  "--onyx-color-base-quantitatives-200",
+  "--onyx-color-base-quantitatives-300",
+  "--onyx-color-base-quantitatives-400",
+  "--onyx-color-base-quantitatives-500",
+  "--onyx-color-base-quantitatives-600",
+  "--onyx-color-base-quantitatives-700",
+  "--onyx-color-base-quantitatives-800",
+  "--onyx-color-base-quantitatives-900",
+] as const;
+
+/**
+ * Gets a border color.
+ */
+const getBorderColor = (i: number) => getCSSVariableValue(COLORS[i % COLORS.length]);
+
+/**
+ * Gets a background color (same as border color + 30% transparency).
+ */
+const getBackgroundColor = (i: number) => {
+  const color = getBorderColor(i);
+  return `rgba(${hexToRgb(color)}, 0.3)`;
 };
