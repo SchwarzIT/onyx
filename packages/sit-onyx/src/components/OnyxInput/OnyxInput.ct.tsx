@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { matrixScreenshotTest } from "../../utils/playwright";
+import { createMatrixScreenshotTest } from "../../utils/playwright";
 import OnyxInput from "./OnyxInput.vue";
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
@@ -132,7 +132,7 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 
 test(
   "state screenshot testing",
-  matrixScreenshotTest({
+  createMatrixScreenshotTest({
     states: STATES,
     component: OnyxInput,
     baseName: "input",

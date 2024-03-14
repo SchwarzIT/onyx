@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { matrixScreenshotTest } from "../../utils/playwright";
+import { createMatrixScreenshotTest } from "../../utils/playwright";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -252,7 +252,7 @@ const STATES = {
 
 test(
   "state screenshot testing",
-  matrixScreenshotTest({
+  createMatrixScreenshotTest({
     states: STATES,
     component: OnyxCheckbox,
     baseName: "checkbox",

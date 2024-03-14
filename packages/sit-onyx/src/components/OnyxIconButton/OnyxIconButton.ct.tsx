@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { matrixScreenshotTest, mockPlaywrightIcon } from "../../utils/playwright";
+import { createMatrixScreenshotTest, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
@@ -57,7 +57,7 @@ const STATES = {
 
 test(
   "state screenshot testing",
-  matrixScreenshotTest({
+  createMatrixScreenshotTest({
     states: STATES,
     component: OnyxIconButton,
     baseName: "icon-button",

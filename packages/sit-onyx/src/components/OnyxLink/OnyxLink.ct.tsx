@@ -1,5 +1,5 @@
 import { test } from "../../playwright-axe";
-import { matrixScreenshotTest } from "../../utils/playwright";
+import { createMatrixScreenshotTest } from "../../utils/playwright";
 import OnyxLink from "./OnyxLink.vue";
 
 const STATES = {
@@ -9,7 +9,7 @@ const STATES = {
 
 test(
   "state screenshot testing",
-  matrixScreenshotTest({
+  createMatrixScreenshotTest({
     states: STATES,
     component: OnyxLink,
     baseName: "link",

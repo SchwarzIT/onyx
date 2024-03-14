@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { matrixScreenshotTest, mockPlaywrightIcon } from "../../utils/playwright";
+import { createMatrixScreenshotTest, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
@@ -77,7 +77,7 @@ const STATES = {
 
 test(
   "state screenshot testing",
-  matrixScreenshotTest({
+  createMatrixScreenshotTest({
     states: STATES,
     component: OnyxButton,
     baseName: "button",

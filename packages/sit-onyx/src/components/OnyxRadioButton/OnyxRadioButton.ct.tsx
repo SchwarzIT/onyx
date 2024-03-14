@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { matrixScreenshotTest } from "../../utils/playwright";
+import { createMatrixScreenshotTest } from "../../utils/playwright";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
@@ -129,7 +129,7 @@ const STATES = {
 
 test(
   "state screenshot testing",
-  matrixScreenshotTest({
+  createMatrixScreenshotTest({
     states: STATES,
     component: OnyxRadioButton,
     baseName: "radio-button",
