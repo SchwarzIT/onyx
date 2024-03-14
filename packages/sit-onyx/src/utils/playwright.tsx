@@ -112,32 +112,37 @@ export const executeScreenshotsForAllStates = <
 
   batches.forEach((batch, index) => {
     test(`${baseName} state screenshot tests (batch ${index})`, async ({ mount, page }) => {
+      // give a maximum timeout of 1 second per test case
+      test.setTimeout(batch.length * 1000);
+
       const promises = batch.map(async (testCase) => {
         const screenshotName = [
           baseName,
           ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
         ].join("-");
 
-        // ARRANGE
-        const wrappedMount = ((jsx, options) =>
-          mount(
-            <div
-              style={{ width: "max-content", padding: "1rem" }}
-              class={{
-                "onyx-use-optional": options?.useOptional,
-              }}
-            >
-              {jsx}
-            </div>,
-          )) satisfies WrappedMount;
+        await test.step(screenshotName, async () => {
+          // ARRANGE
+          const wrappedMount = ((jsx, options) =>
+            mount(
+              <div
+                style={{ width: "max-content", padding: "1rem" }}
+                class={{
+                  "onyx-use-optional": options?.useOptional,
+                }}
+              >
+                {jsx}
+              </div>,
+            )) satisfies WrappedMount;
 
-        await page.getByRole("document").focus(); // reset focus
-        await page.getByRole("document").hover(); // reset mouse
-        await page.mouse.up(); // reset mouse
-        const component = await caseBuilder(testCase, wrappedMount, page);
+          await page.getByRole("document").focus(); // reset focus
+          await page.getByRole("document").hover(); // reset mouse
+          await page.mouse.up(); // reset mouse
+          const component = await caseBuilder(testCase, wrappedMount, page);
 
-        // ASSERT
-        await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+          // ASSERT
+          await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+        });
       });
 
       await Promise.all(promises);
