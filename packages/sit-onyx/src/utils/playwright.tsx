@@ -107,15 +107,16 @@ export const executeScreenshotsForAllStates = <
   // therefore, we will split the permutations to only run a maximum of 25 permutations inside a single test
   const batches: (typeof permutations)[] = [];
   while (permutations.length > 0) {
-    batches.push(permutations.splice(0, 25));
+    batches.push(permutations.splice(0, 50));
   }
 
   batches.forEach((batch, index) => {
-    test(`${baseName} state screenshot tests (batch ${index})`, async ({ mount, page }) => {
-      // give a maximum timeout of 1 second per test case
-      test.setTimeout(batch.length * 1000);
+    test(`${baseName} state screenshot tests (batch ${index + 1})`, async ({ mount, page }) => {
+      // default test timeout is 10s (see playwright.config.ts), so we increase it here
+      // so that the timeout is applied to every permutation
+      test.setTimeout(batch.length * 10 * 1000);
 
-      const promises = batch.map(async (testCase) => {
+      for (const testCase of batch) {
         const screenshotName = [
           baseName,
           ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
@@ -143,9 +144,7 @@ export const executeScreenshotsForAllStates = <
           // ASSERT
           await expect(component).toHaveScreenshot(`${screenshotName}.png`);
         });
-      });
-
-      await Promise.all(promises);
+      }
     });
   });
 };
