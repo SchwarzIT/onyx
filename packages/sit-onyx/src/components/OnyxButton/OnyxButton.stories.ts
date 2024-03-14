@@ -69,16 +69,6 @@ export const Danger = {
 } satisfies Story;
 
 /**
- * This example shows the button in loading state
- */
-export const Loading = {
-  args: {
-    label: "Button",
-    loading: true,
-  },
-} satisfies Story;
-
-/**
  * This example shows the button with icon
  */
 export const WithIcon = {

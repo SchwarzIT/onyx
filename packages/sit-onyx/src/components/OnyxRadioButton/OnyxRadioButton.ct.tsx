@@ -122,7 +122,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "invalid", "loading"],
+  state: ["default", "disabled", "invalid"],
   select: ["unselected", "selected"],
   focusState: ["none", "hover", "focus-visible"],
 } as const;
@@ -136,7 +136,6 @@ test(
     props: ({ select, state }) => ({
       selected: select === "selected",
       disabled: state === "disabled",
-      loading: state === "loading",
       errorMessage: state === "invalid" ? "invalid" : "",
       name: "name",
       label: "label",

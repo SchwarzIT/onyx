@@ -16,10 +16,6 @@ export type SelectionOption<T = unknown> = {
   value?: T;
   disabled?: boolean;
   /**
-   * Shows a loading indicator.
-   */
-  loading?: boolean;
-  /**
    * How to truncate the label if it exceeds the max width.
    */
   truncation?: TruncationType;
