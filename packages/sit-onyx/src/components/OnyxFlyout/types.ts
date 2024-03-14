@@ -9,5 +9,8 @@ export type OnyxFlyoutProps<TValue extends SelectionOptionValue = SelectionOptio
    * Optional label to show at the bottom.
    */
   label?: string;
+  /**
+   * Current value / selected options.
+   */
   modelValue?: TValue;
 };

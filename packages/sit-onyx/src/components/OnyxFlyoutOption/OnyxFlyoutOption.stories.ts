@@ -25,3 +25,10 @@ export const Selected = {
     modelValue: true,
   },
 } satisfies Story;
+
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;

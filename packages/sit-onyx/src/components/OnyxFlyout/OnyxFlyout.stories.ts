@@ -27,9 +27,12 @@ export const Default = {
     label: "Example label",
     options: Array.from({ length: 25 }, (_, index) => {
       const id = index + 1;
+      const disabled = id === 3 || id === 4;
+
       return {
         id: id,
-        label: `Test option ${id}`,
+        label: `${disabled ? "Disabled" : "Test"} option ${id}`,
+        disabled,
       };
     }),
   },

@@ -12,6 +12,7 @@ const emit = defineEmits<{
   <button
     class="onyx-flyout-option onyx-text onyx-truncation-ellipsis"
     :class="{ 'onyx-flyout-option--selected': props.modelValue }"
+    :disabled="props.disabled"
     @click="emit('update:modelValue', !props.modelValue)"
   >
     {{ props.label }}
@@ -25,7 +26,7 @@ const emit = defineEmits<{
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   background-color: var(--onyx-color-base-background-blank);
-  cursor: pointer;
+
   border: none;
   width: 100%;
   outline: none;
@@ -34,19 +35,27 @@ const emit = defineEmits<{
   align-items: center;
   gap: var(--onyx-spacing-2xs);
 
-  &:hover,
-  &:focus-visible {
-    background-color: var(--onyx-color-base-primary-100);
-  }
-
-  &--selected {
-    background-color: var(--onyx-color-base-primary-200);
+  &:enabled {
+    cursor: pointer;
 
     &:hover,
     &:focus-visible {
-      background-color: var(--onyx-color-base-primary-200);
-      color: var(--onyx-color-text-icons-primary-bold);
+      background-color: var(--onyx-color-base-primary-100);
     }
+
+    &.onyx-flyout-option--selected {
+      background-color: var(--onyx-color-base-primary-200);
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--onyx-color-base-primary-200);
+        color: var(--onyx-color-text-icons-primary-bold);
+      }
+    }
+  }
+
+  &:disabled {
+    color: var(--onyx-color-text-icons-neutral-soft);
   }
 }
 </style>

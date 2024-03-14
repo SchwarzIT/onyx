@@ -7,4 +7,8 @@ export type OnyxFlyoutOptionProps = {
    * Whether the option is selected.
    */
   modelValue?: boolean;
+  /**
+   * Whether the option is disabled.
+   */
+  disabled?: boolean;
 };
