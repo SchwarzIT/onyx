@@ -28,9 +28,6 @@ export { default as OnyxSwitch } from "@/components/OnyxSwitch/OnyxSwitch.vue";
 export * from "@/components/OnyxSwitch/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
-export * from "@/types/colors";
-export * from "@/types/fonts";
-export * from "@/types/i18n";
-export * from "@/types/utils";
+export * from "@/types";
 
 export { createOnyx } from "@/utils/plugin";

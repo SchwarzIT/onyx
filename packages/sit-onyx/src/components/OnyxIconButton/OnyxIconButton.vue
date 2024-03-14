@@ -7,7 +7,6 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   disabled: false,
   type: "button",
   variation: "primary",
-  size: "24px",
 });
 
 defineSlots<{
@@ -23,18 +22,17 @@ const emit = defineEmits<{
 
 <template>
   <button
+    class="onyx-icon-button"
     :aria-label="props.label"
     :class="{
-      'onyx-icon-button': true,
       [`onyx-icon-button--${props.variation}`]: true,
       'onyx-icon-button--loading': props.loading,
-      [`onyx-density-${props.density}`]: props.density,
     }"
     :disabled="props.disabled || props.loading"
     @click="emit('click')"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
-    <OnyxIcon v-else-if="props.icon" :icon="props.icon" :size="props.size" />
+    <OnyxIcon v-else-if="props.icon" :icon="props.icon" />
     <slot v-else></slot>
   </button>
 </template>
@@ -47,8 +45,7 @@ const emit = defineEmits<{
 
   display: grid;
   place-items: center;
-  height: var(--onyx-density);
-  aspect-ratio: 1;
+  padding: var(--onyx-spacing-2xs);
   color: var(--icon-button-color);
   cursor: var(--icon-button-cursor);
 

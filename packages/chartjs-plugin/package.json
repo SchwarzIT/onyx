@@ -1,0 +1,39 @@
+{
+  "name": "@sit-onyx/chartjs-plugin",
+  "description": "A Chart.js plugin for the onyx design system created by Schwarz IT",
+  "version": "0.0.1-alpha.0",
+  "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "files": [
+    "src"
+  ],
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./examples/*": "./src/stories/*"
+  },
+  "homepage": "https://onyx.schwarz/development/packages/chartjs-plugin.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/chartjs-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "vue-tsc --noEmit",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:components": "playwright install && playwright test"
+  },
+  "peerDependencies": {
+    "chart.js": ">= 4.0.0",
+    "sit-onyx": "workspace:^"
+  },
+  "devDependencies": {
+    "vue-chartjs": "^5.3.0"
+  }
+}

@@ -70,7 +70,6 @@ const handleCopy = async () => {
   @include mixins.breakpoint(min, s) {
     &__container {
       padding: var(--onyx-spacing-md) var(--onyx-spacing-2xl);
-      height: 100%;
       display: flex;
       align-items: center;
 

@@ -1,8 +1,7 @@
-import type { DensityProp } from "../../styles/density";
-
 export type OnyxInputProps = {
   /**
-   * Label to show above the input.
+   * Label to show above the input. Required due to accessibility / screen readers.
+   * If you want to visually hide the label, use the `hideLabel` property.
    */
   label: string;
   /**
@@ -83,7 +82,12 @@ export type OnyxInputProps = {
    * Message / help text to display below the input.
    */
   message?: string;
-} & DensityProp;
+  /**
+   * If `true`, the label will be visually hidden.
+   * For accessibility / screen readers, the aria-label will still be set.
+   */
+  hideLabel?: boolean;
+};
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];

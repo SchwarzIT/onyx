@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { OnyxLoadingIndicator } from "@/index";
 import { computed } from "vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -57,17 +57,14 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   <div class="onyx-input">
     <label>
       <div
+        v-if="!props.hideLabel"
         class="onyx-input__label onyx-text--small"
         :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
       >
         <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
       </div>
-      <div
-        :class="{
-          ['onyx-input__wrapper']: true,
-          [`onyx-density-${props.density}`]: props.density,
-        }"
-      >
+
+      <div class="onyx-input__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
 
         <!-- eslint-disable vuejs-accessibility/no-autofocus -
@@ -89,6 +86,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           :disabled="props.disabled || props.loading"
           :minlength="props.minlength"
           :maxlength="props.maxlength"
+          :aria-label="props.hideLabel ? props.label : undefined"
           @change="handleChange"
           @focus="emit('focus')"
           @blur="emit('blur')"
@@ -107,6 +105,27 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </template>
 
 <style lang="scss">
+/**
+* Gets a comma separated CSS selector for the input autofill.
+* Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
+*/
+@function get-autofill-selectors($prefix: "") {
+  $output: "";
+  $selectors: (":autofill", "[data-test-autofill]", "[data-com-onepassword-filled]");
+
+  @each $selector in $selectors {
+    $prefixed-selector: $prefix + $selector;
+
+    @if $output == "" {
+      $output: $prefixed-selector;
+    } @else {
+      $output: $output + ", " + $prefixed-selector;
+    }
+  }
+
+  @return $output;
+}
+
 .onyx-input {
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-primary-200);
@@ -147,7 +166,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
     box-sizing: border-box;
     padding: $padding-vertical var(--onyx-spacing-sm);
-    height: var(--onyx-density);
+    height: calc($line-height + 2 * $padding-vertical);
 
     &:has(.onyx-input__native:read-write:hover) {
       border-color: var(--onyx-color-base-primary-400);
@@ -175,6 +194,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
         outline-color: var(--onyx-color-base-neutral-200);
       }
     }
+
+    &:has(.onyx-input__native:read-write) {
+      &:has(#{get-autofill-selectors(".onyx-input__native")}) {
+        background-color: var(--onyx-color-base-warning-100);
+      }
+    }
   }
 
   &__native {
@@ -197,6 +222,15 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
     &::selection {
       background: var(--selection-color);
+    }
+
+    #{get-autofill-selectors("&")} {
+      background-color: transparent;
+      -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
+
+      // many browsers use "!important" to set the autofill background so we need this
+      // transition workaround to make the background transparent
+      transition: background-color calc(infinity * 1s);
     }
   }
 
