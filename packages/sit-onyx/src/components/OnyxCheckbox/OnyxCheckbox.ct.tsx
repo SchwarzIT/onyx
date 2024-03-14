@@ -260,7 +260,7 @@ test(
         <OnyxCheckbox
           modelValue={select === "selected"}
           label="label"
-          indeterminate={select === "indeterminate"}
+          indeterminate={select === "indeterminate" && state != "loading"}
           disabled={state === "disabled"}
           required={state === "required"}
           loading={state === "loading"}

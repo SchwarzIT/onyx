@@ -92,9 +92,8 @@ test(
         />,
       );
 
-      const button = component.getByRole("button");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await button.hover();
+      if (focusState === "hover") await component.hover();
       if (focusState === "active") await page.mouse.down();
       return component;
     },
