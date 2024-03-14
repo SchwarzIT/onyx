@@ -199,11 +199,16 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
         await component.update({ props });
       }
 
-      const isOptional = options.useOptional?.(testCase);
-      if (isOptional) {
+      if (options.useOptional) {
+        const isOptional = options.useOptional(testCase);
         await page.evaluate(
-          (selector) => document.querySelector(selector)?.classList.add("onyx-use-optional"),
-          rootSelector,
+          ({ rootSelector, isOptional }) => {
+            const classList = document.querySelector(rootSelector)?.classList;
+            const className = "onyx-use-optional";
+            if (isOptional) classList?.add(className);
+            else classList?.remove(className);
+          },
+          { rootSelector, isOptional },
         );
       }
 
