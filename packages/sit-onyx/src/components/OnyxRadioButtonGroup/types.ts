@@ -1,6 +1,6 @@
-import type { SelectionOption } from "../OnyxRadioButton/types";
+import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 
-export type OnyxRadioButtonGroupProps<TValue> = {
+export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue> = {
   /**
    * Unique name for the radio button group form element.
    * Will automatically filled, when it is not given.

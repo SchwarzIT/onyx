@@ -58,7 +58,7 @@ test("should display correctly when disabled", async ({ mount, makeAxeBuilder, p
 });
 
 test("should display correctly when preselected", async ({ mount, makeAxeBuilder, page }) => {
-  const updates: SelectionOption<unknown>[] = [];
+  const updates: SelectionOption[] = [];
 
   // ARRANGE
   await mount(
