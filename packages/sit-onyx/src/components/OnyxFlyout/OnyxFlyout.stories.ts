@@ -34,19 +34,3 @@ export const Default = {
     }),
   },
 } satisfies Story;
-
-/**
- * This examples shows a flyout with very long labels that will be truncated.
- */
-export const Truncation = {
-  args: {
-    ...Default.args,
-    options: Array.from({ length: 25 }, (_, index) => {
-      const id = index + 1;
-      return {
-        id: id,
-        label: `Very long label that will be truncated if it exceeds the maximum allowed width ${id}`,
-      };
-    }),
-  },
-} satisfies Story;
