@@ -1,4 +1,4 @@
-import { type MountOptions } from "@playwright/experimental-ct-vue";
+import type { MountOptions } from "@playwright/experimental-ct-vue";
 import type { Page } from "@playwright/test";
 import { expect, test } from "../playwright-axe";
 
