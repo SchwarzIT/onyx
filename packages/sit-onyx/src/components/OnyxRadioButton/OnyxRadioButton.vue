@@ -16,7 +16,11 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </script>
 
 <template>
-  <div v-if="props.skeleton" class="onyx-radio-button-skeleton">
+  <div
+    v-if="props.skeleton"
+    class="onyx-radio-button-skeleton"
+    :class="{ [`onyx-density-${props.density}`]: props.density }"
+  >
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
@@ -44,7 +48,34 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </template>
 
 <style lang="scss">
-$input-size: var(--onyx-spacing-md);
+@use "../../styles/density.scss";
+
+.onyx-radio-button,
+.onyx-radio-button-skeleton {
+  @include density.compact {
+    --onyx-radio-button-height: var(--onyx-density);
+    --onyx-radio-button-selector-size: var(--onyx-spacing-sm);
+    --onyx-radio-button-dot-size: var(--onyx-spacing-4xs);
+    --onyx-radio-button-label-padding: var(--onyx-spacing-4xs);
+    --onyx-radio-button-selector-margin: var(--onyx-spacing-xs);
+  }
+
+  @include density.default {
+    --onyx-radio-button-height: var(--onyx-density);
+    --onyx-radio-button-selector-size: var(--onyx-spacing-md);
+    --onyx-radio-button-dot-size: var(--onyx-spacing-3xs);
+    --onyx-radio-button-label-padding: var(--onyx-spacing-2xs);
+    --onyx-radio-button-selector-margin: var(--onyx-spacing-sm);
+  }
+
+  @include density.cozy {
+    --onyx-radio-button-height: var(--onyx-density);
+    --onyx-radio-button-selector-size: var(--onyx-spacing-lg);
+    --onyx-radio-button-dot-size: var(--onyx-spacing-2xs);
+    --onyx-radio-button-label-padding: var(--onyx-spacing-sm);
+    --onyx-radio-button-selector-margin: var(--onyx-spacing-sm);
+  }
+}
 
 .onyx-radio-button {
   --onyx-radio-button-cursor: pointer;
@@ -58,7 +89,7 @@ $input-size: var(--onyx-spacing-md);
   align-items: flex-start;
   max-width: 100%;
   cursor: var(--onyx-radio-button-cursor);
-  height: var(--onyx-density);
+  min-height: var(--onyx-radio-button-height);
 
   &:has(&__selector:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
@@ -108,13 +139,14 @@ $input-size: var(--onyx-spacing-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-radio-button-label-color);
     line-height: var(--onyx-spacing-lg);
-    padding-top: var(--onyx-spacing-2xs);
+    padding: var(--onyx-radio-button-label-padding);
+    padding-left: 0;
   }
 
   &__selector {
     appearance: none;
     box-sizing: border-box;
-    margin: var(--onyx-spacing-sm);
+    margin: var(--onyx-radio-button-selector-margin);
     cursor: inherit;
 
     outline: {
@@ -134,19 +166,18 @@ $input-size: var(--onyx-spacing-md);
 
     background-color: var(--onyx-radio-button-selector-background-color);
 
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: $input-size;
-    min-width: $input-size;
-    max-width: $input-size;
+    display: inline-grid;
+    place-items: center;
+    width: var(--onyx-radio-button-selector-size);
+    min-width: var(--onyx-radio-button-selector-size);
+    max-width: var(--onyx-radio-button-selector-size);
     aspect-ratio: 1;
 
     &::before {
       content: " ";
       box-sizing: border-box;
-      height: var(--onyx-spacing-3xs);
-      width: var(--onyx-spacing-3xs);
+      height: var(--onyx-radio-button-dot-size);
+      width: var(--onyx-radio-button-dot-size);
       background-color: var(--onyx-color-base-background-blank);
       border-radius: 100%;
     }
@@ -154,14 +185,14 @@ $input-size: var(--onyx-spacing-md);
 }
 
 .onyx-radio-button-skeleton {
-  padding: var(--onyx-spacing-sm);
+  padding: var(--onyx-radio-button-selector-margin);
   display: inline-flex;
   align-items: center;
   gap: var(--onyx-spacing-sm);
 
   &__input {
-    height: $input-size;
-    width: $input-size;
+    height: var(--onyx-radio-button-selector-size);
+    width: var(--onyx-radio-button-selector-size);
     border-radius: var(--onyx-radius-full);
   }
 
