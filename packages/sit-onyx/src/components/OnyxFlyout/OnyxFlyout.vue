@@ -5,7 +5,6 @@ import type { OnyxFlyoutProps } from "./types";
 
 const props = defineProps<OnyxFlyoutProps<TValue>>();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
   /**
    * Emitted when the current value changes.
