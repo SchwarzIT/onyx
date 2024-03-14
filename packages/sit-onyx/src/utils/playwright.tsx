@@ -1,4 +1,3 @@
-import {} from "@playwright/experimental-ct-vue";
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
 
@@ -102,33 +101,46 @@ export const executeScreenshotsForAllStates = <
 ) => {
   const permutations = generatePermutations(states);
 
-  permutations.forEach((testCase) => {
-    const screenshotName = [
-      baseName,
-      ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
-    ].join("-");
+  // to prevent JavaScript memory heap errors we should not run all permutations inside
+  // one single Playwright test. On the other hand we should also not run a single
+  // test for every permutation because this leads to a very bad test performance.
+  // therefore, we will split the permutations to only run a maximum of 25 permutations inside a single test
+  const batches: (typeof permutations)[] = [];
+  while (permutations.length > 0) {
+    batches.push(permutations.splice(0, 25));
+  }
 
-    test(`${screenshotName}`, async ({ mount, page }) => {
-      // ARRANGE
-      const wrappedMount = ((jsx, options) =>
-        mount(
-          <div
-            style={{ width: "max-content", padding: "1rem" }}
-            class={{
-              "onyx-use-optional": options?.useOptional,
-            }}
-          >
-            {jsx}
-          </div>,
-        )) satisfies WrappedMount;
+  batches.forEach((batch, index) => {
+    test(`${baseName} screenshot tests (batch ${index})`, async ({ mount, page }) => {
+      const promises = batch.map(async (testCase) => {
+        const screenshotName = [
+          baseName,
+          ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
+        ].join("-");
 
-      await page.getByRole("document").focus(); // reset focus
-      await page.getByRole("document").hover(); // reset mouse
-      await page.mouse.up(); // reset mouse
-      const component = await caseBuilder(testCase, wrappedMount, page);
+        // ARRANGE
+        const wrappedMount = ((jsx, options) =>
+          mount(
+            <div
+              style={{ width: "max-content", padding: "1rem" }}
+              class={{
+                "onyx-use-optional": options?.useOptional,
+              }}
+            >
+              {jsx}
+            </div>,
+          )) satisfies WrappedMount;
 
-      // ASSERT
-      await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+        await page.getByRole("document").focus(); // reset focus
+        await page.getByRole("document").hover(); // reset mouse
+        await page.mouse.up(); // reset mouse
+        const component = await caseBuilder(testCase, wrappedMount, page);
+
+        // ASSERT
+        await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+      });
+
+      await Promise.all(promises);
     });
   });
 };
