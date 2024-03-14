@@ -145,9 +145,8 @@ test(
         />,
       );
 
-      const radioInput = component.getByRole("radio");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await radioInput.hover();
+      if (focusState === "hover") await component.hover();
       return component;
     },
   ),

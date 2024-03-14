@@ -269,9 +269,8 @@ test(
         { useOptional: state === "optional" },
       );
 
-      const checkbox = component.getByRole("checkbox");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await checkbox.hover();
+      if (focusState === "hover") await component.hover();
       return component;
     },
   ),

@@ -160,7 +160,6 @@ $input-size: var(--onyx-spacing-md);
     width: 1rem;
     height: 1rem;
     margin: var(--onyx-spacing-sm);
-    align-self: center;
   }
 }
 
