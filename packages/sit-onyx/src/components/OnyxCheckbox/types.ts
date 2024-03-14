@@ -19,10 +19,6 @@ export type OnyxCheckboxProps = {
    */
   disabled?: boolean;
   /**
-   * Shows a loading indicator.
-   */
-  loading?: boolean;
-  /**
    * Whether the checkbox is required / has to be checked.
    */
   required?: boolean;

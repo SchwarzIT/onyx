@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
   disabled: false,
-  loading: false,
   type: "button",
   variation: "primary",
   mode: "default",
@@ -24,17 +22,12 @@ const emit = defineEmits<{
   <button
     v-else
     class="onyx-button"
-    :class="{
-      [`onyx-button--${props.variation}`]: true,
-      [`onyx-button--${props.mode}`]: true,
-      'onyx-button--loading': props.loading,
-    }"
-    :disabled="props.disabled || props.loading"
+    :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
+    :disabled="props.disabled"
     @click="emit('click')"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
-    <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
-    <span v-else class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
+    <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
+    <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
 </template>
 
@@ -64,7 +57,7 @@ $button-height: 2.5rem;
   color: var(--onyx-button-text-color);
 
   &--primary {
-    &:disabled:not(.onyx-button--loading) {
+    &:disabled {
       --onyx-button-text-color: var(--onyx-color-text-icons-primary-soft);
     }
 
@@ -74,7 +67,7 @@ $button-height: 2.5rem;
       --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
       --onyx-button-border-color: var(--onyx-color-base-primary-500);
 
-      &:disabled:not(.onyx-button--loading) {
+      &:disabled {
         --onyx-button-background-color: var(--onyx-color-base-primary-200);
         --onyx-button-border-color: var(--onyx-color-base-primary-200);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
@@ -84,7 +77,7 @@ $button-height: 2.5rem;
     &.onyx-button--outline {
       --onyx-button-border-color: var(--onyx-color-base-primary-500);
 
-      &:disabled:not(.onyx-button--loading) {
+      &:disabled {
         --onyx-button-border-color: var(--onyx-color-base-primary-200);
       }
     }
@@ -95,7 +88,7 @@ $button-height: 2.5rem;
     --onyx-button-outline-color: var(--onyx-color-base-neutral-300);
     --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
 
-    &:disabled:not(.onyx-button--loading) {
+    &:disabled {
       --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
     }
 
@@ -104,7 +97,7 @@ $button-height: 2.5rem;
       --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
       --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
-      &:disabled:not(.onyx-button--loading) {
+      &:disabled {
         --onyx-button-background-color: var(--onyx-color-base-background-blank);
         --onyx-button-border-color: var(--onyx-color-base-neutral-200);
       }
@@ -113,7 +106,7 @@ $button-height: 2.5rem;
     &.onyx-button--outline {
       --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
-      &:disabled:not(.onyx-button--loading) {
+      &:disabled {
         --onyx-button-border-color: var(--onyx-color-base-neutral-200);
       }
     }
@@ -124,7 +117,7 @@ $button-height: 2.5rem;
     --onyx-button-outline-color: var(--onyx-color-base-danger-300);
     --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
-    &:disabled:not(.onyx-button--loading) {
+    &:disabled {
       --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
     }
 
@@ -133,7 +126,7 @@ $button-height: 2.5rem;
       --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
       --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
-      &:disabled:not(.onyx-button--loading) {
+      &:disabled {
         --onyx-button-background-color: var(--onyx-color-base-danger-100);
         --onyx-button-border-color: var(--onyx-color-base-danger-200);
       }
@@ -142,7 +135,7 @@ $button-height: 2.5rem;
     &.onyx-button--outline {
       --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
-      &:disabled:not(.onyx-button--loading) {
+      &:disabled {
         --onyx-button-border-color: var(--onyx-color-base-danger-200);
       }
     }
@@ -166,11 +159,6 @@ $button-height: 2.5rem;
     font-style: normal;
     font-weight: 600;
     line-height: 1.5rem;
-  }
-
-  &__loading {
-    width: var(--onyx-spacing-3xl);
-    height: $button-height;
   }
 }
 

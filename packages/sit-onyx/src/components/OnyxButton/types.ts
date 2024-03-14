@@ -8,10 +8,6 @@ export type OnyxButtonProps = {
    */
   disabled?: boolean;
   /**
-   * Shows a loading indicator.
-   */
-  loading?: boolean;
-  /**
    * The button type.
    */
   type?: ButtonType;

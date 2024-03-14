@@ -69,7 +69,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "icon", "loading"],
+  state: ["default", "disabled", "icon"],
   variation: ["primary", "secondary", "danger"],
   mode: ["default", "outline", "plain"],
   focusState: ["", "hover", "focus-visible", "active"],
@@ -81,16 +81,13 @@ test.describe("state screenshot tests", () => {
     "button",
     async ({ variation, state, mode, focusState }, mount, page) => {
       const component = await mount(
-        <div>
-          <OnyxButton
-            label="label"
-            variation={variation}
-            mode={mode}
-            disabled={state === "disabled"}
-            loading={state === "loading"}
-            icon={state === "icon" ? mockPlaywrightIcon : undefined}
-          />
-        </div>,
+        <OnyxButton
+          label="label"
+          variation={variation}
+          mode={mode}
+          disabled={state === "disabled"}
+          icon={state === "icon" ? mockPlaywrightIcon : undefined}
+        />,
       );
 
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
