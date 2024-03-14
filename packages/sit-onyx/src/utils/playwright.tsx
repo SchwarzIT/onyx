@@ -175,6 +175,13 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
 
     let component = await mount(options.component);
 
+    await page.evaluate(() => {
+      const root = document.querySelector<HTMLElement>("#root");
+      if (!root) return;
+      root.style.padding = "1rem";
+      root.style.maxWidth = "max-content";
+    });
+
     for (const testCase of permutations) {
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover(); // reset mouse
@@ -193,7 +200,9 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
 
       const isOptional = options.useOptional?.(testCase);
       if (isOptional) {
-        await page.evaluate(() => document.body.classList.add("onyx-use-optional"));
+        await page.evaluate(() =>
+          document.querySelector("#root")?.classList.add("onyx-use-optional"),
+        );
       }
 
       await options.onAfterUpdate?.(testCase, { component, page });
@@ -203,7 +212,7 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
         options.baseName,
         ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
       ].join("-");
-      await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+      await expect(page.locator("#root")).toHaveScreenshot(`${screenshotName}.png`);
     }
   };
 };
