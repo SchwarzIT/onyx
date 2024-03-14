@@ -67,25 +67,27 @@ type CaseBuilder<S extends ComponentStates> = (
  *   focusState: ["", "hover", "focus-visible"],
  * } as const;
  *
- * executeScreenshotsForAllStates(
- *   STATES,
- *   "component-name",
- *   async ({ select, state, focusState }, mount, page) => {
- *     const component = await mount(
- *       <Component
- *         modelValue={select === "selected"}
- *         disabled={state === "disabled"}
- *         required={state === "required"}
- *       />,
- *       { useOptional: state === "optional" },
- *     );
+ * test.describe("state screenshot tests", () => {
+ *   executeScreenshotsForAllStates(
+ *     STATES,
+ *     "component-name",
+ *     async ({ select, state, focusState }, mount, page) => {
+ *       const component = await mount(
+ *         <Component
+ *           modelValue={select === "selected"}
+ *           disabled={state === "disabled"}
+ *           required={state === "required"}
+ *         />,
+ *         { useOptional: state === "optional" },
+ *       );
  *
- *     const input = component.getByRole("textbox");
- *     if (focusState === "focus-visible") await page.keyboard.press("Tab");
- *     if (focusState === "hover") await input.hover();
- *     return component;
- *   },
- * );
+ *       const input = component.getByRole("textbox");
+ *       if (focusState === "focus-visible") await page.keyboard.press("Tab");
+ *       if (focusState === "hover") await input.hover();
+ *       return component;
+ *     },
+ *   );
+ * });
  * ```
  *
  * @param states All possible states for which permutations will be generated. Use `as const` to allow type support for the values.

@@ -109,24 +109,26 @@ const STATES = {
   labeled: ["labeled", "unlabeled"],
 } as const;
 
-executeScreenshotsForAllStates(
-  STATES,
-  "switch",
-  async ({ select, state, labeled, focusState }, mount, page) => {
-    const component = await mount(
-      <OnyxSwitch
-        modelValue={select === "selected"}
-        label={labeled}
-        hideLabel={labeled === "unlabeled"}
-        disabled={state === "disabled"}
-        loading={state === "loading"}
-        required={state === "required"}
-      />,
-      { useOptional: state === "optional" },
-    );
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    STATES,
+    "switch",
+    async ({ select, state, labeled, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxSwitch
+          modelValue={select === "selected"}
+          label={labeled}
+          hideLabel={labeled === "unlabeled"}
+          disabled={state === "disabled"}
+          loading={state === "loading"}
+          required={state === "required"}
+        />,
+        { useOptional: state === "optional" },
+      );
 
-    if (focusState === "focus-visible") await page.keyboard.press("Tab");
-    if (focusState === "hover") await component.hover();
-    return component;
-  },
-);
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await component.hover();
+      return component;
+    },
+  );
+});

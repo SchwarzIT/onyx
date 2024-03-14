@@ -127,24 +127,26 @@ const STATES = {
   focusState: ["none", "hover", "focus-visible"],
 } as const;
 
-executeScreenshotsForAllStates(
-  STATES,
-  "radio-button",
-  async ({ select, state, focusState }, mount, page) => {
-    const component = await mount(
-      <OnyxRadioButton
-        selected={select === "selected"}
-        disabled={state === "disabled"}
-        loading={state === "loading"}
-        errorMessage={state === "invalid" ? "invalid" : ""}
-        name={`name`}
-        label="label"
-        id={`id`}
-      />,
-    );
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    STATES,
+    "radio-button",
+    async ({ select, state, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxRadioButton
+          selected={select === "selected"}
+          disabled={state === "disabled"}
+          loading={state === "loading"}
+          errorMessage={state === "invalid" ? "invalid" : ""}
+          name={`name`}
+          label="label"
+          id={`id`}
+        />,
+      );
 
-    if (focusState === "focus-visible") await page.keyboard.press("Tab");
-    if (focusState === "hover") await component.hover();
-    return component;
-  },
-);
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await component.hover();
+      return component;
+    },
+  );
+});
