@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { OnyxLoadingIndicator } from "@/index";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
