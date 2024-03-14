@@ -20,15 +20,10 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install
 
-      - name: 🗑️ Delete existing screenshots
-        run: rm -rf ./playwright/snapshots
-        working-directory: packages/sit-onyx
-
       - name: 🔎 Update Playwright screenshots
         uses: ./.github/templates/playwright
         with:
-          script: test:components --update-snapshots
-          working-directory: packages/sit-onyx
+          update-snapshots: true
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6

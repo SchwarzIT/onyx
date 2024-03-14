@@ -134,6 +134,7 @@ export default defineConfig({
           base: "/development/packages",
           collapsed: false,
           items: [
+            { text: "Chart.js plugin", link: "/chartjs-plugin" },
             { text: "Figma utilities", link: "/figma-utils" },
             { text: "Headless composables", link: "/headless" },
             { text: "Icons", link: "/icons" },

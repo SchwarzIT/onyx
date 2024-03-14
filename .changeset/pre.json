@@ -2,6 +2,7 @@
   "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
+    "@sit-onyx/chartjs-plugin": "0.0.0",
     "@sit-onyx/figma-utils": "0.0.0",
     "sit-onyx": "0.0.0",
     "@sit-onyx/storybook-utils": "0.0.0",
@@ -18,6 +19,7 @@
     "brave-lobsters-wonder",
     "chilly-scissors-whisper",
     "clean-hats-occur",
+    "cold-rules-invent",
     "cuddly-flies-buy",
     "dirty-crabs-jog",
     "eight-eyes-switch",
@@ -56,6 +58,7 @@
     "sharp-ravens-stare",
     "sharp-years-lie",
     "shiny-lies-cough",
+    "short-dingos-own",
     "shy-lizards-fix",
     "silly-waves-applaud",
     "silver-birds-dress",

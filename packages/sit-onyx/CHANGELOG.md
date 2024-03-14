@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.46
+
+### Minor Changes
+
+- fd86fa1: feat(OnyxInput): add property `hideLabel`
+
+## 1.0.0-alpha.45
+
+### Minor Changes
+
+- 27c2bb8: feat(OnyxInput): add styles for autofill state
+
 ## 1.0.0-alpha.44
 
 ### Minor Changes

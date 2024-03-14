@@ -11,9 +11,13 @@
     "storybook": "storybook dev -p 6006 --no-open"
   },
   "devDependencies": {
+    "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
+    "chart.js": "^4.4.2",
+    "sit-onyx": "workspace:^",
     "vitepress": "1.0.0-rc.45",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-chartjs": "^5.3.0"
   }
 }

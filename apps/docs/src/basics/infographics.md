@@ -1,5 +1,5 @@
 # Infographics
 
-Currently onyx does not provide custom chart components. We recommend using [Chart.js](https://www.chartjs.org) instead and make use of the [onyx tokens](/tokens/colors) for styling.
+With onyx, we do not try to re-invent the wheel for implementing charts so we recommend to use [Chart.js](https://www.chartjs.org) for infographics.
 
-More to come soon.
+We provide a [custom Chart.js plugin](/development/packages/chartjs-plugin) to seamlessly provide onyx stylings to charts.
