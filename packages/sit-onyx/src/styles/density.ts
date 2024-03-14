@@ -3,7 +3,7 @@ export type DensityType = (typeof DENSITY)[number];
 
 export type DensityProp = {
   /**
-   * Density defines the base height of the interactive main element of a component.
+   * Density defines the amount of vertical white-space a component has and the height of the main interactive element of a component.
    */
   density?: DensityType;
 };
