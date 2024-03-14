@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { createScreenshotsForAllStates } from "../../utils/playwright";
+import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -250,28 +250,25 @@ const STATES = {
   labeled: ["labeled", "unlabeled"],
 } as const;
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
-    STATES,
-    "checkbox",
-    async ({ select, state, labeled, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxCheckbox
-          modelValue={select === "selected"}
-          label="label"
-          indeterminate={select === "indeterminate" && state != "loading"}
-          disabled={state === "disabled"}
-          required={state === "required"}
-          loading={state === "loading"}
-          hideLabel={labeled === "unlabeled"}
-        />,
-        { useOptional: state === "optional" },
-      );
+executeScreenshotsForAllStates(
+  STATES,
+  "checkbox",
+  async ({ select, state, labeled, focusState }, mount, page) => {
+    const component = await mount(
+      <OnyxCheckbox
+        modelValue={select === "selected"}
+        label="label"
+        indeterminate={select === "indeterminate" && state != "loading"}
+        disabled={state === "disabled"}
+        required={state === "required"}
+        loading={state === "loading"}
+        hideLabel={labeled === "unlabeled"}
+      />,
+      { useOptional: state === "optional" },
+    );
 
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await component.hover();
-      return component;
-    },
-  ),
+    if (focusState === "focus-visible") await page.keyboard.press("Tab");
+    if (focusState === "hover") await component.hover();
+    return component;
+  },
 );

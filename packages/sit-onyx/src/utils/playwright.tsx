@@ -57,8 +57,7 @@ type CaseBuilder<S extends ComponentStates> = (
 ) => Promise<MountResultJsx>;
 
 /**
- * Creates screenshots for all permutations of the given component states.
- * Will create a screenshot for each permutation.
+ * Executes screenshot tests for all permutations of the given component states.
  * Define the possible States in an `const` object literal.
  *
  * @example
@@ -69,28 +68,24 @@ type CaseBuilder<S extends ComponentStates> = (
  *   focusState: ["", "hover", "focus-visible"],
  * } as const;
  *
+ * executeScreenshotsForAllStates(
+ *   STATES,
+ *   "component-name",
+ *   async ({ select, state, focusState }, mount, page) => {
+ *     const component = await mount(
+ *       <Component
+ *         modelValue={select === "selected"}
+ *         disabled={state === "disabled"}
+ *         required={state === "required"}
+ *       />,
+ *       { useOptional: state === "optional" },
+ *     );
  *
- * test(
- *   "Screenshot matrix",
- *   createScreenshotsForAllStates(
- *     STATES,
- *     "component-name",
- *     async ({ select, state, focusState }, mount, page) => {
- *       const component = await mount(
- *         <Component
- *           modelValue={select === "selected"}
- *           disabled={state === "disabled"}
- *           required={state === "required"}
- *         />,
- *         { useOptional: state === "optional" },
- *       );
- *
- *       const input = component.getByRole("textbox");
- *       if (focusState === "focus-visible") await page.keyboard.press("Tab");
- *       if (focusState === "hover") await input.hover();
- *       return component;
- *     },
- *   ),
+ *     const input = component.getByRole("textbox");
+ *     if (focusState === "focus-visible") await page.keyboard.press("Tab");
+ *     if (focusState === "hover") await input.hover();
+ *     return component;
+ *   },
  * );
  * ```
  *
@@ -98,16 +93,22 @@ type CaseBuilder<S extends ComponentStates> = (
  * @param baseName Prefix of the generated screenshot file names.
  * @param caseBuilder Build function that will be called for every permutation to generate JSX and perform setup interactions for the given component state.
  */
-export const createScreenshotsForAllStates =
-  <S extends Readonly<Record<string, ReadonlyArray<string>>>>(
-    states: S,
-    baseName: string,
-    caseBuilder: CaseBuilder<S>,
-  ) =>
-  async ({ mount, page }: TestArg) => {
-    const permutations = generatePermutations(states);
+export const executeScreenshotsForAllStates = <
+  S extends Readonly<Record<string, ReadonlyArray<string>>>,
+>(
+  states: S,
+  baseName: string,
+  caseBuilder: CaseBuilder<S>,
+) => {
+  const permutations = generatePermutations(states);
 
-    for (const testCase of permutations) {
+  permutations.forEach((testCase) => {
+    const screenshotName = [
+      baseName,
+      ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
+    ].join("-");
+
+    test(`${screenshotName}`, async ({ mount, page }) => {
       // ARRANGE
       const wrappedMount = ((jsx, options) =>
         mount(
@@ -127,13 +128,10 @@ export const createScreenshotsForAllStates =
       const component = await caseBuilder(testCase, wrappedMount, page);
 
       // ASSERT
-      const screenshotName = [
-        baseName,
-        ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
-      ].join("-");
       await expect(component).toHaveScreenshot(`${screenshotName}.png`);
-    }
-  };
+    });
+  });
+};
 
 /**
  * Mock icon to use in Playwright component tests (.tsx files) because Playwright has
