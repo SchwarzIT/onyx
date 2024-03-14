@@ -111,7 +111,7 @@ export const executeScreenshotsForAllStates = <
   }
 
   batches.forEach((batch, index) => {
-    test(`${baseName} screenshot tests (batch ${index})`, async ({ mount, page }) => {
+    test(`${baseName} state screenshot tests (batch ${index})`, async ({ mount, page }) => {
       const promises = batch.map(async (testCase) => {
         const screenshotName = [
           baseName,
