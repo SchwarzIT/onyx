@@ -7,7 +7,6 @@ const chartData: ChartData<"scatter"> = {
   datasets: [
     {
       label: "Dataset A",
-      fill: false,
       data: [
         { x: -2, y: 4 },
         { x: -1, y: 1 },
@@ -18,7 +17,6 @@ const chartData: ChartData<"scatter"> = {
     },
     {
       label: "Dataset B",
-      fill: false,
       data: [
         { x: -2, y: -4 },
         { x: -1, y: -1 },
@@ -32,11 +30,13 @@ const chartData: ChartData<"scatter"> = {
 </script>
 
 <template>
-  <Scatter :data="chartData" :options="chartOptions" class="chart" />
+  <div>
+    <Scatter :data="chartData" :options="chartOptions" class="chart" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .chart {
-  height: 32rem;
+  height: 24rem;
 }
 </style>

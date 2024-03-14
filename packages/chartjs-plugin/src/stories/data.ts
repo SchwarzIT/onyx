@@ -4,8 +4,7 @@ import type { ChartOptions } from "chart.js";
  * Shared chart options for all example charts (without scales for polar area and radar chart).
  */
 export const chartOptionsWithoutScales = {
-  responsive: true,
-  maintainAspectRatio: false,
+  maintainAspectRatio: false, // needed to allow setting the actual chart height via CSS
   hover: {
     intersect: false,
   },

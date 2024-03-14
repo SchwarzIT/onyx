@@ -4,7 +4,7 @@ import { Doughnut } from "vue-chartjs";
 import { chartOptions } from "../data";
 
 const chartData: ChartData<"doughnut"> = {
-  labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
+  labels: ["Label 1", "Label 2", "Label 3", "Label 4"],
   datasets: [
     {
       data: [40, 20, 80, 10],
@@ -14,11 +14,13 @@ const chartData: ChartData<"doughnut"> = {
 </script>
 
 <template>
-  <Doughnut :data="chartData" :options="chartOptions" class="chart" />
+  <div>
+    <Doughnut :data="chartData" :options="chartOptions" class="chart" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .chart {
-  height: 32rem;
+  height: 24rem;
 }
 </style>
