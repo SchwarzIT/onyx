@@ -26,9 +26,8 @@ const handleSelection = (id: TValue, selected?: boolean) => {
         v-for="option in props.options"
         :key="option.id.toString()"
         class="onyx-flyout__option"
-        :label="option.label"
+        v-bind="option"
         :model-value="props.modelValue === option.id"
-        :disabled="option.disabled"
         @update:model-value="handleSelection(option.id, $event)"
       />
     </div>
