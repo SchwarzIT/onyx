@@ -26,7 +26,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
-  expect(modelValue).toBe(undefined);
+  expect(modelValue).toBeUndefined();
   await component.update({ props: { modelValue } });
 
   // ACT
