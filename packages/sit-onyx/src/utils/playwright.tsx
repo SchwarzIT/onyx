@@ -167,6 +167,7 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
   options: MatrixScreenshotOptions<T, S>,
 ) => {
   const permutations = generatePermutations(options.states);
+  const rootSelector = "#root" as const;
 
   return async ({ mount, page }: TestArg) => {
     // default test timeout is 10s (see playwright.config.ts), so we increase it here
@@ -175,12 +176,12 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
 
     let component = await mount(options.component);
 
-    await page.evaluate(() => {
-      const root = document.querySelector<HTMLElement>("#root");
+    await page.evaluate((selector) => {
+      const root = document.querySelector<HTMLElement>(selector);
       if (!root) return;
       root.style.padding = "1rem";
       root.style.maxWidth = "max-content";
-    });
+    }, rootSelector);
 
     for (const testCase of permutations) {
       await page.getByRole("document").focus(); // reset focus
@@ -200,8 +201,9 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
 
       const isOptional = options.useOptional?.(testCase);
       if (isOptional) {
-        await page.evaluate(() =>
-          document.querySelector("#root")?.classList.add("onyx-use-optional"),
+        await page.evaluate(
+          (selector) => document.querySelector(selector)?.classList.add("onyx-use-optional"),
+          rootSelector,
         );
       }
 
@@ -212,7 +214,7 @@ export const matrixScreenshotTest = <T, S extends Readonly<Record<string, Readon
         options.baseName,
         ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
       ].join("-");
-      await expect(page.locator("#root")).toHaveScreenshot(`${screenshotName}.png`);
+      await expect(page.locator(rootSelector)).toHaveScreenshot(`${screenshotName}.png`);
     }
   };
 };
