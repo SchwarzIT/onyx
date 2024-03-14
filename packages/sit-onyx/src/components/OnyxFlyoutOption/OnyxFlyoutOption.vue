@@ -10,12 +10,12 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="onyx-flyout-option onyx-text onyx-truncation-ellipsis"
+    class="onyx-flyout-option"
     :class="{ 'onyx-flyout-option--selected': props.modelValue }"
     :disabled="props.disabled"
     @click="emit('update:modelValue', !props.modelValue)"
   >
-    {{ props.label }}
+    <span class="onyx-truncation-ellipsis"> {{ props.label }}</span>
   </button>
 </template>
 
@@ -26,6 +26,9 @@ const emit = defineEmits<{
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   background-color: var(--onyx-color-base-background-blank);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
   border: none;
   width: 100%;

@@ -59,6 +59,7 @@ const handleSelection = (id: TValue, selected?: boolean) => {
   box-sizing: border-box;
   width: max-content;
   min-width: var(--onyx-spacing-4xl);
+  max-width: 20rem;
   font-family: var(--onyx-font-family);
 
   &__label {
