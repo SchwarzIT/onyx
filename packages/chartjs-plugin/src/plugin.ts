@@ -28,13 +28,24 @@ import { getCSSVariableValue, hexToRgb } from "./utils";
  * ```
  */
 export const registerOnyxPlugin = (chart: typeof Chart) => {
+  //
+  // IMPLEMENTATION NOTES:
+  // is you use "getCSSVariableValue" here, make sure its either a function
+  // or a getter defined with "Object.defineProperty".
+  // Otherwise if called directly, this is not compatible with server side rendering.
+  //
   chart.register(plugin);
   chart.defaults.plugins.colors.enabled = false;
 
   //
   // General default styles for all chart types
   //
-  chart.defaults.font.family = getCSSVariableValue("--onyx-font-family");
+  Object.defineProperty(chart.defaults.font, "family", {
+    configurable: true,
+    enumerable: true,
+    get: () => getCSSVariableValue("--onyx-font-family"),
+  });
+
   chart.defaults.font.size = 13;
 
   chart.defaults.borderColor = () => getCSSVariableValue("--onyx-color-base-neutral-300");

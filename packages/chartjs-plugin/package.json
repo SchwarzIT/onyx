@@ -10,7 +10,8 @@
   ],
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./examples/*": "./src/stories/*"
   },
   "homepage": "https://onyx.schwarz/development/packages/chartjs-plugin.html",
   "repository": {
