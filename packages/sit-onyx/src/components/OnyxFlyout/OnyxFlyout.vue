@@ -46,6 +46,10 @@ const handleSelection = (id: TValue, selected?: boolean) => {
 }
 
 .onyx-flyout {
+  :where(&) {
+    --max-options: 8;
+  }
+
   --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
 
   border-radius: var(--onyx-radius-md);
@@ -72,7 +76,7 @@ const handleSelection = (id: TValue, selected?: boolean) => {
   }
 
   &__options {
-    max-height: calc(8 * var(--option-height));
+    max-height: calc(var(--max-options) * var(--option-height));
     box-sizing: border-box;
     overflow: auto;
   }
