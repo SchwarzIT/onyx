@@ -7,6 +7,8 @@ export * from "@/components/OnyxButton/types";
 export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "@/components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "@/components/OnyxCheckboxGroup/types";
+export { default as OnyxFlyout } from "@/components/OnyxFlyout/OnyxFlyout.vue";
+export * from "@/components/OnyxFlyout/types";
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export * from "@/components/OnyxHeadline/types";
 export { default as OnyxIcon } from "@/components/OnyxIcon/OnyxIcon.vue";

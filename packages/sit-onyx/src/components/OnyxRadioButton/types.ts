@@ -7,7 +7,7 @@ export type SelectionOption<T = unknown> = {
   /**
    * id of the selection option, not of the radio button input
    */
-  id: string;
+  id: string | number;
   label: string;
   /**
    * An optional value.

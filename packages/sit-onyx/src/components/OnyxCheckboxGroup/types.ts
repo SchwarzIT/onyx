@@ -1,7 +1,7 @@
 import type { OnyxCheckboxProps } from "../OnyxCheckbox/types";
 
 export type OnyxCheckboxGroupProps<
-  TValue extends string | number | boolean = string | number | boolean,
+  TValue extends CheckboxGroupOptionValue = CheckboxGroupOptionValue,
 > = {
   /**
    * Checkbox options.
@@ -39,12 +39,14 @@ export type OnyxCheckboxGroupProps<
   skeleton?: number;
 };
 
-export type CheckboxGroupOption<T extends string | number | boolean> = Omit<
+export type CheckboxGroupOption<T extends CheckboxGroupOptionValue> = Omit<
   OnyxCheckboxProps,
-  "modelValue" | "indeterminate"
+  "modelValue" | "indeterminate" | "hideLabel"
 > & {
   id: T;
 };
 
 export const CHECKBOX_GROUP_DIRECTIONS = ["horizontal", "vertical"] as const;
 export type CheckboxGroupDirection = (typeof CHECKBOX_GROUP_DIRECTIONS)[number];
+
+export type CheckboxGroupOptionValue = string | number | boolean;
