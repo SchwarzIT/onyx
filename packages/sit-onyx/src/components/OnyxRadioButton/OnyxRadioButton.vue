@@ -120,7 +120,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
   }
 
   &:has(&__selector:focus-visible) {
-    --onyx-radio-button-selector-outline-width: var(--onyx-spacing-sm);
+    --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
   }
 
   &:has(&__selector:disabled) {
