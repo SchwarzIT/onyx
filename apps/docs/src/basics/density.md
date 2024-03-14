@@ -1,6 +1,6 @@
 # Density
 
-Density refers to the amount of vertical white space a component has, as well as the height of the main (interactive) element of a component
+Density refers to the amount of vertical white space a component has, as well as the height of the main (interactive) element of a component.
 
 We offer three levels of density - **compact**, **default** and **cozy** - onyx provides a flexible toolkit to build applications for multiple user preferences and device capabilities. The three densities are always based around the specific values of **32px**, **40px**, and **48px**.
 
