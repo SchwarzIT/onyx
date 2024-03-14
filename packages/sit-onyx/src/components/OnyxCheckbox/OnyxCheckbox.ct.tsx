@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { createScreenshotsForAllStates } from "../../utils/playwright";
+import { matrixScreenshotTest } from "../../utils/playwright";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -251,27 +251,24 @@ const STATES = {
 } as const;
 
 test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
-    STATES,
-    "checkbox",
-    async ({ select, state, labeled, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxCheckbox
-          modelValue={select === "selected"}
-          label="label"
-          indeterminate={select === "indeterminate" && state != "loading"}
-          disabled={state === "disabled"}
-          required={state === "required"}
-          loading={state === "loading"}
-          hideLabel={labeled === "unlabeled"}
-        />,
-        { useOptional: state === "optional" },
-      );
-
+  "state screenshot testing",
+  matrixScreenshotTest({
+    states: STATES,
+    component: OnyxCheckbox,
+    baseName: "checkbox",
+    props: ({ select, state, labeled }) => ({
+      label: "label",
+      modelValue: select === "selected",
+      indeterminate: select === "indeterminate",
+      disabled: state === "disabled",
+      required: state === "required",
+      loading: state === "loading",
+      hideLabel: labeled === "unlabeled",
+    }),
+    useOptional: ({ state }) => state === "optional",
+    onAfterUpdate: async ({ focusState }, { component, page }) => {
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await component.hover();
-      return component;
     },
-  ),
+  }),
 );

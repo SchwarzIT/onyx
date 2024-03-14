@@ -1,5 +1,5 @@
 import { test } from "../../playwright-axe";
-import { createScreenshotsForAllStates } from "../../utils/playwright";
+import { matrixScreenshotTest } from "../../utils/playwright";
 import OnyxLink from "./OnyxLink.vue";
 
 const STATES = {
@@ -8,19 +8,21 @@ const STATES = {
 } as const;
 
 test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(STATES, "link", async ({ state, focusState }, mount, page) => {
-    const component = await mount(
-      <OnyxLink
-        href={state === "external" ? "https://onyx.schwarz" : "#"}
-        style="font-family: var(--onyx-font-family);"
-      >
-        Click me
-      </OnyxLink>,
-    );
-
-    if (focusState === "focus-visible") await page.keyboard.press("Tab");
-    if (focusState === "hover") await component.hover();
-    return component;
+  "state screenshot testing",
+  matrixScreenshotTest({
+    states: STATES,
+    component: OnyxLink,
+    baseName: "link",
+    props: ({ state }) => ({
+      href: state === "external" ? "https://onyx.schwarz" : "#",
+      style: "font-family: var(--onyx-font-family);",
+    }),
+    slots: () => ({
+      default: "Click me",
+    }),
+    onAfterUpdate: async ({ focusState }, { component, page }) => {
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await component.hover();
+    },
   }),
 );

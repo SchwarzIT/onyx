@@ -1,5 +1,5 @@
-import { createScreenshotsForAllStates } from "@/utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { matrixScreenshotTest } from "../../utils/playwright";
 import OnyxInput from "./OnyxInput.vue";
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
@@ -131,24 +131,21 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 });
 
 test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
-    STATES,
-    "input",
-    async ({ variant, writeMode, focusState }, mount) => {
-      const component = await mount(
-        <OnyxInput
-          label="Label"
-          modelValue={["initialValue", "loading"].includes(variant) ? "Test value" : undefined}
-          placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
-          readonly={writeMode === "readonly"}
-          disabled={writeMode === "disabled"}
-          loading={variant === "loading"}
-          autocomplete={variant === "autofill" ? "name" : undefined}
-          style="width: 12rem;"
-        />,
-      );
-
+  "state screenshot testing",
+  matrixScreenshotTest({
+    states: STATES,
+    component: OnyxInput,
+    baseName: "input",
+    props: ({ variant, writeMode }) => ({
+      label: "Label",
+      modelValue: ["initialValue", "loading"].includes(variant) ? "Test value" : undefined,
+      placeholder: variant === "placeholder" ? "Placeholder..." : undefined,
+      readonly: writeMode === "readonly",
+      disabled: writeMode === "disabled",
+      loading: variant === "loading",
+      style: "width: 12rem;",
+    }),
+    onAfterUpdate: async ({ variant, focusState }, { component }) => {
       const input = component.getByLabel("Label");
 
       if (variant == "autofill") {
@@ -157,7 +154,6 @@ test(
 
       if (focusState === "hover") await input.hover();
       if (focusState === "focus") await input.focus();
-      return component;
     },
-  ),
+  }),
 );

@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { createScreenshotsForAllStates } from "../../utils/playwright";
+import { matrixScreenshotTest } from "../../utils/playwright";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -110,26 +110,23 @@ const STATES = {
 } as const;
 
 test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
-    STATES,
-    "switch",
-    async ({ select, state, labeled, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxSwitch
-          modelValue={select === "selected"}
-          label={labeled}
-          hideLabel={labeled === "unlabeled"}
-          disabled={state === "disabled"}
-          loading={state === "loading"}
-          required={state === "required"}
-        />,
-        { useOptional: state === "optional" },
-      );
-
+  "state screenshot testing",
+  matrixScreenshotTest({
+    states: STATES,
+    component: OnyxSwitch,
+    baseName: "switch",
+    props: ({ select, state, labeled }) => ({
+      modelValue: select === "selected",
+      label: labeled,
+      hideLabel: labeled === "unlabeled",
+      disabled: state === "disabled",
+      loading: state === "loading",
+      required: state === "required",
+    }),
+    useOptional: ({ state }) => state === "optional",
+    onAfterUpdate: async ({ focusState }, { component, page }) => {
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await component.hover();
-      return component;
     },
-  ),
+  }),
 );

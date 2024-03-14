@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { createScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
+import { matrixScreenshotTest, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
@@ -76,28 +76,23 @@ const STATES = {
 } as const;
 
 test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
-    STATES,
-    "button",
-    async ({ variation, state, mode, focusState }, mount, page) => {
-      const component = await mount(
-        <div>
-          <OnyxButton
-            label="label"
-            variation={variation}
-            mode={mode}
-            disabled={state === "disabled"}
-            loading={state === "loading"}
-            icon={state === "icon" ? mockPlaywrightIcon : undefined}
-          />
-        </div>,
-      );
-
+  "state screenshot testing",
+  matrixScreenshotTest({
+    states: STATES,
+    component: OnyxButton,
+    baseName: "button",
+    props: ({ state, variation, mode }) => ({
+      label: "label",
+      variation,
+      mode,
+      disabled: state === "disabled",
+      loading: state === "loading",
+      icon: state === "icon" ? mockPlaywrightIcon : undefined,
+    }),
+    onAfterUpdate: async ({ focusState }, { component, page }) => {
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await component.hover();
       if (focusState === "active") await page.mouse.down();
-      return component;
     },
-  ),
+  }),
 );

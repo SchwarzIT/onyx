@@ -16,7 +16,7 @@ export default defineConfig({
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
   ignoreSnapshots: !process.env.CI,
   updateSnapshots: "none",
-  timeout: process.env.CI ? 2 * 60 * 1000 : 10 * 1000, // increase timeout on CI for screenshot testing
+  timeout: 10 * 1000, // increase timeout on CI for screenshot testing
   fullyParallel: true,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
   retries: process.env.CI ? 2 : 0, // retry on CI only
