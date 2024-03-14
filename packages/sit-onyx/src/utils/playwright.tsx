@@ -104,7 +104,7 @@ export const executeScreenshotsForAllStates = <
   // to prevent JavaScript memory heap errors we should not run all permutations inside
   // one single Playwright test. On the other hand we should also not run a single
   // test for every permutation because this leads to a very bad test performance.
-  // therefore, we will split the permutations to only run a maximum of 25 permutations inside a single test
+  // therefore, we will split the permutations to only run a maximum of X permutations inside a single test
   const batches: (typeof permutations)[] = [];
   while (permutations.length > 0) {
     batches.push(permutations.splice(0, 50));
