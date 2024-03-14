@@ -1,9 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import OnyxFlyout from "./OnyxFlyout.vue";
 
-/** Add a little margin to the flyout so the shadow is better visible on screenshots */
-const flyoutStyles = "margin: 1rem";
-
 test("should render", async ({ mount, makeAxeBuilder }) => {
   let modelValue: number | undefined = 2;
 
@@ -17,7 +14,6 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
         { id: 4, label: "Very long label ".repeat(5) },
       ],
       modelValue,
-      style: flyoutStyles,
     },
     on: {
       "update:modelValue": (value: number | undefined) => (modelValue = value),
@@ -44,7 +40,6 @@ test("should render with many options", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
     <OnyxFlyout
-      style={flyoutStyles}
       options={Array.from({ length: 25 }, (_, index) => ({
         id: index,
         label: `Test option ${index + 1}`,
