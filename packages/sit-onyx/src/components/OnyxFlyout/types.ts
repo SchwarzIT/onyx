@@ -1,10 +1,6 @@
-import type { CheckboxGroupOptionValue } from "../OnyxCheckboxGroup/types";
-import type { SelectionOption } from "../OnyxRadioButton/types";
+import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 
-export type OnyxFlyoutProps<
-  TValue extends CheckboxGroupOptionValue = CheckboxGroupOptionValue,
-  TMultiselect extends boolean = false,
-> = {
+export type OnyxFlyoutProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
   /**
    * Available options to choose from.
    */
@@ -13,5 +9,5 @@ export type OnyxFlyoutProps<
    * Optional label to show at the bottom.
    */
   label?: string;
-  modelValue?: TMultiselect extends true ? CheckboxGroupOptionValue[] : CheckboxGroupOptionValue;
+  modelValue?: TValue;
 };

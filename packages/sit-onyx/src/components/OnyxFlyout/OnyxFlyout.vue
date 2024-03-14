@@ -1,31 +1,35 @@
-<script
-  lang="ts"
-  setup
-  generic="
-    TValue extends CheckboxGroupOptionValue = CheckboxGroupOptionValue,
-    TMultiselect extends boolean = false
-  "
->
-import type { CheckboxGroupOptionValue } from "../OnyxCheckboxGroup/types";
+<script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
+import OnyxFlyoutOption from "../OnyxFlyoutOption/OnyxFlyoutOption.vue";
+import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxFlyoutProps } from "./types";
 
-const props = defineProps<OnyxFlyoutProps<TValue, TMultiselect>>();
+const props = defineProps<OnyxFlyoutProps<TValue>>();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits<{
   /**
    * Emitted when the current value changes.
    */
-  "update:modelValue": [value: NonNullable<typeof props.modelValue>];
+  "update:modelValue": [value: typeof props.modelValue];
 }>();
+
+const handleSelection = (id: TValue, selected?: boolean) => {
+  if (!selected) emit("update:modelValue", undefined);
+  else emit("update:modelValue", id);
+};
 </script>
 
 <template>
   <div class="onyx-flyout">
     <div class="onyx-flyout__options">
-      <div v-for="option in props.options" :key="option.id" class="onyx-flyout__option">
-        {{ option.label }}
-      </div>
+      <OnyxFlyoutOption
+        v-for="option in props.options"
+        :key="option.id.toString()"
+        class="onyx-flyout__option"
+        :label="option.label"
+        :model-value="props.modelValue === option.id"
+        @update:model-value="handleSelection(option.id, $event)"
+      />
     </div>
 
     <span v-if="props.label" class="onyx-flyout__label onyx-text--small">
@@ -42,6 +46,8 @@ const emit = defineEmits<{
 }
 
 .onyx-flyout {
+  --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+
   border-radius: var(--onyx-radius-md);
   background-color: var(--onyx-color-base-background-blank);
   padding: var(--onyx-spacing-2xs) 0;
@@ -60,15 +66,13 @@ const emit = defineEmits<{
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
   }
 
-  $option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
-
   &__option {
-    height: $option-height;
+    height: var(--option-height);
     box-sizing: border-box;
   }
 
   &__options {
-    max-height: calc(8 * $option-height);
+    max-height: calc(8 * var(--option-height));
     box-sizing: border-box;
     overflow: auto;
   }

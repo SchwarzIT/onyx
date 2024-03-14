@@ -1,8 +1,7 @@
 import type { OnyxCheckboxProps } from "../OnyxCheckbox/types";
+import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
-export type OnyxCheckboxGroupProps<
-  TValue extends CheckboxGroupOptionValue = CheckboxGroupOptionValue,
-> = {
+export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
   /**
    * Checkbox options.
    */
@@ -39,7 +38,7 @@ export type OnyxCheckboxGroupProps<
   skeleton?: number;
 };
 
-export type CheckboxGroupOption<T extends CheckboxGroupOptionValue> = Omit<
+export type CheckboxGroupOption<T extends SelectionOptionValue> = Omit<
   OnyxCheckboxProps,
   "modelValue" | "indeterminate" | "hideLabel"
 > & {
@@ -48,5 +47,3 @@ export type CheckboxGroupOption<T extends CheckboxGroupOptionValue> = Omit<
 
 export const CHECKBOX_GROUP_DIRECTIONS = ["horizontal", "vertical"] as const;
 export type CheckboxGroupDirection = (typeof CHECKBOX_GROUP_DIRECTIONS)[number];
-
-export type CheckboxGroupOptionValue = string | number | boolean;
