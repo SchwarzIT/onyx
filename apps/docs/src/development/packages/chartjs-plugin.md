@@ -4,7 +4,24 @@ outline: [2, 3]
 
 <script lang="ts" setup>
 import packageJson from "../../../../../packages/chartjs-plugin/package.json";
-import PolarAreaExample from "../../.vitepress/components/PolarAreaExample.vue"
+
+import BarChart from "@sit-onyx/chartjs-plugin/examples/BarChart/BarChart.vue";
+import BubbleChart from "@sit-onyx/chartjs-plugin/examples/BubbleChart/BubbleChart.vue";
+import DoughnutChart from "@sit-onyx/chartjs-plugin/examples/DoughnutChart/DoughnutChart.vue";
+import LineChart from "@sit-onyx/chartjs-plugin/examples/LineChart/LineChart.vue";
+import PieChart from "@sit-onyx/chartjs-plugin/examples/PieChart/PieChart.vue";
+import PolarAreaChart from "@sit-onyx/chartjs-plugin/examples/PolarAreaChart/PolarAreaChart.vue";
+import RadarChart from "@sit-onyx/chartjs-plugin/examples/RadarChart/RadarChart.vue";
+import ScatterChart from "@sit-onyx/chartjs-plugin/examples/ScatterChart/ScatterChart.vue";
+
+import { Chart, registerables } from "chart.js";
+import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
+
+// register default Chart.js plugins
+Chart.register(...registerables);
+
+// register custom onyx plugin
+registerOnyxPlugin(Chart);
 </script>
 
 # @sit-onyx/chartjs-plugin
@@ -16,6 +33,8 @@ import PolarAreaExample from "../../.vitepress/components/PolarAreaExample.vue"
 </div>
 
 {{ packageJson.description }}.
+
+Please visit the [Chart.js documentation](https://www.chartjs.org) for further information how to implement charts.
 
 ## Changelog
 
@@ -64,7 +83,9 @@ Chart.register(...registerables);
 registerOnyxPlugin(Chart);
 ```
 
-## Examples
+## Example charts
+
+The source code for the chart examples below can be found on [GitHub](https://github.com/SchwarzIT/onyx/tree/main/packages/chartjs-plugin/src/stories).
 
 The following examples assume you have also installed `vue-chartjs`.
 
@@ -84,17 +105,39 @@ yarn install chart.js
 
 :::
 
-### Polar area chart
+### Bar
 
-<ClientOnly>
-  <PolarAreaExample />
-</ClientOnly>
+<ClientOnly> <BarChart /> </ClientOnly>
 
-::: details View the code
-<<< @/.vitepress/components/PolarAreaExample.vue
-:::
+### Bubble
 
-### Custom dataset colors
+<ClientOnly> <BubbleChart /> </ClientOnly>
+
+### Doughnut
+
+<ClientOnly> <DoughnutChart /> </ClientOnly>
+
+### Line
+
+<ClientOnly> <LineChart /> </ClientOnly>
+
+### Pie
+
+<ClientOnly> <PieChart /> </ClientOnly>
+
+### Polar area
+
+<ClientOnly> <PolarAreaChart /> </ClientOnly>
+
+### Radar
+
+<ClientOnly> <RadarChart /> </ClientOnly>
+
+### Scatter
+
+<ClientOnly> <ScatterChart /> </ClientOnly>
+
+## Custom dataset colors
 
 By default, the dataset colors will be automatically set in order based on the [onyx quantitative colors](/basics/colors#quantitatives). If you want to set a specific color for a dataset, you can use the `getDatasetColors` utility.
 

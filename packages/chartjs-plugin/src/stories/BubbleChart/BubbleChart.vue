@@ -26,11 +26,13 @@ const chartData: ChartData<"bubble"> = {
 </script>
 
 <template>
-  <Bubble :data="chartData" :options="chartOptions" class="chart" />
+  <div>
+    <Bubble :data="chartData" :options="chartOptions" class="chart" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .chart {
-  height: 32rem;
+  height: 24rem;
 }
 </style>
