@@ -102,7 +102,7 @@ $input-size: 1rem;
   box-sizing: border-box;
 
   &:has(&__label) {
-    padding-right: var(--onyx-spacing-sm);
+    padding-right: var(--onyx-spacing-2xs);
   }
 
   $label-padding: var(--onyx-spacing-2xs);
