@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { createScreenshotsForAllStates } from "../../utils/playwright";
+import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
@@ -127,9 +127,8 @@ const STATES = {
   focusState: ["none", "hover", "focus-visible"],
 } as const;
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
     STATES,
     "radio-button",
     async ({ select, state, focusState }, mount, page) => {
@@ -144,10 +143,9 @@ test(
         />,
       );
 
-      const radioInput = component.getByRole("radio");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await radioInput.hover();
+      if (focusState === "hover") await component.hover();
       return component;
     },
-  ),
-);
+  );
+});
