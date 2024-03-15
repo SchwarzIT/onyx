@@ -12,7 +12,7 @@ env:
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     permissions:
       contents: write
@@ -86,7 +86,7 @@ jobs:
 
   deploy_storybook:
     name: Deploy Storybook
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: release
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
@@ -113,7 +113,7 @@ jobs:
 
   deploy_documentation:
     name: Deploy documentation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: release
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
