@@ -1,6 +1,6 @@
-<!-- Is your PR related to an issue? Then please link it via the "relates to #" below. Else, remove it. -->
+<!-- Is your PR related to an issue? Then please link it via the "Relates to #" below. Else, remove it. -->
 
-relates to #
+Relates to #
 
 <!-- Briefly describe the changes of this PR. -->
 
