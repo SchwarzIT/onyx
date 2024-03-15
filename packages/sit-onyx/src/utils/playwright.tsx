@@ -114,9 +114,8 @@ export const executeScreenshotsForAllStates = <
 
   batches.forEach((batch, index) => {
     test(`${baseName} state screenshot tests (batch ${index + 1})`, async ({ mount, page }) => {
-      // default test timeout is 10s (see playwright.config.ts), so we increase it here
-      // so that the timeout is applied to every permutation
-      test.setTimeout(batch.length * 10 * 1000);
+      // limit the max timeout per permutation
+      test.setTimeout(batch.length * 2 * 1000);
 
       for (const testCase of batch) {
         const screenshotName = [
