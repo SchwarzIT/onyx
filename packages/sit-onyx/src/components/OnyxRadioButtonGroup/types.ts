@@ -1,3 +1,4 @@
+import type { DensityProp } from "../../styles/density";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 
 export type OnyxRadioButtonGroupProps<TValue> = {
@@ -41,7 +42,7 @@ export type OnyxRadioButtonGroupProps<TValue> = {
    * If set, the specified number of skeleton radio buttons will be shown.
    */
   skeleton?: number;
-};
+} & DensityProp;
 
 export const RADIO_BUTTON_GROUP_DIRECTIONS = ["horizontal", "vertical"] as const;
 export type RadioButtonGroupDirection = (typeof RADIO_BUTTON_GROUP_DIRECTIONS)[number];
