@@ -23,11 +23,13 @@ const chartData: ChartData<"line"> = {
 </script>
 
 <template>
-  <Line :data="chartData" :options="chartOptions" class="chart" />
+  <div>
+    <Line :data="chartData" :options="chartOptions" class="chart" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .chart {
-  height: 32rem;
+  height: 24rem;
 }
 </style>

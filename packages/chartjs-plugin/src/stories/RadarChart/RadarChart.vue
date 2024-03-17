@@ -19,11 +19,13 @@ const chartData: ChartData<"radar"> = {
 </script>
 
 <template>
-  <Radar :data="chartData" :options="chartOptionsWithoutScales" class="chart" />
+  <div>
+    <Radar :data="chartData" :options="chartOptionsWithoutScales" class="chart" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .chart {
-  height: 32rem;
+  height: 24rem;
 }
 </style>

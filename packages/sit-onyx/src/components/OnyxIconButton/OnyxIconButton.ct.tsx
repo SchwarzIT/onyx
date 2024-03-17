@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { createScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
+import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
@@ -55,9 +55,8 @@ const STATES = {
   focusState: ["none", "hover", "focus-visible", "active"],
 } as const;
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
     STATES,
     "icon-button",
     async ({ variation, state, focusState }, mount, page) => {
@@ -77,5 +76,5 @@ test(
       if (focusState === "active") await page.mouse.down();
       return component;
     },
-  ),
-);
+  );
+});
