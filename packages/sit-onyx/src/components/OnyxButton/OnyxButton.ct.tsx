@@ -81,16 +81,14 @@ test.describe("state screenshot tests", () => {
     "button",
     async ({ variation, state, mode, focusState }, mount, page) => {
       const component = await mount(
-        <div>
-          <OnyxButton
-            label="label"
-            variation={variation}
-            mode={mode}
-            disabled={state === "disabled"}
-            loading={state === "loading"}
-            icon={state === "icon" ? mockPlaywrightIcon : undefined}
-          />
-        </div>,
+        <OnyxButton
+          label="label"
+          variation={variation}
+          mode={mode}
+          disabled={state === "disabled"}
+          loading={state === "loading"}
+          icon={state === "icon" ? mockPlaywrightIcon : undefined}
+        />,
       );
 
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
