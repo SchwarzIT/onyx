@@ -97,7 +97,11 @@ const switchState = ref(false);
           <!-- invisible but no complaint from lint?? -->
           <OnyxSkeleton v-if="show('OnyxSkeleton')" />
 
-          <OnyxSwitch v-model="switchState" :label="'Switch is ' + (switchState ? 'on' : 'off')" />
+          <OnyxSwitch
+            v-if="show('OnyxSwitch')"
+            v-model="switchState"
+            :label="'Switch is ' + (switchState ? 'on' : 'off')"
+          />
         </div>
       </div>
     </OnyxPageLayout>
