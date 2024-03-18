@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { createListbox } from "@sit-onyx/headless";
+import { computed } from "vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
@@ -20,7 +21,9 @@ const handleSelection = (id: TValue, selected?: boolean) => {
 
 const {
   elements: { listbox },
-} = createListbox({});
+} = createListbox({
+  label: computed(() => props.label),
+});
 </script>
 
 <template>
@@ -36,7 +39,7 @@ const {
       />
     </ul>
 
-    <span v-if="props.label" class="onyx-listbox__label onyx-text--small">
+    <span v-if="!props.hideLabel" class="onyx-listbox__label onyx-text--small">
       {{ props.label }}
     </span>
   </div>
@@ -91,4 +94,3 @@ const {
   }
 }
 </style>
-../OnyxListboxOption/OnyxListboxOption.vue

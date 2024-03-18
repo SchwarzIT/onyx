@@ -7,13 +7,19 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
    */
   options: FlyoutOption<TValue>[];
   /**
-   * Optional label to show at the bottom.
+   * Label to show at the bottom.
+   *  Required due to accessibility / screen readers. If you want to visually hide the label, use the hideLabel property.
    */
-  label?: string;
+  label: string;
   /**
    * Current value / selected options.
    */
   modelValue?: TValue;
+  /**
+   * If true, the label will be visually hidden.
+   * For accessibility / screen readers, the aria-label will still be set.
+   */
+  hideLabel?: boolean;
 };
 
 export type FlyoutOption<T extends SelectionOptionValue = SelectionOptionValue> = Omit<

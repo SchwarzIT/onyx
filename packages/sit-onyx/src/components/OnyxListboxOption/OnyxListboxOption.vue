@@ -11,6 +11,7 @@ const emit = defineEmits<{
 const {
   elements: { option },
 } = createListbox({
+  label: "",
   onSelect: () => emit("update:modelValue", !props.modelValue),
 });
 </script>
