@@ -1,14 +1,6 @@
+import type { createListbox } from "@sit-onyx/headless";
+import type { UnwrapRef } from "vue";
+
 export type OnyxListboxOptionProps = {
-  /**
-   * Label to show.
-   */
-  label: string;
-  /**
-   * Whether the option is selected.
-   */
-  modelValue?: boolean;
-  /**
-   * Whether the option is disabled.
-   */
-  disabled?: boolean;
+  headlessOption: ReturnType<UnwrapRef<ReturnType<typeof createListbox>["elements"]["option"]>>;
 };

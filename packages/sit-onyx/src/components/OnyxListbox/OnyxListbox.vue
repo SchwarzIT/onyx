@@ -16,15 +16,14 @@ const emit = defineEmits<{
   "update:modelValue": [value: typeof props.modelValue];
 }>();
 
-const handleSelection = (id: TValue, selected?: boolean) => {
-  if (!selected) emit("update:modelValue", undefined);
-  else emit("update:modelValue", id);
-};
-
 const {
-  elements: { listbox },
+  elements: { listbox, option: headlessOption },
 } = createListbox({
   label: computed(() => props.label),
+  onSelect: (id) => {
+    if (props.modelValue === id) emit("update:modelValue", undefined);
+    else emit("update:modelValue", id as TValue);
+  },
 });
 </script>
 
@@ -35,9 +34,14 @@ const {
         v-for="option in props.options"
         :key="option.id.toString()"
         class="onyx-listbox__option"
-        v-bind="option"
-        :model-value="props.modelValue === option.id"
-        @update:model-value="handleSelection(option.id, $event)"
+        :headless-option="
+          headlessOption({
+            id: option.id,
+            label: option.label,
+            disabled: option.disabled,
+            selected: option.id === props.modelValue,
+          })
+        "
       />
     </ul>
 

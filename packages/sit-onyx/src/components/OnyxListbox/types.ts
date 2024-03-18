@@ -1,11 +1,10 @@
-import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
 export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
   /**
    * Available options to choose from.
    */
-  options: FlyoutOption<TValue>[];
+  options: ListboxOption<TValue>[];
   /**
    * Label to show at the bottom.
    *  Required due to accessibility / screen readers. If you want to visually hide the label, use the hideLabel property.
@@ -22,12 +21,17 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
   hideLabel?: boolean;
 };
 
-export type FlyoutOption<T extends SelectionOptionValue = SelectionOptionValue> = Omit<
-  OnyxListboxOptionProps,
-  "modelValue"
-> & {
+export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {
   /**
    * Option ID / value to use when the option is selected.
    */
   id: T;
+  /**
+   * Label to show.
+   */
+  label: string;
+  /**
+   * Whether the option is disabled.
+   */
+  disabled?: boolean;
 };

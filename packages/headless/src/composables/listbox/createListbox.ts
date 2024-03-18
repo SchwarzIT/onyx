@@ -13,13 +13,15 @@ export type CreateListboxOptions = {
   /**
    * Hook when an option is selected.
    */
-  onSelect?: (id: string) => void;
+  onSelect?: (id: ListboxValue) => void;
 };
+
+export type ListboxValue = string | number | boolean;
 
 export const createListbox = createBuilder((options: CreateListboxOptions) => {
   const isMultiselect = computed(() => unref(options.multiselect) ?? false);
 
-  const handleKeydown = (event: KeyboardEvent, id: string) => {
+  const handleKeydown = (event: KeyboardEvent, id: ListboxValue) => {
     if (event.key !== " ") return;
     event.preventDefault(); // prevent browser scroll when pressing space
     options.onSelect?.(id);
@@ -39,7 +41,12 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
         });
       }),
       option: computed(() => {
-        return (data: { label: string; id: string; selected?: boolean; disabled?: boolean }) => {
+        return (data: {
+          label: string;
+          id: ListboxValue;
+          selected?: boolean;
+          disabled?: boolean;
+        }) => {
           const isSelected = data.selected ?? false;
           return {
             role: "option",

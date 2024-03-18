@@ -1,41 +1,12 @@
 <script lang="ts" setup>
-import { createListbox } from "@sit-onyx/headless";
 import type { OnyxListboxOptionProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
-  disabled: false,
-});
-
-const emit = defineEmits<{
-  "update:modelValue": [value: boolean];
-}>();
-
-const {
-  elements: { option },
-} = createListbox({
-  label: "",
-  onSelect: () => emit("update:modelValue", !props.modelValue),
-});
+const props = defineProps<OnyxListboxOptionProps>();
 </script>
 
 <template>
-  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions --
-  the required attributes are set by the v-bind. The eslint rule does not check the v-bind so we need
-  to disable it here.
-  -->
-  <li
-    v-bind="
-      option({
-        id: props.label,
-        label: props.label,
-        selected: props.modelValue,
-        disabled: props.disabled,
-      })
-    "
-    class="onyx-listbox-option"
-    :class="{ 'onyx-listbox-option--selected': props.modelValue }"
-  >
-    <span class="onyx-truncation-ellipsis"> {{ props.label }}</span>
+  <li class="onyx-listbox-option" v-bind="props.headlessOption">
+    <span class="onyx-truncation-ellipsis"> {{ props.headlessOption["aria-label"] }}</span>
   </li>
 </template>
 
@@ -66,7 +37,8 @@ const {
       background-color: var(--onyx-color-base-primary-100);
     }
 
-    &.onyx-listbox-option--selected {
+    &[aria-selected="true"],
+    &[aria-checked="true"] {
       background-color: var(--onyx-color-base-primary-200);
 
       &:hover,
