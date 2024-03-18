@@ -67,6 +67,12 @@ const {
   width: max-content;
   max-width: 19rem;
 
+  // positioning
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100%;
+
   &__icon {
     min-width: 1rem;
   }
@@ -90,6 +96,8 @@ const {
   &--bottom {
     margin-bottom: 0;
     margin-top: $wedge-size;
+    bottom: 0;
+    top: 100%;
 
     &::after {
       top: -2 * $wedge-size;
@@ -101,11 +109,5 @@ const {
 .onyx-tooltip-wrapper {
   position: relative;
   width: max-content;
-  display: flex;
-  flex-direction: column;
-
-  &:has(.onyx-tooltip--bottom) {
-    flex-direction: column-reverse;
-  }
 }
 </style>

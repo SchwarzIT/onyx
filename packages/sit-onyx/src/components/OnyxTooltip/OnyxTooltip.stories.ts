@@ -15,6 +15,12 @@ const meta: Meta<typeof OnyxTooltip> = {
     argTypes: {
       icon: defineIconSelectArgType(),
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="padding: 4rem 6rem;"> <story /> </div>`,
+      }),
+    ],
   }),
 };
 
