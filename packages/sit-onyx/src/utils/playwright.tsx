@@ -128,7 +128,7 @@ export const executeScreenshotsForAllStates = <
           const wrappedMount = ((jsx, options) =>
             mount(
               <div
-                style={{ width: "max-content", padding: "1rem" }}
+                style={{ width: "max-content", padding: "1rem", display: "flex" }}
                 class={{
                   "onyx-use-optional": options?.useOptional,
                 }}
