@@ -12,7 +12,6 @@ import { useRequired } from "../../composables/required";
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
-  required: false,
   truncation: "ellipsis",
   skeleton: false,
 });
