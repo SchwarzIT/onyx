@@ -19,7 +19,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </script>
 
 <template>
-  <div v-if="props.skeleton" class="onyx-radio-button-skeleton" :class="{ ...densityClass }">
+  <div v-if="props.skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
