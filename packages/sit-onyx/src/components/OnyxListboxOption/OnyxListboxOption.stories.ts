@@ -1,17 +1,17 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxFlyoutOption from "./OnyxFlyoutOption.vue";
+import OnyxListboxOption from "./OnyxListboxOption.vue";
 
-const meta: Meta<typeof OnyxFlyoutOption> = {
-  title: "support/OnyxFlyoutOption",
+const meta: Meta<typeof OnyxListboxOption> = {
+  title: "support/OnyxListboxOption",
   ...defineStorybookActionsAndVModels({
-    component: OnyxFlyoutOption,
+    component: OnyxListboxOption,
     events: ["update:modelValue"],
   }),
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxFlyoutOption>;
+type Story = StoryObj<typeof OnyxListboxOption>;
 
 export const Default = {
   args: {

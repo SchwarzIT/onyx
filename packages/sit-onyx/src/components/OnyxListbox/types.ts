@@ -1,7 +1,7 @@
-import type { OnyxFlyoutOptionProps } from "../OnyxFlyoutOption/types";
+import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
-export type OnyxFlyoutProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
+export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
   /**
    * Available options to choose from.
    */
@@ -17,7 +17,7 @@ export type OnyxFlyoutProps<TValue extends SelectionOptionValue = SelectionOptio
 };
 
 export type FlyoutOption<T extends SelectionOptionValue = SelectionOptionValue> = Omit<
-  OnyxFlyoutOptionProps,
+  OnyxListboxOptionProps,
   "modelValue"
 > & {
   /**

@@ -10,10 +10,10 @@ export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "@/components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "@/components/OnyxCheckboxGroup/types";
 
-export { default as OnyxFlyout } from "@/components/OnyxFlyout/OnyxFlyout.vue";
-export * from "@/components/OnyxFlyout/types";
-export { default as OnyxFlyoutOption } from "@/components/OnyxFlyoutOption/OnyxFlyoutOption.vue";
-export * from "@/components/OnyxFlyoutOption/types";
+export { default as OnyxListbox } from "@/components/OnyxListbox/OnyxListbox.vue";
+export * from "@/components/OnyxListbox/types";
+export { default as OnyxListboxOption } from "@/components/OnyxListboxOption/OnyxListboxOption.vue";
+export * from "@/components/OnyxListboxOption/types";
 
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export * from "@/components/OnyxHeadline/types";

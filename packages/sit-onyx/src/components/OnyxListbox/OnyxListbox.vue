@@ -1,9 +1,10 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
-import OnyxFlyoutOption from "../OnyxFlyoutOption/OnyxFlyoutOption.vue";
+import { createListbox } from "@sit-onyx/headless";
+import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
-import type { OnyxFlyoutProps } from "./types";
+import type { OnyxListboxProps } from "./types";
 
-const props = defineProps<OnyxFlyoutProps<TValue>>();
+const props = defineProps<OnyxListboxProps<TValue>>();
 
 const emit = defineEmits<{
   /**
@@ -16,22 +17,26 @@ const handleSelection = (id: TValue, selected?: boolean) => {
   if (!selected) emit("update:modelValue", undefined);
   else emit("update:modelValue", id);
 };
+
+const {
+  elements: { listbox },
+} = createListbox({});
 </script>
 
 <template>
-  <div class="onyx-flyout">
-    <div class="onyx-flyout__options">
-      <OnyxFlyoutOption
+  <div class="onyx-listbox">
+    <ul class="onyx-listbox__options" v-bind="listbox">
+      <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
-        class="onyx-flyout__option"
+        class="onyx-listbox__option"
         v-bind="option"
         :model-value="props.modelValue === option.id"
         @update:model-value="handleSelection(option.id, $event)"
       />
-    </div>
+    </ul>
 
-    <span v-if="props.label" class="onyx-flyout__label onyx-text--small">
+    <span v-if="props.label" class="onyx-listbox__label onyx-text--small">
       {{ props.label }}
     </span>
   </div>
@@ -39,12 +44,12 @@ const handleSelection = (id: TValue, selected?: boolean) => {
 
 <style lang="scss">
 .dark {
-  .onyx-flyout {
+  .onyx-listbox {
     box-shadow: none;
   }
 }
 
-.onyx-flyout {
+.onyx-listbox {
   :where(&) {
     --max-options: 8;
   }
@@ -79,6 +84,11 @@ const handleSelection = (id: TValue, selected?: boolean) => {
     max-height: calc(var(--max-options) * var(--option-height));
     box-sizing: border-box;
     overflow: auto;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 }
 </style>
+../OnyxListboxOption/OnyxListboxOption.vue

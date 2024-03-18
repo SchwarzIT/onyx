@@ -1,11 +1,11 @@
 import { expect, test } from "../../playwright-axe";
-import OnyxFlyout from "./OnyxFlyout.vue";
+import OnyxListbox from "./OnyxListbox.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   let modelValue: number | undefined = 2;
 
   // ARRANGE
-  const component = await mount(OnyxFlyout, {
+  const component = await mount(OnyxListbox, {
     props: {
       options: [
         { id: 1, label: "Default" },
@@ -39,7 +39,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 test("should render with many options", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxFlyout
+    <OnyxListbox
       options={Array.from({ length: 25 }, (_, index) => ({
         id: index,
         label: `Test option ${index + 1}`,

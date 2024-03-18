@@ -1,18 +1,41 @@
 import { computed, unref, type MaybeRef } from "vue";
-import { computeIterated, createBuilder } from "../../utils/builder";
+import { createBuilder } from "../../utils/builder";
 
-export const createComboBox = createBuilder(
-  (options: { multiselect?: MaybeRef<boolean | undefined> }) => {
+export const createListbox = createBuilder(
+  (options: { multiselect?: MaybeRef<boolean | undefined>; onSelect?: (id: string) => void }) => {
+    const isMultiselect = computed(() => unref(options.multiselect) ?? false);
+
+    const handleKeydown = (event: KeyboardEvent, id: string) => {
+      if (event.key !== "Space") return;
+      options.onSelect?.(id);
+    };
+
     return {
       elements: {
         listbox: computed(() => ({
           role: "listbox",
-          "aria-multiselectable": unref(options.multiselect) ?? false,
+          "aria-multiselectable": isMultiselect.value,
         })),
-        group: computeIterated<{ label: string }>(({ label }) => ({
-          role: "group",
-          "aria-label": label,
-        })),
+        group: computed(() => {
+          return (options: { label: string }) => ({
+            role: "group",
+            "aria-label": options.label,
+          });
+        }),
+        option: computed(() => {
+          return (option: { label: string; id: string; selected?: boolean }) => {
+            const isSelected = option.selected ?? false;
+            return {
+              role: "option",
+              "aria-label": option.label,
+              "aria-checked": isMultiselect.value ? isSelected : undefined,
+              "aria-selected": !isMultiselect.value ? isSelected : undefined,
+              tabindex: "0",
+              onKeydown: (event) => handleKeydown(event, option.id),
+              onClick: () => options.onSelect?.(option.id),
+            } as const;
+          };
+        }),
       },
       state: {},
     };

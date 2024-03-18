@@ -1,4 +1,4 @@
-import { computed, type ComputedRef, type HtmlHTMLAttributes, type Ref } from "vue";
+import { type ComputedRef, type HtmlHTMLAttributes, type Ref } from "vue";
 
 export type IteratedHeadlessElementFunc<T extends Record<string, unknown>> = (
   opts: T,
@@ -25,19 +25,3 @@ export type HeadlessComposable<Elements extends HeadlessElements, State extends 
 export const createBuilder = <P, Elements extends HeadlessElements, State extends HeadlessState>(
   builder: (props: P) => HeadlessComposable<Elements, State>,
 ) => builder;
-
-/**
- * Shorthand function for creating a typed IteratedHeadlessElementFunction
- * @example
- * ```ts
- * {
- *   option: computeIterated<{ key: string; label: string; disabled: boolean }>(
- *     ({ key, label, disabled }) => ({
- *       // Do something with the typed props
- *     }),
- * }
- * ```
- */
-export const computeIterated = <P extends Record<string, unknown>>(
-  iteratedFunc: IteratedHeadlessElementFunc<P>,
-) => computed(() => iteratedFunc);

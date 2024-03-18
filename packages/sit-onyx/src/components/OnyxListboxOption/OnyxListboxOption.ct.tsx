@@ -1,6 +1,6 @@
-import { createScreenshotsForAllStates } from "@/utils/playwright";
+import { executeScreenshotsForAllStates } from "@/utils/playwright";
 import { test } from "../../playwright-axe";
-import OnyxFlyoutOption from "./OnyxFlyoutOption.vue";
+import OnyxListboxOption from "./OnyxListboxOption.vue";
 
 const STATES = {
   state: ["default", "selected"],
@@ -8,14 +8,13 @@ const STATES = {
   focusState: ["", "hover", "focus-visible"],
 } as const;
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
     STATES,
-    "flyout-option",
+    "listbox-option",
     async ({ state, writeMode, focusState }, mount, page) => {
       const component = await mount(
-        <OnyxFlyoutOption
+        <OnyxListboxOption
           label="Label"
           modelValue={state === "selected"}
           disabled={writeMode === "disabled"}
@@ -26,5 +25,5 @@ test(
       if (focusState === "hover") await component.hover();
       return component;
     },
-  ),
-);
+  );
+});

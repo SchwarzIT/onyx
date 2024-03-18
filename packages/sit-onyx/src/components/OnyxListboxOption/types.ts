@@ -1,4 +1,4 @@
-export type OnyxFlyoutOptionProps = {
+export type OnyxListboxOptionProps = {
   /**
    * Label to show.
    */
