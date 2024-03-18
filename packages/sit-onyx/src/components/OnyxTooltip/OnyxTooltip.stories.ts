@@ -37,6 +37,7 @@ export const Default = {
   args: {
     text: "Tooltip text",
     default: () => "Slot content goes here",
+    icon: circleInformation,
   },
 } satisfies Story;
 
@@ -51,12 +52,12 @@ export const LongText = {
 } satisfies Story;
 
 /**
- * This example shows a tooltip with an icon.
+ * This example shows a tooltip that uses the full width of the parent/slot element.
  */
-export const WithIcon = {
+export const MatchParentWidth = {
   args: {
     ...Default.args,
-    icon: circleInformation,
+    fitParent: true,
   },
 } satisfies Story;
 

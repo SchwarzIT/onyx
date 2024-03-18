@@ -14,6 +14,10 @@ export type OnyxTooltipProps = {
    * How to position the tooltip relative to the parent element.
    */
   position?: TooltipPosition;
+  /**
+   * If `true`, the tooltip will use the full width of the parent/slot element.
+   */
+  fitParent?: boolean;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;

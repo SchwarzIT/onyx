@@ -6,6 +6,7 @@ import type { OnyxTooltipProps } from "./types";
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "top",
+  fitParent: false,
 });
 
 defineSlots<{
@@ -28,6 +29,7 @@ const {
       :class="{
         'onyx-tooltip__danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
+        'onyx-tooltip--fit-parent': props.fitParent,
       }"
     >
       <OnyxIcon v-if="props.icon" class="onyx-tooltip__icon" :icon="props.icon" size="16px" />
@@ -72,6 +74,10 @@ const {
   left: 50%;
   transform: translateX(-50%);
   bottom: 100%;
+
+  &--fit-parent {
+    width: 100%;
+  }
 
   &__icon {
     min-width: 1rem;
