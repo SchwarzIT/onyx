@@ -1,4 +1,4 @@
-import { createScreenshotsForAllStates } from "@/utils/playwright";
+import { executeScreenshotsForAllStates } from "@/utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxInput from "./OnyxInput.vue";
 
@@ -130,9 +130,8 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component).toHaveScreenshot();
 });
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
     STATES,
     "input",
     async ({ variant, writeMode, focusState }, mount) => {
@@ -159,5 +158,5 @@ test(
       if (focusState === "focus") await input.focus();
       return component;
     },
-  ),
-);
+  );
+});

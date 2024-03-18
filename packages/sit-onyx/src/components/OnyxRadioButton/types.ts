@@ -1,3 +1,4 @@
+import type { DensityProp } from "../../styles/density";
 import type { TruncationType } from "../../types/fonts";
 
 export type SelectionOptionValue = string | number | boolean;
@@ -31,22 +32,23 @@ export type SelectionOption<
 };
 
 export type RadioButtonProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
-  SelectionOption<TValue> & {
-    /**
-     * Identifier for the radio buttons in the group.
-     * All radio buttons that should belong to the same radio group must have the same name.
-     * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
-     */
-    name: string;
-    /**
-     * Whether the radio button is selected.
-     */
-    selected?: boolean;
-    /**
-     * If any radio button of a group is required, a radio button of the group must be checked.
-     * But it doesn't have to be this particular option.
-     * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
-     */
-    required?: boolean;
-    errorMessage?: string;
-  };
+  SelectionOption<TValue> &
+    DensityProp & {
+      /**
+       * Identifier for the radio buttons in the group.
+       * All radio buttons that should belong to the same radio group must have the same name.
+       * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
+       */
+      name: string;
+      /**
+       * Whether the radio button is selected.
+       */
+      selected?: boolean;
+      /**
+       * If any radio button of a group is required, a radio button of the group must be checked.
+       * But it doesn't have to be this particular option.
+       * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
+       */
+      required?: boolean;
+      errorMessage?: string;
+    };

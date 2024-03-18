@@ -1,4 +1,3 @@
-import {} from "@playwright/experimental-ct-vue";
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright-axe";
 
@@ -57,8 +56,7 @@ type CaseBuilder<S extends ComponentStates> = (
 ) => Promise<MountResultJsx>;
 
 /**
- * Creates screenshots for all permutations of the given component states.
- * Will create a screenshot for each permutation.
+ * Executes screenshot tests for all permutations of the given component states.
  * Define the possible States in an `const` object literal.
  *
  * @example
@@ -69,10 +67,8 @@ type CaseBuilder<S extends ComponentStates> = (
  *   focusState: ["", "hover", "focus-visible"],
  * } as const;
  *
- *
- * test(
- *   "Screenshot matrix",
- *   createScreenshotsForAllStates(
+ * test.describe("state screenshot tests", () => {
+ *   executeScreenshotsForAllStates(
  *     STATES,
  *     "component-name",
  *     async ({ select, state, focusState }, mount, page) => {
@@ -90,50 +86,69 @@ type CaseBuilder<S extends ComponentStates> = (
  *       if (focusState === "hover") await input.hover();
  *       return component;
  *     },
- *   ),
- * );
+ *   );
+ * });
  * ```
  *
  * @param states All possible states for which permutations will be generated. Use `as const` to allow type support for the values.
  * @param baseName Prefix of the generated screenshot file names.
  * @param caseBuilder Build function that will be called for every permutation to generate JSX and perform setup interactions for the given component state.
  */
-export const createScreenshotsForAllStates =
-  <S extends Readonly<Record<string, ReadonlyArray<string>>>>(
-    states: S,
-    baseName: string,
-    caseBuilder: CaseBuilder<S>,
-  ) =>
-  async ({ mount, page }: TestArg) => {
-    const permutations = generatePermutations(states);
+export const executeScreenshotsForAllStates = <
+  S extends Readonly<Record<string, ReadonlyArray<string>>>,
+>(
+  states: S,
+  baseName: string,
+  caseBuilder: CaseBuilder<S>,
+) => {
+  const permutations = generatePermutations(states);
 
-    for (const testCase of permutations) {
-      // ARRANGE
-      const wrappedMount = ((jsx, options) =>
-        mount(
-          <div
-            style={{ width: "max-content", padding: "1rem" }}
-            class={{
-              "onyx-use-optional": options?.useOptional,
-            }}
-          >
-            {jsx}
-          </div>,
-        )) satisfies WrappedMount;
+  // to prevent JavaScript memory heap errors we should not run all permutations inside
+  // one single Playwright test. On the other hand we should also not run a single
+  // test for every permutation because this leads to a very bad test performance.
+  // therefore, we will split the permutations to only run a maximum of X permutations inside a single test
+  const batches: (typeof permutations)[] = [];
+  while (permutations.length > 0) {
+    batches.push(permutations.splice(0, 100));
+  }
 
-      await page.getByRole("document").focus(); // reset focus
-      await page.getByRole("document").hover(); // reset mouse
-      await page.mouse.up(); // reset mouse
-      const component = await caseBuilder(testCase, wrappedMount, page);
+  batches.forEach((batch, index) => {
+    test(`${baseName} state screenshot tests (batch ${index + 1})`, async ({ mount, page }) => {
+      // limit the max timeout per permutation
+      test.setTimeout(batch.length * 2 * 1000);
 
-      // ASSERT
-      const screenshotName = [
-        baseName,
-        ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
-      ].join("-");
-      await expect(component).toHaveScreenshot(`${screenshotName}.png`);
-    }
-  };
+      for (const testCase of batch) {
+        const screenshotName = [
+          baseName,
+          ...Object.entries(testCase).map(([key, value]) => `${key}--${value}`),
+        ].join("-");
+
+        await test.step(screenshotName, async () => {
+          // ARRANGE
+          const wrappedMount = ((jsx, options) =>
+            mount(
+              <div
+                style={{ width: "max-content", padding: "1rem", display: "flex" }}
+                class={{
+                  "onyx-use-optional": options?.useOptional,
+                }}
+              >
+                {jsx}
+              </div>,
+            )) satisfies WrappedMount;
+
+          await page.getByRole("document").focus(); // reset focus
+          await page.getByRole("document").hover(); // reset mouse
+          await page.mouse.up(); // reset mouse
+          const component = await caseBuilder(testCase, wrappedMount, page);
+
+          // ASSERT
+          await expect(component).toHaveScreenshot(`${screenshotName}.png`);
+        });
+      }
+    });
+  });
+};
 
 /**
  * Mock icon to use in Playwright component tests (.tsx files) because Playwright has

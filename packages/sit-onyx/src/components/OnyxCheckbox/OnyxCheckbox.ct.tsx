@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { createScreenshotsForAllStates } from "../../utils/playwright";
+import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
@@ -250,9 +250,8 @@ const STATES = {
   labeled: ["labeled", "unlabeled"],
 } as const;
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
     STATES,
     "checkbox",
     async ({ select, state, labeled, focusState }, mount, page) => {
@@ -268,10 +267,9 @@ test(
         { useOptional: state === "optional" },
       );
 
-      const checkbox = component.getByRole("checkbox");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await checkbox.hover();
+      if (focusState === "hover") await component.hover();
       return component;
     },
-  ),
-);
+  );
+});

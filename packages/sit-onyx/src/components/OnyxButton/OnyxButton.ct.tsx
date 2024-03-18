@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { createScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
+import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
@@ -75,9 +75,8 @@ const STATES = {
   focusState: ["", "hover", "focus-visible", "active"],
 } as const;
 
-test(
-  "State screenshot testing",
-  createScreenshotsForAllStates(
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
     STATES,
     "button",
     async ({ variation, state, mode, focusState }, mount, page) => {
@@ -91,11 +90,10 @@ test(
         />,
       );
 
-      const button = component.getByRole("button");
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await button.hover();
+      if (focusState === "hover") await component.hover();
       if (focusState === "active") await page.mouse.down();
       return component;
     },
-  ),
-);
+  );
+});
