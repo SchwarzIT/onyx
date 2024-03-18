@@ -30,7 +30,6 @@ export const Default = {
       return {
         id: id,
         label: `Test option ${id}`,
-        disabled: id === 2,
       };
     }),
   },
