@@ -1,6 +1,7 @@
+import type { RequiredMarkerProp } from "@/types/required";
 import type { TruncationType } from "../../types/fonts";
 
-export type OnyxCheckboxProps = {
+export type OnyxCheckboxProps = RequiredMarkerProp & {
   /**
    * Whether the checkbox is checked.
    */
@@ -18,10 +19,6 @@ export type OnyxCheckboxProps = {
    * Whether to disable the checkbox and prevent user interaction.
    */
   disabled?: boolean;
-  /**
-   * Whether the checkbox is required / has to be checked.
-   */
-  required?: boolean;
   /**
    * If `true`, the label will be visually hidden.
    * For accessibility / screen readers, the aria-label will still be set.

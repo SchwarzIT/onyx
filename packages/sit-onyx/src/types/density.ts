@@ -1,3 +1,5 @@
+import { computed } from "vue";
+
 const DENSITY = ["cozy", "default", "compact"] as const;
 export type DensityType = (typeof DENSITY)[number];
 
@@ -7,3 +9,7 @@ export type DensityProp = {
    */
   density?: DensityType;
 };
+
+export const useDensity = (props: DensityProp) => ({
+  densityClass: computed(() => ({ [`onyx-density-${props.density}`]: props.density })),
+});

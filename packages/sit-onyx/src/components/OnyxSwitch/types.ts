@@ -14,10 +14,6 @@ export type OnyxSwitchProps = {
    */
   disabled?: boolean;
   /**
-   * Whether the switch is required / has to be checked.
-   */
-  required?: boolean;
-  /**
    * The error message will set switch to invalid state.
    */
   errorMessage?: string;
