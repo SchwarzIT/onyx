@@ -91,9 +91,19 @@ test.describe("state screenshot tests", () => {
         />,
       );
 
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await component.hover();
-      if (focusState === "active") await page.mouse.down();
+      const button = component.getByRole("button");
+
+      // Playwright would fail if we try to hover / interact with a disabled component
+      // which is the case for disabled and loading, so we check for ".toBeDisabled" instead
+      if (state === "disabled" || state === "loading") {
+        // eslint-disable-next-line playwright/no-standalone-expect
+        await expect(button).toBeDisabled();
+      } else {
+        if (focusState === "focus-visible") await page.keyboard.press("Tab");
+        if (focusState === "hover") await button.hover();
+        if (focusState === "active") await page.mouse.down();
+      }
+
       return component;
     },
   );
