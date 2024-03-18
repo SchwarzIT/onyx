@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createId } from "@sit-onyx/headless";
+import { createTooltip } from "@sit-onyx/headless";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
 
@@ -15,24 +15,26 @@ defineSlots<{
   default(props: Record<string, unknown>): unknown;
 }>();
 
-const tooltipId = createId("tooltip");
+const {
+  elements: { trigger, tooltip },
+} = createTooltip();
 </script>
 
 <template>
   <div class="onyx-tooltip-wrapper">
     <div
+      v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
       :class="{
         'onyx-tooltip__danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
       }"
-      role="tooltip"
     >
       <OnyxIcon v-if="props.icon" class="onyx-tooltip__icon" :icon="props.icon" size="16px" />
       <span>{{ props.text }}</span>
     </div>
 
-    <div :aria-describedby="tooltipId">
+    <div v-bind="trigger">
       <slot></slot>
     </div>
   </div>
