@@ -21,7 +21,14 @@ const {
   to disable it here.
   -->
   <li
-    v-bind="option({ id: props.label, label: props.label, selected: props.modelValue })"
+    v-bind="
+      option({
+        id: props.label,
+        label: props.label,
+        selected: props.modelValue,
+        disabled: props.disabled,
+      })
+    "
     class="onyx-listbox-option"
     :class="{ 'onyx-listbox-option--selected': props.modelValue }"
     :disabled="props.disabled"
@@ -49,21 +56,27 @@ const {
   align-items: center;
   gap: var(--onyx-spacing-2xs);
 
-  cursor: pointer;
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--onyx-color-base-primary-100);
-  }
-
-  &.onyx-listbox-option--selected {
-    background-color: var(--onyx-color-base-primary-200);
+  &:not([aria-disabled="true"]) {
+    cursor: pointer;
 
     &:hover,
     &:focus-visible {
-      background-color: var(--onyx-color-base-primary-200);
-      color: var(--onyx-color-text-icons-primary-bold);
+      background-color: var(--onyx-color-base-primary-100);
     }
+
+    &.onyx-listbox-option--selected {
+      background-color: var(--onyx-color-base-primary-200);
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--onyx-color-base-primary-200);
+        color: var(--onyx-color-text-icons-primary-bold);
+      }
+    }
+  }
+
+  &[aria-disabled="true"] {
+    color: var(--onyx-color-text-icons-neutral-soft);
   }
 }
 </style>
