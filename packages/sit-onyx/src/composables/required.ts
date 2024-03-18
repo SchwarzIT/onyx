@@ -5,7 +5,7 @@ export type RequiredMarkerType = (typeof REQUIRED_MARKER)[number];
 
 export type RequiredMarkerProp = {
   /**
-   * Whether the form input is required.
+   * Whether the a value for this form element is required.
    */
   required?: boolean;
   /**
