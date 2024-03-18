@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
-import { useRequired } from "../../types/required";
+import { useRequired } from "../../composables/required";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,

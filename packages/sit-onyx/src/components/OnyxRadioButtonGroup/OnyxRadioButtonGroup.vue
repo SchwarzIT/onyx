@@ -5,8 +5,8 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 import type { OnyxRadioButtonGroupProps } from "./types";
-import { useDensity } from "../../types/density";
-import { useRequired } from "../../types/required";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 

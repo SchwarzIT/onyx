@@ -1,4 +1,4 @@
-import type { RequiredMarkerProp } from "../../types/required";
+import type { RequiredMarkerProp } from "../../composables/required";
 
 export type OnyxInputProps = RequiredMarkerProp & {
   /**

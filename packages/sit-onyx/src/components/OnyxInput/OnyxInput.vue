@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
-import { useRequired } from "../../types/required";
+import { useRequired } from "../../composables/required";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",

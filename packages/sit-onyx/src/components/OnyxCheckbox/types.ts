@@ -1,4 +1,4 @@
-import type { RequiredMarkerProp } from "@/types/required";
+import type { RequiredMarkerProp } from "../../composables/required";
 import type { TruncationType } from "../../types/fonts";
 
 export type OnyxCheckboxProps = RequiredMarkerProp & {

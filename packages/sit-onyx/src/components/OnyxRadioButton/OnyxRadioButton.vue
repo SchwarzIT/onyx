@@ -2,7 +2,7 @@
 import { ref, watchEffect } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps } from "./types";
-import { useDensity } from "../../types/density";
+import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
   disabled: false,

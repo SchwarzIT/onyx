@@ -1,5 +1,5 @@
-import type { RequiredMarkerProp } from "../../types/required";
-import type { DensityProp } from "../../types/density";
+import type { RequiredMarkerProp } from "../../composables/required";
+import type { DensityProp } from "../../composables/density";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 
 export type OnyxRadioButtonGroupProps<TValue> = DensityProp &

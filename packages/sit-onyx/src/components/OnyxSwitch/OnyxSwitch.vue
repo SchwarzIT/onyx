@@ -7,7 +7,7 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
-import { useRequired } from "../../types/required";
+import { useRequired } from "../../composables/required";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
