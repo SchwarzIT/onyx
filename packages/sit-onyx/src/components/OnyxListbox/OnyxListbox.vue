@@ -5,7 +5,9 @@ import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
 
-const props = defineProps<OnyxListboxProps<TValue>>();
+const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
+  hideLabel: false,
+});
 
 const emit = defineEmits<{
   /**

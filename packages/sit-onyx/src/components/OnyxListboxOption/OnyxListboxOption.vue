@@ -2,7 +2,9 @@
 import { createListbox } from "@sit-onyx/headless";
 import type { OnyxListboxOptionProps } from "./types";
 
-const props = defineProps<OnyxListboxOptionProps>();
+const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
+  disabled: false,
+});
 
 const emit = defineEmits<{
   "update:modelValue": [value: boolean];
