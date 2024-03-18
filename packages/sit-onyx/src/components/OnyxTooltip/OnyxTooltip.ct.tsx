@@ -36,6 +36,7 @@ test.describe("state screenshot tests", () => {
           text={text === "long" ? "Lorem ipsum dolor sit amet ".repeat(5) : "Test tooltip"}
           color={color}
           icon={variant === "icon" ? mockPlaywrightIcon : undefined}
+          fitParent={text === "fitParent"}
         >
           <span
             style={{
@@ -43,7 +44,7 @@ test.describe("state screenshot tests", () => {
               color: "var(--onyx-color-text-icons-neutral-intense)",
             }}
           >
-            Test slot content
+            Here goes the slot content
           </span>
         </OnyxTooltip>
       </div>,
