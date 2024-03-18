@@ -1,3 +1,4 @@
+import type { Direction } from "../../types";
 import type { OnyxCheckboxProps } from "../OnyxCheckbox/types";
 
 export type OnyxCheckboxGroupProps<
@@ -18,7 +19,7 @@ export type OnyxCheckboxGroupProps<
   /**
    * Direction of the checkboxes.
    */
-  direction?: CheckboxGroupDirection;
+  direction?: Direction;
   /**
    * If true, an additional checkbox will be displayed to check/uncheck all options.
    * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -45,6 +46,3 @@ export type CheckboxGroupOption<T extends string | number | boolean> = Omit<
 > & {
   id: T;
 };
-
-export const CHECKBOX_GROUP_DIRECTIONS = ["horizontal", "vertical"] as const;
-export type CheckboxGroupDirection = (typeof CHECKBOX_GROUP_DIRECTIONS)[number];
