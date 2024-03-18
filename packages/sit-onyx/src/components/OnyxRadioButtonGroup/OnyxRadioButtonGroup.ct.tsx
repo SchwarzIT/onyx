@@ -90,10 +90,9 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
 test("should truncate", async ({ mount }) => {
   const options: OnyxRadioButtonGroupProps<string>["options"] = [
     { label: "Very long label that will be truncated", id: "id-1" },
-    { label: "Very long required label that will be truncated", id: "id-2" },
     {
       label: "Very long label that will be truncated with multiline",
-      id: "id-3",
+      id: "id-2",
       truncation: "multiline",
     },
   ];
