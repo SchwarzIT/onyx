@@ -34,7 +34,6 @@ const {
     "
     class="onyx-listbox-option"
     :class="{ 'onyx-listbox-option--selected': props.modelValue }"
-    :disabled="props.disabled"
   >
     <span class="onyx-truncation-ellipsis"> {{ props.label }}</span>
   </li>
