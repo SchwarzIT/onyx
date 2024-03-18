@@ -65,7 +65,7 @@ watch(
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredTypeClass, requiredMarkerClass]">
+  <label v-else class="onyx-switch" :class="[requiredTypeClass]">
     <input
       ref="inputElement"
       v-model="isChecked"
@@ -84,7 +84,7 @@ watch(
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
     >
       {{ props.label }}
     </span>

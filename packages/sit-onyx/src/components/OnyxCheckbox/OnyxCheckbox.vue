@@ -35,7 +35,7 @@ const isTouched = ref(false);
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-checkbox" :class="[requiredMarkerClass, requiredTypeClass]">
+  <label v-else class="onyx-checkbox" :class="[requiredTypeClass]">
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
@@ -55,7 +55,7 @@ const isTouched = ref(false);
     <p
       v-if="!props.hideLabel"
       class="onyx-checkbox__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
     >
       {{ props.label }}
     </p>
