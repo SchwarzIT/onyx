@@ -93,16 +93,14 @@ export const createComboBox = createBuilder(
           id: controlsId,
         })),
         option: computed(() => {
-          return ({ key, label, disabled }: { key: string; label: string; disabled: boolean }) => {
-            return {
-              role: "option",
-              id: getOptionId(key),
-              "aria-selected": activeKey.value === key,
-              "aria-label": label,
-              "aria-disabled": disabled,
-              onClick: () => onSelect(key),
-            };
-          };
+          return ({ key, label, disabled }: { key: string; label: string; disabled: boolean }) => ({
+            role: "option",
+            id: getOptionId(key),
+            "aria-selected": activeKey.value === key,
+            "aria-label": label,
+            "aria-disabled": disabled,
+            onClick: () => onSelect(key),
+          });
         }),
         /**
          * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.

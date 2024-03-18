@@ -24,22 +24,17 @@ export const createListbox = createBuilder(
           });
         }),
         option: computed(() => {
-          return (option: {
-            label: string;
-            id: string;
-            selected?: boolean;
-            disabled?: boolean;
-          }) => {
-            const isSelected = option.selected ?? false;
+          return (data: { label: string; id: string; selected?: boolean; disabled?: boolean }) => {
+            const isSelected = data.selected ?? false;
             return {
               role: "option",
-              "aria-label": option.label,
+              "aria-label": data.label,
               "aria-checked": isMultiselect.value ? isSelected : undefined,
               "aria-selected": !isMultiselect.value ? isSelected : undefined,
-              "aria-disabled": option.disabled,
+              "aria-disabled": data.disabled,
               tabindex: "0",
-              onKeydown: (event) => handleKeydown(event, option.id),
-              onClick: () => options.onSelect?.(option.id),
+              onKeydown: (event) => handleKeydown(event, data.id),
+              onClick: () => options.onSelect?.(data.id),
             } as const;
           };
         }),

@@ -1,4 +1,4 @@
-import { type ComputedRef, type HtmlHTMLAttributes, type Ref } from "vue";
+import type { ComputedRef, HtmlHTMLAttributes, Ref } from "vue";
 
 export type IteratedHeadlessElementFunc<T extends Record<string, unknown>> = (
   opts: T,
