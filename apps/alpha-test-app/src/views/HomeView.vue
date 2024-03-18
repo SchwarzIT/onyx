@@ -1,54 +1,125 @@
 <script lang="ts" setup>
-import { useI18n } from "vue-i18n";
-import FormDemo from "../components/form-demo/FormDemo.vue";
+import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import {
+  OnyxAppLayout,
+  OnyxButton,
+  OnyxCheckboxGroup,
+  OnyxHeadline,
+  OnyxIcon,
+  OnyxIconButton,
+  OnyxInput,
+  OnyxLink,
+  OnyxLoadingIndicator,
+  OnyxPageLayout,
+  OnyxSkeleton,
+  OnyxSwitch,
+  type SelectionOption,
+} from "sit-onyx";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-const { t, locale } = useI18n();
 const router = useRouter();
 
-const validFormData = {
-  defaultInput: "No Validation",
-  requiredInput: "Is filled",
-  minlengthInput: "Is long enough",
-  maxInput: 42,
-  typeInput: "john.doe@mail.schwarz",
-  patternInput: "only lowercase or space",
-};
-const invalidFormData = {
-  defaultInput: "No Validation",
-  requiredInput: "",
-  minlengthInput: "",
-  maxInput: 9001,
-  typeInput: "NotAmail",
-  patternInput: "NO UPPERCASE ALLOWED",
-};
+const configOptions: SelectionOption[] = [
+  { label: "OnyxButton" },
+  // { label: "OnyxCheckbox" }, -> not exported
+  { label: "OnyxCheckboxGroup" },
+  { label: "OnyxHeadline" },
+  { label: "OnyxIcon" },
+  { label: "OnyxIconButton" },
+  { label: "OnyxInput" },
+  { label: "OnyxLink" },
+  { label: "OnyxLoadingIndicator" },
+  // { label: "OnyxRadioButton" }, -> not exported
+  { label: "OnyxRadioButtonGroup" },
+  { label: "OnyxSkeleton" },
+  { label: "OnyxSwitch" },
+].map((option) => ({
+  ...option,
+  id: option.label,
+}));
+const activeConfig = ref<string[]>(configOptions.map((option) => option.id));
+
+const show = (componentName: string) => activeConfig.value.includes(componentName);
+
+const switchState = ref(false);
 </script>
 
 <template>
-  <div class="page">
-    <div>
-      <p>{{ t("message") }} in {{ locale }}</p>
-      <button @click="locale = 'de-DE'">Deutsch</button>
-      <button @click="locale = 'en-US'">English</button>
-    </div>
-    <button @click="router.push('/layout-demo')">Move to layout demo</button>
+  <OnyxAppLayout>
+    <template #navBar>
+      <div class="nav">
+        <OnyxHeadline is="h3">Alpha Test App</OnyxHeadline>
 
-    <div data-testid="home-view" class="page">
-      <h1 element="h1">Initially Invalid example</h1>
-      <FormDemo :form-data="invalidFormData" />
+        <OnyxButton mode="plain" label="Open form demo" @click="router.push('/form-demo')" />
+        <OnyxButton mode="plain" label="Open layout demo" @click="router.push('/layout-demo')" />
+      </div>
+    </template>
 
-      <br />
-      <hr />
+    <OnyxPageLayout>
+      <template #sidebar>
+        <div class="sidebar">
+          <OnyxCheckboxGroup
+            v-model="activeConfig"
+            headline="Show example"
+            :options="configOptions"
+            with-check-all
+          />
+        </div>
+      </template>
 
-      <h1 element="h1">Initially Valid example</h1>
-      <FormDemo :form-data="validFormData" />
-    </div>
-  </div>
+      <div class="page">
+        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
+
+        <p>Each onyx component should be used at least once in this page.</p>
+
+        <div class="page__examples">
+          <OnyxButton v-if="show('OnyxButton')" label="button" />
+
+          <!-- <OnyxCheckboxGroup v-if="show('OnyxCheckboxGroup')" /> -->
+
+          <!-- should "is" have a default value? -->
+          <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
+
+          <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
+
+          <!-- required label does not make sense?? -->
+          <OnyxIconButton v-if="show('OnyxIconButton')" label="" :icon="emojiHappy2" />
+
+          <OnyxInput v-if="show('OnyxInput')" label="Input" />
+
+          <OnyxLink v-if="show('OnyxLink')" href="#">Link</OnyxLink>
+
+          <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
+
+          <!-- <OnyxRadioButtonGroup v-if="show('OnyxRadioButtonGroup')" /> -->
+
+          <!-- invisible but no complaint from lint?? -->
+          <OnyxSkeleton v-if="show('OnyxSkeleton')" />
+
+          <OnyxSwitch v-model="switchState" :label="'Switch is ' + (switchState ? 'on' : 'off')" />
+        </div>
+      </div>
+    </OnyxPageLayout>
+  </OnyxAppLayout>
 </template>
 
 <style lang="scss" scoped>
+.nav {
+  display: flex;
+  align-items: center;
+  padding-left: var(--onyx-spacing-xs);
+}
+.sidebar {
+  padding: var(--onyx-spacing-md);
+}
 .page {
-  max-width: 1280px;
-  padding: 2rem;
+  padding: var(--onyx-spacing-xl);
+
+  &__examples {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-xs);
+  }
 }
 </style>
