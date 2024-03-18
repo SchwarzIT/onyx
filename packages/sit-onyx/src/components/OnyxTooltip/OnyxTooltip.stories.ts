@@ -27,6 +27,7 @@ type Story = StoryObj<typeof OnyxTooltip>;
 export const Default = {
   args: {
     text: "Tooltip text",
+    default: () => "Slot content goes here",
   },
 } satisfies Story;
 
@@ -35,6 +36,7 @@ export const Default = {
  */
 export const LongText = {
   args: {
+    ...Default.args,
     text: "Lorem ipsum dolor sit amet ".repeat(5),
   },
 } satisfies Story;

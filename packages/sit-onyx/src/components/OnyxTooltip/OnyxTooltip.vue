@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { createId } from "@sit-onyx/headless";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
 
@@ -6,36 +7,54 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "top",
 });
+
+defineSlots<{
+  /**
+   * Default slot where the parent content is placed that should open/close the tooltip.
+   */
+  default(props: Record<string, unknown>): unknown;
+}>();
+
+const tooltipId = createId("tooltip");
 </script>
 
 <template>
-  <div
-    class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
-    :class="{
-      'onyx-tooltip__danger': props.color === 'danger',
-      'onyx-tooltip--bottom': props.position === 'bottom',
-    }"
-    role="tooltip"
-  >
-    <OnyxIcon v-if="props.icon" class="onyx-tooltip__icon" :icon="props.icon" size="16px" />
-    <span>{{ props.text }}</span>
+  <div class="onyx-tooltip-wrapper">
+    <div
+      class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
+      :class="{
+        'onyx-tooltip__danger': props.color === 'danger',
+        'onyx-tooltip--bottom': props.position === 'bottom',
+      }"
+      role="tooltip"
+    >
+      <OnyxIcon v-if="props.icon" class="onyx-tooltip__icon" :icon="props.icon" size="16px" />
+      <span>{{ props.text }}</span>
+    </div>
+
+    <div :aria-describedby="tooltipId">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 .onyx-tooltip {
   --background-color: var(--onyx-color-base-neutral-900);
+  $wedge-size: 0.5rem;
 
   border-radius: var(--onyx-radius-sm);
   padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   z-index: var(--onyx-z-index-flyout);
 
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: var(--onyx-spacing-4xs);
   position: relative;
+  height: max-content;
+  margin-bottom: $wedge-size;
 
   background-color: var(--background-color);
   color: var(--onyx-color-text-icons-neutral-inverted);
@@ -43,6 +62,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   text-align: center;
 
   min-width: var(--onyx-spacing-3xl);
+  width: max-content;
   max-width: 19rem;
 
   &__icon {
@@ -53,8 +73,6 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
     --background-color: var(--onyx-color-base-danger-200);
     color: var(--onyx-color-text-icons-danger-bold);
   }
-
-  $wedge-size: 0.5rem;
 
   &::after {
     content: " ";
@@ -68,10 +86,24 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   }
 
   &--bottom {
+    margin-bottom: 0;
+    margin-top: $wedge-size;
+
     &::after {
       top: -2 * $wedge-size;
       border-color: transparent transparent var(--background-color) transparent;
     }
+  }
+}
+
+.onyx-tooltip-wrapper {
+  position: relative;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+
+  &:has(.onyx-tooltip--bottom) {
+    flex-direction: column-reverse;
   }
 }
 </style>
