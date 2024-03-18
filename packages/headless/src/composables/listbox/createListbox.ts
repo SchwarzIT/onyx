@@ -6,7 +6,8 @@ export const createListbox = createBuilder(
     const isMultiselect = computed(() => unref(options.multiselect) ?? false);
 
     const handleKeydown = (event: KeyboardEvent, id: string) => {
-      if (event.key !== "Space") return;
+      if (event.key !== " ") return;
+      event.preventDefault(); // prevent browser scroll when pressing space
       options.onSelect?.(id);
     };
 
