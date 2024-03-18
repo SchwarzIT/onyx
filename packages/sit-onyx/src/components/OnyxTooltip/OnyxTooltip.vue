@@ -17,7 +17,7 @@ defineSlots<{
 
 const {
   elements: { trigger, tooltip },
-} = createTooltip();
+} = createTooltip({});
 </script>
 
 <template>

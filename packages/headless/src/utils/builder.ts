@@ -23,7 +23,7 @@ export type HeadlessComposable<Elements extends HeadlessElements, State extends 
  * We use this identity function to ensure the correct typings of the headless composables
  */
 export const createBuilder = <P, Elements extends HeadlessElements, State extends HeadlessState>(
-  builder: (props?: P) => HeadlessComposable<Elements, State>,
+  builder: (props: P) => HeadlessComposable<Elements, State>,
 ) => builder;
 
 /**
