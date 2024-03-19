@@ -33,6 +33,7 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
         role: "listbox",
         "aria-multiselectable": isMultiselect.value,
         "aria-label": unref(options.label),
+        tabindex: "0",
       })),
       group: computed(() => {
         return (options: { label: string }) => ({
