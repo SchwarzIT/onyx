@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
+import { useRequired } from "../../composables/required";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
@@ -11,6 +12,8 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   truncation: "ellipsis",
   skeleton: false,
 });
+
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
@@ -24,11 +27,6 @@ const isChecked = computed({
 
 /** True if the user has interacted with the checkbox once. */
 const isTouched = ref(false);
-
-const requiredMarkerClass = computed(() => {
-  if (props.hideLabel) return "";
-  return `onyx-${props.required ? "required" : "optional"}-marker`;
-});
 </script>
 
 <template>
@@ -37,7 +35,7 @@ const requiredMarkerClass = computed(() => {
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-checkbox" :class="[requiredMarkerClass]">
+  <label v-else class="onyx-checkbox" :class="[requiredTypeClass]">
     <div class="onyx-checkbox__container">
       <input
         v-model="isChecked"
@@ -57,7 +55,7 @@ const requiredMarkerClass = computed(() => {
     <p
       v-if="!props.hideLabel"
       class="onyx-checkbox__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
     >
       {{ props.label }}
     </p>
