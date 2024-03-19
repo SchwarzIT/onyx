@@ -54,7 +54,6 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
             "aria-checked": isMultiselect.value ? isSelected : undefined,
             "aria-selected": !isMultiselect.value ? isSelected : undefined,
             "aria-disabled": data.disabled,
-            tabindex: "0",
             onKeydown: (event) => handleKeydown(event, data.id),
             onClick: () => options.onSelect?.(data.id),
           } as const;
