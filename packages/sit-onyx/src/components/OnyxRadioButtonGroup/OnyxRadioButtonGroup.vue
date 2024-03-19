@@ -1,9 +1,9 @@
-<script lang="ts" setup generic="TValue">
+<script lang="ts" setup generic="TValue extends SelectionOptionValue">
 import type { TargetEvent } from "@/types/dom";
 import { createId } from "@sit-onyx/headless";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
-import type { SelectionOption } from "../OnyxRadioButton/types";
+import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxRadioButtonGroupProps } from "./types";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
@@ -49,7 +49,7 @@ const handleChange = (event: ChangeEvent) =>
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
           v-for="option in props.options"
-          :key="option.id"
+          :key="option.id.toString()"
           v-bind="option"
           :name="props.name"
           :error-message="props.errorMessage"

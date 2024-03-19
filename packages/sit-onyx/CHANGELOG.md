@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.48
+
+### Minor Changes
+
+- 2eb0867: Add property 'loading' for OnyxButton, OnyxCheckbox, OnyxRadioButton and OnyxSwitch
+
 ## 1.0.0-alpha.47
 
 ### Patch Changes

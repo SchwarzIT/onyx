@@ -15,6 +15,10 @@ export type OnyxSwitchProps = RequiredMarkerProp & {
    */
   disabled?: boolean;
   /**
+   * Shows a loading indicator.
+   */
+  loading?: boolean;
+  /**
    * The error message will set switch to invalid state.
    */
   errorMessage?: string;

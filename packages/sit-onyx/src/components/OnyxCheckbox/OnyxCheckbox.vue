@@ -3,11 +3,13 @@ import { computed, ref } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 import { useRequired } from "../../composables/required";
+import { OnyxLoadingIndicator } from "@/index";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
   indeterminate: false,
   disabled: false,
+  loading: false,
   required: false,
   truncation: "ellipsis",
   skeleton: false,
@@ -37,7 +39,9 @@ const isTouched = ref(false);
 
   <label v-else class="onyx-checkbox" :class="[requiredTypeClass]">
     <div class="onyx-checkbox__container">
+      <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
+        v-else
         v-model="isChecked"
         :aria-label="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
@@ -131,6 +135,10 @@ $input-size: 1rem;
     color: var(--onyx-color-text-icons-neutral-soft);
   }
 
+  &:has(&__loading) {
+    cursor: default;
+  }
+
   &__container {
     display: inline-flex;
     align-items: center;
@@ -192,6 +200,12 @@ $input-size: 1rem;
     padding: $label-padding 0;
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+    max-width: 1rem;
+    height: 1rem;
   }
 }
 
