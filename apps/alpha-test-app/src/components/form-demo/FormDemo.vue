@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, TestInput } from "sit-onyx";
+import { OnyxButton, OnyxHeadline, TestInput } from "sit-onyx";
 import { ref, watch } from "vue";
 
 type FormData = {
@@ -48,7 +48,9 @@ watch(
     class="demo"
     @submit.prevent="emit('submit', props.formData)"
   >
-    <h3>This form is <span class="demo__invalid">in</span>valid.</h3>
+    <OnyxHeadline is="h2" class="demo__headline"
+      >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
+    >
 
     <TestInput v-model="formState.defaultInput" label="Default" />
 
@@ -88,6 +90,7 @@ watch(
 .demo {
   display: flex;
   flex-direction: column;
+  gap: var(--onyx-spacing-md);
 
   &:valid {
     .demo__invalid {
