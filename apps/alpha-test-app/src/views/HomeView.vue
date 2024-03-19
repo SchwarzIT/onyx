@@ -11,6 +11,7 @@ import {
   OnyxLink,
   OnyxLoadingIndicator,
   OnyxPageLayout,
+  OnyxRadioButtonGroup,
   OnyxSkeleton,
   OnyxSwitch,
   type SelectionOption,
@@ -22,7 +23,6 @@ const router = useRouter();
 
 const configOptions: SelectionOption[] = [
   { label: "OnyxButton" },
-  // { label: "OnyxCheckbox" }, -> not exported
   { label: "OnyxCheckboxGroup" },
   { label: "OnyxHeadline" },
   { label: "OnyxIcon" },
@@ -30,10 +30,10 @@ const configOptions: SelectionOption[] = [
   { label: "OnyxInput" },
   { label: "OnyxLink" },
   { label: "OnyxLoadingIndicator" },
-  // { label: "OnyxRadioButton" }, -> not exported
   { label: "OnyxRadioButtonGroup" },
   { label: "OnyxSkeleton" },
   { label: "OnyxSwitch" },
+  // add new components here.
 ].map((option) => ({
   ...option,
   id: option.label,
@@ -42,7 +42,14 @@ const activeConfig = ref<string[]>(configOptions.map((option) => option.id));
 
 const show = (componentName: string) => activeConfig.value.includes(componentName);
 
+const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
+  id,
+  label: `Option ${id}`,
+}));
+
 const switchState = ref(false);
+const checkboxState = ref<string[]>([]);
+const radioState = ref<SelectionOption | undefined>();
 </script>
 
 <template>
@@ -51,8 +58,8 @@ const switchState = ref(false);
       <div class="nav">
         <OnyxHeadline is="h3">Alpha Test App</OnyxHeadline>
 
-        <OnyxButton mode="plain" label="Open form demo" @click="router.push('/form-demo')" />
-        <OnyxButton mode="plain" label="Open layout demo" @click="router.push('/layout-demo')" />
+        <OnyxButton mode="plain" label="Form Demo" @click="router.push('/form-demo')" />
+        <OnyxButton mode="plain" label="Layout Demo" @click="router.push('/layout-demo')" />
       </div>
     </template>
 
@@ -61,7 +68,7 @@ const switchState = ref(false);
         <div class="sidebar">
           <OnyxCheckboxGroup
             v-model="activeConfig"
-            headline="Show example"
+            headline="Examples to show"
             :options="configOptions"
             with-check-all
           />
@@ -74,17 +81,22 @@ const switchState = ref(false);
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
-          <OnyxButton v-if="show('OnyxButton')" label="button" />
+          <OnyxButton v-if="show('OnyxButton')" label="Button" />
 
-          <!-- <OnyxCheckboxGroup v-if="show('OnyxCheckboxGroup')" /> -->
+          <template v-if="show('OnyxCheckboxGroup')">
+            <OnyxCheckboxGroup
+              v-model="checkboxState"
+              headline="Checkbox Group"
+              :options="dummyOptions"
+            />
+            OnyxCheckboxGroup State: {{ checkboxState }}
+          </template>
 
-          <!-- should "is" have a default value? -->
           <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
 
           <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
-          <!-- required label does not make sense?? -->
-          <OnyxIconButton v-if="show('OnyxIconButton')" label="" :icon="emojiHappy2" />
+          <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
           <OnyxInput v-if="show('OnyxInput')" label="Input" />
 
@@ -92,16 +104,24 @@ const switchState = ref(false);
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
-          <!-- <OnyxRadioButtonGroup v-if="show('OnyxRadioButtonGroup')" /> -->
+          <template v-if="show('OnyxRadioButtonGroup')">
+            <OnyxRadioButtonGroup
+              v-model="radioState"
+              headline="Radio Button Group"
+              :options="dummyOptions"
+            />
+            OnyxRadioButtonGroup State: {{ radioState }}
+          </template>
 
-          <!-- invisible but no complaint from lint?? -->
-          <OnyxSkeleton v-if="show('OnyxSkeleton')" />
+          <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
 
           <OnyxSwitch
             v-if="show('OnyxSwitch')"
             v-model="switchState"
             :label="'Switch is ' + (switchState ? 'on' : 'off')"
           />
+
+          <!-- Add new components here. -->
         </div>
       </div>
     </OnyxPageLayout>
@@ -124,6 +144,11 @@ const switchState = ref(false);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-xs);
+    align-items: flex-start;
   }
+}
+.skeleton {
+  height: 2rem;
+  width: 8rem;
 }
 </style>
