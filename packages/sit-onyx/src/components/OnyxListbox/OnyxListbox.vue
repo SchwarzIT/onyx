@@ -146,5 +146,9 @@ const {
     padding: 0;
     list-style: none;
   }
+
+  &:has(&__options:focus-visible) {
+    outline: 0.25rem solid var(--onyx-color-base-primary-200);
+  }
 }
 </style>
