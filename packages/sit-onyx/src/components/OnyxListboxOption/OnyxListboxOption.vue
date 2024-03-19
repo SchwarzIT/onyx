@@ -1,12 +1,6 @@
-<script lang="ts" setup>
-import type { OnyxListboxOptionProps } from "./types";
-
-const props = defineProps<OnyxListboxOptionProps>();
-</script>
-
 <template>
-  <li class="onyx-listbox-option" v-bind="props.headlessOption">
-    <span class="onyx-truncation-ellipsis"> {{ props.headlessOption["aria-label"] }}</span>
+  <li class="onyx-listbox-option">
+    <span class="onyx-truncation-ellipsis"> {{ $attrs["aria-label"] }}</span>
   </li>
 </template>
 

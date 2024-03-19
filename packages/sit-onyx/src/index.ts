@@ -12,8 +12,6 @@ export * from "@/components/OnyxCheckboxGroup/types";
 
 export { default as OnyxListbox } from "@/components/OnyxListbox/OnyxListbox.vue";
 export * from "@/components/OnyxListbox/types";
-export { default as OnyxListboxOption } from "@/components/OnyxListboxOption/OnyxListboxOption.vue";
-export * from "@/components/OnyxListboxOption/types";
 
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export * from "@/components/OnyxHeadline/types";

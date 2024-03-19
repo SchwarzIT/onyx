@@ -34,7 +34,7 @@ const {
         v-for="option in props.options"
         :key="option.id.toString()"
         class="onyx-listbox__option"
-        :headless-option="
+        v-bind="
           headlessOption({
             id: option.id,
             label: option.label,

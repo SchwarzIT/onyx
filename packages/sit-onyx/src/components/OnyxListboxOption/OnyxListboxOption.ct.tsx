@@ -15,16 +15,9 @@ test.describe("state screenshot tests", () => {
     async ({ state, writeMode, focusState }, mount, page) => {
       const component = await mount(
         <OnyxListboxOption
-          headlessOption={{
-            "aria-label": "Label",
-            role: "option",
-            tabindex: "0",
-            "aria-checked": undefined,
-            "aria-selected": state === "selected",
-            "aria-disabled": writeMode === "disabled",
-            onKeydown: () => undefined,
-            onClick: () => undefined,
-          }}
+          aria-label="Label"
+          aria-selected={state === "selected"}
+          aria-disabled={writeMode === "disabled"}
         />,
       );
 
