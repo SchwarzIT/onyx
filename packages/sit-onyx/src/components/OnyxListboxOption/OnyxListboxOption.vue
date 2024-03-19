@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { OnyxListboxOptionProps } from "./types";
+
 const props = defineProps<OnyxListboxOptionProps>();
 
 defineSlots<{

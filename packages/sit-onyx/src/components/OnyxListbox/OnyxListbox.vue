@@ -16,9 +16,15 @@ const emit = defineEmits<{
   "update:modelValue": [value: typeof props.modelValue];
 }>();
 
-const focusedOption = ref<TValue>();
-
+/**
+ * Reference of the `<ul>` listbox element.
+ */
 const listboxRef = ref<HTMLUListElement>();
+
+/**
+ * Currently (visually) focused option.
+ */
+const focusedOption = ref<TValue>();
 
 /**
  * Sync the focused option with the selected option.

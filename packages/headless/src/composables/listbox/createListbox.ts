@@ -59,7 +59,7 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
     if (!descendantKeyIdMap.has(value)) {
       descendantKeyIdMap.set(value, createId("listbox-option"));
     }
-    return descendantKeyIdMap.get(value);
+    return descendantKeyIdMap.get(value) as NonNullable<ReturnType<typeof descendantKeyIdMap.get>>;
   };
 
   /**
@@ -71,7 +71,6 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
   watchEffect(() => {
     if (options.focusedOption.value == undefined || !isFocused.value) return;
     const id = getOptionId(options.focusedOption.value);
-    if (!id) return;
     options.onScrollIntoView?.(id, options.focusedOption.value);
   });
 
