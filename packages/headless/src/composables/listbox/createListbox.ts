@@ -21,12 +21,6 @@ export type ListboxValue = string | number | boolean;
 export const createListbox = createBuilder((options: CreateListboxOptions) => {
   const isMultiselect = computed(() => unref(options.multiselect) ?? false);
 
-  const handleKeydown = (event: KeyboardEvent, id: ListboxValue) => {
-    if (event.key !== " ") return;
-    event.preventDefault(); // prevent browser scroll when pressing space
-    options.onSelect?.(id);
-  };
-
   return {
     elements: {
       listbox: computed(() => ({
@@ -55,7 +49,6 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
             "aria-checked": isMultiselect.value ? isSelected : undefined,
             "aria-selected": !isMultiselect.value ? isSelected : undefined,
             "aria-disabled": data.disabled,
-            onKeydown: (event) => handleKeydown(event, data.id),
             onClick: () => options.onSelect?.(data.id),
           } as const;
         };
