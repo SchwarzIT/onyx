@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.49
+
+### Minor Changes
+
+- 668d5fe: feat: add basic single select `OnyxListbox` component
+
 ## 1.0.0-alpha.48
 
 ### Minor Changes
