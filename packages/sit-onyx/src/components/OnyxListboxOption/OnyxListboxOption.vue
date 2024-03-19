@@ -1,6 +1,17 @@
+<script lang="ts" setup>
+defineSlots<{
+  /**
+   * Default slot to place the option label / text content.
+   */
+  default(props: Record<string, never>): unknown;
+}>();
+</script>
+
 <template>
   <li class="onyx-listbox-option">
-    <span class="onyx-truncation-ellipsis"> {{ $attrs["aria-label"] }}</span>
+    <span class="onyx-truncation-ellipsis">
+      <slot></slot>
+    </span>
   </li>
 </template>
 

@@ -42,7 +42,9 @@ const {
             selected: option.id === props.modelValue,
           })
         "
-      />
+      >
+        {{ option.label }}
+      </OnyxListboxOption>
     </ul>
 
     <span v-if="!props.hideLabel" class="onyx-listbox__label onyx-text--small">
