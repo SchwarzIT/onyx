@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 import FormDemo from "../components/form-demo/FormDemo.vue";
+import { OnyxAppLayout, OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const { t, locale } = useI18n();
 
@@ -23,24 +24,26 @@ const invalidFormData = {
 </script>
 
 <template>
-  <div class="page">
-    <div>
-      <p>{{ t("message") }} in {{ locale }}</p>
-      <button @click="locale = 'de-DE'">Deutsch</button>
-      <button @click="locale = 'en-US'">English</button>
+  <OnyxAppLayout>
+    <div class="page">
+      <div>
+        <p>{{ t("message") }} in {{ locale }}</p>
+        <OnyxButton label="Deutsch" mode="plain" @click="locale = 'de-DE'" />
+        <OnyxButton label="English" mode="plain" @click="locale = 'en-US'" />
+      </div>
+
+      <div data-testid="home-view" class="page">
+        <OnyxHeadline is="h1" element="h1">Initially Invalid example</OnyxHeadline>
+        <FormDemo :form-data="invalidFormData" />
+
+        <br />
+        <hr />
+
+        <OnyxHeadline is="h1" element="h1">Initially Valid example</OnyxHeadline>
+        <FormDemo :form-data="validFormData" />
+      </div>
     </div>
-
-    <div data-testid="home-view" class="page">
-      <h1 element="h1">Initially Invalid example</h1>
-      <FormDemo :form-data="invalidFormData" />
-
-      <br />
-      <hr />
-
-      <h1 element="h1">Initially Valid example</h1>
-      <FormDemo :form-data="validFormData" />
-    </div>
-  </div>
+  </OnyxAppLayout>
 </template>
 
 <style lang="scss" scoped>
