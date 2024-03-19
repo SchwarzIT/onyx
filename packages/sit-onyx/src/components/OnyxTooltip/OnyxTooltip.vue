@@ -49,6 +49,7 @@ const {
 
   border-radius: var(--onyx-radius-sm);
   padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+  box-sizing: border-box;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   z-index: var(--onyx-z-index-flyout);
 
@@ -56,7 +57,6 @@ const {
   justify-content: center;
   align-items: center;
   gap: var(--onyx-spacing-4xs);
-  position: relative;
   height: max-content;
   margin-bottom: $wedge-size;
 
