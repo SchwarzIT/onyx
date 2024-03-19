@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.47
+
+### Patch Changes
+
+- 9ad6208: fix(OnyxButton): apply the type property to the button
+
 ## 1.0.0-alpha.46
 
 ### Minor Changes
