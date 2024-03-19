@@ -24,6 +24,7 @@ const emit = defineEmits<{
     class="onyx-button"
     :class="[`onyx-button--${props.variation}`, `onyx-button--${props.mode}`]"
     :disabled="props.disabled"
+    :type="props.type"
     @click="emit('click')"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { TestInput } from "sit-onyx";
+import { OnyxButton, OnyxHeadline, TestInput } from "sit-onyx";
 import { ref, watch } from "vue";
 
 type FormData = {
@@ -30,6 +30,8 @@ const onPatternValidityChange = (state: ValidityState) => {
     : "";
 };
 
+const submit = () => alert("Submit successful!");
+
 watch(
   props,
   () => {
@@ -46,7 +48,9 @@ watch(
     class="demo"
     @submit.prevent="emit('submit', props.formData)"
   >
-    <h3>This form is <span class="demo__invalid">in</span>valid.</h3>
+    <OnyxHeadline is="h2" class="demo__headline"
+      >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
+    >
 
     <TestInput v-model="formState.defaultInput" label="Default" />
 
@@ -75,9 +79,9 @@ watch(
       @validity-change="onPatternValidityChange"
     />
 
-    <div>
-      <input type="reset" value="Reset" />
-      <button class="demo__submit">Submits on valid</button>
+    <div class="demo__actions">
+      <OnyxButton label="Reset" variation="secondary" type="reset" />
+      <OnyxButton class="demo__submit" label="Submits on valid" type="submit" @click="submit" />
     </div>
   </form>
 </template>
@@ -86,6 +90,7 @@ watch(
 .demo {
   display: flex;
   flex-direction: column;
+  gap: var(--onyx-spacing-md);
 
   &:valid {
     .demo__invalid {
@@ -97,6 +102,11 @@ watch(
       pointer-events: none;
       opacity: 0.4;
     }
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--onyx-spacing-xs);
   }
 }
 </style>
