@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { createListbox } from "@sit-onyx/headless";
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
@@ -16,26 +16,59 @@ const emit = defineEmits<{
   "update:modelValue": [value: typeof props.modelValue];
 }>();
 
+const focusedOption = ref<TValue>();
+
+const listboxRef = ref<HTMLUListElement>();
+
+/**
+ * Sync the focused option with the selected option.
+ */
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    focusedOption.value = newValue;
+  },
+  { immediate: true },
+);
+
 const {
   elements: { listbox, option: headlessOption },
 } = createListbox({
   label: computed(() => props.label),
+  selectedOption: computed(() => props.modelValue),
+  focusedOption,
   onSelect: (id) => {
     if (props.modelValue === id) emit("update:modelValue", undefined);
     else emit("update:modelValue", id as TValue);
+  },
+  onFocusFirst: () => (focusedOption.value = props.options.at(0)?.id),
+  onFocusLast: () => (focusedOption.value = props.options.at(-1)?.id),
+  onFocusNext: (currentValue) => {
+    const currentIndex = props.options.findIndex((i) => i.id === currentValue);
+    if (currentIndex < props.options.length - 1) {
+      focusedOption.value = props.options[currentIndex + 1].id;
+    }
+  },
+  onFocusPrevious: (currentValue) => {
+    const currentIndex = props.options.findIndex((i) => i.id === currentValue);
+    if (currentIndex > 0) focusedOption.value = props.options[currentIndex - 1].id;
+  },
+  onScrollIntoView: (id) => {
+    const option = listboxRef.value?.querySelector(`#${id}`);
+    option?.scrollIntoView({ block: "nearest", inline: "nearest" });
   },
 });
 </script>
 
 <template>
   <div class="onyx-listbox">
-    <ul class="onyx-listbox__options" v-bind="listbox">
+    <ul v-bind="listbox" ref="listboxRef" class="onyx-listbox__options">
       <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
         v-bind="
           headlessOption({
-            id: option.id,
+            value: option.id,
             label: option.label,
             disabled: option.disabled,
             selected: option.id === props.modelValue,
