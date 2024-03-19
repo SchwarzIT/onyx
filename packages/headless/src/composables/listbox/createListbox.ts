@@ -47,6 +47,10 @@ export type CreateListboxOptions = {
 
 export type ListboxValue = string | number | boolean;
 
+/**
+ * Composable for creating a accessibility-conform listbox.
+ * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
+ */
 export const createListbox = createBuilder((options: CreateListboxOptions) => {
   const isMultiselect = computed(() => unref(options.multiselect) ?? false);
 
