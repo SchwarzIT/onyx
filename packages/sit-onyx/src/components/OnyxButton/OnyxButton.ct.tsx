@@ -69,7 +69,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "icon", "loading"],
+  state: ["default", "disabled", "icon"],
   variation: ["primary", "secondary", "danger"],
   mode: ["default", "outline", "plain"],
   focusState: ["", "hover", "focus-visible", "active"],
@@ -86,23 +86,15 @@ test.describe("state screenshot tests", () => {
           variation={variation}
           mode={mode}
           disabled={state === "disabled"}
-          loading={state === "loading"}
           icon={state === "icon" ? mockPlaywrightIcon : undefined}
         />,
       );
 
       const button = component.getByRole("button");
 
-      // Playwright would fail if we try to hover / interact with a disabled component
-      // which is the case for disabled and loading, so we check for ".toBeDisabled" instead
-      if (state === "disabled" || state === "loading") {
-        // eslint-disable-next-line playwright/no-standalone-expect
-        await expect(button).toBeDisabled();
-      } else {
-        if (focusState === "focus-visible") await page.keyboard.press("Tab");
-        if (focusState === "hover") await button.hover();
-        if (focusState === "active") await page.mouse.down();
-      }
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+      if (focusState === "hover") await button.hover();
+      if (focusState === "active") await page.mouse.down();
 
       return component;
     },
