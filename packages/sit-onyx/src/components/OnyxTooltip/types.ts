@@ -15,7 +15,7 @@ export type OnyxTooltipProps = {
    */
   position?: TooltipPosition;
   /**
-   * If `true`, the tooltip will use the full width of the parent/slot element.
+   * If `true`, the tooltip will match the width of the parent/slot element.
    */
   fitParent?: boolean;
 };

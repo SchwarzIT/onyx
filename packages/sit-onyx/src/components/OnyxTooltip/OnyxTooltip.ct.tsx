@@ -28,11 +28,10 @@ test.describe("state screenshot tests", () => {
       <div
         style={{
           width: "max-content",
-          padding: text === "long" ? "4rem 6rem" : "3rem 1rem",
         }}
       >
         <OnyxTooltip
-          text={text === "long" ? "Lorem ipsum dolor sit amet ".repeat(5) : "Test tooltip"}
+          text={text === "long" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
           color={variant === "danger" ? "danger" : undefined}
           position={variant === "bottom" ? "bottom" : undefined}
           icon={variant === "icon" ? mockPlaywrightIcon : undefined}
@@ -48,6 +47,31 @@ test.describe("state screenshot tests", () => {
           </span>
         </OnyxTooltip>
       </div>,
+    );
+
+    const tooltipSize = await component
+      .getByRole("tooltip")
+      .evaluate((element) => [element.clientHeight, element.clientWidth]);
+
+    // set paddings to fit the full tooltip in the screenshot
+    await component.evaluate(
+      (element, { tooltipSize: [height, width], variant }) => {
+        const verticalPadding = `${height + 12}px`;
+
+        if (variant === "bottom") {
+          element.style.paddingBottom = verticalPadding;
+        } else {
+          element.style.paddingTop = verticalPadding;
+        }
+
+        const widthDiff = width - element.clientWidth;
+        if (widthDiff > 0) {
+          const padding = `${widthDiff / 2 + 20}px`;
+          element.style.paddingLeft = padding;
+          element.style.paddingRight = padding;
+        }
+      },
+      { tooltipSize, variant },
     );
 
     return component;
