@@ -18,7 +18,9 @@ test.describe("state screenshot tests", () => {
           aria-label="Label"
           aria-selected={state === "selected"}
           aria-disabled={writeMode === "disabled"}
-        />,
+        >
+          Label
+        </OnyxListboxOption>,
       );
 
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
