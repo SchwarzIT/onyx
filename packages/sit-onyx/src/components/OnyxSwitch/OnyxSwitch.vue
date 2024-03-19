@@ -199,7 +199,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
       }
 
       .onyx-switch__spinner {
-        color: var(--onyx-color-text-icons-neutral-soft);
+        padding: var(--onyx-1px-in-rem);
       }
     }
   }
