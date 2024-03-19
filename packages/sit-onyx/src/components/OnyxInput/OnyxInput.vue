@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
+import { useRequired } from "../../composables/required";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -32,6 +33,8 @@ const emit = defineEmits<{
   blur: [];
 }>();
 
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
@@ -54,12 +57,11 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </script>
 
 <template>
-  <div class="onyx-input">
+  <div :class="['onyx-input', requiredTypeClass]">
     <label>
       <div
         v-if="!props.hideLabel"
-        class="onyx-input__label onyx-text--small"
-        :class="{ 'onyx-required-marker': props.required, 'onyx-optional-marker': !props.required }"
+        :class="['onyx-input__label', 'onyx-text--small', requiredMarkerClass]"
       >
         <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
       </div>

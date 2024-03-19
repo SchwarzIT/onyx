@@ -1,4 +1,4 @@
-import type { DensityProp } from "../../styles/density";
+import type { DensityProp } from "../../composables/density";
 import type { TruncationType } from "../../types/fonts";
 
 /**
