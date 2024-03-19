@@ -20,6 +20,10 @@ export type OnyxCheckboxProps = RequiredMarkerProp & {
    */
   disabled?: boolean;
   /**
+   * Shows a loading indicator.
+   */
+  loading?: boolean;
+  /**
    * If `true`, the label will be visually hidden.
    * For accessibility / screen readers, the aria-label will still be set.
    */
