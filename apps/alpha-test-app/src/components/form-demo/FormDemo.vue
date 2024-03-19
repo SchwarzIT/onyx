@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { TestInput } from "sit-onyx";
+import { OnyxButton, TestInput } from "sit-onyx";
 import { ref, watch } from "vue";
 
 type FormData = {
@@ -29,6 +29,8 @@ const onPatternValidityChange = (state: ValidityState) => {
     ? "Allows only lowercase characters or space"
     : "";
 };
+
+const submit = () => alert("Submit successful!");
 
 watch(
   props,
@@ -75,9 +77,9 @@ watch(
       @validity-change="onPatternValidityChange"
     />
 
-    <div>
-      <input type="reset" value="Reset" />
-      <button class="demo__submit">Submits on valid</button>
+    <div class="demo__actions">
+      <OnyxButton label="Reset" variation="secondary" type="reset" />
+      <OnyxButton class="demo__submit" label="Submits on valid" type="submit" @click="submit" />
     </div>
   </form>
 </template>
@@ -97,6 +99,11 @@ watch(
       pointer-events: none;
       opacity: 0.4;
     }
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--onyx-spacing-xs);
   }
 }
 </style>
