@@ -110,7 +110,7 @@ const radioState = ref<SelectionOption | undefined>();
               headline="Radio Button Group"
               :options="dummyOptions"
             />
-            OnyxRadioButtonGroup State: {{ radioState }}
+            OnyxRadioButtonGroup State: {{ radioState ?? "–" }}
           </template>
 
           <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
