@@ -133,9 +133,12 @@ const radioState = ref<SelectionOption | undefined>();
   display: flex;
   align-items: center;
   padding-left: var(--onyx-spacing-xs);
+  border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 }
 .sidebar {
   padding: var(--onyx-spacing-md);
+  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  height: calc(100% - var(--onyx-spacing-xl));
 }
 .page {
   padding: var(--onyx-spacing-xl);

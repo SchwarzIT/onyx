@@ -122,9 +122,3 @@ const footerAsideSidebar = computed<boolean>(
     </template>
   </OnyxAppLayout>
 </template>
-
-<style lang="scss">
-body {
-  margin: 0;
-}
-</style>
