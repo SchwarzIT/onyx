@@ -28,3 +28,7 @@ playwright-report/
 **/.vitepress/config.ts.timestamp-*.mjs
 storybook-static
 eslint-results.sarif
+
+# Development config
+.env
+.env.development
