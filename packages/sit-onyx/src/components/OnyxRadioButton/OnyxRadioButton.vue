@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { ref, watchEffect } from "vue";
+import { useDensity } from "../../composables/density";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps, SelectionOptionValue } from "./types";
 
@@ -12,24 +13,18 @@ const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
 
 const selectorRef = ref<HTMLInputElement>();
 
+const { densityClass } = useDensity(props);
+
 watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""));
 </script>
 
 <template>
-  <div
-    v-if="props.skeleton"
-    class="onyx-radio-button-skeleton"
-    :class="{ [`onyx-density-${props.density}`]: props.density }"
-  >
+  <div v-if="props.skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label
-    v-else
-    :class="{ 'onyx-radio-button': true, [`onyx-density-${props.density}`]: props.density }"
-    :title="props.errorMessage"
-  >
+  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.errorMessage">
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       ref="selectorRef"

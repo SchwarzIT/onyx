@@ -1,28 +1,39 @@
-// `onyx-required-marker` and `onyx-optional-marker` is used internally to populate the the "::after" pseudo element with the required indicator.
-// the user can set `onyx-use-optional` to switch from the default "required" indicator to the "optional" indicators.
-.onyx-required-marker {
-  &::after {
-    font-family: var(--onyx-font-family);
-    content: "*";
-    color: var(--onyx-color-text-icons-danger-intense);
-    padding-left: var(--onyx-spacing-5xs);
-  }
+// `onyx-required-marker` is used internally to populate the the "::after" pseudo element with the required marker.
+// the user can set `onyx-use-optional` and `onyx-use-required` to switch between the indicators.
 
-  .onyx-use-optional &::after {
-    // don't show required marker in optional mode
-    all: unset;
-  }
+:root {
+  // We use a trick to toggle values using custom properties https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/
+  // This allows us to make use of custom property inheritance
+  --ON: initial;
+  --OFF: ;
 }
 
-.onyx-optional-marker {
-  .onyx-use-optional &::after {
-    font: {
-      family: var(--onyx-font-family);
-      weight: 400;
-      style: normal;
-    }
-    content: var(--onyx-global-optional-text, "(optional)");
-    color: var(--onyx-color-text-icons-neutral-soft);
-    padding-left: var(--onyx-spacing-2xs);
+/* default */
+:root,
+.onyx-use-required {
+  --onyx-use-required: var(--ON);
+  --onyx-use-optional: var(--OFF);
+}
+
+.onyx-use-optional {
+  --onyx-use-required: var(--OFF);
+  --onyx-use-optional: var(--ON);
+}
+
+.onyx-required-marker::after {
+  font-family: var(--onyx-use-required, var(--onyx-font-family));
+  content: var(--onyx-use-required, "*");
+  color: var(--onyx-use-required, var(--onyx-color-text-icons-danger-intense));
+  padding-left: var(--onyx-use-required, var(--onyx-spacing-5xs));
+}
+
+.onyx-optional-marker::after {
+  font: {
+    family: var(--onyx-use-optional, var(--onyx-font-family));
+    weight: var(--onyx-use-optional, 400);
+    style: var(--onyx-use-optional, normal);
   }
+  content: var(--onyx-use-optional, var(--onyx-global-optional-text, "(optional)"));
+  color: var(--onyx-use-optional, var(--onyx-color-text-icons-neutral-soft));
+  padding-left: var(--onyx-use-optional, var(--onyx-spacing-2xs));
 }
