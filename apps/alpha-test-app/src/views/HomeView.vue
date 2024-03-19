@@ -89,7 +89,7 @@ const radioState = ref<SelectionOption | undefined>();
               headline="Checkbox Group"
               :options="dummyOptions"
             />
-            OnyxCheckboxGroup State: {{ checkboxState }}
+            OnyxCheckboxGroup state: {{ checkboxState }}
           </template>
 
           <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
@@ -110,7 +110,7 @@ const radioState = ref<SelectionOption | undefined>();
               headline="Radio Button Group"
               :options="dummyOptions"
             />
-            OnyxRadioButtonGroup State: {{ radioState ?? "–" }}
+            OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
           </template>
 
           <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
