@@ -7,11 +7,11 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
+import { useRequired } from "../../composables/required";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
-  required: false,
   truncation: "ellipsis",
   skeleton: false,
 });
@@ -22,6 +22,8 @@ const emit = defineEmits<{
   /** Emitted whenever the validity state of the input changes */
   validityChange: [state: ValidityState];
 }>();
+
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const { errorMessage } = toRefs(props);
 const inputElement = ref<HTMLInputElement>();
@@ -55,11 +57,6 @@ watch(
   },
   { immediate: true },
 );
-
-const requiredMarkerClass = computed(() => {
-  if (props.hideLabel) return "";
-  return `onyx-${props.required ? "required" : "optional"}-marker`;
-});
 </script>
 
 <template>
@@ -68,7 +65,7 @@ const requiredMarkerClass = computed(() => {
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredMarkerClass]">
+  <label v-else class="onyx-switch" :class="[requiredTypeClass]">
     <input
       ref="inputElement"
       v-model="isChecked"
@@ -87,7 +84,7 @@ const requiredMarkerClass = computed(() => {
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
     >
       {{ props.label }}
     </span>

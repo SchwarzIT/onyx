@@ -9,6 +9,11 @@ export const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
+    path: "/form-demo",
+    name: "formDemo",
+    component: () => import("../views/FormDemoView.vue"),
+  },
+  {
     path: "/layout-demo",
     name: "layoutDemo",
     component: () => import("../views/LayoutDemoView.vue"),

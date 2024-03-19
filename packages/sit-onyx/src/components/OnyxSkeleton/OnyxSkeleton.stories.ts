@@ -5,7 +5,7 @@ import OnyxSkeleton from "./OnyxSkeleton.vue";
 /**
  * The skeleton can be used during the process of building up / loading the initial page.
  *
- * **Note**: If the height/width is not set via CSS, it will use/inherit the full available space.
+ * **Note**: Apply height/width via CSS.
  */
 const meta: Meta<typeof OnyxSkeleton> = {
   title: "components/OnyxSkeleton",
