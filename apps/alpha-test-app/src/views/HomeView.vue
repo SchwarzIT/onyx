@@ -22,7 +22,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 /* Config data to regulate which components will be shown */
-const configOptions: SelectionOption[] = [
+const configOptions: SelectionOption<string>[] = [
   { label: "OnyxButton" },
   { label: "OnyxCheckboxGroup" },
   { label: "OnyxHeadline" },
