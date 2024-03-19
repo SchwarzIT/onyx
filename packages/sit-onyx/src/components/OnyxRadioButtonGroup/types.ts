@@ -1,8 +1,8 @@
-import type { RequiredMarkerProp } from "../../composables/required";
 import type { DensityProp } from "../../composables/density";
-import type { SelectionOption } from "../OnyxRadioButton/types";
+import type { RequiredMarkerProp } from "../../composables/required";
+import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 
-export type OnyxRadioButtonGroupProps<TValue> = DensityProp &
+export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue> = DensityProp &
   RequiredMarkerProp & {
     /**
      * Unique name for the radio button group form element.

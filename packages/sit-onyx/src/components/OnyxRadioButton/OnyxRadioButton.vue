@@ -1,9 +1,9 @@
-<script lang="ts" setup generic="TValue">
+<script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { OnyxLoadingIndicator } from "@/index";
 import { ref, watchEffect } from "vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { RadioButtonProps } from "./types";
 import { useDensity } from "../../composables/density";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import type { RadioButtonProps, SelectionOptionValue } from "./types";
 
 const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
   disabled: false,
