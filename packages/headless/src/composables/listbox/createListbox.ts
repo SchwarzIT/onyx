@@ -147,7 +147,6 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
             "aria-selected": !isMultiselect.value ? isSelected : undefined,
             "aria-disabled": data.disabled,
             onClick: () => options.onSelect?.(data.value),
-            class: data.value === options.focusedOption.value ? "focused" : undefined,
           } as const;
         };
       }),

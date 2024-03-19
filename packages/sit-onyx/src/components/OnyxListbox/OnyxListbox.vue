@@ -74,6 +74,7 @@ const {
             selected: option.id === props.modelValue,
           })
         "
+        :focused="option.id === focusedOption"
       >
         {{ option.label }}
       </OnyxListboxOption>
