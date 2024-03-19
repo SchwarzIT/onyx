@@ -95,6 +95,7 @@ const {
     max-height: calc(var(--max-options) * var(--option-height));
     box-sizing: border-box;
     overflow: auto;
+    outline: none;
 
     margin: 0;
     padding: 0;
