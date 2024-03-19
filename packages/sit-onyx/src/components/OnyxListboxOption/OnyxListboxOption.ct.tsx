@@ -12,18 +12,18 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "listbox-option",
-    async ({ state, writeMode, focusState }, mount, page) => {
+    async ({ state, writeMode, focusState }, mount) => {
       const component = await mount(
         <OnyxListboxOption
           aria-label="Label"
           aria-selected={state === "selected"}
           aria-disabled={writeMode === "disabled"}
+          focused={focusState === "focus-visible"}
         >
           Label
         </OnyxListboxOption>,
       );
 
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await component.hover();
       return component;
     },

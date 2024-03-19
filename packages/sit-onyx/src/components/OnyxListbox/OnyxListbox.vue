@@ -33,7 +33,6 @@ const {
       <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
-        class="onyx-listbox__option"
         v-bind="
           headlessOption({
             id: option.id,
@@ -86,9 +85,8 @@ const {
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
   }
 
-  &__option {
+  .onyx-listbox-option {
     height: var(--option-height);
-    box-sizing: border-box;
   }
 
   &__options {

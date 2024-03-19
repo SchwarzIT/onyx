@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import type { OnyxListboxOptionProps } from "./types";
+
+const props = defineProps<OnyxListboxOptionProps>();
+
 defineSlots<{
   /**
    * Default slot to place the option label / text content.
@@ -8,7 +12,7 @@ defineSlots<{
 </script>
 
 <template>
-  <li class="onyx-listbox-option">
+  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--focused': props.focused }">
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
     </span>
@@ -38,7 +42,7 @@ defineSlots<{
     cursor: pointer;
 
     &:hover,
-    &:focus-visible {
+    &.onyx-listbox-option--focused {
       background-color: var(--onyx-color-base-primary-100);
     }
 
@@ -47,7 +51,7 @@ defineSlots<{
       background-color: var(--onyx-color-base-primary-200);
 
       &:hover,
-      &:focus-visible {
+      &.onyx-listbox-option--focused {
         background-color: var(--onyx-color-base-primary-200);
         color: var(--onyx-color-text-icons-primary-bold);
       }
