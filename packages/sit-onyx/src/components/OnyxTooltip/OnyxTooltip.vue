@@ -32,7 +32,7 @@ const {
         'onyx-tooltip--fit-parent': props.fitParent,
       }"
     >
-      <OnyxIcon v-if="props.icon" class="onyx-tooltip__icon" :icon="props.icon" size="16px" />
+      <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <span>{{ props.text }}</span>
     </div>
 
@@ -77,10 +77,6 @@ const {
 
   &--fit-parent {
     width: 100%;
-  }
-
-  &__icon {
-    min-width: 1rem;
   }
 
   &__danger {

@@ -18,13 +18,12 @@ test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  variant: ["default", "icon"],
-  color: ["neutral", "danger"],
+  variant: ["default", "bottom", "icon", "danger"],
   text: ["default", "long", "fitParent"],
 } as const;
 
 test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(STATES, "tooltip", async ({ variant, color, text }, mount) => {
+  executeScreenshotsForAllStates(STATES, "tooltip", async ({ variant, text }, mount) => {
     const component = await mount(
       <div
         style={{
@@ -34,7 +33,8 @@ test.describe("state screenshot tests", () => {
       >
         <OnyxTooltip
           text={text === "long" ? "Lorem ipsum dolor sit amet ".repeat(5) : "Test tooltip"}
-          color={color}
+          color={variant === "danger" ? "danger" : undefined}
+          position={variant === "bottom" ? "bottom" : undefined}
           icon={variant === "icon" ? mockPlaywrightIcon : undefined}
           fitParent={text === "fitParent"}
         >
