@@ -13,7 +13,6 @@ import { OnyxLoadingIndicator } from "@/index";
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
-  required: false,
   loading: false,
   truncation: "ellipsis",
   skeleton: false,
