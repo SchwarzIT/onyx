@@ -14,6 +14,9 @@ const meta: Meta<typeof OnyxTooltip> = {
     events: [],
     argTypes: {
       icon: defineIconSelectArgType(),
+      default: {
+        control: { disabled: true },
+      },
     },
     decorators: [
       (story) => ({
