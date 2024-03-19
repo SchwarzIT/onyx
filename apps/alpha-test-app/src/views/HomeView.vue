@@ -21,6 +21,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
+/* Config data to regulate which components will be shown */
 const configOptions: SelectionOption[] = [
   { label: "OnyxButton" },
   { label: "OnyxCheckboxGroup" },
@@ -39,14 +40,13 @@ const configOptions: SelectionOption[] = [
   id: option.label,
 }));
 const activeConfig = ref<string[]>(configOptions.map((option) => option.id));
-
 const show = (componentName: string) => activeConfig.value.includes(componentName);
 
+/* Demo data for the components we show */
 const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
   id,
   label: `Option ${id}`,
 }));
-
 const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<SelectionOption | undefined>();
