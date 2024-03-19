@@ -43,6 +43,10 @@ export type CreateListboxOptions = {
    * Hook when the previous option should be focused.
    */
   onFocusPrevious?: (currentValue: ListboxValue) => void;
+  /**
+   * Hook when the first option starting with the given label should be focused.
+   */
+  onFocusByLabel?: (label: string) => void;
 };
 
 export type ListboxValue = string | number | boolean;
@@ -111,6 +115,12 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
       case "End":
         event.preventDefault();
         options.onFocusLast?.();
+        break;
+
+      default:
+        // if a printable character is pressed, the first option/text starting with the pressed
+        // character should be focused
+        options.onFocusByLabel?.(event.key);
     }
   };
 

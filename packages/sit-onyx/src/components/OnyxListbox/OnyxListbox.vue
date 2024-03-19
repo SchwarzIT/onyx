@@ -63,6 +63,13 @@ const {
     const option = listboxRef.value?.querySelector(`#${id}`);
     option?.scrollIntoView({ block: "nearest", inline: "nearest" });
   },
+  onFocusByLabel: (label) => {
+    const firstMatch = props.options.find((i) => {
+      return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
+    });
+    if (!firstMatch) return;
+    focusedOption.value = firstMatch.id;
+  },
 });
 </script>
 
