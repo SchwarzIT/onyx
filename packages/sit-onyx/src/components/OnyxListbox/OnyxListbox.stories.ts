@@ -10,12 +10,12 @@ import OnyxListbox from "./OnyxListbox.vue";
  *
  * ### Keyboard shortcuts
  * The following keyboard shortcuts are available:
- * - **Tab**: Focus/blur listbox
- * - **Arrow down**: Focus the next option
- * - **Arrow up**: Focus the previous option
+ * - **Tab**: Focuses / blurs the listbox
+ * - **Arrow down**: Focuses the next option
+ * - **Arrow up**: Focuses the previous option
  * - **Home**: Focuses the first option
  * - **End**: Focuses the last option
- * - **Space**: Select currently focused option
+ * - **Space**: Selects currently focused option
  * - **Other** characters: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxListbox> = {
