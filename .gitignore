@@ -30,5 +30,4 @@ storybook-static
 eslint-results.sarif
 
 # Development config
-.env
-.env.development
+.env*
