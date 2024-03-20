@@ -48,7 +48,7 @@ $button-height: 2.5rem;
   --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
-  display: flex;
+  display: inline-flex;
   height: $button-height;
   max-width: 100%;
   box-sizing: border-box;
