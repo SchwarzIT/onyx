@@ -7,11 +7,13 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
+import { useRequired } from "../../composables/required";
+import { OnyxLoadingIndicator } from "@/index";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
   disabled: false,
-  required: false,
+  loading: false,
   truncation: "ellipsis",
   skeleton: false,
 });
@@ -22,6 +24,8 @@ const emit = defineEmits<{
   /** Emitted whenever the validity state of the input changes */
   validityChange: [state: ValidityState];
 }>();
+
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const { errorMessage } = toRefs(props);
 const inputElement = ref<HTMLInputElement>();
@@ -55,11 +59,6 @@ watch(
   },
   { immediate: true },
 );
-
-const requiredMarkerClass = computed(() => {
-  if (props.hideLabel) return "";
-  return `onyx-${props.required ? "required" : "optional"}-marker`;
-});
 </script>
 
 <template>
@@ -68,26 +67,27 @@ const requiredMarkerClass = computed(() => {
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredMarkerClass]">
+  <label v-else class="onyx-switch" :class="[requiredTypeClass]">
     <input
       ref="inputElement"
       v-model="isChecked"
-      class="onyx-switch__input"
+      :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
       type="checkbox"
       :aria-label="props.hideLabel ? props.label : undefined"
-      :disabled="props.disabled"
+      :disabled="props.disabled || props.loading"
       :required="props.required"
     />
     <span class="onyx-switch__container">
       <span class="onyx-switch__icon">
-        <OnyxIcon :icon="isChecked ? checkSmall : xSmall" size="24px" />
+        <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
+        <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
     </span>
 
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
     >
       {{ props.label }}
     </span>
@@ -123,9 +123,13 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         transform: translateX(calc(75% - $container-padding));
         color: var(--onyx-color-text-icons-primary-intense);
       }
+
+      .onyx-switch__spinner {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
     }
 
-    &:checked:disabled + .onyx-switch__container {
+    &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
       background-color: var(--onyx-color-base-primary-200);
 
       .onyx-switch__icon {
@@ -134,7 +138,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
       }
     }
 
-    &:disabled + .onyx-switch__container {
+    &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
       background-color: var(--onyx-color-base-neutral-200);
 
       .onyx-switch__icon {
@@ -187,9 +191,15 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         background-color var(--onyx-duration-sm) ease;
       overflow: hidden;
       color: var(--onyx-color-text-icons-neutral-soft);
+      height: $icon-size;
+      width: $icon-size;
 
       .onyx-icon {
         --icon-size: #{$icon-size};
+      }
+
+      .onyx-switch__spinner {
+        padding: var(--onyx-1px-in-rem);
       }
     }
   }

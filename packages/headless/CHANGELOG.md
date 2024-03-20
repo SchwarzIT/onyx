@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.2
+
+### Minor Changes
+
+- 668d5fe: feat: add `createListbox` composable
+
 ## 0.1.0-alpha.1
 
 ### Patch Changes

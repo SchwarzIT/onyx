@@ -1,8 +1,7 @@
 import type { OnyxCheckboxProps } from "../OnyxCheckbox/types";
+import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
-export type OnyxCheckboxGroupProps<
-  TValue extends string | number | boolean = string | number | boolean,
-> = {
+export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
   /**
    * Checkbox options.
    */
@@ -39,9 +38,9 @@ export type OnyxCheckboxGroupProps<
   skeleton?: number;
 };
 
-export type CheckboxGroupOption<T extends string | number | boolean> = Omit<
+export type CheckboxGroupOption<T extends SelectionOptionValue> = Omit<
   OnyxCheckboxProps,
-  "modelValue" | "indeterminate"
+  "modelValue" | "indeterminate" | "hideLabel"
 > & {
   id: T;
 };

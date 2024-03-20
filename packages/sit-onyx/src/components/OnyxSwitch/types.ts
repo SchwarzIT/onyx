@@ -1,6 +1,7 @@
+import type { RequiredMarkerProp } from "../../composables/required";
 import type { TruncationType } from "../../types/fonts";
 
-export type OnyxSwitchProps = {
+export type OnyxSwitchProps = RequiredMarkerProp & {
   /**
    * Whether the switch should be checked or not.
    */
@@ -14,9 +15,9 @@ export type OnyxSwitchProps = {
    */
   disabled?: boolean;
   /**
-   * Whether the switch is required / has to be checked.
+   * Shows a loading indicator.
    */
-  required?: boolean;
+  loading?: boolean;
   /**
    * The error message will set switch to invalid state.
    */

@@ -2,15 +2,20 @@
 import { computed, ref } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
+import { useRequired } from "../../composables/required";
+import { OnyxLoadingIndicator } from "@/index";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
   indeterminate: false,
   disabled: false,
+  loading: false,
   required: false,
   truncation: "ellipsis",
   skeleton: false,
 });
+
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
@@ -24,11 +29,6 @@ const isChecked = computed({
 
 /** True if the user has interacted with the checkbox once. */
 const isTouched = ref(false);
-
-const requiredMarkerClass = computed(() => {
-  if (props.hideLabel) return "";
-  return `onyx-${props.required ? "required" : "optional"}-marker`;
-});
 </script>
 
 <template>
@@ -37,9 +37,11 @@ const requiredMarkerClass = computed(() => {
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-checkbox" :class="[requiredMarkerClass]">
+  <label v-else class="onyx-checkbox" :class="[requiredTypeClass]">
     <div class="onyx-checkbox__container">
+      <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
+        v-else
         v-model="isChecked"
         :aria-label="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
@@ -57,7 +59,7 @@ const requiredMarkerClass = computed(() => {
     <p
       v-if="!props.hideLabel"
       class="onyx-checkbox__label"
-      :class="[`onyx-truncation-${props.truncation}`]"
+      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
     >
       {{ props.label }}
     </p>
@@ -133,6 +135,10 @@ $input-size: 1rem;
     color: var(--onyx-color-text-icons-neutral-soft);
   }
 
+  &:has(&__loading) {
+    cursor: default;
+  }
+
   &__container {
     display: inline-flex;
     align-items: center;
@@ -194,6 +200,12 @@ $input-size: 1rem;
     padding: $label-padding 0;
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+    max-width: 1rem;
+    height: 1rem;
   }
 }
 

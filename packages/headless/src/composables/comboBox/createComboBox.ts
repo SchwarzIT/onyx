@@ -1,6 +1,6 @@
 import { computed, ref, type Ref } from "vue";
+import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createBuilder, computeIterated } from "../../utils/builder";
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
@@ -92,16 +92,16 @@ export const createComboBox = createBuilder(
           role: "listbox",
           id: controlsId,
         })),
-        option: computeIterated<{ key: string; label: string; disabled: boolean }>(
-          ({ key, label, disabled }) => ({
+        option: computed(() => {
+          return ({ key, label, disabled }: { key: string; label: string; disabled: boolean }) => ({
             role: "option",
             id: getOptionId(key),
             "aria-selected": activeKey.value === key,
             "aria-label": label,
             "aria-disabled": disabled,
             onClick: () => onSelect(key),
-          }),
-        ),
+          });
+        }),
         /**
          * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.
          * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.

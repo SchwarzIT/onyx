@@ -1,37 +1,36 @@
-<script lang="ts" setup generic="TValue">
+<script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
+import { OnyxLoadingIndicator } from "@/index";
 import { ref, watchEffect } from "vue";
+import { useDensity } from "../../composables/density";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { RadioButtonProps } from "./types";
+import type { RadioButtonProps, SelectionOptionValue } from "./types";
 
 const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
   disabled: false,
   required: false,
   selected: false,
+  loading: false,
   truncation: "ellipsis",
 });
 
 const selectorRef = ref<HTMLInputElement>();
 
+const { densityClass } = useDensity(props);
+
 watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""));
 </script>
 
 <template>
-  <div
-    v-if="props.skeleton"
-    class="onyx-radio-button-skeleton"
-    :class="{ [`onyx-density-${props.density}`]: props.density }"
-  >
+  <div v-if="props.skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label
-    v-else
-    :class="{ 'onyx-radio-button': true, [`onyx-density-${props.density}`]: props.density }"
-    :title="props.errorMessage"
-  >
+  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.errorMessage">
+    <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
+      v-else
       ref="selectorRef"
       class="onyx-radio-button__selector"
       type="radio"
@@ -130,6 +129,10 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     --onyx-radio-button-cursor: default;
   }
 
+  &:has(&__loading) {
+    --onyx-radio-button-cursor: default;
+  }
+
   &:has(&__selector:disabled:checked) {
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-neutral-300);
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-300);
@@ -181,6 +184,13 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       background-color: var(--onyx-color-base-background-blank);
       border-radius: 100%;
     }
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+    width: 1rem;
+    height: 1rem;
+    margin: var(--onyx-spacing-sm);
   }
 }
 

@@ -1,10 +1,12 @@
-<script lang="ts" setup generic="TValue">
+<script lang="ts" setup generic="TValue extends SelectionOptionValue">
 import type { TargetEvent } from "@/types/dom";
 import { createId } from "@sit-onyx/headless";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
-import type { SelectionOption } from "../OnyxRadioButton/types";
+import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxRadioButtonGroupProps } from "./types";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
@@ -17,6 +19,9 @@ const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   errorMessage: "",
 });
 
+const { densityClass } = useDensity(props);
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+
 const emit = defineEmits<{
   "update:modelValue": [selected: SelectionOption<TValue>];
 }>();
@@ -27,21 +32,12 @@ const handleChange = (event: ChangeEvent) =>
 
 <template>
   <fieldset
-    :class="{
-      'onyx-radio-button-group': true,
-      [`onyx-density-${props.density}`]: props.density,
-    }"
+    :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
     :disabled="props.disabled"
     @change="handleChange($event as ChangeEvent)"
   >
     <legend v-if="props.headline" class="onyx-radio-button-group__headline">
-      <OnyxHeadline
-        is="h3"
-        :class="{
-          'onyx-required-marker': props.required,
-          'onyx-optional-marker': !props.required,
-        }"
-      >
+      <OnyxHeadline is="h3" :class="requiredMarkerClass">
         {{ props.headline }}
       </OnyxHeadline>
     </legend>
@@ -53,7 +49,7 @@ const handleChange = (event: ChangeEvent) =>
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
           v-for="option in props.options"
-          :key="option.id"
+          :key="option.id.toString()"
           v-bind="option"
           :name="props.name"
           :error-message="props.errorMessage"

@@ -1,4 +1,6 @@
-export type OnyxInputProps = {
+import type { RequiredMarkerProp } from "../../composables/required";
+
+export type OnyxInputProps = RequiredMarkerProp & {
   /**
    * Label to show above the input. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.
@@ -16,10 +18,6 @@ export type OnyxInputProps = {
    * Placeholder to show when the value is empty.
    */
   placeholder?: string;
-  /**
-   * Whether the input is required.
-   */
-  required?: boolean;
   /**
    * If and how text should be automatically be capitalized when using non-physical keyboards
    * (such as virtual keyboard on mobile devices or voice input).

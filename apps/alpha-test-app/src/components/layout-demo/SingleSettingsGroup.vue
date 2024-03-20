@@ -20,12 +20,14 @@ const settingsToSelection = (setting?: Settings): SelectionOption | undefined =>
       .filter(([_, value]) => value === true)
       .map(([key, _]) => key);
   if (trueKeys) {
-    return setting ? props.options.find((option) => trueKeys.includes(option.id)) : undefined;
+    return setting
+      ? props.options.find((option) => trueKeys.includes(option.id.toString()))
+      : undefined;
   }
 };
 
 const selectionToSettings = (selection?: SelectionOption): Settings => {
-  return selection ? { [selection.id]: true } : {};
+  return selection ? { [selection.id.toString()]: true } : {};
 };
 
 const selectedOption = computed({

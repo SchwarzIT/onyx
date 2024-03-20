@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-alpha.49
+
+### Minor Changes
+
+- 668d5fe: feat: add basic single select `OnyxListbox` component
+
+## 1.0.0-alpha.48
+
+### Minor Changes
+
+- 2eb0867: Add property 'loading' for OnyxButton, OnyxCheckbox, OnyxRadioButton and OnyxSwitch
+
+## 1.0.0-alpha.47
+
+### Patch Changes
+
+- 9ad6208: fix(OnyxButton): apply the type property to the button
+
 ## 1.0.0-alpha.46
 
 ### Minor Changes
