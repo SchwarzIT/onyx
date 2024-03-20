@@ -5,7 +5,7 @@ on:
 jobs:
   update:
     name: Update Playwright screenshots
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
 
