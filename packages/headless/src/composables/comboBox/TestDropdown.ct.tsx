@@ -2,14 +2,6 @@ import { expect, test } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 import TestDropdown from "./TestDropdown.vue";
 
-const expectToHaveFocus = async (
-  locator: Locator,
-  messageOptions?: Parameters<typeof expect>[1],
-) => {
-  const result = await locator.evaluateHandle((element) => element === document.activeElement);
-  await expect(result.jsonValue(), messageOptions).resolves.toBeTruthy();
-};
-
 test("combobox", async ({ mount, page }) => {
   await mount(<TestDropdown />);
   const listbox = page.getByRole("listbox");
@@ -61,7 +53,7 @@ export const comboboxTesting = async (
   await button.click(); // toggle to be closed
 
   await button.focus();
-  await expectToHaveFocus(button, "authors SHOULD ensure that the button is focusable");
+  await expect(button, "authors SHOULD ensure that the button is focusable").toBeFocused();
   await expect(
     button,
     "authors SHOULD ensure that the button is not included in the page Tab sequence",
@@ -84,8 +76,8 @@ export const comboboxTesting = async (
     combobox,
     "When a descendant of the popup element is active, authors MAY set aria-activedescendant on the combobox to a value that refers to the active element within the popup.",
   ).toHaveAttribute("aria-activedescendant", firstId as string);
-  await expectToHaveFocus(
+  await expect(
     combobox,
     "When a descendant of the popup element is active, authors MAY ensure that the focus remains on the combobox element",
-  );
+  ).toBeFocused();
 };
