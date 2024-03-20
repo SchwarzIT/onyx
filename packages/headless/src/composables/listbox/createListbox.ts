@@ -126,18 +126,21 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
 
   return {
     elements: {
-      listbox: computed(() => ({
-        role: "listbox",
-        "aria-multiselectable": isMultiselect.value,
-        "aria-label": unref(options.label),
-        tabindex: "0",
-        "aria-activedescendant": options.focusedOption.value
-          ? getOptionId(options.focusedOption.value)
-          : undefined,
-        onFocus: () => (isFocused.value = true),
-        onBlur: () => (isFocused.value = false),
-        onKeydown: handleKeydown,
-      })),
+      listbox: computed(() => {
+        return {
+          role: "listbox",
+          "aria-multiselectable": isMultiselect.value,
+          "aria-label": unref(options.label),
+          tabindex: "0",
+          "aria-activedescendant":
+            options.focusedOption.value != undefined
+              ? getOptionId(options.focusedOption.value)
+              : undefined,
+          onFocus: () => (isFocused.value = true),
+          onBlur: () => (isFocused.value = false),
+          onKeydown: handleKeydown,
+        };
+      }),
       group: computed(() => {
         return (options: { label: string }) => ({
           role: "group",
