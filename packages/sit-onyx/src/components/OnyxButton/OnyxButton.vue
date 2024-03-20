@@ -177,5 +177,7 @@ $button-height: 2.5rem;
 .onyx-button-skeleton {
   width: var(--onyx-spacing-4xl);
   height: $button-height;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>
