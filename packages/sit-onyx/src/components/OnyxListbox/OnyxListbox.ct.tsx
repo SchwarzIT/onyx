@@ -19,7 +19,10 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
       hideLabel: true,
     },
     on: {
-      "update:modelValue": (value: number | undefined) => (modelValue = value),
+      "update:modelValue": async (value: number | undefined) => {
+        modelValue = value;
+        await component.update({ props: { modelValue } });
+      },
     },
   });
 
@@ -30,7 +33,6 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
   expect(modelValue).toBeUndefined();
-  await component.update({ props: { modelValue } });
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
