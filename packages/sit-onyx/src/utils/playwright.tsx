@@ -109,7 +109,7 @@ export const executeScreenshotsForAllStates = <
   // therefore, we will split the permutations to only run a maximum of X permutations inside a single test
   const batches: (typeof permutations)[] = [];
   while (permutations.length > 0) {
-    batches.push(permutations.splice(0, 100));
+    batches.push(permutations.splice(0, 25));
   }
 
   batches.forEach((batch, index) => {
