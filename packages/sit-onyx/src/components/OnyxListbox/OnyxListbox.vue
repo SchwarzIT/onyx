@@ -34,7 +34,6 @@ watch(
   (newValue) => {
     focusedOption.value = newValue;
   },
-  { immediate: true },
 );
 
 const {
