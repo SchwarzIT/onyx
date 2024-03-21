@@ -63,7 +63,7 @@ test("should truncate text", async ({ mount }) => {
 test("should render button inline aligned with text", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <p class="onyx-text" style="line-height: 60px;">
+    <p class="onyx-text" style="line-height: 60px; width: max-content;">
       before
       <OnyxButton label="Test label" />
       between
