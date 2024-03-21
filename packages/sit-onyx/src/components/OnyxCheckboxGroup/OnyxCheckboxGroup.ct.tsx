@@ -126,6 +126,7 @@ test.describe("should truncate", () => {
       label: "Very long required label that will be wrapped with multiline",
       id: "id-4",
       truncation: "multiline",
+      required: true,
     },
   ];
   executeScreenshotsForAllStates(STATES, "truncated-checkbox-group", async ({ state }, mount) => {
