@@ -51,25 +51,13 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     _isVisible.value = !_isVisible.value;
   };
 
-  /**
-   * Shows the tooltip when mouse hovers over the element.
-   */
-  const handleMouseOver = () => {
-    debouncedVisible.value = true;
-  };
-
-  /**
-   * Closes the tooltip when mouse leaves the element.
-   */
-  const handleMouseOut = () => {
-    debouncedVisible.value = false;
-  };
-
   const hoverEvents = computed(() => {
     if (unref(options.trigger) !== "hover") return;
     return {
-      onMouseover: handleMouseOver,
-      onMouseout: handleMouseOut,
+      onMouseover: () => (debouncedVisible.value = true),
+      onMouseout: () => (debouncedVisible.value = false),
+      onFocusin: () => (_isVisible.value = true),
+      onFocusout: () => (_isVisible.value = false),
     };
   });
 

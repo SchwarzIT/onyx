@@ -42,7 +42,7 @@ test("should trigger with boolean", async ({ mount }) => {
 
 test("should trigger with hover", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(OnyxTooltip, {
+  let component = await mount(OnyxTooltip, {
     props: {
       text: "Test tooltip",
     },
@@ -51,7 +51,7 @@ test("should trigger with hover", async ({ mount, page }) => {
     },
   });
 
-  const tooltip = component.getByRole("tooltip");
+  let tooltip = component.getByRole("tooltip");
 
   // ASSERT
   await expect(tooltip).toBeHidden();
@@ -65,6 +65,21 @@ test("should trigger with hover", async ({ mount, page }) => {
 
   await page.mouse.move(0, 0);
   await expect(tooltip).toBeVisible(); // should use debounce to hide tooltip only after a short delay
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.unmount();
+  component = await mount(
+    <OnyxTooltip text="Test tooltip">
+      <span tabindex="0">Slot content</span>
+    </OnyxTooltip>,
+  );
+  tooltip = component.getByRole("tooltip");
+
+  await page.keyboard.press("Tab");
+  await expect(tooltip).toBeVisible();
+
+  await page.keyboard.press("Tab");
   await expect(tooltip).toBeHidden();
 });
 
