@@ -74,6 +74,7 @@ watch(
       :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
       type="checkbox"
       :aria-label="props.hideLabel ? props.label : undefined"
+      :title="props.hideLabel ? props.label : undefined"
       :disabled="props.disabled || props.loading"
       :required="props.required"
     />
