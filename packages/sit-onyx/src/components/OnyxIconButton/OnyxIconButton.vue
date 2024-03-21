@@ -22,7 +22,7 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="onyx-icon-button"
+    class="onyx-icon-button onyx-reset"
     :aria-label="props.label"
     :class="{
       [`onyx-icon-button--${props.variation}`]: true,
@@ -34,11 +34,16 @@ const emit = defineEmits<{
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
     <OnyxIcon v-else-if="props.icon" :icon="props.icon" />
     <slot v-else></slot>
+    <p>not slot</p>
   </button>
 </template>
 
 <style lang="scss">
+@use "../../styles/base.scss";
+
 .onyx-icon-button {
+  @include base.reset(&);
+
   --icon-button-color: var(--onyx-color-text-icons-primary-intense);
   --icon-button-bg-color: transparent;
   --icon-button-cursor: pointer;

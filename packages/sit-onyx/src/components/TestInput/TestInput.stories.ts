@@ -10,6 +10,16 @@ const meta: Meta<typeof TestInput> = {
   ...defineStorybookActionsAndVModels({
     component: TestInput,
     events: ["update:modelValue", "change", "validityChange"],
+
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `
+          <div style="margin: 1rem;" >
+            <story><p v-slot>slotted</p></story>
+          </div>`,
+      }),
+    ],
   }),
 };
 

@@ -5,6 +5,8 @@ import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/for
 import { computed, ref, toRefs, watch } from "vue";
 import type { InputType } from "../OnyxInput/types";
 import { TRANSLATED_INPUT_TYPES, type TranslatedInputType } from "./types";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 
 export type TestInputProps = {
   /**
@@ -131,30 +133,10 @@ watch(
 </script>
 
 <template>
-  <label class="onyx-test-input" :class="{ 'onyx-test-input--touched': isTouched }">
-    <span
-      class="onyx-test-input__label"
-      :class="{ 'onyx-test-input__label--required': props.required }"
-    >
-      {{ props.label }}
-    </span>
-    <input
-      v-bind="props"
-      ref="inputElement"
-      v-model="value"
-      @change="handleChange"
-      @blur="isTouched = true"
-    />
-    <p v-if="isTouched && !validityState?.valid" class="onyx-test-input__error" aria-live="polite">
-      {{ displayedErrorMessage }}
-    </p>
-    <p class="onyx-test-input__info">
-      Model value: "{{ value }}", is valid: {{ validityState?.valid }}
-    </p>
-  </label>
+  <OnyxIconButton label="adsf"><p>slot content</p></OnyxIconButton>
 </template>
 
-<style lang="scss">
+<style lang="scss" module>
 .onyx-test-input {
   width: max-content;
   display: inline-block;
