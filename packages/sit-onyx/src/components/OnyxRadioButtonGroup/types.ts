@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { Direction } from "../../types";
 import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 
 export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue> = DensityProp &
@@ -30,7 +31,7 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue> = Den
     /**
      * Direction of the checkboxes. Can be vertical (default) or horizontal.
      */
-    direction?: RadioButtonGroupDirection;
+    direction?: Direction;
     /**
      * Options for the individual radio buttons of the group.
      */
@@ -40,6 +41,3 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue> = Den
      */
     skeleton?: number;
   };
-
-export const RADIO_BUTTON_GROUP_DIRECTIONS = ["horizontal", "vertical"] as const;
-export type RadioButtonGroupDirection = (typeof RADIO_BUTTON_GROUP_DIRECTIONS)[number];

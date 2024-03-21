@@ -53,12 +53,6 @@ const {
 </template>
 
 <style lang="scss">
-.dark {
-  .onyx-listbox {
-    box-shadow: none;
-  }
-}
-
 .onyx-listbox {
   :where(&) {
     --max-options: 8;
@@ -69,7 +63,7 @@ const {
   border-radius: var(--onyx-radius-md);
   background-color: var(--onyx-color-base-background-blank);
   padding: var(--onyx-spacing-2xs) 0;
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--onyx-box-shadow);
   box-sizing: border-box;
   width: max-content;
   min-width: var(--onyx-spacing-4xl);
