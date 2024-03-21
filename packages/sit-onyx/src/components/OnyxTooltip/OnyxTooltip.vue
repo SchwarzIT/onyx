@@ -23,6 +23,7 @@ const {
   state: { isVisible },
 } = createTooltip({
   openMode: computed(() => props.openMode),
+  debounce: 200,
 });
 </script>
 

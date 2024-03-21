@@ -8,7 +8,7 @@ export type CreateTooltipOptions = {
    * Number of milliseconds to use as debounce when showing/hiding the tooltip
    * with openMode "hover".
    *
-   * @default 200
+   * @default 0
    */
   debounce?: number;
 };
@@ -30,7 +30,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         _isVisible.value = newValue;
-      }, options.debounce ?? 200);
+      }, options.debounce ?? 0);
     },
   });
 
