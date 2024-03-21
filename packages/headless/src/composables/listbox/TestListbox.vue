@@ -46,11 +46,7 @@ const {
     const currentIndex = options.findIndex((i) => i === currentValue);
     if (currentIndex > 0) activeOption.value = options[currentIndex - 1];
   },
-  onScrollIntoView: (id) => {
-    const option = listboxRef.value?.querySelector(`#${id}`);
-    option?.scrollIntoView({ block: "nearest", inline: "nearest" });
-  },
-  onActivateByLabel: (label) => {
+  onTypeAhead: (label) => {
     const firstMatch = options.find((i) => {
       return i.toLowerCase().trim().startsWith(label.toLowerCase());
     });
@@ -80,6 +76,10 @@ const {
 </template>
 
 <style lang="scss" scoped>
+li {
+  height: 1.5rem;
+}
+
 .focused {
   background-color: orange;
 }

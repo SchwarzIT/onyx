@@ -24,10 +24,6 @@ export type CreateListboxOptions = {
    */
   onSelect?: (value: ListboxValue) => void;
   /**
-   * Hook when an option should be scrolled into view.
-   */
-  onScrollIntoView?: (id: string, value: ListboxValue) => void;
-  /**
    * Hook when the first option should be activated.
    */
   onActivateFirst?: () => void;
@@ -46,7 +42,7 @@ export type CreateListboxOptions = {
   /**
    * Hook when the first option starting with the given label should be activated.
    */
-  onActivateByLabel?: (label: string) => void;
+  onTypeAhead?: (label: string) => void;
 };
 
 export type ListboxValue = string | number | boolean;
@@ -67,7 +63,7 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
     if (!descendantKeyIdMap.has(value)) {
       descendantKeyIdMap.set(value, createId("listbox-option"));
     }
-    return descendantKeyIdMap.get(value) as NonNullable<ReturnType<typeof descendantKeyIdMap.get>>;
+    return descendantKeyIdMap.get(value)!;
   };
 
   /**
@@ -79,7 +75,7 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
   watchEffect(() => {
     if (options.activeOption.value == undefined || !isFocused.value) return;
     const id = getOptionId(options.activeOption.value);
-    options.onScrollIntoView?.(id, options.activeOption.value);
+    document.getElementById(id)?.scrollIntoView({ block: "nearest", inline: "nearest" });
   });
 
   const handleKeydown = (event: KeyboardEvent) => {
@@ -120,7 +116,7 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
       default:
         // if a printable character is pressed, the first option/text starting with the pressed
         // character should be active
-        options.onActivateByLabel?.(event.key);
+        options.onTypeAhead?.(event.key);
     }
   };
 

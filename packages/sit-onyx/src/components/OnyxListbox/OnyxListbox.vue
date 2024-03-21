@@ -58,11 +58,7 @@ const {
     const currentIndex = props.options.findIndex((i) => i.id === currentValue);
     if (currentIndex > 0) activeOption.value = props.options[currentIndex - 1].id;
   },
-  onScrollIntoView: (id) => {
-    const option = listboxRef.value?.querySelector(`#${id}`);
-    option?.scrollIntoView({ block: "nearest", inline: "nearest" });
-  },
-  onActivateByLabel: (label) => {
+  onTypeAhead: (label) => {
     const firstMatch = props.options.find((i) => {
       return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
     });
