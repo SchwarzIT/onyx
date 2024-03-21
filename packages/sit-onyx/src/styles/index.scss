@@ -20,4 +20,11 @@
   --onyx-duration-sm: 400ms;
   --onyx-duration-md: 700ms;
   --onyx-duration-lg: 1s;
+
+  --onyx-box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.dark,
+.onyx-dark {
+  --onyx-box-shadow: none;
 }

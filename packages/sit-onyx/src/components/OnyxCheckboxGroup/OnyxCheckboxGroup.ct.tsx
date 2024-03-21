@@ -1,6 +1,7 @@
 import { expect, test } from "../../playwright-axe";
+import { DIRECTIONS } from "../../types";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
-import { CHECKBOX_GROUP_DIRECTIONS, type OnyxCheckboxGroupProps } from "./types";
+import type { OnyxCheckboxGroupProps } from "./types";
 
 const mockOptions: OnyxCheckboxGroupProps["options"] = [
   { label: "Default", id: "id-1" },
@@ -131,7 +132,7 @@ test("should truncate", async ({ mount }) => {
   await expect(component).toHaveScreenshot("truncation-vertical.png");
 });
 
-CHECKBOX_GROUP_DIRECTIONS.forEach((direction) => {
+DIRECTIONS.forEach((direction) => {
   test(`should render ${direction} skeletons`, async ({ mount }) => {
     // ARRANGE
     const component = await mount(
