@@ -1,4 +1,5 @@
 import { defineIconSelectArgType } from "@/utils/storybook";
+import { TOOLTIP_OPEN_MODES } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
@@ -16,6 +17,9 @@ const meta: Meta<typeof OnyxTooltip> = {
       icon: defineIconSelectArgType(),
       default: {
         control: { disabled: true },
+      },
+      openMode: {
+        options: [...TOOLTIP_OPEN_MODES, true, false],
       },
     },
     decorators: [

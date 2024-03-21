@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { createTooltip } from "@sit-onyx/headless";
+import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
 
@@ -7,6 +8,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "top",
   fitParent: false,
+  openMode: "hover",
 });
 
 defineSlots<{
@@ -18,11 +20,14 @@ defineSlots<{
 
 const {
   elements: { trigger, tooltip },
-} = createTooltip({});
+  state: { isVisible },
+} = createTooltip({
+  openMode: computed(() => props.openMode),
+});
 </script>
 
 <template>
-  <div class="onyx-tooltip-wrapper">
+  <div class="onyx-tooltip-wrapper" :class="{ 'onyx-tooltip-wrapper--hidden': !isVisible }">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
@@ -112,5 +117,11 @@ const {
 .onyx-tooltip-wrapper {
   position: relative;
   width: max-content;
+
+  &--hidden {
+    .onyx-tooltip {
+      display: none;
+    }
+  }
 }
 </style>
