@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.3
+
+### Minor Changes
+
+- da20153: feat: add `createTooltip` composable
+
 ## 0.1.0-alpha.2
 
 ### Minor Changes
