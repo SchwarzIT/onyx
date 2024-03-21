@@ -27,7 +27,7 @@ const {
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
       :class="{
-        'onyx-tooltip__danger': props.color === 'danger',
+        'onyx-tooltip--danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
         'onyx-tooltip--fit-parent': props.fitParent,
       }"
@@ -45,12 +45,13 @@ const {
 <style lang="scss">
 .onyx-tooltip {
   --background-color: var(--onyx-color-base-neutral-900);
+  --color: var(--onyx-color-text-icons-neutral-inverted);
   $wedge-size: 0.5rem;
 
   border-radius: var(--onyx-radius-sm);
   padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
   box-sizing: border-box;
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--onyx-box-shadow);
   z-index: var(--onyx-z-index-flyout);
 
   display: flex;
@@ -61,7 +62,7 @@ const {
   margin-bottom: $wedge-size;
 
   background-color: var(--background-color);
-  color: var(--onyx-color-text-icons-neutral-inverted);
+  color: var(--color);
   font-family: var(--onyx-font-family);
   text-align: center;
 
@@ -79,9 +80,9 @@ const {
     width: 100%;
   }
 
-  &__danger {
+  &--danger {
     --background-color: var(--onyx-color-base-danger-200);
-    color: var(--onyx-color-text-icons-danger-bold);
+    --color: var(--onyx-color-text-icons-danger-bold);
   }
 
   &::after {
@@ -92,7 +93,7 @@ const {
     margin-left: -$wedge-size;
     border-width: $wedge-size;
     border-style: solid;
-    border-color: var(--background-color) transparent transparent transparent;
+    border-color: var(--background-color) transparent transparent;
   }
 
   &--bottom {
@@ -103,7 +104,7 @@ const {
 
     &::after {
       top: -2 * $wedge-size;
-      border-color: transparent transparent var(--background-color) transparent;
+      border-color: transparent transparent var(--background-color);
     }
   }
 }
