@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { createListbox, type ListboxValue } from "./createListbox";
 
-const listboxRef = ref<HTMLUListElement>();
 const selectedOption = ref<ListboxValue>();
 const activeOption = ref<ListboxValue>();
 
@@ -57,7 +56,7 @@ const {
 </script>
 
 <template>
-  <ul v-bind="listbox" ref="listboxRef">
+  <ul v-bind="listbox">
     <li
       v-for="option in options"
       :key="option"

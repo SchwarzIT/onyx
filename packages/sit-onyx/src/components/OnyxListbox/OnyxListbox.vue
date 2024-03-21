@@ -17,11 +17,6 @@ const emit = defineEmits<{
 }>();
 
 /**
- * Reference of the `<ul>` listbox element.
- */
-const listboxRef = ref<HTMLUListElement>();
-
-/**
  * Currently (visually) active option.
  */
 const activeOption = ref<TValue>();
@@ -70,7 +65,7 @@ const {
 
 <template>
   <div class="onyx-listbox">
-    <ul v-bind="listbox" ref="listboxRef" class="onyx-listbox__options">
+    <ul v-bind="listbox" class="onyx-listbox__options">
       <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
