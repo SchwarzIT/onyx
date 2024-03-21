@@ -1,7 +1,8 @@
 import { expect, test } from "../../playwright-axe";
+import { DIRECTIONS } from "../../types";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
-import { RADIO_BUTTON_GROUP_DIRECTIONS, type OnyxRadioButtonGroupProps } from "./types";
+import type { OnyxRadioButtonGroupProps } from "./types";
 
 const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "dummy.1", value: "1", id: "1" },
@@ -109,7 +110,7 @@ test("should truncate", async ({ mount }) => {
   await expect(component).toHaveScreenshot("truncation-vertical.png");
 });
 
-RADIO_BUTTON_GROUP_DIRECTIONS.forEach((direction) => {
+DIRECTIONS.forEach((direction) => {
   test(`should render ${direction} skeletons`, async ({ mount }) => {
     // ARRANGE
     const component = await mount(

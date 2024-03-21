@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 
   display: inline-block;
   width: var(--icon-size);
+  min-width: var(--icon-size);
   height: var(--icon-size);
   fill: var(--icon-color);
 
