@@ -68,7 +68,7 @@ test("should trigger with hover", async ({ mount, page }) => {
   await expect(tooltip).toBeHidden();
 });
 
-test("should trigger with click", async ({ mount }) => {
+test("should trigger with click", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(OnyxTooltip, {
     props: {
@@ -90,6 +90,12 @@ test("should trigger with click", async ({ mount }) => {
 
   // ASSERT
   await expect(tooltip).toBeVisible();
+
+  // ACT
+  await page.keyboard.press("Escape");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
 });
 
 const STATES = {

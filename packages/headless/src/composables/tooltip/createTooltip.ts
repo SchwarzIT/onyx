@@ -1,4 +1,4 @@
-import { computed, ref, unref, type MaybeRef } from "vue";
+import { computed, ref, unref, watchEffect, type MaybeRef } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 
@@ -57,25 +57,34 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   };
 
   const hoverEvents = computed(() => {
-    const openMode = unref(options.trigger);
-    if (openMode !== "hover") return;
+    if (unref(options.trigger) !== "hover") return;
     return {
       onMouseover: handleMouseOver,
       onMouseout: handleMouseOut,
     };
   });
 
+  const handleDocumentKeydown = (event: KeyboardEvent) => {
+    if (event.key !== "Escape") return;
+    _isVisible.value = false;
+  };
+
+  watchEffect(() => {
+    const trigger = unref(options.trigger);
+    document.removeEventListener("keydown", handleDocumentKeydown);
+
+    if (trigger === "click") {
+      document.addEventListener("keydown", handleDocumentKeydown);
+    }
+  });
+
   return {
     elements: {
-      trigger: computed(() => {
-        const openMode = unref(options.trigger);
-
-        return {
-          "aria-describedby": tooltipId,
-          onClick: openMode === "click" ? handleClick : undefined,
-          ...hoverEvents.value,
-        };
-      }),
+      trigger: computed(() => ({
+        "aria-describedby": tooltipId,
+        onClick: unref(options.trigger) === "click" ? handleClick : undefined,
+        ...hoverEvents.value,
+      })),
       tooltip: computed(() => ({
         role: "tooltip",
         id: tooltipId,
