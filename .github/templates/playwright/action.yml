@@ -15,14 +15,6 @@ runs:
       shell: bash
       run: pnpm exec playwright install-deps
 
-    - name: 🗑️ Delete existing screenshots
-      if: ${{ inputs.update-snapshots == 'true' }}
-      shell: bash
-      run: |
-        rm -rf  ./packages/chartjs-plugin/playwright/snapshots
-        rm -rf ./packages/headless/playwright/snapshots
-        rm -rf ./packages/sit-onyx/playwright/snapshots
-
     - name: 🚨 Run component tests
       shell: bash
       run: pnpm run test:components:all ${{ inputs.update-snapshots == 'true' && '--update-snapshots' || '' }}
