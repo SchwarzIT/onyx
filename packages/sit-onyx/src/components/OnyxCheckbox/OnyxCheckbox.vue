@@ -56,10 +56,24 @@ const isTouched = ref(false);
       />
     </div>
 
-    <p class="onyx-checkbox__label" :class="[`onyx-truncation-${props.truncation}`]">
-      {{ props.label }}
-    </p>
-    <div v-if="!props.hideLabel" class="onyx-checkbox__marker" :class="[requiredMarkerClass]"></div>
+    <template v-if="!props.hideLabel">
+      <p
+        class="onyx-checkbox__label"
+        :class="[
+          `onyx-truncation-${props.truncation}`,
+          // shows the required marker inline for multiline labels
+          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+        ]"
+      >
+        {{ props.label }}
+      </p>
+      <!-- shows the required marker fixed on the right for truncated labels -->
+      <div
+        v-if="props.truncation === 'ellipsis'"
+        class="onyx-checkbox__marker"
+        :class="[requiredMarkerClass]"
+      ></div>
+    </template>
   </label>
 </template>
 
