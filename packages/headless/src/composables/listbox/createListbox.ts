@@ -12,9 +12,9 @@ export type CreateListboxOptions = {
    */
   selectedOption: Ref<ListboxValue | undefined>;
   /**
-   * Value of currently (visually) focused option.
+   * Value of currently (visually) active option.
    */
-  focusedOption: Ref<ListboxValue | undefined>;
+  activeOption: Ref<ListboxValue | undefined>;
   /**
    * Whether the listbox is multiselect.
    */
@@ -28,25 +28,25 @@ export type CreateListboxOptions = {
    */
   onScrollIntoView?: (id: string, value: ListboxValue) => void;
   /**
-   * Hook when the first option should be focused.
+   * Hook when the first option should be activated.
    */
-  onFocusFirst?: () => void;
+  onActivateFirst?: () => void;
   /**
-   * Hook when the last option should be focused.
+   * Hook when the last option should be activated.
    */
-  onFocusLast?: () => void;
+  onActivateLast?: () => void;
   /**
-   * Hook when the next option should be focused.
+   * Hook when the next option should be activated.
    */
-  onFocusNext?: (currentValue: ListboxValue) => void;
+  onActivateNext?: (currentValue: ListboxValue) => void;
   /**
-   * Hook when the previous option should be focused.
+   * Hook when the previous option should be activated.
    */
-  onFocusPrevious?: (currentValue: ListboxValue) => void;
+  onActivatePrevious?: (currentValue: ListboxValue) => void;
   /**
-   * Hook when the first option starting with the given label should be focused.
+   * Hook when the first option starting with the given label should be activated.
    */
-  onFocusByLabel?: (label: string) => void;
+  onActivateByLabel?: (label: string) => void;
 };
 
 export type ListboxValue = string | number | boolean;
@@ -75,52 +75,52 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
    */
   const isFocused = ref(false);
 
-  // scroll currently focused option into view if needed
+  // scroll currently active option into view if needed
   watchEffect(() => {
-    if (options.focusedOption.value == undefined || !isFocused.value) return;
-    const id = getOptionId(options.focusedOption.value);
-    options.onScrollIntoView?.(id, options.focusedOption.value);
+    if (options.activeOption.value == undefined || !isFocused.value) return;
+    const id = getOptionId(options.activeOption.value);
+    options.onScrollIntoView?.(id, options.activeOption.value);
   });
 
   const handleKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
       case " ":
         event.preventDefault();
-        if (options.focusedOption.value != undefined) {
-          options.onSelect?.(options.focusedOption.value);
+        if (options.activeOption.value != undefined) {
+          options.onSelect?.(options.activeOption.value);
         }
         break;
 
       case "ArrowUp":
       case "ArrowDown":
         event.preventDefault();
-        // if no option is focused yet, focus the first option
-        if (options.focusedOption.value == undefined) {
-          options.onFocusFirst?.();
+        // if no option is active yet, activate the first option
+        if (options.activeOption.value == undefined) {
+          options.onActivateFirst?.();
           return;
         }
 
         if (event.key === "ArrowDown") {
-          options.onFocusNext?.(options.focusedOption.value);
+          options.onActivateNext?.(options.activeOption.value);
         } else {
-          options.onFocusPrevious?.(options.focusedOption.value);
+          options.onActivatePrevious?.(options.activeOption.value);
         }
         break;
 
       case "Home":
         event.preventDefault();
-        options.onFocusFirst?.();
+        options.onActivateFirst?.();
         break;
 
       case "End":
         event.preventDefault();
-        options.onFocusLast?.();
+        options.onActivateLast?.();
         break;
 
       default:
         // if a printable character is pressed, the first option/text starting with the pressed
-        // character should be focused
-        options.onFocusByLabel?.(event.key);
+        // character should be active
+        options.onActivateByLabel?.(event.key);
     }
   };
 
@@ -133,8 +133,8 @@ export const createListbox = createBuilder((options: CreateListboxOptions) => {
           "aria-label": unref(options.label),
           tabindex: "0",
           "aria-activedescendant":
-            options.focusedOption.value != undefined
-              ? getOptionId(options.focusedOption.value)
+            options.activeOption.value != undefined
+              ? getOptionId(options.activeOption.value)
               : undefined,
           onFocus: () => (isFocused.value = true),
           onBlur: () => (isFocused.value = false),

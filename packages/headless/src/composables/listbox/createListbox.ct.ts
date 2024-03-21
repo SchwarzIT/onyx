@@ -15,9 +15,9 @@ export type ListboxTestingOptions = {
    */
   options: Locator;
   /**
-   * Function that returns whether the given option locator has visual focus.
+   * Function that returns whether the given option locator is visually active.
    */
-  isOptionFocused: (locator: Locator) => Promise<boolean>;
+  isOptionActive: (locator: Locator) => Promise<boolean>;
 };
 
 /**
@@ -28,15 +28,15 @@ export const listboxTesting = async ({
   page,
   listbox,
   options,
-  isOptionFocused,
+  isOptionActive,
 }: ListboxTestingOptions) => {
-  const expectOptionToHaveVisualFocus = async (locator: Locator, message: string) => {
-    expect(await isOptionFocused(locator), message).toBeTruthy();
+  const expectOptionToBeActive = async (locator: Locator, message: string) => {
+    expect(await isOptionActive(locator), message).toBeTruthy();
     const optionId = await locator.getAttribute("id");
     expect(optionId).toBeDefined();
     await expect(
       listbox,
-      "listbox should have set aria-activedescendant to the ID of the currently visually focused option",
+      "listbox should have set aria-activedescendant to the ID of the currently visually active option",
     ).toHaveAttribute("aria-activedescendant", optionId!);
   };
 
@@ -63,38 +63,35 @@ export const listboxTesting = async ({
 
   await listbox.press("ArrowDown");
 
-  await expectOptionToHaveVisualFocus(
+  await expectOptionToBeActive(
     options.first(),
-    "Pressing arrow down key when no option is focused should focus the first option",
+    "Pressing arrow down key when no option is active should activate the first option",
   );
   await expect(
     listbox,
-    "When option is visually focused, DOM focus should still be on the listbox",
+    "When option is visually active, DOM focus should still be on the listbox",
   ).toBeFocused();
 
   await listbox.press("ArrowDown");
-  await expectOptionToHaveVisualFocus(
+  await expectOptionToBeActive(
     options.nth(1),
-    "Pressing arrow down key should move visual focus to the next option",
+    "Pressing arrow down key should activate the next option",
   );
 
   await listbox.press(" ");
   await expect(
     options.nth(1),
-    "Pressing space key should select the currently visually focused option",
+    "Pressing space key should select the currently active option",
   ).toHaveAttribute("aria-selected", "true");
 
   await listbox.press("ArrowUp");
-  await expectOptionToHaveVisualFocus(
+  await expectOptionToBeActive(
     options.first(),
-    "Pressing arrow up key should move visual focus to the previous option",
+    "Pressing arrow up key should activate the previous option",
   );
 
   await listbox.press("End");
-  await expectOptionToHaveVisualFocus(
-    options.last(),
-    "Pressing End key should move visual focus to the last option",
-  );
+  await expectOptionToBeActive(options.last(), "Pressing End key should activate the last option");
 
   const secondOptionText = await options.nth(1).textContent();
   expect(secondOptionText).toBeDefined();
@@ -102,15 +99,15 @@ export const listboxTesting = async ({
   const firstCharacter = secondOptionText!.charAt(0);
   await listbox.press(firstCharacter);
 
-  await expectOptionToHaveVisualFocus(
+  await expectOptionToBeActive(
     listbox.getByLabel(firstCharacter).first(),
-    "Pressing any other printable character should focus the fist option starting with the pressed key",
+    "Pressing any other printable character should activate the fist option starting with the pressed key",
   );
 
   await listbox.press("Home");
-  await expectOptionToHaveVisualFocus(
+  await expectOptionToBeActive(
     options.first(),
-    "Pressing Home key should move visual focus to the first option",
+    "Pressing Home key should activate the first option",
   );
 
   const firstOptionHeight = await options.first().evaluate((element) => element.clientHeight);
@@ -125,7 +122,7 @@ export const listboxTesting = async ({
   await listbox.press("ArrowDown");
   await expect(
     options.nth(1),
-    "moving visual focus to an option should scroll it into viewport if not visible",
+    "activating an option should scroll it into viewport if not visible",
   ).toBeInViewport();
 
   // reset temporary styles

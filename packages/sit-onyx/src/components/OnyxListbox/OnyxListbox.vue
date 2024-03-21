@@ -22,17 +22,17 @@ const emit = defineEmits<{
 const listboxRef = ref<HTMLUListElement>();
 
 /**
- * Currently (visually) focused option.
+ * Currently (visually) active option.
  */
-const focusedOption = ref<TValue>();
+const activeOption = ref<TValue>();
 
 /**
- * Sync the focused option with the selected option.
+ * Sync the active option with the selected option.
  */
 watch(
   () => props.modelValue,
   (newValue) => {
-    focusedOption.value = newValue;
+    activeOption.value = newValue;
   },
 );
 
@@ -41,33 +41,33 @@ const {
 } = createListbox({
   label: computed(() => props.label),
   selectedOption: computed(() => props.modelValue),
-  focusedOption,
+  activeOption,
   onSelect: (id) => {
     if (props.modelValue === id) emit("update:modelValue", undefined);
     else emit("update:modelValue", id as TValue);
   },
-  onFocusFirst: () => (focusedOption.value = props.options.at(0)?.id),
-  onFocusLast: () => (focusedOption.value = props.options.at(-1)?.id),
-  onFocusNext: (currentValue) => {
+  onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
+  onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),
+  onActivateNext: (currentValue) => {
     const currentIndex = props.options.findIndex((i) => i.id === currentValue);
     if (currentIndex < props.options.length - 1) {
-      focusedOption.value = props.options[currentIndex + 1].id;
+      activeOption.value = props.options[currentIndex + 1].id;
     }
   },
-  onFocusPrevious: (currentValue) => {
+  onActivatePrevious: (currentValue) => {
     const currentIndex = props.options.findIndex((i) => i.id === currentValue);
-    if (currentIndex > 0) focusedOption.value = props.options[currentIndex - 1].id;
+    if (currentIndex > 0) activeOption.value = props.options[currentIndex - 1].id;
   },
   onScrollIntoView: (id) => {
     const option = listboxRef.value?.querySelector(`#${id}`);
     option?.scrollIntoView({ block: "nearest", inline: "nearest" });
   },
-  onFocusByLabel: (label) => {
+  onActivateByLabel: (label) => {
     const firstMatch = props.options.find((i) => {
       return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
     });
     if (!firstMatch) return;
-    focusedOption.value = firstMatch.id;
+    activeOption.value = firstMatch.id;
   },
 });
 </script>
@@ -86,7 +86,7 @@ const {
             selected: option.id === props.modelValue,
           })
         "
-        :focused="option.id === focusedOption"
+        :active="option.id === activeOption"
       >
         {{ option.label }}
       </OnyxListboxOption>

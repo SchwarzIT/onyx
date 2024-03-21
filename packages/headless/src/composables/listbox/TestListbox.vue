@@ -4,7 +4,7 @@ import { createListbox, type ListboxValue } from "./createListbox";
 
 const listboxRef = ref<HTMLUListElement>();
 const selectedOption = ref<ListboxValue>();
-const focusedOption = ref<ListboxValue>();
+const activeOption = ref<ListboxValue>();
 
 const options = [
   "Apple",
@@ -30,32 +30,32 @@ const {
 } = createListbox({
   label: "Test listbox",
   selectedOption,
-  focusedOption,
+  activeOption,
   onSelect: (id) => {
     selectedOption.value = selectedOption.value === id ? undefined : id;
   },
-  onFocusFirst: () => (focusedOption.value = options[0]),
-  onFocusLast: () => (focusedOption.value = options.at(-1)),
-  onFocusNext: (currentValue) => {
+  onActivateFirst: () => (activeOption.value = options[0]),
+  onActivateLast: () => (activeOption.value = options.at(-1)),
+  onActivateNext: (currentValue) => {
     const currentIndex = options.findIndex((i) => i === currentValue);
     if (currentIndex < options.length - 1) {
-      focusedOption.value = options[currentIndex + 1];
+      activeOption.value = options[currentIndex + 1];
     }
   },
-  onFocusPrevious: (currentValue) => {
+  onActivatePrevious: (currentValue) => {
     const currentIndex = options.findIndex((i) => i === currentValue);
-    if (currentIndex > 0) focusedOption.value = options[currentIndex - 1];
+    if (currentIndex > 0) activeOption.value = options[currentIndex - 1];
   },
   onScrollIntoView: (id) => {
     const option = listboxRef.value?.querySelector(`#${id}`);
     option?.scrollIntoView({ block: "nearest", inline: "nearest" });
   },
-  onFocusByLabel: (label) => {
+  onActivateByLabel: (label) => {
     const firstMatch = options.find((i) => {
       return i.toLowerCase().trim().startsWith(label.toLowerCase());
     });
     if (!firstMatch) return;
-    focusedOption.value = firstMatch;
+    activeOption.value = firstMatch;
   },
 });
 </script>
@@ -72,7 +72,7 @@ const {
           selected: option === selectedOption,
         })
       "
-      :class="{ focused: option === focusedOption, selected: option === selectedOption }"
+      :class="{ focused: option === activeOption, selected: option === selectedOption }"
     >
       {{ option }}
     </li>

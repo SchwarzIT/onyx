@@ -9,7 +9,7 @@ test("listbox", async ({ mount, page }) => {
     page,
     listbox: page.getByRole("listbox"),
     options: page.getByRole("option"),
-    isOptionFocused: async (locator) => {
+    isOptionActive: async (locator) => {
       const className = await locator.getAttribute("class");
       return className?.includes("focused") ?? false;
     },
