@@ -44,14 +44,23 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     return debouncedVisible.value;
   });
 
+  /**
+   * Toggles the tooltip if element is clicked.
+   */
   const handleClick = () => {
     _isVisible.value = !_isVisible.value;
   };
 
+  /**
+   * Shows the tooltip when mouse hovers over the element.
+   */
   const handleMouseOver = () => {
     debouncedVisible.value = true;
   };
 
+  /**
+   * Closes the tooltip when mouse leaves the element.
+   */
   const handleMouseOut = () => {
     debouncedVisible.value = false;
   };
@@ -64,17 +73,38 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     };
   });
 
+  /**
+   * Closes the tooltip if Escape is pressed.
+   */
   const handleDocumentKeydown = (event: KeyboardEvent) => {
     if (event.key !== "Escape") return;
     _isVisible.value = false;
   };
 
+  /**
+   * Document click handle that closes then tooltip when clicked outside.
+   * Should only be called when trigger is "click".
+   */
+  const handleDocumentClick = (event: MouseEvent) => {
+    const tooltipParent = document.getElementById(tooltipId)?.parentElement;
+    if (!tooltipParent || !(event.target instanceof Node)) return;
+
+    const isOutsideClick = !tooltipParent.contains(event.target);
+    if (isOutsideClick) _isVisible.value = false;
+  };
+
+  /**
+   * Registers keydown and click handlers when trigger is "click" to close
+   * the tooltip.
+   */
   watchEffect(() => {
     const trigger = unref(options.trigger);
     document.removeEventListener("keydown", handleDocumentKeydown);
+    document.removeEventListener("click", handleDocumentClick);
 
     if (trigger === "click") {
       document.addEventListener("keydown", handleDocumentKeydown);
+      document.addEventListener("click", handleDocumentClick);
     }
   });
 
