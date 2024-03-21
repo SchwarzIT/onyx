@@ -1,4 +1,4 @@
-import type { TooltipOpenMode } from "@sit-onyx/headless";
+import type { TooltipTrigger } from "@sit-onyx/headless";
 import type { OnyxColor } from "../../types";
 
 export type OnyxTooltipProps = {
@@ -22,7 +22,7 @@ export type OnyxTooltipProps = {
   /**
    * How to trigger the tooltip. You can set a boolean to force show/hide the tooltip.
    */
-  openMode?: TooltipOpenMode | boolean;
+  trigger?: TooltipTrigger | boolean;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;

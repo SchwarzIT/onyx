@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "top",
   fitParent: false,
-  openMode: "hover",
+  trigger: "hover",
 });
 
 defineSlots<{
@@ -22,7 +22,7 @@ const {
   elements: { trigger, tooltip },
   state: { isVisible },
 } = createTooltip({
-  openMode: computed(() => props.openMode),
+  trigger: computed(() => props.trigger),
   debounce: 200,
 });
 </script>

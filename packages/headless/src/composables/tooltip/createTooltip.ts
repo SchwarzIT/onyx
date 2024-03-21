@@ -3,7 +3,7 @@ import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 
 export type CreateTooltipOptions = {
-  openMode: MaybeRef<TooltipOpenMode | boolean>;
+  trigger: MaybeRef<TooltipTrigger | boolean>;
   /**
    * Number of milliseconds to use as debounce when showing/hiding the tooltip
    * with openMode "hover".
@@ -13,8 +13,8 @@ export type CreateTooltipOptions = {
   debounce?: number;
 };
 
-export const TOOLTIP_OPEN_MODES = ["hover", "click"] as const;
-export type TooltipOpenMode = (typeof TOOLTIP_OPEN_MODES)[number];
+export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
+export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
 
 export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   const tooltipId = createId("tooltip");
@@ -39,7 +39,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
    * If openMode is set as boolean it will prefer it over the hover/click state.
    */
   const isVisible = computed(() => {
-    const mode = unref(options.openMode);
+    const mode = unref(options.trigger);
     if (typeof mode === "boolean") return mode;
     return debouncedVisible.value;
   });
@@ -57,7 +57,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   };
 
   const hoverEvents = computed(() => {
-    const openMode = unref(options.openMode);
+    const openMode = unref(options.trigger);
     if (openMode !== "hover") return;
     return {
       onMouseover: handleMouseOver,
@@ -68,7 +68,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   return {
     elements: {
       trigger: computed(() => {
-        const openMode = unref(options.openMode);
+        const openMode = unref(options.trigger);
 
         return {
           "aria-describedby": tooltipId,

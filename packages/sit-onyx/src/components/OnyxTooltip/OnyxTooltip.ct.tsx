@@ -6,7 +6,9 @@ test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   await mount(
     <div style={{ width: "max-content", padding: "3rem 1rem" }}>
-      <OnyxTooltip text="Test tooltip">Test slot content</OnyxTooltip>
+      <OnyxTooltip text="Test tooltip" trigger={true}>
+        Test slot content
+      </OnyxTooltip>
     </div>,
   );
 
@@ -15,6 +17,79 @@ test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should trigger with boolean", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTooltip, {
+    props: {
+      text: "Test tooltip",
+      trigger: false,
+    },
+  });
+
+  const tooltip = component.getByRole("tooltip");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.update({ props: { trigger: true } });
+
+  // ASSERT
+  await expect(tooltip).toBeVisible();
+});
+
+test("should trigger with hover", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(OnyxTooltip, {
+    props: {
+      text: "Test tooltip",
+    },
+    slots: {
+      default: "Slot content",
+    },
+  });
+
+  const tooltip = component.getByRole("tooltip");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.hover();
+
+  // ASSERT
+  await expect(tooltip).toBeHidden(); // should use debounce to show tooltip only after a short delay
+  await expect(tooltip).toBeVisible();
+
+  await page.mouse.move(0, 0);
+  await expect(tooltip).toBeVisible(); // should use debounce to hide tooltip only after a short delay
+  await expect(tooltip).toBeHidden();
+});
+
+test("should trigger with click", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTooltip, {
+    props: {
+      text: "Test tooltip",
+      trigger: "click",
+    },
+    slots: {
+      default: "Slot content",
+    },
+  });
+
+  const tooltip = component.getByRole("tooltip");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(tooltip).toBeVisible();
 });
 
 const STATES = {
@@ -36,6 +111,7 @@ test.describe("state screenshot tests", () => {
           position={variant === "bottom" ? "bottom" : undefined}
           icon={variant === "icon" ? mockPlaywrightIcon : undefined}
           fitParent={text === "fitParent"}
+          trigger={true}
         >
           <span
             style={{
