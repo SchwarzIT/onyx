@@ -21,11 +21,6 @@ export default defineConfig({
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
   retries: process.env.CI ? 2 : 0, // retry on CI only
   reporter: [["html", { open: "never" }]],
-  expect: {
-    toHaveScreenshot: {
-      maxDiffPixelRatio: 0.25 / 100,
-    },
-  },
   use: {
     trace: process.env.CI ? "retain-on-failure" : "off",
     video: process.env.CI ? "retain-on-failure" : "off",
