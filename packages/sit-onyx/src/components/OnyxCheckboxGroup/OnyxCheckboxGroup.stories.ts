@@ -80,6 +80,12 @@ export const WithTruncation = {
         id: "id-3",
         truncation: "multiline",
       },
+      {
+        label: "Very long label that will be truncated with multiline",
+        id: "id-4",
+        truncation: "multiline",
+        required: true,
+      },
     ],
   },
   decorators: [createTruncationDecorator("16rem")],

@@ -56,13 +56,10 @@ const isTouched = ref(false);
       />
     </div>
 
-    <p
-      v-if="!props.hideLabel"
-      class="onyx-checkbox__label"
-      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
-    >
+    <p class="onyx-checkbox__label" :class="[`onyx-truncation-${props.truncation}`]">
       {{ props.label }}
     </p>
+    <div v-if="!props.hideLabel" class="onyx-checkbox__marker" :class="[requiredMarkerClass]"></div>
   </label>
 </template>
 
@@ -197,6 +194,10 @@ $input-size: 1rem;
   &__label {
     display: inline-block;
     margin: 0;
+  }
+
+  &__label,
+  &__marker {
     padding: $label-padding 0;
     font-size: 1rem;
     line-height: 1.5rem;
