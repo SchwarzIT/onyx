@@ -1,3 +1,4 @@
+import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import { DIRECTIONS } from "../../types";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
@@ -109,7 +110,10 @@ test("should disabled all checkboxes if group is disabled", async ({ mount }) =>
   }
 });
 
-test("should truncate", async ({ mount }) => {
+const STATES = {
+  state: ["required", "optional"],
+} as const;
+test.describe("should truncate", () => {
   const options: OnyxCheckboxGroupProps["options"] = [
     { label: "Very long label that will be truncated", id: "id-1" },
     { label: "Very long required label that will be truncated", id: "id-2", required: true },
@@ -119,17 +123,18 @@ test("should truncate", async ({ mount }) => {
       truncation: "multiline",
     },
   ];
+  executeScreenshotsForAllStates(STATES, "truncated-checkbox-group", async ({ state }, mount) => {
+    const component = await mount(
+      <OnyxCheckboxGroup
+        options={options}
+        headline="Truncated group headline"
+        style="max-width: 16rem;"
+      />,
+      { useOptional: state === "optional" },
+    );
 
-  // ARRANGE
-  const component = await mount(
-    <OnyxCheckboxGroup
-      options={options}
-      headline="Truncated group headline"
-      style="max-width: 16rem;"
-    />,
-  );
-
-  await expect(component).toHaveScreenshot("truncation-vertical.png");
+    return component;
+  });
 });
 
 DIRECTIONS.forEach((direction) => {
