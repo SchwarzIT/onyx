@@ -118,8 +118,13 @@ test.describe("should truncate", () => {
     { label: "Very long label that will be truncated", id: "id-1" },
     { label: "Very long required label that will be truncated", id: "id-2", required: true },
     {
-      label: "Very long label that will be truncated with multiline",
+      label: "Very long label that will be wrapped with multiline",
       id: "id-3",
+      truncation: "multiline",
+    },
+    {
+      label: "Very long required label that will be wrapped with multiline",
+      id: "id-4",
       truncation: "multiline",
     },
   ];
