@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.50
+
+### Minor Changes
+
+- 3d3e728: feat: support listbox keyboard shortcuts
+
 ## 1.0.0-alpha.49
 
 ### Minor Changes
