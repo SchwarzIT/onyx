@@ -1,3 +1,4 @@
+import { listboxTesting } from "@sit-onyx/headless/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxListbox from "./OnyxListbox.vue";
 
@@ -18,7 +19,10 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
       hideLabel: true,
     },
     on: {
-      "update:modelValue": (value: number | undefined) => (modelValue = value),
+      "update:modelValue": async (value: number | undefined) => {
+        modelValue = value;
+        await component.update({ props: { modelValue } });
+      },
     },
   });
 
@@ -29,7 +33,6 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
   expect(modelValue).toBeUndefined();
-  await component.update({ props: { modelValue } });
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -38,18 +41,22 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render with many options", async ({ mount, makeAxeBuilder }) => {
+test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
-  const component = await mount(
-    <OnyxListbox
-      options={Array.from({ length: 25 }, (_, index) => ({
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: Array.from({ length: 25 }, (_, index) => ({
         id: index,
         label: `Test option ${index + 1}`,
-      }))}
-      label="Test listbox"
-      hideLabel
-    />,
-  );
+      })),
+      label: "Test listbox",
+      hideLabel: true,
+    },
+    on: {
+      "update:modelValue": (modelValue: number | undefined) =>
+        component.update({ props: { modelValue } }),
+    },
+  });
 
   // ASSERT
   await expect(component).toHaveScreenshot("many-options.png");
@@ -60,9 +67,13 @@ test("should render with many options", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 
-  await expect(component.getByText("Test option 8")).toBeInViewport();
-  await expect(component.getByText("Test option 9")).not.toBeInViewport();
-
-  await component.getByText("Test option 25").scrollIntoViewIfNeeded();
-  await expect(component.getByText("Test option 25")).toBeInViewport();
+  await listboxTesting({
+    page,
+    listbox: component.getByRole("listbox"),
+    options: component.getByRole("option"),
+    isOptionActive: async (locator) => {
+      const className = await locator.getAttribute("class");
+      return className?.includes("onyx-listbox-option--active") ?? false;
+    },
+  });
 });

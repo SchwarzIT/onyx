@@ -1,6 +1,12 @@
 name: Update Playwright screenshots
 on:
   workflow_dispatch:
+    inputs:
+      clean-snapshots:
+        type: boolean
+        default: false
+        required: false
+        description: Whether to remove all snapshots before running
 
 jobs:
   update:
@@ -24,6 +30,7 @@ jobs:
         uses: ./.github/templates/playwright
         with:
           update-snapshots: true
+          clean-snapshots: ${{ inputs.clean-snapshots }}
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6

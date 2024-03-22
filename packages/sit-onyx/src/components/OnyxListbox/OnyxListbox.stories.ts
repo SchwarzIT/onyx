@@ -7,6 +7,16 @@ import OnyxListbox from "./OnyxListbox.vue";
  * dropdowns, navigation bars, paginations, tables, etc.
  * It provides the users with the ability to open a small modal window,
  * facilitating single or multi-selection based on the context in which it is employed.
+ *
+ * ### Keyboard shortcuts
+ * The following keyboard shortcuts are available:
+ * - **Tab**: Focuses / blurs the listbox
+ * - **Arrow down**: Focuses the next option
+ * - **Arrow up**: Focuses the previous option
+ * - **Home**: Focuses the first option
+ * - **End**: Focuses the last option
+ * - **Space**: Selects currently focused option
+ * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxListbox> = {
   title: "support/OnyxListbox",
@@ -25,12 +35,23 @@ type Story = StoryObj<typeof OnyxListbox>;
 export const Default = {
   args: {
     label: "Example label",
-    options: Array.from({ length: 25 }, (_, index) => {
-      const id = index + 1;
-      return {
-        id: id,
-        label: `Test option ${id}`,
-      };
-    }),
+    options: [
+      "Apple",
+      "Banana",
+      "Mango",
+      "Kiwi",
+      "Orange",
+      "Papaya",
+      "Apricot",
+      "Lemon",
+      "Cranberry",
+      "Avocado",
+      "Cherry",
+      "Coconut",
+      "Lychee",
+      "Melon",
+      "Raspberry",
+      "Strawberry",
+    ].map((option) => ({ id: option.toLowerCase(), label: option })),
   },
 } satisfies Story;
