@@ -1,5 +1,11 @@
 # @sit-onyx/chartjs-plugin
 
+## 1.0.0-alpha.8
+
+### Patch Changes
+
+- ce4945a: prevent "cannot read/set of undefined" errors for unregistered plugins
+
 ## 1.0.0-alpha.7
 
 ### Patch Changes
