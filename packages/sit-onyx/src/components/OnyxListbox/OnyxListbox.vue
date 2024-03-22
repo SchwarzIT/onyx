@@ -100,7 +100,7 @@ const {
   border-radius: var(--onyx-radius-md);
   background-color: var(--onyx-color-base-background-blank);
   padding: var(--onyx-spacing-2xs) 0;
-  box-shadow: var(--onyx-box-shadow);
+  box-shadow: var(--onyx-shadow-medium-bottom);
   box-sizing: border-box;
   width: max-content;
   min-width: var(--onyx-spacing-4xl);
