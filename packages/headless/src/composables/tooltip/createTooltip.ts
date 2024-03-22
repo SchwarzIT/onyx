@@ -1,4 +1,4 @@
-import { computed, ref, unref, watchEffect, type MaybeRef } from "vue";
+import { computed, onBeforeUnmount, ref, unref, watchEffect, type MaybeRef } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 
@@ -108,6 +108,14 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
       document.addEventListener("keydown", handleDocumentKeydown);
       document.addEventListener("click", handleDocumentClick);
     }
+  });
+
+  /**
+   * Clean up global event listeners to prevent dangling events.
+   */
+  onBeforeUnmount(() => {
+    document.addEventListener("keydown", handleDocumentKeydown);
+    document.addEventListener("click", handleDocumentClick);
   });
 
   return {
