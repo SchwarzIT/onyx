@@ -82,7 +82,7 @@ const {
   color: var(--color);
   font-family: var(--onyx-font-family);
   text-align: center;
-  white-space: pre;
+  white-space: pre-line;
 
   min-width: var(--onyx-spacing-3xl);
   width: max-content;
