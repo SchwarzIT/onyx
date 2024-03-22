@@ -16,7 +16,7 @@ import OnyxListbox from "./OnyxListbox.vue";
  * - **Home**: Focuses the first option
  * - **End**: Focuses the last option
  * - **Space**: Selects currently focused option
- * - **Other** characters: Focuses first option that starts with the pressed key
+ * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxListbox> = {
   title: "support/OnyxListbox",

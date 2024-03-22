@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import type { ListboxOption } from "sit-onyx";
 import {
   OnyxAppLayout,
   OnyxButton,
@@ -9,6 +10,7 @@ import {
   OnyxIconButton,
   OnyxInput,
   OnyxLink,
+  OnyxListbox,
   OnyxLoadingIndicator,
   OnyxPageLayout,
   OnyxRadioButtonGroup,
@@ -35,6 +37,7 @@ const COMPONENTS = [
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTooltip",
+  "OnyxListbox",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -56,6 +59,27 @@ const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
 const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<SelectionOption | undefined>();
+
+const listboxState = ref<string>();
+
+const listboxOptions = [
+  "Apple",
+  "Banana",
+  "Mango",
+  "Kiwi",
+  "Orange",
+  "Papaya",
+  "Apricot",
+  "Lemon",
+  "Cranberry",
+  "Avocado",
+  "Cherry",
+  "Coconut",
+  "Lychee",
+  "Melon",
+  "Raspberry",
+  "Strawberry",
+].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
 </script>
 
 <template>
@@ -130,6 +154,8 @@ const radioState = ref<SelectionOption | undefined>();
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
+
+          <OnyxListbox v-model="listboxState" label="Example listbox" :options="listboxOptions" />
 
           <!-- Add new components here. -->
         </div>
