@@ -34,8 +34,14 @@ export const registerOnyxPlugin = (chart: typeof Chart) => {
   // or a getter defined with "Object.defineProperty".
   // Otherwise if called directly, this is not compatible with server side rendering.
   //
+  // Also if setting any plugin options here (e.g. tooltip), make sure to check that they
+  // are defined/register to prevent "can not set/read of undefined" errors
+  //
   chart.register(plugin);
-  chart.defaults.plugins.colors.enabled = false;
+
+  if (chart.defaults.plugins.colors) {
+    chart.defaults.plugins.colors.enabled = false;
+  }
 
   //
   // General default styles for all chart types
@@ -51,25 +57,33 @@ export const registerOnyxPlugin = (chart: typeof Chart) => {
   chart.defaults.borderColor = () => getCSSVariableValue("--onyx-color-base-neutral-300");
   chart.defaults.color = () => getCSSVariableValue("--onyx-color-text-icons-neutral-medium");
 
-  chart.defaults.plugins.tooltip.backgroundColor = () => {
-    return getCSSVariableValue("--onyx-color-base-neutral-900");
-  };
-  chart.defaults.plugins.tooltip.titleColor = () => {
-    return getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-  };
-  chart.defaults.plugins.tooltip.bodyColor = () => {
-    return getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
-  };
+  if (chart.defaults.plugins.tooltip) {
+    chart.defaults.plugins.tooltip.backgroundColor = () => {
+      return getCSSVariableValue("--onyx-color-base-neutral-900");
+    };
+    chart.defaults.plugins.tooltip.titleColor = () => {
+      return getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+    };
+    chart.defaults.plugins.tooltip.bodyColor = () => {
+      return getCSSVariableValue("--onyx-color-text-icons-neutral-inverted");
+    };
+  }
 
-  chart.defaults.plugins.title.color = createColorGetter("--onyx-color-text-icons-neutral-intense");
-  chart.defaults.plugins.title.font = {
-    weight: "bold",
-    size: 16,
-  };
+  if (chart.defaults.plugins.title) {
+    chart.defaults.plugins.title.color = createColorGetter(
+      "--onyx-color-text-icons-neutral-intense",
+    );
+    chart.defaults.plugins.title.font = {
+      weight: "bold",
+      size: 16,
+    };
+  }
 
-  chart.defaults.scales.radialLinear.ticks.backdropColor = () => {
-    return getCSSVariableValue("--onyx-color-base-background-tinted");
-  };
+  if (chart.defaults.scales.radialLinear) {
+    chart.defaults.scales.radialLinear.ticks.backdropColor = () => {
+      return getCSSVariableValue("--onyx-color-base-background-tinted");
+    };
+  }
 
   Object.entries(chart.defaults.scales).forEach(([key, scale]) => {
     // exclude radialLinear scale because it does not support a title
