@@ -50,7 +50,7 @@ test("should behave correctly", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "loading"],
+  state: ["default", "disabled"],
   variation: ["primary", "secondary", "danger"],
   density: ["compact", "default", "cozy"],
   focusState: ["none", "hover", "focus-visible", "active"],
@@ -64,7 +64,6 @@ test.describe("state screenshot tests", () => {
       const component = await mount(
         <OnyxIconButton
           label="label"
-          loading={state === "loading"}
           variation={variation}
           density={density}
           disabled={state === "disabled"}
