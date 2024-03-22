@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.54
+
+### Minor Changes
+
+- 40b72b2: feat(OnyxTooltip): add`tooltip` slot, close tooltip with Escape in "hover" mode
+
 ## 1.0.0-alpha.53
 
 ### Minor Changes
