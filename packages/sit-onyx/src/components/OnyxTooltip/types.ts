@@ -1,3 +1,4 @@
+import type { TooltipOpen } from "@sit-onyx/headless";
 import type { OnyxColor } from "../../types";
 
 export type OnyxTooltipProps = {
@@ -18,6 +19,10 @@ export type OnyxTooltipProps = {
    * If `true`, the tooltip will match the width of the parent/slot element.
    */
   fitParent?: boolean;
+  /**
+   * How to open/trigger the tooltip. You can set a boolean to force show/hide the tooltip.
+   */
+  open?: TooltipOpen;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;
