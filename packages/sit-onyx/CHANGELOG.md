@@ -1,5 +1,29 @@
 # sit-onyx
 
+## 1.0.0-alpha.53
+
+### Minor Changes
+
+- cb3a72b: add CSS variables for box shadows
+
+  See [token documentation](https://onyx.schwarz/tokens/shadows.html) for a full list of available shadows.
+
+### Patch Changes
+
+- 10fb012: fix(OnyxCheckbox): force required/optional marker to be visible on label truncation
+
+## 1.0.0-alpha.52
+
+### Minor Changes
+
+- 9dec6c0: feat(OnyxTooltip): add property open
+
+## 1.0.0-alpha.51
+
+### Major Changes
+
+- a2181c6: Switch OnyxButton to be inline
+
 ## 1.0.0-alpha.50
 
 ### Minor Changes

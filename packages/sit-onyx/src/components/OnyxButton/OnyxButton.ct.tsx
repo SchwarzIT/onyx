@@ -60,7 +60,23 @@ test("should truncate text", async ({ mount }) => {
   await expect(component).toHaveScreenshot("truncation-ellipsis.png");
 });
 
-test("should render skeleton", async ({ mount }) => {
+test("should render button inline aligned with text", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <p class="onyx-text" style="line-height: 60px; width: max-content;">
+      before
+      <OnyxButton label="Test label" />
+      between
+      <OnyxButton label="Test label" skeleton />
+      after
+    </p>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("inline-aligned.png");
+});
+
+test("should render correct inline", async ({ mount }) => {
   // ARRANGE
   const component = await mount(<OnyxButton label="Test label" skeleton />);
 
