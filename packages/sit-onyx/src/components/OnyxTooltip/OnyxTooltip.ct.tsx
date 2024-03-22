@@ -77,7 +77,15 @@ test("should trigger with hover", async ({ mount, page }) => {
   tooltip = component.getByRole("tooltip");
 
   await page.keyboard.press("Tab");
+
+  // ASSERT
   await expect(tooltip).toBeVisible();
+
+  // ACT
+  await page.keyboard.press("Escape");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
 });
 
 test("should trigger with click", async ({ mount, page }) => {
@@ -108,6 +116,32 @@ test("should trigger with click", async ({ mount, page }) => {
 
   // ASSERT
   await expect(tooltip).toBeHidden();
+});
+
+test("should render custom tooltip content", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTooltip, {
+    props: {
+      text: "Test tooltip",
+      open: true,
+    },
+  });
+
+  const tooltip = component.getByRole("tooltip");
+
+  // ASSERT
+  await expect(tooltip).toBeVisible();
+  await expect(tooltip).toContainText("Test tooltip");
+
+  // ACT
+  await component.update({
+    slots: {
+      tooltip: "Custom slot content",
+    },
+  });
+
+  await expect(tooltip).not.toContainText("Test tooltip");
+  await expect(tooltip).toContainText("Custom slot content");
 });
 
 const STATES = {

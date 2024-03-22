@@ -96,17 +96,17 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     if (isOutsideClick) _isVisible.value = false;
   };
 
+  document.addEventListener("keydown", handleDocumentKeydown);
+
   /**
    * Registers keydown and click handlers when trigger is "click" to close
    * the tooltip.
    */
   watchEffect(() => {
-    document.removeEventListener("keydown", handleDocumentKeydown);
-    document.removeEventListener("click", handleDocumentClick);
-
     if (openType.value === "click") {
-      document.addEventListener("keydown", handleDocumentKeydown);
       document.addEventListener("click", handleDocumentClick);
+    } else {
+      document.removeEventListener("click", handleDocumentClick);
     }
   });
 

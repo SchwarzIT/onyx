@@ -4,8 +4,9 @@ import type { OnyxColor } from "../../types";
 export type OnyxTooltipProps = {
   /**
    * Text to display inside the tooltip.
+   * Must be set unless the custom "tooltip" slot is used.
    */
-  text: string;
+  text?: string;
   /**
    * Optional icon to show on the left of the text.
    */
