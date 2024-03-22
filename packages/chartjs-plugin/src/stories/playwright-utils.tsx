@@ -10,7 +10,7 @@ export const executeChartScreenshotTest = async (
   screenshotName: string,
 ) => {
   // hover so that the tooltip is shown for the screenshot
-  await component.hover();
+  await component.hover({ position: { x: 400, y: 200 } });
 
   // ASSERT
   await expect(component).toHaveScreenshot(`${screenshotName}-light.png`);
