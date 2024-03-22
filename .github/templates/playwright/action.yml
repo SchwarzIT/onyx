@@ -2,6 +2,9 @@ name: 🚨 Run component tests
 description: Runs Playwright component tests (node and pnpm must be setup before)
 
 inputs:
+  clean-snapshots:
+    required: false
+    description: Whether to remove all snapshots before running
   update-snapshots:
     required: false
     description: Whether to update the Playwright snapshots
@@ -16,7 +19,7 @@ runs:
       run: pnpm exec playwright install-deps
 
     - name: 🗑️ Delete existing screenshots
-      if: ${{ inputs.update-snapshots == 'true' }}
+      if: ${{ inputs.clean-snapshots == 'true' }}
       shell: bash
       run: |
         rm -rf  ./packages/chartjs-plugin/playwright/snapshots

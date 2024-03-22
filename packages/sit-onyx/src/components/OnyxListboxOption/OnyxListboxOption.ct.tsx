@@ -18,7 +18,7 @@ test.describe("state screenshot tests", () => {
           aria-label="Label"
           aria-selected={state === "selected"}
           aria-disabled={writeMode === "disabled"}
-          focused={focusState === "focus-visible"}
+          active={focusState === "focus-visible"}
         >
           Label
         </OnyxListboxOption>,

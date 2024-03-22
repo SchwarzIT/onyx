@@ -112,6 +112,7 @@ export default defineConfig({
             { text: "Colors", link: "/colors" },
             { text: "Spacings", link: "/spacings" },
             { text: "Borders", link: "/borders" },
+            { text: "Shadows", link: "/shadows" },
           ],
         },
       ],

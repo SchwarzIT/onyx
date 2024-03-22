@@ -1,5 +1,40 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-alpha.53
+
+### Major Changes
+
+- 83192d4: bump minimum vitepress version to 1.0.0
+
+## 1.0.0-alpha.52
+
+### Patch Changes
+
+- Updated dependencies [10fb012]
+- Updated dependencies [cb3a72b]
+  - sit-onyx@1.0.0-alpha.53
+
+## 1.0.0-alpha.51
+
+### Patch Changes
+
+- Updated dependencies [9dec6c0]
+  - sit-onyx@1.0.0-alpha.52
+
+## 1.0.0-alpha.50
+
+### Patch Changes
+
+- Updated dependencies [a2181c6]
+  - sit-onyx@1.0.0-alpha.51
+
+## 1.0.0-alpha.49
+
+### Patch Changes
+
+- Updated dependencies [3d3e728]
+  - sit-onyx@1.0.0-alpha.50
+
 ## 1.0.0-alpha.48
 
 ### Patch Changes

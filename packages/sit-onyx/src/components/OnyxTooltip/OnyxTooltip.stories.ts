@@ -1,4 +1,5 @@
 import { defineIconSelectArgType } from "@/utils/storybook";
+import { TOOLTIP_TRIGGERS } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
@@ -16,6 +17,9 @@ const meta: Meta<typeof OnyxTooltip> = {
       icon: defineIconSelectArgType(),
       default: {
         control: { disabled: true },
+      },
+      open: {
+        options: [...TOOLTIP_TRIGGERS, true, false],
       },
     },
     decorators: [
@@ -41,6 +45,30 @@ export const Default = {
     text: "Tooltip text",
     default: () => "Slot content goes here",
     icon: circleInformation,
+    open: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a tooltip that will be triggered on hover.
+ * It will use a short debounce/delay when showing/hiding.
+ */
+export const Hover = {
+  args: {
+    ...Default.args,
+    default: () => "Hover me to show the tooltip",
+    open: "hover",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a tooltip that will be triggered on click.
+ */
+export const Click = {
+  args: {
+    ...Default.args,
+    default: () => "Click me to show the tooltip",
+    open: "click",
   },
 } satisfies Story;
 
