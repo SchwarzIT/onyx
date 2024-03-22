@@ -1,5 +1,11 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-alpha.53
+
+### Major Changes
+
+- 83192d4: bump minimum vitepress version to 1.0.0
+
 ## 1.0.0-alpha.52
 
 ### Patch Changes
