@@ -57,7 +57,7 @@ const {
   border-radius: var(--onyx-radius-sm);
   padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
   box-sizing: border-box;
-  box-shadow: var(--onyx-box-shadow);
+  box-shadow: var(--onyx-shadow-medium-bottom);
   z-index: var(--onyx-z-index-flyout);
 
   display: flex;

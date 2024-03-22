@@ -8,9 +8,11 @@ const props = defineProps<{
   name: string;
   /** If true, both columns will take up 50% of the available width. */
   wideName?: boolean;
+  /** Whether hide the token value. */
+  hideValue?: boolean;
 }>();
 
-const value = computed(() => getCssVariableValue(props.name));
+const value = computed(() => (props.hideValue ? undefined : getCssVariableValue(props.name)));
 const isCopied = ref(false);
 
 const handleCopy = async () => {
