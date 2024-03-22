@@ -77,7 +77,15 @@ test("should trigger with hover", async ({ mount, page }) => {
   tooltip = component.getByRole("tooltip");
 
   await page.keyboard.press("Tab");
+
+  // ASSERT
   await expect(tooltip).toBeVisible();
+
+  // ACT
+  await page.keyboard.press("Escape");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
 });
 
 test("should trigger with click", async ({ mount, page }) => {
