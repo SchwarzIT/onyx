@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.52
+
+### Minor Changes
+
+- 9dec6c0: feat(OnyxTooltip): add property open
+
 ## 1.0.0-alpha.51
 
 ### Major Changes
