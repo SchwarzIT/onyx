@@ -67,14 +67,18 @@ watch(
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredTypeClass]">
+  <label
+    v-else
+    class="onyx-switch"
+    :class="[requiredTypeClass]"
+    :title="props.hideLabel ? props.label : undefined"
+  >
     <input
       ref="inputElement"
       v-model="isChecked"
       :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
       type="checkbox"
       :aria-label="props.hideLabel ? props.label : undefined"
-      :title="props.hideLabel ? props.label : undefined"
       :disabled="props.disabled || props.loading"
       :required="props.required"
     />
