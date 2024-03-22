@@ -14,33 +14,39 @@ import {
   OnyxRadioButtonGroup,
   OnyxSkeleton,
   OnyxSwitch,
+  OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
+const COMPONENTS = [
+  "OnyxButton",
+  "OnyxCheckboxGroup",
+  "OnyxHeadline",
+  "OnyxIcon",
+  "OnyxIconButton",
+  "OnyxInput",
+  "OnyxLink",
+  "OnyxLoadingIndicator",
+  "OnyxRadioButtonGroup",
+  "OnyxSkeleton",
+  "OnyxSwitch",
+  "OnyxTooltip",
+] as const;
+
 /* Config data to regulate which components will be shown */
-const configOptions: SelectionOption<string>[] = [
-  { label: "OnyxButton" },
-  { label: "OnyxCheckboxGroup" },
-  { label: "OnyxHeadline" },
-  { label: "OnyxIcon" },
-  { label: "OnyxIconButton" },
-  { label: "OnyxInput" },
-  { label: "OnyxLink" },
-  { label: "OnyxLoadingIndicator" },
-  { label: "OnyxRadioButtonGroup" },
-  { label: "OnyxSkeleton" },
-  { label: "OnyxSwitch" },
-  // add new components here.
-].map((option) => ({
-  ...option,
-  id: option.label,
-}));
-const activeConfig = ref<string[]>(configOptions.map((option) => option.id));
-const show = (componentName: string) => activeConfig.value.includes(componentName);
+const configOptions = COMPONENTS.map((component) => ({
+  label: component,
+  id: component,
+})) satisfies SelectionOption<string>[];
+const activeConfig = ref(configOptions.map((option) => option.id));
+
+const show = computed(() => {
+  return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
+});
 
 /* Demo data for the components we show */
 const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
@@ -120,6 +126,10 @@ const radioState = ref<SelectionOption | undefined>();
             v-model="switchState"
             :label="'Switch is ' + (switchState ? 'on' : 'off')"
           />
+
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+            Hover me to show tooltip
+          </OnyxTooltip>
 
           <!-- Add new components here. -->
         </div>
