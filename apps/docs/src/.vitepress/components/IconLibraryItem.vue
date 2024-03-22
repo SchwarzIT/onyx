@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import check from "@sit-onyx/icons/check.svg?raw";
+import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
 import { computed, ref } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 import OnyxTooltip from "~components/OnyxTooltip/OnyxTooltip.vue";
@@ -27,7 +27,7 @@ const tooltipText = computed(() => {
 </script>
 
 <template>
-  <OnyxTooltip :text="tooltipText" position="bottom" :icon="isCopied ? check : undefined">
+  <OnyxTooltip :text="tooltipText" position="bottom" :icon="isCopied ? circleCheck : undefined">
     <button type="button" class="icon" @click="handleCopy">
       <OnyxIcon :icon="props.icon.content" />
     </button>
