@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.4
+
+### Minor Changes
+
+- 3d3e728: feat: support listbox keyboard shortcuts
+
 ## 0.1.0-alpha.3
 
 ### Minor Changes
