@@ -52,6 +52,7 @@ test("should behave correctly", async ({ mount }) => {
 const STATES = {
   state: ["default", "disabled", "loading"],
   variation: ["primary", "secondary", "danger"],
+  density: ["compact", "default", "cozy"],
   focusState: ["none", "hover", "focus-visible", "active"],
 } as const;
 
@@ -59,12 +60,13 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "icon-button",
-    async ({ variation, state, focusState }, mount, page) => {
+    async ({ variation, state, density, focusState }, mount, page) => {
       const component = await mount(
         <OnyxIconButton
           label="label"
           loading={state === "loading"}
           variation={variation}
+          density={density}
           disabled={state === "disabled"}
           icon={mockPlaywrightIcon}
         />,

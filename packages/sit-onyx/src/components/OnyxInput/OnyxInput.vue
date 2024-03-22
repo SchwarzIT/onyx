@@ -3,6 +3,7 @@ import { computed } from "vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
 import { useRequired } from "../../composables/required";
+import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -34,6 +35,7 @@ const emit = defineEmits<{
 }>();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+const { densityClass } = useDensity(props);
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
@@ -57,7 +59,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </script>
 
 <template>
-  <div :class="['onyx-input', requiredTypeClass]">
+  <div :class="['onyx-input', requiredTypeClass, densityClass]">
     <label>
       <div
         v-if="!props.hideLabel"
@@ -107,6 +109,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </template>
 
 <style lang="scss">
+@use "../../styles/density.scss";
 /**
 * Gets a comma separated CSS selector for the input autofill.
 * Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
@@ -129,6 +132,18 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 }
 
 .onyx-input {
+  @include density.compact {
+    --onyx-input-padding-vertical: var(--onyx-spacing-4xs);
+  }
+
+  @include density.default {
+    --onyx-input-padding-vertical: var(--onyx-spacing-2xs);
+  }
+
+  @include density.cozy {
+    --onyx-input-padding-vertical: var(--onyx-spacing-sm);
+  }
+
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-primary-200);
 
@@ -150,7 +165,6 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     }
   }
 
-  $padding-vertical: var(--onyx-spacing-2xs);
   $line-height: 1.5rem;
 
   &__wrapper {
@@ -167,8 +181,8 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     line-height: $line-height;
 
     box-sizing: border-box;
-    padding: $padding-vertical var(--onyx-spacing-sm);
-    height: calc($line-height + 2 * $padding-vertical);
+    padding: var(--onyx-input-padding-vertical) var(--onyx-spacing-sm);
+    height: calc($line-height + 2 * var(--onyx-input-padding-vertical));
 
     &:has(.onyx-input__native:read-write:hover) {
       border-color: var(--onyx-color-base-primary-400);

@@ -9,6 +9,7 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 import { useRequired } from "../../composables/required";
 import { OnyxLoadingIndicator } from "@/index";
+import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
@@ -28,6 +29,7 @@ const emit = defineEmits<{
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const { errorMessage } = toRefs(props);
+const { densityClass } = useDensity(props);
 const inputElement = ref<HTMLInputElement>();
 const validityState = ref(inputElement.value?.validity);
 
@@ -62,12 +64,12 @@ watch(
 </script>
 
 <template>
-  <div v-if="props.skeleton" class="onyx-switch-skeleton">
+  <div v-if="props.skeleton" :class="['onyx-switch-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-switch-skeleton__input" />
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredTypeClass]">
+  <label v-else class="onyx-switch" :class="[requiredTypeClass, densityClass]">
     <input
       ref="inputElement"
       v-model="isChecked"
@@ -95,9 +97,42 @@ watch(
 </template>
 
 <style lang="scss">
-$container-padding: var(--onyx-1px-in-rem);
-$icon-size: 1.25rem;
-$input-width: calc(2 * $icon-size - 2 * $container-padding);
+@use "../../styles/density.scss";
+
+.onyx-switch,
+.onyx-switch-skeleton {
+  // icon size + padding top/bottom + border top/bottom
+  --onyx-switch-skeleton-height: calc(
+    var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
+      var(--onyx-1px-in-rem)
+  );
+  --onyx-switch-cozy-width: 0rem;
+  --onyx-switch-container-padding: var(--onyx-1px-in-rem);
+
+  @include density.compact {
+    --onyx-switch-icon-size: 1rem;
+    --onyx-switch-transform: 0.125rem;
+  }
+
+  @include density.default {
+    --onyx-switch-icon-size: 1.25rem;
+    --onyx-switch-transform: var(--onyx-1px-in-rem);
+  }
+
+  @include density.cozy {
+    --onyx-switch-icon-size: 1.5rem;
+    --onyx-switch-cozy-width: 0.75rem;
+    --onyx-switch-container-padding: 0.25rem;
+    --onyx-switch-transform: 0.01rem;
+    --onyx-switch-input-height: 2rem;
+    --onyx-switch-skeleton-height: var(--onyx-switch-input-height);
+  }
+}
+
+$input-width: calc(
+  2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding) +
+    var(--onyx-switch-cozy-width)
+);
 
 .onyx-switch {
   display: inline-flex;
@@ -120,7 +155,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
 
       .onyx-switch__icon {
         background-color: var(--onyx-color-themed-neutral-100);
-        transform: translateX(calc(75% - $container-padding));
+        transform: translateX(calc(75% - var(--onyx-switch-transform)));
         color: var(--onyx-color-text-icons-primary-intense);
       }
 
@@ -168,12 +203,11 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
   }
 
   &__container {
-    $width: calc(2 * $icon-size - 2 * $container-padding);
-
     display: inline-flex;
     width: $input-width;
     min-width: $input-width;
-    padding: $container-padding;
+    height: var(--onyx-switch-input-height);
+    padding: var(--onyx-switch-container-padding);
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-full);
@@ -191,11 +225,11 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
         background-color var(--onyx-duration-sm) ease;
       overflow: hidden;
       color: var(--onyx-color-text-icons-neutral-soft);
-      height: $icon-size;
-      width: $icon-size;
+      height: var(--onyx-switch-icon-size);
+      width: var(--onyx-switch-icon-size);
 
       .onyx-icon {
-        --icon-size: #{$icon-size};
+        --icon-size: var(--onyx-switch-icon-size);
       }
 
       .onyx-switch__spinner {
@@ -266,8 +300,7 @@ $input-width: calc(2 * $icon-size - 2 * $container-padding);
   gap: var(--onyx-spacing-2xs);
 
   &__input {
-    // icon size + padding top/bottom + border top/bottom
-    height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
+    height: var(--onyx-switch-skeleton-height);
     border-radius: var(--onyx-radius-full);
     width: $input-width;
   }

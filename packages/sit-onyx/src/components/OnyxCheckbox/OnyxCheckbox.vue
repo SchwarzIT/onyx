@@ -4,6 +4,7 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 import { useRequired } from "../../composables/required";
 import { OnyxLoadingIndicator } from "@/index";
+import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
@@ -29,15 +30,16 @@ const isChecked = computed({
 
 /** True if the user has interacted with the checkbox once. */
 const isTouched = ref(false);
+const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div v-if="props.skeleton" class="onyx-checkbox-skeleton">
+  <div v-if="props.skeleton" :class="['onyx-checkbox-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-checkbox-skeleton__input" />
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-checkbox" :class="[requiredTypeClass]">
+  <label v-else class="onyx-checkbox" :class="[requiredTypeClass, densityClass]">
     <div class="onyx-checkbox__container">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
@@ -67,6 +69,8 @@ const isTouched = ref(false);
 </template>
 
 <style lang="scss">
+@use "../../styles/density.scss";
+
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {
     border-color: var(--onyx-color-base-#{$color}-300);
@@ -90,14 +94,29 @@ const isTouched = ref(false);
   }
 }
 
-$input-padding: var(--onyx-spacing-sm);
-$input-size: 1rem;
+.onyx-checkbox,
+.onyx-checkbox-skeleton {
+  @include density.compact {
+    --onyx-checkbox-input-size: 0.75rem;
+    --onyx-checkbox-input-padding: var(--onyx-spacing-xs);
+  }
+
+  @include density.default {
+    --onyx-checkbox-input-size: 1rem;
+    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
+  }
+
+  @include density.cozy {
+    --onyx-checkbox-input-size: 1.5rem;
+    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
+  }
+}
 
 .onyx-checkbox {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   cursor: pointer;
   width: max-content;
   max-width: 100%;
@@ -142,13 +161,13 @@ $input-size: 1rem;
   &__container {
     display: inline-flex;
     align-items: center;
-    padding: $input-padding;
+    padding: var(--onyx-checkbox-input-padding);
     border-radius: var(--onyx-radius-full);
   }
 
   &__input {
-    height: $input-size;
-    width: $input-size;
+    height: var(--onyx-checkbox-input-size);
+    width: var(--onyx-checkbox-input-size);
     appearance: none;
     margin: 0;
     border-radius: var(--onyx-radius-sm);
@@ -204,8 +223,8 @@ $input-size: 1rem;
 
   &__loading {
     color: var(--onyx-color-text-icons-primary-intense);
-    max-width: 1rem;
-    height: 1rem;
+    max-width: var(--onyx-checkbox-input-size);
+    height: var(--onyx-checkbox-input-size);
   }
 }
 
@@ -213,12 +232,12 @@ $input-size: 1rem;
   display: flex;
   align-items: center;
   gap: var(--onyx-spacing-md);
-  padding: $input-padding;
+  padding: var(--onyx-checkbox-input-padding);
   width: max-content;
 
   &__input {
-    height: $input-size;
-    width: $input-size;
+    height: var(--onyx-checkbox-input-size);
+    width: var(--onyx-checkbox-input-size);
   }
 
   &__label {

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxIconButtonProps } from "./types";
@@ -8,6 +9,8 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   type: "button",
   variation: "primary",
 });
+
+const { densityClass } = useDensity(props);
 
 defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
@@ -24,10 +27,11 @@ const emit = defineEmits<{
   <button
     class="onyx-icon-button"
     :aria-label="props.label"
-    :class="{
-      [`onyx-icon-button--${props.variation}`]: true,
-      'onyx-icon-button--loading': props.loading,
-    }"
+    :class="[
+      `onyx-icon-button--${props.variation}`,
+      { 'onyx-icon-button--loading': props.loading },
+      densityClass,
+    ]"
     :disabled="props.disabled || props.loading"
     @click="emit('click')"
   >
@@ -38,14 +42,28 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
+@use "../../styles/density.scss";
+
 .onyx-icon-button {
+  @include density.compact {
+    --onyx-icon-button-padding: var(--onyx-spacing-4xs);
+  }
+
+  @include density.default {
+    --onyx-icon-button-padding: var(--onyx-spacing-2xs);
+  }
+
+  @include density.cozy {
+    --onyx-icon-button-padding: var(--onyx-spacing-sm);
+  }
+
   --icon-button-color: var(--onyx-color-text-icons-primary-intense);
   --icon-button-bg-color: transparent;
   --icon-button-cursor: pointer;
 
   display: grid;
   place-items: center;
-  padding: var(--onyx-spacing-2xs);
+  padding: var(--onyx-icon-button-padding);
   color: var(--icon-button-color);
   cursor: var(--icon-button-cursor);
 
