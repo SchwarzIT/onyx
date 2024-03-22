@@ -3,7 +3,7 @@ import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 
 export type CreateTooltipOptions = {
-  trigger: MaybeRef<TooltipTrigger | boolean>;
+  open: MaybeRef<TooltipTrigger | boolean>;
   /**
    * Number of milliseconds to use as debounce when showing/hiding the tooltip
    * with openMode "hover".
@@ -39,7 +39,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
    * If openMode is set as boolean it will prefer it over the hover/click state.
    */
   const isVisible = computed(() => {
-    const mode = unref(options.trigger);
+    const mode = unref(options.open);
     if (typeof mode === "boolean") return mode;
     return debouncedVisible.value;
   });
@@ -52,7 +52,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   };
 
   const hoverEvents = computed(() => {
-    if (unref(options.trigger) !== "hover") return;
+    if (unref(options.open) !== "hover") return;
     return {
       onMouseover: () => (debouncedVisible.value = true),
       onMouseout: () => (debouncedVisible.value = false),
@@ -86,11 +86,11 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
    * the tooltip.
    */
   watchEffect(() => {
-    const trigger = unref(options.trigger);
+    const open = unref(options.open);
     document.removeEventListener("keydown", handleDocumentKeydown);
     document.removeEventListener("click", handleDocumentClick);
 
-    if (trigger === "click") {
+    if (open === "click") {
       document.addEventListener("keydown", handleDocumentKeydown);
       document.addEventListener("click", handleDocumentClick);
     }
@@ -100,12 +100,13 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     elements: {
       trigger: computed(() => ({
         "aria-describedby": tooltipId,
-        onClick: unref(options.trigger) === "click" ? handleClick : undefined,
+        onClick: unref(options.open) === "click" ? handleClick : undefined,
         ...hoverEvents.value,
       })),
       tooltip: computed(() => ({
         role: "tooltip",
         id: tooltipId,
+        tabindex: "-1",
         ...hoverEvents.value,
       })),
     },

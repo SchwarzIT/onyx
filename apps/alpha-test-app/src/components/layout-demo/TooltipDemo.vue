@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
   <OnyxTooltip
-    :trigger="props.forceTooltip != undefined ? props.forceTooltip : undefined"
+    :open="props.forceTooltip != undefined ? props.forceTooltip : undefined"
     text="Hi, I am the tooltip"
     position="bottom"
   >

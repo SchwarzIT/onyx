@@ -20,9 +20,9 @@ export type OnyxTooltipProps = {
    */
   fitParent?: boolean;
   /**
-   * How to trigger the tooltip. You can set a boolean to force show/hide the tooltip.
+   * How to open/trigger the tooltip. You can set a boolean to force show/hide the tooltip.
    */
-  trigger?: TooltipTrigger | boolean;
+  open?: TooltipTrigger | boolean;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;

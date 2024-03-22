@@ -18,7 +18,7 @@ const meta: Meta<typeof OnyxTooltip> = {
       default: {
         control: { disabled: true },
       },
-      trigger: {
+      open: {
         options: [...TOOLTIP_TRIGGERS, true, false],
       },
     },
@@ -45,7 +45,7 @@ export const Default = {
     text: "Tooltip text",
     default: () => "Slot content goes here",
     icon: circleInformation,
-    trigger: true,
+    open: true,
   },
 } satisfies Story;
 
@@ -57,7 +57,7 @@ export const Hover = {
   args: {
     ...Default.args,
     default: () => "Hover me to show the tooltip",
-    trigger: "hover",
+    open: "hover",
   },
 } satisfies Story;
 
@@ -68,7 +68,7 @@ export const Click = {
   args: {
     ...Default.args,
     default: () => "Click me to show the tooltip",
-    trigger: "click",
+    open: "click",
   },
 } satisfies Story;
 

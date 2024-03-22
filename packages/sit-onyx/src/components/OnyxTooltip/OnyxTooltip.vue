@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "top",
   fitParent: false,
-  trigger: "hover",
+  open: "hover",
 });
 
 defineSlots<{
@@ -22,13 +22,13 @@ const {
   elements: { trigger, tooltip },
   state: { isVisible },
 } = createTooltip({
-  trigger: computed(() => props.trigger),
+  open: computed(() => props.open),
   debounce: 200,
 });
 </script>
 
 <template>
-  <div class="onyx-tooltip-wrapper" :class="{ 'onyx-tooltip-wrapper--hidden': !isVisible }">
+  <div class="onyx-tooltip-wrapper">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
@@ -36,6 +36,7 @@ const {
         'onyx-tooltip--danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
         'onyx-tooltip--fit-parent': props.fitParent,
+        'onyx-tooltip--hidden': !isVisible,
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -82,6 +83,10 @@ const {
   transform: translateX(-50%);
   bottom: 100%;
 
+  &--hidden {
+    display: none;
+  }
+
   &--fit-parent {
     width: 100%;
   }
@@ -118,11 +123,5 @@ const {
 .onyx-tooltip-wrapper {
   position: relative;
   width: max-content;
-
-  &--hidden {
-    .onyx-tooltip {
-      display: none;
-    }
-  }
 }
 </style>

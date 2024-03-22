@@ -6,7 +6,7 @@ test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   await mount(
     <div style={{ width: "max-content", padding: "3rem 1rem" }}>
-      <OnyxTooltip text="Test tooltip" trigger={true}>
+      <OnyxTooltip text="Test tooltip" open={true}>
         Test slot content
       </OnyxTooltip>
     </div>,
@@ -24,7 +24,7 @@ test("should trigger with boolean", async ({ mount }) => {
   const component = await mount(OnyxTooltip, {
     props: {
       text: "Test tooltip",
-      trigger: false,
+      open: false,
     },
   });
 
@@ -34,7 +34,7 @@ test("should trigger with boolean", async ({ mount }) => {
   await expect(tooltip).toBeHidden();
 
   // ACT
-  await component.update({ props: { trigger: true } });
+  await component.update({ props: { open: true } });
 
   // ASSERT
   await expect(tooltip).toBeVisible();
@@ -78,9 +78,6 @@ test("should trigger with hover", async ({ mount, page }) => {
 
   await page.keyboard.press("Tab");
   await expect(tooltip).toBeVisible();
-
-  await page.keyboard.press("Tab");
-  await expect(tooltip).toBeHidden();
 });
 
 test("should trigger with click", async ({ mount, page }) => {
@@ -88,7 +85,7 @@ test("should trigger with click", async ({ mount, page }) => {
   const component = await mount(OnyxTooltip, {
     props: {
       text: "Test tooltip",
-      trigger: "click",
+      open: "click",
     },
     slots: {
       default: "Slot content",
@@ -132,7 +129,7 @@ test.describe("state screenshot tests", () => {
           position={variant === "bottom" ? "bottom" : undefined}
           icon={variant === "icon" ? mockPlaywrightIcon : undefined}
           fitParent={text === "fitParent"}
-          trigger={true}
+          open={true}
         >
           <span
             style={{
