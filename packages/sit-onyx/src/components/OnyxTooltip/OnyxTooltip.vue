@@ -14,8 +14,17 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
 defineSlots<{
   /**
    * Default slot where the parent content is placed that should open/close the tooltip.
+   *
+   * **Accessibility**: Please ensure that your content is focusable (e.g. the component itself or by adding a tabindex)
+   * so it can be focussed with the Tab key.
    */
   default(props: Record<string, unknown>): unknown;
+  /**
+   * Optional slot to place custom content for the tooltip text.
+   *
+   * **Accessibility**: Make sure that the tooltip content is NOT focusable/interactive.
+   */
+  tooltip?(props: Record<string, unknown>): unknown;
 }>();
 
 const {
@@ -39,7 +48,9 @@ const {
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
-      <span>{{ props.text }}</span>
+      <slot name="tooltip">
+        <span>{{ props.text }}</span>
+      </slot>
     </div>
 
     <div v-bind="trigger">
