@@ -44,6 +44,9 @@ export * from "@/components/OnyxSwitch/types";
 
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 
+export { default as OnyxTooltip } from "@/components/OnyxTooltip/OnyxTooltip.vue";
+export * from "@/components/OnyxTooltip/types";
+
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
 export { createOnyx } from "@/utils/plugin";
