@@ -3,7 +3,7 @@
  */
 // ⚠️ we make use of an IIFE to encapsulate the globalCounter so it can never accidentally be used somewhere else.
 const nextId = (() => {
-  let globalCounter = 0;
+  let globalCounter = 1;
   return () => globalCounter++;
 })();
 
