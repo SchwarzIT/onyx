@@ -3,15 +3,19 @@ import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 
 export type CreateTooltipOptions = {
-  open: MaybeRef<TooltipTrigger | boolean>;
-  /**
-   * Number of milliseconds to use as debounce when showing/hiding the tooltip
-   * with openMode "hover".
-   *
-   * @default 0
-   */
-  debounce?: number;
+  open: MaybeRef<TooltipOpen>;
 };
+
+export type TooltipOpen =
+  | TooltipTrigger
+  | boolean
+  | {
+      type: "hover";
+      /**
+       * Number of milliseconds to use as debounce when showing/hiding the tooltip
+       */
+      debounce: number;
+    };
 
 export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
 export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
@@ -20,6 +24,18 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   const tooltipId = createId("tooltip");
   const _isVisible = ref(false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
+
+  const debounce = computed(() => {
+    const open = unref(options.open);
+    if (typeof open !== "object") return 200;
+    return open.debounce;
+  });
+
+  const openType = computed(() => {
+    const open = unref(options.open);
+    if (typeof open !== "object") return open;
+    return open.type;
+  });
 
   /**
    * Debounced visible state that will only be toggled after a given timeout.
@@ -30,7 +46,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         _isVisible.value = newValue;
-      }, options.debounce ?? 0);
+      }, debounce.value);
     },
   });
 
@@ -39,8 +55,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
    * If openMode is set as boolean it will prefer it over the hover/click state.
    */
   const isVisible = computed(() => {
-    const mode = unref(options.open);
-    if (typeof mode === "boolean") return mode;
+    if (typeof openType.value === "boolean") return openType.value;
     return debouncedVisible.value;
   });
 
@@ -52,7 +67,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   };
 
   const hoverEvents = computed(() => {
-    if (unref(options.open) !== "hover") return;
+    if (openType.value !== "hover") return;
     return {
       onMouseover: () => (debouncedVisible.value = true),
       onMouseout: () => (debouncedVisible.value = false),
@@ -86,11 +101,10 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
    * the tooltip.
    */
   watchEffect(() => {
-    const open = unref(options.open);
     document.removeEventListener("keydown", handleDocumentKeydown);
     document.removeEventListener("click", handleDocumentClick);
 
-    if (open === "click") {
+    if (openType.value === "click") {
       document.addEventListener("keydown", handleDocumentKeydown);
       document.addEventListener("click", handleDocumentClick);
     }
@@ -100,7 +114,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     elements: {
       trigger: computed(() => ({
         "aria-describedby": tooltipId,
-        onClick: unref(options.open) === "click" ? handleClick : undefined,
+        onClick: openType.value === "click" ? handleClick : undefined,
         ...hoverEvents.value,
       })),
       tooltip: computed(() => ({
