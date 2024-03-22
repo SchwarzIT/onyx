@@ -48,7 +48,7 @@ type Story = StoryObj<typeof OnyxTooltip>;
 export const Default = {
   args: {
     text: "Tooltip text",
-    default: () => h("span", { tabindex: "0" }, "Slot content goes here"),
+    default: () => h(OnyxButton, { label: "Slot content goes here" }),
     icon: circleInformation,
     open: true,
   },
@@ -61,7 +61,7 @@ export const Default = {
 export const Hover = {
   args: {
     ...Default.args,
-    default: () => h("span", { tabindex: "0" }, "Hover me to show the tooltip"),
+    default: () => h(OnyxButton, { label: "Hover me to show the tooltip" }),
     open: "hover",
   },
 } satisfies Story;

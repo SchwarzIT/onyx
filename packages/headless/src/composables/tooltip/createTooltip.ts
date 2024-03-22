@@ -103,9 +103,10 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
    * the tooltip.
    */
   watchEffect(() => {
-    document.removeEventListener("click", handleDocumentClick);
     if (openType.value === "click") {
       document.addEventListener("click", handleDocumentClick);
+    } else {
+      document.removeEventListener("click", handleDocumentClick);
     }
   });
 

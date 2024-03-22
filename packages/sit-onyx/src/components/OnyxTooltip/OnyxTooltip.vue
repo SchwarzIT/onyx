@@ -15,8 +15,8 @@ defineSlots<{
   /**
    * Default slot where the parent content is placed that should open/close the tooltip.
    *
-   * **Accessibility**: Please ensure that your content is focusable (e.g. the component itself or by adding a tabindex)
-   * so it can be focussed with the Tab key.
+   * **Accessibility**: Please ensure that your content includes at least one focusable element
+   * (e.g. by using a button or input element).
    */
   default(props: Record<string, unknown>): unknown;
   /**
