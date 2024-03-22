@@ -2,12 +2,12 @@
 import DesignTokenCard from "./DesignTokenCard.vue";
 
 const shadows = [
-  "onyx-shadow-soft-left",
-  "onyx-shadow-soft-bottom",
-  "onyx-shadow-soft-right",
-  "onyx-shadow-medium-left",
   "onyx-shadow-medium-bottom",
+  "onyx-shadow-medium-left",
   "onyx-shadow-medium-right",
+  "onyx-shadow-soft-bottom",
+  "onyx-shadow-soft-left",
+  "onyx-shadow-soft-right",
 ];
 </script>
 
