@@ -59,7 +59,7 @@ export const CheckedLoading = {
 } satisfies Story;
 
 /**
- * This example shows an switch without a visual label.
+ * This example shows a switch without a visual label.
  * For accessibility / screen readers it must still be passed.
  */
 export const HiddenLabel = {
