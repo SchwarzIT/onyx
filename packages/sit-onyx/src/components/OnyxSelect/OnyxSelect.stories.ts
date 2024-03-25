@@ -24,21 +24,46 @@ export default meta;
 type Story = StoryObj<typeof OnyxSelect>;
 
 /**
- * This example shows a default select.
+ * This example shows an select. Nothing was selected yet.
  */
 export const Default = {
   args: {
     label: "Fruits",
+    placeholder: "Select your fruits",
   },
 } satisfies Story;
 
 /**
- * This example shows an select with a placeholder.
+ * This example shows a single select with initial value.
  */
-export const Placeholder = {
+export const InitializedSingleSelect = {
   args: {
-    label: "Fruits",
-    placeholder: "Select your fruits",
+    ...Default.args,
+    modelValue: "Banana",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a multi select with multiple initial items.
+ * A summary of the items is displayed.
+ */
+export const InitializedMultiSelect = {
+  args: {
+    ...Default.args,
+    multiselect: true,
+    modelValue: ["Banana", "Apple"],
+  },
+} satisfies Story;
+
+/**
+ * This example shows a multi select with multiple initial items.
+ * A Preview of the items is displayed.
+ */
+export const InitializedMultiSelectPreview = {
+  args: {
+    ...InitializedMultiSelect.args,
+    modelValue: ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
+    multiselectDisplay: "preview",
   },
 } satisfies Story;
 

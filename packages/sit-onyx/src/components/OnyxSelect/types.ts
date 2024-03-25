@@ -2,12 +2,12 @@ import type { RequiredMarkerProp } from "../../composables/required";
 
 export type MultiSelectDisplay = "summary" | "preview";
 
-export type OnyxSelectProps = RequiredMarkerProp & {
+export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerProp & {
   /**
    * Current value of the select.
    * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
    */
-  modelValue?: string;
+  modelValue?: TValue;
   /**
    * Label to show above the select. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.
@@ -44,7 +44,7 @@ export type OnyxSelectProps = RequiredMarkerProp & {
    * - preview: will show the names of the selection as a truncated list with a number-badge next to it,
    *            this will show all selected names in a tooltip
    */
-  multiSelectDisplay?: MultiSelectDisplay;
+  multiselectDisplay?: MultiSelectDisplay;
   /**
    * Message / help text to display below the input.
    */

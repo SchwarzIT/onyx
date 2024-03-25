@@ -1,11 +1,12 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends string | string[] = string">
 import { useRequired } from "@/composables/required";
-import type { OnyxSelectProps } from "./types";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import type { OnyxSelectProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxSelectProps>(), {
-  modelValue: "",
+const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
   skeleton: false,
   loading: false,
@@ -13,12 +14,12 @@ const props = withDefaults(defineProps<OnyxSelectProps>(), {
   multiSelectDisplay: "summary",
 });
 
-const emit = defineEmits<{
+defineEmits<{
   /**
    * Emitted when the current value changes.
    * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
    */
-  "update:modelValue": [value: string];
+  "update:modelValue": [value: typeof props.modelValue];
 }>();
 
 /**
@@ -28,9 +29,21 @@ const emit = defineEmits<{
  * TODO: extract the text after the select type gets changed
  * TODO: transform text for multi select
  */
-const selectionText = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
+const selectionText = computed(() => {
+  if (Array.isArray(props.modelValue)) {
+    const numberOfItems = props.modelValue.length;
+    switch (props.multiSelectDisplay) {
+      case "summary":
+        if (!numberOfItems) return "";
+        if (numberOfItems === 1) return props.modelValue[0];
+        // TODO: translate.
+        return `${numberOfItems} Selected`;
+      case "preview":
+        return props.modelValue.join(", ");
+    }
+  }
+
+  return props.modelValue;
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
@@ -60,6 +73,8 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
         />
+
+        <OnyxIcon :icon="chevronDownUp" class="onyx-select__icon" />
       </div>
     </label>
 
@@ -118,18 +133,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
       --border-color: var(--onyx-color-base-primary-500);
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
     }
-
-    // styles when not disabled
-    &:has(.onyx-select__input:enabled) {
-      &:has(.onyx-select__input:hover) {
-        --border-color: var(--onyx-color-base-neutral-400);
-      }
-
-      &:has(.onyx-select__input:focus) {
-        --border-color: var(--onyx-color-base-neutral-500);
-        outline-color: var(--onyx-color-base-neutral-200);
-      }
-    }
   }
 
   &__input {
@@ -165,6 +168,10 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
+  }
+
+  &__icon {
+    color: var(--onyx-color-text-icons-primary-intense);
   }
 
   &__loading {
