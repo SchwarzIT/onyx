@@ -24,6 +24,7 @@ const emit = defineEmits<{
   <button
     class="onyx-icon-button"
     :aria-label="props.label"
+    :title="props.label"
     :class="{
       [`onyx-icon-button--${props.variation}`]: true,
       'onyx-icon-button--loading': props.loading,

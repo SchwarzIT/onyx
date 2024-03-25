@@ -54,6 +54,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.8.5",
     "@sit-onyx/headless": "workspace:^",
-    "eslint-plugin-vue-scoped-css": "^2.7.2"
+    "eslint-plugin-vue-scoped-css": "^2.8.0"
   }
 }
