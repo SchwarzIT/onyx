@@ -115,6 +115,7 @@ export const WithMessage = {
  */
 export const HiddenLabel = {
   args: {
+    ...Default.args,
     label: "Fruits",
     hideLabel: true,
   },

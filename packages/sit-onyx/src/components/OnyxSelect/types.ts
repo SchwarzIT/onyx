@@ -25,6 +25,7 @@ export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerPr
   disabled?: boolean;
   /**
    * Whether to show a skeleton select.
+   * TODO: implement skeleton
    */
   skeleton?: boolean;
   /**
@@ -45,6 +46,7 @@ export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerPr
    * - summary: will show "x Selected" if more than 1 is selected.
    * - preview: will show the names of the selection as a truncated list.
    *            A number-badge appears next to it including a tooltip with all selected names.
+   * Has no effect on single select mode.
    */
   multiselectTextMode?: MultiselectTextMode;
   /**
