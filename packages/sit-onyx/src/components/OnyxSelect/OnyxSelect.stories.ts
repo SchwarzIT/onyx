@@ -50,7 +50,7 @@ export const InitializedSingleSelect = {
 export const InitializedMultiSelect = {
   args: {
     ...Default.args,
-    multiselect: true,
+    multiple: true,
     modelValue: ["Banana", "Apple"],
   },
 } satisfies Story;

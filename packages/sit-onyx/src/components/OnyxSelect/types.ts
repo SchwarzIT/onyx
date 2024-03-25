@@ -36,9 +36,10 @@ export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerPr
    */
   placeholder?: string;
   /**
-   * Placeholder to show when the value is empty.
+   * Whether multiple values can be selected.
+   * TODO: clarify, if "multiple" should be derived implicitly by TValue?
    */
-  multiselect?: boolean;
+  multiple?: boolean;
   /**
    * How the multi select value will be displayed in the input.
    * - summary: will show "x Selected" if more than 1 is selected.

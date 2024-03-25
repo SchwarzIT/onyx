@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
   skeleton: false,
   loading: false,
-  multiselect: false,
+  multiple: false,
   multiselectTextMode: "summary",
 });
 
@@ -70,6 +70,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
       <div class="onyx-select__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-select__loading" type="circle" />
 
+        <!-- TODO: use HTML select instead of input? -->
         <input
           v-model="selectionText"
           class="onyx-select__input"
@@ -100,6 +101,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </template>
 
 <style lang="scss">
+// TODO: fine-tune styles, they are based on the OnyxInput so far.
 .onyx-select {
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-neutral-200);
