@@ -63,7 +63,7 @@ export const InitializedMultiSelectPreview = {
   args: {
     ...InitializedMultiSelect.args,
     modelValue: ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
-    multiselectDisplay: "preview",
+    multiselectTextMode: "preview",
   },
 } satisfies Story;
 

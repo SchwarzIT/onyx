@@ -1,3 +1,4 @@
+<!-- TODO: change the generic "extends" from string/[] to whatever listbox and combobox need -->
 <script lang="ts" setup generic="TValue extends string | string[] = string">
 import { useRequired } from "@/composables/required";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
@@ -5,13 +6,14 @@ import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxSelectProps } from "./types";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
   skeleton: false,
   loading: false,
   multiselect: false,
-  multiSelectDisplay: "summary",
+  multiselectTextMode: "summary",
 });
 
 defineEmits<{
@@ -22,17 +24,23 @@ defineEmits<{
   "update:modelValue": [value: typeof props.modelValue];
 }>();
 
+const previewBadgeNumber = computed<number | undefined>(() => {
+  if (Array.isArray(props.modelValue) && props.multiselectTextMode === "preview") {
+    return props.modelValue.length;
+  }
+  return undefined;
+});
+
 /**
  * Selection that will be displayed in the select input field.
  * On single select, it matches the name of the option.
  * On multi select, it is a summary of the options.
  * TODO: extract the text after the select type gets changed
- * TODO: transform text for multi select
  */
-const selectionText = computed(() => {
+const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
     const numberOfItems = props.modelValue.length;
-    switch (props.multiSelectDisplay) {
+    switch (props.multiselectTextMode) {
       case "summary":
         if (!numberOfItems) return "";
         if (numberOfItems === 1) return props.modelValue[0];
@@ -43,7 +51,7 @@ const selectionText = computed(() => {
     }
   }
 
-  return props.modelValue;
+  return (props.modelValue ?? "") as string;
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
@@ -73,6 +81,13 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
         />
+
+        <!-- TODO: figure out how the tooltip width can be sized to the select-input 
+        while the trigger arrow needs to point to the badge.. -->
+        <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
+          <!-- TODO: use OnyxBadge component once it is implemented -->
+          <div class="onyx-badge">{{ previewBadgeNumber }}</div>
+        </OnyxTooltip>
 
         <OnyxIcon :icon="chevronDownUp" class="onyx-select__icon" />
       </div>
@@ -182,5 +197,14 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     width: 100%;
     color: var(--onyx-color-text-icons-neutral-soft);
   }
+}
+
+// TODO: remove badge styles once onyxBadge is implemented
+.onyx-badge {
+  text-align: center;
+  padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
+  border-radius: var(--onyx-radius-full);
+  background: var(--onyx-color-base-neutral-700);
+  color: var(--onyx-color-text-icons-neutral-inverted);
 }
 </style>

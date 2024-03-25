@@ -1,6 +1,7 @@
 import type { RequiredMarkerProp } from "../../composables/required";
 
-export type MultiSelectDisplay = "summary" | "preview";
+export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
+export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 
 export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerProp & {
   /**
@@ -41,12 +42,12 @@ export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerPr
   /**
    * How the multi select value will be displayed in the input.
    * - summary: will show "x Selected" if more than 1 is selected.
-   * - preview: will show the names of the selection as a truncated list with a number-badge next to it,
-   *            this will show all selected names in a tooltip
+   * - preview: will show the names of the selection as a truncated list.
+   *            A number-badge appears next to it including a tooltip with all selected names.
    */
-  multiselectDisplay?: MultiSelectDisplay;
+  multiselectTextMode?: MultiselectTextMode;
   /**
-   * Message / help text to display below the input.
+   * Message / help text to display below the select input.
    */
   message?: string;
 };
