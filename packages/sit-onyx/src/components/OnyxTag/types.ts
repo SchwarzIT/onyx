@@ -1,4 +1,4 @@
-import type { OnyxColor } from "@/types";
+// import type { OnyxColor } from "@/types/colors";
 
 export type OnyxTagProps = {
   /**
@@ -19,7 +19,8 @@ export type OnyxTagProps = {
   // dense?: boolean;
 };
 
-export const TAG_VARIATIONS = [
+/// TODO: need to fix it
+export const ONYX_COLORS = [
   "primary",
   "secondary",
   "danger",
@@ -27,4 +28,4 @@ export const TAG_VARIATIONS = [
   "success",
   "info",
 ] as const;
-export type TagVariation = (typeof TAG_VARIATIONS)[number];
+export type OnyxColor = (typeof ONYX_COLORS)[number];

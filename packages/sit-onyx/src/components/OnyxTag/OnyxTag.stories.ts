@@ -19,20 +19,10 @@ const meta: Meta<typeof OnyxTag> = {
     argTypes: {
       icon: defineIconSelectArgType(),
     },
-    // decorators: [
-    //   (story) => ({
-    //     components: { story },
-    //     template: `
-    //   <div class="onyx-text" style="font-family: var(--onyx-font-family);">
-    //     <story />
-    //   </div>`,
-    //   }),
-    // ],
   }),
   parameters: {
     docs: {
       source: {
-        // improve code snippet by adding the icon import
         transform: createIconSourceCodeTransformer("icon"),
       },
     },
