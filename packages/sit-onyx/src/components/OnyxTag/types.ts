@@ -1,4 +1,4 @@
-// import type { OnyxColor } from "@/types/colors";
+import type { OnyxColor } from "../../types/colors";
 
 export type OnyxTagProps = {
   /**
@@ -8,7 +8,7 @@ export type OnyxTagProps = {
   /**
    * The color of the tag.
    */
-  color?: OnyxColor;
+  color?: Extract<OnyxColor, "primary" | "secondary" | "danger" | "warning" | "success" | "info">;
   /**
    * An icon which will be displayed on the left side of the label.
    */
@@ -16,16 +16,8 @@ export type OnyxTagProps = {
   /**
    * The density of the tag.
    */
-  // dense?: boolean;
+  density?: Density;
 };
 
-/// TODO: need to fix it
-export const ONYX_COLORS = [
-  "primary",
-  "secondary",
-  "danger",
-  "warning",
-  "success",
-  "info",
-] as const;
-export type OnyxColor = (typeof ONYX_COLORS)[number];
+export const DENSITIES = ["default", "compact", "cozy"] as const;
+export type Density = (typeof DENSITIES)[number];

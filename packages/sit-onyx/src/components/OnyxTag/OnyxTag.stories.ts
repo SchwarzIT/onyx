@@ -27,6 +27,15 @@ const meta: Meta<typeof OnyxTag> = {
       },
     },
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+    <div class="onyx-text" style="font-family: var(--onyx-font-family);">
+      <story />
+    </div>`,
+    }),
+  ],
 };
 
 export default meta;

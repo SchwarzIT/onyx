@@ -4,42 +4,38 @@ import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
   color: "primary",
+  density: "default",
 });
 </script>
 
 <template>
-  <label class="onyx-tag" :class="[`onyx-tag--${props.color}`]" for="onyx-tag">
+  <div class="onyx-tag" :class="[`onyx-tag--${props.color}`]">
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
     <span class="onyx-tag__label onyx-truncation-ellipsis">{{ props.label }}</span>
-  </label>
+  </div>
 </template>
 
 <style lang="scss">
 .onyx-tag {
   --onyx-tag-text-color: var(--onyx-color-text-icons-primary-intense);
+  --onyx-tag-background-color: var(--onyx-color-text-icons-primary-300);
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   box-sizing: border-box;
   color: var(--onyx-tag-text-color);
   font-family: var(--onyx-font-family);
+  padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+  border-radius: var(--onyx-radius-sm);
+  border: 1px solid var(--onyx-tag-text-color);
+  background-color: var(--onyx-tag-background-color);
 
-  &--primary {
-  }
-  &--secondary {
-    --onyx-tag-text-color: var(--onyx-color-text-icons-neutral-intense);
-  }
-  &--danger {
-    --onyx-tag-text-color: var(--onyx-color-text-icons-danger-intense);
-  }
-  &--warning {
-    --onyx-tag-text-color: var(--onyx-color-text-icons-warning-intense);
-  }
-  &--success {
-    --onyx-tag-text-color: var(--onyx-color-text-icons-success-intense);
-  }
-  &--info {
-    --onyx-tag-text-color: var(--onyx-color-text-icons-info-intense);
+  $colors: primary, secondary, danger, warning, success, info;
+
+  @each $color in $colors {
+    &--#{$color} {
+      --onyx-tag-text-color: var(--onyx-color-text-icons-#{$color}-intense);
+    }
   }
 
   &__label {
