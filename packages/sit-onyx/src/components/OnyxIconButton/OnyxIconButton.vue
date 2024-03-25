@@ -61,9 +61,11 @@ const emit = defineEmits<{
     border-radius: var(--onyx-radius-full);
     background-color: var(--icon-button-bg-color);
 
-    &:hover,
-    &:focus-visible {
-      --icon-button-bg-color: var(--onyx-color-base-primary-200);
+    @include layers.hover {
+      &:hover,
+      &:focus-visible {
+        --icon-button-bg-color: var(--onyx-color-base-primary-200);
+      }
     }
 
     &:disabled:not(&--loading) {

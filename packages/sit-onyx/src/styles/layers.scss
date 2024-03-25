@@ -1,4 +1,4 @@
-@layer onyx.reset, onyx.utility, onyx.component;
+@layer onyx.reset, onyx.utility, onyx.filled, onyx.hover, onyx.focus, onyx.focus-visible, onyx.active, onyx.disabled, onyx.component;
 
 @mixin component() {
   @layer onyx.reset {
