@@ -32,7 +32,7 @@ export type OnyxSwitchProps = RequiredMarkerProp & {
    */
   truncation?: TruncationType;
   /**
-   * Whether to show a skeleton button.
+   * Whether to show a skeleton switch.
    */
   skeleton?: boolean;
 };

@@ -134,8 +134,6 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   --selection-color: var(--onyx-color-base-primary-200);
 
   font-family: var(--onyx-font-family);
-  display: block;
-
   display: flex;
   flex-direction: column;
   gap: var(--onyx-spacing-5xs);
