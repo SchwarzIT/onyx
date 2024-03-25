@@ -75,7 +75,7 @@ watch(
   >
     <!-- Linter incorrectly finds an error. For a native `input` the `aria-checked` is not necessary. There is an open issue about it: https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/issues/932  -->
     <!-- eslint-disable vuejs-accessibility/role-has-required-aria-props -->
-    <!-- TODO: disable can be merged when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
+    <!-- TODO: disable can be removed when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
     <input
       ref="inputElement"
       v-model="isChecked"
