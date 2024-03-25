@@ -82,6 +82,7 @@ const {
   color: var(--color);
   font-family: var(--onyx-font-family);
   text-align: center;
+  white-space: pre-line;
 
   min-width: var(--onyx-spacing-3xl);
   width: max-content;
@@ -115,6 +116,7 @@ const {
     border-width: $wedge-size;
     border-style: solid;
     border-color: var(--background-color) transparent transparent;
+    white-space: normal;
   }
 
   &--bottom {
