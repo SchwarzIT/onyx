@@ -41,7 +41,7 @@ export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerPr
    */
   multiple?: boolean;
   /**
-   * How the multi select value will be displayed in the input.
+   * How the multiselect value will be displayed in the input.
    * - summary: will show "x Selected" if more than 1 is selected.
    * - preview: will show the names of the selection as a truncated list.
    *            A number-badge appears next to it including a tooltip with all selected names.

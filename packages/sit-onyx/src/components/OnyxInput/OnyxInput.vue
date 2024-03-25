@@ -218,6 +218,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
+      font-weight: 400;
       opacity: 1;
     }
 

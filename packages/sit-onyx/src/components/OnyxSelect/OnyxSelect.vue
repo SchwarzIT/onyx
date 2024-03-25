@@ -73,7 +73,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
         <!-- TODO: use HTML select instead of input? -->
         <input
           v-model="selectionText"
-          class="onyx-select__input"
+          class="onyx-select__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
           type="text"
           :required="props.required"
@@ -109,7 +109,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
   font-family: var(--onyx-font-family);
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
+  gap: var(--onyx-spacing-2xs);
 
   &__label {
     display: flex;
@@ -122,13 +122,17 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     }
   }
 
-  $padding-vertical: var(--onyx-spacing-2xs);
-  $line-height: 1.5rem;
+  &__icon {
+    color: var(--onyx-color-text-icons-neutral-medium);
+  }
 
   &__wrapper {
+    $padding-vertical: var(--onyx-spacing-2xs);
+    $line-height: 1.5rem;
+
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
-    background-color: var(--onyx-color-base-background-tinted);
+    background: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     display: flex;
@@ -142,13 +146,16 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     padding: $padding-vertical var(--onyx-spacing-sm);
     height: calc($line-height + 2 * $padding-vertical);
 
-    &:has(.onyx-select__input:read-write:hover) {
-      border-color: var(--onyx-color-base-primary-400);
-    }
+    &:has(.onyx-select__input:enabled) {
+      cursor: pointer;
 
-    &:has(.onyx-select__input:enabled:focus) {
-      --border-color: var(--onyx-color-base-primary-500);
-      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+      &:hover {
+        --border-color: var(--onyx-color-base-primary-400);
+
+        .onyx-select__icon {
+          color: var(--onyx-color-text-icons-primary-medium);
+        }
+      }
     }
   }
 
@@ -164,10 +171,12 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     font-size: inherit;
     line-height: inherit;
     padding: 0;
+    cursor: inherit;
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
       opacity: 1;
+      font-weight: 400;
     }
 
     &::selection {
@@ -175,6 +184,18 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     }
   }
 
+  &:has(.onyx-select__input:enabled:focus) {
+    .onyx-select {
+      &__wrapper {
+        --border-color: var(--onyx-color-base-primary-500);
+        outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+      }
+
+      &__icon {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+  }
   &:has(&__input:disabled) {
     .onyx-select {
       &__label {
@@ -182,13 +203,11 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
       }
 
       &__wrapper {
+        background-color: var(--onyx-color-base-background-tinted);
         color: var(--onyx-color-text-icons-neutral-soft);
+        --border-color: var(--onyx-color-base-neutral-300);
       }
     }
-  }
-
-  &__icon {
-    color: var(--onyx-color-text-icons-primary-intense);
   }
 
   &__loading {
