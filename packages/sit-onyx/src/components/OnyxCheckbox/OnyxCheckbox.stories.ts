@@ -61,7 +61,7 @@ export const Required = {
 /**
  * A checkbox without a label.
  */
-export const WithoutLabel = {
+export const HiddenLabel = {
   args: {
     ...Default.args,
     hideLabel: true,

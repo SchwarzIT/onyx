@@ -59,6 +59,17 @@ export const CheckedLoading = {
 } satisfies Story;
 
 /**
+ * This example shows a switch without a visual label.
+ * For accessibility / screen readers it must still be passed.
+ */
+export const HiddenLabel = {
+  args: {
+    label: "Accessibility Label",
+    hideLabel: true,
+  },
+} satisfies Story;
+
+/**
  * A switch with truncation. You can set the "truncation" property to choose between the different truncation types.
  */
 export const WithTruncation = {
