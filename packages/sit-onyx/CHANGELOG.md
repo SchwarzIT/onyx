@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.55
+
+### Patch Changes
+
+- b7758f7: fix(OnyxTooltip): render newlines in text property
+
 ## 1.0.0-alpha.54
 
 ### Minor Changes
