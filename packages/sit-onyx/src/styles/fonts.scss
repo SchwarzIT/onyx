@@ -1,36 +1,38 @@
-.onyx-text {
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  text-wrap: balance;
+@layer onyx.utility {
+  .onyx-text {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-wrap: balance;
 
-  &--small {
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+    &--small {
+      font-size: 0.8125rem;
+      line-height: 1.25rem;
+    }
+
+    &--large {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+
+    &--monospace {
+      font-family: var(--onyx-font-family-mono);
+    }
   }
 
-  &--large {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
+  // when adding styles for new truncation types, make sure to also add them inside types/fonts.ts
+  .onyx-truncation {
+    &-ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-  &--monospace {
-    font-family: var(--onyx-font-family-mono);
-  }
-}
-
-// when adding styles for new truncation types, make sure to also add them inside types/fonts.ts
-.onyx-truncation {
-  &-ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &-multiline {
-    // needed to wrap the text to a newline even when its one long word,
-    // otherwise the max width would be overflown
-    overflow-wrap: anywhere;
-    hyphens: auto;
+    &-multiline {
+      // needed to wrap the text to a newline even when its one long word,
+      // otherwise the max width would be overflown
+      overflow-wrap: anywhere;
+      hyphens: auto;
+    }
   }
 }

@@ -3,59 +3,67 @@ $density-default: 2.5rem;
 $density-cozy: 3rem;
 
 @mixin compact {
-  .onyx-density-compact &,
-  :is(&).onyx-density-compact {
-    @content;
+  @layer onyx.utility {
+    .onyx-density-compact &,
+    :is(&).onyx-density-compact {
+      @content;
+    }
   }
 }
 
 @mixin default {
-  &,
-  .onyx-density-default &,
-  :is(&).onyx-density-default {
-    @content;
+  @layer onyx.utility {
+    &,
+    .onyx-density-default &,
+    :is(&).onyx-density-default {
+      @content;
+    }
   }
 }
 
 @mixin cozy {
-  .onyx-density-cozy &,
-  :is(&).onyx-density-cozy {
-    @content;
+  @layer onyx.utility {
+    .onyx-density-cozy &,
+    :is(&).onyx-density-cozy {
+      @content;
+    }
   }
 }
 
-.onyx-density-compact {
-  --onyx-density: #{$density-compact};
-}
-
-:root,
-.onyx-density-default {
-  --onyx-density: #{$density-default};
-}
-
-.onyx-density-cozy {
-  --onyx-density: #{$density-cozy};
-}
-
-@media (pointer: fine) {
-  .onyx-density-fine-compact {
+@layer onyx.utility {
+  .onyx-density-compact {
     --onyx-density: #{$density-compact};
   }
-  .onyx-density-fine-default {
+
+  :root,
+  .onyx-density-default {
     --onyx-density: #{$density-default};
   }
-  .onyx-density-fine-cozy {
+
+  .onyx-density-cozy {
     --onyx-density: #{$density-cozy};
   }
-}
-@media (pointer: coarse) {
-  .onyx-density-coarse-compact {
-    --onyx-density: #{$density-compact};
+
+  @media (pointer: fine) {
+    .onyx-density-fine-compact {
+      --onyx-density: #{$density-compact};
+    }
+    .onyx-density-fine-default {
+      --onyx-density: #{$density-default};
+    }
+    .onyx-density-fine-cozy {
+      --onyx-density: #{$density-cozy};
+    }
   }
-  .onyx-density-coarse-default {
-    --onyx-density: #{$density-default};
-  }
-  .onyx-density-coarse-cozy {
-    --onyx-density: #{$density-cozy};
+  @media (pointer: coarse) {
+    .onyx-density-coarse-compact {
+      --onyx-density: #{$density-compact};
+    }
+    .onyx-density-coarse-default {
+      --onyx-density: #{$density-default};
+    }
+    .onyx-density-coarse-cozy {
+      --onyx-density: #{$density-cozy};
+    }
   }
 }

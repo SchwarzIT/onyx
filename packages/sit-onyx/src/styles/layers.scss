@@ -1,1 +1,37 @@
-@layer reset, component;
+@layer onyx.reset, onyx.utility, onyx.component;
+
+@mixin component() {
+  @layer onyx.reset {
+    html:focus-within & {
+      scroll-behavior: smooth;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+
+      box-sizing: border-box;
+
+      -moz-text-size-adjust: none;
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+  }
+
+  @layer onyx.component {
+    @content;
+  }
+}
