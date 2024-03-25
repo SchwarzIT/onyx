@@ -1,7 +1,10 @@
 import { defineIconSelectArgType } from "@/utils/storybook";
+import { TOOLTIP_TRIGGERS } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { h } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
 /**
@@ -16,6 +19,12 @@ const meta: Meta<typeof OnyxTooltip> = {
       icon: defineIconSelectArgType(),
       default: {
         control: { disabled: true },
+      },
+      tooltip: {
+        control: { disabled: true },
+      },
+      open: {
+        options: [...TOOLTIP_TRIGGERS, true, false],
       },
     },
     decorators: [
@@ -39,8 +48,32 @@ type Story = StoryObj<typeof OnyxTooltip>;
 export const Default = {
   args: {
     text: "Tooltip text",
-    default: () => "Slot content goes here",
+    default: () => h(OnyxButton, { label: "Slot content goes here" }),
     icon: circleInformation,
+    open: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a tooltip that will be triggered on hover.
+ * It will use a short debounce/delay when showing/hiding.
+ */
+export const Hover = {
+  args: {
+    ...Default.args,
+    default: () => h(OnyxButton, { label: "Hover me to show the tooltip" }),
+    open: "hover",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a tooltip that will be triggered on click.
+ */
+export const Click = {
+  args: {
+    ...Default.args,
+    default: () => h(OnyxButton, { label: "Click me to show the tooltip" }),
+    open: "click",
   },
 } satisfies Story;
 
@@ -71,5 +104,15 @@ export const Danger = {
   args: {
     ...Default.args,
     color: "danger",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a tooltip that uses the slot for custom content.
+ */
+export const CustomContent = {
+  args: {
+    ...Default.args,
+    tooltip: () => h("div", [h("span", "This is "), h("b", "custom content")]),
   },
 } satisfies Story;

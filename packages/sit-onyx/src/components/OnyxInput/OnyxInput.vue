@@ -89,6 +89,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           :minlength="props.minlength"
           :maxlength="props.maxlength"
           :aria-label="props.hideLabel ? props.label : undefined"
+          :title="props.hideLabel ? props.label : undefined"
           @change="handleChange"
           @focus="emit('focus')"
           @blur="emit('blur')"

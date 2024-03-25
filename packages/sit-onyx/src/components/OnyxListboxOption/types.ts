@@ -1,6 +1,6 @@
 export type OnyxListboxOptionProps = {
   /**
-   * Whether the option is focused.
+   * Whether the option is active.
    */
-  focused?: boolean;
+  active?: boolean;
 };

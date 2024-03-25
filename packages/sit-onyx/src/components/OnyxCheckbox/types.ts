@@ -24,7 +24,7 @@ export type OnyxCheckboxProps = RequiredMarkerProp & {
    */
   loading?: boolean;
   /**
-   * If `true`, the label will be visually hidden.
+   * If `true`, the label will be visually hidden and the `title` attribute will be set.
    * For accessibility / screen readers, the aria-label will still be set.
    */
   hideLabel?: boolean;

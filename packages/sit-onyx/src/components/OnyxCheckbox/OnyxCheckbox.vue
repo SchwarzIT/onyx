@@ -44,6 +44,7 @@ const isTouched = ref(false);
         v-else
         v-model="isChecked"
         :aria-label="props.hideLabel ? props.label : undefined"
+        :title="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
         :class="{
           'onyx-checkbox__input--touched': isTouched,
@@ -56,13 +57,24 @@ const isTouched = ref(false);
       />
     </div>
 
-    <p
-      v-if="!props.hideLabel"
-      class="onyx-checkbox__label"
-      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
-    >
-      {{ props.label }}
-    </p>
+    <template v-if="!props.hideLabel">
+      <p
+        class="onyx-checkbox__label"
+        :class="[
+          `onyx-truncation-${props.truncation}`,
+          // shows the required marker inline for multiline labels
+          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+        ]"
+      >
+        {{ props.label }}
+      </p>
+      <!-- shows the required marker fixed on the right for truncated labels -->
+      <div
+        v-if="props.truncation === 'ellipsis'"
+        class="onyx-checkbox__marker"
+        :class="[requiredMarkerClass]"
+      ></div>
+    </template>
   </label>
 </template>
 
@@ -197,6 +209,10 @@ $input-size: 1rem;
   &__label {
     display: inline-block;
     margin: 0;
+  }
+
+  &__label,
+  &__marker {
     padding: $label-padding 0;
     font-size: 1rem;
     line-height: 1.5rem;

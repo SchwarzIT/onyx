@@ -12,7 +12,7 @@ defineSlots<{
 </script>
 
 <template>
-  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--focused': props.focused }">
+  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
     </span>
@@ -42,7 +42,7 @@ defineSlots<{
     cursor: pointer;
 
     &:hover,
-    &.onyx-listbox-option--focused {
+    &.onyx-listbox-option--active {
       background-color: var(--onyx-color-base-primary-100);
     }
 
@@ -51,7 +51,7 @@ defineSlots<{
       background-color: var(--onyx-color-base-primary-200);
 
       &:hover,
-      &.onyx-listbox-option--focused {
+      &.onyx-listbox-option--active {
         background-color: var(--onyx-color-base-primary-200);
         color: var(--onyx-color-text-icons-primary-bold);
       }

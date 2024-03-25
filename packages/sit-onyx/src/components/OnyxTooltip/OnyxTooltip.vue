@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { createTooltip } from "@sit-onyx/headless";
+import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
 
@@ -7,18 +8,31 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "top",
   fitParent: false,
+  open: "hover",
 });
 
 defineSlots<{
   /**
    * Default slot where the parent content is placed that should open/close the tooltip.
+   *
+   * **Accessibility**: Please ensure that your content includes at least one focusable element
+   * (e.g. by using a button or input element).
    */
   default(props: Record<string, unknown>): unknown;
+  /**
+   * Optional slot to place custom content for the tooltip text.
+   *
+   * **Accessibility**: Make sure that the tooltip content is NOT focusable/interactive.
+   */
+  tooltip?(props: Record<string, unknown>): unknown;
 }>();
 
 const {
   elements: { trigger, tooltip },
-} = createTooltip({});
+  state: { isVisible },
+} = createTooltip({
+  open: computed(() => props.open),
+});
 </script>
 
 <template>
@@ -30,10 +44,13 @@ const {
         'onyx-tooltip--danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
         'onyx-tooltip--fit-parent': props.fitParent,
+        'onyx-tooltip--hidden': !isVisible,
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
-      <span>{{ props.text }}</span>
+      <slot name="tooltip">
+        <span>{{ props.text }}</span>
+      </slot>
     </div>
 
     <div v-bind="trigger">
@@ -51,7 +68,7 @@ const {
   border-radius: var(--onyx-radius-sm);
   padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
   box-sizing: border-box;
-  box-shadow: var(--onyx-box-shadow);
+  box-shadow: var(--onyx-shadow-medium-bottom);
   z-index: var(--onyx-z-index-flyout);
 
   display: flex;
@@ -65,6 +82,7 @@ const {
   color: var(--color);
   font-family: var(--onyx-font-family);
   text-align: center;
+  white-space: pre-line;
 
   min-width: var(--onyx-spacing-3xl);
   width: max-content;
@@ -75,6 +93,10 @@ const {
   left: 50%;
   transform: translateX(-50%);
   bottom: 100%;
+
+  &--hidden {
+    display: none;
+  }
 
   &--fit-parent {
     width: 100%;
@@ -94,6 +116,7 @@ const {
     border-width: $wedge-size;
     border-style: solid;
     border-color: var(--background-color) transparent transparent;
+    white-space: normal;
   }
 
   &--bottom {

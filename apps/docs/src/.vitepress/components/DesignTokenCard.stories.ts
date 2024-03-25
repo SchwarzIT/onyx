@@ -15,7 +15,7 @@ type Story = StoryObj<typeof DesignTokenCard>;
 
 export const Default = {
   args: {
-    name: "token-name",
+    name: "onyx-spacing-sm",
     default: () => "Default slot",
   },
 } satisfies Story;

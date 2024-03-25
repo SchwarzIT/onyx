@@ -67,7 +67,12 @@ watch(
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredTypeClass]">
+  <label
+    v-else
+    class="onyx-switch"
+    :class="[requiredTypeClass]"
+    :title="props.hideLabel ? props.label : undefined"
+  >
     <input
       ref="inputElement"
       v-model="isChecked"
