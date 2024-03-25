@@ -109,7 +109,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
   font-family: var(--onyx-font-family);
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-spacing-2xs);
+  gap: var(--onyx-spacing-5xs);
 
   &__label {
     display: flex;
