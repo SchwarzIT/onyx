@@ -22,7 +22,7 @@ const SINGLE_STATES = {
   state: ["default", "disabled", "required", "optional"],
   selection: ["", "Selection"],
   focusState: ["", "hover", "focus-visible"],
-  labeled: ["labeled", "unlabeled"],
+  labeled: ["Fruits", "Hidden Label"],
 } as const;
 
 test.describe("state screenshot tests", () => {
@@ -34,9 +34,10 @@ test.describe("state screenshot tests", () => {
         <OnyxSelect
           modelValue={selection ? selection : undefined}
           label={labeled}
-          hideLabel={labeled === "unlabeled"}
+          hideLabel={labeled === "Hidden Label"}
           disabled={state === "disabled"}
           required={state === "required"}
+          placeholder="Select your fruits"
         />,
         { useOptional: state === "optional" },
       );

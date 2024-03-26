@@ -29,6 +29,10 @@ export type OnyxSelectProps<TValue extends string | string[]> = RequiredMarkerPr
    */
   skeleton?: boolean;
   /**
+   * Whether the select should be readonly.
+   */
+  readonly?: boolean;
+  /**
    * Shows a loading indicator.
    */
   loading?: boolean;

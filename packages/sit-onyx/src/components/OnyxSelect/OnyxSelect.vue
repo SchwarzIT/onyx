@@ -11,10 +11,11 @@ import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
-  skeleton: false,
   loading: false,
   multiple: false,
   multiselectTextMode: "summary",
+  skeleton: false,
+  readonly: false,
 });
 
 defineEmits<{
@@ -61,7 +62,13 @@ const selectionText = computed<string>(() => {
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </script>
 <template>
-  <div :class="['onyx-select', requiredTypeClass]">
+  <div
+    :class="[
+      'onyx-select',
+      requiredTypeClass,
+      props.readonly ? 'onyx-select--readonly' : 'onyx-select--editable',
+    ]"
+  >
     <label>
       <div
         v-if="!props.hideLabel"
@@ -149,18 +156,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     box-sizing: border-box;
     padding: $padding-vertical var(--onyx-spacing-sm);
     height: calc($line-height + 2 * $padding-vertical);
-
-    &:has(.onyx-select__input:enabled) {
-      cursor: pointer;
-
-      &:hover {
-        --border-color: var(--onyx-color-base-primary-400);
-
-        .onyx-select__icon {
-          color: var(--onyx-color-text-icons-primary-medium);
-        }
-      }
-    }
   }
 
   &__input {
@@ -188,19 +183,48 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     }
   }
 
-  &:has(.onyx-select__input:enabled:focus) {
-    .onyx-select {
-      &__wrapper {
-        --border-color: var(--onyx-color-base-primary-500);
-        outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
-      }
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+  }
 
-      &__icon {
-        color: var(--onyx-color-text-icons-primary-intense);
+  &__footer {
+    width: 100%;
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &--editable {
+    .onyx-select__wrapper:has(.onyx-select__input:enabled) {
+      cursor: pointer;
+      // default hover
+      &:hover {
+        --border-color: var(--onyx-color-base-primary-400);
+        .onyx-select__icon {
+          color: var(--onyx-color-text-icons-primary-medium);
+        }
+      }
+    }
+    // default focus
+    &:has(.onyx-select__input:enabled:focus) {
+      .onyx-select {
+        &__wrapper {
+          --border-color: var(--onyx-color-base-primary-500);
+          outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+        }
+
+        &__icon {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
       }
     }
   }
-  &:has(&__input:disabled) {
+
+  // readonly focus
+  &--readonly:has(.onyx-select__input:enabled:focus) .onyx-select__wrapper {
+    outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
+  }
+
+  &:has(&__input:disabled),
+  &--readonly {
     .onyx-select {
       &__label {
         color: var(--onyx-color-text-icons-neutral-soft);
@@ -212,15 +236,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
         --border-color: var(--onyx-color-base-neutral-300);
       }
     }
-  }
-
-  &__loading {
-    color: var(--onyx-color-text-icons-primary-intense);
-  }
-
-  &__footer {
-    width: 100%;
-    color: var(--onyx-color-text-icons-neutral-soft);
   }
 }
 

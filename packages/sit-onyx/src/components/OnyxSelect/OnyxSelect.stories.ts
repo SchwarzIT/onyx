@@ -89,6 +89,16 @@ export const Disabled = {
 } satisfies Story;
 
 /**
+ * This example shows a readonly input that can not be edited.
+ */
+export const Readonly = {
+  args: {
+    ...InitializedSingleSelect.args,
+    readonly: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a loading select. User interaction is disabled while loading.
  */
 export const Loading = {
