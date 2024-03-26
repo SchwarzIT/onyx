@@ -54,7 +54,6 @@ $button-height: 2.5rem;
     display: inline-flex;
     height: $button-height;
     max-width: 100%;
-    box-sizing: border-box;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
     justify-content: center;
     align-items: center;

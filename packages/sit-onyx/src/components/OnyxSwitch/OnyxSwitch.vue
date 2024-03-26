@@ -104,182 +104,186 @@ $container-padding: var(--onyx-1px-in-rem);
 $icon-size: 1.25rem;
 $input-width: calc(2 * $icon-size - 2 * $container-padding);
 
+@use "../../styles/mixins/layers.scss";
+
 .onyx-switch {
-  display: inline-flex;
-  align-items: flex-start;
-  cursor: pointer;
-  gap: var(--onyx-spacing-2xs);
-  max-width: 100%;
-
-  &__input {
-    // position: absolute is needed here in order to hide the native checkbox.
-    position: absolute;
-    opacity: 0;
-    cursor: inherit;
-    width: 0;
-    height: 0;
-    margin: 0;
-
-    &:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-themed-neutral-100);
-        transform: translateX(calc(75% - $container-padding));
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-
-      .onyx-switch__spinner {
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-    }
-
-    &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-primary-soft);
-      }
-    }
-
-    &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-neutral-300);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &:invalid + .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-200);
-      border-color: var(--onyx-color-base-danger-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-danger-500);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &:invalid:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-danger-intense);
-      }
-    }
-  }
-
-  &__container {
-    $width: calc(2 * $icon-size - 2 * $container-padding);
-
+  @include layers.component() {
     display: inline-flex;
-    width: $input-width;
-    min-width: $input-width;
-    padding: $container-padding;
-    box-sizing: border-box;
-    background-color: var(--onyx-color-base-neutral-300);
-    border-radius: var(--onyx-radius-full);
-    border: var(--onyx-1px-in-rem) solid transparent;
-    transition: background-color var(--onyx-duration-sm) ease;
+    align-items: flex-start;
+    cursor: pointer;
+    gap: var(--onyx-spacing-2xs);
+    max-width: 100%;
 
-    .onyx-switch__icon {
-      display: flex;
-      align-self: center;
-      justify-content: center;
-      background-color: var(--onyx-color-themed-neutral-100);
+    &__input {
+      // position: absolute is needed here in order to hide the native checkbox.
+      position: absolute;
+      opacity: 0;
+      cursor: inherit;
+      width: 0;
+      height: 0;
+
+      &:checked + .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-themed-neutral-100);
+          transform: translateX(calc(75% - $container-padding));
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+
+        .onyx-switch__spinner {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+      }
+
+      &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-primary-soft);
+        }
+      }
+
+      &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+        background-color: var(--onyx-color-base-neutral-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-neutral-300);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:invalid + .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-200);
+        border-color: var(--onyx-color-base-danger-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-danger-500);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:invalid:checked + .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-danger-intense);
+        }
+      }
+    }
+
+    &__container {
+      $width: calc(2 * $icon-size - 2 * $container-padding);
+
+      display: inline-flex;
+      width: $input-width;
+      min-width: $input-width;
+      padding: $container-padding;
+      background-color: var(--onyx-color-base-neutral-300);
       border-radius: var(--onyx-radius-full);
-      transition:
-        transform var(--onyx-duration-sm) ease,
-        background-color var(--onyx-duration-sm) ease;
-      overflow: hidden;
-      color: var(--onyx-color-text-icons-neutral-soft);
-      height: $icon-size;
-      width: $icon-size;
+      border: var(--onyx-1px-in-rem) solid transparent;
+      transition: background-color var(--onyx-duration-sm) ease;
 
-      .onyx-icon {
-        --icon-size: #{$icon-size};
+      .onyx-switch__icon {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        background-color: var(--onyx-color-themed-neutral-100);
+        border-radius: var(--onyx-radius-full);
+        transition:
+          transform var(--onyx-duration-sm) ease,
+          background-color var(--onyx-duration-sm) ease;
+        overflow: hidden;
+        color: var(--onyx-color-text-icons-neutral-soft);
+        height: $icon-size;
+        width: $icon-size;
+
+        .onyx-icon {
+          --icon-size: #{$icon-size};
+        }
+
+        .onyx-switch__spinner {
+          padding: var(--onyx-1px-in-rem);
+        }
+      }
+    }
+
+    &__label {
+      color: var(--onyx-color-text-icons-neutral-intense);
+      font-family: var(--onyx-font-family);
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.5rem;
+    }
+
+    &:hover {
+      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+        background-color: var(--onyx-color-base-neutral-400);
       }
 
-      .onyx-switch__spinner {
-        padding: var(--onyx-1px-in-rem);
+      &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-400);
+      }
+
+      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-300);
+      }
+
+      &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-400);
       }
     }
-  }
 
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-intense);
-    font-family: var(--onyx-font-family);
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
-  }
+    &:has(&__input:focus-visible) {
+      outline: none;
 
-  &:hover {
-    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-400);
+      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-neutral-200);
+      }
+
+      &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+      }
+
+      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-danger-300);
+      }
+
+      &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-danger-200);
+      }
     }
 
-    &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-400);
-    }
+    &:has(.onyx-switch__input:disabled) {
+      cursor: default;
 
-    &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-300);
-    }
-
-    &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-400);
-    }
-  }
-
-  &:has(&__input:focus-visible) {
-    outline: none;
-
-    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-neutral-200);
-    }
-
-    &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-primary-200);
-    }
-
-    &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-danger-300);
-    }
-
-    &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-danger-200);
-    }
-  }
-
-  &:has(.onyx-switch__input:disabled) {
-    cursor: default;
-
-    .onyx-switch__label {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      .onyx-switch__label {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
   }
 }
 
 .onyx-switch-skeleton {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--onyx-spacing-2xs);
+  @include layers.component() {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--onyx-spacing-2xs);
 
-  &__input {
-    // icon size + padding top/bottom + border top/bottom
-    height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
-    border-radius: var(--onyx-radius-full);
-    width: $input-width;
-  }
+    &__input {
+      // icon size + padding top/bottom + border top/bottom
+      height: calc($icon-size + 2 * $container-padding + 2 * var(--onyx-1px-in-rem));
+      border-radius: var(--onyx-radius-full);
+      width: $input-width;
+    }
 
-  &__label {
-    height: var(--onyx-spacing-md);
-    width: var(--onyx-spacing-3xl);
+    &__label {
+      height: var(--onyx-spacing-md);
+      width: var(--onyx-spacing-3xl);
+    }
   }
 }
 </style>
