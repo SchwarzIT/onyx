@@ -1,4 +1,4 @@
-@mixin reset {
+@mixin apply {
   html:focus-within & {
     scroll-behavior: smooth;
   }
