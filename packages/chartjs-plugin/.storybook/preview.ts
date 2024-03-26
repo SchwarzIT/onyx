@@ -4,7 +4,7 @@ import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "../src";
 
 import "@sit-onyx/storybook-utils/style.css";
-import "sit-onyx/src/styles/index.scss";
+import "sit-onyx/src/styles/globals/index.scss";
 
 const preview = {
   // we need to destructure here because as of Storybook 7.6

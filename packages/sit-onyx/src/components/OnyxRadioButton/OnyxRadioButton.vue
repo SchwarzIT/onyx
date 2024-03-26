@@ -47,7 +47,7 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-radio-button,
 .onyx-radio-button-skeleton {

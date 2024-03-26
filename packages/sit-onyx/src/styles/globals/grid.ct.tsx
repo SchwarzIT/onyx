@@ -1,5 +1,5 @@
 /* eslint-disable playwright/expect-expect */
-import { expect, test } from "../playwright-axe";
+import { expect, test } from "../../playwright-axe";
 import type { Locator, Page } from "@playwright/test";
 
 const GRIDS = {

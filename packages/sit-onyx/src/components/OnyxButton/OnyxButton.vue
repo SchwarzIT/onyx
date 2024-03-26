@@ -39,7 +39,7 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@use "../../styles/layers.scss";
+@use "../../styles/mixins/layers.scss";
 
 $button-height: 2.5rem;
 

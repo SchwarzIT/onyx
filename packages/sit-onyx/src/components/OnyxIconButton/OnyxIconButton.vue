@@ -39,10 +39,10 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@use "../../styles/layers.scss";
+@use "../../styles/mixins/layers.scss";
 
 .onyx-icon-button {
-  @include layers.component() {
+  @include layers.component {
     --icon-button-color: var(--onyx-color-text-icons-primary-intense);
     --icon-button-bg-color: transparent;
     --icon-button-cursor: pointer;
@@ -61,11 +61,9 @@ const emit = defineEmits<{
     border-radius: var(--onyx-radius-full);
     background-color: var(--icon-button-bg-color);
 
-    @include layers.hover {
-      &:hover,
-      &:focus-visible {
-        --icon-button-bg-color: var(--onyx-color-base-primary-200);
-      }
+    &:hover,
+    &:focus-visible {
+      --icon-button-bg-color: var(--onyx-color-base-primary-200);
     }
 
     &:disabled:not(&--loading) {

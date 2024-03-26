@@ -1,4 +1,4 @@
-import "@/styles/index.scss";
+import "@/styles/globals/index.scss";
 
 export { default as OnyxAppLayout } from "@/components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "@/components/OnyxAppLayout/types";

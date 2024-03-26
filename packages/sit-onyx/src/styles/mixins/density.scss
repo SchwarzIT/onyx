@@ -1,0 +1,27 @@
+@mixin compact {
+  @layer onyx.utility {
+    .onyx-density-compact &,
+    :is(&).onyx-density-compact {
+      @content;
+    }
+  }
+}
+
+@mixin default {
+  @layer onyx.utility {
+    &,
+    .onyx-density-default &,
+    :is(&).onyx-density-default {
+      @content;
+    }
+  }
+}
+
+@mixin cozy {
+  @layer onyx.utility {
+    .onyx-density-cozy &,
+    :is(&).onyx-density-cozy {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@use "reset.scss";
+
+@mixin component() {
+  @layer onyx.reset {
+    @include reset.reset;
+  }
+
+  @layer onyx.component {
+    @content;
+  }
+}

@@ -2,7 +2,7 @@
 import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "../src";
 
-import "sit-onyx/src/styles/index.scss";
+import "sit-onyx/src/styles/globals/index.scss";
 import "./playwright.scss";
 
 Chart.register(...registerables);
