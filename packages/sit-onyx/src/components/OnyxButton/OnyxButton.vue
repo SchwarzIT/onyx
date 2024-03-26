@@ -175,8 +175,10 @@ $button-height: 2.5rem;
       height: $button-height;
     }
   }
+}
 
-  .onyx-button-skeleton {
+.onyx-button-skeleton {
+  @include layers.component() {
     width: var(--onyx-spacing-4xl);
     height: $button-height;
     display: inline-block;
