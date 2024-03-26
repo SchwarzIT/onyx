@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
+import { computed, ref } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
+import OnyxTooltip from "~components/OnyxTooltip/OnyxTooltip.vue";
 import type { EnrichedIcon } from "../utils-icons";
 
 const props = defineProps<{
@@ -17,16 +19,19 @@ const handleCopy = async () => {
   isCopied.value = true;
   setTimeout(() => (isCopied.value = false), 3000);
 };
+
+const tooltipText = computed(() => {
+  if (!isCopied.value) return props.icon.tooltipName;
+  return `Import copied to clipboard!\n${props.icon.tooltipName}`;
+});
 </script>
 
 <template>
-  <button type="button" class="icon" @click="handleCopy">
-    <OnyxIcon :icon="props.icon.content" />
-    <span class="icon__tooltip">
-      {{ props.icon.tooltipName }}
-      <div v-if="isCopied">Import copy successful!</div>
-    </span>
-  </button>
+  <OnyxTooltip :text="tooltipText" position="bottom" :icon="isCopied ? circleCheck : undefined">
+    <button type="button" class="icon" @click="handleCopy">
+      <OnyxIcon :icon="props.icon.content" />
+    </button>
+  </OnyxTooltip>
 </template>
 
 <style lang="scss" scoped>
@@ -38,24 +43,7 @@ const handleCopy = async () => {
   justify-content: center;
   align-items: center;
   border: var(--onyx-1px-in-rem) solid transparent;
-  position: relative;
   color: var(--onyx-color-text-icons-neutral-soft);
-
-  &__tooltip {
-    position: absolute;
-    top: 4rem;
-    z-index: 1;
-    visibility: hidden;
-
-    padding: var(--onyx-spacing-5xs) var(--onyx-spacing-3xs);
-    border-radius: var(--onyx-radius-xs);
-    background: var(--onyx-color-base-neutral-900);
-    color: var(--onyx-color-text-icons-neutral-inverted);
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
-    text-align: center;
-    white-space: nowrap;
-  }
 
   &:hover,
   &:focus-visible {
@@ -64,10 +52,10 @@ const handleCopy = async () => {
     background: var(--onyx-color-base-background-blank);
     outline-style: unset;
     color: unset;
-
-    .icon__tooltip {
-      visibility: inherit;
-    }
   }
+}
+
+:deep(.onyx-tooltip) {
+  align-items: flex-start;
 }
 </style>
