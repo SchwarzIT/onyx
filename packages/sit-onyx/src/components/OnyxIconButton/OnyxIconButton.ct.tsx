@@ -50,9 +50,8 @@ test("should behave correctly", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled"],
+  state: ["default", "disabled", "loading"],
   variation: ["primary", "secondary", "danger"],
-  density: ["compact", "default", "cozy"],
   focusState: ["none", "hover", "focus-visible", "active"],
 } as const;
 
@@ -60,13 +59,13 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "icon-button",
-    async ({ variation, state, density, focusState }, mount, page) => {
+    async ({ variation, state, focusState }, mount, page) => {
       const component = await mount(
         <OnyxIconButton
           label="label"
           variation={variation}
-          density={density}
           disabled={state === "disabled"}
+          loading={state === "loading"}
           icon={mockPlaywrightIcon}
         />,
       );
@@ -75,6 +74,32 @@ test.describe("state screenshot tests", () => {
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await button.hover();
       if (focusState === "active") await page.mouse.down();
+      return component;
+    },
+  );
+});
+
+const DENSITYSTATES = {
+  density: ["compact", "default", "cozy"],
+  focusState: ["focus-visible"],
+} as const;
+
+test.describe("state screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    DENSITYSTATES,
+    "icon-button",
+    async ({ density, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxIconButton
+          label="label"
+          variation="primary"
+          density={density}
+          icon={mockPlaywrightIcon}
+        />,
+      );
+
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+
       return component;
     },
   );
