@@ -195,8 +195,10 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
       margin: var(--onyx-spacing-sm);
     }
   }
+}
 
-  .onyx-radio-button-skeleton {
+.onyx-radio-button-skeleton {
+  @include layers.component() {
     padding: var(--onyx-radio-button-selector-margin);
     display: inline-flex;
     align-items: center;
