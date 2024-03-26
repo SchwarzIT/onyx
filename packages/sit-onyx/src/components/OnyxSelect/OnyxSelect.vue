@@ -1,4 +1,5 @@
-<!-- TODO: change the generic "extends" from string/[] to whatever listbox and combobox need -->
+<!-- TODO: change the generic "extends" from string/[] to whatever listbox and combobox need
+https://github.com/SchwarzIT/onyx/issues/565 -->
 <script lang="ts" setup generic="TValue extends string | string[] = string">
 import { useRequired } from "@/composables/required";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
@@ -20,6 +21,7 @@ defineEmits<{
   /**
    * Emitted when the current value changes.
    * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
+   *       https://github.com/SchwarzIT/onyx/issues/565
    */
   "update:modelValue": [value: typeof props.modelValue];
 }>();
@@ -36,6 +38,7 @@ const previewBadgeNumber = computed<number | undefined>(() => {
  * On single select, it matches the name of the option.
  * On multi select, it is a summary or a preview of the options.
  * TODO: extract the text from the SelectOption(s) after the modelValue type gets changed
+ *       https://github.com/SchwarzIT/onyx/issues/565
  */
 const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
@@ -84,9 +87,11 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input 
-        while the trigger arrow needs to point to the badge in the future. -->
+        while the trigger arrow needs to point to the badge in the future.
+        https://github.com/SchwarzIT/onyx/issues/763 -->
         <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
-          <!-- TODO: use OnyxBadge component once it is implemented -->
+          <!-- TODO: use OnyxBadge component once it is implemented 
+          https://github.com/SchwarzIT/onyx/issues/565 -->
           <div class="onyx-badge">{{ previewBadgeNumber }}</div>
         </OnyxTooltip>
 
@@ -220,6 +225,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 }
 
 // TODO: remove badge styles once OnyxBadge is implemented
+//       https://github.com/SchwarzIT/onyx/issues/565
 .onyx-badge {
   text-align: center;
   padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);

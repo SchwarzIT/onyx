@@ -10,9 +10,6 @@ export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "@/components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "@/components/OnyxCheckboxGroup/types";
 
-export { default as OnyxListbox } from "@/components/OnyxListbox/OnyxListbox.vue";
-export * from "@/components/OnyxListbox/types";
-
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export * from "@/components/OnyxHeadline/types";
 
@@ -28,6 +25,9 @@ export * from "@/components/OnyxInput/types";
 export { default as OnyxLink } from "@/components/OnyxLink/OnyxLink.vue";
 export * from "@/components/OnyxLink/types";
 
+export { default as OnyxListbox } from "@/components/OnyxListbox/OnyxListbox.vue";
+export * from "@/components/OnyxListbox/types";
+
 export { default as OnyxLoadingIndicator } from "@/components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 export * from "@/components/OnyxLoadingIndicator/types";
 
@@ -37,15 +37,18 @@ export * from "@/components/OnyxPageLayout/types";
 export * from "@/components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "@/components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 
+export * from "@/components/OnyxSelect/types";
+export { default as OnyxSelect } from "@/components/OnyxSelect/OnyxSelect.vue";
+
 export { default as OnyxSkeleton } from "@/components/OnyxSkeleton/OnyxSkeleton.vue";
 
 export { default as OnyxSwitch } from "@/components/OnyxSwitch/OnyxSwitch.vue";
 export * from "@/components/OnyxSwitch/types";
 
-export { default as TestInput } from "@/components/TestInput/TestInput.vue";
-
 export { default as OnyxTooltip } from "@/components/OnyxTooltip/OnyxTooltip.vue";
 export * from "@/components/OnyxTooltip/types";
+
+export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
