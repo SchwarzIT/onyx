@@ -122,7 +122,7 @@ const DENSITYSTATES = {
   focusState: ["focus-visible"],
 } as const;
 
-test.describe("state screenshot tests", () => {
+test.describe("state density screenshot tests", () => {
   executeScreenshotsForAllStates(
     DENSITYSTATES,
     "button",
