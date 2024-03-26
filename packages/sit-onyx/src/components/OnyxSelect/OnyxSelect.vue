@@ -75,7 +75,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
           class="onyx-select__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
           type="text"
-          :role="props.multiple ? 'combobox' : 'listbox'"
+          role="presentation"
           :required="props.required"
           readonly
           :disabled="props.disabled || props.loading"
