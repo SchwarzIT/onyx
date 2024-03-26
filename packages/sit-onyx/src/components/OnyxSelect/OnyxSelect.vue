@@ -34,18 +34,19 @@ const previewBadgeNumber = computed<number | undefined>(() => {
 /**
  * Selection that will be displayed in the select input field.
  * On single select, it matches the name of the option.
- * On multi select, it is a summary of the options.
- * TODO: extract the text after the select type gets changed
+ * On multi select, it is a summary or a preview of the options.
+ * TODO: extract the text from the SelectOption(s) after the modelValue type gets changed
  */
 const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
     const numberOfItems = props.modelValue.length;
+    if (!numberOfItems) return "";
+    if (numberOfItems === 1) return props.modelValue[0];
+
     switch (props.multiselectTextMode) {
       case "summary":
-        if (!numberOfItems) return "";
-        if (numberOfItems === 1) return props.modelValue[0];
         // TODO: translate.
-        return `${numberOfItems} Selected`;
+        return `${numberOfItems} selected`;
       case "preview":
         return props.modelValue.join(", ");
     }
@@ -56,7 +57,6 @@ const selectionText = computed<string>(() => {
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </script>
-
 <template>
   <div :class="['onyx-select', requiredTypeClass]">
     <label>
@@ -70,12 +70,12 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
       <div class="onyx-select__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-select__loading" type="circle" />
 
-        <!-- TODO: use HTML select instead of input? -->
         <input
           v-model="selectionText"
           class="onyx-select__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
           type="text"
+          :role="props.multiple ? 'combobox' : 'listbox'"
           :required="props.required"
           readonly
           :disabled="props.disabled || props.loading"
@@ -84,7 +84,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input 
-        while the trigger arrow needs to point to the badge.. -->
+        while the trigger arrow needs to point to the badge in the future. -->
         <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
           <!-- TODO: use OnyxBadge component once it is implemented -->
           <div class="onyx-badge">{{ previewBadgeNumber }}</div>
@@ -101,7 +101,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </template>
 
 <style lang="scss">
-// TODO: fine-tune styles, they are based on the OnyxInput so far.
 .onyx-select {
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-neutral-200);
@@ -220,7 +219,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
   }
 }
 
-// TODO: remove badge styles once onyxBadge is implemented
+// TODO: remove badge styles once OnyxBadge is implemented
 .onyx-badge {
   text-align: center;
   padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
