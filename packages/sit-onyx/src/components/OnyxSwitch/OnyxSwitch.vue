@@ -110,22 +110,32 @@ watch(
 
 .onyx-switch,
 .onyx-switch-skeleton {
-  // icon size + padding top/bottom + border top/bottom
-  --onyx-switch-skeleton-height: calc(
-    var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
-      var(--onyx-1px-in-rem)
-  );
-  --onyx-switch-cozy-width: 0rem;
-  --onyx-switch-container-padding: var(--onyx-1px-in-rem);
-
   @include density.compact {
     --onyx-switch-icon-size: 1rem;
+    --onyx-switch-cozy-width: 0rem;
+    --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: 0.125rem;
+    --onyx-switch-input-height: unset;
+
+    // icon size + padding top/bottom + border top/bottom
+    --onyx-switch-skeleton-height: calc(
+      var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
+        var(--onyx-1px-in-rem)
+    );
   }
 
   @include density.default {
     --onyx-switch-icon-size: 1.25rem;
+    --onyx-switch-cozy-width: 0rem;
+    --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
+    --onyx-switch-input-height: unset;
+
+    // icon size + padding top/bottom + border top/bottom
+    --onyx-switch-skeleton-height: calc(
+      var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
+        var(--onyx-1px-in-rem)
+    );
   }
 
   @include density.cozy {
@@ -145,7 +155,7 @@ $input-width: calc(
 
 .onyx-switch {
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   cursor: pointer;
   gap: var(--onyx-spacing-2xs);
   max-width: 100%;

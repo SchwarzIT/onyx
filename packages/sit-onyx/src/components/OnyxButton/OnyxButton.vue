@@ -49,17 +49,17 @@ const emit = defineEmits<{
 .onyx-button-skeleton {
   @include density.compact {
     --onyx-button-height: 2rem;
-    --onyx-button-padding-verical: var(--onyx-spacing-4xs);
+    --onyx-button-padding-vertical: var(--onyx-spacing-4xs);
   }
 
   @include density.default {
     --onyx-button-height: 2.5rem;
-    --onyx-button-padding-verical: var(--onyx-spacing-2xs);
+    --onyx-button-padding-vertical: var(--onyx-spacing-2xs);
   }
 
   @include density.cozy {
     --onyx-button-height: 3rem;
-    --onyx-button-padding-verical: var(--onyx-spacing-sm);
+    --onyx-button-padding-vertical: var(--onyx-spacing-sm);
   }
 }
 
@@ -74,7 +74,7 @@ const emit = defineEmits<{
   height: var(--onyx-button-height);
   max-width: 100%;
   box-sizing: border-box;
-  padding: var(--onyx-button-padding-verical) var(--onyx-spacing-sm);
+  padding: var(--onyx-button-padding-vertical) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
   gap: var(--onyx-spacing-4xs);
