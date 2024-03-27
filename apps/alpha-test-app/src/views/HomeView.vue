@@ -186,7 +186,6 @@ const singleSelectState = ref("Apple");
               label="Multiple Select"
               placeholder="Select your fruits"
               multiple
-              multiselect-text-mode="preview"
               :skeleton="useSkeleton"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">

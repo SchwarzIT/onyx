@@ -7,6 +7,7 @@ import { computed } from "vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxSelectProps } from "./types";
 import { OnyxIcon, OnyxTooltip, OnyxSkeleton } from "../..";
+import { injectI18n } from "@/i18n";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
@@ -26,6 +27,8 @@ defineEmits<{
   "update:modelValue": [value: typeof props.modelValue];
 }>();
 
+const { t } = injectI18n();
+
 const previewBadgeNumber = computed<number | undefined>(() => {
   if (Array.isArray(props.modelValue) && props.multiselectTextMode === "preview") {
     return props.modelValue.length;
@@ -42,14 +45,14 @@ const previewBadgeNumber = computed<number | undefined>(() => {
  */
 const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
-    const numberOfItems = props.modelValue.length;
-    if (!numberOfItems) return "";
-    if (numberOfItems === 1) return props.modelValue[0];
+    const numberOfSelections = props.modelValue.length;
+    if (!numberOfSelections) return "";
+    if (numberOfSelections === 1) return props.modelValue[0];
 
     switch (props.multiselectTextMode) {
       case "summary":
         // TODO: translate.
-        return `${numberOfItems} selected`;
+        return t.value("selections.currentSelection", { numberOfSelections });
       case "preview":
         return props.modelValue.join(", ");
     }
