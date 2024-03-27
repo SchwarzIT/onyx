@@ -14,6 +14,7 @@ import {
   OnyxLoadingIndicator,
   OnyxPageLayout,
   OnyxRadioButtonGroup,
+  OnyxSelect,
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTooltip,
@@ -32,12 +33,13 @@ const COMPONENTS = [
   "OnyxIconButton",
   "OnyxInput",
   "OnyxLink",
+  "OnyxListbox",
   "OnyxLoadingIndicator",
   "OnyxRadioButtonGroup",
+  "OnyxSelect",
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTooltip",
-  "OnyxListbox",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -50,6 +52,9 @@ const activeConfig = ref(configOptions.map((option) => option.id));
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
+
+const useSkeleton = ref(false);
+const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
 
 /* Demo data for the components we show */
 const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
@@ -80,6 +85,8 @@ const listboxOptions = [
   "Raspberry",
   "Strawberry",
 ].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
+
+const selectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
 </script>
 
 <template>
@@ -96,6 +103,8 @@ const listboxOptions = [
     <OnyxPageLayout>
       <template #sidebar>
         <div class="sidebar">
+          <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
+
           <OnyxCheckboxGroup
             v-model="activeConfig"
             headline="Examples to show"
@@ -111,15 +120,16 @@ const listboxOptions = [
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
-          <OnyxButton v-if="show('OnyxButton')" label="Button" />
+          <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 
           <template v-if="show('OnyxCheckboxGroup')">
             <OnyxCheckboxGroup
               v-model="checkboxState"
               headline="Checkbox Group"
               :options="dummyOptions"
+              :skeleton="skeletonNumber"
             />
-            OnyxCheckboxGroup state: {{ checkboxState }}
+            <div v-if="!useSkeleton">OnyxCheckboxGroup state: {{ checkboxState }}</div>
           </template>
 
           <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
@@ -128,9 +138,16 @@ const listboxOptions = [
 
           <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
-          <OnyxInput v-if="show('OnyxInput')" label="Input" />
+          <OnyxInput v-if="show('OnyxInput')" label="Input" :skeleton="useSkeleton" />
 
-          <OnyxLink v-if="show('OnyxLink')" href="#">Link</OnyxLink>
+          <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
+
+          <OnyxListbox
+            v-if="show('OnyxListbox')"
+            v-model="listboxState"
+            label="Example listbox"
+            :options="listboxOptions"
+          />
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
@@ -139,9 +156,20 @@ const listboxOptions = [
               v-model="radioState"
               headline="Radio Button Group"
               :options="dummyOptions"
+              :skeleton="skeletonNumber"
             />
-            OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
+            <div v-if="!useSkeleton">OnyxRadioButtonGroup state: {{ radioState ?? "–" }}</div>
           </template>
+
+          <OnyxSelect
+            v-if="show('OnyxSelect')"
+            v-model="selectState"
+            label="Select"
+            placeholder="Select your fruits"
+            multiple
+            multiselect-text-mode="preview"
+            :skeleton="useSkeleton"
+          />
 
           <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
 
@@ -149,15 +177,14 @@ const listboxOptions = [
             v-if="show('OnyxSwitch')"
             v-model="switchState"
             :label="'Switch is ' + (switchState ? 'on' : 'off')"
+            :skeleton="useSkeleton"
           />
 
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
 
-          <OnyxListbox v-model="listboxState" label="Example listbox" :options="listboxOptions" />
-
-          <!-- Add new components here. -->
+          <!-- Add new components alphabetically. -->
         </div>
       </div>
     </OnyxPageLayout>
@@ -172,6 +199,9 @@ const listboxOptions = [
   border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 }
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-md);
   padding: var(--onyx-spacing-md);
   border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   height: calc(100% - var(--onyx-spacing-xl));
