@@ -135,7 +135,7 @@ const singleSelectState = ref("Apple");
               :options="dummyOptions"
               :skeleton="skeletonNumber"
             />
-            <div v-if="!useSkeleton" class="onyx-text--small">
+            <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxCheckboxGroup state: {{ checkboxState }}
             </div>
           </template>
@@ -166,7 +166,7 @@ const singleSelectState = ref("Apple");
               :options="dummyOptions"
               :skeleton="skeletonNumber"
             />
-            <div v-if="!useSkeleton" class="onyx-text--small">
+            <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
             </div>
           </template>
@@ -178,7 +178,7 @@ const singleSelectState = ref("Apple");
               placeholder="Select your fruits"
               :skeleton="useSkeleton"
             />
-            <div v-if="!useSkeleton" class="onyx-text--small">
+            <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxSelect single state: {{ singleSelectState ?? "–" }}
             </div>
             <OnyxSelect
@@ -189,7 +189,7 @@ const singleSelectState = ref("Apple");
               multiselect-text-mode="preview"
               :skeleton="useSkeleton"
             />
-            <div v-if="!useSkeleton" class="onyx-text--small">
+            <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxSelect multiple state: {{ multiSelectState ?? "–" }}
             </div>
           </template>
@@ -243,7 +243,7 @@ const singleSelectState = ref("Apple");
   height: 2rem;
   width: 8rem;
 }
-.onyx-text--small {
+.state-info {
   color: var(--onyx-color-text-icons-neutral-soft);
 }
 </style>
