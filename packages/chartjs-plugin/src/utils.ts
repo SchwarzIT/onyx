@@ -2,7 +2,7 @@ import type { OnyxColor } from "sit-onyx/types";
 
 /**
  * Utility for easily styling a Chart.js dataset with a specific onyx color.
- * Will be updated automatically when switched between light/dark mode.
+ * Will be updated automatically when switching between light/dark mode.
  *
  * @example
  * ```ts
