@@ -4,6 +4,7 @@ import { OnyxHeadline, type OnyxCheckboxProps } from "@/index";
 import { computed } from "vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
+import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
@@ -11,6 +12,8 @@ const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   withCheckAll: false,
   disabled: false,
 });
+
+const { densityClass } = useDensity(props);
 
 const emit = defineEmits<{
   /**
@@ -50,7 +53,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
 </script>
 
 <template>
-  <fieldset class="onyx-checkbox-group" :disabled="props.disabled">
+  <fieldset :class="['onyx-checkbox-group', densityClass]" :disabled="props.disabled">
     <legend v-if="props.headline" class="onyx-checkbox-group__label">
       <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
     </legend>

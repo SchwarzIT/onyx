@@ -63,9 +63,9 @@ test.describe("state screenshot tests", () => {
       const component = await mount(
         <OnyxIconButton
           label="label"
-          loading={state === "loading"}
           variation={variation}
           disabled={state === "disabled"}
+          loading={state === "loading"}
           icon={mockPlaywrightIcon}
         />,
       );
@@ -74,6 +74,32 @@ test.describe("state screenshot tests", () => {
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await button.hover();
       if (focusState === "active") await page.mouse.down();
+      return component;
+    },
+  );
+});
+
+const DENSITYSTATES = {
+  density: ["compact", "default", "cozy"],
+  focusState: ["focus-visible"],
+} as const;
+
+test.describe("state density screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    DENSITYSTATES,
+    "icon-button",
+    async ({ density, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxIconButton
+          label="label"
+          variation="primary"
+          density={density}
+          icon={mockPlaywrightIcon}
+        />,
+      );
+
+      if (focusState === "focus-visible") await page.keyboard.press("Tab");
+
       return component;
     },
   );
