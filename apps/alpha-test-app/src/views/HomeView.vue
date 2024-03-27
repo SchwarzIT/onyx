@@ -21,8 +21,11 @@ import {
   type SelectionOption,
 } from "sit-onyx";
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
+import LanguageSelection from "../components/LanguageSelection.vue";
 
+const { locale } = useI18n();
 const router = useRouter();
 
 const COMPONENTS = [
@@ -103,6 +106,8 @@ const selectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]
     <OnyxPageLayout>
       <template #sidebar>
         <div class="sidebar">
+          <LanguageSelection v-model="locale" />
+
           <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
 
           <OnyxCheckboxGroup
