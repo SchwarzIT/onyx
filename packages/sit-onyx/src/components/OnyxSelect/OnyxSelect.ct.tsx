@@ -67,7 +67,7 @@ test.describe("multiselect value display states screenshot tests", () => {
         <OnyxSelect
           modelValue={JSON.parse(selection)}
           label={`Multiselect with ${multiselectTextMode}`}
-          multiselectTextMode={multiselectTextMode}
+          multiple={{ textMode: multiselectTextMode }}
         />,
       );
 

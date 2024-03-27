@@ -28,13 +28,18 @@ defineEmits<{
   "update:modelValue": [value: typeof props.modelValue];
 }>();
 
+/**
+ * The mode in which a multiselect value text should be displayed.
+ * Falls back to summary if not specified.
+ */
+const multipleTextMode = computed<MultiselectTextMode | undefined>(() => {
+  if (!props.multiple) return undefined;
+  if (typeof props.multiple === "boolean") return "summary";
+  return props.multiple?.textMode ?? "summary";
+});
+
 const previewBadgeNumber = computed<number | undefined>(() => {
-  if (
-    props.modelValue &&
-    // TODO: extract textMode to computed
-    typeof props.multiple !== "boolean" &&
-    props.multiple?.textMode === "preview"
-  ) {
+  if (props.modelValue && multipleTextMode.value === "preview") {
     return props.modelValue.length;
   }
   return undefined;
@@ -53,16 +58,13 @@ const selectionText = computed<string>(() => {
     if (!numberOfItems) return "";
     if (numberOfItems === 1) return props.modelValue[0];
 
-    const textMode: MultiselectTextMode =
-      /** 'summary' is the default behavior. */
-      typeof props.multiple === "boolean" ? "summary" : props.multiple?.textMode ?? "summary";
-
-    switch (textMode) {
-      case "summary":
-        // TODO: translate.
-        return `${numberOfItems} selected`;
+    switch (multipleTextMode.value) {
       case "preview":
         return props.modelValue.join(", ");
+      case "summary":
+      default:
+        // TODO: translate.
+        return `${numberOfItems} selected`;
     }
   }
 
