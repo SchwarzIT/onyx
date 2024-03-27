@@ -1,20 +1,22 @@
 <!-- TODO: change the generic "extends" from string/[] to whatever listbox and combobox need
 https://github.com/SchwarzIT/onyx/issues/565 -->
-<script lang="ts" setup generic="TValue extends string | string[] = string">
+<script
+  lang="ts"
+  setup
+  generic="TValue extends SelectModelValue<TMultiple>, TMultiple extends Multiple"
+>
 import { useRequired } from "@/composables/required";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { OnyxSelectProps } from "./types";
+import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
-const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
   skeleton: false,
   loading: false,
-  multiple: false,
-  multiselectTextMode: "summary",
 });
 
 defineEmits<{
@@ -27,7 +29,12 @@ defineEmits<{
 }>();
 
 const previewBadgeNumber = computed<number | undefined>(() => {
-  if (Array.isArray(props.modelValue) && props.multiselectTextMode === "preview") {
+  if (
+    props.modelValue &&
+    // TODO: extract textMode to computed
+    typeof props.multiple !== "boolean" &&
+    props.multiple?.textMode === "preview"
+  ) {
     return props.modelValue.length;
   }
   return undefined;
@@ -46,7 +53,11 @@ const selectionText = computed<string>(() => {
     if (!numberOfItems) return "";
     if (numberOfItems === 1) return props.modelValue[0];
 
-    switch (props.multiselectTextMode) {
+    const textMode: MultiselectTextMode =
+      /** 'summary' is the default behavior. */
+      typeof props.multiple === "boolean" ? "summary" : props.multiple?.textMode ?? "summary";
+
+    switch (textMode) {
       case "summary":
         // TODO: translate.
         return `${numberOfItems} selected`;
@@ -55,7 +66,7 @@ const selectionText = computed<string>(() => {
     }
   }
 
-  return (props.modelValue ?? "") as string;
+  return props.modelValue ?? "";
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
