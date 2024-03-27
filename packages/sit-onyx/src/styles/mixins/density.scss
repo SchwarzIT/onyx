@@ -1,5 +1,5 @@
 @mixin compact {
-  @layer onyx.utility {
+  @layer onyx.density {
     .onyx-density-compact &,
     :is(&).onyx-density-compact {
       @content;
@@ -8,7 +8,7 @@
 }
 
 @mixin default {
-  @layer onyx.utility {
+  @layer onyx.density {
     &,
     .onyx-density-default &,
     :is(&).onyx-density-default {
@@ -18,7 +18,7 @@
 }
 
 @mixin cozy {
-  @layer onyx.utility {
+  @layer onyx.density {
     .onyx-density-cozy &,
     :is(&).onyx-density-cozy {
       @content;

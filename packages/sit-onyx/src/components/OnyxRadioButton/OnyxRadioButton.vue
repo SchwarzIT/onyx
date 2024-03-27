@@ -190,9 +190,9 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
-      width: 1rem;
-      height: 1rem;
-      margin: var(--onyx-spacing-sm);
+      width: var(--onyx-radio-button-selector-size);
+      height: var(--onyx-radio-button-selector-size);
+      margin: var(--onyx-radio-button-selector-margin);
     }
   }
 }
