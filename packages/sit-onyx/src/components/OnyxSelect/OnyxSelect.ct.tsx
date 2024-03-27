@@ -111,3 +111,25 @@ test.describe("multiselect value display states screenshot tests", () => {
     },
   );
 });
+
+const SKELETON_STATES = {
+  withLabel: ["true", "false"],
+} as const;
+
+test.describe("skeleton states screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    SKELETON_STATES,
+    "skeleton-select",
+    async ({ withLabel }, mount) => {
+      const component = await mount(
+        <OnyxSelect
+          modelValue={undefined}
+          label="Label"
+          skeleton
+          hideLabel={withLabel === "true"}
+        />,
+      );
+      return component;
+    },
+  );
+});
