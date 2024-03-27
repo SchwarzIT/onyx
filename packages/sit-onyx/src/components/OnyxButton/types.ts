@@ -1,4 +1,6 @@
-export type OnyxButtonProps = {
+import type { DensityProp } from "../../composables/density";
+
+export type OnyxButtonProps = DensityProp & {
   /**
    * The text content of the button.
    */

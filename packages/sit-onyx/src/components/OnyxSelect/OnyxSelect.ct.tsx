@@ -4,7 +4,7 @@ import OnyxSelect from "./OnyxSelect.vue";
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSelect label="Test label" hideLabel />);
+  const component = await mount(<OnyxSelect style="width: 12rem" label="Test label" hideLabel />);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -29,6 +29,7 @@ test.describe("basic state screenshot tests", () => {
     async ({ state, labeled }, mount) => {
       const component = await mount(
         <OnyxSelect
+          style="width: 12rem"
           modelValue={undefined}
           label={labeled}
           hideLabel={labeled === "Hidden Label"}
@@ -102,9 +103,10 @@ test.describe("multiselect value display states screenshot tests", () => {
     async ({ selection, multiselectTextMode }, mount) => {
       const component = await mount(
         <OnyxSelect
+          style="width: 12rem"
           modelValue={JSON.parse(selection)}
           label={`Multiselect with ${multiselectTextMode}`}
-          multiselectTextMode={multiselectTextMode}
+          multiple={{ textMode: multiselectTextMode }}
         />,
       );
       return component;

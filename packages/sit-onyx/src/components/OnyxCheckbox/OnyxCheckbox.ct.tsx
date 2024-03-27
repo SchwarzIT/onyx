@@ -246,6 +246,7 @@ test("should render skeleton", async ({ mount }) => {
 const STATES = {
   state: ["default", "disabled", "required", "optional"],
   select: ["unselected", "selected", "indeterminate"],
+  density: ["compact", "default", "cozy"],
   focusState: ["", "hover", "focus-visible"],
   labeled: ["labeled", "unlabeled"],
 } as const;
@@ -254,12 +255,13 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "checkbox",
-    async ({ select, state, labeled, focusState }, mount, page) => {
+    async ({ select, state, labeled, density, focusState }, mount, page) => {
       const component = await mount(
         <OnyxCheckbox
           modelValue={select === "selected"}
           label="label"
           indeterminate={select === "indeterminate"}
+          density={density}
           disabled={state === "disabled"}
           required={state === "required"}
           hideLabel={labeled === "unlabeled"}
