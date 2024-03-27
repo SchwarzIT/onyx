@@ -57,7 +57,7 @@ Embrace progressive disclosure to guide users through the interface progressivel
   <TopicOverviewCard title="Colors" subtitle="Understanding the color system" image-src="/images/colors-thumbnail.webp" href="/basics/colors" />
   <TopicOverviewCard title="Component states" subtitle="Behavior and interactivity" image-src="/images/states-thumbnail.webp" href="/basics/states" />
   <TopicOverviewCard title="Density" subtitle="Compact and cozy layout variations" image-src="/images/density-thumbnail.webp" href="/basics/density" />
-  <TopicOverviewCard title="Elevation" subtitle="Hierarchy on the z-achsis" image-src="/images/elevation-thumbnail.webp" href="/basics/elevation" />
+  <TopicOverviewCard title="Elevation" subtitle="Hierarchy on the z-axis" image-src="/images/elevation-thumbnail.webp" href="/basics/elevation" />
   <TopicOverviewCard title="Iconography" subtitle="Icon guidelines" image-src="/images/iconography-thumbnail.webp" href="/basics/iconography" />
   <TopicOverviewCard title="Images" subtitle="Image guidelines" image-src="/images/images-thumbnail.webp" href="/basics/images" />
   <TopicOverviewCard title="Infographics" subtitle="Dealing with statistics" image-src="/images/infographics-thumbnail.webp" href="/basics/infographics" />
