@@ -89,7 +89,8 @@ const listboxOptions = [
   "Strawberry",
 ].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
 
-const selectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
+const multiSelectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
+const singleSelectState = ref("Apple");
 </script>
 
 <template>
@@ -134,7 +135,9 @@ const selectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]
               :options="dummyOptions"
               :skeleton="skeletonNumber"
             />
-            <div v-if="!useSkeleton">OnyxCheckboxGroup state: {{ checkboxState }}</div>
+            <div v-if="!useSkeleton" class="onyx-text--small">
+              OnyxCheckboxGroup state: {{ checkboxState }}
+            </div>
           </template>
 
           <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
@@ -163,18 +166,33 @@ const selectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]
               :options="dummyOptions"
               :skeleton="skeletonNumber"
             />
-            <div v-if="!useSkeleton">OnyxRadioButtonGroup state: {{ radioState ?? "–" }}</div>
+            <div v-if="!useSkeleton" class="onyx-text--small">
+              OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
+            </div>
           </template>
 
-          <OnyxSelect
-            v-if="show('OnyxSelect')"
-            v-model="selectState"
-            label="Select"
-            placeholder="Select your fruits"
-            multiple
-            multiselect-text-mode="preview"
-            :skeleton="useSkeleton"
-          />
+          <template v-if="show('OnyxSelect')">
+            <OnyxSelect
+              v-model="singleSelectState"
+              label="Single Select"
+              placeholder="Select your fruits"
+              :skeleton="useSkeleton"
+            />
+            <div v-if="!useSkeleton" class="onyx-text--small">
+              OnyxSelect single state: {{ singleSelectState ?? "–" }}
+            </div>
+            <OnyxSelect
+              v-model="multiSelectState"
+              label="Multiple Select"
+              placeholder="Select your fruits"
+              multiple
+              multiselect-text-mode="preview"
+              :skeleton="useSkeleton"
+            />
+            <div v-if="!useSkeleton" class="onyx-text--small">
+              OnyxSelect multiple state: {{ multiSelectState ?? "–" }}
+            </div>
+          </template>
 
           <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
 
@@ -224,5 +242,8 @@ const selectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]
 .skeleton {
   height: 2rem;
   width: 8rem;
+}
+.onyx-text--small {
+  color: var(--onyx-color-text-icons-neutral-soft);
 }
 </style>
