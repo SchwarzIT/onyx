@@ -126,7 +126,17 @@ export const WithMessage = {
 export const HiddenLabel = {
   args: {
     ...Default.args,
-    label: "Fruits",
     hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an select without a visual label.
+ * For accessibility / screen readers it must still be passed.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;

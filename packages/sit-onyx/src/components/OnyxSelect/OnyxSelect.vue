@@ -4,10 +4,9 @@ https://github.com/SchwarzIT/onyx/issues/565 -->
 import { useRequired } from "@/composables/required";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxSelectProps } from "./types";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import { OnyxIcon, OnyxTooltip, OnyxSkeleton } from "../..";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
@@ -62,7 +61,13 @@ const selectionText = computed<string>(() => {
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </script>
 <template>
+  <div v-if="props.skeleton" class="onyx-select-skeleton">
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-skeleton__label" />
+    <OnyxSkeleton class="onyx-select-skeleton__input" />
+  </div>
+
   <div
+    v-else
     :class="[
       'onyx-select',
       requiredTypeClass,
@@ -235,6 +240,21 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
         color: var(--onyx-color-text-icons-neutral-soft);
         --border-color: var(--onyx-color-base-neutral-300);
       }
+    }
+  }
+
+  &-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-5xs);
+    &__label {
+      width: var(--onyx-spacing-3xl);
+      height: 1.25rem;
+    }
+    &__input {
+      width: 17rem;
+      // TODO: apply height based on density
+      height: 2.5rem;
     }
   }
 }
