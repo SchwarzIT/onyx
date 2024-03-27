@@ -1,6 +1,7 @@
+import type { DensityProp } from "../../composables/density";
 import type { ButtonType, ButtonVariation } from "../OnyxButton/types";
 
-export type OnyxIconButtonProps = {
+export type OnyxIconButtonProps = DensityProp & {
   /**
    * The aria-label of the button.
    */
