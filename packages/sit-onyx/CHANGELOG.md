@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.56
+
+### Minor Changes
+
+- 6631b3d: Implemented density prop
+
 ## 1.0.0-alpha.55
 
 ### Patch Changes
