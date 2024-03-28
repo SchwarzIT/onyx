@@ -27,39 +27,40 @@ defineSlots<{
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers.scss";
+
 .onyx-headline {
-  font-weight: 600;
-  font-family: var(--onyx-font-family);
+  @include layers.component() {
+    font-weight: 600;
+    font-family: var(--onyx-font-family);
 
-  :where(&) {
-    margin: 0; // remove default browser margins
     color: var(--onyx-color-text-icons-neutral-intense);
-  }
 
-  &--monospace {
-    font-family: var(--onyx-font-family-mono);
-  }
+    &--monospace {
+      font-family: var(--onyx-font-family-mono);
+    }
 
-  &--h1 {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-  }
+    &--h1 {
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+    }
 
-  &--h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
+    &--h2 {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
 
-  &--h3 {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
+    &--h3 {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
 
-  &--h4,
-  &--h5,
-  &--h6 {
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+    &--h4,
+    &--h5,
+    &--h6 {
+      font-size: 0.8125rem;
+      line-height: 1.25rem;
+    }
   }
 }
 </style>

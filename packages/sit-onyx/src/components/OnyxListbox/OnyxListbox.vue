@@ -90,49 +90,45 @@ const {
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers.scss";
+
 .onyx-listbox {
-  :where(&) {
+  @include layers.component() {
     --max-options: 8;
-  }
+    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
 
-  --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+    border-radius: var(--onyx-radius-md);
+    background-color: var(--onyx-color-base-background-blank);
+    padding: var(--onyx-spacing-2xs) 0;
+    box-shadow: var(--onyx-shadow-medium-bottom);
+    width: max-content;
+    min-width: var(--onyx-spacing-4xl);
+    max-width: 20rem;
+    font-family: var(--onyx-font-family);
 
-  border-radius: var(--onyx-radius-md);
-  background-color: var(--onyx-color-base-background-blank);
-  padding: var(--onyx-spacing-2xs) 0;
-  box-shadow: var(--onyx-shadow-medium-bottom);
-  box-sizing: border-box;
-  width: max-content;
-  min-width: var(--onyx-spacing-4xl);
-  max-width: 20rem;
-  font-family: var(--onyx-font-family);
+    &__label {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      display: inline-block;
+      width: 100%;
+      text-align: right;
+      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
+    }
 
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-soft);
-    display: inline-block;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: right;
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
-  }
+    .onyx-listbox-option {
+      height: var(--option-height);
+    }
 
-  .onyx-listbox-option {
-    height: var(--option-height);
-  }
+    &__options {
+      max-height: calc(var(--max-options) * var(--option-height));
+      overflow: auto;
+      outline: none;
 
-  &__options {
-    max-height: calc(var(--max-options) * var(--option-height));
-    box-sizing: border-box;
-    overflow: auto;
-    outline: none;
+      padding: 0;
+    }
 
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  &:has(&__options:focus-visible) {
-    outline: 0.25rem solid var(--onyx-color-base-primary-200);
+    &:has(&__options:focus-visible) {
+      outline: 0.25rem solid var(--onyx-color-base-primary-200);
+    }
   }
 }
 </style>
