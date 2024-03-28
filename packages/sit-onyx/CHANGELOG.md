@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.58
+
+### Minor Changes
+
+- 70b545e: Create base of OnyxSelect, excluding the flyout
+
 ## 1.0.0-alpha.57
 
 ### Patch Changes
