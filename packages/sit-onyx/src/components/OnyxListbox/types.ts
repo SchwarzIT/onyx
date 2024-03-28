@@ -2,6 +2,10 @@ import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
 export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
   /**
+   * Aria label. Must be set for accessibility reasons.
+   */
+  label: string;
+  /**
    * Available options to choose from.
    */
   options: ListboxOption<TValue>[];

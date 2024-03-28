@@ -4,6 +4,10 @@ import { createBuilder } from "../../utils/builder";
 
 export type CreateListboxOptions = {
   /**
+   * Aria label for the listbox.
+   */
+  label: MaybeRef<string>;
+  /**
    * Value of currently selected option.
    */
   selectedOption: Ref<ListboxValue | undefined>;
@@ -11,11 +15,6 @@ export type CreateListboxOptions = {
    * Value of currently (visually) active option.
    */
   activeOption: Ref<ListboxValue | undefined>;
-  /**
-   * Aria label for the listbox.
-   * Must be provided if the listbox is not part of another component like a combobox etc.
-   */
-  label?: MaybeRef<string>;
   /**
    * Whether the listbox is multiselect.
    */

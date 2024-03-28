@@ -34,6 +34,7 @@ type Story = StoryObj<typeof OnyxListbox>;
  */
 export const Default = {
   args: {
+    label: "Example listbox",
     options: [
       "Apple",
       "Banana",

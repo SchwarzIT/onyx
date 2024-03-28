@@ -32,6 +32,7 @@ watch(
 const {
   elements: { listbox, option: headlessOption },
 } = createListbox({
+  label: computed(() => props.label),
   selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (id) => {

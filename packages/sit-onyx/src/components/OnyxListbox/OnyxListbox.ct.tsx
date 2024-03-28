@@ -14,6 +14,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
         { id: 3, label: "Disabled", disabled: true },
         { id: 4, label: "Very long label ".repeat(5) },
       ],
+      label: "Test listbox",
       modelValue,
     },
     on: {
@@ -47,6 +48,7 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
         id: index,
         label: `Test option ${index + 1}`,
       })),
+      label: "Test listbox",
     },
     on: {
       "update:modelValue": (modelValue: number | undefined) =>
