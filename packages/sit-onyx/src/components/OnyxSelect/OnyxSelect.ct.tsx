@@ -69,6 +69,24 @@ test.describe("permissions states screenshot tests", () => {
   );
 });
 
+const DENSITY_STATES = {
+  density: ["compact", "default", "cozy"],
+} as const;
+
+test.describe("single select value display states screenshot tests", () => {
+  executeScreenshotsForAllStates(DENSITY_STATES, "density-select", async ({ density }, mount) => {
+    const component = await mount(
+      <OnyxSelect
+        modelValue={undefined}
+        label="Fruits"
+        placeholder="Select your fruits"
+        density={density}
+      />,
+    );
+    return component;
+  });
+});
+
 const SINGLE_STATES = {
   selection: ["", "Selection"],
 } as const;
