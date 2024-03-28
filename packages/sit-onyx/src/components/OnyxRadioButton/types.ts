@@ -36,7 +36,7 @@ export type SelectionOption<
   skeleton?: boolean;
 };
 
-export type RadioButtonProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
+export type OnyxRadioButtonProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
   SelectionOption<TValue> &
     DensityProp &
     CustomValidityProp & {

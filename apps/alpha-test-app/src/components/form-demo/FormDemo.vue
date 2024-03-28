@@ -1,15 +1,26 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline, OnyxInput } from "sit-onyx";
+import {
+  OnyxButton,
+  OnyxCheckboxGroup,
+  OnyxHeadline,
+  OnyxInput,
+  OnyxRadioButtonGroup,
+  OnyxSwitch,
+  type OnyxCheckboxGroupProps,
+  type OnyxRadioButtonGroupProps,
+} from "sit-onyx";
 import { ref, watchEffect } from "vue";
 
-type FormData = {
+export type FormData = Partial<{
   defaultInput: string;
   requiredInput: string;
   minlengthInput: string;
-  maxInput: number;
   typeInput: string;
   patternInput: string;
-};
+  switch: boolean;
+  checkboxGroup: number[];
+  radioGroup: OnyxRadioButtonGroupProps["modelValue"];
+}>;
 
 const props = defineProps<{
   formData: FormData;
@@ -27,6 +38,16 @@ const onPatternValidityChange = (state: ValidityState) => {
 };
 
 const handleSubmit = () => alert("Submit successful!");
+
+const checkboxOptions: OnyxCheckboxGroupProps["options"] = [
+  { id: 1, label: "Option 1" },
+  { id: 2, label: "Required option", required: true },
+];
+
+const radioOptions: OnyxRadioButtonGroupProps["options"] = [
+  { id: 1, label: "Option 1" },
+  { id: 2, label: "Option 2" },
+];
 </script>
 
 <template>
@@ -56,6 +77,12 @@ const handleSubmit = () => alert("Submit successful!");
       :custom-error="customErrorExample"
       @validity-change="onPatternValidityChange"
     />
+
+    <OnyxSwitch v-model="formState.switch" label="Switch" required />
+
+    <OnyxCheckboxGroup v-model="formState.checkboxGroup" :options="checkboxOptions" />
+
+    <OnyxRadioButtonGroup v-model="formState.radioGroup" :options="radioOptions" required />
 
     <div class="demo__actions">
       <OnyxButton label="Reset" variation="secondary" type="reset" />

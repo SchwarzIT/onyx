@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout, OnyxSwitch } from "sit-onyx";
-import { useI18n } from "vue-i18n";
-import FormDemo from "../components/form-demo/FormDemo.vue";
 import { ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import FormDemo, { type FormData } from "../components/form-demo/FormDemo.vue";
 
 const { t, locale } = useI18n();
 
@@ -10,19 +10,24 @@ const validFormData = {
   defaultInput: "No Validation",
   requiredInput: "Is filled",
   minlengthInput: "Is long enough",
-  maxInput: 42,
   typeInput: "john.doe@mail.schwarz",
   patternInput: "only lowercase or space",
-};
+  switch: true,
+  checkboxGroup: [2],
+  radioGroup: { id: 1, label: "Option 1" },
+} satisfies FormData;
+
 const invalidFormData = {
   defaultInput: "No Validation",
   requiredInput: "",
   minlengthInput: "",
-  maxInput: 9001,
   typeInput: "NotAmail",
   patternInput: "NO UPPERCASE ALLOWED",
-};
+  switch: false,
+} satisfies FormData;
+
 const useEnglish = ref(true);
+
 watch(
   useEnglish,
   () => {

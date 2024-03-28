@@ -4,9 +4,9 @@ import { ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { RadioButtonProps, SelectionOptionValue } from "./types";
+import type { OnyxRadioButtonProps, SelectionOptionValue } from "./types";
 
-const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   disabled: false,
   required: false,
   selected: false,
@@ -113,18 +113,16 @@ const { densityClass } = useDensity(props);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
   }
 
-  // note: for radio buttons, we must use ":invalid" instead of ":user-invalid"
-  // because ":user-invalid" is not supported for radio buttons
-  &:has(&__selector:invalid) {
+  &:has(&__selector:user-invalid) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
     --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
   }
 
-  &:has(&__selector:invalid:checked) {
+  &:has(&__selector:user-invalid:checked) {
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
   }
 
-  &:has(&__selector:invalid:checked:hover) {
+  &:has(&__selector:user-invalid:checked:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-400);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-400);
   }
