@@ -1,4 +1,3 @@
-import type { TooltipOpen } from "@sit-onyx/headless";
 import type { OnyxColor } from "../../types";
 
 export type OnyxTooltipProps = {
@@ -28,3 +27,17 @@ export type OnyxTooltipProps = {
 
 export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;
 export type TooltipPosition = (typeof TOOLTIP_POSITIONS)[number];
+
+export type TooltipOpen =
+  | TooltipTrigger
+  | boolean
+  | {
+      type: "hover";
+      /**
+       * Number of milliseconds to use as debounce when showing/hiding the tooltip
+       */
+      debounce: number;
+    };
+
+export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
+export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
