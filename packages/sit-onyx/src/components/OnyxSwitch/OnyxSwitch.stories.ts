@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 /**
- * Toggle switches are a common ui element used to controll binary states, such as on/off, enable/disable/, or active/inactive.
+ * Toggle switches are a common ui element used to control binary states, such as on/off, enable/disable/, or active/inactive.
  * They consist of a toggle mechanism that allow users to switch between two distinct states with a simple interaction.
  */
 const meta: Meta<typeof OnyxSwitch> = {
