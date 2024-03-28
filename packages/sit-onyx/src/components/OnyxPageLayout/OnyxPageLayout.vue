@@ -6,13 +6,13 @@ const props = defineProps<OnyxPageLayoutProps>();
 
 const slots = defineSlots<{
   /** Main content area of the page */
-  default(props: Record<string, never>): unknown;
+  default(): unknown;
   /** Optional sidebar of the page */
-  sidebar?(props: Record<string, never>): unknown;
+  sidebar?(): unknown;
   /** Optional footer of the page*/
-  footer?(props: Record<string, never>): unknown;
+  footer?(): unknown;
   /** Slot for toast messages that stick at the bottom (above footer) */
-  toasts?(props: Record<string, never>): unknown;
+  toasts?(): unknown;
 }>();
 
 const pageModifier = computed(() => {

@@ -2,15 +2,16 @@
 import type { OnyxAppLayoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAppLayoutProps>(), { navBarAlignment: "top" });
+
 const slots = defineSlots<{
   /** Navigation area of the application */
-  navBar?(props: Record<string, never>): unknown;
+  navBar?(): unknown;
   /** Page content area of the application */
-  default(props: Record<string, never>): unknown;
+  default(): unknown;
   /** Overlays that cover the page and exclude the nav area */
-  pageOverlay?(props: Record<string, never>): unknown;
+  pageOverlay?(): unknown;
   /** Overlays that cover the complete page */
-  appOverlay?(props: Record<string, never>): unknown;
+  appOverlay?(): unknown;
 }>();
 </script>
 

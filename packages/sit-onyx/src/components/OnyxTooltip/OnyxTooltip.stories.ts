@@ -18,10 +18,10 @@ const meta: Meta<typeof OnyxTooltip> = {
     argTypes: {
       icon: defineIconSelectArgType(),
       default: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       tooltip: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       open: {
         options: [...TOOLTIP_TRIGGERS, true, false],
