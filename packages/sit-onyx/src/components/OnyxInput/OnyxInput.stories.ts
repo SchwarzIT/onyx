@@ -72,7 +72,7 @@ export const Readonly = {
 export const Disabled = {
   args: {
     ...Default.args,
-    disable: true,
+    disabled: true,
     modelValue: "Test value",
   },
 } satisfies Story;
