@@ -14,16 +14,16 @@ const meta: Meta<typeof OnyxAppLayout> = {
     events: [],
     argTypes: {
       navBar: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       default: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       pageOverlay: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       appOverlay: {
-        control: { disabled: true },
+        control: { disable: true },
       },
     },
     // storybook adds 1rem padding. The app layout fills the full available space
@@ -111,7 +111,7 @@ const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string) => ({
   template: `
 <OnyxAppLayout v-bind="args">
   <template #navBar>
-    <div style="border-${alignNavLeft ? "right" : "bottom"}: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300); 
+    <div style="border-${alignNavLeft ? "right" : "bottom"}: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
                 ${alignNavLeft ? "height: 100%" : ""}">
       Nav bar
     </div>
