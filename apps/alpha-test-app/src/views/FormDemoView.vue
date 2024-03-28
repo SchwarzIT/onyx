@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout, OnyxSwitch } from "sit-onyx";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
 import { useI18n } from "vue-i18n";
+import LanguageSelection from "../components/LanguageSelection.vue";
 import FormDemo from "../components/form-demo/FormDemo.vue";
-import { ref, watch } from "vue";
 
 const { t, locale } = useI18n();
 
@@ -22,14 +22,6 @@ const invalidFormData = {
   typeInput: "NotAmail",
   patternInput: "NO UPPERCASE ALLOWED",
 };
-const useEnglish = ref(true);
-watch(
-  useEnglish,
-  () => {
-    locale.value = useEnglish.value ? "en-US" : "de-DE";
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
@@ -37,9 +29,7 @@ watch(
     <OnyxPageLayout>
       <template #sidebar>
         <div class="sidebar">
-          <p>Set the application language.</p>
-
-          <OnyxSwitch v-model="useEnglish" :label="useEnglish ? 'English' : 'Deutsch'" />
+          <LanguageSelection v-model="locale" />
 
           <p>"{{ t("message") }}" in {{ locale }}</p>
         </div>

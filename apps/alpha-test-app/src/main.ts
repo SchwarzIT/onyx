@@ -1,5 +1,6 @@
 import { createOnyx } from "sit-onyx";
 import onyxDeDE from "sit-onyx/locales/de-DE.json";
+import onyxKoKR from "sit-onyx/locales/ko-KR.json";
 import "sit-onyx/style.css";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
@@ -18,7 +19,7 @@ async function setupApp() {
   });
 
   const onyx = createOnyx({
-    i18n: { locale: i18n.global.locale, messages: { "de-DE": onyxDeDE } },
+    i18n: { locale: i18n.global.locale, messages: { "de-DE": onyxDeDE, "ko-KR": onyxKoKR } },
   });
 
   const router = createRouter({
