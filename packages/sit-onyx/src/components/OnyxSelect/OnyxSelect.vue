@@ -174,9 +174,8 @@ const { densityClass } = useDensity(props);
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 
+  $line-height: 1.5rem;
   &__wrapper {
-    $line-height: 1.5rem;
-
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
     background: var(--onyx-color-base-background-blank);
