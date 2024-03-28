@@ -12,7 +12,7 @@ const meta: Meta<typeof OnyxLink> = {
     events: ["click"],
     argTypes: {
       default: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       withExternalIcon: {
         options: ["auto", true, false],
