@@ -105,6 +105,7 @@ test("should render skeleton", async ({ mount }) => {
 const STATES = {
   state: ["default", "disabled", "required", "optional"],
   select: ["unselected", "selected"],
+  density: ["compact", "default", "cozy"],
   focusState: ["", "hover", "focus-visible"],
   labeled: ["labeled", "unlabeled"],
 } as const;
@@ -113,11 +114,12 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "switch",
-    async ({ select, state, labeled, focusState }, mount, page) => {
+    async ({ select, state, labeled, density, focusState }, mount, page) => {
       const component = await mount(
         <OnyxSwitch
           modelValue={select === "selected"}
           label={labeled}
+          density={density}
           hideLabel={labeled === "unlabeled"}
           disabled={state === "disabled"}
           required={state === "required"}

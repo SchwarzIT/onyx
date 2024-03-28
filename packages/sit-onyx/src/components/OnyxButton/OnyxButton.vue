@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -13,6 +14,8 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   skeleton: false,
 });
 
+const { densityClass } = useDensity(props);
+
 const emit = defineEmits<{
   /** Emitted when the button is clicked (and is not disabled). */
   click: [];
@@ -20,15 +23,16 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <OnyxSkeleton v-if="props.skeleton" class="onyx-button-skeleton" />
+  <OnyxSkeleton v-if="props.skeleton" :class="['onyx-button-skeleton', densityClass]" />
   <button
     v-else
-    class="onyx-button"
-    :class="{
-      [`onyx-button--${props.variation}`]: true,
-      [`onyx-button--${props.mode}`]: true,
-      'onyx-button--loading': props.loading,
-    }"
+    :class="[
+      'onyx-button',
+      `onyx-button--${props.variation}`,
+      `onyx-button--${props.mode}`,
+      { 'onyx-button--loading': props.loading },
+      densityClass,
+    ]"
     :disabled="props.disabled || props.loading"
     @click="emit('click')"
   >
@@ -39,7 +43,25 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-$button-height: 2.5rem;
+@use "../../styles/density.scss";
+
+.onyx-button,
+.onyx-button-skeleton {
+  @include density.compact {
+    --onyx-button-height: 2rem;
+    --onyx-button-padding-vertical: var(--onyx-spacing-4xs);
+  }
+
+  @include density.default {
+    --onyx-button-height: 2.5rem;
+    --onyx-button-padding-vertical: var(--onyx-spacing-2xs);
+  }
+
+  @include density.cozy {
+    --onyx-button-height: 3rem;
+    --onyx-button-padding-vertical: var(--onyx-spacing-sm);
+  }
+}
 
 .onyx-button {
   --onyx-button-background-color: transparent;
@@ -49,10 +71,10 @@ $button-height: 2.5rem;
   --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
   display: inline-flex;
-  height: $button-height;
+  height: var(--onyx-button-height);
   max-width: 100%;
   box-sizing: border-box;
-  padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+  padding: var(--onyx-button-padding-vertical) var(--onyx-spacing-sm);
   justify-content: center;
   align-items: center;
   gap: var(--onyx-spacing-4xs);
@@ -170,13 +192,13 @@ $button-height: 2.5rem;
 
   &__loading {
     width: var(--onyx-spacing-3xl);
-    height: $button-height;
+    height: 100%;
   }
 }
 
 .onyx-button-skeleton {
   width: var(--onyx-spacing-4xl);
-  height: $button-height;
+  height: var(--onyx-button-height);
   display: inline-block;
   vertical-align: middle;
 }

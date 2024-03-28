@@ -124,6 +124,7 @@ test("should render skeleton", async ({ mount }) => {
 const STATES = {
   state: ["default", "disabled", "invalid"],
   select: ["unselected", "selected"],
+  density: ["compact", "default", "cozy"],
   focusState: ["none", "hover", "focus-visible"],
 } as const;
 
@@ -131,10 +132,11 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "radio-button",
-    async ({ select, state, focusState }, mount, page) => {
+    async ({ select, state, density, focusState }, mount, page) => {
       const component = await mount(
         <OnyxRadioButton
           selected={select === "selected"}
+          density={density}
           disabled={state === "disabled"}
           errorMessage={state === "invalid" ? "invalid" : ""}
           name={`name`}

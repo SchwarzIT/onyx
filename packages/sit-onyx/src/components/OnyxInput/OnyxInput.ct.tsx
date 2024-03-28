@@ -84,6 +84,7 @@ test("should show optional marker", async ({ mount }) => {
 const STATES = {
   variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
   writeMode: ["write", "readonly", "disabled"],
+  density: ["compact", "default", "cozy"],
   focusState: ["", "hover", "focus"],
 } as const;
 
@@ -134,12 +135,13 @@ test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
     STATES,
     "input",
-    async ({ variant, writeMode, focusState }, mount) => {
+    async ({ variant, writeMode, density, focusState }, mount) => {
       const component = await mount(
         <OnyxInput
           label="Label"
           modelValue={["initialValue", "loading"].includes(variant) ? "Test value" : undefined}
           placeholder={variant === "placeholder" ? "Placeholder..." : undefined}
+          density={density}
           readonly={writeMode === "readonly"}
           disabled={writeMode === "disabled"}
           loading={variant === "loading"}
