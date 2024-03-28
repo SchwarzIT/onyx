@@ -12,6 +12,7 @@ import { computed } from "vue";
 import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
+import { useDensity } from "@/composables/density";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
@@ -74,6 +75,7 @@ const selectionText = computed<string>(() => {
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+const { densityClass } = useDensity(props);
 </script>
 <template>
   <div v-if="props.skeleton" class="onyx-select-skeleton">
@@ -86,6 +88,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     :class="[
       'onyx-select',
       requiredTypeClass,
+      densityClass,
       props.readonly ? 'onyx-select--readonly' : 'onyx-select--editable',
     ]"
   >
@@ -133,7 +136,21 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </template>
 
 <style lang="scss">
+@use "../../styles/density.scss";
+
 .onyx-select {
+  @include density.compact {
+    --onyx-select-padding-vertical: var(--onyx-spacing-4xs);
+  }
+
+  @include density.default {
+    --onyx-select-padding-vertical: var(--onyx-spacing-2xs);
+  }
+
+  @include density.cozy {
+    --onyx-select-padding-vertical: var(--onyx-spacing-sm);
+  }
+
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-neutral-200);
 
@@ -158,7 +175,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
   }
 
   &__wrapper {
-    $padding-vertical: var(--onyx-spacing-2xs);
     $line-height: 1.5rem;
 
     border-radius: var(--onyx-radius-sm);
@@ -174,8 +190,9 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     line-height: $line-height;
 
     box-sizing: border-box;
-    padding: $padding-vertical var(--onyx-spacing-sm);
-    height: calc($line-height + 2 * $padding-vertical);
+
+    padding: var(--onyx-select-padding-vertical) var(--onyx-spacing-sm);
+    height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
   }
 
   &__input {
