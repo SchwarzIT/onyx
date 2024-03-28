@@ -78,7 +78,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 </script>
 <template>
-  <div v-if="props.skeleton" class="onyx-select-skeleton">
+  <div v-if="props.skeleton" :class="['onyx-select-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-skeleton__label" />
     <OnyxSkeleton class="onyx-select-skeleton__input" />
   </div>
@@ -138,7 +138,8 @@ const { densityClass } = useDensity(props);
 <style lang="scss">
 @use "../../styles/density.scss";
 
-.onyx-select {
+.onyx-select,
+.onyx-select-skeleton {
   @include density.compact {
     --onyx-select-padding-vertical: var(--onyx-spacing-4xs);
   }
@@ -150,6 +151,10 @@ const { densityClass } = useDensity(props);
   @include density.cozy {
     --onyx-select-padding-vertical: var(--onyx-spacing-sm);
   }
+}
+
+.onyx-select {
+  $line-height: 1.5rem;
 
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-neutral-200);
@@ -174,7 +179,6 @@ const { densityClass } = useDensity(props);
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 
-  $line-height: 1.5rem;
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
