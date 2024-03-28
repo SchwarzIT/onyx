@@ -73,7 +73,7 @@ const DENSITY_STATES = {
   density: ["compact", "default", "cozy"],
 } as const;
 
-test.describe("single select value display states screenshot tests", () => {
+test.describe("select with density states screenshot tests", () => {
   executeScreenshotsForAllStates(DENSITY_STATES, "density-select", async ({ density }, mount) => {
     const component = await mount(
       <OnyxSelect
