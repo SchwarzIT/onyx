@@ -17,9 +17,18 @@ export type CustomValidityEmit = {
 };
 
 export type UseCustomValidityOptions = {
+  /**
+   * Template ref to the `<input>` element
+   */
   inputRef: Ref<HTMLInputElement | undefined>;
+  /**
+   * Component props as defined with `const props = defineProps()`
+   */
   props: CustomValidityProp & { modelValue?: unknown };
-  emit: ReturnType<typeof defineEmits<CustomValidityEmit>>;
+  /**
+   * Component emit as defined with `const emit = defineEmits()`
+   */
+  emit: (evt: "validityChange", validity: ValidityState) => void;
 };
 
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
