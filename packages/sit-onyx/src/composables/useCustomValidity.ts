@@ -9,13 +9,6 @@ export type CustomValidityProp = {
   customError?: string;
 };
 
-export type CustomValidityEmit = {
-  /**
-   * Emitted when the validity state of the input changes.
-   */
-  validityChange: [validity: ValidityState];
-};
-
 export type UseCustomValidityOptions = {
   /**
    * Template ref to the `<input>` element
@@ -39,10 +32,13 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
    */
   watch(
     [options.inputRef, () => options.props.customError],
-    ([inputRef, customError]) => inputRef?.setCustomValidity(customError || ""),
+    () => {
+      options.inputRef.value?.setCustomValidity(options.props.customError ?? "");
+    },
     { immediate: true },
   );
 
+  // we use onMounted here to prevent an initial event emit when the `<input>` element (options.inputRef) is mounted
   onMounted(() => {
     /**
      * Update validityState ref when the input changes.

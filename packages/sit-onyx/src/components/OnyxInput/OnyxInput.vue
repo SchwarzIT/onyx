@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useCustomValidity, type CustomValidityEmit } from "@/composables/useCustomValidity";
+import { useCustomValidity } from "@/composables/useCustomValidity";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
@@ -16,26 +16,28 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   loading: false,
 });
 
-const emit = defineEmits<
-  CustomValidityEmit & {
-    /**
-     * Emitted when the current value changes.
-     */
-    "update:modelValue": [value: string];
-    /**
-     * Emitted when the current value changes but only when the input is blurred.
-     */
-    change: [value: string];
-    /**
-     * Emitted when the input is focussed.
-     */
-    focus: [];
-    /**
-     * Emitted when the input is blurred.
-     */
-    blur: [];
-  }
->();
+const emit = defineEmits<{
+  /**
+   * Emitted when the current value changes.
+   */
+  "update:modelValue": [value: string];
+  /**
+   * Emitted when the current value changes but only when the input is blurred.
+   */
+  change: [value: string];
+  /**
+   * Emitted when the input is focussed.
+   */
+  focus: [];
+  /**
+   * Emitted when the input is blurred.
+   */
+  blur: [];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+}>();
 
 const inputRef = ref<HTMLInputElement>();
 useCustomValidity({ inputRef, props, emit });

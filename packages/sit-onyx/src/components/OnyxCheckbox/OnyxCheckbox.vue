@@ -3,7 +3,7 @@ import { OnyxLoadingIndicator } from "@/index";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
-import { useCustomValidity, type CustomValidityEmit } from "../../composables/useCustomValidity";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
@@ -17,12 +17,14 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   skeleton: false,
 });
 
-const emit = defineEmits<
-  CustomValidityEmit & {
-    /** Emitted when the checked state changes. */
-    "update:modelValue": [value: boolean];
-  }
->();
+const emit = defineEmits<{
+  /** Emitted when the checked state changes. */
+  "update:modelValue": [value: boolean];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+}>();
 
 const isChecked = computed({
   get: () => props.modelValue,

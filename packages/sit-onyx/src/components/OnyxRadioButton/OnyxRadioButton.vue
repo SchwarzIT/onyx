@@ -2,7 +2,7 @@
 import { OnyxLoadingIndicator } from "@/index";
 import { ref } from "vue";
 import { useDensity } from "../../composables/density";
-import { useCustomValidity, type CustomValidityEmit } from "../../composables/useCustomValidity";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps, SelectionOptionValue } from "./types";
 
@@ -14,12 +14,14 @@ const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
   truncation: "ellipsis",
 });
 
-const emit = defineEmits<
-  CustomValidityEmit & {
-    /** Emitted when the value changes. */
-    change: [value: string];
-  }
->();
+const emit = defineEmits<{
+  /** Emitted when the value changes. */
+  change: [value: string];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+}>();
 
 const inputRef = ref<HTMLInputElement>();
 useCustomValidity({ inputRef, props, emit });

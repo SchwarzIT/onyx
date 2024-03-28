@@ -5,7 +5,7 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
-import { useCustomValidity, type CustomValidityEmit } from "../../composables/useCustomValidity";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 
@@ -17,12 +17,14 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   skeleton: false,
 });
 
-const emit = defineEmits<
-  CustomValidityEmit & {
-    /** Emitted when the checked state changes. */
-    "update:modelValue": [value: boolean];
-  }
->();
+const emit = defineEmits<{
+  /** Emitted when the checked state changes. */
+  "update:modelValue": [value: boolean];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+}>();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
