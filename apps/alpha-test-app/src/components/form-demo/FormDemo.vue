@@ -27,7 +27,6 @@ const onPatternValidityChange = (state: ValidityState) => {
 };
 
 const handleSubmit = () => alert("Submit successful!");
-const handleReset = () => (formState.value = { ...props.formData });
 </script>
 
 <template>
@@ -61,7 +60,7 @@ const handleReset = () => (formState.value = { ...props.formData });
     />
 
     <div class="demo__actions">
-      <OnyxButton label="Reset" variation="secondary" type="reset" @click="handleReset" />
+      <OnyxButton label="Reset" variation="secondary" type="reset" />
       <OnyxButton class="demo__submit" label="Submit" type="submit" />
     </div>
   </form>
