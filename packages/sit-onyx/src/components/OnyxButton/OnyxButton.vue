@@ -192,7 +192,7 @@ const emit = defineEmits<{
 
   &__loading {
     width: var(--onyx-spacing-3xl);
-    height: $button-height;
+    height: 100%;
   }
 
   &-skeleton {
