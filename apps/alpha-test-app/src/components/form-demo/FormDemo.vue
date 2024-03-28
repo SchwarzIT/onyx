@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline, OnyxInput, TestInput } from "sit-onyx";
+import { OnyxButton, OnyxHeadline, OnyxInput } from "sit-onyx";
 import { ref, watchEffect } from "vue";
 
 type FormData = {
@@ -47,9 +47,7 @@ const handleSubmit = () => alert("Submit successful!");
       required
     />
 
-    <TestInput v-model="formState.maxInput" label="Max 9000" type="number" :max="9000" />
-
-    <OnyxInput v-model="formState.typeInput" label="Type mail" type="email" />
+    <OnyxInput v-model="formState.typeInput" label="Type email" type="email" />
 
     <OnyxInput
       v-model="formState.patternInput"
