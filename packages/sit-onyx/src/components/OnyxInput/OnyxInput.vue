@@ -229,6 +229,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     &:has(.onyx-input__native:user-invalid) {
       --border-color: var(--onyx-color-base-danger-500);
       --outline-color: var(--onyx-color-base-danger-200);
+      --selection-color: var(--onyx-color-base-danger-200);
 
       &:has(.onyx-input__native:enabled:focus) {
         --border-color: var(--onyx-color-base-danger-500);
