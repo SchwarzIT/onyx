@@ -6,19 +6,13 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
    */
   options: ListboxOption<TValue>[];
   /**
-   * Label to show at the bottom.
-   *  Required due to accessibility / screen readers. If you want to visually hide the label, use the hideLabel property.
+   * Message / help text to display at the bottom.
    */
-  label: string;
+  message?: string;
   /**
    * Current value / selected options.
    */
   modelValue?: TValue;
-  /**
-   * If `true`, the label will be visually hidden.
-   * For accessibility / screen readers, the aria-label will still be set.
-   */
-  hideLabel?: boolean;
 };
 
 export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {

@@ -34,7 +34,6 @@ type Story = StoryObj<typeof OnyxListbox>;
  */
 export const Default = {
   args: {
-    label: "Example label",
     options: [
       "Apple",
       "Banana",
@@ -53,5 +52,15 @@ export const Default = {
       "Raspberry",
       "Strawberry",
     ].map((option) => ({ id: option.toLowerCase(), label: option })),
+  },
+} satisfies Story;
+
+/**
+ * This examples shows a listbox with a message / help text at the bottom.
+ */
+export const WithMessage = {
+  args: {
+    ...Default.args,
+    message: "Example message",
   },
 } satisfies Story;
