@@ -1,6 +1,6 @@
 import { areObjectsFlatEqual } from "@/utils/comparator";
 import { transformValidityStateToObject } from "@/utils/forms";
-import { onMounted, ref, watch, type Ref } from "vue";
+import { ref, watch, type Ref } from "vue";
 
 export type CustomValidityProp = {
   /**
@@ -25,7 +25,7 @@ export type UseCustomValidityOptions = {
 };
 
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
-  const validityState = ref(options.inputRef.value?.validity);
+  const validityState = ref<Record<keyof ValidityState, boolean>>();
 
   /**
    * Sync custom error with the native input validity.
@@ -38,22 +38,26 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     { immediate: true },
   );
 
-  // we use onMounted here to prevent an initial event emit when the `<input>` element (options.inputRef) is mounted
-  onMounted(() => {
-    /**
-     * Update validityState ref when the input changes.
-     */
-    watch(
-      [options.inputRef, () => options.props.customError, () => options.props.modelValue],
-      ([inputRef]) => {
-        if (!inputRef) return;
-        const newValidityState = transformValidityStateToObject(inputRef.validity);
-        //  only update + emit the validity state when it changed
-        if (!validityState.value || !areObjectsFlatEqual(newValidityState, validityState.value)) {
-          validityState.value = newValidityState;
-          options.emit("validityChange", validityState.value);
-        }
-      },
-    );
-  });
+  /**
+   * Update validityState ref when the input changes.
+   */
+  watch(
+    [options.inputRef, () => options.props.customError, () => options.props.modelValue],
+    ([inputRef]) => {
+      if (!inputRef) return;
+      const newValidityState = transformValidityStateToObject(inputRef.validity);
+
+      // do not emit validityChange event if input is valid and has never been invalid
+      if (newValidityState.valid && !validityState.value) return;
+
+      // ignore if actual validity state value is unchanged
+      if (validityState.value && areObjectsFlatEqual(newValidityState, validityState.value)) {
+        return;
+      }
+
+      validityState.value = newValidityState;
+      options.emit("validityChange", validityState.value);
+    },
+    { immediate: true },
+  );
 };
