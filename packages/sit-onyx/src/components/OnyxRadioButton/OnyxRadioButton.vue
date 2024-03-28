@@ -113,6 +113,8 @@ const { densityClass } = useDensity(props);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
   }
 
+  // note: for radio buttons, we must use ":invalid" instead of ":user-invalid"
+  // because ":user-invalid" is not supported for radio buttons
   &:has(&__selector:invalid) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
     --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
