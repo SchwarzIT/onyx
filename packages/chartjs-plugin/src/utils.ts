@@ -2,6 +2,7 @@ import type { OnyxColor } from "sit-onyx/types";
 
 /**
  * Utility for easily styling a Chart.js dataset with a specific onyx color.
+ * Will be updated automatically when switching between light/dark mode.
  *
  * @example
  * ```ts
@@ -21,11 +22,13 @@ export const getDatasetColors = (
   color: OnyxColor | `quantitatives-${100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900}`,
 ) => {
   const cssVariable = `--onyx-color-base-${color.startsWith("quantitatives-") ? color : `${color}-500`}`;
-  const baseColor = getCSSVariableValue(cssVariable);
+  // we use arrow functions here so the value is updated / re-evaluated when
+  // switched between light and dark mode
+  const borderColor = () => getCSSVariableValue(cssVariable);
 
   return {
-    borderColor: baseColor,
-    backgroundColor: `rgba(${hexToRgb(baseColor)}, 0.3)`,
+    borderColor,
+    backgroundColor: () => `rgba(${hexToRgb(borderColor())}, 0.3)`,
   };
 };
 
