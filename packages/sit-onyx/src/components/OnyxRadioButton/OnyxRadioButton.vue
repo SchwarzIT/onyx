@@ -1,7 +1,8 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { OnyxLoadingIndicator } from "@/index";
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 import { useDensity } from "../../composables/density";
+import { useCustomValidity, type CustomValidityEmit } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { RadioButtonProps, SelectionOptionValue } from "./types";
 
@@ -13,11 +14,17 @@ const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
   truncation: "ellipsis",
 });
 
-const selectorRef = ref<HTMLInputElement>();
+const emit = defineEmits<
+  CustomValidityEmit & {
+    /** Emitted when the value changes. */
+    change: [value: string];
+  }
+>();
+
+const inputRef = ref<HTMLInputElement>();
+useCustomValidity({ inputRef, props, emit });
 
 const { densityClass } = useDensity(props);
-
-watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""));
 </script>
 
 <template>
@@ -26,12 +33,12 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.errorMessage">
+  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.customError">
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       v-else
-      ref="selectorRef"
+      ref="inputRef"
       class="onyx-radio-button__selector"
       type="radio"
       :required="props.required"

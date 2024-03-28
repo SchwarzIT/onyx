@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { useCustomValidity, type CustomValidityEmit } from "@/composables/useCustomValidity";
+import { computed, ref } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
-import { useRequired } from "../../composables/required";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -15,24 +16,29 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   loading: false,
 });
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the current value changes.
-   */
-  "update:modelValue": [value: string];
-  /**
-   * Emitted when the current value changes but only when the input is blurred.
-   */
-  change: [value: string];
-  /**
-   * Emitted when the input is focussed.
-   */
-  focus: [];
-  /**
-   * Emitted when the input is blurred.
-   */
-  blur: [];
-}>();
+const emit = defineEmits<
+  CustomValidityEmit & {
+    /**
+     * Emitted when the current value changes.
+     */
+    "update:modelValue": [value: string];
+    /**
+     * Emitted when the current value changes but only when the input is blurred.
+     */
+    change: [value: string];
+    /**
+     * Emitted when the input is focussed.
+     */
+    focus: [];
+    /**
+     * Emitted when the input is blurred.
+     */
+    blur: [];
+  }
+>();
+
+const inputRef = ref<HTMLInputElement>();
+useCustomValidity({ inputRef, props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -76,6 +82,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
          The JSDoc description includes a warning that it should be used carefully.
       -->
         <input
+          ref="inputRef"
           v-model="value"
           class="onyx-input__native"
           :placeholder="props.placeholder"
@@ -147,6 +154,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-primary-200);
+  --outline-color: var(--onyx-color-base-primary-200);
 
   font-family: var(--onyx-font-family);
   display: flex;
@@ -184,12 +192,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     height: calc($line-height + 2 * var(--onyx-input-padding-vertical));
 
     &:has(.onyx-input__native:read-write:hover) {
-      border-color: var(--onyx-color-base-primary-400);
+      --border-color: var(--onyx-color-base-primary-400);
     }
 
     &:has(.onyx-input__native:enabled:focus) {
       --border-color: var(--onyx-color-base-primary-500);
-      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+      outline: var(--onyx-spacing-4xs) solid var(--outline-color);
     }
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
@@ -213,6 +221,19 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     &:has(.onyx-input__native:read-write) {
       &:has(#{get-autofill-selectors(".onyx-input__native")}) {
         background-color: var(--onyx-color-base-warning-100);
+      }
+    }
+
+    &:has(.onyx-input__native:user-invalid) {
+      --border-color: var(--onyx-color-base-danger-500);
+      --outline-color: var(--onyx-color-base-danger-200);
+
+      &:has(.onyx-input__native:enabled:focus) {
+        --border-color: var(--onyx-color-base-danger-500);
+      }
+
+      &:has(.onyx-input__native:enabled:hover) {
+        --border-color: var(--onyx-color-base-danger-400);
       }
     }
   }

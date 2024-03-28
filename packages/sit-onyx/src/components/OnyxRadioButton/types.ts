@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { TruncationType } from "../../types/fonts";
 
 export type SelectionOptionValue = string | number | boolean;
@@ -37,7 +38,8 @@ export type SelectionOption<
 
 export type RadioButtonProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
   SelectionOption<TValue> &
-    DensityProp & {
+    DensityProp &
+    CustomValidityProp & {
       /**
        * Identifier for the radio buttons in the group.
        * All radio buttons that should belong to the same radio group must have the same name.
@@ -54,5 +56,4 @@ export type RadioButtonProps<TValue extends SelectionOptionValue = SelectionOpti
        * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
        */
       required?: boolean;
-      errorMessage?: string;
     };

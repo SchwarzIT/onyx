@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { OnyxLoadingIndicator } from "@/index";
 import { computed, ref } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import { useCustomValidity, type CustomValidityEmit } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
-import { useRequired } from "../../composables/required";
-import { OnyxLoadingIndicator } from "@/index";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   modelValue: false,
@@ -16,21 +17,23 @@ const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
   skeleton: false,
 });
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-
-const emit = defineEmits<{
-  /** Emitted when the checked state changes. */
-  "update:modelValue": [value: boolean];
-}>();
+const emit = defineEmits<
+  CustomValidityEmit & {
+    /** Emitted when the checked state changes. */
+    "update:modelValue": [value: boolean];
+  }
+>();
 
 const isChecked = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
 
-/** True if the user has interacted with the checkbox once. */
-const isTouched = ref(false);
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
+
+const inputRef = ref<HTMLInputElement>();
+useCustomValidity({ inputRef, props, emit });
 </script>
 
 <template>
@@ -44,18 +47,15 @@ const { densityClass } = useDensity(props);
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
         v-else
+        ref="inputRef"
         v-model="isChecked"
         :aria-label="props.hideLabel ? props.label : undefined"
         :title="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
-        :class="{
-          'onyx-checkbox__input--touched': isTouched,
-        }"
         type="checkbox"
         :indeterminate="props.indeterminate"
         :disabled="props.disabled"
         :required="props.required"
-        @blur="isTouched = true"
       />
     </div>
 
@@ -147,18 +147,12 @@ const { densityClass } = useDensity(props);
 
   &:hover {
     @include define-hover-border($state: ":enabled", $color: primary);
-
-    &:has(.onyx-checkbox__input--touched) {
-      @include define-hover-border($state: ":invalid", $color: danger);
-    }
+    @include define-hover-border($state: ":user-invalid", $color: danger);
   }
 
   &:has(&__input:focus-visible) {
     @include define-focus-ring($state: ":enabled", $color: primary);
-
-    &:has(.onyx-checkbox__input--touched) {
-      @include define-focus-ring($state: ":invalid", $color: danger);
-    }
+    @include define-focus-ring($state: ":user-invalid", $color: danger);
   }
 
   &:has(&__input:disabled) {
@@ -194,10 +188,7 @@ const { densityClass } = useDensity(props);
     &:checked,
     &:indeterminate {
       @include define-checked-background(":enabled", primary);
-
-      &.onyx-checkbox__input--touched {
-        @include define-checked-background(":invalid", danger);
-      }
+      @include define-checked-background(":user-invalid", danger);
 
       &:disabled {
         background-color: var(--onyx-color-base-neutral-300);
@@ -208,10 +199,8 @@ const { densityClass } = useDensity(props);
       border-color: var(--onyx-color-base-neutral-300);
     }
 
-    &--touched {
-      &:invalid {
-        border-color: var(--onyx-color-base-danger-500);
-      }
+    &:user-invalid {
+      border-color: var(--onyx-color-base-danger-500);
     }
 
     &:checked {

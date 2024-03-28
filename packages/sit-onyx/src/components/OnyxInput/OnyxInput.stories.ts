@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxInput> = {
   title: "components/OnyxInput",
   ...defineStorybookActionsAndVModels({
     component: OnyxInput,
-    events: ["update:modelValue", "change", "focus", "blur"],
+    events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
     decorators: [
       (story) => ({
         components: { story },
@@ -128,5 +128,16 @@ export const HiddenLabel = {
   args: {
     label: "Label",
     hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an input with a custom error message.
+ * Will only be shown after user interaction.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    customError: "Example custom error",
   },
 } satisfies Story;
