@@ -35,7 +35,7 @@ export type OnyxCheckboxProps = DensityProp &
      */
     truncation?: TruncationType;
     /**
-     * Whether to show a skeleton button.
+     * Whether to show a skeleton checkbox.
      */
     skeleton?: boolean;
   };

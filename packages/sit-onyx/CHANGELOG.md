@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-alpha.58
+
+### Minor Changes
+
+- 70b545e: Create base of OnyxSelect, excluding the flyout
+
+## 1.0.0-alpha.57
+
+### Patch Changes
+
+- d4bb972: fix(OnyxTooltip): add missing type for open property
+
+## 1.0.0-alpha.56
+
+### Minor Changes
+
+- 6631b3d: Implemented density prop
+
 ## 1.0.0-alpha.55
 
 ### Patch Changes
