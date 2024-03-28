@@ -14,16 +14,16 @@ const meta: Meta<typeof OnyxPageLayout> = {
     events: [],
     argTypes: {
       default: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       sidebar: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       footer: {
-        control: { disabled: true },
+        control: { disable: true },
       },
       toasts: {
-        control: { disabled: true },
+        control: { disable: true },
       },
     },
   }),
@@ -33,8 +33,8 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 20rem; 
-                    font-family: var(--onyx-font-family); 
+        <div style="margin: -1rem; height: 20rem;
+                    font-family: var(--onyx-font-family);
                     color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
@@ -102,7 +102,7 @@ export const WithToast = {
     <template #toasts>
       <div style="display: flex;
                   justify-content: center;
-                  width: 90%;  
+                  width: 90%;
                   background-color: var(--onyx-color-base-neutral-900);
                   opacity: 0.9;
                   color: var(--onyx-color-text-icons-neutral-inverted);

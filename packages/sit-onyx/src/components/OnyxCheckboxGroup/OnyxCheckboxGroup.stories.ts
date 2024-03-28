@@ -29,7 +29,7 @@ export const Default = {
       { label: "Default", id: "id-1" },
       { label: "Initially checked", id: "id-2" },
       { label: "Required", id: "id-3", required: true },
-      { label: "Disabled", id: "id-4", disabled: true },
+      { label: "Disabled", id: "id-4", disable: true },
       { label: "Loading", id: "id-5", loading: true },
     ],
   },
@@ -61,7 +61,7 @@ export const WithCheckAll = {
 export const Disabled = {
   args: {
     ...Default.args,
-    disabled: true,
+    disable: true,
   },
 } satisfies Story;
 

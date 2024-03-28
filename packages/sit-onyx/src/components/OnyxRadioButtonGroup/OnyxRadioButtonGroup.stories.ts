@@ -22,7 +22,7 @@ type Story = StoryObj<typeof OnyxRadioButtonGroup>;
 const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
   { label: "Default", value: "1", id: "1" },
   { label: "Initially checked", value: "2", id: "2" },
-  { label: "Disabled", value: "3", id: "3", disabled: true },
+  { label: "Disabled", value: "3", id: "3", disable: true },
   { label: "Loading", value: "4", id: "4", loading: true },
 ];
 
@@ -45,7 +45,7 @@ export const Disabled = {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
     modelValue: EXAMPLE_OPTIONS[0],
-    disabled: true,
+    disable: true,
   },
 } satisfies Story;
 

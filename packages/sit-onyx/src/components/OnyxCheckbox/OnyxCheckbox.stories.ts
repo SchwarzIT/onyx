@@ -44,7 +44,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     modelValue: true,
-    disabled: true,
+    disable: true,
   },
 } satisfies Story;
 
