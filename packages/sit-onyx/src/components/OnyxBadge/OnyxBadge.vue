@@ -12,7 +12,7 @@ defineSlots<{
   /**
    * Badge content.
    */
-  default(): unknown;
+  default(props: Record<string, never>): unknown;
 }>();
 </script>
 

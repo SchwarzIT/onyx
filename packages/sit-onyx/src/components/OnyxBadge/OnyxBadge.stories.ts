@@ -38,7 +38,7 @@ export const Primary = {
 } satisfies Story;
 
 /**
- * This example shows the badge in secondary variation
+ * This example shows the badge in secondary variation with a number content
  */
 export const Secondary = {
   args: {
@@ -48,7 +48,7 @@ export const Secondary = {
 } satisfies Story;
 
 /**
- * This example shows the badge in danger variation
+ * This example shows the badge in danger variation with icon content
  */
 export const Danger = {
   args: {
