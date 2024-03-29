@@ -18,13 +18,13 @@ defineSlots<{
    * **Accessibility**: Please ensure that your content includes at least one focusable element
    * (e.g. by using a button or input element).
    */
-  default(props: Record<string, unknown>): unknown;
+  default(): unknown;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
    * **Accessibility**: Make sure that the tooltip content is NOT focusable/interactive.
    */
-  tooltip?(props: Record<string, unknown>): unknown;
+  tooltip?(): unknown;
 }>();
 
 const {
