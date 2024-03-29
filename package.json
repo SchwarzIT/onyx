@@ -21,7 +21,7 @@
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@playwright/experimental-ct-vue": "^1.42.1",
     "@playwright/test": "^1.42.1",
-    "@rushstack/eslint-patch": "^1.9.0",
+    "@rushstack/eslint-patch": "^1.10.0",
     "@sit-onyx/eslint-plugin": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^8.0.5",
@@ -51,7 +51,7 @@
     "storybook": "^8.0.5",
     "typescript": "~5.4.3",
     "vite": "^5.2.6",
-    "vite-plugin-dts": "^3.8.0",
+    "vite-plugin-dts": "^3.8.1",
     "vitest": "^1.4.0",
     "vue": "^3.4.21",
     "vue-tsc": "^2.0.7"
