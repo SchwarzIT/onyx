@@ -53,9 +53,6 @@ defineSlots<{
   max-width: 100%;
   box-sizing: border-box;
   padding: var(--onyx-badge-padding);
-  justify-content: center;
-  align-items: center;
-  gap: var(--onyx-badge-gap);
   border-radius: var(--onyx-radius-full);
   background-color: var(--onyx-badge-background-color);
 
