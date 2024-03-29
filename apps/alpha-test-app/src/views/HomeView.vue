@@ -21,6 +21,7 @@ import {
 } from "sit-onyx";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import type { DensityType } from "../../../../packages/sit-onyx/dist/composables/density";
 
 const router = useRouter();
 
@@ -52,19 +53,13 @@ const show = computed(() => {
 });
 
 const DENSITIES = ["Compact", "Default", "Cozy"];
-type DensityType = "default" | "cozy" | "compact" | undefined;
 
 const densityOptions = DENSITIES.map((id) => ({
-  id,
+  id: id.toLowerCase() as DensityType,
   label: id,
-  value: id.toLowerCase() as DensityType,
-}));
+})) satisfies SelectionOption<string>[];
 
-const activeDensityOption = ref({
-  id: "Default",
-  label: "Default",
-  value: "default" as DensityType,
-});
+const activeDensityOption = ref({ ...densityOptions[1] });
 
 /* Demo data for the components we show */
 const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
@@ -126,24 +121,19 @@ const listboxOptions = [
         </div>
       </template>
 
-      <div class="page">
+      <div class="page" :class="[`onyx-density-${activeDensityOption.id}`]">
         <OnyxHeadline is="h1">Component usages</OnyxHeadline>
 
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
-          <OnyxButton
-            v-if="show('OnyxButton')"
-            label="Button"
-            :density="activeDensityOption.value"
-          />
+          <OnyxButton v-if="show('OnyxButton')" label="Button" />
 
           <template v-if="show('OnyxCheckboxGroup')">
             <OnyxCheckboxGroup
               v-model="checkboxState"
               headline="Checkbox Group"
               :options="dummyOptions"
-              :density="activeDensityOption.value"
             />
             OnyxCheckboxGroup state: {{ checkboxState }}
           </template>
@@ -152,14 +142,9 @@ const listboxOptions = [
 
           <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
-          <OnyxIconButton
-            v-if="show('OnyxIconButton')"
-            label="Happy Emoji"
-            :icon="emojiHappy2"
-            :density="activeDensityOption.value"
-          />
+          <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
-          <OnyxInput v-if="show('OnyxInput')" label="Input" :density="activeDensityOption.value" />
+          <OnyxInput v-if="show('OnyxInput')" label="Input" />
 
           <OnyxLink v-if="show('OnyxLink')" href="#">Link</OnyxLink>
 
@@ -170,7 +155,6 @@ const listboxOptions = [
               v-model="radioState"
               headline="Radio Button Group"
               :options="dummyOptions"
-              :density="activeDensityOption.value"
             />
             OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
           </template>
@@ -181,7 +165,6 @@ const listboxOptions = [
             v-if="show('OnyxSwitch')"
             v-model="switchState"
             :label="'Switch is ' + (switchState ? 'on' : 'off')"
-            :density="activeDensityOption.value"
           />
 
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
