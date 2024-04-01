@@ -4,7 +4,7 @@ import shareAndroid from "@sit-onyx/icons/share-android.svg?raw";
 import sunny from "@sit-onyx/icons/sunny.svg?raw";
 import sync from "@sit-onyx/icons/sync.svg?raw";
 import type { ReplStore } from "@vue/repl";
-import { OnyxHeadline, OnyxIconButton } from "sit-onyx";
+import { OnyxIconButton } from "sit-onyx";
 import githubLogo from "../assets/github-logo.svg?raw";
 import VersionSelect from "./VersionSelect.vue";
 
@@ -34,7 +34,7 @@ const toggleDark = () => emit("update:dark", !props.dark);
   <header class="header">
     <div class="header__brand">
       <img alt="logo" src="/logo.svg" class="header__logo" />
-      <OnyxHeadline is="h1">Playground</OnyxHeadline>
+      <h1 class="onyx-headline onyx-headline--h2">Playground</h1>
     </div>
 
     <div class="header__actions">
@@ -104,7 +104,7 @@ const toggleDark = () => emit("update:dark", !props.dark);
   }
 
   &__logo {
-    height: 1.5rem;
+    height: 1.25rem; // same as name/headline font-size
   }
 
   &__actions {
