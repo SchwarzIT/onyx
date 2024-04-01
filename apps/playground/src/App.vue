@@ -5,9 +5,13 @@ import { OnyxAppLayout } from "sit-onyx";
 import { computed, onMounted, ref, watchEffect } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import { useFiles } from "./composables/useFiles";
+import { fetchVersions } from "./utils/versions";
 
 const { vueVersion, importMap } = useVueImportMap({ vueVersion: "latest" });
 const onyxVersion = ref("alpha");
+
+const onyxVersions = ref<string[]>([]);
+fetchVersions("sit-onyx").then((versions) => (onyxVersions.value = versions));
 
 const store = useStore(
   {
@@ -20,6 +24,18 @@ const store = useStore(
         },
       }),
     ),
+    /**
+     * Specify onyx version which is needed for the Monaco editor so that is loads the correct types for the current version
+     */
+    dependencyVersion: computed(() => {
+      let version: string | undefined = onyxVersion.value;
+      if (version === "alpha") {
+        version = onyxVersions.value.find((i) => i.includes("-alpha"));
+      }
+      return {
+        "sit-onyx": onyxVersion.value === "alpha" ? onyxVersions.value[0] : onyxVersion.value,
+      };
+    }),
   },
   // initialize repl with previously serialized state
   location.hash.slice(1),

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { OnyxButton, OnyxListbox, type ListboxOption } from "sit-onyx";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { fetchVersions } from "../utils/versions";
 
 const props = defineProps<{
   pkg: string;
@@ -16,15 +17,9 @@ const versions = ref<string[]>();
 async function toggle() {
   expanded.value = !expanded.value;
   if (!versions.value) {
-    versions.value = await fetchVersions();
+    versions.value = await fetchVersions(props.pkg);
   }
 }
-
-const fetchVersions = async (): Promise<string[]> => {
-  const response = await fetch(`https://data.jsdelivr.com/v1/package/npm/${props.pkg}`);
-  const { versions } = (await response.json()) as { versions: string[] };
-  return versions;
-};
 
 const filteredVersions = computed(() => {
   if (props.includePreReleases) return versions.value;
