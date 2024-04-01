@@ -6,14 +6,17 @@ import { onMounted, ref, watchEffect } from "vue";
 import WelcomeTemplate from "./WelcomeTemplate.vue?raw";
 import TheHeader from "./components/TheHeader.vue";
 
-const store = useStore({
-  vueVersion: ref("latest"),
-  typescriptVersion: ref("latest"),
-  template: ref({
-    newSFC: WelcomeTemplate,
-    welcomeSFC: WelcomeTemplate,
-  }),
-});
+const store = useStore(
+  {
+    vueVersion: ref("latest"),
+    typescriptVersion: ref("latest"),
+    template: ref({
+      newSFC: WelcomeTemplate,
+      welcomeSFC: WelcomeTemplate,
+    }),
+  },
+  location.hash.slice(1),
+);
 
 // persist state
 watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
@@ -59,7 +62,6 @@ onMounted(() => {
       :store="store"
       :clear-console="false"
       :show-compile-output="false"
-      :show-import-map="false"
       auto-resize
       @keydown.ctrl.s.prevent
       @keydown.meta.s.prevent
@@ -72,5 +74,11 @@ onMounted(() => {
   &__nav {
     padding: 0;
   }
+}
+
+.dark .vue-repl,
+.vue-repl {
+  --color-branding: var(--onyx-color-text-icons-primary-intense);
+  --color-branding-dark: var(--onyx-color-text-icons-primary-bold);
 }
 </style>
