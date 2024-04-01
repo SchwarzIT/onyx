@@ -25,15 +25,14 @@ const store = useStore(
   location.hash.slice(1),
 );
 
-useFiles(store, onyxVersion);
-
-// persist state
-watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
-
 const replRef = ref<InstanceType<typeof Repl>>();
 const reloadPage = () => replRef.value?.reload();
 
 const theme = ref<"dark" | "light">("dark");
+useFiles({ store, onyxVersion, theme, reloadPage });
+
+// persist state
+watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
 
 const updateTheme = (isDark: boolean) => {
   theme.value = isDark ? "dark" : "light";

@@ -11,7 +11,14 @@ const FILES = {
   "src/style.css": style,
 } as const;
 
-export const useFiles = (store: ReplStore, onyxVersion: Ref<string>) => {
+export type UseFilesOptions = {
+  store: ReplStore;
+  onyxVersion: Ref<string>;
+  theme: Ref<"dark" | "light">;
+  reloadPage: () => void;
+};
+
+export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOptions) => {
   Object.entries(FILES).forEach(([name, code]) => {
     store.addFile(new File(name, code, false));
   });
@@ -21,16 +28,17 @@ export const useFiles = (store: ReplStore, onyxVersion: Ref<string>) => {
   store.mainFile = MAIN_FILE;
 
   watch(
-    onyxVersion,
+    [onyxVersion, theme],
     () => {
       const code = PlaygroundMain.replace(
         "#STYLE_HREF#",
         `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/style.css`,
-      );
+      ).replace("#THEME#", theme.value);
 
       const file = new File(MAIN_FILE, code, true);
       store.addFile(file);
       compileFile(store, file).catch((e) => (store.errors = [e]));
+      reloadPage();
     },
     { immediate: true },
   );

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { OnyxHeadline, OnyxInput } from "sit-onyx";
+import { OnyxInput } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref("");
 </script>
 
 <template>
-  <OnyxHeadline is="h1">Welcome</OnyxHeadline>
+  <p>You can edit the code on the left and see the live results here.</p>
   <OnyxInput v-model="value" label="Example input" />
 </template>
