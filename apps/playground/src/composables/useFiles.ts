@@ -4,7 +4,7 @@ import App from "../template/App.vue?raw";
 import PlaygroundMain from "../template/PlaygroundMain.vue?raw";
 import style from "../template/style.css?raw";
 
-const MAIN_FILE = "PlaygroundMain.vue" as const;
+const MAIN_FILE = "src/PlaygroundMain.vue" as const;
 
 const FILES = {
   "src/App.vue": App,
@@ -29,7 +29,7 @@ export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOpti
 
   watch(
     [onyxVersion, theme],
-    () => {
+    async () => {
       const code = PlaygroundMain.replace(
         "#STYLE_HREF#",
         `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/style.css`,
@@ -37,7 +37,7 @@ export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOpti
 
       const file = new File(MAIN_FILE, code, true);
       store.addFile(file);
-      compileFile(store, file).catch((e) => (store.errors = [e]));
+      await compileFile(store, file).catch((e) => (store.errors = [e]));
       reloadPage();
     },
     { immediate: true },
