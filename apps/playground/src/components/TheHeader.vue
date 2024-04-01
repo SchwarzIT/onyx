@@ -45,13 +45,13 @@ const toggleDark = () => emit("update:dark", !props.dark);
         include-pre-releases
       />
 
+      <VersionSelect v-model="store.vueVersion" pkg="vue" label="Vue Version" />
+
       <VersionSelect
         v-model="store.typescriptVersion"
         pkg="typescript"
         label="TypeScript Version"
       />
-
-      <VersionSelect v-model="store.vueVersion" pkg="vue" label="Vue Version" />
 
       <OnyxIconButton
         label="Toggle dark mode"
