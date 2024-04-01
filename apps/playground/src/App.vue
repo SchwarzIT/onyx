@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { Repl, useStore } from "@vue/repl";
 import Monaco from "@vue/repl/monaco-editor";
+import { OnyxAppLayout } from "sit-onyx";
 import { onMounted, ref, watchEffect } from "vue";
+import WelcomeTemplate from "./WelcomeTemplate.vue?raw";
 import TheHeader from "./components/TheHeader.vue";
 
 const store = useStore({
   vueVersion: ref("latest"),
   typescriptVersion: ref("latest"),
+  template: ref({
+    newSFC: WelcomeTemplate,
+    welcomeSFC: WelcomeTemplate,
+  }),
 });
 
 // persist state
@@ -36,49 +42,35 @@ onMounted(() => {
 </script>
 
 <template>
-  <TheHeader
-    :store="store"
-    :dark="theme === 'dark'"
-    @update:dark="updateTheme"
-    @reload-page="reloadPage"
-  />
-  <Repl
-    ref="replRef"
-    :editor="Monaco"
-    :theme="theme"
-    :store="store"
-    :clear-console="false"
-    :show-compile-output="false"
-    :show-import-map="false"
-    auto-resize
-    @keydown.ctrl.s.prevent
-    @keydown.meta.s.prevent
-  />
+  <OnyxAppLayout>
+    <template #navBar>
+      <TheHeader
+        :store="store"
+        :dark="theme === 'dark'"
+        @update:dark="updateTheme"
+        @reload-page="reloadPage"
+      />
+    </template>
+
+    <Repl
+      ref="replRef"
+      :editor="Monaco"
+      :theme="theme"
+      :store="store"
+      :clear-console="false"
+      :show-compile-output="false"
+      :show-import-map="false"
+      auto-resize
+      @keydown.ctrl.s.prevent
+      @keydown.meta.s.prevent
+    />
+  </OnyxAppLayout>
 </template>
 
-<style>
-.dark {
-  color-scheme: dark;
-}
-
-body {
-  font-size: 13px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-    "Open Sans", "Helvetica Neue", sans-serif;
-  margin: 0;
-  --base: #444;
-  --nav-height: 50px;
-}
-
-.vue-repl {
-  height: calc(100vh - var(--nav-height));
-}
-
-button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin: 0;
-  background-color: transparent;
+<style lang="scss">
+.onyx-app {
+  &__nav {
+    padding: 0;
+  }
 }
 </style>

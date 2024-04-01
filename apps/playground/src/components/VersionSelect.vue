@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { OnyxButton, OnyxListbox, type ListboxOption } from "sit-onyx";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 const props = defineProps<{
@@ -30,10 +31,16 @@ const filteredVersions = computed(() => {
   return versions.value?.filter((v) => !v.includes("-"));
 });
 
-const setVersion = (v: string) => {
-  version.value = v;
-  expanded.value = false;
-};
+const modelValue = computed({
+  get: () => {
+    if (version.value === "latest") return filteredVersions.value?.[0];
+    return version.value ?? undefined;
+  },
+  set: (value) => {
+    version.value = value;
+    expanded.value = false;
+  },
+});
 
 const onWindowClick = () => (expanded.value = false);
 const onWindowBlur = () => {
@@ -51,55 +58,34 @@ onBeforeUnmount(() => {
   window.removeEventListener("click", onWindowClick);
   window.removeEventListener("blur", onWindowBlur);
 });
+
+const options = computed<ListboxOption[]>(() => {
+  return filteredVersions.value?.map((i) => ({ id: i, label: i })) ?? [];
+});
 </script>
 
 <template>
   <div class="version" @click.stop>
-    <button class="active-version" @click="toggle">
-      {{ label }}
-      <span class="number">{{ version }}</span>
-    </button>
+    <OnyxButton
+      :label="`${props.label}: ${version}`"
+      mode="plain"
+      variation="secondary"
+      @click="toggle"
+    />
 
-    <ul class="versions" :class="{ expanded }">
-      <li v-if="!versions"><a>loading versions...</a></li>
-
-      <li v-for="ver of filteredVersions" :key="ver" :class="{ active: ver === version }">
-        <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions vuejs-accessibility/click-events-have-key-events -->
-        <a @click="setVersion(ver)">v{{ ver }}</a>
-      </li>
-    </ul>
+    <!-- TODO: add loading/empty state -->
+    <OnyxListbox v-if="expanded" v-model="modelValue" label="Select version" :options="options" />
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .version {
-  margin-right: 12px;
   position: relative;
-}
 
-.active-version {
-  cursor: pointer;
-  position: relative;
-  display: inline-flex;
-  place-items: center;
-}
-
-.active-version .number {
-  color: var(--green);
-  margin-left: 4px;
-}
-
-.active-version::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 6px solid #aaa;
-  margin-left: 8px;
-}
-
-.versions .active a {
-  color: var(--green);
+  .onyx-listbox {
+    position: absolute;
+    left: 0;
+    top: 2.5rem; // button height
+  }
 }
 </style>

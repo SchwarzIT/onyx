@@ -4,7 +4,7 @@ import shareAndroid from "@sit-onyx/icons/share-android.svg?raw";
 import sunny from "@sit-onyx/icons/sunny.svg?raw";
 import sync from "@sit-onyx/icons/sync.svg?raw";
 import type { ReplStore } from "@vue/repl";
-import { OnyxIconButton } from "sit-onyx";
+import { OnyxHeadline, OnyxIconButton } from "sit-onyx";
 import githubLogo from "../assets/github-logo.svg?raw";
 import VersionSelect from "./VersionSelect.vue";
 
@@ -29,13 +29,13 @@ const toggleDark = () => emit("update:dark", !props.dark);
 </script>
 
 <template>
-  <nav>
-    <h1>
-      <img alt="logo" src="/logo.svg" />
-      <span>Playground</span>
-    </h1>
+  <header class="header">
+    <div class="header__brand">
+      <img alt="logo" src="/logo.svg" class="header__logo" />
+      <OnyxHeadline is="h1">Playground</OnyxHeadline>
+    </div>
 
-    <div class="links">
+    <div class="header__actions">
       <VersionSelect
         v-model="store.typescriptVersion"
         pkg="typescript"
@@ -73,118 +73,38 @@ const toggleDark = () => emit("update:dark", !props.dark);
         <OnyxIconButton label="View on GitHub" :icon="githubLogo" variation="secondary" />
       </a>
     </div>
-  </nav>
+  </header>
 </template>
 
-<style>
-nav {
-  --bg: #fff;
-  --bg-light: #fff;
-  --border: #ddd;
-  --btn: #666;
-  --highlight: #333;
-  --green: #3ca877;
-  --purple: #904cbc;
-  --btn-bg: #eee;
-
-  color: var(--base);
-  height: var(--nav-height);
+<style lang="scss" scoped>
+.header {
   box-sizing: border-box;
-  padding: 0 1em;
-  background-color: var(--bg);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
-  position: relative;
-  z-index: 999;
+  padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
+  width: 100%;
+
+  border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
+
   display: flex;
+  align-items: center;
   justify-content: space-between;
-}
 
-.dark nav {
-  --base: #ddd;
-  --bg: #1a1a1a;
-  --bg-light: #242424;
-  --border: #383838;
-  --highlight: #fff;
-  --btn-bg: #333;
-
-  box-shadow: none;
-  border-bottom: 1px solid var(--border);
-}
-
-h1 {
-  font-weight: 500;
-  display: inline-flex;
-  place-items: center;
-}
-
-h1 img {
-  height: 24px;
-  margin-right: 10px;
-}
-
-@media (max-width: 560px) {
-  h1 span {
-    font-size: 0.9em;
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-xs);
   }
-}
 
-@media (max-width: 520px) {
-  h1 span {
-    display: none;
+  &__logo {
+    height: 1.5rem;
   }
-}
 
-.links {
-  display: flex;
-  align-items: center;
-}
-
-.version:hover .active-version::after {
-  border-top-color: var(--btn);
-}
-
-.dark .version:hover .active-version::after {
-  border-top-color: var(--highlight);
-}
-
-.versions {
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 40px;
-  background-color: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  list-style-type: none;
-  padding: 8px;
-  margin: 0;
-  width: 200px;
-  max-height: calc(100vh - 70px);
-  overflow: scroll;
-}
-
-.versions a {
-  display: block;
-  padding: 6px 12px;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--base);
-}
-
-.versions a:hover {
-  color: var(--green);
-}
-
-.versions.expanded {
-  display: block;
-}
-
-.links > * {
-  display: flex;
-  align-items: center;
-}
-
-.links > * + * {
-  margin-left: 4px;
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--onyx-spacing-4xs);
+    width: 100%;
+  }
 }
 </style>
