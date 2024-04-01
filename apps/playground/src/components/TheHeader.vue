@@ -18,6 +18,8 @@ const emit = defineEmits<{
   reloadPage: [];
 }>();
 
+const onyxVersion = defineModel<string>("onyxVersion");
+
 const { store } = props;
 
 const copyLink = async () => {
@@ -36,6 +38,13 @@ const toggleDark = () => emit("update:dark", !props.dark);
     </div>
 
     <div class="header__actions">
+      <VersionSelect
+        v-model="onyxVersion"
+        pkg="sit-onyx"
+        label="onyx Version"
+        include-pre-releases
+      />
+
       <VersionSelect
         v-model="store.typescriptVersion"
         pkg="typescript"

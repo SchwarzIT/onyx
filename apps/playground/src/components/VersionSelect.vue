@@ -33,7 +33,8 @@ const filteredVersions = computed(() => {
 
 const modelValue = computed({
   get: () => {
-    if (version.value === "latest") return filteredVersions.value?.[0];
+    const isLatest = version.value && !version.value.includes(".");
+    if (isLatest) return filteredVersions.value?.[0];
     return version.value ?? undefined;
   },
   set: (value) => {

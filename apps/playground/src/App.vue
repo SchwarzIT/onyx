@@ -1,22 +1,31 @@
 <script setup lang="ts">
-import { Repl, useStore } from "@vue/repl";
+import { Repl, mergeImportMap, useStore, useVueImportMap } from "@vue/repl";
 import Monaco from "@vue/repl/monaco-editor";
 import { OnyxAppLayout } from "sit-onyx";
-import { onMounted, ref, watchEffect } from "vue";
-import WelcomeTemplate from "./WelcomeTemplate.vue?raw";
+import { computed, onMounted, ref, watchEffect } from "vue";
 import TheHeader from "./components/TheHeader.vue";
+import { useFiles } from "./composables/useFiles";
+
+const { vueVersion, importMap } = useVueImportMap({ vueVersion: "latest" });
+const onyxVersion = ref("alpha");
 
 const store = useStore(
   {
-    vueVersion: ref("latest"),
+    vueVersion,
     typescriptVersion: ref("latest"),
-    template: ref({
-      newSFC: WelcomeTemplate,
-      welcomeSFC: WelcomeTemplate,
-    }),
+    builtinImportMap: computed(() =>
+      mergeImportMap(importMap.value, {
+        imports: {
+          "sit-onyx": `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/index.js`,
+        },
+      }),
+    ),
   },
+  // initialize repl with previously serialized state
   location.hash.slice(1),
 );
+
+useFiles(store, onyxVersion);
 
 // persist state
 watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
@@ -48,6 +57,7 @@ onMounted(() => {
   <OnyxAppLayout>
     <template #navBar>
       <TheHeader
+        v-model:onyx-version="onyxVersion"
         :store="store"
         :dark="theme === 'dark'"
         @update:dark="updateTheme"
@@ -70,12 +80,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-.onyx-app {
-  &__nav {
-    padding: 0;
-  }
-}
-
 .dark .vue-repl,
 .vue-repl {
   --color-branding: var(--onyx-color-text-icons-primary-intense);
