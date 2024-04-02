@@ -113,16 +113,16 @@ const { densityClass } = useDensity(props);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
   }
 
-  &:has(&__selector:user-invalid) {
+  &:has(&__selector:invalid) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
     --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
   }
 
-  &:has(&__selector:user-invalid:checked) {
+  &:has(&__selector:invalid:checked) {
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
   }
 
-  &:has(&__selector:user-invalid:checked:hover) {
+  &:has(&__selector:invalid:checked:hover) {
     --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-400);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-400);
   }

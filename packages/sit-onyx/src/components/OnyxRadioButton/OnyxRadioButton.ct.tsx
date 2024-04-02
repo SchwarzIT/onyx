@@ -138,7 +138,7 @@ test.describe("state screenshot tests", () => {
           selected={select === "selected"}
           density={density}
           disabled={state === "disabled"}
-          customError={state === "invalid" ? "invalid" : ""}
+          customError={state === "invalid" ? "test error" : ""}
           name={`name`}
           label="label"
           id={`id`}
