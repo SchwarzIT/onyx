@@ -50,7 +50,6 @@ export type OnyxSelectProps<
     disabled?: boolean;
     /**
      * Whether to show a skeleton select.
-     * TODO: implement skeleton
      */
     skeleton?: boolean;
     /**
