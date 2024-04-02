@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.59
+
+### Major Changes
+
+- fe0f615: refactor(OnyxTooltip): remove property `label` and `hideLabel` in favor of `message`
+
 ## 1.0.0-alpha.58
 
 ### Minor Changes
