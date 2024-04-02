@@ -2,8 +2,10 @@
 import { ref } from "vue";
 import { createListbox } from "./createListbox";
 
-const selectedOption = ref<(typeof options)[number]>();
-const activeOption = ref<(typeof options)[number]>();
+type Options = (typeof options)[number];
+
+const selectedOption = ref<Options>();
+const activeOption = ref<Options>();
 
 const options = [
   "Apple",
