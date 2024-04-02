@@ -139,5 +139,6 @@ export const CustomError = {
   args: {
     ...Default.args,
     customError: "Example custom error",
+    placeholder: "Interact with me to show error",
   },
 } satisfies Story;
