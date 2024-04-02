@@ -285,7 +285,7 @@ const { densityClass } = useDensity(props);
       height: 1.25rem;
     }
     &__input {
-      width: 17rem;
+      width: 16rem;
       // TODO: apply height based on density
       height: calc(1lh + 2 * var(--onyx-select-padding-vertical));
     }
