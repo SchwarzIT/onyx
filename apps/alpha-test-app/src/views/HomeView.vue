@@ -19,9 +19,9 @@ import {
   OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
-import { computed, ref } from "vue";
+import { computed, ref, capitalize } from "vue";
 import { useRouter } from "vue-router";
-import type { DensityType } from "../../../../packages/sit-onyx/dist/composables/density";
+import { type DensityType, DENSITY } from "sit-onyx";
 
 const router = useRouter();
 
@@ -52,11 +52,9 @@ const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
 
-const DENSITIES = ["Compact", "Default", "Cozy"];
-
-const densityOptions = DENSITIES.map((id) => ({
-  id: id.toLowerCase() as DensityType,
-  label: id,
+const densityOptions = DENSITY.map((id: string) => ({
+  id: id as DensityType,
+  label: capitalize(id),
 })) satisfies SelectionOption<string>[];
 
 const activeDensityOption = ref({ ...densityOptions[1] });
