@@ -14,7 +14,7 @@ const { densityClass } = useDensity(props);
 
 defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
-  default(props: Record<string, never>): unknown;
+  default(): unknown;
 }>();
 
 const emit = defineEmits<{
