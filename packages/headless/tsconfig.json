@@ -1,10 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": ".",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "noEmit": true
   }
 }

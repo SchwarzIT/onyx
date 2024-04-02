@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { createListbox, type ListboxValue } from "./createListbox";
+import { createListbox } from "./createListbox";
 
-const selectedOption = ref<ListboxValue>();
-const activeOption = ref<ListboxValue>();
+const selectedOption = ref<(typeof options)[number]>();
+const activeOption = ref<(typeof options)[number]>();
 
 const options = [
   "Apple",
@@ -22,12 +22,11 @@ const options = [
   "Melon",
   "Raspberry",
   "Strawberry",
-];
+] as const;
 
 const {
-  elements: { listbox, option: headlessOption },
+  elements: { label, listbox, option: headlessOption },
 } = createListbox({
-  label: "Test listbox",
   selectedOption,
   activeOption,
   onSelect: (id) => {
@@ -56,6 +55,7 @@ const {
 </script>
 
 <template>
+  <span v-bind="label">the label</span>
   <ul v-bind="listbox">
     <li
       v-for="option in options"

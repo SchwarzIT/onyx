@@ -2,8 +2,8 @@
 import { createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
+import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
 const props = defineProps<OnyxListboxProps<TValue>>();
 
@@ -30,9 +30,8 @@ watch(
 );
 
 const {
-  elements: { listbox, option: headlessOption },
+  elements: { label, listbox, option: headlessOption },
 } = createListbox({
-  label: computed(() => props.label),
   selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (id) => {
@@ -81,7 +80,7 @@ const {
       </OnyxListboxOption>
     </ul>
 
-    <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
+    <span v-if="props.message" v-bind="label" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
     </span>
   </div>

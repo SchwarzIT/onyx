@@ -1,3 +1,5 @@
+/* eslint-disable playwright/no-conditional-expect */
+/* eslint-disable playwright/missing-playwright-await */
 import { expect } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 
@@ -43,7 +45,14 @@ export const listboxTesting = async ({
   await expect(listbox).toBeVisible();
 
   // ensure correct listbox aria attributes
-  await expect(listbox, "listbox must have arial-label attribute").toHaveAttribute("aria-label");
+  await expect(
+    listbox,
+    'listbox must either have a "aria-labelledby" attribute with an existing id',
+  )
+    .toHaveAttribute("aria-labelledby")
+    .then(() => listbox.getAttribute("aria-labelledby"))
+    .then((labelledby) => expect(page.locator(`#${labelledby}`)).toBeDefined());
+
   await expect(listbox, "listbox must have role attribute with value listbox").toHaveAttribute(
     "role",
     "listbox",

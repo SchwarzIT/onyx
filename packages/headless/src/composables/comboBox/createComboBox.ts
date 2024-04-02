@@ -1,40 +1,36 @@
 import { computed, ref, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
+import { createListbox, type ListboxValue } from "../listbox/createListbox";
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  ({
+  <TValue extends ListboxValue>({
     isExpanded,
     activeKey,
     onToggle,
     onSelect,
-    onFirst,
-    onLast,
-    onNext,
-    onPrevious,
+    onActivateFirst,
+    onActivateLast,
+    onActivateNext,
+    onActivatePrevious,
   }: {
     isExpanded: Ref<boolean>;
-    activeKey: Ref<string | undefined>;
+    activeKey: Ref<TValue | undefined>;
     onToggle: () => void;
-    onSelect: (key: string) => void;
-    onFirst: () => void;
-    onLast: () => void;
-    onNext: () => void;
-    onPrevious: () => void;
+    onSelect: (key: TValue) => void;
+    onActivateFirst: () => void;
+    onActivateLast: () => void;
+    onActivateNext: () => void;
+    onActivatePrevious: () => void;
   }) => {
     const inputValue = ref("");
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");
-
-    const descendantKeyIdMap: Record<string, string | undefined> = {};
-
-    const getOptionId = (key: string) =>
-      descendantKeyIdMap[key] ?? (descendantKeyIdMap[key] = createId("comboBox-option"));
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
@@ -54,54 +50,56 @@ export const createComboBox = createBuilder(
       }
       switch (event.key) {
         case "Escape":
+          event.preventDefault();
           onToggle();
           break;
         case "ArrowUp":
+          event.preventDefault();
           if (!activeKey.value) {
-            return onLast();
+            return onActivateLast();
           }
-          onPrevious();
+          onActivatePrevious();
           break;
         case "ArrowDown":
+          event.preventDefault();
           if (!activeKey.value) {
-            return onFirst();
+            return onActivateFirst();
           }
-          onNext();
+          onActivateNext();
           break;
         case "Home":
-          onFirst();
+          event.preventDefault();
+          onActivateFirst();
           break;
         case "End":
-          onLast();
+          event.preventDefault();
+          onActivateLast();
           break;
       }
     };
 
+    const {
+      elements: { option, group, listbox, label },
+      internals: { getOptionId },
+    } = createListbox({
+      controlled: true,
+      activeOption: activeKey,
+      selectedOption: activeKey,
+      onSelect,
+    });
+
     return {
       elements: {
-        /**
-         * The label element for the combobox input element.
-         */
-        label: {
-          id: labelId,
-        },
+        label,
+        option,
+        group,
         /**
          * The listbox associated with the combobox.
          */
         listBox: computed(() => ({
-          role: "listbox",
+          ...listbox.value,
           id: controlsId,
         })),
-        option: computed(() => {
-          return ({ key, label, disabled }: { key: string; label: string; disabled: boolean }) => ({
-            role: "option",
-            id: getOptionId(key),
-            "aria-selected": activeKey.value === key,
-            "aria-label": label,
-            "aria-disabled": disabled,
-            onClick: () => onSelect(key),
-          });
-        }),
         /**
          * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.
          * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.
