@@ -89,7 +89,7 @@ export const Disabled = {
 } satisfies Story;
 
 /**
- * This example shows a readonly input that can not be edited.
+ * This example shows a readonly select that can not be edited.
  */
 export const Readonly = {
   args: {
@@ -131,8 +131,7 @@ export const HiddenLabel = {
 } satisfies Story;
 
 /**
- * This example shows an select without a visual label.
- * For accessibility / screen readers it must still be passed.
+ * This example shows a skeleton select.
  */
 export const Skeleton = {
   args: {
