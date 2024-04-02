@@ -17,10 +17,16 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="onyx-badge" :class="[`onyx-badge--${props.variation}`, densityClass]">
-    <div class="onyx-badge--content onyx-truncation-ellipsis onyx-text">
-      <slot></slot>
-    </div>
+  <div
+    class="onyx-badge"
+    :class="[
+      'onyx-truncation-ellipsis',
+      'onyx-text',
+      `onyx-badge--${props.variation}`,
+      densityClass,
+    ]"
+  >
+    <slot></slot>
   </div>
 </template>
 
@@ -48,13 +54,16 @@ defineSlots<{
 
   --onyx-badge-background-color: var(--onyx-color-base-primary-500);
 
-  display: inline-flex;
+  display: inline-block;
   height: var(--onyx-badge-height);
   max-width: 100%;
   box-sizing: border-box;
   padding: var(--onyx-badge-padding);
   border-radius: var(--onyx-radius-full);
   background-color: var(--onyx-badge-background-color);
+  color: var(--onyx-color-text-icons-neutral-inverted);
+  font-family: var(--onyx-font-family);
+  font-style: normal;
 
   &--secondary {
     --onyx-badge-background-color: var(--onyx-color-base-neutral-700);
@@ -74,15 +83,6 @@ defineSlots<{
 
   &--info {
     --onyx-badge-background-color: var(--onyx-color-base-info-500);
-  }
-
-  &--content {
-    max-width: 6rem;
-    overflow: hidden;
-    color: var(--onyx-color-text-icons-neutral-inverted);
-    font-family: var(--onyx-font-family);
-    font-style: normal;
-    height: 1.5rem;
   }
 }
 </style>
