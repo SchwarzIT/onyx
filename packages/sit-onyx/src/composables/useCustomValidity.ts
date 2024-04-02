@@ -1,6 +1,6 @@
 import { areObjectsFlatEqual } from "@/utils/comparator";
 import { transformValidityStateToObject } from "@/utils/forms";
-import { ref, watch, type Ref } from "vue";
+import { nextTick, ref, watch, type Ref } from "vue";
 
 export type CustomValidityProp = {
   /**
@@ -13,7 +13,7 @@ export type UseCustomValidityOptions = {
   /**
    * Template ref to the `<input>` element
    */
-  inputRef: Ref<HTMLInputElement | undefined>;
+  inputRef: Ref<Pick<HTMLInputElement, "validity" | "setCustomValidity"> | undefined>;
   /**
    * Component props as defined with `const props = defineProps()`
    */
@@ -46,6 +46,15 @@ export type UseCustomValidityOptions = {
  */
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
+  const isTouched = ref(false);
+
+  const stopWatch = watch(
+    () => options.props.modelValue,
+    () => {
+      isTouched.value = true;
+      nextTick(stopWatch);
+    },
+  );
 
   /**
    * Sync custom error with the native input validity.
@@ -62,13 +71,13 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
    * Update validityState ref when the input changes.
    */
   watch(
-    [options.inputRef, () => options.props.customError, () => options.props.modelValue],
+    [options.inputRef, () => options.props.customError, () => options.props.modelValue, isTouched],
     ([inputRef]) => {
       if (!inputRef) return;
       const newValidityState = transformValidityStateToObject(inputRef.validity);
 
       // do not emit validityChange event if input is valid and has never been invalid
-      if (newValidityState.valid && !validityState.value) return;
+      if (!isTouched.value || (!validityState.value && newValidityState.valid)) return;
 
       // ignore if actual validity state value is unchanged
       if (validityState.value && areObjectsFlatEqual(newValidityState, validityState.value)) {
