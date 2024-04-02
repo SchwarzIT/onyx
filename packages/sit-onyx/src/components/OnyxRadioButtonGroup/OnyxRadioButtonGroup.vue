@@ -51,14 +51,14 @@ const handleChange = (event: ChangeEvent) =>
     >
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
-          v-for="option in props.options"
+          v-for="(option, index) in props.options"
           :key="option.id.toString()"
           v-bind="option"
           :name="props.name"
           :custom-error="props.customError"
           :selected="option.id === props.modelValue?.id"
           :required="props.required"
-          @validity-change="emit('validityChange', $event)"
+          @validity-change="index === 0 && emit('validityChange', $event)"
         />
       </template>
 
