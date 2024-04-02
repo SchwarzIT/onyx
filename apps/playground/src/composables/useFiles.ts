@@ -1,14 +1,16 @@
 import { File, compileFile, type ReplStore } from "@vue/repl";
 import { watch, type Ref } from "vue";
 import App from "../template/App.vue?raw";
+import NewFile from "../template/NewFile.vue?raw";
 import PlaygroundMain from "../template/PlaygroundMain.vue?raw";
-import style from "../template/style.css?raw";
 
 const MAIN_FILE = "src/PlaygroundMain.vue" as const;
 
+/**
+ * Initial files to be visible in the playground.
+ */
 const FILES = {
   "src/App.vue": App,
-  "src/style.css": style,
 } as const;
 
 export type UseFilesOptions = {
@@ -23,7 +25,7 @@ export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOpti
     store.addFile(new File(name, code, false));
   });
 
-  store.template.newSFC = FILES["src/App.vue"];
+  store.template.newSFC = NewFile;
   store.activeFilename = Object.keys(FILES)[0];
   store.mainFile = MAIN_FILE;
 
