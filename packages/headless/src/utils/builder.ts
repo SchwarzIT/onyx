@@ -36,7 +36,6 @@ export const createBuilder = <
   P,
   Elements extends HeadlessElements,
   State extends HeadlessState,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Internals extends object | undefined = undefined,
 >(
   builder: (props: P) => HeadlessComposable<Elements, State, Internals>,
