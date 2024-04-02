@@ -48,6 +48,9 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isTouched = ref(false);
 
+  /**
+   * Sync isTouched state.
+   */
   const stopWatch = watch(
     () => options.props.modelValue,
     () => {
