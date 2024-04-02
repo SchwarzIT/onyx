@@ -2,4 +2,4 @@
 "sit-onyx": major
 ---
 
-refactor: OnyxRadioButton and OnyxRadioButtonGroup - rename property `errorMessage` to `customError`
+refactor: OnyxRadioButton, OnyxRadioButtonGroup, OnyxSwitch - rename property `errorMessage` to `customError`
