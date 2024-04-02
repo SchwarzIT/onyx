@@ -4,18 +4,27 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { fetchVersions } from "../utils/versions";
 
 const props = defineProps<{
+  /**
+   * npm package to show versions for
+   * @example "vue"
+   */
   pkg: string;
   label: string;
+  /**
+   * If `true`, pre-releases (e.g. alpha versions) will be included.
+   * Otherwise they will be filtered out.
+   */
   includePreReleases?: boolean;
 }>();
 
 const version = defineModel<string | null>();
-
-const expanded = ref(false);
 const versions = ref<string[]>();
+const expanded = ref(false);
 
 async function toggle() {
   expanded.value = !expanded.value;
+
+  // fetch versions if not already fetched
   if (!versions.value) {
     versions.value = await fetchVersions(props.pkg);
   }
@@ -24,6 +33,10 @@ async function toggle() {
 const filteredVersions = computed(() => {
   if (props.includePreReleases) return versions.value;
   return versions.value?.filter((v) => !v.includes("-"));
+});
+
+const options = computed<ListboxOption[]>(() => {
+  return filteredVersions.value?.map((i) => ({ id: i, label: i })) ?? [];
 });
 
 const modelValue = computed({
@@ -38,6 +51,7 @@ const modelValue = computed({
   },
 });
 
+// TODO: remove as soon as OnyxSelect is fully implemented.
 const onWindowClick = () => (expanded.value = false);
 const onWindowBlur = () => {
   if (document.activeElement?.tagName === "IFRAME") {
@@ -54,10 +68,6 @@ onBeforeUnmount(() => {
   window.removeEventListener("click", onWindowClick);
   window.removeEventListener("blur", onWindowBlur);
 });
-
-const options = computed<ListboxOption[]>(() => {
-  return filteredVersions.value?.map((i) => ({ id: i, label: i })) ?? [];
-});
 </script>
 
 <template>
@@ -69,7 +79,7 @@ const options = computed<ListboxOption[]>(() => {
       @click="toggle"
     />
 
-    <!-- TODO: add loading/empty state -->
+    <!-- TODO: remove when OnyxSelect is fully implemented and add loading/empty state -->
     <OnyxListbox v-if="expanded" v-model="modelValue" label="Select version" :options="options" />
   </div>
 </template>
@@ -91,7 +101,7 @@ const options = computed<ListboxOption[]>(() => {
   .onyx-listbox {
     position: absolute;
     right: 0;
-    top: 2.75rem; // button height + 0.25rem outline
+    top: 2.75rem; // select height + 0.25rem outline
   }
 }
 </style>

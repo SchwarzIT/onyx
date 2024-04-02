@@ -5,6 +5,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [vue()],
   optimizeDeps: {
+    // needed in order for the web workers of "@vue/repl" to work
     exclude: ["@vue/repl"],
   },
 });

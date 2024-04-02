@@ -4,6 +4,10 @@ import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
 import PlaygroundMain from "../template/PlaygroundMain.vue?raw";
 
+/**
+ * Main Playground file (will be hidden).
+ * See "./template/PlaygroundMain.vue"
+ */
 const MAIN_FILE = "src/PlaygroundMain.vue" as const;
 
 /**
@@ -20,6 +24,10 @@ export type UseFilesOptions = {
   reloadPage: () => void;
 };
 
+/**
+ * Composable for managing the Playground files.
+ * Will insert the template files and sync the light/dark mode.
+ */
 export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOptions) => {
   Object.entries(FILES).forEach(([name, code]) => {
     store.addFile(new File(name, code, false));
@@ -29,6 +37,9 @@ export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOpti
   store.activeFilename = Object.keys(FILES)[0];
   store.mainFile = MAIN_FILE;
 
+  /**
+   * Import onyx stylesheet.
+   */
   watch(
     [onyxVersion, theme],
     async () => {
