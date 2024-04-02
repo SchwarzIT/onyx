@@ -20,6 +20,3 @@ const options: SelectionOption[] = supportedLocales.map((value) => ({
 <template>
   <OnyxRadioButtonGroup v-model="selectedOption" headline="Select language" :options="options" />
 </template>
-
-<style lang="scss" scoped></style>
-import { computed } from "vue";
