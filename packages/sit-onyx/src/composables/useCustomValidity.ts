@@ -24,6 +24,26 @@ export type UseCustomValidityOptions = {
   emit: (evt: "validityChange", validity: ValidityState) => void;
 };
 
+/**
+ * Composable for unified handling of custom error messages for form components.
+ * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
+ * whenever the input value / error changes.
+ *
+ * @example
+ * ```html
+ * <script lang="ts" setup>
+ * const props = defineProps<CustomValidityProp>();
+ * const emit = defineEmits<{ validityChange: [validity: ValidityState] }>();
+ *
+ * const inputRef = ref<HTMLInputElement>();
+ * useCustomValidity({ inputRef, props, emit });
+ * </script>
+ *
+ * <template>
+ *  <input ref="inputRef" />
+ * </template>
+ * ```
+ */
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
 
