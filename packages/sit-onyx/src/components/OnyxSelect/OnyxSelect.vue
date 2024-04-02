@@ -67,7 +67,7 @@ const selectionText = computed<string>(() => {
         return props.modelValue.join(", ");
       case "summary":
       default:
-        return t.value("selections.currentSelection", { numberOfSelections });
+        return t.value("selections.currentSelection", { n: numberOfSelections });
     }
   }
 

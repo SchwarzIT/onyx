@@ -19,6 +19,6 @@
   },
   "selections": {
     "selectAll": "Select all",
-    "currentSelection": "{numberOfSelections} selected"
+    "currentSelection": "{n} selected"
   }
 }
