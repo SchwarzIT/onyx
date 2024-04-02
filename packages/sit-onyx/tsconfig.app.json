@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*"],
+  "include": ["env.d.ts", "src/**/*", "src/i18n/locales/en-US.json"],
   "exclude": ["src/**/*.ct.*", "src/**/*.spec.*", "src/**/*.stories.ts"],
   "compilerOptions": {
     "composite": true,
