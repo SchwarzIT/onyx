@@ -18,7 +18,7 @@ defineSlots<{
 
 <template>
   <div class="onyx-badge" :class="[`onyx-badge--${props.variation}`, densityClass]">
-    <div class="onyx-badge--content onyx-truncation-ellipsis">
+    <div class="onyx-badge--content onyx-truncation-ellipsis onyx-text">
       <slot></slot>
     </div>
   </div>
@@ -81,10 +81,7 @@ defineSlots<{
     overflow: hidden;
     color: var(--onyx-color-text-icons-neutral-inverted);
     font-family: var(--onyx-font-family);
-    font-size: 1rem;
     font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
     height: 1.5rem;
   }
 }
