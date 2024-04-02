@@ -1,11 +1,13 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { Direction } from "../../types";
 import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 
 export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
   DensityProp &
-    RequiredMarkerProp & {
+    RequiredMarkerProp &
+    CustomValidityProp & {
       /**
        * Unique name for the radio button group form element.
        * Will automatically filled, when it is not given.
@@ -25,10 +27,6 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue = Sele
        * Disable the radio button group.
        */
       disabled?: boolean;
-      /**
-       * Set the radio button group into the error state with the given error message.
-       */
-      errorMessage?: string;
       /**
        * Direction of the checkboxes. Can be vertical (default) or horizontal.
        */
