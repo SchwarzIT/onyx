@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxButton, OnyxListbox, type ListboxOption } from "sit-onyx";
+import { OnyxListbox, OnyxSelect, type ListboxOption } from "sit-onyx";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { fetchVersions } from "../utils/versions";
 
@@ -62,10 +62,10 @@ const options = computed<ListboxOption[]>(() => {
 
 <template>
   <div class="version" @click.stop>
-    <OnyxButton
-      :label="`${props.label}: ${version}`"
-      mode="plain"
-      variation="secondary"
+    <OnyxSelect
+      :label="props.label"
+      placeholder="Select version"
+      :model-value="version ?? ''"
       @click="toggle"
     />
 
@@ -78,10 +78,20 @@ const options = computed<ListboxOption[]>(() => {
 .version {
   position: relative;
 
+  :deep(.onyx-select label) {
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-xs);
+  }
+
+  :deep(.onyx-select__input) {
+    width: 8rem;
+  }
+
   .onyx-listbox {
     position: absolute;
-    left: 0;
-    top: 2.5rem; // button height
+    right: 0;
+    top: 2.75rem; // button height + 0.25rem outline
   }
 }
 </style>

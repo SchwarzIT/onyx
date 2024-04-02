@@ -112,7 +112,7 @@ const toggleDark = () => emit("update:dark", !props.dark);
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    gap: var(--onyx-spacing-4xs);
+    gap: var(--onyx-spacing-md);
     width: 100%;
   }
 }
