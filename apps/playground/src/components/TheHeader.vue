@@ -33,13 +33,13 @@ const copyLink = async () => {
       <VersionSelect
         v-model="onyxVersion"
         pkg="sit-onyx"
-        label="onyx Version"
+        label="onyx version"
         include-pre-releases
       />
 
-      <VersionSelect v-model="vueVersion" pkg="vue" label="Vue Version" />
+      <VersionSelect v-model="vueVersion" pkg="vue" label="Vue version" />
 
-      <VersionSelect v-model="typescriptVersion" pkg="typescript" label="TypeScript Version" />
+      <VersionSelect v-model="typescriptVersion" pkg="typescript" label="TypeScript version" />
 
       <HeaderIconButton
         label="Toggle dark mode"
