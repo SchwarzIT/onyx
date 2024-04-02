@@ -3,39 +3,31 @@ import moon from "@sit-onyx/icons/moon.svg?raw";
 import shareAndroid from "@sit-onyx/icons/share-android.svg?raw";
 import sunny from "@sit-onyx/icons/sunny.svg?raw";
 import sync from "@sit-onyx/icons/sync.svg?raw";
-import type { ReplStore } from "@vue/repl";
-import { OnyxIconButton } from "sit-onyx";
 import githubLogo from "../assets/github-logo.svg?raw";
+import HeaderIconButton from "./HeaderIconButton.vue";
 import VersionSelect from "./VersionSelect.vue";
 
-const props = defineProps<{
-  store: ReplStore;
-  dark: boolean;
-}>();
-
 const emit = defineEmits<{
-  "update:dark": [isDark: boolean];
   reloadPage: [];
 }>();
 
+const isDark = defineModel<boolean>("dark");
+const vueVersion = defineModel<string | null>("vueVersion");
+const typescriptVersion = defineModel<string>("typescriptVersion");
 const onyxVersion = defineModel<string>("onyxVersion");
-
-const { store } = props;
 
 const copyLink = async () => {
   await navigator.clipboard.writeText(location.href);
   alert("Sharable URL has been copied to clipboard.");
 };
-
-const toggleDark = () => emit("update:dark", !props.dark);
 </script>
 
 <template>
   <header class="header">
-    <div class="header__brand">
+    <a class="header__brand" href="https://onyx.schwarz" target="_blank">
       <img alt="logo" src="/logo.svg" class="header__logo" />
       <h1 class="onyx-headline onyx-headline--h2">Playground</h1>
-    </div>
+    </a>
 
     <div class="header__actions">
       <VersionSelect
@@ -45,29 +37,24 @@ const toggleDark = () => emit("update:dark", !props.dark);
         include-pre-releases
       />
 
-      <VersionSelect v-model="store.vueVersion" pkg="vue" label="Vue Version" />
+      <VersionSelect v-model="vueVersion" pkg="vue" label="Vue Version" />
 
-      <VersionSelect
-        v-model="store.typescriptVersion"
-        pkg="typescript"
-        label="TypeScript Version"
-      />
+      <VersionSelect v-model="typescriptVersion" pkg="typescript" label="TypeScript Version" />
 
-      <OnyxIconButton
+      <HeaderIconButton
         label="Toggle dark mode"
-        :icon="props.dark ? moon : sunny"
-        variation="secondary"
-        @click="toggleDark"
+        :icon="isDark ? moon : sunny"
+        @click="isDark = !isDark"
       />
 
-      <OnyxIconButton
+      <HeaderIconButton
         label="Copy sharable URL"
         :icon="shareAndroid"
         variation="secondary"
         @click="copyLink"
       />
 
-      <OnyxIconButton
+      <HeaderIconButton
         label="Reload page"
         :icon="sync"
         variation="secondary"
@@ -79,7 +66,7 @@ const toggleDark = () => emit("update:dark", !props.dark);
         target="_blank"
         aria-label="View on GitHub"
       >
-        <OnyxIconButton label="View on GitHub" :icon="githubLogo" variation="secondary" />
+        <HeaderIconButton label="View on GitHub" :icon="githubLogo" variation="secondary" />
       </a>
     </div>
   </header>
@@ -90,7 +77,6 @@ const toggleDark = () => emit("update:dark", !props.dark);
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
   width: 100%;
-
   border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
 
   display: flex;
@@ -101,6 +87,7 @@ const toggleDark = () => emit("update:dark", !props.dark);
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-xs);
+    text-decoration: none;
   }
 
   &__logo {

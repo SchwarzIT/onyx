@@ -2,14 +2,22 @@
 import { Repl, mergeImportMap, useStore, useVueImportMap } from "@vue/repl";
 import Monaco from "@vue/repl/monaco-editor";
 import { OnyxAppLayout } from "sit-onyx";
-import { computed, onMounted, ref, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import TheHeader from "./components/TheHeader.vue";
+import { useDark } from "./composables/useDark";
 import { useFiles } from "./composables/useFiles";
 import { fetchVersions } from "./utils/versions";
 
 const { vueVersion, importMap } = useVueImportMap({ vueVersion: "latest" });
+
+/**
+ * Currently selected onyx version.
+ */
 const onyxVersion = ref("alpha");
 
+/**
+ * List of available onyx versions.
+ */
 const onyxVersions = ref<string[]>([]);
 fetchVersions("sit-onyx").then((versions) => (onyxVersions.value = versions));
 
@@ -28,44 +36,27 @@ const store = useStore(
      * Specify onyx version which is needed for the Monaco editor so that is loads the correct types for the current version
      */
     dependencyVersion: computed(() => {
-      let version: string | undefined = onyxVersion.value;
-      if (version === "alpha") {
-        version = onyxVersions.value.find((i) => i.includes("-alpha"));
-      }
-      return {
-        "sit-onyx": onyxVersion.value === "alpha" ? onyxVersions.value[0] : onyxVersion.value,
-      };
+      const version =
+        onyxVersion.value === "alpha"
+          ? onyxVersions.value.find((i) => i.includes("-alpha")) ?? onyxVersion.value
+          : onyxVersion.value;
+
+      return { "sit-onyx": version };
     }),
   },
   // initialize repl with previously serialized state
   location.hash.slice(1),
 );
 
+// persist state in URL
+watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
+
 const replRef = ref<InstanceType<typeof Repl>>();
 const reloadPage = () => replRef.value?.reload();
 
-const theme = ref<"dark" | "light">("dark");
+const { isDark, theme } = useDark();
+
 useFiles({ store, onyxVersion, theme, reloadPage });
-
-// persist state
-watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
-
-const updateTheme = (isDark: boolean) => {
-  theme.value = isDark ? "dark" : "light";
-
-  const classList = document.documentElement.classList;
-  if (isDark) classList.add("dark");
-  else classList.remove("dark");
-
-  localStorage.setItem("vue-sfc-playground-prefer-dark", String(isDark));
-};
-
-onMounted(() => {
-  const isDark =
-    localStorage.getItem("vue-sfc-playground-prefer-dark") === "true" ||
-    document.documentElement.classList.contains("dark");
-  updateTheme(isDark);
-});
 </script>
 
 <template>
@@ -73,9 +64,9 @@ onMounted(() => {
     <template #navBar>
       <TheHeader
         v-model:onyx-version="onyxVersion"
-        :store="store"
-        :dark="theme === 'dark'"
-        @update:dark="updateTheme"
+        v-model:vue-version="store.vueVersion"
+        v-model:typescript-version="store.typescriptVersion"
+        v-model:dark="isDark"
         @reload-page="reloadPage"
       />
     </template>
