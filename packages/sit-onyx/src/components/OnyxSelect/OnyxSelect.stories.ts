@@ -89,7 +89,7 @@ export const Disabled = {
 } satisfies Story;
 
 /**
- * This example shows a readonly input that can not be edited.
+ * This example shows a readonly select that can not be edited.
  */
 export const Readonly = {
   args: {
