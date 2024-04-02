@@ -4,8 +4,10 @@
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
+  "private": true,
   "scripts": {
-    "dev": "vite",
+    "start": "pnpm run dev",
+    "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/playground && vite",
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit"
