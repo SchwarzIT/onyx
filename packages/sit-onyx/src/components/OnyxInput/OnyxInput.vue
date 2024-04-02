@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useCustomValidity } from "@/composables/useCustomValidity";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
 

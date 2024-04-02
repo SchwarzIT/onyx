@@ -48,7 +48,9 @@ const filteredCategories = computed(() => {
       <OnyxHeadline is="h3" class="category__headline">{{ category.name }}</OnyxHeadline>
 
       <div class="category__icons">
-        <IconLibraryItem v-for="icon in category.icons" :key="icon.iconName" :icon="icon" />
+        <ClientOnly>
+          <IconLibraryItem v-for="icon in category.icons" :key="icon.iconName" :icon="icon" />
+        </ClientOnly>
       </div>
     </section>
   </div>

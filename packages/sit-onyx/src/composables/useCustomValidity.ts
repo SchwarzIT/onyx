@@ -1,6 +1,6 @@
-import { areObjectsFlatEqual } from "@/utils/comparator";
-import { transformValidityStateToObject } from "@/utils/forms";
 import { nextTick, ref, watch, type Ref } from "vue";
+import { areObjectsFlatEqual } from "../utils/comparator";
+import { transformValidityStateToObject } from "../utils/forms";
 
 export type CustomValidityProp = {
   /**
