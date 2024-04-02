@@ -42,4 +42,14 @@ export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOpti
     },
     { immediate: true },
   );
+
+  // prevent main playground file to be active/visible (e.g. because the current file is deleted)
+  watch(
+    () => store.activeFilename,
+    (newActiveFile) => {
+      if (newActiveFile !== MAIN_FILE) return;
+      store.activeFilename = Object.keys(store.files).filter((i) => i !== MAIN_FILE)[0];
+    },
+    { immediate: true },
+  );
 };
