@@ -78,9 +78,16 @@ export default defineLoader({
         ...getImplementedStatus("OnyxButton"),
       },
       {
+        name: "Icon button",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxIconButton"),
+        status: "implemented",
+      },
+      {
         name: "Radio button group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxRadioButtonGroup"),
+        status: "implemented",
       },
       {
         name: "Minimalistic table",
@@ -92,20 +99,16 @@ export default defineLoader({
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxHeadline"),
       },
-      {
-        name: "Footer",
-        dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxFooter"),
-      },
+
       {
         name: "Header",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxHeader"),
       },
       {
-        name: "Combobox",
+        name: "Select",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxCombobox"),
+        ...getImplementedStatus("OnyxSelect"),
       },
       {
         name: "Textarea",
@@ -121,12 +124,32 @@ export default defineLoader({
         name: "Switch",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxSwitch"),
+        status: "implemented",
       },
       {
         name: "Checkbox group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxCheckboxGroup"),
+        status: "implemented",
       },
+      {
+        name: "Icons",
+        dueDate: basicComponentsDueDate,
+        status: "implemented",
+        href: "/resources/icons",
+      },
+      {
+        name: "Loading indicator",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxLoadingIndicator"),
+        status: "implemented",
+      },
+      {
+        name: "Tooltip",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxTooltip"),
+      },
+      { name: "Footer", ...getImplementedStatus("OnyxFooter") },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
       { name: "Filter", ...getImplementedStatus("OnyxFilter") },
       { name: "Notification", ...getImplementedStatus("OnyxNotification") },
