@@ -17,5 +17,7 @@
       "url": "\"{value}\"는 올바른 URL 형식이어야 합니다."
     }
   },
-  "selectAll": "모두 선택"
+  "selections": {
+    "selectAll": "모두 선택"
+  }
 }

@@ -17,5 +17,8 @@
       "url": "\"{value}\" must a valid URL."
     }
   },
-  "selectAll": "Select all"
+  "selections": {
+    "selectAll": "Select all",
+    "currentSelection": "{n} selected"
+  }
 }
