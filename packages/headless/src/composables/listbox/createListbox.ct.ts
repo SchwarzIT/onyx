@@ -45,12 +45,12 @@ export const listboxTesting = async ({
   // ensure correct listbox aria attributes
   await expect(
     listbox,
-    'listbox must either have a "aria-labelledby" attribute with an existing id',
-  ).toHaveAttribute("aria-labelledby");
+    'listbox must either have a "aria-label" attribute with an existing id',
+  ).toHaveAttribute("aria-label");
 
   await listbox
-    .getAttribute("aria-labelledby")
-    .then((labelledby) => expect(page.locator(`#${labelledby}`)).toBeDefined());
+    .getAttribute("aria-label")
+    .then((label) => expect(page.locator(`#${label}`)).toBeDefined());
 
   await expect(listbox, "listbox must have role attribute with value listbox").toHaveAttribute(
     "role",
