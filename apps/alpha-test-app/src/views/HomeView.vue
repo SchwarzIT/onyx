@@ -21,7 +21,7 @@ import {
 } from "sit-onyx";
 import { computed, ref, capitalize } from "vue";
 import { useRouter } from "vue-router";
-import { type DensityType, DENSITY } from "sit-onyx";
+import { DENSITY } from "sit-onyx";
 
 const router = useRouter();
 
@@ -52,8 +52,8 @@ const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
 
-const densityOptions = DENSITY.map((id: string) => ({
-  id: id as DensityType,
+const densityOptions = DENSITY.map((id) => ({
+  id,
   label: capitalize(id),
 })) satisfies SelectionOption<string>[];
 
