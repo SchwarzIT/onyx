@@ -66,7 +66,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
         <OnyxCheckbox
           v-if="props.withCheckAll"
           v-bind="masterCheckboxState"
-          :label="props.checkAllLabel || t('selectAll')"
+          :label="props.checkAllLabel || t('selections.selectAll')"
           @update:model-value="handleMasterCheckboxChange"
         />
 

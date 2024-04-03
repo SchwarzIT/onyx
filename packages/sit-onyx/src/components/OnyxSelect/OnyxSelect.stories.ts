@@ -36,7 +36,7 @@ export const Default = {
 /**
  * This example shows a single select with initial value.
  */
-export const InitializedSingleSelect = {
+export const FilledSingleSelect = {
   args: {
     ...Default.args,
     modelValue: "Banana",
@@ -47,7 +47,7 @@ export const InitializedSingleSelect = {
  * This example shows a multi select with multiple initial items.
  * A summary of the items is displayed.
  */
-export const InitializedMultiSelect = {
+export const FilledMultiSelect = {
   args: {
     ...Default.args,
     multiple: true,
@@ -59,9 +59,9 @@ export const InitializedMultiSelect = {
  * This example shows a multi select with multiple initial items.
  * A Preview of the items is displayed.
  */
-export const InitializedMultiSelectPreview = {
+export const FilledMultiSelectPreview = {
   args: {
-    ...InitializedMultiSelect.args,
+    ...FilledMultiSelect.args,
     modelValue: ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
     multiple: { textMode: "preview" },
   },
@@ -85,6 +85,16 @@ export const Disabled = {
     ...Default.args,
     disabled: true,
     modelValue: "Test value",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a readonly select that can not be edited.
+ */
+export const Readonly = {
+  args: {
+    ...FilledSingleSelect.args,
+    readonly: true,
   },
 } satisfies Story;
 
@@ -116,7 +126,16 @@ export const WithMessage = {
 export const HiddenLabel = {
   args: {
     ...Default.args,
-    label: "Fruits",
     hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a skeleton select.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;

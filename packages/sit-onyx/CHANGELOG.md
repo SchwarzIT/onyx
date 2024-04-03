@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.60
+
+### Minor Changes
+
+- b31b7c5: feat(OnyxSelect): implement skeleton, readonly, density and translation
+
 ## 1.0.0-alpha.59
 
 ### Major Changes
