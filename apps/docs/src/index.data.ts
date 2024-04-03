@@ -149,6 +149,16 @@ export default defineLoader({
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxTooltip"),
       },
+      {
+        name: "Tag",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxTag"),
+      },
+      {
+        name: "Badge",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxBadge"),
+      },
       { name: "Footer", ...getImplementedStatus("OnyxFooter") },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
       { name: "Filter", ...getImplementedStatus("OnyxFilter") },
