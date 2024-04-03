@@ -1,4 +1,5 @@
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { DensityProp } from "../../composables/density";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -26,46 +27,50 @@ export type SelectModelValue<TMultiple extends Multiple> = TMultiple extends und
 export type OnyxSelectProps<
   TValue extends SelectModelValue<TMultiple>,
   TMultiple extends Multiple,
-> = RequiredMarkerProp & {
-  /**
-   * Current value of the select.
-   * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
-   */
-  modelValue?: TValue;
-  /**
-   * Label to show above the select. Required due to accessibility / screen readers.
-   * If you want to visually hide the label, use the `hideLabel` property.
-   */
-  label: string;
-  /**
-   * If `true`, the label will be visually hidden and the `title` attribute will be set.
-   * For accessibility / screen readers, the aria-label will still be set.
-   */
-  hideLabel?: boolean;
-  /**
-   * Whether the select should be disabled.
-   */
-  disabled?: boolean;
-  /**
-   * Whether to show a skeleton select.
-   * TODO: implement skeleton
-   */
-  skeleton?: boolean;
-  /**
-   * Shows a loading indicator.
-   */
-  loading?: boolean;
-  /**
-   * Placeholder to show when the value is empty.
-   */
-  placeholder?: string;
-  /**
-   * Whether multiple values can be selected.
-   * TODO: We must type the component using generics so that if multiple is truthy, modelValue must be an array
-   */
-  multiple?: TMultiple;
-  /**
-   * Message / help text to display below the select input.
-   */
-  message?: string;
-};
+> = DensityProp &
+  RequiredMarkerProp & {
+    /**
+     * Current value of the select.
+     * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
+     */
+    modelValue?: TValue;
+    /**
+     * Label to show above the select. Required due to accessibility / screen readers.
+     * If you want to visually hide the label, use the `hideLabel` property.
+     */
+    label: string;
+    /**
+     * If `true`, the label will be visually hidden and the `title` attribute will be set.
+     * For accessibility / screen readers, the aria-label will still be set.
+     */
+    hideLabel?: boolean;
+    /**
+     * Whether the select should be disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Whether to show a skeleton select.
+     */
+    skeleton?: boolean;
+    /**
+     * Whether the select should be readonly.
+     */
+    readonly?: boolean;
+    /**
+     * Shows a loading indicator.
+     */
+    loading?: boolean;
+    /**
+     * Placeholder to show when the value is empty.
+     */
+    placeholder?: string;
+    /**
+     * Whether multiple values can be selected.
+     * TODO: We must type the component using generics so that if multiple is truthy, modelValue must be an array
+     */
+    multiple?: TMultiple;
+    /**
+     * Message / help text to display below the select input.
+     */
+    message?: string;
+  };
