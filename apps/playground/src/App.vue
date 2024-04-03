@@ -90,5 +90,22 @@ useFiles({ store, onyxVersion, theme, reloadPage });
 .vue-repl {
   --color-branding: var(--onyx-color-text-icons-primary-intense);
   --color-branding-dark: var(--onyx-color-text-icons-primary-bold);
+
+  --bg: var(--onyx-color-base-background-blank);
+  --bg-soft: var(--onyx-color-base-background-tinted);
+  --border: var(--onyx-color-base-neutral-300);
+
+  font-family: var(--onyx-font-family);
+  --font-code: var(--onyx-font-family-mono);
+  --text-light: var(--onyx-color-text-icons-neutral-medium);
+
+  .import-map-wrapper {
+    background: none;
+  }
+
+  .monaco-editor {
+    --vscode-editor-background: var(--onyx-color-base-background-blank);
+    --vscode-editorGutter-background: var(--onyx-color-base-background-blank);
+  }
 }
 </style>
