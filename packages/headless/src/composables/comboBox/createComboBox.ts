@@ -140,7 +140,7 @@ export const createComboBox = createBuilder(
         option,
         group,
         label: {
-          "aria-labelledby": labelId,
+          id: labelId,
         },
         /**
          * The listbox associated with the combobox.
