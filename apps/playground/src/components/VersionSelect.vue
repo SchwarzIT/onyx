@@ -46,6 +46,9 @@ const modelValue = computed({
     return version.value ?? undefined;
   },
   set: (value) => {
+    // do not allow to de-select the version
+    if (!value) return;
+
     version.value = value;
     expanded.value = false;
   },
