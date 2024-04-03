@@ -9,10 +9,10 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(OnyxListbox, {
     props: {
       options: [
-        { id: 1, label: "Default" },
-        { id: 2, label: "Selected" },
-        { id: 3, label: "Disabled", disabled: true },
-        { id: 4, label: "Very long label ".repeat(5) },
+        { value: 1, label: "Default" },
+        { value: 2, label: "Selected" },
+        { value: 3, label: "Disabled", disabled: true },
+        { value: 4, label: "Very long label ".repeat(5) },
       ],
       label: "Test listbox",
       modelValue,
@@ -45,7 +45,7 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
   const component = await mount(OnyxListbox, {
     props: {
       options: Array.from({ length: 25 }, (_, index) => ({
-        id: index,
+        value: index,
         label: `Test option ${index + 1}`,
       })),
       label: "Test listbox",

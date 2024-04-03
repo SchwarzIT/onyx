@@ -7,9 +7,9 @@ test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
     <div style="display: grid; width: max-content;">
-      <OnyxCheckbox label="Unchecked" />
-      <OnyxCheckbox label="Hover" />
-      <OnyxCheckbox label="Focus visible" />
+      <OnyxCheckbox label="Unchecked" value="1" />
+      <OnyxCheckbox label="Hover" value="2" />
+      <OnyxCheckbox label="Focus visible" value="3" />
     </div>,
   );
 
@@ -35,9 +35,9 @@ test("should render checked", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
     <div style="display: grid; width: max-content;">
-      <OnyxCheckbox label="Checked" modelValue={true} />
-      <OnyxCheckbox label="Hover" modelValue={true} />
-      <OnyxCheckbox label="Focus visible" modelValue={true} />
+      <OnyxCheckbox label="Checked" value="1" modelValue={true} />
+      <OnyxCheckbox label="Hover" value="2" modelValue={true} />
+      <OnyxCheckbox label="Focus visible" value="3" modelValue={true} />
     </div>,
   );
 
@@ -63,9 +63,9 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
     <div style="display: grid; width: max-content;">
-      <OnyxCheckbox label="Indeterminate" indeterminate />
-      <OnyxCheckbox label="Hover" indeterminate />
-      <OnyxCheckbox label="Focus visible" indeterminate />
+      <OnyxCheckbox label="Indeterminate" value="1" indeterminate />
+      <OnyxCheckbox label="Hover" value="2" indeterminate />
+      <OnyxCheckbox label="Focus visible" value="3" indeterminate />
     </div>,
   );
 
@@ -89,7 +89,7 @@ test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
 
 test("should render required", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  await mount(<OnyxCheckbox label="Required" required />);
+  await mount(<OnyxCheckbox label="Required" value="1" required />);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -112,18 +112,21 @@ for (const testCase of disabledTestCases) {
           label={`Disabled ${testCase.name}`}
           modelValue={testCase.modelValue}
           indeterminate={testCase.indeterminate}
+          value="1"
           disabled
         />
         <OnyxCheckbox
           label="Hover"
           modelValue={testCase.modelValue}
           indeterminate={testCase.indeterminate}
+          value="2"
           disabled
         />
         <OnyxCheckbox
           label="Focus visible"
           modelValue={testCase.modelValue}
           indeterminate={testCase.indeterminate}
+          value="3"
           disabled
         />
       </div>,
@@ -163,18 +166,21 @@ for (const testCase of invalidTestCases) {
           label={`Invalid ${testCase.name}`}
           indeterminate={testCase.indeterminate}
           disabled={testCase.disabled}
+          value="1"
           required
         />
         <OnyxCheckbox
           label="Hover"
           indeterminate={testCase.indeterminate}
           disabled={testCase.disabled}
+          value="2"
           required
         />
         <OnyxCheckbox
           label="Focus visible"
           indeterminate={testCase.indeterminate}
           disabled={testCase.disabled}
+          value="3"
           required
         />
       </div>,
@@ -202,7 +208,7 @@ for (const testCase of invalidTestCases) {
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxCheckbox label="Test label" hideLabel />);
+  const component = await mount(<OnyxCheckbox label="Test label" value="1" hideLabel />);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -221,7 +227,7 @@ TRUNCATION_TYPES.forEach((truncation) => {
 
     // ARRANGE
     const component = await mount(
-      <OnyxCheckbox label={label} truncation={truncation} style="max-width: 10rem;" />,
+      <OnyxCheckbox label={label} truncation={truncation} value="1" style="max-width: 10rem;" />,
     );
 
     // ASSERT
@@ -234,8 +240,8 @@ test("should render skeleton", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <div style="display:grid; width:max-content;">
-      <OnyxCheckbox label="Test label" skeleton />
-      <OnyxCheckbox label="Test label hidden" skeleton hideLabel />
+      <OnyxCheckbox label="Test label" value="1" skeleton />
+      <OnyxCheckbox label="Test label hidden" value="2" skeleton hideLabel />
     </div>,
   );
 
@@ -265,6 +271,7 @@ test.describe("state screenshot tests", () => {
           disabled={state === "disabled"}
           required={state === "required"}
           hideLabel={labeled === "unlabeled"}
+          value="1"
         />,
         { useOptional: state === "optional" },
       );

@@ -1,10 +1,11 @@
-<script lang="ts" setup generic="TValue extends string | number | boolean">
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { injectI18n } from "@/i18n";
 import { OnyxHeadline, type OnyxCheckboxProps } from "@/index";
 import { computed } from "vue";
+import { useDensity } from "../../composables/density";
+import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
@@ -24,15 +25,17 @@ const emit = defineEmits<{
 
 const { t } = injectI18n();
 
-const handleUpdate = (id: TValue, isChecked: boolean) => {
-  const newValue = isChecked ? [...props.modelValue, id] : props.modelValue.filter((i) => i !== id);
+const handleUpdate = (value: TValue, isChecked: boolean) => {
+  const newValue = isChecked
+    ? [...props.modelValue, value]
+    : props.modelValue.filter((i) => i !== value);
   emit("update:modelValue", newValue);
 };
 
 const enabledOptions = computed(() => props.options.filter((i) => !i.disabled && !i.skeleton));
 
 const handleMasterCheckboxChange = (isChecked: boolean) => {
-  const newValue = isChecked ? enabledOptions.value.map(({ id }) => id) : [];
+  const newValue = isChecked ? enabledOptions.value.map(({ value }) => value) : [];
   emit("update:modelValue", newValue);
 };
 
@@ -43,7 +46,7 @@ const handleMasterCheckboxChange = (isChecked: boolean) => {
  * - unchecked if no options are checked
  */
 const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
-  const availableOptionIds = enabledOptions.value.map(({ id }) => id);
+  const availableOptionIds = enabledOptions.value.map(({ value }) => value);
   const currentValues = props.modelValue.filter((i) => availableOptionIds.includes(i));
 
   if (!availableOptionIds.length || !currentValues.length) return { modelValue: false };
@@ -67,20 +70,27 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
           v-if="props.withCheckAll"
           v-bind="masterCheckboxState"
           :label="props.checkAllLabel || t('selections.selectAll')"
+          value="all"
           @update:model-value="handleMasterCheckboxChange"
         />
 
         <OnyxCheckbox
           v-for="option in props.options"
-          :key="option.id.toString()"
+          :key="option.value.toString()"
           v-bind="option"
-          :model-value="props.modelValue.includes(option.id)"
-          @update:model-value="handleUpdate(option.id, $event)"
+          :model-value="props.modelValue.includes(option.value)"
+          @update:model-value="handleUpdate(option.value, $event)"
         />
       </template>
 
       <template v-else>
-        <OnyxCheckbox v-for="i in props.skeleton" :key="i" :label="`Skeleton ${i}`" skeleton />
+        <OnyxCheckbox
+          v-for="i in props.skeleton"
+          :key="i"
+          :label="`Skeleton ${i}`"
+          :value="`skeleton-${i}`"
+          skeleton
+        />
       </template>
     </div>
   </fieldset>

@@ -1,6 +1,6 @@
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
+import type { SelectOption, SelectOptionValue } from "../../types";
 
-export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
+export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = {
   /**
    * Aria label. Must be set for accessibility reasons.
    */
@@ -8,28 +8,13 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
   /**
    * Available options to choose from.
    */
-  options: ListboxOption<TValue>[];
+  options: SelectOption<TValue>[];
   /**
    * Message / help text to display at the bottom.
    */
   message?: string;
   /**
-   * Current value / selected options.
+   * Current value / selected option(s).
    */
   modelValue?: TValue;
-};
-
-export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {
-  /**
-   * Option ID / value to use when the option is selected.
-   */
-  id: T;
-  /**
-   * Label to show.
-   */
-  label: string;
-  /**
-   * Whether the option is disabled.
-   */
-  disabled?: boolean;
 };

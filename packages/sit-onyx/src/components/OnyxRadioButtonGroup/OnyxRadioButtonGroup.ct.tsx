@@ -1,14 +1,12 @@
 import { expect, test } from "../../playwright-axe";
-import { DIRECTIONS } from "../../types";
-import type { SelectionOption } from "../OnyxRadioButton/types";
+import { DIRECTIONS, type SelectOption, type SelectOptionValue } from "../../types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
-import type { OnyxRadioButtonGroupProps } from "./types";
 
-const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
-  { label: "dummy.1", value: "1", id: "1" },
-  { label: "dummy.2", value: "2", id: "2" },
-  { label: "dummy.3", value: "3", id: "3" },
-  { label: "dummy.4", value: "4", id: "4", disabled: true },
+const EXAMPLE_OPTIONS: SelectOption[] = [
+  { label: "dummy.1", value: 1 },
+  { label: "dummy.2", value: 2 },
+  { label: "dummy.3", value: 3 },
+  { label: "dummy.4", value: 4, disabled: true },
 ];
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
@@ -59,14 +57,14 @@ test("should display correctly when disabled", async ({ mount, makeAxeBuilder, p
 });
 
 test("should display correctly when preselected", async ({ mount, makeAxeBuilder, page }) => {
-  const updates: SelectionOption[] = [];
+  const updates: SelectOptionValue[] = [];
 
   // ARRANGE
   await mount(
     <OnyxRadioButtonGroup
       options={EXAMPLE_OPTIONS}
       headline="radio group label"
-      modelValue={EXAMPLE_OPTIONS[0]}
+      modelValue={EXAMPLE_OPTIONS[0].value}
       onUpdate:modelValue={(u) => updates.push(u)}
     />,
   );
@@ -79,7 +77,7 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
 
   // ASSERT
   await expect(page.getByRole("radio", { name: EXAMPLE_OPTIONS[1].label })).toBeChecked();
-  expect(updates).toEqual([EXAMPLE_OPTIONS[1]]);
+  expect(updates).toEqual([EXAMPLE_OPTIONS[1].value]);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -89,11 +87,11 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
 });
 
 test("should truncate", async ({ mount }) => {
-  const options: OnyxRadioButtonGroupProps<string>["options"] = [
-    { label: "Very long label that will be truncated", id: "id-1" },
+  const options: SelectOption[] = [
+    { label: "Very long label that will be truncated", value: 1 },
     {
       label: "Very long label that will be truncated with multiline",
-      id: "id-2",
+      value: 2,
       truncation: "multiline",
     },
   ];

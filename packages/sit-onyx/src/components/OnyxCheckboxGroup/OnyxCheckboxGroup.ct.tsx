@@ -1,13 +1,13 @@
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import { DIRECTIONS } from "../../types";
+import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
 const mockOptions: OnyxCheckboxGroupProps["options"] = [
-  { label: "Default", id: "id-1" },
-  { label: "Required", id: "id-2", required: true },
-  { label: "Disabled", id: "id-3", disabled: true },
+  { label: "Default", value: 1 },
+  { label: "Required", value: 2, required: true },
+  { label: "Disabled", value: 3, disabled: true },
 ];
 
 test("should render", async ({ page, mount, makeAxeBuilder }) => {
@@ -40,7 +40,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
 
   // ACT
   await component.getByLabel("Default").check();
-  expect(modelValue).toStrictEqual(["id-1"]);
+  expect(modelValue).toStrictEqual([1]);
   await component.update({ props: { modelValue }, on: eventHandlers });
   await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
@@ -51,7 +51,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
 
   // ACT
   await masterCheckBox.check();
-  expect(modelValue).toStrictEqual(["id-1", "id-2"]);
+  expect(modelValue).toStrictEqual([1, 2]);
   await component.update({ props: { modelValue }, on: eventHandlers });
   await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
@@ -115,16 +115,16 @@ const STATES = {
 } as const;
 test.describe("should truncate", () => {
   const options: OnyxCheckboxGroupProps["options"] = [
-    { label: "Very long label that will be truncated", id: "id-1" },
-    { label: "Very long required label that will be truncated", id: "id-2", required: true },
+    { label: "Very long label that will be truncated", value: 1 },
+    { label: "Very long required label that will be truncated", value: 2, required: true },
     {
       label: "Very long label that will be wrapped with multiline",
-      id: "id-3",
+      value: 3,
       truncation: "multiline",
     },
     {
       label: "Very long required label that will be wrapped with multiline",
-      id: "id-4",
+      value: 4,
       truncation: "multiline",
       required: true,
     },

@@ -1,12 +1,13 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
+import { OnyxLoadingIndicator } from "@/index";
 import { computed, ref } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
-import { useRequired } from "../../composables/required";
-import { OnyxLoadingIndicator } from "@/index";
-import { useDensity } from "../../composables/density";
 
-const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
+const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   modelValue: false,
   indeterminate: false,
   disabled: false,
@@ -55,6 +56,7 @@ const { densityClass } = useDensity(props);
         :indeterminate="props.indeterminate"
         :disabled="props.disabled"
         :required="props.required"
+        :value="props.value"
         @blur="isTouched = true"
       />
     </div>

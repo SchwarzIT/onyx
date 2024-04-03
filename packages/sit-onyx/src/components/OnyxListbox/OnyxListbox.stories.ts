@@ -52,7 +52,7 @@ export const Default = {
       "Melon",
       "Raspberry",
       "Strawberry",
-    ].map((option) => ({ id: option.toLowerCase(), label: option })),
+    ].map((option) => ({ value: option.toLowerCase(), label: option })),
   },
 } satisfies Story;
 

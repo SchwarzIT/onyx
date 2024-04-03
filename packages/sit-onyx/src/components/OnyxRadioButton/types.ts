@@ -1,42 +1,8 @@
 import type { DensityProp } from "../../composables/density";
-import type { TruncationType } from "../../types/fonts";
+import type { SelectOption, SelectOptionValue } from "../../types";
 
-export type SelectionOptionValue = string | number | boolean;
-
-/**
- * TODO: move to dedicated file
- */
-export type SelectionOption<
-  T extends SelectionOptionValue = SelectionOptionValue,
-  TValue = unknown,
-> = {
-  /**
-   * id of the selection option, not of the radio button input
-   */
-  id: T;
-  label: string;
-  /**
-   * An optional value.
-   * It's not actually used by the selection controls, but can be used to associate data with this option.
-   */
-  value?: TValue;
-  disabled?: boolean;
-  /**
-   * Shows a loading indicator.
-   */
-  loading?: boolean;
-  /**
-   * How to truncate the label if it exceeds the max width.
-   */
-  truncation?: TruncationType;
-  /**
-   * Whether to show a skeleton radio button.
-   */
-  skeleton?: boolean;
-};
-
-export type RadioButtonProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
-  SelectionOption<TValue> &
+export type RadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> =
+  SelectOption<TValue> &
     DensityProp & {
       /**
        * Identifier for the radio buttons in the group.

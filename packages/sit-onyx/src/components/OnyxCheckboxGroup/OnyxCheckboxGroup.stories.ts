@@ -24,13 +24,13 @@ type Story = StoryObj<typeof OnyxCheckboxGroup>;
 export const Default = {
   args: {
     headline: "Checkbox group headline",
-    modelValue: ["id-2"],
+    modelValue: [1],
     options: [
-      { label: "Default", id: "id-1" },
-      { label: "Initially checked", id: "id-2" },
-      { label: "Required", id: "id-3", required: true },
-      { label: "Disabled", id: "id-4", disabled: true },
-      { label: "Loading", id: "id-5", loading: true },
+      { label: "Default", value: 1 },
+      { label: "Initially checked", value: 2 },
+      { label: "Required", value: 3, required: true },
+      { label: "Disabled", value: 4, disabled: true },
+      { label: "Loading", value: 5, loading: true },
     ],
   },
 } satisfies Story;
@@ -73,16 +73,16 @@ export const WithTruncation = {
   args: {
     ...Default.args,
     options: [
-      { label: "Very long label that will be truncated", id: "id-1" },
-      { label: "Very long required label that will be truncated", id: "id-2", required: true },
+      { label: "Very long label that will be truncated", value: 1 },
+      { label: "Very long required label that will be truncated", value: 2, required: true },
       {
         label: "Very long label that will be wrapped with multiline",
-        id: "id-3",
+        value: 3,
         truncation: "multiline",
       },
       {
         label: "Very long required label that will be wrapped with multiline",
-        id: "id-4",
+        value: 4,
         truncation: "multiline",
         required: true,
       },

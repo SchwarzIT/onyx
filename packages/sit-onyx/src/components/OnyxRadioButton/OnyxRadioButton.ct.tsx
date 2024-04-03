@@ -5,9 +5,7 @@ import OnyxRadioButton from "./OnyxRadioButton.vue";
 
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
-  await mount(
-    <OnyxRadioButton id="my-id" label="radio label" name="radio form" value="radio-value" />,
-  );
+  await mount(<OnyxRadioButton value="1" label="radio label" name="radio form" />);
 
   // ASSERT
   await expect(page.getByRole("radio")).toBeAttached();
@@ -23,15 +21,7 @@ test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
 
 test("should display correctly when selected", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
-  await mount(
-    <OnyxRadioButton
-      id="my-id"
-      label="radio label"
-      name="radio form"
-      value="radio-value"
-      selected
-    />,
-  );
+  await mount(<OnyxRadioButton value="1" label="radio label" name="radio form" selected />);
 
   // ASSERT
   await expect(page.getByRole("radio")).toBeChecked();
@@ -46,14 +36,7 @@ test("should display correctly when selected", async ({ mount, makeAxeBuilder, p
 test("should display correctly when disabled", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   await mount(
-    <OnyxRadioButton
-      id="my-id"
-      label="radio label"
-      name="radio form"
-      value="radio-value"
-      selected
-      disabled
-    />,
+    <OnyxRadioButton value="1" label="radio label" name="radio form" selected disabled />,
   );
 
   // ASSERT
@@ -71,10 +54,9 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
   // ARRANGE
   await mount(
     <OnyxRadioButton
-      id="my-id"
+      value="1"
       label="radio label"
       name="radio form"
-      value="radio-value"
       errorMessage="radio error"
       selected
     />,
@@ -100,7 +82,7 @@ TRUNCATION_TYPES.forEach((truncation) => {
         label={label}
         truncation={truncation}
         style="max-width: 10rem;"
-        id={truncation}
+        value={truncation}
         name={truncation}
       />,
     );
@@ -114,7 +96,7 @@ TRUNCATION_TYPES.forEach((truncation) => {
 test("should render skeleton", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxRadioButton label="Test label" name="skeleton" id="1" skeleton />,
+    <OnyxRadioButton label="Test label" name="skeleton" value="1" skeleton />,
   );
 
   // ASSERT
@@ -139,9 +121,9 @@ test.describe("state screenshot tests", () => {
           density={density}
           disabled={state === "disabled"}
           errorMessage={state === "invalid" ? "invalid" : ""}
-          name={`name`}
+          name="name"
           label="label"
-          id={`id`}
+          value="1"
         />,
       );
 
