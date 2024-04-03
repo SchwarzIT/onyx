@@ -81,13 +81,6 @@ test("should show optional marker", async ({ mount }) => {
   await expect(component).toHaveScreenshot("optional.png");
 });
 
-const STATES = {
-  variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
-  writeMode: ["write", "readonly", "disabled"],
-  density: ["compact", "default", "cozy"],
-  focusState: ["", "hover", "focus"],
-} as const;
-
 test("should show message", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
@@ -130,6 +123,13 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component.getByLabel("Test label")).toBeAttached();
   await expect(component).toHaveScreenshot();
 });
+
+const STATES = {
+  variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
+  writeMode: ["write", "readonly", "disabled"],
+  density: ["compact", "default", "cozy"],
+  focusState: ["", "hover", "focus"],
+} as const;
 
 test.describe("state screenshot tests", () => {
   executeScreenshotsForAllStates(
