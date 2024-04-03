@@ -6,17 +6,19 @@ https://github.com/SchwarzIT/onyx/issues/565 -->
   generic="TValue extends SelectModelValue<TMultiple>, TMultiple extends Multiple"
 >
 import { useRequired } from "@/composables/required";
+import { injectI18n } from "@/i18n";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import { useDensity } from "@/composables/density";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
-  skeleton: false,
   loading: false,
+  skeleton: false,
+  readonly: false,
 });
 
 defineEmits<{
@@ -27,6 +29,8 @@ defineEmits<{
    */
   "update:modelValue": [value: typeof props.modelValue];
 }>();
+
+const { t } = injectI18n();
 
 /**
  * The mode in which a multiselect value text should be displayed.
@@ -54,17 +58,16 @@ const previewBadgeNumber = computed<number | undefined>(() => {
  */
 const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
-    const numberOfItems = props.modelValue.length;
-    if (!numberOfItems) return "";
-    if (numberOfItems === 1) return props.modelValue[0];
+    const numberOfSelections = props.modelValue.length;
+    if (!numberOfSelections) return "";
+    if (numberOfSelections === 1) return props.modelValue[0];
 
     switch (multipleTextMode.value) {
       case "preview":
         return props.modelValue.join(", ");
       case "summary":
       default:
-        // TODO: translate.
-        return `${numberOfItems} selected`;
+        return t.value("selections.currentSelection", { n: numberOfSelections });
     }
   }
 
@@ -72,9 +75,23 @@ const selectionText = computed<string>(() => {
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+const { densityClass } = useDensity(props);
 </script>
 <template>
-  <div :class="['onyx-select', requiredTypeClass]">
+  <div v-if="props.skeleton" :class="['onyx-select-skeleton', densityClass]">
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-skeleton__label" />
+    <OnyxSkeleton class="onyx-select-skeleton__input" />
+  </div>
+
+  <div
+    v-else
+    :class="[
+      'onyx-select',
+      requiredTypeClass,
+      densityClass,
+      props.readonly ? 'onyx-select--readonly' : 'onyx-select--editable',
+    ]"
+  >
     <label>
       <div
         v-if="!props.hideLabel"
@@ -119,7 +136,26 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 </template>
 
 <style lang="scss">
+@use "../../styles/density.scss";
+
+.onyx-select,
+.onyx-select-skeleton {
+  @include density.compact {
+    --onyx-select-padding-vertical: var(--onyx-spacing-4xs);
+  }
+
+  @include density.default {
+    --onyx-select-padding-vertical: var(--onyx-spacing-2xs);
+  }
+
+  @include density.cozy {
+    --onyx-select-padding-vertical: var(--onyx-spacing-sm);
+  }
+}
+
 .onyx-select {
+  $line-height: 1.5rem;
+
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-neutral-200);
 
@@ -144,9 +180,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
   }
 
   &__wrapper {
-    $padding-vertical: var(--onyx-spacing-2xs);
-    $line-height: 1.5rem;
-
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
     background: var(--onyx-color-base-background-blank);
@@ -160,20 +193,9 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     line-height: $line-height;
 
     box-sizing: border-box;
-    padding: $padding-vertical var(--onyx-spacing-sm);
-    height: calc($line-height + 2 * $padding-vertical);
 
-    &:has(.onyx-select__input:enabled) {
-      cursor: pointer;
-
-      &:hover {
-        --border-color: var(--onyx-color-base-primary-400);
-
-        .onyx-select__icon {
-          color: var(--onyx-color-text-icons-primary-medium);
-        }
-      }
-    }
+    padding: var(--onyx-select-padding-vertical) var(--onyx-spacing-sm);
+    height: calc(1lh + 2 * var(--onyx-select-padding-vertical));
   }
 
   &__input {
@@ -201,19 +223,48 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     }
   }
 
-  &:has(.onyx-select__input:enabled:focus) {
-    .onyx-select {
-      &__wrapper {
-        --border-color: var(--onyx-color-base-primary-500);
-        outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
-      }
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+  }
 
-      &__icon {
-        color: var(--onyx-color-text-icons-primary-intense);
+  &__footer {
+    width: 100%;
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &--editable {
+    .onyx-select__wrapper:has(.onyx-select__input:enabled) {
+      cursor: pointer;
+      // default hover
+      &:hover {
+        --border-color: var(--onyx-color-base-primary-400);
+        .onyx-select__icon {
+          color: var(--onyx-color-text-icons-primary-medium);
+        }
+      }
+    }
+    // default focus
+    &:has(.onyx-select__input:enabled:focus) {
+      .onyx-select {
+        &__wrapper {
+          --border-color: var(--onyx-color-base-primary-500);
+          outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+        }
+
+        &__icon {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
       }
     }
   }
-  &:has(&__input:disabled) {
+
+  // readonly focus
+  &--readonly:has(.onyx-select__input:enabled:focus) .onyx-select__wrapper {
+    outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
+  }
+
+  &:has(&__input:disabled),
+  &--readonly {
     .onyx-select {
       &__label {
         color: var(--onyx-color-text-icons-neutral-soft);
@@ -227,13 +278,19 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     }
   }
 
-  &__loading {
-    color: var(--onyx-color-text-icons-primary-intense);
-  }
-
-  &__footer {
-    width: 100%;
-    color: var(--onyx-color-text-icons-neutral-soft);
+  &-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-5xs);
+    &__label {
+      width: var(--onyx-spacing-3xl);
+      height: 1.25rem;
+    }
+    &__input {
+      width: 17rem;
+      // TODO: apply height based on density
+      height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
+    }
   }
 }
 
