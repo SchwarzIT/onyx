@@ -76,6 +76,7 @@ onBeforeUnmount(() => {
       :label="props.label"
       placeholder="Select version"
       :model-value="version ?? ''"
+      density="compact"
       @click="toggle"
     />
 
@@ -88,12 +89,6 @@ onBeforeUnmount(() => {
 .version {
   position: relative;
 
-  :deep(.onyx-select label) {
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-spacing-xs);
-  }
-
   :deep(.onyx-select__input) {
     width: 8rem;
   }
@@ -101,7 +96,7 @@ onBeforeUnmount(() => {
   .onyx-listbox {
     position: absolute;
     right: 0;
-    top: 2.75rem; // select height + 0.25rem outline
+    top: 3.625rem; // select height + 0.25rem outline
   }
 }
 </style>

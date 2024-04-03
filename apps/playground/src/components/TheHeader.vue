@@ -47,19 +47,9 @@ const copyLink = async () => {
         @click="isDark = !isDark"
       />
 
-      <HeaderIconButton
-        label="Copy sharable URL"
-        :icon="shareAndroid"
-        variation="secondary"
-        @click="copyLink"
-      />
+      <HeaderIconButton label="Copy sharable URL" :icon="shareAndroid" @click="copyLink" />
 
-      <HeaderIconButton
-        label="Reload page"
-        :icon="sync"
-        variation="secondary"
-        @click="emit('reloadPage')"
-      />
+      <HeaderIconButton label="Reload page" :icon="sync" @click="emit('reloadPage')" />
 
       <a
         href="https://github.com/SchwarzIt/onyx/tree/main/apps/playground"
@@ -97,7 +87,7 @@ const copyLink = async () => {
   &__actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-end;
     gap: var(--onyx-spacing-md);
     width: 100%;
