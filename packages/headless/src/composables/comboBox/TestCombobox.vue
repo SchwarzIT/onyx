@@ -4,25 +4,28 @@ import { createComboBox } from "./createComboBox";
 
 const elements = ["a", "b", "c", "d"];
 const isExpanded = ref(false);
-const activeKey = ref("");
+const inputValue = ref("");
+const activeOption = ref("");
 const selectedIndex = computed<number | undefined>(() => {
-  const index = elements.indexOf(activeKey.value);
+  const index = elements.indexOf(activeOption.value);
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeKey.value = elements[0]);
-const onActivateLast = () => (activeKey.value = elements[elements.length - 1]);
+const onActivateFirst = () => (activeOption.value = elements[0]);
+const onActivateLast = () => (activeOption.value = elements[elements.length - 1]);
 const onActivateNext = () => {
   if (selectedIndex.value === undefined) {
     return onActivateFirst();
   }
-  activeKey.value = elements[selectedIndex.value + (1 % (elements.length - 1))];
+  activeOption.value = elements[selectedIndex.value + (1 % (elements.length - 1))];
 };
-const onActivatePrevious = () => (activeKey.value = elements[(selectedIndex.value ?? 0) - 1]);
-const onSelect = (key: string) => (activeKey.value = key);
+const onActivatePrevious = () => (activeOption.value = elements[(selectedIndex.value ?? 0) - 1]);
+const onSelect = (newValue: string) => (inputValue.value = newValue);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
 
 const comboBox = createComboBox({
+  activeOption,
+  inputValue,
   isExpanded,
   onToggle,
   onActivateFirst,
@@ -30,7 +33,6 @@ const comboBox = createComboBox({
   onActivateNext,
   onActivatePrevious,
   onSelect,
-  activeKey,
 });
 
 const {
@@ -59,7 +61,7 @@ defineExpose({ comboBox });
         v-for="e in elements"
         :key="e"
         v-bind="option({ value: e, label: e, disabled: false })"
-        :style="{ 'background-color': e === activeKey ? 'red' : undefined }"
+        :style="{ 'background-color': e === activeOption ? 'red' : undefined }"
       >
         {{ e }}
       </li>

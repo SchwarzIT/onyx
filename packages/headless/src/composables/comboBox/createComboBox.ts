@@ -1,33 +1,67 @@
 import { computed, ref, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createListbox, type ListboxValue } from "../listbox/createListbox";
+import { createListbox } from "../listbox/createListbox";
+
+export type CreateComboboxOptions<TValue extends string> = {
+  /**
+   * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
+   */
+  inputValue: Ref<TValue>;
+  /**
+   * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
+   */
+  isExpanded: Ref<boolean>;
+  /**
+   * If expanded, the active option is the currently highlighted option of the controlled listbox.
+   */
+  activeOption: Ref<TValue | undefined>;
+  /**
+   * Hook when the popover should toggle.
+   */
+  onToggle?: () => void;
+  /**
+   * Hook when an option is selected.
+   */
+  onSelect?: (value: TValue) => void;
+  /**
+   * Hook when the first option should be activated.
+   */
+  onActivateFirst?: () => void;
+  /**
+   * Hook when the last option should be activated.
+   */
+  onActivateLast?: () => void;
+  /**
+   * Hook when the next option should be activated.
+   */
+  onActivateNext?: (currentValue: TValue) => void;
+  /**
+   * Hook when the previous option should be activated.
+   */
+  onActivatePrevious?: (currentValue: TValue) => void;
+  /**
+   * Hook when the first option starting with the given label should be activated.
+   */
+  onTypeAhead?: (label: string) => void;
+};
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TValue extends ListboxValue>({
+  <TValue extends string>({
+    inputValue,
     isExpanded,
-    activeKey,
+    activeOption,
     onToggle,
     onSelect,
     onActivateFirst,
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: {
-    isExpanded: Ref<boolean>;
-    activeKey: Ref<TValue | undefined>;
-    onToggle: () => void;
-    onSelect: (key: TValue) => void;
-    onActivateFirst: () => void;
-    onActivateLast: () => void;
-    onActivateNext: () => void;
-    onActivatePrevious: () => void;
-  }) => {
-    const inputValue = ref("");
+  }: CreateComboboxOptions<TValue>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");
@@ -40,7 +74,7 @@ export const createComboBox = createBuilder(
 
     const handleBlur = () => {
       if (isExpanded.value) {
-        onToggle();
+        onToggle?.();
       }
     };
 
@@ -49,31 +83,38 @@ export const createComboBox = createBuilder(
         return;
       }
       switch (event.key) {
+        case "Enter":
+          event.preventDefault();
+          if (activeOption.value) {
+            onSelect?.(activeOption.value);
+            inputValue.value = activeOption.value;
+          }
+          break;
         case "Escape":
           event.preventDefault();
-          onToggle();
+          onToggle?.();
           break;
         case "ArrowUp":
           event.preventDefault();
-          if (!activeKey.value) {
-            return onActivateLast();
+          if (!activeOption.value) {
+            return onActivateLast?.();
           }
-          onActivatePrevious();
+          onActivatePrevious?.(activeOption.value);
           break;
         case "ArrowDown":
           event.preventDefault();
-          if (!activeKey.value) {
-            return onActivateFirst();
+          if (!activeOption.value) {
+            return onActivateFirst?.();
           }
-          onActivateNext();
+          onActivateNext?.(activeOption.value);
           break;
         case "Home":
           event.preventDefault();
-          onActivateFirst();
+          onActivateFirst?.();
           break;
         case "End":
           event.preventDefault();
-          onActivateLast();
+          onActivateLast?.();
           break;
       }
     };
@@ -83,8 +124,8 @@ export const createComboBox = createBuilder(
       internals: { getOptionId },
     } = createListbox({
       controlled: true,
-      activeOption: activeKey,
-      selectedOption: activeKey,
+      activeOption,
+      selectedOption: activeOption,
       onSelect,
     });
 
@@ -110,7 +151,7 @@ export const createComboBox = createBuilder(
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
           "aria-labelledby": labelId,
-          "aria-activedescendant": activeKey.value ? getOptionId(activeKey.value) : undefined,
+          "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
           onBlur: handleBlur,
@@ -122,9 +163,6 @@ export const createComboBox = createBuilder(
           tabindex: "-1",
           onClick: onToggle,
         })),
-      },
-      state: {
-        inputValue,
       },
     };
   },

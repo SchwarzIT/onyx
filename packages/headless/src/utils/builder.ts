@@ -1,4 +1,5 @@
 import type { ComputedRef, HtmlHTMLAttributes, Ref } from "vue";
+import type { IfDefined } from "./types";
 
 export type IteratedHeadlessElementFunc<T extends Record<string, unknown>> = (
   opts: T,
@@ -16,18 +17,12 @@ export type HeadlessState = Record<string, Ref>;
 
 export type HeadlessComposable<
   Elements extends HeadlessElements,
-  State extends HeadlessState,
+  State extends HeadlessState | undefined = undefined,
   Internals extends object | undefined = undefined,
 > = {
   elements: Elements;
-  state: State;
-} & (Internals extends object
-  ? {
-      internals: Internals;
-    }
-  : {
-      internals?: undefined;
-    });
+} & IfDefined<"internals", Internals> &
+  IfDefined<"state", State>;
 
 /**
  * We use this identity function to ensure the correct typings of the headless composables
@@ -35,7 +30,7 @@ export type HeadlessComposable<
 export const createBuilder = <
   P,
   Elements extends HeadlessElements,
-  State extends HeadlessState,
+  State extends HeadlessState | undefined = undefined,
   Internals extends object | undefined = undefined,
 >(
   builder: (props: P) => HeadlessComposable<Elements, State, Internals>,
