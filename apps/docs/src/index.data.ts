@@ -69,7 +69,7 @@ export default defineLoader({
       } satisfies Partial<ComponentCardProps>;
     };
 
-    const basicComponentsDueDate = new Date(2024, 4);
+    const basicComponentsDueDate = "Q2/2024";
 
     const components: HomePageData["components"] = [
       {
