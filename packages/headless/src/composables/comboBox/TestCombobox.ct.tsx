@@ -1,5 +1,5 @@
 import { test } from "@playwright/experimental-ct-vue";
-import TestDropdown from "./TestDropdown.vue";
+import TestDropdown from "./TestCombobox.vue";
 import { comboboxTesting } from "./createComboBox.ct";
 
 test("combobox", async ({ mount, page }) => {

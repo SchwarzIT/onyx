@@ -27,8 +27,9 @@ const options = [
 ] as const;
 
 const {
-  elements: { label, listbox, option: headlessOption },
+  elements: { listbox, option: headlessOption },
 } = createListbox({
+  label: "Test listbox",
   selectedOption,
   activeOption,
   onSelect: (id) => {
@@ -57,7 +58,6 @@ const {
 </script>
 
 <template>
-  <span v-bind="label">the label</span>
   <ul v-bind="listbox">
     <li
       v-for="option in options"
