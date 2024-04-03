@@ -68,7 +68,7 @@ export const createComboBox = createBuilder(
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
-      inputValue.value = inputElement.value;
+      inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
     };
 
