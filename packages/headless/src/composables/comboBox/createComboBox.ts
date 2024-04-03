@@ -1,9 +1,13 @@
-import { computed, ref, type Ref } from "vue";
+import { computed, ref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { createListbox } from "../listbox/createListbox";
 
 export type CreateComboboxOptions<TValue extends string> = {
+  /**
+   * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
+   */
+  listLabel: MaybeRef<string>;
   /**
    * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
    */
@@ -52,6 +56,7 @@ export type CreateComboboxOptions<TValue extends string> = {
 
 export const createComboBox = createBuilder(
   <TValue extends string>({
+    listLabel,
     inputValue,
     isExpanded,
     activeOption,
@@ -120,9 +125,10 @@ export const createComboBox = createBuilder(
     };
 
     const {
-      elements: { option, group, listbox, label },
+      elements: { option, group, listbox },
       internals: { getOptionId },
     } = createListbox({
+      label: listLabel,
       controlled: true,
       activeOption,
       selectedOption: activeOption,
@@ -131,9 +137,11 @@ export const createComboBox = createBuilder(
 
     return {
       elements: {
-        label,
         option,
         group,
+        label: {
+          "aria-labelledby": labelId,
+        },
         /**
          * The listbox associated with the combobox.
          */

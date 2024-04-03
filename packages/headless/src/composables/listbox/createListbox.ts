@@ -4,15 +4,17 @@ import { createBuilder, type HeadlessElementAttributes } from "../../utils/build
 
 export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
+   * Aria label for the listbox.
+   */
+  label: MaybeRef<string>;
+  /**
    * Value of currently selected option.
    */
   selectedOption: Ref<TValue | undefined>;
-
   /**
    * Value of currently (visually) active option.
    */
   activeOption: Ref<TValue | undefined>;
-
   /**
    * Wether the listbox is controlled from the outside, e.g. by a combobox.
    * This disables keyboard events and makes the listbox not focusable.
@@ -56,7 +58,6 @@ export type ListboxValue = string | number | boolean;
  */
 export const createListbox = createBuilder(
   <TValue extends ListboxValue>(options: CreateListboxOptions<TValue>) => {
-    const labelId = createId("comboBox-label");
     const isMultiselect = computed(() => unref(options.multiselect) ?? false);
 
     /**
@@ -137,13 +138,13 @@ export const createListbox = createBuilder(
         ? {
             role: "listbox",
             "aria-multiselectable": isMultiselect.value,
-            "aria-labelledby": labelId,
+            "aria-label": unref(options.label),
             tabindex: "-1",
           }
         : {
             role: "listbox",
             "aria-multiselectable": isMultiselect.value,
-            "aria-labelledby": labelId,
+            "aria-label": unref(options.label),
             tabindex: "0",
             "aria-activedescendant":
               options.activeOption.value != undefined
@@ -157,12 +158,6 @@ export const createListbox = createBuilder(
 
     return {
       elements: {
-        /**
-         * The label element for the combobox input element.
-         */
-        label: {
-          id: labelId,
-        },
         listbox,
         group: computed(() => {
           return (options: { label: string }) => ({
@@ -194,7 +189,6 @@ export const createListbox = createBuilder(
         isFocused,
       },
       internals: {
-        labelId,
         getOptionId,
       },
     };

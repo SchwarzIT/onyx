@@ -24,6 +24,7 @@ const onSelect = (newValue: string) => (inputValue.value = newValue);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
 
 const comboBox = createComboBox({
+  listLabel: "List",
   activeOption,
   inputValue,
   isExpanded,

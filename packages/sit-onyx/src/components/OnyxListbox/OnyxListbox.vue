@@ -30,8 +30,9 @@ watch(
 );
 
 const {
-  elements: { label, listbox, option: headlessOption },
+  elements: { listbox, option: headlessOption },
 } = createListbox({
+  label: computed(() => props.label),
   selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (id) => {
@@ -80,7 +81,7 @@ const {
       </OnyxListboxOption>
     </ul>
 
-    <span v-if="props.message" v-bind="label" class="onyx-listbox__message onyx-text--small">
+    <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
     </span>
   </div>
