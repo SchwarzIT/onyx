@@ -64,6 +64,10 @@ defineSlots<{
 
   --onyx-badge-background-color: var(--onyx-color-base-primary-500);
 
+  &:has(&__icon) {
+    --onyx-badge-padding: var(--onyx-badge-icon-padding);
+  }
+
   display: inline-block;
   height: var(--onyx-badge-height);
   max-width: 100%;
@@ -93,10 +97,6 @@ defineSlots<{
 
   &--info {
     --onyx-badge-background-color: var(--onyx-color-base-info-500);
-  }
-
-  &:has(&__icon) {
-    --onyx-badge-padding: var(--onyx-badge-icon-padding);
   }
 
   &__icon {
