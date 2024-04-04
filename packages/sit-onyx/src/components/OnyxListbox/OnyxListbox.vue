@@ -90,7 +90,7 @@ const {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-listbox {
   @include layers.component() {

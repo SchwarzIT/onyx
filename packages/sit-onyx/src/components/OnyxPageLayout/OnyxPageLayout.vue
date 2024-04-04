@@ -48,7 +48,7 @@ const pageModifier = computed(() => {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-page {
   @include layers.component() {

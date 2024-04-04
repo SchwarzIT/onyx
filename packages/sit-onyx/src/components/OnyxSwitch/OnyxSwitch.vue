@@ -106,8 +106,8 @@ watch(
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/density.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-switch,
 .onyx-switch-skeleton {

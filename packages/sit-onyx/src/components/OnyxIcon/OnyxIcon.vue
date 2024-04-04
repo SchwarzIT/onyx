@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-icon {
   @include layers.component() {

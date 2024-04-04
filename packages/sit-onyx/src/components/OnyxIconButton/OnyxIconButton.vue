@@ -25,7 +25,7 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="onyx-icon-button onyx-reset"
+    class="onyx-icon-button"
     :aria-label="props.label"
     :title="props.label"
     :class="[
@@ -43,8 +43,8 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
+@use "@/styles/mixins/layers.scss";
+@use "@/styles/mixins/density.scss";
 
 .onyx-icon-button {
   @include density.compact {

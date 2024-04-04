@@ -73,7 +73,7 @@ const handleChange = (event: ChangeEvent) =>
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-radio-button-group {
   @include layers.component() {

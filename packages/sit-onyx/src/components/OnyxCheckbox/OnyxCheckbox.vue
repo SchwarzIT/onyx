@@ -81,8 +81,8 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
+@use "@/styles/mixins/layers.scss";
+@use "@/styles/mixins/density.scss";
 
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {

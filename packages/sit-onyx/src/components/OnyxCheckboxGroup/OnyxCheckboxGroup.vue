@@ -87,7 +87,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-checkbox-group {
   @include layers.component() {

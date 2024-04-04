@@ -32,7 +32,7 @@ const slots = defineSlots<{
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "@/styles/mixins/layers.scss";
 
 .onyx-app {
   @include layers.component() {
