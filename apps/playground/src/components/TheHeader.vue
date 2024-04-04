@@ -18,7 +18,7 @@ const onyxVersion = defineModel<string>("onyxVersion");
 
 const copyLink = async () => {
   await navigator.clipboard.writeText(location.href);
-  alert("Sharable URL has been copied to clipboard.");
+  alert("URL has been copied to the clipboard.");
 };
 </script>
 
@@ -47,7 +47,7 @@ const copyLink = async () => {
         @click="isDark = !isDark"
       />
 
-      <HeaderIconButton label="Copy sharable URL" :icon="shareAndroid" @click="copyLink" />
+      <HeaderIconButton label="Copy URL" :icon="shareAndroid" @click="copyLink" />
 
       <HeaderIconButton label="Reload page" :icon="sync" @click="emit('reloadPage')" />
 
