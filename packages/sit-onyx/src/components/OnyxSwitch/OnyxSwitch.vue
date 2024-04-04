@@ -2,7 +2,7 @@
 import { OnyxIcon, OnyxLoadingIndicator } from "@/index";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -27,11 +27,8 @@ const emit = defineEmits<{
 }>();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-
 const { densityClass } = useDensity(props);
-const inputRef = ref<HTMLInputElement>();
-
-useCustomValidity({ inputRef, props, emit });
+const { vCustomValidity } = useCustomValidity({ props, emit });
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -57,8 +54,8 @@ const isChecked = computed({
     <!-- eslint-disable vuejs-accessibility/role-has-required-aria-props -->
     <!-- TODO: disable can be removed when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
     <input
-      ref="inputRef"
       v-model="isChecked"
+      v-custom-validity
       type="checkbox"
       role="switch"
       :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"

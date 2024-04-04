@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -39,8 +39,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const inputRef = ref<HTMLInputElement>();
-useCustomValidity({ inputRef, props, emit });
+const { vCustomValidity } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -84,8 +83,8 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
          The JSDoc description includes a warning that it should be used carefully.
       -->
         <input
-          ref="inputRef"
           v-model="value"
+          v-custom-validity
           class="onyx-input__native"
           :placeholder="props.placeholder"
           :type="props.type"

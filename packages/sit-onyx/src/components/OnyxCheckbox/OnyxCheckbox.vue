@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { OnyxLoadingIndicator } from "@/index";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -34,8 +34,7 @@ const isChecked = computed({
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
-const inputRef = ref<HTMLInputElement>();
-useCustomValidity({ inputRef, props, emit });
+const { vCustomValidity } = useCustomValidity({ props, emit });
 </script>
 
 <template>
@@ -49,8 +48,8 @@ useCustomValidity({ inputRef, props, emit });
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
         v-else
-        ref="inputRef"
         v-model="isChecked"
+        v-custom-validity
         :aria-label="props.hideLabel ? props.label : undefined"
         :title="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"

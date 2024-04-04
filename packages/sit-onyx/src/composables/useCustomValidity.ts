@@ -1,4 +1,4 @@
-import { nextTick, ref, watch, type Ref } from "vue";
+import { nextTick, ref, watch, watchEffect, type Directive } from "vue";
 import { areObjectsFlatEqual } from "../utils/comparator";
 import { transformValidityStateToObject } from "../utils/forms";
 
@@ -11,10 +11,6 @@ export type CustomValidityProp = {
 
 export type UseCustomValidityOptions = {
   /**
-   * Template ref to the `<input>` element
-   */
-  inputRef: Ref<Pick<HTMLInputElement, "validity" | "setCustomValidity"> | undefined>;
-  /**
    * Component props as defined with `const props = defineProps()`
    */
   props: CustomValidityProp & { modelValue?: unknown };
@@ -23,6 +19,8 @@ export type UseCustomValidityOptions = {
    */
   emit: (evt: "validityChange", validity: ValidityState) => void;
 };
+
+export type InputValidationElement = Pick<HTMLInputElement, "validity" | "setCustomValidity">;
 
 /**
  * Composable for unified handling of custom error messages for form components.
@@ -35,12 +33,11 @@ export type UseCustomValidityOptions = {
  * const props = defineProps<CustomValidityProp>();
  * const emit = defineEmits<{ validityChange: [validity: ValidityState] }>();
  *
- * const inputRef = ref<HTMLInputElement>();
- * useCustomValidity({ inputRef, props, emit });
+ * const { vCustomValidity } = useCustomValidity({ props, emit });
  * </script>
  *
  * <template>
- *  <input ref="inputRef" />
+ *  <input v-custom-validity />
  * </template>
  * ```
  */
@@ -59,37 +56,41 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     },
   );
 
-  /**
-   * Sync custom error with the native input validity.
-   */
-  watch(
-    [options.inputRef, () => options.props.customError],
-    () => {
-      options.inputRef.value?.setCustomValidity(options.props.customError ?? "");
+  const vCustomValidity = {
+    mounted: (el) => {
+      /**
+       * Sync custom error with the native input validity.
+       */
+      watchEffect(() => el.setCustomValidity(options.props.customError ?? ""));
+
+      /**
+       * Update validityState ref when the input changes.
+       */
+      watch(
+        [() => options.props.customError, () => options.props.modelValue, isTouched],
+        () => {
+          const newValidityState = transformValidityStateToObject(el.validity);
+
+          // do not emit validityChange event if input is valid and has never been invalid
+          if (!isTouched.value || (!validityState.value && newValidityState.valid)) return;
+
+          // ignore if actual validity state value is unchanged
+          if (validityState.value && areObjectsFlatEqual(newValidityState, validityState.value)) {
+            return;
+          }
+
+          validityState.value = newValidityState;
+          options.emit("validityChange", validityState.value);
+        },
+        { immediate: true },
+      );
     },
-    { immediate: true },
-  );
+  } satisfies Directive<InputValidationElement, undefined>;
 
-  /**
-   * Update validityState ref when the input changes.
-   */
-  watch(
-    [options.inputRef, () => options.props.customError, () => options.props.modelValue, isTouched],
-    ([inputRef]) => {
-      if (!inputRef) return;
-      const newValidityState = transformValidityStateToObject(inputRef.validity);
-
-      // do not emit validityChange event if input is valid and has never been invalid
-      if (!isTouched.value || (!validityState.value && newValidityState.valid)) return;
-
-      // ignore if actual validity state value is unchanged
-      if (validityState.value && areObjectsFlatEqual(newValidityState, validityState.value)) {
-        return;
-      }
-
-      validityState.value = newValidityState;
-      options.emit("validityChange", validityState.value);
-    },
-    { immediate: true },
-  );
+  return {
+    /**
+     * Directive to set the custom error message and emit validityChange event.
+     */
+    vCustomValidity,
+  };
 };

@@ -1,6 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { OnyxLoadingIndicator } from "@/index";
-import { ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -23,9 +22,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const inputRef = ref<HTMLInputElement>();
-useCustomValidity({ inputRef, props, emit });
-
+const { vCustomValidity } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
 </script>
 
@@ -40,7 +37,7 @@ const { densityClass } = useDensity(props);
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       v-else
-      ref="inputRef"
+      v-custom-validity
       class="onyx-radio-button__selector"
       type="radio"
       :required="props.required"
