@@ -41,21 +41,29 @@ test("should render badge with icon", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  state: ["icon", ""],
   variation: ["primary", "secondary", "danger", "warning", "success", "info"],
   density: ["compact", "default", "cozy"],
 } as const;
 
 test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(STATES, "badge", async ({ state, variation, density }, mount) => {
+  executeScreenshotsForAllStates(STATES, "badge", async ({ variation, density }, mount) => {
     const component = await mount(
-      <OnyxBadge
-        icon={state === "icon" ? mockPlaywrightIcon : undefined}
-        variation={variation}
-        density={density}
-      >
+      <OnyxBadge variation={variation} density={density}>
         Badge
       </OnyxBadge>,
+    );
+    return component;
+  });
+});
+
+const ICONSTATE = {
+  density: ["compact", "default", "cozy"],
+} as const;
+
+test.describe("icon screenshot tests", () => {
+  executeScreenshotsForAllStates(ICONSTATE, "badge", async ({ density }, mount) => {
+    const component = await mount(
+      <OnyxBadge icon={mockPlaywrightIcon} variation="primary" density={density}></OnyxBadge>,
     );
     return component;
   });
