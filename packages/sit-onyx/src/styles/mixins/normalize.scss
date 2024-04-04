@@ -17,10 +17,6 @@
       text-size-adjust: none;
     }
 
-    &:is(ul, ol) {
-      list-style: none;
-    }
-
     &:is(input, button, textarea, optgroup, select) {
       font: inherit;
     }
