@@ -22,16 +22,23 @@ export type UseFilesOptions = {
   onyxVersion: Ref<string>;
   theme: Ref<"dark" | "light">;
   reloadPage: () => void;
+  /**
+   * Persisted / hashed state of the store.
+   * If unset, default files will be initialized for the editor.
+   */
+  hash?: string;
 };
 
 /**
  * Composable for managing the Playground files.
  * Will insert the template files and sync the light/dark mode.
  */
-export const useFiles = ({ store, onyxVersion, theme, reloadPage }: UseFilesOptions) => {
-  Object.entries(FILES).forEach(([name, code]) => {
-    store.addFile(new File(name, code, false));
-  });
+export const useFiles = ({ store, onyxVersion, theme, reloadPage, hash }: UseFilesOptions) => {
+  if (!hash) {
+    Object.entries(FILES).forEach(([name, code]) => {
+      store.addFile(new File(name, code, false));
+    });
+  }
 
   store.template.newSFC = NewFile;
   store.activeFilename = Object.keys(FILES)[0];

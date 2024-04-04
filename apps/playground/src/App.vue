@@ -21,6 +21,8 @@ const onyxVersion = ref("alpha");
 const onyxVersions = ref<string[]>([]);
 fetchVersions("sit-onyx").then((versions) => (onyxVersions.value = versions));
 
+const hash = location.hash.slice(1);
+
 const store = useStore(
   {
     vueVersion,
@@ -45,18 +47,18 @@ const store = useStore(
     }),
   },
   // initialize repl with previously serialized state
-  location.hash.slice(1),
+  hash,
 );
 
 // persist state in URL
-watchEffect(() => history.replaceState({}, "", `#${store.serialize()}`));
+watchEffect(() => history.replaceState({}, "", store.serialize()));
 
 const replRef = ref<InstanceType<typeof Repl>>();
 const reloadPage = () => replRef.value?.reload();
 
 const { isDark, theme } = useDark();
 
-useFiles({ store, onyxVersion, theme, reloadPage });
+useFiles({ store, onyxVersion, theme, reloadPage, hash });
 </script>
 
 <template>
