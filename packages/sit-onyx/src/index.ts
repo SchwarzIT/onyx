@@ -40,8 +40,8 @@ export * from "@/components/OnyxPageLayout/types";
 export * from "@/components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "@/components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 
-export * from "@/components/OnyxSelect/types";
 export { default as OnyxSelect } from "@/components/OnyxSelect/OnyxSelect.vue";
+export * from "@/components/OnyxSelect/types";
 
 export { default as OnyxSkeleton } from "@/components/OnyxSkeleton/OnyxSkeleton.vue";
 
@@ -55,4 +55,5 @@ export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
+export * from "@/composables/density";
 export { createOnyx } from "@/utils/plugin";

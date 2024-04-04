@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.61
+
+### Patch Changes
+
+- 93c4495: fix(OnyxTooltip): prevent warning about invalid prop type for `open`
+
 ## 1.0.0-alpha.60
 
 ### Minor Changes

@@ -29,7 +29,8 @@ export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;
 export type TooltipPosition = (typeof TOOLTIP_POSITIONS)[number];
 
 export type TooltipOpen =
-  | TooltipTrigger
+  | "hover"
+  | "click"
   | boolean
   | {
       type: "hover";
@@ -38,6 +39,3 @@ export type TooltipOpen =
        */
       debounce: number;
     };
-
-export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
-export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
