@@ -108,7 +108,7 @@ const radioOptions: OnyxRadioButtonGroupProps["options"] = [
     gap: var(--onyx-spacing-xs);
   }
 
-  :deep(.onyx-input) {
+  .onyx-input {
     max-width: 20rem;
   }
 }
