@@ -1,5 +1,6 @@
 import { expect, test } from "../../playwright-axe";
 import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
+import { ONYX_COLORS } from "../../types/colors";
 import OnyxBadge from "./OnyxBadge.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
@@ -41,7 +42,7 @@ test("should render badge with icon", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  variation: ["primary", "secondary", "danger", "warning", "success", "info"],
+  variation: ONYX_COLORS,
   density: ["compact", "default", "cozy"],
 } as const;
 
