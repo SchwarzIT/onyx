@@ -195,12 +195,12 @@ const emit = defineEmits<{
     width: var(--onyx-spacing-3xl);
     height: 100%;
   }
-}
 
-.onyx-button-skeleton {
-  width: var(--onyx-spacing-4xl);
-  height: var(--onyx-button-height);
-  display: inline-block;
-  vertical-align: middle;
+  &-skeleton {
+    width: var(--onyx-spacing-4xl);
+    height: var(--onyx-button-height);
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 </style>

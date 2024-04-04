@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout, OnyxSwitch } from "sit-onyx";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
 import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import FormDemo, { type FormData } from "../components/form-demo/FormDemo.vue";
@@ -42,9 +42,7 @@ watch(
     <OnyxPageLayout>
       <template #sidebar>
         <div class="sidebar">
-          <p>Set the application language.</p>
-
-          <OnyxSwitch v-model="useEnglish" :label="useEnglish ? 'English' : 'Deutsch'" />
+          <LanguageSelection v-model="locale" />
 
           <p>"{{ t("message") }}" in {{ locale }}</p>
         </div>

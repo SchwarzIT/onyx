@@ -51,4 +51,5 @@ export * from "@/components/OnyxTooltip/types";
 
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
+export * from "@/composables/density";
 export { createOnyx } from "@/utils/plugin";
