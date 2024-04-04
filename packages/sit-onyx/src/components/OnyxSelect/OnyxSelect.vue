@@ -159,7 +159,6 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
     font-size: 1rem;
     line-height: $line-height;
 
-    box-sizing: border-box;
     padding: $padding-vertical var(--onyx-spacing-sm);
     height: calc($line-height + 2 * $padding-vertical);
 

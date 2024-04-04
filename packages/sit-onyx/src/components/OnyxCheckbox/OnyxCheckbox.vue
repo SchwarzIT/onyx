@@ -134,7 +134,6 @@ const { densityClass } = useDensity(props);
     cursor: pointer;
     width: max-content;
     max-width: 100%;
-    box-sizing: border-box;
 
     &:has(&__label) {
       padding-right: var(--onyx-spacing-2xs);

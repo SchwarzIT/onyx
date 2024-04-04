@@ -229,7 +229,6 @@ $input-width: calc(
       min-width: $input-width;
       height: var(--onyx-switch-input-height);
       padding: var(--onyx-switch-container-padding);
-      box-sizing: border-box;
       background-color: var(--onyx-color-base-neutral-300);
       border-radius: var(--onyx-radius-full);
       border: var(--onyx-1px-in-rem) solid transparent;
