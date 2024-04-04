@@ -1,4 +1,5 @@
 ---
+"@sit-onyx/headless": patch
 "sit-onyx": patch
 ---
 
