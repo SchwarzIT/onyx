@@ -18,8 +18,11 @@ const onyxVersion = ref("alpha");
 /**
  * List of available onyx versions.
  */
-const onyxVersions = ref<string[]>([]);
-fetchVersions("sit-onyx").then((versions) => (onyxVersions.value = versions));
+const availableVersions = ref<string[]>([]);
+const isLoading = ref(true);
+fetchVersions("sit-onyx")
+  .then((versions) => (availableVersions.value = versions))
+  .finally(() => (isLoading.value = false));
 
 const hash = location.hash.slice(1);
 
@@ -38,11 +41,11 @@ const store = useStore(
      * Specify onyx version which is needed for the Monaco editor so that is loads the correct types for the current version
      */
     dependencyVersion: computed(() => {
+      // the dependencyVersion must be a real version number and not a range like "alpha"
       const version =
-        onyxVersion.value === "alpha"
-          ? onyxVersions.value.find((i) => i.includes("-alpha")) ?? onyxVersion.value
-          : onyxVersion.value;
-
+        onyxVersion.value.includes(".") || !availableVersions.value.length
+          ? onyxVersion.value
+          : availableVersions.value[0];
       return { "sit-onyx": version };
     }),
   },
@@ -74,6 +77,7 @@ useFiles({ store, onyxVersion, theme, reloadPage, hash });
     </template>
 
     <Repl
+      v-if="!isLoading"
       ref="replRef"
       :editor="Monaco"
       :theme="theme"
