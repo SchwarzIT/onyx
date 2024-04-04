@@ -5,6 +5,11 @@ export type OnyxBadgeProps = DensityProp & {
    * The color of the badge.
    */
   variation?: BadgeVariation;
+  /**
+   * An icon which will be displayed inside the badge.
+   * Note: If the icon property is set, the default slot will not be rendered.
+   */
+  icon?: string;
 };
 
 export const BADGE_VARIATIONS = [

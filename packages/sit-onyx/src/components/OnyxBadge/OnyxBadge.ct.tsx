@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
+import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxBadge from "./OnyxBadge.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
@@ -29,15 +29,31 @@ test("should truncate text", async ({ mount }) => {
   await expect(component).toHaveScreenshot("truncation-ellipsis.png");
 });
 
+test("should render badge with icon", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  await mount(<OnyxBadge variation="secondary" icon={mockPlaywrightIcon} />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 const STATES = {
+  state: ["", "icon"],
   variation: ["primary", "secondary", "danger", "warning", "success", "info"],
   density: ["compact", "default", "cozy"],
 } as const;
 
 test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(STATES, "badge", async ({ variation, density }, mount) => {
+  executeScreenshotsForAllStates(STATES, "badge", async ({ state, variation, density }, mount) => {
     const component = await mount(
-      <OnyxBadge variation={variation} density={density}>
+      <OnyxBadge
+        icon={state === "icon" ? mockPlaywrightIcon : undefined}
+        variation={variation}
+        density={density}
+      >
         Badge
       </OnyxBadge>,
     );

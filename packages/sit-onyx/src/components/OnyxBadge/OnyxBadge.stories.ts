@@ -1,10 +1,12 @@
-import { createTruncationDecorator } from "@/utils/storybook";
-import camera_x from "@sit-onyx/icons/camera-x.svg?raw";
+import {
+  createIconSourceCodeTransformer,
+  createTruncationDecorator,
+  defineIconSelectArgType,
+} from "@/utils/storybook";
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
 import OnyxBadge from "./OnyxBadge.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
 /**
  * Info badges in UI design serve as valuable tools for conveying various types of information to users.
@@ -22,7 +24,18 @@ const meta: Meta<typeof OnyxBadge> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxBadge,
     events: [],
+    argTypes: {
+      icon: defineIconSelectArgType(),
+    },
   }),
+  parameters: {
+    docs: {
+      source: {
+        // improve code snippet by adding the icon import
+        transform: createIconSourceCodeTransformer("icon"),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -53,7 +66,7 @@ export const Secondary = {
 export const Danger = {
   args: {
     variation: "danger",
-    default: () => h(OnyxIcon, { icon: camera_x }),
+    icon: placeholder,
   },
 } satisfies Story;
 

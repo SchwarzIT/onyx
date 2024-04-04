@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useDensity } from "../../composables/density";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxBadgeProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
@@ -26,7 +27,13 @@ defineSlots<{
       densityClass,
     ]"
   >
-    <slot></slot>
+    <OnyxIcon
+      v-if="props.icon"
+      class="onyx-badge__icon"
+      :icon="props.icon"
+      :size="props.density === 'compact' ? '16px' : '24px'"
+    />
+    <slot v-else></slot>
   </div>
 </template>
 
@@ -36,18 +43,21 @@ defineSlots<{
 .onyx-badge {
   @include density.compact {
     --onyx-badge-padding: 0 var(--onyx-spacing-2xs);
+    --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
     --onyx-badge-gap: var(--onyx-spacing-4xs);
     --onyx-badge-height: 1.5rem;
   }
 
   @include density.default {
     --onyx-badge-padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
+    --onyx-badge-icon-padding: var(--onyx-spacing-5xs);
     --onyx-badge-gap: var(--onyx-spacing-2xs);
     --onyx-badge-height: 1.75rem;
   }
 
   @include density.cozy {
     --onyx-badge-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+    --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
     --onyx-badge-gap: var(--onyx-spacing-sm);
     --onyx-badge-height: 2rem;
   }
@@ -83,6 +93,14 @@ defineSlots<{
 
   &--info {
     --onyx-badge-background-color: var(--onyx-color-base-info-500);
+  }
+
+  &:has(&__icon) {
+    --onyx-badge-padding: var(--onyx-badge-icon-padding);
+  }
+
+  &__icon {
+    display: flex;
   }
 }
 </style>
