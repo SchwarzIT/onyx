@@ -41,7 +41,7 @@ test("should render badge with icon", async ({ mount, makeAxeBuilder }) => {
 });
 
 const STATES = {
-  state: ["", "icon"],
+  state: ["icon", ""],
   variation: ["primary", "secondary", "danger", "warning", "success", "info"],
   density: ["compact", "default", "cozy"],
 } as const;
