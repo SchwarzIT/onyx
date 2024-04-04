@@ -1,3 +1,4 @@
+import type { createListbox } from "@sit-onyx/headless";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
 export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
@@ -9,6 +10,7 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
    * Available options to choose from.
    */
   options: ListboxOption<TValue>[];
+  controlled?: ReturnType<typeof createListbox>;
   /**
    * Message / help text to display at the bottom.
    */

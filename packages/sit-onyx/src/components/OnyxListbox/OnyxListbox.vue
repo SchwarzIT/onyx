@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
-import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
+import OnyxListboxOption from "./OnyxListboxOption/OnyxListboxOption.vue";
 import type { OnyxListboxProps } from "./types";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
@@ -31,34 +31,36 @@ watch(
 
 const {
   elements: { listbox, option: headlessOption },
-} = createListbox({
-  label: computed(() => props.label),
-  selectedOption: computed(() => props.modelValue),
-  activeOption,
-  onSelect: (id) => {
-    if (props.modelValue === id) emit("update:modelValue", undefined);
-    else emit("update:modelValue", id as TValue);
-  },
-  onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
-  onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),
-  onActivateNext: (currentValue) => {
-    const currentIndex = props.options.findIndex((i) => i.id === currentValue);
-    if (currentIndex < props.options.length - 1) {
-      activeOption.value = props.options[currentIndex + 1].id;
-    }
-  },
-  onActivatePrevious: (currentValue) => {
-    const currentIndex = props.options.findIndex((i) => i.id === currentValue);
-    if (currentIndex > 0) activeOption.value = props.options[currentIndex - 1].id;
-  },
-  onTypeAhead: (label) => {
-    const firstMatch = props.options.find((i) => {
-      return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
+} = props.controlled
+  ? props.controlled
+  : createListbox({
+      label: computed(() => props.label),
+      selectedOption: computed(() => props.modelValue),
+      activeOption,
+      onSelect: (id) => {
+        if (props.modelValue === id) emit("update:modelValue", undefined);
+        else emit("update:modelValue", id as TValue);
+      },
+      onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
+      onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),
+      onActivateNext: (currentValue) => {
+        const currentIndex = props.options.findIndex((i) => i.id === currentValue);
+        if (currentIndex < props.options.length - 1) {
+          activeOption.value = props.options[currentIndex + 1].id;
+        }
+      },
+      onActivatePrevious: (currentValue) => {
+        const currentIndex = props.options.findIndex((i) => i.id === currentValue);
+        if (currentIndex > 0) activeOption.value = props.options[currentIndex - 1].id;
+      },
+      onTypeAhead: (label) => {
+        const firstMatch = props.options.find((i) => {
+          return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
+        });
+        if (!firstMatch) return;
+        activeOption.value = firstMatch.id;
+      },
     });
-    if (!firstMatch) return;
-    activeOption.value = firstMatch.id;
-  },
-});
 </script>
 
 <template>
