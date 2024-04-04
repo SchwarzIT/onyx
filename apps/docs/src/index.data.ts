@@ -87,7 +87,6 @@ export default defineLoader({
         name: "Radio button group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxRadioButtonGroup"),
-        status: "implemented",
       },
       {
         name: "Minimalistic table",
@@ -130,7 +129,6 @@ export default defineLoader({
         name: "Checkbox group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxCheckboxGroup"),
-        status: "implemented",
       },
       {
         name: "Icons",
