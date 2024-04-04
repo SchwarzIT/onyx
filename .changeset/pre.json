@@ -11,7 +11,8 @@
     "@sit-onyx/vitepress-theme": "0.0.0",
     "docs": "0.0.0",
     "@sit-onyx/eslint-plugin": "0.0.0",
-    "alpha-test-app": "0.0.0"
+    "alpha-test-app": "0.0.0",
+    "playground": "0.0.0"
   },
   "changesets": [
     "angry-teachers-tickle",
@@ -62,6 +63,7 @@
     "olive-cups-shave",
     "olive-forks-mate",
     "olive-months-turn",
+    "pink-days-rest",
     "plenty-queens-matter",
     "popular-garlics-accept",
     "purple-years-unite",
