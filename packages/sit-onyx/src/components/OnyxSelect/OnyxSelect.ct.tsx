@@ -4,7 +4,7 @@ import OnyxSelect from "./OnyxSelect.vue";
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSelect style="width: 12rem" label="Test label" hideLabel />);
+  const component = await mount(<OnyxSelect style="width: 16rem" label="Test label" hideLabel />);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -17,36 +17,91 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component.getByLabel("Test label")).toBeAttached();
 });
 
-const SINGLE_STATES = {
-  // TODO: add readonly
-  state: ["default", "disabled", "required", "optional"],
-  selection: ["", "Selection"],
-  focusState: ["", "hover", "focus-visible"],
-  labeled: ["labeled", "unlabeled"],
+const BASIC_STATES = {
+  state: ["default", "required", "optional"],
+  labeled: ["Fruits", "Hidden Label"],
 } as const;
 
-test.describe("state screenshot tests", () => {
+test.describe("basic state screenshot tests", () => {
   executeScreenshotsForAllStates(
-    SINGLE_STATES,
-    "single-select",
-    async ({ selection, state, labeled, focusState }, mount, page) => {
+    BASIC_STATES,
+    "basic-select",
+    async ({ state, labeled }, mount) => {
       const component = await mount(
         <OnyxSelect
-          style="width: 12rem"
-          modelValue={selection ? selection : undefined}
+          style="width: 16rem"
+          modelValue={undefined}
           label={labeled}
-          hideLabel={labeled === "unlabeled"}
-          disabled={state === "disabled"}
+          hideLabel={labeled === "Hidden Label"}
           required={state === "required"}
+          placeholder="Select your fruits"
         />,
         { useOptional: state === "optional" },
       );
+      return component;
+    },
+  );
+});
 
+const PERMISSIONS_STATES = {
+  state: ["default", "disabled", "readonly"],
+  focusState: ["", "hover", "focus-visible"],
+} as const;
+
+test.describe("permissions states screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    PERMISSIONS_STATES,
+    "permissions-select",
+    async ({ state, focusState }, mount, page) => {
+      const component = await mount(
+        <OnyxSelect
+          modelValue={undefined}
+          label="Fruits"
+          disabled={state === "disabled"}
+          readonly={state === "readonly"}
+          placeholder="Select your fruits"
+        />,
+      );
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await component.hover();
       return component;
     },
   );
+});
+
+const DENSITY_STATES = {
+  density: ["compact", "default", "cozy"],
+} as const;
+
+test.describe("select with density states screenshot tests", () => {
+  executeScreenshotsForAllStates(DENSITY_STATES, "density-select", async ({ density }, mount) => {
+    const component = await mount(
+      <OnyxSelect
+        modelValue={undefined}
+        label="Fruits"
+        placeholder="Select your fruits"
+        density={density}
+      />,
+    );
+    return component;
+  });
+});
+
+const SINGLE_STATES = {
+  selection: ["", "Selection"],
+} as const;
+
+test.describe("single select value display states screenshot tests", () => {
+  executeScreenshotsForAllStates(SINGLE_STATES, "single-select", async ({ selection }, mount) => {
+    const component = await mount(
+      <OnyxSelect
+        modelValue={selection ? selection : undefined}
+        label="Fruits"
+        placeholder="Select your fruits"
+      />,
+    );
+    return component;
+  });
 });
 
 const MULTIPLE_STATES = {
@@ -66,13 +121,34 @@ test.describe("multiselect value display states screenshot tests", () => {
     async ({ selection, multiselectTextMode }, mount) => {
       const component = await mount(
         <OnyxSelect
-          style="width: 12rem"
+          style="width: 16rem"
           modelValue={JSON.parse(selection)}
           label={`Multiselect with ${multiselectTextMode}`}
           multiple={{ textMode: multiselectTextMode }}
         />,
       );
+      return component;
+    },
+  );
+});
 
+const SKELETON_STATES = {
+  withLabel: ["true", "false"],
+} as const;
+
+test.describe("skeleton states screenshot tests", () => {
+  executeScreenshotsForAllStates(
+    SKELETON_STATES,
+    "skeleton-select",
+    async ({ withLabel }, mount) => {
+      const component = await mount(
+        <OnyxSelect
+          modelValue={undefined}
+          label="Label"
+          skeleton
+          hideLabel={withLabel === "true"}
+        />,
+      );
       return component;
     },
   );

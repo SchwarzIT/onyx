@@ -7,3 +7,5 @@ import "./playwright.scss";
 
 Chart.register(...registerables);
 registerOnyxPlugin(Chart);
+
+Chart.defaults.animation = false;

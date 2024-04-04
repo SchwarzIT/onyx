@@ -52,4 +52,5 @@ export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
+export * from "@/composables/density";
 export { createOnyx } from "@/utils/plugin";

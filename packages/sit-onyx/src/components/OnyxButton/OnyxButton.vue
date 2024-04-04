@@ -196,10 +196,8 @@ const emit = defineEmits<{
       height: 100%;
     }
   }
-}
 
-.onyx-button-skeleton {
-  @include layers.component() {
+  &-skeleton {
     width: var(--onyx-spacing-4xl);
     height: var(--onyx-button-height);
     display: inline-block;

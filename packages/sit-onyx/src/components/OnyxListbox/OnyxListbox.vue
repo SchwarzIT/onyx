@@ -5,9 +5,7 @@ import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
-  hideLabel: false,
-});
+const props = defineProps<OnyxListboxProps<TValue>>();
 
 const emit = defineEmits<{
   /**
@@ -83,8 +81,8 @@ const {
       </OnyxListboxOption>
     </ul>
 
-    <span v-if="!props.hideLabel" class="onyx-listbox__label onyx-text--small">
-      {{ props.label }}
+    <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
+      {{ props.message }}
     </span>
   </div>
 </template>
@@ -114,8 +112,12 @@ const {
       padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
     }
 
-    .onyx-listbox-option {
-      height: var(--option-height);
+    &__message {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      display: inline-block;
+      width: 100%;
+      text-align: right;
+      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
     }
 
     &__options {
@@ -124,6 +126,10 @@ const {
       outline: none;
 
       padding: 0;
+    }
+
+    .onyx-listbox-option {
+      height: var(--option-height);
     }
 
     &:has(&__options:focus-visible) {
