@@ -6,7 +6,7 @@ import type { TruncationType } from "./fonts";
 // - Checkbox / Checkbox group
 // - Radio button / Radio button group
 // - Select
-
+// - Listbox
 // - ...
 
 /**
