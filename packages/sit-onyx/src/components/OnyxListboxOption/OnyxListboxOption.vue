@@ -7,7 +7,7 @@ defineSlots<{
   /**
    * Default slot to place the option label / text content.
    */
-  default(props: Record<string, never>): unknown;
+  default(): unknown;
 }>();
 </script>
 

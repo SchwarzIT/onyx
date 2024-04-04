@@ -21,7 +21,7 @@ defineSlots<{
   /**
    * Link label.
    */
-  default(props: Record<string, never>): unknown;
+  default(): unknown;
 }>();
 
 const shouldShowExternalIcon = computed(() => {
