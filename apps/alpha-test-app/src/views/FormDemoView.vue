@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
-import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import FormDemo, { type FormData } from "../components/form-demo/FormDemo.vue";
 
@@ -25,16 +24,6 @@ const invalidFormData = {
   patternInput: "NO UPPERCASE ALLOWED",
   switch: false,
 } satisfies FormData;
-
-const useEnglish = ref(true);
-
-watch(
-  useEnglish,
-  () => {
-    locale.value = useEnglish.value ? "en-US" : "de-DE";
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
