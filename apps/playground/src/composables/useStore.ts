@@ -4,6 +4,9 @@ import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
 import { fetchVersions } from "../utils/versions";
 
+/**
+ * Wrapper around `useStore` from `@vue/repl` which defines onyx-specific settings/options.
+ */
 export const useStore = () => {
   const { vueVersion, importMap } = useVueImportMap({ vueVersion: "latest" });
 
@@ -16,6 +19,10 @@ export const useStore = () => {
    * List of available onyx versions.
    */
   const availableVersions = ref<string[]>([]);
+
+  /**
+   * Whether the list of onyx versions is loading.
+   */
   const isLoadingOnyxVersions = ref(true);
 
   fetchVersions("sit-onyx")
