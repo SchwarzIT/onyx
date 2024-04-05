@@ -42,61 +42,31 @@ export default meta;
 type Story = StoryObj<typeof OnyxBadge>;
 
 /**
- * This example shows the badge in primary variation
+ * This example shows the badge with text content
  */
-export const Primary = {
+export const Text = {
   args: {
     default: () => "Badge",
   },
 } satisfies Story;
 
 /**
- * This example shows the badge in secondary variation with a number content
+ * This example shows the badge with number content
  */
-export const Secondary = {
+export const Number = {
   args: {
-    variation: "secondary",
+    variation: "info",
     default: () => 32,
   },
 } satisfies Story;
 
 /**
- * This example shows the badge in danger variation with icon content
+ * This example shows the badge with icon content
  */
-export const Danger = {
+export const Icon = {
   args: {
     variation: "danger",
     icon: placeholder,
-  },
-} satisfies Story;
-
-/**
- * This example shows the badge in warning state
- */
-export const Warning = {
-  args: {
-    variation: "warning",
-    default: () => "Warning",
-  },
-} satisfies Story;
-
-/**
- * This example shows the badge in success state
- */
-export const Success = {
-  args: {
-    variation: "success",
-    default: () => "Success",
-  },
-} satisfies Story;
-
-/**
- * This example shows the badge in info state
- */
-export const Info = {
-  args: {
-    variation: "info",
-    default: () => "Info",
   },
 } satisfies Story;
 
