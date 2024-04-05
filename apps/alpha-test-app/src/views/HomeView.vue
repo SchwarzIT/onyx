@@ -19,9 +19,10 @@ import {
   OnyxTooltip,
   type SelectOption,
 } from "sit-onyx";
-import { computed, ref } from "vue";
+import { computed, ref, capitalize } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
+import { DENSITY } from "sit-onyx";
 import LanguageSelection from "../components/LanguageSelection.vue";
 
 const { locale } = useI18n();
@@ -54,6 +55,13 @@ const activeConfig = ref(configOptions.map((option) => option.value));
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
+
+const densityOptions = DENSITY.map((id) => ({
+  id,
+  label: capitalize(id),
+})) satisfies SelectionOption<string>[];
+
+const activeDensityOption = ref({ ...densityOptions[1] });
 
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
@@ -103,6 +111,11 @@ const singleSelectState = ref(selectOptions[0]);
     <OnyxPageLayout>
       <template #sidebar>
         <div class="sidebar">
+          <OnyxRadioButtonGroup
+            v-model="activeDensityOption"
+            headline="Density"
+            :options="densityOptions"
+          />
           <LanguageSelection v-model="locale" />
 
           <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
@@ -116,7 +129,7 @@ const singleSelectState = ref(selectOptions[0]);
         </div>
       </template>
 
-      <div class="page">
+      <div class="page" :class="[`onyx-density-${activeDensityOption.id}`]">
         <OnyxHeadline is="h1">Component usages</OnyxHeadline>
 
         <p>Each onyx component should be used at least once in this page.</p>

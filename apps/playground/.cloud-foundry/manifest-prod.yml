@@ -1,0 +1,5 @@
+---
+applications:
+  - name: onyx-playground-prod
+    memory: 64M
+    buildpack: https://github.com/cloudfoundry/staticfile-buildpack
