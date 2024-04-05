@@ -21,6 +21,7 @@
     "./style.css": "./dist/style.css",
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
+    "./breakpoints.scss": "./src/styles/breakpoints.scss",
     "./types": "./src/types/index.ts"
   },
   "homepage": "https://onyx.schwarz",
