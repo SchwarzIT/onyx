@@ -176,6 +176,9 @@ importers:
       '@vue/repl':
         specifier: ^4.1.1
         version: 4.1.1
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@3.4.21)
       sit-onyx:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
@@ -4327,7 +4330,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.21(typescript@5.4.3)
-      vue-component-type-helpers: 2.0.7
+      vue-component-type-helpers: 2.0.10
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4348,7 +4351,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.21(typescript@5.4.3)
-      vue-component-type-helpers: 2.0.7
+      vue-component-type-helpers: 2.0.10
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -10866,8 +10869,12 @@ packages:
       vue-component-type-helpers: 2.0.7
     dev: true
 
+  /vue-component-type-helpers@2.0.10:
+    resolution: {integrity: sha512-FC5fKJjDks3Ue/KRSYBdsiCaZa0kUPQfs8yQpb8W9mlO6BenV8G1z58xobeRMzevnmEcDa09LLwuXDwb4f6NMQ==}
+
   /vue-component-type-helpers@2.0.7:
     resolution: {integrity: sha512-7e12Evdll7JcTIocojgnCgwocX4WzIYStGClBQ+QuWPinZo/vQolv2EMq4a3lg16TKfwWafLimG77bxb56UauA==}
+    dev: true
 
   /vue-demi@0.14.7(vue@3.4.21):
     resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
