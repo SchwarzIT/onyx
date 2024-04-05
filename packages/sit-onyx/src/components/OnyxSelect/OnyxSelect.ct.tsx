@@ -1,10 +1,15 @@
 import { expect, test } from "../../playwright-axe";
+import type { SelectOption } from "../../types";
 import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxSelect from "./OnyxSelect.vue";
 
+const EXAMPLE_OPTIONS = [] satisfies SelectOption[];
+
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSelect style="width: 16rem" label="Test label" hideLabel />);
+  const component = await mount(
+    <OnyxSelect style="width: 16rem" label="Test label" options={EXAMPLE_OPTIONS} hideLabel />,
+  );
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -30,8 +35,8 @@ test.describe("basic state screenshot tests", () => {
       const component = await mount(
         <OnyxSelect
           style="width: 16rem"
-          modelValue={undefined}
           label={labeled}
+          options={EXAMPLE_OPTIONS}
           hideLabel={labeled === "Hidden Label"}
           required={state === "required"}
           placeholder="Select your fruits"
@@ -55,8 +60,8 @@ test.describe("permissions states screenshot tests", () => {
     async ({ state, focusState }, mount, page) => {
       const component = await mount(
         <OnyxSelect
-          modelValue={undefined}
           label="Fruits"
+          options={EXAMPLE_OPTIONS}
           disabled={state === "disabled"}
           readonly={state === "readonly"}
           placeholder="Select your fruits"
@@ -77,8 +82,8 @@ test.describe("select with density states screenshot tests", () => {
   executeScreenshotsForAllStates(DENSITY_STATES, "density-select", async ({ density }, mount) => {
     const component = await mount(
       <OnyxSelect
-        modelValue={undefined}
         label="Fruits"
+        options={EXAMPLE_OPTIONS}
         placeholder="Select your fruits"
         density={density}
       />,
@@ -95,8 +100,9 @@ test.describe("single select value display states screenshot tests", () => {
   executeScreenshotsForAllStates(SINGLE_STATES, "single-select", async ({ selection }, mount) => {
     const component = await mount(
       <OnyxSelect
-        modelValue={selection ? selection : undefined}
+        modelValue={selection === "Selection" ? { value: selection, label: selection } : undefined}
         label="Fruits"
+        options={EXAMPLE_OPTIONS}
         placeholder="Select your fruits"
       />,
     );
@@ -119,11 +125,16 @@ test.describe("multiselect value display states screenshot tests", () => {
     MULTIPLE_STATES,
     "multi-select",
     async ({ selection, multiselectTextMode }, mount) => {
+      const modelValue = (JSON.parse(selection) as (typeof MULTIPLE_STATES)["selection"]).map(
+        (i) => ({ value: i, label: i }),
+      );
+
       const component = await mount(
         <OnyxSelect
           style="width: 16rem"
-          modelValue={JSON.parse(selection)}
+          modelValue={modelValue}
           label={`Multiselect with ${multiselectTextMode}`}
+          options={EXAMPLE_OPTIONS}
           multiple={{ textMode: multiselectTextMode }}
         />,
       );
@@ -143,8 +154,8 @@ test.describe("skeleton states screenshot tests", () => {
     async ({ withLabel }, mount) => {
       const component = await mount(
         <OnyxSelect
-          modelValue={undefined}
           label="Label"
+          options={EXAMPLE_OPTIONS}
           skeleton
           hideLabel={withLabel === "true"}
         />,

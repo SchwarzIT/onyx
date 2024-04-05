@@ -1,5 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { Default as ListboxDefaultStory } from "../OnyxListbox/OnyxListbox.stories";
 import OnyxSelect from "./OnyxSelect.vue";
 
 // TODO: description in figma is missing.
@@ -23,12 +24,15 @@ const meta: Meta<typeof OnyxSelect> = {
 export default meta;
 type Story = StoryObj<typeof OnyxSelect>;
 
+const EXAMPLE_OPTIONS = ListboxDefaultStory.args.options;
+
 /**
  * This example shows an select. Nothing was selected yet.
  */
 export const Default = {
   args: {
     label: "Fruits",
+    options: EXAMPLE_OPTIONS,
     placeholder: "Select your fruits",
   },
 } satisfies Story;
@@ -39,7 +43,7 @@ export const Default = {
 export const FilledSingleSelect = {
   args: {
     ...Default.args,
-    modelValue: "Banana",
+    modelValue: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -51,7 +55,7 @@ export const FilledMultiSelect = {
   args: {
     ...Default.args,
     multiple: true,
-    modelValue: ["Banana", "Apple"],
+    modelValue: EXAMPLE_OPTIONS.slice(0, 2),
   },
 } satisfies Story;
 
@@ -62,7 +66,7 @@ export const FilledMultiSelect = {
 export const FilledMultiSelectPreview = {
   args: {
     ...FilledMultiSelect.args,
-    modelValue: ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
+    modelValue: EXAMPLE_OPTIONS.slice(0, 5),
     multiple: { textMode: "preview" },
   },
 } satisfies Story;
@@ -84,7 +88,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
-    modelValue: "Test value",
+    modelValue: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -104,7 +108,7 @@ export const Readonly = {
 export const Loading = {
   args: {
     ...Default.args,
-    modelValue: "Test value",
+    modelValue: EXAMPLE_OPTIONS[0],
     loading: true,
   },
 } satisfies Story;
