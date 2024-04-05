@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import type { ListboxOption } from "sit-onyx";
 import {
   OnyxAppLayout,
   OnyxButton,
@@ -18,7 +17,7 @@ import {
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTooltip,
-  type SelectionOption,
+  type SelectOption,
 } from "sit-onyx";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -48,9 +47,9 @@ const COMPONENTS = [
 /* Config data to regulate which components will be shown */
 const configOptions = COMPONENTS.map((component) => ({
   label: component,
-  id: component,
-})) satisfies SelectionOption<string>[];
-const activeConfig = ref(configOptions.map((option) => option.id));
+  value: component,
+})) satisfies SelectOption[];
+const activeConfig = ref(configOptions.map((option) => option.value));
 
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
@@ -59,18 +58,13 @@ const show = computed(() => {
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
 
-/* Demo data for the components we show */
-const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
-  id,
-  label: `Option ${id}`,
-}));
 const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
-const radioState = ref<SelectionOption | undefined>();
+const radioState = ref<string>();
 
 const listboxState = ref<string>();
 
-const listboxOptions = [
+const selectOptions = [
   "Apple",
   "Banana",
   "Mango",
@@ -87,10 +81,12 @@ const listboxOptions = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
+].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
 
-const multiSelectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
-const singleSelectState = ref("Apple");
+const minimalSelectOptions = selectOptions.slice(0, 3);
+
+const multiSelectState = ref(selectOptions.slice(0, 5));
+const singleSelectState = ref(selectOptions[0]);
 </script>
 
 <template>
@@ -132,7 +128,7 @@ const singleSelectState = ref("Apple");
             <OnyxCheckboxGroup
               v-model="checkboxState"
               headline="Checkbox Group"
-              :options="dummyOptions"
+              :options="minimalSelectOptions"
               :skeleton="skeletonNumber"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
@@ -154,7 +150,7 @@ const singleSelectState = ref("Apple");
             v-if="show('OnyxListbox')"
             v-model="listboxState"
             label="Example listbox"
-            :options="listboxOptions"
+            :options="selectOptions"
           />
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
@@ -163,7 +159,7 @@ const singleSelectState = ref("Apple");
             <OnyxRadioButtonGroup
               v-model="radioState"
               headline="Radio Button Group"
-              :options="dummyOptions"
+              :options="minimalSelectOptions"
               :skeleton="skeletonNumber"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
@@ -177,6 +173,7 @@ const singleSelectState = ref("Apple");
               label="Single Select"
               placeholder="Select your fruits"
               :skeleton="useSkeleton"
+              :options="selectOptions"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxSelect single state: {{ singleSelectState ?? "–" }}
@@ -187,6 +184,7 @@ const singleSelectState = ref("Apple");
               placeholder="Select your fruits"
               multiple
               :skeleton="useSkeleton"
+              :options="selectOptions"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxSelect multiple state: {{ multiSelectState ?? "–" }}
