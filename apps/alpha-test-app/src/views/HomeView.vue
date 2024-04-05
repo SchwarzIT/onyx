@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import {
+  DENSITY,
   OnyxAppLayout,
   OnyxButton,
   OnyxCheckboxGroup,
@@ -19,10 +20,9 @@ import {
   OnyxTooltip,
   type SelectOption,
 } from "sit-onyx";
-import { computed, ref, capitalize } from "vue";
+import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
-import { DENSITY } from "sit-onyx";
 import LanguageSelection from "../components/LanguageSelection.vue";
 
 const { locale } = useI18n();
@@ -56,12 +56,12 @@ const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
 
-const densityOptions = DENSITY.map((id) => ({
-  id,
-  label: capitalize(id),
-})) satisfies SelectionOption<string>[];
+const densityOptions = DENSITY.map((value) => ({
+  value,
+  label: capitalize(value),
+})) satisfies SelectOption[];
 
-const activeDensityOption = ref({ ...densityOptions[1] });
+const activeDensityOption = ref(densityOptions[1].value);
 
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
@@ -129,7 +129,7 @@ const singleSelectState = ref(selectOptions[0]);
         </div>
       </template>
 
-      <div class="page" :class="[`onyx-density-${activeDensityOption.id}`]">
+      <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
         <OnyxHeadline is="h1">Component usages</OnyxHeadline>
 
         <p>Each onyx component should be used at least once in this page.</p>
