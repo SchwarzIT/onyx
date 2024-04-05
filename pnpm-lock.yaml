@@ -176,6 +176,9 @@ importers:
       '@vue/repl':
         specifier: ^4.1.1
         version: 4.1.1
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@3.4.21)
       sit-onyx:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
