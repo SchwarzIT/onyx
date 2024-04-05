@@ -5,7 +5,7 @@ import OnyxBadge from "./OnyxBadge.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxBadge variation="secondary">Badge</OnyxBadge>);
+  const component = await mount(<OnyxBadge variation="danger">Badge</OnyxBadge>);
 
   // ASSERT
   await expect(component).toContainText("Badge");
@@ -21,7 +21,7 @@ test("should truncate text", async ({ mount }) => {
   const label = "Very long label that should be truncated";
 
   // ARRANGE
-  const component = await mount(<OnyxBadge variation="secondary">{label}</OnyxBadge>);
+  const component = await mount(<OnyxBadge variation="danger">{label}</OnyxBadge>);
 
   // ASSERT
   await expect(component).toContainText(label);
@@ -32,7 +32,7 @@ test("should truncate text", async ({ mount }) => {
 
 test("should render badge with icon", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  await mount(<OnyxBadge variation="secondary" icon={mockPlaywrightIcon} />);
+  await mount(<OnyxBadge variation="danger" icon={mockPlaywrightIcon} />);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
