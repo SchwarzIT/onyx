@@ -56,7 +56,7 @@ export const Primary = {
 export const Secondary = {
   args: {
     label: "Tag",
-    variation: "secondary",
+    type: "secondary",
   },
 } satisfies Story;
 
@@ -66,7 +66,7 @@ export const Secondary = {
 export const Danger = {
   args: {
     label: "Tag",
-    variation: "danger",
+    type: "danger",
   },
 } satisfies Story;
 
@@ -76,7 +76,7 @@ export const Danger = {
 export const Warning = {
   args: {
     label: "Tag",
-    variation: "warning",
+    type: "warning",
   },
 } satisfies Story;
 
@@ -86,7 +86,7 @@ export const Warning = {
 export const Success = {
   args: {
     label: "Tag",
-    variation: "success",
+    type: "success",
   },
 } satisfies Story;
 
@@ -96,7 +96,7 @@ export const Success = {
 export const Info = {
   args: {
     label: "Tag",
-    variation: "info",
+    type: "info",
   },
 } satisfies Story;
 
