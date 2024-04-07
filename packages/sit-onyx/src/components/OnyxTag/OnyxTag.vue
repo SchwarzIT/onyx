@@ -3,13 +3,13 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
-  color: "primary",
-  density: "default",
+  variation: "primary",
+  mode: "default",
 });
 </script>
 
 <template>
-  <div class="onyx-tag" :class="[`onyx-tag--${props.color}`]">
+  <div :class="['onyx-tag', `onyx-tag--${props.variation}`, `onyx-button--${props.mode}`]">
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
     <span class="onyx-tag__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </div>
@@ -17,9 +17,6 @@ const props = withDefaults(defineProps<OnyxTagProps>(), {
 
 <style lang="scss">
 .onyx-tag {
-  --onyx-tag-text-color: var(--onyx-color-text-icons-primary-intense);
-  --onyx-tag-background-color: var(--onyx-color-text-icons-primary-300);
-
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
@@ -30,11 +27,14 @@ const props = withDefaults(defineProps<OnyxTagProps>(), {
   border: 1px solid var(--onyx-tag-text-color);
   background-color: var(--onyx-tag-background-color);
 
+  /// [TODO] ask primary and secondary colors are different between code and figma for OnyxTag to Onyx team members.
+  /// Checked that primary and secondary colors are set the same in variables-onyx.css file
   $colors: primary, secondary, danger, warning, success, info;
 
   @each $color in $colors {
     &--#{$color} {
-      --onyx-tag-text-color: var(--onyx-color-text-icons-#{$color}-intense);
+      --onyx-tag-text-color: var(--onyx-color-base-#{$color}-800);
+      --onyx-tag-background-color: var(--onyx-color-base-#{$color}-100);
     }
   }
 

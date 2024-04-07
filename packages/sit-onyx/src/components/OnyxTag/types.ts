@@ -8,7 +8,10 @@ export type OnyxTagProps = {
   /**
    * The color of the tag.
    */
-  color?: Extract<OnyxColor, "primary" | "secondary" | "danger" | "warning" | "success" | "info">;
+  variation?: Extract<
+    OnyxColor,
+    "primary" | "secondary" | "danger" | "warning" | "success" | "info"
+  >;
   /**
    * An icon which will be displayed on the left side of the label.
    */
@@ -16,8 +19,8 @@ export type OnyxTagProps = {
   /**
    * The density of the tag.
    */
-  density?: Density;
+  // mode?: Density;
 };
 
-export const DENSITIES = ["default", "compact", "cozy"] as const;
-export type Density = (typeof DENSITIES)[number];
+// export const DENSITIES = ["default", "compact", "cozy"] as const;
+// export type Density = (typeof DENSITIES)[number];
