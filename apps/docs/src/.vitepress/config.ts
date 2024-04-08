@@ -125,6 +125,7 @@ export default defineConfig({
             { text: "Getting Started", link: "/" },
             { text: "i18n", link: "/i18n" },
             { text: "Grid", link: "/grid" },
+            { text: "Breakpoints", link: "/breakpoints" },
             { text: "Density", link: "/density" },
             { text: "Typography", link: "/typography" },
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
