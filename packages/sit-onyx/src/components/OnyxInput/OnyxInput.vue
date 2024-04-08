@@ -110,8 +110,8 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
-@use "@/styles/mixins/density.scss";
+@use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 /**
 * Gets a comma separated CSS selector for the input autofill.

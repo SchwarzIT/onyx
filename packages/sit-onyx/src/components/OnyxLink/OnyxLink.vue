@@ -49,7 +49,7 @@ const shouldShowExternalIcon = computed(() => {
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-link {
   @include layers.component() {

@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/layers";
 @use "sass:math";
 
 // must be the same as "r" attribute of the <circle> in HTML (without %)

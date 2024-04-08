@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-skeleton {
   @include layers.component() {

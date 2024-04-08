@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/layers";
 
 /** Animation duration. */
 $duration: var(--onyx-duration-lg);

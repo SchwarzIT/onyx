@@ -8,7 +8,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "~components": getFilePath("../../packages/sit-onyx/src/components"),
-      "@": getFilePath("../../packages/sit-onyx/src"),
     },
   },
 });

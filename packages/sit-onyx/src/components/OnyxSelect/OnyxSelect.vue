@@ -5,14 +5,14 @@ https://github.com/SchwarzIT/onyx/issues/565 -->
   setup
   generic="TValue extends SelectModelValue<TMultiple>, TMultiple extends Multiple"
 >
-import { useRequired } from "@/composables/required";
-import { injectI18n } from "@/i18n";
+import { useRequired } from "../../composables/required";
+import { injectI18n } from "../../i18n";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
 import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
-import { useDensity } from "@/composables/density";
+import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,

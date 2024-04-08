@@ -43,8 +43,8 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
-@use "@/styles/mixins/density.scss";
+@use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-button,
 .onyx-button-skeleton {

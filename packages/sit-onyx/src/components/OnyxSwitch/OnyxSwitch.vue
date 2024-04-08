@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { OnyxIcon } from "@/index";
-import { areObjectsFlatEqual } from "@/utils/objects";
-import { transformValidityStateToObject } from "@/utils/forms";
+import { OnyxIcon } from "../../index";
+import { areObjectsFlatEqual } from "../../utils/objects";
+import { transformValidityStateToObject } from "../../utils/forms";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref, toRefs, watch } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 import { useRequired } from "../../composables/required";
-import { OnyxLoadingIndicator } from "@/index";
+import { OnyxLoadingIndicator } from "../../index";
 import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
@@ -106,8 +106,8 @@ watch(
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/density.scss";
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-switch,
 .onyx-switch-skeleton {

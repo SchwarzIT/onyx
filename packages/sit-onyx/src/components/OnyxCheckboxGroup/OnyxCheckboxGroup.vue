@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends string | number | boolean">
-import { injectI18n } from "@/i18n";
-import { OnyxHeadline, type OnyxCheckboxProps } from "@/index";
+import { injectI18n } from "../../i18n";
+import { OnyxHeadline, type OnyxCheckboxProps } from "../../index";
 import { computed } from "vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
@@ -87,7 +87,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-checkbox-group {
   @include layers.component() {

@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 import { useRequired } from "../../composables/required";
-import { OnyxLoadingIndicator } from "@/index";
+import { OnyxLoadingIndicator } from "../../index";
 import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
@@ -81,8 +81,8 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
-@use "@/styles/mixins/density.scss";
+@use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {

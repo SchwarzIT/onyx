@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
-import { OnyxLoadingIndicator } from "@/index";
+import { OnyxLoadingIndicator } from "../../index";
 import { ref, watchEffect } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -47,8 +47,8 @@ watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? "")
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/density.scss";
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-radio-button,
 .onyx-radio-button-skeleton {

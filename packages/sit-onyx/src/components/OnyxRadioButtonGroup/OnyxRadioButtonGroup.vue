@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue">
-import type { TargetEvent } from "@/types/dom";
+import type { TargetEvent } from "../../types/dom";
 import { createId } from "@sit-onyx/headless";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
@@ -73,7 +73,7 @@ const handleChange = (event: ChangeEvent) =>
 </template>
 
 <style lang="scss">
-@use "@/styles/mixins/layers.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-radio-button-group {
   @include layers.component() {
