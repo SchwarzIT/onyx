@@ -32,17 +32,17 @@ const copyLink = async () => {
     <div class="header__actions">
       <VersionSelect
         v-model="onyxVersion"
-        class="version"
+        class="header__version"
         pkg="sit-onyx"
         label="onyx version"
         include-pre-releases
       />
 
-      <VersionSelect v-model="vueVersion" class="version" pkg="vue" label="Vue version" />
+      <VersionSelect v-model="vueVersion" class="header__version" pkg="vue" label="Vue version" />
 
       <VersionSelect
         v-model="typescriptVersion"
-        class="version"
+        class="header__version"
         pkg="typescript"
         label="TypeScript version"
       />
@@ -102,7 +102,7 @@ const copyLink = async () => {
     width: 100%;
   }
 
-  .version {
+  &__version {
     width: 10rem;
   }
 
@@ -114,7 +114,7 @@ const copyLink = async () => {
       justify-content: flex-start;
     }
 
-    .version {
+    .header__version {
       width: 8rem;
     }
   }
