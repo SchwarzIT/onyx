@@ -110,7 +110,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers";
+@use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
 
 /**
