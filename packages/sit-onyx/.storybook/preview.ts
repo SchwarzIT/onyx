@@ -1,7 +1,7 @@
 import { createPreview } from "@sit-onyx/storybook-utils";
 import docsTemplate from "./docs-template.mdx";
 
-import "../src/styles/globals/index.scss";
+import "../src/styles/index.scss";
 import "@sit-onyx/storybook-utils/style.css";
 import "./docs-template.scss";
 
