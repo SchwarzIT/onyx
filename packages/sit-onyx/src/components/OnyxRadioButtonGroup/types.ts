@@ -8,7 +8,7 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectO
       /**
        * Options for the individual radio buttons of the group.
        */
-      options: RadioButtonOption[];
+      options: RadioButtonOption<TValue>[];
       /**
        * Unique name for the radio button group form element.
        * Will automatically filled, when it is not given.
