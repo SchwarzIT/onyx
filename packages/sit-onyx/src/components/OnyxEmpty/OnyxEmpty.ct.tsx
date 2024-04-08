@@ -31,7 +31,7 @@ test("should render with custom icon", async ({ mount }) => {
 test("should truncate text with multiline", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxEmpty style={{ width: "12rem" }}>Very long text that will be truncated</OnyxEmpty>,
+    <OnyxEmpty style={{ width: "12rem" }}>Very long text that will be wrapped</OnyxEmpty>,
   );
 
   // ASSERT
