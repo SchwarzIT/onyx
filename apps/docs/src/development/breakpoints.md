@@ -4,7 +4,7 @@ To easily apply CSS depending on the onyx breakpoint, we offer a SCSS mixin you 
 
 For further information, please see the [design documentation](/basics/breakpoints-grid#breakpoints).
 
-The follow breakpoints are supported:
+The following breakpoints are supported:
 
 <<< @/../../../packages/sit-onyx/src/styles/breakpoints.scss#breakpoints
 
