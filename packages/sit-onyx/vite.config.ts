@@ -4,10 +4,11 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import packageJson from "./package.json";
+import { vuePluginOptions } from "./playwright.config";
 
 // https://vitejs.dev/config
 export default defineConfig({
-  plugins: [vue(), dts({ tsconfigPath: getFilePath("./tsconfig.app.json") })],
+  plugins: [vue(vuePluginOptions), dts({ tsconfigPath: getFilePath("./tsconfig.app.json") })],
   resolve: {
     alias: {
       "@": getFilePath("./src"),
