@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-alpha.63
+
+### Minor Changes
+
+- 03fea09: feat: add SCSS mixin for breakpoints
+
+  See the [documentation](https://onyx.schwarz/development/breakpoints.html) for further details
+
 ## 1.0.0-alpha.62
 
 ### Minor Changes
