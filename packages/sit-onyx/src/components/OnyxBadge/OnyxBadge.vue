@@ -38,7 +38,7 @@ defineSlots<{
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-badge {
   @include density.compact {
