@@ -33,6 +33,7 @@ const router = useRouter();
 const COMPONENTS = [
   "OnyxButton",
   "OnyxCheckboxGroup",
+  "OnyxEmpty",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -45,7 +46,6 @@ const COMPONENTS = [
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTooltip",
-  "OnyxEmpty",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -221,7 +221,7 @@ const singleSelectState = ref("Apple");
             Hover me to show tooltip
           </OnyxTooltip>
 
-          <OnyxEmpty>No data available</OnyxEmpty>
+          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
           <!-- Add new components alphabetically. -->
         </div>
