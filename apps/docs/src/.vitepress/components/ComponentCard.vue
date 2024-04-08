@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { computed } from "vue";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import type { ComponentStatus } from "./ComponentStatusBadge.vue";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
@@ -13,24 +12,15 @@ export type ComponentCardProps = {
   href?: string;
   /**
    * Due date when the component will be implemented.
-   * Only the month and year of the date will be shown.
    * Will only be shown if status is not "implemented".
    * If unset, "n/a" will be displayed.
+   *
+   * @example "Q2 2024"
    */
-  dueDate?: ConstructorParameters<typeof Date>[0];
+  dueDate?: string;
 };
 
 const props = defineProps<ComponentCardProps>();
-
-const dateFormatter = Intl.DateTimeFormat("en-US", {
-  month: "2-digit",
-  year: "numeric",
-});
-
-const dueDateValue = computed(() => {
-  if (!props.dueDate) return "n/a";
-  return dateFormatter.format(new Date(props.dueDate));
-});
 </script>
 
 <template>
@@ -41,7 +31,9 @@ const dueDateValue = computed(() => {
     :href="props.href"
   >
     <div class="card__header">
-      <p class="card__due-date" v-if="props.status !== 'implemented'">Due: {{ dueDateValue }}</p>
+      <p class="card__due-date" v-if="props.status !== 'implemented'">
+        Due: {{ props.dueDate || "n/a" }}
+      </p>
       <ComponentStatusBadge :status="props.status" class="card__status" />
     </div>
 
