@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { OnyxIcon } from "@/index";
-import { areObjectsFlatEqual } from "@/utils/comparator";
+import { areObjectsFlatEqual } from "@/utils/objects";
 import { transformValidityStateToObject } from "@/utils/forms";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";

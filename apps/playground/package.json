@@ -1,0 +1,24 @@
+{
+  "name": "playground",
+  "version": "0.0.1-alpha.1",
+  "description": "Playground for the onyx Vue components",
+  "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "private": true,
+  "homepage": "https://playground.onyx.schwarz",
+  "scripts": {
+    "start": "pnpm run dev",
+    "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/playground && vite",
+    "preview": "vite preview",
+    "build": "pnpm run '/type-check|build-only/'",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+  },
+  "dependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "@vue/repl": "^4.1.1",
+    "@vueuse/core": "^10.9.0",
+    "sit-onyx": "workspace:^"
+  }
+}

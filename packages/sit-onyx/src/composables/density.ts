@@ -1,6 +1,6 @@
 import { computed } from "vue";
 
-const DENSITY = ["cozy", "default", "compact"] as const;
+export const DENSITY = ["cozy", "default", "compact"] as const;
 export type DensityType = (typeof DENSITY)[number];
 
 export type DensityProp = {

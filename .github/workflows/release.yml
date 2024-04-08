@@ -56,6 +56,12 @@ jobs:
           name: documentation
           path: apps/docs/src/.vitepress/dist
 
+      - name: Upload playground artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playground
+          path: apps/playground/dist
+
       - name: 🤖 Configure Git Bot
         run: |
           git config user.name "Release Bot[bot]"
@@ -105,9 +111,6 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          # we need to define a fallback value here because the default for the input
-          # is only assigned when the workflow is triggered manually. When triggered e.g. on push
-          # the input will be unset so a fallback is needed here
           space: ${{ env.STAGE }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
@@ -132,8 +135,29 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          # we need to define a fallback value here because the default for the input
-          # is only assigned when the workflow is triggered manually. When triggered e.g. on push
-          # the input will be unset so a fallback is needed here
           space: ${{ env.STAGE }}
           working-directory: apps/docs/.cloud-foundry
+
+  deploy_playground:
+    name: Deploy Playground
+    runs-on: ubuntu-latest
+    needs: release
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: playground
+          path: apps/playground/.cloud-foundry/dist
+
+      - name: Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ env.STAGE }}
+          working-directory: apps/playground/.cloud-foundry

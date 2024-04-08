@@ -29,9 +29,9 @@ body:
     attributes:
       label: Reproduction steps
       description: >-
-        Describe in short and expressive steps how the bug can be reproduced.
-        You may also want to attach a minimal code snippet.
-      placeholder: 1. Click on ...
+        If your bug is related to a Vue component, please use our [Playground](https://playground.onyx.schwarz) to create a reproduction example
+        and paste the link here.
+        Otherwise, please describe in short and expressive steps how the bug can be reproduced. You may also want to attach a minimal code snippet.
     validations:
       required: true
 
