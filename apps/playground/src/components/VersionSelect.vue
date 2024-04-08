@@ -92,10 +92,6 @@ onBeforeUnmount(() => {
 .version {
   position: relative;
 
-  :deep(.onyx-select__input) {
-    width: 8rem;
-  }
-
   .onyx-listbox {
     position: absolute;
     right: 0;
