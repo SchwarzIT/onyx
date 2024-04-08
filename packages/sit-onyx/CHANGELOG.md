@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.62
+
+### Minor Changes
+
+- cde1fdd: Implement OnyxBadge
+
 ## 1.0.0-alpha.61
 
 ### Patch Changes
