@@ -3,6 +3,7 @@ import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import type { ListboxOption } from "sit-onyx";
 import {
   OnyxAppLayout,
+  OnyxBadge,
   OnyxButton,
   OnyxCheckboxGroup,
   OnyxHeadline,
@@ -30,6 +31,7 @@ const { locale } = useI18n();
 const router = useRouter();
 
 const COMPONENTS = [
+  "OnyxBadge",
   "OnyxButton",
   "OnyxCheckboxGroup",
   "OnyxHeadline",
@@ -139,6 +141,7 @@ const singleSelectState = ref("Apple");
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
+          <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
           <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 
           <template v-if="show('OnyxCheckboxGroup')">
