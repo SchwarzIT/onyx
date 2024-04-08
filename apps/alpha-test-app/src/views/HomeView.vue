@@ -2,9 +2,11 @@
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import type { ListboxOption } from "sit-onyx";
 import {
+  DENSITY,
   OnyxAppLayout,
   OnyxButton,
   OnyxCheckboxGroup,
+  OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
   OnyxIconButton,
@@ -20,10 +22,9 @@ import {
   OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
-import { computed, ref, capitalize } from "vue";
+import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
-import { DENSITY } from "sit-onyx";
 import LanguageSelection from "../components/LanguageSelection.vue";
 
 const { locale } = useI18n();
@@ -44,6 +45,7 @@ const COMPONENTS = [
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTooltip",
+  "OnyxEmpty",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -218,6 +220,8 @@ const singleSelectState = ref("Apple");
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
+
+          <OnyxEmpty>No data available</OnyxEmpty>
 
           <!-- Add new components alphabetically. -->
         </div>
