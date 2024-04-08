@@ -40,7 +40,7 @@ export const Default = {
  */
 export const CustomContent = {
   args: {
-    icon: () => h(OnyxIcon, { icon: emojiSad, size: "48px", color: "warning" }),
+    icon: () => h(OnyxIcon, { icon: emojiSad, size: "32px", color: "warning" }),
     default: () =>
       h("div", [
         "No data found. Go to ",
