@@ -1,6 +1,6 @@
 import { nextTick, ref, watch, watchEffect, type Directive } from "vue";
-import { areObjectsFlatEqual } from "../utils/comparator";
 import { transformValidityStateToObject } from "../utils/forms";
+import { areObjectsFlatEqual } from "../utils/objects";
 
 export type CustomValidityProp = {
   /**
