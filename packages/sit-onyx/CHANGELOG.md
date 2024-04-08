@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.64
+
+### Minor Changes
+
+- 4e2a5bb: feat: add `OnyxEmpty` component
+
 ## 1.0.0-alpha.63
 
 ### Minor Changes
