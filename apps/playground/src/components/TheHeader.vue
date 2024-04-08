@@ -32,14 +32,20 @@ const copyLink = async () => {
     <div class="header__actions">
       <VersionSelect
         v-model="onyxVersion"
+        class="version"
         pkg="sit-onyx"
         label="onyx version"
         include-pre-releases
       />
 
-      <VersionSelect v-model="vueVersion" pkg="vue" label="Vue version" />
+      <VersionSelect v-model="vueVersion" class="version" pkg="vue" label="Vue version" />
 
-      <VersionSelect v-model="typescriptVersion" pkg="typescript" label="TypeScript version" />
+      <VersionSelect
+        v-model="typescriptVersion"
+        class="version"
+        pkg="typescript"
+        label="TypeScript version"
+      />
 
       <HeaderIconButton
         label="Toggle dark mode"
@@ -63,6 +69,8 @@ const copyLink = async () => {
 </template>
 
 <style lang="scss" scoped>
+@use "sit-onyx/breakpoints.scss" as onyx;
+
 .header {
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
@@ -72,6 +80,7 @@ const copyLink = async () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--onyx-spacing-sm);
 
   &__brand {
     display: flex;
@@ -89,8 +98,25 @@ const copyLink = async () => {
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: flex-end;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-sm) var(--onyx-spacing-md);
     width: 100%;
+  }
+
+  .version {
+    width: 10rem;
+  }
+
+  @include onyx.breakpoint(max, md) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .header__actions {
+      justify-content: flex-start;
+    }
+
+    .version {
+      width: 8rem;
+    }
   }
 }
 </style>
