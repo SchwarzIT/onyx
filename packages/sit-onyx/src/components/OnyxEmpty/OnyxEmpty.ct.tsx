@@ -7,6 +7,8 @@ test("should render", async ({ mount }) => {
   // ARRANGE
   const component = await mount(<OnyxEmpty>Example empty text</OnyxEmpty>);
 
+  // TODO: add accessibility test once contrast issue is fixed by UX
+
   // ASSERT
   await expect(component).toContainText("Example empty text");
   await expect(component).toHaveScreenshot("default.png");
