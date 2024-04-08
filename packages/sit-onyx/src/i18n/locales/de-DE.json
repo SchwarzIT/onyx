@@ -3,8 +3,11 @@
   "validations": {
     "tooShort": "Verlängere diesen Text auf mindestens {minLength} Zeichen. Derzeit verwendest du {n} Zeichen.",
     "tooLong": "Kürze diesen Text auf max. {maxLength} Zeichen. Zurzeit verwendest du {n} Zeichen.",
+    "rangeUnderflow": "Wert muss größer als oder gleich {min} sein.",
+    "rangeOverflow": "Wert muss kleiner als oder gleich {max} sein.",
     "patternMismatch": "Deine Eingabe muss mit dem geforderten Format übereinstimmen.",
     "valueMissing": "Fülle dieses Feld aus.",
+    "stepMismatch": "Wert muss ein Vielfaches von {step} sein.",
     "badInput": "\"{value}\" entspricht nicht dem erwarten Typ.",
     "typeMismatch": {
       "generic": "\"{value}\" entspricht nicht dem erwarten Typ.",
