@@ -36,7 +36,7 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows an empty component with custom text and icon.
+ * This example shows an empty component with custom text and icon with a different color and size.
  */
 export const CustomContent = {
   args: {
