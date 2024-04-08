@@ -24,7 +24,7 @@ export const Implemented = {
     name: "Component name",
     status: "implemented",
     href: "#",
-    dueDate: new Date(),
+    dueDate: `Q2 ${new Date().getFullYear()}`,
   },
 } satisfies Story;
 
