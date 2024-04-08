@@ -123,7 +123,6 @@ export default defineLoader({
         name: "Switch",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxSwitch"),
-        status: "implemented",
       },
       {
         name: "Checkbox group",
