@@ -1,7 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxListbox from "./OnyxListbox.vue";
-import { LOADING_MODES, type OnyxListboxProps } from "./types";
+import { LOADING_MODES } from "./types";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -31,37 +31,38 @@ const meta: Meta<typeof OnyxListbox> = {
       },
     },
   }),
+  /**
+   * Decorator that simulates the load more functionality so we can show it in the stories.
+   */
+  decorators: [
+    (story, ctx) => ({
+      components: { story },
+      setup: () => {
+        const originalOptionsCount = ctx.args.options.length;
+
+        const handleLoad = async () => {
+          ctx.args.loading = true;
+          await new Promise<void>((resolve) => setTimeout(resolve, 750));
+
+          ctx.args.options = ctx.args.options.concat(
+            Array.from({ length: 25 }, (_, index) => {
+              const id = ctx.args.options.length - originalOptionsCount + index + 1;
+              return { id, label: `Loaded option ${id}` };
+            }),
+          );
+
+          ctx.args.loading = false;
+        };
+
+        return { handleLoad };
+      },
+      template: `<story @load-more="handleLoad" />`,
+    }),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
-
-/**
- * Decorator that simulates the load more functionality so we can show it in the stories.
- */
-const loadingDecorator: Decorator<OnyxListboxProps> = (story, ctx) => ({
-  components: { story },
-  setup: () => {
-    const originalOptionsCount = ctx.args.options.length;
-
-    const handleLoad = async () => {
-      ctx.args.loading = true;
-      await new Promise<void>((resolve) => setTimeout(resolve, 750));
-
-      ctx.args.options = ctx.args.options.concat(
-        Array.from({ length: 25 }, (_, index) => {
-          const id = ctx.args.options.length - originalOptionsCount + index + 1;
-          return { id, label: `Loaded option ${id}` };
-        }),
-      );
-
-      ctx.args.loading = false;
-    };
-
-    return { handleLoad };
-  },
-  template: `<story @load-more="handleLoad" />`,
-});
 
 /**
  * This examples shows a default single select listbox.
@@ -130,7 +131,6 @@ export const LazyLoading = {
     ...Default.args,
     loadingMode: "lazy",
   },
-  decorators: [loadingDecorator],
 } satisfies Story;
 
 /**
@@ -142,5 +142,4 @@ export const ButtonLoading = {
     ...Default.args,
     loadingMode: "button",
   },
-  decorators: [loadingDecorator],
 } satisfies Story;
