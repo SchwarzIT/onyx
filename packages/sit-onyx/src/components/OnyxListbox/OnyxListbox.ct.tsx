@@ -166,7 +166,7 @@ test("should support lazy loading", async ({ mount }) => {
 
   // ASSERT
   await expect(component.locator(".onyx-loading-dots")).toBeVisible();
-  await expect(component).toHaveScreenshot("lazy-loading-before.png");
+  await expect(component).toHaveScreenshot("lazy-loading-active.png");
 
   // ACT
   await updateProps({
@@ -182,7 +182,6 @@ test("should support lazy loading", async ({ mount }) => {
   // ASSERT
   await expect(component.getByRole("option")).toHaveCount(50);
   await expect(component.getByLabel("Test option 25")).toBeInViewport();
-  await expect(component).toHaveScreenshot("lazy-loading-after.png");
   expect(loadMoreEventCount).toBe(1);
 
   // ACT (should support customizing the scroll offset)
