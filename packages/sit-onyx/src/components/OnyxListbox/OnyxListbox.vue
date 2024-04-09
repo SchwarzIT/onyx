@@ -109,18 +109,20 @@ const { vScrollEnd } = useScrollEnd({
   loading: computed(() => props.loading),
   offset: loadingScrollOffset,
 });
+
+const isEmpty = computed(() => props.options.length === 0);
 </script>
 
 <template>
   <div class="onyx-listbox" :aria-busy="props.loading">
     <div
-      v-if="props.loading && (!loadingMode || !options.length)"
+      v-if="props.loading && (!loadingMode || isEmpty)"
       class="onyx-listbox__slot onyx-listbox__slot--height"
     >
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
-    <slot v-else-if="!props.options.length" name="empty" :default-message="t('selections.empty')">
+    <slot v-else-if="isEmpty" name="empty" :default-message="t('selections.empty')">
       <OnyxEmpty>{{ t("selections.empty") }}</OnyxEmpty>
     </slot>
 
@@ -141,7 +143,7 @@ const { vScrollEnd } = useScrollEnd({
         {{ option.label }}
       </OnyxListboxOption>
 
-      <li v-if="loadingMode === 'button' && props.options.length > 0" class="onyx-listbox__slot">
+      <li v-if="loadingMode === 'button' && !isEmpty" class="onyx-listbox__slot">
         <OnyxButton
           class="onyx-listbox__loading-button"
           :label="loadMoreButtonLabel"
@@ -153,11 +155,8 @@ const { vScrollEnd } = useScrollEnd({
       </li>
     </ul>
 
-    <div v-if="props.options.length" class="onyx-listbox__slot">
-      <OnyxLoadingIndicator
-        v-if="loadingMode === 'lazy' && props.loading"
-        class="onyx-listbox__loading"
-      />
+    <div v-if="props.loading && loadingMode === 'lazy' && !isEmpty" class="onyx-listbox__slot">
+      <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
