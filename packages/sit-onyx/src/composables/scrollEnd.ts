@@ -2,10 +2,6 @@ import { ref, unref, watchEffect, type Directive, type MaybeRef, type Ref } from
 
 export type UseScrollEndOptions = {
   /**
-   * Called when scroll end is reached.
-   */
-  callback: () => unknown;
-  /**
    * Whether currently loading. Will not call the callback if `true`.
    */
   loading: Ref<boolean | undefined>;
@@ -57,9 +53,5 @@ export const useScrollEnd = (options: UseScrollEndOptions) => {
     },
   } satisfies Directive<HTMLElement, undefined>;
 
-  watchEffect(() => {
-    if (isScrollEnd.value) options.callback();
-  });
-
-  return { vScrollEnd };
+  return { vScrollEnd, isScrollEnd };
 };

@@ -2,7 +2,7 @@
 import { injectI18n } from "@/i18n";
 import { createListbox } from "@sit-onyx/headless";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -103,11 +103,14 @@ const loadingScrollOffset = computed(() => {
   return undefined;
 });
 
-const { vScrollEnd } = useScrollEnd({
-  callback: () => emit("loadMore"),
+const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => loadingMode.value === "lazy"),
   loading: computed(() => props.loading),
   offset: loadingScrollOffset,
+});
+
+watchEffect(() => {
+  if (isScrollEnd.value) emit("loadMore");
 });
 
 const isEmpty = computed(() => props.options.length === 0);
