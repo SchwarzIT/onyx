@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { injectI18n } from "@/i18n";
 import { createListbox } from "@sit-onyx/headless";
-import plus from "@sit-onyx/icons/plus.svg?raw";
+import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -151,7 +151,7 @@ const isEmpty = computed(() => props.options.length === 0);
           class="onyx-listbox__loading-button"
           :label="loadMoreButtonLabel"
           mode="plain"
-          :icon="plus"
+          :icon="plusSmall"
           :loading="props.loading"
           @click="emit('loadMore')"
         />
