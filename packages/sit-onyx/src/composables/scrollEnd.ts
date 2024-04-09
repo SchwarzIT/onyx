@@ -7,9 +7,11 @@ export type UseScrollEndOptions = {
   loading: Ref<boolean | undefined>;
   /**
    * Whether scroll events should be captured.
-   * Should be disabled if not needed to improve performance.
+   * Can be disabled if not needed to improve performance.
+   *
+   * @default true
    */
-  enabled: Ref<boolean>;
+  enabled?: Ref<boolean>;
   /**
    * Offset (in pixel). Can be used to trigger the callback earlier (e.g. if scrolled to second last option).
    */
@@ -50,14 +52,16 @@ export const useScrollEnd = (options: UseScrollEndOptions) => {
   const vScrollEnd = {
     mounted: (el) => {
       watchEffect(() => {
-        if (options.enabled.value && !options.loading.value) {
+        const isEnabled = options.enabled?.value ?? true;
+
+        if (isEnabled && !options.loading.value) {
           el.addEventListener("scroll", handleScroll);
         } else {
           el.removeEventListener("scroll", handleScroll);
         }
       });
     },
-  } satisfies Directive<HTMLElement, undefined>;
+  } satisfies Directive<Pick<HTMLElement, "addEventListener" | "removeEventListener">, undefined>;
 
   return { vScrollEnd, isScrollEnd };
 };
