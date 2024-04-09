@@ -141,9 +141,8 @@ const { vScrollEnd } = useScrollEnd({
         {{ option.label }}
       </OnyxListboxOption>
 
-      <li class="onyx-listbox__slot">
+      <li v-if="loadingMode === 'button' && props.options.length > 0" class="onyx-listbox__slot">
         <OnyxButton
-          v-if="loadingMode === 'button' && props.options.length > 0"
           class="onyx-listbox__loading-button"
           :label="loadMoreButtonLabel"
           mode="plain"
