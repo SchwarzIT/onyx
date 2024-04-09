@@ -114,7 +114,7 @@ const { vScrollEnd } = useScrollEnd({
 <template>
   <div class="onyx-listbox">
     <div
-      v-if="props.loading && !props.options.length"
+      v-if="props.loading && (!loadingMode || !options.length)"
       class="onyx-listbox__slot onyx-listbox__slot--height"
     >
       <OnyxLoadingIndicator class="onyx-listbox__loading" />

@@ -97,7 +97,9 @@ test("should show empty state", async ({ mount }) => {
 
 test("should show loading state", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxListbox label="Test listbox" options={[]} loading />);
+  const component = await mount(
+    <OnyxListbox label="Test listbox" options={MOCK_OPTIONS} loading />,
+  );
 
   // ASSERT
   await expect(component).toHaveScreenshot("loading.png");
@@ -119,12 +121,20 @@ test("should support lazy loading", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
-      options: MOCK_OPTIONS,
+      options: [],
+      loading: true,
       label: "Test listbox",
       loadingMode: "lazy",
     },
     on: eventHandlers,
   });
+
+  const updateProps = (props: Partial<OnyxListboxProps>) => {
+    return component.update({ props, on: eventHandlers });
+  };
+
+  await expect(component).toHaveScreenshot("lazy-loading-initial.png");
+  await updateProps({ options: MOCK_OPTIONS, loading: false });
 
   await expect(component.getByRole("option")).toHaveCount(25);
 
@@ -137,10 +147,6 @@ test("should support lazy loading", async ({ mount }) => {
 
     // wait for scrolling to be completed
     await expect(listbox.getByLabel(label)).toBeInViewport();
-  };
-
-  const updateProps = (props: Partial<OnyxListboxProps>) => {
-    return component.update({ props, on: eventHandlers });
   };
 
   // ACT (should not emit event if not scrolled completely to the end)
