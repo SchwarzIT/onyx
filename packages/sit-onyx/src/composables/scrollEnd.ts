@@ -17,7 +17,7 @@ export type UseScrollEndOptions = {
 };
 
 /**
- * Directive used for lazy loading which will call the given function if scrolled to the end of the component.
+ * Directive used for lazy loading which will keep track of whether the component is scrolled to the end (vertically).
  */
 export const useScrollEnd = (options: UseScrollEndOptions) => {
   /**
@@ -28,8 +28,14 @@ export const useScrollEnd = (options: UseScrollEndOptions) => {
    */
   const ARRIVED_STATE_THRESHOLD_PIXELS = 1 as const;
 
+  /**
+   * Whether the component is scrolled to the end (vertically).
+   */
   const isScrollEnd = ref(false);
 
+  /**
+   * Updates the isScrollEnd depending on the event targets scroll position.
+   */
   const handleScroll = (event: Event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
