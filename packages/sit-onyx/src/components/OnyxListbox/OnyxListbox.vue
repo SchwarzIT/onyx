@@ -112,7 +112,7 @@ const { vScrollEnd } = useScrollEnd({
 </script>
 
 <template>
-  <div class="onyx-listbox">
+  <div class="onyx-listbox" :aria-busy="props.loading">
     <div
       v-if="props.loading && (!loadingMode || !options.length)"
       class="onyx-listbox__slot onyx-listbox__slot--height"
