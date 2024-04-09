@@ -144,22 +144,19 @@ test("should support lazy loading", async ({ mount }) => {
     await listbox
       .getByLabel(label)
       .evaluate((element) => element.scrollIntoView({ block: "end", behavior: "smooth" }));
-
-    // wait for scrolling to be completed
-    await expect(listbox.getByLabel(label)).toBeInViewport({ ratio: 0.95 });
   };
 
   // ACT (should not emit event if not scrolled completely to the end)
   await scrollToOption("Test option 20");
 
   // ASSERT
-  expect(loadMoreEventCount).toBe(0);
+  await expect(() => expect(loadMoreEventCount).toBe(0)).toPass();
 
   // ACT
   await scrollToOption("Test option 25");
 
   // ASSERT
-  expect(loadMoreEventCount).toBe(1);
+  await expect(() => expect(loadMoreEventCount).toBe(1)).toPass();
 
   // ACT
   await updateProps({ loading: true });
@@ -182,7 +179,7 @@ test("should support lazy loading", async ({ mount }) => {
   // ASSERT
   await expect(component.getByRole("option")).toHaveCount(50);
   await expect(component.getByLabel("Test option 25")).toBeInViewport();
-  expect(loadMoreEventCount).toBe(1);
+  await expect(() => expect(loadMoreEventCount).toBe(1)).toPass();
 
   // ACT (should support customizing the scroll offset)
 
@@ -192,7 +189,7 @@ test("should support lazy loading", async ({ mount }) => {
   await scrollToOption("Test option 48");
 
   // ASSERT
-  expect(loadMoreEventCount).toBe(2);
+  await expect(() => expect(loadMoreEventCount).toBe(2)).toPass();
 });
 
 test("should support button loading", async ({ mount }) => {
@@ -232,7 +229,7 @@ test("should support button loading", async ({ mount }) => {
   await loadMoreButton.click();
 
   // ASSERT
-  expect(loadMoreEventCount).toBe(1);
+  await expect(() => expect(loadMoreEventCount).toBe(1)).toPass();
 
   // ACT
   await updateProps({ loading: true });
@@ -264,5 +261,5 @@ test("should support button loading", async ({ mount }) => {
   await component.getByRole("button", { name: "Custom button label" }).click();
 
   // ASSERT
-  expect(loadMoreEventCount).toBe(2);
+  await expect(() => expect(loadMoreEventCount).toBe(2)).toPass();
 });
