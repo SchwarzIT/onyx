@@ -1,7 +1,10 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { injectI18n } from "@/i18n";
 import { createListbox } from "@sit-onyx/headless";
+import plus from "@sit-onyx/icons/plus.svg?raw";
 import { computed, ref, watch } from "vue";
+import { useScrollEnd } from "../../composables/scrollEnd";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -17,6 +20,10 @@ const emit = defineEmits<{
    * Emitted when the current value changes.
    */
   "update:modelValue": [value: typeof props.modelValue];
+  /**
+   * Emitted if more data should be loaded (see `loadingMode` property).
+   */
+  loadMore: [];
 }>();
 
 defineSlots<{
@@ -76,19 +83,48 @@ const {
     activeOption.value = firstMatch.id;
   },
 });
+
+const loadingMode = computed(() => {
+  if (typeof props.loadingMode === "object") return props.loadingMode.mode;
+  return props.loadingMode;
+});
+
+const loadMoreButtonLabel = computed(() => {
+  if (typeof props.loadingMode === "object" && props.loadingMode.mode === "button") {
+    return props.loadingMode.label;
+  }
+  return t.value("loadMore");
+});
+
+const loadingScrollOffset = computed(() => {
+  if (typeof props.loadingMode === "object" && props.loadingMode.mode === "lazy") {
+    return props.loadingMode.scrollOffset;
+  }
+  return undefined;
+});
+
+const { vScrollEnd } = useScrollEnd({
+  callback: () => emit("loadMore"),
+  enabled: computed(() => loadingMode.value === "lazy"),
+  loading: computed(() => props.loading),
+  offset: loadingScrollOffset,
+});
 </script>
 
 <template>
   <div class="onyx-listbox">
-    <div v-if="props.loading" class="onyx-listbox__loading">
-      <OnyxLoadingIndicator />
+    <div
+      v-if="props.loading && !props.options.length"
+      class="onyx-listbox__slot onyx-listbox__slot--height"
+    >
+      <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
     <slot v-else-if="!props.options.length" name="empty" :default-message="t('selections.empty')">
       <OnyxEmpty>{{ t("selections.empty") }}</OnyxEmpty>
     </slot>
 
-    <ul v-else v-bind="listbox" class="onyx-listbox__options">
+    <ul v-else v-scroll-end v-bind="listbox" class="onyx-listbox__options">
       <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
@@ -104,7 +140,26 @@ const {
       >
         {{ option.label }}
       </OnyxListboxOption>
+
+      <li class="onyx-listbox__slot">
+        <OnyxButton
+          v-if="loadingMode === 'button' && props.options.length > 0"
+          class="onyx-listbox__loading-button"
+          :label="loadMoreButtonLabel"
+          mode="plain"
+          :icon="plus"
+          :loading="props.loading"
+          @click="emit('loadMore')"
+        />
+      </li>
     </ul>
+
+    <div v-if="props.options.length" class="onyx-listbox__slot">
+      <OnyxLoadingIndicator
+        v-if="loadingMode === 'lazy' && props.loading"
+        class="onyx-listbox__loading"
+      />
+    </div>
 
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
@@ -119,10 +174,11 @@ const {
   }
 
   --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+  $wrapper-padding: var(--onyx-spacing-2xs);
 
   border-radius: var(--onyx-radius-md);
   background-color: var(--onyx-color-base-background-blank);
-  padding: var(--onyx-spacing-2xs) 0;
+  padding: $wrapper-padding 0;
   box-shadow: var(--onyx-shadow-medium-bottom);
   box-sizing: border-box;
   width: max-content;
@@ -136,7 +192,7 @@ const {
     width: 100%;
     box-sizing: border-box;
     text-align: right;
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
+    padding: $wrapper-padding var(--onyx-spacing-sm) 0;
   }
 
   .onyx-listbox-option {
@@ -158,13 +214,24 @@ const {
     outline: 0.25rem solid var(--onyx-color-base-primary-200);
   }
 
-  &__loading {
-    padding: 0 var(--onyx-spacing-sm);
-    color: var(--onyx-color-text-icons-primary-intense);
+  &__slot {
+    padding: 0 $wrapper-padding;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(5 * var(--option-height));
+
+    &--height {
+      min-height: calc(5 * var(--option-height));
+    }
+  }
+
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+  }
+
+  &__loading-button {
+    width: 100%;
   }
 }
 </style>

@@ -1,6 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxListbox from "./OnyxListbox.vue";
+import { LOADING_MODES } from "./types";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -22,7 +23,13 @@ const meta: Meta<typeof OnyxListbox> = {
   title: "support/OnyxListbox",
   ...defineStorybookActionsAndVModels({
     component: OnyxListbox,
-    events: ["update:modelValue"],
+    events: ["update:modelValue", "loadMore"],
+    argTypes: {
+      loadingMode: {
+        options: LOADING_MODES,
+        control: { type: "radio" },
+      },
+    },
   }),
 };
 
@@ -84,5 +91,33 @@ export const Loading = {
   args: {
     ...Empty.args,
     loading: true,
+  },
+} satisfies Story;
+
+/**
+ * This examples shows a loading listbox with lazy loading. The `loadMore` event will be emitted if the user scrolls
+ * to the end of the options.
+ *
+ * **Note**: The actual data loading is not implemented in this example. You should listen to the `loadMore` event
+ * to load more options.
+ */
+export const LazyLoading = {
+  args: {
+    ...Default.args,
+    loadingMode: "lazy",
+  },
+} satisfies Story;
+
+/**
+ * This examples shows a loading listbox with button loading. The `loadMore` event will be emitted if the user clicks
+ * the load more button when scrolled to the end of the options.
+ *
+ * **Note**: The actual data loading is not implemented in this example. You should listen to the `loadMore` event
+ * to load more options.
+ */
+export const ButtonLoading = {
+  args: {
+    ...Default.args,
+    loadingMode: "button",
   },
 } satisfies Story;
