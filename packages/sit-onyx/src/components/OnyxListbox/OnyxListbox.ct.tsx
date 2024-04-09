@@ -195,3 +195,68 @@ test("should support lazy loading", async ({ mount }) => {
   // ASSERT
   expect(loadMoreEventCount).toBe(2);
 });
+
+test("should support button loading", async ({ mount }) => {
+  let loadMoreEventCount = 0;
+
+  const eventHandlers = {
+    loadMore: () => loadMoreEventCount++,
+  };
+
+  // ARRANGE
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: [],
+      loading: true,
+      label: "Test listbox",
+      loadingMode: "button",
+    },
+    on: eventHandlers,
+  });
+
+  const updateProps = (props: Partial<OnyxListboxProps>) => {
+    return component.update({ props, on: eventHandlers });
+  };
+
+  await expect(component).toHaveScreenshot("button-loading-initial.png");
+  await updateProps({ options: MOCK_OPTIONS, loading: false });
+  await expect(component.getByRole("option")).toHaveCount(25);
+
+  // ACT
+  await component.getByRole("button", { name: "Load more" }).click();
+
+  // ASSERT
+  expect(loadMoreEventCount).toBe(1);
+
+  // ACT
+  await updateProps({ loading: true });
+
+  // ASSERT
+  await expect(component.locator(".onyx-loading-dots")).toBeVisible();
+  await expect(component).toHaveScreenshot("button-loading-active.png");
+
+  // ACT
+  await updateProps({
+    loading: false,
+    options: MOCK_OPTIONS.concat(
+      Array.from({ length: 25 }, (_, index) => {
+        const id = MOCK_OPTIONS.length + index;
+        return { id, label: `Test option ${id + 1}` };
+      }),
+    ),
+  });
+
+  // ASSERT
+  await expect(component.getByRole("option")).toHaveCount(50);
+  await expect(component.getByLabel("Test option 25")).toBeInViewport();
+
+  // ACT (should support customizing the button label)
+  await updateProps({
+    loadingMode: { mode: "button", label: "Custom button label" },
+  });
+
+  await component.getByRole("button", { name: "Custom button label" }).click();
+
+  // ASSERT
+  expect(loadMoreEventCount).toBe(2);
+});
