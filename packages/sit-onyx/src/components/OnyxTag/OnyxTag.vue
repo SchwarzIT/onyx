@@ -3,7 +3,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
-  type: "primary",
+  color: "primary",
 });
 </script>
 
@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<OnyxTagProps>(), {
   font-family: var(--onyx-font-family);
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   border-radius: var(--onyx-radius-sm);
-  border: 1px solid var(--onyx-tag-text-color);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-tag-text-color);
   background-color: var(--onyx-tag-background-color);
 
   /// [TODO] ask primary and secondary colors are different between code and figma for OnyxTag to Onyx team members.

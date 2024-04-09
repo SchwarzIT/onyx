@@ -8,7 +8,7 @@ export type OnyxTagProps = {
   /**
    * The color of the tag.
    */
-  type?: Extract<OnyxColor, "primary" | "secondary" | "danger" | "warning" | "success" | "info">;
+  color?: Extract<OnyxColor, "primary" | "secondary" | "danger" | "warning" | "success" | "info">;
   /**
    * An icon which will be displayed on the left side of the label.
    */

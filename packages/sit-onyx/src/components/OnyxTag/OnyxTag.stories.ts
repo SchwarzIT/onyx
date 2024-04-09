@@ -27,15 +27,6 @@ const meta: Meta<typeof OnyxTag> = {
       },
     },
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-    <div class="onyx-text" style="font-family: var(--onyx-font-family);">
-      <story />
-    </div>`,
-    }),
-  ],
 };
 
 export default meta;
@@ -56,7 +47,7 @@ export const Primary = {
 export const Secondary = {
   args: {
     label: "Tag",
-    type: "secondary",
+    color: "secondary",
   },
 } satisfies Story;
 
@@ -66,7 +57,7 @@ export const Secondary = {
 export const Danger = {
   args: {
     label: "Tag",
-    type: "danger",
+    color: "danger",
   },
 } satisfies Story;
 
@@ -76,7 +67,7 @@ export const Danger = {
 export const Warning = {
   args: {
     label: "Tag",
-    type: "warning",
+    color: "warning",
   },
 } satisfies Story;
 
@@ -86,7 +77,7 @@ export const Warning = {
 export const Success = {
   args: {
     label: "Tag",
-    type: "success",
+    color: "success",
   },
 } satisfies Story;
 
@@ -96,7 +87,7 @@ export const Success = {
 export const Info = {
   args: {
     label: "Tag",
-    type: "info",
+    color: "info",
   },
 } satisfies Story;
 
