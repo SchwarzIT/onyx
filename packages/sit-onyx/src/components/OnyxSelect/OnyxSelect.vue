@@ -224,7 +224,8 @@ const { densityClass } = useDensity(props);
   }
 
   &__badge {
-    display: flex;
+    display: block;
+    cursor: pointer;
   }
 
   &__loading {
