@@ -75,3 +75,19 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
     },
   });
 });
+
+test("should show empty state", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxListbox label="Test listbox" options={[]} />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("empty.png");
+  await expect(component).toContainText("No data available");
+
+  // TODO: comment back in once contrast issues of the empty component are fixed
+  // ACT
+  // const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  // expect(accessibilityScanResults.violations).toEqual([]);
+});

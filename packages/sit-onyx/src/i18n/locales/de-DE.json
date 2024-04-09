@@ -19,6 +19,7 @@
   },
   "selections": {
     "selectAll": "Alle auswählen",
-    "currentSelection": "{n} ausgewählt"
+    "currentSelection": "{n} ausgewählt",
+    "empty": "Keine Daten verfügbar"
   }
 }

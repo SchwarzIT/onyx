@@ -65,3 +65,14 @@ export const WithMessage = {
     message: "Example message",
   },
 } satisfies Story;
+
+/**
+ * This examples shows an empty listbox with default translated message.
+ * You can use the `empty` slot to customize the content.
+ */
+export const Empty = {
+  args: {
+    ...Default.args,
+    options: [],
+  },
+} satisfies Story;

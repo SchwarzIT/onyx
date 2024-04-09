@@ -1,6 +1,8 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
+import { injectI18n } from "@/i18n";
 import { createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
+import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
@@ -13,6 +15,18 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value: typeof props.modelValue];
 }>();
+
+defineSlots<{
+  /**
+   * Optional slot to customize the empty state when no options exist.
+   * It is recommended to use the `<OnyxEmpty>` component here.
+   *
+   * If unset, a default translated message will be displayed for the current locale.
+   */
+  empty?(props: { defaultMessage: string }): unknown;
+}>();
+
+const { t } = injectI18n();
 
 /**
  * Currently (visually) active option.
@@ -63,7 +77,11 @@ const {
 
 <template>
   <div class="onyx-listbox">
-    <ul v-bind="listbox" class="onyx-listbox__options">
+    <slot v-if="!props.options.length" name="empty" :default-message="t('selections.empty')">
+      <OnyxEmpty>{{ t("selections.empty") }}</OnyxEmpty>
+    </slot>
+
+    <ul v-else v-bind="listbox" class="onyx-listbox__options">
       <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
