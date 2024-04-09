@@ -124,9 +124,6 @@ export const Loading = {
 /**
  * This examples shows a loading listbox with lazy loading. The `loadMore` event will be emitted if the user scrolls
  * to the end of the options.
- *
- * **Note**: The actual data loading is not implemented in this example. You should listen to the `loadMore` event
- * to load more options.
  */
 export const LazyLoading = {
   args: {
@@ -139,9 +136,6 @@ export const LazyLoading = {
 /**
  * This examples shows a loading listbox with button loading. The `loadMore` event will be emitted if the user clicks
  * the load more button when scrolled to the end of the options.
- *
- * **Note**: The actual data loading is not implemented in this example. You should listen to the `loadMore` event
- * to load more options.
  */
 export const ButtonLoading = {
   args: {
