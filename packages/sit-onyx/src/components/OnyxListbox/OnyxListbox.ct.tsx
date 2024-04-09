@@ -222,7 +222,14 @@ test("should support button loading", async ({ mount }) => {
   await expect(component.getByRole("option")).toHaveCount(25);
 
   // ACT
-  await component.getByRole("button", { name: "Load more" }).click();
+  const loadMoreButton = component.getByRole("button", { name: "Load more" });
+  await loadMoreButton.scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("button-loading.png");
+
+  // ACT
+  await loadMoreButton.click();
 
   // ASSERT
   expect(loadMoreEventCount).toBe(1);
