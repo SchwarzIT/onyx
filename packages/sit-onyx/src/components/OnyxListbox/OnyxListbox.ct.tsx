@@ -91,3 +91,17 @@ test("should show empty state", async ({ mount }) => {
   // ASSERT
   // expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+test("should show loading state", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxListbox label="Test listbox" options={[]} loading />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("loading.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});

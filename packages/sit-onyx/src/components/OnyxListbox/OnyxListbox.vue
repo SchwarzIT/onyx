@@ -4,10 +4,13 @@ import { createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxListboxProps } from "./types";
 
-const props = defineProps<OnyxListboxProps<TValue>>();
+const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
+  loading: false,
+});
 
 const emit = defineEmits<{
   /**
@@ -77,7 +80,11 @@ const {
 
 <template>
   <div class="onyx-listbox">
-    <slot v-if="!props.options.length" name="empty" :default-message="t('selections.empty')">
+    <div v-if="props.loading" class="onyx-listbox__loading">
+      <OnyxLoadingIndicator />
+    </div>
+
+    <slot v-else-if="!props.options.length" name="empty" :default-message="t('selections.empty')">
       <OnyxEmpty>{{ t("selections.empty") }}</OnyxEmpty>
     </slot>
 
@@ -149,6 +156,15 @@ const {
 
   &:has(&__options:focus-visible) {
     outline: 0.25rem solid var(--onyx-color-base-primary-200);
+  }
+
+  &__loading {
+    padding: 0 var(--onyx-spacing-sm);
+    color: var(--onyx-color-text-icons-primary-intense);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(5 * var(--option-height));
   }
 }
 </style>

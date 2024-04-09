@@ -17,6 +17,10 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
    * Current value / selected options.
    */
   modelValue?: TValue;
+  /**
+   * Whether to show a loading indicator.
+   */
+  loading?: boolean;
 };
 
 export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {

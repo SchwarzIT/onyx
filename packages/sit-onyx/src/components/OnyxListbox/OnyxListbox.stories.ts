@@ -76,3 +76,13 @@ export const Empty = {
     options: [],
   },
 } satisfies Story;
+
+/**
+ * This examples shows a loading listbox.
+ */
+export const Loading = {
+  args: {
+    ...Empty.args,
+    loading: true,
+  },
+} satisfies Story;
