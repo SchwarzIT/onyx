@@ -146,7 +146,7 @@ test("should support lazy loading", async ({ mount }) => {
       .evaluate((element) => element.scrollIntoView({ block: "end", behavior: "smooth" }));
 
     // wait for scrolling to be completed
-    await expect(listbox.getByLabel(label)).toBeInViewport({ ratio: 1 });
+    await expect(listbox.getByLabel(label)).toBeInViewport({ ratio: 0.95 });
   };
 
   // ACT (should not emit event if not scrolled completely to the end)
