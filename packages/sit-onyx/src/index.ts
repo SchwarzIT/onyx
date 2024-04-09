@@ -13,6 +13,8 @@ export * from "@/components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "@/components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "@/components/OnyxCheckboxGroup/types";
 
+export { default as OnyxEmpty } from "@/components/OnyxEmpty/OnyxEmpty.vue";
+
 export { default as OnyxHeadline } from "@/components/OnyxHeadline/OnyxHeadline.vue";
 export * from "@/components/OnyxHeadline/types";
 
@@ -52,7 +54,7 @@ export * from "@/components/OnyxSwitch/types";
 export { default as OnyxTooltip } from "@/components/OnyxTooltip/OnyxTooltip.vue";
 export * from "@/components/OnyxTooltip/types";
 
+export * from "@/composables/density";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
-export * from "@/composables/density";
 export { createOnyx } from "@/utils/plugin";
