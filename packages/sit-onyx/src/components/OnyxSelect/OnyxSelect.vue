@@ -9,7 +9,7 @@ import { useRequired } from "@/composables/required";
 import { injectI18n } from "@/i18n";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
+import { OnyxIcon, OnyxSkeleton, OnyxTooltip, OnyxBadge } from "../..";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
 import { useDensity } from "@/composables/density";
@@ -120,9 +120,9 @@ const { densityClass } = useDensity(props);
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
         <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
-          <!-- TODO: use OnyxBadge component once it is implemented 
-          https://github.com/SchwarzIT/onyx/issues/565 -->
-          <div class="onyx-badge">{{ previewBadgeNumber }}</div>
+          <OnyxBadge class="onyx-select__badge" variation="neutral">{{
+            previewBadgeNumber
+          }}</OnyxBadge>
         </OnyxTooltip>
 
         <OnyxIcon :icon="chevronDownUp" class="onyx-select__icon" />
@@ -223,6 +223,11 @@ const { densityClass } = useDensity(props);
     }
   }
 
+  &__badge {
+    display: block;
+    cursor: pointer;
+  }
+
   &__loading {
     color: var(--onyx-color-text-icons-primary-intense);
   }
@@ -291,15 +296,5 @@ const { densityClass } = useDensity(props);
       height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
     }
   }
-}
-
-// TODO: remove badge styles once OnyxBadge is implemented
-//       https://github.com/SchwarzIT/onyx/issues/565
-.onyx-badge {
-  text-align: center;
-  padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
-  border-radius: var(--onyx-radius-full);
-  background: var(--onyx-color-base-neutral-700);
-  color: var(--onyx-color-text-icons-neutral-inverted);
 }
 </style>
