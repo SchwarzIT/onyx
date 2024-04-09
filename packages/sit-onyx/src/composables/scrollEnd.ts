@@ -2,7 +2,7 @@ import { ref, unref, watchEffect, type Directive, type MaybeRef, type Ref } from
 
 export type UseScrollEndOptions = {
   /**
-   * Whether currently loading. Will not call the callback if `true`.
+   * Whether currently loading. Will pause scroll listeners if `true`.
    */
   loading: Ref<boolean | undefined>;
   /**

@@ -56,6 +56,7 @@ export * from "@/components/OnyxTooltip/types";
 export { default as TestInput } from "@/components/TestInput/TestInput.vue";
 
 export * from "@/composables/density";
+export * from "@/composables/scrollEnd";
 export type { OnyxTranslations, ProvideI18nOptions } from "@/i18n";
 export * from "@/types";
 export { createOnyx } from "@/utils/plugin";
