@@ -68,10 +68,6 @@ defineSlots<{
   @include layers.component() {
     --onyx-badge-background-color: var(--onyx-color-base-primary-500);
 
-    &:has(&__icon) {
-      --onyx-badge-padding: var(--onyx-badge-icon-padding);
-    }
-
     display: inline-block;
     height: var(--onyx-badge-height);
     max-width: 100%;
@@ -81,6 +77,10 @@ defineSlots<{
     color: var(--onyx-color-text-icons-neutral-inverted);
     font-family: var(--onyx-font-family);
     font-style: normal;
+
+    &:has(&__icon) {
+      padding: var(--onyx-badge-icon-padding);
+    }
 
     &--secondary {
       --onyx-badge-background-color: var(--onyx-color-base-secondary-500);
