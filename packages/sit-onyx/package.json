@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-alpha.62",
+  "version": "1.0.0-alpha.65",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -21,6 +21,7 @@
     "./style.css": "./dist/style.css",
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
+    "./breakpoints.scss": "./src/styles/breakpoints.scss",
     "./types": "./src/types/index.ts"
   },
   "homepage": "https://onyx.schwarz",

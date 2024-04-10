@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { OnyxLoadingIndicator } from "@/index";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
+import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
@@ -83,7 +83,8 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {
@@ -127,140 +128,142 @@ const { densityClass } = useDensity(props);
 }
 
 .onyx-checkbox {
-  font-family: var(--onyx-font-family);
-  color: var(--onyx-color-text-icons-neutral-intense);
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  width: max-content;
-  max-width: 100%;
-  box-sizing: border-box;
-
-  &:has(&__label) {
-    padding-right: var(--onyx-spacing-2xs);
-  }
-
-  $label-padding: var(--onyx-spacing-2xs);
-
-  &::after {
-    // since the checkbox is flex-start aligned, we need to adjust the padding of the asterisk / required marker
-    padding-top: $label-padding;
-  }
-
-  &:hover {
-    @include define-hover-border($state: ":enabled", $color: primary);
-
-    &:has(.onyx-checkbox__input--touched) {
-      @include define-hover-border($state: ":invalid", $color: danger);
-    }
-  }
-
-  &:has(&__input:focus-visible) {
-    @include define-focus-ring($state: ":enabled", $color: primary);
-
-    &:has(.onyx-checkbox__input--touched) {
-      @include define-focus-ring($state: ":invalid", $color: danger);
-    }
-  }
-
-  &:has(&__input:disabled) {
-    cursor: default;
-    color: var(--onyx-color-text-icons-neutral-soft);
-  }
-
-  &:has(&__loading) {
-    cursor: default;
-  }
-
-  &__container {
+  @include layers.component() {
+    font-family: var(--onyx-font-family);
+    color: var(--onyx-color-text-icons-neutral-intense);
     display: inline-flex;
     align-items: center;
-    padding: var(--onyx-checkbox-input-padding);
-    border-radius: var(--onyx-radius-full);
-  }
+    cursor: pointer;
+    width: max-content;
+    max-width: 100%;
 
-  &__input {
-    height: var(--onyx-checkbox-input-size);
-    width: var(--onyx-checkbox-input-size);
-    appearance: none;
-    margin: 0;
-    border-radius: var(--onyx-radius-sm);
-    outline: none;
-    cursor: inherit;
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
-    background: var(--onyx-color-base-background-blank);
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    &:has(&__label) {
+      padding-right: var(--onyx-spacing-2xs);
+    }
 
-    &:checked,
-    &:indeterminate {
-      @include define-checked-background(":enabled", primary);
+    $label-padding: var(--onyx-spacing-2xs);
 
-      &.onyx-checkbox__input--touched {
-        @include define-checked-background(":invalid", danger);
+    &::after {
+      // since the checkbox is flex-start aligned, we need to adjust the padding of the asterisk / required marker
+      padding-top: $label-padding;
+    }
+
+    &:hover {
+      @include define-hover-border($state: ":enabled", $color: primary);
+
+      &:has(.onyx-checkbox__input--touched) {
+        @include define-hover-border($state: ":invalid", $color: danger);
+      }
+    }
+
+    &:has(&__input:focus-visible) {
+      @include define-focus-ring($state: ":enabled", $color: primary);
+
+      &:has(.onyx-checkbox__input--touched) {
+        @include define-focus-ring($state: ":invalid", $color: danger);
+      }
+    }
+
+    &:has(&__input:disabled) {
+      cursor: default;
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &:has(&__loading) {
+      cursor: default;
+    }
+
+    &__container {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--onyx-checkbox-input-padding);
+      border-radius: var(--onyx-radius-full);
+    }
+
+    &__input {
+      height: var(--onyx-checkbox-input-size);
+      width: var(--onyx-checkbox-input-size);
+      appearance: none;
+      margin: 0;
+      border-radius: var(--onyx-radius-sm);
+      outline: none;
+      cursor: inherit;
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
+      background: var(--onyx-color-base-background-blank);
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+
+      &:checked,
+      &:indeterminate {
+        @include define-checked-background(":enabled", primary);
+
+        &.onyx-checkbox__input--touched {
+          @include define-checked-background(":invalid", danger);
+        }
+
+        &:disabled {
+          background-color: var(--onyx-color-base-neutral-300);
+        }
       }
 
       &:disabled {
-        background-color: var(--onyx-color-base-neutral-300);
+        border-color: var(--onyx-color-base-neutral-300);
+      }
+
+      &--touched {
+        &:invalid {
+          border-color: var(--onyx-color-base-danger-500);
+        }
+      }
+
+      &:checked {
+        // icon (with added fill='white'): check-small.svg
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='m21.311 10.793-8.293 8.293-3.291-3.292-1.415 1.415 4.706 4.705 9.707-9.707z'/%3E%3C/svg%3E");
+      }
+
+      &:indeterminate {
+        // icon (with added fill='white'): minus-small.svg
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='M8 15h16v2H8z'/%3E%3C/svg%3E");
       }
     }
 
-    &:disabled {
-      border-color: var(--onyx-color-base-neutral-300);
+    &__label {
+      display: inline-block;
     }
 
-    &--touched {
-      &:invalid {
-        border-color: var(--onyx-color-base-danger-500);
-      }
+    &__label,
+    &__marker {
+      padding: $label-padding 0;
+      font-size: 1rem;
+      line-height: 1.5rem;
     }
 
-    &:checked {
-      // icon (with added fill='white'): check-small.svg
-      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='m21.311 10.793-8.293 8.293-3.291-3.292-1.415 1.415 4.706 4.705 9.707-9.707z'/%3E%3C/svg%3E");
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
+      max-width: var(--onyx-checkbox-input-size);
+      height: var(--onyx-checkbox-input-size);
     }
-
-    &:indeterminate {
-      // icon (with added fill='white'): minus-small.svg
-      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='M8 15h16v2H8z'/%3E%3C/svg%3E");
-    }
-  }
-
-  &__label {
-    display: inline-block;
-    margin: 0;
-  }
-
-  &__label,
-  &__marker {
-    padding: $label-padding 0;
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  &__loading {
-    color: var(--onyx-color-text-icons-primary-intense);
-    max-width: var(--onyx-checkbox-input-size);
-    height: var(--onyx-checkbox-input-size);
   }
 }
 
 .onyx-checkbox-skeleton {
-  display: flex;
-  align-items: center;
-  gap: var(--onyx-spacing-md);
-  padding: var(--onyx-checkbox-input-padding);
-  width: max-content;
+  @include layers.component() {
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-md);
+    padding: var(--onyx-checkbox-input-padding);
+    width: max-content;
 
-  &__input {
-    height: var(--onyx-checkbox-input-size);
-    width: var(--onyx-checkbox-input-size);
-  }
+    &__input {
+      height: var(--onyx-checkbox-input-size);
+      width: var(--onyx-checkbox-input-size);
+    }
 
-  &__label {
-    height: var(--onyx-spacing-md);
-    width: var(--onyx-spacing-3xl);
+    &__label {
+      height: var(--onyx-spacing-md);
+      width: var(--onyx-spacing-3xl);
+    }
   }
 }
 </style>

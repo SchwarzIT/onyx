@@ -3,8 +3,10 @@ import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import {
   DENSITY,
   OnyxAppLayout,
+  OnyxBadge,
   OnyxButton,
   OnyxCheckboxGroup,
+  OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
   OnyxIconButton,
@@ -29,8 +31,10 @@ const { locale } = useI18n();
 const router = useRouter();
 
 const COMPONENTS = [
+  "OnyxBadge",
   "OnyxButton",
   "OnyxCheckboxGroup",
+  "OnyxEmpty",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -135,6 +139,7 @@ const singleSelectState = ref(selectOptions[0]);
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
+          <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
           <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 
           <template v-if="show('OnyxCheckboxGroup')">
@@ -216,6 +221,8 @@ const singleSelectState = ref(selectOptions[0]);
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
+
+          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
           <!-- Add new components alphabetically. -->
         </div>

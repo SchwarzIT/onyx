@@ -1,7 +1,7 @@
-import type { SelectOption } from "@/types";
-import { createTruncationDecorator } from "@/utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import type { SelectOption } from "../../types";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
 /**

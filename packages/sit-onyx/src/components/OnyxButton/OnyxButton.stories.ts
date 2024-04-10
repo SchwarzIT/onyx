@@ -2,7 +2,7 @@ import {
   createIconSourceCodeTransformer,
   createTruncationDecorator,
   defineIconSelectArgType,
-} from "@/utils/storybook";
+} from "../../utils/storybook";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";

@@ -1,5 +1,25 @@
 # sit-onyx
 
+## 1.0.0-alpha.65
+
+### Minor Changes
+
+- e9eae68: Component styles are now normalized and make use of CSS layers
+
+## 1.0.0-alpha.64
+
+### Minor Changes
+
+- 4e2a5bb: feat: add `OnyxEmpty` component
+
+## 1.0.0-alpha.63
+
+### Minor Changes
+
+- 03fea09: feat: add SCSS mixin for breakpoints
+
+  See the [documentation](https://onyx.schwarz/development/breakpoints.html) for further details
+
 ## 1.0.0-alpha.62
 
 ### Minor Changes

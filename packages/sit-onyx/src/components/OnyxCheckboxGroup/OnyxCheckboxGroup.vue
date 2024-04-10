@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { injectI18n } from "@/i18n";
-import { OnyxHeadline, type OnyxCheckboxProps } from "@/index";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
+import { injectI18n } from "../../i18n";
+import { OnyxHeadline, type OnyxCheckboxProps } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
@@ -97,25 +97,28 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-checkbox-group {
-  margin: 0;
-  padding: 0;
-  border: none;
-  max-width: max-content;
-  min-width: unset;
+  @include layers.component() {
+    padding: 0;
+    border: none;
+    max-width: max-content;
+    min-width: unset;
 
-  &__label {
-    margin-bottom: var(--onyx-spacing-2xs);
-  }
+    &__label {
+      margin-bottom: var(--onyx-spacing-2xs);
+    }
 
-  &__content {
-    display: flex;
-    flex-direction: column;
+    &__content {
+      display: flex;
+      flex-direction: column;
 
-    &--horizontal {
-      flex-direction: row;
-      flex-wrap: wrap;
-      column-gap: var(--onyx-spacing-xl);
+      &--horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: var(--onyx-spacing-xl);
+      }
     }
   }
 }

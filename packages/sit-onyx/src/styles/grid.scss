@@ -1,96 +1,100 @@
+@use "breakpoints.scss" as *;
+
 // prettier-ignore
 $gridVariants: (
-//  NAME     BREAKPOINT  MAX-VARIANT  COLUMNS  GUTTER  MARGIN
-    "2xs"    none        none         4        1rem    1rem,
-    "xs"     577px       none         8        1rem    1rem,
-    "sm"     769px       none         8        1.5rem  2rem,
-    "md"     993px       none         12       1.5rem  4rem,
-    "lg"     1441px      "md"         16       2rem    4rem,
-    "xl"     1921px      "lg"         16       2rem    4rem,
+//  NAME    MAX-VARIANT  COLUMNS  GUTTER  MARGIN
+    "2xs"   none         4        1rem    1rem,
+    "xs"    none         8        1rem    1rem,
+    "sm"    none         8        1.5rem  2rem,
+    "md"    none         12       1.5rem  4rem,
+    "lg"    "md"         16       2rem    4rem,
+    "xl"    "lg"         16       2rem    4rem,
 );
 
-/**
+@layer onyx.utility {
+  /**
  * Grid container base class
  */
-.onyx-grid {
-  display: grid;
-  grid-template-columns: repeat(var(--onyx-grid-columns), minmax(0, 1fr));
-  gap: var(--onyx-grid-gutter);
-  // Its called margin in the UX concept. So we keep that name for consistency, even when it is implemented through a padding.
-  padding: var(--onyx-grid-margin);
-  // often web projects override the default box-sizing, but it is important for the max-width and alignment to work correctly
-  box-sizing: content-box;
-  max-width: var(--onyx-grid-max-width, none);
-}
+  .onyx-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--onyx-grid-columns), minmax(0, 1fr));
+    gap: var(--onyx-grid-gutter);
+    // Its called margin in the UX concept. So we keep that name for consistency, even when it is implemented through a padding.
+    padding: var(--onyx-grid-margin);
+    // often web projects override the default box-sizing, but it is important for the max-width and alignment to work correctly
+    box-sizing: content-box;
+    max-width: var(--onyx-grid-max-width, none);
+  }
 
-/**
- * Grid container class to allow optional centering for grids with max width 
+  /**
+ * Grid container class to allow optional centering for grids with max width
  */
-.onyx-grid-center {
-  margin: 0 auto;
-}
+  .onyx-grid-center {
+    margin: 0 auto;
+  }
 
-/**
+  /**
  * Grid container class for "xl" breakpoint variant with 20 columns
  */
-@media screen and (min-width: 1921px) {
-  .onyx-grid-xl-20 {
-    --onyx-grid-columns: 20;
-  }
-}
-
-/**
- * Grid element class for defining how many columns the element spans
- */
-@for $i from 1 through 20 {
-  .onyx-grid-span-#{$i} {
-    grid-column-end: span min($i, var(--onyx-grid-columns));
-  }
-}
-
-@mixin generateGridProperties($columns, $gutter, $margin) {
-  :where(:root) {
-    --onyx-grid-columns: #{$columns};
-    --onyx-grid-gutter: #{$gutter};
-    --onyx-grid-margin: #{$margin};
-  }
-}
-
-/**
- * Grid element class for defining breakpoint specific column count
- */
-@mixin generateSpans($first, $last, $name) {
-  @for $span from $first through $last {
-    .onyx-grid-#{$name}-span-#{$span} {
-      grid-column-end: span min($span, var(--onyx-grid-columns));
+  @include breakpoint(min, xl, $offset: 1) {
+    .onyx-grid-xl-20 {
+      --onyx-grid-columns: 20;
     }
   }
-}
 
-/**
+  /**
+ * Grid element class for defining how many columns the element spans
+ */
+  @for $i from 1 through 20 {
+    .onyx-grid-span-#{$i} {
+      grid-column-end: span min($i, var(--onyx-grid-columns));
+    }
+  }
+
+  @mixin generateGridProperties($columns, $gutter, $margin) {
+    :where(:root) {
+      --onyx-grid-columns: #{$columns};
+      --onyx-grid-gutter: #{$gutter};
+      --onyx-grid-margin: #{$margin};
+    }
+  }
+
+  /**
+ * Grid element class for defining breakpoint specific column count
+ */
+  @mixin generateSpans($first, $last, $name) {
+    @for $span from $first through $last {
+      .onyx-grid-#{$name}-span-#{$span} {
+        grid-column-end: span min($span, var(--onyx-grid-columns));
+      }
+    }
+  }
+
+  /**
  * Grid container class for defining breakpoint specific max width
  */
-@mixin generateGridMax($breakpoint, $maxVariant, $margin) {
-  .onyx-grid-max-#{$maxVariant} {
-    --onyx-grid-max-width: #{$breakpoint - 1};
+  @mixin generateGridMax($name, $maxVariant, $margin) {
+    .onyx-grid-max-#{$maxVariant} {
+      --onyx-grid-max-width: #{map-get($breakpoints, $name)};
+    }
   }
-}
 
-@each $name, $breakpoint, $maxVariant, $columns, $gutter, $margin in $gridVariants {
-  @if $breakpoint == "none" {
-    @include generateGridProperties($columns, $gutter, $margin);
-    @include generateSpans(1, $columns, $name);
-  } @else {
-    @media screen and (min-width: $breakpoint) {
+  @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
+    @if $name == "2xs" {
       @include generateGridProperties($columns, $gutter, $margin);
       @include generateSpans(1, $columns, $name);
+    } @else {
+      @include breakpoint(min, $name, $offset: 1) {
+        @include generateGridProperties($columns, $gutter, $margin);
+        @include generateSpans(1, $columns, $name);
 
-      @if $maxVariant != none {
-        @include generateGridMax($breakpoint, $maxVariant, $margin);
-      }
+        @if $maxVariant != none {
+          @include generateGridMax($name, $maxVariant, $margin);
+        }
 
-      @if $name == "xl" {
-        @include generateSpans(17, 20, $name);
+        @if $name == "xl" {
+          @include generateSpans(17, 20, $name);
+        }
       }
     }
   }

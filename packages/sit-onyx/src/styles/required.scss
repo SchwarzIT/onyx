@@ -1,40 +1,41 @@
 // `onyx-required-marker` is used internally to populate the the "::after" pseudo element with the required marker.
 // the user can set `onyx-use-optional` and `onyx-use-required` to switch between the indicators.
-
-:root {
-  // We use a trick to toggle values using custom properties https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/
-  // This allows us to make use of custom property inheritance
-  --ON: initial;
-  --OFF: ;
-}
-
-/* default */
-:root,
-.onyx-use-required {
-  --onyx-use-required: var(--ON);
-  --onyx-use-optional: var(--OFF);
-}
-
-.onyx-use-optional {
-  --onyx-use-required: var(--OFF);
-  --onyx-use-optional: var(--ON);
-}
-
-.onyx-required-marker::after {
-  font-family: var(--onyx-use-required, var(--onyx-font-family));
-  content: var(--onyx-use-required, "*");
-  color: var(--onyx-use-required, var(--onyx-color-text-icons-danger-intense));
-  padding-left: var(--onyx-use-required, var(--onyx-spacing-5xs));
-}
-
-.onyx-optional-marker::after {
-  font: {
-    family: var(--onyx-use-optional, var(--onyx-font-family));
-    weight: var(--onyx-use-optional, 400);
-    style: var(--onyx-use-optional, normal);
+@layer onyx.utility {
+  :root {
+    // We use a trick to toggle values using custom properties https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/
+    // This allows us to make use of custom property inheritance
+    --ON: initial;
+    --OFF: ;
   }
-  content: var(--onyx-use-optional, var(--onyx-global-optional-text, "(optional)"));
-  color: var(--onyx-use-optional, var(--onyx-color-text-icons-neutral-soft));
-  padding-left: var(--onyx-use-optional, var(--onyx-spacing-2xs));
-  hyphens: var(--onyx-use-optional, none);
+
+  /* default */
+  :root,
+  .onyx-use-required {
+    --onyx-use-required: var(--ON);
+    --onyx-use-optional: var(--OFF);
+  }
+
+  .onyx-use-optional {
+    --onyx-use-required: var(--OFF);
+    --onyx-use-optional: var(--ON);
+  }
+
+  .onyx-required-marker::after {
+    font-family: var(--onyx-use-required, var(--onyx-font-family));
+    content: var(--onyx-use-required, "*");
+    color: var(--onyx-use-required, var(--onyx-color-text-icons-danger-intense));
+    padding-left: var(--onyx-use-required, var(--onyx-spacing-5xs));
+  }
+
+  .onyx-optional-marker::after {
+    font: {
+      family: var(--onyx-use-optional, var(--onyx-font-family));
+      weight: var(--onyx-use-optional, 400);
+      style: var(--onyx-use-optional, normal);
+    }
+    content: var(--onyx-use-optional, var(--onyx-global-optional-text, "(optional)"));
+    color: var(--onyx-use-optional, var(--onyx-color-text-icons-neutral-soft));
+    padding-left: var(--onyx-use-optional, var(--onyx-spacing-2xs));
+    hyphens: var(--onyx-use-optional, none);
+  }
 }

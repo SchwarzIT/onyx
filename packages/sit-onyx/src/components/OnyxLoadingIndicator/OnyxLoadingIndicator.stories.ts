@@ -1,4 +1,4 @@
-import { textColorDecorator } from "@/utils/storybook";
+import { textColorDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";

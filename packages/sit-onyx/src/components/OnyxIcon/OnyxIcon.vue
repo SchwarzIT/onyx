@@ -22,46 +22,46 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers.scss";
+
 .onyx-icon {
-  --icon-size: 1.5rem;
-  --icon-color: currentColor;
+  @include layers.component() {
+    --icon-size: 1.5rem;
+    --icon-color: currentColor;
 
-  display: inline-block;
-  width: var(--icon-size);
-  min-width: var(--icon-size);
-  height: var(--icon-size);
-  fill: var(--icon-color);
+    display: inline-block;
+    width: var(--icon-size);
+    min-width: var(--icon-size);
+    height: var(--icon-size);
+    fill: var(--icon-color);
 
-  :where(&) {
-    margin: 0;
-  }
+    //
+    // icon sizes:
+    //
+    $sizes:
+      12px 0.75rem,
+      16px 1rem,
+      24px 1.5rem,
+      32px 2rem,
+      48px 3rem,
+      64px 4rem,
+      96px 6rem;
 
-  //
-  // icon sizes:
-  //
-  $sizes:
-    12px 0.75rem,
-    16px 1rem,
-    24px 1.5rem,
-    32px 2rem,
-    48px 3rem,
-    64px 4rem,
-    96px 6rem;
-
-  @each $name, $size in $sizes {
-    &--#{$name} {
-      --icon-size: #{$size};
+    @each $name, $size in $sizes {
+      &--#{$name} {
+        --icon-size: #{$size};
+      }
     }
-  }
 
-  //
-  // icon colors:
-  //
-  $colors: primary, secondary, neutral, danger, warning, success, info;
+    //
+    // icon colors:
+    //
+    $colors: primary, secondary, neutral, danger, warning, success, info;
 
-  @each $color in $colors {
-    &--#{$color} {
-      --icon-color: var(--onyx-color-text-icons-#{$color}-intense);
+    @each $color in $colors {
+      &--#{$color} {
+        --icon-color: var(--onyx-color-text-icons-#{$color}-intense);
+      }
     }
   }
 }

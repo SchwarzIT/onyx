@@ -2,7 +2,7 @@ import {
   createIconSourceCodeTransformer,
   defineIconSelectArgType,
   textColorDecorator,
-} from "@/utils/storybook";
+} from "../../utils/storybook";
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
