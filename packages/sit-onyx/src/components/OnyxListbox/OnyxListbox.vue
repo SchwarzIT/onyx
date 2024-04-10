@@ -169,50 +169,48 @@ const isEmpty = computed(() => props.options.length === 0);
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-listbox {
-  :where(&) {
+  @include layers.component() {
     --max-options: 8;
-  }
+    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+    $wrapper-padding: var(--onyx-spacing-2xs);
 
-  --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
-  $wrapper-padding: var(--onyx-spacing-2xs);
-
-  border-radius: var(--onyx-radius-md);
-  background-color: var(--onyx-color-base-background-blank);
-  padding: $wrapper-padding 0;
-  box-shadow: var(--onyx-shadow-medium-bottom);
-  box-sizing: border-box;
-  width: max-content;
-  min-width: var(--onyx-spacing-4xl);
-  max-width: 20rem;
-  font-family: var(--onyx-font-family);
-
-  &__message {
-    color: var(--onyx-color-text-icons-neutral-soft);
-    display: inline-block;
-    width: 100%;
+    border-radius: var(--onyx-radius-md);
+    background-color: var(--onyx-color-base-background-blank);
+    padding: $wrapper-padding 0;
+    box-shadow: var(--onyx-shadow-medium-bottom);
     box-sizing: border-box;
-    text-align: right;
-    padding: $wrapper-padding var(--onyx-spacing-sm) 0;
-  }
+    width: max-content;
+    min-width: var(--onyx-spacing-4xl);
+    max-width: 20rem;
+    font-family: var(--onyx-font-family);
 
-  .onyx-listbox-option {
-    height: var(--option-height);
-  }
+    &__message {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: right;
+      padding: $wrapper-padding var(--onyx-spacing-sm) 0;
+    }
 
-  &__options {
-    max-height: calc(var(--max-options) * var(--option-height));
-    box-sizing: border-box;
-    overflow: auto;
-    outline: none;
+    .onyx-listbox-option {
+      height: var(--option-height);
+    }
 
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
+    &__options {
+      max-height: calc(var(--max-options) * var(--option-height));
+      overflow: auto;
+      outline: none;
 
-  &:has(&__options:focus-visible) {
-    outline: 0.25rem solid var(--onyx-color-base-primary-200);
+      padding: 0;
+    }
+
+    &:has(&__options:focus-visible) {
+      outline: 0.25rem solid var(--onyx-color-base-primary-200);
+    }
   }
 
   &__slot {
