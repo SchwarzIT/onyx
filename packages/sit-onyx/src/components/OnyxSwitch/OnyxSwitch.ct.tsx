@@ -103,7 +103,7 @@ test("should render skeleton", async ({ mount }) => {
 });
 
 const STATES = {
-  state: ["default", "disabled", "required", "optional"],
+  state: ["default", "disabled", "required", "optional", "invalid"],
   select: ["unselected", "selected"],
   density: ["compact", "default", "cozy"],
   focusState: ["", "hover", "focus-visible"],
@@ -123,9 +123,17 @@ test.describe("state screenshot tests", () => {
           hideLabel={labeled === "unlabeled"}
           disabled={state === "disabled"}
           required={state === "required"}
+          customError={state === "invalid" ? "Test error" : undefined}
         />,
         { useOptional: state === "optional" },
       );
+
+      // invalid only shows after interaction
+      if (state === "invalid") {
+        await component.click();
+        await component.click();
+        await component.blur();
+      }
 
       if (focusState === "focus-visible") await page.keyboard.press("Tab");
       if (focusState === "hover") await component.hover();

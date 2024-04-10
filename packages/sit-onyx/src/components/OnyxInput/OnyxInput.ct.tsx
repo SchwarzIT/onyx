@@ -1,5 +1,5 @@
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
+import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxInput from "./OnyxInput.vue";
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
@@ -126,7 +126,7 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 
 const STATES = {
   variant: ["default", "placeholder", "initialValue", "loading", "autofill"],
-  writeMode: ["write", "readonly", "disabled"],
+  writeMode: ["write", "readonly", "disabled", "invalid"],
   density: ["compact", "default", "cozy"],
   focusState: ["", "hover", "focus"],
 } as const;
@@ -147,10 +147,18 @@ test.describe("state screenshot tests", () => {
           loading={variant === "loading"}
           autocomplete={variant === "autofill" ? "name" : undefined}
           style="width: 12rem;"
+          customError={writeMode === "invalid" ? "Test error" : undefined}
         />,
       );
 
       const input = component.getByLabel("Label");
+
+      // invalid only shows after interaction
+      if (writeMode === "invalid" && variant !== "loading") {
+        await input.fill("Test");
+        await input.clear();
+        await input.blur();
+      }
 
       if (variant == "autofill") {
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
