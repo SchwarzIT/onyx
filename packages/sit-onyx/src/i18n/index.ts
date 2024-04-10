@@ -1,5 +1,5 @@
-import type { ObjectToDottedStrings, TranslationValue } from "@/types/i18n";
-import type { DeepPartial } from "@/types/utils";
+import type { ObjectToDottedStrings, TranslationValue } from "../types/i18n";
+import type { DeepPartial } from "../types/utils";
 import { computed, inject, unref, type App, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
 

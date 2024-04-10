@@ -43,7 +43,8 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 .onyx-icon-button {
   @include density.compact {
@@ -57,75 +58,146 @@ const emit = defineEmits<{
   @include density.cozy {
     --onyx-icon-button-padding: var(--onyx-spacing-sm);
   }
+}
 
-  --icon-button-color: var(--onyx-color-text-icons-primary-intense);
-  --icon-button-bg-color: transparent;
-  --icon-button-cursor: pointer;
-
-  display: grid;
-  place-items: center;
-  padding: var(--onyx-icon-button-padding);
-  color: var(--icon-button-color);
-  cursor: var(--icon-button-cursor);
-
-  outline: none;
-  appearance: none;
-  border: none;
-  background: none;
-
-  border-radius: var(--onyx-radius-full);
-  background-color: var(--icon-button-bg-color);
-
-  &:hover,
-  &:focus-visible {
-    --icon-button-bg-color: var(--onyx-color-base-primary-200);
-  }
-
-  &:disabled:not(&--loading) {
-    --icon-button-color: var(--onyx-color-text-icons-primary-soft);
-  }
-
-  &:active {
-    --icon-button-bg-color: var(--onyx-color-base-primary-300);
-  }
-
-  &--secondary {
-    --icon-button-color: var(--onyx-color-text-icons-neutral-medium);
-
-    &:hover,
-    &:focus-visible {
-      --icon-button-bg-color: var(--onyx-color-base-neutral-200);
-    }
-
-    &:disabled:not(&--loading) {
-      --icon-button-color: var(--onyx-color-base-neutral-300);
-    }
-
-    &:active {
-      --icon-button-bg-color: var(--onyx-color-base-neutral-300);
-    }
-  }
-
-  &--danger {
-    --icon-button-color: var(--onyx-color-text-icons-danger-intense);
-
-    &:hover,
-    &:focus-visible {
-      --icon-button-bg-color: var(--onyx-color-base-danger-200);
-    }
-
-    &:disabled:not(&--loading) {
-      --icon-button-color: var(--onyx-color-base-danger-300);
-    }
-
-    &:active {
-      --icon-button-bg-color: var(--onyx-color-base-danger-300);
-    }
-  }
-
-  &:disabled {
+.onyx-icon-button {
+  @include layers.component {
+    --icon-button-color: var(--onyx-color-text-icons-primary-intense);
+    --icon-button-color: var(--onyx-color-text-icons-primary-intense);
     --icon-button-bg-color: transparent;
-    --icon-button-cursor: default;
+    --icon-button-cursor: pointer;
+
+    display: grid;
+    place-items: center;
+    padding: var(--onyx-icon-button-padding);
+    color: var(--icon-button-color);
+    cursor: var(--icon-button-cursor);
+
+    outline: none;
+    appearance: none;
+    border: none;
+    background: none;
+
+    border-radius: var(--onyx-radius-full);
+    background-color: var(--icon-button-bg-color);
+
+    &:hover,
+    &:focus-visible {
+      --icon-button-bg-color: var(--onyx-color-base-primary-200);
+    }
+
+    &:disabled:not(&--loading) {
+      --icon-button-color: var(--onyx-color-text-icons-primary-soft);
+    }
+
+    &:active {
+      --icon-button-bg-color: var(--onyx-color-base-primary-300);
+    }
+
+    &--secondary {
+      --icon-button-color: var(--onyx-color-text-icons-neutral-medium);
+
+      &:hover,
+      &:focus-visible {
+        --icon-button-bg-color: var(--onyx-color-base-neutral-200);
+      }
+
+      &:disabled:not(&--loading) {
+        --icon-button-color: var(--onyx-color-base-neutral-300);
+      }
+
+      &:active {
+        --icon-button-bg-color: var(--onyx-color-base-neutral-300);
+      }
+    }
+
+    &--danger {
+      --icon-button-color: var(--onyx-color-text-icons-danger-intense);
+
+      &:hover,
+      &:focus-visible {
+        --icon-button-bg-color: var(--onyx-color-base-danger-200);
+      }
+
+      &:disabled:not(&--loading) {
+        --icon-button-color: var(--onyx-color-base-danger-300);
+      }
+
+      &:active {
+        --icon-button-bg-color: var(--onyx-color-base-danger-300);
+      }
+    }
+
+    &:disabled {
+      --icon-button-bg-color: transparent;
+      --icon-button-cursor: pointer;
+
+      display: grid;
+      place-items: center;
+      padding: var(--onyx-spacing-2xs);
+      color: var(--icon-button-color);
+      cursor: var(--icon-button-cursor);
+
+      outline: none;
+      appearance: none;
+      border: none;
+      background: none;
+
+      border-radius: var(--onyx-radius-full);
+      background-color: var(--icon-button-bg-color);
+
+      &:hover,
+      &:focus-visible {
+        --icon-button-bg-color: var(--onyx-color-base-primary-200);
+      }
+
+      &:disabled:not(&--loading) {
+        --icon-button-color: var(--onyx-color-text-icons-primary-soft);
+      }
+
+      &:active {
+        --icon-button-bg-color: var(--onyx-color-base-primary-300);
+      }
+
+      &--secondary {
+        --icon-button-color: var(--onyx-color-text-icons-neutral-medium);
+
+        &:hover,
+        &:focus-visible {
+          --icon-button-bg-color: var(--onyx-color-base-neutral-200);
+        }
+
+        &:disabled:not(&--loading) {
+          --icon-button-color: var(--onyx-color-base-neutral-300);
+        }
+
+        &:active {
+          --icon-button-bg-color: var(--onyx-color-base-neutral-300);
+        }
+      }
+
+      &--danger {
+        --icon-button-color: var(--onyx-color-text-icons-danger-intense);
+
+        &:hover,
+        &:focus-visible {
+          --icon-button-bg-color: var(--onyx-color-base-danger-200);
+        }
+
+        &:disabled:not(&--loading) {
+          --icon-button-color: var(--onyx-color-base-danger-300);
+        }
+
+        &:active {
+          --icon-button-bg-color: var(--onyx-color-base-danger-300);
+        }
+      }
+
+      &:disabled {
+        --icon-button-bg-color: transparent;
+        --icon-button-cursor: default;
+      }
+    }
   }
 }
 </style>

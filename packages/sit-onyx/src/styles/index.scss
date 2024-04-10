@@ -2,6 +2,8 @@
 // DO NOT ADD ANY STYLES HERE THAT HAVE SIDE EFFECTS ON THE GLOBAL APPLICATION (e.g. body, <a> etc.)
 @use "@fontsource-variable/source-code-pro";
 @use "@fontsource-variable/source-sans-3";
+@use "layers"; // Must be imported first!
+@use "root.scss";
 @use "grid.scss";
 @use "density.scss";
 @use "z-indices.scss";
@@ -11,32 +13,3 @@
 @use "variables-onyx.css";
 @use "variables-light.css";
 @use "variables-dark.css";
-
-:root {
-  --onyx-font-family: "Source Sans 3 Variable", sans-serif;
-  --onyx-font-family-mono: "Source Code Pro Variable", monospace;
-  --onyx-1px-in-rem: 0.0625rem;
-
-  // animation/transition durations
-  --onyx-duration-sm: 400ms;
-  --onyx-duration-md: 700ms;
-  --onyx-duration-lg: 1s;
-
-  // shadows (x, y, blur, spread, color)
-  --onyx-shadow-medium-bottom: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.1);
-  --onyx-shadow-medium-left: -0.125rem 0 0.5rem 0 rgba(0, 0, 0, 0.1);
-  --onyx-shadow-medium-right: 0.125rem 0 0.5rem 0 rgba(0, 0, 0, 0.1);
-  --onyx-shadow-soft-bottom: 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.1);
-  --onyx-shadow-soft-left: -0.5rem 0 1.5rem 0 rgba(0, 0, 0, 0.1);
-  --onyx-shadow-soft-right: 0.5rem 0 1.5rem 0 rgba(0, 0, 0, 0.1);
-}
-
-.dark,
-.onyx-dark {
-  --onyx-shadow-medium-bottom: none;
-  --onyx-shadow-medium-left: none;
-  --onyx-shadow-medium-right: none;
-  --onyx-shadow-soft-bottom: none;
-  --onyx-shadow-soft-left: none;
-  --onyx-shadow-soft-right: none;
-}
