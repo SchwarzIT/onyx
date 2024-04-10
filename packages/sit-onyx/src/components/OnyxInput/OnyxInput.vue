@@ -154,9 +154,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   @include density.cozy {
     --onyx-input-padding-vertical: var(--onyx-spacing-sm);
   }
-}
 
-.onyx-input {
   @include layers.component() {
     --border-color: var(--onyx-color-base-neutral-300);
     --selection-color: var(--onyx-color-base-primary-200);
