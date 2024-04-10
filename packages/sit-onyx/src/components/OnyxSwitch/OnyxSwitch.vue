@@ -1,15 +1,13 @@
 <script lang="ts" setup>
-import { OnyxIcon } from "../../index";
-import { areObjectsFlatEqual } from "../../utils/objects";
-import { transformValidityStateToObject } from "../../utils/forms";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, ref, toRefs, watch } from "vue";
+import { computed } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import { useCustomValidity } from "../../composables/useCustomValidity";
+import { OnyxIcon, OnyxLoadingIndicator } from "../../index";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
-import { useRequired } from "../../composables/required";
-import { OnyxLoadingIndicator } from "../../index";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
@@ -22,16 +20,15 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
   "update:modelValue": [value: boolean];
-  /** Emitted whenever the validity state of the input changes */
-  validityChange: [state: ValidityState];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-
-const { errorMessage } = toRefs(props);
 const { densityClass } = useDensity(props);
-const inputElement = ref<HTMLInputElement>();
-const validityState = ref(inputElement.value?.validity);
+const { vCustomValidity } = useCustomValidity({ props, emit });
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -39,28 +36,6 @@ const isChecked = computed({
     emit("update:modelValue", value);
   },
 });
-
-watch([inputElement, errorMessage], () => {
-  if (!inputElement.value) return;
-  // by using setCustomValidity, the ValidityState will turn invalid
-  // as long as it is not an empty string
-  inputElement.value.setCustomValidity(props.errorMessage || "");
-});
-
-watch(
-  [inputElement, isChecked, errorMessage],
-  () => {
-    if (!inputElement.value) return;
-
-    const newValidityState = transformValidityStateToObject(inputElement.value.validity);
-    //  only update + emit the validity state when it changed
-    if (!validityState.value || !areObjectsFlatEqual(newValidityState, validityState.value)) {
-      validityState.value = newValidityState;
-      emit("validityChange", validityState.value);
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
@@ -79,8 +54,8 @@ watch(
     <!-- eslint-disable vuejs-accessibility/role-has-required-aria-props -->
     <!-- TODO: disable can be removed when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
     <input
-      ref="inputElement"
       v-model="isChecked"
+      v-custom-validity
       type="checkbox"
       role="switch"
       :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
@@ -203,7 +178,7 @@ $input-width: calc(
         }
       }
 
-      &:invalid + .onyx-switch__container {
+      &:user-invalid + .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-200);
         border-color: var(--onyx-color-base-danger-500);
 
@@ -213,7 +188,7 @@ $input-width: calc(
         }
       }
 
-      &:invalid:checked + .onyx-switch__container {
+      &:user-invalid:checked + .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-500);
 
         .onyx-switch__icon {
@@ -276,11 +251,11 @@ $input-width: calc(
         background-color: var(--onyx-color-base-primary-400);
       }
 
-      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-300);
       }
 
-      &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-400);
       }
     }
@@ -296,11 +271,11 @@ $input-width: calc(
         outline: 0.25rem solid var(--onyx-color-base-primary-200);
       }
 
-      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
         outline: 0.25rem solid var(--onyx-color-base-danger-300);
       }
 
-      &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:checked:enabled) .onyx-switch__container {
         outline: 0.25rem solid var(--onyx-color-base-danger-200);
       }
     }

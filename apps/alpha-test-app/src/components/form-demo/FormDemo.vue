@@ -1,26 +1,33 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline, TestInput } from "sit-onyx";
-import { ref, watch } from "vue";
+import {
+  OnyxButton,
+  OnyxCheckboxGroup,
+  OnyxHeadline,
+  OnyxInput,
+  OnyxRadioButtonGroup,
+  OnyxSwitch,
+  type OnyxCheckboxGroupProps,
+  type OnyxRadioButtonGroupProps,
+} from "sit-onyx";
+import { ref, watchEffect } from "vue";
 
-type FormData = {
+export type FormData = Partial<{
   defaultInput: string;
   requiredInput: string;
   minlengthInput: string;
-  maxInput: number;
   typeInput: string;
   patternInput: string;
-};
+  switch: boolean;
+  checkboxGroup: number[];
+  radioGroup: OnyxRadioButtonGroupProps["modelValue"];
+}>;
+
 const props = defineProps<{
   formData: FormData;
 }>();
 
 const formState = ref<FormData>();
-
-const emit = defineEmits<{
-  submit: [data: FormData];
-}>();
-
-const formElement = ref<HTMLFormElement | null>(null);
+watchEffect(() => (formState.value = { ...props.formData }));
 
 const customErrorExample = ref("");
 
@@ -30,58 +37,56 @@ const onPatternValidityChange = (state: ValidityState) => {
     : "";
 };
 
-const submit = () => alert("Submit successful!");
+const handleSubmit = () => alert("Submit successful!");
 
-watch(
-  props,
-  () => {
-    formState.value = { ...props.formData };
-  },
-  { immediate: true },
-);
+const checkboxOptions: OnyxCheckboxGroupProps["options"] = [
+  { id: 1, label: "Option 1" },
+  { id: 2, label: "Required option", required: true },
+];
+
+const radioOptions: OnyxRadioButtonGroupProps["options"] = [
+  { id: 1, label: "Option 1" },
+  { id: 2, label: "Option 2" },
+];
 </script>
 
 <template>
-  <form
-    v-if="formState"
-    ref="formElement"
-    class="demo"
-    @submit.prevent="emit('submit', props.formData)"
-  >
+  <form v-if="formState" class="demo" @submit.prevent="handleSubmit">
     <OnyxHeadline is="h2" class="demo__headline"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >
 
-    <TestInput v-model="formState.defaultInput" label="Default" />
+    <OnyxInput v-model="formState.defaultInput" label="Default" />
 
-    <TestInput v-model="formState.requiredInput" label="Requires a value" required />
+    <OnyxInput v-model="formState.requiredInput" label="Requires a value" required />
 
-    <em>
-      Info: minlength only triggers when the user has typed something, it ignores the initial value.
-    </em>
-    <TestInput
+    <OnyxInput
       v-model="formState.minlengthInput"
       label="Minlength 5"
       type="text"
+      :minlength="5"
       required
-      :min-length="5"
     />
 
-    <TestInput v-model="formState.maxInput" label="Max 9000" type="number" :max="9000" />
+    <OnyxInput v-model="formState.typeInput" label="Type email" type="email" />
 
-    <TestInput v-model="formState.typeInput" label="Type mail" type="email" />
-
-    <TestInput
+    <OnyxInput
       v-model="formState.patternInput"
       label="Pattern lowercase characters"
       pattern="[a-z ]*"
-      :error-message="customErrorExample"
+      :custom-error="customErrorExample"
       @validity-change="onPatternValidityChange"
     />
 
+    <OnyxSwitch v-model="formState.switch" label="Switch" required />
+
+    <OnyxCheckboxGroup v-model="formState.checkboxGroup" :options="checkboxOptions" />
+
+    <OnyxRadioButtonGroup v-model="formState.radioGroup" :options="radioOptions" required />
+
     <div class="demo__actions">
       <OnyxButton label="Reset" variation="secondary" type="reset" />
-      <OnyxButton class="demo__submit" label="Submits on valid" type="submit" @click="submit" />
+      <OnyxButton class="demo__submit" label="Submit" type="submit" />
     </div>
   </form>
 </template>
@@ -97,16 +102,14 @@ watch(
       display: none;
     }
   }
-  &:invalid {
-    .demo__submit {
-      pointer-events: none;
-      opacity: 0.4;
-    }
-  }
 
   &__actions {
     display: flex;
     gap: var(--onyx-spacing-xs);
+  }
+
+  .onyx-input {
+    max-width: 20rem;
   }
 }
 </style>
