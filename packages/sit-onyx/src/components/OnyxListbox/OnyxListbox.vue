@@ -1,9 +1,9 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
-import { injectI18n } from "@/i18n";
 import { createListbox } from "@sit-onyx/headless";
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
+import { injectI18n } from "../../i18n";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
@@ -211,26 +211,26 @@ const isEmpty = computed(() => props.options.length === 0);
     &:has(&__options:focus-visible) {
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
-  }
 
-  &__slot {
-    padding: 0 $wrapper-padding;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    &__slot {
+      padding: 0 $wrapper-padding;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-    &--height {
-      min-height: calc(5 * var(--option-height));
+      &--height {
+        min-height: calc(5 * var(--option-height));
+      }
     }
-  }
 
-  &__loading {
-    color: var(--onyx-color-text-icons-primary-intense);
-  }
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
+    }
 
-  &__loading-button {
-    width: 100%;
+    &__loading-button {
+      width: 100%;
+    }
   }
 }
 </style>
