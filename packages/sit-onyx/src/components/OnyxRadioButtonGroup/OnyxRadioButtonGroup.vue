@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue">
-import type { TargetEvent } from "@/types/dom";
+import type { TargetEvent } from "../../types/dom";
 import { createId } from "@sit-onyx/headless";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
@@ -77,25 +77,28 @@ const handleChange = (event: ChangeEvent) =>
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-radio-button-group {
-  margin: 0;
-  padding: 0;
-  border: none;
-  max-width: max-content;
-  min-width: unset;
+  @include layers.component() {
+    padding: 0;
+    border: none;
+    max-width: max-content;
+    min-width: unset;
 
-  &__label {
-    margin-bottom: var(--onyx-spacing-2xs);
-  }
+    &__label {
+      margin-bottom: var(--onyx-spacing-2xs);
+    }
 
-  &__content {
-    display: flex;
-    flex-direction: column;
+    &__content {
+      display: flex;
+      flex-direction: column;
 
-    &--horizontal {
-      flex-direction: row;
-      flex-wrap: wrap;
-      column-gap: var(--onyx-spacing-xl);
+      &--horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: var(--onyx-spacing-xl);
+      }
     }
   }
 }

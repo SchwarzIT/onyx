@@ -1,6 +1,5 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-vue";
 import vue, { Options } from "@vitejs/plugin-vue";
-import { fileURLToPath } from "node:url";
 
 export const vuePluginOptions: Options = {
   template: {
@@ -37,11 +36,6 @@ export default defineConfig({
     ctPort: 3100,
     ctViteConfig: {
       plugins: [vue(vuePluginOptions)],
-      resolve: {
-        alias: {
-          "@": fileURLToPath(new URL("./src", import.meta.url)),
-        },
-      },
     },
   },
   /* Configure projects for major browsers */

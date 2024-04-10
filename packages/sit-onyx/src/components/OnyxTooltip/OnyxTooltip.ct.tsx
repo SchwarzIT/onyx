@@ -1,4 +1,4 @@
-import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "@/utils/playwright";
+import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxTooltip from "./OnyxTooltip.vue";
 

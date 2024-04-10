@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { OnyxIcon, OnyxLoadingIndicator } from "@/index";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { OnyxIcon, OnyxLoadingIndicator } from "../../index";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 
@@ -81,7 +81,8 @@ const isChecked = computed({
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-switch,
 .onyx-switch-skeleton {
@@ -129,179 +130,182 @@ $input-width: calc(
 );
 
 .onyx-switch {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  gap: var(--onyx-spacing-2xs);
-  max-width: 100%;
-
-  &__input {
-    // position: absolute is needed here in order to hide the native checkbox.
-    position: absolute;
-    opacity: 0;
-    cursor: inherit;
-    width: 0;
-    height: 0;
-    margin: 0;
-
-    &:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-themed-neutral-100);
-        transform: translateX(calc(75% - var(--onyx-switch-transform)));
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-
-      .onyx-switch__spinner {
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-    }
-
-    &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-primary-soft);
-      }
-    }
-
-    &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-neutral-300);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &:user-invalid + .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-200);
-      border-color: var(--onyx-color-base-danger-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-danger-500);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &:user-invalid:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-danger-intense);
-      }
-    }
-  }
-
-  &__container {
+  @include layers.component() {
     display: inline-flex;
-    width: $input-width;
-    min-width: $input-width;
-    height: var(--onyx-switch-input-height);
-    padding: var(--onyx-switch-container-padding);
-    box-sizing: border-box;
-    background-color: var(--onyx-color-base-neutral-300);
-    border-radius: var(--onyx-radius-full);
-    border: var(--onyx-1px-in-rem) solid transparent;
-    transition: background-color var(--onyx-duration-sm) ease;
+    align-items: flex-start;
+    cursor: pointer;
+    gap: var(--onyx-spacing-2xs);
+    max-width: 100%;
 
-    .onyx-switch__icon {
-      display: flex;
-      align-self: center;
-      justify-content: center;
-      background-color: var(--onyx-color-themed-neutral-100);
+    &__input {
+      // position: absolute is needed here in order to hide the native checkbox.
+      position: absolute;
+      opacity: 0;
+      cursor: inherit;
+      width: 0;
+      height: 0;
+      margin: 0;
+
+      &:checked + .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-themed-neutral-100);
+          transform: translateX(calc(75% - var(--onyx-switch-transform)));
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+
+        .onyx-switch__spinner {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+      }
+
+      &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-primary-soft);
+        }
+      }
+
+      &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+        background-color: var(--onyx-color-base-neutral-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-neutral-300);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:invalid + .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-200);
+        border-color: var(--onyx-color-base-danger-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-danger-500);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:invalid:checked + .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-danger-intense);
+        }
+      }
+    }
+
+    &__container {
+      display: inline-flex;
+      width: $input-width;
+      min-width: $input-width;
+      height: var(--onyx-switch-input-height);
+      padding: var(--onyx-switch-container-padding);
+      background-color: var(--onyx-color-base-neutral-300);
       border-radius: var(--onyx-radius-full);
-      transition:
-        transform var(--onyx-duration-sm) ease,
-        background-color var(--onyx-duration-sm) ease;
-      overflow: hidden;
-      color: var(--onyx-color-text-icons-neutral-soft);
-      height: var(--onyx-switch-icon-size);
-      width: var(--onyx-switch-icon-size);
+      border: var(--onyx-1px-in-rem) solid transparent;
+      transition: background-color var(--onyx-duration-sm) ease;
 
-      .onyx-icon {
-        --icon-size: var(--onyx-switch-icon-size);
+      .onyx-switch__icon {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        background-color: var(--onyx-color-themed-neutral-100);
+        border-radius: var(--onyx-radius-full);
+        transition:
+          transform var(--onyx-duration-sm) ease,
+          background-color var(--onyx-duration-sm) ease;
+        overflow: hidden;
+        color: var(--onyx-color-text-icons-neutral-soft);
+        height: var(--onyx-switch-icon-size);
+        width: var(--onyx-switch-icon-size);
+
+        .onyx-icon {
+          --icon-size: var(--onyx-switch-icon-size);
+        }
+
+        .onyx-switch__spinner {
+          padding: var(--onyx-1px-in-rem);
+        }
+      }
+    }
+
+    &__label {
+      color: var(--onyx-color-text-icons-neutral-intense);
+      font-family: var(--onyx-font-family);
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.5rem;
+    }
+
+    &:hover {
+      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+        background-color: var(--onyx-color-base-neutral-400);
       }
 
-      .onyx-switch__spinner {
-        padding: var(--onyx-1px-in-rem);
+      &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-400);
+      }
+
+      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-300);
+      }
+
+      &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-400);
       }
     }
-  }
 
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-intense);
-    font-family: var(--onyx-font-family);
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
-  }
+    &:has(&__input:focus-visible) {
+      outline: none;
 
-  &:hover {
-    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-400);
+      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-neutral-200);
+      }
+
+      &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+      }
+
+      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-danger-300);
+      }
+
+      &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-danger-200);
+      }
     }
 
-    &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-400);
-    }
+    &:has(.onyx-switch__input:disabled) {
+      cursor: default;
 
-    &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-300);
-    }
-
-    &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-400);
-    }
-  }
-
-  &:has(&__input:focus-visible) {
-    outline: none;
-
-    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-neutral-200);
-    }
-
-    &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-primary-200);
-    }
-
-    &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-danger-300);
-    }
-
-    &:has(.onyx-switch__input:user-invalid:checked:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-danger-200);
-    }
-  }
-
-  &:has(.onyx-switch__input:disabled) {
-    cursor: default;
-
-    .onyx-switch__label {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      .onyx-switch__label {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
   }
 }
 
 .onyx-switch-skeleton {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--onyx-spacing-2xs);
+  @include layers.component() {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--onyx-spacing-2xs);
 
-  &__input {
-    height: var(--onyx-switch-skeleton-height);
-    border-radius: var(--onyx-radius-full);
-    width: $input-width;
-  }
+    &__input {
+      height: var(--onyx-switch-skeleton-height);
+      border-radius: var(--onyx-radius-full);
+      width: $input-width;
+    }
 
-  &__label {
-    height: var(--onyx-spacing-md);
-    width: var(--onyx-spacing-3xl);
+    &__label {
+      height: var(--onyx-spacing-md);
+      width: var(--onyx-spacing-3xl);
+    }
   }
 }
 </style>
