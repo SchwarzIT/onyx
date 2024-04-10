@@ -1,4 +1,4 @@
-import enUS from "@/i18n/locales/en-US.json";
+import enUS from "../../i18n/locales/en-US.json";
 
 /**
  * Input types that have a translation for their validation error message.

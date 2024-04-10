@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { injectI18n } from "@/i18n";
-import { areObjectsFlatEqual } from "@/utils/comparator";
-import { getFirstInvalidType, transformValidityStateToObject } from "@/utils/forms";
+import { injectI18n } from "../../i18n";
+import { areObjectsFlatEqual } from "../../utils/objects";
+import { getFirstInvalidType, transformValidityStateToObject } from "../../utils/forms";
 import { computed, ref, toRefs, watch } from "vue";
 import type { InputType } from "../OnyxInput/types";
 import { TRANSLATED_INPUT_TYPES, type TranslatedInputType } from "./types";

@@ -48,75 +48,77 @@ const pageModifier = computed(() => {
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-page {
-  :where(&) {
+  @include layers.component() {
     --background-color-sidebar: var(--onyx-color-base-background-blank);
     --background-color-main: var(--onyx-color-base-background-tinted);
     --background-color-footer: var(--onyx-color-base-background-blank);
-  }
 
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: auto;
-  grid-template-areas: "main";
-
-  &--side-main {
-    grid-template-columns: max-content 1fr;
-    grid-template-areas: "side main";
-  }
-  &--main-footer {
-    grid-template-rows: 1fr max-content;
-    grid-template-areas:
-      "main"
-      "footer";
-  }
-  &--side-main-footer-full {
-    grid-template-columns: max-content 1fr;
-    grid-template-rows: 1fr max-content;
-    grid-template-areas:
-      "side main"
-      "footer footer";
-  }
-  &--side-main-footer-partial {
-    grid-template-columns: max-content 1fr;
-    grid-template-rows: 1fr max-content;
-    grid-template-areas:
-      "side main"
-      "side footer";
-
-    .onyx-page__toasts {
-      grid-column: 2 / -1;
-    }
-  }
-
-  &__sidebar {
-    grid-area: side;
-    overflow: hidden auto;
-
-    background-color: var(--background-color-sidebar);
-  }
-  &__main {
-    grid-area: main;
-    overflow: hidden auto;
-    position: relative;
-
-    background-color: var(--background-color-main);
-  }
-  &__toasts {
-    grid-row: 1 / -2;
-    grid-column: 1 / -1;
-    z-index: var(--onyx-z-index-notification);
-    align-self: end;
-    justify-self: center;
-    position: relative;
+    height: 100%;
     width: 100%;
-  }
-  &__footer {
-    grid-area: footer;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    grid-template-areas: "main";
 
-    background-color: var(--background-color-footer);
+    &--side-main {
+      grid-template-columns: max-content 1fr;
+      grid-template-areas: "side main";
+    }
+    &--main-footer {
+      grid-template-rows: 1fr max-content;
+      grid-template-areas:
+        "main"
+        "footer";
+    }
+    &--side-main-footer-full {
+      grid-template-columns: max-content 1fr;
+      grid-template-rows: 1fr max-content;
+      grid-template-areas:
+        "side main"
+        "footer footer";
+    }
+    &--side-main-footer-partial {
+      grid-template-columns: max-content 1fr;
+      grid-template-rows: 1fr max-content;
+      grid-template-areas:
+        "side main"
+        "side footer";
+
+      .onyx-page__toasts {
+        grid-column: 2 / -1;
+      }
+    }
+
+    &__sidebar {
+      grid-area: side;
+      overflow: hidden auto;
+
+      background-color: var(--background-color-sidebar);
+    }
+    &__main {
+      grid-area: main;
+      overflow: hidden auto;
+      position: relative;
+
+      background-color: var(--background-color-main);
+    }
+    &__toasts {
+      grid-row: 1 / -2;
+      grid-column: 1 / -1;
+      z-index: var(--onyx-z-index-notification);
+      align-self: end;
+      justify-self: center;
+      position: relative;
+      width: 100%;
+    }
+    &__footer {
+      grid-area: footer;
+
+      background-color: var(--background-color-footer);
+    }
   }
 }
 </style>
