@@ -1,12 +1,12 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue">
-import type { TargetEvent } from "@/types/dom";
+import type { TargetEvent } from "../../types/dom";
 import { createId } from "@sit-onyx/headless";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxRadioButtonGroupProps } from "./types";
-import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
@@ -16,7 +16,6 @@ const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   headline: "",
   required: false,
   disabled: false,
-  errorMessage: "",
 });
 
 const { densityClass } = useDensity(props);
@@ -24,6 +23,10 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
   "update:modelValue": [selected: SelectionOption<TValue>];
+  /**
+   * Emitted when the validity state changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const handleChange = (event: ChangeEvent) =>
@@ -48,13 +51,14 @@ const handleChange = (event: ChangeEvent) =>
     >
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
-          v-for="option in props.options"
+          v-for="(option, index) in props.options"
           :key="option.id.toString()"
           v-bind="option"
           :name="props.name"
-          :error-message="props.errorMessage"
+          :custom-error="props.customError"
           :selected="option.id === props.modelValue?.id"
           :required="props.required"
+          @validity-change="index === 0 && emit('validityChange', $event)"
         />
       </template>
 
@@ -73,25 +77,28 @@ const handleChange = (event: ChangeEvent) =>
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-radio-button-group {
-  margin: 0;
-  padding: 0;
-  border: none;
-  max-width: max-content;
-  min-width: unset;
+  @include layers.component() {
+    padding: 0;
+    border: none;
+    max-width: max-content;
+    min-width: unset;
 
-  &__label {
-    margin-bottom: var(--onyx-spacing-2xs);
-  }
+    &__label {
+      margin-bottom: var(--onyx-spacing-2xs);
+    }
 
-  &__content {
-    display: flex;
-    flex-direction: column;
+    &__content {
+      display: flex;
+      flex-direction: column;
 
-    &--horizontal {
-      flex-direction: row;
-      flex-wrap: wrap;
-      column-gap: var(--onyx-spacing-xl);
+      &--horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: var(--onyx-spacing-xl);
+      }
     }
   }
 }

@@ -91,24 +91,24 @@ Supports auto-completion for event names. Should be preferred over manually defi
 
 ::: code-group
 
-```ts [TestInput.stories.ts]
+```ts [MyComponent.stories.ts]
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import TestInput from "./TestInput.vue";
+import MyComponent from "./MyComponent.vue";
 
 /**
  * The input component can be used to...
  */
-const meta: Meta<typeof TestInput> = {
-  title: "components/TestInput",
+const meta: Meta<typeof MyComponent> = {
+  title: "components/MyComponent",
   ...defineStorybookActionsAndVModels({
-    component: TestInput,
+    component: MyComponent,
     events: ["update:modelValue", "change"],
   }),
 };
 
 export default meta;
-type Story = StoryObj<typeof TestInput>;
+type Story = StoryObj<typeof MyComponent>;
 ```
 
 :::

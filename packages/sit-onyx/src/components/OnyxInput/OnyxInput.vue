@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxInputProps } from "./types";
-import { useRequired } from "../../composables/required";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -32,7 +33,13 @@ const emit = defineEmits<{
    * Emitted when the input is blurred.
    */
   blur: [];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
+
+const { vCustomValidity } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -77,6 +84,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
       -->
         <input
           v-model="value"
+          v-custom-validity
           class="onyx-input__native"
           :placeholder="props.placeholder"
           :type="props.type"
@@ -110,7 +118,9 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
+
 /**
 * Gets a comma separated CSS selector for the input autofill.
 * Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
@@ -145,138 +155,153 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     --onyx-input-padding-vertical: var(--onyx-spacing-sm);
   }
 
-  --border-color: var(--onyx-color-base-neutral-300);
-  --selection-color: var(--onyx-color-base-primary-200);
+  @include layers.component() {
+    --border-color: var(--onyx-color-base-neutral-300);
+    --selection-color: var(--onyx-color-base-primary-200);
+    --outline-color: var(--onyx-color-base-primary-200);
 
-  font-family: var(--onyx-font-family);
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
-
-  &__label {
+    font-family: var(--onyx-font-family);
     display: flex;
-    margin-bottom: var(--onyx-spacing-5xs);
-    color: var(--onyx-color-text-icons-neutral-medium);
+    flex-direction: column;
+    gap: var(--onyx-spacing-5xs);
 
-    // optional marker should be displayed at the very end of the label
-    &.onyx-optional-marker {
-      justify-content: space-between;
-    }
-  }
+    &__label {
+      display: flex;
+      margin-bottom: var(--onyx-spacing-5xs);
+      color: var(--onyx-color-text-icons-neutral-medium);
 
-  $line-height: 1.5rem;
-
-  &__wrapper {
-    border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--border-color);
-    background-color: var(--onyx-color-base-background-blank);
-    color: var(--onyx-color-text-icons-neutral-intense);
-
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-spacing-2xs);
-
-    font-size: 1rem;
-    line-height: $line-height;
-
-    box-sizing: border-box;
-    padding: var(--onyx-input-padding-vertical) var(--onyx-spacing-sm);
-    height: calc($line-height + 2 * var(--onyx-input-padding-vertical));
-
-    &:has(.onyx-input__native:read-write:hover) {
-      border-color: var(--onyx-color-base-primary-400);
-    }
-
-    &:has(.onyx-input__native:enabled:focus) {
-      --border-color: var(--onyx-color-base-primary-500);
-      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
-    }
-
-    // :read-only is valid for readonly and disabled state so we put shared styles for both states here
-    &:has(.onyx-input__native:read-only) {
-      --selection-color: var(--onyx-color-base-neutral-200);
-      background-color: var(--onyx-color-base-background-tinted);
-    }
-
-    // styles for readonly but NOT disabled
-    &:has(.onyx-input__native:enabled:read-only) {
-      &:has(.onyx-input__native:hover) {
-        --border-color: var(--onyx-color-base-neutral-400);
-      }
-
-      &:has(.onyx-input__native:focus) {
-        --border-color: var(--onyx-color-base-neutral-500);
-        outline-color: var(--onyx-color-base-neutral-200);
+      // optional marker should be displayed at the very end of the label
+      &.onyx-optional-marker {
+        justify-content: space-between;
       }
     }
 
-    &:has(.onyx-input__native:read-write) {
-      &:has(#{get-autofill-selectors(".onyx-input__native")}) {
-        background-color: var(--onyx-color-base-warning-100);
+    $line-height: 1.5rem;
+
+    &__wrapper {
+      border-radius: var(--onyx-radius-sm);
+      border: var(--onyx-1px-in-rem) solid var(--border-color);
+      background-color: var(--onyx-color-base-background-blank);
+      color: var(--onyx-color-text-icons-neutral-intense);
+
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-spacing-2xs);
+
+      font-size: 1rem;
+      line-height: $line-height;
+      padding: var(--onyx-input-padding-vertical) var(--onyx-spacing-sm);
+      height: calc($line-height + 2 * var(--onyx-input-padding-vertical));
+
+      &:has(.onyx-input__native:read-write:hover) {
+        --border-color: var(--onyx-color-base-primary-400);
+      }
+
+      &:has(.onyx-input__native:enabled:focus) {
+        --border-color: var(--onyx-color-base-primary-500);
+        outline: var(--onyx-spacing-4xs) solid var(--outline-color);
+      }
+
+      // :read-only is valid for readonly and disabled state so we put shared styles for both states here
+      &:has(.onyx-input__native:read-only) {
+        --selection-color: var(--onyx-color-base-neutral-200);
+        background-color: var(--onyx-color-base-background-tinted);
+      }
+
+      // styles for readonly but NOT disabled
+      &:has(.onyx-input__native:enabled:read-only) {
+        &:has(.onyx-input__native:hover) {
+          --border-color: var(--onyx-color-base-neutral-400);
+        }
+
+        &:has(.onyx-input__native:focus) {
+          --border-color: var(--onyx-color-base-neutral-500);
+          outline-color: var(--onyx-color-base-neutral-200);
+        }
+      }
+
+      &:has(.onyx-input__native:read-write) {
+        &:has(#{get-autofill-selectors(".onyx-input__native")}) {
+          background-color: var(--onyx-color-base-warning-100);
+        }
+      }
+
+      &:has(.onyx-input__native:user-invalid) {
+        --border-color: var(--onyx-color-base-danger-500);
+        --outline-color: var(--onyx-color-base-danger-200);
+        --selection-color: var(--onyx-color-base-danger-200);
+
+        &:has(.onyx-input__native:enabled:focus) {
+          --border-color: var(--onyx-color-base-danger-500);
+        }
+
+        &:has(.onyx-input__native:enabled:hover) {
+          --border-color: var(--onyx-color-base-danger-400);
+        }
       }
     }
-  }
 
-  &__native {
-    // reset native input styles so they are inherited from the parent
-    border: none;
-    border-radius: inherit;
-    background-color: transparent;
-    color: inherit;
-    width: 100%;
-    outline: none;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 0;
-
-    &::placeholder {
-      color: var(--onyx-color-text-icons-neutral-soft);
-      font-weight: 400;
-      opacity: 1;
-    }
-
-    &::selection {
-      background: var(--selection-color);
-    }
-
-    #{get-autofill-selectors("&")} {
+    &__native {
+      // reset native input styles so they are inherited from the parent
+      border: none;
+      border-radius: inherit;
       background-color: transparent;
-      -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
+      color: inherit;
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      padding: 0;
 
-      // many browsers use "!important" to set the autofill background so we need this
-      // transition workaround to make the background transparent
-      transition: background-color calc(infinity * 1s);
-    }
-  }
-
-  &:has(&__native:disabled) {
-    .onyx-input {
-      &__label {
+      &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);
+        font-weight: 400;
+        opacity: 1;
       }
 
-      &__wrapper {
-        color: var(--onyx-color-text-icons-neutral-soft);
+      &::selection {
+        background: var(--selection-color);
+      }
+
+      #{get-autofill-selectors("&")} {
+        background-color: transparent;
+        -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
+
+        // many browsers use "!important" to set the autofill background so we need this
+        // transition workaround to make the background transparent
+        transition: background-color calc(infinity * 1s);
       }
     }
-  }
 
-  &__loading {
-    color: var(--onyx-color-text-icons-primary-intense);
-  }
+    &:has(&__native:disabled) {
+      .onyx-input {
+        &__label {
+          color: var(--onyx-color-text-icons-neutral-soft);
+        }
 
-  &__footer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-spacing-2xs);
-    color: var(--onyx-color-text-icons-neutral-soft);
-  }
+        &__wrapper {
+          color: var(--onyx-color-text-icons-neutral-soft);
+        }
+      }
+    }
 
-  &__counter {
-    text-align: right;
-    flex-grow: 1;
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    &__footer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-spacing-2xs);
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &__counter {
+      text-align: right;
+      flex-grow: 1;
+    }
   }
 }
 </style>

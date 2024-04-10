@@ -1,5 +1,5 @@
-import { OnyxLink } from "@/index";
-import { createTruncationDecorator } from "@/utils/storybook";
+import { OnyxLink } from "../../index";
+import { createTruncationDecorator } from "../../utils/storybook";
 import emojiSad from "@sit-onyx/icons/emoji-sad.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";

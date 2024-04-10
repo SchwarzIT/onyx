@@ -1,4 +1,4 @@
-import { createTruncationDecorator } from "@/utils/storybook";
+import { createTruncationDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSwitch from "./OnyxSwitch.vue";
@@ -11,7 +11,7 @@ const meta: Meta<typeof OnyxSwitch> = {
   title: "components/OnyxSwitch",
   ...defineStorybookActionsAndVModels({
     component: OnyxSwitch,
-    events: ["update:modelValue"],
+    events: ["update:modelValue", "validityChange"],
   }),
 };
 
@@ -38,12 +38,12 @@ export const Checked = {
 } satisfies Story;
 
 /**
- * This example shows the invalid state of the switch.
+ * This example shows a required switch.
  */
-export const Invalid = {
+export const Required = {
   args: {
     ...Default.args,
-    errorMessage: "Error message",
+    required: true,
   },
 } satisfies Story;
 

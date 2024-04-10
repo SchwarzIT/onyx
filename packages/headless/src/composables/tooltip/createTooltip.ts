@@ -1,4 +1,12 @@
-import { computed, onBeforeUnmount, ref, unref, watchEffect, type MaybeRef } from "vue";
+import {
+  computed,
+  onBeforeMount,
+  onBeforeUnmount,
+  ref,
+  unref,
+  watchEffect,
+  type MaybeRef,
+} from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 
@@ -96,18 +104,21 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     if (isOutsideClick) _isVisible.value = false;
   };
 
-  document.addEventListener("keydown", handleDocumentKeydown);
+  // add global document event listeners only on/before mounted to also work in server side rendering
+  onBeforeMount(() => {
+    document.addEventListener("keydown", handleDocumentKeydown);
 
-  /**
-   * Registers keydown and click handlers when trigger is "click" to close
-   * the tooltip.
-   */
-  watchEffect(() => {
-    if (openType.value === "click") {
-      document.addEventListener("click", handleDocumentClick);
-    } else {
-      document.removeEventListener("click", handleDocumentClick);
-    }
+    /**
+     * Registers keydown and click handlers when trigger is "click" to close
+     * the tooltip.
+     */
+    watchEffect(() => {
+      if (openType.value === "click") {
+        document.addEventListener("click", handleDocumentClick);
+      } else {
+        document.removeEventListener("click", handleDocumentClick);
+      }
+    });
   });
 
   /**

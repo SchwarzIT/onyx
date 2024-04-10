@@ -1,4 +1,4 @@
-import { createTruncationDecorator } from "@/utils/storybook";
+import { createTruncationDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxRadioButton> = {
   title: "support/OnyxRadioButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButton,
-    events: ["change"],
+    events: ["change", "validityChange"],
   }),
 };
 

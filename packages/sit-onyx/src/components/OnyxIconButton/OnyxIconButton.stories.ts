@@ -1,4 +1,4 @@
-import { createIconSourceCodeTransformer, defineIconSelectArgType } from "@/utils/storybook";
+import { createIconSourceCodeTransformer, defineIconSelectArgType } from "../../utils/storybook";
 import trash from "@sit-onyx/icons/trash.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";

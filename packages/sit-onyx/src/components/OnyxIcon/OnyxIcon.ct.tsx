@@ -1,4 +1,4 @@
-import { mockPlaywrightIcon } from "@/utils/playwright";
+import { mockPlaywrightIcon } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import { ONYX_COLORS } from "../../types/colors";
 import OnyxIcon from "./OnyxIcon.vue";
