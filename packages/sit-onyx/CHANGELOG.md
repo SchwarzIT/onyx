@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.65
+
+### Minor Changes
+
+- e9eae68: Component styles are now normalized and make use of CSS layers
+
 ## 1.0.0-alpha.64
 
 ### Minor Changes
