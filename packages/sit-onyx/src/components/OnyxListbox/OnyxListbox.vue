@@ -59,26 +59,42 @@ const {
     activeOption.value = firstMatch.id;
   },
 });
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const groupedOptions = props.options.reduce((acc: any, currOpt) => {
+  acc[currOpt.group ?? ""] = acc[currOpt.group ?? ""] || [];
+  acc[currOpt.group ?? ""].push(currOpt);
+  return acc;
+}, {});
 </script>
 
 <template>
   <div class="onyx-listbox">
     <ul v-bind="listbox" class="onyx-listbox__options">
-      <OnyxListboxOption
-        v-for="option in props.options"
-        :key="option.id.toString()"
-        v-bind="
-          headlessOption({
-            value: option.id,
-            label: option.label,
-            disabled: option.disabled,
-            selected: option.id === props.modelValue,
-          })
-        "
-        :active="option.id === activeOption"
+      <div
+        v-for="([group, options], index) in Object.entries(groupedOptions)"
+        :key="index"
+        class="onyx-listbox__group"
       >
-        {{ option.label }}
-      </OnyxListboxOption>
+        <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">{{
+          group
+        }}</span>
+        <OnyxListboxOption
+          v-for="option in options as any"
+          :key="option.id.toString()"
+          v-bind="
+            headlessOption({
+              value: option.id,
+              label: option.label,
+              disabled: option.disabled,
+              selected: option.id === props.modelValue,
+            })
+          "
+          :active="option.id === activeOption"
+        >
+          {{ option.label }}
+        </OnyxListboxOption>
+      </div>
     </ul>
 
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
@@ -116,6 +132,17 @@ const {
 
   .onyx-listbox-option {
     height: var(--option-height);
+  }
+
+  &__group:not(:last-child) {
+    border-bottom: 1px solid var(--onyx-color-base-neutral-300);
+    margin-bottom: var(--onyx-spacing-4xs);
+  }
+
+  &__group-name {
+    padding: 0 var(--onyx-spacing-sm);
+    color: var(--onyx-color-text-icons-neutral-medium);
+    font-weight: 600;
   }
 
   &__options {

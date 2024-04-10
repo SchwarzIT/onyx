@@ -75,3 +75,49 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
     },
   });
 });
+
+test("should render with grouped options", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: [
+        {
+          id: "cat",
+          label: "Cat",
+          group: "Land",
+        },
+        {
+          id: "dog",
+          label: "Dog",
+          group: "Land",
+        },
+        {
+          id: "dolphin",
+          label: "Dolphin",
+          group: "Water",
+        },
+        {
+          id: "flounder",
+          label: "Flounder",
+          group: "Water",
+        },
+      ],
+      label: "Test listbox",
+    },
+    on: {
+      "update:modelValue": (modelValue: number | undefined) =>
+        component.update({ props: { modelValue } }),
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("grouped-options.png");
+  expect(component.getByText("Water")).toBeDefined();
+  expect(component.getByText("Land")).toBeDefined();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});

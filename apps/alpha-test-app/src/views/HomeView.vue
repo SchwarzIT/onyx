@@ -81,6 +81,7 @@ const checkboxState = ref<string[]>([]);
 const radioState = ref<SelectionOption | undefined>();
 
 const listboxState = ref<string>();
+const groupedListboxState = ref<string>();
 
 const listboxOptions = [
   "Apple",
@@ -100,6 +101,59 @@ const listboxOptions = [
   "Raspberry",
   "Strawberry",
 ].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
+
+const groupedListboxOptions = [
+  {
+    id: "cat",
+    label: "Cat",
+    group: "Land",
+  },
+  {
+    id: "dog",
+    label: "Dog",
+    group: "Land",
+  },
+  {
+    id: "tiger",
+    label: "Tager",
+    group: "Land",
+  },
+  {
+    id: "reindeer",
+    label: "Reindeer",
+    group: "Land",
+  },
+  {
+    id: "racoon",
+    label: "Racoon",
+    group: "Land",
+  },
+  {
+    id: "dolphin",
+    label: "Dolphin",
+    group: "Water",
+  },
+  {
+    id: "flounder",
+    label: "Flounder",
+    group: "Water",
+  },
+  {
+    id: "eel",
+    label: "Eel",
+    group: "Water",
+  },
+  {
+    id: "falcon",
+    label: "Falcon",
+    group: "Air",
+  },
+  {
+    id: "owl",
+    label: "Owl",
+    group: "Air",
+  },
+];
 
 const multiSelectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
 const singleSelectState = ref("Apple");
@@ -168,12 +222,21 @@ const singleSelectState = ref("Apple");
 
           <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-          <OnyxListbox
-            v-if="show('OnyxListbox')"
-            v-model="listboxState"
-            label="Example listbox"
-            :options="listboxOptions"
-          />
+          <div style="display: flex; gap: 10px">
+            <OnyxListbox
+              v-if="show('OnyxListbox')"
+              v-model="listboxState"
+              label="Example listbox"
+              :options="listboxOptions"
+            />
+
+            <OnyxListbox
+              v-if="show('OnyxListbox')"
+              v-model="groupedListboxState"
+              label="Example grouped listbox"
+              :options="groupedListboxOptions"
+            />
+          </div>
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 

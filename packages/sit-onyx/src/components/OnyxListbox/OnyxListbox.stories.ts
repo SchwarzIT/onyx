@@ -26,11 +26,64 @@ const meta: Meta<typeof OnyxListbox> = {
   }),
 };
 
+const groupedAnimals = [
+  {
+    id: "cat",
+    label: "Cat",
+    group: "Land",
+  },
+  {
+    id: "dog",
+    label: "Dog",
+    group: "Land",
+  },
+  {
+    id: "tiger",
+    label: "Tager",
+    group: "Land",
+  },
+  {
+    id: "reindeer",
+    label: "Reindeer",
+    group: "Land",
+  },
+  {
+    id: "racoon",
+    label: "Racoon",
+    group: "Land",
+  },
+  {
+    id: "dolphin",
+    label: "Dolphin",
+    group: "Water",
+  },
+  {
+    id: "flounder",
+    label: "Flounder",
+    group: "Water",
+  },
+  {
+    id: "eel",
+    label: "Eel",
+    group: "Water",
+  },
+  {
+    id: "falcon",
+    label: "Falcon",
+    group: "Air",
+  },
+  {
+    id: "owl",
+    label: "Owl",
+    group: "Air",
+  },
+];
+
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
 /**
- * This examples shows a default single select listbox.
+ * This example shows a default single select listbox.
  */
 export const Default = {
   args: {
@@ -52,16 +105,29 @@ export const Default = {
       "Melon",
       "Raspberry",
       "Strawberry",
-    ].map((option) => ({ id: option.toLowerCase(), label: option })),
+    ].map((option) => ({
+      id: option.toLowerCase(),
+      label: option,
+    })),
   },
 } satisfies Story;
 
 /**
- * This examples shows a listbox with a message / help text at the bottom.
+ * This example shows a listbox with a message / help text at the bottom.
  */
 export const WithMessage = {
   args: {
     ...Default.args,
     message: "Example message",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a listbox with grouped options.
+ */
+export const GroupedOptions = {
+  args: {
+    label: "Grouped listbox",
+    options: groupedAnimals,
   },
 } satisfies Story;
