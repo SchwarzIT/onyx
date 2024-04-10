@@ -1,50 +1,64 @@
-import { computed, ref, type Ref } from "vue";
+import { computed, ref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
+import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
+
+export type CreateComboboxOptions<TValue extends string> = {
+  /**
+   * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
+   */
+  listLabel: MaybeRef<string>;
+  /**
+   * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
+   */
+  inputValue: Ref<TValue>;
+  /**
+   * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
+   */
+  isExpanded: Ref<boolean>;
+  /**
+   * If expanded, the active option is the currently highlighted option of the controlled listbox.
+   */
+  activeOption: Ref<TValue | undefined>;
+  /**
+   * Hook when the popover should toggle.
+   */
+  onToggle?: () => void;
+} & Pick<
+  CreateListboxOptions<TValue>,
+  "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
+>;
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  ({
+  <TValue extends string>({
+    listLabel,
+    inputValue,
     isExpanded,
-    activeKey,
+    activeOption,
     onToggle,
     onSelect,
-    onFirst,
-    onLast,
-    onNext,
-    onPrevious,
-  }: {
-    isExpanded: Ref<boolean>;
-    activeKey: Ref<string | undefined>;
-    onToggle: () => void;
-    onSelect: (key: string) => void;
-    onFirst: () => void;
-    onLast: () => void;
-    onNext: () => void;
-    onPrevious: () => void;
-  }) => {
-    const inputValue = ref("");
+    onActivateFirst,
+    onActivateLast,
+    onActivateNext,
+    onActivatePrevious,
+  }: CreateComboboxOptions<TValue>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");
 
-    const descendantKeyIdMap: Record<string, string | undefined> = {};
-
-    const getOptionId = (key: string) =>
-      descendantKeyIdMap[key] ?? (descendantKeyIdMap[key] = createId("comboBox-option"));
-
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
-      inputValue.value = inputElement.value;
+      inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
     };
 
     const handleBlur = () => {
       if (isExpanded.value) {
-        onToggle();
+        onToggle?.();
       }
     };
 
@@ -53,35 +67,57 @@ export const createComboBox = createBuilder(
         return;
       }
       switch (event.key) {
+        case "Enter":
+          event.preventDefault();
+          if (activeOption.value) {
+            onSelect?.(activeOption.value);
+            inputValue.value = activeOption.value;
+          }
+          break;
         case "Escape":
-          onToggle();
+          event.preventDefault();
+          onToggle?.();
           break;
         case "ArrowUp":
-          if (!activeKey.value) {
-            return onLast();
+          event.preventDefault();
+          if (!activeOption.value) {
+            return onActivateLast?.();
           }
-          onPrevious();
+          onActivatePrevious?.(activeOption.value);
           break;
         case "ArrowDown":
-          if (!activeKey.value) {
-            return onFirst();
+          event.preventDefault();
+          if (!activeOption.value) {
+            return onActivateFirst?.();
           }
-          onNext();
+          onActivateNext?.(activeOption.value);
           break;
         case "Home":
-          onFirst();
+          event.preventDefault();
+          onActivateFirst?.();
           break;
         case "End":
-          onLast();
+          event.preventDefault();
+          onActivateLast?.();
           break;
       }
     };
 
+    const {
+      elements: { option, group, listbox },
+      internals: { getOptionId },
+    } = createListbox({
+      label: listLabel,
+      controlled: true,
+      activeOption,
+      selectedOption: activeOption,
+      onSelect,
+    });
+
     return {
       elements: {
-        /**
-         * The label element for the combobox input element.
-         */
+        option,
+        group,
         label: {
           id: labelId,
         },
@@ -89,19 +125,9 @@ export const createComboBox = createBuilder(
          * The listbox associated with the combobox.
          */
         listBox: computed(() => ({
-          role: "listbox",
+          ...listbox.value,
           id: controlsId,
         })),
-        option: computed(() => {
-          return ({ key, label, disabled }: { key: string; label: string; disabled: boolean }) => ({
-            role: "option",
-            id: getOptionId(key),
-            "aria-selected": activeKey.value === key,
-            "aria-label": label,
-            "aria-disabled": disabled,
-            onClick: () => onSelect(key),
-          });
-        }),
         /**
          * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.
          * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.
@@ -112,7 +138,7 @@ export const createComboBox = createBuilder(
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
           "aria-labelledby": labelId,
-          "aria-activedescendant": activeKey.value ? getOptionId(activeKey.value) : undefined,
+          "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
           onBlur: handleBlur,
@@ -124,9 +150,6 @@ export const createComboBox = createBuilder(
           tabindex: "-1",
           onClick: onToggle,
         })),
-      },
-      state: {
-        inputValue,
       },
     };
   },
