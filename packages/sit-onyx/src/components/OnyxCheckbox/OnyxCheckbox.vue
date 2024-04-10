@@ -149,18 +149,12 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &:hover {
       @include define-hover-border($state: ":enabled", $color: primary);
-
-      &:has(.onyx-checkbox__input--touched) {
-        @include define-hover-border($state: ":invalid", $color: danger);
-      }
+      @include define-hover-border($state: ":user-invalid", $color: danger);
     }
 
     &:has(&__input:focus-visible) {
       @include define-focus-ring($state: ":enabled", $color: primary);
-
-      &:has(.onyx-checkbox__input--touched) {
-        @include define-focus-ring($state: ":invalid", $color: danger);
-      }
+      @include define-focus-ring($state: ":user-invalid", $color: danger);
     }
 
     &:has(&__input:disabled) {
@@ -196,10 +190,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
       &:checked,
       &:indeterminate {
         @include define-checked-background(":enabled", primary);
-
-        &.onyx-checkbox__input--touched {
-          @include define-checked-background(":invalid", danger);
-        }
+        @include define-checked-background(":user-invalid", danger);
 
         &:disabled {
           background-color: var(--onyx-color-base-neutral-300);
@@ -210,10 +201,8 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
         border-color: var(--onyx-color-base-neutral-300);
       }
 
-      &--touched {
-        &:invalid {
-          border-color: var(--onyx-color-base-danger-500);
-        }
+      &:user-invalid {
+        border-color: var(--onyx-color-base-danger-500);
       }
 
       &:checked {

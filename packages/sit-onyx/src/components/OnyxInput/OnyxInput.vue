@@ -163,7 +163,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     --outline-color: var(--onyx-color-base-primary-200);
 
     font-family: var(--onyx-font-family);
-    display: block;
+    display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-5xs);
 
@@ -192,17 +192,16 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
       font-size: 1rem;
       line-height: $line-height;
-
       padding: var(--onyx-input-padding-vertical) var(--onyx-spacing-sm);
       height: calc($line-height + 2 * var(--onyx-input-padding-vertical));
 
       &:has(.onyx-input__native:read-write:hover) {
-        border-color: var(--onyx-color-base-primary-400);
+        --border-color: var(--onyx-color-base-primary-400);
       }
 
       &:has(.onyx-input__native:enabled:focus) {
         --border-color: var(--onyx-color-base-primary-500);
-        outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+        outline: var(--onyx-spacing-4xs) solid var(--outline-color);
       }
 
       // :read-only is valid for readonly and disabled state so we put shared styles for both states here
@@ -226,6 +225,20 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
       &:has(.onyx-input__native:read-write) {
         &:has(#{get-autofill-selectors(".onyx-input__native")}) {
           background-color: var(--onyx-color-base-warning-100);
+        }
+      }
+
+      &:has(.onyx-input__native:user-invalid) {
+        --border-color: var(--onyx-color-base-danger-500);
+        --outline-color: var(--onyx-color-base-danger-200);
+        --selection-color: var(--onyx-color-base-danger-200);
+
+        &:has(.onyx-input__native:enabled:focus) {
+          --border-color: var(--onyx-color-base-danger-500);
+        }
+
+        &:has(.onyx-input__native:enabled:hover) {
+          --border-color: var(--onyx-color-base-danger-400);
         }
       }
     }

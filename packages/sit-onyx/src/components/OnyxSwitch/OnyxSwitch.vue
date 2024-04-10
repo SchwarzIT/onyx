@@ -178,7 +178,7 @@ $input-width: calc(
         }
       }
 
-      &:invalid + .onyx-switch__container {
+      &:user-invalid + .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-200);
         border-color: var(--onyx-color-base-danger-500);
 
@@ -188,7 +188,7 @@ $input-width: calc(
         }
       }
 
-      &:invalid:checked + .onyx-switch__container {
+      &:user-invalid:checked + .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-500);
 
         .onyx-switch__icon {
@@ -251,11 +251,11 @@ $input-width: calc(
         background-color: var(--onyx-color-base-primary-400);
       }
 
-      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-300);
       }
 
-      &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
         background-color: var(--onyx-color-base-danger-400);
       }
     }
@@ -271,11 +271,11 @@ $input-width: calc(
         outline: 0.25rem solid var(--onyx-color-base-primary-200);
       }
 
-      &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
         outline: 0.25rem solid var(--onyx-color-base-danger-300);
       }
 
-      &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
+      &:has(.onyx-switch__input:user-invalid:checked:enabled) .onyx-switch__container {
         outline: 0.25rem solid var(--onyx-color-base-danger-200);
       }
     }
