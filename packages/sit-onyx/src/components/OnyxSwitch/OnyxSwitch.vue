@@ -248,7 +248,6 @@ $input-width: calc(
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-full);
-    // border: var(--onyx-1px-in-rem) solid transparent;
     transition: background-color var(--onyx-duration-sm) ease;
 
     .onyx-switch__icon {
