@@ -1,7 +1,7 @@
 import { computed, ref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createListbox } from "../listbox/createListbox";
+import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
 
 export type CreateComboboxOptions<TValue extends string> = {
   /**
@@ -24,31 +24,10 @@ export type CreateComboboxOptions<TValue extends string> = {
    * Hook when the popover should toggle.
    */
   onToggle?: () => void;
-  /**
-   * Hook when an option is selected.
-   */
-  onSelect?: (value: TValue) => void;
-  /**
-   * Hook when the first option should be activated.
-   */
-  onActivateFirst?: () => void;
-  /**
-   * Hook when the last option should be activated.
-   */
-  onActivateLast?: () => void;
-  /**
-   * Hook when the next option should be activated.
-   */
-  onActivateNext?: (currentValue: TValue) => void;
-  /**
-   * Hook when the previous option should be activated.
-   */
-  onActivatePrevious?: (currentValue: TValue) => void;
-  /**
-   * Hook when the first option starting with the given label should be activated.
-   */
-  onTypeAhead?: (label: string) => void;
-};
+} & Pick<
+  CreateListboxOptions<TValue>,
+  "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
+>;
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
