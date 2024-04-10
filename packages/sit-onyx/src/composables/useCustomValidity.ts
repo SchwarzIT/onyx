@@ -1,4 +1,4 @@
-import { nextTick, ref, watch, watchEffect, type Directive } from "vue";
+import { ref, watch, watchEffect, type Directive } from "vue";
 import { transformValidityStateToObject } from "../utils/forms";
 import { areObjectsFlatEqual } from "../utils/objects";
 
@@ -48,12 +48,10 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   /**
    * Sync isTouched state.
    */
-  const stopWatch = watch(
+  watch(
     () => options.props.modelValue,
-    () => {
-      isTouched.value = true;
-      nextTick(stopWatch);
-    },
+    () => (isTouched.value = true),
+    { once: true },
   );
 
   const vCustomValidity = {
