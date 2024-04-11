@@ -1,63 +1,71 @@
+import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
+import {
+  executeMatrixScreenshotTest,
+  type MatrixScreenshotTestOptions,
+} from "../../playwright/screenshots";
+import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
+import { BUTTON_MODES } from "./types";
 
-test("should render", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxButton label="Button" variation="secondary" />);
+test.describe("Screenshot tests", () => {
+  const screenshotOptions = {
+    columns: DENSITIES,
+    rows: ["default", "hover", "active", "focus-visible"] as const,
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(component).toContainText("Button");
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "active") await page.mouse.down();
+    },
+  } satisfies Partial<MatrixScreenshotTestOptions>;
 
-  // ASSERT
-  await expect(component).toContainText("Button");
+  for (const mode of BUTTON_MODES) {
+    executeMatrixScreenshotTest({
+      ...screenshotOptions,
+      name: `Button (${mode})`,
+      component: (density) => <OnyxButton label="Button" density={density} mode={mode} />,
+    });
+  }
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  executeMatrixScreenshotTest({
+    ...screenshotOptions,
+    columns: BUTTON_MODES,
+    name: "Button (disabled)",
+    component: (mode) => <OnyxButton label="Button" mode={mode} disabled />,
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(component.getByRole("button", { name: "Button" })).toBeDisabled();
+      await screenshotOptions.beforeScreenshot(component, page, column, row);
+    },
+  });
 
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
+  executeMatrixScreenshotTest({
+    ...screenshotOptions,
+    name: "Button (with icon)",
+    columns: DENSITIES,
+    rows: BUTTON_MODES,
+    component: (density, mode) => (
+      <OnyxButton label="Button" density={density} mode={mode} icon={mockPlaywrightIcon} />
+    ),
+  });
 
-test("should display correctly when disabled", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxButton label="Button" variation="secondary" disabled />);
+  executeMatrixScreenshotTest({
+    name: "Button (other)",
+    columns: DENSITIES,
+    rows: ["truncation", "skeleton"],
+    component: (density, row) => {
+      const label = row === "truncation" ? "Very long label that should be truncated" : "Button";
 
-  // ASSERT
-  await expect(component).toContainText("Button");
-  await expect(component).toBeDisabled();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should render button with icon", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxButton label="Button" variation="secondary" icon={mockPlaywrightIcon} />,
-  );
-
-  // ASSERT
-  await expect(component).toContainText("Button");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should truncate text", async ({ mount }) => {
-  const label = "Very long label that should be truncated";
-
-  // ARRANGE
-  const component = await mount(<OnyxButton label={label} style="max-width: 8rem;" />);
-
-  // ASSERT
-  await expect(component).toContainText(label);
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("truncation-ellipsis.png");
+      return (
+        <OnyxButton
+          label={label}
+          density={density}
+          skeleton={row === "skeleton"}
+          style={row === "truncation" ? "max-width: 8rem;" : undefined}
+        />
+      );
+    },
+  });
 });
 
 test("should render button inline aligned with text", async ({ mount }) => {
@@ -74,72 +82,4 @@ test("should render button inline aligned with text", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("inline-aligned.png");
-});
-
-test("should render correct inline", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(<OnyxButton label="Test label" skeleton />);
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("skeleton.png");
-});
-
-const STATES = {
-  state: ["default", "disabled", "icon"],
-  variation: ["primary", "secondary", "danger"],
-  mode: ["default", "outline", "plain"],
-  focusState: ["", "hover", "focus-visible", "active"],
-} as const;
-
-test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    STATES,
-    "button",
-    async ({ variation, state, mode, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxButton
-          label="label"
-          variation={variation}
-          mode={mode}
-          disabled={state === "disabled"}
-          icon={state === "icon" ? mockPlaywrightIcon : undefined}
-        />,
-      );
-
-      const button = component.getByRole("button");
-
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await button.hover();
-      if (focusState === "active") await page.mouse.down();
-
-      return component;
-    },
-  );
-});
-
-const DENSITYSTATES = {
-  density: ["compact", "default", "cozy"],
-  focusState: ["focus-visible"],
-} as const;
-
-test.describe("state density screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    DENSITYSTATES,
-    "button",
-    async ({ density, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxButton
-          label="label"
-          variation="primary"
-          mode="default"
-          density={density}
-          icon={mockPlaywrightIcon}
-        />,
-      );
-
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-
-      return component;
-    },
-  );
 });
