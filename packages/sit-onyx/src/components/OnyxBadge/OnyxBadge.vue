@@ -50,7 +50,7 @@ defineSlots<{
   }
 
   @include density.default {
-    --onyx-badge-padding: var(--onyx-spacing-5xs);
+    --onyx-badge-padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
     --onyx-badge-icon-padding: var(--onyx-spacing-3xs);
     --onyx-badge-gap: var(--onyx-spacing-2xs);
     --onyx-badge-height: 1.75rem;
