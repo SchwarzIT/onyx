@@ -31,7 +31,7 @@ defineSlots<{
       v-if="props.icon"
       class="onyx-badge__icon"
       :icon="props.icon"
-      :size="props.density === 'compact' ? '16px' : '24px'"
+      :size="props.density === 'cozy' ? '24px' : '16px'"
     />
     <slot v-else></slot>
   </div>
@@ -50,8 +50,8 @@ defineSlots<{
   }
 
   @include density.default {
-    --onyx-badge-padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
-    --onyx-badge-icon-padding: var(--onyx-spacing-5xs);
+    --onyx-badge-padding: var(--onyx-spacing-5xs);
+    --onyx-badge-icon-padding: var(--onyx-spacing-3xs);
     --onyx-badge-gap: var(--onyx-spacing-2xs);
     --onyx-badge-height: 1.75rem;
   }
