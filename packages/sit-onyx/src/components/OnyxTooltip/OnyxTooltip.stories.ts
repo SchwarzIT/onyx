@@ -1,4 +1,4 @@
-import { defineIconSelectArgType } from "@/utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import { TOOLTIP_TRIGGERS } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";

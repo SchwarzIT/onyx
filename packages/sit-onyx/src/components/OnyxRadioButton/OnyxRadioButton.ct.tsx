@@ -75,7 +75,7 @@ test("should display correctly when invalid", async ({ mount, makeAxeBuilder, pa
       label="radio label"
       name="radio form"
       value="radio-value"
-      errorMessage="radio error"
+      customError="radio error"
       selected
     />,
   );
@@ -138,7 +138,7 @@ test.describe("state screenshot tests", () => {
           selected={select === "selected"}
           density={density}
           disabled={state === "disabled"}
-          errorMessage={state === "invalid" ? "invalid" : ""}
+          customError={state === "invalid" ? "test error" : ""}
           name={`name`}
           label="label"
           id={`id`}

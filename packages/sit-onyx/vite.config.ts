@@ -9,11 +9,6 @@ import { vuePluginOptions } from "./playwright.config";
 // https://vitejs.dev/config
 export default defineConfig({
   plugins: [vue(vuePluginOptions), dts({ tsconfigPath: getFilePath("./tsconfig.app.json") })],
-  resolve: {
-    alias: {
-      "@": getFilePath("./src"),
-    },
-  },
   build: {
     lib: {
       entry: getFilePath("./src/index.ts"),
