@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.67
+
+### Patch Changes
+
+- e51f8cb: fix(OnyxSwitch): repair zoom alignment of icon
+
 ## 1.0.0-alpha.66
 
 ### Major Changes
