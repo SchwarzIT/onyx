@@ -53,12 +53,20 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       await options.beforeScreenshot?.(component, page, column, row);
 
       const screenshot = await component.screenshot({ animations: "disabled" });
+
+      // some browser (e.g. safari) have different device resolutions which would cause the screenshot
+      // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
+      // see (`scale` option of `component.screenshot()` above)
+      const box = await component.boundingBox();
+
       await component.unmount();
 
       const id = `${row}-${column}`;
 
       return (
         <img
+          width={box?.width}
+          height={box?.height}
           style={{ gridArea: id }}
           src={`data:image/png;base64,${Buffer.from(screenshot).toString("base64")}`}
           alt={id}
