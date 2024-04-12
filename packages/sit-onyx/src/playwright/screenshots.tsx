@@ -45,12 +45,8 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
 ) => {
   test(`${options.name}`, async ({ mount, page, browserName }) => {
     // limit the max timeout per permutation
-    const timeoutPerScreenshot = 2 * 1000;
-    const timeoutForMatrixScreenshot = 5 * 1000;
-    test.setTimeout(
-      options.columns.length * options.rows.length * timeoutPerScreenshot +
-        timeoutForMatrixScreenshot,
-    );
+    const timeoutPerScreenshot = 4 * 1000;
+    test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
 
     const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
       await page.getByRole("document").focus(); // reset focus
