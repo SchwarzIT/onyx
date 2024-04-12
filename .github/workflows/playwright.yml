@@ -20,6 +20,9 @@ jobs:
     name: Playwright shard
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        run: echo ${{ inputs.update-snapshots }} && exit 1
+
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v3
