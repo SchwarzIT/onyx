@@ -17,6 +17,10 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
    * Current value / selected options.
    */
   modelValue?: TValue;
+  /**
+   * Allows the selection of multiple listbox options
+   */
+  multiple?: boolean;
 };
 
 export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {

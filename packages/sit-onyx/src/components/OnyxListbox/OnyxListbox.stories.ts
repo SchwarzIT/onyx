@@ -65,3 +65,13 @@ export const WithMessage = {
     message: "Example message",
   },
 } satisfies Story;
+
+/**
+ * Multiselect listbox
+ */
+export const MultiSelect = {
+  args: {
+    ...Default.args,
+    multiple: true,
+  },
+} satisfies Story;

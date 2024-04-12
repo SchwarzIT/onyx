@@ -13,6 +13,14 @@ defineSlots<{
 
 <template>
   <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
+    <input
+      v-if="multiple"
+      :checked="props.selected"
+      aria-hidden
+      class="onyx-listbox-option__checkbox"
+      type="checkbox"
+    />
+
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
     </span>

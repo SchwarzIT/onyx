@@ -64,6 +64,7 @@ const {
 <template>
   <div class="onyx-listbox">
     <ul v-bind="listbox" class="onyx-listbox__options">
+      <!-- TODO: select-all option for "multiple" -->
       <OnyxListboxOption
         v-for="option in props.options"
         :key="option.id.toString()"
@@ -75,6 +76,8 @@ const {
             selected: option.id === props.modelValue,
           })
         "
+        :selected="option.id === props.modelValue"
+        :multiple="multiple"
         :active="option.id === activeOption"
       >
         {{ option.label }}
