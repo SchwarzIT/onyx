@@ -6,7 +6,7 @@ import {
 } from "../../playwright/screenshots";
 import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
-import { BUTTON_MODES } from "./types";
+import { BUTTON_MODES, BUTTON_VARIATIONS } from "./types";
 
 test.describe("Screenshot tests", () => {
   const screenshotOptions = {
@@ -21,33 +21,53 @@ test.describe("Screenshot tests", () => {
   } satisfies Partial<MatrixScreenshotTestOptions>;
 
   for (const mode of BUTTON_MODES) {
-    executeMatrixScreenshotTest({
-      ...screenshotOptions,
-      name: `Button (${mode})`,
-      component: (density) => <OnyxButton label="Button" density={density} mode={mode} />,
-    });
+    for (const variation of BUTTON_VARIATIONS) {
+      executeMatrixScreenshotTest({
+        ...screenshotOptions,
+        name: `Button (${mode}, ${variation})`,
+        component: (density) => (
+          <OnyxButton label="Button" density={density} mode={mode} variation={variation} />
+        ),
+      });
+
+      executeMatrixScreenshotTest({
+        ...screenshotOptions,
+        columns: BUTTON_MODES,
+        name: `Button (${mode}, ${variation}, disabled)`,
+        component: (mode) => (
+          <OnyxButton label="Button" mode={mode} variation={variation} disabled />
+        ),
+        beforeScreenshot: async (component, page, column, row) => {
+          await expect(component.getByRole("button", { name: "Button" })).toBeDisabled();
+          await screenshotOptions.beforeScreenshot(component, page, column, row);
+        },
+      });
+
+      executeMatrixScreenshotTest({
+        ...screenshotOptions,
+        name: `Button (${mode}, ${variation}, with icon)`,
+        columns: DENSITIES,
+        rows: BUTTON_MODES,
+        component: (density, mode) => (
+          <OnyxButton
+            label="Button"
+            density={density}
+            mode={mode}
+            variation={variation}
+            icon={mockPlaywrightIcon}
+          />
+        ),
+      });
+
+      executeMatrixScreenshotTest({
+        ...screenshotOptions,
+        name: `Button (${mode}, ${variation}, loading)`,
+        component: (density) => (
+          <OnyxButton label="Button" density={density} mode={mode} variation={variation} loading />
+        ),
+      });
+    }
   }
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    columns: BUTTON_MODES,
-    name: "Button (disabled)",
-    component: (mode) => <OnyxButton label="Button" mode={mode} disabled />,
-    beforeScreenshot: async (component, page, column, row) => {
-      await expect(component.getByRole("button", { name: "Button" })).toBeDisabled();
-      await screenshotOptions.beforeScreenshot(component, page, column, row);
-    },
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Button (with icon)",
-    columns: DENSITIES,
-    rows: BUTTON_MODES,
-    component: (density, mode) => (
-      <OnyxButton label="Button" density={density} mode={mode} icon={mockPlaywrightIcon} />
-    ),
-  });
 
   executeMatrixScreenshotTest({
     name: "Button (other)",
