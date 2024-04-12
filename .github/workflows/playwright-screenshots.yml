@@ -50,7 +50,7 @@ jobs:
         # the EOF is needed for GitHub to add multiline strings to the $GITHUB_OUTPUT
         run: |
           echo 'CHANGED_FILES<<EOF' >> $GITHUB_OUTPUT
-          echo 'git ls-files --modified' >> $GITHUB_OUTPUT
+          echo '$(git ls-files --modified)' >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - name: Upload screenshots artifact
