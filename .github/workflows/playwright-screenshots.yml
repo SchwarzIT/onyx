@@ -12,7 +12,7 @@ jobs:
   update:
     strategy:
       matrix:
-        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     name: Update Playwright screenshots
     runs-on: ubuntu-latest
     steps:
@@ -42,9 +42,15 @@ jobs:
         run: pnpm run test:components --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }}
         working-directory: packages/sit-onyx
 
+      - name: Upload screenshots artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ matrix.shard }}
+          path: packages/sit-onyx/playwright/snapshots
+
       - name: Upload test results artifact
         uses: actions/upload-artifact@v4
-        if: always() # needed to also upload test results when they failed (useful for debugging)
+        if: failure()
         with:
           name: test-results-${{ matrix.shard }}
           path: |
