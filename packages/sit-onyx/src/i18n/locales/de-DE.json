@@ -19,8 +19,8 @@
   },
   "selections": {
     "selectAll": "Alle auswählen",
-    "currentSelection": "{n} ausgewählt",
-    "empty": "Keine Daten verfügbar"
+    "currentSelection": "{n} ausgewählt"
   },
+  "empty": "Keine Daten verfügbar",
   "loadMore": "Mehr laden"
 }

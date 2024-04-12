@@ -125,8 +125,8 @@ const isEmpty = computed(() => props.options.length === 0);
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
-    <slot v-else-if="isEmpty" name="empty" :default-message="t('selections.empty')">
-      <OnyxEmpty>{{ t("selections.empty") }}</OnyxEmpty>
+    <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
+      <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
     </slot>
 
     <ul v-else v-scroll-end v-bind="listbox" class="onyx-listbox__options">
