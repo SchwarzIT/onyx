@@ -69,4 +69,5 @@ jobs:
           path: apps/docs/src/.vitepress/dist
 
   screenshots:
+    name: Component tests
     uses: ./.github/workflows/playwright.yml
