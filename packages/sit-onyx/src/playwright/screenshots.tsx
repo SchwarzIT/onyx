@@ -44,6 +44,10 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
   options: MatrixScreenshotTestOptions<TColumn, TRow>,
 ) => {
   test(`${options.name}`, async ({ mount, page, browserName }) => {
+    // limit the max timeout per permutation
+    const timeoutPerScreenshot = 2 * 1000;
+    test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
+
     const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover(); // reset mouse
@@ -58,8 +62,6 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
       // see (`scale` option of `component.screenshot()` above)
       const box = await component.boundingBox();
-
-      await component.unmount();
 
       const id = `${row}-${column}`;
 
