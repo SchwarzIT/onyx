@@ -47,7 +47,7 @@ jobs:
       # override changed screenshots from other shards when creating the pull request
       - name: Get changed files
         id: vars
-        run: echo "CHANGED_FILES=$(git ls-files --modified)" >> $GITHUB_OUTPUT
+        run: echo "CHANGED_FILES=$(git ls-files --modified | tr '\n' ' ')" >> $GITHUB_OUTPUT
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
