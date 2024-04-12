@@ -37,7 +37,7 @@ jobs:
       - name: 📦 Install Playwright system dependencies
         run: pnpm exec playwright install-deps
 
-      - name: 🔎 Update Playwright screenshots
+      - name: 🔎 Run Playwright tests
         run: pnpm run test:components:all --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == 'true' && '--update-snapshots' || '' }}
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
