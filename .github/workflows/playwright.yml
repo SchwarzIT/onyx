@@ -1,3 +1,4 @@
+name: Playwright tests
 on:
   workflow_call:
     inputs:
@@ -38,19 +39,36 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:components:all --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == 'true' && '--update-snapshots' || '' }}
+        run: pnpm run test:components:all --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
       - name: Copy changed files
-        if: ${{ inputs.update-snapshots == 'true' }}
+        if: ${{ inputs.update-snapshots == true }}
         run: |
           mkdir ./changed-screenshots
-          rsync -R $(git ls-files --modified) ./changed-screenshots/ || echo "no changed files found"
+          rsync -R $(git ls-files --others --modified --exclude-standard) ./changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
-        if: ${{ inputs.update-snapshots == 'true' }}
+        if: ${{ inputs.update-snapshots == true }}
         with:
           name: screenshots-${{ matrix.shard }}
           path: changed-screenshots
+
+  # this final step is needed to we can set make the Playwright tests a required check in pull requests
+  # because we don't want to add each parallel matrix job individually
+  # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
+  playwright-result:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: Collect Playwright result
+    needs: playwright
+    steps:
+      - run: |
+          result="${{ needs.playwright.result }}"
+          if [[ $result == "success" || $result == "skipped" ]]; then
+            exit 0
+          else
+            exit 1
+          fi
