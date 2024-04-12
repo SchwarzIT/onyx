@@ -159,7 +159,9 @@ test("should support lazy loading", async ({ mount }) => {
   await updateProps({ lazyLoading: { enabled: true, loading: true } });
 
   // ASSERT
-  await expect(component.locator(".onyx-loading-dots")).toBeVisible();
+  const loadingIndicator = component.locator(".onyx-loading-dots");
+  await loadingIndicator.scrollIntoViewIfNeeded();
+  await expect(loadingIndicator).toBeVisible();
   await expect(component).toHaveScreenshot("lazy-loading-active.png");
 
   // ACT
