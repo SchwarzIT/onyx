@@ -2,8 +2,8 @@
 import { createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
-import type { OnyxListboxProps } from "./types";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
+import type { ListboxOption, OnyxListboxProps } from "./types";
 
 const props = defineProps<OnyxListboxProps<TValue>>();
 
@@ -30,7 +30,7 @@ watch(
 );
 
 const {
-  elements: { listbox, option: headlessOption },
+  elements: { listbox, option: headlessOption, group: headlessGroup },
 } = createListbox({
   label: computed(() => props.label),
   selectedOption: computed(() => props.modelValue),
@@ -61,7 +61,7 @@ const {
 });
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const groupedOptions = props.options.reduce((acc: any, currOpt) => {
+const groupedOptions = props.options.reduce((acc: Record<string, ListboxOption[]>, currOpt) => {
   acc[currOpt.group ?? ""] = acc[currOpt.group ?? ""] || [];
   acc[currOpt.group ?? ""].push(currOpt);
   return acc;
@@ -70,33 +70,39 @@ const groupedOptions = props.options.reduce((acc: any, currOpt) => {
 
 <template>
   <div class="onyx-listbox">
-    <ul v-bind="listbox" class="onyx-listbox__options">
+    <div class="onyx-listbox__wrapper">
       <div
         v-for="([group, options], index) in Object.entries(groupedOptions)"
         :key="index"
+        v-bind="
+          headlessGroup({
+            label: group,
+          })
+        "
         class="onyx-listbox__group"
       >
         <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">{{
           group
         }}</span>
-        <OnyxListboxOption
-          v-for="option in options as any"
-          :key="option.id.toString()"
-          v-bind="
-            headlessOption({
-              value: option.id,
-              label: option.label,
-              disabled: option.disabled,
-              selected: option.id === props.modelValue,
-            })
-          "
-          :active="option.id === activeOption"
-        >
-          {{ option.label }}
-        </OnyxListboxOption>
+        <ul v-bind="listbox" class="onyx-listbox__options">
+          <OnyxListboxOption
+            v-for="option in options as any"
+            :key="option.id.toString()"
+            v-bind="
+              headlessOption({
+                value: option.id,
+                label: option.label,
+                disabled: option.disabled,
+                selected: option.id === props.modelValue,
+              })
+            "
+            :active="option.id === activeOption"
+          >
+            {{ option.label }}
+          </OnyxListboxOption>
+        </ul>
       </div>
-    </ul>
-
+    </div>
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
     </span>
@@ -120,20 +126,10 @@ const groupedOptions = props.options.reduce((acc: any, currOpt) => {
     max-width: 20rem;
     font-family: var(--onyx-font-family);
 
-    &__label {
-      color: var(--onyx-color-text-icons-neutral-soft);
-      display: inline-block;
-      width: 100%;
-      text-align: right;
-      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
-    }
-
-    &__message {
-      color: var(--onyx-color-text-icons-neutral-soft);
-      display: inline-block;
-      width: 100%;
-      text-align: right;
-      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
+    &__wrapper {
+      max-height: calc(var(--max-options) * var(--option-height));
+      overflow: auto;
+      outline: none;
     }
 
     &__group:not(:last-child) {
@@ -142,17 +138,22 @@ const groupedOptions = props.options.reduce((acc: any, currOpt) => {
     }
 
     &__group-name {
+      display: block;
       padding: 0 var(--onyx-spacing-sm);
       color: var(--onyx-color-text-icons-neutral-medium);
       font-weight: 600;
     }
 
     &__options {
-      max-height: calc(var(--max-options) * var(--option-height));
-      overflow: auto;
-      outline: none;
-
       padding: 0;
+    }
+
+    &__message {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      display: inline-block;
+      width: 100%;
+      text-align: right;
+      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm) 0;
     }
 
     .onyx-listbox-option {
