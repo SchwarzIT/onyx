@@ -53,7 +53,7 @@ jobs:
         if: ${{ steps.vars.outputs.CHANGED_FILES != '' }}
         run: |
           mkdir ./changed-screenshots
-          cp ${{ steps.vars.outputs.CHANGED_FILES }} ./changed-screenshots/
+          cp ${{ steps.vars.outputs.CHANGED_FILES }} ./changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
