@@ -27,27 +27,30 @@ defineSlots<{
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers.scss";
+
 .onyx-empty {
-  padding: var(--onyx-spacing-xl);
-  box-sizing: border-box;
-  max-width: max-content;
-  font-family: var(--onyx-font-family);
-  text-align: center;
+  @include layers.component() {
+    padding: var(--onyx-spacing-xl);
+    max-width: max-content;
+    font-family: var(--onyx-font-family);
+    text-align: center;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--onyx-spacing-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--onyx-spacing-md);
 
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-soft);
-    font-weight: 600;
-    white-space: pre-line;
-  }
+    &__label {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      font-weight: 600;
+      white-space: pre-line;
+    }
 
-  .onyx-icon {
-    color: var(--onyx-color-text-icons-primary-medium);
+    .onyx-icon {
+      color: var(--onyx-color-text-icons-primary-medium);
+    }
   }
 }
 </style>

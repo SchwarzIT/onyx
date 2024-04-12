@@ -34,6 +34,7 @@ const emit = defineEmits<{
       densityClass,
     ]"
     :disabled="props.disabled || props.loading"
+    :type="props.type"
     @click="emit('click')"
   >
     <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
