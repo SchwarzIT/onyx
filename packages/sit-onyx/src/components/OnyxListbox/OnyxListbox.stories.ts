@@ -1,6 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h, ref, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
@@ -132,12 +132,6 @@ export const LazyLoading = {
 export const ButtonLoading = {
   args: {
     ...Default.args,
-    optionsEnd: () =>
-      h(OnyxButton, {
-        label: "Load more",
-        mode: "plain",
-        style: "width:100%",
-      }),
   },
   render: (args) => ({
     setup: () => {
