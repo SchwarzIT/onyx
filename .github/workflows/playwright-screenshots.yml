@@ -6,6 +6,9 @@ jobs:
   update:
     strategy:
       matrix:
+        # to optimize the speed of the screenshot generation, we are using Playwright sharding
+        # to split up the tests in smaller chunks and run them in parallel
+        # for further details, see: https://playwright.dev/docs/test-sharding
         shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     name: Update Playwright screenshots
     runs-on: ubuntu-latest
@@ -66,6 +69,7 @@ jobs:
         with:
           pattern: screenshots-*
           merge-multiple: true
+          path: packages/sit-onyx/snapshots
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
