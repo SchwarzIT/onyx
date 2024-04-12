@@ -58,6 +58,7 @@ jobs:
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
   # because we don't want to add each parallel matrix job individually
+  # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
   playwright-result:
     if: ${{ always() }}
     runs-on: ubuntu-latest
