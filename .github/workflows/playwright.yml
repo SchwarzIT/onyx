@@ -1,0 +1,56 @@
+on:
+  workflow_call:
+    inputs:
+      update-snapshots:
+        type: boolean
+        default: false
+        description: Whether to update snapshots / screenshots
+
+jobs:
+  playwright:
+    strategy:
+      matrix:
+        # to optimize the speed of the screenshot generation, we are using Playwright sharding
+        # to split up the tests in smaller chunks and run them in parallel
+        # for further details, see: https://playwright.dev/docs/test-sharding
+        # more shards can be added below to speed up the executing time if more screenshots are added in the future
+        # note: GitHub's limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    name: Playwright shard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      # install system dependencies for Playwright
+      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
+      - name: 📦 Install Playwright system dependencies
+        run: pnpm exec playwright install-deps
+
+      - name: 🔎 Run Playwright tests
+        run: pnpm run test:components:all --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == 'true' && '--update-snapshots' || '' }}
+
+      # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
+      # override changed screenshots from other shards when creating the pull request
+      - name: Copy changed files
+        if: ${{ inputs.update-snapshots == 'true' }}
+        run: |
+          mkdir ./changed-screenshots
+          rsync -R $(git ls-files --modified) ./changed-screenshots/ || echo "no changed files found"
+
+      - name: Upload screenshots artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ inputs.update-snapshots == 'true' }}
+        with:
+          name: screenshots-${{ matrix.shard }}
+          path: changed-screenshots
