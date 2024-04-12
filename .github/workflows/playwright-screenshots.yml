@@ -45,21 +45,16 @@ jobs:
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
-      - name: Get changed files
-        id: vars
-        # the EOF is needed for GitHub to add multiline strings to the $GITHUB_OUTPUT
+      - name: Copy changed files
         run: |
-          echo "CHANGED_FILES<<EOF" >> $GITHUB_OUTPUT
-          echo "$(git ls-files --modified)" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          mkdir ./changed-screenshots
+          cp $(git ls-files --modified | tr '\n' ' ') ./changed-screenshots/
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
-        if: ${{ steps.vars.outputs.CHANGED_FILES != '' }}
         with:
           name: screenshots-${{ matrix.shard }}
-          path: |
-            ${{ steps.vars.outputs.CHANGED_FILES }}
+          path: changed-screenshots
 
       - name: Upload test results artifact
         uses: actions/upload-artifact@v4
