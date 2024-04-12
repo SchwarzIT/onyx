@@ -58,7 +58,8 @@ jobs:
         if: ${{ steps.vars.outputs.CHANGED_FILES != '' }}
         with:
           name: screenshots-${{ matrix.shard }}
-          path: ${{ steps.vars.outputs.CHANGED_FILES }}
+          path: |
+            ${{ steps.vars.outputs.CHANGED_FILES }}
 
       - name: Upload test results artifact
         uses: actions/upload-artifact@v4
