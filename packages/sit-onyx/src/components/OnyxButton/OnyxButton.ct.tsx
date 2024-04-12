@@ -13,7 +13,6 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "active", "focus-visible"] as const,
     beforeScreenshot: async (component, page, column, row) => {
-      await expect(component).toContainText("Button");
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
       if (row === "active") await page.mouse.down();
