@@ -55,6 +55,7 @@ jobs:
           path: packages/sit-onyx/blob-report
           retention-days: 1
 
+  # Download screenshots from all shards and create a pull request
   pr:
     name: Create pull request
     runs-on: ubuntu-latest
@@ -80,9 +81,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}
 
+  # Merge reports after playwright-tests, even if some shards have failed
+  # see https://playwright.dev/docs/test-sharding#github-actions-example
   merge-reports:
     name: Merge Playwright reports
-    # Merge reports after playwright-tests, even if some shards have failed
     if: ${{ !cancelled() }}
     needs: update
     runs-on: ubuntu-latest
