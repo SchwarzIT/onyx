@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debug
-        run: echo ${{ inputs.update-snapshots }} && exit 1
+        run: echo ${{ inputs.update-snapshots }}
 
       - name: If false
         if: ${{ inputs.update-snapshots == 'false' }}
