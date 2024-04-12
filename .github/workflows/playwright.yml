@@ -23,6 +23,14 @@ jobs:
       - name: Debug
         run: echo ${{ inputs.update-snapshots }} && exit 1
 
+      - name: If false
+        if: ${{ inputs.update-snapshots == 'false' }}
+        run: echo ${{ inputs.update-snapshots }} && exit 1
+
+      - name: If true
+        if: ${{ inputs.update-snapshots == 'true' }}
+        run: echo ${{ inputs.update-snapshots }} && exit 1
+
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v3
