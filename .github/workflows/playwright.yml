@@ -55,3 +55,19 @@ jobs:
         with:
           name: screenshots-${{ matrix.shard }}
           path: changed-screenshots
+
+  # this final step is needed to we can set make the Playwright tests a required check in pull requests
+  # because we don't want to add each parallel matrix job individually
+  playwright-result:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: Collect Playwright result
+    needs: playwright
+    steps:
+      - run: |
+          result="${{ needs.build.result }}"
+          if [[ $result == "success" || $result == "skipped" ]]; then
+            exit 0
+          else
+            exit 1
+          fi
