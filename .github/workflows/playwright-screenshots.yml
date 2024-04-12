@@ -1,12 +1,6 @@
 name: Update Playwright screenshots
 on:
   workflow_dispatch:
-    inputs:
-      clean-snapshots:
-        type: boolean
-        default: false
-        required: false
-        description: Whether to remove all snapshots before running
 
 jobs:
   update:
@@ -35,7 +29,6 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🗑️ Delete existing screenshots
-        if: ${{ inputs.clean-snapshots == 'true' }}
         run: rm -rf ./packages/sit-onyx/playwright/snapshots
 
       - name: 🔎 Update Playwright screenshots
@@ -57,3 +50,11 @@ jobs:
             packages/sit-onyx/playwright-report
             packages/sit-onyx/blob-report
             packages/sit-onyx/test-results
+
+  pr:
+    name: Create pull request
+    runs-on: ubuntu-latest
+    needs: update
+    steps:
+      - name: Test
+        run: echo "Test"
