@@ -43,15 +43,21 @@ jobs:
         run: pnpm run test:components --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }}
         working-directory: packages/sit-onyx
 
+      - name: Determine changed files
+        id: vars
+        run: echo "$(git ls-files --modified | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
       - name: Copy changed files
+        if: ${{ steps.vars.outputs.CHANGED_FILES != '' }}
         run: |
           mkdir ./changed-screenshots
-          cp $(git ls-files --modified | tr '\n' ' ') ./changed-screenshots/
+          cp ${{ steps.vars.outputs.CHANGED_FILES }} ./changed-screenshots/
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
+        if: ${{ steps.vars.outputs.CHANGED_FILES != '' }}
         with:
           name: screenshots-${{ matrix.shard }}
           path: changed-screenshots
