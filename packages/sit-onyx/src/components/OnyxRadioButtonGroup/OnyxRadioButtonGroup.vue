@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   headline: "",
   required: false,
   disabled: false,
-  errorMessage: "",
 });
 
 const { densityClass } = useDensity(props);
@@ -21,6 +20,10 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
   "update:modelValue": [selected: TValue];
+  /**
+   * Emitted when the validity state changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const handleChange = (selected: boolean, value: TValue) => {
@@ -46,13 +49,14 @@ const handleChange = (selected: boolean, value: TValue) => {
     >
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
-          v-for="option in props.options"
+          v-for="(option, index) in props.options"
           :key="option.value.toString()"
           v-bind="option"
           :name="props.name"
-          :error-message="props.errorMessage"
+          :custom-error="props.customError"
           :selected="option.value === props.modelValue"
           :required="props.required"
+          @validity-change="index === 0 && emit('validityChange', $event)"
           @change="handleChange($event, option.value)"
         />
       </template>

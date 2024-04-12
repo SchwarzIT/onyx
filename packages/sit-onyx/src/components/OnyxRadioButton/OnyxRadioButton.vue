@@ -1,12 +1,12 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { ref, watchEffect } from "vue";
 import { useDensity } from "../../composables/density";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { RadioButtonProps } from "./types";
+import type { OnyxRadioButtonProps } from "./types";
 
-const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   disabled: false,
   required: false,
   selected: false,
@@ -15,17 +15,16 @@ const props = withDefaults(defineProps<RadioButtonProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
+  /** Emitted when the value changes. */
+  change: [value: boolean];
   /**
-   * Emitted when the selected state of the radio button changes.
+   * Emitted when the validity state of the input changes.
    */
-  change: [selected: boolean];
+  validityChange: [validity: ValidityState];
 }>();
 
-const selectorRef = ref<HTMLInputElement>();
-
+const { vCustomValidity } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
-
-watchEffect(() => selectorRef.value?.setCustomValidity(props.errorMessage ?? ""));
 
 const handleChange = (event: Event) => {
   const checked = (event.target as HTMLInputElement).checked;
@@ -39,12 +38,12 @@ const handleChange = (event: Event) => {
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.errorMessage">
+  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.customError">
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input
       v-else
-      ref="selectorRef"
+      v-custom-validity
       class="onyx-radio-button__selector"
       type="radio"
       :required="props.required"

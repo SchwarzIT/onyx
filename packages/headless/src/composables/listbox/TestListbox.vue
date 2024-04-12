@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { createListbox, type ListboxValue } from "./createListbox";
+import { createListbox } from "./createListbox";
 
-const selectedOption = ref<ListboxValue>();
-const activeOption = ref<ListboxValue>();
+type Options = (typeof options)[number];
+
+const selectedOption = ref<Options>();
+const activeOption = ref<Options>();
 
 const options = [
   "Apple",
@@ -22,7 +24,7 @@ const options = [
   "Melon",
   "Raspberry",
   "Strawberry",
-];
+] as const;
 
 const {
   elements: { listbox, option: headlessOption },

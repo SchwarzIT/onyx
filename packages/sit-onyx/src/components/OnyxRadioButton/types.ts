@@ -1,11 +1,13 @@
 import type { DensityProp } from "../../composables/density";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SelectOption, SelectOptionValue } from "../../types";
 
-export type RadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
+export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   SelectOption<TValue>,
   "hideLabel"
 > &
-  DensityProp & {
+  DensityProp &
+  CustomValidityProp & {
     /**
      * Identifier for the radio buttons in the group.
      * All radio buttons that should belong to the same radio group must have the same name.
@@ -22,5 +24,4 @@ export type RadioButtonProps<TValue extends SelectOptionValue = SelectOptionValu
      * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
      */
     required?: boolean;
-    errorMessage?: string;
   };
