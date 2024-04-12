@@ -66,7 +66,7 @@ jobs:
     needs: playwright
     steps:
       - run: |
-          result="${{ needs.build.result }}"
+          result="${{ needs.playwright.result }}"
           if [[ $result == "success" || $result == "skipped" ]]; then
             exit 0
           else
