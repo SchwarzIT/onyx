@@ -43,14 +43,15 @@ jobs:
         run: pnpm run test:components --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }}
         working-directory: packages/sit-onyx
 
-      # - name: Get changed files
-      #   run: CHANGED_FILES=$(git ls-files --modified)
+      - name: Get changed files
+        id: vars
+        run: echo "CHANGED_FILES=$(git ls-files --modified)"
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
         with:
           name: screenshots-${{ matrix.shard }}
-          path: ${{ git ls-files --modified }}
+          path: ${{ steps.vars.outputs.CHANGED_FILES }}
 
       - name: Upload test results artifact
         uses: actions/upload-artifact@v4
