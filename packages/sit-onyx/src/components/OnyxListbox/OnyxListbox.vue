@@ -120,7 +120,7 @@ const isEmpty = computed(() => props.options.length === 0);
   <div class="onyx-listbox" :aria-busy="props.loading">
     <div
       v-if="props.loading && (!loadingMode || isEmpty)"
-      class="onyx-listbox__slot onyx-listbox__slot--height"
+      class="onyx-listbox__slot onyx-listbox__slot--loading"
     >
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
@@ -146,7 +146,7 @@ const isEmpty = computed(() => props.options.length === 0);
         {{ option.label }}
       </OnyxListboxOption>
 
-      <li v-if="loadingMode === 'button' && !isEmpty" class="onyx-listbox__slot">
+      <li v-if="loadingMode === 'button'" class="onyx-listbox__slot">
         <OnyxButton
           class="onyx-listbox__loading-button"
           :label="loadMoreButtonLabel"
@@ -219,7 +219,7 @@ const isEmpty = computed(() => props.options.length === 0);
       align-items: center;
       justify-content: center;
 
-      &--height {
+      &--loading {
         min-height: calc(5 * var(--option-height));
       }
     }

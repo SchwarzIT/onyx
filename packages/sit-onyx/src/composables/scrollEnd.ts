@@ -2,18 +2,19 @@ import { ref, unref, watchEffect, type Directive, type MaybeRef, type Ref } from
 
 export type UseScrollEndOptions = {
   /**
-   * Whether currently loading. Will pause scroll listeners if `true`.
+   * Whether the scroll container is currently loading. Will pause scroll listeners if `true`.
    */
   loading: Ref<boolean | undefined>;
   /**
    * Whether scroll events should be captured.
-   * Can be disabled if not needed to improve performance.
+   * Can be disabled if lazy loading is not needed to improve performance.
    *
    * @default true
    */
   enabled?: Ref<boolean>;
   /**
    * Offset (in pixel). Can be used to trigger the callback earlier (e.g. if scrolled to second last option).
+   * Must be >= 0.
    */
   offset?: MaybeRef<number | undefined>;
 };

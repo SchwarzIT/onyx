@@ -29,6 +29,7 @@ const meta: Meta<typeof OnyxListbox> = {
         options: LOADING_MODES,
         control: { type: "radio" },
       },
+      empty: { control: { disable: true } },
     },
   }),
   /**

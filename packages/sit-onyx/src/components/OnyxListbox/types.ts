@@ -60,7 +60,7 @@ export type ListboxLoadingMode =
   | {
       mode: "lazy";
       /**
-       * Scroll offset (in pixel).
+       * Scroll offset (in pixel). Must be >= 0.
        * Can be used to trigger the `loadMore` event earlier (e.g. if scrolled to second last option).
        */
       scrollOffset: number;
