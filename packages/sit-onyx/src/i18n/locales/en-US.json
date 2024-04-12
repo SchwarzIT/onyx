@@ -21,6 +21,5 @@
     "selectAll": "Select all",
     "currentSelection": "{n} selected"
   },
-  "empty": "No data available",
-  "loadMore": "Load more"
+  "empty": "No data available"
 }

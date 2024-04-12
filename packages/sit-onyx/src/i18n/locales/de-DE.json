@@ -21,6 +21,5 @@
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
   },
-  "empty": "Keine Daten verfügbar",
-  "loadMore": "Mehr laden"
+  "empty": "Keine Daten verfügbar"
 }

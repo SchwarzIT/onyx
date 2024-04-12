@@ -1,7 +1,9 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { h, ref, watchEffect } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
-import { LOADING_MODES } from "./types";
+import type { ListboxOption } from "./types";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -23,13 +25,10 @@ const meta: Meta<typeof OnyxListbox> = {
   title: "support/OnyxListbox",
   ...defineStorybookActionsAndVModels({
     component: OnyxListbox,
-    events: ["update:modelValue", "loadMore"],
+    events: ["update:modelValue", "lazyLoad"],
     argTypes: {
-      loadingMode: {
-        options: LOADING_MODES,
-        control: { type: "radio" },
-      },
       empty: { control: { disable: true } },
+      optionsEnd: { control: { disable: true } },
     },
   }),
   /**
@@ -39,25 +38,16 @@ const meta: Meta<typeof OnyxListbox> = {
     (story, ctx) => ({
       components: { story },
       setup: () => {
-        const originalOptionsCount = ctx.args.options.length;
+        const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
 
-        const handleLoad = async () => {
-          ctx.args.loading = true;
-          await new Promise<void>((resolve) => setTimeout(resolve, 750));
+        watchEffect(() => {
+          ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+          ctx.args.options = options.value;
+        });
 
-          ctx.args.options = ctx.args.options.concat(
-            Array.from({ length: 25 }, (_, index) => {
-              const id = ctx.args.options.length - originalOptionsCount + index + 1;
-              return { id, label: `Loaded option ${id}` };
-            }),
-          );
-
-          ctx.args.loading = false;
-        };
-
-        return { handleLoad };
+        return { handleLoadMore, isLazyLoading, options };
       },
-      template: `<story @load-more="handleLoad" />`,
+      template: `<story @lazy-load="handleLoadMore" />`,
     }),
   ],
 };
@@ -124,23 +114,63 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox with lazy loading. The `loadMore` event will be emitted if the user scrolls
+ * This examples shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
 export const LazyLoading = {
   args: {
     ...Default.args,
-    loadingMode: "lazy",
+    lazyLoading: {
+      enabled: true,
+    },
   },
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox with button loading. The `loadMore` event will be emitted if the user clicks
- * the load more button when scrolled to the end of the options.
+ * This examples shows a loading listbox with button loading.
  */
 export const ButtonLoading = {
   args: {
     ...Default.args,
-    loadingMode: "button",
+    optionsEnd: () =>
+      h(OnyxButton, {
+        label: "Load more",
+        mode: "plain",
+        style: "width:100%",
+      }),
   },
+  render: (args) => ({
+    setup: () => {
+      return { args, ...useLazyLoading(args.options) };
+    },
+    components: { OnyxListbox, OnyxButton },
+    template: `
+      <OnyxListbox v-bind="args" :options="options">
+        <template #optionsEnd>
+          <OnyxButton label="Load more" mode="plain" :loading="isLazyLoading" style="width: 100%" @click="handleLoadMore" />
+        </template>
+      </OnyxListbox>
+`,
+  }),
 } satisfies Story;
+
+const useLazyLoading = (initialOptions: ListboxOption[]) => {
+  const isLazyLoading = ref(false);
+  const options = ref(initialOptions);
+
+  const handleLoadMore = async () => {
+    isLazyLoading.value = true;
+    await new Promise<void>((resolve) => setTimeout(resolve, 750));
+
+    options.value = options.value.concat(
+      Array.from({ length: 25 }, (_, index) => {
+        const id = options.value.length - initialOptions.length + index + 1;
+        return { id, label: `Loaded option ${id}` };
+      }),
+    );
+
+    isLazyLoading.value = false;
+  };
+
+  return { isLazyLoading, handleLoadMore, options };
+};
