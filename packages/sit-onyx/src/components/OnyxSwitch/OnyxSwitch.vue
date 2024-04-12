@@ -68,6 +68,7 @@ const isChecked = computed({
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
         <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
       </span>
+      <div class="onyx-switch__frame"></div>
     </span>
 
     <span
@@ -178,22 +179,39 @@ $input-width: calc(
         }
       }
 
-      &:user-invalid + .onyx-switch__container {
-        background-color: var(--onyx-color-base-danger-200);
-        border-color: var(--onyx-color-base-danger-500);
+      &:user-invalid {
+        & + .onyx-switch__container {
+          background-color: var(--onyx-color-base-danger-200);
+          position: relative;
 
-        .onyx-switch__icon {
-          background-color: var(--onyx-color-base-danger-500);
-          color: var(--onyx-color-text-icons-neutral-inverted);
+          .onyx-switch__icon {
+            background-color: var(--onyx-color-base-danger-500);
+            color: var(--onyx-color-text-icons-neutral-inverted);
+          }
+
+          // The frame is needed instead of setting a border directly on __container
+          // because when zooming in, some browsers will mess up the center-alignment of the __icon
+          // by resizing the 1px border to fractions.
+          // for more info, see https://github.com/SchwarzIT/onyx/issues/503
+          .onyx-switch__frame {
+            position: absolute;
+            border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
+            height: var(--onyx-switch-skeleton-height);
+            border-radius: var(--onyx-radius-full);
+            width: $input-width;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+          }
         }
-      }
 
-      &:user-invalid:checked + .onyx-switch__container {
-        background-color: var(--onyx-color-base-danger-500);
+        &:checked + .onyx-switch__container {
+          background-color: var(--onyx-color-base-danger-500);
 
-        .onyx-switch__icon {
-          background-color: var(--onyx-color-base-background-blank);
-          color: var(--onyx-color-text-icons-danger-intense);
+          .onyx-switch__icon {
+            background-color: var(--onyx-color-base-background-blank);
+            color: var(--onyx-color-text-icons-danger-intense);
+          }
         }
       }
     }
@@ -204,12 +222,13 @@ $input-width: calc(
       min-width: $input-width;
       height: var(--onyx-switch-input-height);
       padding: var(--onyx-switch-container-padding);
+      box-sizing: border-box;
       background-color: var(--onyx-color-base-neutral-300);
       border-radius: var(--onyx-radius-full);
-      border: var(--onyx-1px-in-rem) solid transparent;
       transition: background-color var(--onyx-duration-sm) ease;
 
       .onyx-switch__icon {
+        margin: var(--onyx-1px-in-rem);
         display: flex;
         align-self: center;
         justify-content: center;
