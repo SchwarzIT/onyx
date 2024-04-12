@@ -24,11 +24,11 @@ jobs:
         run: echo ${{ inputs.update-snapshots }}
 
       - name: If false
-        if: ${{ inputs.update-snapshots == 'false' }}
+        if: ${{ inputs.update-snapshots == false }}
         run: echo ${{ inputs.update-snapshots }} && exit 1
 
       - name: If true
-        if: ${{ inputs.update-snapshots == 'true' }}
+        if: ${{ inputs.update-snapshots == true }}
         run: echo ${{ inputs.update-snapshots }} && exit 1
 
       - uses: actions/checkout@v4
@@ -50,19 +50,19 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:components:all --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == 'true' && '--update-snapshots' || '' }}
+        run: pnpm run test:components:all --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
       - name: Copy changed files
-        if: ${{ inputs.update-snapshots == 'true' }}
+        if: ${{ inputs.update-snapshots == true }}
         run: |
           mkdir ./changed-screenshots
           rsync -R $(git ls-files --others --modified --exclude-standard) ./changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
-        if: ${{ inputs.update-snapshots == 'true' }}
+        if: ${{ inputs.update-snapshots == true }}
         with:
           name: screenshots-${{ matrix.shard }}
           path: changed-screenshots
