@@ -29,7 +29,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
   retries: process.env.CI ? 2 : 0, // retry on CI only
-  reporter: process.env.CI ? "blob" : [["html", { open: "never" }]],
+  reporter: [["html", { open: "never" }]],
   use: {
     trace: process.env.CI ? "retain-on-failure" : "off",
     video: process.env.CI ? "retain-on-failure" : "off",

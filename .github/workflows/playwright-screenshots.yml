@@ -49,14 +49,6 @@ jobs:
           name: screenshots-${{ matrix.shard }}
           path: changed-screenshots
 
-      - name: Upload test results artifact
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: test-results-${{ matrix.shard }}
-          path: "packages/*/(playwright-report|test-results|blob-report)"
-          retention-days: 1
-
   # Download screenshots from all shards and create a pull request
   pr:
     name: Create pull request
@@ -81,40 +73,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}
-
-  # Merge reports after playwright-tests, even if some shards have failed
-  # see https://playwright.dev/docs/test-sharding#github-actions-example
-  merge-reports:
-    name: Merge Playwright reports
-    if: ${{ !cancelled() }}
-    needs: update
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
-
-      - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: all-blob-reports
-          pattern: test-results-*
-          merge-multiple: true
-
-      - name: Merge into HTML Report
-        run: npx playwright merge-reports --reporter html ./all-blob-reports
-
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: playwright-report
