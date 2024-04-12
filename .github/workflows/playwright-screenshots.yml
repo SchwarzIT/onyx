@@ -10,8 +10,11 @@ on:
 
 jobs:
   update:
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
     name: Update Playwright screenshots
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -26,19 +29,25 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install
 
-      - name: 🔎 Update Playwright screenshots
-        uses: ./.github/templates/playwright
-        with:
-          update-snapshots: true
-          clean-snapshots: ${{ inputs.clean-snapshots }}
+      # install system dependencies for Playwright
+      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
+      - name: 📦 Install Playwright system dependencies
+        run: pnpm exec playwright install-deps
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v6
+      - name: 🗑️ Delete existing screenshots
+        if: ${{ inputs.clean-snapshots == 'true' }}
+        run: rm -rf ./packages/sit-onyx/playwright/snapshots
+
+      - name: 🔎 Update Playwright screenshots
+        run: pnpm run test:components --update-snapshots --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+        working-directory: packages/sit-onyx
+
+      - name: Upload test results artifact
+        uses: actions/upload-artifact@v4
+        if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
-          commit-message: "chore: update Playwright screenshots"
-          title: "chore: update Playwright screenshots"
-          body: This is an auto-generated pull request. All Playwright screenshots have been updated.
-          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: ${{ github.ref_name }}
+          name: test-results-${{ matrix.shard }}
+          path: |
+            packages/sit-onyx/playwright-report
+            packages/sit-onyx/blob-report
+            packages/sit-onyx/test-results
