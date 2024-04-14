@@ -2,7 +2,7 @@ import {
   createIconSourceCodeTransformer,
   createTruncationDecorator,
   defineIconSelectArgType,
-} from "@/utils/storybook";
+} from "../../utils/storybook";
 import xIcon from "@sit-onyx/icons/x.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
@@ -48,6 +48,16 @@ export const Secondary = {
   args: {
     label: "Tag",
     color: "secondary",
+  },
+} satisfies Story;
+
+/**
+ * This example shows the tag in neutral color
+ */
+export const Neutral = {
+  args: {
+    label: "Tag",
+    color: "neutral",
   },
 } satisfies Story;
 
