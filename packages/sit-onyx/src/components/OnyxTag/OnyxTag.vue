@@ -51,8 +51,8 @@ const { densityClass } = useDensity(props);
 
   @each $color in $colors {
     &--#{$color} {
-      --onyx-tag-text-color: var(--onyx-color-base-#{$color}-800);
-      --onyx-tag-background-color: var(--onyx-color-base-#{$color}-100);
+      --onyx-tag-text-color: var(--onyx-color-base-#{$color}-300);
+      --onyx-tag-background-color: var(--onyx-color-base-#{$color}-900);
     }
   }
 
