@@ -49,6 +49,8 @@ export * from "./components/OnyxSelect/types";
 export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.vue";
 
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
+export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
+export * from "./components/OnyxTag/types";
 export * from "./components/OnyxSwitch/types";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
