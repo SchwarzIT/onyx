@@ -33,7 +33,7 @@
     "@storybook/theming": ">= 8.0.0",
     "@storybook/vue3": ">= 8.0.0",
     "sit-onyx": "workspace:^",
-    "storybook-dark-mode": ">= 3"
+    "storybook-dark-mode": ">= 4"
   },
   "dependencies": {
     "deepmerge-ts": "^5.1.0"

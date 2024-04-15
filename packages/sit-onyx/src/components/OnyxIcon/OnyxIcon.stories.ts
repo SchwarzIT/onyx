@@ -1,11 +1,11 @@
+import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import {
   createIconSourceCodeTransformer,
   defineIconSelectArgType,
   textColorDecorator,
 } from "../../utils/storybook";
-import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxIcon from "./OnyxIcon.vue";
 
 /**
@@ -16,7 +16,7 @@ import OnyxIcon from "./OnyxIcon.vue";
  * instead of the file system path to the file.
  */
 const meta: Meta<typeof OnyxIcon> = {
-  title: "components/OnyxIcon",
+  title: "components/Icon",
   ...defineStorybookActionsAndVModels({
     component: OnyxIcon,
     events: [],
