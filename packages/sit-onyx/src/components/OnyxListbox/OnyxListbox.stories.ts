@@ -72,6 +72,7 @@ export const WithMessage = {
 export const MultiSelect = {
   args: {
     ...Default.args,
+    modelValue: [],
     multiple: true,
   },
 } satisfies Story;

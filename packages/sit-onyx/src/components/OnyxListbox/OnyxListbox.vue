@@ -1,11 +1,14 @@
-<script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
-import { createListbox } from "@sit-onyx/headless";
+<script
+  lang="ts"
+  setup
+  generic="TMultiple extends boolean = false, TOption extends ListboxValue = ListboxValue"
+>
+import { createListbox, type ListboxModelValue, type ListboxValue } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import type { OnyxListboxProps } from "./types";
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 
-const props = defineProps<OnyxListboxProps<TValue>>();
+const props = defineProps<OnyxListboxProps<TMultiple, TOption>>();
 
 const emit = defineEmits<{
   /**
@@ -15,9 +18,9 @@ const emit = defineEmits<{
 }>();
 
 /**
- * Currently (visually) active option.
+ * Currently (visually) active/focused option.
  */
-const activeOption = ref<TValue>();
+const activeOption = ref<TOption | undefined>();
 
 /**
  * Sync the active option with the selected option.
@@ -25,7 +28,11 @@ const activeOption = ref<TValue>();
 watch(
   () => props.modelValue,
   (newValue) => {
-    activeOption.value = newValue;
+    if (!props.multiple) {
+      activeOption.value = newValue as TOption | undefined;
+    }
+
+    // "TODO: which one should be highlighted on multi select?
   },
 );
 
@@ -33,11 +40,38 @@ const {
   elements: { listbox, option: headlessOption },
 } = createListbox({
   label: computed(() => props.label),
+  multiple: computed(() => props.multiple),
   selectedOption: computed(() => props.modelValue),
   activeOption,
-  onSelect: (id) => {
-    if (props.modelValue === id) emit("update:modelValue", undefined);
-    else emit("update:modelValue", id as TValue);
+  onSelect: (selectedOption) => {
+    if (props.modelValue === selectedOption) emit("update:modelValue", undefined);
+    else {
+      if (!props.multiple) {
+        emit("update:modelValue", selectedOption as ListboxModelValue<TOption, TMultiple>);
+      } else {
+        const newValues =
+          !props.modelValue || (Array.isArray(props.modelValue) && !props.modelValue.length)
+            ? []
+            : (props.modelValue as TOption[]);
+
+        const foundIndex = newValues.findIndex((option) => option === selectedOption);
+        // console.log(
+        //   "### current model value",
+        //   props.modelValue,
+        //   "\n new values base",
+        //   newValues,
+        //   "\nselectedOption",
+        //   selectedOption,
+        //   "\nfound index",
+        //   foundIndex,
+        // );
+        if (foundIndex < 0) newValues.push(selectedOption);
+        else {
+          newValues.splice(foundIndex, 1);
+        }
+        emit("update:modelValue", newValues as ListboxModelValue<TOption, TMultiple>);
+      }
+    }
   },
   onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
   onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),
@@ -73,11 +107,19 @@ const {
             value: option.id,
             label: option.label,
             disabled: option.disabled,
-            selected: option.id === props.modelValue,
+            selected:
+              option.id === props.modelValue ||
+              (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
           })
         "
-        :selected="option.id === props.modelValue"
-        :multiple="multiple"
+        :selected="
+          option.id === props.modelValue ||
+          (Array.isArray(props.modelValue) && props.modelValue.includes(option.id))
+        "
+        :multiple="
+          /* TODO: fix the ugly passing of `multiple` in a way typescript won't complain */
+          multiple === true ? true : false
+        "
         :active="option.id === activeOption"
       >
         {{ option.label }}
