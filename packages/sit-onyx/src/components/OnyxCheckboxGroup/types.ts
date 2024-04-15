@@ -22,15 +22,10 @@ export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = Selecti
      */
     direction?: Direction;
     /**
-     * If true, an additional checkbox will be displayed to check/uncheck all options.
+     * If truthy, an additional checkbox will be displayed to check/uncheck all options.
      * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
      */
-    withCheckAll?: boolean;
-    /**
-     * Checkbox label if property `withCheckAll` is enabled.
-     * If unset, a default label will be shown depending on the current locale/language.
-     */
-    checkAllLabel?: string;
+    withCheckAll?: WithAllConfig;
     /**
      * Whether all checkboxes should be disabled.
      */
@@ -47,3 +42,13 @@ export type CheckboxGroupOption<T extends SelectionOptionValue> = Omit<
 > & {
   id: T;
 };
+
+export type WithAllConfig =
+  | boolean
+  | {
+      /**
+       * Checkbox label if property `withCheckAll` is enabled.
+       * If unset, a default label will be shown depending on the current locale/language.
+       */
+      label?: string;
+    };

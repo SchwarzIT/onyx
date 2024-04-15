@@ -1,10 +1,10 @@
 <script lang="ts" setup generic="TValue extends string | number | boolean">
+import { computed } from "vue";
+import { useDensity } from "../../composables";
 import { injectI18n } from "../../i18n";
 import { OnyxHeadline, type OnyxCheckboxProps } from "../../index";
-import { computed } from "vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
@@ -50,6 +50,13 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
   if (currentValues.length === availableOptionIds.length) return { modelValue: true };
   return { indeterminate: true, modelValue: false };
 });
+
+const checkAllLabel = computed(() => {
+  if (typeof props.withCheckAll === "boolean" || !props.withCheckAll?.label) {
+    return t.value("selections.selectAll");
+  }
+  return props.withCheckAll.label;
+});
 </script>
 
 <template>
@@ -66,7 +73,7 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
         <OnyxCheckbox
           v-if="props.withCheckAll"
           v-bind="masterCheckboxState"
-          :label="props.checkAllLabel || t('selections.selectAll')"
+          :label="checkAllLabel"
           @update:model-value="handleMasterCheckboxChange"
         />
 
