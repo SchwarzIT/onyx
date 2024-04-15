@@ -56,8 +56,8 @@ export const comboboxTesting = async (
 
   // open and select first option
   await combobox.focus();
-  expectToOpen("ArrowDown", page, listbox);
-  expectToOpen("ArrowDown", page, listbox);
+  expectToOpen("ArrowDown", combobox, listbox);
+  expectToOpen("ArrowDown", combobox, listbox);
 
   const firstId = await (await firstElement.elementHandle())!.getAttribute("id");
   expect(typeof firstId).toBe("string");
@@ -73,24 +73,24 @@ export const comboboxTesting = async (
   // Single Select Pattern
 };
 
-const closeCombobox = async (page: Page, listbox: Locator) => {
-  await page.keyboard.press("Escape");
+const closeCombobox = async (combobox: Locator, listbox: Locator) => {
+  await combobox.press("Escape");
   return expect(listbox, "Listbox should be collapsed again").toBeHidden();
 };
 
-const openCombobox = async (page: Page, listbox: Locator) => {
-  await page.keyboard.press("ArrowDown");
+const openCombobox = async (combobox: Locator, listbox: Locator) => {
+  await combobox.press("ArrowDown");
   return expect(listbox, "Listbox should be open again").toBeVisible();
 };
 
 const expectToOpen = async (
   keyCombo: string,
-  page: Page,
+  combobox: Locator,
   listbox: Locator,
   selectedItem?: Locator,
 ) => {
-  await closeCombobox(page, listbox);
-  await page.keyboard.press(keyCombo);
+  await closeCombobox(combobox, listbox);
+  await combobox.press(keyCombo);
   await expect(listbox, "Combobox should be opened.").toBeVisible();
   if (selectedItem) {
     await expect(selectedItem, "Option should be selected").toHaveAttribute(
@@ -116,45 +116,45 @@ export const comboboxSelectOnlyTesting = async (
   await combobox.focus();
 
   // Keyboard Support - Closed Combobox
-  await expectToOpen("ArrowUp", page, listbox, page.getByRole("option").first());
-  await expectToOpen("Alt+ArrowDown", page, listbox);
-  await expectToOpen("Space", page, listbox);
-  await expectToOpen("Enter", page, listbox);
-  await expectToOpen("Home", page, listbox, listbox.getByRole("option").first());
-  await expectToOpen("End", page, listbox, listbox.getByRole("option").last());
-  await expectToOpen("ArrowDown", page, listbox);
-  await expectToOpen("a", page, listbox);
+  await expectToOpen("ArrowUp", combobox, listbox, page.getByRole("option").first());
+  await expectToOpen("Alt+ArrowDown", combobox, listbox);
+  await expectToOpen("Space", combobox, listbox);
+  await expectToOpen("Enter", combobox, listbox);
+  await expectToOpen("Home", combobox, listbox, listbox.getByRole("option").first());
+  await expectToOpen("End", combobox, listbox, listbox.getByRole("option").last());
+  await expectToOpen("ArrowDown", combobox, listbox);
+  await expectToOpen("a", combobox, listbox);
 
   // Keyboard Support - Listbox Popup
-  await expectToOpen("ArrowDown", page, listbox);
+  await expectToOpen("ArrowDown", combobox, listbox);
 
-  await page.keyboard.press("Enter");
+  await combobox.press("Enter");
   await expect(listbox).toBeHidden();
   await expect(combobox).toBeFocused();
 
-  await openCombobox(page, listbox);
-  await page.keyboard.press(" ");
+  await openCombobox(combobox, listbox);
+  await combobox.press(" ");
   await expect(listbox).toBeHidden();
   await expect(combobox).toBeFocused();
 
-  await openCombobox(page, listbox);
-  await page.keyboard.press("Tab");
+  await openCombobox(combobox, listbox);
+  await combobox.press("Tab");
   await expect(listbox).toBeHidden();
   await expect(combobox).not.toBeFocused();
   await combobox.focus();
 
-  await openCombobox(page, listbox);
-  await page.keyboard.press("Escape");
+  await openCombobox(combobox, listbox);
+  await combobox.press("Escape");
   await expect(listbox).toBeHidden();
   await expect(combobox).toBeFocused();
 
-  await openCombobox(page, listbox);
-  await page.keyboard.press("Home");
+  await openCombobox(combobox, listbox);
+  await combobox.press("Home");
   await expectToBeSelected(listbox.getByRole("option").first());
   await expect(combobox).toBeFocused();
 
-  await openCombobox(page, listbox);
-  await page.keyboard.press("End");
+  await openCombobox(combobox, listbox);
+  await combobox.press("End");
   await expectToBeSelected(listbox.getByRole("option").last());
   await expect(combobox).toBeFocused();
 };
