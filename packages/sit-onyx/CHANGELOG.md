@@ -1,5 +1,77 @@
 # sit-onyx
 
+## 1.0.0-alpha.70
+
+### Major Changes
+
+- 4508633: refactor: rename density constant and type
+
+  - rename constant `DENSITY` to `DENSITIES`
+  - rename type `DensityType` to `Density`
+
+## 1.0.0-alpha.69
+
+### Minor Changes
+
+- cc7e712: feat(OnyxListbox): add loading and empty state
+
+## 1.0.0-alpha.68
+
+### Minor Changes
+
+- 20fe4ff: Update OnyxBadge default icon size
+
+## 1.0.0-alpha.67
+
+### Patch Changes
+
+- e51f8cb: fix(OnyxSwitch): repair zoom alignment of icon
+
+## 1.0.0-alpha.66
+
+### Major Changes
+
+- 4747445: remove `TestInput` in favor of `OnyxInput`
+- 4747445: refactor: OnyxRadioButton, OnyxRadioButtonGroup, OnyxSwitch - rename property `errorMessage` to `customError`
+- 4747445: refactor: rename type `RadioButtonProps` to `OnyxRadioButtonProps` to align naming with other components
+
+### Patch Changes
+
+- 4747445: fix(OnyxButton): bind `type` property to native `<button>`
+- 4747445: fix(OnyxTooltip): prevent "document not defined" error in server side rendering
+
+## 1.0.0-alpha.65
+
+### Minor Changes
+
+- e9eae68: Component styles are now normalized and make use of CSS layers
+
+## 1.0.0-alpha.64
+
+### Minor Changes
+
+- 4e2a5bb: feat: add `OnyxEmpty` component
+
+## 1.0.0-alpha.63
+
+### Minor Changes
+
+- 03fea09: feat: add SCSS mixin for breakpoints
+
+  See the [documentation](https://onyx.schwarz/development/breakpoints.html) for further details
+
+## 1.0.0-alpha.62
+
+### Minor Changes
+
+- cde1fdd: Implement OnyxBadge
+
+## 1.0.0-alpha.61
+
+### Patch Changes
+
+- 93c4495: fix(OnyxTooltip): prevent warning about invalid prop type for `open`
+
 ## 1.0.0-alpha.60
 
 ### Minor Changes

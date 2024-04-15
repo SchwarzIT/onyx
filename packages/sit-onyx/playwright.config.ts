@@ -1,6 +1,15 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-vue";
-import vue from "@vitejs/plugin-vue";
-import { fileURLToPath } from "node:url";
+import vue, { Options } from "@vitejs/plugin-vue";
+
+export const vuePluginOptions: Options = {
+  template: {
+    compilerOptions: {
+      // comments can cause issues for components where classes
+      // are not merged correctly, e.g. when using `<OnyxIcon class="custom-class" />`
+      comments: false,
+    },
+  },
+};
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -26,12 +35,7 @@ export default defineConfig({
     video: process.env.CI ? "retain-on-failure" : "off",
     ctPort: 3100,
     ctViteConfig: {
-      plugins: [vue()],
-      resolve: {
-        alias: {
-          "@": fileURLToPath(new URL("./src", import.meta.url)),
-        },
-      },
+      plugins: [vue(vuePluginOptions)],
     },
   },
   /* Configure projects for major browsers */

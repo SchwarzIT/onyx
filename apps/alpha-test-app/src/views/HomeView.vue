@@ -2,9 +2,12 @@
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import type { ListboxOption } from "sit-onyx";
 import {
+  DENSITIES,
   OnyxAppLayout,
+  OnyxBadge,
   OnyxButton,
   OnyxCheckboxGroup,
+  OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
   OnyxIconButton,
@@ -20,7 +23,7 @@ import {
   OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
-import { computed, ref } from "vue";
+import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import LanguageSelection from "../components/LanguageSelection.vue";
@@ -29,8 +32,10 @@ const { locale } = useI18n();
 const router = useRouter();
 
 const COMPONENTS = [
+  "OnyxBadge",
   "OnyxButton",
   "OnyxCheckboxGroup",
+  "OnyxEmpty",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -55,6 +60,13 @@ const activeConfig = ref(configOptions.map((option) => option.id));
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
+
+const densityOptions = DENSITIES.map((id) => ({
+  id,
+  label: capitalize(id),
+})) satisfies SelectionOption<string>[];
+
+const activeDensityOption = ref({ ...densityOptions[1] });
 
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
@@ -107,6 +119,11 @@ const singleSelectState = ref("Apple");
     <OnyxPageLayout>
       <template #sidebar>
         <div class="sidebar">
+          <OnyxRadioButtonGroup
+            v-model="activeDensityOption"
+            headline="Density"
+            :options="densityOptions"
+          />
           <LanguageSelection v-model="locale" />
 
           <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
@@ -120,12 +137,13 @@ const singleSelectState = ref("Apple");
         </div>
       </template>
 
-      <div class="page">
+      <div class="page" :class="[`onyx-density-${activeDensityOption.id}`]">
         <OnyxHeadline is="h1">Component usages</OnyxHeadline>
 
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
+          <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
           <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 
           <template v-if="show('OnyxCheckboxGroup')">
@@ -205,6 +223,8 @@ const singleSelectState = ref("Apple");
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
+
+          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
           <!-- Add new components alphabetically. -->
         </div>

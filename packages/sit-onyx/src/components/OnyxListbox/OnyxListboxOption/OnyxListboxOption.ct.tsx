@@ -1,4 +1,4 @@
-import { executeScreenshotsForAllStates } from "@/utils/playwright";
+import { executeScreenshotsForAllStates } from "../../../utils/playwright";
 import { test } from "../../../playwright-axe";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 

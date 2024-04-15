@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-alpha.60",
+  "version": "1.0.0-alpha.70",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -21,6 +21,7 @@
     "./style.css": "./dist/style.css",
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
+    "./breakpoints.scss": "./src/styles/breakpoints.scss",
     "./types": "./src/types/index.ts"
   },
   "homepage": "https://onyx.schwarz",
@@ -52,7 +53,7 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.8.5",
+    "@axe-core/playwright": "^4.9.0",
     "@sit-onyx/headless": "workspace:^",
     "eslint-plugin-vue-scoped-css": "^2.8.0"
   }

@@ -44,7 +44,7 @@ const comboBox = createComboBox({
 });
 
 const {
-  elements: { input, listbox: listBox, button, option },
+  elements: { input, listBox, button, option },
 } = comboBox;
 
 defineExpose({ comboBox });

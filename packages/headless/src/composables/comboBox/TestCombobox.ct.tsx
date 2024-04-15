@@ -1,9 +1,9 @@
 import { test } from "@playwright/experimental-ct-vue";
-import TestDropdown from "./TestCombobox.vue";
+import TestCombobox from "./TestCombobox.vue";
 import { comboboxTesting } from "./createComboBox.ct";
 
 test("combobox", async ({ mount, page }) => {
-  await mount(<TestDropdown />);
+  await mount(<TestCombobox />);
   const listbox = page.getByRole("listbox");
   const combobox = page.getByRole("combobox");
   const button = page.getByRole("button");

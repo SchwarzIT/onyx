@@ -45,7 +45,7 @@ export const listboxTesting = async ({
   // ensure correct listbox aria attributes
   await expect(
     listbox,
-    'listbox must either have a "aria-label" attribute with an existing id',
+    'listbox must have a "aria-label" attribute with an existing id',
   ).toHaveAttribute("aria-label");
 
   await listbox

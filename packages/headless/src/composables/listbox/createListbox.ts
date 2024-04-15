@@ -5,6 +5,10 @@ import { useTypeAhead } from "../typeAhead";
 
 export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
+   * Aria label for the listbox.
+   */
+  label: MaybeRef<string>;
+  /**
    * Value of currently selected option.
    */
   selectedOption: Ref<TValue | undefined>;

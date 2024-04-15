@@ -1,0 +1,76 @@
+<script setup lang="ts">
+import { Repl } from "@vue/repl";
+import Monaco from "@vue/repl/monaco-editor";
+import { useDark } from "@vueuse/core";
+import { OnyxAppLayout } from "sit-onyx";
+import { computed, ref } from "vue";
+import TheHeader from "./components/TheHeader.vue";
+import { useStore } from "./composables/useStore";
+
+const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
+
+const replRef = ref<InstanceType<typeof Repl>>();
+const reloadPage = () => replRef.value?.reload();
+
+const isDark = useDark();
+const theme = computed(() => (isDark.value ? "dark" : "light"));
+</script>
+
+<template>
+  <OnyxAppLayout>
+    <template #navBar>
+      <TheHeader
+        v-model:onyx-version="onyxVersion"
+        v-model:vue-version="store.vueVersion"
+        v-model:typescript-version="store.typescriptVersion"
+        v-model:dark="isDark"
+        @reload-page="reloadPage"
+      />
+    </template>
+
+    <!-- the key is needed here to update the headHTML below correctly so
+    the correct style.css for the onyx version is loaded -->
+    <Repl
+      v-if="!isLoadingOnyxVersions"
+      :key="onyxVersion"
+      ref="replRef"
+      :editor="Monaco"
+      :theme="theme"
+      :store="store"
+      :clear-console="false"
+      :show-compile-output="false"
+      :preview-options="{
+        headHTML: `<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion}/dist/style.css' />`,
+      }"
+      preview-theme
+      auto-resize
+      @keydown.ctrl.s.prevent
+      @keydown.meta.s.prevent
+    />
+  </OnyxAppLayout>
+</template>
+
+<style lang="scss">
+.dark .vue-repl,
+.vue-repl {
+  --color-branding: var(--onyx-color-text-icons-primary-intense);
+  --color-branding-dark: var(--onyx-color-text-icons-primary-bold);
+
+  --bg: var(--onyx-color-base-background-blank);
+  --bg-soft: var(--onyx-color-base-background-tinted);
+  --border: var(--onyx-color-base-neutral-300);
+
+  font-family: var(--onyx-font-family);
+  --font-code: var(--onyx-font-family-mono);
+  --text-light: var(--onyx-color-text-icons-neutral-medium);
+
+  .import-map-wrapper {
+    background: none;
+  }
+
+  .monaco-editor {
+    --vscode-editor-background: var(--onyx-color-base-background-blank);
+    --vscode-editorGutter-background: var(--onyx-color-base-background-blank);
+  }
+}
+</style>
