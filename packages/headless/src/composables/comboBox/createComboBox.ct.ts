@@ -56,8 +56,8 @@ export const comboboxTesting = async (
 
   // open and select first option
   await combobox.focus();
-  await page.keyboard.press("ArrowDown");
-  await page.keyboard.press("ArrowDown");
+  expectToOpen("ArrowDown", page, listbox);
+  expectToOpen("ArrowDown", page, listbox);
 
   const firstId = await (await firstElement.elementHandle())!.getAttribute("id");
   expect(typeof firstId).toBe("string");
@@ -69,4 +69,60 @@ export const comboboxTesting = async (
     combobox,
     "When a descendant of the popup element is active, authors MAY ensure that the focus remains on the combobox element",
   ).toBeFocused();
+
+  // Single Select Pattern
+};
+
+const closeCombobox = async (page: Page, listbox: Locator) => {
+  await page.keyboard.press("ArrowDown");
+  return expect(listbox, "Listbox should be collapsed again").toBeHidden();
+};
+
+const expectToOpen = async (
+  keyCombo: string,
+  page: Page,
+  listbox: Locator,
+  selectedItem?: Locator,
+) => {
+  await closeCombobox(page, listbox);
+  await page.keyboard.press(keyCombo);
+  await expect(listbox, "Combobox should be opened.").toBeVisible();
+  if (selectedItem) {
+    await expect(selectedItem, "Option should be selected").toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+  }
+};
+
+/**
+ * Test an implementation of the combobox based on https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
+ */
+export const comboboxSelectOnlyTesting = async (
+  page: Page,
+  listbox: Locator,
+  combobox: Locator,
+  button: Locator,
+  options: Locator,
+) => {
+  await expect(listbox, "Initial state of a combobox is collapsed.").toBeHidden();
+
+  await combobox.focus();
+
+  // Keyboard Support - Closed Combobox
+  await expectToOpen("ArrowUp", page, listbox, listbox.getByRole("listitem").first());
+  await expectToOpen("Alt+ArrowDown", page, listbox);
+  await expectToOpen("Space", page, listbox);
+  await expectToOpen("Enter", page, listbox);
+  await expectToOpen("Home", page, listbox, listbox.getByRole("listitem").last());
+  await expectToOpen("End", page, listbox, listbox.getByRole("listitem").first());
+  await expectToOpen("ArrowDown", page, listbox);
+  await expectToOpen("a", page, listbox);
+
+  // Keyboard Support - Listbox Popup
+  await expectToOpen("ArrowDown", page, listbox);
+
+  listbox.locator('[aria-selected="-1"]');
+
+  await page.keyboard.press("Enter");
 };

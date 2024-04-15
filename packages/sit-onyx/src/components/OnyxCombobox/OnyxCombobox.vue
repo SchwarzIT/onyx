@@ -9,40 +9,37 @@ import OnyxListboxMessage from "../OnyxListbox/OnyxListboxMessage.vue";
 import OnyxSelect from "./OnyxSelect/OnyxSelect.vue";
 
 const props = defineProps<{
-  modelValue: string;
-  message: string;
+  modelValue?: string;
+  message?: string;
   label: string;
   listLabel: string;
   withSearch?: boolean;
   options: ListboxOption<string>[];
 }>();
 
+const emit = defineEmits<{
+  "update:modelValue": [newValue: string];
+}>();
+
 const isExpanded = ref(false);
-const searchTerm = ref("");
 const activeOption = ref<ListboxOption<string>>();
-// TODO: diacritics search
-const filteredOptions = computed(() =>
-  props.options.filter((v) => v.label.includes(searchTerm.value)),
-);
 const selectedIndex = computed<number | undefined>(() => {
-  const index = filteredOptions.value.findIndex((o) => o.id === activeOption.value?.id);
+  const index = props.options.findIndex((o) => o.id === props.modelValue);
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeOption.value = filteredOptions.value.at(0));
-const onActivateLast = () => (activeOption.value = filteredOptions.value.at(-1));
+const onActivateFirst = () => (activeOption.value = props.options.at(0));
+const onActivateLast = () => (activeOption.value = props.options.at(-1));
 const onActivateNext = () => {
   if (selectedIndex.value === undefined) {
     return onActivateFirst();
   }
-  const nextIndex = (selectedIndex.value + 1) % filteredOptions.value.length;
+  const nextIndex = (selectedIndex.value + 1) % props.options.length;
 
-  activeOption.value = filteredOptions.value.at(nextIndex);
+  activeOption.value = props.options.at(nextIndex);
 };
 const onActivatePrevious = () =>
-  (activeOption.value = filteredOptions.value.at((selectedIndex.value ?? 0) - 1));
-const onSelect = (newValue: string) => (searchTerm.value = newValue);
-const onAutocomplete = (input: string) => (searchTerm.value = input);
+  (activeOption.value = props.options.at((selectedIndex.value ?? 0) - 1));
 const onTypeAhead = (input: string) => {
   const firstMatch = props.options.find((i) => {
     return i.label.toLowerCase().trim().startsWith(input.toLowerCase());
@@ -51,15 +48,15 @@ const onTypeAhead = (input: string) => {
   activeOption.value = firstMatch;
 };
 const onToggle = () => (isExpanded.value = !isExpanded.value);
+const onSelect = (newValue: string) => emit("update:modelValue", newValue);
 
 const comboBox = createComboBox({
-  autocomplete: props.withSearch ? "list" : "none",
+  autocomplete: "none",
   label: props.label,
   listLabel: props.listLabel,
   activeOption: computed(() => activeOption.value?.id),
   isExpanded,
   onToggle,
-  onAutocomplete,
   onActivateFirst,
   onActivateLast,
   onActivateNext,
@@ -78,7 +75,7 @@ const {
     <OnyxListboxWrapper v-show="isExpanded" class="onyx-combobox--listbox">
       <OnyxListboxList v-bind="listbox">
         <OnyxListboxOption
-          v-for="option in filteredOptions"
+          v-for="option in props.options"
           :key="option.id.toString()"
           v-bind="
             headlessOption({
@@ -88,7 +85,6 @@ const {
               selected: option.id === props.modelValue,
             })
           "
-          :active="option.id === activeOption?.id"
         >
           {{ option.label }}
         </OnyxListboxOption>

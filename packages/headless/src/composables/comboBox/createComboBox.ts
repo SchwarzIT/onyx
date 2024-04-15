@@ -2,8 +2,12 @@ import { computed, ref, type MaybeRef, type Ref, unref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { createListbox } from "../listbox/createListbox";
+import { useTypeAhead } from "../typeAhead";
+import { isPrintableCharacter } from "src/utils/keyEvent";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
+
+const OPENING_KEYS: string[] = ["ArrowDown", "ArrowUp", "Space", "Enter", "Home", "End"];
 
 export type CreateComboboxOptions<
   TValue extends string,
@@ -96,48 +100,59 @@ export const createComboBox = createBuilder(
       }
     };
 
+    const typeAhead = useTypeAhead((inputString) => onTypeAhead?.(inputString));
+
     const handleKeydown = (event: KeyboardEvent) => {
-      if (!unref(isExpanded)) {
-        return;
-      }
-      switch (event.key) {
-        case "Enter":
-          event.preventDefault();
-          if (activeOption.value) {
-            onSelect?.(activeOption.value);
-            inputValue.value = activeOption.value;
+      const _isExpanded = unref(isExpanded);
+      if (_isExpanded) {
+        switch (event.key) {
+          case "Enter":
+            event.preventDefault();
+            if (activeOption.value) {
+              onSelect?.(activeOption.value);
+              onToggle?.();
+            }
+            break;
+          case "Escape":
+            event.preventDefault();
             onToggle?.();
-          }
-          break;
-        case "Escape":
-          event.preventDefault();
-          onToggle?.();
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          if (!activeOption.value) {
-            return onActivateLast?.();
-          }
-          onActivatePrevious?.(activeOption.value);
-          break;
-        case "ArrowDown":
-          event.preventDefault();
-          if (!activeOption.value) {
+            break;
+          case "ArrowUp":
+            event.preventDefault();
+            if (!activeOption.value) {
+              return onActivateLast?.();
+            }
+            onActivatePrevious?.(activeOption.value);
+            break;
+          case "ArrowDown":
+            event.preventDefault();
+            if (!activeOption.value) {
+              return onActivateFirst?.();
+            }
+            onActivateNext?.(activeOption.value);
+            break;
+          case "Home":
+            event.preventDefault();
+            onActivateFirst?.();
+            break;
+          case "End":
+            event.preventDefault();
+            onActivateLast?.();
+            break;
+        }
+      } else if (OPENING_KEYS.includes(event.key)) {
+        onToggle?.();
+        switch (event.key) {
+          case "ArrowUp":
+          case "Home":
             return onActivateFirst?.();
-          }
-          onActivateNext?.(activeOption.value);
-          break;
-        case "Home":
-          event.preventDefault();
-          onActivateFirst?.();
-          break;
-        case "End":
-          event.preventDefault();
-          onActivateLast?.();
-          break;
+          case "End":
+            return onActivateLast?.();
+        }
       }
-      if (autocomplete === "none") {
-        return onTypeAhead?.(event.key);
+      if (autocomplete === "none" && isPrintableCharacter(event.key)) {
+        !_isExpanded && onToggle?.();
+        return typeAhead(event);
       }
     };
 
