@@ -34,7 +34,7 @@ export type MatrixScreenshotTestOptions<
     row: TRow,
   ) => Promise<void>;
   /**
-   * Rules to disabler when performing the accessibility tests.
+   * Rules to disable when performing the accessibility tests.
    * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed
    * and if possible create a GitHub issue with follow up work on it.
    *
