@@ -22,9 +22,9 @@ export type CreateListboxOptions<
    */
   selectedOption: Ref<ListboxModelValue<TOption, TMultiple>>;
   /**
-   * Value of currently (visually) active option.
+   * Value of currently (visually) active/focused option.
    */
-  activeOption: Ref<ListboxModelValue<TOption, TMultiple>>;
+  activeOption: Ref<TOption | undefined>;
   /**
    * Wether the listbox is controlled from the outside, e.g. by a combobox.
    * This disables keyboard events and makes the listbox not focusable.
@@ -37,7 +37,7 @@ export type CreateListboxOptions<
   /**
    * Hook when an option is selected.
    */
-  onSelect?: (value: ListboxModelValue<TOption, TMultiple>) => void;
+  onSelect?: (value: TOption) => void;
   /**
    * Hook when the first option should be activated.
    */
@@ -47,13 +47,13 @@ export type CreateListboxOptions<
    */
   onActivateLast?: () => void;
   /**
-   * Hook when the next option should be activated.
+   * Hook when the next option should be activated/focused.
    */
-  onActivateNext?: (currentValue: ListboxModelValue<TOption, TMultiple>) => void;
+  onActivateNext?: (currentValue: TOption) => void;
   /**
    * Hook when the previous option should be activated.
    */
-  onActivatePrevious?: (currentValue: ListboxModelValue<TOption, TMultiple>) => void;
+  onActivatePrevious?: (currentValue: TOption) => void;
   /**
    * Hook when the first option starting with the given label should be activated.
    */
@@ -73,9 +73,9 @@ export const createListbox = createBuilder(
     /**
      * Map for option IDs. key = option value, key = ID for the HTML element
      */
-    const descendantKeyIdMap = new Map<ListboxModelValue<TOption, TMultiple>, string>();
+    const descendantKeyIdMap = new Map<TOption, string>();
 
-    const getOptionId = (value: ListboxModelValue<TOption, TMultiple>) => {
+    const getOptionId = (value: TOption) => {
       if (!descendantKeyIdMap.has(value)) {
         descendantKeyIdMap.set(value, createId("listbox-option"));
       }
@@ -178,7 +178,7 @@ export const createListbox = createBuilder(
         option: computed(() => {
           return (data: {
             label: string;
-            value: ListboxModelValue<TOption, TMultiple>;
+            value: TOption;
             selected?: boolean;
             disabled?: boolean;
           }) => {
