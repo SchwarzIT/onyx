@@ -1,6 +1,9 @@
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
+import type { ListboxValue, ListboxModelValue } from "@sit-onyx/headless";
 
-export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
+export type OnyxListboxProps<
+  TMultiple extends boolean | undefined,
+  TOption extends ListboxValue = ListboxValue,
+> = {
   /**
    * Aria label. Must be set for accessibility reasons.
    */
@@ -8,7 +11,7 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
   /**
    * Available options to choose from.
    */
-  options: ListboxOption<TValue>[];
+  options: ListboxOption<TOption>[];
   /**
    * Message / help text to display at the bottom.
    */
@@ -16,14 +19,14 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
   /**
    * Current value / selected options.
    */
-  modelValue?: TValue;
+  modelValue?: ListboxModelValue<TOption, TMultiple>;
   /**
    * Allows the selection of multiple listbox options
    */
-  multiple?: boolean;
+  multiple?: TMultiple;
 };
 
-export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {
+export type ListboxOption<T extends ListboxValue = ListboxValue> = {
   /**
    * Option ID / value to use when the option is selected.
    */
