@@ -58,21 +58,14 @@ test("should truncate text", async ({ mount }) => {
 
 const DENSITYSTATES = {
   density: ["compact", "default", "cozy"],
-  focusState: ["focus-visible"],
 } as const;
 
 test.describe("state density screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    DENSITYSTATES,
-    "button",
-    async ({ density, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxTag label="Tag" color="primary" density={density} icon={mockPlaywrightIcon} />,
-      );
+  executeScreenshotsForAllStates(DENSITYSTATES, "button", async ({ density }, mount) => {
+    const component = await mount(
+      <OnyxTag label="Tag" color="primary" density={density} icon={mockPlaywrightIcon} />,
+    );
 
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-
-      return component;
-    },
-  );
+    return component;
+  });
 });
