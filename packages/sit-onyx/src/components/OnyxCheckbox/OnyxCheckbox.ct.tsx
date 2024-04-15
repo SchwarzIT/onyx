@@ -1,13 +1,13 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright-axe";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { TRUNCATION_TYPES } from "../../types/fonts";
+import { TRUNCATION_TYPES } from "../../types";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Checkbox",
-    columns: ["unchecked", "indeterminate", "checked", "hideLabel"],
+    columns: ["unchecked", "indeterminate", "checked", "loading", "hideLabel"],
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxCheckbox
@@ -15,6 +15,7 @@ test.describe("Screenshot tests", () => {
         modelValue={column === "checked"}
         indeterminate={column === "indeterminate"}
         hideLabel={column === "hideLabel"}
+        loading={column === "loading"}
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -38,7 +39,7 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Checkbox (disabled)",
-    columns: ["unchecked", "indeterminate", "checked", "hideLabel"],
+    columns: ["unchecked", "indeterminate", "checked", "loading", "hideLabel"],
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxCheckbox
@@ -46,12 +47,18 @@ test.describe("Screenshot tests", () => {
         modelValue={column === "checked"}
         indeterminate={column === "indeterminate"}
         hideLabel={column === "hideLabel"}
+        loading={column === "loading"}
         disabled
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       const checkbox = component.getByLabel("Test label");
-      await expect(checkbox).toBeDisabled();
+
+      if (column !== "loading") {
+        await expect(checkbox).toBeDisabled();
+      } else {
+        await expect(checkbox).not.toBeAttached();
+      }
 
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
@@ -97,8 +104,10 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Checkbox (densities)",
     columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible"],
-    component: (column) => <OnyxCheckbox label="Test label" density={column} />,
+    rows: ["default", "hover", "focus-visible", "loading"],
+    component: (column, row) => (
+      <OnyxCheckbox label="Test label" density={column} loading={row === "loading"} />
+    ),
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
