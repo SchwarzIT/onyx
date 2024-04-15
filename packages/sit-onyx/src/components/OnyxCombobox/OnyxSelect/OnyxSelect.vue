@@ -11,6 +11,11 @@ import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue }
 import { useDensity } from "../../..";
 import { useRequired } from "../../../composables/required";
 import { injectI18n } from "../../../i18n";
+import OnyxSkeleton from "../../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxLoadingIndicator from "../../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxTooltip from "../../OnyxTooltip/OnyxTooltip.vue";
+import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 
 defineOptions({
   inheritAttrs: false,
