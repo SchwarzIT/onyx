@@ -1,4 +1,4 @@
-import { test } from "../../playwright-axe";
+import { expect, test } from "../../playwright-axe";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxLink from "./OnyxLink.vue";
 
@@ -16,6 +16,7 @@ test.describe("Screenshot tests", () => {
       </OnyxLink>
     ),
     beforeScreenshot: async (component, page, column, row) => {
+      await expect(component).toContainText("Click me");
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
     },
