@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.69
+
+### Minor Changes
+
+- cc7e712: feat(OnyxListbox): add loading and empty state
+
 ## 1.0.0-alpha.68
 
 ### Minor Changes
