@@ -46,6 +46,7 @@ export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue>
 export type ListboxLazyLoading = {
   /**
    * Whether lazy loading should be enabled.
+   * Can be disabled e.g. if all options are loaded.
    */
   enabled?: boolean;
   /**

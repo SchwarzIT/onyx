@@ -1,3 +1,4 @@
+import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
@@ -141,7 +142,7 @@ export const ButtonLoading = {
     template: `
       <OnyxListbox v-bind="args" :options="options">
         <template #optionsEnd>
-          <OnyxButton label="Load more" mode="plain" :loading="isLazyLoading" style="width: 100%" @click="handleLoadMore" />
+          <OnyxButton label="Load more" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
         </template>
       </OnyxListbox>
 `,
