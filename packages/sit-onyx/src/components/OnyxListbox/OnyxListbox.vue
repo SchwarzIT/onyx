@@ -88,7 +88,6 @@ const {
   },
 });
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const groupedOptions = props.options.reduce((acc: Record<string, ListboxOption[]>, currOpt) => {
   acc[currOpt.group ?? ""] = acc[currOpt.group ?? ""] || [];
   acc[currOpt.group ?? ""].push(currOpt);
