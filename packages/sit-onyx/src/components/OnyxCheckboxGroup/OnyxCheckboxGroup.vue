@@ -50,6 +50,8 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
   if (currentValues.length === availableOptionIds.length) return { modelValue: true };
   return { indeterminate: true, modelValue: false };
 });
+// TODO: find out why the composable does not update.
+// const masterCheckboxState = useSelectAllCheckboxState(enabledOptions, props.modelValue);
 
 const checkAllLabel = computed(() => {
   if (typeof props.withCheckAll === "boolean" || !props.withCheckAll?.label) {
