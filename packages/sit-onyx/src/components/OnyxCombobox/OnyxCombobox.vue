@@ -43,9 +43,9 @@ const onActivatePrevious = () =>
   (activeOption.value = filteredOptions.value.at((selectedIndex.value ?? 0) - 1));
 const onSelect = (newValue: string) => (searchTerm.value = newValue);
 const onAutocomplete = (input: string) => (searchTerm.value = input);
-const onTypeAhead = (label) => {
+const onTypeAhead = (input: string) => {
   const firstMatch = props.options.find((i) => {
-    return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
+    return i.label.toLowerCase().trim().startsWith(input.toLowerCase());
   });
   if (!firstMatch) return;
   activeOption.value = firstMatch;
