@@ -1,21 +1,24 @@
-import { computed, ref, type MaybeRef, type Ref } from "vue";
+import { computed, ref, type MaybeRef, type Ref, unref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { createListbox } from "../listbox/createListbox";
 
-export type CreateComboboxOptions<TValue extends string> = {
+export type ComboboxAutoComplete = "none" | "list" | "both";
+
+export type CreateComboboxOptions<
+  TValue extends string,
+  TAutoComplete extends ComboboxAutoComplete,
+> = {
+  autocomplete: TAutoComplete;
+  label: MaybeRef<string>;
   /**
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
    */
   listLabel: MaybeRef<string>;
   /**
-   * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
-   */
-  inputValue: Ref<TValue>;
-  /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
-  isExpanded: Ref<boolean>;
+  isExpanded: MaybeRef<boolean>;
   /**
    * If expanded, the active option is the currently highlighted option of the controlled listbox.
    */
@@ -44,20 +47,24 @@ export type CreateComboboxOptions<TValue extends string> = {
    * Hook when the previous option should be activated.
    */
   onActivatePrevious?: (currentValue: TValue) => void;
-  /**
-   * Hook when the first option starting with the given label should be activated.
-   */
-  onTypeAhead?: (label: string) => void;
-};
+} & (TAutoComplete extends Exclude<ComboboxAutoComplete, "none">
+  ? { onAutocomplete: (input: string) => void }
+  : { onAutocomplete?: undefined }) &
+  (TAutoComplete extends "none"
+    ? { onTypeAhead: (input: string) => void }
+    : { onTypeAhead?: undefined });
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TValue extends string>({
+  <TValue extends string, TAutoComplete extends ComboboxAutoComplete>({
+    autocomplete,
+    onAutocomplete,
+    onTypeAhead,
+    label,
     listLabel,
-    inputValue,
     isExpanded,
     activeOption,
     onToggle,
@@ -66,25 +73,31 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TValue>) => {
+  }: CreateComboboxOptions<TValue, TAutoComplete>) => {
     const inputValid = ref(true);
+    const inputValue = ref("");
     const controlsId = createId("comboBox-control");
-    const labelId = createId("comboBox-label");
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
       inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
+      if (autocomplete !== "none") {
+        onAutocomplete?.(inputValue.value);
+      }
+      if (!unref(isExpanded)) {
+        onToggle?.();
+      }
     };
 
     const handleBlur = () => {
-      if (isExpanded.value) {
+      if (unref(isExpanded)) {
         onToggle?.();
       }
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (!isExpanded.value) {
+      if (!unref(isExpanded)) {
         return;
       }
       switch (event.key) {
@@ -93,6 +106,7 @@ export const createComboBox = createBuilder(
           if (activeOption.value) {
             onSelect?.(activeOption.value);
             inputValue.value = activeOption.value;
+            onToggle?.();
           }
           break;
         case "Escape":
@@ -122,7 +136,18 @@ export const createComboBox = createBuilder(
           onActivateLast?.();
           break;
       }
+      if (autocomplete === "none") {
+        return onTypeAhead?.(event.key);
+      }
     };
+
+    const autocompleteInput =
+      autocomplete !== "none"
+        ? {
+            "aria-autocomplete": autocomplete,
+            type: "text",
+          }
+        : null;
 
     const {
       elements: { option, group, listbox },
@@ -139,13 +164,10 @@ export const createComboBox = createBuilder(
       elements: {
         option,
         group,
-        label: {
-          id: labelId,
-        },
         /**
          * The listbox associated with the combobox.
          */
-        listBox: computed(() => ({
+        listbox: computed(() => ({
           ...listbox.value,
           id: controlsId,
         })),
@@ -156,13 +178,14 @@ export const createComboBox = createBuilder(
         input: computed(() => ({
           value: inputValue.value,
           role: "combobox",
-          "aria-expanded": isExpanded.value,
+          "aria-expanded": unref(isExpanded),
           "aria-controls": controlsId,
-          "aria-labelledby": labelId,
+          "aria-label": unref(label),
           "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
           onBlur: handleBlur,
+          ...autocompleteInput,
         })),
         /**
          * An optional button to control the visibility of the popup.

@@ -4,10 +4,6 @@ import { createBuilder, type HeadlessElementAttributes } from "../../utils/build
 
 export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
-   * Aria label for the listbox.
-   */
-  label: MaybeRef<string>;
-  /**
    * Value of currently selected option.
    */
   selectedOption: Ref<TValue | undefined>;
@@ -47,8 +43,27 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
    * Hook when the first option starting with the given label should be activated.
    */
-  onTypeAhead?: (label: string) => void;
-};
+  onTypeAhead?: (key: string) => void;
+} & (
+  | {
+      /**
+       * Optional aria label for the listbox.
+       */
+      label?: MaybeRef<string>;
+      /**
+       * Wether the listbox is controlled from the outside, e.g. by a combobox.
+       * This disables keyboard events and makes the listbox not focusable.
+       */
+      controlled: true;
+    }
+  | {
+      /**
+       * Aria label for the listbox.
+       */
+      label: MaybeRef<string>;
+      controlled?: false;
+    }
+);
 
 export type ListboxValue = string | number | boolean;
 

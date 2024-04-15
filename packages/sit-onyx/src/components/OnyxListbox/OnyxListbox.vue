@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
 import { createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch } from "vue";
-import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
+import OnyxListboxOption from "./OnyxListboxOption/OnyxListboxOption.vue";
 import type { OnyxListboxProps } from "./types";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 

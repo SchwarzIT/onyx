@@ -14,6 +14,10 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
 import { useDensity } from "@/composables/density";
 
+defineOptions({
+  inheritAttrs: false,
+});
+
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
   loading: false,
@@ -108,12 +112,12 @@ const { densityClass } = useDensity(props);
           class="onyx-select__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
           type="text"
-          role="presentation"
           :required="props.required"
           readonly
           :disabled="props.disabled || props.loading"
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
+          v-bind="$attrs"
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input 

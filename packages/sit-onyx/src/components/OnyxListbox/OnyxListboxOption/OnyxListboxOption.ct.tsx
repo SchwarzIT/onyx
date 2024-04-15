@@ -1,5 +1,5 @@
 import { executeScreenshotsForAllStates } from "@/utils/playwright";
-import { test } from "../../playwright-axe";
+import { test } from "../../../playwright-axe";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 
 const STATES = {
