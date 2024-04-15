@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { isObjectSubset } from "./object";
+import { isSubsetMatching } from "./object";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 
@@ -13,7 +13,7 @@ test.each([
   { label: "with undefined keys", compareObj: { ...referenceObj, e: undefined } },
 ])("should return true for objects $label", ({ compareObj }) => {
   // ACT
-  const result = isObjectSubset(referenceObj, compareObj);
+  const result = isSubsetMatching(referenceObj, compareObj);
 
   // ASSERT
   expect(result).toBeTruthy();
@@ -26,7 +26,7 @@ test.each([
   { label: "a value", compareObj: { ...referenceObj, a: undefined } },
 ])("should return false when objects differ by $label", ({ compareObj }) => {
   // ACT
-  const result = isObjectSubset(referenceObj, compareObj);
+  const result = isSubsetMatching(referenceObj, compareObj);
 
   // ASSERT
   expect(result).toBeFalsy();
