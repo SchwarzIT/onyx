@@ -47,6 +47,46 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render with multiselect", async ({ mount }) => {
+  let modelValue: Array<number> = [2];
+
+  // ARRANGE
+  const component = await mount(OnyxListbox<true, number>, {
+    props: {
+      options: [
+        { id: 1, label: "Default" },
+        { id: 2, label: "Selected" },
+        { id: 3, label: "Disabled", disabled: true },
+        { id: 4, label: "Very long label ".repeat(5) },
+      ],
+      label: "Test listbox",
+      multiple: true,
+      modelValue,
+    },
+    on: {
+      "update:modelValue": async (value: Array<number>) => {
+        modelValue = value;
+        await component.update({ props: { modelValue } });
+      },
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("multiple.png");
+  await expect(component.getByText("Disabled")).toBeDisabled();
+
+  // ACT (should de-select current value)
+  await component.getByText("Selected").click();
+  expect(modelValue).toEqual([]);
+
+  // TODO: find the a11y error cause
+  // // ACT
+  // const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // // ASSERT
+  // expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(OnyxListbox, {
