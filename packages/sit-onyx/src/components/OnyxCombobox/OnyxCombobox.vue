@@ -6,7 +6,7 @@ import OnyxListboxList from "../OnyxListbox/OnyxListboxList.vue";
 import OnyxListboxOption from "../OnyxListbox/OnyxListboxOption/OnyxListboxOption.vue";
 import type { ListboxOption } from "../OnyxListbox/types";
 import OnyxListboxMessage from "../OnyxListbox/OnyxListboxMessage.vue";
-import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
+import OnyxSelect from "./OnyxSelect/OnyxSelect.vue";
 
 const props = defineProps<{
   modelValue: string;

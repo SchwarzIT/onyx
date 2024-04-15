@@ -9,8 +9,8 @@ import { useRequired } from "@/composables/required";
 import { injectI18n } from "@/i18n";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../../..";
+import OnyxLoadingIndicator from "../../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
 import { useDensity } from "@/composables/density";
 
@@ -140,7 +140,7 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../../styles/density.scss";
 
 .onyx-select,
 .onyx-select-skeleton {
