@@ -1,10 +1,10 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj, Decorator } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
-import type { ListboxOption } from "./types";
+import type { ListboxLazyLoading, ListboxOption } from "./types";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -32,25 +32,6 @@ const meta: Meta<typeof OnyxListbox> = {
       optionsEnd: { control: { disable: true } },
     },
   }),
-  /**
-   * Decorator that simulates the load more functionality so we can show it in the stories.
-   */
-  decorators: [
-    (story, ctx) => ({
-      components: { story },
-      setup: () => {
-        const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
-
-        watchEffect(() => {
-          ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-          ctx.args.options = options.value;
-        });
-
-        return { handleLoadMore, isLazyLoading, options };
-      },
-      template: `<story @lazy-load="handleLoadMore" />`,
-    }),
-  ],
 };
 
 export default meta;
@@ -126,6 +107,29 @@ export const Loading = {
 } satisfies Story;
 
 /**
+ * Decorator that simulates the load more functionality so we can show it in the stories.
+ */
+const getLazyLoadDecorator = (): Decorator => (story, ctx) => ({
+  components: { story },
+  setup: () => {
+    const { isLazyLoading, handleLoadMore, options } = useLazyLoading(
+      ctx.args.options as ListboxOption[],
+    );
+
+    watchEffect(() => {
+      ctx.args.lazyLoading = {
+        ...(ctx.args.lazyLoading as ListboxLazyLoading),
+        loading: isLazyLoading.value,
+      };
+      ctx.args.options = options.value;
+    });
+
+    return { handleLoadMore, isLazyLoading, options };
+  },
+  template: `<story @lazy-load="handleLoadMore" />`,
+});
+
+/**
  * This examples shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
@@ -136,6 +140,7 @@ export const LazyLoading = {
       enabled: true,
     },
   },
+  decorators: getLazyLoadDecorator(),
 } satisfies Story;
 
 /**
@@ -145,6 +150,7 @@ export const ButtonLoading = {
   args: {
     ...Default.args,
   },
+  decorators: getLazyLoadDecorator(),
   render: (args) => ({
     setup: () => {
       return { args, ...useLazyLoading(args.options) };
