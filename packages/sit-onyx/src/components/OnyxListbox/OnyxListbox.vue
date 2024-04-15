@@ -23,7 +23,7 @@ const emit = defineEmits<{
 const activeOption = ref<TOption | undefined>();
 
 /**
- * Sync the active option with the selected option.
+ * Sync the active option with the selected option on single select.
  */
 watch(
   () => props.modelValue,
@@ -31,8 +31,6 @@ watch(
     if (!props.multiple) {
       activeOption.value = newValue as TOption | undefined;
     }
-
-    // "TODO: which one should be highlighted on multi select?
   },
 );
 
@@ -55,21 +53,12 @@ const {
             : (props.modelValue as TOption[]);
 
         const foundIndex = newValues.findIndex((option) => option === selectedOption);
-        // console.log(
-        //   "### current model value",
-        //   props.modelValue,
-        //   "\n new values base",
-        //   newValues,
-        //   "\nselectedOption",
-        //   selectedOption,
-        //   "\nfound index",
-        //   foundIndex,
-        // );
         if (foundIndex < 0) newValues.push(selectedOption);
         else {
           newValues.splice(foundIndex, 1);
         }
         emit("update:modelValue", newValues as ListboxModelValue<TOption, TMultiple>);
+        activeOption.value = selectedOption;
       }
     }
   },
