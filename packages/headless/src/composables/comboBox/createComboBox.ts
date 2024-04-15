@@ -109,21 +109,18 @@ export const createComboBox = createBuilder(
       }
     };
 
-    const handleBlur = () => {
-      if (unref(isExpanded)) {
-        onToggle?.();
-      }
-    };
-
     const typeAhead = useTypeAhead((inputString) => onTypeAhead?.(inputString));
+
+    const handleSelect = (value: TValue) => {
+      onSelect?.(value);
+      onToggle?.();
+    };
 
     const handleKeydown = (event: KeyboardEvent) => {
       const _isExpanded = unref(isExpanded);
       if (_isExpanded) {
         if (isSelectingKey(event)) {
-          event.preventDefault();
-          onSelect?.(activeOption.value!);
-          onToggle?.();
+          handleSelect(activeOption.value!);
           return;
         }
 
@@ -187,7 +184,7 @@ export const createComboBox = createBuilder(
       controlled: true,
       activeOption,
       selectedOption: activeOption,
-      onSelect,
+      onSelect: handleSelect,
     });
 
     return {
@@ -214,7 +211,6 @@ export const createComboBox = createBuilder(
           "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
-          onBlur: handleBlur,
           ...autocompleteInput,
         })),
         /**

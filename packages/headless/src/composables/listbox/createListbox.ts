@@ -186,15 +186,12 @@ export const createListbox = createBuilder(
           });
         }),
         option: computed(() => {
-          return (data: {
-            label: string;
-            value: TValue;
-            selected?: boolean;
-            disabled?: boolean;
-          }) => {
-            const isSelected = data.selected ?? false;
+          return (data: { label: string; value: TValue; disabled?: boolean }) => {
+            const id = getOptionId(data.value);
+            // aria-selected matches when it is the active option
+            const isSelected = options.activeOption.value === data.value;
             return {
-              id: getOptionId(data.value),
+              id,
               role: "option",
               "aria-label": data.label,
               "aria-checked": isMultiselect.value ? isSelected : undefined,

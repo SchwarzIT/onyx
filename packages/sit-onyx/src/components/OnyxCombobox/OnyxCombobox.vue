@@ -42,7 +42,15 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
+/**
+ * Currently selected option.
+ */
 const selectedOption = computed(() => props.options.find(({ id }) => props.modelValue === id));
+
+/**
+ *
+ */
+const enabledOptions = computed(() => props.options.filter((o) => !o.disabled));
 
 /**
  * Currently (visually) active option.
@@ -56,20 +64,20 @@ const activeIndex = computed<number | undefined>(() => {
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeOption.value = props.options.at(0));
-const onActivateLast = () => (activeOption.value = props.options.at(-1));
+const onActivateFirst = () => (activeOption.value = enabledOptions.value.at(0));
+const onActivateLast = () => (activeOption.value = enabledOptions.value.at(-1));
 const onActivateNext = () => {
   if (activeIndex.value === undefined) {
     return onActivateFirst();
   }
-  const nextIndex = Math.min(props.options.length - 1, activeIndex.value + 1);
+  const nextIndex = Math.min(enabledOptions.value.length - 1, activeIndex.value + 1);
 
-  activeOption.value = props.options.at(nextIndex);
+  activeOption.value = enabledOptions.value.at(nextIndex);
 };
 const onActivatePrevious = () =>
-  (activeOption.value = props.options.at(Math.max((activeIndex.value ?? 0) - 1, 0)));
+  (activeOption.value = enabledOptions.value.at(Math.max((activeIndex.value ?? 0) - 1, 0)));
 const onTypeAhead = (input: string) => {
-  const firstMatch = props.options.find((i) => {
+  const firstMatch = enabledOptions.value.find((i) => {
     return i.label.toLowerCase().trim().startsWith(input.toLowerCase());
   });
   if (!firstMatch) return;
@@ -114,8 +122,10 @@ const isEmpty = computed(() => props.options.length === 0);
   <div class="onyx-combobox">
     <OnyxSelect
       :label="props.label"
+      :loading="props.loading"
       :model-value="selectedOption?.label"
       v-bind="input"
+      @click="isExpanded = true"
       @keydown.arrow-down="isExpanded = true"
     />
     <div v-show="isExpanded" class="onyx-listbox">
@@ -136,9 +146,9 @@ const isEmpty = computed(() => props.options.length === 0);
               value: option.id,
               label: option.label,
               disabled: option.disabled,
-              selected: option.id === props.modelValue,
             })
           "
+          :selected="option.id === selectedOption?.id"
           :active="option.id === activeOption?.id"
         >
           {{ option.label }}

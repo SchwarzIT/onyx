@@ -1,4 +1,4 @@
-import { listboxTesting } from "@sit-onyx/headless/playwright";
+import { comboboxSelectOnlyTesting } from "@sit-onyx/headless/playwright";
 import { expect, test } from "../../playwright-axe";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCombobox from "./OnyxCombobox.vue";
@@ -34,12 +34,13 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   });
 
   // ASSERT
+  await component.getByRole("combobox").click(); // open
   await expect(component).toHaveScreenshot("default.png");
-  await expect(component.getByText("Disabled")).toBeDisabled();
+  await expect(component.getByRole("option").getByText("Disabled")).toBeDisabled();
 
   // ACT (should de-select current value)
-  await component.getByText("Selected").click();
-  expect(modelValue).toBeUndefined();
+  await component.getByRole("option").getByText("Default").click();
+  expect(modelValue).toBe("1");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -71,15 +72,11 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 
-  await listboxTesting({
+  await comboboxSelectOnlyTesting(
     page,
-    listbox: component.getByRole("listbox"),
-    options: component.getByRole("option"),
-    isOptionActive: async (locator) => {
-      const className = await locator.getAttribute("class");
-      return className?.includes("onyx-listbox-option--active") ?? false;
-    },
-  });
+    component.getByRole("listbox"),
+    component.getByRole("combobox"),
+  );
 });
 
 test("should show empty state", async ({ mount }) => {
@@ -87,6 +84,7 @@ test("should show empty state", async ({ mount }) => {
   const component = await mount(
     <OnyxCombobox label="Test combobox" listLabel="Test listbox" options={[]} />,
   );
+  await component.getByRole("combobox").click(); // open
 
   // ASSERT
   await expect(component).toHaveScreenshot("empty.png");
@@ -137,6 +135,8 @@ test("should support lazy loading", async ({ mount }) => {
   const updateProps = (props: Partial<OnyxComboboxProps>) => {
     return component.update({ props, on: eventHandlers });
   };
+
+  await component.getByRole("combobox").click(); // open
 
   await expect(component.getByRole("option")).toHaveCount(25);
 
@@ -207,6 +207,8 @@ test("should display optionsEnd slot", async ({ mount }) => {
       </template>
     </OnyxCombobox>,
   );
+
+  await component.getByRole("combobox").click(); // open
 
   const button = component.getByRole("button", { name: "Load more" });
 

@@ -12,7 +12,13 @@ defineSlots<{
 </script>
 
 <template>
-  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
+  <li
+    class="onyx-listbox-option"
+    :class="{
+      'onyx-listbox-option--active': props.active,
+      'onyx-listbox-option--selected': props.selected,
+    }"
+  >
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
     </span>
@@ -44,12 +50,13 @@ defineSlots<{
       cursor: pointer;
 
       &:hover,
+      &[aria-selected="true"],
+      &[aria-checked="true"],
       &.onyx-listbox-option--active {
         background-color: var(--onyx-color-base-primary-100);
       }
 
-      &[aria-selected="true"],
-      &[aria-checked="true"] {
+      &.onyx-listbox-option--selected {
         background-color: var(--onyx-color-base-primary-200);
 
         &:hover,
