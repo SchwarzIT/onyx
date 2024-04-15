@@ -33,6 +33,14 @@ export type MatrixScreenshotTestOptions<
     column: TColumn,
     row: TRow,
   ) => Promise<void>;
+  /**
+   * Rules to disabler when performing the accessibility tests.
+   * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed
+   * and if possible create a GitHub issue with follow up work on it.
+   *
+   * @see https://playwright.dev/docs/accessibility-testing#disabling-individual-scan-rules
+   */
+  disabledAccessibilityRules?: string[];
 };
 
 type TestArgs = Parameters<Parameters<typeof test>[2]>[0];
@@ -43,7 +51,7 @@ type TestArgs = Parameters<Parameters<typeof test>[2]>[0];
 export const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
   options: MatrixScreenshotTestOptions<TColumn, TRow>,
 ) => {
-  test(`${options.name}`, async ({ mount, page, browserName }) => {
+  test(`${options.name}`, async ({ mount, page, browserName, makeAxeBuilder }) => {
     // limit the max timeout per permutation
     const timeoutPerScreenshot = 10 * 1000;
     test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
@@ -58,6 +66,15 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
 
       const component = await mount(element);
       await options.beforeScreenshot?.(component, page, column, row);
+
+      // accessibility tests
+      const accessibilityScanResults = await makeAxeBuilder()
+        .disableRules(options.disabledAccessibilityRules ?? [])
+        .analyze();
+      expect(
+        accessibilityScanResults.violations,
+        `should pass accessibility checks for ${column} ${row}`,
+      ).toEqual([]);
 
       const screenshot = await component.screenshot({ animations: "disabled" });
 
