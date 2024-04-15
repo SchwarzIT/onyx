@@ -1,6 +1,7 @@
 import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
 import { createId } from "../..";
 import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
+import { useTypeAhead } from "../typeAhead";
 
 export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
@@ -100,6 +101,8 @@ export const createListbox = createBuilder(
       document.getElementById(id)?.scrollIntoView({ block: "nearest", inline: "nearest" });
     });
 
+    const typeAhead = useTypeAhead((inputString) => options.onTypeAhead?.(inputString));
+
     const handleKeydown = (event: KeyboardEvent) => {
       switch (event.key) {
         case " ":
@@ -142,9 +145,7 @@ export const createListbox = createBuilder(
           break;
 
         default:
-          // if a printable character is pressed, the first option/text starting with the pressed
-          // character should be active
-          options.onTypeAhead?.(event.key);
+          typeAhead(event);
       }
     };
 
