@@ -70,7 +70,7 @@ const groupedOptions = props.options.reduce((acc: Record<string, ListboxOption[]
 
 <template>
   <div class="onyx-listbox">
-    <div class="onyx-listbox__wrapper">
+    <div class="onyx-listbox__wrapper" v-bind="listbox">
       <div
         v-for="([group, options], index) in Object.entries(groupedOptions)"
         :key="index"
@@ -84,7 +84,7 @@ const groupedOptions = props.options.reduce((acc: Record<string, ListboxOption[]
         <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">{{
           group
         }}</span>
-        <ul v-bind="listbox" class="onyx-listbox__options">
+        <ul class="onyx-listbox__options">
           <OnyxListboxOption
             v-for="option in options as any"
             :key="option.id.toString()"
@@ -160,7 +160,7 @@ const groupedOptions = props.options.reduce((acc: Record<string, ListboxOption[]
       height: var(--option-height);
     }
 
-    &:has(&__options:focus-visible) {
+    &:has(&__wrapper:focus-visible) {
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
   }
