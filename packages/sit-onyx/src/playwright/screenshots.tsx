@@ -48,6 +48,9 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
     const timeoutPerScreenshot = 10 * 1000;
     test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
 
+    /**
+     * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing the captured screenshot.
+     */
     const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover(); // reset mouse
