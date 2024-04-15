@@ -69,13 +69,13 @@ const comboBox = createComboBox({
 });
 
 const {
-  elements: { input, listbox, button, option: headlessOption },
+  elements: { input, listbox, option: headlessOption },
 } = comboBox;
 </script>
 <template>
   <div class="onyx-combobox">
     <OnyxSelect :label="props.label" v-bind="input" @keydown.arrow-down="isExpanded = true" />
-    <OnyxListboxWrapper v-show="isExpanded">
+    <OnyxListboxWrapper v-show="isExpanded" class="onyx-combobox--listbox">
       <OnyxListboxList v-bind="listbox">
         <OnyxListboxOption
           v-for="option in filteredOptions"
@@ -100,7 +100,13 @@ const {
     </OnyxListboxWrapper>
   </div>
 </template>
-<style>
+<style lang="scss">
 .onyx-combobox {
+  position: relative;
+
+  &--listbox {
+    position: absolute;
+    width: 100%;
+  }
 }
 </style>
