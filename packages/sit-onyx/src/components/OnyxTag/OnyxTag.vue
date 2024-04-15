@@ -51,8 +51,16 @@ const { densityClass } = useDensity(props);
 
   @each $color in $colors {
     &--#{$color} {
-      --onyx-tag-text-color: var(--onyx-color-base-#{$color}-300);
-      --onyx-tag-background-color: var(--onyx-color-base-#{$color}-900);
+      @if $color == primary {
+        --onyx-tag-text-color: var(--onyx-color-text-icons-#{$color}-intense);
+      } @else if $color == secondary {
+        --onyx-tag-text-color: var(--onyx-color-text-icons-#{$color}-intense);
+      } @else if $color == neutral {
+        --onyx-tag-text-color: var(--onyx-color-text-icons-#{$color}-medium);
+      } @else {
+        --onyx-tag-text-color: var(--onyx-color-text-icons-#{$color}-bold);
+      }
+      --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
     }
   }
 
