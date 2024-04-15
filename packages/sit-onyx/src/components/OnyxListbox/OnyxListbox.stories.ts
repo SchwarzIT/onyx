@@ -142,7 +142,7 @@ export const ButtonLoading = {
     template: `
       <OnyxListbox v-bind="args" :options="options">
         <template #optionsEnd>
-          <OnyxButton label="Load more" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
+          <OnyxButton label="Load more items" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
         </template>
       </OnyxListbox>
 `,
