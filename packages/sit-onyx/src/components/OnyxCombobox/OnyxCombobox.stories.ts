@@ -23,7 +23,7 @@ import type { ComboboxOption } from "./types";
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxCombobox> = {
-  title: "support/OnyxCombobox",
+  title: "components/OnyxCombobox",
   ...defineStorybookActionsAndVModels({
     component: OnyxCombobox,
     events: ["update:modelValue", "lazyLoad"],
@@ -63,7 +63,7 @@ type Story = StoryObj<typeof OnyxCombobox>;
  */
 export const Default = {
   args: {
-    label: "Example listbox",
+    label: "Example combobox",
     options: [
       "Apple",
       "Banana",
