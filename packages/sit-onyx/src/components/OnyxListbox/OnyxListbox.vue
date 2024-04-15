@@ -117,46 +117,44 @@ const isEmpty = computed(() => props.options.length === 0);
       <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
     </slot>
 
-    <div v-else v-scroll-end class="onyx-listbox__wrapper" v-bind="listbox">
-      <div
+    <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+      <ul
         v-for="([group, options], index) in Object.entries(groupedOptions)"
         :key="index"
+        class="onyx-listbox__group"
         v-bind="
           headlessGroup({
             label: group,
           })
         "
-        class="onyx-listbox__group"
       >
         <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">{{
           group
         }}</span>
-        <ul class="onyx-listbox__options">
-          <OnyxListboxOption
-            v-for="option in options as any"
-            :key="option.id.toString()"
-            v-bind="
-              headlessOption({
-                value: option.id,
-                label: option.label,
-                disabled: option.disabled,
-                selected: option.id === props.modelValue,
-              })
-            "
-            :active="option.id === activeOption"
-          >
-            {{ option.label }}
-          </OnyxListboxOption>
+        <OnyxListboxOption
+          v-for="option in options as any"
+          :key="option.id.toString()"
+          v-bind="
+            headlessOption({
+              value: option.id,
+              label: option.label,
+              disabled: option.disabled,
+              selected: option.id === props.modelValue,
+            })
+          "
+          :active="option.id === activeOption"
+        >
+          {{ option.label }}
+        </OnyxListboxOption>
 
-          <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-            <OnyxLoadingIndicator class="onyx-listbox__loading" />
-          </li>
+        <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        </li>
 
-          <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
-            <slot name="optionsEnd"></slot>
-          </li>
-        </ul>
-      </div>
+        <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
+          <slot name="optionsEnd"></slot>
+        </li>
+      </ul>
     </div>
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
@@ -189,9 +187,13 @@ const isEmpty = computed(() => props.options.length === 0);
       outline: none;
     }
 
-    &__group:not(:last-child) {
-      border-bottom: 1px solid var(--onyx-color-base-neutral-300);
-      margin-bottom: var(--onyx-spacing-4xs);
+    &__group {
+      padding: 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--onyx-color-base-neutral-300);
+        margin-bottom: var(--onyx-spacing-4xs);
+      }
     }
 
     &__group-name {
@@ -199,10 +201,6 @@ const isEmpty = computed(() => props.options.length === 0);
       padding: 0 var(--onyx-spacing-sm);
       color: var(--onyx-color-text-icons-neutral-medium);
       font-weight: 600;
-    }
-
-    &__options {
-      padding: 0;
     }
 
     &__message {
