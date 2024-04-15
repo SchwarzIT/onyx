@@ -1,16 +1,16 @@
-import type { createListbox } from "@sit-onyx/headless";
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
-
-export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOptionValue> = {
+export type OnyxComboboxProps = {
   /**
-   * Aria label. Must be set for accessibility reasons.
+   * Aria label for the combobox.
    */
   label: string;
   /**
+   * Aria label for the listbox of the combobox.
+   */
+  listLabel: string;
+  /**
    * Available options to choose from.
    */
-  options: ListboxOption<TValue>[];
-  controlled?: ReturnType<typeof createListbox>;
+  options: ComboboxOption[];
   /**
    * Message / help text to display at the bottom.
    */
@@ -18,7 +18,7 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
   /**
    * Current value / selected options.
    */
-  modelValue?: TValue;
+  modelValue?: string;
   /**
    * Whether to show a loading indicator.
    */
@@ -27,14 +27,16 @@ export type OnyxListboxProps<TValue extends SelectionOptionValue = SelectionOpti
    * Lazy loading options. Can be used to load more options on scroll.
    * If you want to use a button instead, use the `optionsEnd` slot.
    */
-  lazyLoading?: ListboxLazyLoading;
+  lazyLoading?: ComboboxLazyLoading;
+  // TODO: needs to be implemented
+  withSearch?: false;
 };
 
-export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue> = {
+export type ComboboxOption = {
   /**
    * Option ID / value to use when the option is selected.
    */
-  id: T;
+  id: string;
   /**
    * Label to show.
    */
@@ -45,7 +47,7 @@ export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue>
   disabled?: boolean;
 };
 
-export type ListboxLazyLoading = {
+export type ComboboxLazyLoading = {
   /**
    * Whether lazy loading should be enabled.
    * Can be disabled e.g. if all options are loaded.

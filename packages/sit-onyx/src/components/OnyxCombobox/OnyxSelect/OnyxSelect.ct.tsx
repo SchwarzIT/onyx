@@ -1,5 +1,5 @@
-import { expect, test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
+import { expect, test } from "../../../playwright-axe";
+import { executeScreenshotsForAllStates } from "../../../utils/playwright";
 import OnyxSelect from "./OnyxSelect.vue";
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {

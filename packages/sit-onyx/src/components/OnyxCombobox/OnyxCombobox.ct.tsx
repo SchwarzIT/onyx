@@ -1,10 +1,69 @@
+import { listboxTesting } from "@sit-onyx/headless/playwright";
 import { expect, test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCombobox from "./OnyxCombobox.vue";
+import type { ComboboxOption, OnyxComboboxProps } from "./types";
 
-test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
+const MOCK_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
+  id: `${index}`,
+  label: `Test option ${index + 1}`,
+})) satisfies ComboboxOption[];
+
+test("should render", async ({ mount, makeAxeBuilder }) => {
+  let modelValue: string | undefined = "2";
+
   // ARRANGE
-  const component = await mount(<OnyxCombobox style="width: 16rem" label="Test label" />);
+  const component = await mount(OnyxCombobox, {
+    props: {
+      options: [
+        { id: "1", label: "Default" },
+        { id: "2", label: "Selected" },
+        { id: "3", label: "Disabled", disabled: true },
+        { id: "4", label: "Very long label ".repeat(5) },
+      ],
+      label: "Test combobox",
+      listLabel: "Test listbox",
+      modelValue,
+    },
+    on: {
+      "update:modelValue": async (value: string | undefined) => {
+        modelValue = value;
+        await component.update({ props: { modelValue } });
+      },
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("default.png");
+  await expect(component.getByText("Disabled")).toBeDisabled();
+
+  // ACT (should de-select current value)
+  await component.getByText("Selected").click();
+  expect(modelValue).toBeUndefined();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
+  // ARRANGE
+  const component = await mount(OnyxCombobox, {
+    props: {
+      options: MOCK_OPTIONS,
+      label: "Test combobox",
+      listLabel: "Test listbox",
+    },
+    on: {
+      "update:modelValue": (modelValue: string | undefined) =>
+        component.update({ props: { modelValue } }),
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("many-options.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -12,144 +71,148 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 
+  await listboxTesting({
+    page,
+    listbox: component.getByRole("listbox"),
+    options: component.getByRole("option"),
+    isOptionActive: async (locator) => {
+      const className = await locator.getAttribute("class");
+      return className?.includes("onyx-listbox-option--active") ?? false;
+    },
+  });
+});
+
+test("should show empty state", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxCombobox label="Test combobox" listLabel="Test listbox" options={[]} />,
+  );
+
   // ASSERT
-  await expect(component).not.toContainText("Test label");
-  await expect(component.getByLabel("Test label")).toBeAttached();
+  await expect(component).toHaveScreenshot("empty.png");
+  await expect(component).toContainText("No data available");
+
+  // TODO: comment back in once contrast issues of the empty component are fixed
+  // ACT
+  // const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  // expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-const BASIC_STATES = {
-  state: ["default", "required", "optional"],
-  labeled: ["Fruits", "Hidden Label"],
-} as const;
-
-test.describe("basic state screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    BASIC_STATES,
-    "basic-select",
-    async ({ state, labeled }, mount) => {
-      const component = await mount(
-        <OnyxCombobox
-          style="width: 16rem"
-          modelValue={undefined}
-          label={labeled}
-          hideLabel={labeled === "Hidden Label"}
-          required={state === "required"}
-          placeholder="Select your fruits"
-        />,
-        { useOptional: state === "optional" },
-      );
-      return component;
-    },
+test("should show loading state", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxCombobox label="Test combobox" listLabel="Test listbox" options={MOCK_OPTIONS} loading />,
   );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("loading.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-const PERMISSIONS_STATES = {
-  state: ["default", "disabled", "readonly"],
-  focusState: ["", "hover", "focus-visible"],
-} as const;
+test("should support lazy loading", async ({ mount }) => {
+  let lazyLoadEventCount = 0;
 
-test.describe("permissions states screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    PERMISSIONS_STATES,
-    "permissions-select",
-    async ({ state, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxCombobox
-          modelValue={undefined}
-          label="Fruits"
-          disabled={state === "disabled"}
-          readonly={state === "readonly"}
-          placeholder="Select your fruits"
-        />,
-      );
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await component.hover();
-      return component;
+  const eventHandlers = {
+    lazyLoad: () => lazyLoadEventCount++,
+  };
+
+  // ARRANGE
+  const component = await mount(OnyxCombobox, {
+    props: {
+      options: MOCK_OPTIONS,
+      label: "Test combobox",
+      listLabel: "Test listbox",
+      lazyLoading: { enabled: true },
     },
-  );
-});
-
-const DENSITY_STATES = {
-  density: ["compact", "default", "cozy"],
-} as const;
-
-test.describe("select with density states screenshot tests", () => {
-  executeScreenshotsForAllStates(DENSITY_STATES, "density-select", async ({ density }, mount) => {
-    const component = await mount(
-      <OnyxCombobox
-        modelValue={undefined}
-        label="Fruits"
-        placeholder="Select your fruits"
-        density={density}
-      />,
-    );
-    return component;
+    on: eventHandlers,
   });
-});
 
-const SINGLE_STATES = {
-  selection: ["", "Selection"],
-} as const;
+  const updateProps = (props: Partial<OnyxComboboxProps>) => {
+    return component.update({ props, on: eventHandlers });
+  };
 
-test.describe("single select value display states screenshot tests", () => {
-  executeScreenshotsForAllStates(SINGLE_STATES, "single-select", async ({ selection }, mount) => {
-    const component = await mount(
-      <OnyxCombobox
-        modelValue={selection ? selection : undefined}
-        label="Fruits"
-        placeholder="Select your fruits"
-      />,
-    );
-    return component;
+  await expect(component.getByRole("option")).toHaveCount(25);
+
+  const listbox = component.getByRole("listbox");
+
+  const scrollToOption = async (label: string) => {
+    await listbox
+      .getByLabel(label)
+      .evaluate((element) => element.scrollIntoView({ block: "end", behavior: "smooth" }));
+  };
+
+  // ACT (should not emit event if not scrolled completely to the end)
+  await scrollToOption("Test option 20");
+
+  // ASSERT
+  await expect(() => expect(lazyLoadEventCount).toBe(0)).toPass();
+
+  // ACT
+  await scrollToOption("Test option 25");
+
+  // ASSERT
+  await expect(() => expect(lazyLoadEventCount).toBe(1)).toPass();
+
+  // ACT
+  await updateProps({ lazyLoading: { enabled: true, loading: true } });
+
+  // ASSERT
+  const loadingIndicator = component.locator(".onyx-loading-dots");
+  await loadingIndicator.scrollIntoViewIfNeeded();
+  await expect(loadingIndicator).toBeVisible();
+  await expect(component).toHaveScreenshot("lazy-loading-active.png");
+
+  // ACT
+  await updateProps({
+    loading: false,
+    label: "Test combobox",
+    listLabel: "Test listbox",
+    options: MOCK_OPTIONS.concat(
+      Array.from({ length: 25 }, (_, index) => {
+        const id = MOCK_OPTIONS.length + index;
+        return { id: `${id}`, label: `Test option ${id + 1}` };
+      }),
+    ),
   });
+
+  // ASSERT
+  await expect(component.getByRole("option")).toHaveCount(50);
+  await expect(component.getByLabel("Test option 25")).toBeInViewport();
+  await expect(() => expect(lazyLoadEventCount).toBe(1)).toPass();
+
+  // ACT (should support customizing the scroll offset)
+
+  await updateProps({
+    lazyLoading: { enabled: true, scrollOffset: 120 },
+  });
+  await scrollToOption("Test option 48");
+
+  // ASSERT
+  await expect(() => expect(lazyLoadEventCount).toBe(2)).toPass();
 });
 
-const MULTIPLE_STATES = {
-  selection: [
-    [],
-    ["Apple"],
-    ["Apple", "Pear"],
-    ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
-  ].map((values) => JSON.stringify(values)),
-  multiselectTextMode: ["summary", "preview"],
-} as const;
-
-test.describe("multiselect value display states screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    MULTIPLE_STATES,
-    "multi-select",
-    async ({ selection, multiselectTextMode }, mount) => {
-      const component = await mount(
-        <OnyxCombobox
-          style="width: 16rem"
-          modelValue={JSON.parse(selection)}
-          label={`Multiselect with ${multiselectTextMode}`}
-          multiple={{ textMode: multiselectTextMode }}
-        />,
-      );
-      return component;
-    },
+test("should display optionsEnd slot", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxCombobox options={MOCK_OPTIONS} label="Test label" listLabel="Test listbox">
+      <template v-slot:optionsEnd>
+        <OnyxButton label="Load more" mode="plain" style={{ width: "100%" }} />
+      </template>
+    </OnyxCombobox>,
   );
-});
 
-const SKELETON_STATES = {
-  withLabel: ["true", "false"],
-} as const;
+  const button = component.getByRole("button", { name: "Load more" });
 
-test.describe("skeleton states screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    SKELETON_STATES,
-    "skeleton-select",
-    async ({ withLabel }, mount) => {
-      const component = await mount(
-        <OnyxCombobox
-          modelValue={undefined}
-          label="Label"
-          skeleton
-          hideLabel={withLabel === "true"}
-        />,
-      );
-      return component;
-    },
-  );
+  // ACT
+  await button.scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("custom-load-button.png");
 });

@@ -3,11 +3,26 @@ import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { createListbox } from "../listbox/createListbox";
 import { useTypeAhead } from "../typeAhead";
-import { isPrintableCharacter } from "src/utils/keyEvent";
+import { isPrintableCharacter } from "../../utils/keyEvent";
+import { isSubsetMatching } from "../../utils/object";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
 const OPENING_KEYS: string[] = ["ArrowDown", "ArrowUp", "Space", "Enter", "Home", "End"];
+const SELECTING_KEYS: Partial<KeyboardEvent>[] = [
+  { key: "Enter" },
+  { key: " " },
+  { key: "Tab" },
+  { key: "ArrowUp", altKey: true },
+];
+const isSelectingKey = (event: KeyboardEvent) =>
+  SELECTING_KEYS.some((key) =>
+    isSubsetMatching(
+      { altKey: false, ctrlKey: false, metaKey: false, shiftKey: false, ...key },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      event as any,
+    ),
+  );
 
 export type CreateComboboxOptions<
   TValue extends string,
@@ -105,14 +120,14 @@ export const createComboBox = createBuilder(
     const handleKeydown = (event: KeyboardEvent) => {
       const _isExpanded = unref(isExpanded);
       if (_isExpanded) {
+        if (isSelectingKey(event)) {
+          event.preventDefault();
+          onSelect?.(activeOption.value!);
+          onToggle?.();
+          return;
+        }
+
         switch (event.key) {
-          case "Enter":
-            event.preventDefault();
-            if (activeOption.value) {
-              onSelect?.(activeOption.value);
-              onToggle?.();
-            }
-            break;
           case "Escape":
             event.preventDefault();
             onToggle?.();

@@ -74,8 +74,13 @@ export const comboboxTesting = async (
 };
 
 const closeCombobox = async (page: Page, listbox: Locator) => {
-  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Escape");
   return expect(listbox, "Listbox should be collapsed again").toBeHidden();
+};
+
+const openCombobox = async (page: Page, listbox: Locator) => {
+  await page.keyboard.press("ArrowDown");
+  return expect(listbox, "Listbox should be open again").toBeHidden();
 };
 
 const expectToOpen = async (
@@ -95,6 +100,9 @@ const expectToOpen = async (
   }
 };
 
+const expectToBeSelected = async (selectedItem: Locator) =>
+  expect(selectedItem, "Option should be selected").toHaveAttribute("aria-selected", "true");
+
 /**
  * Test an implementation of the combobox based on https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
  */
@@ -102,8 +110,6 @@ export const comboboxSelectOnlyTesting = async (
   page: Page,
   listbox: Locator,
   combobox: Locator,
-  button: Locator,
-  options: Locator,
 ) => {
   await expect(listbox, "Initial state of a combobox is collapsed.").toBeHidden();
 
@@ -122,7 +128,35 @@ export const comboboxSelectOnlyTesting = async (
   // Keyboard Support - Listbox Popup
   await expectToOpen("ArrowDown", page, listbox);
 
-  listbox.locator('[aria-selected="-1"]');
-
   await page.keyboard.press("Enter");
+  await expect(listbox).toBeHidden();
+  await expect(combobox).toBeFocused();
+
+  await openCombobox(page, listbox);
+  await page.keyboard.press(" ");
+  await expect(listbox).toBeHidden();
+  await expect(combobox).toBeFocused();
+
+  await openCombobox(page, listbox);
+  await page.keyboard.press("Tab");
+  await expect(listbox).toBeHidden();
+  await expect(combobox).not.toBeFocused();
+  await combobox.focus();
+
+  await openCombobox(page, listbox);
+  await page.keyboard.press("Escape");
+  await expect(listbox).toBeHidden();
+  await expect(combobox).toBeFocused();
+
+  await openCombobox(page, listbox);
+  await page.keyboard.press("Home");
+  await expectToBeSelected(listbox.getByRole("listitem").first());
+  await expect(listbox).toBeHidden();
+  await expect(combobox).toBeFocused();
+
+  await openCombobox(page, listbox);
+  await page.keyboard.press("End");
+  await expectToBeSelected(listbox.getByRole("listitem").last());
+  await expect(listbox).toBeHidden();
+  await expect(combobox).toBeFocused();
 };
