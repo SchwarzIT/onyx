@@ -2,7 +2,17 @@ import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue"
 import { createId } from "../..";
 import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
 
-export type CreateListboxOptions<TValue extends ListboxValue> = {
+export type ListboxValue = string | number | boolean;
+
+export type ListboxModelValue<
+  TOption extends ListboxValue,
+  TMultiple extends boolean | undefined,
+> = TMultiple extends false | undefined ? TOption | undefined : TOption[] | undefined;
+
+export type CreateListboxOptions<
+  TMultiple extends boolean | undefined,
+  TOption extends ListboxValue = ListboxValue,
+> = {
   /**
    * Aria label for the listbox.
    */
@@ -10,11 +20,11 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
    * Value of currently selected option.
    */
-  selectedOption: Ref<TValue | undefined>;
+  selectedOption: Ref<ListboxModelValue<TOption, TMultiple>>;
   /**
    * Value of currently (visually) active option.
    */
-  activeOption: Ref<TValue | undefined>;
+  activeOption: Ref<ListboxModelValue<TOption, TMultiple>>;
   /**
    * Wether the listbox is controlled from the outside, e.g. by a combobox.
    * This disables keyboard events and makes the listbox not focusable.
@@ -23,11 +33,11 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
    * Whether the listbox is multiselect.
    */
-  multiselect?: MaybeRef<boolean | undefined>;
+  multiple?: MaybeRef<TMultiple> | undefined;
   /**
    * Hook when an option is selected.
    */
-  onSelect?: (value: TValue) => void;
+  onSelect?: (value: ListboxModelValue<TOption, TMultiple>) => void;
   /**
    * Hook when the first option should be activated.
    */
@@ -39,33 +49,33 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
    * Hook when the next option should be activated.
    */
-  onActivateNext?: (currentValue: TValue) => void;
+  onActivateNext?: (currentValue: ListboxModelValue<TOption, TMultiple>) => void;
   /**
    * Hook when the previous option should be activated.
    */
-  onActivatePrevious?: (currentValue: TValue) => void;
+  onActivatePrevious?: (currentValue: ListboxModelValue<TOption, TMultiple>) => void;
   /**
    * Hook when the first option starting with the given label should be activated.
    */
   onTypeAhead?: (label: string) => void;
 };
 
-export type ListboxValue = string | number | boolean;
-
 /**
  * Composable for creating a accessibility-conform listbox.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TValue extends ListboxValue>(options: CreateListboxOptions<TValue>) => {
-    const isMultiselect = computed(() => unref(options.multiselect) ?? false);
+  <TMultiple extends boolean | undefined, TOption extends ListboxValue = ListboxValue>(
+    options: CreateListboxOptions<TMultiple, TOption>,
+  ) => {
+    const isMultiselect = computed(() => unref(options.multiple) ?? false);
 
     /**
      * Map for option IDs. key = option value, key = ID for the HTML element
      */
-    const descendantKeyIdMap = new Map<TValue, string>();
+    const descendantKeyIdMap = new Map<ListboxModelValue<TOption, TMultiple>, string>();
 
-    const getOptionId = (value: TValue) => {
+    const getOptionId = (value: ListboxModelValue<TOption, TMultiple>) => {
       if (!descendantKeyIdMap.has(value)) {
         descendantKeyIdMap.set(value, createId("listbox-option"));
       }
@@ -168,7 +178,7 @@ export const createListbox = createBuilder(
         option: computed(() => {
           return (data: {
             label: string;
-            value: TValue;
+            value: ListboxModelValue<TOption, TMultiple>;
             selected?: boolean;
             disabled?: boolean;
           }) => {
