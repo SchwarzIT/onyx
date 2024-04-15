@@ -42,29 +42,32 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
+const selectedOption = computed(() => props.options.find(({ id }) => props.modelValue === id));
+
 /**
  * Currently (visually) active option.
  */
 const activeOption = ref<ComboboxOption>();
 
 const isExpanded = ref(false);
-const selectedIndex = computed<number | undefined>(() => {
-  const index = props.options.findIndex((o) => o.id === props.modelValue);
+
+const activeIndex = computed<number | undefined>(() => {
+  const index = props.options.findIndex((o) => o.id === activeOption.value?.id);
   return index !== -1 ? index : undefined;
 });
 
 const onActivateFirst = () => (activeOption.value = props.options.at(0));
 const onActivateLast = () => (activeOption.value = props.options.at(-1));
 const onActivateNext = () => {
-  if (selectedIndex.value === undefined) {
+  if (activeIndex.value === undefined) {
     return onActivateFirst();
   }
-  const nextIndex = (selectedIndex.value + 1) % props.options.length;
+  const nextIndex = Math.min(props.options.length - 1, activeIndex.value + 1);
 
   activeOption.value = props.options.at(nextIndex);
 };
 const onActivatePrevious = () =>
-  (activeOption.value = props.options.at((selectedIndex.value ?? 0) - 1));
+  (activeOption.value = props.options.at(Math.max((activeIndex.value ?? 0) - 1, 0)));
 const onTypeAhead = (input: string) => {
   const firstMatch = props.options.find((i) => {
     return i.label.toLowerCase().trim().startsWith(input.toLowerCase());
@@ -109,8 +112,13 @@ const isEmpty = computed(() => props.options.length === 0);
 
 <template>
   <div class="onyx-combobox">
-    <OnyxSelect :label="props.label" v-bind="input" @keydown.arrow-down="isExpanded = true" />
-    <div class="onyx-listbox" :aria-busy="props.loading">
+    <OnyxSelect
+      :label="props.label"
+      :model-value="selectedOption?.label"
+      v-bind="input"
+      @keydown.arrow-down="isExpanded = true"
+    />
+    <div v-show="isExpanded" class="onyx-listbox">
       <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
       </div>
@@ -172,7 +180,6 @@ const isEmpty = computed(() => props.options.length === 0);
       padding: $wrapper-padding 0;
       box-shadow: var(--onyx-shadow-medium-bottom);
       box-sizing: border-box;
-      width: max-content;
       min-width: var(--onyx-spacing-4xl);
       max-width: 20rem;
       font-family: var(--onyx-font-family);
