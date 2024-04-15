@@ -115,7 +115,7 @@ export const executeScreenshotsForAllStates = <
   batches.forEach((batch, index) => {
     test(`${baseName} state screenshot tests (batch ${index + 1})`, async ({ mount, page }) => {
       // limit the max timeout per permutation
-      test.setTimeout(batch.length * 2 * 1000);
+      test.setTimeout(batch.length * 4 * 1000);
 
       for (const testCase of batch) {
         const screenshotName = [

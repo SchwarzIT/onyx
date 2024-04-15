@@ -68,22 +68,6 @@ jobs:
           name: documentation
           path: apps/docs/src/.vitepress/dist
 
-  playwright:
+  screenshots:
     name: Component tests
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
-
-      - name: 🚨 Run component tests
-        uses: ./.github/templates/playwright
+    uses: ./.github/workflows/playwright.yml

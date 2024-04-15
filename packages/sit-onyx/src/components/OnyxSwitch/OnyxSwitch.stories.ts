@@ -11,7 +11,7 @@ const meta: Meta<typeof OnyxSwitch> = {
   title: "components/OnyxSwitch",
   ...defineStorybookActionsAndVModels({
     component: OnyxSwitch,
-    events: ["update:modelValue"],
+    events: ["update:modelValue", "validityChange"],
   }),
 };
 
@@ -38,12 +38,12 @@ export const Checked = {
 } satisfies Story;
 
 /**
- * This example shows the invalid state of the switch.
+ * This example shows a required switch.
  */
-export const Invalid = {
+export const Required = {
   args: {
     ...Default.args,
-    errorMessage: "Error message",
+    required: true,
   },
 } satisfies Story;
 

@@ -1,36 +1,26 @@
 name: Update Playwright screenshots
 on:
   workflow_dispatch:
-    inputs:
-      clean-snapshots:
-        type: boolean
-        default: false
-        required: false
-        description: Whether to remove all snapshots before running
 
 jobs:
-  update:
-    name: Update Playwright screenshots
-    runs-on: self-hosted
+  screenshots:
+    uses: ./.github/workflows/playwright.yml
+    with:
+      update-snapshots: true
+
+  # Download screenshots from all shards and create a pull request
+  pr:
+    name: Create pull request
+    runs-on: ubuntu-latest
+    needs: screenshots
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Download screenshots
+        uses: actions/download-artifact@v4
         with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
-
-      - name: 🔎 Update Playwright screenshots
-        uses: ./.github/templates/playwright
-        with:
-          update-snapshots: true
-          clean-snapshots: ${{ inputs.clean-snapshots }}
+          pattern: screenshots-*
+          merge-multiple: true
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6

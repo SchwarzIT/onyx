@@ -1,12 +1,12 @@
 <script lang="ts" setup generic="TValue extends SelectionOptionValue">
 import type { TargetEvent } from "../../types/dom";
 import { createId } from "@sit-onyx/headless";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxRadioButtonGroupProps } from "./types";
-import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
 
 type ChangeEvent = TargetEvent<HTMLInputElement>;
 
@@ -16,7 +16,6 @@ const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   headline: "",
   required: false,
   disabled: false,
-  errorMessage: "",
 });
 
 const { densityClass } = useDensity(props);
@@ -24,6 +23,10 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
   "update:modelValue": [selected: SelectionOption<TValue>];
+  /**
+   * Emitted when the validity state changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const handleChange = (event: ChangeEvent) =>
@@ -48,13 +51,14 @@ const handleChange = (event: ChangeEvent) =>
     >
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
-          v-for="option in props.options"
+          v-for="(option, index) in props.options"
           :key="option.id.toString()"
           v-bind="option"
           :name="props.name"
-          :error-message="props.errorMessage"
+          :custom-error="props.customError"
           :selected="option.id === props.modelValue?.id"
           :required="props.required"
+          @validity-change="index === 0 && emit('validityChange', $event)"
         />
       </template>
 

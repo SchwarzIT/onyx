@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.5
+
+### Patch Changes
+
+- 4747445: fix(OnyxTooltip): prevent "document not defined" error in server side rendering
+
 ## 0.1.0-alpha.4
 
 ### Minor Changes

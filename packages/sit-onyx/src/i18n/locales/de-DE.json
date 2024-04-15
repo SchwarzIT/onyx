@@ -20,5 +20,6 @@
   "selections": {
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
-  }
+  },
+  "empty": "Keine Daten verfügbar"
 }

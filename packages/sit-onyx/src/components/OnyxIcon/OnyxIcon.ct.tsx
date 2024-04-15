@@ -1,13 +1,13 @@
-import { mockPlaywrightIcon } from "../../utils/playwright";
 import { expect, test } from "../../playwright-axe";
 import { ONYX_COLORS } from "../../types/colors";
+import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxIcon from "./OnyxIcon.vue";
 import { ICON_SIZES } from "./types";
 
 test("should render different sizes", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div>
+    <div style={{ width: "max-content" }}>
       {ICON_SIZES.map((size) => (
         <OnyxIcon icon={mockPlaywrightIcon} size={size} key={size} />
       ))}
@@ -27,7 +27,7 @@ test("should render different sizes", async ({ mount, makeAxeBuilder }) => {
 test("should render different colors", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <div>
+    <div style={{ width: "max-content" }}>
       {ONYX_COLORS.map((color) => (
         <OnyxIcon size="96px" icon={mockPlaywrightIcon} color={color} key={color} />
       ))}

@@ -1,9 +1,11 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
-import type { TruncationType } from "../../types/fonts";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { TruncationType } from "../../types";
 
 export type OnyxSwitchProps = DensityProp &
-  RequiredMarkerProp & {
+  RequiredMarkerProp &
+  CustomValidityProp & {
     /**
      * Whether the switch should be checked or not.
      */
@@ -20,10 +22,6 @@ export type OnyxSwitchProps = DensityProp &
      * Shows a loading indicator.
      */
     loading?: boolean;
-    /**
-     * The error message will set switch to invalid state.
-     */
-    errorMessage?: string;
     /**
      * If `true`, the label will be visually hidden and the `title` attribute will be set.
      * For accessibility / screen readers, the aria-label will still be set.

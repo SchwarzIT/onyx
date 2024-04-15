@@ -1,277 +1,165 @@
+import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright-axe";
-import { TRUNCATION_TYPES } from "../../types/fonts";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { TRUNCATION_TYPES } from "../../types";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
-test("should render unchecked", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(
-    <div style="display: grid; width: max-content;">
-      <OnyxCheckbox label="Unchecked" />
-      <OnyxCheckbox label="Hover" />
-      <OnyxCheckbox label="Focus visible" />
-    </div>,
-  );
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Checkbox",
+    columns: ["unchecked", "indeterminate", "checked", "loading", "hideLabel"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxCheckbox
+        label="Test label"
+        modelValue={column === "checked"}
+        indeterminate={column === "indeterminate"}
+        hideLabel={column === "hideLabel"}
+        loading={column === "loading"}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      const checkbox = component.getByLabel("Test label");
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+      if (column === "unchecked") await expect(checkbox).not.toBeChecked();
+      if (column === "checked") await expect(checkbox).toBeChecked();
+      if (column === "indeterminate") {
+        await expect(checkbox).not.toBeChecked();
+        await expect(checkbox).toHaveJSProperty("indeterminate", true);
+      }
+      if (column === "hideLabel") {
+        await expect(component).not.toContainText("Test label");
+        await expect(component.getByLabel("Test label")).toBeAttached(); // should have aria-label if label is hidden
+      }
 
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  const checkboxes = await component.getByRole("checkbox").all();
-
-  // ACT
-  await checkboxes[1].hover();
-  await checkboxes[2].focus();
-
-  // ASSERT
-  for (const checkbox of checkboxes) {
-    await expect(checkbox).not.toBeChecked();
-  }
-});
-
-test("should render checked", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(
-    <div style="display: grid; width: max-content;">
-      <OnyxCheckbox label="Checked" modelValue={true} />
-      <OnyxCheckbox label="Hover" modelValue={true} />
-      <OnyxCheckbox label="Focus visible" modelValue={true} />
-    </div>,
-  );
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  const checkboxes = await component.getByRole("checkbox").all();
-
-  // ACT
-  await checkboxes[1].hover();
-  await checkboxes[2].focus();
-
-  // ASSERT
-  for (const checkbox of checkboxes) {
-    await expect(checkbox).toBeChecked();
-  }
-});
-
-test("should render indeterminate", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(
-    <div style="display: grid; width: max-content;">
-      <OnyxCheckbox label="Indeterminate" indeterminate />
-      <OnyxCheckbox label="Hover" indeterminate />
-      <OnyxCheckbox label="Focus visible" indeterminate />
-    </div>,
-  );
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  const checkboxes = await component.getByRole("checkbox").all();
-
-  // ACT
-  await checkboxes[1].hover();
-  await checkboxes[2].focus();
-
-  // ASSERT
-  for (const checkbox of checkboxes) {
-    await expect(checkbox).toHaveJSProperty("indeterminate", true);
-  }
-});
-
-test("should render required", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  await mount(<OnyxCheckbox label="Required" required />);
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-const disabledTestCases = [
-  { name: "unchecked" },
-  { name: "checked", modelValue: true },
-  { name: "indeterminate", indeterminate: true },
-];
-for (const testCase of disabledTestCases) {
-  test(`should render disabled (${testCase.name})`, async ({ mount, makeAxeBuilder }) => {
-    // ARRANGE
-    const component = await mount(
-      <div style="display: grid; width: max-content;">
-        <OnyxCheckbox
-          label={`Disabled ${testCase.name}`}
-          modelValue={testCase.modelValue}
-          indeterminate={testCase.indeterminate}
-          disabled
-        />
-        <OnyxCheckbox
-          label="Hover"
-          modelValue={testCase.modelValue}
-          indeterminate={testCase.indeterminate}
-          disabled
-        />
-        <OnyxCheckbox
-          label="Focus visible"
-          modelValue={testCase.modelValue}
-          indeterminate={testCase.indeterminate}
-          disabled
-        />
-      </div>,
-    );
-
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-
-    const checkboxes = await component.getByRole("checkbox").all();
-
-    // ACT
-    await checkboxes[1].hover();
-    await checkboxes[2].focus();
-
-    // ASSERT
-    for (const checkbox of checkboxes) {
-      await expect(checkbox).toBeDisabled();
-    }
-  });
-}
-
-const invalidTestCases = [
-  { name: "unchecked" },
-  { name: "unchecked (disabled)", disabled: true },
-  { name: "indeterminate", indeterminate: true },
-  { name: "indeterminate (disabled)", indeterminate: true, disabled: true },
-];
-for (const testCase of invalidTestCases) {
-  test(`should render invalid (${testCase.name})`, async ({ mount, makeAxeBuilder }) => {
-    // ARRANGE
-    const component = await mount(
-      <div style="display: grid; width: max-content;">
-        <OnyxCheckbox
-          label={`Invalid ${testCase.name}`}
-          indeterminate={testCase.indeterminate}
-          disabled={testCase.disabled}
-          required
-        />
-        <OnyxCheckbox
-          label="Hover"
-          indeterminate={testCase.indeterminate}
-          disabled={testCase.disabled}
-          required
-        />
-        <OnyxCheckbox
-          label="Focus visible"
-          indeterminate={testCase.indeterminate}
-          disabled={testCase.disabled}
-          required
-        />
-      </div>,
-    );
-
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-
-    const checkboxes = await component.getByRole("checkbox").all();
-
-    // invalid only shows if checkbox is touched
-    for (const checkbox of checkboxes) {
-      await checkbox.focus();
-      await checkbox.blur();
-    }
-
-    // ACT
-    await checkboxes[1].hover();
-    await checkboxes[2].focus();
-  });
-}
-
-test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxCheckbox label="Test label" hideLabel />);
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  // ASSERT
-  await expect(component).not.toContainText("Test label");
-  await expect(component.getByLabel("Test label")).toBeAttached();
-});
-
-TRUNCATION_TYPES.forEach((truncation) => {
-  test(`should truncate with ${truncation}`, async ({ mount }) => {
-    const label = "Very long label that should be truncated";
-
-    // ARRANGE
-    const component = await mount(
-      <OnyxCheckbox label={label} truncation={truncation} style="max-width: 10rem;" />,
-    );
-
-    // ASSERT
-    await expect(component).toContainText(label);
-    await expect(component).toHaveScreenshot(`truncation-${truncation}.png`);
-  });
-});
-
-test("should render skeleton", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <div style="display:grid; width:max-content;">
-      <OnyxCheckbox label="Test label" skeleton />
-      <OnyxCheckbox label="Test label hidden" skeleton hideLabel />
-    </div>,
-  );
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("skeleton.png");
-});
-
-const STATES = {
-  state: ["default", "disabled", "required", "optional"],
-  select: ["unselected", "selected", "indeterminate"],
-  density: ["compact", "default", "cozy"],
-  focusState: ["", "hover", "focus-visible"],
-  labeled: ["labeled", "unlabeled"],
-} as const;
-
-test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    STATES,
-    "checkbox",
-    async ({ select, state, labeled, density, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxCheckbox
-          modelValue={select === "selected"}
-          label="label"
-          indeterminate={select === "indeterminate"}
-          density={density}
-          disabled={state === "disabled"}
-          required={state === "required"}
-          hideLabel={labeled === "unlabeled"}
-        />,
-        { useOptional: state === "optional" },
-      );
-
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await component.hover();
-      return component;
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
     },
-  );
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Checkbox (disabled)",
+    columns: ["unchecked", "indeterminate", "checked", "loading", "hideLabel"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxCheckbox
+        label="Test label"
+        modelValue={column === "checked"}
+        indeterminate={column === "indeterminate"}
+        hideLabel={column === "hideLabel"}
+        loading={column === "loading"}
+        disabled
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      const checkbox = component.getByLabel("Test label");
+
+      if (column !== "loading") {
+        await expect(checkbox).toBeDisabled();
+      } else {
+        await expect(checkbox).not.toBeAttached();
+      }
+
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Checkbox (invalid)",
+    columns: ["unchecked", "indeterminate", "checked", "disabled", "hideLabel"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxCheckbox
+        label="Test label"
+        modelValue={column === "checked"}
+        indeterminate={column === "indeterminate"}
+        hideLabel={column === "hideLabel"}
+        disabled={column === "disabled"}
+        customError="Test error"
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      const checkbox = component.getByLabel("Test label");
+
+      if (column !== "disabled") {
+        // invalid only shows if checkbox is touched
+
+        await checkbox.click();
+        await checkbox.click();
+        await page.getByRole("document").click(); // reset focus
+
+        if (column === "indeterminate") {
+          await checkbox.evaluate(
+            (element) => ((element as HTMLInputElement).indeterminate = true),
+          );
+        }
+      }
+
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Checkbox (densities)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus-visible", "loading"],
+    component: (column, row) => (
+      <OnyxCheckbox label="Test label" density={column} loading={row === "loading"} />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Checkbox (other)",
+    columns: ["default", "hideLabel"],
+    rows: ["required", "optional", "skeleton"],
+    component: (column, row) => (
+      <OnyxCheckbox
+        label="Test label"
+        hideLabel={column === "hideLabel"}
+        required={row === "required"}
+        requiredMarker={row === "optional" ? "optional" : undefined}
+        skeleton={row === "skeleton"}
+      />
+    ),
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Checkbox (truncation)",
+    columns: ["default", "required", "optional"],
+    rows: TRUNCATION_TYPES,
+    component: (column, row) => (
+      <OnyxCheckbox
+        label="Very long label that should be truncated"
+        truncation={row}
+        required={column === "required"}
+        requiredMarker={column === "optional" ? "optional" : undefined}
+        style={{ width: "12rem" }}
+      />
+    ),
+    beforeScreenshot: async (component) => {
+      await expect(component).toContainText("Very long label that should be truncated");
+    },
+  });
+});
+
+test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxCheckbox label="Test label" />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  const checkbox = component.getByRole("checkbox");
+
+  // ASSERT
+  await expect(checkbox).not.toBeChecked();
 });

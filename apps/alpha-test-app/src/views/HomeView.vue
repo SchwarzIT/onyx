@@ -2,7 +2,7 @@
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import type { ListboxOption } from "sit-onyx";
 import {
-  DENSITY,
+  DENSITIES,
   OnyxAppLayout,
   OnyxBadge,
   OnyxButton,
@@ -61,7 +61,7 @@ const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
 
-const densityOptions = DENSITY.map((id) => ({
+const densityOptions = DENSITIES.map((id) => ({
   id,
   label: capitalize(id),
 })) satisfies SelectionOption<string>[];

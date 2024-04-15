@@ -11,7 +11,7 @@ const meta: Meta<typeof OnyxCheckbox> = {
   title: "support/OnyxCheckbox",
   ...defineStorybookActionsAndVModels({
     component: OnyxCheckbox,
-    events: ["update:modelValue"],
+    events: ["update:modelValue", "validityChange"],
   }),
 };
 

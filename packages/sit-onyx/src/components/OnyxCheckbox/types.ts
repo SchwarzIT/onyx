@@ -1,9 +1,11 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { TruncationType } from "../../types/fonts";
 
 export type OnyxCheckboxProps = DensityProp &
-  RequiredMarkerProp & {
+  RequiredMarkerProp &
+  CustomValidityProp & {
     /**
      * Whether the checkbox is checked.
      */
