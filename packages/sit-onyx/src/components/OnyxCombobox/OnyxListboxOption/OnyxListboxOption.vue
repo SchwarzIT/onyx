@@ -20,7 +20,7 @@ defineSlots<{
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers";
+@use "../../../styles/mixins/layers";
 
 .onyx-listbox-option {
   @include layers.component() {
