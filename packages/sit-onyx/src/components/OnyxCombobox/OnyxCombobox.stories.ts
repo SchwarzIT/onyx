@@ -42,8 +42,10 @@ const meta: Meta<typeof OnyxCombobox> = {
         const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
 
         watchEffect(() => {
-          ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-          ctx.args.options = options.value;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (ctx.args as any).lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (ctx.args as any).options = options.value;
         });
 
         return { handleLoadMore, isLazyLoading, options };
