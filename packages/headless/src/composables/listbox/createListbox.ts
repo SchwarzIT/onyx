@@ -7,7 +7,7 @@ export type ListboxValue = string | number | boolean;
 export type ListboxModelValue<
   TOption extends ListboxValue,
   TMultiple extends boolean | undefined,
-> = TMultiple extends false | undefined ? TOption | undefined : TOption[] | undefined;
+> = TMultiple extends true ? TOption[] | undefined : TOption | undefined;
 
 export type CreateListboxOptions<
   TMultiple extends boolean | undefined,
@@ -65,7 +65,7 @@ export type CreateListboxOptions<
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TMultiple extends boolean | undefined, TOption extends ListboxValue = ListboxValue>(
+  <TMultiple extends boolean | undefined = undefined, TOption extends ListboxValue = ListboxValue>(
     options: CreateListboxOptions<TMultiple, TOption>,
   ) => {
     const isMultiselect = computed(() => unref(options.multiple) ?? false);
