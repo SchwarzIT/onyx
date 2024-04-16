@@ -88,11 +88,13 @@ const {
   },
 });
 
-const groupedOptions = props.options.reduce((acc: Record<string, ListboxOption[]>, currOpt) => {
-  acc[currOpt.group ?? ""] = acc[currOpt.group ?? ""] || [];
-  acc[currOpt.group ?? ""].push(currOpt);
-  return acc;
-}, {});
+const groupedOptions = computed(() => {
+  return props.options.reduce((acc: Record<string, ListboxOption[]>, currOpt) => {
+    acc[currOpt.group ?? ""] = acc[currOpt.group ?? ""] || [];
+    acc[currOpt.group ?? ""].push(currOpt);
+    return acc;
+  }, {});
+});
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
