@@ -30,34 +30,88 @@ const meta: Meta<typeof OnyxListbox> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
+      modelValue: { control: { type: "text" } },
     },
+    /**
+     * Decorator that simulates the load more functionality so we can show it in the stories.
+     */
+    decorators: [
+      (story, ctx) => ({
+        components: { story },
+        setup: () => {
+          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
+
+          watchEffect(() => {
+            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+            ctx.args.options = options.value;
+          });
+
+          return { handleLoadMore, isLazyLoading, options };
+        },
+        template: `<story @lazy-load="handleLoadMore" />`,
+      }),
+    ],
   }),
-  /**
-   * Decorator that simulates the load more functionality so we can show it in the stories.
-   */
-  decorators: [
-    (story, ctx) => ({
-      components: { story },
-      setup: () => {
-        const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
-
-        watchEffect(() => {
-          ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-          ctx.args.options = options.value;
-        });
-
-        return { handleLoadMore, isLazyLoading, options };
-      },
-      template: `<story @lazy-load="handleLoadMore" />`,
-    }),
-  ],
 };
+
+const groupedAnimals = [
+  {
+    id: "cat",
+    label: "Cat",
+    group: "Land",
+  },
+  {
+    id: "dog",
+    label: "Dog",
+    group: "Land",
+  },
+  {
+    id: "tiger",
+    label: "Tager",
+    group: "Land",
+  },
+  {
+    id: "reindeer",
+    label: "Reindeer",
+    group: "Land",
+  },
+  {
+    id: "racoon",
+    label: "Racoon",
+    group: "Land",
+  },
+  {
+    id: "dolphin",
+    label: "Dolphin",
+    group: "Water",
+  },
+  {
+    id: "flounder",
+    label: "Flounder",
+    group: "Water",
+  },
+  {
+    id: "eel",
+    label: "Eel",
+    group: "Water",
+  },
+  {
+    id: "falcon",
+    label: "Falcon",
+    group: "Air",
+  },
+  {
+    id: "owl",
+    label: "Owl",
+    group: "Air",
+  },
+];
 
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
 /**
- * This examples shows a default single select listbox.
+ * This example shows a default single select listbox.
  */
 export const Default = {
   args: {
@@ -79,12 +133,15 @@ export const Default = {
       "Melon",
       "Raspberry",
       "Strawberry",
-    ].map((option) => ({ id: option.toLowerCase(), label: option })),
+    ].map((option) => ({
+      id: option.toLowerCase(),
+      label: option,
+    })),
   },
 } satisfies Story;
 
 /**
- * This examples shows a listbox with a message / help text at the bottom.
+ * This example shows a listbox with a message / help text at the bottom.
  */
 export const WithMessage = {
   args: {
@@ -94,7 +151,17 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * This examples shows an empty listbox with default translated message.
+ * This example shows a listbox with grouped options.
+ */
+export const GroupedOptions = {
+  args: {
+    label: "Grouped listbox",
+    options: groupedAnimals,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an empty listbox with default translated message.
  * You can use the `empty` slot to customize the content.
  */
 export const Empty = {
@@ -105,7 +172,7 @@ export const Empty = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox.
+ * This example shows a loading listbox.
  */
 export const Loading = {
   args: {
@@ -115,7 +182,7 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
+ * This example shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
 export const LazyLoading = {
@@ -128,7 +195,7 @@ export const LazyLoading = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox with button loading.
+ * This example shows a loading listbox with button loading.
  */
 export const ButtonLoading = {
   args: {
