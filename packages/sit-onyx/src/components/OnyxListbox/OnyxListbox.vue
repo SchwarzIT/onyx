@@ -150,13 +150,13 @@ const isEmpty = computed(() => props.options.length === 0);
           {{ option.label }}
         </OnyxListboxOption>
       </ul>
-      <span v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+      <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
-      </span>
+      </li>
 
-      <span v-if="slots.optionsEnd" class="onyx-listbox__slot">
+      <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
         <slot name="optionsEnd"></slot>
-      </span>
+      </li>
     </div>
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
@@ -192,7 +192,7 @@ const isEmpty = computed(() => props.options.length === 0);
     &__group {
       padding: 0;
 
-      &:not(:last-child) {
+      &:not(:last-of-type) {
         border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         margin-bottom: var(--onyx-spacing-2xs);
       }
