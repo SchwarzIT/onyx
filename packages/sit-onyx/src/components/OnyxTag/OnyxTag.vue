@@ -38,7 +38,7 @@ const { densityClass } = useDensity(props);
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-spacing-3xs);
-    max-width: max-content;
+    max-width: 100%;
     padding: var(--onyx-tag-padding);
     border-radius: var(--onyx-radius-sm);
     font-family: var(--onyx-font-family);
