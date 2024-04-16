@@ -127,9 +127,13 @@ const isEmpty = computed(() => props.options.length === 0);
         class="onyx-listbox__group"
         v-bind="headlessGroup({ label: group })"
       >
-        <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">
+        <li
+          v-if="group != ''"
+          role="presentation"
+          class="onyx-listbox__group-name onyx-text--small"
+        >
           {{ group }}
-        </span>
+        </li>
         <OnyxListboxOption
           v-for="option in options as any"
           :key="option.id.toString()"
