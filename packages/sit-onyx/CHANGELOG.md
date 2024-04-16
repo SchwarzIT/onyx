@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.73
+
+### Minor Changes
+
+- 43a8616: feat(listbox): support multiple characters for type-ahead
+
 ## 1.0.0-alpha.72
 
 ### Minor Changes
