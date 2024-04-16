@@ -13,7 +13,6 @@ defineSlots<{
 
 <template>
   <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
-    <!-- todo fix min-width of checkbox -->
     <input
       v-if="multiple"
       :checked="!!$attrs['aria-checked']"
@@ -50,6 +49,10 @@ defineSlots<{
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-2xs);
+
+    &__checkbox {
+      flex-shrink: 0;
+    }
 
     &:not([aria-disabled="true"]) {
       cursor: pointer;

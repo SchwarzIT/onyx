@@ -82,6 +82,10 @@ export const MultiSelect = {
     ...Default.args,
     modelValue: [],
     multiple: true,
+    options: [
+      ...Default.args.options,
+      { id: "long", label: "Option with a very long long long  long long long long text}" },
+    ],
   },
 } satisfies Story;
 
