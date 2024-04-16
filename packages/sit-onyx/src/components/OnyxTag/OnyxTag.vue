@@ -55,6 +55,7 @@ const { densityClass } = useDensity(props);
         --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
 
         @if $color == "neutral" {
+          // neutral does not have a bold color so we need to use medium here
           --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);
         } @else {
           --onyx-tag-color: var(--onyx-color-text-icons-#{$color}-bold);
