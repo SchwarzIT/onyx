@@ -76,6 +76,7 @@ export default defineLoader({
         name: "Button",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxButton"),
+        status: "implemented",
       },
       {
         name: "Icon button",
@@ -123,6 +124,7 @@ export default defineLoader({
         name: "Switch",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxSwitch"),
+        status: "implemented",
       },
       {
         name: "Checkbox group",
@@ -155,6 +157,7 @@ export default defineLoader({
         name: "Badge",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxBadge"),
+        status: "implemented",
       },
       {
         name: "Empty",
