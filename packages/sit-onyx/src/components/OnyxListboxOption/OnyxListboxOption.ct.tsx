@@ -1,47 +1,27 @@
 import { test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 
-const SINGLE_STATES = {
-  state: ["default", "selected"],
-  writeMode: ["enabled", "disabled"],
-  focusState: ["", "hover", "focus-visible"],
-} as const;
-
-test.describe("state screenshot tests single select", () => {
-  executeScreenshotsForAllStates(
-    SINGLE_STATES,
-    "listbox-option",
-    async ({ state, writeMode, focusState }, mount) => {
-      const component = await mount(
+test.describe("Screenshot tests", () => {
+  for (const state of ["default", "disabled"] as const) {
+    executeMatrixScreenshotTest({
+      name: `Listbox option (${state})`,
+      columns: ["default", "selected"],
+      rows: ["default", "hover", "focus-visible", "multiple"],
+      component: (column, row) => (
         <OnyxListboxOption
           aria-label="Label"
-          aria-selected={state === "selected"}
-          aria-disabled={writeMode === "disabled"}
-          active={focusState === "focus-visible"}
+          aria-selected={column === "selected"}
+          active={row === "focus-visible"}
+          aria-disabled={state === "disabled"}
+          multiple={row === "multiple"}
         >
-          Label
-        </OnyxListboxOption>,
-      );
-
-      if (focusState === "hover") await component.hover();
-      return component;
-    },
-  );
-});
-
-const MULTIPLE_STATES = {
-  state: ["default", "selected"],
-} as const;
-
-test.describe("state screenshot tests multiselect", () => {
-  executeScreenshotsForAllStates(MULTIPLE_STATES, "listbox-multiple", async ({ state }, mount) => {
-    const component = await mount(
-      <OnyxListboxOption aria-label="Label" aria-checked={state === "selected"} multiple>
-        Label
-      </OnyxListboxOption>,
-    );
-
-    return component;
-  });
+          Test label
+        </OnyxListboxOption>
+      ),
+      beforeScreenshot: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+      },
+    });
+  }
 });

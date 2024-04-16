@@ -1,5 +1,23 @@
 # alpha-test-app
 
+## 0.1.0-alpha.69
+
+### Minor Changes
+
+- f464b42: Implement grouped options for OnyxListbox component
+
+### Patch Changes
+
+- Updated dependencies [f464b42]
+  - sit-onyx@1.0.0-alpha.72
+
+## 0.0.1-alpha.68
+
+### Patch Changes
+
+- Updated dependencies [b20fa64]
+  - sit-onyx@1.0.0-alpha.71
+
 ## 0.0.1-alpha.67
 
 ### Patch Changes
