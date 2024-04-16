@@ -18,6 +18,7 @@ test.describe("Screenshot tests", () => {
           aria-selected={column === "selected"}
           active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
+          {...{ role: "option" }}
         >
           Test label
         </OnyxListboxOption>
