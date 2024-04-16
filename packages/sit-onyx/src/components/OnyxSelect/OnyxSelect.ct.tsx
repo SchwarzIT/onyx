@@ -43,8 +43,8 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (readonly + disabled)",
-    columns: ["readonly", "disabled"],
+    name: "Select (readonly, disabled, loading)",
+    columns: ["readonly", "disabled", "loading"],
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxSelect
@@ -53,6 +53,7 @@ test.describe("Screenshot tests", () => {
         placeholder="Test placeholder"
         readonly={column === "readonly"}
         disabled={column === "disabled"}
+        loading={column === "loading"}
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
