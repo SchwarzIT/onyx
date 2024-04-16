@@ -13,10 +13,13 @@ defineSlots<{
 
 <template>
   <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
+    <!-- todo fix min-width of checkbox -->
     <input
       v-if="multiple"
-      :checked="props.selected"
-      aria-hidden
+      :checked="!!$attrs['aria-checked']"
+      :aria-labelledby="$attrs.id as string"
+      aria-hidden="true"
+      tabindex="-1"
       class="onyx-listbox-option__checkbox"
       type="checkbox"
     />

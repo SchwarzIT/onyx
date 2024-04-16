@@ -149,10 +149,6 @@ const isEmpty = computed(() => props.options.length === 0);
               (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
           })
         "
-        :selected="
-          option.id === props.modelValue ||
-          (Array.isArray(props.modelValue) && props.modelValue.includes(option.id))
-        "
         :multiple="
           /* TODO: fix the ugly passing of `multiple` in a way typescript won't complain */
           multiple === true ? true : false
