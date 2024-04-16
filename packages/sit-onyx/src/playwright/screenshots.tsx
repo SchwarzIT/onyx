@@ -54,7 +54,7 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
 ) => {
   test(`${options.name}`, async ({ mount, page, browserName, makeAxeBuilder }) => {
     // limit the max timeout per permutation
-    const timeoutPerScreenshot = 15 * 1000;
+    const timeoutPerScreenshot = 10 * 1000;
     test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
 
     /**
