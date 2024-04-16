@@ -2,20 +2,20 @@ import { isPrintableCharacter } from "../utils/keyEvent";
 import { debounce } from "../utils/timer";
 
 /**
- * Enhances typeahead to combine multiple inputs in quick succession and filter out non-printable characters.
+ * Enhances typeAhead to combine multiple inputs in quick succession and filter out non-printable characters.
  *
  * @example
  * ```ts
- * const typeAhead = useTypeAhead((inputString) => onTypeAhead(inputString));
+ * const typeAhead = useTypeAhead((inputString) => console.log("Typed string:", inputString));
  * // ...
- * const onKeydown = (key: KeyboardEvent) => typeAhead(key.event);
+ * addEventListener("keydown", typeAhead);
  * ```
  */
-export const useTypeAhead = (callback: (input: string) => void) => {
+export const useTypeAhead = (callback: (input: string) => void, timeout = 500) => {
   let inputString = "";
-  const debouncedReset = debounce(() => (inputString = ""), 500);
+  const debouncedReset = debounce(() => (inputString = ""), timeout);
 
-  return (event: KeyboardEvent) => {
+  return (event: Pick<KeyboardEvent, "key">) => {
     if (!isPrintableCharacter(event.key)) {
       return;
     }

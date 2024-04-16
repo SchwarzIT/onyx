@@ -130,6 +130,7 @@ export const createListbox = createBuilder(
           break;
 
         default:
+          // if printable characters are pressed, the first option/text starting with the typed characters should be active
           typeAhead(event);
       }
     };
