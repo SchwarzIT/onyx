@@ -5,7 +5,7 @@ import OnyxListboxOption from "./OnyxListboxOption.vue";
 test.describe("Screenshot tests", () => {
   for (const state of ["default", "disabled"] as const) {
     executeMatrixScreenshotTest({
-      name: `Listbox option ${state}`,
+      name: `Listbox option (${state})`,
       columns: ["default", "selected"],
       rows: ["default", "hover", "focus-visible"],
       component: (column, row) => (
