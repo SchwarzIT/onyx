@@ -102,7 +102,7 @@ const listboxOptions = [
   "Strawberry",
 ].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
 
-const groupedListboxOptions = [
+const groupedListboxOptions: ListboxOption[] = [
   {
     id: "cat",
     label: "Cat",
@@ -222,7 +222,7 @@ const singleSelectState = ref("Apple");
 
           <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-          <div style="display: flex; gap: 10px">
+          <div style="display: flex; gap: var(--onyx-spacing-xs)">
             <OnyxListbox
               v-if="show('OnyxListbox')"
               v-model="listboxState"
