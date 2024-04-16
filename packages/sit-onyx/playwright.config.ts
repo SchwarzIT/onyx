@@ -27,7 +27,6 @@ export default defineConfig({
   updateSnapshots: "none",
   timeout: 10 * 1000,
   fullyParallel: true,
-  workers: process.env.CI ? "75%" : undefined, // increase workers in CI
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
   reporter: [["html", { open: "never" }]],
   use: {
