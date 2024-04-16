@@ -41,6 +41,10 @@ export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue>
    * Whether the option is disabled.
    */
   disabled?: boolean;
+  /**
+   * Optional group name. If set, all options will be grouped under that group name.
+   */
+  group?: string;
 };
 
 export type ListboxLazyLoading = {
