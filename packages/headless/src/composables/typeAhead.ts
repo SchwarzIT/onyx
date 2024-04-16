@@ -1,4 +1,4 @@
-import { isPrintableCharacter } from "../utils/keyEvent";
+import { isPrintableCharacter } from "../utils/keyboard";
 import { debounce } from "../utils/timer";
 
 /**

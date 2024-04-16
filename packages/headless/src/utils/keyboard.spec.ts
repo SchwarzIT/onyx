@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { isPrintableCharacter } from "./keyEvent";
+import { isPrintableCharacter } from "./keyboard";
 
 test.each([
   // ARRANGE

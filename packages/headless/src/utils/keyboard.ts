@@ -1,4 +1,12 @@
 /**
+ * Check if the `key` property of a KeyboardEvent is a printable character.
+ *
+ * There is no standardized or specified algorithm to check for [named keys](https://www.w3.org/TR/uievents-key/#named-key-attribute-values) vs printable characters.
+ * For this check we use the provided list provided by the standard, which might be incomplete.
+ */
+export const isPrintableCharacter = (key: string) => !NAMED_KEYS_SET.has(key);
+
+/**
  * Based on https://www.w3.org/TR/uievents-key/#named-key-attribute-values
  *
  * Extracted using
@@ -315,8 +323,6 @@ export const NAMED_KEYS = [
   "Power",
   "Unidentified",
 ] as const;
-
-export type NamedKeys = (typeof NAMED_KEYS)[number];
 
 // Create a Set, which is easier and faster to use.
 export const NAMED_KEYS_SET = new Set<string>(NAMED_KEYS);
