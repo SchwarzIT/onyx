@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.71
+
+### Patch Changes
+
+- b20fa64: fix(OnyxSelect): add missing border style for readonly + hover
+
 ## 1.0.0-alpha.70
 
 ### Major Changes
