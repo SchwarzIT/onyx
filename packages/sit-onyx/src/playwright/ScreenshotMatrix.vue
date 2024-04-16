@@ -1,15 +1,24 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import type { MatrixScreenshotTestOptions } from "./screenshots.tsx";
 
-const props = defineProps<
-  Pick<MatrixScreenshotTestOptions, "columns" | "rows" | "name"> & {
-    /**
-     * Current Playwright browser name.
-     */
-    browserName: string;
-  }
->();
+const props = defineProps<{
+  /**
+   * Test name. Will be displayed above the matrix screenshot and be used as filename.
+   */
+  name: string;
+  /**
+   * Matrix columns. Must not contain spaces.
+   */
+  columns: readonly string[];
+  /**
+   * Matrix rows. Must not contain spaces.
+   */
+  rows: readonly string[];
+  /**
+   * Current Playwright browser name.
+   */
+  browserName: string;
+}>();
 
 /**
  * CSS "grid-template-areas" for the current columns and rows.
