@@ -30,27 +30,28 @@ const meta: Meta<typeof OnyxListbox> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
+      modelValue: { control: { type: "text" } },
     },
+    /**
+     * Decorator that simulates the load more functionality so we can show it in the stories.
+     */
+    decorators: [
+      (story, ctx) => ({
+        components: { story },
+        setup: () => {
+          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
+
+          watchEffect(() => {
+            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+            ctx.args.options = options.value;
+          });
+
+          return { handleLoadMore, isLazyLoading, options };
+        },
+        template: `<story @lazy-load="handleLoadMore" />`,
+      }),
+    ],
   }),
-  /**
-   * Decorator that simulates the load more functionality so we can show it in the stories.
-   */
-  decorators: [
-    (story, ctx) => ({
-      components: { story },
-      setup: () => {
-        const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
-
-        watchEffect(() => {
-          ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-          ctx.args.options = options.value;
-        });
-
-        return { handleLoadMore, isLazyLoading, options };
-      },
-      template: `<story @lazy-load="handleLoadMore" />`,
-    }),
-  ],
 };
 
 export default meta;
