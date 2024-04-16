@@ -12,11 +12,11 @@ export type MatrixScreenshotTestOptions<
    */
   name: string;
   /**
-   * Matrix columns.
+   * Matrix columns. Must not contain spaces.
    */
   columns: readonly TColumn[];
   /**
-   * Matrix rows.
+   * Matrix rows. Must not contain spaces.
    */
   rows: readonly TRow[];
   /**

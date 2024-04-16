@@ -8,7 +8,7 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
  * Recommended to use on view/page level of an application.
  */
 const meta: Meta<typeof OnyxPageLayout> = {
-  title: "layout/OnyxPageLayout",
+  title: "layout/PageLayout",
   ...defineStorybookActionsAndVModels({
     component: OnyxPageLayout,
     events: [],

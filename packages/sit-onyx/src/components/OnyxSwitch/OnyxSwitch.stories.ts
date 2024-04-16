@@ -1,6 +1,6 @@
-import { createTruncationDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 /**
@@ -8,7 +8,7 @@ import OnyxSwitch from "./OnyxSwitch.vue";
  * They consist of a toggle mechanism that allow users to switch between two distinct states with a simple interaction.
  */
 const meta: Meta<typeof OnyxSwitch> = {
-  title: "components/OnyxSwitch",
+  title: "components/Switch",
   ...defineStorybookActionsAndVModels({
     component: OnyxSwitch,
     events: ["update:modelValue", "validityChange"],

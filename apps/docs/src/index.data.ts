@@ -65,7 +65,9 @@ export default defineLoader({
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
       return {
         status: fileExist ? "in-progress" : "planned",
-        href: fileExist ? `/development/components/${componentName}` : undefined,
+        href: fileExist
+          ? `/development/components/${componentName.replace("Onyx", "")}`
+          : undefined,
       } satisfies Partial<ComponentCardProps>;
     };
 
@@ -76,6 +78,7 @@ export default defineLoader({
         name: "Button",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxButton"),
+        status: "implemented",
       },
       {
         name: "Icon button",
@@ -123,6 +126,7 @@ export default defineLoader({
         name: "Switch",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxSwitch"),
+        status: "implemented",
       },
       {
         name: "Checkbox group",
@@ -155,6 +159,7 @@ export default defineLoader({
         name: "Badge",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxBadge"),
+        status: "implemented",
       },
       {
         name: "Empty",

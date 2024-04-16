@@ -3,17 +3,17 @@ import { computed } from "vue";
 
 const props = defineProps<{
   /**
-   * Column names.
+   * Test name. Will be displayed above the matrix screenshot and be used as filename.
+   */
+  name: string;
+  /**
+   * Matrix columns. Must not contain spaces.
    */
   columns: readonly string[];
   /**
-   * Row names.
+   * Matrix rows. Must not contain spaces.
    */
   rows: readonly string[];
-  /**
-   * Name of the screenshot test (will be displayed at the top).
-   */
-  name: string;
   /**
    * Current Playwright browser name.
    */

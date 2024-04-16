@@ -1,11 +1,11 @@
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import {
   createIconSourceCodeTransformer,
   createTruncationDecorator,
   defineIconSelectArgType,
 } from "../../utils/storybook";
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
@@ -20,7 +20,7 @@ import OnyxBadge from "./OnyxBadge.vue";
  * to alert users to important details and enhance overall user experience.
  */
 const meta: Meta<typeof OnyxBadge> = {
-  title: "components/OnyxBadge",
+  title: "components/Badge",
   ...defineStorybookActionsAndVModels({
     component: OnyxBadge,
     events: [],
