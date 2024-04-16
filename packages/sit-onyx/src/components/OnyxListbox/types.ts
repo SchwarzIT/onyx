@@ -42,7 +42,7 @@ export type ListboxOption<T extends SelectionOptionValue = SelectionOptionValue>
    */
   disabled?: boolean;
   /**
-   * The group name, if the option is part of a group.
+   * Optional group name. If set, all options will be grouped under that group name.
    */
   group?: string;
 };
