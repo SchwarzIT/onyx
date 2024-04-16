@@ -57,43 +57,25 @@ test.describe("Screenshot tests", () => {
     },
   });
 
-  // executeMatrixScreenshotTest({
-  //   name: "Input (readonly, disabled, loading)",
-  //   columns: ["readonly", "disabled", "loading"],
-  //   rows: ["default", "hover", "focus"],
-  //   component: (column) => (
-  //     <OnyxInput
-  //       style="width: 12rem"
-  //       label="Test label"
-  //       placeholder="Test placeholder"
-  //       readonly={column === "readonly"}
-  //       disabled={column === "disabled"}
-  //       loading={column === "loading"}
-  //     />
-  //   ),
-  //   beforeScreenshot: async (component, page, column, row) => {
-  //     if (row === "hover") await component.hover();
-  //     if (row === "focus") await component.getByLabel("Test label").focus();
-  //   },
-  // });
-
-  //   executeMatrixScreenshotTest({
-  //     name: "Input (truncation)",
-  //     columns: ["default"],
-  //     rows: ["default", "required", "optional"]
-  //     component: (column,row) => (
-  //       <OnyxInput
-  //         style="width: 12rem"
-  //         label="Very long label that should be truncated"
-  //  required={row === "required"}
-  //  requiredMarker={row === "optional" ? "optional" : undefined}
-  //       />
-  //     ),
-  //     beforeScreenshot: async (component, page, column, row) => {
-  //       if (row === "hover") await component.hover();
-  //       if (row === "focus") await component.getByLabel("Test label").focus();
-  //     },
-  //   });
+  executeMatrixScreenshotTest({
+    name: "Input (readonly, disabled, loading)",
+    columns: ["readonly", "disabled", "loading"],
+    rows: ["default", "hover", "focus"],
+    component: (column) => (
+      <OnyxInput
+        style="width: 12rem"
+        label="Test label"
+        placeholder="Test placeholder"
+        readonly={column === "readonly"}
+        disabled={column === "disabled"}
+        loading={column === "loading"}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus") await component.getByLabel("Test label").focus();
+    },
+  });
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
