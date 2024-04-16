@@ -29,7 +29,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Select (other)",
     columns: ["default", "hideLabel"],
-    rows: ["required", "optional", "skeleton"],
+    rows: ["required", "optional", "skeleton", "message"],
     component: (column, row) => (
       <OnyxSelect
         style="width: 16rem"
@@ -38,6 +38,7 @@ test.describe("Screenshot tests", () => {
         required={row === "required"}
         requiredMarker={row === "optional" ? "optional" : undefined}
         skeleton={row === "skeleton"}
+        message={row === "message" ? "Test message" : undefined}
       />
     ),
   });
