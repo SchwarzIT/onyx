@@ -116,8 +116,8 @@ test("should render with grouped options", async ({ mount, makeAxeBuilder }) => 
 
   // ASSERT
   await expect(component).toHaveScreenshot("grouped-options.png");
-  expect(component.getByText("Water")).toBeDefined();
-  expect(component.getByText("Land")).toBeDefined();
+  await expect(component.getByRole("group", { name: "Water" })).toBeVisible();
+  await expect(component.getByRole("group", { name: "Land" })).toBeVisible();
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
