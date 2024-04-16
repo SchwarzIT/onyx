@@ -89,9 +89,10 @@ const {
 });
 
 const groupedOptions = computed(() => {
-  return props.options.reduce((acc: Record<string, ListboxOption[]>, currOpt) => {
-    acc[currOpt.group ?? ""] = acc[currOpt.group ?? ""] || [];
-    acc[currOpt.group ?? ""].push(currOpt);
+  return props.options.reduce<Record<string, ListboxOption[]>>((acc, currOpt) => {
+    const groupName = currOpt.group ?? "";
+    acc[groupName] = acc[groupName] || [];
+    acc[groupName].push(currOpt);
     return acc;
   }, {});
 });
@@ -121,18 +122,14 @@ const isEmpty = computed(() => props.options.length === 0);
 
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
       <ul
-        v-for="([group, options], index) in Object.entries(groupedOptions)"
-        :key="index"
+        v-for="(options, group) in groupedOptions"
+        :key="group"
         class="onyx-listbox__group"
-        v-bind="
-          headlessGroup({
-            label: group,
-          })
-        "
+        v-bind="headlessGroup({ label: group })"
       >
-        <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">{{
-          group
-        }}</span>
+        <span v-if="group != ''" class="onyx-listbox__group-name onyx-text--small">
+          {{ group }}
+        </span>
         <OnyxListboxOption
           v-for="option in options as any"
           :key="option.id.toString()"
