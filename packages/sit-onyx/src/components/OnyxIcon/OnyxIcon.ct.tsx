@@ -1,4 +1,4 @@
-import { test } from "../../playwright-axe";
+import { test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import { ONYX_COLORS } from "../../types/colors";
 import OnyxIcon from "./OnyxIcon.vue";

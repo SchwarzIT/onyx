@@ -1,6 +1,6 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import type { JSX } from "vue/jsx-runtime";
-import { expect, test } from "../playwright-axe";
+import { expect, test } from "../playwright/a11y";
 import ScreenshotMatrix from "./ScreenshotMatrix.vue";
 
 export type MatrixScreenshotTestOptions<

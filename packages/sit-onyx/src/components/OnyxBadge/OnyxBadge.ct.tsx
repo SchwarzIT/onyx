@@ -1,5 +1,5 @@
 import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import { ONYX_COLORS } from "../../types/colors";
 import OnyxBadge from "./OnyxBadge.vue";
