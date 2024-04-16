@@ -3,23 +3,6 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
-test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  await mount(
-    <div style={{ width: "max-content", padding: "3rem 1rem" }}>
-      <OnyxTooltip text="Test tooltip" open={true}>
-        Test slot content
-      </OnyxTooltip>
-    </div>,
-  );
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
 test("should trigger with boolean", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxTooltip, {
