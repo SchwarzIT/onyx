@@ -5,14 +5,14 @@ https://github.com/SchwarzIT/onyx/issues/565 -->
   setup
   generic="TValue extends SelectModelValue<TMultiple>, TMultiple extends Multiple"
 >
-import { useRequired } from "../../composables/required";
-import { injectI18n } from "../../i18n";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import { OnyxIcon, OnyxSkeleton, OnyxTooltip, OnyxBadge } from "../..";
+import { OnyxBadge, OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import { injectI18n } from "../../i18n";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
@@ -116,7 +116,7 @@ const { densityClass } = useDensity(props);
           :title="props.hideLabel ? props.label : undefined"
         />
 
-        <!-- TODO: figure out how the tooltip width can be sized to the select-input 
+        <!-- TODO: figure out how the tooltip width can be sized to the select-input
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
         <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
@@ -282,6 +282,12 @@ const { densityClass } = useDensity(props);
           color: var(--onyx-color-text-icons-neutral-soft);
           --border-color: var(--onyx-color-base-neutral-300);
         }
+      }
+    }
+
+    &--readonly {
+      .onyx-select__wrapper:hover {
+        --border-color: var(--onyx-color-base-neutral-400);
       }
     }
 
