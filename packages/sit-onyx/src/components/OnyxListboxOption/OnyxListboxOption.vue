@@ -12,7 +12,13 @@ defineSlots<{
 </script>
 
 <template>
-  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
+  <li
+    class="onyx-listbox-option"
+    :class="{ 'onyx-listbox-option--active': props.active }"
+    role="option"
+    :aria-selected="!!$attrs['aria-selected']"
+    :aria-checked="!!$attrs['aria-checked']"
+  >
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
     </span>
