@@ -47,46 +47,19 @@ const { densityClass } = useDensity(props);
     border: var(--onyx-1px-in-rem) solid var(--onyx-tag-border-color);
     background-color: var(--onyx-tag-background-color);
 
-    &--primary {
-      --onyx-tag-background-color: var(--onyx-color-base-primary-200);
-      --onyx-tag-border-color: var(--onyx-color-base-primary-500);
-      --onyx-tag-color: var(--onyx-color-text-icons-primary-intense);
-    }
+    $colors: primary, secondary, neutral, danger, warning, success, info;
 
-    &--secondary {
-      --onyx-tag-background-color: var(--onyx-color-base-secondary-200);
-      --onyx-tag-border-color: var(--onyx-color-base-secondary-500);
-      --onyx-tag-color: var(--onyx-color-text-icons-secondary-intense);
-    }
+    @each $color in $colors {
+      &--#{$color} {
+        --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
+        --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
 
-    &--neutral {
-      --onyx-tag-background-color: var(--onyx-color-base-neutral-200);
-      --onyx-tag-border-color: var(--onyx-color-base-neutral-500);
-      --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);
-    }
-
-    &--danger {
-      --onyx-tag-background-color: var(--onyx-color-base-danger-200);
-      --onyx-tag-border-color: var(--onyx-color-base-danger-600);
-      --onyx-tag-color: var(--onyx-color-text-icons-danger-bold);
-    }
-
-    &--warning {
-      --onyx-tag-background-color: var(--onyx-color-base-warning-200);
-      --onyx-tag-border-color: var(--onyx-color-base-warning-600);
-      --onyx-tag-color: var(--onyx-color-text-icons-warning-bold);
-    }
-
-    &--success {
-      --onyx-tag-background-color: var(--onyx-color-base-success-200);
-      --onyx-tag-border-color: var(--onyx-color-base-success-500);
-      --onyx-tag-color: var(--onyx-color-text-icons-success-bold);
-    }
-
-    &--info {
-      --onyx-tag-background-color: var(--onyx-color-base-info-200);
-      --onyx-tag-border-color: var(--onyx-color-base-info-600);
-      --onyx-tag-color: var(--onyx-color-text-icons-info-bold);
+        @if $color == "neutral" {
+          --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);
+        } @else {
+          --onyx-tag-color: var(--onyx-color-text-icons-#{$color}-bold);
+        }
+      }
     }
   }
 }
