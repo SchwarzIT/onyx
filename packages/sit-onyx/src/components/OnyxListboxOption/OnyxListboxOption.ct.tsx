@@ -37,7 +37,7 @@ const MULTIPLE_STATES = {
 test.describe("state screenshot tests multiselect", () => {
   executeScreenshotsForAllStates(MULTIPLE_STATES, "listbox-multiple", async ({ state }, mount) => {
     const component = await mount(
-      <OnyxListboxOption aria-label="Label" aria-selected={state === "selected"} multiple>
+      <OnyxListboxOption aria-label="Label" aria-checked={state === "selected"} multiple>
         Label
       </OnyxListboxOption>,
     );
