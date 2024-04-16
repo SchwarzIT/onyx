@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.72
+
+### Minor Changes
+
+- f464b42: Implement grouped options for OnyxListbox component
+
 ## 1.0.0-alpha.71
 
 ### Patch Changes
