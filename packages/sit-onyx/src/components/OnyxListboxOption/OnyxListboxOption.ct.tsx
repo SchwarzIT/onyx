@@ -3,7 +3,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of ["default", "disabled"]) {
+  for (const state of ["default", "disabled"] as const) {
     executeMatrixScreenshotTest({
       name: `Listbox option ${state}`,
       columns: ["default", "selected"],

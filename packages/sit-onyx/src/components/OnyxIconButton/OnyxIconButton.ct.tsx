@@ -67,7 +67,7 @@ test.describe("Screenshot tests", () => {
     if (row === "active") await page.mouse.down();
   };
 
-  for (const state of ["default", "disabled"]) {
+  for (const state of ["default", "disabled"] as const) {
     executeMatrixScreenshotTest({
       name: `Icon button (${state})`,
       columns: BUTTON_VARIATIONS,
@@ -84,7 +84,7 @@ test.describe("Screenshot tests", () => {
     });
   }
 
-  for (const state of ["densities", "loading"]) {
+  for (const state of ["densities", "loading"] as const) {
     executeMatrixScreenshotTest({
       name: `Icon button (${state})`,
       columns: DENSITIES,
