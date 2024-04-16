@@ -8,7 +8,7 @@ import OnyxAppLayout from "./OnyxAppLayout.vue";
  * Recommended to use on App.vue level of an application.
  */
 const meta: Meta<typeof OnyxAppLayout> = {
-  title: "layout/OnyxAppLayout",
+  title: "layout/AppLayout",
   ...defineStorybookActionsAndVModels({
     component: OnyxAppLayout,
     events: [],
