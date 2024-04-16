@@ -29,7 +29,6 @@ export default defineConfig({
   fullyParallel: true,
   workers: process.env.CI ? "75%" : undefined, // increase workers in CI
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
-  retries: process.env.CI ? 2 : 0, // retry on CI only
   reporter: [["html", { open: "never" }]],
   use: {
     trace: process.env.CI ? "retain-on-failure" : "off",
