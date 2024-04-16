@@ -2,9 +2,9 @@ import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright-axe";
 import {
   executeMatrixScreenshotTest,
+  mockPlaywrightIcon,
   type MatrixScreenshotTestOptions,
 } from "../../playwright/screenshots";
-import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
 import { BUTTON_MODES, BUTTON_VARIATIONS } from "./types";
 
