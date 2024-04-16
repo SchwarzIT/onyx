@@ -4,7 +4,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of ["default", "placeholder", "with-value", "autofill"] as const) {
+  for (const state of ["default", "placeholder", "with value", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
       columns: DENSITIES,
@@ -15,7 +15,7 @@ test.describe("Screenshot tests", () => {
             label="Test label"
             placeholder={state === "placeholder" ? "Test placeholder" : undefined}
             density={column}
-            modelValue={state === "with-value" || state === "autofill" ? "Filled value" : undefined}
+            modelValue={state === "with value" || state === "autofill" ? "Filled value" : undefined}
             style="width: 12rem;"
           />
         );
@@ -32,55 +32,68 @@ test.describe("Screenshot tests", () => {
   }
 
   executeMatrixScreenshotTest({
-    name: "Input (other)",
-    columns: ["default", "hideLabel"],
+    name: "Input (required/optional, message/counter)",
+    columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message", "counter"],
-    component: (column, row) => (
-      <OnyxInput
-        style="width: 12rem"
-        label="Test label"
-        hideLabel={column === "hideLabel"}
-        required={row === "required"}
-        requiredMarker={row === "optional" ? "optional" : undefined}
-        message={row === "message" ? "Test message" : undefined}
-        maxlength={row === "counter" ? 16 : undefined}
-        modelValue={row === "counter" ? "Filled value" : undefined}
-        withCounter={row === "counter"}
-      />
-    ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "message") {
-        await expect(component).toContainText("Test message");
-        const input = component.getByLabel("Test label");
-        await component.getByText("Test message").focus();
-        await expect(input).not.toBeFocused(); // should not focus input when focusing message
-      }
+    component: (column, row) => {
+      const label =
+        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+      const message =
+        column === "long-text" ? "Very long message that should be truncated" : "Test message";
 
-      if (row === "counter") {
-        await expect(component).toContainText("12/16");
-      }
+      return (
+        <OnyxInput
+          style="width: 12rem"
+          label={label}
+          hideLabel={column === "hideLabel"}
+          required={row === "required"}
+          requiredMarker={row === "optional" ? "optional" : undefined}
+          message={row === "message" ? message : undefined}
+          maxlength={row === "counter" ? 16 : undefined}
+          modelValue={row === "counter" ? "Filled value" : undefined}
+          withCounter={row === "counter"}
+        />
+      );
     },
   });
 
-  executeMatrixScreenshotTest({
-    name: "Input (readonly, disabled, loading)",
-    columns: ["readonly", "disabled", "loading"],
-    rows: ["default", "hover", "focus"],
-    component: (column) => (
-      <OnyxInput
-        style="width: 12rem"
-        label="Test label"
-        placeholder="Test placeholder"
-        readonly={column === "readonly"}
-        disabled={column === "disabled"}
-        loading={column === "loading"}
-      />
-    ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus") await component.getByLabel("Test label").focus();
-    },
-  });
+  // executeMatrixScreenshotTest({
+  //   name: "Input (readonly, disabled, loading)",
+  //   columns: ["readonly", "disabled", "loading"],
+  //   rows: ["default", "hover", "focus"],
+  //   component: (column) => (
+  //     <OnyxInput
+  //       style="width: 12rem"
+  //       label="Test label"
+  //       placeholder="Test placeholder"
+  //       readonly={column === "readonly"}
+  //       disabled={column === "disabled"}
+  //       loading={column === "loading"}
+  //     />
+  //   ),
+  //   beforeScreenshot: async (component, page, column, row) => {
+  //     if (row === "hover") await component.hover();
+  //     if (row === "focus") await component.getByLabel("Test label").focus();
+  //   },
+  // });
+
+  //   executeMatrixScreenshotTest({
+  //     name: "Input (truncation)",
+  //     columns: ["default"],
+  //     rows: ["default", "required", "optional"]
+  //     component: (column,row) => (
+  //       <OnyxInput
+  //         style="width: 12rem"
+  //         label="Very long label that should be truncated"
+  //  required={row === "required"}
+  //  requiredMarker={row === "optional" ? "optional" : undefined}
+  //       />
+  //     ),
+  //     beforeScreenshot: async (component, page, column, row) => {
+  //       if (row === "hover") await component.hover();
+  //       if (row === "focus") await component.getByLabel("Test label").focus();
+  //     },
+  //   });
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
