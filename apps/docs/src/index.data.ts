@@ -65,7 +65,9 @@ export default defineLoader({
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
       return {
         status: fileExist ? "in-progress" : "planned",
-        href: fileExist ? `/development/components/${componentName}` : undefined,
+        href: fileExist
+          ? `/development/components/${componentName.replace("Onyx", "")}`
+          : undefined,
       } satisfies Partial<ComponentCardProps>;
     };
 
