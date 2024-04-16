@@ -7,7 +7,7 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { SelectionOptionValue } from "../OnyxRadioButton/types";
-import type { OnyxListboxProps } from "./types";
+import type { ListboxOption, OnyxListboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
@@ -58,7 +58,7 @@ watch(
 );
 
 const {
-  elements: { listbox, option: headlessOption },
+  elements: { listbox, option: headlessOption, group: headlessGroup },
 } = createListbox({
   label: computed(() => props.label),
   selectedOption: computed(() => props.modelValue),
@@ -88,6 +88,15 @@ const {
   },
 });
 
+const groupedOptions = computed(() => {
+  return props.options.reduce<Record<string, ListboxOption[]>>((acc, currOpt) => {
+    const groupName = currOpt.group ?? "";
+    acc[groupName] = acc[groupName] || [];
+    acc[groupName].push(currOpt);
+    return acc;
+  }, {});
+});
+
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
   loading: computed(() => props.loading),
@@ -111,23 +120,36 @@ const isEmpty = computed(() => props.options.length === 0);
       <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
     </slot>
 
-    <ul v-else v-scroll-end v-bind="listbox" class="onyx-listbox__options">
-      <OnyxListboxOption
-        v-for="option in props.options"
-        :key="option.id.toString()"
-        v-bind="
-          headlessOption({
-            value: option.id,
-            label: option.label,
-            disabled: option.disabled,
-            selected: option.id === props.modelValue,
-          })
-        "
-        :active="option.id === activeOption"
+    <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+      <ul
+        v-for="(options, group) in groupedOptions"
+        :key="group"
+        class="onyx-listbox__group"
+        v-bind="headlessGroup({ label: group })"
       >
-        {{ option.label }}
-      </OnyxListboxOption>
-
+        <li
+          v-if="group != ''"
+          role="presentation"
+          class="onyx-listbox__group-name onyx-text--small"
+        >
+          {{ group }}
+        </li>
+        <OnyxListboxOption
+          v-for="option in options as any"
+          :key="option.id.toString()"
+          v-bind="
+            headlessOption({
+              value: option.id,
+              label: option.label,
+              disabled: option.disabled,
+              selected: option.id === props.modelValue,
+            })
+          "
+          :active="option.id === activeOption"
+        >
+          {{ option.label }}
+        </OnyxListboxOption>
+      </ul>
       <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
       </li>
@@ -135,8 +157,7 @@ const isEmpty = computed(() => props.options.length === 0);
       <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
         <slot name="optionsEnd"></slot>
       </li>
-    </ul>
-
+    </div>
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}
     </span>
@@ -162,6 +183,28 @@ const isEmpty = computed(() => props.options.length === 0);
     max-width: 20rem;
     font-family: var(--onyx-font-family);
 
+    &__wrapper {
+      max-height: calc(var(--max-options) * var(--option-height));
+      overflow: auto;
+      outline: none;
+    }
+
+    &__group {
+      padding: 0;
+
+      &:not(:last-of-type) {
+        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        margin-bottom: var(--onyx-spacing-2xs);
+      }
+    }
+
+    &__group-name {
+      display: block;
+      padding: 0 var(--onyx-spacing-sm);
+      color: var(--onyx-color-text-icons-neutral-medium);
+      font-weight: 600;
+    }
+
     &__message {
       color: var(--onyx-color-text-icons-neutral-soft);
       display: inline-block;
@@ -175,15 +218,11 @@ const isEmpty = computed(() => props.options.length === 0);
       height: var(--option-height);
     }
 
-    &__options {
-      max-height: calc(var(--max-options) * var(--option-height));
-      overflow: auto;
-      outline: none;
-
-      padding: 0;
+    .onyx-listbox-option {
+      height: var(--option-height);
     }
 
-    &:has(&__options:focus-visible) {
+    &:has(&__wrapper:focus-visible) {
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
 
