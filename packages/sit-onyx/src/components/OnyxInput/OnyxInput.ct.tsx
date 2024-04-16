@@ -76,6 +76,26 @@ test.describe("Screenshot tests", () => {
       if (row === "focus") await component.getByLabel("Test label").focus();
     },
   });
+
+  executeMatrixScreenshotTest({
+    name: "Input (invalid)",
+    columns: ["default", "autofill"],
+    rows: ["default", "hover", "focus"],
+    component: () => <OnyxInput style="width: 12rem" label="Test label" customError="Test error" />,
+    beforeScreenshot: async (component, page, column, row) => {
+      const input = component.getByLabel("Test label");
+
+      // invalid is only triggered after touched
+      await input.fill("Filled value");
+      await input.blur();
+
+      if (row === "hover") await component.hover();
+      if (row === "focus") await input.focus();
+      if (column == "autofill") {
+        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+      }
+    },
+  });
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
