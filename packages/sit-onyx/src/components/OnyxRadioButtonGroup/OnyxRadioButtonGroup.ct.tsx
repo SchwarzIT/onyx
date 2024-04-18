@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import { DIRECTIONS, type SelectOption, type SelectOptionValue } from "../../types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
