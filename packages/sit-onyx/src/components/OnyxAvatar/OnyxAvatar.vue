@@ -6,7 +6,7 @@ import type { OnyxAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   size: "48px",
-  type: "diverse",
+  type: "initials",
 });
 
 const initials = computed(() => {
