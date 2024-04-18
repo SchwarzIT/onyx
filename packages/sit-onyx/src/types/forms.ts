@@ -15,6 +15,7 @@ import type { TruncationType } from "./fonts";
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp & {
   /**
    * Value of the option when it is selected.
+   * Must be unique in the current list of options.
    */
   value: TValue;
   /**

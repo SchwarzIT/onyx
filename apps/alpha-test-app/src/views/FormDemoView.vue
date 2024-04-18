@@ -20,11 +20,8 @@ const validFormData = ref<FormData>({
 
 const invalidFormData = ref<FormData>({
   defaultInput: "No Validation",
-  requiredInput: "",
-  minlengthInput: "",
   typeInput: "NotAmail",
   patternInput: "NO UPPERCASE ALLOWED",
-  switch: false,
 });
 </script>
 
