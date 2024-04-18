@@ -28,13 +28,15 @@ export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValu
   lazyLoading?: ListboxLazyLoading;
 };
 
-export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> =
-  SelectOption<TValue> & {
-    /**
-     * Optional group name. If set, all options will be grouped under that group name.
-     */
-    group?: string;
-  };
+export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  SelectOption<TValue>,
+  "value" | "label" | "disabled"
+> & {
+  /**
+   * Optional group name. If set, all options will be grouped under that group name.
+   */
+  group?: string;
+};
 
 export type ListboxLazyLoading = {
   /**
