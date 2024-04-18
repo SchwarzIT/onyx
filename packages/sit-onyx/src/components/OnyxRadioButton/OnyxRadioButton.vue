@@ -53,7 +53,6 @@ const handleChange = (event: Event) => {
       :disabled="props.disabled"
       @change="handleChange"
     />
-    <!-- TODO: check hideLabel property -->
     <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
       {{ props.label }}
     </span>
