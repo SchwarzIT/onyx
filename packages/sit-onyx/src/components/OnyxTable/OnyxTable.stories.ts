@@ -15,35 +15,54 @@ const meta: Meta<typeof OnyxTable> = {
         control: { disable: true },
       },
     },
+    render: (args) => ({
+      setup: () => ({ args }),
+      components: { OnyxTable },
+      template: `
+        <OnyxTable v-bind="args">
+          <thead>
+            <tr>
+              <th>Fruit</th> <th>Price (€/kg)</th> <th>Inventory (kg)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Strawberry</td> <td>4.50</td> <td>200</td>
+            </tr>
+            <tr>
+              <td>Apple</td> <td>1.99</td> <td>3000</td>
+            </tr>
+            <tr>
+              <td>Banana</td> <td>3.75</td> <td>18000</td>
+            </tr>
+          </tbody>
+        </OnyxTable>`,
+    }),
   }),
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxTable>;
 
-export const Default = {
-  args: {},
-  render: (args) => ({
-    setup: () => ({ args }),
-    components: { OnyxTable },
-    template: `
-      <OnyxTable>
-        <thead>
-          <tr>
-            <th>Fruit</th> <th>Price (€/kg)</th> <th>Inventory (kg)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Strawberry</td> <td>4.50</td> <td>200</td>
-          </tr>
-          <tr>
-            <td>Apple</td> <td>1.99</td> <td>3000</td>
-          </tr>
-          <tr>
-            <td>Banana</td> <td>3.75</td> <td>18000</td>
-          </tr>
-        </tbody>
-      </OnyxTable>`,
-  }),
+/**
+ * This example shows a default table.
+ */
+export const Default = { args: {} } satisfies Story;
+
+/**
+ * This example shows a striped table.
+ */
+export const Striped = {
+  args: {
+    striped: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a table with grid strokes.
+ */
+export const GridStroke = {
+  args: {
+    grid: true,
+  },
 } satisfies Story;
