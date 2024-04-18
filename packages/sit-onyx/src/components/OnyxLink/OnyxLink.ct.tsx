@@ -1,25 +1,24 @@
-import { test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
+import { expect, test } from "../../playwright-axe";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxLink from "./OnyxLink.vue";
 
-const STATES = {
-  state: ["default", "external"],
-  focusState: ["", "hover", "focus-visible"],
-} as const;
-
-test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(STATES, "link", async ({ state, focusState }, mount, page) => {
-    const component = await mount(
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Link",
+    columns: ["default", "external"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
       <OnyxLink
-        href={state === "external" ? "https://onyx.schwarz" : "#"}
-        style="font-family: var(--onyx-font-family);"
+        href={column === "external" ? "https://onyx.schwarz" : "#"}
+        style={{ fontFamily: "var(--onyx-font-family)" }}
       >
         Click me
-      </OnyxLink>,
-    );
-
-    if (focusState === "focus-visible") await page.keyboard.press("Tab");
-    if (focusState === "hover") await component.hover();
-    return component;
+      </OnyxLink>
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(component).toContainText("Click me");
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
   });
 });

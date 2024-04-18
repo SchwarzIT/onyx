@@ -55,6 +55,8 @@ jobs:
         with:
           name: screenshots-${{ matrix.shard }}
           path: changed-screenshots
+          # prevent warnings if shard does not update any screenshots
+          if-no-files-found: ignore
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
   # because we don't want to add each parallel matrix job individually

@@ -1,135 +1,126 @@
+import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright-axe";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { TRUNCATION_TYPES } from "../../types/fonts";
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
-test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
-  // ARRANGE
-  await mount(<OnyxRadioButton value="1" label="radio label" name="radio form" />);
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Radio button (unchecked)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxRadioButton value="test-value" label="Test label" name="test-name" density={column} />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(component.getByLabel("Test label")).not.toBeChecked();
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
 
-  // ASSERT
-  await expect(page.getByRole("radio")).toBeAttached();
-  await expect(page.getByLabel("radio label")).toBeAttached();
-  await expect(page.getByText("radio label")).toBeAttached();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should display correctly when selected", async ({ mount, makeAxeBuilder, page }) => {
-  // ARRANGE
-  await mount(<OnyxRadioButton value="1" label="radio label" name="radio form" selected />);
-
-  // ASSERT
-  await expect(page.getByRole("radio")).toBeChecked();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should display correctly when disabled", async ({ mount, makeAxeBuilder, page }) => {
-  // ARRANGE
-  await mount(
-    <OnyxRadioButton value="1" label="radio label" name="radio form" selected disabled />,
-  );
-
-  // ASSERT
-  await expect(page.getByRole("radio")).toBeDisabled();
-  await expect(page.getByRole("radio")).toBeChecked();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should display correctly when invalid", async ({ mount, makeAxeBuilder, page }) => {
-  // ARRANGE
-  await mount(
-    <OnyxRadioButton
-      value="1"
-      label="radio label"
-      name="radio form"
-      customError="radio error"
-      selected
-    />,
-  );
-
-  // ASSERT
-  await expect(page.locator("input:invalid")).toBeAttached();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-TRUNCATION_TYPES.forEach((truncation) => {
-  test(`should truncate with ${truncation}`, async ({ mount }) => {
-    const label = "Very long label that should be truncated";
-
-    // ARRANGE
-    const component = await mount(
+  executeMatrixScreenshotTest({
+    name: "Radio button (checked)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
       <OnyxRadioButton
-        label={label}
-        truncation={truncation}
-        style="max-width: 10rem;"
-        value={truncation}
-        name={truncation}
-      />,
-    );
+        value="test-value"
+        label="Test label"
+        name="test-name"
+        density={column}
+        selected
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(component.getByLabel("Test label")).toBeChecked();
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
 
-    // ASSERT
-    await expect(component).toContainText(label);
-    await expect(component).toHaveScreenshot(`truncation-${truncation}.png`);
+  executeMatrixScreenshotTest({
+    name: "Radio button (disabled)",
+    columns: ["unchecked", "checked"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxRadioButton
+        value="test-value"
+        label="Test label"
+        name="test-name"
+        selected={column === "checked"}
+        disabled
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(component.getByLabel("Test label")).toBeDisabled();
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Radio button (invalid)",
+    columns: ["unchecked", "checked"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxRadioButton
+        value="test-value"
+        label="Test label"
+        name="test-name"
+        customError="Test error"
+        selected={column === "checked"}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      await expect(page.locator("input:invalid")).toBeAttached();
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Radio button (truncation)",
+    columns: TRUNCATION_TYPES,
+    rows: ["default"],
+    component: (column) => (
+      <OnyxRadioButton
+        value="test-value"
+        label="Very long label that should be truncated"
+        name="test-name"
+        truncation={column}
+        style={{ width: "12rem" }}
+      />
+    ),
+    beforeScreenshot: async (component) => {
+      await expect(component).toContainText("Very long label that should be truncated");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Radio button (skeleton + loading)",
+    columns: DENSITIES,
+    rows: ["skeleton", "loading"],
+    component: (column, row) => (
+      <OnyxRadioButton
+        value="test-value"
+        label="Test label"
+        name="test-name"
+        density={column}
+        skeleton={row === "skeleton"}
+        loading={row === "loading"}
+      />
+    ),
   });
 });
 
-test("should render skeleton", async ({ mount }) => {
+test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(
-    <OnyxRadioButton label="Test label" name="skeleton" value="1" skeleton />,
-  );
+  await mount(<OnyxRadioButton value="test-value" label="Test label" name="test-name" />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
   // ASSERT
-  await expect(component).toHaveScreenshot("skeleton.png");
-});
-
-const STATES = {
-  state: ["default", "disabled", "invalid"],
-  select: ["unselected", "selected"],
-  density: ["compact", "default", "cozy"],
-  focusState: ["none", "hover", "focus-visible"],
-} as const;
-
-test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    STATES,
-    "radio-button",
-    async ({ select, state, density, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxRadioButton
-          selected={select === "selected"}
-          density={density}
-          disabled={state === "disabled"}
-          customError={state === "invalid" ? "test error" : ""}
-          name="name"
-          label="label"
-          value="1"
-        />,
-      );
-
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await component.hover();
-      return component;
-    },
-  );
+  expect(accessibilityScanResults.violations).toEqual([]);
 });

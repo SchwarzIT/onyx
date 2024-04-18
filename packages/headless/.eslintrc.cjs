@@ -8,4 +8,11 @@ module.exports = {
     "no-console": "error",
     "no-debugger": "error",
   },
+  overrides: [
+    // disable playwright rules for vitest (unit test) files
+    {
+      files: ["**/*.spec.ts"],
+      rules: { "playwright/no-standalone-expect": "off" },
+    },
+  ],
 };

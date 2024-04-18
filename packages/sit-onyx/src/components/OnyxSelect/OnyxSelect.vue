@@ -284,6 +284,12 @@ const { densityClass } = useDensity(props);
       }
     }
 
+    &--readonly {
+      .onyx-select__wrapper:hover {
+        --border-color: var(--onyx-color-base-neutral-400);
+      }
+    }
+
     &-skeleton {
       display: flex;
       flex-direction: column;

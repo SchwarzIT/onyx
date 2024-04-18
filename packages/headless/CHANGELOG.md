@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.6
+
+### Minor Changes
+
+- 43a8616: feat(listbox): support multiple characters for type-ahead
+
 ## 0.1.0-alpha.5
 
 ### Patch Changes

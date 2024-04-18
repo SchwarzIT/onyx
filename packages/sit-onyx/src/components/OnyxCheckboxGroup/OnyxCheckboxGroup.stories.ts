@@ -1,6 +1,6 @@
-import { createTruncationDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 
 /**
@@ -8,7 +8,7 @@ import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
  * They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
  */
 const meta: Meta<typeof OnyxCheckboxGroup> = {
-  title: "components/OnyxCheckboxGroup",
+  title: "components/CheckboxGroup",
   ...defineStorybookActionsAndVModels({
     component: OnyxCheckboxGroup,
     events: ["update:modelValue"],

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import {
-  DENSITY,
+  DENSITIES,
   OnyxAppLayout,
   OnyxBadge,
   OnyxButton,
@@ -20,6 +20,7 @@ import {
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTooltip,
+  type ListboxOption,
   type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
@@ -60,7 +61,7 @@ const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
 
-const densityOptions = DENSITY.map((value) => ({
+const densityOptions = DENSITIES.map((value) => ({
   value,
   label: capitalize(value),
 })) satisfies SelectOption[];
@@ -75,6 +76,7 @@ const checkboxState = ref<string[]>([]);
 const radioState = ref<string>();
 
 const listboxState = ref<string>();
+const groupedListboxState = ref<string>();
 
 const selectOptions = [
   "Apple",
@@ -96,6 +98,19 @@ const selectOptions = [
 ].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
 
 const minimalSelectOptions = selectOptions.slice(0, 3);
+
+const groupedListboxOptions: ListboxOption[] = [
+  { value: "cat", label: "Cat", group: "Land" },
+  { value: "dog", label: "Dog", group: "Land" },
+  { value: "tiger", label: "Tiger", group: "Land" },
+  { value: "reindeer", label: "Reindeer", group: "Land" },
+  { value: "racoon", label: "Racoon", group: "Land" },
+  { value: "dolphin", label: "Dolphin", group: "Water" },
+  { value: "flounder", label: "Flounder", group: "Water" },
+  { value: "eel", label: "Eel", group: "Water" },
+  { value: "falcon", label: "Falcon", group: "Air" },
+  { value: "owl", label: "Owl", group: "Air" },
+];
 
 const multiSelectState = ref(selectOptions.slice(0, 5));
 const singleSelectState = ref(selectOptions[0]);
@@ -164,12 +179,21 @@ const singleSelectState = ref(selectOptions[0]);
 
           <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-          <OnyxListbox
-            v-if="show('OnyxListbox')"
-            v-model="listboxState"
-            label="Example listbox"
-            :options="selectOptions"
-          />
+          <div style="display: flex; gap: var(--onyx-spacing-xs)">
+            <OnyxListbox
+              v-if="show('OnyxListbox')"
+              v-model="listboxState"
+              label="Example listbox"
+              :options="selectOptions"
+            />
+
+            <OnyxListbox
+              v-if="show('OnyxListbox')"
+              v-model="groupedListboxState"
+              label="Example grouped listbox"
+              :options="groupedListboxOptions"
+            />
+          </div>
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
