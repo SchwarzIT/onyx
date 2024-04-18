@@ -1,6 +1,6 @@
 /* eslint-disable playwright/expect-expect */
-import { expect, test } from "../playwright-axe";
 import type { Locator, Page } from "@playwright/test";
+import { expect, test } from "../playwright/a11y";
 
 const GRIDS = {
   "2xs": { breakpoint: 321, columns: 4 },
