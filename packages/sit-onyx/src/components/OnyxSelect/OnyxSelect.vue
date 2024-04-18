@@ -5,7 +5,7 @@
 >
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import { OnyxIcon, OnyxSkeleton, OnyxTooltip, type SelectOptionValue } from "../..";
+import { OnyxBadge, OnyxIcon, OnyxSkeleton, OnyxTooltip, type SelectOptionValue } from "../..";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
@@ -119,9 +119,9 @@ const { densityClass } = useDensity(props);
           :text="selectionText"
           position="bottom"
         >
-          <!-- TODO: use OnyxBadge component once it is implemented
-          https://github.com/SchwarzIT/onyx/issues/565 -->
-          <div class="onyx-badge">{{ modelValueCount }}</div>
+          <OnyxBadge class="onyx-select__badge" variation="neutral">
+            {{ modelValueCount }}
+          </OnyxBadge>
         </OnyxTooltip>
 
         <OnyxIcon :icon="chevronDownUp" class="onyx-select__icon" />
