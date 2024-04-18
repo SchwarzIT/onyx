@@ -47,7 +47,7 @@ const radioOptions: RadioButtonOption[] = [
 </script>
 
 <template>
-  <form v-if="formState" class="demo" @submit.prevent="handleSubmit">
+  <form v-if="formState" class="demo" @submit.prevent="handleSubmit" @reset="formState = {}">
     <OnyxHeadline is="h2" class="demo__headline"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >
