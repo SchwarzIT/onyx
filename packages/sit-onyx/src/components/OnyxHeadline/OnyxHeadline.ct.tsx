@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxHeadline from "./OnyxHeadline.vue";
 import { HEADLINE_TYPES } from "./types";
