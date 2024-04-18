@@ -41,14 +41,14 @@ const invalidFormData = ref<FormData>({
 
       <div class="page">
         <OnyxHeadline is="h1" element="h1">Initially Invalid example</OnyxHeadline>
-        {{ invalidFormData }}
         <FormDemo v-model="invalidFormData" />
+        <pre class="state">State: {{ invalidFormData }}</pre>
 
         <hr />
 
         <OnyxHeadline is="h1" element="h1">Initially Valid example</OnyxHeadline>
-        {{ validFormData }}
         <FormDemo v-model="validFormData" />
+        <pre class="state">State: {{ validFormData }}</pre>
       </div>
     </OnyxPageLayout>
   </OnyxAppLayout>
@@ -60,5 +60,9 @@ const invalidFormData = ref<FormData>({
 }
 .sidebar {
   padding: var(--onyx-spacing-3xs);
+}
+.state {
+  color: var(--onyx-color-text-icons-neutral-soft);
+  padding: var(--onyx-spacing-md) 0;
 }
 </style>
