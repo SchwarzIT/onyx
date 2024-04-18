@@ -100,7 +100,6 @@ const { densityClass } = useDensity(props);
     th,
     td {
       padding: var(--onyx-table-vertical-padding) var(--onyx-spacing-md);
-      border: none;
     }
 
     tr {
