@@ -32,5 +32,5 @@ test("should wrap when exceeding the width", async ({ mount }) => {
   );
 
   // ASSERT
-  await expect(component).toHaveScreenshot("default.png");
+  await expect(component).toHaveScreenshot("wrap.png");
 });
