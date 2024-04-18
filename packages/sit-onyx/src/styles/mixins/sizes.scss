@@ -1,7 +1,7 @@
 /**
-* Mixin to define the given CSS variable for every onyx icon size.
+* Mixin to define common onyx sizes (e.g. used for icons).
 */
-@mixin define-icon-sizes() {
+@mixin define-rem-sizes() {
   $sizes:
     12px 0.75rem,
     16px 1rem,

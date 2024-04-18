@@ -60,7 +60,7 @@ const initials = computed(() => {
       justify-content: center;
     }
 
-    @include sizes.define-icon-sizes using ($name, $size) {
+    @include sizes.define-rem-sizes using ($name, $size) {
       @if $name != 12px {
         &--#{$name} {
           --onyx-avatar-size: #{$size};

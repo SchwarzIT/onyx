@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
     height: var(--icon-size);
     fill: var(--icon-color);
 
-    @include sizes.define-icon-sizes using ($name, $size) {
+    @include sizes.define-rem-sizes using ($name, $size) {
       &--#{$name} {
         --icon-size: #{$size};
       }
