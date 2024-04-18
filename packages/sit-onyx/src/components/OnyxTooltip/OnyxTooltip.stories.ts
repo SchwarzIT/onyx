@@ -1,9 +1,9 @@
-import { defineIconSelectArgType } from "../../utils/storybook";
 import { TOOLTIP_TRIGGERS } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
@@ -11,7 +11,7 @@ import OnyxTooltip from "./OnyxTooltip.vue";
  * Tooltips offer contextual information or additional details to a parent element.
  */
 const meta: Meta<typeof OnyxTooltip> = {
-  title: "components/OnyxTooltip",
+  title: "components/Tooltip",
   ...defineStorybookActionsAndVModels({
     component: OnyxTooltip,
     events: [],

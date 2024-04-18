@@ -1,6 +1,6 @@
-import { createTruncationDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { createTruncationDecorator } from "../../utils/storybook";
 import type { SelectionOption } from "../OnyxRadioButton/types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
@@ -9,7 +9,7 @@ import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
  * Users can choose only one option at the time, making radio buttons ideal for scenarios where a single, distinct choice is required.
  */
 const meta: Meta<typeof OnyxRadioButtonGroup> = {
-  title: "components/OnyxRadioButtonGroup",
+  title: "components/RadioButtonGroup",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButtonGroup,
     events: ["update:modelValue", "validityChange"],

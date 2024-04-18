@@ -23,7 +23,7 @@ import type { ListboxLazyLoading, ListboxOption } from "./types";
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxListbox> = {
-  title: "support/OnyxListbox",
+  title: "support/Listbox",
   ...defineStorybookActionsAndVModels({
     component: OnyxListbox,
     events: ["update:modelValue", "lazyLoad"],
