@@ -34,11 +34,13 @@ const { densityClass } = useDensity(props);
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
 
+/**
+* Defines the border radius for the table.
+*/
 @mixin define-table-border-radius() {
   $border-radius: var(--onyx-radius-sm);
   border-radius: $border-radius;
 
-  // fix border radius of the whole table
   th:first-child {
     border-top-left-radius: $border-radius;
   }
