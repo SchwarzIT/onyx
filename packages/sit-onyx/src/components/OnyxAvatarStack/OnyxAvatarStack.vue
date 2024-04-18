@@ -20,10 +20,13 @@ defineSlots<{
   @include layers.component() {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    width: max-content;
+    max-width: 100%;
 
-    > .onyx-avatar:not(:first-child) {
+    > .onyx-avatar:not(:last-child) {
       // move by 50% (minus border)
-      margin-left: calc(-0.5 * var(--onyx-avatar-size) - var(--onyx-1px-in-rem));
+      margin-right: calc(-0.5 * var(--onyx-avatar-size) - var(--onyx-1px-in-rem));
     }
   }
 }

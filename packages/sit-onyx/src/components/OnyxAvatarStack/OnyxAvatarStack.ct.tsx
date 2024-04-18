@@ -18,3 +18,19 @@ test("should render", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("default.png");
 });
+
+test("should wrap when exceeding the width", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxAvatarStack style={{ width: "24rem" }}>
+      {Array.from({ length: 24 }, (_, index) => {
+        const label = `John Doe ${index + 1}`;
+        const type = AVATAR_TYPES[index % AVATAR_TYPES.length];
+        return <OnyxAvatar label={label} type={type} key={index} />;
+      })}
+    </OnyxAvatarStack>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("default.png");
+});
