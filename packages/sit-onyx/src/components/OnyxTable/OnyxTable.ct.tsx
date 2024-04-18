@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import OnyxTable from "./OnyxTable.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
