@@ -6,6 +6,8 @@ export * from "./components/OnyxAppLayout/types";
 export { default as OnyxAvatar } from "./components/OnyxAvatar/OnyxAvatar.vue";
 export * from "./components/OnyxAvatar/types";
 
+export { default as OnyxAvatarStack } from "./components/OnyxAvatarStack/OnyxAvatarStack.vue";
+
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 
