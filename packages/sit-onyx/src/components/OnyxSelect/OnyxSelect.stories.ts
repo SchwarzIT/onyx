@@ -7,7 +7,7 @@ import OnyxSelect from "./OnyxSelect.vue";
  * This is a select.
  */
 const meta: Meta<typeof OnyxSelect> = {
-  title: "components/OnyxSelect",
+  title: "components/Select",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelect,
     events: ["update:modelValue"],

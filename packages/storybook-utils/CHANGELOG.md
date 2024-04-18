@@ -1,5 +1,16 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.75
+
+### Major Changes
+
+- d85b6e2: bump min `storybook-dark-mode` to `>= 4`
+
+### Patch Changes
+
+- Updated dependencies [43a8616]
+  - sit-onyx@1.0.0-alpha.73
+
 ## 1.0.0-alpha.74
 
 ### Patch Changes

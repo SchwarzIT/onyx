@@ -1,15 +1,15 @@
-import { createIconSourceCodeTransformer, defineIconSelectArgType } from "../../utils/storybook";
 import trash from "@sit-onyx/icons/trash.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxIconButton from "./OnyxIconButton.vue";
 import { h } from "vue";
+import { createIconSourceCodeTransformer, defineIconSelectArgType } from "../../utils/storybook";
+import OnyxIconButton from "./OnyxIconButton.vue";
 
 /**
  * The icon button is a special button which has no visual label.
  */
 const meta: Meta<typeof OnyxIconButton> = {
-  title: "components/OnyxIconButton",
+  title: "components/IconButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxIconButton,
     events: ["click"],
