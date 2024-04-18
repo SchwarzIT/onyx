@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
 import FormDemo, { type FormData } from "../components/form-demo/FormDemo.vue";
 
 const { t, locale } = useI18n();
 
-const validFormData = {
+const validFormData = ref<FormData>({
   defaultInput: "No Validation",
   requiredInput: "Is filled",
   minlengthInput: "Is long enough",
@@ -15,16 +16,16 @@ const validFormData = {
   switch: true,
   checkboxGroup: [2],
   radioGroup: 1,
-} satisfies FormData;
+});
 
-const invalidFormData = {
+const invalidFormData = ref<FormData>({
   defaultInput: "No Validation",
   requiredInput: "",
   minlengthInput: "",
   typeInput: "NotAmail",
   patternInput: "NO UPPERCASE ALLOWED",
   switch: false,
-} satisfies FormData;
+});
 </script>
 
 <template>
@@ -40,12 +41,14 @@ const invalidFormData = {
 
       <div class="page">
         <OnyxHeadline is="h1" element="h1">Initially Invalid example</OnyxHeadline>
-        <FormDemo :form-data="invalidFormData" />
+        {{ invalidFormData }}
+        <FormDemo v-model="invalidFormData" />
 
         <hr />
 
         <OnyxHeadline is="h1" element="h1">Initially Valid example</OnyxHeadline>
-        <FormDemo :form-data="validFormData" />
+        {{ validFormData }}
+        <FormDemo v-model="validFormData" />
       </div>
     </OnyxPageLayout>
   </OnyxAppLayout>

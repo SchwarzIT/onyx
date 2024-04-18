@@ -10,7 +10,7 @@ import {
   type OnyxRadioButtonGroupProps,
   type RadioButtonOption,
 } from "sit-onyx";
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 
 export type FormData = Partial<{
   defaultInput: string;
@@ -23,12 +23,7 @@ export type FormData = Partial<{
   radioGroup: OnyxRadioButtonGroupProps["modelValue"];
 }>;
 
-const props = defineProps<{
-  formData: FormData;
-}>();
-
-const formState = ref<FormData>();
-watchEffect(() => (formState.value = { ...props.formData }));
+const formState = defineModel<FormData>();
 
 const customErrorExample = ref("");
 
