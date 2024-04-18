@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat: add `OnyxTable` component
+feat: add basic `OnyxTable` component
