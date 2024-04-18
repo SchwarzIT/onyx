@@ -1,7 +1,7 @@
 import type { ListboxValue, ListboxModelValue } from "@sit-onyx/headless";
 
 export type OnyxListboxProps<
-  TMultiple extends boolean | undefined,
+  TMultiple extends boolean = false,
   TOption extends ListboxValue = ListboxValue,
 > = {
   /**

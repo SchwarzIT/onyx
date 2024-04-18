@@ -1,9 +1,16 @@
 import { computed, ref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
+import {
+  createListbox,
+  type CreateListboxOptions,
+  type ListboxValue,
+} from "../listbox/createListbox";
 
-export type CreateComboboxOptions<TValue extends string> = {
+export type CreateComboboxOptions<
+  TMultiple extends boolean | undefined,
+  TOption extends ListboxValue = ListboxValue,
+> = {
   /**
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
    */
@@ -11,7 +18,7 @@ export type CreateComboboxOptions<TValue extends string> = {
   /**
    * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
    */
-  inputValue: Ref<TValue>;
+  inputValue: Ref<TOption | undefined>;
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
@@ -19,13 +26,13 @@ export type CreateComboboxOptions<TValue extends string> = {
   /**
    * If expanded, the active option is the currently highlighted option of the controlled listbox.
    */
-  activeOption: Ref<TValue | undefined>;
+  activeOption: Ref<TOption | undefined>;
   /**
    * Hook when the popover should toggle.
    */
   onToggle?: () => void;
 } & Pick<
-  CreateListboxOptions<TValue>,
+  CreateListboxOptions<TMultiple, TOption>,
   "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
 >;
 
@@ -34,7 +41,7 @@ export type CreateComboboxOptions<TValue extends string> = {
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TValue extends string>({
+  <TMultiple extends boolean | undefined, TOption extends ListboxValue = ListboxValue>({
     listLabel,
     inputValue,
     isExpanded,
@@ -45,14 +52,14 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TValue>) => {
+  }: CreateComboboxOptions<TMultiple, TOption>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
-      inputValue.value = inputElement.value as TValue;
+      inputValue.value = inputElement.value as TOption;
       inputValid.value = inputElement.validity.valid;
     };
 
