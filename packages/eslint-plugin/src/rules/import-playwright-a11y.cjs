@@ -21,12 +21,7 @@ module.exports = {
       if (!hasFixture) return;
 
       // type check that node.parent.source.value exists
-      if (
-        !("source" in node.parent) ||
-        !node.parent.source ||
-        !("value" in node.parent.source) ||
-        !node.parent.source.value
-      ) {
+      if (node.parent.type !== "ImportDeclaration" || !node.parent.source.value) {
         return;
       }
 
@@ -38,7 +33,7 @@ module.exports = {
         context.report({
           node,
           loc: node.loc ?? undefined,
-          message: `Import "${node.imported.name}" from "../../playwright/a11y" instead because Onyx uses custom Playwright fixtures for providing a global configuration for accessability testing.`,
+          message: `Import "${node.imported.name}" from "../../playwright/a11y" instead because onyx uses custom Playwright fixtures for providing a global configuration for accessability testing.`,
         });
       }
     },
