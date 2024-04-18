@@ -91,12 +91,11 @@ const { densityClass } = useDensity(props);
     $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     border-spacing: 0;
     border: $border;
+    @include define-table-border-radius;
 
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
-
-    @include define-table-border-radius;
 
     th,
     td {
