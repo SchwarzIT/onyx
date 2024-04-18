@@ -31,4 +31,9 @@ test("should contain correct initials", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toContainText("AB");
+
+  // ACT
+  await component.update({ props: { label: "a" } });
+  // ASSERT
+  await expect(component).toContainText("A");
 });
