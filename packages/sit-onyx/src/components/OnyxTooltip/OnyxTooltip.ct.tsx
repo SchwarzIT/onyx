@@ -1,6 +1,5 @@
-import { expect, test } from "../../playwright-axe";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { mockPlaywrightIcon } from "../../utils/playwright";
+import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
 test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
