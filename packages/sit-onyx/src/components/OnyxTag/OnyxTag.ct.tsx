@@ -1,8 +1,7 @@
 import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright-axe";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import { ONYX_COLORS } from "../../types/colors";
-import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxTag from "./OnyxTag.vue";
 
 test.describe("Screenshot tests", () => {
