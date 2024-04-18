@@ -26,14 +26,24 @@ export const Default = {
   render: (args) => ({
     setup: () => ({ args }),
     components: { OnyxTable },
-    template: ` <OnyxTable>
-                  <thead>
-                    <tr> <th>Items</th> <th>Expenditure</th> </tr>
-                  </thead>
-                  <tbody>
-                    <tr> <td>Donuts</td> <td>3000</td> </tr>
-                    <tr> <td>Waffle</td> <td>18000</td> </tr>
-                  </tbody>
-                </OnyxTable>`,
+    template: `
+      <OnyxTable>
+        <thead>
+          <tr>
+            <th>Fruit</th> <th>Price (€/kg)</th> <th>Inventory (kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Strawberry</td> <td>4.50</td> <td>200</td>
+          </tr>
+          <tr>
+            <td>Apple</td> <td>1.99</td> <td>3000</td>
+          </tr>
+          <tr>
+            <td>Banana</td> <td>3.75</td> <td>18000</td>
+          </tr>
+        </tbody>
+      </OnyxTable>`,
   }),
 } satisfies Story;
