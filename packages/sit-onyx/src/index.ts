@@ -3,6 +3,9 @@ import "./styles/index.scss";
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types";
 
+export { default as OnyxAvatar } from "./components/OnyxAvatar/OnyxAvatar.vue";
+export * from "./components/OnyxAvatar/types";
+
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 

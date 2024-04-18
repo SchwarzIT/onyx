@@ -1,0 +1,17 @@
+/**
+* Mixin to define the given CSS variable for every onyx icon size.
+*/
+@mixin define-icon-sizes() {
+  $sizes:
+    12px 0.75rem,
+    16px 1rem,
+    24px 1.5rem,
+    32px 2rem,
+    48px 3rem,
+    64px 4rem,
+    96px 6rem;
+
+  @each $name, $size in $sizes {
+    @content ($name, $size);
+  }
+}

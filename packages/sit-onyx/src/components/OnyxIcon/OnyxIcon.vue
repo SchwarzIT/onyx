@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/sizes.scss";
 
 .onyx-icon {
   @include layers.component() {
@@ -35,19 +36,7 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
     height: var(--icon-size);
     fill: var(--icon-color);
 
-    //
-    // icon sizes:
-    //
-    $sizes:
-      12px 0.75rem,
-      16px 1rem,
-      24px 1.5rem,
-      32px 2rem,
-      48px 3rem,
-      64px 4rem,
-      96px 6rem;
-
-    @each $name, $size in $sizes {
+    @include sizes.define-icon-sizes using ($name, $size) {
       &--#{$name} {
         --icon-size: #{$size};
       }
