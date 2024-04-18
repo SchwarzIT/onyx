@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { OnyxTableProps } from "./types";
+
+defineProps<OnyxTableProps>();
+</script>
 
 <template>
   <table class="onyx-table">

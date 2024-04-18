@@ -52,6 +52,7 @@ export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
 export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
+export * from "./components/OnyxTable/types";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
