@@ -3,7 +3,7 @@
   setup
   generic="TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
 >
-import { createListbox, type ListboxModelValue, type ListboxValue } from "@sit-onyx/headless";
+import { createListbox, type ListboxValue } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
@@ -57,7 +57,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     if (!props.multiple) {
-      activeOption.value = newValue as TOption | undefined;
+      activeOption.value = newValue as typeof activeOption.value;
     }
   },
 );
@@ -66,29 +66,20 @@ const {
   elements: { listbox, option: headlessOption, group: headlessGroup },
 } = createListbox({
   label: computed(() => props.label),
-  multiple: computed(() => props.multiple),
+  multiple: computed(() => !!props.multiple),
   selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (selectedOption) => {
-    if (props.modelValue === selectedOption) emit("update:modelValue", undefined);
-    else {
-      if (!props.multiple) {
-        emit("update:modelValue", selectedOption as ListboxModelValue<TOption, TMultiple>);
-      } else {
-        const newValues =
-          !props.modelValue || (Array.isArray(props.modelValue) && !props.modelValue.length)
-            ? []
-            : (props.modelValue as TOption[]);
-
-        const foundIndex = newValues.findIndex((option) => option === selectedOption);
-        if (foundIndex < 0) newValues.push(selectedOption);
-        else {
-          newValues.splice(foundIndex, 1);
-        }
-        emit("update:modelValue", newValues as ListboxModelValue<TOption, TMultiple>);
-        activeOption.value = selectedOption;
-      }
+    if (!props.multiple) {
+      const newValue = selectedOption === props.modelValue ? undefined : selectedOption;
+      emit("update:modelValue", newValue as typeof props.modelValue);
+      return;
     }
+    const arrayValues: TOption[] = Array.isArray(props.modelValue) ? props.modelValue : [];
+    const newValues = arrayValues.includes(selectedOption)
+      ? arrayValues.filter((i) => i !== selectedOption)
+      : [...arrayValues, selectedOption];
+    emit("update:modelValue", newValues as typeof props.modelValue);
   },
   onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
   onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),

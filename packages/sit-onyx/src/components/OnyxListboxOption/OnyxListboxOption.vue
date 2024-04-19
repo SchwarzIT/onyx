@@ -51,6 +51,7 @@ defineSlots<{
     gap: var(--onyx-spacing-2xs);
 
     &__checkbox {
+      // prevent the checkbox to get squished by a long label
       flex-shrink: 0;
     }
 

@@ -156,12 +156,15 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: [],
+    modelValue: ["apple", "banana"],
     multiple: true,
     options: [
       ...Default.args.options,
       { id: "long", label: "Option with a very long long long  long long long long text}" },
     ],
+  },
+  argTypes: {
+    modelValue: { control: { type: "array" } },
   },
 } satisfies Story;
 
