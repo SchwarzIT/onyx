@@ -23,7 +23,7 @@ export type CreateListboxOptions<
    */
   selectedOption: Ref<ListboxModelValue<TOption, TMultiple>>;
   /**
-   * Value of currently (visually) active/focused option.
+   * Value of currently (visually) active option.
    */
   activeOption: Ref<TOption | undefined>;
   /**

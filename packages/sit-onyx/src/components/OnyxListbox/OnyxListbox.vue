@@ -46,7 +46,7 @@ const slots = defineSlots<{
 const { t } = injectI18n();
 
 /**
- * Currently (visually) active/focused option.
+ * Currently (visually) active option.
  */
 const activeOption = ref<TOption | undefined>();
 
