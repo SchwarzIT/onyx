@@ -40,7 +40,7 @@ const { densityClass } = useDensity(props);
     gap: var(--onyx-spacing-3xs);
     max-width: 100%;
     padding: var(--onyx-tag-padding);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-radius-xs);
     font-family: var(--onyx-font-family);
 
     color: var(--onyx-tag-color);
