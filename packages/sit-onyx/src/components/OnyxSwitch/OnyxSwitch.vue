@@ -180,7 +180,9 @@ $input-width: calc(
         }
       }
 
-      &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+      &:checked:disabled:not(.onyx-switch__loading)
+        + .onyx-switch__click-area
+        .onyx-switch__container {
         background-color: var(--onyx-color-base-primary-200);
 
         .onyx-switch__icon {
@@ -189,7 +191,7 @@ $input-width: calc(
         }
       }
 
-      &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+      &:disabled:not(.onyx-switch__loading) + .onyx-switch__click-area .onyx-switch__container {
         background-color: var(--onyx-color-base-neutral-200);
 
         .onyx-switch__icon {
@@ -199,7 +201,7 @@ $input-width: calc(
       }
 
       &:user-invalid {
-        & + .onyx-switch__container {
+        & + .onyx-switch__click-area .onyx-switch__container {
           background-color: var(--onyx-color-base-danger-200);
           position: relative;
 
@@ -224,7 +226,7 @@ $input-width: calc(
           }
         }
 
-        &:checked + .onyx-switch__container {
+        &:checked + .onyx-switch__click-area .onyx-switch__container {
           background-color: var(--onyx-color-base-danger-500);
 
           .onyx-switch__icon {
