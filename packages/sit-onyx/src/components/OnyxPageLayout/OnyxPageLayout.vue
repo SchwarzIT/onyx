@@ -95,14 +95,12 @@ const pageModifier = computed(() => {
     &__sidebar {
       grid-area: side;
       overflow: hidden auto;
-
       background-color: var(--background-color-sidebar);
     }
     &__main {
       grid-area: main;
       overflow: hidden auto;
       position: relative;
-
       background-color: var(--background-color-main);
     }
     &__toasts {
@@ -116,7 +114,6 @@ const pageModifier = computed(() => {
     }
     &__footer {
       grid-area: footer;
-
       background-color: var(--background-color-footer);
     }
   }
