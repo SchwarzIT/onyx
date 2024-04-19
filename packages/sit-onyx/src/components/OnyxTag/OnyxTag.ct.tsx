@@ -5,10 +5,14 @@ import { ONYX_COLORS } from "../../types/colors";
 import OnyxTag from "./OnyxTag.vue";
 
 test.describe("Screenshot tests", () => {
+  // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+  const disabledAccessibilityRules = ["color-contrast"];
+
   executeMatrixScreenshotTest({
     name: "Tag",
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    disabledAccessibilityRules,
     component: (column, row) => <OnyxTag label="Tag" density={column} color={row} />,
   });
 
@@ -16,6 +20,7 @@ test.describe("Screenshot tests", () => {
     name: "Tag (with icon)",
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    disabledAccessibilityRules,
     component: (column, row) => (
       <OnyxTag label="Tag" density={column} color={row} icon={mockPlaywrightIcon} />
     ),
