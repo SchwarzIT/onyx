@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.77
+
+### Minor Changes
+
+- a7b5140: feat: add `OnyxAvatar` and `OnyxAvatarStack` component
+
+## 1.0.0-alpha.76
+
+### Patch Changes
+
+- a155d1b: fix(OnyxTag): update border radius
+
 ## 1.0.0-alpha.75
 
 ### Patch Changes
