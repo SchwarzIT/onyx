@@ -3,6 +3,7 @@ import { addons } from "@storybook/preview-api";
 import { type ThemeVars } from "@storybook/theming";
 import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
+import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 
 import { requiredGlobalType, withRequired } from "./required";
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
@@ -97,11 +98,6 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   } satisfies Preview;
 
   const channel = addons.getChannel();
-
-  // TODO: import from storybook-dark-mode instead
-  // but this is currently leading to Storybook build errors with Storybook 8
-  // import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
-  const DARK_MODE_EVENT_NAME = "DARK_MODE";
 
   // our "workaround" above for dynamically setting the docs theme needs a page-reload after
   // the theme has changed to take effect:
