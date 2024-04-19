@@ -33,19 +33,28 @@ export type MatrixScreenshotTestOptions<
     column: TColumn,
     row: TRow,
   ) => Promise<void>;
+  /**
+   * Rules to disable when performing the accessibility tests.
+   * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed
+   * and if possible create a GitHub issue with follow up work on it.
+   *
+   * @see https://playwright.dev/docs/accessibility-testing#disabling-individual-scan-rules
+   */
+  disabledAccessibilityRules?: string[];
 };
 
 type TestArgs = Parameters<Parameters<typeof test>[2]>[0];
 
 /**
  * Creates a single matrix screenshot that includes the screenshots for every column-row combination.
+ * Will also perform axe accessibility tests.
  */
 export const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
   options: MatrixScreenshotTestOptions<TColumn, TRow>,
 ) => {
-  test(`${options.name}`, async ({ mount, page, browserName }) => {
+  test(`${options.name}`, async ({ mount, page, browserName, makeAxeBuilder }) => {
     // limit the max timeout per permutation
-    const timeoutPerScreenshot = 10 * 1000;
+    const timeoutPerScreenshot = 15 * 1000;
     test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
 
     /**
@@ -65,6 +74,15 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
       // see (`scale` option of `component.screenshot()` above)
       const box = await component.boundingBox();
+
+      // accessibility tests
+      const accessibilityScanResults = await makeAxeBuilder()
+        .disableRules(options.disabledAccessibilityRules ?? [])
+        .analyze();
+      expect(
+        accessibilityScanResults.violations,
+        `should pass accessibility checks for ${column} ${row}`,
+      ).toEqual([]);
 
       const id = `${row}-${column}`;
 

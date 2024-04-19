@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.75
+
+### Patch Changes
+
+- 61c4964: fix(OnyxButton): add aria label when loading
+
+## 1.0.0-alpha.74
+
+### Minor Changes
+
+- 288afbd: feat: add `OnyxTag` component
+
 ## 1.0.0-alpha.73
 
 ### Minor Changes
