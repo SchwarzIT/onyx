@@ -43,6 +43,8 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
   color: inherit;
 
   &--clickable {
+    display: block;
+
     &:hover {
       background-color: var(--vp-c-default-soft);
     }
@@ -55,6 +57,8 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
     padding: 1.5rem;
     height: 100%;
     box-sizing: border-box;
+    background-color: inherit;
+    border-radius: inherit;
   }
 
   &__title {
