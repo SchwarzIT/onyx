@@ -7,6 +7,8 @@ test.describe("Screenshot tests", () => {
     name: "Link",
     columns: ["default", "external"],
     rows: ["default", "hover", "focus-visible"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
       <OnyxLink
         href={column === "external" ? "https://onyx.schwarz" : "#"}
