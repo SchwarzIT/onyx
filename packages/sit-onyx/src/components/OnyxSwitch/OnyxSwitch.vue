@@ -63,14 +63,15 @@ const isChecked = computed({
       :disabled="props.disabled || props.loading"
       :required="props.required"
     />
-    <span class="onyx-switch__container">
-      <span class="onyx-switch__icon">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-        <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+    <span class="onyx-switch__click-area">
+      <span class="onyx-switch__container">
+        <span class="onyx-switch__icon">
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
+          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+        </span>
+        <div class="onyx-switch__frame"></div>
       </span>
-      <div class="onyx-switch__frame"></div>
     </span>
-
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
@@ -91,8 +92,11 @@ const isChecked = computed({
     --onyx-switch-icon-size: 1rem;
     --onyx-switch-cozy-width: 0rem;
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
+    --onyx-switch-container-margin: 0.25rem;
     --onyx-switch-transform: 0.125rem;
     --onyx-switch-input-height: unset;
+    --onyx-switch-click-padding-vertical: var(--onyx-spacing-3xs);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-4xs);
 
     // icon size + padding top/bottom + border top/bottom
     --onyx-switch-skeleton-height: calc(
@@ -107,6 +111,8 @@ const isChecked = computed({
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
     --onyx-switch-input-height: unset;
+    --onyx-switch-click-padding-vertical: var(--onyx-spacing-2xs);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-2xs);
 
     // icon size + padding top/bottom + border top/bottom
     --onyx-switch-skeleton-height: calc(
@@ -122,6 +128,8 @@ const isChecked = computed({
     --onyx-switch-transform: 0.01rem;
     --onyx-switch-input-height: 2rem;
     --onyx-switch-skeleton-height: var(--onyx-switch-input-height);
+    --onyx-switch-click-padding-vertical: var(--onyx-spacing-2xs);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-sm);
   }
 }
 
@@ -135,7 +143,6 @@ $input-width: calc(
     display: inline-flex;
     align-items: flex-start;
     cursor: pointer;
-    gap: var(--onyx-spacing-2xs);
     max-width: 100%;
 
     &__input {
@@ -216,6 +223,10 @@ $input-width: calc(
       }
     }
 
+    &__click-area {
+      padding: var(--onyx-switch-click-padding-vertical) var(--onyx-spacing-2xs);
+    }
+
     &__container {
       display: inline-flex;
       width: $input-width;
@@ -259,6 +270,7 @@ $input-width: calc(
       font-style: normal;
       font-weight: 400;
       line-height: 1.5rem;
+      padding: var(--onyx-switch-label-padding-vertical) 0;
     }
 
     &:hover {
