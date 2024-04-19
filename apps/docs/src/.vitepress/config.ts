@@ -1,11 +1,6 @@
-import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { defineConfig, loadEnv } from "vitepress";
+import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
-import { getStorybookHost } from "./env";
-
-const env = loadEnv("", path.join(process.cwd(), "src"));
-const STORYBOOK_HOST = getStorybookHost(env);
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -51,7 +46,7 @@ export default defineConfig({
         activeMatch: "/resources/",
         items: [
           { text: "Icons", link: "/resources/icons" },
-          { text: "Storybook", link: STORYBOOK_HOST },
+          { text: "Storybook", link: "https://storybook.onyx.schwarz" },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
         ],

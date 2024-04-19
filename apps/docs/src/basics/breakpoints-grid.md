@@ -2,12 +2,7 @@
 
 Column grids in ui design and development establish a structured layout, organizing content, components and elements cohesively. They provide a framework for alignment and distribution, ensuring consistency and hierarchy. Additionally, grids serve as the foundation for smooth responsive behavior, allowing seamless adoption to different screen sizes and resolutions, ultimately enhancing usability and overall user experience.
 
-<script lang="ts" setup>
-import { getStorybookHost } from "../.vitepress/env";
-</script>
-
-To see the grid and breakpoints in action, feel free to have a look on the
-<a :href="`${getStorybookHost()}/?path=/docs/utilities-gridplayground--docs`" target="_blank">grid playground</a>.
+To see the grid and breakpoints in action, feel free to have a look on the [grid playground](https://storybook.onyx.schwarz/?path=/docs/utilities-gridplayground--docs).
 
 ## Understanding the grid
 

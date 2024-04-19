@@ -2,7 +2,6 @@
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
-import { getStorybookHost } from "../env";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 
@@ -18,7 +17,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   minute: "2-digit",
 }).format(new Date(props.data.timestamp));
 
-const storybookHost = getStorybookHost();
+const storybookHost = "https://storybook.onyx.schwarz" as const;
 </script>
 
 <template>
