@@ -4,8 +4,8 @@ import { type ThemeVars } from "@storybook/theming";
 import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 
-import { ONYX_BREAKPOINTS, createTheme } from "./theme";
 import { requiredGlobalType, withRequired } from "./required";
+import { ONYX_BREAKPOINTS, createTheme } from "./theme";
 
 const themes = {
   light: createTheme(),
@@ -18,7 +18,6 @@ const themes = {
  * - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file
  * - Custom Storybook theme using onyx colors (light and dark mode)
- * - Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`)
  * - Configure viewports / breakpoints as defined by onyx
  *
  * @param overrides Custom preview / overrides, will be deep merged with the default preview.
@@ -57,13 +56,7 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
       docs: {
         // see: https://github.com/hipstersmoothie/storybook-dark-mode/issues/127#issuecomment-840701971
         get theme(): ThemeVars {
-          // support setting the theme via query parameters, useful if docs are embedded via an iframe
-          const params = new URLSearchParams(window.location.search);
-          const themeParam = params.get("theme");
-
-          const isDark = themeParam
-            ? themeParam === "dark"
-            : parent.document.body.classList.contains("dark");
+          const isDark = parent.document.body.classList.contains("dark");
 
           if (isDark) {
             document.body.classList.remove("light");
