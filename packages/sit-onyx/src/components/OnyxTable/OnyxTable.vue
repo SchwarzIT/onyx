@@ -35,40 +35,71 @@ const { densityClass } = useDensity(props);
 @use "../../styles/mixins/layers";
 
 /**
-* Defines the border radius for the table.
+* Defines all border styles for the table.
 */
-@mixin define-table-border-radius() {
+@mixin define-borders() {
+  $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   $border-radius: var(--onyx-radius-sm);
+
+  border-spacing: 0;
+  border-collapse: separate;
   border-radius: $border-radius;
 
-  th:first-child {
-    border-top-left-radius: $border-radius;
-  }
+  // border styles
+  th,
+  td {
+    border-bottom: $border;
 
-  th:last-child {
-    border-top-right-radius: $border-radius;
-  }
-
-  &:not(:has(thead)) {
-    tbody tr:first-child {
-      td:first-child {
-        border-top-left-radius: $border-radius;
-      }
-
-      td:last-child {
-        border-top-right-radius: $border-radius;
-      }
+    &:first-child {
+      border-left: $border;
+    }
+    &:last-child {
+      border-right: $border;
     }
   }
 
-  tbody {
-    tr:last-child {
-      td:first-child {
-        border-bottom-left-radius: $border-radius;
-      }
+  th {
+    border-top: $border;
+  }
 
-      td:last-child {
-        border-bottom-right-radius: $border-radius;
+  // border radius
+  tr:first-child th:first-child {
+    border-top-left-radius: $border-radius;
+  }
+
+  tr:first-child th:last-child {
+    border-top-right-radius: $border-radius;
+  }
+
+  tr:last-child td:first-child {
+    border-bottom-left-radius: $border-radius;
+  }
+
+  tr:last-child td:last-child {
+    border-bottom-right-radius: $border-radius;
+  }
+
+  // special styles if no header exists
+  &:not(:has(thead)) {
+    tr:first-child td {
+      border-top: $border;
+    }
+
+    tr:first-child td:first-child {
+      border-top-left-radius: $border-radius;
+    }
+
+    tr:first-child td:last-child {
+      border-top-right-radius: $border-radius;
+    }
+  }
+
+  // grid style borders
+  &--grid {
+    td,
+    th {
+      &:not(:last-child) {
+        border-right: $border;
       }
     }
   }
@@ -88,10 +119,7 @@ const { densityClass } = useDensity(props);
   }
 
   @include layers.component() {
-    $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-    border-spacing: 0;
-    border: $border;
-    @include define-table-border-radius;
+    @include define-borders();
 
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -102,10 +130,6 @@ const { densityClass } = useDensity(props);
       padding: var(--onyx-table-vertical-padding) var(--onyx-spacing-md);
     }
 
-    tr {
-      background: var(--onyx-color-base-background-blank);
-    }
-
     th {
       background-color: var(--onyx-color-base-neutral-200);
       color: var(--onyx-color-text-icons-neutral-medium);
@@ -114,28 +138,14 @@ const { densityClass } = useDensity(props);
       font-weight: 600;
     }
 
-    td {
-      border-top: $border;
-    }
-
-    &:not(:has(thead)) tr:first-child td {
-      // prevent double border if no header exists
-      border-top: none;
+    tr {
+      background-color: var(--onyx-color-base-background-blank);
     }
 
     &--striped {
       tbody {
         tr:nth-child(even) {
           background-color: var(--onyx-color-base-background-tinted);
-        }
-      }
-    }
-
-    &--grid {
-      td,
-      th {
-        &:not(:last-child) {
-          border-right: $border;
         }
       }
     }

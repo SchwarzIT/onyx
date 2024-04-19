@@ -66,3 +66,28 @@ export const GridStroke = {
     grid: true,
   },
 } satisfies Story;
+
+/**
+ * This example shows a table without a header.
+ */
+export const WithoutHeader = {
+  args: {},
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxTable },
+    template: `
+      <OnyxTable v-bind="args">
+        <tbody>
+          <tr>
+            <td>Strawberry</td> <td>4.50</td> <td>200</td>
+          </tr>
+          <tr>
+            <td>Apple</td> <td>1.99</td> <td>3000</td>
+          </tr>
+          <tr>
+            <td>Banana</td> <td>3.75</td> <td>18000</td>
+          </tr>
+        </tbody>
+      </OnyxTable>`,
+  }),
+} satisfies Story;
