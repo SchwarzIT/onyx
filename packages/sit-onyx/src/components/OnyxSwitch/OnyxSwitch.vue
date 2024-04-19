@@ -40,7 +40,9 @@ const isChecked = computed({
 
 <template>
   <div v-if="props.skeleton" :class="['onyx-switch-skeleton', densityClass]">
-    <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    <span class="onyx-switch-skeleton__click-area">
+      <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    </span>
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
@@ -233,7 +235,8 @@ $input-width: calc(
       }
     }
 
-    &__click-area {
+    &__click-area,
+    &-skeleton__click-area {
       padding: var(--onyx-switch-click-padding-vertical) var(--onyx-spacing-2xs);
     }
 
@@ -338,7 +341,6 @@ $input-width: calc(
   @include layers.component() {
     display: inline-flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
 
     &__input {
       height: var(--onyx-switch-skeleton-height);
