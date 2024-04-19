@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import OnyxSkeleton from "./OnyxSkeleton.vue";
 
 test("should render", async ({ mount, makeAxeBuilder }) => {

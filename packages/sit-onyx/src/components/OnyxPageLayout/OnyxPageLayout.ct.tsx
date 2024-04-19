@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
 const demoSidebar = `<div style="min-width: 10rem;"></div>`;
