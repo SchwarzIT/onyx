@@ -8,7 +8,7 @@ export type ListboxValue = string | number | boolean;
 export type ListboxModelValue<
   TOption extends ListboxValue = ListboxValue,
   TMultiple extends boolean = false,
-> = TMultiple extends true ? TOption[] | undefined : TOption | undefined;
+> = TMultiple extends true ? TOption[] : TOption;
 
 export type CreateListboxOptions<
   TOption extends ListboxValue = ListboxValue,
@@ -21,7 +21,7 @@ export type CreateListboxOptions<
   /**
    * Value of currently selected option.
    */
-  selectedOption: Ref<ListboxModelValue<TOption, TMultiple>>;
+  selectedOption: Ref<ListboxModelValue<TOption, TMultiple> | undefined>;
   /**
    * Value of currently (visually) active option.
    */
@@ -34,7 +34,7 @@ export type CreateListboxOptions<
   /**
    * Whether the listbox is multiselect.
    */
-  multiple?: MaybeRef<TMultiple> | undefined;
+  multiple?: MaybeRef<TMultiple | undefined>;
   /**
    * Hook when an option is selected.
    */
