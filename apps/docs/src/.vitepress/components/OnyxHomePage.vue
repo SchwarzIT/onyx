@@ -21,7 +21,10 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
 <template>
   <section class="roadmap vp-raw">
     <div class="roadmap__sections">
-      <ComponentRoadmap :components="props.data.components" />
+      <section>
+        <OnyxHeadline is="h2" class="roadmap__headline">Components</OnyxHeadline>
+        <ComponentRoadmap :components="props.data.components" />
+      </section>
 
       <section>
         <OnyxHeadline is="h2" class="roadmap__headline">Facts and figures</OnyxHeadline>

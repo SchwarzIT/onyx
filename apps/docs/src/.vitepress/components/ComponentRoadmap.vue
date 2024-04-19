@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import OnyxButton from "~components/OnyxButton/OnyxButton.vue";
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import type { ComponentCardProps } from "./ComponentCard.vue";
 import ComponentCard from "./ComponentCard.vue";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
 
 const props = defineProps<{
   components: ComponentCardProps[];
+  /**
+   * If `true`, all components will always be shown instead of a "Show more" button.
+   */
+  showAll?: boolean;
 }>();
 
 /** If true, all components should be shown instead of only the first 12. */
@@ -40,6 +43,7 @@ const usedStatus = computed(() => {
  * Components that should be displayed (considers the show all button).
  */
 const displayedComponents = computed(() => {
+  if (props.showAll) return sortedComponents.value;
   return sortedComponents.value.slice(0, showAll.value ? undefined : 12);
 });
 
@@ -52,13 +56,15 @@ const shouldShowAllButton = computed(() => {
 </script>
 
 <template>
-  <section class="components">
-    <OnyxHeadline is="h2" class="components__headline">Components</OnyxHeadline>
-
+  <div class="components vp-raw">
     <p class="components__description">
       onyx is currently in early / active development. Below you can find a list of components that
       we are planning to implement as well as their estimated due date. Feel free to check this page
       regularly, we will keep it up to date with our progress.
+    </p>
+
+    <p class="components__description">
+      <b>Tip:</b> Click on a component to see its implementation and documentation.
     </p>
 
     <div class="components__legend">
@@ -85,7 +91,7 @@ const shouldShowAllButton = computed(() => {
       mode="plain"
       @click="showAll = !showAll"
     />
-  </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>

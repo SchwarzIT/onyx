@@ -6,5 +6,5 @@
  * e.g. when used inside .vitepress/config.ts
  */
 export const getStorybookHost = (env: Record<string, string> = import.meta.env): string => {
-  return env.VITE_STORYBOOK_HOST || "https://onyx-storybook-prod.apps.01.cf.eu01.stackit.cloud";
+  return env.VITE_STORYBOOK_HOST || "https://storybook.onyx.schwarz";
 };

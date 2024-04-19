@@ -1,9 +1,8 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { defineConfig, loadEnv, type DefaultTheme } from "vitepress";
+import { defineConfig, loadEnv } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 import { getStorybookHost } from "./env";
-import { getStorybookSidebarFolders } from "./utils";
 
 const env = loadEnv("", path.join(process.cwd(), "src"));
 const STORYBOOK_HOST = getStorybookHost(env);
@@ -131,7 +130,16 @@ export default defineConfig({
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },
-        await getComponentsSidebar(),
+        {
+          text: "Components",
+          base: "/development",
+          items: [
+            {
+              text: "Overview",
+              link: "/components",
+            },
+          ],
+        },
         {
           text: "Other onyx npm packages",
           base: "/development/packages",
@@ -160,22 +168,4 @@ export default defineConfig({
 /** Gets the given path while ensuring cross-platform and correct decoding */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
-}
-
-/**
- * Gets the sidebar item for the onyx components.
- * Only supports one level of nesting, so e.g. "components/forms/OnyxInput" is not supported yet.
- * Folders other than "Components" will be excluded.
- */
-async function getComponentsSidebar(): Promise<DefaultTheme.SidebarItem> {
-  const { components } = await getStorybookSidebarFolders();
-
-  return {
-    text: "Components",
-    base: "/development/components",
-    items: components.map<DefaultTheme.SidebarItem>((componentName) => ({
-      text: componentName.replace("Onyx", ""),
-      link: `/${componentName}`,
-    })),
-  };
 }

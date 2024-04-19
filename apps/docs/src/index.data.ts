@@ -1,6 +1,8 @@
 import fs from "node:fs";
-import { defineLoader } from "vitepress";
+import path from "node:path";
+import { defineLoader, loadEnv } from "vitepress";
 import type { ComponentCardProps } from "./.vitepress/components/ComponentCard.vue";
+import { getStorybookHost } from "./.vitepress/env";
 import { getOnyxNpmPackages } from "./.vitepress/utils";
 
 /**
@@ -57,17 +59,20 @@ export default defineLoader({
     const mergedPRCount = isDev ? 0 : await searchGitHub("issues", "type:pr is:merged");
     const closedIssueCount = isDev ? 0 : await searchGitHub("issues", "type:issue is:closed");
 
+    const env = loadEnv("", path.join(process.cwd(), "src"));
+    const storybookHost = getStorybookHost(env);
+
     /**
      * Checks whether the given component is implemented (meaning a Storybook file exists).
      * Also returns a `href` property with the link to the implemented component (only if implemented).
      */
     const getImplementedStatus = (componentName: string) => {
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
+      const href = `${storybookHost}/?path=/docs/components-${componentName.replace("Onyx", "").toLowerCase()}--docs`;
+
       return {
         status: fileExist ? "in-progress" : "planned",
-        href: fileExist
-          ? `/development/components/${componentName.replace("Onyx", "")}`
-          : undefined,
+        href: fileExist ? href : undefined,
       } satisfies Partial<ComponentCardProps>;
     };
 
