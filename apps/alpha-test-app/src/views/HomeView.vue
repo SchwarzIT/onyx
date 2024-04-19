@@ -20,6 +20,7 @@ import {
   OnyxSelect,
   OnyxSkeleton,
   OnyxSwitch,
+  OnyxTable,
   OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
@@ -47,6 +48,7 @@ const COMPONENTS = [
   "OnyxSelect",
   "OnyxSkeleton",
   "OnyxSwitch",
+  "OnyxTable",
   "OnyxTooltip",
 ] as const;
 
@@ -212,6 +214,8 @@ const singleSelectState = ref("Apple");
             </div>
           </template>
 
+          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
+
           <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
 
           <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
@@ -283,11 +287,36 @@ const singleSelectState = ref("Apple");
             :skeleton="useSkeleton"
           />
 
+          <OnyxTable v-if="show('OnyxTable')">
+            <thead>
+              <tr>
+                <th>Fruit</th>
+                <th>Price (€/kg)</th>
+                <th>Inventory (kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Strawberry</td>
+                <td>4.50</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>Apple</td>
+                <td>1.99</td>
+                <td>3000</td>
+              </tr>
+              <tr>
+                <td>Banana</td>
+                <td>3.75</td>
+                <td>18000</td>
+              </tr>
+            </tbody>
+          </OnyxTable>
+
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
-
-          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
           <!-- Add new components alphabetically. -->
         </div>
