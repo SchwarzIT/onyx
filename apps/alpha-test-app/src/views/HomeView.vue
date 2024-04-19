@@ -316,7 +316,7 @@ const singleSelectState = ref("Apple");
             </tbody>
           </OnyxTable>
 
-          <OnyxTag label="Example tag" :icon="emojiHappy2" />
+          <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
