@@ -1,5 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import onyxLogo from "../../../../../apps/docs/src/public/favicon.svg";
 import OnyxAvatar from "./OnyxAvatar.vue";
 
 /**
@@ -42,5 +43,15 @@ export const Male = {
   args: {
     label: "John Doe",
     type: "male",
+  },
+} satisfies Story;
+
+/**
+ * This example shows an avatar with a custom image.
+ */
+export const WithImage = {
+  args: {
+    label: "John Doe",
+    src: onyxLogo,
   },
 } satisfies Story;
