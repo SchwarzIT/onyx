@@ -52,6 +52,7 @@ const spacings = [
     background: var(--onyx-color-base-warning-200);
     width: 100%;
     margin: var(--onyx-spacing-2xs) 0;
+    box-sizing: border-box;
   }
 }
 </style>

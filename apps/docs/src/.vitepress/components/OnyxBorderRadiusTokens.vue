@@ -43,6 +43,7 @@ const tokens = [
     border-style: solid;
     background: var(--onyx-color-base-neutral-100);
     margin: 0;
+    box-sizing: border-box;
 
     &--large {
       height: 5rem;

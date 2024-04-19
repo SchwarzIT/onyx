@@ -29,5 +29,6 @@ const shadows = [
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   background: var(--onyx-color-base-neutral-100);
   margin: 0;
+  box-sizing: border-box;
 }
 </style>
