@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { OnyxColor } from "sit-onyx/types";
 import OnyxButton from "~components/OnyxButton/OnyxButton.vue";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 
@@ -10,7 +9,6 @@ const props = defineProps<{
   tabs?: readonly string[];
   /** Currently active tab. */
   modelValue?: string;
-  activeColor?: OnyxColor;
 }>();
 
 const emit = defineEmits<{
@@ -33,8 +31,6 @@ const emit = defineEmits<{
         density="compact"
         @click="emit('update:modelValue', tab)"
       />
-
-      <!-- TODO: check active color -->
     </div>
   </div>
 </template>
