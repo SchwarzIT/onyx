@@ -21,6 +21,7 @@ import {
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTable,
+  OnyxTag,
   OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
@@ -49,6 +50,7 @@ const COMPONENTS = [
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTable",
+  "OnyxTag",
   "OnyxTooltip",
 ] as const;
 
@@ -313,6 +315,8 @@ const singleSelectState = ref("Apple");
               </tr>
             </tbody>
           </OnyxTable>
+
+          <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
