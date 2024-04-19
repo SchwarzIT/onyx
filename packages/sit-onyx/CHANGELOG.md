@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.76
+
+### Patch Changes
+
+- a155d1b: fix(OnyxTag): update border radius
+
 ## 1.0.0-alpha.75
 
 ### Patch Changes
