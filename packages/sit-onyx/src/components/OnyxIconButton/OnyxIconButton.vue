@@ -2,12 +2,14 @@
 import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   disabled: false,
   type: "button",
   variation: "primary",
+  skeleton: false,
 });
 
 const { densityClass } = useDensity(props);
@@ -24,7 +26,10 @@ const emit = defineEmits<{
 </script>
 
 <template>
+  <OnyxSkeleton v-if="props.skeleton" :class="['onyx-icon-button-skeleton', densityClass]" />
+
   <button
+    v-else
     class="onyx-icon-button"
     :aria-label="props.label"
     :title="props.label"
@@ -46,7 +51,8 @@ const emit = defineEmits<{
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/density.scss";
 
-.onyx-icon-button {
+.onyx-icon-button,
+.onyx-icon-button-skeleton {
   @include density.compact {
     --onyx-icon-button-padding: var(--onyx-spacing-4xs);
   }
@@ -58,6 +64,13 @@ const emit = defineEmits<{
   @include density.cozy {
     --onyx-icon-button-padding: var(--onyx-spacing-sm);
   }
+}
+
+.onyx-icon-button-skeleton {
+  // icon size + 2 * padding
+  $size: calc(1.5rem + 2 * var(--onyx-icon-button-padding));
+  height: $size;
+  width: $size;
 }
 
 .onyx-icon-button {
