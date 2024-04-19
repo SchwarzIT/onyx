@@ -166,7 +166,7 @@ $input-width: calc(
       height: 0;
       margin: 0;
 
-      &:checked + .onyx-switch__container {
+      &:checked + .onyx-switch__click-area .onyx-switch__container {
         background-color: var(--onyx-color-base-primary-500);
 
         .onyx-switch__icon {
