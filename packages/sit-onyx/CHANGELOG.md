@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.74
+
+### Minor Changes
+
+- 288afbd: feat: add `OnyxTag` component
+
 ## 1.0.0-alpha.73
 
 ### Minor Changes
