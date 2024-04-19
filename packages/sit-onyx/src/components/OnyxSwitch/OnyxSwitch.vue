@@ -75,10 +75,20 @@ const isChecked = computed({
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
-      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
+      :class="[
+        `onyx-truncation-${props.truncation}`,
+        // shows the required marker inline for multiline labels
+        props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+      ]"
     >
       {{ props.label }}
     </span>
+    <!-- shows the required marker fixed on the right for truncated labels -->
+    <div
+      v-if="props.truncation === 'ellipsis'"
+      class="onyx-switch__marker"
+      :class="[requiredMarkerClass]"
+    ></div>
   </label>
 </template>
 
@@ -263,14 +273,17 @@ $input-width: calc(
       }
     }
 
+    &__label,
+    &__marker {
+      padding: var(--onyx-switch-label-padding-vertical) 0;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
     &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-family: var(--onyx-font-family);
-      font-size: 1rem;
       font-style: normal;
       font-weight: 400;
-      line-height: 1.5rem;
-      padding: var(--onyx-switch-label-padding-vertical) 0;
     }
 
     &:hover {
