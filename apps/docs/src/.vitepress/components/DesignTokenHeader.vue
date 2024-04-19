@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { OnyxColor } from "sit-onyx/types";
+import OnyxButton from "~components/OnyxButton/OnyxButton.vue";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 
 const props = defineProps<{
@@ -8,6 +10,7 @@ const props = defineProps<{
   tabs?: readonly string[];
   /** Currently active tab. */
   modelValue?: string;
+  activeColor?: OnyxColor;
 }>();
 
 const emit = defineEmits<{
@@ -17,19 +20,21 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="header">
+  <div class="header vp-raw">
     <OnyxHeadline is="h3" class="header__headline">{{ props.headline }}</OnyxHeadline>
 
-    <div class="header__tabs">
-      <button
+    <div>
+      <OnyxButton
         v-for="tab in props.tabs"
         :key="tab"
-        class="header__tab"
-        :class="{ 'header__tab--active': props.modelValue === tab }"
+        :label="tab"
+        mode="plain"
+        :variation="props.modelValue === tab ? 'primary' : 'secondary'"
+        density="compact"
         @click="emit('update:modelValue', tab)"
-      >
-        {{ tab }}
-      </button>
+      />
+
+      <!-- TODO: check active color -->
     </div>
   </div>
 </template>
@@ -42,21 +47,6 @@ const emit = defineEmits<{
 
   &__headline {
     margin: 0;
-  }
-
-  &__tabs {
-    display: flex;
-    gap: var(--onyx-spacing-lg);
-  }
-
-  &__tab {
-    color: var(--onyx-color-text-icons-neutral-medium);
-    font-weight: 600;
-    font-size: 1rem;
-
-    &--active {
-      color: var(--active-color, var(--onyx-color-text-icons-primary-intense));
-    }
   }
 }
 </style>

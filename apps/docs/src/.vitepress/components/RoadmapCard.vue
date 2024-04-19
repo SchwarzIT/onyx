@@ -39,6 +39,9 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
     border-color 0.25s,
     background-color 0.25s;
 
+  text-decoration: none;
+  color: inherit;
+
   &--clickable {
     &:hover {
       background-color: var(--vp-c-default-soft);
@@ -51,11 +54,13 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
     justify-content: flex-end;
     padding: 1.5rem;
     height: 100%;
+    box-sizing: border-box;
   }
 
   &__title {
     font-size: 2.5rem;
     line-height: 2.5rem;
+    margin-top: 0;
     margin-bottom: 1rem;
     font-weight: 700;
   }
@@ -65,6 +70,7 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
     font-size: 1.25rem;
     line-height: 1.25rem;
     font-weight: 500;
+    margin: 0;
   }
 }
 

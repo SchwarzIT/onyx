@@ -44,6 +44,7 @@ const spacings = [
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0;
 
   &__area {
     border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-warning-500);
