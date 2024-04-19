@@ -11,6 +11,8 @@ test.describe("Screenshot tests", () => {
     name: "Avatar",
     columns: AVATAR_TYPES,
     rows: AVATAR_SIZES,
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => <OnyxAvatar label="John Doe" type={column} size={row} />,
   });
 });
