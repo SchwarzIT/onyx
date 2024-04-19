@@ -53,7 +53,7 @@ test("should render with multiselect", async ({ mount }) => {
   let modelValue: Array<number> = [2];
 
   // ARRANGE
-  const component = await mount(OnyxListbox<true, number>, {
+  const component = await mount(OnyxListbox<number, true>, {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
