@@ -59,9 +59,9 @@ export const Striped = {
 } satisfies Story;
 
 /**
- * This example shows a table with grid strokes.
+ * This example shows a table with grid borders (horizontal and vertical).
  */
-export const GridStroke = {
+export const GridBorders = {
   args: {
     grid: true,
   },
