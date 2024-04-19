@@ -167,6 +167,11 @@ export default defineLoader({
         ...getImplementedStatus("OnyxEmpty"),
         status: "implemented",
       },
+      {
+        name: "Avatar",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxAvatar"),
+      },
       { name: "Footer", ...getImplementedStatus("OnyxFooter") },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
       { name: "Filter", ...getImplementedStatus("OnyxFilter") },
