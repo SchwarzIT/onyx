@@ -2,6 +2,7 @@
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
+import { getStorybookHost } from "../env";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 
@@ -16,6 +17,8 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
   minute: "2-digit",
 }).format(new Date(props.data.timestamp));
+
+const storybookHost = getStorybookHost();
 </script>
 
 <template>
@@ -34,12 +37,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
           <RoadmapCard
             :title="props.data.componentCount"
             :description="props.data.componentCount === 1 ? 'Component' : 'Components'"
-            href="/development/"
+            :href="storybookHost"
           />
           <RoadmapCard
             :title="props.data.variantCount"
             description="Component variants"
-            href="/development/"
+            :href="storybookHost"
           />
           <RoadmapCard :title="props.data.downloads" description="Downloads (last month)" />
           <RoadmapCard
