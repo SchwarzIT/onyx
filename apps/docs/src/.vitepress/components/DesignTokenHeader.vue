@@ -40,6 +40,7 @@ const emit = defineEmits<{
   margin-bottom: var(--onyx-spacing-2xs);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   &__headline {
     margin: 0;
