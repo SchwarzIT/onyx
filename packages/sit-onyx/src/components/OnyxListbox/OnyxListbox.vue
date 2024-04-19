@@ -1,7 +1,7 @@
 <script
   lang="ts"
   setup
-  generic="TMultiple extends boolean = false, TOption extends ListboxValue = ListboxValue"
+  generic="TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
 >
 import { createListbox, type ListboxModelValue, type ListboxValue } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
@@ -12,7 +12,7 @@ import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TMultiple, TOption>>(), {
+const props = withDefaults(defineProps<OnyxListboxProps<TOption, TMultiple>>(), {
   loading: false,
 });
 
@@ -48,7 +48,7 @@ const { t } = injectI18n();
 /**
  * Currently (visually) active option.
  */
-const activeOption = ref<TOption | undefined>();
+const activeOption = ref<TOption>();
 
 /**
  * Sync the active option with the selected option on single select.
@@ -171,10 +171,7 @@ const isEmpty = computed(() => props.options.length === 0);
                 (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
             })
           "
-          :multiple="
-            /* TODO: fix the ugly passing of `multiple` in a way typescript won't complain */
-            multiple === true ? true : false
-          "
+          :multiple="props.multiple"
           :active="option.id === activeOption"
         >
           {{ option.label }}

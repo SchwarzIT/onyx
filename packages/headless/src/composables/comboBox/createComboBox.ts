@@ -8,8 +8,8 @@ import {
 } from "../listbox/createListbox";
 
 export type CreateComboboxOptions<
-  TMultiple extends boolean | undefined,
   TOption extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
 > = {
   /**
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
@@ -32,7 +32,7 @@ export type CreateComboboxOptions<
    */
   onToggle?: () => void;
 } & Pick<
-  CreateListboxOptions<TMultiple, TOption>,
+  CreateListboxOptions<TOption, TMultiple>,
   "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
 >;
 
@@ -41,7 +41,7 @@ export type CreateComboboxOptions<
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TMultiple extends boolean | undefined, TOption extends ListboxValue = ListboxValue>({
+  <TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false>({
     listLabel,
     inputValue,
     isExpanded,
@@ -52,7 +52,7 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TMultiple, TOption>) => {
+  }: CreateComboboxOptions<TOption, TMultiple>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");

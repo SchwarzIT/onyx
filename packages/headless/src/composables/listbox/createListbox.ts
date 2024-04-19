@@ -6,13 +6,13 @@ import { useTypeAhead } from "../typeAhead";
 export type ListboxValue = string | number | boolean;
 
 export type ListboxModelValue<
-  TOption extends ListboxValue,
-  TMultiple extends boolean | undefined,
+  TOption extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
 > = TMultiple extends true ? TOption[] | undefined : TOption | undefined;
 
 export type CreateListboxOptions<
-  TMultiple extends boolean | undefined,
   TOption extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
 > = {
   /**
    * Aria label for the listbox.
@@ -66,8 +66,8 @@ export type CreateListboxOptions<
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TMultiple extends boolean | undefined = undefined, TOption extends ListboxValue = ListboxValue>(
-    options: CreateListboxOptions<TMultiple, TOption>,
+  <TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false>(
+    options: CreateListboxOptions<TOption, TMultiple>,
   ) => {
     const isMultiselect = computed(() => unref(options.multiple) ?? false);
 

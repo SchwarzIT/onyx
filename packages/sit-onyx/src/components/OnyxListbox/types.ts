@@ -1,8 +1,8 @@
 import type { ListboxValue, ListboxModelValue } from "@sit-onyx/headless";
 
 export type OnyxListboxProps<
-  TMultiple extends boolean = false,
   TOption extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
 > = {
   /**
    * Aria label. Must be set for accessibility reasons.
