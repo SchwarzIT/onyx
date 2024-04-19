@@ -44,6 +44,7 @@ const icons = {
   align-items: center;
   justify-content: center;
   gap: var(--onyx-spacing-2xs);
+  line-height: normal;
 
   &__icon {
     width: 1.5rem;
