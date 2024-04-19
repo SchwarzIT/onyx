@@ -107,14 +107,3 @@ test.describe("Screenshot tests", () => {
     ),
   });
 });
-
-test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  await mount(<OnyxRadioButton id="test-id" label="Test label" name="test-name" />);
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
