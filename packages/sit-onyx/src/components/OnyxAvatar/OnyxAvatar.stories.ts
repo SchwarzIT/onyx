@@ -1,6 +1,5 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import onyxLogo from "../../../../../apps/docs/src/public/favicon.svg";
 import OnyxAvatar from "./OnyxAvatar.vue";
 
 /**
@@ -52,7 +51,7 @@ export const Male = {
  */
 export const WithImage = {
   args: {
-    label: "John Doe",
-    src: onyxLogo,
+    label: "onyx logo",
+    src: "https://onyx.schwarz/favicon.svg",
   },
 } satisfies Story;
