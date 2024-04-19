@@ -107,7 +107,7 @@ const isChecked = computed({
     --onyx-switch-container-margin: 0.25rem;
     --onyx-switch-transform: 0.125rem;
     --onyx-switch-input-height: unset;
-    --onyx-switch-click-padding-vertical: var(--onyx-spacing-3xs);
+    --onyx-switch-click-height: var(--onyx-spacing-xl);
     --onyx-switch-label-padding-vertical: var(--onyx-spacing-4xs);
 
     // icon size + padding top/bottom + border top/bottom
@@ -123,7 +123,7 @@ const isChecked = computed({
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
     --onyx-switch-input-height: unset;
-    --onyx-switch-click-padding-vertical: var(--onyx-spacing-2xs);
+    --onyx-switch-click-height: 2.5rem;
     --onyx-switch-label-padding-vertical: var(--onyx-spacing-2xs);
 
     // icon size + padding top/bottom + border top/bottom
@@ -140,7 +140,7 @@ const isChecked = computed({
     --onyx-switch-transform: 0.01rem;
     --onyx-switch-input-height: 2rem;
     --onyx-switch-skeleton-height: var(--onyx-switch-input-height);
-    --onyx-switch-click-padding-vertical: var(--onyx-spacing-2xs);
+    --onyx-switch-click-height: var(--onyx-spacing-2xl);
     --onyx-switch-label-padding-vertical: var(--onyx-spacing-sm);
   }
 }
@@ -239,7 +239,10 @@ $input-width: calc(
 
     &__click-area,
     &-skeleton__click-area {
-      padding: var(--onyx-switch-click-padding-vertical) var(--onyx-spacing-2xs);
+      padding: 0 var(--onyx-spacing-2xs);
+      height: var(--onyx-switch-click-height);
+      display: flex;
+      align-items: center;
     }
 
     &__container {
