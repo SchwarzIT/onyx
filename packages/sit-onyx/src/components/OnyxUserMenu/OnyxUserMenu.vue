@@ -123,6 +123,7 @@ const avatar = computed(() => {
       padding: var(--onyx-spacing-md);
       align-items: center;
       gap: var(--onyx-spacing-md);
+      text-align: left;
     }
 
     &__username {
