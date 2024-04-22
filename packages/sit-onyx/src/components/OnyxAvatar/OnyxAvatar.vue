@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import FemaleAvatar from "./FemaleAvatar.vue";
 import MaleAvatar from "./MaleAvatar.vue";
 import type { OnyxAvatarProps } from "./types";
@@ -15,13 +15,31 @@ const initials = computed(() => {
     names.length > 1 ? `${names[0].charAt(0)}${names[1].charAt(0)}` : names[0].substring(0, 2);
   return initials.toUpperCase();
 });
+
+const hasImageError = ref(false);
+
+// reset image error if image changes
+watch(
+  () => props.src,
+  () => (hasImageError.value = false),
+);
 </script>
 
 <template>
-  <figure class="onyx-avatar" :class="[`onyx-avatar--${props.size}`]" :aria-label="props.label">
-    <FemaleAvatar v-if="props.type === 'female'" class="onyx-avatar__svg" />
-    <MaleAvatar v-else-if="props.type === 'male'" class="onyx-avatar__svg" />
-    <div v-else class="onyx-avatar__initials">{{ initials }}</div>
+  <figure class="onyx-avatar" :class="[`onyx-avatar--${props.size}`]" :title="props.label">
+    <img
+      v-if="props.src && !hasImageError"
+      class="onyx-avatar__svg"
+      :src="props.src"
+      :alt="props.label"
+      @error="hasImageError = true"
+    />
+
+    <template v-else>
+      <FemaleAvatar v-if="props.type === 'female'" class="onyx-avatar__svg" />
+      <MaleAvatar v-else-if="props.type === 'male'" class="onyx-avatar__svg" />
+      <div v-else class="onyx-avatar__initials">{{ initials }}</div>
+    </template>
   </figure>
 </template>
 
@@ -43,6 +61,7 @@ const initials = computed(() => {
       height: 100%;
       width: 100%;
       background-color: var(--onyx-color-base-neutral-100);
+      object-fit: cover;
     }
 
     &__initials {
