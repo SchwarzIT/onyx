@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.83
+
+### Minor Changes
+
+- 29a8ba6: feat: add basic `OnyxTable` component
+
 ## 1.0.0-alpha.82
 
 ### Minor Changes
