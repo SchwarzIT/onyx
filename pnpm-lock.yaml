@@ -155,12 +155,15 @@ importers:
       chart.js:
         specifier: ^4.4.2
         version: 4.4.2
+      postcss:
+        specifier: ^8.4.38
+        version: 8.4.38
       sit-onyx:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
       vitepress:
         specifier: ^1.0.2
-        version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)(search-insights@2.13.0)(typescript@5.4.4)
+        version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(@types/react@18.2.74)(postcss@8.4.38)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)(search-insights@2.13.0)(typescript@5.4.4)
       vue:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.4.4)
@@ -292,7 +295,7 @@ importers:
         version: link:../sit-onyx
       vitepress:
         specifier: '>= 1.0.0'
-        version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)(search-insights@2.13.0)(typescript@5.4.4)
+        version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(@types/react@18.2.74)(postcss@8.4.38)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)(search-insights@2.13.0)(typescript@5.4.4)
 
 packages:
 
@@ -9835,7 +9838,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vitepress@1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)(search-insights@2.13.0)(typescript@5.4.4):
+  /vitepress@1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(@types/react@18.2.74)(postcss@8.4.38)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)(search-insights@2.13.0)(typescript@5.4.4):
     resolution: {integrity: sha512-bEj9yTEdWyewJFOhEREZF+mXuAgOq27etuJZT6DZSp+J3XpQstXMJc5piSVwhZBtuj8OfA0iXy+jdP1c71KMYQ==}
     hasBin: true
     peerDependencies:
@@ -9859,6 +9862,7 @@ packages:
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0
+      postcss: 8.4.38
       shiki: 1.2.4
       vite: 5.2.8(@types/node@20.12.5)(sass@1.74.1)
       vue: 3.4.21(typescript@5.4.4)

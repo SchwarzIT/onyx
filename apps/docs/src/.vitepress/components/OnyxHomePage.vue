@@ -19,7 +19,7 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
 </script>
 
 <template>
-  <section class="roadmap">
+  <section class="roadmap vp-raw">
     <div class="roadmap__sections">
       <ComponentRoadmap :components="props.data.components" />
 

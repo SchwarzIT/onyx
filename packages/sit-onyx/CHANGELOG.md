@@ -1,5 +1,35 @@
 # sit-onyx
 
+## 1.0.0-alpha.78
+
+### Patch Changes
+
+- d819092: fix(OnyxSwitch): align label based on density, increase click area + show marker on truncation
+
+## 1.0.0-alpha.77
+
+### Minor Changes
+
+- a7b5140: feat: add `OnyxAvatar` and `OnyxAvatarStack` component
+
+## 1.0.0-alpha.76
+
+### Patch Changes
+
+- a155d1b: fix(OnyxTag): update border radius
+
+## 1.0.0-alpha.75
+
+### Patch Changes
+
+- 61c4964: fix(OnyxButton): add aria label when loading
+
+## 1.0.0-alpha.74
+
+### Minor Changes
+
+- 288afbd: feat: add `OnyxTag` component
+
 ## 1.0.0-alpha.73
 
 ### Minor Changes

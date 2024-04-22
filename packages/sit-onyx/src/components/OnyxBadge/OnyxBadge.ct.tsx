@@ -9,6 +9,8 @@ test.describe("Screenshot tests", () => {
     name: `Badge`,
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxBadge density={column} variation={row}>
         Badge

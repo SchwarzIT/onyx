@@ -41,7 +41,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
 </script>
 
 <template>
-  <section class="typography">
+  <section class="typography vp-raw">
     <DesignTokenHeader v-model="currentTab" :tabs="AVAILABLE_FONT_TABS" />
 
     <div class="typography__content" :class="isMonospace ? 'onyx-text--monospace' : ''">
