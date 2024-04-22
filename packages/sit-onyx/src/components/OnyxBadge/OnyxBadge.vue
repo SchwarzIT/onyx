@@ -5,6 +5,7 @@ import type { OnyxBadgeProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
   variation: "primary",
+  dot: false,
 });
 
 const { densityClass } = useDensity(props);
@@ -24,16 +25,19 @@ defineSlots<{
       'onyx-truncation-ellipsis',
       'onyx-text',
       `onyx-badge--${props.variation}`,
+      props.dot ? 'onyx-badge--dot' : '',
       densityClass,
     ]"
   >
-    <OnyxIcon
-      v-if="props.icon"
-      class="onyx-badge__icon"
-      :icon="props.icon"
-      :size="props.density === 'cozy' ? '24px' : '16px'"
-    />
-    <slot v-else></slot>
+    <template v-if="!props.dot">
+      <OnyxIcon
+        v-if="props.icon"
+        class="onyx-badge__icon"
+        :icon="props.icon"
+        :size="props.density === 'cozy' ? '24px' : '16px'"
+      />
+      <slot v-else></slot>
+    </template>
   </div>
 </template>
 
@@ -45,22 +49,22 @@ defineSlots<{
   @include density.compact {
     --onyx-badge-padding: 0 var(--onyx-spacing-2xs);
     --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
-    --onyx-badge-gap: var(--onyx-spacing-4xs);
     --onyx-badge-height: 1.5rem;
+    --onyx-badge-dot-size: var(--onyx-spacing-3xs);
   }
 
   @include density.default {
     --onyx-badge-padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
     --onyx-badge-icon-padding: var(--onyx-spacing-3xs);
-    --onyx-badge-gap: var(--onyx-spacing-2xs);
     --onyx-badge-height: 1.75rem;
+    --onyx-badge-dot-size: var(--onyx-spacing-2xs);
   }
 
   @include density.cozy {
     --onyx-badge-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
     --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
-    --onyx-badge-gap: var(--onyx-spacing-sm);
     --onyx-badge-height: 2rem;
+    --onyx-badge-dot-size: var(--onyx-spacing-sm);
   }
 }
 
@@ -108,6 +112,12 @@ defineSlots<{
 
     &__icon {
       display: flex;
+    }
+
+    &--dot {
+      height: var(--onyx-badge-dot-size);
+      width: var(--onyx-badge-dot-size);
+      padding: 0;
     }
   }
 }
