@@ -76,7 +76,7 @@ test("should render with multiselect", async ({ mount }) => {
   await component.getByText("Selected").click();
   expect(modelValue).toEqual([]);
 
-  // TODO: find the a11y error cause
+  // TODO: https://github.com/SchwarzIT/onyx/issues/732 find the a11y error cause
   // // ACT
   // const accessibilityScanResults = await makeAxeBuilder().analyze();
 

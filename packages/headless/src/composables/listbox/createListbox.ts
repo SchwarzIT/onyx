@@ -48,7 +48,7 @@ export type CreateListboxOptions<
    */
   onActivateLast?: () => void;
   /**
-   * Hook when the next option should be activated/focused.
+   * Hook when the next option should be activated.
    */
   onActivateNext?: (currentValue: TOption) => void;
   /**
