@@ -12,7 +12,7 @@ const meta: Meta<typeof OnyxLink> = {
     events: ["click"],
     argTypes: {
       default: {
-        control: { disable: true },
+        control: { type: "text" },
       },
       withExternalIcon: {
         options: ["auto", true, false],
@@ -39,7 +39,7 @@ type Story = StoryObj<typeof OnyxLink>;
  */
 export const Default = {
   args: {
-    default: () => "Click me",
+    default: "Click me",
     href: "https://onyx.schwarz",
   },
 } satisfies Story;
