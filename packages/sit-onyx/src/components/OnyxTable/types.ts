@@ -6,7 +6,7 @@ export type OnyxTableProps = DensityProp & {
    */
   striped?: boolean;
   /**
-   * If `true`, both horizontal and vertical borders will be displayed.
+   * If `true`, vertical borders will be displayed in addition to the default horizontal borders.
    */
   grid?: boolean;
 };
