@@ -79,7 +79,7 @@ export const Custom = {
 } satisfies Story;
 
 /**
- * This example shows a loading.
+ * This example shows a loading icon button.
  */
 export const Loading = {
   args: {
@@ -90,7 +90,7 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This example shows a skeleton button.
+ * This example shows a skeleton icon button.
  */
 export const Skeleton = {
   args: {
