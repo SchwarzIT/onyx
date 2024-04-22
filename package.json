@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "packageManager": "pnpm@8.14.1",
+  "packageManager": "pnpm@9.0.5",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
@@ -54,7 +54,7 @@
     "vite-plugin-dts": "^3.8.3",
     "vitest": "^1.5.0",
     "vue": "^3.4.23",
-    "vue-tsc": "^2.0.13"
+    "vue-tsc": "^2.0.14"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
