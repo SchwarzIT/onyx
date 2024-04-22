@@ -9,7 +9,7 @@
     "test:components:all": "pnpm -r --if-present --sequential  test:components",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
-    "lint:all": "eslint . --ext .vue,.ts,.tsx --ignore-path .gitignore",
+    "lint:all": "eslint .",
     "lint:fix:all": "pnpm run lint:all --fix",
     "lint:ci:all": "pnpm run lint:all --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
     "publint:all": "pnpm -r --parallel --aggregate-output exec publint",
@@ -18,10 +18,10 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@eslint/js": "^9.1.1",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "^1.43.1",
     "@playwright/test": "^1.43.1",
-    "@rushstack/eslint-patch": "^1.10.2",
     "@sit-onyx/eslint-plugin": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^8.0.8",
@@ -60,7 +60,9 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*": "prettier --write -u",
-    "*.{vue,ts,tsx}": "eslint --fix --ignore-path .gitignore"
+    "*": [
+      "eslint --fix",
+      "prettier --write -u"
+    ]
   }
 }
