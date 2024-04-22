@@ -265,6 +265,10 @@ const isEmpty = computed(() => props.options.length === 0);
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
     }
+
+    .onyx-empty {
+      max-width: 100%;
+    }
   }
 }
 </style>

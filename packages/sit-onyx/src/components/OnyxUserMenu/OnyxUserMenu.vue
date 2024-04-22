@@ -34,9 +34,14 @@ const avatar = computed(() => {
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />
 
-          <div class="onyx-truncation-multiline">
-            <div class="onyx-user-menu__username onyx-text">{{ props.username }}</div>
-            <div v-if="props.description" class="onyx-user-menu__description onyx-text--small">
+          <div class="onyx-truncation-ellipsis">
+            <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
+              {{ props.username }}
+            </div>
+            <div
+              v-if="props.description"
+              class="onyx-user-menu__description onyx-text--small onyx-truncation-ellipsis"
+            >
               {{ props.description }}
             </div>
           </div>
@@ -103,8 +108,7 @@ const avatar = computed(() => {
     }
 
     &__listbox {
-      display: none;
-
+      // display: none;
       position: absolute;
       right: 0;
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
