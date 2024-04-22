@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.79
+
+### Minor Changes
+
+- 193ecf2: feat: add `skeleton` property for `OnyxIconButton` and `OnyxInput`
+
 ## 1.0.0-alpha.78
 
 ### Patch Changes
