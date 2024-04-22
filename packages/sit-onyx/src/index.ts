@@ -65,6 +65,9 @@ export * from "./components/OnyxTooltip/types";
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types";
 
+export { default as OnyxUserMenu } from "./components/OnyxUserMenu/OnyxUserMenu.vue";
+export * from "./components/OnyxUserMenu/types";
+
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
