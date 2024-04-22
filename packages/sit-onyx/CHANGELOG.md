@@ -1,5 +1,29 @@
 # sit-onyx
 
+## 1.0.0-alpha.81
+
+### Minor Changes
+
+- ded1477: feat(OnyxBadge): add property `dot`
+
+## 1.0.0-alpha.80
+
+### Minor Changes
+
+- da3cad4: feat(OnyxAvatar): support custom image
+
+### Patch Changes
+
+- da3cad4: fix(OnyxAvatar): remove aria-label in favor of title
+
+  `aria-label` should only be used for interactive elements so we use `title` instead
+
+## 1.0.0-alpha.79
+
+### Minor Changes
+
+- 193ecf2: feat: add `skeleton` property for `OnyxIconButton` and `OnyxInput`
+
 ## 1.0.0-alpha.78
 
 ### Patch Changes

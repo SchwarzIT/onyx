@@ -222,7 +222,12 @@ const singleSelectState = ref("Apple");
 
           <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
-          <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
+          <OnyxIconButton
+            v-if="show('OnyxIconButton')"
+            label="Happy Emoji"
+            :icon="emojiHappy2"
+            :skeleton="useSkeleton"
+          />
 
           <OnyxInput v-if="show('OnyxInput')" label="Input" :skeleton="useSkeleton" />
 
