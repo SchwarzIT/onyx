@@ -84,6 +84,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/checkbox.scss";
 
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {
@@ -98,6 +99,8 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 }
 
 .onyx-checkbox {
+  @include checkbox.variables();
+
   @include layers.component() {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -148,6 +151,10 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
       display: inline-block;
     }
 
+    &__input {
+      @include checkbox.styles();
+    }
+
     &__label,
     &__marker {
       padding: $label-padding 0;
@@ -164,6 +171,8 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 }
 
 .onyx-checkbox-skeleton {
+  @include checkbox.variables();
+
   @include layers.component() {
     display: flex;
     align-items: center;

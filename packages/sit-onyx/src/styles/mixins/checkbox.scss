@@ -1,11 +1,9 @@
 // this style sheet contains styles for the checkbox-box
 // that needs to be shared between OnyxCheckbox and OnyxListbox
-@use "mixins/layers";
-@use "mixins/density.scss";
+@use "layers";
+@use "density.scss";
 
-.onyx-checkbox,
-.onyx-checkbox-skeleton,
-.onyx-listbox-option {
+@mixin variables() {
   @include density.compact {
     --onyx-checkbox-input-size: 0.75rem;
     --onyx-checkbox-input-padding: var(--onyx-spacing-xs);
@@ -33,8 +31,7 @@
   }
 }
 
-.onyx-checkbox__input,
-.onyx-listbox-option__checkbox {
+@mixin styles() {
   @include layers.component() {
     height: var(--onyx-checkbox-input-size);
     width: var(--onyx-checkbox-input-size);

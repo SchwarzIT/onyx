@@ -31,8 +31,11 @@ defineSlots<{
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/checkbox";
 
 .onyx-listbox-option {
+  @include checkbox.variables();
+
   @include layers.component() {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -51,6 +54,7 @@ defineSlots<{
     gap: var(--onyx-spacing-2xs);
 
     &__checkbox {
+      @include checkbox.styles();
       // prevent the checkbox to get squished by a long label
       flex-shrink: 0;
     }
