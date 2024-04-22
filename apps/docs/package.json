@@ -17,8 +17,8 @@
     "chart.js": "^4.4.2",
     "postcss": "^8.4.38",
     "sit-onyx": "workspace:^",
-    "vitepress": "^1.0.2",
-    "vue": "^3.4.21",
-    "vue-chartjs": "^5.3.0"
+    "vitepress": "^1.1.3",
+    "vue": "^3.4.23",
+    "vue-chartjs": "^5.3.1"
   }
 }
