@@ -98,6 +98,21 @@ test.describe("Screenshot tests", () => {
       }
     },
   });
+
+  executeMatrixScreenshotTest({
+    name: "Input (skeleton)",
+    columns: DENSITIES,
+    rows: ["default", "hideLabel"],
+    component: (column, row) => (
+      <OnyxInput
+        style="width: 12rem"
+        label="Test label"
+        density={column}
+        hideLabel={row === "hideLabel"}
+        skeleton
+      />
+    ),
+  });
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {

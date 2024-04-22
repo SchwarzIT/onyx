@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.79
+
+### Minor Changes
+
+- 193ecf2: feat: add `skeleton` property for `OnyxIconButton` and `OnyxInput`
+
+## 1.0.0-alpha.78
+
+### Patch Changes
+
+- d819092: fix(OnyxSwitch): align label based on density, increase click area + show marker on truncation
+
 ## 1.0.0-alpha.77
 
 ### Minor Changes

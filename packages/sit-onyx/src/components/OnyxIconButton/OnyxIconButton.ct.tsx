@@ -84,7 +84,7 @@ test.describe("Screenshot tests", () => {
     });
   }
 
-  for (const state of ["densities", "loading"] as const) {
+  for (const state of ["densities", "loading", "skeleton"] as const) {
     executeMatrixScreenshotTest({
       name: `Icon button (${state})`,
       columns: DENSITIES,
@@ -96,6 +96,7 @@ test.describe("Screenshot tests", () => {
           icon={mockPlaywrightIcon}
           density={column}
           loading={state === "loading"}
+          skeleton={state === "skeleton"}
         />
       ),
     });

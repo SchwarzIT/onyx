@@ -4,6 +4,7 @@ import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxInputProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   readonly: false,
   disabled: false,
   loading: false,
+  skeleton: false,
 });
 
 const emit = defineEmits<{
@@ -66,7 +68,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 </script>
 
 <template>
-  <div :class="['onyx-input', requiredTypeClass, densityClass]">
+  <div v-if="props.skeleton" :class="['onyx-input-skeleton', densityClass]">
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-input-skeleton__label" />
+    <OnyxSkeleton class="onyx-input-skeleton__input" />
+  </div>
+
+  <div v-else :class="['onyx-input', requiredTypeClass, densityClass]">
     <label>
       <div
         v-if="!props.hideLabel"
@@ -142,7 +149,8 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   @return $output;
 }
 
-.onyx-input {
+.onyx-input,
+.onyx-input-skeleton {
   @include density.compact {
     --onyx-input-padding-vertical: var(--onyx-spacing-4xs);
   }
@@ -154,7 +162,27 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   @include density.cozy {
     --onyx-input-padding-vertical: var(--onyx-spacing-sm);
   }
+}
 
+$line-height: 1.5rem;
+
+.onyx-input-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-5xs);
+
+  &__label {
+    width: var(--onyx-spacing-3xl);
+    height: 1.25rem;
+  }
+
+  &__input {
+    width: 17rem;
+    height: calc($line-height + 2 * var(--onyx-input-padding-vertical));
+  }
+}
+
+.onyx-input {
   @include layers.component() {
     --border-color: var(--onyx-color-base-neutral-300);
     --selection-color: var(--onyx-color-base-primary-200);
@@ -175,8 +203,6 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
         justify-content: space-between;
       }
     }
-
-    $line-height: 1.5rem;
 
     &__wrapper {
       border-radius: var(--onyx-radius-sm);
