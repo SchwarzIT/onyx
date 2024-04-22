@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.85
+
+### Major Changes
+
+- 612d117: remove support for setting theme via query parameter
+
 ## 1.0.0-alpha.84
 
 ### Patch Changes
