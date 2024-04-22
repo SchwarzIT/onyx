@@ -44,3 +44,14 @@ export const Male = {
     type: "male",
   },
 } satisfies Story;
+
+/**
+ * This example shows an avatar with a custom image.
+ * If the image can not be loaded, a fallback is displayed depending on the `type` property.
+ */
+export const WithImage = {
+  args: {
+    label: "onyx logo",
+    src: "https://onyx.schwarz/favicon.svg",
+  },
+} satisfies Story;
