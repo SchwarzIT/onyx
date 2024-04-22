@@ -103,6 +103,7 @@ export const createListbox = createBuilder(
         case " ":
           event.preventDefault();
           if (options.activeOption.value != undefined) {
+            // TODO: don't call onSelect if the option is disabled
             options.onSelect?.(options.activeOption.value);
           }
           break;
@@ -192,7 +193,7 @@ export const createListbox = createBuilder(
               "aria-checked": isMultiselect.value ? isSelected : undefined,
               "aria-selected": !isMultiselect.value ? isSelected : undefined,
               "aria-disabled": data.disabled,
-              onClick: () => options.onSelect?.(data.value),
+              onClick: () => !data.disabled && options.onSelect?.(data.value),
             } as const;
           };
         }),

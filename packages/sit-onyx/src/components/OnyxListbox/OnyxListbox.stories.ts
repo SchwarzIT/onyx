@@ -110,33 +110,40 @@ const groupedAnimals = [
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
+const DEMO_OPTIONS: ListboxOption[] = [
+  "Apple",
+  "Banana",
+  "Mango",
+  "Kiwi",
+  "Orange",
+  "Papaya",
+  "Apricot",
+  "Lemon",
+  "Cranberry",
+  "Avocado",
+  "Cherry",
+  "Coconut",
+  "Lychee",
+  "Melon",
+  "Raspberry",
+  "Strawberry",
+].map(
+  (option) =>
+    ({
+      id: option.toLowerCase(),
+      label: option,
+    }) satisfies ListboxOption,
+);
+const DISABLED_OPTION: ListboxOption = { id: "disabled", label: "Disabled", disabled: true };
+DEMO_OPTIONS.push(DISABLED_OPTION);
+
 /**
  * This example shows a default single select listbox.
  */
 export const Default = {
   args: {
     label: "Example listbox",
-    options: [
-      "Apple",
-      "Banana",
-      "Mango",
-      "Kiwi",
-      "Orange",
-      "Papaya",
-      "Apricot",
-      "Lemon",
-      "Cranberry",
-      "Avocado",
-      "Cherry",
-      "Coconut",
-      "Lychee",
-      "Melon",
-      "Raspberry",
-      "Strawberry",
-    ].map((option) => ({
-      id: option.toLowerCase(),
-      label: option,
-    })),
+    options: DEMO_OPTIONS,
   },
 } satisfies Story;
 

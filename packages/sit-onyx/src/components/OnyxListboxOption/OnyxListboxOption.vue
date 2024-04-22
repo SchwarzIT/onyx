@@ -18,6 +18,7 @@ defineSlots<{
       :checked="!!$attrs['aria-checked']"
       :aria-labelledby="$attrs.id as string"
       aria-hidden="true"
+      :disabled="!!$attrs['aria-disabled']"
       tabindex="-1"
       class="onyx-listbox-option__checkbox"
       type="checkbox"
