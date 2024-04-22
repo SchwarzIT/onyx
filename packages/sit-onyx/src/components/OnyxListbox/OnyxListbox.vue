@@ -1,7 +1,7 @@
 <script
   lang="ts"
   setup
-  generic="TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
+  generic="TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
 >
 import { createListbox, type ListboxValue } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
@@ -12,7 +12,7 @@ import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TOption, TMultiple>>(), {
+const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
   loading: false,
 });
 
@@ -48,7 +48,7 @@ const { t } = injectI18n();
 /**
  * Currently (visually) active option.
  */
-const activeOption = ref<TOption>();
+const activeOption = ref<TValue>();
 
 /**
  * Sync the active option with the selected option on single select.
@@ -75,7 +75,7 @@ const {
       emit("update:modelValue", newValue as typeof props.modelValue);
       return;
     }
-    const arrayValues: TOption[] = Array.isArray(props.modelValue) ? props.modelValue : [];
+    const arrayValues: TValue[] = Array.isArray(props.modelValue) ? props.modelValue : [];
     const newValues = arrayValues.includes(selectedOption)
       ? arrayValues.filter((i) => i !== selectedOption)
       : [...arrayValues, selectedOption];

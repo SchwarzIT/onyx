@@ -6,12 +6,12 @@ import { useTypeAhead } from "../typeAhead";
 export type ListboxValue = string | number | boolean;
 
 export type ListboxModelValue<
-  TOption extends ListboxValue = ListboxValue,
+  TValue extends ListboxValue = ListboxValue,
   TMultiple extends boolean = false,
-> = TMultiple extends true ? TOption[] : TOption;
+> = TMultiple extends true ? TValue[] : TValue;
 
 export type CreateListboxOptions<
-  TOption extends ListboxValue = ListboxValue,
+  TValue extends ListboxValue = ListboxValue,
   TMultiple extends boolean = false,
 > = {
   /**
@@ -21,11 +21,11 @@ export type CreateListboxOptions<
   /**
    * Value of currently selected option.
    */
-  selectedOption: Ref<ListboxModelValue<TOption, TMultiple> | undefined>;
+  selectedOption: Ref<ListboxModelValue<TValue, TMultiple> | undefined>;
   /**
    * Value of currently (visually) active option.
    */
-  activeOption: Ref<TOption | undefined>;
+  activeOption: Ref<TValue | undefined>;
   /**
    * Wether the listbox is controlled from the outside, e.g. by a combobox.
    * This disables keyboard events and makes the listbox not focusable.
@@ -38,7 +38,7 @@ export type CreateListboxOptions<
   /**
    * Hook when an option is selected.
    */
-  onSelect?: (value: TOption) => void;
+  onSelect?: (value: TValue) => void;
   /**
    * Hook when the first option should be activated.
    */
@@ -50,11 +50,11 @@ export type CreateListboxOptions<
   /**
    * Hook when the next option should be activated.
    */
-  onActivateNext?: (currentValue: TOption) => void;
+  onActivateNext?: (currentValue: TValue) => void;
   /**
    * Hook when the previous option should be activated.
    */
-  onActivatePrevious?: (currentValue: TOption) => void;
+  onActivatePrevious?: (currentValue: TValue) => void;
   /**
    * Hook when the first option starting with the given label should be activated.
    */
@@ -66,17 +66,17 @@ export type CreateListboxOptions<
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false>(
-    options: CreateListboxOptions<TOption, TMultiple>,
+  <TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false>(
+    options: CreateListboxOptions<TValue, TMultiple>,
   ) => {
     const isMultiselect = computed(() => unref(options.multiple) ?? false);
 
     /**
      * Map for option IDs. key = option value, key = ID for the HTML element
      */
-    const descendantKeyIdMap = new Map<TOption, string>();
+    const descendantKeyIdMap = new Map<TValue, string>();
 
-    const getOptionId = (value: TOption) => {
+    const getOptionId = (value: TValue) => {
       if (!descendantKeyIdMap.has(value)) {
         descendantKeyIdMap.set(value, createId("listbox-option"));
       }
@@ -180,7 +180,7 @@ export const createListbox = createBuilder(
         option: computed(() => {
           return (data: {
             label: string;
-            value: TOption;
+            value: TValue;
             selected?: boolean;
             disabled?: boolean;
           }) => {

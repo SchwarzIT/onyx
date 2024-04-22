@@ -8,7 +8,7 @@ import {
 } from "../listbox/createListbox";
 
 export type CreateComboboxOptions<
-  TOption extends ListboxValue = ListboxValue,
+  TValue extends ListboxValue = ListboxValue,
   TMultiple extends boolean = false,
 > = {
   /**
@@ -18,7 +18,7 @@ export type CreateComboboxOptions<
   /**
    * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
    */
-  inputValue: Ref<TOption | undefined>;
+  inputValue: Ref<TValue | undefined>;
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
@@ -26,13 +26,13 @@ export type CreateComboboxOptions<
   /**
    * If expanded, the active option is the currently highlighted option of the controlled listbox.
    */
-  activeOption: Ref<TOption | undefined>;
+  activeOption: Ref<TValue | undefined>;
   /**
    * Hook when the popover should toggle.
    */
   onToggle?: () => void;
 } & Pick<
-  CreateListboxOptions<TOption, TMultiple>,
+  CreateListboxOptions<TValue, TMultiple>,
   "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
 >;
 
@@ -41,7 +41,7 @@ export type CreateComboboxOptions<
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TOption extends ListboxValue = ListboxValue, TMultiple extends boolean = false>({
+  <TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false>({
     listLabel,
     inputValue,
     isExpanded,
@@ -52,14 +52,14 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TOption, TMultiple>) => {
+  }: CreateComboboxOptions<TValue, TMultiple>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
-      inputValue.value = inputElement.value as TOption;
+      inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
     };
 

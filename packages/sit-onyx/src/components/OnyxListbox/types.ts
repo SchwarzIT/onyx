@@ -1,7 +1,7 @@
 import type { ListboxValue, ListboxModelValue } from "@sit-onyx/headless";
 
 export type OnyxListboxProps<
-  TOption extends ListboxValue = ListboxValue,
+  TValue extends ListboxValue = ListboxValue,
   TMultiple extends boolean = false,
 > = {
   /**
@@ -11,7 +11,7 @@ export type OnyxListboxProps<
   /**
    * Available options to choose from.
    */
-  options: ListboxOption<TOption>[];
+  options: ListboxOption<TValue>[];
   /**
    * Message / help text to display at the bottom.
    */
@@ -19,7 +19,7 @@ export type OnyxListboxProps<
   /**
    * Current value / selected options.
    */
-  modelValue?: ListboxModelValue<TOption, TMultiple>;
+  modelValue?: ListboxModelValue<TValue, TMultiple>;
   /**
    * Allows the selection of multiple listbox options
    */
