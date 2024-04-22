@@ -23,10 +23,7 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
 <template>
   <section class="roadmap vp-raw">
     <div class="roadmap__sections">
-      <section>
-        <OnyxHeadline is="h2" class="roadmap__headline">Components</OnyxHeadline>
-        <ComponentRoadmap :components="props.data.components" />
-      </section>
+      <ComponentRoadmap :components="props.data.components" />
 
       <section>
         <OnyxHeadline is="h2" class="roadmap__headline">Facts and figures</OnyxHeadline>

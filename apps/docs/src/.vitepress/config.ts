@@ -2,6 +2,8 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 
+const storybookLink = "https://storybook.onyx.schwarz" as const;
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: {
@@ -46,7 +48,7 @@ export default defineConfig({
         activeMatch: "/resources/",
         items: [
           { text: "Icons", link: "/resources/icons" },
-          { text: "Storybook", link: "https://storybook.onyx.schwarz" },
+          { text: "Storybook", link: storybookLink },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
         ],
@@ -127,13 +129,7 @@ export default defineConfig({
         },
         {
           text: "Components",
-          base: "/development",
-          items: [
-            {
-              text: "Overview",
-              link: "/components",
-            },
-          ],
+          items: [{ text: "Storybook", link: storybookLink }],
         },
         {
           text: "Other onyx npm packages",
