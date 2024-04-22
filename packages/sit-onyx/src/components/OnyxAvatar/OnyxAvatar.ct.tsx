@@ -36,6 +36,9 @@ test.describe("Screenshot tests", () => {
         src={column === "custom" ? MOCK_IMAGE_URL : undefined}
       />
     ),
+    beforeScreenshot: async (component) => {
+      await expect(component.getByTitle("John Doe")).toBeVisible();
+    },
   });
 });
 

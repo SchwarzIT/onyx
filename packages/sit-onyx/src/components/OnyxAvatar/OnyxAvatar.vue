@@ -26,7 +26,7 @@ watch(
 </script>
 
 <template>
-  <figure class="onyx-avatar" :class="[`onyx-avatar--${props.size}`]" :aria-label="props.label">
+  <figure class="onyx-avatar" :class="[`onyx-avatar--${props.size}`]" :title="props.label">
     <img
       v-if="props.src && !hasImageError"
       class="onyx-avatar__svg"
