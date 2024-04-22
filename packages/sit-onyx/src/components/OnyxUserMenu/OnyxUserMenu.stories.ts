@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxUserMenu> = {
     events: [],
     argTypes: {
       avatar: { control: { type: "text" } },
-      footer: { control: { type: "text" } },
+      footer: { control: { disable: true } },
     },
     decorators: [
       (story) => ({
@@ -33,25 +33,16 @@ type Story = StoryObj<typeof OnyxUserMenu>;
 export const Default = {
   args: {
     username: "Jane Doe",
-  },
-} satisfies Story;
-
-/**
- * This example shows a user menu with a user description.
- */
-export const WithDescription = {
-  args: {
-    ...Default.args,
-    description: "UX/UI Designer",
-  },
-} satisfies Story;
-
-/**
- * This example shows a user menu with footer content.
- */
-export const WithFooter = {
-  args: {
-    ...Default.args,
+    description: "Company Name",
     footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
+  },
+} satisfies Story;
+
+/**
+ * This example shows a user menu with minimal data.
+ */
+export const WithMinimalData = {
+  args: {
+    username: "Jane Doe",
   },
 } satisfies Story;
