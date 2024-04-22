@@ -28,10 +28,26 @@ type Story = StoryObj<typeof OnyxAvatarStack>;
 export const Default = {
   args: {
     default: () =>
-      Array.from({ length: 10 }, (_, index) => {
+      Array.from({ length: 6 }, (_, index) => {
         const label = `John Doe ${index + 1}`;
         const type = AVATAR_TYPES[index % AVATAR_TYPES.length];
         return h(OnyxAvatar, { label, type });
       }),
+  },
+} satisfies Story;
+
+/**
+ * This example shows an avatar stack with a limited number of avatars and a remaining indicator.
+ */
+export const LimitedCount = {
+  args: {
+    default: () => [
+      ...Array.from({ length: 15 }, (_, index) => {
+        const label = `John Doe ${index + 1}`;
+        const type = AVATAR_TYPES[index % AVATAR_TYPES.length];
+        return h(OnyxAvatar, { label, type });
+      }),
+      h(OnyxAvatar, { label: "42 more avatars" }, () => "+42"),
+    ],
   },
 } satisfies Story;

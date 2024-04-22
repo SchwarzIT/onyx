@@ -9,6 +9,13 @@ const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   type: "initials",
 });
 
+defineSlots<{
+  /**
+   * Optional slot to override the default initials. Will only be used if `type` is `initials`.
+   */
+  default?(): unknown;
+}>();
+
 const initials = computed(() => {
   const names = props.label.split(" ");
   const initials =
@@ -38,7 +45,9 @@ watch(
     <template v-else>
       <FemaleAvatar v-if="props.type === 'female'" class="onyx-avatar__svg" />
       <MaleAvatar v-else-if="props.type === 'male'" class="onyx-avatar__svg" />
-      <div v-else class="onyx-avatar__initials">{{ initials }}</div>
+      <div v-else class="onyx-avatar__initials">
+        <slot>{{ initials }}</slot>
+      </div>
     </template>
   </figure>
 </template>
@@ -49,9 +58,9 @@ watch(
 
 .onyx-avatar {
   @include layers.component() {
-    width: var(--onyx-avatar-size);
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
+    width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
     box-sizing: content-box;
     border-radius: var(--onyx-radius-full);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
@@ -100,7 +109,7 @@ watch(
             font-size: 1.75rem;
           }
           @if $name == 96px {
-            font-size: 2.25rem;
+            font-size: 1.75rem;
           }
         }
       }
