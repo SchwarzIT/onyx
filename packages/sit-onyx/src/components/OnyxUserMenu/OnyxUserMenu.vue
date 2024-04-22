@@ -108,7 +108,7 @@ const avatar = computed(() => {
     }
 
     &__listbox {
-      // display: none;
+      display: none;
       position: absolute;
       right: 0;
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
@@ -124,7 +124,6 @@ const avatar = computed(() => {
       color: var(--onyx-color-text-icons-neutral-intense);
 
       display: flex;
-      padding: var(--onyx-spacing-md);
       align-items: center;
       gap: var(--onyx-spacing-md);
       text-align: left;
