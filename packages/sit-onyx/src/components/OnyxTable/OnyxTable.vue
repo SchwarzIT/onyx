@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<OnyxTableProps>(), {
 
 defineSlots<{
   /**
-   * Table content. Must only contain valid HTML `<table>` children like `<tr>`, `<th>` and `<td>`.
+   * Table content. Must only contain valid HTML `<table>` children like `<tr>`, `<th>`, `<td>`, `<thead>` and `<tbody>`.
    */
   default(): unknown;
 }>();
