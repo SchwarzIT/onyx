@@ -72,6 +72,7 @@ const avatar = computed(() => {
 
       .onyx-user-menu__trigger {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+        background-color: var(--onyx-color-base-neutral-200);
       }
 
       .onyx-user-menu__listbox {
@@ -96,9 +97,8 @@ const avatar = computed(() => {
       margin-left: auto;
       font-weight: 600;
 
-      &:hover,
-      &:focus-within {
-        background: var(--onyx-color-base-neutral-200);
+      &:hover {
+        background-color: var(--onyx-color-base-neutral-200);
       }
     }
 
