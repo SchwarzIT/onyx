@@ -7,4 +7,8 @@ export type OnyxListboxOptionProps = {
    * Adds a checkbox to the option
    */
   multiple?: boolean;
+  /**
+   * Optional icon.
+   */
+  icon?: string;
 };

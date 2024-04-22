@@ -1,4 +1,5 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
+import type { ListboxValue } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
@@ -6,7 +7,14 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import type { OnyxUserMenuProps } from "./types";
 
-const props = defineProps<OnyxUserMenuProps>();
+const props = defineProps<OnyxUserMenuProps<TValue>>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the user clicks/selects an option.
+   */
+  "update:modelValue": [value: TValue];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -29,7 +37,13 @@ const avatar = computed(() => {
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </div>
 
-    <OnyxListbox class="onyx-user-menu__listbox" label="User options" :options="[]">
+    <OnyxListbox
+      :model-value="props.modelValue"
+      class="onyx-user-menu__listbox"
+      label="User options"
+      :options="props.options"
+      @update:model-value="emit('update:modelValue', $event as typeof props.modelValue)"
+    >
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />

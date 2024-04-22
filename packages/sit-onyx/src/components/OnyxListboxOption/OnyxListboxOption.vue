@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxListboxOptionProps } from "./types";
 
 const props = defineProps<OnyxListboxOptionProps>();
@@ -23,6 +24,8 @@ defineSlots<{
       class="onyx-listbox-option__checkbox"
       type="checkbox"
     />
+
+    <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
@@ -52,7 +55,7 @@ defineSlots<{
 
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
+    gap: var(--onyx-spacing-md);
 
     &__checkbox {
       @include checkbox.styles();

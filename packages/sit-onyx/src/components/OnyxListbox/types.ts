@@ -1,4 +1,4 @@
-import type { ListboxValue, ListboxModelValue } from "@sit-onyx/headless";
+import type { ListboxModelValue, ListboxValue } from "@sit-onyx/headless";
 
 export type OnyxListboxProps<
   TValue extends ListboxValue = ListboxValue,
@@ -52,6 +52,10 @@ export type ListboxOption<T extends ListboxValue = ListboxValue> = {
    * Optional group name. If set, all options will be grouped under that group name.
    */
   group?: string;
+  /**
+   * Optional icon.
+   */
+  icon?: string;
 };
 
 export type ListboxLazyLoading = {

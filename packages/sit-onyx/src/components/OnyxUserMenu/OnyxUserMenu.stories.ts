@@ -1,3 +1,5 @@
+import logout from "@sit-onyx/icons/logout.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
@@ -10,7 +12,7 @@ const meta: Meta<typeof OnyxUserMenu> = {
   title: "components/UserMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxUserMenu,
-    events: [],
+    events: ["update:modelValue"],
     argTypes: {
       avatar: { control: { type: "text" } },
       footer: { control: { disable: true } },
@@ -35,6 +37,10 @@ export const Default = {
     username: "Jane Doe",
     description: "Company Name",
     footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
+    options: [
+      { id: "logout", label: "Logout", icon: logout },
+      { id: "settings", label: "Settings", icon: settings },
+    ],
   },
 } satisfies Story;
 

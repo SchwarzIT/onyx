@@ -181,6 +181,7 @@ const isEmpty = computed(() => props.options.length === 0);
           "
           :multiple="props.multiple"
           :active="option.id === activeOption"
+          :icon="option.icon"
         >
           {{ option.label }}
         </OnyxListboxOption>
