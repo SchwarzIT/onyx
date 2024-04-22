@@ -4,7 +4,7 @@ import OnyxNavItem from "./OnyxNavItem.vue";
 
 test("should render", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(OnyxNavItem, {
+  await mount(OnyxNavItem, {
     props: {
       label: "Item",
       children: [
@@ -14,9 +14,6 @@ test("should render", async ({ mount }) => {
       ],
     },
   });
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("default.png");
 
   /**
    * We don't have a11y tests here beacuese of the ARIA rule which requires all elements with
@@ -39,6 +36,34 @@ test.describe("Screenshot tests", () => {
       await expect(component).toContainText("Item");
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+});
+
+test.describe("Screenshot tests with children", () => {
+  const children = [
+    { href: "#", label: "Nested Item 1" },
+    { href: "#", label: "Nested Item 2" },
+    { href: "#", label: "Nested Item 3" },
+  ];
+
+  executeMatrixScreenshotTest({
+    name: "NavItem with children",
+    columns: ["default", "active", "focus-visible"],
+    rows: ["hover"],
+    disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
+    component: (column) => (
+      <OnyxNavItem
+        label="Item"
+        href="#"
+        active={column === "active"}
+        children={children}
+      ></OnyxNavItem>
+    ),
+    beforeScreenshot: async (component, page, column, _row) => {
+      await expect(component).toContainText("Item");
+      await component.hover();
+      if (column === "focus-visible") await page.keyboard.press("Tab");
     },
   });
 });
