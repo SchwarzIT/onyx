@@ -7,6 +7,11 @@ export type OnyxAvatarProps = IconSizeProp<Exclude<IconSize, "12px">> & {
    */
   label: string;
   /**
+   * Image URL to show. If unset or an error occurs while loading, a fallback will be displayed
+   * depending on the `type` property.
+   */
+  src?: string;
+  /**
    * Avatar type to use.
    */
   type?: AvatarType;
