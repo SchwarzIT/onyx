@@ -2,27 +2,6 @@ import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
-test("should render", async ({ mount }) => {
-  // ARRANGE
-  await mount(OnyxNavItem, {
-    props: {
-      label: "Item",
-      children: [
-        { href: "#", label: "Nested Item 1" },
-        { href: "#2", label: "Nested Item 2" },
-        { href: "#3", label: "Nested Item 3" },
-      ],
-    },
-  });
-
-  /**
-   * We don't have a11y tests here beacuese of the ARIA rule which requires all elements with
-   * role="menuitem" to have a parent with role="menu".
-   * This is not possible in our case because we are only implementing the component with role="menuitem"
-   * Reference -> https://accessibilityinsights.io/info-examples/web/aria-required-parent/
-   */
-});
-
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "NavItem",
