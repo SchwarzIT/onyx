@@ -89,6 +89,10 @@ export type OnyxInputProps = DensityProp &
      * For accessibility / screen readers, the aria-label will still be set.
      */
     hideLabel?: boolean;
+    /**
+     * Whether to show a skeleton input.
+     */
+    skeleton?: boolean;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

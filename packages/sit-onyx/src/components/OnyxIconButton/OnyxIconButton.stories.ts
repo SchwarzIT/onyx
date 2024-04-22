@@ -32,7 +32,7 @@ export default meta;
 type Story = StoryObj<typeof OnyxIconButton>;
 
 /**
- * This example shows the button in primary variation
+ * This example shows the button in primary variation.
  */
 export const Primary = {
   args: {
@@ -42,7 +42,7 @@ export const Primary = {
 } satisfies Story;
 
 /**
- * This example shows the button in secondary variation
+ * This example shows the button in secondary variation.
  */
 export const Secondary = {
   args: {
@@ -53,7 +53,7 @@ export const Secondary = {
 } satisfies Story;
 
 /**
- * This example shows the button in danger variation
+ * This example shows the button in danger variation.
  */
 export const Danger = {
   args: {
@@ -64,7 +64,7 @@ export const Danger = {
 } satisfies Story;
 
 /**
- * This example shows the with some custom content
+ * This example shows the with some custom content.
  */
 export const Custom = {
   args: {
@@ -79,12 +79,22 @@ export const Custom = {
 } satisfies Story;
 
 /**
- * This example shows the button in danger variation
+ * This example shows a loading icon button.
  */
 export const Loading = {
   args: {
     label: "Button",
     loading: true,
     icon: trash,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a skeleton icon button.
+ */
+export const Skeleton = {
+  args: {
+    label: "Button",
+    skeleton: true,
   },
 } satisfies Story;
