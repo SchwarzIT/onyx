@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
+import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -7,6 +7,13 @@ import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import type { OnyxUserMenuProps } from "./types";
 
 const props = defineProps<OnyxUserMenuProps>();
+
+const slots = defineSlots<{
+  /**
+   * Optional footer content to display at the bottom.
+   */
+  footer?(): unknown;
+}>();
 
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
@@ -18,11 +25,30 @@ const avatar = computed(() => {
   <div class="onyx-user-menu">
     <button class="onyx-user-menu__button onyx-text">
       <OnyxAvatar v-bind="avatar" size="24px" />
-      <span> {{ props.username }}</span>
-      <OnyxIcon :icon="chevronRightSmall" />
+      <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
+      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </button>
 
-    <OnyxListbox class="onyx-user-menu__listbox" label="User options" :options="[]" />
+    <OnyxListbox class="onyx-user-menu__listbox" label="User options" :options="[]">
+      <template #header>
+        <div class="onyx-user-menu__header">
+          <OnyxAvatar v-bind="avatar" />
+
+          <div class="onyx-truncation-multiline">
+            <div class="onyx-user-menu__username onyx-text">{{ props.username }}</div>
+            <div v-if="props.description" class="onyx-user-menu__description onyx-text--small">
+              {{ props.description }}
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template v-if="!!slots.footer" #footer>
+        <div class="onyx-user-menu__footer onyx-text--small">
+          <slot name="footer"></slot>
+        </div>
+      </template>
+    </OnyxListbox>
   </div>
 </template>
 
@@ -48,13 +74,14 @@ const avatar = computed(() => {
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
       margin-left: auto;
+      font-weight: 600;
 
       &:hover,
-      &:focus {
+      &:focus-within {
         background: var(--onyx-color-base-neutral-200);
       }
 
-      &:focus {
+      &:focus-within {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
       }
     }
@@ -67,10 +94,49 @@ const avatar = computed(() => {
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
     }
 
+    &__chevron {
+      transition: transform var(--onyx-duration-sm);
+    }
+
     &:has(.onyx-user-menu__button:focus) {
       .onyx-user-menu__listbox {
         display: block;
       }
+
+      .onyx-user-menu__chevron {
+        transform: rotate(-90deg);
+      }
+    }
+
+    &__header {
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      padding: var(--onyx-spacing-md);
+      color: var(--onyx-color-text-icons-neutral-intense);
+
+      display: flex;
+      padding: var(--onyx-spacing-md);
+      align-items: center;
+      gap: var(--onyx-spacing-md);
+    }
+
+    &__username {
+      font-weight: 600;
+    }
+
+    &__description {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      font-weight: 600;
+    }
+
+    &__footer {
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
+      color: var(--onyx-color-text-icons-neutral-soft);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-spacing-2xs);
     }
   }
 }

@@ -38,6 +38,14 @@ const slots = defineSlots<{
    * to e.g. show a button to load more options instead of lazy loading on scroll.
    */
   optionsEnd?(): unknown;
+  /**
+   * Optional header content to display above the options.
+   */
+  header?(): unknown;
+  /**
+   * Optional footer content to display below the options (will replace `message` property).
+   */
+  footer?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -111,7 +119,16 @@ const isEmpty = computed(() => props.options.length === 0);
 </script>
 
 <template>
-  <div class="onyx-listbox" :aria-busy="props.loading">
+  <div
+    class="onyx-listbox"
+    :class="{
+      'onyx-listbox--with-header': !!slots.header,
+      'onyx-listbox--with-footer': !!slots.footer,
+    }"
+    :aria-busy="props.loading"
+  >
+    <slot name="header"></slot>
+
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
@@ -158,9 +175,12 @@ const isEmpty = computed(() => props.options.length === 0);
         <slot name="optionsEnd"></slot>
       </li>
     </div>
-    <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
-      {{ props.message }}
-    </span>
+
+    <slot name="footer">
+      <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
+        {{ props.message }}
+      </span>
+    </slot>
   </div>
 </template>
 
@@ -182,6 +202,14 @@ const isEmpty = computed(() => props.options.length === 0);
     min-width: var(--onyx-spacing-4xl);
     max-width: 20rem;
     font-family: var(--onyx-font-family);
+
+    &--with-header {
+      padding-top: 0;
+    }
+
+    &--with-footer {
+      padding-bottom: 0;
+    }
 
     &__wrapper {
       max-height: calc(var(--max-options) * var(--option-height));
@@ -212,10 +240,6 @@ const isEmpty = computed(() => props.options.length === 0);
       box-sizing: border-box;
       text-align: right;
       padding: $wrapper-padding var(--onyx-spacing-sm) 0;
-    }
-
-    .onyx-listbox-option {
-      height: var(--option-height);
     }
 
     .onyx-listbox-option {
