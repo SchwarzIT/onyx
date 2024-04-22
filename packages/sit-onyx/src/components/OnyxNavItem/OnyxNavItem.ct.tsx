@@ -9,8 +9,8 @@ test("should render", async ({ mount }) => {
       label: "Item",
       children: [
         { href: "#", label: "Nested Item 1" },
-        { href: "#", label: "Nested Item 2" },
-        { href: "#", label: "Nested Item 3" },
+        { href: "#2", label: "Nested Item 2" },
+        { href: "#3", label: "Nested Item 3" },
       ],
     },
   });
@@ -43,8 +43,8 @@ test.describe("Screenshot tests", () => {
 test.describe("Screenshot tests with children", () => {
   const children = [
     { href: "#", label: "Nested Item 1" },
-    { href: "#", label: "Nested Item 2" },
-    { href: "#", label: "Nested Item 3" },
+    { href: "#2", label: "Nested Item 2" },
+    { href: "#3", label: "Nested Item 3" },
   ];
 
   executeMatrixScreenshotTest({
