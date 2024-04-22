@@ -165,6 +165,7 @@ export const Multiselect = {
     ...Default.args,
     modelValue: ["apple", "banana"],
     multiple: true,
+    withCheckAll: true,
     options: [
       ...Default.args.options,
       { id: "long", label: "Option with a very long long long  long long long long text}" },

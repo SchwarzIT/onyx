@@ -4,6 +4,7 @@
   generic="TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
 >
 import { createListbox, type ListboxValue } from "@sit-onyx/headless";
+import { useSelectAll } from "../../composables/selectAll";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
@@ -117,11 +118,25 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
   offset: computed(() => props.lazyLoading?.scrollOffset),
 });
 
+const isEmpty = computed(() => props.options.length === 0);
+
+const enabledOptionValues = computed(() =>
+  props.options.filter((i) => !i.disabled).map(({ id }) => id),
+);
+
+const { selectAllState, selectAllChange } = props.multiple
+  ? useSelectAll(
+      enabledOptionValues,
+      computed(() => (props.modelValue as TValue[]) || []),
+      (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
+    )
+  : {};
+// TODO: bind to checkbox
+selectAllChange(true);
+
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
-
-const isEmpty = computed(() => props.options.length === 0);
 </script>
 
 <template>
@@ -149,6 +164,9 @@ const isEmpty = computed(() => props.options.length === 0);
           {{ group }}
         </li>
         <!-- TODO: select-all option for "multiple" -->
+        {{
+          selectAllState
+        }}
         <OnyxListboxOption
           v-for="option in options as any"
           :key="option.id.toString()"

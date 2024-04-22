@@ -25,6 +25,22 @@ export type OnyxListboxProps<
    */
   multiple?: TMultiple;
   /**
+   * If true, a checkbox will be displayed to check/uncheck all options.
+   * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+   * Only available if "multiple" is true.
+   */
+  withCheckAll?: TMultiple extends true
+    ?
+        | boolean
+        | {
+            /**
+             * Label for the `select all` checkbox.
+             * If unset, a default label will be shown depending on the current locale/language.
+             */
+            label?: string;
+          }
+    : undefined;
+  /**
    * Whether to show a loading indicator.
    */
   loading?: boolean;

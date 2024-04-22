@@ -29,7 +29,7 @@ export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = Selecti
       | boolean
       | {
           /**
-           * Checkbox label if property `withCheckAll` is enabled.
+           * Label for the `select all` checkbox.
            * If unset, a default label will be shown depending on the current locale/language.
            */
           label?: string;
