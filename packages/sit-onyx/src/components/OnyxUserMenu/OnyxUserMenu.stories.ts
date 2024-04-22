@@ -38,8 +38,8 @@ export const Default = {
     description: "Company Name",
     footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
     options: [
-      { id: "logout", label: "Logout", icon: logout },
       { id: "settings", label: "Settings", icon: settings },
+      { id: "logout", label: "Logout", icon: logout },
     ],
   },
 } satisfies Story;
