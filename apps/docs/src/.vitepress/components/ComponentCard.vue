@@ -29,6 +29,7 @@ const props = defineProps<ComponentCardProps>();
     class="card"
     :class="{ 'card--clickable': props.href }"
     :href="props.href"
+    :target="props.href?.startsWith('http') ? '_blank' : '_self'"
   >
     <div class="card__header">
       <p class="card__due-date" v-if="props.status !== 'implemented'">
@@ -82,6 +83,11 @@ const props = defineProps<ComponentCardProps>();
   &__due-date {
     margin: 0;
     color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &::after {
+    // hide VitePress external link icon
+    display: none !important;
   }
 }
 </style>
