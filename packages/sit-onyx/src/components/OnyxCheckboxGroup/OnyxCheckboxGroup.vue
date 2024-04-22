@@ -1,10 +1,11 @@
 <script lang="ts" setup generic="TValue extends string | number | boolean">
-import { injectI18n } from "../../i18n";
-import { OnyxHeadline, type OnyxCheckboxProps } from "../../index";
 import { computed } from "vue";
+import { useDensity } from "../../composables/density";
+import { useSelectAllCheckboxState } from "../../composables/selectAll";
+import { injectI18n } from "../../i18n";
+import { OnyxHeadline } from "../../index";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
@@ -42,14 +43,10 @@ const handleMasterCheckboxChange = (isChecked: boolean) => {
  * - indeterminate if at least one but not all options are checked
  * - unchecked if no options are checked
  */
-const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
-  const availableOptionIds = enabledOptions.value.map(({ id }) => id);
-  const currentValues = props.modelValue.filter((i) => availableOptionIds.includes(i));
-
-  if (!availableOptionIds.length || !currentValues.length) return { modelValue: false };
-  if (currentValues.length === availableOptionIds.length) return { modelValue: true };
-  return { indeterminate: true, modelValue: false };
-});
+const masterCheckboxState = useSelectAllCheckboxState(
+  enabledOptions,
+  computed(() => props.modelValue),
+);
 </script>
 
 <template>
