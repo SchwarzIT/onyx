@@ -41,6 +41,9 @@ export * from "./components/OnyxListbox/types";
 export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 export * from "./components/OnyxLoadingIndicator/types";
 
+export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue";
+export * from "./components/OnyxNavItem/types";
+
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
 
