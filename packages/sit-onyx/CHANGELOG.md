@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.80
+
+### Minor Changes
+
+- da3cad4: feat(OnyxAvatar): support custom image
+
+### Patch Changes
+
+- da3cad4: fix(OnyxAvatar): remove aria-label in favor of title
+
+  `aria-label` should only be used for interactive elements so we use `title` instead
+
 ## 1.0.0-alpha.79
 
 ### Minor Changes
