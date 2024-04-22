@@ -15,6 +15,7 @@ const meta: Meta<typeof OnyxIconButton> = {
     events: ["click"],
     argTypes: {
       icon: defineIconSelectArgType(),
+      default: { control: { disable: true } },
     },
   }),
   parameters: {

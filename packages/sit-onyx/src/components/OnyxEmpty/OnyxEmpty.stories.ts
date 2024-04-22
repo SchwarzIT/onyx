@@ -19,6 +19,7 @@ const meta: Meta<typeof OnyxEmpty> = {
       icon: {
         control: { disable: true },
       },
+      default: { control: { type: "text" } },
     },
   }),
 };
