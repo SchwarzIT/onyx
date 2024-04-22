@@ -1,15 +1,18 @@
-<script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
-import { createListbox } from "@sit-onyx/headless";
+<script
+  lang="ts"
+  setup
+  generic="TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
+>
+import { createListbox, type ListboxValue } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
   loading: false,
 });
 
@@ -56,12 +59,14 @@ const { t } = injectI18n();
 const activeOption = ref<TValue>();
 
 /**
- * Sync the active option with the selected option.
+ * Sync the active option with the selected option on single select.
  */
 watch(
   () => props.modelValue,
   (newValue) => {
-    activeOption.value = newValue;
+    if (!props.multiple) {
+      activeOption.value = newValue as typeof activeOption.value;
+    }
   },
 );
 
@@ -69,11 +74,20 @@ const {
   elements: { listbox, option: headlessOption, group: headlessGroup },
 } = createListbox({
   label: computed(() => props.label),
+  multiple: computed(() => !!props.multiple),
   selectedOption: computed(() => props.modelValue),
   activeOption,
-  onSelect: (id) => {
-    if (props.modelValue === id) emit("update:modelValue", undefined);
-    else emit("update:modelValue", id as TValue);
+  onSelect: (selectedOption) => {
+    if (!props.multiple) {
+      const newValue = selectedOption === props.modelValue ? undefined : selectedOption;
+      emit("update:modelValue", newValue as typeof props.modelValue);
+      return;
+    }
+    const arrayValues: TValue[] = Array.isArray(props.modelValue) ? props.modelValue : [];
+    const newValues = arrayValues.includes(selectedOption)
+      ? arrayValues.filter((i) => i !== selectedOption)
+      : [...arrayValues, selectedOption];
+    emit("update:modelValue", newValues as typeof props.modelValue);
   },
   onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
   onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),
@@ -151,6 +165,7 @@ const isEmpty = computed(() => props.options.length === 0);
         >
           {{ group }}
         </li>
+        <!-- TODO: select-all option for "multiple" -->
         <OnyxListboxOption
           v-for="option in options as any"
           :key="option.id.toString()"
@@ -159,9 +174,12 @@ const isEmpty = computed(() => props.options.length === 0);
               value: option.id,
               label: option.label,
               disabled: option.disabled,
-              selected: option.id === props.modelValue,
+              selected:
+                option.id === props.modelValue ||
+                (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
             })
           "
+          :multiple="props.multiple"
           :active="option.id === activeOption"
         >
           {{ option.label }}

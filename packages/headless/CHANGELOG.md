@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.7
+
+### Minor Changes
+
+- 1377af6: feat(OnyxListbox): implement multiselect. Extend headless listbox to have an array modelValue if multiselect is used.
+
 ## 0.1.0-alpha.6
 
 ### Minor Changes

@@ -1,9 +1,16 @@
 import { computed, ref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
+import {
+  createListbox,
+  type CreateListboxOptions,
+  type ListboxValue,
+} from "../listbox/createListbox";
 
-export type CreateComboboxOptions<TValue extends string> = {
+export type CreateComboboxOptions<
+  TValue extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
+> = {
   /**
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
    */
@@ -11,7 +18,7 @@ export type CreateComboboxOptions<TValue extends string> = {
   /**
    * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
    */
-  inputValue: Ref<TValue>;
+  inputValue: Ref<TValue | undefined>;
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
@@ -25,7 +32,7 @@ export type CreateComboboxOptions<TValue extends string> = {
    */
   onToggle?: () => void;
 } & Pick<
-  CreateListboxOptions<TValue>,
+  CreateListboxOptions<TValue, TMultiple>,
   "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
 >;
 
@@ -34,7 +41,7 @@ export type CreateComboboxOptions<TValue extends string> = {
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TValue extends string>({
+  <TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false>({
     listLabel,
     inputValue,
     isExpanded,
@@ -45,7 +52,7 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TValue>) => {
+  }: CreateComboboxOptions<TValue, TMultiple>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
     const labelId = createId("comboBox-label");
