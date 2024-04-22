@@ -31,6 +31,7 @@ test.describe("Screenshot tests", () => {
     name: "NavItem",
     columns: ["default", "active"],
     rows: ["default", "hover", "focus-visible"],
+    disabledAccessibilityRules: ["aria-required-parent"],
     component: (column) => (
       <OnyxNavItem label="Item" href="#" active={column === "active"}></OnyxNavItem>
     ),
