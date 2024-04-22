@@ -50,7 +50,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 });
 
 test("should render with multiselect", async ({ mount }) => {
-  let modelValue: Array<number> = [2];
+  let modelValue: number[] = [2];
 
   // ARRANGE
   const component = await mount(OnyxListbox<number, true>, {
@@ -61,7 +61,7 @@ test("should render with multiselect", async ({ mount }) => {
       modelValue,
     },
     on: {
-      "update:modelValue": async (value: Array<number>) => {
+      "update:modelValue": async (value: number[]) => {
         modelValue = value;
         await component.update({ props: { modelValue } });
       },
