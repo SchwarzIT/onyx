@@ -22,12 +22,12 @@ const avatar = computed(() => {
 </script>
 
 <template>
-  <div class="onyx-user-menu">
-    <button class="onyx-user-menu__button onyx-text">
+  <button class="onyx-user-menu">
+    <div class="onyx-user-menu__trigger onyx-text">
       <OnyxAvatar v-bind="avatar" size="24px" />
       <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
-    </button>
+    </div>
 
     <OnyxListbox class="onyx-user-menu__listbox" label="User options" :options="[]">
       <template #header>
@@ -49,7 +49,7 @@ const avatar = computed(() => {
         </div>
       </template>
     </OnyxListbox>
-  </div>
+  </button>
 </template>
 
 <style lang="scss">
@@ -63,10 +63,30 @@ const avatar = computed(() => {
     width: max-content;
     position: relative;
 
-    &__button {
+    border: none;
+    background: none;
+    padding: 0;
+
+    &:focus-within {
+      outline: 0;
+
+      .onyx-user-menu__trigger {
+        outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+      }
+
+      .onyx-user-menu__listbox {
+        display: block;
+      }
+
+      .onyx-user-menu__chevron {
+        transform: rotate(-90deg);
+      }
+    }
+
+    &__trigger {
       border-radius: var(--onyx-radius-sm);
       background: var(--onyx-color-base-background-blank);
-      border: none;
+
       padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
       display: flex;
       align-items: center;
@@ -80,10 +100,6 @@ const avatar = computed(() => {
       &:focus-within {
         background: var(--onyx-color-base-neutral-200);
       }
-
-      &:focus-within {
-        outline: 0.25rem solid var(--onyx-color-base-secondary-200);
-      }
     }
 
     &__listbox {
@@ -96,16 +112,6 @@ const avatar = computed(() => {
 
     &__chevron {
       transition: transform var(--onyx-duration-sm);
-    }
-
-    &:has(.onyx-user-menu__button:focus) {
-      .onyx-user-menu__listbox {
-        display: block;
-      }
-
-      .onyx-user-menu__chevron {
-        transform: rotate(-90deg);
-      }
     }
 
     &__header {
