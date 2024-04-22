@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.78
+
+### Patch Changes
+
+- d819092: fix(OnyxSwitch): align label based on density, increase click area + show marker on truncation
+
 ## 1.0.0-alpha.77
 
 ### Minor Changes

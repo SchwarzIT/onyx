@@ -40,7 +40,9 @@ const isChecked = computed({
 
 <template>
   <div v-if="props.skeleton" :class="['onyx-switch-skeleton', densityClass]">
-    <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    <span class="onyx-switch-skeleton__click-area">
+      <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    </span>
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
@@ -63,21 +65,32 @@ const isChecked = computed({
       :disabled="props.disabled || props.loading"
       :required="props.required"
     />
-    <span class="onyx-switch__container">
-      <span class="onyx-switch__icon">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-        <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+    <span class="onyx-switch__click-area">
+      <span class="onyx-switch__container">
+        <span class="onyx-switch__icon">
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
+          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+        </span>
+        <div class="onyx-switch__frame"></div>
       </span>
-      <div class="onyx-switch__frame"></div>
     </span>
-
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
-      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
+      :class="[
+        `onyx-truncation-${props.truncation}`,
+        // shows the required marker inline for multiline labels
+        props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+      ]"
     >
       {{ props.label }}
     </span>
+    <!-- shows the required marker fixed on the right for truncated labels -->
+    <div
+      v-if="props.truncation === 'ellipsis'"
+      class="onyx-switch__marker"
+      :class="[requiredMarkerClass]"
+    ></div>
   </label>
 </template>
 
@@ -91,8 +104,11 @@ const isChecked = computed({
     --onyx-switch-icon-size: 1rem;
     --onyx-switch-cozy-width: 0rem;
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
+    --onyx-switch-container-margin: 0.25rem;
     --onyx-switch-transform: 0.125rem;
     --onyx-switch-input-height: unset;
+    --onyx-switch-click-height: var(--onyx-spacing-xl);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-4xs);
 
     // icon size + padding top/bottom + border top/bottom
     --onyx-switch-skeleton-height: calc(
@@ -107,6 +123,8 @@ const isChecked = computed({
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
     --onyx-switch-input-height: unset;
+    --onyx-switch-click-height: 2.5rem;
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-2xs);
 
     // icon size + padding top/bottom + border top/bottom
     --onyx-switch-skeleton-height: calc(
@@ -122,6 +140,8 @@ const isChecked = computed({
     --onyx-switch-transform: 0.01rem;
     --onyx-switch-input-height: 2rem;
     --onyx-switch-skeleton-height: var(--onyx-switch-input-height);
+    --onyx-switch-click-height: var(--onyx-spacing-2xl);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-sm);
   }
 }
 
@@ -135,7 +155,6 @@ $input-width: calc(
     display: inline-flex;
     align-items: flex-start;
     cursor: pointer;
-    gap: var(--onyx-spacing-2xs);
     max-width: 100%;
 
     &__input {
@@ -147,7 +166,7 @@ $input-width: calc(
       height: 0;
       margin: 0;
 
-      &:checked + .onyx-switch__container {
+      &:checked + .onyx-switch__click-area .onyx-switch__container {
         background-color: var(--onyx-color-base-primary-500);
 
         .onyx-switch__icon {
@@ -161,7 +180,9 @@ $input-width: calc(
         }
       }
 
-      &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+      &:checked:disabled:not(.onyx-switch__loading)
+        + .onyx-switch__click-area
+        .onyx-switch__container {
         background-color: var(--onyx-color-base-primary-200);
 
         .onyx-switch__icon {
@@ -170,7 +191,7 @@ $input-width: calc(
         }
       }
 
-      &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
+      &:disabled:not(.onyx-switch__loading) + .onyx-switch__click-area .onyx-switch__container {
         background-color: var(--onyx-color-base-neutral-200);
 
         .onyx-switch__icon {
@@ -180,7 +201,7 @@ $input-width: calc(
       }
 
       &:user-invalid {
-        & + .onyx-switch__container {
+        & + .onyx-switch__click-area .onyx-switch__container {
           background-color: var(--onyx-color-base-danger-200);
           position: relative;
 
@@ -205,7 +226,7 @@ $input-width: calc(
           }
         }
 
-        &:checked + .onyx-switch__container {
+        &:checked + .onyx-switch__click-area .onyx-switch__container {
           background-color: var(--onyx-color-base-danger-500);
 
           .onyx-switch__icon {
@@ -214,6 +235,14 @@ $input-width: calc(
           }
         }
       }
+    }
+
+    &__click-area,
+    &-skeleton__click-area {
+      padding: 0 var(--onyx-spacing-2xs);
+      height: var(--onyx-switch-click-height);
+      display: flex;
+      align-items: center;
     }
 
     &__container {
@@ -252,13 +281,17 @@ $input-width: calc(
       }
     }
 
+    &__label,
+    &__marker {
+      padding: var(--onyx-switch-label-padding-vertical) 0;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
     &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-family: var(--onyx-font-family);
-      font-size: 1rem;
       font-style: normal;
       font-weight: 400;
-      line-height: 1.5rem;
     }
 
     &:hover {
@@ -313,7 +346,6 @@ $input-width: calc(
   @include layers.component() {
     display: inline-flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
 
     &__input {
       height: var(--onyx-switch-skeleton-height);
