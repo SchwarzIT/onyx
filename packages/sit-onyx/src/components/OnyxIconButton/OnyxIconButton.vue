@@ -71,6 +71,7 @@ const emit = defineEmits<{
   $size: calc(1.5rem + 2 * var(--onyx-icon-button-padding));
   height: $size;
   width: $size;
+  border-radius: var(--onyx-radius-full);
 }
 
 .onyx-icon-button {
