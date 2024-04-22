@@ -11,4 +11,8 @@ export type OnyxBadgeProps = DensityProp & {
    * Note: If the icon property is set, the default slot will not be rendered.
    */
   icon?: string;
+  /**
+   * If `true`, only a colored dot will be displayed instead of the icon or slot content.
+   */
+  dot?: boolean;
 };

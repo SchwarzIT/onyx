@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.81
+
+### Minor Changes
+
+- ded1477: feat(OnyxBadge): add property `dot`
+
 ## 1.0.0-alpha.80
 
 ### Minor Changes
