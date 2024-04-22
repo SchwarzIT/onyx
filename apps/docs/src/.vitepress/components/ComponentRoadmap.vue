@@ -52,7 +52,7 @@ const shouldShowAllButton = computed(() => {
 </script>
 
 <template>
-  <section class="components vp-raw">
+  <section class="components">
     <OnyxHeadline is="h2" class="components__headline">Components</OnyxHeadline>
 
     <p class="components__description">
