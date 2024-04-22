@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends string | number | boolean">
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useSelectAllCheckboxState } from "../../composables/selectAll";
+import { useSelectAll } from "../../composables/selectAll";
 import { injectI18n } from "../../i18n";
 import { OnyxHeadline } from "../../index";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
@@ -30,23 +30,21 @@ const handleUpdate = (id: TValue, isChecked: boolean) => {
   emit("update:modelValue", newValue);
 };
 
-const enabledOptions = computed(() => props.options.filter((i) => !i.disabled && !i.skeleton));
-
-const handleMasterCheckboxChange = (isChecked: boolean) => {
-  const newValue = isChecked ? enabledOptions.value.map(({ id }) => id) : [];
-  emit("update:modelValue", newValue);
-};
-
-/**
- * Current master checkbox state.
- * - checked if all options are checked
- * - indeterminate if at least one but not all options are checked
- * - unchecked if no options are checked
- */
-const masterCheckboxState = useSelectAllCheckboxState(
-  enabledOptions,
-  computed(() => props.modelValue),
+const enabledOptionValues = computed(() =>
+  props.options.filter((i) => !i.disabled && !i.skeleton).map(({ id }) => id),
 );
+
+const { selectAllState, selectAllChange } = useSelectAll(
+  enabledOptionValues,
+  computed(() => props.modelValue),
+  (newValue: TValue[]) => emit("update:modelValue", newValue),
+);
+
+const checkAllLabel = computed<string>(() => {
+  const defaultText = t.value("selections.selectAll");
+  if (typeof props.withCheckAll === "boolean") return defaultText;
+  return props.withCheckAll?.label ?? defaultText;
+});
 </script>
 
 <template>
@@ -62,9 +60,9 @@ const masterCheckboxState = useSelectAllCheckboxState(
       <template v-if="props.skeleton === undefined">
         <OnyxCheckbox
           v-if="props.withCheckAll"
-          v-bind="masterCheckboxState"
-          :label="props.checkAllLabel || t('selections.selectAll')"
-          @update:model-value="handleMasterCheckboxChange"
+          v-bind="selectAllState"
+          :label="checkAllLabel"
+          @update:model-value="selectAllChange"
         />
 
         <OnyxCheckbox

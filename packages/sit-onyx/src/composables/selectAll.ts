@@ -1,29 +1,46 @@
 import type { OnyxCheckboxProps } from "src/components/OnyxCheckbox/types";
-import type { CheckboxGroupOption } from "src/components/OnyxCheckboxGroup/types";
 import { computed, type Ref } from "vue";
 import type { SelectionOptionValue } from "../components/OnyxRadioButton/types";
 
-/**
- * Current "select all" checkbox state.
- * - checked if all options are checked
- * - indeterminate if at least one but not all options are checked
- * - unchecked if no options are checked
- */
-export const useSelectAllCheckboxState = <
-  TValue extends SelectionOptionValue = SelectionOptionValue,
->(
-  enabledOptions: Ref<CheckboxGroupOption<TValue>[]>,
+const useSelectAllCheckboxState = <TValue extends SelectionOptionValue = SelectionOptionValue>(
+  enabledOptionValues: Ref<TValue[]>,
   modelValue: Ref<TValue[]>,
 ) =>
   computed<Partial<OnyxCheckboxProps>>(() => {
-    const availableOptionIds = enabledOptions.value.map(({ id }) => id);
-    const currentValues = modelValue.value.filter((value) => availableOptionIds.includes(value));
-
-    const isActive = currentValues.length === availableOptionIds.length;
+    const currentValues = modelValue.value.filter((value) =>
+      enabledOptionValues.value.includes(value),
+    );
+    const isActive = currentValues.length === enabledOptionValues.value.length;
 
     return {
       modelValue: isActive,
       indeterminate:
-        !isActive && availableOptionIds.length && currentValues.length ? true : undefined,
+        !isActive && enabledOptionValues.value.length && currentValues.length ? true : undefined,
     };
   });
+
+export const useSelectAll = <TValue extends SelectionOptionValue = SelectionOptionValue>(
+  enabledOptionValues: Ref<TValue[]>,
+  modelValue: Ref<TValue[]>,
+  onChangeCallback: (newValue: TValue[]) => void,
+) => {
+  return {
+    /**
+     * Current "select all" checkbox state.
+     * - checked if all options are checked
+     * - indeterminate if at least one but not all options are checked
+     * - unchecked if no options are checked
+     */
+    selectAllState: useSelectAllCheckboxState(enabledOptionValues, modelValue),
+    /**
+     * Provides an update for the checkbox list with
+     * - all option values if "select all" was checked
+     * - an empty list if "select all" was unchecked
+     */
+    selectAllChange: (isChecked: boolean) => {
+      const newValue = isChecked ? enabledOptionValues.value : [];
+
+      onChangeCallback(newValue);
+    },
+  };
+};
