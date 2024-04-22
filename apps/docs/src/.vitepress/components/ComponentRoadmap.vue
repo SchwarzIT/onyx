@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import OnyxButton from "~components/OnyxButton/OnyxButton.vue";
-import OnyxHeadline from "../../../../../packages/sit-onyx/src/components/OnyxHeadline/OnyxHeadline.vue";
+import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import type { ComponentCardProps } from "./ComponentCard.vue";
 import ComponentCard from "./ComponentCard.vue";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
@@ -62,7 +62,7 @@ const shouldShowAllButton = computed(() => {
     </p>
 
     <p class="components__description">
-      <b>Tip:</b> Click on a component to see its implementation and documentation.
+      <b>Tip:</b> You can click on a component to see its implementation and documentation.
     </p>
 
     <div class="components__legend">

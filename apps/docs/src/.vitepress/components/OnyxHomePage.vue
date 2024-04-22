@@ -21,7 +21,7 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
 </script>
 
 <template>
-  <section class="roadmap vp-raw">
+  <section class="roadmap">
     <div class="roadmap__sections">
       <ComponentRoadmap :components="props.data.components" />
 
