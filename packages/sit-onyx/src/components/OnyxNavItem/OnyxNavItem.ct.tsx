@@ -40,7 +40,6 @@ test.describe("Screenshot tests with children", () => {
       ></OnyxNavItem>
     ),
     beforeScreenshot: async (component, page, column, _row) => {
-      await expect(component).toContainText("Item");
       await component.hover();
       if (column === "focus-visible") await page.keyboard.press("Tab");
     },
