@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import type { OnyxNavItemProps } from "./types";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import type { ListboxOption } from "../OnyxListbox/types";
@@ -22,17 +22,9 @@ defineSlots<{
   default?(): unknown;
 }>();
 
-const listboxVisible = ref(false);
-
 const listboxOptions = computed<ListboxOption<string>[]>(() => {
   return props.options?.map((opt) => ({ id: opt.href, label: opt.label })) ?? [];
 });
-
-function hideListbox() {
-  setTimeout(() => {
-    listboxVisible.value = false;
-  }, 500);
-}
 </script>
 
 <template>
@@ -44,17 +36,13 @@ function hideListbox() {
     :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
     @click="props.href && emit('navigate', props.href)"
     @keydown.enter="props.href && emit('navigate', props.href)"
-    @mouseover="listboxVisible = true"
-    @focusin="() => {}"
-    @mouseleave="hideListbox()"
-    @blur="() => {}"
   >
     <span>{{ props.label }}</span>
     <slot></slot>
   </li>
   <OnyxListbox
     v-if="listboxOptions.length > 0"
-    :class="['onyx-nav-item-listbox', { 'onyx-nav-item-listbox--visible': listboxVisible }]"
+    class="onyx-nav-item-listbox"
     :label="'Options of ' + props.label"
     :options="listboxOptions"
     :model-value="props.options?.find((opt) => opt.active)?.href"
@@ -85,6 +73,11 @@ function hideListbox() {
 
     &:hover {
       background-color: var(--onyx-color-base-neutral-200);
+
+      + .onyx-nav-item-listbox {
+        opacity: 1;
+        transition: opacity 0.2s ease-in;
+      }
     }
 
     &--active {
@@ -110,11 +103,11 @@ function hideListbox() {
 .onyx-nav-item-listbox {
   @include layers.component() {
     margin-top: var(--onyx-spacing-sm);
-    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
 
-    &--visible,
     &:hover {
-      display: block;
+      opacity: 1;
     }
   }
 }
