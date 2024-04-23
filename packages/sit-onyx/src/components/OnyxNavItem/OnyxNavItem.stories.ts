@@ -47,7 +47,7 @@ export const Active = {
 export const WithChildren = {
   args: {
     ...Default.args,
-    children: [
+    options: [
       { label: "Nested Item 1", href: "#", active: true },
       { label: "Nested Item 2", href: "#2" },
       { label: "Nested Item 3", href: "#3" },

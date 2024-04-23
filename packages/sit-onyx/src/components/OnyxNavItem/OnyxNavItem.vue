@@ -25,7 +25,7 @@ defineSlots<{
 const listboxVisible = ref(false);
 
 const nestedOptions = computed(() => {
-  return props.children?.map((opt) => {
+  return props.options?.map((opt) => {
     return { id: opt.href, label: opt.label };
   }) satisfies ListboxOption[] | undefined;
 });
@@ -45,10 +45,10 @@ function hideListbox() {
     :class="[
       'onyx-nav-item',
       'onyx-text',
-      { 'onyx-nav-item--active': props.active || props.children?.find((opt) => opt.active) },
+      { 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) },
     ]"
-    @click="props.href && !props.children && emit('navigate', props.href)"
-    @keydown.enter="props.href && !props.children && emit('navigate', props.href)"
+    @click="props.href && !props.options && emit('navigate', props.href)"
+    @keydown.enter="props.href && !props.options && emit('navigate', props.href)"
     @mouseover="listboxVisible = true"
     @focusin="() => {}"
     @mouseleave="hideListbox()"
@@ -62,7 +62,7 @@ function hideListbox() {
     :class="['onyx-nav-item-listbox', { 'onyx-nav-item-listbox--visible': listboxVisible }]"
     label="Listbox"
     :options="nestedOptions"
-    :model-value="props.children?.find((opt) => opt.active)?.href"
+    :model-value="props.options?.find((opt) => opt.active)?.href"
     @update:model-value="$event && emit('navigate', $event)"
   />
 </template>

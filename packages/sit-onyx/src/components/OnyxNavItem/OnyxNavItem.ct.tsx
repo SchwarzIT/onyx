@@ -19,15 +19,15 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test.describe("Screenshot tests with children", () => {
-  const children = [
+test.describe("Screenshot tests with nestedItems", () => {
+  const nestedItems = [
     { href: "#", label: "Nested Item 1" },
     { href: "#2", label: "Nested Item 2" },
     { href: "#3", label: "Nested Item 3" },
   ];
 
   executeMatrixScreenshotTest({
-    name: "NavItem with children",
+    name: "NavItem with nestedItems",
     columns: ["active", "focus-visible"],
     rows: ["hover"],
     disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
@@ -36,7 +36,7 @@ test.describe("Screenshot tests with children", () => {
         label="Item"
         href="#"
         active={column === "active"}
-        children={children}
+        options={nestedItems}
       ></OnyxNavItem>
     ),
     beforeScreenshot: async (component, page, column, _row) => {

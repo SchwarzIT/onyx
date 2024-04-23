@@ -13,6 +13,6 @@ export type OnyxNavItemProps = {
    * If the navItem has children, the active state will depend on the child's active state.
    */
   active?: boolean;
-  /** Children to render in a listbox. */
-  children?: (Omit<OnyxNavItemProps, "children"> & { href: string })[];
+  /** Options to render in a listbox. */
+  options?: (Omit<OnyxNavItemProps, "options"> & { href: string })[];
 };
