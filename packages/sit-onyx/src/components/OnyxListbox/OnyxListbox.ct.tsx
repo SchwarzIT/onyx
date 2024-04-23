@@ -3,6 +3,7 @@ import { expect, test } from "../../playwright/a11y";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
+import { executeMatrixScreenshotTest } from "src/playwright/screenshots";
 
 const MOCK_VARIED_OPTIONS = [
   { id: 1, label: "Default" },
@@ -49,7 +50,36 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render with multiselect", async ({ mount }) => {
+test.describe("Multiselect screenshot tests", () => {
+  const modelValues = {
+    "no selection": [],
+    "partial selection": [2],
+    "all selected": [1, 2, 4],
+  };
+  executeMatrixScreenshotTest({
+    name: `Listbox multiselect`,
+    columns: ["default", "check all"],
+    rows: ["no selection", "partial selection", "all selected"],
+    // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: [
+      "color-contrast",
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/732,
+      // the following disabled rule must be removed / fixed.
+      "nested-interactive",
+    ],
+    component: (column, row) => (
+      <OnyxListbox
+        label={`${column} listbox`}
+        options={MOCK_VARIED_OPTIONS}
+        modelValue={modelValues[row]}
+        withCheckAll={column === "check all"}
+        multiple={true}
+      />
+    ),
+  });
+});
+
+test("should interact with multiselect", async ({ mount }) => {
   let modelValue: number[] = [2];
 
   // ARRANGE
@@ -57,6 +87,7 @@ test("should render with multiselect", async ({ mount }) => {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
+      withCheckAll: { label: "Select all" },
       multiple: true,
       modelValue,
     },
@@ -69,19 +100,17 @@ test("should render with multiselect", async ({ mount }) => {
   });
 
   // ASSERT
-  await expect(component).toHaveScreenshot("multiple.png");
   await expect(component.getByText("Disabled")).toBeDisabled();
+  expect(modelValue).toEqual([2]);
 
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
   expect(modelValue).toEqual([]);
 
-  // TODO: https://github.com/SchwarzIT/onyx/issues/732 find the a11y error cause
-  // // ACT
-  // const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // // ASSERT
-  // expect(accessibilityScanResults.violations).toEqual([]);
+  // TODO: find out why the click does not do anything
+  // // ACT (should select all non-disabled values)
+  // await component.getByRole("option", { name: "Select all" }).click();
+  // expect(modelValue).toEqual([1, 2, 4]);
 });
 
 test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {

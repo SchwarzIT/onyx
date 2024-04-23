@@ -7,7 +7,7 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `Listbox option (${state})`,
       columns: ["default", "selected"],
-      rows: ["default", "hover", "focus-visible", "multiple"],
+      rows: ["default", "hover", "focus-visible", "multiple", "indeterminate"],
       // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       // aria-required-parent is ignored here because this component is only a single option which is internally always
       // used together with a parent so we disable the failing rule here
@@ -25,7 +25,8 @@ test.describe("Screenshot tests", () => {
           aria-checked={column === "selected" && row === "multiple"}
           active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
-          multiple={row === "multiple"}
+          multiple={["multiple", "indeterminate"].includes(row)}
+          indeterminate={row === "indeterminate"}
           {...{ role: "option" }}
         >
           Test label
