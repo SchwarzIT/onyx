@@ -75,6 +75,7 @@ function hideListbox() {
     display: inline-flex;
     position: relative;
     height: 40px;
+    width: max-content;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
     justify-content: center;
     align-items: center;
@@ -83,6 +84,7 @@ function hideListbox() {
     border-radius: var(--onyx-radius-sm);
     background: var(--onyx-color-base-background-blank);
     text-decoration: none;
+    font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-medium);
 
     &:hover {
