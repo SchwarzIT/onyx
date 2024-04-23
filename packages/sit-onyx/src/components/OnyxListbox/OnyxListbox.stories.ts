@@ -134,8 +134,12 @@ const DEMO_OPTIONS: ListboxOption[] = [
       label: option,
     }) satisfies ListboxOption,
 );
-const DISABLED_OPTION: ListboxOption = { id: "disabled", label: "Disabled", disabled: true };
-DEMO_OPTIONS.push(DISABLED_OPTION);
+const DISABLED_OPTION: ListboxOption = {
+  id: "disabled",
+  label: "Unavailable Fruit",
+  disabled: true,
+};
+DEMO_OPTIONS.splice(6, 0, DISABLED_OPTION);
 
 /**
  * This example shows a default single select listbox.
