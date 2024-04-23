@@ -53,7 +53,7 @@ defineSlots<{
 
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
+    gap: var(--onyx-spacing-sm);
 
     &__checkbox {
       @include checkbox.styles();

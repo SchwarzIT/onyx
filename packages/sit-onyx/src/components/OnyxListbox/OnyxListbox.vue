@@ -63,7 +63,17 @@ watch(
   },
 );
 
-const CHECK_ALL_KEY = "ONYX_CHECK_ALL";
+const CHECK_ALL_KEY = "ONYX_CHECK_ALL" as TValue;
+
+/**
+ * IDs of all options that can be navigated with the keyboard.
+ * Includes "select all" up front if it is used.
+ */
+const allKeyboardOptionIds = computed(() => {
+  const options: TValue[] = props.withCheckAll ? [CHECK_ALL_KEY] : [];
+  options.push(...enabledOptionValues.value);
+  return options;
+});
 
 const {
   elements: { listbox, option: headlessOption, group: headlessGroup },
@@ -89,17 +99,17 @@ const {
       : [...arrayValues, selectedOption];
     emit("update:modelValue", newValues as typeof props.modelValue);
   },
-  onActivateFirst: () => (activeOption.value = props.options.at(0)?.id),
-  onActivateLast: () => (activeOption.value = props.options.at(-1)?.id),
+  onActivateFirst: () => (activeOption.value = allKeyboardOptionIds.value.at(0)),
+  onActivateLast: () => (activeOption.value = allKeyboardOptionIds.value.at(-1)),
   onActivateNext: (currentValue) => {
-    const currentIndex = props.options.findIndex((i) => i.id === currentValue);
-    if (currentIndex < props.options.length - 1) {
-      activeOption.value = props.options[currentIndex + 1].id;
+    const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
+    if (currentIndex < allKeyboardOptionIds.value.length - 1) {
+      activeOption.value = allKeyboardOptionIds.value[currentIndex + 1];
     }
   },
   onActivatePrevious: (currentValue) => {
-    const currentIndex = props.options.findIndex((i) => i.id === currentValue);
-    if (currentIndex > 0) activeOption.value = props.options[currentIndex - 1].id;
+    const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
+    if (currentIndex > 0) activeOption.value = allKeyboardOptionIds.value[currentIndex - 1];
   },
   onTypeAhead: (label) => {
     const firstMatch = props.options.find((i) => {
@@ -175,6 +185,7 @@ watchEffect(() => {
         >
           {{ group }}
         </li>
+
         <!-- select-all option for "multiple" -->
         <template v-if="props.multiple && props.withCheckAll">
           <OnyxListboxOption
@@ -188,11 +199,12 @@ watchEffect(() => {
             :multiple="true"
             :active="CHECK_ALL_KEY === activeOption"
             :indeterminate="selectAllState.indeterminate"
-            style="border-bottom: 1px solid var(--onyx-color-base-neutral-300)"
+            class="onyx-listbox__check-all"
           >
             {{ checkAllLabel }}
           </OnyxListboxOption>
         </template>
+
         <OnyxListboxOption
           v-for="option in options as any"
           :key="option.id.toString()"
@@ -274,6 +286,10 @@ watchEffect(() => {
       box-sizing: border-box;
       text-align: right;
       padding: $wrapper-padding var(--onyx-spacing-sm) 0;
+    }
+
+    &__check-all {
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
     .onyx-listbox-option {
