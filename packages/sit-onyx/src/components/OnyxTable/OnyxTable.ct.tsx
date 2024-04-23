@@ -1,36 +1,58 @@
-import { expect, test } from "../../playwright/a11y";
+import { DENSITIES } from "../../composables/density";
+import { test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxTable from "./OnyxTable.vue";
 
-test("should render", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  await mount(
-    <OnyxTable>
-      <thead>
-        <tr>
-          <th>Fruit</th> <th>Price (€/kg)</th> <th>Inventory (kg)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Strawberry</td> <td>4.50</td> <td>200</td>
-        </tr>
-        <tr>
-          <td>Apple</td> <td>1.99</td> <td>3000</td>
-        </tr>
-        <tr>
-          <td>Banana</td> <td>3.75</td> <td>18000</td>
-        </tr>
-      </tbody>
-    </OnyxTable>,
-  );
+const tableHead = (
+  <thead>
+    <tr>
+      <th>Fruit</th>
+      <th>Price (€/kg)</th>
+      <th>Inventory (kg)</th>
+    </tr>
+  </thead>
+);
 
-  // ASSERT
-  // TODO: Enable the screenshot as soon as we have styles.
-  // await expect(component).toHaveScreenshot("default.png");
+const tableBody = (
+  <tbody>
+    <tr>
+      <td>Strawberry</td> <td>4.50</td> <td>200</td>
+    </tr>
+    <tr>
+      <td>Apple</td> <td>1.99</td> <td>3000</td>
+    </tr>
+    <tr>
+      <td>Banana</td> <td>3.75</td> <td>18000</td>
+    </tr>
+  </tbody>
+);
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Table",
+    columns: ["with-header", "without-header"],
+    rows: ["default", "striped", "grid", "striped-grid"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => (
+      <OnyxTable striped={row.includes("striped")} grid={row.includes("grid")}>
+        {column === "with-header" ? tableHead : undefined}
+        {tableBody}
+      </OnyxTable>
+    ),
+  });
 
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
+  executeMatrixScreenshotTest({
+    name: "Table (densities)",
+    columns: DENSITIES,
+    rows: ["default"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column) => (
+      <OnyxTable density={column}>
+        {tableHead}
+        {tableBody}
+      </OnyxTable>
+    ),
+  });
 });
