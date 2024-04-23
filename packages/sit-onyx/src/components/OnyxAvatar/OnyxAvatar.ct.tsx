@@ -74,6 +74,9 @@ test("should contain correct initials", async ({ mount }) => {
 
   // ACT
   await component.update({ props: { label: "a" } });
+
+  // ASSERT
+  await expect(component).toContainText("A");
 });
 
 test("should show custom image", async ({ mount, page }) => {
