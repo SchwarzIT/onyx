@@ -3,7 +3,17 @@ import { createId } from "../..";
 import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
 import { useTypeAhead } from "../typeAhead";
 
-export type CreateListboxOptions<TValue extends ListboxValue> = {
+export type ListboxValue = string | number | boolean;
+
+export type ListboxModelValue<
+  TValue extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
+> = TMultiple extends true ? TValue[] : TValue;
+
+export type CreateListboxOptions<
+  TValue extends ListboxValue = ListboxValue,
+  TMultiple extends boolean = false,
+> = {
   /**
    * Aria label for the listbox.
    */
@@ -11,7 +21,7 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
    * Value of currently selected option.
    */
-  selectedOption: Ref<TValue | undefined>;
+  selectedOption: Ref<ListboxModelValue<TValue, TMultiple> | undefined>;
   /**
    * Value of currently (visually) active option.
    */
@@ -24,7 +34,7 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   /**
    * Whether the listbox is multiselect.
    */
-  multiselect?: MaybeRef<boolean | undefined>;
+  multiple?: MaybeRef<TMultiple | undefined>;
   /**
    * Hook when an option is selected.
    */
@@ -51,15 +61,15 @@ export type CreateListboxOptions<TValue extends ListboxValue> = {
   onTypeAhead?: (label: string) => void;
 };
 
-export type ListboxValue = string | number | boolean;
-
 /**
  * Composable for creating a accessibility-conform listbox.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TValue extends ListboxValue>(options: CreateListboxOptions<TValue>) => {
-    const isMultiselect = computed(() => unref(options.multiselect) ?? false);
+  <TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false>(
+    options: CreateListboxOptions<TValue, TMultiple>,
+  ) => {
+    const isMultiselect = computed(() => unref(options.multiple) ?? false);
 
     /**
      * Map for option IDs. key = option value, key = ID for the HTML element
@@ -93,6 +103,7 @@ export const createListbox = createBuilder(
         case " ":
           event.preventDefault();
           if (options.activeOption.value != undefined) {
+            // TODO: don't call onSelect if the option is disabled
             options.onSelect?.(options.activeOption.value);
           }
           break;
@@ -182,7 +193,7 @@ export const createListbox = createBuilder(
               "aria-checked": isMultiselect.value ? isSelected : undefined,
               "aria-selected": !isMultiselect.value ? isSelected : undefined,
               "aria-disabled": data.disabled,
-              onClick: () => options.onSelect?.(data.value),
+              onClick: () => !data.disabled && options.onSelect?.(data.value),
             } as const;
           };
         }),

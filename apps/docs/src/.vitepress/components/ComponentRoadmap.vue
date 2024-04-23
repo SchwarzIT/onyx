@@ -61,6 +61,10 @@ const shouldShowAllButton = computed(() => {
       regularly, we will keep it up to date with our progress.
     </p>
 
+    <p class="components__description">
+      <b>Tip:</b> You can click on a component to see its implementation and documentation.
+    </p>
+
     <div class="components__legend">
       <ComponentStatusBadge
         v-for="status in usedStatus"
