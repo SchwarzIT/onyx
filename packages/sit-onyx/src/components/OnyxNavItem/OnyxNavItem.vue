@@ -60,7 +60,7 @@ function hideListbox() {
   <OnyxListbox
     v-if="nestedOptions"
     :class="['onyx-nav-item-listbox', { 'onyx-nav-item-listbox--visible': listboxVisible }]"
-    label="Listbox"
+    :label="'Options of ' + props.label"
     :options="nestedOptions"
     :model-value="props.options?.find((opt) => opt.active)?.href"
     @update:model-value="$event && emit('navigate', $event)"
@@ -74,7 +74,7 @@ function hideListbox() {
   @include layers.component() {
     display: inline-flex;
     position: relative;
-    height: 40px;
+    height: 2.5rem;
     width: max-content;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
     justify-content: center;
@@ -86,10 +86,10 @@ function hideListbox() {
     text-decoration: none;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-medium);
+    cursor: pointer;
 
     &:hover {
       background-color: var(--onyx-color-base-neutral-200);
-      cursor: pointer;
     }
 
     &--active {
@@ -100,7 +100,7 @@ function hideListbox() {
         position: absolute;
         width: 100%;
         height: 0.125rem;
-        bottom: -0.5rem;
+        bottom: calc(-1 * var(--onyx-spacing-3xs));
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
         background: var(--onyx-color-base-secondary-500);
       }
@@ -114,7 +114,7 @@ function hideListbox() {
 
 .onyx-nav-item-listbox {
   @include layers.component() {
-    margin-top: 0.75rem;
+    margin-top: var(--onyx-spacing-sm);
     display: none;
 
     &--visible,
