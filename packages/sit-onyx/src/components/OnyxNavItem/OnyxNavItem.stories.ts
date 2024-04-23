@@ -3,10 +3,10 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
- * This component helps to build the main navigationBar component and is not promoted for singular usage at all.
+ * The nav item is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavItem> = {
-  title: "components/OnyxNavItem",
+  title: "components/NavItem",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavItem,
     events: ["navigate"],
@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof OnyxNavItem>;
 
 /**
- * This example shows a default navItem.
+ * This example shows a default nav item.
  */
 export const Default = {
   args: {
@@ -32,7 +32,7 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows an active navItem.
+ * This example shows an active nav item.
  */
 export const Active = {
   args: {
@@ -42,9 +42,9 @@ export const Active = {
 } satisfies Story;
 
 /**
- * This example shows the navItem with nested children.
+ * This example shows the nav item with nested options.
  */
-export const WithChildren = {
+export const WithOptions = {
   args: {
     ...Default.args,
     options: [
