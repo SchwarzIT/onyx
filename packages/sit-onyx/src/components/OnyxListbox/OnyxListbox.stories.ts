@@ -162,7 +162,7 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * Multiselect listbox
+ * Multiselect listbox. You can disable the `Select all` option in the settings.
  */
 export const Multiselect = {
   args: {

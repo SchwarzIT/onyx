@@ -3,7 +3,7 @@
   setup
   generic="TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
 >
-import { createListbox, type ListboxValue } from "@sit-onyx/headless";
+import { createId, createListbox, type ListboxValue } from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -63,14 +63,15 @@ watch(
   },
 );
 
-const CHECK_ALL_KEY = "ONYX_CHECK_ALL" as TValue;
+/** unique ID to identify the `select all` checkbox */
+const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
 
 /**
  * IDs of all options that can be navigated with the keyboard.
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  const options: TValue[] = props.withCheckAll ? [CHECK_ALL_KEY] : [];
+  const options: TValue[] = props.withCheckAll ? [CHECK_ALL_ID] : [];
   options.push(...enabledOptionValues.value);
   return options;
 });
@@ -83,8 +84,8 @@ const {
   selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (selectedOption) => {
-    if (selectedOption === CHECK_ALL_KEY) {
-      checkAllChange(!checkAllState.value.modelValue);
+    if (selectedOption === CHECK_ALL_ID) {
+      checkAll.value?.change(!checkAll.value.state.modelValue);
       return;
     }
 
@@ -99,7 +100,6 @@ const {
       : [...arrayValues, selectedOption];
     emit("update:modelValue", newValues as typeof props.modelValue);
   },
-  // TODO: fix initially jumping to first
   onActivateFirst: () => (activeOption.value = allKeyboardOptionIds.value.at(0)),
   onActivateLast: () => (activeOption.value = allKeyboardOptionIds.value.at(-1)),
   onActivateNext: (currentValue) => {
@@ -142,14 +142,18 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled).map(({ id }) => id),
 );
 
-/** only used for multiselect listbox */
-const { checkAllState: checkAllState, checkAllChange: checkAllChange } = props.multiple
-  ? useCheckAll(
-      enabledOptionValues,
-      computed(() => (props.modelValue as TValue[]) || []),
-      (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
-    )
-  : useCheckAll(ref([]), ref([]), () => {});
+/** state and click callback for the `select all` checkbox.
+ * only available when multiple and withCheckAll are set.
+ */
+const checkAll = computed(() => {
+  if (!props.multiple || !props.withCheckAll) return undefined;
+  const { checkAllState, checkAllChange } = useCheckAll(
+    enabledOptionValues,
+    computed(() => (props.modelValue as TValue[]) || []),
+    (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
+  );
+  return { state: checkAllState.value, change: checkAllChange };
+});
 
 const checkAllLabel = computed<string>(() => {
   const defaultText = t.value("selections.selectAll");
@@ -192,14 +196,14 @@ watchEffect(() => {
           <OnyxListboxOption
             v-bind="
               headlessOption({
-                value: CHECK_ALL_KEY as TValue,
+                value: CHECK_ALL_ID as TValue,
                 label: checkAllLabel,
-                selected: checkAllState.modelValue || checkAllState.indeterminate,
+                selected: checkAll?.state.modelValue,
               })
             "
             :multiple="true"
-            :active="CHECK_ALL_KEY === activeOption"
-            :indeterminate="checkAllState.indeterminate"
+            :active="CHECK_ALL_ID === activeOption"
+            :indeterminate="checkAll?.state.indeterminate"
             class="onyx-listbox__check-all"
           >
             {{ checkAllLabel }}
