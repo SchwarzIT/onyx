@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends string | number | boolean">
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useSelectAll } from "../../composables/selectAll";
+import { useCheckAll } from "../../composables/checkAll";
 import { injectI18n } from "../../i18n";
 import { OnyxHeadline } from "../../index";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
@@ -34,13 +34,13 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled && !i.skeleton).map(({ id }) => id),
 );
 
-const { selectAllState, selectAllChange } = useSelectAll(
+const { checkAllState, checkAllChange } = useCheckAll(
   enabledOptionValues,
   computed(() => props.modelValue),
-  (newValue: TValue[]) => emit("update:modelValue", newValue),
+  (newValue) => emit("update:modelValue", newValue),
 );
 
-const checkAllLabel = computed<string>(() => {
+const checkAllLabel = computed(() => {
   const defaultText = t.value("selections.selectAll");
   if (typeof props.withCheckAll === "boolean") return defaultText;
   return props.withCheckAll?.label ?? defaultText;
@@ -60,9 +60,9 @@ const checkAllLabel = computed<string>(() => {
       <template v-if="props.skeleton === undefined">
         <OnyxCheckbox
           v-if="props.withCheckAll"
-          v-bind="selectAllState"
+          v-bind="checkAllState"
           :label="checkAllLabel"
-          @update:model-value="selectAllChange"
+          @update:model-value="checkAllChange"
         />
 
         <OnyxCheckbox

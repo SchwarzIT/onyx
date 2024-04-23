@@ -4,7 +4,7 @@
   generic="TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
 >
 import { createListbox, type ListboxValue } from "@sit-onyx/headless";
-import { useSelectAll } from "../../composables/selectAll";
+import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
@@ -84,7 +84,7 @@ const {
   activeOption,
   onSelect: (selectedOption) => {
     if (selectedOption === CHECK_ALL_KEY) {
-      selectAllChange(!selectAllState.value.modelValue);
+      checkAllChange(!checkAllState.value.modelValue);
       return;
     }
 
@@ -99,6 +99,7 @@ const {
       : [...arrayValues, selectedOption];
     emit("update:modelValue", newValues as typeof props.modelValue);
   },
+  // TODO: fix initially jumping to first
   onActivateFirst: () => (activeOption.value = allKeyboardOptionIds.value.at(0)),
   onActivateLast: () => (activeOption.value = allKeyboardOptionIds.value.at(-1)),
   onActivateNext: (currentValue) => {
@@ -142,13 +143,13 @@ const enabledOptionValues = computed(() =>
 );
 
 /** only used for multiselect listbox */
-const { selectAllState, selectAllChange } = props.multiple
-  ? useSelectAll(
+const { checkAllState: checkAllState, checkAllChange: checkAllChange } = props.multiple
+  ? useCheckAll(
       enabledOptionValues,
       computed(() => (props.modelValue as TValue[]) || []),
       (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
     )
-  : useSelectAll(ref([]), ref([]), () => {});
+  : useCheckAll(ref([]), ref([]), () => {});
 
 const checkAllLabel = computed<string>(() => {
   const defaultText = t.value("selections.selectAll");
@@ -193,12 +194,12 @@ watchEffect(() => {
               headlessOption({
                 value: CHECK_ALL_KEY as TValue,
                 label: checkAllLabel,
-                selected: selectAllState.modelValue || selectAllState.indeterminate,
+                selected: checkAllState.modelValue || checkAllState.indeterminate,
               })
             "
             :multiple="true"
             :active="CHECK_ALL_KEY === activeOption"
-            :indeterminate="selectAllState.indeterminate"
+            :indeterminate="checkAllState.indeterminate"
             class="onyx-listbox__check-all"
           >
             {{ checkAllLabel }}

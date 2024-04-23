@@ -20,7 +20,7 @@ const useSelectAllCheckboxState = <TValue extends OptionValue = OptionValue>(
     };
   });
 
-export const useSelectAll = <TValue extends OptionValue = OptionValue>(
+export const useCheckAll = <TValue extends OptionValue = OptionValue>(
   enabledOptionValues: Ref<TValue[]>,
   modelValue: Ref<TValue[]>,
   onChangeCallback: (newValue: TValue[]) => void,
@@ -32,13 +32,13 @@ export const useSelectAll = <TValue extends OptionValue = OptionValue>(
      * - indeterminate if at least one but not all options are checked
      * - unchecked if no options are checked
      */
-    selectAllState: useSelectAllCheckboxState(enabledOptionValues, modelValue),
+    checkAllState: useSelectAllCheckboxState(enabledOptionValues, modelValue),
     /**
      * Provides an update for the checkbox list with
      * - all option values if "select all" was checked
      * - an empty list if "select all" was unchecked
      */
-    selectAllChange: (isChecked: boolean) => {
+    checkAllChange: (isChecked: boolean) => {
       const newValue = isChecked ? enabledOptionValues.value : [];
 
       onChangeCallback(newValue);
