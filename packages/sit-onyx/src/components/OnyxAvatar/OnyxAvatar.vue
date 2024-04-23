@@ -60,10 +60,14 @@ watch(
   @include layers.component() {
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
-    width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
+    width: var(--onyx-avatar-size);
     box-sizing: content-box;
     border-radius: var(--onyx-radius-full);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+
+    &:has(.onyx-avatar__initials) {
+      width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
+    }
 
     &__svg {
       border-radius: inherit;
