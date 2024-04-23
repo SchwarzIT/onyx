@@ -1,16 +1,15 @@
 export type OnyxNavItemProps = {
   /**
-   * Label to show inside the NavItem. Required due to accessibility / screen readers.
+   * Label to show inside the Nav item.
    */
   label: string;
   /**
-   * The href of the underlying anchor element.
-   * This is used if there are no child elements.
+   * The href of the nav item.
    */
   href?: string;
   /**
-   * Set active state.
-   * If the navItem has children, the active state will depend on the child's active state.
+   * Whether the nav item is currently active.
+   * If any nested option is active, the parent nav item will also be marked as active.
    */
   active?: boolean;
   /** Options to render in a listbox. */
