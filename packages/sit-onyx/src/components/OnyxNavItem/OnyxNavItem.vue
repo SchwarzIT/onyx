@@ -10,24 +10,22 @@ const props = withDefaults(defineProps<OnyxNavItemProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the navItem is clicked (via click or keyboard).
+   * Emitted when the nav item is clicked (via click or keyboard).
    */
   navigate: [href: string];
 }>();
 
 defineSlots<{
   /**
-   * A default slot that can be used for OnyxBadge.
+   * An optional slot to show additional content behind the label (e.g. a `OnyxBadge`).
    */
-  default(): unknown;
+  default?(): unknown;
 }>();
 
 const listboxVisible = ref(false);
 
-const nestedOptions = computed(() => {
-  return props.options?.map((opt) => {
-    return { id: opt.href, label: opt.label };
-  }) satisfies ListboxOption[] | undefined;
+const listboxOptions = computed<ListboxOption<string>[]>(() => {
+  return props.options?.map((opt) => ({ id: opt.href, label: opt.label })) ?? [];
 });
 
 function hideListbox() {
@@ -42,13 +40,10 @@ function hideListbox() {
     role="menuitem"
     tabindex="0"
     :aria-label="props.label"
-    :class="[
-      'onyx-nav-item',
-      'onyx-text',
-      { 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) },
-    ]"
-    @click="props.href && !props.options && emit('navigate', props.href)"
-    @keydown.enter="props.href && !props.options && emit('navigate', props.href)"
+    class="onyx-nav-item onyx-text"
+    :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
+    @click="props.href && emit('navigate', props.href)"
+    @keydown.enter="props.href && emit('navigate', props.href)"
     @mouseover="listboxVisible = true"
     @focusin="() => {}"
     @mouseleave="hideListbox()"
@@ -58,10 +53,10 @@ function hideListbox() {
     <slot></slot>
   </li>
   <OnyxListbox
-    v-if="nestedOptions"
+    v-if="listboxOptions.length > 0"
     :class="['onyx-nav-item-listbox', { 'onyx-nav-item-listbox--visible': listboxVisible }]"
     :label="'Options of ' + props.label"
-    :options="nestedOptions"
+    :options="listboxOptions"
     :model-value="props.options?.find((opt) => opt.active)?.href"
     @update:model-value="$event && emit('navigate', $event)"
   />
