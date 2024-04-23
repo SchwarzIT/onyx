@@ -28,7 +28,7 @@ test.describe("Screenshot tests with children", () => {
 
   executeMatrixScreenshotTest({
     name: "NavItem with children",
-    columns: ["default", "active", "focus-visible"],
+    columns: ["hover", "active", "focus-visible"],
     rows: ["hover"],
     disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
     component: (column) => (
