@@ -52,16 +52,16 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 
 test.describe("Multiselect screenshot tests", () => {
   const modelValues = {
-    "no selection": [],
-    "partial selection": [2],
-    "all selected": [1, 2, 4],
+    "no-selection": [],
+    "partial-selection": [2],
+    "all-selected": [1, 2, 4],
   };
   executeMatrixScreenshotTest({
     name: `Listbox multiselect`,
-    columns: ["default", "check all"],
-    rows: ["no selection", "partial selection", "all selected"],
-    // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    columns: ["default", "check-all"],
+    rows: ["no-selection", "partial-selection", "all-selected"],
     disabledAccessibilityRules: [
+      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       "color-contrast",
       // TODO: as part of https://github.com/SchwarzIT/onyx/issues/732,
       // the following disabled rule must be removed / fixed.
@@ -72,7 +72,7 @@ test.describe("Multiselect screenshot tests", () => {
         label={`${column} listbox`}
         options={MOCK_VARIED_OPTIONS}
         modelValue={modelValues[row]}
-        withCheckAll={column === "check all"}
+        withCheckAll={column === "check-all"}
         multiple={true}
       />
     ),
