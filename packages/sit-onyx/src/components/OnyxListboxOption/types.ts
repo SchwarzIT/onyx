@@ -7,4 +7,9 @@ export type OnyxListboxOptionProps = {
    * Adds a checkbox to the option
    */
   multiple?: boolean;
+  /**
+   * If `true`, an indeterminate indicator is shown.
+   * Only in combination with `multiple`
+   */
+  indeterminate?: boolean;
 };

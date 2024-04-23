@@ -14,11 +14,12 @@ defineSlots<{
 <template>
   <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
     <input
-      v-if="multiple"
+      v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
       :aria-labelledby="$attrs.id as string"
-      aria-hidden="true"
       :disabled="!!$attrs['aria-disabled']"
+      :indeterminate="props.indeterminate"
+      aria-hidden="true"
       tabindex="-1"
       class="onyx-listbox-option__checkbox"
       type="checkbox"

@@ -63,6 +63,8 @@ watch(
   },
 );
 
+const CHECK_ALL_KEY = "ONYX_CHECK_ALL";
+
 const {
   elements: { listbox, option: headlessOption, group: headlessGroup },
 } = createListbox({
@@ -71,6 +73,11 @@ const {
   selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (selectedOption) => {
+    if (selectedOption === CHECK_ALL_KEY) {
+      selectAllChange(!selectAllState.value.modelValue);
+      return;
+    }
+
     if (!props.multiple) {
       const newValue = selectedOption === props.modelValue ? undefined : selectedOption;
       emit("update:modelValue", newValue as typeof props.modelValue);
@@ -124,15 +131,20 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled).map(({ id }) => id),
 );
 
+/** only used for multiselect listbox */
 const { selectAllState, selectAllChange } = props.multiple
   ? useSelectAll(
       enabledOptionValues,
       computed(() => (props.modelValue as TValue[]) || []),
       (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
     )
-  : {};
-// TODO: bind to checkbox
-selectAllChange(true);
+  : useSelectAll(ref([]), ref([]), () => {});
+
+const checkAllLabel = computed<string>(() => {
+  const defaultText = t.value("selections.selectAll");
+  if (typeof props.withCheckAll === "boolean") return defaultText;
+  return props.withCheckAll?.label ?? defaultText;
+});
 
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
@@ -163,10 +175,24 @@ watchEffect(() => {
         >
           {{ group }}
         </li>
-        <!-- TODO: select-all option for "multiple" -->
-        {{
-          selectAllState
-        }}
+        <!-- select-all option for "multiple" -->
+        <template v-if="props.multiple && props.withCheckAll">
+          <OnyxListboxOption
+            v-bind="
+              headlessOption({
+                value: CHECK_ALL_KEY as TValue,
+                label: checkAllLabel,
+                selected: selectAllState.modelValue || selectAllState.indeterminate,
+              })
+            "
+            :multiple="true"
+            :active="CHECK_ALL_KEY === activeOption"
+            :indeterminate="selectAllState.indeterminate"
+            style="border-bottom: 1px solid var(--onyx-color-base-neutral-300)"
+          >
+            {{ checkAllLabel }}
+          </OnyxListboxOption>
+        </template>
         <OnyxListboxOption
           v-for="option in options as any"
           :key="option.id.toString()"
