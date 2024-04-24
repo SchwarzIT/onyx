@@ -49,6 +49,7 @@ export const Default = {
         label: "Logout",
         id: "logout",
         icon: logout,
+        color: "danger",
         onClick: () => alert("Logout clicked"),
       }),
     ],

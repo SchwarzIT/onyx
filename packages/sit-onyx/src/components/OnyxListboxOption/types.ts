@@ -1,3 +1,5 @@
+import type { OnyxColor } from "../../types";
+
 export type OnyxListboxOptionProps = {
   /**
    * Unique (HTML) ID of the option.
@@ -27,4 +29,8 @@ export type OnyxListboxOptionProps = {
    * Whether the option is disabled.
    */
   disabled?: boolean;
+  /**
+   * Main color of the option. Will have no effect on the multiselect checkbox.
+   */
+  color?: Extract<OnyxColor, "primary" | "danger">;
 };

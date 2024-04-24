@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
   selected: false,
   disabled: false,
   multiple: false,
+  color: "primary",
 });
 
 const emit = defineEmits<{
@@ -31,7 +32,10 @@ const handleClick = () => {
   <li
     :id="props.id"
     class="onyx-listbox-option"
-    :class="{ 'onyx-listbox-option--active': props.active }"
+    :class="{
+      'onyx-listbox-option--active': props.active,
+      'onyx-listbox-option--danger': props.color === 'danger',
+    }"
     :aria-disabled="props.disabled"
     :aria-label="props.label"
     role="option"
@@ -66,8 +70,13 @@ const handleClick = () => {
   @include checkbox.variables();
 
   @include layers.component() {
+    --onyx-listbox-option-color: var(--onyx-color-text-icons-neutral-intense);
+    --onyx-listbox-option-color-active: var(--onyx-color-text-icons-primary-bold);
+    --onyx-listbox-option-background-hover: var(--onyx-color-base-primary-100);
+    --onyx-listbox-option-background-selected: var(--onyx-color-base-primary-200);
+
     font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-intense);
+    color: var(--onyx-listbox-option-color);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
     background-color: var(--onyx-color-base-background-blank);
     font-weight: 400;
@@ -93,23 +102,30 @@ const handleClick = () => {
 
       &:hover,
       &.onyx-listbox-option--active {
-        background-color: var(--onyx-color-base-primary-100);
+        background-color: var(--onyx-listbox-option-background-hover);
       }
 
       &[aria-selected="true"],
       &[aria-checked="true"] {
-        background-color: var(--onyx-color-base-primary-200);
+        background-color: var(--onyx-listbox-option-background-selected);
 
         &:hover,
         &.onyx-listbox-option--active {
-          background-color: var(--onyx-color-base-primary-200);
-          color: var(--onyx-color-text-icons-primary-bold);
+          background-color: var(--onyx-listbox-option-background-selected);
+          color: var(--onyx-listbox-option-color-active);
         }
       }
     }
 
     &[aria-disabled="true"] {
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &--danger {
+      --onyx-listbox-option-color: var(--onyx-color-text-icons-danger-intense);
+      --onyx-listbox-option-color-active: var(--onyx-color-text-icons-danger-bold);
+      --onyx-listbox-option-background-hover: var(--onyx-color-base-danger-100);
+      --onyx-listbox-option-background-selected: var(--onyx-color-base-danger-200);
     }
   }
 }

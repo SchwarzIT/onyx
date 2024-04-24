@@ -76,3 +76,10 @@ export const WithIcon = {
     icon: settings,
   },
 } satisfies Story;
+
+export const Danger = {
+  args: {
+    ...Default.args,
+    color: "danger",
+  },
+} satisfies Story;
