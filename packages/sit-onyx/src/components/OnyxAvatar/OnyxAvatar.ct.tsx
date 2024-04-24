@@ -40,6 +40,19 @@ test.describe("Screenshot tests", () => {
       await expect(component.getByTitle("John Doe")).toBeVisible();
     },
   });
+
+  executeMatrixScreenshotTest({
+    name: "Avatar (custom content)",
+    columns: ["default", "truncation"],
+    rows: AVATAR_SIZES,
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => (
+      <OnyxAvatar label="Custom content" size={row}>
+        {column === "truncation" ? "+999999" : "+42"}
+      </OnyxAvatar>
+    ),
+  });
 });
 
 test("should contain correct initials", async ({ mount }) => {
@@ -61,6 +74,7 @@ test("should contain correct initials", async ({ mount }) => {
 
   // ACT
   await component.update({ props: { label: "a" } });
+
   // ASSERT
   await expect(component).toContainText("A");
 });
