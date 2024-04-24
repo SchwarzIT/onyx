@@ -22,5 +22,5 @@
     "currentSelection": "{n} ausgewählt"
   },
   "empty": "Keine Daten verfügbar",
-  "navItemOptionsLabel": "Verschachtelte Navigationselemente von {label}"
+  "navItemOptionsLabel": "Unterseiten von {label}"
 }
