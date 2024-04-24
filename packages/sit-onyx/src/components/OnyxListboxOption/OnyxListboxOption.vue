@@ -14,11 +14,12 @@ defineSlots<{
 <template>
   <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
     <input
-      v-if="multiple"
+      v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
       :aria-labelledby="$attrs.id as string"
-      aria-hidden="true"
       :disabled="!!$attrs['aria-disabled']"
+      :indeterminate="props.indeterminate"
+      aria-hidden="true"
       tabindex="-1"
       class="onyx-listbox-option__checkbox"
       type="checkbox"
@@ -52,7 +53,7 @@ defineSlots<{
 
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
+    gap: var(--onyx-spacing-sm);
 
     &__checkbox {
       @include checkbox.styles();
@@ -68,13 +69,17 @@ defineSlots<{
         background-color: var(--onyx-color-base-primary-100);
       }
 
+      // single select
+      &[aria-selected="true"] {
+        background-color: var(--onyx-color-base-primary-200);
+      }
+
+      // single + multiselect
       &[aria-selected="true"],
       &[aria-checked="true"] {
-        background-color: var(--onyx-color-base-primary-200);
-
         &:hover,
         &.onyx-listbox-option--active {
-          background-color: var(--onyx-color-base-primary-200);
+          background-color: var(--onyx-color-base-primary-100);
           color: var(--onyx-color-text-icons-primary-bold);
         }
       }
