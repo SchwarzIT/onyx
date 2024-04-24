@@ -83,7 +83,7 @@ const {
   activeOption,
   onSelect: (selectedOption) => {
     if (selectedOption === CHECK_ALL_ID) {
-      checkAll.value?.change(!checkAll.value.state.modelValue);
+      checkAll.value?.handleChange(!checkAll.value.state.modelValue);
       return;
     }
 
@@ -146,12 +146,12 @@ const enabledOptionValues = computed(() =>
  */
 const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
-  const { checkAllState, checkAllChange } = useCheckAll(
+  const { checkAllState, handleCheckAllChange } = useCheckAll(
     enabledOptionValues,
     computed(() => (props.modelValue as TValue[]) || []),
     (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
   );
-  return { state: checkAllState.value, change: checkAllChange };
+  return { state: checkAllState.value, handleChange: handleCheckAllChange };
 });
 
 const checkAllLabel = computed<string>(() => {

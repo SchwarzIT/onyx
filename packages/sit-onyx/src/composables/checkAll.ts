@@ -37,7 +37,7 @@ export const useCheckAll = <TValue extends SelectionOptionValue = SelectionOptio
      * - all option values if "select all" was checked
      * - an empty list if "select all" was unchecked
      */
-    checkAllChange: (isChecked: boolean) => {
+    handleCheckAllChange: (isChecked: boolean) => {
       const newValue = isChecked ? enabledOptionValues.value : [];
       onChangeCallback(newValue);
     },

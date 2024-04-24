@@ -34,7 +34,7 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled && !i.skeleton).map(({ id }) => id),
 );
 
-const { checkAllState, checkAllChange } = useCheckAll(
+const { checkAllState, handleCheckAllChange } = useCheckAll(
   enabledOptionValues,
   computed(() => props.modelValue),
   (newValue) => emit("update:modelValue", newValue),
@@ -62,7 +62,7 @@ const checkAllLabel = computed(() => {
           v-if="props.withCheckAll"
           v-bind="checkAllState"
           :label="checkAllLabel"
-          @update:model-value="checkAllChange"
+          @update:model-value="handleCheckAllChange"
         />
 
         <OnyxCheckbox

@@ -24,7 +24,6 @@ test.describe("Single select screenshot tests", () => {
           aria-selected={column === "selected"}
           active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
-          multiple={["multiple", "indeterminate"].includes(row)}
           {...{ role: "option" }}
         >
           Test label
@@ -59,7 +58,7 @@ test.describe("Multiselect Screenshot tests", () => {
           aria-checked={column === "checked"}
           active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
-          multiple={["multiple", "indeterminate"].includes(row)}
+          multiple={true}
           indeterminate={column === "indeterminate"}
           {...{ role: "option" }}
         >
