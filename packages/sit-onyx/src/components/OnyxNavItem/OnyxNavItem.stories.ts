@@ -60,9 +60,9 @@ export const WithOptions = {
 } satisfies Story;
 
 /**
- * This example shows the nav item with a dot.
+ * This example shows the nav item with additional content (a dot badge in this case).
  */
-export const WithDotBadge = {
+export const WithAdditionalContent = {
   args: {
     ...Default.args,
     default: () => h(OnyxBadge, { dot: true }),
