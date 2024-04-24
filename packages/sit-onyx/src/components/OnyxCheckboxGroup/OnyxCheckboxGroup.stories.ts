@@ -18,6 +18,14 @@ const meta: Meta<typeof OnyxCheckboxGroup> = {
 export default meta;
 type Story = StoryObj<typeof OnyxCheckboxGroup>;
 
+const DEMO_OPTIONS = [
+  { label: "Default", id: "id-1" },
+  { label: "Initially checked", id: "id-2" },
+  { label: "Required", id: "id-3", required: true },
+  { label: "Disabled", id: "id-4", disabled: true },
+  { label: "Loading", id: "id-5", loading: true },
+];
+
 /**
  * A checkbox group that contains a list of checkboxes.
  */
@@ -25,13 +33,7 @@ export const Default = {
   args: {
     headline: "Checkbox group headline",
     modelValue: ["id-2"],
-    options: [
-      { label: "Default", id: "id-1" },
-      { label: "Initially checked", id: "id-2" },
-      { label: "Required", id: "id-3", required: true },
-      { label: "Disabled", id: "id-4", disabled: true },
-      { label: "Loading", id: "id-5", loading: true },
-    ],
+    options: DEMO_OPTIONS,
   },
 } satisfies Story;
 
@@ -52,6 +54,7 @@ export const WithCheckAll = {
   args: {
     ...Default.args,
     withCheckAll: true,
+    options: DEMO_OPTIONS.filter(({ loading }) => !loading),
   },
 } satisfies Story;
 
