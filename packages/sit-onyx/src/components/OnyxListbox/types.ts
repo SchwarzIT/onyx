@@ -1,5 +1,9 @@
-import type { ListboxModelValue } from "@sit-onyx/headless";
 import type { SelectOption, SelectOptionValue } from "../../types";
+
+export type ListboxModelValue<
+  TValue extends SelectOptionValue = SelectOptionValue,
+  TMultiple extends boolean = false,
+> = TMultiple extends true ? TValue[] : TValue;
 
 export type OnyxListboxProps<
   TValue extends SelectOptionValue = SelectOptionValue,
