@@ -21,5 +21,6 @@
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
   },
-  "empty": "Keine Daten verfügbar"
+  "empty": "Keine Daten verfügbar",
+  "navItemOptionsLabel": "Unterseiten von {label}"
 }

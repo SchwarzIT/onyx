@@ -1,5 +1,16 @@
 # sit-onyx
 
+## 1.0.0-alpha.85
+
+### Major Changes
+
+- 641dac7: refactor(OnyxCheckboxGroup): remove`checkAllLabel` property in favor of `withCheckAll`
+
+### Minor Changes
+
+- 641dac7: feat(OnyxListbox): implement `check all` support + exclude disabled options from keyboard navigation
+- afe16cf: Implement basic OnyxNavItem component
+
 ## 1.0.0-alpha.84
 
 ### Minor Changes
