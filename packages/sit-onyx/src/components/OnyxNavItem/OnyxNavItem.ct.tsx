@@ -46,12 +46,7 @@ test.describe("Screenshot tests with nestedItems", () => {
      */
     disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
     component: (column) => (
-      <OnyxNavItem
-        label="Item"
-        href="#"
-        active={column === "active"}
-        options={nestedItems}
-      ></OnyxNavItem>
+      <OnyxNavItem label="Item" href="#" active={column === "active"} options={nestedItems} />
     ),
     beforeScreenshot: async (component, page, _column, row) => {
       await component.hover();
