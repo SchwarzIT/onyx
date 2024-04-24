@@ -2,24 +2,38 @@
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxListboxOptionProps } from "./types";
 
-const props = defineProps<OnyxListboxOptionProps>();
+const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
+  active: false,
+  selected: false,
+  disabled: false,
+  multiple: false,
+});
 
 defineSlots<{
   /**
-   * Default slot to place the option label / text content.
+   * Optional slot to override the option label / text content.
    */
-  default(): unknown;
+  default?(): unknown;
 }>();
 </script>
 
 <template>
-  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
+  <li
+    :id="props.id"
+    class="onyx-listbox-option"
+    :class="{ 'onyx-listbox-option--active': props.active }"
+    :aria-disabled="props.disabled"
+    :aria-label="props.label"
+    role="option"
+    :aria-selected="props.multiple ? undefined : props.selected ?? false"
+    :aria-checked="props.multiple ? props.selected ?? false : undefined"
+  >
     <input
       v-if="multiple"
-      :checked="!!$attrs['aria-checked']"
-      :aria-labelledby="$attrs.id as string"
+      :checked="props.selected"
+      :aria-labelledby="props.id"
       aria-hidden="true"
-      :disabled="!!$attrs['aria-disabled']"
+      :disabled="props.disabled"
       tabindex="-1"
       class="onyx-listbox-option__checkbox"
       type="checkbox"
@@ -28,7 +42,7 @@ defineSlots<{
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
     <span class="onyx-truncation-ellipsis">
-      <slot></slot>
+      <slot>{{ props.label }}</slot>
     </span>
   </li>
 </template>
@@ -55,7 +69,7 @@ defineSlots<{
 
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-sm);
 
     &__checkbox {
       @include checkbox.styles();

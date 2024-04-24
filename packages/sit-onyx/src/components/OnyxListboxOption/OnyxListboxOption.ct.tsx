@@ -20,13 +20,12 @@ test.describe("Screenshot tests", () => {
       ],
       component: (column, row) => (
         <OnyxListboxOption
-          aria-label="Label"
-          aria-selected={column === "selected" && row !== "multiple"}
-          aria-checked={column === "selected" && row === "multiple"}
+          id="test-id"
+          label="Label"
+          selected={column === "selected"}
           active={row === "focus-visible"}
-          aria-disabled={state === "disabled"}
+          disabled={state === "disabled"}
           multiple={row === "multiple"}
-          {...{ role: "option" }}
         >
           Test label
         </OnyxListboxOption>

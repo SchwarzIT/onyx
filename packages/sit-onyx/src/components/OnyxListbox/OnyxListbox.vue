@@ -9,6 +9,7 @@ import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
+import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 
@@ -111,7 +112,7 @@ const {
 });
 
 const groupedOptions = computed(() => {
-  return props.options.reduce<Record<string, ListboxOption[]>>((acc, currOpt) => {
+  return props.options.reduce<Record<string, ListboxOption<TValue>[]>>((acc, currOpt) => {
     const groupName = currOpt.group ?? "";
     acc[groupName] = acc[groupName] || [];
     acc[groupName].push(currOpt);
@@ -130,6 +131,32 @@ watchEffect(() => {
 });
 
 const isEmpty = computed(() => props.options.length === 0);
+
+const getOptionProps = computed(() => {
+  return (option: ListboxOption<TValue>): OnyxListboxOptionProps & { onClick: () => void } => {
+    const selected =
+      option.id === props.modelValue ||
+      (Array.isArray(props.modelValue) && props.modelValue.includes(option.id));
+
+    const headless = headlessOption.value({
+      value: option.id,
+      label: option.label,
+      disabled: option.disabled,
+      selected,
+    });
+
+    return {
+      id: headless.id,
+      label: headless["aria-label"],
+      active: option.id === activeOption.value,
+      multiple: props.multiple,
+      icon: option.icon,
+      disabled: option.disabled,
+      onClick: headless.onClick,
+      selected,
+    };
+  };
+});
 </script>
 
 <template>
@@ -167,25 +194,14 @@ const isEmpty = computed(() => props.options.length === 0);
         </li>
         <!-- TODO: select-all option for "multiple" -->
         <OnyxListboxOption
-          v-for="option in options as any"
+          v-for="option in options"
           :key="option.id.toString()"
-          v-bind="
-            headlessOption({
-              value: option.id,
-              label: option.label,
-              disabled: option.disabled,
-              selected:
-                option.id === props.modelValue ||
-                (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
-            })
-          "
-          :multiple="props.multiple"
-          :active="option.id === activeOption"
-          :icon="option.icon"
+          v-bind="getOptionProps(option)"
         >
           {{ option.label }}
         </OnyxListboxOption>
       </ul>
+
       <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
       </li>
