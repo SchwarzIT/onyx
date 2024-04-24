@@ -60,7 +60,7 @@ const checkAllLabel = computed(() => {
       <template v-if="props.skeleton === undefined">
         <OnyxCheckbox
           v-if="props.withCheckAll"
-          v-bind="checkAll.state"
+          v-bind="checkAll.state.value"
           :label="checkAllLabel"
           @update:model-value="checkAll.handleChange"
         />
