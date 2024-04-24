@@ -103,7 +103,6 @@ export const createListbox = createBuilder(
         case " ":
           event.preventDefault();
           if (options.activeOption.value != undefined) {
-            // TODO: don't call onSelect if the option is disabled
             options.onSelect?.(options.activeOption.value);
           }
           break;

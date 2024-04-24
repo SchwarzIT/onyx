@@ -44,11 +44,12 @@ const handleClick = () => {
     @click="handleClick"
   >
     <input
-      v-if="multiple"
+      v-if="props.multiple"
       :checked="props.selected"
       :aria-labelledby="props.id"
-      aria-hidden="true"
       :disabled="props.disabled"
+      :indeterminate="props.indeterminate"
+      aria-hidden="true"
       tabindex="-1"
       class="onyx-listbox-option__checkbox"
       type="checkbox"
@@ -105,6 +106,12 @@ const handleClick = () => {
         background-color: var(--onyx-listbox-option-background-hover);
       }
 
+      // single select
+      &[aria-selected="true"] {
+        background-color: var(--onyx-color-base-primary-200);
+      }
+
+      // single + multiselect
       &[aria-selected="true"],
       &[aria-checked="true"] {
         background-color: var(--onyx-listbox-option-background-selected);

@@ -4,6 +4,7 @@ import type { ListboxOption } from "sit-onyx";
 import {
   DENSITIES,
   OnyxAppLayout,
+  OnyxAvatar,
   OnyxBadge,
   OnyxButton,
   OnyxCheckboxGroup,
@@ -34,6 +35,7 @@ const { locale } = useI18n();
 const router = useRouter();
 
 const COMPONENTS = [
+  "OnyxAvatar",
   "OnyxBadge",
   "OnyxButton",
   "OnyxCheckboxGroup",
@@ -201,6 +203,8 @@ const singleSelectState = ref("Apple");
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
+          <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
+
           <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
           <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 

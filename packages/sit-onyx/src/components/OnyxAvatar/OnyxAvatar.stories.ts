@@ -10,6 +10,9 @@ const meta: Meta<typeof OnyxAvatar> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxAvatar,
     events: [],
+    argTypes: {
+      default: { control: { type: "text" } },
+    },
   }),
 };
 
@@ -53,5 +56,15 @@ export const WithImage = {
   args: {
     label: "onyx logo",
     src: "https://onyx.schwarz/favicon.svg",
+  },
+} satisfies Story;
+
+/**
+ * This example shows an avatar with custom content instead of the default initials.
+ */
+export const WithCustomInitials = {
+  args: {
+    label: "42 more avatars",
+    default: "+42",
   },
 } satisfies Story;

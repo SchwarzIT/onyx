@@ -22,6 +22,11 @@ export type OnyxListboxOptionProps = {
    */
   multiple?: boolean;
   /**
+   * If `true`, an indeterminate indicator is shown.
+   * Only in combination with `multiple`
+   */
+  indeterminate?: boolean;
+  /**
    * Optional icon.
    */
   icon?: string;
