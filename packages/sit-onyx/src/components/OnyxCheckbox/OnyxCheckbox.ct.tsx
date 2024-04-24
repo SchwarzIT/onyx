@@ -157,19 +157,3 @@ test.describe("Screenshot tests", () => {
     },
   });
 });
-
-test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxCheckbox label="Test label" value="test-value" />);
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  const checkbox = component.getByRole("checkbox");
-
-  // ASSERT
-  await expect(checkbox).not.toBeChecked();
-});

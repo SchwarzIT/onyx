@@ -89,6 +89,16 @@ export const Loading = {
 } satisfies Story;
 
 /**
+ * This example shows a skeleton input.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows an input with a maxlength and counter.
  */
 export const Maxlength = {

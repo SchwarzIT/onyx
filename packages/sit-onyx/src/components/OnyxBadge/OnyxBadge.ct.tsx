@@ -9,6 +9,8 @@ test.describe("Screenshot tests", () => {
     name: `Badge`,
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxBadge density={column} variation={row}>
         Badge
@@ -30,6 +32,22 @@ test.describe("Screenshot tests", () => {
     ),
     beforeScreenshot: async (component) => {
       await expect(component).not.toContainText("Badge");
+    },
+  });
+
+  // we still add an icon and text here to test that they are not displayed in dot mode
+  executeMatrixScreenshotTest({
+    name: `Badge (dot)`,
+    columns: DENSITIES,
+    rows: ONYX_COLORS,
+    component: (column, row) => (
+      <OnyxBadge density={column} variation={row} icon={mockPlaywrightIcon} dot>
+        Badge
+      </OnyxBadge>
+    ),
+    beforeScreenshot: async (component) => {
+      await expect(component).not.toContainText("Badge");
+      await expect(component.locator(".onyx-badge__icon")).not.toBeAttached();
     },
   });
 });

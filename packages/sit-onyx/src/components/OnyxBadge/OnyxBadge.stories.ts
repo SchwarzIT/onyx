@@ -26,6 +26,7 @@ const meta: Meta<typeof OnyxBadge> = {
     events: [],
     argTypes: {
       icon: defineIconSelectArgType(),
+      default: { control: { type: "text" } },
     },
   }),
   parameters: {
@@ -42,26 +43,26 @@ export default meta;
 type Story = StoryObj<typeof OnyxBadge>;
 
 /**
- * This example shows the badge with text content
+ * This example shows the badge with text content.
  */
 export const Text = {
   args: {
-    default: () => "Badge",
+    default: "Badge",
   },
 } satisfies Story;
 
 /**
- * This example shows the badge with number content
+ * This example shows the badge with number content.
  */
 export const Number = {
   args: {
     variation: "info",
-    default: () => 32,
+    default: 32,
   },
 } satisfies Story;
 
 /**
- * This example shows the badge with icon content
+ * This example shows the badge with icon content.
  */
 export const Icon = {
   args: {
@@ -71,11 +72,20 @@ export const Icon = {
 } satisfies Story;
 
 /**
- * This example shows the badge with truncation
+ * This example shows a dot badge.
+ */
+export const Dot = {
+  args: {
+    dot: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows the badge with truncation.
  */
 export const WithTruncation = {
   args: {
-    default: () => "Badge with a very long text that gets truncated",
+    default: "Badge with a very long text that gets truncated",
   },
   decorators: createTruncationDecorator("16rem"),
 } satisfies Story;

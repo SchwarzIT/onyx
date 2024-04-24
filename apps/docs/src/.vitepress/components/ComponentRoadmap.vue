@@ -55,10 +55,14 @@ const shouldShowAllButton = computed(() => {
   <section class="components">
     <OnyxHeadline is="h2" class="components__headline">Components</OnyxHeadline>
 
-    <p>
+    <p class="components__description">
       onyx is currently in early / active development. Below you can find a list of components that
       we are planning to implement as well as their estimated due date. Feel free to check this page
       regularly, we will keep it up to date with our progress.
+    </p>
+
+    <p class="components__description">
+      <b>Tip:</b> You can click on a component to see its implementation and documentation.
     </p>
 
     <div class="components__legend">
@@ -97,6 +101,10 @@ const shouldShowAllButton = computed(() => {
   &__headline {
     font-size: 2.5rem;
     line-height: 2.5rem;
+  }
+
+  &__description {
+    margin: 0;
   }
 
   &__legend {

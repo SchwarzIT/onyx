@@ -1,6 +1,10 @@
+import type { ListboxModelValue } from "@sit-onyx/headless";
 import type { SelectOption, SelectOptionValue } from "../../types";
 
-export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = {
+export type OnyxListboxProps<
+  TValue extends SelectOptionValue = SelectOptionValue,
+  TMultiple extends boolean = false,
+> = {
   /**
    * Aria label. Must be set for accessibility reasons.
    */
@@ -16,7 +20,11 @@ export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValu
   /**
    * Current value / selected option(s).
    */
-  modelValue?: TValue;
+  modelValue?: ListboxModelValue<TValue, TMultiple>;
+  /**
+   * Allows the selection of multiple listbox options
+   */
+  multiple?: TMultiple;
   /**
    * Whether to show a loading indicator.
    */

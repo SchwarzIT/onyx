@@ -3,6 +3,11 @@ import "./styles/index.scss";
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types";
 
+export { default as OnyxAvatar } from "./components/OnyxAvatar/OnyxAvatar.vue";
+export * from "./components/OnyxAvatar/types";
+
+export { default as OnyxAvatarStack } from "./components/OnyxAvatarStack/OnyxAvatarStack.vue";
+
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 
@@ -51,8 +56,14 @@ export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
+export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
+export * from "./components/OnyxTable/types";
+
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
+
+export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
+export * from "./components/OnyxTag/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";

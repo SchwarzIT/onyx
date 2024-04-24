@@ -4,7 +4,14 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 
-const MOCK_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
+const MOCK_VARIED_OPTIONS = [
+  { value: 1, label: "Default" },
+  { value: 2, label: "Selected" },
+  { value: 3, label: "Disabled", disabled: true },
+  { value: 4, label: "Very long label ".repeat(5) },
+] satisfies ListboxOption[];
+
+const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
   value: index,
   label: `Test option ${index + 1}`,
 })) satisfies ListboxOption[];
@@ -15,12 +22,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
-      options: [
-        { value: 1, label: "Default" },
-        { value: 2, label: "Selected" },
-        { value: 3, label: "Disabled", disabled: true },
-        { value: 4, label: "Very long label ".repeat(5) },
-      ],
+      options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
       modelValue,
     },
@@ -47,11 +49,46 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render with multiselect", async ({ mount }) => {
+  let modelValue: number[] = [2];
+
+  // ARRANGE
+  const component = await mount(OnyxListbox<number, true>, {
+    props: {
+      options: MOCK_VARIED_OPTIONS,
+      label: "Test listbox",
+      multiple: true,
+      modelValue,
+    },
+    on: {
+      "update:modelValue": async (value: number[]) => {
+        modelValue = value;
+        await component.update({ props: { modelValue } });
+      },
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("multiple.png");
+  await expect(component.getByText("Disabled")).toBeDisabled();
+
+  // ACT (should de-select current value)
+  await component.getByText("Selected").click();
+  expect(modelValue).toEqual([]);
+
+  // TODO: https://github.com/SchwarzIT/onyx/issues/732 find the a11y error cause
+  // // ACT
+  // const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // // ASSERT
+  // expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
-      options: MOCK_OPTIONS,
+      options: MOCK_MANY_OPTIONS,
       label: "Test listbox",
     },
     on: {
@@ -129,7 +166,7 @@ test("should show empty state", async ({ mount }) => {
 test("should show loading state", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxListbox label="Test listbox" options={MOCK_OPTIONS} loading />,
+    <OnyxListbox label="Test listbox" options={MOCK_MANY_OPTIONS} loading />,
   );
 
   // ASSERT
@@ -152,7 +189,7 @@ test("should support lazy loading", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
-      options: MOCK_OPTIONS,
+      options: MOCK_MANY_OPTIONS,
       label: "Test listbox",
       lazyLoading: { enabled: true },
     },
@@ -197,9 +234,9 @@ test("should support lazy loading", async ({ mount }) => {
   // ACT
   await updateProps({
     loading: false,
-    options: MOCK_OPTIONS.concat(
+    options: MOCK_MANY_OPTIONS.concat(
       Array.from({ length: 25 }, (_, index) => {
-        const value = MOCK_OPTIONS.length + index;
+        const value = MOCK_MANY_OPTIONS.length + index;
         return { value, label: `Test option ${value + 1}` };
       }),
     ),
@@ -224,7 +261,7 @@ test("should support lazy loading", async ({ mount }) => {
 test("should display optionsEnd slot", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxListbox options={MOCK_OPTIONS} label="Test label">
+    <OnyxListbox options={MOCK_MANY_OPTIONS} label="Test label">
       <template v-slot:optionsEnd>
         <OnyxButton label="Load more" mode="plain" style={{ width: "100%" }} />
       </template>

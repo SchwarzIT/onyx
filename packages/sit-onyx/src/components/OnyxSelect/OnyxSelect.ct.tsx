@@ -32,7 +32,9 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Select (other)",
     columns: ["default", "hideLabel"],
-    rows: ["required", "optional", "skeleton", "message"],
+    rows: ["required", "optional", "message"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxSelect
         style="width: 16rem"
@@ -40,7 +42,6 @@ test.describe("Screenshot tests", () => {
         hideLabel={column === "hideLabel"}
         required={row === "required"}
         requiredMarker={row === "optional" ? "optional" : undefined}
-        skeleton={row === "skeleton"}
         message={row === "message" ? "Test message" : undefined}
         options={[]}
       />
@@ -51,6 +52,8 @@ test.describe("Screenshot tests", () => {
     name: "Select (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
     rows: ["default", "hover", "focus-visible"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
       <OnyxSelect
         style="width: 16rem"
@@ -90,6 +93,22 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Select (skeleton)",
+    rows: ["default", "hideLabel"],
+    columns: DENSITIES,
+    component: (column, row) => (
+      <OnyxSelect
+        style="width: 16rem"
+        label="Test label"
+        density={column}
+        hideLabel={row === "hideLabel"}
+        options={[]}
+        skeleton
+      />
+    ),
   });
 });
 

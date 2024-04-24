@@ -63,11 +63,11 @@ export default defineLoader({
      */
     const getImplementedStatus = (componentName: string) => {
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
+      const href = `https://storybook.onyx.schwarz/?path=/docs/components-${componentName.replace("Onyx", "").toLowerCase()}--docs`;
+
       return {
         status: fileExist ? "in-progress" : "planned",
-        href: fileExist
-          ? `/development/components/${componentName.replace("Onyx", "")}`
-          : undefined,
+        href: fileExist ? href : undefined,
       } satisfies Partial<ComponentCardProps>;
     };
 
@@ -166,6 +166,11 @@ export default defineLoader({
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxEmpty"),
         status: "implemented",
+      },
+      {
+        name: "Avatar",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxAvatar"),
       },
       { name: "Footer", ...getImplementedStatus("OnyxFooter") },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },

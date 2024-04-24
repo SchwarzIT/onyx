@@ -1,5 +1,84 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-alpha.84
+
+### Patch Changes
+
+- Updated dependencies [5f28acb]
+- Updated dependencies [5f28acb]
+  - sit-onyx@1.0.0-alpha.84
+
+## 1.0.0-alpha.83
+
+### Patch Changes
+
+- Updated dependencies [29a8ba6]
+  - sit-onyx@1.0.0-alpha.83
+
+## 1.0.0-alpha.82
+
+### Patch Changes
+
+- Updated dependencies [1377af6]
+  - sit-onyx@1.0.0-alpha.82
+
+## 1.0.0-alpha.81
+
+### Patch Changes
+
+- Updated dependencies [ded1477]
+  - sit-onyx@1.0.0-alpha.81
+
+## 1.0.0-alpha.80
+
+### Patch Changes
+
+- Updated dependencies [da3cad4]
+- Updated dependencies [da3cad4]
+  - sit-onyx@1.0.0-alpha.80
+
+## 1.0.0-alpha.79
+
+### Patch Changes
+
+- Updated dependencies [193ecf2]
+  - sit-onyx@1.0.0-alpha.79
+
+## 1.0.0-alpha.78
+
+### Patch Changes
+
+- Updated dependencies [d819092]
+  - sit-onyx@1.0.0-alpha.78
+
+## 1.0.0-alpha.77
+
+### Patch Changes
+
+- Updated dependencies [a7b5140]
+  - sit-onyx@1.0.0-alpha.77
+
+## 1.0.0-alpha.76
+
+### Patch Changes
+
+- Updated dependencies [a155d1b]
+  - sit-onyx@1.0.0-alpha.76
+
+## 1.0.0-alpha.75
+
+### Patch Changes
+
+- Updated dependencies [61c4964]
+  - sit-onyx@1.0.0-alpha.75
+
+## 1.0.0-alpha.74
+
+### Patch Changes
+
+- Updated dependencies [288afbd]
+  - sit-onyx@1.0.0-alpha.74
+
 ## 1.0.0-alpha.73
 
 ### Patch Changes

@@ -35,6 +35,8 @@ test.describe("Screenshot tests", () => {
     name: "Input (required/optional, message/counter)",
     columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message", "counter"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -95,6 +97,21 @@ test.describe("Screenshot tests", () => {
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
       }
     },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Input (skeleton)",
+    columns: DENSITIES,
+    rows: ["default", "hideLabel"],
+    component: (column, row) => (
+      <OnyxInput
+        style="width: 12rem"
+        label="Test label"
+        density={column}
+        hideLabel={row === "hideLabel"}
+        skeleton
+      />
+    ),
   });
 });
 

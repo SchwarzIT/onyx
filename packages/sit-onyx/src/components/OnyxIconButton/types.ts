@@ -27,4 +27,8 @@ export type OnyxIconButtonProps = DensityProp & {
    * The icon which will be displayed. The custom content in the `default` won't have an effect if the `icon` property is set.
    */
   icon?: string;
+  /**
+   * Whether to show a skeleton button.
+   */
+  skeleton?: boolean;
 };

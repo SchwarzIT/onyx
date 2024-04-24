@@ -86,6 +86,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/checkbox.scss";
 
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {
@@ -99,36 +100,9 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
   }
 }
 
-@mixin define-checked-background($state, $color) {
-  &#{$state} {
-    border-color: var(--onyx-color-base-#{$color}-500);
-    background-color: var(--onyx-color-base-#{$color}-500);
-
-    &:hover {
-      background-color: var(--onyx-color-base-#{$color}-300);
-    }
-  }
-}
-
-.onyx-checkbox,
-.onyx-checkbox-skeleton {
-  @include density.compact {
-    --onyx-checkbox-input-size: 0.75rem;
-    --onyx-checkbox-input-padding: var(--onyx-spacing-xs);
-  }
-
-  @include density.default {
-    --onyx-checkbox-input-size: 1rem;
-    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
-  }
-
-  @include density.cozy {
-    --onyx-checkbox-input-size: 1.5rem;
-    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
-  }
-}
-
 .onyx-checkbox {
+  @include checkbox.variables();
+
   @include layers.component() {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -175,51 +149,12 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
       border-radius: var(--onyx-radius-full);
     }
 
-    &__input {
-      height: var(--onyx-checkbox-input-size);
-      width: var(--onyx-checkbox-input-size);
-      appearance: none;
-      margin: 0;
-      border-radius: var(--onyx-radius-sm);
-      outline: none;
-      cursor: inherit;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
-      background: var(--onyx-color-base-background-blank);
-      background-position: 50%;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-
-      &:checked,
-      &:indeterminate {
-        @include define-checked-background(":enabled", primary);
-        @include define-checked-background(":user-invalid", danger);
-
-        &:disabled {
-          background-color: var(--onyx-color-base-neutral-300);
-        }
-      }
-
-      &:disabled {
-        border-color: var(--onyx-color-base-neutral-300);
-      }
-
-      &:user-invalid {
-        border-color: var(--onyx-color-base-danger-500);
-      }
-
-      &:checked {
-        // icon (with added fill='white'): check-small.svg
-        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='m21.311 10.793-8.293 8.293-3.291-3.292-1.415 1.415 4.706 4.705 9.707-9.707z'/%3E%3C/svg%3E");
-      }
-
-      &:indeterminate {
-        // icon (with added fill='white'): minus-small.svg
-        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='M8 15h16v2H8z'/%3E%3C/svg%3E");
-      }
-    }
-
     &__label {
       display: inline-block;
+    }
+
+    &__input {
+      @include checkbox.styles();
     }
 
     &__label,
@@ -238,6 +173,8 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 }
 
 .onyx-checkbox-skeleton {
+  @include checkbox.variables();
+
   @include layers.component() {
     display: flex;
     align-items: center;

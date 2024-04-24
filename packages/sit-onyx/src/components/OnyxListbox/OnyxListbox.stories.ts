@@ -2,6 +2,7 @@ import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
+import type { SelectOption } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
@@ -70,33 +71,40 @@ const groupedAnimals: ListboxOption[] = [
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
+const DEMO_OPTIONS: SelectOption[] = [
+  "Apple",
+  "Banana",
+  "Mango",
+  "Kiwi",
+  "Orange",
+  "Papaya",
+  "Apricot",
+  "Lemon",
+  "Cranberry",
+  "Avocado",
+  "Cherry",
+  "Coconut",
+  "Lychee",
+  "Melon",
+  "Raspberry",
+  "Strawberry",
+].map(
+  (option) =>
+    ({
+      value: option.toLowerCase(),
+      label: option,
+    }) satisfies ListboxOption,
+);
+const DISABLED_OPTION: ListboxOption = { value: "disabled", label: "Disabled", disabled: true };
+DEMO_OPTIONS.push(DISABLED_OPTION);
+
 /**
  * This example shows a default single select listbox.
  */
 export const Default = {
   args: {
     label: "Example listbox",
-    options: [
-      "Apple",
-      "Banana",
-      "Mango",
-      "Kiwi",
-      "Orange",
-      "Papaya",
-      "Apricot",
-      "Lemon",
-      "Cranberry",
-      "Avocado",
-      "Cherry",
-      "Coconut",
-      "Lychee",
-      "Melon",
-      "Raspberry",
-      "Strawberry",
-    ].map((option) => ({
-      value: option.toLowerCase(),
-      label: option,
-    })),
+    options: DEMO_OPTIONS,
   },
 } satisfies Story;
 
@@ -107,6 +115,24 @@ export const WithMessage = {
   args: {
     ...Default.args,
     message: "Example message",
+  },
+} satisfies Story;
+
+/**
+ * Multiselect listbox
+ */
+export const Multiselect = {
+  args: {
+    ...Default.args,
+    modelValue: ["apple", "banana"],
+    multiple: true,
+    options: [
+      ...Default.args.options,
+      { value: "long", label: "Option with a very long long long  long long long long text}" },
+    ],
+  },
+  argTypes: {
+    modelValue: { control: { type: "array" } },
   },
 } satisfies Story;
 
