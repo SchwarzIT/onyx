@@ -1,6 +1,8 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { h } from "vue";
 import OnyxNavItem from "./OnyxNavItem.vue";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 
 /**
  * The nav item is used internally to build the main navigation bar component and is not intended to be used individually.
@@ -54,5 +56,15 @@ export const WithOptions = {
       { label: "Nested Item 4", href: "#4" },
       { label: "Nested Item 5", href: "#5" },
     ],
+  },
+} satisfies Story;
+
+/**
+ * This example shows the nav item with a dot.
+ */
+export const WithDotBadge = {
+  args: {
+    ...Default.args,
+    default: () => h(OnyxBadge, { dot: true }),
   },
 } satisfies Story;
