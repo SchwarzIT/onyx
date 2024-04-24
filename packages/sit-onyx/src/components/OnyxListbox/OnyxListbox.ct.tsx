@@ -82,6 +82,13 @@ test.describe("Multiselect screenshot tests", () => {
 test("should interact with multiselect", async ({ mount }) => {
   let modelValue: number[] = [2];
 
+  const eventHandlers = {
+    "update:modelValue": async (value: number[]) => {
+      modelValue = value;
+      await component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
+
   // ARRANGE
   const component = await mount(OnyxListbox<number, true>, {
     props: {
@@ -91,12 +98,7 @@ test("should interact with multiselect", async ({ mount }) => {
       multiple: true,
       modelValue,
     },
-    on: {
-      "update:modelValue": async (value: number[]) => {
-        modelValue = value;
-        await component.update({ props: { modelValue } });
-      },
-    },
+    on: eventHandlers,
   });
 
   // ASSERT
@@ -105,12 +107,13 @@ test("should interact with multiselect", async ({ mount }) => {
 
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
+  // ASSERT
   expect(modelValue).toEqual([]);
 
-  // TODO: find out why the click does not do anything
   // // ACT (should select all non-disabled values)
-  // await component.getByRole("option", { name: "Select all" }).click();
-  // expect(modelValue).toEqual([1, 2, 4]);
+  await component.getByRole("option", { name: "Select all" }).click();
+  // ASSERT
+  expect(modelValue).toEqual([1, 2, 4]);
 });
 
 test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
