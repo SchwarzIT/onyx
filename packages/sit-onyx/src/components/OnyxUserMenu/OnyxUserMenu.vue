@@ -95,7 +95,7 @@ const avatar = computed(() => {
       }
 
       .onyx-user-menu__listbox {
-        opacity: 1;
+        display: block;
       }
 
       .onyx-user-menu__chevron {
@@ -122,8 +122,7 @@ const avatar = computed(() => {
     }
 
     &__listbox {
-      opacity: 0;
-      transition: opacity var(--onyx-duration-sm);
+      display: none;
       position: absolute;
       right: 0;
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
