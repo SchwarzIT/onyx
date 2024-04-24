@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import type { OnyxNavItemProps } from "./types";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import type { ListboxOption } from "../OnyxListbox/types";
@@ -25,6 +26,8 @@ defineSlots<{
 const listboxOptions = computed<ListboxOption<string>[]>(() => {
   return props.options?.map((opt) => ({ id: opt.href, label: opt.label })) ?? [];
 });
+
+const { t } = injectI18n();
 </script>
 
 <template>
@@ -43,7 +46,7 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
   <OnyxListbox
     v-if="listboxOptions.length > 0"
     class="onyx-nav-item__listbox"
-    :label="'Options of ' + props.label"
+    :label="t('navItemOptionsLabel', { label: props.label })"
     :options="listboxOptions"
     :model-value="props.options?.find((opt) => opt.active)?.href"
     @update:model-value="$event && emit('navigate', $event)"
@@ -103,7 +106,8 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
       opacity: 0;
       transition: opacity var(--onyx-duration-sm);
 
-      &:hover {
+      &:hover,
+      &:focus-within {
         opacity: 1;
       }
     }
