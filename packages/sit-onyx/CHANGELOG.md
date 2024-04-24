@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.0.0-alpha.84
+
+### Minor Changes
+
+- 5f28acb: feat(OnyxAvatar): add default slot to allow for custom content
+
+### Patch Changes
+
+- 5f28acb: fix(OnyxAvatar): update font size for size `96px`
+
 ## 1.0.0-alpha.83
 
 ### Minor Changes
