@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxListboxOption> = {
   title: "support/ListboxOption",
   ...defineStorybookActionsAndVModels({
     component: OnyxListboxOption,
-    events: ["update:modelValue"],
+    events: [],
     decorators: [createTruncationDecorator("16rem")],
     argTypes: {
       default: { control: { type: "text" } },
