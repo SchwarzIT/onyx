@@ -31,6 +31,11 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
+   * Optional slot to pass listbox options.
+   * **Note**: Empty state, loading grouping, and `optionsEnd` will not work if the slot is used.
+   */
+  default?(): unknown;
+  /**
    * Optional slot to customize the empty state when no options exist.
    * It is recommended to use the `<OnyxEmpty>` component here.
    *
@@ -170,46 +175,52 @@ const getOptionProps = computed(() => {
   >
     <slot name="header"></slot>
 
-    <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
-      <OnyxLoadingIndicator class="onyx-listbox__loading" />
-    </div>
+    <ul v-if="!!slots.default" class="onyx-listbox__wrapper onyx-listbox__group" v-bind="listbox">
+      <slot></slot>
+    </ul>
 
-    <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
-      <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
-    </slot>
-
-    <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-      <ul
-        v-for="(options, group) in groupedOptions"
-        :key="group"
-        class="onyx-listbox__group"
-        v-bind="headlessGroup({ label: group })"
-      >
-        <li
-          v-if="group != ''"
-          role="presentation"
-          class="onyx-listbox__group-name onyx-text--small"
-        >
-          {{ group }}
-        </li>
-        <!-- TODO: select-all option for "multiple" -->
-        <OnyxListboxOption
-          v-for="option in options"
-          :key="option.id.toString()"
-          v-bind="getOptionProps(option)"
-        >
-          {{ option.label }}
-        </OnyxListboxOption>
-      </ul>
-
-      <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+    <template v-else>
+      <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
-      </li>
+      </div>
 
-      <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
-        <slot name="optionsEnd"></slot>
-      </li>
-    </div>
+      <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
+        <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
+      </slot>
+
+      <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+        <ul
+          v-for="(options, group) in groupedOptions"
+          :key="group"
+          class="onyx-listbox__group"
+          v-bind="headlessGroup({ label: group })"
+        >
+          <li
+            v-if="group != ''"
+            role="presentation"
+            class="onyx-listbox__group-name onyx-text--small"
+          >
+            {{ group }}
+          </li>
+          <!-- TODO: select-all option for "multiple" -->
+          <OnyxListboxOption
+            v-for="option in options"
+            :key="option.id.toString()"
+            v-bind="getOptionProps(option)"
+          >
+            {{ option.label }}
+          </OnyxListboxOption>
+        </ul>
+
+        <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        </li>
+
+        <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
+          <slot name="optionsEnd"></slot>
+        </li>
+      </div>
+    </template>
 
     <slot name="footer">
       <span v-if="props.message" class="onyx-listbox__message onyx-text--small">

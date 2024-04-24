@@ -3,6 +3,7 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 /**
@@ -12,9 +13,10 @@ const meta: Meta<typeof OnyxUserMenu> = {
   title: "components/UserMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxUserMenu,
-    events: ["update:modelValue"],
+    events: [],
     argTypes: {
       avatar: { control: { type: "text" } },
+      default: { control: { disable: true } },
       footer: { control: { disable: true } },
     },
     decorators: [
@@ -36,11 +38,21 @@ export const Default = {
   args: {
     username: "Jane Doe",
     description: "Company Name",
-    footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
-    options: [
-      { id: "settings", label: "Settings", icon: settings },
-      { id: "logout", label: "Logout", icon: logout },
+    default: () => [
+      h(OnyxListboxOption, {
+        label: "Settings",
+        id: "/settings",
+        icon: settings,
+        onClick: () => alert("Settings clicked"),
+      }),
+      h(OnyxListboxOption, {
+        label: "Logout",
+        id: "logout",
+        icon: logout,
+        onClick: () => alert("Logout clicked"),
+      }),
     ],
+    footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
   },
 } satisfies Story;
 

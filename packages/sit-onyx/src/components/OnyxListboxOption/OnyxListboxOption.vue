@@ -9,15 +9,25 @@ const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
   multiple: false,
 });
 
+const emit = defineEmits<{
+  click: [];
+}>();
+
 defineSlots<{
   /**
    * Optional slot to override the option label / text content.
    */
   default?(): unknown;
 }>();
+
+const handleClick = () => {
+  if (!props.disabled) emit("click");
+};
 </script>
 
 <template>
+  <!-- eslint-disable vuejs-accessibility/click-events-have-key-events -->
+  <!-- eslint-disable vuejs-accessibility/interactive-supports-focus -->
   <li
     :id="props.id"
     class="onyx-listbox-option"
@@ -27,6 +37,7 @@ defineSlots<{
     role="option"
     :aria-selected="props.multiple ? undefined : props.selected ?? false"
     :aria-checked="props.multiple ? props.selected ?? false : undefined"
+    @click="handleClick"
   >
     <input
       v-if="multiple"
