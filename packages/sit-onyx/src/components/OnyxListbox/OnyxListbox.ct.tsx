@@ -3,7 +3,7 @@ import { expect, test } from "../../playwright/a11y";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
-import { executeMatrixScreenshotTest } from "src/playwright/screenshots";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
 const MOCK_VARIED_OPTIONS = [
   { id: 1, label: "Default" },
