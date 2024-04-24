@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.86
+
+### Minor Changes
+
+- 5e96001: feat(OnyxAvatar): update font sizes
+
 ## 1.0.0-alpha.85
 
 ### Major Changes
