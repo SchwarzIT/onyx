@@ -42,7 +42,7 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
   </li>
   <OnyxListbox
     v-if="listboxOptions.length > 0"
-    class="onyx-nav-item-listbox"
+    class="onyx-nav-item__listbox"
     :label="'Options of ' + props.label"
     :options="listboxOptions"
     :model-value="props.options?.find((opt) => opt.active)?.href"
@@ -71,12 +71,12 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
     color: var(--onyx-color-text-icons-neutral-medium);
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       background-color: var(--onyx-color-base-neutral-200);
 
-      + .onyx-nav-item-listbox {
+      + .onyx-nav-item__listbox {
         opacity: 1;
-        transition: opacity 0.2s ease-in;
       }
     }
 
@@ -88,7 +88,7 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
         position: absolute;
         width: 100%;
         height: 0.125rem;
-        bottom: calc(-1 * var(--onyx-spacing-3xs));
+        bottom: calc(-1 * var(--onyx-spacing-2xs));
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
         background: var(--onyx-color-base-secondary-500);
       }
@@ -97,17 +97,15 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
     &:focus-visible {
       outline: 0.25rem solid var(--onyx-color-base-secondary-200);
     }
-  }
-}
 
-.onyx-nav-item-listbox {
-  @include layers.component() {
-    margin-top: var(--onyx-spacing-sm);
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
+    + .onyx-nav-item__listbox {
+      margin-top: var(--onyx-spacing-sm);
+      opacity: 0;
+      transition: opacity var(--onyx-duration-sm);
 
-    &:hover {
-      opacity: 1;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
