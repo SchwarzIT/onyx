@@ -7,7 +7,7 @@ const useSelectAllCheckboxState = <TValue extends OptionValue = OptionValue>(
   enabledOptionValues: Ref<TValue[]>,
   modelValue: Ref<TValue[]>,
 ) =>
-  computed<Partial<OnyxCheckboxProps>>(() => {
+  computed(() => {
     const currentValues = modelValue.value.filter((value) =>
       enabledOptionValues.value.includes(value),
     );
@@ -17,7 +17,7 @@ const useSelectAllCheckboxState = <TValue extends OptionValue = OptionValue>(
       modelValue: isActive,
       indeterminate:
         !isActive && enabledOptionValues.value.length && currentValues.length ? true : undefined,
-    };
+    } satisfies Partial<OnyxCheckboxProps>;
   });
 
 export const useCheckAll = <TValue extends OptionValue = OptionValue>(
@@ -40,7 +40,6 @@ export const useCheckAll = <TValue extends OptionValue = OptionValue>(
      */
     checkAllChange: (isChecked: boolean) => {
       const newValue = isChecked ? enabledOptionValues.value : [];
-
       onChangeCallback(newValue);
     },
   };

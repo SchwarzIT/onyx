@@ -71,9 +71,7 @@ const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  const options: TValue[] = props.withCheckAll ? [CHECK_ALL_ID] : [];
-  options.push(...enabledOptionValues.value);
-  return options;
+  return (props.withCheckAll ? [CHECK_ALL_ID] : []).concat(enabledOptionValues.value);
 });
 
 const {
@@ -142,8 +140,9 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled).map(({ id }) => id),
 );
 
-/** state and click callback for the `select all` checkbox.
- * only available when multiple and withCheckAll are set.
+/**
+ * State and click callback for the `select all` checkbox.
+ * Only available when multiple and withCheckAll are set.
  */
 const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
@@ -201,7 +200,7 @@ watchEffect(() => {
                 selected: checkAll?.state.modelValue,
               })
             "
-            :multiple="true"
+            multiple
             :active="CHECK_ALL_ID === activeOption"
             :indeterminate="checkAll?.state.indeterminate"
             class="onyx-listbox__check-all"

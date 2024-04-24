@@ -162,7 +162,7 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * Multiselect listbox. You can disable the `Select all` option in the settings.
+ * Multiselect listbox. You can disable the `Select all` option by removing the `withCheckAll` property.
  */
 export const Multiselect = {
   args: {

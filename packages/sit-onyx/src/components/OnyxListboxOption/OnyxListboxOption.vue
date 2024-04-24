@@ -79,7 +79,7 @@ defineSlots<{
       &[aria-checked="true"] {
         &:hover,
         &.onyx-listbox-option--active {
-          background: var(--onyx-color-base-primary-100);
+          background-color: var(--onyx-color-base-primary-100);
           color: var(--onyx-color-text-icons-primary-bold);
         }
       }
