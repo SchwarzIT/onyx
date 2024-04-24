@@ -2,4 +2,4 @@
 "sit-onyx": major
 ---
 
-refactor(OnyxCheckboxGroup): integrate checkAllLabel into withCheckAll prop
+refactor(OnyxCheckboxGroup): remove`checkAllLabel` property in favor of `withCheckAll`
