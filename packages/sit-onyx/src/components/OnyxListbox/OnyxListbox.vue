@@ -83,7 +83,7 @@ const {
   activeOption,
   onSelect: (selectedOption) => {
     if (selectedOption === CHECK_ALL_ID) {
-      checkAll.value?.handleChange(!checkAll.value.state.modelValue);
+      checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
       return;
     }
 
@@ -146,12 +146,11 @@ const enabledOptionValues = computed(() =>
  */
 const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
-  const { checkAllState, handleCheckAllChange } = useCheckAll(
+  return useCheckAll(
     enabledOptionValues,
     computed(() => (props.modelValue as TValue[]) || []),
     (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
   );
-  return { state: checkAllState.value, handleChange: handleCheckAllChange };
 });
 
 const checkAllLabel = computed<string>(() => {
@@ -197,12 +196,12 @@ watchEffect(() => {
               headlessOption({
                 value: CHECK_ALL_ID as TValue,
                 label: checkAllLabel,
-                selected: checkAll?.state.modelValue,
+                selected: checkAll?.state.value.modelValue,
               })
             "
             multiple
             :active="CHECK_ALL_ID === activeOption"
-            :indeterminate="checkAll?.state.indeterminate"
+            :indeterminate="checkAll?.state.value.indeterminate"
             class="onyx-listbox__check-all"
           >
             {{ checkAllLabel }}

@@ -31,13 +31,13 @@ export const useCheckAll = <TValue extends SelectionOptionValue = SelectionOptio
      * - indeterminate if at least one but not all options are checked
      * - unchecked if no options are checked
      */
-    checkAllState: useSelectAllCheckboxState(enabledOptionValues, modelValue),
+    state: useSelectAllCheckboxState(enabledOptionValues, modelValue),
     /**
      * Provides an update for the checkbox list with
      * - all option values if "select all" was checked
      * - an empty list if "select all" was unchecked
      */
-    handleCheckAllChange: (isChecked: boolean) => {
+    handleChange: (isChecked: boolean) => {
       const newValue = isChecked ? enabledOptionValues.value : [];
       onChangeCallback(newValue);
     },
