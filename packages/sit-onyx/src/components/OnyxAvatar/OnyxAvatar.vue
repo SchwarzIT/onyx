@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   type: "initials",
 });
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Optional slot to override the default initials. Will only be used if `type` is `initials`.
    */
@@ -33,7 +33,11 @@ watch(
 </script>
 
 <template>
-  <figure class="onyx-avatar" :class="[`onyx-avatar--${props.size}`]" :title="props.label">
+  <figure
+    class="onyx-avatar"
+    :class="[`onyx-avatar--${props.size}`, slots.default ? 'onyx-avatar--custom' : '']"
+    :title="props.label"
+  >
     <img
       v-if="props.src && !hasImageError"
       class="onyx-avatar__svg"
@@ -58,15 +62,22 @@ watch(
 
 .onyx-avatar {
   @include layers.component() {
+    $border-width: var(--onyx-1px-in-rem);
+
     width: var(--onyx-avatar-size);
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
-    box-sizing: content-box;
     border-radius: var(--onyx-radius-full);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: $border-width solid var(--onyx-color-base-neutral-300);
 
     &:has(.onyx-avatar__initials) {
+      background-color: var(--onyx-color-base-primary-200);
+    }
+
+    &--custom {
+      --onyx-avatar-padding: var(--onyx-spacing-sm);
       width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
+      padding: calc(var(--onyx-avatar-padding) - 2 * $border-width);
     }
 
     &__svg {
@@ -78,7 +89,6 @@ watch(
     }
 
     &__initials {
-      background-color: var(--onyx-color-base-primary-200);
       color: var(--onyx-color-text-icons-primary-bold);
       font-family: var(--onyx-font-family);
       line-height: normal;
@@ -98,13 +108,16 @@ watch(
           --onyx-avatar-size: #{$size};
 
           @if $name == 16px {
-            font-size: 0.625rem;
+            font-size: 0.5rem;
+            --onyx-avatar-padding: var(--onyx-spacing-4xs);
           }
           @if $name == 24px {
-            font-size: 0.8125rem;
+            font-size: 0.625rem;
+            --onyx-avatar-padding: var(--onyx-spacing-3xs);
           }
           @if $name == 32px {
-            font-size: 1rem;
+            font-size: 0.875rem;
+            --onyx-avatar-padding: var(--onyx-spacing-2xs);
           }
           @if $name == 48px {
             font-size: 1.25rem;
@@ -113,7 +126,7 @@ watch(
             font-size: 1.75rem;
           }
           @if $name == 96px {
-            font-size: 1.75rem;
+            font-size: 3rem;
           }
         }
       }

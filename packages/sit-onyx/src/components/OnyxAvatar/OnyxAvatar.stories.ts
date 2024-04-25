@@ -64,7 +64,7 @@ export const WithImage = {
  */
 export const WithCustomInitials = {
   args: {
-    label: "42 more avatars",
-    default: "+42",
+    label: "4 more avatars",
+    default: "+4",
   },
 } satisfies Story;
