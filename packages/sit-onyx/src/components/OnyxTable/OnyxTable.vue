@@ -151,8 +151,8 @@ const { densityClass } = useDensity(props);
       background-color: var(--onyx-color-base-background-blank);
       position: absolute;
       top: 0;
-      left: -500vw;
-      width: 1000vw;
+      left: 0;
+      width: 100%;
       height: 100%;
       z-index: -2;
     }
@@ -174,9 +174,9 @@ const { densityClass } = useDensity(props);
     // column hover styles
     th:hover::after {
       content: "";
-      height: 1000vh;
+      height: 100vh;
       position: absolute;
-      top: -500vh;
+      top: 0;
       left: 0;
       width: 100%;
       z-index: -1;
