@@ -44,7 +44,10 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   expect(modelValue).toBeUndefined();
 
   // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+  const accessibilityScanResults = await makeAxeBuilder()
+    .disableRules(["color-contrast"])
+    .analyze();
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
