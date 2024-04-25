@@ -1,8 +1,11 @@
 <script lang="ts" setup>
+import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
+import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
 import type { OnyxNavItemProps } from "./types";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { ListboxOption } from "../OnyxListbox/types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
@@ -28,6 +31,10 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
 });
 
 const { t } = injectI18n();
+
+const shouldShowExternalIcon = computed(() => {
+  return isExternalLink(props.href ?? "");
+});
 </script>
 
 <template>
@@ -41,6 +48,7 @@ const { t } = injectI18n();
     @keydown.enter="props.href && emit('navigate', props.href)"
   >
     <span>{{ props.label }}</span>
+    <OnyxIcon v-if="shouldShowExternalIcon" :icon="arrowSmallUpRight" size="16px" />
     <slot></slot>
   </li>
   <OnyxListbox
