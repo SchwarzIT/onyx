@@ -124,7 +124,7 @@ const { densityClass } = useDensity(props);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
-    overflow: hidden;
+    contain: paint;
 
     th,
     td {
