@@ -78,8 +78,8 @@ defineSlots<{
       &[aria-selected="true"] {
         background-color: var(--onyx-color-base-primary-200);
 
-        :hover,
-        :focus-visible {
+        &:hover,
+        &:focus-visible {
           color: var(--onyx-color-text-icons-primary-bold);
         }
       }
