@@ -6,7 +6,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "NavItem",
     columns: ["default", "active"],
-    rows: ["default", "hover", "focus-visible", "external link"],
+    rows: ["default", "hover", "focus-visible", "external-link"],
     /**
      * This component represents only the child (menuitem) of the overall menu.
      * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
@@ -18,7 +18,7 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxNavItem
         label="Item"
-        href={row === "external link" ? "https://onyx.schwarz/" : "#"}
+        href={row === "external-link" ? "https://onyx.schwarz/" : "#"}
         active={column === "active"}
       />
     ),
