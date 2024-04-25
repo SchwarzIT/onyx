@@ -10,6 +10,7 @@ import type { ListboxOption } from "../OnyxListbox/types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
+  withExternalIcon: "auto",
 });
 
 const emit = defineEmits<{
@@ -33,6 +34,7 @@ const listboxOptions = computed<ListboxOption<string>[]>(() => {
 const { t } = injectI18n();
 
 const shouldShowExternalIcon = computed(() => {
+  if (props.withExternalIcon !== "auto") return props.withExternalIcon;
   return isExternalLink(props.href ?? "");
 });
 </script>
