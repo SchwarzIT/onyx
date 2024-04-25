@@ -95,8 +95,12 @@ const DEMO_OPTIONS: SelectOption[] = [
       label: option,
     }) satisfies ListboxOption,
 );
-const DISABLED_OPTION: ListboxOption = { value: "disabled", label: "Disabled", disabled: true };
-DEMO_OPTIONS.push(DISABLED_OPTION);
+const DISABLED_OPTION: ListboxOption = {
+  value: "disabled",
+  label: "Unavailable Fruit",
+  disabled: true,
+};
+DEMO_OPTIONS.splice(6, 0, DISABLED_OPTION);
 
 /**
  * This example shows a default single select listbox.
@@ -119,13 +123,14 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * Multiselect listbox
+ * Multiselect listbox. You can disable the `Select all` option by removing the `withCheckAll` property.
  */
 export const Multiselect = {
   args: {
     ...Default.args,
     modelValue: ["apple", "banana"],
     multiple: true,
+    withCheckAll: true,
     options: [
       ...Default.args.options,
       { value: "long", label: "Option with a very long long long  long long long long text}" },

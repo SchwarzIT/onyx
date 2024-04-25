@@ -2,6 +2,7 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
+import type { CheckboxGroupOption } from "./types";
 
 /**
  * Checkboxes are a fundamental UI element, that allows users to make a binary selection.
@@ -18,20 +19,22 @@ const meta: Meta<typeof OnyxCheckboxGroup> = {
 export default meta;
 type Story = StoryObj<typeof OnyxCheckboxGroup>;
 
+const DEMO_OPTIONS = [
+  { label: "Default", value: 1 },
+  { label: "Initially checked", value: 2 },
+  { label: "Required", value: 3, required: true },
+  { label: "Disabled", value: 4, disabled: true },
+  { label: "Loading", value: 5, loading: true },
+] satisfies CheckboxGroupOption[];
+
 /**
  * A checkbox group that contains a list of checkboxes.
  */
 export const Default = {
   args: {
     headline: "Checkbox group headline",
-    modelValue: [1],
-    options: [
-      { label: "Default", value: 1 },
-      { label: "Initially checked", value: 2 },
-      { label: "Required", value: 3, required: true },
-      { label: "Disabled", value: 4, disabled: true },
-      { label: "Loading", value: 5, loading: true },
-    ],
+    modelValue: [2],
+    options: DEMO_OPTIONS,
   },
 } satisfies Story;
 
@@ -52,6 +55,7 @@ export const WithCheckAll = {
   args: {
     ...Default.args,
     withCheckAll: true,
+    options: DEMO_OPTIONS.filter(({ loading }) => !loading),
   },
 } satisfies Story;
 

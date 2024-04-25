@@ -1,8 +1,9 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { computed } from "vue";
+import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
-import { OnyxHeadline, type OnyxCheckboxProps } from "../../index";
+import { OnyxHeadline } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
@@ -32,26 +33,20 @@ const handleUpdate = (value: TValue, isChecked: boolean) => {
   emit("update:modelValue", newValue);
 };
 
-const enabledOptions = computed(() => props.options.filter((i) => !i.disabled && !i.skeleton));
+const enabledOptionValues = computed(() =>
+  props.options.filter((i) => !i.disabled && !i.skeleton).map(({ value }) => value),
+);
 
-const handleMasterCheckboxChange = (isChecked: boolean) => {
-  const newValue = isChecked ? enabledOptions.value.map(({ value }) => value) : [];
-  emit("update:modelValue", newValue);
-};
+const checkAll = useCheckAll(
+  enabledOptionValues,
+  computed(() => props.modelValue),
+  (newValue) => emit("update:modelValue", newValue),
+);
 
-/**
- * Current master checkbox state.
- * - checked if all options are checked
- * - indeterminate if at least one but not all options are checked
- * - unchecked if no options are checked
- */
-const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
-  const availableOptionIds = enabledOptions.value.map(({ value }) => value);
-  const currentValues = props.modelValue.filter((i) => availableOptionIds.includes(i));
-
-  if (!availableOptionIds.length || !currentValues.length) return { modelValue: false };
-  if (currentValues.length === availableOptionIds.length) return { modelValue: true };
-  return { indeterminate: true, modelValue: false };
+const checkAllLabel = computed(() => {
+  const defaultText = t.value("selections.selectAll");
+  if (typeof props.withCheckAll === "boolean") return defaultText;
+  return props.withCheckAll?.label ?? defaultText;
 });
 </script>
 
@@ -68,10 +63,10 @@ const masterCheckboxState = computed<Partial<OnyxCheckboxProps>>(() => {
       <template v-if="props.skeleton === undefined">
         <OnyxCheckbox
           v-if="props.withCheckAll"
-          v-bind="masterCheckboxState"
-          :label="props.checkAllLabel || t('selections.selectAll')"
+          v-bind="checkAll.state.value"
+          :label="checkAllLabel"
           value="all"
-          @update:model-value="handleMasterCheckboxChange"
+          @update:model-value="checkAll.handleChange"
         />
 
         <OnyxCheckbox
