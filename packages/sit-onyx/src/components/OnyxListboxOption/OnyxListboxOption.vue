@@ -67,15 +67,22 @@ defineSlots<{
       &:hover,
       &.onyx-listbox-option--active {
         background-color: var(--onyx-color-base-primary-100);
+
+        &:hover {
+          color: var(--onyx-color-text-icons-primary-bold);
+        }
       }
 
       // single select
       &[aria-selected="true"] {
         background-color: var(--onyx-color-base-primary-200);
+
+        :hover {
+          color: var(--onyx-color-text-icons-primary-bold);
+        }
       }
 
       // single + multiselect
-      &[aria-selected="true"],
       &[aria-checked="true"] {
         &:hover,
         &.onyx-listbox-option--active {
