@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.88
+
+### Minor Changes
+
+- 8d65dce: feat(OnyxTable): add row and column hover styles
+
 ## 1.0.0-alpha.87
 
 ### Minor Changes
