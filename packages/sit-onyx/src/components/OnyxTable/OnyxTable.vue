@@ -124,10 +124,12 @@ const { densityClass } = useDensity(props);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
+    contain: paint;
 
     th,
     td {
       padding: var(--onyx-table-vertical-padding) var(--onyx-spacing-md);
+      position: relative;
     }
 
     th {
@@ -136,18 +138,48 @@ const { densityClass } = useDensity(props);
       font-size: 0.8125rem;
       line-height: 1.25rem;
       font-weight: 600;
+
+      &:hover {
+        background: var(--onyx-color-base-neutral-300);
+      }
     }
 
-    tr {
+    // we need to use ::before to set the row/td background color
+    // so the column hover effects works correctly with plain CSS
+    td::before {
+      content: "";
       background-color: var(--onyx-color-base-background-blank);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
     }
 
     &--striped {
       tbody {
-        tr:nth-child(even) {
+        tr:nth-child(even) td::before {
           background-color: var(--onyx-color-base-background-tinted);
         }
       }
+    }
+
+    // row and column hover styles
+    th:hover::after,
+    tbody tr:hover td::before {
+      background-color: var(--onyx-color-base-neutral-200);
+    }
+
+    // column hover styles
+    th:hover::after {
+      content: "";
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: -1;
     }
   }
 }
