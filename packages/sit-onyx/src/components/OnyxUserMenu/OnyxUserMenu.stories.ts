@@ -14,7 +14,6 @@ const meta: Meta<typeof OnyxUserMenu> = {
     component: OnyxUserMenu,
     events: ["optionClick"],
     argTypes: {
-      avatar: { control: { type: "text" } },
       footer: { control: { disable: true } },
     },
     decorators: [

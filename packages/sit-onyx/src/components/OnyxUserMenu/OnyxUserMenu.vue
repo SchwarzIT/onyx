@@ -164,4 +164,3 @@ const avatar = computed(() => {
   }
 }
 </style>
-import type { ListboxValue } from "@sit-onyx/headless";
