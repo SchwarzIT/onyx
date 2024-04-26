@@ -4,50 +4,33 @@ import type { OnyxListboxOptionProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
   active: false,
-  selected: false,
-  disabled: false,
   multiple: false,
   color: "primary",
 });
 
-const emit = defineEmits<{
-  click: [];
-}>();
-
 defineSlots<{
   /**
-   * Optional slot to override the option label / text content.
+   * Default slot to place the option label / text content.
    */
-  default?(): unknown;
+  default(): unknown;
 }>();
-
-const handleClick = () => {
-  if (!props.disabled) emit("click");
-};
 </script>
 
 <template>
-  <!-- eslint-disable vuejs-accessibility/click-events-have-key-events -->
-  <!-- eslint-disable vuejs-accessibility/interactive-supports-focus -->
+  <!-- eslint-disable-next-line vuejs-accessibility/role-has-required-aria-props -->
   <li
-    :id="props.id"
     class="onyx-listbox-option"
     :class="{
       'onyx-listbox-option--active': props.active,
       'onyx-listbox-option--danger': props.color === 'danger',
     }"
-    :aria-disabled="props.disabled"
-    :aria-label="props.label"
     role="option"
-    :aria-selected="props.multiple ? undefined : props.selected ?? false"
-    :aria-checked="props.multiple ? props.selected ?? false : undefined"
-    @click="handleClick"
   >
     <input
       v-if="props.multiple"
-      :checked="props.selected"
-      :aria-labelledby="props.id"
-      :disabled="props.disabled"
+      :checked="!!$attrs['aria-checked']"
+      :aria-labelledby="$attrs.id as string"
+      :disabled="!!$attrs['aria-disabled']"
       :indeterminate="props.indeterminate"
       aria-hidden="true"
       tabindex="-1"
@@ -58,7 +41,7 @@ const handleClick = () => {
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
     <span class="onyx-truncation-ellipsis">
-      <slot>{{ props.label }}</slot>
+      <slot></slot>
     </span>
   </li>
 </template>

@@ -21,10 +21,10 @@ test.describe("Single select screenshot tests", () => {
       component: (column, row) => (
         <OnyxListboxOption
           id="test-id"
-          label="Label"
-          selected={column === "selected"}
+          aria-label="Label"
+          aria-selected={column === "selected"}
           active={row === "focus-visible"}
-          disabled={state === "disabled"}
+          aria-disabled={state === "disabled"}
           color={state === "danger" ? "danger" : undefined}
         >
           Test label
@@ -56,10 +56,10 @@ test.describe("Multiselect Screenshot tests", () => {
       component: (column, row) => (
         <OnyxListboxOption
           id="test-id"
-          label="Label"
-          selected={column === "checked"}
+          aria-label="Label"
+          aria-checked={column === "checked"}
+          aria-disabled={state === "disabled"}
           active={row === "focus-visible"}
-          disabled={state === "disabled"}
           multiple={true}
           indeterminate={column === "indeterminate"}
         >

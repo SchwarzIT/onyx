@@ -6,14 +6,6 @@ export type OnyxListboxOptionProps = {
    */
   id: string;
   /**
-   * (Aria) label of the option. Required for accessibility / screen readers.
-   */
-  label: string;
-  /**
-   * Whether the option is selected.
-   */
-  selected?: boolean;
-  /**
    * Whether the option is (visually) active.
    */
   active?: boolean;
@@ -30,10 +22,6 @@ export type OnyxListboxOptionProps = {
    * Optional icon.
    */
   icon?: string;
-  /**
-   * Whether the option is disabled.
-   */
-  disabled?: boolean;
   /**
    * Main color of the option. Will have no effect on the multiselect checkbox.
    */

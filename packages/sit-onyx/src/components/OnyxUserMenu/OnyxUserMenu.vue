@@ -1,4 +1,5 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
+import type { ListboxValue } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
@@ -6,13 +7,16 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import type { OnyxUserMenuProps } from "./types";
 
-const props = defineProps<OnyxUserMenuProps>();
+const props = defineProps<OnyxUserMenuProps<TValue>>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when an option is clicked.
+   */
+  optionClick: [value: TValue];
+}>();
 
 const slots = defineSlots<{
-  /**
-   * Listbox options when user menu is open. You should only use `OnyxListboxOption` here.
-   */
-  default(): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
@@ -33,7 +37,12 @@ const avatar = computed(() => {
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </div>
 
-    <OnyxListbox class="onyx-user-menu__listbox" label="User options" :options="[]">
+    <OnyxListbox
+      class="onyx-user-menu__listbox"
+      label="User options"
+      :options="props.options"
+      @update:model-value="$event && emit('optionClick', $event)"
+    >
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />
@@ -51,8 +60,6 @@ const avatar = computed(() => {
           </div>
         </div>
       </template>
-
-      <slot></slot>
 
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">
@@ -157,3 +164,4 @@ const avatar = computed(() => {
   }
 }
 </style>
+import type { ListboxValue } from "@sit-onyx/headless";

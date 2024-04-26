@@ -10,7 +10,6 @@ import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
-import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 
@@ -176,32 +175,6 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
-
-const getOptionProps = computed(() => {
-  return (option: ListboxOption<TValue>): OnyxListboxOptionProps & { onClick: () => void } => {
-    const selected =
-      option.id === props.modelValue ||
-      (Array.isArray(props.modelValue) && props.modelValue.includes(option.id));
-
-    const headless = headlessOption.value({
-      value: option.id,
-      label: option.label,
-      disabled: option.disabled,
-      selected,
-    });
-
-    return {
-      id: headless.id,
-      label: headless["aria-label"],
-      active: option.id === activeOption.value,
-      multiple: props.multiple,
-      icon: option.icon,
-      disabled: option.disabled,
-      onClick: headless.onClick,
-      selected,
-    };
-  };
-});
 </script>
 
 <template>
@@ -246,11 +219,16 @@ const getOptionProps = computed(() => {
           <!-- select-all option for "multiple" -->
           <template v-if="props.multiple && props.withCheckAll">
             <OnyxListboxOption
-              v-bind="getOptionProps({ id: CHECK_ALL_ID as TValue, label: checkAllLabel })"
-              :selected="checkAll?.state.value.modelValue ?? false"
+              v-bind="
+                headlessOption({
+                  value: CHECK_ALL_ID as TValue,
+                  label: checkAllLabel,
+                  selected: checkAll?.state.value.modelValue,
+                })
+              "
+              multiple
               :active="CHECK_ALL_ID === activeOption"
               :indeterminate="checkAll?.state.value.indeterminate"
-              multiple
               class="onyx-listbox__check-all"
             >
               {{ checkAllLabel }}
@@ -260,7 +238,20 @@ const getOptionProps = computed(() => {
           <OnyxListboxOption
             v-for="option in options"
             :key="option.id.toString()"
-            v-bind="getOptionProps(option)"
+            v-bind="
+              headlessOption({
+                value: option.id,
+                label: option.label,
+                disabled: option.disabled,
+                selected:
+                  option.id === props.modelValue ||
+                  (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
+              })
+            "
+            :multiple="props.multiple"
+            :active="option.id === activeOption"
+            :icon="option.icon"
+            :color="option.color"
           >
             {{ option.label }}
           </OnyxListboxOption>

@@ -1,6 +1,7 @@
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import type { AriaAttributes } from "vue";
 import {
   createIconSourceCodeTransformer,
   createTruncationDecorator,
@@ -15,7 +16,7 @@ const meta: Meta<typeof OnyxListboxOption> = {
   title: "support/ListboxOption",
   ...defineStorybookActionsAndVModels({
     component: OnyxListboxOption,
-    events: ["click"],
+    events: [],
     decorators: [createTruncationDecorator("16rem")],
     argTypes: {
       default: { control: { type: "text" } },
@@ -33,12 +34,13 @@ const meta: Meta<typeof OnyxListboxOption> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxListboxOption>;
+type Story = StoryObj<typeof OnyxListboxOption> & { args: AriaAttributes };
 
 export const Default = {
   args: {
     id: "test-id",
-    label: "Example option",
+    "aria-label": "Example option",
+    default: "Example option",
   },
 } satisfies Story;
 
@@ -52,14 +54,14 @@ export const Active = {
 export const Selected = {
   args: {
     ...Default.args,
-    selected: true,
+    "aria-selected": true,
   },
 } satisfies Story;
 
 export const Disabled = {
   args: {
     ...Default.args,
-    disabled: true,
+    "aria-disabled": true,
   },
 } satisfies Story;
 
