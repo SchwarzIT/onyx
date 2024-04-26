@@ -134,12 +134,11 @@ const DEMO_OPTIONS: ListboxOption[] = [
       label: option,
     }) satisfies ListboxOption,
 );
-const DISABLED_OPTION: ListboxOption = {
+DEMO_OPTIONS.splice(6, 0, {
   id: "disabled",
-  label: "Unavailable Fruit",
+  label: "Unavailable fruit",
   disabled: true,
-};
-DEMO_OPTIONS.splice(6, 0, DISABLED_OPTION);
+});
 
 /**
  * This example shows a default single select listbox.
@@ -167,10 +166,15 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: ["apple", "banana"],
+    modelValue: ["apple", "banana", "disabled-2"],
     multiple: true,
     withCheckAll: true,
     options: [
+      {
+        id: "disabled-2",
+        label: "Selected unavailable fruit",
+        disabled: true,
+      },
       ...Default.args.options,
       { id: "long", label: "Option with a very long long long  long long long long text}" },
     ],
