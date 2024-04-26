@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.87
+
+### Minor Changes
+
+- 413d3e0: Implement external icon when external links are used inside OnyxNavItem
+
 ## 1.0.0-alpha.86
 
 ### Minor Changes

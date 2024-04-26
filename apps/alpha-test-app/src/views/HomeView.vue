@@ -83,6 +83,7 @@ const radioState = ref<string>();
 
 const listboxState = ref<string>();
 const groupedListboxState = ref<string>();
+const multiselectListboxState = ref<string[]>();
 
 const selectOptions = [
   "Apple",
@@ -194,21 +195,33 @@ const singleSelectState = ref(selectOptions[0]);
 
           <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-          <div style="display: flex; gap: var(--onyx-spacing-xs)">
-            <OnyxListbox
-              v-if="show('OnyxListbox')"
-              v-model="listboxState"
-              label="Example listbox"
-              :options="selectOptions"
-            />
+          <template v-if="show('OnyxListbox')">
+            <div style="display: flex; gap: var(--onyx-spacing-xs)">
+              <OnyxListbox
+                v-model="listboxState"
+                label="Example listbox"
+                :options="selectOptions"
+              />
+              <OnyxListbox
+                v-model="groupedListboxState"
+                label="Example grouped listbox"
+                :options="groupedListboxOptions"
+              />
+              <OnyxListbox
+                v-model="multiselectListboxState"
+                label="Example multiselect listbox"
+                :multiple="true"
+                :with-check-all="true"
+                :options="selectOptions"
+              />
+            </div>
 
-            <OnyxListbox
-              v-if="show('OnyxListbox')"
-              v-model="groupedListboxState"
-              label="Example grouped listbox"
-              :options="groupedListboxOptions"
-            />
-          </div>
+            <div class="onyx-text--small state-info">
+              <div>OnyxListbox single state: {{ listboxState ?? "–" }}</div>
+              <div>OnyxListbox single grouped state: {{ groupedListboxState ?? "–" }}</div>
+              <div>OnyxListbox multiselect state: {{ multiselectListboxState ?? "–" }}</div>
+            </div>
+          </template>
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
