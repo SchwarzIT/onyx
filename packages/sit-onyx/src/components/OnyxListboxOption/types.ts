@@ -2,10 +2,6 @@ import type { OnyxColor } from "../../types";
 
 export type OnyxListboxOptionProps = {
   /**
-   * Unique (HTML) ID of the option.
-   */
-  id: string;
-  /**
    * Whether the option is (visually) active.
    */
   active?: boolean;

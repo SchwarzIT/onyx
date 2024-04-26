@@ -17,14 +17,12 @@ defineSlots<{
 </script>
 
 <template>
-  <!-- eslint-disable-next-line vuejs-accessibility/role-has-required-aria-props -->
   <li
     class="onyx-listbox-option"
     :class="{
       'onyx-listbox-option--active': props.active,
       'onyx-listbox-option--danger': props.color === 'danger',
     }"
-    role="option"
   >
     <input
       v-if="props.multiple"

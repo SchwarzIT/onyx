@@ -38,7 +38,6 @@ type Story = StoryObj<typeof OnyxListboxOption> & { args: AriaAttributes };
 
 export const Default = {
   args: {
-    id: "test-id",
     "aria-label": "Example option",
     default: "Example option",
   },
