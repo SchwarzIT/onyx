@@ -74,7 +74,7 @@ export const WithAdditionalContent = {
  */
 export const WithExternalLink = {
   args: {
-    label: "Onyx",
+    label: "onyx",
     href: "https://onyx.schwarz/",
   },
 } satisfies Story;
