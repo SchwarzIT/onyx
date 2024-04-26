@@ -30,12 +30,12 @@ const avatar = computed(() => {
 </script>
 
 <template>
-  <button class="onyx-user-menu">
-    <div class="onyx-user-menu__trigger onyx-text">
+  <div class="onyx-user-menu">
+    <button class="onyx-user-menu__trigger onyx-text">
       <OnyxAvatar v-bind="avatar" size="24px" />
       <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
-    </div>
+    </button>
 
     <OnyxListbox
       class="onyx-user-menu__listbox"
@@ -67,7 +67,7 @@ const avatar = computed(() => {
         </div>
       </template>
     </OnyxListbox>
-  </button>
+  </div>
 </template>
 
 <style lang="scss">
@@ -80,10 +80,6 @@ const avatar = computed(() => {
     font-family: var(--onyx-font-family);
     width: max-content;
     position: relative;
-
-    border: none;
-    background: none;
-    padding: 0;
 
     &:focus-within {
       outline: 0;
@@ -104,6 +100,7 @@ const avatar = computed(() => {
 
     &__trigger {
       border-radius: var(--onyx-radius-sm);
+      border: none;
       background: var(--onyx-color-base-background-blank);
 
       padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
