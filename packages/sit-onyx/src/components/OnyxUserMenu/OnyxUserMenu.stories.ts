@@ -36,17 +36,8 @@ export const Default = {
     username: "Jane Doe",
     description: "Company Name",
     options: [
-      {
-        id: "/settings",
-        label: "Settings",
-        icon: settings,
-      },
-      {
-        id: "logout",
-        label: "Logout",
-        icon: logout,
-        color: "danger",
-      },
+      { id: "/settings", label: "Settings", icon: settings },
+      { id: "logout", label: "Logout", icon: logout, color: "danger" },
     ],
     footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
   },
