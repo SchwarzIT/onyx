@@ -50,7 +50,12 @@ const shouldShowExternalIcon = computed(() => {
     @keydown.enter="props.href && emit('navigate', props.href)"
   >
     <span>{{ props.label }}</span>
-    <OnyxIcon v-if="shouldShowExternalIcon" :icon="arrowSmallUpRight" size="16px" />
+    <OnyxIcon
+      v-if="shouldShowExternalIcon"
+      class="onyx-nav-item__icon"
+      :icon="arrowSmallUpRight"
+      size="16px"
+    />
     <slot></slot>
   </li>
   <OnyxListbox
@@ -105,6 +110,10 @@ const shouldShowExternalIcon = computed(() => {
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
         background: var(--onyx-color-base-secondary-500);
       }
+    }
+
+    &__icon {
+      align-self: flex-start;
     }
 
     &:focus-visible {
