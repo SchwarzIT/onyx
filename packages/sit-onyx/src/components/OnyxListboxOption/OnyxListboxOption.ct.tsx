@@ -11,13 +11,7 @@ test.describe("Single select screenshot tests", () => {
       // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       // aria-required-parent is ignored here because this component is only a single option which is internally always
       // used together with a parent so we disable the failing rule here
-      disabledAccessibilityRules: [
-        "aria-required-parent",
-        "color-contrast",
-        // TODO: as part of https://github.com/SchwarzIT/onyx/issues/732,
-        // the following disabled rule must be removed / fixed.
-        "nested-interactive",
-      ],
+      disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
       component: (column, row) => (
         <OnyxListboxOption
           aria-label="Label"
@@ -45,13 +39,7 @@ test.describe("Multiselect Screenshot tests", () => {
       // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       // aria-required-parent is ignored here because this component is only a single option which is internally always
       // used together with a parent so we disable the failing rule here
-      disabledAccessibilityRules: [
-        "aria-required-parent",
-        "color-contrast",
-        // TODO: as part of https://github.com/SchwarzIT/onyx/issues/732,
-        // the following disabled rule must be removed / fixed.
-        "nested-interactive",
-      ],
+      disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
       component: (column, row) => (
         <OnyxListboxOption
           aria-label="Label"
