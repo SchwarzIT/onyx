@@ -63,8 +63,8 @@ test.describe("Multiselect screenshot tests", () => {
     disabledAccessibilityRules: [
       // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/732,
-      // the following disabled rule must be removed / fixed.
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
       "nested-interactive",
     ],
     component: (column, row) => (
