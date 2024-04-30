@@ -1,23 +1,6 @@
-import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxTooltip from "./OnyxTooltip.vue";
-
-test("should pass accessibility checks", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  await mount(
-    <div style={{ width: "max-content", padding: "3rem 1rem" }}>
-      <OnyxTooltip text="Test tooltip" open={true}>
-        Test slot content
-      </OnyxTooltip>
-    </div>,
-  );
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
 
 test("should trigger with boolean", async ({ mount }) => {
   // ARRANGE
@@ -144,25 +127,19 @@ test("should render custom tooltip content", async ({ mount }) => {
   await expect(tooltip).toContainText("Custom slot content");
 });
 
-const STATES = {
-  variant: ["default", "bottom", "icon", "danger"],
-  text: ["default", "long", "fitParent"],
-} as const;
-
-test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(STATES, "tooltip", async ({ variant, text }, mount) => {
-    const component = await mount(
-      <div
-        style={{
-          width: "max-content",
-        }}
-      >
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Tooltip",
+    columns: ["default", "fit-parent", "long-text"],
+    rows: ["default", "bottom", "icon", "danger"],
+    component: (column, row) => {
+      return (
         <OnyxTooltip
-          text={text === "long" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
-          color={variant === "danger" ? "danger" : undefined}
-          position={variant === "bottom" ? "bottom" : undefined}
-          icon={variant === "icon" ? mockPlaywrightIcon : undefined}
-          fitParent={text === "fitParent"}
+          text={column === "long-text" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
+          color={row === "danger" ? "danger" : undefined}
+          position={row === "bottom" ? "bottom" : undefined}
+          icon={row === "icon" ? mockPlaywrightIcon : undefined}
+          fitParent={column === "fit-parent"}
           open={true}
         >
           <span
@@ -174,34 +151,31 @@ test.describe("state screenshot tests", () => {
             Here goes the slot content
           </span>
         </OnyxTooltip>
-      </div>,
-    );
+      );
+    },
+    // set component size to fully include the tooltip
+    beforeScreenshot: async (component, page, column, row) => {
+      const tooltipSize = await component
+        .getByRole("tooltip")
+        .evaluate((element) => [element.clientHeight, element.clientWidth]);
 
-    const tooltipSize = await component
-      .getByRole("tooltip")
-      .evaluate((element) => [element.clientHeight, element.clientWidth]);
+      // set paddings to fit the full tooltip in the screenshot
+      await component.evaluate(
+        (element, { tooltipSize: [height, width], row }) => {
+          const verticalPadding = `${height + 12}px`;
 
-    // set paddings to fit the full tooltip in the screenshot
-    await component.evaluate(
-      (element, { tooltipSize: [height, width], variant }) => {
-        const verticalPadding = `${height + 12}px`;
+          if (row === "bottom") element.style.paddingBottom = verticalPadding;
+          else element.style.paddingTop = verticalPadding;
 
-        if (variant === "bottom") {
-          element.style.paddingBottom = verticalPadding;
-        } else {
-          element.style.paddingTop = verticalPadding;
-        }
-
-        const widthDiff = width - element.clientWidth;
-        if (widthDiff > 0) {
-          const padding = `${widthDiff / 2 + 20}px`;
-          element.style.paddingLeft = padding;
-          element.style.paddingRight = padding;
-        }
-      },
-      { tooltipSize, variant },
-    );
-
-    return component;
+          const widthDiff = width - element.clientWidth;
+          if (widthDiff > 0) {
+            const padding = `${widthDiff / 2 + 20}px`;
+            element.style.paddingLeft = padding;
+            element.style.paddingRight = padding;
+          }
+        },
+        { tooltipSize, row },
+      );
+    },
   });
 });

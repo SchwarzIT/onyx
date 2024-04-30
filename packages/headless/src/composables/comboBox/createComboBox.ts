@@ -1,7 +1,7 @@
 import { computed, ref, type MaybeRef, type Ref, unref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createListbox } from "../listbox/createListbox";
+import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
 import { useTypeAhead } from "../typeAhead";
 import { isPrintableCharacter } from "../../utils/keyEvent";
 import { isSubsetMatching } from "../../utils/object";
@@ -27,6 +27,7 @@ const isSelectingKey = (event: KeyboardEvent) =>
 export type CreateComboboxOptions<
   TValue extends string,
   TAutoComplete extends ComboboxAutoComplete,
+  TMultiple extends boolean = false,
 > = {
   autocomplete: TAutoComplete;
   label: MaybeRef<string>;
@@ -34,6 +35,10 @@ export type CreateComboboxOptions<
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
    */
   listLabel: MaybeRef<string>;
+  /**
+   * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
+   */
+  inputValue: Ref<TValue | undefined>;
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
@@ -71,14 +76,22 @@ export type CreateComboboxOptions<
   : { onAutocomplete?: undefined }) &
   (TAutoComplete extends "none"
     ? { onTypeAhead: (input: string) => void }
-    : { onTypeAhead?: undefined });
+    : { onTypeAhead?: undefined }) &
+  Pick<
+    CreateListboxOptions<TValue, TMultiple>,
+    "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
+  >;
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TValue extends string, TAutoComplete extends ComboboxAutoComplete>({
+  <
+    TValue extends string,
+    TAutoComplete extends ComboboxAutoComplete,
+    TMultiple extends boolean = false,
+  >({
     autocomplete,
     onAutocomplete,
     onTypeAhead,
@@ -92,7 +105,7 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TValue, TAutoComplete>) => {
+  }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
     const inputValid = ref(true);
     const inputValue = ref("");
     const controlsId = createId("comboBox-control");

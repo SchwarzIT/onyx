@@ -1,6 +1,109 @@
-import { expect, test } from "../../../playwright-axe";
-import { executeScreenshotsForAllStates } from "../../../utils/playwright";
+import { DENSITIES } from "../../../composables/density";
+import { expect, test } from "../../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../../playwright/screenshots";
 import OnyxSelect from "./OnyxSelect.vue";
+import { MULTISELECT_TEXT_MODE } from "./types";
+
+test.describe("Screenshot tests", () => {
+  for (const state of ["default", "placeholder", "with value"] as const) {
+    executeMatrixScreenshotTest({
+      name: `Select (${state})`,
+      columns: DENSITIES,
+      rows: ["default", "hover", "focus-visible"],
+      component: (column) => (
+        <OnyxSelect
+          style="width: 16rem"
+          label="Test label"
+          placeholder={state === "placeholder" ? "Test placeholder" : undefined}
+          density={column}
+          modelValue={state === "with value" ? "Selected value" : undefined}
+        />
+      ),
+      beforeScreenshot: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
+    });
+  }
+
+  executeMatrixScreenshotTest({
+    name: "Select (other)",
+    columns: ["default", "hideLabel"],
+    rows: ["required", "optional", "message"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => (
+      <OnyxSelect
+        style="width: 16rem"
+        label="Test label"
+        hideLabel={column === "hideLabel"}
+        required={row === "required"}
+        requiredMarker={row === "optional" ? "optional" : undefined}
+        message={row === "message" ? "Test message" : undefined}
+      />
+    ),
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Select (readonly, disabled, loading)",
+    columns: ["readonly", "disabled", "loading"],
+    rows: ["default", "hover", "focus-visible"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column) => (
+      <OnyxSelect
+        style="width: 16rem"
+        label="Test label"
+        placeholder="Test placeholder"
+        readonly={column === "readonly"}
+        disabled={column === "disabled"}
+        loading={column === "loading"}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Select (multiple)",
+    columns: MULTISELECT_TEXT_MODE,
+    rows: ["empty", "one-value", "two-values", "many-values"],
+    component: (column, row) => {
+      const modelValues: Record<typeof row, string[]> = {
+        empty: [],
+        "one-value": ["Apple"],
+        "two-values": ["Apple", "Pear"],
+        "many-values": ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
+      };
+
+      return (
+        <OnyxSelect
+          style="width: 16rem"
+          label="Test label"
+          modelValue={modelValues[row]}
+          multiple={{ textMode: column }}
+        />
+      );
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Select (skeleton)",
+    rows: ["default", "hideLabel"],
+    columns: DENSITIES,
+    component: (column, row) => (
+      <OnyxSelect
+        style="width: 16rem"
+        label="Test label"
+        density={column}
+        hideLabel={row === "hideLabel"}
+        skeleton
+      />
+    ),
+  });
+});
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
@@ -15,141 +118,4 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   // ASSERT
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
-});
-
-const BASIC_STATES = {
-  state: ["default", "required", "optional"],
-  labeled: ["Fruits", "Hidden Label"],
-} as const;
-
-test.describe("basic state screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    BASIC_STATES,
-    "basic-select",
-    async ({ state, labeled }, mount) => {
-      const component = await mount(
-        <OnyxSelect
-          style="width: 16rem"
-          modelValue={undefined}
-          label={labeled}
-          hideLabel={labeled === "Hidden Label"}
-          required={state === "required"}
-          placeholder="Select your fruits"
-        />,
-        { useOptional: state === "optional" },
-      );
-      return component;
-    },
-  );
-});
-
-const PERMISSIONS_STATES = {
-  state: ["default", "disabled", "readonly"],
-  focusState: ["", "hover", "focus-visible"],
-} as const;
-
-test.describe("permissions states screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    PERMISSIONS_STATES,
-    "permissions-select",
-    async ({ state, focusState }, mount, page) => {
-      const component = await mount(
-        <OnyxSelect
-          modelValue={undefined}
-          label="Fruits"
-          disabled={state === "disabled"}
-          readonly={state === "readonly"}
-          placeholder="Select your fruits"
-        />,
-      );
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await component.hover();
-      return component;
-    },
-  );
-});
-
-const DENSITY_STATES = {
-  density: ["compact", "default", "cozy"],
-} as const;
-
-test.describe("select with density states screenshot tests", () => {
-  executeScreenshotsForAllStates(DENSITY_STATES, "density-select", async ({ density }, mount) => {
-    const component = await mount(
-      <OnyxSelect
-        modelValue={undefined}
-        label="Fruits"
-        placeholder="Select your fruits"
-        density={density}
-      />,
-    );
-    return component;
-  });
-});
-
-const SINGLE_STATES = {
-  selection: ["", "Selection"],
-} as const;
-
-test.describe("single select value display states screenshot tests", () => {
-  executeScreenshotsForAllStates(SINGLE_STATES, "single-select", async ({ selection }, mount) => {
-    const component = await mount(
-      <OnyxSelect
-        modelValue={selection ? selection : undefined}
-        label="Fruits"
-        placeholder="Select your fruits"
-      />,
-    );
-    return component;
-  });
-});
-
-const MULTIPLE_STATES = {
-  selection: [
-    [],
-    ["Apple"],
-    ["Apple", "Pear"],
-    ["Banana", "Apple", "Cherry", "Pear", "Pineapple"],
-  ].map((values) => JSON.stringify(values)),
-  multiselectTextMode: ["summary", "preview"],
-} as const;
-
-test.describe("multiselect value display states screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    MULTIPLE_STATES,
-    "multi-select",
-    async ({ selection, multiselectTextMode }, mount) => {
-      const component = await mount(
-        <OnyxSelect
-          style="width: 16rem"
-          modelValue={JSON.parse(selection)}
-          label={`Multiselect with ${multiselectTextMode}`}
-          multiple={{ textMode: multiselectTextMode }}
-        />,
-      );
-      return component;
-    },
-  );
-});
-
-const SKELETON_STATES = {
-  withLabel: ["true", "false"],
-} as const;
-
-test.describe("skeleton states screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    SKELETON_STATES,
-    "skeleton-select",
-    async ({ withLabel }, mount) => {
-      const component = await mount(
-        <OnyxSelect
-          modelValue={undefined}
-          label="Label"
-          skeleton
-          hideLabel={withLabel === "true"}
-        />,
-      );
-      return component;
-    },
-  );
 });

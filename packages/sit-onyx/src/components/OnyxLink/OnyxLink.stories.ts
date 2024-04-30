@@ -6,13 +6,13 @@ import OnyxLink from "./OnyxLink.vue";
  * Links are navigational elements that direct users to other pages, whether they are internal or external.
  */
 const meta: Meta<typeof OnyxLink> = {
-  title: "components/OnyxLink",
+  title: "components/Link",
   ...defineStorybookActionsAndVModels({
     component: OnyxLink,
     events: ["click"],
     argTypes: {
       default: {
-        control: { disable: true },
+        control: { type: "text" },
       },
       withExternalIcon: {
         options: ["auto", true, false],
@@ -39,7 +39,7 @@ type Story = StoryObj<typeof OnyxLink>;
  */
 export const Default = {
   args: {
-    default: () => "Click me",
+    default: "Click me",
     href: "https://onyx.schwarz",
   },
 } satisfies Story;

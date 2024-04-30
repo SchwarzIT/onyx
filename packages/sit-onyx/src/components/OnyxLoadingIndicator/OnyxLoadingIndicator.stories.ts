@@ -1,6 +1,6 @@
-import { textColorDecorator } from "../../utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { textColorDecorator } from "../../utils/storybook";
 import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";
 
 /**
@@ -10,7 +10,7 @@ import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";
  * The color will be inherited by the current text color.
  */
 const meta: Meta<typeof OnyxLoadingIndicator> = {
-  title: "components/OnyxLoadingIndicator",
+  title: "components/LoadingIndicator",
   ...defineStorybookActionsAndVModels({
     component: OnyxLoadingIndicator,
     events: [],

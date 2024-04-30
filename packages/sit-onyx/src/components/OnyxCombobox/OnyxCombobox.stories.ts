@@ -30,7 +30,27 @@ const meta: Meta<typeof OnyxCombobox> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
+      modelValue: { control: { type: "text" } },
     },
+    /**
+     * Decorator that simulates the load more functionality so we can show it in the stories.
+     */
+    decorators: [
+      (story, ctx) => ({
+        components: { story },
+        setup: () => {
+          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
+
+          watchEffect(() => {
+            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+            ctx.args.options = options.value;
+          });
+
+          return { handleLoadMore, isLazyLoading, options };
+        },
+        template: `<story @lazy-load="handleLoadMore" />`,
+      }),
+    ],
   }),
   /**
    * Decorator that simulates the load more functionality so we can show it in the stories.
@@ -55,38 +75,104 @@ const meta: Meta<typeof OnyxCombobox> = {
   ],
 };
 
+const groupedAnimals = [
+  {
+    id: "cat",
+    label: "Cat",
+    group: "Land",
+  },
+  {
+    id: "dog",
+    label: "Dog",
+    group: "Land",
+  },
+  {
+    id: "tiger",
+    label: "Tager",
+    group: "Land",
+  },
+  {
+    id: "reindeer",
+    label: "Reindeer",
+    group: "Land",
+  },
+  {
+    id: "racoon",
+    label: "Racoon",
+    group: "Land",
+  },
+  {
+    id: "dolphin",
+    label: "Dolphin",
+    group: "Water",
+  },
+  {
+    id: "flounder",
+    label: "Flounder",
+    group: "Water",
+  },
+  {
+    id: "eel",
+    label: "Eel",
+    group: "Water",
+  },
+  {
+    id: "falcon",
+    label: "Falcon",
+    group: "Air",
+  },
+  {
+    id: "owl",
+    label: "Owl",
+    group: "Air",
+  },
+];
+
 export default meta;
 type Story = StoryObj<typeof OnyxCombobox>;
 
+const DEMO_OPTIONS: ComboboxOption<string>[] = [
+  "Apple",
+  "Banana",
+  "Mango",
+  "Kiwi",
+  "Orange",
+  "Papaya",
+  "Apricot",
+  "Lemon",
+  "Cranberry",
+  "Avocado",
+  "Cherry",
+  "Coconut",
+  "Lychee",
+  "Melon",
+  "Raspberry",
+  "Strawberry",
+].map(
+  (option) =>
+    ({
+      id: option.toLowerCase(),
+      label: option,
+    }) satisfies ComboboxOption<string>,
+);
+DEMO_OPTIONS.splice(6, 0, {
+  id: "disabled",
+  label: "Unavailable fruit",
+  disabled: true,
+});
+
 /**
- * This examples shows a default single select listbox.
+ * This example shows a default single select listbox.
  */
 export const Default = {
   args: {
-    label: "Example combobox",
-    options: [
-      "Apple",
-      "Banana",
-      "Mango",
-      "Kiwi",
-      "Orange",
-      "Papaya",
-      "Apricot",
-      "Lemon",
-      "Cranberry",
-      "Avocado",
-      "Cherry",
-      "Coconut",
-      "Lychee",
-      "Melon",
-      "Raspberry",
-      "Strawberry",
-    ].map((option) => ({ id: option.toLowerCase(), label: option })),
+    label: "Example listbox",
+    options: DEMO_OPTIONS,
   },
 } satisfies Story;
 
 /**
- * This examples shows a listbox with a message / help text at the bottom.
+ * This example shows a listbox with a message / help text at the bottom.
  */
 export const WithMessage = {
   args: {
@@ -96,7 +182,41 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * This examples shows an empty listbox with default translated message.
+ * Multiselect listbox. You can disable the `Select all` option by removing the `withCheckAll` property.
+ */
+export const Multiselect = {
+  args: {
+    ...Default.args,
+    modelValue: ["apple", "banana", "disabled-2"],
+    multiple: true,
+    withCheckAll: true,
+    options: [
+      {
+        id: "disabled-2",
+        label: "Selected unavailable fruit",
+        disabled: true,
+      },
+      ...Default.args.options,
+      { id: "long", label: "Option with a very long long long  long long long long text}" },
+    ],
+  },
+  argTypes: {
+    // modelValue: { control: { type: "array" } },
+  },
+} satisfies Story;
+
+/**
+ * This example shows a listbox with grouped options.
+ */
+export const GroupedOptions = {
+  args: {
+    label: "Grouped listbox",
+    options: groupedAnimals,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an empty listbox with default translated message.
  * You can use the `empty` slot to customize the content.
  */
 export const Empty = {
@@ -107,7 +227,7 @@ export const Empty = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox.
+ * This example shows a loading listbox.
  */
 export const Loading = {
   args: {
@@ -117,7 +237,7 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
+ * This example shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
 export const LazyLoading = {
@@ -130,7 +250,7 @@ export const LazyLoading = {
 } satisfies Story;
 
 /**
- * This examples shows a loading listbox with button loading.
+ * This example shows a loading listbox with button loading.
  */
 export const ButtonLoading = {
   args: {
@@ -151,7 +271,7 @@ export const ButtonLoading = {
   }),
 } satisfies Story;
 
-const useLazyLoading = (initialOptions: ComboboxOption[]) => {
+const useLazyLoading = (initialOptions: ComboboxOption<string>[]) => {
   const isLazyLoading = ref(false);
   const options = ref(initialOptions);
 

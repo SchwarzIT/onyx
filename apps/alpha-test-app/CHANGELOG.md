@@ -1,5 +1,139 @@
 # alpha-test-app
 
+## 0.1.0-alpha.85
+
+### Patch Changes
+
+- Updated dependencies [8d65dce]
+  - sit-onyx@1.0.0-alpha.88
+
+## 0.1.0-alpha.84
+
+### Patch Changes
+
+- Updated dependencies [413d3e0]
+  - sit-onyx@1.0.0-alpha.87
+
+## 0.1.0-alpha.83
+
+### Patch Changes
+
+- Updated dependencies [5e96001]
+  - sit-onyx@1.0.0-alpha.86
+
+## 0.1.0-alpha.82
+
+### Patch Changes
+
+- Updated dependencies [641dac7]
+- Updated dependencies [641dac7]
+- Updated dependencies [afe16cf]
+  - sit-onyx@1.0.0-alpha.85
+
+## 0.1.0-alpha.81
+
+### Patch Changes
+
+- Updated dependencies [5f28acb]
+- Updated dependencies [5f28acb]
+  - sit-onyx@1.0.0-alpha.84
+
+## 0.1.0-alpha.80
+
+### Patch Changes
+
+- Updated dependencies [29a8ba6]
+  - sit-onyx@1.0.0-alpha.83
+
+## 0.1.0-alpha.79
+
+### Patch Changes
+
+- Updated dependencies [1377af6]
+  - sit-onyx@1.0.0-alpha.82
+
+## 0.1.0-alpha.78
+
+### Patch Changes
+
+- Updated dependencies [ded1477]
+  - sit-onyx@1.0.0-alpha.81
+
+## 0.1.0-alpha.77
+
+### Patch Changes
+
+- Updated dependencies [da3cad4]
+- Updated dependencies [da3cad4]
+  - sit-onyx@1.0.0-alpha.80
+
+## 0.1.0-alpha.76
+
+### Patch Changes
+
+- Updated dependencies [193ecf2]
+  - sit-onyx@1.0.0-alpha.79
+
+## 0.1.0-alpha.75
+
+### Patch Changes
+
+- Updated dependencies [d819092]
+  - sit-onyx@1.0.0-alpha.78
+
+## 0.1.0-alpha.74
+
+### Patch Changes
+
+- Updated dependencies [a7b5140]
+  - sit-onyx@1.0.0-alpha.77
+
+## 0.1.0-alpha.73
+
+### Patch Changes
+
+- Updated dependencies [a155d1b]
+  - sit-onyx@1.0.0-alpha.76
+
+## 0.1.0-alpha.72
+
+### Patch Changes
+
+- Updated dependencies [61c4964]
+  - sit-onyx@1.0.0-alpha.75
+
+## 0.1.0-alpha.71
+
+### Patch Changes
+
+- Updated dependencies [288afbd]
+  - sit-onyx@1.0.0-alpha.74
+
+## 0.1.0-alpha.70
+
+### Patch Changes
+
+- Updated dependencies [43a8616]
+  - sit-onyx@1.0.0-alpha.73
+
+## 0.1.0-alpha.69
+
+### Minor Changes
+
+- f464b42: Implement grouped options for OnyxListbox component
+
+### Patch Changes
+
+- Updated dependencies [f464b42]
+  - sit-onyx@1.0.0-alpha.72
+
+## 0.0.1-alpha.68
+
+### Patch Changes
+
+- Updated dependencies [b20fa64]
+  - sit-onyx@1.0.0-alpha.71
+
 ## 0.0.1-alpha.67
 
 ### Patch Changes

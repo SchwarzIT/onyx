@@ -1,9 +1,9 @@
-import { OnyxLink } from "../../index";
-import { createTruncationDecorator } from "../../utils/storybook";
 import emojiSad from "@sit-onyx/icons/emoji-sad.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { OnyxLink } from "../../index";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxEmpty from "./OnyxEmpty.vue";
 
@@ -11,7 +11,7 @@ import OnyxEmpty from "./OnyxEmpty.vue";
  * The empty component is used to indicate to the user that there is currently no data available.
  */
 const meta: Meta<typeof OnyxEmpty> = {
-  title: "components/OnyxEmpty",
+  title: "components/Empty",
   ...defineStorybookActionsAndVModels({
     component: OnyxEmpty,
     events: [],
@@ -19,6 +19,7 @@ const meta: Meta<typeof OnyxEmpty> = {
       icon: {
         control: { disable: true },
       },
+      default: { control: { type: "text" } },
     },
   }),
 };

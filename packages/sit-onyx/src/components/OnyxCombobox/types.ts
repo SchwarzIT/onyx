@@ -1,4 +1,6 @@
-export type OnyxComboboxProps = {
+import type { ListboxModelValue } from "@sit-onyx/headless";
+
+export type OnyxComboboxProps<TValue extends string, TMultiple extends boolean = false> = {
   /**
    * Aria label for the combobox.
    */
@@ -10,7 +12,7 @@ export type OnyxComboboxProps = {
   /**
    * Available options to choose from.
    */
-  options: ComboboxOption[];
+  options: ComboboxOption<TValue>[];
   /**
    * Message / help text to display at the bottom.
    */
@@ -18,7 +20,27 @@ export type OnyxComboboxProps = {
   /**
    * Current value / selected options.
    */
-  modelValue?: string;
+  modelValue?: ListboxModelValue<TValue, TMultiple>;
+  /**
+   * Allows the selection of multiple listbox options
+   */
+  multiple?: TMultiple;
+  /**
+   * If true, a checkbox will be displayed to check/uncheck all options.
+   * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+   * Only available if "multiple" is true.
+   */
+  withCheckAll?: TMultiple extends true
+    ?
+        | boolean
+        | {
+            /**
+             * Label for the `select all` checkbox.
+             * If unset, a default label will be shown depending on the current locale/language.
+             */
+            label?: string;
+          }
+    : undefined;
   /**
    * Whether to show a loading indicator.
    */
@@ -32,11 +54,11 @@ export type OnyxComboboxProps = {
   withSearch?: false;
 };
 
-export type ComboboxOption = {
+export type ComboboxOption<TValue extends string> = {
   /**
    * Option ID / value to use when the option is selected.
    */
-  id: string;
+  id: TValue;
   /**
    * Label to show.
    */
@@ -45,6 +67,10 @@ export type ComboboxOption = {
    * Whether the option is disabled.
    */
   disabled?: boolean;
+  /**
+   * Optional group name. If set, all options will be grouped under that group name.
+   */
+  group?: string;
 };
 
 export type ComboboxLazyLoading = {

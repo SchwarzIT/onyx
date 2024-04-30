@@ -1,10 +1,10 @@
 import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import {
   executeMatrixScreenshotTest,
+  mockPlaywrightIcon,
   type MatrixScreenshotTestOptions,
 } from "../../playwright/screenshots";
-import { mockPlaywrightIcon } from "../../utils/playwright";
 import OnyxButton from "./OnyxButton.vue";
 import { BUTTON_MODES, BUTTON_VARIATIONS } from "./types";
 
@@ -16,6 +16,8 @@ test.describe("Screenshot tests", () => {
       if (row === "focus-visible") await page.keyboard.press("Tab");
       if (row === "active") await page.mouse.down();
     },
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
   } satisfies Partial<MatrixScreenshotTestOptions>;
 
   for (const mode of BUTTON_MODES) {

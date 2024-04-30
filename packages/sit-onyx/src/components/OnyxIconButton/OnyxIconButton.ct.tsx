@@ -1,5 +1,11 @@
-import { expect, test } from "../../playwright-axe";
-import { executeScreenshotsForAllStates, mockPlaywrightIcon } from "../../utils/playwright";
+import { DENSITIES } from "../../composables/density";
+import { expect, test } from "../../playwright/a11y";
+import {
+  executeMatrixScreenshotTest,
+  mockPlaywrightIcon,
+  type MatrixScreenshotTestOptions,
+} from "../../playwright/screenshots";
+import { BUTTON_VARIATIONS } from "../OnyxButton/types";
 import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
@@ -49,58 +55,50 @@ test("should behave correctly", async ({ mount }) => {
   });
 });
 
-const STATES = {
-  state: ["default", "disabled", "loading"],
-  variation: ["primary", "secondary", "danger"],
-  focusState: ["none", "hover", "focus-visible", "active"],
-} as const;
+test.describe("Screenshot tests", () => {
+  const beforeScreenshot: MatrixScreenshotTestOptions["beforeScreenshot"] = async (
+    component,
+    page,
+    column,
+    row,
+  ) => {
+    if (row === "hover") await component.hover();
+    if (row === "focus-visible") await page.keyboard.press("Tab");
+    if (row === "active") await page.mouse.down();
+  };
 
-test.describe("state screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    STATES,
-    "icon-button",
-    async ({ variation, state, focusState }, mount, page) => {
-      const component = await mount(
+  for (const state of ["default", "disabled"] as const) {
+    executeMatrixScreenshotTest({
+      name: `Icon button (${state})`,
+      columns: BUTTON_VARIATIONS,
+      rows: ["default", "hover", "active", "focus-visible"],
+      beforeScreenshot,
+      component: (column) => (
         <OnyxIconButton
-          label="label"
-          variation={variation}
+          label="Test label"
+          icon={mockPlaywrightIcon}
+          variation={column}
           disabled={state === "disabled"}
-          loading={state === "loading"}
-          icon={mockPlaywrightIcon}
-        />,
-      );
+        />
+      ),
+    });
+  }
 
-      const button = component.getByRole("button");
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-      if (focusState === "hover") await button.hover();
-      if (focusState === "active") await page.mouse.down();
-      return component;
-    },
-  );
-});
-
-const DENSITYSTATES = {
-  density: ["compact", "default", "cozy"],
-  focusState: ["focus-visible"],
-} as const;
-
-test.describe("state density screenshot tests", () => {
-  executeScreenshotsForAllStates(
-    DENSITYSTATES,
-    "icon-button",
-    async ({ density, focusState }, mount, page) => {
-      const component = await mount(
+  for (const state of ["densities", "loading", "skeleton"] as const) {
+    executeMatrixScreenshotTest({
+      name: `Icon button (${state})`,
+      columns: DENSITIES,
+      rows: ["default", "hover", "active", "focus-visible"],
+      beforeScreenshot,
+      component: (column) => (
         <OnyxIconButton
-          label="label"
-          variation="primary"
-          density={density}
+          label="Test label"
           icon={mockPlaywrightIcon}
-        />,
-      );
-
-      if (focusState === "focus-visible") await page.keyboard.press("Tab");
-
-      return component;
-    },
-  );
+          density={column}
+          loading={state === "loading"}
+          skeleton={state === "skeleton"}
+        />
+      ),
+    });
+  }
 });

@@ -5,25 +5,25 @@ beforeAll(() => {
   vi.useFakeTimers();
 });
 
-test("useTypeAhead", async () => {
+test("useTypeAhead", () => {
   const spy = vi.fn();
   const typeAhead = useTypeAhead(spy);
 
-  typeAhead({ key: "a" } as KeyboardEvent);
+  typeAhead({ key: "a" });
   expect(spy).toHaveBeenCalledOnce();
   expect(spy).toHaveBeenLastCalledWith("a");
 
-  typeAhead({ key: "Alt" } as KeyboardEvent);
+  typeAhead({ key: "Alt" });
   expect(spy).toHaveBeenCalledOnce();
   expect(spy).toHaveBeenLastCalledWith("a");
 
-  typeAhead({ key: "b" } as KeyboardEvent);
+  typeAhead({ key: "b" });
   expect(spy).toHaveBeenCalledTimes(2);
   expect(spy).toHaveBeenLastCalledWith("ab");
 
-  await vi.advanceTimersByTimeAsync(600);
+  vi.runAllTimers();
 
-  typeAhead({ key: "c" } as KeyboardEvent);
+  typeAhead({ key: "c" });
   expect(spy).toBeCalledTimes(3);
   expect(spy).toHaveBeenLastCalledWith("c");
 });

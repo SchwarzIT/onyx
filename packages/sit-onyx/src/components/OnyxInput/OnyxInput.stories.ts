@@ -7,7 +7,7 @@ import OnyxInput from "./OnyxInput.vue";
  * These components play a fundamental role in facilitating user interactions and data input within applications and websites.
  */
 const meta: Meta<typeof OnyxInput> = {
-  title: "components/OnyxInput",
+  title: "components/Input",
   ...defineStorybookActionsAndVModels({
     component: OnyxInput,
     events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
@@ -85,6 +85,16 @@ export const Loading = {
     ...Default.args,
     modelValue: "Test value",
     loading: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a skeleton input.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
 

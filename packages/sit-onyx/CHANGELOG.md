@@ -1,5 +1,133 @@
 # sit-onyx
 
+## 1.0.0-alpha.88
+
+### Minor Changes
+
+- 8d65dce: feat(OnyxTable): add row and column hover styles
+
+## 1.0.0-alpha.87
+
+### Minor Changes
+
+- 413d3e0: Implement external icon when external links are used inside OnyxNavItem
+
+## 1.0.0-alpha.86
+
+### Minor Changes
+
+- 5e96001: feat(OnyxAvatar): update font sizes
+
+## 1.0.0-alpha.85
+
+### Major Changes
+
+- 641dac7: refactor(OnyxCheckboxGroup): remove`checkAllLabel` property in favor of `withCheckAll`
+
+### Minor Changes
+
+- 641dac7: feat(OnyxListbox): implement `check all` support + exclude disabled options from keyboard navigation
+- afe16cf: Implement basic OnyxNavItem component
+
+## 1.0.0-alpha.84
+
+### Minor Changes
+
+- 5f28acb: feat(OnyxAvatar): add default slot to allow for custom content
+
+### Patch Changes
+
+- 5f28acb: fix(OnyxAvatar): update font size for size `96px`
+
+## 1.0.0-alpha.83
+
+### Minor Changes
+
+- 29a8ba6: feat: add basic `OnyxTable` component
+
+## 1.0.0-alpha.82
+
+### Minor Changes
+
+- 1377af6: feat(OnyxListbox): implement multiselect. Extend headless listbox to have an array modelValue if multiselect is used.
+
+### Patch Changes
+
+- Updated dependencies [1377af6]
+  - @sit-onyx/headless@0.1.0-alpha.7
+
+## 1.0.0-alpha.81
+
+### Minor Changes
+
+- ded1477: feat(OnyxBadge): add property `dot`
+
+## 1.0.0-alpha.80
+
+### Minor Changes
+
+- da3cad4: feat(OnyxAvatar): support custom image
+
+### Patch Changes
+
+- da3cad4: fix(OnyxAvatar): remove aria-label in favor of title
+
+  `aria-label` should only be used for interactive elements so we use `title` instead
+
+## 1.0.0-alpha.79
+
+### Minor Changes
+
+- 193ecf2: feat: add `skeleton` property for `OnyxIconButton` and `OnyxInput`
+
+## 1.0.0-alpha.78
+
+### Patch Changes
+
+- d819092: fix(OnyxSwitch): align label based on density, increase click area + show marker on truncation
+
+## 1.0.0-alpha.77
+
+### Minor Changes
+
+- a7b5140: feat: add `OnyxAvatar` and `OnyxAvatarStack` component
+
+## 1.0.0-alpha.76
+
+### Patch Changes
+
+- a155d1b: fix(OnyxTag): update border radius
+
+## 1.0.0-alpha.75
+
+### Patch Changes
+
+- 61c4964: fix(OnyxButton): add aria label when loading
+
+## 1.0.0-alpha.74
+
+### Minor Changes
+
+- 288afbd: feat: add `OnyxTag` component
+
+## 1.0.0-alpha.73
+
+### Minor Changes
+
+- 43a8616: feat(listbox): support multiple characters for type-ahead
+
+## 1.0.0-alpha.72
+
+### Minor Changes
+
+- f464b42: Implement grouped options for OnyxListbox component
+
+## 1.0.0-alpha.71
+
+### Patch Changes
+
+- b20fa64: fix(OnyxSelect): add missing border style for readonly + hover
+
 ## 1.0.0-alpha.70
 
 ### Major Changes

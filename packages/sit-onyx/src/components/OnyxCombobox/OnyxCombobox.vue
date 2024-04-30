@@ -1,15 +1,21 @@
-<script lang="ts" setup>
-import { createComboBox } from "@sit-onyx/headless";
+<script lang="ts" setup generic="TValue extends string, TMultiple extends boolean = false">
+import { createComboBox, createId } from "@sit-onyx/headless";
+import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { ComboboxOption, OnyxComboboxProps } from "./types";
+import type { OnyxComboboxProps } from "./types";
 import OnyxSelect from "../OnyxCombobox/OnyxSelect/OnyxSelect.vue";
 import OnyxListboxOption from "./OnyxListboxOption/OnyxListboxOption.vue";
+import type { ComboboxOption } from "../..";
 
-const props = withDefaults(defineProps<OnyxComboboxProps>(), {
+type InternalComboboxOption<TValue extends string> = ComboboxOption<TValue> & {
+  isSelectAll?: boolean;
+};
+
+const props = withDefaults(defineProps<OnyxComboboxProps<TValue, TMultiple>>(), {
   loading: false,
 });
 
@@ -42,6 +48,8 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
+const inputValue = ref("");
+
 /**
  * Currently selected option.
  */
@@ -53,43 +61,110 @@ const selectedOption = computed(() => props.options.find(({ id }) => props.model
 const enabledOptions = computed(() => props.options.filter((o) => !o.disabled));
 
 /**
+ *
+ */
+const enabledOptionIds = computed(() => enabledOptions.value.map((o) => o.id));
+
+/** Unique ID to identify the `select all` checkbox */
+const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
+
+const checkAllLabel = computed<string>(() => {
+  const defaultText = t.value("selections.selectAll");
+  if (typeof props.withCheckAll === "boolean") return defaultText;
+  return props.withCheckAll?.label ?? defaultText;
+});
+
+const CHECK_ALL_OPTION = computed<InternalComboboxOption<TValue>>(() => ({
+  id: CHECK_ALL_ID,
+  label: checkAllLabel.value,
+}));
+
+/**
+ * IDs of all options that can be navigated with the keyboard.
+ * Includes "select all" up front if it is used.
+ */
+const allKeyboardOptions = computed<InternalComboboxOption<TValue>[]>(() => [
+  ...(props.withCheckAll ? [CHECK_ALL_OPTION.value] : []),
+  ...enabledOptions.value,
+]);
+
+const groupedOptions = computed(() => {
+  return props.options.reduce<Record<string, ComboboxOption<TValue>[]>>((acc, currOpt) => {
+    const groupName = currOpt.group ?? "";
+    acc[groupName] = acc[groupName] || [];
+    acc[groupName].push(currOpt);
+    return acc;
+  }, {});
+});
+
+/**
  * Currently (visually) active option.
  */
-const activeOption = ref<ComboboxOption>();
+const activeOption = ref<InternalComboboxOption<TValue>>();
 
 const isExpanded = ref(false);
+
+/**
+ * State and click callback for the `select all` checkbox.
+ * Only available when multiple and withCheckAll are set.
+ */
+const checkAll = computed(() => {
+  if (!props.multiple || !props.withCheckAll) return undefined;
+  return useCheckAll(
+    enabledOptionIds,
+    computed(() => (props.modelValue as TValue[]) || []),
+    (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
+  );
+});
 
 const activeIndex = computed<number | undefined>(() => {
   const index = props.options.findIndex((o) => o.id === activeOption.value?.id);
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeOption.value = enabledOptions.value.at(0));
-const onActivateLast = () => (activeOption.value = enabledOptions.value.at(-1));
+const onActivateFirst = () => (activeOption.value = allKeyboardOptions.value.at(0));
+const onActivateLast = () => (activeOption.value = allKeyboardOptions.value.at(-1));
 const onActivateNext = () => {
   if (activeIndex.value === undefined) {
     return onActivateFirst();
   }
-  const nextIndex = Math.min(enabledOptions.value.length - 1, activeIndex.value + 1);
+  const nextIndex = Math.min(allKeyboardOptions.value.length - 1, activeIndex.value + 1);
 
-  activeOption.value = enabledOptions.value.at(nextIndex);
+  activeOption.value = allKeyboardOptions.value.at(nextIndex);
 };
 const onActivatePrevious = () =>
-  (activeOption.value = enabledOptions.value.at(Math.max((activeIndex.value ?? 0) - 1, 0)));
+  (activeOption.value = allKeyboardOptions.value.at(Math.max((activeIndex.value ?? 0) - 1, 0)));
 const onTypeAhead = (input: string) => {
-  const firstMatch = enabledOptions.value.find((i) => {
+  const firstMatch = allKeyboardOptions.value.find((i) => {
     return i.label.toLowerCase().trim().startsWith(input.toLowerCase());
   });
   if (!firstMatch) return;
   activeOption.value = firstMatch;
 };
 const onToggle = () => (isExpanded.value = !isExpanded.value);
-const onSelect = (newValue: string) => emit("update:modelValue", newValue);
+const onSelect = (selectedOption: string) => {
+  if (selectedOption === CHECK_ALL_ID) {
+    checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
+    return;
+  }
+
+  if (!props.multiple) {
+    const newValue = selectedOption === props.modelValue ? undefined : selectedOption;
+    emit("update:modelValue", newValue as typeof props.modelValue);
+    return;
+  }
+  const arrayValues: string[] = Array.isArray(props.modelValue) ? props.modelValue : [];
+  const newValues = arrayValues.includes(selectedOption)
+    ? arrayValues.filter((i) => i !== selectedOption)
+    : [...arrayValues, selectedOption];
+  emit("update:modelValue", newValues as typeof props.modelValue);
+};
 
 const comboBox = createComboBox({
   autocomplete: "none",
   label: props.label,
   listLabel: props.listLabel,
+  inputValue,
   activeOption: computed(() => activeOption.value?.id),
   isExpanded,
   onToggle,
@@ -102,7 +177,7 @@ const comboBox = createComboBox({
 });
 
 const {
-  elements: { input, listbox, option: headlessOption },
+  elements: { input, listbox, option: headlessOption, group: headlessGroup },
 } = comboBox;
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
@@ -128,7 +203,7 @@ const isEmpty = computed(() => props.options.length === 0);
       @click="isExpanded = true"
       @keydown.arrow-down="isExpanded = true"
     />
-    <div v-show="isExpanded" class="onyx-listbox">
+    <div v-show="isExpanded" class="onyx-listbox" :aria-busy="props.loading">
       <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
       </div>
@@ -137,23 +212,59 @@ const isEmpty = computed(() => props.options.length === 0);
         <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
       </slot>
 
-      <ul v-else v-scroll-end v-bind="listbox" class="onyx-listbox__options">
-        <OnyxListboxOption
-          v-for="option in props.options"
-          :key="option.id.toString()"
-          v-bind="
-            headlessOption({
-              value: option.id,
-              label: option.label,
-              disabled: option.disabled,
-            })
-          "
-          :selected="option.id === selectedOption?.id"
-          :active="option.id === activeOption?.id"
+      <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+        <ul
+          v-for="(options, group) in groupedOptions"
+          :key="group"
+          class="onyx-listbox__group"
+          v-bind="headlessGroup({ label: group })"
         >
-          {{ option.label }}
-        </OnyxListboxOption>
+          <li
+            v-if="group != ''"
+            role="presentation"
+            class="onyx-listbox__group-name onyx-text--small"
+          >
+            {{ group }}
+          </li>
 
+          <!-- select-all option for "multiple" -->
+          <template v-if="props.multiple && props.withCheckAll">
+            <OnyxListboxOption
+              v-bind="
+                headlessOption({
+                  value: CHECK_ALL_ID as TValue,
+                  label: checkAllLabel,
+                  selected: checkAll?.state.value.modelValue,
+                })
+              "
+              multiple
+              :active="CHECK_ALL_ID === activeOption"
+              :indeterminate="checkAll?.state.value.indeterminate"
+              class="onyx-listbox__check-all"
+            >
+              {{ checkAllLabel }}
+            </OnyxListboxOption>
+          </template>
+
+          <OnyxListboxOption
+            v-for="option in options"
+            :key="option.id.toString()"
+            v-bind="
+              headlessOption({
+                value: option.id,
+                label: option.label,
+                disabled: option.disabled,
+                selected:
+                  option.id === props.modelValue ||
+                  (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
+              })
+            "
+            :multiple="props.multiple"
+            :active="option.id === activeOption?.id"
+          >
+            {{ option.label }}
+          </OnyxListboxOption>
+        </ul>
         <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
           <OnyxLoadingIndicator class="onyx-listbox__loading" />
         </li>
@@ -161,11 +272,7 @@ const isEmpty = computed(() => props.options.length === 0);
         <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
           <slot name="optionsEnd"></slot>
         </li>
-      </ul>
-
-      <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
-        {{ props.message }}
-      </span>
+      </div>
     </div>
   </div>
 </template>

@@ -1,10 +1,18 @@
 import { comboboxSelectOnlyTesting } from "@sit-onyx/headless/playwright";
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCombobox from "./OnyxCombobox.vue";
-import type { ComboboxOption, OnyxComboboxProps } from "./types";
+import type { ComboboxOption } from "./types";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
-const MOCK_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
+const MOCK_VARIED_OPTIONS = [
+  { id: "1", label: "Default" },
+  { id: "2", label: "Selected" },
+  { id: "3", label: "Disabled", disabled: true },
+  { id: "4", label: "Very long label ".repeat(5) },
+];
+
+const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
   id: `${index}`,
   label: `Test option ${index + 1}`,
 })) satisfies ComboboxOption[];
@@ -15,14 +23,8 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxCombobox, {
     props: {
-      options: [
-        { id: "1", label: "Default" },
-        { id: "2", label: "Selected" },
-        { id: "3", label: "Disabled", disabled: true },
-        { id: "4", label: "Very long label ".repeat(5) },
-      ],
-      label: "Test combobox",
-      listLabel: "Test listbox",
+      options: MOCK_VARIED_OPTIONS,
+      label: "Test listbox",
       modelValue,
     },
     on: {
@@ -47,6 +49,72 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test.describe("Multiselect screenshot tests", () => {
+  const modelValues = {
+    "no-selection": [],
+    "partial-selection": [2],
+    "all-selected": [1, 2, 4],
+  };
+  executeMatrixScreenshotTest({
+    name: `Listbox multiselect`,
+    columns: ["default", "check-all"],
+    rows: ["no-selection", "partial-selection", "all-selected"],
+    disabledAccessibilityRules: [
+      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      "color-contrast",
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
+    component: (column, row) => (
+      <OnyxCombobox
+        label={`${column} listbox`}
+        options={MOCK_VARIED_OPTIONS}
+        modelValue={modelValues[row]}
+        withCheckAll={column === "check-all"}
+        multiple={true}
+      />
+    ),
+  });
+});
+
+test("should interact with multiselect", async ({ mount }) => {
+  let modelValue: number[] = [2];
+
+  const eventHandlers = {
+    "update:modelValue": async (value: number[]) => {
+      modelValue = value;
+      await component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
+
+  // ARRANGE
+  const component = await mount(OnyxCombobox<number, true>, {
+    props: {
+      options: MOCK_VARIED_OPTIONS,
+      label: "Test listbox",
+      withCheckAll: { label: "Select all" },
+      multiple: true,
+      modelValue,
+    },
+    on: eventHandlers,
+  });
+
+  // ASSERT
+  await expect(component.getByText("Disabled")).toBeDisabled();
+  expect(modelValue).toEqual([2]);
+
+  // ACT (should de-select current value)
+  await component.getByText("Selected").click();
+  // ASSERT
+  expect(modelValue).toEqual([]);
+
+  // // ACT (should select all non-disabled values)
+  await component.getByRole("option", { name: "Select all" }).click();
+  // ASSERT
+  expect(modelValue).toEqual([1, 2, 4]);
 });
 
 test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
@@ -77,6 +145,52 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
     component.getByRole("listbox"),
     component.getByRole("combobox"),
   );
+});
+
+test("should render with grouped options", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: [
+        {
+          id: "cat",
+          label: "Cat",
+          group: "Land",
+        },
+        {
+          id: "dog",
+          label: "Dog",
+          group: "Land",
+        },
+        {
+          id: "dolphin",
+          label: "Dolphin",
+          group: "Water",
+        },
+        {
+          id: "flounder",
+          label: "Flounder",
+          group: "Water",
+        },
+      ],
+      label: "Test listbox",
+    },
+    on: {
+      "update:modelValue": (modelValue: number | undefined) =>
+        component.update({ props: { modelValue } }),
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("grouped-options.png");
+  await expect(component.getByRole("group", { name: "Water" })).toBeVisible();
+  await expect(component.getByRole("group", { name: "Land" })).toBeVisible();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
 test("should show empty state", async ({ mount }) => {
@@ -124,7 +238,7 @@ test("should support lazy loading", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxCombobox, {
     props: {
-      options: MOCK_OPTIONS,
+      options: MOCK_MANY_OPTIONS,
       label: "Test combobox",
       listLabel: "Test listbox",
       lazyLoading: { enabled: true },
@@ -172,12 +286,10 @@ test("should support lazy loading", async ({ mount }) => {
   // ACT
   await updateProps({
     loading: false,
-    label: "Test combobox",
-    listLabel: "Test listbox",
-    options: MOCK_OPTIONS.concat(
+    options: MOCK_MANY_OPTIONS.concat(
       Array.from({ length: 25 }, (_, index) => {
-        const id = MOCK_OPTIONS.length + index;
-        return { id: `${id}`, label: `Test option ${id + 1}` };
+        const id = MOCK_MANY_OPTIONS.length + index;
+        return { id, label: `Test option ${id + 1}` };
       }),
     ),
   });
@@ -201,7 +313,7 @@ test("should support lazy loading", async ({ mount }) => {
 test("should display optionsEnd slot", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxCombobox options={MOCK_OPTIONS} label="Test label" listLabel="Test listbox">
+    <OnyxCombobox options={MOCK_MANY_OPTIONS} label="Test label">
       <template v-slot:optionsEnd>
         <OnyxButton label="Load more" mode="plain" style={{ width: "100%" }} />
       </template>

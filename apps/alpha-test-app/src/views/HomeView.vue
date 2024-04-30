@@ -4,6 +4,7 @@ import type { ListboxOption } from "sit-onyx";
 import {
   DENSITIES,
   OnyxAppLayout,
+  OnyxAvatar,
   OnyxBadge,
   OnyxButton,
   OnyxCheckboxGroup,
@@ -20,6 +21,8 @@ import {
   OnyxSelect,
   OnyxSkeleton,
   OnyxSwitch,
+  OnyxTable,
+  OnyxTag,
   OnyxTooltip,
   type SelectionOption,
 } from "sit-onyx";
@@ -32,6 +35,7 @@ const { locale } = useI18n();
 const router = useRouter();
 
 const COMPONENTS = [
+  "OnyxAvatar",
   "OnyxBadge",
   "OnyxButton",
   "OnyxCheckboxGroup",
@@ -47,6 +51,8 @@ const COMPONENTS = [
   "OnyxSelect",
   "OnyxSkeleton",
   "OnyxSwitch",
+  "OnyxTable",
+  "OnyxTag",
   "OnyxTooltip",
 ] as const;
 
@@ -81,6 +87,8 @@ const checkboxState = ref<string[]>([]);
 const radioState = ref<SelectionOption | undefined>();
 
 const listboxState = ref<string>();
+const groupedListboxState = ref<string>();
+const multiselectListboxState = ref<string[]>();
 
 const listboxOptions = [
   "Apple",
@@ -100,6 +108,59 @@ const listboxOptions = [
   "Raspberry",
   "Strawberry",
 ].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
+
+const groupedListboxOptions: ListboxOption[] = [
+  {
+    id: "cat",
+    label: "Cat",
+    group: "Land",
+  },
+  {
+    id: "dog",
+    label: "Dog",
+    group: "Land",
+  },
+  {
+    id: "tiger",
+    label: "Tiger",
+    group: "Land",
+  },
+  {
+    id: "reindeer",
+    label: "Reindeer",
+    group: "Land",
+  },
+  {
+    id: "racoon",
+    label: "Racoon",
+    group: "Land",
+  },
+  {
+    id: "dolphin",
+    label: "Dolphin",
+    group: "Water",
+  },
+  {
+    id: "flounder",
+    label: "Flounder",
+    group: "Water",
+  },
+  {
+    id: "eel",
+    label: "Eel",
+    group: "Water",
+  },
+  {
+    id: "falcon",
+    label: "Falcon",
+    group: "Air",
+  },
+  {
+    id: "owl",
+    label: "Owl",
+    group: "Air",
+  },
+];
 
 const multiSelectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
 const singleSelectState = ref("Apple");
@@ -143,6 +204,8 @@ const singleSelectState = ref("Apple");
         <p>Each onyx component should be used at least once in this page.</p>
 
         <div class="page__examples">
+          <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
+
           <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
           <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 
@@ -158,22 +221,50 @@ const singleSelectState = ref("Apple");
             </div>
           </template>
 
+          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
+
           <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
 
           <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
-          <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
+          <OnyxIconButton
+            v-if="show('OnyxIconButton')"
+            label="Happy Emoji"
+            :icon="emojiHappy2"
+            :skeleton="useSkeleton"
+          />
 
           <OnyxInput v-if="show('OnyxInput')" label="Input" :skeleton="useSkeleton" />
 
           <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-          <OnyxListbox
-            v-if="show('OnyxListbox')"
-            v-model="listboxState"
-            label="Example listbox"
-            :options="listboxOptions"
-          />
+          <template v-if="show('OnyxListbox')">
+            <div style="display: flex; gap: var(--onyx-spacing-xs)">
+              <OnyxListbox
+                v-model="listboxState"
+                label="Example listbox"
+                :options="listboxOptions"
+              />
+              <OnyxListbox
+                v-model="groupedListboxState"
+                label="Example grouped listbox"
+                :options="groupedListboxOptions"
+              />
+              <OnyxListbox
+                v-model="multiselectListboxState"
+                label="Example multiselect listbox"
+                :multiple="true"
+                :with-check-all="true"
+                :options="listboxOptions"
+              />
+            </div>
+
+            <div class="onyx-text--small state-info">
+              <div>OnyxListbox single state: {{ listboxState ?? "–" }}</div>
+              <div>OnyxListbox single grouped state: {{ groupedListboxState ?? "–" }}</div>
+              <div>OnyxListbox multiselect state: {{ multiselectListboxState ?? "–" }}</div>
+            </div>
+          </template>
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
@@ -220,11 +311,38 @@ const singleSelectState = ref("Apple");
             :skeleton="useSkeleton"
           />
 
+          <OnyxTable v-if="show('OnyxTable')">
+            <thead>
+              <tr>
+                <th>Fruit</th>
+                <th>Price (€/kg)</th>
+                <th>Inventory (kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Strawberry</td>
+                <td>4.50</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>Apple</td>
+                <td>1.99</td>
+                <td>3000</td>
+              </tr>
+              <tr>
+                <td>Banana</td>
+                <td>3.75</td>
+                <td>18000</td>
+              </tr>
+            </tbody>
+          </OnyxTable>
+
+          <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+
           <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             Hover me to show tooltip
           </OnyxTooltip>
-
-          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
           <!-- Add new components alphabetically. -->
         </div>

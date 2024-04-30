@@ -123,7 +123,7 @@ const { densityClass } = useDensity(props);
           v-bind="$attrs"
         />
 
-        <!-- TODO: figure out how the tooltip width can be sized to the select-input 
+        <!-- TODO: figure out how the tooltip width can be sized to the select-input
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
         <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
@@ -289,6 +289,12 @@ const { densityClass } = useDensity(props);
           color: var(--onyx-color-text-icons-neutral-soft);
           --border-color: var(--onyx-color-base-neutral-300);
         }
+      }
+    }
+
+    &--readonly {
+      .onyx-select__wrapper:hover {
+        --border-color: var(--onyx-color-base-neutral-400);
       }
     }
 
