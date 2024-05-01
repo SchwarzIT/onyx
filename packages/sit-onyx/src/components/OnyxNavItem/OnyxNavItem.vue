@@ -3,10 +3,10 @@ import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
 import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
-import type { OnyxNavItemProps } from "./types";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { ListboxOption } from "../OnyxListbox/types";
+import type { OnyxNavItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
@@ -28,7 +28,7 @@ defineSlots<{
 }>();
 
 const listboxOptions = computed<ListboxOption<string>[]>(() => {
-  return props.options?.map((opt) => ({ id: opt.href, label: opt.label })) ?? [];
+  return props.options?.map((opt) => ({ value: opt.href, label: opt.label })) ?? [];
 });
 
 const { t } = injectI18n();

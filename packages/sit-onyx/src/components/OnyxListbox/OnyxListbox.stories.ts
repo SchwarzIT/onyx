@@ -2,6 +2,7 @@ import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
+import type { SelectOption } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
@@ -54,63 +55,23 @@ const meta: Meta<typeof OnyxListbox> = {
   }),
 };
 
-const groupedAnimals = [
-  {
-    id: "cat",
-    label: "Cat",
-    group: "Land",
-  },
-  {
-    id: "dog",
-    label: "Dog",
-    group: "Land",
-  },
-  {
-    id: "tiger",
-    label: "Tager",
-    group: "Land",
-  },
-  {
-    id: "reindeer",
-    label: "Reindeer",
-    group: "Land",
-  },
-  {
-    id: "racoon",
-    label: "Racoon",
-    group: "Land",
-  },
-  {
-    id: "dolphin",
-    label: "Dolphin",
-    group: "Water",
-  },
-  {
-    id: "flounder",
-    label: "Flounder",
-    group: "Water",
-  },
-  {
-    id: "eel",
-    label: "Eel",
-    group: "Water",
-  },
-  {
-    id: "falcon",
-    label: "Falcon",
-    group: "Air",
-  },
-  {
-    id: "owl",
-    label: "Owl",
-    group: "Air",
-  },
+const groupedAnimals: ListboxOption[] = [
+  { value: "cat", label: "Cat", group: "Land" },
+  { value: "dog", label: "Dog", group: "Land" },
+  { value: "tiger", label: "Tiger", group: "Land" },
+  { value: "reindeer", label: "Reindeer", group: "Land" },
+  { value: "racoon", label: "Racoon", group: "Land" },
+  { value: "dolphin", label: "Dolphin", group: "Water" },
+  { value: "flounder", label: "Flounder", group: "Water" },
+  { value: "eel", label: "Eel", group: "Water" },
+  { value: "falcon", label: "Falcon", group: "Air" },
+  { value: "owl", label: "Owl", group: "Air" },
 ];
 
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
-const DEMO_OPTIONS: ListboxOption[] = [
+const DEMO_OPTIONS: SelectOption[] = [
   "Apple",
   "Banana",
   "Mango",
@@ -130,12 +91,12 @@ const DEMO_OPTIONS: ListboxOption[] = [
 ].map(
   (option) =>
     ({
-      id: option.toLowerCase(),
+      value: option.toLowerCase(),
       label: option,
     }) satisfies ListboxOption,
 );
 DEMO_OPTIONS.splice(6, 0, {
-  id: "disabled",
+  value: "disabled",
   label: "Unavailable fruit",
   disabled: true,
 });
@@ -171,12 +132,12 @@ export const Multiselect = {
     withCheckAll: true,
     options: [
       {
-        id: "disabled-2",
+        value: "disabled-2",
         label: "Selected unavailable fruit",
         disabled: true,
       },
       ...Default.args.options,
-      { id: "long", label: "Option with a very long long long  long long long long text}" },
+      { value: "long", label: "Option with a very long long long  long long long long text}" },
     ],
   },
   argTypes: {
@@ -260,8 +221,8 @@ const useLazyLoading = (initialOptions: ListboxOption[]) => {
 
     options.value = options.value.concat(
       Array.from({ length: 25 }, (_, index) => {
-        const id = options.value.length - initialOptions.length + index + 1;
-        return { id, label: `Loaded option ${id}` };
+        const value = options.value.length - initialOptions.length + index + 1;
+        return { value, label: `Loaded option ${value}` };
       }),
     );
 

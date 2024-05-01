@@ -1,7 +1,12 @@
-import type { ListboxValue, ListboxModelValue } from "@sit-onyx/headless";
+import type { SelectOption, SelectOptionValue } from "../../types";
+
+export type ListboxModelValue<
+  TValue extends SelectOptionValue = SelectOptionValue,
+  TMultiple extends boolean = false,
+> = TMultiple extends true ? TValue[] : TValue;
 
 export type OnyxListboxProps<
-  TValue extends ListboxValue = ListboxValue,
+  TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
 > = {
   /**
@@ -17,7 +22,7 @@ export type OnyxListboxProps<
    */
   message?: string;
   /**
-   * Current value / selected options.
+   * Current value / selected option(s).
    */
   modelValue?: ListboxModelValue<TValue, TMultiple>;
   /**
@@ -51,19 +56,10 @@ export type OnyxListboxProps<
   lazyLoading?: ListboxLazyLoading;
 };
 
-export type ListboxOption<T extends ListboxValue = ListboxValue> = {
-  /**
-   * Option ID / value to use when the option is selected.
-   */
-  id: T;
-  /**
-   * Label to show.
-   */
-  label: string;
-  /**
-   * Whether the option is disabled.
-   */
-  disabled?: boolean;
+export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  SelectOption<TValue>,
+  "value" | "label" | "disabled"
+> & {
   /**
    * Optional group name. If set, all options will be grouped under that group name.
    */

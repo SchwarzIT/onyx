@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxCheckboxGroup, type SelectionOption } from "sit-onyx";
+import { OnyxCheckboxGroup, type SelectOption } from "sit-onyx";
 import { computed } from "vue";
 import type { Settings } from "./LayoutSettings.vue";
 
@@ -7,7 +7,7 @@ const activeSettings = defineModel<Settings>();
 
 defineProps<{
   headline: string;
-  options: SelectionOption[];
+  options: SelectOption[];
   horizontal?: boolean;
 }>();
 

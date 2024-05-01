@@ -6,10 +6,11 @@ import {
   OnyxInput,
   OnyxRadioButtonGroup,
   OnyxSwitch,
-  type OnyxCheckboxGroupProps,
+  type CheckboxGroupOption,
   type OnyxRadioButtonGroupProps,
+  type RadioButtonOption,
 } from "sit-onyx";
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 
 export type FormData = Partial<{
   defaultInput: string;
@@ -22,12 +23,7 @@ export type FormData = Partial<{
   radioGroup: OnyxRadioButtonGroupProps["modelValue"];
 }>;
 
-const props = defineProps<{
-  formData: FormData;
-}>();
-
-const formState = ref<FormData>();
-watchEffect(() => (formState.value = { ...props.formData }));
+const formState = defineModel<FormData>();
 
 const customErrorExample = ref("");
 
@@ -39,19 +35,19 @@ const onPatternValidityChange = (state: ValidityState) => {
 
 const handleSubmit = () => alert("Submit successful!");
 
-const checkboxOptions: OnyxCheckboxGroupProps["options"] = [
-  { id: 1, label: "Option 1" },
-  { id: 2, label: "Required option", required: true },
+const checkboxOptions: CheckboxGroupOption[] = [
+  { value: 1, label: "Option 1" },
+  { value: 2, label: "Required option", required: true },
 ];
 
-const radioOptions: OnyxRadioButtonGroupProps["options"] = [
-  { id: 1, label: "Option 1" },
-  { id: 2, label: "Option 2" },
+const radioOptions: RadioButtonOption[] = [
+  { value: 1, label: "Option 1" },
+  { value: 2, label: "Option 2" },
 ];
 </script>
 
 <template>
-  <form v-if="formState" class="demo" @submit.prevent="handleSubmit">
+  <form v-if="formState" class="demo" @submit.prevent="handleSubmit" @reset="formState = {}">
     <OnyxHeadline is="h2" class="demo__headline"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >
