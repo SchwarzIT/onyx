@@ -1,43 +1,17 @@
-import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { TruncationType } from "../../types/fonts";
+import type { SelectOption, SelectOptionValue } from "../../types";
 
-export type OnyxCheckboxProps = DensityProp &
-  RequiredMarkerProp &
-  CustomValidityProp & {
-    /**
-     * Whether the checkbox is checked.
-     */
-    modelValue?: boolean;
-    /**
-     * Label to show. Required due to accessibility / screen readers.
-     * If you want to visually hide the label, use the `hideLabel` property.
-     */
-    label: string;
-    /**
-     * If `true`, an indeterminate indicator is shown.
-     */
-    indeterminate?: boolean;
-    /**
-     * Whether to disable the checkbox and prevent user interaction.
-     */
-    disabled?: boolean;
-    /**
-     * Shows a loading indicator.
-     */
-    loading?: boolean;
-    /**
-     * If `true`, the label will be visually hidden and the `title` attribute will be set.
-     * For accessibility / screen readers, the aria-label will still be set.
-     */
-    hideLabel?: boolean;
-    /**
-     * How to truncate the label if it exceeds the max width.
-     */
-    truncation?: TruncationType;
-    /**
-     * Whether to show a skeleton checkbox.
-     */
-    skeleton?: boolean;
-  };
+export type OnyxCheckboxProps<TValue extends SelectOptionValue = SelectOptionValue> =
+  SelectOption<TValue> &
+    RequiredMarkerProp &
+    CustomValidityProp & {
+      /**
+       * Whether the checkbox is checked.
+       */
+      modelValue?: boolean;
+      /**
+       * If `true`, an indeterminate indicator is shown.
+       */
+      indeterminate?: boolean;
+    };

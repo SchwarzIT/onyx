@@ -10,7 +10,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxRadioButton id="test-id" label="Test label" name="test-name" density={column} />
+      <OnyxRadioButton value="test-value" label="Test label" name="test-name" density={column} />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       await expect(component.getByLabel("Test label")).not.toBeChecked();
@@ -24,7 +24,13 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxRadioButton id="test-id" label="Test label" name="test-name" density={column} selected />
+      <OnyxRadioButton
+        value="test-value"
+        label="Test label"
+        name="test-name"
+        density={column}
+        selected
+      />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       await expect(component.getByLabel("Test label")).toBeChecked();
@@ -39,7 +45,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxRadioButton
-        id="test-id"
+        value="test-value"
         label="Test label"
         name="test-name"
         selected={column === "checked"}
@@ -59,7 +65,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxRadioButton
-        id="test-id"
+        value="test-value"
         label="Test label"
         name="test-name"
         customError="Test error"
@@ -79,7 +85,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default"],
     component: (column) => (
       <OnyxRadioButton
-        id="test-id"
+        value="test-value"
         label="Very long label that should be truncated"
         name="test-name"
         truncation={column}
@@ -97,7 +103,7 @@ test.describe("Screenshot tests", () => {
     rows: ["skeleton", "loading"],
     component: (column, row) => (
       <OnyxRadioButton
-        id="test-id"
+        value="test-value"
         label="Test label"
         name="test-name"
         density={column}

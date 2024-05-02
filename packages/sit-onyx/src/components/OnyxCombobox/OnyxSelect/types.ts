@@ -1,5 +1,6 @@
 import type { RequiredMarkerProp } from "../../../composables/required";
 import type { DensityProp } from "../../../composables/density";
+import type { SelectOption, SelectOptionValue } from "../../../types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -7,7 +8,7 @@ export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 /**
  * Whether multiple values can be selected.
  */
-export type Multiple =
+export type SelectMultiple =
   | boolean
   | {
       /**
@@ -17,28 +18,33 @@ export type Multiple =
        *            A number-badge appears next to it including a tooltip with all selected names.
        * Has no effect on single select mode.
        */
-      textMode?: MultiselectTextMode;
+      textMode: MultiselectTextMode;
     };
 
-export type SelectModelValue<TMultiple extends Multiple> = TMultiple extends undefined | false
-  ? string
-  : string[];
+export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  SelectOption<TValue>,
+  "value" | "label"
+>;
 
 export type OnyxSelectProps<
-  TValue extends SelectModelValue<TMultiple>,
-  TMultiple extends Multiple,
+  TValue extends SelectOptionValue,
+  TMultiple extends SelectMultiple,
 > = DensityProp &
   RequiredMarkerProp & {
-    /**
-     * Current value of the select.
-     * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
-     */
-    modelValue?: TValue;
     /**
      * Label to show above the select. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.
      */
     label: string;
+    options: SelectOption<TValue>[];
+    /**
+     * Current value of the select.
+     * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
+     */
+    modelValue?: TMultiple extends undefined | false
+      ? SelectModelValue<TValue>
+      : SelectModelValue<TValue>[];
+
     /**
      * If `true`, the label will be visually hidden and the `title` attribute will be set.
      * For accessibility / screen readers, the aria-label will still be set.
