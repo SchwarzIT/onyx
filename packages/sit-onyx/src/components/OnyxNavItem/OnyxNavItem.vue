@@ -5,7 +5,7 @@ import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxNavItemProps } from "./types";
-import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxList from "../OnyxList/OnyxList.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
@@ -55,7 +55,7 @@ const shouldShowExternalIcon = computed(() => {
       />
     </slot>
   </li>
-  <OnyxFlyoutMenu
+  <OnyxList
     v-if="props.options?.length"
     class="onyx-nav-item__listbox"
     :aria-label="t('navItemOptionsLabel', { label: props.label })"
@@ -67,7 +67,7 @@ const shouldShowExternalIcon = computed(() => {
     >
       {{ option.label }}
     </OnyxListItem>
-  </OnyxFlyoutMenu>
+  </OnyxList>
 </template>
 
 <style lang="scss">

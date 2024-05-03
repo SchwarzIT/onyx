@@ -1,20 +1,9 @@
-<script lang="ts" setup>
-import { OnyxListProps } from "./types";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-
-const props = defineProps<OnyxListProps>();
-</script>
-
 <template>
-  <div class="onyx-list">
+  <ul class="onyx-list">
     <div class="onyx-list__wrapper">
-      <ul class="onyx-list__group">
-        <OnyxListItem v-for="item in props.items" :key="item.label" class="onyx-list-item">
-          {{ item.label }}
-        </OnyxListItem>
-      </ul>
+      <slot></slot>
     </div>
-  </div>
+  </ul>
 </template>
 
 <style lang="scss">

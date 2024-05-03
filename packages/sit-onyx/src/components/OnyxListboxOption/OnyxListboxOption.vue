@@ -55,7 +55,7 @@ defineSlots<{
   @include checkbox.variables();
 
   @include layers.component() {
-    @include listitem.styles();
+    @include listitem.styles(&);
 
     &__checkbox {
       @include checkbox.styles();
