@@ -1,4 +1,4 @@
-@mixin styles() {
+@mixin styles($root) {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
@@ -19,7 +19,7 @@
     cursor: pointer;
 
     &:hover,
-    &--active {
+    &#{$root}--active {
       background-color: var(--onyx-color-base-primary-100);
     }
 
@@ -32,7 +32,7 @@
     &[aria-selected="true"],
     &[aria-checked="true"] {
       &:hover,
-      &--active {
+      &#{$root}--active {
         background-color: var(--onyx-color-base-primary-100);
         color: var(--onyx-color-text-icons-primary-bold);
       }
