@@ -22,9 +22,9 @@ export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey exten
     (acc, currOpt) => {
       const groupName = currOpt[key] ?? "";
       acc[groupName] = acc[groupName] || [];
-      acc[groupName].push(currOpt);
+      acc[groupName]!.push(currOpt);
       return acc;
     },
-    {} as Record<string, TValue[]>,
+    {} as Record<string, TValue[] | undefined>,
   );
 };
