@@ -1,5 +1,13 @@
+<script setup lang="ts">
+const props = defineProps<{ active?: boolean }>();
+</script>
 <template>
-  <li class="onyx-list-item">
+  <li
+    :class="{
+      'onyx-list-item': true,
+      'onyx-list-item--active': props.active,
+    }"
+  >
     <slot></slot>
   </li>
 </template>
@@ -9,7 +17,7 @@
 
 .onyx-list-item {
   @include layers.component() {
-    @include listitem.styles();
+    @include listitem.styles(&);
   }
 }
 </style>

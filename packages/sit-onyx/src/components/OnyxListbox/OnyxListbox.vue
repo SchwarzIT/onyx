@@ -12,7 +12,8 @@ import type { SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { ListboxOption, OnyxListboxProps } from "./types";
+import type { OnyxListboxProps } from "./types";
+import { groupByKey } from "../../utils/objects";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
   loading: false,
@@ -120,14 +121,7 @@ const {
   },
 });
 
-const groupedOptions = computed(() => {
-  return props.options.reduce<Record<string, ListboxOption<TValue>[]>>((acc, currOpt) => {
-    const groupName = currOpt.group ?? "";
-    acc[groupName] = acc[groupName] || [];
-    acc[groupName].push(currOpt);
-    return acc;
-  }, {});
-});
+const groupedOptions = computed(() => groupByKey(props.options, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),

@@ -11,7 +11,7 @@ const meta: Meta<typeof OnyxNavItem> = {
   title: "components/NavItem",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavItem,
-    events: ["navigate"],
+    events: ["click"],
     argTypes: {
       default: {
         control: { disable: true },
@@ -62,10 +62,14 @@ export const WithOptions = {
 /**
  * This example shows the nav item with additional content (a dot badge in this case).
  */
-export const WithAdditionalContent = {
+export const WithCustomContent = {
   args: {
     ...Default.args,
-    default: () => h(OnyxBadge, { dot: true }),
+    default: () =>
+      h("div", { style: { gap: "8px", display: "flex", "align-items": "center" } }, [
+        "custom label",
+        h(OnyxBadge, { dot: true }),
+      ]),
   },
 } satisfies Story;
 
