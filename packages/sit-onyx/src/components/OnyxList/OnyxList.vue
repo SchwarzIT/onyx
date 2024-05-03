@@ -1,6 +1,6 @@
 <template>
   <div class="onyx-list">
-    <ul class="onyx-list__wrapper">
+    <ul class="onyx-list__wrapper onyx-list__group">
       <slot></slot>
     </ul>
   </div>
