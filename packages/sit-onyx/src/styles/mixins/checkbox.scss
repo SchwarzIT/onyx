@@ -32,46 +32,44 @@
 }
 
 @mixin styles() {
-  @include layers.component() {
-    height: var(--onyx-checkbox-input-size);
-    width: var(--onyx-checkbox-input-size);
-    appearance: none;
-    margin: 0;
-    border-radius: var(--onyx-radius-sm);
-    outline: none;
-    cursor: inherit;
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
-    background: var(--onyx-color-base-background-blank);
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+  height: var(--onyx-checkbox-input-size);
+  width: var(--onyx-checkbox-input-size);
+  appearance: none;
+  margin: 0;
+  border-radius: var(--onyx-radius-sm);
+  outline: none;
+  cursor: inherit;
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
+  background: var(--onyx-color-base-background-blank);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 
-    &:checked,
-    &:indeterminate {
-      @include define-checked-background(":enabled", primary);
-      @include define-checked-background(":user-invalid", danger);
-
-      &:disabled {
-        background-color: var(--onyx-color-base-neutral-300);
-      }
-    }
+  &:checked,
+  &:indeterminate {
+    @include define-checked-background(":enabled", primary);
+    @include define-checked-background(":user-invalid", danger);
 
     &:disabled {
-      border-color: var(--onyx-color-base-neutral-300);
+      background-color: var(--onyx-color-base-neutral-300);
     }
+  }
 
-    &:user-invalid {
-      border-color: var(--onyx-color-base-danger-500);
-    }
+  &:disabled {
+    border-color: var(--onyx-color-base-neutral-300);
+  }
 
-    &:checked {
-      // icon (with added fill='white'): check-small.svg
-      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='m21.311 10.793-8.293 8.293-3.291-3.292-1.415 1.415 4.706 4.705 9.707-9.707z'/%3E%3C/svg%3E");
-    }
+  &:user-invalid {
+    border-color: var(--onyx-color-base-danger-500);
+  }
 
-    &:indeterminate {
-      // icon (with added fill='white'): minus-small.svg
-      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='M8 15h16v2H8z'/%3E%3C/svg%3E");
-    }
+  &:checked {
+    // icon (with added fill='white'): check-small.svg
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='m21.311 10.793-8.293 8.293-3.291-3.292-1.415 1.415 4.706 4.705 9.707-9.707z'/%3E%3C/svg%3E");
+  }
+
+  &:indeterminate {
+    // icon (with added fill='white'): minus-small.svg
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' xml:space='preserve' viewBox='0 0 32 32'%3E%3Cpath d='M8 15h16v2H8z'/%3E%3C/svg%3E");
   }
 }
