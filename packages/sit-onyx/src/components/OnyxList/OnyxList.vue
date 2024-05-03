@@ -1,9 +1,9 @@
 <template>
-  <ul class="onyx-list">
-    <div class="onyx-list__wrapper">
+  <div class="onyx-list">
+    <ul class="onyx-list__wrapper">
       <slot></slot>
-    </div>
-  </ul>
+    </ul>
+  </div>
 </template>
 
 <style lang="scss">
