@@ -34,59 +34,18 @@ defineSlots<{
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
+@use "../../styles/mixins/listitem";
 
 .onyx-listbox-option {
   @include checkbox.variables();
 
   @include layers.component() {
-    font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-intense);
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
-    background-color: var(--onyx-color-base-background-blank);
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.5rem;
-
-    border: none;
-    width: 100%;
-    outline: none;
-
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-spacing-sm);
+    @include listitem.styles();
 
     &__checkbox {
       @include checkbox.styles();
       // prevent the checkbox to get squished by a long label
       flex-shrink: 0;
-    }
-
-    &:not([aria-disabled="true"]) {
-      cursor: pointer;
-
-      &:hover,
-      &.onyx-listbox-option--active {
-        background-color: var(--onyx-color-base-primary-100);
-      }
-
-      // single select
-      &[aria-selected="true"] {
-        background-color: var(--onyx-color-base-primary-200);
-      }
-
-      // single + multiselect
-      &[aria-selected="true"],
-      &[aria-checked="true"] {
-        &:hover,
-        &.onyx-listbox-option--active {
-          background-color: var(--onyx-color-base-primary-100);
-          color: var(--onyx-color-text-icons-primary-bold);
-        }
-      }
-    }
-
-    &[aria-disabled="true"] {
-      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }

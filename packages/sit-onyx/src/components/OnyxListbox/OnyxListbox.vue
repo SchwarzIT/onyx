@@ -245,53 +245,16 @@ watchEffect(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/list";
 
 .onyx-listbox {
   @include layers.component() {
     --max-options: 8;
     --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+
+    @include list.styles();
+
     $wrapper-padding: var(--onyx-spacing-2xs);
-
-    border-radius: var(--onyx-radius-md);
-    background-color: var(--onyx-color-base-background-blank);
-    padding: $wrapper-padding 0;
-    box-shadow: var(--onyx-shadow-medium-bottom);
-    box-sizing: border-box;
-    width: max-content;
-    min-width: var(--onyx-spacing-4xl);
-    max-width: 20rem;
-    font-family: var(--onyx-font-family);
-
-    &__wrapper {
-      max-height: calc(var(--max-options) * var(--option-height));
-      overflow: auto;
-      outline: none;
-    }
-
-    &__group {
-      padding: 0;
-
-      &:not(:last-of-type) {
-        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        margin-bottom: var(--onyx-spacing-2xs);
-      }
-    }
-
-    &__group-name {
-      display: block;
-      padding: 0 var(--onyx-spacing-sm);
-      color: var(--onyx-color-text-icons-neutral-medium);
-      font-weight: 600;
-    }
-
-    &__message {
-      color: var(--onyx-color-text-icons-neutral-soft);
-      display: inline-block;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: right;
-      padding: $wrapper-padding var(--onyx-spacing-sm) 0;
-    }
 
     &__check-all {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
@@ -299,14 +262,6 @@ watchEffect(() => {
 
     .onyx-listbox-option {
       height: var(--option-height);
-    }
-
-    .onyx-listbox-option {
-      height: var(--option-height);
-    }
-
-    &:has(&__wrapper:focus-visible) {
-      outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
 
     &__slot {
