@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.90
+
+### Minor Changes
+
+- 57d81c9: feat: export `OnyxCheckbox` and `OnyxRadioButton`
+
 ## 1.0.0-alpha.89
 
 ### Major Changes
