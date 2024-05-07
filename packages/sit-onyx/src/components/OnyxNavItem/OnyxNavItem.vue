@@ -100,6 +100,7 @@ const shouldShowExternalIcon = computed(() => {
 
     &--active {
       color: var(--onyx-color-text-icons-secondary-intense);
+      font-weight: 600;
 
       &::after {
         content: " ";
