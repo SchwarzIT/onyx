@@ -26,10 +26,14 @@
     // single select
     &[aria-selected="true"] {
       background-color: var(--onyx-color-base-primary-200);
+
+      &:hover,
+      &#{$root}--active {
+        color: var(--onyx-color-text-icons-primary-bold);
+      }
     }
 
-    // single + multiselect
-    &[aria-selected="true"],
+    // multiselect
     &[aria-checked="true"] {
       &:hover,
       &#{$root}--active {
