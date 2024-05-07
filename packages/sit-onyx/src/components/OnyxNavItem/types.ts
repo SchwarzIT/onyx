@@ -12,6 +12,12 @@ export type OnyxNavItemProps = {
    * If any nested option is active, the parent nav item will also be marked as active.
    */
   active?: boolean;
+  /**
+   * Whether to show the external link icon.
+   * If set to `auto`, it will be shown when the `href` leads to another website
+   * (starting with "http://" or "https://") and will be hidden otherwise.
+   */
+  withExternalIcon?: boolean | "auto";
   /** Options to render in a listbox. */
   options?: (Omit<OnyxNavItemProps, "options"> & { href: string })[];
 };

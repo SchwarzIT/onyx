@@ -1,7 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import type { SelectOption } from "../../types";
 import { createTruncationDecorator } from "../../utils/storybook";
-import type { SelectionOption } from "../OnyxRadioButton/types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
 /**
@@ -19,11 +19,11 @@ const meta: Meta<typeof OnyxRadioButtonGroup> = {
 export default meta;
 type Story = StoryObj<typeof OnyxRadioButtonGroup>;
 
-const EXAMPLE_OPTIONS: SelectionOption<string>[] = [
-  { label: "Default", value: "1", id: "1" },
-  { label: "Initially checked", value: "2", id: "2" },
-  { label: "Disabled", value: "3", id: "3", disabled: true },
-  { label: "Loading", value: "4", id: "4", loading: true },
+const EXAMPLE_OPTIONS: SelectOption[] = [
+  { label: "Default", value: 1 },
+  { label: "Initially checked", value: 2 },
+  { label: "Disabled", value: 3, disabled: true },
+  { label: "Loading", value: 4, loading: true },
 ];
 
 /**
@@ -33,7 +33,7 @@ export const Default = {
   args: {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: EXAMPLE_OPTIONS[0].value,
   },
 } satisfies Story;
 
@@ -44,7 +44,7 @@ export const Disabled = {
   args: {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: EXAMPLE_OPTIONS[0].value,
     disabled: true,
   },
 } satisfies Story;
@@ -56,7 +56,7 @@ export const Horizontal = {
   args: {
     headline: "Headline",
     options: EXAMPLE_OPTIONS,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: EXAMPLE_OPTIONS[0].value,
     direction: "horizontal",
   },
 } satisfies Story;
@@ -69,10 +69,10 @@ export const WithTruncation = {
   args: {
     ...Default.args,
     options: [
-      { label: "Very long label that will be truncated", id: "id-1" },
+      { label: "Very long label that will be truncated", value: 1 },
       {
         label: "Very long label that will be truncated with multiline",
-        id: "id-2",
+        value: 2,
         truncation: "multiline",
       },
     ],

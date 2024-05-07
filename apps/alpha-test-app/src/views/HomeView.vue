@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import type { ListboxOption } from "sit-onyx";
 import {
   DENSITIES,
   OnyxAppLayout,
@@ -24,7 +23,8 @@ import {
   OnyxTable,
   OnyxTag,
   OnyxTooltip,
-  type SelectionOption,
+  type ListboxOption,
+  type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -59,37 +59,33 @@ const COMPONENTS = [
 /* Config data to regulate which components will be shown */
 const configOptions = COMPONENTS.map((component) => ({
   label: component,
-  id: component,
-})) satisfies SelectionOption<string>[];
-const activeConfig = ref(configOptions.map((option) => option.id));
+  value: component,
+})) satisfies SelectOption[];
+const activeConfig = ref(configOptions.map((option) => option.value));
 
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
 });
 
-const densityOptions = DENSITIES.map((id) => ({
-  id,
-  label: capitalize(id),
-})) satisfies SelectionOption<string>[];
+const densityOptions = DENSITIES.map((value) => ({
+  value,
+  label: capitalize(value),
+})) satisfies SelectOption[];
 
-const activeDensityOption = ref({ ...densityOptions[1] });
+const activeDensityOption = ref(densityOptions[1].value);
 
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
 
-/* Demo data for the components we show */
-const dummyOptions: SelectionOption[] = ["A", "B", "C"].map((id) => ({
-  id,
-  label: `Option ${id}`,
-}));
 const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
-const radioState = ref<SelectionOption | undefined>();
+const radioState = ref<string>();
 
 const listboxState = ref<string>();
 const groupedListboxState = ref<string>();
+const multiselectListboxState = ref<string[]>();
 
-const listboxOptions = [
+const selectOptions = [
   "Apple",
   "Banana",
   "Mango",
@@ -106,63 +102,25 @@ const listboxOptions = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map<ListboxOption>((option) => ({ id: option.toLowerCase(), label: option }));
+].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
+
+const minimalSelectOptions = selectOptions.slice(0, 3);
 
 const groupedListboxOptions: ListboxOption[] = [
-  {
-    id: "cat",
-    label: "Cat",
-    group: "Land",
-  },
-  {
-    id: "dog",
-    label: "Dog",
-    group: "Land",
-  },
-  {
-    id: "tiger",
-    label: "Tager",
-    group: "Land",
-  },
-  {
-    id: "reindeer",
-    label: "Reindeer",
-    group: "Land",
-  },
-  {
-    id: "racoon",
-    label: "Racoon",
-    group: "Land",
-  },
-  {
-    id: "dolphin",
-    label: "Dolphin",
-    group: "Water",
-  },
-  {
-    id: "flounder",
-    label: "Flounder",
-    group: "Water",
-  },
-  {
-    id: "eel",
-    label: "Eel",
-    group: "Water",
-  },
-  {
-    id: "falcon",
-    label: "Falcon",
-    group: "Air",
-  },
-  {
-    id: "owl",
-    label: "Owl",
-    group: "Air",
-  },
+  { value: "cat", label: "Cat", group: "Land" },
+  { value: "dog", label: "Dog", group: "Land" },
+  { value: "tiger", label: "Tiger", group: "Land" },
+  { value: "reindeer", label: "Reindeer", group: "Land" },
+  { value: "racoon", label: "Racoon", group: "Land" },
+  { value: "dolphin", label: "Dolphin", group: "Water" },
+  { value: "flounder", label: "Flounder", group: "Water" },
+  { value: "eel", label: "Eel", group: "Water" },
+  { value: "falcon", label: "Falcon", group: "Air" },
+  { value: "owl", label: "Owl", group: "Air" },
 ];
 
-const multiSelectState = ref(["Apple", "Banana", "Mango", "Kiwi", "Orange", "Papaya"]);
-const singleSelectState = ref("Apple");
+const multiSelectState = ref(selectOptions.slice(0, 5));
+const singleSelectState = ref(selectOptions[0]);
 </script>
 
 <template>
@@ -197,7 +155,7 @@ const singleSelectState = ref("Apple");
         </div>
       </template>
 
-      <div class="page" :class="[`onyx-density-${activeDensityOption.id}`]">
+      <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
         <OnyxHeadline is="h1">Component usages</OnyxHeadline>
 
         <p>Each onyx component should be used at least once in this page.</p>
@@ -212,7 +170,7 @@ const singleSelectState = ref("Apple");
             <OnyxCheckboxGroup
               v-model="checkboxState"
               headline="Checkbox Group"
-              :options="dummyOptions"
+              :options="minimalSelectOptions"
               :skeleton="skeletonNumber"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
@@ -237,21 +195,33 @@ const singleSelectState = ref("Apple");
 
           <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-          <div style="display: flex; gap: var(--onyx-spacing-xs)">
-            <OnyxListbox
-              v-if="show('OnyxListbox')"
-              v-model="listboxState"
-              label="Example listbox"
-              :options="listboxOptions"
-            />
+          <template v-if="show('OnyxListbox')">
+            <div style="display: flex; gap: var(--onyx-spacing-xs)">
+              <OnyxListbox
+                v-model="listboxState"
+                label="Example listbox"
+                :options="selectOptions"
+              />
+              <OnyxListbox
+                v-model="groupedListboxState"
+                label="Example grouped listbox"
+                :options="groupedListboxOptions"
+              />
+              <OnyxListbox
+                v-model="multiselectListboxState"
+                label="Example multiselect listbox"
+                :multiple="true"
+                :with-check-all="true"
+                :options="selectOptions"
+              />
+            </div>
 
-            <OnyxListbox
-              v-if="show('OnyxListbox')"
-              v-model="groupedListboxState"
-              label="Example grouped listbox"
-              :options="groupedListboxOptions"
-            />
-          </div>
+            <div class="onyx-text--small state-info">
+              <div>OnyxListbox single state: {{ listboxState ?? "–" }}</div>
+              <div>OnyxListbox single grouped state: {{ groupedListboxState ?? "–" }}</div>
+              <div>OnyxListbox multiselect state: {{ multiselectListboxState ?? "–" }}</div>
+            </div>
+          </template>
 
           <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
@@ -259,7 +229,7 @@ const singleSelectState = ref("Apple");
             <OnyxRadioButtonGroup
               v-model="radioState"
               headline="Radio Button Group"
-              :options="dummyOptions"
+              :options="minimalSelectOptions"
               :skeleton="skeletonNumber"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
@@ -273,6 +243,7 @@ const singleSelectState = ref("Apple");
               label="Single Select"
               placeholder="Select your fruits"
               :skeleton="useSkeleton"
+              :options="selectOptions"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxSelect single state: {{ singleSelectState ?? "–" }}
@@ -283,6 +254,7 @@ const singleSelectState = ref("Apple");
               placeholder="Select your fruits"
               multiple
               :skeleton="useSkeleton"
+              :options="selectOptions"
             />
             <div v-if="!useSkeleton" class="onyx-text--small state-info">
               OnyxSelect multiple state: {{ multiSelectState ?? "–" }}

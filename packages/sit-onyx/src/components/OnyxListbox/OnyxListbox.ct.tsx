@@ -6,14 +6,14 @@ import type { ListboxOption, OnyxListboxProps } from "./types";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
 const MOCK_VARIED_OPTIONS = [
-  { id: 1, label: "Default" },
-  { id: 2, label: "Selected" },
-  { id: 3, label: "Disabled", disabled: true },
-  { id: 4, label: "Very long label ".repeat(5) },
-];
+  { value: 1, label: "Default" },
+  { value: 2, label: "Selected" },
+  { value: 3, label: "Disabled", disabled: true },
+  { value: 4, label: "Very long label ".repeat(5) },
+] satisfies ListboxOption[];
 
 const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
-  id: index,
+  value: index,
   label: `Test option ${index + 1}`,
 })) satisfies ListboxOption[];
 
@@ -66,8 +66,8 @@ test.describe("Multiselect screenshot tests", () => {
     disabledAccessibilityRules: [
       // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/732,
-      // the following disabled rule must be removed / fixed.
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
       "nested-interactive",
     ],
     component: (column, row) => (
@@ -157,26 +157,10 @@ test("should render with grouped options", async ({ mount, makeAxeBuilder }) => 
   const component = await mount(OnyxListbox, {
     props: {
       options: [
-        {
-          id: "cat",
-          label: "Cat",
-          group: "Land",
-        },
-        {
-          id: "dog",
-          label: "Dog",
-          group: "Land",
-        },
-        {
-          id: "dolphin",
-          label: "Dolphin",
-          group: "Water",
-        },
-        {
-          id: "flounder",
-          label: "Flounder",
-          group: "Water",
-        },
+        { value: "cat", label: "Cat", group: "Land" },
+        { value: "dog", label: "Dog", group: "Land" },
+        { value: "dolphin", label: "Dolphin", group: "Water" },
+        { value: "flounder", label: "Flounder", group: "Water" },
       ],
       label: "Test listbox",
     },
@@ -287,8 +271,8 @@ test("should support lazy loading", async ({ mount }) => {
     loading: false,
     options: MOCK_MANY_OPTIONS.concat(
       Array.from({ length: 25 }, (_, index) => {
-        const id = MOCK_MANY_OPTIONS.length + index;
-        return { id, label: `Test option ${id + 1}` };
+        const value = MOCK_MANY_OPTIONS.length + index;
+        return { value, label: `Test option ${value + 1}` };
       }),
     ),
   });

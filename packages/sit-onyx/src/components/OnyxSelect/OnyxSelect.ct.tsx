@@ -16,7 +16,10 @@ test.describe("Screenshot tests", () => {
           label="Test label"
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
-          modelValue={state === "with value" ? "Selected value" : undefined}
+          modelValue={
+            state === "with value" ? { label: "Selected value", value: "test-value" } : undefined
+          }
+          options={[]}
         />
       ),
       beforeScreenshot: async (component, page, column, row) => {
@@ -40,6 +43,7 @@ test.describe("Screenshot tests", () => {
         required={row === "required"}
         requiredMarker={row === "optional" ? "optional" : undefined}
         message={row === "message" ? "Test message" : undefined}
+        options={[]}
       />
     ),
   });
@@ -58,6 +62,7 @@ test.describe("Screenshot tests", () => {
         readonly={column === "readonly"}
         disabled={column === "disabled"}
         loading={column === "loading"}
+        options={[]}
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -82,8 +87,9 @@ test.describe("Screenshot tests", () => {
         <OnyxSelect
           style="width: 16rem"
           label="Test label"
-          modelValue={modelValues[row]}
+          modelValue={modelValues[row].map((i) => ({ label: i, value: i }))}
           multiple={{ textMode: column }}
+          options={[]}
         />
       );
     },
@@ -99,6 +105,7 @@ test.describe("Screenshot tests", () => {
         label="Test label"
         density={column}
         hideLabel={row === "hideLabel"}
+        options={[]}
         skeleton
       />
     ),
@@ -107,7 +114,9 @@ test.describe("Screenshot tests", () => {
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSelect style="width: 16rem" label="Test label" hideLabel />);
+  const component = await mount(
+    <OnyxSelect style="width: 16rem" label="Test label" options={[]} hideLabel />,
+  );
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();

@@ -1,13 +1,14 @@
 <script
   lang="ts"
   setup
-  generic="TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false"
+  generic="TValue extends SelectOptionValue = SelectOptionValue, TMultiple extends boolean = false"
 >
-import { createId, createListbox, type ListboxValue } from "@sit-onyx/headless";
-import { useCheckAll } from "../../composables/checkAll";
+import { createId, createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
+import { useCheckAll } from "../../composables/checkAll";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
+import type { SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -115,12 +116,12 @@ const {
       return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
     });
     if (!firstMatch) return;
-    activeOption.value = firstMatch.id;
+    activeOption.value = firstMatch.value;
   },
 });
 
 const groupedOptions = computed(() => {
-  return props.options.reduce<Record<string, ListboxOption[]>>((acc, currOpt) => {
+  return props.options.reduce<Record<string, ListboxOption<TValue>[]>>((acc, currOpt) => {
     const groupName = currOpt.group ?? "";
     acc[groupName] = acc[groupName] || [];
     acc[groupName].push(currOpt);
@@ -137,7 +138,7 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 const isEmpty = computed(() => props.options.length === 0);
 
 const enabledOptionValues = computed(() =>
-  props.options.filter((i) => !i.disabled).map(({ id }) => id),
+  props.options.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
@@ -209,31 +210,32 @@ watchEffect(() => {
         </template>
 
         <OnyxListboxOption
-          v-for="option in options as any"
-          :key="option.id.toString()"
+          v-for="option in options"
+          :key="option.value.toString()"
           v-bind="
             headlessOption({
-              value: option.id,
+              value: option.value,
               label: option.label,
               disabled: option.disabled,
               selected:
-                option.id === props.modelValue ||
-                (Array.isArray(props.modelValue) && props.modelValue.includes(option.id)),
+                option.value === props.modelValue ||
+                (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
             })
           "
           :multiple="props.multiple"
-          :active="option.id === activeOption"
+          :active="option.value === activeOption"
         >
           {{ option.label }}
         </OnyxListboxOption>
       </ul>
-      <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-        <OnyxLoadingIndicator class="onyx-listbox__loading" />
-      </li>
 
-      <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
+      <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+        <OnyxLoadingIndicator class="onyx-listbox__loading" />
+      </div>
+
+      <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
         <slot name="optionsEnd"></slot>
-      </li>
+      </div>
     </div>
     <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
       {{ props.message }}

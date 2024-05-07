@@ -1,13 +1,16 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { Direction } from "../../types";
-import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
+import type { Direction, SelectOption, SelectOptionValue } from "../../types";
 
-export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
+export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     RequiredMarkerProp &
     CustomValidityProp & {
+      /**
+       * Options for the individual radio buttons of the group.
+       */
+      options: RadioButtonOption<TValue>[];
       /**
        * Unique name for the radio button group form element.
        * Will automatically filled, when it is not given.
@@ -17,7 +20,7 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue = Sele
       /**
        * The selected radio button option.
        */
-      modelValue?: SelectionOption<TValue>;
+      modelValue?: TValue;
       /**
        * Headline shown above the radio button group, which is also the fieldset legend.
        * It will also show the required indicator, if `require` is set to `true`
@@ -32,11 +35,12 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectionOptionValue = Sele
        */
       direction?: Direction;
       /**
-       * Options for the individual radio buttons of the group.
-       */
-      options: SelectionOption<TValue>[];
-      /**
        * If set, the specified number of skeleton radio buttons will be shown.
        */
       skeleton?: number;
     };
+
+export type RadioButtonOption<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
+  SelectOption<TValue>,
+  "hideLabel"
+>;

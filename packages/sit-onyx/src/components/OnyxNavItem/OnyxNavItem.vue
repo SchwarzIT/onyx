@@ -1,12 +1,16 @@
 <script lang="ts" setup>
+import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
+import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
-import type { OnyxNavItemProps } from "./types";
 import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { ListboxOption } from "../OnyxListbox/types";
+import type { OnyxNavItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
+  withExternalIcon: "auto",
 });
 
 const emit = defineEmits<{
@@ -24,10 +28,15 @@ defineSlots<{
 }>();
 
 const listboxOptions = computed<ListboxOption<string>[]>(() => {
-  return props.options?.map((opt) => ({ id: opt.href, label: opt.label })) ?? [];
+  return props.options?.map((opt) => ({ value: opt.href, label: opt.label })) ?? [];
 });
 
 const { t } = injectI18n();
+
+const shouldShowExternalIcon = computed(() => {
+  if (props.withExternalIcon !== "auto") return props.withExternalIcon;
+  return isExternalLink(props.href ?? "");
+});
 </script>
 
 <template>
@@ -41,6 +50,12 @@ const { t } = injectI18n();
     @keydown.enter="props.href && emit('navigate', props.href)"
   >
     <span>{{ props.label }}</span>
+    <OnyxIcon
+      v-if="shouldShowExternalIcon"
+      class="onyx-nav-item__icon"
+      :icon="arrowSmallUpRight"
+      size="16px"
+    />
     <slot></slot>
   </li>
   <OnyxListbox
@@ -95,6 +110,10 @@ const { t } = injectI18n();
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
         background: var(--onyx-color-base-secondary-500);
       }
+    }
+
+    &__icon {
+      align-self: flex-start;
     }
 
     &:focus-visible {

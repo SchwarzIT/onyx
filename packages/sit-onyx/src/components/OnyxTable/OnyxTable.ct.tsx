@@ -55,4 +55,22 @@ test.describe("Screenshot tests", () => {
       </OnyxTable>
     ),
   });
+
+  executeMatrixScreenshotTest({
+    name: "Table (hover styles)",
+    columns: ["default", "striped"],
+    rows: ["row-hover", "column-hover"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column) => (
+      <OnyxTable striped={column === "striped"}>
+        {tableHead}
+        {tableBody}
+      </OnyxTable>
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "row-hover") await component.getByText("Apple").hover();
+      if (row === "column-hover") await component.getByText("Fruit").hover();
+    },
+  });
 });
