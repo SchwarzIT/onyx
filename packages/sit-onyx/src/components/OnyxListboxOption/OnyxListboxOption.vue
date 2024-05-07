@@ -53,7 +53,7 @@ defineSlots<{
 
   @include layers.component() {
     --onyx-listbox-option-color: var(--onyx-color-text-icons-neutral-intense);
-    --onyx-listbox-option-color-selected: var(--onyx-color-text-icons-primary-intense);
+    --onyx-listbox-option-color-selected: var(--onyx-color-text-icons-primary-bold);
     --onyx-listbox-option-background-hover: var(--onyx-color-base-primary-100);
     --onyx-listbox-option-background-selected: var(--onyx-color-base-primary-200);
 
@@ -89,11 +89,11 @@ defineSlots<{
 
       // single select
       &[aria-selected="true"] {
-        background-color: var(--onyx-color-base-primary-200);
+        background-color: var(--onyx-listbox-option-background-selected);
 
         &:hover,
         &.onyx-listbox-option--active {
-          color: var(--onyx-color-text-icons-primary-bold);
+          color: var(--onyx-listbox-option-color-selected);
         }
       }
 
