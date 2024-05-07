@@ -122,6 +122,7 @@ const shouldShowExternalIcon = computed(() => {
 
     + .onyx-nav-item__listbox {
       margin-top: var(--onyx-spacing-sm);
+      position: absolute;
       opacity: 0;
       transition: opacity var(--onyx-duration-sm);
 
