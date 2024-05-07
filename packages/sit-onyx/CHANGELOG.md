@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-alpha.91
+
+### Patch Changes
+
+- 93ad5a9: Fix hover colors on OnyxListbox
+- 1eb0528: Fix OnyxNavItem font-weight for active state
+
 ## 1.0.0-alpha.90
 
 ### Minor Changes
