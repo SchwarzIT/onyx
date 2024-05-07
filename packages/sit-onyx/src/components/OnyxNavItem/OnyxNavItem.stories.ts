@@ -68,3 +68,13 @@ export const WithAdditionalContent = {
     default: () => h(OnyxBadge, { dot: true }),
   },
 } satisfies Story;
+
+/**
+ * This example shows the nav item with external link.
+ */
+export const WithExternalLink = {
+  args: {
+    label: "onyx",
+    href: "https://onyx.schwarz/",
+  },
+} satisfies Story;

@@ -16,6 +16,7 @@ test.describe("Screenshot tests", () => {
         indeterminate={column === "indeterminate"}
         hideLabel={column === "hideLabel"}
         loading={column === "loading"}
+        value="test-value"
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -48,6 +49,7 @@ test.describe("Screenshot tests", () => {
         indeterminate={column === "indeterminate"}
         hideLabel={column === "hideLabel"}
         loading={column === "loading"}
+        value="test-value"
         disabled
       />
     ),
@@ -77,6 +79,7 @@ test.describe("Screenshot tests", () => {
         hideLabel={column === "hideLabel"}
         disabled={column === "disabled"}
         customError="Test error"
+        value="test-value"
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -106,7 +109,12 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible", "loading"],
     component: (column, row) => (
-      <OnyxCheckbox label="Test label" density={column} loading={row === "loading"} />
+      <OnyxCheckbox
+        label="Test label"
+        density={column}
+        loading={row === "loading"}
+        value="test-value"
+      />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "hover") await component.hover();
@@ -125,6 +133,7 @@ test.describe("Screenshot tests", () => {
         required={row === "required"}
         requiredMarker={row === "optional" ? "optional" : undefined}
         skeleton={row === "skeleton"}
+        value="test-value"
       />
     ),
   });
@@ -140,6 +149,7 @@ test.describe("Screenshot tests", () => {
         required={column === "required"}
         requiredMarker={column === "optional" ? "optional" : undefined}
         style={{ width: "12rem" }}
+        value="test-value"
       />
     ),
     beforeScreenshot: async (component) => {

@@ -1,18 +1,16 @@
-<!-- TODO: change the generic "extends" from string/[] to whatever listbox and combobox need
-https://github.com/SchwarzIT/onyx/issues/565 -->
 <script
   lang="ts"
   setup
-  generic="TValue extends SelectModelValue<TMultiple>, TMultiple extends Multiple"
+  generic="TValue extends SelectOptionValue, TMultiple extends SelectMultiple"
 >
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import { OnyxBadge, OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
+import { OnyxBadge, OnyxIcon, OnyxSkeleton, OnyxTooltip, type SelectOptionValue } from "../..";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
+import type { MultiselectTextMode, OnyxSelectProps, SelectMultiple } from "./types";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
@@ -24,8 +22,6 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
 defineEmits<{
   /**
    * Emitted when the current value changes.
-   * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
-   *       https://github.com/SchwarzIT/onyx/issues/565
    */
   "update:modelValue": [value: typeof props.modelValue];
 }>();
@@ -38,40 +34,39 @@ const { t } = injectI18n();
  */
 const multipleTextMode = computed<MultiselectTextMode | undefined>(() => {
   if (!props.multiple) return undefined;
-  if (typeof props.multiple === "boolean") return "summary";
-  return props.multiple?.textMode ?? "summary";
+  if (typeof props.multiple === "object") return props.multiple.textMode;
+  return "summary";
 });
 
-const previewBadgeNumber = computed<number | undefined>(() => {
-  if (props.modelValue && multipleTextMode.value === "preview") {
-    return props.modelValue.length;
-  }
-  return undefined;
+/**
+ * Number of selected options.
+ */
+const modelValueCount = computed(() => {
+  if (Array.isArray(props.modelValue)) return props.modelValue.length;
+  return props.modelValue ? 1 : 0;
 });
 
 /**
  * Selection that will be displayed in the select input field.
  * On single select, it matches the name of the option.
  * On multi select, it is a summary or a preview of the options.
- * TODO: extract the text from the SelectOption(s) after the modelValue type gets changed
- *       https://github.com/SchwarzIT/onyx/issues/565
  */
 const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
     const numberOfSelections = props.modelValue.length;
     if (!numberOfSelections) return "";
-    if (numberOfSelections === 1) return props.modelValue[0];
+    if (numberOfSelections === 1) return props.modelValue[0].label;
 
     switch (multipleTextMode.value) {
       case "preview":
-        return props.modelValue.join(", ");
+        return props.modelValue.map(({ label }) => label).join(", ");
       case "summary":
       default:
         return t.value("selections.currentSelection", { n: numberOfSelections });
     }
   }
 
-  return props.modelValue ?? "";
+  return props.modelValue?.label ?? "";
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
@@ -119,9 +114,13 @@ const { densityClass } = useDensity(props);
         <!-- TODO: figure out how the tooltip width can be sized to the select-input
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
-        <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
+        <OnyxTooltip
+          v-if="multipleTextMode === 'preview' && modelValueCount > 0"
+          :text="selectionText"
+          position="bottom"
+        >
           <OnyxBadge class="onyx-select__badge" variation="neutral">
-            {{ previewBadgeNumber }}
+            {{ modelValueCount }}
           </OnyxBadge>
         </OnyxTooltip>
 

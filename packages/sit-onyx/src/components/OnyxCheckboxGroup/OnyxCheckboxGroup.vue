@@ -1,9 +1,10 @@
-<script lang="ts" setup generic="TValue extends string | number | boolean">
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
 import { useCheckAll } from "../../composables/checkAll";
+import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import { OnyxHeadline } from "../../index";
+import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
@@ -25,13 +26,15 @@ const emit = defineEmits<{
 
 const { t } = injectI18n();
 
-const handleUpdate = (id: TValue, isChecked: boolean) => {
-  const newValue = isChecked ? [...props.modelValue, id] : props.modelValue.filter((i) => i !== id);
+const handleUpdate = (value: TValue, isChecked: boolean) => {
+  const newValue = isChecked
+    ? [...props.modelValue, value]
+    : props.modelValue.filter((i) => i !== value);
   emit("update:modelValue", newValue);
 };
 
 const enabledOptionValues = computed(() =>
-  props.options.filter((i) => !i.disabled && !i.skeleton).map(({ id }) => id),
+  props.options.filter((i) => !i.disabled && !i.skeleton).map(({ value }) => value),
 );
 
 const checkAll = useCheckAll(
@@ -62,20 +65,27 @@ const checkAllLabel = computed(() => {
           v-if="props.withCheckAll"
           v-bind="checkAll.state.value"
           :label="checkAllLabel"
+          value="all"
           @update:model-value="checkAll.handleChange"
         />
 
         <OnyxCheckbox
           v-for="option in props.options"
-          :key="option.id.toString()"
+          :key="option.value.toString()"
           v-bind="option"
-          :model-value="props.modelValue.includes(option.id)"
-          @update:model-value="handleUpdate(option.id, $event)"
+          :model-value="props.modelValue.includes(option.value)"
+          @update:model-value="handleUpdate(option.value, $event)"
         />
       </template>
 
       <template v-else>
-        <OnyxCheckbox v-for="i in props.skeleton" :key="i" :label="`Skeleton ${i}`" skeleton />
+        <OnyxCheckbox
+          v-for="i in props.skeleton"
+          :key="i"
+          :label="`Skeleton ${i}`"
+          :value="`skeleton-${i}`"
+          skeleton
+        />
       </template>
     </div>
   </fieldset>

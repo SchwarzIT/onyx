@@ -1,13 +1,14 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { OnyxLoadingIndicator } from "../../index";
+import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxCheckboxProps>(), {
+const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   modelValue: false,
   indeterminate: false,
   disabled: false,
@@ -57,6 +58,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
         :indeterminate="props.indeterminate"
         :disabled="props.disabled"
         :required="props.required"
+        :value="props.value"
       />
     </div>
 

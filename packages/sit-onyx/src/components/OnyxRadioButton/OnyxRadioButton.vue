@@ -1,9 +1,10 @@
-<script lang="ts" setup generic="TValue extends SelectionOptionValue = SelectionOptionValue">
+<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { OnyxLoadingIndicator } from "../../index";
+import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxRadioButtonProps, SelectionOptionValue } from "./types";
+import type { OnyxRadioButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   disabled: false,
@@ -15,7 +16,7 @@ const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
 
 const emit = defineEmits<{
   /** Emitted when the value changes. */
-  change: [value: string];
+  change: [value: boolean];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -24,6 +25,11 @@ const emit = defineEmits<{
 
 const { vCustomValidity } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
+
+const handleChange = (event: Event) => {
+  const checked = (event.target as HTMLInputElement).checked;
+  emit("change", checked);
+};
 </script>
 
 <template>
@@ -42,9 +48,10 @@ const { densityClass } = useDensity(props);
       type="radio"
       :required="props.required"
       :name="props.name"
-      :value="props.id"
+      :value="props.value"
       :checked="props.selected"
       :disabled="props.disabled"
+      @change="handleChange"
     />
     <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
       {{ props.label }}

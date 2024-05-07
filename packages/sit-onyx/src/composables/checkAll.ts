@@ -1,8 +1,8 @@
 import type { OnyxCheckboxProps } from "src/components/OnyxCheckbox/types";
-import type { SelectionOptionValue } from "src/components/OnyxRadioButton/types";
 import { computed, type Ref } from "vue";
+import type { SelectOptionValue } from "../types";
 
-const useSelectAllCheckboxState = <TValue extends SelectionOptionValue = SelectionOptionValue>(
+const useSelectAllCheckboxState = <TValue extends SelectOptionValue = SelectOptionValue>(
   enabledOptionValues: Ref<TValue[]>,
   modelValue: Ref<TValue[]>,
 ) =>
@@ -19,7 +19,7 @@ const useSelectAllCheckboxState = <TValue extends SelectionOptionValue = Selecti
     } satisfies Partial<OnyxCheckboxProps>;
   });
 
-export const useCheckAll = <TValue extends SelectionOptionValue = SelectionOptionValue>(
+export const useCheckAll = <TValue extends SelectOptionValue = SelectOptionValue>(
   enabledOptionValues: Ref<TValue[]>,
   modelValue: Ref<TValue[]>,
   onChangeCallback: (newValue: TValue[]) => void,

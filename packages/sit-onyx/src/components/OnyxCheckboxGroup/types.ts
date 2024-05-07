@@ -1,9 +1,8 @@
 import type { DensityProp } from "../../composables/density";
-import type { Direction } from "../../types";
-import type { OnyxCheckboxProps } from "../OnyxCheckbox/types";
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
+import type { RequiredMarkerProp } from "../../composables/required";
+import type { Direction, SelectOption, SelectOptionValue } from "../../types";
 
-export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
+export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp & {
     /**
      * Checkbox options.
@@ -44,9 +43,5 @@ export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = Selecti
     skeleton?: number;
   };
 
-export type CheckboxGroupOption<T extends SelectionOptionValue> = Omit<
-  OnyxCheckboxProps,
-  "modelValue" | "indeterminate" | "hideLabel"
-> & {
-  id: T;
-};
+export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> =
+  SelectOption<TValue> & RequiredMarkerProp;

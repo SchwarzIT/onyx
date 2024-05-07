@@ -1,14 +1,11 @@
-<script lang="ts" setup generic="TValue extends SelectionOptionValue">
-import type { TargetEvent } from "../../types/dom";
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { createId } from "@sit-onyx/headless";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
+import type { SelectOptionValue } from "../../types";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
-import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
 import type { OnyxRadioButtonGroupProps } from "./types";
-
-type ChangeEvent = TargetEvent<HTMLInputElement>;
 
 const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   name: () => createId("radio-button-group-name"), // the name must be globally unique
@@ -22,22 +19,23 @@ const { densityClass } = useDensity(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
-  "update:modelValue": [selected: SelectionOption<TValue>];
+  "update:modelValue": [selected: TValue];
   /**
    * Emitted when the validity state changes.
    */
   validityChange: [validity: ValidityState];
 }>();
 
-const handleChange = (event: ChangeEvent) =>
-  emit("update:modelValue", props.options.find(({ id }) => event.target.value === id)!);
+const handleChange = (selected: boolean, value: TValue) => {
+  if (!selected) return;
+  emit("update:modelValue", value);
+};
 </script>
 
 <template>
   <fieldset
     :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
     :disabled="props.disabled"
-    @change="handleChange($event as ChangeEvent)"
   >
     <legend v-if="props.headline" class="onyx-radio-button-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
@@ -52,13 +50,14 @@ const handleChange = (event: ChangeEvent) =>
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
           v-for="(option, index) in props.options"
-          :key="option.id.toString()"
+          :key="option.value.toString()"
           v-bind="option"
           :name="props.name"
           :custom-error="props.customError"
-          :selected="option.id === props.modelValue?.id"
+          :selected="option.value === props.modelValue"
           :required="props.required"
           @validity-change="index === 0 && emit('validityChange', $event)"
+          @change="handleChange($event, option.value)"
         />
       </template>
 
@@ -67,6 +66,7 @@ const handleChange = (event: ChangeEvent) =>
           v-for="i in props.skeleton"
           :id="`skeleton-${i}`"
           :key="i"
+          :value="`skeleton-${i}`"
           label="Skeleton ${i}"
           :name="props.name"
           skeleton

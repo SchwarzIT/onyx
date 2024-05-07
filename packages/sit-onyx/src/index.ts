@@ -14,7 +14,9 @@ export * from "./components/OnyxButton/types";
 export { default as OnyxBadge } from "./components/OnyxBadge/OnyxBadge.vue";
 export * from "./components/OnyxBadge/types";
 
+export { default as OnyxCheckbox } from "./components/OnyxCheckbox/OnyxCheckbox.vue";
 export * from "./components/OnyxCheckbox/types";
+
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types";
 
@@ -50,7 +52,9 @@ export * from "./components/OnyxNavItem/types";
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
 
+export { default as OnyxRadioButton } from "./components/OnyxRadioButton/OnyxRadioButton.vue";
 export * from "./components/OnyxRadioButton/types";
+
 export { default as OnyxRadioButtonGroup } from "./components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 export * from "./components/OnyxRadioButtonGroup/types";
 
@@ -76,6 +80,7 @@ export * from "./components/OnyxUserMenu/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
-export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
+
+export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export { createOnyx } from "./utils/plugin";

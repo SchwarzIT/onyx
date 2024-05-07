@@ -4,8 +4,8 @@ import type { ListboxOption } from "../OnyxListbox/types";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 const options = [
-  { id: "/settings", label: "Settings", icon: mockPlaywrightIcon },
-  { id: "logout", label: "Logout", icon: mockPlaywrightIcon, color: "danger" },
+  { value: "/settings", label: "Settings", icon: mockPlaywrightIcon },
+  { value: "logout", label: "Logout", icon: mockPlaywrightIcon, color: "danger" },
 ] satisfies ListboxOption[];
 
 test.describe("Screenshot tests", () => {
