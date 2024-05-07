@@ -69,17 +69,12 @@ defineSlots<{
         background-color: var(--onyx-color-base-primary-100);
       }
 
-      &.onyx-listbox-option--active:hover,
-      &.onyx-listbox-option--active:focus-visible {
-        color: var(--onyx-color-text-icons-primary-bold);
-      }
-
       // single select
       &[aria-selected="true"] {
         background-color: var(--onyx-color-base-primary-200);
 
         &:hover,
-        &:focus-visible {
+        &.onyx-listbox-option--active {
           color: var(--onyx-color-text-icons-primary-bold);
         }
       }
