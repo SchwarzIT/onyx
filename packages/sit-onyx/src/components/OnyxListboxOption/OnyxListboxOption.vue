@@ -1,7 +1,12 @@
 <script lang="ts" setup>
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxListboxOptionProps } from "./types";
 
-const props = defineProps<OnyxListboxOptionProps>();
+const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
+  active: false,
+  multiple: false,
+  color: "primary",
+});
 
 defineSlots<{
   /**
@@ -12,7 +17,13 @@ defineSlots<{
 </script>
 
 <template>
-  <li class="onyx-listbox-option" :class="{ 'onyx-listbox-option--active': props.active }">
+  <li
+    class="onyx-listbox-option"
+    :class="{
+      'onyx-listbox-option--active': props.active,
+      'onyx-listbox-option--danger': props.color === 'danger',
+    }"
+  >
     <input
       v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
@@ -24,6 +35,8 @@ defineSlots<{
       class="onyx-listbox-option__checkbox"
       type="checkbox"
     />
+
+    <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
     <span class="onyx-truncation-ellipsis">
       <slot></slot>

@@ -1,4 +1,5 @@
 import type { SelectOption, SelectOptionValue } from "../../types";
+import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
 export type ListboxModelValue<
   TValue extends SelectOptionValue = SelectOptionValue,
@@ -59,12 +60,13 @@ export type OnyxListboxProps<
 export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,
   "value" | "label" | "disabled"
-> & {
-  /**
-   * Optional group name. If set, all options will be grouped under that group name.
-   */
-  group?: string;
-};
+> &
+  Pick<OnyxListboxOptionProps, "color" | "icon"> & {
+    /**
+     * Optional group name. If set, all options will be grouped under that group name.
+     */
+    group?: string;
+  };
 
 export type ListboxLazyLoading = {
   /**
