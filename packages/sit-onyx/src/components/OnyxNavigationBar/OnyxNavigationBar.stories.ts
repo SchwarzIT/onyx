@@ -1,6 +1,8 @@
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
@@ -51,5 +53,15 @@ export const WithContextArea = {
       components: { story },
       template: `<div style="margin-bottom: 16rem;"> <story /> </div>`,
     }),
-  ],
+  ] as Decorator[],
+} satisfies Story;
+
+/**
+ * This example shows a navigation bar with a custom icon as logo.
+ */
+export const WithCustomLogo = {
+  args: {
+    ...Default.args,
+    logo: () => h(OnyxIcon, { icon: placeholder, color: "secondary" }),
+  },
 } satisfies Story;
