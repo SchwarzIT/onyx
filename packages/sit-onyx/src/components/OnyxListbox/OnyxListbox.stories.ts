@@ -141,7 +141,7 @@ export const Multiselect = {
     ],
   },
   argTypes: {
-    modelValue: { control: { type: "multi-select" } },
+    modelValue: { control: { type: "object" } },
   },
 } satisfies Story;
 
