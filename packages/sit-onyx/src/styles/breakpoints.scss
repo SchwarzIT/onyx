@@ -23,3 +23,12 @@ $breakpoints: (
     @content;
   }
 }
+
+/**
+ * Same as `breakpoint` mixin but using container queries instead of media queries.
+ */
+@mixin container($min-max, $name, $offset: 0) {
+  @container (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
+    @content;
+  }
+}
