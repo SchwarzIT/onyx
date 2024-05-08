@@ -3,7 +3,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 
 test.describe("Single select screenshot tests", () => {
-  for (const state of ["default", "disabled"] as const) {
+  for (const state of ["default", "disabled", "danger"] as const) {
     executeMatrixScreenshotTest({
       name: `Listbox option (${state})`,
       columns: ["default", "selected"],
@@ -18,6 +18,7 @@ test.describe("Single select screenshot tests", () => {
           aria-selected={column === "selected"}
           active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
+          color={state === "danger" ? "danger" : undefined}
           {...{ role: "option" }}
         >
           Test label
@@ -50,8 +51,8 @@ test.describe("Multiselect Screenshot tests", () => {
         <OnyxListboxOption
           aria-label="Label"
           aria-checked={column === "checked"}
-          active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
+          active={row === "focus-visible"}
           multiple={true}
           indeterminate={column === "indeterminate"}
           {...{ role: "option" }}
