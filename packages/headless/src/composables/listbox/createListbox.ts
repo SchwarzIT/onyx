@@ -2,11 +2,7 @@ import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue"
 import { createId } from "../..";
 import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
 import { useTypeAhead } from "../typeAhead";
-
-export type ListboxModelValue<
-  TValue extends string,
-  TMultiple extends boolean = false,
-> = TMultiple extends true ? TValue[] : TValue;
+import type { IsArray } from "../../utils/types";
 
 export type CreateListboxOptions<TValue extends string, TMultiple extends boolean = false> = {
   /**
@@ -16,7 +12,7 @@ export type CreateListboxOptions<TValue extends string, TMultiple extends boolea
   /**
    * Value of currently selected option.
    */
-  selectedOption: Ref<ListboxModelValue<TValue, TMultiple> | undefined>;
+  selectedOption: Ref<IsArray<TValue, TMultiple> | undefined>;
   /**
    * Value of currently (visually) active option.
    */

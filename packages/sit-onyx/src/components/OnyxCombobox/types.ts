@@ -1,4 +1,4 @@
-import type { ListboxModelValue } from "@sit-onyx/headless";
+import type { IsArray } from "../../../../headless/src/utils/types";
 
 export type OnyxComboboxProps<TValue extends string, TMultiple extends boolean = false> = {
   /**
@@ -20,7 +20,7 @@ export type OnyxComboboxProps<TValue extends string, TMultiple extends boolean =
   /**
    * Current value / selected options.
    */
-  modelValue?: ListboxModelValue<TValue, TMultiple>;
+  modelValue?: IsArray<ComboboxOption<TValue>, TMultiple>;
   /**
    * Allows the selection of multiple listbox options
    */

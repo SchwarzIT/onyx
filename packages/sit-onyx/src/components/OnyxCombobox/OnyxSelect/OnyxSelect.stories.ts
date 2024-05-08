@@ -1,6 +1,5 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { Default as ListboxDefaultStory } from "../OnyxListbox/OnyxListbox.stories";
 import OnyxSelect from "./OnyxSelect.vue";
 
 // TODO: description in figma is missing.
@@ -24,7 +23,7 @@ const meta: Meta<typeof OnyxSelect> = {
 export default meta;
 type Story = StoryObj<typeof OnyxSelect>;
 
-const EXAMPLE_OPTIONS = ListboxDefaultStory.args.options;
+const EXAMPLE_OPTIONS: any[] = [];
 
 /**
  * This example shows an select. Nothing was selected yet.

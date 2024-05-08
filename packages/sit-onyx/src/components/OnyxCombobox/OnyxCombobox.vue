@@ -1,6 +1,5 @@
 <script lang="ts" setup generic="TValue extends string, TMultiple extends boolean = false">
 import { createComboBox, createId } from "@sit-onyx/headless";
-import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
@@ -10,8 +9,13 @@ import type { OnyxComboboxProps } from "./types";
 import OnyxSelect from "../OnyxCombobox/OnyxSelect/OnyxSelect.vue";
 import OnyxListboxOption from "./OnyxListboxOption/OnyxListboxOption.vue";
 import type { ComboboxOption } from "../..";
+import type { IsArray } from "../../../../headless/src/utils/types";
+import type { OnyxListboxOptionProps } from "./OnyxListboxOption/types";
 
-type InternalComboboxOption<TValue extends string> = ComboboxOption<TValue> & {
+type InternalComboboxOption = {
+  option?: ComboboxOption<string>;
+  label: string;
+  props: OnyxListboxOptionProps;
   isSelectAll?: boolean;
 };
 
@@ -23,7 +27,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the current value changes.
    */
-  "update:modelValue": [value: typeof props.modelValue];
+  "update:modelValue": [value: typeof props.modelValue | undefined];
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
    * See property `lazyLoading` for enabling the lazy loading.
@@ -50,23 +54,14 @@ const { t } = injectI18n();
 
 const inputValue = ref("");
 
-/**
- * Currently selected option.
- */
-const selectedOption = computed(() => props.options.find(({ id }) => props.modelValue === id));
+const modelValueArray = computed<ComboboxOption<TValue>[]>(() =>
+  Array.isArray(props.modelValue) ? props.modelValue : [],
+);
 
 /**
  *
  */
 const enabledOptions = computed(() => props.options.filter((o) => !o.disabled));
-
-/**
- *
- */
-const enabledOptionIds = computed(() => enabledOptions.value.map((o) => o.id));
-
-/** Unique ID to identify the `select all` checkbox */
-const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
 
 const checkAllLabel = computed<string>(() => {
   const defaultText = t.value("selections.selectAll");
@@ -74,18 +69,18 @@ const checkAllLabel = computed<string>(() => {
   return props.withCheckAll?.label ?? defaultText;
 });
 
-const CHECK_ALL_OPTION = computed<InternalComboboxOption<TValue>>(() => ({
-  id: CHECK_ALL_ID,
-  label: checkAllLabel.value,
+const CHECK_ALL_OPTION = computed<InternalComboboxOption>(() => ({
+  isSelectAll: true,
+  props: { id: "", label: checkAllLabel.value },
 }));
 
 /**
  * IDs of all options that can be navigated with the keyboard.
  * Includes "select all" up front if it is used.
  */
-const allKeyboardOptions = computed<InternalComboboxOption<TValue>[]>(() => [
+const allKeyboardOptions = computed<InternalComboboxOption[]>(() => [
   ...(props.withCheckAll ? [CHECK_ALL_OPTION.value] : []),
-  ...enabledOptions.value,
+  ...enabledOptions.value.map((option) => ({ option })),
 ]);
 
 const groupedOptions = computed(() => {
@@ -100,7 +95,7 @@ const groupedOptions = computed(() => {
 /**
  * Currently (visually) active option.
  */
-const activeOption = ref<InternalComboboxOption<TValue>>();
+const activeOption = ref<InternalComboboxOption>();
 
 const isExpanded = ref(false);
 
@@ -108,22 +103,21 @@ const isExpanded = ref(false);
  * State and click callback for the `select all` checkbox.
  * Only available when multiple and withCheckAll are set.
  */
-const checkAll = computed(() => {
-  if (!props.multiple || !props.withCheckAll) return undefined;
-  return useCheckAll(
-    enabledOptionIds,
-    computed(() => (props.modelValue as TValue[]) || []),
-    (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
-  );
-});
+const checkAll = () => {
+  if (props.multiple && props.withCheckAll) {
+    emit("update:modelValue", enabledOptions.value as IsArray<ComboboxOption<TValue>, TMultiple>);
+  }
+};
 
 const activeIndex = computed<number | undefined>(() => {
-  const index = props.options.findIndex((o) => o.id === activeOption.value?.id);
+  const index = props.options.findIndex((o) => o.id === activeOption.value?.option.id);
   return index !== -1 ? index : undefined;
 });
 
 const onActivateFirst = () => (activeOption.value = allKeyboardOptions.value.at(0));
+
 const onActivateLast = () => (activeOption.value = allKeyboardOptions.value.at(-1));
+
 const onActivateNext = () => {
   if (activeIndex.value === undefined) {
     return onActivateFirst();
@@ -132,32 +126,43 @@ const onActivateNext = () => {
 
   activeOption.value = allKeyboardOptions.value.at(nextIndex);
 };
+
 const onActivatePrevious = () =>
   (activeOption.value = allKeyboardOptions.value.at(Math.max((activeIndex.value ?? 0) - 1, 0)));
+
 const onTypeAhead = (input: string) => {
-  const firstMatch = allKeyboardOptions.value.find((i) => {
-    return i.label.toLowerCase().trim().startsWith(input.toLowerCase());
-  });
+  const firstMatch = allKeyboardOptions.value.find((i) =>
+    i.option.label.toLowerCase().trim().startsWith(input.toLowerCase()),
+  );
   if (!firstMatch) return;
   activeOption.value = firstMatch;
 };
+
 const onToggle = () => (isExpanded.value = !isExpanded.value);
-const onSelect = (selectedOption: string) => {
-  if (selectedOption === CHECK_ALL_ID) {
-    checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
-    return;
+
+const onSelect = (selectedId: string): void => {
+  const selectedOption = allKeyboardOptions.value.find(({ option: { id } }) => id === selectedId)!;
+
+  if (selectedOption.isSelectAll) {
+    return checkAll();
   }
 
-  if (!props.multiple) {
-    const newValue = selectedOption === props.modelValue ? undefined : selectedOption;
-    emit("update:modelValue", newValue as typeof props.modelValue);
-    return;
+  if (props.multiple) {
+    const newValue =
+      selectedOption.option?.id === (props.modelValue as IsArray<ComboboxOption<TValue>, false>).id
+        ? undefined
+        : selectedOption;
+    return emit(
+      "update:modelValue",
+      newValue?.option as IsArray<ComboboxOption<TValue>, TMultiple>,
+    );
   }
-  const arrayValues: string[] = Array.isArray(props.modelValue) ? props.modelValue : [];
-  const newValues = arrayValues.includes(selectedOption)
-    ? arrayValues.filter((i) => i !== selectedOption)
-    : [...arrayValues, selectedOption];
-  emit("update:modelValue", newValues as typeof props.modelValue);
+
+  const newValues = modelValueArray.value.some(({ id }) => selectedOption.option.id === id)
+    ? modelValueArray.value.filter(({ id }) => id !== selectedOption.option.id)
+    : [...modelValueArray.value, selectedOption.option];
+
+  emit("update:modelValue", newValues as IsArray<ComboboxOption<TValue>, TMultiple>);
 };
 
 const comboBox = createComboBox({
@@ -165,7 +170,7 @@ const comboBox = createComboBox({
   label: props.label,
   listLabel: props.listLabel,
   inputValue,
-  activeOption: computed(() => activeOption.value?.id),
+  activeOption: computed(() => activeOption.value?.option.id),
   isExpanded,
   onToggle,
   onActivateFirst,
@@ -194,35 +199,36 @@ const isEmpty = computed(() => props.options.length === 0);
 </script>
 
 <template>
-  <div class="onyx-combobox">
+  <div class="onyx-combobox-wrapper">
     <OnyxSelect
       :label="props.label"
       :loading="props.loading"
-      :model-value="selectedOption?.label"
+      :model-value="props.modelValue"
+      :multiple="props.multiple"
       v-bind="input"
       @click="isExpanded = true"
       @keydown.arrow-down="isExpanded = true"
     />
-    <div v-show="isExpanded" class="onyx-listbox" :aria-busy="props.loading">
-      <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
-        <OnyxLoadingIndicator class="onyx-listbox__loading" />
+    <div v-show="isExpanded" class="onyx-combobox" :aria-busy="props.loading">
+      <div v-if="props.loading" class="onyx-combobox__slot onyx-combobox__slot--loading">
+        <OnyxLoadingIndicator class="onyx-combobox__loading" />
       </div>
 
       <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
         <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
       </slot>
 
-      <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+      <div v-else v-scroll-end v-bind="listbox" class="onyx-combobox__wrapper">
         <ul
           v-for="(options, group) in groupedOptions"
           :key="group"
-          class="onyx-listbox__group"
+          class="onyx-combobox__group"
           v-bind="headlessGroup({ label: group })"
         >
           <li
             v-if="group != ''"
             role="presentation"
-            class="onyx-listbox__group-name onyx-text--small"
+            class="onyx-combobox__group-name onyx-text--small"
           >
             {{ group }}
           </li>
@@ -240,7 +246,7 @@ const isEmpty = computed(() => props.options.length === 0);
               multiple
               :active="CHECK_ALL_ID === activeOption"
               :indeterminate="checkAll?.state.value.indeterminate"
-              class="onyx-listbox__check-all"
+              class="onyx-combobox__check-all"
             >
               {{ checkAllLabel }}
             </OnyxListboxOption>
@@ -265,11 +271,11 @@ const isEmpty = computed(() => props.options.length === 0);
             {{ option.label }}
           </OnyxListboxOption>
         </ul>
-        <li v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        <li v-if="props.lazyLoading?.loading" class="onyx-combobox__slot">
+          <OnyxLoadingIndicator class="onyx-combobox__loading" />
         </li>
 
-        <li v-if="slots.optionsEnd" class="onyx-listbox__slot">
+        <li v-if="slots.optionsEnd" class="onyx-combobox__slot">
           <slot name="optionsEnd"></slot>
         </li>
       </div>
@@ -278,69 +284,53 @@ const isEmpty = computed(() => props.options.length === 0);
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/list";
 @use "../../styles/mixins/layers";
+
+.onyx-combobox-wrapper {
+  @include layers.component() {
+    position: relative;
+  }
+}
 
 .onyx-combobox {
   @include layers.component() {
-    position: relative;
+    @include list.styles();
 
-    .onyx-listbox {
-      position: absolute;
+    position: absolute;
+    width: 100%;
+
+    --max-options: 8;
+    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+    $wrapper-padding: var(--onyx-spacing-2xs);
+
+    &__message {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      display: inline-block;
       width: 100%;
-
-      --max-options: 8;
-      --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
-      $wrapper-padding: var(--onyx-spacing-2xs);
-
-      border-radius: var(--onyx-radius-md);
-      background-color: var(--onyx-color-base-background-blank);
-      padding: $wrapper-padding 0;
-      box-shadow: var(--onyx-shadow-medium-bottom);
       box-sizing: border-box;
-      min-width: var(--onyx-spacing-4xl);
-      max-width: 20rem;
-      font-family: var(--onyx-font-family);
+      text-align: right;
+      padding: $wrapper-padding var(--onyx-spacing-sm) 0;
+    }
 
-      &__message {
-        color: var(--onyx-color-text-icons-neutral-soft);
-        display: inline-block;
-        width: 100%;
-        box-sizing: border-box;
-        text-align: right;
-        padding: $wrapper-padding var(--onyx-spacing-sm) 0;
+    .onyx-combobox-option {
+      height: var(--option-height);
+    }
+
+    &__slot {
+      padding: 0 $wrapper-padding;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &--loading {
+        min-height: calc(5 * var(--option-height));
       }
+    }
 
-      .onyx-listbox-option {
-        height: var(--option-height);
-      }
-
-      &__options {
-        max-height: calc(var(--max-options) * var(--option-height));
-        overflow: auto;
-        outline: none;
-
-        padding: 0;
-      }
-
-      &:has(&__options:focus-visible) {
-        outline: 0.25rem solid var(--onyx-color-base-primary-200);
-      }
-
-      &__slot {
-        padding: 0 $wrapper-padding;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        &--loading {
-          min-height: calc(5 * var(--option-height));
-        }
-      }
-
-      &__loading {
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
     }
   }
 }
