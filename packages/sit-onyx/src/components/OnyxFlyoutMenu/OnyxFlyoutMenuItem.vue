@@ -4,8 +4,8 @@ const props = defineProps<{ active?: boolean }>();
 <template>
   <li
     :class="{
-      'onyx-list-item': true,
-      'onyx-list-item--active': props.active,
+      'onyx-flyout-menu-item': true,
+      'onyx-flyout-menu-item--active': props.active,
     }"
   >
     <slot></slot>
@@ -15,7 +15,7 @@ const props = defineProps<{ active?: boolean }>();
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/listitem";
 
-.onyx-list-item {
+.onyx-flyout-menu-item {
   @include layers.component() {
     @include listitem.styles(&);
   }

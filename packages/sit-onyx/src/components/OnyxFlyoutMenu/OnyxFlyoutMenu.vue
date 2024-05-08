@@ -1,6 +1,6 @@
 <template>
-  <div class="onyx-list">
-    <ul class="onyx-list__wrapper onyx-list__group">
+  <div class="onyx-flyout-menu">
+    <ul class="onyx-flyout-menu__wrapper onyx-flyout-menu__group">
       <slot></slot>
     </ul>
   </div>
@@ -10,7 +10,7 @@
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/list";
 
-.onyx-list {
+.onyx-flyout-menu {
   @include layers.component() {
     @include list.styles();
   }

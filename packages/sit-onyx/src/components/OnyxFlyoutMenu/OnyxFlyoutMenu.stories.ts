@@ -1,13 +1,13 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxList from "./OnyxList.vue";
+import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 import { h } from "vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxFlyoutMenuItem from "../OnyxFlyoutMenu/OnyxFlyoutMenuItem.vue";
 
-const meta: Meta<typeof OnyxList> = {
-  title: "support/List",
+const meta: Meta<typeof OnyxFlyoutMenu> = {
+  title: "support/OnyxFlyoutMenu",
   ...defineStorybookActionsAndVModels({
-    component: OnyxList,
+    component: OnyxFlyoutMenu,
     events: [],
   }),
 };
@@ -26,10 +26,10 @@ const listAnimals = [
 ];
 
 export default meta;
-type Story = StoryObj<typeof OnyxList>;
+type Story = StoryObj<typeof OnyxFlyoutMenu>;
 
 /**
- * This example shows a default single select listbox.
+ * This example shows a basic OnyxFlyoutMenu
  */
 export const Default = {
   args: {
@@ -37,7 +37,7 @@ export const Default = {
       h(
         "div",
         { style: { display: "contents" } },
-        listAnimals.map(({ label }) => h(OnyxListItem, label)),
+        listAnimals.map(({ label }) => h(OnyxFlyoutMenuItem, label)),
       ),
   },
 } satisfies Story;
