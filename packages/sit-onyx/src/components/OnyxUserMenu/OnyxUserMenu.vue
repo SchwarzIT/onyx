@@ -6,7 +6,7 @@ import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxUserMenuProps } from "./types";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxFlyoutMenuItem from "../OnyxFlyoutMenu/OnyxFlyoutMenuItem.vue";
 
 const props = defineProps<OnyxUserMenuProps<TValue>>();
 
@@ -61,7 +61,7 @@ const avatar = computed(() => {
         </div>
       </template>
 
-      <OnyxListItem
+      <OnyxFlyoutMenuItem
         v-for="item in props.options"
         :key="item.value.toString()"
         :class="{
@@ -70,7 +70,7 @@ const avatar = computed(() => {
         :color="item.color"
       >
         <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
-      </OnyxListItem>
+      </OnyxFlyoutMenuItem>
 
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">

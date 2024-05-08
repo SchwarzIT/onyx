@@ -163,7 +163,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
+  <div class="onyx-listbox" :aria-busy="props.loading">
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
