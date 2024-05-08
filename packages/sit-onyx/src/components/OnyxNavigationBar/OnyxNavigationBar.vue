@@ -37,7 +37,7 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <div class="onyx-navigation-bar">
+  <header class="onyx-navigation-bar">
     <div class="onyx-navigation-bar__content">
       <button
         v-if="props.appName || props.logoUrl || slots.logo"
@@ -66,15 +66,15 @@ const { t } = injectI18n();
         @click="emit('backButtonClick')"
       />
 
-      <div v-if="slots.default" class="onyx-navigation-bar__items">
+      <nav v-if="slots.default" class="onyx-navigation-bar__nav">
         <slot></slot>
-      </div>
+      </nav>
 
       <div v-if="slots.contextArea" class="onyx-navigation-bar__context">
         <slot name="contextArea"></slot>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <style lang="scss">
@@ -146,7 +146,7 @@ const { t } = injectI18n();
       max-height: 1.5rem;
     }
 
-    &__items {
+    &__nav {
       display: flex;
       align-items: center;
       gap: var(--onyx-spacing-4xs);
