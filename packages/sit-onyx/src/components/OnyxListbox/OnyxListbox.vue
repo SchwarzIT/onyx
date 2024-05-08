@@ -44,14 +44,6 @@ const slots = defineSlots<{
    * to e.g. show a button to load more options instead of lazy loading on scroll.
    */
   optionsEnd?(): unknown;
-  /**
-   * Optional header content to display above the options.
-   */
-  header?(): unknown;
-  /**
-   * Optional footer content to display below the options (will replace `message` property).
-   */
-  footer?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -168,16 +160,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
-    class="onyx-listbox"
-    :class="{
-      'onyx-listbox--with-header': !!slots.header,
-      'onyx-listbox--with-footer': !!slots.footer,
-    }"
-    :aria-busy="props.loading"
-  >
-    <slot name="header"></slot>
-
+  <div class="onyx-listbox" :aria-busy="props.loading">
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
@@ -250,12 +233,6 @@ watchEffect(() => {
         <slot name="optionsEnd"></slot>
       </div>
     </div>
-
-    <slot name="footer">
-      <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
-        {{ props.message }}
-      </span>
-    </slot>
   </div>
 </template>
 
@@ -271,14 +248,6 @@ watchEffect(() => {
     @include list.styles();
 
     $wrapper-padding: var(--onyx-spacing-2xs);
-
-    &--with-header {
-      padding-top: 0;
-    }
-
-    &--with-footer {
-      padding-bottom: 0;
-    }
 
     &__check-all {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);

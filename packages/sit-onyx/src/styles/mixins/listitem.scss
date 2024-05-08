@@ -1,6 +1,11 @@
 @mixin styles($root) {
+  --onyx-listbox-option-color: var(--onyx-color-text-icons-neutral-intense);
+  --onyx-listbox-option-color-selected: var(--onyx-color-text-icons-primary-bold);
+  --onyx-listbox-option-background-hover: var(--onyx-color-base-primary-100);
+  --onyx-listbox-option-background-selected: var(--onyx-color-base-primary-200);
+
   font-family: var(--onyx-font-family);
-  color: var(--onyx-color-text-icons-neutral-intense);
+  color: var(--onyx-listbox-option-color);
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   background-color: var(--onyx-color-base-background-blank);
   font-weight: 400;
@@ -20,30 +25,39 @@
 
     &:hover,
     &#{$root}--active {
-      background-color: var(--onyx-color-base-primary-100);
+      background-color: var(--onyx-listbox-option-background-hover);
     }
 
     // single select
     &[aria-selected="true"] {
-      background-color: var(--onyx-color-base-primary-200);
+      background-color: var(--onyx-listbox-option-background-selected);
 
       &:hover,
       &#{$root}--active {
-        color: var(--onyx-color-text-icons-primary-bold);
+        color: var(--onyx-listbox-option-color-selected);
       }
     }
 
     // multiselect
     &[aria-checked="true"] {
+      background-color: var(--onyx-listbox-option-background-selected);
+
       &:hover,
       &#{$root}--active {
-        background-color: var(--onyx-color-base-primary-100);
-        color: var(--onyx-color-text-icons-primary-bold);
+        background-color: var(--onyx-listbox-option-background-selected);
+        color: var(--onyx-listbox-option-color-selected);
       }
     }
   }
 
   &[aria-disabled="true"] {
     color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &--danger {
+    --onyx-listbox-option-color: var(--onyx-color-text-icons-danger-intense);
+    --onyx-listbox-option-color-selected: var(--onyx-color-text-icons-danger-intense);
+    --onyx-listbox-option-background-hover: var(--onyx-color-base-danger-100);
+    --onyx-listbox-option-background-selected: var(--onyx-color-base-danger-200);
   }
 }

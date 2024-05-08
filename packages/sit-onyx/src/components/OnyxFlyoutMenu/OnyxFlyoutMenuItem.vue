@@ -1,11 +1,14 @@
 <script setup lang="ts">
-const props = defineProps<{ active?: boolean }>();
+import type { ListboxOption } from "../..";
+
+const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>();
 </script>
 <template>
   <li
     :class="{
       'onyx-flyout-menu-item': true,
       'onyx-flyout-menu-item--active': props.active,
+      'onyx-flyout-menu-item--danger': props.color === 'danger',
     }"
   >
     <slot></slot>
