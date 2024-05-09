@@ -55,6 +55,13 @@ test.describe("Screenshot tests with nestedItems", () => {
     beforeScreenshot: async (component, page, _column, row) => {
       await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
+
+      // since the listbox is positioned absolute, we need to set the component size accordingly
+      // so the screenshot contains the whole component
+      await component.evaluate((element) => {
+        element.style.height = `300px`;
+        element.style.width = `${element.scrollWidth}px`;
+      });
     },
   });
 });

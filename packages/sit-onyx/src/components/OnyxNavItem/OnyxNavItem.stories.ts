@@ -8,7 +8,7 @@ import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
  * The nav item is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavItem> = {
-  title: "components/NavItem",
+  title: "support/NavItem",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavItem,
     events: ["navigate"],

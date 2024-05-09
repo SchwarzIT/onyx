@@ -40,32 +40,34 @@ const shouldShowExternalIcon = computed(() => {
 </script>
 
 <template>
-  <li
-    role="menuitem"
-    tabindex="0"
-    :aria-label="props.label"
-    class="onyx-nav-item onyx-text"
-    :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
-    @click="props.href && emit('navigate', props.href)"
-    @keydown.enter="props.href && emit('navigate', props.href)"
-  >
-    <span>{{ props.label }}</span>
-    <OnyxIcon
-      v-if="shouldShowExternalIcon"
-      class="onyx-nav-item__icon"
-      :icon="arrowSmallUpRight"
-      size="16px"
+  <div class="onyx-nav-item">
+    <li
+      role="menuitem"
+      tabindex="0"
+      :aria-label="props.label"
+      class="onyx-nav-item__trigger onyx-text"
+      :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
+      @click="props.href && emit('navigate', props.href)"
+      @keydown.enter="props.href && emit('navigate', props.href)"
+    >
+      <span>{{ props.label }}</span>
+      <OnyxIcon
+        v-if="shouldShowExternalIcon"
+        class="onyx-nav-item__icon"
+        :icon="arrowSmallUpRight"
+        size="16px"
+      />
+      <slot></slot>
+    </li>
+    <OnyxListbox
+      v-if="listboxOptions.length > 0"
+      class="onyx-nav-item__listbox"
+      :label="t('navItemOptionsLabel', { label: props.label })"
+      :options="listboxOptions"
+      :model-value="props.options?.find((opt) => opt.active)?.href"
+      @update:model-value="$event && emit('navigate', $event)"
     />
-    <slot></slot>
-  </li>
-  <OnyxListbox
-    v-if="listboxOptions.length > 0"
-    class="onyx-nav-item__listbox"
-    :label="t('navItemOptionsLabel', { label: props.label })"
-    :options="listboxOptions"
-    :model-value="props.options?.find((opt) => opt.active)?.href"
-    @update:model-value="$event && emit('navigate', $event)"
-  />
+  </div>
 </template>
 
 <style lang="scss">
@@ -73,27 +75,38 @@ const shouldShowExternalIcon = computed(() => {
 
 .onyx-nav-item {
   @include layers.component() {
-    display: inline-flex;
-    position: relative;
-    height: 2.5rem;
     width: max-content;
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
-    justify-content: center;
-    align-items: center;
-    gap: var(--onyx-spacing-2xs);
-    flex-shrink: 0;
-    border-radius: var(--onyx-radius-sm);
-    background: var(--onyx-color-base-background-blank);
-    text-decoration: none;
-    font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-medium);
-    cursor: pointer;
+    position: relative;
+
+    &__trigger {
+      display: inline-flex;
+      position: relative;
+      height: 2.5rem;
+      width: max-content;
+      padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
+      justify-content: center;
+      align-items: center;
+      gap: var(--onyx-spacing-2xs);
+      flex-shrink: 0;
+      border-radius: var(--onyx-radius-sm);
+      background: var(--onyx-color-base-background-blank);
+      text-decoration: none;
+      font-family: var(--onyx-font-family);
+      color: var(--onyx-color-text-icons-neutral-medium);
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+      }
+    }
 
     &:hover,
-    &:focus-visible {
-      background-color: var(--onyx-color-base-neutral-200);
+    &:focus-within:has(.onyx-nav-item__listbox) {
+      .onyx-nav-item__trigger {
+        background-color: var(--onyx-color-base-neutral-200);
+      }
 
-      + .onyx-nav-item__listbox {
+      .onyx-nav-item__listbox {
         opacity: 1;
       }
     }
@@ -116,11 +129,7 @@ const shouldShowExternalIcon = computed(() => {
       align-self: flex-start;
     }
 
-    &:focus-visible {
-      outline: 0.25rem solid var(--onyx-color-base-secondary-200);
-    }
-
-    + .onyx-nav-item__listbox {
+    &__listbox {
       margin-top: var(--onyx-spacing-sm);
       position: absolute;
       opacity: 0;
