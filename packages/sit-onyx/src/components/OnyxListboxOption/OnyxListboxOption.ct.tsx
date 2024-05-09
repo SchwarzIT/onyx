@@ -1,4 +1,5 @@
 import { test } from "../../playwright/a11y";
+import { DENSITIES } from "../../composables/density";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 
@@ -65,4 +66,35 @@ test.describe("Multiselect Screenshot tests", () => {
       },
     });
   }
+});
+
+test.describe("Density Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Listbox option (densities)",
+    columns: DENSITIES,
+    rows: ["default", "multiselect"],
+    // aria-required-parent is ignored here because this component is only a single option which is internally always
+    // used together with a parent so we disable the failing rule here
+    disabledAccessibilityRules: [
+      "aria-required-parent",
+      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      "color-contrast",
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
+    component: (column, row) => (
+      <OnyxListboxOption
+        aria-label="Label"
+        multiple={row === "multiselect"}
+        density={column}
+        {...{ role: "option" }}
+      >
+        Test label
+      </OnyxListboxOption>
+    ),
+    beforeScreenshot: async (component) => {
+      await component.hover();
+    },
+  });
 });

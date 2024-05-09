@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxListboxOptionProps } from "./types";
 
@@ -7,6 +8,8 @@ const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
   multiple: false,
   color: "primary",
 });
+
+const { densityClass } = useDensity(props);
 
 defineSlots<{
   /**
@@ -19,10 +22,13 @@ defineSlots<{
 <template>
   <li
     class="onyx-listbox-option"
-    :class="{
-      'onyx-listbox-option--active': props.active,
-      'onyx-listbox-option--danger': props.color === 'danger',
-    }"
+    :class="[
+      {
+        'onyx-listbox-option--active': props.active,
+        'onyx-listbox-option--danger': props.color === 'danger',
+      },
+      densityClass,
+    ]"
   >
     <input
       v-if="props.multiple"
@@ -47,6 +53,21 @@ defineSlots<{
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
+@use "../../styles/mixins/density.scss";
+
+.onyx-listbox-option {
+  @include density.compact {
+    --onyx-listbox-option-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+  }
+
+  @include density.default {
+    --onyx-listbox-option-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+  }
+
+  @include density.cozy {
+    --onyx-listbox-option-padding: var(--onyx-spacing-sm) var(--onyx-spacing-sm);
+  }
+}
 
 .onyx-listbox-option {
   @include checkbox.variables();
@@ -59,7 +80,7 @@ defineSlots<{
 
     font-family: var(--onyx-font-family);
     color: var(--onyx-listbox-option-color);
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-listbox-option-padding);
     background-color: var(--onyx-color-base-background-blank);
     font-weight: 400;
     font-size: 1rem;

@@ -1,3 +1,4 @@
+import type { DensityProp } from "src/composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
@@ -9,7 +10,7 @@ export type ListboxModelValue<
 export type OnyxListboxProps<
   TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
-> = {
+> = DensityProp & {
   /**
    * Aria label. Must be set for accessibility reasons.
    */
