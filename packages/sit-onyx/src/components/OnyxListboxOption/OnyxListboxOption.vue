@@ -120,8 +120,6 @@ defineSlots<{
 
       // single + multiselect
       &[aria-checked="true"] {
-        background-color: var(--onyx-listbox-option-background-selected);
-
         &:hover,
         &.onyx-listbox-option--active {
           background-color: var(--onyx-listbox-option-background-selected);
