@@ -21,11 +21,7 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxListItem
-    :class="['onyx-listbox-option', densityClass]"
-    :active="props.active"
-    :color="props.color"
-  >
+  <OnyxListItem class="onyx-listbox-option" :active="props.active" :color="props.color">
     <input
       v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
@@ -49,14 +45,11 @@ defineSlots<{
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
-@use "../../styles/mixins/listitem";
 
 .onyx-listbox-option {
   @include checkbox.variables();
 
   @include layers.component() {
-    @include listitem.styles(&);
-
     &__checkbox {
       @include checkbox.styles();
       // prevent the checkbox to get squished by a long label
