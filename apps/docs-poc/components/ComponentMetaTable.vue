@@ -56,7 +56,8 @@ const md = markdownit();
                 v-html="md.renderInline(row.description)"
               ></div>
               <div class="code-snippet">
-                {{ $t("component.metaTable.type") }}: {{ row.type.replace("| undefined", "") }}
+                {{ $t("component.metaTable.type") }}:
+                {{ row.type.replaceAll("| undefined", "").trim() }}
               </div>
             </div>
           </td>
