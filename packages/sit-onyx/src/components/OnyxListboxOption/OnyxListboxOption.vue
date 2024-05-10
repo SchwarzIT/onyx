@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxListboxOptionProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
@@ -17,13 +18,7 @@ defineSlots<{
 </script>
 
 <template>
-  <li
-    class="onyx-listbox-option"
-    :class="{
-      'onyx-listbox-option--active': props.active,
-      'onyx-listbox-option--danger': props.color === 'danger',
-    }"
-  >
+  <OnyxListItem class="onyx-listbox-option" :active="props.active" :color="props.color">
     <input
       v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
@@ -41,20 +36,17 @@ defineSlots<{
     <span class="onyx-truncation-ellipsis">
       <slot></slot>
     </span>
-  </li>
+  </OnyxListItem>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
-@use "../../styles/mixins/listitem";
 
 .onyx-listbox-option {
   @include checkbox.variables();
 
   @include layers.component() {
-    @include listitem.styles(&);
-
     &__checkbox {
       @include checkbox.styles();
       // prevent the checkbox to get squished by a long label

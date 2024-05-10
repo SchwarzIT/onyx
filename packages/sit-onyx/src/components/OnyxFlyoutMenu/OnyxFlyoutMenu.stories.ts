@@ -2,10 +2,10 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 import { h } from "vue";
-import OnyxFlyoutMenuItem from "../OnyxFlyoutMenu/OnyxFlyoutMenuItem.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 
 const meta: Meta<typeof OnyxFlyoutMenu> = {
-  title: "support/OnyxFlyoutMenu",
+  title: "support/FlyoutMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxFlyoutMenu,
     events: [],
@@ -37,7 +37,7 @@ export const Default = {
       h(
         "div",
         { style: { display: "contents" } },
-        listAnimals.map(({ label }) => h(OnyxFlyoutMenuItem, label)),
+        listAnimals.map(({ label }) => h(OnyxListItem, label)),
       ),
   },
 } satisfies Story;
