@@ -141,9 +141,7 @@ const { t } = injectI18n();
 
     &__logo {
       width: max-content;
-      height: max-content;
-      max-width: 1.5rem;
-      max-height: 1.5rem;
+      height: 1.5rem;
     }
 
     &__nav {
