@@ -1,4 +1,5 @@
 import { listboxTesting } from "@sit-onyx/headless/playwright";
+import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
@@ -77,6 +78,30 @@ test.describe("Multiselect screenshot tests", () => {
         modelValue={modelValues[row]}
         withCheckAll={column === "check-all"}
         multiple={true}
+      />
+    ),
+  });
+});
+
+test.describe("Densities screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: `Listbox (densities)`,
+    columns: DENSITIES,
+    rows: ["partial-selection", "single-select"],
+    disabledAccessibilityRules: [
+      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      "color-contrast",
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
+    component: (column, row) => (
+      <OnyxListbox
+        label={`${column} listbox`}
+        options={MOCK_VARIED_OPTIONS}
+        modelValue={row === "partial-selection" ? [2] : undefined}
+        multiple={row === "partial-selection"}
+        density={column}
       />
     ),
   });

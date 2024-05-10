@@ -3,6 +3,7 @@
   setup
   generic="TValue extends SelectOptionValue = SelectOptionValue, TMultiple extends boolean = false"
 >
+import { useDensity } from "../../composables/density";
 import { createId, createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
@@ -30,6 +31,8 @@ const emit = defineEmits<{
    */
   lazyLoad: [];
 }>();
+
+const { densityClass } = useDensity(props);
 
 const slots = defineSlots<{
   /**
@@ -160,7 +163,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="onyx-listbox" :aria-busy="props.loading">
+  <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
@@ -197,6 +200,7 @@ watchEffect(() => {
             multiple
             :active="CHECK_ALL_ID === activeOption"
             :indeterminate="checkAll?.state.value.indeterminate"
+            :density="props.density"
             class="onyx-listbox__check-all"
           >
             {{ checkAllLabel }}
@@ -220,6 +224,7 @@ watchEffect(() => {
           :active="option.value === activeOption"
           :icon="option.icon"
           :color="option.color"
+          :density="props.density"
         >
           {{ option.label }}
         </OnyxListboxOption>
@@ -239,11 +244,25 @@ watchEffect(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/list";
+@use "../../styles/mixins/density.scss";
+
+.onyx-listbox {
+  @include density.compact {
+    --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
+  }
+
+  @include density.default {
+    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+  }
+
+  @include density.cozy {
+    --option-height: calc(1.5rem + 3 * var(--onyx-spacing-2xs));
+  }
+}
 
 .onyx-listbox {
   @include layers.component() {
     --max-options: 8;
-    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
 
     @include list.styles();
 
@@ -251,10 +270,6 @@ watchEffect(() => {
 
     &__check-all {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-    }
-
-    .onyx-listbox-option {
-      height: var(--option-height);
     }
 
     &:has(&__wrapper:focus-visible) {

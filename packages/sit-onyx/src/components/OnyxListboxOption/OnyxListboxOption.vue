@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxListboxOptionProps } from "./types";
@@ -9,6 +10,8 @@ const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
   color: "primary",
 });
 
+const { densityClass } = useDensity(props);
+
 defineSlots<{
   /**
    * Default slot to place the option label / text content.
@@ -18,7 +21,11 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxListItem class="onyx-listbox-option" :active="props.active" :color="props.color">
+  <OnyxListItem
+    :class="['onyx-listbox-option', densityClass]"
+    :active="props.active"
+    :color="props.color"
+  >
     <input
       v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
@@ -42,6 +49,21 @@ defineSlots<{
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
+@use "../../styles/mixins/density.scss";
+
+.onyx-listbox-option {
+  @include density.compact {
+    --onyx-listbox-option-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+  }
+
+  @include density.default {
+    --onyx-listbox-option-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+  }
+
+  @include density.cozy {
+    --onyx-listbox-option-padding: var(--onyx-spacing-sm) var(--onyx-spacing-sm);
+  }
+}
 
 .onyx-listbox-option {
   @include checkbox.variables();
