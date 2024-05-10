@@ -4,8 +4,9 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import type { OnyxUserMenuProps } from "./types";
+import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 
 const props = defineProps<OnyxUserMenuProps<TValue>>();
 
@@ -37,10 +38,9 @@ const avatar = computed(() => {
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </button>
 
-    <OnyxListbox
-      class="onyx-user-menu__listbox"
+    <OnyxFlyoutMenu
+      class="onyx-user-menu__flyout"
       label="User options"
-      :options="props.options"
       @update:model-value="$event && emit('optionClick', $event)"
     >
       <template #header>
@@ -61,12 +61,23 @@ const avatar = computed(() => {
         </div>
       </template>
 
+      <OnyxListItem
+        v-for="item in props.options"
+        :key="item.value.toString()"
+        :class="{
+          'onyx-user-menu-item--danger': item.color === 'danger',
+        }"
+        :color="item.color"
+      >
+        <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
+      </OnyxListItem>
+
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">
           <slot name="footer"></slot>
         </div>
       </template>
-    </OnyxListbox>
+    </OnyxFlyoutMenu>
   </div>
 </template>
 
@@ -89,7 +100,7 @@ const avatar = computed(() => {
         background-color: var(--onyx-color-base-neutral-200);
       }
 
-      .onyx-user-menu__listbox {
+      .onyx-user-menu__flyout {
         opacity: 1;
       }
 
@@ -117,7 +128,7 @@ const avatar = computed(() => {
       }
     }
 
-    &__listbox {
+    &__flyout {
       opacity: 0;
       transition: opacity var(--onyx-duration-sm);
       position: absolute;
