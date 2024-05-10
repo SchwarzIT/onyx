@@ -1,10 +1,10 @@
 {
-  "name": "storybook",
+  "name": "docs-poc",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/docs-poc && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "test": "vitest",
@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@nuxtjs/i18n": "^8.3.1",
+    "@sit-onyx/icons": "workspace:^",
     "nuxt": "^3.11.2",
+    "sit-onyx": "workspace:^",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },

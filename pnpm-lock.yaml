@@ -171,29 +171,20 @@ importers:
         specifier: ^5.3.1
         version: 5.3.1(chart.js@4.4.2)(vue@3.4.27(typescript@5.4.5))
 
-  apps/playground:
-    dependencies:
-      '@sit-onyx/icons':
-        specifier: workspace:^
-        version: link:../../packages/icons
-      '@vue/repl':
-        specifier: ^4.1.2
-        version: 4.1.2
-      '@vueuse/core':
-        specifier: ^10.9.0
-        version: 10.9.0(vue@3.4.27(typescript@5.4.5))
-      sit-onyx:
-        specifier: workspace:^
-        version: link:../../packages/sit-onyx
-
-  apps/storybook:
+  apps/docs-poc:
     dependencies:
       '@nuxtjs/i18n':
         specifier: ^8.3.1
         version: 8.3.1(rollup@4.17.2)(vue@3.4.27(typescript@5.4.5))
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../../packages/icons
       nuxt:
         specifier: ^3.11.2
         version: 3.11.2(@opentelemetry/api@1.8.0)(@parcel/watcher@2.4.1)(@types/node@20.12.11)(@unocss/reset@0.60.0)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.17.2))(vue@3.4.27(typescript@5.4.5)))(ioredis@5.4.1)(optionator@0.9.3)(rollup@4.17.2)(sass@1.77.0)(stylus@0.57.0)(terser@5.31.0)(typescript@5.4.5)(unocss@0.60.0(postcss@8.4.38)(rollup@4.17.2)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0)(stylus@0.57.0)(terser@5.31.0)))(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0)(stylus@0.57.0)(terser@5.31.0))(vue-tsc@2.0.16(typescript@5.4.5))
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../../packages/sit-onyx
       vue:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -216,6 +207,21 @@ importers:
       happy-dom:
         specifier: ^14.10.1
         version: 14.10.1
+
+  apps/playground:
+    dependencies:
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../../packages/icons
+      '@vue/repl':
+        specifier: ^4.1.2
+        version: 4.1.2
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@3.4.27(typescript@5.4.5))
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../../packages/sit-onyx
 
   packages/chartjs-plugin:
     dependencies:

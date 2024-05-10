@@ -1,0 +1,14 @@
+@use "sit-onyx/style.css";
+
+body {
+  margin: 0;
+  font-family: var(--onyx-font-family);
+  background-color: var(--onyx-color-base-background-tinted);
+  color: var(--onyx-color-text-icons-neutral-intense);
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.dark {
+  color-scheme: dark;
+}

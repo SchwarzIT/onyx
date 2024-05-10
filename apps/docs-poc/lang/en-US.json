@@ -1,0 +1,9 @@
+{
+  "appName": "Documentation",
+  "home": {
+    "pageName": "Home"
+  },
+  "components": {
+    "pageName": "Components"
+  }
+}
