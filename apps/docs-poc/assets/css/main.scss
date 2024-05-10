@@ -12,3 +12,14 @@ body {
 .dark {
   color-scheme: dark;
 }
+
+.code-snippet {
+  @extend .onyx-text--small;
+  color: var(--onyx-color-text-icons-neutral-soft);
+  font-family: var(--onyx-font-family-mono);
+  width: max-content;
+}
+
+code {
+  @extend .code-snippet;
+}

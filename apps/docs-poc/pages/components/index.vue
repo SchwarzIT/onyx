@@ -9,5 +9,3 @@ import { OnyxHeadline } from "sit-onyx";
     </OnyxHeadline>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

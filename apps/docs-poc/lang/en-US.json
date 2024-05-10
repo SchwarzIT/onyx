@@ -6,6 +6,20 @@
   "components": {
     "pageName": "Components"
   },
+  "component": {
+    "loadError": "Error while loading component information",
+    "metaTable": {
+      "name": "Name",
+      "description": "Description",
+      "defaultValue": "Default value",
+      "control": "Control",
+      "type": "Type"
+    },
+    "props": "Properties",
+    "events": "Events",
+    "slots": "Slots",
+    "exposed": "Exposed"
+  },
   "nav": {
     "github": "GitHub",
     "darkMode": "Dark mode"

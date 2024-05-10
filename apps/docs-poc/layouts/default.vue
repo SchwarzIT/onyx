@@ -7,6 +7,10 @@ import { OnyxPageLayout } from "sit-onyx";
     <div class="page">
       <slot></slot>
     </div>
+
+    <template #sidebar>
+      <slot name="sidebar"></slot>
+    </template>
   </OnyxPageLayout>
 </template>
 

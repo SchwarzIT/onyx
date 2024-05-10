@@ -15,9 +15,11 @@
   "dependencies": {
     "@nuxtjs/i18n": "^8.3.1",
     "@sit-onyx/icons": "workspace:^",
+    "markdown-it": "^14.1.0",
     "nuxt": "^3.11.2",
     "sit-onyx": "workspace:^",
     "vue": "^3.4.27",
+    "vue-component-meta": "^2.0.17",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "@nuxt/eslint-plugin": "~0.3.12",
     "@nuxt/test-utils": "^3.12.1",
     "@nuxtjs/color-mode": "^3.4.1",
+    "@types/markdown-it": "^14.1.1",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^14.10.1"
   }
