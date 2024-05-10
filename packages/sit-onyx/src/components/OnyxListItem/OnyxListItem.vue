@@ -60,8 +60,6 @@ const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>()
 
       // multiselect
       &[aria-checked="true"] {
-        background-color: var(--onyx-list-item-background-selected);
-
         &:hover,
         &.onyx-list-item--active {
           background-color: var(--onyx-list-item-background-selected);
