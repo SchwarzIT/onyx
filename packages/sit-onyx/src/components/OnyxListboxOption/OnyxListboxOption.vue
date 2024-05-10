@@ -49,21 +49,6 @@ defineSlots<{
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
-@use "../../styles/mixins/density.scss";
-
-.onyx-listbox-option {
-  @include density.compact {
-    --onyx-listbox-option-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
-  }
-
-  @include density.default {
-    --onyx-listbox-option-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
-  }
-
-  @include density.cozy {
-    --onyx-listbox-option-padding: var(--onyx-spacing-sm) var(--onyx-spacing-sm);
-  }
-}
 
 .onyx-listbox-option {
   @include checkbox.variables();
