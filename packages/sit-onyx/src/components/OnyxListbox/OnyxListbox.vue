@@ -262,6 +262,10 @@ watchEffect(() => {
       height: var(--option-height);
     }
 
+    &:has(&__wrapper:focus-visible) {
+      outline: 0.25rem solid var(--onyx-color-base-primary-200);
+    }
+
     &__slot {
       padding: 0 $wrapper-padding;
       display: flex;
