@@ -253,6 +253,10 @@ watchEffect(() => {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
+    .onyx-listbox-option {
+      height: var(--option-height);
+    }
+
     &:has(&__wrapper:focus-visible) {
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
