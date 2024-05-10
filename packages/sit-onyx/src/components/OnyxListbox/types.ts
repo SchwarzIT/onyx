@@ -1,4 +1,4 @@
-import type { DensityProp } from "src/composables/density";
+import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 

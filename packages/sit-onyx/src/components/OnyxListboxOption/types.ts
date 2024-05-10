@@ -1,4 +1,4 @@
-import type { DensityProp } from "src/composables/density";
+import type { DensityProp } from "../../composables/density";
 import type { OnyxColor } from "../../types";
 
 export type OnyxListboxOptionProps = DensityProp & {
