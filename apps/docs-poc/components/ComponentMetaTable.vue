@@ -51,10 +51,10 @@ const md = markdownit();
 
           <td>
             <div class="description">
-              <span
+              <div
                 v-if="row.description"
                 v-html="md.renderInline(row.description)"
-              ></span>
+              ></div>
               <div class="code-snippet">
                 {{ $t("component.metaTable.type") }}: {{ row.type.replace("| undefined", "") }}
               </div>
