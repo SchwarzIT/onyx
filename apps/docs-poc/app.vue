@@ -19,7 +19,7 @@ const navItems = [
 </script>
 
 <template>
-  <OnyxAppLayout>
+  <OnyxAppLayout class="onyx-grid-max-lg">
     <template #navBar>
       <OnyxNavigationBar
         :app-name="$t('appName')"

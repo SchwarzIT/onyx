@@ -30,11 +30,6 @@ const { data } = await useFetch("/api/components");
 
 <style lang="scss" scoped>
 .sidebar {
-  padding: var(--onyx-spacing-md);
-  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-  height: 100%;
-  max-width: 24rem;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
