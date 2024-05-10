@@ -35,6 +35,7 @@ defineOptions({ inheritAttrs: false });
       font-weight: 400;
       line-height: var(--onyx-spacing-lg);
       flex-grow: 1;
+      min-width: 0;
     }
 
     &__clear {
