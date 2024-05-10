@@ -48,6 +48,7 @@ const value = computed({
     display: flex;
     align-items: center;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+    background-color: var(--onyx-color-base-background-blank);
 
     &__input,
     &__clear {
