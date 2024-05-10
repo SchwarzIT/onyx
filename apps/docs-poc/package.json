@@ -24,6 +24,7 @@
     "@nuxt/eslint-config": "~0.3.12",
     "@nuxt/eslint-plugin": "~0.3.12",
     "@nuxt/test-utils": "^3.12.1",
+    "@nuxtjs/color-mode": "^3.4.1",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^14.10.1"
   }

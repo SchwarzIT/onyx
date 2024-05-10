@@ -201,6 +201,9 @@ importers:
       '@nuxt/test-utils':
         specifier: ^3.12.1
         version: 3.12.1(@playwright/test@1.44.0)(@vue/test-utils@2.4.6)(h3@1.11.1)(happy-dom@14.10.1)(jsdom@24.0.0)(playwright-core@1.44.0)(rollup@4.17.2)(vite@5.2.11(@types/node@20.12.11)(sass@1.77.0)(stylus@0.57.0)(terser@5.31.0))(vitest@1.6.0(@types/node@20.12.11)(happy-dom@14.10.1)(jsdom@24.0.0)(sass@1.77.0)(stylus@0.57.0)(terser@5.31.0))(vue-router@4.3.2(vue@3.4.27(typescript@5.4.5)))(vue@3.4.27(typescript@5.4.5))
+      '@nuxtjs/color-mode':
+        specifier: ^3.4.1
+        version: 3.4.1(rollup@4.17.2)
       '@vue/test-utils':
         specifier: ^2.4.6
         version: 2.4.6
@@ -1658,6 +1661,9 @@ packages:
     engines: {node: ^14.18.0 || >=16.10.0}
     peerDependencies:
       vue: ^3.3.4
+
+  '@nuxtjs/color-mode@3.4.1':
+    resolution: {integrity: sha512-vZgJqDstxInGw3RGSWbLoCLXtU1mvh1LLeuEA/X3a++DYA4ifwSbNoiSiOyb9qZHFEwz1Xr99H71sXV4IhOaEg==}
 
   '@nuxtjs/i18n@8.3.1':
     resolution: {integrity: sha512-VHnnjFTTep2oC5++61WY06y4c/h943NyHQh1CRUJQvjsdbGSMX3WQjMGk+X05a3pyPFN70aq0YbgtsEoEoTEjQ==}
@@ -9581,6 +9587,16 @@ snapshots:
       - vls
       - vti
       - vue-tsc
+
+  '@nuxtjs/color-mode@3.4.1(rollup@4.17.2)':
+    dependencies:
+      '@nuxt/kit': 3.11.2(rollup@4.17.2)
+      pathe: 1.1.2
+      pkg-types: 1.1.1
+      semver: 7.6.2
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
 
   '@nuxtjs/i18n@8.3.1(rollup@4.17.2)(vue@3.4.27(typescript@5.4.5))':
     dependencies:

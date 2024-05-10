@@ -1,5 +1,13 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxNavItem, OnyxNavigationBar, type OnyxNavItemProps } from "sit-onyx";
+import {
+  OnyxAppLayout,
+  OnyxIconButton,
+  OnyxNavItem,
+  OnyxNavigationBar,
+  OnyxSwitch,
+  type OnyxNavItemProps,
+} from "sit-onyx";
+import githubLogo from "~/assets/images/github-logo.svg?raw";
 import onyxLogo from "~/assets/images/onyx-logo.svg";
 
 const { t } = useI18n();
@@ -27,6 +35,29 @@ const navItems = [
           :active="item.href === $route.path"
           @navigate="$router.push"
         />
+
+        <template #contextArea>
+          <ClientOnly>
+            <OnyxSwitch
+              class="theme-toggle"
+              :label="$t('nav.darkMode')"
+              :model-value="$colorMode.value === 'dark'"
+              @update:model-value="$colorMode.preference = $event ? 'dark' : 'light'"
+            />
+          </ClientOnly>
+
+          <a
+            href="https://github.com/SchwarzIT/onyx"
+            target="_blank"
+            :aria-label="$t('nav.github')"
+          >
+            <OnyxIconButton
+              :label="$t('nav.github')"
+              :icon="githubLogo"
+              variation="secondary"
+            />
+          </a>
+        </template>
       </OnyxNavigationBar>
     </template>
 
@@ -35,3 +66,9 @@ const navItems = [
     </NuxtLayout>
   </OnyxAppLayout>
 </template>
+
+<style lang="scss" scoped>
+.theme-toggle {
+  margin-right: var(--onyx-spacing-sm);
+}
+</style>

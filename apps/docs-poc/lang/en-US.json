@@ -5,5 +5,9 @@
   },
   "components": {
     "pageName": "Components"
+  },
+  "nav": {
+    "github": "GitHub",
+    "darkMode": "Dark mode"
   }
 }
