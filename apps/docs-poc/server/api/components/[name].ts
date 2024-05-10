@@ -31,14 +31,14 @@ export const getComponentMeta = (componentName: string) => {
   return {
     props: meta.props
       .filter((prop) => !prop.global)
-      .sort(sortByName)
+      .toSorted(sortByName)
       .sort((a, b) => {
         if (a.required && !b.required) return -1;
         if (!a.required && b.required) return 1;
         return 0;
       }),
-    events: meta.events.sort(sortByName),
-    slots: meta.slots.sort(sortByName),
+    events: meta.events.toSorted(sortByName),
+    slots: meta.slots.toSorted(sortByName),
     // remove redundant expose information
     exposed: meta.exposed
       .filter((expose) => {
@@ -48,6 +48,6 @@ export const getComponentMeta = (componentName: string) => {
         if (isProp || isEvent) return false;
         return true;
       })
-      .sort(sortByName),
+      .toSorted(sortByName),
   } satisfies Omit<ComponentMeta, "type">;
 };
