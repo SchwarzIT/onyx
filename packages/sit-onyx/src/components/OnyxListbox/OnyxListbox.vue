@@ -13,6 +13,7 @@ import type { SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 
@@ -186,6 +187,10 @@ watchEffect(() => {
         >
           {{ group }}
         </li>
+
+        <template v-if="props.withSearch">
+          <OnyxMiniSearch />
+        </template>
 
         <!-- select-all option for "multiple" -->
         <template v-if="props.multiple && props.withCheckAll">

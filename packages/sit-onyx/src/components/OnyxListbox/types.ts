@@ -31,6 +31,8 @@ export type OnyxListboxProps<
    * Allows the selection of multiple listbox options
    */
   multiple?: TMultiple;
+
+  withSearch?: boolean;
   /**
    * If true, a checkbox will be displayed to check/uncheck all options.
    * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
