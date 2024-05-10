@@ -32,3 +32,9 @@ eslint-results.sarif
 
 # Development config
 .env*
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
