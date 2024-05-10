@@ -8,7 +8,7 @@ export default defineEventHandler(async () => {
 
   const storyFiles = files
     .filter((file) => file.endsWith(".stories.ts"))
-    .map((file) => file.split("/").at(-1)!.replace(".stories.ts", "").replace("Onyx", ""))
+    .map((file) => file.split("/").at(-1)!.replace(".stories.ts", ""))
     .sort();
 
   return {

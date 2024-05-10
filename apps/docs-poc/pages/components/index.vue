@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
+
+definePageMeta({
+  layout: "component-sidebar",
+});
 </script>
 
 <template>

@@ -9,8 +9,8 @@ const metaChecker = createChecker(getFilePath("../../../../packages/sit-onyx/tsc
 
 export default defineEventHandler(async (event) => {
   const componentName = getRouterParam(event, "name")!;
-  const meta = getComponentMeta(componentName);
 
+  const meta = getComponentMeta(componentName);
   return {
     name: componentName,
     meta,
@@ -18,11 +18,9 @@ export default defineEventHandler(async (event) => {
 });
 
 export const getComponentMeta = (componentName: string) => {
-  const prefixedComponentName = `Onyx${componentName}`;
-
   const meta = metaChecker.getComponentMeta(
     getFilePath(
-      `../../../../packages/sit-onyx/src/components/${prefixedComponentName}/${prefixedComponentName}.vue`,
+      `../../../../packages/sit-onyx/src/components/${componentName}/${componentName}.vue`,
     ),
   );
 

@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { OnyxButton } from "sit-onyx";
 
-definePageMeta({
-  layout: false,
-});
-
 const { data } = await useFetch("/api/components");
+prerenderRoutes("/api/components");
+
+data.value?.components.forEach((component) => {
+  prerenderRoutes(`/api/components/${component}`);
+});
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const { data } = await useFetch("/api/components");
       </div>
     </template>
 
-    <NuxtPage />
+    <slot></slot>
   </NuxtLayout>
 </template>
 

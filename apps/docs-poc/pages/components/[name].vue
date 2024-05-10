@@ -4,11 +4,15 @@ import type { EventMeta, ExposeMeta, PropertyMeta, SlotMeta } from "vue-componen
 
 const route = useRoute();
 
-const { data, pending, error } = useFetch(`/api/components/${route.params.name}`, { lazy: true });
+definePageMeta({
+  layout: "component-sidebar",
+});
 
 useHead({
   title: route.params.name as string,
 });
+
+const { data, pending, error } = await useFetch(`/api/components/${route.params.name}`);
 </script>
 
 <template>
