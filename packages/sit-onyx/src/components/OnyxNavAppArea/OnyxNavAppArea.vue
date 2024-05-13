@@ -76,7 +76,7 @@ const { t } = injectI18n();
     }
 
     &__logo {
-      width: max-content;
+      width: auto;
       height: 1.5rem;
     }
   }
