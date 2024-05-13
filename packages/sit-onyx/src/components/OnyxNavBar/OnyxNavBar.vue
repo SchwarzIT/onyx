@@ -57,8 +57,10 @@ const { t } = injectI18n();
         @click="emit('backButtonClick')"
       />
 
-      <nav v-if="slots.default" class="onyx-nav-bar__nav" role="menubar">
-        <slot></slot>
+      <nav v-if="slots.default" role="menubar">
+        <ul class="onyx-nav-bar__nav">
+          <slot></slot>
+        </ul>
       </nav>
 
       <div v-if="slots.contextArea" class="onyx-nav-bar__context">
@@ -107,6 +109,7 @@ const { t } = injectI18n();
       display: flex;
       align-items: center;
       gap: var(--onyx-spacing-4xs);
+      padding: 0;
     }
 
     &__context {
