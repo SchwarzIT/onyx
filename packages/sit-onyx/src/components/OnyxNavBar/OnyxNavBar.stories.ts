@@ -7,7 +7,6 @@ import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
-import onyxLogo from "./onyx-logo.svg";
 
 const meta: Meta<typeof OnyxNavBar> = {
   title: "components/NavBar",
@@ -27,7 +26,7 @@ type Story = StoryObj<typeof OnyxNavBar>;
 
 export const Default = {
   args: {
-    logoUrl: onyxLogo,
+    logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Item", active: true }),

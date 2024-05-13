@@ -25,13 +25,13 @@ const slots = defineSlots<{
    */
   default?: () => unknown;
   /**
-   * Optional context area on the right to display additional (global) components, like user login, global settings etc.
-   */
-  contextArea?: () => unknown;
-  /**
    * Optional slot to override the app area content (logo and app name, e.g. with a custom icon / `OnyxIcon` component).
    */
   appArea?: () => unknown;
+  /**
+   * Optional context area on the right to display additional (global) components, like user login, global settings etc.
+   */
+  contextArea?: () => unknown;
 }>();
 
 const { t } = injectI18n();

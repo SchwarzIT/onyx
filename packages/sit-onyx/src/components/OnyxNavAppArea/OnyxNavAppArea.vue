@@ -25,6 +25,10 @@ const { t } = injectI18n();
 <template>
   <button class="onyx-nav-app-area" @click="emit('click')">
     <slot>
+      <!--
+        the width/height here is only to prevent layout shifts on initial load.
+        the "real" size is set via CSS below
+       -->
       <img
         v-if="props.logoUrl"
         :src="props.logoUrl"
