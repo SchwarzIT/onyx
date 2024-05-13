@@ -1,4 +1,4 @@
-import { OnyxNavigationBar, OnyxNavItem } from "../..";
+import { OnyxNavBar, OnyxNavItem } from "../..";
 import { expect, test } from "../../playwright/a11y";
 import {
   defineLogoMockRoutes,
@@ -21,7 +21,7 @@ test.describe("Screenshot tests", () => {
       // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => (
-        <OnyxNavigationBar
+        <OnyxNavBar
           style={{ width: breakpointWidth }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
@@ -35,7 +35,7 @@ test.describe("Screenshot tests", () => {
               <OnyxUserMenu username="John Doe" options={[]} />
             </template>
           )}
-        </OnyxNavigationBar>
+        </OnyxNavBar>
       ),
     });
 
@@ -46,7 +46,7 @@ test.describe("Screenshot tests", () => {
       // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => (
-        <OnyxNavigationBar
+        <OnyxNavBar
           style={{ width: breakpointWidth }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
@@ -57,7 +57,7 @@ test.describe("Screenshot tests", () => {
               <OnyxUserMenu username="John Doe" options={[]} />
             </template>
           )}
-        </OnyxNavigationBar>
+        </OnyxNavBar>
       ),
     });
   }
@@ -68,7 +68,7 @@ test("should behave correctly", async ({ mount }) => {
   let backButtonClickEvents = 0;
 
   let component = await mount(
-    <OnyxNavigationBar
+    <OnyxNavBar
       style={{ width: ONYX_BREAKPOINTS.md }}
       appName="App name"
       logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
@@ -85,9 +85,9 @@ test("should behave correctly", async ({ mount }) => {
   expect(backButtonClickEvents).toBe(1);
 
   component = await mount(
-    <OnyxNavigationBar style={{ width: ONYX_BREAKPOINTS.md }} showBackButton>
+    <OnyxNavBar style={{ width: ONYX_BREAKPOINTS.md }} showBackButton>
       <template v-slot:appArea>Custom app area</template>
-    </OnyxNavigationBar>,
+    </OnyxNavBar>,
   );
 
   await expect(component.getByRole("button", { name: "Custom app area" })).toBeVisible();

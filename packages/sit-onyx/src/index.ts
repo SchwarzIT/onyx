@@ -49,11 +49,11 @@ export * from "./components/OnyxLoadingIndicator/types";
 export { default as OnyxNavAppArea } from "./components/OnyxNavAppArea/OnyxNavAppArea.vue";
 export * from "./components/OnyxNavAppArea/types";
 
+export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
+export * from "./components/OnyxNavBar/types";
+
 export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue";
 export * from "./components/OnyxNavItem/types";
-
-export { default as OnyxNavigationBar } from "./components/OnyxNavigationBar/OnyxNavigationBar.vue";
-export * from "./components/OnyxNavigationBar/types";
 
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";

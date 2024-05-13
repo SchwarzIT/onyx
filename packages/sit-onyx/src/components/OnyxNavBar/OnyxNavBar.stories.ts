@@ -6,13 +6,13 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
-import OnyxNavigationBar from "./OnyxNavigationBar.vue";
+import OnyxNavBar from "./OnyxNavBar.vue";
 import onyxLogo from "./onyx-logo.svg";
 
-const meta: Meta<typeof OnyxNavigationBar> = {
-  title: "components/NavigationBar",
+const meta: Meta<typeof OnyxNavBar> = {
+  title: "components/NavBar",
   ...defineStorybookActionsAndVModels({
-    component: OnyxNavigationBar,
+    component: OnyxNavBar,
     events: ["appAreaClick", "backButtonClick"],
     argTypes: {
       default: { control: { disable: true } },
@@ -23,7 +23,7 @@ const meta: Meta<typeof OnyxNavigationBar> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxNavigationBar>;
+type Story = StoryObj<typeof OnyxNavBar>;
 
 export const Default = {
   args: {

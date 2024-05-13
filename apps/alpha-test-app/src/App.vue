@@ -4,7 +4,7 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
 import {
   OnyxAppLayout,
   OnyxNavItem,
-  OnyxNavigationBar,
+  OnyxNavBar,
   OnyxUserMenu,
   type ListboxOption,
   type OnyxNavItemProps,
@@ -29,7 +29,7 @@ const userMenuOptions = [
 <template>
   <OnyxAppLayout>
     <template #navBar>
-      <OnyxNavigationBar
+      <OnyxNavBar
         app-name="Alpha Test App"
         :logo-url="onyxLogo"
         show-back-button
@@ -52,7 +52,7 @@ const userMenuOptions = [
             </template>
           </OnyxUserMenu>
         </template>
-      </OnyxNavigationBar>
+      </OnyxNavBar>
     </template>
 
     <RouterView />

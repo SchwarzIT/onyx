@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat: add `OnyxNavigationBar` component
+feat: add `OnyxNavBar` component

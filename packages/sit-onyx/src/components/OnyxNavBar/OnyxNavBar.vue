@@ -3,9 +3,9 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { OnyxNavAppArea } from "../..";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import type { OnyxNavigationBarProps } from "./types";
+import type { OnyxNavBarProps } from "./types";
 
-const props = defineProps<OnyxNavigationBarProps>();
+const props = defineProps<OnyxNavBarProps>();
 
 const emit = defineEmits<{
   /**

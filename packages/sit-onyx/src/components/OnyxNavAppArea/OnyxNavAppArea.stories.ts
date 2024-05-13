@@ -1,10 +1,10 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import onyxLogo from "../OnyxNavigationBar/onyx-logo.svg";
+import onyxLogo from "../OnyxNavBar/onyx-logo.svg";
 import OnyxNavAppArea from "./OnyxNavAppArea.vue";
 
 /**
- * App area of the `OnyxNavigationBar`. Is not intended to be used outside of the navigation bar.
+ * App area of the `OnyxNavBar`. Is not intended to be used outside of the navigation bar.
  */
 const meta: Meta<typeof OnyxNavAppArea> = {
   title: "support/NavAppArea",
