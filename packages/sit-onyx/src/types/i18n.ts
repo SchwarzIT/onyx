@@ -57,7 +57,7 @@ export type TranslationValue = string | NestedMessage;
  *
  * @example
  * ```ts
- * ObjectToDottedStrings<{
+ * FlattenedKeysOf<{
  *   a: "test",
  *   b: { c: "test" }
  * }>
@@ -65,4 +65,4 @@ export type TranslationValue = string | NestedMessage;
  * ```
  * @see https://stackoverflow.com/a/47058976
  */
-export type ObjectToDottedStrings<T extends TranslationValue> = Join<ObjectToKeyPaths<T>, ".">;
+export type FlattenedKeysOf<T extends TranslationValue> = Join<ObjectToKeyPaths<T>, ".">;
