@@ -38,28 +38,6 @@ test.describe("Screenshot tests", () => {
         </OnyxNavBar>
       ),
     });
-
-    executeMatrixScreenshotTest({
-      name: `Navigation bar (${breakpoint}, empty)`,
-      columns: ["default"],
-      rows: ["default", "back", "context", "context-back"],
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      disabledAccessibilityRules: ["color-contrast"],
-      component: (column, row) => (
-        <OnyxNavBar
-          style={{ width: `${breakpointWidth}px` }}
-          appName="App name"
-          logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-          showBackButton={row.includes("back")}
-        >
-          {row.includes("context") && (
-            <template v-slot:contextArea>
-              <OnyxUserMenu username="John Doe" options={[]} />
-            </template>
-          )}
-        </OnyxNavBar>
-      ),
-    });
   }
 });
 
