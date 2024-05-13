@@ -36,38 +36,41 @@ const shouldShowExternalIcon = computed(() => {
 </script>
 
 <template>
-  <li
-    role="menuitem"
-    tabindex="0"
-    :aria-label="props.label"
-    class="onyx-nav-item onyx-text"
-    :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
-    @click="props.href && emit('click', props.href)"
-    @keydown.enter="props.href && emit('click', props.href)"
-  >
-    <slot>
-      <span>{{ props.label }}</span>
-      <OnyxIcon
-        v-if="shouldShowExternalIcon"
-        class="onyx-nav-item__icon"
-        :icon="arrowSmallUpRight"
-        size="16px"
-      />
-    </slot>
-  </li>
-  <OnyxFlyoutMenu
-    v-if="props.options?.length"
-    class="onyx-nav-item__listbox"
-    :aria-label="t('navItemOptionsLabel', { label: props.label })"
-  >
-    <OnyxListItem
-      v-for="option in props.options"
-      :key="option.label"
-      @click="emit('click', option.href)"
+  <div class="onyx-nav-item">
+    <li
+      role="menuitem"
+      tabindex="0"
+      :aria-label="props.label"
+      class="onyx-nav-item__trigger onyx-text"
+      :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
+      @click="props.href && emit('click', props.href)"
+      @keydown.enter="props.href && emit('click', props.href)"
     >
-      {{ option.label }}
-    </OnyxListItem>
-  </OnyxFlyoutMenu>
+      <slot>
+        <span>{{ props.label }}</span>
+        <OnyxIcon
+          v-if="shouldShowExternalIcon"
+          class="onyx-nav-item__icon"
+          :icon="arrowSmallUpRight"
+          size="16px"
+        />
+      </slot>
+    </li>
+    <OnyxFlyoutMenu
+      v-if="props.options?.length"
+      class="onyx-nav-item__flyout"
+      :aria-label="t('navItemOptionsLabel', { label: props.label })"
+    >
+      <OnyxListItem
+        v-for="option in props.options"
+        :key="option.label"
+        :active="option.active"
+        @click="emit('click', option.href)"
+      >
+        {{ option.label }}
+      </OnyxListItem>
+    </OnyxFlyoutMenu>
+  </div>
 </template>
 
 <style lang="scss">
@@ -101,12 +104,12 @@ const shouldShowExternalIcon = computed(() => {
     }
 
     &:hover,
-    &:focus-within:has(.onyx-nav-item__listbox) {
+    &:focus-within:has(.onyx-nav-item__flyout) {
       .onyx-nav-item__trigger {
         background-color: var(--onyx-color-base-neutral-200);
       }
 
-      .onyx-nav-item__listbox {
+      .onyx-nav-item__flyout {
         opacity: 1;
       }
     }
@@ -130,7 +133,7 @@ const shouldShowExternalIcon = computed(() => {
       align-self: flex-start;
     }
 
-    &__listbox {
+    &__flyout {
       margin-top: var(--onyx-spacing-sm);
       position: absolute;
       opacity: 0;
