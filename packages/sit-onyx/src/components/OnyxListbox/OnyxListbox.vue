@@ -13,7 +13,8 @@ import type { SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { ListboxOption, OnyxListboxProps } from "./types";
+import type { OnyxListboxProps } from "./types";
+import { groupByKey } from "../../utils/objects";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
   loading: false,
@@ -46,14 +47,6 @@ const slots = defineSlots<{
    * to e.g. show a button to load more options instead of lazy loading on scroll.
    */
   optionsEnd?(): unknown;
-  /**
-   * Optional header content to display above the options.
-   */
-  header?(): unknown;
-  /**
-   * Optional footer content to display below the options (will replace `message` property).
-   */
-  footer?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -131,14 +124,7 @@ const {
   },
 });
 
-const groupedOptions = computed(() => {
-  return props.options.reduce<Record<string, ListboxOption<TValue>[]>>((acc, currOpt) => {
-    const groupName = currOpt.group ?? "";
-    acc[groupName] = acc[groupName] || [];
-    acc[groupName].push(currOpt);
-    return acc;
-  }, {});
-});
+const groupedOptions = computed(() => groupByKey(props.options, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -177,19 +163,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
-    class="onyx-listbox"
-    :class="[
-      {
-        'onyx-listbox--with-header': !!slots.header,
-        'onyx-listbox--with-footer': !!slots.footer,
-      },
-      densityClass,
-    ]"
-    :aria-busy="props.loading"
-  >
-    <slot name="header"></slot>
-
+  <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
@@ -264,17 +238,12 @@ watchEffect(() => {
         <slot name="optionsEnd"></slot>
       </div>
     </div>
-
-    <slot name="footer">
-      <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
-        {{ props.message }}
-      </span>
-    </slot>
   </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/list";
 @use "../../styles/mixins/density.scss";
 
 .onyx-listbox {
@@ -294,56 +263,10 @@ watchEffect(() => {
 .onyx-listbox {
   @include layers.component() {
     --max-options: 8;
+
+    @include list.styles();
+
     $wrapper-padding: var(--onyx-spacing-2xs);
-
-    border-radius: var(--onyx-radius-md);
-    background-color: var(--onyx-color-base-background-blank);
-    padding: $wrapper-padding 0;
-    box-shadow: var(--onyx-shadow-medium-bottom);
-    box-sizing: border-box;
-    width: max-content;
-    min-width: var(--onyx-spacing-4xl);
-    max-width: 20rem;
-    font-family: var(--onyx-font-family);
-
-    &--with-header {
-      padding-top: 0;
-    }
-
-    &--with-footer {
-      padding-bottom: 0;
-    }
-
-    &__wrapper {
-      max-height: calc(var(--max-options) * var(--option-height));
-      overflow: auto;
-      outline: none;
-    }
-
-    &__group {
-      padding: 0;
-
-      &:not(:last-of-type) {
-        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        margin-bottom: var(--onyx-spacing-2xs);
-      }
-    }
-
-    &__group-name {
-      display: block;
-      padding: 0 var(--onyx-spacing-sm);
-      color: var(--onyx-color-text-icons-neutral-medium);
-      font-weight: 600;
-    }
-
-    &__message {
-      color: var(--onyx-color-text-icons-neutral-soft);
-      display: inline-block;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: right;
-      padding: $wrapper-padding var(--onyx-spacing-sm) 0;
-    }
 
     &__check-all {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);

@@ -170,10 +170,8 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
     page,
     listbox: component.getByRole("listbox"),
     options: component.getByRole("option"),
-    isOptionActive: async (locator) => {
-      const className = await locator.getAttribute("class");
-      return className?.includes("onyx-listbox-option--active") ?? false;
-    },
+    isOptionActive: async (locator) =>
+      locator.evaluate((l) => l.classList.contains("onyx-list-item--active")),
   });
 });
 
