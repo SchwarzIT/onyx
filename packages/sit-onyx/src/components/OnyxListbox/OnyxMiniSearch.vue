@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useAttrs, type HtmlHTMLAttributes } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 
 defineOptions({ inheritAttrs: false });
+
+const attrs = useAttrs();
 
 const props = defineProps<{ modelValue: string }>();
 
@@ -18,12 +20,27 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
+
+const rootAttrs = computed(
+  () =>
+    ({ class: attrs["class"], style: attrs["style"] }) as Pick<
+      HtmlHTMLAttributes,
+      "class" | "style"
+    >,
+);
+
+const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
+  const rest = { ...attrs };
+  delete rest.class;
+  delete rest.style;
+  return rest;
+});
 </script>
 <template>
-  <div class="onyx-mini-search">
+  <div class="onyx-mini-search" v-bind="rootAttrs">
     <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -->
     <input
-      v-bind="$attrs"
+      v-bind="inputAttrs"
       v-model="value"
       class="onyx-mini-search__input"
       placeholder="Search"
