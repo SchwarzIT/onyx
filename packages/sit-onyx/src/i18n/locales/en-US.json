@@ -22,5 +22,6 @@
     "currentSelection": "{n} selected"
   },
   "empty": "No data available",
-  "navItemOptionsLabel": "Subpages of {label}"
+  "navItemOptionsLabel": "Subpages of {label}",
+  "userMenuLabel": "User options"
 }
