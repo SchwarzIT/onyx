@@ -80,6 +80,7 @@ const { t } = injectI18n();
     color: var(--onyx-color-text-icons-neutral-intense);
     height: 3.5rem;
     container-type: size;
+    z-index: var(--onyx-z-index-navigation);
 
     &__content {
       display: flex;
