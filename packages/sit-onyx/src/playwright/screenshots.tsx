@@ -137,7 +137,14 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
  */
 export const mockPlaywrightIcon = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 32 32"><path d="M16 2C8.28 2 2 8.28 2 16s6.28 14 14 14 14-6.28 14-14S23.72 2 16 2m0 26C9.383 28 4 22.617 4 16S9.383 4 16 4s12 5.383 12 12-5.383 12-12 12"/><path d="M11 13c.552 0 1 .449 1 1h2c0-1.654-1.346-3-3-3s-3 1.346-3 3h2c0-.551.448-1 1-1m10-2c-1.654 0-3 1.346-3 3h2a1.001 1.001 0 0 1 2 0h2c0-1.654-1.346-3-3-3m-5 11a5.01 5.01 0 0 1-4.325-2.501l-1.73 1.002C11.193 22.659 13.514 24 16 24s4.807-1.341 6.056-3.499l-1.73-1.002A5.02 5.02 0 0 1 16 22"/></svg>`;
 
+/**
+ * Mock onyx logo URL (onyx logo / "O" letter) to be used in Playwright tests.
+ */
 export const MOCK_PLAYWRIGHT_LOGO_URL = "/logo.svg";
+
+/**
+ * Mock onyx logo URL (onyx logo / "onyx" lettering) to be used in Playwright tests.
+ */
 export const MOCK_PLAYWRIGHT_LOGO_WIDE_URL = "/logo-wide.svg";
 
 /**
@@ -154,9 +161,6 @@ export const defineLogoMockRoutes = async (page: Page) => {
   });
 };
 
-/**
- * Mock custom image (onyx logo).
- */
 const MOCK_PLAYWRIGHT_LOGO = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
 <path d="M19.0332 11.0183C19.0332 19.811 17.3139 22 9.49571 22C1.67756 22 0 19.811 0 11.0183C0 2.18903 1.68278 0 9.50094 0C17.3191 0 19.0385 2.18903 19.0385 11.0183H19.0332ZM4.72957 11.0183C4.72957 16.53 5.31488 17.8936 9.50094 17.8936C13.6818 17.8936 14.2671 16.5248 14.2671 11.0183C14.2671 5.46996 13.6818 4.10116 9.50094 4.10116C5.32011 4.10116 4.72957 5.46996 4.72957 11.0183Z" fill="#00C3CD"/>
 <path d="M18.981 13.3536C19.0176 12.6274 19.0385 11.8594 19.0385 11.0183C19.0385 2.18903 17.3191 0 9.50097 0C9.41735 0 7.84432 -1.2456e-07 6.66846 0.135835C5.84274 1.38447 5.29923 5.54833 4.97522 7.05296C5.04838 6.59843 5.28878 5.93493 5.45601 5.63192C5.82184 4.96319 6.31831 4.6445 6.92453 4.4303C7.94884 4.06459 9.09857 4.10639 9.50097 4.10639C13.6818 4.10639 14.2671 5.47518 14.2671 11.0235" fill="url(#paint0_linear_1722_32851)"/>

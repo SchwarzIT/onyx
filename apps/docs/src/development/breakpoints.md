@@ -67,3 +67,13 @@ Make sure to set the [`container-type`](https://developer.mozilla.org/en-US/docs
   }
 }
 ```
+
+## Use in JavaScript
+
+If you need to access the breakpoints via JavaScript (e.g. inside a [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)), you can import them like so:
+
+```ts
+import { ONYX_BREAKPOINTS } from "sit-onyx";
+
+console.log(`With for sm breakpoint is: ${ONYX_BREAKPOINTS.sm}`);
+```

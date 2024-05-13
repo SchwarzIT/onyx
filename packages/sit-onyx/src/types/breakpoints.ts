@@ -9,3 +9,5 @@ export const ONYX_BREAKPOINTS = {
   lg: "1440px",
   xl: "1920px",
 } as const;
+
+export type OnyxBreakpoint = keyof typeof ONYX_BREAKPOINTS;
