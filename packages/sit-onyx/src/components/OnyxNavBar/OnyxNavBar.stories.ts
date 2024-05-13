@@ -1,9 +1,12 @@
+import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
+import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
@@ -29,8 +32,12 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item", active: true }),
-      h(OnyxNavItem, { label: "Item" }),
+      h(OnyxNavItem, { label: "Item", href: "/", active: true }),
+      h(OnyxNavItem, { label: "Item", href: "/test" }, () => [
+        "Item",
+        h(OnyxBadge, { dot: true, variation: "warning" }),
+      ]),
+      h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
     ],
   },
 } satisfies Story;
@@ -45,7 +52,10 @@ export const WithBackButton = {
 export const WithContextArea = {
   args: {
     ...Default.args,
-    contextArea: () => h(OnyxUserMenu, OnyxUserMenuDefault.args),
+    contextArea: () => [
+      h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args),
+    ],
   },
   decorators: [
     (story) => ({
