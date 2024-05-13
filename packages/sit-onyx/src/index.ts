@@ -40,6 +40,9 @@ export * from "./components/OnyxLink/types";
 export { default as OnyxCombobox } from "./components/OnyxCombobox/OnyxCombobox.vue";
 export * from "./components/OnyxCombobox/types";
 
+export { default as OnyxListboxOption } from "./components/OnyxListboxOption/OnyxListboxOption.vue";
+export * from "./components/OnyxListboxOption/types";
+
 export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 export * from "./components/OnyxLoadingIndicator/types";
 
@@ -68,6 +71,9 @@ export * from "./components/OnyxTooltip/types";
 
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types";
+
+export { default as OnyxUserMenu } from "./components/OnyxUserMenu/OnyxUserMenu.vue";
+export * from "./components/OnyxUserMenu/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";

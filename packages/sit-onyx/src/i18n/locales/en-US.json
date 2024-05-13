@@ -22,5 +22,6 @@
     "currentSelection": "{n} selected"
   },
   "empty": "No data available",
+  "no-match": "No entry matches your search",
   "navItemOptionsLabel": "Subpages of {label}"
 }

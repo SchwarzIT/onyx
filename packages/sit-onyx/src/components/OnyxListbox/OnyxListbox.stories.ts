@@ -141,7 +141,7 @@ export const Multiselect = {
     ],
   },
   argTypes: {
-    modelValue: { control: { type: "array" } },
+    modelValue: { control: { type: "object" } },
   },
 } satisfies Story;
 
@@ -163,6 +163,17 @@ export const Empty = {
   args: {
     ...Default.args,
     options: [],
+  },
+} satisfies Story;
+
+/**
+ * This example shows an empty listbox with default translated message.
+ * You can use the `empty` slot to customize the content.
+ */
+export const WithSearch = {
+  args: {
+    ...Default.args,
+    withSearch: true,
   },
 } satisfies Story;
 

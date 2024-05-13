@@ -1,4 +1,6 @@
+import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
+import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
 export type ListboxModelValue<
   TValue extends SelectOptionValue = SelectOptionValue,
@@ -8,7 +10,7 @@ export type ListboxModelValue<
 export type OnyxListboxProps<
   TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
-> = {
+> = DensityProp & {
   /**
    * Aria label. Must be set for accessibility reasons.
    */
@@ -29,6 +31,11 @@ export type OnyxListboxProps<
    * Allows the selection of multiple listbox options
    */
   multiple?: TMultiple;
+
+  /**
+   *
+   */
+  withSearch?: boolean;
   /**
    * If true, a checkbox will be displayed to check/uncheck all options.
    * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -59,12 +66,13 @@ export type OnyxListboxProps<
 export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,
   "value" | "label" | "disabled"
-> & {
-  /**
-   * Optional group name. If set, all options will be grouped under that group name.
-   */
-  group?: string;
-};
+> &
+  Pick<OnyxListboxOptionProps, "color" | "icon"> & {
+    /**
+     * Optional group name. If set, all options will be grouped under that group name.
+     */
+    group?: string;
+  };
 
 export type ListboxLazyLoading = {
   /**

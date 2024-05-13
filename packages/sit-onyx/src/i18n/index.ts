@@ -1,4 +1,4 @@
-import type { ObjectToDottedStrings, TranslationValue } from "../types/i18n";
+import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
 import type { DeepPartial } from "../types/utils";
 import { computed, inject, unref, type App, type InjectionKey, type MaybeRef } from "vue";
 import enUS from "./locales/en-US.json";
@@ -15,6 +15,8 @@ type GetTypeOfTranslations<T> = T extends object
 
 /** Available translations that are used by onyx components. */
 export type OnyxTranslations = GetTypeOfTranslations<typeof enUS>;
+
+export type OnyxTranslationKeys = FlattenedKeysOf<OnyxTranslations>;
 
 export type ProvideI18nOptions = {
   /**
@@ -71,7 +73,7 @@ const createI18n = (options?: ProvideI18nOptions) => {
    */
   const t = computed(() => {
     return (
-      key: ObjectToDottedStrings<OnyxTranslations>,
+      key: OnyxTranslationKeys,
       placeholders: Record<string, string | number | undefined> = {},
     ): string => {
       // use English message as fallback
@@ -103,11 +105,11 @@ export const injectI18n = () => {
 };
 
 /**
- * Resolves the given dotted key (e.g. `a.b.c`) to the translation value of the given messages.
+ * Resolves the given flattened key (e.g. `a.b.c`) to the translation value of the given messages.
  * @returns Message value or undefined if translation does not exist.
  */
 const resolveMessage = (
-  key: ObjectToDottedStrings<OnyxTranslations>,
+  key: OnyxTranslationKeys,
   messages: DeepPartial<OnyxTranslations>,
 ): string | undefined => {
   // see https://stackoverflow.com/a/6394168

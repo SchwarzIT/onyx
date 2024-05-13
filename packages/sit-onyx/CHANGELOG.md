@@ -1,5 +1,18 @@
 # sit-onyx
 
+## 1.0.0-alpha.93
+
+### Minor Changes
+
+- c55a599: Implement density for OnyxListbox
+
+## 1.0.0-alpha.92
+
+### Minor Changes
+
+- 2b48da9: feat: add basic `OnyxUserMenu` component
+- 2b48da9: feat(OnyxListbox): support icon and danger color for options
+
 ## 1.0.0-alpha.91
 
 ### Patch Changes

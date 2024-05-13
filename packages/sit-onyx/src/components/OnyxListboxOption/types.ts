@@ -1,4 +1,7 @@
-export type OnyxListboxOptionProps = {
+import type { DensityProp } from "../../composables/density";
+import type { OnyxColor } from "../../types";
+
+export type OnyxListboxOptionProps = DensityProp & {
   /**
    * Whether the option is (visually) active.
    */
@@ -12,4 +15,12 @@ export type OnyxListboxOptionProps = {
    * Only in combination with `multiple`
    */
   indeterminate?: boolean;
+  /**
+   * Optional icon.
+   */
+  icon?: string;
+  /**
+   * Main color of the option. Will have no effect on the multiselect checkbox.
+   */
+  color?: Extract<OnyxColor, "primary" | "danger">;
 };

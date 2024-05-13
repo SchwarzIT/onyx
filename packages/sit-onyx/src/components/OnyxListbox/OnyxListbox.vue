@@ -1,12 +1,15 @@
-<script lang="ts" setup generic="TValue extends string, TMultiple extends boolean = false">
+<script lang="ts" setup generic="TValue extends string = string, TMultiple extends boolean = false">
+import { useDensity } from "../../composables/density";
 import { createId, createListbox } from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
-import { injectI18n } from "../../i18n";
+import { injectI18n, type OnyxTranslations } from "../../i18n";
+import type { FlattenedKeysOf } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 
@@ -25,6 +28,8 @@ const emit = defineEmits<{
    */
   lazyLoad: [];
 }>();
+
+const { densityClass } = useDensity(props);
 
 const slots = defineSlots<{
   /**
@@ -116,7 +121,13 @@ const {
   },
 });
 
-const groupedOptions = computed(() => groupByKey(props.options, "group"));
+const filteredOptions = computed(() =>
+  props.options.filter(({ label }) =>
+    label.trim().toLowerCase().includes(searchTerm.value.trim().toLowerCase()),
+  ),
+);
+
+const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -124,10 +135,15 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
   offset: computed(() => props.lazyLoading?.scrollOffset),
 });
 
-const isEmpty = computed(() => props.options.length === 0);
+const isEmptyMessage = computed<FlattenedKeysOf<OnyxTranslations> | undefined>(
+  () =>
+    (props.options.length === 0 && "empty") ||
+    (filteredOptions.value.length === 0 && "no-match") ||
+    undefined,
+);
 
 const enabledOptionValues = computed(() =>
-  props.options.filter((i) => !i.disabled).map(({ value }) => value),
+  filteredOptions.value.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
@@ -152,83 +168,90 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
+
+const searchTerm = ref("");
 </script>
 
 <template>
-  <div class="onyx-listbox" :aria-busy="props.loading">
+  <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
-    <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
-      <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
-    </slot>
-
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-      <ul
-        v-for="(options, group) in groupedOptions"
-        :key="group"
-        class="onyx-listbox__group"
-        v-bind="headlessGroup({ label: group })"
-      >
-        <li
-          v-if="group != ''"
-          role="presentation"
-          class="onyx-listbox__group-name onyx-text--small"
-        >
-          {{ group }}
-        </li>
+      <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
 
-        <!-- select-all option for "multiple" -->
-        <template v-if="props.multiple && props.withCheckAll">
+      <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
+        <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
+      </slot>
+
+      <template v-else>
+        <ul
+          v-for="(options, group) in groupedOptions"
+          :key="group"
+          class="onyx-listbox__group"
+          v-bind="headlessGroup({ label: group })"
+        >
+          <li
+            v-if="group != ''"
+            role="presentation"
+            class="onyx-listbox__group-name onyx-text--small"
+          >
+            {{ group }}
+          </li>
+
+          <!-- select-all option for "multiple" -->
+          <template v-if="props.multiple && props.withCheckAll">
+            <OnyxListboxOption
+              v-bind="
+                headlessOption({
+                  value: CHECK_ALL_ID as TValue,
+                  label: checkAllLabel,
+                  selected: checkAll?.state.value.modelValue,
+                })
+              "
+              multiple
+              :active="CHECK_ALL_ID === activeOption"
+              :indeterminate="checkAll?.state.value.indeterminate"
+              :density="props.density"
+              class="onyx-listbox__check-all"
+            >
+              {{ checkAllLabel }}
+            </OnyxListboxOption>
+          </template>
+
           <OnyxListboxOption
+            v-for="option in options"
+            :key="option.value.toString()"
             v-bind="
               headlessOption({
-                value: CHECK_ALL_ID as TValue,
-                label: checkAllLabel,
-                selected: checkAll?.state.value.modelValue,
+                value: option.value,
+                label: option.label,
+                disabled: option.disabled,
+                selected:
+                  option.value === props.modelValue ||
+                  (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
               })
             "
-            multiple
-            :active="CHECK_ALL_ID === activeOption"
-            :indeterminate="checkAll?.state.value.indeterminate"
-            class="onyx-listbox__check-all"
+            :multiple="props.multiple"
+            :active="option.value === activeOption"
+            :icon="option.icon"
+            :color="option.color"
+            :density="props.density"
           >
-            {{ checkAllLabel }}
+            {{ option.label }}
           </OnyxListboxOption>
-        </template>
+        </ul>
 
-        <OnyxListboxOption
-          v-for="option in options"
-          :key="option.value.toString()"
-          v-bind="
-            headlessOption({
-              value: option.value,
-              label: option.label,
-              disabled: option.disabled,
-              selected:
-                option.value === props.modelValue ||
-                (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
-            })
-          "
-          :multiple="props.multiple"
-          :active="option.value === activeOption"
-        >
-          {{ option.label }}
-        </OnyxListboxOption>
-      </ul>
+        <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        </div>
 
-      <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-        <OnyxLoadingIndicator class="onyx-listbox__loading" />
-      </div>
-
-      <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
-        <slot name="optionsEnd"></slot>
-      </div>
+        <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
+          <slot name="optionsEnd"></slot>
+        </div>
+      </template>
     </div>
-    <span v-if="props.message" class="onyx-listbox__message onyx-text--small">
-      {{ props.message }}
-    </span>
   </div>
 </template>
 
@@ -245,12 +268,22 @@ watchEffect(() => {
 
     $wrapper-padding: var(--onyx-spacing-2xs);
 
-    &__check-all {
+    &__search {
+      position: sticky;
+      top: 0;
+    }
+
+    &__check-all,
+    &__search {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
     .onyx-listbox-option {
       height: var(--option-height);
+    }
+
+    &:has(&__wrapper:focus-visible) {
+      outline: 0.25rem solid var(--onyx-color-base-primary-200);
     }
 
     &__slot {
@@ -267,6 +300,10 @@ watchEffect(() => {
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    .onyx-empty {
+      max-width: 100%;
     }
   }
 }
