@@ -32,6 +32,9 @@ export type OnyxListboxProps<
    */
   multiple?: TMultiple;
 
+  /**
+   *
+   */
   withSearch?: boolean;
   /**
    * If true, a checkbox will be displayed to check/uncheck all options.

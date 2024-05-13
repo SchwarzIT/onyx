@@ -161,10 +161,12 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
+
+const searchTerm = ref("");
 </script>
 
 <template>
-  <div class="onyx-listbox" :aria-busy="props.loading">
+  <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
     <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
@@ -174,6 +176,8 @@ watchEffect(() => {
     </slot>
 
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+      <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
+
       <ul
         v-for="(options, group) in groupedOptions"
         :key="group"
@@ -187,10 +191,6 @@ watchEffect(() => {
         >
           {{ group }}
         </li>
-
-        <template v-if="props.withSearch">
-          <OnyxMiniSearch />
-        </template>
 
         <!-- select-all option for "multiple" -->
         <template v-if="props.multiple && props.withCheckAll">
@@ -259,7 +259,13 @@ watchEffect(() => {
 
     $wrapper-padding: var(--onyx-spacing-2xs);
 
-    &__check-all {
+    &__search {
+      position: sticky;
+      top: 0;
+    }
+
+    &__check-all,
+    &__search {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 

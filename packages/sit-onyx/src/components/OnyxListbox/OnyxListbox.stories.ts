@@ -167,6 +167,17 @@ export const Empty = {
 } satisfies Story;
 
 /**
+ * This example shows an empty listbox with default translated message.
+ * You can use the `empty` slot to customize the content.
+ */
+export const WithSearch = {
+  args: {
+    ...Default.args,
+    withSearch: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a loading listbox.
  */
 export const Loading = {
