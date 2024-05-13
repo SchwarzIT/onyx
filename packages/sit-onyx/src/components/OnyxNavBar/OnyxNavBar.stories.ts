@@ -6,6 +6,7 @@ import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
+import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
@@ -54,6 +55,7 @@ export const WithContextArea = {
     ...Default.args,
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args),
     ],
   },
