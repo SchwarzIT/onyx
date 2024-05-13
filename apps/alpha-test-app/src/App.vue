@@ -3,8 +3,8 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import {
   OnyxAppLayout,
-  OnyxNavItem,
   OnyxNavBar,
+  OnyxNavItem,
   OnyxUserMenu,
   type ListboxOption,
   type OnyxNavItemProps,
@@ -41,7 +41,7 @@ const userMenuOptions = [
           :key="item.href"
           v-bind="item"
           :active="item.href === router.currentRoute.value.path"
-          @navigate="router.push"
+          @click="router.push"
         />
 
         <template #contextArea>
