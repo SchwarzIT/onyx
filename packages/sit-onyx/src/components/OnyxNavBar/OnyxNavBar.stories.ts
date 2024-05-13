@@ -73,6 +73,6 @@ export const WithContextArea = {
 export const WithCustomAppArea = {
   args: {
     ...Default.args,
-    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "secondary" }), "App name"],
+    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "secondary" }), "Custom name"],
   },
 } satisfies Story;
