@@ -8,8 +8,8 @@ import { createId, createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useScrollEnd } from "../../composables/scrollEnd";
-import { injectI18n } from "../../i18n";
-import type { SelectOptionValue } from "../../types";
+import { injectI18n, type OnyxTranslations } from "../../i18n";
+import type { FlattenedKeysOf, SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -125,7 +125,13 @@ const {
   },
 });
 
-const groupedOptions = computed(() => groupByKey(props.options, "group"));
+const filteredOptions = computed(() =>
+  props.options.filter(({ label }) =>
+    label.trim().toLowerCase().includes(searchTerm.value.trim().toLowerCase()),
+  ),
+);
+
+const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -133,10 +139,15 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
   offset: computed(() => props.lazyLoading?.scrollOffset),
 });
 
-const isEmpty = computed(() => props.options.length === 0);
+const isEmptyMessage = computed<FlattenedKeysOf<OnyxTranslations> | undefined>(
+  () =>
+    (props.options.length === 0 && "empty") ||
+    (filteredOptions.value.length === 0 && "no-match") ||
+    undefined,
+);
 
 const enabledOptionValues = computed(() =>
-  props.options.filter((i) => !i.disabled).map(({ value }) => value),
+  filteredOptions.value.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
@@ -171,77 +182,79 @@ const searchTerm = ref("");
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
-    <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
-      <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
-    </slot>
-
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
       <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
 
-      <ul
-        v-for="(options, group) in groupedOptions"
-        :key="group"
-        class="onyx-listbox__group"
-        v-bind="headlessGroup({ label: group })"
-      >
-        <li
-          v-if="group != ''"
-          role="presentation"
-          class="onyx-listbox__group-name onyx-text--small"
-        >
-          {{ group }}
-        </li>
+      <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
+        <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
+      </slot>
 
-        <!-- select-all option for "multiple" -->
-        <template v-if="props.multiple && props.withCheckAll">
+      <template v-else>
+        <ul
+          v-for="(options, group) in groupedOptions"
+          :key="group"
+          class="onyx-listbox__group"
+          v-bind="headlessGroup({ label: group })"
+        >
+          <li
+            v-if="group != ''"
+            role="presentation"
+            class="onyx-listbox__group-name onyx-text--small"
+          >
+            {{ group }}
+          </li>
+
+          <!-- select-all option for "multiple" -->
+          <template v-if="props.multiple && props.withCheckAll">
+            <OnyxListboxOption
+              v-bind="
+                headlessOption({
+                  value: CHECK_ALL_ID as TValue,
+                  label: checkAllLabel,
+                  selected: checkAll?.state.value.modelValue,
+                })
+              "
+              multiple
+              :active="CHECK_ALL_ID === activeOption"
+              :indeterminate="checkAll?.state.value.indeterminate"
+              :density="props.density"
+              class="onyx-listbox__check-all"
+            >
+              {{ checkAllLabel }}
+            </OnyxListboxOption>
+          </template>
+
           <OnyxListboxOption
+            v-for="option in options"
+            :key="option.value.toString()"
             v-bind="
               headlessOption({
-                value: CHECK_ALL_ID as TValue,
-                label: checkAllLabel,
-                selected: checkAll?.state.value.modelValue,
+                value: option.value,
+                label: option.label,
+                disabled: option.disabled,
+                selected:
+                  option.value === props.modelValue ||
+                  (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
               })
             "
-            multiple
-            :active="CHECK_ALL_ID === activeOption"
-            :indeterminate="checkAll?.state.value.indeterminate"
+            :multiple="props.multiple"
+            :active="option.value === activeOption"
+            :icon="option.icon"
+            :color="option.color"
             :density="props.density"
-            class="onyx-listbox__check-all"
           >
-            {{ checkAllLabel }}
+            {{ option.label }}
           </OnyxListboxOption>
-        </template>
+        </ul>
 
-        <OnyxListboxOption
-          v-for="option in options"
-          :key="option.value.toString()"
-          v-bind="
-            headlessOption({
-              value: option.value,
-              label: option.label,
-              disabled: option.disabled,
-              selected:
-                option.value === props.modelValue ||
-                (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
-            })
-          "
-          :multiple="props.multiple"
-          :active="option.value === activeOption"
-          :icon="option.icon"
-          :color="option.color"
-          :density="props.density"
-        >
-          {{ option.label }}
-        </OnyxListboxOption>
-      </ul>
+        <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        </div>
 
-      <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-        <OnyxLoadingIndicator class="onyx-listbox__loading" />
-      </div>
-
-      <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
-        <slot name="optionsEnd"></slot>
-      </div>
+        <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
+          <slot name="optionsEnd"></slot>
+        </div>
+      </template>
     </div>
   </div>
 </template>
