@@ -17,7 +17,7 @@ const meta: Meta<typeof OnyxNavigationBar> = {
     argTypes: {
       default: { control: { disable: true } },
       contextArea: { control: { disable: true } },
-      logo: { control: { disable: true } },
+      appArea: { control: { type: "text" } },
     },
   }),
 };
@@ -57,11 +57,11 @@ export const WithContextArea = {
 } satisfies Story;
 
 /**
- * This example shows a navigation bar with a custom icon as logo.
+ * This example shows a navigation bar with custom app area content.
  */
-export const WithCustomLogo = {
+export const WithCustomAppArea = {
   args: {
     ...Default.args,
-    logo: () => h(OnyxIcon, { icon: placeholder, color: "secondary" }),
+    appArea: () => h(OnyxIcon, { icon: placeholder, color: "secondary" }),
   },
 } satisfies Story;

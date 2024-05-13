@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
+import { OnyxNavAppArea } from "../..";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import type { OnyxNavigationBarProps } from "./types";
@@ -28,9 +29,9 @@ const slots = defineSlots<{
    */
   contextArea?: () => unknown;
   /**
-   * Optional slot to override the logo (e.g. with a custom icon / `OnyxIcon` component).
+   * Optional slot to override the app area content (logo and app name, e.g. with a custom icon / `OnyxIcon` component).
    */
-  logo?: () => unknown;
+  appArea?: () => unknown;
 }>();
 
 const { t } = injectI18n();
@@ -39,24 +40,14 @@ const { t } = injectI18n();
 <template>
   <header class="onyx-navigation-bar">
     <div class="onyx-navigation-bar__content">
-      <button
-        v-if="props.appName || props.logoUrl || slots.logo"
-        class="onyx-navigation-bar__app"
+      <OnyxNavAppArea
+        v-if="props.appName || props.logoUrl || slots.appArea"
+        :app-name="props.appName"
+        :logo-url="props.logoUrl"
         @click="emit('appAreaClick')"
       >
-        <slot name="logo">
-          <img
-            v-if="props.logoUrl"
-            :src="props.logoUrl"
-            :alt="t('navigation.appLogo')"
-            class="onyx-navigation-bar__logo"
-            width="24"
-            height="24"
-          />
-        </slot>
-
-        <span v-if="props.appName" class="onyx-text-small">{{ props.appName }}</span>
-      </button>
+        <slot name="appArea"></slot>
+      </OnyxNavAppArea>
 
       <OnyxIconButton
         v-if="props.showBackButton"
@@ -66,7 +57,7 @@ const { t } = injectI18n();
         @click="emit('backButtonClick')"
       />
 
-      <nav v-if="slots.default" class="onyx-navigation-bar__nav">
+      <nav v-if="slots.default" class="onyx-navigation-bar__nav" role="menubar">
         <slot></slot>
       </nav>
 
@@ -106,42 +97,6 @@ const { t } = injectI18n();
       @include breakpoints.container(max, xs) {
         padding: 0 var(--onyx-spacing-md);
       }
-    }
-
-    &__app {
-      // reset button styles
-      background: none;
-      border: none;
-      color: inherit;
-
-      display: flex;
-      align-items: center;
-      gap: var(--onyx-spacing-md);
-      padding: var(--onyx-spacing-md);
-      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      font-weight: 600;
-      white-space: pre-line;
-      max-height: 100%;
-      cursor: pointer;
-      text-align: left;
-
-      &:hover {
-        background-color: var(--onyx-color-base-background-tinted);
-      }
-
-      &:focus-visible {
-        background-color: var(--onyx-color-base-secondary-100);
-        outline: none;
-      }
-
-      &:active {
-        background-color: var(--onyx-color-base-secondary-200);
-      }
-    }
-
-    &__logo {
-      width: max-content;
-      height: 1.5rem;
     }
 
     &__nav {
