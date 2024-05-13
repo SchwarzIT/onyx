@@ -24,13 +24,16 @@ $gridVariants: (
     // often web projects override the default box-sizing, but it is important for the max-width and alignment to work correctly
     box-sizing: content-box;
     max-width: var(--onyx-grid-max-width, none);
+
+    margin-left: var(--onyx-grid-center-margin);
+    margin-right: var(--onyx-grid-center-margin);
   }
 
   /**
  * Grid container class to allow optional centering for grids with max width
  */
   .onyx-grid-center {
-    margin: 0 auto;
+    --onyx-grid-center-margin: auto;
   }
 
   /**

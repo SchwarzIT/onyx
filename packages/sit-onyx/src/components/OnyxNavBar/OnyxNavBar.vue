@@ -38,8 +38,8 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <header class="onyx-navigation-bar">
-    <div class="onyx-navigation-bar__content">
+  <header class="onyx-nav-bar">
+    <div class="onyx-nav-bar__content">
       <OnyxNavAppArea
         v-if="props.appName || props.logoUrl || slots.appArea"
         :app-name="props.appName"
@@ -57,11 +57,11 @@ const { t } = injectI18n();
         @click="emit('backButtonClick')"
       />
 
-      <nav v-if="slots.default" class="onyx-navigation-bar__nav" role="menubar">
+      <nav v-if="slots.default" class="onyx-nav-bar__nav" role="menubar">
         <slot></slot>
       </nav>
 
-      <div v-if="slots.contextArea" class="onyx-navigation-bar__context">
+      <div v-if="slots.contextArea" class="onyx-nav-bar__context">
         <slot name="contextArea"></slot>
       </div>
     </div>
@@ -72,7 +72,7 @@ const { t } = injectI18n();
 @use "../../styles/mixins/layers";
 @use "../../styles/breakpoints.scss";
 
-.onyx-navigation-bar {
+.onyx-nav-bar {
   @include layers.component() {
     border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background-color: var(--onyx-color-base-background-blank);
@@ -85,10 +85,13 @@ const { t } = injectI18n();
       display: flex;
       align-items: center;
       gap: var(--onyx-spacing-md);
-      margin: 0 auto;
       height: 100%;
       max-width: var(--onyx-grid-max-width);
       padding: 0 var(--onyx-spacing-3xl);
+
+      // sync grid centered
+      margin-left: var(--onyx-grid-center-margin);
+      margin-right: var(--onyx-grid-center-margin);
 
       @include breakpoints.container(max, sm) {
         padding: 0 var(--onyx-spacing-xl);
