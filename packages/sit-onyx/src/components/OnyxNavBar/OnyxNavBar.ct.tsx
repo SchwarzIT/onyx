@@ -1,9 +1,9 @@
 import { OnyxNavBar, OnyxNavItem } from "../..";
 import { expect, test } from "../../playwright/a11y";
 import {
+  MOCK_PLAYWRIGHT_LOGO_URL,
   defineLogoMockRoutes,
   executeMatrixScreenshotTest,
-  MOCK_PLAYWRIGHT_LOGO_URL,
 } from "../../playwright/screenshots";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
@@ -22,7 +22,7 @@ test.describe("Screenshot tests", () => {
       disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => (
         <OnyxNavBar
-          style={{ width: breakpointWidth }}
+          style={{ width: `${breakpointWidth}px` }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
           showBackButton={row.includes("back")}
@@ -47,7 +47,7 @@ test.describe("Screenshot tests", () => {
       disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => (
         <OnyxNavBar
-          style={{ width: breakpointWidth }}
+          style={{ width: `${breakpointWidth}px` }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
           showBackButton={row.includes("back")}
@@ -69,7 +69,7 @@ test("should behave correctly", async ({ mount }) => {
 
   let component = await mount(
     <OnyxNavBar
-      style={{ width: ONYX_BREAKPOINTS.md }}
+      style={{ width: `${ONYX_BREAKPOINTS.md}px` }}
       appName="App name"
       logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
       showBackButton
@@ -85,7 +85,7 @@ test("should behave correctly", async ({ mount }) => {
   expect(backButtonClickEvents).toBe(1);
 
   component = await mount(
-    <OnyxNavBar style={{ width: ONYX_BREAKPOINTS.md }} showBackButton>
+    <OnyxNavBar style={{ width: `${ONYX_BREAKPOINTS.md}px` }} showBackButton>
       <template v-slot:appArea>Custom app area</template>
     </OnyxNavBar>,
   );

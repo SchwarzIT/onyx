@@ -75,5 +75,5 @@ If you need to access the breakpoints via JavaScript (e.g. inside a [`ResizeObse
 ```ts
 import { ONYX_BREAKPOINTS } from "sit-onyx";
 
-console.log(`With for sm breakpoint is: ${ONYX_BREAKPOINTS.sm}`);
+console.log(`With for sm breakpoint is: ${ONYX_BREAKPOINTS.sm}px`);
 ```

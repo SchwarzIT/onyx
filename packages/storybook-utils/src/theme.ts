@@ -94,7 +94,7 @@ const defineTheme = (colors: {
 export const ONYX_BREAKPOINTS = Object.entries(RAW_ONYX_BREAKPOINTS).reduce(
   (obj, [name, width]) => {
     const breakpoint = name as OnyxBreakpoint;
-    obj[breakpoint] = { name: breakpoint, styles: { width, height: "100%" } };
+    obj[breakpoint] = { name: breakpoint, styles: { width: `${width}px`, height: "100%" } };
     return obj;
   },
   {} as Record<OnyxBreakpoint, StorybookBreakpoint>,
