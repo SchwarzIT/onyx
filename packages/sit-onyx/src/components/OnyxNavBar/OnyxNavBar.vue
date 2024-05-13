@@ -57,8 +57,8 @@ const { t } = injectI18n();
         @click="emit('backButtonClick')"
       />
 
-      <nav v-if="slots.default" role="menubar">
-        <ul class="onyx-nav-bar__nav">
+      <nav v-if="slots.default">
+        <ul class="onyx-nav-bar__nav" role="menubar">
           <slot></slot>
         </ul>
       </nav>
