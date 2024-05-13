@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.93
+
+### Minor Changes
+
+- c55a599: Implement density for OnyxListbox
+
 ## 1.0.0-alpha.92
 
 ### Minor Changes

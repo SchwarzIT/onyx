@@ -13,3 +13,18 @@ export const areObjectsFlatEqual = (obj1: FlatObject, obj2: FlatObject): boolean
 
   return noUndefinedEntries1.every(([name, value]) => value === obj2[name]);
 };
+
+export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey extends keyof TValue>(
+  objects: TValue[],
+  key: TKey,
+) => {
+  return objects.reduce(
+    (acc, currOpt) => {
+      const groupName = currOpt[key] ?? "";
+      acc[groupName] = acc[groupName] || [];
+      acc[groupName].push(currOpt);
+      return acc;
+    },
+    {} as Record<string, TValue[]>,
+  );
+};

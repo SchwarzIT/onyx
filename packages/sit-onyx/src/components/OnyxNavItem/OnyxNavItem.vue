@@ -3,10 +3,10 @@ import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
 import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
-import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { ListboxOption } from "../OnyxListbox/types";
 import type { OnyxNavItemProps } from "./types";
+import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
@@ -17,7 +17,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the nav item is clicked (via click or keyboard).
    */
-  navigate: [href: string];
+  click: [href: string];
 }>();
 
 defineSlots<{
@@ -26,10 +26,6 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
-
-const listboxOptions = computed<ListboxOption<string>[]>(() => {
-  return props.options?.map((opt) => ({ value: opt.href, label: opt.label })) ?? [];
-});
 
 const { t } = injectI18n();
 
@@ -46,26 +42,32 @@ const shouldShowExternalIcon = computed(() => {
     :aria-label="props.label"
     class="onyx-nav-item onyx-text"
     :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
-    @click="props.href && emit('navigate', props.href)"
-    @keydown.enter="props.href && emit('navigate', props.href)"
+    @click="props.href && emit('click', props.href)"
+    @keydown.enter="props.href && emit('click', props.href)"
   >
-    <span>{{ props.label }}</span>
-    <OnyxIcon
-      v-if="shouldShowExternalIcon"
-      class="onyx-nav-item__icon"
-      :icon="arrowSmallUpRight"
-      size="16px"
-    />
-    <slot></slot>
+    <slot>
+      <span>{{ props.label }}</span>
+      <OnyxIcon
+        v-if="shouldShowExternalIcon"
+        class="onyx-nav-item__icon"
+        :icon="arrowSmallUpRight"
+        size="16px"
+      />
+    </slot>
   </li>
-  <OnyxListbox
-    v-if="listboxOptions.length > 0"
+  <OnyxFlyoutMenu
+    v-if="props.options?.length"
     class="onyx-nav-item__listbox"
-    :label="t('navItemOptionsLabel', { label: props.label })"
-    :options="listboxOptions"
-    :model-value="props.options?.find((opt) => opt.active)?.href"
-    @update:model-value="$event && emit('navigate', $event)"
-  />
+    :aria-label="t('navItemOptionsLabel', { label: props.label })"
+  >
+    <OnyxListItem
+      v-for="option in props.options"
+      :key="option.label"
+      @click="emit('click', option.href)"
+    >
+      {{ option.label }}
+    </OnyxListItem>
+  </OnyxFlyoutMenu>
 </template>
 
 <style lang="scss">
