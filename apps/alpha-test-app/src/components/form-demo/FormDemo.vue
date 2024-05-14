@@ -81,7 +81,7 @@ const radioOptions: RadioButtonOption[] = [
     <OnyxRadioButtonGroup v-model="formState.radioGroup" :options="radioOptions" required />
 
     <div class="demo__actions">
-      <OnyxButton label="Reset" variation="secondary" type="reset" />
+      <OnyxButton label="Reset" color="neutral" type="reset" />
       <OnyxButton class="demo__submit" label="Submit" type="submit" />
     </div>
   </form>
