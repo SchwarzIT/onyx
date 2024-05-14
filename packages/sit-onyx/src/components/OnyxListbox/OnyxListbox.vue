@@ -142,8 +142,8 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 
 const isEmptyMessage = computed<FlattenedKeysOf<OnyxTranslations> | undefined>(
   () =>
-    (props.options.length === 0 && "empty") ||
-    (props.withSearch && props.searchTerm && props.options.length === 0 && "no-match") ||
+    (props.options.length === 0 && "listbox.empty") ||
+    (props.withSearch && props.searchTerm && props.options.length === 0 && "listbox.noMatch") ||
     undefined,
 );
 
@@ -185,7 +185,12 @@ watchEffect(() => {
     </div>
 
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-      <OnyxMiniSearch v-if="props.withSearch" v-model="searchInput" class="onyx-listbox__search" />
+      <OnyxMiniSearch
+        v-if="props.withSearch"
+        v-model="searchInput"
+        :label="t('listbox.searchInputLabel')"
+        class="onyx-listbox__search"
+      />
 
       <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
         <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>

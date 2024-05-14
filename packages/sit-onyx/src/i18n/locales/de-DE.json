@@ -21,6 +21,10 @@
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
   },
-  "empty": "Keine Daten verfügbar",
+  "listbox": {
+    "empty": "Keine Daten verfügbar",
+    "noMatch": "Kein Element passt zum Suchtext",
+    "searchInputLabel": "Durchsuche die Liste"
+  },
   "navItemOptionsLabel": "Unterseiten von {label}"
 }

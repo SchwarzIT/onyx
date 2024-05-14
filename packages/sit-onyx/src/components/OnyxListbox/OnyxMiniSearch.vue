@@ -7,7 +7,7 @@ defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 
-const props = defineProps<{ modelValue: string }>();
+const props = defineProps<{ modelValue: string; label: string }>();
 
 const emit = defineEmits<{
   "update:modelValue": [input: string];
@@ -38,10 +38,10 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
 </script>
 <template>
   <div class="onyx-mini-search" v-bind="rootAttrs">
-    <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -->
     <input
-      v-bind="inputAttrs"
       v-model="value"
+      :aria-label="props.label"
+      v-bind="inputAttrs"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"

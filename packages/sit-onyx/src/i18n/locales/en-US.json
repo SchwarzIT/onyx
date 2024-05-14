@@ -21,8 +21,11 @@
     "selectAll": "Select all",
     "currentSelection": "{n} selected"
   },
-  "empty": "No data available",
-  "no-match": "No entry matches your search",
+  "listbox": {
+    "empty": "No data available",
+    "noMatch": "No entry matches your search",
+    "searchInputLabel": "Filter the list entries"
+  },
   "navItemOptionsLabel": "Subpages of {label}",
   "userMenuLabel": "User options"
 }
