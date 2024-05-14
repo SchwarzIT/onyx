@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import markdownit from "markdown-it";
 import { OnyxHeadline, OnyxTable } from "sit-onyx";
-import type { EventMeta, ExposeMeta, PropertyMeta, SlotMeta } from "vue-component-meta";
 
 const props = defineProps<{
   headline: string;
-  data: (PropertyMeta | EventMeta | SlotMeta | ExposeMeta)[];
+  data: Awaited<ReturnType<typeof useComponentDocs>>["data"]["meta"][
+    | "props"
+    | "events"
+    | "slots"
+    | "exposed"];
 }>();
 
 const hasDefaultValues = computed(() => {

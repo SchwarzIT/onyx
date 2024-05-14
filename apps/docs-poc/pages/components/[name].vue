@@ -1,36 +1,11 @@
 <script lang="ts" setup>
-import { OnyxEmpty, OnyxHeadline, OnyxLoadingIndicator } from "sit-onyx";
-import type { EventMeta, ExposeMeta, PropertyMeta, SlotMeta } from "vue-component-meta";
-
-const route = useRoute();
+import { OnyxHeadline } from "sit-onyx";
 
 definePageMeta({
   layout: "component-sidebar",
 });
 
-useHead({
-  title: route.params.name as string,
-});
-
-const { data, pending, error } = await useFetch(`/api/components/${route.params.name}`);
-
-const stories = await Promise.all(
-  data.value?.stories.map(async (story) => {
-    return {
-      component: (
-        await import(
-          `../../../../packages/sit-onyx/src/components/${data.value!.name}/stories/${story}.vue`
-        )
-      ).default,
-      sourceCode: (
-        await import(
-          `../../../../packages/sit-onyx/src/components/${data.value!.name}/stories/${story}.vue?raw`
-        )
-      ).default,
-      storyTitle: story,
-    };
-  }) ?? [],
-);
+const { data, stories } = await useComponentDocs();
 </script>
 
 <template>
@@ -39,28 +14,16 @@ const stories = await Promise.all(
       is="h1"
       class="headline"
     >
-      {{ $route.params.name }}
+      {{ data?.name }}
     </OnyxHeadline>
 
-    <OnyxLoadingIndicator v-if="pending" />
-
-    <OnyxEmpty
-      v-else-if="error"
-      class="error"
-    >
-      {{ $t("component.loadError") }}
-    </OnyxEmpty>
-
-    <div
-      v-else
-      class="sections"
-    >
+    <div class="sections">
       <div
         v-for="story in stories"
-        :key="story.storyTitle"
+        :key="story.title"
       >
         <OnyxHeadline is="h2">
-          {{ story.storyTitle }}
+          {{ story.title }}
         </OnyxHeadline>
 
         <ClientOnly>
@@ -76,22 +39,22 @@ const stories = await Promise.all(
       <ComponentMetaTable
         v-if="data?.meta.props.length"
         :headline="$t('component.props')"
-        :data="data.meta.props as PropertyMeta[]"
+        :data="data.meta.props"
       />
       <ComponentMetaTable
         v-if="data?.meta.events.length"
         :headline="$t('component.events')"
-        :data="data.meta.events as EventMeta[]"
+        :data="data.meta.events"
       />
       <ComponentMetaTable
         v-if="data?.meta.slots.length"
         :headline="$t('component.slots')"
-        :data="data.meta.slots as SlotMeta[]"
+        :data="data.meta.slots"
       />
       <ComponentMetaTable
         v-if="data?.meta.exposed.length"
         :headline="$t('component.exposed')"
-        :data="data.meta.exposed as ExposeMeta[]"
+        :data="data.meta.exposed"
       />
     </div>
   </div>
