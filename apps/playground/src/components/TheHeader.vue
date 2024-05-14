@@ -62,7 +62,7 @@ const copyLink = async () => {
         target="_blank"
         aria-label="View on GitHub"
       >
-        <HeaderIconButton label="View on GitHub" :icon="githubLogo" variation="secondary" />
+        <HeaderIconButton label="View on GitHub" :icon="githubLogo" />
       </a>
     </div>
   </header>

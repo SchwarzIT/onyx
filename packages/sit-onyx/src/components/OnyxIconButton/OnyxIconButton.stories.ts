@@ -32,7 +32,7 @@ export default meta;
 type Story = StoryObj<typeof OnyxIconButton>;
 
 /**
- * This example shows the button in primary variation.
+ * This example shows the button in primary color.
  */
 export const Primary = {
   args: {
@@ -42,23 +42,23 @@ export const Primary = {
 } satisfies Story;
 
 /**
- * This example shows the button in secondary variation.
+ * This example shows the button in neutral color.
  */
-export const Secondary = {
+export const Neutral = {
   args: {
     label: "Button",
-    variation: "secondary",
+    color: "neutral",
     icon: trash,
   },
 } satisfies Story;
 
 /**
- * This example shows the button in danger variation.
+ * This example shows the button in danger color.
  */
 export const Danger = {
   args: {
     label: "Button",
-    variation: "danger",
+    color: "danger",
     icon: trash,
   },
 } satisfies Story;

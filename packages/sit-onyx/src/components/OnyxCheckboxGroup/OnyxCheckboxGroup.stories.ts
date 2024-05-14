@@ -25,6 +25,7 @@ const DEMO_OPTIONS = [
   { label: "Required", value: 3, required: true },
   { label: "Disabled", value: 4, disabled: true },
   { label: "Loading", value: 5, loading: true },
+  { label: "Disabled checked", value: 6, disabled: true },
 ] satisfies CheckboxGroupOption[];
 
 /**
@@ -33,7 +34,7 @@ const DEMO_OPTIONS = [
 export const Default = {
   args: {
     headline: "Checkbox group headline",
-    modelValue: [2],
+    modelValue: [2, 6],
     options: DEMO_OPTIONS,
   },
 } satisfies Story;

@@ -5,7 +5,7 @@ import {
   mockPlaywrightIcon,
   type MatrixScreenshotTestOptions,
 } from "../../playwright/screenshots";
-import { BUTTON_VARIATIONS } from "../OnyxButton/types";
+import { BUTTON_COLORS } from "../OnyxButton/types";
 import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
@@ -70,14 +70,14 @@ test.describe("Screenshot tests", () => {
   for (const state of ["default", "disabled"] as const) {
     executeMatrixScreenshotTest({
       name: `Icon button (${state})`,
-      columns: BUTTON_VARIATIONS,
+      columns: BUTTON_COLORS,
       rows: ["default", "hover", "active", "focus-visible"],
       beforeScreenshot,
       component: (column) => (
         <OnyxIconButton
           label="Test label"
           icon={mockPlaywrightIcon}
-          variation={column}
+          color={column}
           disabled={state === "disabled"}
         />
       ),
