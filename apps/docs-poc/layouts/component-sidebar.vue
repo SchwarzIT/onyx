@@ -17,7 +17,7 @@ data.value?.components.forEach((component) => {
           v-for="component in data?.components"
           :key="component"
           :label="component"
-          :variation="$route.params.name === component ? 'primary' : 'secondary'"
+          :color="$route.params.name === component ? 'primary' : 'neutral'"
           mode="plain"
           density="compact"
           @click="$router.push(`/components/${component}`)"

@@ -33,7 +33,7 @@ const navItems = [
           :key="item.href"
           v-bind="item"
           :active="item.href === $route.path"
-          @navigate="$router.push"
+          @click="$router.push"
         />
 
         <template #contextArea>
@@ -54,7 +54,7 @@ const navItems = [
             <OnyxIconButton
               :label="$t('nav.github')"
               :icon="githubLogo"
-              variation="secondary"
+              color="neutral"
             />
           </a>
         </template>
