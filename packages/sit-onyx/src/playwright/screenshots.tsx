@@ -63,7 +63,7 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
      */
     const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
       await page.getByRole("document").focus(); // reset focus
-      await page.getByRole("document").hover(); // reset mouse
+      await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
       await page.mouse.up(); // reset mouse
 
       const component = await mount(element);
