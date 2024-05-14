@@ -41,16 +41,23 @@ const {
 } = comboBox;
 
 defineExpose({ comboBox });
+
+const handleKeydown = (event: KeyboardEvent) => {
+  switch (event.key) {
+    case "Escape":
+      isExpanded.value = false;
+      break;
+    case "ArrowDown":
+      isExpanded.value = true;
+      break;
+  }
+};
 </script>
 <template>
   <div>
     <label v-bind="label">
       some label:
-      <input
-        v-bind="input"
-        @keydown.arrow-down="isExpanded = true"
-        @keydown.esc="isExpanded = false"
-      />
+      <input v-bind="input" @keydown="handleKeydown" />
     </label>
 
     <button v-bind="button">
