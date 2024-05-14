@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends string = string, TMultiple extends boolean = false">
 import { useDensity } from "../../composables/density";
-import { createId, createListbox } from "@sit-onyx/headless";
+import { createComboBox, createId } from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -10,8 +10,9 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
-import type { OnyxListboxProps } from "./types";
+import type { ListboxOption, OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
+import OnyxSelect from "../OnyxCombobox/OnyxSelect/OnyxSelect.vue";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
   loading: false,
@@ -53,6 +54,8 @@ const { t } = injectI18n();
  */
 const activeOption = ref<TValue>();
 
+const isExpanded = ref(false);
+
 /**
  * Sync the active option with the selected option on single select.
  */
@@ -76,56 +79,90 @@ const allKeyboardOptionIds = computed(() => {
   return (props.withCheckAll ? [CHECK_ALL_ID] : []).concat(enabledOptionValues.value);
 });
 
-const {
-  elements: { listbox, option: headlessOption, group: headlessGroup },
-} = createListbox({
-  label: computed(() => props.label),
-  multiple: computed(() => !!props.multiple),
-  selectedOption: computed(() => props.modelValue),
-  activeOption,
-  onSelect: (selectedOption) => {
-    if (selectedOption === CHECK_ALL_ID) {
-      checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
-      return;
-    }
+const searchTerm = ref("");
 
-    if (!props.multiple) {
-      const newValue = selectedOption === props.modelValue ? undefined : selectedOption;
-      emit("update:modelValue", newValue as typeof props.modelValue);
-      return;
-    }
-    const arrayValues: TValue[] = Array.isArray(props.modelValue) ? props.modelValue : [];
-    const newValues = arrayValues.includes(selectedOption)
-      ? arrayValues.filter((i) => i !== selectedOption)
-      : [...arrayValues, selectedOption];
-    emit("update:modelValue", newValues as typeof props.modelValue);
-  },
-  onActivateFirst: () => (activeOption.value = allKeyboardOptionIds.value.at(0)),
-  onActivateLast: () => (activeOption.value = allKeyboardOptionIds.value.at(-1)),
-  onActivateNext: (currentValue) => {
-    const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
-    if (currentIndex < allKeyboardOptionIds.value.length - 1) {
-      activeOption.value = allKeyboardOptionIds.value[currentIndex + 1];
-    }
-  },
-  onActivatePrevious: (currentValue) => {
-    const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
-    if (currentIndex > 0) activeOption.value = allKeyboardOptionIds.value[currentIndex - 1];
-  },
-  onTypeAhead: (label) => {
-    const firstMatch = props.options.find((i) => {
-      return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
-    });
-    if (!firstMatch) return;
-    activeOption.value = firstMatch.value;
-  },
+const onToggle = () => (isExpanded.value = !isExpanded.value);
+
+const onActivateFirst = () => (activeOption.value = allKeyboardOptionIds.value.at(0));
+
+const onActivateLast = () => (activeOption.value = allKeyboardOptionIds.value.at(-1));
+
+const onActivateNext = (currentValue: string) => {
+  const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
+  if (currentIndex < allKeyboardOptionIds.value.length - 1) {
+    activeOption.value = allKeyboardOptionIds.value[currentIndex + 1];
+  }
+};
+
+const onActivatePrevious = (currentValue: string) => {
+  const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
+  if (currentIndex > 0) activeOption.value = allKeyboardOptionIds.value[currentIndex - 1];
+};
+
+const onTypeAhead = (label: string) => {
+  const firstMatch = props.options.find((i) => {
+    return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
+  });
+  if (!firstMatch) return;
+  activeOption.value = firstMatch.value;
+};
+
+const onSelect = (selectedOption: string) => {
+  if (selectedOption === CHECK_ALL_ID) {
+    checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
+    return;
+  }
+
+  if (!props.multiple) {
+    const newValue =
+      selectedOption === (props.modelValue as ListboxOption<TValue>)?.value
+        ? undefined
+        : selectedOption;
+    emit("update:modelValue", newValue as typeof props.modelValue);
+    return;
+  }
+  const arrayValues = (props.modelValue as ListboxOption<TValue>[]) ?? [];
+  const alreadyInList = arrayValues.some(({ value }) => value === selectedOption);
+  if (alreadyInList) {
+    emit(
+      "update:modelValue",
+      arrayValues.filter(({ value }) => value !== selectedOption) as typeof props.modelValue,
+    );
+  } else {
+    emit("update:modelValue", [
+      ...arrayValues,
+      props.options.find(({ value }) => value === selectedOption),
+    ] as typeof props.modelValue);
+  }
+};
+
+const comboBox = createComboBox({
+  autocomplete: "none",
+  label: props.label,
+  listLabel: props.listLabel,
+  inputValue: searchTerm,
+  activeOption: computed(() => activeOption.value),
+  isExpanded,
+  onToggle,
+  onActivateFirst,
+  onActivateLast,
+  onActivateNext,
+  onActivatePrevious,
+  onTypeAhead,
+  onSelect,
 });
 
 const filteredOptions = computed(() =>
-  props.options.filter(({ label }) =>
-    label.trim().toLowerCase().includes(searchTerm.value.trim().toLowerCase()),
-  ),
+  searchTerm.value && props.withSearch
+    ? props.options.filter(({ label }) =>
+        label.trim().toLowerCase().includes(searchTerm.value.trim().toLowerCase()),
+      )
+    : props.options,
 );
+
+const {
+  elements: { input, listbox, option: headlessOption, group: headlessGroup },
+} = comboBox;
 
 const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
 
@@ -154,8 +191,14 @@ const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
   return useCheckAll(
     enabledOptionValues,
-    computed(() => (props.modelValue as TValue[]) || []),
-    (newValue: TValue[]) => emit("update:modelValue", newValue as typeof props.modelValue),
+    computed(() => ((props.modelValue || []) as ListboxOption<TValue>[]).map(({ value }) => value)),
+    (newValue: TValue[]) =>
+      emit(
+        "update:modelValue",
+        newValue.map((v) =>
+          (props.modelValue as ListboxOption<TValue>[]).find(({ value }) => value === v),
+        ) as typeof props.modelValue,
+      ),
   );
 });
 
@@ -168,89 +211,98 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
-
-const searchTerm = ref("");
 </script>
 
 <template>
-  <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
-    <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
-      <OnyxLoadingIndicator class="onyx-listbox__loading" />
-    </div>
+  <div class="onyx-combobox-wrapper">
+    <OnyxSelect
+      :label="props.label"
+      :loading="props.loading"
+      :model-value="props.modelValue"
+      :multiple="props.multiple"
+      v-bind="input"
+      @click="isExpanded = true"
+      @keydown.arrow-down="isExpanded = true"
+    />
+    <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
+      <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
+        <OnyxLoadingIndicator class="onyx-listbox__loading" />
+      </div>
 
-    <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-      <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
+      <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+        <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
 
-      <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
-        <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
-      </slot>
+        <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
+          <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
+        </slot>
 
-      <template v-else>
-        <ul
-          v-for="(options, group) in groupedOptions"
-          :key="group"
-          class="onyx-listbox__group"
-          v-bind="headlessGroup({ label: group })"
-        >
-          <li
-            v-if="group != ''"
-            role="presentation"
-            class="onyx-listbox__group-name onyx-text--small"
+        <template v-else>
+          <ul
+            v-for="(options, group) in groupedOptions"
+            :key="group"
+            class="onyx-listbox__group"
+            v-bind="headlessGroup({ label: group })"
           >
-            {{ group }}
-          </li>
+            <li
+              v-if="group != ''"
+              role="presentation"
+              class="onyx-listbox__group-name onyx-text--small"
+            >
+              {{ group }}
+            </li>
 
-          <!-- select-all option for "multiple" -->
-          <template v-if="props.multiple && props.withCheckAll">
+            <!-- select-all option for "multiple" -->
+            <template v-if="props.multiple && props.withCheckAll">
+              <OnyxListboxOption
+                v-bind="
+                  headlessOption({
+                    value: CHECK_ALL_ID as TValue,
+                    label: checkAllLabel,
+                    selected: checkAll?.state.value.modelValue,
+                  })
+                "
+                multiple
+                :active="CHECK_ALL_ID === activeOption"
+                :indeterminate="checkAll?.state.value.indeterminate"
+                :density="props.density"
+                class="onyx-listbox__check-all"
+              >
+                {{ checkAllLabel }}
+              </OnyxListboxOption>
+            </template>
+
             <OnyxListboxOption
+              v-for="option in options"
+              :key="option.value.toString()"
               v-bind="
                 headlessOption({
-                  value: CHECK_ALL_ID as TValue,
-                  label: checkAllLabel,
-                  selected: checkAll?.state.value.modelValue,
+                  value: option.value,
+                  label: option.label,
+                  disabled: option.disabled,
+                  selected: Array.isArray(props.modelValue)
+                    ? props.modelValue.some(({ value }) => value === option.value)
+                    : props.modelValue?.value === option.value,
                 })
               "
-              multiple
-              :active="CHECK_ALL_ID === activeOption"
-              :indeterminate="checkAll?.state.value.indeterminate"
+              :multiple="props.multiple"
+              :active="option.value === activeOption"
+              :icon="option.icon"
+              :color="option.color"
               :density="props.density"
-              class="onyx-listbox__check-all"
             >
-              {{ checkAllLabel }}
+              {{ option.label }}
             </OnyxListboxOption>
-          </template>
+          </ul>
 
-          <OnyxListboxOption
-            v-for="option in options"
-            :key="option.value.toString()"
-            v-bind="
-              headlessOption({
-                value: option.value,
-                label: option.label,
-                disabled: option.disabled,
-                selected:
-                  option.value === props.modelValue ||
-                  (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
-              })
-            "
-            :multiple="props.multiple"
-            :active="option.value === activeOption"
-            :icon="option.icon"
-            :color="option.color"
-            :density="props.density"
-          >
-            {{ option.label }}
-          </OnyxListboxOption>
-        </ul>
+          <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+            <OnyxLoadingIndicator class="onyx-listbox__loading" />
+          </div>
 
-        <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-          <OnyxLoadingIndicator class="onyx-listbox__loading" />
-        </div>
-
-        <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
-          <slot name="optionsEnd"></slot>
-        </div>
-      </template>
+          <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
+            <slot name="optionsEnd"></slot>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>

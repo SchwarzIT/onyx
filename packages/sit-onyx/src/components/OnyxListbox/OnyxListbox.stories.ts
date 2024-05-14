@@ -31,7 +31,7 @@ const meta: Meta<typeof OnyxListbox> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
-      modelValue: { control: { type: "text" } },
+      modelValue: { control: { type: "object" } },
     },
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.
@@ -44,7 +44,9 @@ const meta: Meta<typeof OnyxListbox> = {
 
           watchEffect(() => {
             ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-            ctx.args.options = options.value;
+            ctx.args.options = options.value.map(
+              ({ value }) => DEMO_OPTIONS.find((opt) => opt.value === value)!,
+            );
           });
 
           return { handleLoadMore, isLazyLoading, options };
@@ -55,7 +57,7 @@ const meta: Meta<typeof OnyxListbox> = {
   }),
 };
 
-const groupedAnimals: ListboxOption[] = [
+const groupedAnimals: ListboxOption<string>[] = [
   { value: "cat", label: "Cat", group: "Land" },
   { value: "dog", label: "Dog", group: "Land" },
   { value: "tiger", label: "Tiger", group: "Land" },
@@ -71,7 +73,7 @@ const groupedAnimals: ListboxOption[] = [
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
-const DEMO_OPTIONS: SelectOption[] = [
+const DEMO_OPTIONS: SelectOption<string>[] = [
   "Apple",
   "Banana",
   "Mango",
@@ -127,16 +129,10 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: ["apple", "banana", "disabled-2"],
+    modelValue: [],
     multiple: true,
     withCheckAll: true,
     options: [
-      {
-        value: "disabled-2",
-        label: "Selected unavailable fruit",
-        disabled: true,
-      },
-      ...Default.args.options,
       { value: "long", label: "Option with a very long long long  long long long long text}" },
     ],
   },

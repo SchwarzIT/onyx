@@ -2,19 +2,18 @@ import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
-export type ListboxModelValue<
-  TValue extends SelectOptionValue = SelectOptionValue,
-  TMultiple extends boolean = false,
-> = TMultiple extends true ? TValue[] : TValue;
-
 export type OnyxListboxProps<
   TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
 > = DensityProp & {
   /**
-   * Aria label. Must be set for accessibility reasons.
+   * Label describing the combobox itself, must be set to support assistive technologies.
    */
   label: string;
+  /**
+   * Label describing the selection list, must be set to support assistive technologies.
+   */
+  listLabel: string;
   /**
    * Available options to choose from.
    */
@@ -26,7 +25,7 @@ export type OnyxListboxProps<
   /**
    * Current value / selected option(s).
    */
-  modelValue?: ListboxModelValue<TValue, TMultiple>;
+  modelValue?: TMultiple extends true ? ListboxOption<TValue>[] : ListboxOption<TValue>;
   /**
    * Allows the selection of multiple listbox options
    */

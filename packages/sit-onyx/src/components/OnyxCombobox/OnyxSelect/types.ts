@@ -36,7 +36,6 @@ export type OnyxSelectProps<
      * If you want to visually hide the label, use the `hideLabel` property.
      */
     label: string;
-    options: SelectOption<TValue>[];
     /**
      * Current value of the select.
      * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
