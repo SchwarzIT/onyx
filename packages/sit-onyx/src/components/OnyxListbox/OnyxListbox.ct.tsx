@@ -95,15 +95,24 @@ test.describe("Densities screenshot tests", () => {
       // the following disabled rule should be removed.
       "nested-interactive",
     ],
-    component: (column, row) => (
-      <OnyxListbox
-        label={`${column} listbox`}
-        options={MOCK_VARIED_OPTIONS}
-        modelValue={row === "partial-selection" ? [2] : undefined}
-        multiple={row === "partial-selection"}
-        density={column}
-      />
-    ),
+    component: (column, row) =>
+      row === "partial-selection" ? (
+        <OnyxListbox
+          label={`${column} listbox`}
+          options={MOCK_VARIED_OPTIONS}
+          modelValue={[2]}
+          multiple={true}
+          density={column}
+        />
+      ) : (
+        <OnyxListbox
+          label={`${column} listbox`}
+          options={MOCK_VARIED_OPTIONS}
+          modelValue={undefined}
+          multiple={false}
+          density={column}
+        />
+      ),
   });
 });
 
@@ -118,7 +127,7 @@ test("should interact with multiselect", async ({ mount }) => {
   };
 
   // ARRANGE
-  const component = await mount(OnyxListbox<number, true>, {
+  const component = await mount(OnyxListbox, {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
