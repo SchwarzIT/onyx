@@ -18,15 +18,49 @@ export type ListboxSearchProps =
       withSearch?: false;
     };
 
+export type ListboxModelValueProps<TValue extends SelectOptionValue> =
+  | {
+      /**
+       * Allows the selection of multiple listbox options
+       */
+      multiple?: false;
+      /**
+       * Current value.
+       */
+      modelValue?: TValue;
+    }
+  | {
+      /**
+       * Allows the selection of multiple listbox options
+       */
+      multiple: true;
+      /**
+       * Current value / selected option(s).
+       */
+      modelValue?: TValue[];
+      /**
+       * If true, a checkbox will be displayed to check/uncheck all options.
+       * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+       * Only available if "multiple" is true.
+       */
+      withCheckAll?:
+        | boolean
+        | {
+            /**
+             * Label for the `select all` checkbox.
+             * If unset, a default label will be shown depending on the current locale/language.
+             */
+            label?: string;
+          };
+    };
+
 export type ListboxModelValue<
   TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
 > = TMultiple extends true ? TValue[] : TValue;
 
-export type OnyxListboxProps<
-  TValue extends SelectOptionValue = SelectOptionValue,
-  TMultiple extends boolean = false,
-> = DensityProp &
+export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
+  ListboxModelValueProps<TValue> &
   ListboxSearchProps & {
     /**
      * Aria label. Must be set for accessibility reasons.
@@ -40,30 +74,6 @@ export type OnyxListboxProps<
      * Message / help text to display at the bottom.
      */
     message?: string;
-    /**
-     * Current value / selected option(s).
-     */
-    modelValue?: ListboxModelValue<TValue, TMultiple>;
-    /**
-     * Allows the selection of multiple listbox options
-     */
-    multiple?: TMultiple;
-    /**
-     * If true, a checkbox will be displayed to check/uncheck all options.
-     * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
-     * Only available if "multiple" is true.
-     */
-    withCheckAll?: TMultiple extends true
-      ?
-          | boolean
-          | {
-              /**
-               * Label for the `select all` checkbox.
-               * If unset, a default label will be shown depending on the current locale/language.
-               */
-              label?: string;
-            }
-      : undefined;
     /**
      * Whether to show a loading indicator.
      */

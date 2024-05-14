@@ -23,5 +23,6 @@
   },
   "empty": "No data available",
   "no-match": "No entry matches your search",
-  "navItemOptionsLabel": "Subpages of {label}"
+  "navItemOptionsLabel": "Subpages of {label}",
+  "userMenuLabel": "User options"
 }

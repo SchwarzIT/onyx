@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.94
+
+### Patch Changes
+
+- c867746: fix(OnyxUserMenu): emit `optionClick` event when clicking an option
+
 ## 1.0.0-alpha.93
 
 ### Minor Changes
