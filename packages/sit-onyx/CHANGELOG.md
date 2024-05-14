@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.97
+
+### Minor Changes
+
+- 5754525: feat(OnyxCheckboxGroup): align style for "check all" with figma
+
 ## 1.0.0-alpha.96
 
 ### Major Changes
