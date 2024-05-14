@@ -114,8 +114,9 @@ const { t } = injectI18n();
     &__context {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: var(--onyx-spacing-4xs);
-      margin-left: auto;
+      flex-grow: 1;
     }
   }
 }
