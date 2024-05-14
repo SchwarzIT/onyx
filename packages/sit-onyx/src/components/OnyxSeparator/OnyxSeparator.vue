@@ -1,5 +1,5 @@
 <template>
-  <div class="onyx-separator"></div>
+  <div class="onyx-separator" role="separator" aria-orientation="vertical"></div>
 </template>
 
 <style lang="scss">
