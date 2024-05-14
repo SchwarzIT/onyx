@@ -2,9 +2,11 @@
 import type { ListboxValue } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
+import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxListbox from "../OnyxListbox/OnyxListbox.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxUserMenuProps } from "./types";
 
 const props = defineProps<OnyxUserMenuProps<TValue>>();
@@ -23,6 +25,8 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
+const { t } = injectI18n();
+
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
@@ -37,12 +41,7 @@ const avatar = computed(() => {
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </button>
 
-    <OnyxListbox
-      class="onyx-user-menu__listbox"
-      label="User options"
-      :options="props.options"
-      @update:model-value="$event && emit('optionClick', $event)"
-    >
+    <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />
@@ -61,12 +60,24 @@ const avatar = computed(() => {
         </div>
       </template>
 
+      <OnyxListItem
+        v-for="item in props.options"
+        :key="item.value.toString()"
+        :class="{
+          'onyx-user-menu-item--danger': item.color === 'danger',
+        }"
+        :color="item.color"
+        @click="emit('optionClick', item.value)"
+      >
+        <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
+      </OnyxListItem>
+
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">
           <slot name="footer"></slot>
         </div>
       </template>
-    </OnyxListbox>
+    </OnyxFlyoutMenu>
   </div>
 </template>
 
@@ -89,7 +100,7 @@ const avatar = computed(() => {
         background-color: var(--onyx-color-base-neutral-200);
       }
 
-      .onyx-user-menu__listbox {
+      .onyx-user-menu__flyout {
         opacity: 1;
       }
 
@@ -117,7 +128,7 @@ const avatar = computed(() => {
       }
     }
 
-    &__listbox {
+    &__flyout {
       opacity: 0;
       transition: opacity var(--onyx-duration-sm);
       position: absolute;

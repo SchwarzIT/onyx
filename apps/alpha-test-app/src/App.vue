@@ -3,8 +3,8 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import {
   OnyxAppLayout,
+  OnyxNavBar,
   OnyxNavItem,
-  OnyxNavigationBar,
   OnyxUserMenu,
   type ListboxOption,
   type OnyxNavItemProps,
@@ -29,7 +29,7 @@ const userMenuOptions = [
 <template>
   <OnyxAppLayout>
     <template #navBar>
-      <OnyxNavigationBar
+      <OnyxNavBar
         app-name="Alpha Test App"
         :logo-url="onyxLogo"
         show-back-button
@@ -41,7 +41,7 @@ const userMenuOptions = [
           :key="item.href"
           v-bind="item"
           :active="item.href === router.currentRoute.value.path"
-          @navigate="router.push"
+          @click="router.push"
         />
 
         <template #contextArea>
@@ -52,7 +52,7 @@ const userMenuOptions = [
             </template>
           </OnyxUserMenu>
         </template>
-      </OnyxNavigationBar>
+      </OnyxNavBar>
     </template>
 
     <RouterView />

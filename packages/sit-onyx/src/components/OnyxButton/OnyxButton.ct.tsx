@@ -6,7 +6,7 @@ import {
   type MatrixScreenshotTestOptions,
 } from "../../playwright/screenshots";
 import OnyxButton from "./OnyxButton.vue";
-import { BUTTON_MODES, BUTTON_VARIATIONS } from "./types";
+import { BUTTON_COLORS, BUTTON_MODES } from "./types";
 
 test.describe("Screenshot tests", () => {
   const screenshotOptions = {
@@ -23,32 +23,32 @@ test.describe("Screenshot tests", () => {
   for (const mode of BUTTON_MODES) {
     executeMatrixScreenshotTest({
       ...screenshotOptions,
-      columns: BUTTON_VARIATIONS,
+      columns: BUTTON_COLORS,
       name: `Button (${mode})`,
-      component: (column) => <OnyxButton label="Button" mode={mode} variation={column} />,
+      component: (column) => <OnyxButton label="Button" mode={mode} color={column} />,
     });
 
     executeMatrixScreenshotTest({
       ...screenshotOptions,
-      columns: BUTTON_VARIATIONS,
+      columns: BUTTON_COLORS,
       name: `Button (${mode}, disabled)`,
-      component: (column) => <OnyxButton label="Button" mode={mode} variation={column} disabled />,
+      component: (column) => <OnyxButton label="Button" mode={mode} color={column} disabled />,
     });
 
     executeMatrixScreenshotTest({
       ...screenshotOptions,
-      columns: BUTTON_VARIATIONS,
+      columns: BUTTON_COLORS,
       name: `Button (${mode}, with icon)`,
       component: (column) => (
-        <OnyxButton label="Button" mode={mode} variation={column} icon={mockPlaywrightIcon} />
+        <OnyxButton label="Button" mode={mode} color={column} icon={mockPlaywrightIcon} />
       ),
     });
 
     executeMatrixScreenshotTest({
       ...screenshotOptions,
-      columns: BUTTON_VARIATIONS,
+      columns: BUTTON_COLORS,
       name: `Button (${mode}, loading)`,
-      component: (column) => <OnyxButton label="Button" mode={mode} variation={column} loading />,
+      component: (column) => <OnyxButton label="Button" mode={mode} color={column} loading />,
     });
   }
 

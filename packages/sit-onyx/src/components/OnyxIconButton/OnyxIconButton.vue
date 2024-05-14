@@ -8,7 +8,7 @@ import type { OnyxIconButtonProps } from "./types";
 const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   disabled: false,
   type: "button",
-  variation: "primary",
+  color: "primary",
   skeleton: false,
 });
 
@@ -34,7 +34,7 @@ const emit = defineEmits<{
     :aria-label="props.label"
     :title="props.label"
     :class="[
-      `onyx-icon-button--${props.variation}`,
+      `onyx-icon-button--${props.color}`,
       { 'onyx-icon-button--loading': props.loading },
       densityClass,
     ]"
@@ -108,7 +108,7 @@ const emit = defineEmits<{
       --icon-button-bg-color: var(--onyx-color-base-primary-300);
     }
 
-    &--secondary {
+    &--neutral {
       --icon-button-color: var(--onyx-color-text-icons-neutral-medium);
 
       &:hover,
@@ -173,7 +173,7 @@ const emit = defineEmits<{
         --icon-button-bg-color: var(--onyx-color-base-primary-300);
       }
 
-      &--secondary {
+      &--neutral {
         --icon-button-color: var(--onyx-color-text-icons-neutral-medium);
 
         &:hover,

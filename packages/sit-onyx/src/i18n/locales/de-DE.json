@@ -25,6 +25,7 @@
   "navItemOptionsLabel": "Unterseiten von {label}",
   "navigation": {
     "appLogo": "App logo",
-    "goBack": "Zurück"
+    "goBack": "Zurück",
+    "userMenuLabel": "Benutzeroptionen"
   }
 }
