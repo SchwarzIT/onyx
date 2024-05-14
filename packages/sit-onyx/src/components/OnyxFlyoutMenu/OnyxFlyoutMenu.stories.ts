@@ -19,6 +19,19 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
 export default meta;
 type Story = StoryObj<typeof OnyxFlyoutMenu>;
 
+const listAnimals = [
+  { label: "Cat" },
+  { label: "Dog" },
+  { label: "Tiger" },
+  { label: "Reindeer" },
+  { label: "Racoon" },
+  { label: "Dolphin" },
+  { label: "Flounder" },
+  { label: "Eel" },
+  { label: "Falcon" },
+  { label: "Owl" },
+];
+
 /**
  * This example shows a basic OnyxFlyoutMenu
  */
@@ -28,16 +41,7 @@ export const Default = {
     components: { OnyxFlyoutMenu, OnyxListItem },
     template: `
       <OnyxFlyoutMenu>
-        <OnyxListItem>Cat</OnyxListItem>
-        <OnyxListItem>Dog</OnyxListItem>
-        <OnyxListItem>Tiger</OnyxListItem>
-        <OnyxListItem>Reindeer</OnyxListItem>
-        <OnyxListItem>Racoon</OnyxListItem>
-        <OnyxListItem>Dolphin</OnyxListItem>
-        <OnyxListItem>Flounder</OnyxListItem>
-        <OnyxListItem>Eel</OnyxListItem>
-        <OnyxListItem>Falcon</OnyxListItem>
-        <OnyxListItem>Owl</OnyxListItem>
+        ${listAnimals.map(({ label }) => `<OnyxListItem>${label}</OnyxListItem>`).join("\n")}
       </OnyxFlyoutMenu>`,
   }),
 } satisfies Story;
