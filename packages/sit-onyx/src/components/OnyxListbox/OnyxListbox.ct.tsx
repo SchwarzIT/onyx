@@ -343,3 +343,28 @@ test("should display optionsEnd slot", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("custom-load-button.png");
 });
+
+test("should allow entering a searchTerm", async ({ mount }) => {
+  const onUpdateSearchTerm: string[] = [];
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxListbox
+      options={MOCK_MANY_OPTIONS}
+      label="Test label"
+      withSearch
+      onUpdate:searchTerm={(input) => onUpdateSearchTerm.push(input)}
+    />,
+  );
+  const searchInput = component.getByRole("textbox");
+
+  // ASSERT
+  await expect(searchInput).toBeAttached();
+
+  // ACT
+  await searchInput.pressSequentially("test");
+
+  // ASSERT
+  expect(onUpdateSearchTerm).toHaveLength(4);
+  expect(onUpdateSearchTerm.at(-1)).toBe("test");
+});
