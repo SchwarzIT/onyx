@@ -132,15 +132,7 @@ const {
   },
 });
 
-const filteredOptions = computed(() => {
-  if (!props.withSearch) {
-    return props.options;
-  }
-  const _searchTerm = props.searchTerm?.trim().toLowerCase() ?? "";
-  return props.options.filter(({ label }) => label.trim().toLowerCase().includes(_searchTerm));
-});
-
-const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
+const groupedOptions = computed(() => groupByKey(props.options, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -151,12 +143,12 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 const isEmptyMessage = computed<FlattenedKeysOf<OnyxTranslations> | undefined>(
   () =>
     (props.options.length === 0 && "empty") ||
-    (filteredOptions.value.length === 0 && "no-match") ||
+    (props.withSearch && props.searchTerm && props.options.length === 0 && "no-match") ||
     undefined,
 );
 
 const enabledOptionValues = computed(() =>
-  filteredOptions.value.filter((i) => !i.disabled).map(({ value }) => value),
+  props.options.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
