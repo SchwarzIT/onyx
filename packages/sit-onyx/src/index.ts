@@ -64,7 +64,7 @@ export * from "./components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "./components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 export * from "./components/OnyxRadioButtonGroup/types";
 
-export { default as OnyxSeparator } from "./components/OnyxSeparator/OnyxSeparator.vue";
+export { default as OnyxNavSeparator } from "./components/OnyxNavSeparator/OnyxNavSeparator.vue";
 
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types";
