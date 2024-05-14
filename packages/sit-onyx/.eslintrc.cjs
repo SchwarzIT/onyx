@@ -8,6 +8,7 @@ module.exports = {
     "no-console": "error",
     "no-debugger": "error",
     "@sit-onyx/import-playwright-a11y": "error",
+    "@sit-onyx/storybook-no-h-method": "error",
     // disallow scoped or module CSS for components
     // see https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],

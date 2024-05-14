@@ -22,15 +22,15 @@ const meta: Meta<typeof OnyxListboxOption> = {
       default: { control: { type: "text" } },
       icon: defineIconSelectArgType(),
     },
-    parameters: {
-      docs: {
-        source: {
-          // improve code snippet by adding the icon import
-          transform: createIconSourceCodeTransformer("icon"),
-        },
+  }),
+  parameters: {
+    docs: {
+      source: {
+        // improve code snippet by adding the icon import
+        transform: createIconSourceCodeTransformer("icon"),
       },
     },
-  }),
+  },
 };
 
 export default meta;

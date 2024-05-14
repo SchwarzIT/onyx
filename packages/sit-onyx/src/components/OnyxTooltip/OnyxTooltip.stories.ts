@@ -2,8 +2,7 @@ import { TOOLTIP_TRIGGERS } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { createIconSourceCodeTransformer, defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
@@ -36,7 +35,22 @@ const meta: Meta<typeof OnyxTooltip> = {
         </div>`,
       }),
     ],
+    render: (args) => ({
+      setup: () => ({ args }),
+      components: { OnyxTooltip, OnyxButton },
+      template: `
+        <OnyxTooltip v-bind="args">
+          <OnyxButton label="Slot content goes here" />
+        </OnyxTooltip>`,
+    }),
   }),
+  parameters: {
+    docs: {
+      source: {
+        transform: createIconSourceCodeTransformer("icon"),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -48,7 +62,6 @@ type Story = StoryObj<typeof OnyxTooltip>;
 export const Default = {
   args: {
     text: "Tooltip text",
-    default: () => h(OnyxButton, { label: "Slot content goes here" }),
     icon: circleInformation,
     open: true,
   },
@@ -61,9 +74,16 @@ export const Default = {
 export const Hover = {
   args: {
     ...Default.args,
-    default: () => h(OnyxButton, { label: "Hover me to show the tooltip" }),
     open: "hover",
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxTooltip, OnyxButton },
+    template: `
+      <OnyxTooltip v-bind="args">
+        <OnyxButton label="Hover me to show the tooltip" />
+      </OnyxTooltip>`,
+  }),
 } satisfies Story;
 
 /**
@@ -72,9 +92,16 @@ export const Hover = {
 export const Click = {
   args: {
     ...Default.args,
-    default: () => h(OnyxButton, { label: "Click me to show the tooltip" }),
     open: "click",
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxTooltip, OnyxButton },
+    template: `
+      <OnyxTooltip v-bind="args">
+        <OnyxButton label="Click me to show the tooltip" />
+      </OnyxTooltip>`,
+  }),
 } satisfies Story;
 
 /**
@@ -112,7 +139,16 @@ export const Danger = {
  */
 export const CustomContent = {
   args: {
-    ...Default.args,
-    tooltip: () => h("div", [h("span", "This is "), h("b", "custom content")]),
+    icon: Default.args.icon,
+    open: true,
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxTooltip, OnyxButton },
+    template: `
+      <OnyxTooltip v-bind="args">
+        <OnyxButton label="Click me to show the tooltip" />
+        <template #tooltip>This is <b>custom content</b></template>
+      </OnyxTooltip>`,
+  }),
 } satisfies Story;

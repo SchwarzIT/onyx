@@ -1,5 +1,5 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import { defineStorybookActionsAndVModels, sourceCodeTransformer } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
 import type { SelectOption } from "../../types";
@@ -209,6 +209,23 @@ export const ButtonLoading = {
       </OnyxListbox>
 `,
   }),
+  parameters: {
+    docs: {
+      source: {
+        // improve code snippet by adding the icon import
+        transform: (sourceCode: string) => {
+          // using this custom transformer would override the default one
+          // so we are calling the default transformer here
+          const code = sourceCodeTransformer(sourceCode);
+
+          return `<script lang="ts" setup>
+          import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
+          </script>
+          ${code.replace(`icon='${plusSmall}'`, ':icon="plusSmall"')}`;
+        },
+      },
+    },
+  },
 } satisfies Story;
 
 const useLazyLoading = (initialOptions: ListboxOption[]) => {

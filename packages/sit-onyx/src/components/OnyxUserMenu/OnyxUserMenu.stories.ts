@@ -1,8 +1,7 @@
 import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import { defineStorybookActionsAndVModels, sourceCodeTransformer } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 /**
@@ -24,6 +23,24 @@ const meta: Meta<typeof OnyxUserMenu> = {
       }),
     ],
   }),
+  parameters: {
+    docs: {
+      source: {
+        // improve code snippet by adding the icon import
+        transform: (sourceCode: string) => {
+          // using this custom transformer would override the default one
+          // so we are calling the default transformer here
+          const code = sourceCodeTransformer(sourceCode);
+
+          return `<script lang="ts" setup>
+          import logout from "@sit-onyx/icons/logout.svg?raw";
+          import settings from "@sit-onyx/icons/settings.svg?raw";
+          </script>
+          ${code.replace(`icon:'${logout}'`, "icon:logout").replace(`icon:'${settings}'`, "icon:settings")}`;
+        },
+      },
+    },
+  },
 };
 
 export default meta;
@@ -40,8 +57,17 @@ export const Default = {
       { value: "/settings", label: "Settings", icon: settings },
       { value: "logout", label: "Logout", icon: logout, color: "danger" },
     ],
-    footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
   },
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxUserMenu },
+    template: `
+      <OnyxUserMenu v-bind="args">
+        <template #footer>
+          App version <span class="onyx-text--monospace">1.0.0</span>
+        </template>
+      </OnyxUserMenu>`,
+  }),
 } satisfies Story;
 
 /**

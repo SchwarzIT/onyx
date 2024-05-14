@@ -8,5 +8,6 @@ module.exports = {
   },
   rules: {
     "import-playwright-a11y": require("./rules/import-playwright-a11y.cjs"),
+    "storybook-no-h-method": require("./rules/storybook-no-h-method.cjs"),
   },
 };

@@ -1,7 +1,6 @@
 import emojiSad from "@sit-onyx/icons/emoji-sad.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import { defineStorybookActionsAndVModels, sourceCodeTransformer } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
 import { OnyxLink } from "../../index";
 import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -40,14 +39,34 @@ export const Default = {
  * This example shows an empty component with custom text and icon with a different color and size.
  */
 export const CustomContent = {
-  args: {
-    icon: () => h(OnyxIcon, { icon: emojiSad, size: "32px", color: "warning" }),
-    default: () =>
-      h("div", [
-        "No data found. Go to ",
-        h(OnyxLink, { href: "#" }, () => "this page"),
-        " to add some data.",
-      ]),
+  render: (args) => ({
+    setup: () => ({ args }),
+    components: { OnyxEmpty, OnyxLink, OnyxIcon },
+    template: `
+      <OnyxEmpty>
+        <template #icon>
+          <OnyxIcon icon='${emojiSad}' size="32px" color="warning" />
+        </template>
+
+        No data found. Go to <OnyxLink href="#">this page</OnyxLink> to add some data.
+      </OnyxEmpty>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        // improve code snippet by adding the icon import
+        transform: (sourceCode: string) => {
+          // using this custom transformer would override the default one
+          // so we are calling the default transformer here
+          const code = sourceCodeTransformer(sourceCode);
+
+          return `<script lang="ts" setup>
+          import emojiSad from "@sit-onyx/icons/emoji-sad.svg?raw";
+          </script>
+          ${code.replace(`icon='${emojiSad}'`, ':icon="emojiSad"')}`;
+        },
+      },
+    },
   },
 } satisfies Story;
 

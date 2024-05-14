@@ -39,7 +39,7 @@ export const defineIconSelectArgType = () => {
       type: "select",
       labels: iconLabels,
     },
-  };
+  } as const;
 };
 
 export const createIconSourceCodeTransformer = (propertyName: string) => {
@@ -56,7 +56,17 @@ export const createIconSourceCodeTransformer = (propertyName: string) => {
     return `<script lang="ts" setup>
 import icon from "@sit-onyx/icons/${iconName}.svg?raw";
 </script>
-${code.replace(new RegExp(` ${propertyName}=['"].*['"]`), ` :${propertyName}="icon"`)}`;
+${code
+  // replace code when using regular properties, e.g. :icon="icon"
+  .replace(
+    new RegExp(` ${propertyName}=['"]${ctx.args[propertyName]}['"]`),
+    ` :${propertyName}="icon"`,
+  )
+  // replace code when using v-bind (e.g. with render function), e.g. v-bind="{icon}"
+  .replace(
+    new RegExp(`${propertyName}:['"]${ctx.args[propertyName]}['"]`),
+    propertyName === "icon" ? "icon" : `${propertyName}:icon`,
+  )}`;
   };
 };
 

@@ -43,21 +43,11 @@ export default meta;
 type Story = StoryObj<typeof OnyxBadge>;
 
 /**
- * This example shows the badge with text content.
+ * This example shows the default/primary badge.
  */
-export const Text = {
+export const Default = {
   args: {
     default: "Badge",
-  },
-} satisfies Story;
-
-/**
- * This example shows the badge with number content.
- */
-export const Number = {
-  args: {
-    variation: "info",
-    default: 32,
   },
 } satisfies Story;
 
