@@ -2,6 +2,22 @@ import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
+export type ListboxSearchProps =
+  | {
+      /**
+       * Allows the user to filter the list entries.
+       * No support for `lazyLoading` yet.
+       */
+      withSearch: true;
+      /**
+       * Value of the search input.
+       */
+      searchTerm?: string;
+    }
+  | {
+      withSearch?: false;
+    };
+
 export type ListboxModelValue<
   TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
@@ -10,57 +26,54 @@ export type ListboxModelValue<
 export type OnyxListboxProps<
   TValue extends SelectOptionValue = SelectOptionValue,
   TMultiple extends boolean = false,
-> = DensityProp & {
-  /**
-   * Aria label. Must be set for accessibility reasons.
-   */
-  label: string;
-  /**
-   * Available options to choose from.
-   */
-  options: ListboxOption<TValue>[];
-  /**
-   * Message / help text to display at the bottom.
-   */
-  message?: string;
-  /**
-   * Current value / selected option(s).
-   */
-  modelValue?: ListboxModelValue<TValue, TMultiple>;
-  /**
-   * Allows the selection of multiple listbox options
-   */
-  multiple?: TMultiple;
-  /**
-   * Allows the user to filter the list entries.
-   */
-  withSearch?: boolean;
-  /**
-   * If true, a checkbox will be displayed to check/uncheck all options.
-   * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
-   * Only available if "multiple" is true.
-   */
-  withCheckAll?: TMultiple extends true
-    ?
-        | boolean
-        | {
-            /**
-             * Label for the `select all` checkbox.
-             * If unset, a default label will be shown depending on the current locale/language.
-             */
-            label?: string;
-          }
-    : undefined;
-  /**
-   * Whether to show a loading indicator.
-   */
-  loading?: boolean;
-  /**
-   * Lazy loading options. Can be used to load more options on scroll.
-   * If you want to use a button instead, use the `optionsEnd` slot.
-   */
-  lazyLoading?: ListboxLazyLoading;
-};
+> = DensityProp &
+  ListboxSearchProps & {
+    /**
+     * Aria label. Must be set for accessibility reasons.
+     */
+    label: string;
+    /**
+     * Available options to choose from.
+     */
+    options: ListboxOption<TValue>[];
+    /**
+     * Message / help text to display at the bottom.
+     */
+    message?: string;
+    /**
+     * Current value / selected option(s).
+     */
+    modelValue?: ListboxModelValue<TValue, TMultiple>;
+    /**
+     * Allows the selection of multiple listbox options
+     */
+    multiple?: TMultiple;
+    /**
+     * If true, a checkbox will be displayed to check/uncheck all options.
+     * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+     * Only available if "multiple" is true.
+     */
+    withCheckAll?: TMultiple extends true
+      ?
+          | boolean
+          | {
+              /**
+               * Label for the `select all` checkbox.
+               * If unset, a default label will be shown depending on the current locale/language.
+               */
+              label?: string;
+            }
+      : undefined;
+    /**
+     * Whether to show a loading indicator.
+     */
+    loading?: boolean;
+    /**
+     * Lazy loading options. Can be used to load more options on scroll.
+     * If you want to use a button instead, use the `optionsEnd` slot.
+     */
+    lazyLoading?: ListboxLazyLoading;
+  };
 
 export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,

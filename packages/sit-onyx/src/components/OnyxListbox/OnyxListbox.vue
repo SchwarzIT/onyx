@@ -27,6 +27,10 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value: typeof props.modelValue];
   /**
+   * Emitted when the current search input value changes.
+   */
+  "update:searchTerm": [searchTerm: string];
+  /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
    * See property `lazyLoading` for enabling the lazy loading.
    */
@@ -56,6 +60,11 @@ const { t } = injectI18n();
  * Currently (visually) active option.
  */
 const activeOption = ref<TValue>();
+
+const searchInput = computed({
+  get: () => (props.withSearch && props.searchTerm) || "",
+  set: (newValue) => emit("update:searchTerm", newValue),
+});
 
 /**
  * Sync the active option with the selected option on single select.
@@ -125,11 +134,13 @@ const {
   },
 });
 
-const filteredOptions = computed(() =>
-  props.options.filter(({ label }) =>
-    label.trim().toLowerCase().includes(searchTerm.value.trim().toLowerCase()),
-  ),
-);
+const filteredOptions = computed(() => {
+  if (!props.withSearch) {
+    return props.options;
+  }
+  const _searchTerm = props.searchTerm?.trim().toLowerCase() ?? "";
+  return props.options.filter(({ label }) => label.trim().toLowerCase().includes(_searchTerm));
+});
 
 const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
 
@@ -172,8 +183,6 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
-
-const searchTerm = ref("");
 </script>
 
 <template>
@@ -183,7 +192,7 @@ const searchTerm = ref("");
     </div>
 
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-      <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
+      <OnyxMiniSearch v-if="props.withSearch" v-model="searchInput" class="onyx-listbox__search" />
 
       <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
         <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
