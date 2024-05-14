@@ -12,7 +12,7 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
-      <OnyxBadge density={column} variation={row}>
+      <OnyxBadge density={column} color={row}>
         Badge
       </OnyxBadge>
     ),
@@ -26,7 +26,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
-      <OnyxBadge density={column} variation={row} icon={mockPlaywrightIcon}>
+      <OnyxBadge density={column} color={row} icon={mockPlaywrightIcon}>
         Badge
       </OnyxBadge>
     ),
@@ -41,7 +41,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
-      <OnyxBadge density={column} variation={row} icon={mockPlaywrightIcon} dot>
+      <OnyxBadge density={column} color={row} icon={mockPlaywrightIcon} dot>
         Badge
       </OnyxBadge>
     ),

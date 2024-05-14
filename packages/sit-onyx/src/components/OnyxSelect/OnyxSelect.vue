@@ -119,7 +119,7 @@ const { densityClass } = useDensity(props);
           :text="selectionText"
           position="bottom"
         >
-          <OnyxBadge class="onyx-select__badge" variation="neutral">
+          <OnyxBadge class="onyx-select__badge" color="neutral">
             {{ modelValueCount }}
           </OnyxBadge>
         </OnyxTooltip>
