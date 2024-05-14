@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.95
+
+### Patch Changes
+
+- 2f825ec: fix(OnyxCheckboxGroup,OnyxListbox): preserve disabled states when toggling "check all"
+
 ## 1.0.0-alpha.94
 
 ### Patch Changes
