@@ -4,5 +4,5 @@ export type OnyxNavBarProps = OnyxNavAppAreaProps & {
   /**
    * Whether to show a back button.
    */
-  showBackButton?: boolean;
+  withBackButton?: boolean;
 };

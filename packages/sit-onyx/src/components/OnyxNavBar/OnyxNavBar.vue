@@ -50,7 +50,7 @@ const { t } = injectI18n();
       </OnyxNavAppArea>
 
       <OnyxIconButton
-        v-if="props.showBackButton"
+        v-if="props.withBackButton"
         :label="t('navigation.goBack')"
         :icon="chevronLeftSmall"
         variation="secondary"

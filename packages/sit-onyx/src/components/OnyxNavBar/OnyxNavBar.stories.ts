@@ -46,7 +46,7 @@ export const Default = {
 export const WithBackButton = {
   args: {
     ...Default.args,
-    showBackButton: true,
+    withBackButton: true,
   },
 } satisfies Story;
 

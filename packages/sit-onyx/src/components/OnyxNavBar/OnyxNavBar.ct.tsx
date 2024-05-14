@@ -25,7 +25,7 @@ test.describe("Screenshot tests", () => {
           style={{ width: `${breakpointWidth}px` }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-          showBackButton={row.includes("back")}
+          withBackButton={row.includes("back")}
         >
           <OnyxNavItem label="Item" active />
           <OnyxNavItem label="Item" />
@@ -55,7 +55,7 @@ test.describe("Screenshot tests", () => {
         class={{ "onyx-grid-center": row === "centered" }}
         appName="App name"
         logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-        showBackButton={row.includes("back")}
+        withBackButton={row.includes("back")}
       >
         <OnyxNavItem label="Item" active />
         <OnyxNavItem label="Item" />
@@ -92,7 +92,7 @@ test("should behave correctly", async ({ mount }) => {
       style={{ width: `${ONYX_BREAKPOINTS.md}px` }}
       appName="App name"
       logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-      showBackButton
+      withBackButton
       onAppAreaClick={() => appAreaClickEvents++}
       onBackButtonClick={() => backButtonClickEvents++}
     />,
@@ -105,7 +105,7 @@ test("should behave correctly", async ({ mount }) => {
   expect(backButtonClickEvents).toBe(1);
 
   component = await mount(
-    <OnyxNavBar style={{ width: `${ONYX_BREAKPOINTS.md}px` }} showBackButton>
+    <OnyxNavBar style={{ width: `${ONYX_BREAKPOINTS.md}px` }} withBackButton>
       <template v-slot:appArea>Custom app area</template>
     </OnyxNavBar>,
   );
