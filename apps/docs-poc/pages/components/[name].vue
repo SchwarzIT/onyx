@@ -13,6 +13,24 @@ useHead({
 });
 
 const { data, pending, error } = await useFetch(`/api/components/${route.params.name}`);
+
+const stories = await Promise.all(
+  data.value?.stories.map(async (story) => {
+    return {
+      component: (
+        await import(
+          `../../../../packages/sit-onyx/src/components/${data.value!.name}/stories/${story}.vue`
+        )
+      ).default,
+      sourceCode: (
+        await import(
+          `../../../../packages/sit-onyx/src/components/${data.value!.name}/stories/${story}.vue?raw`
+        )
+      ).default,
+      storyTitle: story,
+    };
+  }) ?? [],
+);
 </script>
 
 <template>
@@ -35,8 +53,26 @@ const { data, pending, error } = await useFetch(`/api/components/${route.params.
 
     <div
       v-else
-      class="tables"
+      class="sections"
     >
+      <div
+        v-for="story in stories"
+        :key="story.storyTitle"
+      >
+        <OnyxHeadline is="h2">
+          {{ story.storyTitle }}
+        </OnyxHeadline>
+
+        <ClientOnly>
+          <component :is="story.component" />
+        </ClientOnly>
+
+        <details>
+          <summary>Code</summary>
+          <pre>{{ story.sourceCode }}</pre>
+        </details>
+      </div>
+
       <ComponentMetaTable
         v-if="data?.meta.props.length"
         :headline="$t('component.props')"
@@ -70,7 +106,7 @@ const { data, pending, error } = await useFetch(`/api/components/${route.params.
   margin: 0 auto;
 }
 
-.tables {
+.sections {
   display: flex;
   flex-direction: column;
   gap: var(--onyx-spacing-xl);

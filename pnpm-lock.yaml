@@ -179,6 +179,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@3.4.27(typescript@5.4.5))
       markdown-it:
         specifier: ^14.1.0
         version: 14.1.0

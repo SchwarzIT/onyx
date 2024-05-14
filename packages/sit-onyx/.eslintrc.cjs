@@ -18,5 +18,9 @@ module.exports = {
       files: ["src/**/*.spec.ts"],
       rules: { "playwright/no-standalone-expect": "off" },
     },
+    {
+      files: ["src/components/**/stories/*.vue"],
+      rules: { "vue/multi-word-component-names": "off" },
+    },
   ],
 };

@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/i18n": "^8.3.1",
     "@sit-onyx/icons": "workspace:^",
+    "@vueuse/core": "^10.9.0",
     "markdown-it": "^14.1.0",
     "nuxt": "^3.11.2",
     "sit-onyx": "workspace:^",

@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import { capitalize } from "vue";
 import { ComponentMeta, createChecker } from "vue-component-meta";
 
@@ -14,10 +15,22 @@ export default defineEventHandler(async (event) => {
   return {
     name: componentName,
     meta,
+    stories: await getStories(componentName),
   };
 });
 
-export const getComponentMeta = (componentName: string) => {
+const getStories = async (componentName: string) => {
+  try {
+    const stories = await fs.readdir(
+      getFilePath(`../../../../packages/sit-onyx/src/components/${componentName}/stories`),
+    );
+    return stories.filter((file) => file.endsWith(".vue")).map((file) => file.replace(".vue", ""));
+  } catch {
+    return [];
+  }
+};
+
+const getComponentMeta = (componentName: string) => {
   const meta = metaChecker.getComponentMeta(
     getFilePath(
       `../../../../packages/sit-onyx/src/components/${componentName}/${componentName}.vue`,
