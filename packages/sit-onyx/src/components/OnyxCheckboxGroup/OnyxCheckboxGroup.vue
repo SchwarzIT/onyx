@@ -58,7 +58,10 @@ const checkAllLabel = computed(() => {
 
     <div
       class="onyx-checkbox-group__content"
-      :class="{ 'onyx-checkbox-group__content--horizontal': props.direction === 'horizontal' }"
+      :class="{
+        'onyx-checkbox-group__content--horizontal': props.direction === 'horizontal',
+        'onyx-checkbox-group__content--vertical': props.direction === 'vertical',
+      }"
     >
       <template v-if="props.skeleton === undefined">
         <OnyxCheckbox
@@ -66,7 +69,7 @@ const checkAllLabel = computed(() => {
           v-bind="checkAll.state.value"
           :label="checkAllLabel"
           value="all"
-          class="onyx-checkbox-group__check-all"
+          class="onyx-checkbox-group__option onyx-checkbox-group__check-all"
           @update:model-value="checkAll.handleChange"
         />
 
@@ -75,6 +78,7 @@ const checkAllLabel = computed(() => {
           :key="option.value.toString()"
           v-bind="option"
           :model-value="props.modelValue.includes(option.value)"
+          class="onyx-checkbox-group__option"
           @update:model-value="handleUpdate(option.value, $event)"
         />
       </template>
@@ -101,6 +105,7 @@ const checkAllLabel = computed(() => {
     border: none;
     max-width: max-content;
     min-width: unset;
+    $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
     &__label {
       margin-bottom: var(--onyx-spacing-2xs);
@@ -108,22 +113,30 @@ const checkAllLabel = computed(() => {
 
     &__content {
       display: flex;
-      flex-direction: column;
+
+      &--vertical {
+        flex-direction: column;
+
+        .onyx-checkbox-group {
+          &__option {
+            width: 100%;
+          }
+          &__check-all {
+            border-bottom: $check-all-border;
+          }
+        }
+      }
 
       &--horizontal {
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-flow: row wrap;
         column-gap: var(--onyx-spacing-xl);
+
+        .onyx-checkbox-group__check-all {
+          border-right: $check-all-border;
+          padding-right: calc(var(--onyx-spacing-2xs) + var(--onyx-spacing-md));
+        }
       }
     }
-
-    &__check-all {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-    }
-  }
-
-  .onyx-checkbox {
-    width: 100%;
   }
 }
 </style>
