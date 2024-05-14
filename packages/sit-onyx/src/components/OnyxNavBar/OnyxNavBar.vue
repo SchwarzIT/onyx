@@ -53,7 +53,7 @@ const { t } = injectI18n();
         v-if="props.withBackButton"
         :label="t('navigation.goBack')"
         :icon="chevronLeftSmall"
-        variation="secondary"
+        color="neutral"
         @click="emit('backButtonClick')"
       />
 

@@ -36,7 +36,7 @@ export const Default = {
       h(OnyxNavItem, { label: "Item", href: "/", active: true }),
       h(OnyxNavItem, { label: "Item", href: "/test" }, () => [
         "Item",
-        h(OnyxBadge, { dot: true, variation: "warning" }),
+        h(OnyxBadge, { dot: true, color: "warning" }),
       ]),
       h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
     ],
