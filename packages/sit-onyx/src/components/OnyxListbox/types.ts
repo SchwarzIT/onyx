@@ -31,9 +31,8 @@ export type OnyxListboxProps<
    * Allows the selection of multiple listbox options
    */
   multiple?: TMultiple;
-
   /**
-   *
+   * Allows the user to filter the list entries.
    */
   withSearch?: boolean;
   /**
