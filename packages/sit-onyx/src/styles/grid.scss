@@ -38,7 +38,7 @@ $gridVariants: (
   /**
  * Grid container class for "xl" breakpoint variant with 20 columns
  */
-  @include breakpoint(min, xl, $offset: 1) {
+  @include screen(min, xl, $offset: 1) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
@@ -86,7 +86,7 @@ $gridVariants: (
       @include generateGridProperties($columns, $gutter, $margin);
       @include generateSpans(1, $columns, $name);
     } @else {
-      @include breakpoint(min, $name, $offset: 1) {
+      @include screen(min, $name, $offset: 1) {
         @include generateGridProperties($columns, $gutter, $margin);
         @include generateSpans(1, $columns, $name);
 

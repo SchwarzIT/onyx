@@ -10,22 +10,28 @@ $breakpoints: (
 /*#endregion breakpoints*/
 
 /**
- * Applies CSS only to the given onyx breakpoint.
+ * Applies CSS only if the screen width satisfies the given onyx breakpoint.
  * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
  * @param {string} $name - name of the onyx breakpoint. One of: 2xs, xs, sm, md, lg or xl
  * @param {number} $offset - optional offset to add to the min/max width. Useful if both min and max are used for the same breakpoint
  *
- * @example breakpoint(min, sm)
- * @example breakpoint(max, sm)
+ * @example screen(min, sm)
+ * @example screen(max, sm)
  */
-@mixin breakpoint($min-max, $name, $offset: 0) {
+@mixin screen($min-max, $name, $offset: 0) {
   @media screen and (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
     @content;
   }
 }
 
 /**
- * Same as `breakpoint` mixin but using container queries instead of media queries.
+ * Applies CSS only if the container width satisfies the given onyx breakpoint.
+ * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
+ * @param {string} $name - name of the onyx breakpoint. One of: 2xs, xs, sm, md, lg or xl
+ * @param {number} $offset - optional offset to add to the min/max width. Useful if both min and max are used for the same breakpoint
+ *
+ * @example container(min, sm)
+ * @example container(max, sm)
  */
 @mixin container($min-max, $name, $offset: 0) {
   @container (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {

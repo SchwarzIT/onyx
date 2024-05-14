@@ -69,7 +69,7 @@ const copyLink = async () => {
 </template>
 
 <style lang="scss" scoped>
-@use "sit-onyx/breakpoints.scss" as onyx;
+@use "sit-onyx/breakpoints.scss";
 
 .header {
   box-sizing: border-box;
@@ -106,7 +106,7 @@ const copyLink = async () => {
     width: 10rem;
   }
 
-  @include onyx.breakpoint(max, md) {
+  @include breakpoints.screen(max, md) {
     flex-direction: column;
     align-items: flex-start;
 
