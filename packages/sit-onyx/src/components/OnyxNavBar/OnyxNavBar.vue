@@ -89,12 +89,11 @@ const { t } = injectI18n();
       align-items: center;
       gap: var(--onyx-spacing-md);
       height: 100%;
-      max-width: var(--onyx-grid-max-width);
       padding: 0 var(--onyx-spacing-3xl);
 
-      // sync grid centered
-      margin-left: var(--onyx-grid-center-margin);
-      margin-right: var(--onyx-grid-center-margin);
+      // sync with grid
+      max-width: var(--onyx-grid-max-width);
+      margin-inline: var(--onyx-grid-margin-inline);
 
       @include breakpoints.container(max, sm) {
         padding: 0 var(--onyx-spacing-xl);

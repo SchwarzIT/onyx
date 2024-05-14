@@ -25,15 +25,14 @@ $gridVariants: (
     box-sizing: content-box;
     max-width: var(--onyx-grid-max-width, none);
 
-    margin-left: var(--onyx-grid-center-margin);
-    margin-right: var(--onyx-grid-center-margin);
+    margin-inline: var(--onyx-grid-margin-inline);
   }
 
   /**
  * Grid container class to allow optional centering for grids with max width
  */
   .onyx-grid-center {
-    --onyx-grid-center-margin: auto;
+    --onyx-grid-margin-inline: auto;
   }
 
   /**
