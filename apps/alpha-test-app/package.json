@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "sit-onyx": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
+    "sit-onyx": "workspace:^",
     "vue": "^3.4.27",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.2"
