@@ -66,6 +66,7 @@ const checkAllLabel = computed(() => {
           v-bind="checkAll.state.value"
           :label="checkAllLabel"
           value="all"
+          class="onyx-checkbox-group__check-all"
           @update:model-value="checkAll.handleChange"
         />
 
@@ -115,6 +116,14 @@ const checkAllLabel = computed(() => {
         column-gap: var(--onyx-spacing-xl);
       }
     }
+
+    &__check-all {
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    }
+  }
+
+  .onyx-checkbox {
+    width: 100%;
   }
 }
 </style>
