@@ -56,7 +56,7 @@ export const Default = {
  */
 export const Icon = {
   args: {
-    variation: "danger",
+    color: "danger",
     icon: placeholder,
   },
 } satisfies Story;

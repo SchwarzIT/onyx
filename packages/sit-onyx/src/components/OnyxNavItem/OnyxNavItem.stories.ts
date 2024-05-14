@@ -71,7 +71,7 @@ export const WithCustomContent = {
     template: `
       <OnyxNavItem v-bind="args">
         Custom label
-        <OnyxBadge dot />
+        <OnyxBadge color="warning" dot />
       </OnyxNavItem>`,
   }),
 } satisfies Story;

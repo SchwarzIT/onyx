@@ -4,7 +4,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxBadgeProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
-  variation: "primary",
+  color: "primary",
   dot: false,
 });
 
@@ -24,7 +24,7 @@ defineSlots<{
     :class="[
       'onyx-truncation-ellipsis',
       'onyx-text',
-      `onyx-badge--${props.variation}`,
+      `onyx-badge--${props.color}`,
       props.dot ? 'onyx-badge--dot' : '',
       densityClass,
     ]"

@@ -1,5 +1,26 @@
 # sit-onyx
 
+## 1.0.0-alpha.97
+
+### Minor Changes
+
+- 5754525: feat(OnyxCheckboxGroup): align style for "check all" with figma
+
+## 1.0.0-alpha.96
+
+### Major Changes
+
+- f99f38f: refactor: align color property names
+
+  - rename property `variation` to `color` for: OnyxBadge, OnyxButton and OnyxIconButton
+  - OnyxButton and OnyxIconButton: rename color `secondary` to `neutral`
+
+## 1.0.0-alpha.95
+
+### Patch Changes
+
+- 2f825ec: fix(OnyxCheckboxGroup,OnyxListbox): preserve disabled states when toggling "check all"
+
 ## 1.0.0-alpha.94
 
 ### Patch Changes
