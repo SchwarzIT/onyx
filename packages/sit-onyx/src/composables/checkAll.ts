@@ -36,9 +36,16 @@ export const useCheckAll = <TValue extends SelectOptionValue = SelectOptionValue
      * Provides an update for the checkbox list with
      * - all option values if "select all" was checked
      * - an empty list if "select all" was unchecked
+     * Does not touch the state of disabled checkboxes
      */
     handleChange: (isChecked: boolean) => {
-      const newValue = isChecked ? enabledOptionValues.value : [];
+      // options that are currently in modelValue but not "enabled" shall not be touched
+      const checkedDisabledOptions = modelValue.value.filter(
+        (checkedValue) => !enabledOptionValues.value.includes(checkedValue),
+      );
+      const newValue = isChecked
+        ? checkedDisabledOptions.concat(enabledOptionValues.value)
+        : checkedDisabledOptions;
       onChangeCallback(newValue);
     },
   };
