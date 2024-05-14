@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-alpha.96
+
+### Major Changes
+
+- f99f38f: refactor: align color property names
+
+  - rename property `variation` to `color` for: OnyxBadge, OnyxButton and OnyxIconButton
+  - OnyxButton and OnyxIconButton: rename color `secondary` to `neutral`
+
 ## 1.0.0-alpha.95
 
 ### Patch Changes
