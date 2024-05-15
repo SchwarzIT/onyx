@@ -16,8 +16,19 @@ const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>()
 </template>
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 .onyx-list-item {
+  @include density.compact {
+    --onyx-list-item-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+  }
+  @include density.default {
+    --onyx-list-item-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+  }
+  @include density.cozy {
+    --onyx-list-item-padding: var(--onyx-spacing-sm) var(--onyx-spacing-sm);
+  }
+
   @include layers.component() {
     --onyx-list-item-color: var(--onyx-color-text-icons-neutral-intense);
     --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-bold);
@@ -26,7 +37,7 @@ const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>()
 
     font-family: var(--onyx-font-family);
     color: var(--onyx-list-item-color);
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-list-item-padding);
     background-color: var(--onyx-color-base-background-blank);
     font-weight: 400;
     font-size: 1rem;
