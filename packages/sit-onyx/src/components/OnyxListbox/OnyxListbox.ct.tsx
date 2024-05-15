@@ -344,22 +344,19 @@ test("should display optionsEnd slot", async ({ mount }) => {
   await expect(component).toHaveScreenshot("custom-load-button.png");
 });
 
-test("should allow entering a searchTerm", async ({ mount }) => {
+test("should handle onUpdate:searchTerm correctly when searching", async ({ mount }) => {
   const onUpdateSearchTerm: string[] = [];
 
   // ARRANGE
-  const component = await mount(
-    <OnyxListbox
-      options={MOCK_MANY_OPTIONS}
-      label="Test label"
-      withSearch
-      onUpdate:searchTerm={(input) => onUpdateSearchTerm.push(input)}
-    />,
-  );
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: MOCK_MANY_OPTIONS,
+      label: "Test label",
+      withSearch: true,
+      "onUpdate:searchTerm": (i) => onUpdateSearchTerm.push(i),
+    },
+  });
   const searchInput = component.getByRole("textbox");
-
-  // ASSERT
-  await expect(searchInput).toBeAttached();
 
   // ACT
   await searchInput.pressSequentially("test");
@@ -367,4 +364,24 @@ test("should allow entering a searchTerm", async ({ mount }) => {
   // ASSERT
   expect(onUpdateSearchTerm).toHaveLength(4);
   expect(onUpdateSearchTerm.at(-1)).toBe("test");
+
+  // ACT
+  await component.getByLabel("Clear search filter").click();
+
+  // ASSERT
+  expect(onUpdateSearchTerm).toHaveLength(5);
+  expect(onUpdateSearchTerm.at(-1)).toBe("");
+
+  // ACT
+  await component.update({ props: { searchTerm: "new test" } });
+
+  // ASSERT
+  await expect(searchInput).toHaveValue("new test");
+
+  // ACT
+  await component.update({ props: { searchTerm: "" } });
+
+  // ASSERT
+  expect(onUpdateSearchTerm).toHaveLength(5);
+  await expect(searchInput).toHaveValue("");
 });
