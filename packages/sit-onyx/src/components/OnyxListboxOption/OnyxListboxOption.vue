@@ -21,7 +21,11 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxListItem class="onyx-listbox-option" :active="props.active" :color="props.color">
+  <OnyxListItem
+    :class="['onyx-listbox-option', densityClass]"
+    :active="props.active"
+    :color="props.color"
+  >
     <input
       v-if="props.multiple"
       :checked="!!$attrs['aria-checked']"
