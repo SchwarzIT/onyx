@@ -41,7 +41,7 @@ const avatar = computed(() => {
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </button>
 
-    <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('userMenuLabel')">
+    <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />

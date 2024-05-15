@@ -28,5 +28,9 @@
     "clearSearch": "Clear search filter"
   },
   "navItemOptionsLabel": "Subpages of {label}",
-  "userMenuLabel": "User options"
+  "navigation": {
+    "appLogo": "App logo",
+    "goBack": "Go back",
+    "userMenuLabel": "User options"
+  }
 }

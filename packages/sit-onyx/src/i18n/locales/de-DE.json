@@ -27,5 +27,10 @@
     "searchInputLabel": "Durchsuche die Liste",
     "clearSearch": "Lösche Suchtext"
   },
-  "navItemOptionsLabel": "Unterseiten von {label}"
+  "navItemOptionsLabel": "Unterseiten von {label}",
+  "navigation": {
+    "appLogo": "App logo",
+    "goBack": "Zurück",
+    "userMenuLabel": "Benutzeroptionen"
+  }
 }
