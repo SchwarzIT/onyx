@@ -111,6 +111,7 @@ const shouldShowExternalIcon = computed(() => {
 
       .onyx-nav-item__flyout {
         opacity: 1;
+        visibility: visible;
       }
     }
 
@@ -137,7 +138,9 @@ const shouldShowExternalIcon = computed(() => {
       margin-top: var(--onyx-spacing-sm);
       position: absolute;
       opacity: 0;
-      transition: opacity var(--onyx-duration-sm);
+      visibility: hidden;
+      transition-duration: var(--onyx-duration-sm);
+      transition-property: opacity, visibility;
 
       &:hover,
       &:focus-within {
