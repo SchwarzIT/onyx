@@ -132,9 +132,8 @@ const avatar = computed(() => {
     &__flyout {
       opacity: 0;
       visibility: hidden;
-      transition:
-        opacity var(--onyx-duration-sm),
-        visibility var(--onyx-duration-sm);
+      transition-duration: var(--onyx-duration-sm);
+      transition-property: opacity, visibility;
       position: absolute;
       right: 0;
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
