@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, toRef, watch } from "vue";
 import type { OnyxTimerProps } from "./types";
 import { useTimer } from "../../composables/useTimer";
 import { injectI18n } from "../../i18n";
+import { formatTimeLeft, formatTimeLeftHtmlAttribute } from "../../utils/time";
 
 const props = withDefaults(defineProps<OnyxTimerProps>(), {
   endTime: new Date().toISOString(),
@@ -19,26 +20,12 @@ const { startTimer, endTimer, timeLeft, isEnded } = useTimer({
   isPaused: toRef(props, "isPaused"),
 });
 
-// format the time left in hours, minutes and seconds, could be moved to utils
 const formattedTime = computed(() => {
-  const hours = Math.floor(timeLeft.value / 60000 / 60);
-  const minutes = Math.floor(timeLeft.value / 60000);
-  const seconds = Math.floor((timeLeft.value % 60000) / 1000);
-  let time = "";
-  let label = t.value("time.seconds", { n: seconds });
-  if (minutes > 0) {
-    label = t.value("time.minutes", { n: minutes });
-  }
-  if (hours > 0) {
-    label = t.value("time.hours", { n: hours });
-    time = `${hours.toString().padStart(2, "0")}:`;
-  }
-  return `${time}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${label}`;
+  return formatTimeLeft(timeLeft.value, t);
 });
 
-//TODO: duration
 const formattedDuration = computed(() => {
-  return "tbd";
+  return formatTimeLeftHtmlAttribute(timeLeft.value);
 });
 
 watch(isEnded, (value) => {
