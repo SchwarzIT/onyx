@@ -76,7 +76,6 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
     }
 
     &__input {
-      color: var(--onyx-color-text-icons-neutral-soft);
       font-family: var(--onyx-font-family);
       font-size: var(--onyx-spacing-md);
       font-style: normal;
@@ -84,6 +83,11 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
       line-height: var(--onyx-spacing-lg);
       flex-grow: 1;
       min-width: 0;
+      color: inherit;
+
+      &::placeholder {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
 
     &__clear {
