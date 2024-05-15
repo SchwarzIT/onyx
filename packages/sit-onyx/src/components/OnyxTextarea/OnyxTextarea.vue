@@ -131,7 +131,6 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   }
 }
 
-// TODO: communicate to UX that total height is 160px not 156px
 $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
 
 .onyx-textarea-skeleton {
@@ -155,8 +154,7 @@ $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
       resize: vertical;
       height: $default-height;
 
-      &:disabled {
-        // TODO: communicate this to UX
+      &:read-only {
         resize: none;
       }
     }
