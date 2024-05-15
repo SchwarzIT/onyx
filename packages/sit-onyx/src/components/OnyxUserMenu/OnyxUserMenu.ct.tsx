@@ -54,9 +54,16 @@ test("should behave correctly", async ({ mount }) => {
   const menu = component.getByLabel("User options");
   const button = component.getByRole("button", { name: "Jane Doe" });
 
+  await expect(menu).toBeHidden();
+
+  // should not be opened by hover
+  await button.hover();
+  await expect(menu).toBeHidden();
+
   await button.click();
   await expect(menu).toBeVisible();
 
   await menu.getByText("Settings").click();
+  await expect(menu).toBeHidden(); // should close after clicking on option
   expect(optionClickEvents).toStrictEqual(["/settings"]);
 });

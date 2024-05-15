@@ -102,6 +102,7 @@ const avatar = computed(() => {
 
       .onyx-user-menu__flyout {
         opacity: 1;
+        visibility: visible;
       }
 
       .onyx-user-menu__chevron {
@@ -130,7 +131,10 @@ const avatar = computed(() => {
 
     &__flyout {
       opacity: 0;
-      transition: opacity var(--onyx-duration-sm);
+      visibility: hidden;
+      transition:
+        opacity var(--onyx-duration-sm),
+        visibility var(--onyx-duration-sm);
       position: absolute;
       right: 0;
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
