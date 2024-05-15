@@ -27,7 +27,7 @@ const userMenuOptions = [
 </script>
 
 <template>
-  <OnyxAppLayout class="dark">
+  <OnyxAppLayout>
     <template #navBar>
       <OnyxNavBar
         app-name="Alpha Test App"

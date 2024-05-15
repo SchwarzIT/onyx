@@ -28,6 +28,7 @@ import {
 import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
+import { useDark, useToggle } from "@vueuse/core";
 
 const { locale } = useI18n();
 
@@ -118,12 +119,16 @@ const groupedListboxOptions: ListboxOption[] = [
 
 const multiSelectState = ref(selectOptions.slice(0, 5));
 const singleSelectState = ref(selectOptions[0]);
+
+const toggleDark = useToggle(useDark());
 </script>
 
 <template>
   <OnyxPageLayout>
     <template #sidebar>
       <div class="sidebar">
+        <OnyxButton label="Toggle Dark Mode" @click="toggleDark" />
+
         <OnyxRadioButtonGroup
           v-model="activeDensityOption"
           headline="Density"
