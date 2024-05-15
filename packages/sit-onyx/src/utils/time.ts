@@ -26,7 +26,10 @@ export const formatTimeLeft = (timeLeft: number, t: ReturnType<typeof injectI18n
   return `${time}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${label}`;
 };
 
-//TODO:
 export const formatTimeLeftHtmlAttribute = (timeLeft: number) => {
-  return timeLeft.toString();
+  const hours = Math.floor(timeLeft / 60000 / 60);
+  const minutes = Math.floor(timeLeft / 60000);
+  const seconds = Math.floor((timeLeft % 60000) / 1000);
+
+  return `PT0H${hours}M${minutes}S${seconds}`;
 };

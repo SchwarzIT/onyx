@@ -24,7 +24,7 @@ const formattedTime = computed(() => {
   return formatTimeLeft(timeLeft.value, t);
 });
 
-const formattedDuration = computed(() => {
+const formattedTimeAttribute = computed(() => {
   return formatTimeLeftHtmlAttribute(timeLeft.value);
 });
 
@@ -40,7 +40,7 @@ onBeforeUnmount(() => endTimer());
 <template>
   <p class="onyx-timer">
     <span v-if="props.label" class="onyx-timer__label">{{ props.label }}</span>
-    <time :datetime="formattedDuration" class="onyx-timer__time">{{ formattedTime }}</time>
+    <time :datetime="formattedTimeAttribute" class="onyx-timer__time">{{ formattedTime }}</time>
   </p>
 </template>
 
