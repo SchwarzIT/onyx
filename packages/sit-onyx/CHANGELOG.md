@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.101
+
+### Patch Changes
+
+- 2ea735b: Hide nested children when nav item is closed
+
+## 1.0.0-alpha.100
+
+### Patch Changes
+
+- d54d357: fix(OnyxUserMenu): hide flyout menu when closed
+
 ## 1.0.0-alpha.99
 
 ### Patch Changes
