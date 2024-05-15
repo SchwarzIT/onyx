@@ -33,7 +33,7 @@ export const useTimer = (options: TimerOptions) => {
           clearInterval(intervalId.value);
         }
       }
-    }, 999);
+    }, 1000);
   };
 
   const endTimer = () => {
