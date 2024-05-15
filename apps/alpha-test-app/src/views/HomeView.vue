@@ -2,7 +2,6 @@
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import {
   DENSITIES,
-  OnyxAppLayout,
   OnyxAvatar,
   OnyxBadge,
   OnyxButton,
@@ -28,11 +27,9 @@ import {
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
 import LanguageSelection from "../components/LanguageSelection.vue";
 
 const { locale } = useI18n();
-const router = useRouter();
 
 const COMPONENTS = [
   "OnyxAvatar",
@@ -124,199 +121,178 @@ const singleSelectState = ref(selectOptions[0]);
 </script>
 
 <template>
-  <OnyxAppLayout class="dark">
-    <template #navBar>
-      <div class="nav">
-        <OnyxHeadline is="h3">Alpha Test App</OnyxHeadline>
+  <OnyxPageLayout>
+    <template #sidebar>
+      <div class="sidebar">
+        <OnyxRadioButtonGroup
+          v-model="activeDensityOption"
+          headline="Density"
+          :options="densityOptions"
+        />
+        <LanguageSelection v-model="locale" />
 
-        <OnyxButton mode="plain" label="Form Demo" @click="router.push('/form-demo')" />
-        <OnyxButton mode="plain" label="Layout Demo" @click="router.push('/layout-demo')" />
+        <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
+
+        <OnyxCheckboxGroup
+          v-model="activeConfig"
+          headline="Examples to show"
+          :options="configOptions"
+          with-check-all
+        />
       </div>
     </template>
 
-    <OnyxPageLayout>
-      <template #sidebar>
-        <div class="sidebar">
-          <OnyxRadioButtonGroup
-            v-model="activeDensityOption"
-            headline="Density"
-            :options="densityOptions"
-          />
-          <LanguageSelection v-model="locale" />
+    <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
+      <OnyxHeadline is="h1">Component usages</OnyxHeadline>
 
-          <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
+      <p>Each onyx component should be used at least once in this page.</p>
 
+      <div class="page__examples">
+        <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
+
+        <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
+        <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
+
+        <template v-if="show('OnyxCheckboxGroup')">
           <OnyxCheckboxGroup
-            v-model="activeConfig"
-            headline="Examples to show"
-            :options="configOptions"
-            with-check-all
+            v-model="checkboxState"
+            headline="Checkbox Group"
+            :options="minimalSelectOptions"
+            :skeleton="skeletonNumber"
           />
-        </div>
-      </template>
+          <div v-if="!useSkeleton" class="onyx-text--small state-info">
+            OnyxCheckboxGroup state: {{ checkboxState }}
+          </div>
+        </template>
 
-      <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
-        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
+        <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
-        <p>Each onyx component should be used at least once in this page.</p>
+        <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
 
-        <div class="page__examples">
-          <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
+        <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
-          <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
-          <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
+        <OnyxIconButton
+          v-if="show('OnyxIconButton')"
+          label="Happy Emoji"
+          :icon="emojiHappy2"
+          :skeleton="useSkeleton"
+        />
 
-          <template v-if="show('OnyxCheckboxGroup')">
-            <OnyxCheckboxGroup
-              v-model="checkboxState"
-              headline="Checkbox Group"
-              :options="minimalSelectOptions"
-              :skeleton="skeletonNumber"
+        <OnyxInput v-if="show('OnyxInput')" label="Input" :skeleton="useSkeleton" />
+
+        <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
+
+        <template v-if="show('OnyxListbox')">
+          <div style="display: flex; gap: var(--onyx-spacing-xs)">
+            <OnyxListbox v-model="listboxState" label="Example listbox" :options="selectOptions" />
+            <OnyxListbox
+              v-model="groupedListboxState"
+              label="Example grouped listbox"
+              :options="groupedListboxOptions"
             />
-            <div v-if="!useSkeleton" class="onyx-text--small state-info">
-              OnyxCheckboxGroup state: {{ checkboxState }}
-            </div>
-          </template>
-
-          <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
-
-          <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
-
-          <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
-
-          <OnyxIconButton
-            v-if="show('OnyxIconButton')"
-            label="Happy Emoji"
-            :icon="emojiHappy2"
-            :skeleton="useSkeleton"
-          />
-
-          <OnyxInput v-if="show('OnyxInput')" label="Input" :skeleton="useSkeleton" />
-
-          <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
-
-          <template v-if="show('OnyxListbox')">
-            <div style="display: flex; gap: var(--onyx-spacing-xs)">
-              <OnyxListbox
-                v-model="listboxState"
-                label="Example listbox"
-                :options="selectOptions"
-              />
-              <OnyxListbox
-                v-model="groupedListboxState"
-                label="Example grouped listbox"
-                :options="groupedListboxOptions"
-              />
-              <OnyxListbox
-                v-model="multiselectListboxState"
-                label="Example multiselect listbox"
-                :multiple="true"
-                :with-check-all="true"
-                :options="selectOptions"
-              />
-            </div>
-
-            <div class="onyx-text--small state-info">
-              <div>OnyxListbox single state: {{ listboxState ?? "–" }}</div>
-              <div>OnyxListbox single grouped state: {{ groupedListboxState ?? "–" }}</div>
-              <div>OnyxListbox multiselect state: {{ multiselectListboxState ?? "–" }}</div>
-            </div>
-          </template>
-
-          <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
-
-          <template v-if="show('OnyxRadioButtonGroup')">
-            <OnyxRadioButtonGroup
-              v-model="radioState"
-              headline="Radio Button Group"
-              :options="minimalSelectOptions"
-              :skeleton="skeletonNumber"
-            />
-            <div v-if="!useSkeleton" class="onyx-text--small state-info">
-              OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
-            </div>
-          </template>
-
-          <template v-if="show('OnyxSelect')">
-            <OnyxSelect
-              v-model="singleSelectState"
-              label="Single Select"
-              placeholder="Select your fruits"
-              :skeleton="useSkeleton"
+            <OnyxListbox
+              v-model="multiselectListboxState"
+              label="Example multiselect listbox"
+              :multiple="true"
+              :with-check-all="true"
               :options="selectOptions"
             />
-            <div v-if="!useSkeleton" class="onyx-text--small state-info">
-              OnyxSelect single state: {{ singleSelectState ?? "–" }}
-            </div>
-            <OnyxSelect
-              v-model="multiSelectState"
-              label="Multiple Select"
-              placeholder="Select your fruits"
-              multiple
-              :skeleton="useSkeleton"
-              :options="selectOptions"
-            />
-            <div v-if="!useSkeleton" class="onyx-text--small state-info">
-              OnyxSelect multiple state: {{ multiSelectState ?? "–" }}
-            </div>
-          </template>
+          </div>
 
-          <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
+          <div class="onyx-text--small state-info">
+            <div>OnyxListbox single state: {{ listboxState ?? "–" }}</div>
+            <div>OnyxListbox single grouped state: {{ groupedListboxState ?? "–" }}</div>
+            <div>OnyxListbox multiselect state: {{ multiselectListboxState ?? "–" }}</div>
+          </div>
+        </template>
 
-          <OnyxSwitch
-            v-if="show('OnyxSwitch')"
-            v-model="switchState"
-            :label="'Switch is ' + (switchState ? 'on' : 'off')"
-            :skeleton="useSkeleton"
+        <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
+
+        <template v-if="show('OnyxRadioButtonGroup')">
+          <OnyxRadioButtonGroup
+            v-model="radioState"
+            headline="Radio Button Group"
+            :options="minimalSelectOptions"
+            :skeleton="skeletonNumber"
           />
+          <div v-if="!useSkeleton" class="onyx-text--small state-info">
+            OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
+          </div>
+        </template>
 
-          <OnyxTable v-if="show('OnyxTable')">
-            <thead>
-              <tr>
-                <th>Fruit</th>
-                <th>Price (€/kg)</th>
-                <th>Inventory (kg)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Strawberry</td>
-                <td>4.50</td>
-                <td>200</td>
-              </tr>
-              <tr>
-                <td>Apple</td>
-                <td>1.99</td>
-                <td>3000</td>
-              </tr>
-              <tr>
-                <td>Banana</td>
-                <td>3.75</td>
-                <td>18000</td>
-              </tr>
-            </tbody>
-          </OnyxTable>
+        <template v-if="show('OnyxSelect')">
+          <OnyxSelect
+            v-model="singleSelectState"
+            label="Single Select"
+            placeholder="Select your fruits"
+            :skeleton="useSkeleton"
+            :options="selectOptions"
+          />
+          <div v-if="!useSkeleton" class="onyx-text--small state-info">
+            OnyxSelect single state: {{ singleSelectState ?? "–" }}
+          </div>
+          <OnyxSelect
+            v-model="multiSelectState"
+            label="Multiple Select"
+            placeholder="Select your fruits"
+            multiple
+            :skeleton="useSkeleton"
+            :options="selectOptions"
+          />
+          <div v-if="!useSkeleton" class="onyx-text--small state-info">
+            OnyxSelect multiple state: {{ multiSelectState ?? "–" }}
+          </div>
+        </template>
 
-          <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+        <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
 
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
-            Hover me to show tooltip
-          </OnyxTooltip>
+        <OnyxSwitch
+          v-if="show('OnyxSwitch')"
+          v-model="switchState"
+          :label="'Switch is ' + (switchState ? 'on' : 'off')"
+          :skeleton="useSkeleton"
+        />
 
-          <!-- Add new components alphabetically. -->
-        </div>
+        <OnyxTable v-if="show('OnyxTable')">
+          <thead>
+            <tr>
+              <th>Fruit</th>
+              <th>Price (€/kg)</th>
+              <th>Inventory (kg)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Strawberry</td>
+              <td>4.50</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td>Apple</td>
+              <td>1.99</td>
+              <td>3000</td>
+            </tr>
+            <tr>
+              <td>Banana</td>
+              <td>3.75</td>
+              <td>18000</td>
+            </tr>
+          </tbody>
+        </OnyxTable>
+
+        <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+
+        <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+          Hover me to show tooltip
+        </OnyxTooltip>
+
+        <!-- Add new components alphabetically. -->
       </div>
-    </OnyxPageLayout>
-  </OnyxAppLayout>
+    </div>
+  </OnyxPageLayout>
 </template>
 
 <style lang="scss" scoped>
-.nav {
-  display: flex;
-  align-items: center;
-  padding-left: var(--onyx-spacing-xs);
-  border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-}
 .sidebar {
   display: flex;
   flex-direction: column;

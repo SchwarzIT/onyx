@@ -24,6 +24,22 @@ If there are less columns available than an element is assigned, it will span al
 Additionally, an element can also be configured to span a specific amount of columns for a minimum breakpoint (TODO: Add link to breakpoint UX definition).
 Multiple span definitions can then be combined to resize an element based on the breakpoint.
 
+## Example
+
+```html
+<div class="onyx-grid-max-md onyx-grid-center">
+  <!-- nav bar etc. here... -->
+
+  <main class="onyx-grid">
+    <!-- page content here... -->
+  </main>
+</div>
+```
+
+::: info
+The `onyx-grid-max-*` and `onyx-grid-center` classes should be set on the very top app level because some onyx components like the `OnyxNavBar` align with the grid to e.g. automatically set the max width also for the nav bar to match the page content width.
+:::
+
 ## Usage
 
 The grid layout is configured via the following CSS classes which must be set on the main element of your application.

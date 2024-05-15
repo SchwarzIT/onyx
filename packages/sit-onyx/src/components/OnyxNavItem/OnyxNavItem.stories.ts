@@ -1,14 +1,14 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxNavItem from "./OnyxNavItem.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
  * The nav item is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavItem> = {
-  title: "components/NavItem",
+  title: "support/NavItem",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavItem,
     events: ["click"],
@@ -65,11 +65,7 @@ export const WithOptions = {
 export const WithCustomContent = {
   args: {
     ...Default.args,
-    default: () =>
-      h("div", { style: { gap: "8px", display: "flex", "align-items": "center" } }, [
-        "custom label",
-        h(OnyxBadge, { dot: true }),
-      ]),
+    default: () => ["custom label", h(OnyxBadge, { dot: true, variation: "warning" })],
   },
 } satisfies Story;
 
