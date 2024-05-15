@@ -10,10 +10,6 @@ export type OnyxTimerProps = DensityProp & {
    */
   label?: string;
   /**
-   * label for minutes, e.g. "min"
-   */
-  minutesLabel?: string;
-  /**
    * is the time paused
    */
   isPaused?: boolean;
