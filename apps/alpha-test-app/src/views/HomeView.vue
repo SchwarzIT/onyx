@@ -124,7 +124,7 @@ const singleSelectState = ref(selectOptions[0]);
 </script>
 
 <template>
-  <OnyxAppLayout>
+  <OnyxAppLayout class="dark">
     <template #navBar>
       <div class="nav">
         <OnyxHeadline is="h3">Alpha Test App</OnyxHeadline>
