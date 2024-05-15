@@ -269,11 +269,21 @@ watchEffect(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/list";
+@use "../../styles/mixins/density.scss";
 
 .onyx-listbox {
+  @include density.compact {
+    --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
+  }
+  @include density.default {
+    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+  }
+  @include density.cozy {
+    --option-height: calc(1.5rem + 3 * var(--onyx-spacing-2xs));
+  }
+
   @include layers.component() {
     --max-options: 8;
-    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
 
     @include list.styles();
 
