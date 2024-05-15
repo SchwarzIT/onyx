@@ -1,5 +1,43 @@
 # sit-onyx
 
+## 1.0.0-alpha.98
+
+### Major Changes
+
+- 9eb7b4e: rename SCSS breakpoint mixin
+
+  Old:
+
+  ```scss
+  @use "sit-onyx/breakpoints.scss" as onyx;
+
+  @include onyx.breakpoint(max, md) {
+    // your styles
+  }
+  ```
+
+  New:
+
+  ```scss
+  @use "sit-onyx/breakpoints.scss";
+
+  @include breakpoints.screen(max, md) {
+    // your styles
+  }
+  ```
+
+### Minor Changes
+
+- 9eb7b4e: feat: add `OnyxNavBar` component
+
+  If you used one of the `onyx-grid-max-md`, `onyx-grid-max-lg` or `onyx-grid-center` CSS classes which are not placed on the application root, move them to the application root element. See [grid docs](https://onyx.schwarz/development/grid.html#example) for further information
+
+## 1.0.0-alpha.97
+
+### Minor Changes
+
+- 5754525: feat(OnyxCheckboxGroup): align style for "check all" with figma
+
 ## 1.0.0-alpha.96
 
 ### Major Changes
