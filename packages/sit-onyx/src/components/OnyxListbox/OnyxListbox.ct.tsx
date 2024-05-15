@@ -358,6 +358,9 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
   });
   const searchInput = component.getByRole("textbox");
 
+  // ASSERT
+  await expect(component).toHaveScreenshot("with-search-empty.png");
+
   // ACT
   await searchInput.pressSequentially("test");
 
@@ -373,10 +376,11 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
   expect(onUpdateSearchTerm.at(-1)).toBe("");
 
   // ACT
-  await component.update({ props: { searchTerm: "new test" } });
+  await component.update({ props: { searchTerm: "very long and new test text" } });
 
   // ASSERT
-  await expect(searchInput).toHaveValue("new test");
+  await expect(searchInput).toHaveValue("very long and new test text");
+  await expect(component).toHaveScreenshot("with-search-filled.png");
 
   // ACT
   await component.update({ props: { searchTerm: "" } });
