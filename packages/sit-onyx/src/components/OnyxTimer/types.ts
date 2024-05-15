@@ -4,7 +4,7 @@ export type OnyxTimerProps = DensityProp & {
   /**
    * The end time of the timer
    */
-  endTime?: string;
+  endTime: string;
   /**
    * optional label to show
    */
