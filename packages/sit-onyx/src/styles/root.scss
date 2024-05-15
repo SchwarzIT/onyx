@@ -18,6 +18,15 @@
     --onyx-shadow-soft-right: 0.5rem 0 1.5rem 0 rgba(0, 0, 0, 0.1);
   }
 
+  :root,
+  .onyx-light {
+    color-scheme: light;
+  }
+  .dark,
+  .onyx-dark {
+    color-scheme: dark;
+  }
+
   .dark,
   .onyx-dark {
     --onyx-shadow-medium-bottom: none;
