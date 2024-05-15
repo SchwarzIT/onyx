@@ -16,7 +16,7 @@ test.describe("Screenshot tests", () => {
             placeholder={state === "placeholder" ? "Test placeholder" : undefined}
             density={column}
             modelValue={state === "with value" ? "Filled value" : undefined}
-            style="width: 16rem;"
+            style="width: 12rem;"
           />
         );
       },
@@ -42,7 +42,7 @@ test.describe("Screenshot tests", () => {
 
       return (
         <OnyxTextarea
-          style="width: 16rem"
+          style="width: 12rem"
           label={label}
           hideLabel={column === "hideLabel"}
           required={row === "required"}
@@ -62,7 +62,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus"],
     component: (column) => (
       <OnyxTextarea
-        style="width: 16rem"
+        style="width: 12rem"
         label="Test label"
         placeholder="Test placeholder"
         readonly={column === "readonly"}
@@ -80,7 +80,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => (
-      <OnyxTextarea style="width: 16rem" label="Test label" customError="Test error" />
+      <OnyxTextarea style="width: 12rem" label="Test label" customError="Test error" />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       const input = component.getByLabel("Test label");
@@ -100,7 +100,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hideLabel"],
     component: (column, row) => (
       <OnyxTextarea
-        style="width: 16rem"
+        style="width: 12rem"
         label="Test label"
         density={column}
         hideLabel={row === "hideLabel"}
@@ -115,7 +115,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "resized"],
     component: (column) => (
       <OnyxTextarea
-        style="width: 16rem"
+        style="width: 12rem"
         label="Test label"
         modelValue={
           column === "filled"
