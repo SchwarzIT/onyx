@@ -22,7 +22,7 @@ type Story = StoryObj<typeof OnyxTimer>;
  */
 
 const endTime = new Date();
-endTime.setTime(Date.now() + 2 * 1000);
+endTime.setTime(Date.now() + 125 * 1000);
 
 export const Default = {
   args: {
