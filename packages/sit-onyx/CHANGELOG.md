@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.99
+
+### Patch Changes
+
+- 3a9783d: Fix listbox position inside OnyxNavItem
+
 ## 1.0.0-alpha.98
 
 ### Major Changes
