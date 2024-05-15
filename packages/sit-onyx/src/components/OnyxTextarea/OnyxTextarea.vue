@@ -148,7 +148,6 @@ $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
     &__wrapper {
       padding: 0;
       height: unset;
-      position: relative;
     }
 
     &__native {
@@ -159,10 +158,6 @@ $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
       &:disabled {
         // TODO: communicate this to UX
         resize: none;
-      }
-
-      &::-webkit-resizer {
-        // TODO: update resize indicator color
       }
     }
   }
