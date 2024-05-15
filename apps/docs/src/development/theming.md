@@ -1,4 +1,4 @@
-# Theming
+# Theming Setup
 
 Onyx supports a dark and a light theme.  
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
