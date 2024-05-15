@@ -2,6 +2,7 @@
 import { computed, useAttrs, type HtmlHTMLAttributes } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { injectI18n } from "../../i18n";
 
 defineOptions({ inheritAttrs: false });
 
@@ -12,6 +13,8 @@ const props = defineProps<{ modelValue: string; label: string }>();
 const emit = defineEmits<{
   "update:modelValue": [input: string];
 }>();
+
+const { t } = injectI18n();
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
@@ -49,7 +52,7 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
       class="onyx-mini-search__clear"
-      aria-hidden="true"
+      :aria-label="t('listbox.clearSearch')"
       tabindex="-1"
       @mousedown.prevent="value = ''"
     >

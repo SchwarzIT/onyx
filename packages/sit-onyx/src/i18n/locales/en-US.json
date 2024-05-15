@@ -24,7 +24,8 @@
   "listbox": {
     "empty": "No data available",
     "noMatch": "No entry matches your search",
-    "searchInputLabel": "Filter the list entries"
+    "searchInputLabel": "Filter the list entries",
+    "clearSearch": "Clear search filter"
   },
   "navItemOptionsLabel": "Subpages of {label}",
   "userMenuLabel": "User options"
