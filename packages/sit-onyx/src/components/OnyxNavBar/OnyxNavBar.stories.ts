@@ -22,6 +22,12 @@ const meta: Meta<typeof OnyxNavBar> = {
       contextArea: { control: { disable: true } },
       appArea: { control: { type: "text" } },
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="margin-bottom: 10rem;"> <story /> </div>`,
+      }),
+    ] as Decorator[],
   }),
 };
 
@@ -34,10 +40,19 @@ export const Default = {
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Item", href: "/", active: true }),
-      h(OnyxNavItem, { label: "Item", href: "/test" }, () => [
-        "Item",
-        h(OnyxBadge, { dot: true, color: "warning" }),
-      ]),
+      h(
+        OnyxNavItem,
+        {
+          label: "Item",
+          href: "/test",
+          options: [
+            { label: "Nested item 1", href: "#" },
+            { label: "Nested item 2", href: "#" },
+            { label: "Nested item 3", href: "#" },
+          ],
+        },
+        () => ["Item", h(OnyxBadge, { dot: true, color: "warning" })],
+      ),
       h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
     ],
   },
@@ -59,12 +74,6 @@ export const WithContextArea = {
       h(OnyxUserMenu, OnyxUserMenuDefault.args),
     ],
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="margin-bottom: 16rem;"> <story /> </div>`,
-    }),
-  ] as Decorator[],
 } satisfies Story;
 
 /**
