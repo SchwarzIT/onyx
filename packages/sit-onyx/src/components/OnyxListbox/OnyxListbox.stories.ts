@@ -32,6 +32,7 @@ const meta: Meta<typeof OnyxListbox> = {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
       modelValue: { control: { type: "text" } },
+      searchTerm: { control: { type: "text" } },
     },
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.
