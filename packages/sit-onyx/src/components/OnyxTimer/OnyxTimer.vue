@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<OnyxTimerProps>(), {
 });
 
 const emit = defineEmits<{
+  /** emitted when timer has ended */
   timerEnded: [];
 }>();
 
@@ -20,13 +21,9 @@ const { startTimer, endTimer, timeLeft, isEnded } = useTimer({
   isPaused: toRef(props, "isPaused"),
 });
 
-const formattedTime = computed(() => {
-  return formatTimerTime(timeLeft.value, t);
-});
+const formattedTime = computed(() => formatTimerTime(timeLeft.value, t));
 
-const formattedTimeAttribute = computed(() => {
-  return formatTimerTimeDuration(timeLeft.value);
-});
+const formattedTimeAttribute = computed(() => formatTimerTimeDuration(timeLeft.value));
 
 watch(isEnded, (value) => {
   if (value) emit("timerEnded");
