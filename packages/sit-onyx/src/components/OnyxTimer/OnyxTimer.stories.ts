@@ -21,20 +21,52 @@ type Story = StoryObj<typeof OnyxTimer>;
  * This example shows a timer with 30 seconds duration.
  */
 
-const endTime = new Date();
-endTime.setTime(Date.now() + 125 * 1000);
+export const Default: Story = {
+  render: (args, { loaded: { endTime } }) => ({
+    components: { OnyxTimer },
+    setup() {
+      return { args, endTime: endTime };
+    },
+    template: '<OnyxTimer :end-time="endTime" label="test label" />',
+  }),
+  loaders: [
+    () => {
+      const endTime = new Date();
+      endTime.setTime(Date.now() + 30 * 1000);
+      return { endTime };
+    },
+  ],
+};
 
-export const Default = {
-  args: {
-    label: "Test label",
-    endTime: endTime.toISOString(),
-  },
+export const WithHours: Story = {
+  ...Default,
+  loaders: [
+    () => {
+      const endTime = new Date();
+      endTime.setTime(Date.now() + 60 * 125 * 1000);
+      return { endTime };
+    },
+  ],
 } satisfies Story;
 
-export const WithoutLabel = {
-  args: { ...Default.args, label: undefined },
-} satisfies Story;
+/**
+ * This example shows a timer in paused state.
+ */
 
-export const IsPaused = {
-  args: { ...Default.args, isPaused: true },
+export const PausedState: Story = {
+  ...Default,
+  render: (args, { loaded: { endTime } }) => ({
+    components: { OnyxTimer },
+    setup() {
+      return { args, endTime: endTime };
+    },
+    template: '<OnyxTimer :end-time="endTime" label="timer paused" :is-paused="true" />',
+  }),
+  loaders: [
+    () => {
+      const endTime = new Date();
+      endTime.setTime(Date.now() + 6 * 1000);
+      return { endTime };
+    },
+  ],
 } satisfies Story;
