@@ -294,13 +294,14 @@ watchEffect(() => {
       top: 0;
     }
 
-    &__check-all,
-    &__search {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    &-option {
+      height: var(--option-height);
     }
 
-    .onyx-listbox-option {
-      height: var(--option-height);
+    &__check-all,
+    &__search {
+      height: calc(var(--option-height) + var(--onyx-1px-in-rem));
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
     &:has(&__wrapper:focus-visible) {
