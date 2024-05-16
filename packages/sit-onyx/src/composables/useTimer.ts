@@ -1,7 +1,7 @@
-import { computed, ref, type Ref } from "vue";
+import { computed, ref, watch, type Ref } from "vue";
 
 type TimerOptions = {
-  endTime: Ref<string>; // iso date string
+  endTime: Ref<string>; // expect ISO Date string
   isPaused?: Ref<boolean>;
   startImmediately?: boolean;
 };
@@ -10,6 +10,13 @@ export const useTimer = (options: TimerOptions) => {
   const intervalId = ref<ReturnType<typeof setInterval>>();
   const timeLeft = ref(0);
   const isEnded = ref(false);
+
+  const validateEndTime = () => {
+    const date = new Date(options.endTime.value);
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid end time");
+    }
+  };
 
   const endTimestamp = computed(() => {
     return new Date(options.endTime.value).getTime();
@@ -43,6 +50,14 @@ export const useTimer = (options: TimerOptions) => {
   calculateTimeLeft();
 
   if (options.startImmediately) startTimer();
+
+  watch(
+    options.endTime,
+    () => {
+      validateEndTime();
+    },
+    { immediate: true },
+  );
 
   return { startTimer, endTimer, timeLeft, isEnded };
 };

@@ -6,20 +6,20 @@ describe("useTimer.ts", () => {
   const endTime = new Date();
   endTime.setTime(Date.now() + 5 * 1000);
 
-  test("timer counts down to 0", () => {
+  test("timer ends after 5000 milliseconds", () => {
     vi.useFakeTimers();
     const { startTimer, timeLeft, endTimer } = useTimer({
       endTime: ref(endTime.toISOString()),
     });
     startTimer();
     expect(timeLeft.value).toBeGreaterThan(4900);
-    vi.advanceTimersByTime(5500);
+    vi.advanceTimersByTime(5050);
     expect(timeLeft.value).toBe(0);
     endTimer();
     vi.useRealTimers();
   });
 
-  test("timer is paused and does not count down", () => {
+  test("timer stays in paused state", () => {
     vi.useFakeTimers();
     const { startTimer, timeLeft, endTimer } = useTimer({
       endTime: ref(endTime.toISOString()),
@@ -29,5 +29,18 @@ describe("useTimer.ts", () => {
     vi.advanceTimersByTime(5000);
     expect(timeLeft.value).toBeGreaterThan(4900);
     endTimer();
+  });
+
+  test("throws error when endTime is invalid", () => {
+    let error = false;
+    try {
+      const { startTimer } = useTimer({
+        endTime: ref("so wrong"),
+      });
+      startTimer();
+    } catch (e: unknown) {
+      error = true;
+    }
+    expect(error).toBeTruthy();
   });
 });
