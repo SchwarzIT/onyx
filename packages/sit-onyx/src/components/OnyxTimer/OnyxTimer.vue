@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, toRef, watch } from "vue";
 import type { OnyxTimerProps } from "./types";
 import { useTimer } from "../../composables/useTimer";
 import { injectI18n } from "../../i18n";
-import { formatTimeLeft, formatTimeLeftHtmlAttribute } from "../../utils/time";
+import { formatTimerTime, formatTimerTimeDuration } from "../../utils/time";
 
 const props = withDefaults(defineProps<OnyxTimerProps>(), {
   endTime: new Date().toISOString(),
@@ -21,11 +21,11 @@ const { startTimer, endTimer, timeLeft, isEnded } = useTimer({
 });
 
 const formattedTime = computed(() => {
-  return formatTimeLeft(timeLeft.value, t);
+  return formatTimerTime(timeLeft.value, t);
 });
 
 const formattedTimeAttribute = computed(() => {
-  return formatTimeLeftHtmlAttribute(timeLeft.value);
+  return formatTimerTimeDuration(timeLeft.value);
 });
 
 watch(isEnded, (value) => {
