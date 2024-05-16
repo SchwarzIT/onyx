@@ -1,7 +1,7 @@
 import type { injectI18n } from "src/i18n";
 
 /**
- *
+ * Calculate seconds, minutes and hours for a given number of milliseconds
  * @param time in milliseconds
  */
 const getTimeFragments = (time: number) => {
@@ -12,6 +12,7 @@ const getTimeFragments = (time: number) => {
 };
 
 /**
+ * Format a given time into a readable string
  * @param timeLeft in milliseconds
  * @param t translation function
  * @returns formatted time string
@@ -34,9 +35,14 @@ export const formatTimerTime = (timeLeft: number, t: ReturnType<typeof injectI18
   return `${time}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${label}`;
 };
 
-// https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-duration-string
+/**
+ * Format a time into a duration string
+ * https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-duration-string
+ * @param timeLeft in milliseconds
+ * @returns duration string
+ */
 export const formatTimerTimeDuration = (timeLeft: number) => {
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
 
-  return `PT0H${hours}M${minutes}S${seconds}`;
+  return `PT${hours}H${minutes}M${seconds}S`;
 };
