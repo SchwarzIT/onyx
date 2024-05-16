@@ -157,6 +157,10 @@ $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
       &:read-only {
         resize: none;
       }
+
+      &::-webkit-resizer {
+        background-color: red;
+      }
     }
   }
 }
