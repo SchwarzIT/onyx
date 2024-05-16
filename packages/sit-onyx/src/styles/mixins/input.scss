@@ -1,0 +1,150 @@
+// this style sheet contains shared styles for the input and textarea
+// that needs to be shared between OnyxInput and OnyxTextarea
+@use "layers";
+@use "density.scss";
+
+@mixin define-shared-styles($base-selector, $vertical-padding) {
+  --border-color: var(--onyx-color-base-neutral-300);
+  --selection-color: var(--onyx-color-base-primary-200);
+  --outline-color: var(--onyx-color-base-primary-200);
+
+  font-family: var(--onyx-font-family);
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-5xs);
+
+  &__label {
+    display: flex;
+    margin-bottom: var(--onyx-spacing-5xs);
+    color: var(--onyx-color-text-icons-neutral-medium);
+
+    // optional marker should be displayed at the very end of the label
+    &.onyx-optional-marker {
+      justify-content: space-between;
+    }
+  }
+
+  &__wrapper {
+    border-radius: var(--onyx-radius-sm);
+    border: var(--onyx-1px-in-rem) solid var(--border-color);
+    background-color: var(--onyx-color-base-background-blank);
+    color: var(--onyx-color-text-icons-neutral-intense);
+
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-2xs);
+
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: $vertical-padding var(--onyx-spacing-sm);
+    height: calc(1lh + 2 * #{$vertical-padding});
+
+    &:has(#{$base-selector}__native:read-write:hover) {
+      --border-color: var(--onyx-color-base-primary-400);
+    }
+
+    &:has(#{$base-selector}__native:enabled:focus) {
+      --border-color: var(--onyx-color-base-primary-500);
+      outline: var(--onyx-spacing-4xs) solid var(--outline-color);
+    }
+
+    // :read-only is valid for readonly and disabled state so we put shared styles for both states here
+    &:has(#{$base-selector}__native:read-only) {
+      --selection-color: var(--onyx-color-base-neutral-200);
+      background-color: var(--onyx-color-base-background-tinted);
+    }
+
+    // styles for readonly but NOT disabled
+    &:has(#{$base-selector}__native:enabled:read-only) {
+      &:has(#{$base-selector}__native:hover) {
+        --border-color: var(--onyx-color-base-neutral-400);
+      }
+
+      &:has(#{$base-selector}__native:focus) {
+        --border-color: var(--onyx-color-base-neutral-500);
+        outline-color: var(--onyx-color-base-neutral-200);
+      }
+    }
+
+    &:has(#{$base-selector}__native:user-invalid) {
+      --border-color: var(--onyx-color-base-danger-500);
+      --outline-color: var(--onyx-color-base-danger-200);
+      --selection-color: var(--onyx-color-base-danger-200);
+
+      &:has(#{$base-selector}__native:enabled:focus) {
+        --border-color: var(--onyx-color-base-danger-500);
+      }
+
+      &:has(#{$base-selector}__native:enabled:hover) {
+        --border-color: var(--onyx-color-base-danger-400);
+      }
+    }
+  }
+
+  &__native {
+    // reset native input styles so they are inherited from the parent
+    border: none;
+    border-radius: inherit;
+    background-color: transparent;
+    color: inherit;
+    width: 100%;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    height: 100%;
+
+    &::placeholder {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      font-weight: 400;
+      opacity: 1;
+    }
+
+    &::selection {
+      background: var(--selection-color);
+    }
+  }
+
+  &:has(&__native:disabled) {
+    #{$base-selector} {
+      &__label {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
+
+      &__wrapper {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-spacing-2xs);
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &__counter {
+    text-align: right;
+    flex-grow: 1;
+  }
+}
+
+@mixin define-skeleton-styles($height) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-5xs);
+  line-height: 1.5rem;
+
+  &__label {
+    width: var(--onyx-spacing-3xl);
+    height: 1.25rem;
+  }
+
+  &__input {
+    width: 17rem;
+    height: $height;
+  }
+}
