@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
+import { useDark, useToggle } from "@vueuse/core";
 import {
   OnyxAppLayout,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxSwitch,
   OnyxUserMenu,
   type ListboxOption,
   type OnyxNavItemProps,
@@ -24,6 +26,9 @@ const userMenuOptions = [
   { value: "/settings", label: "Settings", icon: settings },
   { value: "logout", label: "Logout", icon: logout, color: "danger" },
 ] satisfies ListboxOption[];
+
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 </script>
 
 <template>
@@ -45,6 +50,9 @@ const userMenuOptions = [
         />
 
         <template #contextArea>
+          <!-- TODO: include the theme selection into the user menu once it supports that feature -->
+          <OnyxSwitch label="Dark Mode" :model-value="isDark" @update:model-value="toggleDark" />
+
           <OnyxUserMenu username="John Doe" :options="userMenuOptions">
             <template #footer>
               App Version

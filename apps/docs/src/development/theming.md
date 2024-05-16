@@ -10,17 +10,21 @@ Per default, onyx will be displayed in light mode after the [initial setup](/dev
 ## Let the user decide
 
 In order to let the user switch between light/dark mode, we recommend to use the [useDark composable from vueuse](https://vueuse.org/core/useDark/#usedark).
-Combine it as follows with an onyx button to let the users set the theme of their choice:
+
+<!-- TODO: recommend to use theme selection inside the user menu once that feature is supported -->
+
+You can combine it as follows with a switch to let the users set the theme of their choice. The switch will be initialized with the system settings.
 
 ```vue
 <script lang="ts" setup>
 import { useDark, useToggle } from "@vueuse/core";
-import { OnyxButton } from "sit-onyx";
+import { OnyxSwitch } from "sit-onyx";
 
-const toggleDark = useToggle(useDark());
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 </script>
 
 <template>
-  <OnyxButton label="Toggle Dark Mode" @click="toggleDark" />
+  <OnyxSwitch label="Dark Mode" :model-value="isDark" @update:model-value="toggleDark" />
 </template>
 ```

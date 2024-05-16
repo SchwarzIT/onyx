@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import { useDark, useToggle } from "@vueuse/core";
 import {
   DENSITIES,
   OnyxAvatar,
@@ -119,16 +118,12 @@ const groupedListboxOptions: ListboxOption[] = [
 
 const multiSelectState = ref(selectOptions.slice(0, 5));
 const singleSelectState = ref(selectOptions[0]);
-
-const toggleDark = useToggle(useDark());
 </script>
 
 <template>
   <OnyxPageLayout>
     <template #sidebar>
       <div class="sidebar">
-        <OnyxButton label="Toggle Dark Mode" @click="toggleDark" />
-
         <OnyxRadioButtonGroup
           v-model="activeDensityOption"
           headline="Density"
