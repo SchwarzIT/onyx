@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.102
+
+### Minor Changes
+
+- 3b9fbf4: feat: add `OnyxTextarea` component
+
 ## 1.0.0-alpha.101
 
 ### Patch Changes
