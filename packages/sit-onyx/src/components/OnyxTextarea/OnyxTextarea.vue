@@ -150,7 +150,7 @@ $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
     }
 
     &__native {
-      padding: var(--onyx-textarea-padding-vertical) var(--onyx-spacing-sm);
+      // padding: var(--onyx-textarea-padding-vertical) var(--onyx-spacing-sm);
       resize: vertical;
       height: $default-height;
 
