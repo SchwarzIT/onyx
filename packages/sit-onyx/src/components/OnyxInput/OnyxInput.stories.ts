@@ -7,10 +7,10 @@ import OnyxInput from "./OnyxInput.vue";
  * These components play a fundamental role in facilitating user interactions and data input within applications and websites.
  */
 const meta: Meta<typeof OnyxInput> = {
-  title: "components/OnyxInput",
+  title: "components/Input",
   ...defineStorybookActionsAndVModels({
     component: OnyxInput,
-    events: ["update:modelValue", "change", "focus", "blur"],
+    events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
     decorators: [
       (story) => ({
         components: { story },
@@ -89,6 +89,16 @@ export const Loading = {
 } satisfies Story;
 
 /**
+ * This example shows a skeleton input.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows an input with a maxlength and counter.
  */
 export const Maxlength = {
@@ -128,5 +138,17 @@ export const HiddenLabel = {
   args: {
     label: "Label",
     hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an input with a custom error message.
+ * Will only be shown after user interaction.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    customError: "Example custom error",
+    placeholder: "Interact with me to show error",
   },
 } satisfies Story;

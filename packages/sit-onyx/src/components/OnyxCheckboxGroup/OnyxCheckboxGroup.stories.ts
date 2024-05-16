@@ -1,14 +1,15 @@
-import { createTruncationDecorator } from "@/utils/storybook";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
+import type { CheckboxGroupOption } from "./types";
 
 /**
  * Checkboxes are a fundamental UI element, that allows users to make a binary selection.
  * They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
  */
 const meta: Meta<typeof OnyxCheckboxGroup> = {
-  title: "components/OnyxCheckboxGroup",
+  title: "components/CheckboxGroup",
   ...defineStorybookActionsAndVModels({
     component: OnyxCheckboxGroup,
     events: ["update:modelValue"],
@@ -18,20 +19,23 @@ const meta: Meta<typeof OnyxCheckboxGroup> = {
 export default meta;
 type Story = StoryObj<typeof OnyxCheckboxGroup>;
 
+const DEMO_OPTIONS = [
+  { label: "Default", value: 1 },
+  { label: "Initially checked", value: 2 },
+  { label: "Required", value: 3, required: true },
+  { label: "Disabled", value: 4, disabled: true },
+  { label: "Loading", value: 5, loading: true },
+  { label: "Disabled checked", value: 6, disabled: true },
+] satisfies CheckboxGroupOption[];
+
 /**
  * A checkbox group that contains a list of checkboxes.
  */
 export const Default = {
   args: {
     headline: "Checkbox group headline",
-    modelValue: ["id-2"],
-    options: [
-      { label: "Default", id: "id-1" },
-      { label: "Initially checked", id: "id-2" },
-      { label: "Required", id: "id-3", required: true },
-      { label: "Disabled", id: "id-4", disabled: true },
-      { label: "Loading", id: "id-5", loading: true },
-    ],
+    modelValue: [2, 6],
+    options: DEMO_OPTIONS,
   },
 } satisfies Story;
 
@@ -52,6 +56,7 @@ export const WithCheckAll = {
   args: {
     ...Default.args,
     withCheckAll: true,
+    options: DEMO_OPTIONS.filter(({ loading }) => !loading),
   },
 } satisfies Story;
 
@@ -73,16 +78,16 @@ export const WithTruncation = {
   args: {
     ...Default.args,
     options: [
-      { label: "Very long label that will be truncated", id: "id-1" },
-      { label: "Very long required label that will be truncated", id: "id-2", required: true },
+      { label: "Very long label that will be truncated", value: 1 },
+      { label: "Very long required label that will be truncated", value: 2, required: true },
       {
         label: "Very long label that will be wrapped with multiline",
-        id: "id-3",
+        value: 3,
         truncation: "multiline",
       },
       {
         label: "Very long required label that will be wrapped with multiline",
-        id: "id-4",
+        value: 4,
         truncation: "multiline",
         required: true,
       },

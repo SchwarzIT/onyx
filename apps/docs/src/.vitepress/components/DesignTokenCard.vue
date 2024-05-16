@@ -23,7 +23,7 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div class="card" :class="{ 'card--wide': props.wideName }">
+  <div class="card vp-raw" :class="{ 'card--wide': props.wideName }">
     <div class="card__container">
       <slot name="name">
         <!--

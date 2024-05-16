@@ -67,6 +67,14 @@ const emit = defineEmits<{
   max-width: 100%;
   pointer-events: none;
 
+  // reset default button styles
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+  color: inherit;
+  line-height: inherit;
+
   &__name {
     padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
       var(--onyx-spacing-md);

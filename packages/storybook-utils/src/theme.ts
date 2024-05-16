@@ -1,6 +1,7 @@
 import type { ThemeVars, ThemeVarsPartial } from "@storybook/theming";
 import { create } from "@storybook/theming/create";
 import onyxVariables from "sit-onyx/src/styles/variables-onyx.json";
+import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "sit-onyx/types";
 import onyxLogo from "./assets/logo-onyx.svg";
 
 /**
@@ -90,50 +91,22 @@ const defineTheme = (colors: {
 };
 
 /** All available Storybook breakpoints / viewports supported by onyx. */
-export const ONYX_BREAKPOINTS = {
-  "2xs": {
-    name: "2xs",
-    styles: {
-      width: "320px",
-      height: "100%",
-    },
+export const ONYX_BREAKPOINTS = Object.entries(RAW_ONYX_BREAKPOINTS).reduce(
+  (obj, [name, width]) => {
+    const breakpoint = name as OnyxBreakpoint;
+    obj[breakpoint] = { name: breakpoint, styles: { width: `${width}px`, height: "100%" } };
+    return obj;
   },
-  xs: {
-    name: "xs",
-    styles: {
-      width: "576px",
-      height: "100%",
-    },
-  },
-  sm: {
-    name: "sm",
-    styles: {
-      width: "768px",
-      height: "100%",
-    },
-  },
-  md: {
-    name: "md",
-    styles: {
-      width: "992px",
-      height: "100%",
-    },
-  },
-  lg: {
-    name: "lg",
-    styles: {
-      width: "1440px",
-      height: "100%",
-    },
-  },
-  xl: {
-    name: "xl",
-    styles: {
-      width: "1920px",
-      height: "100%",
-    },
-  },
-} as const;
+  {} as Record<OnyxBreakpoint, StorybookBreakpoint>,
+);
+
+export type StorybookBreakpoint = {
+  name: OnyxBreakpoint;
+  styles: {
+    width: string;
+    height: string;
+  };
+};
 
 /**
  * Converts a rem string into a numeric value with a rem base of 16.

@@ -50,7 +50,6 @@ Creates a default Storybook preview configuration for a project that uses `onyx`
 - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
 - Setup for dark mode (including docs page). Requires addon [`storybook-dark-mode`](https://storybook.js.org/addons/storybook-dark-mode) to be enabled in .storybook/main.ts file
 - Custom Storybook theme using onyx colors (light and dark mode)
-- Support for setting the light/dark mode when Storybook is embedded as an iframe (via query parameter, e.g. `?theme=dark`).
 - Configure viewports / breakpoints as defined by onyx
 
 ::: code-group
@@ -91,24 +90,24 @@ Supports auto-completion for event names. Should be preferred over manually defi
 
 ::: code-group
 
-```ts [TestInput.stories.ts]
+```ts [MyComponent.stories.ts]
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import TestInput from "./TestInput.vue";
+import MyComponent from "./MyComponent.vue";
 
 /**
  * The input component can be used to...
  */
-const meta: Meta<typeof TestInput> = {
-  title: "components/TestInput",
+const meta: Meta<typeof MyComponent> = {
+  title: "components/MyComponent",
   ...defineStorybookActionsAndVModels({
-    component: TestInput,
+    component: MyComponent,
     events: ["update:modelValue", "change"],
   }),
 };
 
 export default meta;
-type Story = StoryObj<typeof TestInput>;
+type Story = StoryObj<typeof MyComponent>;
 ```
 
 :::

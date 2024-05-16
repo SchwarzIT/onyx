@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxRadioButtonGroup, type SelectionOption } from "sit-onyx";
+import { OnyxRadioButtonGroup, type SelectOption } from "sit-onyx";
 import { computed } from "vue";
 import type { Settings } from "./LayoutSettings.vue";
 
@@ -7,27 +7,21 @@ const activeSetting = defineModel<Settings>();
 
 const props = defineProps<{
   headline: string;
-  options: SelectionOption[];
+  options: SelectOption[];
   horizontal?: boolean;
 }>();
 
 /** returns the option with the key of the first `true` setting */
-const settingsToSelection = (setting?: Settings): SelectionOption | undefined => {
-  // for single settings, this will be an array of 0 or 1 element.
-  const trueKeys: string[] | undefined =
-    setting &&
-    Object.entries(setting)
-      .filter(([_, value]) => value === true)
-      .map(([key, _]) => key);
-  if (trueKeys) {
-    return setting
-      ? props.options.find((option) => trueKeys.includes(option.id.toString()))
-      : undefined;
+const settingsToSelection = (settings?: Settings) => {
+  if (!settings) return;
+
+  for (const key in settings) {
+    if (settings[key as keyof typeof settings]) return key;
   }
 };
 
-const selectionToSettings = (selection?: SelectionOption): Settings => {
-  return selection ? { [selection.id.toString()]: true } : {};
+const selectionToSettings = (selection?: string): Settings => {
+  return selection ? { [selection]: true } : {};
 };
 
 const selectedOption = computed({
@@ -39,8 +33,8 @@ const selectedOption = computed({
 <template>
   <OnyxRadioButtonGroup
     v-model="selectedOption"
-    :headline="headline"
-    :options="options"
-    :direction="horizontal ? 'horizontal' : 'vertical'"
+    :headline="props.headline"
+    :options="props.options"
+    :direction="props.horizontal ? 'horizontal' : 'vertical'"
   />
 </template>

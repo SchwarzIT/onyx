@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { OnyxColor } from "sit-onyx/types";
 import { capitalize, computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
 import DesignToken from "./DesignToken.vue";
@@ -8,17 +9,10 @@ const AVAILABLE_TABS = ["Base", "Text & Icons"] as const;
 type AvailableTab = (typeof AVAILABLE_TABS)[number];
 
 const props = defineProps<{
-  name: "primary" | "secondary" | "neutral" | "success" | "warning" | "danger" | "info";
+  name: OnyxColor;
 }>();
 
 const currentTab = ref<AvailableTab>(AVAILABLE_TABS[0]);
-
-const currentTabColor = computed(() => {
-  // for the neutral color palette, we need to use the action color
-  // for highlighting the active tab because neutral would be basically the same as inactive tabs
-  const color = props.name !== "neutral" ? props.name : "action";
-  return `var(--onyx-color-text-icons-${color}-intense)`;
-});
 
 /** Speaking names for base color steps. */
 const baseStepNames: Record<number, string> = {
@@ -99,7 +93,6 @@ const handleCopy = async (color: string) => {
 <template>
   <section class="palette">
     <DesignTokenHeader
-      class="palette__header"
       v-model="currentTab"
       :headline="capitalize(props.name)"
       :tabs="AVAILABLE_TABS"
@@ -152,10 +145,6 @@ const handleCopy = async (color: string) => {
 
   &__copied {
     margin-top: var(--onyx-spacing-xl);
-  }
-
-  &__header {
-    --active-color: v-bind("currentTabColor");
   }
 }
 </style>

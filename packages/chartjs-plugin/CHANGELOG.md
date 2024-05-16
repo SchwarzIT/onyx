@@ -1,5 +1,296 @@
 # @sit-onyx/chartjs-plugin
 
+## 1.0.0-alpha.56
+
+### Patch Changes
+
+- Updated dependencies [2ea735b]
+  - sit-onyx@1.0.0-alpha.101
+
+## 1.0.0-alpha.55
+
+### Patch Changes
+
+- Updated dependencies [d54d357]
+  - sit-onyx@1.0.0-alpha.100
+
+## 1.0.0-alpha.54
+
+### Patch Changes
+
+- Updated dependencies [3a9783d]
+  - sit-onyx@1.0.0-alpha.99
+
+## 1.0.0-alpha.53
+
+### Patch Changes
+
+- Updated dependencies [9eb7b4e]
+- Updated dependencies [9eb7b4e]
+  - sit-onyx@1.0.0-alpha.98
+
+## 1.0.0-alpha.52
+
+### Patch Changes
+
+- Updated dependencies [5754525]
+  - sit-onyx@1.0.0-alpha.97
+
+## 1.0.0-alpha.51
+
+### Patch Changes
+
+- Updated dependencies [f99f38f]
+  - sit-onyx@1.0.0-alpha.96
+
+## 1.0.0-alpha.50
+
+### Patch Changes
+
+- Updated dependencies [2f825ec]
+  - sit-onyx@1.0.0-alpha.95
+
+## 1.0.0-alpha.49
+
+### Patch Changes
+
+- Updated dependencies [c867746]
+  - sit-onyx@1.0.0-alpha.94
+
+## 1.0.0-alpha.48
+
+### Patch Changes
+
+- Updated dependencies [c55a599]
+  - sit-onyx@1.0.0-alpha.93
+
+## 1.0.0-alpha.47
+
+### Patch Changes
+
+- Updated dependencies [2b48da9]
+- Updated dependencies [2b48da9]
+  - sit-onyx@1.0.0-alpha.92
+
+## 1.0.0-alpha.46
+
+### Patch Changes
+
+- Updated dependencies [93ad5a9]
+- Updated dependencies [1eb0528]
+  - sit-onyx@1.0.0-alpha.91
+
+## 1.0.0-alpha.45
+
+### Patch Changes
+
+- Updated dependencies [57d81c9]
+  - sit-onyx@1.0.0-alpha.90
+
+## 1.0.0-alpha.44
+
+### Patch Changes
+
+- Updated dependencies [7951251]
+  - sit-onyx@1.0.0-alpha.89
+
+## 1.0.0-alpha.43
+
+### Patch Changes
+
+- Updated dependencies [8d65dce]
+  - sit-onyx@1.0.0-alpha.88
+
+## 1.0.0-alpha.42
+
+### Patch Changes
+
+- Updated dependencies [413d3e0]
+  - sit-onyx@1.0.0-alpha.87
+
+## 1.0.0-alpha.41
+
+### Patch Changes
+
+- Updated dependencies [5e96001]
+  - sit-onyx@1.0.0-alpha.86
+
+## 1.0.0-alpha.40
+
+### Patch Changes
+
+- Updated dependencies [641dac7]
+- Updated dependencies [641dac7]
+- Updated dependencies [afe16cf]
+  - sit-onyx@1.0.0-alpha.85
+
+## 1.0.0-alpha.39
+
+### Patch Changes
+
+- Updated dependencies [5f28acb]
+- Updated dependencies [5f28acb]
+  - sit-onyx@1.0.0-alpha.84
+
+## 1.0.0-alpha.38
+
+### Patch Changes
+
+- Updated dependencies [29a8ba6]
+  - sit-onyx@1.0.0-alpha.83
+
+## 1.0.0-alpha.37
+
+### Patch Changes
+
+- Updated dependencies [1377af6]
+  - sit-onyx@1.0.0-alpha.82
+
+## 1.0.0-alpha.36
+
+### Patch Changes
+
+- Updated dependencies [ded1477]
+  - sit-onyx@1.0.0-alpha.81
+
+## 1.0.0-alpha.35
+
+### Patch Changes
+
+- Updated dependencies [da3cad4]
+- Updated dependencies [da3cad4]
+  - sit-onyx@1.0.0-alpha.80
+
+## 1.0.0-alpha.34
+
+### Patch Changes
+
+- Updated dependencies [193ecf2]
+  - sit-onyx@1.0.0-alpha.79
+
+## 1.0.0-alpha.33
+
+### Patch Changes
+
+- Updated dependencies [d819092]
+  - sit-onyx@1.0.0-alpha.78
+
+## 1.0.0-alpha.32
+
+### Patch Changes
+
+- Updated dependencies [a7b5140]
+  - sit-onyx@1.0.0-alpha.77
+
+## 1.0.0-alpha.31
+
+### Patch Changes
+
+- Updated dependencies [a155d1b]
+  - sit-onyx@1.0.0-alpha.76
+
+## 1.0.0-alpha.30
+
+### Patch Changes
+
+- Updated dependencies [61c4964]
+  - sit-onyx@1.0.0-alpha.75
+
+## 1.0.0-alpha.29
+
+### Patch Changes
+
+- Updated dependencies [288afbd]
+  - sit-onyx@1.0.0-alpha.74
+
+## 1.0.0-alpha.28
+
+### Patch Changes
+
+- Updated dependencies [43a8616]
+  - sit-onyx@1.0.0-alpha.73
+
+## 1.0.0-alpha.27
+
+### Patch Changes
+
+- Updated dependencies [f464b42]
+  - sit-onyx@1.0.0-alpha.72
+
+## 1.0.0-alpha.26
+
+### Patch Changes
+
+- Updated dependencies [b20fa64]
+  - sit-onyx@1.0.0-alpha.71
+
+## 1.0.0-alpha.25
+
+### Patch Changes
+
+- Updated dependencies [4508633]
+  - sit-onyx@1.0.0-alpha.70
+
+## 1.0.0-alpha.24
+
+### Patch Changes
+
+- Updated dependencies [cc7e712]
+  - sit-onyx@1.0.0-alpha.69
+
+## 1.0.0-alpha.23
+
+### Patch Changes
+
+- Updated dependencies [20fe4ff]
+  - sit-onyx@1.0.0-alpha.68
+
+## 1.0.0-alpha.22
+
+### Patch Changes
+
+- Updated dependencies [e51f8cb]
+  - sit-onyx@1.0.0-alpha.67
+
+## 1.0.0-alpha.21
+
+### Patch Changes
+
+- Updated dependencies [4747445]
+- Updated dependencies [4747445]
+- Updated dependencies [4747445]
+- Updated dependencies [4747445]
+- Updated dependencies [4747445]
+  - sit-onyx@1.0.0-alpha.66
+
+## 1.0.0-alpha.20
+
+### Patch Changes
+
+- Updated dependencies [e9eae68]
+  - sit-onyx@1.0.0-alpha.65
+
+## 1.0.0-alpha.19
+
+### Patch Changes
+
+- Updated dependencies [4e2a5bb]
+  - sit-onyx@1.0.0-alpha.64
+
+## 1.0.0-alpha.18
+
+### Patch Changes
+
+- Updated dependencies [03fea09]
+  - sit-onyx@1.0.0-alpha.63
+
+## 1.0.0-alpha.17
+
+### Patch Changes
+
+- Updated dependencies [cde1fdd]
+  - sit-onyx@1.0.0-alpha.62
+
 ## 1.0.0-alpha.16
 
 ### Patch Changes

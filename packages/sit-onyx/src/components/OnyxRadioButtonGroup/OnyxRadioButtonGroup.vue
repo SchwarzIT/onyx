@@ -1,14 +1,11 @@
-<script lang="ts" setup generic="TValue extends SelectionOptionValue">
-import type { TargetEvent } from "@/types/dom";
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { createId } from "@sit-onyx/headless";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
-import type { SelectionOption, SelectionOptionValue } from "../OnyxRadioButton/types";
-import type { OnyxRadioButtonGroupProps } from "./types";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
-
-type ChangeEvent = TargetEvent<HTMLInputElement>;
+import type { SelectOptionValue } from "../../types";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
+import type { OnyxRadioButtonGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   name: () => createId("radio-button-group-name"), // the name must be globally unique
@@ -16,25 +13,29 @@ const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
   headline: "",
   required: false,
   disabled: false,
-  errorMessage: "",
 });
 
 const { densityClass } = useDensity(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
 const emit = defineEmits<{
-  "update:modelValue": [selected: SelectionOption<TValue>];
+  "update:modelValue": [selected: TValue];
+  /**
+   * Emitted when the validity state changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
-const handleChange = (event: ChangeEvent) =>
-  emit("update:modelValue", props.options.find(({ id }) => event.target.value === id)!);
+const handleChange = (selected: boolean, value: TValue) => {
+  if (!selected) return;
+  emit("update:modelValue", value);
+};
 </script>
 
 <template>
   <fieldset
     :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
     :disabled="props.disabled"
-    @change="handleChange($event as ChangeEvent)"
   >
     <legend v-if="props.headline" class="onyx-radio-button-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
@@ -48,13 +49,15 @@ const handleChange = (event: ChangeEvent) =>
     >
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
-          v-for="option in props.options"
-          :key="option.id.toString()"
+          v-for="(option, index) in props.options"
+          :key="option.value.toString()"
           v-bind="option"
           :name="props.name"
-          :error-message="props.errorMessage"
-          :selected="option.id === props.modelValue?.id"
+          :custom-error="props.customError"
+          :selected="option.value === props.modelValue"
           :required="props.required"
+          @validity-change="index === 0 && emit('validityChange', $event)"
+          @change="handleChange($event, option.value)"
         />
       </template>
 
@@ -63,6 +66,7 @@ const handleChange = (event: ChangeEvent) =>
           v-for="i in props.skeleton"
           :id="`skeleton-${i}`"
           :key="i"
+          :value="`skeleton-${i}`"
           label="Skeleton ${i}"
           :name="props.name"
           skeleton
@@ -73,25 +77,28 @@ const handleChange = (event: ChangeEvent) =>
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-radio-button-group {
-  margin: 0;
-  padding: 0;
-  border: none;
-  max-width: max-content;
-  min-width: unset;
+  @include layers.component() {
+    padding: 0;
+    border: none;
+    max-width: max-content;
+    min-width: unset;
 
-  &__label {
-    margin-bottom: var(--onyx-spacing-2xs);
-  }
+    &__label {
+      margin-bottom: var(--onyx-spacing-2xs);
+    }
 
-  &__content {
-    display: flex;
-    flex-direction: column;
+    &__content {
+      display: flex;
+      flex-direction: column;
 
-    &--horizontal {
-      flex-direction: row;
-      flex-wrap: wrap;
-      column-gap: var(--onyx-spacing-xl);
+      &--horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: var(--onyx-spacing-xl);
+      }
     }
   }
 }

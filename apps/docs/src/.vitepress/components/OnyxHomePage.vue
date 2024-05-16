@@ -16,10 +16,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
   minute: "2-digit",
 }).format(new Date(props.data.timestamp));
+
+const storybookHost = "https://storybook.onyx.schwarz" as const;
 </script>
 
 <template>
-  <section class="roadmap">
+  <section class="roadmap vp-raw">
     <div class="roadmap__sections">
       <ComponentRoadmap :components="props.data.components" />
 
@@ -31,12 +33,12 @@ const kpiTimestamp = Intl.DateTimeFormat("en-US", {
           <RoadmapCard
             :title="props.data.componentCount"
             :description="props.data.componentCount === 1 ? 'Component' : 'Components'"
-            href="/development/"
+            :href="storybookHost"
           />
           <RoadmapCard
             :title="props.data.variantCount"
             description="Component variants"
-            href="/development/"
+            :href="storybookHost"
           />
           <RoadmapCard :title="props.data.downloads" description="Downloads (last month)" />
           <RoadmapCard

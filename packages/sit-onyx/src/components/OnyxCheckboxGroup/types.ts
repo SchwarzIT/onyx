@@ -1,9 +1,8 @@
 import type { DensityProp } from "../../composables/density";
-import type { Direction } from "../../types";
-import type { OnyxCheckboxProps } from "../OnyxCheckbox/types";
-import type { SelectionOptionValue } from "../OnyxRadioButton/types";
+import type { RequiredMarkerProp } from "../../composables/required";
+import type { Direction, SelectOption, SelectOptionValue } from "../../types";
 
-export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = SelectionOptionValue> =
+export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp & {
     /**
      * Checkbox options.
@@ -25,12 +24,15 @@ export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = Selecti
      * If true, an additional checkbox will be displayed to check/uncheck all options.
      * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
      */
-    withCheckAll?: boolean;
-    /**
-     * Checkbox label if property `withCheckAll` is enabled.
-     * If unset, a default label will be shown depending on the current locale/language.
-     */
-    checkAllLabel?: string;
+    withCheckAll?:
+      | boolean
+      | {
+          /**
+           * Label for the `select all` checkbox.
+           * If unset, a default label will be shown depending on the current locale/language.
+           */
+          label?: string;
+        };
     /**
      * Whether all checkboxes should be disabled.
      */
@@ -41,9 +43,5 @@ export type OnyxCheckboxGroupProps<TValue extends SelectionOptionValue = Selecti
     skeleton?: number;
   };
 
-export type CheckboxGroupOption<T extends SelectionOptionValue> = Omit<
-  OnyxCheckboxProps,
-  "modelValue" | "indeterminate" | "hideLabel"
-> & {
-  id: T;
-};
+export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> =
+  SelectOption<TValue> & RequiredMarkerProp;

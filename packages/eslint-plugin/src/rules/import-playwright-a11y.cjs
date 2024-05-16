@@ -15,13 +15,13 @@ module.exports = {
   create: (context) => ({
     ImportSpecifier(node) {
       // allow the fixture itself to import from Playwright directly
-      if (context.filename.endsWith("/playwright-axe.ts")) return;
+      if (context.filename.endsWith("/playwright/a11y.ts")) return;
 
       const hasFixture = ["expect", "test"].includes(node.imported.name);
       if (!hasFixture) return;
 
       // type check that node.parent.source.value exists
-      if (!("source" in node.parent) || !("value" in node.parent.source)) {
+      if (node.parent.type !== "ImportDeclaration" || !node.parent.source.value) {
         return;
       }
 
@@ -32,8 +32,8 @@ module.exports = {
       if (isDisallowedImport) {
         context.report({
           node,
-          loc: node.loc,
-          message: `Import "${node.imported.name}" from "../../playwright-axe" instead because Onyx uses custom Playwright fixtures for providing a global configuration for accessability testing.`,
+          loc: node.loc ?? undefined,
+          message: `Import "${node.imported.name}" from "../../playwright/a11y" instead because onyx uses custom Playwright fixtures for providing a global configuration for accessability testing.`,
         });
       }
     },

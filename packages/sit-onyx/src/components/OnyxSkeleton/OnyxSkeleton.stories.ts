@@ -8,7 +8,7 @@ import OnyxSkeleton from "./OnyxSkeleton.vue";
  * **Note**: Apply height/width via CSS.
  */
 const meta: Meta<typeof OnyxSkeleton> = {
-  title: "components/OnyxSkeleton",
+  title: "components/Skeleton",
   ...defineStorybookActionsAndVModels({
     component: OnyxSkeleton,
     events: [],

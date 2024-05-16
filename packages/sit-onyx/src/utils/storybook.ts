@@ -39,7 +39,7 @@ export const defineIconSelectArgType = () => {
       type: "select",
       labels: iconLabels,
     },
-  };
+  } as const;
 };
 
 export const createIconSourceCodeTransformer = (propertyName: string) => {

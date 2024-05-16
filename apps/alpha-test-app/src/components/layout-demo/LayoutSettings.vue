@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import type { SelectionOption } from "sit-onyx";
-import { OnyxHeadline } from "sit-onyx";
+import { OnyxHeadline, type SelectOption } from "sit-onyx";
 import { computed } from "vue";
 import MultiSettingsGroup from "./MultiSettingsGroup.vue";
 import SingleSettingsGroup from "./SingleSettingsGroup.vue";
@@ -43,35 +42,39 @@ const emit = defineEmits<{
   "update:modelValue": [value: SettingsSections];
 }>();
 
-const noneOption = { id: "none", label: "None" };
+const noneOption: SelectOption = { value: "none", label: "None" };
 
-const contentOptions: SelectionOption[] = [
-  { id: "showLongPageContent", label: "Scrollable Page Content" },
-  { id: "showFlyout", label: "Flyout" },
-  { id: "forceTooltip", label: "Tooltip" },
-  { id: "showStickyContent", label: "Sticky Content" },
-  { id: "showToast", label: "Toast" },
+const contentOptions: SelectOption[] = [
+  { value: "showLongPageContent", label: "Scrollable Page Content" },
+  { value: "showFlyout", label: "Flyout" },
+  { value: "forceTooltip", label: "Tooltip" },
+  { value: "showStickyContent", label: "Sticky Content" },
+  { value: "showToast", label: "Toast" },
 ];
-const overlayOptions: SelectionOption[] = [
+
+const overlayOptions: SelectOption[] = [
   noneOption,
-  { id: "showPopover", label: "Popover/Modal" },
+  { value: "showPopover", label: "Popover/Modal" },
   // the mobile fly in should not be promoted for now,
   // but we should keep it to re-enable it if needed.
-  // { id: "showMobileFlyIn", label: "Mobile Fly-in" },
-  { id: "showPageLoader", label: "Busy indicator" },
-  { id: "showTopBarFlyout", label: "Top bar flyout" },
+  // { value: "showMobileFlyIn", label: "Mobile Fly-in" },
+  { value: "showPageLoader", label: "Busy indicator" },
+  { value: "showTopBarFlyout", label: "Top bar flyout" },
 ];
-const sidebarOptions: SelectionOption[] = [
+
+const sidebarOptions: SelectOption[] = [
   noneOption,
-  { id: "showSidebar", label: "Fixed Sidebar" },
-  { id: "showSidebarCollapse", label: "Collapsible Sidebar" },
-  { id: "showTempOverlay", label: "Overlay Sidebar with backdrop" },
-  { id: "showTempOverlayTransparent", label: "Overlay Sidebar" },
+  { value: "showSidebar", label: "Fixed Sidebar" },
+  { value: "showSidebarCollapse", label: "Collapsible Sidebar" },
+  { value: "showTempOverlay", label: "Overlay Sidebar with backdrop" },
+  { value: "showTempOverlayTransparent", label: "Overlay Sidebar" },
 ];
-const showDetailFooter = { id: "showDetailFooter", label: "Detail Footer" };
-const showFullFooter = { id: "showFullFooter", label: "Full Footer" };
+
+const showDetailFooter: SelectOption = { value: "showDetailFooter", label: "Detail Footer" };
+const showFullFooter: SelectOption = { value: "showFullFooter", label: "Full Footer" };
+
 /** Adust footer configs depending on the availability of a sidebar */
-const footerOptions = computed<SelectionOption[]>(() => {
+const footerOptions = computed<SelectOption[]>(() => {
   const { showSidebar, showSidebarCollapse } = activeSidebarSetting.value;
   const isDetailFooterRelevant = showSidebar || showSidebarCollapse;
   if (isDetailFooterRelevant) {

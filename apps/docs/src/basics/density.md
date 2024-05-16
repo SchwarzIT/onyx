@@ -20,4 +20,4 @@ Designed for users who appreciate a more spacious and visually relaxed interface
 
 ## Properties
 
-The density can be easily switched via the `density` property of supported components. Please take a look at the [components](/development/) for further information.
+The density can be easily switched via the `density` property of supported components. Please take a look at the [components](https://storybook.onyx.schwarz) for further information.

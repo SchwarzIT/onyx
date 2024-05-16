@@ -6,13 +6,13 @@ import OnyxHeadline from "./OnyxHeadline.vue";
  * Headline that can e.g. be used to structure the page content.
  */
 const meta: Meta<typeof OnyxHeadline> = {
-  title: "components/OnyxHeadline",
+  title: "components/Headline",
   ...defineStorybookActionsAndVModels({
     component: OnyxHeadline,
     events: [],
     argTypes: {
       default: {
-        control: { disable: true },
+        control: { type: "text" },
       },
     },
   }),
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof OnyxHeadline>;
 export const Default = {
   args: {
     is: "h1",
-    default: () => "Lorem ipsum dolor sit amet",
+    default: "Lorem ipsum dolor sit amet",
   },
 } satisfies Story;
 

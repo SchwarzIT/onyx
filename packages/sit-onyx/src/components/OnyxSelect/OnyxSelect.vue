@@ -1,18 +1,16 @@
-<!-- TODO: change the generic "extends" from string/[] to whatever listbox and combobox need
-https://github.com/SchwarzIT/onyx/issues/565 -->
 <script
   lang="ts"
   setup
-  generic="TValue extends SelectModelValue<TMultiple>, TMultiple extends Multiple"
+  generic="TValue extends SelectOptionValue, TMultiple extends SelectMultiple"
 >
-import { useRequired } from "@/composables/required";
-import { injectI18n } from "@/i18n";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import { OnyxIcon, OnyxSkeleton, OnyxTooltip } from "../..";
+import { OnyxBadge, OnyxIcon, OnyxSkeleton, OnyxTooltip, type SelectOptionValue } from "../..";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import { injectI18n } from "../../i18n";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { Multiple, MultiselectTextMode, OnyxSelectProps, SelectModelValue } from "./types";
-import { useDensity } from "@/composables/density";
+import type { MultiselectTextMode, OnyxSelectProps, SelectMultiple } from "./types";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
@@ -24,8 +22,6 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
 defineEmits<{
   /**
    * Emitted when the current value changes.
-   * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
-   *       https://github.com/SchwarzIT/onyx/issues/565
    */
   "update:modelValue": [value: typeof props.modelValue];
 }>();
@@ -38,40 +34,39 @@ const { t } = injectI18n();
  */
 const multipleTextMode = computed<MultiselectTextMode | undefined>(() => {
   if (!props.multiple) return undefined;
-  if (typeof props.multiple === "boolean") return "summary";
-  return props.multiple?.textMode ?? "summary";
+  if (typeof props.multiple === "object") return props.multiple.textMode;
+  return "summary";
 });
 
-const previewBadgeNumber = computed<number | undefined>(() => {
-  if (props.modelValue && multipleTextMode.value === "preview") {
-    return props.modelValue.length;
-  }
-  return undefined;
+/**
+ * Number of selected options.
+ */
+const modelValueCount = computed(() => {
+  if (Array.isArray(props.modelValue)) return props.modelValue.length;
+  return props.modelValue ? 1 : 0;
 });
 
 /**
  * Selection that will be displayed in the select input field.
  * On single select, it matches the name of the option.
  * On multi select, it is a summary or a preview of the options.
- * TODO: extract the text from the SelectOption(s) after the modelValue type gets changed
- *       https://github.com/SchwarzIT/onyx/issues/565
  */
 const selectionText = computed<string>(() => {
   if (Array.isArray(props.modelValue)) {
     const numberOfSelections = props.modelValue.length;
     if (!numberOfSelections) return "";
-    if (numberOfSelections === 1) return props.modelValue[0];
+    if (numberOfSelections === 1) return props.modelValue[0].label;
 
     switch (multipleTextMode.value) {
       case "preview":
-        return props.modelValue.join(", ");
+        return props.modelValue.map(({ label }) => label).join(", ");
       case "summary":
       default:
         return t.value("selections.currentSelection", { n: numberOfSelections });
     }
   }
 
-  return props.modelValue ?? "";
+  return props.modelValue?.label ?? "";
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
@@ -116,13 +111,17 @@ const { densityClass } = useDensity(props);
           :title="props.hideLabel ? props.label : undefined"
         />
 
-        <!-- TODO: figure out how the tooltip width can be sized to the select-input 
+        <!-- TODO: figure out how the tooltip width can be sized to the select-input
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
-        <OnyxTooltip v-if="previewBadgeNumber" :text="selectionText" position="bottom">
-          <!-- TODO: use OnyxBadge component once it is implemented 
-          https://github.com/SchwarzIT/onyx/issues/565 -->
-          <div class="onyx-badge">{{ previewBadgeNumber }}</div>
+        <OnyxTooltip
+          v-if="multipleTextMode === 'preview' && modelValueCount > 0"
+          :text="selectionText"
+          position="bottom"
+        >
+          <OnyxBadge class="onyx-select__badge" color="neutral">
+            {{ modelValueCount }}
+          </OnyxBadge>
         </OnyxTooltip>
 
         <OnyxIcon :icon="chevronDownUp" class="onyx-select__icon" />
@@ -136,7 +135,8 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/layers.scss";
 
 .onyx-select,
 .onyx-select-skeleton {
@@ -154,153 +154,165 @@ const { densityClass } = useDensity(props);
 }
 
 .onyx-select {
-  $line-height: 1.5rem;
+  @include layers.component() {
+    $line-height: 1.5rem;
 
-  --border-color: var(--onyx-color-base-neutral-300);
-  --selection-color: var(--onyx-color-base-neutral-200);
+    --border-color: var(--onyx-color-base-neutral-300);
+    --selection-color: var(--onyx-color-base-neutral-200);
 
-  font-family: var(--onyx-font-family);
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
-
-  &__label {
-    display: flex;
-    margin-bottom: var(--onyx-spacing-5xs);
-    color: var(--onyx-color-text-icons-neutral-medium);
-
-    // optional marker should be displayed at the very end of the label
-    &.onyx-optional-marker {
-      justify-content: space-between;
-    }
-  }
-
-  &__icon {
-    color: var(--onyx-color-text-icons-neutral-medium);
-  }
-
-  &__wrapper {
-    border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--border-color);
-    background: var(--onyx-color-base-background-blank);
-    color: var(--onyx-color-text-icons-neutral-intense);
-
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-spacing-2xs);
-
-    font-size: 1rem;
-    line-height: $line-height;
-
-    box-sizing: border-box;
-
-    padding: var(--onyx-select-padding-vertical) var(--onyx-spacing-sm);
-    height: calc(1lh + 2 * var(--onyx-select-padding-vertical));
-  }
-
-  &__input {
-    // reset native input styles so they are inherited from the parent
-    border: none;
-    border-radius: inherit;
-    background-color: transparent;
-    color: inherit;
-    width: 100%;
-    outline: none;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 0;
-    cursor: inherit;
-
-    &::placeholder {
-      color: var(--onyx-color-text-icons-neutral-soft);
-      opacity: 1;
-      font-weight: 400;
-    }
-
-    &::selection {
-      background: var(--selection-color);
-    }
-  }
-
-  &__loading {
-    color: var(--onyx-color-text-icons-primary-intense);
-  }
-
-  &__footer {
-    width: 100%;
-    color: var(--onyx-color-text-icons-neutral-soft);
-  }
-
-  &--editable {
-    .onyx-select__wrapper:has(.onyx-select__input:enabled) {
-      cursor: pointer;
-      // default hover
-      &:hover {
-        --border-color: var(--onyx-color-base-primary-400);
-        .onyx-select__icon {
-          color: var(--onyx-color-text-icons-primary-medium);
-        }
-      }
-    }
-    // default focus
-    &:has(.onyx-select__input:enabled:focus) {
-      .onyx-select {
-        &__wrapper {
-          --border-color: var(--onyx-color-base-primary-500);
-          outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
-        }
-
-        &__icon {
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
-      }
-    }
-  }
-
-  // readonly focus
-  &--readonly:has(.onyx-select__input:enabled:focus) .onyx-select__wrapper {
-    outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
-  }
-
-  &:has(&__input:disabled),
-  &--readonly {
-    .onyx-select {
-      &__label {
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
-
-      &__wrapper {
-        background-color: var(--onyx-color-base-background-tinted);
-        color: var(--onyx-color-text-icons-neutral-soft);
-        --border-color: var(--onyx-color-base-neutral-300);
-      }
-    }
-  }
-
-  &-skeleton {
+    font-family: var(--onyx-font-family);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-5xs);
+
     &__label {
-      width: var(--onyx-spacing-3xl);
-      height: 1.25rem;
+      display: flex;
+      margin-bottom: var(--onyx-spacing-5xs);
+      color: var(--onyx-color-text-icons-neutral-medium);
+
+      // optional marker should be displayed at the very end of the label
+      &.onyx-optional-marker {
+        justify-content: space-between;
+      }
     }
-    &__input {
-      width: 17rem;
-      // TODO: apply height based on density
+
+    &__icon {
+      color: var(--onyx-color-text-icons-neutral-medium);
+    }
+
+    &__wrapper {
+      border-radius: var(--onyx-radius-sm);
+      border: var(--onyx-1px-in-rem) solid var(--border-color);
+      background: var(--onyx-color-base-background-blank);
+      color: var(--onyx-color-text-icons-neutral-intense);
+
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-spacing-2xs);
+
+      font-size: 1rem;
+      line-height: $line-height;
+
+      box-sizing: border-box;
+
+      padding: var(--onyx-select-padding-vertical) var(--onyx-spacing-sm);
       height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
     }
-  }
-}
 
-// TODO: remove badge styles once OnyxBadge is implemented
-//       https://github.com/SchwarzIT/onyx/issues/565
-.onyx-badge {
-  text-align: center;
-  padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
-  border-radius: var(--onyx-radius-full);
-  background: var(--onyx-color-base-neutral-700);
-  color: var(--onyx-color-text-icons-neutral-inverted);
+    &__input {
+      // reset native input styles so they are inherited from the parent
+      border: none;
+      border-radius: inherit;
+      background-color: transparent;
+      color: inherit;
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      padding: 0;
+      cursor: inherit;
+
+      &::placeholder {
+        color: var(--onyx-color-text-icons-neutral-soft);
+        opacity: 1;
+        font-weight: 400;
+      }
+
+      &::selection {
+        background: var(--selection-color);
+      }
+    }
+
+    &__badge {
+      display: block;
+      cursor: pointer;
+    }
+
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    &__footer {
+      width: 100%;
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &--editable {
+      .onyx-select__wrapper:has(.onyx-select__input:enabled) {
+        cursor: pointer;
+        // default hover
+        &:hover {
+          --border-color: var(--onyx-color-base-primary-400);
+          .onyx-select__icon {
+            color: var(--onyx-color-text-icons-primary-medium);
+          }
+        }
+      }
+      // default focus
+      &:has(.onyx-select__input:enabled:focus) {
+        .onyx-select {
+          &__wrapper {
+            --border-color: var(--onyx-color-base-primary-500);
+            outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+          }
+
+          &__icon {
+            color: var(--onyx-color-text-icons-primary-intense);
+          }
+        }
+      }
+    }
+
+    // readonly focus
+    &--readonly:has(.onyx-select__input:enabled:focus) .onyx-select__wrapper {
+      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
+    }
+
+    &:has(&__input:disabled),
+    &--readonly {
+      .onyx-select {
+        &__label {
+          color: var(--onyx-color-text-icons-neutral-soft);
+        }
+
+        &__wrapper {
+          background-color: var(--onyx-color-base-background-tinted);
+          color: var(--onyx-color-text-icons-neutral-soft);
+          --border-color: var(--onyx-color-base-neutral-300);
+        }
+      }
+    }
+
+    &--readonly {
+      .onyx-select__wrapper:hover {
+        --border-color: var(--onyx-color-base-neutral-400);
+      }
+    }
+
+    &-skeleton {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-5xs);
+      &__label {
+        width: var(--onyx-spacing-3xl);
+        height: 1.25rem;
+      }
+      &__input {
+        width: 17rem;
+        height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
+      }
+    }
+
+    // TODO: remove badge styles once OnyxBadge is implemented
+    //       https://github.com/SchwarzIT/onyx/issues/565
+    .onyx-badge {
+      text-align: center;
+      padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
+      border-radius: var(--onyx-radius-full);
+      background: var(--onyx-color-base-neutral-700);
+      color: var(--onyx-color-text-icons-neutral-inverted);
+    }
+  }
 }
 </style>

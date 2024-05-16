@@ -1,5 +1,23 @@
 # @sit-onyx/headless
 
+## 0.1.0-alpha.7
+
+### Minor Changes
+
+- 1377af6: feat(OnyxListbox): implement multiselect. Extend headless listbox to have an array modelValue if multiselect is used.
+
+## 0.1.0-alpha.6
+
+### Minor Changes
+
+- 43a8616: feat(listbox): support multiple characters for type-ahead
+
+## 0.1.0-alpha.5
+
+### Patch Changes
+
+- 4747445: fix(OnyxTooltip): prevent "document not defined" error in server side rendering
+
 ## 0.1.0-alpha.4
 
 ### Minor Changes

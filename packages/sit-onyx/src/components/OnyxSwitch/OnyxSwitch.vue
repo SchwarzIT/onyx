@@ -1,15 +1,13 @@
 <script lang="ts" setup>
-import { OnyxIcon } from "@/index";
-import { areObjectsFlatEqual } from "@/utils/objects";
-import { transformValidityStateToObject } from "@/utils/forms";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, ref, toRefs, watch } from "vue";
+import { computed } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRequired } from "../../composables/required";
+import { useCustomValidity } from "../../composables/useCustomValidity";
+import { OnyxIcon, OnyxLoadingIndicator } from "../../index";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
-import { useRequired } from "../../composables/required";
-import { OnyxLoadingIndicator } from "@/index";
-import { useDensity } from "../../composables/density";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
@@ -22,16 +20,15 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
   "update:modelValue": [value: boolean];
-  /** Emitted whenever the validity state of the input changes */
-  validityChange: [state: ValidityState];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-
-const { errorMessage } = toRefs(props);
 const { densityClass } = useDensity(props);
-const inputElement = ref<HTMLInputElement>();
-const validityState = ref(inputElement.value?.validity);
+const { vCustomValidity } = useCustomValidity({ props, emit });
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -39,33 +36,13 @@ const isChecked = computed({
     emit("update:modelValue", value);
   },
 });
-
-watch([inputElement, errorMessage], () => {
-  if (!inputElement.value) return;
-  // by using setCustomValidity, the ValidityState will turn invalid
-  // as long as it is not an empty string
-  inputElement.value.setCustomValidity(props.errorMessage || "");
-});
-
-watch(
-  [inputElement, isChecked, errorMessage],
-  () => {
-    if (!inputElement.value) return;
-
-    const newValidityState = transformValidityStateToObject(inputElement.value.validity);
-    //  only update + emit the validity state when it changed
-    if (!validityState.value || !areObjectsFlatEqual(newValidityState, validityState.value)) {
-      validityState.value = newValidityState;
-      emit("validityChange", validityState.value);
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
   <div v-if="props.skeleton" :class="['onyx-switch-skeleton', densityClass]">
-    <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    <span class="onyx-switch-skeleton__click-area">
+      <OnyxSkeleton class="onyx-switch-skeleton__input" />
+    </span>
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
@@ -79,8 +56,8 @@ watch(
     <!-- eslint-disable vuejs-accessibility/role-has-required-aria-props -->
     <!-- TODO: disable can be removed when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
     <input
-      ref="inputElement"
       v-model="isChecked"
+      v-custom-validity
       type="checkbox"
       role="switch"
       :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
@@ -88,25 +65,38 @@ watch(
       :disabled="props.disabled || props.loading"
       :required="props.required"
     />
-    <span class="onyx-switch__container">
-      <span class="onyx-switch__icon">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-        <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+    <span class="onyx-switch__click-area">
+      <span class="onyx-switch__container">
+        <span class="onyx-switch__icon">
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
+          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+        </span>
+        <div class="onyx-switch__frame"></div>
       </span>
     </span>
-
     <span
       v-if="!props.hideLabel"
       class="onyx-switch__label"
-      :class="[`onyx-truncation-${props.truncation}`, requiredMarkerClass]"
+      :class="[
+        `onyx-truncation-${props.truncation}`,
+        // shows the required marker inline for multiline labels
+        props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+      ]"
     >
       {{ props.label }}
     </span>
+    <!-- shows the required marker fixed on the right for truncated labels -->
+    <div
+      v-if="props.truncation === 'ellipsis'"
+      class="onyx-switch__marker"
+      :class="[requiredMarkerClass]"
+    ></div>
   </label>
 </template>
 
 <style lang="scss">
-@use "../../styles/density.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/layers";
 
 .onyx-switch,
 .onyx-switch-skeleton {
@@ -114,8 +104,11 @@ watch(
     --onyx-switch-icon-size: 1rem;
     --onyx-switch-cozy-width: 0rem;
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
+    --onyx-switch-container-margin: 0.25rem;
     --onyx-switch-transform: 0.125rem;
     --onyx-switch-input-height: unset;
+    --onyx-switch-click-height: var(--onyx-spacing-xl);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-4xs);
 
     // icon size + padding top/bottom + border top/bottom
     --onyx-switch-skeleton-height: calc(
@@ -130,6 +123,8 @@ watch(
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
     --onyx-switch-input-height: unset;
+    --onyx-switch-click-height: 2.5rem;
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-2xs);
 
     // icon size + padding top/bottom + border top/bottom
     --onyx-switch-skeleton-height: calc(
@@ -145,6 +140,8 @@ watch(
     --onyx-switch-transform: 0.01rem;
     --onyx-switch-input-height: 2rem;
     --onyx-switch-skeleton-height: var(--onyx-switch-input-height);
+    --onyx-switch-click-height: var(--onyx-spacing-2xl);
+    --onyx-switch-label-padding-vertical: var(--onyx-spacing-sm);
   }
 }
 
@@ -154,179 +151,212 @@ $input-width: calc(
 );
 
 .onyx-switch {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  gap: var(--onyx-spacing-2xs);
-  max-width: 100%;
-
-  &__input {
-    // position: absolute is needed here in order to hide the native checkbox.
-    position: absolute;
-    opacity: 0;
-    cursor: inherit;
-    width: 0;
-    height: 0;
-    margin: 0;
-
-    &:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-themed-neutral-100);
-        transform: translateX(calc(75% - var(--onyx-switch-transform)));
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-
-      .onyx-switch__spinner {
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-    }
-
-    &:checked:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-primary-soft);
-      }
-    }
-
-    &:disabled:not(.onyx-switch__loading) + .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-200);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-neutral-300);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &:invalid + .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-200);
-      border-color: var(--onyx-color-base-danger-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-danger-500);
-        color: var(--onyx-color-text-icons-neutral-inverted);
-      }
-    }
-
-    &:invalid:checked + .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-500);
-
-      .onyx-switch__icon {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-danger-intense);
-      }
-    }
-  }
-
-  &__container {
+  @include layers.component() {
     display: inline-flex;
-    width: $input-width;
-    min-width: $input-width;
-    height: var(--onyx-switch-input-height);
-    padding: var(--onyx-switch-container-padding);
-    box-sizing: border-box;
-    background-color: var(--onyx-color-base-neutral-300);
-    border-radius: var(--onyx-radius-full);
-    border: var(--onyx-1px-in-rem) solid transparent;
-    transition: background-color var(--onyx-duration-sm) ease;
+    align-items: flex-start;
+    cursor: pointer;
+    max-width: 100%;
 
-    .onyx-switch__icon {
+    &__input {
+      // position: absolute is needed here in order to hide the native checkbox.
+      position: absolute;
+      opacity: 0;
+      cursor: inherit;
+      width: 0;
+      height: 0;
+      margin: 0;
+
+      &:checked + .onyx-switch__click-area .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-themed-neutral-100);
+          transform: translateX(calc(75% - var(--onyx-switch-transform)));
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+
+        .onyx-switch__spinner {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+      }
+
+      &:checked:disabled:not(.onyx-switch__loading)
+        + .onyx-switch__click-area
+        .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-primary-soft);
+        }
+      }
+
+      &:disabled:not(.onyx-switch__loading) + .onyx-switch__click-area .onyx-switch__container {
+        background-color: var(--onyx-color-base-neutral-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-neutral-300);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:user-invalid {
+        & + .onyx-switch__click-area .onyx-switch__container {
+          background-color: var(--onyx-color-base-danger-200);
+          position: relative;
+
+          .onyx-switch__icon {
+            background-color: var(--onyx-color-base-danger-500);
+            color: var(--onyx-color-text-icons-neutral-inverted);
+          }
+
+          // The frame is needed instead of setting a border directly on __container
+          // because when zooming in, some browsers will mess up the center-alignment of the __icon
+          // by resizing the 1px border to fractions.
+          // for more info, see https://github.com/SchwarzIT/onyx/issues/503
+          .onyx-switch__frame {
+            position: absolute;
+            border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
+            height: var(--onyx-switch-skeleton-height);
+            border-radius: var(--onyx-radius-full);
+            width: $input-width;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+          }
+        }
+
+        &:checked + .onyx-switch__click-area .onyx-switch__container {
+          background-color: var(--onyx-color-base-danger-500);
+
+          .onyx-switch__icon {
+            background-color: var(--onyx-color-base-background-blank);
+            color: var(--onyx-color-text-icons-danger-intense);
+          }
+        }
+      }
+    }
+
+    &__click-area,
+    &-skeleton__click-area {
+      padding: 0 var(--onyx-spacing-2xs);
+      height: var(--onyx-switch-click-height);
       display: flex;
-      align-self: center;
-      justify-content: center;
-      background-color: var(--onyx-color-themed-neutral-100);
+      align-items: center;
+    }
+
+    &__container {
+      display: inline-flex;
+      width: $input-width;
+      min-width: $input-width;
+      height: var(--onyx-switch-input-height);
+      padding: var(--onyx-switch-container-padding);
+      box-sizing: border-box;
+      background-color: var(--onyx-color-base-neutral-300);
       border-radius: var(--onyx-radius-full);
-      transition:
-        transform var(--onyx-duration-sm) ease,
-        background-color var(--onyx-duration-sm) ease;
-      overflow: hidden;
-      color: var(--onyx-color-text-icons-neutral-soft);
-      height: var(--onyx-switch-icon-size);
-      width: var(--onyx-switch-icon-size);
+      transition: background-color var(--onyx-duration-sm) ease;
 
-      .onyx-icon {
-        --icon-size: var(--onyx-switch-icon-size);
+      .onyx-switch__icon {
+        margin: var(--onyx-1px-in-rem);
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        background-color: var(--onyx-color-themed-neutral-100);
+        border-radius: var(--onyx-radius-full);
+        transition:
+          transform var(--onyx-duration-sm) ease,
+          background-color var(--onyx-duration-sm) ease;
+        overflow: hidden;
+        color: var(--onyx-color-text-icons-neutral-soft);
+        height: var(--onyx-switch-icon-size);
+        width: var(--onyx-switch-icon-size);
+
+        .onyx-icon {
+          --icon-size: var(--onyx-switch-icon-size);
+        }
+
+        .onyx-switch__spinner {
+          padding: var(--onyx-1px-in-rem);
+        }
+      }
+    }
+
+    &__label,
+    &__marker {
+      padding: var(--onyx-switch-label-padding-vertical) 0;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+    &__label {
+      color: var(--onyx-color-text-icons-neutral-intense);
+      font-family: var(--onyx-font-family);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    &:hover {
+      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+        background-color: var(--onyx-color-base-neutral-400);
       }
 
-      .onyx-switch__spinner {
-        padding: var(--onyx-1px-in-rem);
+      &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-primary-400);
+      }
+
+      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-300);
+      }
+
+      &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-danger-400);
       }
     }
-  }
 
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-intense);
-    font-family: var(--onyx-font-family);
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
-  }
+    &:has(&__input:focus-visible) {
+      outline: none;
 
-  &:hover {
-    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-      background-color: var(--onyx-color-base-neutral-400);
+      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-neutral-200);
+      }
+
+      &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+      }
+
+      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-danger-300);
+      }
+
+      &:has(.onyx-switch__input:user-invalid:checked:enabled) .onyx-switch__container {
+        outline: 0.25rem solid var(--onyx-color-base-danger-200);
+      }
     }
 
-    &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
-      background-color: var(--onyx-color-base-primary-400);
-    }
+    &:has(.onyx-switch__input:disabled) {
+      cursor: default;
 
-    &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-300);
-    }
-
-    &:has(.onyx-switch__input:invalid:enabled:checked) .onyx-switch__container {
-      background-color: var(--onyx-color-base-danger-400);
-    }
-  }
-
-  &:has(&__input:focus-visible) {
-    outline: none;
-
-    &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-neutral-200);
-    }
-
-    &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-primary-200);
-    }
-
-    &:has(.onyx-switch__input:invalid:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-danger-300);
-    }
-
-    &:has(.onyx-switch__input:invalid:checked:enabled) .onyx-switch__container {
-      outline: 0.25rem solid var(--onyx-color-base-danger-200);
-    }
-  }
-
-  &:has(.onyx-switch__input:disabled) {
-    cursor: default;
-
-    .onyx-switch__label {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      .onyx-switch__label {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
   }
 }
 
 .onyx-switch-skeleton {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--onyx-spacing-2xs);
+  @include layers.component() {
+    display: inline-flex;
+    align-items: center;
 
-  &__input {
-    height: var(--onyx-switch-skeleton-height);
-    border-radius: var(--onyx-radius-full);
-    width: $input-width;
-  }
+    &__input {
+      height: var(--onyx-switch-skeleton-height);
+      border-radius: var(--onyx-radius-full);
+      width: $input-width;
+    }
 
-  &__label {
-    height: var(--onyx-spacing-md);
-    width: var(--onyx-spacing-3xl);
+    &__label {
+      height: var(--onyx-spacing-md);
+      width: var(--onyx-spacing-3xl);
+    }
   }
 }
 </style>

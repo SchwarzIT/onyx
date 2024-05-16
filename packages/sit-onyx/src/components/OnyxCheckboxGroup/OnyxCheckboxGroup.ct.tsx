@@ -1,13 +1,12 @@
-import { executeScreenshotsForAllStates } from "../../utils/playwright";
-import { expect, test } from "../../playwright-axe";
+import { expect, test } from "../../playwright/a11y";
 import { DIRECTIONS } from "../../types";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
 const mockOptions: OnyxCheckboxGroupProps["options"] = [
-  { label: "Default", id: "id-1" },
-  { label: "Required", id: "id-2", required: true },
-  { label: "Disabled", id: "id-3", disabled: true },
+  { label: "Default", value: 1 },
+  { label: "Required", value: 2, required: true },
+  { label: "Disabled", value: 3, disabled: true },
 ];
 
 test("should render", async ({ page, mount, makeAxeBuilder }) => {
@@ -40,7 +39,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
 
   // ACT
   await component.getByLabel("Default").check();
-  expect(modelValue).toStrictEqual(["id-1"]);
+  expect(modelValue).toStrictEqual([1]);
   await component.update({ props: { modelValue }, on: eventHandlers });
   await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
@@ -51,7 +50,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
 
   // ACT
   await masterCheckBox.check();
-  expect(modelValue).toStrictEqual(["id-1", "id-2"]);
+  expect(modelValue).toStrictEqual([1, 2]);
   await component.update({ props: { modelValue }, on: eventHandlers });
   await page.mouse.move(0, 0); // needed to remove hover effect that Playwright adds from checking
 
@@ -85,6 +84,7 @@ test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
       options={mockOptions}
       headline="Horizontal group headline"
       direction="horizontal"
+      withCheckAll
     />,
   );
 
@@ -110,38 +110,34 @@ test("should disabled all checkboxes if group is disabled", async ({ mount }) =>
   }
 });
 
-const STATES = {
-  state: ["required", "optional"],
-} as const;
-test.describe("should truncate", () => {
-  const options: OnyxCheckboxGroupProps["options"] = [
-    { label: "Very long label that will be truncated", id: "id-1" },
-    { label: "Very long required label that will be truncated", id: "id-2", required: true },
-    {
-      label: "Very long label that will be wrapped with multiline",
-      id: "id-3",
-      truncation: "multiline",
-    },
-    {
-      label: "Very long required label that will be wrapped with multiline",
-      id: "id-4",
-      truncation: "multiline",
-      required: true,
-    },
-  ];
-  executeScreenshotsForAllStates(STATES, "truncated-checkbox-group", async ({ state }, mount) => {
+for (const state of ["required", "optional"] as const) {
+  test(`should truncate (${state})`, async ({ mount }) => {
     const component = await mount(
       <OnyxCheckboxGroup
-        options={options}
+        options={[
+          { label: "Very long label that will be truncated", value: 1 },
+          { label: "Very long required label that will be truncated", value: 2, required: true },
+          {
+            label: "Very long label that will be wrapped with multiline",
+            value: 3,
+            truncation: "multiline",
+          },
+          {
+            label: "Very long required label that will be wrapped with multiline",
+            value: 4,
+            truncation: "multiline",
+            required: true,
+          },
+        ]}
         headline="Truncated group headline"
-        style="max-width: 16rem;"
+        class={{ "onyx-use-optional": state === "optional" }}
+        style={{ maxWidth: "16rem" }}
       />,
-      { useOptional: state === "optional" },
     );
 
-    return component;
+    await expect(component).toHaveScreenshot(`truncation-${state}.png`);
   });
-});
+}
 
 DIRECTIONS.forEach((direction) => {
   test(`should render ${direction} skeletons`, async ({ mount }) => {

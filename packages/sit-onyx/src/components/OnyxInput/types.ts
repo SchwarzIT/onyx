@@ -1,8 +1,10 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 
 export type OnyxInputProps = DensityProp &
-  RequiredMarkerProp & {
+  RequiredMarkerProp &
+  CustomValidityProp & {
     /**
      * Label to show above the input. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.
@@ -87,6 +89,10 @@ export type OnyxInputProps = DensityProp &
      * For accessibility / screen readers, the aria-label will still be set.
      */
     hideLabel?: boolean;
+    /**
+     * Whether to show a skeleton input.
+     */
+    skeleton?: boolean;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

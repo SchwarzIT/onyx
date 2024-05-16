@@ -1,67 +1,19 @@
 <script setup lang="ts">
-import { Repl, mergeImportMap, useStore, useVueImportMap } from "@vue/repl";
+import { Repl } from "@vue/repl";
 import Monaco from "@vue/repl/monaco-editor";
+import { useDark } from "@vueuse/core";
 import { OnyxAppLayout } from "sit-onyx";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref } from "vue";
 import TheHeader from "./components/TheHeader.vue";
-import { useDark } from "./composables/useDark";
-import { useFiles } from "./composables/useFiles";
-import { fetchVersions } from "./utils/versions";
+import { useStore } from "./composables/useStore";
 
-const { vueVersion, importMap } = useVueImportMap({ vueVersion: "latest" });
-
-/**
- * Currently selected onyx version.
- */
-const onyxVersion = ref("alpha");
-
-/**
- * List of available onyx versions.
- */
-const availableVersions = ref<string[]>([]);
-const isLoading = ref(true);
-fetchVersions("sit-onyx")
-  .then((versions) => (availableVersions.value = versions))
-  .finally(() => (isLoading.value = false));
-
-const hash = location.hash.slice(1);
-
-const store = useStore(
-  {
-    vueVersion,
-    typescriptVersion: ref("latest"),
-    builtinImportMap: computed(() =>
-      mergeImportMap(importMap.value, {
-        imports: {
-          "sit-onyx": `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/index.js`,
-        },
-      }),
-    ),
-    /**
-     * Specify onyx version which is needed for the Monaco editor so that is loads the correct types for the current version
-     */
-    dependencyVersion: computed(() => {
-      // the dependencyVersion must be a real version number and not a range like "alpha"
-      const version =
-        onyxVersion.value.includes(".") || !availableVersions.value.length
-          ? onyxVersion.value
-          : availableVersions.value[0];
-      return { "sit-onyx": version };
-    }),
-  },
-  // initialize repl with previously serialized state
-  hash,
-);
-
-// persist state in URL
-watchEffect(() => history.replaceState({}, "", store.serialize()));
+const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
 
 const replRef = ref<InstanceType<typeof Repl>>();
 const reloadPage = () => replRef.value?.reload();
 
-const { isDark, theme } = useDark();
-
-useFiles({ store, onyxVersion, theme, reloadPage, hash });
+const isDark = useDark();
+const theme = computed(() => (isDark.value ? "dark" : "light"));
 </script>
 
 <template>
@@ -76,14 +28,21 @@ useFiles({ store, onyxVersion, theme, reloadPage, hash });
       />
     </template>
 
+    <!-- the key is needed here to update the headHTML below correctly so
+    the correct style.css for the onyx version is loaded -->
     <Repl
-      v-if="!isLoading"
+      v-if="!isLoadingOnyxVersions"
+      :key="onyxVersion"
       ref="replRef"
       :editor="Monaco"
       :theme="theme"
       :store="store"
       :clear-console="false"
       :show-compile-output="false"
+      :preview-options="{
+        headHTML: `<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion}/dist/style.css' />`,
+      }"
+      preview-theme
       auto-resize
       @keydown.ctrl.s.prevent
       @keydown.meta.s.prevent

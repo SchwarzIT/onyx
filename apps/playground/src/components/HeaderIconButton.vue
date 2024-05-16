@@ -19,7 +19,7 @@ const emit = defineEmits<{
       title=""
       :label="props.label"
       :icon="props.icon"
-      variation="secondary"
+      color="neutral"
       @click="emit('click')"
     />
   </OnyxTooltip>

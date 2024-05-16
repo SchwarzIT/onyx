@@ -2,12 +2,7 @@
 
 Column grids in ui design and development establish a structured layout, organizing content, components and elements cohesively. They provide a framework for alignment and distribution, ensuring consistency and hierarchy. Additionally, grids serve as the foundation for smooth responsive behavior, allowing seamless adoption to different screen sizes and resolutions, ultimately enhancing usability and overall user experience.
 
-<script lang="ts" setup>
-import { getStorybookHost } from "../.vitepress/env";
-</script>
-
-To see the grid and breakpoints in action, feel free to have a look on the
-<a :href="`${getStorybookHost()}/?path=/docs/utilities-gridplayground--docs`" target="_blank">grid playground</a>.
+To see the grid and breakpoints in action, feel free to have a look on the [grid playground](https://storybook.onyx.schwarz/?path=/docs/utilities-gridplayground--docs).
 
 ## Understanding the grid
 
@@ -45,6 +40,8 @@ The determination of the optimal number of columns is closely tied to the concep
 ## Breakpoints
 
 With the onyx design approach, we recognize the significance of tailoring the layout to different screen sizes through the implementation of specific breakpoints. Each breakpoint corresponds to a distinct grid system, carefully crafted to accommodate the diverse needs of onyx applications. From small mobile screens to expansive desktop displays, onyx offers a range of specifications and adjustments for the column grid, ensuring seamless adaption across various devices and screen resolution.
+
+For the technical implementation, please see the [developer documentation](/development/breakpoints).
 
 ![All breakpoints layed out on top of each-other with their units included. The details can be found in the following section.](/assets/breakpoints.png)
 

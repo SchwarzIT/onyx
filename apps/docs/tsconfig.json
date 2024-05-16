@@ -5,8 +5,7 @@
     "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
-      "~components/*": ["../../packages/sit-onyx/src/components/*"],
-      "@/*": ["../../packages/sit-onyx/src/*"]
+      "~components/*": ["../../packages/sit-onyx/src/components/*"]
     }
   }
 }

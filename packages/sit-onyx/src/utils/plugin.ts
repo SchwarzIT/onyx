@@ -1,4 +1,4 @@
-import { injectI18n, provideI18n, type ProvideI18nOptions } from "@/i18n";
+import { injectI18n, provideI18n, type ProvideI18nOptions } from "../i18n";
 import { type Plugin, watchEffect } from "vue";
 
 export type OnyxPluginOptions = {

@@ -1,11 +1,11 @@
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import {
   createIconSourceCodeTransformer,
   createTruncationDecorator,
   defineIconSelectArgType,
-} from "@/utils/storybook";
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+} from "../../utils/storybook";
 import OnyxButton from "./OnyxButton.vue";
 
 /**
@@ -18,7 +18,7 @@ import OnyxButton from "./OnyxButton.vue";
  * digital journey.
  */
 const meta: Meta<typeof OnyxButton> = {
-  title: "components/OnyxButton",
+  title: "components/Button",
   ...defineStorybookActionsAndVModels({
     component: OnyxButton,
     events: ["click"],
@@ -40,7 +40,7 @@ export default meta;
 type Story = StoryObj<typeof OnyxButton>;
 
 /**
- * This example shows the button in primary variation
+ * This example shows the button in primary color
  */
 export const Primary = {
   args: {
@@ -49,22 +49,22 @@ export const Primary = {
 } satisfies Story;
 
 /**
- * This example shows the button in secondary variation
+ * This example shows the button in neutral color
  */
-export const Secondary = {
+export const Neutral = {
   args: {
     label: "Button",
-    variation: "secondary",
+    color: "neutral",
   },
 } satisfies Story;
 
 /**
- * This example shows the button in danger variation
+ * This example shows the button in danger color
  */
 export const Danger = {
   args: {
     label: "Button",
-    variation: "danger",
+    color: "danger",
   },
 } satisfies Story;
 

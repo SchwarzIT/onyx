@@ -63,19 +63,28 @@ export default defineLoader({
      */
     const getImplementedStatus = (componentName: string) => {
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
+      const href = `https://storybook.onyx.schwarz/?path=/docs/components-${componentName.replace("Onyx", "").toLowerCase()}--docs`;
+
       return {
         status: fileExist ? "in-progress" : "planned",
-        href: fileExist ? `/development/components/${componentName}` : undefined,
+        href: fileExist ? href : undefined,
       } satisfies Partial<ComponentCardProps>;
     };
 
-    const basicComponentsDueDate = new Date(2024, 4);
+    const basicComponentsDueDate = "Q2/2024";
 
     const components: HomePageData["components"] = [
       {
         name: "Button",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxButton"),
+        status: "implemented",
+      },
+      {
+        name: "Icon button",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxIconButton"),
+        status: "implemented",
       },
       {
         name: "Radio button group",
@@ -92,20 +101,16 @@ export default defineLoader({
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxHeadline"),
       },
-      {
-        name: "Footer",
-        dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxFooter"),
-      },
+
       {
         name: "Header",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxHeader"),
       },
       {
-        name: "Combobox",
+        name: "Select",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxCombobox"),
+        ...getImplementedStatus("OnyxSelect"),
       },
       {
         name: "Textarea",
@@ -121,12 +126,53 @@ export default defineLoader({
         name: "Switch",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxSwitch"),
+        status: "implemented",
       },
       {
         name: "Checkbox group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxCheckboxGroup"),
       },
+      {
+        name: "Icons",
+        dueDate: basicComponentsDueDate,
+        status: "implemented",
+        href: "/resources/icons",
+      },
+      {
+        name: "Loading indicator",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxLoadingIndicator"),
+        status: "implemented",
+      },
+      {
+        name: "Tooltip",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxTooltip"),
+      },
+      {
+        name: "Tag",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxTag"),
+      },
+      {
+        name: "Badge",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxBadge"),
+        status: "implemented",
+      },
+      {
+        name: "Empty",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxEmpty"),
+        status: "implemented",
+      },
+      {
+        name: "Avatar",
+        dueDate: basicComponentsDueDate,
+        ...getImplementedStatus("OnyxAvatar"),
+      },
+      { name: "Footer", ...getImplementedStatus("OnyxFooter") },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
       { name: "Filter", ...getImplementedStatus("OnyxFilter") },
       { name: "Notification", ...getImplementedStatus("OnyxNotification") },

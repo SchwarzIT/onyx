@@ -1,5 +1,316 @@
 # sit-onyx
 
+## 1.0.0-alpha.101
+
+### Patch Changes
+
+- 2ea735b: Hide nested children when nav item is closed
+
+## 1.0.0-alpha.100
+
+### Patch Changes
+
+- d54d357: fix(OnyxUserMenu): hide flyout menu when closed
+
+## 1.0.0-alpha.99
+
+### Patch Changes
+
+- 3a9783d: Fix listbox position inside OnyxNavItem
+
+## 1.0.0-alpha.98
+
+### Major Changes
+
+- 9eb7b4e: rename SCSS breakpoint mixin
+
+  Old:
+
+  ```scss
+  @use "sit-onyx/breakpoints.scss" as onyx;
+
+  @include onyx.breakpoint(max, md) {
+    // your styles
+  }
+  ```
+
+  New:
+
+  ```scss
+  @use "sit-onyx/breakpoints.scss";
+
+  @include breakpoints.screen(max, md) {
+    // your styles
+  }
+  ```
+
+### Minor Changes
+
+- 9eb7b4e: feat: add `OnyxNavBar` component
+
+  If you used one of the `onyx-grid-max-md`, `onyx-grid-max-lg` or `onyx-grid-center` CSS classes which are not placed on the application root, move them to the application root element. See [grid docs](https://onyx.schwarz/development/grid.html#example) for further information
+
+## 1.0.0-alpha.97
+
+### Minor Changes
+
+- 5754525: feat(OnyxCheckboxGroup): align style for "check all" with figma
+
+## 1.0.0-alpha.96
+
+### Major Changes
+
+- f99f38f: refactor: align color property names
+
+  - rename property `variation` to `color` for: OnyxBadge, OnyxButton and OnyxIconButton
+  - OnyxButton and OnyxIconButton: rename color `secondary` to `neutral`
+
+## 1.0.0-alpha.95
+
+### Patch Changes
+
+- 2f825ec: fix(OnyxCheckboxGroup,OnyxListbox): preserve disabled states when toggling "check all"
+
+## 1.0.0-alpha.94
+
+### Patch Changes
+
+- c867746: fix(OnyxUserMenu): emit `optionClick` event when clicking an option
+
+## 1.0.0-alpha.93
+
+### Minor Changes
+
+- c55a599: Implement density for OnyxListbox
+
+## 1.0.0-alpha.92
+
+### Minor Changes
+
+- 2b48da9: feat: add basic `OnyxUserMenu` component
+- 2b48da9: feat(OnyxListbox): support icon and danger color for options
+
+## 1.0.0-alpha.91
+
+### Patch Changes
+
+- 93ad5a9: Fix hover colors on OnyxListbox
+- 1eb0528: Fix OnyxNavItem font-weight for active state
+
+## 1.0.0-alpha.90
+
+### Minor Changes
+
+- 57d81c9: feat: export `OnyxCheckbox` and `OnyxRadioButton`
+
+## 1.0.0-alpha.89
+
+### Major Changes
+
+- 7951251: refactor: align properties for selection components
+
+  - remove type `SelectionOption` and `ListboxOption` in favor of `SelectOption`. Affects: OnyxCheckboxGroup, OnyxRadioButtonGroup, OnyxListbox and OnyxSelect
+  - OnyxSelect: change property `modelValue` to be a select options instead of value only. This allows (e.g. to display a label for the current value(s) when the value(s) are not included in the options or the options are loading asynchronously)
+  - OnyxSelect: require property `options`
+  - OnyxRadioButtonGroup: change property `modelValue` to be the primitive value instead of a whole option
+  - fix(OnyxRadioButtonGroup): modelValue not shown as selected if type is number or boolean
+  - rename type `Multiple` to `SelectMultiple`
+  - remove utility type `TargetEvent`
+
+## 1.0.0-alpha.88
+
+### Minor Changes
+
+- 8d65dce: feat(OnyxTable): add row and column hover styles
+
+## 1.0.0-alpha.87
+
+### Minor Changes
+
+- 413d3e0: Implement external icon when external links are used inside OnyxNavItem
+
+## 1.0.0-alpha.86
+
+### Minor Changes
+
+- 5e96001: feat(OnyxAvatar): update font sizes
+
+## 1.0.0-alpha.85
+
+### Major Changes
+
+- 641dac7: refactor(OnyxCheckboxGroup): remove`checkAllLabel` property in favor of `withCheckAll`
+
+### Minor Changes
+
+- 641dac7: feat(OnyxListbox): implement `check all` support + exclude disabled options from keyboard navigation
+- afe16cf: Implement basic OnyxNavItem component
+
+## 1.0.0-alpha.84
+
+### Minor Changes
+
+- 5f28acb: feat(OnyxAvatar): add default slot to allow for custom content
+
+### Patch Changes
+
+- 5f28acb: fix(OnyxAvatar): update font size for size `96px`
+
+## 1.0.0-alpha.83
+
+### Minor Changes
+
+- 29a8ba6: feat: add basic `OnyxTable` component
+
+## 1.0.0-alpha.82
+
+### Minor Changes
+
+- 1377af6: feat(OnyxListbox): implement multiselect. Extend headless listbox to have an array modelValue if multiselect is used.
+
+### Patch Changes
+
+- Updated dependencies [1377af6]
+  - @sit-onyx/headless@0.1.0-alpha.7
+
+## 1.0.0-alpha.81
+
+### Minor Changes
+
+- ded1477: feat(OnyxBadge): add property `dot`
+
+## 1.0.0-alpha.80
+
+### Minor Changes
+
+- da3cad4: feat(OnyxAvatar): support custom image
+
+### Patch Changes
+
+- da3cad4: fix(OnyxAvatar): remove aria-label in favor of title
+
+  `aria-label` should only be used for interactive elements so we use `title` instead
+
+## 1.0.0-alpha.79
+
+### Minor Changes
+
+- 193ecf2: feat: add `skeleton` property for `OnyxIconButton` and `OnyxInput`
+
+## 1.0.0-alpha.78
+
+### Patch Changes
+
+- d819092: fix(OnyxSwitch): align label based on density, increase click area + show marker on truncation
+
+## 1.0.0-alpha.77
+
+### Minor Changes
+
+- a7b5140: feat: add `OnyxAvatar` and `OnyxAvatarStack` component
+
+## 1.0.0-alpha.76
+
+### Patch Changes
+
+- a155d1b: fix(OnyxTag): update border radius
+
+## 1.0.0-alpha.75
+
+### Patch Changes
+
+- 61c4964: fix(OnyxButton): add aria label when loading
+
+## 1.0.0-alpha.74
+
+### Minor Changes
+
+- 288afbd: feat: add `OnyxTag` component
+
+## 1.0.0-alpha.73
+
+### Minor Changes
+
+- 43a8616: feat(listbox): support multiple characters for type-ahead
+
+## 1.0.0-alpha.72
+
+### Minor Changes
+
+- f464b42: Implement grouped options for OnyxListbox component
+
+## 1.0.0-alpha.71
+
+### Patch Changes
+
+- b20fa64: fix(OnyxSelect): add missing border style for readonly + hover
+
+## 1.0.0-alpha.70
+
+### Major Changes
+
+- 4508633: refactor: rename density constant and type
+
+  - rename constant `DENSITY` to `DENSITIES`
+  - rename type `DensityType` to `Density`
+
+## 1.0.0-alpha.69
+
+### Minor Changes
+
+- cc7e712: feat(OnyxListbox): add loading and empty state
+
+## 1.0.0-alpha.68
+
+### Minor Changes
+
+- 20fe4ff: Update OnyxBadge default icon size
+
+## 1.0.0-alpha.67
+
+### Patch Changes
+
+- e51f8cb: fix(OnyxSwitch): repair zoom alignment of icon
+
+## 1.0.0-alpha.66
+
+### Major Changes
+
+- 4747445: remove `TestInput` in favor of `OnyxInput`
+- 4747445: refactor: OnyxRadioButton, OnyxRadioButtonGroup, OnyxSwitch - rename property `errorMessage` to `customError`
+- 4747445: refactor: rename type `RadioButtonProps` to `OnyxRadioButtonProps` to align naming with other components
+
+### Patch Changes
+
+- 4747445: fix(OnyxButton): bind `type` property to native `<button>`
+- 4747445: fix(OnyxTooltip): prevent "document not defined" error in server side rendering
+
+## 1.0.0-alpha.65
+
+### Minor Changes
+
+- e9eae68: Component styles are now normalized and make use of CSS layers
+
+## 1.0.0-alpha.64
+
+### Minor Changes
+
+- 4e2a5bb: feat: add `OnyxEmpty` component
+
+## 1.0.0-alpha.63
+
+### Minor Changes
+
+- 03fea09: feat: add SCSS mixin for breakpoints
+
+  See the [documentation](https://onyx.schwarz/development/breakpoints.html) for further details
+
+## 1.0.0-alpha.62
+
+### Minor Changes
+
+- cde1fdd: Implement OnyxBadge
+
 ## 1.0.0-alpha.61
 
 ### Patch Changes

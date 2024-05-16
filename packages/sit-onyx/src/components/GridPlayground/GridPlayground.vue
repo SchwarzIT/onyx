@@ -28,7 +28,7 @@ export type GridBreakpoints = keyof typeof BREAKPOINTS;
 export type GridElementSettings = { breakpoint?: GridBreakpoints; spans: number }[];
 
 const elements = ref<GridElementSettings[]>([]);
-const selectedElement = ref<GridElementSettings | null>(null);
+const selectedElement = ref<GridElementSettings>();
 const gridElement = ref<HTMLElement>();
 const gridSettings = ref<GridSettings>();
 const resizeObserver = new ResizeObserver(() => updateGridSettings());
@@ -40,7 +40,7 @@ const is20Xl = ref(false);
 
 const deleteElement = () => {
   elements.value = elements.value.filter((e) => e !== selectedElement.value);
-  selectedElement.value = null;
+  selectedElement.value = undefined;
 };
 
 const updateGridSettings = () => {
@@ -65,6 +65,15 @@ onBeforeUnmount(() => {
   resizeObserver.unobserve(document.body);
   resizeObserver.unobserve(gridElement.value!);
 });
+
+const handleDeleteModifier = () => {
+  if (!selectedElement.value) return;
+  selectedElement.value.splice(elements.value.indexOf(selectedElement.value), 1);
+};
+
+const handleAddModifier = () => {
+  selectedElement.value?.push({ spans: 2 });
+};
 </script>
 
 <template>
@@ -97,11 +106,9 @@ onBeforeUnmount(() => {
               :max="(props.breakpoint && BREAKPOINTS[props.breakpoint]?.cols) ?? 20"
             />
           </label>
-          <button @click="selectedElement.splice(elements.indexOf(selectedElement), 1)">
-            Delete modifier
-          </button>
+          <button @click="handleDeleteModifier">Delete modifier</button>
         </div>
-        <button @click="selectedElement.push({ spans: 2 })">Add Grid Modifier</button>
+        <button @click="handleAddModifier">Add Grid Modifier</button>
       </template>
       <template v-else>
         <span>Click an existing grid element to change its properties</span>
