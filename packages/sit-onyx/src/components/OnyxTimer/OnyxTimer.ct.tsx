@@ -35,6 +35,16 @@ test.describe("Timer", () => {
     //   expect(accessibilityScanResults.violations).toEqual([]);
   });
 
+  test("should render timer with label", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(OnyxTimer, {
+      props: { ...defaultProps, label: "Test label" },
+    });
+
+    // ASSERT
+    await expect(component).toHaveScreenshot("timer-with-label.png");
+  });
+
   test("should render timer with no time left", async ({ mount }) => {
     // ARRANGE
     const component = await mount(OnyxTimer, {
