@@ -52,7 +52,7 @@ test.describe("Timer", () => {
     );
     // ASSERT
     await expect(component).toContainText(/00:00 seconds/, { timeout: 3000 });
-    // without timeout test fails ..
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(1000);
     await expect(timerEnded).toBeTruthy();
   });
