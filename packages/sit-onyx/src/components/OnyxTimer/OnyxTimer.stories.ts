@@ -27,7 +27,7 @@ export const Default: Story = {
     setup() {
       return { args, endTime: endTime };
     },
-    template: '<OnyxTimer :end-time="endTime" label="test label" />',
+    template: '<OnyxTimer :end-time="endTime" label="An example timer:" />',
   }),
   loaders: [
     () => {
@@ -37,6 +37,17 @@ export const Default: Story = {
     },
   ],
 };
+
+export const WithMinutes: Story = {
+  ...Default,
+  loaders: [
+    () => {
+      const endTime = new Date();
+      endTime.setTime(Date.now() + 70 * 1000);
+      return { endTime };
+    },
+  ],
+} satisfies Story;
 
 export const WithHours: Story = {
   ...Default,
@@ -60,7 +71,7 @@ export const PausedState: Story = {
     setup() {
       return { args, endTime: endTime };
     },
-    template: '<OnyxTimer :end-time="endTime" label="timer paused" :is-paused="true" />',
+    template: '<OnyxTimer :end-time="endTime" label="Timer paused:" :is-paused="true" />',
   }),
   loaders: [
     () => {
