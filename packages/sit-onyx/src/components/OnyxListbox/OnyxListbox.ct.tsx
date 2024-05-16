@@ -95,15 +95,24 @@ test.describe("Densities screenshot tests", () => {
       // the following disabled rule should be removed.
       "nested-interactive",
     ],
-    component: (column, row) => (
-      <OnyxListbox
-        label={`${column} listbox`}
-        options={MOCK_VARIED_OPTIONS}
-        modelValue={row === "partial-selection" ? [2] : undefined}
-        multiple={row === "partial-selection"}
-        density={column}
-      />
-    ),
+    component: (column, row) =>
+      row === "partial-selection" ? (
+        <OnyxListbox
+          label={`${column} listbox`}
+          options={MOCK_VARIED_OPTIONS}
+          modelValue={[2]}
+          multiple={true}
+          density={column}
+        />
+      ) : (
+        <OnyxListbox
+          label={`${column} listbox`}
+          options={MOCK_VARIED_OPTIONS}
+          modelValue={undefined}
+          multiple={false}
+          density={column}
+        />
+      ),
   });
 });
 
@@ -118,7 +127,7 @@ test("should interact with multiselect", async ({ mount }) => {
   };
 
   // ARRANGE
-  const component = await mount(OnyxListbox<number, true>, {
+  const component = await mount(OnyxListbox, {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
@@ -333,4 +342,50 @@ test("should display optionsEnd slot", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("custom-load-button.png");
+});
+
+test("should handle onUpdate:searchTerm correctly when searching", async ({ mount }) => {
+  const onUpdateSearchTerm: string[] = [];
+
+  // ARRANGE
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: MOCK_MANY_OPTIONS,
+      label: "Test label",
+      withSearch: true,
+      "onUpdate:searchTerm": (i) => onUpdateSearchTerm.push(i),
+    },
+  });
+  const searchInput = component.getByRole("textbox");
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("with-search-empty.png");
+
+  // ACT
+  await searchInput.pressSequentially("test");
+
+  // ASSERT
+  expect(onUpdateSearchTerm).toHaveLength(4);
+  expect(onUpdateSearchTerm.at(-1)).toBe("test");
+
+  // ACT
+  await component.getByLabel("Clear search filter").click();
+
+  // ASSERT
+  expect(onUpdateSearchTerm).toHaveLength(5);
+  expect(onUpdateSearchTerm.at(-1)).toBe("");
+
+  // ACT
+  await component.update({ props: { searchTerm: "very long and new test text" } });
+
+  // ASSERT
+  await expect(searchInput).toHaveValue("very long and new test text");
+  await expect(component).toHaveScreenshot("with-search-filled.png");
+
+  // ACT
+  await component.update({ props: { searchTerm: "" } });
+
+  // ASSERT
+  expect(onUpdateSearchTerm).toHaveLength(5);
+  await expect(searchInput).toHaveValue("");
 });

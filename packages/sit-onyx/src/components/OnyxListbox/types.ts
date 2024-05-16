@@ -2,46 +2,48 @@ import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
-export type OnyxListboxProps<
-  TValue extends SelectOptionValue = SelectOptionValue,
-  TMultiple extends boolean = false,
-> = DensityProp & {
-  /**
-   * Label describing the combobox itself, must be set to support assistive technologies.
-   */
-  label: string;
-  /**
-   * Label describing the selection list, must be set to support assistive technologies.
-   */
-  listLabel: string;
-  /**
-   * Available options to choose from.
-   */
-  options: ListboxOption<TValue>[];
-  /**
-   * Message / help text to display at the bottom.
-   */
-  message?: string;
-  /**
-   * Current value / selected option(s).
-   */
-  modelValue?: TMultiple extends true ? ListboxOption<TValue>[] : ListboxOption<TValue>;
-  /**
-   * Allows the selection of multiple listbox options
-   */
-  multiple?: TMultiple;
+export type ListboxSearchProps =
+  | {
+      /**
+       * Allows the user to filter the list entries.
+       * No support for `lazyLoading` yet.
+       */
+      withSearch: true;
+      /**
+       * Value of the search input.
+       */
+      searchTerm?: string;
+    }
+  | {
+      withSearch?: false;
+    };
 
-  /**
-   *
-   */
-  withSearch?: boolean;
-  /**
-   * If true, a checkbox will be displayed to check/uncheck all options.
-   * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
-   * Only available if "multiple" is true.
-   */
-  withCheckAll?: TMultiple extends true
-    ?
+export type ListboxModelValueProps<TValue extends string> =
+  | {
+      /**
+       * Allows the selection of multiple listbox options
+       */
+      multiple?: false;
+      /**
+       * Current value.
+       */
+      modelValue?: SelectOption<TValue>;
+    }
+  | {
+      /**
+       * Allows the selection of multiple listbox options
+       */
+      multiple: true;
+      /**
+       * Current value / selected option(s).
+       */
+      modelValue?: SelectOption<TValue>[];
+      /**
+       * If true, a checkbox will be displayed to check/uncheck all options.
+       * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+       * Only available if "multiple" is true.
+       */
+      withCheckAll?:
         | boolean
         | {
             /**
@@ -49,18 +51,43 @@ export type OnyxListboxProps<
              * If unset, a default label will be shown depending on the current locale/language.
              */
             label?: string;
-          }
-    : undefined;
-  /**
-   * Whether to show a loading indicator.
-   */
-  loading?: boolean;
-  /**
-   * Lazy loading options. Can be used to load more options on scroll.
-   * If you want to use a button instead, use the `optionsEnd` slot.
-   */
-  lazyLoading?: ListboxLazyLoading;
-};
+          };
+    };
+
+export type ListboxModelValue<
+  TValue extends SelectOptionValue = SelectOptionValue,
+  TMultiple extends boolean = false,
+> = TMultiple extends true ? TValue[] : TValue;
+
+export type OnyxListboxProps<TValue extends string = string> = DensityProp &
+  ListboxModelValueProps<TValue> &
+  ListboxSearchProps & {
+    /**
+     * Aria label. Must be set for accessibility reasons.
+     */
+    label: string;
+    /**
+     * Label describing the selection list, must be set to support assistive technologies.
+     */
+    listLabel: string;
+    /**
+     * Available options to choose from.
+     */
+    options: ListboxOption<TValue>[];
+    /**
+     * Message / help text to display at the bottom.
+     */
+    message?: string;
+    /**
+     * Whether to show a loading indicator.
+     */
+    loading?: boolean;
+    /**
+     * Lazy loading options. Can be used to load more options on scroll.
+     * If you want to use a button instead, use the `optionsEnd` slot.
+     */
+    lazyLoading?: ListboxLazyLoading;
+  };
 
 export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,

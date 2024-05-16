@@ -1,4 +1,4 @@
-<script lang="ts" setup generic="TValue extends string = string, TMultiple extends boolean = false">
+<script lang="ts" setup generic="TValue extends string = string">
 import { useDensity } from "../../composables/density";
 import { createComboBox, createId } from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
@@ -14,7 +14,7 @@ import type { ListboxOption, OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 import OnyxSelect from "../OnyxCombobox/OnyxSelect/OnyxSelect.vue";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
+const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
 });
 
@@ -23,6 +23,10 @@ const emit = defineEmits<{
    * Emitted when the current value changes.
    */
   "update:modelValue": [value: typeof props.modelValue];
+  /**
+   * Emitted when the current search input value changes.
+   */
+  "update:searchTerm": [searchTerm: string];
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
    * See property `lazyLoading` for enabling the lazy loading.
@@ -49,12 +53,24 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
+const isExpanded = ref(false);
+
 /**
  * Currently (visually) active option.
  */
 const activeOption = ref<TValue>();
 
-const isExpanded = ref(false);
+const searchInput = computed({
+  get: () => (props.withSearch && props.searchTerm) || "",
+  set: (newValue) => emit("update:searchTerm", newValue),
+});
+
+const arrayValue = computed(() => {
+  if (!props.modelValue) {
+    return [];
+  }
+  return props.multiple ? props.modelValue : [props.modelValue];
+});
 
 /**
  * Sync the active option with the selected option on single select.
@@ -76,7 +92,9 @@ const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.withCheckAll ? [CHECK_ALL_ID] : []).concat(enabledOptionValues.value);
+  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
+    enabledOptionValues.value,
+  );
 });
 
 const searchTerm = ref("");
@@ -114,23 +132,19 @@ const onSelect = (selectedOption: string) => {
   }
 
   if (!props.multiple) {
-    const newValue =
-      selectedOption === (props.modelValue as ListboxOption<TValue>)?.value
-        ? undefined
-        : selectedOption;
+    const newValue = selectedOption === props.modelValue?.value ? undefined : selectedOption;
     emit("update:modelValue", newValue as typeof props.modelValue);
     return;
   }
-  const arrayValues = (props.modelValue as ListboxOption<TValue>[]) ?? [];
-  const alreadyInList = arrayValues.some(({ value }) => value === selectedOption);
+  const alreadyInList = arrayValue.value.some(({ value }) => value === selectedOption);
   if (alreadyInList) {
     emit(
       "update:modelValue",
-      arrayValues.filter(({ value }) => value !== selectedOption) as typeof props.modelValue,
+      arrayValue.value.filter(({ value }) => value !== selectedOption) as typeof props.modelValue,
     );
   } else {
     emit("update:modelValue", [
-      ...arrayValues,
+      ...arrayValue.value,
       props.options.find(({ value }) => value === selectedOption),
     ] as typeof props.modelValue);
   }
@@ -152,19 +166,11 @@ const comboBox = createComboBox({
   onSelect,
 });
 
-const filteredOptions = computed(() =>
-  searchTerm.value && props.withSearch
-    ? props.options.filter(({ label }) =>
-        label.trim().toLowerCase().includes(searchTerm.value.trim().toLowerCase()),
-      )
-    : props.options,
-);
-
 const {
-  elements: { input, listbox, option: headlessOption, group: headlessGroup },
+  elements: { input, option: headlessOption, group: headlessGroup, listbox },
 } = comboBox;
 
-const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
+const groupedOptions = computed(() => groupByKey(props.options, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -174,13 +180,13 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 
 const isEmptyMessage = computed<FlattenedKeysOf<OnyxTranslations> | undefined>(
   () =>
-    (props.options.length === 0 && "empty") ||
-    (filteredOptions.value.length === 0 && "no-match") ||
+    (props.options.length === 0 && "listbox.empty") ||
+    (props.withSearch && props.searchTerm && props.options.length === 0 && "listbox.noMatch") ||
     undefined,
 );
 
 const enabledOptionValues = computed(() =>
-  filteredOptions.value.filter((i) => !i.disabled).map(({ value }) => value),
+  props.options.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
@@ -203,6 +209,9 @@ const checkAll = computed(() => {
 });
 
 const checkAllLabel = computed<string>(() => {
+  if (!props.multiple) {
+    return "";
+  }
   const defaultText = t.value("selections.selectAll");
   if (typeof props.withCheckAll === "boolean") return defaultText;
   return props.withCheckAll?.label ?? defaultText;
@@ -230,7 +239,12 @@ watchEffect(() => {
       </div>
 
       <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-        <OnyxMiniSearch v-if="props.withSearch" v-model="searchTerm" class="onyx-listbox__search" />
+        <OnyxMiniSearch
+          v-if="props.withSearch"
+          v-model="searchInput"
+          :label="t('listbox.searchInputLabel')"
+          class="onyx-listbox__search"
+        />
 
         <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
           <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
@@ -310,11 +324,21 @@ watchEffect(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/list";
+@use "../../styles/mixins/density.scss";
 
 .onyx-listbox {
+  @include density.compact {
+    --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
+  }
+  @include density.default {
+    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
+  }
+  @include density.cozy {
+    --option-height: calc(1.5rem + 3 * var(--onyx-spacing-2xs));
+  }
+
   @include layers.component() {
     --max-options: 8;
-    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
 
     @include list.styles();
 
@@ -325,13 +349,14 @@ watchEffect(() => {
       top: 0;
     }
 
-    &__check-all,
-    &__search {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    &-option {
+      height: var(--option-height);
     }
 
-    .onyx-listbox-option {
-      height: var(--option-height);
+    &__check-all,
+    &__search {
+      height: calc(var(--option-height) + var(--onyx-1px-in-rem));
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
     &:has(&__wrapper:focus-visible) {

@@ -29,7 +29,7 @@ export type CreateComboboxOptions<
   TAutoComplete extends ComboboxAutoComplete,
   TMultiple extends boolean = false,
 > = {
-  autocomplete: TAutoComplete;
+  autocomplete: MaybeRef<TAutoComplete>;
   label: MaybeRef<string>;
   /**
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
@@ -92,12 +92,12 @@ export const createComboBox = createBuilder(
     TAutoComplete extends ComboboxAutoComplete,
     TMultiple extends boolean = false,
   >({
-    autocomplete,
+    autocomplete: autocompleteRef,
     onAutocomplete,
     onTypeAhead,
     label,
     listLabel,
-    isExpanded,
+    isExpanded: isExpandedRef,
     activeOption,
     onToggle,
     onSelect,
@@ -110,11 +110,14 @@ export const createComboBox = createBuilder(
     const inputValue = ref("");
     const controlsId = createId("comboBox-control");
 
+    const autocomplete = computed(() => unref(autocompleteRef));
+    const isExpanded = computed(() => unref(isExpandedRef));
+
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
       inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
-      if (autocomplete !== "none") {
+      if (autocomplete.value !== "none") {
         onAutocomplete?.(inputValue.value);
       }
       if (!unref(isExpanded)) {
@@ -130,8 +133,7 @@ export const createComboBox = createBuilder(
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      const _isExpanded = unref(isExpanded);
-      if (_isExpanded) {
+      if (isExpanded.value) {
         if (isSelectingKey(event)) {
           handleSelect(activeOption.value!);
           return;
@@ -175,16 +177,16 @@ export const createComboBox = createBuilder(
             return onActivateLast?.();
         }
       }
-      if (autocomplete === "none" && isPrintableCharacter(event.key)) {
-        !_isExpanded && onToggle?.();
+      if (autocomplete.value === "none" && isPrintableCharacter(event.key)) {
+        !isExpanded.value && onToggle?.();
         return typeAhead(event);
       }
     };
 
     const autocompleteInput =
-      autocomplete !== "none"
+      autocomplete.value !== "none"
         ? {
-            "aria-autocomplete": autocomplete,
+            "aria-autocomplete": autocomplete.value,
             type: "text",
           }
         : null;
@@ -218,7 +220,7 @@ export const createComboBox = createBuilder(
         input: computed(() => ({
           value: inputValue.value,
           role: "combobox",
-          "aria-expanded": unref(isExpanded),
+          "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
           "aria-label": unref(label),
           "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,

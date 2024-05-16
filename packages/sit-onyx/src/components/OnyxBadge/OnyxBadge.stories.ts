@@ -56,7 +56,7 @@ export const Text = {
  */
 export const Number = {
   args: {
-    variation: "info",
+    color: "info",
     default: 32,
   },
 } satisfies Story;
@@ -66,7 +66,7 @@ export const Number = {
  */
 export const Icon = {
   args: {
-    variation: "danger",
+    color: "danger",
     icon: placeholder,
   },
 } satisfies Story;

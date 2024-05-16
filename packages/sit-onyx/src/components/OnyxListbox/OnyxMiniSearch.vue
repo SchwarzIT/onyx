@@ -2,16 +2,19 @@
 import { computed, useAttrs, type HtmlHTMLAttributes } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { injectI18n } from "../../i18n";
 
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 
-const props = defineProps<{ modelValue: string }>();
+const props = defineProps<{ modelValue: string; label: string }>();
 
 const emit = defineEmits<{
   "update:modelValue": [input: string];
 }>();
+
+const { t } = injectI18n();
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
@@ -38,10 +41,10 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
 </script>
 <template>
   <div class="onyx-mini-search" v-bind="rootAttrs">
-    <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -->
     <input
-      v-bind="inputAttrs"
       v-model="value"
+      :aria-label="props.label"
+      v-bind="inputAttrs"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"
@@ -49,7 +52,7 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
       class="onyx-mini-search__clear"
-      aria-hidden="true"
+      :aria-label="t('listbox.clearSearch')"
       tabindex="-1"
       @mousedown.prevent="value = ''"
     >
@@ -73,7 +76,6 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
     }
 
     &__input {
-      color: var(--onyx-color-text-icons-neutral-soft);
       font-family: var(--onyx-font-family);
       font-size: var(--onyx-spacing-md);
       font-style: normal;
@@ -81,6 +83,11 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
       line-height: var(--onyx-spacing-lg);
       flex-grow: 1;
       min-width: 0;
+      color: inherit;
+
+      &::placeholder {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
 
     &__clear {

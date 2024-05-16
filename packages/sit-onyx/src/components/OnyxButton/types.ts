@@ -20,7 +20,7 @@ export type OnyxButtonProps = DensityProp & {
   /**
    * The color of the button.
    */
-  variation?: ButtonVariation;
+  color?: ButtonColor;
   /**
    * The style of the button.
    */
@@ -38,8 +38,8 @@ export type OnyxButtonProps = DensityProp & {
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 export type ButtonType = (typeof BUTTON_TYPES)[number];
 
-export const BUTTON_VARIATIONS = ["primary", "secondary", "danger"] as const;
-export type ButtonVariation = (typeof BUTTON_VARIATIONS)[number];
+export const BUTTON_COLORS = ["primary", "neutral", "danger"] as const;
+export type ButtonColor = (typeof BUTTON_COLORS)[number];
 
 export const BUTTON_MODES = ["default", "outline", "plain"] as const;
 export type ButtonMode = (typeof BUTTON_MODES)[number];

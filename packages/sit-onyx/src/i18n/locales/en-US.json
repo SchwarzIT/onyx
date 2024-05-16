@@ -21,7 +21,16 @@
     "selectAll": "Select all",
     "currentSelection": "{n} selected"
   },
-  "empty": "No data available",
-  "no-match": "No entry matches your search",
-  "navItemOptionsLabel": "Subpages of {label}"
+  "listbox": {
+    "empty": "No data available",
+    "noMatch": "No entry matches your search",
+    "searchInputLabel": "Filter the list entries",
+    "clearSearch": "Clear search filter"
+  },
+  "navItemOptionsLabel": "Subpages of {label}",
+  "navigation": {
+    "appLogo": "App logo",
+    "goBack": "Go back",
+    "userMenuLabel": "User options"
+  }
 }

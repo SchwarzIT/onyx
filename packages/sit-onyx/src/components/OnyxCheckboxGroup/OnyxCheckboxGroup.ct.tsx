@@ -84,6 +84,7 @@ test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
       options={mockOptions}
       headline="Horizontal group headline"
       direction="horizontal"
+      withCheckAll
     />,
   );
 
