@@ -48,7 +48,7 @@ onBeforeUnmount(() => endTimer());
   @include layers.component() {
     display: inline-flex;
     gap: var(--onyx-spacing-2xs);
-    padding: var(--onyx-tag-padding);
+    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     &__label {
