@@ -112,15 +112,18 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
     width: max-content;
     max-width: 100%;
 
-    &:has(&__label) {
-      padding-right: var(--onyx-spacing-2xs);
+    @include density.compact {
+      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-4xs);
+    }
+    @include density.default {
+      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-2xs);
+    }
+    @include density.cozy {
+      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-sm);
     }
 
-    $label-padding: var(--onyx-spacing-2xs);
-
-    &::after {
-      // since the checkbox is flex-start aligned, we need to adjust the padding of the asterisk / required marker
-      padding-top: $label-padding;
+    &:has(&__label) {
+      padding-right: var(--onyx-spacing-2xs);
     }
 
     &:hover {
@@ -151,6 +154,8 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &__label {
       display: inline-block;
+      padding: var(--onyx-checkbox-label-padding-vertical) 0
+        var(--onyx-checkbox-label-padding-vertical);
     }
 
     &__input {
@@ -159,7 +164,6 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &__label,
     &__marker {
-      padding: $label-padding 0;
       font-size: 1rem;
       line-height: 1.5rem;
     }
