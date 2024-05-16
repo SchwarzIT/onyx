@@ -25,6 +25,7 @@ test.describe("Timer", () => {
     // can't rely on exact seconds since browser rendering is delayed
     await expect(component).toContainText(/00:\d{2} seconds/);
 
+    // will get an error with this rule, seems like color has not enough contrast
     // need to disable rule: disabledAccessibilityRules: ["color-contrast"],
 
     // ACT
