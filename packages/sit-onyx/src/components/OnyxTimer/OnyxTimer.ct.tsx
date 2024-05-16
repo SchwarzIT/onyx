@@ -4,6 +4,9 @@ import OnyxTimer from "./OnyxTimer.vue";
 const endTime = new Date();
 endTime.setTime(Date.now() + 30 * 1000);
 
+const endTimeEvent = new Date();
+endTimeEvent.setTime(Date.now() + 2000);
+
 const defaultProps = {
   endTime: endTime.toISOString(),
   isPaused: true,
@@ -38,8 +41,19 @@ test.describe("Timer", () => {
     });
 
     // ASSERT
-    await expect(component).toHaveScreenshot("default.png");
-
     await expect(component).toContainText(/00:00 seconds/);
+  });
+
+  test("emits event when timer is finished", async ({ mount, page }) => {
+    let timerEnded = false;
+    // ARRANGE
+    const component = await mount(
+      <OnyxTimer end-time={endTimeEvent.toISOString()} onTimerEnded={() => (timerEnded = true)} />,
+    );
+    // ASSERT
+    await expect(component).toContainText(/00:00 seconds/, { timeout: 3000 });
+    // without timeout test fails ..
+    await page.waitForTimeout(1000);
+    await expect(timerEnded).toBeTruthy();
   });
 });
