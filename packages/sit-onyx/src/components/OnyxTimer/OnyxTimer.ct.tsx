@@ -57,7 +57,7 @@ test.describe("Timer", () => {
     let timerEnded = false;
     // ARRANGE
     const component = await mount(
-      <OnyxTimer end-time={endTimeEvent.toISOString()} onTimerEnded={() => (timerEnded = true)} />,
+      <OnyxTimer endTime={endTimeEvent.toISOString()} onTimerEnded={() => (timerEnded = true)} />,
     );
     // ASSERT
     await expect(component).toContainText(/00:00 seconds/, { timeout: 3000 });
