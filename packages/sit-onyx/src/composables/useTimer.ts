@@ -19,6 +19,7 @@ export const useTimer = (options: TimerOptions) => {
     if (isNaN(date.getTime())) {
       throw new Error("Invalid end time");
     }
+    return true;
   };
 
   const endTimestamp = computed(() => {
@@ -54,8 +55,7 @@ export const useTimer = (options: TimerOptions) => {
   watch(
     options.endTime,
     () => {
-      validateEndTime();
-      startTimer();
+      validateEndTime() && startTimer();
     },
     { immediate: true },
   );

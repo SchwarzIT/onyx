@@ -8,10 +8,9 @@ describe("useTimer.ts", () => {
 
   test("timer ends after 5000 milliseconds", () => {
     vi.useFakeTimers();
-    const { startTimer, timeLeft, endTimer } = useTimer({
+    const { timeLeft, endTimer } = useTimer({
       endTime: ref(endTime.toISOString()),
     });
-    startTimer();
     expect(timeLeft.value).toBeGreaterThan(4900);
     vi.advanceTimersByTime(5050);
     expect(timeLeft.value).toBe(0);
@@ -22,10 +21,9 @@ describe("useTimer.ts", () => {
   test("throws error when endTime is invalid", () => {
     let error = false;
     try {
-      const { startTimer } = useTimer({
+      const { timeLeft: _timeLeft } = useTimer({
         endTime: ref("so wrong"),
       });
-      startTimer();
     } catch (e: unknown) {
       error = true;
     }
