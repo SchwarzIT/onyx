@@ -1,3 +1,4 @@
+import { executeMatrixScreenshotTest } from "src/playwright/screenshots";
 import { expect, test } from "../../playwright/a11y";
 import OnyxTimer from "./OnyxTimer.vue";
 
@@ -19,30 +20,24 @@ test.describe("Timer", () => {
       props: defaultProps,
     });
 
-    // ASSERT
-    await expect(component).toHaveScreenshot("default.png");
-
     // can't rely on exact seconds since browser rendering is delayed
     await expect(component).toContainText(/00:\d{2} seconds/);
-
-    // will get an error with this rule, seems like color has not enough contrast
-    // need to disable rule: disabledAccessibilityRules: ["color-contrast"],
-
-    // ACT
-    //   const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-    // ASSERT
-    //   expect(accessibilityScanResults.violations).toEqual([]);
   });
 
-  test("should render timer with label", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(OnyxTimer, {
-      props: { ...defaultProps, label: "Test label" },
+  test.describe("Screenshot tests", () => {
+    executeMatrixScreenshotTest({
+      name: "Timer",
+      columns: ["default"],
+      rows: ["default", "with-label"],
+      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      disabledAccessibilityRules: ["color-contrast"],
+      component: (column, row) => (
+        <OnyxTimer
+          endTime={endTime.toISOString()}
+          label={row === "with-label" ? "Label" : undefined}
+        />
+      ),
     });
-
-    // ASSERT
-    await expect(component).toHaveScreenshot("timer-with-label.png");
   });
 
   test("should render timer with no time left", async ({ mount }) => {
