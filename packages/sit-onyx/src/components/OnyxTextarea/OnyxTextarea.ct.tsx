@@ -113,21 +113,21 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Textarea (manual resize)",
     columns: ["default", "filled"],
-    rows: ["default", "resized"],
+    rows: ["default", "resized-larger", "resized-smaller"],
     component: (column) => (
       <OnyxTextarea
         style="width: 12rem"
         label="Test label"
         modelValue={
           column === "filled"
-            ? Array.from({ length: 3 }, (_, index) => index + 1).join("\n")
+            ? Array.from({ length: 6 }, (_, index) => index + 1).join("\n")
             : undefined
         }
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       const textarea = component.getByLabel("Test label");
-      if (row === "resized") {
+      if (row === "resized-larger" || row === "resized-smaller") {
         const box = (await textarea.boundingBox())!;
 
         const x = box.x + box.width - 4;
@@ -135,7 +135,12 @@ test.describe("Screenshot tests", () => {
 
         await page.mouse.move(x, y);
         await page.mouse.down();
-        await page.mouse.move(x, y + 120);
+
+        if (row === "resized-larger") {
+          await page.mouse.move(x, y + 72);
+        } else {
+          await page.mouse.move(x, y - 72);
+        }
       }
     },
   });
