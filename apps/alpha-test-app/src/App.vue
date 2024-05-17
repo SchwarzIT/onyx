@@ -13,13 +13,16 @@ import {
 } from "sit-onyx";
 import { RouterView, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
+import { useGridStore } from "./stores/grid-store";
 
 const router = useRouter();
+const gridStore = useGridStore();
 
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Form Demo", href: "/form-demo" },
   { label: "Layout Demo", href: "/layout-demo" },
+  { label: "Grid Demo", href: "/grid" },
 ] satisfies OnyxNavItemProps[];
 
 const userMenuOptions = [
@@ -32,7 +35,12 @@ const toggleDark = useToggle(isDark);
 </script>
 
 <template>
-  <OnyxAppLayout>
+  <OnyxAppLayout
+    :class="{
+      'onyx-grid-max-md': gridStore.isMaxWidth,
+      'onyx-grid-center': gridStore.isCentered,
+    }"
+  >
     <template #navBar>
       <OnyxNavBar
         app-name="Alpha Test App"

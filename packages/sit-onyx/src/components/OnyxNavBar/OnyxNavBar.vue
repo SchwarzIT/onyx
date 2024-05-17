@@ -76,6 +76,8 @@ const { t } = injectI18n();
 
 .onyx-nav-bar {
   @include layers.component() {
+    --padding-inline: var(--onyx-spacing-3xl);
+
     border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
@@ -89,18 +91,18 @@ const { t } = injectI18n();
       align-items: center;
       gap: var(--onyx-spacing-md);
       height: 100%;
-      padding: 0 var(--onyx-spacing-3xl);
+      padding-inline: var(--padding-inline);
 
       // sync with grid
       max-width: var(--onyx-grid-max-width);
       margin-inline: var(--onyx-grid-margin-inline);
 
       @include breakpoints.container(max, sm) {
-        padding: 0 var(--onyx-spacing-xl);
+        --padding-inline: var(--onyx-spacing-xl);
       }
 
       @include breakpoints.container(max, xs) {
-        padding: 0 var(--onyx-spacing-md);
+        --padding-inline: var(--onyx-spacing-md);
       }
     }
 
