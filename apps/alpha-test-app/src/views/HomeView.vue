@@ -21,6 +21,7 @@ import {
   OnyxSwitch,
   OnyxTable,
   OnyxTag,
+  OnyxTextarea,
   OnyxTooltip,
   type ListboxOption,
   type SelectOption,
@@ -50,6 +51,7 @@ const COMPONENTS = [
   "OnyxSwitch",
   "OnyxTable",
   "OnyxTag",
+  "OnyxTextarea",
   "OnyxTooltip",
 ] as const;
 
@@ -281,6 +283,8 @@ const singleSelectState = ref(selectOptions[0]);
         </OnyxTable>
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+
+        <OnyxTextarea v-if="show('OnyxTextarea')" label="Example textarea" />
 
         <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
           Hover me to show tooltip
