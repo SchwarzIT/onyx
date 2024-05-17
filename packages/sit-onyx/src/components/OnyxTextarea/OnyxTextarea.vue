@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   readonly: false,
   disabled: false,
   skeleton: false,
+  autosize: () => ({ min: 3, max: 6 }),
 });
 
 const emit = defineEmits<{
@@ -57,15 +58,32 @@ const handleChange = (event: Event) => {
 };
 
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
+
+const autosizeMinMaxStyles = computed(() => {
+  const min = Math.max(props.autosize.min, 2); // ensure min is not smaller than 2
+  const max = props.autosize.max;
+  return [
+    min !== 3 ? `--min-autosize-rows: ${min}` : "",
+    max !== 6 ? `--max-autosize-rows: ${max ?? "unset"}` : "",
+  ];
+});
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-textarea-skeleton', densityClass]">
+  <div
+    v-if="props.skeleton"
+    :class="['onyx-textarea-skeleton', densityClass]"
+    :style="autosizeMinMaxStyles"
+  >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-textarea-skeleton__label" />
     <OnyxSkeleton class="onyx-textarea-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-textarea', requiredTypeClass, densityClass]">
+  <div
+    v-else
+    :class="['onyx-textarea', requiredTypeClass, densityClass]"
+    :style="autosizeMinMaxStyles"
+  >
     <label>
       <div
         v-if="!props.hideLabel"
@@ -74,7 +92,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
         <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
       </div>
 
-      <div class="onyx-textarea__wrapper">
+      <div class="onyx-textarea__wrapper" :data-autosize-value="value">
         <!-- eslint-disable vuejs-accessibility/no-autofocus -
          We want to provide the flexibility to have the autofocus property.
          The JSDoc description includes a warning that it should be used carefully.
@@ -118,6 +136,21 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
 .onyx-textarea,
 .onyx-textarea-skeleton {
+  --min-autosize-rows: 3;
+  --max-autosize-rows: 6;
+
+  --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
+  --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
+
+  // remove max height if user resizes the textarea manually
+  &:has(.onyx-textarea__native[style*="height"]) {
+    --max-height: unset;
+
+    .onyx-textarea__wrapper::after {
+      display: none;
+    }
+  }
+
   @include density.compact {
     --onyx-textarea-padding-vertical: var(--onyx-spacing-4xs);
   }
@@ -131,10 +164,20 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
   }
 }
 
-$default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
-
 .onyx-textarea-skeleton {
-  @include input.define-skeleton-styles($height: $default-height);
+  @include input.define-skeleton-styles($height: var(--min-height));
+}
+
+/**
+* Styles that are shared between the <textarea> and the ::after element of the wrapper
+* that is used for the autosize feature.
+*/
+@mixin define-shared-autosize-styles() {
+  grid-area: 1 / 1 / 2 / 2;
+  height: 100%;
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  padding: var(--onyx-textarea-padding-vertical) var(--onyx-spacing-sm);
 }
 
 .onyx-textarea {
@@ -147,12 +190,21 @@ $default-height: calc(6lh + 2 * var(--onyx-textarea-padding-vertical));
     &__wrapper {
       padding: 0;
       height: unset;
+      display: grid;
+
+      // auto-resize, based on: https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
+      &::after {
+        @include define-shared-autosize-styles;
+        /* Note the weird space! Needed to prevent jumpy behavior */
+        content: attr(data-autosize-value) " ";
+        white-space: pre-wrap; // this is how textarea text behaves
+        visibility: hidden; // hidden from view, clicks, and screen readers
+      }
     }
 
     &__native {
-      padding: var(--onyx-textarea-padding-vertical) var(--onyx-spacing-sm);
+      @include define-shared-autosize-styles;
       resize: vertical;
-      height: $default-height;
 
       &:read-only {
         resize: none;

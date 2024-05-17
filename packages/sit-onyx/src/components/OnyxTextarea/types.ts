@@ -22,4 +22,25 @@ export type OnyxTextareaProps = DensityProp &
     | "withCounter"
     | "message"
     | "skeleton"
-  >;
+  > & {
+    /**
+     * Override the default autosize behavior (height adjusts based on the current value).
+     * If the user resizes the textarea manually, the autosize will no longer work and the height
+     * set by the user is used.
+     */
+    autosize?: TextareaAutosize;
+  };
+
+export type TextareaAutosize = {
+  /**
+   * Sets the min height to the given number of rows/lines.
+   * Must be `>= 2`. Will also be considered if the user resizes manually.
+   */
+  min: number;
+  /**
+   * Sets the max height to the given number of rows/lines.
+   * If omitted, the textarea can grow unlimited.
+   * Will be ignored if the user resizes manually.
+   */
+  max?: number;
+};
