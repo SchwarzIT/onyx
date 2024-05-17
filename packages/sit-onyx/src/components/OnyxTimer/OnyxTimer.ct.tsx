@@ -12,10 +12,8 @@ const defaultProps = {
 test.describe("Timer", () => {
   test.beforeEach(async ({ page }) => {
     await page.evaluate(() => {
-      const fakeNow = new Date("June 21 2026 13:00:00").valueOf();
-      const __DateNowOffset = fakeNow - Date.now();
-      const __DateNow = Date.now;
-      Date.now = () => __DateNow() + __DateNowOffset;
+      const fakeNow = new Date("June 21 2026 13:00:00").getTime();
+      Date.now = () => fakeNow;
     });
   });
   test("should render timer", async ({ mount }) => {
@@ -24,7 +22,7 @@ test.describe("Timer", () => {
       props: defaultProps,
     });
 
-    await expect(component).toContainText("00:29 seconds");
+    await expect(component).toContainText("00:30 seconds");
   });
 
   test.describe("Screenshot tests", () => {
@@ -43,16 +41,6 @@ test.describe("Timer", () => {
     });
   });
 
-  test("should render timer with no time left", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(OnyxTimer, {
-      props: { ...defaultProps, endTime: new Date("June 21 2026 13:00:00").toISOString() },
-    });
-
-    // ASSERT
-    await expect(component).toContainText(/00:00 seconds/);
-  });
-
   test("emits event when timer is finished and renders 2 seconds", async ({ mount, page }) => {
     let timerEnded = false;
     // ARRANGE
@@ -60,9 +48,11 @@ test.describe("Timer", () => {
       <OnyxTimer endTime={endTimeEvent.toISOString()} onTimerEnded={() => (timerEnded = true)} />,
     );
     // ASSERT
-    await expect(component).toContainText(/00:00 seconds/, { timeout: 3000 });
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await page.waitForTimeout(1000);
+    await page.evaluate(() => {
+      const fakeNow = new Date("June 21 2026 13:00:05").getTime();
+      Date.now = () => fakeNow;
+    });
+    await expect(component).toContainText(/00:00 seconds/);
     await expect(timerEnded).toBeTruthy();
   });
 });
