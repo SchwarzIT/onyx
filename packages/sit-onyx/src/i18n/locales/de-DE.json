@@ -24,8 +24,8 @@
   "listbox": {
     "empty": "Keine Daten verfügbar",
     "noMatch": "Kein Element passt zum Suchtext",
-    "searchInputLabel": "Durchsuche die Liste",
-    "clearSearch": "Lösche Suchtext"
+    "searchInputLabel": "Liste durchsuchen",
+    "clearSearch": "Suchtext löschen"
   },
   "navItemOptionsLabel": "Unterseiten von {label}",
   "navigation": {
