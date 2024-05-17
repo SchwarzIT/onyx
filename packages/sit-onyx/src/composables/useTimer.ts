@@ -2,7 +2,6 @@ import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
 
 type TimerOptions = {
   endTime: Ref<string> /** expect ISO string @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString} */;
-  startImmediately?: boolean;
 };
 
 /**
@@ -52,17 +51,16 @@ export const useTimer = (options: TimerOptions) => {
 
   calculateTimeLeft();
 
-  if (options.startImmediately) startTimer();
-
   watch(
     options.endTime,
     () => {
       validateEndTime();
+      startTimer();
     },
     { immediate: true },
   );
 
   onBeforeUnmount(() => endTimer());
 
-  return { startTimer, endTimer, timeLeft, isEnded };
+  return { endTimer, timeLeft, isEnded };
 };

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, onMounted, toRef, watch } from "vue";
+import { computed, toRef, watch } from "vue";
 import type { OnyxTimerProps } from "./types";
 import { useTimer } from "../../composables/useTimer";
 import { injectI18n } from "../../i18n";
@@ -14,21 +14,18 @@ const emit = defineEmits<{
 
 const { t } = injectI18n();
 
-const { startTimer, endTimer, timeLeft, isEnded } = useTimer({
+const { timeLeft, isEnded } = useTimer({
   endTime: toRef(props, "endTime"),
 });
 
 const formattedTime = computed(() => formatTimerTime(timeLeft.value, t));
 
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time?retiredLocale=de#a_valid_duration_string
 const formattedTimeAttribute = computed(() => formatTimerTimeDuration(timeLeft.value));
 
 watch(isEnded, (value) => {
   if (value) emit("timerEnded");
 });
-
-onMounted(() => startTimer());
-
-onBeforeUnmount(() => endTimer());
 </script>
 
 <template>
