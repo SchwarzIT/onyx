@@ -166,7 +166,7 @@ test.describe("Screenshot tests", () => {
       if (row === "long-value") {
         modelValue = "Test".repeat(64);
       } else {
-        modelValue = Array.from({ length: +row[0] }, (_, index) => `Line ${index + 1}`).join("\n");
+        modelValue = Array.from({ length: +row[0] }, (_, index) => `Row ${index + 1}`).join("\n");
       }
 
       return (
@@ -184,7 +184,7 @@ test.describe("Screenshot tests", () => {
         if (row === "long-value") {
           await textarea.fill("Test".repeat(64));
         } else {
-          const modelValue = Array.from({ length: +row[0] }, (_, index) => `Line ${index + 1}`);
+          const modelValue = Array.from({ length: +row[0] }, (_, index) => `Row ${index + 1}`);
 
           for (let i = 0; i < modelValue.length; i++) {
             await textarea.pressSequentially(modelValue[i]);
@@ -256,6 +256,21 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 });
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxTextarea label="Test label" hideLabel />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  // ASSERT
+  await expect(component).not.toContainText("Test label");
+  await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
+test("should autosize", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<OnyxTextarea label="Test label" hideLabel />);
 

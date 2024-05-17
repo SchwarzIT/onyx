@@ -25,6 +25,7 @@ export type OnyxTextareaProps = DensityProp &
   > & {
     /**
      * Override the default autosize behavior (height adjusts based on the current value).
+     * By default, the textarea will autosize while maintaining at least 3 and at most 6 rows.
      * If the user resizes the textarea manually, the autosize will no longer work and the height
      * set by the user is used.
      */
