@@ -3,8 +3,7 @@
  * This file contains the specific variables for the "dark" theme.
  * Imported from Figma API on Wed, 14 Feb 2024 08:55:09 GMT
  */
-:where(.dark),
-.onyx-dark {
+:where(.dark) {
   --onyx-color-base-background-blank: var(--onyx-color-themed-neutral-1100);
   --onyx-color-base-background-tinted: var(--onyx-color-themed-neutral-1200);
   --onyx-color-base-danger-100: var(--onyx-color-universal-red-1100);
