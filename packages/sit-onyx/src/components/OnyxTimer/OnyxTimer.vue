@@ -8,7 +8,7 @@ import { formatTimerTime, formatTimerTimeDuration } from "../../utils/time";
 const props = defineProps<OnyxTimerProps>();
 
 const emit = defineEmits<{
-  /** emitted when timer has ended */
+  /** Emitted when timer has ended */
   timerEnded: [];
 }>();
 
