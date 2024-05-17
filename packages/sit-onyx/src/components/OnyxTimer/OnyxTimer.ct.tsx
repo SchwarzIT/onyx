@@ -24,14 +24,6 @@ test.describe("Timer", () => {
       Date.now = () => fakeNow;
     });
   });
-  test("should render timer", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(OnyxTimer, {
-      props: defaultProps,
-    });
-
-    await expect(component).toContainText("00:30 seconds");
-  });
 
   test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
@@ -44,6 +36,15 @@ test.describe("Timer", () => {
         <OnyxTimer endTime={testTimes[row]} label={column === "with-label" ? "Label" : undefined} />
       ),
     });
+  });
+
+  test("should render timer", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(OnyxTimer, {
+      props: defaultProps,
+    });
+
+    await expect(component).toContainText("00:30 seconds");
   });
 
   test("emits event when timer is finished and renders 2 seconds", async ({ mount, page }) => {
