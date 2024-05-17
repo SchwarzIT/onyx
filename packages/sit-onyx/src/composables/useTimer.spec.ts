@@ -1,10 +1,19 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi, beforeAll } from "vitest";
 import { useTimer } from "./useTimer";
 import { ref } from "vue";
 
 describe("useTimer.ts", () => {
   const endTime = new Date();
   endTime.setTime(Date.now() + 5 * 1000);
+
+  beforeAll(() => {
+    vi.mock("vue", async (importOriginal) => {
+      return {
+        ...(await importOriginal<typeof import("vue")>()),
+        onBeforeUnmount: vi.fn(),
+      };
+    });
+  });
 
   test("timer ends after 5000 milliseconds", () => {
     vi.useFakeTimers();
