@@ -30,7 +30,7 @@ export const formatTimerTime = (timeLeft: number, f: Intl.RelativeTimeFormat) =>
     time = `${hours.toString().padStart(2, "0")}:`;
   }
 
-  return `${time}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${label}`;
+  return `${time}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${label?.trim()}`;
 };
 
 /**
