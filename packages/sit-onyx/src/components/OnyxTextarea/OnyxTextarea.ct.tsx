@@ -110,7 +110,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Textarea (resize)",
+    name: "Textarea (manual resize)",
     columns: ["default", "filled"],
     rows: ["default", "resized"],
     component: (column) => (
@@ -135,6 +135,58 @@ test.describe("Screenshot tests", () => {
         await page.mouse.move(x, y);
         await page.mouse.down();
         await page.mouse.move(x, y - 100);
+      }
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Textarea (autosize)",
+    columns: ["initial-value", "user-typed"],
+    rows: [
+      "0-rows",
+      "1-row",
+      "2-rows",
+      "3-rows",
+      "4-rows",
+      "5-rows",
+      "6-rows",
+      "7-rows",
+      "8-rows",
+      "long-value",
+    ],
+    component: (column, row) => {
+      let modelValue = "";
+
+      if (row === "long-value") {
+        modelValue = "Test".repeat(64);
+      } else {
+        modelValue = Array.from({ length: +row[0] }, (_, index) => `Line ${index + 1}`).join("\n");
+      }
+
+      return (
+        <OnyxTextarea
+          style="width: 12rem"
+          label="Test label"
+          modelValue={column !== "user-typed" ? modelValue : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      const textarea = component.getByLabel("Test label");
+
+      if (column === "user-typed") {
+        if (row === "long-value") {
+          await textarea.fill("Test".repeat(64));
+        } else {
+          const modelValue = Array.from({ length: +row[0] }, (_, index) => `Line ${index + 1}`);
+
+          for (let i = 0; i < modelValue.length; i++) {
+            await textarea.pressSequentially(modelValue[i]);
+            if (i < modelValue.length - 1) {
+              await textarea.press("Enter");
+            }
+          }
+        }
       }
     },
   });

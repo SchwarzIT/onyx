@@ -36,7 +36,7 @@ export type TextareaAutosize = {
    * Sets the min height to the given number of rows/lines.
    * Must be `>= 2`. Will also be considered if the user resizes manually.
    */
-  min: number;
+  min?: number;
   /**
    * Sets the max height to the given number of rows/lines.
    * If omitted, the textarea can grow unlimited.

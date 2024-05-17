@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   readonly: false,
   disabled: false,
   skeleton: false,
-  autosize: () => ({ min: 3, max: 6 }),
 });
 
 const emit = defineEmits<{
@@ -60,13 +59,20 @@ const handleChange = (event: Event) => {
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
 const autosizeMinMaxStyles = computed(() => {
-  const min = Math.max(props.autosize.min, 2); // ensure min is not smaller than 2
+  if (!props.autosize) return;
+  const min = props.autosize.min ? Math.max(props.autosize.min, 2) : undefined; // ensure min is not smaller than 2
   const max = props.autosize.max;
-  return [
-    min !== 3 ? `--min-autosize-rows: ${min}` : "",
-    max !== 6 ? `--max-autosize-rows: ${max ?? "unset"}` : "",
-  ];
+  return [min ? `--min-autosize-rows: ${min}` : "", `--max-autosize-rows: ${max ?? "unset"}`];
 });
+
+/**
+ * Syncs the "data-autosize-value" on textarea input.
+ * Is needed in order for the autosize to work when no v-model is bind to the OnyxTextarea.
+ */
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLTextAreaElement;
+  target.parentElement?.setAttribute("data-autosize-value", target.value);
+};
 </script>
 
 <template>
@@ -112,6 +118,7 @@ const autosizeMinMaxStyles = computed(() => {
           :maxlength="props.maxlength"
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
+          @input="handleInput"
           @change="handleChange"
           @focus="emit('focus')"
           @blur="emit('blur')"
@@ -199,6 +206,7 @@ const autosizeMinMaxStyles = computed(() => {
         content: attr(data-autosize-value) " ";
         white-space: pre-wrap; // this is how textarea text behaves
         visibility: hidden; // hidden from view, clicks, and screen readers
+        overflow-wrap: anywhere;
       }
     }
 
