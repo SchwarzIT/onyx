@@ -12,13 +12,17 @@ const emit = defineEmits<{
   timerEnded: [];
 }>();
 
-const { t } = injectI18n();
+const { locale } = injectI18n();
 
 const { timeLeft, isEnded } = useTimer({
   endTime: toRef(props, "endTime"),
 });
 
-const formattedTime = computed(() => formatTimerTime(timeLeft.value, t));
+const timeFormat = computed(
+  () => new Intl.RelativeTimeFormat(locale.value, { numeric: "always", style: "long" }),
+);
+
+const formattedTime = computed(() => formatTimerTime(timeLeft.value, timeFormat.value));
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time?retiredLocale=de#a_valid_duration_string
 const formattedTimeAttribute = computed(() => formatTimerTimeDuration(timeLeft.value));

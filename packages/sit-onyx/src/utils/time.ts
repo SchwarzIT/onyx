@@ -1,5 +1,3 @@
-import type { injectI18n } from "src/i18n";
-
 /**
  * Calculate seconds, minutes and hours for a given number of milliseconds
  * @param time in milliseconds
@@ -17,18 +15,18 @@ const getTimeFragments = (time: number) => {
  * @param t translation function
  * @returns formatted time string
  */
-export const formatTimerTime = (timeLeft: number, t: ReturnType<typeof injectI18n>["t"]) => {
+export const formatTimerTime = (timeLeft: number, f: Intl.RelativeTimeFormat) => {
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
 
   let time = "";
-  let label = t.value("time.seconds", { n: seconds });
+  let label = f.formatToParts(timeLeft, "seconds").pop()?.value;
 
   if (minutes > 0) {
-    label = t.value("time.minutes", { n: minutes });
+    label = f.formatToParts(timeLeft, "minutes").pop()?.value;
   }
 
   if (hours > 0) {
-    label = t.value("time.hours", { n: hours });
+    label = f.formatToParts(timeLeft, "hours").pop()?.value;
     time = `${hours.toString().padStart(2, "0")}:`;
   }
 
