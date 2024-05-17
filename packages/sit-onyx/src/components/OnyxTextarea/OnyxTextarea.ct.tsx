@@ -97,13 +97,14 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Textarea (skeleton)",
     columns: DENSITIES,
-    rows: ["default", "hideLabel"],
+    rows: ["default", "hideLabel", "autosize-min-6-rows"],
     component: (column, row) => (
       <OnyxTextarea
         style="width: 12rem"
         label="Test label"
         density={column}
         hideLabel={row === "hideLabel"}
+        autosize={row === "autosize-min-6-rows" ? { min: 6 } : undefined}
         skeleton
       />
     ),
