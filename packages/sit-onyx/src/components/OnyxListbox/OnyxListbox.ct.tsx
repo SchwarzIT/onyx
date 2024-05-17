@@ -87,7 +87,7 @@ test.describe("Densities screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: `Listbox (densities)`,
     columns: DENSITIES,
-    rows: ["partial-selection", "single-select"],
+    rows: ["partial-selection", "single-select", "with-search-filled", "with-search-empty"],
     disabledAccessibilityRules: [
       // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       "color-contrast",
@@ -111,6 +111,8 @@ test.describe("Densities screenshot tests", () => {
           modelValue={undefined}
           multiple={false}
           density={column}
+          withSearch={row.startsWith("with-search")}
+          searchTerm={row === "with-search-filled" ? "very long and creative test text" : ""}
         />
       ),
   });
@@ -358,9 +360,6 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
   });
   const searchInput = component.getByRole("textbox");
 
-  // ASSERT
-  await expect(component).toHaveScreenshot("with-search-empty.png");
-
   // ACT
   await searchInput.pressSequentially("test");
 
@@ -380,7 +379,6 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
 
   // ASSERT
   await expect(searchInput).toHaveValue("very long and new test text");
-  await expect(component).toHaveScreenshot("with-search-filled.png");
 
   // ACT
   await component.update({ props: { searchTerm: "" } });
