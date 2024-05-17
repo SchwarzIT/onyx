@@ -9,8 +9,4 @@ export type OnyxTimerProps = DensityProp & {
    * optional label to show
    */
   label?: string;
-  /**
-   * is the timer paused
-   */
-  isPaused?: boolean;
 };

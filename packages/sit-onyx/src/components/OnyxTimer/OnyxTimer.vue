@@ -18,7 +18,6 @@ const { t } = injectI18n();
 
 const { startTimer, endTimer, timeLeft, isEnded } = useTimer({
   endTime: toRef(props, "endTime"),
-  isPaused: toRef(props, "isPaused"),
 });
 
 const formattedTime = computed(() => formatTimerTime(timeLeft.value, t));

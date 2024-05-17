@@ -58,25 +58,3 @@ export const WithHours: Story = {
     },
   ],
 } satisfies Story;
-
-/**
- * This example shows a timer in paused state.
- */
-
-export const PausedState: Story = {
-  ...Default,
-  render: (args, { loaded: { endTime } }) => ({
-    components: { OnyxTimer },
-    setup() {
-      return { args, endTime: endTime };
-    },
-    template: '<OnyxTimer :end-time="endTime" label="Timer paused:" :is-paused="true" />',
-  }),
-  loaders: [
-    () => {
-      const endTime = new Date();
-      endTime.setTime(Date.now() + 6 * 1000);
-      return { endTime };
-    },
-  ],
-} satisfies Story;

@@ -19,18 +19,6 @@ describe("useTimer.ts", () => {
     vi.useRealTimers();
   });
 
-  test("timer stays in paused state", () => {
-    vi.useFakeTimers();
-    const { startTimer, timeLeft, endTimer } = useTimer({
-      endTime: ref(endTime.toISOString()),
-      isPaused: ref(true),
-    });
-    startTimer();
-    vi.advanceTimersByTime(5000);
-    expect(timeLeft.value).toBeGreaterThan(4900);
-    endTimer();
-  });
-
   test("throws error when endTime is invalid", () => {
     let error = false;
     try {

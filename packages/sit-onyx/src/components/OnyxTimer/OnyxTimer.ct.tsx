@@ -7,7 +7,6 @@ const endTimeEvent = new Date("June 21 2026 13:00:02");
 
 const defaultProps = {
   endTime: endTime.toISOString(),
-  isPaused: true,
 };
 
 test.describe("Timer", () => {

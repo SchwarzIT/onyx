@@ -2,7 +2,6 @@ import { computed, ref, watch, type Ref } from "vue";
 
 type TimerOptions = {
   endTime: Ref<string> /** expect ISO string @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString} */;
-  isPaused?: Ref<boolean>;
   startImmediately?: boolean;
 };
 
@@ -38,7 +37,6 @@ export const useTimer = (options: TimerOptions) => {
     clearInterval(intervalId.value);
     intervalId.value = setInterval(() => {
       if (endTimestamp.value > 0) {
-        if (options.isPaused?.value) return;
         calculateTimeLeft();
         if (timeLeft.value === 0) {
           isEnded.value = true;
