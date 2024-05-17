@@ -58,6 +58,9 @@ const handleChange = (event: Event) => {
 
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
+/**
+ * Current CSS variables for the autosize min/max height.
+ */
 const autosizeMinMaxStyles = computed(() => {
   if (!props.autosize) return;
   const min = props.autosize.min ? Math.max(props.autosize.min, 2) : undefined; // ensure min is not smaller than 2
