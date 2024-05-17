@@ -133,7 +133,11 @@ const checkAllLabel = computed(() => {
 
         .onyx-checkbox-group__check-all {
           border-right: $check-all-border;
-          padding-right: calc(var(--onyx-spacing-2xs) + var(--onyx-spacing-md));
+          // The horizontal "Select all" checkbox label needs an additional md padding-right
+          // on top of the OnyxCheckbox 2xs padding-right.
+          .onyx-checkbox__label {
+            padding-right: var(--onyx-spacing-md);
+          }
         }
       }
     }
