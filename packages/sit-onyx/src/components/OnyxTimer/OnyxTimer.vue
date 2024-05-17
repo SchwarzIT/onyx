@@ -5,9 +5,7 @@ import { useTimer } from "../../composables/useTimer";
 import { injectI18n } from "../../i18n";
 import { formatTimerTime, formatTimerTimeDuration } from "../../utils/time";
 
-const props = withDefaults(defineProps<OnyxTimerProps>(), {
-  endTime: new Date().toISOString(),
-});
+const props = defineProps<OnyxTimerProps>();
 
 const emit = defineEmits<{
   /** emitted when timer has ended */
