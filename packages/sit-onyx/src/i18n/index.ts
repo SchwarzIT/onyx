@@ -16,7 +16,7 @@ type GetTypeOfTranslations<T> = T extends object
 /** Available translations that are used by onyx components. */
 export type OnyxTranslations = GetTypeOfTranslations<typeof enUS>;
 
-export type OnyxTranslationKeys = FlattenedKeysOf<OnyxTranslations>;
+export type OnyxTranslationKey = FlattenedKeysOf<OnyxTranslations>;
 
 export type ProvideI18nOptions = {
   /**
@@ -73,7 +73,7 @@ const createI18n = (options?: ProvideI18nOptions) => {
    */
   const t = computed(() => {
     return (
-      key: OnyxTranslationKeys,
+      key: OnyxTranslationKey,
       placeholders: Record<string, string | number | undefined> = {},
     ): string => {
       // use English message as fallback
@@ -109,7 +109,7 @@ export const injectI18n = () => {
  * @returns Message value or undefined if translation does not exist.
  */
 const resolveMessage = (
-  key: OnyxTranslationKeys,
+  key: OnyxTranslationKey,
   messages: DeepPartial<OnyxTranslations>,
 ): string | undefined => {
   // see https://stackoverflow.com/a/6394168

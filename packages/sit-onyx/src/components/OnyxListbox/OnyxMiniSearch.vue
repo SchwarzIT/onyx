@@ -51,7 +51,10 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
     />
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
-      class="onyx-mini-search__clear"
+      :class="{
+        'onyx-mini-search__clear': true,
+        'onyx-mini-search__clear--visible': props.modelValue,
+      }"
       :aria-label="t('listbox.clearSearch')"
       tabindex="-1"
       @mousedown.prevent="value = ''"
@@ -95,6 +98,11 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
       display: grid;
       place-items: center;
       cursor: pointer;
+      visibility: hidden;
+    }
+
+    &__clear--visible {
+      visibility: visible;
     }
   }
 }

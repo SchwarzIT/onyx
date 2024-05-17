@@ -4,8 +4,8 @@ import { createId, createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useScrollEnd } from "../../composables/scrollEnd";
-import { injectI18n, type OnyxTranslations } from "../../i18n";
-import type { FlattenedKeysOf, SelectOptionValue } from "../../types";
+import { injectI18n } from "../../i18n";
+import type { SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -140,12 +140,15 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
   offset: computed(() => props.lazyLoading?.scrollOffset),
 });
 
-const isEmptyMessage = computed<FlattenedKeysOf<OnyxTranslations> | undefined>(
-  () =>
-    (props.options.length === 0 && "listbox.empty") ||
-    (props.withSearch && props.searchTerm && props.options.length === 0 && "listbox.noMatch") ||
-    undefined,
-);
+const isEmptyMessage = computed(() => {
+  if (props.options.length) {
+    return;
+  }
+  if (props.withSearch && props.searchTerm) {
+    return t.value("listbox.noMatch");
+  }
+  return t.value("listbox.empty");
+});
 
 const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled).map(({ value }) => value),
@@ -192,8 +195,8 @@ watchEffect(() => {
         class="onyx-listbox__search"
       />
 
-      <slot v-if="isEmptyMessage" name="empty" :default-message="t(isEmptyMessage)">
-        <OnyxEmpty>{{ t(isEmptyMessage) }}</OnyxEmpty>
+      <slot v-if="isEmptyMessage" name="empty" :default-message="isEmptyMessage">
+        <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
       </slot>
 
       <template v-else>
