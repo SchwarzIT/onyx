@@ -10,7 +10,6 @@ const meta: Meta<typeof OnyxTimer> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxTimer,
     events: ["timerEnded"],
-    argTypes: {},
   }),
 };
 
