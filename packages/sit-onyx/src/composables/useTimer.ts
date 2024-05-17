@@ -1,7 +1,7 @@
 import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
 
 type TimerOptions = {
-  endTime: Ref<string> /** expect ISO string @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString} */;
+  endTime: Ref<ConstructorParameters<typeof Date>[0]>;
 };
 
 /**
