@@ -45,7 +45,7 @@ watch(isEnded, (value) => {
 .onyx-timer {
   @include layers.component() {
     display: inline-flex;
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-radius-md);
     border: none;
     background: var(--onyx-color-base-background-blank);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);

@@ -2,9 +2,9 @@ import type { DensityProp } from "../../composables/density";
 
 export type OnyxTimerProps = DensityProp & {
   /**
-   * The end time of the timer
+   * The end time of the timer. Supports all values of `new Date()`.
    */
-  endTime: string;
+  endTime: ConstructorParameters<typeof Date>[0];
   /**
    * optional label to show
    */
