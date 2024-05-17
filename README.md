@@ -20,4 +20,4 @@ You can find our documentation [here](https://onyx.schwarz).
 
 ## Contributing
 
-You can find our contributing guide [here](CONTRIBUTING.md).
+You can find our contributing guide [in the onyx GitHub wiki](https://github.com/SchwarzIT/onyx/wiki/Contribution-Coding-Guidelines).
