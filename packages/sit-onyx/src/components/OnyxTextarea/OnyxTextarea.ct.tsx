@@ -119,7 +119,7 @@ test.describe("Screenshot tests", () => {
         label="Test label"
         modelValue={
           column === "filled"
-            ? Array.from({ length: 6 }, (_, index) => index + 1).join("\n")
+            ? Array.from({ length: 3 }, (_, index) => index + 1).join("\n")
             : undefined
         }
       />
@@ -134,7 +134,7 @@ test.describe("Screenshot tests", () => {
 
         await page.mouse.move(x, y);
         await page.mouse.down();
-        await page.mouse.move(x, y - 100);
+        await page.mouse.move(x, y + 120);
       }
     },
   });
