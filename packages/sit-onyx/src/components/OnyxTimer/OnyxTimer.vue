@@ -47,8 +47,11 @@ onBeforeUnmount(() => endTimer());
 .onyx-timer {
   @include layers.component() {
     display: inline-flex;
-    gap: var(--onyx-spacing-2xs);
+    border-radius: var(--onyx-radius-sm);
+    border: none;
+    background: var(--onyx-color-base-background-blank);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
+    gap: var(--onyx-spacing-2xs);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     &__label {
