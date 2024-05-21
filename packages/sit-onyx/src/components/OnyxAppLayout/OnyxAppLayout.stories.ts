@@ -50,7 +50,7 @@ export const Default = {
     default: () => h("div", "This is the page content."),
     navBar: () =>
       h(
-        "div",
+        "header",
         {
           style: "border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);",
         },
@@ -66,7 +66,7 @@ export const LeftNav = {
     default: () => h("div", "This is the page content."),
     navBar: () =>
       h(
-        "div",
+        "header",
         {
           style:
             "border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300); height: 100%;",
