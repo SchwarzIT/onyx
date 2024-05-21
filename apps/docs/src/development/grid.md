@@ -1,22 +1,21 @@
-# Grid System
+---
+outline: [2, 3]
+---
 
-::: warning Work in progress / Active development
-This library is currently in early / active development.
-:::
+# Grid System
 
 The grid implementation in **onyx** differs from other design system implementations that you might know.
 Instead of having a fixed 12 column grid, we have a dynamic grid with 4, 8, 12, 16 and optionally 20 columns.
 The amount of columns differs based on the active breakpoint.
 You can find a detailed description of the system in the [design system docs](/basics/breakpoints-grid).
 
-::: info
+::: details Advantages of the dynamic grid
 The dynamic grid has the following advantages over a fixed column grid:
 
 - Elements in the grid are wrapped on smaller breakpoints per default
 - Single Elements keep their approximate size over multiple breakpoints per default
 - Ensures reasonable minimal and maximal size for individual elements
-
-:::
+  :::
 
 Grid elements span the number of columns that is assigned to them.
 If there are less columns available than an element is assigned, it will span all columns of the row.
@@ -25,59 +24,82 @@ Additionally, an element can also be configured to span a specific amount of col
 To learn about the grid breakpoints, please refer to the [design system docs](/basics/breakpoints-grid#breakpoints).
 Multiple span definitions can then be combined to resize an element based on the breakpoint.
 
-## Example
+## Examples
 
-```html
+::: code-group
+
+```html [Default]
+<main class="onyx-page__content">
+  <OnyxHeadline is="h1">Page headline</OnyxHeadline>
+
+  <form class="onyx-grid">
+    <OnyxInput class="onyx-grid-span-4" label="Input 1" />
+    <OnyxInput class="onyx-grid-span-4" label="Input 2" />
+    <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
+  </form>
+</main>
+```
+
+```html [With max width]
 <div class="onyx-grid-max-md onyx-grid-center">
-  <!-- nav bar etc. here... -->
+  <OnyxNavBar app-name="Example" />
 
-  <main class="onyx-grid">
-    <!-- page content here... -->
+  <main class="onyx-page__content">
+    <OnyxHeadline is="h1">Page headline</OnyxHeadline>
+
+    <form class="onyx-grid">
+      <OnyxInput class="onyx-grid-span-4" label="Input 1" />
+      <OnyxInput class="onyx-grid-span-4" label="Input 2" />
+      <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
+    </form>
   </main>
 </div>
 ```
 
-::: info
-The `onyx-grid-max-*` and `onyx-grid-center` classes should be set on the very top app level because some onyx components like the `OnyxNavBar` align with the grid to e.g. automatically set the max width also for the nav bar to match the page content width.
 :::
 
 ## Usage
 
-The grid layout is configured via the following CSS classes which must be set on the main element of your application.
+The grid is configured via specific CSS classes which you can find below.
 
-- `onyx-grid`: Sets up the grid wrapper which configures the grid layout depending on the breakpoint. Should be set on the main element of the application.
+### Page padding and max width
 
-Additionally, there are some optional modifier classes available.
+Use the `onyx-page__content` class to set up the main page padding. Should be typically be set on the root component of every page.
 
-- `onyx-grid-xl-20`: Increases the column count from 16 to 20 for the `xl` breakpoint (useful for 4k screens).
-- `onyx-grid-max-md`: Caps the width before the `lg` breakpoint (`1440px`)
-- `onyx-grid-max-lg`: Caps the width before the `xl` breakpoint (`1920px`)
-- `onyx-grid-center`: Centers the grid when it has a max defined. Per default it is left aligned.
+Optionally, you can configure to limit the page content width at a specific breakpoint. To do so, set the following class on the very top element of your application:
 
-For configuring the amount of columns an element should be spanning, use the class `onyx-grid-span-<number>`, where `<number>` is the number of columns from `1` to `20`.
+- `onyx-grid-max-md`: Limits the width before the `lg` breakpoint (`1440px`)
+- `onyx-grid-max-lg`: Limits the width before the `xl` breakpoint (`1920px`)
+- `onyx-grid-center`: Centers the page content when it has a max defined. By default it is left aligned.
 
-To set the amount of columns for a minimum screen width, use the class `onyx-grid-<breakpoint>-span-<number>`, where `<breakpoint>` and `<number>` are taken from the following table:
+::: info
+The `onyx-grid-max-<breakpoint>` and `onyx-grid-center` classes must be set on the very top app level because some onyx components like the `OnyxNavBar` align with the grid to e.g. automatically set the max width also for the nav bar to match the page content width.
+:::
 
-| breakpoint | max number |
-| ---------- | ---------- |
-| 2xs        | 4          |
-| xs         | 8          |
-| sm         | 8          |
-| md         | 12         |
-| lg         | 16         |
-| xl         | 16 or 20   |
+### Apply grid
+
+To apply the grid to a specific component, set the `onyx-grid` class.
+The number of columns depends on the width of the container/component so you can also nest multiple `onyx-grid`.
+
+For components inside the grid, you can set the `onyx-grid-span-<number>` class to specify how many columns the component should span where `<number>` is between `1` and `20`.
+
+**Note**: Columns 17-20 are only available if you set the `onyx-grid-xl-20` on the root of your application and the breakpoint is `xl` (`1920px`) or larger (useful for 4k screens).
+
+#### Different column spans per breakpoint
+
+You can also set the column span depending on a minimum container width by setting the `onyx-grid-<breakpoint>-span-<number>` class where `<breakpoint>` and `<number>` are taken from the following table:
+
+::: details Columns per breakpoint
+
+| breakpoint | max columns |
+| ---------- | ----------- |
+| 2xs        | 4           |
+| xs         | 8           |
+| sm         | 8           |
+| md         | 12          |
+| lg         | 16          |
+| xl         | 16 or 20    |
+
+:::
 
 The `onyx-grid-span` classes can be combined as necessary.
-
-### Example
-
-E.g. `class="onyx-grid-span-6 onyx-grid-md-span-8 onyx-grid-lg-span-12"` would result in the following element sizes:
-
-| breakpoint | spanning n columns | relevant class       |
-| ---------- | ------------------ | -------------------- |
-| 2xs        | 4                  | onyx-grid-span-6     |
-| xs         | 6                  | onyx-grid-span-6     |
-| sm         | 6                  | onyx-grid-span-6     |
-| md         | 8                  | onyx-grid-md-span-8  |
-| lg         | 12                 | onyx-grid-lg-span-12 |
-| xl         | 12                 | onyx-grid-lg-span-12 |
