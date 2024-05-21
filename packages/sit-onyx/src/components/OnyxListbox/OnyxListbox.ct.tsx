@@ -232,6 +232,24 @@ test("should show empty state", async ({ mount }) => {
   // expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should show empty state when searching", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxListbox label="Test listbox" withSearch searchTerm="search term" options={[]} />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("no-matches.png");
+  await expect(component).toContainText("No item matches your search");
+
+  // TODO: comment back in once contrast issues of the empty component are fixed
+  // ACT
+  // const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  // expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 test("should show loading state", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
