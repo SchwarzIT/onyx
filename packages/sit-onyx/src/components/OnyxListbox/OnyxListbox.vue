@@ -195,9 +195,13 @@ watchEffect(() => {
         class="onyx-listbox__search"
       />
 
-      <slot v-if="isEmptyMessage" name="empty" :default-message="isEmptyMessage">
-        <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
-      </slot>
+      <ul v-if="isEmptyMessage" role="group" aria-label="" class="onyx-listbox__group">
+        <li role="option" aria-selected="false">
+          <slot name="empty" :default-message="isEmptyMessage">
+            <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
+          </slot>
+        </li>
+      </ul>
 
       <template v-else>
         <ul

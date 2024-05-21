@@ -216,38 +216,32 @@ test("should render with grouped options", async ({ mount, makeAxeBuilder }) => 
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should show empty state", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(<OnyxListbox label="Test listbox" options={[]} />);
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("empty.png");
-  await expect(component).toContainText("No data available");
-
-  // TODO: comment back in once contrast issues of the empty component are fixed
-  // ACT
-  // const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  // expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should show empty state when searching", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxListbox label="Test listbox" withSearch searchTerm="search term" options={[]} />,
-  );
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("no-matches.png");
-  await expect(component).toContainText("No item matches your search");
-
-  // TODO: comment back in once contrast issues of the empty component are fixed
-  // ACT
-  // const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  // expect(accessibilityScanResults.violations).toEqual([]);
+test.describe("Empty state screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: `Listbox empty state`,
+    columns: ["default", "when-searching"],
+    rows: ["empty-state"],
+    disabledAccessibilityRules: [
+      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      "color-contrast",
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+      // TODO: will be fixed in follow-up PR
+      "aria-required-children",
+    ],
+    component: (column) =>
+      column === "when-searching" ? (
+        <OnyxListbox
+          label={`${column} listbox`}
+          options={[]}
+          withSearch={true}
+          searchTerm={"search term"}
+        />
+      ) : (
+        <OnyxListbox label={`${column} listbox`} options={[]} />
+      ),
+  });
 });
 
 test("should show loading state", async ({ mount, makeAxeBuilder }) => {
