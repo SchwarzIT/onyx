@@ -1,4 +1,4 @@
-import { IconMetadata, groupIconsByCategory } from "./utils.js";
+import { groupIconsByCategory, type IconMetadata } from "./utils.js";
 
 /**
  * Metadata for all available onyx icons.
