@@ -77,6 +77,7 @@ const emit = defineEmits<{
     display: inline-flex;
     height: var(--onyx-button-height);
     max-width: 100%;
+    width: max-content;
     padding: var(--onyx-button-padding-vertical) var(--onyx-spacing-sm);
     justify-content: center;
     align-items: center;

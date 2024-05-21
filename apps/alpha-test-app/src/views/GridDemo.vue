@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxPageLayout, OnyxSwitch } from "sit-onyx";
+import { OnyxButton, OnyxHeadline, OnyxInput, OnyxPageLayout, OnyxSwitch } from "sit-onyx";
 import { useGridStore } from "../stores/grid-store";
 
 const gridStore = useGridStore();
@@ -7,27 +7,53 @@ const gridStore = useGridStore();
 
 <template>
   <OnyxPageLayout>
-    <div class="onyx-grid">
-      <OnyxSwitch
-        v-model="gridStore.isMaxWidth"
-        class="onyx-grid-span-3"
-        label="Is max width (md)"
-      />
-      <OnyxSwitch
-        v-if="gridStore.isMaxWidth"
-        v-model="gridStore.isCentered"
-        class="onyx-grid-span-3"
-        label="Is centered"
-      />
+    <img src="https://picsum.photos/1920" alt="Hero image" class="page__hero" />
 
-      <p class="content onyx-grid-span-16">Page content</p>
+    <div class="onyx-page__content">
+      <OnyxHeadline is="h1">Grid demo page</OnyxHeadline>
+
+      <form class="onyx-grid" @submit.prevent>
+        <OnyxSwitch
+          v-model="gridStore.isMaxWidth"
+          class="onyx-grid-span-4"
+          label="Is max width (md)"
+        />
+        <OnyxSwitch
+          v-model="gridStore.isCentered"
+          class="onyx-grid-span-4"
+          label="Is centered"
+          :disabled="!gridStore.isMaxWidth"
+        />
+      </form>
+
+      <p class="page__content">{{ "Page content ".repeat(32) }}</p>
+
+      <form class="onyx-grid" @submit.prevent>
+        <OnyxInput class="onyx-grid-span-4" label="Username" required />
+        <OnyxInput class="onyx-grid-span-4" label="Password" type="password" required />
+        <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
+      </form>
     </div>
   </OnyxPageLayout>
 </template>
 
 <style lang="scss" scoped>
-.content {
-  background-color: var(--onyx-color-base-info-200);
-  color: var(--onyx-color-text-icons-info-bold);
+.page {
+  &__hero {
+    height: 16rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    background-color: var(--onyx-color-base-neutral-200);
+    display: block;
+  }
+
+  &__content {
+    margin: var(--onyx-spacing-md) 0;
+  }
+
+  &__card {
+    background-color: var(--onyx-color-base-neutral-200);
+  }
 }
 </style>
