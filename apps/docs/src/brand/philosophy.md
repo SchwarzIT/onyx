@@ -4,7 +4,7 @@ We practice a well-structured and principle-based way of working
 
 ## Agility
 
-We adapt quickly to changes and divide our tasks into smaller parts in order to work on them in short sprints. This allows us to maintain an overview and adapt our plans accordingly - depending on the current situation. 
+We adapt quickly to changes and divide our tasks into smaller parts in order to work on them in short sprints. This allows us to maintain an overview and adapt our plans accordingly - depending on the current situation.
 
 ## The community
 
@@ -12,11 +12,11 @@ We value our community and love to get in touch with you all. That's why we use 
 
 ## Flexibility
 
-We design and create our components according to the latest web standards. This means they can be used in all kinds of projects and are super versatile. 
+We design and create our components according to the latest web standards. This means they can be used in all kinds of projects and are super versatile.
 
 ## Quality
 
-From planning to the final stages of implementation, we put our knowledge and skills into our design system at the highest level. We want it to work smoothly for all our end users alike. 
+From planning to the final stages of implementation, we put our knowledge and skills into our design system at the highest level. We want it to work smoothly for all our end users alike.
 
 ## Collaboration
 
