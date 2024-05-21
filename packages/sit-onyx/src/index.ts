@@ -95,3 +95,5 @@ export * from "./types";
 
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export { createOnyx } from "./utils/plugin";
+
+export { normalizedIncludes } from "./utils/strings";
