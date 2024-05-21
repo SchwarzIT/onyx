@@ -6,6 +6,16 @@ import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
+const DISABLED_ACCESSIBILITY_RULES = [
+  // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+  "color-contrast",
+  // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+  // the following disabled rule should be removed.
+  "nested-interactive",
+  // TODO: will be fixed in follow-up PR
+  "aria-required-children",
+];
+
 const MOCK_VARIED_OPTIONS = [
   { value: 1, label: "Default" },
   { value: 2, label: "Selected" },
@@ -64,13 +74,7 @@ test.describe("Multiselect screenshot tests", () => {
     name: `Listbox multiselect`,
     columns: ["default", "check-all"],
     rows: ["no-selection", "partial-selection", "all-selected"],
-    disabledAccessibilityRules: [
-      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (
       <OnyxListbox
         label={`${column} listbox`}
@@ -88,13 +92,7 @@ test.describe("Densities screenshot tests", () => {
     name: `Listbox (densities)`,
     columns: DENSITIES,
     rows: ["partial-selection", "single-select", "with-search-filled", "with-search-empty"],
-    disabledAccessibilityRules: [
-      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) =>
       row === "partial-selection" ? (
         <OnyxListbox
@@ -221,15 +219,7 @@ test.describe("Empty state screenshot tests", () => {
     name: `Listbox empty state`,
     columns: ["default", "when-searching"],
     rows: ["empty-state"],
-    disabledAccessibilityRules: [
-      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-      // TODO: will be fixed in follow-up PR
-      "aria-required-children",
-    ],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column) =>
       column === "when-searching" ? (
         <OnyxListbox
