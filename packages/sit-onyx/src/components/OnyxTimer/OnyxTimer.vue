@@ -2,7 +2,7 @@
 import { computed, watchEffect } from "vue";
 import { useTimer } from "../../composables/useTimer";
 import { injectI18n } from "../../i18n";
-import { formatTimerTime, timeToDurationString } from "../../utils/time";
+import { formatTime, timeToDurationString } from "../../utils/time";
 import type { OnyxTimerProps } from "./types";
 
 const props = defineProps<OnyxTimerProps>();
@@ -24,10 +24,7 @@ const timeFormat = computed(
 /**
  * Formatted remaining time.
  */
-const formattedTime = computed(() => formatTimerTime(timeLeft.value, timeFormat.value));
-
-// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time?retiredLocale=de#a_valid_duration_string
-const formattedTimeAttribute = computed(() => timeToDurationString(timeLeft.value));
+const formattedTime = computed(() => formatTime(timeLeft.value, timeFormat.value));
 
 watchEffect(() => isEnded.value && emit("timerEnded"));
 </script>
@@ -35,7 +32,9 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
 <template>
   <div class="onyx-timer onyx-text">
     <span v-if="props.label" class="onyx-timer__label">{{ props.label }}</span>
-    <time :datetime="formattedTimeAttribute" class="onyx-timer__time">{{ formattedTime }}</time>
+    <time :datetime="timeToDurationString(timeLeft)" class="onyx-timer__time">
+      {{ formattedTime }}
+    </time>
   </div>
 </template>
 

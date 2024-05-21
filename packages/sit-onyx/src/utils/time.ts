@@ -15,7 +15,7 @@ export const getTimeFragments = (time: number) => {
  * @param format RelativeTimeFormat to use for extracting localized strings for hours, minutes and seconds.
  * @example "04:42 min"
  */
-export const formatTimerTime = (timeLeft: number, format: Intl.RelativeTimeFormat) => {
+export const formatTime = (timeLeft: number, format: Intl.RelativeTimeFormat) => {
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
   const formatNumber = (value: number) => value.toString().padStart(2, "0");
 

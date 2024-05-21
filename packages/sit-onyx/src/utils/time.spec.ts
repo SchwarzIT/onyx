@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { formatTimerTime, getTimeFragments, timeToDurationString } from "./time";
+import { formatTime, getTimeFragments, timeToDurationString } from "./time";
 
 describe("time", () => {
   test.each([
@@ -9,7 +9,7 @@ describe("time", () => {
     { time: 60 * 82 * 1000 + 5000, output: "01:22:05 hr" },
   ])("should format $time as $output", ({ time, output }) => {
     const format = new Intl.RelativeTimeFormat("en-US", { numeric: "always", style: "short" });
-    const actualOutput = formatTimerTime(time, format);
+    const actualOutput = formatTime(time, format);
     expect(actualOutput).toBe(output);
   });
 
