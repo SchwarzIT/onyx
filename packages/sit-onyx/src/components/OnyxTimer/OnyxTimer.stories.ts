@@ -30,25 +30,28 @@ const getEndTime = (offset: number) => {
  */
 export const Seconds = {
   args: {
+    label: "Label",
     endTime: getEndTime(30 * 1000),
   },
 } satisfies Story;
 
 export const Minutes = {
   args: {
+    label: "Label",
     endTime: getEndTime(5 * 60 * 1000),
   },
 } satisfies Story;
 
 export const Hours = {
   args: {
+    label: "Label",
     endTime: getEndTime(125 * 60 * 1000),
   },
 } satisfies Story;
 
-export const WithLabel = {
+export const WithoutLabel = {
   args: {
     ...Minutes.args,
-    label: "Label",
+    hideLabel: true,
   },
 } satisfies Story;

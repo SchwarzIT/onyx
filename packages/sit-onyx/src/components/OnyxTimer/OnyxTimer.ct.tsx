@@ -31,7 +31,7 @@ test.describe("Screenshot tests", () => {
       };
 
       return (
-        <OnyxTimer endTime={endTimes[row]} label={column === "with-label" ? "Label" : undefined} />
+        <OnyxTimer endTime={endTimes[row]} label="Label" hideLabel={column !== "with-label"} />
       );
     },
   });
@@ -43,7 +43,7 @@ test("should emit event when timer is finished", async ({ mount, page }) => {
 
   // ARRANGE
   const component = await mount(
-    <OnyxTimer endTime={endTime} onTimerEnded={() => timerEndedCount++} />,
+    <OnyxTimer endTime={endTime} label="Label" onTimerEnded={() => timerEndedCount++} />,
   );
 
   await page.evaluate(

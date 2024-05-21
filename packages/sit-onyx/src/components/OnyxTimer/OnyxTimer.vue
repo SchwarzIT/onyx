@@ -30,8 +30,12 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
 </script>
 
 <template>
-  <div class="onyx-timer onyx-text">
-    <span v-if="props.label" class="onyx-timer__label">{{ props.label }}</span>
+  <div
+    class="onyx-timer onyx-text"
+    role="timer"
+    :aria-label="props.hideLabel ? props.label : undefined"
+  >
+    <span v-if="!props.hideLabel" class="onyx-timer__label">{{ props.label }}</span>
     <time :datetime="timeToDurationString(timeLeft)" class="onyx-timer__time">
       {{ formattedTime }}
     </time>
