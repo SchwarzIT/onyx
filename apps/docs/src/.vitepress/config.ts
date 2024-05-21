@@ -124,6 +124,7 @@ export default defineConfig({
             { text: "Breakpoints", link: "/breakpoints" },
             { text: "Density", link: "/density" },
             { text: "Typography", link: "/typography" },
+            { text: "Theming Setup", link: "/theming" },
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },

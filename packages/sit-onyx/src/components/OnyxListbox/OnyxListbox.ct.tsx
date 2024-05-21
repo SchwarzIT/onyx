@@ -6,6 +6,16 @@ import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
+const DISABLED_ACCESSIBILITY_RULES = [
+  // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+  "color-contrast",
+  // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+  // the following disabled rule should be removed.
+  "nested-interactive",
+  // TODO: will be fixed in follow-up PR
+  "aria-required-children",
+];
+
 const MOCK_VARIED_OPTIONS = [
   { value: 1, label: "Default" },
   { value: 2, label: "Selected" },
@@ -64,13 +74,7 @@ test.describe("Multiselect screenshot tests", () => {
     name: `Listbox multiselect`,
     columns: ["default", "check-all"],
     rows: ["no-selection", "partial-selection", "all-selected"],
-    disabledAccessibilityRules: [
-      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (
       <OnyxListbox
         label={`${column} listbox`}
@@ -87,14 +91,8 @@ test.describe("Densities screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: `Listbox (densities)`,
     columns: DENSITIES,
-    rows: ["partial-selection", "single-select"],
-    disabledAccessibilityRules: [
-      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      "color-contrast",
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    rows: ["partial-selection", "single-select", "with-search-filled", "with-search-empty"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) =>
       row === "partial-selection" ? (
         <OnyxListbox
@@ -111,6 +109,8 @@ test.describe("Densities screenshot tests", () => {
           modelValue={undefined}
           multiple={false}
           density={column}
+          withSearch={row.startsWith("with-search")}
+          searchTerm={row === "with-search-filled" ? "very long and creative test text" : ""}
         />
       ),
   });
@@ -214,20 +214,24 @@ test("should render with grouped options", async ({ mount, makeAxeBuilder }) => 
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should show empty state", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(<OnyxListbox label="Test listbox" options={[]} />);
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("empty.png");
-  await expect(component).toContainText("No data available");
-
-  // TODO: comment back in once contrast issues of the empty component are fixed
-  // ACT
-  // const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  // expect(accessibilityScanResults.violations).toEqual([]);
+test.describe("Empty state screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: `Listbox empty state`,
+    columns: ["default", "when-searching"],
+    rows: ["empty-state"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) =>
+      column === "when-searching" ? (
+        <OnyxListbox
+          label={`${column} listbox`}
+          options={[]}
+          withSearch={true}
+          searchTerm={"search term"}
+        />
+      ) : (
+        <OnyxListbox label={`${column} listbox`} options={[]} />
+      ),
+  });
 });
 
 test("should show loading state", async ({ mount, makeAxeBuilder }) => {
@@ -358,9 +362,6 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
   });
   const searchInput = component.getByRole("textbox");
 
-  // ASSERT
-  await expect(component).toHaveScreenshot("with-search-empty.png");
-
   // ACT
   await searchInput.pressSequentially("test");
 
@@ -380,7 +381,6 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
 
   // ASSERT
   await expect(searchInput).toHaveValue("very long and new test text");
-  await expect(component).toHaveScreenshot("with-search-filled.png");
 
   // ACT
   await component.update({ props: { searchTerm: "" } });

@@ -6,6 +6,7 @@ import type { SelectOption } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
+import { normalizedIncludes } from "../../utils/strings";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -62,7 +63,7 @@ const meta: Meta<typeof OnyxListbox> = {
 
         const filteredOptions = computed(() =>
           searchTerm.value
-            ? args.options.filter(({ label }) => label.includes(searchTerm.value))
+            ? args.options.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
             : args.options,
         );
 

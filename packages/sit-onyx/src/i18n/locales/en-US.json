@@ -23,8 +23,8 @@
   },
   "listbox": {
     "empty": "No data available",
-    "noMatch": "No entry matches your search",
-    "searchInputLabel": "Filter the list entries",
+    "noMatch": "No item matches your search",
+    "searchInputLabel": "Filter the list items",
     "clearSearch": "Clear search filter"
   },
   "navItemOptionsLabel": "Subpages of {label}",

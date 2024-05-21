@@ -4,11 +4,13 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { injectI18n } from "../../i18n";
 
+export type MiniSearchProps = { modelValue: string; label: string };
+
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 
-const props = defineProps<{ modelValue: string; label: string }>();
+const props = defineProps<MiniSearchProps>();
 
 const emit = defineEmits<{
   "update:modelValue": [input: string];
@@ -66,7 +68,6 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
 .onyx-mini-search {
   @include layers.component() {
     display: flex;
-    align-items: center;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
     background-color: var(--onyx-color-base-background-blank);
 
@@ -95,6 +96,12 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
       display: grid;
       place-items: center;
       cursor: pointer;
+      visibility: hidden;
+    }
+
+    // Show clear button only when input is not empty
+    &__input:not(:placeholder-shown) + &__clear {
+      visibility: visible;
     }
   }
 }

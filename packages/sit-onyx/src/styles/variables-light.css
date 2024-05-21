@@ -3,8 +3,7 @@
  * This file contains the specific variables for the "light" theme.
  * Imported from Figma API on Wed, 14 Feb 2024 08:55:02 GMT
  */
-:where(:root),
-.onyx-light {
+:where(:root) {
   --onyx-color-base-background-blank: var(--onyx-color-universal-grayscale-white);
   --onyx-color-base-background-tinted: var(--onyx-color-themed-neutral-100);
   --onyx-color-base-danger-100: var(--onyx-color-universal-red-100);
