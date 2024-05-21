@@ -149,8 +149,8 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (autosize)",
     columns: ["initial-value", "user-typed"],
     rows: [
-      "0-rows",
-      "1-row",
+      "0",
+      "1",
       "2-rows",
       "3-rows",
       "4-rows",
@@ -169,7 +169,10 @@ test.describe("Screenshot tests", () => {
       if (row === "long-value") {
         modelValue = "Test".repeat(64);
       } else {
-        modelValue = Array.from({ length: +row[0] }, (_, index) => `Row ${index + 1}`).join("\n");
+        modelValue = Array.from(
+          { length: Number.parseInt(row) },
+          (_, index) => `Row ${index + 1}`,
+        ).join("\n");
       }
 
       return (
@@ -187,7 +190,10 @@ test.describe("Screenshot tests", () => {
         if (row === "long-value") {
           await textarea.fill("Test".repeat(64));
         } else {
-          const modelValue = Array.from({ length: +row[0] }, (_, index) => `Row ${index + 1}`);
+          const modelValue = Array.from(
+            { length: Number.parseInt(row) },
+            (_, index) => `Row ${index + 1}`,
+          );
 
           for (let i = 0; i < modelValue.length; i++) {
             await textarea.pressSequentially(modelValue[i]);
