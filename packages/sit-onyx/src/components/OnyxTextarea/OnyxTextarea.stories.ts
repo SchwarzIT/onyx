@@ -123,3 +123,18 @@ export const CustomError = {
     placeholder: "Interact with me to show error",
   },
 } satisfies Story;
+
+/**
+ * This example shows a textarea with custom autosize settings (min=2 rows, max=12 rows).
+ * You can also disable the max rows so the textarea can grow unlimited.
+ */
+export const Autosize = {
+  args: {
+    ...Default.args,
+    placeholder: "Type multiple lines to see the autosize...",
+    autosize: {
+      min: 2,
+      max: 12,
+    },
+  },
+} satisfies Story;
