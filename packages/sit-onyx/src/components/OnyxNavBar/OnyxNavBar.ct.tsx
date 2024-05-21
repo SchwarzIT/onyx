@@ -6,6 +6,8 @@ import {
   executeMatrixScreenshotTest,
 } from "../../playwright/screenshots";
 import { ONYX_BREAKPOINTS } from "../../types";
+import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
+import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 
 test.beforeEach(async ({ page }) => {
@@ -39,48 +41,6 @@ test.describe("Screenshot tests", () => {
       ),
     });
   }
-
-  executeMatrixScreenshotTest({
-    name: "Navigation bar (lg, grid max-width md)",
-    columns: ["default"],
-    rows: ["default", "centered"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
-    component: (column, row) => (
-      <OnyxNavBar
-        style={{
-          width: `${ONYX_BREAKPOINTS.lg}px`,
-          "--onyx-grid-max-width": `${ONYX_BREAKPOINTS.md}px`,
-        }}
-        class={{ "onyx-grid-center": row === "centered" }}
-        appName="App name"
-        logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-        withBackButton={row.includes("back")}
-      >
-        <OnyxNavItem label="Item" active />
-        <OnyxNavItem label="Item" />
-
-        {row.includes("context") && (
-          <template v-slot:contextArea>
-            <OnyxUserMenu username="John Doe" options={[]} />
-          </template>
-        )}
-      </OnyxNavBar>
-    ),
-    beforeScreenshot: async (component, page) => {
-      // colorize background so the max-width can be seen easily
-      await page.addStyleTag({
-        content: `
-          .onyx-nav-bar {
-            background-color: var(--onyx-color-base-danger-200);
-          }
-          .onyx-nav-bar__content {
-            background-color: var(--onyx-color-base-background-blank);
-          }
-        `,
-      });
-    },
-  });
 });
 
 test("should behave correctly", async ({ mount }) => {
@@ -111,4 +71,47 @@ test("should behave correctly", async ({ mount }) => {
   );
 
   await expect(component.getByRole("button", { name: "Custom app area" })).toBeVisible();
+});
+
+test("should be aligned with the grid in a full app layout", async ({ page, mount }) => {
+  await defineLogoMockRoutes(page);
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 400 });
+
+  await page.addStyleTag({
+    content: "body { margin: 0; }",
+  });
+
+  await mount(
+    <OnyxAppLayout>
+      <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
+        <OnyxNavItem label="Item" active />
+        <OnyxNavItem label="Item" />
+
+        <template v-slot:contextArea>
+          <OnyxUserMenu username="John Doe" options={[]} />
+        </template>
+      </OnyxNavBar>
+
+      <OnyxPageLayout>
+        <div class="onyx-grid">
+          <div
+            class="onyx-grid-span-16"
+            style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}
+          >
+            Page content...
+          </div>
+        </div>
+      </OnyxPageLayout>
+    </OnyxAppLayout>,
+  );
+
+  await expect(page).toHaveScreenshot("grid-default.png");
+
+  const app = page.locator(".onyx-app");
+
+  await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+  await expect(page).toHaveScreenshot("grid-max-width.png");
+
+  await app.evaluate((element) => element.classList.add("onyx-grid-center"));
+  await expect(page).toHaveScreenshot("grid-max-center.png");
 });

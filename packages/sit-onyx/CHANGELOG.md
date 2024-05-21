@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.105
+
+### Patch Changes
+
+- c011e27: fix(grid): include padding in max-width
+
 ## 1.0.0-alpha.104
 
 ### Minor Changes
