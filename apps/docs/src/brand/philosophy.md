@@ -6,7 +6,7 @@ We adapt quickly to changes and divide our tasks into smaller parts in order to 
 
 ## The community
 
-We value our community and love to get in touch with you all. That's why we use GitHub as a platform that allows us to exchange ideas with you and gather feedback. Your input shapes our work and improves the product.
+We value our community and love to get in touch with you all. That's why we use [GitHub](https://github.com/SchwarzIT/onyx) as a platform that allows us to exchange ideas with you and gather feedback. Your input shapes our work and improves the product.
 
 ## Flexibility
 
