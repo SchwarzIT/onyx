@@ -68,7 +68,6 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
 .onyx-mini-search {
   @include layers.component() {
     display: flex;
-    align-items: center;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
     background-color: var(--onyx-color-base-background-blank);
 
