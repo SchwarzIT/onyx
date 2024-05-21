@@ -118,9 +118,10 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
 };
 
 /**
- * Custom transformer for the story source code to better fit to our
- * Vue.js code because storybook per default does not render it exactly how
- * we want it to look.
+ * Custom transformer for the story source code to add import
+ * for all used onyx icons so icon imports are displayed in the source code
+ * instead of the the raw SVG content.
+ *
  * @see https://storybook.js.org/docs/react/api/doc-block-source
  */
 export const sourceCodeTransformer = (
