@@ -1,3 +1,4 @@
+import { createPinia } from "pinia";
 import { createOnyx } from "sit-onyx";
 import onyxDeDE from "sit-onyx/locales/de-DE.json";
 import onyxKoKR from "sit-onyx/locales/ko-KR.json";
@@ -30,7 +31,7 @@ async function setupApp() {
     routes,
   });
 
-  const app = createApp(App).use(i18n).use(router).use(onyx);
+  const app = createApp(App).use(i18n).use(router).use(onyx).use(createPinia());
   await router.isReady();
 
   app.mount("#app");

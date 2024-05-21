@@ -191,10 +191,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     const EXPECTED_LEFT = 0;
     expect(box.left).toBe(EXPECTED_LEFT);
     const BREAKPOINT_MAX = ONYX_BREAKPOINTS[breakpoint];
-    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
-    const MARGIN = 64;
-    const EXPECTED_RIGHT = 2 * MARGIN + BREAKPOINT_MAX;
-    expect(box.right).toBe(EXPECTED_RIGHT);
+    expect(box.right).toBe(BREAKPOINT_MAX);
   });
 });
 
@@ -219,9 +216,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
       .evaluateHandle((el) => el.getBoundingClientRect())
       .then((res) => res.jsonValue());
 
-    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
-    const MARGIN = 64;
-    const BOX_MAX_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 2 * MARGIN;
+    const BOX_MAX_WIDTH = ONYX_BREAKPOINTS[breakpoint];
     const EXPECTED_LEFT = (VIEWPORT_WIDTH - BOX_MAX_WIDTH) / 2;
     expect(box.left).toBe(EXPECTED_LEFT);
     const EXPECTED_RIGHT = EXPECTED_LEFT + BOX_MAX_WIDTH;

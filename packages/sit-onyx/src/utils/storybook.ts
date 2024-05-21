@@ -1,5 +1,5 @@
 import { sourceCodeTransformer } from "@sit-onyx/storybook-utils";
-import type { Decorator, StoryContext } from "@storybook/vue3";
+import type { ArgTypes, Decorator, StoryContext } from "@storybook/vue3";
 
 /**
  * Defines the control for a Storybook argType to be a select/dropdown of
@@ -39,7 +39,7 @@ export const defineIconSelectArgType = () => {
       type: "select",
       labels: iconLabels,
     },
-  } as const;
+  } satisfies ArgTypes[number];
 };
 
 export const createIconSourceCodeTransformer = (propertyName: string) => {
