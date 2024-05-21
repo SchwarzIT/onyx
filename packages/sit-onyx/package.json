@@ -53,7 +53,7 @@
     "vue": ">= 3"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.9.0",
+    "@axe-core/playwright": "^4.9.1",
     "@sit-onyx/headless": "workspace:^",
     "eslint-plugin-vue-scoped-css": "^2.8.0"
   }
