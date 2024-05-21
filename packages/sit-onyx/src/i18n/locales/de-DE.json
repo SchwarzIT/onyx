@@ -22,5 +22,10 @@
     "currentSelection": "{n} ausgewählt"
   },
   "empty": "Keine Daten verfügbar",
-  "navItemOptionsLabel": "Unterseiten von {label}"
+  "navItemOptionsLabel": "Unterseiten von {label}",
+  "navigation": {
+    "appLogo": "App logo",
+    "goBack": "Zurück",
+    "userMenuLabel": "Benutzeroptionen"
+  }
 }

@@ -1,8 +1,4 @@
-<script
-  lang="ts"
-  setup
-  generic="TValue extends SelectOptionValue = SelectOptionValue, TMultiple extends boolean = false"
->
+<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
 import { createId, createListbox } from "@sit-onyx/headless";
 import { computed, ref, watch, watchEffect } from "vue";
@@ -16,7 +12,7 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import type { OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TValue, TMultiple>>(), {
+const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
 });
 
@@ -76,7 +72,9 @@ const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.withCheckAll ? [CHECK_ALL_ID] : []).concat(enabledOptionValues.value);
+  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
+    enabledOptionValues.value,
+  );
 });
 
 const {
@@ -152,6 +150,9 @@ const checkAll = computed(() => {
 });
 
 const checkAllLabel = computed<string>(() => {
+  if (!props.multiple) {
+    return "";
+  }
   const defaultText = t.value("selections.selectAll");
   if (typeof props.withCheckAll === "boolean") return defaultText;
   return props.withCheckAll?.label ?? defaultText;

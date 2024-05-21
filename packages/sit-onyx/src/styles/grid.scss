@@ -22,21 +22,22 @@ $gridVariants: (
     // Its called margin in the UX concept. So we keep that name for consistency, even when it is implemented through a padding.
     padding: var(--onyx-grid-margin);
     // often web projects override the default box-sizing, but it is important for the max-width and alignment to work correctly
-    box-sizing: content-box;
+    box-sizing: border-box;
     max-width: var(--onyx-grid-max-width, none);
+    margin-inline: var(--onyx-grid-margin-inline);
   }
 
   /**
  * Grid container class to allow optional centering for grids with max width
  */
   .onyx-grid-center {
-    margin: 0 auto;
+    --onyx-grid-margin-inline: auto;
   }
 
   /**
  * Grid container class for "xl" breakpoint variant with 20 columns
  */
-  @include breakpoint(min, xl, $offset: 1) {
+  @include screen(min, xl, $offset: 1) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
@@ -84,7 +85,7 @@ $gridVariants: (
       @include generateGridProperties($columns, $gutter, $margin);
       @include generateSpans(1, $columns, $name);
     } @else {
-      @include breakpoint(min, $name, $offset: 1) {
+      @include screen(min, $name, $offset: 1) {
         @include generateGridProperties($columns, $gutter, $margin);
         @include generateSpans(1, $columns, $name);
 

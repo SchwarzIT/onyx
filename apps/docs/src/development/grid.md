@@ -7,7 +7,7 @@ This library is currently in early / active development.
 The grid implementation in **onyx** differs from other design system implementations that you might know.
 Instead of having a fixed 12 column grid, we have a dynamic grid with 4, 8, 12, 16 and optionally 20 columns.
 The amount of columns differs based on the active breakpoint.
-You can find a detailed description of the system in the design system docs (TODO: Add link to grid UX definition).
+You can find a detailed description of the system in the [design system docs](/basics/breakpoints-grid).
 
 ::: info
 The dynamic grid has the following advantages over a fixed column grid:
@@ -21,8 +21,25 @@ The dynamic grid has the following advantages over a fixed column grid:
 Grid elements span the number of columns that is assigned to them.
 If there are less columns available than an element is assigned, it will span all columns of the row.
 
-Additionally, an element can also be configured to span a specific amount of columns for a minimum breakpoint (TODO: Add link to breakpoint UX definition).
+Additionally, an element can also be configured to span a specific amount of columns for a minimum breakpoint.
+To learn about the grid breakpoints, please refer to the [design system docs](/basics/breakpoints-grid#breakpoints).
 Multiple span definitions can then be combined to resize an element based on the breakpoint.
+
+## Example
+
+```html
+<div class="onyx-grid-max-md onyx-grid-center">
+  <!-- nav bar etc. here... -->
+
+  <main class="onyx-grid">
+    <!-- page content here... -->
+  </main>
+</div>
+```
+
+::: info
+The `onyx-grid-max-*` and `onyx-grid-center` classes should be set on the very top app level because some onyx components like the `OnyxNavBar` align with the grid to e.g. automatically set the max width also for the nav bar to match the page content width.
+:::
 
 ## Usage
 

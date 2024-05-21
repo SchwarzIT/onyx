@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
+import { OnyxHeadline, OnyxPageLayout } from "sit-onyx";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
@@ -26,29 +26,27 @@ const invalidFormData = ref<FormData>({
 </script>
 
 <template>
-  <OnyxAppLayout>
-    <OnyxPageLayout>
-      <template #sidebar>
-        <div class="sidebar">
-          <LanguageSelection v-model="locale" />
+  <OnyxPageLayout>
+    <template #sidebar>
+      <div class="sidebar">
+        <LanguageSelection v-model="locale" />
 
-          <p>"{{ t("message") }}" in {{ locale }}</p>
-        </div>
-      </template>
-
-      <div class="page">
-        <OnyxHeadline is="h1" element="h1">Initially Invalid example</OnyxHeadline>
-        <FormDemo v-model="invalidFormData" />
-        <pre class="state">State: {{ invalidFormData }}</pre>
-
-        <hr />
-
-        <OnyxHeadline is="h1" element="h1">Initially Valid example</OnyxHeadline>
-        <FormDemo v-model="validFormData" />
-        <pre class="state">State: {{ validFormData }}</pre>
+        <p>"{{ t("message") }}" in {{ locale }}</p>
       </div>
-    </OnyxPageLayout>
-  </OnyxAppLayout>
+    </template>
+
+    <div class="page">
+      <OnyxHeadline is="h1" element="h1">Initially Invalid example</OnyxHeadline>
+      <FormDemo v-model="invalidFormData" />
+      <pre class="state">State: {{ invalidFormData }}</pre>
+
+      <hr />
+
+      <OnyxHeadline is="h1" element="h1">Initially Valid example</OnyxHeadline>
+      <FormDemo v-model="validFormData" />
+      <pre class="state">State: {{ validFormData }}</pre>
+    </div>
+  </OnyxPageLayout>
 </template>
 
 <style lang="scss" scoped>

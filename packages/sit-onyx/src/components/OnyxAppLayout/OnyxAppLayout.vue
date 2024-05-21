@@ -17,9 +17,9 @@ const slots = defineSlots<{
 
 <template>
   <div class="onyx-app" :class="{ 'onyx-app--horizontal': props.navBarAlignment === 'left' }">
-    <nav v-if="slots.navBar" class="onyx-app__nav">
+    <div v-if="slots.navBar" class="onyx-app__nav">
       <slot name="navBar"></slot>
-    </nav>
+    </div>
     <div class="onyx-app__page">
       <slot></slot>
     </div>
@@ -61,7 +61,6 @@ const slots = defineSlots<{
     &__nav {
       grid-area: nav;
       z-index: var(--onyx-z-index-navigation);
-
       background-color: var(--background-color-nav);
     }
     &__page {

@@ -1,15 +1,19 @@
 /* eslint-disable playwright/expect-expect */
 import type { Locator, Page } from "@playwright/test";
 import { expect, test } from "../playwright/a11y";
+import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../types";
 
-const GRIDS = {
-  "2xs": { breakpoint: 321, columns: 4 },
-  xs: { breakpoint: 577, columns: 8 },
-  sm: { breakpoint: 769, columns: 8 },
-  md: { breakpoint: 993, columns: 12 },
-  lg: { breakpoint: 1441, columns: 16 },
-  xl: { breakpoint: 1921, columns: 16 },
-};
+/**
+ * Map of column count per breakpoint.
+ */
+const GRID_COLUMNS = {
+  "2xs": 4,
+  xs: 8,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 16,
+} satisfies Record<OnyxBreakpoint, number>;
 
 const createGridElement = (
   cols: number,
@@ -41,13 +45,16 @@ const fullPageScreenshot = (page: Page, name: string) => {
 
 test.beforeEach(({ page }) => page.addStyleTag({ content: "body { margin: 0; }" }));
 
-Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
+Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
-    await page.setViewportSize({ width: breakpoint, height: 400 });
+    await page.setViewportSize({
+      width: ONYX_BREAKPOINTS[name as OnyxBreakpoint] + 1,
+      height: 400,
+    });
     await mount(
       <main class="onyx-grid" style={{ outline: "1px solid red" }}>
         {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
@@ -62,13 +69,16 @@ Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
   });
 });
 
-Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
+Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint in max grid md`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
-    await page.setViewportSize({ width: breakpoint, height: 400 });
+    await page.setViewportSize({
+      width: ONYX_BREAKPOINTS[name as OnyxBreakpoint] + 1,
+      height: 400,
+    });
     await mount(
       <main class="onyx-grid onyx-grid-max-md" style={{ outline: "1px solid red" }}>
         {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
@@ -77,18 +87,21 @@ Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
 
     // ASSERT
     for (const loc of await page.locator("onyx-grid > div").all()) {
-      await expectActualGridSpan(loc, Math.min(i, columns, GRIDS.md.columns));
+      await expectActualGridSpan(loc, Math.min(i, columns, GRID_COLUMNS.md));
     }
   });
 });
 
-Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
+Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint in max grid lg`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
-    await page.setViewportSize({ width: breakpoint, height: 400 });
+    await page.setViewportSize({
+      width: ONYX_BREAKPOINTS[name as OnyxBreakpoint] + 1,
+      height: 400,
+    });
     await mount(
       <main class="onyx-grid onyx-grid-max-lg" style={{ outline: "1px solid red" }}>
         {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
@@ -97,19 +110,19 @@ Object.entries(GRIDS).forEach(([name, { breakpoint, columns }], i) => {
 
     // ASSERT
     for (const loc of await page.locator("onyx-grid > div").all()) {
-      await expectActualGridSpan(loc, Math.min(i, columns, GRIDS.lg.columns));
+      await expectActualGridSpan(loc, Math.min(i, columns, GRID_COLUMNS.lg));
     }
   });
 });
 
-Object.entries(GRIDS).forEach(([name, { breakpoint }], i) => {
+Object.entries(GRID_COLUMNS).forEach(([name], i) => {
   test(`"${name}" breakpoint span should overwrite smaller breakpoint span`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
     await page.setViewportSize({
-      width: breakpoint,
+      width: ONYX_BREAKPOINTS[name as OnyxBreakpoint] + 1,
       height: 400,
     });
     await mount(
@@ -131,7 +144,7 @@ Object.entries(GRIDS).forEach(([name, { breakpoint }], i) => {
 test(`default span should apply when no breakpoint span is active`, async ({ mount, page }) => {
   // ARRANGE
   await page.setViewportSize({
-    width: GRIDS.md.breakpoint,
+    width: ONYX_BREAKPOINTS.md + 1,
     height: 400,
   });
   await mount(
@@ -150,15 +163,9 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
 });
 
 const MAX_WIDTH_TEST_SETUP = [
-  {
-    breakpoint: "lg" as keyof typeof GRIDS,
-    className: "onyx-grid-max-md",
-  },
-  {
-    breakpoint: "xl" as keyof typeof GRIDS,
-    className: "onyx-grid-max-lg",
-  },
-];
+  { breakpoint: "lg", className: "onyx-grid-max-md" },
+  { breakpoint: "xl", className: "onyx-grid-max-lg" },
+] satisfies { breakpoint: OnyxBreakpoint; className: string }[];
 
 MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
   test(`grid with optional max width should be left aligned for ${breakpoint}`, async ({
@@ -166,7 +173,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     page,
   }) => {
     // ARRANGE
-    const VIEWPORT_WIDTH = GRIDS[breakpoint].breakpoint + 1000;
+    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
     await page.setViewportSize({
       width: VIEWPORT_WIDTH,
       height: 400,
@@ -183,11 +190,8 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
 
     const EXPECTED_LEFT = 0;
     expect(box.left).toBe(EXPECTED_LEFT);
-    const BREAKPOINT_MAX = GRIDS[breakpoint].breakpoint - 1;
-    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
-    const MARGIN = 64;
-    const EXPECTED_RIGHT = 2 * MARGIN + BREAKPOINT_MAX;
-    expect(box.right).toBe(EXPECTED_RIGHT);
+    const BREAKPOINT_MAX = ONYX_BREAKPOINTS[breakpoint];
+    expect(box.right).toBe(BREAKPOINT_MAX);
   });
 });
 
@@ -197,7 +201,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     page,
   }) => {
     // ARRANGE
-    const VIEWPORT_WIDTH = GRIDS[breakpoint].breakpoint + 1000;
+    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
     await page.setViewportSize({
       width: VIEWPORT_WIDTH,
       height: 400,
@@ -212,9 +216,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
       .evaluateHandle((el) => el.getBoundingClientRect())
       .then((res) => res.jsonValue());
 
-    // We need to add the margin as it is implemented via a padding which isn't included in the boundingclientrect
-    const MARGIN = 64;
-    const BOX_MAX_WIDTH = GRIDS[breakpoint].breakpoint - 1 + 2 * MARGIN;
+    const BOX_MAX_WIDTH = ONYX_BREAKPOINTS[breakpoint];
     const EXPECTED_LEFT = (VIEWPORT_WIDTH - BOX_MAX_WIDTH) / 2;
     expect(box.left).toBe(EXPECTED_LEFT);
     const EXPECTED_RIGHT = EXPECTED_LEFT + BOX_MAX_WIDTH;

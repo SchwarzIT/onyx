@@ -2,11 +2,12 @@
 import type { ListboxValue } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxUserMenuProps } from "./types";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import type { OnyxUserMenuProps } from "./types";
 
 const props = defineProps<OnyxUserMenuProps<TValue>>();
 
@@ -24,6 +25,8 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
+const { t } = injectI18n();
+
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
@@ -38,11 +41,7 @@ const avatar = computed(() => {
       <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </button>
 
-    <OnyxFlyoutMenu
-      class="onyx-user-menu__flyout"
-      label="User options"
-      @update:model-value="$event && emit('optionClick', $event)"
-    >
+    <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />
@@ -68,6 +67,7 @@ const avatar = computed(() => {
           'onyx-user-menu-item--danger': item.color === 'danger',
         }"
         :color="item.color"
+        @click="emit('optionClick', item.value)"
       >
         <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
       </OnyxListItem>
@@ -102,6 +102,7 @@ const avatar = computed(() => {
 
       .onyx-user-menu__flyout {
         opacity: 1;
+        visibility: visible;
       }
 
       .onyx-user-menu__chevron {
@@ -130,7 +131,9 @@ const avatar = computed(() => {
 
     &__flyout {
       opacity: 0;
-      transition: opacity var(--onyx-duration-sm);
+      visibility: hidden;
+      transition-duration: var(--onyx-duration-sm);
+      transition-property: opacity, visibility;
       position: absolute;
       right: 0;
       top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));

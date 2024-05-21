@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   disabled: false,
   loading: false,
   type: "button",
-  variation: "primary",
+  color: "primary",
   mode: "default",
   skeleton: false,
 });
@@ -28,7 +28,7 @@ const emit = defineEmits<{
     v-else
     :class="[
       'onyx-button',
-      `onyx-button--${props.variation}`,
+      `onyx-button--${props.color}`,
       `onyx-button--${props.mode}`,
       { 'onyx-button--loading': props.loading },
       densityClass,
@@ -115,7 +115,7 @@ const emit = defineEmits<{
       }
     }
 
-    &--secondary {
+    &--neutral {
       --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
       --onyx-button-outline-color: var(--onyx-color-base-neutral-300);
       --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);

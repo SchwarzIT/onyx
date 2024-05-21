@@ -6,6 +6,8 @@ Colors play a crucial role in an user interface for enhancing the visual appeal 
 
 The onyx color scheme is tightly connect to the [design token systematic](/tokens/introduction), that applies the values to the interface. Therefore, please get familiar with the logic of [token levels](/tokens/introduction) used in onyx. This will be the foundation of understanding how colors will be interpreted for light and dark mode.
 
+To learn more about how to configure the light & dark mode in your application, refer to the [technical documentation](/development/theming).
+
 ### Global color scheme
 
 In order to establish a versatile foundation that offers both, a light and dark mode, onyx colors are based on a comprehensive global color palette designed to work as a universally adaptable scheme. This palette spans from the lightest luminosity to the deepest darkness, covering a broad spectrum. However, it's important to note that the extremes at both ends of the palette are not suitable for all modes. Specifically, the delineation is set by values of 100 and 1200, demarcating the boundaries for usability in different modes. It's also important to know that this nuanced palette of global shades is intentionally excluded from the design and development process of creating an onyx user interface.

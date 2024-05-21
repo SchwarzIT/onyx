@@ -1,4 +1,4 @@
-import { test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import type { ListboxOption } from "../OnyxListbox/types";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
@@ -38,4 +38,32 @@ test.describe("Screenshot tests", () => {
       }
     },
   });
+});
+
+test("should behave correctly", async ({ mount }) => {
+  const optionClickEvents: string[] = [];
+
+  const component = await mount(
+    <OnyxUserMenu
+      username="Jane Doe"
+      options={options}
+      onOptionClick={(value) => optionClickEvents.push(value)}
+    />,
+  );
+
+  const menu = component.getByLabel("User options");
+  const button = component.getByRole("button", { name: "Jane Doe" });
+
+  await expect(menu).toBeHidden();
+
+  // should not be opened by hover
+  await button.hover();
+  await expect(menu).toBeHidden();
+
+  await button.click();
+  await expect(menu).toBeVisible();
+
+  await menu.getByText("Settings").click();
+  await expect(menu).toBeHidden(); // should close after clicking on option
+  expect(optionClickEvents).toStrictEqual(["/settings"]);
 });

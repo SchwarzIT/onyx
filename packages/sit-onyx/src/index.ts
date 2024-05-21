@@ -46,6 +46,12 @@ export * from "./components/OnyxListboxOption/types";
 export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 export * from "./components/OnyxLoadingIndicator/types";
 
+export { default as OnyxNavAppArea } from "./components/OnyxNavAppArea/OnyxNavAppArea.vue";
+export * from "./components/OnyxNavAppArea/types";
+
+export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
+export * from "./components/OnyxNavBar/types";
+
 export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue";
 export * from "./components/OnyxNavItem/types";
 
@@ -58,6 +64,8 @@ export * from "./components/OnyxRadioButton/types";
 export { default as OnyxRadioButtonGroup } from "./components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
 export * from "./components/OnyxRadioButtonGroup/types";
 
+export { default as OnyxNavSeparator } from "./components/OnyxNavSeparator/OnyxNavSeparator.vue";
+
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types";
 
@@ -68,6 +76,9 @@ export * from "./components/OnyxSwitch/types";
 
 export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
 export * from "./components/OnyxTable/types";
+
+export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
+export * from "./components/OnyxTextarea/types";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
