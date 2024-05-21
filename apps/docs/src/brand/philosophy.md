@@ -1,23 +1,21 @@
-# onyx principles
-
-At onyx, we live an well structured and principle-based work approach. You can find our philosophy guidelines here. If you got questions, feel free to contact the team.
+We practice a well-structured and principle-based way of working
 
 ## Agility
 
-Agile work is key to us, meaning we can quickly adapt to changes. We break our tasks into smaller parts and work on them in short cycles, called sprints. This helps us to stay on top of things and adjust our plans as needed based on what's happening around us. Being agile ensures we can keep up with the fast-paced tech world and deliver what's needed, when it's needed.
+We adapt quickly to changes and divide our tasks into smaller parts in order to work on them in short sprints. This allows us to maintain an overview and adapt our plans accordingly - depending on the current situation. 
 
-## Community
+## The community
 
-Community is the heart of what we do. We value value our community strongly and love to connect with you all. That's why we use GitHub as a platform. It allows us to engage with you effectively, sharing updates and gathering some feedback. It's all about the improvement of the product. Your input shapes our work. Everything we do, is aimed at improving onyx for you.
+We value our community and love to get in touch with you all. That's why we use GitHub as a platform that allows us to exchange ideas with you and gather feedback. Your input shapes our work and improves the product.
 
 ## Flexibility
 
-Flexibility is a big deal for us. We design and concept our components with the latest web standards to be super versatile, so they can be used in all kinds of projects, whether it is a filigree desktop tool or an mobile application for rough usage. We know every project is different, so we make sure our components can adapt to whatever you need.
+We design and create our components according to the latest web standards. This means they can be used in all kinds of projects and are super versatile. 
 
 ## Quality
 
-We aim for nothing less than the best. Our goal? To stand shoulder-to-shoulder with the top design systems out there. From the beginning of planning to the final steps of development, we pour our knowledge and skills into crafting a design system of the highest caliber. We're not just focused on making it look good; we want it work seamlessly for designers, developers, and end-users alike. It's all about delivering an experience, that's top-notch from every angle.
+From planning to the final stages of implementation, we put our knowledge and skills into our design system at the highest level. We want it to work smoothly for all our end users alike. 
 
-## Cooperation
+## Collaboration
 
-Cooperation is at the core of our team's DNA. We've got a blend of talents here, with both designers and developers bringing their A-game to the table. We believe in the power of collaboration, where everyone's skills and expertise are valued equally. By working closely together and putting our trust in each other's abilities, we are able to achieve remarkable things. It's all about teamwork and mutual respect, driving us towards our goals.
+The skills and expertise of everyone are involved in our decisions by working closely together. We take everyone's skills and input into account and rely on each other.
