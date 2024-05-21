@@ -158,6 +158,9 @@ test.describe("Screenshot tests", () => {
       "6-rows",
       "7-rows",
       "8-rows",
+      "9-rows",
+      "10-rows",
+      "11-rows",
       "long-value",
     ],
     component: (column, row) => {
@@ -300,7 +303,11 @@ test("should autosize", async ({ mount }) => {
     { rows: 4, expectedHeight: 4 },
     { rows: 5, expectedHeight: 5 },
     { rows: 6, expectedHeight: 6 },
-    { rows: 7, expectedHeight: 6 },
+    { rows: 7, expectedHeight: 7 },
+    { rows: 8, expectedHeight: 8 },
+    { rows: 9, expectedHeight: 9 },
+    { rows: 10, expectedHeight: 10 },
+    { rows: 11, expectedHeight: 10 },
   ];
 
   for (const testCase of TEST_CASES) {

@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   readonly: false,
   disabled: false,
   skeleton: false,
+  disableManualResize: false,
 });
 
 const emit = defineEmits<{
@@ -110,6 +111,7 @@ const handleInput = (event: Event) => {
           v-model="value"
           v-custom-validity
           class="onyx-textarea__native"
+          :class="{ 'onyx-textarea__native--no-resize': props.disableManualResize }"
           :placeholder="props.placeholder"
           :required="props.required"
           :autocapitalize="props.autocapitalize"
@@ -147,7 +149,7 @@ const handleInput = (event: Event) => {
 .onyx-textarea,
 .onyx-textarea-skeleton {
   --min-autosize-rows: 3;
-  --max-autosize-rows: 6;
+  --max-autosize-rows: 10;
 
   --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
   --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
@@ -217,7 +219,8 @@ const handleInput = (event: Event) => {
       @include define-shared-autosize-styles;
       resize: vertical;
 
-      &:read-only {
+      &:read-only,
+      &--no-resize {
         resize: none;
       }
     }
