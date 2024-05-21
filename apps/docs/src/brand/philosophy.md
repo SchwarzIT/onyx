@@ -1,3 +1,5 @@
+# Philosophy
+
 We practice a well-structured and principle-based way of working
 
 ## Agility
