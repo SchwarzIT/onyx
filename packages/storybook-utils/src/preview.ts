@@ -153,14 +153,14 @@ export const sourceCodeTransformer = (
   // add icon imports to the source code for all used onyx icons
   Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
     const importName = getIconImportName(iconName);
-    const singleQuotedIconContent = replaceAll(iconContent, '"', "\\'");
+    const singleQuotedIconContent = `'${replaceAll(iconContent, '"', "\\'")}'`;
 
     if (code.includes(iconContent)) {
       code = code.replace(new RegExp(` (\\S+)=['"]${iconContent}['"]`), ` :$1="${importName}"`);
       iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     } else if (code.includes(singleQuotedIconContent)) {
       // support icons inside objects
-      code = code.replace(`'${singleQuotedIconContent}'`, importName);
+      code = code.replace(singleQuotedIconContent, importName);
       iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     }
   });
