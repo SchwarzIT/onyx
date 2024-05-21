@@ -33,7 +33,14 @@ describe("useTimer.ts", () => {
     expect(isEnded.value).toBe(false);
 
     // ACT
-    vi.advanceTimersByTime(5000);
+    vi.advanceTimersByTime(1000);
+
+    // ASSERT
+    expect(timeLeft.value).toBe(4000);
+    expect(isEnded.value).toBe(false);
+
+    // ACT
+    vi.advanceTimersByTime(4000);
 
     // ASSERT
     expect(timeLeft.value).toBe(0);
