@@ -282,8 +282,8 @@ importers:
         specifier: '>= 8.0.0'
         version: 8.1.1(prettier@3.2.5)(vue@3.4.27(typescript@5.4.5))
       deepmerge-ts:
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^7.0.0
+        version: 7.0.0
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
@@ -2818,8 +2818,8 @@ packages:
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
-  deepmerge-ts@5.1.0:
-    resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
+  deepmerge-ts@7.0.0:
+    resolution: {integrity: sha512-a2IkrQBawdHV081Njp4ETr6EF10PPQhk+6oyqFJ01QCmRYzahx+c3XaXU4/imJEMU2xBfH/5sH4gqUiqsNi7tQ==}
     engines: {node: '>=16.0.0'}
 
   default-browser-id@3.0.0:
@@ -9037,7 +9037,7 @@ snapshots:
 
   deep-is@0.1.4: {}
 
-  deepmerge-ts@5.1.0: {}
+  deepmerge-ts@7.0.0: {}
 
   default-browser-id@3.0.0:
     dependencies:
