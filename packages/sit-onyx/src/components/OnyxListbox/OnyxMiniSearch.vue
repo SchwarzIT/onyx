@@ -4,11 +4,13 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { injectI18n } from "../../i18n";
 
+export type MiniSearchProps = { modelValue: string; label: string };
+
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 
-const props = defineProps<{ modelValue: string; label: string }>();
+const props = defineProps<MiniSearchProps>();
 
 const emit = defineEmits<{
   "update:modelValue": [input: string];
