@@ -299,9 +299,7 @@ watchEffect(() => {
                   value: option.value,
                   label: option.label,
                   disabled: option.disabled,
-                  selected: Array.isArray(props.modelValue)
-                    ? props.modelValue.some(({ value }) => value === option.value)
-                    : props.modelValue?.value === option.value,
+                  selected: arrayValue.some(({ value }) => value === option.value),
                 })
               "
               :multiple="props.multiple"
