@@ -1,23 +1,27 @@
 import { describe, expect, test } from "vitest";
-import { formatTimerTime } from "./time";
+import { formatTimerTime, getTimeFragments, timeToDurationString } from "./time";
 
 describe("time", () => {
-  const format = new Intl.RelativeTimeFormat("en-US", { numeric: "always", style: "long" });
+  test.each([
+    { time: 0, output: "00:00 sec" },
+    { time: 5000, output: "00:05 sec" },
+    { time: 70000, output: "01:10 min" },
+    { time: 60 * 82 * 1000 + 5000, output: "01:22:05 hr" },
+  ])("should format $time as $output", ({ time, output }) => {
+    const format = new Intl.RelativeTimeFormat("en-US", { numeric: "always", style: "short" });
+    const actualOutput = formatTimerTime(time, format);
+    expect(actualOutput).toBe(output);
+  });
 
-  test("renders 0 seconds", () => {
-    const output = formatTimerTime(0, format);
-    expect(output).toBe("00:00 seconds");
+  test("should get time fragments", () => {
+    const { hours, minutes, seconds } = getTimeFragments(60 * 82 * 1000 + 5000);
+    expect(hours).toBe(1);
+    expect(minutes).toBe(22);
+    expect(seconds).toBe(5);
   });
-  test("renders 5 seconds", () => {
-    const output = formatTimerTime(5000, format);
-    expect(output).toBe("00:05 seconds");
-  });
-  test("renders minutes and seconds", () => {
-    const output = formatTimerTime(70000, format);
-    expect(output).toBe("01:10 minutes");
-  });
-  test("renders hours, minutes and seconds", () => {
-    const output = formatTimerTime(60 * 82 * 1000 + 5000, format);
-    expect(output).toBe("01:22:05 hours");
+
+  test("should format duration string", () => {
+    const duration = timeToDurationString(60 * 82 * 1000 + 5000);
+    expect(duration).toBe("PT1H22M5S");
   });
 });

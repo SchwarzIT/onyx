@@ -1,42 +1,42 @@
 <script lang="ts" setup>
-import { computed, toRef, watch } from "vue";
-import type { OnyxTimerProps } from "./types";
+import { computed, watchEffect } from "vue";
 import { useTimer } from "../../composables/useTimer";
 import { injectI18n } from "../../i18n";
-import { formatTimerTime, formatTimerTimeDuration } from "../../utils/time";
+import { formatTimerTime, timeToDurationString } from "../../utils/time";
+import type { OnyxTimerProps } from "./types";
 
 const props = defineProps<OnyxTimerProps>();
 
 const emit = defineEmits<{
-  /** Emitted when timer has ended */
+  /**
+   * Emitted when timer has ended.
+   */
   timerEnded: [];
 }>();
 
 const { locale } = injectI18n();
-
-const { timeLeft, isEnded } = useTimer({
-  endTime: toRef(props, "endTime"),
-});
+const { timeLeft, isEnded } = useTimer(computed(() => props.endTime));
 
 const timeFormat = computed(
-  () => new Intl.RelativeTimeFormat(locale.value, { numeric: "always", style: "long" }),
+  () => new Intl.RelativeTimeFormat(locale.value, { numeric: "always", style: "short" }),
 );
 
+/**
+ * Formatted remaining time.
+ */
 const formattedTime = computed(() => formatTimerTime(timeLeft.value, timeFormat.value));
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time?retiredLocale=de#a_valid_duration_string
-const formattedTimeAttribute = computed(() => formatTimerTimeDuration(timeLeft.value));
+const formattedTimeAttribute = computed(() => timeToDurationString(timeLeft.value));
 
-watch(isEnded, (value) => {
-  if (value) emit("timerEnded");
-});
+watchEffect(() => isEnded.value && emit("timerEnded"));
 </script>
 
 <template>
-  <p class="onyx-timer">
+  <div class="onyx-timer onyx-text">
     <span v-if="props.label" class="onyx-timer__label">{{ props.label }}</span>
     <time :datetime="formattedTimeAttribute" class="onyx-timer__time">{{ formattedTime }}</time>
-  </p>
+  </div>
 </template>
 
 <style lang="scss">
@@ -45,16 +45,18 @@ watch(isEnded, (value) => {
 .onyx-timer {
   @include layers.component() {
     display: inline-flex;
+    gap: var(--onyx-spacing-2xs);
     border-radius: var(--onyx-radius-md);
     border: none;
     background: var(--onyx-color-base-background-blank);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
-    gap: var(--onyx-spacing-2xs);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
+
     &__label {
       color: var(--onyx-color-text-icons-neutral-soft);
     }
+
     &__time {
       font-weight: 600;
     }

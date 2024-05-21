@@ -38,12 +38,12 @@ test.describe("Screenshot tests", () => {
 });
 
 test("should emit event when timer is finished", async ({ mount, page }) => {
-  let timerEnded = false;
+  let timerEndedCount = 0;
   const endTime = getEndDate(30 * 1000);
 
   // ARRANGE
   const component = await mount(
-    <OnyxTimer endTime={endTime} onTimerEnded={() => (timerEnded = true)} />,
+    <OnyxTimer endTime={endTime} onTimerEnded={() => timerEndedCount++} />,
   );
 
   await page.evaluate(
@@ -54,6 +54,6 @@ test("should emit event when timer is finished", async ({ mount, page }) => {
   );
 
   // ASSERT
-  await expect(component).toContainText("00:00 seconds");
-  expect(timerEnded).toBe(true);
+  await expect(component).toContainText("00:00 sec");
+  expect(timerEndedCount).toBe(1);
 });

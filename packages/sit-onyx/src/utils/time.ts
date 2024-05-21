@@ -1,8 +1,7 @@
 /**
- * Calculate seconds, minutes and hours for a given number of milliseconds
- * @param time in milliseconds
+ * Calculate seconds, minutes and hours for a given number of milliseconds.
  */
-const getTimeFragments = (time: number) => {
+export const getTimeFragments = (time: number) => {
   const hours = Math.floor(time / 60000 / 60);
   const minutes = Math.floor((time / 60000) % 60);
   const seconds = Math.floor((time % 60000) / 1000);
@@ -10,37 +9,47 @@ const getTimeFragments = (time: number) => {
 };
 
 /**
- * Format a given time into a readable string
- * @param timeLeft in milliseconds
- * @param t translation function
- * @returns formatted time string
+ * Formats a given time into a pretty human readable string.
+ *
+ * @param time Time in milliseconds.
+ * @param format RelativeTimeFormat to use for extracting localized strings for hours, minutes and seconds.
+ * @example "04:42 min"
  */
-export const formatTimerTime = (timeLeft: number, f: Intl.RelativeTimeFormat) => {
+export const formatTimerTime = (timeLeft: number, format: Intl.RelativeTimeFormat) => {
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
+  const formatNumber = (value: number) => value.toString().padStart(2, "0");
 
-  let time = "";
-  let label = f.formatToParts(timeLeft, "seconds").pop()?.value;
+  let formattedHours = "";
+  let literalText = getRelativeTimeFormatLiteralValue(format.formatToParts(timeLeft, "seconds"));
 
   if (minutes > 0) {
-    label = f.formatToParts(timeLeft, "minutes").pop()?.value;
+    literalText = getRelativeTimeFormatLiteralValue(format.formatToParts(timeLeft, "minutes"));
   }
 
   if (hours > 0) {
-    label = f.formatToParts(timeLeft, "hours").pop()?.value;
-    time = `${hours.toString().padStart(2, "0")}:`;
+    literalText = getRelativeTimeFormatLiteralValue(format.formatToParts(timeLeft, "hours"));
+    formattedHours = `${formatNumber(hours)}:`;
   }
 
-  return `${time}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${label?.trim()}`;
+  return `${formattedHours}${formatNumber(minutes)}:${formatNumber(seconds)} ${literalText}`;
 };
 
 /**
- * Format a time into a duration string
- * https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-duration-string
- * @param timeLeft in milliseconds
- * @returns duration string
+ * Gets the literal value for the parts returned by `Intl.RelativeTimeFormat.formatToParts()`.
+ * Will trim and remove trailing dots.
+ *
+ * @example "min"
  */
-export const formatTimerTimeDuration = (timeLeft: number) => {
-  const { hours, minutes, seconds } = getTimeFragments(timeLeft);
+const getRelativeTimeFormatLiteralValue = (parts: Intl.RelativeTimeFormatPart[]) => {
+  return parts.at(-1)?.value.replace(".", "").trim() ?? "";
+};
 
+/**
+ * Formats the given time into a duration string that can e.g. be used inside `<time>`.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time?retiredLocale=de#a_valid_duration_string
+ */
+export const timeToDurationString = (timeLeft: number): `PT${number}H${number}M${number}S` => {
+  const { hours, minutes, seconds } = getTimeFragments(timeLeft);
   return `PT${hours}H${minutes}M${seconds}S`;
 };

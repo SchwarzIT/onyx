@@ -1,41 +1,42 @@
-import { describe, expect, test, vi, beforeAll } from "vitest";
-import { useTimer } from "./useTimer";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
+import { useTimer } from "./useTimer";
+
+vi.mock("vue", async (importOriginal) => {
+  return {
+    ...(await importOriginal<typeof import("vue")>()),
+    onBeforeUnmount: vi.fn(),
+  };
+});
 
 describe("useTimer.ts", () => {
-  const endTime = new Date();
-  endTime.setTime(Date.now() + 5 * 1000);
+  const MOCK_NOW = new Date(2024, 0, 1, 12);
 
-  beforeAll(() => {
-    vi.mock("vue", async (importOriginal) => {
-      return {
-        ...(await importOriginal<typeof import("vue")>()),
-        onBeforeUnmount: vi.fn(),
-      };
-    });
-  });
+  const endTime = new Date(MOCK_NOW);
+  endTime.setTime(endTime.getTime() + 5 * 1000);
 
-  test("timer ends after 5000 milliseconds", () => {
+  beforeEach(() => {
     vi.useFakeTimers();
-    const { timeLeft, endTimer } = useTimer({
-      endTime: ref(endTime.toISOString()),
-    });
-    expect(timeLeft.value).toBeGreaterThan(4900);
-    vi.advanceTimersByTime(5050);
-    expect(timeLeft.value).toBe(0);
-    endTimer();
-    vi.useRealTimers();
+    vi.setSystemTime(MOCK_NOW);
   });
 
-  test("throws error when endTime is invalid", () => {
-    let error = false;
-    try {
-      const { timeLeft: _timeLeft } = useTimer({
-        endTime: ref("so wrong"),
-      });
-    } catch (e: unknown) {
-      error = true;
-    }
-    expect(error).toBeTruthy();
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  test("should calculate timer correctly", () => {
+    // ARRANGE
+    const { timeLeft, isEnded } = useTimer(ref(endTime));
+
+    // ASSERT
+    expect(timeLeft.value).toBe(5000);
+    expect(isEnded.value).toBe(false);
+
+    // ACT
+    vi.advanceTimersByTime(5000);
+
+    // ASSERT
+    expect(timeLeft.value).toBe(0);
+    expect(isEnded.value).toBe(true);
   });
 });
