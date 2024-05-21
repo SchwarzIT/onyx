@@ -196,6 +196,7 @@ export const ButtonLoading = {
   args: {
     ...Default.args,
   },
+  // TODO: check generated source code for this
   render: (args) => ({
     setup: () => {
       return { args, ...useLazyLoading(args.options) };

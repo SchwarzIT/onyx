@@ -1787,3 +1787,29 @@ export const ICON_METADATA = {
  * Categories and icons will be sorted alphabetically.
  */
 export const ICON_CATEGORIES = groupIconsByCategory(ICON_METADATA);
+
+/**
+ * Transform an icon name to its corresponding JavaScript import name.
+ *
+ * @example
+ * ```ts
+ * "bell-disabled" => "bellDisabled"
+ * // e.g. used as 'import bellDisabled from "@sit-onyx/icons/bell-disabled.svg?raw"'
+ * ```
+ */
+export const getIconImportName = (iconName: string) => {
+  return iconName
+    .split("-")
+    .map((word, index) => {
+      if (index === 0) return word;
+      return capitalize(word);
+    })
+    .join("");
+};
+
+/**
+ * Capitalizes the first character of the given string.
+ */
+const capitalize = (value: string) => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+};

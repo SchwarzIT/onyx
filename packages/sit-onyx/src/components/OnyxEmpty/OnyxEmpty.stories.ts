@@ -42,12 +42,11 @@ export const Default = {
 export const CustomContent = {
   args: {
     icon: () => h(OnyxIcon, { icon: emojiSad, size: "32px", color: "warning" }),
-    default: () =>
-      h("div", [
-        "No data found. Go to ",
-        h(OnyxLink, { href: "#" }, () => "this page"),
-        " to add some data.",
-      ]),
+    default: () => [
+      "No data found. Go to ",
+      h(OnyxLink, { href: "#" }, () => "this page"),
+      " to add some data.",
+    ],
   },
 } satisfies Story;
 

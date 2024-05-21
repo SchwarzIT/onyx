@@ -269,9 +269,15 @@ importers:
 
   packages/storybook-utils:
     dependencies:
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../icons
       '@storybook/core-events':
         specifier: '>= 8.0.0'
         version: 8.1.1
+      '@storybook/docs-tools':
+        specifier: '>= 8.0.0'
+        version: 8.1.1(prettier@3.2.5)
       '@storybook/preview-api':
         specifier: '>= 8.0.0'
         version: 8.1.1
