@@ -2,63 +2,58 @@ import { executeMatrixScreenshotTest } from "src/playwright/screenshots";
 import { expect, test } from "../../playwright/a11y";
 import OnyxTimer from "./OnyxTimer.vue";
 
-const endTime = new Date("June 21 2026 13:00:30");
-const endTimeMinutes = new Date("June 21 2026 13:05:30");
-const endTimeHours = new Date("June 21 2026 14:05:30");
-const endTimeEvent = new Date("June 21 2026 13:00:02");
+const MOCK_NOW = new Date(2024, 0, 1, 12);
 
-const defaultProps = {
-  endTime: endTime.toISOString(),
+const getEndDate = (offset: number) => {
+  const endTime = new Date(MOCK_NOW);
+  endTime.setTime(endTime.getTime() + offset);
+  return endTime;
 };
 
-const testTimes = {
-  default: endTime.toISOString(),
-  "with-minutes": endTimeMinutes.toISOString(),
-  "with-hours": endTimeHours.toISOString(),
-};
+test.beforeEach(async ({ page }) => {
+  await page.evaluate((mockNow) => {
+    Date.now = () => mockNow.getTime();
+  }, MOCK_NOW);
+});
 
-test.describe("Timer", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.evaluate(() => {
-      const fakeNow = new Date("June 21 2026 13:00:00").getTime();
-      Date.now = () => fakeNow;
-    });
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Timer",
+    columns: ["default", "with-label"],
+    rows: ["seconds", "minutes", "hours"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const endTimes: Record<typeof row, Date> = {
+        seconds: getEndDate(30 * 1000),
+        minutes: getEndDate(330 * 1000),
+        hours: getEndDate(3930 * 1000),
+      };
+
+      return (
+        <OnyxTimer endTime={endTimes[row]} label={column === "with-label" ? "Label" : undefined} />
+      );
+    },
   });
+});
 
-  test.describe("Screenshot tests", () => {
-    executeMatrixScreenshotTest({
-      name: "Timer",
-      columns: ["default", "with-label"],
-      rows: ["default", "with-minutes", "with-hours"],
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      disabledAccessibilityRules: ["color-contrast"],
-      component: (column, row) => (
-        <OnyxTimer endTime={testTimes[row]} label={column === "with-label" ? "Label" : undefined} />
-      ),
-    });
-  });
+test("should emit event when timer is finished", async ({ mount, page }) => {
+  let timerEnded = false;
+  const endTime = getEndDate(30 * 1000);
 
-  test("should render timer", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(OnyxTimer, {
-      props: defaultProps,
-    });
+  // ARRANGE
+  const component = await mount(
+    <OnyxTimer endTime={endTime} onTimerEnded={() => (timerEnded = true)} />,
+  );
 
-    await expect(component).toContainText("00:30 seconds");
-  });
+  await page.evaluate(
+    (finishedDateNow) => {
+      Date.now = () => finishedDateNow.getTime();
+    },
+    getEndDate(30 * 1000),
+  );
 
-  test("emits event when timer is finished and renders 2 seconds", async ({ mount, page }) => {
-    let timerEnded = false;
-    // ARRANGE
-    const component = await mount(
-      <OnyxTimer endTime={endTimeEvent.toISOString()} onTimerEnded={() => (timerEnded = true)} />,
-    );
-    // ASSERT
-    await page.evaluate(() => {
-      const fakeNow = new Date("June 21 2026 13:00:05").getTime();
-      Date.now = () => fakeNow;
-    });
-    await expect(component).toContainText(/00:00 seconds/);
-    await expect(timerEnded).toBeTruthy();
-  });
+  // ASSERT
+  await expect(component).toContainText("00:00 seconds");
+  expect(timerEnded).toBe(true);
 });
