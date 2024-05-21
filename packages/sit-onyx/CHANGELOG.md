@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.107
+
+### Minor Changes
+
+- 9279c7b: feat(OnyxTextarea): support autosize
+
 ## 1.0.0-alpha.106
 
 ### Minor Changes
