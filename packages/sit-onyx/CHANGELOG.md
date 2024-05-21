@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.106
+
+### Minor Changes
+
+- 34547be: Added search functionality which can be used by setting the `withSearch` flag
+
 ## 1.0.0-alpha.105
 
 ### Patch Changes
