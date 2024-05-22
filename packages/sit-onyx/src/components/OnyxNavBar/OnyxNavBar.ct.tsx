@@ -58,7 +58,7 @@ test("should behave correctly", async ({ mount }) => {
     />,
   );
 
-  await component.getByRole("button", { name: "App name" }).click();
+  await component.getByRole("button", { name: "Go to Home" }).click();
   expect(appAreaClickEvents).toBe(1);
 
   await component.getByRole("button", { name: "Go back" }).click();
