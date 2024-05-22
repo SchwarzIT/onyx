@@ -23,15 +23,12 @@ const meta: Meta<typeof OnyxSelect> = {
 export default meta;
 type Story = StoryObj<typeof OnyxSelect>;
 
-const EXAMPLE_OPTIONS: any[] = [];
-
 /**
  * This example shows an select. Nothing was selected yet.
  */
 export const Default = {
   args: {
     label: "Fruits",
-    options: EXAMPLE_OPTIONS,
     placeholder: "Select your fruits",
   },
 } satisfies Story;
@@ -42,7 +39,7 @@ export const Default = {
 export const FilledSingleSelect = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: undefined,
   },
 } satisfies Story;
 
@@ -54,7 +51,7 @@ export const FilledMultiSelect = {
   args: {
     ...Default.args,
     multiple: true,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 2),
+    modelValue: undefined,
   },
 } satisfies Story;
 
@@ -65,7 +62,7 @@ export const FilledMultiSelect = {
 export const FilledMultiSelectPreview = {
   args: {
     ...FilledMultiSelect.args,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 5),
+    modelValue: undefined,
     multiple: { textMode: "preview" },
   },
 } satisfies Story;
@@ -87,7 +84,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: undefined,
   },
 } satisfies Story;
 
@@ -107,7 +104,7 @@ export const Readonly = {
 export const Loading = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: undefined,
     loading: true,
   },
 } satisfies Story;

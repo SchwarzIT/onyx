@@ -15,9 +15,7 @@ import OnyxTooltip from "../../OnyxTooltip/OnyxTooltip.vue";
 import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 
-defineOptions({
-  inheritAttrs: false,
-});
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
   hideLabel: false,
@@ -131,7 +129,9 @@ const { densityClass } = useDensity(props);
           </OnyxBadge>
         </OnyxTooltip>
 
-        <OnyxIcon :icon="chevronDownUp" class="onyx-select__icon" />
+        <button class="onyx-select__button" tabindex="-1">
+          <OnyxIcon :icon="chevronDownUp" />
+        </button>
       </div>
     </label>
 
@@ -183,7 +183,10 @@ const { densityClass } = useDensity(props);
       }
     }
 
-    &__icon {
+    &__button {
+      all: initial;
+      cursor: pointer;
+      height: var(--onyx-spacing-lg);
       color: var(--onyx-color-text-icons-neutral-medium);
     }
 
@@ -251,7 +254,7 @@ const { densityClass } = useDensity(props);
         // default hover
         &:hover {
           --border-color: var(--onyx-color-base-primary-400);
-          .onyx-select__icon {
+          .onyx-select__button {
             color: var(--onyx-color-text-icons-primary-medium);
           }
         }
@@ -264,7 +267,7 @@ const { densityClass } = useDensity(props);
             outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
           }
 
-          &__icon {
+          &__button {
             color: var(--onyx-color-text-icons-primary-intense);
           }
         }
