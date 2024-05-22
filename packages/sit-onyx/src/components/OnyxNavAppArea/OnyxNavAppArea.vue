@@ -8,7 +8,7 @@ const props = defineProps<OnyxNavAppAreaProps>();
 const emit = defineEmits<{
   /**
    * Emitted when the app area (where logo and app name are placed) is clicked.
-   * The user should be redirected to the home page.
+   * Usually the user is redirected to the home page.
    */
   click: [];
 }>();
