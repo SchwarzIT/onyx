@@ -37,9 +37,6 @@ export * from "./components/OnyxInput/types";
 export { default as OnyxLink } from "./components/OnyxLink/OnyxLink.vue";
 export * from "./components/OnyxLink/types";
 
-export { default as OnyxCombobox } from "./components/OnyxCombobox/OnyxCombobox.vue";
-export * from "./components/OnyxCombobox/types";
-
 export { default as OnyxListboxOption } from "./components/OnyxListboxOption/OnyxListboxOption.vue";
 export * from "./components/OnyxListboxOption/types";
 
