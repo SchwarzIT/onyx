@@ -36,6 +36,6 @@
     "storybook-dark-mode": ">= 4"
   },
   "dependencies": {
-    "deepmerge-ts": "^7.0.0"
+    "deepmerge-ts": "^7.0.1"
   }
 }
