@@ -27,7 +27,7 @@ export type ListboxModelValueProps<TValue extends string> =
       /**
        * Current value.
        */
-      modelValue?: SelectOption<TValue>;
+      modelValue?: ListboxOption<TValue>;
     }
   | {
       /**
@@ -37,7 +37,7 @@ export type ListboxModelValueProps<TValue extends string> =
       /**
        * Current value / selected option(s).
        */
-      modelValue?: SelectOption<TValue>[];
+      modelValue?: ListboxOption<TValue>[];
       /**
        * If true, a checkbox will be displayed to check/uncheck all options.
        * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -89,7 +89,7 @@ export type OnyxListboxProps<TValue extends string = string> = DensityProp &
     lazyLoading?: ListboxLazyLoading;
   };
 
-export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+export type ListboxOption<TValue extends string = string> = Pick<
   SelectOption<TValue>,
   "value" | "label" | "disabled"
 > &

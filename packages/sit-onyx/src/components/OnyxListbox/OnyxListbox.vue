@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="TValue extends string = string">
 import { useDensity } from "../../composables/density";
-import { createComboBox, createId } from "@sit-onyx/headless";
+import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect, nextTick } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -11,7 +11,8 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
-import OnyxSelect from "../OnyxCombobox/OnyxSelect/OnyxSelect.vue";
+import OnyxSelect from "./OnyxSelect/OnyxSelect.vue";
+import { isPrintableCharacter } from "../../../../headless/src/utils/keyEvent";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
@@ -54,15 +55,17 @@ const { t } = injectI18n();
 
 const isExpanded = ref(false);
 
+watchEffect(async () => {
+  if (isExpanded.value) {
+    await nextTick();
+    miniSearch.value?.focus();
+  }
+});
+
 /**
  * Currently (visually) active option.
  */
-const activeOption = ref<TValue>();
-
-const searchInput = computed({
-  get: () => (props.withSearch && props.searchTerm) || "",
-  set: (newValue) => emit("update:searchTerm", newValue),
-});
+const activeValue = ref<TValue>();
 
 const arrayValue = computed(() => {
   if (!props.modelValue) {
@@ -71,17 +74,16 @@ const arrayValue = computed(() => {
   return props.multiple ? props.modelValue : [props.modelValue];
 });
 
+const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
+
 /**
  * Sync the active option with the selected option on single select.
  */
-watch(
-  () => props.modelValue,
-  (newValue) => {
-    if (!props.multiple) {
-      activeOption.value = newValue as typeof activeOption.value;
-    }
-  },
-);
+watch(arrayValue, () => {
+  if (!props.multiple) {
+    activeValue.value = arrayValue.value.at(0)?.value;
+  }
+});
 
 /** unique ID to identify the `select all` checkbox */
 const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
@@ -100,20 +102,20 @@ const searchTerm = ref("");
 
 const onToggle = () => (isExpanded.value = !isExpanded.value);
 
-const onActivateFirst = () => (activeOption.value = allKeyboardOptionIds.value.at(0));
+const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at(0));
 
-const onActivateLast = () => (activeOption.value = allKeyboardOptionIds.value.at(-1));
+const onActivateLast = () => (activeValue.value = allKeyboardOptionIds.value.at(-1));
 
 const onActivateNext = (currentValue: string) => {
   const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
   if (currentIndex < allKeyboardOptionIds.value.length - 1) {
-    activeOption.value = allKeyboardOptionIds.value[currentIndex + 1];
+    activeValue.value = allKeyboardOptionIds.value[currentIndex + 1];
   }
 };
 
 const onActivatePrevious = (currentValue: string) => {
   const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
-  if (currentIndex > 0) activeOption.value = allKeyboardOptionIds.value[currentIndex - 1];
+  if (currentIndex > 0) activeValue.value = allKeyboardOptionIds.value[currentIndex - 1];
 };
 
 const onTypeAhead = (label: string) => {
@@ -121,8 +123,10 @@ const onTypeAhead = (label: string) => {
     return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
   });
   if (!firstMatch) return;
-  activeOption.value = firstMatch.value;
+  activeValue.value = firstMatch.value;
 };
+
+const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
 
 const onSelect = (selectedOption: string) => {
   if (selectedOption === CHECK_ALL_ID) {
@@ -149,12 +153,16 @@ const onSelect = (selectedOption: string) => {
   }
 };
 
+const onCancel = () => (searchTerm.value = "");
+
+const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
+
 const comboBox = createComboBox({
-  autocomplete: "none",
+  autocomplete,
   label: props.label,
   listLabel: props.listLabel,
   inputValue: searchTerm,
-  activeOption: computed(() => activeOption.value),
+  activeOption: computed(() => activeValue.value),
   isExpanded,
   onToggle,
   onActivateFirst,
@@ -162,7 +170,9 @@ const comboBox = createComboBox({
   onActivateNext,
   onActivatePrevious,
   onTypeAhead,
+  onAutocomplete,
   onSelect,
+  onCancel,
 });
 
 const {
@@ -222,6 +232,12 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
+
+const handleOnyxSelectKeyDown = (event: KeyboardEvent) => {
+  if (event.code === "ArrowDown" || isPrintableCharacter(event.key)) {
+    isExpanded.value = true;
+  }
+};
 </script>
 
 <template>
@@ -231,21 +247,23 @@ watchEffect(() => {
       :loading="props.loading"
       :model-value="props.modelValue"
       :multiple="props.multiple"
-      v-bind="input"
+      v-bind="props.withSearch ? {} : input"
       @click="isExpanded = true"
-      @keydown.arrow-down="isExpanded = true"
+      @keydown="handleOnyxSelectKeyDown"
     />
-    <div :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
+    <div v-show="isExpanded" :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
       <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
       </div>
 
-      <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
+      <div v-else v-scroll-end class="onyx-listbox__wrapper">
         <OnyxMiniSearch
           v-if="props.withSearch"
-          v-model="searchInput"
+          ref="miniSearch"
+          v-bind="input"
           :label="t('listbox.searchInputLabel')"
           class="onyx-listbox__search"
+          @clear="searchTerm = ''"
         />
 
         <ul v-if="isEmptyMessage" role="group" aria-label="" class="onyx-listbox__group">
@@ -257,60 +275,62 @@ watchEffect(() => {
         </ul>
 
         <template v-else>
-          <ul
-            v-for="(options, group) in groupedOptions"
-            :key="group"
-            class="onyx-listbox__group"
-            v-bind="headlessGroup({ label: group })"
-          >
-            <li
-              v-if="group != ''"
-              role="presentation"
-              class="onyx-listbox__group-name onyx-text--small"
+          <div v-bind="listbox">
+            <ul
+              v-for="(options, group) in groupedOptions"
+              :key="group"
+              class="onyx-listbox__group"
+              v-bind="headlessGroup({ label: group })"
             >
-              {{ group }}
-            </li>
+              <li
+                v-if="group != ''"
+                role="presentation"
+                class="onyx-listbox__group-name onyx-text--small"
+              >
+                {{ group }}
+              </li>
 
-            <!-- select-all option for "multiple" -->
-            <template v-if="props.multiple && props.withCheckAll">
+              <!-- select-all option for "multiple" -->
+              <template v-if="props.multiple && props.withCheckAll">
+                <OnyxListboxOption
+                  v-bind="
+                    headlessOption({
+                      value: CHECK_ALL_ID as TValue,
+                      label: checkAllLabel,
+                      selected: checkAll?.state.value.modelValue,
+                    })
+                  "
+                  multiple
+                  :active="CHECK_ALL_ID === activeValue"
+                  :indeterminate="checkAll?.state.value.indeterminate"
+                  :density="props.density"
+                  class="onyx-listbox__check-all"
+                >
+                  {{ checkAllLabel }}
+                </OnyxListboxOption>
+              </template>
+
               <OnyxListboxOption
+                v-for="option in options"
+                :key="option.value"
                 v-bind="
                   headlessOption({
-                    value: CHECK_ALL_ID as TValue,
-                    label: checkAllLabel,
-                    selected: checkAll?.state.value.modelValue,
+                    value: option.value,
+                    label: option.label,
+                    disabled: option.disabled,
+                    selected: arrayValue.some(({ value }) => value === option.value),
                   })
                 "
-                multiple
-                :active="CHECK_ALL_ID === activeOption"
-                :indeterminate="checkAll?.state.value.indeterminate"
+                :multiple="props.multiple"
+                :active="option.value === activeValue"
+                :icon="option.icon"
+                :color="option.color"
                 :density="props.density"
-                class="onyx-listbox__check-all"
               >
-                {{ checkAllLabel }}
+                {{ option.label }}
               </OnyxListboxOption>
-            </template>
-
-            <OnyxListboxOption
-              v-for="option in options"
-              :key="option.value.toString()"
-              v-bind="
-                headlessOption({
-                  value: option.value,
-                  label: option.label,
-                  disabled: option.disabled,
-                  selected: arrayValue.some(({ value }) => value === option.value),
-                })
-              "
-              :multiple="props.multiple"
-              :active="option.value === activeOption"
-              :icon="option.icon"
-              :color="option.color"
-              :density="props.density"
-            >
-              {{ option.label }}
-            </OnyxListboxOption>
-          </ul>
+            </ul>
+          </div>
 
           <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
             <OnyxLoadingIndicator class="onyx-listbox__loading" />

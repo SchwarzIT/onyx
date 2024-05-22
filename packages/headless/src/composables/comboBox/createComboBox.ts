@@ -56,6 +56,10 @@ export type CreateComboboxOptions<
    */
   onSelect?: (value: TValue) => void;
   /**
+   * Hook when selection is cancelled.
+   */
+  onCancel?: () => void;
+  /**
    * Hook when the first option should be activated.
    */
   onActivateFirst?: () => void;
@@ -92,6 +96,7 @@ export const createComboBox = createBuilder(
     TAutoComplete extends ComboboxAutoComplete,
     TMultiple extends boolean = false,
   >({
+    inputValue,
     autocomplete: autocompleteRef,
     onAutocomplete,
     onTypeAhead,
@@ -100,6 +105,7 @@ export const createComboBox = createBuilder(
     isExpanded: isExpandedRef,
     activeOption,
     onToggle,
+    onCancel,
     onSelect,
     onActivateFirst,
     onActivateLast,
@@ -107,7 +113,6 @@ export const createComboBox = createBuilder(
     onActivatePrevious,
   }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
     const inputValid = ref(true);
-    const inputValue = ref("");
     const controlsId = createId("comboBox-control");
 
     const autocomplete = computed(() => unref(autocompleteRef));
@@ -117,11 +122,11 @@ export const createComboBox = createBuilder(
       const inputElement = event.target as HTMLInputElement;
       inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
-      if (autocomplete.value !== "none") {
-        onAutocomplete?.(inputValue.value);
-      }
       if (!unref(isExpanded)) {
         onToggle?.();
+      }
+      if (autocomplete.value !== "none") {
+        onAutocomplete?.(inputValue.value);
       }
     };
 
@@ -142,6 +147,7 @@ export const createComboBox = createBuilder(
         switch (event.key) {
           case "Escape":
             event.preventDefault();
+            onCancel?.();
             onToggle?.();
             break;
           case "ArrowUp":
@@ -167,7 +173,7 @@ export const createComboBox = createBuilder(
             onActivateLast?.();
             break;
         }
-      } else if (OPENING_KEYS.includes(event.key)) {
+      } else if (OPENING_KEYS.includes(event.code)) {
         onToggle?.();
         switch (event.key) {
           case "ArrowUp":

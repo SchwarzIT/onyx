@@ -5,54 +5,45 @@ import type { SelectOption, SelectOptionValue } from "../../../types";
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 
-export type MultipleOptions = {
-  /**
-   * How the multiselect value will be displayed in the input.
-   * - summary (default): will show "x Selected" if more than 1 is selected.
-   * - preview: will show the names of the selection as a truncated list.
-   *            A number-badge appears next to it including a tooltip with all selected names.
-   * Has no effect on single select mode.
-   */
-  textMode: MultiselectTextMode;
-};
-
-export type SingleSelect<TValue extends SelectOptionValue> = {
-  multiple?: false;
-
-  /**
-   * Current value of the select.
-   */
-  modelValue?: SelectModelValue<TValue>;
-};
-
-export type MultipleSelect<TValue extends SelectOptionValue> = {
-  /**
-   * Whether multiple values can be selected.
-   */
-  multiple: true | MultipleOptions;
-
-  /**
-   * Currently selected values.
-   */
-  modelValue?: SelectModelValue<TValue>[];
-};
-
-export type SelectMode<TValue extends SelectOptionValue> =
-  | SingleSelect<TValue>
-  | MultipleSelect<TValue>;
+/**
+ * Whether multiple values can be selected.
+ */
+export type SelectMultiple =
+  | boolean
+  | {
+      /**
+       * How the multiselect value will be displayed in the input.
+       * - summary (default): will show "x Selected" if more than 1 is selected.
+       * - preview: will show the names of the selection as a truncated list.
+       *            A number-badge appears next to it including a tooltip with all selected names.
+       * Has no effect on single select mode.
+       */
+      textMode: MultiselectTextMode;
+    };
 
 export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,
   "value" | "label"
 >;
 
-export type OnyxSelectProps<TValue extends SelectOptionValue> = DensityProp &
+export type OnyxSelectProps<
+  TValue extends SelectOptionValue,
+  TMultiple extends SelectMultiple,
+> = DensityProp &
   RequiredMarkerProp & {
     /**
      * Label to show above the select. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.
      */
     label: string;
+    /**
+     * Current value of the select.
+     * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
+     */
+    modelValue?: TMultiple extends undefined | false
+      ? SelectModelValue<TValue>
+      : SelectModelValue<TValue>[];
+
     /**
      * If `true`, the label will be visually hidden and the `title` attribute will be set.
      * For accessibility / screen readers, the aria-label will still be set.
@@ -79,7 +70,12 @@ export type OnyxSelectProps<TValue extends SelectOptionValue> = DensityProp &
      */
     placeholder?: string;
     /**
+     * Whether multiple values can be selected.
+     * TODO: We must type the component using generics so that if multiple is truthy, modelValue must be an array
+     */
+    multiple?: TMultiple;
+    /**
      * Message / help text to display below the select input.
      */
     message?: string;
-  } & SelectMode<TValue>;
+  };

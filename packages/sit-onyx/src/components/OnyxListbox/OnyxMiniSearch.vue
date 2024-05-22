@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, useAttrs, type HtmlHTMLAttributes } from "vue";
+import { computed, useAttrs, type HtmlHTMLAttributes, ref } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { injectI18n } from "../../i18n";
 
-export type MiniSearchProps = { modelValue: string; label: string };
+export type MiniSearchProps = { label: string };
 
 defineOptions({ inheritAttrs: false });
 
@@ -13,18 +13,10 @@ const attrs = useAttrs();
 const props = defineProps<MiniSearchProps>();
 
 const emit = defineEmits<{
-  "update:modelValue": [input: string];
+  clear: [];
 }>();
 
 const { t } = injectI18n();
-
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
-});
 
 const rootAttrs = computed(
   () =>
@@ -40,11 +32,15 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
   delete rest.style;
   return rest;
 });
+
+const input = ref<HTMLInputElement>();
+
+defineExpose({ focus: () => input.value?.focus() });
 </script>
 <template>
   <div class="onyx-mini-search" v-bind="rootAttrs">
     <input
-      v-model="value"
+      ref="input"
       :aria-label="props.label"
       v-bind="inputAttrs"
       class="onyx-mini-search__input"
@@ -56,7 +52,7 @@ const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
       class="onyx-mini-search__clear"
       :aria-label="t('listbox.clearSearch')"
       tabindex="-1"
-      @mousedown.prevent="value = ''"
+      @mousedown.prevent="emit('clear')"
     >
       <OnyxIcon :icon="xSmall" />
     </button>

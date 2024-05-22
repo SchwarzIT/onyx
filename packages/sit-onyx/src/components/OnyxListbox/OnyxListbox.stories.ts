@@ -74,19 +74,6 @@ const meta: Meta<typeof OnyxListbox> = {
   }),
 };
 
-const groupedAnimals: ListboxOption<string>[] = [
-  { value: "cat", label: "Cat", group: "Land" },
-  { value: "dog", label: "Dog", group: "Land" },
-  { value: "tiger", label: "Tiger", group: "Land" },
-  { value: "reindeer", label: "Reindeer", group: "Land" },
-  { value: "racoon", label: "Racoon", group: "Land" },
-  { value: "dolphin", label: "Dolphin", group: "Water" },
-  { value: "flounder", label: "Flounder", group: "Water" },
-  { value: "eel", label: "Eel", group: "Water" },
-  { value: "falcon", label: "Falcon", group: "Air" },
-  { value: "owl", label: "Owl", group: "Air" },
-];
-
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
@@ -126,6 +113,7 @@ DEMO_OPTIONS.splice(6, 0, {
 export const Default = {
   args: {
     label: "Example listbox",
+    listLabel: "asda",
     options: DEMO_OPTIONS,
   },
 } satisfies Story;
@@ -155,16 +143,6 @@ export const Multiselect = {
   },
   argTypes: {
     modelValue: { control: { type: "object" } },
-  },
-} satisfies Story;
-
-/**
- * This example shows a listbox with grouped options.
- */
-export const GroupedOptions = {
-  args: {
-    label: "Grouped listbox",
-    options: groupedAnimals,
   },
 } satisfies Story;
 
@@ -245,7 +223,7 @@ const useLazyLoading = (initialOptions: ListboxOption[]) => {
     options.value = options.value.concat(
       Array.from({ length: 25 }, (_, index) => {
         const value = options.value.length - initialOptions.length + index + 1;
-        return { value, label: `Loaded option ${value}` };
+        return { value: `${value}`, label: `Loaded option ${value}` };
       }),
     );
 
