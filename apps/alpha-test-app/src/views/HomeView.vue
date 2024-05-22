@@ -50,6 +50,8 @@ const COMPONENTS = [
   "OnyxSwitch",
   "OnyxTable",
   "OnyxTag",
+  "OnyxTextarea",
+  "OnyxTimer",
   "OnyxTooltip",
 ] as const;
 
@@ -118,6 +120,9 @@ const groupedListboxOptions: ListboxOption[] = [
 
 const multiSelectState = ref(selectOptions.slice(0, 5));
 const singleSelectState = ref(selectOptions[0]);
+
+const timerEndDate = new Date();
+timerEndDate.setHours(timerEndDate.getHours() + 2);
 </script>
 
 <template>
@@ -281,6 +286,10 @@ const singleSelectState = ref(selectOptions[0]);
         </OnyxTable>
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+
+        <OnyxTextarea v-if="show('OnyxTextarea')" label="Example textarea" />
+
+        <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
 
         <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
           Hover me to show tooltip
