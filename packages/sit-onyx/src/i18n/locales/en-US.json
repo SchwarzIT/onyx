@@ -27,10 +27,5 @@
     "appLogo": "App logo",
     "goBack": "Go back",
     "userMenuLabel": "User options"
-  },
-  "time": {
-    "seconds": "seconds",
-    "minutes": "minutes",
-    "hours": "hours"
   }
 }
