@@ -29,7 +29,9 @@ defineSlots<{
 const { t } = injectI18n();
 
 const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
-  if (args.withExternalIcon !== "auto") return args.withExternalIcon ?? false;
+  const withExternalIcon = args.withExternalIcon ?? "auto";
+
+  if (withExternalIcon !== "auto") return args.withExternalIcon;
   return isExternalLink(args.href ?? "");
 };
 </script>
