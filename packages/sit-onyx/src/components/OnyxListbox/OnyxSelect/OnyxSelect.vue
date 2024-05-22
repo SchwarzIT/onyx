@@ -1,11 +1,7 @@
-<script
-  lang="ts"
-  setup
-  generic="TValue extends SelectOptionValue, TMultiple extends SelectMultiple"
->
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
-import type { MultiselectTextMode, OnyxSelectProps, SelectMultiple } from "./types";
+import type { MultiselectTextMode, OnyxSelectProps } from "./types";
 import { useDensity, type SelectOptionValue } from "../../..";
 import { useRequired } from "../../../composables/required";
 import { injectI18n } from "../../../i18n";
@@ -17,19 +13,12 @@ import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 
 defineOptions({ inheritAttrs: false });
 
-const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
   loading: false,
   skeleton: false,
   readonly: false,
 });
-
-defineEmits<{
-  /**
-   * Emitted when the current value changes.
-   */
-  "update:modelValue": [value: typeof props.modelValue];
-}>();
 
 const { t } = injectI18n();
 
