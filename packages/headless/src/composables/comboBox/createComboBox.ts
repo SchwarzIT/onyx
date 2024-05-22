@@ -175,13 +175,10 @@ export const createComboBox = createBuilder(
         }
       } else if (OPENING_KEYS.includes(event.code)) {
         onToggle?.();
-        switch (event.key) {
-          case "ArrowUp":
-          case "Home":
-            return onActivateFirst?.();
-          case "End":
-            return onActivateLast?.();
+        if (event.key === "End") {
+          return onActivateLast?.();
         }
+        return onActivateFirst?.();
       }
       if (autocomplete.value === "none" && isPrintableCharacter(event.key)) {
         !isExpanded.value && onToggle?.();
