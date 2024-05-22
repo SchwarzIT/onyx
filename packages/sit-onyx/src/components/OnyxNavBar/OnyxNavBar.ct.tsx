@@ -65,12 +65,17 @@ test("should behave correctly", async ({ mount }) => {
   expect(backButtonClickEvents).toBe(1);
 
   component = await mount(
-    <OnyxNavBar style={{ width: `${ONYX_BREAKPOINTS.md}px` }} withBackButton>
+    <OnyxNavBar
+      style={{ width: `${ONYX_BREAKPOINTS.md}px` }}
+      appAreaLabel="custom action"
+      withBackButton
+    >
       <template v-slot:appArea>Custom app area</template>
     </OnyxNavBar>,
   );
 
-  await expect(component.getByRole("button", { name: "Custom app area" })).toBeVisible();
+  await expect(component.getByRole("button", { name: "custom action" })).toBeVisible();
+  await expect(component.getByText("Custom app area")).toBeVisible();
 });
 
 test("should be aligned with the grid in a full app layout", async ({ page, mount }) => {
