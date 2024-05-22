@@ -1,5 +1,10 @@
 import type { OnyxColor } from "sit-onyx/types";
 
+export const QUANTITATIVE_COLOR_STEPS = [
+  100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200,
+] as const;
+export type QuantitativeColorStep = (typeof QUANTITATIVE_COLOR_STEPS)[number];
+
 /**
  * Utility for easily styling a Chart.js dataset with a specific onyx color.
  * Will be updated automatically when switching between light/dark mode.
@@ -18,11 +23,7 @@ import type { OnyxColor } from "sit-onyx/types";
  * };
  * ```
  */
-export const getDatasetColors = (
-  color:
-    | OnyxColor
-    | `quantitatives-${100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000 | 1100 | 1200}`,
-) => {
+export const getDatasetColors = (color: OnyxColor | `quantitatives-${QuantitativeColorStep}`) => {
   const cssVariable = `--onyx-color-base-${color.startsWith("quantitatives-") ? color : `${color}-500`}`;
   // we use arrow functions here so the value is updated / re-evaluated when
   // switched between light and dark mode
