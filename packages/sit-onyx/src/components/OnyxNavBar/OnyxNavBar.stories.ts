@@ -8,6 +8,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxTimer from "../OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
@@ -65,11 +66,32 @@ export const WithBackButton = {
   },
 } satisfies Story;
 
+const getTimerEndDate = () => {
+  const endDate = new Date();
+  endDate.setHours(endDate.getHours() + 1);
+  return endDate;
+};
+
 export const WithContextArea = {
   args: {
     ...Default.args,
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxNavSeparator),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args),
+    ],
+  },
+} satisfies Story;
+
+/**
+ * This example shows a nav bar with a timer inside the context area that can e.g.
+ * be used to indicate to the user that he will be automatically logged out after a given time.
+ */
+export const WithLogoutTimer = {
+  args: {
+    ...Default.args,
+    contextArea: () => [
+      h(OnyxTimer, { endTime: getTimerEndDate(), label: "Logout in:" }),
       h(OnyxNavSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args),
     ],
