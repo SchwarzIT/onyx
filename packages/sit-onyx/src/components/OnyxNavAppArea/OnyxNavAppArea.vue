@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { injectI18n } from "../../i18n";
 import type { OnyxNavAppAreaProps } from "./types";
 
@@ -7,7 +8,7 @@ const props = defineProps<OnyxNavAppAreaProps>();
 const emit = defineEmits<{
   /**
    * Emitted when the app area (where logo and app name are placed) is clicked.
-   * Usually the user should be redirected to the home page then.
+   * The user should be redirected to the home page.
    */
   click: [];
 }>();
@@ -20,10 +21,12 @@ defineSlots<{
 }>();
 
 const { t } = injectI18n();
+
+const labelMessage = computed(() => props.label ?? t.value("navigation.goToHome"));
 </script>
 
 <template>
-  <button class="onyx-nav-app-area" @click="emit('click')">
+  <button class="onyx-nav-app-area" :aria-label="labelMessage" @click="emit('click')">
     <slot>
       <!--
         the width/height here is only to prevent layout shifts on initial load.
@@ -32,7 +35,7 @@ const { t } = injectI18n();
       <img
         v-if="props.logoUrl"
         :src="props.logoUrl"
-        :alt="t('navigation.appLogo')"
+        :alt="t('navigation.appLogo', { appName: props.appName })"
         class="onyx-nav-app-area__logo"
         width="24"
         height="24"
