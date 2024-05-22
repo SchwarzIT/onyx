@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.108
+
+### Minor Changes
+
+- aa0b540: Added OnyxTimer component
+
 ## 1.0.0-alpha.107
 
 ### Minor Changes
