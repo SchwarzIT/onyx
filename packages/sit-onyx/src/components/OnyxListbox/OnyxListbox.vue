@@ -1,6 +1,11 @@
 <script lang="ts" setup generic="TValue extends string = string">
 import { useDensity } from "../../composables/density";
-import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
+import {
+  createComboBox,
+  createId,
+  isPrintableCharacter,
+  type ComboboxAutoComplete,
+} from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect, nextTick } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -12,7 +17,6 @@ import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 import OnyxSelect from "./OnyxSelect/OnyxSelect.vue";
-import { isPrintableCharacter } from "../../../../headless/src/utils/keyEvent";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
