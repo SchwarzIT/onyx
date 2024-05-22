@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-alpha.108
+
+### Minor Changes
+
+- aa0b540: Added OnyxTimer component
+
+## 1.0.0-alpha.107
+
+### Minor Changes
+
+- 9279c7b: feat(OnyxTextarea): support autosize
+
+## 1.0.0-alpha.106
+
+### Minor Changes
+
+- 34547be: Added search functionality which can be used by setting the `withSearch` flag
+
 ## 1.0.0-alpha.105
 
 ### Patch Changes

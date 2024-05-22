@@ -22,17 +22,13 @@ const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>()
   @include density.compact {
     --onyx-list-item-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
   }
-
   @include density.default {
     --onyx-list-item-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
   }
-
   @include density.cozy {
     --onyx-list-item-padding: var(--onyx-spacing-sm) var(--onyx-spacing-sm);
   }
-}
 
-.onyx-list-item {
   @include layers.component() {
     --onyx-list-item-color: var(--onyx-color-text-icons-neutral-intense);
     --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-bold);

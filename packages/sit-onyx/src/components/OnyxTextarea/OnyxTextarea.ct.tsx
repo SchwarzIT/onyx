@@ -97,22 +97,23 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Textarea (skeleton)",
     columns: DENSITIES,
-    rows: ["default", "hideLabel"],
+    rows: ["default", "hideLabel", "autosize-min-6-rows"],
     component: (column, row) => (
       <OnyxTextarea
         style="width: 12rem"
         label="Test label"
         density={column}
         hideLabel={row === "hideLabel"}
+        autosize={row === "autosize-min-6-rows" ? { min: 6 } : undefined}
         skeleton
       />
     ),
   });
 
   executeMatrixScreenshotTest({
-    name: "Textarea (resize)",
+    name: "Textarea (manual resize)",
     columns: ["default", "filled"],
-    rows: ["default", "resized"],
+    rows: ["default", "resized-larger", "resized-smaller"],
     component: (column) => (
       <OnyxTextarea
         style="width: 12rem"
@@ -126,7 +127,7 @@ test.describe("Screenshot tests", () => {
     ),
     beforeScreenshot: async (component, page, column, row) => {
       const textarea = component.getByLabel("Test label");
-      if (row === "resized") {
+      if (row === "resized-larger" || row === "resized-smaller") {
         const box = (await textarea.boundingBox())!;
 
         const x = box.x + box.width - 4;
@@ -134,7 +135,73 @@ test.describe("Screenshot tests", () => {
 
         await page.mouse.move(x, y);
         await page.mouse.down();
-        await page.mouse.move(x, y - 100);
+
+        if (row === "resized-larger") {
+          await page.mouse.move(x, y + 72);
+        } else {
+          await page.mouse.move(x, y - 72);
+        }
+      }
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Textarea (autosize)",
+    columns: ["initial-value", "user-typed"],
+    rows: [
+      "0",
+      "1",
+      "2-rows",
+      "3-rows",
+      "4-rows",
+      "5-rows",
+      "6-rows",
+      "7-rows",
+      "8-rows",
+      "9-rows",
+      "10-rows",
+      "11-rows",
+      "long-value",
+    ],
+    component: (column, row) => {
+      let modelValue = "";
+
+      if (row === "long-value") {
+        modelValue = "Test".repeat(64);
+      } else {
+        modelValue = Array.from(
+          { length: Number.parseInt(row) },
+          (_, index) => `Row ${index + 1}`,
+        ).join("\n");
+      }
+
+      return (
+        <OnyxTextarea
+          style="width: 12rem"
+          label="Test label"
+          modelValue={column !== "user-typed" ? modelValue : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      const textarea = component.getByLabel("Test label");
+
+      if (column === "user-typed") {
+        if (row === "long-value") {
+          await textarea.fill("Test".repeat(64));
+        } else {
+          const modelValue = Array.from(
+            { length: Number.parseInt(row) },
+            (_, index) => `Row ${index + 1}`,
+          );
+
+          for (let i = 0; i < modelValue.length; i++) {
+            await textarea.pressSequentially(modelValue[i]);
+            if (i < modelValue.length - 1) {
+              await textarea.press("Enter");
+            }
+          }
+        }
       }
     },
   });
@@ -210,4 +277,84 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   // ASSERT
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
+test("should autosize", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTextarea, {
+    props: {
+      label: "Test label",
+      hideLabel: true,
+    },
+  });
+
+  const getHeight = () => component.evaluate((element) => element.clientHeight);
+
+  const expectRows = async (rows: number) => {
+    const actualHeight = await getHeight();
+    // 24px line height, 2x8px padding, 2x1px border
+    expect(actualHeight).toBe(rows * 24 + 16 + 2);
+  };
+
+  const generateModelValue = (rows: number) => {
+    return Array.from({ length: rows }, (_, index) => `Row ${index + 1}`).join("\n");
+  };
+
+  await expectRows(3);
+
+  let TEST_CASES = [
+    { rows: 1, expectedHeight: 3 },
+    { rows: 2, expectedHeight: 3 },
+    { rows: 3, expectedHeight: 3 },
+    { rows: 4, expectedHeight: 4 },
+    { rows: 5, expectedHeight: 5 },
+    { rows: 6, expectedHeight: 6 },
+    { rows: 7, expectedHeight: 7 },
+    { rows: 8, expectedHeight: 8 },
+    { rows: 9, expectedHeight: 9 },
+    { rows: 10, expectedHeight: 10 },
+    { rows: 11, expectedHeight: 10 },
+  ];
+
+  for (const testCase of TEST_CASES) {
+    await component.update({ props: { modelValue: generateModelValue(testCase.rows) } });
+    await expectRows(testCase.expectedHeight);
+  }
+
+  // should be able to change min and max rows
+  await component.update({ props: { autosize: { min: 4, max: 8 } } });
+
+  TEST_CASES = [
+    { rows: 1, expectedHeight: 4 },
+    { rows: 2, expectedHeight: 4 },
+    { rows: 3, expectedHeight: 4 },
+    { rows: 4, expectedHeight: 4 },
+    { rows: 5, expectedHeight: 5 },
+    { rows: 6, expectedHeight: 6 },
+    { rows: 7, expectedHeight: 7 },
+    { rows: 8, expectedHeight: 8 },
+    { rows: 9, expectedHeight: 8 },
+  ];
+
+  for (const testCase of TEST_CASES) {
+    await component.update({ props: { modelValue: generateModelValue(testCase.rows) } });
+    await expectRows(testCase.expectedHeight);
+  }
+
+  // should be able to have unlimited max
+  await component.update({ props: { autosize: { min: 2 } } });
+
+  TEST_CASES = [
+    { rows: 1, expectedHeight: 2 },
+    { rows: 2, expectedHeight: 2 },
+    ...Array.from({ length: 32 }, (_, index) => {
+      const row = index + 3;
+      return { rows: row, expectedHeight: row };
+    }),
+  ];
+
+  for (const testCase of TEST_CASES) {
+    await component.update({ props: { modelValue: generateModelValue(testCase.rows) } });
+    await expectRows(testCase.expectedHeight);
+  }
 });

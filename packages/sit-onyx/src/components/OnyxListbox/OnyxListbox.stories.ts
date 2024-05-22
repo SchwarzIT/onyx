@@ -1,11 +1,12 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { ref, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import type { SelectOption } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
+import { normalizedIncludes } from "../../utils/strings";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -27,11 +28,12 @@ const meta: Meta<typeof OnyxListbox> = {
   title: "support/Listbox",
   ...defineStorybookActionsAndVModels({
     component: OnyxListbox,
-    events: ["update:modelValue", "lazyLoad"],
+    events: ["update:modelValue", "update:searchTerm", "lazyLoad"],
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
       modelValue: { control: { type: "text" } },
+      searchTerm: { control: { type: "text" } },
     },
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.
@@ -52,6 +54,21 @@ const meta: Meta<typeof OnyxListbox> = {
         template: `<story @lazy-load="handleLoadMore" />`,
       }),
     ],
+    render: (args) => ({
+      components: { OnyxListbox },
+      setup: () => {
+        const searchTerm = computed(() => (args.withSearch && args.searchTerm) || "");
+
+        const filteredOptions = computed(() =>
+          searchTerm.value
+            ? args.options.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
+            : args.options,
+        );
+
+        return { args, filteredOptions };
+      },
+      template: `<OnyxListbox v-bind="args" :options="filteredOptions" />`,
+    }),
   }),
 };
 
@@ -156,13 +173,23 @@ export const GroupedOptions = {
 } satisfies Story;
 
 /**
- * This example shows an empty listbox with default translated message.
+ * This example shows a empty listbox with default translated message.
  * You can use the `empty` slot to customize the content.
  */
 export const Empty = {
   args: {
     ...Default.args,
     options: [],
+  },
+} satisfies Story;
+
+/**
+ * This example shows a listbox with search functionality.
+ */
+export const WithSearch = {
+  args: {
+    ...Default.args,
+    withSearch: true,
   },
 } satisfies Story;
 

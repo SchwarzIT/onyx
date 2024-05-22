@@ -1,7 +1,7 @@
 import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { injectI18n, provideI18n, type ProvideI18nOptions } from ".";
-import type { ObjectToDottedStrings, OnyxTranslations } from "..";
+import type { FlattenedKeysOf, OnyxTranslations } from "..";
 
 // keep track of provide/inject because they need to be mocked
 let provided = new Map();
@@ -36,7 +36,7 @@ beforeEach(() => {
  * because we will use custom test messages/keys which will not fit the type
  * of our "real" component translations
  */
-type TestTranslationKey = ObjectToDottedStrings<OnyxTranslations>;
+type TestTranslationKey = FlattenedKeysOf<OnyxTranslations>;
 type TestMessages = ProvideI18nOptions["messages"];
 
 test("should provide/inject i18n with a string", () => {

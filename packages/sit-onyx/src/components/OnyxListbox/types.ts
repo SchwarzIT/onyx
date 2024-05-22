@@ -2,65 +2,88 @@ import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
 
-type OnyxListboxSingleProps<TValue extends SelectOptionValue> = {
-  /**
-   * Allows the selection of multiple listbox options
-   */
-  multiple?: false;
-  /**
-   * Current value.
-   */
-  modelValue?: TValue;
-};
+export type ListboxSearchProps =
+  | {
+      /**
+       * Allows the user to filter the list entries.
+       * No support for `lazyLoading` yet.
+       */
+      withSearch: true;
+      /**
+       * Value of the search input.
+       */
+      searchTerm?: string;
+    }
+  | {
+      withSearch?: false;
+    };
 
-type OnyxListboxMultipleProps<TValue extends SelectOptionValue> = {
-  /**
-   * Allows the selection of multiple listbox options
-   */
-  multiple: true;
-  /**
-   * Current value / selected option(s).
-   */
-  modelValue?: TValue[];
-  /**
-   * If true, a checkbox will be displayed to check/uncheck all options.
-   * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
-   * Only available if "multiple" is true.
-   */
-  withCheckAll?:
-    | boolean
-    | {
-        /**
-         * Label for the `select all` checkbox.
-         * If unset, a default label will be shown depending on the current locale/language.
-         */
-        label?: string;
-      };
-};
+export type ListboxModelValueProps<TValue extends SelectOptionValue> =
+  | {
+      /**
+       * Allows the selection of multiple listbox options
+       */
+      multiple?: false;
+      /**
+       * Current value.
+       */
+      modelValue?: TValue;
+    }
+  | {
+      /**
+       * Allows the selection of multiple listbox options
+       */
+      multiple: true;
+      /**
+       * Current value / selected option(s).
+       */
+      modelValue?: TValue[];
+      /**
+       * If true, a checkbox will be displayed to check/uncheck all options.
+       * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+       * Only available if "multiple" is true.
+       */
+      withCheckAll?:
+        | boolean
+        | {
+            /**
+             * Label for the `select all` checkbox.
+             * If unset, a default label will be shown depending on the current locale/language.
+             */
+            label?: string;
+          };
+    };
 
-export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp & {
-  /**
-   * Aria label. Must be set for accessibility reasons.
-   */
-  label: string;
-  /**
-   * Available options to choose from.
-   */
-  options: ListboxOption<TValue>[];
-  /**
-   * Message / help text to display at the bottom.
-   */
-  message?: string;
-  /**
-   * Whether to show a loading indicator.
-   */
-  loading?: boolean;
-  /**
-   * Lazy loading options. Can be used to load more options on scroll.
-   * If you want to use a button instead, use the `optionsEnd` slot.
-   */
-  lazyLoading?: ListboxLazyLoading;
-} & (OnyxListboxMultipleProps<TValue> | OnyxListboxSingleProps<TValue>);
+export type ListboxModelValue<
+  TValue extends SelectOptionValue = SelectOptionValue,
+  TMultiple extends boolean = false,
+> = TMultiple extends true ? TValue[] : TValue;
+
+export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
+  ListboxModelValueProps<TValue> &
+  ListboxSearchProps & {
+    /**
+     * Aria label. Must be set for accessibility reasons.
+     */
+    label: string;
+    /**
+     * Available options to choose from.
+     */
+    options: ListboxOption<TValue>[];
+    /**
+     * Message / help text to display at the bottom.
+     */
+    message?: string;
+    /**
+     * Whether to show a loading indicator.
+     */
+    loading?: boolean;
+    /**
+     * Lazy loading options. Can be used to load more options on scroll.
+     * If you want to use a button instead, use the `optionsEnd` slot.
+     */
+    lazyLoading?: ListboxLazyLoading;
+  };
 
 export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,

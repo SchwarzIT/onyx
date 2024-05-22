@@ -9,6 +9,7 @@ import type { SelectOptionValue } from "../../types";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 
@@ -21,6 +22,10 @@ const emit = defineEmits<{
    * Emitted when the current value changes.
    */
   "update:modelValue": [value: typeof props.modelValue];
+  /**
+   * Emitted when the current search input value changes.
+   */
+  "update:searchTerm": [searchTerm: string];
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
    * See property `lazyLoading` for enabling the lazy loading.
@@ -51,6 +56,11 @@ const { t } = injectI18n();
  * Currently (visually) active option.
  */
 const activeOption = ref<TValue>();
+
+const searchInput = computed({
+  get: () => (props.withSearch && props.searchTerm) || "",
+  set: (newValue) => emit("update:searchTerm", newValue),
+});
 
 /**
  * Sync the active option with the selected option on single select.
@@ -130,7 +140,15 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
   offset: computed(() => props.lazyLoading?.scrollOffset),
 });
 
-const isEmpty = computed(() => props.options.length === 0);
+const isEmptyMessage = computed(() => {
+  if (props.options.length) {
+    return;
+  }
+  if (props.withSearch && props.searchTerm) {
+    return t.value("listbox.noMatch");
+  }
+  return t.value("listbox.empty");
+});
 
 const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled).map(({ value }) => value),
@@ -169,75 +187,88 @@ watchEffect(() => {
       <OnyxLoadingIndicator class="onyx-listbox__loading" />
     </div>
 
-    <slot v-else-if="isEmpty" name="empty" :default-message="t('empty')">
-      <OnyxEmpty>{{ t("empty") }}</OnyxEmpty>
-    </slot>
-
     <div v-else v-scroll-end v-bind="listbox" class="onyx-listbox__wrapper">
-      <ul
-        v-for="(options, group) in groupedOptions"
-        :key="group"
-        class="onyx-listbox__group"
-        v-bind="headlessGroup({ label: group })"
-      >
-        <li
-          v-if="group != ''"
-          role="presentation"
-          class="onyx-listbox__group-name onyx-text--small"
-        >
-          {{ group }}
+      <OnyxMiniSearch
+        v-if="props.withSearch"
+        v-model="searchInput"
+        :label="t('listbox.searchInputLabel')"
+        class="onyx-listbox__search"
+      />
+
+      <ul v-if="isEmptyMessage" role="group" aria-label="" class="onyx-listbox__group">
+        <li role="option" aria-selected="false">
+          <slot name="empty" :default-message="isEmptyMessage">
+            <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
+          </slot>
         </li>
-
-        <!-- select-all option for "multiple" -->
-        <template v-if="props.multiple && props.withCheckAll">
-          <OnyxListboxOption
-            v-bind="
-              headlessOption({
-                value: CHECK_ALL_ID as TValue,
-                label: checkAllLabel,
-                selected: checkAll?.state.value.modelValue,
-              })
-            "
-            multiple
-            :active="CHECK_ALL_ID === activeOption"
-            :indeterminate="checkAll?.state.value.indeterminate"
-            :density="props.density"
-            class="onyx-listbox__check-all"
-          >
-            {{ checkAllLabel }}
-          </OnyxListboxOption>
-        </template>
-
-        <OnyxListboxOption
-          v-for="option in options"
-          :key="option.value.toString()"
-          v-bind="
-            headlessOption({
-              value: option.value,
-              label: option.label,
-              disabled: option.disabled,
-              selected:
-                option.value === props.modelValue ||
-                (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
-            })
-          "
-          :multiple="props.multiple"
-          :active="option.value === activeOption"
-          :icon="option.icon"
-          :color="option.color"
-          :density="props.density"
-        >
-          {{ option.label }}
-        </OnyxListboxOption>
       </ul>
 
-      <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-        <OnyxLoadingIndicator class="onyx-listbox__loading" />
-      </div>
+      <template v-else>
+        <ul
+          v-for="(options, group) in groupedOptions"
+          :key="group"
+          class="onyx-listbox__group"
+          v-bind="headlessGroup({ label: group })"
+        >
+          <li
+            v-if="group != ''"
+            role="presentation"
+            class="onyx-listbox__group-name onyx-text--small"
+          >
+            {{ group }}
+          </li>
 
-      <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
-        <slot name="optionsEnd"></slot>
-      </div>
+          <!-- select-all option for "multiple" -->
+          <template v-if="props.multiple && props.withCheckAll">
+            <OnyxListboxOption
+              v-bind="
+                headlessOption({
+                  value: CHECK_ALL_ID as TValue,
+                  label: checkAllLabel,
+                  selected: checkAll?.state.value.modelValue,
+                })
+              "
+              multiple
+              :active="CHECK_ALL_ID === activeOption"
+              :indeterminate="checkAll?.state.value.indeterminate"
+              :density="props.density"
+              class="onyx-listbox__check-all"
+            >
+              {{ checkAllLabel }}
+            </OnyxListboxOption>
+          </template>
+
+          <OnyxListboxOption
+            v-for="option in options"
+            :key="option.value.toString()"
+            v-bind="
+              headlessOption({
+                value: option.value,
+                label: option.label,
+                disabled: option.disabled,
+                selected:
+                  option.value === props.modelValue ||
+                  (Array.isArray(props.modelValue) && props.modelValue.includes(option.value)),
+              })
+            "
+            :multiple="props.multiple"
+            :active="option.value === activeOption"
+            :icon="option.icon"
+            :color="option.color"
+            :density="props.density"
+          >
+            {{ option.label }}
+          </OnyxListboxOption>
+        </ul>
+
+        <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        </div>
+
+        <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
+          <slot name="optionsEnd"></slot>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -251,17 +282,13 @@ watchEffect(() => {
   @include density.compact {
     --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
   }
-
   @include density.default {
     --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
   }
-
   @include density.cozy {
     --option-height: calc(1.5rem + 3 * var(--onyx-spacing-2xs));
   }
-}
 
-.onyx-listbox {
   @include layers.component() {
     --max-options: 8;
 
@@ -269,7 +296,18 @@ watchEffect(() => {
 
     $wrapper-padding: var(--onyx-spacing-2xs);
 
-    &__check-all {
+    &__search {
+      position: sticky;
+      top: 0;
+    }
+
+    &-option {
+      height: var(--option-height);
+    }
+
+    &__check-all,
+    &__search {
+      height: calc(var(--option-height) + var(--onyx-1px-in-rem));
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
