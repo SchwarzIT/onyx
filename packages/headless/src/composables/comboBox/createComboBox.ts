@@ -3,8 +3,8 @@ import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
 import { useTypeAhead } from "../typeAhead";
-import { isPrintableCharacter } from "../../utils/keyEvent";
 import { isSubsetMatching } from "../../utils/object";
+import { isPrintableCharacter } from "../../utils/keyboard";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
