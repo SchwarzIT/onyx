@@ -21,7 +21,6 @@ import {
   OnyxSwitch,
   OnyxTable,
   OnyxTag,
-  OnyxTimer,
   OnyxTooltip,
   type ListboxOption,
   type SelectOption,
@@ -51,6 +50,7 @@ const COMPONENTS = [
   "OnyxSwitch",
   "OnyxTable",
   "OnyxTag",
+  "OnyxTextarea",
   "OnyxTimer",
   "OnyxTooltip",
 ] as const;
@@ -286,6 +286,8 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
         </OnyxTable>
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+
+        <OnyxTextarea v-if="show('OnyxTextarea')" label="Example textarea" />
 
         <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
 
