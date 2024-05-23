@@ -86,5 +86,13 @@ $gridVariants: (
     .onyx-grid-span-#{$i} {
       grid-column-end: span min($i, var(--onyx-grid-columns));
     }
+
+    @each $breakpoint, $value in breakpoints.$breakpoints {
+      @include breakpoints.screen(min, $breakpoint) {
+        .onyx-grid-#{$breakpoint}-span-#{$i} {
+          grid-column-end: span min($i, var(--onyx-grid-columns));
+        }
+      }
+    }
   }
 }
