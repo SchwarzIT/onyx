@@ -35,7 +35,13 @@ const shouldShowExternalIcon = computed(() => {
 </script>
 
 <template>
-  <a class="onyx-link" :href="props.href" :target="props.target" @click="emit('click')">
+  <a
+    class="onyx-link"
+    :href="props.href"
+    :target="props.target"
+    :rel="props.target === '_blank' ? 'noreferrer' : undefined"
+    @click="emit('click')"
+  >
     <slot></slot>
     <OnyxVisuallyHidden v-if="props.target === '_blank'">
       {{ t("link.opensExternally") }}
