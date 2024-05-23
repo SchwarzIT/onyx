@@ -101,7 +101,7 @@ export const createComboBox = createBuilder(
     autocomplete: autocompleteRef,
     onAutocomplete,
     onTypeAhead,
-    multiple,
+    multiple: multipleRef,
     label,
     listLabel,
     isExpanded: isExpandedRef,
@@ -119,6 +119,7 @@ export const createComboBox = createBuilder(
 
     const autocomplete = computed(() => unref(autocompleteRef));
     const isExpanded = computed(() => unref(isExpandedRef));
+    const multiple = computed(() => unref(multipleRef));
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
@@ -205,9 +206,9 @@ export const createComboBox = createBuilder(
       internals: { getOptionId },
     } = createListbox({
       label: listLabel,
+      multiple,
       controlled: true,
       activeOption,
-      selectedOption: activeOption,
       onSelect: handleSelect,
     });
 

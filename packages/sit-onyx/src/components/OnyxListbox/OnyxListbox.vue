@@ -167,6 +167,7 @@ const comboBox = createComboBox({
   listLabel: props.listLabel,
   inputValue: searchTerm,
   activeOption: computed(() => activeValue.value),
+  multiple: computed(() => props.multiple),
   isExpanded,
   onToggle,
   onActivateFirst,
