@@ -168,58 +168,52 @@ const MAX_WIDTH_TEST_SETUP = [
 ] satisfies { breakpoint: OnyxBreakpoint; className: string }[];
 
 MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
-  test(`grid with optional max width should be left aligned for ${breakpoint}`, async ({
+  test(`page content with max width should be left aligned for ${breakpoint}`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
     const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
-    await page.setViewportSize({
-      width: VIEWPORT_WIDTH,
-      height: 400,
-    });
+    await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
+
     await mount(
-      <main class={`onyx-grid ${className}`} style={{ outline: "1px solid red" }}>
+      <main class={`onyx-page__content ${className}`} style={{ outline: "1px solid red" }}>
         {createGridElement(1)}
       </main>,
     );
-    const element = page.locator("main");
-    const box = await element
-      .evaluateHandle((el) => el.getBoundingClientRect())
-      .then((res) => res.jsonValue());
 
-    const EXPECTED_LEFT = 0;
-    expect(box.left).toBe(EXPECTED_LEFT);
-    const BREAKPOINT_MAX = ONYX_BREAKPOINTS[breakpoint];
-    expect(box.right).toBe(BREAKPOINT_MAX);
+    const box = await page.locator("main").evaluate((el) => el.getBoundingClientRect());
+
+    expect(box.left).toBe(0);
+    expect(box.right).toBe(ONYX_BREAKPOINTS[breakpoint]);
   });
 });
 
 MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
-  test(`grid with optional max width and centering should be positioned correctly for ${className}`, async ({
+  test(`page content with max width and centering should be positioned correctly for ${className}`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
     const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
-    await page.setViewportSize({
-      width: VIEWPORT_WIDTH,
-      height: 400,
-    });
+    await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
+
     await mount(
-      <main class={`onyx-grid ${className} onyx-grid-center`} style={{ outline: "1px solid red" }}>
+      <main
+        class={`onyx-page__content ${className} onyx-grid-center`}
+        style={{ outline: "1px solid red" }}
+      >
         {createGridElement(1)}
       </main>,
     );
-    const element = page.locator("main");
-    const box = await element
-      .evaluateHandle((el) => el.getBoundingClientRect())
-      .then((res) => res.jsonValue());
+
+    const box = await page.locator("main").evaluate((el) => el.getBoundingClientRect());
 
     const BOX_MAX_WIDTH = ONYX_BREAKPOINTS[breakpoint];
     const EXPECTED_LEFT = (VIEWPORT_WIDTH - BOX_MAX_WIDTH) / 2;
-    expect(box.left).toBe(EXPECTED_LEFT);
     const EXPECTED_RIGHT = EXPECTED_LEFT + BOX_MAX_WIDTH;
+
+    expect(box.left).toBe(EXPECTED_LEFT);
     expect(box.right).toBe(EXPECTED_RIGHT);
   });
 });

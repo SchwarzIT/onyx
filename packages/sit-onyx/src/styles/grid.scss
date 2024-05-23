@@ -32,6 +32,7 @@ $screenOffset: 1;
     padding: var(--onyx-grid-padding);
     max-width: var(--onyx-grid-max-width, none);
     margin-inline: var(--onyx-grid-margin-inline);
+    box-sizing: border-box;
   }
 
   /**
