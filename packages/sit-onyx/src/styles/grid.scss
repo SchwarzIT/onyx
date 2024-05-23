@@ -42,6 +42,32 @@ $screenOffset: 1;
     --onyx-grid-margin-inline: auto;
   }
 
+  /**
+  * Grid container class for "xl" breakpoint variant with 20 columns
+  */
+  @include breakpoints.screen(min, xl, $screenOffset) {
+    .onyx-grid-xl-20 {
+      --onyx-grid-columns: 20;
+    }
+  }
+
+  /**
+  * Grid element class for defining how many columns the element spans
+  */
+  @for $i from 1 through 20 {
+    .onyx-grid-span-#{$i} {
+      grid-column-end: span min($i, var(--onyx-grid-columns));
+    }
+
+    @each $breakpoint, $value in breakpoints.$breakpoints {
+      @include breakpoints.screen(min, $breakpoint, $screenOffset) {
+        .onyx-grid-#{$breakpoint}-span-#{$i} {
+          grid-column-end: span min($i, var(--onyx-grid-columns));
+        }
+      }
+    }
+  }
+
   .onyx-grid-max-md {
     --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, lg)};
   }
@@ -70,32 +96,6 @@ $screenOffset: 1;
     } @else {
       @include breakpoints.screen(min, $breakpoint, $screenOffset) {
         @include define-breakpoint-styles($columns, $gap, $padding);
-      }
-    }
-  }
-
-  /**
-  * Grid container class for "xl" breakpoint variant with 20 columns
-  */
-  @include breakpoints.screen(min, xl, $screenOffset) {
-    .onyx-grid-xl-20 {
-      --onyx-grid-columns: 20;
-    }
-  }
-
-  /**
-  * Grid element class for defining how many columns the element spans
-  */
-  @for $i from 1 through 20 {
-    .onyx-grid-span-#{$i} {
-      grid-column-end: span min($i, var(--onyx-grid-columns));
-    }
-
-    @each $breakpoint, $value in breakpoints.$breakpoints {
-      @include breakpoints.screen(min, $breakpoint, $screenOffset) {
-        .onyx-grid-#{$breakpoint}-span-#{$i} {
-          grid-column-end: span min($i, var(--onyx-grid-columns));
-        }
       }
     }
   }
