@@ -86,10 +86,6 @@ export type CreateComboboxOptions<
     "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
   >;
 
-// TODO: https://w3c.github.io/aria/#aria-autocomplete
-// TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
-// TODO: button as optional
-
 export const createComboBox = createBuilder(
   <
     TValue extends string,
