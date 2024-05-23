@@ -1,13 +1,14 @@
-@use "breakpoints.scss";
+@use "breakpoints.scss" as *;
 
+// prettier-ignore
 $gridVariants: (
-  // breakpoint columns gap page-padding (rem)
-  "2xs" 4 1rem 1rem,
-  "xs" 8 1rem 1rem,
-  "sm" 8 1.5rem 2rem,
-  "md" 12 1.5rem 4rem,
-  "lg" 16 2rem 4rem,
-  "xl" 16 2rem 4rem
+//  NAME    COLUMNS  GUTTER  MARGIN
+    "2xs"   4        1rem    1rem,
+    "xs"    8        1rem    1rem,
+    "sm"    8        1.5rem  2rem,
+    "md"    12       1.5rem  4rem,
+    "lg"    16       2rem    4rem,
+    "xl"    16       2rem    4rem,
 );
 
 // offset 1 is used so the styles only apply to "grater than breakpoint"
@@ -32,7 +33,7 @@ $screenOffset: 1;
     padding: var(--onyx-grid-padding);
     max-width: var(--onyx-grid-max-width, none);
     margin-inline: var(--onyx-grid-margin-inline);
-    box-sizing: border-box;
+    box-sizing: border-box; // max-width should include the padding
   }
 
   /**
@@ -46,7 +47,7 @@ $screenOffset: 1;
   /**
   * Grid container class for "xl" breakpoint variant with 20 columns
   */
-  @include breakpoints.screen(min, xl, $screenOffset) {
+  @include screen(min, xl, $screenOffset) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
@@ -60,8 +61,8 @@ $screenOffset: 1;
       grid-column-end: span min($i, var(--onyx-grid-columns));
     }
 
-    @each $breakpoint, $value in breakpoints.$breakpoints {
-      @include breakpoints.screen(min, $breakpoint, $screenOffset) {
+    @each $breakpoint, $value in $breakpoints {
+      @include screen(min, $breakpoint, $screenOffset) {
         .onyx-grid-#{$breakpoint}-span-#{$i} {
           grid-column-end: span min($i, var(--onyx-grid-columns));
         }
@@ -70,13 +71,16 @@ $screenOffset: 1;
   }
 
   .onyx-grid-max-md {
-    --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, lg)};
+    --onyx-grid-max-width: #{map-get($breakpoints, lg)};
   }
 
   .onyx-grid-max-lg {
-    --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, xl)};
+    --onyx-grid-max-width: #{map-get($breakpoints, xl)};
   }
 
+  /**
+  * Defines the grid and page content styles for a given breakpoint.
+  */
   @mixin define-breakpoint-styles($columns, $gap, $padding) {
     .onyx-grid {
       --onyx-grid-columns: #{$columns};
@@ -93,9 +97,10 @@ $screenOffset: 1;
   */
   @each $breakpoint, $columns, $gap, $padding in $gridVariants {
     @if $breakpoint == "2xs" {
+      // the styles should also be applied to width < 2xs so we do not use the "@include screen()" here
       @include define-breakpoint-styles($columns, $gap, $padding);
     } @else {
-      @include breakpoints.screen(min, $breakpoint, $screenOffset) {
+      @include screen(min, $breakpoint, $screenOffset) {
         @include define-breakpoint-styles($columns, $gap, $padding);
       }
     }
