@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
-import { computed } from "vue";
 import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -29,10 +28,12 @@ defineSlots<{
 
 const { t } = injectI18n();
 
-const shouldShowExternalIcon = computed(() => {
-  if (props.withExternalIcon !== "auto") return props.withExternalIcon;
-  return isExternalLink(props.href ?? "");
-});
+const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
+  const withExternalIcon = args.withExternalIcon ?? "auto";
+
+  if (withExternalIcon !== "auto") return args.withExternalIcon;
+  return isExternalLink(args.href ?? "");
+};
 </script>
 
 <template>
@@ -49,7 +50,7 @@ const shouldShowExternalIcon = computed(() => {
       <slot>
         <span>{{ props.label }}</span>
         <OnyxIcon
-          v-if="shouldShowExternalIcon"
+          v-if="shouldShowExternalIcon(props)"
           class="onyx-nav-item__icon"
           :icon="arrowSmallUpRight"
           size="16px"
@@ -68,6 +69,12 @@ const shouldShowExternalIcon = computed(() => {
         @click="emit('click', option.href)"
       >
         {{ option.label }}
+        <OnyxIcon
+          v-if="shouldShowExternalIcon(option)"
+          class="onyx-nav-item__icon"
+          :icon="arrowSmallUpRight"
+          size="16px"
+        />
       </OnyxListItem>
     </OnyxFlyoutMenu>
   </div>

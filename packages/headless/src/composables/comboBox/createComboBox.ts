@@ -3,26 +3,26 @@ import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
 import { useTypeAhead } from "../typeAhead";
-import { isSubsetMatching } from "../../utils/object";
-import { isPrintableCharacter } from "../../utils/keyboard";
+import {
+  isPrintableCharacter,
+  wasKeyPressed,
+  type WasKeyPressedOption,
+} from "../../utils/keyboard";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
-const OPENING_KEYS: string[] = ["ArrowDown", "ArrowUp", "Space", "Enter", "Home", "End"];
-const SELECTING_KEYS: Partial<KeyboardEvent>[] = [
+const OPENING_KEYS: WasKeyPressedOption[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
+const isOpeningKey = (event: KeyboardEvent) =>
+  OPENING_KEYS.some((key) => wasKeyPressed(event, key));
+
+const SELECTING_KEYS: WasKeyPressedOption[] = [
   { key: "Enter" },
   { key: " " },
   { key: "Tab" },
   { key: "ArrowUp", altKey: true },
 ];
 const isSelectingKey = (event: KeyboardEvent) =>
-  SELECTING_KEYS.some((key) =>
-    isSubsetMatching(
-      { altKey: false, ctrlKey: false, metaKey: false, shiftKey: false, ...key },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      event as any,
-    ),
-  );
+  SELECTING_KEYS.some((key) => wasKeyPressed(event, key));
 
 export type CreateComboboxOptions<
   TValue extends string,
@@ -85,10 +85,6 @@ export type CreateComboboxOptions<
     CreateListboxOptions<TValue, TMultiple>,
     "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
   >;
-
-// TODO: https://w3c.github.io/aria/#aria-autocomplete
-// TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
-// TODO: button as optional
 
 export const createComboBox = createBuilder(
   <
@@ -173,7 +169,9 @@ export const createComboBox = createBuilder(
             onActivateLast?.();
             break;
         }
-      } else if (OPENING_KEYS.includes(event.code)) {
+        return;
+      }
+      if (isOpeningKey(event)) {
         onToggle?.();
         if (event.key === "End") {
           return onActivateLast?.();

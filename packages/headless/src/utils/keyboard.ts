@@ -1,3 +1,26 @@
+import { isSubsetMatching } from "./object";
+
+export type WasKeyPressedOption =
+  | string
+  | Partial<Pick<KeyboardEvent, "altKey" | "key" | "ctrlKey" | "metaKey" | "shiftKey" | "code">>;
+
+/**
+ * Check if a specified key was pressed.
+ * @param event The KeyboardEvent
+ * @param key The key, either the [key property](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) as a string (e.g. "m")
+ * or an object with the relevant key parameters, e.g. `{ key: "m", altKey: true }`
+ * @returns true, if the key was pressed with the specified parameters
+ */
+export const wasKeyPressed = (event: KeyboardEvent, key: WasKeyPressedOption) => {
+  if (typeof key === "string") {
+    return event.key === key;
+  }
+  return isSubsetMatching(
+    { altKey: false, ctrlKey: false, metaKey: false, shiftKey: false, ...key },
+    event,
+  );
+};
+
 /**
  * Check if the `key` property of a KeyboardEvent is a printable character.
  *

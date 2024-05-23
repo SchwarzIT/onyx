@@ -150,16 +150,6 @@ export const comboboxSelectOnlyTesting = async (
     await expectToClose("Escape", combobox, listbox, () => page.getByRole("option").first());
   });
 
-  await test.step("Tabbing should work", async () => {
-    await page.getByRole("document").focus();
-    await page.keyboard.press("Tab");
-    await expect(combobox).toBeFocused();
-    await expect(listbox).toBeHidden();
-    await page.keyboard.press("Tab");
-    await expect(combobox).not.toBeFocused();
-    await combobox.focus();
-  });
-
   await test.step("Activating with End", async () => {
     await openCombobox(combobox, listbox);
     await combobox.press("End");

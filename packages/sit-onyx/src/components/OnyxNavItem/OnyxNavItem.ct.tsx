@@ -34,7 +34,7 @@ test.describe("Screenshot tests with nestedItems", () => {
   const nestedItems = [
     { href: "#", label: "Nested Item 1" },
     { href: "#2", label: "Nested Item 2" },
-    { href: "#3", label: "Nested Item 3" },
+    { href: "https://onyx.schwarz", label: "Nested Item 3" },
   ];
 
   executeMatrixScreenshotTest({
