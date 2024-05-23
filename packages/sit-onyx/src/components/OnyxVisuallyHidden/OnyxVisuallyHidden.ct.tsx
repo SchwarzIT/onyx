@@ -3,7 +3,7 @@ import OnyxVisuallyHidden from "./OnyxVisuallyHidden.vue";
 
 test("should not be visible", async ({ mount }) => {
   const component = await mount(
-    <div>
+    <div style={{ width: "max-content" }}>
       something before
       <OnyxVisuallyHidden data-testid="visually-hidden">
         <span>visually hidden text</span>
