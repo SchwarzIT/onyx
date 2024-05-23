@@ -66,7 +66,7 @@ The grid is configured via specific CSS classes which you can find below.
 
 Use the `onyx-page__content` class to set up the main page padding. Should be typically be set on the root component of every page.
 
-Optionally, you can configure to limit the page content width at a specific breakpoint. To do so, set the following class on the very top element of your application:
+Optionally, you can configure to limit the page content width at a specific breakpoint. This can help to maintain some white space for larger screens so the content does not take up e.g. the whole 4k screen width. To do so, set the following class on the very top element of your application:
 
 - `onyx-grid-max-md`: Limits the width before the `lg` breakpoint (`1440px`)
 - `onyx-grid-max-lg`: Limits the width before the `xl` breakpoint (`1920px`)
@@ -79,7 +79,7 @@ The `onyx-grid-max-<breakpoint>` and `onyx-grid-center` classes must be set on t
 ### Apply grid
 
 To apply the grid to a specific component, set the `onyx-grid` class.
-The number of columns depends on the width of the container/component so you can also nest multiple `onyx-grid`.
+The number of columns depends on the current breakpoint..
 
 For components inside the grid, you can set the `onyx-grid-span-<number>` class to specify how many columns the component should span where `<number>` is between `1` and `20`.
 
@@ -87,7 +87,7 @@ For components inside the grid, you can set the `onyx-grid-span-<number>` class 
 
 #### Different column spans per breakpoint
 
-You can also set the column span depending on a minimum container width by setting the `onyx-grid-<breakpoint>-span-<number>` class where `<breakpoint>` and `<number>` are taken from the following table:
+You can also set the column span depending on a minimum breakpoint width by setting the `onyx-grid-<breakpoint>-span-<number>` class where `<breakpoint>` and `<number>` are taken from the following table:
 
 ::: details Columns per breakpoint
 
@@ -102,4 +102,4 @@ You can also set the column span depending on a minimum container width by setti
 
 :::
 
-The `onyx-grid-span` classes can be combined as necessary.
+Multiple `onyx-grid-span` classes can be combined as necessary.
