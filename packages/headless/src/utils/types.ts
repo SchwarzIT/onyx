@@ -6,3 +6,7 @@ export type IfDefined<Key extends string, T> =
     : {
         [key in Key]?: undefined;
       };
+
+export type IsArray<TValue, TMultiple extends boolean = false> = TMultiple extends true
+  ? TValue[]
+  : TValue;

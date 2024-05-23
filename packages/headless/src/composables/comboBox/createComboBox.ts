@@ -1,16 +1,36 @@
-import { computed, ref, type MaybeRef, type Ref } from "vue";
+import { computed, ref, type MaybeRef, type Ref, unref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
+import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
+import { useTypeAhead } from "../typeAhead";
 import {
-  createListbox,
-  type CreateListboxOptions,
-  type ListboxValue,
-} from "../listbox/createListbox";
+  isPrintableCharacter,
+  wasKeyPressed,
+  type WasKeyPressedOption,
+} from "../../utils/keyboard";
+
+export type ComboboxAutoComplete = "none" | "list" | "both";
+
+const OPENING_KEYS: WasKeyPressedOption[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
+const isOpeningKey = (event: KeyboardEvent) =>
+  OPENING_KEYS.some((key) => wasKeyPressed(event, key));
+
+const SELECTING_KEYS: WasKeyPressedOption[] = [
+  { key: "Enter" },
+  { key: " " },
+  { key: "Tab" },
+  { key: "ArrowUp", altKey: true },
+];
+const isSelectingKey = (event: KeyboardEvent) =>
+  SELECTING_KEYS.some((key) => wasKeyPressed(event, key));
 
 export type CreateComboboxOptions<
-  TValue extends ListboxValue = ListboxValue,
+  TValue extends string,
+  TAutoComplete extends ComboboxAutoComplete,
   TMultiple extends boolean = false,
 > = {
+  autocomplete: MaybeRef<TAutoComplete>;
+  label: MaybeRef<string>;
   /**
    * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
    */
@@ -22,7 +42,7 @@ export type CreateComboboxOptions<
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
-  isExpanded: Ref<boolean>;
+  isExpanded: MaybeRef<boolean>;
   /**
    * If expanded, the active option is the currently highlighted option of the controlled listbox.
    */
@@ -31,84 +51,150 @@ export type CreateComboboxOptions<
    * Hook when the popover should toggle.
    */
   onToggle?: () => void;
-} & Pick<
-  CreateListboxOptions<TValue, TMultiple>,
-  "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
->;
+  /**
+   * Hook when an option is selected.
+   */
+  onSelect?: (value: TValue) => void;
+  /**
+   * Hook when selection is cancelled.
+   */
+  onCancel?: () => void;
+  /**
+   * Hook when the first option should be activated.
+   */
+  onActivateFirst?: () => void;
+  /**
+   * Hook when the last option should be activated.
+   */
+  onActivateLast?: () => void;
+  /**
+   * Hook when the next option should be activated.
+   */
+  onActivateNext?: (currentValue: TValue) => void;
+  /**
+   * Hook when the previous option should be activated.
+   */
+  onActivatePrevious?: (currentValue: TValue) => void;
+} & (TAutoComplete extends Exclude<ComboboxAutoComplete, "none">
+  ? { onAutocomplete: (input: string) => void }
+  : { onAutocomplete?: undefined }) &
+  (TAutoComplete extends "none"
+    ? { onTypeAhead: (input: string) => void }
+    : { onTypeAhead?: undefined }) &
+  Pick<
+    CreateListboxOptions<TValue, TMultiple>,
+    "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
+  >;
 
 // TODO: https://w3c.github.io/aria/#aria-autocomplete
 // TODO: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 // TODO: button as optional
 
 export const createComboBox = createBuilder(
-  <TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false>({
-    listLabel,
+  <
+    TValue extends string,
+    TAutoComplete extends ComboboxAutoComplete,
+    TMultiple extends boolean = false,
+  >({
     inputValue,
-    isExpanded,
+    autocomplete: autocompleteRef,
+    onAutocomplete,
+    onTypeAhead,
+    label,
+    listLabel,
+    isExpanded: isExpandedRef,
     activeOption,
     onToggle,
+    onCancel,
     onSelect,
     onActivateFirst,
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
-  }: CreateComboboxOptions<TValue, TMultiple>) => {
+  }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
-    const labelId = createId("comboBox-label");
+
+    const autocomplete = computed(() => unref(autocompleteRef));
+    const isExpanded = computed(() => unref(isExpandedRef));
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
       inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
-    };
-
-    const handleBlur = () => {
-      if (isExpanded.value) {
+      if (!unref(isExpanded)) {
         onToggle?.();
       }
+      if (autocomplete.value !== "none") {
+        onAutocomplete?.(inputValue.value);
+      }
+    };
+
+    const typeAhead = useTypeAhead((inputString) => onTypeAhead?.(inputString));
+
+    const handleSelect = (value: TValue) => {
+      onSelect?.(value);
+      onToggle?.();
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (!isExpanded.value) {
+      if (isExpanded.value) {
+        if (isSelectingKey(event)) {
+          handleSelect(activeOption.value!);
+          return;
+        }
+
+        switch (event.key) {
+          case "Escape":
+            event.preventDefault();
+            onCancel?.();
+            onToggle?.();
+            break;
+          case "ArrowUp":
+            event.preventDefault();
+            if (!activeOption.value) {
+              return onActivateLast?.();
+            }
+            onActivatePrevious?.(activeOption.value);
+            break;
+          case "ArrowDown":
+            event.preventDefault();
+            if (!activeOption.value) {
+              return onActivateFirst?.();
+            }
+            onActivateNext?.(activeOption.value);
+            break;
+          case "Home":
+            event.preventDefault();
+            onActivateFirst?.();
+            break;
+          case "End":
+            event.preventDefault();
+            onActivateLast?.();
+            break;
+        }
         return;
       }
-      switch (event.key) {
-        case "Enter":
-          event.preventDefault();
-          if (activeOption.value) {
-            onSelect?.(activeOption.value);
-            inputValue.value = activeOption.value;
-          }
-          break;
-        case "Escape":
-          event.preventDefault();
-          onToggle?.();
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          if (!activeOption.value) {
-            return onActivateLast?.();
-          }
-          onActivatePrevious?.(activeOption.value);
-          break;
-        case "ArrowDown":
-          event.preventDefault();
-          if (!activeOption.value) {
-            return onActivateFirst?.();
-          }
-          onActivateNext?.(activeOption.value);
-          break;
-        case "Home":
-          event.preventDefault();
-          onActivateFirst?.();
-          break;
-        case "End":
-          event.preventDefault();
-          onActivateLast?.();
-          break;
+      if (isOpeningKey(event)) {
+        onToggle?.();
+        if (event.key === "End") {
+          return onActivateLast?.();
+        }
+        return onActivateFirst?.();
+      }
+      if (autocomplete.value === "none" && isPrintableCharacter(event.key)) {
+        !isExpanded.value && onToggle?.();
+        return typeAhead(event);
       }
     };
+
+    const autocompleteInput =
+      autocomplete.value !== "none"
+        ? {
+            "aria-autocomplete": autocomplete.value,
+            type: "text",
+          }
+        : null;
 
     const {
       elements: { option, group, listbox },
@@ -118,20 +204,17 @@ export const createComboBox = createBuilder(
       controlled: true,
       activeOption,
       selectedOption: activeOption,
-      onSelect,
+      onSelect: handleSelect,
     });
 
     return {
       elements: {
         option,
         group,
-        label: {
-          id: labelId,
-        },
         /**
          * The listbox associated with the combobox.
          */
-        listBox: computed(() => ({
+        listbox: computed(() => ({
           ...listbox.value,
           id: controlsId,
         })),
@@ -144,11 +227,11 @@ export const createComboBox = createBuilder(
           role: "combobox",
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
-          "aria-labelledby": labelId,
+          "aria-label": unref(label),
           "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
-          onBlur: handleBlur,
+          ...autocompleteInput,
         })),
         /**
          * An optional button to control the visibility of the popup.
