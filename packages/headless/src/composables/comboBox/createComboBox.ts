@@ -83,7 +83,12 @@ export type CreateComboboxOptions<
     : { onTypeAhead?: undefined }) &
   Pick<
     CreateListboxOptions<TValue, TMultiple>,
-    "onActivateFirst" | "onActivateLast" | "onActivateNext" | "onActivatePrevious" | "onSelect"
+    | "onActivateFirst"
+    | "onActivateLast"
+    | "onActivateNext"
+    | "onActivatePrevious"
+    | "onSelect"
+    | "multiple"
   >;
 
 export const createComboBox = createBuilder(
@@ -96,6 +101,7 @@ export const createComboBox = createBuilder(
     autocomplete: autocompleteRef,
     onAutocomplete,
     onTypeAhead,
+    multiple,
     label,
     listLabel,
     isExpanded: isExpandedRef,
@@ -130,7 +136,9 @@ export const createComboBox = createBuilder(
 
     const handleSelect = (value: TValue) => {
       onSelect?.(value);
-      onToggle?.();
+      if (!unref(multiple)) {
+        onToggle?.();
+      }
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
