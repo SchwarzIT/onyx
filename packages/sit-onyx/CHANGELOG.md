@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-alpha.110
+
+### Patch Changes
+
+- 2e93902: fix(OnyxIconButton): display inline by default
+
+  Display the icon button inline by default to align with the `OnyxButton`.
+  This simplifies the layout then an icon button is placed next to text.
+
 ## 1.0.0-alpha.109
 
 ### Patch Changes
