@@ -81,7 +81,7 @@ const emit = defineEmits<{
     --icon-button-bg-color: transparent;
     --icon-button-cursor: pointer;
 
-    display: grid;
+    display: inline-grid;
     place-items: center;
     padding: var(--onyx-icon-button-padding);
     color: var(--icon-button-color);
