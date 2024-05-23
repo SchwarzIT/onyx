@@ -1,5 +1,18 @@
 # @sit-onyx/chartjs-plugin
 
+## 1.0.0-alpha.64
+
+### Minor Changes
+
+- 8173cfb: feat: support quantitative colors 1000-1200 for `getDatasetColors()`
+
+## 1.0.0-alpha.63
+
+### Patch Changes
+
+- Updated dependencies [aa0b540]
+  - sit-onyx@1.0.0-alpha.108
+
 ## 1.0.0-alpha.62
 
 ### Patch Changes
