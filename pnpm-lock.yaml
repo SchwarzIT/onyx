@@ -72,8 +72,8 @@ importers:
         specifier: ^8.57.0
         version: 8.57.0
       eslint-plugin-playwright:
-        specifier: ^1.6.1
-        version: 1.6.1(eslint@8.57.0)
+        specifier: ^1.6.2
+        version: 1.6.2(eslint@8.57.0)
       eslint-plugin-vue:
         specifier: ^9.26.0
         version: 9.26.0(eslint@8.57.0)
@@ -269,9 +269,15 @@ importers:
 
   packages/storybook-utils:
     dependencies:
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../icons
       '@storybook/core-events':
         specifier: '>= 8.0.0'
         version: 8.1.1
+      '@storybook/docs-tools':
+        specifier: '>= 8.0.0'
+        version: 8.1.1(prettier@3.2.5)
       '@storybook/preview-api':
         specifier: '>= 8.0.0'
         version: 8.1.1
@@ -3100,8 +3106,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-plugin-playwright@1.6.1:
-    resolution: {integrity: sha512-pfcaeAENH0jZEuUxynfVgMlLY9CSp68D9Ja2z32Xq5zhWCN1HoixSHOzhYVuh/N6fYwtBp4kLu/+IIUTXBTGZg==}
+  eslint-plugin-playwright@1.6.2:
+    resolution: {integrity: sha512-mraN4Em3b5jLt01q7qWPyLg0Q5v3KAWfJSlEWwldyUXoa7DSPrBR4k6B6LROLqipsG8ndkwWMdjl1Ffdh15tag==}
     engines: {node: '>=16.6.0'}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -9566,7 +9572,7 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
-  eslint-plugin-playwright@1.6.1(eslint@8.57.0):
+  eslint-plugin-playwright@1.6.2(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
       globals: 13.24.0

@@ -1,11 +1,7 @@
 import check from "@sit-onyx/icons/check.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import {
-  createIconSourceCodeTransformer,
-  createTruncationDecorator,
-  defineIconSelectArgType,
-} from "../../utils/storybook";
+import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
 import OnyxTag from "./OnyxTag.vue";
 
 /**
@@ -20,13 +16,6 @@ const meta: Meta<typeof OnyxTag> = {
       icon: defineIconSelectArgType(),
     },
   }),
-  parameters: {
-    docs: {
-      source: {
-        transform: createIconSourceCodeTransformer("icon"),
-      },
-    },
-  },
 };
 
 export default meta;

@@ -1,5 +1,21 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.112
+
+### Major Changes
+
+- 99b2089: use experimental source code generator
+
+  - port the improved source code generator from [this Storybook PR](https://github.com/storybookjs/storybook/pull/27194).
+  - globally replace onyx icons with their corresponding imports from `@sit-onyx/icons`
+
+### Patch Changes
+
+- Updated dependencies [1093e66]
+- Updated dependencies [99b2089]
+  - sit-onyx@1.0.0-alpha.109
+  - @sit-onyx/icons@0.1.0-alpha.1
+
 ## 1.0.0-alpha.111
 
 ### Patch Changes
