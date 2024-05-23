@@ -229,6 +229,10 @@ importers:
       vue:
         specifier: '>= 3'
         version: 3.4.27(typescript@5.4.5)
+    devDependencies:
+      vitest:
+        specifier: ^1.5.0
+        version: 1.6.0(@types/node@20.12.12)(jsdom@24.0.0)(sass@1.77.2)(stylus@0.57.0)
 
   packages/icons:
     devDependencies:
