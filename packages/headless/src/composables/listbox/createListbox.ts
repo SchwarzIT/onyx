@@ -4,7 +4,9 @@ import { createBuilder, type HeadlessElementAttributes } from "../../utils/build
 import { useTypeAhead } from "../typeAhead";
 import type { IsArray } from "../../utils/types";
 
-export type CreateListboxOptions<TValue extends string, TMultiple extends boolean = false> = {
+export type ListboxValue = string | number | boolean;
+
+export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends boolean = false> = {
   /**
    * Aria label for the listbox.
    */
@@ -76,7 +78,7 @@ export type CreateListboxOptions<TValue extends string, TMultiple extends boolea
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TValue extends string, TMultiple extends boolean = false>(
+  <TValue extends ListboxValue, TMultiple extends boolean = false>(
     options: CreateListboxOptions<TValue, TMultiple>,
   ) => {
     const isMultiselect = computed(() => unref(options.multiple) ?? false);
