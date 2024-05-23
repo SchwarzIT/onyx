@@ -193,8 +193,8 @@ export const createListbox = createBuilder(
               id: getOptionId(data.value),
               role: "option",
               "aria-label": data.label,
-              "aria-selected": data.selected,
               "aria-disabled": data.disabled,
+              [isMultiselect.value ? "aria-checked" : "aria-selected"]: data.selected || false,
               onClick: () => !data.disabled && options.onSelect?.(data.value),
             }) as const;
         }),
