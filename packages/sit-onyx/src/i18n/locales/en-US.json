@@ -33,7 +33,7 @@
   "navItemOptionsLabel": "Subpages of {label}",
   "navigation": {
     "appLogo": "App logo of {appName}",
-    "goToHome": "Go to Home",
+    "goToHome": "Go to home page",
     "goBack": "Go back",
     "userMenuLabel": "User options"
   }
