@@ -10,6 +10,10 @@ $gridVariants: (
   "xl" 16 2rem 4rem
 );
 
+// offset 1 is used so the styles only apply to "grater than breakpoint"
+// so it does not jump around when the browser windows is resized by a few pixels
+$screenOffset: 1;
+
 @layer onyx.utility {
   /**
   * Grid container base class
@@ -48,7 +52,7 @@ $gridVariants: (
     @if $breakpoint == "2xs" {
       @include define-breakpoint-styles($columns, $gap, $padding);
     } @else {
-      @include breakpoints.screen(min, $breakpoint) {
+      @include breakpoints.screen(min, $breakpoint, $screenOffset) {
         @include define-breakpoint-styles($columns, $gap, $padding);
       }
     }
@@ -57,7 +61,7 @@ $gridVariants: (
   /**
   * Grid container class for "xl" breakpoint variant with 20 columns
   */
-  @include breakpoints.screen(min, xl) {
+  @include breakpoints.screen(min, xl, $screenOffset) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
@@ -88,7 +92,7 @@ $gridVariants: (
     }
 
     @each $breakpoint, $value in breakpoints.$breakpoints {
-      @include breakpoints.screen(min, $breakpoint) {
+      @include breakpoints.screen(min, $breakpoint, $screenOffset) {
         .onyx-grid-#{$breakpoint}-span-#{$i} {
           grid-column-end: span min($i, var(--onyx-grid-columns));
         }
