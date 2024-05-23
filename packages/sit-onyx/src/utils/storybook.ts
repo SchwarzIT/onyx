@@ -1,5 +1,4 @@
-import { sourceCodeTransformer } from "@sit-onyx/storybook-utils";
-import type { ArgTypes, Decorator, StoryContext } from "@storybook/vue3";
+import type { ArgTypes, Decorator } from "@storybook/vue3";
 
 /**
  * Defines the control for a Storybook argType to be a select/dropdown of
@@ -40,24 +39,6 @@ export const defineIconSelectArgType = () => {
       labels: iconLabels,
     },
   } satisfies ArgTypes[number];
-};
-
-export const createIconSourceCodeTransformer = (propertyName: string) => {
-  const iconArgType = defineIconSelectArgType();
-
-  return (sourceCode: string, ctx: Pick<StoryContext, "args">) => {
-    // using this custom transformer would override the default one
-    // so we are calling the default transformer here
-    const code = sourceCodeTransformer(sourceCode);
-    if (!ctx.args[propertyName] || typeof ctx.args[propertyName] !== "string") return code;
-
-    const iconName = iconArgType.control.labels[ctx.args[propertyName] as string];
-
-    return `<script lang="ts" setup>
-import icon from "@sit-onyx/icons/${iconName}.svg?raw";
-</script>
-${code.replace(new RegExp(` ${propertyName}=['"].*['"]`), ` :${propertyName}="icon"`)}`;
-  };
 };
 
 /**

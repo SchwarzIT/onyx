@@ -1,11 +1,7 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import {
-  createIconSourceCodeTransformer,
-  createTruncationDecorator,
-  defineIconSelectArgType,
-} from "../../utils/storybook";
+import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
@@ -29,14 +25,6 @@ const meta: Meta<typeof OnyxBadge> = {
       default: { control: { type: "text" } },
     },
   }),
-  parameters: {
-    docs: {
-      source: {
-        // improve code snippet by adding the icon import
-        transform: createIconSourceCodeTransformer("icon"),
-      },
-    },
-  },
 };
 
 export default meta;

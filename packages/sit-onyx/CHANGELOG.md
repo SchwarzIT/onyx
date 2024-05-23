@@ -1,5 +1,22 @@
 # sit-onyx
 
+## 1.0.0-alpha.110
+
+### Patch Changes
+
+- 2e93902: fix(OnyxIconButton): display inline by default
+
+  Display the icon button inline by default to align with the `OnyxButton`.
+  This simplifies the layout then an icon button is placed next to text.
+
+## 1.0.0-alpha.109
+
+### Patch Changes
+
+- 1093e66: Implement external link icon for nested nav items
+- Updated dependencies [99b2089]
+  - @sit-onyx/icons@0.1.0-alpha.1
+
 ## 1.0.0-alpha.108
 
 ### Minor Changes

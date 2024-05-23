@@ -1,5 +1,21 @@
 # alpha-test-app
 
+## 0.1.0-alpha.107
+
+### Patch Changes
+
+- Updated dependencies [2e93902]
+  - sit-onyx@1.0.0-alpha.110
+
+## 0.1.0-alpha.106
+
+### Patch Changes
+
+- Updated dependencies [1093e66]
+- Updated dependencies [99b2089]
+  - sit-onyx@1.0.0-alpha.109
+  - @sit-onyx/icons@0.1.0-alpha.1
+
 ## 0.1.0-alpha.105
 
 ### Patch Changes
