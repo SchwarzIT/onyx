@@ -4,6 +4,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": ".",
-    "types": ["node"]
+    "types": ["node"],
+    "verbatimModuleSyntax": true
   }
 }
