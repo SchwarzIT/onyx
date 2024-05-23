@@ -80,6 +80,9 @@ export * from "./components/OnyxTable/types";
 export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
 export * from "./components/OnyxTextarea/types";
 
+export { default as OnyxTimer } from "./components/OnyxTimer/OnyxTimer.vue";
+export * from "./components/OnyxTimer/types";
+
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
 
@@ -95,3 +98,5 @@ export * from "./types";
 
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export { createOnyx } from "./utils/plugin";
+
+export { normalizedIncludes } from "./utils/strings";
