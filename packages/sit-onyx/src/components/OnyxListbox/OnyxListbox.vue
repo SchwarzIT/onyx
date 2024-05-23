@@ -16,7 +16,7 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
-import OnyxSelect from "./OnyxSelect/OnyxSelect.vue";
+import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
@@ -246,7 +246,7 @@ const handleOnyxSelectKeyDown = (event: KeyboardEvent) => {
 
 <template>
   <div class="onyx-combobox-wrapper">
-    <OnyxSelect
+    <OnyxSelectInput
       :label="props.label"
       :loading="props.loading"
       :model-value="props.modelValue"

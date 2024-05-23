@@ -37,6 +37,9 @@ export * from "./components/OnyxInput/types";
 export { default as OnyxLink } from "./components/OnyxLink/OnyxLink.vue";
 export * from "./components/OnyxLink/types";
 
+export { default as OnyxListbox } from "./components/OnyxListbox/OnyxListbox.vue";
+export * from "./components/OnyxListbox/types";
+
 export { default as OnyxListboxOption } from "./components/OnyxListboxOption/OnyxListboxOption.vue";
 export * from "./components/OnyxListboxOption/types";
 
@@ -62,6 +65,9 @@ export { default as OnyxRadioButtonGroup } from "./components/OnyxRadioButtonGro
 export * from "./components/OnyxRadioButtonGroup/types";
 
 export { default as OnyxNavSeparator } from "./components/OnyxNavSeparator/OnyxNavSeparator.vue";
+
+export { default as OnyxSelectInput } from "./components/OnyxSelectInput/OnyxSelectInput.vue";
+export * from "./components/OnyxSelectInput/types";
 
 export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.vue";
 

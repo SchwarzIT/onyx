@@ -6,14 +6,14 @@
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed } from "vue";
 import type { MultiselectTextMode, OnyxSelectProps, SelectMultiple } from "./types";
-import { useDensity, type SelectOptionValue } from "../../..";
-import { useRequired } from "../../../composables/required";
-import { injectI18n } from "../../../i18n";
-import OnyxSkeleton from "../../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxLoadingIndicator from "../../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxTooltip from "../../OnyxTooltip/OnyxTooltip.vue";
-import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import { useDensity, type SelectOptionValue } from "../..";
+import { useRequired } from "../../composables/required";
+import { injectI18n } from "../../i18n";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
 defineOptions({ inheritAttrs: false });
 
@@ -135,8 +135,8 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "../../../styles/mixins/density.scss";
-@use "../../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/layers.scss";
 
 .onyx-select,
 .onyx-select-skeleton {

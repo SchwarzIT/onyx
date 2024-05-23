@@ -16,7 +16,7 @@ import {
   OnyxLoadingIndicator,
   OnyxPageLayout,
   OnyxRadioButtonGroup,
-  OnyxSelect,
+  OnyxSelectInput,
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTable,
@@ -80,9 +80,9 @@ const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<string>();
 
-const listboxState = ref<string>();
-const groupedListboxState = ref<string>();
-const multiselectListboxState = ref<string[]>();
+const listboxState = ref<ListboxOption>();
+const groupedListboxState = ref<ListboxOption>();
+const multiselectListboxState = ref<ListboxOption[]>();
 
 const selectOptions = [
   "Apple",
@@ -101,7 +101,7 @@ const selectOptions = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
+].map<ListboxOption>((option) => ({ value: option.toLowerCase(), label: option }));
 
 const minimalSelectOptions = selectOptions.slice(0, 3);
 
@@ -189,15 +189,22 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
 
         <template v-if="show('OnyxListbox')">
           <div style="display: flex; gap: var(--onyx-spacing-xs)">
-            <OnyxListbox v-model="listboxState" label="Example listbox" :options="selectOptions" />
+            <OnyxListbox
+              v-model="listboxState"
+              label="Example listbox"
+              list-label="Example listbox list"
+              :options="selectOptions"
+            />
             <OnyxListbox
               v-model="groupedListboxState"
               label="Example grouped listbox"
+              list-label="Example listbox list"
               :options="groupedListboxOptions"
             />
             <OnyxListbox
               v-model="multiselectListboxState"
               label="Example multiselect listbox"
+              list-label="Example listbox list"
               :multiple="true"
               :with-check-all="true"
               :options="selectOptions"
@@ -226,7 +233,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
         </template>
 
         <template v-if="show('OnyxSelect')">
-          <OnyxSelect
+          <OnyxSelectInput
             v-model="singleSelectState"
             label="Single Select"
             placeholder="Select your fruits"
@@ -236,7 +243,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
           <div v-if="!useSkeleton" class="onyx-text--small state-info">
             OnyxSelect single state: {{ singleSelectState ?? "–" }}
           </div>
-          <OnyxSelect
+          <OnyxSelectInput
             v-model="multiSelectState"
             label="Multiple Select"
             placeholder="Select your fruits"

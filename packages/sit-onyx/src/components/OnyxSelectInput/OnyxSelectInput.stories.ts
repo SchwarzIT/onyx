@@ -1,16 +1,16 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { Default as ListboxDefaultStory } from "../OnyxListbox.stories";
-import OnyxSelect from "./OnyxSelect.vue";
+import { Default as ListboxDefaultStory } from "../OnyxListbox/OnyxListbox.stories";
+import OnyxSelectInput from "./OnyxSelectInput.vue";
 
 // TODO: description in figma is missing.
 /**
  * This is a select.
  */
-const meta: Meta<typeof OnyxSelect> = {
-  title: "components/Select",
+const meta: Meta<typeof OnyxSelectInput> = {
+  title: "support/SelectInput",
   ...defineStorybookActionsAndVModels({
-    component: OnyxSelect,
+    component: OnyxSelectInput,
     events: ["update:modelValue"],
     decorators: [
       (story) => ({
@@ -22,7 +22,7 @@ const meta: Meta<typeof OnyxSelect> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxSelect>;
+type Story = StoryObj<typeof OnyxSelectInput>;
 
 const EXAMPLE_OPTIONS = ListboxDefaultStory.args.options;
 

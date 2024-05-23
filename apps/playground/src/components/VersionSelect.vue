@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxListbox, OnyxSelect, type SelectOption } from "sit-onyx";
+import { OnyxListbox, OnyxSelectInput, type ListboxOption } from "sit-onyx";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { fetchVersions } from "../utils/versions";
 
@@ -35,17 +35,18 @@ const filteredVersions = computed(() => {
   return versions.value?.filter((v) => !v.includes("-"));
 });
 
-const options = computed<SelectOption[]>(() => {
+const options = computed<ListboxOption[]>(() => {
   return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
 });
 
-const modelValue = computed({
+const modelValue = computed<ListboxOption>({
   get: () => {
     const isLatest = version.value && !version.value.includes(".");
-    if (isLatest) return filteredVersions.value?.[0];
-    return version.value ?? undefined;
+    if (isLatest) return options.value?.[0];
+    return options.value.find((o) => o.value === version.value)!;
   },
-  set: (value) => {
+  set: (option: ListboxOption) => {
+    const { value } = option;
     // do not allow to de-select the version
     if (!value) return;
 
@@ -75,7 +76,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="version" @click.stop>
-    <OnyxSelect
+    <OnyxSelectInput
       :label="props.label"
       placeholder="Select version"
       :model-value="version ? { label: version, value: version } : undefined"
@@ -85,7 +86,13 @@ onBeforeUnmount(() => {
     />
 
     <!-- TODO: remove when OnyxSelect is fully implemented and add loading/empty state -->
-    <OnyxListbox v-if="expanded" v-model="modelValue" label="Select version" :options="options" />
+    <OnyxListbox
+      v-if="expanded"
+      v-model="modelValue"
+      list-label=""
+      label="Select version"
+      :options="options"
+    />
   </div>
 </template>
 
