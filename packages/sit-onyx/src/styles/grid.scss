@@ -34,6 +34,22 @@ $screenOffset: 1;
     margin-inline: var(--onyx-grid-margin-inline);
   }
 
+  /**
+  * Utility class to allow optional centering for pages with max width.
+  * Requires a "onyx-grid-max-*" class to be set.
+  */
+  .onyx-grid-center {
+    --onyx-grid-margin-inline: auto;
+  }
+
+  .onyx-grid-max-md {
+    --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, lg)};
+  }
+
+  .onyx-grid-max-lg {
+    --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, xl)};
+  }
+
   @mixin define-breakpoint-styles($columns, $gap, $padding) {
     .onyx-grid {
       --onyx-grid-columns: #{$columns};
@@ -65,22 +81,6 @@ $screenOffset: 1;
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
-  }
-
-  /**
-  * Utility class to allow optional centering for pages with max width.
-  * Requires a "onyx-grid-max-*" class to be set.
-  */
-  .onyx-grid-center {
-    --onyx-grid-margin-inline: auto;
-  }
-
-  .onyx-grid-max-md {
-    --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, lg)};
-  }
-
-  .onyx-grid-max-lg {
-    --onyx-grid-max-width: #{map-get(breakpoints.$breakpoints, xl)};
   }
 
   /**
