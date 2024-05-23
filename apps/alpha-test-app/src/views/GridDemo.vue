@@ -26,7 +26,7 @@ const gridStore = useGridStore();
         />
       </form>
 
-      <p class="page__content">{{ "Page content ".repeat(32) }}</p>
+      <p class="page__text">{{ "Page content ".repeat(32) }}</p>
 
       <form class="onyx-grid" @submit.prevent>
         <OnyxInput class="onyx-grid-span-4" label="Username" required />
@@ -48,7 +48,7 @@ const gridStore = useGridStore();
     display: block;
   }
 
-  &__content {
+  &__text {
     margin: var(--onyx-spacing-md) 0;
   }
 
