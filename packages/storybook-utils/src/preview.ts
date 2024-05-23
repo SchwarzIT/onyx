@@ -1,11 +1,13 @@
 import { DOCS_RENDERED } from "@storybook/core-events";
 import { addons } from "@storybook/preview-api";
 import { type ThemeVars } from "@storybook/theming";
-import { type Preview } from "@storybook/vue3";
+import { type Preview, type StoryContext } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 
+import { getIconImportName } from "@sit-onyx/icons";
 import { requiredGlobalType, withRequired } from "./required";
+import { generateSourceCode } from "./source-code-generator";
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
 
 const themes = {
@@ -116,32 +118,68 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
 };
 
 /**
- * Custom transformer for the story source code to better fit to our
- * Vue.js code because storybook per default does not render it exactly how
- * we want it to look.
+ * Custom transformer for the story source code to support improved source code generation.
+ * and add imports for all used onyx icons so icon imports are displayed in the source code
+ * instead of the the raw SVG content.
+ *
  * @see https://storybook.js.org/docs/react/api/doc-block-source
  */
-export const sourceCodeTransformer = (sourceCode: string): string => {
-  const replacements = [
-    // replace event bindings with shortcut
-    { searchValue: "v-on:", replaceValue: "@" },
-    // remove empty event handlers, e.g. @click="()=>({})" will be removed
-    { searchValue: / @\S*['"]\(\)=>\({}\)['"]/g, replaceValue: "" },
-    // // remove empty v-binds, e.g. v-bind="{}" will be removed
-    { searchValue: / v-bind=['"]{}['"]/g, replaceValue: "" },
-    // // replace boolean shortcuts for true, e.g. disabled="true" will be changed to just disabled
-    { searchValue: /:?(\S*)=['"]true['"]/g, replaceValue: "$1" },
-  ];
+export const sourceCodeTransformer = (
+  sourceCode: string,
+  ctx: Pick<StoryContext, "title" | "component" | "args">,
+): string => {
+  const RAW_ICONS = import.meta.glob("../node_modules/@sit-onyx/icons/src/assets/*.svg", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  });
 
-  return replacements.reduce((code, replacement) => {
-    return replaceAll(code, replacement.searchValue, replacement.replaceValue);
-  }, sourceCode);
+  /**
+   * Mapping between icon SVG content (key) and icon name (value).
+   * Needed to display a labelled dropdown list of all available icons.
+   */
+  const ALL_ICONS = Object.entries(RAW_ICONS).reduce<Record<string, string>>(
+    (obj, [filePath, content]) => {
+      obj[filePath.split("/").at(-1)!.replace(".svg", "")] = content as string;
+      return obj;
+    },
+    {},
+  );
+
+  let code = generateSourceCode(ctx);
+
+  const iconImports: string[] = [];
+
+  // add icon imports to the source code for all used onyx icons
+  Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
+    const importName = getIconImportName(iconName);
+    const singleQuotedIconContent = `'${replaceAll(iconContent, '"', "\\'")}'`;
+
+    if (code.includes(iconContent)) {
+      code = code.replace(new RegExp(` (\\S+)=['"]${iconContent}['"]`), ` :$1="${importName}"`);
+      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+    } else if (code.includes(singleQuotedIconContent)) {
+      // support icons inside objects
+      code = code.replace(singleQuotedIconContent, importName);
+      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+    }
+  });
+
+  if (iconImports.length > 0) {
+    return `<script lang="ts" setup>
+${iconImports.join("\n")}
+</script>
+
+${code}`;
+  }
+
+  return code;
 };
 
 /**
  * Custom String.replaceAll implementation using a RegExp
  * because String.replaceAll() is not available in our specified EcmaScript target in tsconfig.json
  */
-const replaceAll = (message: string, searchValue: string | RegExp, replaceValue: string) => {
-  return message.replace(new RegExp(searchValue, "gi"), replaceValue);
+export const replaceAll = (value: string, searchValue: string | RegExp, replaceValue: string) => {
+  return value.replace(new RegExp(searchValue, "gi"), replaceValue);
 };

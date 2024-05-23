@@ -2,11 +2,7 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { AriaAttributes } from "vue";
-import {
-  createIconSourceCodeTransformer,
-  createTruncationDecorator,
-  defineIconSelectArgType,
-} from "../../utils/storybook";
+import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
 import OnyxListboxOption from "./OnyxListboxOption.vue";
 
 /**
@@ -21,14 +17,6 @@ const meta: Meta<typeof OnyxListboxOption> = {
     argTypes: {
       default: { control: { type: "text" } },
       icon: defineIconSelectArgType(),
-    },
-    parameters: {
-      docs: {
-        source: {
-          // improve code snippet by adding the icon import
-          transform: createIconSourceCodeTransformer("icon"),
-        },
-      },
     },
   }),
 };

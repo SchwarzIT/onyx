@@ -2,7 +2,7 @@ import trash from "@sit-onyx/icons/trash.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import { createIconSourceCodeTransformer, defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxIconButton from "./OnyxIconButton.vue";
 
 /**
@@ -18,14 +18,6 @@ const meta: Meta<typeof OnyxIconButton> = {
       default: { control: { disable: true } },
     },
   }),
-  parameters: {
-    docs: {
-      source: {
-        // improve code snippet by adding the icon import
-        transform: createIconSourceCodeTransformer("icon"),
-      },
-    },
-  },
 };
 
 export default meta;
@@ -69,12 +61,7 @@ export const Danger = {
 export const Custom = {
   args: {
     label: "Button",
-    default: () =>
-      h(
-        "figure",
-        { style: "margin: 0; width: 24px; height: 24px; display: grid; place-items: center" },
-        "🎉",
-      ),
+    default: () => h("figure", { style: "width: 1.5rem; height: 1.5rem;" }, "🎉"),
   },
 } satisfies Story;
 

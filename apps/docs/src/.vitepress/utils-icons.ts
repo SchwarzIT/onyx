@@ -1,4 +1,4 @@
-import { ICON_CATEGORIES } from "@sit-onyx/icons";
+import { ICON_CATEGORIES, getIconImportName } from "@sit-onyx/icons";
 import { capitalize } from "vue";
 
 export type EnrichedIcon = {
@@ -23,12 +23,7 @@ const getIconContextData = (iconName: string, allIconContents: Record<string, st
   // bell-disabled => `Bell Disabled`
   const tooltipName = parts.map((word) => capitalize(word)).join(" ");
   // bell-disabled => `bellDisabled`
-  const importName = parts
-    .map((word, index) => {
-      if (index === 0) return word;
-      return capitalize(word);
-    })
-    .join("");
+  const importName = getIconImportName(iconName);
   // svg content for OnyxIcon `icon` prop
   const content =
     allIconContents[`../../../node_modules/@sit-onyx/icons/src/assets/${iconName}.svg`];
