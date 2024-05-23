@@ -1,5 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { h } from "vue";
 import OnyxTable from "./OnyxTable.vue";
 
 /**
@@ -15,45 +16,38 @@ const meta: Meta<typeof OnyxTable> = {
         control: { disable: true },
       },
     },
-    render: (args) => ({
-      setup: () => ({ args }),
-      components: { OnyxTable },
-      template: `
-        <OnyxTable v-bind="args">
-          <thead>
-            <tr>
-              <th>Fruit</th> <th>Price (€/kg)</th> <th>Inventory (kg)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Strawberry</td> <td>4.50</td> <td>200</td>
-            </tr>
-            <tr>
-              <td>Apple</td> <td>1.99</td> <td>3000</td>
-            </tr>
-            <tr>
-              <td>Banana</td> <td>3.75</td> <td>18000</td>
-            </tr>
-          </tbody>
-        </OnyxTable>`,
-    }),
   }),
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxTable>;
 
+const getTableBody = () => {
+  return h("tbody", [
+    h("tr", [h("td", "Strawberry"), h("td", "4.50"), h("td", "200")]),
+    h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000")]),
+    h("tr", [h("td", "Banana"), h("td", "3.75"), h("td", "18000")]),
+  ]);
+};
+
 /**
  * This example shows a default table.
  */
-export const Default = { args: {} } satisfies Story;
+export const Default = {
+  args: {
+    default: () => [
+      h("thead", [h("tr", [h("th", "Fruit"), h("th", "Price (€/kg)"), h("th", "Inventory (kg)")])]),
+      getTableBody(),
+    ],
+  },
+} satisfies Story;
 
 /**
  * This example shows a striped table.
  */
 export const Striped = {
   args: {
+    ...Default.args,
     striped: true,
   },
 } satisfies Story;
@@ -63,6 +57,7 @@ export const Striped = {
  */
 export const GridBorders = {
   args: {
+    ...Default.args,
     grid: true,
   },
 } satisfies Story;
@@ -71,23 +66,7 @@ export const GridBorders = {
  * This example shows a table without a header.
  */
 export const WithoutHeader = {
-  args: {},
-  render: (args) => ({
-    setup: () => ({ args }),
-    components: { OnyxTable },
-    template: `
-      <OnyxTable v-bind="args">
-        <tbody>
-          <tr>
-            <td>Strawberry</td> <td>4.50</td> <td>200</td>
-          </tr>
-          <tr>
-            <td>Apple</td> <td>1.99</td> <td>3000</td>
-          </tr>
-          <tr>
-            <td>Banana</td> <td>3.75</td> <td>18000</td>
-          </tr>
-        </tbody>
-      </OnyxTable>`,
-  }),
+  args: {
+    default: () => getTableBody(),
+  },
 } satisfies Story;

@@ -113,6 +113,6 @@ export const Danger = {
 export const CustomContent = {
   args: {
     ...Default.args,
-    tooltip: () => h("div", [h("span", "This is "), h("b", "custom content")]),
+    tooltip: () => ["This is ", h("strong", "custom content")],
   },
 } satisfies Story;

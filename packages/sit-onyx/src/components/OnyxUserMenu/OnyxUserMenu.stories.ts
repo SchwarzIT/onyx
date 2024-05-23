@@ -40,7 +40,7 @@ export const Default = {
       { value: "/settings", label: "Settings", icon: settings },
       { value: "logout", label: "Logout", icon: logout, color: "danger" },
     ],
-    footer: () => h(() => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")]),
+    footer: () => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")],
   },
 } satisfies Story;
 
