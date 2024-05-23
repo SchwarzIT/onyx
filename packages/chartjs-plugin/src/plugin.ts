@@ -10,7 +10,7 @@ import {
   type ScaleOptionsByType,
   type ScaleTypeRegistry,
 } from "chart.js";
-import { getCSSVariableValue, hexToRgb } from "./utils";
+import { QUANTITATIVE_COLOR_STEPS, getCSSVariableValue, hexToRgb } from "./utils";
 
 /**
  * Registers the onyx Chart.js plugin and updates the default styles (colors, fonts etc.) to match
@@ -207,17 +207,9 @@ const colorizeDataset = (dataset: ChartDataset, offset = 0, allData = false) => 
 /**
  * Available colors to choose from for default dataset styles.
  */
-const COLORS = [
-  "--onyx-color-base-quantitatives-100",
-  "--onyx-color-base-quantitatives-200",
-  "--onyx-color-base-quantitatives-300",
-  "--onyx-color-base-quantitatives-400",
-  "--onyx-color-base-quantitatives-500",
-  "--onyx-color-base-quantitatives-600",
-  "--onyx-color-base-quantitatives-700",
-  "--onyx-color-base-quantitatives-800",
-  "--onyx-color-base-quantitatives-900",
-] as const;
+const COLORS = QUANTITATIVE_COLOR_STEPS.map(
+  (step) => `--onyx-color-base-quantitatives-${step}` as const,
+);
 
 /**
  * Gets a border color.

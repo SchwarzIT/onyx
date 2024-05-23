@@ -1,5 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { h } from "vue";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
 /**
@@ -37,10 +38,6 @@ const meta: Meta<typeof OnyxAppLayout> = {
           </div>`,
       }),
     ],
-    render: (args) => ({
-      setup: () => ({ args }),
-      ...getAppTemplate(args.navBarAlignment === "left"),
-    }),
   }),
 };
 
@@ -49,14 +46,33 @@ type Story = StoryObj<typeof OnyxAppLayout>;
 
 /** Standard app layout with a nav bar and some content. */
 export const Default = {
-  args: {},
+  args: {
+    default: () => h("div", "This is the page content."),
+    navBar: () =>
+      h(
+        "header",
+        {
+          style: "border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);",
+        },
+        "Nav bar",
+      ),
+  },
 } satisfies Story;
 
 /** App layout where the nav bar is left aligned. */
 export const LeftNav = {
   args: {
-    ...Default.args,
     navBarAlignment: "left",
+    default: () => h("div", "This is the page content."),
+    navBar: () =>
+      h(
+        "header",
+        {
+          style:
+            "border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300); height: 100%;",
+        },
+        "Nav bar",
+      ),
   },
 } satisfies Story;
 
@@ -64,60 +80,41 @@ export const LeftNav = {
 export const AppOverlay = {
   args: {
     ...Default.args,
+    appOverlay: () =>
+      h(
+        "div",
+        {
+          style: `background-color: var(--onyx-color-base-background-tinted);
+                  position: absolute;
+                  inset: 10rem;
+                  min-width: 5rem;
+                  min-height: 1rem;
+      `,
+        },
+        "This is an overlay that covers the whole app.",
+      ),
   },
-  render: (args) => ({
-    setup: () => ({ args }),
-    ...getAppTemplate(
-      args.navBarAlignment === "left",
-      `<template #appOverlay>
-          <div style="background-color: var(--onyx-color-base-background-tinted);
-                      position: absolute;
-                      inset: 10rem;
-                      min-width: 5rem;
-                      min-height: 1rem;">
-            This is an overlay that covers the whole app.
-          </div>
-        </template>`,
-    ),
-  }),
 } satisfies Story;
 
 /** Example of an overlay that covers the whole page section of an application. */
 export const PageOverlay = {
   args: {
     ...Default.args,
+    pageOverlay: () =>
+      h(
+        "div",
+        {
+          style: `backdrop-filter: blur(4px);
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              height: 100%;
+              align-items: center;`,
+        },
+        [
+          h("div", "This is an overlay that covers the page content."),
+          h("div", "The nav bar is excluded."),
+        ],
+      ),
   },
-  render: (args) => ({
-    setup: () => ({ args }),
-    ...getAppTemplate(
-      args.navBarAlignment === "left",
-      `<template #pageOverlay>
-          <div style="backdrop-filter: blur(4px);
-                      display: flex;
-                      flex-direction: column;
-                      justify-content: center;
-                      height: 100%;
-                      align-items: center;">
-            <div>This is an overlay that covers the page content.</div>
-            <div>The nav bar is excluded.</div>
-          </div>
-        </template>`,
-    ),
-  }),
 } satisfies Story;
-
-const getAppTemplate = (alignNavLeft: boolean, otherSlotContent?: string) => ({
-  components: { OnyxAppLayout },
-  template: `
-<OnyxAppLayout v-bind="args">
-  <template #navBar>
-    <div style="border-${alignNavLeft ? "right" : "bottom"}: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-                ${alignNavLeft ? "height: 100%" : ""}">
-      Nav bar
-    </div>
-  </template>
-  <div>This is the page content.</div>
-  ${otherSlotContent ?? ""}
-</OnyxAppLayout>
-`,
-});
