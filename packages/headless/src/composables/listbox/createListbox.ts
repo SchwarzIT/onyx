@@ -2,7 +2,6 @@ import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue"
 import { createId } from "../..";
 import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
 import { useTypeAhead } from "../typeAhead";
-import type { IsArray } from "../../utils/types";
 
 export type ListboxValue = string | number | boolean;
 
@@ -11,10 +10,6 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
    * Aria label for the listbox.
    */
   label: MaybeRef<string>;
-  /**
-   * Value of currently selected option.
-   */
-  selectedOption: Ref<IsArray<TValue, TMultiple> | undefined>;
   /**
    * Value of currently (visually) active option.
    */
