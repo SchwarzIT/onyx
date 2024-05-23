@@ -2,12 +2,12 @@
 
 $gridVariants: (
   // breakpoint columns gap page-padding (rem)
-  "2xs" 4 1rem 1,
-  "xs" 8 1rem 1,
-  "sm" 8 1.5rem 2,
-  "md" 12 1.5rem 4,
-  "lg" 16 2rem 4,
-  "xl" 16 2rem 4
+  "2xs" 4 1rem 1rem,
+  "xs" 8 1rem 1rem,
+  "sm" 8 1.5rem 2rem,
+  "md" 12 1.5rem 4rem,
+  "lg" 16 2rem 4rem,
+  "xl" 16 2rem 4rem
 );
 
 @layer onyx.utility {
@@ -20,10 +20,6 @@ $gridVariants: (
     gap: var(--onyx-grid-gap);
   }
 
-  :has(> .onyx-grid) {
-    container-type: inline-size;
-  }
-
   /**
   * Page class to apply padding, max-width and optional centered.
   * Is usually placed at the root element of every page.
@@ -34,31 +30,26 @@ $gridVariants: (
     margin-inline: var(--onyx-grid-margin-inline);
   }
 
+  @mixin define-breakpoint-styles($columns, $gap, $padding) {
+    .onyx-grid {
+      --onyx-grid-columns: #{$columns};
+      --onyx-grid-gap: #{$gap};
+    }
+
+    .onyx-page__content {
+      --onyx-grid-padding: #{$padding};
+    }
+  }
+
   /**
   * Generate styles for all grid variants/breakpoints.
   */
   @each $breakpoint, $columns, $gap, $padding in $gridVariants {
     @if $breakpoint == "2xs" {
-      .onyx-grid {
-        --onyx-grid-columns: #{$columns};
-        --onyx-grid-gap: #{$gap};
-      }
-
-      .onyx-page__content {
-        --onyx-grid-padding: #{$padding}rem;
-      }
+      @include define-breakpoint-styles($columns, $gap, $padding);
     } @else {
-      @include breakpoints.container(min, $breakpoint, $offset: -2 * $padding * 16px) {
-        .onyx-grid {
-          --onyx-grid-columns: #{$columns};
-          --onyx-grid-gap: #{$gap};
-        }
-      }
-
       @include breakpoints.screen(min, $breakpoint) {
-        .onyx-page__content {
-          --onyx-grid-padding: #{$padding}rem;
-        }
+        @include define-breakpoint-styles($columns, $gap, $padding);
       }
     }
   }
