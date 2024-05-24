@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "vue-tsc --build --force",
-    "test": "vitest --environment jsdom",
+    "test": "vitest",
     "test:components": "playwright install && playwright test"
   },
   "peerDependencies": {
