@@ -60,7 +60,7 @@ export type ListboxModelValue<
   TMultiple extends boolean = false,
 > = TMultiple extends true ? TValue[] : TValue;
 
-export type OnyxListboxProps<TValue extends ListboxValue> = DensityProp &
+export type OnyxListboxProps<TValue extends ListboxValue = ListboxValue> = DensityProp &
   ListboxModelValueProps<TValue> &
   ListboxSearchProps & {
     /**
@@ -90,7 +90,7 @@ export type OnyxListboxProps<TValue extends ListboxValue> = DensityProp &
     lazyLoading?: ListboxLazyLoading;
   };
 
-export type ListboxOption<TValue extends ListboxValue> = Pick<
+export type ListboxOption<TValue extends ListboxValue = ListboxValue> = Pick<
   SelectOption<TValue>,
   "value" | "label" | "disabled"
 > &

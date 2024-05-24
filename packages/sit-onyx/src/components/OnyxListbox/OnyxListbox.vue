@@ -1,6 +1,11 @@
-<script lang="ts" setup generic="TValue extends string = string">
+<script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
 import { useDensity } from "../../composables/density";
-import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
+import {
+  createComboBox,
+  createId,
+  type ComboboxAutoComplete,
+  type ListboxValue,
+} from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect, nextTick } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -87,14 +92,14 @@ watch(arrayValue, () => {
 });
 
 /** unique ID to identify the `select all` checkbox */
-const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
+const CHECK_ALL_ID = createId("ONYX_CHECK_ALL");
 
 /**
  * IDs of all options that can be navigated with the keyboard.
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
+  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID as TValue] : []).concat(
     enabledOptionValues.value,
   );
 });
@@ -163,7 +168,7 @@ const comboBox = createComboBox({
   label: props.label,
   listLabel: props.listLabel,
   inputValue: computed(() => (props.withSearch && props.searchTerm) || ""),
-  activeOption: computed(() => activeValue.value),
+  activeOption: computed(() => activeValue.value?.toString()),
   multiple: computed(() => props.multiple),
   isExpanded,
   onToggle,
@@ -290,7 +295,7 @@ watchEffect(() => {
                 <OnyxListboxOption
                   v-bind="
                     headlessOption({
-                      value: CHECK_ALL_ID as TValue,
+                      value: CHECK_ALL_ID,
                       label: checkAllLabel,
                       selected: checkAll?.state.value.modelValue,
                     })
@@ -307,10 +312,10 @@ watchEffect(() => {
 
               <OnyxListboxOption
                 v-for="option in options"
-                :key="option.value"
+                :key="option.value.toString()"
                 v-bind="
                   headlessOption({
-                    value: option.value,
+                    value: option.value.toString(),
                     label: option.label,
                     disabled: option.disabled,
                     selected: arrayValue.some(({ value }) => value === option.value),

@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import OnyxSelect from "./OnyxSelectInput.vue";
+import OnyxSelectInput from "./OnyxSelectInput.vue";
 import { MULTISELECT_TEXT_MODE } from "./types";
 
 test.describe("Screenshot tests", () => {
@@ -11,12 +11,12 @@ test.describe("Screenshot tests", () => {
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
-        <OnyxSelect
+        <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
-          modelValue={
+          selection={
             state === "with value" ? { label: "Selected value", value: "test-value" } : undefined
           }
         />
@@ -35,7 +35,7 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
-      <OnyxSelect
+      <OnyxSelectInput
         style="width: 16rem"
         label="Test label"
         hideLabel={column === "hideLabel"}
@@ -53,7 +53,7 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
-      <OnyxSelect
+      <OnyxSelectInput
         style="width: 16rem"
         label="Test label"
         placeholder="Test placeholder"
@@ -81,11 +81,11 @@ test.describe("Screenshot tests", () => {
       };
 
       return (
-        <OnyxSelect
+        <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
-          modelValue={modelValues[row].map((i) => ({ label: i, value: i }))}
-          multiple={{ textMode: column }}
+          selection={modelValues[row].map((i) => ({ label: i, value: i }))}
+          textMode={column}
         />
       );
     },
@@ -96,7 +96,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hideLabel"],
     columns: DENSITIES,
     component: (column, row) => (
-      <OnyxSelect
+      <OnyxSelectInput
         style="width: 16rem"
         label="Test label"
         density={column}
@@ -109,7 +109,9 @@ test.describe("Screenshot tests", () => {
 
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSelect style="width: 16rem" label="Test label" hideLabel />);
+  const component = await mount(
+    <OnyxSelectInput style="width: 16rem" label="Test label" hideLabel />,
+  );
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();

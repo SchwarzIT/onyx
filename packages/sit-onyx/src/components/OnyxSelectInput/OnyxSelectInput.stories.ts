@@ -3,15 +3,15 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { Default as ListboxDefaultStory } from "../OnyxListbox/OnyxListbox.stories";
 import OnyxSelectInput from "./OnyxSelectInput.vue";
 
-// TODO: description in figma is missing.
 /**
- * This is a select.
+ * This is the select element.
+ * Itself is readonly and only takes care of showing the selection.
  */
 const meta: Meta<typeof OnyxSelectInput> = {
   title: "support/SelectInput",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelectInput,
-    events: ["update:modelValue"],
+    events: ["update:selection"],
     decorators: [
       (story) => ({
         components: { story },
@@ -42,7 +42,7 @@ export const Default = {
 export const FilledSingleSelect = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    selection: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -53,8 +53,7 @@ export const FilledSingleSelect = {
 export const FilledMultiSelect = {
   args: {
     ...Default.args,
-    multiple: true,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 2),
+    selection: EXAMPLE_OPTIONS.slice(0, 2),
   },
 } satisfies Story;
 
@@ -65,8 +64,8 @@ export const FilledMultiSelect = {
 export const FilledMultiSelectPreview = {
   args: {
     ...FilledMultiSelect.args,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 5),
-    multiple: { textMode: "preview" },
+    selection: EXAMPLE_OPTIONS.slice(0, 5),
+    textMode: "preview",
   },
 } satisfies Story;
 
@@ -87,7 +86,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
-    modelValue: EXAMPLE_OPTIONS[0],
+    selection: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -107,7 +106,7 @@ export const Readonly = {
 export const Loading = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    selection: EXAMPLE_OPTIONS[0],
     loading: true,
   },
 } satisfies Story;
