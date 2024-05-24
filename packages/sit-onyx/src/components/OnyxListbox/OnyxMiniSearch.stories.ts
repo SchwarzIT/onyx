@@ -9,7 +9,7 @@ const meta: Meta<typeof OnyxMiniSearch> = {
   title: "support/MiniSearch",
   ...defineStorybookActionsAndVModels({
     component: OnyxMiniSearch,
-    events: ["clear"],
+    events: ["clear", "update:modelValue"],
     argTypes: {},
   }),
 };

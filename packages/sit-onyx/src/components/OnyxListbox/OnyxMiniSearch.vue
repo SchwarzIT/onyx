@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
 
-export type MiniSearchProps = { label: string };
+export type MiniSearchProps = { modelValue?: string; label: string };
 
 defineOptions({ inheritAttrs: false });
 
@@ -14,10 +14,19 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const props = defineProps<MiniSearchProps>();
 
 const emit = defineEmits<{
+  "update:modelValue": [input: string];
   clear: [];
 }>();
 
 const { t } = injectI18n();
+
+/**
+ * Current value (with getter and setter) that can be used as "v-model" for the native input.
+ */
+const value = computed({
+  get: () => props.modelValue,
+  set: (value) => emit("update:modelValue", value ?? ""),
+});
 
 const input = ref<HTMLInputElement>();
 
@@ -27,11 +36,12 @@ defineExpose({ focus: () => input.value?.focus() });
   <div class="onyx-mini-search" v-bind="rootAttrs">
     <input
       ref="input"
-      :aria-label="props.label"
-      v-bind="restAttrs"
+      v-model="value"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"
+      :aria-label="props.label"
+      v-bind="restAttrs"
     />
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
