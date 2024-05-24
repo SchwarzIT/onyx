@@ -7,4 +7,8 @@ export type OnyxNavAppAreaProps = {
    * Application name to show on the left.
    */
   appName?: string;
+  /**
+   * Describes the action that is taken on click.
+   */
+  label?: string;
 };

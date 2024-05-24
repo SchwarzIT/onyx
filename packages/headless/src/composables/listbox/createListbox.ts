@@ -5,23 +5,11 @@ import { useTypeAhead } from "../typeAhead";
 
 export type ListboxValue = string | number | boolean;
 
-export type ListboxModelValue<
-  TValue extends ListboxValue = ListboxValue,
-  TMultiple extends boolean = false,
-> = TMultiple extends true ? TValue[] : TValue;
-
-export type CreateListboxOptions<
-  TValue extends ListboxValue = ListboxValue,
-  TMultiple extends boolean = false,
-> = {
+export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends boolean = false> = {
   /**
    * Aria label for the listbox.
    */
   label: MaybeRef<string>;
-  /**
-   * Value of currently selected option.
-   */
-  selectedOption: Ref<ListboxModelValue<TValue, TMultiple> | undefined>;
   /**
    * Value of currently (visually) active option.
    */
@@ -58,15 +46,34 @@ export type CreateListboxOptions<
   /**
    * Hook when the first option starting with the given label should be activated.
    */
-  onTypeAhead?: (label: string) => void;
-};
+  onTypeAhead?: (key: string) => void;
+} & (
+  | {
+      /**
+       * Optional aria label for the listbox.
+       */
+      label?: MaybeRef<string>;
+      /**
+       * Wether the listbox is controlled from the outside, e.g. by a combobox.
+       * This disables keyboard events and makes the listbox not focusable.
+       */
+      controlled: true;
+    }
+  | {
+      /**
+       * Aria label for the listbox.
+       */
+      label: MaybeRef<string>;
+      controlled?: false;
+    }
+);
 
 /**
  * Composable for creating a accessibility-conform listbox.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
-  <TValue extends ListboxValue = ListboxValue, TMultiple extends boolean = false>(
+  <TValue extends ListboxValue, TMultiple extends boolean = false>(
     options: CreateListboxOptions<TValue, TMultiple>,
   ) => {
     const isMultiselect = computed(() => unref(options.multiple) ?? false);
@@ -178,23 +185,15 @@ export const createListbox = createBuilder(
           });
         }),
         option: computed(() => {
-          return (data: {
-            label: string;
-            value: TValue;
-            selected?: boolean;
-            disabled?: boolean;
-          }) => {
-            const isSelected = data.selected ?? false;
-            return {
+          return (data: { label: string; value: TValue; disabled?: boolean; selected?: boolean }) =>
+            ({
               id: getOptionId(data.value),
               role: "option",
               "aria-label": data.label,
-              "aria-checked": isMultiselect.value ? isSelected : undefined,
-              "aria-selected": !isMultiselect.value ? isSelected : undefined,
               "aria-disabled": data.disabled,
+              [isMultiselect.value ? "aria-checked" : "aria-selected"]: data.selected || false,
               onClick: () => !data.disabled && options.onSelect?.(data.value),
-            } as const;
-          };
+            }) as const;
         }),
       },
       state: {

@@ -27,9 +27,13 @@
     "searchInputLabel": "Filter the list items",
     "clearSearch": "Clear search filter"
   },
+  "link": {
+    "opensExternally": "Opens in a new tab."
+  },
   "navItemOptionsLabel": "Subpages of {label}",
   "navigation": {
-    "appLogo": "App logo",
+    "appLogo": "App logo of {appName}",
+    "goToHome": "Go to home page",
     "goBack": "Go back",
     "userMenuLabel": "User options"
   }

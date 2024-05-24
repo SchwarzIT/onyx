@@ -44,6 +44,7 @@ const { t } = injectI18n();
         v-if="props.appName || props.logoUrl || slots.appArea"
         :app-name="props.appName"
         :logo-url="props.logoUrl"
+        :label="props.appAreaLabel"
         @click="emit('appAreaClick')"
       >
         <slot name="appArea"></slot>

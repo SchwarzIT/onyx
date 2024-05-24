@@ -27,9 +27,13 @@
     "searchInputLabel": "Liste durchsuchen",
     "clearSearch": "Suchtext löschen"
   },
+  "link": {
+    "opensExternally": "Wird in einem neuen Tab geöffnet."
+  },
   "navItemOptionsLabel": "Unterseiten von {label}",
   "navigation": {
-    "appLogo": "App logo",
+    "appLogo": "App logo von {appName}",
+    "goToHome": "Gehe zur Startseite",
     "goBack": "Zurück",
     "userMenuLabel": "Benutzeroptionen"
   }
