@@ -4,6 +4,8 @@ import { computed } from "vue";
 import { isExternalLink } from "../../utils";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxLinkProps } from "./types";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",
@@ -24,6 +26,8 @@ defineSlots<{
   default(): unknown;
 }>();
 
+const { t } = injectI18n();
+
 const shouldShowExternalIcon = computed(() => {
   if (props.withExternalIcon !== "auto") return props.withExternalIcon;
   return isExternalLink(props.href);
@@ -39,6 +43,9 @@ const shouldShowExternalIcon = computed(() => {
     @click="emit('click')"
   >
     <slot></slot>
+    <OnyxVisuallyHidden v-if="props.target === '_blank'">
+      {{ t("link.opensExternally") }}
+    </OnyxVisuallyHidden>
     <OnyxIcon
       v-if="shouldShowExternalIcon"
       class="onyx-link__icon"
