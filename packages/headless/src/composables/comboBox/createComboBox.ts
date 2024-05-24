@@ -52,7 +52,7 @@ export type CreateComboboxOptions<
    */
   onToggle?: () => void;
   /**
-   * Hook when an option is selected.
+   * Hook when an option is (un-)selected.
    */
   onSelect?: (value: TValue) => void;
   /**
