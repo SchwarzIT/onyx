@@ -27,7 +27,7 @@ const emit = defineEmits<{
         :key="tab"
         :label="tab"
         mode="plain"
-        :color="props.modelValue === tab ? 'primary' : 'secondary'"
+        :color="props.modelValue === tab ? 'primary' : 'neutral'"
         density="compact"
         @click="emit('update:modelValue', tab)"
       />
