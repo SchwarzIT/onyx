@@ -9,7 +9,7 @@ const gridStore = useGridStore();
   <OnyxPageLayout>
     <img src="https://picsum.photos/1920" alt="Hero image" class="page__hero" />
 
-    <div class="onyx-page__content">
+    <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Grid demo page</OnyxHeadline>
 
       <form class="onyx-grid" @submit.prevent>

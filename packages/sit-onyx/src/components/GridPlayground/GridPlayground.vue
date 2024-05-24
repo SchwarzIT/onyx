@@ -120,7 +120,7 @@ const handleAddModifier = () => {
     ref="gridElement"
     :class="{
       'onyx-grid': true,
-      'onyx-page__content': true,
+      'onyx-grid-container': true,
       'onyx-grid-center': isCentered,
       'onyx-grid-xl-20': is20Xl,
       'onyx-grid-max-md': isMaxMd,

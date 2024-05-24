@@ -11,7 +11,7 @@ $gridVariants: (
     "xl"    16       2rem    4rem,
 );
 
-// offset 1 is used so the styles only apply to "grater than breakpoint"
+// offset 1 is used so the styles only apply to "greater than breakpoint"
 // so it does not jump around when the browser windows is resized by a few pixels
 $screenOffset: 1;
 
@@ -29,7 +29,7 @@ $screenOffset: 1;
   * Page class to apply padding, max-width and optional centered.
   * Is usually placed at the root element of every page.
   */
-  .onyx-page__content {
+  .onyx-grid-container {
     // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
     // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
     padding: var(--onyx-grid-margin);
@@ -89,7 +89,7 @@ $screenOffset: 1;
       --onyx-grid-gutter: #{$gap};
     }
 
-    .onyx-page__content {
+    .onyx-grid-container {
       --onyx-grid-margin: #{$padding};
     }
   }

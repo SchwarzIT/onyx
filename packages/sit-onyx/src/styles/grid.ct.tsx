@@ -177,7 +177,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
 
     await mount(
-      <main class={`onyx-page__content ${className}`} style={{ outline: "1px solid red" }}>
+      <main class={`onyx-grid-container ${className}`} style={{ outline: "1px solid red" }}>
         {createGridElement(1)}
       </main>,
     );
@@ -200,7 +200,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
 
     await mount(
       <main
-        class={`onyx-page__content ${className} onyx-grid-center`}
+        class={`onyx-grid-container ${className} onyx-grid-center`}
         style={{ outline: "1px solid red" }}
       >
         {createGridElement(1)}
