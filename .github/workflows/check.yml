@@ -3,6 +3,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+# cancel previous runs if new changes are pushed to the branch/PR
+# see: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-a-fallback-value
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     name: Check code quality
