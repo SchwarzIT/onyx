@@ -16,7 +16,6 @@ import {
   OnyxLoadingIndicator,
   OnyxPageLayout,
   OnyxRadioButtonGroup,
-  OnyxSelectInput,
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTable,
@@ -45,7 +44,6 @@ const COMPONENTS = [
   "OnyxListbox",
   "OnyxLoadingIndicator",
   "OnyxRadioButtonGroup",
-  "OnyxSelectInput",
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTable",
@@ -117,9 +115,6 @@ const groupedListboxOptions: ListboxOption[] = [
   { value: "falcon", label: "Falcon", group: "Air" },
   { value: "owl", label: "Owl", group: "Air" },
 ];
-
-const multiSelectState = ref(selectOptions.slice(0, 5));
-const singleSelectState = ref(selectOptions[0]);
 
 const timerEndDate = new Date();
 timerEndDate.setHours(timerEndDate.getHours() + 2);
@@ -229,30 +224,6 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
           />
           <div v-if="!useSkeleton" class="onyx-text--small state-info">
             OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
-          </div>
-        </template>
-
-        <template v-if="show('OnyxSelectInput')">
-          <OnyxSelectInput
-            v-model="singleSelectState"
-            label="Single Select"
-            placeholder="Select your fruits"
-            :skeleton="useSkeleton"
-            :options="selectOptions"
-          />
-          <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            OnyxSelectInput single state: {{ singleSelectState ?? "–" }}
-          </div>
-          <OnyxSelectInput
-            v-model="multiSelectState"
-            label="Multiple Select"
-            placeholder="Select your fruits"
-            multiple
-            :skeleton="useSkeleton"
-            :options="selectOptions"
-          />
-          <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            OnyxSelectInput multiple state: {{ multiSelectState ?? "–" }}
           </div>
         </template>
 
