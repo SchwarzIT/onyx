@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-alpha.112
+
+### Patch Changes
+
+- f0ca40c: fix(OnyxTextarea): support manual resize for readonly and disabled
+
+  If you want to disable manual resize you need to set the `disableManualResize` property
+
 ## 1.0.0-alpha.111
 
 ### Minor Changes
