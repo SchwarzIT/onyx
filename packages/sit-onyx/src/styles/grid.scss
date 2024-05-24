@@ -84,12 +84,9 @@ $screenOffset: 1;
   * Defines the grid and page content styles for a given breakpoint.
   */
   @mixin define-breakpoint-styles($columns, $gap, $padding) {
-    .onyx-grid {
+    :root {
       --onyx-grid-columns: #{$columns};
       --onyx-grid-gutter: #{$gap};
-    }
-
-    .onyx-grid-container {
       --onyx-grid-margin: #{$padding};
     }
   }
