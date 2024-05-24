@@ -2,6 +2,7 @@ import type { ListboxValue } from "@sit-onyx/headless";
 import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 
 export type ListboxSearchProps =
   | {
@@ -62,7 +63,8 @@ export type ListboxModelValue<
 
 export type OnyxListboxProps<TValue extends ListboxValue = ListboxValue> = DensityProp &
   ListboxModelValueProps<TValue> &
-  ListboxSearchProps & {
+  ListboxSearchProps &
+  Omit<OnyxSelectInputProps<TValue>, "density"> & {
     /**
      * Aria label. Must be set for accessibility reasons.
      */
@@ -75,14 +77,6 @@ export type OnyxListboxProps<TValue extends ListboxValue = ListboxValue> = Densi
      * Available options to choose from.
      */
     options: ListboxOption<TValue>[];
-    /**
-     * Message / help text to display at the bottom.
-     */
-    message?: string;
-    /**
-     * Whether to show a loading indicator.
-     */
-    loading?: boolean;
     /**
      * Lazy loading options. Can be used to load more options on scroll.
      * If you want to use a button instead, use the `optionsEnd` slot.

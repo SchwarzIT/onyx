@@ -1,4 +1,5 @@
 <script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
+// TODO: rename to OnyxSelect and promote from support component to actual component
 import { useDensity } from "../../composables/density";
 import {
   createComboBox,
@@ -104,11 +105,14 @@ const allKeyboardOptionIds = computed(() => {
   );
 });
 
-const onToggle = () => {
+const onToggle = async () => {
   isExpanded.value = !isExpanded.value;
   if (!isExpanded.value) {
     emit("update:searchTerm", "");
     selectInput.value?.focus();
+  } else if (props.withSearch) {
+    await nextTick();
+    miniSearch.value?.focus();
   }
 };
 
@@ -138,6 +142,7 @@ const onTypeAhead = (label: string) => {
 
 const onAutocomplete = (inputValue: string) => emit("update:searchTerm", inputValue);
 
+// TODO: ensure focus stays in search field when selecting with click
 const onSelect = (selectedOption: string) => {
   if (selectedOption === CHECK_ALL_ID) {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
@@ -247,7 +252,14 @@ watchEffect(() => {
       :label="props.label"
       :loading="props.loading"
       :selection="props.modelValue as ListboxOption"
+      :hide-label="props.hideLabel"
+      :disabled="props.disabled"
       :multiple="props.multiple"
+      :message="props.message"
+      :placeholder="props.placeholder"
+      :required="props.required"
+      :required-marker="props.requiredMarker"
+      :density="props.density"
       v-bind="props.withSearch ? { onKeydown: input.onKeydown } : input"
       @click="onToggle"
     />
@@ -266,7 +278,7 @@ watchEffect(() => {
           @clear="emit('update:searchTerm', '')"
         />
 
-        <ul v-if="isEmptyMessage" role="group" aria-label="" class="onyx-listbox__group">
+        <ul v-if="isEmptyMessage" role="group" class="onyx-listbox__group">
           <li role="option" aria-selected="false">
             <slot name="empty" :default-message="isEmptyMessage">
               <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>

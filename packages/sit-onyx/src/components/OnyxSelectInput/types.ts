@@ -57,6 +57,7 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
     skeleton?: boolean;
     /**
      * Whether the select should be readonly.
+     * TODO: Needs to be implemented
      */
     readonly?: boolean;
     /**
