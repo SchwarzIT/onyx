@@ -98,7 +98,7 @@ test("should be aligned with the grid in a full app layout", async ({ page, moun
       </OnyxNavBar>
 
       <OnyxPageLayout>
-        <div class="onyx-grid">
+        <div class="onyx-grid-container onyx-grid">
           <div
             class="onyx-grid-span-16"
             style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}
