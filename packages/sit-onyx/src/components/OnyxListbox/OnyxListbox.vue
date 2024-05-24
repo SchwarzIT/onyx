@@ -92,7 +92,6 @@ const {
 } = createListbox({
   label: computed(() => props.label),
   multiple: computed(() => !!props.multiple),
-  selectedOption: computed(() => props.modelValue),
   activeOption,
   onSelect: (selectedOption) => {
     if (selectedOption === CHECK_ALL_ID) {

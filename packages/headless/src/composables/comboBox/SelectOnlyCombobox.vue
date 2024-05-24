@@ -4,39 +4,35 @@ import { createComboBox } from "./createComboBox";
 
 const options = ["a", "b", "c", "d"];
 const isExpanded = ref(false);
-const searchTerm = ref("");
 const activeOption = ref("");
-const filteredOptions = computed(() => options.filter((v) => v.includes(searchTerm.value)));
+const selectedOption = ref("");
 const selectedIndex = computed<number | undefined>(() => {
-  const index = filteredOptions.value.indexOf(activeOption.value);
+  const index = options.indexOf(activeOption.value);
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeOption.value = filteredOptions.value[0]);
-const onActivateLast = () =>
-  (activeOption.value = filteredOptions.value[filteredOptions.value.length - 1]);
+const onActivateFirst = () => (activeOption.value = options[0]);
+const onActivateLast = () => (activeOption.value = options[options.length - 1]);
 const onActivateNext = () => {
   if (selectedIndex.value === undefined) {
     return onActivateFirst();
   }
-  activeOption.value =
-    filteredOptions.value[selectedIndex.value + (1 % (filteredOptions.value.length - 1))];
+  activeOption.value = options[selectedIndex.value + (1 % (options.length - 1))];
 };
-const onActivatePrevious = () =>
-  (activeOption.value = filteredOptions.value[(selectedIndex.value ?? 0) - 1]);
-const onSelect = (newValue: string) => (searchTerm.value = newValue);
-const onAutocomplete = (input: string) => (searchTerm.value = input);
+const onActivatePrevious = () => (activeOption.value = options[(selectedIndex.value ?? 0) - 1]);
+const onSelect = (newValue: string) => (selectedOption.value = newValue);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
+const onTypeAhead = () => {};
 
 const comboBox = createComboBox({
-  inputValue: searchTerm,
-  autocomplete: "list",
+  inputValue: selectedOption,
+  autocomplete: "none",
   label: "some label",
   listLabel: "List",
   activeOption,
   isExpanded,
   onToggle,
-  onAutocomplete,
+  onTypeAhead,
   onActivateFirst,
   onActivateLast,
   onActivateNext,
@@ -52,7 +48,7 @@ defineExpose({ comboBox });
 </script>
 <template>
   <div>
-    <input v-bind="input" @keydown.arrow-down="isExpanded = true" />
+    <input v-bind="input" readonly @keydown.arrow-down="isExpanded = true" />
 
     <button v-bind="button">
       <template v-if="isExpanded">⬆️</template>
@@ -60,10 +56,10 @@ defineExpose({ comboBox });
     </button>
     <ul v-bind="listbox" :class="{ hidden: !isExpanded }" style="width: 400px">
       <li
-        v-for="e in filteredOptions"
+        v-for="e in options"
         :key="e"
-        v-bind="option({ value: e, label: e, disabled: false })"
-        :style="{ 'background-color': e === activeOption ? 'red' : undefined }"
+        v-bind="option({ value: e, label: e, disabled: false, selected: e === selectedOption })"
+        :class="{ active: e === activeOption }"
       >
         {{ e }}
       </li>
@@ -73,5 +69,11 @@ defineExpose({ comboBox });
 <style>
 .hidden {
   display: none;
+}
+.active {
+  outline: 2px solid black;
+}
+[aria-selected="true"] {
+  background-color: red;
 }
 </style>
