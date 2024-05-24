@@ -219,7 +219,6 @@ const handleInput = (event: Event) => {
       @include define-shared-autosize-styles;
       resize: vertical;
 
-      &:read-only,
       &--no-resize {
         resize: none;
       }
