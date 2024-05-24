@@ -92,6 +92,9 @@ export * from "./components/OnyxTag/types";
 export { default as OnyxUserMenu } from "./components/OnyxUserMenu/OnyxUserMenu.vue";
 export * from "./components/OnyxUserMenu/types";
 
+export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+export * from "./components/OnyxVisuallyHidden/types";
+
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
 export * from "./types";
