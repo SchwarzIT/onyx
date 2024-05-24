@@ -33,7 +33,6 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
       listLabel: "Test listbox list label",
-      multiple: false,
       modelValue,
     },
     on: {
