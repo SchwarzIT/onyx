@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, useAttrs, type HtmlHTMLAttributes, ref } from "vue";
+import { ref } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { injectI18n } from "../../i18n";
+import { useRootAttrs } from "../../utils/attrs";
 
 export type MiniSearchProps = { label: string };
 
 defineOptions({ inheritAttrs: false });
 
-const attrs = useAttrs();
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = defineProps<MiniSearchProps>();
 
@@ -17,21 +18,6 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
-
-const rootAttrs = computed(
-  () =>
-    ({ class: attrs["class"], style: attrs["style"] }) as Pick<
-      HtmlHTMLAttributes,
-      "class" | "style"
-    >,
-);
-
-const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
-  const rest = { ...attrs };
-  delete rest.class;
-  delete rest.style;
-  return rest;
-});
 
 const input = ref<HTMLInputElement>();
 
@@ -42,7 +28,7 @@ defineExpose({ focus: () => input.value?.focus() });
     <input
       ref="input"
       :aria-label="props.label"
-      v-bind="inputAttrs"
+      v-bind="restAttrs"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"

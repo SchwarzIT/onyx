@@ -10,8 +10,10 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import { useRootAttrs } from "../../utils/attrs";
 
 defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
@@ -61,35 +63,44 @@ const input = ref<HTMLInputElement>();
 defineExpose({ focus: () => input.value?.focus() });
 </script>
 <template>
-  <div v-if="props.skeleton" :class="['onyx-select-skeleton', densityClass]">
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-skeleton__label" />
-    <OnyxSkeleton class="onyx-select-skeleton__input" />
+  <div
+    v-if="props.skeleton"
+    :class="['onyx-select-input-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
+    <OnyxSkeleton class="onyx-select-input-skeleton__input" />
   </div>
 
   <div
     v-else
     :class="[
-      'onyx-select',
+      'onyx-select-input',
       requiredTypeClass,
       densityClass,
-      props.readonly ? 'onyx-select--readonly' : 'onyx-select--editable',
+      props.readonly ? 'onyx-select-input--readonly' : 'onyx-select-input--editable',
     ]"
+    v-bind="rootAttrs"
   >
     <label>
       <div
         v-if="!props.hideLabel"
-        :class="['onyx-select__label', 'onyx-text--small', requiredMarkerClass]"
+        :class="['onyx-select-input__label', 'onyx-text--small', requiredMarkerClass]"
       >
         <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
       </div>
 
-      <div class="onyx-select__wrapper">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-select__loading" type="circle" />
+      <div class="onyx-select-input__wrapper">
+        <OnyxLoadingIndicator
+          v-if="props.loading"
+          class="onyx-select-input__loading"
+          type="circle"
+        />
 
         <input
           ref="input"
           :value="selectionText"
-          class="onyx-select__input onyx-truncation-ellipsis"
+          class="onyx-select-input__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
           type="text"
           :required="props.required"
@@ -97,7 +108,7 @@ defineExpose({ focus: () => input.value?.focus() });
           :disabled="props.disabled || props.loading"
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
-          v-bind="$attrs"
+          v-bind="restAttrs"
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input
@@ -108,18 +119,25 @@ defineExpose({ focus: () => input.value?.focus() });
           :text="selectionText"
           position="bottom"
         >
-          <OnyxBadge class="onyx-select__badge" color="neutral">
+          <OnyxBadge class="onyx-select-input__badge" color="neutral">
             {{ selectionCount }}
           </OnyxBadge>
         </OnyxTooltip>
 
-        <button class="onyx-select__button" tabindex="-1">
+        <button
+          class="onyx-select-input__button"
+          :aria-label="t('select.toggleDropDown')"
+          tabindex="-1"
+        >
           <OnyxIcon :icon="chevronDownUp" />
         </button>
       </div>
     </label>
 
-    <div v-if="props.message" class="onyx-select__footer onyx-text--small onyx-truncation-ellipsis">
+    <div
+      v-if="props.message"
+      class="onyx-select-input__footer onyx-text--small onyx-truncation-ellipsis"
+    >
       {{ props.message }}
     </div>
   </div>
@@ -129,22 +147,22 @@ defineExpose({ focus: () => input.value?.focus() });
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
 
-.onyx-select,
-.onyx-select-skeleton {
+.onyx-select-input,
+.onyx-select-input-skeleton {
   @include density.compact {
-    --onyx-select-padding-vertical: var(--onyx-spacing-4xs);
+    --onyx-select-input-padding-vertical: var(--onyx-spacing-4xs);
   }
 
   @include density.default {
-    --onyx-select-padding-vertical: var(--onyx-spacing-2xs);
+    --onyx-select-input-padding-vertical: var(--onyx-spacing-2xs);
   }
 
   @include density.cozy {
-    --onyx-select-padding-vertical: var(--onyx-spacing-sm);
+    --onyx-select-input-padding-vertical: var(--onyx-spacing-sm);
   }
 }
 
-.onyx-select {
+.onyx-select-input {
   @include layers.component() {
     $line-height: 1.5rem;
 
@@ -189,8 +207,8 @@ defineExpose({ focus: () => input.value?.focus() });
 
       box-sizing: border-box;
 
-      padding: var(--onyx-select-padding-vertical) var(--onyx-spacing-sm);
-      height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
+      padding: var(--onyx-select-input-padding-vertical) var(--onyx-spacing-sm);
+      height: calc($line-height + 2 * var(--onyx-select-input-padding-vertical));
     }
 
     &__input {
@@ -245,7 +263,7 @@ defineExpose({ focus: () => input.value?.focus() });
       }
       // default focus
       &:has(.onyx-select__input:enabled:focus) {
-        .onyx-select {
+        .onyx-select-input {
           &__wrapper {
             --border-color: var(--onyx-color-base-primary-500);
             outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
@@ -265,7 +283,7 @@ defineExpose({ focus: () => input.value?.focus() });
 
     &:has(&__input:disabled),
     &--readonly {
-      .onyx-select {
+      .onyx-select-input {
         &__label {
           color: var(--onyx-color-text-icons-neutral-soft);
         }
@@ -294,7 +312,7 @@ defineExpose({ focus: () => input.value?.focus() });
       }
       &__input {
         width: 17rem;
-        height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
+        height: calc($line-height + 2 * var(--onyx-select-input-padding-vertical));
       }
     }
   }

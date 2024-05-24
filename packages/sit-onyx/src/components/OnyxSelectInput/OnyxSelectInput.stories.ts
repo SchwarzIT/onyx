@@ -11,7 +11,7 @@ const meta: Meta<typeof OnyxSelectInput> = {
   title: "support/SelectInput",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelectInput,
-    events: ["update:selection"],
+    events: [],
     decorators: [
       (story) => ({
         components: { story },
