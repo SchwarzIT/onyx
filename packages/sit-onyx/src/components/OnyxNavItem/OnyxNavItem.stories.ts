@@ -65,7 +65,7 @@ export const WithOptions = {
 export const WithCustomContent = {
   args: {
     ...Default.args,
-    default: () => ["Custom label", h(OnyxBadge, { dot: true, variation: "warning" })],
+    default: () => ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
   },
 } satisfies Story;
 
