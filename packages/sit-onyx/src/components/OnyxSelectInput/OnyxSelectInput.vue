@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed, ref } from "vue";
+import { computed, ref, useAttrs, type HtmlHTMLAttributes } from "vue";
 import type { OnyxSelectProps } from "./types";
 import { useDensity, type SelectOptionValue } from "../..";
 import { useRequired } from "../../composables/required";
@@ -12,6 +12,8 @@ import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
 defineOptions({ inheritAttrs: false });
+
+const attrs = useAttrs();
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
@@ -53,6 +55,21 @@ const selectionText = computed<string>(() => {
   return props.selection?.label ?? "";
 });
 
+const rootAttrs = computed(
+  () =>
+    ({ class: attrs["class"], style: attrs["style"] }) as Pick<
+      HtmlHTMLAttributes,
+      "class" | "style"
+    >,
+);
+
+const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
+  const rest = { ...attrs };
+  delete rest.class;
+  delete rest.style;
+  return rest;
+});
+
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
@@ -61,7 +78,11 @@ const input = ref<HTMLInputElement>();
 defineExpose({ focus: () => input.value?.focus() });
 </script>
 <template>
-  <div v-if="props.skeleton" :class="['onyx-select-input-skeleton', densityClass]">
+  <div
+    v-if="props.skeleton"
+    :class="['onyx-select-input-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
     <OnyxSkeleton class="onyx-select-input-skeleton__input" />
   </div>
@@ -74,6 +95,7 @@ defineExpose({ focus: () => input.value?.focus() });
       densityClass,
       props.readonly ? 'onyx-select-input--readonly' : 'onyx-select-input--editable',
     ]"
+    v-bind="rootAttrs"
   >
     <label>
       <div
@@ -101,7 +123,7 @@ defineExpose({ focus: () => input.value?.focus() });
           :disabled="props.disabled || props.loading"
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
-          v-bind="$attrs"
+          v-bind="inputAttrs"
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input
