@@ -34,7 +34,7 @@ export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValu
   "value" | "label"
 >;
 
-export type OnyxSelectProps<TValue extends SelectOptionValue> = DensityProp &
+export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp &
   RequiredMarkerProp &
   SelectionInput<TValue> & {
     /**

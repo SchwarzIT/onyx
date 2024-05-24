@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref } from "vue";
-import type { OnyxSelectProps } from "./types";
+import type { OnyxSelectInputProps } from "./types";
 import { useDensity, type SelectOptionValue } from "../..";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
@@ -15,7 +15,7 @@ import { useRootAttrs } from "../../utils/attrs";
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectInputProps<TValue>>(), {
   hideLabel: false,
   loading: false,
   skeleton: false,
