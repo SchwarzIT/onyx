@@ -109,7 +109,6 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
         );
 
         const screenshot = await getScreenshot(wrappedElement, column, row);
-        await page.waitForTimeout(1000000);
         screenshots.push(screenshot);
       }
     }

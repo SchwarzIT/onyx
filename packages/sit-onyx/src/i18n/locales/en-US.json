@@ -18,7 +18,7 @@
     }
   },
   "select": {
-    "toggleDropDown": "Toggle Dropdown"
+    "toggleDropDown": "Toggle selection popover"
   },
   "selections": {
     "selectAll": "Select all",
