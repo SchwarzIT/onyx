@@ -10,8 +10,6 @@ export const debounce = <TArgs extends unknown[]>(
   let timer: ReturnType<typeof setTimeout> | undefined;
   return (...lastArgs: TArgs) => {
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      handler(...lastArgs);
-    }, timeout);
+    timer = setTimeout(() => handler(...lastArgs), timeout);
   };
 };
