@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.111
+
+### Minor Changes
+
+- d1984e2: Added OnyxVisuallyHidden support component
+
 ## 1.0.0-alpha.110
 
 ### Patch Changes
