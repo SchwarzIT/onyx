@@ -17,6 +17,9 @@
       "url": "\"{value}\" must a valid URL."
     }
   },
+  "select": {
+    "toggleDropDown": "Toggle selection popover"
+  },
   "selections": {
     "selectAll": "Select all",
     "currentSelection": "{n} selected"

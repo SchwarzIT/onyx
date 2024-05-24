@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxListbox, OnyxSelect, type SelectOption } from "sit-onyx";
+import { OnyxListbox, OnyxSelectInput, type SelectOption } from "sit-onyx";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { fetchVersions } from "../utils/versions";
 
@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="version" @click.stop>
-    <OnyxSelect
+    <OnyxSelectInput
       :label="props.label"
       placeholder="Select version"
       :model-value="version ? { label: version, value: version } : undefined"

@@ -1,17 +1,17 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { Default as ListboxDefaultStory } from "../OnyxListbox/OnyxListbox.stories";
-import OnyxSelect from "./OnyxSelect.vue";
+import OnyxSelectInput from "./OnyxSelectInput.vue";
 
-// TODO: description in figma is missing.
 /**
- * This is a select.
+ * This is the select element.
+ * Itself is readonly and only takes care of showing the selection.
  */
-const meta: Meta<typeof OnyxSelect> = {
-  title: "components/Select",
+const meta: Meta<typeof OnyxSelectInput> = {
+  title: "support/SelectInput",
   ...defineStorybookActionsAndVModels({
-    component: OnyxSelect,
-    events: ["update:modelValue"],
+    component: OnyxSelectInput,
+    events: [],
     decorators: [
       (story) => ({
         components: { story },
@@ -22,7 +22,7 @@ const meta: Meta<typeof OnyxSelect> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxSelect>;
+type Story = StoryObj<typeof OnyxSelectInput>;
 
 const EXAMPLE_OPTIONS = ListboxDefaultStory.args.options;
 
@@ -32,7 +32,6 @@ const EXAMPLE_OPTIONS = ListboxDefaultStory.args.options;
 export const Default = {
   args: {
     label: "Fruits",
-    options: EXAMPLE_OPTIONS,
     placeholder: "Select your fruits",
   },
 } satisfies Story;
@@ -43,7 +42,7 @@ export const Default = {
 export const FilledSingleSelect = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    selection: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -54,8 +53,7 @@ export const FilledSingleSelect = {
 export const FilledMultiSelect = {
   args: {
     ...Default.args,
-    multiple: true,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 2),
+    selection: EXAMPLE_OPTIONS.slice(0, 2),
   },
 } satisfies Story;
 
@@ -66,8 +64,8 @@ export const FilledMultiSelect = {
 export const FilledMultiSelectPreview = {
   args: {
     ...FilledMultiSelect.args,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 5),
-    multiple: { textMode: "preview" },
+    selection: EXAMPLE_OPTIONS.slice(0, 5),
+    textMode: "preview",
   },
 } satisfies Story;
 
@@ -88,7 +86,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
-    modelValue: EXAMPLE_OPTIONS[0],
+    selection: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -108,7 +106,7 @@ export const Readonly = {
 export const Loading = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    selection: EXAMPLE_OPTIONS[0],
     loading: true,
   },
 } satisfies Story;

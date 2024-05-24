@@ -1,25 +1,24 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import OnyxSelect from "./OnyxSelect.vue";
+import OnyxSelectInput from "./OnyxSelectInput.vue";
 import { MULTISELECT_TEXT_MODE } from "./types";
 
 test.describe("Screenshot tests", () => {
   for (const state of ["default", "placeholder", "with value"] as const) {
     executeMatrixScreenshotTest({
-      name: `Select (${state})`,
+      name: `SelectInput (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
-        <OnyxSelect
+        <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
-          modelValue={
+          selection={
             state === "with value" ? { label: "Selected value", value: "test-value" } : undefined
           }
-          options={[]}
         />
       ),
       beforeScreenshot: async (component, page, column, row) => {
@@ -30,39 +29,37 @@ test.describe("Screenshot tests", () => {
   }
 
   executeMatrixScreenshotTest({
-    name: "Select (other)",
+    name: "SelectInput (other)",
     columns: ["default", "hideLabel"],
     rows: ["required", "optional", "message"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
-      <OnyxSelect
+      <OnyxSelectInput
         style="width: 16rem"
         label="Test label"
         hideLabel={column === "hideLabel"}
         required={row === "required"}
         requiredMarker={row === "optional" ? "optional" : undefined}
         message={row === "message" ? "Test message" : undefined}
-        options={[]}
       />
     ),
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (readonly, disabled, loading)",
+    name: "SelectInput (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
     rows: ["default", "hover", "focus-visible"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
-      <OnyxSelect
+      <OnyxSelectInput
         style="width: 16rem"
         label="Test label"
         placeholder="Test placeholder"
         readonly={column === "readonly"}
         disabled={column === "disabled"}
         loading={column === "loading"}
-        options={[]}
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -72,7 +69,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (multiple)",
+    name: "SelectInput (multiple)",
     columns: MULTISELECT_TEXT_MODE,
     rows: ["empty", "one-value", "two-values", "many-values"],
     component: (column, row) => {
@@ -84,28 +81,26 @@ test.describe("Screenshot tests", () => {
       };
 
       return (
-        <OnyxSelect
+        <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
-          modelValue={modelValues[row].map((i) => ({ label: i, value: i }))}
-          multiple={{ textMode: column }}
-          options={[]}
+          selection={modelValues[row].map((i) => ({ label: i, value: i }))}
+          textMode={column}
         />
       );
     },
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (skeleton)",
+    name: "SelectInput (skeleton)",
     rows: ["default", "hideLabel"],
     columns: DENSITIES,
     component: (column, row) => (
-      <OnyxSelect
+      <OnyxSelectInput
         style="width: 16rem"
         label="Test label"
         density={column}
         hideLabel={row === "hideLabel"}
-        options={[]}
         skeleton
       />
     ),
@@ -115,7 +110,7 @@ test.describe("Screenshot tests", () => {
 test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxSelect style="width: 16rem" label="Test label" options={[]} hideLabel />,
+    <OnyxSelectInput style="width: 16rem" label="Test label" hideLabel />,
   );
 
   // ACT
