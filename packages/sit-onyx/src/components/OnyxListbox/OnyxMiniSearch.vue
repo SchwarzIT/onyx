@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, useAttrs, type HtmlHTMLAttributes } from "vue";
+import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { injectI18n } from "../../i18n";
+import { useRootAttrs } from "../../utils/attrs";
 
 export type MiniSearchProps = { modelValue: string; label: string };
 
 defineOptions({ inheritAttrs: false });
 
-const attrs = useAttrs();
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = defineProps<MiniSearchProps>();
 
@@ -25,28 +26,13 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-
-const rootAttrs = computed(
-  () =>
-    ({ class: attrs["class"], style: attrs["style"] }) as Pick<
-      HtmlHTMLAttributes,
-      "class" | "style"
-    >,
-);
-
-const inputAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
-  const rest = { ...attrs };
-  delete rest.class;
-  delete rest.style;
-  return rest;
-});
 </script>
 <template>
   <div class="onyx-mini-search" v-bind="rootAttrs">
     <input
       v-model="value"
       :aria-label="props.label"
-      v-bind="inputAttrs"
+      v-bind="restAttrs"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"
