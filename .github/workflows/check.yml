@@ -3,6 +3,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+# cancel previous runs if new changes are pushed to the branch/PR
+# see: https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     name: Check code quality

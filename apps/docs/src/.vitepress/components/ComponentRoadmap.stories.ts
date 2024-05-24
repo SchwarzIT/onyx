@@ -13,17 +13,14 @@ const meta: Meta<typeof ComponentRoadmap> = {
 export default meta;
 type Story = StoryObj<typeof ComponentRoadmap>;
 
-const today = new Date();
-
 export const Default = {
   args: {
     components: Array.from({ length: 25 }, (_, index) => {
       const id = index + 1;
-
       return {
         name: `Component ${id}`,
         status: id % 2 === 0 ? "in-progress" : "implemented",
-        dueDate: id % 2 === 0 ? new Date(today.getFullYear(), today.getMonth() + index) : undefined,
+        dueDate: "Q2 2024",
         href: "#",
       };
     }),
