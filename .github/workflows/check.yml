@@ -5,6 +5,7 @@ on:
 
 # cancel previous runs if new changes are pushed to the branch/PR
 # see: https://stackoverflow.com/a/72408109
+# test
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
