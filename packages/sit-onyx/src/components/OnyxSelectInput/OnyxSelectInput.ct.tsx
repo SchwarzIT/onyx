@@ -7,7 +7,7 @@ import { MULTISELECT_TEXT_MODE } from "./types";
 test.describe("Screenshot tests", () => {
   for (const state of ["default", "placeholder", "with value"] as const) {
     executeMatrixScreenshotTest({
-      name: `Select (${state})`,
+      name: `SelectInput (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
@@ -29,7 +29,7 @@ test.describe("Screenshot tests", () => {
   }
 
   executeMatrixScreenshotTest({
-    name: "Select (other)",
+    name: "SelectInput (other)",
     columns: ["default", "hideLabel"],
     rows: ["required", "optional", "message"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -47,7 +47,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (readonly, disabled, loading)",
+    name: "SelectInput (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
     rows: ["default", "hover", "focus-visible"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -69,7 +69,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (multiple)",
+    name: "SelectInput (multiple)",
     columns: MULTISELECT_TEXT_MODE,
     rows: ["empty", "one-value", "two-values", "many-values"],
     component: (column, row) => {
@@ -92,7 +92,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Select (skeleton)",
+    name: "SelectInput (skeleton)",
     rows: ["default", "hideLabel"],
     columns: DENSITIES,
     component: (column, row) => (
