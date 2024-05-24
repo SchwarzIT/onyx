@@ -1,4 +1,5 @@
-<script lang="ts" setup generic="TValue extends string = string">
+<script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
+import type { ListboxValue } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import { injectI18n } from "../../i18n";
