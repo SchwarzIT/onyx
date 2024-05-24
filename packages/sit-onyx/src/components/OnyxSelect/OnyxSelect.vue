@@ -303,16 +303,6 @@ const { densityClass } = useDensity(props);
         height: calc($line-height + 2 * var(--onyx-select-padding-vertical));
       }
     }
-
-    // TODO: remove badge styles once OnyxBadge is implemented
-    //       https://github.com/SchwarzIT/onyx/issues/565
-    .onyx-badge {
-      text-align: center;
-      padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
-      border-radius: var(--onyx-radius-full);
-      background: var(--onyx-color-base-neutral-700);
-      color: var(--onyx-color-text-icons-neutral-inverted);
-    }
   }
 }
 </style>
