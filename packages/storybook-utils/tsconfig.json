@@ -2,7 +2,7 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["src", "svg.d.ts"],
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "rootDir": "./src",
     "baseUrl": "."
   }
