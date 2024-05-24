@@ -56,7 +56,7 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
       height: 400,
     });
     await mount(
-      <main class="onyx-grid" style={{ outline: "1px solid red" }}>
+      <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
         {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
       </main>,
     );
@@ -80,7 +80,10 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
       height: 400,
     });
     await mount(
-      <main class="onyx-grid onyx-grid-max-md" style={{ outline: "1px solid red" }}>
+      <main
+        class="onyx-grid onyx-grid-container onyx-grid-max-md"
+        style={{ outline: "1px solid red" }}
+      >
         {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
       </main>,
     );
@@ -103,7 +106,10 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
       height: 400,
     });
     await mount(
-      <main class="onyx-grid onyx-grid-max-lg" style={{ outline: "1px solid red" }}>
+      <main
+        class="onyx-grid onyx-grid-container onyx-grid-max-lg"
+        style={{ outline: "1px solid red" }}
+      >
         {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
       </main>,
     );
@@ -126,7 +132,7 @@ Object.entries(GRID_COLUMNS).forEach(([name], i) => {
       height: 400,
     });
     await mount(
-      <main class="onyx-grid" style={{ outline: "1px solid red" }}>
+      <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
         {createGridElement(
           NaN,
           `onyx-grid-span-16 onyx-grid-2xs-span-1 onyx-grid-xs-span-2 onyx-grid-sm-span-3 onyx-grid-md-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
@@ -148,7 +154,7 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
     height: 400,
   });
   await mount(
-    <main class="onyx-grid" style={{ outline: "1px solid red" }}>
+    <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
       {createGridElement(
         NaN,
         `onyx-grid-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
