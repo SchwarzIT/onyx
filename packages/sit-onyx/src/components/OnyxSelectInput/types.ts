@@ -1,6 +1,7 @@
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { DensityProp } from "../../composables/density";
-import type { SelectOption, SelectOptionValue } from "../../types";
+import type { SelectOptionValue } from "../../types";
+import type { ListboxOption } from "../..";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -29,7 +30,7 @@ export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue>
     };
 
 export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
-  SelectOption<TValue>,
+  ListboxOption<TValue>,
   "value" | "label"
 >;
 
