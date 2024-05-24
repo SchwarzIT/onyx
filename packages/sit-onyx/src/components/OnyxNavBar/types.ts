@@ -6,7 +6,7 @@ export type OnyxNavBarProps = OnyxNavAppAreaProps & {
    */
   withBackButton?: boolean;
   /**
-   * Custom label for the app click area.
+   * Custom (aria) label for the app click area.
    * @default Translated "Go to home" depending on the current locale.
    */
   appAreaLabel?: string;
