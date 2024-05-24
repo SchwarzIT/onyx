@@ -35,17 +35,17 @@ const filteredVersions = computed(() => {
   return versions.value?.filter((v) => !v.includes("-"));
 });
 
-const options = computed<ListboxOption[]>(() => {
+const options = computed<ListboxOption<string>[]>(() => {
   return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
 });
 
-const modelValue = computed<ListboxOption>({
+const modelValue = computed<ListboxOption<string>>({
   get: () => {
     const isLatest = version.value && !version.value.includes(".");
     if (isLatest) return options.value?.[0];
     return options.value.find((o) => o.value === version.value)!;
   },
-  set: (option: ListboxOption) => {
+  set: (option: ListboxOption<string>) => {
     const { value } = option;
     // do not allow to de-select the version
     if (!value) return;
