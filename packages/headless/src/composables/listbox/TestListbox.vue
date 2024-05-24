@@ -30,7 +30,6 @@ const {
   elements: { listbox, option: headlessOption },
 } = createListbox({
   label: "Test listbox",
-  selectedOption,
   activeOption,
   onSelect: (id) => {
     selectedOption.value = selectedOption.value === id ? undefined : id;
