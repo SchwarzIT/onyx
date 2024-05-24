@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.113
+
+### Major Changes
+
+- f46561c: Renamed OnyxSelect to OnyxSelectInput
+
 ## 1.0.0-alpha.112
 
 ### Patch Changes
