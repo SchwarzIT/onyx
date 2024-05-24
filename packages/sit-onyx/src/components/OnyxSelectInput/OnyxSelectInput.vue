@@ -1,11 +1,7 @@
-<script
-  lang="ts"
-  setup
-  generic="TValue extends SelectOptionValue, TMultiple extends SelectMultiple"
->
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref } from "vue";
-import type { MultiselectTextMode, OnyxSelectProps, SelectMultiple } from "./types";
+import type { OnyxSelectProps } from "./types";
 import { useDensity, type SelectOptionValue } from "../..";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
@@ -17,7 +13,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
 defineOptions({ inheritAttrs: false });
 
-const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   hideLabel: false,
   loading: false,
   skeleton: false,
@@ -27,21 +23,11 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue, TMultiple>>(), {
 const { t } = injectI18n();
 
 /**
- * The mode in which a multiselect value text should be displayed.
- * Falls back to summary if not specified.
- */
-const multipleTextMode = computed<MultiselectTextMode | undefined>(() => {
-  if (!props.multiple) return undefined;
-  if (typeof props.multiple === "object") return props.multiple.textMode;
-  return "summary";
-});
-
-/**
  * Number of selected options.
  */
-const modelValueCount = computed(() => {
-  if (Array.isArray(props.modelValue)) return props.modelValue.length;
-  return props.modelValue ? 1 : 0;
+const selectionCount = computed(() => {
+  if (Array.isArray(props.selection)) return props.selection.length;
+  return props.selection ? 1 : 0;
 });
 
 /**
@@ -50,21 +36,21 @@ const modelValueCount = computed(() => {
  * On multi select, it is a summary or a preview of the options.
  */
 const selectionText = computed<string>(() => {
-  if (Array.isArray(props.modelValue)) {
-    const numberOfSelections = props.modelValue.length;
+  if (Array.isArray(props.selection)) {
+    const numberOfSelections = props.selection.length;
     if (!numberOfSelections) return "";
-    if (numberOfSelections === 1) return props.modelValue[0].label;
+    if (numberOfSelections === 1) return props.selection[0].label;
 
-    switch (multipleTextMode.value) {
+    switch (props.textMode) {
       case "preview":
-        return props.modelValue.map(({ label }) => label).join(", ");
+        return props.selection.map(({ label }) => label).join(", ");
       case "summary":
       default:
         return t.value("selections.currentSelection", { n: numberOfSelections });
     }
   }
 
-  return props.modelValue?.label ?? "";
+  return props.selection?.label ?? "";
 });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
@@ -102,7 +88,7 @@ defineExpose({ focus: () => input.value?.focus() });
 
         <input
           ref="input"
-          v-model="selectionText"
+          :value="selectionText"
           class="onyx-select__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
           type="text"
@@ -118,12 +104,12 @@ defineExpose({ focus: () => input.value?.focus() });
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
         <OnyxTooltip
-          v-if="multipleTextMode === 'preview' && modelValueCount > 0"
+          v-if="props.textMode === 'preview' && selectionCount > 0"
           :text="selectionText"
           position="bottom"
         >
           <OnyxBadge class="onyx-select__badge" color="neutral">
-            {{ modelValueCount }}
+            {{ selectionCount }}
           </OnyxBadge>
         </OnyxTooltip>
 

@@ -8,9 +8,16 @@ export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 /**
  * Whether multiple values can be selected.
  */
-export type SelectMultiple =
-  | boolean
+export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue> =
   | {
+      /**
+       * Current value of the select.
+       */
+      selection?: SelectModelValue<TValue>;
+      textMode?: undefined;
+    }
+  | {
+      selection?: SelectModelValue<TValue>[];
       /**
        * How the multiselect value will be displayed in the input.
        * - summary (default): will show "x Selected" if more than 1 is selected.
@@ -18,7 +25,7 @@ export type SelectMultiple =
        *            A number-badge appears next to it including a tooltip with all selected names.
        * Has no effect on single select mode.
        */
-      textMode: MultiselectTextMode;
+      textMode?: MultiselectTextMode;
     };
 
 export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
@@ -26,24 +33,14 @@ export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValu
   "value" | "label"
 >;
 
-export type OnyxSelectProps<
-  TValue extends SelectOptionValue,
-  TMultiple extends SelectMultiple,
-> = DensityProp &
-  RequiredMarkerProp & {
+export type OnyxSelectProps<TValue extends SelectOptionValue> = DensityProp &
+  RequiredMarkerProp &
+  SelectionInput<TValue> & {
     /**
      * Label to show above the select. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.
      */
     label: string;
-    /**
-     * Current value of the select.
-     * TODO: change the type after the flyout gets added and the select becomes a real interactive component!
-     */
-    modelValue?: TMultiple extends undefined | false
-      ? SelectModelValue<TValue>
-      : SelectModelValue<TValue>[];
-
     /**
      * If `true`, the label will be visually hidden and the `title` attribute will be set.
      * For accessibility / screen readers, the aria-label will still be set.
@@ -69,11 +66,6 @@ export type OnyxSelectProps<
      * Placeholder to show when the value is empty.
      */
     placeholder?: string;
-    /**
-     * Whether multiple values can be selected.
-     * TODO: We must type the component using generics so that if multiple is truthy, modelValue must be an array
-     */
-    multiple?: TMultiple;
     /**
      * Message / help text to display below the select input.
      */
