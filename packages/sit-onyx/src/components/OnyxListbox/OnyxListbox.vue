@@ -73,10 +73,10 @@ watchEffect(async () => {
 const activeValue = ref<TValue>();
 
 const arrayValue = computed(() => {
-  if (!props.modelValue) {
-    return [];
-  }
-  return props.multiple ? props.modelValue : [props.modelValue];
+  if (!props.modelValue) return [];
+  return props.multiple && Array.isArray(props.modelValue)
+    ? props.modelValue
+    : ([props.modelValue] as ListboxOption<TValue>[]);
 });
 
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
