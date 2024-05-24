@@ -4,7 +4,7 @@
   generic="TValue extends SelectOptionValue, TMultiple extends SelectMultiple"
 >
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import type { MultiselectTextMode, OnyxSelectProps, SelectMultiple } from "./types";
 import { useDensity, type SelectOptionValue } from "../..";
 import { useRequired } from "../../composables/required";
@@ -69,6 +69,10 @@ const selectionText = computed<string>(() => {
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
+
+const input = ref<HTMLInputElement>();
+
+defineExpose({ focus: () => input.value?.focus() });
 </script>
 <template>
   <div v-if="props.skeleton" :class="['onyx-select-skeleton', densityClass]">
@@ -97,6 +101,7 @@ const { densityClass } = useDensity(props);
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-select__loading" type="circle" />
 
         <input
+          ref="input"
           v-model="selectionText"
           class="onyx-select__input onyx-truncation-ellipsis"
           :placeholder="props.placeholder"
