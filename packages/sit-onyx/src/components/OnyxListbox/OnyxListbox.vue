@@ -362,11 +362,12 @@ watchEffect(() => {
   }
 
   @include layers.component() {
+    $wrapper-padding: var(--onyx-spacing-2xs);
     --max-options: 8;
 
     @include list.styles();
 
-    $wrapper-padding: var(--onyx-spacing-2xs);
+    position: absolute;
 
     &__search {
       position: sticky;
