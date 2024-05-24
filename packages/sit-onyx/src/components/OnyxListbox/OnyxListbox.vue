@@ -1,11 +1,6 @@
 <script lang="ts" setup generic="TValue extends string = string">
 import { useDensity } from "../../composables/density";
-import {
-  createComboBox,
-  createId,
-  isPrintableCharacter,
-  type ComboboxAutoComplete,
-} from "@sit-onyx/headless";
+import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import { useCheckAll } from "../../composables/checkAll";
 import { computed, ref, watch, watchEffect, nextTick } from "vue";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -17,6 +12,7 @@ import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
 import { groupByKey } from "../../utils/objects";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
+import type { ComponentExposed } from "vue-component-type-helpers";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
@@ -79,6 +75,7 @@ const arrayValue = computed(() => {
 });
 
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
+const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 
 /**
  * Sync the active option with the selected option on single select.
@@ -102,9 +99,13 @@ const allKeyboardOptionIds = computed(() => {
   );
 });
 
-const searchTerm = ref("");
-
-const onToggle = () => (isExpanded.value = !isExpanded.value);
+const onToggle = () => {
+  isExpanded.value = !isExpanded.value;
+  if (!isExpanded.value) {
+    emit("update:searchTerm", "");
+    selectInput.value?.focus();
+  }
+};
 
 const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at(0));
 
@@ -130,34 +131,30 @@ const onTypeAhead = (label: string) => {
   activeValue.value = firstMatch.value;
 };
 
-const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
+const onAutocomplete = (inputValue: string) => emit("update:searchTerm", inputValue);
 
 const onSelect = (selectedOption: string) => {
   if (selectedOption === CHECK_ALL_ID) {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
     return;
   }
-
-  if (!props.multiple) {
-    const newValue = selectedOption === props.modelValue?.value ? undefined : selectedOption;
-    emit("update:modelValue", newValue as typeof props.modelValue);
+  const newValue = props.options.find(({ value }) => value === selectedOption);
+  if (!newValue) {
     return;
+  }
+  if (!props.multiple) {
+    return emit("update:modelValue", newValue);
   }
   const alreadyInList = arrayValue.value.some(({ value }) => value === selectedOption);
   if (alreadyInList) {
     emit(
       "update:modelValue",
-      arrayValue.value.filter(({ value }) => value !== selectedOption) as typeof props.modelValue,
+      arrayValue.value.filter(({ value }) => value !== selectedOption),
     );
   } else {
-    emit("update:modelValue", [
-      ...arrayValue.value,
-      props.options.find(({ value }) => value === selectedOption),
-    ] as typeof props.modelValue);
+    emit("update:modelValue", [...arrayValue.value, newValue]);
   }
 };
-
-const onCancel = () => (searchTerm.value = "");
 
 const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
 
@@ -165,7 +162,7 @@ const comboBox = createComboBox({
   autocomplete,
   label: props.label,
   listLabel: props.listLabel,
-  inputValue: searchTerm,
+  inputValue: computed(() => (props.withSearch && props.searchTerm) || ""),
   activeOption: computed(() => activeValue.value),
   multiple: computed(() => props.multiple),
   isExpanded,
@@ -177,7 +174,6 @@ const comboBox = createComboBox({
   onTypeAhead,
   onAutocomplete,
   onSelect,
-  onCancel,
 });
 
 const {
@@ -237,24 +233,18 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
-
-const handleOnyxSelectKeyDown = (event: KeyboardEvent) => {
-  if (event.code === "ArrowDown" || isPrintableCharacter(event.key)) {
-    isExpanded.value = true;
-  }
-};
 </script>
 
 <template>
   <div class="onyx-combobox-wrapper">
     <OnyxSelectInput
+      ref="selectInput"
       :label="props.label"
       :loading="props.loading"
       :model-value="props.modelValue"
       :multiple="props.multiple"
-      v-bind="props.withSearch ? {} : input"
-      @click="isExpanded = true"
-      @keydown="handleOnyxSelectKeyDown"
+      v-bind="props.withSearch ? { onKeydown: input.onKeydown } : input"
+      @click="onToggle"
     />
     <div v-show="isExpanded" :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
       <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
@@ -268,7 +258,7 @@ const handleOnyxSelectKeyDown = (event: KeyboardEvent) => {
           v-bind="input"
           :label="t('listbox.searchInputLabel')"
           class="onyx-listbox__search"
-          @clear="searchTerm = ''"
+          @clear="emit('update:searchTerm', '')"
         />
 
         <ul v-if="isEmptyMessage" role="group" aria-label="" class="onyx-listbox__group">

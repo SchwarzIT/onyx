@@ -1,3 +1,4 @@
+import type { ListboxValue } from "@sit-onyx/headless";
 import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
@@ -18,7 +19,7 @@ export type ListboxSearchProps =
       withSearch?: false;
     };
 
-export type ListboxModelValueProps<TValue extends string> =
+export type ListboxModelValueProps<TValue extends ListboxValue> =
   | {
       /**
        * Allows the selection of multiple listbox options
@@ -59,7 +60,7 @@ export type ListboxModelValue<
   TMultiple extends boolean = false,
 > = TMultiple extends true ? TValue[] : TValue;
 
-export type OnyxListboxProps<TValue extends string = string> = DensityProp &
+export type OnyxListboxProps<TValue extends ListboxValue> = DensityProp &
   ListboxModelValueProps<TValue> &
   ListboxSearchProps & {
     /**
@@ -89,7 +90,7 @@ export type OnyxListboxProps<TValue extends string = string> = DensityProp &
     lazyLoading?: ListboxLazyLoading;
   };
 
-export type ListboxOption<TValue extends string = string> = Pick<
+export type ListboxOption<TValue extends ListboxValue> = Pick<
   SelectOption<TValue>,
   "value" | "label" | "disabled"
 > &

@@ -270,6 +270,9 @@ importers:
       eslint-plugin-vue-scoped-css:
         specifier: ^2.8.0
         version: 2.8.0(eslint@9.3.0)(vue-eslint-parser@9.4.2(eslint@9.3.0))
+      vue-component-type-helpers:
+        specifier: ^2.0.19
+        version: 2.0.19
 
   packages/storybook-utils:
     dependencies:
