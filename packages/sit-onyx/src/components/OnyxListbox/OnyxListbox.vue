@@ -220,7 +220,7 @@ const checkAll = computed(() => {
       emit(
         "update:modelValue",
         newValue.map((v) =>
-          (props.modelValue as ListboxOption<TValue>[]).find(({ value }) => value === v),
+          props.options.find(({ value }) => value === v),
         ) as typeof props.modelValue,
       ),
   );
