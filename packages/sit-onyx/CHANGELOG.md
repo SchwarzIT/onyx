@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.114
+
+### Major Changes
+
+- 309fb43: refactor grid implementation
+
+  - remove padding, max-width and center from the `onyx-grid` class in favor of the `onyx-grid-container` class
+
+### Patch Changes
+
+- 309fb43: fix(OnyxButton): limit default width to max-content
+
 ## 1.0.0-alpha.113
 
 ### Major Changes
