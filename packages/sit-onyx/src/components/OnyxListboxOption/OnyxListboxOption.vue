@@ -49,7 +49,6 @@ defineSlots<{
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
-@use "../../styles/mixins/listitem";
 
 .onyx-listbox-option {
   @include checkbox.variables();
