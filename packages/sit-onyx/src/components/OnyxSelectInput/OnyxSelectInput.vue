@@ -113,7 +113,7 @@ defineExpose({ focus: () => input.value?.focus() });
           </OnyxBadge>
         </OnyxTooltip>
 
-        <button class="onyx-select__button" tabindex="-1">
+        <button class="onyx-select__button" :aria-label="t('select.toggleDropDown')" tabindex="-1">
           <OnyxIcon :icon="chevronDownUp" />
         </button>
       </div>
