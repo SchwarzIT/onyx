@@ -2,7 +2,6 @@ import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, ref, watchEffect } from "vue";
-import type { SelectOption } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
@@ -42,12 +41,13 @@ const meta: Meta<typeof OnyxListbox> = {
       (story, ctx) => ({
         components: { story },
         setup: () => {
+          const allOptions = [...ctx.args.options];
           const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
 
           watchEffect(() => {
             ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
             ctx.args.options = options.value.map(
-              ({ value }) => DEMO_OPTIONS.find((opt) => opt.value === value)!,
+              ({ value }) => allOptions.find((opt) => opt.value === value)!,
             );
           });
 
@@ -56,6 +56,9 @@ const meta: Meta<typeof OnyxListbox> = {
         template: `<story @lazy-load="handleLoadMore" />`,
       }),
     ],
+    /**
+     * Renderer to simulate search
+     */
     render: (args) => ({
       components: { OnyxListbox },
       setup: () => {
@@ -77,7 +80,7 @@ const meta: Meta<typeof OnyxListbox> = {
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
-const DEMO_OPTIONS: SelectOption<string>[] = [
+const DEMO_OPTIONS: ListboxOption<string>[] = [
   "Apple",
   "Banana",
   "Mango",
@@ -138,11 +141,34 @@ export const Multiselect = {
     multiple: true,
     withCheckAll: true,
     options: [
-      { value: "long", label: "Option with a very long long long  long long long long text}" },
+      { value: "long", label: "Option with a very long long long  long long long long text" },
     ],
   },
   argTypes: {
     modelValue: { control: { type: "object" } },
+  },
+} satisfies Story;
+
+const groupedAnimals = [
+  { value: "cat", label: "Cat", group: "Land" },
+  { value: "dog", label: "Dog", group: "Land" },
+  { value: "tiger", label: "Tiger", group: "Land" },
+  { value: "reindeer", label: "Reindeer", group: "Land" },
+  { value: "racoon", label: "Racoon", group: "Land" },
+  { value: "dolphin", label: "Dolphin", group: "Water" },
+  { value: "flounder", label: "Flounder", group: "Water" },
+  { value: "eel", label: "Eel", group: "Water" },
+  { value: "falcon", label: "Falcon", group: "Air" },
+  { value: "owl", label: "Owl", group: "Air" },
+];
+
+/**
+ * This example shows a listbox with grouped options.
+ */
+export const GroupedOptions = {
+  args: {
+    label: "Grouped listbox",
+    options: groupedAnimals,
   },
 } satisfies Story;
 
