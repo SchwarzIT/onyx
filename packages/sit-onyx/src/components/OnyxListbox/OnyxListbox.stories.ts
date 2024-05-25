@@ -2,10 +2,10 @@ import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, ref, watchEffect } from "vue";
+import { normalizedIncludes } from "../../utils/strings";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
-import { normalizedIncludes } from "../../utils/strings";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -116,7 +116,7 @@ DEMO_OPTIONS.splice(6, 0, {
 export const Default = {
   args: {
     label: "Example listbox",
-    listLabel: "asda",
+    listLabel: "List label",
     options: DEMO_OPTIONS,
   },
 } satisfies Story;

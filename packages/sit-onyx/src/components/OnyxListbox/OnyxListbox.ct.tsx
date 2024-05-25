@@ -1,10 +1,10 @@
 import { listboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -64,7 +64,7 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 test.describe("Multiselect screenshot tests", () => {
   const modelValues = {
     "no-selection": [],
-    "partial-selection": [MOCK_VARIED_OPTIONS.at(1)!],
+    "partial-selection": MOCK_VARIED_OPTIONS.slice(0, 1),
     "all-selected": MOCK_VARIED_OPTIONS.slice(0, 2)!,
   };
   executeMatrixScreenshotTest({
@@ -97,7 +97,7 @@ test.describe("Densities screenshot tests", () => {
           label={`${column} listbox`}
           listLabel="list label"
           options={MOCK_VARIED_OPTIONS}
-          modelValue={[MOCK_VARIED_OPTIONS.at(2)!]}
+          modelValue={[MOCK_VARIED_OPTIONS[2]]}
           multiple={true}
           density={column}
         />
@@ -117,7 +117,7 @@ test.describe("Densities screenshot tests", () => {
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS.at(1)!];
+  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
 
   const eventHandlers = {
     "update:modelValue": async (value: ListboxOption[] | undefined) => {
@@ -160,7 +160,7 @@ test("should render with many options", async ({ mount, makeAxeBuilder, page }) 
     props: {
       options: MOCK_MANY_OPTIONS,
       label: "Test listbox",
-      listLabel: "lsit label",
+      listLabel: "List label",
     },
     on: {
       "update:modelValue": (modelValue: ListboxOption | undefined) =>
