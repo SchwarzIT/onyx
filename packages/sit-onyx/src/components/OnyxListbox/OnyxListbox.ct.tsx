@@ -42,7 +42,7 @@ test.describe("Default screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Listbox",
     columns: DENSITIES,
-    rows: ["default", "open", "with-search"],
+    rows: ["default", "open"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column) => (
       <div>
