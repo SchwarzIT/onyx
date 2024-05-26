@@ -33,6 +33,7 @@ export type ListboxModelValueProps<TValue extends ListboxValue> =
        * Current value.
        */
       modelValue?: ListboxOption<TValue>;
+      withCheckAll?: never;
     }
   | {
       /**
