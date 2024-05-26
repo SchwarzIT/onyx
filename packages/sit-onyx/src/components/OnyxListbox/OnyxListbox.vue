@@ -1,17 +1,13 @@
-<script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
+<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 // TODO: rename to OnyxSelect and promote from support component to actual component
-import {
-  createComboBox,
-  createId,
-  type ComboboxAutoComplete,
-  type ListboxValue,
-} from "@sit-onyx/headless";
+import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import { computed, nextTick, ref, watch, watchEffect } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
+import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
@@ -94,14 +90,14 @@ watch(arrayValue, () => {
 });
 
 /** unique ID to identify the `select all` checkbox */
-const CHECK_ALL_ID = createId("ONYX_CHECK_ALL");
+const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
 
 /**
  * IDs of all options that can be navigated with the keyboard.
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID as TValue] : []).concat(
+  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
     enabledOptionValues.value,
   );
 });
@@ -126,14 +122,14 @@ const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at
 
 const onActivateLast = () => (activeValue.value = allKeyboardOptionIds.value.at(-1));
 
-const onActivateNext = (currentValue: string) => {
+const onActivateNext = (currentValue: TValue) => {
   const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
   if (currentIndex < allKeyboardOptionIds.value.length - 1) {
     activeValue.value = allKeyboardOptionIds.value[currentIndex + 1];
   }
 };
 
-const onActivatePrevious = (currentValue: string) => {
+const onActivatePrevious = (currentValue: TValue) => {
   const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
   if (currentIndex > 0) activeValue.value = allKeyboardOptionIds.value[currentIndex - 1];
 };
@@ -149,7 +145,7 @@ const onTypeAhead = (label: string) => {
 const onAutocomplete = (inputValue: string) => emit("update:searchTerm", inputValue);
 
 // TODO: ensure focus stays in search field when selecting with click
-const onSelect = (selectedOption: string) => {
+const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
     return;
@@ -179,7 +175,7 @@ const comboBox = createComboBox({
   label: props.label,
   listLabel: props.listLabel,
   inputValue: computed(() => (props.withSearch && props.searchTerm) || ""),
-  activeOption: computed(() => activeValue.value?.toString()),
+  activeOption: computed(() => activeValue.value),
   multiple: computed(() => props.multiple),
   isExpanded,
   templateRef: comboboxRef,
@@ -319,7 +315,7 @@ watchEffect(() => {
                 <OnyxListboxOption
                   v-bind="
                     headlessOption({
-                      value: CHECK_ALL_ID,
+                      value: CHECK_ALL_ID as TValue,
                       label: checkAllLabel,
                       selected: checkAll?.state.value.modelValue,
                     })
@@ -339,7 +335,7 @@ watchEffect(() => {
                 :key="option.value.toString()"
                 v-bind="
                   headlessOption({
-                    value: option.value.toString(),
+                    value: option.value,
                     label: option.label,
                     disabled: option.disabled,
                     selected: arrayValue.some(({ value }) => value === option.value),

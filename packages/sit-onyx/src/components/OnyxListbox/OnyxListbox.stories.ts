@@ -31,8 +31,6 @@ const meta: Meta<typeof OnyxListbox> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
-      modelValue: { control: { type: "text" } },
-      searchTerm: { control: { type: "text" } },
     },
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.
@@ -41,14 +39,11 @@ const meta: Meta<typeof OnyxListbox> = {
       (story, ctx) => ({
         components: { story },
         setup: () => {
-          const allOptions = [...ctx.args.options];
           const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
 
           watchEffect(() => {
             ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-            ctx.args.options = options.value.map(
-              ({ value }) => allOptions.find((opt) => opt.value === value)!,
-            );
+            ctx.args.options = options.value;
           });
 
           return { handleLoadMore, isLazyLoading, options };
@@ -141,26 +136,16 @@ export const Multiselect = {
     multiple: true,
     withCheckAll: true,
     options: [
-      { value: "long", label: "Option with a very long long long  long long long long text" },
+      {
+        value: "disabled-2",
+        label: "Selected unavailable fruit",
+        disabled: true,
+      },
+      ...Default.args.options,
+      { value: "long", label: "Option with a very long long long  long long long long text}" },
     ],
   },
-  argTypes: {
-    modelValue: { control: { type: "object" } },
-  },
 } satisfies Story;
-
-const groupedAnimals = [
-  { value: "cat", label: "Cat", group: "Land" },
-  { value: "dog", label: "Dog", group: "Land" },
-  { value: "tiger", label: "Tiger", group: "Land" },
-  { value: "reindeer", label: "Reindeer", group: "Land" },
-  { value: "racoon", label: "Racoon", group: "Land" },
-  { value: "dolphin", label: "Dolphin", group: "Water" },
-  { value: "flounder", label: "Flounder", group: "Water" },
-  { value: "eel", label: "Eel", group: "Water" },
-  { value: "falcon", label: "Falcon", group: "Air" },
-  { value: "owl", label: "Owl", group: "Air" },
-];
 
 /**
  * This example shows a listbox with grouped options.
@@ -168,7 +153,19 @@ const groupedAnimals = [
 export const GroupedOptions = {
   args: {
     label: "Grouped listbox",
-    options: groupedAnimals,
+    listLabel: "List label",
+    options: [
+      { value: "cat", label: "Cat", group: "Land" },
+      { value: "dog", label: "Dog", group: "Land" },
+      { value: "tiger", label: "Tiger", group: "Land" },
+      { value: "reindeer", label: "Reindeer", group: "Land" },
+      { value: "racoon", label: "Racoon", group: "Land" },
+      { value: "dolphin", label: "Dolphin", group: "Water" },
+      { value: "flounder", label: "Flounder", group: "Water" },
+      { value: "eel", label: "Eel", group: "Water" },
+      { value: "falcon", label: "Falcon", group: "Air" },
+      { value: "owl", label: "Owl", group: "Air" },
+    ],
   },
 } satisfies Story;
 
@@ -249,7 +246,7 @@ const useLazyLoading = (initialOptions: ListboxOption[]) => {
     options.value = options.value.concat(
       Array.from({ length: 25 }, (_, index) => {
         const value = options.value.length - initialOptions.length + index + 1;
-        return { value: `${value}`, label: `Loaded option ${value}` };
+        return { value, label: `Loaded option ${value}` };
       }),
     );
 
