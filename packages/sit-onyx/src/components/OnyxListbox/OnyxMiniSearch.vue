@@ -1,24 +1,39 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { computed, ref } from "vue";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
-export type MiniSearchProps = { modelValue?: string; label: string };
+export type MiniSearchProps = {
+  /**
+   * (Aria) label of the input.
+   */
+  label: string;
+  /**
+   * Current input/search value.
+   */
+  modelValue?: string;
+};
 
 defineOptions({ inheritAttrs: false });
-
-const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = defineProps<MiniSearchProps>();
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the current search value changes.
+   */
   "update:modelValue": [input: string];
+  /**
+   * Emitted when the clear button is clicked.
+   */
   clear: [];
 }>();
 
+const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
+const input = ref<HTMLInputElement>();
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
@@ -28,10 +43,14 @@ const value = computed({
   set: (value) => emit("update:modelValue", value ?? ""),
 });
 
-const input = ref<HTMLInputElement>();
-
-defineExpose({ focus: () => input.value?.focus() });
+defineExpose({
+  /**
+   * Focuses the input.
+   */
+  focus: () => input.value?.focus(),
+});
 </script>
+
 <template>
   <div class="onyx-mini-search" v-bind="rootAttrs">
     <input
@@ -54,6 +73,7 @@ defineExpose({ focus: () => input.value?.focus() });
     </button>
   </div>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
