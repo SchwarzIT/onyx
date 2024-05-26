@@ -1,9 +1,10 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref } from "vue";
-import { useDensity, type SelectOptionValue } from "../..";
+import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
+import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";

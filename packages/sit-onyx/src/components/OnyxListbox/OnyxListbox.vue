@@ -282,16 +282,16 @@ watchEffect(() => {
           @clear="emit('update:searchTerm', '')"
         />
 
-        <ul v-if="isEmptyMessage" role="group" class="onyx-listbox__group">
-          <li role="option" aria-selected="false">
-            <slot name="empty" :default-message="isEmptyMessage">
-              <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
-            </slot>
-          </li>
-        </ul>
+        <div v-bind="listbox">
+          <ul v-if="isEmptyMessage" role="group" class="onyx-listbox__group">
+            <li role="option" aria-selected="false">
+              <slot name="empty" :default-message="isEmptyMessage">
+                <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
+              </slot>
+            </li>
+          </ul>
 
-        <template v-else>
-          <div v-bind="listbox">
+          <template v-else>
             <ul
               v-for="(options, group) in groupedOptions"
               :key="group"
@@ -346,16 +346,16 @@ watchEffect(() => {
                 {{ option.label }}
               </OnyxListboxOption>
             </ul>
-          </div>
+          </template>
+        </div>
 
-          <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-            <OnyxLoadingIndicator class="onyx-listbox__loading" />
-          </div>
+        <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
+          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        </div>
 
-          <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
-            <slot name="optionsEnd"></slot>
-          </div>
-        </template>
+        <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
+          <slot name="optionsEnd"></slot>
+        </div>
       </div>
     </div>
   </div>

@@ -59,9 +59,10 @@ defineExpose({
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"
-      :aria-label="props.label"
       v-bind="restAttrs"
+      :aria-label="props.label"
     />
+
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
       class="onyx-mini-search__clear"
@@ -76,8 +77,19 @@ defineExpose({
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 .onyx-mini-search {
+  @include density.compact {
+    --clear-button-size: 1rem;
+  }
+  @include density.default {
+    --clear-button-size: 1.5rem;
+  }
+  @include density.cozy {
+    --clear-button-size: 1.5rem;
+  }
+
   @include layers.component() {
     display: flex;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
@@ -109,6 +121,10 @@ defineExpose({
       place-items: center;
       cursor: pointer;
       visibility: hidden;
+
+      .onyx-icon {
+        --icon-size: var(--clear-button-size);
+      }
     }
 
     // Show clear button only when input is not empty
