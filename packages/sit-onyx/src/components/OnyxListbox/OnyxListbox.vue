@@ -107,6 +107,11 @@ const allKeyboardOptionIds = computed(() => {
 });
 
 const onToggle = async () => {
+  if (props.readonly) {
+    isExpanded.value = false;
+    return;
+  }
+
   isExpanded.value = !isExpanded.value;
   if (!isExpanded.value) {
     emit("update:searchTerm", "");
@@ -256,6 +261,7 @@ watchEffect(() => {
       :selection="props.modelValue as ListboxOption"
       :hide-label="props.hideLabel"
       :disabled="props.disabled"
+      :readonly="props.readonly"
       :multiple="props.multiple"
       :message="props.message"
       :placeholder="props.placeholder"

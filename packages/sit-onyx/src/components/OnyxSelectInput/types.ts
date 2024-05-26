@@ -1,7 +1,7 @@
-import type { RequiredMarkerProp } from "../../composables/required";
-import type { DensityProp } from "../../composables/density";
-import type { SelectOptionValue } from "../../types";
 import type { ListboxOption } from "../..";
+import type { DensityProp } from "../../composables/density";
+import type { RequiredMarkerProp } from "../../composables/required";
+import type { SelectOptionValue } from "../../types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -57,7 +57,6 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
     skeleton?: boolean;
     /**
      * Whether the select should be readonly.
-     * TODO: Needs to be implemented
      */
     readonly?: boolean;
     /**
