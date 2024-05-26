@@ -124,7 +124,12 @@ test.describe("Multiple screenshots", () => {
     name: "Listbox (multiple)",
     columns: DENSITIES,
     rows: ["empty", "check-all", "search"],
-    disabledAccessibilityRules: [...DISABLED_ACCESSIBILITY_RULES, "nested-interactive"],
+    disabledAccessibilityRules: [
+      ...DISABLED_ACCESSIBILITY_RULES,
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
     component: (column, row) => (
       <div>
         <OnyxListbox
