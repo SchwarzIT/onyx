@@ -184,7 +184,7 @@ export const createComboBox = createBuilder(
       if (isSelectingKey(event, multiple.value)) {
         return handleSelect(activeOption.value!);
       }
-      if (isKeyOfGroup(event, CLOSING_KEYS)) {
+      if (isExpanded.value && isKeyOfGroup(event, CLOSING_KEYS)) {
         return onToggle?.();
       }
       if (autocomplete.value === "none" && isPrintableCharacter(event.key)) {
