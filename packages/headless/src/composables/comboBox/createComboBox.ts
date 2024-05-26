@@ -147,14 +147,14 @@ export const createComboBox = createBuilder(
       switch (event.key) {
         case "ArrowUp":
           event.preventDefault();
-          if (!activeOption.value) {
+          if (activeOption.value == undefined) {
             return onActivateLast?.();
           }
           onActivatePrevious?.(activeOption.value);
           break;
         case "ArrowDown":
           event.preventDefault();
-          if (!activeOption.value) {
+          if (activeOption.value == undefined) {
             return onActivateFirst?.();
           }
           onActivateNext?.(activeOption.value);
@@ -242,7 +242,8 @@ export const createComboBox = createBuilder(
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
           "aria-label": unref(label),
-          "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
+          "aria-activedescendant":
+            activeOption.value != undefined ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
           ...autocompleteInput,

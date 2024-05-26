@@ -1,5 +1,5 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
-import { comboboxTesting } from "@sit-onyx/headless/playwright";
+import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
@@ -228,8 +228,29 @@ test("should interact with multiselect", async ({ mount }) => {
   ]);
 });
 
-// TODO: implement this
-test.skip("should pass headless accessibility tests", async ({ mount, page }) => {
+// eslint-disable-next-line playwright/expect-expect
+test("should pass headless accessibility tests", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(OnyxListbox, {
+    props: {
+      options: MOCK_MANY_OPTIONS,
+      label: "Test listbox",
+      listLabel: "List label",
+    },
+  });
+
+  // ASSERT
+  await comboboxTesting(
+    page,
+    component.getByRole("listbox"),
+    component.getByRole("combobox"),
+    page.getByRole("button"),
+    page.getByRole("option"),
+  );
+});
+
+// eslint-disable-next-line playwright/expect-expect
+test("should pass headless accessibility tests (select only)", async ({ mount, page }) => {
   const eventHandlers = {
     "update:modelValue": (modelValue: ListboxOption) => {
       component.update({ props: { modelValue }, on: eventHandlers });
@@ -247,12 +268,11 @@ test.skip("should pass headless accessibility tests", async ({ mount, page }) =>
   });
 
   // ASSERT
-  await comboboxTesting(
+  await comboboxSelectOnlyTesting(
     page,
     component.getByRole("listbox"),
     component.getByRole("combobox"),
-    page.getByRole("button"),
-    page.getByRole("option"),
+    (loc) => loc.evaluate((e) => e.classList.contains("onyx-list-item--active")),
   );
 });
 
