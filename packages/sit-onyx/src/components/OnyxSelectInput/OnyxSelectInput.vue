@@ -1,16 +1,16 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref } from "vue";
-import type { OnyxSelectInputProps } from "./types";
 import { useDensity, type SelectOptionValue } from "../..";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import { useRootAttrs } from "../../utils/attrs";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import type { OnyxSelectInputProps } from "./types";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -133,6 +133,7 @@ defineExpose({ focus: () => input.value?.focus() });
           class="onyx-select-input__button"
           :aria-label="t('select.toggleDropDown')"
           tabindex="-1"
+          :disabled="props.readonly || props.disabled || props.loading"
           @click="emit('click')"
         >
           <OnyxIcon :icon="chevronDownUp" />

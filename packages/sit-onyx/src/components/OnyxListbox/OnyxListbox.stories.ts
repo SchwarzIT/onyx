@@ -75,7 +75,7 @@ const meta: Meta<typeof OnyxListbox> = {
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
-const DEMO_OPTIONS: ListboxOption<string>[] = [
+const DEMO_OPTIONS = [
   "Apple",
   "Banana",
   "Mango",
@@ -92,13 +92,7 @@ const DEMO_OPTIONS: ListboxOption<string>[] = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map(
-  (option) =>
-    ({
-      value: option.toLowerCase(),
-      label: option,
-    }) satisfies ListboxOption,
-);
+].map<ListboxOption>((option) => ({ value: option.toLowerCase(), label: option }));
 DEMO_OPTIONS.splice(6, 0, {
   value: "disabled",
   label: "Unavailable fruit",
