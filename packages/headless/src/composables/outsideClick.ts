@@ -28,7 +28,7 @@ export const useOutsideClick = (options: UseOutsideClickOptions) => {
     const component = options.queryComponent();
     if (!component || !(event.target instanceof Node)) return;
 
-    const isOutsideClick = !component.contains(event.target);
+    const isOutsideClick = !event.composedPath().includes(component);
     if (isOutsideClick) options.onOutsideClick();
   };
 
