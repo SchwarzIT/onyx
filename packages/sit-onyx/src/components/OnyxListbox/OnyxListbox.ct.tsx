@@ -15,30 +15,30 @@ const DISABLED_ACCESSIBILITY_RULES = [
 ];
 
 const MOCK_VARIED_OPTIONS = [
-  { value: "1", label: "Default" },
-  { value: "2", label: "Selected" },
-  { value: "3", label: "Disabled", disabled: true },
-  { value: "4", label: "Very long label ".repeat(5) },
-] satisfies ListboxOption<string>[];
+  { value: 1, label: "Default" },
+  { value: 2, label: "Selected" },
+  { value: 3, label: "Disabled", disabled: true },
+  { value: 4, label: "Very long label ".repeat(5) },
+] satisfies ListboxOption[];
 
 const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
-  value: `${index}`,
+  value: index,
   label: `Test option ${index + 1}`,
-})) satisfies ListboxOption<string>[];
+})) satisfies ListboxOption[];
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
-  let modelValue: ListboxOption<string> | undefined = MOCK_VARIED_OPTIONS.at(1);
+  let modelValue: ListboxOption | undefined = MOCK_VARIED_OPTIONS.at(1);
 
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
-      listLabel: "Test listbox list label",
+      listLabel: "List label",
       modelValue,
     },
     on: {
-      "update:modelValue": async (value: ListboxOption<string> | undefined) => {
+      "update:modelValue": async (value: typeof modelValue) => {
         modelValue = value;
         await component.update({ props: { modelValue } });
       },
@@ -66,8 +66,8 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 test.describe("Multiselect screenshot tests", () => {
   const modelValues = {
     "no-selection": [],
-    "partial-selection": MOCK_VARIED_OPTIONS.slice(0, 1),
-    "all-selected": MOCK_VARIED_OPTIONS.slice(0, 2)!,
+    "partial-selection": [MOCK_VARIED_OPTIONS[2]],
+    "all-selected": [MOCK_VARIED_OPTIONS[1], MOCK_VARIED_OPTIONS[2], MOCK_VARIED_OPTIONS[4]],
   };
   executeMatrixScreenshotTest({
     name: `Listbox multiselect`,
@@ -77,7 +77,7 @@ test.describe("Multiselect screenshot tests", () => {
     component: (column, row) => (
       <OnyxListbox
         label={`${column} listbox`}
-        listLabel="list label"
+        listLabel="List label"
         options={MOCK_VARIED_OPTIONS}
         modelValue={modelValues[row]}
         withCheckAll={column === "check-all"}
@@ -97,7 +97,7 @@ test.describe("Densities screenshot tests", () => {
       row === "partial-selection" ? (
         <OnyxListbox
           label={`${column} listbox`}
-          listLabel="list label"
+          listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
           modelValue={[MOCK_VARIED_OPTIONS[2]]}
           multiple={true}
@@ -106,23 +106,25 @@ test.describe("Densities screenshot tests", () => {
       ) : (
         <OnyxListbox
           label={`${column} listbox`}
-          listLabel="list label"
+          listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
           modelValue={undefined}
           multiple={false}
           density={column}
           withSearch={row.startsWith("with-search")}
-          searchTerm={row === "with-search-filled" ? "very long and creative test text" : ""}
+          searchTerm={
+            row === "with-search-filled" ? "very long and creative test text" : ("" as any)
+          }
         />
       ),
   });
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
+  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS[2]];
 
   const eventHandlers = {
-    "update:modelValue": async (value: ListboxOption[] | undefined) => {
+    "update:modelValue": async (value: typeof modelValue) => {
       modelValue = value;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
@@ -133,7 +135,7 @@ test("should interact with multiselect", async ({ mount }) => {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
-      listLabel: "Test listbox list",
+      listLabel: "Listbox label",
       withCheckAll: { label: "Select all" },
       multiple: true,
       modelValue,
@@ -243,18 +245,18 @@ test.describe("Search state screenshot tests", () => {
   }));
 
   executeMatrixScreenshotTest({
-    name: `Listbox empty state`,
-    columns: ["default", "when-searching"],
-    rows: ["empty-state"],
+    name: "Listbox (empty)",
+    columns: ["default", "searching"],
+    rows: ["default"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column) =>
-      column === "when-searching" ? (
+      column === "searching" ? (
         <OnyxListbox
           label={`${column} listbox`}
           listLabel={`${column} list listbox`}
           options={DEMO_OPTIONS}
           withSearch={true}
-          searchTerm={"search term"}
+          searchTerm="search term"
         />
       ) : (
         <OnyxListbox
@@ -283,7 +285,7 @@ test.describe("Empty state screenshot tests", () => {
           listLabel={`${column} list listbox`}
           options={[]}
           withSearch={true}
-          searchTerm={"search term"}
+          searchTerm="search term"
         />
       ) : (
         <OnyxListbox
@@ -298,12 +300,7 @@ test.describe("Empty state screenshot tests", () => {
 test("should show loading state", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxListbox
-      label="Test listbox"
-      listLabel="Test list listbox"
-      options={MOCK_MANY_OPTIONS}
-      loading
-    />,
+    <OnyxListbox label="Test listbox" listLabel="List label" options={MOCK_MANY_OPTIONS} loading />,
   );
 
   // ASSERT
@@ -375,7 +372,7 @@ test("should support lazy loading", async ({ mount }) => {
     options: MOCK_MANY_OPTIONS.concat(
       Array.from({ length: 25 }, (_, index) => {
         const value = MOCK_MANY_OPTIONS.length + index;
-        return { value: `${value}`, label: `Test option ${value + 1}` };
+        return { value, label: `Test option ${value + 1}` };
       }),
     ),
   });
@@ -399,7 +396,7 @@ test("should support lazy loading", async ({ mount }) => {
 test("should display optionsEnd slot", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxListbox options={MOCK_MANY_OPTIONS} label="Test label" listLabel="Test label">
+    <OnyxListbox options={MOCK_MANY_OPTIONS} label="Test label" listLabel="List label">
       <template v-slot:optionsEnd>
         <OnyxButton label="Load more" mode="plain" style={{ width: "100%" }} />
       </template>
@@ -423,7 +420,7 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
     props: {
       options: MOCK_MANY_OPTIONS,
       label: "Test label",
-      listLabel: "Test label",
+      listLabel: "List label",
       withSearch: true,
       "onUpdate:searchTerm": (i) => onUpdateSearchTerm.push(i),
     },
