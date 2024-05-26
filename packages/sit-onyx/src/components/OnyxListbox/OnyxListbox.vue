@@ -1,24 +1,24 @@
 <script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
 // TODO: rename to OnyxSelect and promote from support component to actual component
-import { useDensity } from "../../composables/density";
 import {
   createComboBox,
   createId,
   type ComboboxAutoComplete,
   type ListboxValue,
 } from "@sit-onyx/headless";
+import { computed, nextTick, ref, watch, watchEffect } from "vue";
+import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
-import { computed, ref, watch, watchEffect, nextTick } from "vue";
+import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
+import { groupByKey } from "../../utils/objects";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
-import { groupByKey } from "../../utils/objects";
-import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
-import type { ComponentExposed } from "vue-component-type-helpers";
 
 const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
   loading: false,
@@ -60,6 +60,7 @@ const slots = defineSlots<{
 const { t } = injectI18n();
 
 const isExpanded = ref(false);
+const comboboxRef = ref<HTMLElement>();
 
 watchEffect(async () => {
   if (isExpanded.value) {
@@ -176,6 +177,7 @@ const comboBox = createComboBox({
   activeOption: computed(() => activeValue.value?.toString()),
   multiple: computed(() => props.multiple),
   isExpanded,
+  templateRef: comboboxRef,
   onToggle,
   onActivateFirst,
   onActivateLast,
@@ -246,7 +248,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="onyx-combobox-wrapper">
+  <div ref="comboboxRef" class="onyx-combobox-wrapper">
     <OnyxSelectInput
       ref="selectInput"
       :label="props.label"

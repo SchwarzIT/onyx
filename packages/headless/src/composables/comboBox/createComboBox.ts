@@ -1,13 +1,14 @@
-import { computed, ref, type MaybeRef, type Ref, unref } from "vue";
+import { computed, ref, unref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
+import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
 import {
   createListbox,
   type CreateListboxOptions,
   type ListboxValue,
 } from "../listbox/createListbox";
+import { useOutsideClick } from "../outsideClick";
 import { useTypeAhead } from "../typeAhead";
-import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
@@ -47,6 +48,10 @@ export type CreateComboboxOptions<
    * If expanded, the active option is the currently highlighted option of the controlled listbox.
    */
   activeOption: Ref<TValue | undefined>;
+  /**
+   * Template ref to the component root (required to close combobox on outside click).
+   */
+  templateRef: Ref<HTMLElement | undefined>;
   /**
    * Hook when the popover should toggle.
    */
@@ -108,6 +113,7 @@ export const createComboBox = createBuilder(
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
+    templateRef,
   }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
@@ -205,6 +211,14 @@ export const createComboBox = createBuilder(
       controlled: true,
       activeOption,
       onSelect: handleSelect,
+    });
+
+    useOutsideClick({
+      queryComponent: () => templateRef.value,
+      onOutsideClick() {
+        if (!isExpanded.value) return;
+        onToggle?.();
+      },
     });
 
     return {

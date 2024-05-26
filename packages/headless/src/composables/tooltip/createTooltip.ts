@@ -1,14 +1,7 @@
-import {
-  computed,
-  onBeforeMount,
-  onBeforeUnmount,
-  ref,
-  unref,
-  watchEffect,
-  type MaybeRef,
-} from "vue";
+import { computed, onBeforeMount, onBeforeUnmount, ref, unref, type MaybeRef } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
+import { useOutsideClick } from "../outsideClick";
 
 export type CreateTooltipOptions = {
   open: MaybeRef<TooltipOpen>;
@@ -92,41 +85,23 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
     _isVisible.value = false;
   };
 
-  /**
-   * Document click handle that closes then tooltip when clicked outside.
-   * Should only be called when trigger is "click".
-   */
-  const handleDocumentClick = (event: MouseEvent) => {
-    const tooltipParent = document.getElementById(tooltipId)?.parentElement;
-    if (!tooltipParent || !(event.target instanceof Node)) return;
-
-    const isOutsideClick = !tooltipParent.contains(event.target);
-    if (isOutsideClick) _isVisible.value = false;
-  };
+  // close tooltip on outside click
+  useOutsideClick({
+    queryComponent: () => document.getElementById(tooltipId)?.parentElement,
+    onOutsideClick: () => (_isVisible.value = false),
+    disabled: computed(() => openType.value !== "click"),
+  });
 
   // add global document event listeners only on/before mounted to also work in server side rendering
   onBeforeMount(() => {
     document.addEventListener("keydown", handleDocumentKeydown);
-
-    /**
-     * Registers keydown and click handlers when trigger is "click" to close
-     * the tooltip.
-     */
-    watchEffect(() => {
-      if (openType.value === "click") {
-        document.addEventListener("click", handleDocumentClick);
-      } else {
-        document.removeEventListener("click", handleDocumentClick);
-      }
-    });
   });
 
   /**
    * Clean up global event listeners to prevent dangling events.
    */
   onBeforeUnmount(() => {
-    document.addEventListener("keydown", handleDocumentKeydown);
-    document.addEventListener("click", handleDocumentClick);
+    document.removeEventListener("keydown", handleDocumentKeydown);
   });
 
   return {
