@@ -8,6 +8,8 @@ export type ListboxSearchProps =
   | {
       /**
        * Allows the user to filter the list entries.
+       * If enabled, you need to manually filter the options based on the current `searchTerm`.
+       * You can use our `normalizedIncludes()` utility function for this.
        * No support for `lazyLoading` yet.
        */
       withSearch: true;
@@ -18,6 +20,7 @@ export type ListboxSearchProps =
     }
   | {
       withSearch?: false;
+      searchTerm?: never;
     };
 
 export type ListboxModelValueProps<TValue extends ListboxValue> =
