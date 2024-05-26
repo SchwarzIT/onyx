@@ -66,8 +66,8 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
 test.describe("Multiselect screenshot tests", () => {
   const modelValues = {
     "no-selection": [],
-    "partial-selection": [MOCK_VARIED_OPTIONS[2]],
-    "all-selected": [MOCK_VARIED_OPTIONS[1], MOCK_VARIED_OPTIONS[2], MOCK_VARIED_OPTIONS[4]],
+    "partial-selection": [MOCK_VARIED_OPTIONS[1]],
+    "all-selected": [MOCK_VARIED_OPTIONS[0], MOCK_VARIED_OPTIONS[1], MOCK_VARIED_OPTIONS[3]],
   };
   executeMatrixScreenshotTest({
     name: `Listbox multiselect`,
@@ -99,7 +99,7 @@ test.describe("Densities screenshot tests", () => {
           label={`${column} listbox`}
           listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
-          modelValue={[MOCK_VARIED_OPTIONS[2]]}
+          modelValue={[MOCK_VARIED_OPTIONS[1]]}
           multiple={true}
           density={column}
         />
@@ -121,7 +121,7 @@ test.describe("Densities screenshot tests", () => {
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS[2]];
+  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
 
   const eventHandlers = {
     "update:modelValue": async (value: typeof modelValue) => {
