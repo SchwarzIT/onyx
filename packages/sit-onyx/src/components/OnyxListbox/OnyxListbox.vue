@@ -58,18 +58,15 @@ const { t } = injectI18n();
 const isExpanded = ref(false);
 const comboboxRef = ref<HTMLElement>();
 
-watchEffect(async () => {
-  if (isExpanded.value) {
-    await nextTick();
-    miniSearch.value?.focus();
-  }
-});
-
 /**
  * Currently (visually) active option.
  */
 const activeValue = ref<TValue>();
 
+/**
+ * Current value but always as array (even if not multiselect) so its easier
+ * to work with it in a unified way.
+ */
 const arrayValue = computed(() => {
   if (!props.modelValue) return [];
   return props.multiple && Array.isArray(props.modelValue)
@@ -83,11 +80,15 @@ const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 /**
  * Sync the active option with the selected option on single select.
  */
-watch(arrayValue, () => {
-  if (!props.multiple) {
-    activeValue.value = arrayValue.value.at(0)?.value;
-  }
-});
+watch(
+  arrayValue,
+  () => {
+    if (!props.multiple) {
+      activeValue.value = arrayValue.value.at(0)?.value;
+    }
+  },
+  { immediate: true },
+);
 
 /** unique ID to identify the `select all` checkbox */
 const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
@@ -112,14 +113,14 @@ const onToggle = async () => {
   if (!isExpanded.value) {
     emit("update:searchTerm", "");
     selectInput.value?.focus();
-  } else if (props.withSearch) {
+  } else {
+    // make sure search of focused when flyout opens
     await nextTick();
     miniSearch.value?.focus();
   }
 };
 
 const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at(0));
-
 const onActivateLast = () => (activeValue.value = allKeyboardOptionIds.value.at(-1));
 
 const onActivateNext = (currentValue: TValue) => {
@@ -223,14 +224,13 @@ const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
   return useCheckAll(
     enabledOptionValues,
-    computed(() => ((props.modelValue || []) as ListboxOption<TValue>[]).map(({ value }) => value)),
-    (newValue: TValue[]) =>
-      emit(
-        "update:modelValue",
-        newValue.map((v) =>
-          props.options.find(({ value }) => value === v),
-        ) as typeof props.modelValue,
-      ),
+    computed(() => arrayValue.value.map(({ value }) => value)),
+    (newValues: TValue[]) => {
+      const selectedOptions = newValues
+        .map((v) => props.options.find(({ value }) => value === v))
+        .filter((option): option is NonNullable<typeof option> => option != undefined);
+      emit("update:modelValue", selectedOptions);
+    },
   );
 });
 
