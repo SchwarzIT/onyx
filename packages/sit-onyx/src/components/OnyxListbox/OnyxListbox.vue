@@ -59,7 +59,7 @@ const isExpanded = ref(false);
 const comboboxRef = ref<HTMLElement>();
 
 /**
- * Currently (visually) active option.
+ * Currently (visually) active value.
  */
 const activeValue = ref<TValue>();
 
@@ -158,6 +158,8 @@ const onSelect = (selectedOption: TValue) => {
   if (!props.multiple) {
     return emit("update:modelValue", newValue);
   }
+
+  // add or remove value depending on whether its already selected
   const alreadyInList = arrayValue.value.some(({ value }) => value === selectedOption);
   if (alreadyInList) {
     emit(
@@ -171,7 +173,9 @@ const onSelect = (selectedOption: TValue) => {
 
 const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
 
-const comboBox = createComboBox({
+const {
+  elements: { input, option: headlessOption, group: headlessGroup, listbox },
+} = createComboBox({
   autocomplete,
   label: props.label,
   listLabel: props.listLabel,
@@ -190,10 +194,6 @@ const comboBox = createComboBox({
   onSelect,
 });
 
-const {
-  elements: { input, option: headlessOption, group: headlessGroup, listbox },
-} = comboBox;
-
 const groupedOptions = computed(() => groupByKey(props.options, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
@@ -203,12 +203,8 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 });
 
 const isEmptyMessage = computed(() => {
-  if (props.options.length) {
-    return;
-  }
-  if (props.withSearch && props.searchTerm) {
-    return t.value("listbox.noMatch");
-  }
+  if (props.options.length) return;
+  if (props.withSearch && props.searchTerm) return t.value("listbox.noMatch");
   return t.value("listbox.empty");
 });
 
@@ -370,6 +366,12 @@ watchEffect(() => {
 @use "../../styles/mixins/list";
 @use "../../styles/mixins/density.scss";
 
+.onyx-combobox-wrapper {
+  @include layers.component() {
+    position: relative;
+  }
+}
+
 .onyx-listbox {
   @include density.compact {
     --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
@@ -383,11 +385,15 @@ watchEffect(() => {
 
   @include layers.component() {
     $wrapper-padding: var(--onyx-spacing-2xs);
+    $outline-size: 0.25rem;
     --max-options: 8;
 
     @include list.styles();
 
     position: absolute;
+    left: 0;
+    top: calc(100% + $outline-size);
+
     visibility: hidden;
     opacity: 0;
     transition:
@@ -415,7 +421,7 @@ watchEffect(() => {
     }
 
     &:has(&__wrapper:focus-visible) {
-      outline: 0.25rem solid var(--onyx-color-base-primary-200);
+      outline: $outline-size solid var(--onyx-color-base-primary-200);
     }
 
     &__slot {
