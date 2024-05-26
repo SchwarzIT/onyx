@@ -53,7 +53,7 @@ const meta: Meta<typeof OnyxListbox> = {
 
           return { handleLoadMore, isLazyLoading, options };
         },
-        template: `<story @lazy-load="handleLoadMore" />`,
+        template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
       }),
     ],
     /**
