@@ -265,7 +265,11 @@ watchEffect(() => {
       v-bind="props.withSearch ? { onKeydown: input.onKeydown } : input"
       @click="onToggle"
     />
-    <div v-show="isExpanded" :class="['onyx-listbox', densityClass]" :aria-busy="props.loading">
+
+    <div
+      :class="['onyx-listbox', densityClass, isExpanded ? 'onyx-listbox--open' : '']"
+      :aria-busy="props.loading"
+    >
       <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
         <OnyxLoadingIndicator class="onyx-listbox__loading" />
       </div>
@@ -382,6 +386,16 @@ watchEffect(() => {
     @include list.styles();
 
     position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      visibility var(--onyx-duration-sm),
+      opacity var(--onyx-duration-sm);
+
+    &--open {
+      visibility: visible;
+      opacity: 1;
+    }
 
     &__search {
       position: sticky;
