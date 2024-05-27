@@ -9,6 +9,7 @@ export type OnyxTextareaProps = DensityProp &
   Pick<
     OnyxInputProps,
     | "label"
+    | "infoLabel"
     | "hideLabel"
     | "modelValue"
     | "placeholder"
@@ -21,6 +22,7 @@ export type OnyxTextareaProps = DensityProp &
     | "maxlength"
     | "withCounter"
     | "message"
+    | "infoMessage"
     | "skeleton"
   > & {
     /**

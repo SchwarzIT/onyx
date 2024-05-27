@@ -205,6 +205,38 @@ test.describe("Screenshot tests", () => {
       }
     },
   });
+
+  executeMatrixScreenshotTest({
+    name: "Textarea (infoLabel/infoMessage)",
+    columns: ["default", "long-text"],
+    rows: ["infoLabel", "infoMessage"],
+    component: (column, row) => {
+      const label =
+        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+      const message =
+        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const infoLabel = "More information";
+      const infoMessage = "Additional info message";
+
+      return (
+        <OnyxTextarea
+          style="width: 12rem"
+          label={label}
+          message={row === "infoMessage" ? message : undefined}
+          infoLabel={row === "infoLabel" ? infoLabel : undefined}
+          infoMessage={row === "infoMessage" ? infoMessage : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, _row) => {
+      const tooltip = page.getByRole("tooltip");
+      await component.evaluate((element) => {
+        element.style.height = `15rem`;
+      });
+
+      await tooltip.hover();
+    },
+  });
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {

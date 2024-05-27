@@ -5,7 +5,11 @@ import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import type { OnyxInputProps } from "./types";
+import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -65,6 +69,7 @@ const patternSource = computed(() => {
 });
 
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
+const { t } = injectI18n();
 </script>
 
 <template>
@@ -79,7 +84,18 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
         v-if="!props.hideLabel"
         :class="['onyx-input__label', 'onyx-text--small', requiredMarkerClass]"
       >
-        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+        <div class="onyx-input__info-label">
+          <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+          <OnyxTooltip v-if="props.infoLabel" open="hover" :text="props.infoLabel">
+            <button
+              :aria-label="t('infoTooltip')"
+              role="tooltip"
+              class="onyx-input__tooltip-trigger"
+            >
+              <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
+            </button>
+          </OnyxTooltip>
+        </div>
       </div>
 
       <div class="onyx-input__wrapper">
@@ -117,6 +133,17 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
     <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <OnyxTooltip
+        v-if="props.infoMessage"
+        class="onyx-input__info-message"
+        open="hover"
+        position="bottom"
+        :text="props.infoMessage"
+      >
+        <button :aria-label="t('infoTooltip')" role="tooltip" class="onyx-input__tooltip-trigger">
+          <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
+        </button>
+      </OnyxTooltip>
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
@@ -177,6 +204,23 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
       $base-selector: ".onyx-input",
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
+
+    &__info-label {
+      display: flex;
+      gap: var(--onyx-spacing-2xs);
+      max-width: 100%;
+    }
+
+    &__info-message {
+      height: 1rem;
+      align-self: center;
+    }
+
+    &__tooltip-trigger {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
 
     &__wrapper {
       &:has(.onyx-input__native:read-write) {

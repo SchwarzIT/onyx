@@ -152,3 +152,30 @@ export const CustomError = {
     placeholder: "Interact with me to show error",
   },
 } satisfies Story;
+
+/**
+ * This example shows an input with info label tooltip.
+ */
+export const WithInfoLabel: Story = {
+  args: {
+    label: "Label",
+    infoLabel: "More information",
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="padding-top: 2rem"> <story /> </div>`,
+    }),
+  ],
+};
+
+/**
+ * This example shows an input with info message / additional text.
+ */
+export const WithInfoMessage = {
+  args: {
+    ...Default.args,
+    message: "Example message",
+    infoMessage: "Additional info message",
+  },
+} satisfies Story;

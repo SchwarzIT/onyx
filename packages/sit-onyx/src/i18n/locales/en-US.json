@@ -39,5 +39,6 @@
     "goToHome": "Go to home page",
     "goBack": "Go back",
     "userMenuLabel": "User options"
-  }
+  },
+  "infoTooltip": "Info Tooltip"
 }

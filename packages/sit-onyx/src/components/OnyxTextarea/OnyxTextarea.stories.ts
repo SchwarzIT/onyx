@@ -138,3 +138,30 @@ export const Autosize = {
     },
   },
 } satisfies Story;
+
+/**
+ * This example shows a textarea with info tooltip.
+ */
+export const WithInfoLabel: Story = {
+  args: {
+    label: "Label",
+    infoLabel: "More Information",
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="padding-top: 2rem"> <story /> </div>`,
+    }),
+  ],
+};
+
+/**
+ * This example shows a textarea with info message / additional text.
+ */
+export const WithInfoMessage = {
+  args: {
+    ...Default.args,
+    message: "Example message",
+    infoMessage: "Additional info message",
+  },
+} satisfies Story;
