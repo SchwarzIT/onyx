@@ -80,11 +80,8 @@ const { t } = injectI18n();
 
   <div v-else :class="['onyx-input', requiredTypeClass, densityClass]">
     <label>
-      <div
-        v-if="!props.hideLabel"
-        :class="['onyx-input__label', 'onyx-text--small', requiredMarkerClass]"
-      >
-        <div class="onyx-input__info-label">
+      <div v-if="!props.hideLabel" class="onyx-input__label onyx-text--small">
+        <div :class="['onyx-input__info-label', requiredMarkerClass]">
           <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
           <OnyxTooltip v-if="props.infoLabel" open="hover" :text="props.infoLabel">
             <button

@@ -85,11 +85,11 @@ test.describe("Screenshot tests", () => {
     },
     beforeScreenshot: async (component, page, _column, _row) => {
       const tooltip = page.getByRole("tooltip");
-      await component.evaluate((element) => {
-        element.style.height = `10rem`;
-      });
-
       await tooltip.hover();
+
+      await component.evaluate((element) => {
+        element.style.paddingTop = `3rem`;
+      });
     },
   });
 

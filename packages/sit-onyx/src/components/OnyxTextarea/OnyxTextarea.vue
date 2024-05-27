@@ -100,11 +100,8 @@ const handleInput = (event: Event) => {
     :style="autosizeMinMaxStyles"
   >
     <label>
-      <div
-        v-if="!props.hideLabel"
-        :class="['onyx-textarea__label', 'onyx-text--small', requiredMarkerClass]"
-      >
-        <div class="onyx-textarea__info-label">
+      <div v-if="!props.hideLabel" class="onyx-textarea__label onyx-text--small">
+        <div :class="['onyx-textarea__info-label', requiredMarkerClass]">
           <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
           <OnyxTooltip
             v-if="props.infoLabel"
@@ -115,7 +112,7 @@ const handleInput = (event: Event) => {
             <button
               :aria-label="t('infoTooltip')"
               role="tooltip"
-              class="onyx-input__tooltip-trigger"
+              class="onyx-textarea__tooltip-trigger"
             >
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
