@@ -249,7 +249,7 @@ const selectInputProps = computed(() => {
     selection: props.modelValue as SelectInputModelValue<TValue>[],
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
-  return { ...baseProps, ...input };
+  return { ...baseProps, ...input.value };
 });
 </script>
 
