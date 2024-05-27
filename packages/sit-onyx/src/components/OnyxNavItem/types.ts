@@ -18,6 +18,6 @@ export type OnyxNavItemProps = {
    * (starting with "http://" or "https://") and will be hidden otherwise.
    */
   withExternalIcon?: boolean | "auto";
-  /** Options to render in a listbox. */
+  /** Options to render in a flyout. */
   options?: (Omit<OnyxNavItemProps, "options"> & { href: string })[];
 };

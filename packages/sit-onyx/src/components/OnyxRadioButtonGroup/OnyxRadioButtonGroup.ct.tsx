@@ -1,8 +1,8 @@
 import { expect, test } from "../../playwright/a11y";
-import { DIRECTIONS, type SelectOption, type SelectOptionValue } from "../../types";
+import { DIRECTIONS, type BaseSelectOption, type SelectOptionValue } from "../../types";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
-const EXAMPLE_OPTIONS: SelectOption[] = [
+const EXAMPLE_OPTIONS: BaseSelectOption[] = [
   { label: "dummy.1", value: 1 },
   { label: "dummy.2", value: 2 },
   { label: "dummy.3", value: 3 },
@@ -87,7 +87,7 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
 });
 
 test("should truncate", async ({ mount }) => {
-  const options: SelectOption[] = [
+  const options: BaseSelectOption[] = [
     { label: "Very long label that will be truncated", value: 1 },
     {
       label: "Very long label that will be truncated with multiline",

@@ -54,8 +54,10 @@ export type CreateComboboxOptions<
   templateRef: Ref<HTMLElement | undefined>;
   /**
    * Hook when the popover should toggle.
+   *
+   * @param preventFocus If `true`, the parent combobox should not be focused (e.g. on outside click).
    */
-  onToggle?: () => void;
+  onToggle?: (preventFocus?: boolean) => void;
   /**
    * Hook when an option is (un-)selected.
    */
@@ -217,7 +219,7 @@ export const createComboBox = createBuilder(
       queryComponent: () => templateRef.value,
       onOutsideClick() {
         if (!isExpanded.value) return;
-        onToggle?.();
+        onToggle?.(true);
       },
     });
 
@@ -253,7 +255,7 @@ export const createComboBox = createBuilder(
          */
         button: computed(() => ({
           tabindex: "-1",
-          onClick: onToggle,
+          onClick: () => onToggle?.(),
         })),
       },
     };

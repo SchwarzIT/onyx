@@ -1,9 +1,9 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { SelectOption, SelectOptionValue } from "../../types";
+import type { BaseSelectOption, SelectOptionValue } from "../../types";
 
 export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
-  SelectOption<TValue>,
+  BaseSelectOption<TValue>,
   "hideLabel"
 > &
   DensityProp &

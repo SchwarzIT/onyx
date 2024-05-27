@@ -1,8 +1,8 @@
-<script lang="ts" setup generic="TValue extends ListboxValue = ListboxValue">
-import type { ListboxValue } from "@sit-onyx/headless";
+<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import { injectI18n } from "../../i18n";
+import type { SelectOptionValue } from "../../types";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
