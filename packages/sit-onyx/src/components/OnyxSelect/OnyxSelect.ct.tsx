@@ -123,35 +123,36 @@ test.describe("Multiple screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select (multiple)",
     columns: DENSITIES,
-    rows: ["empty", "check-all", "search"],
+    rows: ["empty", "check-all", "search", "preview"],
     disabledAccessibilityRules: [
       ...DISABLED_ACCESSIBILITY_RULES,
       // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
       // the following disabled rule should be removed.
       "nested-interactive",
     ],
-    component: (column, row) => (
-      <div>
-        <OnyxSelect
-          label="Label"
-          listLabel="List label"
-          options={MOCK_VARIED_OPTIONS}
-          density={column}
-          multiple={true}
-          modelValue={
-            column === "default"
-              ? [MOCK_VARIED_OPTIONS[0]]
-              : column === "cozy"
-                ? MOCK_VARIED_OPTIONS
-                : []
-          }
-          withSearch={row === "search"}
-          withCheckAll={row === "check-all"}
-        />
-      </div>
-    ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    component: (column, row) => {
+      let modelValue = [MOCK_VARIED_OPTIONS[0]];
+      if (column === "compact") modelValue = [];
+      if (column === "cozy" || row === "preview") modelValue = MOCK_VARIED_OPTIONS;
+
+      return (
+        <div>
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={MOCK_VARIED_OPTIONS}
+            density={column}
+            multiple={true}
+            modelValue={modelValue}
+            withSearch={row === "search"}
+            withCheckAll={row === "check-all"}
+            textMode={row === "preview" ? "preview" : undefined}
+          />
+        </div>
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row !== "preview") await openFlyout(component);
     },
   });
 });
