@@ -1,5 +1,18 @@
 # sit-onyx
 
+## 1.0.0-alpha.115
+
+### Major Changes
+
+- 19011d6: feat(OnyxListbox): implement select/combobox
+
+  Implement select/combox inside the OnyxListbox. The API and component purpose has changed.
+  The OnyxListbox will be renamed to OnyxSelect in a future version.
+
+### Patch Changes
+
+- 19011d6: fix(OnyxSelectItem): add missing styles for hover,active,focus state
+
 ## 1.0.0-alpha.114
 
 ### Major Changes
