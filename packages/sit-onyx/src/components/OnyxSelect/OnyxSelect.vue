@@ -102,7 +102,7 @@ const allKeyboardOptionIds = computed(() => {
   );
 });
 
-const onToggle = async () => {
+const onToggle = async (preventFocus?: boolean) => {
   if (props.readonly) {
     isExpanded.value = false;
     return;
@@ -111,7 +111,7 @@ const onToggle = async () => {
   isExpanded.value = !isExpanded.value;
   if (!isExpanded.value) {
     emit("update:searchTerm", "");
-    selectInput.value?.focus();
+    if (!preventFocus) selectInput.value?.focus();
   } else {
     // make sure search of focused when flyout opens
     await nextTick();
