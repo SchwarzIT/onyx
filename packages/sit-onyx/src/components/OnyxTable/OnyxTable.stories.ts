@@ -1,5 +1,5 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxTable from "./OnyxTable.vue";
 
@@ -69,4 +69,81 @@ export const WithoutHeader = {
   args: {
     default: () => getTableBody(),
   },
+} satisfies Story;
+
+const limitSizeDecorator = (maxHeight: string, maxWidth: string): Decorator => {
+  return (story) => ({
+    components: { story },
+    template: `
+    <div>
+      <story  style="max-height: ${maxHeight}; max-width: ${maxWidth};"/>
+    </div>`,
+  });
+};
+
+/**
+ * This example shows a table without a header.
+ */
+export const Scrollable = {
+  args: {
+    default: () => [
+      h("thead", [
+        h("tr", [
+          h("th", "Fruit"),
+          h("th", "Price (€/kg)"),
+          h("th", "Inventory (kg)"),
+          h("th", "Stock"),
+          h("th", "Rating"),
+        ]),
+      ]),
+      h("tbody", [
+        h("tr", [
+          h("td", "Strawberry"),
+          h("td", "4.50"),
+          h("td", "200"),
+          h("td", "100"),
+          h("td", "5"),
+        ]),
+        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
+        h("tr", [
+          h("td", "Banana"),
+          h("td", "3.75"),
+          h("td", "18000"),
+          h("td", "300"),
+          h("td", "4"),
+        ]),
+        h("tr", [
+          h("td", "Strawberry"),
+          h("td", "4.50"),
+          h("td", "200"),
+          h("td", "400"),
+          h("td", "5"),
+        ]),
+        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "600"), h("td", "3")]),
+        h("tr", [
+          h("td", "Banana"),
+          h("td", "3.75"),
+          h("td", "18000"),
+          h("td", "300"),
+          h("td", "4"),
+        ]),
+        h("tr", [
+          h("td", "Strawberry"),
+          h("td", "4.50"),
+          h("td", "200"),
+          h("td", "1500"),
+          h("td", "5"),
+        ]),
+        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "300"), h("td", "3")]),
+        h("tr", [
+          h("td", "Banana"),
+          h("td", "3.75"),
+          h("td", "18000"),
+          h("td", "600"),
+          h("td", "4"),
+        ]),
+      ]),
+    ],
+  },
+  decorators: limitSizeDecorator("20rem", "20rem"),
 } satisfies Story;

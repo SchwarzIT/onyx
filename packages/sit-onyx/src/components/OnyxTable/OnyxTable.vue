@@ -125,6 +125,8 @@ const { densityClass } = useDensity(props);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
+    display: inline-block;
+    overflow: auto;
 
     th,
     td {
@@ -138,6 +140,10 @@ const { densityClass } = useDensity(props);
       font-size: 0.8125rem;
       line-height: 1.25rem;
       font-weight: 600;
+      position: sticky;
+      top: 0;
+      // todo use one from the variables
+      z-index: 2;
 
       &:hover {
         background: var(--onyx-color-base-neutral-300);
