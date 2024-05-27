@@ -2,9 +2,9 @@
 import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import type { OnyxListboxOptionProps } from "./types";
+import type { OnyxSelectOptionProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxOptionProps>(), {
+const props = withDefaults(defineProps<OnyxSelectOptionProps>(), {
   active: false,
   multiple: false,
   color: "primary",
@@ -22,7 +22,7 @@ defineSlots<{
 
 <template>
   <OnyxListItem
-    :class="['onyx-listbox-option', densityClass]"
+    :class="['onyx-select-option', densityClass]"
     :active="props.active"
     :color="props.color"
   >
@@ -34,7 +34,7 @@ defineSlots<{
       :indeterminate="props.indeterminate"
       aria-hidden="true"
       tabindex="-1"
-      class="onyx-listbox-option__checkbox"
+      class="onyx-select-option__checkbox"
       type="checkbox"
     />
 
@@ -50,7 +50,7 @@ defineSlots<{
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/checkbox";
 
-.onyx-listbox-option {
+.onyx-select-option {
   @include checkbox.variables();
 
   @include layers.component() {

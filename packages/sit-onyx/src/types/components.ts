@@ -6,13 +6,12 @@ import type { TruncationType } from "./fonts";
 // - Checkbox / Checkbox group
 // - Radio button / Radio button group
 // - Select
-// - Listbox
 // - ...
 
 /**
- * Select option that is e.g. used inside the select, radio button / checkbox group.
+ * Base select option that is e.g. used inside the select, radio button / checkbox group.
  */
-export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp & {
+export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp & {
   /**
    * Value of the option when it is selected.
    * Must be unique in the current list of options.

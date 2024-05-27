@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 
 /**
- * The MiniSearch is intended to be used inside of the Listbox for filtering of elements.
+ * The MiniSearch is intended to be used inside of the select for filtering of elements.
  */
 const meta: Meta<typeof OnyxMiniSearch> = {
   title: "support/MiniSearch",

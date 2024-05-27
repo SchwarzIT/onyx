@@ -1,5 +1,4 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-// TODO: rename to OnyxSelect and promote from support component to actual component
 import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import { computed, nextTick, ref, watch, watchEffect } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
@@ -10,13 +9,13 @@ import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import OnyxListboxOption from "../OnyxListboxOption/OnyxListboxOption.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
+import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
-import type { ListboxOption, OnyxListboxProps } from "./types";
+import type { OnyxSelectProps, SelectOption } from "./types";
 
-const props = withDefaults(defineProps<OnyxListboxProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
 });
 
@@ -56,7 +55,7 @@ const slots = defineSlots<{
 const { t } = injectI18n();
 
 const isExpanded = ref(false);
-const comboboxRef = ref<HTMLElement>();
+const selectRef = ref<HTMLElement>();
 
 /**
  * Currently (visually) active value.
@@ -71,7 +70,7 @@ const arrayValue = computed(() => {
   if (!props.modelValue) return [];
   return props.multiple && Array.isArray(props.modelValue)
     ? props.modelValue
-    : ([props.modelValue] as ListboxOption<TValue>[]);
+    : ([props.modelValue] as SelectOption<TValue>[]);
 });
 
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
@@ -183,7 +182,7 @@ const {
   activeOption: computed(() => activeValue.value),
   multiple: computed(() => props.multiple),
   isExpanded,
-  templateRef: comboboxRef,
+  templateRef: selectRef,
   onToggle,
   onActivateFirst,
   onActivateLast,
@@ -204,8 +203,8 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 
 const isEmptyMessage = computed(() => {
   if (props.options.length) return;
-  if (props.withSearch && props.searchTerm) return t.value("listbox.noMatch");
-  return t.value("listbox.empty");
+  if (props.withSearch && props.searchTerm) return t.value("select.noMatch");
+  return t.value("select.empty");
 });
 
 const enabledOptionValues = computed(() =>
@@ -245,12 +244,12 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div ref="comboboxRef" class="onyx-combobox-wrapper">
+  <div ref="selectRef" class="onyx-select-wrapper">
     <OnyxSelectInput
       ref="selectInput"
       :label="props.label"
       :loading="props.loading"
-      :selection="props.modelValue as ListboxOption"
+      :selection="props.modelValue as SelectOption"
       :hide-label="props.hideLabel"
       :disabled="props.disabled"
       :readonly="props.readonly"
@@ -265,25 +264,25 @@ watchEffect(() => {
     />
 
     <div
-      :class="['onyx-listbox', densityClass, isExpanded ? 'onyx-listbox--open' : '']"
+      :class="['onyx-select', densityClass, isExpanded ? 'onyx-select--open' : '']"
       :aria-busy="props.loading"
     >
-      <div v-if="props.loading" class="onyx-listbox__slot onyx-listbox__slot--loading">
-        <OnyxLoadingIndicator class="onyx-listbox__loading" />
+      <div v-if="props.loading" class="onyx-select__slot onyx-select__slot--loading">
+        <OnyxLoadingIndicator class="onyx-select__loading" />
       </div>
 
-      <div v-else v-scroll-end class="onyx-listbox__wrapper">
+      <div v-else v-scroll-end class="onyx-select__wrapper">
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
           v-bind="input"
-          :label="t('listbox.searchInputLabel')"
-          class="onyx-listbox__search"
+          :label="t('select.searchInputLabel')"
+          class="onyx-select__search"
           @clear="emit('update:searchTerm', '')"
         />
 
         <div v-bind="listbox">
-          <ul v-if="isEmptyMessage" role="group" class="onyx-listbox__group">
+          <ul v-if="isEmptyMessage" role="group" class="onyx-select__group">
             <li role="option" aria-selected="false">
               <slot name="empty" :default-message="isEmptyMessage">
                 <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
@@ -295,20 +294,20 @@ watchEffect(() => {
             <ul
               v-for="(options, group) in groupedOptions"
               :key="group"
-              class="onyx-listbox__group"
+              class="onyx-select__group"
               v-bind="headlessGroup({ label: group })"
             >
               <li
                 v-if="group != ''"
                 role="presentation"
-                class="onyx-listbox__group-name onyx-text--small"
+                class="onyx-select__group-name onyx-text--small"
               >
                 {{ group }}
               </li>
 
               <!-- select-all option for "multiple" -->
               <template v-if="props.multiple && props.withCheckAll">
-                <OnyxListboxOption
+                <OnyxSelectOption
                   v-bind="
                     headlessOption({
                       value: CHECK_ALL_ID as TValue,
@@ -320,13 +319,13 @@ watchEffect(() => {
                   :active="CHECK_ALL_ID === activeValue"
                   :indeterminate="checkAll?.state.value.indeterminate"
                   :density="props.density"
-                  class="onyx-listbox__check-all"
+                  class="onyx-select__check-all"
                 >
                   {{ checkAllLabel }}
-                </OnyxListboxOption>
+                </OnyxSelectOption>
               </template>
 
-              <OnyxListboxOption
+              <OnyxSelectOption
                 v-for="option in options"
                 :key="option.value.toString()"
                 v-bind="
@@ -344,16 +343,16 @@ watchEffect(() => {
                 :density="props.density"
               >
                 {{ option.label }}
-              </OnyxListboxOption>
+              </OnyxSelectOption>
             </ul>
           </template>
         </div>
 
-        <div v-if="props.lazyLoading?.loading" class="onyx-listbox__slot">
-          <OnyxLoadingIndicator class="onyx-listbox__loading" />
+        <div v-if="props.lazyLoading?.loading" class="onyx-select__slot">
+          <OnyxLoadingIndicator class="onyx-select__loading" />
         </div>
 
-        <div v-if="slots.optionsEnd" class="onyx-listbox__slot">
+        <div v-if="slots.optionsEnd" class="onyx-select__slot">
           <slot name="optionsEnd"></slot>
         </div>
       </div>
@@ -366,13 +365,13 @@ watchEffect(() => {
 @use "../../styles/mixins/list";
 @use "../../styles/mixins/density.scss";
 
-.onyx-combobox-wrapper {
+.onyx-select-wrapper {
   @include layers.component() {
     position: relative;
   }
 }
 
-.onyx-listbox {
+.onyx-select {
   @include density.compact {
     --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
   }
@@ -446,3 +445,4 @@ watchEffect(() => {
   }
 }
 </style>
+../OnyxSelectOption/OnyxSelectOption.vue

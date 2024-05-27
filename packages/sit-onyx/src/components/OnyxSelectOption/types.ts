@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { OnyxColor } from "../../types";
 
-export type OnyxListboxOptionProps = DensityProp & {
+export type OnyxSelectOptionProps = DensityProp & {
   /**
    * Whether the option is (visually) active.
    */

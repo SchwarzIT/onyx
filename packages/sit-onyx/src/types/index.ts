@@ -1,7 +1,7 @@
 export * from "./breakpoints";
 export * from "./colors";
+export * from "./components";
 export * from "./fonts";
-export * from "./forms";
 export * from "./i18n";
 export * from "./utils";
 

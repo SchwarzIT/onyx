@@ -3,15 +3,15 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { AriaAttributes } from "vue";
 import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
-import OnyxListboxOption from "./OnyxListboxOption.vue";
+import OnyxSelectOption from "./OnyxSelectOption.vue";
 
 /**
- * The listbox option is only intended to be used within the listbox component.
+ * The select option is only intended to be used within the `OnyxSelect` component.
  */
-const meta: Meta<typeof OnyxListboxOption> = {
-  title: "support/ListboxOption",
+const meta: Meta<typeof OnyxSelectOption> = {
+  title: "support/SelectOption",
   ...defineStorybookActionsAndVModels({
-    component: OnyxListboxOption,
+    component: OnyxSelectOption,
     events: [],
     decorators: [createTruncationDecorator("16rem")],
     argTypes: {
@@ -22,7 +22,7 @@ const meta: Meta<typeof OnyxListboxOption> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxListboxOption> & { args: AriaAttributes };
+type Story = StoryObj<typeof OnyxSelectOption> & { args: AriaAttributes };
 
 export const Default = {
   args: {

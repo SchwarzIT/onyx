@@ -12,16 +12,15 @@ import {
   OnyxIconButton,
   OnyxInput,
   OnyxLink,
-  OnyxListbox,
   OnyxLoadingIndicator,
   OnyxPageLayout,
   OnyxRadioButtonGroup,
+  OnyxSelect,
   OnyxSkeleton,
   OnyxSwitch,
   OnyxTable,
   OnyxTag,
   OnyxTooltip,
-  type ListboxOption,
   type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
@@ -41,7 +40,7 @@ const COMPONENTS = [
   "OnyxIconButton",
   "OnyxInput",
   "OnyxLink",
-  "OnyxListbox",
+  "OnyxSelect",
   "OnyxLoadingIndicator",
   "OnyxRadioButtonGroup",
   "OnyxSkeleton",
@@ -78,9 +77,9 @@ const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<string>();
 
-const listboxState = ref<ListboxOption>();
-const groupedListboxState = ref<ListboxOption>();
-const multiselectListboxState = ref<ListboxOption[]>();
+const selectState = ref<SelectOption>();
+const groupedSelectState = ref<SelectOption>();
+const multiselectState = ref<SelectOption[]>();
 
 const selectOptions = [
   "Apple",
@@ -99,11 +98,11 @@ const selectOptions = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map<ListboxOption>((option) => ({ value: option.toLowerCase(), label: option }));
+].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
 
 const minimalSelectOptions = selectOptions.slice(0, 3);
 
-const groupedListboxOptions: ListboxOption[] = [
+const groupedSelectOptions: SelectOption[] = [
   { value: "cat", label: "Cat", group: "Land" },
   { value: "dog", label: "Dog", group: "Land" },
   { value: "tiger", label: "Tiger", group: "Land" },
@@ -182,23 +181,23 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
 
         <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-        <template v-if="show('OnyxListbox')">
+        <template v-if="show('OnyxSelect')">
           <div style="display: flex; gap: var(--onyx-spacing-xs)">
-            <OnyxListbox
-              v-model="listboxState"
-              label="Example listbox"
+            <OnyxSelect
+              v-model="selectState"
+              label="Example select"
               list-label="Example listbox list"
               :options="selectOptions"
             />
-            <OnyxListbox
-              v-model="groupedListboxState"
-              label="Example grouped listbox"
+            <OnyxSelect
+              v-model="groupedSelectState"
+              label="Example grouped select"
               list-label="Example listbox list"
-              :options="groupedListboxOptions"
+              :options="groupedSelectOptions"
             />
-            <OnyxListbox
-              v-model="multiselectListboxState"
-              label="Example multiselect listbox"
+            <OnyxSelect
+              v-model="multiselectState"
+              label="Example multiselect"
               list-label="Example listbox list"
               :multiple="true"
               :with-check-all="true"
@@ -207,9 +206,9 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
           </div>
 
           <div class="onyx-text--small state-info">
-            <div>OnyxListbox single state: {{ listboxState ?? "–" }}</div>
-            <div>OnyxListbox single grouped state: {{ groupedListboxState ?? "–" }}</div>
-            <div>OnyxListbox multiselect state: {{ multiselectListboxState ?? "–" }}</div>
+            <div>OnyxSelect single state: {{ selectState ?? "–" }}</div>
+            <div>OnyxSelect single grouped state: {{ groupedSelectState ?? "–" }}</div>
+            <div>OnyxSelect multiselect state: {{ multiselectState ?? "–" }}</div>
           </div>
         </template>
 

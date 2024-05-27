@@ -18,17 +18,15 @@
     }
   },
   "select": {
-    "toggleDropDown": "Auswahlfenster umschalten"
-  },
-  "selections": {
-    "selectAll": "Alle auswählen",
-    "currentSelection": "{n} ausgewählt"
-  },
-  "listbox": {
+    "toggleDropDown": "Auswahlfenster umschalten",
     "empty": "Keine Daten verfügbar",
     "noMatch": "Kein Element passt zum Suchtext",
     "searchInputLabel": "Liste durchsuchen",
     "clearSearch": "Suchtext löschen"
+  },
+  "selections": {
+    "selectAll": "Alle auswählen",
+    "currentSelection": "{n} ausgewählt"
   },
   "link": {
     "opensExternally": "Wird in einem neuen Tab geöffnet."

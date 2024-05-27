@@ -1,9 +1,9 @@
 import type { DensityProp } from "../../composables/density";
-import type { SelectOption, SelectOptionValue } from "../../types";
-import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
+import type { BaseSelectOption, SelectOptionValue } from "../../types";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
+import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
-export type ListboxSearchProps =
+export type SelectSearchProps =
   | {
       /**
        * Allows the user to filter the list entries.
@@ -22,27 +22,27 @@ export type ListboxSearchProps =
       searchTerm?: never;
     };
 
-export type ListboxModelValueProps<TValue extends SelectOptionValue> =
+export type SelectModelValueProps<TValue extends SelectOptionValue> =
   | {
       /**
-       * Allows the selection of multiple listbox options
+       * Allows the selection of multiple options
        */
       multiple?: false;
       /**
        * Current value.
        */
-      modelValue?: ListboxOption<TValue>;
+      modelValue?: SelectOption<TValue>;
       withCheckAll?: never;
     }
   | {
       /**
-       * Allows the selection of multiple listbox options
+       * Allows the selection of multiple options
        */
       multiple: true;
       /**
        * Current value / selected option(s).
        */
-      modelValue?: ListboxOption<TValue>[];
+      modelValue?: SelectOption<TValue>[];
       /**
        * If true, a checkbox will be displayed to check/uncheck all options.
        * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -59,14 +59,9 @@ export type ListboxModelValueProps<TValue extends SelectOptionValue> =
           };
     };
 
-export type ListboxModelValue<
-  TValue extends SelectOptionValue = SelectOptionValue,
-  TMultiple extends boolean = false,
-> = TMultiple extends true ? TValue[] : TValue;
-
-export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
-  ListboxModelValueProps<TValue> &
-  ListboxSearchProps &
+export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
+  SelectModelValueProps<TValue> &
+  SelectSearchProps &
   Omit<OnyxSelectInputProps<TValue>, "density"> & {
     /**
      * Aria label. Must be set for accessibility reasons.
@@ -79,26 +74,26 @@ export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValu
     /**
      * Available options to choose from.
      */
-    options: ListboxOption<TValue>[];
+    options: SelectOption<TValue>[];
     /**
      * Lazy loading options. Can be used to load more options on scroll.
      * If you want to use a button instead, use the `optionsEnd` slot.
      */
-    lazyLoading?: ListboxLazyLoading;
+    lazyLoading?: SelectLazyLoading;
   };
 
-export type ListboxOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
-  SelectOption<TValue>,
+export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  BaseSelectOption<TValue>,
   "value" | "label" | "disabled"
 > &
-  Pick<OnyxListboxOptionProps, "color" | "icon"> & {
+  Pick<OnyxSelectOptionProps, "color" | "icon"> & {
     /**
      * Optional group name. If set, all options will be grouped under that group name.
      */
     group?: string;
   };
 
-export type ListboxLazyLoading = {
+export type SelectLazyLoading = {
   /**
    * Whether lazy loading should be enabled.
    * Can be disabled e.g. if all options are loaded.

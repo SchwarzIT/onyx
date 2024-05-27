@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxListbox, type ListboxOption } from "sit-onyx";
+import { OnyxSelect, type SelectOption } from "sit-onyx";
 import { computed, ref, watchEffect } from "vue";
 import { fetchVersions } from "../utils/versions";
 
@@ -29,11 +29,11 @@ const filteredVersions = computed(() => {
   return versions.value?.filter((v) => !v.includes("-"));
 });
 
-const options = computed<ListboxOption<string>[]>(() => {
+const options = computed<SelectOption<string>[]>(() => {
   return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
 });
 
-const modelValue = computed<ListboxOption<string>>({
+const modelValue = computed<SelectOption<string>>({
   get: () => {
     const isLatest = version.value && !version.value.includes(".");
     if (isLatest) return options.value?.[0];
@@ -46,7 +46,7 @@ const modelValue = computed<ListboxOption<string>>({
 </script>
 
 <template>
-  <OnyxListbox
+  <OnyxSelect
     v-model="modelValue"
     :label="props.label"
     :list-label="`Select ${props.pkg} version`"

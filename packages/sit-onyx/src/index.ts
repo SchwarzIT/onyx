@@ -37,11 +37,11 @@ export * from "./components/OnyxInput/types";
 export { default as OnyxLink } from "./components/OnyxLink/OnyxLink.vue";
 export * from "./components/OnyxLink/types";
 
-export { default as OnyxListbox } from "./components/OnyxListbox/OnyxListbox.vue";
-export * from "./components/OnyxListbox/types";
+export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
+export * from "./components/OnyxSelect/types";
 
-export { default as OnyxListboxOption } from "./components/OnyxListboxOption/OnyxListboxOption.vue";
-export * from "./components/OnyxListboxOption/types";
+export { default as OnyxSelectOption } from "./components/OnyxSelectOption/OnyxSelectOption.vue";
+export * from "./components/OnyxSelectOption/types";
 
 export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 export * from "./components/OnyxLoadingIndicator/types";

@@ -56,7 +56,7 @@ test.describe("Screenshot tests with nestedItems", () => {
       await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
 
-      // since the listbox is positioned absolute, we need to set the component size accordingly
+      // since the flyout is positioned absolute, we need to set the component size accordingly
       // so the screenshot contains the whole component
       await component.evaluate((element) => {
         element.style.height = `${element.scrollHeight}px`;

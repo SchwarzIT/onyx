@@ -4,18 +4,18 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, ref, watchEffect } from "vue";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxListbox from "./OnyxListbox.vue";
-import type { ListboxOption } from "./types";
+import OnyxSelect from "./OnyxSelect.vue";
+import type { SelectOption } from "./types";
 
 /**
- * The listbox is a fundamental element utilized across various components such as
+ * The select is a fundamental element utilized across various components such as
  * dropdowns, navigation bars, paginations, tables, etc.
  * It provides the users with the ability to open a small modal window,
  * facilitating single or multi-selection based on the context in which it is employed.
  *
  * ### Keyboard shortcuts
  * The following keyboard shortcuts are available:
- * - **Tab**: Focuses / blurs the listbox
+ * - **Tab**: Focuses / blurs the select
  * - **Arrow down**: Focuses the next option
  * - **Arrow up**: Focuses the previous option
  * - **Home**: Focuses the first option
@@ -23,10 +23,10 @@ import type { ListboxOption } from "./types";
  * - **Space**: Selects currently focused option
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
-const meta: Meta<typeof OnyxListbox> = {
-  title: "support/Listbox",
+const meta: Meta<typeof OnyxSelect> = {
+  title: "components/Select",
   ...defineStorybookActionsAndVModels({
-    component: OnyxListbox,
+    component: OnyxSelect,
     events: ["update:modelValue", "update:searchTerm", "lazyLoad"],
     argTypes: {
       empty: { control: { disable: true } },
@@ -55,7 +55,7 @@ const meta: Meta<typeof OnyxListbox> = {
      * Renderer to simulate search
      */
     render: (args) => ({
-      components: { OnyxListbox },
+      components: { OnyxSelect },
       setup: () => {
         const searchTerm = computed(() => (args.withSearch && args.searchTerm) || "");
 
@@ -67,13 +67,13 @@ const meta: Meta<typeof OnyxListbox> = {
 
         return { args, filteredOptions };
       },
-      template: `<OnyxListbox v-bind="args" :options="filteredOptions" />`,
+      template: `<OnyxSelect v-bind="args" :options="filteredOptions" />`,
     }),
   }),
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxListbox>;
+type Story = StoryObj<typeof OnyxSelect>;
 
 const DEMO_OPTIONS = [
   "Apple",
@@ -92,7 +92,7 @@ const DEMO_OPTIONS = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map<ListboxOption>((option) => ({ value: option.toLowerCase(), label: option }));
+].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
 DEMO_OPTIONS.splice(6, 0, {
   value: "disabled",
   label: "Unavailable fruit",
@@ -100,18 +100,18 @@ DEMO_OPTIONS.splice(6, 0, {
 });
 
 /**
- * This example shows a default single select listbox.
+ * This example shows a default single select.
  */
 export const Default = {
   args: {
-    label: "Example listbox",
+    label: "Example select",
     listLabel: "List label",
     options: DEMO_OPTIONS,
   },
 } satisfies Story;
 
 /**
- * This example shows a listbox with a message / help text at the bottom.
+ * This example shows a select with a message / help text at the bottom.
  */
 export const WithMessage = {
   args: {
@@ -121,7 +121,7 @@ export const WithMessage = {
 } satisfies Story;
 
 /**
- * Multiselect listbox. You can disable the `Select all` option by removing the `withCheckAll` property.
+ * Multiselect. You can disable the `Select all` option by removing the `withCheckAll` property.
  */
 export const Multiselect = {
   args: {
@@ -142,11 +142,11 @@ export const Multiselect = {
 } satisfies Story;
 
 /**
- * This example shows a listbox with grouped options.
+ * This example shows a select with grouped options.
  */
 export const GroupedOptions = {
   args: {
-    label: "Grouped listbox",
+    label: "Grouped select",
     listLabel: "List label",
     options: [
       { value: "cat", label: "Cat", group: "Land" },
@@ -164,7 +164,7 @@ export const GroupedOptions = {
 } satisfies Story;
 
 /**
- * This example shows a empty listbox with default translated message.
+ * This example shows a empty select with default translated message.
  * You can use the `empty` slot to customize the content.
  */
 export const Empty = {
@@ -175,7 +175,7 @@ export const Empty = {
 } satisfies Story;
 
 /**
- * This example shows a listbox with search functionality.
+ * This example shows a select with search functionality.
  */
 export const WithSearch = {
   args: {
@@ -185,7 +185,7 @@ export const WithSearch = {
 } satisfies Story;
 
 /**
- * This example shows a loading listbox.
+ * This example shows a loading select.
  */
 export const Loading = {
   args: {
@@ -195,7 +195,7 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This example shows a loading listbox with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
+ * This example shows a select with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
 export const LazyLoading = {
@@ -208,7 +208,7 @@ export const LazyLoading = {
 } satisfies Story;
 
 /**
- * This example shows a loading listbox with button loading.
+ * This example shows a select with custom button for loading.
  */
 export const ButtonLoading = {
   args: {
@@ -218,18 +218,18 @@ export const ButtonLoading = {
     setup: () => {
       return { args, ...useLazyLoading(args.options) };
     },
-    components: { OnyxListbox, OnyxButton },
+    components: { OnyxSelect, OnyxButton },
     template: `
-      <OnyxListbox v-bind="args" :options="options">
+      <OnyxSelect v-bind="args" :options="options">
         <template #optionsEnd>
           <OnyxButton label="Load more items" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
         </template>
-      </OnyxListbox>
+      </OnyxSelect>
 `,
   }),
 } satisfies Story;
 
-const useLazyLoading = (initialOptions: ListboxOption[]) => {
+const useLazyLoading = (initialOptions: SelectOption[]) => {
   const isLazyLoading = ref(false);
   const options = ref(initialOptions);
 

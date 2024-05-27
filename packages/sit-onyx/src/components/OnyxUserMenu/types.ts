@@ -1,16 +1,16 @@
-import type { ListboxValue } from "@sit-onyx/headless";
+import type { SelectOptionValue } from "../../types";
 import type { OnyxAvatarProps } from "../OnyxAvatar/types";
-import type { ListboxOption } from "../OnyxListbox/types";
+import type { SelectOption } from "../OnyxSelect/types";
 
-export type OnyxUserMenuProps<TValue extends ListboxValue = ListboxValue> = {
+export type OnyxUserMenuProps<TValue extends SelectOptionValue = SelectOptionValue> = {
   /**
    * User name.
    */
   username: string;
   /**
-   * Listbox option to show when the menu is opened.
+   * Option to show when the menu is opened.
    */
-  options: ListboxOption<TValue>[];
+  options: SelectOption<TValue>[];
   /**
    * User avatar.
    */

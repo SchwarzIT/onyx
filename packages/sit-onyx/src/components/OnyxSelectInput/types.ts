@@ -1,4 +1,4 @@
-import type { ListboxOption } from "../..";
+import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { SelectOptionValue } from "../../types";
@@ -14,11 +14,11 @@ export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue>
       /**
        * Current value of the select.
        */
-      selection?: SelectModelValue<TValue>;
+      selection?: SelectInputModelValue<TValue>;
       textMode?: undefined;
     }
   | {
-      selection?: SelectModelValue<TValue>[];
+      selection?: SelectInputModelValue<TValue>[];
       /**
        * How the multiselect value will be displayed in the input.
        * - summary (default): will show "x Selected" if more than 1 is selected.
@@ -29,8 +29,8 @@ export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue>
       textMode?: MultiselectTextMode;
     };
 
-export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
-  ListboxOption<TValue>,
+export type SelectInputModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  SelectOption<TValue>,
   "value" | "label"
 >;
 

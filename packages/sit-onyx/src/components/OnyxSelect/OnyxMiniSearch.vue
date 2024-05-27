@@ -66,7 +66,7 @@ defineExpose({
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
       class="onyx-mini-search__clear"
-      :aria-label="t('listbox.clearSearch')"
+      :aria-label="t('select.clearSearch')"
       tabindex="-1"
       @mousedown.prevent="emit('clear')"
     >
