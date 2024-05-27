@@ -189,6 +189,31 @@ test.describe("Loading screenshots", () => {
   });
 });
 
+test.describe("Other screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Select (readonly, disabled, loading, skeleton)",
+    columns: ["readonly", "disabled", "loading", "skeleton"],
+    rows: ["default", "hover", "focus-visible"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) => (
+      <OnyxSelect
+        label="Label"
+        listLabel="List label"
+        options={MOCK_MANY_OPTIONS}
+        placeholder="Placeholder"
+        readonly={column === "readonly"}
+        disabled={column === "disabled"}
+        loading={column === "loading"}
+        skeleton={column === "skeleton"}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
+  });
+});
+
 test("should interact with multiselect", async ({ mount }) => {
   let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
 

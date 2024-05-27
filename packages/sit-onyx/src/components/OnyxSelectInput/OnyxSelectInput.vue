@@ -195,9 +195,12 @@ defineExpose({ focus: () => input.value?.focus() });
 
     &__button {
       all: initial;
-      cursor: pointer;
       height: var(--onyx-spacing-lg);
       color: var(--onyx-color-text-icons-neutral-medium);
+
+      &:enabled {
+        cursor: pointer;
+      }
     }
 
     &__wrapper {

@@ -11,6 +11,7 @@ import { groupByKey } from "../../utils/objects";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
+import type { OnyxSelectInputProps, SelectInputModelValue } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
@@ -241,37 +242,26 @@ const checkAllLabel = computed<string>(() => {
 watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
+
+const selectInputProps = computed(() => {
+  const baseProps: OnyxSelectInputProps<TValue> = {
+    ...props,
+    selection: props.modelValue as SelectInputModelValue<TValue>[],
+  };
+  if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
+  return { ...baseProps, ...input };
+});
 </script>
 
 <template>
   <div ref="selectRef" class="onyx-select-wrapper">
-    <OnyxSelectInput
-      ref="selectInput"
-      :label="props.label"
-      :loading="props.loading"
-      :selection="props.modelValue as SelectOption"
-      :hide-label="props.hideLabel"
-      :disabled="props.disabled"
-      :readonly="props.readonly"
-      :multiple="props.multiple"
-      :message="props.message"
-      :placeholder="props.placeholder"
-      :required="props.required"
-      :required-marker="props.requiredMarker"
-      :density="props.density"
-      v-bind="props.withSearch ? { onKeydown: input.onKeydown } : input"
-      @click="onToggle"
-    />
+    <OnyxSelectInput ref="selectInput" v-bind="selectInputProps" @click="onToggle" />
 
     <div
       :class="['onyx-select', densityClass, isExpanded ? 'onyx-select--open' : '']"
       :aria-busy="props.loading"
     >
-      <div v-if="props.loading" class="onyx-select__slot onyx-select__slot--loading">
-        <OnyxLoadingIndicator class="onyx-select__loading" />
-      </div>
-
-      <div v-else v-scroll-end class="onyx-select__wrapper">
+      <div v-scroll-end class="onyx-select__wrapper">
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
@@ -429,10 +419,6 @@ watchEffect(() => {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
-      &--loading {
-        min-height: calc(5 * var(--option-height));
-      }
     }
 
     &__loading {
@@ -445,4 +431,3 @@ watchEffect(() => {
   }
 }
 </style>
-../OnyxSelectOption/OnyxSelectOption.vue
