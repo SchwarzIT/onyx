@@ -88,7 +88,7 @@ test.describe("Screenshot tests", () => {
       await tooltip.hover();
 
       await component.evaluate((element) => {
-        element.style.padding = `3rem 4rem`;
+        element.style.padding = `3rem 5rem`;
       });
     },
   });
