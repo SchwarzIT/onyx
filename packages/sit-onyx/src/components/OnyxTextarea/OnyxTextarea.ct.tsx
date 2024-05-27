@@ -234,7 +234,7 @@ test.describe("Screenshot tests", () => {
       await tooltip.hover();
 
       await component.evaluate((element) => {
-        element.style.paddingTop = `3rem`;
+        element.style.padding = `3rem`;
       });
     },
   });
