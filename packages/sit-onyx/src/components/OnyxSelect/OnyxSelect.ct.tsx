@@ -42,9 +42,9 @@ test.describe("Default screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select",
     columns: DENSITIES,
-    rows: ["default", "open"],
+    rows: ["default", "required", "hideLabel", "open"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
-    component: (column) => (
+    component: (column, row) => (
       <div>
         <OnyxSelect
           label="Label"
@@ -52,11 +52,13 @@ test.describe("Default screenshots", () => {
           options={MOCK_VARIED_OPTIONS}
           modelValue={MOCK_VARIED_OPTIONS[1]}
           density={column}
+          required={row === "required"}
+          hideLabel={row === "hideLabel"}
         />
       </div>
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row !== "default") await openFlyout(component);
+      if (row === "open") await openFlyout(component);
     },
   });
 });
