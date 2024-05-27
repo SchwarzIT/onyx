@@ -9,14 +9,17 @@ const meta: Meta<typeof OnyxMiniSearch> = {
   title: "support/MiniSearch",
   ...defineStorybookActionsAndVModels({
     component: OnyxMiniSearch,
-    events: ["update:modelValue"],
-    argTypes: {},
+    events: ["update:modelValue", "clear"],
   }),
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxMiniSearch>;
 
-export const Default = {
-  args: {},
+export const Default = { args: {} } satisfies Story;
+
+export const WithValue = {
+  args: {
+    modelValue: "Test value",
+  },
 } satisfies Story;

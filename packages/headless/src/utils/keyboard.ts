@@ -1,6 +1,6 @@
 import { isSubsetMatching } from "./object";
 
-export type WasKeyPressedOption =
+export type PressedKey =
   | string
   | Partial<Pick<KeyboardEvent, "altKey" | "key" | "ctrlKey" | "metaKey" | "shiftKey" | "code">>;
 
@@ -11,7 +11,7 @@ export type WasKeyPressedOption =
  * or an object with the relevant key parameters, e.g. `{ key: "m", altKey: true }`
  * @returns true, if the key was pressed with the specified parameters
  */
-export const wasKeyPressed = (event: KeyboardEvent, key: WasKeyPressedOption) => {
+export const wasKeyPressed = (event: KeyboardEvent, key: PressedKey) => {
   if (typeof key === "string") {
     return event.key === key;
   }

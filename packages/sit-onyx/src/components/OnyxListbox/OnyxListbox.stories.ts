@@ -2,11 +2,10 @@ import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, ref, watchEffect } from "vue";
-import type { SelectOption } from "../../types";
+import { normalizedIncludes } from "../../utils/strings";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption } from "./types";
-import { normalizedIncludes } from "../../utils/strings";
 
 /**
  * The listbox is a fundamental element utilized across various components such as
@@ -32,8 +31,6 @@ const meta: Meta<typeof OnyxListbox> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
-      modelValue: { control: { type: "text" } },
-      searchTerm: { control: { type: "text" } },
     },
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.
@@ -51,9 +48,12 @@ const meta: Meta<typeof OnyxListbox> = {
 
           return { handleLoadMore, isLazyLoading, options };
         },
-        template: `<story @lazy-load="handleLoadMore" />`,
+        template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
       }),
     ],
+    /**
+     * Renderer to simulate search
+     */
     render: (args) => ({
       components: { OnyxListbox },
       setup: () => {
@@ -72,23 +72,10 @@ const meta: Meta<typeof OnyxListbox> = {
   }),
 };
 
-const groupedAnimals: ListboxOption[] = [
-  { value: "cat", label: "Cat", group: "Land" },
-  { value: "dog", label: "Dog", group: "Land" },
-  { value: "tiger", label: "Tiger", group: "Land" },
-  { value: "reindeer", label: "Reindeer", group: "Land" },
-  { value: "racoon", label: "Racoon", group: "Land" },
-  { value: "dolphin", label: "Dolphin", group: "Water" },
-  { value: "flounder", label: "Flounder", group: "Water" },
-  { value: "eel", label: "Eel", group: "Water" },
-  { value: "falcon", label: "Falcon", group: "Air" },
-  { value: "owl", label: "Owl", group: "Air" },
-];
-
 export default meta;
 type Story = StoryObj<typeof OnyxListbox>;
 
-const DEMO_OPTIONS: SelectOption[] = [
+const DEMO_OPTIONS = [
   "Apple",
   "Banana",
   "Mango",
@@ -105,13 +92,7 @@ const DEMO_OPTIONS: SelectOption[] = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map(
-  (option) =>
-    ({
-      value: option.toLowerCase(),
-      label: option,
-    }) satisfies ListboxOption,
-);
+].map<ListboxOption>((option) => ({ value: option.toLowerCase(), label: option }));
 DEMO_OPTIONS.splice(6, 0, {
   value: "disabled",
   label: "Unavailable fruit",
@@ -124,6 +105,7 @@ DEMO_OPTIONS.splice(6, 0, {
 export const Default = {
   args: {
     label: "Example listbox",
+    listLabel: "List label",
     options: DEMO_OPTIONS,
   },
 } satisfies Story;
@@ -144,7 +126,7 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: ["apple", "banana", "disabled-2"],
+    modelValue: [],
     multiple: true,
     withCheckAll: true,
     options: [
@@ -157,9 +139,6 @@ export const Multiselect = {
       { value: "long", label: "Option with a very long long long  long long long long text}" },
     ],
   },
-  argTypes: {
-    modelValue: { control: { type: "object" } },
-  },
 } satisfies Story;
 
 /**
@@ -168,7 +147,19 @@ export const Multiselect = {
 export const GroupedOptions = {
   args: {
     label: "Grouped listbox",
-    options: groupedAnimals,
+    listLabel: "List label",
+    options: [
+      { value: "cat", label: "Cat", group: "Land" },
+      { value: "dog", label: "Dog", group: "Land" },
+      { value: "tiger", label: "Tiger", group: "Land" },
+      { value: "reindeer", label: "Reindeer", group: "Land" },
+      { value: "racoon", label: "Racoon", group: "Land" },
+      { value: "dolphin", label: "Dolphin", group: "Water" },
+      { value: "flounder", label: "Flounder", group: "Water" },
+      { value: "eel", label: "Eel", group: "Water" },
+      { value: "falcon", label: "Falcon", group: "Air" },
+      { value: "owl", label: "Owl", group: "Air" },
+    ],
   },
 } satisfies Story;
 
