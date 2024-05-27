@@ -1,11 +1,14 @@
 import type { DensityProp } from "../../composables/density";
 import type { SelectOption, SelectOptionValue } from "../../types";
 import type { OnyxListboxOptionProps } from "../OnyxListboxOption/types";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 
 export type ListboxSearchProps =
   | {
       /**
        * Allows the user to filter the list entries.
+       * If enabled, you need to manually filter the options based on the current `searchTerm`.
+       * You can use our `normalizedIncludes()` utility function for this.
        * No support for `lazyLoading` yet.
        */
       withSearch: true;
@@ -16,6 +19,7 @@ export type ListboxSearchProps =
     }
   | {
       withSearch?: false;
+      searchTerm?: never;
     };
 
 export type ListboxModelValueProps<TValue extends SelectOptionValue> =
@@ -27,7 +31,8 @@ export type ListboxModelValueProps<TValue extends SelectOptionValue> =
       /**
        * Current value.
        */
-      modelValue?: TValue;
+      modelValue?: ListboxOption<TValue>;
+      withCheckAll?: never;
     }
   | {
       /**
@@ -37,7 +42,7 @@ export type ListboxModelValueProps<TValue extends SelectOptionValue> =
       /**
        * Current value / selected option(s).
        */
-      modelValue?: TValue[];
+      modelValue?: ListboxOption<TValue>[];
       /**
        * If true, a checkbox will be displayed to check/uncheck all options.
        * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -61,23 +66,20 @@ export type ListboxModelValue<
 
 export type OnyxListboxProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   ListboxModelValueProps<TValue> &
-  ListboxSearchProps & {
+  ListboxSearchProps &
+  Omit<OnyxSelectInputProps<TValue>, "density"> & {
     /**
      * Aria label. Must be set for accessibility reasons.
      */
     label: string;
     /**
+     * Label describing the selection list, must be set to support assistive technologies.
+     */
+    listLabel: string;
+    /**
      * Available options to choose from.
      */
     options: ListboxOption<TValue>[];
-    /**
-     * Message / help text to display at the bottom.
-     */
-    message?: string;
-    /**
-     * Whether to show a loading indicator.
-     */
-    loading?: boolean;
     /**
      * Lazy loading options. Can be used to load more options on scroll.
      * If you want to use a button instead, use the `optionsEnd` slot.

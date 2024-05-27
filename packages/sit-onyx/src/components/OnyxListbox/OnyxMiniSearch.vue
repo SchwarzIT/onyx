@@ -1,57 +1,95 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { computed, ref } from "vue";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
-export type MiniSearchProps = { modelValue: string; label: string };
+export type MiniSearchProps = {
+  /**
+   * (Aria) label of the input.
+   */
+  label: string;
+  /**
+   * Current input/search value.
+   */
+  modelValue?: string;
+};
 
 defineOptions({ inheritAttrs: false });
-
-const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = defineProps<MiniSearchProps>();
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the current search value changes.
+   */
   "update:modelValue": [input: string];
+  /**
+   * Emitted when the clear button is clicked.
+   */
+  clear: [];
 }>();
 
+const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
+const input = ref<HTMLInputElement>();
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
 const value = computed({
   get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
+  set: (value) => emit("update:modelValue", value ?? ""),
+});
+
+defineExpose({
+  /**
+   * Focuses the input.
+   */
+  focus: () => input.value?.focus(),
 });
 </script>
+
 <template>
   <div class="onyx-mini-search" v-bind="rootAttrs">
     <input
+      ref="input"
       v-model="value"
-      :aria-label="props.label"
-      v-bind="restAttrs"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"
+      v-bind="restAttrs"
+      :aria-label="props.label"
     />
+
     <!-- We use `@mousedown.prevent` here to not lose the input focus when the button is clicked  -->
     <button
       class="onyx-mini-search__clear"
       :aria-label="t('listbox.clearSearch')"
       tabindex="-1"
-      @mousedown.prevent="value = ''"
+      @mousedown.prevent="emit('clear')"
     >
       <OnyxIcon :icon="xSmall" />
     </button>
   </div>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/density.scss";
 
 .onyx-mini-search {
+  @include density.compact {
+    --clear-button-size: 1rem;
+  }
+  @include density.default {
+    --clear-button-size: 1.5rem;
+  }
+  @include density.cozy {
+    --clear-button-size: 1.5rem;
+  }
+
   @include layers.component() {
     display: flex;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
@@ -83,6 +121,10 @@ const value = computed({
       place-items: center;
       cursor: pointer;
       visibility: hidden;
+
+      .onyx-icon {
+        --icon-size: var(--clear-button-size);
+      }
     }
 
     // Show clear button only when input is not empty

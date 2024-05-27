@@ -1,31 +1,32 @@
-import { computed, ref, type MaybeRef, type Ref, unref } from "vue";
+import { computed, ref, unref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
-import { createListbox, type CreateListboxOptions } from "../listbox/createListbox";
-import { useTypeAhead } from "../typeAhead";
+import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
 import {
-  isPrintableCharacter,
-  wasKeyPressed,
-  type WasKeyPressedOption,
-} from "../../utils/keyboard";
+  createListbox,
+  type CreateListboxOptions,
+  type ListboxValue,
+} from "../listbox/createListbox";
+import { useOutsideClick } from "../outsideClick";
+import { useTypeAhead } from "../typeAhead";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
-const OPENING_KEYS: WasKeyPressedOption[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
-const isOpeningKey = (event: KeyboardEvent) =>
-  OPENING_KEYS.some((key) => wasKeyPressed(event, key));
+const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
+const CLOSING_KEYS: PressedKey[] = ["Escape", { key: "ArrowUp", altKey: true }, "Enter", "Tab"];
+const SELECTING_KEYS_SINGLE: PressedKey[] = ["Enter", " "];
+const SELECTING_KEYS_MULTIPLE: PressedKey[] = ["Enter"];
 
-const SELECTING_KEYS: WasKeyPressedOption[] = [
-  { key: "Enter" },
-  { key: " " },
-  { key: "Tab" },
-  { key: "ArrowUp", altKey: true },
-];
-const isSelectingKey = (event: KeyboardEvent) =>
-  SELECTING_KEYS.some((key) => wasKeyPressed(event, key));
+const isSelectingKey = (event: KeyboardEvent, isMultiselect?: boolean) => {
+  const selectingKeys = isMultiselect ? SELECTING_KEYS_MULTIPLE : SELECTING_KEYS_SINGLE;
+  return isKeyOfGroup(event, selectingKeys);
+};
+
+const isKeyOfGroup = (event: KeyboardEvent, group: PressedKey[]) =>
+  group.some((key) => wasKeyPressed(event, key));
 
 export type CreateComboboxOptions<
-  TValue extends string,
+  TValue extends ListboxValue,
   TAutoComplete extends ComboboxAutoComplete,
   TMultiple extends boolean = false,
 > = {
@@ -38,7 +39,7 @@ export type CreateComboboxOptions<
   /**
    * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
    */
-  inputValue: Ref<TValue | undefined>;
+  inputValue: Ref<string | undefined>;
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
@@ -48,17 +49,17 @@ export type CreateComboboxOptions<
    */
   activeOption: Ref<TValue | undefined>;
   /**
+   * Template ref to the component root (required to close combobox on outside click).
+   */
+  templateRef: Ref<HTMLElement | undefined>;
+  /**
    * Hook when the popover should toggle.
    */
   onToggle?: () => void;
   /**
-   * Hook when an option is selected.
+   * Hook when an option is (un-)selected.
    */
   onSelect?: (value: TValue) => void;
-  /**
-   * Hook when selection is cancelled.
-   */
-  onCancel?: () => void;
   /**
    * Hook when the first option should be activated.
    */
@@ -93,7 +94,7 @@ export type CreateComboboxOptions<
 
 export const createComboBox = createBuilder(
   <
-    TValue extends string,
+    TValue extends ListboxValue,
     TAutoComplete extends ComboboxAutoComplete,
     TMultiple extends boolean = false,
   >({
@@ -107,12 +108,12 @@ export const createComboBox = createBuilder(
     isExpanded: isExpandedRef,
     activeOption,
     onToggle,
-    onCancel,
     onSelect,
     onActivateFirst,
     onActivateLast,
     onActivateNext,
     onActivatePrevious,
+    templateRef,
   }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
     const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
@@ -123,13 +124,13 @@ export const createComboBox = createBuilder(
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
-      inputValue.value = inputElement.value as TValue;
       inputValid.value = inputElement.validity.valid;
       if (!unref(isExpanded)) {
         onToggle?.();
       }
+
       if (autocomplete.value !== "none") {
-        onAutocomplete?.(inputValue.value);
+        onAutocomplete?.(inputElement.value);
       }
     };
 
@@ -142,55 +143,55 @@ export const createComboBox = createBuilder(
       }
     };
 
-    const handleKeydown = (event: KeyboardEvent) => {
-      if (isExpanded.value) {
-        if (isSelectingKey(event)) {
-          handleSelect(activeOption.value!);
-          return;
-        }
-
-        switch (event.key) {
-          case "Escape":
-            event.preventDefault();
-            onCancel?.();
-            onToggle?.();
-            break;
-          case "ArrowUp":
-            event.preventDefault();
-            if (!activeOption.value) {
-              return onActivateLast?.();
-            }
-            onActivatePrevious?.(activeOption.value);
-            break;
-          case "ArrowDown":
-            event.preventDefault();
-            if (!activeOption.value) {
-              return onActivateFirst?.();
-            }
-            onActivateNext?.(activeOption.value);
-            break;
-          case "Home":
-            event.preventDefault();
-            onActivateFirst?.();
-            break;
-          case "End":
-            event.preventDefault();
-            onActivateLast?.();
-            break;
-        }
-        return;
+    const handleNavigation = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case "ArrowUp":
+          event.preventDefault();
+          if (activeOption.value == undefined) {
+            return onActivateLast?.();
+          }
+          onActivatePrevious?.(activeOption.value);
+          break;
+        case "ArrowDown":
+          event.preventDefault();
+          if (activeOption.value == undefined) {
+            return onActivateFirst?.();
+          }
+          onActivateNext?.(activeOption.value);
+          break;
+        case "Home":
+          event.preventDefault();
+          onActivateFirst?.();
+          break;
+        case "End":
+          event.preventDefault();
+          onActivateLast?.();
+          break;
       }
-      if (isOpeningKey(event)) {
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (!isExpanded.value && isKeyOfGroup(event, OPENING_KEYS)) {
         onToggle?.();
+        if (event.key === " ") {
+          event.preventDefault();
+        }
         if (event.key === "End") {
           return onActivateLast?.();
         }
         return onActivateFirst?.();
       }
+      if (isSelectingKey(event, multiple.value)) {
+        return handleSelect(activeOption.value!);
+      }
+      if (isExpanded.value && isKeyOfGroup(event, CLOSING_KEYS)) {
+        return onToggle?.();
+      }
       if (autocomplete.value === "none" && isPrintableCharacter(event.key)) {
         !isExpanded.value && onToggle?.();
         return typeAhead(event);
       }
+      return handleNavigation(event);
     };
 
     const autocompleteInput =
@@ -210,6 +211,14 @@ export const createComboBox = createBuilder(
       controlled: true,
       activeOption,
       onSelect: handleSelect,
+    });
+
+    useOutsideClick({
+      queryComponent: () => templateRef.value,
+      onOutsideClick() {
+        if (!isExpanded.value) return;
+        onToggle?.();
+      },
     });
 
     return {
@@ -233,7 +242,8 @@ export const createComboBox = createBuilder(
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
           "aria-label": unref(label),
-          "aria-activedescendant": activeOption.value ? getOptionId(activeOption.value) : undefined,
+          "aria-activedescendant":
+            activeOption.value != undefined ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
           ...autocompleteInput,

@@ -1,24 +1,23 @@
-import { listboxTesting } from "@sit-onyx/headless/playwright";
+import type { MountResultJsx } from "@playwright/experimental-ct-vue";
+import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxListbox from "./OnyxListbox.vue";
 import type { ListboxOption, OnyxListboxProps } from "./types";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
   "color-contrast",
-  // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-  // the following disabled rule should be removed.
-  "nested-interactive",
-  // TODO: will be fixed in follow-up PR
-  "aria-required-children",
+  // the scrollable region are the options but they should not be focusable because
+  // the focus should remain on the parent element
+  "scrollable-region-focusable",
 ];
 
 const MOCK_VARIED_OPTIONS = [
   { value: 1, label: "Default" },
-  { value: 2, label: "Selected" },
+  { value: 2, label: "Selected option" },
   { value: 3, label: "Disabled", disabled: true },
   { value: 4, label: "Very long label ".repeat(5) },
 ] satisfies ListboxOption[];
@@ -28,99 +27,173 @@ const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
   label: `Test option ${index + 1}`,
 })) satisfies ListboxOption[];
 
-test("should render", async ({ mount, makeAxeBuilder }) => {
-  let modelValue: number | undefined = 2;
+const openFlyout = async (component: MountResultJsx) => {
+  await component.click();
 
-  // ARRANGE
-  const component = await mount(OnyxListbox, {
-    props: {
-      options: MOCK_VARIED_OPTIONS,
-      label: "Test listbox",
-      modelValue,
-    },
-    on: {
-      "update:modelValue": async (value: number | undefined) => {
-        modelValue = value;
-        await component.update({ props: { modelValue } });
-      },
+  // since the listbox is positioned absolute, we need to set the component size accordingly
+  // so the screenshot contains the whole component
+  await component.evaluate((element) => {
+    element!.style.height = `${element.scrollHeight}px`;
+    element!.style.width = `${element.scrollWidth}px`;
+  });
+};
+
+test.describe("Default screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Listbox",
+    columns: DENSITIES,
+    rows: ["default", "open"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) => (
+      <div>
+        <OnyxListbox
+          label="Label"
+          listLabel="List label"
+          options={MOCK_VARIED_OPTIONS}
+          modelValue={MOCK_VARIED_OPTIONS[1]}
+          density={column}
+        />
+      </div>
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row !== "default") await openFlyout(component);
     },
   });
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("default.png");
-  await expect(component.getByText("Disabled")).toBeDisabled();
-
-  // ACT (should de-select current value)
-  await component.getByText("Selected").click();
-  expect(modelValue).toBeUndefined();
-
-  // ACT
-  // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-  const accessibilityScanResults = await makeAxeBuilder()
-    .disableRules(["color-contrast"])
-    .analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test.describe("Multiselect screenshot tests", () => {
-  const modelValues = {
-    "no-selection": [],
-    "partial-selection": [2],
-    "all-selected": [1, 2, 4],
-  };
+test.describe("Empty screenshots", () => {
   executeMatrixScreenshotTest({
-    name: `Listbox multiselect`,
-    columns: ["default", "check-all"],
-    rows: ["no-selection", "partial-selection", "all-selected"],
+    name: "Listbox (empty)",
+    columns: DENSITIES,
+    rows: ["empty", "search-empty"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (
-      <OnyxListbox
-        label={`${column} listbox`}
-        options={MOCK_VARIED_OPTIONS}
-        modelValue={modelValues[row]}
-        withCheckAll={column === "check-all"}
-        multiple={true}
-      />
+      <div>
+        {row === "empty" ? (
+          <OnyxListbox label="Label" listLabel="List label" options={[]} density={column} />
+        ) : (
+          <OnyxListbox
+            label="Label"
+            listLabel="List label"
+            options={[]}
+            density={column}
+            withSearch={true}
+            searchTerm="search term"
+          />
+        )}
+      </div>
     ),
+    beforeScreenshot: async (component) => {
+      await openFlyout(component);
+    },
   });
 });
 
-test.describe("Densities screenshot tests", () => {
+test.describe("Grouped screenshots", () => {
+  const GROUPED_OPTIONS = [
+    { value: "cat", label: "Cat", group: "Land" },
+    { value: "dog", label: "Dog", group: "Land" },
+    { value: "dolphin", label: "Dolphin", group: "Water" },
+    { value: "flounder", label: "Flounder", group: "Water" },
+  ] satisfies ListboxOption[];
+
   executeMatrixScreenshotTest({
-    name: `Listbox (densities)`,
+    name: "Listbox (grouped)",
     columns: DENSITIES,
-    rows: ["partial-selection", "single-select", "with-search-filled", "with-search-empty"],
+    rows: ["default"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
-    component: (column, row) =>
-      row === "partial-selection" ? (
+    component: (column) => (
+      <div>
         <OnyxListbox
-          label={`${column} listbox`}
+          label="Label"
+          listLabel="List label"
+          options={GROUPED_OPTIONS}
+          modelValue={GROUPED_OPTIONS[0]}
+          density={column}
+        />
+      </div>
+    ),
+    beforeScreenshot: async (component) => {
+      await openFlyout(component);
+    },
+  });
+});
+
+test.describe("Multiple screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Listbox (multiple)",
+    columns: DENSITIES,
+    rows: ["empty", "check-all", "search"],
+    disabledAccessibilityRules: [
+      ...DISABLED_ACCESSIBILITY_RULES,
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
+    component: (column, row) => (
+      <div>
+        <OnyxListbox
+          label="Label"
+          listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
-          modelValue={[2]}
+          density={column}
           multiple={true}
-          density={column}
+          modelValue={
+            column === "default"
+              ? [MOCK_VARIED_OPTIONS[0]]
+              : column === "cozy"
+                ? MOCK_VARIED_OPTIONS
+                : []
+          }
+          withSearch={row === "search"}
+          withCheckAll={row === "check-all"}
         />
-      ) : (
+      </div>
+    ),
+    beforeScreenshot: async (component) => {
+      await openFlyout(component);
+    },
+  });
+});
+
+test.describe("Loading screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Listbox (loading)",
+    columns: ["loading", "lazy-loading", "custom-button"],
+    rows: ["default"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) => (
+      <div>
         <OnyxListbox
-          label={`${column} listbox`}
-          options={MOCK_VARIED_OPTIONS}
-          modelValue={undefined}
-          multiple={false}
-          density={column}
-          withSearch={row.startsWith("with-search")}
-          searchTerm={row === "with-search-filled" ? "very long and creative test text" : ""}
-        />
-      ),
+          label="Label"
+          listLabel="List label"
+          options={MOCK_MANY_OPTIONS}
+          loading={column === "loading"}
+          lazyLoading={column === "lazy-loading" ? { enabled: true, loading: true } : undefined}
+        >
+          {column === "custom-button" && (
+            <template v-slot:optionsEnd>
+              <OnyxButton label="Load more" mode="plain" />
+            </template>
+          )}
+        </OnyxListbox>
+      </div>
+    ),
+    beforeScreenshot: async (component, page, column) => {
+      await openFlyout(component);
+
+      if (column !== "loading") {
+        await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
+      }
+    },
   });
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: number[] = [2];
+  let modelValue: ListboxOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
 
   const eventHandlers = {
-    "update:modelValue": async (value: number[]) => {
+    "update:modelValue": async (value: typeof modelValue) => {
       modelValue = value;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
@@ -131,6 +204,7 @@ test("should interact with multiselect", async ({ mount }) => {
     props: {
       options: MOCK_VARIED_OPTIONS,
       label: "Test listbox",
+      listLabel: "Listbox label",
       withCheckAll: { label: "Select all" },
       multiple: true,
       modelValue,
@@ -138,9 +212,11 @@ test("should interact with multiselect", async ({ mount }) => {
     on: eventHandlers,
   });
 
+  await component.click();
+
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toEqual([2]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1]]);
 
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
@@ -150,104 +226,59 @@ test("should interact with multiselect", async ({ mount }) => {
   // // ACT (should select all non-disabled values)
   await component.getByRole("option", { name: "Select all" }).click();
   // ASSERT
-  expect(modelValue).toEqual([1, 2, 4]);
+  expect(modelValue).toStrictEqual([
+    MOCK_VARIED_OPTIONS[0],
+    MOCK_VARIED_OPTIONS[1],
+    MOCK_VARIED_OPTIONS[3],
+  ]);
 });
 
-test("should render with many options", async ({ mount, makeAxeBuilder, page }) => {
+// eslint-disable-next-line playwright/expect-expect
+test("should pass headless accessibility tests", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
       options: MOCK_MANY_OPTIONS,
       label: "Test listbox",
-    },
-    on: {
-      "update:modelValue": (modelValue: number | undefined) =>
-        component.update({ props: { modelValue } }),
+      listLabel: "List label",
     },
   });
 
   // ASSERT
-  await expect(component).toHaveScreenshot("many-options.png");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  await listboxTesting({
+  await comboboxTesting(
     page,
-    listbox: component.getByRole("listbox"),
-    options: component.getByRole("option"),
-    isOptionActive: async (locator) =>
-      locator.evaluate((l) => l.classList.contains("onyx-list-item--active")),
-  });
+    component.getByRole("listbox"),
+    component.getByRole("combobox"),
+    page.getByRole("button"),
+    page.getByRole("option"),
+  );
 });
 
-test("should render with grouped options", async ({ mount, makeAxeBuilder }) => {
+// eslint-disable-next-line playwright/expect-expect
+test("should pass headless accessibility tests (select only)", async ({ mount, page }) => {
+  const eventHandlers = {
+    "update:modelValue": (modelValue: ListboxOption) => {
+      component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
+
   // ARRANGE
   const component = await mount(OnyxListbox, {
     props: {
-      options: [
-        { value: "cat", label: "Cat", group: "Land" },
-        { value: "dog", label: "Dog", group: "Land" },
-        { value: "dolphin", label: "Dolphin", group: "Water" },
-        { value: "flounder", label: "Flounder", group: "Water" },
-      ],
+      options: MOCK_MANY_OPTIONS,
       label: "Test listbox",
+      listLabel: "List label",
     },
-    on: {
-      "update:modelValue": (modelValue: number | undefined) =>
-        component.update({ props: { modelValue } }),
-    },
+    on: eventHandlers,
   });
 
   // ASSERT
-  await expect(component).toHaveScreenshot("grouped-options.png");
-  await expect(component.getByRole("group", { name: "Water" })).toBeVisible();
-  await expect(component.getByRole("group", { name: "Land" })).toBeVisible();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test.describe("Empty state screenshot tests", () => {
-  executeMatrixScreenshotTest({
-    name: `Listbox empty state`,
-    columns: ["default", "when-searching"],
-    rows: ["empty-state"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
-    component: (column) =>
-      column === "when-searching" ? (
-        <OnyxListbox
-          label={`${column} listbox`}
-          options={[]}
-          withSearch={true}
-          searchTerm={"search term"}
-        />
-      ) : (
-        <OnyxListbox label={`${column} listbox`} options={[]} />
-      ),
-  });
-});
-
-test("should show loading state", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxListbox label="Test listbox" options={MOCK_MANY_OPTIONS} loading />,
+  await comboboxSelectOnlyTesting(
+    page,
+    component.getByRole("listbox"),
+    component.getByRole("combobox"),
+    (loc) => loc.evaluate((e) => e.classList.contains("onyx-list-item--active")),
   );
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("loading.png");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
 });
 
 test("should support lazy loading", async ({ mount }) => {
@@ -262,6 +293,7 @@ test("should support lazy loading", async ({ mount }) => {
     props: {
       options: MOCK_MANY_OPTIONS,
       label: "Test listbox",
+      listLabel: "Test listbox",
       lazyLoading: { enabled: true },
     },
     on: eventHandlers,
@@ -270,6 +302,8 @@ test("should support lazy loading", async ({ mount }) => {
   const updateProps = (props: Partial<OnyxListboxProps>) => {
     return component.update({ props, on: eventHandlers });
   };
+
+  await component.click();
 
   await expect(component.getByRole("option")).toHaveCount(25);
 
@@ -300,7 +334,6 @@ test("should support lazy loading", async ({ mount }) => {
   const loadingIndicator = component.locator(".onyx-loading-dots");
   await loadingIndicator.scrollIntoViewIfNeeded();
   await expect(loadingIndicator).toBeVisible();
-  await expect(component).toHaveScreenshot("lazy-loading-active.png");
 
   // ACT
   await updateProps({
@@ -329,25 +362,6 @@ test("should support lazy loading", async ({ mount }) => {
   await expect(() => expect(lazyLoadEventCount).toBe(2)).toPass();
 });
 
-test("should display optionsEnd slot", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxListbox options={MOCK_MANY_OPTIONS} label="Test label">
-      <template v-slot:optionsEnd>
-        <OnyxButton label="Load more" mode="plain" style={{ width: "100%" }} />
-      </template>
-    </OnyxListbox>,
-  );
-
-  const button = component.getByRole("button", { name: "Load more" });
-
-  // ACT
-  await button.scrollIntoViewIfNeeded();
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("custom-load-button.png");
-});
-
 test("should handle onUpdate:searchTerm correctly when searching", async ({ mount }) => {
   const onUpdateSearchTerm: string[] = [];
 
@@ -356,11 +370,14 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
     props: {
       options: MOCK_MANY_OPTIONS,
       label: "Test label",
+      listLabel: "List label",
       withSearch: true,
       "onUpdate:searchTerm": (i) => onUpdateSearchTerm.push(i),
     },
   });
-  const searchInput = component.getByRole("textbox");
+
+  await component.click();
+  const searchInput = component.getByLabel("Filter the list items");
 
   // ACT
   await searchInput.pressSequentially("test");
