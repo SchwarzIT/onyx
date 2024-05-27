@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-alpha.8
+
+### Major Changes
+
+- 19011d6: feat(createComboBox): implement combobox
+
 ## 0.1.0-alpha.7
 
 ### Minor Changes
