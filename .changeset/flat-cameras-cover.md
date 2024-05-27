@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(OnyxSelect): support skeleton property
+fix(OnyxSelect): support `skeleton` and `textMode` property
