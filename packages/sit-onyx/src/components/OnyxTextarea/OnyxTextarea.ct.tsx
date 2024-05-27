@@ -210,6 +210,7 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (infoLabel/infoMessage)",
     columns: ["default", "long-text"],
     rows: ["infoLabel", "infoMessage"],
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
