@@ -18,16 +18,18 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <table
-    class="onyx-table onyx-text"
-    :class="[
-      props.striped ? 'onyx-table--striped' : '',
-      props.grid ? 'onyx-table--grid' : '',
-      densityClass,
-    ]"
-  >
-    <slot></slot>
-  </table>
+  <div class="onyx-table-wrapper">
+    <table
+      class="onyx-table onyx-text"
+      :class="[
+        props.striped ? 'onyx-table--striped' : '',
+        props.grid ? 'onyx-table--grid' : '',
+        densityClass,
+      ]"
+    >
+      <slot></slot>
+    </table>
+  </div>
 </template>
 
 <style lang="scss">
@@ -105,6 +107,14 @@ const { densityClass } = useDensity(props);
   }
 }
 
+.onyx-table-wrapper {
+  @include layers.component() {
+    // TODO verify if inline
+    display: inline-block;
+    overflow: auto;
+  } // TODO round the borders
+}
+
 .onyx-table {
   @include density.compact {
     --onyx-table-vertical-padding: var(--onyx-spacing-4xs);
@@ -125,8 +135,15 @@ const { densityClass } = useDensity(props);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
-    display: inline-block;
-    overflow: auto;
+    // display: inline-block;
+    // overflow: auto;
+
+    thead {
+      // // todo: sticky creates a bug on column hover
+      position: sticky;
+      top: 0;
+      z-index: var(--onyx-z-index-sticky-content);
+    }
 
     th,
     td {
@@ -140,10 +157,6 @@ const { densityClass } = useDensity(props);
       font-size: 0.8125rem;
       line-height: 1.25rem;
       font-weight: 600;
-      position: sticky;
-      top: 0;
-      // todo use one from the variables
-      z-index: 2;
 
       &:hover {
         background: var(--onyx-color-base-neutral-300);
@@ -171,14 +184,17 @@ const { densityClass } = useDensity(props);
       }
     }
 
-    // row and column hover styles
-    th:hover::after,
+    // row hover styles
     tbody tr:hover td::before {
       background-color: var(--onyx-color-base-neutral-200);
     }
 
     // column hover styles
-    th:hover::after {
+    th:hover::before {
+      // dark mode:
+      // background-color: #2e425230;
+      // light mode:
+      background-color: #26628d30;
       content: "";
       height: 100vh;
       position: absolute;
