@@ -125,7 +125,7 @@ test.describe("Multiple screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select (multiple)",
     columns: DENSITIES,
-    rows: ["empty", "check-all", "search", "preview"],
+    rows: ["default", "check-all", "search", "preview"],
     disabledAccessibilityRules: [
       ...DISABLED_ACCESSIBILITY_RULES,
       // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
