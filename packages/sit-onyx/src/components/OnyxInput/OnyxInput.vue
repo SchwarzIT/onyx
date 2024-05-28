@@ -84,11 +84,7 @@ const { t } = injectI18n();
         <div :class="['onyx-input__info-label', requiredMarkerClass]">
           <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
           <OnyxTooltip v-if="props.infoLabel" open="hover" :text="props.infoLabel">
-            <button
-              :aria-label="t('infoTooltip')"
-              role="tooltip"
-              class="onyx-input__tooltip-trigger"
-            >
+            <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
@@ -137,7 +133,7 @@ const { t } = injectI18n();
         position="bottom"
         :text="props.infoMessage"
       >
-        <button :aria-label="t('infoTooltip')" role="tooltip" class="onyx-input__tooltip-trigger">
+        <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
           <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
         </button>
       </OnyxTooltip>

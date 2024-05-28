@@ -84,7 +84,7 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltip = page.getByRole("tooltip");
+      const tooltip = page.getByLabel("Info Tooltip");
       await tooltip.hover();
 
       await component.evaluate((element) => {

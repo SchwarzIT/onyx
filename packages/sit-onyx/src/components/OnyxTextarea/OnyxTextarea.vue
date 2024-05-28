@@ -109,11 +109,7 @@ const handleInput = (event: Event) => {
             open="hover"
             :text="props.infoLabel"
           >
-            <button
-              :aria-label="t('infoTooltip')"
-              role="tooltip"
-              class="onyx-textarea__tooltip-trigger"
-            >
+            <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
@@ -159,11 +155,7 @@ const handleInput = (event: Event) => {
         position="bottom"
         :text="props.infoMessage"
       >
-        <button
-          :aria-label="t('infoTooltip')"
-          role="tooltip"
-          class="onyx-textarea__tooltip-trigger"
-        >
+        <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
           <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
         </button>
       </OnyxTooltip>
