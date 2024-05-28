@@ -111,8 +111,6 @@ $border-radius: var(--onyx-radius-sm);
 
 .onyx-table-wrapper {
   @include layers.component() {
-    // TODO verify if inline
-    display: inline-block;
     overflow: auto;
     box-sizing: border-box;
     border-radius: $border-radius;
