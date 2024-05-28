@@ -92,7 +92,7 @@ export const Scrollable = {
           h("th", "Fruit"),
           h("th", "Price (€/kg)"),
           h("th", "Inventory (kg)"),
-          h("th", "Stock"),
+          h("th", "Inventory (pieces)"),
           h("th", "Rating"),
         ]),
       ]),
