@@ -4,6 +4,11 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 test.describe("Screenshot tests", () => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const isTooltipVisible = async (tooltip: any) => {
+    await expect(tooltip).toBeVisible();
+  };
+
   for (const state of ["default", "placeholder", "with value"] as const) {
     executeMatrixScreenshotTest({
       name: `Textarea (${state})`,
@@ -230,12 +235,16 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltip = page.getByLabel("Info Tooltip");
-      await tooltip.hover();
+      const tooltipButton = page.getByLabel("Info Tooltip");
+      const tooltip = page.getByRole("tooltip");
 
       await component.evaluate((element) => {
-        element.style.padding = `3rem`;
+        element.style.padding = `3rem 5rem`;
       });
+
+      await tooltipButton.hover();
+
+      await isTooltipVisible(tooltip);
     },
   });
 });
