@@ -36,13 +36,15 @@ const { densityClass } = useDensity(props);
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
 
+$border-radius: var(--onyx-radius-sm);
+
 /**
 * Defines all border styles for the table.
+* info: most borders are handled on cell level, not on the table itself
+* (which would lead to unstable background appliance and other visual bugs)
 */
 @mixin define-borders() {
   $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-  $border-radius: var(--onyx-radius-sm);
-
   border-spacing: 0;
   border-collapse: separate;
   border-radius: $border-radius;
@@ -112,7 +114,9 @@ const { densityClass } = useDensity(props);
     // TODO verify if inline
     display: inline-block;
     overflow: auto;
-  } // TODO round the borders
+    box-sizing: border-box;
+    border-radius: $border-radius;
+  }
 }
 
 .onyx-table {
