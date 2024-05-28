@@ -18,17 +18,15 @@
     }
   },
   "select": {
-    "toggleDropDown": "Toggle selection popover"
-  },
-  "selections": {
-    "selectAll": "Select all",
-    "currentSelection": "{n} selected"
-  },
-  "listbox": {
+    "toggleDropDown": "Toggle selection popover",
     "empty": "No data available",
     "noMatch": "No item matches your search",
     "searchInputLabel": "Filter the list items",
     "clearSearch": "Clear search filter"
+  },
+  "selections": {
+    "selectAll": "Select all",
+    "currentSelection": "{n} selected"
   },
   "link": {
     "opensExternally": "Opens in a new tab."

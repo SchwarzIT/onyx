@@ -90,6 +90,7 @@ export default defineLoader({
         name: "Radio button group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxRadioButtonGroup"),
+        status: "implemented",
       },
       {
         name: "Minimalistic table",
@@ -103,9 +104,9 @@ export default defineLoader({
       },
 
       {
-        name: "Header",
+        name: "Nav bar",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxHeader"),
+        ...getImplementedStatus("OnyxNavBar"),
       },
       {
         name: "Select",
@@ -132,6 +133,7 @@ export default defineLoader({
         name: "Checkbox group",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxCheckboxGroup"),
+        status: "implemented",
       },
       {
         name: "Icons",
@@ -154,6 +156,7 @@ export default defineLoader({
         name: "Tag",
         dueDate: basicComponentsDueDate,
         ...getImplementedStatus("OnyxTag"),
+        status: "implemented",
       },
       {
         name: "Badge",

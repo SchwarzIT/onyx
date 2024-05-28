@@ -1,5 +1,43 @@
 # sit-onyx
 
+## 1.0.0-alpha.116
+
+### Major Changes
+
+- b0554c8: refactor: rename listbox to select
+
+  - rename component `OnyxListbox` to `OnyxSelect`
+  - rename component `OnyxListboxOption` to `OnyxSelectOption`
+
+  In addition the following types have been renamed:
+
+  | Old name               | New name              |
+  | ---------------------- | --------------------- |
+  | SelectOption           | BaseSelectOption      |
+  | ListboxOption          | SelectOption          |
+  | OnyxListboxProps       | OnyxSelectProps       |
+  | ListboxModelValueProps | SelectModelValueProps |
+  | ListboxLazyLoading     | SelectLazyLoading     |
+  | SelectModelValue       | SelectInputModelValue |
+  | OnyxListboxOptionProps | OnyxSelectOptionProps |
+
+### Patch Changes
+
+- b0554c8: fix(OnyxSelect): do not focus on outside click
+
+## 1.0.0-alpha.115
+
+### Major Changes
+
+- 19011d6: feat(OnyxListbox): implement select/combobox
+
+  Implement select/combox inside the OnyxListbox. The API and component purpose has changed.
+  The OnyxListbox will be renamed to OnyxSelect in a future version.
+
+### Patch Changes
+
+- 19011d6: fix(OnyxSelectItem): add missing styles for hover,active,focus state
+
 ## 1.0.0-alpha.114
 
 ### Major Changes

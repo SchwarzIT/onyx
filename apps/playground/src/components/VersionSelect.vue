@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { OnyxListbox, OnyxSelectInput, type SelectOption } from "sit-onyx";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { OnyxSelect, type SelectOption } from "sit-onyx";
+import { computed, ref, watchEffect } from "vue";
 import { fetchVersions } from "../utils/versions";
 
 const props = defineProps<{
@@ -19,84 +19,39 @@ const props = defineProps<{
 
 const version = defineModel<string | null>();
 const versions = ref<string[]>();
-const expanded = ref(false);
 
-async function toggle() {
-  expanded.value = !expanded.value;
-
-  // fetch versions if not already fetched
-  if (!versions.value) {
-    versions.value = await fetchVersions(props.pkg);
-  }
-}
+watchEffect(async () => {
+  versions.value = await fetchVersions(props.pkg);
+});
 
 const filteredVersions = computed(() => {
   if (props.includePreReleases) return versions.value;
   return versions.value?.filter((v) => !v.includes("-"));
 });
 
-const options = computed<SelectOption[]>(() => {
+const options = computed<SelectOption<string>[]>(() => {
   return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
 });
 
-const modelValue = computed({
+const modelValue = computed<SelectOption<string>>({
   get: () => {
     const isLatest = version.value && !version.value.includes(".");
-    if (isLatest) return filteredVersions.value?.[0];
-    return version.value ?? undefined;
+    if (isLatest) return options.value?.[0];
+    return options.value.find((o) => o.value === version.value)!;
   },
-  set: (value) => {
-    // do not allow to de-select the version
-    if (!value) return;
-
+  set: ({ value }) => {
     version.value = value;
-    expanded.value = false;
   },
-});
-
-// TODO: remove as soon as OnyxSelect is fully implemented.
-const onWindowClick = () => (expanded.value = false);
-const onWindowBlur = () => {
-  if (document.activeElement?.tagName === "IFRAME") {
-    expanded.value = false;
-  }
-};
-
-onMounted(() => {
-  window.addEventListener("click", onWindowClick);
-  window.addEventListener("blur", onWindowBlur);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("click", onWindowClick);
-  window.removeEventListener("blur", onWindowBlur);
 });
 </script>
 
 <template>
-  <div class="version" @click.stop>
-    <OnyxSelectInput
-      :label="props.label"
-      placeholder="Select version"
-      :model-value="version ? { label: version, value: version } : undefined"
-      density="compact"
-      :options="options"
-      @click="toggle"
-    />
-
-    <!-- TODO: remove when OnyxSelect is fully implemented and add loading/empty state -->
-    <OnyxListbox v-if="expanded" v-model="modelValue" label="Select version" :options="options" />
-  </div>
+  <OnyxSelect
+    v-model="modelValue"
+    :label="props.label"
+    :list-label="`Select ${props.pkg} version`"
+    placeholder="Select version"
+    :options="options"
+    density="compact"
+  />
 </template>
-
-<style lang="scss" scoped>
-.version {
-  position: relative;
-
-  .onyx-listbox {
-    position: absolute;
-    right: 0;
-    top: 3.625rem; // select height + 0.25rem outline
-  }
-}
-</style>

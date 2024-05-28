@@ -1,9 +1,9 @@
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { SelectOption, SelectOptionValue } from "../../types";
+import type { BaseSelectOption, SelectOptionValue } from "../../types";
 
 export type OnyxCheckboxProps<TValue extends SelectOptionValue = SelectOptionValue> =
-  SelectOption<TValue> &
+  BaseSelectOption<TValue> &
     RequiredMarkerProp &
     CustomValidityProp & {
       /**

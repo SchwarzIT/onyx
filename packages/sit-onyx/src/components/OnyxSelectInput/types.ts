@@ -1,6 +1,7 @@
-import type { RequiredMarkerProp } from "../../composables/required";
+import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
-import type { SelectOption, SelectOptionValue } from "../../types";
+import type { RequiredMarkerProp } from "../../composables/required";
+import type { SelectOptionValue } from "../../types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -13,11 +14,11 @@ export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue>
       /**
        * Current value of the select.
        */
-      selection?: SelectModelValue<TValue>;
+      selection?: SelectInputModelValue<TValue>;
       textMode?: undefined;
     }
   | {
-      selection?: SelectModelValue<TValue>[];
+      selection?: SelectInputModelValue<TValue>[];
       /**
        * How the multiselect value will be displayed in the input.
        * - summary (default): will show "x Selected" if more than 1 is selected.
@@ -28,12 +29,12 @@ export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue>
       textMode?: MultiselectTextMode;
     };
 
-export type SelectModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+export type SelectInputModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,
   "value" | "label"
 >;
 
-export type OnyxSelectProps<TValue extends SelectOptionValue> = DensityProp &
+export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp &
   RequiredMarkerProp &
   SelectionInput<TValue> & {
     /**

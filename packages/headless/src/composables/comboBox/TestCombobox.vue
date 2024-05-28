@@ -5,6 +5,7 @@ import { createComboBox } from "./createComboBox";
 const options = ["a", "b", "c", "d"];
 const isExpanded = ref(false);
 const searchTerm = ref("");
+const comboboxRef = ref<HTMLElement>();
 const activeOption = ref("");
 const filteredOptions = computed(() => options.filter((v) => v.includes(searchTerm.value)));
 const selectedIndex = computed<number | undefined>(() => {
@@ -35,6 +36,7 @@ const comboBox = createComboBox({
   listLabel: "List",
   activeOption,
   isExpanded,
+  templateRef: comboboxRef,
   onToggle,
   onAutocomplete,
   onActivateFirst,
@@ -50,8 +52,9 @@ const {
 
 defineExpose({ comboBox });
 </script>
+
 <template>
-  <div>
+  <div ref="comboboxRef">
     <input v-bind="input" @keydown.arrow-down="isExpanded = true" />
 
     <button v-bind="button">
@@ -70,6 +73,7 @@ defineExpose({ comboBox });
     </ul>
   </div>
 </template>
+
 <style>
 .hidden {
   display: none;

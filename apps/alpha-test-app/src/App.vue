@@ -8,8 +8,8 @@ import {
   OnyxNavItem,
   OnyxSwitch,
   OnyxUserMenu,
-  type ListboxOption,
   type OnyxNavItemProps,
+  type SelectOption,
 } from "sit-onyx";
 import { RouterView, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
@@ -28,7 +28,7 @@ const navItems = [
 const userMenuOptions = [
   { value: "/settings", label: "Settings", icon: settings },
   { value: "logout", label: "Logout", icon: logout, color: "danger" },
-] satisfies ListboxOption[];
+] satisfies SelectOption[];
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);

@@ -1,26 +1,31 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref } from "vue";
-import type { OnyxSelectProps } from "./types";
-import { useDensity, type SelectOptionValue } from "../..";
+import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import type { SelectOptionValue } from "../../types";
+import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import { useRootAttrs } from "../../utils/attrs";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import type { OnyxSelectInputProps } from "./types";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectInputProps<TValue>>(), {
   hideLabel: false,
   loading: false,
   skeleton: false,
   readonly: false,
 });
+
+const emit = defineEmits<{
+  click: [];
+}>();
 
 const { t } = injectI18n();
 
@@ -99,16 +104,17 @@ defineExpose({ focus: () => input.value?.focus() });
 
         <input
           ref="input"
-          :value="selectionText"
           class="onyx-select-input__input onyx-truncation-ellipsis"
-          :placeholder="props.placeholder"
+          v-bind="restAttrs"
           type="text"
-          :required="props.required"
           readonly
+          :placeholder="props.placeholder"
+          :required="props.required"
           :disabled="props.disabled || props.loading"
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
-          v-bind="restAttrs"
+          :value="selectionText"
+          @click="emit('click')"
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input
@@ -128,6 +134,8 @@ defineExpose({ focus: () => input.value?.focus() });
           class="onyx-select-input__button"
           :aria-label="t('select.toggleDropDown')"
           tabindex="-1"
+          :disabled="props.readonly || props.disabled || props.loading"
+          @click="emit('click')"
         >
           <OnyxIcon :icon="chevronDownUp" />
         </button>
@@ -251,18 +259,18 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     &--editable {
-      .onyx-select__wrapper:has(.onyx-select__input:enabled) {
+      .onyx-select-input__wrapper:has(.onyx-select-input__input:enabled) {
         cursor: pointer;
         // default hover
         &:hover {
           --border-color: var(--onyx-color-base-primary-400);
-          .onyx-select__button {
+          .onyx-select-input__button {
             color: var(--onyx-color-text-icons-primary-medium);
           }
         }
       }
       // default focus
-      &:has(.onyx-select__input:enabled:focus) {
+      &:has(.onyx-select-input__input:enabled:focus) {
         .onyx-select-input {
           &__wrapper {
             --border-color: var(--onyx-color-base-primary-500);
@@ -277,7 +285,7 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     // readonly focus
-    &--readonly:has(.onyx-select__input:enabled:focus) .onyx-select__wrapper {
+    &--readonly:has(.onyx-select-input__input:enabled:focus) .onyx-select-input__wrapper {
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
     }
 
@@ -297,7 +305,7 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     &--readonly {
-      .onyx-select__wrapper:hover {
+      .onyx-select-input__wrapper:hover {
         --border-color: var(--onyx-color-base-neutral-400);
       }
     }

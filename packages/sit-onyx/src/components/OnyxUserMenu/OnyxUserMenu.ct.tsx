@@ -1,12 +1,12 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
-import type { ListboxOption } from "../OnyxListbox/types";
+import type { SelectOption } from "../OnyxSelect/types";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 const options = [
   { value: "/settings", label: "Settings", icon: mockPlaywrightIcon },
   { value: "logout", label: "Logout", icon: mockPlaywrightIcon, color: "danger" },
-] satisfies ListboxOption[];
+] satisfies SelectOption[];
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -29,7 +29,7 @@ test.describe("Screenshot tests", () => {
       if (row === "focus-visible") {
         await page.keyboard.press("Tab");
 
-        // since the listbox is positioned absolute, we need to set the component size accordingly
+        // since the flyout is positioned absolute, we need to set the component size accordingly
         // so the screenshot contains the whole component
         await component.evaluate((element) => {
           element.style.height = `${element.scrollHeight}px`;

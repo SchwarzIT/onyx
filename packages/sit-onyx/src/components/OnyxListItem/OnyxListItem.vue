@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ListboxOption } from "../..";
+import type { SelectOption } from "../OnyxSelect/types";
 
-const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>();
+const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
 </script>
 <template>
   <li
@@ -92,3 +92,4 @@ const props = defineProps<Pick<ListboxOption, "color"> & { active?: boolean }>()
   }
 }
 </style>
+../OnyxSelect/types

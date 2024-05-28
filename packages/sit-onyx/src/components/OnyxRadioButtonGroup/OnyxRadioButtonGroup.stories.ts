@@ -1,6 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import type { SelectOption } from "../../types";
+import type { BaseSelectOption } from "../../types";
 import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
 
@@ -19,7 +19,7 @@ const meta: Meta<typeof OnyxRadioButtonGroup> = {
 export default meta;
 type Story = StoryObj<typeof OnyxRadioButtonGroup>;
 
-const EXAMPLE_OPTIONS: SelectOption[] = [
+const EXAMPLE_OPTIONS: BaseSelectOption[] = [
   { label: "Default", value: 1 },
   { label: "Initially checked", value: 2 },
   { label: "Disabled", value: 3, disabled: true },
