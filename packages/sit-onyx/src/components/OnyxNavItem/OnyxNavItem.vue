@@ -66,6 +66,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         v-for="option in props.options"
         :key="option.label"
         :active="option.active"
+        class="onyx-nav-item__option"
         @click="emit('click', option.href)"
       >
         {{ option.label }}
@@ -139,6 +140,11 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
 
     &__icon {
       align-self: flex-start;
+    }
+
+    &:has(&__icon) .onyx-nav-item__trigger,
+    &:has(&__icon) .onyx-nav-item__option {
+      gap: 0;
     }
 
     &__flyout {
