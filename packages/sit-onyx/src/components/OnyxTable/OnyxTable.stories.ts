@@ -82,9 +82,9 @@ const limitSizeDecorator = (maxHeight: string, maxWidth: string): Decorator => {
 };
 
 /**
- * This example shows a table without a header.
+ * This example shows a table which has a vertical scroll bar.
  */
-export const Scrollable = {
+export const LimitedHeight = {
   args: {
     default: () => [
       h("thead", [
@@ -145,5 +145,13 @@ export const Scrollable = {
       ]),
     ],
   },
+  decorators: limitSizeDecorator("20rem", "unset"),
+} satisfies Story;
+
+/**
+ * This example shows a table which has a vertical and horizontal scroll bar.
+ */
+export const LimitedHeightAndWidth = {
+  ...LimitedHeight,
   decorators: limitSizeDecorator("20rem", "20rem"),
 } satisfies Story;

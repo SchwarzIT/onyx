@@ -19,6 +19,7 @@ const { densityClass } = useDensity(props);
 
 <template>
   <div class="onyx-table-wrapper">
+    <!-- <div class="onyx-table-wrapper__scroll-container"> -->
     <table
       class="onyx-table onyx-text"
       :class="[
@@ -29,6 +30,8 @@ const { densityClass } = useDensity(props);
     >
       <slot></slot>
     </table>
+    <!-- <div class="onyx-table-wrapper__frame"></div> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -37,6 +40,7 @@ const { densityClass } = useDensity(props);
 @use "../../styles/mixins/layers";
 
 $border-radius: var(--onyx-radius-sm);
+$border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
 /**
 * Defines all border styles for the table.
@@ -44,7 +48,6 @@ $border-radius: var(--onyx-radius-sm);
 * (which would lead to unstable background appliance and other visual bugs)
 */
 @mixin define-borders() {
-  $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   border-spacing: 0;
   border-collapse: separate;
   border-radius: $border-radius;
@@ -109,15 +112,55 @@ $border-radius: var(--onyx-radius-sm);
   }
 }
 
+// todo try with grid...
 .onyx-table-wrapper {
   @include layers.component() {
     overflow: auto;
     box-sizing: border-box;
     border-radius: $border-radius;
+
+    max-height: inherit;
+    max-width: inherit;
+    width: fit-content;
+    // TODO: this needs to be approved/verified by UX
+    box-shadow: 0px 1px 2px var(--onyx-color-base-neutral-300);
+
+    // position: relative;
+    // // background-color: #d376bd42;
+    // // border-radius: $border-radius;
+    // // border: 1px solid red;
+    // // border: $border;
+    // // z-index: 2;
+    // // overflow: hidden;
+    // width: fit-content;
+
+    // &__frame {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   border: 1px solid red;
+    //   border-radius: $border-radius;
+    //   // z-index: 2;
+    // }
+
+    // &__scroll-container {
+    //   // display: inline-block;
+    //   // position: relative;
+    //   overflow: auto;
+    //   box-sizing: border-box;
+    //   max-height: inherit;
+    //   max-width: inherit;
+    //   width: fit-content;
+    //   // border-radius: $border-radius;
+    //   // border: $border;
+    // }
   }
 }
 
 .onyx-table {
+  // position: relative;
   @include density.compact {
     --onyx-table-vertical-padding: var(--onyx-spacing-4xs);
   }
@@ -137,8 +180,6 @@ $border-radius: var(--onyx-radius-sm);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
-    // display: inline-block;
-    // overflow: auto;
 
     thead {
       position: sticky;
