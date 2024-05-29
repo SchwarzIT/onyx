@@ -214,7 +214,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Textarea (infoLabel/infoMessage)",
     columns: ["default", "long-text"],
-    rows: ["infoLabel", "infoMessage", "required", "optional"],
+    rows: ["infoLabel", "infoMessage"],
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
@@ -228,8 +228,6 @@ test.describe("Screenshot tests", () => {
         <OnyxTextarea
           style="width: 12rem"
           label={label}
-          required={row === "required"}
-          requiredMarker={row === "optional" ? "optional" : undefined}
           message={row === "infoMessage" ? message : undefined}
           labelTooltip={row === "infoLabel" ? infoLabel : undefined}
           messageTooltip={row === "infoMessage" ? infoMessage : undefined}
