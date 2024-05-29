@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.117
+
+### Patch Changes
+
+- 92b9375: fix(OnyxSelect): support `skeleton` and `textMode` property
+
 ## 1.0.0-alpha.116
 
 ### Major Changes
