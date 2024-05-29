@@ -140,11 +140,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
 
     &__icon {
       align-self: flex-start;
-    }
-
-    &:has(&__icon) .onyx-nav-item__trigger,
-    &:has(&__icon) .onyx-nav-item__option {
-      gap: 0;
+      margin-left: -0.5rem;
     }
 
     &__flyout {
