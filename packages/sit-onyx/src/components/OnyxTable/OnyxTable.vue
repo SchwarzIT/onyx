@@ -141,7 +141,6 @@ $border-radius: var(--onyx-radius-sm);
     // overflow: auto;
 
     thead {
-      // // todo: sticky creates a bug on column hover
       position: sticky;
       top: 0;
       z-index: var(--onyx-z-index-sticky-content);
