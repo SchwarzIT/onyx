@@ -159,7 +159,7 @@ export const CustomError = {
 export const WithInfoLabel: Story = {
   args: {
     label: "Label",
-    infoLabel: "More information",
+    labelTooltip: "More information",
   },
   decorators: [
     (story) => ({
@@ -176,6 +176,6 @@ export const WithInfoMessage = {
   args: {
     ...Default.args,
     message: "Example message",
-    infoMessage: "Additional info message",
+    messageTooltip: "Additional info message",
   },
 } satisfies Story;

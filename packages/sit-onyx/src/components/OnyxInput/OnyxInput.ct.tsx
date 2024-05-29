@@ -83,8 +83,8 @@ test.describe("Screenshot tests", () => {
           style="width: 12rem"
           label={label}
           message={row === "infoMessage" ? message : undefined}
-          infoLabel={row === "infoLabel" ? infoLabel : undefined}
-          infoMessage={row === "infoMessage" ? infoMessage : undefined}
+          labelTooltip={row === "infoLabel" ? infoLabel : undefined}
+          messageTooltip={row === "infoMessage" ? infoMessage : undefined}
         />
       );
     },

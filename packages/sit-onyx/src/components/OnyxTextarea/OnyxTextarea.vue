@@ -101,14 +101,10 @@ const handleInput = (event: Event) => {
   >
     <label>
       <div v-if="!props.hideLabel" class="onyx-textarea__label onyx-text--small">
-        <div :class="['onyx-textarea__info-label', requiredMarkerClass]">
+        <div :class="['onyx-textarea__header', !props.required ? requiredMarkerClass : undefined]">
           <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
-          <OnyxTooltip
-            v-if="props.infoLabel"
-            class="onyx-textarea__info-label-text"
-            open="hover"
-            :text="props.infoLabel"
-          >
+          <div :class="[props.required ? requiredMarkerClass : undefined]"></div>
+          <OnyxTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip">
             <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
@@ -149,11 +145,11 @@ const handleInput = (event: Event) => {
     <div v-if="props.message || shouldShowCounter" class="onyx-textarea__footer onyx-text--small">
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <OnyxTooltip
-        v-if="props.infoMessage"
+        v-if="props.messageTooltip"
         class="onyx-textarea__info-message"
         open="hover"
         position="bottom"
-        :text="props.infoMessage"
+        :text="props.messageTooltip"
       >
         <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
           <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
@@ -224,9 +220,9 @@ const handleInput = (event: Event) => {
       $vertical-padding: var(--onyx-textarea-padding-vertical)
     );
 
-    &__info-label {
+    &__header {
       display: flex;
-      gap: var(--onyx-spacing-2xs);
+      // gap: var(--onyx-spacing-2xs);
       max-width: 100%;
     }
 
@@ -239,6 +235,7 @@ const handleInput = (event: Event) => {
       border: none;
       background-color: transparent;
       padding: 0;
+      margin-left: var(--onyx-spacing-2xs);
     }
 
     &__wrapper {

@@ -85,13 +85,12 @@ const { t } = injectI18n();
         class="onyx-input__label onyx-text--small"
         :class="[!props.required ? requiredMarkerClass : undefined]"
       >
-        <!-- <div :class="['onyx-input__info-label', requiredMarkerClass]"> -->
         <div class="onyx-input__header">
           <div class="onyx-truncation-ellipsis">
             {{ props.label }}
           </div>
           <div :class="[props.required ? requiredMarkerClass : undefined]"></div>
-          <OnyxTooltip v-if="props.infoLabel" open="hover" :text="props.infoLabel">
+          <OnyxTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip">
             <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
@@ -135,11 +134,11 @@ const { t } = injectI18n();
     <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <OnyxTooltip
-        v-if="props.infoMessage"
+        v-if="props.messageTooltip"
         class="onyx-input__info-message"
         open="hover"
         position="bottom"
-        :text="props.infoMessage"
+        :text="props.messageTooltip"
       >
         <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
           <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
