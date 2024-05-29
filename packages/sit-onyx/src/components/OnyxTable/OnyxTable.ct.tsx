@@ -79,11 +79,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "horizontal-scroll"],
     rows: ["default", "vertical-scroll"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: [
-      "color-contrast",
-      // TODO: FIX THIS!
-      "scrollable-region-focusable",
-    ],
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable
         style={{

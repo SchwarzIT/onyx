@@ -19,7 +19,7 @@ const { densityClass } = useDensity(props);
 
 <template>
   <div class="onyx-table-wrapper">
-    <div class="onyx-table-wrapper__scroll-container">
+    <div class="onyx-table-wrapper__scroll-container" tabindex="0">
       <table
         class="onyx-table onyx-text"
         :class="[
