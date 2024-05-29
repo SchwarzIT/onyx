@@ -65,9 +65,9 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Input (infoLabel/infoMessage)",
+    name: "Input (labelTooltip/messageTooltip)",
     columns: ["default", "long-text"],
-    rows: ["infoLabel", "infoMessage"],
+    rows: ["labelTooltip", "messageTooltip"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
@@ -82,9 +82,9 @@ test.describe("Screenshot tests", () => {
         <OnyxInput
           style="width: 12rem"
           label={label}
-          message={row === "infoMessage" ? message : undefined}
-          labelTooltip={row === "infoLabel" ? labelTooltip : undefined}
-          messageTooltip={row === "infoMessage" ? messageTooltip : undefined}
+          message={row === "messageTooltip" ? message : undefined}
+          labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
+          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },
@@ -92,11 +92,12 @@ test.describe("Screenshot tests", () => {
       const tooltipButton = page.getByLabel("Info Tooltip");
       const tooltip = page.getByRole("tooltip");
 
+      await tooltipButton.hover();
+
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
       await isTooltipVisible(tooltip);
     },
   });

@@ -212,25 +212,25 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Textarea (infoLabel/infoMessage)",
+    name: "Textarea (labelTooltip/messageTooltip)",
     columns: ["default", "long-text"],
-    rows: ["infoLabel", "infoMessage"],
+    rows: ["labelTooltip", "messageTooltip"],
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
       const message =
         column === "long-text" ? "Very long message that should be truncated" : "Test message";
-      const infoLabel = "More information";
-      const infoMessage = "Additional info message";
+      const labelTooltip = "More information";
+      const messageTooltip = "Additional info message";
 
       return (
         <OnyxTextarea
           style="width: 12rem"
           label={label}
-          message={row === "infoMessage" ? message : undefined}
-          labelTooltip={row === "infoLabel" ? infoLabel : undefined}
-          messageTooltip={row === "infoMessage" ? infoMessage : undefined}
+          message={row === "messageTooltip" ? message : undefined}
+          labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
+          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },
