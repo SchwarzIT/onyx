@@ -138,6 +138,7 @@ const { densityClass } = useDensity(props);
     width: fit-content;
 
     // color / text appearance
+    --onyx-table-column-hover: #26628d30;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
@@ -195,17 +196,23 @@ const { densityClass } = useDensity(props);
 
     // column hover styles
     th:hover::before {
-      // dark mode:
-      // background-color: #2e425230;
-      // light mode:
-      background-color: #26628d30;
+      // TODO: we need official color tokens for that.
+      background-color: var(--onyx-table-column-hover);
       content: "";
       height: var(--onyx-table-max-height);
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: -1;
+      bottom: 0;
+    }
+  }
+}
+
+.dark .onyx-table {
+  @include layers.component() {
+    th:hover::before {
+      --onyx-table-column-hover: #2e425230;
     }
   }
 }
