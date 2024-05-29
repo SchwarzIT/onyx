@@ -195,12 +195,14 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
               label="Example select"
               list-label="Example listbox list"
               :options="selectOptions"
+              :skeleton="useSkeleton"
             />
             <OnyxSelect
               v-model="groupedSelectState"
               label="Example grouped select"
               list-label="Example listbox list"
               :options="groupedSelectOptions"
+              :skeleton="useSkeleton"
             />
             <OnyxSelect
               v-model="multiselectState"
@@ -209,6 +211,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
               :multiple="true"
               :with-check-all="true"
               :options="selectOptions"
+              :skeleton="useSkeleton"
             />
           </div>
 
