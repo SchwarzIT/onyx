@@ -107,6 +107,7 @@ export const Default = {
     label: "Example select",
     listLabel: "List label",
     options: DEMO_OPTIONS,
+    placeholder: "Placeholder...",
   },
 } satisfies Story;
 
@@ -126,7 +127,7 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: [],
+    modelValue: [DEMO_OPTIONS[0], DEMO_OPTIONS[1]],
     multiple: true,
     withCheckAll: true,
     options: [
@@ -136,8 +137,18 @@ export const Multiselect = {
         disabled: true,
       },
       ...Default.args.options,
-      { value: "long", label: "Option with a very long long long  long long long long text}" },
+      { value: "long", label: "Option with a very long long long  long long long long text" },
     ],
+  },
+} satisfies Story;
+
+/**
+ * Multiselect with "preview" textMode so the selected values are displayed.
+ */
+export const MultiselectWithPreview = {
+  args: {
+    ...Multiselect.args,
+    textMode: "preview",
   },
 } satisfies Story;
 
@@ -222,11 +233,40 @@ export const ButtonLoading = {
     template: `
       <OnyxSelect v-bind="args" :options="options">
         <template #optionsEnd>
-          <OnyxButton label="Load more items" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
+          <OnyxButton label="Load more" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
         </template>
       </OnyxSelect>
 `,
   }),
+} satisfies Story;
+
+/**
+ * This example shows a readonly select that can not be edited.
+ */
+export const Readonly = {
+  args: {
+    ...Default.args,
+    readonly: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a disabled select that can not be edited and is therefore not included in any form data.
+ */
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;
+
+export const Skeleton = {
+  args: {
+    label: "Example select",
+    listLabel: "List label",
+    skeleton: true,
+    options: [],
+  },
 } satisfies Story;
 
 const useLazyLoading = (initialOptions: SelectOption[]) => {
