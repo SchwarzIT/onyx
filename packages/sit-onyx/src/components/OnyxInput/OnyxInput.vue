@@ -80,9 +80,17 @@ const { t } = injectI18n();
 
   <div v-else :class="['onyx-input', requiredTypeClass, densityClass]">
     <label>
-      <div v-if="!props.hideLabel" class="onyx-input__label onyx-text--small">
-        <div :class="['onyx-input__info-label', requiredMarkerClass]">
-          <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+      <div
+        v-if="!props.hideLabel"
+        class="onyx-input__label onyx-text--small"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
+      >
+        <!-- <div :class="['onyx-input__info-label', requiredMarkerClass]"> -->
+        <div class="onyx-input__header">
+          <div class="onyx-truncation-ellipsis">
+            {{ props.label }}
+          </div>
+          <div :class="[props.required ? requiredMarkerClass : undefined]"></div>
           <OnyxTooltip v-if="props.infoLabel" open="hover" :text="props.infoLabel">
             <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
@@ -198,10 +206,10 @@ const { t } = injectI18n();
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
 
-    &__info-label {
+    &__header {
       display: flex;
-      gap: var(--onyx-spacing-2xs);
       max-width: 100%;
+      overflow: hidden;
     }
 
     &__info-message {
@@ -213,6 +221,7 @@ const { t } = injectI18n();
       border: none;
       background-color: transparent;
       padding: 0;
+      margin-left: var(--onyx-spacing-2xs);
     }
 
     &__wrapper {
