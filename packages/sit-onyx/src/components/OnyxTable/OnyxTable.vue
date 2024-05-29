@@ -18,26 +18,21 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div class="onyx-table-wrapper">
-    <table
-      class="onyx-table onyx-text"
-      :class="[
-        props.striped ? 'onyx-table--striped' : '',
-        props.grid ? 'onyx-table--grid' : '',
-        densityClass,
-      ]"
-    >
-      <slot></slot>
-    </table>
-  </div>
+  <table
+    class="onyx-table onyx-text"
+    :class="[
+      props.striped ? 'onyx-table--striped' : '',
+      props.grid ? 'onyx-table--grid' : '',
+      densityClass,
+    ]"
+  >
+    <slot></slot>
+  </table>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
-
-$border-radius: var(--onyx-radius-sm);
-$border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
 /**
 * Defines all border styles for the table.
@@ -45,9 +40,13 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 * (which would lead to unstable background appliance and other visual bugs)
 */
 @mixin define-borders() {
+  $border-radius: var(--onyx-radius-sm);
+  $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+
   border-spacing: 0;
   border-collapse: separate;
   border-radius: $border-radius;
+  border-bottom: $border;
 
   // border styles
   th,
@@ -83,6 +82,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     border-bottom-right-radius: $border-radius;
   }
 
+  // the border bottom needs to be handled by the table itself (for scroll reasons)
+  tr:last-child td {
+    border-bottom: unset;
+  }
+
   // special styles if no header exists
   &:not(:has(thead)) {
     tr:first-child td {
@@ -109,23 +113,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   }
 }
 
-// todo try with grid...
-.onyx-table-wrapper {
-  @include layers.component() {
-    overflow: auto;
-    box-sizing: border-box;
-    border-radius: $border-radius;
-
-    max-height: inherit;
-    max-width: inherit;
-    width: fit-content;
-    // TODO: this needs to be approved/verified by UX
-    box-shadow: 0px 1px 2px var(--onyx-color-base-neutral-300);
-  }
-}
-
 .onyx-table {
-  // position: relative;
   @include density.compact {
     --onyx-table-vertical-padding: var(--onyx-spacing-4xs);
   }
@@ -141,6 +129,15 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   @include layers.component() {
     @include define-borders();
 
+    // size behaviors
+    --onyx-table-max-height: unset;
+    overflow: auto;
+    display: block;
+    max-height: var(--onyx-table-max-height);
+    max-width: inherit;
+    width: fit-content;
+
+    // color / text appearance
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
@@ -203,7 +200,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       // light mode:
       background-color: #26628d30;
       content: "";
-      height: 100vh;
+      height: var(--onyx-table-max-height);
       position: absolute;
       top: 0;
       left: 0;

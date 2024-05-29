@@ -76,7 +76,7 @@ const limitSizeDecorator = (maxHeight: string, maxWidth: string): Decorator => {
     components: { story },
     template: `
     <div>
-      <story  style="max-height: ${maxHeight}; max-width: ${maxWidth};"/>
+      <story  style="--onyx-table-max-height: ${maxHeight}; max-width: ${maxWidth};"/>
     </div>`,
   });
 };
