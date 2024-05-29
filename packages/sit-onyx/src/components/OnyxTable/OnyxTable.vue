@@ -19,7 +19,6 @@ const { densityClass } = useDensity(props);
 
 <template>
   <div class="onyx-table-wrapper">
-    <!-- <div class="onyx-table-wrapper__scroll-container"> -->
     <table
       class="onyx-table onyx-text"
       :class="[
@@ -30,8 +29,6 @@ const { densityClass } = useDensity(props);
     >
       <slot></slot>
     </table>
-    <!-- <div class="onyx-table-wrapper__frame"></div> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -124,38 +121,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     width: fit-content;
     // TODO: this needs to be approved/verified by UX
     box-shadow: 0px 1px 2px var(--onyx-color-base-neutral-300);
-
-    // position: relative;
-    // // background-color: #d376bd42;
-    // // border-radius: $border-radius;
-    // // border: 1px solid red;
-    // // border: $border;
-    // // z-index: 2;
-    // // overflow: hidden;
-    // width: fit-content;
-
-    // &__frame {
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    //   right: 0;
-    //   bottom: 0;
-    //   border: 1px solid red;
-    //   border-radius: $border-radius;
-    //   // z-index: 2;
-    // }
-
-    // &__scroll-container {
-    //   // display: inline-block;
-    //   // position: relative;
-    //   overflow: auto;
-    //   box-sizing: border-box;
-    //   max-height: inherit;
-    //   max-width: inherit;
-    //   width: fit-content;
-    //   // border-radius: $border-radius;
-    //   // border: $border;
-    // }
   }
 }
 
