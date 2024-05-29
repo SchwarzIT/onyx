@@ -66,9 +66,10 @@ const handleChange = (event: Event) => {
 .onyx-radio-button,
 .onyx-radio-button-skeleton {
   @include layers.component() {
+    --onyx-radio-button-selector-size: var(--onyx-spacing-md);
+
     @include density.compact {
       --onyx-radio-button-height: var(--onyx-density);
-      --onyx-radio-button-selector-size: var(--onyx-spacing-sm);
       --onyx-radio-button-dot-size: var(--onyx-spacing-4xs);
       --onyx-radio-button-label-padding: var(--onyx-spacing-4xs);
       --onyx-radio-button-selector-margin: var(--onyx-spacing-xs);
@@ -76,7 +77,6 @@ const handleChange = (event: Event) => {
 
     @include density.default {
       --onyx-radio-button-height: var(--onyx-density);
-      --onyx-radio-button-selector-size: var(--onyx-spacing-md);
       --onyx-radio-button-dot-size: var(--onyx-spacing-3xs);
       --onyx-radio-button-label-padding: var(--onyx-spacing-2xs);
       --onyx-radio-button-selector-margin: var(--onyx-spacing-sm);
@@ -84,7 +84,6 @@ const handleChange = (event: Event) => {
 
     @include density.cozy {
       --onyx-radio-button-height: var(--onyx-density);
-      --onyx-radio-button-selector-size: var(--onyx-spacing-lg);
       --onyx-radio-button-dot-size: var(--onyx-spacing-2xs);
       --onyx-radio-button-label-padding: var(--onyx-spacing-sm);
       --onyx-radio-button-selector-margin: var(--onyx-spacing-sm);
@@ -102,7 +101,7 @@ const handleChange = (event: Event) => {
     --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-intense);
 
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     max-width: 100%;
     cursor: var(--onyx-radio-button-cursor);
     min-height: var(--onyx-radio-button-height);
