@@ -233,7 +233,6 @@ $input-width: calc(
       display: inline-flex;
       width: $input-width;
       min-width: $input-width;
-      height: unset;
       padding: var(--onyx-switch-container-padding);
       box-sizing: border-box;
       background-color: var(--onyx-color-base-neutral-300);
