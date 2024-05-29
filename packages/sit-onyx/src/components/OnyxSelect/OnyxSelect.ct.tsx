@@ -42,9 +42,9 @@ test.describe("Default screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select",
     columns: DENSITIES,
-    rows: ["default", "open"],
+    rows: ["default", "required", "hideLabel", "open"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
-    component: (column) => (
+    component: (column, row) => (
       <div>
         <OnyxSelect
           label="Label"
@@ -52,11 +52,13 @@ test.describe("Default screenshots", () => {
           options={MOCK_VARIED_OPTIONS}
           modelValue={MOCK_VARIED_OPTIONS[1]}
           density={column}
+          required={row === "required"}
+          hideLabel={row === "hideLabel"}
         />
       </div>
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row !== "default") await openFlyout(component);
+      if (row === "open") await openFlyout(component);
     },
   });
 });
@@ -123,35 +125,36 @@ test.describe("Multiple screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select (multiple)",
     columns: DENSITIES,
-    rows: ["empty", "check-all", "search"],
+    rows: ["default", "check-all", "search", "preview"],
     disabledAccessibilityRules: [
       ...DISABLED_ACCESSIBILITY_RULES,
       // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
       // the following disabled rule should be removed.
       "nested-interactive",
     ],
-    component: (column, row) => (
-      <div>
-        <OnyxSelect
-          label="Label"
-          listLabel="List label"
-          options={MOCK_VARIED_OPTIONS}
-          density={column}
-          multiple={true}
-          modelValue={
-            column === "default"
-              ? [MOCK_VARIED_OPTIONS[0]]
-              : column === "cozy"
-                ? MOCK_VARIED_OPTIONS
-                : []
-          }
-          withSearch={row === "search"}
-          withCheckAll={row === "check-all"}
-        />
-      </div>
-    ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    component: (column, row) => {
+      let modelValue = [MOCK_VARIED_OPTIONS[0]];
+      if (column === "compact") modelValue = [];
+      if (column === "cozy" || row === "preview") modelValue = MOCK_VARIED_OPTIONS;
+
+      return (
+        <div>
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={MOCK_VARIED_OPTIONS}
+            density={column}
+            multiple={true}
+            modelValue={modelValue}
+            withSearch={row === "search"}
+            withCheckAll={row === "check-all"}
+            textMode={row === "preview" ? "preview" : undefined}
+          />
+        </div>
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row !== "preview") await openFlyout(component);
     },
   });
 });
@@ -185,6 +188,31 @@ test.describe("Loading screenshots", () => {
       if (column !== "loading") {
         await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
       }
+    },
+  });
+});
+
+test.describe("Other screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Select (readonly, disabled, loading, skeleton)",
+    columns: ["readonly", "disabled", "loading", "skeleton"],
+    rows: ["default", "hover", "focus-visible"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) => (
+      <OnyxSelect
+        label="Label"
+        listLabel="List label"
+        options={MOCK_MANY_OPTIONS}
+        placeholder="Placeholder"
+        readonly={column === "readonly"}
+        disabled={column === "disabled"}
+        loading={column === "loading"}
+        skeleton={column === "skeleton"}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
     },
   });
 });
