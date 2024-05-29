@@ -86,7 +86,11 @@ export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> =
   BaseSelectOption<TValue>,
   "value" | "label" | "disabled"
 > &
-  Pick<OnyxSelectOptionProps, "color" | "icon"> & {
+  Pick<OnyxSelectOptionProps, "color"> & {
+    /**
+     * Optional icon.
+     */
+    icon?: string;
     /**
      * Optional group name. If set, all options will be grouped under that group name.
      */

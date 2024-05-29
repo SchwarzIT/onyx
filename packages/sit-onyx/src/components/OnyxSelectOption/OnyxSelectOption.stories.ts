@@ -1,8 +1,7 @@
-import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { AriaAttributes } from "vue";
-import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxSelectOption from "./OnyxSelectOption.vue";
 
 /**
@@ -16,7 +15,6 @@ const meta: Meta<typeof OnyxSelectOption> = {
     decorators: [createTruncationDecorator("16rem")],
     argTypes: {
       default: { control: { type: "text" } },
-      icon: defineIconSelectArgType(),
     },
   }),
 };
@@ -56,13 +54,6 @@ export const Multiple = {
   args: {
     ...Default.args,
     multiple: true,
-  },
-} satisfies Story;
-
-export const WithIcon = {
-  args: {
-    ...Default.args,
-    icon: settings,
   },
 } satisfies Story;
 

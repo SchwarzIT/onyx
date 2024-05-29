@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useDensity } from "../../composables/density";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxSelectOptionProps } from "./types";
 
@@ -37,8 +36,6 @@ defineSlots<{
       class="onyx-select-option__checkbox"
       type="checkbox"
     />
-
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
     <span class="onyx-truncation-ellipsis">
       <slot></slot>

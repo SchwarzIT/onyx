@@ -16,10 +16,6 @@ export type OnyxSelectOptionProps = DensityProp & {
    */
   indeterminate?: boolean;
   /**
-   * Optional icon.
-   */
-  icon?: string;
-  /**
    * Main color of the option. Will have no effect on the multiselect checkbox.
    */
   color?: Extract<OnyxColor, "primary" | "danger">;
