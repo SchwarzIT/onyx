@@ -214,7 +214,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Textarea (infoLabel/infoMessage)",
     columns: ["default", "long-text"],
-    rows: ["infoLabel", "infoMessage"],
+    rows: ["infoLabel", "infoMessage", "required", "optional"],
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
@@ -228,9 +228,45 @@ test.describe("Screenshot tests", () => {
         <OnyxTextarea
           style="width: 12rem"
           label={label}
+          required={row === "required"}
+          requiredMarker={row === "optional" ? "optional" : undefined}
           message={row === "infoMessage" ? message : undefined}
-          infoLabel={row === "infoLabel" ? infoLabel : undefined}
-          infoMessage={row === "infoMessage" ? infoMessage : undefined}
+          labelTooltip={row === "infoLabel" ? infoLabel : undefined}
+          messageTooltip={row === "infoMessage" ? infoMessage : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, _row) => {
+      const tooltipButton = page.getByLabel("Info Tooltip");
+      const tooltip = page.getByRole("tooltip");
+
+      await component.evaluate((element) => {
+        element.style.padding = `3rem 5rem`;
+      });
+
+      await tooltipButton.hover();
+
+      await isTooltipVisible(tooltip);
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Textarea (required/optional) with label tooltip",
+    columns: ["default", "long-text"],
+    rows: ["required", "optional"],
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const label =
+        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+      const labelTooltip = "More information";
+
+      return (
+        <OnyxTextarea
+          style="width: 12rem"
+          label={label}
+          required={row === "required"}
+          requiredMarker={row === "optional" ? "optional" : undefined}
+          labelTooltip={labelTooltip}
         />
       );
     },

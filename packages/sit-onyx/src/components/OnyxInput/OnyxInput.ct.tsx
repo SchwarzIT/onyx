@@ -75,16 +75,50 @@ test.describe("Screenshot tests", () => {
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
       const message =
         column === "long-text" ? "Very long message that should be truncated" : "Test message";
-      const infoLabel = "More information";
-      const infoMessage = "Additional info message";
+      const labelTooltip = "More information";
+      const messageTooltip = "Additional info message";
 
       return (
         <OnyxInput
           style="width: 12rem"
           label={label}
           message={row === "infoMessage" ? message : undefined}
-          labelTooltip={row === "infoLabel" ? infoLabel : undefined}
-          messageTooltip={row === "infoMessage" ? infoMessage : undefined}
+          labelTooltip={row === "infoLabel" ? labelTooltip : undefined}
+          messageTooltip={row === "infoMessage" ? messageTooltip : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, _row) => {
+      const tooltipButton = page.getByLabel("Info Tooltip");
+      const tooltip = page.getByRole("tooltip");
+
+      await component.evaluate((element) => {
+        element.style.padding = `3rem 5rem`;
+      });
+
+      await tooltipButton.hover();
+      await isTooltipVisible(tooltip);
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Input (required/optional) with label tooltip",
+    columns: ["default", "long-text"],
+    rows: ["required", "optional"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const label =
+        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+      const labelTooltip = "More information";
+
+      return (
+        <OnyxInput
+          style="width: 12rem"
+          label={label}
+          required={row === "required"}
+          requiredMarker={row === "optional" ? "optional" : undefined}
+          labelTooltip={labelTooltip}
         />
       );
     },
