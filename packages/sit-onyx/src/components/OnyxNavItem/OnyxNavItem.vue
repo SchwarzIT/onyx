@@ -66,7 +66,6 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         v-for="option in props.options"
         :key="option.label"
         :active="option.active"
-        class="onyx-nav-item__option"
         @click="emit('click', option.href)"
       >
         {{ option.label }}
