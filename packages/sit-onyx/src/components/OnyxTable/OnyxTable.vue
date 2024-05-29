@@ -18,21 +18,29 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <table
-    class="onyx-table onyx-text"
-    :class="[
-      props.striped ? 'onyx-table--striped' : '',
-      props.grid ? 'onyx-table--grid' : '',
-      densityClass,
-    ]"
-  >
-    <slot></slot>
-  </table>
+  <div class="onyx-table-wrapper">
+    <div class="onyx-table-wrapper__scroll-container">
+      <table
+        class="onyx-table onyx-text"
+        :class="[
+          props.striped ? 'onyx-table--striped' : '',
+          props.grid ? 'onyx-table--grid' : '',
+          densityClass,
+        ]"
+      >
+        <slot></slot>
+      </table>
+      <div class="onyx-table-wrapper__frame"></div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
+
+$border-radius: var(--onyx-radius-sm);
+$border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
 /**
 * Defines all border styles for the table.
@@ -40,13 +48,9 @@ const { densityClass } = useDensity(props);
 * (which would lead to unstable background appliance and other visual bugs)
 */
 @mixin define-borders() {
-  $border-radius: var(--onyx-radius-sm);
-  $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-
   border-spacing: 0;
   border-collapse: separate;
   border-radius: $border-radius;
-  border-bottom: $border;
 
   // border styles
   th,
@@ -82,11 +86,6 @@ const { densityClass } = useDensity(props);
     border-bottom-right-radius: $border-radius;
   }
 
-  // the border bottom needs to be handled by the table itself (for scroll reasons)
-  tr:last-child td {
-    border-bottom: unset;
-  }
-
   // special styles if no header exists
   &:not(:has(thead)) {
     tr:first-child td {
@@ -113,7 +112,35 @@ const { densityClass } = useDensity(props);
   }
 }
 
+// todo try with grid...
+.onyx-table-wrapper {
+  @include layers.component() {
+    position: relative;
+    width: fit-content;
+
+    &__scroll-container {
+      border-radius: $border-radius;
+      overflow: auto;
+      box-sizing: border-box;
+      max-height: inherit;
+      max-width: inherit;
+      width: fit-content;
+    }
+    &__frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: $border;
+      border-radius: $border-radius;
+      pointer-events: none;
+    }
+  }
+}
+
 .onyx-table {
+  // position: relative;
   @include density.compact {
     --onyx-table-vertical-padding: var(--onyx-spacing-4xs);
   }
@@ -129,15 +156,6 @@ const { densityClass } = useDensity(props);
   @include layers.component() {
     @include define-borders();
 
-    // size behaviors
-    --onyx-table-max-height: unset;
-    overflow: auto;
-    display: block;
-    max-height: var(--onyx-table-max-height);
-    max-width: inherit;
-    width: fit-content;
-
-    // color / text appearance
     --onyx-table-column-hover: #26628d30;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -199,7 +217,7 @@ const { densityClass } = useDensity(props);
       // TODO: we need official color tokens for that.
       background-color: var(--onyx-table-column-hover);
       content: "";
-      height: var(--onyx-table-max-height);
+      height: 100vh;
       position: absolute;
       top: 0;
       left: 0;

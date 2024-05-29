@@ -76,7 +76,7 @@ const limitSizeDecorator = (maxHeight: string, maxWidth: string): Decorator => {
     components: { story },
     template: `
     <div>
-      <story  style="--onyx-table-max-height: ${maxHeight}; max-width: ${maxWidth};"/>
+      <story  style="max-height: ${maxHeight}; max-width: ${maxWidth};"/>
     </div>`,
   });
 };
@@ -146,6 +146,14 @@ export const LimitedHeight = {
     ],
   },
   decorators: limitSizeDecorator("20rem", "unset"),
+} satisfies Story;
+
+/**
+ * This example shows a table which has a horizontal scroll bar.
+ */
+export const LimitedWidth = {
+  ...LimitedHeight,
+  decorators: limitSizeDecorator("unset", "20rem"),
 } satisfies Story;
 
 /**
