@@ -92,11 +92,11 @@ test.describe("Screenshot tests", () => {
       const tooltipButton = page.getByLabel("Info Tooltip");
       const tooltip = page.getByRole("tooltip");
 
-      await tooltipButton.hover();
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
+
+      await tooltipButton.hover();
 
       await isTooltipVisible(tooltip);
     },
