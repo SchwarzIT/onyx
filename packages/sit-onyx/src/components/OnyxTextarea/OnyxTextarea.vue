@@ -100,8 +100,12 @@ const handleInput = (event: Event) => {
     :style="autosizeMinMaxStyles"
   >
     <label>
-      <div v-if="!props.hideLabel" class="onyx-textarea__label onyx-text--small">
-        <div :class="['onyx-textarea__header', !props.required ? requiredMarkerClass : undefined]">
+      <div
+        v-if="!props.hideLabel"
+        class="onyx-textarea__label onyx-text--small"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
+      >
+        <div class="onyx-textarea__header">
           <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
           <div :class="[props.required ? requiredMarkerClass : undefined]"></div>
           <OnyxTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip">
@@ -109,6 +113,7 @@ const handleInput = (event: Event) => {
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
+          <div class="onyx-textarea__optional">{{ t("optional") }}</div>
         </div>
       </div>
 
@@ -224,6 +229,7 @@ const handleInput = (event: Event) => {
       display: flex;
       // gap: var(--onyx-spacing-2xs);
       max-width: 100%;
+      width: 100%;
     }
 
     &__info-message {
