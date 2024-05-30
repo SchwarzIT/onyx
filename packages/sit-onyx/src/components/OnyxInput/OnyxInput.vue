@@ -95,6 +95,7 @@ const { t } = injectI18n();
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
+          <div class="onyx-input__optional">{{ t("optional") }}</div>
         </div>
       </div>
 
@@ -208,7 +209,6 @@ const { t } = injectI18n();
     &__header {
       display: flex;
       max-width: 100%;
-      overflow: hidden;
     }
 
     &__info-message {

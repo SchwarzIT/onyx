@@ -21,6 +21,27 @@
     // optional marker should be displayed at the very end of the label
     &.onyx-optional-marker {
       justify-content: space-between;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &__optional {
+    display: none;
+    font-family: var(--onyx-font-family);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--onyx-color-text-icons-neutral-soft);
+    padding-left: var(--onyx-spacing-2xs);
+    hyphens: none;
+    margin-left: auto;
+  }
+
+  &.onyx-use-optional:not(:has(.onyx-required-marker)) {
+    #{$base-selector}__optional {
+      display: inline-block;
     }
   }
 
