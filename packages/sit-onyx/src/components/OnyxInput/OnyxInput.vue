@@ -209,6 +209,7 @@ const { t } = injectI18n();
     &__header {
       display: flex;
       max-width: 100%;
+      width: 100%;
     }
 
     &__info-message {
