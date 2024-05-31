@@ -156,7 +156,7 @@ export const CustomError = {
 /**
  * This example shows an input with info label tooltip.
  */
-export const WithInfoLabel: Story = {
+export const WithLabelTooltip: Story = {
   args: {
     label: "Label",
     labelTooltip: "More information",
@@ -170,9 +170,9 @@ export const WithInfoLabel: Story = {
 };
 
 /**
- * This example shows an input with info message / additional text.
+ * This example shows an input with message / additional text and an optional tooltip.
  */
-export const WithInfoMessage = {
+export const WithMessageTooltip = {
   args: {
     ...Default.args,
     message: "Example message",

@@ -106,14 +106,14 @@ const handleInput = (event: Event) => {
         :class="[!props.required ? requiredMarkerClass : undefined]"
       >
         <div class="onyx-textarea__header">
-          <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
-          <div :class="[props.required ? requiredMarkerClass : undefined]"></div>
-          <OnyxTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip">
+          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+          <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
+          <OnyxTooltip v-if="props.labelTooltip" :text="props.labelTooltip">
             <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
-          <div class="onyx-textarea__optional">{{ t("optional") }}</div>
+          <span v-if="props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
         </div>
       </div>
 
@@ -151,8 +151,7 @@ const handleInput = (event: Event) => {
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <OnyxTooltip
         v-if="props.messageTooltip"
-        class="onyx-textarea__info-message"
-        open="hover"
+        class="onyx-textarea__message-tooltip"
         position="bottom"
         :text="props.messageTooltip"
       >
@@ -227,12 +226,11 @@ const handleInput = (event: Event) => {
 
     &__header {
       display: flex;
-      // gap: var(--onyx-spacing-2xs);
       max-width: 100%;
       width: 100%;
     }
 
-    &__info-message {
+    &__message-tooltip {
       height: 1rem;
       align-self: center;
     }

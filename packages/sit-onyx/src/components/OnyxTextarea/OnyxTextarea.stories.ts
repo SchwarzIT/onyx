@@ -140,9 +140,9 @@ export const Autosize = {
 } satisfies Story;
 
 /**
- * This example shows a textarea with info tooltip.
+ * This example shows a textarea with label tooltip.
  */
-export const WithInfoLabel: Story = {
+export const WithLabelTooltip: Story = {
   args: {
     label: "Label",
     labelTooltip: "More Information",
@@ -156,9 +156,9 @@ export const WithInfoLabel: Story = {
 };
 
 /**
- * This example shows a textarea with info message / additional text.
+ * This example shows a textarea with message / additional text and an optional tooltip.
  */
-export const WithInfoMessage = {
+export const WithMessageTooltip = {
   args: {
     ...Default.args,
     message: "Example message",

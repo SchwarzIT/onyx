@@ -86,16 +86,16 @@ const { t } = injectI18n();
         :class="[!props.required ? requiredMarkerClass : undefined]"
       >
         <div class="onyx-input__header">
-          <div class="onyx-truncation-ellipsis">
+          <span class="onyx-truncation-ellipsis">
             {{ props.label }}
-          </div>
-          <div :class="[props.required ? requiredMarkerClass : undefined]"></div>
-          <OnyxTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip">
+          </span>
+          <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
+          <OnyxTooltip v-if="props.labelTooltip" :text="props.labelTooltip">
             <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
-          <div class="onyx-input__optional">{{ t("optional") }}</div>
+          <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
         </div>
       </div>
 
@@ -136,8 +136,7 @@ const { t } = injectI18n();
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <OnyxTooltip
         v-if="props.messageTooltip"
-        class="onyx-input__info-message"
-        open="hover"
+        class="onyx-input__message-tooltip"
         position="bottom"
         :text="props.messageTooltip"
       >
@@ -212,7 +211,7 @@ const { t } = injectI18n();
       width: 100%;
     }
 
-    &__info-message {
+    &__message-tooltip {
       height: 1rem;
       align-self: center;
     }

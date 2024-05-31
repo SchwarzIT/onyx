@@ -1,11 +1,11 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
+import type { Locator } from "@playwright/test";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const isTooltipVisible = async (tooltip: any) => {
+  const isTooltipVisible = async (tooltip: Locator) => {
     await expect(tooltip).toBeVisible();
   };
 
