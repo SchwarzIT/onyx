@@ -113,7 +113,7 @@ const handleInput = (event: Event) => {
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
-          <span v-if="props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
+          <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
         </div>
       </div>
 
