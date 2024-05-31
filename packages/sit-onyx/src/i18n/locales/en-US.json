@@ -38,5 +38,5 @@
     "goBack": "Go back",
     "userMenuLabel": "User options"
   },
-  "infoTooltip": "Info Tooltip"
+  "showInfoTooltip": "Show info Tooltip"
 }

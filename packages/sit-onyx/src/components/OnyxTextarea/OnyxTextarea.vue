@@ -109,7 +109,7 @@ const handleInput = (event: Event) => {
           <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
           <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
           <OnyxTooltip v-if="props.labelTooltip" :text="props.labelTooltip">
-            <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
+            <button :aria-label="t('showInfoTooltip')" class="onyx-textarea__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
@@ -155,7 +155,7 @@ const handleInput = (event: Event) => {
         position="bottom"
         :text="props.messageTooltip"
       >
-        <button :aria-label="t('infoTooltip')" class="onyx-textarea__tooltip-trigger">
+        <button :aria-label="t('showInfoTooltip')" class="onyx-textarea__tooltip-trigger">
           <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
         </button>
       </OnyxTooltip>

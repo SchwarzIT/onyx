@@ -11,7 +11,7 @@ export type OnyxInputProps = DensityProp &
      */
     label: string;
     /**
-     * Info text to pop up inside a tooltip, next to the label.
+     * Info text to show inside a tooltip, next to the label.
      * The tooltip will be hidden if `hideLabel` property is set to true.
      */
     labelTooltip?: string;

@@ -91,7 +91,7 @@ const { t } = injectI18n();
           </span>
           <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
           <OnyxTooltip v-if="props.labelTooltip" :text="props.labelTooltip">
-            <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
+            <button :aria-label="t('showInfoTooltip')" class="onyx-input__tooltip-trigger">
               <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
             </button>
           </OnyxTooltip>
@@ -140,7 +140,7 @@ const { t } = injectI18n();
         position="bottom"
         :text="props.messageTooltip"
       >
-        <button :aria-label="t('infoTooltip')" class="onyx-input__tooltip-trigger">
+        <button :aria-label="t('showInfoTooltip')" class="onyx-input__tooltip-trigger">
           <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
         </button>
       </OnyxTooltip>
