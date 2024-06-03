@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.118
+
+### Minor Changes
+
+- 2d2ada6: feat(OnyxTable): support vertical/horizontal scrolling
+
 ## 1.0.0-alpha.117
 
 ### Patch Changes
