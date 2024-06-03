@@ -30,7 +30,6 @@ const { densityClass } = useDensity(props);
       >
         <slot></slot>
       </table>
-      <div class="onyx-table-wrapper__frame"></div>
     </div>
   </div>
 </template>
@@ -112,7 +111,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   }
 }
 
-// todo try with grid...
 .onyx-table-wrapper {
   @include layers.component() {
     position: relative;
@@ -126,7 +124,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       max-width: inherit;
       width: fit-content;
     }
-    &__frame {
+    // we place a frame on top so the table has visible boundaries
+    // when it is overflowing in the scroll container
+    &::after {
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -140,7 +141,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 }
 
 .onyx-table {
-  // position: relative;
   @include density.compact {
     --onyx-table-vertical-padding: var(--onyx-spacing-4xs);
   }
