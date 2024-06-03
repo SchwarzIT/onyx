@@ -87,6 +87,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
   @include layers.component() {
     width: max-content;
     position: relative;
+    $gap: var(--onyx-spacing-2xs);
 
     &__trigger {
       display: inline-flex;
@@ -96,7 +97,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
       padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
       justify-content: center;
       align-items: center;
-      gap: var(--onyx-spacing-2xs);
+      gap: $gap;
       flex-shrink: 0;
       border-radius: var(--onyx-radius-sm);
       background: var(--onyx-color-base-background-blank);
@@ -139,6 +140,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
 
     &__icon {
       align-self: flex-start;
+      margin-left: calc(-1 * $gap);
     }
 
     &__flyout {
