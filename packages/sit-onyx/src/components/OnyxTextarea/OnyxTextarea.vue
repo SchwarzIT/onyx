@@ -4,9 +4,7 @@ import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxTextareaProps } from "./types";
 import { injectI18n } from "../../i18n";
 
@@ -108,11 +106,7 @@ const handleInput = (event: Event) => {
         <div class="onyx-textarea__header">
           <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
           <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
-          <OnyxTooltip v-if="props.labelTooltip" :text="props.labelTooltip">
-            <button :aria-label="t('showInfoTooltip')" class="onyx-textarea__tooltip-trigger">
-              <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
-            </button>
-          </OnyxTooltip>
+          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
           <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
         </div>
       </div>
@@ -149,16 +143,12 @@ const handleInput = (event: Event) => {
 
     <div v-if="props.message || shouldShowCounter" class="onyx-textarea__footer onyx-text--small">
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
-      <OnyxTooltip
+      <OnyxInfoTooltip
         v-if="props.messageTooltip"
         class="onyx-textarea__message-tooltip"
         position="bottom"
         :text="props.messageTooltip"
-      >
-        <button :aria-label="t('showInfoTooltip')" class="onyx-textarea__tooltip-trigger">
-          <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
-        </button>
-      </OnyxTooltip>
+      />
       <span v-if="shouldShowCounter" class="onyx-textarea__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
@@ -233,13 +223,6 @@ const handleInput = (event: Event) => {
     &__message-tooltip {
       height: 1rem;
       align-self: center;
-    }
-
-    &__tooltip-trigger {
-      border: none;
-      background-color: transparent;
-      padding: 0;
-      margin-left: var(--onyx-spacing-2xs);
     }
 
     &__wrapper {
