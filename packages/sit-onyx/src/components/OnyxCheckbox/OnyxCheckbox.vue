@@ -107,13 +107,13 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     cursor: pointer;
     width: max-content;
     max-width: 100%;
 
     @include density.compact {
-      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-4xs);
+      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-3xs);
     }
     @include density.default {
       --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-2xs);
@@ -147,15 +147,14 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &__container {
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       padding: var(--onyx-checkbox-input-padding);
       border-radius: var(--onyx-radius-full);
     }
 
     &__label {
       display: inline-block;
-      padding: var(--onyx-checkbox-label-padding-vertical) 0
-        var(--onyx-checkbox-label-padding-vertical);
+      padding: var(--onyx-checkbox-label-padding-vertical) 0;
     }
 
     &__input {
@@ -164,6 +163,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &__label,
     &__marker {
+      padding: var(--onyx-checkbox-label-padding-vertical) 0;
       font-size: 1rem;
       line-height: 1.5rem;
     }
@@ -181,7 +181,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
   @include layers.component() {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--onyx-spacing-md);
     padding: var(--onyx-checkbox-input-padding);
     width: max-content;
