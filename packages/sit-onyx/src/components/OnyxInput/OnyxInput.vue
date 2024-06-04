@@ -5,9 +5,7 @@ import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxInputProps } from "./types";
 import { injectI18n } from "../../i18n";
 
@@ -90,11 +88,7 @@ const { t } = injectI18n();
             {{ props.label }}
           </span>
           <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
-          <OnyxTooltip v-if="props.labelTooltip" :text="props.labelTooltip">
-            <button :aria-label="t('showInfoTooltip')" class="onyx-input__tooltip-trigger">
-              <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
-            </button>
-          </OnyxTooltip>
+          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
           <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
         </div>
       </div>
@@ -134,16 +128,12 @@ const { t } = injectI18n();
 
     <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
-      <OnyxTooltip
+      <OnyxInfoTooltip
         v-if="props.messageTooltip"
         class="onyx-input__message-tooltip"
         position="bottom"
         :text="props.messageTooltip"
-      >
-        <button :aria-label="t('showInfoTooltip')" class="onyx-input__tooltip-trigger">
-          <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
-        </button>
-      </OnyxTooltip>
+      />
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
