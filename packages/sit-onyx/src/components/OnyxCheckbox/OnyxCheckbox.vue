@@ -154,8 +154,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &__label {
       display: inline-block;
-      padding: var(--onyx-checkbox-label-padding-vertical) 0
-        var(--onyx-checkbox-label-padding-vertical);
+      padding: var(--onyx-checkbox-label-padding-vertical) 0;
     }
 
     &__input {
@@ -164,6 +163,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
 
     &__label,
     &__marker {
+      padding: var(--onyx-checkbox-label-padding-vertical) 0;
       font-size: 1rem;
       line-height: 1.5rem;
     }
