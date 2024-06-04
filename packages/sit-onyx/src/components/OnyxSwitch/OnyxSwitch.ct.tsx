@@ -66,6 +66,21 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Switch (densities)",
+    columns: DENSITIES,
+    rows: ["unchecked", "checked", "loading", "skeleton"],
+    component: (column, row) => (
+      <OnyxSwitch
+        label="Test label"
+        density={column}
+        skeleton={row === "skeleton"}
+        modelValue={row === "checked"}
+        loading={row === "loading"}
+      />
+    ),
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Switch (hidden label)",
     columns: ["unchecked", "checked"],
     rows: ["default", "loading", "skeleton"],
     component: (column, row) => (
@@ -74,16 +89,8 @@ test.describe("Screenshot tests", () => {
         skeleton={row === "skeleton"}
         modelValue={column === "checked"}
         loading={row === "loading"}
+        hideLabel
       />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    name: "Switch (hidden label)",
-    columns: DENSITIES,
-    rows: ["unchecked", "checked", "skeleton"],
-    component: (column, row) => (
-      <OnyxSwitch label="Test label" density={column} skeleton={row === "skeleton"} hideLabel />
     ),
     beforeScreenshot: async (component, page, column, row) => {
       // should have aria-label if label is hidden
