@@ -20,7 +20,7 @@ import type { SelectOption } from "./types";
  * - **Arrow up**: Focuses the previous option
  * - **Home**: Focuses the first option
  * - **End**: Focuses the last option
- * - **Space**: Selects currently focused option
+ * - **Enter/Space**: Selects currently focused option. Select with space is only working when `withSearch` is disabled.
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxSelect> = {

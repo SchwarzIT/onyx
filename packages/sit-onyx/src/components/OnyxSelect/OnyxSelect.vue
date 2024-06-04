@@ -64,7 +64,7 @@ const selectRef = ref<HTMLElement>();
 const activeValue = ref<TValue>();
 
 /**
- * Current value but always as array (even if not multiselect) so its easier
+ * Current value but always as array (even if not multiselect) so it is easier
  * to work with it in a unified way.
  */
 const arrayValue = computed(() => {
