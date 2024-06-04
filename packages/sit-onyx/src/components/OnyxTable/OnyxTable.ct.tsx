@@ -68,7 +68,7 @@ test.describe("Screenshot tests", () => {
         {tableBody}
       </OnyxTable>
     ),
-    beforeScreenshot: async (component, page, column, row) => {
+    beforeScreenshot: async (component, _, __, row) => {
       if (row === "row-hover") await component.getByText("Apple").hover();
       if (row === "column-hover") await component.getByText("Fruit").hover();
     },
@@ -114,5 +114,10 @@ test.describe("Screenshot tests", () => {
         </tbody>
       </OnyxTable>
     ),
+
+    beforeScreenshot: async (component, _, column, row) => {
+      if (column === "horizontal-scroll") await component.getByText("Apple").hover();
+      if (row === "vertical-scroll") await component.getByText("Price").hover();
+    },
   });
 });

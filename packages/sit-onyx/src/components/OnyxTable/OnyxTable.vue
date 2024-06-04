@@ -156,7 +156,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   @include layers.component() {
     @include define-borders();
 
-    --onyx-table-column-hover: #26628d30;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
@@ -214,8 +213,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
     // column hover styles
     th:hover::before {
-      // TODO: we need official color tokens for that.
-      background-color: var(--onyx-table-column-hover);
+      background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
       content: "";
       height: 100vh;
       position: absolute;
@@ -223,14 +221,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       left: 0;
       width: 100%;
       bottom: 0;
-    }
-  }
-}
-
-.dark .onyx-table {
-  @include layers.component() {
-    th:hover::before {
-      --onyx-table-column-hover: #2e425230;
     }
   }
 }
