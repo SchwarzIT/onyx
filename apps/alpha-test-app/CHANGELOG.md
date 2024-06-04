@@ -1,5 +1,12 @@
 # alpha-test-app
 
+## 0.1.0-alpha.119
+
+### Patch Changes
+
+- Updated dependencies [8c1cc76]
+  - sit-onyx@1.0.0-alpha.122
+
 ## 0.1.0-alpha.118
 
 ### Patch Changes
