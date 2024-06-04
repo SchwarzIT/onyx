@@ -17,7 +17,7 @@ const { t } = injectI18n();
     :position="props.position"
   >
     <button :aria-label="t('showInfoTooltip')" class="onyx-info-tooltip__trigger">
-      <OnyxIcon :icon="circleInformation" color="neutral" size="12px" />
+      <OnyxIcon :icon="circleInformation" size="12px" />
     </button>
   </OnyxTooltip>
 </template>
@@ -31,6 +31,7 @@ const { t } = injectI18n();
       border: none;
       background-color: transparent;
       padding: 0;
+      color: inherit;
     }
   }
 }
