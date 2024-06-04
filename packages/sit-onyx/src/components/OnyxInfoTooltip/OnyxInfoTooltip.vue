@@ -31,7 +31,6 @@ const { t } = injectI18n();
       border: none;
       background-color: transparent;
       padding: 0;
-      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }

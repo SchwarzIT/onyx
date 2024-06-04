@@ -105,7 +105,10 @@ const handleInput = (event: Event) => {
       >
         <div class="onyx-textarea__header">
           <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-          <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
+          <span
+            v-if="props.required"
+            :class="[props.required ? requiredMarkerClass : undefined]"
+          ></span>
           <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
           <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
         </div>
@@ -224,6 +227,7 @@ const handleInput = (event: Event) => {
       display: flex;
       max-width: 100%;
       width: 100%;
+      gap: var(--onyx-spacing-2xs);
     }
 
     &__message-tooltip {

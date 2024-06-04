@@ -87,7 +87,10 @@ const { t } = injectI18n();
           <span class="onyx-truncation-ellipsis">
             {{ props.label }}
           </span>
-          <span :class="[props.required ? requiredMarkerClass : undefined]"></span>
+          <span
+            v-if="props.required"
+            :class="[props.required ? requiredMarkerClass : undefined]"
+          ></span>
           <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
           <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
         </div>
@@ -205,18 +208,12 @@ const { t } = injectI18n();
       display: flex;
       max-width: 100%;
       width: 100%;
+      gap: var(--onyx-spacing-2xs);
     }
 
     &__message-tooltip {
       height: 1rem;
       align-self: center;
-    }
-
-    &__tooltip-trigger {
-      border: none;
-      background-color: transparent;
-      padding: 0;
-      margin-left: var(--onyx-spacing-2xs);
     }
 
     &__wrapper {
