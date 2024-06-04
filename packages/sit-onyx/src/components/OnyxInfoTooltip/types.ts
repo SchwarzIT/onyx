@@ -1,3 +1,4 @@
 import type { OnyxTooltipProps } from "../OnyxTooltip/types";
 
-export type OnyxInfoTooltipProps = Pick<OnyxTooltipProps, "text" | "position">;
+export type OnyxInfoTooltipProps = NonNullable<Pick<OnyxTooltipProps, "text">> &
+  Pick<OnyxTooltipProps, "position">;

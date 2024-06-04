@@ -10,12 +10,7 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <OnyxTooltip
-    v-if="props.text"
-    class="onyx-info-tooltip"
-    :text="props.text"
-    :position="props.position"
-  >
+  <OnyxTooltip class="onyx-info-tooltip" :text="props.text" :position="props.position">
     <button :aria-label="t('showInfoTooltip')" class="onyx-info-tooltip__trigger">
       <OnyxIcon :icon="circleInformation" size="12px" />
     </button>
