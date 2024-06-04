@@ -1,5 +1,12 @@
 # playground
 
+## 0.0.1-alpha.59
+
+### Patch Changes
+
+- Updated dependencies [dc2125e]
+  - sit-onyx@1.0.0-alpha.120
+
 ## 0.0.1-alpha.58
 
 ### Patch Changes
