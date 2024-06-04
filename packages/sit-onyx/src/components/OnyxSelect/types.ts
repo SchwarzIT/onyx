@@ -46,7 +46,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
       /**
        * If true, a checkbox will be displayed to check/uncheck all options.
        * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
-       * Only available if "multiple" is true.
+       * Only available if "multiple" is true and no `searchTerm` is provided.
        */
       withCheckAll?:
         | boolean

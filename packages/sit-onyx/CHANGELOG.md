@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.120
+
+### Patch Changes
+
+- dc2125e: fix(OnyxSelect): hide check all when searching
+
 ## 1.0.0-alpha.119
 
 ### Patch Changes
