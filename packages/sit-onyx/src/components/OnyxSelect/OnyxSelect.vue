@@ -296,7 +296,7 @@ const selectInputProps = computed(() => {
               </li>
 
               <!-- select-all option for "multiple" -->
-              <template v-if="props.multiple && props.withCheckAll">
+              <template v-if="props.multiple && props.withCheckAll && !props.searchTerm">
                 <OnyxSelectOption
                   v-bind="
                     headlessOption({
