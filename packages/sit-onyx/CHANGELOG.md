@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.122
+
+### Patch Changes
+
+- 8c1cc76: fix(OnyxSelect): prevent redundant update:searchTerm emits
+
 ## 1.0.0-alpha.121
 
 ### Patch Changes

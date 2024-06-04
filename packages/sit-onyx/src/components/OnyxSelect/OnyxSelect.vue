@@ -111,7 +111,7 @@ const onToggle = async (preventFocus?: boolean) => {
 
   isExpanded.value = !isExpanded.value;
   if (!isExpanded.value) {
-    emit("update:searchTerm", "");
+    if (props.searchTerm) emit("update:searchTerm", "");
     if (!preventFocus) selectInput.value?.focus();
   } else {
     // make sure search of focused when flyout opens
