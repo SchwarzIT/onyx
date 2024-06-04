@@ -4,19 +4,18 @@
 @use "density.scss";
 
 @mixin variables() {
+  --onyx-checkbox-input-size: 1rem;
+
   @include density.compact {
-    --onyx-checkbox-input-size: 0.75rem;
     --onyx-checkbox-input-padding: var(--onyx-spacing-xs);
   }
 
   @include density.default {
-    --onyx-checkbox-input-size: 1rem;
     --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
   }
 
   @include density.cozy {
-    --onyx-checkbox-input-size: 1.5rem;
-    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
+    --onyx-checkbox-input-padding: var(--onyx-spacing-md);
   }
 }
 

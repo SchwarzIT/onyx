@@ -100,46 +100,30 @@ const isChecked = computed({
 
 .onyx-switch,
 .onyx-switch-skeleton {
+  --onyx-switch-icon-size: 1.25rem;
+  --onyx-switch-container-padding: var(--onyx-1px-in-rem);
+  // icon size + padding top/bottom + border top/bottom
+  --onyx-switch-frame-height: calc(
+    var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
+      var(--onyx-1px-in-rem)
+  );
+  --onyx-switch-cozy-width: 0rem;
+
   @include density.compact {
-    --onyx-switch-icon-size: 1rem;
-    --onyx-switch-cozy-width: 0rem;
-    --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-container-margin: 0.25rem;
     --onyx-switch-transform: 0.125rem;
-    --onyx-switch-input-height: unset;
     --onyx-switch-click-height: var(--onyx-spacing-xl);
     --onyx-switch-label-padding-vertical: var(--onyx-spacing-4xs);
-
-    // icon size + padding top/bottom + border top/bottom
-    --onyx-switch-skeleton-height: calc(
-      var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
-        var(--onyx-1px-in-rem)
-    );
   }
 
   @include density.default {
-    --onyx-switch-icon-size: 1.25rem;
-    --onyx-switch-cozy-width: 0rem;
-    --onyx-switch-container-padding: var(--onyx-1px-in-rem);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
-    --onyx-switch-input-height: unset;
     --onyx-switch-click-height: 2.5rem;
     --onyx-switch-label-padding-vertical: var(--onyx-spacing-2xs);
-
-    // icon size + padding top/bottom + border top/bottom
-    --onyx-switch-skeleton-height: calc(
-      var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
-        var(--onyx-1px-in-rem)
-    );
   }
 
   @include density.cozy {
-    --onyx-switch-icon-size: 1.5rem;
-    --onyx-switch-cozy-width: 0.75rem;
-    --onyx-switch-container-padding: 0.25rem;
     --onyx-switch-transform: 0.01rem;
-    --onyx-switch-input-height: 2rem;
-    --onyx-switch-skeleton-height: var(--onyx-switch-input-height);
     --onyx-switch-click-height: var(--onyx-spacing-2xl);
     --onyx-switch-label-padding-vertical: var(--onyx-spacing-sm);
   }
@@ -217,7 +201,7 @@ $input-width: calc(
           .onyx-switch__frame {
             position: absolute;
             border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
-            height: var(--onyx-switch-skeleton-height);
+            height: var(--onyx-switch-frame-height);
             border-radius: var(--onyx-radius-full);
             width: $input-width;
             box-sizing: border-box;
@@ -249,7 +233,6 @@ $input-width: calc(
       display: inline-flex;
       width: $input-width;
       min-width: $input-width;
-      height: var(--onyx-switch-input-height);
       padding: var(--onyx-switch-container-padding);
       box-sizing: border-box;
       background-color: var(--onyx-color-base-neutral-300);
@@ -348,7 +331,7 @@ $input-width: calc(
     align-items: center;
 
     &__input {
-      height: var(--onyx-switch-skeleton-height);
+      height: var(--onyx-switch-frame-height);
       border-radius: var(--onyx-radius-full);
       width: $input-width;
     }
