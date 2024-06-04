@@ -14,7 +14,7 @@ const meta: Meta<typeof OnyxInfoTooltip> = {
       (story) => ({
         components: { story },
         template: `
-        <div style="padding: 4rem 6rem; font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-intense)">
+        <div style="padding: 4rem 6rem;">
           <story />
         </div>`,
       }),
