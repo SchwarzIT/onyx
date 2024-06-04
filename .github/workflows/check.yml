@@ -44,9 +44,8 @@ jobs:
       - name: 🛠️ Build packages
         run: pnpm run build:all
         env:
-          # needed for increase rate limit for the GitHub API that is used when building
-          # the VitePress documentation
-          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # skip fetching statistics for our docs here so we don't exceed GitHub rate limits which may fail in CI
+          VITEPRESS_SKIP_GITHUB_FETCH: true
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all

@@ -99,6 +99,16 @@ DEMO_OPTIONS.splice(6, 0, {
   disabled: true,
 });
 
+const MULTISELECT_DEMO_OPTIONS = [
+  {
+    value: "disabled-2",
+    label: "Selected unavailable fruit",
+    disabled: true,
+  },
+  ...DEMO_OPTIONS,
+  { value: "long", label: "Option with a very long long long  long long long long text" },
+];
+
 /**
  * This example shows a default single select.
  */
@@ -127,18 +137,10 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: [DEMO_OPTIONS[0], DEMO_OPTIONS[1]],
+    modelValue: [MULTISELECT_DEMO_OPTIONS[0], MULTISELECT_DEMO_OPTIONS[1]],
     multiple: true,
     withCheckAll: true,
-    options: [
-      {
-        value: "disabled-2",
-        label: "Selected unavailable fruit",
-        disabled: true,
-      },
-      ...Default.args.options,
-      { value: "long", label: "Option with a very long long long  long long long long text" },
-    ],
+    options: MULTISELECT_DEMO_OPTIONS,
   },
 } satisfies Story;
 
