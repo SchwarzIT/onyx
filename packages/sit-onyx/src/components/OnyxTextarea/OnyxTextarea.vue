@@ -104,11 +104,13 @@ const handleInput = (event: Event) => {
         :class="[!props.required ? requiredMarkerClass : undefined]"
       >
         <div class="onyx-textarea__header">
-          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-          <span
-            v-if="props.required"
-            :class="[props.required ? requiredMarkerClass : undefined]"
-          ></span>
+          <span>
+            <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+            <span
+              v-if="props.required"
+              :class="[props.required ? requiredMarkerClass : undefined]"
+            ></span>
+          </span>
           <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
           <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
         </div>

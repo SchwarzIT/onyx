@@ -84,13 +84,15 @@ const { t } = injectI18n();
         :class="[!props.required ? requiredMarkerClass : undefined]"
       >
         <div class="onyx-input__header">
-          <span class="onyx-truncation-ellipsis">
-            {{ props.label }}
+          <span>
+            <span class="onyx-truncation-ellipsis">
+              {{ props.label }}
+            </span>
+            <span
+              v-if="props.required"
+              :class="[props.required ? requiredMarkerClass : undefined]"
+            ></span>
           </span>
-          <span
-            v-if="props.required"
-            :class="[props.required ? requiredMarkerClass : undefined]"
-          ></span>
           <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
           <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
         </div>
