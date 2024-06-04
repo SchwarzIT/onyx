@@ -156,6 +156,12 @@ const { t } = injectI18n();
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
+.onyx-use-optional:not(:has(.onyx-required-marker)) {
+  .onyx-input__optional {
+    display: inline-block;
+  }
+}
+
 /**
 * Gets a comma separated CSS selector for the input autofill.
 * Includes default browser selectors as well as some specific selectors e.g. for certain password managers.

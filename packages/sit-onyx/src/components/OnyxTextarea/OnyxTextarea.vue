@@ -161,6 +161,12 @@ const handleInput = (event: Event) => {
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
+.onyx-use-optional:not(:has(.onyx-required-marker)) {
+  .onyx-textarea__optional {
+    display: inline-block;
+  }
+}
+
 .onyx-textarea,
 .onyx-textarea-skeleton {
   --min-autosize-rows: 3;

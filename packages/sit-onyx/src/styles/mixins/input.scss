@@ -39,12 +39,6 @@
     margin-left: auto;
   }
 
-  &.onyx-use-optional:not(:has(.onyx-required-marker)) {
-    #{$base-selector}__optional {
-      display: inline-block;
-    }
-  }
-
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
