@@ -66,14 +66,13 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Switch (densities)",
-    columns: DENSITIES,
-    rows: ["unchecked", "checked", "loading", "skeleton"],
+    columns: ["unchecked", "checked"],
+    rows: ["default", "loading", "skeleton"],
     component: (column, row) => (
       <OnyxSwitch
         label="Test label"
-        density={column}
         skeleton={row === "skeleton"}
-        modelValue={row === "checked"}
+        modelValue={column === "checked"}
         loading={row === "loading"}
       />
     ),
@@ -82,7 +81,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Switch (hidden label)",
     columns: DENSITIES,
-    rows: ["default", "skeleton"],
+    rows: ["unchecked", "checked", "skeleton"],
     component: (column, row) => (
       <OnyxSwitch label="Test label" density={column} skeleton={row === "skeleton"} hideLabel />
     ),
