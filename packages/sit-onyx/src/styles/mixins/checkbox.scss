@@ -15,7 +15,7 @@
   }
 
   @include density.cozy {
-    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
+    --onyx-checkbox-input-padding: var(--onyx-spacing-md);
   }
 }
 
