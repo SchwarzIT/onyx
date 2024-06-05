@@ -6,7 +6,9 @@ import DesktopNavBar from "./DesktopNavBar.vue";
 import MobileNavBar from "./MobileNavBar.vue";
 import type { OnyxNavBarProps } from "./types";
 
-const props = defineProps<OnyxNavBarProps>();
+const props = withDefaults(defineProps<OnyxNavBarProps>(), {
+  mobileBreakpoint: "xs",
+});
 
 const emit = defineEmits<{
   /**
@@ -38,7 +40,7 @@ defineSlots<{
 const navBarRef = ref<HTMLElement>();
 
 const { width } = useResizeObserver(navBarRef);
-const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
+const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS[props.mobileBreakpoint]);
 </script>
 
 <template>
