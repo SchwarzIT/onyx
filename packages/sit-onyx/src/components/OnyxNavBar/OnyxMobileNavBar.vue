@@ -89,7 +89,7 @@ $height: 3.5rem;
     }
 
     &__page {
-      color: var(--onyx-color-text-icons-primary-intense);
+      color: var(--onyx-color-text-icons-secondary-intense);
     }
 
     &__flyout {
