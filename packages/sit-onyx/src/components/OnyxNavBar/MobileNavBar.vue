@@ -205,10 +205,6 @@ $height: 3.5rem;
         }
       }
     }
-
-    .onyx-nav-app-area {
-      border-right: none;
-    }
   }
 }
 </style>
