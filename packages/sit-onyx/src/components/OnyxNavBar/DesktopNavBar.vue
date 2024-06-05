@@ -42,7 +42,6 @@ const { t } = injectI18n();
     <div class="onyx-nav-bar__content">
       <OnyxNavAppArea
         v-if="props.appName || props.logoUrl || slots.appArea"
-        class="onyx-nav-bar__app-area"
         :app-name="props.appName"
         :logo-url="props.logoUrl"
         :label="props.appAreaLabel"
@@ -108,10 +107,6 @@ const { t } = injectI18n();
       }
     }
 
-    &__app-area {
-      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-    }
-
     &__nav {
       display: flex;
       align-items: center;
@@ -125,6 +120,10 @@ const { t } = injectI18n();
       justify-content: flex-end;
       gap: var(--onyx-spacing-4xs);
       flex-grow: 1;
+    }
+
+    .onyx-nav-app-area {
+      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
   }
 }
