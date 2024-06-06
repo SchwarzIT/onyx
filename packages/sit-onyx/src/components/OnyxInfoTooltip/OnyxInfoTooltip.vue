@@ -27,6 +27,7 @@ const { t } = injectI18n();
       background-color: transparent;
       padding: 0;
       color: inherit;
+      height: 0.75rem;
     }
   }
 }
