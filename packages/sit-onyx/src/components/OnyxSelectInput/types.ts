@@ -69,6 +69,7 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
     placeholder?: string;
     /**
      * Message / help text to display below the select input.
+     * Will be replaced by an error message if the select is invalid.
      */
     message?: string;
   };

@@ -21,6 +21,7 @@ export const transformValidityStateToObject = (
   );
 };
 
+// TODO: this is dead code
 /**
  * Extracts the first invalid validity type from the given HTML ValidityState.
  * "valueMissing" is prioritized over other types to align with the default browser behavior.

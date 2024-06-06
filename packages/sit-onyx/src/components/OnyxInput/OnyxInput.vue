@@ -111,6 +111,7 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           @focus="emit('focus')"
           @blur="emit('blur')"
         />
+        Test: {{ props.customError }}
         <!-- eslint-enable vuejs-accessibility/no-autofocus -->
       </div>
     </label>

@@ -82,6 +82,7 @@ export type OnyxInputProps = DensityProp &
     withCounter?: boolean;
     /**
      * Message / help text to display below the input.
+     * Will be replaced by an error message if the input is invalid.
      */
     message?: string;
     /**
