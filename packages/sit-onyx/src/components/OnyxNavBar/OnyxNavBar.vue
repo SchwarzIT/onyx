@@ -223,14 +223,9 @@ $gap: var(--onyx-spacing-md);
       --padding-inline: 0;
 
       .onyx-nav-bar__content {
-        grid-template-columns: max-content 1fr auto;
-        grid-template-areas: "burger nav mobile-context";
+        grid-template-columns: max-content max-content max-content auto;
+        grid-template-areas: "burger back nav mobile-context";
         gap: 0;
-
-        &:has(.onyx-nav-bar__back) {
-          grid-template-columns: max-content max-content 1fr max-content;
-          grid-template-areas: "burger back nav mobile-context";
-        }
 
         .onyx-nav-bar__back {
           margin-left: $gap;
@@ -250,6 +245,7 @@ $gap: var(--onyx-spacing-md);
 
     &__mobile-context {
       grid-area: mobile-context;
+      margin-left: auto;
     }
 
     &__mobile-page {
