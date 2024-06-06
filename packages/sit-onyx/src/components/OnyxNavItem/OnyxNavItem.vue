@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
-import { isExternalLink } from "../../utils";
 import { injectI18n } from "../../i18n";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxNavItemProps } from "./types";
+import { isExternalLink } from "../../utils";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import type { OnyxNavItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
@@ -65,7 +65,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
       <OnyxListItem
         v-for="option in props.options"
         :key="option.label"
-        :active="option.active"
+        :aria-selected="option.active"
         @click="emit('click', option.href)"
       >
         {{ option.label }}

@@ -2,17 +2,16 @@
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { computed, ref, type RendererElement, type RendererNode, type VNode } from "vue";
+import { computed, ref, type VNode } from "vue";
 import { injectI18n } from "../../i18n";
+import { filterVNodesByComponent } from "../../utils/vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
-import type { OnyxNavItemProps } from "../OnyxNavItem/types";
 import OnyxNavMobileButton from "../OnyxNavMobileButton/OnyxNavMobileButton.vue";
+import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import type { OnyxNavBarProps } from "./types";
-
-type NavItemVNode = VNode<RendererNode, RendererElement, OnyxNavItemProps>;
 
 const props = defineProps<OnyxNavBarProps>();
 
@@ -36,11 +35,11 @@ const slots = defineSlots<{
   /**
    * Optional slot to override the app area content (logo and app name, e.g. with a custom icon / `OnyxIcon` component).
    */
-  appArea?: () => unknown;
+  appArea?: () => VNode[];
   /**
    * Optional context area on the right to display additional (global) components, like user login, global settings etc.
    */
-  contextArea?: () => unknown;
+  contextArea?: () => VNode[];
 }>();
 
 const { t } = injectI18n();
@@ -50,19 +49,29 @@ const isContextOpen = ref(false);
 
 const allNavItems = computed(() => {
   const vnodes = slots.default?.() ?? [];
-  const possibleVnodes = vnodes
-    .filter((i) => !i.children || Array.isArray(i.children))
-    .flatMap((i) => [i, ...(i.children as Extract<typeof i.children, typeof Array>)]);
-
-  return possibleVnodes.filter((i): i is NavItemVNode => {
-    if (typeof i.type !== "object" || !("__name" in i.type)) return false;
-    return i.type.__name === OnyxNavItem.__name;
-  });
+  return filterVNodesByComponent(vnodes, OnyxNavItem);
 });
 
 const activeNavItemLabel = computed(() => {
   // TODO: check what to display if item has active child
-  return allNavItems.value.find((i) => i.props?.active)?.props?.label;
+  const activeItem = allNavItems.value.find(
+    (i) => i.props?.active || i.props?.options?.some((j) => j.active),
+  );
+  if (!activeItem?.props) return;
+  const activeNestedItem = activeItem.props.options?.find((i) => i.active);
+  return activeNestedItem?.label ?? activeItem.props.label;
+});
+
+const contextAreaComponents = computed(() => slots.contextArea?.() ?? []);
+
+const userMenu = computed(() => {
+  return filterVNodesByComponent(contextAreaComponents.value, OnyxUserMenu).at(0);
+});
+
+const contextAreaFooter = computed(() => {
+  const children = userMenu.value?.children;
+  if (!children || typeof children !== "object" || Array.isArray(children)) return;
+  return children.footer;
 });
 </script>
 
@@ -96,7 +105,10 @@ const activeNavItemLabel = computed(() => {
           :app-name="props.appName"
           :logo-url="props.logoUrl"
           :label="props.appAreaLabel"
-          @click="emit('appAreaClick')"
+          @click="
+            emit('appAreaClick');
+            isBurgerOpen = false;
+          "
         >
           <slot name="appArea"></slot>
         </OnyxNavAppArea>
@@ -111,19 +123,31 @@ const activeNavItemLabel = computed(() => {
     </div>
 
     <div v-if="isBurgerOpen" class="onyx-mobile-nav-bar__flyout">
-      <OnyxHeadline is="h2">{{ t("navigation.navigationHeadline") }}</OnyxHeadline>
+      <div class="onyx-mobile-nav-bar__flyout-content">
+        <OnyxHeadline is="h2">{{ t("navigation.navigationHeadline") }}</OnyxHeadline>
 
-      <component
-        :is="item"
-        v-for="item in allNavItems"
-        :key="item.props?.href ?? item.props?.label"
-      />
+        <nav v-if="slots.default">
+          <ul class="onyx-mobile-nav-bar__nav" role="menubar">
+            <!-- TODO: add nav items -->
+          </ul>
+        </nav>
+      </div>
     </div>
 
     <div v-if="isContextOpen" class="onyx-mobile-nav-bar__flyout">
-      <OnyxHeadline is="h2">{{ t("navigation.optionsHeadline") }}</OnyxHeadline>
+      <div class="onyx-mobile-nav-bar__flyout-content">
+        <!-- TODO: add avatar and user menu options -->
 
-      <slot name="contextArea"></slot>
+        <OnyxHeadline is="h2">{{ t("navigation.optionsHeadline") }}</OnyxHeadline>
+
+        <div class="onyx-mobile-nav-bar__context">
+          <!-- TODO: add context options -->
+        </div>
+      </div>
+
+      <div class="onyx-mobile-nav-bar__footer">
+        <component :is="contextAreaFooter" v-if="contextAreaFooter" />
+      </div>
     </div>
   </header>
 </template>
@@ -141,15 +165,19 @@ $height: 3.5rem;
     z-index: var(--onyx-z-index-navigation);
     position: relative;
 
-    // implement bottom border with :.after so it does not add to the height
-    &::after {
-      content: "";
-      background-color: var(--onyx-color-base-neutral-300);
-      height: var(--onyx-1px-in-rem);
-      width: 100%;
-      display: block;
-      position: absolute;
-      bottom: 0;
+    &:has(&__flyout) {
+      &::after {
+        height: calc(100vh - $height);
+        width: 100%;
+        content: "";
+        display: block;
+        position: absolute;
+        top: $height;
+        z-index: -1;
+
+        // TODO: check color (also with dark mode)
+        background-color: rgba(0, 0, 0, 0.2);
+      }
     }
 
     &__content {
@@ -157,6 +185,17 @@ $height: 3.5rem;
       align-items: center;
       justify-content: space-between;
       height: $height;
+
+      // implement bottom border with :.after so it does not add to the height
+      &::after {
+        content: "";
+        background-color: var(--onyx-color-base-neutral-300);
+        height: var(--onyx-1px-in-rem);
+        width: 100%;
+        display: block;
+        position: absolute;
+        bottom: 0;
+      }
     }
 
     &__main {
@@ -186,12 +225,7 @@ $height: 3.5rem;
       position: absolute;
       top: $height;
       width: 100%;
-
-      display: flex;
-      flex-direction: column;
-      gap: var(--onyx-spacing-2xs);
-      background: var(--onyx-color-base-background-tinted);
-      padding: var(--onyx-spacing-xl) var(--onyx-spacing-md);
+      background-color: var(--onyx-color-base-background-tinted);
 
       .onyx-user-menu {
         &__flyout {
@@ -204,6 +238,36 @@ $height: 3.5rem;
           display: none;
         }
       }
+    }
+
+    &__flyout-content {
+      padding: var(--onyx-spacing-xl) var(--onyx-spacing-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-2xs);
+    }
+
+    &__context {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--onyx-spacing-2xs);
+    }
+
+    &__footer {
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
+      color: var(--onyx-color-text-icons-neutral-soft);
+      background-color: var(--onyx-color-base-background-blank);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-spacing-2xs);
+    }
+
+    &__nav {
+      padding: 0;
     }
   }
 }

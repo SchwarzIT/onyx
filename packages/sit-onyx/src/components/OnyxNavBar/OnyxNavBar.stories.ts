@@ -40,7 +40,7 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item", href: "/", active: true }),
+      h(OnyxNavItem, { label: "Item", href: "/" }),
       h(
         OnyxNavItem,
         {
@@ -48,7 +48,7 @@ export const Default = {
           href: "/test",
           options: [
             { label: "Nested item 1", href: "#" },
-            { label: "Nested item 2", href: "#" },
+            { label: "Nested item 2", href: "#", active: true },
             { label: "Nested item 3", href: "#" },
           ],
         },
@@ -78,7 +78,9 @@ export const WithContextArea = {
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
-      h(OnyxUserMenu, OnyxUserMenuDefault.args),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        footer: OnyxUserMenuDefault.args.footer,
+      }),
     ],
   },
 } satisfies Story;
