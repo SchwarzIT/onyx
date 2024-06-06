@@ -45,10 +45,11 @@ const slots = defineSlots<{
 }>();
 
 const navBarRef = ref<HTMLElement>();
+const { width } = useResizeObserver(navBarRef);
+
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
 
-const { width } = useResizeObserver(navBarRef);
 const isMobile = computed(() => {
   const mobileWidth =
     typeof props.mobileBreakpoint === "number"
@@ -59,6 +60,9 @@ const isMobile = computed(() => {
 
 const { t } = injectI18n();
 
+/**
+ * list of all nav items (VNodes) that are passed via the slot.
+ */
 const allNavItems = computed(() => {
   const vnodes = slots.default?.() ?? [];
   return filterVNodesByComponent(vnodes, OnyxNavItem);
@@ -69,7 +73,7 @@ const allNavItems = computed(() => {
  */
 const activeNavItemLabel = computed(() => {
   const activeItem = allNavItems.value.find(
-    (i) => i.props?.active || i.props?.options?.some((j) => j.active),
+    ({ props }) => props?.active || props?.options?.some(({ active }) => active),
   );
   if (!activeItem?.props) return;
   const activeNestedItem = activeItem.props.options?.find((i) => i.active);
@@ -145,7 +149,7 @@ const activeNavItemLabel = computed(() => {
       </div>
     </header>
 
-    <!-- TODO: implement mobile flyouts -->
+    <!-- TODO: implement mobile burger/context flyouts -->
   </div>
 </template>
 
