@@ -256,6 +256,7 @@ $gap: var(--onyx-spacing-md);
       grid-area: nav;
       color: var(--onyx-color-text-icons-secondary-intense);
       padding-inline: $gap;
+      font-weight: 600;
     }
   }
 }
