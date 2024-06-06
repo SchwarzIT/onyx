@@ -31,12 +31,15 @@ const emit = defineEmits<{
 
 .onyx-mobile-nav-button {
   @include layers.component() {
-    border: none;
     display: flex;
     background-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-medium);
     padding: var(--onyx-spacing-md);
     cursor: pointer;
+
+    :where(&) {
+      border: none;
+    }
 
     &:hover:not(&--active) {
       background-color: var(--onyx-color-base-background-tinted);
