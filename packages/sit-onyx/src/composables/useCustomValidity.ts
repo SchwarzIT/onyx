@@ -2,7 +2,7 @@ import { computed, ref, watch, watchEffect, type Directive } from "vue";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
 import { areObjectsFlatEqual } from "../utils/objects";
 import enUS from "../i18n/locales/en-US.json";
-import { injectI18n } from "src/i18n";
+import { injectI18n } from "../i18n";
 
 export type CustomValidityProp = {
   /**
