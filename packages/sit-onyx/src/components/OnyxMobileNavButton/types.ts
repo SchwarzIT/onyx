@@ -1,4 +1,4 @@
-export type OnyxNavMobileButtonProps = {
+export type OnyxMobileNavButtonProps = {
   /**
    * Aria label that describes the action when clicking the button.
    */

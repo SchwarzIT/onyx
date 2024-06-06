@@ -2,15 +2,15 @@ import menu from "@sit-onyx/icons/menu.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
-import OnyxNavMobileButton from "./OnyxNavMobileButton.vue";
+import OnyxMobileNavButton from "./MobileNavButton.vue";
 
 /**
  * Nav button that is mainly used inside the nav bar on mobile, e.g. for the burger and context menu buttons.
  */
-const meta: Meta<typeof OnyxNavMobileButton> = {
-  title: "support/NavMobileButton",
+const meta: Meta<typeof OnyxMobileNavButton> = {
+  title: "support/MobileNavButton",
   ...defineStorybookActionsAndVModels({
-    component: OnyxNavMobileButton,
+    component: OnyxMobileNavButton,
     events: ["update:open"],
     argTypes: {
       icon: defineIconSelectArgType(),
@@ -19,7 +19,7 @@ const meta: Meta<typeof OnyxNavMobileButton> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxNavMobileButton>;
+type Story = StoryObj<typeof OnyxMobileNavButton>;
 
 export const Default = {
   args: {

@@ -7,9 +7,9 @@ import { injectI18n } from "../../i18n";
 import { filterVNodesByComponent } from "../../utils/vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
-import OnyxNavMobileButton from "../OnyxNavMobileButton/OnyxNavMobileButton.vue";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import type { OnyxNavBarProps } from "./types";
 
@@ -78,7 +78,7 @@ const contextAreaFooter = computed(() => {
 <template>
   <header class="onyx-mobile-nav-bar">
     <div class="onyx-mobile-nav-bar__content">
-      <OnyxNavMobileButton
+      <OnyxMobileNavButton
         v-model:open="isBurgerOpen"
         :icon="menu"
         :label="t('navigation.toggleBurgerMenu')"
@@ -114,7 +114,7 @@ const contextAreaFooter = computed(() => {
         </OnyxNavAppArea>
       </div>
 
-      <OnyxNavMobileButton
+      <OnyxMobileNavButton
         v-model:open="isContextOpen"
         :icon="moreVertical"
         :label="t('navigation.toggleContextMenu')"

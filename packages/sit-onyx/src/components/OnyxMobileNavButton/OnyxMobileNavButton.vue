@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import x from "@sit-onyx/icons/x.svg?raw";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxNavMobileButtonProps } from "./types";
+import type { OnyxMobileNavButtonProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxNavMobileButtonProps>(), {
+const props = withDefaults(defineProps<OnyxMobileNavButtonProps>(), {
   open: false,
 });
 
@@ -17,8 +17,8 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="onyx-nav-mobile-button"
-    :class="{ 'onyx-nav-mobile-button--active': props.open }"
+    class="onyx-mobile-nav-button"
+    :class="{ 'onyx-mobile-nav-button--active': props.open }"
     :aria-label="props.label"
     @click="emit('update:open', !props.open)"
   >
@@ -29,7 +29,7 @@ const emit = defineEmits<{
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-nav-mobile-button {
+.onyx-mobile-nav-button {
   @include layers.component() {
     border: none;
     display: flex;
