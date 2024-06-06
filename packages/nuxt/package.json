@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/nuxt",
   "version": "0.0.1",
-  "description": "Nuxt module to integrate onyx with Nuxt",
+  "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "homepage": "https://onyx.schwarz",

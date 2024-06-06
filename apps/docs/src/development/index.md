@@ -53,19 +53,3 @@ import { OnyxButton } from "sit-onyx";
   <OnyxButton label="Click me" />
 </template>
 ```
-
-## Nuxt
-
-To setup Onyx in a Nuxt Js project you can simply install the pre-configured Nuxt module for it:
-
-```sh [npm]
-npx nuxi add @sit-onyx/nuxt
-```
-
-Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you. E.g.:
-
-```vue
-<template>
-  <OnyxButton label="Click me" />
-</template>
-```
