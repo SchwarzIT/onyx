@@ -31,10 +31,14 @@ export const useResizeObserver = (
 
   const observer = new ResizeObserver(callback);
 
-  watch(target, (newTarget, oldTarget) => {
-    if (oldTarget) observer?.unobserve(oldTarget);
-    if (newTarget) observer?.observe(newTarget, { box });
-  });
+  watch(
+    target,
+    (newTarget, oldTarget) => {
+      if (oldTarget) observer?.unobserve(oldTarget);
+      if (newTarget) observer?.observe(newTarget, { box });
+    },
+    { immediate: true },
+  );
 
   onBeforeUnmount(() => observer.disconnect());
 
