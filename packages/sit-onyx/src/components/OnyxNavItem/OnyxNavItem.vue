@@ -135,6 +135,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         bottom: calc(-1 * var(--onyx-spacing-2xs));
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
         background: var(--onyx-color-base-secondary-500);
+        z-index: 1; // needed so underline is displayed above the nav bar bottom border
       }
     }
 
