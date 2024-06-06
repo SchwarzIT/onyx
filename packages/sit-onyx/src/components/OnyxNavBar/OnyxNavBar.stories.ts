@@ -3,7 +3,6 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
