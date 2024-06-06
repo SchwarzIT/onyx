@@ -206,7 +206,7 @@ $gap: var(--onyx-spacing-md);
     &__nav {
       grid-area: nav;
 
-      ul {
+      > ul {
         display: flex;
         align-items: center;
         gap: var(--onyx-spacing-4xs);
