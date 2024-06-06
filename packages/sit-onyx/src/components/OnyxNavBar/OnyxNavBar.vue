@@ -182,12 +182,17 @@ $gap: var(--onyx-spacing-md);
 
     &__content {
       display: grid;
-      grid-template-columns: max-content max-content 1fr auto;
-      grid-template-areas: "app back nav context";
+      grid-template-columns: max-content 1fr auto;
+      grid-template-areas: "app nav context";
       align-items: center;
       gap: $gap;
       height: 100%;
       padding-inline: var(--padding-inline);
+
+      &:has(.onyx-nav-bar__back) {
+        grid-template-columns: max-content max-content 1fr auto;
+        grid-template-areas: "app back nav context";
+      }
 
       // sync with grid
       max-width: var(--onyx-grid-max-width);
@@ -214,7 +219,6 @@ $gap: var(--onyx-spacing-md);
       align-items: center;
       justify-content: flex-end;
       gap: var(--onyx-spacing-4xs);
-      flex-grow: 1;
       grid-area: context;
     }
 
