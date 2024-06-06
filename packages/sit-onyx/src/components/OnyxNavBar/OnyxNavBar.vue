@@ -40,7 +40,13 @@ defineSlots<{
 const navBarRef = ref<HTMLElement>();
 
 const { width } = useResizeObserver(navBarRef);
-const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS[props.mobileBreakpoint]);
+const isMobile = computed(() => {
+  const mobileWidth =
+    typeof props.mobileBreakpoint === "number"
+      ? props.mobileBreakpoint
+      : ONYX_BREAKPOINTS[props.mobileBreakpoint];
+  return width.value <= mobileWidth;
+});
 </script>
 
 <template>

@@ -3,6 +3,8 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+
+import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
@@ -22,6 +24,18 @@ const meta: Meta<typeof OnyxNavBar> = {
       default: { control: { disable: true } },
       contextArea: { control: { disable: true } },
       appArea: { control: { type: "text" } },
+      mobileBreakpoint: {
+        options: Object.keys(ONYX_BREAKPOINTS),
+        control: {
+          labels: Object.entries(ONYX_BREAKPOINTS).reduce<Record<string, string>>(
+            (labels, [name, width]) => {
+              labels[name] = `${name} (${width}px)`;
+              return labels;
+            },
+            {},
+          ),
+        },
+      },
     },
     decorators: [
       (story) => ({

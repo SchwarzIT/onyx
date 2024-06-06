@@ -14,8 +14,9 @@ export type OnyxNavBarProps = OnyxNavAppAreaProps & {
   /**
    * Breakpoint name when the nav bar should switch into mobile mode.
    * Will switch if smaller or equal to the given breakpoint.
+   * Can be either a pre-defined onyx breakpoint or custom width in pixels.
    *
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
-  mobileBreakpoint?: OnyxBreakpoint;
+  mobileBreakpoint?: OnyxBreakpoint | number;
 };
