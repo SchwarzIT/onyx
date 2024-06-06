@@ -70,10 +70,16 @@ export type OnyxInputProps = DensityProp &
     loading?: boolean;
     /**
      * Maximum number of characters that are allowed to be entered.
+     * Warning: when the value is (pre)set by code,
+     * the input invalidity will not be detected by the browser, it will only show as invalid
+     * as soon as a user interacts with the input (types something).
      */
     maxlength?: number;
     /**
      * Minimum number of characters that have to to be entered.
+     * Warning: when the value is (pre)set by code,
+     * the input invalidity will not be detected by the browser, it will only show as invalid
+     * as soon as a user interacts with the input (types something).
      */
     minlength?: number;
     /**

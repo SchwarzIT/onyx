@@ -1,6 +1,24 @@
 {
   "optional": "(optional)",
   "validations": {
+    "preview": {
+      "tooShort": "Too short",
+      "tooLong": "Too long",
+      "rangeUnderflow": "Too low",
+      "rangeOverflow": "Too high",
+      "patternMismatch": "Invalid format",
+      "valueMissing": "Is empty",
+      "stepMismatch": "Invalid number",
+      "badInput": "Invalid input",
+      "typeMismatch": {
+        "generic": "Invalid input type",
+        "email": "Invalid mail format",
+        "number": "Invalid number",
+        "password": "Invalid number",
+        "tel": "Invalid phone number",
+        "url": "Invalid URL"
+      }
+    },
     "tooShort": "Please lengthen this text to {minLength} characters or more (you are currently using 1 character) | Please lengthen this text to {minLength} characters or more (you are currently using {n} characters)",
     "tooLong": "Please shorten this text to {maxLength} characters or less (you are currently using 1 character) | Please shorten this text to {maxLength} characters or less (you are currently using {n} characters)",
     "rangeUnderflow": "Value must be greater than or equal to {min}",

@@ -41,7 +41,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessage } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -111,13 +111,16 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
           @focus="emit('focus')"
           @blur="emit('blur')"
         />
-        Test: {{ props.customError }}
         <!-- eslint-enable vuejs-accessibility/no-autofocus -->
       </div>
     </label>
 
-    <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
-      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+    <div
+      v-if="props.message || errorMessage || shouldShowCounter"
+      class="onyx-input__footer onyx-text--small"
+    >
+      <span v-if="errorMessage" class="onyx-truncation-ellipsis">{{ errorMessage }}</span>
+      <span v-else-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
