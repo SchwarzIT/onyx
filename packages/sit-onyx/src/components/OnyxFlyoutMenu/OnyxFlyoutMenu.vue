@@ -20,59 +20,6 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-/**
- * Currently (visually) active item.
- */
-// const activeListItem = ref<TValue>();
-
-// const enabledOptionValues = computed(() => {
-//   if (slots.default != undefined) {
-//     const defaultSlot = Array.from(slots.default) ?? [];
-//     slots.default.length
-//     slots.default.forEach(element => {
-
-//     });
-//     return slots.default.filter<HTMLElement[]>((i) => !i.disabled).map(({ value }) => value),
-//   }
-// });
-
-/**
- * Sync the active item with the selected item on single select.
- */
-// watch(
-//   () => props.modelValue,
-//   (newValue) => {
-//     activeListItem.value = newValue as typeof activeListItem.value;
-//   },
-// );
-
-// const {
-//   elements: { flyoutMenu },
-// } = createFlyoutMenu({
-//   label: "Flyout Menu",
-//   selectedListItem: computed(() => props.modelValue),
-//   activeListItem,
-//   // onActivateFirst: () => (activeListItem.value = allKeyboardOptionIds.value.at(0)),
-//   // onActivateLast: () => (activeListItem.value = allKeyboardOptionIds.value.at(-1)),
-//   // onActivateNext: (currentValue) => {
-//   //   const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
-//   //   if (currentIndex < allKeyboardOptionIds.value.length - 1) {
-//   //     activeListItem.value = allKeyboardOptionIds.value[currentIndex + 1];
-//   //   }
-//   // },
-//   // onActivatePrevious: (currentValue) => {
-//   //   const currentIndex = allKeyboardOptionIds.value.findIndex((i) => i === currentValue);
-//   //   if (currentIndex > 0) activeListItem.value = allKeyboardOptionIds.value[currentIndex - 1];
-//   // },
-//   // onTypeAhead: (label) => {
-//   //   const firstMatch = props.options.find((i) => {
-//   //     return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
-//   //   });
-//   //   if (!firstMatch) return;
-//   //   activeListItem.value = firstMatch.value;
-//   // },
-// });
-
 const activeItem = ref<string>();
 
 const {
