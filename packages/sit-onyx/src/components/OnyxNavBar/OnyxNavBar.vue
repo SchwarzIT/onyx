@@ -169,16 +169,8 @@ $gap: var(--onyx-spacing-md);
     position: relative;
     container-type: size;
 
-    // implement bottom border with :.after so it does not add to the height
-    &::after {
-      content: "";
-      background-color: var(--onyx-color-base-neutral-300);
-      height: var(--onyx-1px-in-rem);
-      width: 100%;
-      display: block;
-      position: absolute;
-      bottom: 0;
-    }
+    // implement bottom border with box shadow so it does not add to the height
+    box-shadow: 0 var(--onyx-1px-in-rem) 0 0 var(--onyx-color-base-neutral-300);
 
     &__content {
       display: grid;
