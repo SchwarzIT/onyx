@@ -30,6 +30,7 @@ blob-report/
 storybook-static
 eslint-results.sarif
 .nuxt
+.output
 
 # Development config
 .env*
