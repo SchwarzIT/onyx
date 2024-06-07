@@ -37,19 +37,28 @@ const {
 </script>
 
 <template>
-  <div>
+  <div
+    :class="{
+      'onyx-flyout-menu': true,
+    }"
+  >
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
+      v-if="slots.options || slots.header || slots.footer"
       v-show="isExpanded"
       :class="{
-        'onyx-flyout-menu': true,
-        'onyx-flyout-menu--with-header': !!slots.header,
-        'onyx-flyout-menu--with-footer': !!slots.footer,
+        'onyx-flyout-menu__list--with-header': !!slots.header,
+        'onyx-flyout-menu__list--with-footer': !!slots.footer,
+        'onyx-flyout-menu__list': true,
       }"
     >
       <slot name="header"></slot>
-      <ul v-bind="menu" class="onyx-flyout-menu__wrapper onyx-flyout-menu__group">
-        <li v-for="(item, index) in slots.options?.()" v-bind="listItem" :key="index">
+      <ul
+        v-if="slots.options"
+        v-bind="menu"
+        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+      >
+        <li v-for="(item, index) in slots.options()" v-bind="listItem" :key="index">
           <component
             :is="item"
             v-bind="
@@ -71,14 +80,18 @@ const {
 
 .onyx-flyout-menu {
   @include layers.component() {
-    @include list.styles();
+    display: inline-block;
 
-    &--with-header {
-      padding-top: 0;
-    }
+    &__list {
+      @include list.styles();
 
-    &--with-footer {
-      padding-bottom: 0;
+      &--with-header {
+        padding-top: 0;
+      }
+
+      &--with-footer {
+        padding-bottom: 0;
+      }
     }
   }
 }
