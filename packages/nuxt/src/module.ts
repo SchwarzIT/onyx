@@ -15,8 +15,7 @@ export default defineNuxtModule<ModuleOptions>({
      * Therefor it needs to be disabled temporarily until they are either no longer used inside onyx or the calc plugin is fixed.
      * An issue was raised for inside the calc plugin: https://github.com/postcss/postcss-calc/issues/210
      */
-    nuxt.options.postcss.plugins.cssnano ??= {};
-    nuxt.options.postcss.plugins.cssnano.preset = ["default", { calc: false }];
+    nuxt.options.postcss.plugins.cssnano = { preset: ["default", { calc: false }] };
 
     nuxt.options.css.push("sit-onyx/style.css");
 
