@@ -155,19 +155,19 @@ const activeNavItemLabel = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/breakpoints.scss";
 
 $gap: var(--onyx-spacing-md);
 
 .onyx-nav-bar {
   @include layers.component() {
-    --padding-inline: var(--onyx-spacing-3xl);
-
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     height: 3.5rem;
     z-index: var(--onyx-z-index-navigation);
     position: relative;
+    container-type: size;
 
     // implement bottom border with :.after so it does not add to the height
     &::after {
@@ -187,7 +187,7 @@ $gap: var(--onyx-spacing-md);
       align-items: center;
       gap: $gap;
       height: 100%;
-      padding-inline: var(--padding-inline);
+      padding-inline: var(--onyx-spacing-3xl);
 
       &:has(.onyx-nav-bar__back) {
         grid-template-columns: max-content max-content 1fr auto;
@@ -197,6 +197,10 @@ $gap: var(--onyx-spacing-md);
       // sync with grid
       max-width: var(--onyx-grid-max-width);
       margin-inline: var(--onyx-grid-margin-inline);
+
+      @include breakpoints.container(max, sm) {
+        padding-inline: var(--onyx-spacing-xl);
+      }
     }
 
     &__back {
@@ -228,12 +232,11 @@ $gap: var(--onyx-spacing-md);
     }
 
     &--mobile {
-      --padding-inline: 0;
-
       .onyx-nav-bar__content {
         grid-template-columns: max-content max-content max-content auto;
         grid-template-areas: "burger back nav mobile-context";
         gap: 0;
+        padding-inline: 0;
 
         .onyx-nav-bar__back {
           margin-left: $gap;
