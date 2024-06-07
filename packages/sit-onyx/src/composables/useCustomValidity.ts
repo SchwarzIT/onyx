@@ -155,7 +155,6 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
      */
     vCustomValidity,
     // TODO: add tests
-    errorMessage: errorMessages.value.shortMessage,
-    longErrorMessage: errorMessages.value.longMessage,
+    errorMessages,
   };
 };

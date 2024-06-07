@@ -41,7 +41,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity, errorMessage } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -116,10 +116,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     </label>
 
     <div
-      v-if="props.message || errorMessage || shouldShowCounter"
+      v-if="props.message || errorMessages.shortMessage || shouldShowCounter"
       class="onyx-input__footer onyx-text--small"
     >
-      <span v-if="errorMessage" class="onyx-truncation-ellipsis">{{ errorMessage }}</span>
+      <span v-if="errorMessages.shortMessage" class="onyx-truncation-ellipsis">{{
+        errorMessages.shortMessage
+      }}</span>
       <span v-else-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}
