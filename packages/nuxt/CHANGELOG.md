@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt
 
+## 0.0.1-alpha.2
+
+### Patch Changes
+
+- 1c541ae: fix dev mode of module caused by postcss issue
+
 ## 0.0.1-alpha.1
 
 ### Patch Changes
