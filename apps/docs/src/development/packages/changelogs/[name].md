@@ -47,6 +47,12 @@ const { params } = useData();
 
 </div>
 
+<div v-else-if="params.name === 'nuxt'">
+
+<!--@include: @/../../../packages/nuxt/CHANGELOG.md-->
+
+</div>
+
 <div v-else>
   <h1>Changelogs</h1>
   <p>No changelog found for package "{{ params.name }}".</p>
