@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
-// import { createFlyoutMenu } from "@sit-onyx/headless";
+import { createMenuButton } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../types";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import { ref, type VNode } from "vue";
 
 // const props = defineProps<OnyxFlyoutMenuProps<TValue>>();
 
@@ -9,7 +9,7 @@ const slots = defineSlots<{
   /**
    * OnyxFlyoutMenuItem to show
    */
-  default?(): typeof OnyxListItem;
+  default?(): VNode[];
   /**
    * Optional header content to display above the options.
    */
@@ -72,21 +72,48 @@ const slots = defineSlots<{
 //   //   activeListItem.value = firstMatch.value;
 //   // },
 // });
+
+const activeItem = ref<string>();
+
+const {
+  elements: { button, menu, menuItem, listItem },
+  state: { isExpanded },
+} = createMenuButton({
+  onSelect: (href) => {
+    activeItem.value = href;
+  },
+});
 </script>
 
 <template>
-  <div
-    :class="{
-      'onyx-flyout-menu': true,
-      'onyx-flyout-menu--with-header': !!slots.header,
-      'onyx-flyout-menu--with-footer': !!slots.footer,
-    }"
-  >
-    <slot name="header"></slot>
-    <ul class="onyx-flyout-menu__wrapper onyx-flyout-menu__group">
-      <slot></slot>
-    </ul>
-    <slot name="footer"></slot>
+  <div>
+    <button v-bind="button">Click Me</button>
+    <div
+      :class="{
+        'onyx-flyout-menu': true,
+        'onyx-flyout-menu--with-header': !!slots.header,
+        'onyx-flyout-menu--with-footer': !!slots.footer,
+      }"
+    >
+      <slot name="header"></slot>
+      <ul
+        v-show="isExpanded"
+        v-bind="menu"
+        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+      >
+        <li v-for="(item, index) in slots.default?.()" v-bind="listItem" :key="index">
+          <component
+            :is="item"
+            v-bind="
+              item.props?.href
+                ? menuItem({ active: activeItem === item.props.href, value: item.props.href })
+                : undefined
+            "
+          />
+        </li>
+      </ul>
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 

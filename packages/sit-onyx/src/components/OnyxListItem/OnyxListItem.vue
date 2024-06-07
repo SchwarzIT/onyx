@@ -4,7 +4,7 @@ import type { SelectOption } from "../OnyxSelect/types";
 const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
 </script>
 <template>
-  <li
+  <div
     :class="{
       'onyx-list-item': true,
       'onyx-list-item--active': props.active,
@@ -12,7 +12,7 @@ const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
     }"
   >
     <slot></slot>
-  </li>
+  </div>
 </template>
 <style lang="scss">
 @use "../../styles/mixins/layers";
