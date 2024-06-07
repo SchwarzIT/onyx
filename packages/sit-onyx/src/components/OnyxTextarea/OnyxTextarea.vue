@@ -170,10 +170,6 @@ const handleInput = (event: Event) => {
   }
 }
 
-.onyx-info-tooltip {
-  margin-left: var(--onyx-spacing-2xs);
-}
-
 .onyx-textarea,
 .onyx-textarea-skeleton {
   --min-autosize-rows: 3;
@@ -261,6 +257,10 @@ const handleInput = (event: Event) => {
       &--no-resize {
         resize: none;
       }
+    }
+
+    .onyx-info-tooltip {
+      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }

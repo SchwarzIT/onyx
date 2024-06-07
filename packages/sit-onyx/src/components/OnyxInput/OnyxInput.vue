@@ -155,10 +155,6 @@ const { t } = injectI18n();
   }
 }
 
-.onyx-info-tooltip {
-  margin-left: var(--onyx-spacing-2xs);
-}
-
 /**
 * Gets a comma separated CSS selector for the input autofill.
 * Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
@@ -240,6 +236,10 @@ const { t } = injectI18n();
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    .onyx-info-tooltip {
+      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }
