@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt
 
+## 0.0.1-alpha.1
+
+### Patch Changes
+
+- 585f2f5: fix build issue in nuxt projects using @sit-onyx/nuxt
+
 ## 0.0.1-alpha.0
 
 ### Patch Changes
