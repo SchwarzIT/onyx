@@ -11,6 +11,7 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
     events: [],
     argTypes: {
       default: { control: { disable: true } },
+      options: { control: { disable: true } },
       header: { control: { disable: true } },
       footer: { control: { disable: true } },
     },
@@ -38,6 +39,7 @@ const listAnimals = [
  */
 export const Default = {
   args: {
-    default: () => listAnimals.map(({ label }) => h(OnyxListItem, label)),
+    default: () => h("button", "Click Me"),
+    options: () => listAnimals.map(({ label }) => h(OnyxListItem, label)),
   },
 } satisfies Story;

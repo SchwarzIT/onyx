@@ -7,9 +7,13 @@ import { ref, type VNode } from "vue";
 
 const slots = defineSlots<{
   /**
-   * OnyxFlyoutMenuItem to show
+   * The trigger for the flyout menu
    */
-  default?(): VNode[];
+  default(): VNode[];
+  /**
+   * OnyxFlyoutMenuItems to show
+   */
+  options?(): VNode[];
   /**
    * Optional header content to display above the options.
    */
@@ -34,8 +38,9 @@ const {
 
 <template>
   <div>
-    <button v-bind="button">Click Me</button>
+    <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
+      v-show="isExpanded"
       :class="{
         'onyx-flyout-menu': true,
         'onyx-flyout-menu--with-header': !!slots.header,
@@ -43,12 +48,8 @@ const {
       }"
     >
       <slot name="header"></slot>
-      <ul
-        v-show="isExpanded"
-        v-bind="menu"
-        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
-      >
-        <li v-for="(item, index) in slots.default?.()" v-bind="listItem" :key="index">
+      <ul v-bind="menu" class="onyx-flyout-menu__wrapper onyx-flyout-menu__group">
+        <li v-for="(item, index) in slots.options?.()" v-bind="listItem" :key="index">
           <component
             :is="item"
             v-bind="
