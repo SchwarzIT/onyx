@@ -212,7 +212,6 @@ const { t } = injectI18n();
       display: flex;
       max-width: 100%;
       width: 100%;
-      // gap: var(--onyx-spacing-2xs);
     }
 
     &__message-tooltip {
