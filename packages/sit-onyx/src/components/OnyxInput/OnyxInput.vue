@@ -119,9 +119,11 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
       v-if="props.message || errorMessages.shortMessage || shouldShowCounter"
       class="onyx-input__footer onyx-text--small"
     >
-      <span v-if="errorMessages.shortMessage" class="onyx-truncation-ellipsis">{{
-        errorMessages.shortMessage
-      }}</span>
+      <span
+        v-if="errorMessages.shortMessage"
+        class="onyx-input__error-message onyx-truncation-ellipsis"
+        >{{ errorMessages.shortMessage }}</span
+      >
       <span v-else-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}

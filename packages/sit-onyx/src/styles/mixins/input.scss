@@ -126,6 +126,10 @@
     color: var(--onyx-color-text-icons-neutral-soft);
   }
 
+  &__error-message {
+    color: var(--onyx-color-base-danger-500);
+  }
+
   &__counter {
     text-align: right;
     flex-grow: 1;
