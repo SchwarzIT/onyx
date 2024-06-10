@@ -189,6 +189,9 @@ export const Empty = {
 
 /**
  * This example shows a select with search functionality.
+ *
+ * **Important**: You need to manually filter the options based on the current `searchTerm`.
+ * You can use our `normalizedIncludes()` utility function for this.
  */
 export const WithSearch = {
   args: {
