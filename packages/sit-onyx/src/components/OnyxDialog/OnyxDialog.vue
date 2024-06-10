@@ -85,11 +85,15 @@ watch(
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     outline: none;
     border-radius: var(--onyx-radius-md);
-    box-shadow: var(--onyx-shadow-soft-bottom);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     padding: var(--onyx-dialog-padding);
+
+    // TODO: check this with UX
     background-color: var(--onyx-color-base-background-blank);
+
+    // TODO: check this with UX
+    box-shadow: var(--onyx-shadow-soft-bottom);
 
     position: fixed;
     top: 50%;
@@ -97,6 +101,7 @@ watch(
     transform: translate(-50%, -50%);
 
     &::backdrop {
+      // TODO: check this with UX
       background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 60%);
     }
 
