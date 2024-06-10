@@ -5,7 +5,9 @@ import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxInputProps } from "./types";
+import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -65,6 +67,7 @@ const patternSource = computed(() => {
 });
 
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
+const { t } = injectI18n();
 </script>
 
 <template>
@@ -77,9 +80,20 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
     <label>
       <div
         v-if="!props.hideLabel"
-        :class="['onyx-input__label', 'onyx-text--small', requiredMarkerClass]"
+        class="onyx-input__label onyx-text--small"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
       >
-        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+        <div class="onyx-input__header">
+          <span class="onyx-truncation-ellipsis">
+            {{ props.label }}
+          </span>
+          <span
+            v-if="props.required"
+            :class="[props.required ? requiredMarkerClass : undefined]"
+          ></span>
+          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
+          <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
+        </div>
       </div>
 
       <div class="onyx-input__wrapper">
@@ -125,6 +139,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
         >{{ errorMessages.shortMessage }}</span
       >
       <span v-else-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <OnyxInfoTooltip
+        v-if="props.messageTooltip"
+        class="onyx-input__message-tooltip"
+        position="bottom"
+        :text="props.messageTooltip"
+      />
       <span v-if="shouldShowCounter" class="onyx-input__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
@@ -136,6 +156,12 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
+
+.onyx-use-optional:not(:has(.onyx-required-marker)) {
+  .onyx-input__optional {
+    display: inline-block;
+  }
+}
 
 /**
 * Gets a comma separated CSS selector for the input autofill.
@@ -186,6 +212,17 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
 
+    &__header {
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &__message-tooltip {
+      height: 1rem;
+      align-self: center;
+    }
+
     &__wrapper {
       &:has(.onyx-input__native:read-write) {
         &:has(#{get-autofill-selectors(".onyx-input__native")}) {
@@ -207,6 +244,10 @@ const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    .onyx-info-tooltip {
+      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }

@@ -4,7 +4,9 @@ import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxTextareaProps } from "./types";
+import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   modelValue: "",
@@ -57,6 +59,7 @@ const handleChange = (event: Event) => {
   emit("change", inputValue);
 };
 
+const { t } = injectI18n();
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
 /**
@@ -97,9 +100,18 @@ const handleInput = (event: Event) => {
     <label>
       <div
         v-if="!props.hideLabel"
-        :class="['onyx-textarea__label', 'onyx-text--small', requiredMarkerClass]"
+        class="onyx-textarea__label onyx-text--small"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
       >
-        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+        <div class="onyx-textarea__header">
+          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+          <span
+            v-if="props.required"
+            :class="[props.required ? requiredMarkerClass : undefined]"
+          ></span>
+          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
+          <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
+        </div>
       </div>
 
       <div class="onyx-textarea__wrapper" :data-autosize-value="value">
@@ -142,6 +154,12 @@ const handleInput = (event: Event) => {
         >{{ errorMessages.shortMessage }}</span
       >
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <OnyxInfoTooltip
+        v-if="props.messageTooltip"
+        class="onyx-textarea__message-tooltip"
+        position="bottom"
+        :text="props.messageTooltip"
+      />
       <span v-if="shouldShowCounter" class="onyx-textarea__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
@@ -153,6 +171,12 @@ const handleInput = (event: Event) => {
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
+
+.onyx-use-optional:not(:has(.onyx-required-marker)) {
+  .onyx-textarea__optional {
+    display: inline-block;
+  }
+}
 
 .onyx-textarea,
 .onyx-textarea-skeleton {
@@ -207,6 +231,17 @@ const handleInput = (event: Event) => {
       $vertical-padding: var(--onyx-textarea-padding-vertical)
     );
 
+    &__header {
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &__message-tooltip {
+      height: 1rem;
+      align-self: center;
+    }
+
     &__wrapper {
       padding: 0;
       height: unset;
@@ -230,6 +265,10 @@ const handleInput = (event: Event) => {
       &--no-resize {
         resize: none;
       }
+    }
+
+    .onyx-info-tooltip {
+      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }

@@ -29,6 +29,8 @@ blob-report/
 **/.vitepress/config.ts.timestamp-*.mjs
 storybook-static
 eslint-results.sarif
+.nuxt
+.output
 
 # Development config
 .env*

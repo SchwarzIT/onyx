@@ -12,7 +12,8 @@
     "docs": "0.0.0",
     "@sit-onyx/eslint-plugin": "0.0.0",
     "alpha-test-app": "0.0.0",
-    "playground": "0.0.0"
+    "playground": "0.0.0",
+    "@sit-onyx/nuxt": "0.0.0"
   },
   "changesets": [
     "afraid-avocados-hear",
@@ -20,6 +21,7 @@
     "big-coins-join",
     "big-ears-cheer",
     "brave-lobsters-wonder",
+    "brave-owls-help",
     "bright-bats-refuse",
     "bright-toys-retire",
     "brown-monkeys-promise",
@@ -84,8 +86,10 @@
     "large-scissors-rhyme",
     "lemon-dragons-shop",
     "light-dodos-work",
+    "light-lemons-cough",
     "long-adults-own",
     "loud-plants-deliver",
+    "lovely-wasps-compete",
     "lucky-pigs-fly",
     "many-zoos-trade",
     "mean-ligers-watch",
@@ -145,6 +149,7 @@
     "smart-chairs-change",
     "smart-pillows-wave",
     "smooth-onions-clap",
+    "soft-maps-jump",
     "sour-candles-beam",
     "sour-ties-impress",
     "spotty-trainers-talk",

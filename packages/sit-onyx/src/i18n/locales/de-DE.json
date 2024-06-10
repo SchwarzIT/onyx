@@ -54,5 +54,6 @@
     "goToHome": "Gehe zur Startseite",
     "goBack": "Zurück",
     "userMenuLabel": "Benutzeroptionen"
-  }
+  },
+  "showInfoTooltip": "Info-Tooltip anzeigen"
 }
