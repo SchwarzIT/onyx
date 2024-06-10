@@ -16,8 +16,7 @@ export type UseCustomValidityOptions = {
    * Component props as defined with `const props = defineProps()`
    */
   props: CustomValidityProp & {
-    // TODO: check if that breaks anything. else revert to `unknown`
-    modelValue?: string | number | undefined;
+    modelValue?: unknown;
     type?: (typeof TRANSLATED_INPUT_TYPES)[number] | string;
     pattern?: string | RegExp;
     maxlength?: number;
@@ -65,14 +64,14 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const { t } = injectI18n();
 
   const validityState = ref<Record<keyof ValidityState, boolean>>();
-  const isTouched = ref(false);
+  const isDirty = ref(false);
 
   /**
-   * Sync isTouched state.
+   * Sync isDirty state. The component is "dirty" when the value was modified at least once.
    */
   watch(
     () => options.props.modelValue,
-    () => (isTouched.value = true),
+    () => (isDirty.value = true),
     { once: true },
   );
 
@@ -83,16 +82,13 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
        */
       watchEffect(() => el.setCustomValidity(options.props.customError ?? ""));
 
-      /**
-       * Update validityState ref when the input changes.
-       */
       watch(
-        [() => options.props.customError, () => options.props.modelValue, isTouched],
+        [() => options.props.customError, () => options.props.modelValue],
         () => {
           const newValidityState = transformValidityStateToObject(el.validity);
 
-          // do not emit validityChange event if input is valid and has never been invalid
-          if (!isTouched.value || (!validityState.value && newValidityState.valid)) return;
+          // do not emit update if input is valid and has never been invalid
+          if (!validityState.value && newValidityState.valid) return;
 
           // ignore if actual validity state value is unchanged
           if (validityState.value && areObjectsFlatEqual(newValidityState, validityState.value)) {
@@ -100,6 +96,19 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
           }
 
           validityState.value = newValidityState;
+        },
+        { immediate: true },
+      );
+
+      /**
+       * Update validityState ref when the input changes.
+       */
+      watch(
+        [() => options.props.customError, validityState, isDirty],
+        () => {
+          // do not emit validityChange event if the value was never changed
+          if (!isDirty.value || !validityState.value) return;
+
           options.emit("validityChange", validityState.value);
         },
         { immediate: true },
@@ -125,16 +134,16 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
         : "generic";
       return {
         longMessage: t.value(`validations.typeMismatch.${type}`, {
-          value: options.props.modelValue,
+          value: options.props.modelValue?.toString(),
         }),
         shortMessage: t.value(`validations.preview.typeMismatch.${type}`, {
-          value: options.props.modelValue,
+          value: options.props.modelValue?.toString(),
         }),
       };
     }
 
     const validationData = {
-      value: options.props.modelValue,
+      value: options.props.modelValue?.toString(),
       n: options.props.modelValue?.toString().length ?? 0,
       minLength: options.props.minlength,
       maxLength: options.props.maxlength,

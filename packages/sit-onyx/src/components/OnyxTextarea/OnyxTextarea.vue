@@ -39,7 +39,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -132,7 +132,15 @@ const handleInput = (event: Event) => {
       </div>
     </label>
 
-    <div v-if="props.message || shouldShowCounter" class="onyx-textarea__footer onyx-text--small">
+    <div
+      v-if="props.message || errorMessages.shortMessage || shouldShowCounter"
+      class="onyx-textarea__footer onyx-text--small"
+    >
+      <span
+        v-if="errorMessages.shortMessage"
+        class="onyx-textarea__error-message onyx-truncation-ellipsis"
+        >{{ errorMessages.shortMessage }}</span
+      >
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <span v-if="shouldShowCounter" class="onyx-textarea__counter">
         {{ value.length }}/{{ props.maxlength }}

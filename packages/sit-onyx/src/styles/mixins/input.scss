@@ -81,6 +81,16 @@
     }
   }
 
+  &__error-message {
+    display: none;
+  }
+  &:has(#{$base-selector}__native:user-invalid) {
+    #{$base-selector}__error-message {
+      display: block;
+      color: var(--onyx-color-base-danger-500);
+    }
+  }
+
   &__native {
     // reset native input styles so they are inherited from the parent
     border: none;
@@ -124,10 +134,6 @@
     align-items: center;
     gap: var(--onyx-spacing-2xs);
     color: var(--onyx-color-text-icons-neutral-soft);
-  }
-
-  &__error-message {
-    color: var(--onyx-color-base-danger-500);
   }
 
   &__counter {
