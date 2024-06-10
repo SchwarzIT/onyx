@@ -101,7 +101,7 @@ want to customize via your browser dev tools and define custom CSS as shown belo
 #### In a single Vue file <Badge text="recommended" />
 
 For most cases when overriding onyx styles, we recommend to override them inside a single `.vue` file with [scoped styles](https://vuejs.org/api/sfc-css-features#scoped-css)
-so the changes only effect component in this file and do not have global side effects on other components of your application.
+so the changes only effect components in this file and do not have global side effects on other components of your application.
 
 Note the usage of the `:deep()` selector. For more information, see the [Vue docs](https://vuejs.org/api/sfc-css-features#deep-selectors).
 
