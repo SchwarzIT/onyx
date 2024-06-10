@@ -35,13 +35,12 @@ const avatar = computed(() => {
 
 <template>
   <div class="onyx-user-menu">
-    <button class="onyx-user-menu__trigger onyx-text">
-      <OnyxAvatar v-bind="avatar" size="24px" />
-      <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
-    </button>
-
     <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
+      <button class="onyx-user-menu__trigger onyx-text">
+        <OnyxAvatar v-bind="avatar" size="24px" />
+        <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
+        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
+      </button>
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />
@@ -60,17 +59,19 @@ const avatar = computed(() => {
         </div>
       </template>
 
-      <OnyxListItem
-        v-for="item in props.options"
-        :key="item.value.toString()"
-        :class="{
-          'onyx-user-menu-item--danger': item.color === 'danger',
-        }"
-        :color="item.color"
-        @click="emit('optionClick', item.value)"
-      >
-        <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
-      </OnyxListItem>
+      <template #options>
+        <OnyxListItem
+          v-for="item in props.options"
+          :key="item.value.toString()"
+          :class="{
+            'onyx-user-menu-item--danger': item.color === 'danger',
+          }"
+          :color="item.color"
+          @click="emit('optionClick', item.value)"
+        >
+          <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
+        </OnyxListItem>
+      </template>
 
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">
@@ -100,10 +101,10 @@ const avatar = computed(() => {
         background-color: var(--onyx-color-base-neutral-200);
       }
 
-      .onyx-user-menu__flyout {
-        opacity: 1;
-        visibility: visible;
-      }
+      // .onyx-user-menu__flyout {
+      //   opacity: 1;
+      //   visibility: visible;
+      // }
 
       .onyx-user-menu__chevron {
         transform: rotate(-90deg);
@@ -129,15 +130,15 @@ const avatar = computed(() => {
       }
     }
 
-    &__flyout {
-      opacity: 0;
-      visibility: hidden;
-      transition-duration: var(--onyx-duration-sm);
-      transition-property: opacity, visibility;
-      position: absolute;
-      right: 0;
-      top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
-    }
+    // &__flyout {
+    //   // opacity: 0;
+    //   // visibility: hidden;
+    //   transition-duration: var(--onyx-duration-sm);
+    //   transition-property: opacity, visibility;
+    //   position: absolute;
+    //   right: 0;
+    //   top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
+    // }
 
     &__chevron {
       transition: transform var(--onyx-duration-sm);

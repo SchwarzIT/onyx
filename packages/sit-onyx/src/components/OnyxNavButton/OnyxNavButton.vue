@@ -3,6 +3,7 @@ import { isExternalLink } from "../../utils";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import { type OnyxNavItemProps } from "../OnyxNavItem/types";
+import { type VNode } from "vue";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
@@ -14,6 +15,10 @@ defineSlots<{
    * An optional slot to override the label content (e.g. an `OnyxBadge`).
    */
   default?(): unknown;
+  /**
+   * An optional slot to render nested children.
+   */
+  children?(): VNode[];
 }>();
 
 const emit = defineEmits<{
@@ -50,6 +55,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         />
       </slot>
     </button>
+    <slot name="children"></slot>
   </OnyxFlyoutMenu>
 </template>
 

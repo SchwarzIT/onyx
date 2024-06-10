@@ -11,7 +11,7 @@ const slots = defineSlots<{
    */
   default(): VNode[];
   /**
-   * OnyxFlyoutMenuItems to show
+   * OnyxListItems to show
    */
   options?(): VNode[];
   /**
