@@ -1,6 +1,4 @@
-import { provideI18n } from "../i18n";
-import { beforeEach, describe, expect, test, vi } from "vitest";
-import * as vue from "vue";
+import { describe, expect, test, vi } from "vitest";
 import { nextTick, reactive } from "vue";
 import {
   useCustomValidity,
@@ -8,20 +6,15 @@ import {
   type UseCustomValidityOptions,
 } from "./useCustomValidity";
 
-// keep track of provide/inject because they need to be mocked
-let provided = new Map();
-
-const app = {
-  provide: vi.fn((key, value) => provided.set(key, value)) satisfies (typeof vue)["provide"],
-} as unknown as vue.App;
-
-beforeEach(() => {
-  provided = new Map();
-});
+vi.mock("../i18n", () => ({
+  injectI18n: () => ({
+    t: () => "Test",
+  }),
+}));
 
 describe("useCustomValidity", () => {
   test("should set custom error", async () => {
-    provideI18n(app, { locale: "test" });
+    // provideI18n(app, { locale: "test" });
 
     const initialValidity: ValidityState = {
       badInput: false,
