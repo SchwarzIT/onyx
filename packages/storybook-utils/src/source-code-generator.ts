@@ -6,6 +6,7 @@
 import { SourceType } from "@storybook/docs-tools";
 import type { Args, StoryContext } from "@storybook/vue3";
 import { isVNode, type VNode } from "vue";
+import { replaceAll } from "./preview";
 
 /**
  * Context that is passed down to nested components/slots when generating the source code for a single story.
@@ -383,7 +384,8 @@ const generateSlotChildrenSourceCode = (
         // if slot bindings are used for properties of other components, our {{ paramName }} is incorrect because
         // it would generate e.g. my-prop="{{ paramName }}", therefore, we replace it here to e.g. :my-prop="paramName"
         paramNames.forEach((param) => {
-          slotSourceCode = slotSourceCode.replaceAll(
+          slotSourceCode = replaceAll(
+            slotSourceCode,
             new RegExp(` (\\S+)="{{ ${param} }}"`, "g"),
             ` :$1="${param}"`,
           );
