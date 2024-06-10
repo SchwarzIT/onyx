@@ -147,13 +147,13 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
     color: var(--onyx-color-text-icons-neutral-soft);
   }
 
   &__counter {
     text-align: right;
     flex-grow: 1;
+    margin-left: var(--onyx-spacing-2xs);
   }
 }
 
