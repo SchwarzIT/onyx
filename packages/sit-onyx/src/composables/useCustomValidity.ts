@@ -61,6 +61,7 @@ export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
  * ```
  */
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
+  // TODO: #570 usage of "t" breaks the vitest test!
   const { t } = injectI18n();
 
   const validityState = ref<Record<keyof ValidityState, boolean>>();

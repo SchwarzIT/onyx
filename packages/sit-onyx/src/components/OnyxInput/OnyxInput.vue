@@ -142,6 +142,7 @@ const { t } = injectI18n();
           color="danger"
           style="color: red"
           position="bottom"
+          label="Show error tooltip"
           :text="errorMessages.longMessage"
         />
       </span>
