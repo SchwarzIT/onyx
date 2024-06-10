@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../types";
-import { ref, type VNode } from "vue";
+import { computed, ref, type VNode } from "vue";
 
 // const props = defineProps<OnyxFlyoutMenuProps<TValue>>();
 
@@ -27,12 +27,28 @@ const slots = defineSlots<{
 const activeItem = ref<string>();
 
 const {
-  elements: { button, menu, menuItem, listItem },
+  elements: { button, menu, menuItem, listItem, parentComponent },
   state: { isExpanded },
 } = createMenuButton({
   onSelect: (href) => {
     activeItem.value = href;
   },
+});
+
+const filterVNodesByComponent = (vnodes: VNode[]): VNode[] => {
+  // if the slot only contains a v-for, we need to use the children here which are the "actual" slot content
+  const isVFor = vnodes.length === 1 && vnodes[0].type.toString() === "Symbol(v-fgt)";
+
+  const allNodes =
+    isVFor && Array.isArray(vnodes[0].children)
+      ? (vnodes[0].children as Extract<(typeof vnodes)[number]["children"], []>)
+      : vnodes;
+
+  return allNodes;
+};
+
+const options = computed(() => {
+  return filterVNodesByComponent(slots.options?.() ?? []);
 });
 </script>
 
@@ -41,6 +57,7 @@ const {
     :class="{
       'onyx-flyout-menu': true,
     }"
+    v-bind="parentComponent"
   >
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
@@ -58,7 +75,12 @@ const {
         v-bind="menu"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
       >
-        <li v-for="(item, index) in slots.options()" v-bind="listItem" :key="index">
+        <li
+          v-for="(item, index) in options"
+          v-bind="listItem"
+          :key="index"
+          class="onyx-flyout-menu__option"
+        >
           <component
             :is="item"
             v-bind="
@@ -93,6 +115,16 @@ const {
         padding-bottom: 0;
       }
     }
+
+    &__wrapper {
+      padding: 0;
+    }
+
+    &__option {
+      list-style: none;
+    }
   }
 }
 </style>
+type Component, type RendererElement, type RendererNode, import type { ComponentProps } from
+"vue-component-type-helpers";

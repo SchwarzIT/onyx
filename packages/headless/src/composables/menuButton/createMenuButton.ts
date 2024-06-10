@@ -14,6 +14,14 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   return {
     state: { isExpanded },
     elements: {
+      parentComponent: {
+        onMouseover: () => {
+          isExpanded.value = true;
+        },
+        onMouseleave: () => {
+          isExpanded.value = false;
+        },
+      },
       button: computed(
         () =>
           ({
@@ -24,12 +32,12 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             onClick: () => {
               isExpanded.value = !isExpanded.value;
             },
-            onMouseover: () => {
-              isExpanded.value = true;
-            },
-            onMouseleave: () => {
-              isExpanded.value = false;
-            },
+            // onMouseover: () => {
+            //   isExpanded.value = true;
+            // },
+            // onMouseleave: () => {
+            //   isExpanded.value = false;
+            // },
           }) as const,
       ),
       listItem: {
