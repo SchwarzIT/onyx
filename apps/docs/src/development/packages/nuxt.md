@@ -27,10 +27,10 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt).
 
 ## Quick Setup
 
-Install the module in your [Nuxt Js](https://nuxt.com/) application with one command:
+Install the module in your [Nuxt](https://nuxt.com) application with one command:
 
-```bash
-npx nuxi module add @sit-onyx/nuxt
+```sh
+npx nuxi module add @sit-onyx/nuxt@alpha
 ```
 
 Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you.
