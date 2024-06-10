@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.123
+
+### Minor Changes
+
+- f7e965b: Implement info/message label on input and textarea
+
 ## 1.0.0-alpha.122
 
 ### Patch Changes

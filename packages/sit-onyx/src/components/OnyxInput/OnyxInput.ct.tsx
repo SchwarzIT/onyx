@@ -1,9 +1,14 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
+import type { Locator } from "@playwright/test";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
+  const isTooltipVisible = async (tooltip: Locator) => {
+    await expect(tooltip).toBeVisible();
+  };
+
   for (const state of ["default", "placeholder", "with value", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
@@ -56,6 +61,78 @@ test.describe("Screenshot tests", () => {
           withCounter={row === "counter"}
         />
       );
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Input (labelTooltip/messageTooltip)",
+    columns: ["default", "long-text"],
+    rows: ["labelTooltip", "messageTooltip"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const label =
+        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+      const message =
+        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const labelTooltip = "More information";
+      const messageTooltip = "Additional info message";
+
+      return (
+        <OnyxInput
+          style="width: 12rem"
+          label={label}
+          message={row === "messageTooltip" ? message : undefined}
+          labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
+          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, _row) => {
+      const tooltipButton = page.getByLabel("Info Tooltip");
+      const tooltip = page.getByRole("tooltip");
+
+      await component.evaluate((element) => {
+        element.style.padding = `3rem 5rem`;
+      });
+
+      await tooltipButton.hover();
+
+      await isTooltipVisible(tooltip);
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Input (required/optional) with label tooltip",
+    columns: ["default", "long-text"],
+    rows: ["required", "optional"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const label =
+        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+      const labelTooltip = "More information";
+
+      return (
+        <OnyxInput
+          style="width: 12rem"
+          label={label}
+          required={row === "required"}
+          requiredMarker={row === "optional" ? "optional" : undefined}
+          labelTooltip={labelTooltip}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, _row) => {
+      const tooltipButton = page.getByLabel("Info Tooltip");
+      const tooltip = page.getByRole("tooltip");
+
+      await component.evaluate((element) => {
+        element.style.padding = `3rem 5rem`;
+      });
+
+      await tooltipButton.hover();
+      await isTooltipVisible(tooltip);
     },
   });
 

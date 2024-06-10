@@ -20,6 +20,8 @@ import {
   OnyxSwitch,
   OnyxTable,
   OnyxTag,
+  OnyxTextarea,
+  OnyxTimer,
   OnyxTooltip,
   type SelectOption,
 } from "sit-onyx";
@@ -177,7 +179,12 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
           :skeleton="useSkeleton"
         />
 
-        <OnyxInput v-if="show('OnyxInput')" label="Input" :skeleton="useSkeleton" />
+        <OnyxInput
+          v-if="show('OnyxInput')"
+          label="Input"
+          :skeleton="useSkeleton"
+          label-tooltip="More information tooltip"
+        />
 
         <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
@@ -267,7 +274,11 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 
-        <OnyxTextarea v-if="show('OnyxTextarea')" label="Example textarea" />
+        <OnyxTextarea
+          v-if="show('OnyxTextarea')"
+          label="Example textarea"
+          label-tooltip="More information tooltip"
+        />
 
         <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
 
