@@ -11,6 +11,11 @@ export type OnyxInputProps = DensityProp &
      */
     label: string;
     /**
+     * Info text to show inside a tooltip, next to the label.
+     * The tooltip will be hidden if `hideLabel` property is set to true.
+     */
+    labelTooltip?: string;
+    /**
      * Current value of the input.
      */
     modelValue?: string;
@@ -84,6 +89,10 @@ export type OnyxInputProps = DensityProp &
      * Message / help text to display below the input.
      */
     message?: string;
+    /**
+     * Info message / additional text to display inside a tooltip next to the message.
+     */
+    messageTooltip?: string;
     /**
      * If `true`, the label will be visually hidden and the `title` attribute will be set.
      * For accessibility / screen readers, the aria-label will still be set.
