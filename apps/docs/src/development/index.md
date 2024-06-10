@@ -90,6 +90,47 @@ import { OnyxAppLayout, OnyxPageLayout, OnyxNavBar } from "sit-onyx";
 </template>
 ```
 
+### Customize CSS
+
+For most cases, all onyx components already provide properties to easily use supported features.
+However, there might be some custom requirements in your project where you need to override styles / CSS.
+
+All onyx components are designed to be easily customized with custom CSS. Just look up the CSS class that you
+want to customize via your browser dev tools and define custom CSS as shown below.
+
+#### In a single Vue file <Badge text="recommended" />
+
+For most cases when overriding onyx styles, we recommend to override them inside a single `.vue` file with [scoped styles](https://vuejs.org/api/sfc-css-features#scoped-css)
+so the changes only effect component in this file and do not have global side effects on other components of your application.
+
+Note the usage of the `:deep()` selector. For more information, see the [Vue docs](https://vuejs.org/api/sfc-css-features#deep-selectors).
+
+::: code-group
+
+```vue [MyComponent.vue]
+<style scoped>
+:deep(.onyx-input__label) {
+  color: red;
+}
+</style>
+```
+
+:::
+
+#### Globally
+
+Be careful when overriding styles globally since it will effect **EVERY** component in your application.
+
+::: code-group
+
+```css [styles.css]
+.onyx-input__label {
+  color: red;
+}
+```
+
+:::
+
 ### Further references
 
 - [Theming](/development/theming), e.g. for setting up the dark mode
