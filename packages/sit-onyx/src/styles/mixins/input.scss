@@ -101,7 +101,8 @@
   }
   &:has(#{$base-selector}__native:user-invalid) {
     #{$base-selector}__error-message {
-      display: block;
+      display: flex;
+      flex-flow: row nowrap;
       color: var(--onyx-color-base-danger-500);
     }
   }
