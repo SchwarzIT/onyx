@@ -155,6 +155,18 @@ export const MultiselectWithPreview = {
 } satisfies Story;
 
 /**
+ * This example shows a select that is required (gets invalid on open/close without selection).
+ */
+export const Required = {
+  args: {
+    ...Multiselect.args,
+    modelValue: [],
+    placeholder: "Interact with me to show error",
+    required: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a select with grouped options.
  */
 export const GroupedOptions = {
@@ -259,6 +271,18 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a select with a custom error message.
+ * Will only be shown after user interaction.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    customError: "Example custom error",
+    placeholder: "Interact with me to show error",
   },
 } satisfies Story;
 

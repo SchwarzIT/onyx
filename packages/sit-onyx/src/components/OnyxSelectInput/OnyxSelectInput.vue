@@ -142,6 +142,7 @@ defineExpose({ focus: () => input.value?.focus() });
       </div>
     </label>
 
+    <!-- TODO: #570 error message inclusion -->
     <div
       v-if="props.message"
       class="onyx-select-input__footer onyx-text--small onyx-truncation-ellipsis"

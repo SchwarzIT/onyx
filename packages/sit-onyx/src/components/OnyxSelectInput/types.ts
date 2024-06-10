@@ -1,3 +1,4 @@
+import type { CustomValidityProp } from "src/composables/useCustomValidity";
 import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
@@ -36,6 +37,7 @@ export type SelectInputModelValue<TValue extends SelectOptionValue = SelectOptio
 
 export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp &
   RequiredMarkerProp &
+  CustomValidityProp &
   SelectionInput<TValue> & {
     /**
      * Label to show above the select. Required due to accessibility / screen readers.
