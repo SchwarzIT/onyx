@@ -14,7 +14,6 @@ vi.mock("../i18n", () => ({
 
 describe("useCustomValidity", () => {
   test("should set custom error", async () => {
-
     const initialValidity: ValidityState = {
       badInput: false,
       patternMismatch: false,
