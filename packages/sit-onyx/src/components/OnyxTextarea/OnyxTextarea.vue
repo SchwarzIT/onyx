@@ -145,10 +145,10 @@ const handleInput = (event: Event) => {
     </label>
 
     <div
-      v-if="props.message || errorMessages.shortMessage || shouldShowCounter"
+      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
       class="onyx-textarea__footer onyx-text--small"
     >
-      <span v-if="errorMessages.shortMessage" class="onyx-textarea__error-message">
+      <span v-if="errorMessages" class="onyx-textarea__error-message">
         <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
 
         <OnyxInfoTooltip

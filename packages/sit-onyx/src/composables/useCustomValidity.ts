@@ -42,6 +42,23 @@ export const TRANSLATED_INPUT_TYPES = Object.keys(
 export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 /**
+ * Translated error messages that inform about causes for invalidity of form components
+ */
+export type FormErrorMessages =
+  | {
+      /**
+       * A short error message for giving a quick info to the user about the cause of the error
+       */
+      shortMessage: string;
+      /**
+       * An extended informative error message to provide more info
+       * how the error cause can be resolved
+       */
+      longMessage?: string;
+    }
+  | undefined;
+
+/**
  * Composable for unified handling of custom error messages for form components.
  * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
  * whenever the input value / error changes.
@@ -116,16 +133,20 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     },
   } satisfies Directive<InputValidationElement, undefined>;
 
-  const errorMessages = computed<{ longMessage?: string; shortMessage: string }>(() => {
-    if (!validityState.value || validityState.value.valid) return { shortMessage: "" };
+  const errorMessages = computed<FormErrorMessages>(() => {
+    if (!validityState.value || validityState.value.valid) return undefined;
 
     const errorType = getFirstInvalidType(validityState.value);
     // a custom error message always is considered first
     if (options.props.customError || errorType === "customError") {
-      const message = options.props.customError ?? "";
+      if (!options.props.customError) return undefined;
+      const message = options.props.customError;
+      // we can't guarantee a custom error message will be short,
+      // so in case it overflows, by adding it to "longMessage",
+      // it will still be visible in a tooltip
       return { shortMessage: message, longMessage: message };
     }
-    if (!errorType) return { shortMessage: "" };
+    if (!errorType) return undefined;
 
     // if the error is "typeMismatch", we will use an error message depending on the type property
     if (errorType === "typeMismatch") {

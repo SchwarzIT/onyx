@@ -130,10 +130,10 @@ const { t } = injectI18n();
     </label>
 
     <div
-      v-if="props.message || errorMessages.shortMessage || shouldShowCounter"
+      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
       class="onyx-input__footer onyx-text--small"
     >
-      <span v-if="errorMessages.shortMessage" class="onyx-input__error-message">
+      <span v-if="errorMessages" class="onyx-input__error-message">
         <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
 
         <OnyxInfoTooltip
