@@ -28,6 +28,13 @@ const { t } = injectI18n();
       padding: 0;
       color: inherit;
       height: 0.75rem;
+
+      &:focus-visible {
+        // unset the icon button outline for now until
+        // https://github.com/SchwarzIT/onyx/issues/1272
+        // is defined
+        outline-style: unset;
+      }
     }
   }
 }

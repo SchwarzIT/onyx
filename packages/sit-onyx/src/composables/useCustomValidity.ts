@@ -154,10 +154,10 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
         ? (options.props.type as TranslatedInputType)
         : "generic";
       return {
-        longMessage: t.value(`validations.typeMismatch.${type}`, {
+        longMessage: t.value(`validations.typeMismatch.${type}.fullError`, {
           value: options.props.modelValue?.toString(),
         }),
-        shortMessage: t.value(`validations.preview.typeMismatch.${type}`, {
+        shortMessage: t.value(`validations.typeMismatch.${type}.preview`, {
           value: options.props.modelValue?.toString(),
         }),
       };
@@ -174,8 +174,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     };
 
     return {
-      longMessage: t.value(`validations.${errorType}`, validationData),
-      shortMessage: t.value(`validations.preview.${errorType}`, validationData),
+      longMessage: t.value(`validations.${errorType}.fullError`, validationData),
+      shortMessage: t.value(`validations.${errorType}.preview`, validationData),
     };
   });
 
