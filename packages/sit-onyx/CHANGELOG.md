@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.124
+
+### Patch Changes
+
+- 5294c95: Remove unnecessary footer gap in OnyxTextarea and OnyxInput component
+
 ## 1.0.0-alpha.123
 
 ### Minor Changes
