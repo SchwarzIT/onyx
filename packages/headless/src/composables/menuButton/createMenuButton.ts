@@ -21,6 +21,9 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         onMouseleave: () => {
           isExpanded.value = false;
         },
+        onFocusin: () => {
+          isExpanded.value = true;
+        },
       },
       button: computed(
         () =>

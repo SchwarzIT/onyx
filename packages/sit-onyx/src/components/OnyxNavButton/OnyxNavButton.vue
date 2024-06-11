@@ -3,10 +3,10 @@ import { isExternalLink } from "../../utils";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import { type OnyxNavItemProps } from "../OnyxNavItem/types";
+import { type OnyxNavButtonProps } from "./types";
 import { type VNode } from "vue";
 
-const props = withDefaults(defineProps<OnyxNavItemProps>(), {
+const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
   withExternalIcon: "auto",
 });
@@ -24,12 +24,12 @@ const slots = defineSlots<{
 
 const emit = defineEmits<{
   /**
-   * Emitted when the nav item is clicked (via click or keyboard).
+   * Emitted when the nav button is clicked (via click or keyboard).
    */
   click: [href: string];
 }>();
 
-const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
+const shouldShowExternalIcon = (args: OnyxNavButtonProps) => {
   const withExternalIcon = args.withExternalIcon ?? "auto";
 
   if (withExternalIcon !== "auto") return args.withExternalIcon;
@@ -42,7 +42,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
     <button
       class="onyx-nav-button__trigger onyx-text"
       :class="{
-        'onyx-nav-item--active': props.active,
+        'onyx-nav-button--active': props.active,
       }"
       @click="props.href && emit('click', props.href)"
     >
@@ -50,7 +50,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         <span>{{ props.label }}</span>
         <OnyxIcon
           v-if="shouldShowExternalIcon(props)"
-          class="onyx-nav-item__icon"
+          class="onyx-nav-button__icon"
           :icon="arrowSmallUpRight"
           size="16px"
         />
@@ -70,7 +70,6 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
     $gap: var(--onyx-spacing-2xs);
 
     .onyx-flyout-menu__list {
-      position: absolute;
       margin-top: var(--onyx-spacing-sm);
     }
 
@@ -94,6 +93,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
 
       &:focus-visible {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+        background-color: var(--onyx-color-base-neutral-200);
       }
     }
 
