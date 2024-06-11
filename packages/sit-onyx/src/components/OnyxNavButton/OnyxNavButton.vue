@@ -69,6 +69,11 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
   @include layers.component() {
     $gap: var(--onyx-spacing-2xs);
 
+    .onyx-flyout-menu__list {
+      position: absolute;
+      margin-top: var(--onyx-spacing-sm);
+    }
+
     &__trigger {
       display: inline-flex;
       position: relative;

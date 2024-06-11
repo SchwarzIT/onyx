@@ -93,18 +93,14 @@ const avatar = computed(() => {
     width: max-content;
     position: relative;
 
-    &:focus-within {
+    &:focus-within,
+    &:hover {
       outline: 0;
 
       .onyx-user-menu__trigger {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
       }
-
-      // .onyx-user-menu__flyout {
-      //   opacity: 1;
-      //   visibility: visible;
-      // }
 
       .onyx-user-menu__chevron {
         transform: rotate(-90deg);
@@ -130,15 +126,13 @@ const avatar = computed(() => {
       }
     }
 
-    // &__flyout {
-    //   // opacity: 0;
-    //   // visibility: hidden;
-    //   transition-duration: var(--onyx-duration-sm);
-    //   transition-property: opacity, visibility;
-    //   position: absolute;
-    //   right: 0;
-    //   top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
-    // }
+    &__flyout {
+      .onyx-flyout-menu__list {
+        position: absolute;
+        right: 0;
+        top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
+      }
+    }
 
     &__chevron {
       transition: transform var(--onyx-duration-sm);

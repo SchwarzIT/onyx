@@ -53,12 +53,7 @@ const options = computed(() => {
 </script>
 
 <template>
-  <div
-    :class="{
-      'onyx-flyout-menu': true,
-    }"
-    v-bind="parentComponent"
-  >
+  <div class="onyx-flyout-menu" v-bind="parentComponent">
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
       v-if="slots.options || slots.header || slots.footer"
@@ -126,5 +121,3 @@ const options = computed(() => {
   }
 }
 </style>
-type Component, type RendererElement, type RendererNode, import type { ComponentProps } from
-"vue-component-type-helpers";
