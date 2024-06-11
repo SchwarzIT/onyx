@@ -88,12 +88,7 @@ watch(
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     padding: var(--onyx-dialog-padding);
-
-    // TODO: check this with UX
     background-color: var(--onyx-color-base-background-blank);
-
-    // TODO: check this with UX
-    box-shadow: var(--onyx-shadow-soft-bottom);
 
     position: fixed;
     top: 50%;
@@ -102,11 +97,10 @@ watch(
 
     &::backdrop {
       // TODO: check this with UX
-      background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 60%);
+      background-color: color-mix(in srgb, var(--onyx-color-base-neutral-900), transparent 80%);
     }
 
     &:modal {
-      box-shadow: none;
       border: none;
     }
   }
