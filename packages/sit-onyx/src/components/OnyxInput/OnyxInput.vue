@@ -140,7 +140,6 @@ const { t } = injectI18n();
           v-if="errorMessages.longMessage"
           class="onyx-input__message-tooltip"
           color="danger"
-          style="color: red"
           position="bottom"
           label="Show error tooltip"
           :text="errorMessages.longMessage"
