@@ -484,8 +484,7 @@ const getFunctionParamNames = (func: Function): string[] => {
 
   const fnStr = func.toString().replace(STRIP_COMMENTS, "");
   const result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(ARGUMENT_NAMES);
-  if (result === null) return [];
-  return result;
+  return result ?? [];
 };
 
 /**
