@@ -16,7 +16,7 @@ This library is currently in early / active development.
 
 ## Nuxt
 
-If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module](/development/packages/nuxt) to get started.
+If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module documentation](/development/packages/nuxt) to get started.
 
 ## Installation
 
@@ -101,7 +101,7 @@ want to customize via your browser dev tools and define custom CSS as shown belo
 #### In a single Vue file <Badge text="recommended" />
 
 For most cases when overriding onyx styles, we recommend to override them inside a single `.vue` file with [scoped styles](https://vuejs.org/api/sfc-css-features#scoped-css)
-so the changes only effect components in this file and do not have global side effects on other components of your application.
+so the changes only affect components in this file and do not have global side effects on other components of your application.
 
 Note the usage of the `:deep()` selector. For more information, see the [Vue docs](https://vuejs.org/api/sfc-css-features#deep-selectors).
 
@@ -119,7 +119,7 @@ Note the usage of the `:deep()` selector. For more information, see the [Vue doc
 
 #### Globally
 
-Be careful when overriding styles globally since it will effect **EVERY** component in your application.
+Be careful when overriding styles globally since it will affect **EVERY** component in your application.
 
 ::: code-group
 
@@ -131,7 +131,7 @@ Be careful when overriding styles globally since it will effect **EVERY** compon
 
 :::
 
-### Further references
+### Next steps
 
 - [Theming](/development/theming), e.g. for setting up the dark mode
 - [i18n](/development/i18n) if you are supporting multiple languages in your application
