@@ -7,12 +7,12 @@
       "rangeUnderflow": "Zu niedrig",
       "rangeOverflow": "Zu hoch",
       "patternMismatch": "Ungültiges Format",
-      "valueMissing": "Ist leer",
+      "valueMissing": "Pflichtfeld",
       "stepMismatch": "Ungültige Zahl",
       "badInput": "Ungültige Eingabe",
       "typeMismatch": {
         "generic": "Ungültiges Eingabeformat",
-        "email": "Ungültiges Mail Format",
+        "email": "Ungültige E-Mail",
         "number": "Ungültige Zahl",
         "tel": "Ungültige Telefonnummer",
         "url": "Ungültige URL"
