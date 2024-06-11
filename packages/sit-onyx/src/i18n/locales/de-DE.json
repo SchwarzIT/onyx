@@ -55,5 +55,8 @@
     "goBack": "Zurück",
     "userMenuLabel": "Benutzeroptionen"
   },
-  "showInfoTooltip": "Info-Tooltip anzeigen"
+  "showTooltip": {
+    "info": "Info-Tooltip anzeigen",
+    "error": "Error-Tooltip anzeigen"
+  }
 }

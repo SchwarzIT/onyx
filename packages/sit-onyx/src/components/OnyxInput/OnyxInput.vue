@@ -141,7 +141,7 @@ const { t } = injectI18n();
           class="onyx-input__message-tooltip"
           color="danger"
           position="bottom"
-          label="Show error tooltip"
+          :label="t('showTooltip.error')"
           :text="errorMessages.longMessage"
         />
       </span>

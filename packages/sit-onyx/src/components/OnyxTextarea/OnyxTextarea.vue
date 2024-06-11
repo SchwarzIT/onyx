@@ -157,7 +157,7 @@ const handleInput = (event: Event) => {
           color="danger"
           style="color: red"
           position="bottom"
-          label="Show error tooltip"
+          :label="t('showTooltip.error')"
           :text="errorMessages.longMessage"
         />
       </span>

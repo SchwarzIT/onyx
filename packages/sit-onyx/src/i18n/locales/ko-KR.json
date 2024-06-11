@@ -1,23 +1,6 @@
 {
   "optional": "(선택사항)",
   "validations": {
-    "preview": {
-      "tooShort": "",
-      "tooLong": "",
-      "rangeUnderflow": "",
-      "rangeOverflow": "",
-      "patternMismatch": "",
-      "valueMissing": "",
-      "stepMismatch": "",
-      "badInput": "",
-      "typeMismatch": {
-        "generic": "",
-        "email": "",
-        "number": "",
-        "tel": "",
-        "url": ""
-      }
-    },
     "tooShort": "{minLength}자 이상으로 입력하세요. (현재 1글자 입력 중) | {minLength}자 이상으로 입력하세요. (현재 {n}글자 입력 중)",
     "tooLong": "{maxLength}자 이하로 입력하세요. (현재 1글자 입력 중) | {maxLength}자 이하로 입력하세요. (현재 {n}글자 입력 중)",
     "rangeUnderflow": "입력값이 {min}보다 크거나 동일해야 합니다",

@@ -11,7 +11,7 @@ const { t } = injectI18n();
 
 <template>
   <OnyxTooltip class="onyx-info-tooltip" :text="props.text" :position="props.position">
-    <button :aria-label="props.label || t('showInfoTooltip')" class="onyx-info-tooltip__trigger">
+    <button :aria-label="props.label || t('showTooltip.info')" class="onyx-info-tooltip__trigger">
       <OnyxIcon :icon="circleInformation" size="12px" />
     </button>
   </OnyxTooltip>
