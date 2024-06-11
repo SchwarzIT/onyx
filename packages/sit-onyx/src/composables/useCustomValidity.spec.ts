@@ -6,24 +6,32 @@ import {
   type UseCustomValidityOptions,
 } from "./useCustomValidity";
 
+const tFunctionMock = vi.fn();
+
 vi.mock("../i18n", () => ({
   injectI18n: () => ({
-    t: () => "Test",
+    t: { value: tFunctionMock },
   }),
 }));
+
+const getDefaultValidityState = (): ValidityState => ({
+  badInput: false,
+  patternMismatch: false,
+  rangeOverflow: false,
+  rangeUnderflow: false,
+  stepMismatch: false,
+  tooLong: false,
+  tooShort: false,
+  typeMismatch: false,
+  valueMissing: false,
+  customError: false,
+  valid: true,
+});
 
 describe("useCustomValidity", () => {
   test("should set custom error", async () => {
     const initialValidity: ValidityState = {
-      badInput: false,
-      patternMismatch: false,
-      rangeOverflow: false,
-      rangeUnderflow: false,
-      stepMismatch: false,
-      tooLong: false,
-      tooShort: false,
-      typeMismatch: false,
-      valueMissing: false,
+      ...getDefaultValidityState(),
       customError: true,
       valid: false,
     };
@@ -66,5 +74,38 @@ describe("useCustomValidity", () => {
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("");
     expect(currentValidity).toStrictEqual(newValidity);
+  });
+
+  test("should create a default error translation", async () => {
+    tFunctionMock.mockReset();
+
+    const initialInvalidEmpty: ValidityState = {
+      ...getDefaultValidityState(),
+      valueMissing: true,
+      valid: false,
+    };
+
+    const mockInput = {
+      validity: initialInvalidEmpty,
+      setCustomValidity: vi.fn(),
+    } satisfies InputValidationElement;
+
+    const props = reactive<UseCustomValidityOptions["props"]>({});
+
+    const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit: (_, __) => {} });
+
+    vCustomValidity.mounted(mockInput);
+
+    tFunctionMock.mockReturnValueOnce("Test");
+    tFunctionMock.mockReturnValueOnce("This is a test");
+
+    await nextTick(); // wait for watchers to be called
+    expect(errorMessages.value).toEqual({ longMessage: "Test", shortMessage: "This is a test" });
+    expect(tFunctionMock).toBeCalledWith("validations.valueMissing.preview", {
+      maxLength: undefined,
+      minLength: undefined,
+      n: 0,
+      value: undefined,
+    });
   });
 });

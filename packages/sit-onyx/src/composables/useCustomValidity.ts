@@ -18,7 +18,6 @@ export type UseCustomValidityOptions = {
   props: CustomValidityProp & {
     modelValue?: unknown;
     type?: (typeof TRANSLATED_INPUT_TYPES)[number] | string;
-    pattern?: string | RegExp;
     maxlength?: number;
     minlength?: number;
   };
