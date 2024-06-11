@@ -17,6 +17,8 @@ export type FormData = Partial<{
   defaultInput: string;
   requiredInput: string;
   minlengthInput: string;
+  requiredTextarea: string;
+  minlengthTextarea: string;
   typeInput: string;
   patternInput: string;
   switch: boolean;
@@ -65,10 +67,10 @@ const radioOptions: RadioButtonOption[] = [
       required
     />
 
-    <OnyxTextarea v-model="formState.requiredInput" label="Requires a value" required />
+    <OnyxTextarea v-model="formState.requiredTextarea" label="Requires a value" required />
 
     <OnyxTextarea
-      v-model="formState.minlengthInput"
+      v-model="formState.minlengthTextarea"
       label="Minlength 5"
       type="text"
       :minlength="5"
