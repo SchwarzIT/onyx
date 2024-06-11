@@ -32,12 +32,6 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             onClick: () => {
               isExpanded.value = !isExpanded.value;
             },
-            // onMouseover: () => {
-            //   isExpanded.value = true;
-            // },
-            // onMouseleave: () => {
-            //   isExpanded.value = false;
-            // },
           }) as const,
       ),
       listItem: {
