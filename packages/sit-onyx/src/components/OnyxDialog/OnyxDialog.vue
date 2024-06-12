@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<OnyxDialogProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the dialog should be closed.
+   * Emitted when the dialog should be closed (only when `modal` property is `true`).
    */
   close: [];
 }>();
@@ -33,6 +33,7 @@ const openDialog = () => {
   else dialogRef.value?.show();
 };
 
+// sync open state
 watch(
   [dialogRef, () => props.open],
   () => {
@@ -46,6 +47,8 @@ watch(
   () => props.modal,
   () => {
     if (dialogRef.value?.open) {
+      // when the modal prop is changed while the dialog is already open, an error would
+      // be thrown so we need to close it first
       dialogRef.value.close();
       openDialog();
     }
