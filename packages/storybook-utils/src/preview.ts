@@ -154,6 +154,7 @@ export const sourceCodeTransformer = (
   Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
     const importName = getIconImportName(iconName);
     const singleQuotedIconContent = `'${replaceAll(iconContent, '"', "\\'")}'`;
+    const escapedIconContent = `"${replaceAll(iconContent, '"', '\\"')}"`;
 
     if (code.includes(iconContent)) {
       code = code.replace(new RegExp(` (\\S+)=['"]${iconContent}['"]`), ` :$1="${importName}"`);
@@ -162,18 +163,25 @@ export const sourceCodeTransformer = (
       // support icons inside objects
       code = code.replace(singleQuotedIconContent, importName);
       iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+    } else if (code.includes(escapedIconContent)) {
+      // support icons inside objects
+      code = code.replace(escapedIconContent, importName);
+      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     }
   });
 
-  if (iconImports.length > 0) {
-    return `<script lang="ts" setup>
+  if (iconImports.length === 0) return code;
+
+  if (code.startsWith("<script")) {
+    const index = code.indexOf("\n");
+    return code.slice(0, index) + iconImports.join("\n") + "\n" + code.slice(index);
+  }
+
+  return `<script lang="ts" setup>
 ${iconImports.join("\n")}
 </script>
 
 ${code}`;
-  }
-
-  return code;
 };
 
 /**
