@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getFirstInvalidType } from "./forms";
+import { getFirstInvalidType } from "./validity";
 
 const getTestState = (overrideData: Partial<ValidityState>): ValidityState => ({
   valid: false,

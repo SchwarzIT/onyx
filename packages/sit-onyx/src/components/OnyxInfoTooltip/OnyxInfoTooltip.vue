@@ -11,7 +11,7 @@ const { t } = injectI18n();
 
 <template>
   <OnyxTooltip class="onyx-info-tooltip" :text="props.text" :position="props.position">
-    <button :aria-label="t('showInfoTooltip')" class="onyx-info-tooltip__trigger">
+    <button :aria-label="props.label || t('showTooltip.info')" class="onyx-info-tooltip__trigger">
       <OnyxIcon :icon="circleInformation" size="12px" />
     </button>
   </OnyxTooltip>
@@ -28,6 +28,13 @@ const { t } = injectI18n();
       padding: 0;
       color: inherit;
       height: 0.75rem;
+
+      &:focus-visible {
+        // unset the icon button outline for now until
+        // https://github.com/SchwarzIT/onyx/issues/1272
+        // is defined
+        outline: none;
+      }
     }
   }
 }

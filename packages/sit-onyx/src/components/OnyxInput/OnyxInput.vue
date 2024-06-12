@@ -43,7 +43,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -129,8 +129,23 @@ const { t } = injectI18n();
       </div>
     </label>
 
-    <div v-if="props.message || shouldShowCounter" class="onyx-input__footer onyx-text--small">
-      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+    <div
+      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
+      class="onyx-input__footer onyx-text--small"
+    >
+      <span v-if="errorMessages" class="onyx-input__error-message">
+        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
+
+        <OnyxInfoTooltip
+          v-if="errorMessages.longMessage"
+          class="onyx-input__message-tooltip"
+          color="danger"
+          position="bottom"
+          :label="t('showTooltip.error')"
+          :text="errorMessages.longMessage"
+        />
+      </span>
+      <span v-else-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <OnyxInfoTooltip
         v-if="props.messageTooltip"
         class="onyx-input__message-tooltip"

@@ -6,6 +6,7 @@ import {
   OnyxInput,
   OnyxRadioButtonGroup,
   OnyxSwitch,
+  OnyxTextarea,
   type CheckboxGroupOption,
   type OnyxRadioButtonGroupProps,
   type RadioButtonOption,
@@ -16,6 +17,8 @@ export type FormData = Partial<{
   defaultInput: string;
   requiredInput: string;
   minlengthInput: string;
+  requiredTextarea: string;
+  minlengthTextarea: string;
   typeInput: string;
   patternInput: string;
   switch: boolean;
@@ -64,6 +67,16 @@ const radioOptions: RadioButtonOption[] = [
       required
     />
 
+    <OnyxTextarea v-model="formState.requiredTextarea" label="Requires a value" required />
+
+    <OnyxTextarea
+      v-model="formState.minlengthTextarea"
+      label="Minlength 5"
+      type="text"
+      :minlength="5"
+      required
+    />
+
     <OnyxInput v-model="formState.typeInput" label="Type email" type="email" />
 
     <OnyxInput
@@ -104,7 +117,8 @@ const radioOptions: RadioButtonOption[] = [
     gap: var(--onyx-spacing-xs);
   }
 
-  .onyx-input {
+  .onyx-input,
+  .onyx-textarea {
     max-width: 20rem;
   }
 }
