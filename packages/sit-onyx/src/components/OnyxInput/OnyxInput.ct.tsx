@@ -241,6 +241,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ACT
   await inputElement.blur();
+  // ASSERT
   expect(events).toMatchObject({
     updateModelValue: ["T", "Te", "Tes", "Test"],
     change: ["Test"],
@@ -258,8 +259,40 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
-
-  // ASSERT
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
+test("should show error message after interaction", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxInput label="Demo" style="width: 12rem;" required />);
+  const input = component.getByLabel("Demo");
+  const errorPreview = component.getByText("Required");
+  const errorTooltip = component.getByLabel("Show error tooltip");
+  const fullError = component.getByText("Please fill in this field.");
+
+  // ASSERT: initially no error shows
+  await expect(errorPreview).toBeHidden();
+  await expect(fullError).toBeHidden();
+
+  // ACT: interact with the input
+  await input.click();
+  await input.fill("x");
+  await input.fill("");
+  await input.blur();
+
+  // ASSERT: after interaction, the error preview shows
+  await expect(errorPreview).toBeVisible();
+  await expect(errorTooltip).toBeVisible();
+  await expect(fullError).toBeHidden();
+
+  // ACT
+  await errorTooltip.hover();
+  // ASSERT: the full error message shows
+  await expect(fullError).toBeVisible();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });

@@ -96,6 +96,16 @@
     }
   }
 
+  &__error-message {
+    display: none;
+  }
+  &:has(#{$base-selector}__native:user-invalid) {
+    #{$base-selector}__error-message {
+      display: flex;
+      color: var(--onyx-color-base-danger-500);
+    }
+  }
+
   &__native {
     // reset native input styles so they are inherited from the parent
     border: none;
