@@ -40,7 +40,7 @@ export const menuButtonTesting = async ({ button, menu }: MenuButtonTestingOptio
     'flyout menu must have an "aria-expanded" attribute set to false',
   ).toHaveAttribute("aria-expanded", "false");
 
-  button.hover();
+  button.click();
 
   await expect(
     button,
