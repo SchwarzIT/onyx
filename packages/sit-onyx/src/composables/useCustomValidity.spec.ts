@@ -30,6 +30,8 @@ const getDefaultValidityState = (): ValidityState => ({
 
 describe("useCustomValidity", () => {
   test("should set custom error", async () => {
+    tFunctionMock.mockReset();
+
     const initialValidity: ValidityState = {
       ...getDefaultValidityState(),
       customError: true,
@@ -47,7 +49,7 @@ describe("useCustomValidity", () => {
       customError: "Test error",
     });
 
-    const { vCustomValidity } = useCustomValidity({
+    const { vCustomValidity, errorMessages } = useCustomValidity({
       props,
       emit: (_, validity) => (currentValidity = validity),
     });
@@ -56,6 +58,7 @@ describe("useCustomValidity", () => {
 
     await nextTick(); // wait for watchers to be called
     expect(currentValidity).toBeUndefined(); // should not be emitted initially
+    expect(errorMessages.value).toEqual({ longMessage: "Test error", shortMessage: "Test error" });
 
     props.modelValue = "Test";
     await nextTick();
@@ -74,38 +77,42 @@ describe("useCustomValidity", () => {
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("");
     expect(currentValidity).toStrictEqual(newValidity);
+    expect(tFunctionMock).toHaveBeenCalledTimes(0);
   });
 
-  test("should create a default error translation", async () => {
-    tFunctionMock.mockReset();
-
+  test.each([
+    { cause: "badInput", key: "validations.badInput.preview" },
+    { cause: "patternMismatch", key: "validations.patternMismatch.preview" },
+    { cause: "rangeOverflow", key: "validations.rangeOverflow.preview" },
+    { cause: "rangeUnderflow", key: "validations.rangeUnderflow.preview" },
+    { cause: "stepMismatch", key: "validations.stepMismatch.preview" },
+    { cause: "tooLong", key: "validations.tooLong.preview" },
+    { cause: "tooShort", key: "validations.tooShort.preview" },
+    { cause: "typeMismatch", key: "validations.typeMismatch.generic.preview" },
+    { cause: "valueMissing", key: "validations.valueMissing.preview" },
+  ])("should create a default error translation for $cause", async ({ cause, key }) => {
+    // ARRANGE
     const initialInvalidEmpty: ValidityState = {
       ...getDefaultValidityState(),
-      valueMissing: true,
+      [cause]: true,
       valid: false,
     };
-
+    const props = reactive<UseCustomValidityOptions["props"]>({});
+    const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit: (_, __) => {} });
+    tFunctionMock.mockReset();
+    tFunctionMock.mockReturnValueOnce("Test");
+    tFunctionMock.mockReturnValueOnce("This is a test");
     const mockInput = {
       validity: initialInvalidEmpty,
       setCustomValidity: vi.fn(),
     } satisfies InputValidationElement;
 
-    const props = reactive<UseCustomValidityOptions["props"]>({});
-
-    const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit: (_, __) => {} });
-
+    // ACT
     vCustomValidity.mounted(mockInput);
-
-    tFunctionMock.mockReturnValueOnce("Test");
-    tFunctionMock.mockReturnValueOnce("This is a test");
-
     await nextTick(); // wait for watchers to be called
+
+    // ASSERT
     expect(errorMessages.value).toEqual({ longMessage: "Test", shortMessage: "This is a test" });
-    expect(tFunctionMock).toBeCalledWith("validations.valueMissing.preview", {
-      maxLength: undefined,
-      minLength: undefined,
-      n: 0,
-      value: undefined,
-    });
+    expect(tFunctionMock).toBeCalledWith(key, expect.any(Object));
   });
 });
