@@ -1,4 +1,5 @@
 import { expect, test } from "../../playwright/a11y";
+import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxDialog from "./OnyxDialog.vue";
 
 test.beforeEach(async ({ page }) => {
@@ -31,4 +32,18 @@ test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
   expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
 
   await expect(page).toHaveScreenshot("modal.png");
+});
+
+Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
+  test(`should render max size ${breakpoint}`, async ({ mount, page }) => {
+    await page.setViewportSize({ width, height: 300 });
+
+    await mount(
+      <OnyxDialog label="Label" open style={{ width: "100%", height: "100%" }} modal>
+        Max width {breakpoint} ({width}px)
+      </OnyxDialog>,
+    );
+
+    await expect(page).toHaveScreenshot(`breakpoint-${breakpoint}.png`);
+  });
 });

@@ -107,7 +107,9 @@ watch(
     background-color: var(--onyx-color-base-background-blank);
 
     &:where(&) {
-      max-width: calc(100% - 2 * var(--onyx-grid-margin));
+      $max-size: calc(100% - 2 * var(--onyx-grid-margin));
+      max-width: $max-size;
+      max-height: $max-size;
     }
 
     position: fixed;
