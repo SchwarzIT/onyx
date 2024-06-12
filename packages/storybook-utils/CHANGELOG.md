@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.130
+
+### Minor Changes
+
+- afe7e21: feat: improve code snippet generation
+
 ## 1.0.0-alpha.129
 
 ### Patch Changes
