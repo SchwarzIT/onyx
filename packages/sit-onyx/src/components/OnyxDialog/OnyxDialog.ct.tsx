@@ -40,7 +40,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
 
     await mount(
       <OnyxDialog label="Label" open style={{ width: "100%", height: "100%" }} modal>
-        Max width {breakpoint} ({width}px)
+        Max size, breakpoint {breakpoint} ({width}px)
       </OnyxDialog>,
     );
 
