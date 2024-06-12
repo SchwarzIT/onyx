@@ -185,7 +185,7 @@ const handleInput = (event: Event) => {
     .onyx-textarea__wrapper::after {
       // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
       // `display: none` or changing "content" causes user resizing to be interrupted
-      height: 0px;
+      height: 0;
     }
   }
 
