@@ -114,7 +114,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 .onyx-table-wrapper {
   @include layers.component() {
     position: relative;
-    width: fit-content;
 
     &__scroll-container {
       border-radius: $border-radius;
@@ -122,7 +121,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       box-sizing: border-box;
       max-height: inherit;
       max-width: inherit;
-      width: fit-content;
     }
     // we place a frame on top so the table has visible boundaries
     // when it is overflowing in the scroll container
@@ -160,6 +158,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
+    width: 100%;
 
     thead {
       position: sticky;

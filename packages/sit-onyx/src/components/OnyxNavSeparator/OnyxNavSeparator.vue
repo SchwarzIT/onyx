@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+// the empty <script setup> is needed for Storybook to correctly generate
+// the source code
+</script>
+
 <template>
   <div class="onyx-separator" role="separator" aria-orientation="vertical"></div>
 </template>
