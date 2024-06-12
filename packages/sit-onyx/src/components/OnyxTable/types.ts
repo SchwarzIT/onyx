@@ -8,5 +8,5 @@ export type OnyxTableProps = DensityProp & {
   /**
    * If `true`, vertical borders will be displayed in addition to the default horizontal borders.
    */
-  grid?: boolean;
+  withVerticalBorders?: boolean;
 };
