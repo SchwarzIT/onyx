@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.125
+
+### Patch Changes
+
+- 2805e75: fix(OnyxTextarea): Fix first manual resizing being canceled on Firefox
+
 ## 1.0.0-alpha.124
 
 ### Patch Changes
