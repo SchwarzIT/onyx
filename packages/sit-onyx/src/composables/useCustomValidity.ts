@@ -3,7 +3,7 @@ import { getFirstInvalidType, transformValidityStateToObject } from "../utils/va
 import { areObjectsFlatEqual } from "../utils/objects";
 import enUS from "../i18n/locales/en-US.json";
 import { injectI18n } from "../i18n";
-import type { InputType } from "src/components/OnyxInput/types";
+import type { InputType } from "../components/OnyxInput/types";
 
 export type CustomValidityProp = {
   /**
