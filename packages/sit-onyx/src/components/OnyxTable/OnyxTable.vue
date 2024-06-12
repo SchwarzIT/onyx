@@ -220,6 +220,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       left: 0;
       width: 100%;
       bottom: 0;
+      // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+      pointer-events: none;
     }
   }
 }
