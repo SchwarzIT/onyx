@@ -178,12 +178,14 @@ const handleInput = (event: Event) => {
   --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
   --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
 
-  // remove max height if user resizes the textarea manually
+  // remove max height and disable auto-sizing if user resizes the textarea manually
   &:has(.onyx-textarea__native[style*="height"]) {
     --max-height: unset;
 
     .onyx-textarea__wrapper::after {
-      display: none;
+      // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
+      // `display: none` or changing "content" causes user resizing to be interrupted
+      height: 0;
     }
   }
 
@@ -209,7 +211,7 @@ const handleInput = (event: Event) => {
 * that is used for the autosize feature.
 */
 @mixin define-shared-autosize-styles() {
-  grid-area: 1 / 1 / 2 / 2;
+  grid-area: 1 / 1;
   height: 100%;
   min-height: var(--min-height);
   max-height: var(--max-height);
