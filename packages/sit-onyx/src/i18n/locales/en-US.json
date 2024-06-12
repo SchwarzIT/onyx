@@ -78,7 +78,7 @@
     "userMenuLabel": "User options"
   },
   "showTooltip": {
-    "info": "Show info Tooltip",
+    "info": "Show info tooltip",
     "error": "Show error tooltip"
   }
 }

@@ -33,7 +33,7 @@ const { t } = injectI18n();
         // unset the icon button outline for now until
         // https://github.com/SchwarzIT/onyx/issues/1272
         // is defined
-        outline-style: unset;
+        outline: none;
       }
     }
   }

@@ -79,6 +79,6 @@
   },
   "showTooltip": {
     "info": "Info-Tooltip anzeigen",
-    "error": "Error-Tooltip anzeigen"
+    "error": "Fehler-Tooltip anzeigen"
   }
 }
