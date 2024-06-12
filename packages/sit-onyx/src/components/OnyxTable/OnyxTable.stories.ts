@@ -17,7 +17,7 @@ const meta: Meta<typeof OnyxTable> = {
         control: { disable: true },
       },
     },
-    decorators: [createTruncationDecorator("24rem")],
+    decorators: [createTruncationDecorator("max-content")],
   }),
 };
 
