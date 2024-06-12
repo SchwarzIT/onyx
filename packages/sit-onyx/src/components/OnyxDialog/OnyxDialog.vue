@@ -78,8 +78,16 @@ watch(
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
 
+.dark .onyx-dialog {
+  @include layers.component() {
+    --backdrop-opacity: 0.7;
+  }
+}
+
 .onyx-dialog {
   @include layers.component() {
+    --backdrop-opacity: 0.1;
+
     @include density.compact {
       --onyx-dialog-padding: var(--onyx-spacing-md);
     }
@@ -104,8 +112,7 @@ watch(
     transform: translate(-50%, -50%);
 
     &::backdrop {
-      // TODO: check this with UX
-      background-color: color-mix(in srgb, var(--onyx-color-base-neutral-900), transparent 80%);
+      background-color: rgba(0, 0, 0, var(--backdrop-opacity));
     }
   }
 }
