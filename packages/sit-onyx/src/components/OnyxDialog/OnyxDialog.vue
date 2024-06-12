@@ -55,6 +55,7 @@ watch(
 
 <template>
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
+  <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
   <dialog
     ref="dialogRef"
     :class="['onyx-dialog', densityClass]"
@@ -82,8 +83,8 @@ watch(
       --onyx-dialog-padding: var(--onyx-spacing-xl);
     }
 
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     outline: none;
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -98,10 +99,6 @@ watch(
     &::backdrop {
       // TODO: check this with UX
       background-color: color-mix(in srgb, var(--onyx-color-base-neutral-900), transparent 80%);
-    }
-
-    &:modal {
-      border: none;
     }
   }
 }
