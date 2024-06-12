@@ -41,7 +41,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -144,7 +144,22 @@ const handleInput = (event: Event) => {
       </div>
     </label>
 
-    <div v-if="props.message || shouldShowCounter" class="onyx-textarea__footer onyx-text--small">
+    <div
+      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
+      class="onyx-textarea__footer onyx-text--small"
+    >
+      <span v-if="errorMessages" class="onyx-textarea__error-message">
+        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
+
+        <OnyxInfoTooltip
+          v-if="errorMessages.longMessage"
+          class="onyx-textarea__message-tooltip"
+          color="danger"
+          position="bottom"
+          :label="t('showTooltip.error')"
+          :text="errorMessages.longMessage"
+        />
+      </span>
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
       <OnyxInfoTooltip
         v-if="props.messageTooltip"
@@ -178,12 +193,14 @@ const handleInput = (event: Event) => {
   --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
   --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
 
-  // remove max height if user resizes the textarea manually
+  // remove max height and disable auto-sizing if user resizes the textarea manually
   &:has(.onyx-textarea__native[style*="height"]) {
     --max-height: unset;
 
     .onyx-textarea__wrapper::after {
-      display: none;
+      // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
+      // `display: none` or changing "content" causes user resizing to be interrupted
+      height: 0;
     }
   }
 
@@ -209,7 +226,7 @@ const handleInput = (event: Event) => {
 * that is used for the autosize feature.
 */
 @mixin define-shared-autosize-styles() {
-  grid-area: 1 / 1 / 2 / 2;
+  grid-area: 1 / 1;
   height: 100%;
   min-height: var(--min-height);
   max-height: var(--max-height);

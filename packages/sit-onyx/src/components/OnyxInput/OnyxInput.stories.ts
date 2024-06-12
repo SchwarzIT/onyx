@@ -105,6 +105,7 @@ export const Maxlength = {
   args: {
     ...Default.args,
     maxlength: 16,
+    minlength: 5,
     withCounter: true,
   },
 } satisfies Story;

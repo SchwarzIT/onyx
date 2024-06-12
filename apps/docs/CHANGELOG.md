@@ -1,5 +1,14 @@
 # docs
 
+## 0.1.0-alpha.2
+
+### Minor Changes
+
+- edbfc22: update getting started guide
+
+  - add example for layout components
+  - add example for customizing CSS
+
 ## 0.1.0-alpha.1
 
 ### Patch Changes

@@ -2,7 +2,6 @@ import { createPinia } from "pinia";
 import { createOnyx } from "sit-onyx";
 import onyxDeDE from "sit-onyx/locales/de-DE.json";
 import onyxKoKR from "sit-onyx/locales/ko-KR.json";
-import "sit-onyx/style.css";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 import { createRouter, createWebHistory } from "vue-router";
@@ -10,7 +9,9 @@ import App from "./App.vue";
 import deDE from "./i18n/locales/de-DE.json";
 import enUS from "./i18n/locales/en-US.json";
 import { routes } from "./router";
-import "./style.css";
+
+import "sit-onyx/global.css";
+import "sit-onyx/style.css";
 
 async function setupApp() {
   const i18n = createI18n({

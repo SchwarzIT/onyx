@@ -1,20 +1,59 @@
 {
   "optional": "(optional)",
   "validations": {
-    "tooShort": "Please lengthen this text to {minLength} characters or more (you are currently using 1 character) | Please lengthen this text to {minLength} characters or more (you are currently using {n} characters)",
-    "tooLong": "Please shorten this text to {maxLength} characters or less (you are currently using 1 character) | Please shorten this text to {maxLength} characters or less (you are currently using {n} characters)",
-    "rangeUnderflow": "Value must be greater than or equal to {min}",
-    "rangeOverflow": "Value must be less than or equal to {max}",
-    "patternMismatch": "Please match the format requested.",
-    "valueMissing": "Please fill in this field.",
-    "stepMismatch": "Please enter a value that is a multiple of {step}.",
-    "badInput": "\"{value}\" does not match the expected type.",
+    "tooShort": {
+      "preview": "Too short",
+      "fullError": "Please lengthen this text to {minLength} characters or more (you are currently using 1 character) | Please lengthen this text to {minLength} characters or more (you are currently using {n} characters)"
+    },
+    "tooLong": {
+      "preview": "Too long",
+      "fullError": "Please shorten this text to {maxLength} characters or less (you are currently using 1 character) | Please shorten this text to {maxLength} characters or less (you are currently using {n} characters)"
+    },
+    "rangeUnderflow": {
+      "preview": "Too low",
+      "fullError": "Value must be greater than or equal to {min}"
+    },
+    "rangeOverflow": {
+      "preview": "Too high",
+      "fullError": "Value must be less than or equal to {max}"
+    },
+    "patternMismatch": {
+      "preview": "Invalid format",
+      "fullError": "Please match the format requested."
+    },
+    "valueMissing": {
+      "preview": "Required",
+      "fullError": "Please fill in this field."
+    },
+    "stepMismatch": {
+      "preview": "Invalid number",
+      "fullError": "Please enter a value that is a multiple of {step}."
+    },
+    "badInput": {
+      "preview": "Invalid input",
+      "fullError": "\"{value}\" does not match the expected type."
+    },
     "typeMismatch": {
-      "generic": "\"{value}\" does not match the expected type.",
-      "email": "\"{value}\" must be a valid email address.",
-      "number": "\"{value}\" must be a number.",
-      "tel": "\"{value}\" must be a valid phone number.",
-      "url": "\"{value}\" must a valid URL."
+      "generic": {
+        "preview": "Invalid input type",
+        "fullError": "\"{value}\" does not match the expected type."
+      },
+      "email": {
+        "preview": "Invalid mail",
+        "fullError": "\"{value}\" must be a valid email address."
+      },
+      "number": {
+        "preview": "Invalid number",
+        "fullError": "\"{value}\" must be a number."
+      },
+      "tel": {
+        "preview": "Invalid phone number",
+        "fullError": "\"{value}\" must be a valid phone number."
+      },
+      "url": {
+        "preview": "Invalid URL",
+        "fullError": "\"{value}\" must a valid URL."
+      }
     }
   },
   "select": {
@@ -38,5 +77,8 @@
     "goBack": "Go back",
     "userMenuLabel": "User options"
   },
-  "showInfoTooltip": "Show info Tooltip"
+  "showTooltip": {
+    "info": "Show info tooltip",
+    "error": "Show error tooltip"
+  }
 }
