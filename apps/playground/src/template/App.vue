@@ -11,5 +11,5 @@ const value = ref("");
 </template>
 
 <style>
-@import "sit-onyx/globals.css";
+@import "sit-onyx/global.css";
 </style>
