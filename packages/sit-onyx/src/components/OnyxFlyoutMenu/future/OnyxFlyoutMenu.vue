@@ -1,0 +1,123 @@
+<script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
+import { createMenuButton } from "@sit-onyx/headless";
+import type { SelectOptionValue } from "../../../types";
+import { computed, ref, type VNode } from "vue";
+
+// const props = defineProps<OnyxFlyoutMenuProps<TValue>>();
+
+const slots = defineSlots<{
+  /**
+   * The trigger for the flyout menu
+   */
+  default(): VNode[];
+  /**
+   * OnyxListItems to show
+   */
+  options?(): VNode[];
+  /**
+   * Optional header content to display above the options.
+   */
+  header?(): unknown;
+  /**
+   * Optional footer content to display below the options (will replace `message` property).
+   */
+  footer?(): unknown;
+}>();
+
+const activeItem = ref<string>();
+
+const {
+  elements: { button, menu, menuItem, listItem, parentComponent },
+  state: { isExpanded },
+} = createMenuButton({
+  onSelect: (href) => {
+    activeItem.value = href;
+  },
+});
+
+const filterVNodesByComponent = (vnodes: VNode[]): VNode[] => {
+  // if the slot only contains a v-for, we need to use the children here which are the "actual" slot content
+  const isVFor = vnodes.length === 1 && vnodes[0].type.toString() === "Symbol(v-fgt)";
+
+  const allNodes =
+    isVFor && Array.isArray(vnodes[0].children)
+      ? (vnodes[0].children as Extract<(typeof vnodes)[number]["children"], []>)
+      : vnodes;
+
+  return allNodes;
+};
+
+const options = computed(() => {
+  return filterVNodesByComponent(slots.options?.() ?? []);
+});
+</script>
+
+<template>
+  <div class="onyx-flyout-menu" v-bind="parentComponent">
+    <component :is="slots.default?.()?.[0]" v-bind="button" />
+    <div
+      v-if="slots.options || slots.header || slots.footer"
+      v-show="isExpanded"
+      :class="{
+        'onyx-flyout-menu__list--with-header': !!slots.header,
+        'onyx-flyout-menu__list--with-footer': !!slots.footer,
+        'onyx-flyout-menu__list': true,
+      }"
+    >
+      <slot name="header"></slot>
+      <ul
+        v-if="slots.options"
+        v-bind="menu"
+        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+      >
+        <li
+          v-for="(item, index) in options"
+          v-bind="listItem"
+          :key="index"
+          class="onyx-flyout-menu__option"
+        >
+          <component
+            :is="item"
+            v-bind="
+              item.props?.href
+                ? menuItem({ active: activeItem === item.props.href, value: item.props.href })
+                : undefined
+            "
+          />
+        </li>
+      </ul>
+      <slot name="footer"></slot>
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+@use "../../../styles/mixins/layers";
+@use "../../../styles/mixins/list";
+
+.onyx-flyout-menu {
+  @include layers.component() {
+    display: inline-block;
+
+    &__list {
+      @include list.styles();
+
+      &--with-header {
+        padding-top: 0;
+      }
+
+      &--with-footer {
+        padding-bottom: 0;
+      }
+    }
+
+    &__wrapper {
+      padding: 0;
+    }
+
+    &__option {
+      list-style: none;
+    }
+  }
+}
+</style>

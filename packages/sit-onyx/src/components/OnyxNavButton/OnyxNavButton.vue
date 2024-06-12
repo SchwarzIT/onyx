@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { isExternalLink } from "../../utils";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
-import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxFlyoutMenu from "../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import { type OnyxNavButtonProps } from "./types";
 import { type VNode } from "vue";
@@ -116,6 +116,11 @@ const shouldShowExternalIcon = (args: OnyxNavButtonProps) => {
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
         background: var(--onyx-color-base-secondary-500);
       }
+    }
+
+    &__icon {
+      align-self: flex-start;
+      margin-left: calc(-1 * $gap);
     }
   }
 }

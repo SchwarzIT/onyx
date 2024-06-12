@@ -26,7 +26,7 @@ test.describe("Screenshot tests", () => {
       </OnyxNavButton>
     ),
     beforeScreenshot: async (component, page, _column, row) => {
-      await expect(component).toContainText("Item");
+      await expect(component).toContainText("Nav Button");
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
     },
@@ -35,7 +35,7 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Screenshot tests with nested children", () => {
   executeMatrixScreenshotTest({
-    name: "NavItem with nestedItems",
+    name: "NavButton with nested children",
     columns: ["inactive", "active"],
     rows: ["hover", "focus-visible"],
     /**
@@ -43,14 +43,22 @@ test.describe("Screenshot tests with nested children", () => {
      * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
      * to have a parent with role="menu".
      *
+     * "aria-required-children" test is disabled because it's a slot based component
+     *
      * TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
      */
-    disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
+    disabledAccessibilityRules: [
+      "aria-required-parent",
+      "color-contrast",
+      "aria-required-children",
+    ],
     component: (column) => (
       <OnyxNavButton label="Item" href="#" active={column === "active"}>
-        <OnyxListItem>Nested Item 1</OnyxListItem>
-        <OnyxListItem>Nested Item 2</OnyxListItem>
-        <OnyxListItem>Nested Item 3</OnyxListItem>
+        <template v-slot:children>
+          <OnyxListItem>Nested Item 1</OnyxListItem>
+          <OnyxListItem>Nested Item 2</OnyxListItem>
+          <OnyxListItem>Nested Item 3</OnyxListItem>
+        </template>
       </OnyxNavButton>
     ),
     beforeScreenshot: async (component, page, _column, row) => {

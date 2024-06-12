@@ -1,13 +1,13 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
-import { injectI18n } from "../../i18n";
-import type { SelectOptionValue } from "../../types";
-import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
-import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import type { OnyxUserMenuProps } from "./types";
+import { injectI18n } from "../../../i18n";
+import type { SelectOptionValue } from "../../../types";
+import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
+import OnyxFlyoutMenu from "../../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
+import type { OnyxUserMenuProps } from "../types";
 
 const props = defineProps<OnyxUserMenuProps<TValue>>();
 
@@ -35,13 +35,12 @@ const avatar = computed(() => {
 
 <template>
   <div class="onyx-user-menu">
-    <button class="onyx-user-menu__trigger onyx-text">
-      <OnyxAvatar v-bind="avatar" size="24px" />
-      <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
-    </button>
-
     <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
+      <button class="onyx-user-menu__trigger onyx-text">
+        <OnyxAvatar v-bind="avatar" size="24px" />
+        <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
+        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
+      </button>
       <template #header>
         <div class="onyx-user-menu__header">
           <OnyxAvatar v-bind="avatar" />
@@ -60,17 +59,19 @@ const avatar = computed(() => {
         </div>
       </template>
 
-      <OnyxListItem
-        v-for="item in props.options"
-        :key="item.value.toString()"
-        :class="{
-          'onyx-user-menu-item--danger': item.color === 'danger',
-        }"
-        :color="item.color"
-        @click="emit('optionClick', item.value)"
-      >
-        <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
-      </OnyxListItem>
+      <template #options>
+        <OnyxListItem
+          v-for="item in props.options"
+          :key="item.value.toString()"
+          :class="{
+            'onyx-user-menu-item--danger': item.color === 'danger',
+          }"
+          :color="item.color"
+          @click="emit('optionClick', item.value)"
+        >
+          <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
+        </OnyxListItem>
+      </template>
 
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">
@@ -82,7 +83,7 @@ const avatar = computed(() => {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers.scss";
+@use "../../../styles/mixins/layers.scss";
 
 .onyx-user-menu {
   @include layers.component() {
@@ -92,17 +93,13 @@ const avatar = computed(() => {
     width: max-content;
     position: relative;
 
-    &:focus-within {
+    &:focus-within,
+    &:hover {
       outline: 0;
 
       .onyx-user-menu__trigger {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
-      }
-
-      .onyx-user-menu__flyout {
-        opacity: 1;
-        visibility: visible;
       }
 
       .onyx-user-menu__chevron {
@@ -130,13 +127,11 @@ const avatar = computed(() => {
     }
 
     &__flyout {
-      opacity: 0;
-      visibility: hidden;
-      transition-duration: var(--onyx-duration-sm);
-      transition-property: opacity, visibility;
-      position: absolute;
-      right: 0;
-      top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
+      .onyx-flyout-menu__list {
+        position: absolute;
+        right: 0;
+        top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
+      }
     }
 
     &__chevron {

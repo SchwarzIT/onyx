@@ -9,7 +9,7 @@ import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
  * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavButton> = {
-  title: "support/NavButton",
+  title: "future/NavButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavButton,
     events: ["click"],
