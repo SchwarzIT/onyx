@@ -1,7 +1,18 @@
 import { addComponent, defineNuxtModule } from "@nuxt/kit";
 import * as onyx from "sit-onyx";
 
-export interface ModuleOptions {}
+export interface ModuleOptions {
+  /**
+   * By default, the global onyx styles (`global.css` file) will be included
+   * which applies some global styles like background color and font styles.
+   * This is recommended when building a whole application with onyx.
+   *
+   * You can set this option to `true` to disable this.
+   *
+   * @see https://onyx.schwarz/development/#installation
+   */
+  disableGlobalStyles?: boolean;
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -18,6 +29,10 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.postcss.plugins.cssnano = { preset: ["default", { calc: false }] };
 
     nuxt.options.css.push("sit-onyx/style.css");
+
+    if (!_options.disableGlobalStyles) {
+      nuxt.options.css.push("sit-onyx/global.css");
+    }
 
     Object.keys(onyx)
       .filter((namedExport) => namedExport.startsWith("Onyx"))
