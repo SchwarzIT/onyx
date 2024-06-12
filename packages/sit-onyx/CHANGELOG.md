@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-alpha.127
+
+### Minor Changes
+
+- 62cb2ca: feat: support `global.css` file
+
+  See [Getting Started guide](https://onyx.schwarz/development/#installation) for further information.
+
 ## 1.0.0-alpha.126
 
 ### Minor Changes
