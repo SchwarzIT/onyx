@@ -104,22 +104,21 @@ const footerAsideSidebar = computed<boolean>(
       </TempOverlayDemo>
     </template>
 
-    <template v-if="settings.overlay.showPopover || settings.overlay.showMobileFlyIn" #appOverlay>
-      <OnyxDialog
-        label="Example dialog"
-        :open="settings.overlay.showPopover"
-        modal
-        @close="settings.overlay.showPopover = false"
-      >
-        <OnyxHeadline is="h2">Modal content</OnyxHeadline>
-        <p>Press "Escape" to close the modal.</p>
+    <OnyxDialog
+      label="Example dialog"
+      :open="settings.overlay.showPopover"
+      modal
+      @close="settings.overlay.showPopover = false"
+    >
+      <OnyxHeadline is="h2">Modal content</OnyxHeadline>
+      <p>Press "Escape" to close the modal.</p>
 
-        <LayoutSettings v-model="settings" :show="['overlay']" />
-        <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-      </OnyxDialog>
+      <LayoutSettings v-model="settings" :show="['overlay']" />
+      <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+    </OnyxDialog>
 
+    <template v-if="settings.overlay.showMobileFlyIn" #appOverlay>
       <MobileBottomFlyInDemo
-        v-if="settings.overlay.showMobileFlyIn"
         :show-footer="settings.footer.showFullFooter || settings.footer.showDetailFooter"
       >
         <OnyxButton label="Close" @click="settings.overlay.showMobileFlyIn = false" />
