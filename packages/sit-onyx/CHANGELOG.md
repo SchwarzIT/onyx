@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-alpha.126
+
+### Minor Changes
+
+- 85482cd: feat(OnyxInput,OnyxTextarea): show invalid messages
+
+### Patch Changes
+
+- edbfc22: fix(OnyxTable): take up full available width
+
+  This also fixed the issue that the table does not align with the grid
+
+- edbfc22: fix: export missing support components
+
 ## 1.0.0-alpha.125
 
 ### Patch Changes
