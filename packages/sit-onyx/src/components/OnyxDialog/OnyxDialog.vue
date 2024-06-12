@@ -6,6 +6,7 @@ import type { OnyxDialogProps } from "./types";
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
   modal: false,
+  alert: false,
 });
 
 const emit = defineEmits<{
@@ -17,7 +18,9 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * Dialog content.
+   * Dialog content. For accessibility purposes it is strongly recommended
+   * to focus an element inside the dialog when it opens. The element will depend
+   * on your use case (e.g. an input, button etc.).
    */
   default(): unknown;
 }>();
@@ -64,6 +67,7 @@ watch(
     :class="['onyx-dialog', densityClass]"
     :aria-modal="props.modal"
     :aria-label="props.label"
+    :role="props.alert ? 'alertdialog' : 'dialog'"
     @cancel.prevent="emit('close')"
   >
     <slot v-if="props.open"></slot>
