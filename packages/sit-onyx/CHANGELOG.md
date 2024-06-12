@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.128
+
+### Patch Changes
+
+- 55c0b19: fix(OnyxTable): make components interactive when showing column hover effect
+
 ## 1.0.0-alpha.127
 
 ### Minor Changes
