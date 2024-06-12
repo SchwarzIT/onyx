@@ -106,6 +106,10 @@ watch(
     padding: var(--onyx-dialog-padding);
     background-color: var(--onyx-color-base-background-blank);
 
+    &:where(&) {
+      max-width: calc(100% - 2 * var(--onyx-grid-margin));
+    }
+
     position: fixed;
     top: 50%;
     left: 50%;
