@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxButton, OnyxPageLayout } from "sit-onyx";
+import { OnyxAppLayout, OnyxButton, OnyxDialog, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
 import { computed, ref } from "vue";
 import {
   BusyIndicatorDemo,
@@ -10,7 +10,6 @@ import {
   MobileNavFlyoutDemo,
   NavBarDemo,
   PageDemo,
-  PopoverDemo,
   SidebarDemo,
   TempOverlayDemo,
   ToastDemo,
@@ -106,11 +105,18 @@ const footerAsideSidebar = computed<boolean>(
     </template>
 
     <template v-if="settings.overlay.showPopover || settings.overlay.showMobileFlyIn" #appOverlay>
-      <PopoverDemo v-if="settings.overlay.showPopover">
-        <OnyxButton label="Close" @click="settings.overlay.showPopover = false" />
+      <OnyxDialog
+        label="Example dialog"
+        :open="settings.overlay.showPopover"
+        modal
+        @close="settings.overlay.showPopover = false"
+      >
+        <OnyxHeadline is="h2">Modal content</OnyxHeadline>
+        <p>Press "Escape" to close the modal.</p>
+
         <LayoutSettings v-model="settings" :show="['overlay']" />
         <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-      </PopoverDemo>
+      </OnyxDialog>
 
       <MobileBottomFlyInDemo
         v-if="settings.overlay.showMobileFlyIn"
