@@ -155,7 +155,6 @@ const handleInput = (event: Event) => {
           v-if="errorMessages.longMessage"
           class="onyx-textarea__message-tooltip"
           color="danger"
-          style="color: red"
           position="bottom"
           :label="t('showTooltip.error')"
           :text="errorMessages.longMessage"
