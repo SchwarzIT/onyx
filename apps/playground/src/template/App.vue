@@ -11,9 +11,5 @@ const value = ref("");
 </template>
 
 <style>
-body {
-  font-family: var(--onyx-font-family);
-  background-color: var(--onyx-color-base-background-tinted);
-  color: var(--onyx-color-text-icons-neutral-intense);
-}
+@import "sit-onyx/globals.css";
 </style>

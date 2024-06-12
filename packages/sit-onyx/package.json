@@ -19,6 +19,7 @@
       "require": "./dist/index.cjs"
     },
     "./style.css": "./dist/style.css",
+    "./globals.css": "./src/styles/globals.css",
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",

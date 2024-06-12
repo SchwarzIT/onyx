@@ -1,0 +1,19 @@
+/*
+* This file can be imported by projects to apply common styles to global elements like <body>.
+* It must be CSS only (so no scss etc.) and must NOT contain any relative imports of other .css files.
+* Make sure that all styles inside this file are in an onyx layer so they can be easily overridden if needed.
+*/
+@layer onyx.utility {
+  body {
+    margin: 0;
+    font-family: var(--onyx-font-family);
+    background-color: var(--onyx-color-base-background-tinted);
+    color: var(--onyx-color-text-icons-neutral-intense);
+
+    /*
+    * Apply font styles so elements like <p> align nicely. Same as .onyx-text class.
+    */
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}

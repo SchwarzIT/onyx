@@ -103,7 +103,7 @@ const copyLink = async () => {
   }
 
   &__version {
-    width: 10rem;
+    width: 12rem;
   }
 
   @include breakpoints.screen(max, md) {

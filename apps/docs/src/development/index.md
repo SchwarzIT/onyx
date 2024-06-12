@@ -44,6 +44,11 @@ After that, import the global CSS file:
 
 ```ts [main.ts]
 import "sit-onyx/style.css";
+
+// by default, no onyx styles will have side affects on your global application styles like <body> etc.
+// when building a whole application with onyx, we recommend also importing the following global styles
+// which will apply the correct application background color, font styles etc.:
+// import "sit-onyx/globals.css";
 ```
 
 :::
