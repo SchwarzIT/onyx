@@ -98,7 +98,7 @@ However, there might be some custom requirements in your project where you need 
 All onyx components are designed to be easily customized with custom CSS. Just look up the CSS class that you
 want to customize via your browser dev tools and define custom CSS as shown below.
 
-#### In a single Vue file <Badge text="recommended" />
+#### Option 1: In a single Vue file <Badge text="recommended" />
 
 For most cases when overriding onyx styles, we recommend to override them inside a single `.vue` file with [scoped styles](https://vuejs.org/api/sfc-css-features#scoped-css)
 so the changes only affect components in this file and do not have global side effects on other components of your application.
@@ -117,7 +117,7 @@ Note the usage of the `:deep()` selector. For more information, see the [Vue doc
 
 :::
 
-#### Globally
+#### Option 2: Globally
 
 Be careful when overriding styles globally since it will affect **EVERY** component in your application.
 
