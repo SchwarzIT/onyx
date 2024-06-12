@@ -20,7 +20,7 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: "onyx",
   },
   defaults: {},
-  setup(_options, nuxt) {
+  setup(options, nuxt) {
     /**
      * The calc plugin of cssnano doesn't work with calc constants (https://developer.mozilla.org/en-US/docs/Web/CSS/calc-constant) used within onyx.
      * Therefor it needs to be disabled temporarily until they are either no longer used inside onyx or the calc plugin is fixed.
@@ -30,7 +30,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     nuxt.options.css.push("sit-onyx/style.css");
 
-    if (!_options.disableGlobalStyles) {
+    if (!options.disableGlobalStyles) {
       nuxt.options.css.push("sit-onyx/global.css");
     }
 
