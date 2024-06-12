@@ -80,13 +80,13 @@ watch(
 
 .dark .onyx-dialog {
   @include layers.component() {
-    --backdrop-opacity: 0.7;
+    --backdrop-opacity: 0.6;
   }
 }
 
 .onyx-dialog {
   @include layers.component() {
-    --backdrop-opacity: 0.1;
+    --backdrop-opacity: 0.15;
 
     @include density.compact {
       --onyx-dialog-padding: var(--onyx-spacing-md);
