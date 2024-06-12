@@ -10,10 +10,10 @@ import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import type { OnyxSelectInputProps, SelectInputModelValue } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
-import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {

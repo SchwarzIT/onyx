@@ -1,6 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxTable from "./OnyxTable.vue";
 
 /**
@@ -16,6 +17,7 @@ const meta: Meta<typeof OnyxTable> = {
         control: { disable: true },
       },
     },
+    decorators: [createTruncationDecorator("max-content")],
   }),
 };
 
