@@ -30,7 +30,6 @@ We recommend installing font families as npm package using [Fontsource](https://
 ```
 
 ```ts [main.ts]
-// make sure to import your custom styles AFTER "sit-onyx/style.css"
 import "custom.css";
 ```
 
