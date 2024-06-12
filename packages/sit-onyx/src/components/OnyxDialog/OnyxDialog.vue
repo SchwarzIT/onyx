@@ -67,7 +67,7 @@ watch(
     :class="['onyx-dialog', densityClass]"
     :aria-modal="props.modal"
     :aria-label="props.label"
-    :role="props.alert ? 'alertdialog' : 'dialog'"
+    :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="emit('close')"
   >
     <slot v-if="props.open"></slot>
