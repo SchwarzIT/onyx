@@ -2,6 +2,8 @@
 * This file can be imported by projects to apply common styles to global elements like <body>.
 * It must be CSS only (so no scss etc.) and must NOT contain any relative imports of other .css files.
 * Make sure that all styles inside this file are in an onyx layer so they can be easily overridden if needed.
+*
+* Be careful when changing styles here since it will affect all global styles of the application.
 */
 @layer onyx.utility {
   body {
