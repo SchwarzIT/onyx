@@ -53,16 +53,3 @@ export const textColorDecorator: Decorator = (story) => ({
     <story />
   </div>`,
 });
-
-/**
- * Storybook decorator that limits the width of the component to showcase truncation behavior.
- */
-export const createTruncationDecorator = (maxWidth: string): Decorator => {
-  return (story) => ({
-    components: { story },
-    template: `
-    <div style="max-width: ${maxWidth};">
-      <story />
-    </div>`,
-  });
-};

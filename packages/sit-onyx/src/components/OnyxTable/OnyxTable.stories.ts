@@ -1,7 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxTable from "./OnyxTable.vue";
 
 /**
@@ -17,19 +16,30 @@ const meta: Meta<typeof OnyxTable> = {
         control: { disable: true },
       },
     },
-    decorators: [createTruncationDecorator("max-content")],
   }),
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxTable>;
 
-const getTableBody = () => {
-  return h("tbody", [
-    h("tr", [h("td", "Strawberry"), h("td", "4.50"), h("td", "200")]),
-    h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000")]),
-    h("tr", [h("td", "Banana"), h("td", "3.75"), h("td", "18000")]),
+const getTableHeader = () => {
+  return h("thead", [
+    h("tr", [
+      h("th", "Fruit"),
+      h("th", "Price (€/kg)"),
+      h("th", "Inventory (kg)"),
+      h("th", "Inventory (pieces)"),
+      h("th", "Rating"),
+    ]),
   ]);
+};
+
+const getTableBodyRows = () => {
+  return [
+    h("tr", [h("td", "Strawberry"), h("td", "4.50"), h("td", "200"), h("td", "100"), h("td", "5")]),
+    h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
+    h("tr", [h("td", "Banana"), h("td", "3.75"), h("td", "18000"), h("td", "300"), h("td", "4")]),
+  ];
 };
 
 /**
@@ -37,10 +47,7 @@ const getTableBody = () => {
  */
 export const Default = {
   args: {
-    default: () => [
-      h("thead", [h("tr", [h("th", "Fruit"), h("th", "Price (€/kg)"), h("th", "Inventory (kg)")])]),
-      getTableBody(),
-    ],
+    default: () => [getTableHeader(), h("tbody", getTableBodyRows())],
   },
 } satisfies Story;
 
@@ -69,99 +76,39 @@ export const GridBorders = {
  */
 export const WithoutHeader = {
   args: {
-    default: () => getTableBody(),
+    default: () => h("tbody", getTableBodyRows()),
   },
 } satisfies Story;
-
-const limitSizeDecorator = (maxHeight: string, maxWidth: string): Decorator => {
-  return (story) => ({
-    components: { story },
-    template: `
-    <div>
-      <story  style="max-height: ${maxHeight}; max-width: ${maxWidth};"/>
-    </div>`,
-  });
-};
 
 /**
  * This example shows a table which has a vertical scroll bar.
  */
 export const LimitedHeight = {
   args: {
-    default: () => [
-      h("thead", [
-        h("tr", [
-          h("th", "Fruit"),
-          h("th", "Price (€/kg)"),
-          h("th", "Inventory (kg)"),
-          h("th", "Inventory (pieces)"),
-          h("th", "Rating"),
-        ]),
-      ]),
-      h("tbody", [
-        h("tr", [
-          h("td", "Strawberry"),
-          h("td", "4.50"),
-          h("td", "200"),
-          h("td", "100"),
-          h("td", "5"),
-        ]),
-        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
-        h("tr", [
-          h("td", "Banana"),
-          h("td", "3.75"),
-          h("td", "18000"),
-          h("td", "300"),
-          h("td", "4"),
-        ]),
-        h("tr", [
-          h("td", "Strawberry"),
-          h("td", "4.50"),
-          h("td", "200"),
-          h("td", "400"),
-          h("td", "5"),
-        ]),
-        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "600"), h("td", "3")]),
-        h("tr", [
-          h("td", "Banana"),
-          h("td", "3.75"),
-          h("td", "18000"),
-          h("td", "300"),
-          h("td", "4"),
-        ]),
-        h("tr", [
-          h("td", "Strawberry"),
-          h("td", "4.50"),
-          h("td", "200"),
-          h("td", "1500"),
-          h("td", "5"),
-        ]),
-        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "300"), h("td", "3")]),
-        h("tr", [
-          h("td", "Banana"),
-          h("td", "3.75"),
-          h("td", "18000"),
-          h("td", "600"),
-          h("td", "4"),
-        ]),
-      ]),
+    style: "max-height: 16rem",
+    default: [
+      getTableHeader(),
+      h("tbody", [...getTableBodyRows(), ...getTableBodyRows(), ...getTableBodyRows()]),
     ],
   },
-  decorators: limitSizeDecorator("20rem", "unset"),
 } satisfies Story;
 
 /**
  * This example shows a table which has a horizontal scroll bar.
  */
 export const LimitedWidth = {
-  ...LimitedHeight,
-  decorators: limitSizeDecorator("unset", "20rem"),
+  args: {
+    ...LimitedHeight.args,
+    style: "max-width: 20rem",
+  },
 } satisfies Story;
 
 /**
  * This example shows a table which has a vertical and horizontal scroll bar.
  */
 export const LimitedHeightAndWidth = {
-  ...LimitedHeight,
-  decorators: limitSizeDecorator("20rem", "20rem"),
+  args: {
+    ...LimitedHeight.args,
+    style: "max-width: 20rem; max-height: 16rem",
+  },
 } satisfies Story;
