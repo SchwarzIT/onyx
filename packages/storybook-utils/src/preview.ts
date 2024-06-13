@@ -170,15 +170,24 @@ export const sourceCodeTransformer = (
     }
   });
 
-  if (iconImports.length === 0) return code;
+  const usedOnyxComponents = [
+    ...new Set(Array.from(code.matchAll(/<Onyx\S+/g)).map((match) => match[0].replace("<", ""))),
+  ].sort();
+
+  const additionalImports = iconImports.slice();
+  if (usedOnyxComponents.length > 0) {
+    additionalImports.unshift(`import { ${usedOnyxComponents.join(", ")} } from "sit-onyx";`);
+  }
+
+  if (additionalImports.length === 0) return code;
 
   if (code.startsWith("<script")) {
     const index = code.indexOf("\n");
-    return code.slice(0, index) + iconImports.join("\n") + "\n" + code.slice(index);
+    return code.slice(0, index) + additionalImports.join("\n") + "\n" + code.slice(index);
   }
 
   return `<script lang="ts" setup>
-${iconImports.join("\n")}
+${additionalImports.join("\n")}
 </script>
 
 ${code}`;
