@@ -148,7 +148,7 @@ export const sourceCodeTransformer = (
 
   let code = generateSourceCode(ctx);
 
-  const iconImports: string[] = [];
+  const additionalImports: string[] = [];
 
   // add icon imports to the source code for all used onyx icons
   Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
@@ -158,19 +158,17 @@ export const sourceCodeTransformer = (
 
     if (code.includes(iconContent)) {
       code = code.replace(new RegExp(` (\\S+)=['"]${iconContent}['"]`), ` :$1="${importName}"`);
-      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     } else if (code.includes(singleQuotedIconContent)) {
       // support icons inside objects
       code = code.replace(singleQuotedIconContent, importName);
-      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     } else if (code.includes(escapedIconContent)) {
       // support icons inside objects
       code = code.replace(escapedIconContent, importName);
-      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     }
   });
-
-  const additionalImports = iconImports.slice();
 
   // add imports for all used onyx components
   // Set is used here to only include unique components if they are used multiple times
