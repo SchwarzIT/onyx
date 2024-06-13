@@ -11,6 +11,11 @@ export type OnyxInputProps = DensityProp &
      */
     label: string;
     /**
+     * Info text to show inside a tooltip, next to the label.
+     * The tooltip will be hidden if `hideLabel` property is set to true.
+     */
+    labelTooltip?: string;
+    /**
      * Current value of the input.
      */
     modelValue?: string;
@@ -70,10 +75,16 @@ export type OnyxInputProps = DensityProp &
     loading?: boolean;
     /**
      * Maximum number of characters that are allowed to be entered.
+     * Warning: when the value is (pre)set programatically,
+     * the input invalidity will not be detected by the browser, it will only turn invalid
+     * as soon as a user interacts with the input (types something).
      */
     maxlength?: number;
     /**
      * Minimum number of characters that have to to be entered.
+     * Warning: when the value is (pre)set programatically,
+     * the input invalidity will not be detected by the browser, it will only turn invalid
+     * as soon as a user interacts with the input (types something).
      */
     minlength?: number;
     /**
@@ -82,8 +93,13 @@ export type OnyxInputProps = DensityProp &
     withCounter?: boolean;
     /**
      * Message / help text to display below the input.
+     * Will be replaced by an error message if the input is invalid.
      */
     message?: string;
+    /**
+     * Info message / additional text to display inside a tooltip next to the message.
+     */
+    messageTooltip?: string;
     /**
      * If `true`, the label will be visually hidden and the `title` attribute will be set.
      * For accessibility / screen readers, the aria-label will still be set.

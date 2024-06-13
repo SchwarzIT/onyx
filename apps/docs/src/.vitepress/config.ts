@@ -119,12 +119,12 @@ export default defineConfig({
           base: "/development",
           items: [
             { text: "Getting Started", link: "/" },
+            { text: "Theming", link: "/theming" },
             { text: "i18n", link: "/i18n" },
             { text: "Grid", link: "/grid" },
             { text: "Breakpoints", link: "/breakpoints" },
             { text: "Density", link: "/density" },
             { text: "Typography", link: "/typography" },
-            { text: "Theming Setup", link: "/theming" },
             { text: "Changelog", link: "/packages/changelogs/sit-onyx" },
           ],
         },

@@ -1,6 +1,6 @@
-# Theming Setup
+# Theming
 
-Onyx supports a dark and a light theme. The options how to set up the theme for your application are described in this article.  
+Onyx supports a dark and a light theme. The options how to set up the theme for your application are described in this article.
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
 ## Set the theme once

@@ -4,7 +4,9 @@ import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxTextareaProps } from "./types";
+import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   modelValue: "",
@@ -39,7 +41,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -57,6 +59,7 @@ const handleChange = (event: Event) => {
   emit("change", inputValue);
 };
 
+const { t } = injectI18n();
 const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
 
 /**
@@ -97,9 +100,18 @@ const handleInput = (event: Event) => {
     <label>
       <div
         v-if="!props.hideLabel"
-        :class="['onyx-textarea__label', 'onyx-text--small', requiredMarkerClass]"
+        class="onyx-textarea__label onyx-text--small"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
       >
-        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
+        <div class="onyx-textarea__header">
+          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+          <span
+            v-if="props.required"
+            :class="[props.required ? requiredMarkerClass : undefined]"
+          ></span>
+          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
+          <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
+        </div>
       </div>
 
       <div class="onyx-textarea__wrapper" :data-autosize-value="value">
@@ -132,8 +144,29 @@ const handleInput = (event: Event) => {
       </div>
     </label>
 
-    <div v-if="props.message || shouldShowCounter" class="onyx-textarea__footer onyx-text--small">
+    <div
+      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
+      class="onyx-textarea__footer onyx-text--small"
+    >
+      <span v-if="errorMessages" class="onyx-textarea__error-message">
+        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
+
+        <OnyxInfoTooltip
+          v-if="errorMessages.longMessage"
+          class="onyx-textarea__message-tooltip"
+          color="danger"
+          position="bottom"
+          :label="t('showTooltip.error')"
+          :text="errorMessages.longMessage"
+        />
+      </span>
       <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <OnyxInfoTooltip
+        v-if="props.messageTooltip"
+        class="onyx-textarea__message-tooltip"
+        position="bottom"
+        :text="props.messageTooltip"
+      />
       <span v-if="shouldShowCounter" class="onyx-textarea__counter">
         {{ value.length }}/{{ props.maxlength }}
       </span>
@@ -146,6 +179,12 @@ const handleInput = (event: Event) => {
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
+.onyx-use-optional:not(:has(.onyx-required-marker)) {
+  .onyx-textarea__optional {
+    display: inline-block;
+  }
+}
+
 .onyx-textarea,
 .onyx-textarea-skeleton {
   --min-autosize-rows: 3;
@@ -154,12 +193,14 @@ const handleInput = (event: Event) => {
   --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
   --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
 
-  // remove max height if user resizes the textarea manually
+  // remove max height and disable auto-sizing if user resizes the textarea manually
   &:has(.onyx-textarea__native[style*="height"]) {
     --max-height: unset;
 
     .onyx-textarea__wrapper::after {
-      display: none;
+      // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
+      // `display: none` or changing "content" causes user resizing to be interrupted
+      height: 0;
     }
   }
 
@@ -185,7 +226,7 @@ const handleInput = (event: Event) => {
 * that is used for the autosize feature.
 */
 @mixin define-shared-autosize-styles() {
-  grid-area: 1 / 1 / 2 / 2;
+  grid-area: 1 / 1;
   height: 100%;
   min-height: var(--min-height);
   max-height: var(--max-height);
@@ -198,6 +239,17 @@ const handleInput = (event: Event) => {
       $base-selector: ".onyx-textarea",
       $vertical-padding: var(--onyx-textarea-padding-vertical)
     );
+
+    &__header {
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &__message-tooltip {
+      height: 1rem;
+      align-self: center;
+    }
 
     &__wrapper {
       padding: 0;
@@ -222,6 +274,10 @@ const handleInput = (event: Event) => {
       &--no-resize {
         resize: none;
       }
+    }
+
+    .onyx-info-tooltip {
+      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }
