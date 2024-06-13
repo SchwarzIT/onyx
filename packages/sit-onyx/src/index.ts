@@ -104,8 +104,6 @@ export * from "./components/OnyxUserMenu/types";
 export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 export * from "./components/OnyxVisuallyHidden/types";
 
-export { default as OnyxFlyoutMenu } from "./components/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
