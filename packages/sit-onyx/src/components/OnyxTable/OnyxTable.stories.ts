@@ -34,12 +34,12 @@ const getTableHeader = () => {
   ]);
 };
 
-const getTableBody = () => {
-  return h("tbody", [
+const getTableBodyRows = () => {
+  return [
     h("tr", [h("td", "Strawberry"), h("td", "4.50"), h("td", "200"), h("td", "100"), h("td", "5")]),
     h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
     h("tr", [h("td", "Banana"), h("td", "3.75"), h("td", "18000"), h("td", "300"), h("td", "4")]),
-  ]);
+  ];
 };
 
 /**
@@ -47,7 +47,7 @@ const getTableBody = () => {
  */
 export const Default = {
   args: {
-    default: () => [getTableHeader(), getTableBody()],
+    default: () => [getTableHeader(), h("tbody", getTableBodyRows())],
   },
 } satisfies Story;
 
@@ -76,7 +76,7 @@ export const GridBorders = {
  */
 export const WithoutHeader = {
   args: {
-    default: () => getTableBody(),
+    default: () => h("tbody", getTableBodyRows()),
   },
 } satisfies Story;
 
@@ -86,56 +86,9 @@ export const WithoutHeader = {
 export const LimitedHeight = {
   args: {
     style: "max-height: 16rem",
-    default: () => [
-      h("thead", [
-        h("tr", [
-          h("th", "Fruit"),
-          h("th", "Price (€/kg)"),
-          h("th", "Inventory (kg)"),
-          h("th", "Inventory (pieces)"),
-          h("th", "Rating"),
-        ]),
-      ]),
-      h("tbody", [
-        h("tr", [
-          h("td", "Strawberry"),
-          h("td", "4.50"),
-          h("td", "200"),
-          h("td", "100"),
-          h("td", "5"),
-        ]),
-        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
-        h("tr", [
-          h("td", "Banana"),
-          h("td", "3.75"),
-          h("td", "18000"),
-          h("td", "300"),
-          h("td", "4"),
-        ]),
-        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "600"), h("td", "3")]),
-        h("tr", [
-          h("td", "Banana"),
-          h("td", "3.75"),
-          h("td", "18000"),
-          h("td", "300"),
-          h("td", "4"),
-        ]),
-        h("tr", [
-          h("td", "Strawberry"),
-          h("td", "4.50"),
-          h("td", "200"),
-          h("td", "1500"),
-          h("td", "5"),
-        ]),
-        h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "300"), h("td", "3")]),
-        h("tr", [
-          h("td", "Banana"),
-          h("td", "3.75"),
-          h("td", "18000"),
-          h("td", "600"),
-          h("td", "4"),
-        ]),
-      ]),
+    default: [
+      getTableHeader(),
+      h("tbody", [...getTableBodyRows(), ...getTableBodyRows(), ...getTableBodyRows()]),
     ],
   },
 } satisfies Story;
