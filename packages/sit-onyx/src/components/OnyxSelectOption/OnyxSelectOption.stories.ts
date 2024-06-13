@@ -2,7 +2,7 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { AriaAttributes } from "vue";
-import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxSelectOption from "./OnyxSelectOption.vue";
 
 /**
@@ -13,7 +13,6 @@ const meta: Meta<typeof OnyxSelectOption> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxSelectOption,
     events: [],
-    decorators: [createTruncationDecorator("16rem")],
     argTypes: {
       default: { control: { type: "text" } },
       icon: defineIconSelectArgType(),
@@ -28,6 +27,7 @@ export const Default = {
   args: {
     "aria-label": "Example option",
     default: "Example option",
+    style: "max-width: 16rem",
   },
 } satisfies Story;
 
