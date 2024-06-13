@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.134
+
+### Minor Changes
+
+- 48dedc3: feat: add imports for used onyx components to generated source code
+
 ## 1.0.0-alpha.133
 
 ### Patch Changes
