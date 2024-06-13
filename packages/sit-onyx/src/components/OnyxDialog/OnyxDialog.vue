@@ -78,25 +78,19 @@ watch(
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
 
-.dark .onyx-dialog {
-  @include layers.component() {
-    --backdrop-opacity: 0.6;
-  }
-}
-
 .onyx-dialog {
+  @include density.compact {
+    --onyx-dialog-padding: var(--onyx-spacing-md);
+  }
+  @include density.default {
+    --onyx-dialog-padding: var(--onyx-spacing-lg);
+  }
+  @include density.cozy {
+    --onyx-dialog-padding: var(--onyx-spacing-xl);
+  }
+
   @include layers.component() {
     --backdrop-opacity: 0.15;
-
-    @include density.compact {
-      --onyx-dialog-padding: var(--onyx-spacing-md);
-    }
-    @include density.default {
-      --onyx-dialog-padding: var(--onyx-spacing-lg);
-    }
-    @include density.cozy {
-      --onyx-dialog-padding: var(--onyx-spacing-xl);
-    }
 
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
@@ -106,11 +100,9 @@ watch(
     padding: var(--onyx-dialog-padding);
     background-color: var(--onyx-color-base-background-blank);
 
-    &:where(&) {
-      $max-size: calc(100% - 2 * var(--onyx-grid-margin));
-      max-width: $max-size;
-      max-height: $max-size;
-    }
+    $max-size: calc(100% - 2 * var(--onyx-grid-margin));
+    max-width: $max-size;
+    max-height: $max-size;
 
     position: fixed;
     top: 50%;
@@ -119,6 +111,10 @@ watch(
 
     &::backdrop {
       background-color: rgba(0, 0, 0, var(--backdrop-opacity));
+    }
+
+    .dark & {
+      --backdrop-opacity: 0.6;
     }
   }
 }
