@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.129
+
+### Minor Changes
+
+- 70c7f93: feat(OnyxInfoTooltip): export info tooltip
+
 ## 1.0.0-alpha.128
 
 ### Patch Changes
