@@ -40,7 +40,7 @@ const emit = defineEmits<{
   >
     <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
-    <span v-else class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
+    <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
 </template>
 
@@ -194,9 +194,12 @@ const emit = defineEmits<{
       line-height: 1.5rem;
     }
 
+    &--loading &__label {
+      visibility: hidden;
+    }
+
     &__loading {
-      width: var(--onyx-spacing-3xl);
-      height: 100%;
+      position: absolute;
     }
   }
 
