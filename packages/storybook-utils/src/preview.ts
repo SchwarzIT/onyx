@@ -170,6 +170,7 @@ export const sourceCodeTransformer = (
     }
   });
 
+  // Set is used here to only include unique components if they are used multiple times
   const usedOnyxComponents = [
     ...new Set(Array.from(code.matchAll(/<Onyx\S+/g)).map((match) => match[0].replace("<", ""))),
   ].sort();
