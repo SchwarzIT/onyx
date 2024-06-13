@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.130
+
+### Minor Changes
+
+- 37ee3fd: feat: add `OnyxDialog` component
+
 ## 1.0.0-alpha.129
 
 ### Minor Changes
