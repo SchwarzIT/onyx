@@ -62,12 +62,12 @@ export const Striped = {
 } satisfies Story;
 
 /**
- * This example shows a table with grid borders (horizontal and vertical).
+ * This example shows a table with additional verticals borders (horizontal borders are always shown).
  */
-export const GridBorders = {
+export const VerticalBorders = {
   args: {
     ...Default.args,
-    grid: true,
+    withVerticalBorders: true,
   },
 } satisfies Story;
 
