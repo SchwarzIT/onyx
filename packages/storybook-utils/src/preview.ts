@@ -170,12 +170,14 @@ export const sourceCodeTransformer = (
     }
   });
 
+  const additionalImports = iconImports.slice();
+
+  // add imports for all used onyx components
   // Set is used here to only include unique components if they are used multiple times
   const usedOnyxComponents = [
     ...new Set(Array.from(code.matchAll(/<Onyx\S+/g)).map((match) => match[0].replace("<", ""))),
   ].sort();
 
-  const additionalImports = iconImports.slice();
   if (usedOnyxComponents.length > 0) {
     additionalImports.unshift(`import { ${usedOnyxComponents.join(", ")} } from "sit-onyx";`);
   }
