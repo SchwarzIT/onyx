@@ -83,7 +83,7 @@ The `onyx-grid-max-<breakpoint>` and `onyx-grid-center` classes must be set on t
 ### Apply grid
 
 To apply the grid to a specific component, set the `onyx-grid` class.
-The number of columns depends on the current breakpoint..
+The number of columns depends on the current breakpoint.
 
 For components inside the grid, you can set the `onyx-grid-span-<number>` class to specify how many columns the component should span where `<number>` is between `1` and `20`.
 
