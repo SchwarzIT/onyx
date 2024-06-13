@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.131
+
+### Major Changes
+
+- 1baef56: refactor(OnyxTable): rename property grid to withVerticalBorders
+
 ## 1.0.0-alpha.130
 
 ### Minor Changes
