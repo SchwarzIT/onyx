@@ -27,7 +27,7 @@ const slots = defineSlots<{
 const activeItem = ref<string>();
 
 const {
-  elements: { button, menu, menuItem, listItem, parentComponent },
+  elements: { button, menu, menuItems, listItem, parentComponent },
   state: { isExpanded },
 } = createMenuButton({
   onSelect: (href) => {
@@ -80,7 +80,7 @@ const options = computed(() => {
             :is="item"
             v-bind="
               item.props?.href
-                ? menuItem({ active: activeItem === item.props.href, value: item.props.href })
+                ? menuItems({ active: activeItem === item.props.href, value: item.props.href })
                 : undefined
             "
           />

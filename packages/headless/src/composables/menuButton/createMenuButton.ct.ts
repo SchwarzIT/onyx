@@ -11,18 +11,18 @@ export type MenuButtonTestingOptions = {
    */
   button: Locator;
   /**
-   * List items (at least 3).
+   * Menu, e.g. a `<ul>` element.
    */
   menu: Locator;
   /**
    * List items (at least 3).
    */
-  menuItem: Locator[];
+  menuItems: Locator[];
 };
 
 /**
  * Playwright utility for executing accessibility testing for a navigation menu.
- * Will check aria attributes and keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/.
+ * Will check aria attributes and keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-links.
  */
 export const menuButtonTesting = async ({ button, menu }: MenuButtonTestingOptions) => {
   const menuId = await menu.getAttribute("id");
