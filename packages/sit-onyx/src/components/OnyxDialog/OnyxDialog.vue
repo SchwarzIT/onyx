@@ -37,14 +37,10 @@ const openDialog = () => {
 };
 
 // sync open state
-watch(
-  [dialogRef, () => props.open],
-  () => {
-    if (props.open) openDialog();
-    else dialogRef.value?.close();
-  },
-  { immediate: true },
-);
+watch([dialogRef, () => props.open], () => {
+  if (props.open) openDialog();
+  else dialogRef.value?.close();
+});
 
 watch(
   () => props.modal,
