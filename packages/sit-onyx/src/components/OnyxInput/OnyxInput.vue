@@ -91,7 +91,11 @@ const { t } = injectI18n();
             v-if="props.required"
             :class="[props.required ? requiredMarkerClass : undefined]"
           ></span>
-          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
+          <OnyxInfoTooltip
+            v-if="props.labelTooltip"
+            :text="props.labelTooltip"
+            class="onyx-input__label-tooltip"
+          />
           <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
         </div>
       </div>
@@ -221,13 +225,14 @@ const { t } = injectI18n();
 
     &__header {
       display: flex;
+      align-items: center;
       max-width: 100%;
       width: 100%;
     }
 
+    &__label-tooltip,
     &__message-tooltip {
       height: 1rem;
-      align-self: center;
     }
 
     &__wrapper {
