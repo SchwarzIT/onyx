@@ -51,7 +51,7 @@ const options = computed(() => {
 </script>
 
 <template>
-  <div class="onyx-future-flyout-menu" v-bind="parentComponent">
+  <div class="onyx-flyout-menu" v-bind="parentComponent">
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
       v-if="slots.options || slots.header || slots.footer"
@@ -93,7 +93,7 @@ const options = computed(() => {
 @use "../../../styles/mixins/layers";
 @use "../../../styles/mixins/list";
 
-.onyx-future-flyout-menu {
+.onyx-flyout-menu {
   @include layers.component() {
     display: inline-block;
 
