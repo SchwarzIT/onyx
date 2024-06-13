@@ -2,6 +2,7 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
+import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 
 const meta: Meta<typeof OnyxFlyoutMenu> = {
@@ -39,7 +40,7 @@ const listAnimals = [
  */
 export const Default = {
   args: {
-    default: () => h("button", "Click Me"),
+    default: () => h(OnyxButton, { label: "Hover me" }),
     options: () => listAnimals.map(({ label }) => h(OnyxListItem, label)),
   },
 } satisfies Story;

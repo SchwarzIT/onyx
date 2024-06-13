@@ -3,8 +3,6 @@ import { createMenuButton } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../../types";
 import { computed, ref, type VNode } from "vue";
 
-// const props = defineProps<OnyxFlyoutMenuProps<TValue>>();
-
 const slots = defineSlots<{
   /**
    * The trigger for the flyout menu
@@ -30,12 +28,12 @@ const {
   elements: { button, menu, menuItems, listItem, parentComponent },
   state: { isExpanded },
 } = createMenuButton({
-  onSelect: (href) => {
-    activeItem.value = href;
+  onSelect: (value) => {
+    activeItem.value = value;
   },
 });
 
-const filterVNodesByComponent = (vnodes: VNode[]): VNode[] => {
+const getSlotComponents = (vnodes: VNode[]): VNode[] => {
   // if the slot only contains a v-for, we need to use the children here which are the "actual" slot content
   const isVFor = vnodes.length === 1 && vnodes[0].type.toString() === "Symbol(v-fgt)";
 
@@ -48,12 +46,12 @@ const filterVNodesByComponent = (vnodes: VNode[]): VNode[] => {
 };
 
 const options = computed(() => {
-  return filterVNodesByComponent(slots.options?.() ?? []);
+  return getSlotComponents(slots.options?.() ?? []);
 });
 </script>
 
 <template>
-  <div class="onyx-flyout-menu" v-bind="parentComponent">
+  <div class="onyx-future-flyout-menu" v-bind="parentComponent">
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
       v-if="slots.options || slots.header || slots.footer"
@@ -95,7 +93,7 @@ const options = computed(() => {
 @use "../../../styles/mixins/layers";
 @use "../../../styles/mixins/list";
 
-.onyx-flyout-menu {
+.onyx-future-flyout-menu {
   @include layers.component() {
     display: inline-block;
 
