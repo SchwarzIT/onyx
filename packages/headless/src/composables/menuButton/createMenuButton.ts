@@ -1,9 +1,10 @@
-import { createId } from "../../utils/id";
 import { computed, ref } from "vue";
-
 import { createBuilder } from "../../utils/builder";
+import { createId } from "../../utils/id";
 
-export type MenuButtonValue = string | number | boolean;
+/**
+ * Purpose of the onSelect function is to set selected option (page) as active
+ */
 export type CreateMenuButtonOptions = { onSelect: (value: string) => void };
 
 export const createMenuButton = createBuilder((options: CreateMenuButtonOptions) => {

@@ -32,6 +32,11 @@ export const menuButtonTesting = async ({ button, menu }: MenuButtonTestingOptio
     "navigation menu should have set the list ID to the aria-controls",
   ).toHaveAttribute("aria-controls", menuId!);
 
+  await expect(
+    button,
+    'navigation menu should have an "aria-haspopup" attribute set to true',
+  ).toHaveAttribute("aria-haspopup", "true");
+
   await expect(button).toBeVisible();
 
   // ensure correct navigation menu aria attributes
