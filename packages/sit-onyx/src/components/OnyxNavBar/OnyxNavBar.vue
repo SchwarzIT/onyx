@@ -1,11 +1,19 @@
 <script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import { OnyxNavAppArea } from "../..";
+import menu from "@sit-onyx/icons/menu.svg?raw";
+import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { computed, ref } from "vue";
+import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
+import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
+import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
 import type { OnyxNavBarProps } from "./types";
 
-const props = defineProps<OnyxNavBarProps>();
+const props = withDefaults(defineProps<OnyxNavBarProps>(), {
+  mobileBreakpoint: "xs",
+});
 
 const emit = defineEmits<{
   /**
@@ -32,86 +40,164 @@ const slots = defineSlots<{
    * Optional context area on the right to display additional (global) components, like user login, global settings etc.
    */
   contextArea?: () => unknown;
+  /**
+   * Label for displaying the currently active page in mobile mode.
+   * If a child of a nav item is active, it should displayed the child label instead of the parent.
+   */
+  mobileActivePage?: () => unknown;
 }>();
+
+const navBarRef = ref<HTMLElement>();
+const { width } = useResizeObserver(navBarRef);
+
+const isBurgerOpen = ref(false);
+const isContextOpen = ref(false);
+
+const isMobile = computed(() => {
+  const mobileWidth =
+    typeof props.mobileBreakpoint === "number"
+      ? props.mobileBreakpoint
+      : ONYX_BREAKPOINTS[props.mobileBreakpoint];
+  return width.value <= mobileWidth;
+});
 
 const { t } = injectI18n();
 </script>
 
 <template>
-  <header class="onyx-nav-bar">
-    <div class="onyx-nav-bar__content">
-      <OnyxNavAppArea
-        v-if="props.appName || props.logoUrl || slots.appArea"
-        :app-name="props.appName"
-        :logo-url="props.logoUrl"
-        :label="props.appAreaLabel"
-        @click="emit('appAreaClick')"
-      >
-        <slot name="appArea"></slot>
-      </OnyxNavAppArea>
+  <div>
+    <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
+      <div class="onyx-nav-bar__content">
+        <span
+          v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
+          class="onyx-nav-bar__mobile-page"
+        >
+          <slot name="mobileActivePage"></slot>
+        </span>
 
-      <OnyxIconButton
-        v-if="props.withBackButton"
-        :label="t('navigation.goBack')"
-        :icon="chevronLeftSmall"
-        color="neutral"
-        @click="emit('backButtonClick')"
-      />
+        <OnyxNavAppArea
+          v-else-if="props.appName || props.logoUrl || slots.appArea"
+          class="onyx-nav-bar__app"
+          :app-name="props.appName"
+          :logo-url="props.logoUrl"
+          :label="props.appAreaLabel"
+          @click="
+            emit('appAreaClick');
+            isBurgerOpen = false;
+          "
+        >
+          <slot name="appArea"></slot>
+        </OnyxNavAppArea>
 
-      <nav v-if="slots.default">
-        <ul class="onyx-nav-bar__nav" role="menubar">
-          <slot></slot>
-        </ul>
-      </nav>
+        <OnyxIconButton
+          v-if="props.withBackButton"
+          class="onyx-nav-bar__back"
+          :label="t('navigation.goBack')"
+          :icon="chevronLeftSmall"
+          color="neutral"
+          @click="emit('backButtonClick')"
+        />
 
-      <div v-if="slots.contextArea" class="onyx-nav-bar__context">
-        <slot name="contextArea"></slot>
+        <template v-if="slots.default">
+          <OnyxMobileNavButton
+            v-if="isMobile"
+            v-model:open="isBurgerOpen"
+            class="onyx-nav-bar__burger"
+            :icon="menu"
+            :label="t('navigation.toggleBurgerMenu')"
+            @update:open="isContextOpen = false"
+          />
+
+          <nav v-else class="onyx-nav-bar__nav">
+            <ul role="menubar">
+              <slot></slot>
+            </ul>
+          </nav>
+        </template>
+
+        <template v-if="slots.contextArea">
+          <OnyxMobileNavButton
+            v-if="isMobile"
+            v-model:open="isContextOpen"
+            class="onyx-nav-bar__mobile-context"
+            :icon="moreVertical"
+            :label="t('navigation.toggleContextMenu')"
+            @update:open="isBurgerOpen = false"
+          />
+
+          <div v-else class="onyx-nav-bar__context">
+            <slot name="contextArea"></slot>
+          </div>
+        </template>
       </div>
-    </div>
-  </header>
+    </header>
+
+    <!-- TODO: implement mobile burger/context flyouts -->
+  </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/breakpoints.scss";
 
+$gap: var(--onyx-spacing-md);
+
 .onyx-nav-bar {
   @include layers.component() {
-    --padding-inline: var(--onyx-spacing-3xl);
-
-    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     height: 3.5rem;
-    container-type: size;
     z-index: var(--onyx-z-index-navigation);
+    position: relative;
+    container-type: size;
+
+    // implement bottom border with ::after so it does not add to the height
+    &::after {
+      content: " ";
+      background-color: var(--onyx-color-base-neutral-300);
+      height: var(--onyx-1px-in-rem);
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
 
     &__content {
-      display: flex;
+      display: grid;
+      grid-template-columns: max-content 1fr auto;
+      grid-template-areas: "app nav context";
       align-items: center;
-      gap: var(--onyx-spacing-md);
+      gap: $gap;
       height: 100%;
-      padding-inline: var(--padding-inline);
+      padding-inline: var(--onyx-spacing-3xl);
+
+      &:has(.onyx-nav-bar__back) {
+        grid-template-columns: max-content max-content 1fr auto;
+        grid-template-areas: "app back nav context";
+      }
 
       // sync with grid
       max-width: var(--onyx-grid-max-width);
       margin-inline: var(--onyx-grid-margin-inline);
 
       @include breakpoints.container(max, sm) {
-        --padding-inline: var(--onyx-spacing-xl);
-      }
-
-      @include breakpoints.container(max, xs) {
-        --padding-inline: var(--onyx-spacing-md);
+        padding-inline: var(--onyx-spacing-xl);
       }
     }
 
+    &__back {
+      grid-area: back;
+    }
+
     &__nav {
-      display: flex;
-      align-items: center;
-      gap: var(--onyx-spacing-4xs);
-      padding: 0;
+      grid-area: nav;
+
+      > ul {
+        display: flex;
+        align-items: center;
+        gap: var(--onyx-spacing-4xs);
+        padding: 0;
+      }
     }
 
     &__context {
@@ -119,7 +205,47 @@ const { t } = injectI18n();
       align-items: center;
       justify-content: flex-end;
       gap: var(--onyx-spacing-4xs);
-      flex-grow: 1;
+      grid-area: context;
+    }
+
+    &__app {
+      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      grid-area: app;
+    }
+
+    &--mobile {
+      .onyx-nav-bar__content {
+        grid-template-columns: max-content max-content max-content auto;
+        grid-template-areas: "burger back nav mobile-context";
+        gap: 0;
+        padding-inline: 0;
+
+        .onyx-nav-bar__back {
+          margin-left: $gap;
+        }
+      }
+
+      .onyx-nav-bar__app {
+        border-right: none;
+        grid-area: nav;
+      }
+    }
+
+    &__burger {
+      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      grid-area: burger;
+    }
+
+    &__mobile-context {
+      grid-area: mobile-context;
+      margin-left: auto;
+    }
+
+    &__mobile-page {
+      grid-area: nav;
+      color: var(--onyx-color-text-icons-secondary-intense);
+      padding-inline: $gap;
+      font-weight: 600;
     }
   }
 }
