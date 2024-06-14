@@ -74,4 +74,8 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
      * Will be replaced by an error message if the select is invalid.
      */
     message?: string;
+    /**
+     * Highlight input as if it has focus.
+     */
+    showFocus?: boolean;
   };

@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-alpha.9
+
+### Patch Changes
+
+- 6059d12: fix keyboard support for the select
+
 ## 1.0.0-alpha.8
 
 ### Major Changes

@@ -6,10 +6,8 @@ const value = ref("");
 </script>
 
 <template>
-  <p>You can edit the code on the left and see the live results here.</p>
-  <OnyxInput v-model="value" label="Example input" />
+  <div>
+    <p>You can edit the code on the left and see the live results here.</p>
+    <OnyxInput v-model="value" label="Example input" />
+  </div>
 </template>
-
-<style>
-@import "sit-onyx/global.css";
-</style>

@@ -76,6 +76,12 @@ export const ICON_METADATA = {
   "arrow-up": {
     category: "Arrows",
   },
+  "arrow-small-down": {
+    category: "Arrows",
+  },
+  "arrow-small-up": {
+    category: "Arrows",
+  },
   "arrows-sort": {
     category: "Arrows",
   },
@@ -1779,6 +1785,42 @@ export const ICON_METADATA = {
   },
   "server-lock": {
     category: "Network & Infrastructure",
+  },
+  new: {
+    category: "Various",
+  },
+  "server-shield": {
+    category: "Network & Infrastructure",
+  },
+  "kubernetes-shield": {
+    category: "Software & Services",
+  },
+  "car-electric": {
+    category: "Car Parts",
+  },
+  "circle-contrast": {
+    category: "Action & Interface",
+  },
+  "search-x": {
+    category: "Action & Interface",
+  },
+  "print-dots": {
+    category: "Devices & Electronics",
+  },
+  "print-list": {
+    category: "Devices & Electronics",
+  },
+  soccer: {
+    category: "Objects",
+  },
+  "heptagon-cloud-lock": {
+    category: "Software & Services",
+  },
+  "heptagon-cloud": {
+    category: "Software & Services",
+  },
+  "heptagon-lock": {
+    category: "Software & Services",
   },
 } as const satisfies Record<string, IconMetadata>;
 
