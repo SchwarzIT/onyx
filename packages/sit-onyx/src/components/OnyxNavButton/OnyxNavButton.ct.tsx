@@ -67,8 +67,8 @@ test.describe("Screenshot tests with nested children", () => {
       // since the flyout is positioned absolute, we need to set the component size accordingly
       // so the screenshot contains the whole component
       await component.evaluate((element) => {
-        element.style.height = `${element.scrollHeight}px`;
-        element.style.width = `${element.scrollWidth}px`;
+        element.style.height = "200px";
+        element.style.width = "100px";
       });
     },
   });
