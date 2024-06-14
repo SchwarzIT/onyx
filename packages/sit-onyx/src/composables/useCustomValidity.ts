@@ -69,6 +69,15 @@ export const getCustomErrors = (customError?: CustomErrorType): FormErrorMessage
   return customError;
 };
 
+export const getCustomErrorText = (customError?: CustomErrorType): string | undefined => {
+  if (!customError) return;
+  if (typeof customError === "string") {
+    return customError;
+  }
+  const { shortMessage, longMessage } = customError;
+  return `${shortMessage}: ${longMessage}`;
+};
+
 /**
  * Composable for unified handling of custom error messages for form components.
  * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
@@ -108,9 +117,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       /**
        * Sync custom error with the native input validity.
        */
-      watchEffect(() =>
-        el.setCustomValidity(getCustomErrors(options.props.customError)?.shortMessage ?? ""),
-      );
+      watchEffect(() => el.setCustomValidity(getCustomErrorText(options.props.customError) ?? ""));
 
       watch(
         [() => options.props.customError, () => options.props.modelValue],
