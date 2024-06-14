@@ -32,6 +32,8 @@ test.describe("Screenshot tests", () => {
           <OnyxNavItem label="Item" active />
           <OnyxNavItem label="Item" />
 
+          <template v-slot:mobileActivePage>Item</template>
+
           {row.includes("context") && (
             <template v-slot:contextArea>
               <OnyxUserMenu username="John Doe" options={[]} />
@@ -91,6 +93,8 @@ test("should be aligned with the grid in a full app layout", async ({ page, moun
       <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
         <OnyxNavItem label="Item" active />
         <OnyxNavItem label="Item" />
+
+        <template v-slot:mobileActivePage>Item</template>
 
         <template v-slot:contextArea>
           <OnyxUserMenu username="John Doe" options={[]} />

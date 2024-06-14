@@ -3,6 +3,7 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
@@ -22,6 +23,19 @@ const meta: Meta<typeof OnyxNavBar> = {
       default: { control: { disable: true } },
       contextArea: { control: { disable: true } },
       appArea: { control: { type: "text" } },
+      mobileActivePage: { control: { type: "text" } },
+      mobileBreakpoint: {
+        options: Object.keys(ONYX_BREAKPOINTS),
+        control: {
+          labels: Object.entries(ONYX_BREAKPOINTS).reduce<Record<string, string>>(
+            (labels, [name, width]) => {
+              labels[name] = `${name} (${width}px)`;
+              return labels;
+            },
+            {},
+          ),
+        },
+      },
     },
     decorators: [
       (story) => ({
@@ -40,7 +54,7 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item", href: "/", active: true }),
+      h(OnyxNavItem, { label: "Item", href: "/" }),
       h(
         OnyxNavItem,
         {
@@ -48,7 +62,7 @@ export const Default = {
           href: "/test",
           options: [
             { label: "Nested item 1", href: "#" },
-            { label: "Nested item 2", href: "#" },
+            { label: "Nested item 2", href: "#", active: true },
             { label: "Nested item 3", href: "#" },
           ],
         },
@@ -56,6 +70,7 @@ export const Default = {
       ),
       h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
     ],
+    mobileActivePage: "Nested item 2",
   },
 } satisfies Story;
 
@@ -78,7 +93,9 @@ export const WithContextArea = {
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
-      h(OnyxUserMenu, OnyxUserMenuDefault.args),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        footer: OnyxUserMenuDefault.args.footer,
+      }),
     ],
   },
 } satisfies Story;
