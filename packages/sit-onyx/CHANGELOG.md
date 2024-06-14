@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-alpha.136
+
+### Patch Changes
+
+- f1aad40: fix(OnyxNavBar): support SSR
+
+  prevent "ResizeObserver not defined" error
+
+## 1.0.0-alpha.135
+
+### Patch Changes
+
+- 0511127: fix(OnyxNavItem): fix styles for selected child items
+
 ## 1.0.0-alpha.134
 
 ### Minor Changes
