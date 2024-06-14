@@ -95,10 +95,12 @@ const options = computed(() => {
 
 .onyx-flyout-menu {
   @include layers.component() {
-    display: inline-block;
+    // TODO: remove comment after replacing this component with the official OnyxFlyoutMenu
+    // display: inline-block;
 
     &__list {
       @include list.styles();
+      position: absolute;
 
       &--with-header {
         padding-top: 0;

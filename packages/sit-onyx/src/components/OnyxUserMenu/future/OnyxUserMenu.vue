@@ -97,13 +97,13 @@ const avatar = computed(() => {
     &:hover {
       outline: 0;
 
-      .onyx-user-menu__trigger {
+      .onyx-user-menu__trigger[aria-expanded="true"] {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
-      }
 
-      .onyx-user-menu__chevron {
-        transform: rotate(-90deg);
+        .onyx-user-menu__chevron {
+          transform: rotate(-90deg);
+        }
       }
     }
 
@@ -123,6 +123,10 @@ const avatar = computed(() => {
 
       &:hover {
         background-color: var(--onyx-color-base-neutral-200);
+      }
+
+      &:focus {
+        outline: 0;
       }
     }
 

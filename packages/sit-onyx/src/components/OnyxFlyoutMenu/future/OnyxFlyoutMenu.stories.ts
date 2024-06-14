@@ -10,6 +10,15 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxFlyoutMenu,
     events: [],
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `
+        <div style="height: 28rem;">
+          <story />
+        </div>`,
+      }),
+    ],
     argTypes: {
       default: { control: { disable: true } },
       options: { control: { disable: true } },
