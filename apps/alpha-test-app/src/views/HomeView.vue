@@ -215,7 +215,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
             />
           </div>
 
-          <div class="onyx-text--small state-info">
+          <div v-if="!useSkeleton" class="onyx-text--small state-info">
             <div>OnyxSelect single state: {{ selectState ?? "–" }}</div>
             <div>OnyxSelect single grouped state: {{ groupedSelectState ?? "–" }}</div>
             <div>OnyxSelect multiselect state: {{ multiselectState ?? "–" }}</div>
@@ -278,6 +278,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
           v-if="show('OnyxTextarea')"
           label="Example textarea"
           label-tooltip="More information tooltip"
+          :skeleton="useSkeleton"
         />
 
         <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
