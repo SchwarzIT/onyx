@@ -233,6 +233,8 @@ export const createComboBox = createBuilder(
         listbox: computed(() => ({
           ...listbox.value,
           id: controlsId,
+          // preventDefault to not lose focus of the combobox
+          onMousedown: (e) => e.preventDefault(),
         })),
         /**
          * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.
