@@ -69,6 +69,10 @@ export const getCustomErrors = (customError?: CustomErrorType): FormErrorMessage
   return customError;
 };
 
+/**
+ * Returns a string combining short + long message or just the customError if it was provided as single string.
+ * Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
+ */
 export const getCustomErrorText = (customError?: CustomErrorType): string | undefined => {
   if (!customError) return;
   if (typeof customError === "string") {
