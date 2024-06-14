@@ -156,7 +156,10 @@ export const HiddenLabel = {
 export const CustomError = {
   args: {
     ...Default.args,
-    customError: "Example custom error",
+    customError: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
     placeholder: "Interact with me to show error",
   },
 } satisfies Story;
