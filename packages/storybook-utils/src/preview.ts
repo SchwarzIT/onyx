@@ -148,32 +148,50 @@ export const sourceCodeTransformer = (
 
   let code = generateSourceCode(ctx);
 
-  const iconImports: string[] = [];
+  const additionalImports: string[] = [];
 
   // add icon imports to the source code for all used onyx icons
   Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
     const importName = getIconImportName(iconName);
     const singleQuotedIconContent = `'${replaceAll(iconContent, '"', "\\'")}'`;
+    const escapedIconContent = `"${replaceAll(iconContent, '"', '\\"')}"`;
 
     if (code.includes(iconContent)) {
       code = code.replace(new RegExp(` (\\S+)=['"]${iconContent}['"]`), ` :$1="${importName}"`);
-      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     } else if (code.includes(singleQuotedIconContent)) {
       // support icons inside objects
       code = code.replace(singleQuotedIconContent, importName);
-      iconImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+    } else if (code.includes(escapedIconContent)) {
+      // support icons inside objects
+      code = code.replace(escapedIconContent, importName);
+      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     }
   });
 
-  if (iconImports.length > 0) {
-    return `<script lang="ts" setup>
-${iconImports.join("\n")}
+  // add imports for all used onyx components
+  // Set is used here to only include unique components if they are used multiple times
+  const usedOnyxComponents = [
+    ...new Set(Array.from(code.matchAll(/<Onyx\S+/g)).map((match) => match[0].replace("<", ""))),
+  ].sort();
+
+  if (usedOnyxComponents.length > 0) {
+    additionalImports.unshift(`import { ${usedOnyxComponents.join(", ")} } from "sit-onyx";`);
+  }
+
+  if (additionalImports.length === 0) return code;
+
+  if (code.startsWith("<script")) {
+    const index = code.indexOf("\n");
+    return code.slice(0, index) + additionalImports.join("\n") + "\n" + code.slice(index);
+  }
+
+  return `<script lang="ts" setup>
+${additionalImports.join("\n")}
 </script>
 
 ${code}`;
-  }
-
-  return code;
 };
 
 /**

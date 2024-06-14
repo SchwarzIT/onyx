@@ -4,7 +4,7 @@ import type { OnyxTableProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
-  grid: false,
+  withVerticalBorders: false,
 });
 
 defineSlots<{
@@ -24,7 +24,7 @@ const { densityClass } = useDensity(props);
         class="onyx-table onyx-text"
         :class="[
           props.striped ? 'onyx-table--striped' : '',
-          props.grid ? 'onyx-table--grid' : '',
+          props.withVerticalBorders ? 'onyx-table--vertical-borders' : '',
           densityClass,
         ]"
       >
@@ -100,8 +100,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
   }
 
-  // grid style borders
-  &--grid {
+  &--vertical-borders {
     td,
     th {
       &:not(:last-child) {
@@ -114,7 +113,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 .onyx-table-wrapper {
   @include layers.component() {
     position: relative;
-    width: fit-content;
 
     &__scroll-container {
       border-radius: $border-radius;
@@ -122,7 +120,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       box-sizing: border-box;
       max-height: inherit;
       max-width: inherit;
-      width: fit-content;
     }
     // we place a frame on top so the table has visible boundaries
     // when it is overflowing in the scroll container
@@ -160,6 +157,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
+    width: 100%;
 
     thead {
       position: sticky;
@@ -221,6 +219,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       left: 0;
       width: 100%;
       bottom: 0;
+      // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+      pointer-events: none;
     }
   }
 }

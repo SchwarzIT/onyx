@@ -1,6 +1,7 @@
 import { DENSITIES } from "../../composables/density";
-import { test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 const tableHead = (
@@ -31,11 +32,14 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Table",
     columns: ["with-header", "without-header"],
-    rows: ["default", "striped", "grid", "striped-grid"],
+    rows: ["default", "striped", "vertical-borders", "striped-vertical-borders"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
-      <OnyxTable striped={row.includes("striped")} grid={row.includes("grid")}>
+      <OnyxTable
+        striped={row.includes("striped")}
+        withVerticalBorders={row.includes("vertical-borders")}
+      >
         {column === "with-header" ? tableHead : undefined}
         {tableBody}
       </OnyxTable>
@@ -120,4 +124,49 @@ test.describe("Screenshot tests", () => {
       if (row === "vertical-scroll") await component.getByText("Price").hover();
     },
   });
+});
+
+test("should focus components with active column hover effect", async ({ page, mount }) => {
+  let buttonClickCount = 0;
+
+  const component = await mount(
+    <OnyxTable>
+      <thead>
+        <tr>
+          <th>
+            <OnyxButton label="Header button" onClick={() => buttonClickCount++} />
+          </th>
+          <th>Column 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <OnyxButton label="Row button" onClick={() => buttonClickCount++} />
+          </td>
+          <td>Test 2</td>
+        </tr>
+        <tr>
+          <td>Test 3</td>
+          <td>Test 4</td>
+        </tr>
+      </tbody>
+    </OnyxTable>,
+  );
+
+  await component.getByRole("button", { name: "Header button" }).click();
+  expect(buttonClickCount).toBe(1);
+
+  // simulate moving the mouse down on the column hover effect to test that it will be hidden when moving
+  // outside of the table header
+  let box = (await component.getByRole("button", { name: "Header button" }).boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+
+  box = (await component.getByRole("button", { name: "Row button" }).boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+
+  await page.mouse.down();
+  await page.mouse.up();
+
+  expect(buttonClickCount).toBe(2);
 });

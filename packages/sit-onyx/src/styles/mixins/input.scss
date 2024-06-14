@@ -21,7 +21,22 @@
     // optional marker should be displayed at the very end of the label
     &.onyx-optional-marker {
       justify-content: space-between;
+
+      &::after {
+        display: none;
+      }
     }
+  }
+
+  &__optional {
+    display: none;
+    font-family: var(--onyx-font-family);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--onyx-color-text-icons-neutral-soft);
+    padding-left: var(--onyx-spacing-2xs);
+    hyphens: none;
+    margin-left: auto;
   }
 
   &__wrapper {
@@ -81,6 +96,16 @@
     }
   }
 
+  &__error-message {
+    display: none;
+  }
+  &:has(#{$base-selector}__native:user-invalid) {
+    #{$base-selector}__error-message {
+      display: flex;
+      color: var(--onyx-color-base-danger-500);
+    }
+  }
+
   &__native {
     // reset native input styles so they are inherited from the parent
     border: none;
@@ -122,13 +147,13 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
     color: var(--onyx-color-text-icons-neutral-soft);
   }
 
   &__counter {
     text-align: right;
     flex-grow: 1;
+    margin-left: var(--onyx-spacing-2xs);
   }
 }
 

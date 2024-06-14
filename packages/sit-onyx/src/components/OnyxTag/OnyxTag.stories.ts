@@ -1,7 +1,7 @@
 import check from "@sit-onyx/icons/check.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxTag from "./OnyxTag.vue";
 
 /**
@@ -47,6 +47,6 @@ export const WithIcon = {
 export const WithTruncation = {
   args: {
     label: "Tag with a very long text that gets truncated",
+    style: "max-width: 10rem",
   },
-  decorators: createTruncationDecorator("10rem"),
 } satisfies Story;

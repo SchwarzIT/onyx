@@ -1,6 +1,6 @@
+import { $fetch, setup } from "@nuxt/test-utils/e2e";
 import { fileURLToPath } from "node:url";
-import { describe, it, expect } from "vitest";
-import { setup, $fetch } from "@nuxt/test-utils/e2e";
+import { describe, expect, it } from "vitest";
 
 describe("auto imports", async () => {
   await setup({
@@ -16,5 +16,10 @@ describe("auto imports", async () => {
 
     // The rendered page should contain a h1 with the onyx classes if the component was auto imported correctly
     expect(html).toContain('<h1 class="onyx-headline onyx-headline--h1">');
+
+    // global styles should be imported
+    expect(html).toContain(
+      `@layer onyx.utility{body{background-color:var(--onyx-color-base-background-tinted)`,
+    );
   });
 });

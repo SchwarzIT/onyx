@@ -1,6 +1,5 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
 /**
@@ -36,8 +35,8 @@ export const WithTruncation = {
   args: {
     ...Default.args,
     label: "Very long label that will be truncated",
+    style: "max-width: 12rem",
   },
-  decorators: [createTruncationDecorator("12rem")],
 } satisfies Story;
 
 /**

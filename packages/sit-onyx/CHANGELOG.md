@@ -1,5 +1,69 @@
 # sit-onyx
 
+## 1.0.0-alpha.131
+
+### Major Changes
+
+- 1baef56: refactor(OnyxTable): rename property grid to withVerticalBorders
+
+## 1.0.0-alpha.130
+
+### Minor Changes
+
+- 37ee3fd: feat: add `OnyxDialog` component
+
+## 1.0.0-alpha.129
+
+### Minor Changes
+
+- 70c7f93: feat(OnyxInfoTooltip): export info tooltip
+
+## 1.0.0-alpha.128
+
+### Patch Changes
+
+- 55c0b19: fix(OnyxTable): make components interactive when showing column hover effect
+
+## 1.0.0-alpha.127
+
+### Minor Changes
+
+- 62cb2ca: feat: support `global.css` file
+
+  See [Getting Started guide](https://onyx.schwarz/development/#installation) for further information.
+
+## 1.0.0-alpha.126
+
+### Minor Changes
+
+- 85482cd: feat(OnyxInput,OnyxTextarea): show invalid messages
+
+### Patch Changes
+
+- edbfc22: fix(OnyxTable): take up full available width
+
+  This also fixed the issue that the table does not align with the grid
+
+- edbfc22: fix: export missing support components
+
+## 1.0.0-alpha.125
+
+### Patch Changes
+
+- 2805e75: fix(OnyxTextarea): Fix first manual resizing being canceled on Firefox
+
+## 1.0.0-alpha.124
+
+### Patch Changes
+
+- 5294c95: Remove unnecessary footer gap in OnyxTextarea and OnyxInput component
+
+## 1.0.0-alpha.123
+
+### Minor Changes
+
+- f7e965b: Implement info/message label on input and textarea
+
 ## 1.0.0-alpha.122
 
 ### Patch Changes

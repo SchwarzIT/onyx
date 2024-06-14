@@ -1,6 +1,5 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { CheckboxGroupOption } from "./types";
 
@@ -77,6 +76,7 @@ export const Disabled = {
 export const WithTruncation = {
   args: {
     ...Default.args,
+    style: "max-width: 16rem",
     options: [
       { label: "Very long label that will be truncated", value: 1 },
       { label: "Very long required label that will be truncated", value: 2, required: true },
@@ -93,7 +93,6 @@ export const WithTruncation = {
       },
     ],
   },
-  decorators: [createTruncationDecorator("16rem")],
 } satisfies Story;
 
 /**

@@ -1,7 +1,7 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "./OnyxButton.vue";
 
 /**
@@ -82,8 +82,8 @@ export const WithIcon = {
 export const WithTruncation = {
   args: {
     label: "Button with a very long text that gets truncated",
+    style: "max-width: 16rem",
   },
-  decorators: createTruncationDecorator("16rem"),
 } satisfies Story;
 
 /**

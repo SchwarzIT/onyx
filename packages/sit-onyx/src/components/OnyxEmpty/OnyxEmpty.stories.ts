@@ -3,7 +3,6 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { OnyxLink } from "../../index";
-import { createTruncationDecorator } from "../../utils/storybook";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxEmpty from "./OnyxEmpty.vue";
 
@@ -56,6 +55,6 @@ export const CustomContent = {
 export const Truncation = {
   args: {
     default: "Place a text for empty state here",
+    style: "max-width: 12rem",
   },
-  decorators: [createTruncationDecorator("12rem")],
 } satisfies Story;
