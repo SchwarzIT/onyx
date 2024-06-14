@@ -104,7 +104,11 @@ defineExpose({ focus: () => input.value?.focus() });
 
         <input
           ref="input"
-          class="onyx-select-input__input onyx-truncation-ellipsis"
+          :class="{
+            'onyx-select-input__input': true,
+            'onyx-select-input__input--show-focus': props.showFocus,
+            'onyx-truncation-ellipsis': true,
+          }"
           v-bind="restAttrs"
           type="text"
           readonly
@@ -273,7 +277,10 @@ defineExpose({ focus: () => input.value?.focus() });
         }
       }
       // default focus
-      &:has(.onyx-select-input__input:enabled:focus) {
+      &:has(
+          .onyx-select-input__input:enabled:focus,
+          .onyx-select-input__input--show-focus:enabled
+        ) {
         .onyx-select-input {
           &__wrapper {
             --border-color: var(--onyx-color-base-primary-500);
@@ -288,7 +295,11 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     // readonly focus
-    &--readonly:has(.onyx-select-input__input:enabled:focus) .onyx-select-input__wrapper {
+    &--readonly:has(
+        .onyx-select-input__input:enabled:focus,
+        .onyx-select-input__input--show-focus:enabled
+      )
+      .onyx-select-input__wrapper {
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
     }
 
