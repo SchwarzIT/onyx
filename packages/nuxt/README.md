@@ -10,10 +10,10 @@
 
 # @sit-onyx/nuxt
 
-A Nuxt module to easily integrate onyx into [Nuxt Js](https://nuxt.com/) projects.
+A Nuxt module to easily integrate onyx into [Nuxt](https://nuxt.com/) projects.
 Created by [Schwarz IT](https://it.schwarz).
 
-## Adding it to a nuxt project
+## Adding it to a Nuxt project
 
 Install the module in your Nuxt application with one command:
 
