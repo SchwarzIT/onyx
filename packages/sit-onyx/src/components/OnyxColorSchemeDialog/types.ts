@@ -4,4 +4,4 @@ export type OnyxColorSchemeDialogProps = Pick<OnyxDialogProps, "label" | "open" 
   modelValue: ColorSchemeValue;
 };
 
-export type ColorSchemeValue = "light" | "dark" | "system";
+export type ColorSchemeValue = "light" | "dark" | "auto";

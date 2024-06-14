@@ -9,7 +9,7 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
   title: "support/ColorSchemeDialog",
   ...defineStorybookActionsAndVModels({
     component: OnyxColorSchemeDialog,
-    events: ["update:modelValue"],
+    events: ["update:modelValue", "close"],
     decorators: [
       (story) => ({
         components: { story },
@@ -26,6 +26,6 @@ export const Default = {
   args: {
     open: true,
     label: "Select color scheme",
-    modelValue: "system",
+    modelValue: "auto",
   },
 } satisfies Story;

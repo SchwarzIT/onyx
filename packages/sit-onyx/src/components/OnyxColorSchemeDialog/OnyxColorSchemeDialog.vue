@@ -1,36 +1,101 @@
 <script lang="ts" setup>
+import { computed, ref, watchEffect } from "vue";
+import { injectI18n } from "../../i18n";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
+import autoImage from "./auto.svg?raw";
+import darkImage from "./dark.svg?raw";
+import lightImage from "./light.svg?raw";
 import type { ColorSchemeValue, OnyxColorSchemeDialogProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxColorSchemeDialogProps>(), {
   open: false,
 });
 
-defineEmits<{
+const emit = defineEmits<{
   "update:modelValue": [value: ColorSchemeValue];
+  close: [];
 }>();
+
+const currentValue = ref(props.modelValue);
+watchEffect(() => (currentValue.value = props.modelValue));
+
+const { t } = injectI18n();
+
+const options = computed<
+  { value: ColorSchemeValue; description: string; image: string; label: string }[]
+>(() => {
+  return [
+    {
+      value: "auto",
+      image: autoImage,
+      label: t.value("colorScheme.auto.label"),
+      description: t.value("colorScheme.auto.description"),
+    },
+    {
+      value: "light",
+      image: lightImage,
+      label: t.value("colorScheme.light.label"),
+      description: t.value("colorScheme.light.description"),
+    },
+    {
+      value: "dark",
+      image: darkImage,
+      label: t.value("colorScheme.dark.label"),
+      description: t.value("colorScheme.dark.description"),
+    },
+  ];
+});
+
+const handleChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  currentValue.value = target.validationMessage as ColorSchemeValue;
+};
+
+const handleApply = () => {
+  emit("update:modelValue", currentValue.value);
+  emit("close");
+};
 </script>
 
 <template>
-  <OnyxDialog class="onyx-color-scheme-dialog" v-bind="props">
-    <div>
-      <OnyxHeadline is="h2">Color scheme selection</OnyxHeadline>
-      <div class="onyx-color-scheme-dialog__subtitle onyx-text">
-        Please select the appearance of your application
+  <OnyxDialog v-bind="props">
+    <form
+      class="onyx-color-scheme-dialog"
+      method="dialog"
+      @submit.prevent="handleApply"
+      @reset="emit('close')"
+    >
+      <div>
+        <OnyxHeadline is="h2"> {{ t("colorScheme.headline") }}</OnyxHeadline>
+        <div class="onyx-color-scheme-dialog__subtitle onyx-text">
+          {{ t("colorScheme.subtitle") }}
+        </div>
       </div>
-    </div>
 
-    <ul class="onyx-color-scheme-dialog__list">
-      <li class="onyx-color-scheme-dialog__option">System</li>
-      <li class="onyx-color-scheme-dialog__option">Light</li>
-      <li class="onyx-color-scheme-dialog__option">Dark</li>
-    </ul>
+      <fieldset class="onyx-color-scheme-dialog__list" @change="handleChange">
+        <div v-for="option in options" :key="option.value" class="onyx-color-scheme-dialog__option">
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <figure v-html="option.image"></figure>
 
-    <form method="dialog" class="onyx-color-scheme-dialog__actions">
-      <OnyxButton label="Abort" mode="plain" color="neutral" />
-      <OnyxButton label="Apply" type="submit" />
+          <div>
+            <OnyxRadioButton
+              :label="option.label"
+              name="color-scheme"
+              :value="option.value"
+              :selected="props.modelValue === option.value"
+            />
+            <p class="onyx-text--small">{{ option.description }}</p>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="onyx-color-scheme-dialog__actions">
+        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" type="reset" />
+        <OnyxButton :label="t('apply')" type="submit" />
+      </div>
     </form>
   </OnyxDialog>
 </template>
@@ -43,6 +108,7 @@ defineEmits<{
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-md);
+    max-width: 30rem;
 
     &__subtitle {
       color: var(--onyx-color-text-icons-neutral-medium);
@@ -62,6 +128,7 @@ defineEmits<{
       align-items: flex-start;
       gap: var(--onyx-spacing-md);
       align-self: stretch;
+      color: var(--onyx-color-text-icons-neutral-medium);
 
       &:not(:last-child) {
         border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);

@@ -1,5 +1,7 @@
 {
   "optional": "(optional)",
+  "cancel": "Abbrechen",
+  "apply": "Anwenden",
   "validations": {
     "tooShort": {
       "shortError": "Zu kurz",
@@ -80,5 +82,21 @@
   "showTooltip": {
     "info": "Info-Tooltip anzeigen",
     "error": "Fehler-Tooltip anzeigen"
+  },
+  "colorScheme": {
+    "Überschrift": "Auswahl des Farbschemas",
+    "subtitle": "Bitte wählen das Farbschema deiner Anwendung",
+    "auto": {
+      "label": "Auto",
+      "description": "Wenn diese Option ausgewählt ist, passt die Anwendung ihr Aussehen automatisch an deine Systemeinstellungen an."
+    },
+    "light": {
+      "label": "Hell",
+      "description": "Der Modus \"Hell\" bietet einen optimalen Kontrast in hellen Umgebungen."
+    },
+    "dark": {
+      "label": "Dunkel",
+      "description": "Dieser Farbmodus ist optimiert für dunklere Umgebungen."
+    }
   }
 }
