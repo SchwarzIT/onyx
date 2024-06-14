@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-alpha.133
+
+### Patch Changes
+
+- Updated dependencies [fad8140]
+  - @sit-onyx/icons@0.1.0-alpha.2
+
 ## 1.0.0-alpha.132
 
 ### Patch Changes
