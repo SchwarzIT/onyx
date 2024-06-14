@@ -58,7 +58,7 @@ export type FormErrorMessages = {
 /**
  * Transforms a customError into the format needed to display an error preview and extended message
  */
-const getCustomErrors = (customError?: CustomErrorType): FormErrorMessages | undefined => {
+export const getCustomErrors = (customError?: CustomErrorType): FormErrorMessages | undefined => {
   if (!customError) return;
   if (typeof customError === "string") {
     // we can't guarantee a custom error message will be short,
