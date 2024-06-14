@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
     decorators: [
       (story) => ({
         components: { story },
-        template: `<div style="height: 12rem;"> <story /> </div>`,
+        template: `<div style="height: 50vh;"> <story /> </div>`,
       }),
     ],
   }),
