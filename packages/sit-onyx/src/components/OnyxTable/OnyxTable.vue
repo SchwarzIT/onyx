@@ -4,7 +4,7 @@ import type { OnyxTableProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
-  grid: false,
+  withVerticalBorders: false,
 });
 
 defineSlots<{
@@ -24,7 +24,7 @@ const { densityClass } = useDensity(props);
         class="onyx-table onyx-text"
         :class="[
           props.striped ? 'onyx-table--striped' : '',
-          props.grid ? 'onyx-table--grid' : '',
+          props.withVerticalBorders ? 'onyx-table--vertical-borders' : '',
           densityClass,
         ]"
       >
@@ -100,8 +100,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
   }
 
-  // grid style borders
-  &--grid {
+  &--vertical-borders {
     td,
     th {
       &:not(:last-child) {

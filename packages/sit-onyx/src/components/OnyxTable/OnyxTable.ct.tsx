@@ -32,11 +32,14 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Table",
     columns: ["with-header", "without-header"],
-    rows: ["default", "striped", "grid", "striped-grid"],
+    rows: ["default", "striped", "vertical-borders", "striped-vertical-borders"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
-      <OnyxTable striped={row.includes("striped")} grid={row.includes("grid")}>
+      <OnyxTable
+        striped={row.includes("striped")}
+        withVerticalBorders={row.includes("vertical-borders")}
+      >
         {column === "with-header" ? tableHead : undefined}
         {tableBody}
       </OnyxTable>
