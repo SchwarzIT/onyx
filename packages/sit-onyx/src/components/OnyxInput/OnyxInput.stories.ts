@@ -99,16 +99,23 @@ export const Skeleton = {
 } satisfies Story;
 
 /**
- * This example shows an input with a maxlength and counter.
+ * This example shows an input with a minlength of 5, a maxlength and counter.
+ * Shows an error after interaction for a shorter value.
  */
-export const Maxlength = {
+export const Maxlength: Story = {
   args: {
     ...Default.args,
     maxlength: 16,
     minlength: 5,
     withCounter: true,
   },
-} satisfies Story;
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="padding: 0 0 4rem 4rem"> <story /> </div>`,
+    }),
+  ],
+};
 
 /**
  * This example shows an input with a message / help text.

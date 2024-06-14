@@ -152,9 +152,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
         longMessage: t.value(`validations.typeMismatch.${type}.fullError`, {
           value: options.props.modelValue?.toString(),
         }),
-        shortMessage: t.value(`validations.typeMismatch.${type}.preview`, {
-          value: options.props.modelValue?.toString(),
-        }),
+        shortMessage: t.value(`validations.typeMismatch.${type}.preview`),
       };
     }
 
@@ -167,7 +165,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
     return {
       longMessage: t.value(`validations.${errorType}.fullError`, validationData),
-      shortMessage: t.value(`validations.${errorType}.preview`, validationData),
+      shortMessage: t.value(`validations.${errorType}.preview`),
     };
   });
 
