@@ -20,6 +20,9 @@ export * from "./components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types";
 
+export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
+export * from "./components/OnyxDialog/types";
+
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
 export { default as OnyxFlyoutMenu } from "./components/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
