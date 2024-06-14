@@ -37,7 +37,7 @@ test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
 test("should render with long content", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
     <OnyxDialog label="Label" open>
-      {"Content ".repeat(64)}
+      {"Test".repeat(64)}
     </OnyxDialog>,
   );
 

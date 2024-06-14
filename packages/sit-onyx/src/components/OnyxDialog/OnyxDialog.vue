@@ -60,7 +60,7 @@ watch(
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
   <dialog
     ref="dialogRef"
-    :class="['onyx-dialog', densityClass]"
+    :class="['onyx-dialog', densityClass, 'onyx-truncation-multiline']"
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
