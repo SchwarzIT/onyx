@@ -23,6 +23,7 @@ const meta: Meta<typeof OnyxNavBar> = {
       default: { control: { disable: true } },
       contextArea: { control: { disable: true } },
       appArea: { control: { type: "text" } },
+      mobileActivePage: { control: { type: "text" } },
       mobileBreakpoint: {
         options: Object.keys(ONYX_BREAKPOINTS),
         control: {
@@ -69,6 +70,7 @@ export const Default = {
       ),
       h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
     ],
+    mobileActivePage: "Nested item 2",
   },
 } satisfies Story;
 

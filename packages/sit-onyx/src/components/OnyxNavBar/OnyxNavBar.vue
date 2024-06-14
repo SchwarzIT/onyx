@@ -2,15 +2,13 @@
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { computed, ref, type VNode } from "vue";
+import { computed, ref } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
-import { filterVNodesByComponent } from "../../utils/vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import type { OnyxNavBarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
@@ -33,7 +31,7 @@ const slots = defineSlots<{
   /**
    * Nav items, only `OnyxNavItem` components should be placed here.
    */
-  default?: () => VNode[];
+  default?: () => unknown;
   /**
    * Optional slot to override the app area content (logo and app name, e.g. with a custom icon / `OnyxIcon` component).
    */
@@ -42,6 +40,11 @@ const slots = defineSlots<{
    * Optional context area on the right to display additional (global) components, like user login, global settings etc.
    */
   contextArea?: () => unknown;
+  /**
+   * Label for displaying the currently active page in mobile mode.
+   * If a child of a nav item is active, it should displayed the child label instead of the parent.
+   */
+  mobileActivePage?: () => unknown;
 }>();
 
 const navBarRef = ref<HTMLElement>();
@@ -59,26 +62,6 @@ const isMobile = computed(() => {
 });
 
 const { t } = injectI18n();
-
-/**
- * list of all nav items (VNodes) that are passed via the slot.
- */
-const allNavItems = computed(() => {
-  const vnodes = slots.default?.() ?? [];
-  return filterVNodesByComponent(vnodes, OnyxNavItem);
-});
-
-/**
- * Label of the currently active nav item (or active nested child if existing).
- */
-const activeNavItemLabel = computed(() => {
-  const activeItem = allNavItems.value.find(
-    ({ props }) => props?.active || props?.options?.some(({ active }) => active),
-  );
-  if (!activeItem?.props) return;
-  const activeNestedItem = activeItem.props.options?.find((i) => i.active);
-  return activeNestedItem?.label ?? activeItem.props.label;
-});
 </script>
 
 <template>
@@ -86,10 +69,10 @@ const activeNavItemLabel = computed(() => {
     <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
       <div class="onyx-nav-bar__content">
         <span
-          v-if="isMobile && activeNavItemLabel && !isBurgerOpen"
+          v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
           class="onyx-nav-bar__mobile-page"
         >
-          {{ activeNavItemLabel }}
+          <slot name="mobileActivePage"></slot>
         </span>
 
         <OnyxNavAppArea
