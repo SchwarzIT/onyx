@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.132
+
+### Patch Changes
+
+- 6059d12: fix keyboard support for the select
+
 ## 1.0.0-alpha.131
 
 ### Major Changes
