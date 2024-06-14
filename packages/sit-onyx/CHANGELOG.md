@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.134
+
+### Minor Changes
+
+- 02d9f0f: feat(validity): Allow short/long message distinguishing for custom errors
+
 ## 1.0.0-alpha.133
 
 ### Patch Changes
