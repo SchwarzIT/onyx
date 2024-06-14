@@ -9,13 +9,13 @@ import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
  * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavButton> = {
-  title: "future/NavButton",
+  title: "support/NavButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavButton,
     events: ["click"],
     argTypes: {
       default: {
-        control: { disable: true },
+        control: { type: "text" },
       },
     },
   }),
@@ -38,7 +38,7 @@ type Story = StoryObj<typeof OnyxNavButton>;
 export const Default = {
   args: {
     label: "Nav Button",
-    default: () => "Item",
+    default: "Item",
   },
 } satisfies Story;
 
@@ -69,7 +69,7 @@ export const WithChildren = {
 export const WithCustomContent = {
   args: {
     ...Default.args,
-    default: () => ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
+    default: ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
   },
 } satisfies Story;
 
