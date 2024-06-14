@@ -14,6 +14,13 @@ const reloadPage = () => replRef.value?.reload();
 
 const isDark = useDark();
 const theme = computed(() => (isDark.value ? "dark" : "light"));
+
+const previewOptions = computed<InstanceType<typeof Repl>["previewOptions"]>(() => {
+  return {
+    headHTML: `<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/style.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/src/styles/global.css' />`,
+  };
+});
 </script>
 
 <template>
@@ -39,9 +46,7 @@ const theme = computed(() => (isDark.value ? "dark" : "light"));
       :store="store"
       :clear-console="false"
       :show-compile-output="false"
-      :preview-options="{
-        headHTML: `<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion}/dist/style.css' />`,
-      }"
+      :preview-options="previewOptions"
       preview-theme
       auto-resize
       @keydown.ctrl.s.prevent
