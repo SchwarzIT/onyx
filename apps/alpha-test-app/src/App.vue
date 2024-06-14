@@ -11,11 +11,12 @@ import {
   type OnyxNavItemProps,
   type SelectOption,
 } from "sit-onyx";
-import { RouterView, useRouter } from "vue-router";
+import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
 
 const router = useRouter();
+const route = useRoute();
 const gridStore = useGridStore();
 
 const navItems = [
@@ -41,7 +42,15 @@ const toggleDark = useToggle(isDark);
       'onyx-grid-center': gridStore.isCentered,
     }"
   >
-    <template #navBar>
+    <template
+      v-if="
+        /* the layout demo showcases all possible overlay features that AppLayout offers, 
+        including different nav bar behaviors which OnyxNavBar das not support yet
+        so it currently has its own demo nav bar placed. */
+        route.path !== '/layout-demo'
+      "
+      #navBar
+    >
       <OnyxNavBar
         app-name="Alpha Test App"
         :logo-url="onyxLogo"

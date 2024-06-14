@@ -17,6 +17,7 @@ export type Settings = Partial<{
   showTempOverlay: boolean;
   showDetailFooter: boolean;
   showFullFooter: boolean;
+  showModal: boolean;
   showPopover: boolean;
   showMobileFlyIn: boolean;
   showPageLoader: boolean;
