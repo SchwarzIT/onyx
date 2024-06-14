@@ -217,6 +217,106 @@ test.describe("Other screenshots", () => {
   });
 });
 
+test("should interact with single select", async ({ mount }) => {
+  let modelValue: SelectOption | undefined = MOCK_VARIED_OPTIONS[1];
+
+  const eventHandlers = {
+    "update:modelValue": async (value: typeof modelValue) => {
+      modelValue = value;
+      await component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
+
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options: MOCK_VARIED_OPTIONS,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue,
+    },
+    on: eventHandlers,
+  });
+
+  const comboboxInput = component.getByRole("combobox", { name: "Test select" });
+
+  await component.click();
+
+  // ASSERT
+  await expect(component.getByText("Disabled")).toBeDisabled();
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[1]);
+
+  // ACT
+  await component.getByText("Selected").click();
+  // ASSERT
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[1]);
+  await expect(comboboxInput).toBeFocused();
+
+  // // ACT
+  await component.click();
+  await component.getByRole("option", { name: "Default" }).click();
+  // ASSERT
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[0]);
+  await expect(comboboxInput).toBeFocused();
+});
+
+test("should interact with multiselect and search", async ({ mount }) => {
+  let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
+  let searchTerm: string = "";
+
+  const eventHandlers = {
+    "update:modelValue": async (value: typeof modelValue) => {
+      modelValue = value;
+      await update();
+    },
+    "update:searchTerm": async (value: typeof searchTerm) => {
+      searchTerm = value;
+      await update();
+    },
+  };
+
+  const update = () => component.update({ props: { modelValue, searchTerm }, on: eventHandlers });
+
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options: MOCK_VARIED_OPTIONS,
+      label: "Test select",
+      listLabel: "Select label",
+      withCheckAll: { label: "Select all" },
+      withSearch: true,
+      multiple: true,
+      modelValue,
+    },
+    on: eventHandlers,
+  });
+
+  const mainInput = component.getByRole("textbox", { name: "Test select" });
+  const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
+
+  await component.click();
+
+  // ASSERT
+  await expect(component.getByText("Disabled")).toBeDisabled();
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1]]);
+  await expect(miniSearchInput).toBeFocused();
+
+  // ACT
+  await miniSearchInput.fill("default");
+  await miniSearchInput.press("ArrowDown");
+  await miniSearchInput.press("Enter");
+
+  // ASSERT
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1], MOCK_VARIED_OPTIONS[0]]);
+  await expect(miniSearchInput).toBeFocused();
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(mainInput).toBeFocused();
+});
+
 test("should interact with multiselect", async ({ mount }) => {
   let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
 
