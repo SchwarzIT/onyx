@@ -34,6 +34,23 @@ test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
   await expect(page).toHaveScreenshot("modal.png");
 });
 
+test("should render with long content", async ({ mount, makeAxeBuilder, page }) => {
+  await mount(
+    <OnyxDialog label="Label" open>
+      {"Content ".repeat(64)}
+    </OnyxDialog>,
+  );
+
+  // accessibility tests
+  const accessibilityScanResults = await makeAxeBuilder()
+    // the interactive/focusable content is provided by the project
+    .disableRules(["scrollable-region-focusable"])
+    .analyze();
+  expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
+
+  await expect(page).toHaveScreenshot("long-content.png");
+});
+
 Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
   test(`should render max size ${breakpoint}`, async ({ mount, page }) => {
     await page.setViewportSize({ width, height: 300 });

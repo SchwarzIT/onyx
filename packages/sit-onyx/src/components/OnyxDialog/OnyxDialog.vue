@@ -95,10 +95,13 @@ watch(
     color: var(--onyx-color-text-icons-neutral-intense);
     padding: var(--onyx-dialog-padding);
     background-color: var(--onyx-color-base-background-blank);
+    overflow: auto;
 
     $max-size: calc(100% - 2 * var(--onyx-grid-margin));
     max-width: $max-size;
     max-height: $max-size;
+    height: max-content;
+    width: max-content;
 
     position: fixed;
     top: 50%;
