@@ -31,7 +31,7 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
 
 <template>
   <div
-    class="onyx-timer onyx-text"
+    class="onyx-timer onyx-text onyx-truncation-ellipsis"
     role="timer"
     :aria-label="props.hideLabel ? props.label : undefined"
   >
