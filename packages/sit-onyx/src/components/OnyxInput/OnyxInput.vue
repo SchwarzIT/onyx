@@ -3,11 +3,11 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { injectI18n } from "../../i18n";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxInputProps } from "./types";
-import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -99,10 +99,6 @@ const { t } = injectI18n();
       <div class="onyx-input__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
 
-        <!-- eslint-disable vuejs-accessibility/no-autofocus -
-         We want to provide the flexibility to have the autofocus property.
-         The JSDoc description includes a warning that it should be used carefully.
-      -->
         <input
           v-model="value"
           v-custom-validity

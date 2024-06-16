@@ -51,6 +51,7 @@ const handleChange = (event: Event) => {
       :value="props.value"
       :checked="props.selected"
       :disabled="props.disabled"
+      :autofocus="props.autofocus"
       @change="handleChange"
     />
     <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
@@ -130,7 +131,7 @@ const handleChange = (event: Event) => {
       --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-400);
     }
 
-    &:has(&__selector:focus-visible) {
+    &:has(&__selector:focus-visible, &__selector:focus) {
       --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
     }
 

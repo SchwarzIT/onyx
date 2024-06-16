@@ -51,7 +51,7 @@ const options = computed<
 
 const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
-  currentValue.value = target.validationMessage as ColorSchemeValue;
+  currentValue.value = target.value as ColorSchemeValue;
 };
 
 const handleApply = () => {
@@ -61,13 +61,8 @@ const handleApply = () => {
 </script>
 
 <template>
-  <OnyxDialog v-bind="props">
-    <form
-      class="onyx-color-scheme-dialog"
-      method="dialog"
-      @submit.prevent="handleApply"
-      @reset="emit('close')"
-    >
+  <OnyxDialog v-bind="props" :label="t('colorScheme.headline')" modal @close="emit('close')">
+    <form class="onyx-color-scheme-dialog" @submit.prevent="handleApply">
       <div>
         <OnyxHeadline is="h2"> {{ t("colorScheme.headline") }}</OnyxHeadline>
         <div class="onyx-color-scheme-dialog__subtitle onyx-text">
@@ -86,6 +81,7 @@ const handleApply = () => {
               name="color-scheme"
               :value="option.value"
               :selected="props.modelValue === option.value"
+              :autofocus="props.modelValue === option.value"
             />
             <p class="onyx-text--small">{{ option.description }}</p>
           </div>
@@ -93,7 +89,7 @@ const handleApply = () => {
       </fieldset>
 
       <div class="onyx-color-scheme-dialog__actions">
-        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" type="reset" />
+        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" @click="emit('close')" />
         <OnyxButton :label="t('apply')" type="submit" />
       </div>
     </form>

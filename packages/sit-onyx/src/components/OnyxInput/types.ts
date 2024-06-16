@@ -1,10 +1,12 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { AutofocusProp } from "../../types";
 
 export type OnyxInputProps = DensityProp &
   RequiredMarkerProp &
-  CustomValidityProp & {
+  CustomValidityProp &
+  AutofocusProp & {
     /**
      * Label to show above the input. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.
@@ -44,14 +46,6 @@ export type OnyxInputProps = DensityProp &
      * @see [MDN autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
      */
     autocomplete?: Autocomplete;
-    /**
-     * Whether to focus the input on page load or when dialog/popover become shown if used inside a dialog/popover.
-     * Can only be enabled for one element inside a page/dialog/popover.
-     * Note: Has no effect when set after the component has been mounted.
-     *
-     * **UX / Accessibility**: autofocus should be used carefully since it can reduce usability and accessibility for users.
-     */
-    autofocus?: boolean;
     /**
      * Same as the native `name` attribute of `<input>`.
      * Used to reference the input in JavaScript or in submitted form data.

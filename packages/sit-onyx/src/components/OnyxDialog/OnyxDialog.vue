@@ -59,6 +59,7 @@ watch(
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
   <dialog
+    v-if="props.open"
     ref="dialogRef"
     :class="['onyx-dialog', densityClass]"
     :aria-modal="props.modal"
@@ -66,7 +67,7 @@ watch(
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="emit('close')"
   >
-    <slot v-if="props.open"></slot>
+    <slot></slot>
   </dialog>
 </template>
 

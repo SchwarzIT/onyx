@@ -1,6 +1,6 @@
 import type { OnyxDialogProps } from "../OnyxDialog/types";
 
-export type OnyxColorSchemeDialogProps = Pick<OnyxDialogProps, "label" | "open" | "density"> & {
+export type OnyxColorSchemeDialogProps = Pick<OnyxDialogProps, "open" | "density"> & {
   modelValue: ColorSchemeValue;
 };
 

@@ -1,39 +1,41 @@
 import type { DensityProp } from "../../composables/density";
+import type { AutofocusProp } from "../../types";
 
-export type OnyxButtonProps = DensityProp & {
-  /**
-   * The text content of the button.
-   */
-  label: string;
-  /**
-   * If the button should be disabled or not.
-   */
-  disabled?: boolean;
-  /**
-   * Shows a loading indicator.
-   */
-  loading?: boolean;
-  /**
-   * The button type.
-   */
-  type?: ButtonType;
-  /**
-   * The color of the button.
-   */
-  color?: ButtonColor;
-  /**
-   * The style of the button.
-   */
-  mode?: ButtonMode;
-  /**
-   * An icon which will be displayed on the left side of the label.
-   */
-  icon?: string;
-  /**
-   * Whether to show a skeleton button.
-   */
-  skeleton?: boolean;
-};
+export type OnyxButtonProps = DensityProp &
+  AutofocusProp & {
+    /**
+     * The text content of the button.
+     */
+    label: string;
+    /**
+     * If the button should be disabled or not.
+     */
+    disabled?: boolean;
+    /**
+     * Shows a loading indicator.
+     */
+    loading?: boolean;
+    /**
+     * The button type.
+     */
+    type?: ButtonType;
+    /**
+     * The color of the button.
+     */
+    color?: ButtonColor;
+    /**
+     * The style of the button.
+     */
+    mode?: ButtonMode;
+    /**
+     * An icon which will be displayed on the left side of the label.
+     */
+    icon?: string;
+    /**
+     * Whether to show a skeleton button.
+     */
+    skeleton?: boolean;
+  };
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 export type ButtonType = (typeof BUTTON_TYPES)[number];

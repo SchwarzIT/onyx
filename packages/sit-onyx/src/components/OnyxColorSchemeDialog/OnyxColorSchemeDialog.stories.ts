@@ -4,6 +4,25 @@ import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
 
 /**
  * Pre-built dialog where the user can select which color scheme (light/dark mode or auto) to use for the application.
+ *
+ * ## Usage
+ *
+ * The color scheme dialog can easily be used together with [`@vueuse/core`](https://vueuse.org/core/useColorMode):
+ *
+ * ```html
+ * <script lang="ts" setup>
+ * import { useColorMode } from "@vueuse/core";
+ * import { ref } from "vue";
+ * import { OnyxColorSchemeDialog } from "sit-onyx";
+ *
+ * const { store: colorScheme } = useColorMode();
+ * const isOpen = ref(true);
+ * </script>
+ *
+ * <template>
+ *    <OnyxColorSchemeDialog v-model="colorScheme" :open="isOpen" @close="isOpen = false" />
+ * </template>
+ * ```
  */
 const meta: Meta<typeof OnyxColorSchemeDialog> = {
   title: "support/ColorSchemeDialog",
@@ -13,7 +32,7 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
     decorators: [
       (story) => ({
         components: { story },
-        template: `<div style="height: 50vh;"> <story /> </div>`,
+        template: `<div style="height: 48rem;"> <story /> </div>`,
       }),
     ],
   }),
@@ -25,7 +44,6 @@ type Story = StoryObj<typeof OnyxColorSchemeDialog>;
 export const Default = {
   args: {
     open: true,
-    label: "Select color scheme",
     modelValue: "auto",
   },
 } satisfies Story;
