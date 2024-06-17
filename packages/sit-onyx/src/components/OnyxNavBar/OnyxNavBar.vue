@@ -50,6 +50,7 @@ const slots = defineSlots<{
 
 const navBarRef = ref<HTMLElement>();
 const { width } = useResizeObserver(navBarRef);
+const { t } = injectI18n();
 
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
@@ -63,8 +64,6 @@ const isMobile = computed(() => {
 });
 
 provide(mobileNavBarInjectionKey, isMobile);
-
-const { t } = injectI18n();
 </script>
 
 <template>
