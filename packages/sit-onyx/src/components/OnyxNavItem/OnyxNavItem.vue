@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
+import { inject } from "vue";
 import { injectI18n } from "../../i18n";
 import { isExternalLink } from "../../utils";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
 import type { OnyxNavItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
@@ -34,16 +36,20 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
   if (withExternalIcon !== "auto") return args.withExternalIcon;
   return isExternalLink(args.href ?? "");
 };
+
+const isMobile = inject(mobileNavBarInjectionKey);
 </script>
 
 <template>
-  <div class="onyx-nav-item">
+  <div class="onyx-nav-item" :class="{ 'onyx-nav-item--mobile': isMobile }">
     <li
       role="menuitem"
       tabindex="0"
       :aria-label="props.label"
       class="onyx-nav-item__trigger onyx-text"
-      :class="{ 'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active) }"
+      :class="{
+        'onyx-nav-item--active': props.active || props.options?.find((opt) => opt.active),
+      }"
       @click="props.href && emit('click', props.href)"
       @keydown.enter="props.href && emit('click', props.href)"
     >
@@ -57,8 +63,9 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         />
       </slot>
     </li>
+
     <OnyxFlyoutMenu
-      v-if="props.options?.length"
+      v-if="!isMobile && props.options?.length"
       class="onyx-nav-item__flyout"
       :aria-label="t('navItemOptionsLabel', { label: props.label })"
     >
@@ -77,11 +84,15 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
         />
       </OnyxListItem>
     </OnyxFlyoutMenu>
+
+    <!-- TODO: add mobile flyout -->
   </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+
+$border-radius: var(--onyx-radius-sm);
 
 .onyx-nav-item {
   @include layers.component() {
@@ -99,7 +110,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
       align-items: center;
       gap: $gap;
       flex-shrink: 0;
-      border-radius: var(--onyx-radius-sm);
+      border-radius: $border-radius;
       background: var(--onyx-color-base-background-blank);
       text-decoration: none;
       font-family: var(--onyx-font-family);
@@ -155,6 +166,40 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
       &:hover,
       &:focus-within {
         opacity: 1;
+      }
+    }
+
+    &--mobile {
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      width: 100%;
+      border-radius: $border-radius;
+
+      &:hover {
+        .onyx-nav-item__trigger {
+          background: var(--onyx-color-base-background-tinted);
+        }
+      }
+
+      &:has(.onyx-nav-item--active) {
+        border-color: var(--onyx-color-base-primary-200);
+
+        &:hover {
+          border-color: var(--onyx-color-base-primary-500);
+        }
+      }
+
+      .onyx-nav-item__trigger {
+        width: 100%;
+        justify-content: flex-start;
+
+        &::after {
+          display: none;
+        }
+      }
+
+      .onyx-nav-item--active,
+      .onyx-nav-item--active:hover {
+        background-color: var(--onyx-color-base-primary-100);
       }
     }
   }

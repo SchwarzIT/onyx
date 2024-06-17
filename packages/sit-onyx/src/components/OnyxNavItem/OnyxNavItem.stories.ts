@@ -1,7 +1,8 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
+import { computed, h, provide } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
@@ -77,4 +78,24 @@ export const WithExternalLink = {
     label: "onyx",
     href: "https://onyx.schwarz/",
   },
+} satisfies Story;
+
+/**
+ * This example shows the nav item in mobile mode (will be provided by the OnyxNavBar).
+ */
+export const Mobile = {
+  args: {
+    ...Default.args,
+  },
+  render: (args) => ({
+    components: { OnyxNavItem },
+    setup() {
+      provide(
+        mobileNavBarInjectionKey,
+        computed(() => true),
+      );
+      return { args };
+    },
+    template: '<OnyxNavItem v-bind="args" style="width: 24rem;" />',
+  }),
 } satisfies Story;

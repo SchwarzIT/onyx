@@ -2,17 +2,18 @@
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { computed, ref } from "vue";
+import { computed, provide, ref } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import type { OnyxNavBarProps } from "./types";
+import { mobileNavBarInjectionKey, type OnyxNavBarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
-  mobileBreakpoint: "xs",
+  mobileBreakpoint: "sm",
 });
 
 const emit = defineEmits<{
@@ -60,6 +61,8 @@ const isMobile = computed(() => {
       : ONYX_BREAKPOINTS[props.mobileBreakpoint];
   return width.value !== 0 && width.value <= mobileWidth;
 });
+
+provide(mobileNavBarInjectionKey, isMobile);
 
 const { t } = injectI18n();
 </script>
@@ -133,6 +136,17 @@ const { t } = injectI18n();
     </header>
 
     <!-- TODO: implement mobile burger/context flyouts -->
+    <div v-if="isMobile && isBurgerOpen" class="onyx-nav-bar__mobile-flyout">
+      <div class="onyx-nav-bar__mobile-flyout-content">
+        <OnyxHeadline is="h2">{{ t("navigation.navigationHeadline") }}</OnyxHeadline>
+
+        <nav>
+          <ul role="menubar">
+            <slot></slot>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -246,6 +260,26 @@ $gap: var(--onyx-spacing-md);
       color: var(--onyx-color-text-icons-secondary-intense);
       padding-inline: $gap;
       font-weight: 600;
+    }
+
+    &__mobile-flyout {
+      width: 100%;
+      background-color: var(--onyx-color-base-background-tinted);
+      box-shadow: var(--onyx-shadow-medium-bottom);
+    }
+
+    &__mobile-flyout-content {
+      max-width: 34rem;
+      padding: var(--onyx-spacing-xl) var(--onyx-spacing-md);
+      display: flex;
+      flex-direction: column;
+      margin-inline: auto;
+      gap: var(--onyx-spacing-2xs);
+
+      nav,
+      ul {
+        display: contents;
+      }
     }
   }
 }

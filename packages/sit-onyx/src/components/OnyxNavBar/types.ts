@@ -1,3 +1,4 @@
+import type { ComputedRef, InjectionKey } from "vue";
 import type { OnyxBreakpoint } from "../../types";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
@@ -20,3 +21,11 @@ export type OnyxNavBarProps = OnyxNavAppAreaProps & {
    */
   mobileBreakpoint?: OnyxBreakpoint | number;
 };
+
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
+ * to communicate child components whether they should render in mobile or desktop mode.
+ *
+ * @returns `true` if mobile, `false` otherwise
+ */
+export const mobileNavBarInjectionKey = Symbol() as InjectionKey<ComputedRef<boolean>>;
