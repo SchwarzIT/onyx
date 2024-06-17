@@ -251,11 +251,6 @@ const handleInput = (event: Event) => {
       width: 100%;
     }
 
-    &__label-tooltip,
-    &__message-tooltip {
-      height: 1rem;
-    }
-
     &__wrapper {
       padding: 0;
       height: unset;
