@@ -96,11 +96,22 @@
     }
   }
 
+  // TODO: remove this
   &__error-message {
     display: none;
   }
   &:has(#{$base-selector}__native:user-invalid) {
     #{$base-selector}__error-message {
+      display: flex;
+      color: var(--onyx-color-base-danger-500);
+    }
+  }
+
+  .onyx-form-element__error-message {
+    display: none;
+  }
+  &:has(#{$base-selector}__native:user-invalid) {
+    .onyx-form-element__error-message {
       display: flex;
       color: var(--onyx-color-base-danger-500);
     }

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useRequired } from "../../composables/required";
 import type { OnyxFormElementProps } from "./types";
-import { useDensity } from "../../composables/density";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import { injectI18n } from "../../i18n";
 
@@ -12,7 +11,6 @@ const props = withDefaults(defineProps<OnyxFormElementProps>(), {
 const { t } = injectI18n();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-const { densityClass } = useDensity(props);
 
 defineSlots<{
   /** The place for the actual form element */
@@ -21,28 +19,33 @@ defineSlots<{
 </script>
 
 <template>
-  <div :class="['onyx-form-element', requiredTypeClass, densityClass]">
-    <div
-      v-if="props.label"
-      class="onyx-form-element__label onyx-text--small"
-      :class="[!props.required ? requiredMarkerClass : undefined]"
-    >
-      <div class="onyx-form-element__header">
-        <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-        <span
-          v-if="props.required"
-          :class="[props.required ? requiredMarkerClass : undefined]"
-        ></span>
-        <OnyxInfoTooltip
-          v-if="props.labelTooltip"
-          class="onyx-form-element__tooltip"
-          :text="props.labelTooltip"
-        />
-        <span v-if="!props.required" class="onyx-form-element__optional">{{ t("optional") }}</span>
+  <div :class="['onyx-form-element', requiredTypeClass]">
+    <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -->
+    <label>
+      <div
+        v-if="props.label"
+        class="onyx-form-element__label onyx-text--small"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
+      >
+        <div class="onyx-form-element__header">
+          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+          <span
+            v-if="props.required"
+            :class="[props.required ? requiredMarkerClass : undefined]"
+          ></span>
+          <OnyxInfoTooltip
+            v-if="props.labelTooltip"
+            class="onyx-form-element__tooltip"
+            :text="props.labelTooltip"
+          />
+          <span v-if="!props.required" class="onyx-form-element__optional">{{
+            t("optional")
+          }}</span>
+        </div>
       </div>
-    </div>
 
-    <slot></slot>
+      <slot></slot>
+    </label>
 
     <div
       v-if="props.message || errorMessages?.shortMessage || props.footerRightText"
@@ -76,7 +79,6 @@ defineSlots<{
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
 .onyx-use-optional:not(:has(.onyx-required-marker)) {

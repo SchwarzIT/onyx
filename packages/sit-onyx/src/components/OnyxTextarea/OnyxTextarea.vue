@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxTextareaProps } from "./types";
-import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   modelValue: "",
@@ -43,7 +41,6 @@ const emit = defineEmits<{
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
 /**
@@ -59,8 +56,9 @@ const handleChange = (event: Event) => {
   emit("change", inputValue);
 };
 
-const { t } = injectI18n();
-const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
+const counterText = computed(() =>
+  props.withCounter && props.maxlength ? `${value.value.length}/${props.maxlength}` : undefined,
+);
 
 /**
  * Current CSS variables for the autosize min/max height.
@@ -92,28 +90,13 @@ const handleInput = (event: Event) => {
     <OnyxSkeleton class="onyx-textarea-skeleton__input" />
   </div>
 
-  <div
-    v-else
-    :class="['onyx-textarea', requiredTypeClass, densityClass]"
-    :style="autosizeMinMaxStyles"
-  >
-    <label>
-      <div
-        v-if="!props.hideLabel"
-        class="onyx-textarea__label onyx-text--small"
-        :class="[!props.required ? requiredMarkerClass : undefined]"
-      >
-        <div class="onyx-textarea__header">
-          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-          <span
-            v-if="props.required"
-            :class="[props.required ? requiredMarkerClass : undefined]"
-          ></span>
-          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
-          <span v-if="!props.required" class="onyx-textarea__optional">{{ t("optional") }}</span>
-        </div>
-      </div>
-
+  <div v-else :class="['onyx-textarea', densityClass]" :style="autosizeMinMaxStyles">
+    <OnyxFormElement
+      v-bind="props"
+      :label="!props.hideLabel ? props.label : undefined"
+      :error-messages="errorMessages"
+      :footer-right-text="counterText"
+    >
       <div class="onyx-textarea__wrapper" :data-autosize-value="value">
         <!-- eslint-disable vuejs-accessibility/no-autofocus -
          We want to provide the flexibility to have the autofocus property.
@@ -142,35 +125,7 @@ const handleInput = (event: Event) => {
         ></textarea>
         <!-- eslint-enable vuejs-accessibility/no-autofocus -->
       </div>
-    </label>
-
-    <div
-      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
-      class="onyx-textarea__footer onyx-text--small"
-    >
-      <span v-if="errorMessages" class="onyx-textarea__error-message">
-        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
-
-        <OnyxInfoTooltip
-          v-if="errorMessages.longMessage"
-          class="onyx-textarea__message-tooltip"
-          color="danger"
-          position="bottom"
-          :label="t('showTooltip.error')"
-          :text="errorMessages.longMessage"
-        />
-      </span>
-      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
-      <OnyxInfoTooltip
-        v-if="props.messageTooltip"
-        class="onyx-textarea__message-tooltip"
-        position="bottom"
-        :text="props.messageTooltip"
-      />
-      <span v-if="shouldShowCounter" class="onyx-textarea__counter">
-        {{ value.length }}/{{ props.maxlength }}
-      </span>
-    </div>
+    </OnyxFormElement>
   </div>
 </template>
 
