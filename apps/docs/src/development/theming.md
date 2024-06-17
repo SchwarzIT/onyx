@@ -5,26 +5,49 @@ To learn more about the theming concept of onyx, take a look at our [colors docu
 
 ## Set the theme once
 
-Per default, onyx will be displayed in light mode after the [initial setup](/development/). In order to use dark mode, simply set the class "dark" once on a high level of your application, e.g. on the `html` or `body` tag or on `App.vue` level.
+Per default, onyx will be displayed in light mode after the [initial setup](/development/). In order to use dark mode, simply set the class `dark` once on the root of your application, e.g. on `<html>` or `<body>`.
 
 ## Let the user decide
 
-In order to let the user switch between light/dark mode, we recommend to use the [useDark composable from vueuse](https://vueuse.org/core/useDark/#usedark).
-
-<!-- TODO: recommend to use theme selection inside the user menu once that feature is supported -->
-
-You can combine it as follows with a switch to let the users set the theme of their choice. The switch will be initialized with the system settings.
+In order to let the user switch between light, dark and auto mode, we recommend to use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/support-colorschemedialog--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/components-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library:
 
 ```vue
-<script lang="ts" setup>
-import { useDark, useToggle } from "@vueuse/core";
-import { OnyxSwitch } from "sit-onyx";
+<script setup lang="ts">
+import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
+import { useColorMode } from "@vueuse/core";
+import { OnyxColorSchemeDialog, OnyxNavBar, OnyxUserMenu, type SelectOption } from "sit-onyx";
+import { ref } from "vue";
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+const userMenuOptions = [
+  { value: "color-scheme", label: "Appearance", icon: circleContrast },
+  // your option user enu options...
+] as const satisfies SelectOption[];
+
+const { store: colorScheme } = useColorMode();
+const isColorSchemeDialogOpen = ref(false);
+
+const handleOptionClick = (value: (typeof userMenuOptions)[number]["value"]) => {
+  if (value === "color-scheme") {
+    isColorSchemeDialogOpen.value = true;
+  }
+};
 </script>
 
 <template>
-  <OnyxSwitch label="Dark Mode" :model-value="isDark" @update:model-value="toggleDark" />
+  <OnyxNavBar app-name="Example app">
+    <template #contextArea>
+      <OnyxUserMenu
+        username="John Doe"
+        :options="userMenuOptions"
+        @option-click="handleOptionClick"
+      />
+    </template>
+  </OnyxNavBar>
+
+  <OnyxColorSchemeDialog
+    v-model="colorScheme"
+    :open="isColorSchemeDialogOpen"
+    @close="isColorSchemeDialogOpen = false"
+  />
 </template>
 ```
