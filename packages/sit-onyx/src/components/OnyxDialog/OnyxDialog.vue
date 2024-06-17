@@ -86,8 +86,6 @@ watch(
   }
 
   @include layers.component() {
-    --backdrop-opacity: 0.15;
-
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-md);
@@ -110,11 +108,7 @@ watch(
     transform: translate(-50%, -50%);
 
     &::backdrop {
-      background-color: rgba(0, 0, 0, var(--backdrop-opacity));
-    }
-
-    .dark & {
-      --backdrop-opacity: 0.6;
+      background-color: var(--onyx-color-backdrop);
     }
 
     &:modal {

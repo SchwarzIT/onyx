@@ -68,72 +68,70 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <div>
-    <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
-      <div class="onyx-nav-bar__content">
-        <span
-          v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
-          class="onyx-nav-bar__mobile-page"
-        >
-          <slot name="mobileActivePage"></slot>
-        </span>
+  <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
+    <div class="onyx-nav-bar__content">
+      <span
+        v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
+        class="onyx-nav-bar__mobile-page"
+      >
+        <slot name="mobileActivePage"></slot>
+      </span>
 
-        <OnyxNavAppArea
-          v-else-if="props.appName || props.logoUrl || slots.appArea"
-          class="onyx-nav-bar__app"
-          :app-name="props.appName"
-          :logo-url="props.logoUrl"
-          :label="props.appAreaLabel"
-          @click="
-            emit('appAreaClick');
-            isBurgerOpen = false;
-          "
-        >
-          <slot name="appArea"></slot>
-        </OnyxNavAppArea>
+      <OnyxNavAppArea
+        v-else-if="props.appName || props.logoUrl || slots.appArea"
+        class="onyx-nav-bar__app"
+        :app-name="props.appName"
+        :logo-url="props.logoUrl"
+        :label="props.appAreaLabel"
+        @click="
+          emit('appAreaClick');
+          isBurgerOpen = false;
+        "
+      >
+        <slot name="appArea"></slot>
+      </OnyxNavAppArea>
 
-        <OnyxIconButton
-          v-if="props.withBackButton"
-          class="onyx-nav-bar__back"
-          :label="t('navigation.goBack')"
-          :icon="chevronLeftSmall"
-          color="neutral"
-          @click="emit('backButtonClick')"
+      <OnyxIconButton
+        v-if="props.withBackButton"
+        class="onyx-nav-bar__back"
+        :label="t('navigation.goBack')"
+        :icon="chevronLeftSmall"
+        color="neutral"
+        @click="emit('backButtonClick')"
+      />
+
+      <template v-if="slots.default">
+        <OnyxMobileNavButton
+          v-if="isMobile"
+          v-model:open="isBurgerOpen"
+          class="onyx-nav-bar__burger"
+          :icon="menu"
+          :label="t('navigation.toggleBurgerMenu')"
+          @update:open="isContextOpen = false"
         />
 
-        <template v-if="slots.default">
-          <OnyxMobileNavButton
-            v-if="isMobile"
-            v-model:open="isBurgerOpen"
-            class="onyx-nav-bar__burger"
-            :icon="menu"
-            :label="t('navigation.toggleBurgerMenu')"
-            @update:open="isContextOpen = false"
-          />
+        <nav v-else class="onyx-nav-bar__nav">
+          <ul role="menubar">
+            <slot></slot>
+          </ul>
+        </nav>
+      </template>
 
-          <nav v-else class="onyx-nav-bar__nav">
-            <ul role="menubar">
-              <slot></slot>
-            </ul>
-          </nav>
-        </template>
+      <template v-if="slots.contextArea">
+        <OnyxMobileNavButton
+          v-if="isMobile"
+          v-model:open="isContextOpen"
+          class="onyx-nav-bar__mobile-context"
+          :icon="moreVertical"
+          :label="t('navigation.toggleContextMenu')"
+          @update:open="isBurgerOpen = false"
+        />
 
-        <template v-if="slots.contextArea">
-          <OnyxMobileNavButton
-            v-if="isMobile"
-            v-model:open="isContextOpen"
-            class="onyx-nav-bar__mobile-context"
-            :icon="moreVertical"
-            :label="t('navigation.toggleContextMenu')"
-            @update:open="isBurgerOpen = false"
-          />
-
-          <div v-else class="onyx-nav-bar__context">
-            <slot name="contextArea"></slot>
-          </div>
-        </template>
-      </div>
-    </header>
+        <div v-else class="onyx-nav-bar__context">
+          <slot name="contextArea"></slot>
+        </div>
+      </template>
+    </div>
 
     <!-- TODO: implement mobile burger/context flyouts -->
     <div v-if="isMobile && isBurgerOpen" class="onyx-nav-bar__mobile-flyout">
@@ -149,7 +147,7 @@ const { t } = injectI18n();
         </nav>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <style lang="scss">
@@ -157,13 +155,14 @@ const { t } = injectI18n();
 @use "../../styles/breakpoints.scss";
 
 $gap: var(--onyx-spacing-md);
+$height: 3.5rem;
 
 .onyx-nav-bar {
   @include layers.component() {
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    height: 3.5rem;
+    height: $height;
     z-index: var(--onyx-z-index-navigation);
     position: relative;
     container-type: size;
@@ -276,6 +275,19 @@ $gap: var(--onyx-spacing-md);
       width: 100%;
       background-color: var(--onyx-color-base-background-tinted);
       box-shadow: var(--onyx-shadow-medium-bottom);
+
+      position: absolute;
+      left: 0;
+      top: $height;
+
+      &::after {
+        content: "";
+        background-color: var(--onyx-color-backdrop);
+        width: 100%;
+        height: 100vh;
+        display: block;
+        position: absolute;
+      }
     }
 
     &__mobile-flyout-content {
