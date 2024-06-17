@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { defineModel } from "vue";
+import { defineModel, ref } from "vue";
+import { OnyxSelect } from "sit-onyx";
 
 const showFlyout = defineModel<boolean>();
 
 defineProps<{ small?: boolean }>();
+
+const selectState = ref();
 </script>
 
 <template>
@@ -15,6 +18,13 @@ defineProps<{ small?: boolean }>();
         <slot></slot>
       </div>
     </div>
+    <OnyxSelect
+      v-model="selectState"
+      label="Example select"
+      list-label="Example listbox list"
+      :options="[]"
+      hide-label
+    />
   </label>
 </template>
 
@@ -23,6 +33,7 @@ defineProps<{ small?: boolean }>();
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
+  gap: 0.5rem;
 
   &__parent {
     position: relative;

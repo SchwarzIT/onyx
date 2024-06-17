@@ -60,7 +60,7 @@ watch(
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
   <dialog
     ref="dialogRef"
-    :class="['onyx-dialog', densityClass]"
+    :class="['onyx-dialog', densityClass, 'onyx-truncation-multiline']"
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
@@ -95,10 +95,14 @@ watch(
     color: var(--onyx-color-text-icons-neutral-intense);
     padding: var(--onyx-dialog-padding);
     background-color: var(--onyx-color-base-background-blank);
+    overflow: auto;
+    z-index: var(--onyx-z-index-page-overlay);
 
     $max-size: calc(100% - 2 * var(--onyx-grid-margin));
     max-width: $max-size;
     max-height: $max-size;
+    height: max-content;
+    width: max-content;
 
     position: fixed;
     top: 50%;
@@ -111,6 +115,10 @@ watch(
 
     .dark & {
       --backdrop-opacity: 0.6;
+    }
+
+    &:modal {
+      z-index: var(--onyx-z-index-app-overlay);
     }
   }
 }
