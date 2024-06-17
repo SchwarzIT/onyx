@@ -65,6 +65,7 @@ export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue
 export * from "./components/OnyxNavItem/types";
 
 export { default as OnyxNavSeparator } from "./components/OnyxNavSeparator/OnyxNavSeparator.vue";
+export * from "./components/OnyxNavSeparator/types";
 
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
