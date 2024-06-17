@@ -17,6 +17,7 @@ export type Settings = Partial<{
   showTempOverlay: boolean;
   showDetailFooter: boolean;
   showFullFooter: boolean;
+  showModal: boolean;
   showPopover: boolean;
   showMobileFlyIn: boolean;
   showPageLoader: boolean;
@@ -54,7 +55,8 @@ const contentOptions: SelectOption[] = [
 
 const overlayOptions: SelectOption[] = [
   noneOption,
-  { value: "showPopover", label: "Popover/Modal" },
+  { value: "showModal", label: "Modal dialog" },
+  { value: "showPopover", label: "Non-modal popup" },
   // the mobile fly in should not be promoted for now,
   // but we should keep it to re-enable it if needed.
   // { value: "showMobileFlyIn", label: "Mobile Fly-in" },
