@@ -103,6 +103,7 @@
     #{$base-selector}__error-message {
       display: flex;
       color: var(--onyx-color-base-danger-500);
+      align-items: center;
     }
   }
 

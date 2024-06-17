@@ -230,11 +230,6 @@ const { t } = injectI18n();
       width: 100%;
     }
 
-    &__label-tooltip,
-    &__message-tooltip {
-      height: 1rem;
-    }
-
     &__wrapper {
       &:has(.onyx-input__native:read-write) {
         &:has(#{get-autofill-selectors(".onyx-input__native")}) {
