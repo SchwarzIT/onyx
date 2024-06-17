@@ -1,3 +1,4 @@
+import type { Locator } from "@playwright/test";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
@@ -34,6 +35,10 @@ test.describe("Screenshot tests", () => {
 });
 
 test.describe("Screenshot tests with nested children", () => {
+  const isFlyoutVisible = async (flyout: Locator) => {
+    await expect(flyout).toBeVisible();
+  };
+
   executeMatrixScreenshotTest({
     name: "NavButton with nested children",
     columns: ["inactive", "active"],
@@ -62,6 +67,7 @@ test.describe("Screenshot tests with nested children", () => {
       </OnyxNavButton>
     ),
     beforeScreenshot: async (component, page, _column, row) => {
+      const flyout = page.getByLabel("Navigation");
       await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
       // since the flyout is positioned absolute, we need to set the component size accordingly
@@ -70,6 +76,8 @@ test.describe("Screenshot tests with nested children", () => {
         element.style.height = "200px";
         element.style.width = "100px";
       });
+
+      await isFlyoutVisible(flyout);
     },
   });
 });

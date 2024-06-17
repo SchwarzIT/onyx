@@ -2,6 +2,7 @@
 import { createMenuButton } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../../types";
 import { computed, ref, type VNode } from "vue";
+import { injectI18n } from "../../../i18n";
 
 const slots = defineSlots<{
   /**
@@ -48,6 +49,8 @@ const getSlotComponents = (vnodes: VNode[]): VNode[] => {
 const options = computed(() => {
   return getSlotComponents(slots.options?.() ?? []);
 });
+
+const { t } = injectI18n();
 </script>
 
 <template>
@@ -57,6 +60,7 @@ const options = computed(() => {
       v-if="slots.options || slots.header || slots.footer"
       v-show="isExpanded"
       v-bind="flyout"
+      :aria-label="t('navigation.navigationHeadline')"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,
         'onyx-flyout-menu__list--with-footer': !!slots.footer,
