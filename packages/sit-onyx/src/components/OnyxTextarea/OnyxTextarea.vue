@@ -134,12 +134,6 @@ const handleInput = (event: Event) => {
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
-.onyx-use-optional:not(:has(.onyx-required-marker)) {
-  .onyx-textarea__optional {
-    display: inline-block;
-  }
-}
-
 .onyx-textarea,
 .onyx-textarea-skeleton {
   --min-autosize-rows: 3;
@@ -195,17 +189,6 @@ const handleInput = (event: Event) => {
       $vertical-padding: var(--onyx-textarea-padding-vertical)
     );
 
-    &__header {
-      display: flex;
-      max-width: 100%;
-      width: 100%;
-    }
-
-    &__message-tooltip {
-      height: 1rem;
-      align-self: center;
-    }
-
     &__wrapper {
       padding: 0;
       height: unset;
@@ -229,10 +212,6 @@ const handleInput = (event: Event) => {
       &--no-resize {
         resize: none;
       }
-    }
-
-    .onyx-info-tooltip {
-      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }

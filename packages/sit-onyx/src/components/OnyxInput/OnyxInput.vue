@@ -121,12 +121,6 @@ const counterText = computed(() =>
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
-.onyx-use-optional:not(:has(.onyx-required-marker)) {
-  .onyx-input__optional {
-    display: inline-block;
-  }
-}
-
 /**
 * Gets a comma separated CSS selector for the input autofill.
 * Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
@@ -176,17 +170,6 @@ const counterText = computed(() =>
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
 
-    &__header {
-      display: flex;
-      max-width: 100%;
-      width: 100%;
-    }
-
-    &__message-tooltip {
-      height: 1rem;
-      align-self: center;
-    }
-
     &__wrapper {
       &:has(.onyx-input__native:read-write) {
         &:has(#{get-autofill-selectors(".onyx-input__native")}) {
@@ -208,10 +191,6 @@ const counterText = computed(() =>
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
-    }
-
-    .onyx-info-tooltip {
-      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }
