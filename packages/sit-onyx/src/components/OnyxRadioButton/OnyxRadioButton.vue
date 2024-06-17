@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
 import { getCustomErrorText, useCustomValidity } from "../../composables/useCustomValidity";
-import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxRadioButtonProps } from "./types";
 
