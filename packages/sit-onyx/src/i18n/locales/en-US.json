@@ -83,5 +83,6 @@
   "showTooltip": {
     "info": "Show info tooltip",
     "error": "Show error tooltip"
-  }
+  },
+  "back": "Back"
 }

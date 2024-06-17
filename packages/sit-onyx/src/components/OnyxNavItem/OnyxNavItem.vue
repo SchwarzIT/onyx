@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<OnyxNavItemProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the nav item is clicked (via click or keyboard).
+   * An optional slot to override the label content.
    */
   click: [href: string];
 }>();
@@ -56,7 +56,7 @@ const handleParentClick = () => {
     <OnyxButton
       v-if="isMobile && isMobileChildrenOpen"
       class="onyx-nav-item__mobile-back"
-      label="Back"
+      :label="t('back')"
       mode="plain"
       color="neutral"
       :icon="arrowSmallLeft"
@@ -240,6 +240,7 @@ $border-radius: var(--onyx-radius-sm);
         justify-content: flex-start;
         padding-inline: var(--onyx-spacing-sm);
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        height: 3rem;
 
         &::after {
           display: none;
