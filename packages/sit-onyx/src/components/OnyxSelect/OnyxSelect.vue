@@ -420,7 +420,7 @@ const selectInputProps = computed(() => {
 
     &__wrapper:has(.onyx-mini-search) {
       // Add scroll padding, so items are not hidden beneath the search input
-      scroll-padding-top: 40px;
+      scroll-padding-top: var(--option-height);
     }
 
     &__slot {
