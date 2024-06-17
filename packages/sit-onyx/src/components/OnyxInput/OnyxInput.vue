@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxInputProps } from "./types";
-import { injectI18n } from "../../i18n";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   modelValue: "",
@@ -45,7 +43,6 @@ const emit = defineEmits<{
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
 /**
@@ -66,8 +63,9 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const shouldShowCounter = computed(() => props.withCounter && props.maxlength);
-const { t } = injectI18n();
+const counterText = computed(() =>
+  props.withCounter && props.maxlength ? `${value.value.length}/${props.maxlength}` : undefined,
+);
 </script>
 
 <template>
@@ -76,26 +74,13 @@ const { t } = injectI18n();
     <OnyxSkeleton class="onyx-input-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-input', requiredTypeClass, densityClass]">
-    <label>
-      <div
-        v-if="!props.hideLabel"
-        class="onyx-input__label onyx-text--small"
-        :class="[!props.required ? requiredMarkerClass : undefined]"
-      >
-        <div class="onyx-input__header">
-          <span class="onyx-truncation-ellipsis">
-            {{ props.label }}
-          </span>
-          <span
-            v-if="props.required"
-            :class="[props.required ? requiredMarkerClass : undefined]"
-          ></span>
-          <OnyxInfoTooltip v-if="props.labelTooltip" :text="props.labelTooltip" />
-          <span v-if="!props.required" class="onyx-input__optional">{{ t("optional") }}</span>
-        </div>
-      </div>
-
+  <div v-else :class="['onyx-input', densityClass]">
+    <OnyxFormElement
+      v-bind="props"
+      :label="!props.hideLabel ? props.label : undefined"
+      :error-messages="errorMessages"
+      :footer-right-text="counterText"
+    >
       <div class="onyx-input__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
 
@@ -127,35 +112,7 @@ const { t } = injectI18n();
         />
         <!-- eslint-enable vuejs-accessibility/no-autofocus -->
       </div>
-    </label>
-
-    <div
-      v-if="props.message || errorMessages?.shortMessage || shouldShowCounter"
-      class="onyx-input__footer onyx-text--small"
-    >
-      <span v-if="errorMessages" class="onyx-input__error-message">
-        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
-
-        <OnyxInfoTooltip
-          v-if="errorMessages.longMessage"
-          class="onyx-input__message-tooltip"
-          color="danger"
-          position="bottom"
-          :label="t('showTooltip.error')"
-          :text="errorMessages.longMessage"
-        />
-      </span>
-      <span v-else-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
-      <OnyxInfoTooltip
-        v-if="props.messageTooltip"
-        class="onyx-input__message-tooltip"
-        position="bottom"
-        :text="props.messageTooltip"
-      />
-      <span v-if="shouldShowCounter" class="onyx-input__counter">
-        {{ value.length }}/{{ props.maxlength }}
-      </span>
-    </div>
+    </OnyxFormElement>
   </div>
 </template>
 
