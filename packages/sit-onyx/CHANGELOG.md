@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.137
+
+### Patch Changes
+
+- 442e4c5: fix(OnyxDialog): prevent overflow and add z-index
+
 ## 1.0.0-alpha.136
 
 ### Patch Changes
