@@ -79,7 +79,7 @@ const handleApply = () => {
       <fieldset class="onyx-color-scheme-dialog__list" @change="handleChange">
         <div v-for="option in options" :key="option.value" class="onyx-color-scheme-dialog__option">
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <figure v-html="option.image"></figure>
+          <figure class="onyx-color-scheme-dialog__image" v-html="option.image"></figure>
 
           <div>
             <OnyxRadioButton
@@ -107,10 +107,13 @@ const handleApply = () => {
 
 .onyx-color-scheme-dialog {
   @include layers.component() {
+    --image-size: 10rem;
+
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-md);
-    max-width: 30rem;
+    width: 30rem;
+    max-width: 100%;
 
     &__subtitle {
       color: var(--onyx-color-text-icons-neutral-medium);
@@ -122,6 +125,7 @@ const handleApply = () => {
       background: var(--onyx-color-base-background-tinted);
       list-style: none;
       padding: 0;
+      container-type: inline-size;
     }
 
     &__option {
@@ -135,6 +139,11 @@ const handleApply = () => {
       &:not(:last-child) {
         border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       }
+
+      @container (max-width: 24rem) {
+        flex-direction: column;
+        --image-size: 6rem;
+      }
     }
 
     &__actions {
@@ -142,6 +151,15 @@ const handleApply = () => {
       align-items: center;
       justify-content: flex-end;
       gap: var(--onyx-spacing-md);
+    }
+
+    &__image {
+      display: inline-flex;
+
+      svg {
+        width: var(--image-size);
+        height: auto;
+      }
     }
   }
 }
