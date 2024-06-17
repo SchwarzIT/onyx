@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
-import { useCustomValidity, getCustomErrorText } from "../../composables/useCustomValidity";
+import { getCustomErrorText, useCustomValidity } from "../../composables/useCustomValidity";
 import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -135,7 +135,7 @@ const handleChange = (event: Event) => {
       --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-400);
     }
 
-    &:has(&__selector:focus-visible, &__selector:focus) {
+    &:has(&__selector:focus-visible) {
       --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
     }
 
