@@ -58,7 +58,7 @@ const isMobile = computed(() => {
     typeof props.mobileBreakpoint === "number"
       ? props.mobileBreakpoint
       : ONYX_BREAKPOINTS[props.mobileBreakpoint];
-  return width.value <= mobileWidth;
+  return width.value !== 0 && width.value <= mobileWidth;
 });
 
 const { t } = injectI18n();
