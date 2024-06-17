@@ -139,7 +139,7 @@ $border-radius: var(--onyx-radius-sm);
   @include layers.component() {
     width: max-content;
     position: relative;
-    $mobile-children-gap: var(--onyx-spacing-2xs);
+    $gap: var(--onyx-spacing-2xs);
 
     &__trigger {
       display: inline-flex;
@@ -149,7 +149,7 @@ $border-radius: var(--onyx-radius-sm);
       padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
       justify-content: center;
       align-items: center;
-      gap: $mobile-children-gap;
+      gap: $gap;
       flex-shrink: 0;
       border-radius: $border-radius;
       background: var(--onyx-color-base-background-blank);
@@ -195,7 +195,7 @@ $border-radius: var(--onyx-radius-sm);
 
     &__icon {
       align-self: flex-start;
-      margin-left: calc(-1 * $mobile-children-gap);
+      margin-left: calc(-1 * $gap);
     }
 
     &__flyout {
@@ -216,7 +216,7 @@ $border-radius: var(--onyx-radius-sm);
       margin-left: auto;
     }
 
-    $mobile-children-gap: var(--onyx-spacing-xs); // TODO: use density
+    $mobile-children-gap: var(--onyx-spacing-xs);
 
     &__mobile-children {
       display: flex;
