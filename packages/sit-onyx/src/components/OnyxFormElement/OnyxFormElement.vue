@@ -88,6 +88,14 @@ defineSlots<{
 
 .onyx-form-element {
   @include layers.component() {
+    /**
+     * input/textarea/... will overwrite this to only be visible
+     * after the user interacted with the component.
+     * can also be overwritten if a project
+     * needs to enforce to show an error immediately    
+     */
+    --error-message-display: flex;
+
     font-family: var(--onyx-font-family);
     display: flex;
     flex-direction: column;
@@ -148,7 +156,7 @@ defineSlots<{
 
     &__error-message {
       // todo use variable for display toggling to avoid overwritten styles
-      display: flex;
+      display: var(--error-message-display);
       color: var(--onyx-color-base-danger-500);
     }
   }

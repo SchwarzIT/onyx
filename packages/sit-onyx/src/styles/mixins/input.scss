@@ -66,11 +66,11 @@
   }
 
   .onyx-form-element__error-message {
-    display: none;
+    --error-message-display: none;
   }
   &:has(#{$base-selector}__native:user-invalid) {
     .onyx-form-element__error-message {
-      display: flex;
+      --error-message-display: flex;
     }
   }
 
