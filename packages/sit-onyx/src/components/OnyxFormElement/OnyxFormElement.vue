@@ -88,6 +88,11 @@ defineSlots<{
 
 .onyx-form-element {
   @include layers.component() {
+    font-family: var(--onyx-font-family);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-5xs);
+
     &__label {
       display: flex;
       margin-bottom: var(--onyx-spacing-5xs);
@@ -139,6 +144,12 @@ defineSlots<{
       text-align: right;
       flex-grow: 1;
       margin-left: var(--onyx-spacing-2xs);
+    }
+
+    &__error-message {
+      // todo use variable for display toggling to avoid overwritten styles
+      display: flex;
+      color: var(--onyx-color-base-danger-500);
     }
   }
 }

@@ -87,3 +87,15 @@ export const WithMessageTooltip = {
     messageTooltip: "Additional info message",
   },
 } satisfies Story;
+/**
+ * This example shows a form element with an error message.
+ */
+export const WithErrorMessage = {
+  args: {
+    ...Default.args,
+    errorMessages: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
+  },
+} satisfies Story;
