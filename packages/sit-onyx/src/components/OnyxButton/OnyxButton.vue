@@ -38,7 +38,7 @@ const emit = defineEmits<{
     :aria-label="props.loading ? props.label : undefined"
     @click="emit('click')"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
+    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" size="24px" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
