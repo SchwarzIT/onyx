@@ -8,11 +8,6 @@
   --selection-color: var(--onyx-color-base-primary-200);
   --outline-color: var(--onyx-color-base-primary-200);
 
-  font-family: var(--onyx-font-family);
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
-
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
