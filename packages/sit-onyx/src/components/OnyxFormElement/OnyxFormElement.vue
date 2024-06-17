@@ -1,0 +1,111 @@
+<script lang="ts" setup>
+import { useRequired } from "../../composables/required";
+import type { OnyxFormElementProps } from "./types";
+import { useDensity } from "../../composables/density";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
+import { injectI18n } from "../../i18n";
+
+const props = withDefaults(defineProps<OnyxFormElementProps>(), {
+  required: false,
+});
+
+const { t } = injectI18n();
+
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+const { densityClass } = useDensity(props);
+
+defineSlots<{
+  /** The place for the actual form element */
+  default(): unknown;
+}>();
+</script>
+
+<template>
+  <div :class="['onyx-form-element', requiredTypeClass, densityClass]">
+    <div
+      v-if="props.label"
+      class="onyx-form-element__label onyx-text--small"
+      :class="[!props.required ? requiredMarkerClass : undefined]"
+    >
+      <div class="onyx-form-element__header">
+        <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+        <span
+          v-if="props.required"
+          :class="[props.required ? requiredMarkerClass : undefined]"
+        ></span>
+        <OnyxInfoTooltip
+          v-if="props.labelTooltip"
+          class="onyx-form-element__tooltip"
+          :text="props.labelTooltip"
+        />
+        <span v-if="!props.required" class="onyx-form-element__optional">{{ t("optional") }}</span>
+      </div>
+    </div>
+
+    <slot></slot>
+
+    <div
+      v-if="props.message || errorMessages?.shortMessage || props.footerRightText"
+      class="onyx-form-element__footer onyx-text--small"
+    >
+      <span v-if="errorMessages" class="onyx-form-element__error-message">
+        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
+
+        <OnyxInfoTooltip
+          v-if="errorMessages.longMessage"
+          class="onyx-form-element__tooltip onyx-form-element__tooltip--bottom"
+          color="danger"
+          position="bottom"
+          :label="t('showTooltip.error')"
+          :text="errorMessages.longMessage"
+        />
+      </span>
+      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <OnyxInfoTooltip
+        v-if="props.messageTooltip"
+        class="onyx-form-element__tooltip onyx-form-element__tooltip--bottom"
+        position="bottom"
+        :text="props.messageTooltip"
+      />
+      <span v-if="props.footerRightText" class="onyx-form-element__counter">
+        {{ props.footerRightText }}
+      </span>
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+@use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/input.scss";
+
+.onyx-use-optional:not(:has(.onyx-required-marker)) {
+  .onyx-form-element__optional {
+    display: inline-block;
+  }
+}
+
+.onyx-form-element {
+  @include layers.component() {
+    @include input.define-shared-styles(
+      $base-selector: ".onyx-form-element",
+      // todo move frame related stuff out of the mixin, remove mixin here.
+      $vertical-padding: var(--onyx-spacing-2xs)
+    );
+
+    &__header {
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &__tooltip {
+      margin-left: var(--onyx-spacing-2xs);
+      &--bottom {
+        height: 1rem;
+        align-self: center;
+      }
+    }
+  }
+}
+</style>
