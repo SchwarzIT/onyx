@@ -89,7 +89,7 @@
   },
   "colorScheme": {
     "headline": "Change appearance",
-    "subtitle": "Please select the appearance of the application",
+    "subtitle": "Select the appearance of the application:",
     "auto": {
       "label": "Auto",
       "description": "The application automatically adapts its appearance to your system settings."

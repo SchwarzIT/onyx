@@ -89,14 +89,14 @@
   },
   "colorScheme": {
     "headline": "Erscheinungsbild ändern",
-    "subtitle": "Bitte wählen das Erscheinungsbild der Anwendung",
+    "subtitle": "Wähle das Erscheinungsbild der Anwendung:",
     "auto": {
       "label": "Auto",
       "description": "Die Anwendung passt ihr Aussehen automatisch an deine Systemeinstellungen an."
     },
     "light": {
       "label": "Hell",
-      "description": "Der Modus \"Hell\" bietet einen optimalen Kontrast für helle Umgebungen."
+      "description": "Der helle Modus bietet einen optimalen Kontrast für helle Umgebungen."
     },
     "dark": {
       "label": "Dunkel",

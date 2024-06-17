@@ -49,7 +49,7 @@ export type SelectOptionValue = string | number | boolean;
 
 export type AutofocusProp = {
   /**
-   * Whether to focus the input on page load or when dialog/popover become shown if used inside a dialog/popover.
+   * Whether to focus the component on page load or inside a dialog/popover once it opens.
    * Can only be enabled for one element inside a page/dialog/popover.
    * Note: Has no effect when set after the component has been mounted.
    *

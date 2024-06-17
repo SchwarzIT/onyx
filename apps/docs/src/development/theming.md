@@ -20,7 +20,7 @@ import { ref } from "vue";
 
 const userMenuOptions = [
   { value: "color-scheme", label: "Appearance", icon: circleContrast },
-  // your option user enu options...
+  // your other user menu options
 ] as const satisfies SelectOption[];
 
 const { store: colorScheme } = useColorMode();

@@ -30,9 +30,7 @@ watchEffect(() => (currentValue.value = props.modelValue));
 
 const { t } = injectI18n();
 
-const options = computed<
-  { value: ColorSchemeValue; description: string; image: string; label: string }[]
->(() => {
+const options = computed(() => {
   return [
     {
       value: "auto",
