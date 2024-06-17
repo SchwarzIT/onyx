@@ -60,7 +60,7 @@ const isMobile = computed(() => {
     typeof props.mobileBreakpoint === "number"
       ? props.mobileBreakpoint
       : ONYX_BREAKPOINTS[props.mobileBreakpoint];
-  return width.value !== 0 && width.value <= mobileWidth;
+  return width.value !== 0 && width.value < mobileWidth;
 });
 
 provide(mobileNavBarInjectionKey, isMobile);
