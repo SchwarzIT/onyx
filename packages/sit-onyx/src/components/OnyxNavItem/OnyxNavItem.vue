@@ -2,7 +2,7 @@
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { inject, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import { injectI18n } from "../../i18n";
 import { isExternalLink } from "../../utils";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -43,11 +43,14 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
 
 const isMobile = inject(mobileNavBarInjectionKey);
 const isMobileChildrenOpen = ref(false);
+const hasChildren = computed(() => !!props.options?.length);
 
 const handleParentClick = () => {
-  if (isMobile && props.options?.length && !isMobileChildrenOpen.value) {
+  if (isMobile?.value && hasChildren.value && !isMobileChildrenOpen.value) {
     isMobileChildrenOpen.value = true;
-  } else if (props.href) emit("click", props.href);
+  } else if (props.href) {
+    emit("click", props.href);
+  }
 };
 </script>
 
@@ -85,14 +88,14 @@ const handleParentClick = () => {
       </slot>
 
       <OnyxIcon
-        v-if="isMobile && props.options?.length && !isMobileChildrenOpen"
+        v-if="isMobile && hasChildren && !isMobileChildrenOpen"
         class="onyx-nav-item__mobile-chevron"
         :icon="chevronRightSmall"
       />
     </li>
 
     <OnyxFlyoutMenu
-      v-if="!isMobile && props.options?.length"
+      v-if="!isMobile && hasChildren"
       class="onyx-nav-item__flyout"
       :aria-label="t('navItemOptionsLabel', { label: props.label })"
     >
@@ -112,7 +115,7 @@ const handleParentClick = () => {
       </OnyxListItem>
     </OnyxFlyoutMenu>
 
-    <div v-else-if="isMobileChildrenOpen" class="onyx-nav-item__mobile-children">
+    <div v-else-if="hasChildren && isMobileChildrenOpen" class="onyx-nav-item__mobile-children">
       <OnyxNavSeparator orientation="horizontal" />
 
       <ul>
