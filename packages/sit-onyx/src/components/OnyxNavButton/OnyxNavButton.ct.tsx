@@ -22,9 +22,7 @@ test.describe("Screenshot tests", () => {
         label="Nav Button"
         href={row === "external-link" ? "https://onyx.schwarz/" : "#"}
         active={column === "active"}
-      >
-        Nav Button
-      </OnyxNavButton>
+      />
     ),
     beforeScreenshot: async (component, page, _column, row) => {
       await expect(component).toContainText("Nav Button");
