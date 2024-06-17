@@ -25,7 +25,7 @@ const slots = defineSlots<{
 const activeItem = ref<string>();
 
 const {
-  elements: { button, menu, menuItems, listItem, parentComponent },
+  elements: { button, menu, menuItems, listItem, flyout },
   state: { isExpanded },
 } = createMenuButton({
   onSelect: (value) => {
@@ -51,11 +51,12 @@ const options = computed(() => {
 </script>
 
 <template>
-  <div class="onyx-flyout-menu" v-bind="parentComponent">
+  <div class="onyx-flyout-menu">
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
       v-if="slots.options || slots.header || slots.footer"
       v-show="isExpanded"
+      v-bind="flyout"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,
         'onyx-flyout-menu__list--with-footer': !!slots.footer,
@@ -97,6 +98,7 @@ const options = computed(() => {
   @include layers.component() {
     // TODO: remove comment after replacing this component with the official OnyxFlyoutMenu
     // display: inline-block;
+    width: min-content;
 
     &__list {
       @include list.styles();
