@@ -46,15 +46,13 @@ test.describe("Screenshot tests", () => {
   }
 });
 
-test("Screenshot tests (mobile)", async ({ mount }) => {
+test("Screenshot tests (mobile)", async ({ mount, page }) => {
+  await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS.sm });
+
   const clickEvents: string[] = [];
 
   const component = await mount(
-    <OnyxNavBar
-      style={{ width: `${ONYX_BREAKPOINTS.sm}px` }}
-      appName="App name"
-      logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-    >
+    <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
       <OnyxNavItem href="/1" label="Item 1" onClick={(href) => clickEvents.push(href)} />
       <OnyxNavItem
         href="/2"
@@ -97,7 +95,7 @@ test("Screenshot tests (mobile)", async ({ mount }) => {
   await component.getByLabel("Toggle burger menu").click();
 
   // ASSERT
-  await expect(component).toHaveScreenshot("burger.png");
+  await expect(page).toHaveScreenshot("burger.png");
 
   // ACT
   await component.getByLabel("Item 1").click();
@@ -107,7 +105,7 @@ test("Screenshot tests (mobile)", async ({ mount }) => {
   await component.getByLabel("Item 2").click();
 
   // ASSERT
-  await expect(component).toHaveScreenshot("burger-children.png");
+  await expect(page).toHaveScreenshot("burger-children.png");
   expect(clickEvents).toStrictEqual(["/1"]);
 
   // ACT
