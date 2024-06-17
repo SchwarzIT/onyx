@@ -138,9 +138,11 @@ const { t } = injectI18n();
     <!-- TODO: implement mobile burger/context flyouts -->
     <div v-if="isMobile && isBurgerOpen" class="onyx-nav-bar__mobile-flyout">
       <div class="onyx-nav-bar__mobile-flyout-content">
-        <OnyxHeadline is="h2">{{ t("navigation.navigationHeadline") }}</OnyxHeadline>
+        <OnyxHeadline is="h2" class="onyx-nav-bar__mobile-headline">
+          {{ t("navigation.navigationHeadline") }}
+        </OnyxHeadline>
 
-        <nav>
+        <nav class="onyx-nav-bar__nav--mobile">
           <ul role="menubar">
             <slot></slot>
           </ul>
@@ -212,6 +214,14 @@ $gap: var(--onyx-spacing-md);
         gap: var(--onyx-spacing-4xs);
         padding: 0;
       }
+
+      &--mobile {
+        display: contents;
+
+        > ul {
+          display: contents;
+        }
+      }
     }
 
     &__context {
@@ -276,22 +286,18 @@ $gap: var(--onyx-spacing-md);
       margin-inline: auto;
       gap: var(--onyx-spacing-2xs);
 
-      nav {
-        display: contents;
+      $mobile-children-selector: ":has(.onyx-nav-item__mobile-children)";
 
-        > ul {
-          display: contents;
-        }
-      }
-
-      &:has(.onyx-nav-item__mobile-children) {
-        .onyx-headline {
+      // hide "Navigation" headline when nav item with children is open
+      &#{$mobile-children-selector} {
+        .onyx-nav-bar__mobile-headline {
           display: none;
         }
       }
 
-      :has(.onyx-nav-item__mobile-children) {
-        > .onyx-nav-item:not(:has(.onyx-nav-item__mobile-children)) {
+      // hide all other nav items when nav item with children is open
+      #{$mobile-children-selector} {
+        > .onyx-nav-item:not(#{$mobile-children-selector}) {
           display: none;
         }
       }
