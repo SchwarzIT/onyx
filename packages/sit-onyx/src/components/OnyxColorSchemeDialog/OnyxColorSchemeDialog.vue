@@ -71,9 +71,9 @@ const handleApply = () => {
     <form class="onyx-color-scheme-dialog" @submit.prevent="handleApply">
       <div>
         <OnyxHeadline is="h2"> {{ t("colorScheme.headline") }}</OnyxHeadline>
-        <div class="onyx-color-scheme-dialog__subtitle onyx-text">
+        <span class="onyx-color-scheme-dialog__subtitle onyx-text">
           {{ t("colorScheme.subtitle") }}
-        </div>
+        </span>
       </div>
 
       <fieldset class="onyx-color-scheme-dialog__list" @change="handleChange">
