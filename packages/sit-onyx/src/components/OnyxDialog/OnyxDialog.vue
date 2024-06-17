@@ -96,6 +96,7 @@ watch(
     padding: var(--onyx-dialog-padding);
     background-color: var(--onyx-color-base-background-blank);
     overflow: auto;
+    z-index: var(--onyx-z-index-page-overlay);
 
     $max-size: calc(100% - 2 * var(--onyx-grid-margin));
     max-width: $max-size;
@@ -114,6 +115,10 @@ watch(
 
     .dark & {
       --backdrop-opacity: 0.6;
+    }
+
+    &:modal {
+      z-index: var(--onyx-z-index-app-overlay);
     }
   }
 }
