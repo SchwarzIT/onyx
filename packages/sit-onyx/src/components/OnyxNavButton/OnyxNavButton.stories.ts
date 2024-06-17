@@ -55,13 +55,19 @@ export const Active = {
 /**
  * This example shows the nav button with nested children.
  */
-export const WithChildren = {
+export const WithChildren: Story = {
   args: {
     ...Default.args,
     active: true,
     children: () => nestedChildren.map(({ label }) => h(OnyxListItem, label)),
   },
-} satisfies Story;
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="height: 16rem"> <story /> </div>`,
+    }),
+  ],
+};
 
 /**
  * This example shows the nav button with additional content (a dot badge in this case).
