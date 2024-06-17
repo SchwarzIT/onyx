@@ -5,11 +5,13 @@ import enUS from "../i18n/locales/en-US.json";
 import { injectI18n } from "../i18n";
 import type { InputType } from "../components/OnyxInput/types";
 
+export type CustomErrorType = string | FormErrorMessages;
+
 export type CustomValidityProp = {
   /**
    * Custom error message to show. Will only show up after the user has interacted with the input.
    */
-  customError?: string;
+  customError?: CustomErrorType;
 };
 
 export type UseCustomValidityOptions = {
@@ -43,7 +45,7 @@ export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
  */
 export type FormErrorMessages = {
   /**
-   * A short error message for giving a quick info to the user about the cause of the error
+   * A short error message preview to inform the user about the cause of the error
    */
   shortMessage: string;
   /**
@@ -51,6 +53,33 @@ export type FormErrorMessages = {
    * how the error cause can be resolved
    */
   longMessage?: string;
+};
+
+/**
+ * Transforms a customError into the format needed to display an error preview and extended message
+ */
+export const getCustomErrors = (customError?: CustomErrorType): FormErrorMessages | undefined => {
+  if (!customError) return;
+  if (typeof customError === "string") {
+    // we can't guarantee a custom error message will be short,
+    // so in case it overflows, by adding it to "longMessage",
+    // it will still be visible in a tooltip
+    return { shortMessage: customError, longMessage: customError };
+  }
+  return customError;
+};
+
+/**
+ * Returns a string combining short + long message or just the customError if it was provided as single string.
+ * Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
+ */
+export const getCustomErrorText = (customError?: CustomErrorType): string | undefined => {
+  if (!customError) return;
+  if (typeof customError === "string") {
+    return customError;
+  }
+  const { shortMessage, longMessage } = customError;
+  return `${shortMessage}: ${longMessage}`;
 };
 
 /**
@@ -92,7 +121,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       /**
        * Sync custom error with the native input validity.
        */
-      watchEffect(() => el.setCustomValidity(options.props.customError ?? ""));
+      watchEffect(() => el.setCustomValidity(getCustomErrorText(options.props.customError) ?? ""));
 
       watch(
         [() => options.props.customError, () => options.props.modelValue],
@@ -132,14 +161,11 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     if (!validityState.value || validityState.value.valid) return;
 
     const errorType = getFirstInvalidType(validityState.value);
+    const customErrors = getCustomErrors(options.props.customError);
     // a custom error message always is considered first
-    if (options.props.customError || errorType === "customError") {
-      if (!options.props.customError) return;
-      const message = options.props.customError;
-      // we can't guarantee a custom error message will be short,
-      // so in case it overflows, by adding it to "longMessage",
-      // it will still be visible in a tooltip
-      return { shortMessage: message, longMessage: message };
+    if (customErrors || errorType === "customError") {
+      if (!customErrors) return;
+      return customErrors;
     }
     if (!errorType) return;
 
@@ -152,9 +178,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
         longMessage: t.value(`validations.typeMismatch.${type}.fullError`, {
           value: options.props.modelValue?.toString(),
         }),
-        shortMessage: t.value(`validations.typeMismatch.${type}.preview`, {
-          value: options.props.modelValue?.toString(),
-        }),
+        shortMessage: t.value(`validations.typeMismatch.${type}.preview`),
       };
     }
 
@@ -167,7 +191,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
     return {
       longMessage: t.value(`validations.${errorType}.fullError`, validationData),
-      shortMessage: t.value(`validations.${errorType}.preview`, validationData),
+      shortMessage: t.value(`validations.${errorType}.preview`),
     };
   });
 
