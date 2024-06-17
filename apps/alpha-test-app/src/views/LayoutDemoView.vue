@@ -106,8 +106,20 @@ const footerAsideSidebar = computed<boolean>(
 
     <OnyxDialog
       label="Example dialog"
-      :open="settings.overlay.showPopover"
+      :open="settings.overlay.showModal"
       modal
+      @close="settings.overlay.showModal = false"
+    >
+      <OnyxHeadline is="h2">Modal content</OnyxHeadline>
+      <p>Press "Escape" to close the modal.</p>
+
+      <LayoutSettings v-model="settings" :show="['overlay']" />
+      <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
+    </OnyxDialog>
+
+    <OnyxDialog
+      label="Example dialog"
+      :open="settings.overlay.showPopover"
       @close="settings.overlay.showPopover = false"
     >
       <OnyxHeadline is="h2">Modal content</OnyxHeadline>

@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import { OnyxButton } from "sit-onyx";
+import { OnyxButton, OnyxIconButton } from "sit-onyx";
+import { useRouter } from "vue-router";
+import onyxLogo from "../../assets/onyx-logo.svg?raw";
 
 const isLeftAligned = defineModel<boolean>();
+
+const router = useRouter();
 </script>
 
 <template>
   <div class="nav-bar" :class="{ 'nav-bar--left': isLeftAligned }">
-    <strong>Top nav bar</strong> |
+    <OnyxIconButton :icon="onyxLogo" label="Home" @click="router.push('/')" />
 
     <slot></slot>
 
@@ -22,8 +26,10 @@ const isLeftAligned = defineModel<boolean>();
   flex-wrap: nowrap;
   align-items: center;
   gap: var(--onyx-spacing-md);
+  padding-left: 1rem;
 
   &--left {
+    padding-left: unset;
     flex-flow: column nowrap;
     width: 4.375rem;
     height: 100%;
