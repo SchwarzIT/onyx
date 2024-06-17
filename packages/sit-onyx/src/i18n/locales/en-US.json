@@ -88,15 +88,15 @@
     "error": "Show error tooltip"
   },
   "colorScheme": {
-    "headline": "Color scheme selection",
-    "subtitle": "Please select the appearance of your application",
+    "headline": "Change appearance",
+    "subtitle": "Please select the appearance of the application",
     "auto": {
       "label": "Auto",
-      "description": "With this option selected, the application automatically adapts its appearance to your system settings."
+      "description": "The application automatically adapts its appearance to your system settings."
     },
     "light": {
       "label": "Light",
-      "description": "Light mode gives you optimal contrast in bright environments."
+      "description": "Light mode provides optimal contrast for bright environments."
     },
     "dark": {
       "label": "Dark",

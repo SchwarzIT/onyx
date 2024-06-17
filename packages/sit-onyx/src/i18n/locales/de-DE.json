@@ -88,15 +88,15 @@
     "error": "Fehler-Tooltip anzeigen"
   },
   "colorScheme": {
-    "Überschrift": "Auswahl des Farbschemas",
-    "subtitle": "Bitte wählen das Farbschema deiner Anwendung",
+    "headline": "Erscheinungsbild ändern",
+    "subtitle": "Bitte wählen das Erscheinungsbild der Anwendung",
     "auto": {
       "label": "Auto",
-      "description": "Wenn diese Option ausgewählt ist, passt die Anwendung ihr Aussehen automatisch an deine Systemeinstellungen an."
+      "description": "Die Anwendung passt ihr Aussehen automatisch an deine Systemeinstellungen an."
     },
     "light": {
       "label": "Hell",
-      "description": "Der Modus \"Hell\" bietet einen optimalen Kontrast in hellen Umgebungen."
+      "description": "Der Modus \"Hell\" bietet einen optimalen Kontrast für helle Umgebungen."
     },
     "dark": {
       "label": "Dunkel",
