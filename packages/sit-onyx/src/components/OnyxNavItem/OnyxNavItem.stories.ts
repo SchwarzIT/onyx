@@ -85,7 +85,7 @@ export const WithExternalLink = {
  */
 export const Mobile = {
   args: {
-    ...Default.args,
+    ...WithOptions.args,
   },
   render: (args) => ({
     components: { OnyxNavItem },

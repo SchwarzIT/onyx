@@ -276,9 +276,24 @@ $gap: var(--onyx-spacing-md);
       margin-inline: auto;
       gap: var(--onyx-spacing-2xs);
 
-      nav,
-      ul {
+      nav {
         display: contents;
+
+        > ul {
+          display: contents;
+        }
+      }
+
+      &:has(.onyx-nav-item__mobile-children) {
+        .onyx-headline {
+          display: none;
+        }
+      }
+
+      :has(.onyx-nav-item__mobile-children) {
+        > .onyx-nav-item:not(:has(.onyx-nav-item__mobile-children)) {
+          display: none;
+        }
       }
     }
   }

@@ -54,11 +54,11 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item", href: "/" }),
+      h(OnyxNavItem, { label: "Item 1", href: "/" }),
       h(
         OnyxNavItem,
         {
-          label: "Item",
+          label: "Item 2",
           href: "/test",
           options: [
             { label: "Nested item 1", href: "#" },
@@ -66,9 +66,9 @@ export const Default = {
             { label: "Nested item 3", href: "#" },
           ],
         },
-        () => ["Item", h(OnyxBadge, { dot: true, color: "warning" })],
+        () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
       ),
-      h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "Item 3", href: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2",
   },
