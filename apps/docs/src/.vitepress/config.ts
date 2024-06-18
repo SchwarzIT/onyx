@@ -51,6 +51,7 @@ export default defineConfig({
         text: "Resources",
         items: [
           { text: "Brand", link: "/brand/team", activeMatch: "/brand/" },
+          { text: "Playground", link: "https://playground.onyx.schwarz" },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
         ],
