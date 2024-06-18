@@ -104,6 +104,9 @@ export * from "./components/OnyxTextarea/types";
 export { default as OnyxTimer } from "./components/OnyxTimer/OnyxTimer.vue";
 export * from "./components/OnyxTimer/types";
 
+export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
+export * from "./components/OnyxToast/types";
+
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
 
