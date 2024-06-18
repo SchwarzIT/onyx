@@ -39,6 +39,7 @@ const emit = defineEmits<{
       densityClass,
     ]"
     :disabled="props.disabled || props.loading"
+    :autofocus="props.autofocus"
     @click="emit('click')"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
