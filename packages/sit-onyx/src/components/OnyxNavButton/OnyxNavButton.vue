@@ -69,19 +69,6 @@ const shouldShowExternalIcon = (args: OnyxNavButtonProps) => {
   @include layers.component() {
     $gap: var(--onyx-spacing-2xs);
 
-    .onyx-future-flyout-menu__list {
-      margin-top: var(--onyx-spacing-sm);
-      border-radius: var(--onyx-radius-md);
-      background-color: var(--onyx-color-base-background-blank);
-      padding: var(--onyx-spacing-2xs) 0;
-      box-shadow: var(--onyx-shadow-medium-bottom);
-      box-sizing: border-box;
-      width: max-content;
-      max-width: 20rem;
-      font-family: var(--onyx-font-family);
-      z-index: var(--onyx-z-index-flyout);
-    }
-
     &__trigger {
       display: inline-flex;
       position: relative;

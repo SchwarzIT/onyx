@@ -131,10 +131,8 @@ const avatar = computed(() => {
     }
 
     &__flyout {
-      .onyx-flyout-menu__list {
-        position: absolute;
+      .onyx-future-flyout-menu__list {
         right: 0;
-        top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
       }
     }
 

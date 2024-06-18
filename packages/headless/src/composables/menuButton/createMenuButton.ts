@@ -20,12 +20,12 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
    */
   const updateDebouncedExpanded = debounce(
     (expanded: boolean) => (isExpanded.value = expanded),
-    400,
+    200,
   );
 
   const hoverEvents = computed(() => {
     return {
-      onMouseover: () => (isExpanded.value = true),
+      onMouseover: () => updateDebouncedExpanded(true),
       onMouseout: () => updateDebouncedExpanded(false),
       onFocusin: () => (isExpanded.value = true),
       onFocusout: () => (isExpanded.value = false),
