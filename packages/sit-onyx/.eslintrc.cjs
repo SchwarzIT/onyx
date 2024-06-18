@@ -11,6 +11,9 @@ module.exports = {
     // disallow scoped or module CSS for components
     // see https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
+    // we want to provide the flexibility to have the autofocus property.
+    // whe JSDoc description includes a warning that it should be used carefully.
+    "vuejs-accessibility/no-autofocus": "off",
   },
   overrides: [
     // disable playwright rules for vitest (unit test) files

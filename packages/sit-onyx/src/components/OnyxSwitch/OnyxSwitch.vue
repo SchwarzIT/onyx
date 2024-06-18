@@ -64,6 +64,7 @@ const isChecked = computed({
       :aria-label="props.hideLabel ? props.label : undefined"
       :disabled="props.disabled || props.loading"
       :required="props.required"
+      :autofocus="props.autofocus"
     />
     <span class="onyx-switch__click-area">
       <span class="onyx-switch__container">
