@@ -21,8 +21,8 @@ export type OnyxToastProps = {
    */
   duration?: number;
   /**
-   * Whether the toast is clickable (will emit the `close` event).
-   * If `duration` is disabled, this will hide the close button.
+   * Whether the toast is clickable (will emit the `click` event).
+   * Will also hide the manual close button if `duration` is disabled.
    */
   clickable?: boolean;
   /**
