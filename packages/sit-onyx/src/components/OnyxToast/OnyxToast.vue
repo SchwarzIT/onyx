@@ -18,6 +18,14 @@ const emit = defineEmits<{
    */
   close: [];
 }>();
+
+defineSlots<{
+  /**
+   * Optional slot to override the description content.
+   * Useful if you e.g. want to add links etc.
+   */
+  default?(): unknown;
+}>();
 </script>
 
 <template>
@@ -38,7 +46,7 @@ const emit = defineEmits<{
         v-if="props.description"
         class="onyx-toast__description onyx-text--small onyx-truncation-multiline"
       >
-        {{ props.description }}
+        <slot> {{ props.description }}</slot>
       </p>
     </div>
   </component>
