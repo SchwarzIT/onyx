@@ -74,6 +74,7 @@ const emit = defineEmits<{
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
+    position: relative;
     display: inline-flex;
     height: var(--onyx-button-height);
     max-width: 100%;
