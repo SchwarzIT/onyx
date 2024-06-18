@@ -69,7 +69,7 @@ const shouldShowExternalIcon = (args: OnyxNavButtonProps) => {
   @include layers.component() {
     $gap: var(--onyx-spacing-2xs);
 
-    .onyx-flyout-menu__list {
+    .onyx-future-flyout-menu__list {
       margin-top: var(--onyx-spacing-sm);
       border-radius: var(--onyx-radius-md);
       background-color: var(--onyx-color-base-background-blank);

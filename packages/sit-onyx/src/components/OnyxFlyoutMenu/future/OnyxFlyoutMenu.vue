@@ -62,22 +62,22 @@ const { t } = injectI18n();
       v-bind="flyout"
       :aria-label="t('navigation.navigationHeadline')"
       :class="{
-        'onyx-flyout-menu__list--with-header': !!slots.header,
-        'onyx-flyout-menu__list--with-footer': !!slots.footer,
-        'onyx-flyout-menu__list': true,
+        'onyx-future-flyout-menu__list--with-header': !!slots.header,
+        'onyx-future-flyout-menu__list--with-footer': !!slots.footer,
+        'onyx-future-flyout-menu__list': true,
       }"
     >
       <slot name="header"></slot>
       <ul
         v-if="slots.options"
         v-bind="menu"
-        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+        class="onyx-future-flyout-menu__wrapper onyx-flyout-menu__group"
       >
         <li
           v-for="(item, index) in options"
           v-bind="listItem"
           :key="index"
-          class="onyx-flyout-menu__option"
+          class="onyx-future-flyout-menu__option"
         >
           <component
             :is="item"
