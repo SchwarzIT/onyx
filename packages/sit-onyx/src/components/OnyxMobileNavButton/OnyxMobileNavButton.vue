@@ -22,7 +22,7 @@ const emit = defineEmits<{
     :aria-label="props.label"
     @click="emit('update:open', !props.open)"
   >
-    <OnyxIcon :icon="props.open ? x : props.icon" />
+    <OnyxIcon :icon="props.open ? x : props.icon" size="24px" />
   </button>
 </template>
 

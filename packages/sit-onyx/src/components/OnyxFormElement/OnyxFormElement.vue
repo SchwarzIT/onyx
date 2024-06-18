@@ -143,7 +143,10 @@ defineSlots<{
     }
 
     &__tooltip {
+      display: flex;
       margin-left: var(--onyx-spacing-2xs);
+      align-items: center;
+
       &--bottom {
         height: 1rem;
         align-self: center;
