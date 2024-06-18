@@ -4,7 +4,7 @@ import { injectI18n } from "../../i18n";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import autoImage from "./auto.svg?raw";
 import darkImage from "./dark.svg?raw";
 import lightImage from "./light.svg?raw";
@@ -59,14 +59,21 @@ const handleChange = (event: Event) => {
 };
 
 const handleApply = () => {
+  if (!currentValue.value) return;
   emit("update:modelValue", currentValue.value);
   emit("close");
 };
 </script>
 
 <template>
-  <OnyxDialog v-bind="props" :label="t('colorScheme.headline')" modal @close="emit('close')">
-    <form class="onyx-color-scheme-dialog" @submit.prevent="handleApply">
+  <OnyxDialog
+    class="onyx-color-scheme-dialog"
+    v-bind="props"
+    :label="t('colorScheme.headline')"
+    modal
+    @close="emit('close')"
+  >
+    <form class="onyx-color-scheme-dialog__form" @submit.prevent="handleApply">
       <div>
         <OnyxHeadline is="h2"> {{ t("colorScheme.headline") }}</OnyxHeadline>
         <span class="onyx-color-scheme-dialog__subtitle onyx-text">
@@ -75,21 +82,33 @@ const handleApply = () => {
       </div>
 
       <fieldset class="onyx-color-scheme-dialog__list" @change="handleChange">
-        <div v-for="option in options" :key="option.value" class="onyx-color-scheme-dialog__option">
+        <label
+          v-for="option in options"
+          :key="option.value"
+          class="onyx-color-scheme-dialog__option"
+        >
           <!-- eslint-disable-next-line vue/no-v-html -->
           <figure class="onyx-color-scheme-dialog__image" v-html="option.image"></figure>
 
           <div>
-            <OnyxRadioButton
-              :label="option.label"
-              name="color-scheme"
-              :value="option.value"
-              :selected="props.modelValue === option.value"
-              :autofocus="props.modelValue === option.value"
-            />
+            <OnyxVisuallyHidden is="div">
+              <input
+                type="radio"
+                name="color-scheme"
+                :autofocus="props.modelValue === option.value"
+                :value="option.value"
+                :checked="props.modelValue === option.value"
+                :aria-label="option.label"
+                required
+              />
+            </OnyxVisuallyHidden>
+
+            <OnyxHeadline is="h3" class="onyx-color-scheme-dialog__label">
+              {{ option.label }}
+            </OnyxHeadline>
             <p class="onyx-text--small">{{ option.description }}</p>
           </div>
-        </div>
+        </label>
       </fieldset>
 
       <div class="onyx-color-scheme-dialog__actions">
@@ -107,23 +126,28 @@ const handleApply = () => {
   @include layers.component() {
     --image-size: 10rem;
 
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-spacing-md);
-    width: 30rem;
-    max-width: 100%;
+    width: 32rem;
+    background-color: var(--onyx-color-base-background-tinted);
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-md);
+    }
 
     &__subtitle {
       color: var(--onyx-color-text-icons-neutral-medium);
     }
 
     &__list {
-      border-radius: var(--onyx-radius-md);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      background: var(--onyx-color-base-background-tinted);
       list-style: none;
       padding: 0;
       container-type: inline-size;
+
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-md);
+      border: none;
     }
 
     &__option {
@@ -133,14 +157,31 @@ const handleApply = () => {
       gap: var(--onyx-spacing-md);
       align-self: stretch;
       color: var(--onyx-color-text-icons-neutral-medium);
-
-      &:not(:last-child) {
-        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      }
+      cursor: pointer;
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      background-color: var(--onyx-color-base-background-blank);
+      border-radius: var(--onyx-radius-md);
 
       @container (max-width: 24rem) {
         flex-direction: column;
         --image-size: 6rem;
+      }
+
+      &:hover {
+        background: var(--onyx-color-base-background-tinted);
+      }
+
+      &:has(input:checked) {
+        border-color: var(--onyx-color-base-primary-200);
+        background-color: var(--onyx-color-base-primary-100);
+
+        &:hover {
+          border-color: var(--onyx-color-base-primary-500);
+        }
+
+        .onyx-color-scheme-dialog__label {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
       }
     }
 

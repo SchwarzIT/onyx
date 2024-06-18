@@ -1,37 +1,49 @@
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
 import type { ColorSchemeValue } from "./types";
 
-test.beforeEach(async ({ page }) => {
-  await page.setViewportSize({ width: 512, height: 640 });
-});
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Color scheme dialog",
+    columns: ["default", "active"],
+    rows: ["default", "hover", "mobile"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column) => (
+      <OnyxColorSchemeDialog modelValue={column === "active" ? "auto" : undefined} open />
+    ),
+    // set component size to fully include the tooltip
+    beforeScreenshot: async (component, page, column, row) => {
+      const size = await component
+        .getByRole("dialog")
+        .evaluate((element: HTMLElement) => [element.offsetHeight, element.offsetWidth]);
 
-test("Screenshot tests", async ({ mount, makeAxeBuilder, page }) => {
-  // ARRANGE
-  await mount(<OnyxColorSchemeDialog modelValue="light" open style={{ width: "48rem" }} />);
+      const height = row === "mobile" ? 832 : size[0] + 48;
+      const width = row === "mobile" ? 384 : size[1] + 16;
 
-  // ASSERT
-  await expect(page).toHaveScreenshot("default.png");
+      await page.setViewportSize({ height, width });
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder()
-    .disableRules([
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      "color-contrast",
-    ])
-    .analyze();
+      // set paddings to fit the full tooltip in the screenshot
+      await component.evaluate(
+        (element, { height, width }) => {
+          element.style.height = `${height}px`;
+          element.style.width = `${width}px`;
+        },
+        { height, width },
+      );
 
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  // ACT
-  await page.setViewportSize({ width: 384, height: 832 });
-
-  // ASSERT
-  await expect(page).toHaveScreenshot("mobile.png");
+      if (row === "hover") {
+        // eslint-disable-next-line playwright/no-force-option -- since the radio button is visually hidden, we need to use force here
+        await component.getByLabel("Auto").hover({ force: true });
+      }
+    },
+  });
 });
 
 test("should behave correctly", async ({ mount, page }) => {
+  await page.setViewportSize({ width: 512, height: 640 });
+
   const updateModelValueEvents: ColorSchemeValue[] = [];
   let closeEventCount = 0;
 
@@ -45,6 +57,11 @@ test("should behave correctly", async ({ mount, page }) => {
       onClose={() => closeEventCount++}
     />,
   );
+
+  const clickOption = (label: string) => {
+    // eslint-disable-next-line playwright/no-force-option -- since the radio button is visually hidden, we need to use force here
+    return component.getByLabel(label).click({ force: true });
+  };
 
   // ASSERT (should be focussed initially)
   await expect(component.getByLabel("Light")).toBeFocused();
@@ -63,7 +80,7 @@ test("should behave correctly", async ({ mount, page }) => {
   expect(closeEventCount).toBe(1);
 
   // ACT
-  await component.getByLabel("Auto").click();
+  await clickOption("Auto");
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["dark"]);
@@ -75,7 +92,7 @@ test("should behave correctly", async ({ mount, page }) => {
   expect(closeEventCount).toBe(2);
 
   // ACT
-  await component.getByLabel("Light").click();
+  await clickOption("Light");
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT

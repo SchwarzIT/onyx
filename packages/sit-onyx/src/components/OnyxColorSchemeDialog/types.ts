@@ -4,7 +4,7 @@ export type OnyxColorSchemeDialogProps = Pick<OnyxDialogProps, "open" | "density
   /**
    * Currently active color scheme.
    */
-  modelValue: ColorSchemeValue;
+  modelValue?: ColorSchemeValue;
 };
 
 export type ColorSchemeValue = "light" | "dark" | "auto";

@@ -18,7 +18,7 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
       (story, ctx) => ({
         components: { story, OnyxButton },
         setup: () => {
-          const isOpen = ref(false);
+          const isOpen = ref(true);
           watchEffect(() => {
             ctx.args.open = isOpen.value;
           });
