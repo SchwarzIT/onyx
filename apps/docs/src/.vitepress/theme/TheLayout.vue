@@ -10,7 +10,7 @@ const { Layout } = DefaultTheme;
       <footer class="footer">
         <p class="footer__message">Released under the Apache-2.0 License.</p>
         <p class="footer__copyright">Copyright © 2023-present Schwarz IT KG</p>
-        <a class="footer__imprint" href="https://it.schwarz/impressum"> Imprint </a>
+        <a class="footer__imprint" href="https://it.schwarz/impressum" target="_blank"> Imprint </a>
       </footer>
     </template>
   </Layout>
