@@ -258,6 +258,7 @@ const selectInputProps = computed(() => {
       ref="selectInput"
       v-bind="selectInputProps"
       :show-focus="isExpanded"
+      :autofocus="props.autofocus"
       @click="onToggle"
     />
 
@@ -416,6 +417,11 @@ const selectInputProps = computed(() => {
 
     &:has(&__wrapper:focus-visible) {
       outline: $outline-size solid var(--onyx-color-base-primary-200);
+    }
+
+    &__wrapper:has(.onyx-mini-search) {
+      // Add scroll padding, so items are not hidden beneath the search input
+      scroll-padding-top: var(--option-height);
     }
 
     &__slot {

@@ -1,5 +1,16 @@
 # sit-onyx
 
+## 1.0.0-alpha.138
+
+### Minor Changes
+
+- 0863114: feat: support `autofocus` property for multiple components
+
+  - OnyxButton, OnyxCheckbox, OnyxIconButton, OnyxRadioButton, OnyxSwitch, OnyxSelect
+
+- 0863114: feat: add `OnyxColorSchemeDialog` component
+- 53b0d50: feat(OnyxInput,OnyxTextarea): Unify template & style of header/footer form elements
+
 ## 1.0.0-alpha.137
 
 ### Patch Changes

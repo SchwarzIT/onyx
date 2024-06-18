@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
-import { useCustomValidity, getCustomErrorText } from "../../composables/useCustomValidity";
-import { OnyxLoadingIndicator } from "../../index";
+import { getCustomErrorText, useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxRadioButtonProps } from "./types";
 
@@ -55,6 +55,7 @@ const handleChange = (event: Event) => {
       :value="props.value"
       :checked="props.selected"
       :disabled="props.disabled"
+      :autofocus="props.autofocus"
       @change="handleChange"
     />
     <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">

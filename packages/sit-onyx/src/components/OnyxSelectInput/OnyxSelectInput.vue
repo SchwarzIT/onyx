@@ -118,6 +118,7 @@ defineExpose({ focus: () => input.value?.focus() });
           :aria-label="props.hideLabel ? props.label : undefined"
           :title="props.hideLabel ? props.label : undefined"
           :value="selectionText"
+          :autofocus="props.autofocus"
           @click="emit('click')"
         />
 
