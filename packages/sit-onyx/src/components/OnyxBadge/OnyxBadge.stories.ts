@@ -1,7 +1,7 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createTruncationDecorator, defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
@@ -74,6 +74,6 @@ export const Dot = {
 export const WithTruncation = {
   args: {
     default: "Badge with a very long text that gets truncated",
+    style: "max-width: 16rem",
   },
-  decorators: createTruncationDecorator("16rem"),
 } satisfies Story;

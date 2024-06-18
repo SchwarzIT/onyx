@@ -59,7 +59,6 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
     align-items: center;
     gap: var(--onyx-spacing-md);
     padding: var(--onyx-spacing-md);
-    border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     font-weight: 600;
     white-space: pre-line;
     max-height: 100%;

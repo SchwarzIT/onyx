@@ -98,7 +98,7 @@ const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
+  return (props.multiple && props.withCheckAll && !props.searchTerm ? [CHECK_ALL_ID] : []).concat(
     enabledOptionValues.value,
   );
 });
@@ -114,7 +114,7 @@ const onToggle = async (preventFocus?: boolean) => {
     if (props.searchTerm) emit("update:searchTerm", "");
     if (!preventFocus) selectInput.value?.focus();
   } else {
-    // make sure search of focused when flyout opens
+    // make sure search is focused when flyout opens
     await nextTick();
     miniSearch.value?.focus();
   }
@@ -145,7 +145,6 @@ const onTypeAhead = (label: string) => {
 
 const onAutocomplete = (inputValue: string) => emit("update:searchTerm", inputValue);
 
-// TODO: ensure focus stays in search field when selecting with click
 const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
@@ -255,13 +254,19 @@ const selectInputProps = computed(() => {
 
 <template>
   <div ref="selectRef" class="onyx-select-wrapper">
-    <OnyxSelectInput ref="selectInput" v-bind="selectInputProps" @click="onToggle" />
+    <OnyxSelectInput
+      ref="selectInput"
+      v-bind="selectInputProps"
+      :show-focus="isExpanded"
+      @click="onToggle"
+    />
 
     <div
       :class="['onyx-select', densityClass, isExpanded ? 'onyx-select--open' : '']"
+      :inert="!isExpanded"
       :aria-busy="props.loading"
     >
-      <div v-scroll-end class="onyx-select__wrapper">
+      <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
@@ -411,6 +416,11 @@ const selectInputProps = computed(() => {
 
     &:has(&__wrapper:focus-visible) {
       outline: $outline-size solid var(--onyx-color-base-primary-200);
+    }
+
+    &__wrapper:has(.onyx-mini-search) {
+      // Add scroll padding, so items are not hidden beneath the search input
+      scroll-padding-top: var(--option-height);
     }
 
     &__slot {

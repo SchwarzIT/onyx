@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
-import { useCustomValidity } from "../../composables/useCustomValidity";
+import { useCustomValidity, getCustomErrorText } from "../../composables/useCustomValidity";
 import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -38,7 +38,11 @@ const handleChange = (event: Event) => {
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label v-else :class="['onyx-radio-button', densityClass]" :title="props.customError">
+  <label
+    v-else
+    :class="['onyx-radio-button', densityClass]"
+    :title="getCustomErrorText(props.customError)"
+  >
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
     <input

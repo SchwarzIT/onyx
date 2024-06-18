@@ -1,5 +1,56 @@
 # sit-onyx
 
+## 1.0.0-alpha.137
+
+### Patch Changes
+
+- 442e4c5: fix(OnyxDialog): prevent overflow and add z-index
+
+## 1.0.0-alpha.136
+
+### Patch Changes
+
+- f1aad40: fix(OnyxNavBar): support SSR
+
+  prevent "ResizeObserver not defined" error
+
+## 1.0.0-alpha.135
+
+### Patch Changes
+
+- 0511127: fix(OnyxNavItem): fix styles for selected child items
+
+## 1.0.0-alpha.134
+
+### Minor Changes
+
+- 02d9f0f: feat(validity): Allow short/long message distinguishing for custom errors
+
+## 1.0.0-alpha.133
+
+### Patch Changes
+
+- Updated dependencies [fad8140]
+  - @sit-onyx/icons@0.1.0-alpha.2
+
+## 1.0.0-alpha.132
+
+### Patch Changes
+
+- 6059d12: fix keyboard support for the select
+
+## 1.0.0-alpha.131
+
+### Major Changes
+
+- 1baef56: refactor(OnyxTable): rename property grid to withVerticalBorders
+
+## 1.0.0-alpha.130
+
+### Minor Changes
+
+- 37ee3fd: feat: add `OnyxDialog` component
+
 ## 1.0.0-alpha.129
 
 ### Minor Changes

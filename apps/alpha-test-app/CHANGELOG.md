@@ -1,5 +1,62 @@
 # alpha-test-app
 
+## 0.1.0-alpha.134
+
+### Patch Changes
+
+- Updated dependencies [442e4c5]
+  - sit-onyx@1.0.0-alpha.137
+
+## 0.1.0-alpha.133
+
+### Patch Changes
+
+- Updated dependencies [f1aad40]
+  - sit-onyx@1.0.0-alpha.136
+
+## 0.1.0-alpha.132
+
+### Patch Changes
+
+- Updated dependencies [0511127]
+  - sit-onyx@1.0.0-alpha.135
+
+## 0.1.0-alpha.131
+
+### Patch Changes
+
+- Updated dependencies [02d9f0f]
+  - sit-onyx@1.0.0-alpha.134
+
+## 0.1.0-alpha.130
+
+### Patch Changes
+
+- Updated dependencies [fad8140]
+  - @sit-onyx/icons@0.1.0-alpha.2
+  - sit-onyx@1.0.0-alpha.133
+
+## 0.1.0-alpha.129
+
+### Patch Changes
+
+- Updated dependencies [6059d12]
+  - sit-onyx@1.0.0-alpha.132
+
+## 0.1.0-alpha.128
+
+### Patch Changes
+
+- Updated dependencies [1baef56]
+  - sit-onyx@1.0.0-alpha.131
+
+## 0.1.0-alpha.127
+
+### Patch Changes
+
+- Updated dependencies [37ee3fd]
+  - sit-onyx@1.0.0-alpha.130
+
 ## 0.1.0-alpha.126
 
 ### Patch Changes

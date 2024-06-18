@@ -81,15 +81,15 @@ describe("useCustomValidity", () => {
   });
 
   test.each([
-    { cause: "badInput", key: "validations.badInput.preview" },
-    { cause: "patternMismatch", key: "validations.patternMismatch.preview" },
-    { cause: "rangeOverflow", key: "validations.rangeOverflow.preview" },
-    { cause: "rangeUnderflow", key: "validations.rangeUnderflow.preview" },
-    { cause: "stepMismatch", key: "validations.stepMismatch.preview" },
-    { cause: "tooLong", key: "validations.tooLong.preview" },
-    { cause: "tooShort", key: "validations.tooShort.preview" },
-    { cause: "typeMismatch", key: "validations.typeMismatch.generic.preview" },
-    { cause: "valueMissing", key: "validations.valueMissing.preview" },
+    { cause: "badInput", key: "validations.badInput" },
+    { cause: "patternMismatch", key: "validations.patternMismatch" },
+    { cause: "rangeOverflow", key: "validations.rangeOverflow" },
+    { cause: "rangeUnderflow", key: "validations.rangeUnderflow" },
+    { cause: "stepMismatch", key: "validations.stepMismatch" },
+    { cause: "tooLong", key: "validations.tooLong" },
+    { cause: "tooShort", key: "validations.tooShort" },
+    { cause: "typeMismatch", key: "validations.typeMismatch.generic" },
+    { cause: "valueMissing", key: "validations.valueMissing" },
   ])("should create a default error translation for $cause", async ({ cause, key }) => {
     // ARRANGE
     const initialInvalidEmpty: ValidityState = {
@@ -113,6 +113,7 @@ describe("useCustomValidity", () => {
 
     // ASSERT
     expect(errorMessages.value).toEqual({ longMessage: "Test", shortMessage: "This is a test" });
-    expect(tFunctionMock).toBeCalledWith(key, expect.any(Object));
+    expect(tFunctionMock).toBeCalledWith(`${key}.preview`);
+    expect(tFunctionMock).toBeCalledWith(`${key}.fullError`, expect.any(Object));
   });
 });

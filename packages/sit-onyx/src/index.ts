@@ -20,6 +20,9 @@ export * from "./components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types";
 
+export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
+export * from "./components/OnyxDialog/types";
+
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
 export { default as OnyxFlyoutMenu } from "./components/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -48,6 +51,9 @@ export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicat
 export * from "./components/OnyxLoadingIndicator/types";
 
 export { default as OnyxMiniSearch } from "./components/OnyxMiniSearch/OnyxMiniSearch.vue";
+
+export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
+export * from "./components/OnyxMobileNavButton/types";
 
 export { default as OnyxNavAppArea } from "./components/OnyxNavAppArea/OnyxNavAppArea.vue";
 export * from "./components/OnyxNavAppArea/types";

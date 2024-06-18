@@ -23,6 +23,7 @@ import {
   OnyxTextarea,
   OnyxTimer,
   OnyxTooltip,
+  normalizedIncludes,
   type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
@@ -59,10 +60,17 @@ const configOptions = COMPONENTS.map((component) => ({
   label: component,
   value: component,
 })) satisfies SelectOption[];
-const activeConfig = ref(configOptions.map((option) => option.value));
-
+const searchTerm = ref("");
+const filteredConfigOptions = computed(() =>
+  searchTerm.value
+    ? configOptions.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
+    : configOptions,
+);
+const componentsToShow = ref([...configOptions]);
+const componentNamesToShow = computed(() => componentsToShow.value.map((option) => option.value));
 const show = computed(() => {
-  return (componentName: (typeof COMPONENTS)[number]) => activeConfig.value.includes(componentName);
+  return (componentName: (typeof COMPONENTS)[number]) =>
+    componentNamesToShow.value.includes(componentName);
 });
 
 const densityOptions = DENSITIES.map((value) => ({
@@ -134,19 +142,25 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
 
         <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
 
-        <OnyxCheckboxGroup
-          v-model="activeConfig"
-          headline="Examples to show"
-          :options="configOptions"
+        <OnyxSelect
+          v-model="componentsToShow"
+          v-model:search-term="searchTerm"
+          :options="filteredConfigOptions"
+          label="Visible examples"
+          list-label="Available components"
+          text-mode="preview"
+          multiple
           with-check-all
+          with-search
         />
       </div>
     </template>
 
     <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
-      <OnyxHeadline is="h1">Component usages</OnyxHeadline>
-
-      <p>Each onyx component should be used at least once in this page.</p>
+      <section class="page__intro">
+        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
+        <p>Each onyx component should be used at least once in this page.</p>
+      </section>
 
       <div class="page__examples">
         <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
@@ -215,7 +229,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
             />
           </div>
 
-          <div class="onyx-text--small state-info">
+          <div v-if="!useSkeleton" class="onyx-text--small state-info">
             <div>OnyxSelect single state: {{ selectState ?? "–" }}</div>
             <div>OnyxSelect single grouped state: {{ groupedSelectState ?? "–" }}</div>
             <div>OnyxSelect multiselect state: {{ multiselectState ?? "–" }}</div>
@@ -278,6 +292,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
           v-if="show('OnyxTextarea')"
           label="Example textarea"
           label-tooltip="More information tooltip"
+          :skeleton="useSkeleton"
         />
 
         <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
@@ -300,14 +315,18 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
   padding: var(--onyx-spacing-md);
   border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   height: calc(100% - var(--onyx-spacing-xl));
+  width: 16rem;
 }
 .page {
   padding: var(--onyx-spacing-xl);
 
+  &__intro {
+    margin-bottom: var(--onyx-spacing-lg);
+  }
   &__examples {
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-spacing-xs);
+    gap: var(--onyx-spacing-md);
     align-items: flex-start;
   }
 }
