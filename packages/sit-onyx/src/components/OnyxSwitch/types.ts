@@ -1,11 +1,12 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { TruncationType } from "../../types";
+import type { AutofocusProp, TruncationType } from "../../types";
 
 export type OnyxSwitchProps = DensityProp &
   RequiredMarkerProp &
-  CustomValidityProp & {
+  CustomValidityProp &
+  AutofocusProp & {
     /**
      * Whether the switch should be checked or not.
      */

@@ -1,5 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { ref, watchEffect } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxDialog from "./OnyxDialog.vue";
 
 /**
@@ -33,3 +35,31 @@ export const Default = {
     default: "Dialog content...",
   },
 } satisfies Story;
+
+/**
+ * This example shows a modal dialog which will block the primary page content and show a backdrop.
+ * **Hint**: In this example, you can close the dialog by pressing "Escape".
+ */
+export const Modal: Story = {
+  args: {
+    label: "Example modal dialog",
+    default: "Dialog content...",
+    modal: true,
+  },
+  decorators: [
+    (story, ctx) => ({
+      components: { story, OnyxButton },
+      setup: () => {
+        const isOpen = ref(false);
+        watchEffect(() => {
+          ctx.args.open = isOpen.value;
+        });
+        return { isOpen };
+      },
+      template: `<div>
+        <OnyxButton label="Show modal" @click="isOpen = true" />
+        <story :open="isOpen" @close="isOpen = false;" />
+      </div>`,
+    }),
+  ],
+};

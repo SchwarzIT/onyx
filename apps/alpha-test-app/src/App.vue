@@ -1,16 +1,17 @@
 <script setup lang="ts">
+import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import logout from "@sit-onyx/icons/logout.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
-import { useDark, useToggle } from "@vueuse/core";
+import { useColorMode } from "@vueuse/core";
 import {
   OnyxAppLayout,
+  OnyxColorSchemeDialog,
   OnyxNavBar,
   OnyxNavItem,
-  OnyxSwitch,
   OnyxUserMenu,
   type OnyxNavItemProps,
   type SelectOption,
 } from "sit-onyx";
+import { ref } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -27,12 +28,18 @@ const navItems = [
 ] satisfies OnyxNavItemProps[];
 
 const userMenuOptions = [
-  { value: "/settings", label: "Settings", icon: settings },
+  { value: "color-scheme", label: "Appearance", icon: circleContrast },
   { value: "logout", label: "Logout", icon: logout, color: "danger" },
-] satisfies SelectOption[];
+] as const satisfies SelectOption[];
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+const { store: colorScheme } = useColorMode();
+const isColorSchemeDialogOpen = ref(false);
+
+const handleOptionClick = (value: (typeof userMenuOptions)[number]["value"]) => {
+  if (value === "color-scheme") {
+    isColorSchemeDialogOpen.value = true;
+  }
+};
 </script>
 
 <template>
@@ -44,7 +51,7 @@ const toggleDark = useToggle(isDark);
   >
     <template
       v-if="
-        /* the layout demo showcases all possible overlay features that AppLayout offers, 
+        /* the layout demo showcases all possible overlay features that AppLayout offers,
         including different nav bar behaviors which OnyxNavBar das not support yet
         so it currently has its own demo nav bar placed. */
         route.path !== '/layout-demo'
@@ -67,10 +74,11 @@ const toggleDark = useToggle(isDark);
         />
 
         <template #contextArea>
-          <!-- TODO: include the theme selection into the user menu once it supports that feature -->
-          <OnyxSwitch label="Dark Mode" :model-value="isDark" @update:model-value="toggleDark" />
-
-          <OnyxUserMenu username="John Doe" :options="userMenuOptions">
+          <OnyxUserMenu
+            username="John Doe"
+            :options="userMenuOptions"
+            @option-click="handleOptionClick"
+          >
             <template #footer>
               App Version
               <span class="onyx-text--monospace">0.0.0</span>
@@ -81,5 +89,11 @@ const toggleDark = useToggle(isDark);
     </template>
 
     <RouterView />
+
+    <OnyxColorSchemeDialog
+      v-model="colorScheme"
+      :open="isColorSchemeDialogOpen"
+      @close="isColorSchemeDialogOpen = false"
+    />
   </OnyxAppLayout>
 </template>
