@@ -61,7 +61,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         role: "menu",
         "aria-labelledby": buttonId,
       },
-      menuItems: (data: { active?: boolean; value: string }) => ({
+      menuItem: (data: { active?: boolean; value: string }) => ({
         "aria-current": data.active ? "page" : undefined,
         role: "menuitem",
         tabindex: -1,
