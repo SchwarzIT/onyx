@@ -56,10 +56,6 @@ const handleChange = (event: Event) => {
   emit("change", inputValue);
 };
 
-const counterText = computed(() =>
-  props.withCounter && props.maxlength ? `${value.value.length}/${props.maxlength}` : undefined,
-);
-
 /**
  * Current CSS variables for the autosize min/max height.
  */
@@ -91,11 +87,7 @@ const handleInput = (event: Event) => {
   </div>
 
   <div v-else :class="['onyx-textarea', densityClass]" :style="autosizeMinMaxStyles">
-    <OnyxFormElement
-      v-bind="props"
-      :error-messages="errorMessages"
-      :footer-right-text="counterText"
-    >
+    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <div class="onyx-textarea__wrapper" :data-autosize-value="value">
         <!-- eslint-disable vuejs-accessibility/no-autofocus -
          We want to provide the flexibility to have the autofocus property.

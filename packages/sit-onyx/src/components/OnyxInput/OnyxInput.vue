@@ -62,10 +62,6 @@ const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
   return props.pattern;
 });
-
-const counterText = computed(() =>
-  props.withCounter && props.maxlength ? `${value.value.length}/${props.maxlength}` : undefined,
-);
 </script>
 
 <template>
@@ -75,11 +71,7 @@ const counterText = computed(() =>
   </div>
 
   <div v-else :class="['onyx-input', densityClass]">
-    <OnyxFormElement
-      v-bind="props"
-      :error-messages="errorMessages"
-      :footer-right-text="counterText"
-    >
+    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <div class="onyx-input__wrapper">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
 

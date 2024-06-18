@@ -3,6 +3,10 @@ import type { RequiredMarkerProp } from "../../composables/required";
 
 export type OnyxFormElementProps = RequiredMarkerProp & {
   /**
+   * Current value of the form element.
+   */
+  modelValue?: unknown;
+  /**
    * Label to show above the form element. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.
    */
@@ -31,7 +35,12 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
    */
   errorMessages?: FormErrorMessages;
   /**
-   * Text that will be displayed on the right of the footer
+   * Maximum number of characters that are allowed to be entered.
+   * Is used to show a counter.
    */
-  footerRightText?: string;
+  maxlength?: number;
+  /**
+   * If `true`, a character counter will be displayed if `maxLength` is set.
+   */
+  withCounter?: boolean;
 };

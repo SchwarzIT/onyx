@@ -31,7 +31,8 @@ type Story = StoryObj<typeof OnyxFormElement>;
 export const Default = {
   args: {
     label: "Label",
-    default: () => h("input", { placeholder: "Demo form element" }),
+    default: () =>
+      h("input", { placeholder: "Demo form element", style: { width: "100%" }, disabled: true }),
   },
 } satisfies Story;
 
@@ -52,7 +53,8 @@ export const WithMessageAndCounter = {
   args: {
     ...Default.args,
     message: "Example message",
-    footerRightText: "5 / 60",
+    maxlength: 60,
+    withCounter: true,
   },
 } satisfies Story;
 

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
@@ -11,6 +12,14 @@ const props = withDefaults(defineProps<OnyxFormElementProps>(), {
 const { t } = injectI18n();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+
+const counterText = computed(() => {
+  if (props.withCounter && props.maxlength) {
+    const text = props.modelValue?.toString() || "";
+    return `${text.length}/${props.maxlength}`;
+  }
+  return undefined;
+});
 
 defineSlots<{
   /** The place for the actual form element */
@@ -48,7 +57,7 @@ defineSlots<{
     </label>
 
     <div
-      v-if="props.message || errorMessages?.shortMessage || props.footerRightText"
+      v-if="props.message || errorMessages?.shortMessage || counterText"
       class="onyx-form-element__footer onyx-text--small"
     >
       <span v-if="errorMessages" class="onyx-form-element__error-message">
@@ -70,8 +79,8 @@ defineSlots<{
         position="bottom"
         :text="props.messageTooltip"
       />
-      <span v-if="props.footerRightText" class="onyx-form-element__counter">
-        {{ props.footerRightText }}
+      <span v-if="counterText" class="onyx-form-element__counter">
+        {{ counterText }}
       </span>
     </div>
   </div>
