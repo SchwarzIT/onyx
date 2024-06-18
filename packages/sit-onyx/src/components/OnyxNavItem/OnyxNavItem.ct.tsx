@@ -78,7 +78,6 @@ test.describe("Screenshot tests (mobile)", () => {
     component: (column, row) => (
       <MobileComponentTestWrapper
         label="Parent item"
-        // TODO: check why external link is not shown
         href={row === "external-link" ? "https://onyx.schwarz" : "#"}
         active={column === "active"}
         options={row === "with-children" ? [{ label: "Child 1", href: "#" }] : undefined}

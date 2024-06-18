@@ -27,7 +27,14 @@ provide(
 </script>
 
 <template>
-  <OnyxNavItem style="width: 24rem" v-bind="props" @click="emit('click', $event)">
+  <OnyxNavItem
+    style="width: 24rem"
+    :label="props.label"
+    :href="props.href"
+    :active="props.active"
+    :options="props.options"
+    @click="emit('click', $event)"
+  >
     <slot></slot>
   </OnyxNavItem>
 </template>
