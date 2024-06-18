@@ -534,3 +534,22 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
   expect(onUpdateSearchTerm).toHaveLength(5);
   await expect(searchInput).toHaveValue("");
 });
+
+test("should show custom option slot content", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSelect options={MOCK_VARIED_OPTIONS} label="Test label" listLabel="List label">
+      {/* note that due to current Playwright limitation we can not access the slot bindings
+      here to show dynamic content based on the current option */}
+      <template v-slot:option>Custom content</template>
+    </OnyxSelect>,
+  );
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  for (const option of MOCK_VARIED_OPTIONS) {
+    await expect(component.getByLabel(option.label)).toContainText("Custom content");
+  }
+});
