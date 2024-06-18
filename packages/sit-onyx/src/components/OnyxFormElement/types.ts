@@ -12,15 +12,16 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
    */
   label: string;
   /**
-   * If `true`, the label will be visually hidden and the `title` attribute will be set.
-   * For accessibility / screen readers, the aria-label will still be set.
-   */
-  hideLabel?: boolean;
-  /**
    * Info text to show inside a tooltip, next to the label.
    * The tooltip will be hidden if `hideLabel` property is set to true.
    */
   labelTooltip?: string;
+  /**
+   * If `true`, the label will be visually hidden and
+   * the `title` attribute will be set by the form element (input/textarea/...).
+   * For accessibility / screen readers, the aria-label will still be set.
+   */
+  hideLabel?: boolean;
   /**
    * Message / help text to display below the form element.
    * Will be replaced by an error message if the form element is invalid.
@@ -36,7 +37,9 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
   errorMessages?: FormErrorMessages;
   /**
    * Maximum number of characters that are allowed to be entered.
-   * Is used to show a counter.
+   * Warning: when the value is (pre)set programmatically,
+   * the input invalidity will not be detected by the browser, it will only turn invalid
+   * as soon as a user interacts with the input (types something).
    */
   maxlength?: number;
   /**

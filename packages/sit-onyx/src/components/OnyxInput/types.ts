@@ -1,20 +1,12 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxInputProps = DensityProp &
   RequiredMarkerProp &
-  CustomValidityProp & {
-    /**
-     * Label to show above the input. Required due to accessibility / screen readers.
-     * If you want to visually hide the label, use the `hideLabel` property.
-     */
-    label: string;
-    /**
-     * Info text to show inside a tooltip, next to the label.
-     * The tooltip will be hidden if `hideLabel` property is set to true.
-     */
-    labelTooltip?: string;
+  CustomValidityProp &
+  Omit<OnyxFormElementProps, "modelValue" | "errorMessages"> & {
     /**
      * Current value of the input.
      */
@@ -74,37 +66,12 @@ export type OnyxInputProps = DensityProp &
      */
     loading?: boolean;
     /**
-     * Maximum number of characters that are allowed to be entered.
-     * Warning: when the value is (pre)set programatically,
-     * the input invalidity will not be detected by the browser, it will only turn invalid
-     * as soon as a user interacts with the input (types something).
-     */
-    maxlength?: number;
-    /**
      * Minimum number of characters that have to to be entered.
      * Warning: when the value is (pre)set programatically,
      * the input invalidity will not be detected by the browser, it will only turn invalid
      * as soon as a user interacts with the input (types something).
      */
     minlength?: number;
-    /**
-     * If `true`, a character counter will be displayed if `maxLength` is set.
-     */
-    withCounter?: boolean;
-    /**
-     * Message / help text to display below the input.
-     * Will be replaced by an error message if the input is invalid.
-     */
-    message?: string;
-    /**
-     * Info message / additional text to display inside a tooltip next to the message.
-     */
-    messageTooltip?: string;
-    /**
-     * If `true`, the label will be visually hidden and the `title` attribute will be set.
-     * For accessibility / screen readers, the aria-label will still be set.
-     */
-    hideLabel?: boolean;
     /**
      * Whether to show a skeleton input.
      */
