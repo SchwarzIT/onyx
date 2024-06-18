@@ -1,5 +1,8 @@
-import { addComponent, defineNuxtModule } from "@nuxt/kit";
+import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
+import { defu } from "defu";
 import * as onyx from "sit-onyx";
+import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
+import type { NuxtOptions } from "@nuxt/schema";
 
 export interface ModuleOptions {
   /**
@@ -12,15 +15,37 @@ export interface ModuleOptions {
    * @see https://onyx.schwarz/development/#installation
    */
   disableGlobalStyles?: boolean;
+  /**
+   * This module will automatically detect if @nuxtjs/i18n is used within the project and configure itself to work with it.
+   * This group of options gives you the flexibility to fine tune this integration.
+   */
+  i18n?: {
+    /**
+     * Prefix to use for all translation keys comming from onyx. The modules translations can later be used under this prefix, e.g. `$t('onyx.optional')`.
+     * @default "onyx"
+     */
+    prefix?: string;
+  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: "onyx-nuxt",
+    name: "@sit-onyx/nuxt",
     configKey: "onyx",
   },
-  defaults: {},
+  defaults: {
+    i18n: { prefix: "onyx" },
+  },
   setup(options, nuxt) {
+    const logger = useLogger("@sit-onyx/nuxt");
+    const { resolve } = createResolver(import.meta.url);
+
+    nuxt.options.runtimeConfig.public = defu(nuxt.options.runtimeConfig.public, {
+      onyx: {
+        i18n: options.i18n,
+      },
+    });
+
     /**
      * The calc plugin of cssnano doesn't work with calc constants (https://developer.mozilla.org/en-US/docs/Web/CSS/calc-constant) used within onyx.
      * Therefor it needs to be disabled temporarily until they are either no longer used inside onyx or the calc plugin is fixed.
@@ -43,5 +68,48 @@ export default defineNuxtModule<ModuleOptions>({
           export: component,
         });
       });
+
+    const i18nModuleIndex = getModuleIndex(
+      nuxt.options.modules,
+      "@nuxtjs/i18n",
+      "@nuxtjs/i18n-edge",
+    );
+
+    // Quick check to warn the user as the @nuxtjs/i18n module needs to be registered after onyx for the default translations to work
+    const onyxModuleIndex = getModuleIndex(nuxt.options.modules, "@sit-onyx/nuxt");
+    if (onyxModuleIndex > i18nModuleIndex) {
+      logger.warn(
+        "The @nuxtjs/i18n module was registered before the @sit-onyx/nuxt module. The default translations of onyx won't be loaded, please register the @sit-onyx/nuxt module before @nuxtjs/i18n",
+      );
+    }
+
+    // If the i18n module was registered all the onyx locales and the plugin should be registered
+    if (i18nModuleIndex >= 0) {
+      const registerOnyxLocales: NuxtI18nModuleHooks["i18n:registerModule"] = (register) => {
+        register({
+          langDir: resolve("./runtime/locales"),
+          locales: [
+            { code: "de-DE", file: "de-DE.ts" },
+            { code: "en-US", file: "en-US.ts" },
+            { code: "ko-KR", file: "ko-KR.ts" },
+          ],
+        });
+      };
+
+      nuxt.hook("i18n:registerModule", registerOnyxLocales);
+
+      addPlugin({ src: resolve("./runtime/plugins/onyx") });
+    }
   },
 });
+
+function getModuleIndex(modules: NuxtOptions["modules"], ...moduleNames: string[]) {
+  for (let i = 0; i < modules.length; i++) {
+    const module = modules[i];
+
+    if (typeof module === "string" && moduleNames.includes(module)) return i;
+    if (Array.isArray(module) && moduleNames.includes(module[0] as string)) return i;
+  }
+
+  return -1;
+}

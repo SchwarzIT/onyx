@@ -1,0 +1,11 @@
+{
+  "test": "Test",
+  "onyx": {
+    "navigation": {
+      "goBack": "Überschriebene Übersetzung"
+    },
+    "link": {
+      "opensExternally": "Geht wo andesch uf"
+    }
+  }
+}

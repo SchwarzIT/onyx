@@ -1,6 +1,14 @@
 import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
-import type { DeepPartial } from "../types/utils";
-import { computed, inject, unref, type App, type InjectionKey, type MaybeRef } from "vue";
+import type { DeepExtendable, DeepPartial } from "../types/utils";
+import {
+  computed,
+  inject,
+  unref,
+  type App,
+  type ComputedRef,
+  type InjectionKey,
+  type MaybeRef,
+} from "vue";
 import enUS from "./locales/en-US.json";
 
 /**
@@ -25,38 +33,69 @@ export type ProvideI18nOptions = {
    * all onyx messages will be updated if it changes (if locale is supported).
    * If a message is missing for your currently set locale, English will be used as fallback.
    *
+   * The should be in the BCP 47 format as it's used to localize date times using the native [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+   *
    * @default "en-US"
    */
   locale?: MaybeRef<string>;
-  /**
-   * Available translations / messages. English is always supported. For build-in translations, see:
-   * https://onyx.schwarz/development/i18n.html
-   *
-   * @example
-   * ```ts
-   * import deDE from "sit-onyx/locales/de-DE.json";
-   * {
-   *   messages: {
-   *     // English is always supported so we don't need to add it here
-   *     'de-DE': deDE
-   *   }
-   * }
-   * ```
-   */
-  messages?: Record<string, DeepPartial<OnyxTranslations>>;
-};
+} & (
+  | {
+      /**
+       * Available translations / messages. English is always supported. For build-in translations, see:
+       * https://onyx.schwarz/development/i18n.html
+       *
+       * @example
+       * ```ts
+       * import deDE from "sit-onyx/locales/de-DE.json";
+       * {
+       *   messages: {
+       *     // English is always supported so we don't need to add it here
+       *     'de-DE': deDE
+       *   }
+       * }
+       * ```
+       */
+      messages?: Record<string, DeepExtendable<DeepPartial<OnyxTranslations>>>;
+    }
+  | {
+      /**
+       * Custom translation function. This option can be used to pass a custom function for translations to onyx in case you want your i18n library to handle them.
+       * @example
+       * ```ts
+       * import { useI18n } from "vue-i18n";
+       *
+       * const { t } = useI18n();
+       * {
+       *   t: computed((key, placeholders) => t(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders }))
+       * }
+       * ```
+       */
+      t: ComputedRef<TranslationFunction>;
+    }
+);
+
+export type TranslationFunction = (
+  key: OnyxTranslationKey,
+  /** Named values to interpolate into the translation. The property `n` is special as it represents the number of elements for pluralization. */
+  placeholders?: Record<string, string | number | undefined> & { n?: number },
+) => string;
 
 const I18N_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createI18n>>;
 
 /**
  * Creates a new i18n instance.
  */
-const createI18n = (options?: ProvideI18nOptions) => {
+const createI18n = (options: ProvideI18nOptions = {}) => {
   /**
    * Current locale.
    * @default "en-US"
    */
   const locale = computed(() => unref(options?.locale) ?? "en-US");
+
+  // If the user provided a custom `t` function it should be used instead of the default one
+  if ("t" in options) {
+    return { t: options.t, locale };
+  }
 
   const messages = computed(() => {
     if (options?.messages && locale.value in options.messages) {
@@ -71,17 +110,11 @@ const createI18n = (options?: ProvideI18nOptions) => {
    * @param placeholders Placeholders that will be replaced in the message string
    * For pluralization, you must provide the placeholder `n`.
    */
-  const t = computed(() => {
-    return (
-      key: OnyxTranslationKey,
-      placeholders: Record<string, string | number | undefined> = {},
-    ): string => {
+  const t = computed((): TranslationFunction => {
+    return (key, placeholders = {}) => {
       // use English message as fallback
       let message = resolveMessage(key, messages.value) ?? resolveMessage(key, enUS) ?? "";
-
-      const pluralizationValue = typeof placeholders.n === "number" ? placeholders.n : undefined;
-      message = resolvePluralization(message, pluralizationValue);
-
+      message = resolvePluralization(message, placeholders.n);
       return replacePlaceholders(message, placeholders);
     };
   });
@@ -93,8 +126,11 @@ const createI18n = (options?: ProvideI18nOptions) => {
  * Provides a global i18n instance that is used by onyx.
  * Must only be called once in the `App.vue` file of a project that consumes onyx.
  */
-export const provideI18n = (app: App, options?: ProvideI18nOptions) =>
-  app.provide(I18N_INJECTION_KEY, createI18n(options));
+export const provideI18n = (app: App, options?: ProvideI18nOptions) => {
+  const i18n = createI18n(options);
+  app.provide(I18N_INJECTION_KEY, i18n);
+  return i18n;
+};
 
 /**
  * Injects the onyx i18n instance.

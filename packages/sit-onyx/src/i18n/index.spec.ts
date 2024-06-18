@@ -1,6 +1,6 @@
 import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { injectI18n, provideI18n, type ProvideI18nOptions } from ".";
+import { injectI18n, provideI18n } from ".";
 import type { FlattenedKeysOf, OnyxTranslations } from "..";
 
 // keep track of provide/inject because they need to be mocked
@@ -37,7 +37,6 @@ beforeEach(() => {
  * of our "real" component translations
  */
 type TestTranslationKey = FlattenedKeysOf<OnyxTranslations>;
-type TestMessages = ProvideI18nOptions["messages"];
 
 test("should provide/inject i18n with a string", () => {
   // ARRANGE
@@ -79,7 +78,7 @@ test("should translate with/without placeholders", () => {
         plain: "Hello World",
         placeholder: "Hello {firstName} {lastName}",
       },
-    } as TestMessages,
+    },
   });
 
   const { t } = injectI18n();
@@ -123,7 +122,7 @@ test("should translate with pluralization", () => {
         pluralizationWithoutZero: "1 item | {n} items",
         withoutPluralization: '{n} items and pipe "|" is part of the text',
       },
-    } as TestMessages,
+    },
   });
 
   const { t } = injectI18n();
@@ -196,7 +195,7 @@ test("should update translation when locale changes", () => {
       "de-DE": {
         helloWorld: "Hallo Welt",
       },
-    } as TestMessages,
+    },
   });
   const { t } = injectI18n();
 
@@ -219,7 +218,7 @@ test("should use English fallback if translation is missing", () => {
       "de-DE": {
         notHelloWorld: "Hallo Welt",
       },
-    } as TestMessages,
+    },
   });
   const { t } = injectI18n();
 
