@@ -1,0 +1,33 @@
+<script lang="ts" setup>
+import { computed, provide } from "vue";
+import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
+import OnyxNavItem from "./OnyxNavItem.vue";
+import type { OnyxNavItemProps } from "./types";
+
+const props = defineProps<OnyxNavItemProps>();
+
+const emit = defineEmits<{
+  /**
+   * An optional slot to override the label content.
+   */
+  click: [href: string];
+}>();
+
+defineSlots<{
+  /**
+   * An optional slot to show additional content behind the label (e.g. a `OnyxBadge`).
+   */
+  default?(): unknown;
+}>();
+
+provide(
+  mobileNavBarInjectionKey,
+  computed(() => true),
+);
+</script>
+
+<template>
+  <OnyxNavItem style="width: 24rem" v-bind="props" @click="emit('click', $event)">
+    <slot></slot>
+  </OnyxNavItem>
+</template>

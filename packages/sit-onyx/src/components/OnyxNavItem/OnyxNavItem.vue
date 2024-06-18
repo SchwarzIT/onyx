@@ -36,7 +36,6 @@ const { t } = injectI18n();
 
 const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
   const withExternalIcon = args.withExternalIcon ?? "auto";
-
   if (withExternalIcon !== "auto") return args.withExternalIcon;
   return isExternalLink(args.href ?? "");
 };
@@ -55,10 +54,9 @@ const handleParentClick = () => {
 </script>
 
 <template>
-  <div class="onyx-nav-item" :class="{ 'onyx-nav-item--mobile': isMobile }">
+  <li class="onyx-nav-item" role="presentation" :class="{ 'onyx-nav-item--mobile': isMobile }">
     <OnyxButton
       v-if="isMobile && isMobileChildrenOpen"
-      class="onyx-nav-item__mobile-back"
       :label="t('back')"
       mode="plain"
       color="neutral"
@@ -66,7 +64,9 @@ const handleParentClick = () => {
       @click="isMobileChildrenOpen = false"
     />
 
-    <li
+    <!-- parent nav item should be hidden in mobile view when it does not have a link itself -->
+    <div
+      v-if="!isMobileChildrenOpen || props.href"
       role="menuitem"
       tabindex="0"
       :aria-label="props.label"
@@ -92,7 +92,7 @@ const handleParentClick = () => {
         class="onyx-nav-item__mobile-chevron"
         :icon="chevronRightSmall"
       />
-    </li>
+    </div>
 
     <OnyxFlyoutMenu
       v-if="!isMobile && hasChildren"
@@ -116,9 +116,9 @@ const handleParentClick = () => {
     </OnyxFlyoutMenu>
 
     <div v-else-if="hasChildren && isMobileChildrenOpen" class="onyx-nav-item__mobile-children">
-      <OnyxNavSeparator orientation="horizontal" />
+      <OnyxNavSeparator v-if="props.href" orientation="horizontal" />
 
-      <ul>
+      <ul role="menu">
         <OnyxNavItem
           v-for="option in props.options"
           :key="option.label"
@@ -127,7 +127,7 @@ const handleParentClick = () => {
         />
       </ul>
     </div>
-  </div>
+  </li>
 </template>
 
 <style lang="scss">
@@ -140,6 +140,7 @@ $border-radius: var(--onyx-radius-sm);
     width: max-content;
     position: relative;
     $gap: var(--onyx-spacing-2xs);
+    list-style: none;
 
     &__trigger {
       display: inline-flex;
@@ -216,27 +217,22 @@ $border-radius: var(--onyx-radius-sm);
       margin-left: auto;
     }
 
-    $mobile-children-gap: var(--onyx-spacing-xs);
-
     &__mobile-children {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: $mobile-children-gap;
-      margin-top: $mobile-children-gap;
+      display: contents;
 
       > ul {
         display: contents;
       }
     }
 
-    &__mobile-back {
-      margin-bottom: $mobile-children-gap;
-    }
-
     &--mobile {
       width: 100%;
       border-radius: $border-radius;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--onyx-spacing-xs);
 
       > .onyx-nav-item__trigger {
         width: 100%;
