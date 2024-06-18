@@ -101,6 +101,7 @@ const hasProgressBar = computed(() => props.duration > 0);
     color: var(--onyx-toast-color);
     background-color: var(--onyx-toast-background-color);
     position: relative;
+    z-index: var(--onyx-z-index-notification);
 
     .onyx-toast-progress-bar {
       position: absolute;
