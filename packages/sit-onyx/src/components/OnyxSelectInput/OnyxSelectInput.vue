@@ -2,7 +2,6 @@
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
@@ -12,6 +11,10 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+
+// TODO: #1236 merge styles
+// TODO: #1236 insert error stuff
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -60,7 +63,6 @@ const selectionText = computed<string>(() => {
   return props.selection?.label ?? "";
 });
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
 const input = ref<HTMLInputElement>();
@@ -81,20 +83,12 @@ defineExpose({ focus: () => input.value?.focus() });
     v-else
     :class="[
       'onyx-select-input',
-      requiredTypeClass,
       densityClass,
       props.readonly ? 'onyx-select-input--readonly' : 'onyx-select-input--editable',
     ]"
     v-bind="rootAttrs"
   >
-    <label>
-      <div
-        v-if="!props.hideLabel"
-        :class="['onyx-select-input__label', 'onyx-text--small', requiredMarkerClass]"
-      >
-        <div class="onyx-truncation-ellipsis">{{ props.label }}</div>
-      </div>
-
+    <OnyxFormElement v-bind="props">
       <div class="onyx-select-input__wrapper">
         <OnyxLoadingIndicator
           v-if="props.loading"
@@ -145,14 +139,7 @@ defineExpose({ focus: () => input.value?.focus() });
           <OnyxIcon :icon="chevronDownUp" />
         </button>
       </div>
-    </label>
-
-    <div
-      v-if="props.message"
-      class="onyx-select-input__footer onyx-text--small onyx-truncation-ellipsis"
-    >
-      {{ props.message }}
-    </div>
+    </OnyxFormElement>
   </div>
 </template>
 
