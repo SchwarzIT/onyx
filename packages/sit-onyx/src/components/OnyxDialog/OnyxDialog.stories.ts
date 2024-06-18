@@ -36,6 +36,10 @@ export const Default = {
   },
 } satisfies Story;
 
+/**
+ * This example shows a modal dialog which will block the primary page content and show a backdrop.
+ * **Hint**: In this example, you can close the dialog by pressing "Escape".
+ */
 export const Modal: Story = {
   args: {
     label: "Example modal dialog",

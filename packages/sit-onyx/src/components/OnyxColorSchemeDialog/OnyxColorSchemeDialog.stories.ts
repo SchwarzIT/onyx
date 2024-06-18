@@ -24,7 +24,7 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
           });
           return { isOpen };
         },
-        template: `<div style="height: 48rem;">
+        template: `<div>
           <OnyxButton label="Show dialog" @click="isOpen = true" />
           <story :open="isOpen" @close="isOpen = false;" />
         </div>`,
