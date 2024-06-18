@@ -93,7 +93,6 @@ const handleInput = (event: Event) => {
   <div v-else :class="['onyx-textarea', densityClass]" :style="autosizeMinMaxStyles">
     <OnyxFormElement
       v-bind="props"
-      :label="!props.hideLabel ? props.label : undefined"
       :error-messages="errorMessages"
       :footer-right-text="counterText"
     >

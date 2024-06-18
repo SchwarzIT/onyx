@@ -62,7 +62,7 @@ export const WithMessageAndCounter = {
 export const HiddenLabel = {
   args: {
     ...Default.args,
-    label: undefined,
+    hideLabel: true,
   },
 } satisfies Story;
 

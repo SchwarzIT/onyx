@@ -3,17 +3,23 @@ import type { RequiredMarkerProp } from "../../composables/required";
 
 export type OnyxFormElementProps = RequiredMarkerProp & {
   /**
-   * Label to show above the form element.
+   * Label to show above the form element. Required due to accessibility / screen readers.
+   * If you want to visually hide the label, use the `hideLabel` property.
    */
-  label?: string;
+  label: string;
+  /**
+   * If `true`, the label will be visually hidden and the `title` attribute will be set.
+   * For accessibility / screen readers, the aria-label will still be set.
+   */
+  hideLabel?: boolean;
   /**
    * Info text to show inside a tooltip, next to the label.
    * The tooltip will be hidden if `hideLabel` property is set to true.
    */
   labelTooltip?: string;
   /**
-   * Message / help text to display below the input.
-   * Will be replaced by an error message if the input is invalid.
+   * Message / help text to display below the form element.
+   * Will be replaced by an error message if the form element is invalid.
    */
   message?: string;
   /**

@@ -77,7 +77,6 @@ const counterText = computed(() =>
   <div v-else :class="['onyx-input', densityClass]">
     <OnyxFormElement
       v-bind="props"
-      :label="!props.hideLabel ? props.label : undefined"
       :error-messages="errorMessages"
       :footer-right-text="counterText"
     >

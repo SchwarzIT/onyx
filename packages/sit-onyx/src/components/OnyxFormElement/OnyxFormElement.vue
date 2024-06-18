@@ -23,7 +23,7 @@ defineSlots<{
     <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -->
     <label>
       <div
-        v-if="props.label"
+        v-if="!props.hideLabel"
         class="onyx-form-element__label onyx-text--small"
         :class="[!props.required ? requiredMarkerClass : undefined]"
       >
