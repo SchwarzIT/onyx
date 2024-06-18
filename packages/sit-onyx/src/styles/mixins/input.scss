@@ -8,37 +8,6 @@
   --selection-color: var(--onyx-color-base-primary-200);
   --outline-color: var(--onyx-color-base-primary-200);
 
-  font-family: var(--onyx-font-family);
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
-
-  &__label {
-    display: flex;
-    margin-bottom: var(--onyx-spacing-5xs);
-    color: var(--onyx-color-text-icons-neutral-medium);
-
-    // optional marker should be displayed at the very end of the label
-    &.onyx-optional-marker {
-      justify-content: space-between;
-
-      &::after {
-        display: none;
-      }
-    }
-  }
-
-  &__optional {
-    display: none;
-    font-family: var(--onyx-font-family);
-    font-weight: 400;
-    font-style: normal;
-    color: var(--onyx-color-text-icons-neutral-soft);
-    padding-left: var(--onyx-spacing-2xs);
-    hyphens: none;
-    margin-left: auto;
-  }
-
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
@@ -96,14 +65,12 @@
     }
   }
 
-  &__error-message {
-    display: none;
+  .onyx-form-element__error-message {
+    --error-message-display: none;
   }
   &:has(#{$base-selector}__native:user-invalid) {
-    #{$base-selector}__error-message {
-      display: flex;
-      color: var(--onyx-color-base-danger-500);
-      align-items: center;
+    .onyx-form-element__error-message {
+      --error-message-display: flex;
     }
   }
 
@@ -133,28 +100,15 @@
   }
 
   &:has(&__native:disabled) {
-    #{$base-selector} {
-      &__label {
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
+    .onyx-form-element__label {
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
 
+    #{$base-selector} {
       &__wrapper {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
-  }
-
-  &__footer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    color: var(--onyx-color-text-icons-neutral-soft);
-  }
-
-  &__counter {
-    text-align: right;
-    flex-grow: 1;
-    margin-left: var(--onyx-spacing-2xs);
   }
 }
 
