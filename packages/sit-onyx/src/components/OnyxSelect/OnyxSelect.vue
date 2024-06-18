@@ -258,6 +258,7 @@ const selectInputProps = computed(() => {
       ref="selectInput"
       v-bind="selectInputProps"
       :show-focus="isExpanded"
+      :autofocus="props.autofocus"
       @click="onToggle"
     />
 

@@ -2,7 +2,7 @@ import type { CustomValidityProp } from "src/composables/useCustomValidity";
 import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
-import type { SelectOptionValue } from "../../types";
+import type { AutofocusProp, SelectOptionValue } from "../../types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -38,7 +38,8 @@ export type SelectInputModelValue<TValue extends SelectOptionValue = SelectOptio
 export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp &
   RequiredMarkerProp &
   CustomValidityProp &
-  SelectionInput<TValue> & {
+  SelectionInput<TValue> &
+  AutofocusProp & {
     /**
      * Label to show above the select. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.

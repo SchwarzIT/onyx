@@ -1,5 +1,5 @@
 import type { DensityProp } from "../../composables/density";
-import type { BaseSelectOption, SelectOptionValue } from "../../types";
+import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
@@ -62,7 +62,8 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps<TValue>, "density"> & {
+  Omit<OnyxSelectInputProps<TValue>, "density"> &
+  AutofocusProp & {
     /**
      * Aria label. Must be set for accessibility reasons.
      */
