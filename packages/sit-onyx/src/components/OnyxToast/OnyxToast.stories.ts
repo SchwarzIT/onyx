@@ -65,7 +65,7 @@ export const CustomContent = {
       "This uses the slot to display ",
       h("strong", "custom content"),
       ". Click ",
-      h(OnyxLink, { href: "#" }, "here"),
+      h(OnyxLink, { href: "#" }, () => "here"),
       " to open some link.",
     ],
   },
