@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxToastProgressBar from "../OnyxToastProgressBar/OnyxToastProgressBar.vue";
 import type { OnyxToastProps } from "./types";
@@ -27,6 +30,10 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
+
+const { t } = injectI18n();
+
+const hasProgressBar = computed(() => props.duration > 0);
 </script>
 
 <template>
@@ -41,8 +48,17 @@ defineSlots<{
       <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
       <div class="onyx-truncation-ellipsis">
-        <div class="onyx-toast__headline onyx-text onyx-truncation-ellipsis">
-          {{ props.headline }}
+        <div class="onyx-toast__headline onyx-text">
+          <span class="onyx-truncation-ellipsis"> {{ props.headline }}</span>
+
+          <button
+            v-if="!hasProgressBar && !props.clickable"
+            :aria-label="t('close')"
+            class="onyx-toast__close"
+            @click="emit('close')"
+          >
+            <OnyxIcon :icon="xSmall" />
+          </button>
         </div>
 
         <p
@@ -55,7 +71,7 @@ defineSlots<{
     </div>
 
     <OnyxToastProgressBar
-      v-if="props.duration >= 0"
+      v-if="hasProgressBar"
       :color="props.color"
       :duration="props.duration"
       @timer-ended="emit('close')"
@@ -76,6 +92,7 @@ defineSlots<{
 
     font-family: var(--onyx-font-family);
     min-width: 18rem;
+    width: max-content;
     max-width: 40rem;
 
     border-radius: var(--onyx-radius-md);
@@ -95,9 +112,11 @@ defineSlots<{
       text-align: left;
       cursor: pointer;
       border: none;
+      padding: 0;
 
       &:focus-visible {
         outline: 0.25rem solid var(--onyx-toast-outline-color);
+        // TODO: fix outline cut off by overflow
       }
     }
 
@@ -111,6 +130,24 @@ defineSlots<{
 
     &__headline {
       font-weight: 600;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    &__close {
+      background: none;
+      padding: 0;
+      font: inherit;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+
+      &:focus-visible {
+        border-radius: var(--onyx-radius-md);
+        outline: var(--onyx-spacing-5xs) solid var(--onyx-toast-outline-color);
+      }
     }
 
     &__description {

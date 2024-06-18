@@ -2,6 +2,7 @@
   "optional": "(optional)",
   "cancel": "Cancel",
   "apply": "Apply",
+  "close": "Close",
   "validations": {
     "tooShort": {
       "preview": "Too short",

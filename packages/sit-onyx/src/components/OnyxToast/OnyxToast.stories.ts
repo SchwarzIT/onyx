@@ -58,6 +58,13 @@ export const Clickable = {
   },
 } satisfies Story;
 
+export const ManualClose = {
+  args: {
+    ...Default.args,
+    duration: 0,
+  },
+} satisfies Story;
+
 export const CustomContent = {
   args: {
     ...Default.args,
