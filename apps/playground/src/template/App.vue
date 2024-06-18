@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import { OnyxInput } from "sit-onyx";
-import { ref } from "vue";
-
-const value = ref("");
+import { OnyxHeadline } from "sit-onyx";
 </script>
 
 <template>
-  <div>
+  <div class="onyx-grid-container">
+    <OnyxHeadline is="h1">Playground</OnyxHeadline>
     <p>You can edit the code on the left and see the live results here.</p>
-    <OnyxInput v-model="value" label="Example input" />
   </div>
 </template>
