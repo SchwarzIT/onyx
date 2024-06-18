@@ -54,7 +54,7 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <div class="onyx-flyout-menu">
+  <div class="onyx-future-flyout-menu">
     <component :is="slots.default?.()?.[0]" v-bind="button" />
     <div
       v-if="slots.options || slots.header || slots.footer"
@@ -96,16 +96,16 @@ const { t } = injectI18n();
 
 <style lang="scss">
 @use "../../../styles/mixins/layers";
-@use "../../../styles/mixins/list";
 
-.onyx-flyout-menu {
+// TODO: replace 'onyx-future-flyout-menu' class name with 'onyx-flyout-menu' after merging this component
+// with the official OnyxFlyoutMenu
+.onyx-future-flyout-menu {
   @include layers.component() {
     // TODO: remove comment after replacing this component with the official OnyxFlyoutMenu
     // display: inline-block;
     width: min-content;
 
     &__list {
-      @include list.styles();
       position: absolute;
 
       &--with-header {
