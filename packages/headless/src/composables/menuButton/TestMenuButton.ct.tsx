@@ -9,6 +9,6 @@ test("menuButton", async ({ mount, page }) => {
     page,
     button: page.getByRole("button"),
     menu: page.locator("ul"),
-    menuItems: await page.locator("li").all(),
+    menuItem: await page.locator("li").all(),
   });
 });

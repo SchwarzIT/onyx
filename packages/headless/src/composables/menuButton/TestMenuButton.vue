@@ -10,7 +10,7 @@ const items = Array.from({ length: 10 }, (_, index) => {
 const activeItem = ref<string>();
 
 const {
-  elements: { button, menu, menuItems, listItem, flyout },
+  elements: { button, menu, menuItem, listItem, flyout },
   state: { isExpanded },
 } = createMenuButton({
   onSelect: (value) => {
@@ -24,7 +24,7 @@ const {
   <div v-bind="flyout">
     <ul v-show="isExpanded" v-bind="menu">
       <li v-for="item in items" v-bind="listItem" :key="item.value" title="item">
-        <a v-bind="menuItems({ active: activeItem === item.value, value: item.value })">{{
+        <a v-bind="menuItem({ active: activeItem === item.value, value: item.value })">{{
           item.label
         }}</a>
       </li>
