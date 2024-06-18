@@ -61,7 +61,7 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
     padding: var(--onyx-spacing-md);
     font-weight: 600;
     white-space: pre-line;
-    max-height: 100%;
+    max-height: 100cqh;
     cursor: pointer;
     text-align: left;
     font-family: var(--onyx-font-family);
