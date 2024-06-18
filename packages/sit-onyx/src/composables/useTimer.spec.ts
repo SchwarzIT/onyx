@@ -26,7 +26,7 @@ describe("useTimer.ts", () => {
 
   test("should calculate timer correctly", () => {
     // ARRANGE
-    const { timeLeft, isEnded } = useTimer(ref(endTime));
+    const { timeLeft, isEnded } = useTimer({ endTime: ref(endTime) });
 
     // ASSERT
     expect(timeLeft.value).toBe(5000);

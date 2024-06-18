@@ -15,7 +15,7 @@ const emit = defineEmits<{
 }>();
 
 const { locale } = injectI18n();
-const { timeLeft, isEnded } = useTimer(computed(() => props.endTime));
+const { timeLeft, isEnded } = useTimer({ endTime: computed(() => props.endTime) });
 
 const timeFormat = computed(
   () => new Intl.RelativeTimeFormat(locale.value, { numeric: "always", style: "short" }),
