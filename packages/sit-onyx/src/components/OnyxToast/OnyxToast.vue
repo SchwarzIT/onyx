@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
+import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import circleX from "@sit-onyx/icons/circle-x.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
 import { injectI18n } from "../../i18n";
@@ -10,6 +14,7 @@ const props = withDefaults(defineProps<OnyxToastProps>(), {
   color: "neutral",
   duration: 5000,
   clickable: false,
+  icon: undefined, // needed to prevent default value being "false"
 });
 
 const emit = defineEmits<{
@@ -34,6 +39,18 @@ defineSlots<{
 const { t } = injectI18n();
 
 const hasProgressBar = computed(() => props.duration > 0);
+
+const DEFAULT_ICONS: Record<typeof props.color, string> = {
+  neutral: circleInformation,
+  danger: circleX,
+  warning: circleAttention,
+  success: circleCheck,
+};
+
+const icon = computed(() => {
+  if (props.icon === false) return;
+  return props.icon || DEFAULT_ICONS[props.color];
+});
 </script>
 
 <template>
@@ -45,7 +62,7 @@ const hasProgressBar = computed(() => props.duration > 0);
     @click="props.clickable && emit('click')"
   >
     <div class="onyx-toast__content">
-      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      <OnyxIcon v-if="icon" :icon="icon" />
 
       <div class="onyx-truncation-ellipsis">
         <div class="onyx-toast__headline onyx-text">

@@ -1,4 +1,3 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
@@ -24,7 +23,6 @@ type Story = StoryObj<typeof OnyxToast>;
 export const Default = {
   args: {
     headline: "Example toast",
-    icon: placeholder,
     description:
       "Lorem ipsum dolor sit amet consectetur. Non in felis erat velit consectetur. Sed integer non hac viverra nibh vehicula risus ultrices. Molestie cras lobortis vitae gravida et ut. Turpis nisl pharetra amet ante eu sagittis sit elementum ut.",
   },

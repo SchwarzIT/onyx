@@ -26,7 +26,8 @@ export type OnyxToastProps = {
    */
   clickable?: boolean;
   /**
-   * Icon to display.
+   * Icon to display. By default, an icon will be displayed depending on the current `color` property.
+   * Can be set to `false` to hide the icon.
    */
-  icon?: string;
+  icon?: string | false;
 };
