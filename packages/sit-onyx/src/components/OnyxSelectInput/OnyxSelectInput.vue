@@ -76,7 +76,7 @@ defineExpose({ focus: () => input.value?.focus() });
     v-bind="rootAttrs"
   >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
-    <OnyxSkeleton class="onyx-select-input-skeleton__native" />
+    <OnyxSkeleton class="onyx-select-input-skeleton__input" />
   </div>
 
   <div
@@ -180,17 +180,6 @@ defineExpose({ focus: () => input.value?.focus() });
     flex-direction: column;
     gap: var(--onyx-spacing-5xs);
 
-    &__label {
-      display: flex;
-      margin-bottom: var(--onyx-spacing-5xs);
-      color: var(--onyx-color-text-icons-neutral-medium);
-
-      // optional marker should be displayed at the very end of the label
-      &.onyx-optional-marker {
-        justify-content: space-between;
-      }
-    }
-
     &__button {
       all: initial;
       height: var(--onyx-spacing-lg);
@@ -207,28 +196,7 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     &__native {
-      // reset native input styles so they are inherited from the parent
-      border: none;
-      border-radius: inherit;
-      background-color: transparent;
-      color: inherit;
-      width: 100%;
-      outline: none;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      padding: 0;
       cursor: inherit;
-
-      &::placeholder {
-        color: var(--onyx-color-text-icons-neutral-soft);
-        opacity: 1;
-        font-weight: 400;
-      }
-
-      &::selection {
-        background: var(--selection-color);
-      }
     }
 
     &__badge {
@@ -240,11 +208,6 @@ defineExpose({ focus: () => input.value?.focus() });
       color: var(--onyx-color-text-icons-primary-intense);
     }
 
-    &__footer {
-      width: 100%;
-      color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
     /** The internal input is always "readonly" because typing is not allowed.
      * That's why we need to rely on modifier classes instead of using pseudo classes
      */
@@ -253,7 +216,7 @@ defineExpose({ focus: () => input.value?.focus() });
         cursor: pointer;
         // default hover
         &:hover {
-          --border-color: var(--onyx-color-base-primary-400);
+          @include input.define-enabled-hover();
           .onyx-select-input__button {
             color: var(--onyx-color-text-icons-primary-medium);
           }
@@ -266,8 +229,7 @@ defineExpose({ focus: () => input.value?.focus() });
         ) {
         .onyx-select-input {
           &__wrapper {
-            --border-color: var(--onyx-color-base-primary-500);
-            outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-primary-200);
+            @include input.define-enabled-focus();
           }
 
           &__button {
@@ -284,15 +246,12 @@ defineExpose({ focus: () => input.value?.focus() });
       )
       .onyx-select-input__wrapper {
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
+      --border-color: var(--onyx-color-base-neutral-400);
     }
 
     &:has(&__native:disabled),
     &--readonly {
       .onyx-select-input {
-        &__label {
-          color: var(--onyx-color-text-icons-neutral-soft);
-        }
-
         &__wrapper {
           background-color: var(--onyx-color-base-background-tinted);
           color: var(--onyx-color-text-icons-neutral-soft);
@@ -308,17 +267,9 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     &-skeleton {
-      display: flex;
-      flex-direction: column;
-      gap: var(--onyx-spacing-5xs);
-      &__label {
-        width: var(--onyx-spacing-3xl);
-        height: 1.25rem;
-      }
-      &__native {
-        width: 17rem;
-        height: calc($line-height + 2 * var(--onyx-select-input-padding-vertical));
-      }
+      @include input.define-skeleton-styles(
+        $height: calc(1lh + 2 * var(--onyx-select-input-padding-vertical))
+      );
     }
   }
 }
