@@ -27,10 +27,6 @@ export default defineConfig({
     externalLinkIcon: true,
     logo: "/images/logo.svg",
     siteTitle: false,
-    footer: {
-      message: "Released under the Apache-2.0 License.",
-      copyright: "Copyright © 2023-present Schwarz IT KG",
-    },
     search: {
       provider: "local",
     },
