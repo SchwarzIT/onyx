@@ -1,7 +1,7 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { computed, ref, watchEffect } from "vue";
+import { computed, h, ref, watchEffect } from "vue";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
@@ -31,11 +31,13 @@ const meta: Meta<typeof OnyxSelect> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
+      option: { control: { disable: true } },
     },
-    /**
-     * Decorator that simulates the load more functionality so we can show it in the stories.
-     */
+
     decorators: [
+      /**
+       * Decorator that simulates the load more functionality so we can show it in the stories.
+       */
       (story, ctx) => ({
         components: { story },
         setup: () => {
@@ -50,25 +52,28 @@ const meta: Meta<typeof OnyxSelect> = {
         },
         template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
       }),
+      /**
+       * Decorator to simulate search
+       */
+      (story, ctx) => ({
+        components: { story },
+        setup: () => {
+          const searchTerm = computed(() => (ctx.args.withSearch && ctx.args.searchTerm) || "");
+
+          const filteredOptions = computed(() =>
+            searchTerm.value
+              ? ctx.args.options.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
+              : ctx.args.options,
+          );
+
+          watchEffect(() => {
+            ctx.args.options = filteredOptions.value;
+            ctx.args.options; // this is needed to keep the reactivity, although I am not 100% sure why
+          });
+        },
+        template: `<story />`,
+      }),
     ],
-    /**
-     * Renderer to simulate search
-     */
-    render: (args) => ({
-      components: { OnyxSelect },
-      setup: () => {
-        const searchTerm = computed(() => (args.withSearch && args.searchTerm) || "");
-
-        const filteredOptions = computed(() =>
-          searchTerm.value
-            ? args.options.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
-            : args.options,
-        );
-
-        return { args, filteredOptions };
-      },
-      template: `<OnyxSelect v-bind="args" :options="filteredOptions" />`,
-    }),
   }),
 };
 
@@ -272,6 +277,17 @@ export const Skeleton = {
     listLabel: "List label",
     skeleton: true,
     options: [],
+  },
+} satisfies Story;
+
+/**
+ * This example shows a single select with fully custom option content that can be
+ * passed as slot.
+ */
+export const CustomOptions = {
+  args: {
+    ...Default.args,
+    option: ({ label }) => ["custom ", h("strong", label), " content"],
   },
 } satisfies Story;
 
