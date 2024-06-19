@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.140
+
+### Minor Changes
+
+- d3e9321: Add new OnyxNavButton component
+
 ## 1.0.0-alpha.139
 
 ### Minor Changes
