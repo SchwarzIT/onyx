@@ -17,7 +17,7 @@ export type MenuButtonTestingOptions = {
   /**
    * List items (at least 3).
    */
-  menuItem: Locator[];
+  menuItems: Locator[];
 };
 
 /**
