@@ -61,17 +61,18 @@ const icon = computed(() => {
     class="onyx-toast"
     :class="[`onyx-toast--${props.color}`, densityClass]"
     role="alert"
+    :aria-label="props.clickable ? props.headline : undefined"
     @click="props.clickable && emit('click')"
   >
-    <div class="onyx-toast__content">
+    <div class="onyx-toast__wrapper">
       <OnyxIcon v-if="icon" :icon="icon" />
 
-      <div class="onyx-truncation-ellipsis">
+      <div class="onyx-toast__content onyx-truncation-ellipsis">
         <div class="onyx-toast__headline onyx-text">
           <span class="onyx-truncation-ellipsis"> {{ props.headline }}</span>
 
           <button
-            v-if="!hasProgressBar && !props.clickable"
+            v-if="!props.clickable"
             :aria-label="t('close')"
             class="onyx-toast__close"
             @click="emit('close')"
@@ -156,12 +157,16 @@ const icon = computed(() => {
       }
     }
 
-    &__content {
+    &__wrapper {
       display: flex;
       gap: var(--onyx-toast-gap);
       padding: var(--onyx-toast-padding);
       border: var(--onyx-1px-in-rem) solid var(--onyx-toast-border-color);
       border-radius: inherit;
+    }
+
+    &__content {
+      width: 100%;
     }
 
     &__headline {
@@ -183,6 +188,13 @@ const icon = computed(() => {
       &:focus-visible {
         border-radius: var(--onyx-radius-md);
         outline: var(--onyx-spacing-5xs) solid var(--onyx-toast-outline-color);
+      }
+    }
+
+    // only show close button on hover if it closes automatically
+    &:has(.onyx-toast-progress-bar) {
+      &:not(:hover) .onyx-toast__close {
+        display: none;
       }
     }
 

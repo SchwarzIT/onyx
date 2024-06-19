@@ -6,7 +6,7 @@ import OnyxLink from "../OnyxLink/OnyxLink.vue";
 import OnyxToast from "./OnyxToast.vue";
 
 const meta: Meta<typeof OnyxToast> = {
-  title: "components/Toast",
+  title: "support/Toast",
   ...defineStorybookActionsAndVModels({
     component: OnyxToast,
     events: ["click", "close"],

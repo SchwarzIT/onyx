@@ -103,5 +103,8 @@
       "label": "Dark",
       "description": "This color mode is optimized for darker environments."
     }
+  },
+  "toast": {
+    "progressBarLabel": "Remaining toast duration"
   }
 }

@@ -18,12 +18,12 @@ export type OnyxToastProps = DensityProp & {
    * Duration in milliseconds for the toast to close automatically.
    * Timer will be paused when hovering the toast.
    *
-   * Can be set to `0` to disable the auto closing (will show a close button instead when `clickable` is `false`).
+   * Can be set to `0` to disable the auto closing.
    */
   duration?: number;
   /**
    * Whether the toast is clickable (will emit the `click` event).
-   * Will also hide the manual close button if `duration` is disabled.
+   * Will also hide the manual close button.
    */
   clickable?: boolean;
   /**

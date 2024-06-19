@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, watchEffect } from "vue";
 import { useTimer } from "../../composables/useTimer";
+import { injectI18n } from "../../i18n";
 import type { OnyxToastProps } from "../OnyxToast/types";
 
 const props = defineProps<Required<Pick<OnyxToastProps, "duration">>>();
@@ -11,6 +12,8 @@ const emit = defineEmits<{
    */
   timerEnded: [];
 }>();
+
+const { t } = injectI18n();
 
 const { timeLeft, isEnded } = useTimer({
   endTime: computed(() => Date.now() + props.duration),
@@ -32,6 +35,7 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
     :aria-valuemin="0"
     :aria-valuemax="props.duration"
     :aria-valuenow="percentage"
+    :aria-label="t('toast.progressBarLabel')"
     :style="{ width: `${percentage}%` }"
   ></time>
 </template>
