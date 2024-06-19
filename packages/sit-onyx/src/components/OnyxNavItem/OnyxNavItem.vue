@@ -1,3 +1,10 @@
+<script lang="ts">
+/**
+ *  @deprecated
+ * Will be replaced by OnyxNavButton
+ */
+export default {};
+</script>
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { injectI18n } from "../../i18n";
