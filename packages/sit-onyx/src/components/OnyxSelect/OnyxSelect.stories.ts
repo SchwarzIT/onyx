@@ -31,6 +31,8 @@ const meta: Meta<typeof OnyxSelect> = {
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
+      readonly: { control: { type: "boolean" } },
+      disabled: { control: { type: "boolean" } },
     },
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.

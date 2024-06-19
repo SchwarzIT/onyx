@@ -170,11 +170,6 @@ defineExpose({ focus: () => input.value?.focus() });
       $vertical-padding: var(--onyx-select-input-padding-vertical)
     );
 
-    $line-height: 1.5rem;
-
-    // --border-color: var(--onyx-color-base-neutral-300);
-    --selection-color: var(--onyx-color-base-neutral-200);
-
     font-family: var(--onyx-font-family);
     display: flex;
     flex-direction: column;
@@ -188,15 +183,6 @@ defineExpose({ focus: () => input.value?.focus() });
       &:enabled {
         cursor: pointer;
       }
-    }
-
-    &__wrapper {
-      // TODO: #1236 is this needed?
-      box-sizing: border-box;
-    }
-
-    &__native {
-      cursor: inherit;
     }
 
     &__badge {
@@ -251,6 +237,8 @@ defineExpose({ focus: () => input.value?.focus() });
 
     &:has(&__native:disabled),
     &--readonly {
+      --selection-color: var(--onyx-color-base-neutral-200);
+
       .onyx-select-input {
         &__wrapper {
           background-color: var(--onyx-color-base-background-tinted);
