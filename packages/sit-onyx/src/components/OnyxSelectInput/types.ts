@@ -41,7 +41,14 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
   CustomValidityProp &
   SelectionInput<TValue> &
   AutofocusProp &
-  Omit<OnyxFormElementProps, "modelValue" | "maxlength" | "withCounter"> & {
+  Omit<
+    OnyxFormElementProps,
+    | "modelValue"
+    | "maxlength"
+    | "withCounter"
+    /* errorMessages support will be done in https://github.com/SchwarzIT/onyx/issues/1302 */
+    | "errorMessages"
+  > & {
     /**
      * Whether the select should be disabled.
      */

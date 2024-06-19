@@ -13,9 +13,6 @@ import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 
-// TODO: #1236 merge styles
-// TODO: #1236 insert error stuff
-
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
