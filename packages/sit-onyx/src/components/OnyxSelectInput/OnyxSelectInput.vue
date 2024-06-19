@@ -76,7 +76,7 @@ defineExpose({ focus: () => input.value?.focus() });
     v-bind="rootAttrs"
   >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
-    <OnyxSkeleton class="onyx-select-input-skeleton__input" />
+    <OnyxSkeleton class="onyx-select-input-skeleton__native" />
   </div>
 
   <div
@@ -99,8 +99,8 @@ defineExpose({ focus: () => input.value?.focus() });
         <input
           ref="input"
           :class="{
-            'onyx-select-input__input': true,
-            'onyx-select-input__input--show-focus': props.showFocus,
+            'onyx-select-input__native': true,
+            'onyx-select-input__native--show-focus': props.showFocus,
             'onyx-truncation-ellipsis': true,
           }"
           v-bind="restAttrs"
@@ -146,6 +146,7 @@ defineExpose({ focus: () => input.value?.focus() });
 <style lang="scss">
 @use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/input.scss";
 
 .onyx-select-input,
 .onyx-select-input-skeleton {
@@ -164,9 +165,14 @@ defineExpose({ focus: () => input.value?.focus() });
 
 .onyx-select-input {
   @include layers.component() {
+    @include input.define-shared-styles(
+      $base-selector: ".onyx-select-input",
+      $vertical-padding: var(--onyx-select-input-padding-vertical)
+    );
+
     $line-height: 1.5rem;
 
-    --border-color: var(--onyx-color-base-neutral-300);
+    // --border-color: var(--onyx-color-base-neutral-300);
     --selection-color: var(--onyx-color-base-neutral-200);
 
     font-family: var(--onyx-font-family);
@@ -196,25 +202,11 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     &__wrapper {
-      border-radius: var(--onyx-radius-sm);
-      border: var(--onyx-1px-in-rem) solid var(--border-color);
-      background: var(--onyx-color-base-background-blank);
-      color: var(--onyx-color-text-icons-neutral-intense);
-
-      display: flex;
-      align-items: center;
-      gap: var(--onyx-spacing-2xs);
-
-      font-size: 1rem;
-      line-height: $line-height;
-
+      // TODO: #1236 is this needed?
       box-sizing: border-box;
-
-      padding: var(--onyx-select-input-padding-vertical) var(--onyx-spacing-sm);
-      height: calc($line-height + 2 * var(--onyx-select-input-padding-vertical));
     }
 
-    &__input {
+    &__native {
       // reset native input styles so they are inherited from the parent
       border: none;
       border-radius: inherit;
@@ -253,8 +245,11 @@ defineExpose({ focus: () => input.value?.focus() });
       color: var(--onyx-color-text-icons-neutral-soft);
     }
 
+    /** The internal input is always "readonly" because typing is not allowed.
+     * That's why we need to rely on modifier classes instead of using pseudo classes
+     */
     &--editable {
-      .onyx-select-input__wrapper:has(.onyx-select-input__input:enabled) {
+      .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
         cursor: pointer;
         // default hover
         &:hover {
@@ -266,8 +261,8 @@ defineExpose({ focus: () => input.value?.focus() });
       }
       // default focus
       &:has(
-          .onyx-select-input__input:enabled:focus,
-          .onyx-select-input__input--show-focus:enabled
+          .onyx-select-input__native:enabled:focus,
+          .onyx-select-input__native--show-focus:enabled
         ) {
         .onyx-select-input {
           &__wrapper {
@@ -284,14 +279,14 @@ defineExpose({ focus: () => input.value?.focus() });
 
     // readonly focus
     &--readonly:has(
-        .onyx-select-input__input:enabled:focus,
-        .onyx-select-input__input--show-focus:enabled
+        .onyx-select-input__native:enabled:focus,
+        .onyx-select-input__native--show-focus:enabled
       )
       .onyx-select-input__wrapper {
       outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
     }
 
-    &:has(&__input:disabled),
+    &:has(&__native:disabled),
     &--readonly {
       .onyx-select-input {
         &__label {
@@ -320,7 +315,7 @@ defineExpose({ focus: () => input.value?.focus() });
         width: var(--onyx-spacing-3xl);
         height: 1.25rem;
       }
-      &__input {
+      &__native {
         width: 17rem;
         height: calc($line-height + 2 * var(--onyx-select-input-padding-vertical));
       }

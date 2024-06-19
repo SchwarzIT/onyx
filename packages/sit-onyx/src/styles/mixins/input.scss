@@ -7,6 +7,7 @@
   --border-color: var(--onyx-color-base-neutral-300);
   --selection-color: var(--onyx-color-base-primary-200);
   --outline-color: var(--onyx-color-base-primary-200);
+  $line-height: 1.5rem;
 
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
@@ -19,9 +20,9 @@
     gap: var(--onyx-spacing-2xs);
 
     font-size: 1rem;
-    line-height: 1.5rem;
+    line-height: $line-height;
     padding: $vertical-padding var(--onyx-spacing-sm);
-    height: calc(1lh + 2 * #{$vertical-padding});
+    height: calc($line-height + 2 * #{$vertical-padding});
 
     &:has(#{$base-selector}__native:read-write:hover) {
       --border-color: var(--onyx-color-base-primary-400);
