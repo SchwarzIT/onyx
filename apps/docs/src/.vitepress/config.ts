@@ -35,7 +35,7 @@ export default defineConfig({
         content: "Enterprise design system and Vue.js component library by Schwarz IT",
       },
     ],
-    ["meta", { property: "og:site_name", content: "Onyx" }],
+    ["meta", { property: "og:site_name", content: "onyx" }],
     ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-logo.webp" }],
     ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
   ],
