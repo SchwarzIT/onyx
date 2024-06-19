@@ -26,7 +26,7 @@ export default defineConfig({
     ["meta", { property: "og:locale", content: "en" }],
     [
       "meta",
-      { property: "og:title", content: "Onyx | Design system and Vue.js component library" },
+      { property: "og:title", content: "onyx | Design system and Vue.js component library" },
     ],
     [
       "meta",
