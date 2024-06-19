@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-alpha.144",
+  "version": "1.0.0-alpha.145",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
