@@ -5,6 +5,7 @@ import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import circleX from "@sit-onyx/icons/circle-x.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
+import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxToastProgressBar from "../OnyxToastProgressBar/OnyxToastProgressBar.vue";
@@ -37,6 +38,7 @@ defineSlots<{
 }>();
 
 const { t } = injectI18n();
+const { densityClass } = useDensity(props);
 
 const hasProgressBar = computed(() => props.duration > 0);
 
@@ -57,7 +59,7 @@ const icon = computed(() => {
   <component
     :is="props.clickable ? 'button' : 'div'"
     class="onyx-toast"
-    :class="[`onyx-toast--${props.color}`]"
+    :class="[`onyx-toast--${props.color}`, densityClass]"
     role="alert"
     @click="props.clickable && emit('click')"
   >
@@ -98,8 +100,24 @@ const icon = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-toast {
+  @include density.compact {
+    --onyx-toast-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-xs);
+    --onyx-toast-gap: var(--onyx-spacing-xs);
+  }
+
+  @include density.default {
+    --onyx-toast-padding: var(--onyx-spacing-xs) var(--onyx-spacing-md);
+    --onyx-toast-gap: var(--onyx-spacing-md);
+  }
+
+  @include density.cozy {
+    --onyx-toast-padding: var(--onyx-spacing-sm) var(--onyx-spacing-lg);
+    --onyx-toast-gap: var(--onyx-spacing-lg);
+  }
+
   @include layers.component() {
     --onyx-toast-color: var(--onyx-color-text-icons-neutral-inverted);
     --onyx-toast-background-color: var(--onyx-color-base-neutral-700);
@@ -140,8 +158,8 @@ const icon = computed(() => {
 
     &__content {
       display: flex;
-      gap: var(--onyx-spacing-md); // TODO: use density
-      padding: var(--onyx-spacing-xs) var(--onyx-spacing-md); // TODO: use density
+      gap: var(--onyx-toast-gap);
+      padding: var(--onyx-toast-padding);
       border: var(--onyx-1px-in-rem) solid var(--onyx-toast-border-color);
       border-radius: inherit;
     }
