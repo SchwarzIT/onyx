@@ -6,8 +6,16 @@ import OnyxToast from "./OnyxToast.vue";
 
 const TOAST_COLORS = ["neutral", "danger", "warning", "success"] satisfies OnyxColor[];
 
+const MOCK_NOW = new Date(2024, 0, 1, 12);
+
+test.beforeEach(async ({ page }) => {
+  await page.evaluate((mockNow) => {
+    Date.now = () => mockNow.getTime();
+  }, MOCK_NOW);
+});
+
 test.describe("Screenshot tests", () => {
-  for (const mode of ["default", "clickable"] as const) {
+  for (const mode of ["default", "clickable", "manual-close"] as const) {
     executeMatrixScreenshotTest({
       name: `Toast (${mode})`,
       columns: DENSITIES,
@@ -19,7 +27,7 @@ test.describe("Screenshot tests", () => {
           headline="Test toast"
           color={row}
           density={column}
-          duration={0}
+          duration={mode === "manual-close" ? 0 : undefined}
           clickable={mode === "clickable"}
           // margin is used to not cut off the box shadow in the screenshot
           style={{ margin: "1rem" }}
@@ -41,7 +49,6 @@ test.describe("Screenshot tests (description)", () => {
         headline="Test toast"
         color={row}
         density={column}
-        duration={0}
         description="Lorem ipsum dolor sit amet consectetur. Non in felis erat velit consectetur. Sed integer non hac viverra nibh vehicula risus ultrices. Molestie cras lobortis vitae gravida et ut. Turpis nisl pharetra amet ante eu sagittis sit elementum ut."
         // margin is used to not cut off the box shadow in the screenshot
         style={{ margin: "1rem" }}
@@ -58,7 +65,6 @@ test.describe("Screenshot tests (truncation)", () => {
     component: () => (
       <OnyxToast
         headline={"Test".repeat(32)}
-        duration={0}
         description={"Test".repeat(96)}
         // margin is used to not cut off the box shadow in the screenshot
         style={{ margin: "1rem" }}
