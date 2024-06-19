@@ -1,8 +1,6 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
-import OnyxLink from "../OnyxLink/OnyxLink.vue";
 import OnyxToast from "./OnyxToast.vue";
 
 const meta: Meta<typeof OnyxToast> = {
@@ -11,7 +9,6 @@ const meta: Meta<typeof OnyxToast> = {
     component: OnyxToast,
     events: ["click", "close"],
     argTypes: {
-      default: { control: { type: "text" } },
       icon: defineIconSelectArgType(),
     },
   }),
@@ -60,18 +57,5 @@ export const ManualClose = {
   args: {
     ...Default.args,
     duration: 0,
-  },
-} satisfies Story;
-
-export const CustomContent = {
-  args: {
-    ...Default.args,
-    default: () => [
-      "This uses the slot to display ",
-      h("strong", "custom content"),
-      ". Click ",
-      h(OnyxLink, { href: "#" }, () => "here"),
-      " to open some link.",
-    ],
   },
 } satisfies Story;

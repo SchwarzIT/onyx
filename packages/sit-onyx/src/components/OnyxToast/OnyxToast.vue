@@ -29,14 +29,6 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-defineSlots<{
-  /**
-   * Optional slot to override the description content.
-   * Useful if you e.g. want to add links etc.
-   */
-  default?(): unknown;
-}>();
-
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 
@@ -85,7 +77,7 @@ const icon = computed(() => {
           v-if="props.description"
           class="onyx-toast__description onyx-text--small onyx-truncation-multiline"
         >
-          <slot> {{ props.description }}</slot>
+          {{ props.description }}
         </p>
       </div>
     </div>
