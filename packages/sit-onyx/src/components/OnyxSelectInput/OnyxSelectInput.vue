@@ -170,6 +170,7 @@ defineExpose({ focus: () => input.value?.focus() });
       $vertical-padding: var(--onyx-select-input-padding-vertical)
     );
 
+    --selection-color: var(--onyx-color-base-neutral-200);
     font-family: var(--onyx-font-family);
     display: flex;
     flex-direction: column;
@@ -237,8 +238,6 @@ defineExpose({ focus: () => input.value?.focus() });
 
     &:has(&__native:disabled),
     &--readonly {
-      --selection-color: var(--onyx-color-base-neutral-200);
-
       .onyx-select-input {
         &__wrapper {
           background-color: var(--onyx-color-base-background-tinted);
