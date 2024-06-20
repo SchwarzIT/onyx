@@ -20,14 +20,14 @@ const props = withDefaults(defineProps<OnyxNavItemProps>(), {
 
 const emit = defineEmits<{
   /**
-   * An optional slot to override the label content.
+   * Emitted when the nav item is clicked (via click or keyboard).
    */
   click: [href: string];
 }>();
 
 defineSlots<{
   /**
-   * An optional slot to show additional content behind the label (e.g. a `OnyxBadge`).
+   * An optional slot to override the label content.
    */
   default?(): unknown;
 }>();
