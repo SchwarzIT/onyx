@@ -198,6 +198,10 @@ defineExpose({ focus: () => input.value?.focus() });
     &--editable {
       .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
         cursor: pointer;
+        .onyx-select-input__native {
+          cursor: pointer;
+        }
+
         // default hover
         &:hover {
           @include input.define-enabled-hover();
@@ -245,6 +249,10 @@ defineExpose({ focus: () => input.value?.focus() });
     }
 
     &--readonly {
+      .onyx-select-input__native:enabled {
+        cursor: initial;
+      }
+
       .onyx-select-input__wrapper:hover {
         --border-color: var(--onyx-color-base-neutral-400);
       }
