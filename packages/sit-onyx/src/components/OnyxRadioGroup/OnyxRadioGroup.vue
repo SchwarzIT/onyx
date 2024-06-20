@@ -55,7 +55,7 @@ const handleChange = (selected: boolean, value: TValue) => {
           v-bind="option"
           :name="props.name"
           :custom-error="props.customError"
-          :selected="option.value === props.modelValue"
+          :checked="option.value === props.modelValue"
           :required="props.required"
           @validity-change="index === 0 && emit('validityChange', $event)"
           @change="handleChange($event, option.value)"
