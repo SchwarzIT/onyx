@@ -46,7 +46,7 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
     | "modelValue"
     | "maxlength"
     | "withCounter"
-    /* errorMessages support will be done in https://github.com/SchwarzIT/onyx/issues/1302 */
+    /* errorMessages support will be added in https://github.com/SchwarzIT/onyx/issues/1302 */
     | "errorMessages"
   > & {
     /**

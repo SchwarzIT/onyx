@@ -112,23 +112,7 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This example shows an input with info label tooltip.
- */
-export const WithLabelTooltip: Story = {
-  args: {
-    ...Default.args,
-    labelTooltip: "More information",
-  },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-top: 2rem"> <story /> </div>`,
-    }),
-  ],
-};
-
-/**
- * This example shows an select with a message / help text and a tooltip.
+ * This example shows a select input with a message / help text and a tooltip.
  */
 export const WithMessage: Story = {
   args: {
@@ -140,6 +124,22 @@ export const WithMessage: Story = {
     (story) => ({
       components: { story },
       template: `<div style="padding-bottom: 2rem"> <story /> </div>`,
+    }),
+  ],
+};
+
+/**
+ * This example shows a select input with info label tooltip.
+ */
+export const WithLabelTooltip: Story = {
+  args: {
+    ...Default.args,
+    labelTooltip: "More information",
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="padding-top: 2rem"> <story /> </div>`,
     }),
   ],
 };
