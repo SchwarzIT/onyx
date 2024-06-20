@@ -108,7 +108,7 @@ defineExpose({
       line-height: var(--onyx-spacing-lg);
       flex-grow: 1;
       min-width: 0;
-      color: inherit;
+      color: var(--onyx-color-text-icons-neutral-intense);
 
       &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);

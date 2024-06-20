@@ -1,7 +1,7 @@
 import type { OnyxBreakpoint } from "../../types";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
-export type OnyxNavBarProps = OnyxNavAppAreaProps & {
+export type OnyxNavBarProps = Omit<OnyxNavAppAreaProps, "label"> & {
   /**
    * Whether to show a back button.
    */
