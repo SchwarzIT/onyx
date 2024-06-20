@@ -65,12 +65,7 @@ export default defineLoader({
      */
     const getImplementedStatus = (componentName: string) => {
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));
-      const href = `https://storybook.onyx.schwarz/?path=/docs/components-${componentName.replace("Onyx", "").toLowerCase()}--docs`;
-
-      return {
-        status: fileExist ? "in-progress" : "planned",
-        href: fileExist ? href : undefined,
-      } satisfies Partial<ComponentCardProps>;
+      return fileExist ? "in-progress" : "planned";
     };
 
     const basicComponentsDueDate = "Q2/2024";
@@ -79,63 +74,69 @@ export default defineLoader({
       {
         name: "Button",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxButton"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/buttons-button--docs",
       },
       {
         name: "Icon button",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxIconButton"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/buttons-iconbutton--docs",
       },
       {
         name: "Radio group",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxRadioGroup"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-radiogroup--docs",
       },
       {
         name: "Minimalistic table",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxTable"),
+        status: getImplementedStatus("OnyxTable"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/data-table--docs",
       },
       {
         name: "Headline",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxHeadline"),
+        status: getImplementedStatus("OnyxHeadline"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-headline--docs",
       },
 
       {
         name: "Nav bar",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxNavBar"),
+        status: getImplementedStatus("OnyxNavBar"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-navbar--docs",
       },
       {
         name: "Select",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxSelect"),
+        status: getImplementedStatus("OnyxSelect"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-select--docs",
       },
       {
         name: "Textarea",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxTextarea"),
+        status: getImplementedStatus("OnyxTextarea"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-textarea--docs",
       },
       {
         name: "Input",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxInput"),
+        status: getImplementedStatus("OnyxInput"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-input--docs",
       },
       {
         name: "Switch",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxSwitch"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-switch--docs",
       },
       {
         name: "Checkbox group",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxCheckboxGroup"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-checkboxgroup--docs",
       },
       {
         name: "Icons",
@@ -146,57 +147,63 @@ export default defineLoader({
       {
         name: "Loading indicator",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxLoadingIndicator"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/support-loadingindicator--docs",
       },
       {
         name: "Tooltip",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxTooltip"),
+        status: getImplementedStatus("OnyxTooltip"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-tooltip--docs",
       },
       {
         name: "Tag",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxTag"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-tag--docs",
       },
       {
         name: "Badge",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxBadge"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-badge--docs",
       },
       {
         name: "Empty",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxEmpty"),
         status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/data-empty--docs",
       },
       {
         name: "Avatar",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxAvatar"),
+        status: getImplementedStatus("OnyxAvatar"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-avatar--docs",
       },
-      { name: "Footer", ...getImplementedStatus("OnyxFooter") },
-      { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
-      { name: "Filter", ...getImplementedStatus("OnyxFilter") },
-      { name: "Toast", ...getImplementedStatus("OnyxToast") },
-      { name: "Sidebar", ...getImplementedStatus("OnyxSidebar") },
-      { name: "Card", ...getImplementedStatus("OnyxCard") },
-      { name: "Popover", ...getImplementedStatus("OnyxPopover") },
-      { name: "Dialog", ...getImplementedStatus("OnyxDialog") },
-      { name: "Pagination", ...getImplementedStatus("OnyxPagination") },
-      { name: "Datepicker", ...getImplementedStatus("OnyxDatepicker") },
-      { name: "Timepicker", ...getImplementedStatus("OnyxTimepicker") },
-      { name: "Calendar", ...getImplementedStatus("OnyxCalendar") },
-      { name: "Accordion", ...getImplementedStatus("OnyxAccordion") },
-      { name: "Slider", ...getImplementedStatus("OnyxSlider") },
-      { name: "Stepper", ...getImplementedStatus("OnyxStepper") },
-      { name: "Upload", ...getImplementedStatus("OnyxUpload") },
-      { name: "Breadcrumb", ...getImplementedStatus("OnyxBreadcrumb") },
-      { name: "Table of Content", ...getImplementedStatus("OnyxTableOfContent") },
-      { name: "Wizard", ...getImplementedStatus("OnyxWizard") },
-      { name: "Tabs", ...getImplementedStatus("OnyxTabs") },
+      {
+        name: "Dialog",
+        status: getImplementedStatus("OnyxDialog"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
+      },
+      { name: "Footer", status: getImplementedStatus("OnyxFooter") },
+      { name: "Advanced Table", status: "planned" },
+      { name: "Filter", status: getImplementedStatus("OnyxFilter") },
+      { name: "Toast", status: getImplementedStatus("OnyxToast") },
+      { name: "Sidebar", status: getImplementedStatus("OnyxSidebar") },
+      { name: "Card", status: getImplementedStatus("OnyxCard") },
+      { name: "Popover", status: getImplementedStatus("OnyxPopover") },
+      { name: "Pagination", status: getImplementedStatus("OnyxPagination") },
+      { name: "Datepicker", status: getImplementedStatus("OnyxDatepicker") },
+      { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
+      { name: "Calendar", status: getImplementedStatus("OnyxCalendar") },
+      { name: "Accordion", status: getImplementedStatus("OnyxAccordion") },
+      { name: "Slider", status: getImplementedStatus("OnyxSlider") },
+      { name: "Stepper", status: getImplementedStatus("OnyxStepper") },
+      { name: "Upload", status: getImplementedStatus("OnyxUpload") },
+      { name: "Breadcrumb", status: getImplementedStatus("OnyxBreadcrumb") },
+      { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
+      { name: "Wizard", status: getImplementedStatus("OnyxWizard") },
+      { name: "Tabs", status: getImplementedStatus("OnyxTabs") },
     ];
 
     return {

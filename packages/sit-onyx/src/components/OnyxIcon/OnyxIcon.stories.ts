@@ -10,6 +10,8 @@ import OnyxIcon from "./OnyxIcon.vue";
  *
  * When importing SVG icon files, make sure to add `?raw` after the file name as shown in the examples to import the SVG content
  * instead of the file system path to the file.
+ *
+ * For a list of all onyx icons, please visit our [icon library](https://onyx.schwarz/icons.html).
  */
 const meta: Meta<typeof OnyxIcon> = {
   title: "Basic/Icon",
