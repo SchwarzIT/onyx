@@ -32,8 +32,6 @@ const meta: Meta<typeof OnyxSelect> = {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
       option: { control: { disable: true } },
-      readonly: { control: { type: "boolean" } },
-      disabled: { control: { type: "boolean" } },
     },
 
     decorators: [
