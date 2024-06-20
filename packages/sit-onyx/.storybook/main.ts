@@ -16,6 +16,16 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
+  managerHead: (head) => `
+    ${head}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en">
+    <meta property="og:title" content="onyx | Storybook">
+    <meta property="og:description" content="Component overview and API documentation for onyx">
+    <meta property="og:site_name" content="onyx Storybook">
+    <meta property="og:image" content="https://storybook.onyx.schwarz/og-storybook-logo.webp">
+    <meta property="og:url" content="https://storybook.onyx.schwarz">
+  `,
 };
 
 export default config;
