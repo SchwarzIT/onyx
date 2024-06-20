@@ -1,17 +1,18 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -24,10 +25,19 @@ const props = withDefaults(defineProps<OnyxSelectInputProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the select input is clicked (and is not disabled).
+   */
   click: [];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const { t } = injectI18n();
+
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 /**
  * Number of selected options.
@@ -60,11 +70,30 @@ const selectionText = computed<string>(() => {
   return props.selection?.label ?? "";
 });
 
+/** used to detect user interaction to simulate the behavior of :user-invalid for the native input */
+const wasTouched = ref(false);
+
 const { densityClass } = useDensity(props);
 
 const input = ref<HTMLInputElement>();
 
 defineExpose({ focus: () => input.value?.focus() });
+
+/**
+ * As the native input has to be readonly, the :user-invalid will never appear.
+ * We need to track user interaction by evaluating whether the flyout was ever closed.
+ * After that, we can simulate :user-invalid by checking whether an error is set.
+ */
+watch(
+  () => props.showFocus,
+  (newValue, oldValue) => {
+    // only needs to be set once.
+    if (wasTouched.value) return;
+    if (oldValue && newValue === false) {
+      wasTouched.value = true;
+    }
+  },
+);
 </script>
 <template>
   <div
@@ -85,7 +114,7 @@ defineExpose({ focus: () => input.value?.focus() });
     ]"
     v-bind="rootAttrs"
   >
-    <OnyxFormElement v-bind="props">
+    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <div class="onyx-select-input__wrapper">
         <OnyxLoadingIndicator
           v-if="props.loading"
@@ -95,10 +124,12 @@ defineExpose({ focus: () => input.value?.focus() });
 
         <input
           ref="input"
+          v-custom-validity
           :class="{
             'onyx-select-input__native': true,
             'onyx-select-input__native--show-focus': props.showFocus,
             'onyx-truncation-ellipsis': true,
+            'onyx-select-input__native--force-error': errorMessages && wasTouched,
           }"
           v-bind="restAttrs"
           type="text"

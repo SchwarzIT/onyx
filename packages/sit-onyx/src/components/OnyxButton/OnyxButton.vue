@@ -17,7 +17,9 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
 const { densityClass } = useDensity(props);
 
 const emit = defineEmits<{
-  /** Emitted when the button is clicked (and is not disabled). */
+  /**
+   * Emitted when the button is clicked (and is not disabled).
+   */
   click: [];
 }>();
 </script>

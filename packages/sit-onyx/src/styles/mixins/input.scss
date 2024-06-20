@@ -31,7 +31,8 @@
       @include define-enabled-focus();
     }
 
-    &:has(#{$base-selector}__native:user-invalid) {
+    &:has(#{$base-selector}__native:user-invalid),
+    &:has(#{$base-selector}__native--force-error) {
       --border-color: var(--onyx-color-base-danger-500);
       --outline-color: var(--onyx-color-base-danger-200);
       --selection-color: var(--onyx-color-base-danger-200);
@@ -49,7 +50,8 @@
   .onyx-form-element__error-message {
     --error-message-display: none;
   }
-  &:has(#{$base-selector}__native:user-invalid) {
+  &:has(#{$base-selector}__native:user-invalid),
+  &:has(#{$base-selector}__native--force-error) {
     .onyx-form-element__error-message {
       --error-message-display: flex;
     }

@@ -1,4 +1,4 @@
-import type { CustomValidityProp } from "src/composables/useCustomValidity";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
@@ -41,14 +41,7 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
   CustomValidityProp &
   SelectionInput<TValue> &
   AutofocusProp &
-  Omit<
-    OnyxFormElementProps,
-    | "modelValue"
-    | "maxlength"
-    | "withCounter"
-    /* errorMessages support will be added in https://github.com/SchwarzIT/onyx/issues/1302 */
-    | "errorMessages"
-  > & {
+  Omit<OnyxFormElementProps, "modelValue" | "maxlength" | "withCounter"> & {
     /**
      * Whether the select should be disabled.
      */
