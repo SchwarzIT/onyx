@@ -30,13 +30,3 @@ export const Default = {
     default: "Lorem ipsum dolor sit amet",
   },
 } satisfies Story;
-
-/**
- * This example shows a h1 headline with the monospace font family.
- */
-export const Monospace = {
-  args: {
-    ...Default.args,
-    monospace: true,
-  },
-} satisfies Story;

@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import type { OnyxHeadlineProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxHeadlineProps>(), {
-  monospace: false,
-});
+const props = defineProps<OnyxHeadlineProps>();
 
 defineSlots<{
   /**
@@ -14,14 +12,7 @@ defineSlots<{
 </script>
 
 <template>
-  <component
-    :is="props.is"
-    :class="[
-      'onyx-headline',
-      `onyx-headline--${props.is}`,
-      props.monospace ? 'onyx-headline--monospace' : '',
-    ]"
-  >
+  <component :is="props.is" :class="['onyx-headline', `onyx-headline--${props.is}`]">
     <slot></slot>
   </component>
 </template>
@@ -33,12 +24,7 @@ defineSlots<{
   @include layers.component() {
     font-weight: 600;
     font-family: var(--onyx-font-family);
-
     color: var(--onyx-color-text-icons-neutral-intense);
-
-    &--monospace {
-      font-family: var(--onyx-font-family-mono);
-    }
 
     &--h1 {
       font-size: 1.75rem;
