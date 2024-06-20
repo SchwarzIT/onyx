@@ -142,7 +142,7 @@ export default defineLoader({
         name: "Icons",
         dueDate: basicComponentsDueDate,
         status: "implemented",
-        href: "/resources/icons",
+        href: "/icons",
       },
       {
         name: "Loading indicator",

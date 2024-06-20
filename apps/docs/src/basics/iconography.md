@@ -1,7 +1,7 @@
 # Iconography
 
 ::: warning Attention
-Check out the whole icon palette in the [resources](/resources/icons) documentation.
+Check out the whole icon palette in the [resources](/icons) documentation.
 Feel free to browse through all the assets there.
 :::
 
@@ -67,4 +67,4 @@ The default size is 24x24px, but we also use a smaller and a larger variant base
 
 <!--@include: @/.vitepress/to-be-done.md-->
 
-For a full list of icons, please take a look at the [icon resources](/resources/icons).
+For a full list of icons, please take a look at the [icon resources](/icons).
