@@ -25,7 +25,6 @@ const preview: Preview = {
     ...basePreview.parameters,
     options: {
       storySort: {
-        // TODO: fix order not completely working
         order: [
           "Introduction",
           "Buttons",
@@ -34,10 +33,10 @@ const preview: Preview = {
           "Data",
           "Feedback",
           "Navigation",
-          ["*", "modules"],
+          ["*", "modules"], // sort navigation module folder last
           "Layout",
           "Examples",
-          "support",
+          "Support",
         ],
       },
     },
