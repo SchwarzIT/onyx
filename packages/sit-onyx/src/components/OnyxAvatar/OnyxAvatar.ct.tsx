@@ -2,7 +2,6 @@ import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { ICON_SIZES } from "../OnyxIcon/types";
 import OnyxAvatar from "./OnyxAvatar.vue";
-import { AVATAR_TYPES } from "./types";
 
 /**
  * Mock custom image (onyx logo).
@@ -24,14 +23,13 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Avatar",
-    columns: [...AVATAR_TYPES, "custom"],
+    columns: ["default", "custom"],
     rows: AVATAR_SIZES,
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxAvatar
         label="John Doe"
-        type={column !== "custom" ? column : undefined}
         size={row}
         src={column === "custom" ? MOCK_IMAGE_URL : undefined}
       />

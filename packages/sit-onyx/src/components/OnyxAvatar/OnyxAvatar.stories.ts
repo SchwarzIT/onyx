@@ -29,26 +29,6 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows a female avatar.
- */
-export const Female = {
-  args: {
-    label: "Jane Doe",
-    type: "female",
-  },
-} satisfies Story;
-
-/**
- * This example shows a male avatar.
- */
-export const Male = {
-  args: {
-    label: "John Doe",
-    type: "male",
-  },
-} satisfies Story;
-
-/**
  * This example shows an avatar with a custom image.
  * If the image can not be loaded, a fallback is displayed depending on the `type` property.
  */

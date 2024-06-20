@@ -2,7 +2,6 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
-import { AVATAR_TYPES } from "../OnyxAvatar/types";
 import OnyxAvatarStack from "./OnyxAvatarStack.vue";
 
 /**
@@ -29,9 +28,7 @@ export const Default = {
   args: {
     default: () =>
       Array.from({ length: 6 }, (_, index) => {
-        const label = `John Doe ${index + 1}`;
-        const type = AVATAR_TYPES[index % AVATAR_TYPES.length];
-        return h(OnyxAvatar, { label, type });
+        return h(OnyxAvatar, { label: `John Doe ${index + 1}` });
       }),
   },
 } satisfies Story;
@@ -43,9 +40,7 @@ export const LimitedCount = {
   args: {
     default: () => [
       ...Array.from({ length: 15 }, (_, index) => {
-        const label = `John Doe ${index + 1}`;
-        const type = AVATAR_TYPES[index % AVATAR_TYPES.length];
-        return h(OnyxAvatar, { label, type });
+        return h(OnyxAvatar, { label: `John Doe ${index + 1}` });
       }),
       h(OnyxAvatar, { label: "42 more avatars" }, () => "+42"),
     ],
