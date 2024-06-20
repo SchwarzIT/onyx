@@ -2,7 +2,7 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxNavButton from "./OnyxNavButton.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxNavItem from "../OnyxNavItem/future/OnyxNavItem.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 
 /**
@@ -59,7 +59,10 @@ export const WithChildren: Story = {
   args: {
     ...Default.args,
     active: true,
-    children: () => nestedChildren.map(({ label }) => h(OnyxListItem, label)),
+    children: () =>
+      nestedChildren.map(({ label, active }) =>
+        h(OnyxNavItem, { "aria-selected": active }, [label]),
+      ),
   },
   decorators: [
     (story) => ({
