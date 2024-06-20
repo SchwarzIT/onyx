@@ -6,7 +6,7 @@ import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
  * Info tooltips offer contextual information or additional details while hovering an info icon.
  */
 const meta: Meta<typeof OnyxInfoTooltip> = {
-  title: "support/InfoTooltip",
+  title: "Support/InfoTooltip",
   ...defineStorybookActionsAndVModels({
     component: OnyxInfoTooltip,
     events: [],

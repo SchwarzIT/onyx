@@ -8,7 +8,7 @@ import OnyxSelectInput from "./OnyxSelectInput.vue";
  * Itself is readonly and only takes care of showing the selection.
  */
 const meta: Meta<typeof OnyxSelectInput> = {
-  title: "support/SelectInput",
+  title: "Support/SelectInput",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelectInput,
     events: ["click"],

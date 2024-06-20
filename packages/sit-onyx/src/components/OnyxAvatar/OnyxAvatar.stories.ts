@@ -6,7 +6,7 @@ import OnyxAvatar from "./OnyxAvatar.vue";
  * Avatars are used to display a user profile picture or initials.
  */
 const meta: Meta<typeof OnyxAvatar> = {
-  title: "components/Avatar",
+  title: "Basic/Avatar",
   ...defineStorybookActionsAndVModels({
     component: OnyxAvatar,
     events: [],

@@ -1,10 +1,10 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxFormElement from "./OnyxFormElement.vue";
 import { h } from "vue";
+import OnyxFormElement from "./OnyxFormElement.vue";
 
 const meta: Meta<typeof OnyxFormElement> = {
-  title: "support/FormElement",
+  title: "Support/FormElement",
   ...defineStorybookActionsAndVModels({
     component: OnyxFormElement,
     events: [],
@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxFormElement> = {
       (story) => ({
         components: { story },
         template: `<div style="max-width: 12rem; padding: 1rem 2rem">
-                    <story /> 
+                    <story />
                    </div>`,
       }),
     ],

@@ -7,7 +7,7 @@ import OnyxTable from "./OnyxTable.vue";
  * OnyxTable is used for presenting data in a table structure.
  */
 const meta: Meta<typeof OnyxTable> = {
-  title: "components/Table",
+  title: "Data/Table",
   ...defineStorybookActionsAndVModels({
     component: OnyxTable,
     events: [],

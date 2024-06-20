@@ -89,9 +89,9 @@ export default defineLoader({
         status: "implemented",
       },
       {
-        name: "Radio button group",
+        name: "Radio group",
         dueDate: basicComponentsDueDate,
-        ...getImplementedStatus("OnyxRadioButtonGroup"),
+        ...getImplementedStatus("OnyxRadioGroup"),
         status: "implemented",
       },
       {
@@ -180,7 +180,7 @@ export default defineLoader({
       { name: "Footer", ...getImplementedStatus("OnyxFooter") },
       { name: "Advanced Table", ...getImplementedStatus("OnyxTable"), status: "planned" },
       { name: "Filter", ...getImplementedStatus("OnyxFilter") },
-      { name: "Notification", ...getImplementedStatus("OnyxNotification") },
+      { name: "Toast", ...getImplementedStatus("OnyxToast") },
       { name: "Sidebar", ...getImplementedStatus("OnyxSidebar") },
       { name: "Card", ...getImplementedStatus("OnyxCard") },
       { name: "Popover", ...getImplementedStatus("OnyxPopover") },

@@ -9,7 +9,7 @@ import OnyxAvatarStack from "./OnyxAvatarStack.vue";
  * An avatar stack can be used to display a list of avatars (e.g. contributors for a project etc.).
  */
 const meta: Meta<typeof OnyxAvatarStack> = {
-  title: "components/AvatarStack",
+  title: "Basic/AvatarStack",
   ...defineStorybookActionsAndVModels({
     component: OnyxAvatarStack,
     events: [],

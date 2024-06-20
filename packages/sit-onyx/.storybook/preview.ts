@@ -25,7 +25,20 @@ const preview: Preview = {
     ...basePreview.parameters,
     options: {
       storySort: {
-        order: ["Introduction", "components", "layout", "utilities", "support"],
+        // TODO: fix order not completely working
+        order: [
+          "Introduction",
+          "Buttons",
+          "Form",
+          "Basic",
+          "Data",
+          "Feedback",
+          "Navigation",
+          ["*", "modules"],
+          "Layout",
+          "Examples",
+          "support",
+        ],
       },
     },
   },

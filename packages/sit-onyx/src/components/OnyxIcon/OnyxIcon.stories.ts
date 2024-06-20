@@ -12,7 +12,7 @@ import OnyxIcon from "./OnyxIcon.vue";
  * instead of the file system path to the file.
  */
 const meta: Meta<typeof OnyxIcon> = {
-  title: "components/Icon",
+  title: "Basic/Icon",
   ...defineStorybookActionsAndVModels({
     component: OnyxIcon,
     events: [],

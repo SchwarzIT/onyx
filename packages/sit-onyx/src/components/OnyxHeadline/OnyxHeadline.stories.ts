@@ -6,7 +6,7 @@ import OnyxHeadline from "./OnyxHeadline.vue";
  * Headline that can e.g. be used to structure the page content.
  */
 const meta: Meta<typeof OnyxHeadline> = {
-  title: "components/Headline",
+  title: "Basic/Headline",
   ...defineStorybookActionsAndVModels({
     component: OnyxHeadline,
     events: [],

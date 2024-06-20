@@ -4,12 +4,12 @@ import type { TruncationType } from "./fonts";
 // IMPORTANT: When changing this type, make sure to implement the feature
 // for the following components:
 // - Checkbox / Checkbox group
-// - Radio button / Radio button group
+// - Radio button / Radio group
 // - Select
 // - ...
 
 /**
- * Base select option that is e.g. used inside the select, radio button / checkbox group.
+ * Base select option that is e.g. used inside the select, radio / checkbox group.
  */
 export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp & {
   /**

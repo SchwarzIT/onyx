@@ -1,15 +1,15 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxNavButton from "./OnyxNavButton.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxNavButton from "./OnyxNavButton.vue";
 
 /**
  * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavButton> = {
-  title: "support/NavButton",
+  title: "Navigation/modules/NavButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavButton,
     events: ["click"],
