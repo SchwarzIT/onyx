@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxSelectInput): use FormElement including message/label tooltips
+feat(OnyxSelectInput): support message/label tooltip
