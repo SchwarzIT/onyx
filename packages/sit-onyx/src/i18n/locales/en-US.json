@@ -1,5 +1,8 @@
 {
   "optional": "(optional)",
+  "cancel": "Cancel",
+  "apply": "Apply",
+  "back": "Back",
   "validations": {
     "tooShort": {
       "preview": "Too short",
@@ -84,5 +87,20 @@
     "info": "Show info tooltip",
     "error": "Show error tooltip"
   },
-  "back": "Back"
+  "colorScheme": {
+    "headline": "Change appearance",
+    "subtitle": "Select the appearance of the application:",
+    "auto": {
+      "label": "Auto",
+      "description": "The application automatically adapts its appearance to your system settings."
+    },
+    "light": {
+      "label": "Light",
+      "description": "Light mode provides optimal contrast for bright environments."
+    },
+    "dark": {
+      "label": "Dark",
+      "description": "This color mode is optimized for darker environments."
+    }
+  }
 }

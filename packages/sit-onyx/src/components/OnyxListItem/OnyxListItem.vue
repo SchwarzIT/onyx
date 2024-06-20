@@ -92,4 +92,3 @@ const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
   }
 }
 </style>
-../OnyxSelect/types

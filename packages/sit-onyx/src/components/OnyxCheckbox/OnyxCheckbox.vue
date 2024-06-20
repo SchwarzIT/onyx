@@ -59,6 +59,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
         :disabled="props.disabled"
         :required="props.required"
         :value="props.value"
+        :autofocus="props.autofocus"
       />
     </div>
 

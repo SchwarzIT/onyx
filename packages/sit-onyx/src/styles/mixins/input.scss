@@ -8,37 +8,6 @@
   --selection-color: var(--onyx-color-base-primary-200);
   --outline-color: var(--onyx-color-base-primary-200);
 
-  font-family: var(--onyx-font-family);
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
-
-  &__label {
-    display: flex;
-    margin-bottom: var(--onyx-spacing-5xs);
-    color: var(--onyx-color-text-icons-neutral-medium);
-
-    // optional marker should be displayed at the very end of the label
-    &.onyx-optional-marker {
-      justify-content: space-between;
-
-      &::after {
-        display: none;
-      }
-    }
-  }
-
-  &__optional {
-    display: none;
-    font-family: var(--onyx-font-family);
-    font-weight: 400;
-    font-style: normal;
-    color: var(--onyx-color-text-icons-neutral-soft);
-    padding-left: var(--onyx-spacing-2xs);
-    hyphens: none;
-    margin-left: auto;
-  }
-
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
@@ -55,30 +24,11 @@
     height: calc(1lh + 2 * #{$vertical-padding});
 
     &:has(#{$base-selector}__native:read-write:hover) {
-      --border-color: var(--onyx-color-base-primary-400);
+      @include define-enabled-hover();
     }
 
     &:has(#{$base-selector}__native:enabled:focus) {
-      --border-color: var(--onyx-color-base-primary-500);
-      outline: var(--onyx-spacing-4xs) solid var(--outline-color);
-    }
-
-    // :read-only is valid for readonly and disabled state so we put shared styles for both states here
-    &:has(#{$base-selector}__native:read-only) {
-      --selection-color: var(--onyx-color-base-neutral-200);
-      background-color: var(--onyx-color-base-background-tinted);
-    }
-
-    // styles for readonly but NOT disabled
-    &:has(#{$base-selector}__native:enabled:read-only) {
-      &:has(#{$base-selector}__native:hover) {
-        --border-color: var(--onyx-color-base-neutral-400);
-      }
-
-      &:has(#{$base-selector}__native:focus) {
-        --border-color: var(--onyx-color-base-neutral-500);
-        outline-color: var(--onyx-color-base-neutral-200);
-      }
+      @include define-enabled-focus();
     }
 
     &:has(#{$base-selector}__native:user-invalid) {
@@ -96,13 +46,12 @@
     }
   }
 
-  &__error-message {
-    display: none;
+  .onyx-form-element__error-message {
+    --error-message-display: none;
   }
   &:has(#{$base-selector}__native:user-invalid) {
-    #{$base-selector}__error-message {
-      display: flex;
-      color: var(--onyx-color-base-danger-500);
+    .onyx-form-element__error-message {
+      --error-message-display: flex;
     }
   }
 
@@ -132,28 +81,15 @@
   }
 
   &:has(&__native:disabled) {
-    #{$base-selector} {
-      &__label {
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
+    .onyx-form-element__label {
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
 
+    #{$base-selector} {
       &__wrapper {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
-  }
-
-  &__footer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    color: var(--onyx-color-text-icons-neutral-soft);
-  }
-
-  &__counter {
-    text-align: right;
-    flex-grow: 1;
-    margin-left: var(--onyx-spacing-2xs);
   }
 }
 
@@ -172,4 +108,41 @@
     width: 17rem;
     height: $height;
   }
+}
+
+// imported by everything except OnyxSelectInput
+// because of its additional layer of readonly complexity
+@mixin define-readonly-styles($base-selector) {
+  &__wrapper {
+    // :read-only is valid for readonly and disabled state so we put shared styles for both states here
+    &:has(#{$base-selector}__native:read-only) {
+      --selection-color: var(--onyx-color-base-neutral-200);
+      background-color: var(--onyx-color-base-background-tinted);
+    }
+
+    // styles for readonly but NOT disabled
+    &:has(#{$base-selector}__native:enabled:read-only) {
+      &:has(#{$base-selector}__native:hover) {
+        --border-color: var(--onyx-color-base-neutral-400);
+      }
+
+      &:has(#{$base-selector}__native:focus) {
+        --border-color: var(--onyx-color-base-neutral-500);
+        outline-color: var(--onyx-color-base-neutral-200);
+      }
+    }
+  }
+}
+
+// needs to be imported separately only be OnyxSelectInput
+// because of its additional layer of readonly complexity
+@mixin define-enabled-hover() {
+  --border-color: var(--onyx-color-base-primary-400);
+}
+
+// needs to be imported separately only be OnyxSelectInput
+// because of its additional layer of readonly complexity
+@mixin define-enabled-focus() {
+  --border-color: var(--onyx-color-base-primary-500);
+  outline: var(--onyx-spacing-4xs) solid var(--outline-color);
 }

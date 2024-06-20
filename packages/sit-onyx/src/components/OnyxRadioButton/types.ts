@@ -1,13 +1,14 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { BaseSelectOption, SelectOptionValue } from "../../types";
+import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
 
 export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,
   "hideLabel"
 > &
   DensityProp &
-  CustomValidityProp & {
+  CustomValidityProp &
+  AutofocusProp & {
     /**
      * Identifier for the radio buttons in the group.
      * All radio buttons that should belong to the same radio group must have the same name.

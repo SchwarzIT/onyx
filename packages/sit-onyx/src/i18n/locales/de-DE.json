@@ -1,5 +1,8 @@
 {
   "optional": "(optional)",
+  "cancel": "Abbrechen",
+  "apply": "Anwenden",
+  "back": "Zurück",
   "validations": {
     "tooShort": {
       "shortError": "Zu kurz",
@@ -84,5 +87,20 @@
     "info": "Info-Tooltip anzeigen",
     "error": "Fehler-Tooltip anzeigen"
   },
-  "back": "Zurück"
+  "colorScheme": {
+    "headline": "Erscheinungsbild ändern",
+    "subtitle": "Wähle das Erscheinungsbild der Anwendung:",
+    "auto": {
+      "label": "Auto",
+      "description": "Die Anwendung passt ihr Aussehen automatisch an deine Systemeinstellungen an."
+    },
+    "light": {
+      "label": "Hell",
+      "description": "Der helle Modus bietet einen optimalen Kontrast für helle Umgebungen."
+    },
+    "dark": {
+      "label": "Dunkel",
+      "description": "Dieser Farbmodus ist optimiert für dunklere Umgebungen."
+    }
+  }
 }

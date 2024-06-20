@@ -36,6 +36,7 @@ const emit = defineEmits<{
     :disabled="props.disabled || props.loading"
     :type="props.type"
     :aria-label="props.loading ? props.label : undefined"
+    :autofocus="props.autofocus"
     @click="emit('click')"
   >
     <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />

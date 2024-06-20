@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { BaseSelectOption, Direction, SelectOptionValue } from "../../types";
+import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 
 export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
@@ -43,4 +43,5 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectO
 export type RadioButtonOption<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,
   "hideLabel"
->;
+> &
+  AutofocusProp;
