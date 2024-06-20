@@ -14,7 +14,7 @@ const meta: Meta<typeof OnyxFormElement> = {
     decorators: [
       (story) => ({
         components: { story },
-        template: `<div style="max-width: 12rem; padding: 1rem 2rem">
+        template: `<div style="max-width: 12rem; padding: 2rem 1rem">
                     <story /> 
                    </div>`,
       }),
