@@ -17,6 +17,10 @@ const meta: Meta<typeof OnyxNavButton> = {
       default: {
         control: { type: "text" },
       },
+      withExternalIcon: {
+        options: ["auto", true, false],
+        control: { type: "radio" },
+      },
     },
   }),
 };
@@ -38,7 +42,6 @@ type Story = StoryObj<typeof OnyxNavButton>;
 export const Default = {
   args: {
     label: "Nav Button",
-    default: "Item",
   },
 } satisfies Story;
 
