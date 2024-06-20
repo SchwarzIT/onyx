@@ -20,6 +20,22 @@ export default defineConfig({
     ["link", { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#0c1f2d" }],
     ["meta", { name: "msapplication-TileColor", content: "#0c1f2d" }],
     ["meta", { name: "theme-color", content: "#0c1f2d" }],
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:locale", content: "en" }],
+    [
+      "meta",
+      { property: "og:title", content: "onyx | Design system and Vue.js component library" },
+    ],
+    [
+      "meta",
+      {
+        property: "og:description",
+        content: "Enterprise design system and Vue.js component library by Schwarz IT",
+      },
+    ],
+    ["meta", { property: "og:site_name", content: "onyx" }],
+    ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-logo.webp" }],
+    ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
   ],
   themeConfig: {
     externalLinkIcon: true,

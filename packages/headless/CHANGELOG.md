@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-alpha.10
+
+### Minor Changes
+
+- d3e9321: Add new createMenuButton composable
+
 ## 1.0.0-alpha.9
 
 ### Patch Changes
