@@ -3,6 +3,7 @@ import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { AutofocusProp, SelectOptionValue } from "../../types";
+import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -39,17 +40,15 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
   RequiredMarkerProp &
   CustomValidityProp &
   SelectionInput<TValue> &
-  AutofocusProp & {
-    /**
-     * Label to show above the select. Required due to accessibility / screen readers.
-     * If you want to visually hide the label, use the `hideLabel` property.
-     */
-    label: string;
-    /**
-     * If `true`, the label will be visually hidden and the `title` attribute will be set.
-     * For accessibility / screen readers, the aria-label will still be set.
-     */
-    hideLabel?: boolean;
+  AutofocusProp &
+  Omit<
+    OnyxFormElementProps,
+    | "modelValue"
+    | "maxlength"
+    | "withCounter"
+    /* errorMessages support will be added in https://github.com/SchwarzIT/onyx/issues/1302 */
+    | "errorMessages"
+  > & {
     /**
      * Whether the select should be disabled.
      */
@@ -70,11 +69,6 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
      * Placeholder to show when the value is empty.
      */
     placeholder?: string;
-    /**
-     * Message / help text to display below the select input.
-     * Will be replaced by an error message if the select is invalid.
-     */
-    message?: string;
     /**
      * Highlight input as if it has focus.
      */
