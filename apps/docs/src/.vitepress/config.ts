@@ -46,7 +46,7 @@ export default defineConfig({
       {
         text: "Resources",
         items: [
-          { text: "About", link: "/brand/team", activeMatch: "/brand/" },
+          { text: "About", link: "/about/team", activeMatch: "/about/" },
           { text: "Playground", link: "https://playground.onyx.schwarz" },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
@@ -55,12 +55,12 @@ export default defineConfig({
     ],
     socialLinks: [{ icon: "github", link: packageJson.repository.url }],
     sidebar: {
-      "/brand": [
+      "/about": [
         {
-          text: "Brand",
+          text: "About",
           items: [
-            { text: "The Team", link: "/brand/team" },
-            { text: "Philosophy", link: "/brand/philosophy" },
+            { text: "The Team", link: "/about/team" },
+            { text: "Philosophy", link: "/about/philosophy" },
           ],
         },
       ],
