@@ -35,7 +35,7 @@ These limits can be set to **1440px** or **1920px**, striking a balance between 
 
 While these grid boundaries are optional, it is highly recommended to do so to guarantee readability.
 
-The determination of the optimal number of columns is closely tied to the concept of the breakpoints, which define the points at which the layout of the ui responds to changes in screen size. The onyx [design and dev team](/brand/team) responsible for the fundamental guidelines established those breakpoints and grid implementations.
+The determination of the optimal number of columns is closely tied to the concept of the breakpoints, which define the points at which the layout of the ui responds to changes in screen size. The onyx [design and dev team](/about/team) responsible for the fundamental guidelines established those breakpoints and grid implementations.
 
 ## Breakpoints
 

@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.141
+
+### Minor Changes
+
+- 08b434b: feat(OnyxSelectInput): support message/label tooltip
+
 ## 1.0.0-alpha.140
 
 ### Minor Changes

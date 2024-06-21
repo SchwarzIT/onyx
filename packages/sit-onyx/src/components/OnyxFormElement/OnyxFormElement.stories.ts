@@ -32,7 +32,7 @@ export const Default = {
   args: {
     label: "Label",
     default: () =>
-      h("input", { placeholder: "Demo form element", style: { width: "100%" }, disabled: true }),
+      h("input", { placeholder: "Demo form element", style: "width: 100%", disabled: true }),
   },
 } satisfies Story;
 

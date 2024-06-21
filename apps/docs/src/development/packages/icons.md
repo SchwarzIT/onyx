@@ -16,4 +16,4 @@ import packageJson from "../../../../../packages/icons/package.json";
 
 {{ packageJson.description }}.
 
-Please visit the [icon resources](/resources/icons) for a full list of icons as well as technical instructions.
+Please visit the [icon resources](/icons) for a full list of icons as well as technical instructions.

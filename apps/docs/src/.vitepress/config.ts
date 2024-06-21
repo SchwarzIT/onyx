@@ -2,8 +2,6 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json";
 
-const storybookLink = "https://storybook.onyx.schwarz" as const;
-
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: {
@@ -22,6 +20,29 @@ export default defineConfig({
     ["link", { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#0c1f2d" }],
     ["meta", { name: "msapplication-TileColor", content: "#0c1f2d" }],
     ["meta", { name: "theme-color", content: "#0c1f2d" }],
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:locale", content: "en" }],
+    [
+      "meta",
+      { property: "og:title", content: "onyx | Design system and Vue.js component library" },
+    ],
+    [
+      "meta",
+      {
+        property: "og:description",
+        content: "Enterprise design system and Vue.js component library by Schwarz IT",
+      },
+    ],
+    ["meta", { property: "og:site_name", content: "onyx" }],
+    ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-logo.webp" }],
+    ["meta", { property: "og:image:type", content: "image/webp" }],
+    ["meta", { property: "og:image:width", content: "1200" }],
+    ["meta", { property: "og:image:height", content: "630" }],
+    ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-logo.jpg" }],
+    ["meta", { property: "og:image:type", content: "image/jpeg" }],
+    ["meta", { property: "og:image:width", content: "1200" }],
+    ["meta", { property: "og:image:height", content: "630" }],
+    ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
   ],
   themeConfig: {
     externalLinkIcon: true,
@@ -35,16 +56,21 @@ export default defineConfig({
     },
     lastUpdated: {}, // needed to show the last updated text with default settings
     nav: [
-      { text: "Brand", link: "/brand/team", activeMatch: "/brand/" },
-      { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
-      { text: "Tokens", link: "/tokens/introduction", activeMatch: "/tokens/" },
-      { text: "Development", link: "/development/", activeMatch: "/development/" },
+      {
+        text: "Docs",
+        items: [
+          { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
+          { text: "Tokens", link: "/tokens/colors", activeMatch: "/tokens/" },
+          { text: "Development", link: "/development/", activeMatch: "/development/" },
+        ],
+      },
+      { text: "Components", link: "https://storybook.onyx.schwarz" },
+      { text: "Icons", link: "/icons" },
       {
         text: "Resources",
-        activeMatch: "/resources/",
         items: [
-          { text: "Icons", link: "/resources/icons" },
-          { text: "Storybook", link: storybookLink },
+          { text: "About", link: "/about/team", activeMatch: "/about/" },
+          { text: "Playground", link: "https://playground.onyx.schwarz" },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },
         ],
@@ -52,12 +78,12 @@ export default defineConfig({
     ],
     socialLinks: [{ icon: "github", link: packageJson.repository.url }],
     sidebar: {
-      "/brand": [
+      "/about": [
         {
-          text: "Brand",
+          text: "About",
           items: [
-            { text: "The Team", link: "/brand/team" },
-            { text: "Philosophy", link: "/brand/philosophy" },
+            { text: "The Team", link: "/about/team" },
+            { text: "Philosophy", link: "/about/philosophy" },
           ],
         },
       ],
@@ -125,10 +151,6 @@ export default defineConfig({
           ],
         },
         {
-          text: "Components",
-          items: [{ text: "Storybook", link: storybookLink }],
-        },
-        {
           text: "Other onyx npm packages",
           base: "/development/packages",
           collapsed: false,
@@ -140,7 +162,7 @@ export default defineConfig({
             { text: "Nuxt", link: "/nuxt" },
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
-          ],
+          ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
       "/resources": [
