@@ -2,17 +2,18 @@
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { computed, ref } from "vue";
+import { computed, provide, ref } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import type { OnyxNavBarProps } from "./types";
+import { mobileNavBarInjectionKey, type OnyxNavBarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
-  mobileBreakpoint: "xs",
+  mobileBreakpoint: "sm",
 });
 
 const emit = defineEmits<{
@@ -49,6 +50,7 @@ const slots = defineSlots<{
 
 const navBarRef = ref<HTMLElement>();
 const { width } = useResizeObserver(navBarRef);
+const { t } = injectI18n();
 
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
@@ -58,82 +60,90 @@ const isMobile = computed(() => {
     typeof props.mobileBreakpoint === "number"
       ? props.mobileBreakpoint
       : ONYX_BREAKPOINTS[props.mobileBreakpoint];
-  return width.value !== 0 && width.value <= mobileWidth;
+  return width.value !== 0 && width.value < mobileWidth;
 });
 
-const { t } = injectI18n();
+provide(mobileNavBarInjectionKey, isMobile);
 </script>
 
 <template>
-  <div>
-    <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
-      <div class="onyx-nav-bar__content">
-        <span
-          v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
-          class="onyx-nav-bar__mobile-page"
+  <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
+    <div class="onyx-nav-bar__content">
+      <span
+        v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
+        class="onyx-nav-bar__mobile-page"
+      >
+        <slot name="mobileActivePage"></slot>
+      </span>
+
+      <OnyxNavAppArea
+        v-else-if="props.appName || props.logoUrl || slots.appArea"
+        class="onyx-nav-bar__app"
+        :app-name="props.appName"
+        :logo-url="props.logoUrl"
+        :label="props.appAreaLabel"
+        @click="
+          emit('appAreaClick');
+          isBurgerOpen = false;
+        "
+      >
+        <slot name="appArea"></slot>
+      </OnyxNavAppArea>
+
+      <OnyxIconButton
+        v-if="props.withBackButton"
+        class="onyx-nav-bar__back"
+        :label="t('navigation.goBack')"
+        :icon="chevronLeftSmall"
+        color="neutral"
+        @click="emit('backButtonClick')"
+      />
+
+      <template v-if="slots.default">
+        <OnyxMobileNavButton
+          v-if="isMobile"
+          v-model:open="isBurgerOpen"
+          class="onyx-nav-bar__burger"
+          :icon="menu"
+          :label="t('navigation.toggleBurgerMenu')"
+          @update:open="isContextOpen = false"
         >
-          <slot name="mobileActivePage"></slot>
-        </span>
+          <OnyxHeadline is="h2" class="onyx-nav-bar__mobile-headline">
+            {{ t("navigation.navigationHeadline") }}
+          </OnyxHeadline>
 
-        <OnyxNavAppArea
-          v-else-if="props.appName || props.logoUrl || slots.appArea"
-          class="onyx-nav-bar__app"
-          :app-name="props.appName"
-          :logo-url="props.logoUrl"
-          :label="props.appAreaLabel"
-          @click="
-            emit('appAreaClick');
-            isBurgerOpen = false;
-          "
-        >
-          <slot name="appArea"></slot>
-        </OnyxNavAppArea>
-
-        <OnyxIconButton
-          v-if="props.withBackButton"
-          class="onyx-nav-bar__back"
-          :label="t('navigation.goBack')"
-          :icon="chevronLeftSmall"
-          color="neutral"
-          @click="emit('backButtonClick')"
-        />
-
-        <template v-if="slots.default">
-          <OnyxMobileNavButton
-            v-if="isMobile"
-            v-model:open="isBurgerOpen"
-            class="onyx-nav-bar__burger"
-            :icon="menu"
-            :label="t('navigation.toggleBurgerMenu')"
-            @update:open="isContextOpen = false"
-          />
-
-          <nav v-else class="onyx-nav-bar__nav">
+          <nav class="onyx-nav-bar__nav--mobile">
             <ul role="menubar">
               <slot></slot>
             </ul>
           </nav>
-        </template>
+        </OnyxMobileNavButton>
 
-        <template v-if="slots.contextArea">
-          <OnyxMobileNavButton
-            v-if="isMobile"
-            v-model:open="isContextOpen"
-            class="onyx-nav-bar__mobile-context"
-            :icon="moreVertical"
-            :label="t('navigation.toggleContextMenu')"
-            @update:open="isBurgerOpen = false"
-          />
+        <nav v-else class="onyx-nav-bar__nav">
+          <ul role="menubar">
+            <slot></slot>
+          </ul>
+        </nav>
+      </template>
 
-          <div v-else class="onyx-nav-bar__context">
-            <slot name="contextArea"></slot>
-          </div>
-        </template>
-      </div>
-    </header>
+      <template v-if="slots.contextArea">
+        <OnyxMobileNavButton
+          v-if="isMobile"
+          v-model:open="isContextOpen"
+          class="onyx-nav-bar__mobile-context"
+          :icon="moreVertical"
+          :label="t('navigation.toggleContextMenu')"
+          @update:open="isBurgerOpen = false"
+        >
+          <!-- TODO: implement mobile context menu  -->
+        </OnyxMobileNavButton>
 
-    <!-- TODO: implement mobile burger/context flyouts -->
-  </div>
+        <div v-else class="onyx-nav-bar__context">
+          <slot name="contextArea"></slot>
+        </div>
+      </template>
+    </div>
+  </header>
 </template>
 
 <style lang="scss">
@@ -141,13 +151,14 @@ const { t } = injectI18n();
 @use "../../styles/breakpoints.scss";
 
 $gap: var(--onyx-spacing-md);
+$height: 3.5rem;
 
 .onyx-nav-bar {
   @include layers.component() {
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    height: 3.5rem;
+    height: $height;
     z-index: var(--onyx-z-index-navigation);
     position: relative;
     container-type: size;
@@ -198,6 +209,14 @@ $gap: var(--onyx-spacing-md);
         gap: var(--onyx-spacing-4xs);
         padding: 0;
       }
+
+      &--mobile {
+        display: contents;
+
+        > ul {
+          display: contents;
+        }
+      }
     }
 
     &__context {
@@ -246,6 +265,30 @@ $gap: var(--onyx-spacing-md);
       color: var(--onyx-color-text-icons-secondary-intense);
       padding-inline: $gap;
       font-weight: 600;
+    }
+
+    .onyx-mobile-nav-button__menu {
+      position: absolute;
+      left: 0;
+      top: $height;
+    }
+
+    .onyx-mobile-nav-button__content {
+      $mobile-children-selector: ":has(.onyx-nav-item__mobile-children)";
+
+      // hide "Navigation" headline when nav item with children is open
+      &#{$mobile-children-selector} {
+        .onyx-nav-bar__mobile-headline {
+          display: none;
+        }
+      }
+
+      // hide all other nav items when nav item with children is open
+      #{$mobile-children-selector} {
+        > .onyx-nav-item:not(#{$mobile-children-selector}) {
+          display: none;
+        }
+      }
     }
   }
 }

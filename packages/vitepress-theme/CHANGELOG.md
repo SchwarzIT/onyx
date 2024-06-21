@@ -1,5 +1,19 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-alpha.145
+
+### Patch Changes
+
+- Updated dependencies [02f1a8a]
+  - sit-onyx@1.0.0-alpha.145
+
+## 1.0.0-alpha.144
+
+### Patch Changes
+
+- Updated dependencies [85128a2]
+  - sit-onyx@1.0.0-alpha.144
+
 ## 1.0.0-alpha.143
 
 ### Patch Changes
