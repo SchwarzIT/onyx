@@ -44,7 +44,7 @@ defineSlots<{
           ></span>
           <OnyxInfoTooltip
             v-if="props.labelTooltip"
-            class="onyx-form-element__tooltip"
+            class="onyx-form-element__label-tooltip"
             :text="props.labelTooltip"
           />
           <span v-if="!props.required" class="onyx-form-element__optional">{{
@@ -60,22 +60,24 @@ defineSlots<{
       v-if="props.message || errorMessages?.shortMessage || counterText"
       class="onyx-form-element__footer onyx-text--small"
     >
-      <span v-if="errorMessages" class="onyx-form-element__error-message">
-        <span class="onyx-truncation-ellipsis">{{ errorMessages.shortMessage }}</span>
-
-        <OnyxInfoTooltip
-          v-if="errorMessages.longMessage"
-          class="onyx-form-element__tooltip onyx-form-element__tooltip--bottom"
-          color="danger"
-          position="bottom"
-          :label="t('showTooltip.error')"
-          :text="errorMessages.longMessage"
-        />
+      <span v-if="errorMessages" class="onyx-form-element__error-message onyx-truncation-ellipsis">
+        {{ errorMessages.shortMessage }}
       </span>
-      <span v-if="props.message" class="onyx-truncation-ellipsis">{{ props.message }}</span>
+      <OnyxInfoTooltip
+        v-if="errorMessages?.longMessage"
+        class="onyx-form-element__error-tooltip"
+        color="danger"
+        position="bottom"
+        :label="t('showTooltip.error')"
+        :text="errorMessages.longMessage"
+      />
+
+      <span v-if="props.message" class="onyx-form-element__message onyx-truncation-ellipsis">
+        {{ props.message }}
+      </span>
       <OnyxInfoTooltip
         v-if="props.messageTooltip"
-        class="onyx-form-element__tooltip onyx-form-element__tooltip--bottom"
+        class="onyx-form-element__message-tooltip"
         position="bottom"
         :text="props.messageTooltip"
       />
@@ -98,12 +100,16 @@ defineSlots<{
 .onyx-form-element {
   @include layers.component() {
     /**
-     * input/textarea/... will overwrite this to only be visible
+     * input.scss will overwrite this to only be visible
      * after the user interacted with the component.
      * can also be overwritten if a project
      * needs to enforce to show an error immediately    
      */
-    --error-message-display: flex;
+    --error-message-display: block;
+    /** input.scss will overwrite this so that
+     * message and error message are not be shown simultaneously 
+     */
+    --message-display: block;
 
     font-family: var(--onyx-font-family);
     display: flex;
@@ -142,12 +148,15 @@ defineSlots<{
       width: 100%;
     }
 
-    &__tooltip {
+    &__label-tooltip,
+    &__message-tooltip,
+    &__error-tooltip {
       margin-left: var(--onyx-spacing-2xs);
-      &--bottom {
-        height: 1rem;
-        align-self: center;
-      }
+    }
+    &__message-tooltip,
+    &__error-tooltip {
+      height: 1rem;
+      align-self: center;
     }
 
     &__footer {
@@ -163,10 +172,14 @@ defineSlots<{
       margin-left: var(--onyx-spacing-2xs);
     }
 
-    &__error-message {
-      // todo use variable for display toggling to avoid overwritten styles
+    &__error-message,
+    &__error-tooltip {
       display: var(--error-message-display);
       color: var(--onyx-color-base-danger-500);
+    }
+    &__message,
+    &__message-tooltip {
+      display: var(--message-display);
     }
   }
 }
