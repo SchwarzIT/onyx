@@ -54,6 +54,7 @@ export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicat
 export * from "./components/OnyxLoadingIndicator/types";
 
 export { default as OnyxMiniSearch } from "./components/OnyxMiniSearch/OnyxMiniSearch.vue";
+export * from "./components/OnyxMiniSearch/types";
 
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types";
