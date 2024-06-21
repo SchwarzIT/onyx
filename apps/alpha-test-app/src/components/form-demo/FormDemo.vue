@@ -4,11 +4,11 @@ import {
   OnyxCheckboxGroup,
   OnyxHeadline,
   OnyxInput,
-  OnyxRadioButtonGroup,
+  OnyxRadioGroup,
   OnyxSwitch,
   OnyxTextarea,
   type CheckboxGroupOption,
-  type OnyxRadioButtonGroupProps,
+  type OnyxRadioGroupProps,
   type RadioButtonOption,
 } from "sit-onyx";
 import { ref } from "vue";
@@ -23,7 +23,7 @@ export type FormData = Partial<{
   patternInput: string;
   switch: boolean;
   checkboxGroup: number[];
-  radioGroup: OnyxRadioButtonGroupProps["modelValue"];
+  radioGroup: OnyxRadioGroupProps["modelValue"];
 }>;
 
 const formState = defineModel<FormData>();
@@ -91,7 +91,7 @@ const radioOptions: RadioButtonOption[] = [
 
     <OnyxCheckboxGroup v-model="formState.checkboxGroup" :options="checkboxOptions" />
 
-    <OnyxRadioButtonGroup v-model="formState.radioGroup" :options="radioOptions" required />
+    <OnyxRadioGroup v-model="formState.radioGroup" :options="radioOptions" required />
 
     <div class="demo__actions">
       <OnyxButton label="Reset" color="neutral" type="reset" />

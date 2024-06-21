@@ -6,7 +6,7 @@ import OnyxMiniSearch from "./OnyxMiniSearch.vue";
  * The MiniSearch is intended to be used inside of the select for filtering of elements.
  */
 const meta: Meta<typeof OnyxMiniSearch> = {
-  title: "support/MiniSearch",
+  title: "Support/MiniSearch",
   ...defineStorybookActionsAndVModels({
     component: OnyxMiniSearch,
     events: ["update:modelValue", "clear"],

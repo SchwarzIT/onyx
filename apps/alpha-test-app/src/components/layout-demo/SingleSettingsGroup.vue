@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxRadioButtonGroup, type SelectOption } from "sit-onyx";
+import { OnyxRadioGroup, type SelectOption } from "sit-onyx";
 import { computed } from "vue";
 import type { Settings } from "./LayoutSettings.vue";
 
@@ -31,7 +31,7 @@ const selectedOption = computed({
 </script>
 
 <template>
-  <OnyxRadioButtonGroup
+  <OnyxRadioGroup
     v-model="selectedOption"
     :headline="props.headline"
     :options="props.options"

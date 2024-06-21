@@ -29,7 +29,7 @@ test.describe("Screenshot tests", () => {
         label="Test label"
         name="test-name"
         density={column}
-        selected
+        checked
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -48,7 +48,7 @@ test.describe("Screenshot tests", () => {
         value="test-value"
         label="Test label"
         name="test-name"
-        selected={column === "checked"}
+        checked={column === "checked"}
         disabled
       />
     ),
@@ -69,7 +69,7 @@ test.describe("Screenshot tests", () => {
         label="Test label"
         name="test-name"
         customError="Test error"
-        selected={column === "checked"}
+        checked={column === "checked"}
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
