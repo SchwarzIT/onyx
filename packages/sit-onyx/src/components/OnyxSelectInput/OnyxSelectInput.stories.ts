@@ -26,6 +26,8 @@ type Story = StoryObj<typeof OnyxSelectInput>;
 
 const EXAMPLE_OPTIONS = SelectDefaultStory.args.options;
 
+const SINGLE_SELECTION_VALUE = [EXAMPLE_OPTIONS[0]];
+
 /**
  * This example shows an select. Nothing was selected yet.
  */
@@ -42,7 +44,7 @@ export const Default = {
 export const FilledSingleSelect = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: SINGLE_SELECTION_VALUE,
   },
 } satisfies Story;
 
@@ -86,7 +88,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: SINGLE_SELECTION_VALUE,
   },
 } satisfies Story;
 
@@ -106,7 +108,7 @@ export const Readonly = {
 export const Loading = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS[0],
+    modelValue: SINGLE_SELECTION_VALUE,
     loading: true,
   },
 } satisfies Story;

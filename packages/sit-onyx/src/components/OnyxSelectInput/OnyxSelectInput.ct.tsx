@@ -17,7 +17,7 @@ test.describe("Screenshot tests", () => {
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
           modelValue={
-            state === "with value" ? { label: "Selected value", value: "test-value" } : undefined
+            state === "with value" ? [{ label: "Selected value", value: "test-value" }] : undefined
           }
         />
       ),
