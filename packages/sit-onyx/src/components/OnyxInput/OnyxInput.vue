@@ -158,13 +158,6 @@ const patternSource = computed(() => {
     );
     @include input.define-readonly-styles($base-selector: ".onyx-input");
 
-    &__header {
-      display: flex;
-      align-items: center;
-      max-width: 100%;
-      width: 100%;
-    }
-
     &__wrapper {
       &:has(.onyx-input__native:read-write) {
         &:has(#{get-autofill-selectors(".onyx-input__native")}) {

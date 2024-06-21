@@ -181,13 +181,6 @@ const handleInput = (event: Event) => {
     );
     @include input.define-readonly-styles($base-selector: ".onyx-textarea");
 
-    &__header {
-      display: flex;
-      align-items: center;
-      max-width: 100%;
-      width: 100%;
-    }
-
     &__wrapper {
       padding: 0;
       height: unset;
