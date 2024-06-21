@@ -2,6 +2,7 @@
   "optional": "(optional)",
   "cancel": "Cancel",
   "apply": "Apply",
+  "back": "Back",
   "validations": {
     "tooShort": {
       "preview": "Too short",
@@ -80,8 +81,7 @@
     "userMenuLabel": "User options",
     "toggleBurgerMenu": "Toggle burger menu",
     "toggleContextMenu": "Toggle context menu",
-    "navigationHeadline": "Navigation",
-    "optionsHeadline": "Options"
+    "navigationHeadline": "Navigation"
   },
   "showTooltip": {
     "info": "Show info tooltip",
