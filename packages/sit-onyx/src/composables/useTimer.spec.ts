@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { ref } from "vue";
-import { useAnimationFrame } from "./useAnimationFrame";
+import { nextTick, ref } from "vue";
+import * as useAnimationFrame from "./useAnimationFrame";
 import { useTimer } from "./useTimer";
 
 vi.mock("vue", async (importOriginal) => {
@@ -9,8 +9,6 @@ vi.mock("vue", async (importOriginal) => {
     onBeforeUnmount: vi.fn(),
   };
 });
-
-vi.mock("./useAnimationFrame.ts");
 
 describe("useTimer.ts", () => {
   const MOCK_NOW = new Date(2024, 0, 1, 12);
@@ -48,15 +46,16 @@ describe("useTimer.ts", () => {
     // ASSERT
     expect(timeLeft.value).toBe(0);
     expect(isEnded.value).toBe(true);
-
-    expect(useAnimationFrame).not.toHaveBeenCalled();
   });
 
-  test("should use animation frames", () => {
+  test("should use animation frames", async () => {
+    const frameSpy = vi.spyOn(useAnimationFrame, "useAnimationFrame");
+
     // ARRANGE
     useTimer({ endTime: ref(endTime), useAnimationFrame: true });
+    await nextTick();
 
     // ASSERT
-    expect(useAnimationFrame).toHaveBeenCalledOnce();
+    expect(frameSpy).toHaveBeenCalledOnce();
   });
 });

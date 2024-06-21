@@ -1,6 +1,14 @@
 import { beforeAll, describe, expect, test, vi } from "vitest";
 import { useAnimationFrame } from "./useAnimationFrame";
 
+vi.mock("vue", async (importOriginal) => {
+  return {
+    ...(await importOriginal<typeof import("vue")>()),
+    inMOunted: vi.fn().mockImplementation((callback) => callback()),
+    onBeforeUnmount: vi.fn().mockImplementation((callback) => callback()),
+  };
+});
+
 beforeAll(() => {
   vi.useFakeTimers();
 });

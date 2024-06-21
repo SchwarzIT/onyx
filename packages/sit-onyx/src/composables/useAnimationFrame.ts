@@ -1,4 +1,4 @@
-import { onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 /**
  * Composable for using `requestAnimationFrame()`.
@@ -9,16 +9,19 @@ export const useAnimationFrame = (callback: () => void) => {
 
   const loop: FrameRequestCallback = () => {
     callback();
-    frameId.value = requestAnimationFrame(loop);
+    if (frameId.value != undefined) {
+      // restart loop if not stopped
+      frameId.value = requestAnimationFrame(loop);
+    }
   };
-
-  frameId.value = requestAnimationFrame(loop);
 
   const stop = () => {
     if (!frameId.value) return;
     cancelAnimationFrame(frameId.value);
+    frameId.value = undefined;
   };
 
+  onMounted(() => (frameId.value = requestAnimationFrame(loop)));
   onUnmounted(() => stop());
 
   return {

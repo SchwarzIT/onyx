@@ -45,8 +45,9 @@ export const useTimer = (options: UseTimerOptions) => {
           if (isEnded.value) clearInterval(intervalId.value);
         }, 1000);
       } else {
-        useAnimationFrame(() => {
+        const { stop } = useAnimationFrame(() => {
           timeLeft.value = calculateTimeLeft(endTimestamp);
+          if (isEnded.value) stop();
         });
       }
     },
