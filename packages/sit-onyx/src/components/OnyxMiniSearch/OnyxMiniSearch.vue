@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import search from "@sit-onyx/icons/search.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref } from "vue";
 import { injectI18n } from "../../i18n";
@@ -72,6 +73,8 @@ defineExpose({
     >
       <OnyxIcon :icon="xSmall" />
     </button>
+
+    <OnyxIcon class="onyx-mini-search__icon" :icon="search" />
   </div>
 </template>
 
@@ -117,19 +120,31 @@ defineExpose({
 
     &__clear {
       color: var(--onyx-color-text-icons-neutral-medium);
-      display: grid;
-      place-items: center;
       cursor: pointer;
-      visibility: hidden;
+      display: none;
 
       .onyx-icon {
         --icon-size: var(--clear-button-size);
       }
     }
 
+    &__icon {
+      color: var(--onyx-color-text-icons-neutral-soft);
+      --icon-size: var(--clear-button-size);
+    }
+
     // Show clear button only when input is not empty
-    &__input:not(:placeholder-shown) + &__clear {
-      visibility: visible;
+    &:has(&__input:not(:placeholder-shown)) {
+      .onyx-mini-search {
+        &__clear {
+          display: grid;
+          place-items: center;
+        }
+
+        &__icon {
+          display: none;
+        }
+      }
     }
   }
 }
