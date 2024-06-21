@@ -40,7 +40,7 @@ const meta: Meta<typeof OnyxNavBar> = {
     decorators: [
       (story) => ({
         components: { story },
-        template: `<div style="margin-bottom: 10rem;"> <story /> </div>`,
+        template: `<div style="margin-bottom: 20rem;"> <story /> </div>`,
       }),
     ] as Decorator[],
   }),
