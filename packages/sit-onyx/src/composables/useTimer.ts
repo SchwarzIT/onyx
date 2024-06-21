@@ -54,9 +54,7 @@ export const useTimer = (options: UseTimerOptions) => {
   );
 
   // prevent dangling timers when component is unmounted
-  onBeforeUnmount(() => {
-    clearInterval(intervalId.value);
-  });
+  onBeforeUnmount(() => clearInterval(intervalId.value));
 
   return {
     /**
