@@ -97,17 +97,20 @@ const icon = computed(() => {
 
 .onyx-toast {
   @include density.compact {
-    --onyx-toast-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-xs);
+    --onyx-toast-padding-vertical: var(--onyx-spacing-4xs);
+    --onyx-toast-padding-horizontal: var(--onyx-spacing-xs);
     --onyx-toast-gap: var(--onyx-spacing-xs);
   }
 
   @include density.default {
-    --onyx-toast-padding: var(--onyx-spacing-xs) var(--onyx-spacing-md);
+    --onyx-toast-padding-vertical: var(--onyx-spacing-xs);
+    --onyx-toast-padding-horizontal: var(--onyx-spacing-md);
     --onyx-toast-gap: var(--onyx-spacing-md);
   }
 
   @include density.cozy {
-    --onyx-toast-padding: var(--onyx-spacing-sm) var(--onyx-spacing-lg);
+    --onyx-toast-padding-vertical: var(--onyx-spacing-sm);
+    --onyx-toast-padding-horizontal: var(--onyx-spacing-lg);
     --onyx-toast-gap: var(--onyx-spacing-lg);
   }
 
@@ -117,6 +120,7 @@ const icon = computed(() => {
     --onyx-toast-border-color: transparent;
     --onyx-toast-outline-color: var(--onyx-color-base-primary-200);
     --onyx-toast-progress-bar-color: var(--onyx-color-base-primary-300);
+    --onyx-toast-close-button-size: 1.5rem;
 
     font-family: var(--onyx-font-family);
     min-width: 18rem;
@@ -145,14 +149,13 @@ const icon = computed(() => {
 
       &:focus-visible {
         outline: 0.25rem solid var(--onyx-toast-outline-color);
-        // TODO: fix outline cut off by overflow
       }
     }
 
     &__wrapper {
       display: flex;
       gap: var(--onyx-toast-gap);
-      padding: var(--onyx-toast-padding);
+      padding: var(--onyx-toast-padding-vertical) var(--onyx-toast-padding-horizontal);
       border: var(--onyx-1px-in-rem) solid var(--onyx-toast-border-color);
       border-radius: inherit;
     }
@@ -166,6 +169,10 @@ const icon = computed(() => {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+
+      &:has(.onyx-toast__close) {
+        max-width: calc(100% - var(--onyx-toast-close-button-size));
+      }
     }
 
     &__close {
@@ -176,6 +183,11 @@ const icon = computed(() => {
       color: inherit;
       cursor: pointer;
       display: flex;
+
+      // close button is position absolute so the outline is not cut off by the overflow: hidden of the toast
+      position: absolute;
+      right: var(--onyx-toast-padding-horizontal);
+      top: var(--onyx-toast-padding-vertical);
 
       &:focus-visible {
         border-radius: var(--onyx-radius-md);
