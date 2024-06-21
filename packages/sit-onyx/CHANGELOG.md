@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-alpha.144
+
+### Minor Changes
+
+- 85128a2: feat(OnyxMiniSearch): add magnifier icon when empty
+
+## 1.0.0-alpha.143
+
+### Patch Changes
+
+- 02f5691: fix(OnyxNavAppArea): max-height not honored
+
+## 1.0.0-alpha.142
+
+### Patch Changes
+
+- 7c98a6d: fix(OnyxFormElement): hide message while error is shown + prevent error overflow
+
 ## 1.0.0-alpha.141
 
 ### Minor Changes
