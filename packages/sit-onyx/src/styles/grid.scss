@@ -64,7 +64,7 @@ $screenOffset: 1;
     }
   }
 
-  @mixin generateGridProperties($columns, $gutter, $margin) {
+  @mixin generate-grid-properties($columns, $gutter, $margin) {
     :where(:root) {
       --onyx-grid-columns: #{$columns};
       --onyx-grid-gutter: #{$gutter};
@@ -75,7 +75,7 @@ $screenOffset: 1;
   /**
   * Grid element class for defining breakpoint specific column count
   */
-  @mixin generateSpans($first, $last, $name) {
+  @mixin generate-spans($first, $last, $name) {
     @for $span from $first through $last {
       .onyx-grid-#{$name}-span-#{$span} {
         grid-column-end: span min($span, var(--onyx-grid-columns));
@@ -86,7 +86,7 @@ $screenOffset: 1;
   /**
   * Grid container class for defining breakpoint specific max width
   */
-  @mixin generateGridMax($name, $maxVariant, $margin) {
+  @mixin generate-grid-max($name, $maxVariant, $margin) {
     .onyx-grid-max-#{$maxVariant} {
       --onyx-grid-max-width: #{map-get($breakpoints, $name)};
     }
@@ -94,19 +94,19 @@ $screenOffset: 1;
 
   @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
     @if $name == "2xs" {
-      @include generateGridProperties($columns, $gutter, $margin);
-      @include generateSpans(1, $columns, $name);
+      @include generate-grid-properties($columns, $gutter, $margin);
+      @include generate-spans(1, $columns, $name);
     } @else {
       @include screen(min, $name, $screenOffset) {
-        @include generateGridProperties($columns, $gutter, $margin);
-        @include generateSpans(1, $columns, $name);
+        @include generate-grid-properties($columns, $gutter, $margin);
+        @include generate-spans(1, $columns, $name);
 
         @if $maxVariant != none {
-          @include generateGridMax($name, $maxVariant, $margin);
+          @include generate-grid-max($name, $maxVariant, $margin);
         }
 
         @if $name == "xl" {
-          @include generateSpans(17, 20, $name);
+          @include generate-spans(17, 20, $name);
         }
       }
     }
