@@ -6,7 +6,7 @@ import OnyxTimer from "./OnyxTimer.vue";
  * Component to display a timer to the user.
  */
 const meta: Meta<typeof OnyxTimer> = {
-  title: "support/Timer",
+  title: "Navigation/modules/Timer",
   ...defineStorybookActionsAndVModels({
     component: OnyxTimer,
     events: ["timerEnded"],

@@ -4,7 +4,7 @@ import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxToast from "./OnyxToast.vue";
 
 const meta: Meta<typeof OnyxToast> = {
-  title: "support/Toast",
+  title: "Support/Toast",
   ...defineStorybookActionsAndVModels({
     component: OnyxToast,
     events: ["click", "close"],

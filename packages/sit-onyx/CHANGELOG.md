@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.0.0-alpha.146
+
+### Major Changes
+
+- d4fbcf4: refactor: align all namings with Figma
+
+  The breaking changes changes are:
+
+  - rename `OnyxRadioButtonGroup` to `OnyxRadioGroup`
+  - OnyxRadioButton: rename property `selected` to `checked`
+  - OnyxAvatar: remove `type` male/female
+  - OnyxHeadline: remove property `monospace`
+  - OnyxNavBar: remove unused `label` property
+
+## 1.0.0-alpha.145
+
+### Minor Changes
+
+- 02f1a8a: feat(OnyxNavBar): support mobile nav items
+
+## 1.0.0-alpha.144
+
+### Minor Changes
+
+- 85128a2: feat(OnyxMiniSearch): add magnifier icon when empty
+
 ## 1.0.0-alpha.143
 
 ### Patch Changes

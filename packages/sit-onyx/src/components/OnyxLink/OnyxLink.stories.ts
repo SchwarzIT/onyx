@@ -6,7 +6,7 @@ import OnyxLink from "./OnyxLink.vue";
  * Links are navigational elements that direct users to other pages, whether they are internal or external.
  */
 const meta: Meta<typeof OnyxLink> = {
-  title: "components/Link",
+  title: "Navigation/Link",
   ...defineStorybookActionsAndVModels({
     component: OnyxLink,
     events: ["click"],

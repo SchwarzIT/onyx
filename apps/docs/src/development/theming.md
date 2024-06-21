@@ -9,7 +9,7 @@ Per default, onyx will be displayed in light mode after the [initial setup](/dev
 
 ## Let the user decide
 
-In order to let the user switch between light, dark and auto mode, we recommend to use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/support-colorschemedialog--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/components-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library:
+In order to let the user switch between light, dark and auto mode, we recommend to use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschemedialog--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library:
 
 ```vue
 <script setup lang="ts">

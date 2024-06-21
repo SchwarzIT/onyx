@@ -14,7 +14,7 @@ import OnyxButton from "./OnyxButton.vue";
  * digital journey.
  */
 const meta: Meta<typeof OnyxButton> = {
-  title: "components/Button",
+  title: "Buttons/Button",
   ...defineStorybookActionsAndVModels({
     component: OnyxButton,
     events: ["click"],

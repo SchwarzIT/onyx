@@ -6,7 +6,7 @@ import OnyxHeadline from "./OnyxHeadline.vue";
  * Headline that can e.g. be used to structure the page content.
  */
 const meta: Meta<typeof OnyxHeadline> = {
-  title: "components/Headline",
+  title: "Basic/Headline",
   ...defineStorybookActionsAndVModels({
     component: OnyxHeadline,
     events: [],
@@ -28,15 +28,5 @@ export const Default = {
   args: {
     is: "h1",
     default: "Lorem ipsum dolor sit amet",
-  },
-} satisfies Story;
-
-/**
- * This example shows a h1 headline with the monospace font family.
- */
-export const Monospace = {
-  args: {
-    ...Default.args,
-    monospace: true,
   },
 } satisfies Story;

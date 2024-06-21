@@ -9,7 +9,7 @@ import OnyxSelectOption from "./OnyxSelectOption.vue";
  * The select option is only intended to be used within the `OnyxSelect` component.
  */
 const meta: Meta<typeof OnyxSelectOption> = {
-  title: "support/SelectOption",
+  title: "Support/SelectOption",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelectOption,
     events: [],

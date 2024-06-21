@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxToastProgressBar from "./OnyxToastProgressBar.vue";
 
 const meta: Meta<typeof OnyxToastProgressBar> = {
-  title: "support/ToastProgressBar",
+  title: "Support/ToastProgressBar",
   ...defineStorybookActionsAndVModels({
     component: OnyxToastProgressBar,
     events: ["timerEnded"],

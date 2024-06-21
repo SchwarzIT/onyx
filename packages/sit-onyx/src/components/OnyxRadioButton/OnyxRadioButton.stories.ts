@@ -3,10 +3,10 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
 /**
- * This is a support component for the `OnyxRadioButtonGroup`.
+ * This is a support component for the `OnyxRadioGroup`.
  */
 const meta: Meta<typeof OnyxRadioButton> = {
-  title: "support/RadioButton",
+  title: "Support/RadioButton",
   ...defineStorybookActionsAndVModels({
     component: OnyxRadioButton,
     events: ["change", "validityChange"],

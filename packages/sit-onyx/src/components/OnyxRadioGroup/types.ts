@@ -3,7 +3,7 @@ import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 
-export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
+export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     RequiredMarkerProp &
     CustomValidityProp & {
@@ -12,7 +12,7 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectO
        */
       options: RadioButtonOption<TValue>[];
       /**
-       * Unique name for the radio button group form element.
+       * Unique name for the radio group form element.
        * Will automatically filled, when it is not given.
        * Warning: Never use a name for form elements twice!
        */
@@ -22,12 +22,12 @@ export type OnyxRadioButtonGroupProps<TValue extends SelectOptionValue = SelectO
        */
       modelValue?: TValue;
       /**
-       * Headline shown above the radio button group, which is also the fieldset legend.
+       * Headline shown above the radio group, which is also the fieldset legend.
        * It will also show the required indicator, if `require` is set to `true`
        */
       headline?: string;
       /**
-       * Disable the radio button group.
+       * Disable the radio group.
        */
       disabled?: boolean;
       /**

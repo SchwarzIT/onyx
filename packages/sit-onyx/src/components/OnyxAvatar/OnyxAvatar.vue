@@ -1,12 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
-import FemaleAvatar from "./FemaleAvatar.vue";
-import MaleAvatar from "./MaleAvatar.vue";
 import type { OnyxAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   size: "48px",
-  type: "initials",
 });
 
 const slots = defineSlots<{
@@ -46,13 +43,9 @@ watch(
       @error="hasImageError = true"
     />
 
-    <template v-else>
-      <FemaleAvatar v-if="props.type === 'female'" class="onyx-avatar__svg" />
-      <MaleAvatar v-else-if="props.type === 'male'" class="onyx-avatar__svg" />
-      <div v-else class="onyx-avatar__initials">
-        <slot>{{ initials }}</slot>
-      </div>
-    </template>
+    <div v-else class="onyx-avatar__initials">
+      <slot>{{ initials }}</slot>
+    </div>
   </figure>
 </template>
 
