@@ -16,7 +16,7 @@ test.describe("Screenshot tests", () => {
           label="Test label"
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
-          selection={
+          modelValue={
             state === "with value" ? { label: "Selected value", value: "test-value" } : undefined
           }
         />
@@ -84,7 +84,7 @@ test.describe("Screenshot tests", () => {
         <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
-          selection={modelValues[row].map((i) => ({ label: i, value: i }))}
+          modelValue={modelValues[row].map((i) => ({ label: i, value: i }))}
           textMode={column}
         />
       );

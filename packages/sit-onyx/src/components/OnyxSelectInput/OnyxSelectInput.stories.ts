@@ -42,7 +42,7 @@ export const Default = {
 export const FilledSingleSelect = {
   args: {
     ...Default.args,
-    selection: EXAMPLE_OPTIONS[0],
+    modelValue: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -53,7 +53,7 @@ export const FilledSingleSelect = {
 export const FilledMultiSelect = {
   args: {
     ...Default.args,
-    selection: EXAMPLE_OPTIONS.slice(0, 2),
+    modelValue: EXAMPLE_OPTIONS.slice(0, 2),
   },
 } satisfies Story;
 
@@ -64,7 +64,7 @@ export const FilledMultiSelect = {
 export const FilledMultiSelectPreview = {
   args: {
     ...FilledMultiSelect.args,
-    selection: EXAMPLE_OPTIONS.slice(0, 5),
+    modelValue: EXAMPLE_OPTIONS.slice(0, 5),
     textMode: "preview",
   },
 } satisfies Story;
@@ -86,7 +86,7 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
-    selection: EXAMPLE_OPTIONS[0],
+    modelValue: EXAMPLE_OPTIONS[0],
   },
 } satisfies Story;
 
@@ -106,7 +106,7 @@ export const Readonly = {
 export const Loading = {
   args: {
     ...Default.args,
-    selection: EXAMPLE_OPTIONS[0],
+    modelValue: EXAMPLE_OPTIONS[0],
     loading: true,
   },
 } satisfies Story;

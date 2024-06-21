@@ -12,7 +12,7 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
-import type { OnyxSelectInputProps, SelectInputModelValue } from "../OnyxSelectInput/types";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
@@ -272,7 +272,7 @@ const localCustomError = computed(() => {
 const selectInputProps = computed(() => {
   const baseProps: OnyxSelectInputProps<TValue> = {
     ...props,
-    selection: props.modelValue as SelectInputModelValue<TValue>[],
+    modelValue: arrayValue.value,
     customError: localCustomError.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
