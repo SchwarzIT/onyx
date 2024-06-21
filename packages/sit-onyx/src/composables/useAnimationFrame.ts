@@ -14,9 +14,6 @@ export const useAnimationFrame = (callback: () => void) => {
 
   frameId.value = requestAnimationFrame(loop);
 
-  /**
-   * Stops the animation frame loop.
-   */
   const stop = () => {
     if (!frameId.value) return;
     cancelAnimationFrame(frameId.value);
@@ -24,5 +21,10 @@ export const useAnimationFrame = (callback: () => void) => {
 
   onUnmounted(() => stop());
 
-  return { stop };
+  return {
+    /**
+     * Stops the animation frame loop.
+     */
+    stop,
+  };
 };
