@@ -28,6 +28,8 @@ const { t } = injectI18n();
       padding: 0;
       color: inherit;
       display: flex;
+      height: 1lh;
+      align-items: center;
 
       &:focus-visible {
         // unset the icon button outline for now until

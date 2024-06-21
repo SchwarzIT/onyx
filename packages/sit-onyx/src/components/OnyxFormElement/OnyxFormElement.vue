@@ -152,9 +152,7 @@ defineSlots<{
     &__label-tooltip,
     &__message-tooltip,
     &__error-tooltip {
-      display: flex;
       margin-left: var(--onyx-spacing-2xs);
-      align-items: center;
     }
 
     &__footer {
