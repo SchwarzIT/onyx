@@ -157,11 +157,6 @@ defineSlots<{
       align-items: center;
     }
 
-    &__message-tooltip,
-    &__error-tooltip {
-      height: 1rem;
-    }
-
     &__footer {
       width: 100%;
       display: flex;
