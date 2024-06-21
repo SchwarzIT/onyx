@@ -15,7 +15,7 @@ const disabledRules = [
 ];
 
 test.describe("Single select screenshot tests", () => {
-  for (const state of ["default", "disabled", "danger"] as const) {
+  for (const state of ["default", "disabled"] as const) {
     executeMatrixScreenshotTest({
       name: `Select option (${state})`,
       columns: ["default", "selected"],

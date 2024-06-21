@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useDensity } from "../../composables/density";
 import type { OnyxListItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
@@ -14,12 +15,15 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+
+const { densityClass } = useDensity(props);
 </script>
 
 <template>
   <li
     :class="{
       'onyx-list-item': true,
+      ...densityClass,
       'onyx-list-item--active': props.active,
       [`onyx-list-item--${props.color}`]: props.color,
       'onyx-list-item--disabled': props.disabled,
