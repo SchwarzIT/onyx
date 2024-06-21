@@ -3,6 +3,7 @@ import { expect, test } from "../../playwright/a11y";
 import type { Locator } from "@playwright/test";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInput from "./OnyxInput.vue";
+import type { FormErrorMessages } from "src/composables/useCustomValidity";
 
 test.describe("Screenshot tests", () => {
   const isTooltipVisible = async (tooltip: Locator) => {
@@ -102,6 +103,69 @@ test.describe("Screenshot tests", () => {
     },
   });
 
+  /* 
+  message
+invalid
+error tooltip
+counter
+  */
+  executeMatrixScreenshotTest({
+    name: "Input (message replacement on invalid)",
+    columns: ["default", "long-text", "with-counter"],
+    rows: ["messageTooltip", "error", "errorTooltip"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const showLongMessage = column !== "default";
+      const label = column === "long-text" ? "Test label that should be truncated" : "Test label";
+      const message = showLongMessage
+        ? "Very long message that should be truncated"
+        : "Test message";
+      const errorMessages: FormErrorMessages = {
+        shortMessage: showLongMessage
+          ? "Very long error preview that should be truncated"
+          : "Test error",
+        longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
+      };
+      const messageTooltip = "Additional info message";
+
+      return (
+        <OnyxInput
+          style="width: 12rem"
+          label={label}
+          message={message}
+          customError={row !== "messageTooltip" ? errorMessages : undefined}
+          messageTooltip={messageTooltip}
+          withCounter={column === "with-counter"}
+          maxlength={column === "with-counter" ? 15 : undefined}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, row) => {
+      const input = component.getByLabel("Test label");
+
+      // invalid is only triggered after touched
+      await input.fill("Filled value");
+      await input.blur();
+
+      await component.evaluate((element) => {
+        element.style.padding = `0 5rem 3rem 2rem`;
+      });
+
+      if (row !== "error") {
+        const tooltipButton =
+          row === "errorTooltip"
+            ? page.getByLabel("Error Tooltip")
+            : page.getByLabel("Info Tooltip");
+        const tooltip = page.getByRole("tooltip");
+
+        await tooltipButton.hover();
+
+        await isTooltipVisible(tooltip);
+      }
+    },
+  });
+
   executeMatrixScreenshotTest({
     name: "Input (required/optional) with label tooltip",
     columns: ["default", "long-text"],
@@ -161,7 +225,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "autofill"],
     rows: ["default", "hover", "focus"],
     component: () => <OnyxInput style="width: 12rem" label="Test label" customError="Test error" />,
-    beforeScreenshot: async (component, page, column, row) => {
+    beforeScreenshot: async (component, _page, column, row) => {
       const input = component.getByLabel("Test label");
 
       // invalid is only triggered after touched

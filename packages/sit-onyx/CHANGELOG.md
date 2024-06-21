@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.142
+
+### Patch Changes
+
+- 7c98a6d: fix(OnyxFormElement): hide message while error is shown + prevent error overflow
+
 ## 1.0.0-alpha.141
 
 ### Minor Changes

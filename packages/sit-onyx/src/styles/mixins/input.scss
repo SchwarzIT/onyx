@@ -47,13 +47,15 @@
     }
   }
 
-  .onyx-form-element__error-message {
+  .onyx-form-element {
     --error-message-display: none;
   }
   &:has(#{$base-selector}__native:user-invalid),
   &:has(#{$base-selector}__native--force-error) {
     .onyx-form-element__error-message {
-      --error-message-display: flex;
+      --error-message-display: block;
+      // hide the default message once an error is shown
+      --message-display: none;
     }
   }
 

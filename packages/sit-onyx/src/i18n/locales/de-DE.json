@@ -4,56 +4,56 @@
   "apply": "Anwenden",
   "validations": {
     "tooShort": {
-      "shortError": "Zu kurz",
+      "preview": "Zu kurz",
       "fullError": "Verlängere diesen Text auf mindestens {minLength} Zeichen. Derzeit verwendest du {n} Zeichen."
     },
     "tooLong": {
-      "shortError": "Zu lang",
+      "preview": "Zu lang",
       "fullError": "Kürze diesen Text auf max. {maxLength} Zeichen. Zurzeit verwendest du {n} Zeichen."
     },
     "rangeUnderflow": {
-      "shortError": "Zu niedrig",
+      "preview": "Zu niedrig",
       "fullError": "Wert muss größer als oder gleich {min} sein."
     },
     "rangeOverflow": {
-      "shortError": "Zu hoch",
+      "preview": "Zu hoch",
       "fullError": "Wert muss kleiner als oder gleich {max} sein."
     },
     "patternMismatch": {
-      "shortError": "Ungültiges Format",
+      "preview": "Ungültiges Format",
       "fullError": "Deine Eingabe muss mit dem geforderten Format übereinstimmen."
     },
     "valueMissing": {
-      "shortError": "Pflichtfeld",
+      "preview": "Pflichtfeld",
       "fullError": "Fülle dieses Feld aus."
     },
     "stepMismatch": {
-      "shortError": "Ungültige Zahl",
+      "preview": "Ungültige Zahl",
       "fullError": "Wert muss ein Vielfaches von {step} sein."
     },
     "badInput": {
-      "shortError": "Ungültige Eingabe",
+      "preview": "Ungültige Eingabe",
       "fullError": "\"{value}\" entspricht nicht dem erwarteten Typ."
     },
     "typeMismatch": {
       "generic": {
-        "shortError": "Ungültiges Eingabeformat",
+        "preview": "Ungültiges Eingabeformat",
         "fullError": "\"{value}\" entspricht nicht dem erwarteten Typ."
       },
       "email": {
-        "shortError": "Ungültige E-Mail",
+        "preview": "Ungültige E-Mail",
         "fullError": "\"{value}\" muss eine valide E-Mail-Adresse sein."
       },
       "number": {
-        "shortError": "Ungültige Zahl",
+        "preview": "Ungültige Zahl",
         "fullError": "\"{value}\" muss eine Zahl sein."
       },
       "tel": {
-        "shortError": "Ungültige Telefonnummer",
+        "preview": "Ungültige Telefonnummer",
         "fullError": "\"{value}\" muss eine gültige Telefonnummer sein."
       },
       "url": {
-        "shortError": "Ungültige URL",
+        "preview": "Ungültige URL",
         "fullError": "\"{value}\" muss eine gültige URL sein."
       }
     }
