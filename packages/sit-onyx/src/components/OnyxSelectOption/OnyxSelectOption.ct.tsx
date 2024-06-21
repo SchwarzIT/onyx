@@ -26,11 +26,9 @@ test.describe("Single select screenshot tests", () => {
       disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
       component: (column, row) => (
         <OnyxSelectOption
-          aria-label="Label"
           aria-selected={column === "selected"}
           active={row === "focus-visible"}
           aria-disabled={state === "disabled"}
-          color={state === "danger" ? "danger" : undefined}
           {...{ role: "option" }}
         >
           Test label
@@ -52,7 +50,6 @@ test.describe("Multiselect Screenshot tests", () => {
       disabledAccessibilityRules: disabledRules,
       component: (column, row) => (
         <OnyxSelectOption
-          aria-label="Label"
           aria-checked={column === "checked"}
           aria-disabled={state === "disabled"}
           active={row === "focus-visible"}
@@ -77,12 +74,7 @@ test.describe("Density Screenshot tests", () => {
     rows: ["default", "multiselect"],
     disabledAccessibilityRules: disabledRules,
     component: (column, row) => (
-      <OnyxSelectOption
-        aria-label="Label"
-        multiple={row === "multiselect"}
-        density={column}
-        {...{ role: "option" }}
-      >
+      <OnyxSelectOption multiple={row === "multiselect"} density={column} {...{ role: "option" }}>
         Test label
       </OnyxSelectOption>
     ),

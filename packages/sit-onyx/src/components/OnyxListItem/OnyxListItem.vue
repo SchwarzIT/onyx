@@ -1,19 +1,29 @@
 <script setup lang="ts">
-import type { SelectOption } from "../OnyxSelect/types";
+import type { OnyxListItemProps } from "./types";
 
-const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
+const props = defineProps<OnyxListItemProps>();
+
+defineSlots<{
+  /**
+   * Option content.
+   */
+  default(): unknown;
+}>();
 </script>
+
 <template>
   <li
     :class="{
       'onyx-list-item': true,
       'onyx-list-item--active': props.active,
-      'onyx-list-item--danger': props.color === 'danger',
+      [`onyx-list-item--${props.color}`]: props.color,
     }"
+    v-bind="props"
   >
     <slot></slot>
   </li>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/density.scss";

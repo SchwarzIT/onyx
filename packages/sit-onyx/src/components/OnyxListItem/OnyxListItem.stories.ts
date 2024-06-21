@@ -1,21 +1,17 @@
-import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import type { AriaAttributes } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
-import OnyxSelectOption from "./OnyxSelectOption.vue";
+import OnyxListItem from "./OnyxListItem.vue";
 
 /**
- * The select option is only intended to be used within the `OnyxSelect` component.
+ * Generic list item component that is e.g. used in the select, nav item, user menu etc.
  */
-const meta: Meta<typeof OnyxSelectOption> = {
-  title: "support/SelectOption",
+const meta: Meta<typeof OnyxListItem> = {
+  title: "support/ListItem",
   ...defineStorybookActionsAndVModels({
-    component: OnyxSelectOption,
+    component: OnyxListItem,
     events: [],
     argTypes: {
       default: { control: { type: "text" } },
-      icon: defineIconSelectArgType(),
     },
     decorators: [
       (story) => ({
@@ -27,10 +23,11 @@ const meta: Meta<typeof OnyxSelectOption> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxSelectOption> & { args: AriaAttributes };
+type Story = StoryObj<typeof OnyxListItem>;
 
 export const Default = {
   args: {
+    "aria-label": "Example option",
     default: "Example option",
   },
 } satisfies Story;
@@ -56,23 +53,9 @@ export const Disabled = {
   },
 } satisfies Story;
 
-export const Multiple = {
+export const Danger = {
   args: {
     ...Default.args,
-    multiple: true,
-  },
-} satisfies Story;
-
-export const Indeterminate = {
-  args: {
-    ...Multiple.args,
-    indeterminate: true,
-  },
-} satisfies Story;
-
-export const WithIcon = {
-  args: {
-    ...Default.args,
-    icon: settings,
+    color: "danger",
   },
 } satisfies Story;

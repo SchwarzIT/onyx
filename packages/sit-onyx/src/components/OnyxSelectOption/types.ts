@@ -1,11 +1,6 @@
-import type { DensityProp } from "../../composables/density";
-import type { OnyxColor } from "../../types";
+import type { OnyxListItemProps } from "../OnyxListItem/types";
 
-export type OnyxSelectOptionProps = DensityProp & {
-  /**
-   * Whether the option is (visually) active.
-   */
-  active?: boolean;
+export type OnyxSelectOptionProps = Omit<OnyxListItemProps, "color"> & {
   /**
    * Adds a checkbox to the option
    */
@@ -19,8 +14,4 @@ export type OnyxSelectOptionProps = DensityProp & {
    * Optional icon.
    */
   icon?: string;
-  /**
-   * Main color of the option. Will have no effect on the multiselect checkbox.
-   */
-  color?: Extract<OnyxColor, "primary" | "danger">;
 };
