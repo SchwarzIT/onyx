@@ -118,6 +118,8 @@ export * from "./components/OnyxVisuallyHidden/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
+export * from "./composables/syncSelectOption";
+
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx } from "./utils/plugin";

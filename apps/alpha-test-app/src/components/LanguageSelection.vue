@@ -1,24 +1,21 @@
 <script lang="ts" setup>
-import { OnyxSelect, type SelectOption } from "sit-onyx";
-import { ref, watchEffect } from "vue";
+import { OnyxSelect, useSyncSelectOption, type SelectOption } from "sit-onyx";
 import { useI18n } from "vue-i18n";
 
 const locale = defineModel<string | undefined>();
+
 const { t } = useI18n();
 
 const supportedLocales = ["en-US", "de-DE", "ko-KR"];
 const options: SelectOption[] = supportedLocales.map((value) => ({ value, label: value }));
 
-const selectValue = ref({ value: locale.value, label: locale.value });
-
-watchEffect(() => {
-  locale.value = selectValue.value?.value;
-});
+const { modelValue, vSyncSelection } = useSyncSelectOption(locale, options);
 </script>
 
 <template>
   <OnyxSelect
-    v-model="selectValue"
+    v-model="modelValue"
+    v-sync-selection
     class="language"
     label="Select language"
     list-label="List label"
