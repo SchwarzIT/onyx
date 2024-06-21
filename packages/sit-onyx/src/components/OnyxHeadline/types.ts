@@ -4,8 +4,6 @@ export type OnyxHeadlineProps = {
    * h5 and h6 will have the same styles as h4 and should only be used for semantic reasons.
    */
   is: HeadlineType;
-  /** If `true`, the monospace font family will be used instead of the default one. */
-  monospace?: boolean;
 };
 
 export const HEADLINE_TYPES = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;

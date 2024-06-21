@@ -5,7 +5,7 @@ import Grid from "./GridPlayground.vue";
  * The GridPlayground allows to test and play around with the Onyx grid system
  */
 const meta: Meta<typeof Grid> = {
-  title: "utilities/GridPlayground",
+  title: "Examples/GridPlayground",
   component: Grid,
 };
 

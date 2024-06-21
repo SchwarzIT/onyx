@@ -8,7 +8,7 @@ import OnyxTag from "./OnyxTag.vue";
  * Tags are succinct textual labels that provide single-worded information or hints to their related parent element.
  */
 const meta: Meta<typeof OnyxTag> = {
-  title: "components/Tag",
+  title: "Basic/Tag",
   ...defineStorybookActionsAndVModels({
     component: OnyxTag,
     events: [],

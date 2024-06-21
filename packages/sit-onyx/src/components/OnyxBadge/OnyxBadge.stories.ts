@@ -16,7 +16,7 @@ import OnyxBadge from "./OnyxBadge.vue";
  * to alert users to important details and enhance overall user experience.
  */
 const meta: Meta<typeof OnyxBadge> = {
-  title: "components/Badge",
+  title: "Basic/Badge",
   ...defineStorybookActionsAndVModels({
     component: OnyxBadge,
     events: [],

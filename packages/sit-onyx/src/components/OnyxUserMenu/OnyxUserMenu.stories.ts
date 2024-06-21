@@ -9,7 +9,7 @@ import OnyxUserMenu from "./OnyxUserMenu.vue";
  * The user menu is intended to be used inside the navigation bar to display user-related information and actions.
  */
 const meta: Meta<typeof OnyxUserMenu> = {
-  title: "components/UserMenu",
+  title: "Navigation/modules/UserMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxUserMenu,
     events: ["optionClick"],

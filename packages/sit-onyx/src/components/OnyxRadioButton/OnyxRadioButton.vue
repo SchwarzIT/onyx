@@ -9,7 +9,7 @@ import type { OnyxRadioButtonProps } from "./types";
 const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   disabled: false,
   required: false,
-  selected: false,
+  checked: false,
   loading: false,
   truncation: "ellipsis",
 });
@@ -53,7 +53,7 @@ const handleChange = (event: Event) => {
       :required="props.required"
       :name="props.name"
       :value="props.value"
-      :checked="props.selected"
+      :checked="props.checked"
       :disabled="props.disabled"
       :autofocus="props.autofocus"
       @change="handleChange"
