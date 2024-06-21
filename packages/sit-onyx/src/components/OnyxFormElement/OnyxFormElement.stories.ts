@@ -81,7 +81,7 @@ export const WithLabelTooltip = {
 } satisfies Story;
 
 /**
- * This example shows a form element with an error message.
+ * This example shows a form element with an error message. <br>
  * **Warning:** When using OnyxFormElement,
  * make sure to hide the default `message` when you show an `errorMessage`.
  * For OnyxInput and OnyxTextarea, this is handled by `input.scss`
