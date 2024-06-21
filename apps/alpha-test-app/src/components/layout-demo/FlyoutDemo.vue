@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { defineModel, ref } from "vue";
 import { OnyxSelect } from "sit-onyx";
+import { ref } from "vue";
 
 const showFlyout = defineModel<boolean>();
 
