@@ -3,6 +3,11 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxFormElement from "./OnyxFormElement.vue";
 import { h } from "vue";
 
+/**
+ * This component can be used in form components like OnyxInput/OnyxTextarea.
+ * It handles the positioning of labels, tooltips, required/optional markers, messages and
+ * error information above and below the form component.
+ */
 const meta: Meta<typeof OnyxFormElement> = {
   title: "support/FormElement",
   ...defineStorybookActionsAndVModels({
@@ -14,7 +19,7 @@ const meta: Meta<typeof OnyxFormElement> = {
     decorators: [
       (story) => ({
         components: { story },
-        template: `<div style="max-width: 12rem; padding: 1rem 2rem">
+        template: `<div style="max-width: 12rem; padding: 2rem 1rem">
                     <story /> 
                    </div>`,
       }),
@@ -47,12 +52,13 @@ export const Required = {
 } satisfies Story;
 
 /**
- * This example shows a form element with a message / help text and an additional text on the right.
+ * This example shows a form element with a message, a tooltip and a counter.
  */
 export const WithMessageAndCounter = {
   args: {
     ...Default.args,
-    message: "Example message",
+    message: "A very long example message that will be truncated",
+    messageTooltip: "Additional info message",
     maxlength: 60,
     withCounter: true,
   },
@@ -80,17 +86,10 @@ export const WithLabelTooltip = {
 } satisfies Story;
 
 /**
- * This example shows a form element with message / additional text and an optional tooltip.
- */
-export const WithMessageTooltip = {
-  args: {
-    ...Default.args,
-    message: "Example message",
-    messageTooltip: "Additional info message",
-  },
-} satisfies Story;
-/**
- * This example shows a form element with an error message.
+ * This example shows a form element with an error message. <br>
+ * **Warning:** When using OnyxFormElement,
+ * make sure to hide the default `message` when you show an `errorMessage`.
+ * For OnyxInput and OnyxTextarea, this is handled by `input.scss`
  */
 export const WithErrorMessage = {
   args: {
