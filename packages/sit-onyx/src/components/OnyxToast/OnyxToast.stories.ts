@@ -20,8 +20,7 @@ type Story = StoryObj<typeof OnyxToast>;
 export const Default = {
   args: {
     headline: "Example toast",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Non in felis erat velit consectetur. Sed integer non hac viverra nibh vehicula risus ultrices. Molestie cras lobortis vitae gravida et ut. Turpis nisl pharetra amet ante eu sagittis sit elementum ut.",
+    description: "Lorem ipsum dolor sit amet consectetur. Non in felis erat velit consectetur.",
   },
 } satisfies Story;
 
@@ -57,5 +56,17 @@ export const ManualClose = {
   args: {
     ...Default.args,
     duration: 0,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a toast with a very long description that is limited to 3 lines.
+ * The user can scroll to see the rest of the description.
+ */
+export const LongDescription = {
+  args: {
+    ...Default.args,
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   },
 } satisfies Story;

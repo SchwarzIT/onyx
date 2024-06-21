@@ -76,6 +76,7 @@ const icon = computed(() => {
         <p
           v-if="props.description"
           class="onyx-toast__description onyx-text--small onyx-truncation-multiline"
+          tabindex="0"
         >
           {{ props.description }}
         </p>
@@ -205,6 +206,12 @@ const icon = computed(() => {
     &__description {
       margin-top: var(--onyx-spacing-2xs);
       white-space: pre-line;
+      max-height: 3lh;
+      overflow-y: auto;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
 
     $colors: danger, warning, success;
