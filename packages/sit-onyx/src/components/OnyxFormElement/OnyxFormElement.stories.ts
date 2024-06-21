@@ -3,6 +3,11 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxFormElement from "./OnyxFormElement.vue";
 import { h } from "vue";
 
+/**
+ * This component can be used in form components like OnyxInput/OnyxTextarea.
+ * It handles the positioning of labels, tooltips, required/optional markers, messages and
+ * error information above and below the form component.
+ */
 const meta: Meta<typeof OnyxFormElement> = {
   title: "support/FormElement",
   ...defineStorybookActionsAndVModels({
