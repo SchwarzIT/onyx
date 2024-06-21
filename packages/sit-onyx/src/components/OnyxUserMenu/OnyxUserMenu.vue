@@ -1,12 +1,12 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import { computed } from "vue";
-import { injectI18n } from "../../i18n";
+import { computed, inject } from "vue";
 import type { SelectOptionValue } from "../../types";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
-import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
+import UserMenuLayout from "./UserMenuLayout.vue";
 import type { OnyxUserMenuProps } from "./types";
 
 const props = defineProps<OnyxUserMenuProps<TValue>>();
@@ -25,60 +25,64 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const { t } = injectI18n();
-
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
 });
+
+const isMobile = inject(mobileNavBarInjectionKey);
 </script>
 
 <template>
-  <div class="onyx-user-menu">
-    <button class="onyx-user-menu__trigger onyx-text">
-      <OnyxAvatar v-bind="avatar" size="24px" />
-      <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
-    </button>
+  <UserMenuLayout
+    class="onyx-user-menu"
+    :class="{ 'onyx-user-menu--mobile': isMobile }"
+    :is-mobile="isMobile ?? false"
+  >
+    <template #button>
+      <button v-if="!isMobile" class="onyx-user-menu__trigger onyx-text">
+        <OnyxAvatar v-bind="avatar" size="24px" />
+        <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
+        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
+      </button>
+    </template>
 
-    <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
-      <template #header>
-        <div class="onyx-user-menu__header">
-          <OnyxAvatar v-bind="avatar" />
+    <template #header>
+      <div class="onyx-user-menu__header">
+        <OnyxAvatar v-bind="avatar" />
 
-          <div class="onyx-truncation-ellipsis">
-            <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
-              {{ props.username }}
-            </div>
-            <div
-              v-if="props.description"
-              class="onyx-user-menu__description onyx-text--small onyx-truncation-ellipsis"
-            >
-              {{ props.description }}
-            </div>
+        <div class="onyx-truncation-ellipsis">
+          <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
+            {{ props.username }}
+          </div>
+          <div
+            v-if="props.description"
+            class="onyx-user-menu__description onyx-text--small onyx-truncation-ellipsis"
+          >
+            {{ props.description }}
           </div>
         </div>
-      </template>
+      </div>
+    </template>
 
+    <template #options>
       <OnyxListItem
         v-for="item in props.options"
         :key="item.value.toString()"
-        :class="{
-          'onyx-user-menu-item--danger': item.color === 'danger',
-        }"
+        class="onyx-user-menu__item"
         :color="item.color"
         @click="emit('optionClick', item.value)"
       >
         <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
       </OnyxListItem>
+    </template>
 
-      <template v-if="!!slots.footer" #footer>
-        <div class="onyx-user-menu__footer onyx-text--small">
-          <slot name="footer"></slot>
-        </div>
-      </template>
-    </OnyxFlyoutMenu>
-  </div>
+    <template v-if="slots.footer" #footer>
+      <div class="onyx-user-menu__footer onyx-text--small">
+        <slot name="footer"></slot>
+      </div>
+    </template>
+  </UserMenuLayout>
 </template>
 
 <style lang="scss">
@@ -172,6 +176,36 @@ const avatar = computed(() => {
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-spacing-2xs);
+    }
+
+    &--mobile {
+      width: 100%;
+      position: static;
+
+      .onyx-user-menu__header {
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        background-color: var(--onyx-color-base-background-blank);
+        border-radius: var(--onyx-radius-sm);
+        margin-bottom: var(--onyx-spacing-xs); // TODO: use density
+      }
+
+      .onyx-user-menu__item {
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+
+        &:first-of-type {
+          border-bottom: none;
+          border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
+        }
+
+        &:last-of-type {
+          border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
+        }
+      }
+
+      .onyx-user-menu__footer {
+        border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        background-color: var(--onyx-color-base-background-blank);
+      }
     }
   }
 }

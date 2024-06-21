@@ -1,11 +1,14 @@
+import bell from "@sit-onyx/icons/bell.svg?raw";
 import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import search from "@sit-onyx/icons/search.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
@@ -24,6 +27,7 @@ const meta: Meta<typeof OnyxNavBar> = {
       contextArea: { control: { disable: true } },
       appArea: { control: { type: "text" } },
       mobileActivePage: { control: { type: "text" } },
+      globalContextArea: { control: { disable: true } },
       mobileBreakpoint: {
         options: Object.keys(ONYX_BREAKPOINTS),
         control: {
@@ -90,7 +94,12 @@ const getTimerEndDate = () => {
 export const WithContextArea = {
   args: {
     ...Default.args,
+    globalContextArea: () => [
+      h(OnyxIconButton, { label: "Search", icon: search, color: "neutral" }),
+      h(OnyxIconButton, { label: "Notification center", icon: bell, color: "neutral" }),
+    ],
     contextArea: () => [
+      h(OnyxTimer, { endTime: getTimerEndDate(), label: "Logout in:" }),
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {

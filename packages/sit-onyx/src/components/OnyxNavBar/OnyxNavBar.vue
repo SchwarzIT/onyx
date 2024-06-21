@@ -42,6 +42,13 @@ const slots = defineSlots<{
    */
   contextArea?: () => unknown;
   /**
+   * Same as `contextArea` slot on desktop (will be placed next to it) but on mobile, the components inside will stay
+   * in the mobile nav bar itself and will not be collapsed into the context menu button.
+   *
+   * Global actions like e.g. search or notification center can be placed here that should always be directly accessible on mobile.
+   */
+  globalContextArea?: () => unknown;
+  /**
    * Label for displaying the currently active page in mobile mode.
    * If a child of a nav item is active, it should displayed the child label instead of the parent.
    */
@@ -126,20 +133,28 @@ provide(mobileNavBarInjectionKey, isMobile);
         </nav>
       </template>
 
-      <template v-if="slots.contextArea">
-        <OnyxMobileNavButton
-          v-if="isMobile"
-          v-model:open="isContextOpen"
-          class="onyx-nav-bar__mobile-context"
-          :icon="moreVertical"
-          :label="t('navigation.toggleContextMenu')"
-          @update:open="isBurgerOpen = false"
-        >
-          <!-- TODO: implement mobile context menu  -->
-        </OnyxMobileNavButton>
+      <template v-if="slots.contextArea || slots.globalContextArea">
+        <div v-if="isMobile" class="onyx-nav-bar__mobile-context">
+          <div v-if="slots.globalContextArea" class="onyx-nav-bar__mobile-global-context">
+            <slot name="globalContextArea"></slot>
+          </div>
+
+          <OnyxMobileNavButton
+            v-if="slots.contextArea"
+            v-model:open="isContextOpen"
+            :icon="moreVertical"
+            :label="t('navigation.toggleContextMenu')"
+            @update:open="isBurgerOpen = false"
+          >
+            <div class="onyx-nav-bar__mobile-context-content">
+              <slot name="contextArea"></slot>
+            </div>
+          </OnyxMobileNavButton>
+        </div>
 
         <div v-else class="onyx-nav-bar__context">
-          <slot name="contextArea"></slot>
+          <slot v-if="slots.globalContextArea" name="globalContextArea"></slot>
+          <slot v-if="slots.contextArea" name="contextArea"></slot>
         </div>
       </template>
     </div>
@@ -257,7 +272,36 @@ $height: 3.5rem;
 
     &__mobile-context {
       grid-area: mobile-context;
+      display: flex;
+      align-items: center;
       margin-left: auto;
+      gap: var(--onyx-spacing-4xs);
+    }
+
+    &__mobile-global-context {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: inherit;
+    }
+
+    &__mobile-context-content {
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap-reverse;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--onyx-spacing-2xs);
+
+      &:has(.onyx-user-menu__footer) {
+        margin-bottom: var(--onyx-spacing-xl);
+
+        .onyx-user-menu__footer {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+        }
+      }
     }
 
     &__mobile-page {

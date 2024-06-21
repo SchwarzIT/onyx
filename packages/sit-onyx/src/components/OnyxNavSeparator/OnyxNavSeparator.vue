@@ -1,15 +1,19 @@
 <script lang="ts" setup>
+import { inject } from "vue";
+import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
 import type { OnyxNavSeparatorProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavSeparatorProps>(), {
   orientation: "vertical",
 });
+
+const isMobile = inject(mobileNavBarInjectionKey);
 </script>
 
 <template>
   <div
     class="onyx-separator"
-    :class="{ 'onyx-separator--horizontal': props.orientation === 'horizontal' }"
+    :class="{ 'onyx-separator--horizontal': props.orientation === 'horizontal' || isMobile }"
     role="separator"
     :aria-orientation="props.orientation"
   ></div>

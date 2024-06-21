@@ -55,6 +55,8 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
+    width: max-content;
+    max-width: 100%;
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-soft);
