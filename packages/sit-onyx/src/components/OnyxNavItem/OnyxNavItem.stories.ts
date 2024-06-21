@@ -46,7 +46,7 @@ export const Active = {
 /**
  * This example shows the nav item with nested options.
  */
-export const WithOptions = {
+export const WithOptions: Story = {
   args: {
     ...Default.args,
     options: [
@@ -57,7 +57,13 @@ export const WithOptions = {
       { label: "Nested Item 5", href: "#5" },
     ],
   },
-} satisfies Story;
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="height: 16rem"> <story /> </div>`,
+    }),
+  ],
+};
 
 /**
  * This example shows the nav item with additional content (a dot badge in this case).
