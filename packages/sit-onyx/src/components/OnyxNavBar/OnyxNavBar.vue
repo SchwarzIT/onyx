@@ -107,7 +107,17 @@ provide(mobileNavBarInjectionKey, isMobile);
           :icon="menu"
           :label="t('navigation.toggleBurgerMenu')"
           @update:open="isContextOpen = false"
-        />
+        >
+          <OnyxHeadline is="h2" class="onyx-nav-bar__mobile-headline">
+            {{ t("navigation.navigationHeadline") }}
+          </OnyxHeadline>
+
+          <nav class="onyx-nav-bar__nav--mobile">
+            <ul role="menubar">
+              <slot></slot>
+            </ul>
+          </nav>
+        </OnyxMobileNavButton>
 
         <nav v-else class="onyx-nav-bar__nav">
           <ul role="menubar">
@@ -124,27 +134,14 @@ provide(mobileNavBarInjectionKey, isMobile);
           :icon="moreVertical"
           :label="t('navigation.toggleContextMenu')"
           @update:open="isBurgerOpen = false"
-        />
+        >
+          <!-- TODO: implement mobile context menu  -->
+        </OnyxMobileNavButton>
 
         <div v-else class="onyx-nav-bar__context">
           <slot name="contextArea"></slot>
         </div>
       </template>
-    </div>
-
-    <!-- TODO: implement mobile burger/context flyouts -->
-    <div v-if="isMobile && isBurgerOpen" class="onyx-nav-bar__mobile-flyout">
-      <div class="onyx-nav-bar__mobile-flyout-content">
-        <OnyxHeadline is="h2" class="onyx-nav-bar__mobile-headline">
-          {{ t("navigation.navigationHeadline") }}
-        </OnyxHeadline>
-
-        <nav class="onyx-nav-bar__nav--mobile">
-          <ul role="menubar">
-            <slot></slot>
-          </ul>
-        </nav>
-      </div>
     </div>
   </header>
 </template>
@@ -270,33 +267,13 @@ $height: 3.5rem;
       font-weight: 600;
     }
 
-    &__mobile-flyout {
-      width: 100%;
-      background-color: var(--onyx-color-base-background-tinted);
-      box-shadow: var(--onyx-shadow-medium-bottom);
-
+    .onyx-mobile-nav-button__menu {
       position: absolute;
       left: 0;
       top: $height;
-
-      &::after {
-        content: "";
-        background-color: var(--onyx-color-backdrop);
-        width: 100%;
-        height: 100vh;
-        display: block;
-        position: absolute;
-      }
     }
 
-    &__mobile-flyout-content {
-      max-width: 34rem;
-      padding: var(--onyx-spacing-xl) var(--onyx-spacing-md);
-      display: flex;
-      flex-direction: column;
-      margin-inline: auto;
-      gap: var(--onyx-spacing-2xs);
-
+    .onyx-mobile-nav-button__content {
       $mobile-children-selector: ":has(.onyx-nav-item__mobile-children)";
 
       // hide "Navigation" headline when nav item with children is open
