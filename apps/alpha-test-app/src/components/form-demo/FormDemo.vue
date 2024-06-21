@@ -74,7 +74,7 @@ const radioOptions: RadioButtonOption[] = [
     @submit.prevent="handleSubmit"
     @reset="formState = {}"
   >
-    <OnyxHeadline is="h2" class="onyx-grid-span-20"
+    <OnyxHeadline is="h3" class="onyx-grid-span-20"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >
 
