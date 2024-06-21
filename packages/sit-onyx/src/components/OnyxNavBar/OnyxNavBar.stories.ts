@@ -15,7 +15,7 @@ import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 
 const meta: Meta<typeof OnyxNavBar> = {
-  title: "components/NavBar",
+  title: "Navigation/NavBar",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavBar,
     events: ["appAreaClick", "backButtonClick"],

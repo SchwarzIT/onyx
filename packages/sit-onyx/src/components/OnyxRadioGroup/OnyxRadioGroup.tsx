@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright/a11y";
 import { DIRECTIONS, type BaseSelectOption, type SelectOptionValue } from "../../types";
-import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
+import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 
 const EXAMPLE_OPTIONS: BaseSelectOption[] = [
   { label: "dummy.1", value: 1 },
@@ -12,11 +12,11 @@ const EXAMPLE_OPTIONS: BaseSelectOption[] = [
 test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxRadioButtonGroup options={EXAMPLE_OPTIONS} headline="radio group label" />,
+    <OnyxRadioGroup options={EXAMPLE_OPTIONS} headline="radio group label" />,
   );
 
   // ASSERT
-  await expect(page.getByRole("group", { name: "radio group label" })).toBeAttached();
+  await expect(page.getByRole("radiogroup", { name: "radio group label" })).toBeAttached();
   await expect(page.getByText("radio group label")).toBeAttached();
   expect(await page.getByRole("radio").all()).toHaveLength(4);
   await expect(page.getByRole("radio", { name: EXAMPLE_OPTIONS[3].label })).toBeDisabled();
@@ -32,7 +32,7 @@ test("should display correctly", async ({ mount, makeAxeBuilder, page }) => {
 test("should display correctly when horizontal", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxRadioButtonGroup
+    <OnyxRadioGroup
       options={EXAMPLE_OPTIONS}
       headline="radio group label"
       direction="horizontal"
@@ -46,7 +46,7 @@ test("should display correctly when horizontal", async ({ mount }) => {
 test("should display correctly when disabled", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxRadioButtonGroup options={EXAMPLE_OPTIONS} headline="radio group label" disabled />,
+    <OnyxRadioGroup options={EXAMPLE_OPTIONS} headline="radio group label" disabled />,
   );
 
   // ASSERT
@@ -61,7 +61,7 @@ test("should display correctly when preselected", async ({ mount, makeAxeBuilder
 
   // ARRANGE
   await mount(
-    <OnyxRadioButtonGroup
+    <OnyxRadioGroup
       options={EXAMPLE_OPTIONS}
       headline="radio group label"
       modelValue={EXAMPLE_OPTIONS[0].value}
@@ -98,7 +98,7 @@ test("should truncate", async ({ mount }) => {
 
   // ARRANGE
   const component = await mount(
-    <OnyxRadioButtonGroup
+    <OnyxRadioGroup
       options={options}
       headline="Truncated group headline"
       style="max-width: 16rem;"
@@ -112,7 +112,7 @@ DIRECTIONS.forEach((direction) => {
   test(`should render ${direction} skeletons`, async ({ mount }) => {
     // ARRANGE
     const component = await mount(
-      <OnyxRadioButtonGroup
+      <OnyxRadioGroup
         options={[]}
         headline="Skeleton group headline"
         skeleton={3}

@@ -10,7 +10,7 @@ import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
  * For recommended usage, please visit our [theming docs](https://onyx.schwarz/development/theming.html).
  */
 const meta: Meta<typeof OnyxColorSchemeDialog> = {
-  title: "support/ColorSchemeDialog",
+  title: "Navigation/modules/ColorSchemeDialog",
   ...defineStorybookActionsAndVModels({
     component: OnyxColorSchemeDialog,
     events: ["update:modelValue", "close"],
