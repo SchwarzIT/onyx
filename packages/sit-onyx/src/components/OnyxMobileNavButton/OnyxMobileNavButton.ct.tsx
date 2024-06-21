@@ -8,7 +8,9 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "open"],
     rows: ["default", "hover", "active", "focus-visible"],
     component: (column) => (
-      <OnyxMobileNavButton label="Label" icon={mockPlaywrightIcon} open={column === "open"} />
+      <OnyxMobileNavButton label="Label" icon={mockPlaywrightIcon} open={column === "open"}>
+        Flyout slot content...
+      </OnyxMobileNavButton>
     ),
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "hover") await component.hover();

@@ -14,6 +14,7 @@ const meta: Meta<typeof OnyxMobileNavButton> = {
     events: ["update:open"],
     argTypes: {
       icon: defineIconSelectArgType(),
+      default: { control: { type: "text" } },
     },
   }),
 };
@@ -23,15 +24,15 @@ type Story = StoryObj<typeof OnyxMobileNavButton>;
 
 export const Default = {
   args: {
-    label: "Open burger menu",
+    label: "Toggle burger menu",
     icon: menu,
+    default: "Menu slot content...",
   },
 } satisfies Story;
 
 export const Open = {
   args: {
-    label: "Close burger menu",
-    icon: menu,
+    ...Default.args,
     open: true,
   },
 } satisfies Story;

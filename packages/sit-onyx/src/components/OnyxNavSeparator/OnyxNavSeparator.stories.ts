@@ -16,4 +16,10 @@ const meta: Meta<typeof OnyxNavSeparator> = {
 export default meta;
 type Story = StoryObj<typeof OnyxNavSeparator>;
 
-export const Default = { args: {} } satisfies Story;
+export const Vertical = { args: {} } satisfies Story;
+
+export const Horizontal = {
+  args: {
+    orientation: "horizontal",
+  },
+} satisfies Story;
