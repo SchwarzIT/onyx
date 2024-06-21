@@ -56,7 +56,6 @@ export const useTimer = (options: UseTimerOptions) => {
   // prevent dangling timers when component is unmounted
   onBeforeUnmount(() => {
     clearInterval(intervalId.value);
-    timeLeft.value = 0; // this ensures that the requestAnimationFrame is stopped before unmount
   });
 
   return {
