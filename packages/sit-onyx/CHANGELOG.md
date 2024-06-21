@@ -1,5 +1,37 @@
 # sit-onyx
 
+## 1.0.0-alpha.143
+
+### Patch Changes
+
+- 02f5691: fix(OnyxNavAppArea): max-height not honored
+
+## 1.0.0-alpha.142
+
+### Patch Changes
+
+- 7c98a6d: fix(OnyxFormElement): hide message while error is shown + prevent error overflow
+
+## 1.0.0-alpha.141
+
+### Minor Changes
+
+- 08b434b: feat(OnyxSelectInput): support message/label tooltip
+
+## 1.0.0-alpha.140
+
+### Minor Changes
+
+- d3e9321: Add new OnyxNavButton component
+
+## 1.0.0-alpha.139
+
+### Minor Changes
+
+- 107ec36: feat(OnyxSelect): support `option` slot
+
+  The new slot can be used to show custom content for the select options
+
 ## 1.0.0-alpha.138
 
 ### Minor Changes

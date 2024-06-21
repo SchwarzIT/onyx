@@ -64,6 +64,9 @@ export * from "./components/OnyxNavAppArea/types";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types";
 
+export { default as OnyxNavButton } from "./components/OnyxNavButton/OnyxNavButton.vue";
+export * from "./components/OnyxNavButton/types";
+
 export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue";
 export * from "./components/OnyxNavItem/types";
 

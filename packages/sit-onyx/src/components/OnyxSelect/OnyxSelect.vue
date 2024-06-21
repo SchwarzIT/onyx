@@ -51,6 +51,10 @@ const slots = defineSlots<{
    * to e.g. show a button to load more options instead of lazy loading on scroll.
    */
   optionsEnd?(): unknown;
+  /**
+   * Optional slot to override the option content.
+   */
+  option?(props: SelectOption<TValue>): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -338,7 +342,9 @@ const selectInputProps = computed(() => {
                 :color="option.color"
                 :density="props.density"
               >
-                {{ option.label }}
+                <slot name="option" v-bind="option">
+                  {{ option.label }}
+                </slot>
               </OnyxSelectOption>
             </ul>
           </template>
