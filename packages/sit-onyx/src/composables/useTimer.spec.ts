@@ -6,6 +6,7 @@ import { useTimer } from "./useTimer";
 vi.mock("vue", async (importOriginal) => {
   return {
     ...(await importOriginal<typeof import("vue")>()),
+    onMounted: vi.fn().mockImplementation((callback) => callback()),
     onBeforeUnmount: vi.fn(),
   };
 });
@@ -22,7 +23,7 @@ describe("useTimer.ts", () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   test("should calculate timer correctly", () => {
@@ -49,13 +50,56 @@ describe("useTimer.ts", () => {
   });
 
   test("should use animation frames", async () => {
-    const frameSpy = vi.spyOn(useAnimationFrame, "useAnimationFrame");
+    const MOCK_TIMEOUT = 100;
+
+    // mock "requestAnimationFrame()"
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation(
+      (callback: FrameRequestCallback) => {
+        setTimeout(() => callback(Date.now()), MOCK_TIMEOUT);
+        return 42;
+      },
+    );
+
+    const originalAnimationFrame = useAnimationFrame.useAnimationFrame;
+    const stopSpy = vi.fn();
+
+    const frameSpy = vi
+      .spyOn(useAnimationFrame, "useAnimationFrame")
+      .mockImplementation((callback) => {
+        const { stop: originalStop } = originalAnimationFrame(callback);
+        return {
+          stop: () => {
+            stopSpy();
+            originalStop();
+          },
+        };
+      });
 
     // ARRANGE
-    useTimer({ endTime: ref(endTime), useAnimationFrame: true });
+    const { timeLeft } = useTimer({ endTime: ref(endTime), useAnimationFrame: true });
     await nextTick();
 
     // ASSERT
     expect(frameSpy).toHaveBeenCalledOnce();
+
+    // ACT
+    vi.advanceTimersByTime(MOCK_TIMEOUT);
+
+    // ASSERT
+    expect(timeLeft.value).toBe(4900);
+
+    // ACT
+    vi.advanceTimersByTime(MOCK_TIMEOUT);
+
+    // ASSERT
+    expect(timeLeft.value).toBe(4800);
+    expect(stopSpy).not.toHaveBeenCalled();
+
+    // ACT
+    vi.advanceTimersByTime(4800);
+
+    // ASSERT
+    expect(timeLeft.value).toBe(0);
+    expect(stopSpy).toHaveBeenCalled();
   });
 });

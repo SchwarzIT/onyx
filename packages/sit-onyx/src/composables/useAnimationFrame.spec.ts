@@ -4,7 +4,7 @@ import { useAnimationFrame } from "./useAnimationFrame";
 vi.mock("vue", async (importOriginal) => {
   return {
     ...(await importOriginal<typeof import("vue")>()),
-    inMOunted: vi.fn().mockImplementation((callback) => callback()),
+    onMounted: vi.fn().mockImplementation((callback) => callback()),
     onBeforeUnmount: vi.fn().mockImplementation((callback) => callback()),
   };
 });
@@ -20,7 +20,7 @@ describe("useAnimationFrame", () => {
 
     vi.spyOn(window, "requestAnimationFrame").mockImplementation(
       (callback: FrameRequestCallback) => {
-        setTimeout(() => callback(Date.now()), 100);
+        setTimeout(() => callback(Date.now()), MOCK_TIMEOUT);
         return MOCK_FRAME_ID;
       },
     );
