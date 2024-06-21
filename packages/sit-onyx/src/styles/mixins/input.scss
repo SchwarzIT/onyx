@@ -51,7 +51,7 @@
   }
   &:has(#{$base-selector}__native:user-invalid) {
     .onyx-form-element {
-      --error-message-display: flex;
+      --error-message-display: block;
       // hide the default message once an error is shown
       --message-display: none;
     }

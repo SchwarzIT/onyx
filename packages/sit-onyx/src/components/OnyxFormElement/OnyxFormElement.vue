@@ -105,11 +105,11 @@ defineSlots<{
      * can also be overwritten if a project
      * needs to enforce to show an error immediately
      */
-    --error-message-display: flex;
+    --error-message-display: block;
     /** input.scss will overwrite this so that
      * message and error message are not be shown simultaneously
      */
-    --message-display: flex;
+    --message-display: block;
 
     font-family: var(--onyx-font-family);
     display: flex;
