@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.143
+
+### Patch Changes
+
+- 02f5691: fix(OnyxNavAppArea): max-height not honored
+
 ## 1.0.0-alpha.142
 
 ### Patch Changes
