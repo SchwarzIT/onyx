@@ -86,7 +86,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
       <template v-slot:mobileActivePage>Nested item 2</template>
 
       <template v-slot:contextArea>
-        <OnyxUserMenu username="John Doe" options={[]} />
+        <OnyxUserMenu username="John Doe" />
       </template>
     </OnyxNavBar>,
   );
