@@ -47,7 +47,7 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
   @include layers.component() {
     display: block;
     height: var(--onyx-spacing-5xs);
-    background-color: var(--onyx-toast-progress-bar-color);
+    background-color: var(--onyx-toast-progress-bar-color, var(--onyx-color-base-primary-300));
   }
 }
 </style>
