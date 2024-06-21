@@ -27,7 +27,6 @@ type Story = StoryObj<typeof OnyxListItem>;
 
 export const Default = {
   args: {
-    "aria-label": "Example option",
     default: "Example option",
   },
 } satisfies Story;
@@ -42,14 +41,21 @@ export const Active = {
 export const Selected = {
   args: {
     ...Default.args,
-    "aria-selected": true,
+    selected: true,
+  },
+} satisfies Story;
+
+export const Checked = {
+  args: {
+    ...Default.args,
+    checked: true,
   },
 } satisfies Story;
 
 export const Disabled = {
   args: {
     ...Default.args,
-    "aria-disabled": true,
+    disabled: true,
   },
 } satisfies Story;
 

@@ -3,18 +3,13 @@ import type { OnyxColor } from "../../types";
 
 export type OnyxListItemProps = DensityProp & {
   /**
-   * Optional aria label that describes the content {used for screen readers).
-   * Useful if the option does not contain text.
+   * Whether the option is currently selected (if the content includes interactive components like a checkbox, use `checked` instead).
    */
-  "aria-label"?: string;
+  selected?: boolean;
   /**
-   * Whether the option is currently selected (only use this in combination with single select. For multiselect, use the `checked` property).
+   * Same as `selected` but with optimized styles when the content includes interactive component (e.g. a checkbox).
    */
-  "aria-selected"?: boolean;
-  /**
-   * Same as `selected` but should be used in combination with multiselect for accessibility / screen readers.
-   */
-  "aria-checked"?: boolean;
+  checked?: boolean;
   /**
    * Whether the option is (visually) active.
    */
@@ -22,7 +17,7 @@ export type OnyxListItemProps = DensityProp & {
   /**
    * Whether the option is disabled.
    */
-  "aria-disabled"?: boolean;
+  disabled?: boolean;
   /**
    * Main color of the option content.
    */

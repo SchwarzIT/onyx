@@ -17,12 +17,18 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxListItem class="onyx-select-option" v-bind="props">
+  <OnyxListItem
+    class="onyx-select-option"
+    v-bind="props"
+    :checked="!!$attrs['aria-checked']"
+    :selected="!!$attrs['aria-selected']"
+    :disabled="!!$attrs['aria-disabled']"
+  >
     <input
       v-if="props.multiple"
-      :checked="props['aria-checked']"
+      :checked="!!$attrs['aria-checked']"
       :aria-labelledby="$attrs.id as string"
-      :disabled="props['aria-disabled']"
+      :disabled="!!$attrs['aria-disabled']"
       :indeterminate="props.indeterminate"
       aria-hidden="true"
       tabindex="-1"

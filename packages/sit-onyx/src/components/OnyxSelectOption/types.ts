@@ -1,6 +1,6 @@
 import type { OnyxListItemProps } from "../OnyxListItem/types";
 
-export type OnyxSelectOptionProps = Omit<OnyxListItemProps, "color"> & {
+export type OnyxSelectOptionProps = Pick<OnyxListItemProps, "active" | "density"> & {
   /**
    * Adds a checkbox to the option
    */

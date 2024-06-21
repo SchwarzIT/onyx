@@ -2,10 +2,10 @@
 import type { OnyxListItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
-  // undefined defaults are needed so Vue does not use "false" as default
-  "aria-selected": undefined,
-  "aria-checked": undefined,
-  "aria-disabled": undefined,
+  active: false,
+  disabled: false,
+  selected: false,
+  checked: false,
 });
 
 defineSlots<{
@@ -22,8 +22,10 @@ defineSlots<{
       'onyx-list-item': true,
       'onyx-list-item--active': props.active,
       [`onyx-list-item--${props.color}`]: props.color,
+      'onyx-list-item--disabled': props.disabled,
+      'onyx-list-item--selected': props.selected,
+      'onyx-list-item--checked': props.checked,
     }"
-    v-bind="props"
   >
     <slot></slot>
   </li>
@@ -66,7 +68,7 @@ defineSlots<{
     align-items: center;
     gap: var(--onyx-spacing-sm);
 
-    &:not([aria-disabled="true"]) {
+    &:not(&--disabled) {
       cursor: pointer;
 
       &:hover,
@@ -75,7 +77,7 @@ defineSlots<{
       }
 
       // single select
-      &[aria-selected="true"] {
+      &.onyx-list-item--selected {
         background-color: var(--onyx-list-item-background-selected);
 
         &:hover,
@@ -85,7 +87,7 @@ defineSlots<{
       }
 
       // multiselect
-      &[aria-checked="true"] {
+      &.onyx-list-item--checked {
         &:hover,
         &.onyx-list-item--active {
           background-color: var(--onyx-list-item-background-selected);
@@ -94,7 +96,7 @@ defineSlots<{
       }
     }
 
-    &[aria-disabled="true"] {
+    &--disabled {
       color: var(--onyx-color-text-icons-neutral-soft);
     }
 
