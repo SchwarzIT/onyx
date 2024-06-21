@@ -1,4 +1,5 @@
 import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
+import { useAnimationFrame } from "./useAnimationFrame";
 
 export type UseTimerOptions = {
   /**
@@ -44,12 +45,9 @@ export const useTimer = (options: UseTimerOptions) => {
           if (isEnded.value) clearInterval(intervalId.value);
         }, 1000);
       } else {
-        const callback: FrameRequestCallback = () => {
-          if (!isEnded.value) requestAnimationFrame(callback);
+        useAnimationFrame(() => {
           timeLeft.value = calculateTimeLeft(endTimestamp);
-        };
-
-        requestAnimationFrame(callback);
+        });
       }
     },
     { immediate: true },
