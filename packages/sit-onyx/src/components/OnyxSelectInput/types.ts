@@ -8,30 +8,22 @@ import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 
-// TODO: clean up. we don't need the extra multiple logic. it will always be an array.
-
 /**
  * Whether multiple values can be selected.
  */
-export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue> =
-  | {
-      /**
-       * Current value of the select.
-       */
-      modelValue?: SelectInputModelValue<TValue>;
-      textMode?: undefined;
-    }
-  | {
-      modelValue?: SelectInputModelValue<TValue>[];
-      /**
-       * How the multiselect value will be displayed in the input.
-       * - summary (default): will show "x Selected" if more than 1 is selected.
-       * - preview: will show the names of the selection as a truncated list.
-       *            A number-badge appears next to it including a tooltip with all selected names.
-       * Has no effect on single select mode.
-       */
-      textMode?: MultiselectTextMode;
-    };
+export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue> = {
+  /**
+   * Current value of the select.
+   */
+  modelValue?: SelectInputModelValue<TValue>[];
+  /**
+   * How a multiselect value will be displayed in the input.
+   * - summary (default): will show "x Selected" if more than 1 is selected.
+   * - preview: will show the names of the selection as a truncated list.
+   *            A number-badge appears next to it including a tooltip with all selected names.
+   */
+  textMode?: MultiselectTextMode;
+};
 
 export type SelectInputModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,

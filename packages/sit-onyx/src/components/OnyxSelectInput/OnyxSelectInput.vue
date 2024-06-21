@@ -43,8 +43,7 @@ const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
  * Number of selected options.
  */
 const selectionCount = computed(() => {
-  if (Array.isArray(props.modelValue)) return props.modelValue.length;
-  return props.modelValue ? 1 : 0;
+  return props.modelValue ? props.modelValue.length : 0;
 });
 
 /**
@@ -53,21 +52,17 @@ const selectionCount = computed(() => {
  * On multi select, it is a summary or a preview of the options.
  */
 const selectionText = computed<string>(() => {
-  if (Array.isArray(props.modelValue)) {
-    const numberOfSelections = props.modelValue.length;
-    if (!numberOfSelections) return "";
-    if (numberOfSelections === 1) return props.modelValue[0].label;
+  const numberOfSelections = props.modelValue?.length;
+  if (!props.modelValue || !numberOfSelections) return "";
+  if (numberOfSelections === 1) return props.modelValue[0].label;
 
-    switch (props.textMode) {
-      case "preview":
-        return props.modelValue.map(({ label }) => label).join(", ");
-      case "summary":
-      default:
-        return t.value("selections.currentSelection", { n: numberOfSelections });
-    }
+  switch (props.textMode) {
+    case "preview":
+      return props.modelValue.map(({ label }) => label).join(", ");
+    case "summary":
+    default:
+      return t.value("selections.currentSelection", { n: numberOfSelections });
   }
-
-  return props.modelValue?.label ?? "";
 });
 
 /** used to detect user interaction to simulate the behavior of :user-invalid for the native input */
