@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { OnyxListItemProps } from "./types";
 
-const props = defineProps<OnyxListItemProps>();
+const props = withDefaults(defineProps<OnyxListItemProps>(), {
+  // undefined defaults are needed so Vue does not use "false" as default
+  "aria-selected": undefined,
+  "aria-checked": undefined,
+  "aria-disabled": undefined,
+});
 
 defineSlots<{
   /**
