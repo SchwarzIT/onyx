@@ -30,7 +30,7 @@ export const createMenuButton = createBuilder(() => {
     return document.getElementById(id);
   };
 
-  const focusNextItem = () => {
+  const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
     const currentMenuItem = document.activeElement as HTMLElement;
     const currentMenu = currentMenuItem?.closest('[role="menu"]') || getMenu(currentMenuItem);
     if (!currentMenu) return;
@@ -39,7 +39,21 @@ export const createMenuButton = createBuilder(() => {
     let nextIndex = 0;
 
     if (currentMenuItem) {
-      nextIndex = menuItems.indexOf(currentMenuItem) + 1;
+      const currentIndex = menuItems.indexOf(currentMenuItem);
+      switch (next) {
+        case "next":
+          nextIndex = currentIndex + 1;
+          break;
+        case "prev":
+          nextIndex = currentIndex - 1;
+          break;
+        case "first":
+          nextIndex = 0;
+          break;
+        case "last":
+          nextIndex = menuItems.length - 1;
+          break;
+      }
     }
 
     const nextMenuItem = menuItems[nextIndex];
@@ -51,7 +65,24 @@ export const createMenuButton = createBuilder(() => {
       case "ArrowDown":
       case "ArrowRight":
         event.preventDefault();
-        focusNextItem();
+        focusRelativeItem("next");
+        break;
+      case "ArrowUp":
+      case "ArrowLeft":
+        event.preventDefault();
+        focusRelativeItem("prev");
+        break;
+      case "Home":
+        event.preventDefault();
+        focusRelativeItem("first");
+        break;
+      case "End":
+        event.preventDefault();
+        focusRelativeItem("last");
+        break;
+      case " ":
+        event.preventDefault();
+        (event.target as HTMLElement).click();
         break;
     }
   };
@@ -70,9 +101,6 @@ export const createMenuButton = createBuilder(() => {
             onKeydown: handleKeydown,
           }) as const,
       ),
-      listItem: {
-        role: "none",
-      },
       flyout: {
         ...hoverEvents.value,
       },
@@ -80,6 +108,10 @@ export const createMenuButton = createBuilder(() => {
         id: menuId,
         role: "menu",
         "aria-labelledby": buttonId,
+        onKeydown: handleKeydown,
+      },
+      listItem: {
+        role: "none",
       },
       menuItem: (data: { active?: boolean }) => ({
         "aria-current": data.active ? "page" : undefined,
