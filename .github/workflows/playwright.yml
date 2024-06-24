@@ -61,7 +61,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: blob-report-${{ matrix.shardIndex }}
+          name: blob-report-${{ matrix.shard }}
           path: |
             ./packages/*/blob-report
             ./apps/*/blob-report
