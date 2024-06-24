@@ -1,29 +1,18 @@
 <script lang="ts" setup>
-import { ref } from "vue";
 import OnyxToast from "../OnyxToast/OnyxToast.vue";
-import { type ShowToastOptions } from "./useToast";
+import { useToast } from "./useToast";
 
-const toasts = ref<(ShowToastOptions & { createdAt: string })[]>([]);
-
-const show = (toast: ShowToastOptions) => {
-  toasts.value.unshift({ ...toast, createdAt: new Date().toISOString() });
-};
-
-const remove = (createdAt: string) => {
-  toasts.value = toasts.value.filter((toast) => toast.createdAt !== createdAt);
-};
-
-defineExpose({ show });
+const toastProvider = useToast();
 </script>
 
 <template>
-  <dialog v-if="toasts.length" class="onyx-toast-provider" open role="presentation">
-    <OnyxToast
-      v-for="toast in toasts"
-      :key="toast.createdAt"
-      v-bind="toast"
-      @close="remove(toast.createdAt)"
-    />
+  <dialog
+    v-if="toastProvider.toasts.value.length"
+    class="onyx-toast-provider"
+    open
+    role="presentation"
+  >
+    <OnyxToast v-for="toast in toastProvider.toasts.value" :key="toast.createdAt" v-bind="toast" />
   </dialog>
 </template>
 

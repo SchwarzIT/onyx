@@ -7,6 +7,7 @@ import {
   OnyxColorSchemeDialog,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxToastProvider,
   OnyxUserMenu,
   type OnyxNavItemProps,
   type SelectOption,
@@ -95,5 +96,7 @@ const handleOptionClick = (value: (typeof userMenuOptions)[number]["value"]) => 
       :open="isColorSchemeDialogOpen"
       @close="isColorSchemeDialogOpen = false"
     />
+
+    <OnyxToastProvider />
   </OnyxAppLayout>
 </template>
