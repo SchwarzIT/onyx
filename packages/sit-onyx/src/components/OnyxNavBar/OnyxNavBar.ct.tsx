@@ -4,11 +4,15 @@ import {
   MOCK_PLAYWRIGHT_LOGO_URL,
   defineLogoMockRoutes,
   executeMatrixScreenshotTest,
+  mockPlaywrightIcon,
 } from "../../playwright/screenshots";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
+import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 
 test.beforeEach(async ({ page }) => {
@@ -85,8 +89,29 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
       <template v-slot:mobileActivePage>Nested item 2</template>
 
+      <template v-slot:globalContextArea>
+        <OnyxIconButton label="Search" icon={mockPlaywrightIcon} color="neutral" />
+      </template>
+
       <template v-slot:contextArea>
-        <OnyxUserMenu username="John Doe" options={[]} />
+        <OnyxIconButton label="Notification center" icon={mockPlaywrightIcon} color="neutral" />
+        <OnyxTag icon={mockPlaywrightIcon} color="warning" label="QA stage" />
+
+        <OnyxNavSeparator />
+
+        <OnyxUserMenu
+          username="John Doe"
+          description="Company name"
+          options={[
+            { value: "/settings", label: "Settings", icon: mockPlaywrightIcon },
+            { value: "logout", label: "Logout", icon: mockPlaywrightIcon, color: "danger" },
+          ]}
+        >
+          <template v-slot:footer>
+            App version
+            <span class="onyx-text--monospace">1.0.0</span>
+          </template>
+        </OnyxUserMenu>
       </template>
     </OnyxNavBar>,
   );
@@ -130,6 +155,12 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await expect(component.getByLabel("Item 1")).toBeVisible();
   await expect(component.getByLabel("Item 2")).toBeVisible();
   await expect(component.getByLabel("Item 3")).toBeVisible();
+
+  // ACT
+  await component.getByLabel("Toggle context menu").click();
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("context.png");
 });
 
 test("should behave correctly", async ({ mount }) => {
