@@ -3,14 +3,7 @@ import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
 
-export type CreateMenuButtonOptions = {
-  /**
-   * Called when a menu item is selected (via mouse or keyboard).
-   */
-  onSelect: (value: string) => void;
-};
-
-export const createMenuButton = createBuilder((options: CreateMenuButtonOptions) => {
+export const createMenuButton = createBuilder(() => {
   const menuId = createId("menu");
   const buttonId = createId("menu-button");
   const isExpanded = ref<boolean>(false);
@@ -32,6 +25,37 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     };
   });
 
+  const getMenu = (el: HTMLElement) => {
+    const id = el.getAttribute("aria-controls") || "";
+    return document.getElementById(id);
+  };
+
+  const focusNextItem = () => {
+    const currentMenuItem = document.activeElement as HTMLElement;
+    const currentMenu = currentMenuItem?.closest('[role="menu"]') || getMenu(currentMenuItem);
+    if (!currentMenu) return;
+
+    const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+    let nextIndex = 0;
+
+    if (currentMenuItem) {
+      nextIndex = menuItems.indexOf(currentMenuItem) + 1;
+    }
+
+    const nextMenuItem = menuItems[nextIndex];
+    nextMenuItem?.focus();
+  };
+
+  const handleKeydown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowDown":
+      case "ArrowRight":
+        event.preventDefault();
+        focusNextItem();
+        break;
+    }
+  };
+
   return {
     state: { isExpanded },
     elements: {
@@ -43,6 +67,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             "aria-haspopup": true,
             id: buttonId,
             ...hoverEvents.value,
+            onKeydown: handleKeydown,
           }) as const,
       ),
       listItem: {
@@ -56,13 +81,9 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         role: "menu",
         "aria-labelledby": buttonId,
       },
-      menuItem: (data: { active?: boolean; value: string }) => ({
+      menuItem: (data: { active?: boolean }) => ({
         "aria-current": data.active ? "page" : undefined,
         role: "menuitem",
-        tabindex: -1,
-        onClick: () => {
-          options.onSelect(data.value);
-        },
       }),
     },
   };

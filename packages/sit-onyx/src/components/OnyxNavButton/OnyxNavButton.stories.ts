@@ -26,11 +26,11 @@ const meta: Meta<typeof OnyxNavButton> = {
 };
 
 const nestedChildren = [
-  { label: "Nested Item 1", href: "#", active: true },
-  { label: "Nested Item 2", href: "https://onyx.schwarz" },
-  { label: "Nested Item 3", href: "#3" },
-  { label: "Nested Item 4", href: "#4" },
-  { label: "Nested Item 5", href: "#5" },
+  { label: "Nested Item 1", active: true },
+  { label: "Nested Item 2" },
+  { label: "Nested Item 3" },
+  { label: "Nested Item 4" },
+  { label: "Nested Item 5" },
 ];
 
 export default meta;
@@ -62,10 +62,7 @@ export const WithChildren: Story = {
   args: {
     ...Default.args,
     active: true,
-    children: () =>
-      nestedChildren.map(({ label, active }) =>
-        h(OnyxNavItem, { "aria-selected": active }, [label]),
-      ),
+    children: () => nestedChildren.map(({ label, active }) => h(OnyxNavItem, { active }, [label])),
   },
   decorators: [
     (story) => ({

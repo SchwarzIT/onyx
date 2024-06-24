@@ -1,7 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
+import OnyxNavItem from "../../OnyxNavItem/future/OnyxNavItem.vue";
 import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 
@@ -50,6 +50,6 @@ const listAnimals = [
 export const Default = {
   args: {
     default: () => h(OnyxButton, { label: "Hover me" }),
-    options: () => listAnimals.map(({ label }) => h(OnyxListItem, label)),
+    options: () => listAnimals.map(({ label }) => h(OnyxNavItem, label)),
   },
 } satisfies Story;
