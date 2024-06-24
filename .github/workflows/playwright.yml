@@ -63,7 +63,9 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: blob-report-${{ matrix.shard }}
-          path: ./**/blob-report
+          path: |
+            ./packages/**/blob-report
+            ./apps/**/blob-report
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
@@ -105,7 +107,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: html-report--attempt-${{ github.run_attempt }}
-          path: ./**/playwright-report
+          path: |
+            ./packages/**/playwright-report
+            ./apps/**/playwright-report
           retention-days: 14
 
       - run: |
