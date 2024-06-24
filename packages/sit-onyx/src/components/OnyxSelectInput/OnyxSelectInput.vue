@@ -159,7 +159,7 @@ watch(
           :disabled="props.readonly || props.disabled || props.loading"
           @click="emit('click')"
         >
-          <OnyxIcon :icon="chevronDownUp" />
+          <OnyxIcon size="24px" :icon="chevronDownUp" />
         </button>
       </div>
     </OnyxFormElement>

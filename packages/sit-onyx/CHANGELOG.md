@@ -1,5 +1,49 @@
 # sit-onyx
 
+## 1.0.0-alpha.147
+
+### Major Changes
+
+- 743ee88: - feat(OnyxIcon): use font-size as default icon size
+  - fix(OnyxButton): keep label width when loading
+  - fix(OnyxInput, OnyxTextarea): fix label tooltip not correctly vertically aligned
+- b7e9aaf: refactor: align list items
+
+  - OnyxSelect: remove property `color`
+  - OnyxUserMenu: remove property `options` and even `optionsClick` in favor of a `default` slot where `<OnyxListItem>` should be placed
+
+## 1.0.0-alpha.146
+
+### Major Changes
+
+- d4fbcf4: refactor: align all namings with Figma
+
+  The breaking changes changes are:
+
+  - rename `OnyxRadioButtonGroup` to `OnyxRadioGroup`
+  - OnyxRadioButton: rename property `selected` to `checked`
+  - OnyxAvatar: remove `type` male/female
+  - OnyxHeadline: remove property `monospace`
+  - OnyxNavBar: remove unused `label` property
+
+## 1.0.0-alpha.145
+
+### Minor Changes
+
+- 02f1a8a: feat(OnyxNavBar): support mobile nav items
+
+## 1.0.0-alpha.144
+
+### Minor Changes
+
+- 85128a2: feat(OnyxMiniSearch): add magnifier icon when empty
+
+## 1.0.0-alpha.143
+
+### Patch Changes
+
+- 02f5691: fix(OnyxNavAppArea): max-height not honored
+
 ## 1.0.0-alpha.142
 
 ### Patch Changes

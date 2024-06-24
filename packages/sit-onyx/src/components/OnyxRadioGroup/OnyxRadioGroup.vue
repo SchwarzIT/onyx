@@ -5,9 +5,9 @@ import { useRequired } from "../../composables/required";
 import type { SelectOptionValue } from "../../types";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
-import type { OnyxRadioButtonGroupProps } from "./types";
+import type { OnyxRadioGroupProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxRadioButtonGroupProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
   name: () => createId("radio-button-group-name"), // the name must be globally unique
   direction: "vertical",
   headline: "",
@@ -36,6 +36,7 @@ const handleChange = (selected: boolean, value: TValue) => {
   <fieldset
     :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
     :disabled="props.disabled"
+    role="radiogroup"
   >
     <legend v-if="props.headline" class="onyx-radio-button-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
@@ -54,7 +55,7 @@ const handleChange = (selected: boolean, value: TValue) => {
           v-bind="option"
           :name="props.name"
           :custom-error="props.customError"
-          :selected="option.value === props.modelValue"
+          :checked="option.value === props.modelValue"
           :required="props.required"
           @validity-change="index === 0 && emit('validityChange', $event)"
           @change="handleChange($event, option.value)"

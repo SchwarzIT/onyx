@@ -4,12 +4,12 @@ import {
   OnyxCheckboxGroup,
   OnyxHeadline,
   OnyxInput,
-  OnyxRadioButtonGroup,
+  OnyxRadioGroup,
   OnyxSelect,
   OnyxSwitch,
   OnyxTextarea,
   type CheckboxGroupOption,
-  type OnyxRadioButtonGroupProps,
+  type OnyxRadioGroupProps,
   type RadioButtonOption,
   type SelectOption,
 } from "sit-onyx";
@@ -26,7 +26,7 @@ export type FormData = Partial<{
   switch: boolean;
   checkboxGroup: number[];
   requiredSelect: SelectOption[];
-  radioGroup: OnyxRadioButtonGroupProps["modelValue"];
+  radioGroup: OnyxRadioGroupProps["modelValue"];
 }>;
 
 const formState = defineModel<FormData>();
@@ -146,7 +146,7 @@ const radioOptions: RadioButtonOption[] = [
       :options="checkboxOptions"
     />
 
-    <OnyxRadioButtonGroup
+    <OnyxRadioGroup
       v-model="formState.radioGroup"
       class="onyx-grid-span-4"
       :options="radioOptions"

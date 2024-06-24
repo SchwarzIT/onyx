@@ -43,7 +43,7 @@ const linkTokens: TypographyToken[] = [
 
 The onyx design system offers four types of headlines. H1 is reserved for the main title of the page because it establishes primary focus and captures the user’s attention. The h2 style is used for describing sections in the interface. Its main goal is to cluster different types of content into groups and labelling them. Single elements, on the other hand, are described by the h3 style. The least impact, and therefore the lowest hierarchy, has the h4. It is used for structuring information inside a single component. Table column headlines is a good example at this point.
 
-For the technical implementation of the headlines, please see the [technical documentation](https://storybook.onyx.schwarz/?path=/docs/components-headline--docs).
+For the technical implementation of the headlines, please see the [technical documentation](https://storybook.onyx.schwarz/?path=/docs/basic-headline--docs).
 
 ::: warning
 Note that h5 and h6 headlines are not part of the onyx font system and should not be used therefore.
@@ -64,7 +64,7 @@ For the technical implementation of the paragraphs, please see the [technical do
 
 Links are the tool of choice to refer to another page. By default, links have an underline and are primary-colored. Under consideration of the text styling principles, the text color can be changed in exceptional usecases. Please double check with your assigned UX-Designer.
 
-For the technical implementation of the links, please see the [technical documentation](https://storybook.onyx.schwarz/?path=/docs/components-link--docs).
+For the technical implementation of the links, please see the [technical documentation](https://storybook.onyx.schwarz/?path=/docs/navigation-link--docs).
 
 <OnyxTypography :tokens="linkTokens" wide-name />
 

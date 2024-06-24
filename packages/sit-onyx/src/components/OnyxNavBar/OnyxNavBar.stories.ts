@@ -15,7 +15,7 @@ import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 
 const meta: Meta<typeof OnyxNavBar> = {
-  title: "components/NavBar",
+  title: "Navigation/NavBar",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavBar,
     events: ["appAreaClick", "backButtonClick"],
@@ -40,7 +40,7 @@ const meta: Meta<typeof OnyxNavBar> = {
     decorators: [
       (story) => ({
         components: { story },
-        template: `<div style="margin-bottom: 10rem;"> <story /> </div>`,
+        template: `<div style="margin-bottom: 20rem;"> <story /> </div>`,
       }),
     ] as Decorator[],
   }),
@@ -54,11 +54,11 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item", href: "/" }),
+      h(OnyxNavItem, { label: "Item 1", href: "/" }),
       h(
         OnyxNavItem,
         {
-          label: "Item",
+          label: "Item 2",
           href: "/test",
           options: [
             { label: "Nested item 1", href: "#" },
@@ -66,9 +66,9 @@ export const Default = {
             { label: "Nested item 3", href: "#" },
           ],
         },
-        () => ["Item", h(OnyxBadge, { dot: true, color: "warning" })],
+        () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
       ),
-      h(OnyxNavItem, { label: "Item", href: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "Item 3", href: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2",
   },
@@ -94,6 +94,7 @@ export const WithContextArea = {
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
       }),
     ],

@@ -1,24 +1,16 @@
 <script setup lang="ts">
+import search from "@sit-onyx/icons/search.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, ref } from "vue";
+import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-
-export type MiniSearchProps = {
-  /**
-   * (Aria) label of the input.
-   */
-  label: string;
-  /**
-   * Current input/search value.
-   */
-  modelValue?: string;
-};
+import type { OnyxMiniSearchProps } from "./types";
 
 defineOptions({ inheritAttrs: false });
 
-const props = defineProps<MiniSearchProps>();
+const props = defineProps<OnyxMiniSearchProps>();
 
 const emit = defineEmits<{
   /**
@@ -32,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const { rootAttrs, restAttrs } = useRootAttrs();
+const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 const input = ref<HTMLInputElement>();
 
@@ -52,7 +45,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="onyx-mini-search" v-bind="rootAttrs">
+  <div :class="['onyx-mini-search', densityClass]" v-bind="rootAttrs">
     <input
       ref="input"
       v-model="value"
@@ -72,6 +65,8 @@ defineExpose({
     >
       <OnyxIcon :icon="xSmall" />
     </button>
+
+    <OnyxIcon class="onyx-mini-search__icon" :icon="search" />
   </div>
 </template>
 
@@ -81,19 +76,20 @@ defineExpose({
 
 .onyx-mini-search {
   @include density.compact {
-    --clear-button-size: 1rem;
+    --onyx-mini-search-icon-size: 1rem;
   }
   @include density.default {
-    --clear-button-size: 1.5rem;
+    --onyx-mini-search-icon-size: 1.5rem;
   }
   @include density.cozy {
-    --clear-button-size: 1.5rem;
+    --onyx-mini-search-icon-size: 1.5rem;
   }
 
   @include layers.component() {
     display: flex;
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
     background-color: var(--onyx-color-base-background-blank);
+    color: var(--onyx-color-text-icons-neutral-intense);
 
     &__input,
     &__clear {
@@ -108,7 +104,7 @@ defineExpose({
       line-height: var(--onyx-spacing-lg);
       flex-grow: 1;
       min-width: 0;
-      color: inherit;
+      color: var(--onyx-color-text-icons-neutral-intense);
 
       &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);
@@ -117,19 +113,33 @@ defineExpose({
 
     &__clear {
       color: var(--onyx-color-text-icons-neutral-medium);
-      display: grid;
-      place-items: center;
       cursor: pointer;
-      visibility: hidden;
+      display: none;
 
       .onyx-icon {
-        --icon-size: var(--clear-button-size);
+        --icon-size: var(--onyx-mini-search-icon-size);
       }
     }
 
+    &__icon {
+      display: grid;
+      align-self: center;
+      color: var(--onyx-color-text-icons-neutral-soft);
+      --icon-size: var(--onyx-mini-search-icon-size);
+    }
+
     // Show clear button only when input is not empty
-    &__input:not(:placeholder-shown) + &__clear {
-      visibility: visible;
+    &:has(&__input:not(:placeholder-shown)) {
+      .onyx-mini-search {
+        &__clear {
+          display: grid;
+          place-items: center;
+        }
+
+        &__icon {
+          display: none;
+        }
+      }
     }
   }
 }

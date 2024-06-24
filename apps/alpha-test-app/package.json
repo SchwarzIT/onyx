@@ -1,7 +1,7 @@
 {
   "name": "alpha-test-app",
   "private": true,
-  "version": "0.1.0-alpha.139",
+  "version": "0.1.0-alpha.144",
   "type": "module",
   "scripts": {
     "start": "pnpm run dev",
@@ -14,8 +14,8 @@
     "@vueuse/core": "^10.11.0",
     "pinia": "^2.1.7",
     "sit-onyx": "workspace:^",
-    "vue": "^3.4.29",
+    "vue": "^3.4.30",
     "vue-i18n": "^9.13.1",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.4.0"
   }
 }

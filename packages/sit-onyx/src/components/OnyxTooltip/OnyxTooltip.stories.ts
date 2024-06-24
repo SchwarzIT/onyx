@@ -11,7 +11,7 @@ import OnyxTooltip from "./OnyxTooltip.vue";
  * Tooltips offer contextual information or additional details to a parent element.
  */
 const meta: Meta<typeof OnyxTooltip> = {
-  title: "components/Tooltip",
+  title: "Feedback/Tooltip",
   ...defineStorybookActionsAndVModels({
     component: OnyxTooltip,
     events: [],

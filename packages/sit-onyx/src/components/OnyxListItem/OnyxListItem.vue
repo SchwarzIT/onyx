@@ -1,19 +1,40 @@
 <script setup lang="ts">
-import type { SelectOption } from "../OnyxSelect/types";
+import { useDensity } from "../../composables/density";
+import type { OnyxListItemProps } from "./types";
 
-const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
+const props = withDefaults(defineProps<OnyxListItemProps>(), {
+  active: false,
+  disabled: false,
+  selected: false,
+  checked: false,
+});
+
+defineSlots<{
+  /**
+   * Option content.
+   */
+  default(): unknown;
+}>();
+
+const { densityClass } = useDensity(props);
 </script>
+
 <template>
   <li
     :class="{
       'onyx-list-item': true,
+      ...densityClass,
       'onyx-list-item--active': props.active,
-      'onyx-list-item--danger': props.color === 'danger',
+      [`onyx-list-item--${props.color}`]: props.color,
+      'onyx-list-item--disabled': props.disabled,
+      'onyx-list-item--selected': props.selected,
+      'onyx-list-item--checked': props.checked,
     }"
   >
     <slot></slot>
   </li>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/density.scss";
@@ -51,7 +72,7 @@ const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
     align-items: center;
     gap: var(--onyx-spacing-sm);
 
-    &:not([aria-disabled="true"]) {
+    &:not(&--disabled) {
       cursor: pointer;
 
       &:hover,
@@ -60,7 +81,7 @@ const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
       }
 
       // single select
-      &[aria-selected="true"] {
+      &.onyx-list-item--selected {
         background-color: var(--onyx-list-item-background-selected);
 
         &:hover,
@@ -70,7 +91,7 @@ const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
       }
 
       // multiselect
-      &[aria-checked="true"] {
+      &.onyx-list-item--checked {
         &:hover,
         &.onyx-list-item--active {
           background-color: var(--onyx-list-item-background-selected);
@@ -79,7 +100,7 @@ const props = defineProps<Pick<SelectOption, "color"> & { active?: boolean }>();
       }
     }
 
-    &[aria-disabled="true"] {
+    &--disabled {
       color: var(--onyx-color-text-icons-neutral-soft);
     }
 

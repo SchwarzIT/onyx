@@ -54,6 +54,7 @@ export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicat
 export * from "./components/OnyxLoadingIndicator/types";
 
 export { default as OnyxMiniSearch } from "./components/OnyxMiniSearch/OnyxMiniSearch.vue";
+export * from "./components/OnyxMiniSearch/types";
 
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types";
@@ -71,6 +72,7 @@ export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue
 export * from "./components/OnyxNavItem/types";
 
 export { default as OnyxNavSeparator } from "./components/OnyxNavSeparator/OnyxNavSeparator.vue";
+export * from "./components/OnyxNavSeparator/types";
 
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
@@ -78,8 +80,8 @@ export * from "./components/OnyxPageLayout/types";
 export { default as OnyxRadioButton } from "./components/OnyxRadioButton/OnyxRadioButton.vue";
 export * from "./components/OnyxRadioButton/types";
 
-export { default as OnyxRadioButtonGroup } from "./components/OnyxRadioButtonGroup/OnyxRadioButtonGroup.vue";
-export * from "./components/OnyxRadioButtonGroup/types";
+export { default as OnyxRadioGroup } from "./components/OnyxRadioGroup/OnyxRadioGroup.vue";
+export * from "./components/OnyxRadioGroup/types";
 
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types";

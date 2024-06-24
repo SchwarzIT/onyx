@@ -24,7 +24,7 @@ import type { SelectOption } from "./types";
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxSelect> = {
-  title: "components/Select",
+  title: "Form/Select",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelect,
     // TODO: find out why validityChange does not fire.

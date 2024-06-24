@@ -12,6 +12,7 @@ describe("preview.ts", () => {
       .mockReturnValue(`<template>
 <OnyxTest icon='${placeholder}' test='${bellRing}' :obj="{foo:'${replaceAll(calendar, '"', "\\'")}'}" />
 <OnyxOtherComponent />
+<OnyxComp>Test</OnyxComp>
 </template>`);
 
     // ACT
@@ -20,7 +21,7 @@ describe("preview.ts", () => {
     // ASSERT
     expect(generatorSpy).toHaveBeenCalledOnce();
     expect(sourceCode).toBe(`<script lang="ts" setup>
-import { OnyxOtherComponent, OnyxTest } from "sit-onyx";
+import { OnyxComp, OnyxOtherComponent, OnyxTest } from "sit-onyx";
 import bellRing from "@sit-onyx/icons/bell-ring.svg?raw";
 import calendar from "@sit-onyx/icons/calendar.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
@@ -29,6 +30,7 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 <template>
 <OnyxTest :icon="placeholder" :test="bellRing" :obj="{foo:calendar}" />
 <OnyxOtherComponent />
+<OnyxComp>Test</OnyxComp>
 </template>`);
   });
 });

@@ -16,9 +16,9 @@ export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOption
      */
     name: string;
     /**
-     * Whether the radio button is selected.
+     * Whether the radio button is checked.
      */
-    selected?: boolean;
+    checked?: boolean;
     /**
      * If any radio button of a group is required, a radio button of the group must be checked.
      * But it doesn't have to be this particular option.

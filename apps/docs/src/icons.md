@@ -26,7 +26,7 @@ yarn install -D @sit-onyx/icons@alpha
 
 :::
 
-Afterwards, you can import and use icons as needed. Please see the [OnyxIcon](https://storybook.onyx.schwarz/?path=/docs/components-icon--docs) for the technical documentation.
+Afterwards, you can import and use icons as needed. Please see the [OnyxIcon](https://storybook.onyx.schwarz/?path=/docs/basic-icon--docs) for the technical documentation.
 
 ## Available icons
 

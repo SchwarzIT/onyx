@@ -10,7 +10,7 @@ import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";
  * The color will be inherited by the current text color.
  */
 const meta: Meta<typeof OnyxLoadingIndicator> = {
-  title: "components/LoadingIndicator",
+  title: "Support/LoadingIndicator",
   ...defineStorybookActionsAndVModels({
     component: OnyxLoadingIndicator,
     events: [],

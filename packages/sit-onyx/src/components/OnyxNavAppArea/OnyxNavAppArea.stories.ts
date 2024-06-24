@@ -6,7 +6,7 @@ import OnyxNavAppArea from "./OnyxNavAppArea.vue";
  * App area of the `OnyxNavBar`. Is not intended to be used outside of the nav bar.
  */
 const meta: Meta<typeof OnyxNavAppArea> = {
-  title: "support/NavAppArea",
+  title: "Support/NavAppArea",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavAppArea,
     events: ["click"],

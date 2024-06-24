@@ -12,7 +12,7 @@ const { t } = injectI18n();
 <template>
   <OnyxTooltip class="onyx-info-tooltip" :text="props.text" :position="props.position">
     <button :aria-label="props.label || t('showTooltip.info')" class="onyx-info-tooltip__trigger">
-      <OnyxIcon :icon="circleInformation" size="12px" />
+      <OnyxIcon :icon="circleInformation" />
     </button>
   </OnyxTooltip>
 </template>
@@ -27,7 +27,9 @@ const { t } = injectI18n();
       background-color: transparent;
       padding: 0;
       color: inherit;
-      height: 0.75rem;
+      display: flex;
+      height: 1lh;
+      align-items: center;
 
       &:focus-visible {
         // unset the icon button outline for now until

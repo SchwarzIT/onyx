@@ -1,7 +1,8 @@
+import type { ComputedRef, InjectionKey } from "vue";
 import type { OnyxBreakpoint } from "../../types";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
-export type OnyxNavBarProps = OnyxNavAppAreaProps & {
+export type OnyxNavBarProps = Omit<OnyxNavAppAreaProps, "label"> & {
   /**
    * Whether to show a back button.
    */
@@ -13,10 +14,18 @@ export type OnyxNavBarProps = OnyxNavAppAreaProps & {
   appAreaLabel?: string;
   /**
    * Breakpoint name when the nav bar should switch into mobile mode.
-   * Will switch if smaller or equal to the given breakpoint.
+   * Will switch if **smaller** than the given breakpoint.
    * Can be either a pre-defined onyx breakpoint or custom width in pixels.
    *
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
   mobileBreakpoint?: OnyxBreakpoint | number;
 };
+
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
+ * to communicate child components whether they should render in mobile or desktop mode.
+ *
+ * @returns `true` if mobile, `false` otherwise
+ */
+export const mobileNavBarInjectionKey = Symbol() as InjectionKey<ComputedRef<boolean>>;

@@ -25,7 +25,7 @@ To learn about the grid breakpoints, please refer to the [design system docs](/b
 Multiple span definitions can then be combined to resize an element based on the breakpoint.
 
 ::: tip Grid playground
-If you want to get familiar with how the grid works, you can use our [grid playground](https://storybook.onyx.schwarz/?path=/docs/utilities-gridplayground--docs).
+If you want to get familiar with how the grid works, you can use our [grid playground](https://storybook.onyx.schwarz/iframe.html?args=&id=examples-gridplayground--default).
 :::
 
 ## Examples

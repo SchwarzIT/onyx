@@ -18,6 +18,8 @@ export type IconSize = (typeof ICON_SIZES)[number];
 export type IconSizeProp<T extends IconSize = IconSize> = {
   /**
    * Size. Pixel values will be translated to the according `rem` value by the base of `16px`=`1rem`.
+   * Will use the font-size by default.
+   * @default 1em
    */
   size?: T;
 };

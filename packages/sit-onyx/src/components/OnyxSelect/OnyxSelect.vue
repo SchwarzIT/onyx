@@ -364,7 +364,6 @@ const selectInputProps = computed(() => {
                 :multiple="props.multiple"
                 :active="option.value === activeValue"
                 :icon="option.icon"
-                :color="option.color"
                 :density="props.density"
               >
                 <slot name="option" v-bind="option">
