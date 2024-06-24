@@ -80,11 +80,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
+      - name: Merge Screenshots
+        uses: actions/upload-artifact/merge@v4
+        if: ${{ !cancelled() }}
         with:
-          node-version: 18
+          name: screenshots
+          pattern: screenshots-*
+          delete-merged: true
+
+      - name: Merge Reports
+        uses: actions/upload-artifact/merge@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: blob-report
+          pattern: blob-report-*
+          retention-days: 1
+          delete-merged: true
+
+      - uses: pnpm/action-setup@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -98,8 +111,7 @@ jobs:
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: blob-report-*
-          merge-multiple: true
+          pattern: blob-report
 
       - name: Merge into HTML Report
         run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/playwright-report'
