@@ -37,7 +37,7 @@ test.describe("Screenshot tests", () => {
 
           {row.includes("context") && (
             <template v-slot:contextArea>
-              <OnyxUserMenu username="John Doe" options={[]} />
+              <OnyxUserMenu username="John Doe" />
             </template>
           )}
         </OnyxNavBar>
@@ -86,7 +86,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
       <template v-slot:mobileActivePage>Nested item 2</template>
 
       <template v-slot:contextArea>
-        <OnyxUserMenu username="John Doe" options={[]} />
+        <OnyxUserMenu username="John Doe" />
       </template>
     </OnyxNavBar>,
   );
@@ -184,7 +184,7 @@ test("should be aligned with the grid in a full app layout", async ({ page, moun
         <template v-slot:mobileActivePage>Item</template>
 
         <template v-slot:contextArea>
-          <OnyxUserMenu username="John Doe" options={[]} />
+          <OnyxUserMenu username="John Doe" />
         </template>
       </OnyxNavBar>
 

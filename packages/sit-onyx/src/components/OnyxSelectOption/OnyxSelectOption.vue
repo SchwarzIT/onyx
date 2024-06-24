@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxSelectOptionProps } from "./types";
@@ -7,10 +6,7 @@ import type { OnyxSelectOptionProps } from "./types";
 const props = withDefaults(defineProps<OnyxSelectOptionProps>(), {
   active: false,
   multiple: false,
-  color: "primary",
 });
-
-const { densityClass } = useDensity(props);
 
 defineSlots<{
   /**
@@ -22,9 +18,11 @@ defineSlots<{
 
 <template>
   <OnyxListItem
-    :class="['onyx-select-option', densityClass]"
-    :active="props.active"
-    :color="props.color"
+    class="onyx-select-option"
+    v-bind="props"
+    :checked="!!$attrs['aria-checked']"
+    :selected="!!$attrs['aria-selected']"
+    :disabled="!!$attrs['aria-disabled']"
   >
     <input
       v-if="props.multiple"

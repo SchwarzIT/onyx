@@ -1,24 +1,19 @@
-<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
+<script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import { injectI18n } from "../../i18n";
-import type { SelectOptionValue } from "../../types";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxUserMenuProps } from "./types";
 
-const props = defineProps<OnyxUserMenuProps<TValue>>();
-
-const emit = defineEmits<{
-  /**
-   * Emitted when an option is clicked.
-   */
-  optionClick: [value: TValue];
-}>();
+const props = defineProps<OnyxUserMenuProps>();
 
 const slots = defineSlots<{
+  /**
+   * Slot for the menu options. Its recommended to use the `OnyxListItem` component here.
+   */
+  default?(): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
@@ -60,17 +55,7 @@ const avatar = computed(() => {
         </div>
       </template>
 
-      <OnyxListItem
-        v-for="item in props.options"
-        :key="item.value.toString()"
-        :class="{
-          'onyx-user-menu-item--danger': item.color === 'danger',
-        }"
-        :color="item.color"
-        @click="emit('optionClick', item.value)"
-      >
-        <OnyxIcon v-if="item.icon" :icon="item.icon" size="24px" />{{ item.label }}
-      </OnyxListItem>
+      <slot></slot>
 
       <template v-if="!!slots.footer" #footer>
         <div class="onyx-user-menu__footer onyx-text--small">

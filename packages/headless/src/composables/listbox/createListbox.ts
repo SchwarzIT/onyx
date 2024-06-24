@@ -185,15 +185,24 @@ export const createListbox = createBuilder(
           });
         }),
         option: computed(() => {
-          return (data: { label: string; value: TValue; disabled?: boolean; selected?: boolean }) =>
-            ({
+          return (data: {
+            label: string;
+            value: TValue;
+            disabled?: boolean;
+            selected?: boolean;
+          }) => {
+            const selected = data.selected ?? false;
+
+            return {
               id: getOptionId(data.value),
               role: "option",
               "aria-label": data.label,
               "aria-disabled": data.disabled,
-              [isMultiselect.value ? "aria-checked" : "aria-selected"]: data.selected || false,
+              "aria-checked": isMultiselect.value ? selected : undefined,
+              "aria-selected": !isMultiselect.value ? selected : undefined,
               onClick: () => !data.disabled && options.onSelect?.(data.value),
-            }) as const;
+            } as const;
+          };
         }),
       },
       state: {
