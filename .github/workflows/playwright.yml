@@ -58,6 +58,13 @@ jobs:
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
 
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
   # because we don't want to add each parallel matrix job individually
   # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
@@ -67,6 +74,36 @@ jobs:
     name: Collect Playwright result
     needs: playwright
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14
+
       - run: |
           result="${{ needs.playwright.result }}"
           if [[ $result == "success" || $result == "skipped" ]]; then
