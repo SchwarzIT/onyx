@@ -62,7 +62,9 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: blob-report-${{ matrix.shardIndex }}
-          path: blob-report
+          path: |
+            ./packages/*/blob-report
+            ./apps/*/blob-report
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
