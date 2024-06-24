@@ -58,11 +58,12 @@ jobs:
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Reports
+        uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: blob-report-${{ matrix.shard }}
-          path: packages/sit-onyx/blob-report
+          path: ./**/blob-report
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
@@ -98,7 +99,7 @@ jobs:
           merge-multiple: true
 
       - name: Merge into HTML Report
-        run: find . -type d -name blob-report | xargs -n1 npx playwright merge-reports --reporter html
+        run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/playwright-report'
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
