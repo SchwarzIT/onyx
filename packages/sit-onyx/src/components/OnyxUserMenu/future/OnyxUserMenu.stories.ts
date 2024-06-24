@@ -40,8 +40,11 @@ export const Default = {
     username: "Jane Doe",
     description: "Company Name",
     default: () => [
-      h(OnyxListItem, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
-      h(OnyxListItem, { color: "danger" }, () => [h(OnyxIcon, { icon: logout }), "Logout"]),
+      h(OnyxListItem, () => [h(OnyxIcon, { icon: settings, size: "24px" }), "Settings"]),
+      h(OnyxListItem, { color: "danger" }, () => [
+        h(OnyxIcon, { icon: logout, size: "24px" }),
+        "Logout",
+      ]),
     ],
     footer: () => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")],
   },
