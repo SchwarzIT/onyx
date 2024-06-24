@@ -27,13 +27,13 @@ const toastProvider = useToast();
     z-index: var(--onyx-z-index-notification);
 
     position: fixed;
-    bottom: var(--onyx-spacing-md); // TODO: check with ux;
+    bottom: var(--onyx-spacing-2xs); // TODO: check with ux;
     left: 50%;
     transform: translateX(-50%);
 
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-spacing-md); // TODO: check with ux
+    gap: var(--onyx-spacing-2xs);
   }
 }
 </style>
