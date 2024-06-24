@@ -62,7 +62,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: blob-report-${{ matrix.shard }}
-          path: ./**/blob-report
+          path: packages/sit-onyx/blob-report
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
