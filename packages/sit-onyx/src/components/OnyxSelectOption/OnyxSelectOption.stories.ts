@@ -9,7 +9,7 @@ import OnyxSelectOption from "./OnyxSelectOption.vue";
  * The select option is only intended to be used within the `OnyxSelect` component.
  */
 const meta: Meta<typeof OnyxSelectOption> = {
-  title: "support/SelectOption",
+  title: "Support/SelectOption",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelectOption,
     events: [],
@@ -17,6 +17,12 @@ const meta: Meta<typeof OnyxSelectOption> = {
       default: { control: { type: "text" } },
       icon: defineIconSelectArgType(),
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="max-width: 16rem;"> <story /> </div>`,
+      }),
+    ],
   }),
 };
 
@@ -25,9 +31,7 @@ type Story = StoryObj<typeof OnyxSelectOption> & { args: AriaAttributes };
 
 export const Default = {
   args: {
-    "aria-label": "Example option",
     default: "Example option",
-    style: "max-width: 16rem",
   },
 } satisfies Story;
 
@@ -59,16 +63,16 @@ export const Multiple = {
   },
 } satisfies Story;
 
+export const Indeterminate = {
+  args: {
+    ...Multiple.args,
+    indeterminate: true,
+  },
+} satisfies Story;
+
 export const WithIcon = {
   args: {
     ...Default.args,
     icon: settings,
-  },
-} satisfies Story;
-
-export const Danger = {
-  args: {
-    ...Default.args,
-    color: "danger",
   },
 } satisfies Story;

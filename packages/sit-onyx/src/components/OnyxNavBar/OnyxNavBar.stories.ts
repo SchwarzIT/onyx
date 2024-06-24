@@ -15,7 +15,7 @@ import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 
 const meta: Meta<typeof OnyxNavBar> = {
-  title: "components/NavBar",
+  title: "Navigation/NavBar",
   ...defineStorybookActionsAndVModels({
     component: OnyxNavBar,
     events: ["appAreaClick", "backButtonClick"],
@@ -94,6 +94,7 @@ export const WithContextArea = {
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
       }),
     ],

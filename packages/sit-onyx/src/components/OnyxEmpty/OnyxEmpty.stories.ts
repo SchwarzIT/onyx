@@ -10,7 +10,7 @@ import OnyxEmpty from "./OnyxEmpty.vue";
  * The empty component is used to indicate to the user that there is currently no data available.
  */
 const meta: Meta<typeof OnyxEmpty> = {
-  title: "components/Empty",
+  title: "Data/Empty",
   ...defineStorybookActionsAndVModels({
     component: OnyxEmpty,
     events: [],

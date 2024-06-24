@@ -14,7 +14,7 @@ import {
   OnyxLink,
   OnyxLoadingIndicator,
   OnyxPageLayout,
-  OnyxRadioButtonGroup,
+  OnyxRadioGroup,
   OnyxSelect,
   OnyxSkeleton,
   OnyxSwitch,
@@ -45,7 +45,7 @@ const COMPONENTS = [
   "OnyxLink",
   "OnyxSelect",
   "OnyxLoadingIndicator",
-  "OnyxRadioButtonGroup",
+  "OnyxRadioGroup",
   "OnyxSkeleton",
   "OnyxSwitch",
   "OnyxTable",
@@ -133,7 +133,7 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
   <OnyxPageLayout>
     <template #sidebar>
       <div class="sidebar">
-        <OnyxRadioButtonGroup
+        <OnyxRadioGroup
           v-model="activeDensityOption"
           headline="Density"
           :options="densityOptions"
@@ -238,15 +238,15 @@ timerEndDate.setHours(timerEndDate.getHours() + 2);
 
         <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
-        <template v-if="show('OnyxRadioButtonGroup')">
-          <OnyxRadioButtonGroup
+        <template v-if="show('OnyxRadioGroup')">
+          <OnyxRadioGroup
             v-model="radioState"
-            headline="Radio Button Group"
+            headline="Radio group"
             :options="minimalSelectOptions"
             :skeleton="skeletonNumber"
           />
           <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            OnyxRadioButtonGroup state: {{ radioState ?? "–" }}
+            OnyxRadioGroup state: {{ radioState ?? "–" }}
           </div>
         </template>
 

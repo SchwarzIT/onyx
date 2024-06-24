@@ -6,7 +6,7 @@ import OnyxVisuallyHidden from "./OnyxVisuallyHidden.vue";
  * The visually hidden component makes additional information available for assistive technologies.
  */
 const meta: Meta<typeof OnyxVisuallyHidden> = {
-  title: "support/VisuallyHidden",
+  title: "Support/VisuallyHidden",
   ...defineStorybookActionsAndVModels({
     component: OnyxVisuallyHidden,
     events: [],

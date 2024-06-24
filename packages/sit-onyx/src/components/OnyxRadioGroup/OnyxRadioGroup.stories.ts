@@ -1,22 +1,22 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { BaseSelectOption } from "../../types";
-import OnyxRadioButtonGroup from "./OnyxRadioButtonGroup.vue";
+import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 
 /**
  * Radio buttons in UI design are interactive elements that allow users to make a single selection from a set of mutually exclusive options.
  * Users can choose only one option at the time, making radio buttons ideal for scenarios where a single, distinct choice is required.
  */
-const meta: Meta<typeof OnyxRadioButtonGroup> = {
-  title: "components/RadioButtonGroup",
+const meta: Meta<typeof OnyxRadioGroup> = {
+  title: "Form/RadioGroup",
   ...defineStorybookActionsAndVModels({
-    component: OnyxRadioButtonGroup,
+    component: OnyxRadioGroup,
     events: ["update:modelValue", "validityChange"],
   }),
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxRadioButtonGroup>;
+type Story = StoryObj<typeof OnyxRadioGroup>;
 
 const EXAMPLE_OPTIONS: BaseSelectOption[] = [
   { label: "Default", value: 1 },
@@ -26,7 +26,7 @@ const EXAMPLE_OPTIONS: BaseSelectOption[] = [
 ];
 
 /**
- * This example shows a radio button group with a headline.
+ * This example shows a radio group with a headline.
  */
 export const Default = {
   args: {
@@ -37,7 +37,7 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows a disabled radio button group.
+ * This example shows a disabled radio group.
  */
 export const Disabled = {
   args: {
@@ -49,7 +49,7 @@ export const Disabled = {
 } satisfies Story;
 
 /**
- * This example shows a radio button group thats layed out vertically.
+ * This example shows a radio group thats layed out vertically.
  */
 export const Horizontal = {
   args: {
@@ -80,7 +80,7 @@ export const WithTruncation = {
 } satisfies Story;
 
 /**
- * This example shows a skeleton radio button group.
+ * This example shows a skeleton radio group.
  * The number of skeleton options shown can be set via the `skeleton` property.
  */
 export const Skeleton = {

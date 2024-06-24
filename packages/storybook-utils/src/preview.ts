@@ -173,7 +173,7 @@ export const sourceCodeTransformer = (
   // add imports for all used onyx components
   // Set is used here to only include unique components if they are used multiple times
   const usedOnyxComponents = [
-    ...new Set(Array.from(code.matchAll(/<Onyx\S+/g)).map((match) => match[0].replace("<", ""))),
+    ...new Set(Array.from(code.matchAll(/<(Onyx\w+)(?:\s*\/?)/g)).map((match) => match[1])),
   ].sort();
 
   if (usedOnyxComponents.length > 0) {
@@ -184,7 +184,13 @@ export const sourceCodeTransformer = (
 
   if (code.startsWith("<script")) {
     const index = code.indexOf("\n");
-    return code.slice(0, index) + additionalImports.join("\n") + "\n" + code.slice(index);
+    const hasOtherImports = code.includes("import {");
+    return (
+      code.slice(0, index) +
+      additionalImports.join("\n") +
+      (!hasOtherImports ? "\n" : "") +
+      code.slice(index)
+    );
   }
 
   return `<script lang="ts" setup>

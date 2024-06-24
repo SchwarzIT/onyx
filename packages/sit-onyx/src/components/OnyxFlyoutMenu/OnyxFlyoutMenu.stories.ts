@@ -5,7 +5,7 @@ import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 
 const meta: Meta<typeof OnyxFlyoutMenu> = {
-  title: "support/FlyoutMenu",
+  title: "Navigation/modules/FlyoutMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxFlyoutMenu,
     events: [],
