@@ -12,8 +12,8 @@ const isMobile = inject(mobileNavBarInjectionKey);
 
 <template>
   <div
-    class="onyx-separator"
-    :class="{ 'onyx-separator--horizontal': props.orientation === 'horizontal' || isMobile }"
+    class="onyx-nav-separator"
+    :class="{ 'onyx-nav-separator--horizontal': props.orientation === 'horizontal' || isMobile }"
     role="separator"
     :aria-orientation="props.orientation"
   ></div>
@@ -22,7 +22,7 @@ const isMobile = inject(mobileNavBarInjectionKey);
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-.onyx-separator {
+.onyx-nav-separator {
   @include layers.component() {
     background-color: var(--onyx-color-base-neutral-300);
     margin: 0 var(--onyx-spacing-2xs);

@@ -10,7 +10,6 @@ import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
@@ -96,8 +95,6 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
       <template v-slot:contextArea>
         <OnyxIconButton label="Notification center" icon={mockPlaywrightIcon} color="neutral" />
         <OnyxTag icon={mockPlaywrightIcon} color="warning" label="QA stage" />
-
-        <OnyxNavSeparator />
 
         <OnyxUserMenu
           username="John Doe"
