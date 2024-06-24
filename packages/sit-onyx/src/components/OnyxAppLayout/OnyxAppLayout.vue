@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { provide, ref } from "vue";
+import OnyxToastProvider from "../OnyxToastProvider/OnyxToastProvider.vue";
+import { toastProviderInjectionKey } from "../OnyxToastProvider/useToast";
 import type { OnyxAppLayoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAppLayoutProps>(), { navBarAlignment: "top" });
@@ -13,19 +16,27 @@ const slots = defineSlots<{
   /** Overlays that cover the complete page */
   appOverlay?(): unknown;
 }>();
+
+const toastProvider = ref<InstanceType<typeof OnyxToastProvider>>();
+provide(toastProviderInjectionKey, toastProvider);
 </script>
 
 <template>
   <div class="onyx-app" :class="{ 'onyx-app--horizontal': props.navBarAlignment === 'left' }">
+    <OnyxToastProvider ref="toastProvider" />
+
     <div v-if="slots.navBar" class="onyx-app__nav">
       <slot name="navBar"></slot>
     </div>
+
     <div class="onyx-app__page">
       <slot></slot>
     </div>
+
     <div v-if="slots.pageOverlay" class="onyx-app__page-overlay">
       <slot name="pageOverlay"></slot>
     </div>
+
     <div v-if="slots.appOverlay" class="onyx-app__app-overlay">
       <slot name="appOverlay"></slot>
     </div>
