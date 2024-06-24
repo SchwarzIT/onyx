@@ -114,6 +114,7 @@ jobs:
         with:
           name: blob-reports
 
+      # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report
         run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/../playwright-report'
 
