@@ -83,6 +83,7 @@ jobs:
       - name: Merge Screenshots
         uses: actions/upload-artifact/merge@v4
         if: ${{ !cancelled() }}
+        continue-on-error: true
         with:
           name: screenshots
           pattern: screenshots-*
