@@ -33,6 +33,7 @@
     "@types/node": "^20.14.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitest/coverage-v8": "^1.6.0",
+    "@volar/language-core": "2.3.0",
     "@vue/compiler-dom": "^3.4.30",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
