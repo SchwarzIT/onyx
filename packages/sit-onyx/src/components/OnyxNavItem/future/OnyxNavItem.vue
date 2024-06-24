@@ -15,7 +15,10 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
 </script>
 <template>
   <OnyxListItem :selected="props.active" class="onyx-nav-item" @click="emit('click')">
-    <a v-bind="menuButton?.menuItem({ active: props.active })" :href="props.href">
+    <a
+      v-bind="menuButton?.menuItem({ active: props.active })"
+      :href="props.href ?? 'javascript:void(0)'"
+    >
       <slot></slot>
     </a>
   </OnyxListItem>
