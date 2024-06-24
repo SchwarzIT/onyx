@@ -93,7 +93,7 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         if: ${{ !cancelled() }}
         with:
-          name: blob-report
+          name: blob-reports
           pattern: blob-report-*
           retention-days: 1
           delete-merged: true
@@ -112,7 +112,7 @@ jobs:
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: blob-report
+          pattern: blob-reports
 
       - name: Merge into HTML Report
         run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/playwright-report'
