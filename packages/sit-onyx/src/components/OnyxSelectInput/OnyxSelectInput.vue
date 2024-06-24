@@ -89,6 +89,12 @@ watch(
     }
   },
 );
+
+const blockTyping = (event: KeyboardEvent) => {
+  if (event.key === "Enter" || event.key === "Tab") return;
+
+  event.preventDefault();
+};
 </script>
 <template>
   <div
@@ -128,7 +134,7 @@ watch(
           }"
           v-bind="restAttrs"
           type="text"
-          readonly
+          :readonly="props.readonly"
           :placeholder="props.placeholder"
           :required="props.required"
           :disabled="props.disabled || props.loading"
@@ -136,6 +142,7 @@ watch(
           :title="props.hideLabel ? props.label : undefined"
           :value="selectionText"
           :autofocus="props.autofocus"
+          @keydown="blockTyping"
           @click="emit('click')"
         />
 
@@ -199,6 +206,10 @@ watch(
     flex-direction: column;
     gap: var(--onyx-spacing-5xs);
 
+    &__native {
+      // hide the blinking cursor as we suppress typing
+      caret-color: transparent;
+    }
     &__button {
       all: initial;
       height: var(--onyx-spacing-lg);
@@ -230,7 +241,6 @@ watch(
 
         // default hover
         &:hover {
-          @include input.define-enabled-hover();
           .onyx-select-input__button {
             color: var(--onyx-color-text-icons-primary-medium);
           }
@@ -242,45 +252,10 @@ watch(
           .onyx-select-input__native--show-focus:enabled
         ) {
         .onyx-select-input {
-          &__wrapper {
-            @include input.define-enabled-focus();
-          }
-
           &__button {
             color: var(--onyx-color-text-icons-primary-intense);
           }
         }
-      }
-    }
-
-    // readonly focus
-    &--readonly:has(
-        .onyx-select-input__native:enabled:focus,
-        .onyx-select-input__native--show-focus:enabled
-      )
-      .onyx-select-input__wrapper {
-      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
-      --border-color: var(--onyx-color-base-neutral-400);
-    }
-
-    &:has(&__native:disabled),
-    &--readonly {
-      .onyx-select-input {
-        &__wrapper {
-          background-color: var(--onyx-color-base-background-tinted);
-          color: var(--onyx-color-text-icons-neutral-soft);
-          --border-color: var(--onyx-color-base-neutral-300);
-        }
-      }
-    }
-
-    &--readonly {
-      .onyx-select-input__native:enabled {
-        cursor: initial;
-      }
-
-      .onyx-select-input__wrapper:hover {
-        --border-color: var(--onyx-color-base-neutral-400);
       }
     }
 

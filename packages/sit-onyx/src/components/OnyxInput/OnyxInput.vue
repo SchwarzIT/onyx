@@ -156,7 +156,6 @@ const patternSource = computed(() => {
       $base-selector: ".onyx-input",
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
-    @include input.define-readonly-styles($base-selector: ".onyx-input");
 
     &__wrapper {
       &:has(.onyx-input__native:read-write) {
