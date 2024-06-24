@@ -1,4 +1,3 @@
-import bell from "@sit-onyx/icons/bell.svg?raw";
 import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
@@ -96,10 +95,8 @@ export const WithContextArea = {
     ...Default.args,
     globalContextArea: () => [
       h(OnyxIconButton, { label: "Search", icon: search, color: "neutral" }),
-      h(OnyxIconButton, { label: "Notification center", icon: bell, color: "neutral" }),
     ],
     contextArea: () => [
-      h(OnyxTimer, { endTime: getTimerEndDate(), label: "Logout in:" }),
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
