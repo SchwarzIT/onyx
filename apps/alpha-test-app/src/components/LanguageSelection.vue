@@ -9,13 +9,12 @@ const { t } = useI18n();
 const supportedLocales = ["en-US", "de-DE", "ko-KR"];
 const options: SelectOption[] = supportedLocales.map((value) => ({ value, label: value }));
 
-const { modelValue, vSyncSelection } = useSyncSelectOption(locale, options);
+const { modelValue } = useSyncSelectOption(locale, options);
 </script>
 
 <template>
   <OnyxSelect
     v-model="modelValue"
-    v-sync-selection
     class="language"
     label="Select language"
     list-label="List label"

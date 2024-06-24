@@ -16,20 +16,13 @@ export const useSyncSelectOption = <TValue extends SelectOptionValue>(
     return { value: selection?.value, label: "" };
   };
 
-  const modelValue = ref<SelectOption<TValue> | undefined>();
+  const modelValue = ref<SelectOption<TValue> | undefined>(getInitialValue());
 
-  const vSyncSelection = {
-    mounted: () => {
-      modelValue.value = getInitialValue();
-
-      watchEffect(() => {
-        selection.value = modelValue.value?.value;
-      });
-    },
-  };
+  watchEffect(() => {
+    selection.value = modelValue.value?.value as TValue;
+  });
 
   return {
     modelValue,
-    vSyncSelection,
   };
 };
