@@ -43,7 +43,7 @@ const emit = defineEmits<{
     @click="emit('click')"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
-    <OnyxIcon v-else-if="props.icon" :icon="props.icon" />
+    <OnyxIcon v-else-if="props.icon" :icon="props.icon" size="24px" />
     <slot v-else></slot>
   </button>
 </template>
