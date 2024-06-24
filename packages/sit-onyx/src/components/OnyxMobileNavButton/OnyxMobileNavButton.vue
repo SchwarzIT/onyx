@@ -30,7 +30,7 @@ defineSlots<{
       :aria-label="props.label"
       @click="emit('update:open', !props.open)"
     >
-      <OnyxIcon :icon="props.open ? x : props.icon" />
+      <OnyxIcon :icon="props.open ? x : props.icon" size="24px" />
     </button>
 
     <div v-if="props.open" class="onyx-mobile-nav-button__menu">

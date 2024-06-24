@@ -38,7 +38,7 @@ const avatar = computed(() => {
     <button class="onyx-user-menu__trigger onyx-text">
       <OnyxAvatar v-bind="avatar" size="24px" />
       <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
+      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" size="24px" />
     </button>
 
     <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
@@ -69,7 +69,7 @@ const avatar = computed(() => {
         :color="item.color"
         @click="emit('optionClick', item.value)"
       >
-        <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
+        <OnyxIcon v-if="item.icon" :icon="item.icon" size="24px" />{{ item.label }}
       </OnyxListItem>
 
       <template v-if="!!slots.footer" #footer>
