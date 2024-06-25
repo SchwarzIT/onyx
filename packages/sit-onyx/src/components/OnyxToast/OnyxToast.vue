@@ -142,6 +142,12 @@ const icon = computed(() => {
       left: 0;
     }
 
+    &:hover {
+      .onyx-toast-progress-bar {
+        animation-play-state: paused;
+      }
+    }
+
     &:is(button) {
       text-align: left;
       cursor: pointer;
