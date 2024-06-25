@@ -20,7 +20,7 @@ const {
   <div v-bind="flyout">
     <ul v-show="isExpanded" v-bind="menu">
       <li v-for="item in items" v-bind="listItem" :key="item.value" title="item">
-        <a v-bind="menuItem({ active: activeItem === item.value })">{{ item.label }}</a>
+        <a v-bind="menuItem({ active: activeItem === item.value })" href="#">{{ item.label }}</a>
       </li>
     </ul>
   </div>
