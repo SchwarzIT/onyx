@@ -12,6 +12,12 @@ test.beforeEach(async ({ page }) => {
   await page.evaluate((mockNow) => {
     Date.now = () => mockNow.getTime();
   }, MOCK_NOW);
+
+  await page.addStyleTag({
+    content: `.onyx-toast-progress-bar {
+      width: 100%
+    }`,
+  });
 });
 
 test.describe("Screenshot tests", () => {
