@@ -250,30 +250,10 @@ watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
 
-/**
- * The native input of OnyxSelectInput has to be readonly, unfortunately,
- * that's why it does not set the valueMissing invalidity on its own.
- */
-const localCustomError = computed(() => {
-  // a customError from the props always take precedence
-  if (props.customError) return props.customError;
-  if (props.required) {
-    const isEmpty = Array.isArray(props.modelValue) ? !props.modelValue.length : !props.modelValue;
-    if (isEmpty) {
-      return {
-        longMessage: t.value("validations.valueMissing.fullError"),
-        shortMessage: t.value("validations.valueMissing.preview"),
-      };
-    }
-  }
-  return undefined;
-});
-
 const selectInputProps = computed(() => {
   const baseProps: OnyxSelectInputProps<TValue> = {
     ...props,
     modelValue: arrayValue.value,
-    customError: localCustomError.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
   return { ...baseProps, ...input.value };

@@ -27,7 +27,7 @@
       --border-color: var(--onyx-color-base-primary-400);
     }
 
-    &:has(#{$base-selector}__native:enabled:focus) {
+    &:has(#{$base-selector}__native:enabled:focus, #{$base-selector}__native--show-focus) {
       --border-color: var(--onyx-color-base-primary-500);
       outline: var(--onyx-spacing-4xs) solid var(--outline-color);
     }
@@ -38,7 +38,7 @@
       --outline-color: var(--onyx-color-base-danger-200);
       --selection-color: var(--onyx-color-base-danger-200);
 
-      &:has(#{$base-selector}__native:enabled:focus) {
+      &:has(#{$base-selector}__native:enabled:focus, #{$base-selector}__native--show-focus) {
         --border-color: var(--onyx-color-base-danger-500);
       }
 
@@ -59,7 +59,7 @@
         --border-color: var(--onyx-color-base-neutral-400);
       }
 
-      &:has(#{$base-selector}__native:focus) {
+      &:has(#{$base-selector}__native:focus, #{$base-selector}__native--show-focus) {
         --border-color: var(--onyx-color-base-neutral-500);
         outline-color: var(--onyx-color-base-neutral-200);
       }
