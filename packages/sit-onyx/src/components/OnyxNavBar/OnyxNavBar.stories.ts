@@ -117,7 +117,10 @@ export const WithLogoutTimer = {
     contextArea: () => [
       h(OnyxTimer, { endTime: getTimerEndDate(), label: "Logout in:" }),
       h(OnyxNavSeparator),
-      h(OnyxUserMenu, OnyxUserMenuDefault.args),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        default: OnyxUserMenuDefault.args.default,
+        footer: OnyxUserMenuDefault.args.footer,
+      }),
     ],
   },
 } satisfies Story;
