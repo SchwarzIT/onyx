@@ -12,6 +12,7 @@ const getEndDate = (offset: number) => {
 
 test.beforeEach(async ({ page }) => {
   await page.clock.install({ time: MOCK_NOW });
+  await page.clock.setFixedTime(MOCK_NOW);
 });
 
 test.describe("Screenshot tests", () => {
@@ -32,9 +33,6 @@ test.describe("Screenshot tests", () => {
         <OnyxTimer endTime={endTimes[row]} label="Label" hideLabel={column !== "with-label"} />
       );
     },
-    beforeScreenshot: async (component, page) => {
-      await page.clock.setFixedTime(MOCK_NOW);
-    },
   });
 });
 
@@ -49,7 +47,7 @@ test("should emit event when timer is finished", async ({ mount, page }) => {
     <OnyxTimer endTime={endTime} label="Label" onTimerEnded={() => timerEndedCount++} />,
   );
 
-  await page.clock.fastForward(timerDuration);
+  await page.clock.setFixedTime(MOCK_NOW.getTime() + timerDuration);
 
   // ASSERT
   await expect(component).toContainText("00:00 sec");
