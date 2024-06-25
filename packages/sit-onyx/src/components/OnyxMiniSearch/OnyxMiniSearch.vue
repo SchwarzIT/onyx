@@ -61,7 +61,8 @@ defineExpose({
       class="onyx-mini-search__clear"
       :aria-label="t('select.clearSearch')"
       tabindex="-1"
-      @mousedown.prevent="emit('clear')"
+      @mousedown.prevent
+      @click="emit('clear')"
     >
       <OnyxIcon :icon="xSmall" />
     </button>
