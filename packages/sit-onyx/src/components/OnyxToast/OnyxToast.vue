@@ -220,7 +220,7 @@ const icon = computed(() => {
     }
 
     // only show close button on hover if it closes automatically
-    &:has(.onyx-toast-progress-bar) {
+    &:has(.onyx-toast__progress-bar) {
       &:not(:hover) .onyx-toast__close {
         display: none;
       }
