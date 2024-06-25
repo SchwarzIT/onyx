@@ -30,7 +30,7 @@ const emit = defineEmits<{
     display: block;
     height: var(--onyx-spacing-5xs);
     background-color: var(--onyx-toast-progress-bar-color, var(--onyx-color-base-primary-300));
-    animation: onyx-toast-progress-bar 5s linear;
+    animation: onyx-toast-progress-bar linear;
     width: 0;
 
     @keyframes onyx-toast-progress-bar {
