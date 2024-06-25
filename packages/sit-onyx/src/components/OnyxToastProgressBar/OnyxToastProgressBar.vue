@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { computed, watchEffect } from "vue";
-import { useTimer } from "../../composables/useTimer";
-import { injectI18n } from "../../i18n";
 import type { OnyxToastProps } from "../OnyxToast/types";
 
 const props = defineProps<Required<Pick<OnyxToastProps, "duration">>>();
@@ -12,31 +9,16 @@ const emit = defineEmits<{
    */
   timerEnded: [];
 }>();
-
-const { t } = injectI18n();
-
-const { timeLeft, isEnded } = useTimer({
-  endTime: computed(() => Date.now() + props.duration),
-  useAnimationFrame: true,
-});
-
-const percentage = computed(() => {
-  if (props.duration <= 0) return 0;
-  return Math.min(100, (timeLeft.value / props.duration) * 100);
-});
-
-watchEffect(() => isEnded.value && emit("timerEnded"));
 </script>
 
 <template>
+  <!-- key is used to restart the animation when the duration changes -->
   <time
+    :key="props.duration.toString()"
+    aria-hidden="true"
     class="onyx-toast-progress-bar"
-    role="progressbar"
-    :aria-valuemin="0"
-    :aria-valuemax="props.duration"
-    :aria-valuenow="percentage"
-    :aria-label="t('toast.progressBarLabel')"
-    :style="{ width: `${percentage}%` }"
+    :style="{ animationDuration: `${props.duration}ms` }"
+    @animationend="emit('timerEnded')"
   ></time>
 </template>
 
@@ -48,6 +30,17 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
     display: block;
     height: var(--onyx-spacing-5xs);
     background-color: var(--onyx-toast-progress-bar-color, var(--onyx-color-base-primary-300));
+    animation: onyx-toast-progress-bar 5s linear;
+    width: 0;
+
+    @keyframes onyx-toast-progress-bar {
+      0% {
+        width: 100%;
+      }
+      100% {
+        width: 0%;
+      }
+    }
   }
 }
 </style>

@@ -1,12 +1,10 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { nextTick, ref } from "vue";
-import * as useAnimationFrame from "./useAnimationFrame";
+import { ref } from "vue";
 import { useTimer } from "./useTimer";
 
 vi.mock("vue", async (importOriginal) => {
   return {
     ...(await importOriginal<typeof import("vue")>()),
-    onMounted: vi.fn().mockImplementation((callback) => callback()),
     onBeforeUnmount: vi.fn(),
   };
 });
@@ -23,12 +21,12 @@ describe("useTimer.ts", () => {
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    vi.restoreAllMocks();
   });
 
   test("should calculate timer correctly", () => {
     // ARRANGE
-    const { timeLeft, isEnded } = useTimer({ endTime: ref(endTime) });
+    const { timeLeft, isEnded } = useTimer(ref(endTime));
 
     // ASSERT
     expect(timeLeft.value).toBe(5000);
@@ -47,59 +45,5 @@ describe("useTimer.ts", () => {
     // ASSERT
     expect(timeLeft.value).toBe(0);
     expect(isEnded.value).toBe(true);
-  });
-
-  test("should use animation frames", async () => {
-    const MOCK_TIMEOUT = 100;
-
-    // mock "requestAnimationFrame()"
-    vi.spyOn(window, "requestAnimationFrame").mockImplementation(
-      (callback: FrameRequestCallback) => {
-        setTimeout(() => callback(Date.now()), MOCK_TIMEOUT);
-        return 42;
-      },
-    );
-
-    const originalAnimationFrame = useAnimationFrame.useAnimationFrame;
-    const stopSpy = vi.fn();
-
-    const frameSpy = vi
-      .spyOn(useAnimationFrame, "useAnimationFrame")
-      .mockImplementation((callback) => {
-        const { stop: originalStop } = originalAnimationFrame(callback);
-        return {
-          stop: () => {
-            stopSpy();
-            originalStop();
-          },
-        };
-      });
-
-    // ARRANGE
-    const { timeLeft } = useTimer({ endTime: ref(endTime), useAnimationFrame: true });
-    await nextTick();
-
-    // ASSERT
-    expect(frameSpy).toHaveBeenCalledOnce();
-
-    // ACT
-    vi.advanceTimersByTime(MOCK_TIMEOUT);
-
-    // ASSERT
-    expect(timeLeft.value).toBe(4900);
-
-    // ACT
-    vi.advanceTimersByTime(MOCK_TIMEOUT);
-
-    // ASSERT
-    expect(timeLeft.value).toBe(4800);
-    expect(stopSpy).not.toHaveBeenCalled();
-
-    // ACT
-    vi.advanceTimersByTime(4800);
-
-    // ASSERT
-    expect(timeLeft.value).toBe(0);
-    expect(stopSpy).toHaveBeenCalled();
   });
 });
