@@ -39,9 +39,9 @@ const emit = defineEmits<{
     :autofocus="props.autofocus"
     @click="emit('click')"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
+    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" size="24px" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
-    <span v-else class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
+    <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
 </template>
 
@@ -75,6 +75,7 @@ const emit = defineEmits<{
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-button-outline-color: var(--onyx-color-base-primary-200);
 
+    position: relative;
     display: inline-flex;
     height: var(--onyx-button-height);
     max-width: 100%;
@@ -195,9 +196,12 @@ const emit = defineEmits<{
       line-height: 1.5rem;
     }
 
+    &--loading &__label {
+      visibility: hidden;
+    }
+
     &__loading {
-      width: var(--onyx-spacing-3xl);
-      height: 100%;
+      position: absolute;
     }
   }
 

@@ -1,12 +1,19 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
-import type { SelectOption } from "../OnyxSelect/types";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 const options = [
-  { value: "/settings", label: "Settings", icon: mockPlaywrightIcon },
-  { value: "logout", label: "Logout", icon: mockPlaywrightIcon, color: "danger" },
-] satisfies SelectOption[];
+  <OnyxListItem>
+    <OnyxIcon icon={mockPlaywrightIcon} size="24px" />
+    Settings
+  </OnyxListItem>,
+  <OnyxListItem color="danger">
+    <OnyxIcon icon={mockPlaywrightIcon} size="24px" />
+    Logout
+  </OnyxListItem>,
+];
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -19,8 +26,8 @@ test.describe("Screenshot tests", () => {
       <OnyxUserMenu
         username="Jane Doe"
         description={column === "description" ? "Company name" : undefined}
-        options={options}
       >
+        {options}
         {column === "footer" ? <template v-slot:footer>Footer slot content</template> : undefined}
       </OnyxUserMenu>
     ),
@@ -41,15 +48,7 @@ test.describe("Screenshot tests", () => {
 });
 
 test("should behave correctly", async ({ mount }) => {
-  const optionClickEvents: string[] = [];
-
-  const component = await mount(
-    <OnyxUserMenu
-      username="Jane Doe"
-      options={options}
-      onOptionClick={(value) => optionClickEvents.push(value)}
-    />,
-  );
+  const component = await mount(<OnyxUserMenu username="Jane Doe">{options}</OnyxUserMenu>);
 
   const menu = component.getByLabel("User options");
   const button = component.getByRole("button", { name: "Jane Doe" });
@@ -65,5 +64,4 @@ test("should behave correctly", async ({ mount }) => {
 
   await menu.getByText("Settings").click();
   await expect(menu).toBeHidden(); // should close after clicking on option
-  expect(optionClickEvents).toStrictEqual(["/settings"]);
 });

@@ -1,5 +1,22 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.153
+
+### Patch Changes
+
+- Updated dependencies [743ee88]
+- Updated dependencies [b7e9aaf]
+  - sit-onyx@1.0.0-alpha.147
+
+## 1.0.0-alpha.152
+
+### Patch Changes
+
+- 5c5bb15: docs: fix Storybook code snippets
+
+  - remove unnecessary new line before `import { ref } from "vue";`
+  - fix onyx component imports when component has no props, e.g. `<OnyxComponent>Test</OnyxComponent>`
+
 ## 1.0.0-alpha.151
 
 ### Patch Changes

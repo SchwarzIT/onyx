@@ -3,6 +3,8 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 /**
@@ -12,9 +14,10 @@ const meta: Meta<typeof OnyxUserMenu> = {
   title: "Navigation/modules/UserMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxUserMenu,
-    events: ["optionClick"],
+    events: [],
     argTypes: {
       avatar: { control: { type: "text" } },
+      default: { control: { disable: true } },
       footer: { control: { disable: true } },
     },
     decorators: [
@@ -36,9 +39,12 @@ export const Default = {
   args: {
     username: "Jane Doe",
     description: "Company Name",
-    options: [
-      { value: "/settings", label: "Settings", icon: settings },
-      { value: "logout", label: "Logout", icon: logout, color: "danger" },
+    default: () => [
+      h(OnyxListItem, () => [h(OnyxIcon, { icon: settings, size: "24px" }), "Settings"]),
+      h(OnyxListItem, { color: "danger" }, () => [
+        h(OnyxIcon, { icon: logout, size: "24px" }),
+        "Logout",
+      ]),
     ],
     footer: () => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")],
   },
@@ -50,6 +56,6 @@ export const Default = {
 export const WithMinimalData = {
   args: {
     username: "Jane Doe",
-    options: Default.args.options,
+    default: Default.args.default,
   },
 } satisfies Story;
