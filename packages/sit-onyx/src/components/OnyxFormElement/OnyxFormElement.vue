@@ -103,11 +103,11 @@ defineSlots<{
      * input.scss will overwrite this to only be visible
      * after the user interacted with the component.
      * can also be overwritten if a project
-     * needs to enforce to show an error immediately    
+     * needs to enforce to show an error immediately
      */
     --error-message-display: block;
     /** input.scss will overwrite this so that
-     * message and error message are not be shown simultaneously 
+     * message and error message are not be shown simultaneously
      */
     --message-display: block;
 
@@ -144,6 +144,7 @@ defineSlots<{
 
     &__header {
       display: flex;
+      align-items: center;
       max-width: 100%;
       width: 100%;
     }
@@ -152,11 +153,6 @@ defineSlots<{
     &__message-tooltip,
     &__error-tooltip {
       margin-left: var(--onyx-spacing-2xs);
-    }
-    &__message-tooltip,
-    &__error-tooltip {
-      height: 1rem;
-      align-self: center;
     }
 
     &__footer {
@@ -177,6 +173,7 @@ defineSlots<{
       display: var(--error-message-display);
       color: var(--onyx-color-base-danger-500);
     }
+
     &__message,
     &__message-tooltip {
       display: var(--message-display);

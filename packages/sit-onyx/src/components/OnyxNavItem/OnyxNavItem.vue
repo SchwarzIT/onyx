@@ -98,6 +98,7 @@ const handleParentClick = () => {
         v-if="isMobile && hasChildren && !isMobileChildrenOpen"
         class="onyx-nav-item__mobile-chevron"
         :icon="chevronRightSmall"
+        size="24px"
       />
     </div>
 
