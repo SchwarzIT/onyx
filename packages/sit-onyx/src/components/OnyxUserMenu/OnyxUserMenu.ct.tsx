@@ -6,11 +6,11 @@ import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 const options = [
   <OnyxListItem>
-    <OnyxIcon icon={mockPlaywrightIcon} size="24px" />
+    <OnyxIcon icon={mockPlaywrightIcon} />
     Settings
   </OnyxListItem>,
   <OnyxListItem color="danger">
-    <OnyxIcon icon={mockPlaywrightIcon} size="24px" />
+    <OnyxIcon icon={mockPlaywrightIcon} />
     Logout
   </OnyxListItem>,
 ];

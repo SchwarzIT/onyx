@@ -6,12 +6,12 @@ import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -133,7 +133,7 @@ defineExpose({ focus: () => input.value?.focus() });
           :disabled="props.readonly || props.disabled || props.loading"
           @click="emit('click')"
         >
-          <OnyxIcon size="24px" :icon="chevronDownUp" />
+          <OnyxIcon :icon="chevronDownUp" />
         </button>
       </div>
     </OnyxFormElement>
