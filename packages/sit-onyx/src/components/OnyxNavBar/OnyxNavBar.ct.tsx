@@ -104,8 +104,8 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
             Settings
           </OnyxListItem>
 
-          <OnyxListItem>
-            <OnyxIcon icon={mockPlaywrightIcon} color="danger" />
+          <OnyxListItem color="danger">
+            <OnyxIcon icon={mockPlaywrightIcon} />
             Logout
           </OnyxListItem>
 
