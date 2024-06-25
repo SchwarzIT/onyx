@@ -2,6 +2,7 @@
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed, inject } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 import type { OnyxUserMenuProps } from "./types";
@@ -35,7 +36,7 @@ const isMobile = inject(mobileNavBarInjectionKey);
   >
     <template #button>
       <button v-if="!isMobile" class="onyx-user-menu__trigger onyx-text">
-        <OnyxAvatar v-bind="avatar" />
+        <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
         <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
       </button>
