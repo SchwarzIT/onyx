@@ -14,8 +14,9 @@ const emit = defineEmits<{
 const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
 </script>
 <template>
-  <OnyxListItem :selected="props.active" @click="emit('click')">
+  <OnyxListItem :selected="props.active" class="onyx-future-nav-item" @click="emit('click')">
     <a
+      class="onyx-future-nav-item__anchor"
       v-bind="menuButton?.menuItem({ active: props.active })"
       :href="props.href ?? 'javascript:void(0)'"
     >
@@ -23,3 +24,19 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     </a>
   </OnyxListItem>
 </template>
+<style lang="scss">
+@use "../../../styles/mixins/layers";
+
+.onyx-future-nav-item {
+  @include layers.component() {
+    &__anchor {
+      color: inherit;
+      text-decoration: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+</style>
