@@ -175,10 +175,6 @@ const patternSource = computed(() => {
         transition: background-color calc(infinity * 1s);
       }
     }
-
-    &__loading {
-      color: var(--onyx-color-text-icons-primary-intense);
-    }
   }
 }
 </style>

@@ -130,7 +130,7 @@ const blockTyping = (event: KeyboardEvent) => {
             'onyx-select-input__native': true,
             'onyx-select-input__native--show-focus': props.showFocus,
             'onyx-truncation-ellipsis': true,
-            'onyx-select-input__native--force-error': errorMessages && wasTouched,
+            'onyx-select-input__native--force-invalid': errorMessages && wasTouched,
           }"
           v-bind="restAttrs"
           type="text"
@@ -200,63 +200,59 @@ const blockTyping = (event: KeyboardEvent) => {
       $vertical-padding: var(--onyx-select-input-padding-vertical)
     );
 
-    --selection-color: var(--onyx-color-base-neutral-200);
-    font-family: var(--onyx-font-family);
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-spacing-5xs);
-
     &__native {
       // hide the blinking cursor as we suppress typing
       caret-color: transparent;
     }
+    .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
+      cursor: pointer;
+      .onyx-select-input__native {
+        cursor: pointer;
+      }
+    }
+
+    /* button styles */
     &__button {
       all: initial;
       height: var(--onyx-spacing-lg);
-      color: var(--onyx-color-text-icons-neutral-medium);
+      color: var(--onyx-color-text-icons-neutral-soft);
 
       &:enabled {
         cursor: pointer;
+      }
+    }
+    // button on focus (not readonly)
+    &:has(
+        .onyx-select-input__native:enabled:read-write:focus,
+        .onyx-select-input__native--show-focus:enabled:read-write
+      ) {
+      .onyx-select-input__button {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+      &:has(.onyx-select-input__native:user-invalid),
+      &:has(.onyx-select-input__native--force-invalid) {
+        .onyx-select-input__button {
+          color: var(--onyx-color-text-icons-neutral-intense);
+        }
+      }
+    }
+    // button on hover (not readonly)
+    .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled:read-write):hover {
+      .onyx-select-input__button {
+        color: var(--onyx-color-text-icons-primary-medium);
+      }
+
+      &:has(.onyx-select-input__native:user-invalid),
+      &:has(.onyx-select-input__native--force-invalid) {
+        .onyx-select-input__button {
+          color: var(--onyx-color-text-icons-neutral-medium);
+        }
       }
     }
 
     &__badge {
       display: block;
       cursor: pointer;
-    }
-
-    &__loading {
-      color: var(--onyx-color-text-icons-primary-intense);
-    }
-
-    /** The internal input is always "readonly" because typing is not allowed.
-     * That's why we need to rely on modifier classes instead of using pseudo classes
-     */
-    &--editable {
-      .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
-        cursor: pointer;
-        .onyx-select-input__native {
-          cursor: pointer;
-        }
-
-        // default hover
-        &:hover {
-          .onyx-select-input__button {
-            color: var(--onyx-color-text-icons-primary-medium);
-          }
-        }
-      }
-      // default focus
-      &:has(
-          .onyx-select-input__native:enabled:focus,
-          .onyx-select-input__native--show-focus:enabled
-        ) {
-        .onyx-select-input {
-          &__button {
-            color: var(--onyx-color-text-icons-primary-intense);
-          }
-        }
-      }
     }
 
     &-skeleton {

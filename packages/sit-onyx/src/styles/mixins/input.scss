@@ -33,7 +33,7 @@
     }
 
     &:has(#{$base-selector}__native:user-invalid),
-    &:has(#{$base-selector}__native--force-error) {
+    &:has(#{$base-selector}__native--force-invalid) {
       --border-color: var(--onyx-color-base-danger-500);
       --outline-color: var(--onyx-color-base-danger-200);
       --selection-color: var(--onyx-color-base-danger-200);
@@ -66,11 +66,15 @@
     }
   }
 
+  &__loading {
+    color: var(--onyx-color-text-icons-primary-intense);
+  }
+
   .onyx-form-element {
     --error-message-display: none;
   }
   &:has(#{$base-selector}__native:user-invalid),
-  &:has(#{$base-selector}__native--force-error) {
+  &:has(#{$base-selector}__native--force-invalid) {
     .onyx-form-element {
       --error-message-display: block;
       // hide the default message once an error is shown
