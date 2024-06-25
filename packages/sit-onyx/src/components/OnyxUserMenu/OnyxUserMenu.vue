@@ -35,9 +35,9 @@ const isMobile = inject(mobileNavBarInjectionKey);
   >
     <template #button>
       <button v-if="!isMobile" class="onyx-user-menu__trigger onyx-text">
-        <OnyxAvatar v-bind="avatar" size="24px" />
+        <OnyxAvatar v-bind="avatar" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" size="24px" />
+        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
       </button>
     </template>
 

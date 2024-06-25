@@ -70,7 +70,7 @@ const isChecked = computed({
       <span class="onyx-switch__container">
         <span class="onyx-switch__icon">
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" size="24px" />
+          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" />
         </span>
         <div class="onyx-switch__frame"></div>
       </span>

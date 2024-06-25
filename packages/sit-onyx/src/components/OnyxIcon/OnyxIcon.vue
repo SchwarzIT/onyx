@@ -24,7 +24,7 @@ const props = defineProps<OnyxIconProps>();
 
 .onyx-icon {
   @include layers.component() {
-    --icon-size: 1em;
+    --icon-size: 1.5rem;
     --icon-color: currentColor;
 
     display: inline-block;
