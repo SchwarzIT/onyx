@@ -100,6 +100,7 @@ export const WithContextArea = {
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
       h(OnyxNavSeparator),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
       }),
     ],

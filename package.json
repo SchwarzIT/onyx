@@ -17,7 +17,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.5",
+    "@changesets/cli": "^2.27.6",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "^1.44.1",
     "@playwright/test": "^1.44.1",

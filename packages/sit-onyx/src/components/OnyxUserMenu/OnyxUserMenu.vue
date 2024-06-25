@@ -1,24 +1,16 @@
-<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
+<script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed, inject } from "vue";
-import type { SelectOptionValue } from "../../types";
-import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
-import UserMenuLayout from "./UserMenuLayout.vue";
 import type { OnyxUserMenuProps } from "./types";
 
-const props = defineProps<OnyxUserMenuProps<TValue>>();
-
-const emit = defineEmits<{
-  /**
-   * Emitted when an option is clicked.
-   */
-  optionClick: [value: TValue];
-}>();
+const props = defineProps<OnyxUserMenuProps>();
 
 const slots = defineSlots<{
+  /**
+   * Slot for the menu options. Its recommended to use the `OnyxListItem` component here.
+   */
+  default?(): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
@@ -43,7 +35,7 @@ const isMobile = inject(mobileNavBarInjectionKey);
       <button v-if="!isMobile" class="onyx-user-menu__trigger onyx-text">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
+        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" size="24px" />
       </button>
     </template>
 
@@ -65,17 +57,7 @@ const isMobile = inject(mobileNavBarInjectionKey);
       </div>
     </template>
 
-    <template #options>
-      <OnyxListItem
-        v-for="item in props.options"
-        :key="item.value.toString()"
-        class="onyx-user-menu__item"
-        :color="item.color"
-        @click="emit('optionClick', item.value)"
-      >
-        <OnyxIcon v-if="item.icon" :icon="item.icon" />{{ item.label }}
-      </OnyxListItem>
-    </template>
+    <slot></slot>
 
     <template v-if="slots.footer" #footer>
       <div class="onyx-user-menu__footer onyx-text--small">
