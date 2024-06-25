@@ -39,7 +39,7 @@ Afterwards you're able to just use all onyx components inside your app and the g
 ## Integration with @nuxtjs/i18n
 
 Onyx features built in translations and the nuxt module extends on that by offering an out of the box integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/).
-If you're Nuxt project uses both modules, onyx will automatically detect it and use @nuxtjs/i18n to handle all the translations. This gives you all the bells and whistles of vue-i18n like lazy loading of translations.
+If your Nuxt project uses both modules, onyx will automatically detect it and use @nuxtjs/i18n to handle all the translations. This gives you all the bells and whistles of vue-i18n like lazy loading of translations.
 
 ### Setup
 
