@@ -56,7 +56,7 @@ const icon = computed(() => {
     @click="props.clickable && emit('click')"
   >
     <div class="onyx-toast__wrapper">
-      <OnyxIcon v-if="icon" :icon="icon" size="24px" />
+      <OnyxIcon v-if="icon" :icon="icon" />
 
       <div class="onyx-toast__content onyx-truncation-ellipsis">
         <div class="onyx-toast__headline onyx-text">
@@ -68,7 +68,7 @@ const icon = computed(() => {
             class="onyx-toast__close"
             @click="emit('close')"
           >
-            <OnyxIcon :icon="xSmall" size="24px" />
+            <OnyxIcon :icon="xSmall" />
           </button>
         </div>
 
