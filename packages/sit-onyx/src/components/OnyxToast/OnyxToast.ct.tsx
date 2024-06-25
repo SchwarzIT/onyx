@@ -14,7 +14,7 @@ test.beforeEach(async ({ page }) => {
   }, MOCK_NOW);
 
   await page.addStyleTag({
-    content: `.onyx-toast-progress-bar {
+    content: `.onyx-toast__progress-bar {
       width: 100%
     }`,
   });
