@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed, inject } from "vue";
+import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
+import UserMenuLayout from "./UserMenuLayout.vue";
 import type { OnyxUserMenuProps } from "./types";
 
 const props = defineProps<OnyxUserMenuProps>();
@@ -57,7 +59,9 @@ const isMobile = inject(mobileNavBarInjectionKey);
       </div>
     </template>
 
-    <slot></slot>
+    <template #options>
+      <slot></slot>
+    </template>
 
     <template v-if="slots.footer" #footer>
       <div class="onyx-user-menu__footer onyx-text--small">
@@ -171,7 +175,7 @@ const isMobile = inject(mobileNavBarInjectionKey);
         margin-bottom: var(--onyx-spacing-xs); // TODO: use density
       }
 
-      .onyx-user-menu__item {
+      .onyx-list-item {
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
         &:first-of-type {
