@@ -60,7 +60,7 @@
       }
 
       &:has(#{$base-selector}__native:focus, #{$base-selector}__native--show-focus) {
-        --border-color: var(--onyx-color-base-neutral-500);
+        --border-color: var(--onyx-color-base-neutral-300);
         outline-color: var(--onyx-color-base-neutral-200);
       }
     }
