@@ -25,8 +25,8 @@ const config: StorybookConfig = {
     <meta property="og:site_name" content="onyx Storybook">
     <meta property="og:image" content="https://storybook.onyx.schwarz/og-storybook-logo.jpg">
     <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
     <meta property="og:url" content="https://storybook.onyx.schwarz">
   `,
 };
