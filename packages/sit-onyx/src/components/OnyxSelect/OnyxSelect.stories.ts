@@ -27,7 +27,7 @@ const meta: Meta<typeof OnyxSelect> = {
   title: "Form/Select",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelect,
-    events: ["update:modelValue", "update:searchTerm", "lazyLoad"],
+    events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad"],
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
@@ -38,20 +38,22 @@ const meta: Meta<typeof OnyxSelect> = {
       /**
        * Decorator that simulates the load more functionality so we can show it in the stories.
        */
-      (story, ctx) => ({
-        components: { story },
-        setup: () => {
-          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
+      (story, ctx) => {
+        return {
+          components: { story },
+          setup: () => {
+            const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
 
-          watchEffect(() => {
-            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-            ctx.args.options = options.value;
-          });
+            watchEffect(() => {
+              ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+              ctx.args.options = options.value;
+            });
 
-          return { handleLoadMore, isLazyLoading, options };
-        },
-        template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
-      }),
+            return { handleLoadMore, isLazyLoading, options };
+          },
+          template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
+        };
+      },
       /**
        * Decorator to simulate search
        */
