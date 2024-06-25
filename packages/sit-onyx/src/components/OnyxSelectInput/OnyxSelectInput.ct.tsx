@@ -9,7 +9,7 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `SelectInput (${state})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "focus-visible"],
+      rows: ["default", "hover", "focus"],
       component: (column) => (
         <OnyxSelectInput
           style="width: 16rem"
@@ -23,7 +23,7 @@ test.describe("Screenshot tests", () => {
       ),
       beforeScreenshot: async (component, page, column, row) => {
         if (row === "hover") await component.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "focus") await page.keyboard.press("Tab");
       },
     });
   }
@@ -49,7 +49,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "SelectInput (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
-    rows: ["default", "hover", "focus-visible"],
+    rows: ["default", "hover", "focus"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
@@ -64,7 +64,7 @@ test.describe("Screenshot tests", () => {
     ),
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "focus") await page.keyboard.press("Tab");
     },
   });
 
