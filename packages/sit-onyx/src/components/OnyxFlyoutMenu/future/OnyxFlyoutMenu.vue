@@ -24,16 +24,10 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-// const activeItem = ref<string>();
-
 const {
   elements: { button, menu, menuItem, listItem, flyout },
   state: { isExpanded },
-} = createMenuButton({
-  onSelect: () => {
-    // activeItem.value = value;
-  },
-});
+} = createMenuButton({});
 
 provide(MENU_BUTTON_ITEM_INJECTION_KEY, { menuItem, listItem });
 
