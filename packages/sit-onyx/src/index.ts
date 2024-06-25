@@ -112,8 +112,6 @@ export * from "./components/OnyxTimer/types";
 export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
 export * from "./components/OnyxToast/types";
 
-export { default as OnyxToastProgressBar } from "./components/OnyxToastProgressBar/OnyxToastProgressBar.vue";
-
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
 

@@ -8,7 +8,6 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxToastProgressBar from "../OnyxToastProgressBar/OnyxToastProgressBar.vue";
 import type { OnyxToastProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxToastProps>(), {
@@ -83,12 +82,15 @@ const icon = computed(() => {
       </div>
     </div>
 
-    <OnyxToastProgressBar
+    <!-- key is used to restart the animation when the duration changes -->
+    <time
       v-if="hasProgressBar"
-      :color="props.color"
-      :duration="props.duration"
-      @timer-ended="emit('close')"
-    />
+      :key="props.duration"
+      aria-hidden="true"
+      class="onyx-toast__progress-bar"
+      :style="{ animationDuration: `${props.duration}ms` }"
+      @animationend="emit('close')"
+    ></time>
   </component>
 </template>
 
@@ -136,14 +138,8 @@ const icon = computed(() => {
     position: relative;
     z-index: var(--onyx-z-index-notification);
 
-    .onyx-toast-progress-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-
     &:hover {
-      .onyx-toast-progress-bar {
+      .onyx-toast__progress-bar {
         animation-play-state: paused;
       }
     }
@@ -179,6 +175,27 @@ const icon = computed(() => {
 
       &:has(.onyx-toast__close) {
         max-width: calc(100% - var(--onyx-toast-close-button-size));
+      }
+    }
+
+    &__progress-bar {
+      display: block;
+      height: var(--onyx-spacing-5xs);
+      background-color: var(--onyx-toast-progress-bar-color);
+      animation: onyx-toast-progress-bar linear;
+      width: 0;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      @keyframes onyx-toast-progress-bar {
+        0% {
+          width: 100%;
+        }
+        100% {
+          width: 0%;
+        }
       }
     }
 
