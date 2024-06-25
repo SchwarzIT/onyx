@@ -13,6 +13,7 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
+import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -90,8 +91,14 @@ watch(
   },
 );
 
+const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
+/**
+ * We prevent manual user input. The native input inside OnyxSelectInput only represents
+ * the label(s) of what is selected in OnyxSelect.
+ * We only allow all pressed keys that handle interaction with the select.
+ */
 const blockTyping = (event: KeyboardEvent) => {
-  if (event.key === "Enter" || event.key === "Tab") return;
+  if (navigationalKeys.includes(event.key)) return;
 
   event.preventDefault();
 };

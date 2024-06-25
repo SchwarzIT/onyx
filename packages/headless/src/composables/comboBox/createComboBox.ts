@@ -12,8 +12,13 @@ import { useTypeAhead } from "../typeAhead";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
-const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
-const CLOSING_KEYS: PressedKey[] = ["Escape", { key: "ArrowUp", altKey: true }, "Enter", "Tab"];
+export const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
+export const CLOSING_KEYS: PressedKey[] = [
+  "Escape",
+  { key: "ArrowUp", altKey: true },
+  "Enter",
+  "Tab",
+];
 const SELECTING_KEYS_SINGLE: PressedKey[] = ["Enter", " "];
 const SELECTING_KEYS_MULTIPLE: PressedKey[] = ["Enter"];
 
