@@ -18,8 +18,11 @@ module.exports = {
   overrides: [
     // disable playwright rules for vitest (unit test) files
     {
-      files: ["src/**/*.spec.ts"],
-      rules: { "playwright/no-standalone-expect": "off" },
+      files: ["src/**/*.spec.ts", "src/**/*.test-d.ts"],
+      rules: {
+        "playwright/no-standalone-expect": "off",
+        "playwright/expect-expect": "off",
+      },
     },
   ],
 };

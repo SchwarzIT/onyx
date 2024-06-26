@@ -31,6 +31,7 @@ storybook-static
 eslint-results.sarif
 .nuxt
 .output
+tsconfig.vitest-temp.json
 
 # Development config
 .env*
