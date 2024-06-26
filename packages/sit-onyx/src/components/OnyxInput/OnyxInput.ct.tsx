@@ -73,7 +73,7 @@ test.describe("Screenshot tests", () => {
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
-        column === "long-text" ? "Very long label that should be truncated" : "Test label";
+        column === "long-text" ? "Very very long label that should be truncated" : "Test label";
       const message =
         column === "long-text" ? "Very long message that should be truncated" : "Test message";
       const labelTooltip = "More information";
@@ -103,12 +103,6 @@ test.describe("Screenshot tests", () => {
     },
   });
 
-  /* 
-  message
-invalid
-error tooltip
-counter
-  */
   executeMatrixScreenshotTest({
     name: "Input (message replacement on invalid)",
     columns: ["default", "long-text", "with-counter"],

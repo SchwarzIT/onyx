@@ -12,7 +12,7 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
-import type { OnyxSelectInputProps, SelectInputModelValue } from "../OnyxSelectInput/types";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
@@ -34,9 +34,11 @@ const emit = defineEmits<{
    * See property `lazyLoading` for enabling the lazy loading.
    */
   lazyLoad: [];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
-
-const { densityClass } = useDensity(props);
 
 const slots = defineSlots<{
   /**
@@ -58,6 +60,8 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
+
+const { densityClass } = useDensity(props);
 
 const isExpanded = ref(false);
 const selectRef = ref<HTMLElement>();
@@ -249,7 +253,7 @@ watchEffect(() => {
 const selectInputProps = computed(() => {
   const baseProps: OnyxSelectInputProps<TValue> = {
     ...props,
-    selection: props.modelValue as SelectInputModelValue<TValue>[],
+    modelValue: arrayValue.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
   return { ...baseProps, ...input.value };
@@ -264,6 +268,7 @@ const selectInputProps = computed(() => {
       :show-focus="isExpanded"
       :autofocus="props.autofocus"
       @click="onToggle"
+      @validity-change="emit('validityChange', $event)"
     />
 
     <div

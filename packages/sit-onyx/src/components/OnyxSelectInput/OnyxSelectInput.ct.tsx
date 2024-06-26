@@ -9,21 +9,21 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `SelectInput (${state})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "focus-visible"],
+      rows: ["default", "hover", "focus"],
       component: (column) => (
         <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
-          selection={
-            state === "with value" ? { label: "Selected value", value: "test-value" } : undefined
+          modelValue={
+            state === "with value" ? [{ label: "Selected value", value: "test-value" }] : undefined
           }
         />
       ),
       beforeScreenshot: async (component, page, column, row) => {
         if (row === "hover") await component.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "focus") await page.keyboard.press("Tab");
       },
     });
   }
@@ -49,7 +49,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "SelectInput (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
-    rows: ["default", "hover", "focus-visible"],
+    rows: ["default", "hover", "focus"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
@@ -64,7 +64,7 @@ test.describe("Screenshot tests", () => {
     ),
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "focus") await page.keyboard.press("Tab");
     },
   });
 
@@ -84,7 +84,7 @@ test.describe("Screenshot tests", () => {
         <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
-          selection={modelValues[row].map((i) => ({ label: i, value: i }))}
+          modelValue={modelValues[row].map((i) => ({ label: i, value: i }))}
           textMode={column}
         />
       );
@@ -122,4 +122,19 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   // ASSERT
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
+});
+
+test("should prevent manual typing in the input", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSelectInput placeholder="Test" style="width: 16rem" label="Test label" />,
+  );
+
+  // // ACT
+  const input = component.getByLabel("Test label(optional)");
+  await input.pressSequentially("ABC");
+
+  // // ASSERT
+  await expect(input).not.toHaveValue("ABC");
+  await expect(input).toHaveValue("");
 });
