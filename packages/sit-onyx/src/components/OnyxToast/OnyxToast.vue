@@ -51,7 +51,7 @@ const icon = computed(() => {
     :is="props.clickable ? 'button' : 'div'"
     class="onyx-toast"
     :class="[`onyx-toast--${props.color}`, densityClass]"
-    :role="props.color === 'danger' || props.color === 'warning' ? 'alert' : undefined"
+    :role="props.color === 'danger' || props.color === 'warning' ? 'alert' : 'status'"
     :aria-label="props.clickable ? props.headline : undefined"
     @click="props.clickable && emit('click')"
   >
@@ -139,7 +139,7 @@ const icon = computed(() => {
     z-index: var(--onyx-z-index-notification);
 
     &:hover,
-    &:focus {
+    &:focus-within {
       .onyx-toast__progress-bar {
         animation-play-state: paused;
       }
@@ -151,7 +151,7 @@ const icon = computed(() => {
       border: none;
       padding: 0;
 
-      &:focus-visible {
+      &:focus-within {
         outline: 0.25rem solid var(--onyx-toast-outline-color);
       }
     }
