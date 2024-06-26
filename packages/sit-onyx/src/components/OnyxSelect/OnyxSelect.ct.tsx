@@ -6,6 +6,8 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
+import type { FormErrorMessages } from "src/composables/useCustomValidity";
+import type { Locator } from "@playwright/test";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -57,7 +59,7 @@ test.describe("Default screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component, page, column, row) => {
+    beforeScreenshot: async (component, _page, _column, row) => {
       if (row === "open") await openFlyout(component);
     },
   });
@@ -153,7 +155,7 @@ test.describe("Multiple screenshots", () => {
         </div>
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
+    beforeScreenshot: async (component, _page, _column, row) => {
       if (row !== "preview") await openFlyout(component);
     },
   });
@@ -182,12 +184,108 @@ test.describe("Loading screenshots", () => {
         </OnyxSelect>
       </div>
     ),
-    beforeScreenshot: async (component, page, column) => {
+    beforeScreenshot: async (component, _page, column) => {
       await openFlyout(component);
 
       if (column !== "loading") {
         await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
       }
+    },
+  });
+});
+
+test.describe("Invalidity handling screenshots", () => {
+  const isTooltipVisible = async (tooltip: Locator) => {
+    await expect(tooltip).toBeVisible();
+  };
+
+  executeMatrixScreenshotTest({
+    name: "Select (message replacement on invalid)",
+    columns: ["default", "long-text"],
+    rows: ["messageTooltip", "error", "errorTooltip"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => {
+      const showLongMessage = column !== "default";
+      const label =
+        column === "long-text"
+          ? "Very very long test label that should be truncated"
+          : "Test label";
+      const message = showLongMessage
+        ? "Very long message that should be truncated"
+        : "Test message";
+      const errorMessages: FormErrorMessages = {
+        shortMessage: showLongMessage
+          ? "Very long error preview that should be truncated"
+          : "Test error",
+        longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
+      };
+      const messageTooltip = "Additional info message";
+
+      return (
+        <OnyxSelect
+          style="width: 12rem"
+          label={label}
+          message={message}
+          customError={row !== "messageTooltip" ? errorMessages : undefined}
+          messageTooltip={messageTooltip}
+          listLabel="List label"
+          options={MOCK_VARIED_OPTIONS}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, row) => {
+      const input = component.getByLabel("Test label");
+
+      // invalid is only triggered after open/closing the flyout
+      await input.click();
+      await component.click();
+      await input.blur();
+
+      await component.evaluate((element) => {
+        element.style.padding = `0 5rem 3rem 2rem`;
+      });
+
+      if (row !== "error") {
+        const tooltipButton =
+          row === "errorTooltip"
+            ? page.getByLabel("Error Tooltip")
+            : page.getByLabel("Info Tooltip");
+        const tooltip = page.getByRole("tooltip");
+
+        await tooltipButton.hover();
+
+        await isTooltipVisible(tooltip);
+      }
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: `Select (invalid variations)`,
+    columns: ["default", "placeholder", "with-value"],
+    rows: ["default", "hover", "focus"],
+    component: (column) => (
+      <OnyxSelect
+        style="width: 12rem"
+        label="Test label"
+        placeholder={column === "placeholder" ? "Test placeholder" : undefined}
+        customError={{ shortMessage: "Test error" }}
+        listLabel="List label"
+        options={MOCK_VARIED_OPTIONS}
+        modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS[0] : undefined}
+      />
+    ),
+    beforeScreenshot: async (component, _page, _column, row) => {
+      const input = component.getByLabel("Test label");
+
+      // invalid is only triggered after open/closing the flyout
+      await input.click();
+      await component.click();
+
+      if (row !== "focus") {
+        await input.blur();
+      }
+      if (row === "hover") await input.hover();
     },
   });
 });

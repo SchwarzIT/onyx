@@ -179,7 +179,6 @@ const handleInput = (event: Event) => {
       $base-selector: ".onyx-textarea",
       $vertical-padding: var(--onyx-textarea-padding-vertical)
     );
-    @include input.define-readonly-styles($base-selector: ".onyx-textarea");
 
     &__wrapper {
       padding: 0;

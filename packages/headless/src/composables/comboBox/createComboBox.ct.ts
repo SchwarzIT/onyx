@@ -36,7 +36,7 @@ const expectToClose = async (
  * Test an implementation of the combobox based on https://w3c.github.io/aria/#combobox
  */
 export const comboboxTesting = async (
-  page: Page,
+  _page: Page,
   listbox: Locator,
   combobox: Locator,
   button: Locator,
