@@ -14,16 +14,12 @@ const emit = defineEmits<{
 const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
 </script>
 <template>
-  <OnyxListItem
-    :selected="props.active"
-    v-bind="menuButton?.listItem"
-    class="onyx-future-nav-item"
-    @click="emit('click')"
-  >
+  <OnyxListItem :selected="props.active" v-bind="menuButton?.listItem" class="onyx-future-nav-item">
     <a
       class="onyx-future-nav-item__anchor"
       v-bind="menuButton?.menuItem({ active: props.active })"
       :href="props.href ?? 'javascript:void(0)'"
+      @click="emit('click')"
     >
       <slot></slot>
     </a>

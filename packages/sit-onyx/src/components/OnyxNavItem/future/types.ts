@@ -8,7 +8,7 @@ export type OnyxNavItemProps = {
 
 /**
  * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the flyout menu
- * to provide child components with correct aria-patterns.
+ * to provide child components with correct aria attributes.
  *
  * @returns all the elements that createMenuButton composable provides
  */
