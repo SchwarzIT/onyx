@@ -123,3 +123,18 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeAttached();
 });
+
+test("should prevent manual typing in the input", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSelectInput placeholder="Test" style="width: 16rem" label="Test label" />,
+  );
+
+  // // ACT
+  const input = component.getByLabel("Test label(optional)");
+  await input.pressSequentially("ABC");
+
+  // // ASSERT
+  await expect(input).not.toHaveValue("ABC");
+  await expect(input).toHaveValue("");
+});
