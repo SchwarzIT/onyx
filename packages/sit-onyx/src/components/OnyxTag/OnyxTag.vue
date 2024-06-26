@@ -38,6 +38,7 @@ const { densityClass } = useDensity(props);
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-spacing-3xs);
+    width: max-content;
     max-width: 100%;
     padding: var(--onyx-tag-padding);
     border-radius: var(--onyx-radius-xs);

@@ -1,15 +1,19 @@
 <script lang="ts" setup>
+import { inject } from "vue";
+import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
 import type { OnyxNavSeparatorProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavSeparatorProps>(), {
   orientation: "vertical",
 });
+
+const isMobile = inject(mobileNavBarInjectionKey);
 </script>
 
 <template>
   <div
-    class="onyx-separator"
-    :class="{ 'onyx-separator--horizontal': props.orientation === 'horizontal' }"
+    class="onyx-nav-separator"
+    :class="{ 'onyx-nav-separator--horizontal': props.orientation === 'horizontal' || isMobile }"
     role="separator"
     :aria-orientation="props.orientation"
   ></div>
@@ -18,7 +22,7 @@ const props = withDefaults(defineProps<OnyxNavSeparatorProps>(), {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-.onyx-separator {
+.onyx-nav-separator {
   @include layers.component() {
     background-color: var(--onyx-color-base-neutral-300);
     margin: 0 var(--onyx-spacing-2xs);

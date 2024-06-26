@@ -36,8 +36,8 @@ export default defineConfig({
     ["meta", { property: "og:site_name", content: "onyx" }],
     ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-logo.jpg" }],
     ["meta", { property: "og:image:type", content: "image/jpeg" }],
-    ["meta", { property: "og:image:width", content: "1200" }],
-    ["meta", { property: "og:image:height", content: "630" }],
+    ["meta", { property: "og:image:width", content: "600" }],
+    ["meta", { property: "og:image:height", content: "600" }],
     ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
   ],
   themeConfig: {

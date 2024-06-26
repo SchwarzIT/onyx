@@ -1,5 +1,21 @@
 # sit-onyx
 
+## 1.0.0-alpha.149
+
+### Minor Changes
+
+- 1cc020a: feat(OnyxNavBar): support mobile context area
+
+### Patch Changes
+
+- 1cc020a: fix: limit width to `max-content` for OnyxTag and OnyxTimer
+
+## 1.0.0-alpha.148
+
+### Major Changes
+
+- 2d0458d: fix(OnyxIcon): change default size to `24px` instead of font size
+
 ## 1.0.0-alpha.147
 
 ### Major Changes
