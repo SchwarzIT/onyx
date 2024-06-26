@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-alpha.11
+
+### Minor Changes
+
+- 0bdb49a: feat(createComboBox): open flyout on text input for searchable combo boxes. Fix close/open bug when selecting with space
+
 ## 1.0.0-alpha.10
 
 ### Minor Changes
