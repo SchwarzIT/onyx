@@ -82,11 +82,18 @@ export const WithFooter = {
   },
 } satisfies Story;
 
-/** A page that shows a sidebar and a footer next to it. */
-export const WithPartialFooter = {
+/** A standard page with sidebar and footer. */
+export const WithSidebarAndFooter = {
   args: {
     ...WithSidebar.args,
     footer: WithFooter.args.footer,
+  },
+} satisfies Story;
+
+/** A page that shows a sidebar and a footer next to it. */
+export const WithPartialFooter = {
+  args: {
+    ...WithSidebarAndFooter.args,
     footerAsideSidebar: true,
   },
 } satisfies Story;

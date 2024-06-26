@@ -32,10 +32,6 @@ const showTempSidebarOpen = computed<boolean>(() => {
   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
   return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) ?? false;
 });
-
-const footerAsideSidebar = computed<boolean>(
-  () => (settings.value.footer.showDetailFooter && isSidebarOpen.value) ?? false,
-);
 </script>
 
 <template>
@@ -52,8 +48,7 @@ const footerAsideSidebar = computed<boolean>(
 
     <!-- key is not needed in a real application where the slots aren't constantly hidden and revealed -->
     <OnyxPageLayout
-      :key="JSON.stringify(settings)"
-      :footer-aside-sidebar="footerAsideSidebar"
+      :footer-aside-sidebar="settings.footer.showDetailFooter"
       :hide-sidebar="!isSidebarOpen && !settings.sidebar.showSidebar"
     >
       <template
@@ -73,7 +68,7 @@ const footerAsideSidebar = computed<boolean>(
       </template>
 
       <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
-        <FooterDemo :detail-footer="footerAsideSidebar" />
+        <FooterDemo :detail-footer="settings.footer.showDetailFooter" />
       </template>
     </OnyxPageLayout>
 

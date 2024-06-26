@@ -4,7 +4,7 @@ import type { OnyxPageLayoutProps } from "./types";
 
 const props = defineProps<OnyxPageLayoutProps>();
 
-const slots = defineSlots<{
+defineSlots<{
   /** Main content area of the page */
   default(): unknown;
   /** Optional sidebar of the page */
@@ -17,14 +17,10 @@ const slots = defineSlots<{
 
 const pageModifier = computed(() => {
   let mode = "";
-  if (!slots.footer && slots.sidebar) mode = "onyx-page--side-main";
-  if (slots.footer && (!slots.sidebar || props.hideSidebar)) mode = "onyx-page--main-footer";
-  if (slots.footer && slots.sidebar) {
-    if (props.footerAsideSidebar) {
-      mode = "onyx-page--side-main-footer-partial";
-    } else {
-      mode = "onyx-page--side-main-footer-full";
-    }
+  if (props.footerAsideSidebar) {
+    mode = "onyx-page--footer-partial";
+  } else {
+    mode = "onyx-page--footer-full";
   }
   return mode;
 });
@@ -32,16 +28,16 @@ const pageModifier = computed(() => {
 
 <template>
   <div class="onyx-page" :class="pageModifier">
-    <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
+    <aside v-show="!props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>
     <main class="onyx-page__main">
       <slot></slot>
     </main>
-    <footer v-if="slots.footer" class="onyx-page__footer">
+    <footer class="onyx-page__footer">
       <slot name="footer"></slot>
     </footer>
-    <div v-if="slots.toasts" class="onyx-page__toasts">
+    <div class="onyx-page__toasts">
       <slot name="toasts"></slot>
     </div>
   </div>
@@ -63,24 +59,14 @@ const pageModifier = computed(() => {
     grid-template-columns: auto;
     grid-template-areas: "main";
 
-    &--side-main {
-      grid-template-columns: max-content 1fr;
-      grid-template-areas: "side main";
-    }
-    &--main-footer {
-      grid-template-rows: 1fr max-content;
-      grid-template-areas:
-        "main"
-        "footer";
-    }
-    &--side-main-footer-full {
+    &--footer-full {
       grid-template-columns: max-content 1fr;
       grid-template-rows: 1fr max-content;
       grid-template-areas:
         "side main"
         "footer footer";
     }
-    &--side-main-footer-partial {
+    &--footer-partial {
       grid-template-columns: max-content 1fr;
       grid-template-rows: 1fr max-content;
       grid-template-areas:
