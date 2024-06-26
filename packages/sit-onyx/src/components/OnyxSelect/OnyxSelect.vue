@@ -43,13 +43,13 @@ const emit = defineEmits<{
 const searchTerm = useManagedState(
   toRef(() => props.searchTerm),
   "",
-  (v) => emit("update:searchTerm", v ?? ""),
+  (v) => emit("update:searchTerm", v),
 );
 
 const open = useManagedState(
   toRef(() => props.open),
   false,
-  (v) => emit("update:open", v ?? false),
+  (v) => emit("update:open", v),
 );
 
 const { densityClass } = useDensity(props);
