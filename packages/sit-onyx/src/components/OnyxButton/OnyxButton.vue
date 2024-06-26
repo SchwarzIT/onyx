@@ -41,7 +41,7 @@ const emit = defineEmits<{
     :autofocus="props.autofocus"
     @click="emit('click')"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" size="24px" />
+    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>

@@ -173,7 +173,7 @@ const blockTyping = (event: KeyboardEvent) => {
           :disabled="props.readonly || props.disabled || props.loading"
           @click="emit('click')"
         >
-          <OnyxIcon size="24px" :icon="chevronDownUp" />
+          <OnyxIcon :icon="chevronDownUp" />
         </button>
       </div>
     </OnyxFormElement>

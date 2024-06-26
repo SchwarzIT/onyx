@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import { injectI18n } from "../../i18n";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxInfoTooltipProps } from "./types";
-import { injectI18n } from "../../i18n";
 
 const props = defineProps<OnyxInfoTooltipProps>();
 const { t } = injectI18n();
@@ -36,6 +36,10 @@ const { t } = injectI18n();
         // https://github.com/SchwarzIT/onyx/issues/1272
         // is defined
         outline: none;
+      }
+
+      .onyx-icon {
+        --icon-size: 1em;
       }
     }
   }

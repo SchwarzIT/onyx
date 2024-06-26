@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.148
+
+### Major Changes
+
+- 2d0458d: fix(OnyxIcon): change default size to `24px` instead of font size
+
 ## 1.0.0-alpha.147
 
 ### Major Changes
