@@ -4,7 +4,7 @@ import type { OnyxPageLayoutProps } from "./types";
 
 const props = defineProps<OnyxPageLayoutProps>();
 
-defineSlots<{
+const slots = defineSlots<{
   /** Main content area of the page */
   default(): unknown;
   /** Optional sidebar of the page */
@@ -28,16 +28,16 @@ const pageModifier = computed(() => {
 
 <template>
   <div class="onyx-page" :class="pageModifier">
-    <aside v-show="!props.hideSidebar" class="onyx-page__sidebar">
+    <aside v-show="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>
     <main class="onyx-page__main">
       <slot></slot>
     </main>
-    <footer class="onyx-page__footer">
+    <footer v-show="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </footer>
-    <div class="onyx-page__toasts">
+    <div v-show="slots.toasts" class="onyx-page__toasts">
       <slot name="toasts"></slot>
     </div>
   </div>
