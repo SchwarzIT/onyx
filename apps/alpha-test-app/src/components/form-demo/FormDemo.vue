@@ -32,18 +32,9 @@ export type FormData = Partial<{
 const formState = defineModel<FormData>();
 
 const selectOptions = [
-  {
-    value: "apple",
-    label: "Apple",
-  },
-  {
-    value: "banana",
-    label: "Banana",
-  },
-  {
-    value: "strawberry",
-    label: "Strawberry",
-  },
+  { value: "apple", label: "Apple" },
+  { value: "banana", label: "Banana" },
+  { value: "strawberry", label: "Strawberry" },
 ];
 
 const customErrorExample = ref("");
