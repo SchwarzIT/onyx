@@ -123,9 +123,8 @@ jobs:
         with:
           name: html-report--attempt-${{ github.run_attempt }}
           path: |
-            ./packages/**/playwright-report
-            ./apps/**/playwright-report
-            !./**/node_modules/**
+            ./packages/*/playwright-report
+            ./apps/*/playwright-report
           retention-days: 14
 
       - run: |
