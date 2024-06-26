@@ -1,5 +1,5 @@
 import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
-import type { DeepExtendable, DeepPartial } from "../types/utils";
+import type { DeepPartial } from "../types/utils";
 import {
   computed,
   inject,
@@ -38,41 +38,38 @@ export type ProvideI18nOptions = {
    * @default "en-US"
    */
   locale?: MaybeRef<string>;
-} & (
-  | {
-      /**
-       * Available translations / messages. English is always supported. For build-in translations, see:
-       * https://onyx.schwarz/development/i18n.html
-       *
-       * @example
-       * ```ts
-       * import deDE from "sit-onyx/locales/de-DE.json";
-       * {
-       *   messages: {
-       *     // English is always supported so we don't need to add it here
-       *     'de-DE': deDE
-       *   }
-       * }
-       * ```
-       */
-      messages?: Record<string, DeepExtendable<DeepPartial<OnyxTranslations>>>;
-    }
-  | {
-      /**
-       * Custom translation function. This option can be used to pass a custom function for translations to onyx in case you want your i18n library to handle them.
-       * @example
-       * ```ts
-       * import { useI18n } from "vue-i18n";
-       *
-       * const { t } = useI18n();
-       * {
-       *   t: computed((key, placeholders) => t(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders }))
-       * }
-       * ```
-       */
-      t: ComputedRef<TranslationFunction>;
-    }
-);
+  /**
+   * Available translations / messages. English is always supported. For build-in translations, see:
+   * https://onyx.schwarz/development/i18n.html
+   *
+   * @example
+   * ```ts
+   * import deDE from "sit-onyx/locales/de-DE.json";
+   * {
+   *   messages: {
+   *     // English is always supported so we don't need to add it here
+   *     'de-DE': deDE
+   *   }
+   * }
+   * ```
+   */
+  messages?: Record<string, DeepPartial<OnyxTranslations>>;
+  /**
+   * Custom translation function. This option can be used to pass a custom function for translations to onyx in case you want your i18n library to handle them.
+   * @example
+   * ```ts
+   * import { useI18n } from "vue-i18n";
+   *
+   * const { t } = useI18n();
+   * {
+   *   t: computed((key, placeholders) => t(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders }))
+   * }
+   * ```
+   *
+   * Note: If a custom `t` function is used, passed messages will not be used.
+   */
+  t?: ComputedRef<TranslationFunction>;
+};
 
 export type TranslationFunction = (
   key: OnyxTranslationKey,
@@ -93,7 +90,7 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
   const locale = computed(() => unref(options?.locale) ?? "en-US");
 
   // If the user provided a custom `t` function it should be used instead of the default one
-  if ("t" in options) {
+  if (options.t) {
     return { t: options.t, locale };
   }
 
