@@ -139,7 +139,8 @@ const icon = computed(() => {
     z-index: var(--onyx-z-index-notification);
 
     &:hover,
-    &:focus-within {
+    &:focus,
+    &:has(&__description:focus-visible) {
       .onyx-toast__progress-bar {
         animation-play-state: paused;
       }
@@ -154,6 +155,10 @@ const icon = computed(() => {
       &:focus-within {
         outline: 0.25rem solid var(--onyx-toast-outline-color);
       }
+    }
+
+    &:has(&__description:focus-visible) {
+      outline: 0.25rem solid var(--onyx-toast-outline-color);
     }
 
     &__wrapper {
