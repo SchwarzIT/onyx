@@ -5,11 +5,13 @@ import {
   OnyxHeadline,
   OnyxInput,
   OnyxRadioGroup,
+  OnyxSelect,
   OnyxSwitch,
   OnyxTextarea,
   type CheckboxGroupOption,
   type OnyxRadioGroupProps,
   type RadioButtonOption,
+  type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
 
@@ -23,10 +25,26 @@ export type FormData = Partial<{
   patternInput: string;
   switch: boolean;
   checkboxGroup: number[];
+  requiredSelect: SelectOption[];
   radioGroup: OnyxRadioGroupProps["modelValue"];
 }>;
 
 const formState = defineModel<FormData>();
+
+const selectOptions = [
+  {
+    value: "apple",
+    label: "Apple",
+  },
+  {
+    value: "banana",
+    label: "Banana",
+  },
+  {
+    value: "strawberry",
+    label: "Strawberry",
+  },
+];
 
 const customErrorExample = ref("");
 
@@ -50,50 +68,92 @@ const radioOptions: RadioButtonOption[] = [
 </script>
 
 <template>
-  <form v-if="formState" class="demo" @submit.prevent="handleSubmit" @reset="formState = {}">
-    <OnyxHeadline is="h2" class="demo__headline"
+  <form
+    v-if="formState"
+    class="demo onyx-grid"
+    @submit.prevent="handleSubmit"
+    @reset="formState = {}"
+  >
+    <OnyxHeadline is="h3" class="onyx-grid-span-20"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >
 
-    <OnyxInput v-model="formState.defaultInput" label="Default" />
+    <OnyxInput v-model="formState.defaultInput" class="onyx-grid-span-4" label="Default" />
 
-    <OnyxInput v-model="formState.requiredInput" label="Requires a value" required />
+    <OnyxInput
+      v-model="formState.requiredInput"
+      class="onyx-grid-span-4"
+      label="Requires a value"
+      required
+    />
 
     <OnyxInput
       v-model="formState.minlengthInput"
+      class="onyx-grid-span-4"
       label="Minlength 5"
       type="text"
       :minlength="5"
       required
     />
-
-    <OnyxTextarea v-model="formState.requiredTextarea" label="Requires a value" required />
-
-    <OnyxTextarea
-      v-model="formState.minlengthTextarea"
-      label="Minlength 5"
-      type="text"
-      :minlength="5"
-      required
+    <OnyxInput
+      v-model="formState.typeInput"
+      class="onyx-grid-span-4"
+      label="Type email"
+      type="email"
     />
-
-    <OnyxInput v-model="formState.typeInput" label="Type email" type="email" />
 
     <OnyxInput
       v-model="formState.patternInput"
+      class="onyx-grid-span-4"
       label="Pattern lowercase characters"
       pattern="[a-z ]*"
       :custom-error="customErrorExample"
       @validity-change="onPatternValidityChange"
     />
 
-    <OnyxSwitch v-model="formState.switch" label="Switch" required />
+    <OnyxSelect
+      v-model="formState.requiredSelect"
+      class="onyx-grid-span-4"
+      label="Example select"
+      list-label="List label"
+      multiple
+      :options="selectOptions"
+      placeholder="Placeholder..."
+      required
+    />
 
-    <OnyxCheckboxGroup v-model="formState.checkboxGroup" :options="checkboxOptions" />
+    <OnyxTextarea
+      v-model="formState.requiredTextarea"
+      class="onyx-grid-span-4"
+      label="Requires a value"
+      required
+    />
 
-    <OnyxRadioGroup v-model="formState.radioGroup" :options="radioOptions" required />
+    <OnyxTextarea
+      v-model="formState.minlengthTextarea"
+      class="onyx-grid-span-4"
+      label="Minlength 5"
+      type="text"
+      :minlength="5"
+      required
+    />
 
-    <div class="demo__actions">
+    <OnyxSwitch v-model="formState.switch" class="onyx-grid-span-4" label="Switch" required />
+
+    <OnyxCheckboxGroup
+      v-model="formState.checkboxGroup"
+      class="onyx-grid-span-4"
+      :options="checkboxOptions"
+    />
+
+    <OnyxRadioGroup
+      v-model="formState.radioGroup"
+      class="onyx-grid-span-4"
+      :options="radioOptions"
+      required
+    />
+
+    <div class="demo__actions onyx-grid-span-20">
       <OnyxButton label="Reset" color="neutral" type="reset" />
       <OnyxButton class="demo__submit" label="Submit" type="submit" />
     </div>
@@ -102,10 +162,6 @@ const radioOptions: RadioButtonOption[] = [
 
 <style lang="scss" scoped>
 .demo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-md);
-
   &:valid {
     .demo__invalid {
       display: none;
@@ -115,11 +171,6 @@ const radioOptions: RadioButtonOption[] = [
   &__actions {
     display: flex;
     gap: var(--onyx-spacing-xs);
-  }
-
-  .onyx-input,
-  .onyx-textarea {
-    max-width: 20rem;
   }
 }
 </style>

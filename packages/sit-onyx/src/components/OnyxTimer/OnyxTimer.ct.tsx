@@ -1,4 +1,4 @@
-import { executeMatrixScreenshotTest } from "src/playwright/screenshots";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { expect, test } from "../../playwright/a11y";
 import OnyxTimer from "./OnyxTimer.vue";
 
