@@ -33,7 +33,7 @@ const avatar = computed(() => {
     <button class="onyx-user-menu__trigger onyx-text">
       <OnyxAvatar v-bind="avatar" size="24px" />
       <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" size="24px" />
+      <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
     </button>
 
     <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">

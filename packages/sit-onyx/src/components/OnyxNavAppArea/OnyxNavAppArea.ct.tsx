@@ -27,7 +27,7 @@ test.describe("Screenshot tests", () => {
       return (
         <OnyxNavAppArea appName={column === "no-name" ? undefined : "App name"} logoUrl={logoUrl}>
           {column === "custom-content" && [
-            <OnyxIcon icon={mockPlaywrightIcon} size="24px" />,
+            <OnyxIcon icon={mockPlaywrightIcon} />,
             <i>Custom content</i>,
           ]}
         </OnyxNavAppArea>
