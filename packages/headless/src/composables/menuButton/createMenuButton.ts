@@ -3,10 +3,13 @@ import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
 
+/**
+ * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
+ */
 export const createMenuButton = createBuilder(() => {
   const menuId = createId("menu");
   const buttonId = createId("menu-button");
-  const isExpanded = ref<boolean>(false);
+  const isExpanded = ref(false);
 
   /**
    * Debounced expanded state that will only be toggled after a given timeout.
@@ -25,14 +28,13 @@ export const createMenuButton = createBuilder(() => {
     };
   });
 
-  const getMenu = (el: HTMLElement) => {
-    const id = el.getAttribute("aria-controls") || "";
-    return document.getElementById(id);
-  };
-
   const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
     const currentMenuItem = document.activeElement as HTMLElement;
-    const currentMenu = currentMenuItem?.closest('[role="menu"]') || getMenu(currentMenuItem);
+
+    // Either the current focus is on a "menuitem", then we can just get the parent menu.
+    // Or the current focus is on the button, then we can get the connected menu using the menuId
+    const currentMenu =
+      currentMenuItem?.closest('[role="menu"]') || document.getElementById(menuId);
     if (!currentMenu) return;
 
     const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];

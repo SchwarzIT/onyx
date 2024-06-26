@@ -7,10 +7,10 @@ export type OnyxNavItemProps = {
 };
 
 /**
- * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
- * to communicate child components whether they should render in mobile or desktop mode.
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the flyout menu
+ * to provide child components with correct aria-patterns.
  *
- * @returns `true` if mobile, `false` otherwise
+ * @returns all the elements that createMenuButton composable provides
  */
 export const MENU_BUTTON_ITEM_INJECTION_KEY = Symbol() as InjectionKey<
   Pick<ReturnType<typeof createMenuButton>["elements"], "listItem" | "menuItem">
