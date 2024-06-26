@@ -94,7 +94,7 @@ watch(
 const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
 /**
  * We prevent manual user input. The native input inside OnyxSelectInput only represents
- * the label(s) of what is selected in OnyxSelect.
+ * the label(s) of what is selected in OnyxSelect and shouldn't be overwritten manually.
  * We only allow all pressed keys that handle interaction with the select.
  */
 const blockTyping = (event: KeyboardEvent) => {
@@ -149,8 +149,8 @@ const blockTyping = (event: KeyboardEvent) => {
           :title="props.hideLabel ? props.label : undefined"
           :value="selectionText"
           :autofocus="props.autofocus"
-          @keydown="blockTyping"
           @click="emit('click')"
+          @keydown="blockTyping"
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input
