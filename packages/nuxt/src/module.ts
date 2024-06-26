@@ -1,5 +1,4 @@
 import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
-import { defu } from "defu";
 import * as onyx from "sit-onyx";
 import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
 import type { NuxtOptions } from "@nuxt/schema";
@@ -15,17 +14,6 @@ export interface ModuleOptions {
    * @see https://onyx.schwarz/development/#installation
    */
   disableGlobalStyles?: boolean;
-  /**
-   * This module will automatically detect if @nuxtjs/i18n is used within the project and configure itself to work with it.
-   * This group of options gives you the flexibility to fine tune this integration.
-   */
-  i18n?: {
-    /**
-     * Prefix to use for all translation keys comming from onyx. The modules translations can later be used under this prefix, e.g. `$t('onyx.optional')`.
-     * @default "onyx"
-     */
-    prefix?: string;
-  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -33,18 +21,10 @@ export default defineNuxtModule<ModuleOptions>({
     name: "@sit-onyx/nuxt",
     configKey: "onyx",
   },
-  defaults: {
-    i18n: { prefix: "onyx" },
-  },
+  defaults: {},
   setup(options, nuxt) {
     const logger = useLogger("@sit-onyx/nuxt");
     const { resolve } = createResolver(import.meta.url);
-
-    nuxt.options.runtimeConfig.public = defu(nuxt.options.runtimeConfig.public, {
-      onyx: {
-        i18n: options.i18n,
-      },
-    });
 
     /**
      * The calc plugin of cssnano doesn't work with calc constants (https://developer.mozilla.org/en-US/docs/Web/CSS/calc-constant) used within onyx.

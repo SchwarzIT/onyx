@@ -244,9 +244,6 @@ importers:
       '@nuxt/kit':
         specifier: ^3.12.2
         version: 3.12.2(magicast@0.3.4)(rollup@4.18.0)
-      defu:
-        specifier: ^6.1.4
-        version: 6.1.4
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx

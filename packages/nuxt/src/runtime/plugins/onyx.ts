@@ -1,7 +1,7 @@
 import type { Composer } from "vue-i18n";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { computed, watchEffect, type ComputedRef } from "#imports";
-import { defineNuxtPlugin, useNuxtApp, useRuntimeConfig } from "nuxt/app";
+import { defineNuxtPlugin, useNuxtApp } from "nuxt/app";
 import { provideI18n, syncGlobalOptionalText, type TranslationFunction } from "sit-onyx";
 
 type I18n = Composer & { localeProperties: ComputedRef<LocaleObject> };
@@ -13,11 +13,10 @@ export default defineNuxtPlugin({
   setup: (app) => {
     // This plugin is only added if the i18n module was added as well so it's safe to assume $i18n was provided
     const { t: translate, localeProperties } = useNuxtApp().$i18n as I18n;
-    const onyxI18nPrefix = useRuntimeConfig().public.onyx.i18n.prefix;
 
     const t = computed((): TranslationFunction => {
       return (key, placeholders) => {
-        return translate(`${onyxI18nPrefix}.${key}`, placeholders?.n ?? 1, { named: placeholders });
+        return translate(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders });
       };
     });
 
@@ -33,7 +32,7 @@ export default defineNuxtPlugin({
      */
     app.hook("app:beforeMount", () => {
       watchEffect(() => {
-        syncGlobalOptionalText(translate(`${onyxI18nPrefix}.optional`));
+        syncGlobalOptionalText(translate(`onyx.optional`));
       });
     });
   },

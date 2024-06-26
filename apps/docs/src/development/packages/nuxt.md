@@ -49,26 +49,7 @@ The setup is automated, @sit-onyx/nuxt will check if @nuxtjs/i18n is registered 
 
 If your project uses standard language codes in the [BCP 47](https://www.rfc-editor.org/info/bcp47) format, supported translations will automatically be mapped correctly. Otherwise you'll have to define the mapping yourself by importing the messages inside your projects language definition. (See: [Extending onyx translations](#extending-onyx-translations))
 
-### Configuration
-
-You can find all options for the module under the config key `onyx.i18n`. At the moment there is only one option named `prefix`. As the translations of onyx will be merged into the ones of your project, they are prefixed with "onyx" by default to avoid accidental overwrites.
-
-```ts
-export default defineNuxtConfig({
-  modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
-  onyx: {
-    i18n: {
-      prefix: "my-onyx", // "onyx" is the default you only need to provide a value here if you want to change it to something else
-    },
-  },
-});
-```
-
-> You may also use the translations from onyx for other things inside your application to keep the translations consistent.
-> E.g.: `t('onyx.optional')` -> Translates to `(optional)` for en-US.
-> For all available translations see: [i18n](/development/i18n#build-in-languages)
-
-#### Customizing onyx translations
+### Customizing onyx translations
 
 It might happen that a certain translation provided by onyx doesn't fit your project. As project specific translations will always overwrite the defaults from onyx, you can easily provide your own. Just define the key of the onyx translation inside your own messages scoped to the key "onyx". E.g. this example will remove the default brackets around the translation for "optional":
 
@@ -83,7 +64,7 @@ It might happen that a certain translation provided by onyx doesn't fit your pro
 
 For all available translations / keys please see: [i18n](/development/i18n#build-in-languages)
 
-#### Extending onyx translations
+### Extending onyx translations
 
 Maybe your project requires a language not supported by onyx. In this case you may provide translations for the keys within the "onyx" scope of your messages.
 
