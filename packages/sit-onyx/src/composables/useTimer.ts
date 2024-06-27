@@ -1,55 +1,30 @@
 import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
-import { useAnimationFrame } from "./useAnimationFrame";
-
-export type UseTimerOptions = {
-  /**
-   * Timestamp when the timer will end.
-   */
-  endTime: Ref<ConstructorParameters<typeof Date>[0]>;
-  /**
-   * Whether to use `requestAnimationFrame()` to update the time left.
-   * Useful is used for smooth animations.
-   *
-   * If `false`, it will be updated every second.
-   *
-   * @false
-   */
-  useAnimationFrame?: boolean;
-};
 
 /**
  * Composable for managing a single timer.
  */
-export const useTimer = (options: UseTimerOptions) => {
+export const useTimer = (endTime: Ref<ConstructorParameters<typeof Date>[0]>) => {
   /**
    * Current interval ID. Can be used to cancel the timer.
    */
   const intervalId = ref<ReturnType<typeof setInterval>>();
 
-  const timeLeft = ref(calculateTimeLeft(new Date(options.endTime.value).getTime()));
+  const timeLeft = ref(calculateTimeLeft(new Date(endTime.value).getTime()));
   const isEnded = computed(() => timeLeft.value === 0);
 
   watch(
-    options.endTime,
+    endTime,
     (newEndTime) => {
+      clearInterval(intervalId.value); // clear any previous timers
       const endTimestamp = new Date(newEndTime).getTime();
 
-      // trigger immediate
+      // setInterval does not trigger immediate so we calculate it once here
       timeLeft.value = calculateTimeLeft(endTimestamp);
 
-      if (!options.useAnimationFrame) {
-        clearInterval(intervalId.value); // clear any previous timers
-
-        intervalId.value = setInterval(() => {
-          timeLeft.value = calculateTimeLeft(endTimestamp);
-          if (isEnded.value) clearInterval(intervalId.value);
-        }, 1000);
-      } else {
-        const { stop } = useAnimationFrame(() => {
-          timeLeft.value = calculateTimeLeft(endTimestamp);
-          if (isEnded.value) stop();
-        });
-      }
+      intervalId.value = setInterval(() => {
+        timeLeft.value = calculateTimeLeft(endTimestamp);
+        if (isEnded.value) clearInterval(intervalId.value);
+      }, 1000);
     },
     { immediate: true },
   );

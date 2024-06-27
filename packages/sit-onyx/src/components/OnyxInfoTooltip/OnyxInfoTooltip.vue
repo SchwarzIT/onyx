@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import { injectI18n } from "../../i18n";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxInfoTooltipProps } from "./types";
-import { injectI18n } from "../../i18n";
 
 const props = defineProps<OnyxInfoTooltipProps>();
 const { t } = injectI18n();
@@ -12,7 +12,7 @@ const { t } = injectI18n();
 <template>
   <OnyxTooltip class="onyx-info-tooltip" :text="props.text" :position="props.position">
     <button :aria-label="props.label || t('showTooltip.info')" class="onyx-info-tooltip__trigger">
-      <OnyxIcon :icon="circleInformation" size="12px" />
+      <OnyxIcon :icon="circleInformation" />
     </button>
   </OnyxTooltip>
 </template>
@@ -27,13 +27,19 @@ const { t } = injectI18n();
       background-color: transparent;
       padding: 0;
       color: inherit;
-      height: 0.75rem;
+      display: flex;
+      height: 1lh;
+      align-items: center;
 
       &:focus-visible {
         // unset the icon button outline for now until
         // https://github.com/SchwarzIT/onyx/issues/1272
         // is defined
         outline: none;
+      }
+
+      .onyx-icon {
+        --icon-size: 1em;
       }
     }
   }

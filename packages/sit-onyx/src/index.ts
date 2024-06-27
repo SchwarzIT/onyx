@@ -112,8 +112,6 @@ export * from "./components/OnyxTimer/types";
 export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
 export * from "./components/OnyxToast/types";
 
-export { default as OnyxToastProgressBar } from "./components/OnyxToastProgressBar/OnyxToastProgressBar.vue";
-
 export { default as OnyxToastProvider } from "./components/OnyxToastProvider/OnyxToastProvider.vue";
 export * from "./components/OnyxToastProvider/useToast";
 
@@ -128,6 +126,7 @@ export * from "./components/OnyxVisuallyHidden/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
+
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx } from "./utils/plugin";

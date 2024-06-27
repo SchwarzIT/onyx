@@ -1,17 +1,19 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -24,17 +26,25 @@ const props = withDefaults(defineProps<OnyxSelectInputProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the select input is clicked (and is not disabled).
+   */
   click: [];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const { t } = injectI18n();
+
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 /**
  * Number of selected options.
  */
 const selectionCount = computed(() => {
-  if (Array.isArray(props.selection)) return props.selection.length;
-  return props.selection ? 1 : 0;
+  return props.modelValue ? props.modelValue.length : 0;
 });
 
 /**
@@ -43,28 +53,55 @@ const selectionCount = computed(() => {
  * On multi select, it is a summary or a preview of the options.
  */
 const selectionText = computed<string>(() => {
-  if (Array.isArray(props.selection)) {
-    const numberOfSelections = props.selection.length;
-    if (!numberOfSelections) return "";
-    if (numberOfSelections === 1) return props.selection[0].label;
+  const numberOfSelections = props.modelValue?.length;
+  if (!props.modelValue || !numberOfSelections) return "";
+  if (numberOfSelections === 1) return props.modelValue[0].label;
 
-    switch (props.textMode) {
-      case "preview":
-        return props.selection.map(({ label }) => label).join(", ");
-      case "summary":
-      default:
-        return t.value("selections.currentSelection", { n: numberOfSelections });
-    }
+  switch (props.textMode) {
+    case "preview":
+      return props.modelValue.map(({ label }) => label).join(", ");
+    case "summary":
+    default:
+      return t.value("selections.currentSelection", { n: numberOfSelections });
   }
-
-  return props.selection?.label ?? "";
 });
+
+/** used to detect user interaction to simulate the behavior of :user-invalid for the native input */
+const wasTouched = ref(false);
 
 const { densityClass } = useDensity(props);
 
 const input = ref<HTMLInputElement>();
 
 defineExpose({ focus: () => input.value?.focus() });
+
+/**
+ * As the native input has to be readonly, the :user-invalid will never appear.
+ * We need to track user interaction by evaluating whether the flyout was ever closed.
+ * After that, we can simulate :user-invalid by checking whether an error is set.
+ */
+watch(
+  () => props.showFocus,
+  (newValue, oldValue) => {
+    // only needs to be set once.
+    if (wasTouched.value) return;
+    if (oldValue && newValue === false) {
+      wasTouched.value = true;
+    }
+  },
+);
+
+const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
+/**
+ * We prevent manual user input. The native input inside OnyxSelectInput only represents
+ * the label(s) of what is selected in OnyxSelect and shouldn't be overwritten manually.
+ * We only allow all pressed keys that handle interaction with the select.
+ */
+const blockTyping = (event: KeyboardEvent) => {
+  if (navigationalKeys.includes(event.key)) return;
+
+  event.preventDefault();
+};
 </script>
 <template>
   <div
@@ -85,7 +122,7 @@ defineExpose({ focus: () => input.value?.focus() });
     ]"
     v-bind="rootAttrs"
   >
-    <OnyxFormElement v-bind="props">
+    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <div class="onyx-select-input__wrapper">
         <OnyxLoadingIndicator
           v-if="props.loading"
@@ -95,14 +132,16 @@ defineExpose({ focus: () => input.value?.focus() });
 
         <input
           ref="input"
+          v-custom-validity
           :class="{
             'onyx-select-input__native': true,
             'onyx-select-input__native--show-focus': props.showFocus,
             'onyx-truncation-ellipsis': true,
+            'onyx-select-input__native--force-invalid': errorMessages && wasTouched,
           }"
           v-bind="restAttrs"
           type="text"
-          readonly
+          :readonly="props.readonly"
           :placeholder="props.placeholder"
           :required="props.required"
           :disabled="props.disabled || props.loading"
@@ -111,6 +150,7 @@ defineExpose({ focus: () => input.value?.focus() });
           :value="selectionText"
           :autofocus="props.autofocus"
           @click="emit('click')"
+          @keydown="blockTyping"
         />
 
         <!-- TODO: figure out how the tooltip width can be sized to the select-input
@@ -167,95 +207,59 @@ defineExpose({ focus: () => input.value?.focus() });
       $vertical-padding: var(--onyx-select-input-padding-vertical)
     );
 
-    --selection-color: var(--onyx-color-base-neutral-200);
-    font-family: var(--onyx-font-family);
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-spacing-5xs);
+    &__native {
+      // hide the blinking cursor as we suppress typing
+      caret-color: transparent;
+    }
+    .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
+      cursor: pointer;
+      .onyx-select-input__native {
+        cursor: pointer;
+      }
+    }
 
+    /* button styles */
     &__button {
       all: initial;
       height: var(--onyx-spacing-lg);
-      color: var(--onyx-color-text-icons-neutral-medium);
+      color: var(--onyx-color-text-icons-neutral-soft);
 
       &:enabled {
         cursor: pointer;
+      }
+    }
+    // button on focus (not readonly)
+    &:has(
+        .onyx-select-input__native:enabled:read-write:focus,
+        .onyx-select-input__native--show-focus:enabled:read-write
+      ) {
+      .onyx-select-input__button {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+      &:has(.onyx-select-input__native:user-invalid),
+      &:has(.onyx-select-input__native--force-invalid) {
+        .onyx-select-input__button {
+          color: var(--onyx-color-text-icons-neutral-intense);
+        }
+      }
+    }
+    // button on hover (not readonly)
+    .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled:read-write):hover {
+      .onyx-select-input__button {
+        color: var(--onyx-color-text-icons-primary-medium);
+      }
+
+      &:has(.onyx-select-input__native:user-invalid),
+      &:has(.onyx-select-input__native--force-invalid) {
+        .onyx-select-input__button {
+          color: var(--onyx-color-text-icons-neutral-medium);
+        }
       }
     }
 
     &__badge {
       display: block;
       cursor: pointer;
-    }
-
-    &__loading {
-      color: var(--onyx-color-text-icons-primary-intense);
-    }
-
-    /** The internal input is always "readonly" because typing is not allowed.
-     * That's why we need to rely on modifier classes instead of using pseudo classes
-     */
-    &--editable {
-      .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
-        cursor: pointer;
-        .onyx-select-input__native {
-          cursor: pointer;
-        }
-
-        // default hover
-        &:hover {
-          @include input.define-enabled-hover();
-          .onyx-select-input__button {
-            color: var(--onyx-color-text-icons-primary-medium);
-          }
-        }
-      }
-      // default focus
-      &:has(
-          .onyx-select-input__native:enabled:focus,
-          .onyx-select-input__native--show-focus:enabled
-        ) {
-        .onyx-select-input {
-          &__wrapper {
-            @include input.define-enabled-focus();
-          }
-
-          &__button {
-            color: var(--onyx-color-text-icons-primary-intense);
-          }
-        }
-      }
-    }
-
-    // readonly focus
-    &--readonly:has(
-        .onyx-select-input__native:enabled:focus,
-        .onyx-select-input__native--show-focus:enabled
-      )
-      .onyx-select-input__wrapper {
-      outline: var(--onyx-spacing-4xs) solid var(--onyx-color-base-neutral-200);
-      --border-color: var(--onyx-color-base-neutral-400);
-    }
-
-    &:has(&__native:disabled),
-    &--readonly {
-      .onyx-select-input {
-        &__wrapper {
-          background-color: var(--onyx-color-base-background-tinted);
-          color: var(--onyx-color-text-icons-neutral-soft);
-          --border-color: var(--onyx-color-base-neutral-300);
-        }
-      }
-    }
-
-    &--readonly {
-      .onyx-select-input__native:enabled {
-        cursor: initial;
-      }
-
-      .onyx-select-input__wrapper:hover {
-        --border-color: var(--onyx-color-base-neutral-400);
-      }
     }
 
     &-skeleton {

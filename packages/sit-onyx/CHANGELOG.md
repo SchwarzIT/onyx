@@ -1,5 +1,44 @@
 # sit-onyx
 
+## 1.0.0-alpha.150
+
+### Minor Changes
+
+- 0bdb49a: feat(OnyxSelectInput): support validity handling
+
+  - internal input is not readonly, but blocks all character inputs
+  - supports translated error message for empty required inputs
+
+- 0bdb49a: feat(global.css): include layers order to prevent hierarchy issues
+
+## 1.0.0-alpha.149
+
+### Minor Changes
+
+- 1cc020a: feat(OnyxNavBar): support mobile context area
+
+### Patch Changes
+
+- 1cc020a: fix: limit width to `max-content` for OnyxTag and OnyxTimer
+
+## 1.0.0-alpha.148
+
+### Major Changes
+
+- 2d0458d: fix(OnyxIcon): change default size to `24px` instead of font size
+
+## 1.0.0-alpha.147
+
+### Major Changes
+
+- 743ee88: - feat(OnyxIcon): use font-size as default icon size
+  - fix(OnyxButton): keep label width when loading
+  - fix(OnyxInput, OnyxTextarea): fix label tooltip not correctly vertically aligned
+- b7e9aaf: refactor: align list items
+
+  - OnyxSelect: remove property `color`
+  - OnyxUserMenu: remove property `options` and even `optionsClick` in favor of a `default` slot where `<OnyxListItem>` should be placed
+
 ## 1.0.0-alpha.146
 
 ### Major Changes

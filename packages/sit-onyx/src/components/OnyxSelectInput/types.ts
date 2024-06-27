@@ -1,4 +1,4 @@
-import type { CustomValidityProp } from "src/composables/useCustomValidity";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
@@ -11,25 +11,19 @@ export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 /**
  * Whether multiple values can be selected.
  */
-export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue> =
-  | {
-      /**
-       * Current value of the select.
-       */
-      selection?: SelectInputModelValue<TValue>;
-      textMode?: undefined;
-    }
-  | {
-      selection?: SelectInputModelValue<TValue>[];
-      /**
-       * How the multiselect value will be displayed in the input.
-       * - summary (default): will show "x Selected" if more than 1 is selected.
-       * - preview: will show the names of the selection as a truncated list.
-       *            A number-badge appears next to it including a tooltip with all selected names.
-       * Has no effect on single select mode.
-       */
-      textMode?: MultiselectTextMode;
-    };
+export type SelectionInput<TValue extends SelectOptionValue = SelectOptionValue> = {
+  /**
+   * Current value of the select.
+   */
+  modelValue?: SelectInputModelValue<TValue>[];
+  /**
+   * How a multiselect value will be displayed in the input.
+   * - summary (default): will show "x Selected" if more than 1 is selected.
+   * - preview: will show the names of the selection as a truncated list.
+   *            A number-badge appears next to it including a tooltip with all selected names.
+   */
+  textMode?: MultiselectTextMode;
+};
 
 export type SelectInputModelValue<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   SelectOption<TValue>,
@@ -41,14 +35,7 @@ export type OnyxSelectInputProps<TValue extends SelectOptionValue> = DensityProp
   CustomValidityProp &
   SelectionInput<TValue> &
   AutofocusProp &
-  Omit<
-    OnyxFormElementProps,
-    | "modelValue"
-    | "maxlength"
-    | "withCounter"
-    /* errorMessages support will be added in https://github.com/SchwarzIT/onyx/issues/1302 */
-    | "errorMessages"
-  > & {
+  Omit<OnyxFormElementProps, "modelValue" | "maxlength" | "withCounter"> & {
     /**
      * Whether the select should be disabled.
      */

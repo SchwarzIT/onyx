@@ -1,20 +1,17 @@
 <script lang="ts" setup>
 import type { OnyxIconProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxIconProps>(), {
-  size: "24px",
-  color: "currentColor",
-});
+const props = defineProps<OnyxIconProps>();
 </script>
 
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <figure
-    class="onyx-icon"
-    :class="[
-      props.size !== '24px' ? `onyx-icon--${props.size}` : '',
-      props.color !== 'currentColor' ? `onyx-icon--${props.color}` : '',
-    ]"
+    :class="{
+      'onyx-icon': true,
+      [`onyx-icon--${props.size}`]: props.size,
+      [`onyx-icon--${props.color}`]: props.color,
+    }"
     aria-hidden="true"
     v-html="props.icon"
   ></figure>
@@ -35,6 +32,11 @@ const props = withDefaults(defineProps<OnyxIconProps>(), {
     min-width: var(--icon-size);
     height: var(--icon-size);
     fill: var(--icon-color);
+
+    & > svg {
+      // display svg as block instead of default inline, to remove vertical alignment
+      display: block;
+    }
 
     @include sizes.define-rem-sizes using ($name, $size) {
       &--#{$name} {

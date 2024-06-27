@@ -62,7 +62,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps<TValue>, "density"> &
+  Omit<OnyxSelectInputProps<TValue>, "density" | "modelValue"> &
   AutofocusProp & {
     /**
      * Aria label. Must be set for accessibility reasons.
@@ -87,7 +87,7 @@ export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> =
   BaseSelectOption<TValue>,
   "value" | "label" | "disabled"
 > &
-  Pick<OnyxSelectOptionProps, "color" | "icon"> & {
+  Pick<OnyxSelectOptionProps, "icon"> & {
     /**
      * Optional group name. If set, all options will be grouped under that group name.
      */

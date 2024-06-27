@@ -17,7 +17,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.5",
+    "@changesets/cli": "^2.27.6",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "^1.44.1",
     "@playwright/test": "^1.44.1",
@@ -30,17 +30,17 @@
     "@storybook/vue3-vite": "^8.1.10",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.7",
+    "@types/node": "^20.14.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitest/coverage-v8": "^1.6.0",
-    "@vue/compiler-dom": "^3.4.29",
+    "@vue/compiler-dom": "^3.4.30",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "~0.5.1",
     "eslint": "^8.57.0",
     "eslint-plugin-playwright": "^1.6.2",
     "eslint-plugin-vue": "^9.26.0",
-    "eslint-plugin-vuejs-accessibility": "^2.3.0",
+    "eslint-plugin-vuejs-accessibility": "^2.3.1",
     "jsdom": "^24.1.0",
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
@@ -53,8 +53,8 @@
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1",
     "vitest": "^1.6.0",
-    "vue": "^3.4.29",
-    "vue-tsc": "^2.0.21"
+    "vue": "^3.4.30",
+    "vue-tsc": "^2.0.22"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

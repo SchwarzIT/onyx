@@ -5,12 +5,13 @@ import { useColorMode } from "@vueuse/core";
 import {
   OnyxAppLayout,
   OnyxColorSchemeDialog,
+  OnyxIcon,
+  OnyxListItem,
   OnyxNavBar,
   OnyxNavItem,
   OnyxToastProvider,
   OnyxUserMenu,
   type OnyxNavItemProps,
-  type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
@@ -28,19 +29,8 @@ const navItems = [
   { label: "Grid Demo", href: "/grid" },
 ] satisfies OnyxNavItemProps[];
 
-const userMenuOptions = [
-  { value: "color-scheme", label: "Appearance", icon: circleContrast },
-  { value: "logout", label: "Logout", icon: logout, color: "danger" },
-] as const satisfies SelectOption[];
-
 const { store: colorScheme } = useColorMode();
 const isColorSchemeDialogOpen = ref(false);
-
-const handleOptionClick = (value: (typeof userMenuOptions)[number]["value"]) => {
-  if (value === "color-scheme") {
-    isColorSchemeDialogOpen.value = true;
-  }
-};
 </script>
 
 <template>
@@ -75,11 +65,17 @@ const handleOptionClick = (value: (typeof userMenuOptions)[number]["value"]) => 
         />
 
         <template #contextArea>
-          <OnyxUserMenu
-            username="John Doe"
-            :options="userMenuOptions"
-            @option-click="handleOptionClick"
-          >
+          <OnyxUserMenu username="John Doe">
+            <OnyxListItem @click="isColorSchemeDialogOpen = true">
+              <OnyxIcon :icon="circleContrast" />
+              Appearance
+            </OnyxListItem>
+
+            <OnyxListItem color="danger">
+              <OnyxIcon :icon="logout" />
+              Logout
+            </OnyxListItem>
+
             <template #footer>
               App Version
               <span class="onyx-text--monospace">0.0.0</span>
