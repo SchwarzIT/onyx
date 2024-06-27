@@ -43,12 +43,20 @@ After that, import the global CSS file:
 ::: code-group
 
 ```ts [main.ts]
+import { createApp } from "vue";
+import { createOnyx } from "sit-onyx";
+
 import "sit-onyx/style.css";
 
 // by default, no onyx styles will have side affects on your global application styles like <body> etc.
 // when building a whole application with onyx, we recommend also importing the following global styles
 // which will apply the correct application background color, font styles etc.:
 // import "sit-onyx/global.css";
+
+const onyx = createOnyx();
+const app = createApp(App);
+
+app.use(onyx);
 ```
 
 :::
