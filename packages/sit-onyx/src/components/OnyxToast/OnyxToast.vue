@@ -126,7 +126,7 @@ const icon = computed(() => {
     --onyx-toast-close-button-size: 1.5rem;
 
     font-family: var(--onyx-font-family);
-    width: max-content;
+    width: 40rem;
     max-width: 100%;
     flex-shrink: 0;
 
@@ -162,8 +162,6 @@ const icon = computed(() => {
     }
 
     &__wrapper {
-      min-width: 18rem;
-      max-width: 40rem;
       display: flex;
       gap: var(--onyx-toast-gap);
       padding: var(--onyx-toast-padding-vertical) var(--onyx-toast-padding-horizontal);
