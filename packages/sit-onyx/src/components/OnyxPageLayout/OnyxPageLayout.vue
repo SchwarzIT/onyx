@@ -28,16 +28,16 @@ const pageModifier = computed(() => {
 
 <template>
   <div class="onyx-page" :class="pageModifier">
-    <aside v-show="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
+    <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>
     <main class="onyx-page__main">
       <slot></slot>
     </main>
-    <footer v-show="slots.footer" class="onyx-page__footer">
+    <footer v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </footer>
-    <div v-show="slots.toasts" class="onyx-page__toasts">
+    <div v-if="slots.toasts" class="onyx-page__toasts">
       <slot name="toasts"></slot>
     </div>
   </div>
