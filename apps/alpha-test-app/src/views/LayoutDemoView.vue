@@ -53,7 +53,7 @@ watch(
 
       toast.show({ headline: "Example toast 2", color: "success" });
     } else {
-      toast.toasts.value.forEach((i) => toast.remove(i.createdAt));
+      toast.toasts.value.forEach(({ id }) => toast.remove(id));
     }
   },
 );
