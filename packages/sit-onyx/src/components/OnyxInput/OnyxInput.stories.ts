@@ -153,7 +153,7 @@ export const HiddenLabel = {
  * This example shows an input with a custom error message.
  * Will only be shown after user interaction.
  */
-export const CustomError = {
+export const CustomError: Story = {
   args: {
     ...Default.args,
     customError: {
@@ -162,7 +162,13 @@ export const CustomError = {
     },
     placeholder: "Interact with me to show error",
   },
-} satisfies Story;
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="padding-bottom: 2rem"> <story /> </div>`,
+    }),
+  ],
+};
 
 /**
  * This example shows an input with info label tooltip.

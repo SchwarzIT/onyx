@@ -1,5 +1,28 @@
 # sit-onyx
 
+## 1.0.0-alpha.152
+
+### Minor Changes
+
+- 8692b19: feat: add `OnyxToast` component
+
+## 1.0.0-alpha.151
+
+### Minor Changes
+
+- 3c8cf6d: Implement new OnyxNavItem component
+
+## 1.0.0-alpha.150
+
+### Minor Changes
+
+- 0bdb49a: feat(OnyxSelectInput): support validity handling
+
+  - internal input is not readonly, but blocks all character inputs
+  - supports translated error message for empty required inputs
+
+- 0bdb49a: feat(global.css): include layers order to prevent hierarchy issues
+
 ## 1.0.0-alpha.149
 
 ### Minor Changes

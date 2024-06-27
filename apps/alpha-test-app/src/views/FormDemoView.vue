@@ -5,7 +5,7 @@ import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
 import FormDemo, { type FormData } from "../components/form-demo/FormDemo.vue";
 
-const { t, locale } = useI18n();
+const { locale } = useI18n();
 
 const validFormData = ref<FormData>({
   defaultInput: "No Validation",
@@ -27,22 +27,20 @@ const invalidFormData = ref<FormData>({
 
 <template>
   <OnyxPageLayout>
-    <template #sidebar>
-      <div class="sidebar">
+    <div class="onyx-grid-container">
+      <section class="header">
+        <OnyxHeadline is="h1" element="h1">Form Demos</OnyxHeadline>
+
         <LanguageSelection v-model="locale" />
+      </section>
 
-        <p>"{{ t("message") }}" in {{ locale }}</p>
-      </div>
-    </template>
-
-    <div class="page">
-      <OnyxHeadline is="h1" element="h1">Initially Invalid example</OnyxHeadline>
+      <OnyxHeadline is="h2" element="h1">Initially Invalid example</OnyxHeadline>
       <FormDemo v-model="invalidFormData" />
       <pre class="state">State: {{ invalidFormData }}</pre>
 
       <hr />
 
-      <OnyxHeadline is="h1" element="h1">Initially Valid example</OnyxHeadline>
+      <OnyxHeadline is="h2" element="h1">Initially Valid example</OnyxHeadline>
       <FormDemo v-model="validFormData" />
       <pre class="state">State: {{ validFormData }}</pre>
     </div>
@@ -50,8 +48,8 @@ const invalidFormData = ref<FormData>({
 </template>
 
 <style lang="scss" scoped>
-.page {
-  padding: var(--onyx-spacing-xl);
+.header {
+  margin-bottom: var(--onyx-spacing-lg);
 }
 .sidebar {
   padding: var(--onyx-spacing-3xs);

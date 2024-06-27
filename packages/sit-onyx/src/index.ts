@@ -109,6 +109,9 @@ export * from "./components/OnyxTextarea/types";
 export { default as OnyxTimer } from "./components/OnyxTimer/OnyxTimer.vue";
 export * from "./components/OnyxTimer/types";
 
+export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
+export * from "./components/OnyxToast/types";
+
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
 
@@ -120,6 +123,7 @@ export * from "./components/OnyxVisuallyHidden/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
+
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx } from "./utils/plugin";

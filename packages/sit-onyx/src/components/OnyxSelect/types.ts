@@ -63,7 +63,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps<TValue>, "density"> &
+  Omit<OnyxSelectInputProps<TValue>, "density" | "modelValue"> &
   AutofocusProp & {
     /**
      * If true, the select popover is expanded and visible.
@@ -71,11 +71,8 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      */
     open?: boolean;
     /**
-     * Aria label. Must be set for accessibility reasons.
-     */
-    label: string;
-    /**
-     * Label describing the selection list, must be set to support assistive technologies.
+     * Label describing the list of options to support assistive technologies.
+     * @example: { label: "Your Animal", listLabel: "List of animals" }
      */
     listLabel: string;
     /**

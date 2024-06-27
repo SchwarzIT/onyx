@@ -27,7 +27,8 @@ const meta: Meta<typeof OnyxSelect> = {
   title: "Form/Select",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelect,
-    events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad"],
+    // TODO: find out why validityChange does not fire.
+    events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad", "validityChange"],
     argTypes: {
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
@@ -129,6 +130,16 @@ export const Default = {
 } satisfies Story;
 
 /**
+ * This example shows a select with a hidden label.
+ */
+export const HiddenLabel = {
+  args: {
+    ...Default.args,
+    hideLabel: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a select with a message / help text at the bottom.
  */
 export const WithMessage = {
@@ -158,6 +169,33 @@ export const MultiselectWithPreview = {
   args: {
     ...Multiselect.args,
     textMode: "preview",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a required select.
+ * Shows an error after selecting and de-selecting an option.
+ */
+export const Required = {
+  args: {
+    ...Default.args,
+    multiple: true,
+    options: MULTISELECT_DEMO_OPTIONS,
+    required: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a select with a custom error message.
+ * Will only be shown after opening + closing the select.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    customError: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
   },
 } satisfies Story;
 

@@ -13,7 +13,7 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
-import type { OnyxSelectInputProps, SelectInputModelValue } from "../OnyxSelectInput/types";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
@@ -38,19 +38,11 @@ const emit = defineEmits<{
    * See property `lazyLoading` for enabling the lazy loading.
    */
   lazyLoad: [];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
-
-const searchTerm = useManagedState(
-  toRef(() => props.searchTerm),
-  "",
-  (v) => emit("update:searchTerm", v),
-);
-
-const open = useManagedState(
-  toRef(() => props.open),
-  false,
-  (v) => emit("update:open", v),
-);
 
 const { densityClass } = useDensity(props);
 
@@ -74,6 +66,18 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
+
+const searchTerm = useManagedState(
+  toRef(() => props.searchTerm),
+  "",
+  (v) => emit("update:searchTerm", v),
+);
+
+const open = useManagedState(
+  toRef(() => props.open),
+  false,
+  (v) => emit("update:open", v),
+);
 
 const selectRef = ref<HTMLElement>();
 
@@ -264,7 +268,7 @@ watchEffect(() => {
 const selectInputProps = computed(() => {
   const baseProps: OnyxSelectInputProps<TValue> = {
     ...props,
-    selection: props.modelValue as SelectInputModelValue<TValue>[],
+    modelValue: arrayValue.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
   return { ...baseProps, ...input.value };
@@ -279,6 +283,7 @@ const selectInputProps = computed(() => {
       :show-focus="open"
       :autofocus="props.autofocus"
       @click="onToggle"
+      @validity-change="emit('validityChange', $event)"
     />
 
     <div
