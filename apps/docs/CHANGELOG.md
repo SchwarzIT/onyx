@@ -1,5 +1,11 @@
 # docs
 
+## 0.1.0-alpha.3
+
+### Patch Changes
+
+- 529a84f: feat(nuxt): integrate @nuxtjs/i18n into onyx nuxt module
+
 ## 0.1.0-alpha.2
 
 ### Minor Changes

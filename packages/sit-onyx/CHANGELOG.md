@@ -1,5 +1,24 @@
 # sit-onyx
 
+## 1.0.0-alpha.154
+
+### Patch Changes
+
+- 529a84f: feat(nuxt): integrate @nuxtjs/i18n into onyx nuxt module
+
+## 1.0.0-alpha.153
+
+### Minor Changes
+
+- 2cef847: - feat(OnyxSelect): optionally manage searchTerm and open internally
+  - fix(OnyxSelect): fix bug where OnyxSelect closed when clicking the clear button
+
+## 1.0.0-alpha.152
+
+### Minor Changes
+
+- 8692b19: feat: add `OnyxToast` component
+
 ## 1.0.0-alpha.151
 
 ### Minor Changes

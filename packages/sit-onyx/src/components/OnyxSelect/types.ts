@@ -14,6 +14,7 @@ export type SelectSearchProps =
       withSearch: true;
       /**
        * Value of the search input.
+       * Property is managed internally, when undefined.
        */
       searchTerm?: string;
     }
@@ -64,6 +65,11 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
   SelectSearchProps &
   Omit<OnyxSelectInputProps<TValue>, "density" | "modelValue"> &
   AutofocusProp & {
+    /**
+     * If true, the select popover is expanded and visible.
+     * Property is managed internally, when undefined.
+     */
+    open?: boolean;
     /**
      * Label describing the list of options to support assistive technologies.
      * @example: { label: "Your Animal", listLabel: "List of animals" }

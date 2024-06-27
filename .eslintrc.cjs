@@ -17,6 +17,13 @@ module.exports = {
     "@vue/eslint-config-prettier/skip-formatting",
   ],
   rules: {
+    // Allow usage of @ts-ignore if a description for the reason was provided
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-ignore": "allow-with-description",
+      },
+    ],
     // allow unused vars if they start with an underscore. Useful e.g. if destructuring arrays
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -26,6 +33,7 @@ module.exports = {
         caughtErrorsIgnorePattern: "^_",
       },
     ],
+
     // see https://eslint.vuejs.org/rules/html-self-closing
     "vue/html-self-closing": [
       "error",

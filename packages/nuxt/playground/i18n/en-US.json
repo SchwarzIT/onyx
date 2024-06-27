@@ -1,0 +1,8 @@
+{
+  "test": "Test",
+  "onyx": {
+    "navigation": {
+      "goBack": "Overwritten translation"
+    }
+  }
+}
