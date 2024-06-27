@@ -6,7 +6,7 @@ import { useToast } from "./useToast";
 
 const codeTemplate = `
   <div>
-    <OnyxButton label="Show toast" @click="showExampleToast" />
+    <OnyxButton label="Show example toasts" @click="showExampleToasts" />
     <OnyxToastProvider />
   </div>
 `;
@@ -52,11 +52,18 @@ const meta: Meta<typeof OnyxToastProvider> = {
       setup: () => {
         const toast = useToast();
 
-        const showExampleToast = () => {
-          toast.show({ headline: "Example toast" });
+        const showExampleToasts = () => {
+          toast.show({ headline: "Example toast 1" });
+          toast.show({ headline: "Example toast 2", color: "danger" });
+          toast.show({ headline: "Example toast 3", color: "warning" });
+          toast.show({
+            headline: "Example toast 4",
+            description: "This is an example description",
+            color: "success",
+          });
         };
 
-        return { args, showExampleToast };
+        return { args, showExampleToasts };
       },
       components: { OnyxButton, OnyxToastProvider },
       template: codeTemplate,
@@ -70,8 +77,15 @@ import { OnyxButton, OnyxToastProvider, useToast } from "sit-onyx";
 
 const toast = useToast();
 
-const showExampleToast = () => {
-  toast.show({ headline: "Example toast" });
+const showExampleToasts = () => {
+  toast.show({ headline: "Example toast 1" });
+  toast.show({ headline: "Example toast 2", color: "danger" });
+  toast.show({ headline: "Example toast 3", color: "warning" });
+  toast.show({
+    headline: "Example toast 4",
+    description: "This is an example description",
+    color: "success",
+  });
 };
 </script>
 

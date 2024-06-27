@@ -127,7 +127,7 @@ const icon = computed(() => {
 
     font-family: var(--onyx-font-family);
     width: max-content;
-    min-width: min(18rem, 100%);
+    min-width: 18rem;
     max-width: min(40rem, 100%);
     flex-shrink: 0;
 

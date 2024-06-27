@@ -43,8 +43,7 @@ watch(dialogRef, () => {
 
     $max-size: calc(100% - 2 * var(--onyx-grid-margin));
     width: max-content;
-    min-width: min(18rem, $max-size);
-    max-width: min(40rem, $max-size);
+    max-width: $max-size;
     max-height: $max-size;
 
     display: flex;
