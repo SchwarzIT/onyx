@@ -6,11 +6,7 @@ import OnyxToast from "./OnyxToast.vue";
 
 const TOAST_COLORS = ["neutral", "danger", "warning", "success"] satisfies OnyxColor[];
 
-const MOCK_NOW = new Date(2024, 0, 1, 12);
-
 test.beforeEach(async ({ page }) => {
-  await page.clock.setFixedTime(MOCK_NOW);
-
   await page.addStyleTag({
     content: `.onyx-toast__progress-bar {
       width: 100%
