@@ -128,7 +128,7 @@ const icon = computed(() => {
     font-family: var(--onyx-font-family);
     width: 40rem;
     max-width: 100%;
-    flex-shrink: 0;
+    flex-shrink: 0; // needed so toasts do not shrink if they exceed the max height of the toast provider
 
     border-radius: var(--onyx-radius-md);
     overflow: hidden;
