@@ -51,10 +51,7 @@ watch(
         duration: 0,
       });
 
-      // timeout is needed so both toasts have a different "createdAt" timestamp and are not removed together
-      setTimeout(() => {
-        toast.show({ headline: "Example toast 2", color: "success" });
-      }, 1);
+      toast.show({ headline: "Example toast 2", color: "success" });
     } else {
       toast.toasts.value.forEach((i) => toast.remove(i.createdAt));
     }

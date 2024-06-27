@@ -11,16 +11,16 @@ export type ToastProvider = {
    */
   show: (toast: ShowToastOptions) => void;
   /**
-   * Removes the toast with the given `createdAt` timestamp.
+   * Removes the toast with the given `id`.
    */
-  remove: (createdAt: ProvidedToast["createdAt"]) => void;
+  remove: (id: ProvidedToast["id"]) => void;
 };
 
 export type ProvidedToast = ShowToastOptions & {
   /**
-   * Timestamp when the toast was created. Used to identify the toast.
+   * Unique toast id used to identify the toast.
    */
-  createdAt: string;
+  id: number;
   /**
    * Handler that should remove the toast. Will be called when the toast closes.
    * Is only used for internal onyx usage.
@@ -49,20 +49,21 @@ export const TOAST_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<ToastProvid
  * ```
  */
 export const createToastProvider = (): ToastProvider => {
+  let nextId = 1;
   const toasts = ref<ProvidedToast[]>([]);
 
   const show: ToastProvider["show"] = (toast: ShowToastOptions) => {
-    const createdAt = new Date().toISOString();
+    const id = nextId++;
 
     toasts.value.unshift({
       ...toast,
-      createdAt,
-      onClose: () => remove(createdAt),
+      id,
+      onClose: () => remove(id),
     });
   };
 
-  const remove: ToastProvider["remove"] = (createdAt) => {
-    toasts.value = toasts.value.filter((toast) => toast.createdAt !== createdAt);
+  const remove: ToastProvider["remove"] = (id) => {
+    toasts.value = toasts.value.filter((toast) => toast.id !== id);
   };
 
   return {

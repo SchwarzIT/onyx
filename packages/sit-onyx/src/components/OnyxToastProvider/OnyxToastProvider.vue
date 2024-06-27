@@ -12,7 +12,7 @@ const toastProvider = useToast();
     open
     role="presentation"
   >
-    <OnyxToast v-for="toast in toastProvider.toasts.value" :key="toast.createdAt" v-bind="toast" />
+    <OnyxToast v-for="toast in toastProvider.toasts.value" :key="toast.id" v-bind="toast" />
   </dialog>
 </template>
 
