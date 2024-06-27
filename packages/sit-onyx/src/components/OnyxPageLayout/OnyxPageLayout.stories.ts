@@ -34,9 +34,10 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 20rem;
+        <div style="margin: -1rem; height: 15rem;
                     font-family: var(--onyx-font-family);
-                    color: var(--onyx-color-text-icons-neutral-intense);" >
+                    color: var(--onyx-color-text-icons-neutral-intense);
+                    border: 1px solid var(--onyx-color-text-icons-neutral-soft);" >
           <story />
         </div>`,
     }),
@@ -82,11 +83,18 @@ export const WithFooter = {
   },
 } satisfies Story;
 
-/** A page that shows a sidebar and a footer next to it. */
-export const WithPartialFooter = {
+/** A standard page with sidebar and footer. */
+export const WithSidebarAndFooter = {
   args: {
     ...WithSidebar.args,
     footer: WithFooter.args.footer,
+  },
+} satisfies Story;
+
+/** A page that shows a sidebar and a footer next to it. */
+export const WithPartialFooter = {
+  args: {
+    ...WithSidebarAndFooter.args,
     footerAsideSidebar: true,
   },
 } satisfies Story;
