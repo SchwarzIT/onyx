@@ -1,9 +1,10 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, watch, watchEffect } from "vue";
+import { computed, nextTick, ref, watch, watchEffect, toRef } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
+import { useManagedState } from "../../composables/useManagedState";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
@@ -18,6 +19,8 @@ import type { OnyxSelectProps, SelectOption } from "./types";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
+  searchTerm: undefined,
+  open: undefined,
 });
 
 const emit = defineEmits<{
@@ -29,6 +32,7 @@ const emit = defineEmits<{
    * Emitted when the current search input value changes.
    */
   "update:searchTerm": [searchTerm: string];
+  "update:open": [open: boolean];
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
    * See property `lazyLoading` for enabling the lazy loading.
@@ -39,6 +43,8 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
+
+const { densityClass } = useDensity(props);
 
 const slots = defineSlots<{
   /**
@@ -61,9 +67,18 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
-const { densityClass } = useDensity(props);
+const searchTerm = useManagedState(
+  toRef(() => props.searchTerm),
+  "",
+  (v) => emit("update:searchTerm", v),
+);
 
-const isExpanded = ref(false);
+const open = useManagedState(
+  toRef(() => props.open),
+  false,
+  (v) => emit("update:open", v),
+);
+
 const selectRef = ref<HTMLElement>();
 
 /**
@@ -106,20 +121,20 @@ const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.multiple && props.withCheckAll && !props.searchTerm ? [CHECK_ALL_ID] : []).concat(
+  return (props.multiple && props.withCheckAll && !searchTerm.value ? [CHECK_ALL_ID] : []).concat(
     enabledOptionValues.value,
   );
 });
 
 const onToggle = async (preventFocus?: boolean) => {
   if (props.readonly) {
-    isExpanded.value = false;
+    open.value = false;
     return;
   }
 
-  isExpanded.value = !isExpanded.value;
-  if (!isExpanded.value) {
-    if (props.searchTerm) emit("update:searchTerm", "");
+  open.value = !open.value;
+  if (!open.value) {
+    if (searchTerm.value) searchTerm.value = "";
     if (!preventFocus) selectInput.value?.focus();
   } else {
     // make sure search is focused when flyout opens
@@ -151,7 +166,7 @@ const onTypeAhead = (label: string) => {
   activeValue.value = firstMatch.value;
 };
 
-const onAutocomplete = (inputValue: string) => emit("update:searchTerm", inputValue);
+const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
 
 const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
@@ -186,10 +201,10 @@ const {
   autocomplete,
   label: props.label,
   listLabel: props.listLabel,
-  inputValue: computed(() => (props.withSearch && props.searchTerm) || ""),
+  inputValue: computed(() => (props.withSearch && searchTerm.value) || ""),
   activeOption: computed(() => activeValue.value),
   multiple: computed(() => props.multiple),
-  isExpanded,
+  isExpanded: open,
   templateRef: selectRef,
   onToggle,
   onActivateFirst,
@@ -211,7 +226,7 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 
 const isEmptyMessage = computed(() => {
   if (props.options.length) return;
-  if (props.withSearch && props.searchTerm) return t.value("select.noMatch");
+  if (props.withSearch && searchTerm.value) return t.value("select.noMatch");
   return t.value("select.empty");
 });
 
@@ -265,15 +280,15 @@ const selectInputProps = computed(() => {
     <OnyxSelectInput
       ref="selectInput"
       v-bind="selectInputProps"
-      :show-focus="isExpanded"
+      :show-focus="open"
       :autofocus="props.autofocus"
       @click="onToggle"
       @validity-change="emit('validityChange', $event)"
     />
 
     <div
-      :class="['onyx-select', densityClass, isExpanded ? 'onyx-select--open' : '']"
-      :inert="!isExpanded"
+      :class="['onyx-select', densityClass, open ? 'onyx-select--open' : '']"
+      :inert="!open"
       :aria-busy="props.loading"
     >
       <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
@@ -283,7 +298,7 @@ const selectInputProps = computed(() => {
           v-bind="input"
           :label="t('select.searchInputLabel')"
           class="onyx-select__search"
-          @clear="emit('update:searchTerm', '')"
+          @clear="searchTerm = ''"
         />
 
         <div v-bind="listbox">
@@ -311,7 +326,7 @@ const selectInputProps = computed(() => {
               </li>
 
               <!-- select-all option for "multiple" -->
-              <template v-if="props.multiple && props.withCheckAll && !props.searchTerm">
+              <template v-if="props.multiple && props.withCheckAll && !searchTerm">
                 <OnyxSelectOption
                   v-bind="
                     headlessOption({
