@@ -29,7 +29,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
   retries: process.env.CI ? 1 : 0, // retry on CI only
-  reporter: [["html", { open: "never" }]],
+  /* In the CI pipeline it generates dot (for the stdout) and blob reports, locally only a html report is generated */
+  reporter: process.env.CI ? [["dot"], ["blob"]] : [["html", { open: "never" }]],
   use: {
     trace: process.env.CI ? "retain-on-failure" : "off",
     video: process.env.CI ? "retain-on-failure" : "off",
