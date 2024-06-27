@@ -33,6 +33,8 @@ const codeTemplate = `
  *
  * app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
  * ```
+ *
+ * Afterwards, toasts can be shown using the `useToast()` composable as shown in the example below.
  */
 const meta: Meta<typeof OnyxToastProvider> = {
   title: "Feedback/ToastProvider",
