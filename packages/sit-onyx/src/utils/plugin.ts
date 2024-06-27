@@ -1,7 +1,7 @@
 import { type Plugin, watchEffect } from "vue";
 import {
   createToastProvider,
-  toastProviderInjectionKey,
+  TOAST_PROVIDER_INJECTION_KEY,
 } from "../components/OnyxToastProvider/useToast";
 import { injectI18n, provideI18n, type ProvideI18nOptions } from "../i18n";
 
@@ -19,7 +19,7 @@ export const createOnyx = (options?: OnyxPluginOptions): Plugin => ({
     const i18n = app.runWithContext(() => injectI18n());
     watchEffect(() => syncGlobalOptionalText(i18n.t.value("optional")));
 
-    app.provide(toastProviderInjectionKey, createToastProvider());
+    app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
   },
 });
 

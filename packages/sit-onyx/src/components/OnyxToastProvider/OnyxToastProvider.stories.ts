@@ -29,9 +29,9 @@ const codeTemplate = `
  * To do so, add the following code to your `main.ts` file to set up the toasts globally:
  *
  * ```ts
- * import { createToastProvider, toastProviderInjectionKey } from "sit-onyx";
+ * import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "sit-onyx";
  *
- * app.provide(toastProviderInjectionKey, createToastProvider());
+ * app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
  * ```
  */
 const meta: Meta<typeof OnyxToastProvider> = {

@@ -35,7 +35,7 @@ export type ShowToastOptions = OnyxToastProps & {
   onClick?: () => void;
 };
 
-export const toastProviderInjectionKey = Symbol() as InjectionKey<ToastProvider>;
+export const TOAST_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<ToastProvider>;
 
 /**
  * Creates a new toast provider that can be used with `useToast()`.
@@ -43,9 +43,9 @@ export const toastProviderInjectionKey = Symbol() as InjectionKey<ToastProvider>
  *
  * @example
  * ```ts
- * import { createToastProvider, toastProviderInjectionKey } from "sit-onyx";
+ * import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "sit-onyx";
  *
- * app.provide(toastProviderInjectionKey, createToastProvider());
+ * app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
  * ```
  */
 export const createToastProvider = (): ToastProvider => {
@@ -85,7 +85,7 @@ export const useToast = () => {
   };
 
   const toastProvider = inject(
-    toastProviderInjectionKey,
+    TOAST_PROVIDER_INJECTION_KEY,
     // provide fallback so the toastProvider does not return "undefined"
     () => {
       return {
