@@ -58,6 +58,16 @@ jobs:
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
 
+      - name: Upload Reports
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: blob-report-${{ matrix.shard }}
+          path: |
+            ./packages/*/blob-report
+            ./apps/*/blob-report
+          retention-days: 1
+
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
   # because we don't want to add each parallel matrix job individually
   # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
@@ -67,6 +77,55 @@ jobs:
     name: Collect Playwright result
     needs: playwright
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Merge Screenshots
+        uses: actions/upload-artifact/merge@v4
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        with:
+          name: screenshots
+          pattern: screenshots-*
+          delete-merged: true
+
+      - name: Merge Reports
+        uses: actions/upload-artifact/merge@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: blob-reports
+          pattern: blob-report-*
+          retention-days: 1
+          delete-merged: true
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: blob-reports
+
+      # For every blob-report merge its playwright results as html report and move it into its original package
+      - name: Merge into HTML Report
+        run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/../playwright-report'
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: |
+            ./packages/*/playwright-report
+            ./apps/*/playwright-report
+          retention-days: 14
+
       - run: |
           result="${{ needs.playwright.result }}"
           if [[ $result == "success" || $result == "skipped" ]]; then
