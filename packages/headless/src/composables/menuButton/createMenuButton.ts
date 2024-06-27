@@ -3,17 +3,13 @@ import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
 
-export type CreateMenuButtonOptions = {
-  /**
-   * Called when a menu item is selected (via mouse or keyboard).
-   */
-  onSelect: (value: string) => void;
-};
-
-export const createMenuButton = createBuilder((options: CreateMenuButtonOptions) => {
+/**
+ * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
+ */
+export const createMenuButton = createBuilder(() => {
   const menuId = createId("menu");
   const buttonId = createId("menu-button");
-  const isExpanded = ref<boolean>(false);
+  const isExpanded = ref(false);
 
   /**
    * Debounced expanded state that will only be toggled after a given timeout.
@@ -32,6 +28,67 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     };
   });
 
+  const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
+    const currentMenuItem = document.activeElement as HTMLElement;
+
+    // Either the current focus is on a "menuitem", then we can just get the parent menu.
+    // Or the current focus is on the button, then we can get the connected menu using the menuId
+    const currentMenu =
+      currentMenuItem?.closest('[role="menu"]') || document.getElementById(menuId);
+    if (!currentMenu) return;
+
+    const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+    let nextIndex = 0;
+
+    if (currentMenuItem) {
+      const currentIndex = menuItems.indexOf(currentMenuItem);
+      switch (next) {
+        case "next":
+          nextIndex = currentIndex + 1;
+          break;
+        case "prev":
+          nextIndex = currentIndex - 1;
+          break;
+        case "first":
+          nextIndex = 0;
+          break;
+        case "last":
+          nextIndex = menuItems.length - 1;
+          break;
+      }
+    }
+
+    const nextMenuItem = menuItems[nextIndex];
+    nextMenuItem?.focus();
+  };
+
+  const handleKeydown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowDown":
+      case "ArrowRight":
+        event.preventDefault();
+        focusRelativeItem("next");
+        break;
+      case "ArrowUp":
+      case "ArrowLeft":
+        event.preventDefault();
+        focusRelativeItem("prev");
+        break;
+      case "Home":
+        event.preventDefault();
+        focusRelativeItem("first");
+        break;
+      case "End":
+        event.preventDefault();
+        focusRelativeItem("last");
+        break;
+      case " ":
+        event.preventDefault();
+        (event.target as HTMLElement).click();
+        break;
+    }
+  };
+
   return {
     state: { isExpanded },
     elements: {
@@ -43,11 +100,9 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             "aria-haspopup": true,
             id: buttonId,
             ...hoverEvents.value,
+            onKeydown: handleKeydown,
           }) as const,
       ),
-      listItem: {
-        role: "none",
-      },
       flyout: {
         ...hoverEvents.value,
       },
@@ -55,14 +110,14 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         id: menuId,
         role: "menu",
         "aria-labelledby": buttonId,
+        onKeydown: handleKeydown,
       },
-      menuItem: (data: { active?: boolean; value: string }) => ({
+      listItem: {
+        role: "none",
+      },
+      menuItem: (data: { active?: boolean }) => ({
         "aria-current": data.active ? "page" : undefined,
         role: "menuitem",
-        tabindex: -1,
-        onClick: () => {
-          options.onSelect(data.value);
-        },
       }),
     },
   };

@@ -1,7 +1,7 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxNavItem from "../OnyxNavItem/future/OnyxNavItem.vue";
 import OnyxNavButton from "./OnyxNavButton.vue";
 
 test.describe("Screenshot tests", () => {
@@ -58,9 +58,9 @@ test.describe("Screenshot tests with nested children", () => {
     component: (column) => (
       <OnyxNavButton label="Item" href="#" active={column === "active"}>
         <template v-slot:children>
-          <OnyxListItem>Nested Item 1</OnyxListItem>
-          <OnyxListItem>Nested Item 2</OnyxListItem>
-          <OnyxListItem>Nested Item 3</OnyxListItem>
+          <OnyxNavItem>Nested Item 1</OnyxNavItem>
+          <OnyxNavItem>Nested Item 2</OnyxNavItem>
+          <OnyxNavItem>Nested Item 3</OnyxNavItem>
         </template>
       </OnyxNavButton>
     ),

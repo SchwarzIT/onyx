@@ -16,7 +16,7 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import type { OnyxNavItemProps } from "./types";
 
@@ -47,7 +47,7 @@ const shouldShowExternalIcon = (args: OnyxNavItemProps) => {
   return isExternalLink(args.href ?? "");
 };
 
-const isMobile = inject(mobileNavBarInjectionKey);
+const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const isMobileChildrenOpen = ref(false);
 const hasChildren = computed(() => !!props.options?.length);
 
