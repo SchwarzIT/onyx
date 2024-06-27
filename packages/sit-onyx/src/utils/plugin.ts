@@ -15,7 +15,7 @@ export type OnyxPluginOptions = {
  */
 export const createOnyx = (options: OnyxPluginOptions = {}): Plugin => ({
   install: (app) => {
-    provideI18n(app, options?.i18n);
+    provideI18n(app, options.i18n);
     const i18n = app.runWithContext(() => injectI18n());
     watchEffect(() => syncGlobalOptionalText(i18n.t.value("optional")));
 
