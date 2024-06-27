@@ -3,7 +3,7 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed, inject } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 import type { OnyxUserMenuProps } from "./types";
 
@@ -25,7 +25,7 @@ const avatar = computed(() => {
   return { src: props.avatar, label: props.username };
 });
 
-const isMobile = inject(mobileNavBarInjectionKey);
+const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 </script>
 
 <template>

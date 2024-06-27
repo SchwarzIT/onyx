@@ -76,6 +76,7 @@ const { densityClass } = useDensity(props);
       cursor: pointer;
 
       &:hover,
+      &:focus-within,
       &.onyx-list-item--active {
         background-color: var(--onyx-list-item-background-hover);
       }

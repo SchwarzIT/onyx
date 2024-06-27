@@ -10,7 +10,7 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import { mobileNavBarInjectionKey, type OnyxNavBarProps } from "./types";
+import { MOBILE_NAV_BAR_INJECTION_KEY, type OnyxNavBarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   mobileBreakpoint: "sm",
@@ -70,7 +70,7 @@ const isMobile = computed(() => {
   return width.value !== 0 && width.value < mobileWidth;
 });
 
-provide(mobileNavBarInjectionKey, isMobile);
+provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
 </script>
 
 <template>

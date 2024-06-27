@@ -1,8 +1,9 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../../types";
-import { computed, ref, type VNode } from "vue";
+import { provide, type VNode } from "vue";
 import { injectI18n } from "../../../i18n";
+import { MENU_BUTTON_ITEM_INJECTION_KEY } from "../../OnyxNavItem/future/types";
 
 const slots = defineSlots<{
   /**
@@ -23,32 +24,12 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const activeItem = ref<string>();
-
 const {
   elements: { button, menu, menuItem, listItem, flyout },
   state: { isExpanded },
-} = createMenuButton({
-  onSelect: (value) => {
-    activeItem.value = value;
-  },
-});
+} = createMenuButton({});
 
-const getSlotComponents = (vnodes: VNode[]): VNode[] => {
-  // if the slot only contains a v-for, we need to use the children here which are the "actual" slot content
-  const isVFor = vnodes.length === 1 && vnodes[0].type.toString() === "Symbol(v-fgt)";
-
-  const allNodes =
-    isVFor && Array.isArray(vnodes[0].children)
-      ? (vnodes[0].children as Extract<(typeof vnodes)[number]["children"], []>)
-      : vnodes;
-
-  return allNodes;
-};
-
-const options = computed(() => {
-  return getSlotComponents(slots.options?.() ?? []);
-});
+provide(MENU_BUTTON_ITEM_INJECTION_KEY, { menuItem, listItem });
 
 const { t } = injectI18n();
 </script>
@@ -73,21 +54,7 @@ const { t } = injectI18n();
         v-bind="menu"
         class="onyx-future-flyout-menu__wrapper onyx-flyout-menu__group"
       >
-        <li
-          v-for="(item, index) in options"
-          v-bind="listItem"
-          :key="index"
-          class="onyx-future-flyout-menu__option"
-        >
-          <component
-            :is="item"
-            v-bind="
-              item.props?.href
-                ? menuItem({ active: activeItem === item.props.href, value: item.props.href })
-                : undefined
-            "
-          />
-        </li>
+        <slot name="options"></slot>
       </ul>
       <slot name="footer"></slot>
     </div>
@@ -130,10 +97,6 @@ const { t } = injectI18n();
 
     &__wrapper {
       padding: 0;
-    }
-
-    &__option {
-      list-style: none;
     }
   }
 }
