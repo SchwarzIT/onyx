@@ -12,9 +12,8 @@ const meta: Meta<typeof OnyxTable> = {
     component: OnyxTable,
     events: [],
     argTypes: {
-      default: {
-        control: { disable: true },
-      },
+      default: { control: { disable: true } },
+      empty: { control: { disable: true } },
     },
   }),
 };
@@ -76,7 +75,7 @@ export const VerticalBorders = {
  */
 export const WithoutHeader = {
   args: {
-    default: () => h("tbody", getTableBodyRows()),
+    default: () => [h("tbody", getTableBodyRows())],
   },
 } satisfies Story;
 
@@ -110,5 +109,23 @@ export const LimitedHeightAndWidth = {
   args: {
     ...LimitedHeight.args,
     style: "max-width: 20rem; max-height: 16rem",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a table without a `tbody`.
+ */
+export const Empty = {
+  args: {
+    default: () => [getTableHeader()],
+  },
+} satisfies Story;
+
+/**
+ * This example shows a table with an empty `tbody` and without a `thead`.
+ */
+export const EmptyWithoutHeader = {
+  args: {
+    default: () => [h("tbody")],
   },
 } satisfies Story;
