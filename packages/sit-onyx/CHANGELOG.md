@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-alpha.153
+
+### Minor Changes
+
+- 2cef847: - feat(OnyxSelect): optionally manage searchTerm and open internally
+  - fix(OnyxSelect): fix bug where OnyxSelect closed when clicking the clear button
+
 ## 1.0.0-alpha.152
 
 ### Minor Changes
