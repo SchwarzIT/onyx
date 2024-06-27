@@ -87,7 +87,7 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxTable
         style={{
-          maxWidth: column !== "default" ? "15rem" : "fit-content",
+          maxWidth: column !== "default" ? "16rem" : "fit-content",
           maxHeight: row !== "default" ? "12rem" : "fit-content",
         }}
       >
