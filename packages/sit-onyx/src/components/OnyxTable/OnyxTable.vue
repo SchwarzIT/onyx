@@ -161,6 +161,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       box-sizing: border-box;
       max-height: inherit;
       max-width: inherit;
+
+      &:focus-visible {
+        outline: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-500);
+      }
     }
     // we place a frame on top so the table has visible boundaries
     // when it is overflowing in the scroll container
