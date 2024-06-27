@@ -36,7 +36,7 @@ watch(dialogRef, () => {
     z-index: var(--onyx-z-index-notification);
 
     position: fixed;
-    bottom: var(--onyx-spacing-2xs); // TODO: check with ux;
+    bottom: var(--onyx-spacing-xl);
     left: 50%;
     transform: translateX(-50%);
     overflow: auto;
