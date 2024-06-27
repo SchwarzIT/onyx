@@ -87,18 +87,18 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxTable
         style={{
-          maxWidth: column !== "default" ? "15rem" : "fit-content",
+          maxWidth: column !== "default" ? "16rem" : "fit-content",
           maxHeight: row !== "default" ? "12rem" : "fit-content",
         }}
       >
         <thead>
           <tr>
             <th>Fruit</th>
-            <th>Price (€/kg)</th>
-            <th>Inventory (kg)</th>
+            <th>Price</th>
+            <th>Inventory</th>
             <th>Rating</th>
           </tr>
-        </thead>{" "}
+        </thead>
         <tbody>
           <tr>
             <td>Strawberry</td> <td>4.50</td> <td>200</td> <td>5</td>
