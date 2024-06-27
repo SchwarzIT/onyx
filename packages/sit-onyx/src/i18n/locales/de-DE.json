@@ -3,6 +3,7 @@
   "cancel": "Abbrechen",
   "apply": "Anwenden",
   "back": "Zurück",
+  "close": "Schließen",
   "validations": {
     "tooShort": {
       "preview": "Zu kurz",
