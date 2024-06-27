@@ -28,17 +28,18 @@ const toastProvider = useToast();
 
     position: fixed;
     bottom: var(--onyx-spacing-2xs); // TODO: check with ux;
-    left: 0;
-    width: 100%;
-    margin-inline: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: auto;
 
     $max-size: calc(100% - 2 * var(--onyx-grid-margin));
-    max-width: $max-size;
+    width: max-content;
+    min-width: min(18rem, $max-size);
+    max-width: min(40rem, $max-size);
     max-height: $max-size;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: var(--onyx-spacing-2xs);
   }
 }

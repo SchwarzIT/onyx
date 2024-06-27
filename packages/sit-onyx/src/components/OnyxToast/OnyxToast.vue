@@ -138,6 +138,7 @@ const icon = computed(() => {
     width: max-content;
     min-width: min(18rem, 100%);
     max-width: min(40rem, 100%);
+    flex-shrink: 0;
 
     &:hover,
     &:focus,
