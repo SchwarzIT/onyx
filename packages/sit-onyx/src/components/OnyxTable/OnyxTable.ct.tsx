@@ -2,6 +2,7 @@ import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 const tableHead = (
@@ -49,7 +50,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Table (densities)",
     columns: DENSITIES,
-    rows: ["default"],
+    rows: ["default", "focus-visible"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
@@ -58,6 +59,9 @@ test.describe("Screenshot tests", () => {
         {tableBody}
       </OnyxTable>
     ),
+    beforeScreenshot: async (_component, page, _column, row) => {
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+    },
   });
 
   executeMatrixScreenshotTest({
@@ -122,6 +126,49 @@ test.describe("Screenshot tests", () => {
     beforeScreenshot: async (component, _, column, row) => {
       if (column === "horizontal-scroll") await component.getByText("Apple").hover();
       if (row === "vertical-scroll") await component.getByText("Price").hover();
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Table (empty variations)",
+    columns: ["default", "no-header"],
+    rows: ["empty-body", "custom-empty"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => (
+      <OnyxTable style="width: 20rem;">
+        {column === "default" ? tableHead : undefined}
+        {/* ensures empty is shown when tbody exists but no tr's */}
+        {row === "empty-body" ? <tbody></tbody> : undefined}
+        {/* ensures empty is shown when not even a tbody exists */}
+        {row === "custom-empty" ? (
+          <template v-slot:empty>
+            <OnyxEmpty>Custom empty</OnyxEmpty>
+          </template>
+        ) : undefined}
+      </OnyxTable>
+    ),
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Table (empty blocks hover)",
+    columns: ["row-hover", "column-hover"],
+    rows: ["default", "empty-body"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (_column, row) => (
+      <OnyxTable>
+        {tableHead}
+        {row === "default" ? tableBody : undefined}
+      </OnyxTable>
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (column === "row-hover" && row === "default") await component.getByText("Apple").hover();
+      if (column === "column-hover" && ["default", "empty-body"].includes(row)) {
+        // this is needed to demonstrate that a column hover has no effect when empty.
+        // selecting the header label does not work because we prevent pointer-events.
+        await page.mouse.move(32, 32);
+      }
     },
   });
 });

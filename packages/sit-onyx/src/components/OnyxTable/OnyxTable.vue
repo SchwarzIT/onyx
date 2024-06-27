@@ -35,7 +35,7 @@ const { densityClass } = useDensity(props);
  * or no rows were found inside a table body.
  */
 const isEmptyMessage = computed(() => {
-  const tableBody = slots.default().find((data) => data.type === "tbody");
+  const tableBody = slots.default?.().find((data) => data.type === "tbody");
   if (tableBody && tableBody.children?.length) return;
   return t.value("table.empty");
 });
@@ -57,16 +57,16 @@ const isEmptyMessage = computed(() => {
         <tbody v-if="isEmptyMessage" class="onyx-table__empty">
           <tr>
             <td colspan="100%">
-              <slot name="empty" :default-message="isEmptyMessage">
-                <div class="onyx-table__empty-content">
+              <div class="onyx-table__empty-content">
+                <slot name="empty" :default-message="isEmptyMessage">
                   <OnyxEmpty>
                     <template #icon>
                       <OnyxIcon :icon="graphSearch" size="48px" />
                     </template>
                     {{ isEmptyMessage }}
                   </OnyxEmpty>
-                </div>
-              </slot>
+                </slot>
+              </div>
             </td>
           </tr>
         </tbody>
