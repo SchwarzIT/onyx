@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed } from "vue";
 import { injectI18n } from "../../../i18n";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxFlyoutMenu from "../../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import type { OnyxUserMenuProps } from "../types";
 
 const props = defineProps<OnyxUserMenuProps>();
@@ -34,7 +32,6 @@ const avatar = computed(() => {
       <button class="onyx-user-menu__trigger onyx-text">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
       </button>
       <template #header>
         <div class="onyx-user-menu__header">
@@ -85,10 +82,6 @@ const avatar = computed(() => {
       .onyx-user-menu__trigger[aria-expanded="true"] {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
-
-        .onyx-user-menu__chevron {
-          transform: rotate(-90deg);
-        }
       }
     }
 
