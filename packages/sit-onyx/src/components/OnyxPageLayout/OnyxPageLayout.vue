@@ -15,14 +15,15 @@ const slots = defineSlots<{
   toasts?(): unknown;
 }>();
 
+/**
+ * Determines whether the footer should be below or next to the sidebar.
+ * Does not make a difference when a sidebar is hidden/not filled.
+ */
 const pageModifier = computed(() => {
-  let mode = "";
   if (props.footerAsideSidebar) {
-    mode = "onyx-page--footer-partial";
-  } else {
-    mode = "onyx-page--footer-full";
+    return "onyx-page--footer-partial";
   }
-  return mode;
+  return "onyx-page--footer-full";
 });
 </script>
 
