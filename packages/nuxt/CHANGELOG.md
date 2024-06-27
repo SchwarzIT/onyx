@@ -1,5 +1,16 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-alpha.34
+
+### Minor Changes
+
+- 529a84f: feat(nuxt): integrate @nuxtjs/i18n into onyx nuxt module
+
+### Patch Changes
+
+- Updated dependencies [529a84f]
+  - sit-onyx@1.0.0-alpha.154
+
 ## 1.0.0-alpha.33
 
 ### Patch Changes
