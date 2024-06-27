@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, provide } from "vue";
-import { mobileNavBarInjectionKey } from "../OnyxNavBar/types";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxNavItem from "./OnyxNavItem.vue";
 import type { OnyxNavItemProps } from "./types";
 
@@ -21,7 +21,7 @@ defineSlots<{
 }>();
 
 provide(
-  mobileNavBarInjectionKey,
+  MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => true),
 );
 </script>

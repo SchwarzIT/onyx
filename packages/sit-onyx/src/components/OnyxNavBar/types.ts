@@ -28,4 +28,4 @@ export type OnyxNavBarProps = Omit<OnyxNavAppAreaProps, "label"> & {
  *
  * @returns `true` if mobile, `false` otherwise
  */
-export const mobileNavBarInjectionKey = Symbol() as InjectionKey<ComputedRef<boolean>>;
+export const MOBILE_NAV_BAR_INJECTION_KEY = Symbol() as InjectionKey<ComputedRef<boolean>>;

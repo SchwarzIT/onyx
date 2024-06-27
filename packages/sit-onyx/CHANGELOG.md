@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.151
+
+### Minor Changes
+
+- 3c8cf6d: Implement new OnyxNavItem component
+
 ## 1.0.0-alpha.150
 
 ### Minor Changes

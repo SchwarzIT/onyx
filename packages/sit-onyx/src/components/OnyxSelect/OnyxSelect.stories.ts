@@ -128,6 +128,16 @@ export const Default = {
 } satisfies Story;
 
 /**
+ * This example shows a select with a hidden label.
+ */
+export const HiddenLabel = {
+  args: {
+    ...Default.args,
+    hideLabel: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows a select with a message / help text at the bottom.
  */
 export const WithMessage = {
