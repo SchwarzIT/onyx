@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.152
+
+### Minor Changes
+
+- 8692b19: feat: add `OnyxToast` component
+
 ## 1.0.0-alpha.151
 
 ### Minor Changes
