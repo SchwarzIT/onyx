@@ -17,5 +17,6 @@ export const createOnyx = (options: OnyxPluginOptions): Plugin<[]> => ({
   },
 });
 
-const syncGlobalOptionalText = (text: string) =>
+export const syncGlobalOptionalText = (text: string) => {
   globalThis.document.body.style.setProperty("--onyx-global-optional-text", text);
+};

@@ -1,0 +1,109 @@
+{
+  "test": "waH",
+  "onyx": {
+    "optional": "(qayl)",
+    "cancel": "Qeqq",
+    "apply": "QapmaH",
+    "back": "Luh",
+    "validations": {
+      "tooShort": {
+        "preview": "QaQ",
+        "fullError": "QaQ qaStaHvIS qetlh mey mej {minLength} qaStaHvmej | QaQ qaStaHvIS qetlh mey mej {minLength} qaStaHvmej ({n} qaStaHvmej)"
+      },
+      "tooLong": {
+        "preview": "QaQ",
+        "fullError": "QaQ qaStaHvIS qetlh mey qaQIj {maxLength} qaStaHvmej | QaQ qaStaHvIS qetlh mey qaQIj {maxLength} qaStaHvmej ({n} qaStaHvmej)"
+      },
+      "rangeUnderflow": {
+        "preview": "QaQIj",
+        "fullError": "QaQIj qetlh mey qaStaHvIj {min}"
+      },
+      "rangeOverflow": {
+        "preview": "QaQIj",
+        "fullError": "QaQIj qetlh mey qaQIj {max}"
+      },
+      "patternMismatch": {
+        "preview": "QaQIj qaStaHvIj",
+        "fullError": "QaQIj qetlh mey qaStaHvIj qaQIj."
+      },
+      "valueMissing": {
+        "preview": "QaQIj",
+        "fullError": "QaQIj qetlh mey qaStaHvIj."
+      },
+      "stepMismatch": {
+        "preview": "QaQIj qaStaHvIj",
+        "fullError": "QaQIj qetlh mey qaStaHvIj qaStaHvIj {step}."
+      },
+      "badInput": {
+        "preview": "QaQIj qaStaHvIj",
+        "fullError": "\"{value}\" qaQIj qetlh mey qaStaHvIj qaStaHvIj."
+      },
+      "typeMismatch": {
+        "generic": {
+          "preview": "QaQIj qaStaHvIj qaStaHvIj",
+          "fullError": "\"{value}\" qaQIj qetlh mey qaStaHvIj qaStaHvIj."
+        },
+        "email": {
+          "preview": "QaQIj qaStaHvIj qaQIj",
+          "fullError": "\"{value}\" qaQIj qetlh mey qaStaHvIj qaQIj qaQIj."
+        },
+        "number": {
+          "preview": "QaQIj qaStaHvIj qaStaHvIj",
+          "fullError": "\"{value}\" qaQIj qetlh mey qaStaHvIj qaStaHvIj."
+        },
+        "tel": {
+          "preview": "QaQIj qaStaHvIj qaQIj",
+          "fullError": "\"{value}\" qaQIj qetlh mey qaStaHvIj qaQIj qaQIj."
+        },
+        "url": {
+          "preview": "QaQIj qaStaHvIj qaQIj",
+          "fullError": "\"{value}\" qaQIj qetlh mey qaStaHvIj qaQIj qaQIj."
+        }
+      }
+    },
+    "select": {
+      "toggleDropDown": "QaQIj qaStaHvIj qaStaHvIj qaStaHvIj",
+      "empty": "QaQIj qaStaHvIj",
+      "noMatch": "QaQIj qaStaHvIj qaStaHvIj",
+      "searchInputLabel": "QaQIj qaStaHvIj qaStaHvIj",
+      "clearSearch": "QaQIj qaStaHvIj qaStaHvIj"
+    },
+    "selections": {
+      "selectAll": "QaQIj qaStaHvIj",
+      "currentSelection": "{n} qaStaHvIj"
+    },
+    "link": {
+      "opensExternally": "QaQIj qaStaHvIj qaStaHvIj."
+    },
+    "navItemOptionsLabel": "QaQIj qaStaHvIj qaStaHvIj {label}",
+    "navigation": {
+      "appLogo": "QaQIj qaStaHvIj qaStaHvIj {appName}",
+      "goToHome": "QaQIj qaStaHvIj",
+      "goBack": "QaQIj qaStaHvIj",
+      "userMenuLabel": "QaQIj qaStaHvIj",
+      "toggleBurgerMenu": "QaQIj qaStaHvIj qaStaHvIj",
+      "toggleContextMenu": "QaQIj qaStaHvIj qaStaHvIj",
+      "navigationHeadline": "QaQIj qaStaHvIj"
+    },
+    "showTooltip": {
+      "info": "QaQIj qaStaHvIj qaStaHvIj",
+      "error": "QaQIj qaStaHvIj qaStaHvIj"
+    },
+    "colorScheme": {
+      "headline": "QaQIj qaStaHvIj",
+      "subtitle": "QaQIj qaStaHvIj qaStaHvIj:",
+      "auto": {
+        "label": "QaQIj",
+        "description": "QaQIj qaStaHvIj qetlh mey qaStaHvIj qaStaHvIj qaStaHvIj qaStaHvIj."
+      },
+      "light": {
+        "label": "QaQIj",
+        "description": "QaQIj qaStaHvIj qetlh mey qaStaHvIj qaStaHvIj qaStaHvIj qaStaHvIj."
+      },
+      "dark": {
+        "label": "QaQIj",
+        "description": "QaQIj qaStaHvIj qetlh mey qaStaHvIj qaStaHvIj qaStaHvIj qaStaHvIj."
+      }
+    }
+  }
+}
