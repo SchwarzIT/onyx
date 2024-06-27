@@ -9,9 +9,7 @@ const TOAST_COLORS = ["neutral", "danger", "warning", "success"] satisfies OnyxC
 const MOCK_NOW = new Date(2024, 0, 1, 12);
 
 test.beforeEach(async ({ page }) => {
-  await page.evaluate((mockNow) => {
-    Date.now = () => mockNow.getTime();
-  }, MOCK_NOW);
+  await page.clock.setFixedTime(MOCK_NOW);
 
   await page.addStyleTag({
     content: `.onyx-toast__progress-bar {

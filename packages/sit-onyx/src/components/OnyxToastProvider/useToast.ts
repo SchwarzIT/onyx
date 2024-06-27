@@ -81,7 +81,7 @@ export const useToast = () => {
   const logWarning = () => {
     // eslint-disable-next-line no-console
     console.warn(
-      'Trying to use "useToast()" before the toast provider has been provided. Make sure to call "provideToast()" before.',
+      'Trying to use "useToast()" before the toast provider has been provided. Make sure to "provide" it first.',
     );
   };
 

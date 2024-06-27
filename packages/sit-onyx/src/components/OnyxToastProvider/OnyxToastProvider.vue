@@ -12,7 +12,7 @@ const toastProvider = useToast();
     open
     role="presentation"
   >
-    <OnyxToast v-for="toast in toastProvider.toasts.value" :key="toast.id" v-bind="toast" />
+    <OnyxToast v-for="{ id, ...toast } in toastProvider.toasts.value" :key="id" v-bind="toast" />
   </dialog>
 </template>
 
@@ -40,6 +40,7 @@ const toastProvider = useToast();
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--onyx-spacing-2xs);
   }
 }
