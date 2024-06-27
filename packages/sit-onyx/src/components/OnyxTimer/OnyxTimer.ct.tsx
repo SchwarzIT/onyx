@@ -1,5 +1,5 @@
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxTimer from "./OnyxTimer.vue";
 
 const MOCK_NOW = new Date(2024, 0, 1, 12);
@@ -11,9 +11,8 @@ const getEndDate = (offset: number) => {
 };
 
 test.beforeEach(async ({ page }) => {
-  await page.evaluate((mockNow) => {
-    Date.now = () => mockNow.getTime();
-  }, MOCK_NOW);
+  await page.clock.install();
+  await page.clock.setFixedTime(MOCK_NOW);
 });
 
 test.describe("Screenshot tests", () => {
@@ -46,12 +45,7 @@ test("should emit event when timer is finished", async ({ mount, page }) => {
     <OnyxTimer endTime={endTime} label="Label" onTimerEnded={() => timerEndedCount++} />,
   );
 
-  await page.evaluate(
-    (finishedDateNow) => {
-      Date.now = () => finishedDateNow.getTime();
-    },
-    getEndDate(30 * 1000),
-  );
+  await page.clock.setFixedTime(endTime);
 
   // ASSERT
   await expect(component).toContainText("00:00 sec");
