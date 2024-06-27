@@ -1,15 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxToastProvider from "./OnyxToastProvider.vue";
-import { useToast } from "./useToast";
-
-const codeTemplate = `
-  <div>
-    <OnyxButton label="Show example toasts" @click="showExampleToasts" />
-    <OnyxToastProvider />
-  </div>
-`;
+import StorybookExample from "./StorybookExample.vue";
+import StorybookExampleSourceCode from "./StorybookExample.vue?raw";
 
 /**
  * Toast provider that is used to display toasts inside the application.
@@ -37,10 +29,10 @@ const codeTemplate = `
  *
  * Afterwards, toasts can be shown using the `useToast()` composable as shown in the example below.
  */
-const meta: Meta<typeof OnyxToastProvider> = {
+const meta: Meta<typeof StorybookExample> = {
   title: "Feedback/ToastProvider",
   ...defineStorybookActionsAndVModels({
-    component: OnyxToastProvider,
+    component: StorybookExample,
     events: [],
     decorators: [
       (story) => ({
@@ -48,54 +40,17 @@ const meta: Meta<typeof OnyxToastProvider> = {
         template: `<div style="height: 24rem;"> <story /> </div>`,
       }),
     ],
-    render: (args) => ({
-      setup: () => {
-        const toast = useToast();
-
-        const showExampleToasts = () => {
-          toast.show({ headline: "Example toast 1" });
-          toast.show({ headline: "Example toast 2", color: "danger" });
-          toast.show({ headline: "Example toast 3", color: "warning" });
-          toast.show({
-            headline: "Example toast 4",
-            description: "This is an example description",
-            color: "success",
-          });
-        };
-
-        return { args, showExampleToasts };
-      },
-      components: { OnyxButton, OnyxToastProvider },
-      template: codeTemplate,
-    }),
   }),
   parameters: {
     docs: {
       source: {
-        code: `<script lang="ts" setup>
-import { OnyxButton, OnyxToastProvider, useToast } from "sit-onyx";
-
-const toast = useToast();
-
-const showExampleToasts = () => {
-  toast.show({ headline: "Example toast 1" });
-  toast.show({ headline: "Example toast 2", color: "danger" });
-  toast.show({ headline: "Example toast 3", color: "warning" });
-  toast.show({
-    headline: "Example toast 4",
-    description: "This is an example description",
-    color: "success",
-  });
-};
-</script>
-
-<template>${codeTemplate}</template>`,
+        code: StorybookExampleSourceCode.replace('from "../.."', 'from "sit-onyx"'),
       },
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxToastProvider>;
+type Story = StoryObj<typeof StorybookExample>;
 
 export const Default = { args: {} } satisfies Story;
