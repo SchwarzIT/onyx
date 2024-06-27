@@ -47,6 +47,6 @@ const preview: Preview = {
 export default preview;
 
 setup((app) => {
-  // provide toasts so they can be used in all examples
+  // provide toasts so they can be used in all Storybook examples
   app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
 });

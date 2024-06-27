@@ -13,7 +13,7 @@ export type OnyxPluginOptions = {
  * Use this plugin to set up onyx.
  * You can provide and overwrite default translations.
  */
-export const createOnyx = (options?: OnyxPluginOptions): Plugin => ({
+export const createOnyx = (options: OnyxPluginOptions = {}): Plugin => ({
   install: (app) => {
     provideI18n(app, options?.i18n);
     const i18n = app.runWithContext(() => injectI18n());

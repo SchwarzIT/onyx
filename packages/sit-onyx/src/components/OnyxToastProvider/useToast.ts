@@ -86,7 +86,7 @@ export const useToast = () => {
 
   const toastProvider = inject(
     TOAST_PROVIDER_INJECTION_KEY,
-    // provide fallback so the toastProvider does not return "undefined"
+    // provide fallback so "useToast()" does not return "undefined"
     () => {
       return {
         toasts: computed(() => []),
