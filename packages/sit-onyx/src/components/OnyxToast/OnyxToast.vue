@@ -126,6 +126,10 @@ const icon = computed(() => {
     --onyx-toast-close-button-size: 1.5rem;
 
     font-family: var(--onyx-font-family);
+    width: max-content;
+    min-width: min(18rem, 100%);
+    max-width: min(40rem, 100%);
+    flex-shrink: 0;
 
     border-radius: var(--onyx-radius-md);
     overflow: hidden;
@@ -134,11 +138,6 @@ const icon = computed(() => {
     background-color: var(--onyx-toast-background-color);
     position: relative;
     z-index: var(--onyx-z-index-notification);
-
-    width: max-content;
-    min-width: min(18rem, 100%);
-    max-width: min(40rem, 100%);
-    flex-shrink: 0;
 
     &:hover,
     &:focus,
