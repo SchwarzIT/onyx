@@ -32,7 +32,10 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
         [`onyx-list-item--${props.color}`]: props.color,
         'onyx-list-item--disabled': props.disabled,
       }"
-      v-bind="menuButton?.menuItem({ active: props.active })"
+      :disabled="!props.href && props.disabled"
+      v-bind="
+        menuButton?.menuItem({ active: props.active, disabled: !props.href && props.disabled })
+      "
       :href="props.href"
       @click="emit('click')"
     >
