@@ -57,15 +57,50 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test("should behave correctly", async ({ mount }) => {
+test("should behave correctly", async ({ mount, page }) => {
   const component = await mount(<OnyxUserMenu username="Jane Doe">{options}</OnyxUserMenu>);
 
   const menu = component.getByLabel("Navigation");
   const button = component.getByRole("button", { name: "Jane Doe" });
+  const menuItem = menu.getByRole("menuitem");
 
   await expect(menu).toBeHidden();
 
   // should be opened by hover
   await button.hover();
   await expect(menu).toBeVisible();
+
+  // should be opened with focus-visible
+  await button.focus();
+  await expect(menu).toBeVisible();
+
+  // first menu item should be focused
+  page.keyboard.press("ArrowDown");
+  await expect(menuItem.first()).toBeFocused();
+
+  // second menu item should be focused
+  page.keyboard.press("ArrowDown");
+  await expect(menuItem.nth(1)).toBeFocused();
+
+  // first menu item should be focused
+  page.keyboard.press("ArrowUp");
+  await expect(menuItem.first()).toBeFocused();
+
+  page.keyboard.press("Tab");
+
+  // should be opened on tab
+  page.keyboard.press("Tab");
+  await expect(menu).toBeVisible();
+
+  // first menu item should be focused
+  page.keyboard.press("Home");
+  await expect(menuItem.first()).toBeFocused();
+
+  // Close the flyout and then open it again
+  page.keyboard.press("Tab");
+  page.keyboard.press("Tab");
+
+  // last menu item should be focused
+  page.keyboard.press("End");
+  await expect(menuItem.last()).toBeFocused();
 });
