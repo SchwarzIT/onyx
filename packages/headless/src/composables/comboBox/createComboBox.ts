@@ -1,4 +1,4 @@
-import { computed, ref, unref, type MaybeRef, type Ref } from "vue";
+import { computed, unref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
@@ -12,8 +12,13 @@ import { useTypeAhead } from "../typeAhead";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
-const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
-const CLOSING_KEYS: PressedKey[] = ["Escape", { key: "ArrowUp", altKey: true }, "Enter", "Tab"];
+export const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
+export const CLOSING_KEYS: PressedKey[] = [
+  "Escape",
+  { key: "ArrowUp", altKey: true },
+  "Enter",
+  "Tab",
+];
 const SELECTING_KEYS_SINGLE: PressedKey[] = ["Enter", " "];
 const SELECTING_KEYS_MULTIPLE: PressedKey[] = ["Enter"];
 
@@ -117,7 +122,6 @@ export const createComboBox = createBuilder(
     onActivatePrevious,
     templateRef,
   }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
-    const inputValid = ref(true);
     const controlsId = createId("comboBox-control");
 
     const autocomplete = computed(() => unref(autocompleteRef));
@@ -126,10 +130,6 @@ export const createComboBox = createBuilder(
 
     const handleInput = (event: Event) => {
       const inputElement = event.target as HTMLInputElement;
-      inputValid.value = inputElement.validity.valid;
-      if (!unref(isExpanded)) {
-        onToggle?.();
-      }
 
       if (autocomplete.value !== "none") {
         onAutocomplete?.(inputElement.value);
@@ -192,6 +192,10 @@ export const createComboBox = createBuilder(
       if (autocomplete.value === "none" && isPrintableCharacter(event.key)) {
         !isExpanded.value && onToggle?.();
         return typeAhead(event);
+      }
+      if (autocomplete.value !== "none" && isPrintableCharacter(event.key)) {
+        !isExpanded.value && onToggle?.();
+        return;
       }
       return handleNavigation(event);
     };

@@ -19,7 +19,7 @@ jobs:
       - name: Download screenshots
         uses: actions/download-artifact@v4
         with:
-          pattern: screenshots-*
+          pattern: screenshots
           merge-multiple: true
 
       - name: Create pull request
