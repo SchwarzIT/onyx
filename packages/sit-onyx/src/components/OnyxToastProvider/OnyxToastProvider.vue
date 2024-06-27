@@ -6,12 +6,7 @@ const toastProvider = useToast();
 </script>
 
 <template>
-  <dialog
-    v-if="toastProvider.toasts.value.length"
-    class="onyx-toast-provider"
-    open
-    role="presentation"
-  >
+  <dialog class="onyx-toast-provider" open role="presentation" aria-live="assertive">
     <OnyxToast v-for="{ id, ...toast } in toastProvider.toasts.value" :key="id" v-bind="toast" />
   </dialog>
 </template>
