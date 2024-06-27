@@ -13,6 +13,7 @@ const codeTemplate = `
 
 /**
  * Toast provider that is used to display toasts inside the application.
+ * For a full list of toast examples, you can check out the [OnyxToast](/docs/support-toast--docs) component.
  *
  * ### Setup
  *
