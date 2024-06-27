@@ -22,28 +22,22 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     :disabled="props.disabled"
     class="onyx-menu-item"
   >
-    <a
-      v-if="props.href"
-      class="onyx-future-nav-item__anchor"
-      v-bind="menuButton?.menuItem({ active: props.active })"
-      :href="props.href"
-      @click="emit('click')"
-    >
-      <slot></slot>
-    </a>
-    <button
-      v-else
-      class="onyx-menu-item__button onyx-list-item"
+    <component
+      :is="props.href ? 'a' : 'button'"
       :class="{
+        'onyx-list-item': true,
+        'onyx-menu-item__anchor': props.href,
+        'onyx-menu-item__button': !props.href,
         'onyx-list-item--active': props.active,
         [`onyx-list-item--${props.color}`]: props.color,
         'onyx-list-item--disabled': props.disabled,
       }"
       v-bind="menuButton?.menuItem({ active: props.active })"
+      :href="props.href"
       @click="emit('click')"
     >
       <slot></slot>
-    </button>
+    </component>
   </OnyxListItem>
 </template>
 <style lang="scss">
