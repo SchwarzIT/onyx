@@ -195,7 +195,7 @@ $height: 3.5rem;
       align-items: center;
       gap: $gap;
       height: 100%;
-      padding-inline: var(--onyx-spacing-3xl);
+      padding-inline: var(--onyx-grid-margin);
 
       &:has(.onyx-nav-bar__back) {
         grid-template-columns: max-content max-content 1fr auto;
