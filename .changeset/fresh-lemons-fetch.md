@@ -14,3 +14,5 @@
 ---
 
 release beta version
+
+🎉 onyx is now beta! There are no breaking changes to the last alpha version
