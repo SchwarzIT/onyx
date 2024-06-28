@@ -1,7 +1,7 @@
 import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
-import * as onyx from "sit-onyx";
-import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
 import type { NuxtOptions } from "@nuxt/schema";
+import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
+import * as onyx from "sit-onyx";
 
 export interface ModuleOptions {
   /**

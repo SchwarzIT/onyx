@@ -1,13 +1,13 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
+import type { Locator } from "@playwright/test";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
+import type { FormErrorMessages } from "src/composables/useCustomValidity";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
-import type { FormErrorMessages } from "src/composables/useCustomValidity";
-import type { Locator } from "@playwright/test";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410

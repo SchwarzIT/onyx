@@ -1,5 +1,5 @@
-import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { FormErrorMessages } from "../../composables/useCustomValidity";
 
 export type OnyxFormElementProps = RequiredMarkerProp & {
   /**
