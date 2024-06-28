@@ -120,12 +120,3 @@ export const Empty = {
     default: () => [getTableHeader()],
   },
 } satisfies Story;
-
-/**
- * This example shows a table with an empty `tbody` and without a `thead`.
- */
-export const EmptyWithoutHeader = {
-  args: {
-    default: () => [h("tbody")],
-  },
-} satisfies Story;
