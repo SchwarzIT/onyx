@@ -11,8 +11,6 @@ const slots = defineSlots<{
   sidebar?(): unknown;
   /** Optional footer of the page*/
   footer?(): unknown;
-  /** Slot for toast messages that stick at the bottom (above footer) */
-  toasts?(): unknown;
 }>();
 
 /**
@@ -32,15 +30,14 @@ const pageModifier = computed(() => {
     <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>
+
     <main class="onyx-page__main">
       <slot></slot>
     </main>
+
     <footer v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </footer>
-    <div v-if="slots.toasts" class="onyx-page__toasts">
-      <slot name="toasts"></slot>
-    </div>
   </div>
 </template>
 
@@ -73,10 +70,6 @@ const pageModifier = computed(() => {
       grid-template-areas:
         "side main"
         "side footer";
-
-      .onyx-page__toasts {
-        grid-column: 2 / -1;
-      }
     }
 
     &__sidebar {
@@ -89,15 +82,6 @@ const pageModifier = computed(() => {
       overflow: hidden auto;
       position: relative;
       background-color: var(--background-color-main);
-    }
-    &__toasts {
-      grid-row: 1 / -2;
-      grid-column: 1 / -1;
-      z-index: var(--onyx-z-index-notification);
-      align-self: end;
-      justify-self: center;
-      position: relative;
-      width: 100%;
     }
     &__footer {
       grid-area: footer;

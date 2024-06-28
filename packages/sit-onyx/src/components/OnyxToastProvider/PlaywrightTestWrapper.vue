@@ -1,0 +1,11 @@
+<script lang="ts" setup>
+import { provide } from "vue";
+import PlaywrightTest from "./PlaywrightTest.vue";
+import { TOAST_PROVIDER_INJECTION_KEY, createToastProvider } from "./useToast";
+
+provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+</script>
+
+<template>
+  <PlaywrightTest />
+</template>

@@ -24,9 +24,10 @@ import {
   OnyxTimer,
   OnyxTooltip,
   normalizedIncludes,
+  useToast,
   type SelectOption,
 } from "sit-onyx";
-import { capitalize, computed, ref } from "vue";
+import { capitalize, computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
 
@@ -127,6 +128,12 @@ const groupedSelectOptions: SelectOption[] = [
 
 const timerEndDate = new Date();
 timerEndDate.setHours(timerEndDate.getHours() + 2);
+
+const toast = useToast();
+
+onMounted(() => {
+  toast.show({ headline: "Example toast", color: "success" });
+});
 </script>
 
 <template>

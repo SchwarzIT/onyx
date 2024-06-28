@@ -11,5 +11,4 @@ export { default as PageDemo } from "./PageDemo.vue";
 export { default as SidebarDemo } from "./SidebarDemo.vue";
 export { default as StickyDemo } from "./StickyDemo.vue";
 export { default as TempOverlayDemo } from "./TempOverlayDemo.vue";
-export { default as ToastDemo } from "./ToastDemo.vue";
 export { default as TooltipDemo } from "./TooltipDemo.vue";

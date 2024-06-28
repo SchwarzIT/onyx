@@ -1,6 +1,13 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxButton, OnyxDialog, OnyxHeadline, OnyxPageLayout } from "sit-onyx";
-import { computed, ref } from "vue";
+import {
+  OnyxAppLayout,
+  OnyxButton,
+  OnyxDialog,
+  OnyxHeadline,
+  OnyxPageLayout,
+  useToast,
+} from "sit-onyx";
+import { computed, ref, watch } from "vue";
 import {
   BusyIndicatorDemo,
   FlyoutDemo,
@@ -12,7 +19,6 @@ import {
   PageDemo,
   SidebarDemo,
   TempOverlayDemo,
-  ToastDemo,
   TooltipDemo,
   type SettingsSections,
 } from "../components/layout-demo";
@@ -32,6 +38,25 @@ const showTempSidebarOpen = computed<boolean>(() => {
   const { showTempOverlayTransparent, showTempOverlay } = settings.value.sidebar;
   return (isSidebarOpen.value && (showTempOverlay || showTempOverlayTransparent)) ?? false;
 });
+
+const toast = useToast();
+
+watch(
+  () => settings.value.content.showToast,
+  (showToast) => {
+    if (showToast) {
+      toast.show({
+        headline: "Example toast 1",
+        description: "This is a test description",
+        duration: 0,
+      });
+
+      toast.show({ headline: "Example toast 2", color: "success" });
+    } else {
+      toast.toasts.value.forEach(({ id }) => toast.remove(id));
+    }
+  },
+);
 </script>
 
 <template>
@@ -62,10 +87,6 @@ const showTempSidebarOpen = computed<boolean>(() => {
       </template>
 
       <PageDemo v-model="settings" v-model:is-sidebar-open="isSidebarOpen" />
-
-      <template v-if="settings.content.showToast" #toasts>
-        <ToastDemo />
-      </template>
 
       <template v-if="settings.footer.showDetailFooter || settings.footer.showFullFooter" #footer>
         <FooterDemo :detail-footer="settings.footer.showDetailFooter" />

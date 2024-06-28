@@ -1,5 +1,6 @@
 import { createPreview } from "@sit-onyx/storybook-utils";
-import type { Preview } from "@storybook/vue3";
+import { setup, type Preview } from "@storybook/vue3";
+import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "../src";
 import docsTemplate from "./docs-template.mdx";
 
 import "@sit-onyx/storybook-utils/style.css";
@@ -44,3 +45,8 @@ const preview: Preview = {
 };
 
 export default preview;
+
+setup((app) => {
+  // provide toasts so they can be used in all Storybook examples
+  app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+});

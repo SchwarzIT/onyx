@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxToast from "./OnyxToast.vue";
 
+/**
+ * Single toast component. Is mainly intended to be used with the [OnyxToastProvider](/docs/feedback-toastprovider--docs).
+ */
 const meta: Meta<typeof OnyxToast> = {
   title: "Support/Toast",
   ...defineStorybookActionsAndVModels({
