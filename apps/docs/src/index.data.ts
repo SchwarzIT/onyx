@@ -90,7 +90,7 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/form-radiogroup--docs",
       },
       {
-        name: "Minimalistic table",
+        name: "Table",
         dueDate: basicComponentsDueDate,
         status: getImplementedStatus("OnyxTable"),
         href: "https://storybook.onyx.schwarz/?path=/docs/data-table--docs",
@@ -117,7 +117,7 @@ export default defineLoader({
       {
         name: "Textarea",
         dueDate: basicComponentsDueDate,
-        status: getImplementedStatus("OnyxTextarea"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-textarea--docs",
       },
       {
@@ -177,16 +177,16 @@ export default defineLoader({
       {
         name: "Avatar",
         dueDate: basicComponentsDueDate,
-        status: getImplementedStatus("OnyxAvatar"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-avatar--docs",
       },
       {
         name: "Dialog",
-        status: getImplementedStatus("OnyxDialog"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
       },
       { name: "Footer", status: getImplementedStatus("OnyxFooter") },
-      { name: "Advanced Table", status: "planned" },
+      { name: "Data grid", status: getImplementedStatus("OnyxDataGrid") },
       { name: "Filter", status: getImplementedStatus("OnyxFilter") },
       { name: "Toast", status: getImplementedStatus("OnyxToast") },
       { name: "Sidebar", status: getImplementedStatus("OnyxSidebar") },
