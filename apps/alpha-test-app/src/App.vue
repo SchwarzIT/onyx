@@ -9,6 +9,7 @@ import {
   OnyxListItem,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxToastProvider,
   OnyxUserMenu,
   type OnyxNavItemProps,
 } from "sit-onyx";
@@ -91,5 +92,7 @@ const isColorSchemeDialogOpen = ref(false);
       :open="isColorSchemeDialogOpen"
       @close="isColorSchemeDialogOpen = false"
     />
+
+    <OnyxToastProvider />
   </OnyxAppLayout>
 </template>

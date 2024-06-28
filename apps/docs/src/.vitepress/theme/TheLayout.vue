@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import DefaultTheme from "vitepress/theme";
+import OnyxToastProvider from "~components/OnyxToastProvider/OnyxToastProvider.vue";
 
 const { Layout } = DefaultTheme;
 </script>
@@ -7,6 +8,8 @@ const { Layout } = DefaultTheme;
 <template>
   <Layout>
     <template #layout-bottom>
+      <OnyxToastProvider />
+
       <footer class="footer">
         <p class="footer__message">Released under the Apache-2.0 License.</p>
         <p class="footer__copyright">Copyright © 2023-present Schwarz IT KG</p>
