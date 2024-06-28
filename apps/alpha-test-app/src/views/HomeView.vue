@@ -162,7 +162,7 @@ const toast = useToast();
 
     <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
       <section class="page__intro">
-        <OnyxHeadline is="h1">Component usages 2</OnyxHeadline>
+        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
         <p>Each onyx component should be used at least once in this page.</p>
       </section>
 
