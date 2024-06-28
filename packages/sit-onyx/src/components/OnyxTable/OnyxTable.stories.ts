@@ -13,6 +13,7 @@ const meta: Meta<typeof OnyxTable> = {
     events: [],
     argTypes: {
       default: { control: { disable: true } },
+      head: { control: { disable: true } },
       empty: { control: { disable: true } },
     },
   }),
@@ -21,32 +22,28 @@ const meta: Meta<typeof OnyxTable> = {
 export default meta;
 type Story = StoryObj<typeof OnyxTable>;
 
-const getTableHeader = () => {
-  return h("thead", [
-    h("tr", [
-      h("th", "Fruit"),
-      h("th", "Price (€/kg)"),
-      h("th", "Inventory (kg)"),
-      h("th", "Inventory (pieces)"),
-      h("th", "Rating"),
-    ]),
+const getTableHeaderRow = () =>
+  h("tr", [
+    h("th", "Fruit"),
+    h("th", "Price (€/kg)"),
+    h("th", "Inventory (kg)"),
+    h("th", "Inventory (pieces)"),
+    h("th", "Rating"),
   ]);
-};
 
-const getTableBodyRows = () => {
-  return [
-    h("tr", [h("td", "Strawberry"), h("td", "4.50"), h("td", "200"), h("td", "100"), h("td", "5")]),
-    h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
-    h("tr", [h("td", "Banana"), h("td", "3.75"), h("td", "18000"), h("td", "300"), h("td", "4")]),
-  ];
-};
+const getTableBodyRows = () => [
+  h("tr", [h("td", "Strawberry"), h("td", "4.50"), h("td", "200"), h("td", "100"), h("td", "5")]),
+  h("tr", [h("td", "Apple"), h("td", "1.99"), h("td", "3000"), h("td", "200"), h("td", "3")]),
+  h("tr", [h("td", "Banana"), h("td", "3.75"), h("td", "18000"), h("td", "300"), h("td", "4")]),
+];
 
 /**
  * This example shows a default table.
  */
 export const Default = {
   args: {
-    default: () => [getTableHeader(), h("tbody", getTableBodyRows())],
+    default: () => getTableBodyRows(),
+    head: () => getTableHeaderRow(),
   },
 } satisfies Story;
 
@@ -75,7 +72,7 @@ export const VerticalBorders = {
  */
 export const WithoutHeader = {
   args: {
-    default: () => [h("tbody", getTableBodyRows())],
+    default: Default.args.default,
   },
 } satisfies Story;
 
@@ -85,10 +82,8 @@ export const WithoutHeader = {
 export const LimitedHeight = {
   args: {
     style: "max-height: 16rem",
-    default: [
-      getTableHeader(),
-      h("tbody", [...getTableBodyRows(), ...getTableBodyRows(), ...getTableBodyRows()]),
-    ],
+    head: Default.args.head,
+    default: () => [...getTableBodyRows(), ...getTableBodyRows(), ...getTableBodyRows()],
   },
 } satisfies Story;
 
@@ -117,6 +112,6 @@ export const LimitedHeightAndWidth = {
  */
 export const Empty = {
   args: {
-    default: () => [getTableHeader()],
+    head: () => getTableHeaderRow(),
   },
 } satisfies Story;
