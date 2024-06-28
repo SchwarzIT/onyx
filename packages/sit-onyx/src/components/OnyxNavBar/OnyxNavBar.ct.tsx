@@ -240,12 +240,17 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
 
     await expect(page).toHaveScreenshot(`grid-default-${breakpoint}.png`);
 
-    const app = page.locator(".onyx-app");
+    // eslint-disable-next-line playwright/no-conditional-in-test -- prevent useless screenshots for breakpoints that don't have a max width
+    if (width > ONYX_BREAKPOINTS.md) {
+      const app = page.locator(".onyx-app");
 
-    await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
-    await expect(page).toHaveScreenshot("grid-max-width-${}.png");
+      await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+      // eslint-disable-next-line playwright/no-conditional-expect
+      await expect(page).toHaveScreenshot(`grid-max-width-${breakpoint}.png`);
 
-    await app.evaluate((element) => element.classList.add("onyx-grid-center"));
-    await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
+      await app.evaluate((element) => element.classList.add("onyx-grid-center"));
+      // eslint-disable-next-line playwright/no-conditional-expect
+      await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
+    }
   });
 });

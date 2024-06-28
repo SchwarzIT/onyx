@@ -163,7 +163,6 @@ provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/breakpoints.scss";
 
 $gap: var(--onyx-spacing-md);
 $height: 3.5rem;
@@ -205,10 +204,6 @@ $height: 3.5rem;
       // sync with grid
       max-width: var(--onyx-grid-max-width);
       margin-inline: var(--onyx-grid-margin-inline);
-
-      @include breakpoints.container(max, sm) {
-        padding-inline: var(--onyx-spacing-xl);
-      }
     }
 
     &__back {
