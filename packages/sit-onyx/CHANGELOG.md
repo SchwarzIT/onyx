@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-alpha.157
+
+### Patch Changes
+
+- c79e491: fix(OnyxSelect): do not submit form when pressing Enter
+- 8d14b72: fix(OnyxSelect): position flyout correctly in grid layout
+
 ## 1.0.0-alpha.156
 
 ### Minor Changes
