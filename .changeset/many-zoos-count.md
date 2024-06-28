@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(OnyxNavBar): align vertical padding with grid
+fix(OnyxNavBar): align horizontal padding with grid
