@@ -94,6 +94,9 @@ export * from "./components/OnyxSelectOption/types";
 
 export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.vue";
 
+export { default as OnyxSortButton } from "./components/OnyxSortButton/OnyxSortButton.vue";
+export * from "./components/OnyxSortButton/types";
+
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
@@ -127,8 +130,8 @@ export * from "./components/OnyxVisuallyHidden/types";
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
 
+export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx, syncGlobalOptionalText } from "./utils/plugin";
-export { provideI18n, type TranslationFunction } from "./i18n";
 export { normalizedIncludes } from "./utils/strings";
