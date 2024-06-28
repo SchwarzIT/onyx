@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxTableProps>(), {
   withVerticalBorders: false,
 });
 
-const slots = defineSlots<{
+defineSlots<{
   /**
    * Table content. Must only contain valid HTML `<table>` children like `<tr>`, `<th>`, `<td>`, `<thead>` and `<tbody>`.
    */
@@ -30,15 +30,7 @@ const { t } = injectI18n();
 
 const { densityClass } = useDensity(props);
 
-/**
- * Returns an empty message if no table body was found
- * or no rows were found inside a table body.
- */
-const isEmptyMessage = computed(() => {
-  const tableBody = slots.default?.().find((data) => data.type === "tbody");
-  if (tableBody && tableBody.children?.length) return;
-  return t.value("table.empty");
-});
+const isEmptyMessage = computed(() => t.value("table.empty"));
 </script>
 
 <template>
@@ -54,7 +46,9 @@ const isEmptyMessage = computed(() => {
       >
         <slot></slot>
 
-        <tbody v-if="isEmptyMessage" class="onyx-table__empty">
+        <!-- info: we can't use tbody here because we determine via CSS
+         whether to show "empty" when no tbody is present -->
+        <div class="onyx-table__empty">
           <tr>
             <td colspan="100%">
               <div class="onyx-table__empty-content">
@@ -69,7 +63,7 @@ const isEmptyMessage = computed(() => {
               </div>
             </td>
           </tr>
-        </tbody>
+        </div>
       </table>
     </div>
   </div>
@@ -205,12 +199,20 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     width: 100%;
 
     &__empty {
+      display: none;
+
       &-content {
         display: flex;
         justify-content: center;
       }
       .onyx-icon {
         color: var(--onyx-color-text-icons-neutral-medium);
+      }
+    }
+    &:not(:has(tbody tr)) {
+      .onyx-table__empty {
+        // this display option behaves like tbody
+        display: table-row-group;
       }
     }
 
