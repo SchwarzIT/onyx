@@ -123,7 +123,7 @@ export default defineLoader({
       {
         name: "Input",
         dueDate: basicComponentsDueDate,
-        status: getImplementedStatus("OnyxInput"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-input--docs",
       },
       {
@@ -185,10 +185,14 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
       },
+      {
+        name: "Toast",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs",
+      },
       { name: "Footer", status: getImplementedStatus("OnyxFooter") },
       { name: "Data grid", status: getImplementedStatus("OnyxDataGrid") },
       { name: "Filter", status: getImplementedStatus("OnyxFilter") },
-      { name: "Toast", status: getImplementedStatus("OnyxToast") },
       { name: "Sidebar", status: getImplementedStatus("OnyxSidebar") },
       { name: "Card", status: getImplementedStatus("OnyxCard") },
       { name: "Popover", status: getImplementedStatus("OnyxPopover") },
