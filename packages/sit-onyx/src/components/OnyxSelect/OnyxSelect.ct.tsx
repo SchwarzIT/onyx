@@ -1,13 +1,13 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
+import type { Locator } from "@playwright/test";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
+import type { FormErrorMessages } from "src/composables/useCustomValidity";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
-import type { FormErrorMessages } from "src/composables/useCustomValidity";
-import type { Locator } from "@playwright/test";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -650,4 +650,25 @@ test("should show custom option slot content", async ({ mount }) => {
   for (const option of MOCK_VARIED_OPTIONS) {
     await expect(component.getByLabel(option.label)).toContainText("Custom content");
   }
+});
+
+test("should not submit form when selecting via keyboard", async ({ page, mount }) => {
+  let submitEventCount = 0;
+
+  // ARRANGE
+  await mount(
+    <form onSubmit={() => submitEventCount++}>
+      <OnyxSelect options={MOCK_VARIED_OPTIONS} label="Test label" listLabel="List label" />
+    </form>,
+  );
+
+  // ACT
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Enter");
+
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Enter");
+
+  // ASSERT
+  await expect(submitEventCount).toBe(0);
 });
