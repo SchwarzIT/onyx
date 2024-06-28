@@ -182,7 +182,7 @@ export default defineLoader({
       },
       {
         name: "Dialog",
-        status: "implemented",
+        status: getImplementedStatus("OnyxDialog"),
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
       },
       {
