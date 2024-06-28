@@ -28,11 +28,12 @@ test.describe("Screenshot tests", () => {
       rows: ["default", "back", "context", "context-back"],
       // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       disabledAccessibilityRules: ["color-contrast"],
+      disablePadding: true,
       component: (column, row) => (
         <OnyxNavBar
-          style={{ width: `${breakpointWidth}px` }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
+          style={{ width: `${breakpointWidth}px` }}
           withBackButton={row.includes("back")}
         >
           <OnyxNavItem label="Item" active />
@@ -47,6 +48,9 @@ test.describe("Screenshot tests", () => {
           )}
         </OnyxNavBar>
       ),
+      beforeScreenshot: async (component, page) => {
+        await page.setViewportSize({ width: breakpointWidth, height: 128 });
+      },
     });
   }
 });
