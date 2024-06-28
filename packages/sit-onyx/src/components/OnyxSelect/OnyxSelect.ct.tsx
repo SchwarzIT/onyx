@@ -651,3 +651,24 @@ test("should show custom option slot content", async ({ mount }) => {
     await expect(component.getByLabel(option.label)).toContainText("Custom content");
   }
 });
+
+test("should not submit form when selecting via keyboard", async ({ page, mount }) => {
+  let submitEventCount = 0;
+
+  // ARRANGE
+  await mount(
+    <form onSubmit={() => submitEventCount++}>
+      <OnyxSelect options={MOCK_VARIED_OPTIONS} label="Test label" listLabel="List label" />
+    </form>,
+  );
+
+  // ACT
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Enter");
+
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Enter");
+
+  // ASSERT
+  await expect(submitEventCount).toBe(0);
+});

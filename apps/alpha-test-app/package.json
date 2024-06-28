@@ -1,7 +1,7 @@
 {
   "name": "alpha-test-app",
   "private": true,
-  "version": "0.1.0-alpha.152",
+  "version": "0.1.0-alpha.154",
   "type": "module",
   "scripts": {
     "start": "pnpm run dev",
