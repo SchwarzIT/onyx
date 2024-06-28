@@ -173,6 +173,11 @@ export const createComboBox = createBuilder(
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        // prevent submitting on pressing enter when the combo box is used inside a <form>
+        event.preventDefault();
+      }
+
       if (!isExpanded.value && isKeyOfGroup(event, OPENING_KEYS)) {
         onToggle?.();
         if (event.key === " ") {
