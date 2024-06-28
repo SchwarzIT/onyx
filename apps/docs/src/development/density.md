@@ -1,11 +1,7 @@
 # Density System
 
-::: warning Work in progress / Active development
-This library is currently in early / active development.
-:::
-
 Density refers to the amount of vertical white space a component has, as well as the height of the main (interactive) element of a component.
-You can find more details about the design perspective in the [Density Design Doc](../basics/density.md).
+You can find more details about the design perspective in the [density design documentation](../basics/density.md).
 
 The density can be set for the whole app, part of the app or a single component using the following CSS classes:
 

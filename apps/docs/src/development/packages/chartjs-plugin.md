@@ -56,15 +56,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/chartjs-plugin@alpha chart.js
+pnpm add @sit-onyx/chartjs-plugin@beta chart.js
 ```
 
 ```sh [npm]
-npm install @sit-onyx/chartjs-plugin@alpha chart.js
+npm install @sit-onyx/chartjs-plugin@beta chart.js
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/chartjs-plugin@alpha chart.js
+yarn install @sit-onyx/chartjs-plugin@beta chart.js
 ```
 
 :::

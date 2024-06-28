@@ -25,7 +25,7 @@ A full changelog can be found [here](/development/packages/changelogs/figma-util
 For a list of supported commands and options, run:
 
 ```sh
-npx @sit-onyx/figma-utils@alpha --help
+npx @sit-onyx/figma-utils@beta --help
 ```
 
 ::: tip Usage in CI
@@ -48,15 +48,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/figma-utils@alpha
+pnpm add @sit-onyx/figma-utils@beta
 ```
 
 ```sh [npm]
-npm install @sit-onyx/figma-utils@alpha
+npm install @sit-onyx/figma-utils@beta
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/figma-utils@alpha
+yarn install @sit-onyx/figma-utils@beta
 ```
 
 :::

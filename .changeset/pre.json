@@ -1,6 +1,6 @@
 {
   "mode": "pre",
-  "tag": "alpha",
+  "tag": "beta",
   "initialVersions": {
     "@sit-onyx/chartjs-plugin": "0.0.0",
     "@sit-onyx/figma-utils": "0.0.0",

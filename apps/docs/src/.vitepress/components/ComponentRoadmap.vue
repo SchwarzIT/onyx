@@ -56,9 +56,9 @@ const shouldShowAllButton = computed(() => {
     <OnyxHeadline is="h2" class="components__headline">Components</OnyxHeadline>
 
     <p class="components__description">
-      onyx is currently in early / active development. Below you can find a list of components that
-      we are planning to implement as well as their estimated due date. Feel free to check this page
-      regularly, we will keep it up to date with our progress.
+      onyx is currently in beta version and early / active development. Below you can find a list of
+      components that we are planning to implement as well as their estimated due date. Feel free to
+      check this page regularly, we will keep it up to date with our progress.
     </p>
 
     <p class="components__description">

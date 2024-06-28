@@ -13,7 +13,7 @@ export const useStore = () => {
   /**
    * Currently selected onyx version.
    */
-  const onyxVersion = ref("alpha");
+  const onyxVersion = ref("beta");
 
   /**
    * List of available onyx versions.

@@ -31,7 +31,7 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt).
 Install the module in your [Nuxt](https://nuxt.com) application with one command:
 
 ```sh
-npx nuxi module add @sit-onyx/nuxt@alpha
+npx nuxi module add @sit-onyx/nuxt@beta
 ```
 
 Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you.

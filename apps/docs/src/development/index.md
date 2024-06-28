@@ -4,15 +4,15 @@ outline: [2, 3]
 
 # Getting Started
 
-::: warning Work in progress / Active development
-This library is currently in early / active development.
-:::
-
 <div class="hide-external-link">
 
 [![npm version](https://badge.fury.io/js/sit-onyx.svg)](https://www.npmjs.com/package/sit-onyx)
 
 </div>
+
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/sit-onyx).
 
 ## Nuxt
 
@@ -25,15 +25,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add sit-onyx@alpha
+pnpm add sit-onyx@beta
 ```
 
 ```sh [npm]
-npm install sit-onyx@alpha
+npm install sit-onyx@beta
 ```
 
 ```sh [yarn]
-yarn install sit-onyx@alpha
+yarn install sit-onyx@beta
 ```
 
 :::

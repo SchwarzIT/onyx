@@ -27,15 +27,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/storybook-utils@alpha
+pnpm add -D @sit-onyx/storybook-utils@beta
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/storybook-utils@alpha
+npm install -D @sit-onyx/storybook-utils@beta
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/storybook-utils@alpha
+yarn install -D @sit-onyx/storybook-utils@beta
 ```
 
 :::

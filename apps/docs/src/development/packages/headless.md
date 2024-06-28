@@ -14,10 +14,6 @@ import packageJson from "../../../../../packages/headless/package.json";
 
 </div>
 
-::: warning Work in progress / Active development
-This library is currently in early / active development.
-:::
-
 {{ packageJson.description }}.
 
 Inspired by [Melt UI](https://melt-ui.com).
@@ -33,15 +29,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/headless@alpha
+pnpm add @sit-onyx/headless@beta
 ```
 
 ```sh [npm]
-npm install @sit-onyx/headless@alpha
+npm install @sit-onyx/headless@beta
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/headless@alpha
+yarn install @sit-onyx/headless@beta
 ```
 
 :::
