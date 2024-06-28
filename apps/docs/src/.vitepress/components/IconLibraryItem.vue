@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
-import { computed, ref } from "vue";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
+import { useToast } from "~components/OnyxToastProvider/useToast";
 import OnyxTooltip from "~components/OnyxTooltip/OnyxTooltip.vue";
 import type { EnrichedIcon } from "../utils-icons";
 
@@ -9,25 +8,25 @@ const props = defineProps<{
   icon: EnrichedIcon;
 }>();
 
-const isCopied = ref(false);
+const toast = useToast();
 
 const handleCopy = async () => {
   const { importName, iconName } = props.icon;
   await navigator.clipboard.writeText(
     `import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`,
   );
-  isCopied.value = true;
-  setTimeout(() => (isCopied.value = false), 3000);
-};
 
-const tooltipText = computed(() => {
-  if (!isCopied.value) return props.icon.tooltipName;
-  return `Import copied to clipboard!\n${props.icon.tooltipName}`;
-});
+  toast.show({
+    headline: "Copied to clipboard!",
+    description: `Import for icon "${importName}" has been copied to your clipboard.`,
+    color: "success",
+    duration: 3000,
+  });
+};
 </script>
 
 <template>
-  <OnyxTooltip :text="tooltipText" position="bottom" :icon="isCopied ? circleCheck : undefined">
+  <OnyxTooltip :text="props.icon.tooltipName" position="bottom">
     <button type="button" class="icon" @click="handleCopy">
       <OnyxIcon :icon="props.icon.content" />
     </button>

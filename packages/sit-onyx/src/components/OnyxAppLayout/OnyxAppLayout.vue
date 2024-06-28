@@ -20,12 +20,15 @@ const slots = defineSlots<{
     <div v-if="slots.navBar" class="onyx-app__nav">
       <slot name="navBar"></slot>
     </div>
+
     <div class="onyx-app__page">
       <slot></slot>
     </div>
+
     <div v-if="slots.pageOverlay" class="onyx-app__page-overlay">
       <slot name="pageOverlay"></slot>
     </div>
+
     <div v-if="slots.appOverlay" class="onyx-app__app-overlay">
       <slot name="appOverlay"></slot>
     </div>
