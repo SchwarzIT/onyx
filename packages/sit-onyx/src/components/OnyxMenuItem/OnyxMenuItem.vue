@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { MENU_BUTTON_ITEM_INJECTION_KEY } from "../OnyxNavItem/future/types";
+import { MENU_BUTTON_ITEM_INJECTION_KEY } from "./types";
 import { type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
@@ -17,6 +17,7 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
 <template>
   <OnyxListItem
     :selected="props.active"
+    :active="props.active"
     v-bind="menuButton?.listItem"
     :color="props.color"
     :disabled="props.disabled"
@@ -25,12 +26,10 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     <component
       :is="props.href ? 'a' : 'button'"
       :class="{
-        'onyx-list-item': true,
+        'onyx-list-item': !props.href,
         'onyx-menu-item__anchor': props.href,
         'onyx-menu-item__button': !props.href,
-        'onyx-list-item--active': props.active,
-        [`onyx-list-item--${props.color}`]: props.color,
-        'onyx-list-item--disabled': props.disabled,
+        [`onyx-list-item--${props.color}`]: !props.href && props.color,
       }"
       :disabled="!props.href && props.disabled"
       v-bind="
@@ -51,6 +50,7 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     &__anchor {
       color: inherit;
       text-decoration: none;
+      padding: 0;
 
       &:focus {
         outline: none;
