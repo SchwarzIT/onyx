@@ -1,25 +1,17 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue";
 import OnyxToast from "../OnyxToast/OnyxToast.vue";
 import { useToast } from "./useToast";
 
-const dialogRef = ref<HTMLDialogElement>();
 const toastProvider = useToast();
-
-// MDN discourages to open the dialog via the "open" property (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog?retiredLocale=de#attributes)
-// so we use the "show()" method instead
-watch(dialogRef, () => {
-  if (dialogRef.value?.open) dialogRef.value.show();
-});
 </script>
 
 <template>
   <dialog
     v-if="toastProvider.toasts.value.length"
-    ref="dialogRef"
     class="onyx-toast-provider"
     role="presentation"
     aria-live="polite"
+    open
   >
     <OnyxToast v-for="{ id, ...toast } in toastProvider.toasts.value" :key="id" v-bind="toast" />
   </dialog>
