@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-alpha.155
+
+### Major Changes
+
+- b8db0cc: refactor(OnyxPageLayout): remove slot `toasts`
+
+  Use the new [OnyxToastProvider](https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs) instead
+
+### Minor Changes
+
+- b8db0cc: feat: add `OnyxToastProvider` component and `useToast` composable
+
 ## 1.0.0-alpha.154
 
 ### Patch Changes
