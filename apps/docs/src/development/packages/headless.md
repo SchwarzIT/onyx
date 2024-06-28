@@ -14,10 +14,6 @@ import packageJson from "../../../../../packages/headless/package.json";
 
 </div>
 
-::: warning Work in progress / Active development
-This library is currently in early / active development.
-:::
-
 {{ packageJson.description }}.
 
 Inspired by [Melt UI](https://melt-ui.com).

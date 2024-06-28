@@ -4,10 +4,6 @@ outline: [2, 3]
 
 # Getting Started
 
-::: warning Work in progress / Active development
-This library is currently in early / active development.
-:::
-
 <div class="hide-external-link">
 
 [![npm version](https://badge.fury.io/js/sit-onyx.svg)](https://www.npmjs.com/package/sit-onyx)
