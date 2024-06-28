@@ -27,7 +27,7 @@ import {
   useToast,
   type SelectOption,
 } from "sit-onyx";
-import { capitalize, computed, onMounted, ref } from "vue";
+import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
 
@@ -53,6 +53,7 @@ const COMPONENTS = [
   "OnyxTag",
   "OnyxTextarea",
   "OnyxTimer",
+  "OnyxToast",
   "OnyxTooltip",
 ] as const;
 
@@ -130,10 +131,6 @@ const timerEndDate = new Date();
 timerEndDate.setHours(timerEndDate.getHours() + 2);
 
 const toast = useToast();
-
-onMounted(() => {
-  toast.show({ headline: "Example toast", color: "success" });
-});
 </script>
 
 <template>
@@ -303,6 +300,12 @@ onMounted(() => {
         />
 
         <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
+
+        <OnyxButton
+          v-if="show('OnyxToast')"
+          label="Show toast"
+          @click="toast.show({ headline: 'Example toast', color: 'success' })"
+        />
 
         <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
           Hover me to show tooltip
