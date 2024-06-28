@@ -15,19 +15,17 @@ const tableHead = (
   </template>
 );
 
-const tableBody = (
-  <template>
-    <tr>
-      <td>Strawberry</td> <td>4.50</td> <td>200</td>
-    </tr>
-    <tr>
-      <td>Apple</td> <td>1.99</td> <td>3000</td>
-    </tr>
-    <tr>
-      <td>Banana</td> <td>3.75</td> <td>18000</td>
-    </tr>
-  </template>
-);
+const tableBody = [
+  <tr>
+    <td>Strawberry</td> <td>4.50</td> <td>200</td>
+  </tr>,
+  <tr>
+    <td>Apple</td> <td>1.99</td> <td>3000</td>
+  </tr>,
+  <tr>
+    <td>Banana</td> <td>3.75</td> <td>18000</td>
+  </tr>,
+];
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
