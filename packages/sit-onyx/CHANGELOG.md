@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.158
+
+### Patch Changes
+
+- 4ee1e7f: fix(OnyxNavBar): align horizontal padding with grid
+
 ## 1.0.0-alpha.157
 
 ### Patch Changes
