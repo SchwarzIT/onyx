@@ -3,7 +3,7 @@ import { createMenuButton } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../../types";
 import { provide, type VNode } from "vue";
 import { injectI18n } from "../../../i18n";
-import { MENU_BUTTON_ITEM_INJECTION_KEY } from "../../OnyxNavItem/future/types";
+import { MENU_BUTTON_ITEM_INJECTION_KEY } from "../../OnyxMenuItem/types";
 
 const slots = defineSlots<{
   /**
