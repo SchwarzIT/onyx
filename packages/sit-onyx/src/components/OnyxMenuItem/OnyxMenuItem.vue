@@ -26,10 +26,8 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     <component
       :is="props.href ? 'a' : 'button'"
       :class="{
-        'onyx-list-item': !props.href,
         'onyx-menu-item__anchor': props.href,
         'onyx-menu-item__button': !props.href,
-        [`onyx-list-item--${props.color}`]: !props.href && props.color,
       }"
       :disabled="!props.href && props.disabled"
       v-bind="
@@ -61,6 +59,12 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
       background-color: inherit;
       color: inherit;
       padding: 0;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-spacing-sm);
     }
   }
 }
