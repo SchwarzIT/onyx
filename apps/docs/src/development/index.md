@@ -10,6 +10,10 @@ outline: [2, 3]
 
 </div>
 
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/sit-onyx).
+
 ## Nuxt
 
 If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module documentation](/development/packages/nuxt) to get started.
