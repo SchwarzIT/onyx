@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.156
+
+### Minor Changes
+
+- ea9a9e7: Implement OnyxMenuItem component which is intended to be used inside OnyxUserMenu
+
 ## 1.0.0-alpha.155
 
 ### Major Changes

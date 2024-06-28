@@ -115,8 +115,9 @@ export const createMenuButton = createBuilder(() => {
       listItem: {
         role: "none",
       },
-      menuItem: (data: { active?: boolean }) => ({
+      menuItem: (data: { active?: boolean; disabled?: boolean }) => ({
         "aria-current": data.active ? "page" : undefined,
+        "aria-disabled": data.disabled,
         role: "menuitem",
       }),
     },
