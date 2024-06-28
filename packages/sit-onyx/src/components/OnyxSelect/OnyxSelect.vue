@@ -1,11 +1,11 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, watch, watchEffect, toRef } from "vue";
+import { computed, nextTick, ref, toRef, watch, watchEffect } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
-import { useManagedState } from "../../composables/useManagedState";
 import { useScrollEnd } from "../../composables/scrollEnd";
+import { useManagedState } from "../../composables/useManagedState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
@@ -389,6 +389,7 @@ const selectInputProps = computed(() => {
 .onyx-select-wrapper {
   @include layers.component() {
     position: relative;
+    height: max-content;
   }
 }
 
