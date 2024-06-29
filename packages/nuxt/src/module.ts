@@ -1,7 +1,7 @@
 import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
-import * as onyx from "sit-onyx";
-import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
 import type { NuxtOptions } from "@nuxt/schema";
+import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
+import * as onyx from "sit-onyx";
 
 export interface ModuleOptions {
   /**
@@ -69,9 +69,9 @@ export default defineNuxtModule<ModuleOptions>({
         register({
           langDir: resolve("./runtime/locales"),
           locales: [
-            { code: "de-DE", file: "de-DE.ts" },
-            { code: "en-US", file: "en-US.ts" },
-            { code: "ko-KR", file: "ko-KR.ts" },
+            { code: "de-DE", file: "de-DE.js" },
+            { code: "en-US", file: "en-US.js" },
+            { code: "ko-KR", file: "ko-KR.js" },
           ],
         });
       };
