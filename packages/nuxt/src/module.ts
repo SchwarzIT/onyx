@@ -69,6 +69,8 @@ export default defineNuxtModule<ModuleOptions>({
         register({
           langDir: resolve("./runtime/locales"),
           locales: [
+            // we need to use .js files instead of .ts because the .ts files would be compiled to .js in the build step, so
+            // when projects use this nuxt module, .ts files will throw a "can not find file" error
             { code: "de-DE", file: "de-DE.js" },
             { code: "en-US", file: "en-US.js" },
             { code: "ko-KR", file: "ko-KR.js" },
