@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 //
 // This file is only a temporary copy of the improved source code generation for Storybook.
 // It is intended to be deleted once its officially released in Storybook itself, see:
@@ -9,6 +10,7 @@ import {
   generatePropsSourceCode,
   generateSlotSourceCode,
   generateSourceCode,
+  getFunctionParamNames,
   parseDocgenInfo,
   type SourceCodeGeneratorContext,
 } from "./source-code-generator";
@@ -233,4 +235,24 @@ test.each([
 ])("should parse event names from __docgenInfo", ({ __docgenInfo, eventNames }) => {
   const docgenInfo = parseDocgenInfo({ __docgenInfo });
   expect(docgenInfo.eventNames).toStrictEqual(eventNames);
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+test.each<{ fn: (...args: any[]) => unknown; expectedNames: string[] }>([
+  { fn: () => ({}), expectedNames: [] },
+  { fn: (a) => ({}), expectedNames: ["a"] },
+  { fn: (a, b) => ({}), expectedNames: ["a", "b"] },
+  { fn: (a, b, { c }) => ({}), expectedNames: ["a", "b", "{", "c", "}"] },
+  { fn: ({ a, b }) => ({}), expectedNames: ["{", "a", "b", "}"] },
+  {
+    fn: {
+      // simulate minified function after running "storybook build"
+      toString: () => "({a:foo,b:bar})=>({})",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as (...args: any[]) => unknown,
+    expectedNames: ["{", "a", "b", "}"],
+  },
+])("should extract function parameter names", ({ fn, expectedNames }) => {
+  const paramNames = getFunctionParamNames(fn);
+  expect(paramNames).toStrictEqual(expectedNames);
 });
