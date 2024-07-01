@@ -7,7 +7,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Color scheme menu item",
     columns: ["default"],
-    rows: ["default"],
+    rows: ["default", "hover"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: () => (
@@ -15,6 +15,9 @@ test.describe("Screenshot tests", () => {
         <OnyxColorSchemeMenuItem modelValue="auto" />
       </ul>
     ),
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "hover") await component.getByText("Appearance: Auto").hover();
+    },
   });
 });
 
