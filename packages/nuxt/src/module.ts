@@ -71,7 +71,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Quick check to warn the user as the @nuxtjs/i18n module needs to be registered after onyx for the default translations to work
     const onyxModuleIndex = getModuleIndex(nuxt.options.modules, "@sit-onyx/nuxt");
-    if (onyxModuleIndex > i18nModuleIndex) {
+    if (i18nModuleIndex >= 0 && onyxModuleIndex > i18nModuleIndex) {
       logger.warn(
         "The @nuxtjs/i18n module was registered before the @sit-onyx/nuxt module. The default translations of onyx won't be loaded, please register the @sit-onyx/nuxt module before @nuxtjs/i18n",
       );
