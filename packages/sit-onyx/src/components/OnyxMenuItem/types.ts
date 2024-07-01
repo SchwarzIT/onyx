@@ -1,5 +1,3 @@
-import type { createMenuButton } from "@sit-onyx/headless";
-import type { InjectionKey } from "vue";
 import type { OnyxColor } from "../../types";
 
 export type OnyxMenuItemProps = {
@@ -22,13 +20,3 @@ export type OnyxMenuItemProps = {
    */
   color?: Extract<OnyxColor, "primary" | "danger">;
 };
-
-/**
- * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav button
- * to provide child components with correct aria attributes.
- *
- * @returns all the elements that createMenuButton composable provides
- */
-export const HEADLESS_MENU_BUTTON_INJECTION_KEY = Symbol() as InjectionKey<
-  ReturnType<typeof createMenuButton>
->;

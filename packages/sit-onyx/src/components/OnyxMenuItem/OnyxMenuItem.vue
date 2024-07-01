@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { createMenuItem } from "@sit-onyx/headless";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { HEADLESS_MENU_BUTTON_INJECTION_KEY, type OnyxMenuItemProps } from "./types";
+import { type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
 
@@ -12,7 +12,9 @@ const emit = defineEmits<{
   click: [];
 }>();
 
-const headlessMenuButton = inject(HEADLESS_MENU_BUTTON_INJECTION_KEY);
+const {
+  elements: { listItem, menuItem },
+} = createMenuItem({});
 </script>
 
 <template>
@@ -22,7 +24,7 @@ const headlessMenuButton = inject(HEADLESS_MENU_BUTTON_INJECTION_KEY);
     :color="props.color"
     :disabled="props.disabled"
     class="onyx-menu-item"
-    v-bind="headlessMenuButton?.elements.listItem"
+    v-bind="listItem"
   >
     <component
       :is="props.href ? 'a' : 'button'"
@@ -33,7 +35,7 @@ const headlessMenuButton = inject(HEADLESS_MENU_BUTTON_INJECTION_KEY);
       :disabled="!props.href && props.disabled"
       :href="props.href"
       v-bind="
-        headlessMenuButton?.elements.menuItem({
+        menuItem({
           active: props.active,
           disabled: !props.href && props.disabled,
         })

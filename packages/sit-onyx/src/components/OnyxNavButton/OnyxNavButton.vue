@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { createMenuButton } from "@sit-onyx/headless";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { computed, inject, provide, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import { isExternalLink } from "../../utils";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import { HEADLESS_MENU_BUTTON_INJECTION_KEY } from "../OnyxMenuItem/types";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types";
 import NavButtonLayout from "./NavButtonLayout.vue";
 import type { OnyxNavButtonProps } from "./types";
@@ -50,9 +48,6 @@ const handleParentClick = () => {
     emit("click", props.href);
   }
 };
-
-const headlessMenuButton = createMenuButton({});
-provide(HEADLESS_MENU_BUTTON_INJECTION_KEY, headlessMenuButton);
 </script>
 
 <template>

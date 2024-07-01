@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { computed, inject, type VNode } from "vue";
+import { createMenuButton } from "@sit-onyx/headless";
+import { computed, type VNode } from "vue";
 import type { SelectOptionValue } from "../../types";
-import { HEADLESS_MENU_BUTTON_INJECTION_KEY } from "../OnyxMenuItem/types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = defineProps<OnyxFlyoutMenuProps>();
@@ -25,7 +25,10 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const headlessMenuButton = inject(HEADLESS_MENU_BUTTON_INJECTION_KEY);
+const {
+  elements: { button, flyout, menu },
+  state: { isExpanded },
+} = createMenuButton({});
 
 const buttonComponent = computed(() => {
   if (!slots.default) return;
@@ -40,12 +43,12 @@ const buttonComponent = computed(() => {
 
 <template>
   <div class="onyx-flyout-menu">
-    <component :is="buttonComponent" v-bind="headlessMenuButton?.elements.button" />
+    <component :is="buttonComponent" v-bind="button" />
 
     <div
       v-if="slots.options || slots.header || slots.footer"
-      v-show="headlessMenuButton?.state.isExpanded"
-      v-bind="headlessMenuButton?.elements.flyout"
+      v-show="isExpanded"
+      v-bind="flyout"
       :aria-label="props.label"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,
@@ -57,7 +60,7 @@ const buttonComponent = computed(() => {
 
       <ul
         v-if="slots.options"
-        v-bind="headlessMenuButton?.elements.menu"
+        v-bind="menu"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
       >
         <slot name="options"></slot>
