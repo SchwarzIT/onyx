@@ -210,9 +210,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         display: flex;
         justify-content: center;
       }
-      .onyx-icon {
-        color: var(--onyx-color-text-icons-neutral-medium);
-      }
     }
 
     thead {
