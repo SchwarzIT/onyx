@@ -1,11 +1,16 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, toRef } from "vue";
 import { injectI18n } from "../../../i18n";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxFlyoutMenu from "../../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
 import type { OnyxUserMenuProps } from "../types";
+import { useManagedState } from "../../../composables/useManagedState";
 
-const props = defineProps<OnyxUserMenuProps>();
+const props = withDefaults(defineProps<OnyxUserMenuProps>(), { open: undefined });
+
+const emit = defineEmits<{
+  "update:open": [boolean];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -20,6 +25,12 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
+const open = useManagedState(
+  toRef(() => props.open),
+  false,
+  (val) => emit("update:open", val),
+);
+
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
@@ -28,7 +39,7 @@ const avatar = computed(() => {
 
 <template>
   <div class="onyx-user-menu">
-    <OnyxFlyoutMenu :aria-label="t('navigation.userMenuLabel')">
+    <OnyxFlyoutMenu v-model:open="open" :aria-label="t('navigation.userMenuLabel')">
       <button class="onyx-user-menu__trigger onyx-text">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>

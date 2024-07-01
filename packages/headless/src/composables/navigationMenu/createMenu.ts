@@ -8,7 +8,7 @@ type CreateNavigationMenu = {
    * Name of the navigation landmark.
    * Usually this is the name of the website.
    */
-  navigationName: MaybeRef<string>;
+  navigationName?: MaybeRef<string | undefined>;
 };
 
 /**
