@@ -1,5 +1,10 @@
 <script lang="ts" setup>
+import graphSearch from "@sit-onyx/icons/graph-search.svg?raw";
+import { computed, type VNode } from "vue";
 import { useDensity } from "../../composables/density";
+import { injectI18n } from "../../i18n";
+import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTableProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
@@ -7,14 +12,29 @@ const props = withDefaults(defineProps<OnyxTableProps>(), {
   withVerticalBorders: false,
 });
 
-defineSlots<{
+const slots = defineSlots<{
   /**
-   * Table content. Must only contain valid HTML `<table>` children like `<tr>`, `<th>`, `<td>`, `<thead>` and `<tbody>`.
+   * Table content. Must only contain valid HTML `<tbody>` children like `<tr>` and `<td>`.
    */
-  default(): unknown;
+  default(): VNode[];
+  /**
+   * Table header. Must only contain valid HTML `<thead>` children like `<tr>` and `<th>`.
+   */
+  head?(): unknown;
+  /**
+   * Optional slot to customize the empty state when no body content exist.
+   * It is recommended to use the `<OnyxEmpty>` component here.
+   *
+   * If unset, a default translated message will be displayed for the current locale.
+   */
+  empty?(props: { defaultMessage: string }): unknown;
 }>();
 
+const { t } = injectI18n();
+
 const { densityClass } = useDensity(props);
+
+const isEmptyMessage = computed(() => t.value("table.empty"));
 </script>
 
 <template>
@@ -28,7 +48,29 @@ const { densityClass } = useDensity(props);
           densityClass,
         ]"
       >
-        <slot></slot>
+        <thead v-if="slots.head">
+          <slot name="head"></slot>
+        </thead>
+        <tbody>
+          <slot>
+            <!-- fallback content showing an "empty" state
+              that will be displayed if no body content is provided -->
+            <tr class="onyx-table__empty">
+              <td colspan="100%">
+                <div class="onyx-table__empty-content">
+                  <slot name="empty" :default-message="isEmptyMessage">
+                    <OnyxEmpty>
+                      <template #icon>
+                        <OnyxIcon :icon="graphSearch" size="48px" />
+                      </template>
+                      {{ isEmptyMessage }}
+                    </OnyxEmpty>
+                  </slot>
+                </div>
+              </td>
+            </tr>
+          </slot>
+        </tbody>
       </table>
     </div>
   </div>
@@ -120,6 +162,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       box-sizing: border-box;
       max-height: inherit;
       max-width: inherit;
+
+      &:focus-visible {
+        outline: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-500);
+      }
     }
     // we place a frame on top so the table has visible boundaries
     // when it is overflowing in the scroll container
@@ -158,6 +204,13 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     text-align: left;
     contain: paint;
     width: 100%;
+
+    &__empty {
+      &-content {
+        display: flex;
+        justify-content: center;
+      }
+    }
 
     thead {
       position: sticky;
@@ -205,7 +258,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
     // row hover styles
-    tbody tr:hover td::before {
+    // hover styles are disabled when the table is empty.
+    tr:hover:not(.onyx-table__empty) td::before {
       background-color: var(--onyx-color-base-neutral-200);
     }
 
@@ -220,6 +274,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       width: 100%;
       bottom: 0;
       // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+      pointer-events: none;
+    }
+    // hover styles are disabled when the table is empty.
+    &:has(&__empty) th {
       pointer-events: none;
     }
   }

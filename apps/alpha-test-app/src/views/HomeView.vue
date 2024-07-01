@@ -263,15 +263,15 @@ const toast = useToast();
           :skeleton="useSkeleton"
         />
 
-        <OnyxTable v-if="show('OnyxTable')">
-          <thead>
-            <tr>
-              <th>Fruit</th>
-              <th>Price (€/kg)</th>
-              <th>Inventory (kg)</th>
-            </tr>
-          </thead>
-          <tbody>
+        <template v-if="show('OnyxTable')">
+          <OnyxTable>
+            <template #head>
+              <tr>
+                <th>Fruit</th>
+                <th>Price (€/kg)</th>
+                <th>Inventory (kg)</th>
+              </tr>
+            </template>
             <tr>
               <td>Strawberry</td>
               <td>4.50</td>
@@ -287,8 +287,20 @@ const toast = useToast();
               <td>3.75</td>
               <td>18000</td>
             </tr>
-          </tbody>
-        </OnyxTable>
+          </OnyxTable>
+          <OnyxTable>
+            <template #head>
+              <tr>
+                <th>Empty</th>
+                <th>Table</th>
+                <th>Example</th>
+              </tr>
+            </template>
+
+            <!-- this demonstrates that the empty state works even when v-for is used -->
+            <tr v-for="(_row, index) in []" :key="index"></tr>
+          </OnyxTable>
+        </template>
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 
