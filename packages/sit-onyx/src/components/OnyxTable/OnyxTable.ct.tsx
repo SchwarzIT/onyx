@@ -52,7 +52,7 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
-      <OnyxTable density={column}>
+      <OnyxTable density={column} withInternalScrolling>
         {tableHead}
         {tableBody}
       </OnyxTable>
