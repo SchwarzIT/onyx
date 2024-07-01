@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { MENU_BUTTON_ITEM_INJECTION_KEY, type OnyxMenuItemProps } from "./types";
+import { HEADLESS_MENU_BUTTON_INJECTION_KEY, type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
+
 const emit = defineEmits<{
   /**
    * Emitted when the menu item is clicked (via click or keyboard).
@@ -11,17 +12,17 @@ const emit = defineEmits<{
   click: [];
 }>();
 
-const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
+const headlessMenuButton = inject(HEADLESS_MENU_BUTTON_INJECTION_KEY);
 </script>
 
 <template>
   <OnyxListItem
     :selected="props.active"
     :active="props.active"
-    v-bind="menuButton?.listItem"
     :color="props.color"
     :disabled="props.disabled"
     class="onyx-menu-item"
+    v-bind="headlessMenuButton?.elements.listItem"
   >
     <component
       :is="props.href ? 'a' : 'button'"
@@ -30,10 +31,13 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
         'onyx-menu-item__button': !props.href,
       }"
       :disabled="!props.href && props.disabled"
-      v-bind="
-        menuButton?.menuItem({ active: props.active, disabled: !props.href && props.disabled })
-      "
       :href="props.href"
+      v-bind="
+        headlessMenuButton?.elements.menuItem({
+          active: props.active,
+          disabled: !props.href && props.disabled,
+        })
+      "
       @click="emit('click')"
     >
       <slot></slot>

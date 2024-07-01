@@ -71,7 +71,7 @@ test.describe("Screenshot tests with nested children", () => {
       </OnyxNavButton>
     ),
     beforeScreenshot: async (component, page, _column, row) => {
-      const flyout = page.getByLabel("Navigation");
+      const flyout = page.getByLabel("Subpages of Item");
       await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
       // since the flyout is positioned absolute, we need to set the component size accordingly
@@ -111,7 +111,9 @@ test.describe("Screenshot tests (mobile)", () => {
       if (row === "focus-visible") await page.keyboard.press("Tab");
     },
   });
+});
 
+test.describe("Screenshot tests (mobile children)", () => {
   executeMatrixScreenshotTest({
     name: "NavButton (mobile, open children)",
     columns: ["default", "with-parent-link"],

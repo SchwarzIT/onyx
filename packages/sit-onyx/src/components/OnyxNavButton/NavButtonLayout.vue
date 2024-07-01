@@ -32,10 +32,8 @@ const mobileChildrenOpen = defineModel<boolean>("mobileChildrenOpen");
         @click="mobileChildrenOpen = false"
       />
 
-      <template v-if="props.href">
-        <slot name="button"></slot>
-        <OnyxNavSeparator v-if="mobileChildrenOpen" orientation="horizontal" />
-      </template>
+      <slot v-if="!mobileChildrenOpen || props.href" name="button"></slot>
+      <OnyxNavSeparator v-if="mobileChildrenOpen && props.href" orientation="horizontal" />
 
       <ul v-if="mobileChildrenOpen" role="menu" class="onyx-nav-button__mobile-children">
         <slot name="options"></slot>

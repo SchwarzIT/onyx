@@ -32,7 +32,8 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
     max-height: 100%;
 
     &--horizontal {
-      min-height: var(--onyx-1px-in-rem);
+      min-height: unset;
+      height: var(--onyx-1px-in-rem);
       width: 100%;
       margin: var(--onyx-spacing-xs) 0;
     }
