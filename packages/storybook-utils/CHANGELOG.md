@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-alpha.165
+
+### Patch Changes
+
+- 56b364e: fix: generate correct code for slot bindings
+
 ## 1.0.0-alpha.164
 
 ### Patch Changes
