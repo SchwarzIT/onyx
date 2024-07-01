@@ -1,10 +1,9 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { createMenuButton } from "@sit-onyx/headless";
+import { createMenuButton, debounce } from "@sit-onyx/headless";
 import type { SelectOptionValue } from "../../../types";
 import { provide, toRef, type VNode } from "vue";
 import { injectI18n } from "../../../i18n";
 import { MENU_BUTTON_ITEM_INJECTION_KEY } from "../../OnyxMenuItem/types";
-import { debounce } from "../../../../../headless/src/utils/timer";
 import { useManagedState } from "../../../composables/useManagedState";
 
 const props = withDefaults(
