@@ -26,14 +26,16 @@ const { t } = injectI18n();
     </template>
 
     <template v-else>
-      <slot name="button"></slot>
-
       <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
+        <slot name="button"></slot>
+
         <template #header>
           <slot name="header"></slot>
         </template>
 
-        <slot name="options"></slot>
+        <template #options>
+          <slot name="options"></slot>
+        </template>
 
         <template v-if="!!slots.footer" #footer>
           <slot name="footer"></slot>

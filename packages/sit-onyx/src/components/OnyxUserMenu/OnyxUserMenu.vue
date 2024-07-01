@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed, inject } from "vue";
 import OnyxAvatar from "../OnyxAvatar/OnyxAvatar.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 import type { OnyxUserMenuProps } from "./types";
@@ -11,7 +9,7 @@ const props = defineProps<OnyxUserMenuProps>();
 
 const slots = defineSlots<{
   /**
-   * Slot for the menu options. Its recommended to use the `OnyxListItem` component here.
+   * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
   default?(): unknown;
   /**
@@ -21,11 +19,13 @@ const slots = defineSlots<{
 }>();
 
 const avatar = computed(() => {
-  if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
 });
 
-const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
+const isMobile = inject(
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  computed(() => false),
+);
 </script>
 
 <template>
@@ -35,10 +35,9 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
     :is-mobile="isMobile ?? false"
   >
     <template #button>
-      <button v-if="!isMobile" class="onyx-user-menu__trigger onyx-text">
+      <button class="onyx-user-menu__trigger onyx-text">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
       </button>
     </template>
 
@@ -83,21 +82,13 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
     width: max-content;
     position: relative;
 
-    &:focus-within {
+    &:focus-within,
+    &:hover {
       outline: 0;
 
-      .onyx-user-menu__trigger {
+      .onyx-user-menu__trigger[aria-expanded="true"] {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
-      }
-
-      .onyx-user-menu__flyout {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .onyx-user-menu__chevron {
-        transform: rotate(-90deg);
       }
     }
 
@@ -118,20 +109,14 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
       &:hover {
         background-color: var(--onyx-color-base-neutral-200);
       }
+
+      &:focus {
+        outline: 0;
+      }
     }
 
-    &__flyout {
-      opacity: 0;
-      visibility: hidden;
-      transition-duration: var(--onyx-duration-sm);
-      transition-property: opacity, visibility;
-      position: absolute;
+    .onyx-flyout-menu__list {
       right: 0;
-      top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
-    }
-
-    &__chevron {
-      transition: transform var(--onyx-duration-sm);
     }
 
     &__header {

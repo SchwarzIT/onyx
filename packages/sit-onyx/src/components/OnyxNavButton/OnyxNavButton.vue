@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { isExternalLink } from "../../utils";
-import OnyxFlyoutMenu from "../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
+import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import { type OnyxNavButtonProps } from "./types";
 
