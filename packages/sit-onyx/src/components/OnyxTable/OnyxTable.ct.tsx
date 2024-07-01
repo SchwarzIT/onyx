@@ -88,6 +88,7 @@ test.describe("Screenshot tests", () => {
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable
+        withInternalScrolling
         style={{
           maxWidth: column !== "default" ? "16rem" : "fit-content",
           maxHeight: row !== "default" ? "12rem" : "fit-content",
