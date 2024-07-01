@@ -1,5 +1,17 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-alpha.41
+
+### Major Changes
+
+- 981495f: Require mapping of onyx locales to the project ones.
+
+  This change was necessary because registering all languages supported by onyx would force the project to also support them due to the way locales are merged by nuxt-i18n.
+
+### Patch Changes
+
+- 981495f: Only show registration order warning if nuxt-i18n is used
+
 ## 1.0.0-alpha.40
 
 ### Patch Changes
