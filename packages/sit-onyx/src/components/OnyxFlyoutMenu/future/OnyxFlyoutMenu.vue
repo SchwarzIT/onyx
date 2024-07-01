@@ -13,7 +13,7 @@ const slots = defineSlots<{
   /**
    * OnyxListItems to show
    */
-  options?(): VNode[];
+  options?(): unknown;
   /**
    * Optional header content to display above the options.
    */
