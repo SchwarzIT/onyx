@@ -34,6 +34,8 @@ Install the module in your [Nuxt](https://nuxt.com) application with one command
 npx nuxi module add @sit-onyx/nuxt@alpha
 ```
 
+If you are also using the [@nuxtjs/i18n](https://i18n.nuxtjs.org/) module, make sure to move `@sit-onyx/nuxt` **before** `@nuxtjs/i18n`.
+
 Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you.
 
 ## Integration with @nuxtjs/i18n

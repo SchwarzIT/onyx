@@ -1,6 +1,7 @@
+// @ts-check
 import { defineI18nLocale } from "#i18n";
-import enUS from "sit-onyx/locales/en-US.json";
+import koKR from "sit-onyx/locales/ko-KR.json";
 
 export default defineI18nLocale(() => {
-  return { onyx: enUS };
+  return { onyx: koKR };
 });
