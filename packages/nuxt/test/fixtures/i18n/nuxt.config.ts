@@ -25,4 +25,13 @@ export default defineNuxtConfig({
       },
     ],
   },
+  onyx: {
+    i18n: {
+      registerLocales: {
+        "en-US": "en-US",
+        "de-DE": "de-DE",
+        int: "de-DE",
+      },
+    },
+  },
 });

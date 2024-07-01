@@ -14,6 +14,20 @@ export interface ModuleOptions {
    * @see https://onyx.schwarz/development/#installation
    */
   disableGlobalStyles?: boolean;
+  /**
+   * Settings related to the integration with @nuxtjs/i18n
+   */
+  i18n?: {
+    /**
+     * Mapping for registering the translations from onyx with @nuxtjs/i18n.
+     * @example
+     * ```ts
+     * registerLocales: { "en_US": "en-US" }
+     * ```
+     * This would register the onyx translations for the language "en-US" to the code "en_US" of your projects locales.
+     */
+    registerLocales?: Record<string, "en-US" | "de-DE" | "ko-KR">;
+  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -68,13 +82,12 @@ export default defineNuxtModule<ModuleOptions>({
       const registerOnyxLocales: NuxtI18nModuleHooks["i18n:registerModule"] = (register) => {
         register({
           langDir: resolve("./runtime/locales"),
-          locales: [
-            // we need to use .js files instead of .ts because the .ts files would be compiled to .js in the build step, so
-            // when projects use this nuxt module, .ts files will throw a "can not find file" error
-            { code: "de-DE", file: "de-DE.js" },
-            { code: "en-US", file: "en-US.js" },
-            { code: "ko-KR", file: "ko-KR.js" },
-          ],
+          // we need to use .js files instead of .ts because the .ts files would be compiled to .js in the build step, so
+          // when projects use this nuxt module, .ts files will throw a "can not find file" error
+          locales: Object.entries(options.i18n?.registerLocales ?? {}).map(([code, language]) => ({
+            code,
+            file: `${language}.js`,
+          })),
         });
       };
 
