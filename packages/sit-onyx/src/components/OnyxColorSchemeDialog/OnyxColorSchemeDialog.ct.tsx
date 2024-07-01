@@ -35,7 +35,7 @@ test.describe("Screenshot tests", () => {
 
       if (row === "hover") {
         // eslint-disable-next-line playwright/no-force-option -- since the radio button is visually hidden, we need to use force here
-        await component.getByLabel("Auto").hover({ force: true });
+        return component.getByRole("heading", { name: "Auto" }).click();
       }
     },
   });
@@ -60,7 +60,7 @@ test("should behave correctly", async ({ mount, page }) => {
 
   const clickOption = (label: string) => {
     // eslint-disable-next-line playwright/no-force-option -- since the radio button is visually hidden, we need to use force here
-    return component.getByLabel(label).click({ force: true });
+    return component.getByRole("heading", { name: label }).click();
   };
 
   // ASSERT (should be focussed initially)
