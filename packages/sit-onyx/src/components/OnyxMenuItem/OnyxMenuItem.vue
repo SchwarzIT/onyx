@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { MENU_BUTTON_ITEM_INJECTION_KEY } from "./types";
-import { type OnyxMenuItemProps } from "./types";
+import { MENU_BUTTON_ITEM_INJECTION_KEY, type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
 const emit = defineEmits<{
@@ -14,6 +13,7 @@ const emit = defineEmits<{
 
 const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
 </script>
+
 <template>
   <OnyxListItem
     :selected="props.active"
@@ -40,6 +40,7 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     </component>
   </OnyxListItem>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
@@ -49,6 +50,7 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
       color: inherit;
       text-decoration: none;
       padding: 0;
+      display: contents;
 
       &:focus {
         outline: none;
@@ -62,9 +64,7 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
       cursor: pointer;
       border: none;
       outline: none;
-      display: flex;
-      align-items: center;
-      gap: var(--onyx-spacing-sm);
+      display: contents;
     }
   }
 }

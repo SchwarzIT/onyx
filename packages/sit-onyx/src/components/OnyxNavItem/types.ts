@@ -1,23 +1,10 @@
 export type OnyxNavItemProps = {
   /**
-   * Label to show inside the Nav item.
-   */
-  label: string;
-  /**
-   * The href of the nav item.
+   * URL that the nav item points to.
    */
   href?: string;
   /**
-   * Whether the nav item is currently active.
-   * If any nested option is active, the parent nav item will also be marked as active.
+   * Whether the nav item is (visually) active.
    */
   active?: boolean;
-  /**
-   * Whether to show the external link icon.
-   * If set to `auto`, it will be shown when the `href` leads to another website
-   * (starting with "http://" or "https://") and will be hidden otherwise.
-   */
-  withExternalIcon?: boolean | "auto";
-  /** Options to render in a flyout. */
-  options?: (Omit<OnyxNavItemProps, "options"> & { href: string })[];
 };
