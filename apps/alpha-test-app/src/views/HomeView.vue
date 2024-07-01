@@ -30,6 +30,7 @@ import {
 import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
+import { useStorage } from "@vueuse/core";
 
 const { locale } = useI18n();
 
@@ -68,7 +69,7 @@ const filteredConfigOptions = computed(() =>
     ? configOptions.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
     : configOptions,
 );
-const componentsToShow = ref([...configOptions]);
+const componentsToShow = useStorage("components-to-show", [...configOptions]);
 const componentNamesToShow = computed(() => componentsToShow.value.map((option) => option.value));
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) =>
