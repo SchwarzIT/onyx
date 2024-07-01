@@ -8,13 +8,13 @@ The following breakpoints are supported:
 
 <<< @/../../../packages/sit-onyx/src/styles/breakpoints.scss#breakpoints
 
-## Usage
+## Usage (Media Queries)
 
 ```scss
 @use "sit-onyx/breakpoints.scss";
 
 .some-class {
-  @include breakpoints.screen(max, md) {
+  @include breakpoints.screen(max, sm) {
     // your styles for md screens and smaller
   }
 
@@ -47,7 +47,7 @@ Make sure to set the [`container-type`](https://developer.mozilla.org/en-US/docs
 .some-class {
   container-type: size;
 
-  @include breakpoints.container(max, md) {
+  @include breakpoints.container(max, sm) {
     // your styles for md containers and smaller
   }
 
@@ -75,5 +75,5 @@ If you need to access the breakpoints via JavaScript (e.g. inside a [`ResizeObse
 ```ts
 import { ONYX_BREAKPOINTS } from "sit-onyx";
 
-console.log(`With for sm breakpoint is: ${ONYX_BREAKPOINTS.sm}px`);
+console.log(`Width for sm breakpoint is: ${ONYX_BREAKPOINTS.sm}px`);
 ```

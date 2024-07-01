@@ -16,4 +16,13 @@ export default defineNuxtConfig({
       { code: "int", iso: "de-DE", file: "int.ts", name: "International (DE)" },
     ],
   },
+  onyx: {
+    i18n: {
+      registerLocales: {
+        "en-US": "en-US",
+        "de-DE": "de-DE",
+        int: "de-DE",
+      },
+    },
+  },
 });
