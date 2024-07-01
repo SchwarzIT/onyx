@@ -478,13 +478,29 @@ const getVNodeName = (vnode: VNode) => {
  * @see Based on https://stackoverflow.com/a/9924463
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-const getFunctionParamNames = (func: Function): string[] => {
+export const getFunctionParamNames = (func: Function): string[] => {
   const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
   const ARGUMENT_NAMES = /([^\s,]+)/g;
 
   const fnStr = func.toString().replace(STRIP_COMMENTS, "");
   const result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(ARGUMENT_NAMES);
-  return result ?? [];
+  if (!result) return [];
+
+  // when running "storybook build", the function will be minified, so result for e.g.
+  // `({ foo, bar }) => { // function body }` will be `["{foo:e", "bar:a}"]`
+  // therefore we need to remove the :e and :a mappings and extract the "{" and "}"" from the destructured object
+  // so the final result becomes `["{", "foo", "bar", "}"]`
+  return result.flatMap((param) => {
+    if (["{", "}"].includes(param)) return param;
+    const nonMinifiedName = param.split(":")[0].trim();
+    if (nonMinifiedName.startsWith("{")) {
+      return ["{", nonMinifiedName.substring(1)];
+    }
+    if (param.endsWith("}") && !nonMinifiedName.endsWith("}")) {
+      return [nonMinifiedName, "}"];
+    }
+    return nonMinifiedName;
+  });
 };
 
 /**
