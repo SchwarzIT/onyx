@@ -60,6 +60,7 @@ defineExpose({
     <!-- We use `@click` here instead of `@mousedown` for the emit, as clear can change the width of the element.
          When the actual width changes, this can cause the actual click to be triggered on an outside element. -->
     <button
+      type="button"
       class="onyx-mini-search__clear"
       :aria-label="t('select.clearSearch')"
       tabindex="-1"

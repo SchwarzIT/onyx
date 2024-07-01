@@ -25,6 +25,7 @@ defineSlots<{
 <template>
   <div>
     <button
+      type="button"
       class="onyx-mobile-nav-button"
       :class="{ 'onyx-mobile-nav-button--active': props.open }"
       :aria-label="props.label"
