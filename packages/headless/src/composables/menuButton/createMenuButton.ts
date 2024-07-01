@@ -1,9 +1,9 @@
-import { computed, unref, type MaybeRef } from "vue";
+import { computed, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 
 type CreateMenuButtonOptions = {
-  isExpanded: MaybeRef<boolean>;
+  isExpanded: Ref<boolean>;
   onToggle: () => void;
 };
 
@@ -11,10 +11,9 @@ type CreateMenuButtonOptions = {
  * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
 export const createMenuButton = createBuilder(
-  ({ isExpanded: isExpandedRef, onToggle }: CreateMenuButtonOptions) => {
+  ({ isExpanded, onToggle }: CreateMenuButtonOptions) => {
     const menuId = createId("menu");
     const buttonId = createId("menu-button");
-    const isExpanded = computed(() => unref(isExpandedRef));
 
     const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
       const currentMenuItem = document.activeElement as HTMLElement;
