@@ -13,7 +13,7 @@ export type OnyxTableProps = DensityProp & {
    * Whether the table will scroll internally when a CSS max height/width is exceeded.
    * - with scrolling internally, the table header will stick to the top of the **table**
    * - without scrolling internally, the table header will stick to the top of the **page**
-   * Never set a max-height/width on the table without setting withInternalScrolling to true.
+   * - Never set a max-height/width on the table without setting `withInternalScrolling` to true.
    */
   withInternalScrolling?: boolean;
 };
