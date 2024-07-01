@@ -63,18 +63,18 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavButton href="/1" label="Item 1" onClick={(href) => clickEvents.push(href)} />
-      <OnyxNavButton href="/2" label="Item 2" onClick={(href) => clickEvents.push(href)}>
+      <OnyxNavButton href="#1" label="Item 1" onClick={(href) => clickEvents.push(href)} />
+      <OnyxNavButton href="#2" label="Item 2" onClick={(href) => clickEvents.push(href)}>
         Item 2
         <OnyxBadge color="warning" dot />
         <template v-slot:children>
-          <OnyxNavItem href="/2/1" onClick={(href) => clickEvents.push(href)}>
+          <OnyxNavItem href="#2-1" onClick={(href) => clickEvents.push(href)}>
             Nested item 1
           </OnyxNavItem>
-          <OnyxNavItem href="/2/2" onClick={(href) => clickEvents.push(href)}>
+          <OnyxNavItem href="#2-2" onClick={(href) => clickEvents.push(href)}>
             Nested item 2
           </OnyxNavItem>
-          <OnyxNavItem href="/2/3" onClick={(href) => clickEvents.push(href)}>
+          <OnyxNavItem href="#2-3" onClick={(href) => clickEvents.push(href)}>
             Nested item 3
           </OnyxNavItem>
         </template>
@@ -123,26 +123,26 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ACT
   await component.getByLabel("Item 1").click();
-  expect(clickEvents).toStrictEqual(["/1"]);
+  expect(clickEvents).toStrictEqual(["#1"]);
 
   // ACT
   await component.getByLabel("Item 2").click();
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger-children.png");
-  expect(clickEvents).toStrictEqual(["/1"]);
+  expect(clickEvents).toStrictEqual(["#1"]);
 
   // ACT
   await component.getByLabel("Item 2", { exact: true }).click();
 
   // ASSERT
-  expect(clickEvents).toStrictEqual(["/1", "/2"]);
+  expect(clickEvents).toStrictEqual(["#1", "#2"]);
 
   // ACT
   await component.getByText("Nested item 1").click();
 
   // ASSERT
-  expect(clickEvents).toStrictEqual(["/1", "/2", "/2/1"]);
+  expect(clickEvents).toStrictEqual(["#1", "#2", "#2-1"]);
 
   // ACT
   await component.getByRole("button", { name: "Back" }).click();
