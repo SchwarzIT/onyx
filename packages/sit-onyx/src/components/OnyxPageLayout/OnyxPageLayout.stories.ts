@@ -31,14 +31,16 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 15rem;
+        <div style="height: 15rem;
                     font-family: var(--onyx-font-family);
-                    color: var(--onyx-color-text-icons-neutral-intense);
-                    border: 1px solid var(--onyx-color-text-icons-neutral-soft);" >
+                    color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
     }),
   ],
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;

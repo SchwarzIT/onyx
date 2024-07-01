@@ -27,18 +27,10 @@ const meta: Meta<typeof OnyxAppLayout> = {
         control: { disable: true },
       },
     },
-    // storybook adds 1rem padding. The app layout fills the full available space
-    // so we need to counteract the padding with a negative margin.
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `
-          <div style="margin: -1rem;" >
-            <story />
-          </div>`,
-      }),
-    ],
   }),
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;

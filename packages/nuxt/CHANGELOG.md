@@ -1,5 +1,22 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-alpha.40
+
+### Patch Changes
+
+- Updated dependencies [760bb76]
+  - sit-onyx@1.0.0-alpha.159
+
+## 1.0.0-alpha.39
+
+### Patch Changes
+
+- 5b1aab0: fix(nuxt): i18n locales not resolvable
+
+  Prevents error on application start:
+
+  ERROR ENOENT: no such file or directory, open '/node_modules/@sit-onyx/nuxt/dist/runtime/locales/de-DE.ts'
+
 ## 1.0.0-alpha.38
 
 ### Patch Changes

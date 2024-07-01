@@ -71,6 +71,9 @@
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
   },
+  "table": {
+    "empty": "Diese Tabelle ist leer."
+  },
   "link": {
     "opensExternally": "Wird in einem neuen Tab geöffnet."
   },
