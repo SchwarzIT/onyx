@@ -299,35 +299,6 @@ const tableData = [
           </OnyxTable>
         </template>
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 
         <OnyxTextarea
