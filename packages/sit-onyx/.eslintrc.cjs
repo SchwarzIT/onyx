@@ -7,6 +7,7 @@ module.exports = {
   rules: {
     "no-console": "error",
     "no-debugger": "error",
+    "vue/html-button-has-type": "error",
     "@sit-onyx/import-playwright-a11y": "error",
     // disallow scoped or module CSS for components
     // see https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines#css
