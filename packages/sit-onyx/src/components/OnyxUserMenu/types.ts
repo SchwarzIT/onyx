@@ -15,6 +15,7 @@ export type OnyxUserMenuProps = {
   description?: string;
   /**
    * If the flyout is expanded or not.
+   * If `undefined`, the state will be managed internally.
    */
   open?: boolean;
 };
