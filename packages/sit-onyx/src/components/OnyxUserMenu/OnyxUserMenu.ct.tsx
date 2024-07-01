@@ -1,18 +1,18 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 const options = [
-  <OnyxListItem>
+  <OnyxMenuItem>
     <OnyxIcon icon={mockPlaywrightIcon} />
     Settings
-  </OnyxListItem>,
-  <OnyxListItem color="danger">
+  </OnyxMenuItem>,
+  <OnyxMenuItem color="danger">
     <OnyxIcon icon={mockPlaywrightIcon} />
     Logout
-  </OnyxListItem>,
+  </OnyxMenuItem>,
 ];
 
 test.describe("Screenshot tests", () => {

@@ -86,7 +86,7 @@ const isMobile = inject(
     &:hover {
       outline: 0;
 
-      .onyx-user-menu__trigger[aria-expanded="true"] {
+      .onyx-user-menu__trigger {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
       }

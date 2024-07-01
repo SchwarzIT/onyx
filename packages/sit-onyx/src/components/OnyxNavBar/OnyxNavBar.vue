@@ -30,7 +30,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * Nav items, only `OnyxNavItem` components should be placed here.
+   * Nav buttons, only `OnyxNavButton` components should be placed here.
    */
   default?: () => unknown;
   /**
@@ -322,7 +322,7 @@ $height: 3.5rem;
     }
 
     .onyx-mobile-nav-button__content {
-      $mobile-children-selector: ":has(.onyx-nav-item__mobile-children)";
+      $mobile-children-selector: ":has(.onyx-nav-button__mobile-children)";
 
       // hide "Navigation" headline when nav item with children is open
       &#{$mobile-children-selector} {
@@ -333,7 +333,7 @@ $height: 3.5rem;
 
       // hide all other nav items when nav item with children is open
       #{$mobile-children-selector} {
-        > .onyx-nav-item:not(#{$mobile-children-selector}) {
+        > .onyx-nav-button:not(#{$mobile-children-selector}) {
           display: none;
         }
       }

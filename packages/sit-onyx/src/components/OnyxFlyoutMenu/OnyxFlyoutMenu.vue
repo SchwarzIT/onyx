@@ -1,9 +1,11 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed, provide, type VNode } from "vue";
-import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { MENU_BUTTON_ITEM_INJECTION_KEY } from "../OnyxMenuItem/types";
+import type { OnyxFlyoutMenuProps } from "./types";
+
+const props = defineProps<OnyxFlyoutMenuProps>();
 
 const slots = defineSlots<{
   /**
@@ -31,8 +33,6 @@ const {
 
 provide(MENU_BUTTON_ITEM_INJECTION_KEY, { menuItem, listItem });
 
-const { t } = injectI18n();
-
 const buttonComponent = computed(() => {
   if (!slots.default) return;
   const vnode = slots.default().at(0);
@@ -52,7 +52,7 @@ const buttonComponent = computed(() => {
       v-if="slots.options || slots.header || slots.footer"
       v-show="isExpanded"
       v-bind="flyout"
-      :aria-label="t('navigation.navigationHeadline')"
+      :aria-label="props.label"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,
         'onyx-flyout-menu__list--with-footer': !!slots.footer,
