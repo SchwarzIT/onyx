@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.160
+
+### Patch Changes
+
+- cd4a885: fix(OnyxSelect): Fix OnyxSelect opening on submit
+
 ## 1.0.0-alpha.159
 
 ### Major Changes
