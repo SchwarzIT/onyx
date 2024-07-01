@@ -35,7 +35,7 @@ test.describe("Screenshot tests", () => {
 
       if (row === "hover") {
         // eslint-disable-next-line playwright/no-force-option -- since the radio button is visually hidden, we need to use force here
-        return component.getByRole("heading", { name: "Auto" }).click();
+        await component.getByRole("heading", { name: "Auto" }).hover();
       }
     },
   });
