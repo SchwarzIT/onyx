@@ -24,7 +24,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible", "external-link"],
     disabledAccessibilityRules,
     component: (column, row) => (
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      <ul style={{ listStyle: "none", padding: 0 }} role="menu">
         <OnyxNavItem
           href={row === "external-link" ? "https://onyx.schwarz/" : "#"}
           active={column === "active"}
