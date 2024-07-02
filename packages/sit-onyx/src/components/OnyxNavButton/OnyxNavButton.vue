@@ -39,6 +39,7 @@ const shouldShowExternalIcon = (args: OnyxNavButtonProps) => {
 <template>
   <OnyxFlyoutMenu class="onyx-nav-button">
     <button
+      type="button"
       class="onyx-nav-button__trigger onyx-text"
       :class="{
         'onyx-nav-button--active': props.active,
