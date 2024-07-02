@@ -51,16 +51,11 @@ test.describe("Screenshot tests with nested children", () => {
     name: "NavButton with nested children",
     columns: ["inactive", "active"],
     rows: ["hover", "focus-visible"],
-    /**
-     * This component represents only the child (menuitem) of the overall menu.
-     * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
-     * to have a parent with role="menu".
-     *
-     * "aria-required-children" test is disabled because it's a slot based component
-     *
-     * TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-     */
-    disabledAccessibilityRules: [...disabledAccessibilityRules, "aria-required-children"],
+    disabledAccessibilityRules: [
+      ...disabledAccessibilityRules,
+      // "aria-required-children" test is disabled because it's a slot based component
+      "aria-required-children",
+    ],
     component: (column) => (
       <OnyxNavButton label="Item" href="#" active={column === "active"}>
         <template v-slot:children>

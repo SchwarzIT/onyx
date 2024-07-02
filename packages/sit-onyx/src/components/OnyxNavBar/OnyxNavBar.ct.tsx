@@ -38,7 +38,7 @@ test.describe("Screenshot tests", () => {
           withBackButton={row.includes("back")}
         >
           <OnyxNavButton label="Item" active />
-          <OnyxNavButton label="Item" active />
+          <OnyxNavButton label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
 
