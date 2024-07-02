@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxTable): create prop to switch from table-scrolling to page-scrolling
+feat(OnyxTable): add `withPageScrolling` prop to switch from table-scrolling to page-scrolling
