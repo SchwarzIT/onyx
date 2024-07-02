@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { MENU_BUTTON_ITEM_INJECTION_KEY } from "./types";
-import { type OnyxMenuItemProps } from "./types";
+import { MENU_BUTTON_ITEM_INJECTION_KEY, type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
 const emit = defineEmits<{

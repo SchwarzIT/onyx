@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
   OnyxAvatar,
@@ -30,7 +31,6 @@ import {
 import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
-import { useStorage } from "@vueuse/core";
 
 const { locale } = useI18n();
 
