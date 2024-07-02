@@ -1,5 +1,3 @@
-import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
-import type { DeepPartial } from "../types/utils";
 import {
   computed,
   inject,
@@ -9,6 +7,8 @@ import {
   type InjectionKey,
   type MaybeRef,
 } from "vue";
+import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
+import type { DeepPartial } from "../types/utils";
 import enUS from "./locales/en-US.json";
 
 /**

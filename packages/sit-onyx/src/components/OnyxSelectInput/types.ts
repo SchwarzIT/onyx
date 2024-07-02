@@ -1,7 +1,7 @@
-import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SelectOption } from "../..";
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, SelectOptionValue } from "../../types";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
