@@ -199,10 +199,13 @@ $border-radius: var(--onyx-radius-sm);
 
       &.onyx-nav-button--active,
       &:has(.onyx-list-item--active) {
-        .onyx-nav-button__trigger {
+        .onyx-nav-button__trigger,
+        .onyx-list-item--active {
           --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
+          --onyx-list-item-color-selected: var(--onyx-color-text-icons-secondary-intense);
           background-color: var(--onyx-list-item-background-selected);
           border-color: var(--onyx-color-base-primary-200);
+          font-weight: 600;
 
           &:hover {
             border-color: var(--onyx-color-base-primary-500);
