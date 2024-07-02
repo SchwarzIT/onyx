@@ -20,15 +20,10 @@ export * from "./components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types";
 
-export { default as OnyxColorSchemeDialog } from "./components/OnyxColorSchemeDialog/OnyxColorSchemeDialog.vue";
-export * from "./components/OnyxColorSchemeDialog/types";
-
 export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
 export * from "./components/OnyxDialog/types";
 
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
-
-export { default as OnyxFlyoutMenu } from "./components/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
 export * from "./components/OnyxHeadline/types";
@@ -64,15 +59,7 @@ export * from "./components/OnyxNavAppArea/types";
 
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types";
-
-export { default as OnyxNavButton } from "./components/OnyxNavButton/OnyxNavButton.vue";
-export * from "./components/OnyxNavButton/types";
-
-export { default as OnyxNavItem } from "./components/OnyxNavItem/OnyxNavItem.vue";
-export * from "./components/OnyxNavItem/types";
-
-export { default as OnyxNavSeparator } from "./components/OnyxNavSeparator/OnyxNavSeparator.vue";
-export * from "./components/OnyxNavSeparator/types";
+export * from "./components/OnyxNavBar/modules";
 
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
@@ -106,9 +93,6 @@ export * from "./components/OnyxTag/types";
 export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
 export * from "./components/OnyxTextarea/types";
 
-export { default as OnyxTimer } from "./components/OnyxTimer/OnyxTimer.vue";
-export * from "./components/OnyxTimer/types";
-
 export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
 export * from "./components/OnyxToast/types";
 
@@ -117,9 +101,6 @@ export * from "./components/OnyxToastProvider/useToast";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
-
-export { default as OnyxUserMenu } from "./components/OnyxUserMenu/OnyxUserMenu.vue";
-export * from "./components/OnyxUserMenu/types";
 
 export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 export * from "./components/OnyxVisuallyHidden/types";
