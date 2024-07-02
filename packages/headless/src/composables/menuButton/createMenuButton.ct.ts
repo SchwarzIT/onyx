@@ -17,7 +17,7 @@ export type MenuButtonTestingOptions = {
   /**
    * List items (at least 3).
    */
-  menuItems: Locator[];
+  menuItems: Locator;
 };
 
 /**
@@ -45,25 +45,26 @@ export const menuButtonTesting = async ({
   await expect(button).toBeVisible();
 
   // ensure correct navigation menu aria attributes
-  await expect(
-    button,
-    'flyout menu must have an "aria-expanded" attribute set to false',
-  ).toHaveAttribute("aria-expanded", "false");
-
-  button.hover();
-
-  await expect(
-    button,
-    'flyout menu must have an "aria-expanded" attribute set to true',
-  ).toHaveAttribute("aria-expanded", "true");
-
-  const firstItem = menuItems[0].getByRole("menuitem");
-  const secondItem = menuItems[1].getByRole("menuitem");
-  const lastItem = menuItems[menuItems.length - 1].getByRole("menuitem");
+  await expect(button, "button must have arial-controls attribute").toHaveAttribute(
+    "aria-controls",
+  );
+  await expect(button, "button must have aria-expanded attribute").toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
 
   await page.keyboard.press("Tab");
   await expect(button, "Button should be focused when pressing tab key").toBeFocused();
 
+  const firstItem = menuItems.first();
+  const secondItem = menuItems.nth(1);
+  const lastItem = menuItems.last();
+
+  await page.keyboard.press("Enter");
+  await expect(button, "button must have aria-expanded attribute").toHaveAttribute(
+    "aria-expanded",
+    "true",
+  );
   await button.press("ArrowDown");
   await expect(
     firstItem,
