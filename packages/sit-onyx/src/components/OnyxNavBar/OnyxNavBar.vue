@@ -71,6 +71,26 @@ const isMobile = computed(() => {
 });
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
+
+defineExpose({
+  /**
+   * Closes the mobile burger and context menu.
+   * Useful if you want to e.g. close them when a nav item is clicked.
+   *
+   * Example usage:
+   *
+   * ```ts
+   * const route = useRoute();
+   * const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+   *
+   * watch(() => route.path, () => navBarRef.value?.closeMobileMenus());
+   * ```
+   */
+  closeMobileMenus: () => {
+    isBurgerOpen.value = false;
+    isContextOpen.value = false;
+  },
+});
 </script>
 
 <template>
