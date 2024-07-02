@@ -41,6 +41,7 @@ test.describe("Screenshot tests", () => {
         await component.evaluate((element) => {
           element.style.height = `${element.scrollHeight}px`;
           element.style.width = `${element.scrollWidth}px`;
+          element.style.paddingLeft = "48px";
         });
       }
     },
