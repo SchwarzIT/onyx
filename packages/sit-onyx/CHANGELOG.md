@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.0.0-alpha.162
+
+### Minor Changes
+
+- 90f9f86: feat: implement OnyxColorSchemeMenuItem
+
+### Patch Changes
+
+- 90f9f86: fix(OnyxMenuItem): make whole button/anchor clickable
+
 ## 1.0.0-alpha.161
 
 ### Minor Changes
