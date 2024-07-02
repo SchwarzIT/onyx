@@ -3,7 +3,6 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import { useColorMode } from "@vueuse/core";
 import {
   OnyxAppLayout,
-  OnyxColorSchemeDialog,
   OnyxColorSchemeMenuItem,
   OnyxIcon,
   OnyxListItem,
@@ -81,12 +80,6 @@ const { store: colorScheme } = useColorMode();
     </template>
 
     <RouterView />
-
-    <OnyxColorSchemeDialog
-      v-model="colorScheme"
-      :open="isColorSchemeDialogOpen"
-      @close="isColorSchemeDialogOpen = false"
-    />
 
     <OnyxToastProvider />
   </OnyxAppLayout>
