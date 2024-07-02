@@ -58,6 +58,8 @@ const {
       color: inherit;
       text-decoration: none;
       padding: var(--onyx-list-item-padding);
+      width: 100%;
+      height: 100%;
 
       &:focus {
         outline: none;

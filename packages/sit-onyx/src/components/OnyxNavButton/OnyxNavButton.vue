@@ -179,7 +179,7 @@ $border-radius: var(--onyx-radius-sm);
       .onyx-list-item {
         width: 100%;
         justify-content: flex-start;
-        padding-inline: var(--onyx-spacing-sm);
+        --onyx-list-item-padding: var(--onyx-spacing-sm);
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         height: 3rem;
         border-radius: $border-radius;
