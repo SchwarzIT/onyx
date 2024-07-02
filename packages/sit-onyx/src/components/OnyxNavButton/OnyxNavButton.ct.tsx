@@ -95,9 +95,11 @@ test.describe("Screenshot tests (mobile)", () => {
       >
         {row === "badge" && ["Parent item", <OnyxBadge dot color="warning" />]}
 
-        <template v-slot:children>
-          <OnyxNavItem href="#">Child 1</OnyxNavItem>
-        </template>
+        {row === "with-children" && (
+          <template v-slot:children>
+            <OnyxNavItem href="#">Child 1</OnyxNavItem>
+          </template>
+        )}
       </MobileComponentTestWrapper>
     ),
     beforeScreenshot: async (component, page, _column, row) => {

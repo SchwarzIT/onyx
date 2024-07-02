@@ -146,7 +146,7 @@ $border-radius: var(--onyx-radius-sm);
     &:not(&--mobile) {
       &:hover,
       &:focus-within:has(.onyx-flyout-menu__list) {
-        .onyx-nav-button__trigger {
+        .onyx-nav-button__trigger[aria-expanded="true"] {
           background-color: var(--onyx-color-base-neutral-200);
         }
       }
