@@ -9,45 +9,26 @@ Per default, onyx will be displayed in light mode after the [initial setup](/dev
 
 ## Let the user decide
 
-In order to let the user switch between light, dark and auto mode, we recommend to use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschemedialog--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library:
+In order to let the user switch between light, dark and auto mode, we recommend to use the pre-built [OnyxColorSchemeMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschememenuitem--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library as shown in the example below.
 
 ```vue
 <script setup lang="ts">
-import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import { useColorMode } from "@vueuse/core";
-import { OnyxColorSchemeDialog, OnyxNavBar, OnyxUserMenu, type SelectOption } from "sit-onyx";
+import { OnyxNavBar, OnyxUserMenu, OnyxColorSchemeMenuItem } from "sit-onyx";
 import { ref } from "vue";
 
-const userMenuOptions = [
-  { value: "color-scheme", label: "Appearance", icon: circleContrast },
-  // your other user menu options
-] as const satisfies SelectOption[];
-
 const { store: colorScheme } = useColorMode();
-const isColorSchemeDialogOpen = ref(false);
-
-const handleOptionClick = (value: (typeof userMenuOptions)[number]["value"]) => {
-  if (value === "color-scheme") {
-    isColorSchemeDialogOpen.value = true;
-  }
-};
 </script>
 
 <template>
   <OnyxNavBar app-name="Example app">
     <template #contextArea>
-      <OnyxUserMenu
-        username="John Doe"
-        :options="userMenuOptions"
-        @option-click="handleOptionClick"
-      />
+      <OnyxUserMenu username="John Doe">
+        <OnyxColorSchemeMenuItem v-model="colorScheme" />
+      </OnyxUserMenu>
     </template>
   </OnyxNavBar>
-
-  <OnyxColorSchemeDialog
-    v-model="colorScheme"
-    :open="isColorSchemeDialogOpen"
-    @close="isColorSchemeDialogOpen = false"
-  />
 </template>
 ```
+
+Alternatively, you can use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschemedialog--docs) component to build your own custom component.

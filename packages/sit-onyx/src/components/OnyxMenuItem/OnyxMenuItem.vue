@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { MENU_BUTTON_ITEM_INJECTION_KEY } from "./types";
-import { type OnyxMenuItemProps } from "./types";
+import { MENU_BUTTON_ITEM_INJECTION_KEY, type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
+
 const emit = defineEmits<{
   /**
    * Emitted when the menu item is clicked (via click or keyboard).
@@ -14,6 +14,7 @@ const emit = defineEmits<{
 
 const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
 </script>
+
 <template>
   <OnyxListItem
     :selected="props.active"
@@ -40,15 +41,20 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     </component>
   </OnyxListItem>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
 .onyx-menu-item {
   @include layers.component() {
+    // in order for the full menu item to be clickable, we remove the padding here
+    // and set it on the anchor/button instead
+    padding: 0;
+
     &__anchor {
       color: inherit;
       text-decoration: none;
-      padding: 0;
+      padding: var(--onyx-list-item-padding);
 
       &:focus {
         outline: none;
@@ -58,13 +64,14 @@ const menuButton = inject(MENU_BUTTON_ITEM_INJECTION_KEY);
     &__button {
       background-color: inherit;
       color: inherit;
-      padding: 0;
+      padding: var(--onyx-list-item-padding);
       cursor: pointer;
       border: none;
       outline: none;
       display: flex;
       align-items: center;
       gap: var(--onyx-spacing-sm);
+      width: 100%;
     }
   }
 }
