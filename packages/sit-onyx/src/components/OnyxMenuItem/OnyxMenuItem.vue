@@ -28,10 +28,7 @@ const {
   >
     <component
       :is="props.href ? 'a' : 'button'"
-      :class="{
-        'onyx-menu-item__anchor': props.href,
-        'onyx-menu-item__button': !props.href,
-      }"
+      class="onyx-menu-item__trigger"
       :disabled="!props.href && props.disabled"
       :href="props.href"
       v-bind="
@@ -52,25 +49,25 @@ const {
 
 .onyx-menu-item {
   @include layers.component() {
-    &__anchor {
+    padding: 0;
+
+    &__trigger {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-spacing-sm);
       color: inherit;
       text-decoration: none;
-      padding: 0;
-      display: contents;
+      padding: var(--onyx-list-item-padding);
 
       &:focus {
         outline: none;
       }
-    }
 
-    &__button {
-      background-color: inherit;
-      color: inherit;
-      padding: 0;
-      cursor: pointer;
-      border: none;
-      outline: none;
-      display: contents;
+      &:is(button) {
+        background-color: inherit;
+        cursor: inherit;
+        border: none;
+      }
     }
   }
 }
