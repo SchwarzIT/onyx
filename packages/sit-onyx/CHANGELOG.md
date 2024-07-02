@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.161
+
+### Minor Changes
+
+- 4492231: feat(OnyxTable): add `withPageScrolling` prop to switch from table-scrolling to page-scrolling
+
 ## 1.0.0-alpha.160
 
 ### Patch Changes
