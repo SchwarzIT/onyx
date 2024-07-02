@@ -54,16 +54,16 @@ const handleParentClick = () => {
   <NavButtonLayout
     v-model:mobile-children-open="isMobileChildrenOpen"
     class="onyx-nav-button"
-    :class="{ 'onyx-nav-button--mobile': isMobile }"
+    :class="{
+      'onyx-nav-button--mobile': isMobile,
+      'onyx-nav-button--active': props.active || isMobileChildrenOpen,
+    }"
     :is-mobile="isMobile ?? false"
     v-bind="props"
   >
     <template #button>
       <button
         class="onyx-nav-button__trigger onyx-text"
-        :class="{
-          'onyx-nav-button__trigger--active': props.active || isMobileChildrenOpen,
-        }"
         role="menuitem"
         :aria-label="props.label"
         @click="handleParentClick"
@@ -79,7 +79,7 @@ const handleParentClick = () => {
         </slot>
 
         <OnyxIcon
-          v-if="isMobile && hasChildren"
+          v-if="isMobile && hasChildren && !isMobileChildrenOpen"
           class="onyx-nav-button__mobile-chevron"
           :icon="chevronRightSmall"
         />
@@ -125,8 +125,11 @@ $border-radius: var(--onyx-radius-sm);
       &:focus-visible {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
       }
+    }
 
-      &--active {
+    &--active,
+    &:has(.onyx-list-item--active) {
+      .onyx-nav-button__trigger {
         color: var(--onyx-color-text-icons-secondary-intense);
         font-weight: 600;
 
@@ -192,8 +195,11 @@ $border-radius: var(--onyx-radius-sm);
           background-color: var(--onyx-color-base-background-tinted);
           border-color: var(--onyx-color-base-primary-500);
         }
+      }
 
-        &--active {
+      &.onyx-nav-button--active,
+      &:has(.onyx-list-item--active) {
+        .onyx-nav-button__trigger {
           --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
           background-color: var(--onyx-list-item-background-selected);
           border-color: var(--onyx-color-base-primary-200);

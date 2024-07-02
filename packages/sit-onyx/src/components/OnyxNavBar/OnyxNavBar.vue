@@ -322,7 +322,7 @@ $height: 3.5rem;
     }
 
     .onyx-mobile-nav-button__content {
-      $mobile-children-selector: ":has(.onyx-nav-button__mobile-children)";
+      $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
 
       // hide "Navigation" headline when nav item with children is open
       &#{$mobile-children-selector} {
