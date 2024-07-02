@@ -65,7 +65,7 @@ const avatar = computed(() => {
 </template>
 
 <style lang="scss">
-@use "../../../styles/mixins/layers.scss";
+@use "../../../../../styles/mixins/layers.scss";
 
 .onyx-user-menu {
   @include layers.component() {

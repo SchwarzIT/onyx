@@ -1,6 +1,9 @@
 export { default as OnyxColorSchemeDialog } from "./OnyxColorSchemeDialog/OnyxColorSchemeDialog.vue";
 export * from "./OnyxColorSchemeDialog/types";
 
+export { default as OnyxColorSchemeMenuItem } from "./OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
+export * from "./OnyxColorSchemeMenuItem/types";
+
 export { default as OnyxFlyoutMenu } from "./OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
 export { default as OnyxNavButton } from "./OnyxNavButton/OnyxNavButton.vue";

@@ -94,6 +94,7 @@
   "colorScheme": {
     "headline": "Change appearance",
     "subtitle": "Select the appearance of the application:",
+    "appearance": "Appearance",
     "auto": {
       "label": "Auto",
       "description": "The application automatically adapts its appearance to your system settings."
