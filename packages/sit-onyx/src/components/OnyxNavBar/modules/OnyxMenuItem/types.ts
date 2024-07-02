@@ -1,6 +1,6 @@
-import type { OnyxColor } from "../../../../types";
 import type { createMenuButton } from "@sit-onyx/headless";
 import type { InjectionKey } from "vue";
+import type { OnyxColor } from "../../../../types";
 
 export type OnyxMenuItemProps = {
   /**

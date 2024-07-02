@@ -1,9 +1,9 @@
 import { computed, ref, watch, watchEffect, type Directive } from "vue";
-import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
-import { areObjectsFlatEqual } from "../utils/objects";
-import enUS from "../i18n/locales/en-US.json";
-import { injectI18n } from "../i18n";
 import type { InputType } from "../components/OnyxInput/types";
+import { injectI18n } from "../i18n";
+import enUS from "../i18n/locales/en-US.json";
+import { areObjectsFlatEqual } from "../utils/objects";
+import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
 
 export type CustomErrorType = string | FormErrorMessages;
 

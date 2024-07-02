@@ -1,5 +1,5 @@
-import { expect, test } from "../../playwright/a11y";
 import type { Locator } from "@playwright/test";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
 

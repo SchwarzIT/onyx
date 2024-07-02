@@ -1,6 +1,6 @@
+import type { Locator } from "@playwright/test";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import type { Locator } from "@playwright/test";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxTextarea from "./OnyxTextarea.vue";
 

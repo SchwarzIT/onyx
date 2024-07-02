@@ -1,8 +1,8 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxNavItem from "../../OnyxNavItem/future/OnyxNavItem.vue";
 import OnyxButton from "../../../../OnyxButton/OnyxButton.vue";
+import OnyxNavItem from "../../OnyxNavItem/future/OnyxNavItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 
 const meta: Meta<typeof OnyxFlyoutMenu> = {

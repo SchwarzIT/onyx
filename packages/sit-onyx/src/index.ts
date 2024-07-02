@@ -57,9 +57,9 @@ export * from "./components/OnyxMobileNavButton/types";
 export { default as OnyxNavAppArea } from "./components/OnyxNavAppArea/OnyxNavAppArea.vue";
 export * from "./components/OnyxNavAppArea/types";
 
+export * from "./components/OnyxNavBar/modules";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types";
-export * from "./components/OnyxNavBar/modules";
 
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";

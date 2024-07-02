@@ -2,9 +2,9 @@
 import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import { ref } from "vue";
 import { injectI18n } from "../../../../i18n";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxColorSchemeDialog from "../OnyxColorSchemeDialog/OnyxColorSchemeDialog.vue";
 import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types";
-import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxColorSchemeMenuItemProps } from "./types";
 

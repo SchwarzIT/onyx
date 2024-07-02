@@ -2,9 +2,9 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxColorSchemeMenuItem from "../OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
+import OnyxColorSchemeMenuItem from "../OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 /**

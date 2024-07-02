@@ -13,12 +13,12 @@ import { computed, inject, ref } from "vue";
 import { injectI18n } from "../../../../i18n";
 import { isExternalLink } from "../../../../utils";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
-import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
+import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import { type OnyxNavItemProps } from "./types";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: false,
