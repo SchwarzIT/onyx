@@ -47,7 +47,7 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test("should behave correctly", async ({ mount }) => {
+test("should behave correctly", async ({ mount, page }) => {
   const component = await mount(<OnyxUserMenu username="Jane Doe">{options}</OnyxUserMenu>);
 
   const menu = component.getByLabel("User options");
@@ -55,13 +55,9 @@ test("should behave correctly", async ({ mount }) => {
 
   await expect(menu).toBeHidden();
 
-  // should not be opened by hover
   await button.hover();
-  await expect(menu).toBeHidden();
-
-  await button.click();
   await expect(menu).toBeVisible();
 
-  await menu.getByText("Settings").click();
+  await page.getByRole("document").hover();
   await expect(menu).toBeHidden(); // should close after clicking on option
 });
