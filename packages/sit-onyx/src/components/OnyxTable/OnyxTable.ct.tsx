@@ -52,7 +52,7 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
-      <OnyxTable density={column} withInternalScrolling>
+      <OnyxTable density={column}>
         {tableHead}
         {tableBody}
       </OnyxTable>
@@ -88,7 +88,6 @@ test.describe("Screenshot tests", () => {
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable
-        withInternalScrolling
         style={{
           maxWidth: column !== "default" ? "16rem" : "fit-content",
           maxHeight: row !== "default" ? "12rem" : "fit-content",

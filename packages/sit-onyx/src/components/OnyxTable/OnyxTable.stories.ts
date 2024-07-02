@@ -84,7 +84,6 @@ export const LimitedHeight = {
     style: "max-height: 16rem",
     head: Default.args.head,
     default: () => [...getTableBodyRows(), ...getTableBodyRows(), ...getTableBodyRows()],
-    withInternalScrolling: true,
   },
 } satisfies Story;
 

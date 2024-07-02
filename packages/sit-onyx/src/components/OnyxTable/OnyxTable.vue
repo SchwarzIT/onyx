@@ -10,7 +10,7 @@ import type { OnyxTableProps } from "./types";
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
   withVerticalBorders: false,
-  withInternalScrolling: false,
+  withPageScrolling: false,
 });
 
 const slots = defineSlots<{
@@ -41,8 +41,8 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 <template>
   <div class="onyx-table-wrapper">
     <div
-      :class="{ 'onyx-table-wrapper__scroll-container': props.withInternalScrolling }"
-      :tabindex="props.withInternalScrolling ? 0 : undefined"
+      :class="{ 'onyx-table-wrapper__scroll-container': !props.withPageScrolling }"
+      :tabindex="props.withPageScrolling ? undefined : 0"
     >
       <table
         class="onyx-table onyx-text"
