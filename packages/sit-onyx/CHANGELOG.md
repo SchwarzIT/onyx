@@ -1,5 +1,34 @@
 # sit-onyx
 
+## 1.0.0-alpha.161
+
+### Minor Changes
+
+- 4492231: feat(OnyxTable): add `withPageScrolling` prop to switch from table-scrolling to page-scrolling
+
+## 1.0.0-alpha.160
+
+### Patch Changes
+
+- cd4a885: fix(OnyxSelect): Fix OnyxSelect opening on submit
+
+## 1.0.0-alpha.159
+
+### Major Changes
+
+- 760bb76: refactor(OnyxTable): split default slot to distinguish thead and tbody
+
+  Including new features:
+
+  - implement empty state when no table data exists
+  - define focus outline
+
+## 1.0.0-alpha.158
+
+### Patch Changes
+
+- 4ee1e7f: fix(OnyxNavBar): align horizontal padding with grid
+
 ## 1.0.0-alpha.157
 
 ### Patch Changes

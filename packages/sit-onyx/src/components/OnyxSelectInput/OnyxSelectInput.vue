@@ -168,6 +168,7 @@ const blockTyping = (event: KeyboardEvent) => {
 
         <button
           class="onyx-select-input__button"
+          type="button"
           :aria-label="t('select.toggleDropDown')"
           tabindex="-1"
           :disabled="props.readonly || props.disabled || props.loading"

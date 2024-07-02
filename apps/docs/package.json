@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.4",
   "type": "module",
   "private": true,
   "scripts": {
@@ -17,10 +17,10 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
     "chart.js": "^4.4.3",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "sit-onyx": "workspace:^",
     "vitepress": "^1.2.3",
-    "vue": "^3.4.30",
+    "vue": "^3.4.31",
     "vue-chartjs": "^5.3.1"
   }
 }

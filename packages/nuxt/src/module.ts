@@ -14,6 +14,20 @@ export interface ModuleOptions {
    * @see https://onyx.schwarz/development/#installation
    */
   disableGlobalStyles?: boolean;
+  /**
+   * Settings related to the integration with @nuxtjs/i18n
+   */
+  i18n?: {
+    /**
+     * Mapping for registering the translations from onyx with @nuxtjs/i18n.
+     * @example
+     * ```ts
+     * registerLocales: { "en_US": "en-US" }
+     * ```
+     * This would register the onyx translations for the language "en-US" to the code "en_US" of your projects locales.
+     */
+    registerLocales?: Record<string, "en-US" | "de-DE" | "ko-KR">;
+  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -57,7 +71,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Quick check to warn the user as the @nuxtjs/i18n module needs to be registered after onyx for the default translations to work
     const onyxModuleIndex = getModuleIndex(nuxt.options.modules, "@sit-onyx/nuxt");
-    if (onyxModuleIndex > i18nModuleIndex) {
+    if (i18nModuleIndex >= 0 && onyxModuleIndex > i18nModuleIndex) {
       logger.warn(
         "The @nuxtjs/i18n module was registered before the @sit-onyx/nuxt module. The default translations of onyx won't be loaded, please register the @sit-onyx/nuxt module before @nuxtjs/i18n",
       );
@@ -68,11 +82,12 @@ export default defineNuxtModule<ModuleOptions>({
       const registerOnyxLocales: NuxtI18nModuleHooks["i18n:registerModule"] = (register) => {
         register({
           langDir: resolve("./runtime/locales"),
-          locales: [
-            { code: "de-DE", file: "de-DE.ts" },
-            { code: "en-US", file: "en-US.ts" },
-            { code: "ko-KR", file: "ko-KR.ts" },
-          ],
+          // we need to use .js files instead of .ts because the .ts files would be compiled to .js in the build step, so
+          // when projects use this nuxt module, .ts files will throw a "can not find file" error
+          locales: Object.entries(options.i18n?.registerLocales ?? {}).map(([code, language]) => ({
+            code,
+            file: `${language}.js`,
+          })),
         });
       };
 

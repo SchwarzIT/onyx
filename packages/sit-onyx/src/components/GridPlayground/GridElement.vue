@@ -20,6 +20,7 @@ const gridElementClasses = computed(() =>
       'onyx-grid-playground-element--selected': props.selected,
       [gridElementClasses]: true,
     }"
+    type="button"
   >
     <span v-for="(setting, i) in settings" :key="i">
       {{ setting.breakpoint }}

@@ -34,6 +34,8 @@ Install the module in your [Nuxt](https://nuxt.com) application with one command
 npx nuxi module add @sit-onyx/nuxt@alpha
 ```
 
+If you are also using the [@nuxtjs/i18n](https://i18n.nuxtjs.org/) module, make sure to move `@sit-onyx/nuxt` **before** `@nuxtjs/i18n`.
+
 Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you.
 
 ## Integration with @nuxtjs/i18n
@@ -43,11 +45,31 @@ If your Nuxt project uses both modules, onyx will automatically detect it and us
 
 ### Setup
 
-The setup is automated, @sit-onyx/nuxt will check if @nuxtjs/i18n is registered as well and register all onyx translations and add a plugin to handle the translations for onyx using vue-i18n.
+To merge the locales provided by onyx with your own, you need to define a mapping.
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
+  i18n: {
+    defaultLocale: "en_US",
+    langDir: "./i18n",
+    locales: [
+      { code: "en_US", file: "en-US.json", name: "English (US)" },
+      { code: "de", file: "de-DE.json", name: "Deutsch" },
+    ],
+  },
+  onyx: {
+    i18n: {
+      registerLocales: {
+        "de-DE": "de-DE",
+        en_US: "en-US",
+      },
+    },
+  },
+});
+```
 
 > Please register @sit-onyx/nuxt **before** @nuxtjs/i18n. Otherwise the translations for onyx won't be picked up by @nuxtjs/i18n.
-
-If your project uses standard language codes in the [BCP 47](https://www.rfc-editor.org/info/bcp47) format, supported translations will automatically be mapped correctly. Otherwise you'll have to define the mapping yourself by importing the messages inside your projects language definition. (See: [Extending onyx translations](#extending-onyx-translations))
 
 ### Customizing onyx translations
 

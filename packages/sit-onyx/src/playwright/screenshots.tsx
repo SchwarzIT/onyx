@@ -42,6 +42,11 @@ export type MatrixScreenshotTestOptions<
    * @see https://playwright.dev/docs/accessibility-testing#disabling-individual-scan-rules
    */
   disabledAccessibilityRules?: string[];
+  /**
+   * If `true`, no padding will be added to the screenshots.
+   * By default a `1rem` padding is added around the component/screenshot.
+   */
+  disablePadding?: boolean;
 };
 
 type TestArgs = Parameters<Parameters<typeof test>[2]>[0];
@@ -105,7 +110,16 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
         const jsxElement = options.component(column, row);
 
         const wrappedElement = (
-          <div style={{ display: "grid", width: "max-content", padding: "1rem" }}>{jsxElement}</div>
+          <div
+            style={{
+              display: "grid",
+              width: "max-content",
+              // eslint-disable-next-line playwright/no-conditional-in-test
+              padding: options.disablePadding ? undefined : "1rem",
+            }}
+          >
+            {jsxElement}
+          </div>
         );
 
         const screenshot = await getScreenshot(wrappedElement, column, row);

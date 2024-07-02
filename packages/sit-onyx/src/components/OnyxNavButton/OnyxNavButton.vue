@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { isExternalLink } from "../../utils";
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
+import { isExternalLink } from "../../utils";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import { type OnyxNavButtonProps } from "./types";
-import { type VNode } from "vue";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
@@ -19,7 +18,7 @@ const slots = defineSlots<{
   /**
    * An optional slot to render nested children.
    */
-  children?(): VNode[];
+  children?(): unknown;
 }>();
 
 const emit = defineEmits<{
@@ -40,6 +39,7 @@ const shouldShowExternalIcon = (args: OnyxNavButtonProps) => {
 <template>
   <OnyxFlyoutMenu class="onyx-nav-button">
     <button
+      type="button"
       class="onyx-nav-button__trigger onyx-text"
       :class="{
         'onyx-nav-button--active': props.active,

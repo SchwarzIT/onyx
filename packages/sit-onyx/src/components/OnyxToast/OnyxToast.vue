@@ -64,6 +64,7 @@ const icon = computed(() => {
 
           <button
             v-if="!props.clickable"
+            type="button"
             :aria-label="t('close')"
             class="onyx-toast__close"
             @click="emit('close')"

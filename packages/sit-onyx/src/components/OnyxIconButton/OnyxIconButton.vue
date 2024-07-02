@@ -33,6 +33,7 @@ const emit = defineEmits<{
     class="onyx-icon-button"
     :aria-label="props.label"
     :title="props.label"
+    :type="props.type"
     :class="[
       `onyx-icon-button--${props.color}`,
       { 'onyx-icon-button--loading': props.loading },

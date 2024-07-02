@@ -88,7 +88,7 @@ const handleAddModifier = () => {
     <fieldset class="onyx-grid-playground__settings">
       <legend>Selected Grid Element options</legend>
       <template v-if="selectedElement">
-        <button @click="deleteElement()">Delete Grid Element</button>
+        <button type="button" @click="deleteElement()">Delete Grid Element</button>
         <div v-for="(props, i) in selectedElement" :key="i">
           <label>
             Breakpoint:
@@ -106,9 +106,9 @@ const handleAddModifier = () => {
               :max="(props.breakpoint && BREAKPOINTS[props.breakpoint]?.cols) ?? 20"
             />
           </label>
-          <button @click="handleDeleteModifier">Delete modifier</button>
+          <button type="button" @click="handleDeleteModifier">Delete modifier</button>
         </div>
-        <button @click="handleAddModifier">Add Grid Modifier</button>
+        <button type="button" @click="handleAddModifier">Add Grid Modifier</button>
       </template>
       <template v-else>
         <span>Click an existing grid element to change its properties</span>
@@ -135,7 +135,13 @@ const handleAddModifier = () => {
       @click="selectedElement = elements[i]"
     />
 
-    <button class="onyx-grid-playground__add-new" @click="elements.push([{ spans: 4 }])">+</button>
+    <button
+      type="button"
+      class="onyx-grid-playground__add-new"
+      @click="elements.push([{ spans: 4 }])"
+    >
+      +
+    </button>
   </main>
 </template>
 
