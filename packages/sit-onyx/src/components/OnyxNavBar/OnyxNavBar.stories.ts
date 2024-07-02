@@ -8,12 +8,12 @@ import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
-import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
+import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
+import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
-import OnyxTimer from "../OnyxTimer/OnyxTimer.vue";
-import { Default as OnyxUserMenuDefault } from "../OnyxUserMenu/OnyxUserMenu.stories";
-import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
+import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories";
+import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 
 const meta: Meta<typeof OnyxNavBar> = {
