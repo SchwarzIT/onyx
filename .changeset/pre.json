@@ -11,7 +11,7 @@
     "@sit-onyx/vitepress-theme": "0.0.0",
     "docs": "0.0.0",
     "@sit-onyx/eslint-plugin": "0.0.0",
-    "alpha-test-app": "0.0.0",
+    "demo-app": "0.0.0",
     "playground": "0.0.0",
     "@sit-onyx/nuxt": "0.0.0"
   },

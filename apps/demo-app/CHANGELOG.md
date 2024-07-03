@@ -1,4 +1,4 @@
-# alpha-test-app
+# demo-app
 
 ## 0.1.0-alpha.151
 

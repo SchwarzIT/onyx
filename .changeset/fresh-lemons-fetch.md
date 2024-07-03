@@ -1,7 +1,7 @@
 ---
 "playground": major
 "docs": major
-"alpha-test-app": major
+"demo-app": major
 "@sit-onyx/chartjs-plugin": major
 "@sit-onyx/eslint-plugin": major
 "@sit-onyx/figma-utils": major
@@ -15,4 +15,4 @@
 
 release beta version
 
-🎉 onyx is now beta! There are no breaking changes to the last alpha version
+🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
