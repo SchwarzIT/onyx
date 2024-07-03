@@ -1,6 +1,7 @@
 import { StorybookGlobalType } from "@sit-onyx/storybook-utils";
 import { type Decorator } from "@storybook/vue3";
 import { ref, watch } from "vue";
+import { ONYX_THEMES } from "../src";
 
 export const onyxThemeGlobalType = {
   onyxTheme: {
@@ -9,9 +10,10 @@ export const onyxThemeGlobalType = {
     toolbar: {
       title: "Theme",
       icon: "paintbrush",
-      items: ["onyx", "lidl", "kaufland", "twogo"].map((theme) => ({
+      items: ONYX_THEMES.map((theme, index) => ({
         value: theme,
         title: theme,
+        right: index === 0 ? "default" : undefined,
       })),
     },
   } satisfies StorybookGlobalType<string>,
