@@ -49,6 +49,8 @@ const {
 
 .onyx-menu-item {
   @include layers.component() {
+    // in order for the full menu item to be clickable, we remove the padding here
+    // and set it on the anchor/button instead
     padding: 0;
 
     &__trigger {
