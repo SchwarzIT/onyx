@@ -182,7 +182,7 @@ $border-radius: var(--onyx-radius-sm);
       $mobile-padding: var(--onyx-spacing-sm);
 
       .onyx-nav-button__trigger {
-        padding: $mobile-padding;
+        padding-inline: $mobile-padding;
       }
 
       > .onyx-nav-button__trigger,
