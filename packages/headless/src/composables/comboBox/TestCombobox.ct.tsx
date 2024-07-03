@@ -1,7 +1,7 @@
 import { test } from "@playwright/experimental-ct-vue";
-import TestCombobox from "./TestCombobox.vue";
-import { comboboxTesting, comboboxSelectOnlyTesting } from "./createComboBox.ct";
+import { comboboxSelectOnlyTesting, comboboxTesting } from "./createComboBox.ct";
 import SelectOnlyCombobox from "./SelectOnlyCombobox.vue";
+import TestCombobox from "./TestCombobox.vue";
 
 test("combobox", async ({ mount, page }) => {
   await mount(<TestCombobox />);

@@ -14,7 +14,7 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
-import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 
 test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);

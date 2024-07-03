@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline } from "sit-onyx";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const isOpen = defineModel<boolean>();
 defineProps<{ isClosable?: boolean }>();
