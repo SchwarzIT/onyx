@@ -3,7 +3,7 @@
  * This file contains the specific variables for the "kaufland" theme.
  * Imported from Figma API on Wed, 03 Jul 2024 13:48:13 GMT
  */
-:root,
+:where(:root),
 .onyx-theme-kaufland {
   --onyx-color-themed-neutral-100: #f9fbfc;
   --onyx-color-themed-neutral-200: #e9ecf0;

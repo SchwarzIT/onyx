@@ -6,6 +6,14 @@ import docsTemplate from "./docs-template.mdx";
 import "@sit-onyx/storybook-utils/style.css";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
+import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
+
+import "../src/styles/themes/kaufland.css";
+import "../src/styles/themes/lidl.css";
+import "../src/styles/themes/twogo.css";
+
+// make sure to import the default onyx theme after all others so its the default
+import "../src/styles/themes/onyx.css";
 
 const basePreview = createPreview({
   parameters: {
@@ -18,6 +26,10 @@ const basePreview = createPreview({
       },
     },
   },
+  globalTypes: {
+    ...onyxThemeGlobalType,
+  },
+  decorators: [withOnyxTheme],
 });
 
 const preview: Preview = {

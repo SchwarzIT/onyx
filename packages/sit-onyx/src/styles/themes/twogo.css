@@ -3,7 +3,7 @@
  * This file contains the specific variables for the "twogo" theme.
  * Imported from Figma API on Wed, 03 Jul 2024 13:48:13 GMT
  */
-:root,
+:where(:root),
 .onyx-theme-twogo {
   --onyx-color-themed-neutral-100: #f9fcfc;
   --onyx-color-themed-neutral-200: #e9f0f0;
