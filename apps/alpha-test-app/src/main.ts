@@ -10,8 +10,6 @@ import deDE from "./i18n/locales/de-DE.json";
 import enUS from "./i18n/locales/en-US.json";
 import { routes } from "./router";
 
-import "sit-onyx/themes/kaufland.css";
-
 import "sit-onyx/global.css";
 import "sit-onyx/style.css";
 
