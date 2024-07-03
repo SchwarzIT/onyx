@@ -71,6 +71,9 @@
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
   },
+  "table": {
+    "empty": "Diese Tabelle ist leer."
+  },
   "link": {
     "opensExternally": "Wird in einem neuen Tab geöffnet."
   },
@@ -91,6 +94,7 @@
   "colorScheme": {
     "headline": "Erscheinungsbild ändern",
     "subtitle": "Wähle das Erscheinungsbild der Anwendung:",
+    "appearance": "Erscheinungsbild",
     "auto": {
       "label": "Auto",
       "description": "Die Anwendung passt ihr Aussehen automatisch an deine Systemeinstellungen an."

@@ -14,7 +14,7 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
-import OnyxUserMenu from "../OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 
 test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);
@@ -28,11 +28,12 @@ test.describe("Screenshot tests", () => {
       rows: ["default", "back", "context", "context-back"],
       // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       disabledAccessibilityRules: ["color-contrast"],
+      disablePadding: true,
       component: (column, row) => (
         <OnyxNavBar
-          style={{ width: `${breakpointWidth}px` }}
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
+          style={{ width: `${breakpointWidth}px` }}
           withBackButton={row.includes("back")}
         >
           <OnyxNavItem label="Item" active />
@@ -47,6 +48,9 @@ test.describe("Screenshot tests", () => {
           )}
         </OnyxNavBar>
       ),
+      beforeScreenshot: async (component, page) => {
+        await page.setViewportSize({ width: breakpointWidth, height: 128 });
+      },
     });
   }
 });
@@ -200,47 +204,57 @@ test("should behave correctly", async ({ mount }) => {
   await expect(component.getByText("Custom app area")).toBeVisible();
 });
 
-test("should be aligned with the grid in a full app layout", async ({ page, mount }) => {
-  await defineLogoMockRoutes(page);
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 400 });
+Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
+  test(`should be aligned with the grid in a full app layout (${breakpoint})`, async ({
+    page,
+    mount,
+  }) => {
+    await defineLogoMockRoutes(page);
+    await page.setViewportSize({ width, height: 400 });
 
-  await page.addStyleTag({
-    content: "body { margin: 0; }",
-  });
+    await page.addStyleTag({
+      content: "body { margin: 0; }",
+    });
 
-  await mount(
-    <OnyxAppLayout>
-      <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-        <OnyxNavItem label="Item" active />
-        <OnyxNavItem label="Item" />
+    await mount(
+      <OnyxAppLayout>
+        <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
+          <OnyxNavItem label="Item" active />
+          <OnyxNavItem label="Item" />
 
-        <template v-slot:mobileActivePage>Item</template>
+          <template v-slot:mobileActivePage>Item</template>
 
-        <template v-slot:contextArea>
-          <OnyxUserMenu username="John Doe" />
-        </template>
-      </OnyxNavBar>
+          <template v-slot:contextArea>
+            <OnyxUserMenu username="John Doe" />
+          </template>
+        </OnyxNavBar>
 
-      <OnyxPageLayout>
-        <div class="onyx-grid-container onyx-grid">
-          <div
-            class="onyx-grid-span-16"
-            style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}
-          >
-            Page content...
+        <OnyxPageLayout>
+          <div class="onyx-grid-container onyx-grid">
+            <div
+              class="onyx-grid-span-16"
+              style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}
+            >
+              Page content...
+            </div>
           </div>
-        </div>
-      </OnyxPageLayout>
-    </OnyxAppLayout>,
-  );
+        </OnyxPageLayout>
+      </OnyxAppLayout>,
+    );
 
-  await expect(page).toHaveScreenshot("grid-default.png");
+    await expect(page).toHaveScreenshot(`grid-default-${breakpoint}.png`);
 
-  const app = page.locator(".onyx-app");
+    // eslint-disable-next-line playwright/no-conditional-in-test -- prevent useless screenshots for breakpoints that don't have a max width
+    if (width > ONYX_BREAKPOINTS.md) {
+      const app = page.locator(".onyx-app");
 
-  await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
-  await expect(page).toHaveScreenshot("grid-max-width.png");
+      await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+      // eslint-disable-next-line playwright/no-conditional-expect
+      await expect(page).toHaveScreenshot(`grid-max-width-${breakpoint}.png`);
 
-  await app.evaluate((element) => element.classList.add("onyx-grid-center"));
-  await expect(page).toHaveScreenshot("grid-max-center.png");
+      await app.evaluate((element) => element.classList.add("onyx-grid-center"));
+      // eslint-disable-next-line playwright/no-conditional-expect
+      await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
+    }
+  });
 });

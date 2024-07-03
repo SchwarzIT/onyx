@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-alpha.12
+
+### Patch Changes
+
+- c79e491: fix(createComboBox): prevent submitting form when pressing enter
+
 ## 1.0.0-alpha.11
 
 ### Minor Changes

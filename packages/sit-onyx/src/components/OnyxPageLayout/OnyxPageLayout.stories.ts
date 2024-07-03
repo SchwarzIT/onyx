@@ -23,9 +23,6 @@ const meta: Meta<typeof OnyxPageLayout> = {
       footer: {
         control: { disable: true },
       },
-      toasts: {
-        control: { disable: true },
-      },
     },
   }),
   // storybook adds 1rem padding. The app layout fills the full available space
@@ -34,14 +31,16 @@ const meta: Meta<typeof OnyxPageLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="margin: -1rem; height: 15rem;
+        <div style="height: 15rem;
                     font-family: var(--onyx-font-family);
-                    color: var(--onyx-color-text-icons-neutral-intense);
-                    border: 1px solid var(--onyx-color-text-icons-neutral-soft);" >
+                    color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
     }),
   ],
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;
@@ -96,26 +95,5 @@ export const WithPartialFooter = {
   args: {
     ...WithSidebarAndFooter.args,
     footerAsideSidebar: true,
-  },
-} satisfies Story;
-
-/** A page that shows a toast. */
-export const WithToast = {
-  args: {
-    ...WithPartialFooter.args,
-    toasts: () =>
-      h(
-        "div",
-        {
-          style: `display: flex;
-                  justify-content: center;
-                  width: 90%;
-                  background-color: var(--onyx-color-base-neutral-900);
-                  opacity: 0.9;
-                  color: var(--onyx-color-text-icons-neutral-inverted);
-                  margin: auto;`,
-        },
-        "This is the place for a toast",
-      ),
   },
 } satisfies Story;

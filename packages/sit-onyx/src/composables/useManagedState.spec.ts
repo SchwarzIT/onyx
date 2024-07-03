@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
-import { useManagedState } from "./useManagedState";
 import { reactive, toRef } from "vue";
+import { useManagedState } from "./useManagedState";
 
 describe("useManagedState", () => {
   const props = reactive({ custom: "customValue" as string | undefined });

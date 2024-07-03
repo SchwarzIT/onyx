@@ -1,9 +1,9 @@
+import type { Locator } from "@playwright/test";
+import type { FormErrorMessages } from "src/composables/useCustomValidity";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import type { Locator } from "@playwright/test";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInput from "./OnyxInput.vue";
-import type { FormErrorMessages } from "src/composables/useCustomValidity";
 
 test.describe("Screenshot tests", () => {
   const isTooltipVisible = async (tooltip: Locator) => {

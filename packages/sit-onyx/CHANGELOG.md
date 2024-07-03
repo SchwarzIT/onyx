@@ -1,5 +1,75 @@
 # sit-onyx
 
+## 1.0.0-alpha.163
+
+### Minor Changes
+
+- 4ddd145: feat(OnyxNavBar): expose method `closeMobileMenus`
+
+## 1.0.0-alpha.162
+
+### Minor Changes
+
+- 90f9f86: feat: implement OnyxColorSchemeMenuItem
+
+### Patch Changes
+
+- 90f9f86: fix(OnyxMenuItem): make whole button/anchor clickable
+
+## 1.0.0-alpha.161
+
+### Minor Changes
+
+- 4492231: feat(OnyxTable): add `withPageScrolling` prop to switch from table-scrolling to page-scrolling
+
+## 1.0.0-alpha.160
+
+### Patch Changes
+
+- cd4a885: fix(OnyxSelect): Fix OnyxSelect opening on submit
+
+## 1.0.0-alpha.159
+
+### Major Changes
+
+- 760bb76: refactor(OnyxTable): split default slot to distinguish thead and tbody
+
+  Including new features:
+
+  - implement empty state when no table data exists
+  - define focus outline
+
+## 1.0.0-alpha.158
+
+### Patch Changes
+
+- 4ee1e7f: fix(OnyxNavBar): align horizontal padding with grid
+
+## 1.0.0-alpha.157
+
+### Patch Changes
+
+- c79e491: fix(OnyxSelect): do not submit form when pressing Enter
+- 8d14b72: fix(OnyxSelect): position flyout correctly in grid layout
+
+## 1.0.0-alpha.156
+
+### Minor Changes
+
+- ea9a9e7: Implement OnyxMenuItem component which is intended to be used inside OnyxUserMenu
+
+## 1.0.0-alpha.155
+
+### Major Changes
+
+- b8db0cc: refactor(OnyxPageLayout): remove slot `toasts`
+
+  Use the new [OnyxToastProvider](https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs) instead
+
+### Minor Changes
+
+- b8db0cc: feat: add `OnyxToastProvider` component and `useToast` composable
+
 ## 1.0.0-alpha.154
 
 ### Patch Changes

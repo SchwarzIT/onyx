@@ -1,5 +1,13 @@
 # docs
 
+## 0.1.0-alpha.4
+
+### Patch Changes
+
+- 981495f: Require mapping of onyx locales to the project ones.
+
+  This change was necessary because registering all languages supported by onyx would force the project to also support them due to the way locales are merged by nuxt-i18n.
+
 ## 0.1.0-alpha.3
 
 ### Patch Changes

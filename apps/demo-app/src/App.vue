@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import logout from "@sit-onyx/icons/logout.svg?raw";
 import { useColorMode } from "@vueuse/core";
 import {
   OnyxAppLayout,
-  OnyxColorSchemeDialog,
+  OnyxColorSchemeMenuItem,
   OnyxIcon,
   OnyxListItem,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxToastProvider,
   OnyxUserMenu,
   type OnyxNavItemProps,
 } from "sit-onyx";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -29,7 +29,15 @@ const navItems = [
 ] satisfies OnyxNavItemProps[];
 
 const { store: colorScheme } = useColorMode();
-const isColorSchemeDialogOpen = ref(false);
+
+const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+
+watch(
+  () => route.path,
+  () => {
+    navBarRef.value?.closeMobileMenus();
+  },
+);
 </script>
 
 <template>
@@ -49,6 +57,7 @@ const isColorSchemeDialogOpen = ref(false);
       #navBar
     >
       <OnyxNavBar
+        ref="navBarRef"
         app-name="Demo App"
         :logo-url="onyxLogo"
         show-back-button
@@ -65,10 +74,7 @@ const isColorSchemeDialogOpen = ref(false);
 
         <template #contextArea>
           <OnyxUserMenu username="John Doe">
-            <OnyxListItem @click="isColorSchemeDialogOpen = true">
-              <OnyxIcon :icon="circleContrast" />
-              Appearance
-            </OnyxListItem>
+            <OnyxColorSchemeMenuItem v-model="colorScheme" />
 
             <OnyxListItem color="danger">
               <OnyxIcon :icon="logout" />
@@ -86,10 +92,6 @@ const isColorSchemeDialogOpen = ref(false);
 
     <RouterView />
 
-    <OnyxColorSchemeDialog
-      v-model="colorScheme"
-      :open="isColorSchemeDialogOpen"
-      @close="isColorSchemeDialogOpen = false"
-    />
+    <OnyxToastProvider />
   </OnyxAppLayout>
 </template>

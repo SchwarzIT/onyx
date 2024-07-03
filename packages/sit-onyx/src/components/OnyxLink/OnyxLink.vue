@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import { isExternalLink } from "../../utils";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxLinkProps } from "./types";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import { injectI18n } from "../../i18n";
+import type { OnyxLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",

@@ -71,6 +71,26 @@ const isMobile = computed(() => {
 });
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
+
+defineExpose({
+  /**
+   * Closes the mobile burger and context menu.
+   * Useful if you want to e.g. close them when a nav item is clicked.
+   *
+   * Example usage:
+   *
+   * ```ts
+   * const route = useRoute();
+   * const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+   *
+   * watch(() => route.path, () => navBarRef.value?.closeMobileMenus());
+   * ```
+   */
+  closeMobileMenus: () => {
+    isBurgerOpen.value = false;
+    isContextOpen.value = false;
+  },
+});
 </script>
 
 <template>
@@ -163,7 +183,6 @@ provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/breakpoints.scss";
 
 $gap: var(--onyx-spacing-md);
 $height: 3.5rem;
@@ -195,7 +214,7 @@ $height: 3.5rem;
       align-items: center;
       gap: $gap;
       height: 100%;
-      padding-inline: var(--onyx-spacing-3xl);
+      padding-inline: var(--onyx-grid-margin);
 
       &:has(.onyx-nav-bar__back) {
         grid-template-columns: max-content max-content 1fr auto;
@@ -205,10 +224,6 @@ $height: 3.5rem;
       // sync with grid
       max-width: var(--onyx-grid-max-width);
       margin-inline: var(--onyx-grid-margin-inline);
-
-      @include breakpoints.container(max, sm) {
-        padding-inline: var(--onyx-spacing-xl);
-      }
     }
 
     &__back {

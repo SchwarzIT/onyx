@@ -1,4 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
+import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
@@ -13,7 +14,6 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectInputProps } from "./types";
-import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -168,6 +168,7 @@ const blockTyping = (event: KeyboardEvent) => {
 
         <button
           class="onyx-select-input__button"
+          type="button"
           :aria-label="t('select.toggleDropDown')"
           tabindex="-1"
           :disabled="props.readonly || props.disabled || props.loading"
