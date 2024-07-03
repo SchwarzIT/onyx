@@ -11,7 +11,7 @@
   "onyx-color-themed-neutral-1000": "#11212d",
   "onyx-color-themed-neutral-1100": "#081723",
   "onyx-color-themed-neutral-1200": "#000e19",
-  "onyx-color-themed-primary-100": "#f2f7f7",
+  "onyx-color-themed-primary-100": "#e8fcfc",
   "onyx-color-themed-primary-200": "#bbeaed",
   "onyx-color-themed-primary-300": "#79dde2",
   "onyx-color-themed-primary-400": "#3dd0d8",
@@ -23,7 +23,7 @@
   "onyx-color-themed-primary-1000": "#005356",
   "onyx-color-themed-primary-1100": "#003c3e",
   "onyx-color-themed-primary-1200": "#002626",
-  "onyx-color-themed-secondary-100": "#f2f7f7",
+  "onyx-color-themed-secondary-100": "#e8fcfc",
   "onyx-color-themed-secondary-200": "#bbeaed",
   "onyx-color-themed-secondary-300": "#79dde2",
   "onyx-color-themed-secondary-400": "#3dd0d8",
@@ -103,6 +103,7 @@
   "onyx-number-radius-400": "1rem",
   "onyx-number-radius-500": "2rem",
   "onyx-number-radius-600": "62.5rem",
+  "onyx-number-spacing-0": "0",
   "onyx-number-spacing-100": "0.125rem",
   "onyx-number-spacing-200": "0.25rem",
   "onyx-number-spacing-250": "0.375rem",
@@ -114,5 +115,6 @@
   "onyx-number-spacing-600": "2rem",
   "onyx-number-spacing-700": "3rem",
   "onyx-number-spacing-800": "4rem",
-  "onyx-number-spacing-900": "6rem"
+  "onyx-number-spacing-900": "6rem",
+  "onyx-number-spacing-950": "8rem"
 }
