@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-alpha.163
+
+### Minor Changes
+
+- 4ddd145: feat(OnyxNavBar): expose method `closeMobileMenus`
+
 ## 1.0.0-alpha.162
 
 ### Minor Changes
