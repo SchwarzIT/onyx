@@ -10,6 +10,6 @@
 @use "required.scss";
 @use "fonts.scss";
 @use "breakpoints.scss";
-@use "variables-onyx.css";
-@use "variables-light.css";
-@use "variables-dark.css";
+@use "themes/variables-onyx.css";
+@use "themes/variables-light.css";
+@use "themes/variables-dark.css";
