@@ -40,6 +40,6 @@ export const withOnyxTheme: Decorator = (Story, context) => {
 
       return { currentOnyxTheme };
     },
-    template: ` <story /> `,
+    template: `<story />`,
   };
 };
