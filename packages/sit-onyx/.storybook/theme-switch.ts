@@ -1,6 +1,6 @@
 import { StorybookGlobalType } from "@sit-onyx/storybook-utils";
 import { type Decorator } from "@storybook/vue3";
-import { ref, watch } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { ONYX_THEMES } from "../src";
 
 export const onyxThemeGlobalType = {
@@ -22,13 +22,9 @@ export const onyxThemeGlobalType = {
 const currentOnyxTheme = ref<string>();
 
 export const withOnyxTheme: Decorator = (Story, context) => {
-  watch(
-    () => context.globals.onyxTheme,
-    (newTheme) => {
-      currentOnyxTheme.value = newTheme;
-    },
-    { immediate: true },
-  );
+  watchEffect(() => {
+    currentOnyxTheme.value = context.globals.onyxTheme;
+  });
 
   return {
     components: { Story },
