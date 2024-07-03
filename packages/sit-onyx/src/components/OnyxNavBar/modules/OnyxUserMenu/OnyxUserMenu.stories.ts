@@ -1,10 +1,10 @@
 import logout from "@sit-onyx/icons/logout.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
-import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import OnyxColorSchemeMenuItem from "../OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
+import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 /**
@@ -40,8 +40,8 @@ export const Default = {
     username: "Jane Doe",
     description: "Company Name",
     default: () => [
-      h(OnyxColorSchemeMenuItem, { modelValue: "auto" }),
-      h(OnyxListItem, { color: "danger" }, () => [h(OnyxIcon, { icon: logout }), "Logout"]),
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
+      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: logout }), "Logout"]),
     ],
     footer: () => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")],
   },

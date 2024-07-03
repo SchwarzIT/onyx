@@ -4,18 +4,18 @@ import {
   mockPlaywrightIcon,
 } from "../../../../playwright/screenshots";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
-import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
+import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxUserMenu from "./OnyxUserMenu.vue";
 
 const options = [
-  <OnyxListItem>
+  <OnyxMenuItem>
     <OnyxIcon icon={mockPlaywrightIcon} />
     Settings
-  </OnyxListItem>,
-  <OnyxListItem color="danger">
+  </OnyxMenuItem>,
+  <OnyxMenuItem color="danger">
     <OnyxIcon icon={mockPlaywrightIcon} />
     Logout
-  </OnyxListItem>,
+  </OnyxMenuItem>,
 ];
 
 test.describe("Screenshot tests", () => {
@@ -44,13 +44,14 @@ test.describe("Screenshot tests", () => {
         await component.evaluate((element) => {
           element.style.height = `${element.scrollHeight}px`;
           element.style.width = `${element.scrollWidth}px`;
+          element.style.paddingLeft = "48px";
         });
       }
     },
   });
 });
 
-test("should behave correctly", async ({ mount }) => {
+test("should behave correctly", async ({ mount, page }) => {
   const component = await mount(<OnyxUserMenu username="Jane Doe">{options}</OnyxUserMenu>);
 
   const menu = component.getByLabel("User options");
@@ -58,13 +59,9 @@ test("should behave correctly", async ({ mount }) => {
 
   await expect(menu).toBeHidden();
 
-  // should not be opened by hover
   await button.hover();
-  await expect(menu).toBeHidden();
-
-  await button.click();
   await expect(menu).toBeVisible();
 
-  await menu.getByText("Settings").click();
+  await page.getByRole("document").hover();
   await expect(menu).toBeHidden(); // should close after clicking on option
 });

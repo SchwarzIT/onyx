@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, provide } from "vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../../OnyxNavBar/types";
-import OnyxNavItem from "./OnyxNavItem.vue";
-import type { OnyxNavItemProps } from "./types";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
+import OnyxNavButton from "./OnyxNavButton.vue";
+import type { OnyxNavButtonProps } from "./types";
 
-const props = defineProps<OnyxNavItemProps>();
+const props = defineProps<OnyxNavButtonProps>();
 
 const emit = defineEmits<{
   /**
@@ -18,6 +18,10 @@ defineSlots<{
    * An optional slot to show additional content behind the label (e.g. a `OnyxBadge`).
    */
   default?(): unknown;
+  /**
+   * An optional slot to render nested children.
+   */
+  children?(): unknown;
 }>();
 
 provide(
@@ -27,14 +31,17 @@ provide(
 </script>
 
 <template>
-  <OnyxNavItem
+  <OnyxNavButton
     style="width: 24rem"
     :label="props.label"
     :href="props.href"
     :active="props.active"
-    :options="props.options"
     @click="emit('click', $event)"
   >
     <slot></slot>
-  </OnyxNavItem>
+
+    <template #children>
+      <slot name="children"></slot>
+    </template>
+  </OnyxNavButton>
 </template>
