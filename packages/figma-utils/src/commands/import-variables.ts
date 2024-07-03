@@ -29,7 +29,7 @@ export const importCommand = new Command("import-variables")
     "Figma access token with scope `file_variables:read` (required)",
   )
   .option("-f, --format <strings...>", "Output formats. Supported are: CSS, SCSS, JSON", ["CSS"])
-  .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
+  .option("-n, --filename <string>", "Base name of the generated variables file", "variables-")
   .option(
     "-d, --dir <string>",
     "Working directory to use. Defaults to current working directory of the script.",
@@ -85,7 +85,6 @@ export async function importCommandAction(options: ImportCommandOptions) {
   }
 
   const outputDirectory = options.dir ?? process.cwd();
-  const filename = options.filename ?? "variables";
 
   console.log(`Generating ${options.format} variables...`);
 
@@ -101,7 +100,9 @@ export async function importCommandAction(options: ImportCommandOptions) {
         !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
       if (!isModeIncluded) return;
 
-      const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
+      let baseName = data.modeName ? `${options.filename}${data.modeName}` : options.filename;
+      if (baseName.endsWith("-")) baseName = baseName.substring(0, baseName.length - 1);
+
       const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
       fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
     });

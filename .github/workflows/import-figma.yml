@@ -27,22 +27,22 @@ jobs:
       # we need to separately import the themes because they are all needed in different formats and selectors
       - name: Import onyx variables
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m onyx -f CSS JSON -s ":where(:root), .onyx-theme-default"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m onyx -f CSS JSON -s ":where(:root), .onyx-theme-default"
         working-directory: packages/figma-utils
 
       - name: Import additional onyx themes
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m lidl kaufland twogo -f CSS -s ":root, .onyx-theme-{mode}"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m lidl kaufland twogo -f CSS -s ":root, .onyx-theme-{mode}" --filename ""
         working-directory: packages/figma-utils
 
       - name: Import light variables
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m light -s ":where(:root)"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m light -s ":where(:root)" --filename ""
         working-directory: packages/figma-utils
 
       - name: Import dark variables
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m dark -s ":where(.dark)"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m dark -s ":where(.dark)" --filename ""
         working-directory: packages/figma-utils
 
       - name: Create pull request
