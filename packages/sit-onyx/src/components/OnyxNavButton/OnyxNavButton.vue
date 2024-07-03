@@ -178,14 +178,23 @@ $border-radius: var(--onyx-radius-sm);
       align-items: flex-start;
       gap: var(--onyx-spacing-xs);
 
+      $mobile-padding: var(--onyx-spacing-sm);
+
+      .onyx-nav-button__trigger {
+        padding: $mobile-padding;
+      }
+
       > .onyx-nav-button__trigger,
-      .onyx-list-item {
+      .onyx-menu-item {
         width: 100%;
         justify-content: flex-start;
-        --onyx-list-item-padding: var(--onyx-spacing-sm);
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         height: 3rem;
         border-radius: $border-radius;
+
+        .onyx-menu-item__trigger {
+          --onyx-list-item-padding: #{$mobile-padding};
+        }
 
         &::after {
           display: none;
