@@ -11,7 +11,7 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: () => (
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      <ul style={{ listStyle: "none", padding: 0 }} role="menu">
         <OnyxColorSchemeMenuItem modelValue="auto" />
       </ul>
     ),
