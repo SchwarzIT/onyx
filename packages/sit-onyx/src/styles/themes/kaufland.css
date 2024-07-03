@@ -1,46 +1,46 @@
 /**
  * Do not edit directly.
- * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Wed, 03 Jul 2024 13:29:21 GMT
+ * This file contains the specific variables for the "kaufland" theme.
+ * Imported from Figma API on Wed, 03 Jul 2024 13:29:29 GMT
  */
-:where(:root),
-.onyx-theme-default {
-  --onyx-color-themed-neutral-100: #fafbfc;
-  --onyx-color-themed-neutral-200: #e3eaf0;
-  --onyx-color-themed-neutral-300: #c9d6e0;
-  --onyx-color-themed-neutral-400: #9db3c4;
-  --onyx-color-themed-neutral-500: #7392aa;
-  --onyx-color-themed-neutral-600: #506e84;
-  --onyx-color-themed-neutral-700: #3e596e;
-  --onyx-color-themed-neutral-800: #31495c;
-  --onyx-color-themed-neutral-900: #22384a;
-  --onyx-color-themed-neutral-1000: #11212d;
-  --onyx-color-themed-neutral-1100: #081723;
-  --onyx-color-themed-neutral-1200: #000e19;
-  --onyx-color-themed-primary-100: #e8fcfc;
-  --onyx-color-themed-primary-200: #bbeaed;
-  --onyx-color-themed-primary-300: #79dde2;
-  --onyx-color-themed-primary-400: #3dd0d8;
-  --onyx-color-themed-primary-500: #00c3cd;
-  --onyx-color-themed-primary-600: #00adb5;
-  --onyx-color-themed-primary-700: #00969d;
-  --onyx-color-themed-primary-800: #008085;
-  --onyx-color-themed-primary-900: #00696e;
-  --onyx-color-themed-primary-1000: #005356;
-  --onyx-color-themed-primary-1100: #003c3e;
-  --onyx-color-themed-primary-1200: #002626;
-  --onyx-color-themed-secondary-100: var(--onyx-color-themed-primary-100);
-  --onyx-color-themed-secondary-200: var(--onyx-color-themed-primary-200);
-  --onyx-color-themed-secondary-300: var(--onyx-color-themed-primary-300);
-  --onyx-color-themed-secondary-400: var(--onyx-color-themed-primary-400);
-  --onyx-color-themed-secondary-500: var(--onyx-color-themed-primary-500);
-  --onyx-color-themed-secondary-600: var(--onyx-color-themed-primary-600);
-  --onyx-color-themed-secondary-700: var(--onyx-color-themed-primary-700);
-  --onyx-color-themed-secondary-800: var(--onyx-color-themed-primary-800);
-  --onyx-color-themed-secondary-900: var(--onyx-color-themed-primary-900);
-  --onyx-color-themed-secondary-1000: var(--onyx-color-themed-primary-1000);
-  --onyx-color-themed-secondary-1100: var(--onyx-color-themed-primary-1100);
-  --onyx-color-themed-secondary-1200: var(--onyx-color-themed-primary-1200);
+:root,
+.onyx-theme-kaufland {
+  --onyx-color-themed-neutral-100: #f9fbfc;
+  --onyx-color-themed-neutral-200: #e9ecf0;
+  --onyx-color-themed-neutral-300: #d7dce0;
+  --onyx-color-themed-neutral-400: #b7bec4;
+  --onyx-color-themed-neutral-500: #96a1ab;
+  --onyx-color-themed-neutral-600: #697785;
+  --onyx-color-themed-neutral-700: #52626d;
+  --onyx-color-themed-neutral-800: #42515c;
+  --onyx-color-themed-neutral-900: #31414b;
+  --onyx-color-themed-neutral-1000: #212e3a;
+  --onyx-color-themed-neutral-1100: #101e2a;
+  --onyx-color-themed-neutral-1200: #000d19;
+  --onyx-color-themed-primary-100: #e8f2fc;
+  --onyx-color-themed-primary-200: #bfd9f3;
+  --onyx-color-themed-primary-300: #83b8ed;
+  --onyx-color-themed-primary-400: #4d9ae6;
+  --onyx-color-themed-primary-500: #177ce0;
+  --onyx-color-themed-primary-600: #156ec7;
+  --onyx-color-themed-primary-700: #1160af;
+  --onyx-color-themed-primary-800: #0e5296;
+  --onyx-color-themed-primary-900: #0b447d;
+  --onyx-color-themed-primary-1000: #083664;
+  --onyx-color-themed-primary-1100: #04284c;
+  --onyx-color-themed-primary-1200: #011a33;
+  --onyx-color-themed-secondary-100: #fce8e9;
+  --onyx-color-themed-secondary-200: #f2b8bc;
+  --onyx-color-themed-secondary-300: #ec848b;
+  --onyx-color-themed-secondary-400: #e54f59;
+  --onyx-color-themed-secondary-500: #de1a27;
+  --onyx-color-themed-secondary-600: #c51722;
+  --onyx-color-themed-secondary-700: #941018;
+  --onyx-color-themed-secondary-800: #941018;
+  --onyx-color-themed-secondary-900: #7c0c14;
+  --onyx-color-themed-secondary-1000: #63090f;
+  --onyx-color-themed-secondary-1100: #4b050a;
+  --onyx-color-themed-secondary-1200: #320205;
   --onyx-color-universal-grayscale-black: #000000;
   --onyx-color-universal-grayscale-white: #ffffff;
   --onyx-color-universal-green-100: #ecf8f2;
@@ -53,7 +53,7 @@
   --onyx-color-universal-green-800: #297d52;
   --onyx-color-universal-green-900: #216d46;
   --onyx-color-universal-green-1000: #185e3a;
-  --onyx-color-universal-green-1100: #064023;
+  --onyx-color-universal-green-1100: #0f4f2f;
   --onyx-color-universal-green-1200: #064023;
   --onyx-color-universal-orange-100: #faf6f2;
   --onyx-color-universal-orange-200: #f8e7d8;
@@ -101,7 +101,7 @@
   --onyx-color-universal-red-800: #93221f;
   --onyx-color-universal-red-900: #7e1d19;
   --onyx-color-universal-red-1000: #691714;
-  --onyx-color-universal-red-1100: #400c09;
+  --onyx-color-universal-red-1100: #55120e;
   --onyx-color-universal-red-1200: #400c09;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
