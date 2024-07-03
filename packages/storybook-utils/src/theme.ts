@@ -1,6 +1,6 @@
 import type { ThemeVars, ThemeVarsPartial } from "@storybook/theming";
 import { create } from "@storybook/theming/create";
-import onyxVariables from "sit-onyx/src/styles/themes/onyx.json";
+import onyxVariables from "sit-onyx/themes/onyx.json";
 import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "sit-onyx/types";
 import onyxLogo from "./assets/logo-onyx.svg";
 
