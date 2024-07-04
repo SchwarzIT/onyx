@@ -5,12 +5,12 @@ import {
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxIcon,
-  OnyxListItem,
+  OnyxMenuItem,
   OnyxNavBar,
-  OnyxNavItem,
+  OnyxNavButton,
   OnyxToastProvider,
   OnyxUserMenu,
-  type OnyxNavItemProps,
+  type OnyxNavButtonProps,
 } from "sit-onyx";
 import { ref, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
@@ -26,7 +26,7 @@ const navItems = [
   { label: "Form Demo", href: "/form-demo" },
   { label: "Layout Demo", href: "/layout-demo" },
   { label: "Grid Demo", href: "/grid" },
-] satisfies OnyxNavItemProps[];
+] satisfies OnyxNavButtonProps[];
 
 const { store: colorScheme } = useColorMode();
 
@@ -64,7 +64,7 @@ watch(
         @back-button-click="router.back"
         @app-area-click="router.push('/')"
       >
-        <OnyxNavItem
+        <OnyxNavButton
           v-for="item in navItems"
           :key="item.href"
           v-bind="item"
@@ -76,10 +76,10 @@ watch(
           <OnyxUserMenu username="John Doe">
             <OnyxColorSchemeMenuItem v-model="colorScheme" />
 
-            <OnyxListItem color="danger">
+            <OnyxMenuItem color="danger">
               <OnyxIcon :icon="logout" />
               Logout
-            </OnyxListItem>
+            </OnyxMenuItem>
 
             <template #footer>
               App Version

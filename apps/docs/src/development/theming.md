@@ -1,13 +1,41 @@
 # Theming
 
-Onyx supports a dark and a light theme. The options how to set up the theme for your application are described in this article.
+<script setup lang="ts">
+import { ONYX_THEMES } from "~components/../../.storybook/theme-switch";
+</script>
+
+Onyx supports a dark and a light theme as well as multiple built-in color themes. The options how to set up the theme for your application are described on this page.
+
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
-## Set the theme once
+## Themes
 
-Per default, onyx will be displayed in light mode after the [initial setup](/development/). In order to use dark mode, simply set the class `dark` once on the root of your application, e.g. on `<html>` or `<body>`.
+The following color themes are built-in to onyx:
 
-## Let the user decide
+<ul>
+  <li v-for="(theme, index) in ONYX_THEMES" :key="theme">
+    {{ theme }}
+    <span v-if="index === 0">(default)</span>
+  </li>
+</ul>
+
+To use a different theme, add the corresponding import to your `main.ts` file (example for the lidl theme):
+
+::: code-group
+
+```ts [main.ts]
+// import "sit-onyx/styles.css";
+// make sure to import the theme AFTER the general "sit-onyx/styles.css" file!
+import "sit-onyx/themes/lidl.css";
+```
+
+:::
+
+## Dark mode
+
+Per default, onyx will be displayed in light mode. In order to use the dark mode, simply set the class `dark` once on the root of your application, e.g. on `<html>` or `<body>`.
+
+### Let the user decide
 
 In order to let the user switch between light, dark and auto mode, we recommend to use the pre-built [OnyxColorSchemeMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschememenuitem--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library as shown in the example below.
 

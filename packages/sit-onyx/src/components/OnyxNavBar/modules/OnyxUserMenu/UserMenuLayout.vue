@@ -2,7 +2,7 @@
 // this layout component is only used internally for the user menu component
 // to easily switch between mobile and desktop layout
 import { injectI18n } from "../../../../i18n";
-import { type SelectOptionValue } from "../../../../types";
+import type { SelectOptionValue } from "../../../../types";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
 const props = defineProps<{ isMobile: boolean }>();
@@ -26,14 +26,16 @@ const { t } = injectI18n();
     </template>
 
     <template v-else>
-      <slot name="button"></slot>
+      <OnyxFlyoutMenu class="onyx-user-menu__flyout" :label="t('navigation.userMenuLabel')">
+        <slot name="button"></slot>
 
-      <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
         <template #header>
           <slot name="header"></slot>
         </template>
 
-        <slot name="options"></slot>
+        <template #options>
+          <slot name="options"></slot>
+        </template>
 
         <template v-if="!!slots.footer" #footer>
           <slot name="footer"></slot>
