@@ -1,5 +1,13 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-alpha.5
+
+### Major Changes
+
+- 48b24d2: refactor(CLI): remove default value for `--filename` / `-n` CLI flag
+
+  If you want to keep the previous behavior, add a `--filename variables-` flag
+
 ## 1.0.0-alpha.4
 
 ### Patch Changes
