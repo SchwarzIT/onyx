@@ -11,7 +11,7 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "lib": ["DOM"]
   }
 }

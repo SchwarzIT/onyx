@@ -1,7 +1,15 @@
 import { StorybookGlobalType } from "@sit-onyx/storybook-utils";
-import { type Decorator } from "@storybook/vue3";
+import type { Decorator } from "@storybook/vue3";
 import { ref, watch, watchEffect } from "vue";
-import { ONYX_THEMES } from "../src";
+
+const themes = import.meta.glob("../src/styles/themes//*.css", { eager: true });
+export const ONYX_THEMES = Object.keys(themes)
+  .map((filePath) => filePath.split("/").at(-1)!.replace(".css", ""))
+  .sort((a, b) => {
+    if (a === "onyx") return -1;
+    if (b === "onyx") return 1;
+    return a.localeCompare(b);
+  });
 
 export const onyxThemeGlobalType = {
   onyxTheme: {

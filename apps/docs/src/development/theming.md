@@ -1,7 +1,7 @@
 # Theming
 
 <script setup lang="ts">
-import { ONYX_THEMES } from "~components/../styles/themes";
+import { ONYX_THEMES } from "~components/../../.storybook/theme-switch";
 </script>
 
 Onyx supports a dark and a light theme as well as multiple build-in color themes. The options how to set up the theme for your application are described on this page.
