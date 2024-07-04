@@ -2,7 +2,7 @@ import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
-import OnyxNavItem from "../OnyxNavItem/future/OnyxNavItem.vue";
+import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavButton from "./OnyxNavButton.vue";
 
 /**
@@ -26,8 +26,8 @@ const meta: Meta<typeof OnyxNavButton> = {
 };
 
 const nestedChildren = [
-  { label: "Nested Item 1", active: true },
-  { label: "Nested Item 2" },
+  { label: "Nested Item 1" },
+  { label: "Nested Item 2", active: true },
   { label: "Nested Item 3" },
   { label: "Nested Item 4" },
   { label: "Nested Item 5" },
@@ -62,7 +62,8 @@ export const WithChildren: Story = {
   args: {
     ...Default.args,
     active: true,
-    children: () => nestedChildren.map(({ label, active }) => h(OnyxNavItem, { active }, [label])),
+    children: () =>
+      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { href: "#", active, label })),
   },
   decorators: [
     (story) => ({
