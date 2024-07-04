@@ -24,6 +24,7 @@ defineSlots<{
 
 <template>
   <OnyxMenuItem
+    class="onyx-nav-item"
     :active="props.active"
     :href="props.href ?? 'javascript:void(0)'"
     @click="props.href && emit('click', props.href)"
@@ -40,7 +41,7 @@ defineSlots<{
 
 .onyx-nav-item {
   @include layers.component() {
-    &__external-icon {
+    .onyx-external-link-icon {
       margin-left: calc(-1 * var(--onyx-spacing-sm));
     }
   }
