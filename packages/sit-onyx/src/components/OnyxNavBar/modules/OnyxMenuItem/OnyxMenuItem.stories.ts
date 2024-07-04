@@ -6,7 +6,7 @@ import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "./OnyxMenuItem.vue";
 
 /**
- * Generic list item component that is e.g. used in the select, nav item, user menu etc.
+ * Menu item that is intended to be used inside the [OnyxUserMenu](/docs/navigation-modules-usermenu--docs).
  */
 const meta: Meta<typeof OnyxMenuItem> = {
   title: "Navigation/modules/MenuItem",
