@@ -2,6 +2,9 @@
 // see: https://github.com/vuejs/eslint-config-typescript#installation
 require("@rushstack/eslint-patch/modern-module-resolution");
 
+/**
+ * @type {import('eslint').ESLint.ConfigData}
+ */
 module.exports = {
   root: true,
   parserOptions: {
