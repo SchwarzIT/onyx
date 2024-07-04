@@ -94,6 +94,7 @@
   "colorScheme": {
     "headline": "Erscheinungsbild ändern",
     "subtitle": "Wähle das Erscheinungsbild der Anwendung:",
+    "appearance": "Erscheinungsbild",
     "auto": {
       "label": "Auto",
       "description": "Die Anwendung passt ihr Aussehen automatisch an deine Systemeinstellungen an."

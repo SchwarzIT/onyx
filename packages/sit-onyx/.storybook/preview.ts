@@ -6,6 +6,7 @@ import docsTemplate from "./docs-template.mdx";
 import "@sit-onyx/storybook-utils/style.css";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
+import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
 const basePreview = createPreview({
   parameters: {
@@ -18,6 +19,10 @@ const basePreview = createPreview({
       },
     },
   },
+  globalTypes: {
+    ...onyxThemeGlobalType,
+  },
+  decorators: [withOnyxTheme],
 });
 
 const preview: Preview = {

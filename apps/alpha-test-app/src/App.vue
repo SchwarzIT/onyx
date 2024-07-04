@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import logout from "@sit-onyx/icons/logout.svg?raw";
 import { useColorMode } from "@vueuse/core";
 import {
   OnyxAppLayout,
-  OnyxColorSchemeDialog,
+  OnyxColorSchemeMenuItem,
   OnyxIcon,
-  OnyxListItem,
+  OnyxMenuItem,
   OnyxNavBar,
-  OnyxNavItem,
+  OnyxNavButton,
   OnyxToastProvider,
   OnyxUserMenu,
-  type OnyxNavItemProps,
+  type OnyxNavButtonProps,
 } from "sit-onyx";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -27,10 +26,18 @@ const navItems = [
   { label: "Form Demo", href: "/form-demo" },
   { label: "Layout Demo", href: "/layout-demo" },
   { label: "Grid Demo", href: "/grid" },
-] satisfies OnyxNavItemProps[];
+] satisfies OnyxNavButtonProps[];
 
 const { store: colorScheme } = useColorMode();
-const isColorSchemeDialogOpen = ref(false);
+
+const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+
+watch(
+  () => route.path,
+  () => {
+    navBarRef.value?.closeMobileMenus();
+  },
+);
 </script>
 
 <template>
@@ -50,13 +57,14 @@ const isColorSchemeDialogOpen = ref(false);
       #navBar
     >
       <OnyxNavBar
+        ref="navBarRef"
         app-name="Alpha Test App"
         :logo-url="onyxLogo"
         show-back-button
         @back-button-click="router.back"
         @app-area-click="router.push('/')"
       >
-        <OnyxNavItem
+        <OnyxNavButton
           v-for="item in navItems"
           :key="item.href"
           v-bind="item"
@@ -66,15 +74,12 @@ const isColorSchemeDialogOpen = ref(false);
 
         <template #contextArea>
           <OnyxUserMenu username="John Doe">
-            <OnyxListItem @click="isColorSchemeDialogOpen = true">
-              <OnyxIcon :icon="circleContrast" />
-              Appearance
-            </OnyxListItem>
+            <OnyxColorSchemeMenuItem v-model="colorScheme" />
 
-            <OnyxListItem color="danger">
+            <OnyxMenuItem color="danger">
               <OnyxIcon :icon="logout" />
               Logout
-            </OnyxListItem>
+            </OnyxMenuItem>
 
             <template #footer>
               App Version
@@ -86,12 +91,6 @@ const isColorSchemeDialogOpen = ref(false);
     </template>
 
     <RouterView />
-
-    <OnyxColorSchemeDialog
-      v-model="colorScheme"
-      :open="isColorSchemeDialogOpen"
-      @close="isColorSchemeDialogOpen = false"
-    />
 
     <OnyxToastProvider />
   </OnyxAppLayout>

@@ -1,11 +1,8 @@
 <script lang="ts" setup>
-import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
-import { computed } from "vue";
-import { isExternalLink } from "../../utils";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxLinkProps } from "./types";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import { injectI18n } from "../../i18n";
+import OnyxExternalLinkIcon from "../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import type { OnyxLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",
@@ -27,11 +24,6 @@ defineSlots<{
 }>();
 
 const { t } = injectI18n();
-
-const shouldShowExternalIcon = computed(() => {
-  if (props.withExternalIcon !== "auto") return props.withExternalIcon;
-  return isExternalLink(props.href);
-});
 </script>
 
 <template>
@@ -43,15 +35,12 @@ const shouldShowExternalIcon = computed(() => {
     @click="emit('click')"
   >
     <slot></slot>
+
     <OnyxVisuallyHidden v-if="props.target === '_blank'">
       {{ t("link.opensExternally") }}
     </OnyxVisuallyHidden>
-    <OnyxIcon
-      v-if="shouldShowExternalIcon"
-      class="onyx-link__icon"
-      :icon="arrowSmallUpRight"
-      size="16px"
-    />
+
+    <OnyxExternalLinkIcon v-bind="props" />
   </a>
 </template>
 
@@ -89,7 +78,7 @@ const shouldShowExternalIcon = computed(() => {
       }
     }
 
-    &__icon {
+    .onyx-external-link-icon {
       margin-left: var(--onyx-spacing-5xs);
     }
   }

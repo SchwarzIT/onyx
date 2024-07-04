@@ -14,8 +14,8 @@ import {
 export type ImportCommandOptions = {
   fileKey: string;
   token: string;
-  filename: string;
   format: string[];
+  filename?: string;
   dir?: string;
   modes?: string[];
   selector: string;
@@ -29,7 +29,10 @@ export const importCommand = new Command("import-variables")
     "Figma access token with scope `file_variables:read` (required)",
   )
   .option("-f, --format <strings...>", "Output formats. Supported are: CSS, SCSS, JSON", ["CSS"])
-  .option("-n, --filename <string>", "Base name of the generated variables file", "variables")
+  .option(
+    "-n, --filename <string>",
+    "Base name / prefix of the generated variables file. Will append the mode name",
+  )
   .option(
     "-d, --dir <string>",
     "Working directory to use. Defaults to current working directory of the script.",
@@ -85,9 +88,13 @@ export async function importCommandAction(options: ImportCommandOptions) {
   }
 
   const outputDirectory = options.dir ?? process.cwd();
-  const filename = options.filename ?? "variables";
 
   console.log(`Generating ${options.format} variables...`);
+
+  const getBaseFileName = (modeName: string = "default") => {
+    if (options.filename) return `${options.filename}${modeName}`;
+    return modeName;
+  };
 
   options.format.forEach((format) => {
     console.log(`Generating ${format} variables...`);
@@ -101,7 +108,7 @@ export async function importCommandAction(options: ImportCommandOptions) {
         !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
       if (!isModeIncluded) return;
 
-      const baseName = data.modeName ? `${filename}-${data.modeName}` : filename;
+      const baseName = getBaseFileName(data.modeName);
       const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
       fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
     });

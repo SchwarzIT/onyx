@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { createNavigationMenu } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
@@ -11,7 +12,6 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY, type OnyxNavBarProps } from "./types";
-import { createNavigationMenu } from "@sit-onyx/headless";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   mobileBreakpoint: "sm",
@@ -31,7 +31,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * Nav items, only `OnyxNavItem` components should be placed here.
+   * Nav buttons, only `OnyxNavButton` components should be placed here.
    */
   default?: () => unknown;
   /**
@@ -76,6 +76,26 @@ const isMobile = computed(() => {
 });
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
+
+defineExpose({
+  /**
+   * Closes the mobile burger and context menu.
+   * Useful if you want to e.g. close them when a nav item is clicked.
+   *
+   * Example usage:
+   *
+   * ```ts
+   * const route = useRoute();
+   * const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+   *
+   * watch(() => route.path, () => navBarRef.value?.closeMobileMenus());
+   * ```
+   */
+  closeMobileMenus: () => {
+    isBurgerOpen.value = false;
+    isContextOpen.value = false;
+  },
+});
 </script>
 
 <template>
@@ -327,7 +347,7 @@ $height: 3.5rem;
     }
 
     .onyx-mobile-nav-button__content {
-      $mobile-children-selector: ":has(.onyx-nav-item__mobile-children)";
+      $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
 
       // hide "Navigation" headline when nav item with children is open
       &#{$mobile-children-selector} {
@@ -338,7 +358,7 @@ $height: 3.5rem;
 
       // hide all other nav items when nav item with children is open
       #{$mobile-children-selector} {
-        > .onyx-nav-item:not(#{$mobile-children-selector}) {
+        > .onyx-nav-button:not(#{$mobile-children-selector}) {
           display: none;
         }
       }

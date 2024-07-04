@@ -1,8 +1,8 @@
-import type { Composer } from "vue-i18n";
-import type { LocaleObject } from "@nuxtjs/i18n";
 import { computed, watchEffect, type ComputedRef } from "#imports";
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { defineNuxtPlugin, useNuxtApp } from "nuxt/app";
 import { provideI18n, syncGlobalOptionalText, type TranslationFunction } from "sit-onyx";
+import type { Composer } from "vue-i18n";
 
 type I18n = Composer & { localeProperties: ComputedRef<LocaleObject> };
 

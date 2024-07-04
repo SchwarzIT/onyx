@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
   OnyxAvatar,
@@ -68,7 +69,7 @@ const filteredConfigOptions = computed(() =>
     ? configOptions.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
     : configOptions,
 );
-const componentsToShow = ref([...configOptions]);
+const componentsToShow = useStorage("components-to-show", [...configOptions]);
 const componentNamesToShow = computed(() => componentsToShow.value.map((option) => option.value));
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) =>
@@ -131,6 +132,13 @@ const timerEndDate = new Date();
 timerEndDate.setHours(timerEndDate.getHours() + 2);
 
 const toast = useToast();
+
+const tableColumns = ["Fruit", "Price (€/kg)", "Inventory (kg)"];
+const tableData = [
+  { fruit: "Strawberry", price: "4.50", inventory: 200 },
+  { fruit: "Apple", price: "1.99", inventory: 3000 },
+  { fruit: "Banana", price: "3.75", inventory: 18000 },
+];
 </script>
 
 <template>
@@ -264,30 +272,19 @@ const toast = useToast();
         />
 
         <template v-if="show('OnyxTable')">
-          <OnyxTable>
+          <OnyxTable style="max-height: 250px" with-page-scrolling>
             <template #head>
               <tr>
-                <th>Fruit</th>
-                <th>Price (€/kg)</th>
-                <th>Inventory (kg)</th>
+                <th v-for="col in tableColumns" :key="col">{{ col }}</th>
               </tr>
             </template>
-            <tr>
-              <td>Strawberry</td>
-              <td>4.50</td>
-              <td>200</td>
-            </tr>
-            <tr>
-              <td>Apple</td>
-              <td>1.99</td>
-              <td>3000</td>
-            </tr>
-            <tr>
-              <td>Banana</td>
-              <td>3.75</td>
-              <td>18000</td>
+            <tr v-for="{ fruit, price, inventory } in tableData" :key="fruit">
+              <td>{{ fruit }}</td>
+              <td>{{ price }}</td>
+              <td>{{ inventory }}</td>
             </tr>
           </OnyxTable>
+
           <OnyxTable>
             <template #head>
               <tr>

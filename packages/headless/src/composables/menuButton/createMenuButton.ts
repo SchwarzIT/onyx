@@ -99,15 +99,23 @@ export const createMenuButton = createBuilder(
           "aria-labelledby": buttonId,
           onKeydown: handleKeydown,
         },
-        listItem: {
-          role: "none",
-        },
-        menuItem: (data: { active?: boolean; disabled?: boolean }) => ({
-          "aria-current": data.active ? "page" : undefined,
-          "aria-disabled": data.disabled,
-          role: "menuitem",
-        }),
+        ...createMenuItem({}).elements,
       },
     };
   },
 );
+
+export const createMenuItem = createBuilder(() => {
+  return {
+    elements: {
+      listItem: {
+        role: "none",
+      },
+      menuItem: (data: { active?: boolean; disabled?: boolean }) => ({
+        "aria-current": data.active ? "page" : undefined,
+        "aria-disabled": data.disabled,
+        role: "menuitem",
+      }),
+    },
+  };
+});

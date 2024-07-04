@@ -1,4 +1,4 @@
-import { expect, test, describe } from "vitest";
+import { describe, expect, test } from "vitest";
 import { areObjectsFlatEqual, groupByKey } from "./objects";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };

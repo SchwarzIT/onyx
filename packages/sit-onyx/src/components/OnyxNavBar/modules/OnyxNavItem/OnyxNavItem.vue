@@ -1,0 +1,49 @@
+<script setup lang="ts">
+import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
+import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
+import type { OnyxNavItemProps } from "./types";
+
+const props = withDefaults(defineProps<OnyxNavItemProps>(), {
+  withExternalIcon: "auto",
+});
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the nav item is clicked.
+   */
+  click: [href: string];
+}>();
+
+defineSlots<{
+  /**
+   * Content of the nav item.
+   */
+  default?(): unknown;
+}>();
+</script>
+
+<template>
+  <OnyxMenuItem
+    class="onyx-nav-item"
+    :active="props.active"
+    :href="props.href ?? 'javascript:void(0)'"
+    @click="props.href && emit('click', props.href)"
+  >
+    <slot>
+      <span>{{ props.label }}</span>
+      <OnyxExternalLinkIcon v-bind="props" />
+    </slot>
+  </OnyxMenuItem>
+</template>
+
+<style lang="scss">
+@use "../../../../styles/mixins/layers.scss";
+
+.onyx-nav-item {
+  @include layers.component() {
+    .onyx-external-link-icon {
+      margin-left: calc(-1 * var(--onyx-spacing-sm));
+    }
+  }
+}
+</style>

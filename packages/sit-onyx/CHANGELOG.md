@@ -1,5 +1,49 @@
 # sit-onyx
 
+## 1.0.0-alpha.164
+
+### Major Changes
+
+- 555ac22: refactor navigation components
+
+  - `OnyxFlyoutMenu`: rename default slot to options
+  - previous `OnyxNavItem` component is now `OnyxNavButton` with changed API
+  - new `OnyxNavItem` is now only intended to be used as children for the new `OnyxNavButton`
+  - `OnyxUserMenu`: property `avatar` now only accepts a string, not an object
+  - fix(OnyxUserMenu): use correct font weight for username
+
+### Minor Changes
+
+- 48b24d2: feat: support lidl, kaufland and twogo theme
+
+### Patch Changes
+
+- 555ac22: fix(OnyxMenuItem): make whole button/link clickable
+
+  Also add missing export for the component itself
+
+## 1.0.0-alpha.163
+
+### Minor Changes
+
+- 4ddd145: feat(OnyxNavBar): expose method `closeMobileMenus`
+
+## 1.0.0-alpha.162
+
+### Minor Changes
+
+- 90f9f86: feat: implement OnyxColorSchemeMenuItem
+
+### Patch Changes
+
+- 90f9f86: fix(OnyxMenuItem): make whole button/anchor clickable
+
+## 1.0.0-alpha.161
+
+### Minor Changes
+
+- 4492231: feat(OnyxTable): add `withPageScrolling` prop to switch from table-scrolling to page-scrolling
+
 ## 1.0.0-alpha.160
 
 ### Patch Changes

@@ -10,6 +10,7 @@ import type { OnyxTableProps } from "./types";
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
   withVerticalBorders: false,
+  withPageScrolling: false,
 });
 
 const slots = defineSlots<{
@@ -39,7 +40,10 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 
 <template>
   <div class="onyx-table-wrapper">
-    <div class="onyx-table-wrapper__scroll-container" tabindex="0">
+    <div
+      :class="{ 'onyx-table-wrapper__scroll-container': !props.withPageScrolling }"
+      :tabindex="props.withPageScrolling ? undefined : 0"
+    >
       <table
         class="onyx-table onyx-text"
         :class="[
@@ -48,7 +52,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
           densityClass,
         ]"
       >
-        <thead v-if="slots.head">
+        <thead v-if="slots.head" class="onyx-table__header">
           <slot name="head"></slot>
         </thead>
         <tbody>
@@ -212,7 +216,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       }
     }
 
-    thead {
+    &__header,
+    &__header th {
       position: sticky;
       top: 0;
       z-index: var(--onyx-z-index-sticky-content);
