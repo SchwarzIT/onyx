@@ -35,18 +35,24 @@ test.describe("Screenshot tests", () => {
       </OnyxUserMenu>
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.getByRole("button", { name: "Jane Doe" }).hover();
+      if (row === "default") return;
+
+      if (row === "hover") {
+        await component.getByRole("button", { name: "Jane Doe" }).hover();
+      }
       if (row === "focus-visible") {
         await page.keyboard.press("Tab");
-
-        // since the flyout is positioned absolute, we need to set the component size accordingly
-        // so the screenshot contains the whole component
-        await component.evaluate((element) => {
-          element.style.height = `${element.scrollHeight}px`;
-          element.style.width = `${element.scrollWidth}px`;
-          element.style.paddingLeft = "64px";
-        });
       }
+
+      await expect(component.getByLabel("User options")).toBeVisible();
+
+      // since the flyout is positioned absolute, we need to set the component size accordingly
+      // so the screenshot contains the whole component
+      await component.evaluate((element) => {
+        element.style.height = `${element.scrollHeight}px`;
+        element.style.width = `${element.scrollWidth}px`;
+        element.style.paddingLeft = "64px";
+      });
     },
   });
 });
