@@ -10,7 +10,7 @@ vi.mock("../index.js");
 describe("import-variables.ts", () => {
   const mockOptions = {
     fileKey: "test-file-key",
-    filename: "test-file-name",
+    filename: "test-file-name-",
     format: ["CSS"],
     token: "test-token",
     selector: ":root",
