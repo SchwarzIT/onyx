@@ -36,7 +36,7 @@ test.describe("Screenshot tests", () => {
     ),
     beforeScreenshot: async (component, page, _column, row) => {
       await expect(component).toContainText("Nav Button");
-      if (row === "hover") await component.hover();
+      if (row === "hover") await component.getByLabel("Nav Button").hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
     },
   });
