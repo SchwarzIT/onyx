@@ -26,8 +26,8 @@ const meta: Meta<typeof OnyxNavButton> = {
 };
 
 const nestedChildren = [
-  { label: "Nested Item 1", active: true },
-  { label: "Nested Item 2" },
+  { label: "Nested Item 1" },
+  { label: "Nested Item 2", active: true },
   { label: "Nested Item 3" },
   { label: "Nested Item 4" },
   { label: "Nested Item 5" },
@@ -63,7 +63,7 @@ export const WithChildren: Story = {
     ...Default.args,
     active: true,
     children: () =>
-      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { href: "#", active }, [label])),
+      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { href: "#", active }, label)),
   },
   decorators: [
     (story) => ({
