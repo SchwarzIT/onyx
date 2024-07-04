@@ -9,6 +9,7 @@ import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
@@ -57,21 +58,20 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item 1", href: "/" }),
+      h(OnyxNavButton, { label: "Item 1", href: "/" }),
       h(
-        OnyxNavItem,
+        OnyxNavButton,
+        { label: "Item 2", href: "/test" },
         {
-          label: "Item 2",
-          href: "/test",
-          options: [
-            { label: "Nested item 1", href: "#" },
-            { label: "Nested item 2", href: "#", active: true },
-            { label: "Nested item 3", href: "#" },
+          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 2.1", href: "#" }),
+            h(OnyxNavItem, { label: "Nested item 2.2", href: "#", active: true }),
+            h(OnyxNavItem, { label: "Nested item 2.3", href: "https://onyx.schwarz" }),
           ],
         },
-        () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
       ),
-      h(OnyxNavItem, { label: "Item 3", href: "https://onyx.schwarz" }),
+      h(OnyxNavButton, { label: "Item 3", href: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2",
   },

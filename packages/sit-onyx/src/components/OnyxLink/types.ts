@@ -1,19 +1,11 @@
-export type OnyxLinkProps = {
-  /**
-   * URL that the link points to.
-   */
-  href: string;
+import type { OnyxExternalLinkIcon } from "../OnyxExternalLinkIcon/types";
+
+export type OnyxLinkProps = OnyxExternalLinkIcon & {
   /**
    * Where to display the linked URL (same tab, new tab etc.).
    * For `_blank`, the `rel="noreferrer"` will be set automatically.
    */
   target?: LinkTarget;
-  /**
-   * Whether to show the external link icon.
-   * If set to `auto`, it will be shown when the `href` leads to another website
-   * (starting with "http://" or "https://") and will be hidden otherwise.
-   */
-  withExternalIcon?: boolean | "auto";
 };
 
 export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;

@@ -13,10 +13,14 @@ const meta: Meta<typeof OnyxNavItem> = {
     component: OnyxNavItem,
     events: ["click"],
     argTypes: {
-      default: {
-        control: { disable: true },
-      },
+      default: { control: { type: "text" } },
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="max-width: 16rem;"> <story /> </div>`,
+      }),
+    ],
   }),
 };
 
@@ -29,7 +33,6 @@ type Story = StoryObj<typeof OnyxNavItem>;
 export const Default = {
   args: {
     label: "Item",
-    href: "#",
   },
 } satisfies Story;
 
@@ -42,28 +45,6 @@ export const Active = {
     active: true,
   },
 } satisfies Story;
-
-/**
- * This example shows the nav item with nested options.
- */
-export const WithOptions: Story = {
-  args: {
-    ...Default.args,
-    options: [
-      { label: "Nested Item 1", href: "#", active: true },
-      { label: "Nested Item 2", href: "https://onyx.schwarz" },
-      { label: "Nested Item 3", href: "#3" },
-      { label: "Nested Item 4", href: "#4" },
-      { label: "Nested Item 5", href: "#5" },
-    ],
-  },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="height: 16rem"> <story /> </div>`,
-    }),
-  ],
-};
 
 /**
  * This example shows the nav item with additional content (a dot badge in this case).
