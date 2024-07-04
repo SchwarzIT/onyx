@@ -4,7 +4,7 @@
 import { ONYX_THEMES } from "~components/../../.storybook/theme-switch";
 </script>
 
-Onyx supports a dark and a light theme as well as multiple build-in color themes. The options how to set up the theme for your application are described on this page.
+Onyx supports a dark and a light theme as well as multiple built-in color themes. The options how to set up the theme for your application are described on this page.
 
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
