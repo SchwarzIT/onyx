@@ -1,6 +1,7 @@
 export type OnyxNavButtonProps = {
   /**
    * Label to show inside the Nav item.
+   * You can use the `default` slot to display custom content.
    */
   label: string;
   /**

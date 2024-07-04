@@ -69,15 +69,13 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
         Item 2
         <OnyxBadge color="warning" dot />
         <template v-slot:children>
-          <OnyxNavItem href="#2-1" onClick={(href) => clickEvents.push(href)}>
-            Nested item 1
-          </OnyxNavItem>
-          <OnyxNavItem href="#2-2" active onClick={(href) => clickEvents.push(href)}>
-            Nested item 2
-          </OnyxNavItem>
-          <OnyxNavItem href="#2-3" onClick={(href) => clickEvents.push(href)}>
-            Nested item 3
-          </OnyxNavItem>
+          <OnyxNavItem
+            label="Nested item 1"
+            href="#2-1"
+            onClick={(href) => clickEvents.push(href)}
+          />
+          <OnyxNavItem label="" href="#2-2" active onClick={(href) => clickEvents.push(href)} />
+          <OnyxNavItem label="" href="#2-3" onClick={(href) => clickEvents.push(href)} />
         </template>
       </OnyxNavButton>
       <OnyxNavButton

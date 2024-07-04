@@ -6,7 +6,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "NavItem",
     columns: ["default", "active"],
-    rows: ["default", "hover", "focus-visible"],
+    rows: ["default", "hover", "focus-visible", "external-link"],
     /**
      * This component represents only the child (menuitem) of the overall menu.
      * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
@@ -15,11 +15,13 @@ test.describe("Screenshot tests", () => {
      * TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
      */
     disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
-    component: (column) => (
+    component: (column, row) => (
       <ul style={{ listStyle: "none", padding: 0 }} role="menu">
-        <OnyxNavItem href="#" active={column === "active"}>
-          Item
-        </OnyxNavItem>
+        <OnyxNavItem
+          label="Item"
+          href={row === "external-link" ? "https://onyx.schwarz" : "#"}
+          active={column === "active"}
+        />
       </ul>
     ),
     beforeScreenshot: async (component, page, _column, row) => {

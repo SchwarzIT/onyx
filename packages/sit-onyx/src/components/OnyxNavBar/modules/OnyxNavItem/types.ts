@@ -1,10 +1,3 @@
-export type OnyxNavItemProps = {
-  /**
-   * URL that the nav item points to.
-   */
-  href?: string;
-  /**
-   * Whether the nav item is (visually) active.
-   */
-  active?: boolean;
-};
+import type { OnyxNavButtonProps } from "../OnyxNavButton/types";
+
+export type OnyxNavItemProps = OnyxNavButtonProps;

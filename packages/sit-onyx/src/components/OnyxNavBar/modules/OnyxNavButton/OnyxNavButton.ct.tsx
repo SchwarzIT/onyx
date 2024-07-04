@@ -59,9 +59,9 @@ test.describe("Screenshot tests with nested children", () => {
     component: (column) => (
       <OnyxNavButton label="Item" href="#" active={column === "active"}>
         <template v-slot:children>
-          <OnyxNavItem>Nested Item 1</OnyxNavItem>
-          <OnyxNavItem>Nested Item 2</OnyxNavItem>
-          <OnyxNavItem>Nested Item 3</OnyxNavItem>
+          <OnyxNavItem label="Nested Item 1" />
+          <OnyxNavItem label="Nested Item 2" />
+          <OnyxNavItem label="Nested Item 3" />
         </template>
       </OnyxNavButton>
     ),
@@ -97,7 +97,7 @@ test.describe("Screenshot tests (mobile)", () => {
 
         {row === "with-children" && (
           <template v-slot:children>
-            <OnyxNavItem href="#">Child 1</OnyxNavItem>
+            <OnyxNavItem label="Child 1" href="#" />
           </template>
         )}
       </MobileComponentTestWrapper>
@@ -124,9 +124,9 @@ test.describe("Screenshot tests (mobile children)", () => {
       >
         Parent item <OnyxBadge dot color="warning" />
         <template v-slot:children>
-          <OnyxNavItem href="/default">Default</OnyxNavItem>
-          <OnyxNavItem href="/active">Active</OnyxNavItem>
-          <OnyxNavItem href="https://onyx.schwarz">External link</OnyxNavItem>
+          <OnyxNavItem label="Default" href="/default" />
+          <OnyxNavItem label="Active" href="/active" />
+          <OnyxNavItem label="External link" href="https://onyx.schwarz" />
         </template>
       </MobileComponentTestWrapper>
     ),

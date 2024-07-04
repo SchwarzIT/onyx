@@ -65,9 +65,9 @@ export const Default = {
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
           children: () => [
-            h(OnyxNavItem, { href: "#" }, () => "Nested item 2.1"),
-            h(OnyxNavItem, { href: "#", active: true }, () => "Nested item 2.2"),
-            h(OnyxNavItem, { href: "#" }, () => "Nested item 2.3"),
+            h(OnyxNavItem, { label: "Nested item 2.1", href: "#" }),
+            h(OnyxNavItem, { label: "Nested item 2.2", href: "#", active: true }),
+            h(OnyxNavItem, { label: "Nested item 2.3", href: "https://onyx.schwarz" }),
           ],
         },
       ),

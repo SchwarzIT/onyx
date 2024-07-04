@@ -63,7 +63,7 @@ export const WithChildren: Story = {
     ...Default.args,
     active: true,
     children: () =>
-      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { href: "#", active }, label)),
+      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { href: "#", active, label })),
   },
   decorators: [
     (story) => ({

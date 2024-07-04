@@ -32,7 +32,7 @@ type Story = StoryObj<typeof OnyxNavItem>;
  */
 export const Default = {
   args: {
-    default: "Item",
+    label: "Item",
   },
 } satisfies Story;
 
@@ -53,5 +53,15 @@ export const WithCustomContent = {
   args: {
     ...Default.args,
     default: () => ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
+  },
+} satisfies Story;
+
+/**
+ * This example shows the nav item with external link.
+ */
+export const WithExternalLink = {
+  args: {
+    label: "onyx",
+    href: "https://onyx.schwarz/",
   },
 } satisfies Story;
