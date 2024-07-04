@@ -13,7 +13,7 @@ const emit = defineEmits<{
   click: [href: string];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * An optional slot to show additional content behind the label (e.g. a `OnyxBadge`).
    */
@@ -40,7 +40,7 @@ provide(
   >
     <slot></slot>
 
-    <template #children>
+    <template v-if="slots.children" #children>
       <slot name="children"></slot>
     </template>
   </OnyxNavButton>
