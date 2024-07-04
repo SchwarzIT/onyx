@@ -31,7 +31,8 @@ const currentOnyxTheme = ref<string>();
 
 export const withOnyxTheme: Decorator = (Story, context) => {
   watchEffect(() => {
-    currentOnyxTheme.value = context.globals.onyxTheme;
+    const theme = context.globals.onyxTheme ?? ONYX_THEMES[0];
+    currentOnyxTheme.value = theme === ONYX_THEMES[0] ? "default" : theme;
   });
 
   return {

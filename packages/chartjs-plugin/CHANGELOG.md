@@ -1,5 +1,12 @@
 # @sit-onyx/chartjs-plugin
 
+## 1.0.0-alpha.121
+
+### Patch Changes
+
+- Updated dependencies [bf1e992]
+  - sit-onyx@1.0.0-alpha.165
+
 ## 1.0.0-alpha.120
 
 ### Patch Changes
