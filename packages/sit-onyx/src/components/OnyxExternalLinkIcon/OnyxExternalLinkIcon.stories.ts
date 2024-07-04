@@ -12,6 +12,12 @@ const meta: Meta<typeof OnyxExternalLinkIcon> = {
   ...defineStorybookActionsAndVModels({
     component: OnyxExternalLinkIcon,
     events: [],
+    argTypes: {
+      withExternalIcon: {
+        options: ["auto", true, false],
+        control: { type: "radio" },
+      },
+    },
     decorators: [textColorDecorator],
   }),
 };
