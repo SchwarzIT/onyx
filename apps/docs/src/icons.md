@@ -13,15 +13,15 @@ To get started, install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/icons@alpha
+pnpm add -D @sit-onyx/icons@beta
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/icons@alpha
+npm install -D @sit-onyx/icons@beta
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/icons@alpha
+yarn install -D @sit-onyx/icons@beta
 ```
 
 :::

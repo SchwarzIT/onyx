@@ -58,7 +58,7 @@ watch(
     >
       <OnyxNavBar
         ref="navBarRef"
-        app-name="Alpha Test App"
+        app-name="Demo App"
         :logo-url="onyxLogo"
         show-back-button
         @back-button-click="router.back"

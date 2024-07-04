@@ -31,7 +31,7 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt).
 Install the module in your [Nuxt](https://nuxt.com) application with one command:
 
 ```sh
-npx nuxi module add @sit-onyx/nuxt@alpha
+npx nuxi module add @sit-onyx/nuxt@beta
 ```
 
 If you are also using the [@nuxtjs/i18n](https://i18n.nuxtjs.org/) module, make sure to move `@sit-onyx/nuxt` **before** `@nuxtjs/i18n`.
