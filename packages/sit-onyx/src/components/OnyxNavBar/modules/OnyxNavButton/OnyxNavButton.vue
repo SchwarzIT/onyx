@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject, ref } from "vue";
-import { isExternalLink } from "../../../../utils";
+import type OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import NavButtonLayout from "./NavButtonLayout.vue";
@@ -30,12 +29,6 @@ const slots = defineSlots<{
    */
   children?(): unknown;
 }>();
-
-const shouldShowExternalIcon = (args: typeof props) => {
-  const withExternalIcon = args.withExternalIcon ?? "auto";
-  if (withExternalIcon !== "auto") return args.withExternalIcon;
-  return isExternalLink(args.href ?? "");
-};
 
 const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const isMobileChildrenOpen = ref(false);
@@ -71,12 +64,7 @@ const handleParentClick = () => {
       >
         <slot>
           <span>{{ props.label }}</span>
-          <OnyxIcon
-            v-if="shouldShowExternalIcon(props)"
-            class="onyx-nav-button__external-icon"
-            :icon="arrowSmallUpRight"
-            size="16px"
-          />
+          <OnyxExternalLinkIcon v-bind="props" />
         </slot>
 
         <OnyxIcon
@@ -156,8 +144,7 @@ $border-radius: var(--onyx-radius-sm);
       }
     }
 
-    &__external-icon {
-      align-self: flex-start;
+    .onyx-external-link-icon {
       margin-left: calc(-1 * $gap);
     }
 

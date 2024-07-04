@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
-import { isExternalLink } from "../../../../utils";
-import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxNavItemProps } from "./types";
 
@@ -22,12 +20,6 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
-
-const shouldShowExternalIcon = (args: typeof props) => {
-  const withExternalIcon = args.withExternalIcon ?? "auto";
-  if (withExternalIcon !== "auto") return args.withExternalIcon;
-  return isExternalLink(args.href ?? "");
-};
 </script>
 
 <template>
@@ -38,12 +30,7 @@ const shouldShowExternalIcon = (args: typeof props) => {
   >
     <slot>
       <span>{{ props.label }}</span>
-      <OnyxIcon
-        v-if="shouldShowExternalIcon(props)"
-        class="onyx-nav-item__external-icon"
-        :icon="arrowSmallUpRight"
-        size="16px"
-      />
+      <OnyxExternalLinkIcon v-bind="props" />
     </slot>
   </OnyxMenuItem>
 </template>
@@ -54,7 +41,6 @@ const shouldShowExternalIcon = (args: typeof props) => {
 .onyx-nav-item {
   @include layers.component() {
     &__external-icon {
-      align-self: flex-start;
       margin-left: calc(-1 * var(--onyx-spacing-sm));
     }
   }
