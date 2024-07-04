@@ -3,7 +3,6 @@
   "include": ["env.d.ts", "src/**/*", "src/i18n/locales/*.json"],
   "exclude": ["src/**/*.ct.*", "src/**/*.spec.*", "src/**/*.stories.ts"],
   "compilerOptions": {
-    "noEmit": false,
     "declaration": true,
     "emitDeclarationOnly": true,
     "composite": true,

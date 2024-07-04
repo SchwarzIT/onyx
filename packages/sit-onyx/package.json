@@ -44,7 +44,7 @@
     "test:coverage": "vitest run --coverage",
     "test:components": "playwright install && playwright test",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit --emitDeclarationOnly -p tsconfig.vitest.json --composite false"
+    "type-check": "vue-tsc -p tsconfig.vitest.json --noEmit --emitDeclarationOnly false --composite false"
   },
   "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
