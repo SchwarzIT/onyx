@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-import { injectI18n } from "../../../i18n";
-import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
-import OnyxFlyoutMenu from "../../OnyxFlyoutMenu/future/OnyxFlyoutMenu.vue";
-import type { OnyxUserMenuProps } from "../types";
+import { computed, inject } from "vue";
+import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
+import UserMenuLayout from "./UserMenuLayout.vue";
+import type { OnyxUserMenuProps } from "./types";
 
 const props = defineProps<OnyxUserMenuProps>();
 
 const slots = defineSlots<{
   /**
-   * Slot for the menu options. Its recommended to use the `OnyxListItem` component here.
+   * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
   default?(): unknown;
   /**
@@ -18,54 +18,61 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const { t } = injectI18n();
-
 const avatar = computed(() => {
-  if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
 });
+
+const isMobile = inject(
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  computed(() => false),
+);
 </script>
 
 <template>
-  <div class="onyx-user-menu">
-    <OnyxFlyoutMenu class="onyx-user-menu__flyout" :aria-label="t('navigation.userMenuLabel')">
+  <UserMenuLayout
+    class="onyx-user-menu"
+    :class="{ 'onyx-user-menu--mobile': isMobile }"
+    :is-mobile="isMobile ?? false"
+  >
+    <template #button>
       <button class="onyx-user-menu__trigger onyx-text" type="button">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
       </button>
-      <template #header>
-        <div class="onyx-user-menu__header">
-          <OnyxAvatar v-bind="avatar" />
+    </template>
 
-          <div class="onyx-truncation-ellipsis">
-            <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
-              {{ props.username }}
-            </div>
-            <div
-              v-if="props.description"
-              class="onyx-user-menu__description onyx-text--small onyx-truncation-ellipsis"
-            >
-              {{ props.description }}
-            </div>
+    <template #header>
+      <div class="onyx-user-menu__header">
+        <OnyxAvatar v-bind="avatar" />
+
+        <div class="onyx-truncation-ellipsis">
+          <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
+            {{ props.username }}
+          </div>
+          <div
+            v-if="props.description"
+            class="onyx-user-menu__description onyx-text--small onyx-truncation-ellipsis"
+          >
+            {{ props.description }}
           </div>
         </div>
-      </template>
+      </div>
+    </template>
 
-      <template #options>
-        <slot></slot>
-      </template>
+    <template #options>
+      <slot></slot>
+    </template>
 
-      <template v-if="!!slots.footer" #footer>
-        <div class="onyx-user-menu__footer onyx-text--small">
-          <slot name="footer"></slot>
-        </div>
-      </template>
-    </OnyxFlyoutMenu>
-  </div>
+    <template v-if="slots.footer" #footer>
+      <div class="onyx-user-menu__footer onyx-text--small">
+        <slot name="footer"></slot>
+      </div>
+    </template>
+  </UserMenuLayout>
 </template>
 
 <style lang="scss">
-@use "../../../styles/mixins/layers.scss";
+@use "../../../../styles/mixins/layers.scss";
 
 .onyx-user-menu {
   @include layers.component() {
@@ -79,7 +86,7 @@ const avatar = computed(() => {
     &:hover {
       outline: 0;
 
-      .onyx-user-menu__trigger[aria-expanded="true"] {
+      .onyx-user-menu__trigger {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
       }
@@ -108,14 +115,8 @@ const avatar = computed(() => {
       }
     }
 
-    &__flyout {
-      .onyx-future-flyout-menu__list {
-        right: 0;
-      }
-    }
-
-    &__chevron {
-      transition: transform var(--onyx-duration-sm);
+    .onyx-flyout-menu__list {
+      right: 0;
     }
 
     &__header {
@@ -147,6 +148,36 @@ const avatar = computed(() => {
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-spacing-2xs);
+    }
+
+    &--mobile {
+      width: 100%;
+      position: static;
+
+      .onyx-user-menu__header {
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        background-color: var(--onyx-color-base-background-blank);
+        border-radius: var(--onyx-radius-sm);
+        margin-bottom: var(--onyx-spacing-xs); // TODO: use density
+      }
+
+      .onyx-list-item {
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+
+        &:first-of-type {
+          border-bottom: none;
+          border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
+        }
+
+        &:last-of-type {
+          border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
+        }
+      }
+
+      .onyx-user-menu__footer {
+        border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        background-color: var(--onyx-color-base-background-blank);
+      }
     }
   }
 }
