@@ -4,6 +4,7 @@
   "exclude": ["src/**/*.ct.*", "src/**/*.spec.*", "src/**/*.stories.ts"],
   "compilerOptions": {
     "declaration": true,
+    "noEmit": false,
     "emitDeclarationOnly": true,
     "composite": true,
     "rootDir": "./src",
