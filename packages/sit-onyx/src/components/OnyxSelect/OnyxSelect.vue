@@ -92,9 +92,17 @@ const activeValue = ref<TValue>();
  */
 const arrayValue = computed(() => {
   if (!props.modelValue) return [];
-  return props.multiple && Array.isArray(props.modelValue)
-    ? props.modelValue
-    : ([props.modelValue] as SelectOption<TValue>[]);
+  if (props.multiple && Array.isArray(props.modelValue)) return props.modelValue;
+  else return [props.modelValue as TValue];
+});
+
+const selectionLabels = computed(() => {
+  const labels = arrayValue.value.reduce<string[]>((acc, current) => {
+    const foundLabel = props.options.find(({ value }) => value === current)?.label;
+    if (foundLabel) acc.push(foundLabel);
+    return acc;
+  }, []);
+  return labels;
 });
 
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
@@ -107,7 +115,7 @@ watch(
   arrayValue,
   () => {
     if (!props.multiple) {
-      activeValue.value = arrayValue.value.at(0)?.value;
+      activeValue.value = arrayValue.value.at(0);
     }
   },
   { immediate: true },
@@ -178,18 +186,18 @@ const onSelect = (selectedOption: TValue) => {
     return;
   }
   if (!props.multiple) {
-    return emit("update:modelValue", newValue);
+    return emit("update:modelValue", selectedOption);
   }
 
   // add or remove value depending on whether its already selected
-  const alreadyInList = arrayValue.value.some(({ value }) => value === selectedOption);
+  const alreadyInList = arrayValue.value.some((value) => value === selectedOption);
   if (alreadyInList) {
     emit(
       "update:modelValue",
-      arrayValue.value.filter(({ value }) => value !== selectedOption),
+      arrayValue.value.filter((value) => value !== selectedOption),
     );
   } else {
-    emit("update:modelValue", [...arrayValue.value, newValue]);
+    emit("update:modelValue", [...arrayValue.value, selectedOption]);
   }
 };
 
@@ -240,16 +248,13 @@ const enabledOptionValues = computed(() =>
  */
 const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
-  return useCheckAll(
-    enabledOptionValues,
-    computed(() => arrayValue.value.map(({ value }) => value)),
-    (newValues: TValue[]) => {
-      const selectedOptions = newValues
-        .map((v) => props.options.find(({ value }) => value === v))
-        .filter((option): option is NonNullable<typeof option> => option != undefined);
-      emit("update:modelValue", selectedOptions);
-    },
-  );
+  return useCheckAll(enabledOptionValues, arrayValue, (newValues: TValue[]) => {
+    // with selectedOptions we verify that the options all still exist
+    const selectedOptions: TValue[] = newValues
+      .map((v) => props.options.find(({ value }) => value === v)?.value)
+      .filter((option): option is NonNullable<typeof option> => option != undefined);
+    emit("update:modelValue", selectedOptions);
+  });
 });
 
 const checkAllLabel = computed<string>(() => {
@@ -266,9 +271,9 @@ watchEffect(() => {
 });
 
 const selectInputProps = computed(() => {
-  const baseProps: OnyxSelectInputProps<TValue> = {
+  const baseProps: OnyxSelectInputProps = {
     ...props,
-    modelValue: arrayValue.value,
+    modelValue: selectionLabels.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
   return { ...baseProps, ...input.value };
@@ -353,7 +358,7 @@ const selectInputProps = computed(() => {
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    selected: arrayValue.some(({ value }) => value === option.value),
+                    selected: arrayValue.some((value) => value === option.value),
                   })
                 "
                 :multiple="props.multiple"
@@ -397,9 +402,11 @@ const selectInputProps = computed(() => {
   @include density.compact {
     --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
   }
+
   @include density.default {
     --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
   }
+
   @include density.cozy {
     --option-height: calc(1.5rem + 3 * var(--onyx-spacing-2xs));
   }

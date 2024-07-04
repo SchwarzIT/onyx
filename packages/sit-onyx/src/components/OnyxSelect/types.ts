@@ -30,9 +30,9 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
        */
       multiple?: false;
       /**
-       * Current value.
+       * Values of the currently selected option.
        */
-      modelValue?: SelectOption<TValue>;
+      modelValue?: TValue;
       withCheckAll?: never;
     }
   | {
@@ -41,9 +41,9 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
        */
       multiple: true;
       /**
-       * Current value / selected option(s).
+       * Values of the currently selected options.
        */
-      modelValue?: SelectOption<TValue>[];
+      modelValue?: TValue[];
       /**
        * If true, a checkbox will be displayed to check/uncheck all options.
        * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -63,7 +63,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps<TValue>, "density" | "modelValue"> &
+  Omit<OnyxSelectInputProps, "density" | "modelValue"> &
   AutofocusProp & {
     /**
      * If true, the select popover is expanded and visible.

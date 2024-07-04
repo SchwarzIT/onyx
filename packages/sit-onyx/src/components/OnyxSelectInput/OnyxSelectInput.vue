@@ -18,7 +18,7 @@ import type { OnyxSelectInputProps } from "./types";
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const props = withDefaults(defineProps<OnyxSelectInputProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   hideLabel: false,
   loading: false,
   skeleton: false,
@@ -55,11 +55,11 @@ const selectionCount = computed(() => {
 const selectionText = computed<string>(() => {
   const numberOfSelections = props.modelValue?.length;
   if (!props.modelValue || !numberOfSelections) return "";
-  if (numberOfSelections === 1) return props.modelValue[0].label;
+  if (numberOfSelections === 1) return props.modelValue[0];
 
   switch (props.textMode) {
     case "preview":
-      return props.modelValue.map(({ label }) => label).join(", ");
+      return props.modelValue.join(", ");
     case "summary":
     default:
       return t.value("selections.currentSelection", { n: numberOfSelections });

@@ -65,7 +65,9 @@ const meta: Meta<typeof OnyxSelect> = {
 
           const filteredOptions = computed(() =>
             searchTerm.value
-              ? ctx.args.options.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
+              ? ctx.args.options.filter(({ label }: SelectOption) =>
+                  normalizedIncludes(label, searchTerm.value),
+                )
               : ctx.args.options,
           );
 
@@ -146,6 +148,7 @@ export const WithMessage = {
   args: {
     ...Default.args,
     message: "Example message",
+    modelValue: DEMO_OPTIONS[1].value,
   },
 } satisfies Story;
 
@@ -155,7 +158,7 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: [MULTISELECT_DEMO_OPTIONS[0], MULTISELECT_DEMO_OPTIONS[1]],
+    modelValue: [MULTISELECT_DEMO_OPTIONS[0].value, MULTISELECT_DEMO_OPTIONS[1].value],
     multiple: true,
     withCheckAll: true,
     options: MULTISELECT_DEMO_OPTIONS,
@@ -327,7 +330,7 @@ export const Skeleton = {
 export const CustomOptions = {
   args: {
     ...Default.args,
-    option: ({ label }) => ["custom ", h("strong", label), " content"],
+    option: ({ label }: SelectOption) => ["custom ", h("strong", label), " content"],
   },
 } satisfies Story;
 
