@@ -34,3 +34,6 @@ eslint-results.sarif
 
 # Development config
 .env*
+
+# typescript
+*.tsbuildinfo

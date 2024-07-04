@@ -37,14 +37,14 @@
   "scripts": {
     "start": "pnpm run dev",
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "pnpm run '/type-check|build-only/'",
+    "build": "vite build && vue-tsc -p tsconfig.vitest.json --composite false",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:components": "playwright install && playwright test",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    "type-check": "vue-tsc --noEmit --emitDeclarationOnly -p tsconfig.vitest.json --composite false"
   },
   "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
