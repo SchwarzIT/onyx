@@ -97,7 +97,7 @@ defineExpose({
   <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
     <div class="onyx-nav-bar__content">
       <span
-        v-if="isMobile && !isBurgerOpen && slots.mobileActivePage"
+        v-if="isMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
         class="onyx-nav-bar__mobile-page"
       >
         <slot name="mobileActivePage"></slot>
