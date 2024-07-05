@@ -1,7 +1,7 @@
 # Theming
 
 <script setup lang="ts">
-import { ONYX_THEMES } from "~components/../../.storybook/theme-switch";
+import { data } from './theming.data';
 </script>
 
 Onyx supports a dark and a light theme as well as multiple built-in color themes. The options how to set up the theme for your application are described on this page.
@@ -13,7 +13,7 @@ To learn more about the theming concept of onyx, take a look at our [colors docu
 The following color themes are built-in to onyx:
 
 <ul>
-  <li v-for="(theme, index) in ONYX_THEMES" :key="theme">
+  <li v-for="(theme, index) in data.themes" :key="theme">
     {{ theme }}
     <span v-if="index === 0">(default)</span>
   </li>
