@@ -228,6 +228,7 @@ $height: 3.5rem;
 
     &__back {
       grid-area: back;
+      padding-top: var(--onyx-spacing-xl);
     }
 
     &__nav {
@@ -336,13 +337,20 @@ $height: 3.5rem;
     }
 
     .onyx-mobile-nav-button__menu {
-      position: absolute;
-      left: 0;
       top: $height;
     }
 
     .onyx-mobile-nav-button__content {
       $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
+      max-height: calc(100vh - $height - 4rem);
+
+      .onyx-nav-bar__mobile-headline {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: var(--onyx-color-base-background-tinted);
+        padding-top: var(--onyx-spacing-xl);
+      }
 
       // hide "Navigation" headline when nav item with children is open
       &#{$mobile-children-selector} {

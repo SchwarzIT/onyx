@@ -85,6 +85,9 @@ defineSlots<{
       position: relative;
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
+      position: absolute;
+      left: 0;
+      overflow-y: auto;
     }
 
     &__backdrop {
@@ -93,13 +96,13 @@ defineSlots<{
       width: 100%;
       height: 100vh;
       display: block;
-      position: absolute;
+      position: fixed;
       cursor: pointer;
     }
 
     &__content {
       max-width: 34rem;
-      padding: var(--onyx-spacing-xl) var(--onyx-spacing-md);
+      padding: 0 var(--onyx-spacing-md) var(--onyx-spacing-xl);
       display: flex;
       flex-direction: column;
       margin-inline: auto;
