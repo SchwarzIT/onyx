@@ -272,7 +272,7 @@ const tableData = [
         />
 
         <template v-if="show('OnyxTable')">
-          <OnyxTable style="max-height: 250px" with-page-scrolling>
+          <OnyxTable with-page-scrolling>
             <template #head>
               <tr>
                 <th v-for="col in tableColumns" :key="col">{{ col }}</th>
