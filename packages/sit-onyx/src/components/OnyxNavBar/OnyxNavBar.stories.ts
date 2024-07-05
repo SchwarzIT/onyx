@@ -2,7 +2,7 @@ import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
@@ -41,12 +41,16 @@ const meta: Meta<typeof OnyxNavBar> = {
         },
       },
     },
+    parameters: {
+      layout: "fullscreen",
+    },
     decorators: [
+      // add padding to the story so the nav button and user menu flyouts are shown
       (story) => ({
         components: { story },
-        template: `<div style="margin-bottom: 20rem;"> <story /> </div>`,
+        template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
       }),
-    ] as Decorator[],
+    ],
   }),
 };
 
