@@ -1,6 +1,7 @@
 import { computed, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
+import { debounce } from "../../utils/timer";
 
 type CreateMenuButtonOptions = {
   isExpanded: Ref<boolean>;
@@ -12,8 +13,17 @@ type CreateMenuButtonOptions = {
  */
 export const createMenuButton = createBuilder(
   ({ isExpanded, onToggle }: CreateMenuButtonOptions) => {
-    const menuId = createId("menu");
-    const buttonId = createId("menu-button");
+    const rootId = createId("menu-button-root");
+    const menuId = createId("menu-button-list");
+    const buttonId = createId("menu-button-button");
+
+    /**
+     * Debounced expanded state that will only be toggled after a given timeout.
+     */
+    const updateDebouncedExpanded = debounce(
+      (expanded: boolean) => (isExpanded.value = expanded),
+      200,
+    );
 
     const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
       const currentMenuItem = document.activeElement as HTMLElement;
@@ -81,7 +91,23 @@ export const createMenuButton = createBuilder(
     };
 
     return {
+      state: { isExpanded },
       elements: {
+        root: {
+          id: rootId,
+          onKeydown: handleKeydown,
+          onMouseover: () => updateDebouncedExpanded(true),
+          onMouseout: () => updateDebouncedExpanded(false),
+          onFocusin: () => (isExpanded.value = true),
+          onFocusout: (event) => {
+            // if focus receiving element is not part of the menu button, then close
+            if (document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)) {
+              return;
+            }
+            isExpanded.value = false;
+          },
+          onClick: () => onToggle(),
+        },
         button: computed(
           () =>
             ({
@@ -89,23 +115,20 @@ export const createMenuButton = createBuilder(
               "aria-expanded": isExpanded.value,
               "aria-haspopup": true,
               id: buttonId,
-              onKeydown: handleKeydown,
-              onClick: onToggle,
             }) as const,
         ),
         menu: {
           id: menuId,
           role: "menu",
           "aria-labelledby": buttonId,
-          onKeydown: handleKeydown,
         },
-        ...createMenuItem({}).elements,
+        ...createMenuItems().elements,
       },
     };
   },
 );
 
-export const createMenuItem = createBuilder(() => {
+export const createMenuItems = createBuilder(() => {
   return {
     elements: {
       listItem: {

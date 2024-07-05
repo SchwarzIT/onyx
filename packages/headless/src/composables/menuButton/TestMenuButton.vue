@@ -12,15 +12,17 @@ const isExpanded = ref(false);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
 
 const {
-  elements: { button, menu, menuItem, listItem },
+  elements: { root, button, menu, menuItem, listItem },
 } = createMenuButton({ isExpanded, onToggle });
 </script>
 
 <template>
-  <button v-bind="button">Toggle nav menu</button>
-  <ul v-show="isExpanded" v-bind="menu">
-    <li v-for="item in items" v-bind="listItem" :key="item.value">
-      <a v-bind="menuItem({ active: activeItem === item.value })" href="#">{{ item.label }}</a>
-    </li>
-  </ul>
+  <div v-bind="root">
+    <button v-bind="button">Toggle nav menu</button>
+    <ul v-show="isExpanded" v-bind="menu">
+      <li v-for="item in items" v-bind="listItem" :key="item.value">
+        <a v-bind="menuItem({ active: activeItem === item.value })" href="#">{{ item.label }}</a>
+      </li>
+    </ul>
+  </div>
 </template>
