@@ -1,11 +1,11 @@
 {
-  "name": "alpha-test-app",
+  "name": "demo-app",
   "private": true,
-  "version": "0.1.0-alpha.162",
+  "version": "1.0.0-beta.0",
   "type": "module",
   "scripts": {
     "start": "pnpm run dev",
-    "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/alpha-test-app && vite",
+    "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/demo-app && vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },

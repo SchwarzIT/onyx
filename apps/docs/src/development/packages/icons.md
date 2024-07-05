@@ -17,3 +17,7 @@ import packageJson from "../../../../../packages/icons/package.json";
 {{ packageJson.description }}.
 
 Please visit the [icon resources](/icons) for a full list of icons as well as technical instructions.
+
+## Changelog
+
+A full changelog can be found [here](/development/packages/changelogs/icons).

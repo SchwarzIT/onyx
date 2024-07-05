@@ -1,15 +1,24 @@
-import { StorybookGlobalType } from "@sit-onyx/storybook-utils";
+import type { StorybookGlobalType } from "@sit-onyx/storybook-utils";
 import type { Decorator } from "@storybook/vue3";
 import { ref, watch, watchEffect } from "vue";
 
-const themes = import.meta.glob("../src/styles/themes//*.css", { eager: true });
-export const ONYX_THEMES = Object.keys(themes)
-  .map((filePath) => filePath.split("/").at(-1)!.replace(".css", ""))
-  .sort((a, b) => {
-    if (a === "onyx") return -1;
-    if (b === "onyx") return 1;
+const themes = import.meta.glob("../src/styles/themes/*.css");
+
+/**
+ * Map of all available onyx themes. Default theme will be sorted first.
+ * key = theme name, value = async function to dynamically import the CSS variables
+ */
+export const ONYX_THEMES = Object.entries(themes)
+  .sort(([a], [b]) => {
+    if (a.endsWith("onyx.css")) return -1;
+    if (b.endsWith("onyx.css")) return 1;
     return a.localeCompare(b);
-  });
+  })
+  .reduce<typeof themes>((obj, [filePath, importFn]) => {
+    const themeName = filePath.split("/").at(-1)!.replace(".css", "");
+    obj[themeName] = importFn;
+    return obj;
+  }, {});
 
 export const onyxThemeGlobalType = {
   onyxTheme: {
@@ -18,7 +27,7 @@ export const onyxThemeGlobalType = {
     toolbar: {
       title: "Theme",
       icon: "paintbrush",
-      items: ONYX_THEMES.map((theme, index) => ({
+      items: Object.keys(ONYX_THEMES).map((theme, index) => ({
         value: theme,
         title: theme,
         right: index === 0 ? "default" : undefined,
@@ -30,9 +39,10 @@ export const onyxThemeGlobalType = {
 const currentOnyxTheme = ref<string>();
 
 export const withOnyxTheme: Decorator = (Story, context) => {
-  watchEffect(() => {
+  watchEffect(async () => {
     const theme = context.globals.onyxTheme ?? ONYX_THEMES[0];
     currentOnyxTheme.value = theme === ONYX_THEMES[0] ? "default" : theme;
+    await ONYX_THEMES[theme]?.();
   });
 
   return {
