@@ -26,21 +26,22 @@ const toastProvider = useToast();
 
 .onyx-toast {
   @include layers.component() {
+    $bottom: var(--onyx-spacing-xl);
+
     padding: 0;
     border: none;
     background: none;
     z-index: var(--onyx-z-index-notification);
 
     position: fixed;
-    bottom: var(--onyx-spacing-xl);
+    bottom: $bottom;
     left: 50%;
     transform: translateX(-50%);
     overflow: auto;
 
-    $max-size: calc(100% - 2 * var(--onyx-grid-margin));
     width: max-content;
-    max-width: $max-size;
-    max-height: $max-size;
+    max-width: calc(100% - 2 * var(--onyx-grid-margin));
+    max-height: calc(100% - 2 * $bottom);
 
     display: flex;
     flex-direction: column;
