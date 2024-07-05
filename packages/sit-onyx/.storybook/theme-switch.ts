@@ -5,7 +5,7 @@ import { ref, watch, watchEffect } from "vue";
 const themes = import.meta.glob("../src/styles/themes/*.css");
 
 /**
- * Map of all available onyx themes.
+ * Map of all available onyx themes. Default theme will be sorted first.
  * key = theme name, value = async function to dynamically import the CSS variables
  */
 export const ONYX_THEMES = Object.entries(themes)
