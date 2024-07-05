@@ -98,7 +98,7 @@ defineExpose({
     <div class="onyx-nav-bar__content">
       <span
         v-if="isMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
-        class="onyx-nav-bar__mobile-page"
+        class="onyx-nav-bar__mobile-page onyx-truncation-ellipsis"
       >
         <slot name="mobileActivePage"></slot>
       </span>
@@ -264,7 +264,7 @@ $height: 3.5rem;
 
     &--mobile {
       .onyx-nav-bar__content {
-        grid-template-columns: max-content max-content max-content auto;
+        grid-template-columns: max-content max-content auto auto;
         grid-template-areas: "burger back nav mobile-context";
         gap: 0;
         padding-inline: 0;
