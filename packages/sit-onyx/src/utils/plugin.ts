@@ -2,7 +2,7 @@ import { type Plugin, watchEffect } from "vue";
 import {
   createToastProvider,
   TOAST_PROVIDER_INJECTION_KEY,
-} from "../components/OnyxToastProvider/useToast";
+} from "../components/OnyxToast/useToast";
 import { injectI18n, provideI18n, type ProvideI18nOptions } from "../i18n";
 
 export type OnyxPluginOptions = {
