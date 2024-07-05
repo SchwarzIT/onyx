@@ -28,10 +28,10 @@ export type HeadlessComposable<
  * We use this identity function to ensure the correct typings of the headless composables
  */
 export const createBuilder = <
-  P,
-  Elements extends HeadlessElements,
+  Args extends unknown[] = unknown[],
+  Elements extends HeadlessElements = HeadlessElements,
   State extends HeadlessState | undefined = undefined,
   Internals extends object | undefined = undefined,
 >(
-  builder: (props: P) => HeadlessComposable<Elements, State, Internals>,
+  builder: (...args: Args) => HeadlessComposable<Elements, State, Internals>,
 ) => builder;
