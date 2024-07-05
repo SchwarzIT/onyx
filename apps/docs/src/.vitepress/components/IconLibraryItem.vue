@@ -20,7 +20,6 @@ const handleCopy = async () => {
     headline: "Copied to clipboard!",
     description: `Import for icon "${importName}" has been copied to your clipboard.`,
     color: "success",
-    duration: 3000,
   });
 };
 </script>
