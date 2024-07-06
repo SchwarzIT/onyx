@@ -8,7 +8,7 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavButton,
-  OnyxToastProvider,
+  OnyxToast,
   OnyxUserMenu,
   type OnyxNavButtonProps,
 } from "sit-onyx";
@@ -92,6 +92,6 @@ watch(
 
     <RouterView />
 
-    <OnyxToastProvider />
+    <OnyxToast />
   </OnyxAppLayout>
 </template>
