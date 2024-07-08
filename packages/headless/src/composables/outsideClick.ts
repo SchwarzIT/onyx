@@ -1,10 +1,11 @@
-import { onBeforeMount, onBeforeUnmount, watchEffect, type Ref } from "vue";
+import { type Ref } from "vue";
+import { useGlobalEventListener } from "./helpers/globalListener";
 
 export type UseOutsideClickOptions = {
   /**
-   * Function that returns the HTML element of the component where outside clicks should be listened to.
+   * HTML element of the component where clicks should be ignored
    */
-  queryComponent: () => ReturnType<typeof document.querySelector> | undefined;
+  element: Ref<HTMLElement | undefined>;
   /**
    * Callback when an outside click occurred.
    */
@@ -19,34 +20,15 @@ export type UseOutsideClickOptions = {
  * Composable for listening to click events that occur outside of a component.
  * Useful to e.g. close flyouts or tooltips.
  */
-export const useOutsideClick = (options: UseOutsideClickOptions) => {
+export const useOutsideClick = ({ element, onOutsideClick, disabled }: UseOutsideClickOptions) => {
   /**
    * Document click handle that closes then tooltip when clicked outside.
    * Should only be called when trigger is "click".
    */
-  const handleDocumentClick = (event: MouseEvent) => {
-    const component = options.queryComponent();
-    if (!component || !(event.target instanceof Node)) return;
-
-    const isOutsideClick = !component.contains(event.target);
-    if (isOutsideClick) options.onOutsideClick();
+  const listener = ({ target }: MouseEvent) => {
+    const isOutsideClick = !element.value?.contains(target as HTMLElement);
+    if (isOutsideClick) onOutsideClick();
   };
 
-  // add global document event listeners only on/before mounted to also work in server side rendering
-  onBeforeMount(() => {
-    watchEffect(() => {
-      if (options.disabled?.value) {
-        document.removeEventListener("click", handleDocumentClick);
-      } else {
-        document.addEventListener("click", handleDocumentClick);
-      }
-    });
-  });
-
-  /**
-   * Clean up global event listeners to prevent dangling events.
-   */
-  onBeforeUnmount(() => {
-    document.removeEventListener("click", handleDocumentClick);
-  });
+  useGlobalEventListener({ type: "click", listener, disabled });
 };

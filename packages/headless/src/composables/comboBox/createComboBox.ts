@@ -225,7 +225,7 @@ export const createComboBox = createBuilder(
     });
 
     useOutsideClick({
-      queryComponent: () => templateRef.value,
+      element: templateRef,
       onOutsideClick() {
         if (!isExpanded.value) return;
         onToggle?.(true);
