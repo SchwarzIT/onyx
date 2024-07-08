@@ -15,7 +15,7 @@ const emit = defineEmits<{
   "update:open": [isOpen: boolean];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Slot for the menu content when it's open.
    */
@@ -41,8 +41,11 @@ defineSlots<{
 
     <template v-if="props.open">
       <div class="onyx-mobile-nav-button__flyout">
-        <div class="onyx-mobile-nav-button__menu">
-          <OnyxHeadline is="h2" class="onyx-mobile-nav-button__headline">
+        <div
+          class="onyx-mobile-nav-button__menu"
+          :class="{ 'onyx-mobile-nav-button__menu--no-headline': !slots.headline }"
+        >
+          <OnyxHeadline is="h2" v-if="slots.headline" class="onyx-mobile-nav-button__headline">
             <slot name="headline"></slot>
           </OnyxHeadline>
 
@@ -120,6 +123,10 @@ defineSlots<{
       max-width: 36rem;
       padding: 0 var(--onyx-spacing-md) var(--onyx-spacing-xl);
       margin-inline: auto;
+
+      &--no-headline {
+        padding-top: var(--onyx-spacing-xl);
+      }
     }
 
     &__headline {

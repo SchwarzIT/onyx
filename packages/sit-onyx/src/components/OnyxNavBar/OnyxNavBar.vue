@@ -366,6 +366,9 @@ $height: 3.5rem;
         .onyx-mobile-nav-button__headline {
           display: none;
         }
+        .onyx-mobile-nav-button__menu {
+          padding-top: var(--onyx-spacing-xl);
+        }
       }
     }
   }
