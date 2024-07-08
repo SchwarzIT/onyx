@@ -6,7 +6,6 @@ import { computed, provide, ref } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
@@ -117,6 +116,7 @@ defineExpose({
         <slot name="appArea"></slot>
       </OnyxNavAppArea>
 
+      <!-- TODO: padding top -->
       <OnyxIconButton
         v-if="props.withBackButton"
         class="onyx-nav-bar__back"
@@ -135,9 +135,9 @@ defineExpose({
           :label="t('navigation.toggleBurgerMenu')"
           @update:open="isContextOpen = false"
         >
-          <OnyxHeadline is="h2" class="onyx-nav-bar__mobile-headline">
+          <template #headline>
             {{ t("navigation.navigationHeadline") }}
-          </OnyxHeadline>
+          </template>
 
           <nav class="onyx-nav-bar__nav--mobile">
             <ul role="menubar">
@@ -242,7 +242,9 @@ $height: 3.5rem;
       }
 
       &--mobile {
-        display: contents;
+        display: flex;
+        flex-direction: column;
+        gap: var(--onyx-spacing-2xs);
 
         > ul {
           display: contents;
@@ -336,32 +338,32 @@ $height: 3.5rem;
       font-weight: 600;
     }
 
-    .onyx-mobile-nav-button__menu {
+    .onyx-mobile-nav-button__flyout {
+      top: $height;
+      max-height: calc(100vh - $height - 4rem);
+    }
+
+    .onyx-mobile-nav-button__backdrop {
       top: $height;
     }
 
-    .onyx-mobile-nav-button__content {
+    .onyx-mobile-nav-button {
       $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
-      max-height: calc(100vh - $height - 4rem);
 
-      .onyx-nav-bar__mobile-headline {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-        background-color: var(--onyx-color-base-background-tinted);
-        padding-top: var(--onyx-spacing-xl);
+      &__menu {
+        // max-height: calc(100vh - $height - 4rem);
+
+        // hide all other nav items when nav item with children is open
+        #{$mobile-children-selector} {
+          > .onyx-nav-button:not(#{$mobile-children-selector}) {
+            display: none;
+          }
+        }
       }
 
       // hide "Navigation" headline when nav item with children is open
       &#{$mobile-children-selector} {
-        .onyx-nav-bar__mobile-headline {
-          display: none;
-        }
-      }
-
-      // hide all other nav items when nav item with children is open
-      #{$mobile-children-selector} {
-        > .onyx-nav-button:not(#{$mobile-children-selector}) {
+        .onyx-mobile-nav-button__headline {
           display: none;
         }
       }
