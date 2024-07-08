@@ -5,6 +5,11 @@ import * as onyx from "sit-onyx";
 
 export interface ModuleOptions {
   /**
+   * The onyx theme to use. See: [https://onyx.schwarz/development/theming.html](https://onyx.schwarz/development/theming.html)
+   * If no theme is selected the default "onyx" theme will be used.
+   */
+  theme?: "kaufland" | "lidl" | "twogo";
+  /**
    * By default, the global onyx styles (`global.css` file) will be included
    * which applies some global styles like background color and font styles.
    * This is recommended when building a whole application with onyx.
@@ -48,6 +53,10 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.postcss.plugins.cssnano = { preset: ["default", { calc: false }] };
 
     nuxt.options.css.push("sit-onyx/style.css");
+
+    if (options.theme) {
+      nuxt.options.css.push(`sit-onyx/themes/${options.theme}.css`);
+    }
 
     if (!options.disableGlobalStyles) {
       nuxt.options.css.push("sit-onyx/global.css");

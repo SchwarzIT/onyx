@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     ],
   },
   onyx: {
+    theme: "kaufland",
     i18n: {
       registerLocales: {
         "en-US": "en-US",
