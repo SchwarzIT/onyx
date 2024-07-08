@@ -390,7 +390,7 @@ const selectInputProps = computed(() => {
 
 .onyx-select-wrapper {
   @include layers.component() {
-    --max-height: 20rem;
+    --max-flyout-height: 20rem;
     position: relative;
     height: max-content;
   }
