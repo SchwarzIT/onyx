@@ -31,8 +31,8 @@ const slots = defineSlots<{
   <div class="onyx-mobile-nav-button">
     <button
       type="button"
-      class="onyx-mobile-nav-button__control"
-      :class="{ 'onyx-mobile-nav-button__control--active': props.open }"
+      class="onyx-mobile-nav-button__trigger"
+      :class="{ 'onyx-mobile-nav-button__trigger--active': props.open }"
       :aria-label="props.label"
       @click="emit('update:open', !props.open)"
     >
@@ -70,7 +70,7 @@ const slots = defineSlots<{
     --top-position: 3.5rem;
     $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
 
-    &__control {
+    &__trigger {
       display: flex;
       background-color: var(--onyx-color-base-background-blank);
       color: var(--onyx-color-text-icons-neutral-medium);
