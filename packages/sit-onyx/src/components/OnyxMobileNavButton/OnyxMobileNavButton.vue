@@ -103,8 +103,7 @@ const slots = defineSlots<{
       position: absolute;
       left: 0;
       overflow-y: auto;
-      // TODO: var
-      z-index: 2;
+      z-index: var(--onyx-z-index-navigation);
     }
 
     &__backdrop {
@@ -116,8 +115,7 @@ const slots = defineSlots<{
       position: fixed;
       left: 0;
       cursor: pointer;
-      // TODO: var
-      z-index: 1;
+      z-index: var(--onyx-z-index-page-overlay);
     }
 
     &__menu {
