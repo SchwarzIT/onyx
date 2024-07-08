@@ -13,7 +13,7 @@
   z-index: var(--onyx-z-index-flyout);
 
   &__wrapper {
-    max-height: var(--max-height);
+    max-height: var(--max-flyout-height);
     overflow: auto;
     outline: none;
   }
