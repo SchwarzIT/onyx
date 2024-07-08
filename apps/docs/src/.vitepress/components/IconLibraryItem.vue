@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
-import { useToast } from "~components/OnyxToastProvider/useToast";
+import { useToast } from "~components/OnyxToast/useToast";
 import OnyxTooltip from "~components/OnyxTooltip/OnyxTooltip.vue";
 import type { EnrichedIcon } from "../utils-icons";
 
@@ -20,7 +20,6 @@ const handleCopy = async () => {
     headline: "Copied to clipboard!",
     description: `Import for icon "${importName}" has been copied to your clipboard.`,
     color: "success",
-    duration: 3000,
   });
 };
 </script>

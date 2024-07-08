@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { OnyxColor } from "../../types";
 
-export type OnyxToastProps = DensityProp & {
+export type OnyxToastMessageProps = DensityProp & {
   /**
    * Main toast headline.
    */
