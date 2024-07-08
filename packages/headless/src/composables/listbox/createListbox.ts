@@ -1,7 +1,7 @@
 import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
 import { createId } from "../..";
 import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
-import { useTypeAhead } from "../typeAhead";
+import { useTypeAhead } from "../helpers/typeAhead";
 
 export type ListboxValue = string | number | boolean;
 

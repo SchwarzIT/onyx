@@ -1,5 +1,5 @@
 import { type Ref } from "vue";
-import { useGlobalEventListener } from "./helpers/globalListener";
+import { useGlobalEventListener } from "./globalListener";
 
 export type UseOutsideClickOptions = {
   /**

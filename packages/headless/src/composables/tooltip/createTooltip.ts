@@ -1,7 +1,7 @@
 import { computed, onBeforeMount, onBeforeUnmount, ref, unref, type MaybeRef } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
-import { useOutsideClick } from "../outsideClick";
+import { useOutsideClick } from "../helpers/outsideClick";
 
 export type CreateTooltipOptions = {
   open: MaybeRef<TooltipOpen>;
@@ -22,7 +22,9 @@ export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
 export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
 
 export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
-  const tooltipId = createId("tooltip");
+  const rootId = createId("tooltip-root");
+  const rootRef = ref();
+  const tooltipId = createId("tooltip-tooltip");
   const _isVisible = ref(false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
 
@@ -87,7 +89,7 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
 
   // close tooltip on outside click
   useOutsideClick({
-    queryComponent: () => document.getElementById(tooltipId)?.parentElement,
+    element: rootRef,
     onOutsideClick: () => (_isVisible.value = false),
     disabled: computed(() => openType.value !== "click"),
   });
@@ -106,6 +108,10 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
 
   return {
     elements: {
+      root: {
+        id: rootId,
+        ref: rootRef,
+      },
       trigger: computed(() => ({
         "aria-describedby": tooltipId,
         onClick: openType.value === "click" ? handleClick : undefined,
