@@ -228,7 +228,6 @@ $height: 3.5rem;
 
     &__back {
       grid-area: back;
-      padding-top: var(--onyx-spacing-xl);
     }
 
     &__nav {
@@ -350,11 +349,12 @@ $height: 3.5rem;
         }
       }
 
-      // hide "Navigation" headline when nav item with children is open
       &#{$mobile-children-selector} {
+        // hide "Navigation" headline when nav item with children is open
         .onyx-mobile-nav-button__headline {
           display: none;
         }
+        // fill up the padding-top that would be set by the headline
         .onyx-mobile-nav-button__menu {
           padding-top: var(--onyx-spacing-xl);
         }
