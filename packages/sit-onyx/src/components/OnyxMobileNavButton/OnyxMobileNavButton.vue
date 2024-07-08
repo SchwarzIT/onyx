@@ -68,6 +68,7 @@ const slots = defineSlots<{
   @include layers.component() {
     // should be adjusted to the height of the control button
     --top-position: 3.5rem;
+    $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
 
     &__control {
       display: flex;
@@ -94,6 +95,15 @@ const slots = defineSlots<{
         background-color: var(--onyx-color-base-secondary-100);
         color: var(--onyx-color-text-icons-secondary-intense);
       }
+    }
+
+    &__headline {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background-color: var(--onyx-color-base-background-tinted);
+      padding: var(--onyx-spacing-xl) 0 var(--onyx-spacing-2xs);
+      margin-inline: auto;
     }
 
     &__flyout {
@@ -132,17 +142,27 @@ const slots = defineSlots<{
       margin-inline: auto;
 
       &:has(.onyx-nav-bar__mobile-context-content) {
+        // context menu needs extra padding on top since there is no headline
         padding-top: var(--onyx-spacing-xl);
+      }
+
+      // hide all other nav items when nav item with children is open
+      #{$mobile-children-selector} {
+        > .onyx-nav-button:not(#{$mobile-children-selector}) {
+          display: none;
+        }
       }
     }
 
-    &__headline {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      background-color: var(--onyx-color-base-background-tinted);
-      padding: var(--onyx-spacing-xl) 0 var(--onyx-spacing-2xs);
-      margin-inline: auto;
+    &#{$mobile-children-selector} {
+      // hide "Navigation" headline when nav item with children is open
+      .onyx-mobile-nav-button__headline {
+        display: none;
+      }
+      // fill up the padding-top that would be set by the headline
+      .onyx-mobile-nav-button__menu {
+        padding-top: var(--onyx-spacing-xl);
+      }
     }
   }
 }

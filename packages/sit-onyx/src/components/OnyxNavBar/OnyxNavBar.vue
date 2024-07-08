@@ -185,14 +185,15 @@ defineExpose({
 @use "../../styles/mixins/layers";
 
 $gap: var(--onyx-spacing-md);
-$height: 3.5rem;
 
 .onyx-nav-bar {
   @include layers.component() {
+    --nav-bar-height: 3.5rem;
+
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    height: $height;
+    height: var(--nav-bar-height);
     z-index: var(--onyx-z-index-navigation);
     position: relative;
     container-type: size;
@@ -327,28 +328,7 @@ $height: 3.5rem;
     }
 
     .onyx-mobile-nav-button {
-      --top-position: $height;
-      $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
-
-      &__menu {
-        // hide all other nav items when nav item with children is open
-        #{$mobile-children-selector} {
-          > .onyx-nav-button:not(#{$mobile-children-selector}) {
-            display: none;
-          }
-        }
-      }
-
-      &#{$mobile-children-selector} {
-        // hide "Navigation" headline when nav item with children is open
-        .onyx-mobile-nav-button__headline {
-          display: none;
-        }
-        // fill up the padding-top that would be set by the headline
-        .onyx-mobile-nav-button__menu {
-          padding-top: var(--onyx-spacing-xl);
-        }
-      }
+      --top-position: var(--nav-bar-height);
     }
   }
 }
