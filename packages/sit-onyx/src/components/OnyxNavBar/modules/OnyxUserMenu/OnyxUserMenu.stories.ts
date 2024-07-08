@@ -1,4 +1,5 @@
 import logout from "@sit-onyx/icons/logout.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
@@ -40,6 +41,7 @@ export const Default = {
     username: "Jane Doe",
     description: "Company Name",
     default: () => [
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
       h(OnyxColorSchemeMenuItem, { modelValue: "auto" }),
       h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: logout }), "Logout"]),
     ],

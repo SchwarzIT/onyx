@@ -318,17 +318,6 @@ $height: 3.5rem;
           margin-bottom: var(--onyx-spacing-md);
         }
       }
-
-      &:has(.onyx-user-menu__footer) {
-        margin-bottom: var(--onyx-spacing-xl);
-
-        .onyx-user-menu__footer {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-        }
-      }
     }
 
     &__mobile-page {

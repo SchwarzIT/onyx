@@ -114,6 +114,7 @@ const slots = defineSlots<{
       height: 100vh;
       display: block;
       position: fixed;
+      left: 0;
       cursor: pointer;
       // TODO: var
       z-index: 1;
@@ -124,7 +125,7 @@ const slots = defineSlots<{
       padding: 0 var(--onyx-spacing-md) var(--onyx-spacing-xl);
       margin-inline: auto;
 
-      &--no-headline {
+      &:has(.onyx-nav-bar__mobile-context-content) {
         padding-top: var(--onyx-spacing-xl);
       }
     }

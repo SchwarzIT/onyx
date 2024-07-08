@@ -2,8 +2,9 @@
 import { computed, inject } from "vue";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
-import UserMenuLayout from "./UserMenuLayout.vue";
+import OnyxListItem from "./../../../OnyxListItem/OnyxListItem.vue";
 import type { OnyxUserMenuProps } from "./types";
+import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = defineProps<OnyxUserMenuProps>();
 
@@ -60,11 +61,16 @@ const isMobile = inject(
     </template>
 
     <template #options>
-      <slot></slot>
+      <div class="onyx-user-menu__options">
+        <slot></slot>
+      </div>
     </template>
 
     <template v-if="slots.footer" #footer>
-      <div class="onyx-user-menu__footer onyx-text--small">
+      <OnyxListItem v-if="isMobile" class="onyx-user-menu__mobile-footer" disabled>
+        <slot name="footer"></slot>
+      </OnyxListItem>
+      <div v-else class="onyx-user-menu__footer onyx-text--small">
         <slot name="footer"></slot>
       </div>
     </template>
@@ -139,15 +145,25 @@ const isMobile = inject(
       font-weight: 600;
     }
 
-    &__footer {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
+    &__footer,
+    &__mobile-footer {
       color: var(--onyx-color-text-icons-neutral-soft);
 
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-spacing-2xs);
+    }
+    &__footer {
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
+    }
+    &__mobile-footer {
+      margin-top: var(--onyx-spacing-xs);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-radius: var(--onyx-radius-sm);
+      font-size: 0.8125rem;
+      line-height: 1.25rem;
     }
 
     &--mobile {
@@ -161,22 +177,20 @@ const isMobile = inject(
         margin-bottom: var(--onyx-spacing-xs); // TODO: use density
       }
 
-      .onyx-list-item {
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-
-        &:first-of-type {
+      .onyx-user-menu__options {
+        .onyx-list-item {
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
           border-bottom: none;
-          border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
-        }
 
-        &:last-of-type {
-          border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
-        }
-      }
+          &:first-of-type {
+            border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
+          }
 
-      .onyx-user-menu__footer {
-        border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        background-color: var(--onyx-color-base-background-blank);
+          &:last-of-type {
+            border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+            border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
+          }
+        }
       }
     }
   }
