@@ -66,6 +66,9 @@ const slots = defineSlots<{
 
 .onyx-mobile-nav-button {
   @include layers.component() {
+    // should be adjusted to the height of the control button
+    --top-position: 3.5rem;
+
     &__control {
       display: flex;
       background-color: var(--onyx-color-base-background-blank);
@@ -94,15 +97,18 @@ const slots = defineSlots<{
     }
 
     &__flyout {
+      max-height: calc(100vh - var(--top-position) - 4rem);
       width: 100%;
       background-color: var(--onyx-color-base-background-tinted);
       box-shadow: var(--onyx-shadow-medium-bottom);
       position: relative;
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
-      position: absolute;
-      left: 0;
       overflow-y: auto;
+
+      position: absolute;
+      top: var(--top-position);
+      left: 0;
       z-index: var(--onyx-z-index-navigation);
     }
 
@@ -112,9 +118,11 @@ const slots = defineSlots<{
       width: 100%;
       height: 100vh;
       display: block;
-      position: fixed;
-      left: 0;
       cursor: pointer;
+
+      position: fixed;
+      top: var(--top-position);
+      left: 0;
       z-index: var(--onyx-z-index-page-overlay);
     }
 

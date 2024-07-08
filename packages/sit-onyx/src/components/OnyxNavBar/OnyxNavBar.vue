@@ -326,21 +326,11 @@ $height: 3.5rem;
       font-weight: 600;
     }
 
-    .onyx-mobile-nav-button__flyout {
-      top: $height;
-      max-height: calc(100vh - $height - 4rem);
-    }
-
-    .onyx-mobile-nav-button__backdrop {
-      top: $height;
-    }
-
     .onyx-mobile-nav-button {
+      --top-position: $height;
       $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
 
       &__menu {
-        // max-height: calc(100vh - $height - 4rem);
-
         // hide all other nav items when nav item with children is open
         #{$mobile-children-selector} {
           > .onyx-nav-button:not(#{$mobile-children-selector}) {
