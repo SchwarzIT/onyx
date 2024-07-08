@@ -8,7 +8,6 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavButton,
-  OnyxNavItem,
   OnyxToast,
   OnyxUserMenu,
   type OnyxNavButtonProps,
@@ -26,19 +25,6 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Form Demo", href: "/form-demo" },
   { label: "Layout Demo", href: "/layout-demo" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Grid Demo", href: "/grid" },
   { label: "Grid Demo", href: "/grid" },
 ] satisfies OnyxNavButtonProps[];
 
@@ -78,36 +64,6 @@ watch(
         @back-button-click="router.back"
         @app-area-click="router.push('/')"
       >
-        <OnyxNavButton href="/test" label="Item 2">
-          Item 2
-
-          <template #children>
-            <OnyxNavItem href="#" label="Nested item 2.1" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="#" label="Nested item 2.2" />
-            <OnyxNavItem href="https://onyx.schwarz" label="Nested item 2.3" />
-          </template>
-        </OnyxNavButton>
         <OnyxNavButton
           v-for="item in navItems"
           :key="item.href"
