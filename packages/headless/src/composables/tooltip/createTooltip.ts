@@ -22,9 +22,8 @@ export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
 export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
 
 export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
-  const rootId = createId("tooltip-root");
-  const rootRef = ref();
-  const tooltipId = createId("tooltip-tooltip");
+  const rootRef = ref<HTMLElement>();
+  const tooltipId = createId("tooltip");
   const _isVisible = ref(false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
 
@@ -109,7 +108,6 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
   return {
     elements: {
       root: {
-        id: rootId,
         ref: rootRef,
       },
       trigger: computed(() => ({

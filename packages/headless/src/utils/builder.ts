@@ -1,12 +1,14 @@
-import type { ComputedRef, HtmlHTMLAttributes, Ref } from "vue";
+import type { ComputedRef, HtmlHTMLAttributes, Ref, VNodeRef } from "vue";
 import type { IfDefined } from "./types";
+
+export type ElementAttributes = HtmlHTMLAttributes & { ref?: VNodeRef };
 
 export type IteratedHeadlessElementFunc<T extends Record<string, unknown>> = (
   opts: T,
-) => HtmlHTMLAttributes;
+) => ElementAttributes;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type HeadlessElementAttributes = HtmlHTMLAttributes | IteratedHeadlessElementFunc<any>;
+export type HeadlessElementAttributes = ElementAttributes | IteratedHeadlessElementFunc<any>;
 
 export type HeadlessElements = Record<
   string,
