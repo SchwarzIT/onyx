@@ -72,6 +72,9 @@ $screenOffset: 1;
     }
   }
 
+  // TODO: input and button not aligned in grid
+  // TODO: some elements are not stretching (e.g. button) in grid
+
   /**
   * Grid element class for defining breakpoint specific column count
   */
@@ -79,6 +82,7 @@ $screenOffset: 1;
     @for $span from $first through $last {
       .onyx-grid-#{$name}-span-#{$span} {
         grid-column-end: span min($span, var(--onyx-grid-columns));
+        width: 100%;
       }
     }
   }

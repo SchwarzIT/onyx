@@ -8,5 +8,6 @@ module.exports = {
   },
   rules: {
     "import-playwright-a11y": require("./rules/import-playwright-a11y.cjs"),
+    "use-onyx-component-class": require("./rules/use-onyx-component-class.cjs"),
   },
 };
