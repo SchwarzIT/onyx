@@ -1,8 +1,8 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import type { Locator } from "@playwright/test";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
-import type { FormErrorMessages } from "src/composables/useCustomValidity";
 import { DENSITIES } from "../../composables/density";
+import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -27,6 +27,16 @@ const MOCK_VARIED_OPTIONS = [
 const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
   value: index,
   label: `Test option ${index + 1}`,
+})) satisfies SelectOption[];
+
+const MOCK_LONG_LABELED_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
+  value: index,
+  label: `Long labeled option ${index + 1} `.repeat(4),
+})) satisfies SelectOption[];
+
+const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((option) => ({
+  ...option,
+  truncation: "multiline",
 })) satisfies SelectOption[];
 
 const openFlyout = async (component: MountResultJsx) => {
@@ -89,6 +99,30 @@ test.describe("Empty screenshots", () => {
     ),
     beforeScreenshot: async (component) => {
       await openFlyout(component);
+    },
+  });
+});
+
+test.describe("Truncated options screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Select (truncated)",
+    columns: DENSITIES,
+    rows: ["ellipsis", "multiline"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column, row) => (
+      <OnyxSelect
+        label="Label"
+        listLabel="List label"
+        options={
+          row === "ellipsis" ? MOCK_LONG_LABELED_OPTIONS : MOCK_MULTILINE_LONG_LABELED_OPTIONS
+        }
+        density={column}
+      />
+    ),
+    beforeScreenshot: async (component) => {
+      await openFlyout(component);
+      const option = component.getByLabel(`Long labeled option 1 `.repeat(4));
+      await option.hover();
     },
   });
 });
