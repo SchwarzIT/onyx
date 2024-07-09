@@ -1,3 +1,4 @@
+import type { TruncationType } from "../../types";
 import type { OnyxListItemProps } from "../OnyxListItem/types";
 
 export type OnyxSelectOptionProps = Pick<OnyxListItemProps, "active" | "density"> & {
@@ -14,4 +15,8 @@ export type OnyxSelectOptionProps = Pick<OnyxListItemProps, "active" | "density"
    * Optional icon.
    */
   icon?: string;
+  /**
+   * How to truncate the option label / text content if it exceeds the max width.
+   */
+  truncation?: TruncationType;
 };
