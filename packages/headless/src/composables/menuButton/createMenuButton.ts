@@ -1,4 +1,4 @@
-import { computed, type Ref } from "vue";
+import { computed, ref, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
@@ -16,6 +16,7 @@ export const createMenuButton = createBuilder(
   ({ isExpanded, onToggle }: CreateMenuButtonOptions) => {
     const rootId = createId("menu-button-root");
     const menuId = createId("menu-button-list");
+    const menuRef = ref<HTMLElement>();
     const buttonId = createId("menu-button-button");
 
     useGlobalEventListener({
@@ -37,8 +38,7 @@ export const createMenuButton = createBuilder(
 
       // Either the current focus is on a "menuitem", then we can just get the parent menu.
       // Or the current focus is on the button, then we can get the connected menu using the menuId
-      const currentMenu =
-        currentMenuItem?.closest('[role="menu"]') || document.getElementById(menuId);
+      const currentMenu = currentMenuItem?.closest('[role="menu"]') || menuRef.value;
       if (!currentMenu) return;
 
       const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];
@@ -124,6 +124,7 @@ export const createMenuButton = createBuilder(
         ),
         menu: {
           id: menuId,
+          ref: menuRef,
           role: "menu",
           "aria-labelledby": buttonId,
           onClick: () => isExpanded.value && onToggle(),
