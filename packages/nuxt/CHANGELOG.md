@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 3385622: Support themes in nuxt module
+
 ## 1.0.0-beta.1
 
 ### Patch Changes
