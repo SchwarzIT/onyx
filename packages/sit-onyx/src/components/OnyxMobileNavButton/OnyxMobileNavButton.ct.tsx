@@ -40,15 +40,6 @@ test.describe("Screenshot tests", () => {
       </OnyxMobileNavButton>
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (column === "open") {
-        // TODO: how can the viewport be set for each screenshot but not for the screenshot matrix?
-        await page.setViewportSize({ width: 200, height: 300 });
-        await component.evaluate((element) => {
-          element.style.height = `${300}px`;
-          element.style.width = `${200}px`;
-        });
-      }
-
       if (row === "hover") await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
       if (row === "active") {
@@ -56,6 +47,12 @@ test.describe("Screenshot tests", () => {
         await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
         await page.mouse.down();
       }
+
+      await page.setViewportSize({ width: 600, height: 850 });
+      await component.evaluate((element) => {
+        element.style.height = `${150}px`;
+        element.style.width = `${200}px`;
+      });
     },
   });
 });
