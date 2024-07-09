@@ -2,8 +2,8 @@ import { computed, unref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
-import { useOutsideClick } from "../helpers/outsideClick";
-import { useTypeAhead } from "../helpers/typeAhead";
+import { useOutsideClick } from "../helpers/useOutsideClick";
+import { useTypeAhead } from "../helpers/useTypeAhead";
 import {
   createListbox,
   type CreateListboxOptions,

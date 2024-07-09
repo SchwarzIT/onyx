@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ref, type Ref } from "vue";
 import { mockVueLifecycle } from "../../utils/vitest";
-import { useGlobalEventListener } from "./globalListener";
+import { useGlobalEventListener } from "./useGlobalListener";
 
 let unmount: () => Promise<void> | undefined;
 

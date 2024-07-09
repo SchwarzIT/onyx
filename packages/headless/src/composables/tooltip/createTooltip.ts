@@ -1,7 +1,7 @@
 import { computed, onBeforeMount, onBeforeUnmount, ref, unref, type MaybeRef } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
-import { useOutsideClick } from "../helpers/outsideClick";
+import { useOutsideClick } from "../helpers/useOutsideClick";
 
 export type CreateTooltipOptions = {
   open: MaybeRef<TooltipOpen>;

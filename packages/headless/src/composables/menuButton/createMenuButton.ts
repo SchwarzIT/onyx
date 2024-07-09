@@ -2,7 +2,7 @@ import { computed, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
-import { useGlobalEventListener } from "../helpers/globalListener";
+import { useGlobalEventListener } from "../helpers/useGlobalListener";
 
 type CreateMenuButtonOptions = {
   isExpanded: Ref<boolean>;
