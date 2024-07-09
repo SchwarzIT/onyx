@@ -117,6 +117,11 @@ const MULTISELECT_DEMO_OPTIONS = [
   { value: "long", label: "Option with a very long long long  long long long long text" },
 ];
 
+const LONG_LABELED_DEMO_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
+  value: index,
+  label: `Long labeled option ${index + 1} `.repeat(4),
+})) satisfies SelectOption[];
+
 /**
  * This example shows a default single select.
  */
@@ -351,3 +356,16 @@ const useLazyLoading = (initialOptions: SelectOption[]) => {
 
   return { isLazyLoading, handleLoadMore, options };
 };
+
+/**
+ * This example shows single select with multiline options.
+ */
+export const MultilineOptions = {
+  args: {
+    label: "Example select",
+    listLabel: "List label",
+    options: LONG_LABELED_DEMO_OPTIONS,
+    truncation: "multiline",
+    placeholder: "Placeholder...",
+  },
+} satisfies Story;
