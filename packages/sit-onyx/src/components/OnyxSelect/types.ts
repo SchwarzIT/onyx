@@ -88,7 +88,7 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
 
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption<TValue>,
-  "value" | "label" | "disabled"
+  "value" | "label" | "disabled" | "truncation"
 > &
   Pick<OnyxSelectOptionProps, "icon"> & {
     /**

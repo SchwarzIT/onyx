@@ -6,6 +6,7 @@ import type { OnyxSelectOptionProps } from "./types";
 const props = withDefaults(defineProps<OnyxSelectOptionProps>(), {
   active: false,
   multiple: false,
+  truncation: "ellipsis",
 });
 
 defineSlots<{
@@ -38,7 +39,7 @@ defineSlots<{
 
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
-    <span class="onyx-truncation-ellipsis">
+    <span :class="[`onyx-truncation-${props.truncation}`]">
       <slot></slot>
     </span>
   </OnyxListItem>
