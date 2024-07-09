@@ -1,10 +1,5 @@
 import type { DensityProp } from "../../composables/density";
-import type {
-  AutofocusProp,
-  BaseSelectOption,
-  SelectOptionValue,
-  TruncationType,
-} from "../../types";
+import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
@@ -89,15 +84,11 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      * If you want to use a button instead, use the `optionsEnd` slot.
      */
     lazyLoading?: SelectLazyLoading;
-    /**
-     * How to truncate the option label / text content if it exceeds the max width.
-     */
-    truncation?: TruncationType;
   };
 
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption<TValue>,
-  "value" | "label" | "disabled"
+  "value" | "label" | "disabled" | "truncation"
 > &
   Pick<OnyxSelectOptionProps, "icon"> & {
     /**

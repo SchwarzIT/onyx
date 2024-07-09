@@ -119,6 +119,7 @@ const MULTISELECT_DEMO_OPTIONS = [
 
 const LONG_LABELED_DEMO_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
   value: index,
+  truncation: "multiline",
   label: `Long labeled option ${index + 1} `.repeat(4),
 })) satisfies SelectOption[];
 
@@ -365,7 +366,6 @@ export const MultilineOptions = {
     label: "Example select",
     listLabel: "List label",
     options: LONG_LABELED_DEMO_OPTIONS,
-    truncation: "multiline",
     placeholder: "Placeholder...",
   },
 } satisfies Story;

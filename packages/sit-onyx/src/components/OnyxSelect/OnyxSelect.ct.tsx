@@ -34,6 +34,12 @@ const MOCK_LONG_LABELED_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
   label: `Long labeled option ${index + 1} `.repeat(4),
 })) satisfies SelectOption[];
 
+const MOCK_MULTILINE_LONG_LABELED_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
+  value: index,
+  truncation: "multiline",
+  label: `Long labeled option ${index + 1} `.repeat(4),
+})) satisfies SelectOption[];
+
 const openFlyout = async (component: MountResultJsx) => {
   await component.click();
 
@@ -108,9 +114,10 @@ test.describe("Truncated options screenshots", () => {
       <OnyxSelect
         label="Label"
         listLabel="List label"
-        options={MOCK_LONG_LABELED_OPTIONS}
+        options={
+          row === "ellipsis" ? MOCK_LONG_LABELED_OPTIONS : MOCK_MULTILINE_LONG_LABELED_OPTIONS
+        }
         density={column}
-        truncation={row}
       />
     ),
     beforeScreenshot: async (component) => {
