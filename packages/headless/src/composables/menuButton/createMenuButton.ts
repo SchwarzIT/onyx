@@ -2,6 +2,7 @@ import { computed, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
+import { useGlobalEventListener } from "../helpers/globalListener";
 
 type CreateMenuButtonOptions = {
   isExpanded: Ref<boolean>;
@@ -17,11 +18,17 @@ export const createMenuButton = createBuilder(
     const menuId = createId("menu-button-list");
     const buttonId = createId("menu-button-button");
 
+    useGlobalEventListener({
+      type: "keydown",
+      listener: (e) => e.key === "Escape" && isExpanded.value && onToggle(),
+      disabled: computed(() => !isExpanded.value),
+    });
+
     /**
      * Debounced expanded state that will only be toggled after a given timeout.
      */
     const updateDebouncedExpanded = debounce(
-      (expanded: boolean) => (isExpanded.value = expanded),
+      (expanded: boolean) => isExpanded.value !== expanded && onToggle(),
       200,
     );
 
@@ -91,22 +98,19 @@ export const createMenuButton = createBuilder(
     };
 
     return {
-      state: { isExpanded },
       elements: {
         root: {
           id: rootId,
           onKeydown: handleKeydown,
           onMouseover: () => updateDebouncedExpanded(true),
           onMouseout: () => updateDebouncedExpanded(false),
-          onFocusin: () => (isExpanded.value = true),
           onFocusout: (event) => {
             // if focus receiving element is not part of the menu button, then close
             if (document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)) {
               return;
             }
-            isExpanded.value = false;
+            isExpanded.value && onToggle();
           },
-          onClick: () => onToggle(),
         },
         button: computed(
           () =>
@@ -114,6 +118,7 @@ export const createMenuButton = createBuilder(
               "aria-controls": menuId,
               "aria-expanded": isExpanded.value,
               "aria-haspopup": true,
+              onFocus: () => !isExpanded.value && onToggle(),
               id: buttonId,
             }) as const,
         ),
@@ -121,6 +126,7 @@ export const createMenuButton = createBuilder(
           id: menuId,
           role: "menu",
           "aria-labelledby": buttonId,
+          onClick: () => isExpanded.value && onToggle(),
         },
         ...createMenuItems().elements,
       },
