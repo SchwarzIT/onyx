@@ -34,10 +34,9 @@ const MOCK_LONG_LABELED_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
   label: `Long labeled option ${index + 1} `.repeat(4),
 })) satisfies SelectOption[];
 
-const MOCK_MULTILINE_LONG_LABELED_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
-  value: index,
+const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((option) => ({
+  ...option,
   truncation: "multiline",
-  label: `Long labeled option ${index + 1} `.repeat(4),
 })) satisfies SelectOption[];
 
 const openFlyout = async (component: MountResultJsx) => {
