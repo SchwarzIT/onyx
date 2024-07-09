@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-Implement truncation for OnyxSelect options
+feat(OnyxSelect): Implement truncation for OnyxSelectOptions
