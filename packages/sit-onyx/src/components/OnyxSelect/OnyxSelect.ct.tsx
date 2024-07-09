@@ -117,6 +117,8 @@ test.describe("Truncated options screenshots", () => {
     ),
     beforeScreenshot: async (component) => {
       await openFlyout(component);
+      const option = component.getByText(`Long labeled option 1 `.repeat(4));
+      option.hover();
     },
   });
 });
