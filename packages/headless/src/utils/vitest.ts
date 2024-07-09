@@ -2,6 +2,17 @@ import { vi, type Awaitable } from "vitest";
 
 type Callback = () => Awaitable<void>;
 
+/**
+ * Mocks the following vue lifecycle functions:
+ * - onBeforeMount
+ * - onMounted
+ * - onBeforeUnmount
+ * - onUnmounted
+ *
+ * `onBeforeMount` and `onMounted` callbacks are executed immediately.
+ * `onBeforeUnmount` and `onUnmounted` are executed when the returned callback is run.
+ * @returns a callback to trigger the run of `onBeforeUnmount` and `onUnmounted`
+ */
 export const mockVueLifecycle = () => {
   const { callbacks } = vi.hoisted(() => ({
     callbacks: {
