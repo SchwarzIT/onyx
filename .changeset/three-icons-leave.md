@@ -1,5 +1,5 @@
 ---
-"alpha-test-app": minor
+"demo-app": minor
 "sit-onyx": minor
 ---
 

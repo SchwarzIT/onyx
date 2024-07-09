@@ -1,9 +1,16 @@
+---
+title: Changelog
+---
+
 <script lang="ts" setup>
 import { useData } from "vitepress";
-import { ref } from "vue";
 
 const { params } = useData();
 </script>
+
+# Changelog
+
+Below you can find a full list of changes for the current and previous versions.
 
 <div v-if="params.name === 'figma-utils'">
 

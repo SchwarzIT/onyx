@@ -37,15 +37,15 @@ The theme includes the following features:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/vitepress-theme@alpha
+pnpm add -D @sit-onyx/vitepress-theme@beta
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/vitepress-theme@alpha
+npm install -D @sit-onyx/vitepress-theme@beta
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/vitepress-theme@alpha
+yarn install -D @sit-onyx/vitepress-theme@beta
 ```
 
 :::

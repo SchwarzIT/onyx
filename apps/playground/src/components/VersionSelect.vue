@@ -11,7 +11,7 @@ const props = defineProps<{
   pkg: string;
   label: string;
   /**
-   * If `true`, pre-releases (e.g. alpha versions) will be included.
+   * If `true`, pre-releases (e.g. alpha and beta versions) will be included.
    * Otherwise they will be filtered out.
    */
   includePreReleases?: boolean;

@@ -12,8 +12,6 @@
 
 A composable headless library for Vue created by [Schwarz IT](https://it.schwarz).
 
-> **Work in progress**: This library is currently in early / active development.
-
 <br />
 
 ## Documentation
