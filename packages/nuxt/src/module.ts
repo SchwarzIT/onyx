@@ -1,14 +1,15 @@
 import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
 import type { NuxtOptions } from "@nuxt/schema";
 import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
+import type { OnyxTheme } from "sit-onyx";
 import * as onyx from "sit-onyx";
 
 export interface ModuleOptions {
   /**
    * The onyx theme to use. See: [https://onyx.schwarz/development/theming.html](https://onyx.schwarz/development/theming.html)
-   * If no theme is selected the default "onyx" theme will be used.
+   * @default "onyx"
    */
-  theme?: "kaufland" | "lidl" | "twogo";
+  theme: OnyxTheme;
   /**
    * By default, the global onyx styles (`global.css` file) will be included
    * which applies some global styles like background color and font styles.
@@ -40,7 +41,9 @@ export default defineNuxtModule<ModuleOptions>({
     name: "@sit-onyx/nuxt",
     configKey: "onyx",
   },
-  defaults: {},
+  defaults: {
+    theme: "onyx",
+  },
   setup(options, nuxt) {
     const logger = useLogger("@sit-onyx/nuxt");
     const { resolve } = createResolver(import.meta.url);
@@ -54,7 +57,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     nuxt.options.css.push("sit-onyx/style.css");
 
-    if (options.theme) {
+    if (options.theme !== "onyx") {
       nuxt.options.css.push(`sit-onyx/themes/${options.theme}.css`);
     }
 
