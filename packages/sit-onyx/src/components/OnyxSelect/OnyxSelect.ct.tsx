@@ -105,15 +105,13 @@ test.describe("Truncated options screenshots", () => {
     rows: ["ellipsis", "multiline"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (
-      <div>
-        <OnyxSelect
-          label="Label"
-          listLabel="List label"
-          options={MOCK_LONG_LABELED_OPTIONS}
-          density={column}
-          truncation={row}
-        />
-      </div>
+      <OnyxSelect
+        label="Label"
+        listLabel="List label"
+        options={MOCK_LONG_LABELED_OPTIONS}
+        density={column}
+        truncation={row}
+      />
     ),
     beforeScreenshot: async (component) => {
       await openFlyout(component);
