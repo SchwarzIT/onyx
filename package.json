@@ -46,7 +46,7 @@
     "prettier": "^3.3.2",
     "prettier-plugin-organize-imports": "^4.0.0",
     "publint": "^0.2.8",
-    "rimraf": "^5.0.7",
+    "rimraf": "^5.0.9",
     "sass": "^1.77.6",
     "simple-git-hooks": "^2.11.1",
     "storybook": "^8.1.11",
