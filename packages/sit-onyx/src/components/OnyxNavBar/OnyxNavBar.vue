@@ -116,7 +116,6 @@ defineExpose({
         <slot name="appArea"></slot>
       </OnyxNavAppArea>
 
-      <!-- TODO: padding top -->
       <OnyxIconButton
         v-if="props.withBackButton"
         class="onyx-nav-bar__back"
