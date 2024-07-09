@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createMenuItem } from "@sit-onyx/headless";
+import { createMenuItems } from "@sit-onyx/headless";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import { type OnyxMenuItemProps } from "./types";
 
@@ -14,7 +14,7 @@ const emit = defineEmits<{
 
 const {
   elements: { listItem, menuItem },
-} = createMenuItem({});
+} = createMenuItems();
 </script>
 
 <template>
