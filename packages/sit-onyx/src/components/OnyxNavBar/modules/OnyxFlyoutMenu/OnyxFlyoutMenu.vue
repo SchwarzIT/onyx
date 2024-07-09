@@ -1,10 +1,15 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
-import { computed, type VNode } from "vue";
+import { computed, toRef, type VNode } from "vue";
+import { useManagedState } from "../../../../composables/useManagedState";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
-const props = defineProps<OnyxFlyoutMenuProps>();
+const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), { open: undefined });
+
+const emit = defineEmits<{
+  "update:open": [open: boolean];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -25,10 +30,18 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
+const isExpanded = useManagedState(
+  toRef(() => props.open),
+  false,
+  (newValue) => emit("update:open", newValue),
+);
+
 const {
-  elements: { button, flyout, menu },
-  state: { isExpanded },
-} = createMenuButton({});
+  elements: { root, button, menu },
+} = createMenuButton({
+  isExpanded,
+  onToggle: () => (isExpanded.value = !isExpanded.value),
+});
 
 const buttonComponent = computed(() => {
   if (!slots.default) return;
@@ -42,13 +55,12 @@ const buttonComponent = computed(() => {
 </script>
 
 <template>
-  <div class="onyx-flyout-menu">
+  <div class="onyx-flyout-menu" v-bind="root">
     <component :is="buttonComponent" v-bind="button" />
 
     <div
       v-if="slots.options || slots.header || slots.footer"
       v-show="isExpanded"
-      v-bind="flyout"
       :aria-label="props.label"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,
