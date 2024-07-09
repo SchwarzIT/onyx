@@ -32,7 +32,7 @@ const isMobile = inject(
   <UserMenuLayout
     class="onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
-    :is-mobile="isMobile ?? false"
+    :is-mobile="isMobile"
   >
     <template #button>
       <button class="onyx-user-menu__trigger onyx-text" type="button">
