@@ -138,12 +138,13 @@ export const WithCustomAppArea = {
 } satisfies Story;
 
 /**
- * This example should be watched at a mobile breakpoint.
- * Both the nav area as well as the context area will overflow.
+ * This nav bar has a lot of menu and context area items.
+ * Both the nav area as well as the context area will overflow when opened.
  */
 export const WithOverflowingMobileContent = {
   args: {
     ...WithContextArea.args,
+    mobileBreakpoint: ONYX_BREAKPOINTS.xl,
     default: () => [
       h(OnyxNavButton, { label: "Item 1", href: "/" }),
       h(
