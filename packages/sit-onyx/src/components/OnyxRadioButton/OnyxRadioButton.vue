@@ -11,7 +11,6 @@ const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   required: false,
   checked: false,
   loading: false,
-  truncation: "ellipsis",
 });
 
 const emit = defineEmits<{

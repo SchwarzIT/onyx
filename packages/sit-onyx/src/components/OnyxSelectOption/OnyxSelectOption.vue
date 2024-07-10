@@ -6,7 +6,6 @@ import type { OnyxSelectOptionProps } from "./types";
 const props = withDefaults(defineProps<OnyxSelectOptionProps>(), {
   active: false,
   multiple: false,
-  truncation: "ellipsis",
 });
 
 defineSlots<{
