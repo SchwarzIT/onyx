@@ -24,3 +24,8 @@
     display: none;
   }
 }
+
+// hide controls section if the story does not have any args
+.onyx-storybook-controls:not(:has(.docblock-argstable)) {
+  display: none;
+}

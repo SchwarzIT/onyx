@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   direction: "vertical",
   withCheckAll: false,
   disabled: false,
+  truncation: "ellipsis",
 });
 
 const { densityClass } = useDensity(props);
@@ -77,6 +78,7 @@ const checkAllLabel = computed(() => {
           v-for="option in props.options"
           :key="option.value.toString()"
           v-bind="option"
+          :truncation="option.truncation ?? props.truncation"
           :model-value="props.modelValue.includes(option.value)"
           class="onyx-checkbox-group__option"
           @update:model-value="handleUpdate(option.value, $event)"
