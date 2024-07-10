@@ -107,7 +107,7 @@ const slots = defineSlots<{
     }
 
     &__flyout {
-      max-height: calc(100vh - var(--top-position) - 4rem);
+      max-height: calc(100vh - var(--top-position) - var(--onyx-spacing-3xl));
       width: 100%;
       background-color: var(--onyx-color-base-background-tinted);
       box-shadow: var(--onyx-shadow-medium-bottom);
