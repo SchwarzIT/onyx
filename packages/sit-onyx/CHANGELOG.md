@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.3
+
+### Minor Changes
+
+- 67a5e50: feat(OnyxSelect, OnyxRadioGroup, OnyxCheckboxGroup): Implement truncation on higher level
+
 ## 1.0.0-beta.2
 
 ### Minor Changes
