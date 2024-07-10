@@ -9,7 +9,7 @@ describe("useGlobalEventListener", () => {
   let target: Ref<HTMLButtonElement>;
 
   beforeEach(() => {
-    vi.resetAllMocks();
+    vi.clearAllMocks();
     unmount = mockVueLifecycle();
     target = ref(document.createElement("button"));
     document.body.appendChild(target.value);

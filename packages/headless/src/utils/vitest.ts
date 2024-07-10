@@ -23,10 +23,10 @@ export const mockVueLifecycle = () => {
 
   vi.mock("vue", async (original) => ({
     ...((await original()) as typeof import("vue")),
-    onBeforeMount: (cb: Callback) => cb(),
-    onMounted: (cb: Callback) => cb(),
-    onBeforeUnmount: (cb: Callback) => (callbacks.onBeforeUnmountedCb = cb),
-    onUnmounted: (cb: Callback) => (callbacks.onUnmountedCb = cb),
+    onBeforeMount: vi.fn((cb: Callback) => cb()),
+    onMounted: vi.fn((cb: Callback) => cb()),
+    onBeforeUnmount: vi.fn((cb: Callback) => (callbacks.onBeforeUnmountedCb = cb)),
+    onUnmounted: vi.fn((cb: Callback) => (callbacks.onUnmountedCb = cb)),
   }));
 
   return async () => {
