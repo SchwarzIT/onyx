@@ -201,13 +201,13 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   }
 
   @include layers.component() {
-    @include define-borders();
-
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
     width: 100%;
+
+    @include define-borders();
 
     &__empty {
       &-content {
