@@ -160,8 +160,8 @@ const slots = defineSlots<{
         display: none;
       }
     }
-    // fill up the padding-top that would be set by the headline
-    &#{$mobile-children-selector}.onyx-mobile-nav-button__menu,
+    // fill up the padding-top if there is no headline
+    &#{$mobile-children-selector} .onyx-mobile-nav-button__menu,
     &__menu--no-headline {
       padding-top: var(--onyx-spacing-xl);
     }
