@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import OnyxToastProvider from "./OnyxToastProvider.vue";
+import OnyxToast from "./OnyxToast.vue";
 import { useToast } from "./useToast";
 
 const toast = useToast();
@@ -19,5 +19,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <OnyxToastProvider />
+  <OnyxToast />
 </template>

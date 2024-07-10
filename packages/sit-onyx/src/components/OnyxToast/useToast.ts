@@ -1,5 +1,5 @@
 import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
-import type { OnyxToastProps } from "../OnyxToast/types";
+import type { OnyxToastMessageProps } from "../OnyxToastMessage/types";
 
 export type ToastProvider = {
   /**
@@ -28,7 +28,7 @@ export type ProvidedToast = ShowToastOptions & {
   onClose: () => void;
 };
 
-export type ShowToastOptions = OnyxToastProps & {
+export type ShowToastOptions = OnyxToastMessageProps & {
   /**
    * Callback when the toast is clicked. Requires `clickable` to be enabled.
    */

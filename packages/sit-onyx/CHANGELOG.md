@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 15114f7: feat(OnyxSelect): Implement truncation for OnyxSelectOptions
+
+## 1.0.0-beta.1
+
+### Major Changes
+
+- 7b72cbc: refactor: rename toast components
+
+  - renamed `OnyxToast` to `OnyxToastMessage`
+  - renamed `OnyxToastProvider` to `OnyxToast`
+
 ## 1.0.0-beta.0
 
 ### Major Changes

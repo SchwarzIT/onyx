@@ -31,6 +31,10 @@ import "sit-onyx/themes/lidl.css";
 
 :::
 
+::: info
+Importing the styles for the theme manually is not necessary when using the nuxt module. See: [Nuxt](/development/packages/nuxt#themes)
+:::
+
 ## Dark mode
 
 Per default, onyx will be displayed in light mode. In order to use the dark mode, simply set the class `dark` once on the root of your application, e.g. on `<html>` or `<body>`.

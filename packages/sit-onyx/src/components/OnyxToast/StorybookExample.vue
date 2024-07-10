@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxToastProvider, useToast } from "../..";
+import { OnyxButton, OnyxToast, useToast } from "../..";
 
 const toast = useToast();
 
@@ -18,6 +18,6 @@ const showExampleToasts = () => {
 <template>
   <div>
     <OnyxButton label="Show example toasts" @click="showExampleToasts" />
-    <OnyxToastProvider />
+    <OnyxToast />
   </div>
 </template>
