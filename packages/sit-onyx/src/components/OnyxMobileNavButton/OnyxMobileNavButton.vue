@@ -159,10 +159,11 @@ const slots = defineSlots<{
       .onyx-mobile-nav-button__headline {
         display: none;
       }
-      // fill up the padding-top that would be set by the headline
-      .onyx-mobile-nav-button__menu {
-        padding-top: var(--onyx-spacing-xl);
-      }
+    }
+    // fill up the padding-top that would be set by the headline
+    &#{$mobile-children-selector}.onyx-mobile-nav-button__menu,
+    &__menu--no-headline {
+      padding-top: var(--onyx-spacing-xl);
     }
   }
 }
