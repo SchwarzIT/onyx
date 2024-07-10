@@ -17,7 +17,6 @@ test.describe("Screenshot tests", () => {
         hideLabel={column === "hideLabel"}
         loading={column === "loading"}
         value="test-value"
-        truncation="ellipsis"
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -51,7 +50,6 @@ test.describe("Screenshot tests", () => {
         hideLabel={column === "hideLabel"}
         loading={column === "loading"}
         value="test-value"
-        truncation="ellipsis"
         disabled
       />
     ),
@@ -82,7 +80,6 @@ test.describe("Screenshot tests", () => {
         disabled={column === "disabled"}
         customError="Test error"
         value="test-value"
-        truncation="ellipsis"
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -117,7 +114,6 @@ test.describe("Screenshot tests", () => {
         density={column}
         loading={row === "loading"}
         value="test-value"
-        truncation="ellipsis"
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
@@ -138,7 +134,6 @@ test.describe("Screenshot tests", () => {
         requiredMarker={row === "optional" ? "optional" : undefined}
         skeleton={row === "skeleton"}
         value="test-value"
-        truncation="ellipsis"
       />
     ),
   });
