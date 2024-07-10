@@ -197,6 +197,10 @@ $height: 3.5rem;
     position: relative;
     container-type: size;
 
+    // sync with grid
+    max-width: var(--onyx-grid-max-width);
+    margin-inline: var(--onyx-grid-margin-inline);
+
     // implement bottom border with ::after so it does not add to the height
     &::after {
       content: " ";
@@ -220,10 +224,6 @@ $height: 3.5rem;
         grid-template-columns: max-content max-content 1fr auto;
         grid-template-areas: "app back nav context";
       }
-
-      // sync with grid
-      max-width: var(--onyx-grid-max-width);
-      margin-inline: var(--onyx-grid-margin-inline);
     }
 
     &__back {
