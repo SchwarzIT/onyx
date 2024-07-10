@@ -2,7 +2,6 @@
 import { computed, inject } from "vue";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
-import OnyxListItem from "./../../../OnyxListItem/OnyxListItem.vue";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
@@ -67,12 +66,7 @@ const isMobile = inject(
     </template>
 
     <template v-if="slots.footer" #footer>
-      <OnyxListItem v-if="isMobile" class="onyx-user-menu__mobile-footer" disabled>
-        <slot name="footer"></slot>
-      </OnyxListItem>
-      <div v-else class="onyx-user-menu__footer onyx-text--small">
-        <slot name="footer"></slot>
-      </div>
+      <slot name="footer"></slot>
     </template>
   </UserMenuLayout>
 </template>
@@ -143,27 +137,6 @@ const isMobile = inject(
     &__description {
       color: var(--onyx-color-text-icons-neutral-soft);
       font-weight: 600;
-    }
-
-    &__footer,
-    &__mobile-footer {
-      color: var(--onyx-color-text-icons-neutral-soft);
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--onyx-spacing-2xs);
-    }
-    &__footer {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
-    }
-    &__mobile-footer {
-      margin-top: var(--onyx-spacing-xs);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      border-radius: var(--onyx-radius-sm);
-      font-size: 0.8125rem;
-      line-height: 1.25rem;
     }
 
     &--mobile {
