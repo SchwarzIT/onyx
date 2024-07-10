@@ -1,5 +1,6 @@
 ---
-"@sit-onyx/headless": minor
+"@sit-onyx/headless": major
 ---
 
-- implement: useGlobalListener composable helper
+- BREAKING CHANGE: `createTooltip` now provides a `root` element, which is used to listen for outside clicks
+- new `useGlobalListener` composable helper
