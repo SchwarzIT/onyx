@@ -132,12 +132,9 @@ defineExpose({
           class="onyx-nav-bar__burger"
           :icon="menu"
           :label="t('navigation.toggleBurgerMenu')"
+          :headline="t('navigation.navigationHeadline')"
           @update:open="isContextOpen = false"
         >
-          <template #headline>
-            {{ t("navigation.navigationHeadline") }}
-          </template>
-
           <nav class="onyx-nav-bar__nav--mobile">
             <ul role="menubar">
               <slot></slot>

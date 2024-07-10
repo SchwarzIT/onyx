@@ -15,15 +15,11 @@ const emit = defineEmits<{
   "update:open": [isOpen: boolean];
 }>();
 
-const slots = defineSlots<{
+defineSlots<{
   /**
    * Slot for the menu content when it's open.
    */
   default(): unknown;
-  /**
-   * Slot for a headline of the menu content when it's open
-   */
-  headline?(): unknown;
 }>();
 </script>
 
@@ -43,10 +39,10 @@ const slots = defineSlots<{
       <div class="onyx-mobile-nav-button__flyout">
         <div
           class="onyx-mobile-nav-button__menu"
-          :class="{ 'onyx-mobile-nav-button__menu--no-headline': !slots.headline }"
+          :class="{ 'onyx-mobile-nav-button__menu--no-headline': !props.headline }"
         >
-          <OnyxHeadline is="h2" v-if="slots.headline" class="onyx-mobile-nav-button__headline">
-            <slot name="headline"></slot>
+          <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
+            {{ props.headline }}
           </OnyxHeadline>
 
           <slot></slot>

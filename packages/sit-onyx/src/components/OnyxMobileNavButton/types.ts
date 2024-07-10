@@ -12,4 +12,8 @@ export type OnyxMobileNavButtonProps = {
    * If `true`, an "x" icon will be displayed.
    */
   open?: boolean;
+  /**
+   * Headline of the mobile flyout
+   */
+  headline?: string;
 };
