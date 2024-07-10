@@ -18,7 +18,7 @@ import StorybookExampleSourceCode from "./StorybookExample.vue?raw";
  *
  * #### Step 2: Create the toast provider
  *
- * **If you are using the `createOnyx()` Vue plugin, you can skip this step since this will already be set up for you.**
+ * **If you are using the [createOnyx()](https://onyx.schwarz/development/#installation) Vue plugin, you can skip this step since this will already be set up for you.**
  *
  * The toast works with Vue's [provide/inject](https://vuejs.org/guide/components/provide-inject) API so you need to create a toast provider once.
  * To do so, add the following code to your `main.ts` file to set up the toasts globally:
