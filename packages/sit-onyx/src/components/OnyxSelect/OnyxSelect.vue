@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
   searchTerm: undefined,
   open: undefined,
+  truncation: "ellipsis",
 });
 
 const emit = defineEmits<{
@@ -360,7 +361,7 @@ const selectInputProps = computed(() => {
                 :active="option.value === activeValue"
                 :icon="option.icon"
                 :density="props.density"
-                :truncation="option.truncation"
+                :truncation="option.truncation ?? props.truncation"
               >
                 <slot name="option" v-bind="option">
                   {{ option.label }}
