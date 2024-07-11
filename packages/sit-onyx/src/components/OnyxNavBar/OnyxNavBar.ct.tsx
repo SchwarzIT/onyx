@@ -170,6 +170,27 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await expect(page).toHaveScreenshot("context.png");
 });
 
+test("Screenshot tests (mobile truncated labels)", async ({ mount, page }) => {
+  await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS["2xs"] });
+  const longLabel = "Item with a very long truncated name";
+
+  const component = await mount(
+    <OnyxNavBar appName="App with a very long truncated name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
+      <OnyxNavButton href="#1" label={longLabel} active />
+      <OnyxNavButton href="#2" label="Other item" />
+      <template v-slot:mobileActivePage>{longLabel}</template>
+    </OnyxNavBar>,
+  );
+  // ASSERT
+  await expect(page).toHaveScreenshot("truncated-page-name.png");
+
+  // ACT
+  await component.getByLabel("Toggle burger menu").click();
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("truncated-app-name.png");
+});
+
 test("should behave correctly", async ({ mount }) => {
   let appAreaClickEvents = 0;
   let backButtonClickEvents = 0;

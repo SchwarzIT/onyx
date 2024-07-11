@@ -63,7 +63,7 @@ const handleParentClick = () => {
         @click="handleParentClick"
       >
         <slot>
-          <span>{{ props.label }}</span>
+          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
           <OnyxExternalLinkIcon v-bind="props" />
         </slot>
 
