@@ -1,6 +1,7 @@
 import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
@@ -9,6 +10,7 @@ import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
@@ -136,5 +138,43 @@ export const WithCustomAppArea = {
   args: {
     ...Default.args,
     appArea: () => [h(OnyxIcon, { icon: placeholder, color: "secondary" }), "Custom name"],
+  },
+} satisfies Story;
+
+/**
+ * This nav bar has a lot of menu and context area items.
+ * Both the nav area as well as the context area will overflow when opened.
+ */
+export const WithOverflowingMobileContent = {
+  args: {
+    ...WithContextArea.args,
+    mobileBreakpoint: "xl",
+    default: () => [
+      h(OnyxNavButton, { label: "Item 1", href: "/" }),
+      h(
+        OnyxNavButton,
+        { label: "Item 2", href: "/test" },
+        {
+          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
+          children: () =>
+            Array.from({ length: 20 }, (_, index) =>
+              h(OnyxNavItem, { label: `Nested item 2.${index + 1}`, href: "#" }),
+            ),
+        },
+      ),
+      Array.from({ length: 20 }, (_, index) =>
+        h(OnyxNavButton, { label: `Item ${index + 3}`, href: "/" }),
+      ),
+    ],
+    contextArea: () => [
+      h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxNavSeparator),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        default: Array.from({ length: 20 }, (_, index) =>
+          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), `Context option ${index}`]),
+        ),
+        footer: OnyxUserMenuDefault.args.footer,
+      }),
+    ],
   },
 } satisfies Story;

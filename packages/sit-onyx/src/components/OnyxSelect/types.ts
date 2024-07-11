@@ -64,7 +64,8 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
   SelectModelValueProps<TValue> &
   SelectSearchProps &
   Omit<OnyxSelectInputProps<TValue>, "density" | "modelValue"> &
-  AutofocusProp & {
+  AutofocusProp &
+  Pick<BaseSelectOption, "truncation"> & {
     /**
      * If true, the select popover is expanded and visible.
      * Property is managed internally, when undefined.

@@ -14,8 +14,8 @@ const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   disabled: false,
   loading: false,
   required: false,
-  truncation: "ellipsis",
   skeleton: false,
+  truncation: "ellipsis",
 });
 
 const emit = defineEmits<{

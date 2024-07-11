@@ -1,5 +1,27 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.5
+
+### Major Changes
+
+- ec217c0: chore: update Storybook dependencies
+
+  bump minimum Storybook version to `>= 8.2.0`
+
+## 1.0.0-beta.4
+
+### Patch Changes
+
+- Updated dependencies [6e14afd]
+  - sit-onyx@1.0.0-beta.4
+
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- Updated dependencies [67a5e50]
+  - sit-onyx@1.0.0-beta.3
+
 ## 1.0.0-beta.2
 
 ### Patch Changes

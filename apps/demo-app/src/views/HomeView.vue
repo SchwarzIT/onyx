@@ -272,7 +272,7 @@ const tableData = [
         />
 
         <template v-if="show('OnyxTable')">
-          <OnyxTable style="max-height: 250px" with-page-scrolling>
+          <OnyxTable with-page-scrolling>
             <template #head>
               <tr>
                 <th v-for="col in tableColumns" :key="col">{{ col }}</th>
@@ -333,7 +333,7 @@ const tableData = [
   gap: var(--onyx-spacing-md);
   padding: var(--onyx-spacing-md);
   border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-  height: calc(100% - var(--onyx-spacing-xl));
+  height: calc(100%);
   width: 16rem;
 }
 .page {

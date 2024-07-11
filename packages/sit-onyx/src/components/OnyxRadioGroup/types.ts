@@ -6,7 +6,8 @@ import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } fr
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     RequiredMarkerProp &
-    CustomValidityProp & {
+    CustomValidityProp &
+    Pick<BaseSelectOption, "truncation"> & {
       /**
        * Options for the individual radio buttons of the group.
        */

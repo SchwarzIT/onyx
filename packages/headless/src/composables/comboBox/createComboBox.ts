@@ -2,13 +2,13 @@ import { computed, unref, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
+import { useOutsideClick } from "../helpers/useOutsideClick";
+import { useTypeAhead } from "../helpers/useTypeAhead";
 import {
   createListbox,
   type CreateListboxOptions,
   type ListboxValue,
 } from "../listbox/createListbox";
-import { useOutsideClick } from "../outsideClick";
-import { useTypeAhead } from "../typeAhead";
 
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
@@ -225,7 +225,7 @@ export const createComboBox = createBuilder(
     });
 
     useOutsideClick({
-      queryComponent: () => templateRef.value,
+      element: templateRef,
       onOutsideClick() {
         if (!isExpanded.value) return;
         onToggle?.(true);
