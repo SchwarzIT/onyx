@@ -1,3 +1,3 @@
-export * from "./composables/comboBox/createComboBox.ct";
-export * from "./composables/listbox/createListbox.ct";
-export * from "./composables/menuButton/createMenuButton.ct";
+export * from "./composables/comboBox/createComboBox.testing";
+export * from "./composables/listbox/createListbox.testing";
+export * from "./composables/menuButton/createMenuButton.testing";

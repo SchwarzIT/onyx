@@ -12,7 +12,7 @@ const activeItem = ref<string>();
 const {
   elements: { button, menu, menuItem, listItem, flyout },
   state: { isExpanded },
-} = createMenuButton({});
+} = createMenuButton();
 </script>
 
 <template>

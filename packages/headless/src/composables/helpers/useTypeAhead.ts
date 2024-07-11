@@ -1,5 +1,5 @@
-import { isPrintableCharacter } from "../utils/keyboard";
-import { debounce } from "../utils/timer";
+import { isPrintableCharacter } from "../../utils/keyboard";
+import { debounce } from "../../utils/timer";
 
 /**
  * Enhances typeAhead to combine multiple inputs in quick succession and filter out non-printable characters.
