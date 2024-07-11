@@ -190,13 +190,17 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
       </OnyxNavBar>,
     );
     // ASSERT
-    await expect(page).toHaveScreenshot("truncated-page-name.png");
+    await expect(page).toHaveScreenshot(
+      `truncated-page-name${showContext ? "-with-context" : ""}.png`,
+    );
 
     // ACT
     await component.getByLabel("Toggle burger menu").click();
 
     // ASSERT
-    await expect(page).toHaveScreenshot("truncated-app-name.png");
+    await expect(page).toHaveScreenshot(
+      `truncated-app-name${showContext ? "-with-context" : ""}.png`,
+    );
   });
 });
 
