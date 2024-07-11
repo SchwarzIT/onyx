@@ -50,8 +50,8 @@ test.describe("Screenshot tests", () => {
 
       await page.setViewportSize({ width: 600, height: 850 });
       await component.evaluate((element) => {
-        element.style.height = `${150}px`;
-        element.style.width = `${200}px`;
+        element.style.height = "150px";
+        element.style.width = "200px";
       });
     },
   });
