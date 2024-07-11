@@ -28,7 +28,7 @@ const slots = defineSlots<{
 const {
   elements: { button, flyout, menu },
   state: { isExpanded },
-} = createMenuButton({});
+} = createMenuButton();
 
 const buttonComponent = computed(() => {
   if (!slots.default) return;

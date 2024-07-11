@@ -28,7 +28,7 @@ defineSlots<{
 }>();
 
 const {
-  elements: { trigger, tooltip },
+  elements: { root, trigger, tooltip },
   state: { isVisible },
 } = createTooltip({
   open: computed(() => props.open),
@@ -36,7 +36,7 @@ const {
 </script>
 
 <template>
-  <div class="onyx-tooltip-wrapper">
+  <div class="onyx-tooltip-wrapper" v-bind="root">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
