@@ -411,6 +411,8 @@ const selectInputProps = computed(() => {
     $wrapper-padding: var(--onyx-spacing-2xs);
     $outline-size: 0.25rem;
 
+    @include list.styles();
+
     position: absolute;
     left: 0;
     top: calc(100% + $outline-size);
@@ -420,8 +422,6 @@ const selectInputProps = computed(() => {
     transition:
       visibility var(--onyx-duration-sm),
       opacity var(--onyx-duration-sm);
-
-    @include list.styles();
 
     &--open {
       visibility: visible;
