@@ -1,6 +1,6 @@
-import { useArgs } from "@storybook/preview-api";
 import type { ArgTypes, Decorator, Meta } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
+import { useArgs } from "storybook/internal/preview-api";
 import { isReactive, reactive, watch } from "vue";
 import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } from ".";
 

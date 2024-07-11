@@ -29,12 +29,9 @@
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
-    "@storybook/core-events": ">= 8.0.0",
-    "@storybook/docs-tools": ">= 8.0.0",
-    "@storybook/preview-api": ">= 8.0.0",
-    "@storybook/theming": ">= 8.0.0",
-    "@storybook/vue3": ">= 8.0.0",
+    "@storybook/vue3": ">= 8.2.0",
     "sit-onyx": "workspace:^",
+    "storybook": ">= 8.2.0",
     "storybook-dark-mode": ">= 4"
   },
   "dependencies": {
