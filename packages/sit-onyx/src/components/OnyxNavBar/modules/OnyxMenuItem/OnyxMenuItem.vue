@@ -14,7 +14,7 @@ const emit = defineEmits<{
 
 const {
   elements: { listItem, menuItem },
-} = createMenuItem({});
+} = createMenuItem();
 </script>
 
 <template>

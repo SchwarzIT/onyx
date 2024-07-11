@@ -112,7 +112,7 @@ export const createMenuButton = createBuilder(() => {
         "aria-labelledby": buttonId,
         onKeydown: handleKeydown,
       },
-      ...createMenuItem({}).elements,
+      ...createMenuItem().elements,
     },
   };
 });
