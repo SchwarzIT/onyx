@@ -37,10 +37,7 @@ defineSlots<{
 
     <template v-if="props.open">
       <div class="onyx-mobile-nav-button__flyout">
-        <div
-          class="onyx-mobile-nav-button__menu"
-          :class="{ 'onyx-mobile-nav-button__menu--no-headline': !props.headline }"
-        >
+        <div class="onyx-mobile-nav-button__menu">
           <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
             {{ props.headline }}
           </OnyxHeadline>
@@ -158,7 +155,7 @@ defineSlots<{
     }
     // fill up the padding-top if there is no headline
     &#{$mobile-children-selector} .onyx-mobile-nav-button__menu,
-    &__menu--no-headline {
+    &__menu:not(:has(.onyx-mobile-nav-button__headline)) {
       padding-top: var(--onyx-spacing-xl);
     }
   }
