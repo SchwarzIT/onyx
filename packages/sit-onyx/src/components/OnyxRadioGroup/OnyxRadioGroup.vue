@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
   headline: "",
   required: false,
   disabled: false,
+  truncation: "ellipsis",
 });
 
 const { densityClass } = useDensity(props);
@@ -57,6 +58,7 @@ const handleChange = (selected: boolean, value: TValue) => {
           :custom-error="props.customError"
           :checked="option.value === props.modelValue"
           :required="props.required"
+          :truncation="option.truncation ?? props.truncation"
           @validity-change="index === 0 && emit('validityChange', $event)"
           @change="handleChange($event, option.value)"
         />

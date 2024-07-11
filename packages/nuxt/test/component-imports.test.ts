@@ -22,4 +22,9 @@ describe("auto imports", async () => {
       `@layer onyx.utility{body{background-color:var(--onyx-color-base-background-tinted)`,
     );
   });
+
+  it("imports the stylesheet matching the configured theme", async () => {
+    const html = await $fetch("/");
+    expect(html).toContain(".onyx-theme-lidl");
+  });
 });

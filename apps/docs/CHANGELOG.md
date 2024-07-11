@@ -1,5 +1,11 @@
 # docs
 
+## 1.0.0-beta.1
+
+### Patch Changes
+
+- 3385622: Support themes in nuxt module
+
 ## 1.0.0-beta.0
 
 ### Major Changes
