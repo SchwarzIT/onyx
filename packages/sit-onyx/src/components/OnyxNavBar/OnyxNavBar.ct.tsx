@@ -119,7 +119,6 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger.png");
-  return;
 
   // ACT
   await component.getByLabel("Item 1").click();
@@ -148,12 +147,12 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Back" }).click();
 
   // ASSERT
-  await expect(component.getByText("Nested item 1")).toBeHidden();
-  await expect(component.getByText("Nested item 2")).toBeHidden();
-  await expect(component.getByText("Nested item 3")).toBeHidden();
-  await expect(component.getByText("Item 1")).toBeVisible();
-  await expect(component.getByText("Item 2")).toBeVisible();
-  await expect(component.getByText("Item 3")).toBeVisible();
+  await expect(component.getByLabel("Nested item 1")).toBeHidden();
+  await expect(component.getByLabel("Nested item 2")).toBeHidden();
+  await expect(component.getByLabel("Nested item 3")).toBeHidden();
+  await expect(component.getByLabel("Item 1")).toBeVisible();
+  await expect(component.getByLabel("Item 2")).toBeVisible();
+  await expect(component.getByLabel("Item 3")).toBeVisible();
 
   // ACT
   await component.getByLabel("Toggle context menu").click();
