@@ -24,7 +24,6 @@ import {
   OnyxTextarea,
   OnyxTimer,
   OnyxTooltip,
-  normalizedIncludes,
   useToast,
   type SelectOption,
 } from "sit-onyx";
@@ -64,19 +63,16 @@ const configOptions = COMPONENTS.map((component) => ({
   value: component,
 })) satisfies SelectOption[];
 const searchTerm = ref("");
-const filteredConfigOptions = computed(() =>
-  searchTerm.value
-    ? configOptions.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
-    : configOptions,
+const componentsToShow = useStorage(
+  "components-to-show",
+  configOptions.map(({ value }) => value),
 );
-const componentsToShow = useStorage("components-to-show", [...configOptions]);
-const componentNamesToShow = computed(() => componentsToShow.value.map((option) => option.value));
 const show = computed(() => {
   return (componentName: (typeof COMPONENTS)[number]) =>
-    componentNamesToShow.value.includes(componentName);
+    componentsToShow.value.includes(componentName);
 });
 
-const densityOptions = DENSITIES.map((value) => ({
+const densityOptions = DENSITIES.map((value: string) => ({
   value,
   label: capitalize(value),
 })) satisfies SelectOption[];
@@ -157,7 +153,7 @@ const tableData = [
         <OnyxSelect
           v-model="componentsToShow"
           v-model:search-term="searchTerm"
-          :options="filteredConfigOptions"
+          :options="configOptions"
           label="Visible examples"
           list-label="Available components"
           text-mode="preview"
