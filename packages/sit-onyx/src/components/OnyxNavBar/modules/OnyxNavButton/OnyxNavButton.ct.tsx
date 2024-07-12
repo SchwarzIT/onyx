@@ -114,24 +114,27 @@ test.describe("Screenshot tests (mobile children)", () => {
   executeMatrixScreenshotTest({
     name: "NavButton (mobile, open children)",
     columns: ["default", "with-parent-link"],
-    rows: ["default"],
+    rows: ["default", "parent-active", "child-active"],
+    disablePadding: true,
     disabledAccessibilityRules,
-    component: (column) => (
+    component: (column, row) => (
       <MobileComponentTestWrapper
         label="Parent item"
-        // TODO: check why external link is not shown
         href={column === "with-parent-link" ? "#" : undefined}
+        active={row === "parent-active"}
       >
         Parent item <OnyxBadge dot color="warning" />
         <template v-slot:children>
-          <OnyxNavItem label="Default" href="/default" />
-          <OnyxNavItem label="Active" href="/active" />
+          <OnyxNavItem label="Default" href="/default" active={row === "child-active"} />
           <OnyxNavItem label="External link" href="https://onyx.schwarz" />
         </template>
       </MobileComponentTestWrapper>
     ),
     beforeScreenshot: async (component) => {
       await component.getByText("Parent item").click();
+      await component.evaluate((element) => {
+        element.style.height = "245px";
+      });
     },
   });
 });
