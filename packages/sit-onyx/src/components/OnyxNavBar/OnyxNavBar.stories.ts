@@ -73,9 +73,19 @@ export const Default = {
           ],
         },
       ),
-      h(OnyxNavButton, { label: "Item 3", href: "https://onyx.schwarz" }),
+      h(
+        OnyxNavButton,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", href: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", href: "#" }),
+          ],
+        },
+      ),
+      h(OnyxNavButton, { label: "Item 4", href: "https://onyx.schwarz" }),
     ],
-    mobileActivePage: "Nested item 2",
+    mobileActivePage: "Nested item 2.2",
   },
 } satisfies Story;
 

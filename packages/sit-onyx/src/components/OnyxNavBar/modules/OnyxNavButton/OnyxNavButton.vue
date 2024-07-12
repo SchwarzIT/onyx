@@ -49,7 +49,7 @@ const handleParentClick = () => {
     class="onyx-nav-button"
     :class="{
       'onyx-nav-button--mobile': isMobile,
-      'onyx-nav-button--active': props.active || isMobileChildrenOpen,
+      'onyx-nav-button--active': props.active,
     }"
     :is-mobile="isMobile ?? false"
     v-bind="props"
@@ -117,7 +117,7 @@ $border-radius: var(--onyx-radius-sm);
     }
 
     &--active,
-    &:has(.onyx-list-item--active) {
+    &:has(.onyx-list-item--active):not(:has(.onyx-nav-button__mobile-children--open)) {
       .onyx-nav-button__trigger {
         color: var(--onyx-color-text-icons-secondary-intense);
         font-weight: 600;
@@ -194,20 +194,22 @@ $border-radius: var(--onyx-radius-sm);
         }
       }
 
-      &.onyx-nav-button--active,
-      &:has(.onyx-list-item--active) {
-        .onyx-nav-button__trigger,
-        .onyx-list-item--active {
-          --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
-          --onyx-list-item-color-selected: var(--onyx-color-text-icons-secondary-intense);
-          background-color: var(--onyx-list-item-background-selected);
-          border-color: var(--onyx-color-base-primary-200);
-          font-weight: 600;
+      // for an active nav button
+      &.onyx-nav-button--active .onyx-nav-button__trigger,
+      // for nav button (only in the overview) that has an active child
+      &:has(.onyx-list-item--active):not(:has(.onyx-nav-button__mobile-children--open))
+      .onyx-nav-button__trigger,
+      // for an active child
+      .onyx-list-item--active {
+        --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
+        --onyx-list-item-color-selected: var(--onyx-color-text-icons-secondary-intense);
+        background-color: var(--onyx-list-item-background-selected);
+        border-color: var(--onyx-color-base-primary-200);
+        font-weight: 600;
 
-          &:hover {
-            border-color: var(--onyx-color-base-primary-500);
-            background-color: var(--onyx-list-item-background-selected);
-          }
+        &:hover {
+          border-color: var(--onyx-color-base-primary-500);
+          background-color: var(--onyx-list-item-background-selected);
         }
       }
     }
