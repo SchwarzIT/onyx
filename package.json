@@ -17,7 +17,6 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.8",
     "@changesets/cli": "^2.27.7",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "^1.45.1",
