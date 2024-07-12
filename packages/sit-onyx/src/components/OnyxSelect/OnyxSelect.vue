@@ -341,7 +341,7 @@ const selectInputProps = computed(() => {
 
           <template v-else>
             <ul
-              v-for="(options, group) in groupedOptions"
+              v-for="(groupOptions, group) in groupedOptions"
               :key="group"
               class="onyx-select__group"
               v-bind="headlessGroup({ label: group })"
@@ -375,7 +375,7 @@ const selectInputProps = computed(() => {
               </template>
 
               <OnyxSelectOption
-                v-for="option in filteredOptions"
+                v-for="option in groupOptions"
                 :key="option.value.toString()"
                 v-bind="
                   headlessOption({
