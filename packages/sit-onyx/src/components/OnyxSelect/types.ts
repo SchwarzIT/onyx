@@ -67,6 +67,12 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {
     /**
+     * Label that will be shown in the input of OnyxSelect.
+     * If unset, will be managed internally by comparing `modelValue` with `options`.
+     * Recommended to be used if not all options can be provided at once.
+     */
+    valueLabel?: string | string[];
+    /**
      * If true, the select popover is expanded and visible.
      * Property is managed internally, when undefined.
      */

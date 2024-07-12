@@ -372,3 +372,16 @@ export const MultilineOptions = {
     placeholder: "Placeholder...",
   },
 } satisfies Story;
+
+/**
+ * `valueLabel` can be set to control the text that represents the current selection.
+ * This can be used e.g. to show a text for a previous selection even though not all
+ * existing options are provided to OnyxSelect yet so the `modelValue` can't be found in the `options`.
+ */
+export const WithCustomValueLabel = {
+  args: {
+    ...Default.args,
+    modelValue: DEMO_OPTIONS[1].value,
+    valueLabel: "Custom selection label",
+  },
+};

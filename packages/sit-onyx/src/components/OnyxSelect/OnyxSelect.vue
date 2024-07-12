@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   searchTerm: undefined,
   open: undefined,
   truncation: "ellipsis",
+  valueLabel: undefined,
 });
 
 const emit = defineEmits<{
@@ -97,13 +98,23 @@ const arrayValue = computed(() => {
   else return [props.modelValue as TValue];
 });
 
+/**
+ * Contains an array of labels that will be shown in the OnyxSelectInput.
+ * - contains props.valueLabel as array if it is set
+ * - else, contains all found labels of the options that match the current modelValue
+ */
 const selectionLabels = computed(() => {
-  const labels = arrayValue.value.reduce<string[]>((acc, current) => {
+  // given state
+  if (props.valueLabel !== undefined) {
+    if (Array.isArray(props.valueLabel)) return props.valueLabel;
+    return [props.valueLabel];
+  }
+  // managed state
+  return arrayValue.value.reduce<string[]>((acc, current) => {
     const foundLabel = props.options.find(({ value }) => value === current)?.label;
     if (foundLabel) acc.push(foundLabel);
     return acc;
   }, []);
-  return labels;
 });
 
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
