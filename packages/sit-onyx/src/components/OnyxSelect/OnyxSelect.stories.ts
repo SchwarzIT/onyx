@@ -1,15 +1,14 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { computed, h, ref, watchEffect } from "vue";
-import { normalizedIncludes } from "../../utils/strings";
+import { h, ref, watchEffect } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types";
 
 /**
  * The select is a fundamental element utilized across various components such as
- * dropdowns, navigation bars, paginations, tables, etc.
+ * dropdowns, navigation bars, pagination, tables, etc.
  * It provides the users with the ability to open a small modal window,
  * facilitating single or multi-selection based on the context in which it is employed.
  *
@@ -55,29 +54,6 @@ const meta: Meta<typeof OnyxSelect> = {
           template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
         };
       },
-      /**
-       * Decorator to simulate search
-       */
-      (story, ctx) => ({
-        components: { story },
-        setup: () => {
-          const searchTerm = computed(() => (ctx.args.withSearch && ctx.args.searchTerm) || "");
-
-          const filteredOptions = computed(() =>
-            searchTerm.value
-              ? ctx.args.options.filter(({ label }: SelectOption) =>
-                  normalizedIncludes(label, searchTerm.value),
-                )
-              : ctx.args.options,
-          );
-
-          watchEffect(() => {
-            ctx.args.options = filteredOptions.value;
-            ctx.args.options; // this is needed to keep the reactivity, although I am not 100% sure why
-          });
-        },
-        template: `<story />`,
-      }),
     ],
   }),
 };
@@ -243,10 +219,6 @@ export const Empty = {
 
 /**
  * This example shows a select with search functionality.
- *
- * **Important**: You need to manually filter the options based on the current `searchTerm`.
- * You can use our `normalizedIncludes()` utility function for this.
- * This example showcases the behavior when using that function.
  */
 export const WithSearch = {
   args: {

@@ -3,7 +3,7 @@ import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../t
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
-export type SelectSearchProps =
+export type SelectSearchProps<TValue extends SelectOptionValue> =
   | {
       /**
        * Allows the user to filter the list entries.
@@ -17,10 +17,17 @@ export type SelectSearchProps =
        * Property is managed internally, when undefined.
        */
       searchTerm?: string;
+      /**
+       * A filtered subset of the `options`.
+       * As default, onyx will handle the search by comparing
+       * the option labels with the `searchTerm`.
+       */
+      filteredOptions?: SelectOption<TValue>[];
     }
   | {
       withSearch?: false;
       searchTerm?: never;
+      filteredOptions?: never;
     };
 
 export type SelectModelValueProps<TValue extends SelectOptionValue> =
@@ -62,7 +69,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
-  SelectSearchProps &
+  SelectSearchProps<TValue> &
   Omit<OnyxSelectInputProps, "density" | "modelValue"> &
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {

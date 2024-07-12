@@ -9,6 +9,7 @@ import { useManagedState } from "../../composables/useManagedState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
+import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -23,6 +24,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   open: undefined,
   truncation: "ellipsis",
   valueLabel: undefined,
+  filteredOptions: undefined,
 });
 
 const emit = defineEmits<{
@@ -120,6 +122,16 @@ const selectionLabels = computed(() => {
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
 const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 
+const filteredOptions = computed(() => {
+  // given state
+  if (props.filteredOptions !== undefined) return props.filteredOptions;
+
+  // managed state
+  return searchTerm.value
+    ? props.options.filter(({ label }: SelectOption) => normalizedIncludes(label, searchTerm.value))
+    : props.options;
+});
+
 /**
  * Sync the active option with the selected option on single select.
  */
@@ -179,7 +191,7 @@ const onActivatePrevious = (currentValue: TValue) => {
 };
 
 const onTypeAhead = (label: string) => {
-  const firstMatch = props.options.find((i) => {
+  const firstMatch = filteredOptions.value.find((i) => {
     return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
   });
   if (!firstMatch) return;
@@ -193,7 +205,7 @@ const onSelect = (selectedOption: TValue) => {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
     return;
   }
-  const newValue = props.options.find(({ value }) => value === selectedOption);
+  const newValue = filteredOptions.value.find(({ value }) => value === selectedOption);
   if (!newValue) {
     return;
   }
@@ -236,7 +248,7 @@ const {
   onSelect,
 });
 
-const groupedOptions = computed(() => groupByKey(props.options, "group"));
+const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -245,13 +257,13 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 });
 
 const isEmptyMessage = computed(() => {
-  if (props.options.length) return;
+  if (filteredOptions.value.length) return;
   if (props.withSearch && searchTerm.value) return t.value("select.noMatch");
   return t.value("select.empty");
 });
 
 const enabledOptionValues = computed(() =>
-  props.options.filter((i) => !i.disabled).map(({ value }) => value),
+  filteredOptions.value.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
@@ -363,7 +375,7 @@ const selectInputProps = computed(() => {
               </template>
 
               <OnyxSelectOption
-                v-for="option in options"
+                v-for="option in filteredOptions"
                 :key="option.value.toString()"
                 v-bind="
                   headlessOption({
