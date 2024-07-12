@@ -1,14 +1,17 @@
 import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Decorator, Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
@@ -40,12 +43,16 @@ const meta: Meta<typeof OnyxNavBar> = {
         },
       },
     },
+    parameters: {
+      layout: "fullscreen",
+    },
     decorators: [
+      // add padding to the story so the nav button and user menu flyouts are shown
       (story) => ({
         components: { story },
-        template: `<div style="margin-bottom: 20rem;"> <story /> </div>`,
+        template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
       }),
-    ] as Decorator[],
+    ],
   }),
 };
 
@@ -57,21 +64,20 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item 1", href: "/" }),
+      h(OnyxNavButton, { label: "Item 1", href: "/" }),
       h(
-        OnyxNavItem,
+        OnyxNavButton,
+        { label: "Item 2", href: "/test" },
         {
-          label: "Item 2",
-          href: "/test",
-          options: [
-            { label: "Nested item 1", href: "#" },
-            { label: "Nested item 2", href: "#", active: true },
-            { label: "Nested item 3", href: "#" },
+          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 2.1", href: "#" }),
+            h(OnyxNavItem, { label: "Nested item 2.2", href: "#", active: true }),
+            h(OnyxNavItem, { label: "Nested item 2.3", href: "https://onyx.schwarz" }),
           ],
         },
-        () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
       ),
-      h(OnyxNavItem, { label: "Item 3", href: "https://onyx.schwarz" }),
+      h(OnyxNavButton, { label: "Item 3", href: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2",
   },
@@ -132,5 +138,43 @@ export const WithCustomAppArea = {
   args: {
     ...Default.args,
     appArea: () => [h(OnyxIcon, { icon: placeholder, color: "secondary" }), "Custom name"],
+  },
+} satisfies Story;
+
+/**
+ * This nav bar has a lot of menu and context area items.
+ * Both the nav area as well as the context area will overflow when opened.
+ */
+export const WithOverflowingMobileContent = {
+  args: {
+    ...WithContextArea.args,
+    mobileBreakpoint: "xl",
+    default: () => [
+      h(OnyxNavButton, { label: "Item 1", href: "/" }),
+      h(
+        OnyxNavButton,
+        { label: "Item 2", href: "/test" },
+        {
+          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
+          children: () =>
+            Array.from({ length: 20 }, (_, index) =>
+              h(OnyxNavItem, { label: `Nested item 2.${index + 1}`, href: "#" }),
+            ),
+        },
+      ),
+      Array.from({ length: 20 }, (_, index) =>
+        h(OnyxNavButton, { label: `Item ${index + 3}`, href: "/" }),
+      ),
+    ],
+    contextArea: () => [
+      h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxNavSeparator),
+      h(OnyxUserMenu, OnyxUserMenuDefault.args, {
+        default: Array.from({ length: 20 }, (_, index) =>
+          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), `Context option ${index}`]),
+        ),
+        footer: OnyxUserMenuDefault.args.footer,
+      }),
+    ],
   },
 } satisfies Story;

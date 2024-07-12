@@ -1,4 +1,4 @@
-<div style="text-align: center">
+<div align="center" style="text-align: center">
   <picture>
     <source media="(prefers-color-scheme: dark)" type="image/svg+xml" srcset="./.github/onyx-logo-light.svg">
     <source media="(prefers-color-scheme: light)" type="image/svg+xml" srcset="./.github/onyx-logo-dark.svg">
@@ -10,9 +10,7 @@
 
 A design system and Vue.js component library for enterprise grade applications created by [Schwarz IT](https://it.schwarz).
 
-> **Work in progress**: This library is currently in early / active development.
-
-<br>
+<br />
 
 ## Documentation
 

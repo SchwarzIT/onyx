@@ -50,9 +50,10 @@ export type DefineStorybookActionsAndVModelsOptions<T> = Meta<T> & {
 export type StorybookGlobalType<TValue> = {
   name: string;
   description: string;
-  defaultValue: TValue;
+  defaultValue?: TValue;
   toolbar: {
     icon: string;
-    items: { value: TValue; right: string; title: string }[];
+    items: { value: TValue; right?: string; title: string }[];
+    title?: string;
   };
 };

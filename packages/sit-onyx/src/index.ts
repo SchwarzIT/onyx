@@ -25,6 +25,9 @@ export * from "./components/OnyxDialog/types";
 
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
+export { default as OnyxExternalLinkIcon } from "./components/OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
+export * from "./components/OnyxExternalLinkIcon/types";
+
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
 export * from "./components/OnyxHeadline/types";
 
@@ -93,11 +96,11 @@ export * from "./components/OnyxTag/types";
 export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
 export * from "./components/OnyxTextarea/types";
 
-export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
-export * from "./components/OnyxToast/types";
+export { default as OnyxToastMessage } from "./components/OnyxToastMessage/OnyxToastMessage.vue";
+export * from "./components/OnyxToastMessage/types";
 
-export { default as OnyxToastProvider } from "./components/OnyxToastProvider/OnyxToastProvider.vue";
-export * from "./components/OnyxToastProvider/useToast";
+export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
+export * from "./components/OnyxToast/useToast";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";

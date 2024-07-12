@@ -1,5 +1,20 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.1
+
+### Major Changes
+
+- 2e29c45: - BREAKING CHANGE: `createTooltip` now provides a `root` element, which is used to listen for outside clicks
+  - new `useGlobalListener` composable helper
+
+## 1.0.0-beta.0
+
+### Major Changes
+
+- bf3ea0a: release beta version
+
+  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+
 ## 1.0.0-alpha.12
 
 ### Patch Changes

@@ -3,8 +3,8 @@
 // It is intended to be deleted once its officially released in Storybook itself, see:
 // https://github.com/storybookjs/storybook/pull/27194
 //
-import { SourceType } from "@storybook/docs-tools";
 import type { Args, StoryContext } from "@storybook/vue3";
+import { SourceType } from "storybook/internal/docs-tools";
 import { isVNode, type VNode } from "vue";
 import { replaceAll } from "./preview";
 

@@ -31,12 +31,27 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt).
 Install the module in your [Nuxt](https://nuxt.com) application with one command:
 
 ```sh
-npx nuxi module add @sit-onyx/nuxt@alpha
+npx nuxi module add @sit-onyx/nuxt@beta
 ```
 
 If you are also using the [@nuxtjs/i18n](https://i18n.nuxtjs.org/) module, make sure to move `@sit-onyx/nuxt` **before** `@nuxtjs/i18n`.
 
 Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you.
+
+## Themes
+
+The module will use the "onyx" theme by default. To change the theme just specify its name inside the config option `onyx.theme`.
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  modules: ["@sit-onyx/nuxt"],
+  onyx: {
+    theme: "lidl",
+  },
+});
+```
+
+For all supported themes see: [Theming](/development/theming#themes)
 
 ## Integration with @nuxtjs/i18n
 

@@ -1,17 +1,15 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { computed, inject } from "vue";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
-import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../../OnyxNavBar/types";
-import UserMenuLayout from "./UserMenuLayout.vue";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
+import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = defineProps<OnyxUserMenuProps>();
 
 const slots = defineSlots<{
   /**
-   * Slot for the menu options. Its recommended to use the `OnyxListItem` component here.
+   * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
   default?(): unknown;
   /**
@@ -21,11 +19,13 @@ const slots = defineSlots<{
 }>();
 
 const avatar = computed(() => {
-  if (typeof props.avatar === "object") return { ...props.avatar, label: props.username };
   return { src: props.avatar, label: props.username };
 });
 
-const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
+const isMobile = inject(
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  computed(() => false),
+);
 </script>
 
 <template>
@@ -35,10 +35,9 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
     :is-mobile="isMobile ?? false"
   >
     <template #button>
-      <button v-if="!isMobile" class="onyx-user-menu__trigger onyx-text" type="button">
+      <button class="onyx-user-menu__trigger onyx-text" type="button">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
-        <OnyxIcon class="onyx-user-menu__chevron" :icon="chevronLeftSmall" />
       </button>
     </template>
 
@@ -61,13 +60,13 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
     </template>
 
     <template #options>
-      <slot></slot>
+      <div class="onyx-user-menu__options">
+        <slot></slot>
+      </div>
     </template>
 
     <template v-if="slots.footer" #footer>
-      <div class="onyx-user-menu__footer onyx-text--small">
-        <slot name="footer"></slot>
-      </div>
+      <slot name="footer"></slot>
     </template>
   </UserMenuLayout>
 </template>
@@ -83,21 +82,13 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
     width: max-content;
     position: relative;
 
-    &:focus-within {
+    &:focus-within,
+    &:hover {
       outline: 0;
 
       .onyx-user-menu__trigger {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
         background-color: var(--onyx-color-base-neutral-200);
-      }
-
-      .onyx-user-menu__flyout {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .onyx-user-menu__chevron {
-        transform: rotate(-90deg);
       }
     }
 
@@ -118,20 +109,14 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
       &:hover {
         background-color: var(--onyx-color-base-neutral-200);
       }
+
+      &:focus {
+        outline: 0;
+      }
     }
 
-    &__flyout {
-      opacity: 0;
-      visibility: hidden;
-      transition-duration: var(--onyx-duration-sm);
-      transition-property: opacity, visibility;
-      position: absolute;
+    .onyx-flyout-menu__list {
       right: 0;
-      top: calc(var(--onyx-user-menu-height) + var(--onyx-spacing-sm));
-    }
-
-    &__chevron {
-      transition: transform var(--onyx-duration-sm);
     }
 
     &__header {
@@ -154,17 +139,6 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
       font-weight: 600;
     }
 
-    &__footer {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
-      color: var(--onyx-color-text-icons-neutral-soft);
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--onyx-spacing-2xs);
-    }
-
     &--mobile {
       width: 100%;
       position: static;
@@ -176,22 +150,20 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
         margin-bottom: var(--onyx-spacing-xs); // TODO: use density
       }
 
-      .onyx-list-item {
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-
-        &:first-of-type {
+      .onyx-user-menu__options {
+        .onyx-list-item {
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
           border-bottom: none;
-          border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
-        }
 
-        &:last-of-type {
-          border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
-        }
-      }
+          &:first-of-type {
+            border-radius: var(--onyx-radius-sm) var(--onyx-radius-sm) 0 0;
+          }
 
-      .onyx-user-menu__footer {
-        border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        background-color: var(--onyx-color-base-background-blank);
+          &:last-of-type {
+            border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+            border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
+          }
+        }
       }
     }
   }

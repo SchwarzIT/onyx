@@ -1,5 +1,81 @@
 # sit-onyx
 
+## 1.0.0-beta.4
+
+### Patch Changes
+
+- 6e14afd: fix(OnyxMobileNavButton): scroll on overflowing mobile flyout
+
+  The flyout of OnyxMobileNavButton now has a max height and is scrollable if too many nav/context items exist.
+
+  - app version inside the mobile flyout is not positioned absolute anymore and is a disabled list item
+  - fixed duplicate border in mobile context menu when multiple list items exist
+
+## 1.0.0-beta.3
+
+### Minor Changes
+
+- 67a5e50: feat(OnyxSelect, OnyxRadioGroup, OnyxCheckboxGroup): Implement truncation on higher level
+
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 15114f7: feat(OnyxSelect): Implement truncation for OnyxSelectOptions
+
+## 1.0.0-beta.1
+
+### Major Changes
+
+- 7b72cbc: refactor: rename toast components
+
+  - renamed `OnyxToast` to `OnyxToastMessage`
+  - renamed `OnyxToastProvider` to `OnyxToast`
+
+## 1.0.0-beta.0
+
+### Major Changes
+
+- bf3ea0a: release beta version
+
+  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+
+### Patch Changes
+
+- Updated dependencies [bf3ea0a]
+  - @sit-onyx/icons@1.0.0-beta.0
+
+## 1.0.0-alpha.165
+
+### Patch Changes
+
+- bf1e992: fix(typings): incorrect or outdated type definitions
+
+  - The `vite-plugin-dts` was removed and instead we use `vue-tsc` for the generation of the type definitions.
+  - The plugin used an outdated version of the [`@vue/language-core`](https://www.npmjs.com/package/%40vue%2Flanguage-core) package
+
+## 1.0.0-alpha.164
+
+### Major Changes
+
+- 555ac22: refactor navigation components
+
+  - `OnyxFlyoutMenu`: rename default slot to options
+  - previous `OnyxNavItem` component is now `OnyxNavButton` with changed API
+  - new `OnyxNavItem` is now only intended to be used as children for the new `OnyxNavButton`
+  - `OnyxUserMenu`: property `avatar` now only accepts a string, not an object
+  - fix(OnyxUserMenu): use correct font weight for username
+
+### Minor Changes
+
+- 48b24d2: feat: support lidl, kaufland and twogo theme
+
+### Patch Changes
+
+- 555ac22: fix(OnyxMenuItem): make whole button/link clickable
+
+  Also add missing export for the component itself
+
 ## 1.0.0-alpha.163
 
 ### Minor Changes

@@ -1,5 +1,68 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.5
+
+### Patch Changes
+
+- Updated dependencies [6e14afd]
+  - sit-onyx@1.0.0-beta.4
+
+## 1.0.0-beta.4
+
+### Patch Changes
+
+- Updated dependencies [67a5e50]
+  - sit-onyx@1.0.0-beta.3
+
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- Updated dependencies [15114f7]
+  - sit-onyx@1.0.0-beta.2
+
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 3385622: Support themes in nuxt module
+
+## 1.0.0-beta.1
+
+### Patch Changes
+
+- Updated dependencies [7b72cbc]
+  - sit-onyx@1.0.0-beta.1
+
+## 1.0.0-beta.0
+
+### Major Changes
+
+- bf3ea0a: release beta version
+
+  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+
+### Patch Changes
+
+- Updated dependencies [bf3ea0a]
+  - sit-onyx@1.0.0-beta.0
+
+## 1.0.0-alpha.47
+
+### Patch Changes
+
+- Updated dependencies [bf1e992]
+  - sit-onyx@1.0.0-alpha.165
+
+## 1.0.0-alpha.46
+
+### Patch Changes
+
+- Updated dependencies [555ac22]
+- Updated dependencies [555ac22]
+- Updated dependencies [48b24d2]
+  - sit-onyx@1.0.0-alpha.164
+
 ## 1.0.0-alpha.45
 
 ### Patch Changes

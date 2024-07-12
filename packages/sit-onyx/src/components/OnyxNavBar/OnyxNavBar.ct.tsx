@@ -1,4 +1,3 @@
-import { OnyxNavBar, OnyxNavItem } from "../..";
 import { expect, test } from "../../playwright/a11y";
 import {
   MOCK_PLAYWRIGHT_LOGO_URL,
@@ -11,10 +10,13 @@ import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
+import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxNavBar from "./OnyxNavBar.vue";
 
 test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);
@@ -36,8 +38,8 @@ test.describe("Screenshot tests", () => {
           style={{ width: `${breakpointWidth}px` }}
           withBackButton={row.includes("back")}
         >
-          <OnyxNavItem label="Item" active />
-          <OnyxNavItem label="Item" />
+          <OnyxNavButton label="Item" active />
+          <OnyxNavButton label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
 
@@ -62,31 +64,30 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavItem href="/1" label="Item 1" onClick={(href) => clickEvents.push(href)} />
-      <OnyxNavItem
-        href="/2"
-        label="Item 2"
-        options={[
-          {
-            label: "Nested item 1",
-            href: "/2/1",
-          },
-          {
-            label: "Nested item 2",
-            href: "/2/2",
-            active: true,
-          },
-          {
-            label: "Nested item 3",
-            href: "/2/3",
-          },
-        ]}
-        onClick={(href) => clickEvents.push(href)}
-      >
+      <OnyxNavButton href="#1" label="Item 1" onClick={(href) => clickEvents.push(href)} />
+      <OnyxNavButton href="#2" label="Item 2" onClick={(href) => clickEvents.push(href)}>
         Item 2
         <OnyxBadge color="warning" dot />
-      </OnyxNavItem>
-      <OnyxNavItem
+        <template v-slot:children>
+          <OnyxNavItem
+            label="Nested item 1"
+            href="#2-1"
+            onClick={(href) => clickEvents.push(href)}
+          />
+          <OnyxNavItem
+            label="Nested item 2"
+            href="#2-2"
+            active
+            onClick={(href) => clickEvents.push(href)}
+          />
+          <OnyxNavItem
+            label="Nested item 3"
+            href="#2-3"
+            onClick={(href) => clickEvents.push(href)}
+          />
+        </template>
+      </OnyxNavButton>
+      <OnyxNavButton
         href="https://onyx.schwarz"
         label="Item 3"
         onClick={(href) => clickEvents.push(href)}
@@ -103,15 +104,15 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
         <OnyxTag icon={mockPlaywrightIcon} color="warning" label="QA stage" />
 
         <OnyxUserMenu username="John Doe" description="Company name">
-          <OnyxListItem>
+          <OnyxMenuItem>
             <OnyxIcon icon={mockPlaywrightIcon} />
             Settings
-          </OnyxListItem>
+          </OnyxMenuItem>
 
-          <OnyxListItem color="danger">
+          <OnyxMenuItem color="danger">
             <OnyxIcon icon={mockPlaywrightIcon} />
             Logout
-          </OnyxListItem>
+          </OnyxMenuItem>
 
           <template v-slot:footer>
             App version
@@ -130,26 +131,26 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ACT
   await component.getByLabel("Item 1").click();
-  expect(clickEvents).toStrictEqual(["/1"]);
+  expect(clickEvents).toStrictEqual(["#1"]);
 
   // ACT
   await component.getByLabel("Item 2").click();
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger-children.png");
-  expect(clickEvents).toStrictEqual(["/1"]);
+  expect(clickEvents).toStrictEqual(["#1"]);
 
   // ACT
   await component.getByLabel("Item 2", { exact: true }).click();
 
   // ASSERT
-  expect(clickEvents).toStrictEqual(["/1", "/2"]);
+  expect(clickEvents).toStrictEqual(["#1", "#2"]);
 
   // ACT
-  await component.getByLabel("Nested item 1").click();
+  await component.getByText("Nested item 1").click();
 
   // ASSERT
-  expect(clickEvents).toStrictEqual(["/1", "/2", "/2/1"]);
+  expect(clickEvents).toStrictEqual(["#1", "#2", "#2-1"]);
 
   // ACT
   await component.getByRole("button", { name: "Back" }).click();
@@ -167,6 +168,40 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("context.png");
+});
+
+["", " with context"].forEach((showContext) => {
+  test(`Screenshot tests (mobile truncated labels${showContext})`, async ({ mount, page }) => {
+    await page.setViewportSize({ height: 350, width: ONYX_BREAKPOINTS["2xs"] });
+    const longLabel = "Item with a very long truncated name";
+
+    const component = await mount(
+      <OnyxNavBar appName="App with a very long truncated name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
+        <OnyxNavButton href="#1" label={longLabel} active />
+        <OnyxNavButton href="#2" label="Other item" />
+        <template v-slot:mobileActivePage>{longLabel}</template>
+
+        {showContext && (
+          <template v-slot:globalContextArea>
+            <OnyxIconButton label="Search" icon={mockPlaywrightIcon} color="neutral" />
+          </template>
+        )}
+        {showContext && <template v-slot:contextArea> test </template>}
+      </OnyxNavBar>,
+    );
+    // ASSERT
+    await expect(page).toHaveScreenshot(
+      `truncated-page-name${showContext ? "-with-context" : ""}.png`,
+    );
+
+    // ACT
+    await component.getByLabel("Toggle burger menu").click();
+
+    // ASSERT
+    await expect(page).toHaveScreenshot(
+      `truncated-app-name${showContext ? "-with-context" : ""}.png`,
+    );
+  });
 });
 
 test("should behave correctly", async ({ mount }) => {
@@ -219,8 +254,8 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await mount(
       <OnyxAppLayout>
         <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-          <OnyxNavItem label="Item" active />
-          <OnyxNavItem label="Item" />
+          <OnyxNavButton label="Item" active />
+          <OnyxNavButton label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
 

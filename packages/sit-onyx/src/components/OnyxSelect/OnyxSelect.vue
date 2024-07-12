@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
   searchTerm: undefined,
   open: undefined,
+  truncation: "ellipsis",
 });
 
 const emit = defineEmits<{
@@ -365,6 +366,7 @@ const selectInputProps = computed(() => {
                 :active="option.value === activeValue"
                 :icon="option.icon"
                 :density="props.density"
+                :truncation="option.truncation ?? props.truncation"
               >
                 <slot name="option" v-bind="option">
                   {{ option.label }}
@@ -393,6 +395,7 @@ const selectInputProps = computed(() => {
 
 .onyx-select-wrapper {
   @include layers.component() {
+    --max-flyout-height: 20rem;
     position: relative;
     height: max-content;
   }
@@ -414,7 +417,6 @@ const selectInputProps = computed(() => {
   @include layers.component() {
     $wrapper-padding: var(--onyx-spacing-2xs);
     $outline-size: 0.25rem;
-    --max-options: 8;
 
     @include list.styles();
 
@@ -436,10 +438,6 @@ const selectInputProps = computed(() => {
     &__search {
       position: sticky;
       top: 0;
-    }
-
-    &-option {
-      height: var(--option-height);
     }
 
     &__check-all,

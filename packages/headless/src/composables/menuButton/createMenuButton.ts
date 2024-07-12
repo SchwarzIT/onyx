@@ -112,6 +112,14 @@ export const createMenuButton = createBuilder(() => {
         "aria-labelledby": buttonId,
         onKeydown: handleKeydown,
       },
+      ...createMenuItem().elements,
+    },
+  };
+});
+
+export const createMenuItem = createBuilder(() => {
+  return {
+    elements: {
       listItem: {
         role: "none",
       },

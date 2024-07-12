@@ -16,7 +16,16 @@ const meta: Meta<typeof OnyxMobileNavButton> = {
       icon: defineIconSelectArgType(),
       default: { control: { type: "text" } },
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `<div style="min-height: 10rem;"> <story /> </div>`,
+      }),
+    ],
   }),
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;
@@ -36,3 +45,15 @@ export const Open = {
     open: true,
   },
 } satisfies Story;
+
+/**
+ * Example of a mobile nav button with a long content.
+ * We recommended to watch this example in its [story page](?path=/story/support-mobilenavbutton--scrollable)
+ * where the full page behavior can be seen.
+ */
+export const Scrollable: Story = {
+  args: {
+    ...Open.args,
+    default: Array.from({ length: 200 }, (_, index) => `Lorem ipsum dolor ${index} `),
+  },
+};
