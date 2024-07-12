@@ -135,6 +135,7 @@ test.describe("Screenshot tests (mobile children)", () => {
       await component.evaluate((element) => {
         element.style.height = "245px";
       });
+      await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
     },
   });
 });
