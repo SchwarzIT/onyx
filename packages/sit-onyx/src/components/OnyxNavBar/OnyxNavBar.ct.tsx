@@ -74,8 +74,17 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
             href="#2-1"
             onClick={(href) => clickEvents.push(href)}
           />
-          <OnyxNavItem label="" href="#2-2" active onClick={(href) => clickEvents.push(href)} />
-          <OnyxNavItem label="" href="#2-3" onClick={(href) => clickEvents.push(href)} />
+          <OnyxNavItem
+            label="Nested item 2"
+            href="#2-2"
+            active
+            onClick={(href) => clickEvents.push(href)}
+          />
+          <OnyxNavItem
+            label="Nested item 3"
+            href="#2-3"
+            onClick={(href) => clickEvents.push(href)}
+          />
         </template>
       </OnyxNavButton>
       <OnyxNavButton
@@ -119,7 +128,6 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger.png");
-  return;
 
   // ACT
   await component.getByLabel("Item 1").click();
@@ -148,18 +156,52 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Back" }).click();
 
   // ASSERT
-  await expect(component.getByText("Nested item 1")).toBeHidden();
-  await expect(component.getByText("Nested item 2")).toBeHidden();
-  await expect(component.getByText("Nested item 3")).toBeHidden();
-  await expect(component.getByText("Item 1")).toBeVisible();
-  await expect(component.getByText("Item 2")).toBeVisible();
-  await expect(component.getByText("Item 3")).toBeVisible();
+  await expect(component.getByLabel("Nested item 1")).toBeHidden();
+  await expect(component.getByLabel("Nested item 2")).toBeHidden();
+  await expect(component.getByLabel("Nested item 3")).toBeHidden();
+  await expect(component.getByLabel("Item 1")).toBeVisible();
+  await expect(component.getByLabel("Item 2")).toBeVisible();
+  await expect(component.getByLabel("Item 3")).toBeVisible();
 
   // ACT
   await component.getByLabel("Toggle context menu").click();
 
   // ASSERT
   await expect(page).toHaveScreenshot("context.png");
+});
+
+["", " with context"].forEach((showContext) => {
+  test(`Screenshot tests (mobile truncated labels${showContext})`, async ({ mount, page }) => {
+    await page.setViewportSize({ height: 350, width: ONYX_BREAKPOINTS["2xs"] });
+    const longLabel = "Item with a very long truncated name";
+
+    const component = await mount(
+      <OnyxNavBar appName="App with a very long truncated name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
+        <OnyxNavButton href="#1" label={longLabel} active />
+        <OnyxNavButton href="#2" label="Other item" />
+        <template v-slot:mobileActivePage>{longLabel}</template>
+
+        {showContext && (
+          <template v-slot:globalContextArea>
+            <OnyxIconButton label="Search" icon={mockPlaywrightIcon} color="neutral" />
+          </template>
+        )}
+        {showContext && <template v-slot:contextArea> test </template>}
+      </OnyxNavBar>,
+    );
+    // ASSERT
+    await expect(page).toHaveScreenshot(
+      `truncated-page-name${showContext ? "-with-context" : ""}.png`,
+    );
+
+    // ACT
+    await component.getByLabel("Toggle burger menu").click();
+
+    // ASSERT
+    await expect(page).toHaveScreenshot(
+      `truncated-app-name${showContext ? "-with-context" : ""}.png`,
+    );
+  });
 });
 
 test("should behave correctly", async ({ mount }) => {
