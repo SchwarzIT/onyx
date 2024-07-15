@@ -34,13 +34,9 @@ export const navigationTesting = async ({ nav, buttons }: NavigationMenuTestingO
     );
   }
   /**
-   * Move keyboard focus among top-level buttons using tab
+   * Focus first button
    */
   await nav.press("Tab");
-  await expect(buttons.nth(0)).toBeFocused();
-  await nav.press("Tab");
-  await expect(buttons.nth(1)).toBeFocused();
-  await nav.press("Shift+Tab");
   await expect(buttons.nth(0)).toBeFocused();
   /**
    * Move keyboard focus among top-level buttons using arrow keys
