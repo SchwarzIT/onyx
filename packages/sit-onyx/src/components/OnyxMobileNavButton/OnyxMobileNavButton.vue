@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import x from "@sit-onyx/icons/x.svg?raw";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxMobileNavButtonProps } from "./types";
 
@@ -16,35 +17,40 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * Slot for the menu content when its open.
+   * Slot for the menu content when it's open.
    */
   default(): unknown;
 }>();
 </script>
 
 <template>
-  <div>
+  <div class="onyx-mobile-nav-button">
     <button
       type="button"
-      class="onyx-mobile-nav-button"
-      :class="{ 'onyx-mobile-nav-button--active': props.open }"
+      class="onyx-mobile-nav-button__trigger"
+      :class="{ 'onyx-mobile-nav-button__trigger--active': props.open }"
       :aria-label="props.label"
       @click="emit('update:open', !props.open)"
     >
       <OnyxIcon :icon="props.open ? x : props.icon" />
     </button>
 
-    <div v-if="props.open" class="onyx-mobile-nav-button__menu">
-      <div class="onyx-mobile-nav-button__content">
-        <slot></slot>
-      </div>
+    <template v-if="props.open">
+      <div class="onyx-mobile-nav-button__flyout">
+        <div class="onyx-mobile-nav-button__menu">
+          <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
+            {{ props.headline }}
+          </OnyxHeadline>
 
+          <slot></slot>
+        </div>
+      </div>
       <div
         class="onyx-mobile-nav-button__backdrop"
         role="presentation"
         @click="emit('update:open', false)"
-      ></div>
-    </div>
+      ></div
+    ></template>
   </div>
 </template>
 
@@ -53,38 +59,60 @@ defineSlots<{
 
 .onyx-mobile-nav-button {
   @include layers.component() {
-    display: flex;
-    background-color: var(--onyx-color-base-background-blank);
-    color: var(--onyx-color-text-icons-neutral-medium);
-    padding: var(--onyx-spacing-md);
-    cursor: pointer;
+    // should be adjusted to the height of the control button
+    --top-position: 3.5rem;
+    $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
 
-    :where(&) {
-      border: none;
+    &__trigger {
+      display: flex;
+      background-color: var(--onyx-color-base-background-blank);
+      color: var(--onyx-color-text-icons-neutral-medium);
+      padding: var(--onyx-spacing-md);
+      cursor: pointer;
+
+      :where(&) {
+        border: none;
+      }
+
+      &:hover:not(&--active) {
+        background-color: var(--onyx-color-base-background-tinted);
+      }
+
+      &:focus-visible {
+        background-color: var(--onyx-color-base-secondary-100);
+        outline: none;
+      }
+
+      &:active,
+      &--active {
+        background-color: var(--onyx-color-base-secondary-100);
+        color: var(--onyx-color-text-icons-secondary-intense);
+      }
     }
 
-    &:hover:not(&--active) {
+    &__headline {
+      position: sticky;
+      top: 0;
+      z-index: 1;
       background-color: var(--onyx-color-base-background-tinted);
+      padding: var(--onyx-spacing-xl) 0 var(--onyx-spacing-2xs);
+      margin-inline: auto;
     }
 
-    &:focus-visible {
-      background-color: var(--onyx-color-base-secondary-100);
-      outline: none;
-    }
-
-    &:active,
-    &--active {
-      background-color: var(--onyx-color-base-secondary-100);
-      color: var(--onyx-color-text-icons-secondary-intense);
-    }
-
-    &__menu {
+    &__flyout {
+      max-height: calc(100vh - var(--top-position) - var(--onyx-spacing-3xl));
       width: 100%;
       background-color: var(--onyx-color-base-background-tinted);
       box-shadow: var(--onyx-shadow-medium-bottom);
       position: relative;
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
+      overflow-y: auto;
+
+      position: absolute;
+      top: var(--top-position);
+      left: 0;
+      z-index: var(--onyx-z-index-navigation);
     }
 
     &__backdrop {
@@ -93,17 +121,42 @@ defineSlots<{
       width: 100%;
       height: 100vh;
       display: block;
-      position: absolute;
       cursor: pointer;
+
+      position: fixed;
+      top: var(--top-position);
+      left: 0;
+      z-index: var(--onyx-z-index-page-overlay);
     }
 
-    &__content {
-      max-width: 34rem;
-      padding: var(--onyx-spacing-xl) var(--onyx-spacing-md);
-      display: flex;
-      flex-direction: column;
+    &__menu {
+      max-width: 36rem;
+      padding: 0 var(--onyx-spacing-md) var(--onyx-spacing-xl);
       margin-inline: auto;
-      gap: var(--onyx-spacing-2xs);
+
+      &:has(.onyx-nav-bar__mobile-context-content) {
+        // context menu needs extra padding on top since there is no headline
+        padding-top: var(--onyx-spacing-xl);
+      }
+
+      // hide all other nav items when nav item with children is open
+      #{$mobile-children-selector} {
+        > .onyx-nav-button:not(#{$mobile-children-selector}) {
+          display: none;
+        }
+      }
+    }
+
+    &#{$mobile-children-selector} {
+      // hide "Navigation" headline when nav item with children is open
+      .onyx-mobile-nav-button__headline {
+        display: none;
+      }
+    }
+    // fill up the padding-top if there is no headline
+    &#{$mobile-children-selector} .onyx-mobile-nav-button__menu,
+    &__menu:not(:has(.onyx-mobile-nav-button__headline)) {
+      padding-top: var(--onyx-spacing-xl);
     }
   }
 }

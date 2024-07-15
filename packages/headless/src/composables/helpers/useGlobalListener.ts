@@ -1,4 +1,4 @@
-import { onBeforeMount, onBeforeUnmount, reactive, watch, type Ref } from "vue";
+import { onBeforeMount, onBeforeUnmount, reactive, watchEffect, type Ref } from "vue";
 
 type DocumentEventType = keyof DocumentEventMap;
 type GlobalListener<K extends DocumentEventType = DocumentEventType> = (
@@ -54,18 +54,11 @@ export const useGlobalEventListener = <K extends DocumentEventType>({
   listener,
   disabled,
 }: UseGlobalEventListenerOptions<K>) => {
-  onBeforeMount(() => {
-    if (!disabled) {
-      addGlobalListener(type, listener);
-      return;
-    }
-    watch(
-      disabled,
-      () =>
-        disabled.value ? removeGlobalListener(type, listener) : addGlobalListener(type, listener),
-      { immediate: true },
-    );
-  });
+  onBeforeMount(() =>
+    watchEffect(() =>
+      disabled?.value ? removeGlobalListener(type, listener) : addGlobalListener(type, listener),
+    ),
+  );
 
   onBeforeUnmount(() => removeGlobalListener(type, listener));
 };

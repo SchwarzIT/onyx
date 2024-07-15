@@ -41,7 +41,9 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
         height="24"
       />
 
-      <span v-if="props.appName" class="onyx-text-small">{{ props.appName }}</span>
+      <span v-if="props.appName" class="onyx-text-small onyx-truncation-ellipsis">
+        {{ props.appName }}
+      </span>
     </slot>
   </button>
 </template>
@@ -68,6 +70,7 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
+    overflow-x: hidden;
 
     &:hover {
       background-color: var(--onyx-color-base-background-tinted);

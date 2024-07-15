@@ -1,11 +1,10 @@
-import { DOCS_RENDERED } from "@storybook/core-events";
-import { addons } from "@storybook/preview-api";
-import { type ThemeVars } from "@storybook/theming";
+import { getIconImportName } from "@sit-onyx/icons";
 import { type Preview, type StoryContext } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
-
-import { getIconImportName } from "@sit-onyx/icons";
+import { DOCS_RENDERED } from "storybook/internal/core-events";
+import { addons } from "storybook/internal/preview-api";
+import type { ThemeVars } from "storybook/internal/theming";
 import { requiredGlobalType, withRequired } from "./required";
 import { generateSourceCode } from "./source-code-generator";
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
