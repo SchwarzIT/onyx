@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.5
+
+### Patch Changes
+
+- 59bca7e: fix(OnyxNavBar): show app name on open mobile context area and truncate app/nav names
+
 ## 1.0.0-beta.4
 
 ### Patch Changes
