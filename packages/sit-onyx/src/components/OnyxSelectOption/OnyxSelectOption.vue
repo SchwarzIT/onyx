@@ -54,9 +54,10 @@ defineSlots<{
 
   @include layers.component() {
     &__checkbox {
-      @include checkbox.styles();
       // prevent the checkbox to get squished by a long label
       flex-shrink: 0;
+
+      @include checkbox.styles();
     }
   }
 }
