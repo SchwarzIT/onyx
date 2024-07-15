@@ -140,10 +140,6 @@ defineExpose({
           :headline="t('navigation.navigationHeadline')"
           @update:open="isContextOpen = false"
         >
-          <OnyxHeadline is="h2" class="onyx-nav-bar__mobile-headline">
-            {{ t("navigation.navigationHeadline") }}
-          </OnyxHeadline>
-
           <nav class="onyx-nav-bar__nav--mobile" v-bind="nav">
             <ul role="menubar">
               <slot></slot>
