@@ -93,7 +93,7 @@ const handleCounterButton = (event: Event, operation: "add" | "substract") => {
           role="button"
           class="onyx-stepper__counter"
           :class="{ 'onyx-stepper__counter--disabled': props.min && props.min === value }"
-          :aria-label="t('substract')"
+          :aria-label="t('stepper.decrement')"
           @click="handleCounterButton($event, 'substract')"
           @keydown.enter="handleCounterButton($event, 'substract')"
         >
@@ -126,7 +126,7 @@ const handleCounterButton = (event: Event, operation: "add" | "substract") => {
           role="button"
           class="onyx-stepper__counter"
           :class="{ 'onyx-stepper__counter--disabled': props.max && props.max === value }"
-          :aria-label="t('add')"
+          :aria-label="t('stepper.increment')"
           @click="handleCounterButton($event, 'add')"
           @keydown.enter="handleCounterButton($event, 'add')"
         >

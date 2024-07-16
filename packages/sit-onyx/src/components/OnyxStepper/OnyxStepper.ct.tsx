@@ -304,7 +304,7 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component.getByLabel("Test label")).toBeAttached();
 });
 
-test("should increase/decrease value by one on counter button click", async ({
+test("should increment/decrement value by one on counter button click", async ({
   mount,
   makeAxeBuilder,
 }) => {
@@ -350,7 +350,7 @@ test("should increase/decrease value by one on counter button click", async ({
   await expect(input).toHaveValue("0");
 });
 
-test("should increase/decrease value by step on counter button click", async ({
+test("should increment/decrement value by step on counter button click", async ({
   mount,
   makeAxeBuilder,
 }) => {

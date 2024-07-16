@@ -4,8 +4,6 @@
   "apply": "Anwenden",
   "back": "Zurück",
   "close": "Schließen",
-  "substract": "Subtrahieren",
-  "add": "Hinzufügen",
   "validations": {
     "tooShort": {
       "preview": "Zu kurz",
@@ -72,6 +70,10 @@
   "selections": {
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
+  },
+  "stepper": {
+    "decrement": "Dekrementieren",
+    "increment": "Zuwachs"
   },
   "table": {
     "empty": "Diese Tabelle ist leer."
