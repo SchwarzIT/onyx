@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+import { createNavigationMenu } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { computed, provide, ref } from "vue";
+import { computed, provide, ref, toRef } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
@@ -57,6 +58,10 @@ const slots = defineSlots<{
 const navBarRef = ref<HTMLElement>();
 const { width } = useResizeObserver(navBarRef);
 const { t } = injectI18n();
+
+const {
+  elements: { nav },
+} = createNavigationMenu({ navigationName: toRef(() => props.appName) });
 
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
@@ -135,14 +140,14 @@ defineExpose({
           :headline="t('navigation.navigationHeadline')"
           @update:open="isContextOpen = false"
         >
-          <nav class="onyx-nav-bar__nav--mobile">
+          <nav class="onyx-nav-bar__nav--mobile" v-bind="nav">
             <ul role="menubar">
               <slot></slot>
             </ul>
           </nav>
         </OnyxMobileNavButton>
 
-        <nav v-else class="onyx-nav-bar__nav">
+        <nav v-else class="onyx-nav-bar__nav" v-bind="nav">
           <ul role="menubar">
             <slot></slot>
           </ul>

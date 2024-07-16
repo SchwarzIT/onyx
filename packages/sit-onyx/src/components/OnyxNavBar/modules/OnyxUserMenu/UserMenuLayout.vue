@@ -29,7 +29,7 @@ const { t } = injectI18n();
     </template>
 
     <template v-else>
-      <OnyxFlyoutMenu class="onyx-user-menu__flyout" :label="t('navigation.userMenuLabel')">
+      <OnyxFlyoutMenu :label="t('navigation.userMenuLabel')">
         <slot name="button"></slot>
 
         <template #header>
