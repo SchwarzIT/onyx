@@ -29,10 +29,6 @@ const emit = defineEmits<{
   /** Emitted when the input value changes. */
   "update:modelValue": [value: number];
   /**
-   * Emitted when the current value changes but only when the input is blurred.
-   */
-  change: [value: number];
-  /**
    * Emitted when the input is focussed.
    */
   focus: [];
