@@ -1,5 +1,16 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.2
+
+### Major Changes
+
+- c2a6447: - implemented headless feature: `createNavigationMenu`
+  - headless MenuButton:
+    - now takes an `isExpandedRef` and `onToggle` via it's options
+    - `flyout` element is removed as it is not needed
+    - removed hover and focus toggle features and moved them to the onyx component directly as these are non spec features
+  - update headless implementation in `sit-onyx`
+
 ## 1.0.0-beta.1
 
 ### Major Changes
