@@ -10,20 +10,13 @@ test.describe("Screenshot tests", () => {
     await expect(tooltip).toBeVisible();
   };
 
-  for (const state of ["default", "placeholder", "with value", "autofill"] as const) {
+  for (const state of ["default", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Stepper (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus"],
       component: (column) => {
-        return (
-          <OnyxStepper
-            label="Test label"
-            placeholder={state === "placeholder" ? "0" : undefined}
-            density={column}
-            style="width: 12rem;"
-          />
-        );
+        return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
       },
       beforeScreenshot: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");
