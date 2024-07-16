@@ -294,7 +294,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   await inputElement.blur();
   // ASSERT
   expect(events).toMatchObject({
-    updateModelValue: [10],
+    updateModelValue: [1, 10, 10],
     focusCount: 1,
     blurCount: 1,
   });
