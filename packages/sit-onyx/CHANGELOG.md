@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.7
+
+### Patch Changes
+
+- df21d23: fix(OnyxUserMenu): hide mobile footer when it does not exist
+
 ## 1.0.0-beta.6
 
 ### Minor Changes
