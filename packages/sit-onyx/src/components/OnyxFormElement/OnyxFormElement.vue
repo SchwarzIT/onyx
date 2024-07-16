@@ -46,6 +46,7 @@ defineSlots<{
             v-if="props.labelTooltip"
             class="onyx-form-element__label-tooltip"
             :text="props.labelTooltip"
+            :open="'hover'"
           />
           <span v-if="!props.required" class="onyx-form-element__optional">{{
             t("optional")
@@ -68,7 +69,8 @@ defineSlots<{
         class="onyx-form-element__error-tooltip"
         color="danger"
         position="bottom"
-        :label="t('showTooltip.error')"
+        :label="t('tooltip.error')"
+        :open="'hover'"
         :text="errorMessages.longMessage"
       />
 
@@ -79,6 +81,7 @@ defineSlots<{
         v-if="props.messageTooltip"
         class="onyx-form-element__message-tooltip"
         position="bottom"
+        :open="'hover'"
         :text="props.messageTooltip"
       />
       <span v-if="counterText" class="onyx-form-element__counter">

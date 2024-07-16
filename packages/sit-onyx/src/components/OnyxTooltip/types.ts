@@ -1,3 +1,4 @@
+import type { CreateToggletipOptions, CreateTooltipOptions } from "@sit-onyx/headless";
 import type { OnyxColor } from "../../types";
 
 export type OnyxTooltipProps = {
@@ -21,6 +22,11 @@ export type OnyxTooltipProps = {
   fitParent?: boolean;
   /**
    * How to open/trigger the tooltip. You can set a boolean to force show/hide the tooltip.
+   * When open is not the default value `hover`, the component will act as an "toggletip":
+   * - tooltip: Describes the associated element
+   * - toggletip: Gives additional information about in the current context
+   *
+   * The "toggletip" is implemented using an aria-live region.
    */
   open?: TooltipOpen;
 };
@@ -32,10 +38,9 @@ export type TooltipOpen =
   | "hover"
   | "click"
   | boolean
-  | {
+  | ({
       type: "hover";
-      /**
-       * Number of milliseconds to use as debounce when showing/hiding the tooltip
-       */
-      debounce: number;
-    };
+    } & Partial<CreateTooltipOptions>)
+  | ({
+      type: "click";
+    } & Partial<CreateToggletipOptions>);

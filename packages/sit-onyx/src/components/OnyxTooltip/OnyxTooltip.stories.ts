@@ -1,8 +1,7 @@
-import { TOOLTIP_TRIGGERS } from "@sit-onyx/headless";
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
+import { computed, h, ref } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
@@ -24,7 +23,7 @@ const meta: Meta<typeof OnyxTooltip> = {
         control: { disable: true },
       },
       open: {
-        options: [...TOOLTIP_TRIGGERS, true, false],
+        options: ["hover", "click", true, false],
       },
     },
     decorators: [
@@ -48,42 +47,52 @@ type Story = StoryObj<typeof OnyxTooltip>;
 export const Default = {
   args: {
     text: "Tooltip text",
-    default: () => h(OnyxButton, { label: "Slot content goes here" }),
+    default: ({ trigger }) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      h(OnyxButton, { label: "Slot content goes here", ...(trigger as any) }),
     icon: circleInformation,
     open: true,
   },
 } satisfies Story;
 
 /**
- * This example shows a tooltip that will be triggered on hover.
+ * This tooltip is triggered on hover and it describes what the associated button does.
  * It will use a short debounce/delay when showing/hiding.
  */
 export const Hover = {
+  render: (args) => ({
+    setup: () => {
+      const count = ref(0);
+      const label = computed(() => `Click me ${count.value}`);
+
+      return () =>
+        h(OnyxTooltip, args, {
+          default: ({ trigger }) =>
+            h(OnyxButton, {
+              label,
+              ...trigger,
+              onClick: () => count.value++,
+            }),
+        });
+    },
+  }),
   args: {
     ...Default.args,
-    default: () => h(OnyxButton, { label: "Hover me to show the tooltip" }),
+    text: "Clicking this button won't do anything substantial, but will give the actor a slight sense of gratification.",
     open: "hover",
   },
 } satisfies Story;
 
 /**
- * This example shows a tooltip that will be triggered on click.
+ * This example tooltip (or rather toggletip) is toggled by a click and provides contextual information.
  */
 export const Click = {
   args: {
     ...Default.args,
-    default: () => h(OnyxButton, { label: "Click me to show the tooltip" }),
+    text: "Storybook is a frontend workshop for building UI components and pages in isolation.",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    default: ({ trigger }) => h(OnyxButton, { label: "Info", ...(trigger as any) }),
     open: "click",
-  },
-} satisfies Story;
-
-/**
- * This example shows a tooltip with a very long text that wraps to a new line.
- */
-export const LongText = {
-  args: {
-    ...Default.args,
-    text: "Lorem ipsum dolor sit amet ".repeat(5),
   },
 } satisfies Story;
 
@@ -103,6 +112,10 @@ export const MatchParentWidth = {
 export const Danger = {
   args: {
     ...Default.args,
+    open: "hover",
+    text: "Clicking this button will delete the internet!",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    default: ({ trigger }) => h(OnyxButton, { label: "Delete", ...(trigger as any) }),
     color: "danger",
   },
 } satisfies Story;

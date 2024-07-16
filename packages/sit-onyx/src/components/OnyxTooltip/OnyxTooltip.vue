@@ -1,6 +1,13 @@
 <script lang="ts" setup>
-import { createTooltip } from "@sit-onyx/headless";
+import {
+  createToggletip,
+  createTooltip,
+  type CreateToggletipOptions,
+  type CreateTooltipOptions,
+} from "@sit-onyx/headless";
+import type { HtmlHTMLAttributes, VNode } from "vue";
 import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
 
@@ -13,30 +20,46 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
 
 defineSlots<{
   /**
-   * Default slot where the parent content is placed that should open/close the tooltip.
+   * Default slot where the parent content is placed that controls the open/close state of the tooltip.
    *
-   * **Accessibility**: Please ensure that your content includes at least one focusable element
-   * (e.g. by using a button or input element).
+   * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(): unknown;
+  default(params: { trigger: HtmlHTMLAttributes }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
-   * **Accessibility**: Make sure that the tooltip content is NOT focusable/interactive.
+   * **Accessibility**: You must ensure that the tooltip content is NOT focusable/interactive.
    */
   tooltip?(): unknown;
 }>();
 
-const {
-  elements: { root, trigger, tooltip },
-  state: { isVisible },
-} = createTooltip({
-  open: computed(() => props.open),
+const { t } = injectI18n();
+
+const type = computed(() => {
+  if (typeof props.open === "object") return props.open.type;
+  if (typeof props.open === "string") return props.open;
+  return "hover";
 });
+
+const tooltipOptions = computed<CreateTooltipOptions>(() => ({
+  debounce: 200,
+  ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
+}));
+const toggletipOptions = computed<CreateToggletipOptions>(() => ({
+  toggleLabel: t.value("tooltip.info"),
+  ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
+}));
+const ariaPattern = computed(() =>
+  type.value === "hover"
+    ? createTooltip(tooltipOptions.value)
+    : createToggletip(toggletipOptions.value),
+);
+const tooltip = computed(() => ariaPattern.value.elements.tooltip);
+const trigger = computed(() => ariaPattern.value.elements.trigger);
 </script>
 
 <template>
-  <div class="onyx-tooltip-wrapper" v-bind="root">
+  <div class="onyx-tooltip-wrapper">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
@@ -44,7 +67,7 @@ const {
         'onyx-tooltip--danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
         'onyx-tooltip--fit-parent': props.fitParent,
-        'onyx-tooltip--hidden': !isVisible,
+        'onyx-tooltip--hidden': !ariaPattern.state.isVisible.value,
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -53,9 +76,7 @@ const {
       </slot>
     </div>
 
-    <div v-bind="trigger">
-      <slot></slot>
-    </div>
+    <slot :trigger="trigger.value"></slot>
   </div>
 </template>
 
