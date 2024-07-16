@@ -4,6 +4,8 @@
   "apply": "Anwenden",
   "back": "Zurück",
   "close": "Schließen",
+  "substract": "Subtrahieren",
+  "add": "Hinzufügen",
   "validations": {
     "tooShort": {
       "preview": "Zu kurz",
