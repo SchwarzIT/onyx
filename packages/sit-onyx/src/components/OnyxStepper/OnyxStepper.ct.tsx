@@ -329,8 +329,8 @@ test("should increment/decrement value by one on counter button click", async ({
   });
 
   const input = component.getByLabel("Test label");
-  const addButton = component.getByLabel("Add");
-  const substractButton = component.getByLabel("Substract");
+  const incrementButton = component.getByLabel("Increment");
+  const decrementButton = component.getByLabel("Decrement");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -343,10 +343,10 @@ test("should increment/decrement value by one on counter button click", async ({
   await input.fill("0");
   await expect(input).toHaveValue("0");
 
-  await addButton.click();
+  await incrementButton.click();
   await expect(input).toHaveValue("1");
 
-  await substractButton.click();
+  await decrementButton.click();
   await expect(input).toHaveValue("0");
 });
 

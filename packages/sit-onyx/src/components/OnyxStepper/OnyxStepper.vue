@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { injectI18n } from "../../i18n";
@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
 });
 
 const { t } = injectI18n();
+const inputRef = ref<HTMLInputElement>();
 
 const emit = defineEmits<{
   /** Emitted when the input value changes. */
@@ -61,23 +62,6 @@ const handleChange = (event: Event) => {
   const inputValue = (event.target as HTMLInputElement).valueAsNumber;
   emit("update:modelValue", inputValue);
 };
-
-const handleCounterButton = (event: Event, operation: "add" | "substract") => {
-  event.preventDefault();
-  if (props.disabled || props.readonly || props.loading) return;
-
-  if (operation === "add") {
-    const newValue = value.value + props.step;
-
-    if (props.max && newValue > props.max) return;
-    value.value = value.value + props.step;
-  } else {
-    const newValue = value.value - props.step;
-
-    if (props.min && newValue < props.min) return;
-    value.value = value.value - props.step;
-  }
-};
 </script>
 
 <template>
@@ -88,21 +72,20 @@ const handleCounterButton = (event: Event, operation: "add" | "substract") => {
   <div v-else :class="['onyx-stepper', densityClass]">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <div class="onyx-stepper__wrapper">
-        <span
-          tabindex="0"
-          role="button"
-          class="onyx-stepper__counter"
+        <button
+          type="button"
+          class="onyx-stepper__counter onyx-stepper__counter--decrement"
           :class="{ 'onyx-stepper__counter--disabled': props.min && props.min === value }"
           :aria-label="t('stepper.decrement')"
-          @click="handleCounterButton($event, 'substract')"
-          @keydown.enter="handleCounterButton($event, 'substract')"
+          @click="inputRef?.stepDown()"
         >
           <OnyxIcon :icon="minus" />
-        </span>
+        </button>
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
         <input
           v-else
-          v-model="value"
+          ref="inputRef"
+          v-model.number="value"
           v-custom-validity
           class="onyx-stepper__native"
           type="number"
@@ -121,17 +104,15 @@ const handleCounterButton = (event: Event, operation: "add" | "substract") => {
           @focus="emit('focus')"
           @blur="emit('blur')"
         />
-        <span
-          tabindex="0"
-          role="button"
-          class="onyx-stepper__counter"
+        <button
+          type="button"
+          class="onyx-stepper__counter onyx-stepper__counter--increment"
           :class="{ 'onyx-stepper__counter--disabled': props.max && props.max === value }"
           :aria-label="t('stepper.increment')"
-          @click="handleCounterButton($event, 'add')"
-          @keydown.enter="handleCounterButton($event, 'add')"
+          @click="inputRef?.stepUp()"
         >
           <OnyxIcon :icon="plus" />
-        </span>
+        </button>
       </div>
     </OnyxFormElement>
   </div>
