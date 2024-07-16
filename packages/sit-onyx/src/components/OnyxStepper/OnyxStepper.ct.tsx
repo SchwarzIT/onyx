@@ -38,7 +38,7 @@ test.describe("Screenshot tests", () => {
   }
 
   executeMatrixScreenshotTest({
-    name: "Stepper (required/optional, message/counter)",
+    name: "Stepper (required/optional)",
     columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -57,8 +57,6 @@ test.describe("Screenshot tests", () => {
           required={row === "required"}
           requiredMarker={row === "optional" ? "optional" : undefined}
           message={row === "message" ? message : undefined}
-          maxlength={row === "counter" ? 16 : undefined}
-          modelValue={row === "counter" ? "Filled value" : undefined}
         />
       );
     },
