@@ -72,33 +72,35 @@ const patternSource = computed(() => {
 
   <div v-else :class="['onyx-input', densityClass]">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
-      <div class="onyx-input__wrapper">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
-
-        <input
-          v-model="value"
-          v-custom-validity
-          class="onyx-input__native"
-          :placeholder="props.placeholder"
-          :type="props.type"
-          :required="props.required"
-          :autocapitalize="props.autocapitalize"
-          :autocomplete="props.autocomplete"
-          :autofocus="props.autofocus"
-          :name="props.name"
-          :pattern="patternSource"
-          :readonly="props.readonly"
-          :disabled="props.disabled || props.loading"
-          :minlength="props.minlength"
-          :maxlength="props.maxlength"
-          :aria-label="props.hideLabel ? props.label : undefined"
-          :title="props.hideLabel ? props.label : undefined"
-          @change="handleChange"
-          @focus="emit('focus')"
-          @blur="emit('blur')"
-        />
-        <!-- eslint-enable vuejs-accessibility/no-autofocus -->
-      </div>
+      <template #default="{ id }">
+        <div class="onyx-input__wrapper">
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
+          <input
+            :id="id"
+            v-model="value"
+            v-custom-validity
+            :placeholder="props.placeholder"
+            class="onyx-input__native"
+            :type="props.type"
+            :required="props.required"
+            :autocapitalize="props.autocapitalize"
+            :autocomplete="props.autocomplete"
+            :autofocus="props.autofocus"
+            :name="props.name"
+            :pattern="patternSource"
+            :readonly="props.readonly"
+            :disabled="props.disabled || props.loading"
+            :minlength="props.minlength"
+            :maxlength="props.maxlength"
+            :aria-label="props.hideLabel ? props.label : undefined"
+            :title="props.hideLabel ? props.label : undefined"
+            @change="handleChange"
+            @focus="emit('focus')"
+            @blur="emit('blur')"
+          />
+          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
+        </div>
+      </template>
     </OnyxFormElement>
   </div>
 </template>
