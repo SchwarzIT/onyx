@@ -162,7 +162,7 @@ const blockTyping = (event: KeyboardEvent) => {
           position="bottom"
         >
           <template #default="{ trigger }">
-            <OnyxBadge class="onyx-select-input__badge" color="neutral" v-bind="trigger">
+            <OnyxBadge class="onyx-select-input__badge" v-bind="trigger" color="neutral">
               {{ selectionCount }}
             </OnyxBadge>
           </template>

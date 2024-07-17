@@ -49,11 +49,11 @@ const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   toggleLabel: t.value("tooltip.info"),
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
 }));
-const ariaPattern = computed(() =>
-  type.value === "hover"
-    ? createTooltip(tooltipOptions.value)
-    : createToggletip(toggletipOptions.value),
-);
+
+const tooltipPattern = createTooltip(tooltipOptions.value);
+const toggletipPattern = createToggletip(toggletipOptions.value);
+
+const ariaPattern = computed(() => (type.value === "hover" ? tooltipPattern : toggletipPattern));
 const tooltip = computed(() => ariaPattern.value.elements.tooltip);
 const trigger = computed(() => ariaPattern.value.elements.trigger);
 </script>
@@ -71,9 +71,7 @@ const trigger = computed(() => ariaPattern.value.elements.trigger);
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
-      <slot name="tooltip">
-        <span>{{ props.text }}</span>
-      </slot>
+      <slot name="tooltip">{{ props.text }}</slot>
     </div>
 
     <slot :trigger="trigger.value"></slot>
