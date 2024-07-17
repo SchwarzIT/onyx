@@ -105,7 +105,6 @@ export const createComboBox = createBuilder(
     TAutoComplete extends ComboboxAutoComplete,
     TMultiple extends boolean = false,
   >({
-    inputValue,
     autocomplete: autocompleteRef,
     onAutocomplete,
     onTypeAhead,
@@ -250,7 +249,6 @@ export const createComboBox = createBuilder(
          * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.
          */
         input: computed(() => ({
-          value: inputValue.value,
           role: "combobox",
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
