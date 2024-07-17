@@ -31,24 +31,21 @@ defineSlots<{
 
 <template>
   <div :class="['onyx-form-element', requiredTypeClass]">
-    <div
-      v-if="!props.hideLabel"
-      class="onyx-form-element__label onyx-text--small"
-      :class="[!props.required ? requiredMarkerClass : undefined]"
-    >
-      <div class="onyx-form-element__header">
-        <label :for="props.id" class="onyx-truncation-ellipsis">{{ props.label }}</label>
-        <span
-          v-if="props.required"
-          :class="[props.required ? requiredMarkerClass : undefined]"
-        ></span>
-        <OnyxInfoTooltip
-          v-if="props.labelTooltip"
-          class="onyx-form-element__label-tooltip"
-          :text="props.labelTooltip"
-        />
-        <span v-if="!props.required" class="onyx-form-element__optional">{{ t("optional") }}</span>
-      </div>
+    <div v-if="!props.hideLabel" class="onyx-form-element__label onyx-text--small">
+      <label :for="props.id" class="onyx-truncation-ellipsis">{{ props.label }}</label>
+      <span
+        v-if="props.required"
+        :class="[props.required ? requiredMarkerClass : undefined]"
+      ></span>
+      <OnyxInfoTooltip
+        v-if="props.labelTooltip"
+        class="onyx-form-element__label-tooltip"
+        :text="props.labelTooltip"
+      />
+      <span
+        v-if="!props.required"
+        :class="[!props.required ? requiredMarkerClass : undefined]"
+      ></span>
     </div>
     <slot :id="props.id"></slot>
     <div
@@ -113,16 +110,15 @@ defineSlots<{
 
     &__label {
       display: flex;
-      margin-bottom: var(--onyx-spacing-5xs);
+      align-items: center;
+      max-width: 100%;
+      width: 100%;
       color: var(--onyx-color-text-icons-neutral-medium);
 
       // optional marker should be displayed at the very end of the label
-      &.onyx-optional-marker {
-        justify-content: space-between;
-
-        &::after {
-          display: none;
-        }
+      & .onyx-optional-marker {
+        flex-grow: 1;
+        text-align: end;
       }
     }
 
@@ -135,13 +131,6 @@ defineSlots<{
       padding-left: var(--onyx-spacing-2xs);
       hyphens: none;
       margin-left: auto;
-    }
-
-    &__header {
-      display: flex;
-      align-items: center;
-      max-width: 100%;
-      width: 100%;
     }
 
     &__label-tooltip,
