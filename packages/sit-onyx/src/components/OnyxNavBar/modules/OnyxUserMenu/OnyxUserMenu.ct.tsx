@@ -58,16 +58,37 @@ test.describe("Screenshot tests", () => {
 });
 
 test("should behave correctly", async ({ mount, page }) => {
+  // ARRANGE
   const component = await mount(<OnyxUserMenu username="Jane Doe">{options}</OnyxUserMenu>);
-
   const menu = component.getByLabel("User options");
   const button = component.getByRole("button", { name: "Jane Doe" });
-
+  // ASSERT
   await expect(menu).toBeHidden();
 
+  // ACT
   await button.hover();
+  //ASSERT
   await expect(menu).toBeVisible();
 
+  //ARRANGE
+  const settingsButton = component.getByRole("menuitem", { name: "Settings" });
+  // ACT
+  await settingsButton.hover();
+  //ASSERT
+  await expect(menu).toBeVisible();
+
+  // ACT
+  await settingsButton.click();
+  //ASSERT
+  await expect(menu).toBeHidden();
+
+  // ACT
+  await button.hover();
+  //ASSERT
+  await expect(menu).toBeVisible();
+
+  // ACT
   await page.getByRole("document").hover();
-  await expect(menu).toBeHidden(); // should close after clicking on option
+  // ASSERT
+  await expect(menu).toBeHidden();
 });

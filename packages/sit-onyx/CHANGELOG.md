@@ -1,5 +1,28 @@
 # sit-onyx
 
+## 1.0.0-beta.7
+
+### Patch Changes
+
+- df21d23: fix(OnyxUserMenu): hide mobile footer when it does not exist
+
+## 1.0.0-beta.6
+
+### Minor Changes
+
+- c2a6447: - implemented headless feature: `createNavigationMenu`
+  - headless MenuButton:
+    - now takes an `isExpandedRef` and `onToggle` via it's options
+    - `flyout` element is removed as it is not needed
+    - removed hover and focus toggle features and moved them to the onyx component directly as these are non spec features
+  - update headless implementation in `sit-onyx`
+
+## 1.0.0-beta.5
+
+### Patch Changes
+
+- 59bca7e: fix(OnyxNavBar): show app name on open mobile context area and truncate app/nav names
+
 ## 1.0.0-beta.4
 
 ### Patch Changes

@@ -23,13 +23,13 @@ const { t } = injectI18n();
     <template v-if="props.isMobile">
       <slot name="header"></slot>
       <slot name="options"></slot>
-      <OnyxListItem class="onyx-user-menu__mobile-footer" disabled>
+      <OnyxListItem v-if="!!slots.footer" class="onyx-user-menu__mobile-footer" disabled>
         <slot name="footer"> </slot>
       </OnyxListItem>
     </template>
 
     <template v-else>
-      <OnyxFlyoutMenu class="onyx-user-menu__flyout" :label="t('navigation.userMenuLabel')">
+      <OnyxFlyoutMenu :label="t('navigation.userMenuLabel')">
         <slot name="button"></slot>
 
         <template #header>
