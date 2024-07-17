@@ -3,6 +3,12 @@ import type { FormErrorMessages } from "../../composables/useCustomValidity";
 
 export type OnyxFormElementProps = RequiredMarkerProp & {
   /**
+   * The id of a labelable form-related element.
+   * If not given an id will be generated.
+   * The id is passed as a `default` slot property.
+   */
+  id?: string;
+  /**
    * Current value of the form element.
    */
   modelValue?: unknown;
