@@ -85,7 +85,7 @@ const handleChange = (event: Event) => {
           v-custom-validity
           class="onyx-stepper__native"
           type="number"
-          :aria-label="props.hideLabel ? props.label : undefined"
+          :aria-label="props.label"
           :autofocus="props.autofocus"
           :disabled="props.disabled || props.loading"
           :min="props.min"
