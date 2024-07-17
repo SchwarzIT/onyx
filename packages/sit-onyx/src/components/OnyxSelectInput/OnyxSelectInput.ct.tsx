@@ -131,7 +131,7 @@ test("should prevent manual typing in the input", async ({ mount }) => {
   );
 
   // // ACT
-  const input = component.getByLabel("Test label(optional)");
+  const input = component.getByLabel("Test label");
   await input.pressSequentially("ABC");
 
   // // ASSERT
