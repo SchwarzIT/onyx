@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.8
+
+### Patch Changes
+
+- d0247d1: fix(OnyxFormElement): fix label being applied to all interactive elment of a complex form element
+
+## 1.0.0-beta.7
+
+### Patch Changes
+
+- df21d23: fix(OnyxUserMenu): hide mobile footer when it does not exist
+
 ## 1.0.0-beta.6
 
 ### Minor Changes
