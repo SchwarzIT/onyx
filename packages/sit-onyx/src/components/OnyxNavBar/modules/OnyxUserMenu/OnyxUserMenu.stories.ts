@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxUserMenu> = {
   title: "Navigation/modules/UserMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxUserMenu,
-    events: [],
+    events: ["update:flyoutOpen"],
     argTypes: {
       avatar: { control: { type: "text" } },
       default: { control: { disable: true } },
