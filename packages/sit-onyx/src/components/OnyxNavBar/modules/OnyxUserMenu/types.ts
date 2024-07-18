@@ -11,9 +11,4 @@ export type OnyxUserMenuProps = {
    * Optional user description that is displayed when the menu is opened.
    */
   description?: string;
-  /**
-   * If the flyout is expanded or not.
-   * If `undefined`, the state will be managed internally.
-   */
-  open?: boolean;
 };
