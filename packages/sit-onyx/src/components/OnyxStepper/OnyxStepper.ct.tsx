@@ -376,8 +376,8 @@ test("should increment/decrement value by step on counter button click", async (
   });
 
   const input = component.getByLabel("Test label");
-  const addButton = component.getByLabel("Add");
-  const substractButton = component.getByLabel("Substract");
+  const addButton = component.getByLabel("Increment");
+  const substractButton = component.getByLabel("Decrement");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -423,7 +423,7 @@ test("should not allow entering value over the max value that has been set", asy
   });
 
   const input = component.getByLabel("Test label");
-  const addButton = component.getByLabel("Add");
+  const addButton = component.getByLabel("Increment");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -472,7 +472,7 @@ test("should not allow entering value lower the min value that has been set", as
   });
 
   const input = component.getByLabel("Test label");
-  const substractButton = component.getByLabel("Substract");
+  const substractButton = component.getByLabel("Decrement");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
