@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.9
+
+### Minor Changes
+
+- dd42def: feat(OnyxUserMenu): allow manual control of flyout toggling
+
 ## 1.0.0-beta.8
 
 ### Patch Changes
