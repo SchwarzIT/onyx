@@ -1,7 +1,7 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.9",
   "type": "module",
   "scripts": {
     "start": "pnpm run dev",
@@ -14,7 +14,7 @@
     "@vueuse/core": "^10.11.0",
     "pinia": "^2.1.7",
     "sit-onyx": "workspace:^",
-    "vue": "^3.4.31",
+    "vue": "^3.4.32",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.4.0"
   }

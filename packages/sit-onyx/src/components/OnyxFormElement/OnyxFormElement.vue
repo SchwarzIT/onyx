@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { createId } from "@sit-onyx/headless";
 import { computed } from "vue";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
@@ -7,6 +8,7 @@ import type { OnyxFormElementProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFormElementProps>(), {
   required: false,
+  id: createId("onyx-form-element"),
 });
 
 const { t } = injectI18n();
@@ -23,40 +25,30 @@ const counterText = computed(() => {
 
 defineSlots<{
   /** The place for the actual form element */
-  default(): unknown;
+  default(props: { id: string }): unknown;
 }>();
 </script>
 
 <template>
   <div :class="['onyx-form-element', requiredTypeClass]">
-    <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -->
-    <label>
-      <div
-        v-if="!props.hideLabel"
-        class="onyx-form-element__label onyx-text--small"
+    <div v-if="!props.hideLabel" class="onyx-form-element__label onyx-text--small">
+      <label :for="props.id" class="onyx-truncation-ellipsis">{{ props.label }}</label>
+      <span
+        v-if="props.required"
+        :class="[props.required ? requiredMarkerClass : undefined]"
+      ></span>
+      <OnyxInfoTooltip
+        v-if="props.labelTooltip"
+        class="onyx-form-element__label-tooltip"
+        :text="props.labelTooltip"
+        :open="'hover'"
+      />
+      <span
+        v-if="!props.required"
         :class="[!props.required ? requiredMarkerClass : undefined]"
-      >
-        <div class="onyx-form-element__header">
-          <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-          <span
-            v-if="props.required"
-            :class="[props.required ? requiredMarkerClass : undefined]"
-          ></span>
-          <OnyxInfoTooltip
-            v-if="props.labelTooltip"
-            class="onyx-form-element__label-tooltip"
-            :text="props.labelTooltip"
-            :open="'hover'"
-          />
-          <span v-if="!props.required" class="onyx-form-element__optional">{{
-            t("optional")
-          }}</span>
-        </div>
-      </div>
-
-      <slot></slot>
-    </label>
-
+      ></span>
+    </div>
+    <slot :id="props.id"></slot>
     <div
       v-if="props.message || errorMessages?.shortMessage || counterText"
       class="onyx-form-element__footer onyx-text--small"
@@ -121,16 +113,15 @@ defineSlots<{
 
     &__label {
       display: flex;
-      margin-bottom: var(--onyx-spacing-5xs);
+      align-items: center;
+      max-width: 100%;
+      width: 100%;
       color: var(--onyx-color-text-icons-neutral-medium);
 
       // optional marker should be displayed at the very end of the label
-      &.onyx-optional-marker {
-        justify-content: space-between;
-
-        &::after {
-          display: none;
-        }
+      & .onyx-optional-marker {
+        flex-grow: 1;
+        text-align: end;
       }
     }
 
@@ -143,13 +134,6 @@ defineSlots<{
       padding-left: var(--onyx-spacing-2xs);
       hyphens: none;
       margin-left: auto;
-    }
-
-    &__header {
-      display: flex;
-      align-items: center;
-      max-width: 100%;
-      width: 100%;
     }
 
     &__label-tooltip,
