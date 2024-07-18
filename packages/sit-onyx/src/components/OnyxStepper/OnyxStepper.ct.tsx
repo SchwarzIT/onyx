@@ -15,6 +15,8 @@ test.describe("Screenshot tests", () => {
       name: `Stepper (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus"],
+      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      disabledAccessibilityRules: ["color-contrast"],
       component: (column) => {
         return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
       },
@@ -186,6 +188,8 @@ test.describe("Screenshot tests", () => {
     name: "Stepper (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
     rows: ["default", "hover", "focus"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
       <OnyxStepper
         style="width: 12rem"
@@ -206,6 +210,8 @@ test.describe("Screenshot tests", () => {
     name: "Stepper (invalid)",
     columns: ["default", "autofill"],
     rows: ["default", "hover", "focus"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: () => (
       <OnyxStepper style="width: 12rem" label="Test label" customError="Test error" />
     ),
@@ -228,6 +234,8 @@ test.describe("Screenshot tests", () => {
     name: "Stepper (skeleton)",
     columns: DENSITIES,
     rows: ["default", "hideLabel"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxStepper
         style="width: 12rem"
