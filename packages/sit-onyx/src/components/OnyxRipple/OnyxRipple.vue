@@ -3,7 +3,11 @@ import { computed, ref } from "vue";
 import { RippleConfig, useRipple } from "../../composables/useRipple";
 
 /**
-    - check prefers motion setting
+  TODO: 
+  - check prefers motion setting
+  - color prop
+  - settings props
+  - test events
  */
 
 const rippleTrigger = ref<HTMLElement>();
