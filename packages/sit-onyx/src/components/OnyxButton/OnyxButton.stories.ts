@@ -37,6 +37,16 @@ export const Primary = {
 } satisfies Story;
 
 /**
+ * This example shows the button in primary color with ripples
+ */
+export const PrimaryWithRipples = {
+  args: {
+    label: "Button",
+    rippleAnimation: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows the button in neutral color
  */
 export const Neutral = {
