@@ -14,6 +14,7 @@ const config = computed<RippleConfig>(() => ({
   trigger: rippleTrigger,
   duration: "300ms",
   durationLeave: "100ms",
+  container: rippleTrigger,
 }));
 
 const { ripples, hideRipple, events } = useRipple(config);
@@ -44,7 +45,7 @@ const { ripples, hideRipple, events } = useRipple(config);
 @use "../../styles/mixins/density.scss";
 
 .onyx-ripple {
-  --onyx-ripple-color: var(--onyx-color-base-primary-800);
+  --onyx-ripple-color: var(--onyx-color-base-primary-600);
   display: block;
   position: absolute;
   inset: 0;
@@ -75,8 +76,7 @@ const { ripples, hideRipple, events } = useRipple(config);
 }
 
 .ripple-enter-from {
-  opacity: 0;
-  scale: 0.5;
+  scale: 0;
 }
 
 .ripple-leave-to {

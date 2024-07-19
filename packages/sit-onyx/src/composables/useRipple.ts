@@ -1,4 +1,4 @@
-import { reactive, ref, type Ref } from "vue";
+import { computed, reactive, ref, type Ref } from "vue";
 
 export type RippleConfig = {
   trigger: Ref<HTMLElement | undefined>;
@@ -6,6 +6,7 @@ export type RippleConfig = {
   terminateOnPointerUp: boolean;
   duration: string;
   durationLeave: string;
+  container: Ref<HTMLElement | undefined>;
 };
 
 export type RippleInstance = {
@@ -23,13 +24,26 @@ export const useRipple = (config: Ref<RippleConfig>) => {
 
   const ripples = reactive(new Map<string, RippleInstance>());
 
-  const startRipple = () => {
+  const containerRect = computed(() => {
+    return config.value.container.value?.getBoundingClientRect();
+  });
+
+  const startRipple = (event: MouseEvent) => {
     isPointerDown.value = true;
 
+    const x = event.x;
+    const y = event.y;
+
+    if (!containerRect.value) return;
+
+    const radius = distanceToFurthestCorner(x, y, containerRect.value);
+    const offsetX = x - containerRect.value.left;
+    const offsetY = y - containerRect.value.top;
+
     const obj = {
-      x: Math.random() * 50,
-      y: 10,
-      radius: 80,
+      x: offsetX - radius,
+      y: offsetY - radius,
+      radius: Math.round(radius * 2),
       time: Date.now(),
       backgroundColor: config.value.color,
       rippleId: self.crypto.randomUUID(),
@@ -51,9 +65,15 @@ export const useRipple = (config: Ref<RippleConfig>) => {
     });
   };
 
+  function distanceToFurthestCorner(x: number, y: number, rect: DOMRect) {
+    const dx = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
+    const dy = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
+    return Math.hypot(dx, dy);
+  }
+
   const events = {
-    mousedown: startRipple,
-    touchstart: startRipple,
+    mousedown: startRipple, // TODO: test on mobile
+    // touchstart: startRipple,
     mouseup: hideRipples,
     mouseleave: hideRipples,
     touchend: hideRipples,
