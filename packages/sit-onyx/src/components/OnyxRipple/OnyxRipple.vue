@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { RippleConfig, useRippleRenderer } from "../../composables/useRippleRenderer";
+import { RippleConfig, useRipple } from "../../composables/useRipple";
 
 /**
     - check prefers motion setting
@@ -16,7 +16,7 @@ const config = computed<RippleConfig>(() => ({
   durationLeave: "100ms",
 }));
 
-const { ripples, hideRipple, events } = useRippleRenderer(config);
+const { ripples, hideRipple, events } = useRipple(config);
 </script>
 
 <template>
