@@ -42,10 +42,6 @@ export type CreateComboboxOptions<
    */
   listLabel: MaybeRef<string>;
   /**
-   * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
-   */
-  inputValue: Ref<string | undefined>;
-  /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
   isExpanded: MaybeRef<boolean>;

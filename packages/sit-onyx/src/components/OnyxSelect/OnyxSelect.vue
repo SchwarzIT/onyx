@@ -202,7 +202,6 @@ const {
   autocomplete,
   label: props.label,
   listLabel: props.listLabel,
-  inputValue: computed(() => (props.withSearch && searchTerm.value) || ""),
   activeOption: computed(() => activeValue.value),
   multiple: computed(() => props.multiple),
   isExpanded: open,
@@ -296,6 +295,7 @@ const selectInputProps = computed(() => {
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
+          v-model="searchTerm"
           v-bind="input"
           :label="t('select.searchInputLabel')"
           class="onyx-select__search"
