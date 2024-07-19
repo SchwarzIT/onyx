@@ -73,8 +73,10 @@ const handleChange = (event: Event) => {
       <div class="onyx-stepper__wrapper">
         <button
           type="button"
-          class="onyx-stepper__counter onyx-stepper__counter--decrement"
-          :class="{ 'onyx-stepper__counter--disabled': props.min && props.min === value }"
+          class="onyx-stepper__counter"
+          :disabled="
+            (props.min && props.min === value) || props.disabled || props.readonly || props.loading
+          "
           :aria-label="decrementLabel"
           @click="inputRef?.stepDown()"
         >
@@ -105,8 +107,10 @@ const handleChange = (event: Event) => {
         />
         <button
           type="button"
-          class="onyx-stepper__counter onyx-stepper__counter--increment"
-          :class="{ 'onyx-stepper__counter--disabled': props.max && props.max === value }"
+          class="onyx-stepper__counter"
+          :disabled="
+            (props.max && props.max === value) || props.disabled || props.readonly || props.loading
+          "
           :aria-label="incrementLabel"
           @click="inputRef?.stepUp()"
         >
@@ -215,8 +219,8 @@ const handleChange = (event: Event) => {
       text-align: center;
     }
 
-    &:has(.onyx-stepper__native:enabled):has(.onyx-stepper__native:read-write) {
-      .onyx-stepper__counter:not(.onyx-stepper__counter--disabled) {
+    &:has(.onyx-stepper__native:enabled:read-write) {
+      .onyx-stepper__counter {
         &:hover,
         &:focus-visible {
           color: var(--onyx-color-text-icons-primary-intense);
