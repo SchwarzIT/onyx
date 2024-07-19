@@ -2,6 +2,7 @@
 import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   color: "primary",
   mode: "default",
   skeleton: false,
+  rippleAnimation: false,
 });
 
 const { densityClass } = useDensity(props);
@@ -32,6 +34,7 @@ const emit = defineEmits<{
       'onyx-button',
       `onyx-button--${props.color}`,
       `onyx-button--${props.mode}`,
+      props.rippleAnimation ? `onyx-button--ripple-animation` : undefined,
       { 'onyx-button--loading': props.loading },
       densityClass,
     ]"
@@ -44,6 +47,7 @@ const emit = defineEmits<{
     <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
+    <OnyxRipple v-if="rippleAnimation" />
   </button>
 </template>
 
@@ -196,6 +200,17 @@ const emit = defineEmits<{
       font-style: normal;
       font-weight: 600;
       line-height: 1.5rem;
+    }
+
+    &--ripple-animation {
+      &:hover:enabled {
+        --onyx-button-background-color: var(--onyx-button-background-hover-color);
+      }
+      .onyx-button__label {
+        position: relative;
+        z-index: 1;
+        pointer-events: none;
+      }
     }
 
     &--loading &__label {

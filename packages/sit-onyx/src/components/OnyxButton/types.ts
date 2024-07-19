@@ -35,6 +35,10 @@ export type OnyxButtonProps = DensityProp &
      * Whether to show a skeleton button.
      */
     skeleton?: boolean;
+    /**
+     * Whether to enable ripples on interaction
+     */
+    rippleAnimation?: boolean;
   };
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
