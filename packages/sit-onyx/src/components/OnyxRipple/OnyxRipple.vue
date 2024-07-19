@@ -22,7 +22,7 @@ const { ripples, hideRipple, events } = useRipple(config);
 
 <template>
   <span ref="rippleTrigger" class="onyx-ripple" v-on="events">
-    <transition-group name="ripple" @after-enter="hideRipple">
+    <transition-group name="onyx-ripple" @after-enter="hideRipple">
       <span
         v-for="[key, r] in ripples"
         :key="key"
@@ -63,23 +63,23 @@ const { ripples, hideRipple, events } = useRipple(config);
   }
 }
 
-.ripple-enter-active {
+.onyx-ripple-enter-active {
   transition-property: all;
   transition-timing-function: ease;
   transition-duration: v-bind("config.duration");
 }
 
-.ripple-leave-active {
+.onyx-ripple-leave-active {
   transition-property: all;
   transition-timing-function: ease;
   transition-duration: v-bind("config.durationLeave");
 }
 
-.ripple-enter-from {
+.onyx-ripple-enter-from {
   scale: 0;
 }
 
-.ripple-leave-to {
+.onyx-ripple-leave-to {
   opacity: 0;
 }
 </style>
