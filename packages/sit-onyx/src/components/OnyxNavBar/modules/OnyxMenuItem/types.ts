@@ -3,7 +3,7 @@ import type { OnyxColor } from "../../../../types";
 export type OnyxMenuItemProps = {
   /**
    * URL that the menu item points to.
-   * If the property is set an anchor tag will be rendered, if not a button will be shown instead
+   * If the property is set the menuitem will act as an anchor, otherwise it will act as an button.
    */
   href?: string;
   /**

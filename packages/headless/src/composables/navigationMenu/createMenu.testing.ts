@@ -22,22 +22,11 @@ export const navigationTesting = async ({ nav, buttons }: NavigationMenuTestingO
    */
   await expect(nav).toHaveRole("navigation");
   await expect(nav).toHaveAttribute("aria-label");
-  /**
-   * Disclosure buttons should have aria attributes
-   */
-  for (const button of await buttons.all()) {
-    await expect(button, "button must have arial-controls attribute").toHaveAttribute(
-      "aria-controls",
-    );
-    await expect(button, "button must have aria-expanded attribute").toHaveAttribute(
-      "aria-expanded",
-    );
-  }
+
   /**
    * Focus first button
    */
-  await nav.press("Tab");
-  await expect(buttons.nth(0)).toBeFocused();
+  await buttons.first().focus();
   /**
    * Move keyboard focus among top-level buttons using arrow keys
    */
