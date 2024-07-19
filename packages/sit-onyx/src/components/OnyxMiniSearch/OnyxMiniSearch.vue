@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import search from "@sit-onyx/icons/search.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
@@ -14,6 +14,10 @@ const props = defineProps<OnyxMiniSearchProps>();
 
 const emit = defineEmits<{
   /**
+   * Emitted when the current search value changes.
+   */
+  "update:modelValue": [input: string];
+  /**
    * Emitted when the clear button is clicked.
    */
   clear: [];
@@ -23,6 +27,14 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 const input = ref<HTMLInputElement>();
+
+/**
+ * Current value (with getter and setter) that can be used as "v-model" for the native input.
+ */
+const value = computed({
+  get: () => props.modelValue,
+  set: (value) => emit("update:modelValue", value ?? ""),
+});
 
 defineExpose({
   /**
@@ -36,6 +48,7 @@ defineExpose({
   <div :class="['onyx-mini-search', densityClass]" v-bind="rootAttrs">
     <input
       ref="input"
+      v-model="value"
       class="onyx-mini-search__input"
       placeholder="Search"
       type="text"

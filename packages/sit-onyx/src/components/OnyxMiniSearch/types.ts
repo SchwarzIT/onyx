@@ -5,4 +5,8 @@ export type OnyxMiniSearchProps = DensityProp & {
    * (Aria) label of the input.
    */
   label: string;
+  /**
+   * Current input/search value.
+   */
+  modelValue?: string;
 };
