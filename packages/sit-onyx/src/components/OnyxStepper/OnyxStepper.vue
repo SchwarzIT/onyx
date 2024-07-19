@@ -54,6 +54,9 @@ const value = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
+const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
+const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
+
 const handleChange = (event: Event) => {
   const inputValue = (event.target as HTMLInputElement).valueAsNumber;
   emit("update:modelValue", inputValue);
@@ -72,7 +75,7 @@ const handleChange = (event: Event) => {
           type="button"
           class="onyx-stepper__counter onyx-stepper__counter--decrement"
           :class="{ 'onyx-stepper__counter--disabled': props.min && props.min === value }"
-          :aria-label="t('stepper.decrement', { stepSize: props.step })"
+          :aria-label="decrementLabel"
           @click="inputRef?.stepDown()"
         >
           <OnyxIcon :icon="minus" />
@@ -104,7 +107,7 @@ const handleChange = (event: Event) => {
           type="button"
           class="onyx-stepper__counter onyx-stepper__counter--increment"
           :class="{ 'onyx-stepper__counter--disabled': props.max && props.max === value }"
-          :aria-label="t('stepper.increment', { stepSize: props.step })"
+          :aria-label="incrementLabel"
           @click="inputRef?.stepUp()"
         >
           <OnyxIcon :icon="plus" />
