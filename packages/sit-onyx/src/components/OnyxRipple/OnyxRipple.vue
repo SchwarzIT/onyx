@@ -28,10 +28,10 @@ const { ripples, hideRipple, events } = useRipple(config);
         :key="key"
         class="onyx-ripple__element"
         :style="{
-          left: r.x + 'px',
-          top: r.y + 'px',
-          width: r.radius + 'px',
-          height: r.radius + 'px',
+          left: r.left,
+          top: r.top,
+          width: r.radius,
+          height: r.radius,
           backgroundColor: r.backgroundColor,
         }"
         :data-rippleid="key"

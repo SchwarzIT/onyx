@@ -10,9 +10,9 @@ export type RippleConfig = {
 };
 
 export type RippleInstance = {
-  x: number;
-  y: number;
-  radius: number;
+  left: string;
+  top: string;
+  radius: string;
   time: number;
   backgroundColor: string;
   rippleId: string;
@@ -41,9 +41,9 @@ export const useRipple = (config: Ref<RippleConfig>) => {
     const offsetY = y - containerRect.value.top;
 
     const obj = {
-      x: offsetX - radius,
-      y: offsetY - radius,
-      radius: Math.round(radius * 2),
+      left: offsetX - radius + "px",
+      top: offsetY - radius + "px",
+      radius: Math.round(radius * 2) + "px",
       time: Date.now(),
       backgroundColor: config.value.color,
       rippleId: self.crypto.randomUUID(),
