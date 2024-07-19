@@ -56,11 +56,6 @@ const value = computed({
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
-
-const handleChange = (event: Event) => {
-  const inputValue = (event.target as HTMLInputElement).valueAsNumber;
-  emit("update:modelValue", inputValue);
-};
 </script>
 
 <template>
@@ -101,7 +96,6 @@ const handleChange = (event: Event) => {
           :required="props.required"
           :step="props.step"
           :title="props.hideLabel ? props.label : undefined"
-          @change="handleChange"
           @focus="emit('focus')"
           @blur="emit('blur')"
         />
