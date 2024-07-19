@@ -72,7 +72,7 @@ const handleChange = (event: Event) => {
           type="button"
           class="onyx-stepper__counter onyx-stepper__counter--decrement"
           :class="{ 'onyx-stepper__counter--disabled': props.min && props.min === value }"
-          :aria-label="t('stepper.decrement')"
+          :aria-label="t('stepper.decrement', { stepSize: props.step })"
           @click="inputRef?.stepDown()"
         >
           <OnyxIcon :icon="minus" />
@@ -104,7 +104,7 @@ const handleChange = (event: Event) => {
           type="button"
           class="onyx-stepper__counter onyx-stepper__counter--increment"
           :class="{ 'onyx-stepper__counter--disabled': props.max && props.max === value }"
-          :aria-label="t('stepper.increment')"
+          :aria-label="t('stepper.increment', { stepSize: props.step })"
           @click="inputRef?.stepUp()"
         >
           <OnyxIcon :icon="plus" />

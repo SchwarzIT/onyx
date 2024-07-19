@@ -72,8 +72,8 @@
     "currentSelection": "{n} selected"
   },
   "stepper": {
-    "decrement": "Decrement",
-    "increment": "Increment"
+    "decrement": "Decrement by {stepSize}",
+    "increment": "Increment by {stepSize}"
   },
   "table": {
     "empty": "This table is empty."
