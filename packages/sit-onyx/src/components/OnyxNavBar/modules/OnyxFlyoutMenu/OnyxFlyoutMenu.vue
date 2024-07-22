@@ -6,6 +6,14 @@ import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = defineProps<OnyxFlyoutMenuProps>();
 
+/**
+ * If the flyout is expanded or not.
+ * If `undefined`, the state will be managed internally.
+ */
+const isExpanded = defineModel<boolean>("open", {
+  default: false,
+});
+
 const slots = defineSlots<{
   /**
    * The trigger for the flyout menu. Should be an interactive component like a button or link.
@@ -26,9 +34,11 @@ const slots = defineSlots<{
 }>();
 
 const {
-  elements: { button, flyout, menu },
-  state: { isExpanded },
-} = createMenuButton();
+  elements: { root, button, menu },
+} = createMenuButton({
+  isExpanded,
+  onToggle: () => (isExpanded.value = !isExpanded.value),
+});
 
 const buttonComponent = computed(() => {
   if (!slots.default) return;
@@ -42,13 +52,12 @@ const buttonComponent = computed(() => {
 </script>
 
 <template>
-  <div class="onyx-flyout-menu">
+  <div class="onyx-flyout-menu" v-bind="root">
     <component :is="buttonComponent" v-bind="button" />
 
     <div
       v-if="slots.options || slots.header || slots.footer"
       v-show="isExpanded"
-      v-bind="flyout"
       :aria-label="props.label"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,

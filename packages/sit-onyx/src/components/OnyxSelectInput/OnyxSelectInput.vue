@@ -123,60 +123,63 @@ const blockTyping = (event: KeyboardEvent) => {
     v-bind="rootAttrs"
   >
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
-      <div class="onyx-select-input__wrapper">
-        <OnyxLoadingIndicator
-          v-if="props.loading"
-          class="onyx-select-input__loading"
-          type="circle"
-        />
+      <template #default="{ id }">
+        <div class="onyx-select-input__wrapper">
+          <OnyxLoadingIndicator
+            v-if="props.loading"
+            class="onyx-select-input__loading"
+            type="circle"
+          />
 
-        <input
-          ref="input"
-          v-custom-validity
-          :class="{
-            'onyx-select-input__native': true,
-            'onyx-select-input__native--show-focus': props.showFocus,
-            'onyx-truncation-ellipsis': true,
-            'onyx-select-input__native--force-invalid': errorMessages && wasTouched,
-          }"
-          v-bind="restAttrs"
-          type="text"
-          :readonly="props.readonly"
-          :placeholder="props.placeholder"
-          :required="props.required"
-          :disabled="props.disabled || props.loading"
-          :aria-label="props.hideLabel ? props.label : undefined"
-          :title="props.hideLabel ? props.label : undefined"
-          :value="selectionText"
-          :autofocus="props.autofocus"
-          @click="emit('click')"
-          @keydown="blockTyping"
-        />
+          <input
+            :id="id"
+            ref="input"
+            v-custom-validity
+            :class="{
+              'onyx-select-input__native': true,
+              'onyx-select-input__native--show-focus': props.showFocus,
+              'onyx-truncation-ellipsis': true,
+              'onyx-select-input__native--force-invalid': errorMessages && wasTouched,
+            }"
+            v-bind="restAttrs"
+            type="text"
+            :readonly="props.readonly"
+            :placeholder="props.placeholder"
+            :required="props.required"
+            :disabled="props.disabled || props.loading"
+            :aria-label="props.hideLabel ? props.label : undefined"
+            :title="props.hideLabel ? props.label : undefined"
+            :value="selectionText"
+            :autofocus="props.autofocus"
+            @click="emit('click')"
+            @keydown="blockTyping"
+          />
 
-        <!-- TODO: figure out how the tooltip width can be sized to the select-input
+          <!-- TODO: figure out how the tooltip width can be sized to the select-input
         while the trigger arrow needs to point to the badge in the future.
         https://github.com/SchwarzIT/onyx/issues/763 -->
-        <OnyxTooltip
-          v-if="props.textMode === 'preview' && selectionCount > 0"
-          :text="selectionText"
-          position="bottom"
-        >
-          <OnyxBadge class="onyx-select-input__badge" color="neutral">
-            {{ selectionCount }}
-          </OnyxBadge>
-        </OnyxTooltip>
+          <OnyxTooltip
+            v-if="props.textMode === 'preview' && selectionCount > 0"
+            :text="selectionText"
+            position="bottom"
+          >
+            <OnyxBadge class="onyx-select-input__badge" color="neutral">
+              {{ selectionCount }}
+            </OnyxBadge>
+          </OnyxTooltip>
 
-        <button
-          class="onyx-select-input__button"
-          type="button"
-          :aria-label="t('select.toggleDropDown')"
-          tabindex="-1"
-          :disabled="props.readonly || props.disabled || props.loading"
-          @click="emit('click')"
-        >
-          <OnyxIcon :icon="chevronDownUp" />
-        </button>
-      </div>
+          <button
+            class="onyx-select-input__button"
+            type="button"
+            :aria-label="t('select.toggleDropDown')"
+            tabindex="-1"
+            :disabled="props.readonly || props.disabled || props.loading"
+            @click="emit('click')"
+          >
+            <OnyxIcon :icon="chevronDownUp" />
+          </button>
+        </div>
+      </template>
     </OnyxFormElement>
   </div>
 </template>

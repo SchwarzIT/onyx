@@ -14,7 +14,7 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
   title: "Navigation/modules/FlyoutMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxFlyoutMenu,
-    events: [],
+    events: ["update:open"],
     decorators: [
       (story) => ({
         components: { story },

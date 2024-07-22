@@ -1,5 +1,58 @@
 # sit-onyx
 
+## 1.0.0-beta.12
+
+### Patch Changes
+
+- 7b8ad3d: fix(OnyxNavBar): make bottom border full width when grid width is limited
+
+## 1.0.0-beta.11
+
+### Minor Changes
+
+- 8a1c8d4: feat(OnyxStepper): Implement basic OnyxStepper #1568
+
+## 1.0.0-beta.10
+
+### Patch Changes
+
+- 5c0535e: fix(OnyxNavButton): prevent parent highlighting when an active child is visible on mobile
+
+## 1.0.0-beta.9
+
+### Minor Changes
+
+- dd42def: feat(OnyxUserMenu): allow manual control of flyout toggling
+
+## 1.0.0-beta.8
+
+### Patch Changes
+
+- d0247d1: fix(OnyxFormElement): fix label being applied to all interactive elment of a complex form element
+
+## 1.0.0-beta.7
+
+### Patch Changes
+
+- df21d23: fix(OnyxUserMenu): hide mobile footer when it does not exist
+
+## 1.0.0-beta.6
+
+### Minor Changes
+
+- c2a6447: - implemented headless feature: `createNavigationMenu`
+  - headless MenuButton:
+    - now takes an `isExpandedRef` and `onToggle` via it's options
+    - `flyout` element is removed as it is not needed
+    - removed hover and focus toggle features and moved them to the onyx component directly as these are non spec features
+  - update headless implementation in `sit-onyx`
+
+## 1.0.0-beta.5
+
+### Patch Changes
+
+- 59bca7e: fix(OnyxNavBar): show app name on open mobile context area and truncate app/nav names
+
 ## 1.0.0-beta.4
 
 ### Patch Changes

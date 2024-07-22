@@ -7,6 +7,12 @@ import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = defineProps<OnyxUserMenuProps>();
 
+/**
+ * If the flyout is expanded or not. Only has an effect in desktop (non-mobile) mode.
+ * If `undefined`, the state will be managed internally.
+ */
+const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
+
 const slots = defineSlots<{
   /**
    * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
@@ -32,7 +38,8 @@ const isMobile = inject(
   <UserMenuLayout
     class="onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
-    :is-mobile="isMobile ?? false"
+    :is-mobile="isMobile"
+    :flyout-open="flyoutOpen"
   >
     <template #button>
       <button class="onyx-user-menu__trigger onyx-text" type="button">

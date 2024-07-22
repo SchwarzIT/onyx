@@ -88,34 +88,37 @@ const handleInput = (event: Event) => {
 
   <div v-else :class="['onyx-textarea', densityClass]" :style="autosizeMinMaxStyles">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
-      <div class="onyx-textarea__wrapper" :data-autosize-value="value">
-        <!-- eslint-disable vuejs-accessibility/no-autofocus -
-         We want to provide the flexibility to have the autofocus property.
-         The JSDoc description includes a warning that it should be used carefully.
-      -->
-        <textarea
-          v-model="value"
-          v-custom-validity
-          class="onyx-textarea__native"
-          :class="{ 'onyx-textarea__native--no-resize': props.disableManualResize }"
-          :placeholder="props.placeholder"
-          :required="props.required"
-          :autocapitalize="props.autocapitalize"
-          :autofocus="props.autofocus"
-          :name="props.name"
-          :readonly="props.readonly"
-          :disabled="props.disabled"
-          :minlength="props.minlength"
-          :maxlength="props.maxlength"
-          :aria-label="props.hideLabel ? props.label : undefined"
-          :title="props.hideLabel ? props.label : undefined"
-          @input="handleInput"
-          @change="handleChange"
-          @focus="emit('focus')"
-          @blur="emit('blur')"
-        ></textarea>
-        <!-- eslint-enable vuejs-accessibility/no-autofocus -->
-      </div>
+      <template #default="{ id }">
+        <div class="onyx-textarea__wrapper" :data-autosize-value="value">
+          <!-- eslint-disable vuejs-accessibility/no-autofocus -
+          We want to provide the flexibility to have the autofocus property.
+          The JSDoc description includes a warning that it should be used carefully.
+          -->
+          <textarea
+            :id="id"
+            v-model="value"
+            v-custom-validity
+            class="onyx-textarea__native"
+            :class="{ 'onyx-textarea__native--no-resize': props.disableManualResize }"
+            :placeholder="props.placeholder"
+            :required="props.required"
+            :autocapitalize="props.autocapitalize"
+            :autofocus="props.autofocus"
+            :name="props.name"
+            :readonly="props.readonly"
+            :disabled="props.disabled"
+            :minlength="props.minlength"
+            :maxlength="props.maxlength"
+            :aria-label="props.hideLabel ? props.label : undefined"
+            :title="props.hideLabel ? props.label : undefined"
+            @input="handleInput"
+            @change="handleChange"
+            @focus="emit('focus')"
+            @blur="emit('blur')"
+          ></textarea>
+          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
+        </div>
+      </template>
     </OnyxFormElement>
   </div>
 </template>

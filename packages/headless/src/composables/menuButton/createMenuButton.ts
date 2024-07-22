@@ -1,123 +1,141 @@
-import { computed, ref } from "vue";
+import { computed, ref, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
+import { useGlobalEventListener } from "../helpers/useGlobalListener";
+
+type CreateMenuButtonOptions = {
+  isExpanded: Ref<boolean>;
+  onToggle: () => void;
+};
 
 /**
  * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
-export const createMenuButton = createBuilder(() => {
-  const menuId = createId("menu");
-  const buttonId = createId("menu-button");
-  const isExpanded = ref(false);
+export const createMenuButton = createBuilder(
+  ({ isExpanded, onToggle }: CreateMenuButtonOptions) => {
+    const rootId = createId("menu-button-root");
+    const menuId = createId("menu-button-list");
+    const menuRef = ref<HTMLElement>();
+    const buttonId = createId("menu-button-button");
 
-  /**
-   * Debounced expanded state that will only be toggled after a given timeout.
-   */
-  const updateDebouncedExpanded = debounce(
-    (expanded: boolean) => (isExpanded.value = expanded),
-    200,
-  );
+    useGlobalEventListener({
+      type: "keydown",
+      listener: (e) => e.key === "Escape" && isExpanded.value && onToggle(),
+      disabled: computed(() => !isExpanded.value),
+    });
 
-  const hoverEvents = computed(() => {
-    return {
-      onMouseover: () => updateDebouncedExpanded(true),
-      onMouseout: () => updateDebouncedExpanded(false),
-      onFocusin: () => (isExpanded.value = true),
-      onFocusout: () => (isExpanded.value = false),
+    /**
+     * Debounced expanded state that will only be toggled after a given timeout.
+     */
+    const updateDebouncedExpanded = debounce(
+      (expanded: boolean) => isExpanded.value !== expanded && onToggle(),
+      200,
+    );
+
+    const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
+      const currentMenuItem = document.activeElement as HTMLElement;
+
+      // Either the current focus is on a "menuitem", then we can just get the parent menu.
+      // Or the current focus is on the button, then we can get the connected menu using the menuId
+      const currentMenu = currentMenuItem?.closest('[role="menu"]') || menuRef.value;
+      if (!currentMenu) return;
+
+      const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+      let nextIndex = 0;
+
+      if (currentMenuItem) {
+        const currentIndex = menuItems.indexOf(currentMenuItem);
+        switch (next) {
+          case "next":
+            nextIndex = currentIndex + 1;
+            break;
+          case "prev":
+            nextIndex = currentIndex - 1;
+            break;
+          case "first":
+            nextIndex = 0;
+            break;
+          case "last":
+            nextIndex = menuItems.length - 1;
+            break;
+        }
+      }
+
+      const nextMenuItem = menuItems[nextIndex];
+      nextMenuItem?.focus();
     };
-  });
 
-  const focusRelativeItem = (next: "next" | "prev" | "first" | "last") => {
-    const currentMenuItem = document.activeElement as HTMLElement;
-
-    // Either the current focus is on a "menuitem", then we can just get the parent menu.
-    // Or the current focus is on the button, then we can get the connected menu using the menuId
-    const currentMenu =
-      currentMenuItem?.closest('[role="menu"]') || document.getElementById(menuId);
-    if (!currentMenu) return;
-
-    const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];
-    let nextIndex = 0;
-
-    if (currentMenuItem) {
-      const currentIndex = menuItems.indexOf(currentMenuItem);
-      switch (next) {
-        case "next":
-          nextIndex = currentIndex + 1;
+    const handleKeydown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case "ArrowDown":
+        case "ArrowRight":
+          event.preventDefault();
+          focusRelativeItem("next");
           break;
-        case "prev":
-          nextIndex = currentIndex - 1;
+        case "ArrowUp":
+        case "ArrowLeft":
+          event.preventDefault();
+          focusRelativeItem("prev");
           break;
-        case "first":
-          nextIndex = 0;
+        case "Home":
+          event.preventDefault();
+          focusRelativeItem("first");
           break;
-        case "last":
-          nextIndex = menuItems.length - 1;
+        case "End":
+          event.preventDefault();
+          focusRelativeItem("last");
+          break;
+        case " ":
+          event.preventDefault();
+          (event.target as HTMLElement).click();
+          break;
+        case "Escape":
+          event.preventDefault();
+          isExpanded.value && onToggle();
           break;
       }
-    }
+    };
 
-    const nextMenuItem = menuItems[nextIndex];
-    nextMenuItem?.focus();
-  };
-
-  const handleKeydown = (event: KeyboardEvent) => {
-    switch (event.key) {
-      case "ArrowDown":
-      case "ArrowRight":
-        event.preventDefault();
-        focusRelativeItem("next");
-        break;
-      case "ArrowUp":
-      case "ArrowLeft":
-        event.preventDefault();
-        focusRelativeItem("prev");
-        break;
-      case "Home":
-        event.preventDefault();
-        focusRelativeItem("first");
-        break;
-      case "End":
-        event.preventDefault();
-        focusRelativeItem("last");
-        break;
-      case " ":
-        event.preventDefault();
-        (event.target as HTMLElement).click();
-        break;
-    }
-  };
-
-  return {
-    state: { isExpanded },
-    elements: {
-      button: computed(
-        () =>
-          ({
-            "aria-controls": menuId,
-            "aria-expanded": isExpanded.value,
-            "aria-haspopup": true,
-            id: buttonId,
-            ...hoverEvents.value,
-            onKeydown: handleKeydown,
-          }) as const,
-      ),
-      flyout: {
-        ...hoverEvents.value,
+    return {
+      elements: {
+        root: {
+          id: rootId,
+          onKeydown: handleKeydown,
+          onMouseover: () => updateDebouncedExpanded(true),
+          onMouseout: () => updateDebouncedExpanded(false),
+          onFocusout: (event) => {
+            // if focus receiving element is not part of the menu button, then close
+            if (document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)) {
+              return;
+            }
+            isExpanded.value && onToggle();
+          },
+        },
+        button: computed(
+          () =>
+            ({
+              "aria-controls": menuId,
+              "aria-expanded": isExpanded.value,
+              "aria-haspopup": true,
+              onFocus: () => !isExpanded.value && onToggle(),
+              id: buttonId,
+            }) as const,
+        ),
+        menu: {
+          id: menuId,
+          ref: menuRef,
+          role: "menu",
+          "aria-labelledby": buttonId,
+          onClick: () => isExpanded.value && onToggle(),
+        },
+        ...createMenuItems().elements,
       },
-      menu: {
-        id: menuId,
-        role: "menu",
-        "aria-labelledby": buttonId,
-        onKeydown: handleKeydown,
-      },
-      ...createMenuItem().elements,
-    },
-  };
-});
+    };
+  },
+);
 
-export const createMenuItem = createBuilder(() => {
+export const createMenuItems = createBuilder(() => {
   return {
     elements: {
       listItem: {
