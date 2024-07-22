@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.10
+
+### Patch Changes
+
+- 5c0535e: fix(OnyxNavButton): prevent parent highlighting when an active child is visible on mobile
+
 ## 1.0.0-beta.9
 
 ### Minor Changes
