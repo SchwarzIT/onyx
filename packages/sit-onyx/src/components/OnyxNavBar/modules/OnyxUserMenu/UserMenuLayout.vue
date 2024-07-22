@@ -8,6 +8,12 @@ import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
 const props = defineProps<{ isMobile: boolean }>();
 
+/**
+ * If the flyout is expanded or not.
+ * If `undefined`, the state will be managed internally.
+ */
+const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
+
 const slots = defineSlots<{
   button?(): unknown;
   header?(): unknown;
@@ -23,13 +29,13 @@ const { t } = injectI18n();
     <template v-if="props.isMobile">
       <slot name="header"></slot>
       <slot name="options"></slot>
-      <OnyxListItem class="onyx-user-menu__mobile-footer" disabled>
+      <OnyxListItem v-if="!!slots.footer" class="onyx-user-menu__mobile-footer" disabled>
         <slot name="footer"> </slot>
       </OnyxListItem>
     </template>
 
     <template v-else>
-      <OnyxFlyoutMenu class="onyx-user-menu__flyout" :label="t('navigation.userMenuLabel')">
+      <OnyxFlyoutMenu :label="t('navigation.userMenuLabel')" :open="flyoutOpen">
         <slot name="button"></slot>
 
         <template #header>
