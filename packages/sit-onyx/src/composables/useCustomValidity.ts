@@ -2,6 +2,7 @@ import { computed, ref, watch, watchEffect, type Directive } from "vue";
 import type { InputType } from "../components/OnyxInput/types";
 import { injectI18n } from "../i18n";
 import enUS from "../i18n/locales/en-US.json";
+import type { BaseSelectOption } from "../types";
 import { areObjectsFlatEqual } from "../utils/objects";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
 
@@ -23,7 +24,7 @@ export type UseCustomValidityOptions = {
     type?: InputType;
     maxlength?: number;
     minlength?: number;
-  };
+  } & Pick<BaseSelectOption, "hideLabel" | "label">;
   /**
    * Component emit as defined with `const emit = defineEmits()`
    */
@@ -77,6 +78,9 @@ export const getCustomErrorText = (customError?: CustomErrorType): string | unde
   if (!customError) return;
   if (typeof customError === "string") {
     return customError;
+  }
+  if (customError.shortMessage === customError.longMessage) {
+    return customError.shortMessage;
   }
   const { shortMessage, longMessage } = customError;
   return `${shortMessage}: ${longMessage}`;
@@ -195,11 +199,23 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     };
   });
 
+  const title = computed(() => {
+    const title = [];
+    if (options.props.hideLabel) title.push(options.props.label);
+    if (errorMessages.value) title.push(getCustomErrorText(errorMessages.value));
+    return title.length ? title.join("\n") : undefined;
+  });
+
   return {
     /**
      * Directive to set the custom error message and emit validityChange event.
      */
     vCustomValidity,
     errorMessages,
+    /**
+     * A combination of a label (if it is hidden) and the error message (if an error exists).
+     * Usage e.g. on OnyxRadioButton, OnyxCheckbox, OnyxSwitch where no error message footer exists.
+     */
+    title,
   };
 };
