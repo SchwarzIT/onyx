@@ -23,7 +23,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
 
 const handleChange = (event: Event) => {
@@ -41,7 +41,7 @@ const handleChange = (event: Event) => {
   <label
     v-else
     :class="['onyx-radio-button', densityClass]"
-    :title="getCustomErrorText(props.customError)"
+    :title="getCustomErrorText(errorMessages)"
   >
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
     <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
