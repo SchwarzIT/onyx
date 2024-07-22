@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.11
+
+### Minor Changes
+
+- 8a1c8d4: feat(OnyxStepper): Implement basic OnyxStepper #1568
+
 ## 1.0.0-beta.10
 
 ### Patch Changes
