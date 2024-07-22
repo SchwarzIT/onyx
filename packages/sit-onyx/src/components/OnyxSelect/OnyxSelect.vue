@@ -167,8 +167,6 @@ const onTypeAhead = (label: string) => {
   activeValue.value = firstMatch.value;
 };
 
-const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
-
 const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
@@ -212,7 +210,6 @@ const {
   onActivateNext,
   onActivatePrevious,
   onTypeAhead,
-  onAutocomplete,
   onSelect,
 });
 
