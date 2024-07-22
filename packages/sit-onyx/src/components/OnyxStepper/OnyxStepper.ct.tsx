@@ -293,7 +293,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   await inputElement.blur();
   // ASSERT
   expect(events).toMatchObject({
-    updateModelValue: [1, 10, 10],
+    updateModelValue: [1, 10],
     focusCount: 1,
     blurCount: 1,
   });
@@ -450,8 +450,7 @@ test("should not allow entering value over the max value that has been set", asy
   await addButton.click();
   await expect(input).toHaveValue("2");
 
-  await addButton.click();
-  await expect(input).toHaveValue("2");
+  await expect(addButton).toBeDisabled();
 });
 
 test("should not allow entering value lower the min value that has been set", async ({
@@ -499,6 +498,5 @@ test("should not allow entering value lower the min value that has been set", as
   await substractButton.click();
   await expect(input).toHaveValue("2");
 
-  await substractButton.click();
-  await expect(input).toHaveValue("2");
+  await expect(substractButton).toBeDisabled();
 });
