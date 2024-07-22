@@ -71,6 +71,10 @@
     "selectAll": "Alle auswählen",
     "currentSelection": "{n} ausgewählt"
   },
+  "stepper": {
+    "decrement": "Verringern um {stepSize}",
+    "increment": "Erhöhen um {stepSize}"
+  },
   "table": {
     "empty": "Diese Tabelle ist leer."
   },
