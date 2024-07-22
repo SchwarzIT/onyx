@@ -159,6 +159,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ACT
   await component.getByLabel("Item 2").click();
+  await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger-children.png");
