@@ -34,14 +34,6 @@ export type OnyxStepperProps = DensityProp &
      */
     step?: number;
     /**
-     * Whether input value can only be multiple of step.
-     */
-    stripStep?: boolean;
-    /**
-     * Precision of input value.
-     */
-    precision?: number;
-    /**
      * Specify how to provide automated assistance in filling out the input.
      * Some autocomplete values might required specific browser permissions to be allowed by the user.
      * Also browsers might require a `name` property.

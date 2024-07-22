@@ -54,16 +54,10 @@ const value = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
-const handleClick = (direction: "up" | "down") => {
+const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
 
-  switch (direction) {
-    case "down":
-      inputRef.value.stepDown();
-      break;
-    case "up":
-      inputRef.value.stepUp();
-  }
+  inputRef.value[`${direction}`]();
 
   emit("update:modelValue", inputRef.value.valueAsNumber);
 };
@@ -87,7 +81,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
             (props.min && props.min === value) || props.disabled || props.readonly || props.loading
           "
           :aria-label="decrementLabel"
-          @click="handleClick('down')"
+          @click="handleClick('stepDown')"
         >
           <OnyxIcon :icon="minus" />
         </button>
@@ -120,7 +114,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
             (props.max && props.max === value) || props.disabled || props.readonly || props.loading
           "
           :aria-label="incrementLabel"
-          @click="handleClick('up')"
+          @click="handleClick('stepUp')"
         >
           <OnyxIcon :icon="plus" />
         </button>
