@@ -292,6 +292,7 @@ const selectInputProps = computed(() => {
       :aria-busy="props.loading"
     >
       <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
+        <!-- model-value is set here, as it is written be the onAutocomplete callback -->
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
