@@ -167,6 +167,8 @@ const onTypeAhead = (label: string) => {
   activeValue.value = firstMatch.value;
 };
 
+const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
+
 const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
@@ -210,6 +212,7 @@ const {
   onActivateNext,
   onActivatePrevious,
   onTypeAhead,
+  onAutocomplete,
   onSelect,
 });
 
@@ -292,7 +295,7 @@ const selectInputProps = computed(() => {
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
-          v-model="searchTerm"
+          :model-value="searchTerm"
           v-bind="input"
           :label="t('select.searchInputLabel')"
           class="onyx-select__search"
