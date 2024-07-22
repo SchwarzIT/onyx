@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
-import { getCustomErrorText, useCustomValidity } from "../../composables/useCustomValidity";
+import { useCustomValidity } from "../../composables/useCustomValidity";
 import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -35,14 +35,7 @@ const isChecked = computed({
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
-
-const checkboxTitle = computed(() => {
-  const title = [];
-  if (props.hideLabel) title.push(props.label);
-  if (errorMessages.value) title.push(getCustomErrorText(errorMessages.value));
-  return title.length ? title.join("\n") : undefined;
-});
+const { vCustomValidity, title } = useCustomValidity({ props, emit });
 </script>
 
 <template>
@@ -51,12 +44,7 @@ const checkboxTitle = computed(() => {
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label
-    v-else
-    class="onyx-checkbox"
-    :class="[requiredTypeClass, densityClass]"
-    :title="checkboxTitle"
-  >
+  <label v-else class="onyx-checkbox" :class="[requiredTypeClass, densityClass]" :title="title">
     <div class="onyx-checkbox__container">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
