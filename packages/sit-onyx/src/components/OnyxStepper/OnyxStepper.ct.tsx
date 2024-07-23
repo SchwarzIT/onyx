@@ -201,9 +201,8 @@ test.describe("Screenshot tests", () => {
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      const input = component.getByLabel("Test label");
-      if (row === "hover") await input.hover();
-      if (row === "focus" && column !== "loading") await input.focus();
+      if (row === "hover") await component.hover();
+      if (row === "focus" && column !== "loading") await component.getByLabel("Test label").focus();
     },
   });
 
