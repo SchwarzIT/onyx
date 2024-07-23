@@ -42,10 +42,6 @@ export type CreateComboboxOptions<
    */
   listLabel: MaybeRef<string>;
   /**
-   * The current value of the combobox. Is updated when an option from the controlled listbox is selected or by typing into it.
-   */
-  inputValue: Ref<string | undefined>;
-  /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
   isExpanded: MaybeRef<boolean>;
@@ -105,7 +101,6 @@ export const createComboBox = createBuilder(
     TAutoComplete extends ComboboxAutoComplete,
     TMultiple extends boolean = false,
   >({
-    inputValue,
     autocomplete: autocompleteRef,
     onAutocomplete,
     onTypeAhead,
@@ -250,7 +245,6 @@ export const createComboBox = createBuilder(
          * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.
          */
         input: computed(() => ({
-          value: inputValue.value,
           role: "combobox",
           "aria-expanded": isExpanded.value,
           "aria-controls": controlsId,
