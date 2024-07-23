@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.13
+
+### Patch Changes
+
+- cae1e24: fix(OnyxSelect): fix cursor always jumping to the end of the search input
+  feat(createComboBox): remove required, but redundant inputValue prop
+
 ## 1.0.0-beta.12
 
 ### Patch Changes
