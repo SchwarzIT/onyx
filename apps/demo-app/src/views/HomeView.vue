@@ -30,6 +30,7 @@ import {
 import { capitalize, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import LanguageSelection from "../components/LanguageSelection.vue";
+import SelectDemo from "../components/SelectDemo.vue";
 
 const { locale } = useI18n();
 
@@ -86,10 +87,6 @@ const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<string>();
 
-const selectState = ref<string>();
-const groupedSelectState = ref<string>();
-const multiselectState = ref<string[]>();
-
 const selectOptions = [
   "Apple",
   "Banana",
@@ -110,19 +107,6 @@ const selectOptions = [
 ].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
 
 const minimalSelectOptions = selectOptions.slice(0, 3);
-
-const groupedSelectOptions: SelectOption[] = [
-  { value: "cat", label: "Cat", group: "Land" },
-  { value: "dog", label: "Dog", group: "Land" },
-  { value: "tiger", label: "Tiger", group: "Land" },
-  { value: "reindeer", label: "Reindeer", group: "Land" },
-  { value: "racoon", label: "Racoon", group: "Land" },
-  { value: "dolphin", label: "Dolphin", group: "Water" },
-  { value: "flounder", label: "Flounder", group: "Water" },
-  { value: "eel", label: "Eel", group: "Water" },
-  { value: "falcon", label: "Falcon", group: "Air" },
-  { value: "owl", label: "Owl", group: "Air" },
-];
 
 const timerEndDate = new Date();
 timerEndDate.setHours(timerEndDate.getHours() + 2);
@@ -210,39 +194,11 @@ const tableData = [
 
         <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
 
-        <template v-if="show('OnyxSelect')">
-          <div style="display: flex; gap: var(--onyx-spacing-xs)">
-            <OnyxSelect
-              v-model="selectState"
-              label="Example select"
-              list-label="Example listbox list"
-              :options="selectOptions"
-              :skeleton="useSkeleton"
-            />
-            <OnyxSelect
-              v-model="groupedSelectState"
-              label="Example grouped select"
-              list-label="Example listbox list"
-              :options="groupedSelectOptions"
-              :skeleton="useSkeleton"
-            />
-            <OnyxSelect
-              v-model="multiselectState"
-              label="Example multiselect"
-              list-label="Example listbox list"
-              :multiple="true"
-              :with-check-all="true"
-              :options="selectOptions"
-              :skeleton="useSkeleton"
-            />
-          </div>
-
-          <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            <div>OnyxSelect single state: {{ selectState ?? "–" }}</div>
-            <div>OnyxSelect single grouped state: {{ groupedSelectState ?? "–" }}</div>
-            <div>OnyxSelect multiselect state: {{ multiselectState ?? "–" }}</div>
-          </div>
-        </template>
+        <SelectDemo
+          v-if="show('OnyxSelect')"
+          :select-options="selectOptions"
+          :use-skeleton="useSkeleton"
+        />
 
         <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
