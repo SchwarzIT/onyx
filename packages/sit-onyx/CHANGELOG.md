@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.12
+
+### Patch Changes
+
+- 7b8ad3d: fix(OnyxNavBar): make bottom border full width when grid width is limited
+
 ## 1.0.0-beta.11
 
 ### Minor Changes

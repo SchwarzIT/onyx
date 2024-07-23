@@ -1,5 +1,12 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.13
+
+### Patch Changes
+
+- Updated dependencies [7b8ad3d]
+  - sit-onyx@1.0.0-beta.12
+
 ## 1.0.0-beta.12
 
 ### Patch Changes
