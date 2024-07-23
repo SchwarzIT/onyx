@@ -16,6 +16,13 @@ export type RippleInstance = {
   fadeIn: boolean;
 };
 
+// calculate radius of the ripple
+export function distanceToFurthestCorner(x: number, y: number, rect: DOMRect) {
+  const dx = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
+  const dy = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
+  return Math.hypot(dx, dy);
+}
+
 export const useRipple = (config: Ref<RippleConfig>) => {
   const isPointerDown = ref(false);
 
@@ -61,13 +68,6 @@ export const useRipple = (config: Ref<RippleConfig>) => {
       if (r.fadeIn || config.value.terminateOnPointerUp) ripples.delete(key);
     });
   };
-
-  // calculate radius of the ripple
-  function distanceToFurthestCorner(x: number, y: number, rect: DOMRect) {
-    const dx = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
-    const dy = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
-    return Math.hypot(dx, dy);
-  }
 
   const getEvents = () => {
     // detect if NO pointer device exists, so we use touch events
