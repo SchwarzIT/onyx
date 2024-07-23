@@ -151,6 +151,7 @@ const blockTyping = (event: KeyboardEvent) => {
             :title="props.hideLabel ? props.label : undefined"
             :value="selectionText"
             :autofocus="props.autofocus"
+            autocomplete="off"
             @click="emit('click')"
             @keydown="blockTyping"
           />
