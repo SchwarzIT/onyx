@@ -23,6 +23,7 @@ type Story = StoryObj<typeof OnyxCheckbox>;
 export const Default = {
   args: {
     label: "Checkbox",
+    value: "example-value",
   },
 } satisfies Story;
 
@@ -85,5 +86,20 @@ export const Skeleton = {
   args: {
     ...Default.args,
     skeleton: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an invalid checkbox.
+ * Hover over the checkbox for a few seconds to show the error.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    hideLabel: true,
+    customError: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
   },
 } satisfies Story;

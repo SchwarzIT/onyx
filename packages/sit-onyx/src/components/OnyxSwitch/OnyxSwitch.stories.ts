@@ -22,7 +22,7 @@ type Story = StoryObj<typeof OnyxSwitch>;
  */
 export const Default = {
   args: {
-    label: "Switch",
+    label: "Switch label",
   },
 } satisfies Story;
 
@@ -31,7 +31,7 @@ export const Default = {
  */
 export const Checked = {
   args: {
-    label: "Switch",
+    ...Default.args,
     modelValue: true,
   },
 } satisfies Story;
@@ -51,7 +51,7 @@ export const Required = {
  */
 export const CheckedLoading = {
   args: {
-    label: "Switch",
+    ...Default.args,
     modelValue: true,
     loading: true,
   },
@@ -86,5 +86,20 @@ export const Skeleton = {
   args: {
     ...Default.args,
     skeleton: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an invalid switch which turns red after interaction.
+ * Hover for a few seconds to show the error.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    hideLabel: true,
+    customError: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
   },
 } satisfies Story;
