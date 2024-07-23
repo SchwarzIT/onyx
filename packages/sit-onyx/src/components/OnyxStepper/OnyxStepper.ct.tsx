@@ -22,7 +22,7 @@ test.describe("Screenshot tests", () => {
       },
       beforeScreenshot: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");
-        if (row === "hover") await component.hover();
+        if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
         if (state == "autofill") {
           await input.fill("10");
@@ -201,8 +201,9 @@ test.describe("Screenshot tests", () => {
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus" && column !== "loading") await component.getByLabel("Test label").focus();
+      const input = component.getByLabel("Test label");
+      if (row === "hover") await input.hover();
+      if (row === "focus" && column !== "loading") await input.focus();
     },
   });
 
@@ -222,7 +223,7 @@ test.describe("Screenshot tests", () => {
       await input.fill("10");
       await input.blur();
 
-      if (row === "hover") await component.hover();
+      if (row === "hover") await input.hover();
       if (row === "focus") await input.focus();
       if (column == "autofill") {
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
