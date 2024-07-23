@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "compact" theme.
- * Imported from Figma API on Tue, 23 Jul 2024 09:02:32 GMT
+ * Imported from Figma API on Tue, 23 Jul 2024 10:18:35 GMT
  */
 :where(.onyx-density-compact) {
   --onyx-density-2xl: var(--onyx-number-spacing-600);
