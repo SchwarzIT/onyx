@@ -68,9 +68,8 @@ watch(
     }
 
     &--custom {
-      --onyx-avatar-padding: var(--onyx-spacing-sm);
       width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
-      padding: calc(var(--onyx-avatar-padding) - 2 * $border-width);
+      padding: calc(var(--onyx-density-sm) - 2 * $border-width);
     }
 
     &__svg {
@@ -102,15 +101,12 @@ watch(
 
           @if $name == 16px {
             font-size: 0.5rem;
-            --onyx-avatar-padding: var(--onyx-spacing-4xs);
           }
           @if $name == 24px {
             font-size: 0.625rem;
-            --onyx-avatar-padding: var(--onyx-spacing-3xs);
           }
           @if $name == 32px {
             font-size: 0.875rem;
-            --onyx-avatar-padding: var(--onyx-spacing-2xs);
           }
           @if $name == 48px {
             font-size: 1.25rem;

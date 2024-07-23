@@ -3,6 +3,7 @@
  * This file contains the specific variables for the "default" theme.
  * Imported from Figma API on Tue, 23 Jul 2024 09:02:32 GMT
  */
+:where(:root),
 :where(.onyx-density-default) {
   --onyx-density-2xl: var(--onyx-number-spacing-700);
   --onyx-density-2xs: var(--onyx-number-spacing-200);

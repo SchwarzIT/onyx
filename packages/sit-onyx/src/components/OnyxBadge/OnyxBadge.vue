@@ -42,40 +42,15 @@ defineSlots<{
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
-
-.onyx-badge {
-  @include density.compact {
-    --onyx-badge-padding: 0 var(--onyx-spacing-2xs);
-    --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
-    --onyx-badge-height: 1.5rem;
-    --onyx-badge-dot-size: var(--onyx-spacing-3xs);
-  }
-
-  @include density.default {
-    --onyx-badge-padding: var(--onyx-spacing-5xs) var(--onyx-spacing-sm);
-    --onyx-badge-icon-padding: var(--onyx-spacing-3xs);
-    --onyx-badge-height: 1.75rem;
-    --onyx-badge-dot-size: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-badge-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
-    --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
-    --onyx-badge-height: 2rem;
-    --onyx-badge-dot-size: var(--onyx-spacing-sm);
-  }
-}
 
 .onyx-badge {
   @include layers.component() {
     --onyx-badge-background-color: var(--onyx-color-base-primary-500);
 
     display: inline-block;
-    height: var(--onyx-badge-height);
     max-width: 100%;
-    padding: var(--onyx-badge-padding);
+    padding: var(--onyx-density-3xs) var(--onyx-density-sm);
     border-radius: var(--onyx-radius-full);
     background-color: var(--onyx-badge-background-color);
     color: var(--onyx-color-text-icons-neutral-inverted);
@@ -83,7 +58,7 @@ defineSlots<{
     font-style: normal;
 
     &:has(&__icon) {
-      padding: var(--onyx-badge-icon-padding);
+      padding: var(--onyx-density-3xs);
     }
 
     &--secondary {
@@ -115,9 +90,9 @@ defineSlots<{
     }
 
     &--dot {
-      height: var(--onyx-badge-dot-size);
-      width: var(--onyx-badge-dot-size);
-      padding: 0;
+      height: max-content;
+      width: max-content;
+      padding: var(--onyx-density-2xs);
     }
   }
 }
