@@ -124,7 +124,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/input.scss";
 
@@ -151,17 +150,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
 
 .onyx-stepper,
 .onyx-stepper-skeleton {
-  @include density.compact {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-stepper-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-stepper-skeleton {
