@@ -110,7 +110,7 @@ const checkAllLabel = computed(() => {
     $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
     &__label {
-      margin-bottom: var(--onyx-spacing-2xs);
+      margin-bottom: var(--onyx-density-xs);
     }
 
     &__content {
@@ -131,14 +131,13 @@ const checkAllLabel = computed(() => {
 
       &--horizontal {
         flex-flow: row wrap;
-        column-gap: var(--onyx-spacing-xl);
+        column-gap: var(--onyx-density-xl);
 
         .onyx-checkbox-group__check-all {
           border-right: $check-all-border;
-          // The horizontal "Select all" checkbox label needs an additional md padding-right
-          // on top of the OnyxCheckbox 2xs padding-right.
+          // the horizontal "Select all" checkbox label needs an additional padding-right
           .onyx-checkbox__label {
-            padding-right: var(--onyx-spacing-md);
+            padding-right: var(--onyx-density-md);
           }
         }
       }

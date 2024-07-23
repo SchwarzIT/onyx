@@ -73,26 +73,15 @@ watch(
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 
 .onyx-dialog {
-  @include density.compact {
-    --onyx-dialog-padding: var(--onyx-spacing-md);
-  }
-  @include density.default {
-    --onyx-dialog-padding: var(--onyx-spacing-lg);
-  }
-  @include density.cozy {
-    --onyx-dialog-padding: var(--onyx-spacing-xl);
-  }
-
   @include layers.component() {
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    padding: var(--onyx-dialog-padding);
+    padding: var(--onyx-density-lg);
     background-color: var(--onyx-color-base-background-blank);
     overflow: auto;
     z-index: var(--onyx-z-index-page-overlay);
