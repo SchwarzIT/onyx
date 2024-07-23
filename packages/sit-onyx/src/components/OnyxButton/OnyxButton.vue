@@ -228,6 +228,8 @@ const emit = defineEmits<{
 
     &__loading {
       position: absolute;
+      pointer-events: none;
+      z-index: 1;
     }
   }
 
