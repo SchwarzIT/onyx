@@ -33,29 +33,29 @@ jobs:
           format: CSS JSON
           output-directory: "../sit-onyx/src/styles/themes"
 
-      - uses: ./.github/workflows/template-import-figma-variables.yml
-        name: Import additional onyx themes
+      - name: Import additional onyx themes
+        uses: ./.github/templates/import-figma-variables
         with:
           modes: lidl kaufland twogo
           selector: ":where(:root), .onyx-theme-{mode}"
           output-directory: "../sit-onyx/src/styles/themes"
 
-      - uses: ./.github/workflows/template-import-figma-variables.yml
-        name: Import light variables
+      - name: Import light variables
+        uses: ./.github/workflows/template-import-figma-variables.yml
         with:
           modes: light
           selector: ":where(:root)"
           output-directory: "../sit-onyx/src/styles"
 
-      - uses: ./.github/workflows/template-import-figma-variables.yml
-        name: Import light variables
+      - name: Import light variables
+        uses: ./.github/workflows/template-import-figma-variables.yml
         with:
           modes: dark
           selector: ":where(.dark)"
           output-directory: "../sit-onyx/src/styles"
 
-      - uses: ./.github/workflows/template-import-figma-variables.yml
-        name: Import density variables
+      - name: Import density variables
+        uses: ./.github/workflows/template-import-figma-variables.yml
         with:
           modes: compact default cozy
           selector: ":where(.onyx-density-{mode})"

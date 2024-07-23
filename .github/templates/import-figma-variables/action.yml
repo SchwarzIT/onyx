@@ -1,0 +1,27 @@
+name: Reusable workflow for importing Figma variables
+description: Imports Figma variables using our @sit-onyx/figma-utils CLI
+
+inputs:
+  modes:
+    required: true
+    description: Modes to import
+  selector:
+    required: true
+    description: CSS selector for the resulting CSS file
+  output-directory:
+    required: true
+    description: Directory to write the output files to
+  format:
+    default: CSS
+    description: File formats to generate
+  file-prefix:
+    default: ""
+    description: File prefix
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "${{ inputs.output-directory }}" -m ${{ inputs.modes }} -f ${{ inputs.format }} -s "${{ inputs.selector }}" -n "${{ inputs.file-prefix }}"
+      shell: bash
+      working-directory: packages/figma-utils
