@@ -1,23 +1,27 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { RippleConfig, useRipple } from "../../composables/useRipple";
+import { useRipple, type RippleConfig } from "../../composables/useRipple";
+import { type OnyxRippleProps } from "./types";
 
 /**
   TODO: 
-  - settings props
   - test events
   - unit test for composable
  */
 
 const rippleTrigger = ref<HTMLElement>();
 
-const config = computed<RippleConfig>(() => ({
-  terminateOnPointerUp: false,
+const props = withDefaults(defineProps<OnyxRippleProps>(), {
+  enterDuration: "300ms",
+  leaveDuration: "100ms",
   color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
-  trigger: rippleTrigger,
-  duration: "300ms",
-  durationLeave: "100ms",
+  terminateOnPointerUp: false,
+});
+
+const config = computed<RippleConfig>(() => ({
+  color: props.color,
   container: rippleTrigger,
+  terminateOnPointerUp: props.terminateOnPointerUp,
 }));
 
 const { ripples, hideRipple, events } = useRipple(config);
@@ -25,7 +29,7 @@ const { ripples, hideRipple, events } = useRipple(config);
 
 <template>
   <span ref="rippleTrigger" class="onyx-ripple" v-on="events">
-    <transition-group name="onyx-ripple" @after-enter="hideRipple">
+    <transition-group name="onyx-ripple" @after-enter="hideRipple($event as HTMLElement)">
       <span
         v-for="[key, r] in ripples"
         :key="key"
@@ -69,14 +73,14 @@ const { ripples, hideRipple, events } = useRipple(config);
 .onyx-ripple-leave-active {
   transition-property: opacity, scale;
   transition-timing-function: ease;
-  transition-duration: v-bind("config.duration");
+  transition-duration: v-bind("props.enterDuration");
   @media (prefers-reduced-motion) {
     transition-duration: 1ms;
   }
 }
 
 .onyx-ripple-leave-active {
-  transition-duration: v-bind("config.durationLeave");
+  transition-duration: v-bind("props.leaveDuration");
   @media (prefers-reduced-motion) {
     transition-duration: 1ms;
   }

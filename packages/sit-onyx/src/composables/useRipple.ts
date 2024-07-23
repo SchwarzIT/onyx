@@ -1,11 +1,8 @@
 import { computed, reactive, ref, type Ref } from "vue";
 
 export type RippleConfig = {
-  trigger: Ref<HTMLElement | undefined>;
   color: string;
   terminateOnPointerUp: boolean;
-  duration: string;
-  durationLeave: string;
   container: Ref<HTMLElement | undefined>;
 };
 
@@ -65,6 +62,7 @@ export const useRipple = (config: Ref<RippleConfig>) => {
     });
   };
 
+  // calculate radius of the ripple
   function distanceToFurthestCorner(x: number, y: number, rect: DOMRect) {
     const dx = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
     const dy = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
