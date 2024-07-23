@@ -25,7 +25,7 @@ jobs:
         working-directory: packages/figma-utils
 
       # we need to separately import the themes because they are all needed in different formats and selectors
-      - uses: ./.github/workflows/template-import-figma-variables.yml
+      - uses: ./.github/templates/import-figma-variables
         name: Import onyx variables
         with:
           modes: onyx
@@ -41,21 +41,21 @@ jobs:
           output-directory: "../sit-onyx/src/styles/themes"
 
       - name: Import light variables
-        uses: ./.github/workflows/template-import-figma-variables.yml
+        uses: ./.github/templates/import-figma-variables
         with:
           modes: light
           selector: ":where(:root)"
           output-directory: "../sit-onyx/src/styles"
 
       - name: Import light variables
-        uses: ./.github/workflows/template-import-figma-variables.yml
+        uses: ./.github/templates/import-figma-variables
         with:
           modes: dark
           selector: ":where(.dark)"
           output-directory: "../sit-onyx/src/styles"
 
       - name: Import density variables
-        uses: ./.github/workflows/template-import-figma-variables.yml
+        uses: ./.github/templates/import-figma-variables
         with:
           modes: compact default cozy
           selector: ":where(.onyx-density-{mode})"
