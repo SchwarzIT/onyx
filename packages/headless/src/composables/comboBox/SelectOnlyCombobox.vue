@@ -26,7 +26,6 @@ const onToggle = () => (isExpanded.value = !isExpanded.value);
 const onTypeAhead = () => {};
 
 const comboBox = createComboBox({
-  inputValue: selectedOption,
   autocomplete: "none",
   label: "some label",
   listLabel: "List",
@@ -51,7 +50,12 @@ defineExpose({ comboBox });
 
 <template>
   <div ref="comboboxRef">
-    <input v-bind="input" readonly @keydown.arrow-down="isExpanded = true" />
+    <input
+      v-bind="input"
+      v-model="selectedOption"
+      readonly
+      @keydown.arrow-down="isExpanded = true"
+    />
 
     <button v-bind="button">
       <template v-if="isExpanded">⬆️</template>

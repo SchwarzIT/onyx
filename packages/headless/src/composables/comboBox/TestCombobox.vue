@@ -30,7 +30,6 @@ const onAutocomplete = (input: string) => (searchTerm.value = input);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
 
 const comboBox = createComboBox({
-  inputValue: searchTerm,
   autocomplete: "list",
   label: "some label",
   listLabel: "List",
@@ -55,7 +54,7 @@ defineExpose({ comboBox });
 
 <template>
   <div ref="comboboxRef">
-    <input v-bind="input" @keydown.arrow-down="isExpanded = true" />
+    <input v-bind="input" v-model="searchTerm" @keydown.arrow-down="isExpanded = true" />
 
     <button v-bind="button">
       <template v-if="isExpanded">⬆️</template>
