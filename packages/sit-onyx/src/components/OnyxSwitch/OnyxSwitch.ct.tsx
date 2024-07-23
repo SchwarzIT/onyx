@@ -101,3 +101,28 @@ test.describe("Screenshot tests", () => {
     },
   });
 });
+
+[
+  { hideLabel: true, customError: undefined, expectedTitle: "Label" },
+  { hideLabel: true, customError: "Error", expectedTitle: "Label\nError" },
+  { hideLabel: false, customError: "Error", expectedTitle: "Error" },
+  {
+    hideLabel: false,
+    customError: { shortMessage: "Error", longMessage: "Further info" },
+    expectedTitle: "Error: Further info",
+  },
+].forEach(({ hideLabel, customError, expectedTitle }) => {
+  test(`should have the title "${expectedTitle}"`, async ({ mount, makeAxeBuilder, page }) => {
+    // ARRANGE
+    await mount(<OnyxSwitch label="Label" hideLabel={hideLabel} customError={customError} />);
+
+    // ASSERT
+    await expect(page.getByTitle(expectedTitle), "should have the expected title").toBeVisible();
+
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+});
