@@ -220,6 +220,10 @@ const emit = defineEmits<{
         z-index: 1;
         pointer-events: none;
       }
+      .onyx-button__loading {
+        pointer-events: none;
+        z-index: 1;
+      }
     }
 
     &--loading &__label {
@@ -228,8 +232,6 @@ const emit = defineEmits<{
 
     &__loading {
       position: absolute;
-      pointer-events: none;
-      z-index: 1;
     }
   }
 
