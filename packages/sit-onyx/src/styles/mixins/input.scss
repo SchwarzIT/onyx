@@ -16,11 +16,11 @@
 
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-2xs);
+    gap: var(--onyx-density-xs);
 
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: $vertical-padding var(--onyx-spacing-sm);
+    padding: $vertical-padding var(--onyx-density-sm);
     height: calc(1lh + 2 * #{$vertical-padding});
 
     &:has(#{$base-selector}__native:read-write:hover) {
@@ -123,11 +123,11 @@
 @mixin define-skeleton-styles($height) {
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-spacing-5xs);
+  gap: var(--onyx-density-3xs);
   line-height: 1.5rem;
 
   &__label {
-    width: var(--onyx-spacing-3xl);
+    width: var(--onyx-density-3xl);
     height: 1.25rem;
   }
 
