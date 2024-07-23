@@ -3,12 +3,6 @@ import { computed, ref } from "vue";
 import { useRipple, type RippleConfig } from "../../composables/useRipple";
 import { type OnyxRippleProps } from "./types";
 
-/**
-  TODO: 
-  - test events
-  - unit test for composable
- */
-
 const rippleTrigger = ref<HTMLElement>();
 
 const props = withDefaults(defineProps<OnyxRippleProps>(), {

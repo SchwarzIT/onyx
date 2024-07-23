@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   color: "primary",
   mode: "default",
   skeleton: false,
-  rippleAnimation: false,
+  rippleAnimation: true,
 });
 
 const { densityClass } = useDensity(props);
@@ -118,10 +118,15 @@ const emit = defineEmits<{
 
       &.onyx-button--outline {
         --onyx-button-border-color: var(--onyx-color-base-primary-500);
+        --onyx-ripple-color: var(--onyx-color-base-primary-200);
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-border-color: var(--onyx-color-base-primary-200);
         }
+      }
+
+      &.onyx-button--plain {
+        --onyx-ripple-color: var(--onyx-color-base-primary-200);
       }
     }
 
