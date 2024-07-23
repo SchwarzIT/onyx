@@ -97,7 +97,7 @@ const activeValue = ref<TValue>();
 const arrayValue = computed(() => {
   if (!props.modelValue) return [];
   if (props.multiple && Array.isArray(props.modelValue)) return props.modelValue;
-  else return [props.modelValue as TValue];
+  return [props.modelValue as TValue];
 });
 
 /**
@@ -382,7 +382,9 @@ const selectInputProps = computed(() => {
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    selected: arrayValue.some((value) => value === option.value),
+                    selected:
+                      arrayValue.some((value) => value === option.value) ||
+                      props.modelValue === option.value,
                   })
                 "
                 :multiple="props.multiple"

@@ -24,6 +24,8 @@ const MOCK_VARIED_OPTIONS = [
   { value: 4, label: "Very long label ".repeat(5) },
 ] satisfies SelectOption[];
 
+const MOCK_VARIED_OPTIONS_VALUES = MOCK_VARIED_OPTIONS.map(({ value }) => value);
+
 const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
   value: index,
   label: `Test option ${index + 1}`,
@@ -62,7 +64,7 @@ test.describe("Default screenshots", () => {
           label="Label"
           listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
-          modelValue={MOCK_VARIED_OPTIONS[1].value}
+          modelValue={MOCK_VARIED_OPTIONS_VALUES[1]}
           density={column}
           required={row === "required"}
           hideLabel={row === "hideLabel"}
@@ -169,7 +171,7 @@ test.describe("Multiple screenshots", () => {
       "nested-interactive",
     ],
     component: (column, row) => {
-      let modelValue = [MOCK_VARIED_OPTIONS[0].value];
+      let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]];
       if (column === "compact") modelValue = [];
       if (column === "cozy" || row === "preview")
         modelValue = MOCK_VARIED_OPTIONS.map(({ value }) => value);
@@ -307,7 +309,7 @@ test.describe("Invalidity handling screenshots", () => {
         customError={{ shortMessage: "Test error" }}
         listLabel="List label"
         options={MOCK_VARIED_OPTIONS}
-        modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS[0].value : undefined}
+        modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
       />
     ),
     beforeScreenshot: async (component, _page, _column, row) => {
@@ -351,7 +353,7 @@ test.describe("Other screenshots", () => {
 });
 
 test("should interact with single select", async ({ mount }) => {
-  let modelValue: number | undefined = MOCK_VARIED_OPTIONS[1].value;
+  let modelValue: number | undefined = MOCK_VARIED_OPTIONS_VALUES[1];
 
   const eventHandlers = {
     "update:modelValue": async (value: typeof modelValue) => {
@@ -377,24 +379,24 @@ test("should interact with single select", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[1]);
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
 
   // ACT
   await component.getByText("Selected").click();
   // ASSERT
-  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[1]);
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
   await expect(comboboxInput).toBeFocused();
 
   // // ACT
   await component.click();
   await component.getByRole("option", { name: "Default" }).click();
   // ASSERT
-  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[0]);
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[0]);
   await expect(comboboxInput).toBeFocused();
 });
 
 test("should interact with multiselect and search", async ({ mount }) => {
-  let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
   let searchTerm: string = "";
 
   const eventHandlers = {
@@ -431,7 +433,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1]]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
@@ -440,7 +442,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await miniSearchInput.press("Enter");
 
   // ASSERT
-  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1], MOCK_VARIED_OPTIONS[0]]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1], MOCK_VARIED_OPTIONS_VALUES[0]]);
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
@@ -451,7 +453,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
 
   const eventHandlers = {
     "update:modelValue": async (value: typeof modelValue) => {
@@ -477,7 +479,7 @@ test("should interact with multiselect", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1].value]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
 
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
@@ -488,9 +490,9 @@ test("should interact with multiselect", async ({ mount }) => {
   await component.getByRole("option", { name: "Select all" }).click();
   // ASSERT
   expect(modelValue).toStrictEqual([
-    MOCK_VARIED_OPTIONS[0].value,
-    MOCK_VARIED_OPTIONS[1].value,
-    MOCK_VARIED_OPTIONS[3].value,
+    MOCK_VARIED_OPTIONS_VALUES[0],
+    MOCK_VARIED_OPTIONS_VALUES[1],
+    MOCK_VARIED_OPTIONS_VALUES[3],
   ]);
 });
 
@@ -518,8 +520,8 @@ test("should pass headless accessibility tests", async ({ mount, page }) => {
 // eslint-disable-next-line playwright/expect-expect
 test("should pass headless accessibility tests (select only)", async ({ mount, page }) => {
   const eventHandlers = {
-    "update:modelValue": (modelValue: number) => {
-      component.update({ props: { modelValue }, on: eventHandlers });
+    "update:modelValue": async (modelValue: number) => {
+      await component.update({ props: { modelValue }, on: eventHandlers });
     },
   };
 
