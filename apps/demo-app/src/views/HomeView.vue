@@ -86,9 +86,9 @@ const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<string>();
 
-const selectState = ref<SelectOption>();
-const groupedSelectState = ref<SelectOption>();
-const multiselectState = ref<SelectOption[]>();
+const selectState = ref<string>();
+const groupedSelectState = ref<string>();
+const multiselectState = ref<string[]>();
 
 const selectOptions = [
   "Apple",
