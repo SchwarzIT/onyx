@@ -46,7 +46,7 @@ export const useRipple = (config: Ref<RippleConfig>) => {
       radius: Math.round(radius * 2) + "px",
       time: Date.now(),
       backgroundColor: config.value.color,
-      rippleId: self.crypto.randomUUID(),
+      rippleId: "d" + Date.now(),
       fadeIn: false,
     };
 

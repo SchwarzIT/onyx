@@ -68,16 +68,21 @@ const { ripples, hideRipple, events } = useRipple(config);
   }
 }
 
-.onyx-ripple-enter-active {
-  transition-property: opacity, scale;
-  transition-timing-function: ease;
-  transition-duration: v-bind("config.duration");
-}
-
+.onyx-ripple-enter-active,
 .onyx-ripple-leave-active {
   transition-property: opacity, scale;
   transition-timing-function: ease;
+  transition-duration: v-bind("config.duration");
+  @media (prefers-reduced-motion) {
+    transition-duration: 1ms;
+  }
+}
+
+.onyx-ripple-leave-active {
   transition-duration: v-bind("config.durationLeave");
+  @media (prefers-reduced-motion) {
+    transition-duration: 1ms;
+  }
 }
 
 .onyx-ripple-enter-from {
