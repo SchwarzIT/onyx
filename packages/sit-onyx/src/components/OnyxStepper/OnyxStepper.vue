@@ -167,15 +167,15 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
     );
 
     &__wrapper {
+      gap: 0;
+      padding: 0;
+      justify-content: space-between;
+
       &:has(.onyx-stepper__native:read-write) {
         &:has(#{get-autofill-selectors(".onyx-stepper__native")}) {
           background-color: var(--onyx-color-base-warning-100);
         }
       }
-
-      gap: 0;
-      padding: 0;
-      justify-content: space-between;
     }
 
     &__counter {
@@ -191,6 +191,9 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
     }
 
     &__native {
+      -moz-appearance: textfield;
+      text-align: center;
+
       #{get-autofill-selectors("&")} {
         background-color: transparent;
         -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
@@ -205,9 +208,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         -webkit-appearance: none;
         margin: 0;
       }
-
-      -moz-appearance: textfield;
-      text-align: center;
     }
 
     &:has(.onyx-stepper__native:enabled:read-write) {

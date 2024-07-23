@@ -22,8 +22,8 @@ type Story = StoryObj<typeof OnyxRadioButton>;
 export const Default = {
   args: {
     value: "example-value",
-    label: "radio-label",
-    name: "radio-name",
+    label: "Radio Label",
+    name: "radio-default",
   },
 } satisfies Story;
 
@@ -34,6 +34,7 @@ export const Default = {
 export const WithTruncation = {
   args: {
     ...Default.args,
+    name: "radio-truncated",
     label: "Very long label that will be truncated",
     style: "max-width: 12rem",
   },
@@ -45,6 +46,19 @@ export const WithTruncation = {
 export const Skeleton = {
   args: {
     ...Default.args,
+    name: "radio-skeleton",
     skeleton: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a required radio button.
+ * Hover over the option for a few seconds to show an error info when it is not selected.
+ */
+export const Required = {
+  args: {
+    ...Default.args,
+    name: "radio-required",
+    required: true,
   },
 } satisfies Story;

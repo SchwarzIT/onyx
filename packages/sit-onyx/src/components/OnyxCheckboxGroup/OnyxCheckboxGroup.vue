@@ -3,9 +3,9 @@ import { computed } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
-import { OnyxHeadline } from "../../index";
 import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {

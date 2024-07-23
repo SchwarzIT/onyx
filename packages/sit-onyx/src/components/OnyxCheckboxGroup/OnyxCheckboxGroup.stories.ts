@@ -28,6 +28,14 @@ const DEMO_OPTIONS = [
   { label: "Disabled", value: 4, disabled: true },
   { label: "Loading", value: 5, loading: true },
   { label: "Disabled checked", value: 6, disabled: true },
+  {
+    label: "Invalid",
+    value: 7,
+    customError: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
+  },
 ] satisfies CheckboxGroupOption[];
 
 /**
