@@ -55,17 +55,7 @@ const emit = defineEmits<{
 
 .onyx-icon-button,
 .onyx-icon-button-skeleton {
-  @include density.compact {
-    --onyx-icon-button-padding: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-icon-button-padding: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-icon-button-padding: var(--onyx-spacing-sm);
-  }
+  --onyx-icon-button-padding: var(--onyx-density-xs);
 }
 
 .onyx-icon-button-skeleton {
@@ -150,7 +140,6 @@ const emit = defineEmits<{
 
       display: grid;
       place-items: center;
-      padding: var(--onyx-spacing-2xs);
       color: var(--icon-button-color);
       cursor: var(--icon-button-cursor);
 

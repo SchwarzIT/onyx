@@ -49,8 +49,8 @@ defineExpose({
     <input
       ref="input"
       v-model="value"
-      class="onyx-mini-search__input"
-      placeholder="Search"
+      class="onyx-mini-search__input onyx-text"
+      :placeholder="t('select.searchPlaceholder')"
       type="text"
       v-bind="restAttrs"
       :aria-label="props.label"
@@ -76,22 +76,13 @@ defineExpose({
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/mixins/density.scss";
 
 .onyx-mini-search {
-  @include density.compact {
-    --onyx-mini-search-icon-size: 1rem;
-  }
-  @include density.default {
-    --onyx-mini-search-icon-size: 1.5rem;
-  }
-  @include density.cozy {
-    --onyx-mini-search-icon-size: 1.5rem;
-  }
-
   @include layers.component() {
+    --onyx-mini-search-icon-size: 1.5rem;
+
     display: flex;
-    padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-density-xs) var(--onyx-density-sm);
     background-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
 
@@ -102,10 +93,7 @@ defineExpose({
 
     &__input {
       font-family: var(--onyx-font-family);
-      font-size: var(--onyx-spacing-md);
       font-style: normal;
-      font-weight: 400;
-      line-height: var(--onyx-spacing-lg);
       flex-grow: 1;
       min-width: 0;
       color: var(--onyx-color-text-icons-neutral-intense);
