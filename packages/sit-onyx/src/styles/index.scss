@@ -11,6 +11,9 @@
 @use "fonts.scss";
 @use "breakpoints.scss";
 
-@use "themes/onyx.css";
-@use "light.css";
-@use "dark.css";
+@use "variables/themes/onyx.css";
+@use "variables/light.css";
+@use "variables/dark.css";
+@use "variables/density-compact.css";
+@use "variables/density-default.css";
+@use "variables/density-cozy.css";
