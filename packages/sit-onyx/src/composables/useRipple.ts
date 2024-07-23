@@ -71,14 +71,21 @@ export const useRipple = (config: Ref<RippleConfig>) => {
     return Math.hypot(dx, dy);
   }
 
-  const events = {
-    mousedown: startRipple, // TODO: test on mobile
-    // touchstart: startRipple,
-    mouseup: hideRipples,
-    mouseleave: hideRipples,
-    touchend: hideRipples,
-    touchcancel: hideRipples,
+  const getEvents = () => {
+    // detect if NO pointer device exists, so we use touch events
+    if (window.matchMedia("pointer: none").matches) {
+      return {
+        touchstart: startRipple,
+        touchend: hideRipples,
+        touchcancel: hideRipples,
+      };
+    }
+    return {
+      mousedown: startRipple,
+      mouseleave: hideRipples,
+      mouseup: hideRipples,
+    };
   };
 
-  return { isPointerDown, ripples, startRipple, hideRipples, hideRipple, events };
+  return { isPointerDown, ripples, startRipple, hideRipples, hideRipple, events: getEvents() };
 };
