@@ -8,6 +8,7 @@ import { RippleConfig, useRipple } from "../../composables/useRipple";
   - color prop
   - settings props
   - test events
+  - unit test for composable
  */
 
 const rippleTrigger = ref<HTMLElement>();
@@ -68,13 +69,13 @@ const { ripples, hideRipple, events } = useRipple(config);
 }
 
 .onyx-ripple-enter-active {
-  transition-property: all;
+  transition-property: opacity, scale;
   transition-timing-function: ease;
   transition-duration: v-bind("config.duration");
 }
 
 .onyx-ripple-leave-active {
-  transition-property: all;
+  transition-property: opacity, scale;
   transition-timing-function: ease;
   transition-duration: v-bind("config.durationLeave");
 }
