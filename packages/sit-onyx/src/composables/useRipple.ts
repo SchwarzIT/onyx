@@ -1,4 +1,5 @@
 import { computed, reactive, ref, type Ref } from "vue";
+import { distanceToFurthestCorner } from "../utils/math";
 
 export type RippleConfig = {
   color: string;
@@ -15,13 +16,6 @@ export type RippleInstance = {
   rippleId: string;
   fadeIn: boolean;
 };
-
-// calculate radius of the ripple
-export function distanceToFurthestCorner(x: number, y: number, rect: DOMRect) {
-  const dx = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
-  const dy = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
-  return Math.hypot(dx, dy);
-}
 
 export const useRipple = (config: Ref<RippleConfig>) => {
   const isPointerDown = ref(false);

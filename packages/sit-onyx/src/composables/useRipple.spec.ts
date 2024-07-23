@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { computed, ref } from "vue";
-import { distanceToFurthestCorner, useRipple, type RippleConfig } from "./useRipple";
+import { useRipple, type RippleConfig } from "./useRipple";
 
 describe("useRipple", () => {
   vi.stubGlobal(
@@ -36,17 +36,8 @@ describe("useRipple", () => {
     expect(ripples.size).toBe(0);
   });
 
-  test("should calculate the distance to the furthest corner", () => {
-    const x = 1;
-    const y = 1;
-
-    const distance = distanceToFurthestCorner(x, y, rect as DOMRect);
-
-    expect(distance).toBeCloseTo(422.8, 1);
-  });
-
   test("should add and remove a ripple", () => {
-    const mockEvent = new MouseEvent("mousedown", { bubbles: true });
+    const mockEvent = new MouseEvent("mousedown");
     startRipple(mockEvent);
     expect(ripples.size).toBe(1);
     const r = ripples.values().next().value;
