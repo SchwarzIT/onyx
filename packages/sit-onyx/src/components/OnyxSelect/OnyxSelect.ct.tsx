@@ -709,3 +709,65 @@ test("should not submit form when selecting via keyboard", async ({ page, mount 
   // ASSERT
   await expect(submitEventCount).toBe(0);
 });
+
+test("should allow custom input text when a pre-selected value is unknown to OnyxSelect", async ({
+  mount,
+  page,
+}) => {
+  const modelValue = MOCK_MANY_OPTIONS.length + 5;
+
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options: MOCK_MANY_OPTIONS,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue,
+    },
+  });
+
+  // ASSERT (initial state)
+  await expect(
+    page.getByLabel("Test select"),
+    "onyx should not be able to show the label to a single select option that is unknown",
+  ).toBeEmpty();
+
+  // ACT
+  await component.update({ props: { valueLabel: "Custom selection label" } });
+
+  // ASSERT
+  await expect(
+    page.getByLabel("Test select"),
+    "the provided custom single selection label should be shown",
+  ).toHaveValue("Custom selection label");
+
+  // ACT
+  await component.update({
+    props: {
+      multiple: true,
+      modelValue: [modelValue],
+      valueLabel: undefined,
+    },
+  });
+
+  // ASSERT
+  await expect(
+    page.getByLabel("Test select"),
+    "onyx should not be able to show the label to a multi select option that is unknown",
+  ).toBeEmpty();
+
+  // ACT
+  await component.update({
+    props: {
+      multiple: true,
+      modelValue: [modelValue],
+      valueLabel: ["Custom selection label", "Other custom label"],
+    },
+  });
+
+  // ASSERT
+  await expect(
+    page.getByLabel("Test select"),
+    "the provided custom multi selection label should be shown",
+  ).toHaveValue("2 selected");
+});
