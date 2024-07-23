@@ -69,21 +69,23 @@ const handleChange = (event: Event) => {
   @include layers.component() {
     --onyx-radio-button-selector-size: var(--onyx-spacing-md);
     --onyx-radio-button-dot-size: var(--onyx-spacing-3xs);
-    --onyx-radio-button-height: var(--onyx-density);
 
     @include density.compact {
       --onyx-radio-button-label-padding: var(--onyx-spacing-3xs);
       --onyx-radio-button-selector-margin: var(--onyx-spacing-xs);
+      --onyx-radio-button-height: 2rem;
     }
 
     @include density.default {
       --onyx-radio-button-label-padding: var(--onyx-spacing-2xs);
       --onyx-radio-button-selector-margin: var(--onyx-spacing-sm);
+      --onyx-radio-button-height: 2.5rem;
     }
 
     @include density.cozy {
       --onyx-radio-button-label-padding: var(--onyx-spacing-sm);
       --onyx-radio-button-selector-margin: var(--onyx-spacing-md);
+      --onyx-radio-button-height: 3rem;
     }
   }
 }
