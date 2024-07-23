@@ -57,12 +57,34 @@ export const Neutral = {
 } satisfies Story;
 
 /**
+ * This example shows the button in neutral color with ripples
+ */
+export const NeutralWithRipples = {
+  args: {
+    label: "Button",
+    color: "neutral",
+    rippleAnimation: true,
+  },
+} satisfies Story;
+
+/**
  * This example shows the button in danger color
  */
 export const Danger = {
   args: {
     label: "Button",
     color: "danger",
+  },
+} satisfies Story;
+
+/**
+ * This example shows the button in danger color
+ */
+export const DangerWithRipples = {
+  args: {
+    label: "Button",
+    color: "danger",
+    rippleAnimation: true,
   },
 } satisfies Story;
 
@@ -83,6 +105,7 @@ export const WithIcon = {
   args: {
     label: "Button",
     icon: checkSmall,
+    rippleAnimation: true,
   },
 } satisfies Story;
 

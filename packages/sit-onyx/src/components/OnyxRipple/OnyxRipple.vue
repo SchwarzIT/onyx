@@ -4,8 +4,6 @@ import { RippleConfig, useRipple } from "../../composables/useRipple";
 
 /**
   TODO: 
-  - check prefers motion setting
-  - color prop
   - settings props
   - test events
   - unit test for composable
@@ -15,7 +13,7 @@ const rippleTrigger = ref<HTMLElement>();
 
 const config = computed<RippleConfig>(() => ({
   terminateOnPointerUp: false,
-  color: "var(--onyx-ripple-color)",
+  color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
   trigger: rippleTrigger,
   duration: "300ms",
   durationLeave: "100ms",
@@ -50,7 +48,6 @@ const { ripples, hideRipple, events } = useRipple(config);
 @use "../../styles/mixins/density.scss";
 
 .onyx-ripple {
-  --onyx-ripple-color: var(--onyx-color-base-primary-600);
   display: block;
   position: absolute;
   inset: 0;

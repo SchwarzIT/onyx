@@ -44,7 +44,7 @@ const emit = defineEmits<{
     :autofocus="props.autofocus"
     @click="emit('click')"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
+    <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
     <OnyxRipple v-if="rippleAnimation" />
@@ -80,6 +80,7 @@ const emit = defineEmits<{
     --onyx-button-border-color: transparent;
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-button-outline-color: var(--onyx-color-base-primary-200);
+    --onyx-ripple-color: var(--onyx-color-base-primary-600);
 
     position: relative;
     display: inline-flex;
@@ -128,6 +129,7 @@ const emit = defineEmits<{
       --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
       --onyx-button-outline-color: var(--onyx-color-base-neutral-300);
       --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+      --onyx-ripple-color: var(--onyx-color-base-neutral-300);
 
       &:disabled:not(.onyx-button--loading) {
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
@@ -157,6 +159,7 @@ const emit = defineEmits<{
       --onyx-button-background-hover-color: var(--onyx-color-base-danger-200);
       --onyx-button-outline-color: var(--onyx-color-base-danger-300);
       --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+      --onyx-ripple-color: var(--onyx-color-base-danger-300);
 
       &:disabled:not(.onyx-button--loading) {
         --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
@@ -206,7 +209,8 @@ const emit = defineEmits<{
       &:hover:enabled {
         --onyx-button-background-color: var(--onyx-button-background-hover-color);
       }
-      .onyx-button__label {
+      .onyx-button__label,
+      .onyx-button__icon {
         position: relative;
         z-index: 1;
         pointer-events: none;
