@@ -771,3 +771,52 @@ test("should allow custom input text when a pre-selected value is unknown to Ony
     "the provided custom multi selection label should be shown",
   ).toHaveValue("2 selected");
 });
+
+test("should manage filtering internally except when filteredOptions are given", async ({
+  mount,
+  page,
+}) => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+    { value: 3, label: "Three" },
+  ];
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue: 2,
+      withSearch: true,
+    },
+  });
+
+  await component.click();
+  await page.getByRole("option").first().waitFor();
+  expect(await page.getByRole("option").count(), "should initially show all options").toBe(
+    options.length,
+  );
+  await expect(page.getByLabel("One")).toBeVisible();
+
+  const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
+
+  await miniSearchInput.fill("1");
+
+  expect(await page.getByRole("option").count(), "should filter automatically").toBeLessThan(
+    options.length,
+  );
+  await expect(
+    page.getByLabel("One"),
+    "should not be able to match a search by the ID",
+  ).toBeHidden();
+
+  await component.update({ props: { filteredOptions: [options[0]] } });
+
+  expect(await page.getByRole("option").count(), "should show the provided filter result").toBe(1);
+  await expect(page.getByLabel("One"), "should now show the manually matched option").toBeVisible();
+  await expect(
+    page.getByLabel("Test select"),
+    "manual filtering should not affect the selected label of a hidden option",
+  ).toHaveValue("Two");
+});
