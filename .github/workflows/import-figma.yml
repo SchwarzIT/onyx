@@ -25,27 +25,27 @@ jobs:
         working-directory: packages/figma-utils
 
       # we need to separately import the themes because they are all needed in different formats and selectors
-      - name: Import onyx variables
+      - name: 🎨 Import onyx variables
         run: |
           pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m onyx -f CSS JSON -s ":where(:root), .onyx-theme-default"
         working-directory: packages/figma-utils
 
-      - name: Import additional onyx themes
+      - name: 🎨 Import additional onyx themes
         run: |
           pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m lidl kaufland twogo -f CSS -s ":where(:root), .onyx-theme-{mode}"
         working-directory: packages/figma-utils
 
-      - name: Import light variables
+      - name: ☀️ Import light variables
         run: |
           pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m light -s ":where(:root)"
         working-directory: packages/figma-utils
 
-      - name: Import dark variables
+      - name: 🌙 Import dark variables
         run: |
           pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m dark -s ":where(.dark)"
         working-directory: packages/figma-utils
 
-      - name: Import density variables
+      - name: 🛠️ Import density variables
         run: |
           pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m compact default cozy -s ":where(.onyx-density-{mode})" -n density-
         working-directory: packages/figma-utils
