@@ -95,7 +95,7 @@ const activeValue = ref<TValue>();
  * to work with it in a unified way.
  */
 const arrayValue = computed(() => {
-  if (!props.modelValue) return [];
+  if (props.modelValue === undefined) return [];
   if (props.multiple && Array.isArray(props.modelValue)) return props.modelValue;
   return [props.modelValue as TValue];
 });
@@ -383,9 +383,7 @@ const selectInputProps = computed(() => {
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    selected:
-                      arrayValue.some((value) => value === option.value) ||
-                      props.modelValue === option.value,
+                    selected: arrayValue.some((value) => value === option.value),
                   })
                 "
                 :multiple="props.multiple"
