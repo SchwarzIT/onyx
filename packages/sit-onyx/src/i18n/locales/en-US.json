@@ -71,6 +71,10 @@
     "selectAll": "Select all",
     "currentSelection": "{n} selected"
   },
+  "stepper": {
+    "decrement": "Decrement by {stepSize}",
+    "increment": "Increment by {stepSize}"
+  },
   "table": {
     "empty": "This table is empty."
   },
