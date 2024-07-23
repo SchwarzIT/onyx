@@ -210,17 +210,19 @@ const emit = defineEmits<{
       line-height: 1.5rem;
     }
 
+    $p: &;
+
     &--ripple-animation {
       &:hover:enabled {
         --onyx-button-background-color: var(--onyx-button-background-hover-color);
       }
-      .onyx-button__label,
-      .onyx-button__icon {
+      #{$p}__label,
+      #{$p}__icon {
         position: relative;
         z-index: 1;
         pointer-events: none;
       }
-      .onyx-button__loading {
+      #{$p}__loading {
         pointer-events: none;
         z-index: 1;
       }
