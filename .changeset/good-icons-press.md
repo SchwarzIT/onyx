@@ -24,4 +24,5 @@ The following components now also support density:
 
 Other changes:
 
+- several visual fixes/improvements related to density/spacing
 - fix(OnyxMiniSearch): translate placeholder
