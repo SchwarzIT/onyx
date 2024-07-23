@@ -91,9 +91,9 @@
     "toggleContextMenu": "Kontext-Menü umschalten",
     "navigationHeadline": "Navigation"
   },
-  "showTooltip": {
-    "info": "Info-Tooltip anzeigen",
-    "error": "Fehler-Tooltip anzeigen"
+  "tooltip": {
+    "info": "Info tooltip Sichtbarkeit umschalten",
+    "error": "Error tooltip Sichtbarkeit umschalten"
   },
   "colorScheme": {
     "headline": "Erscheinungsbild ändern",
