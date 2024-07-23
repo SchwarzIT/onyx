@@ -40,7 +40,8 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
 })) satisfies SelectOption[];
 
 const openFlyout = async (component: MountResultJsx) => {
-  await component.click();
+  const box = (await component.boundingBox())!;
+  await component.click({ position: { x: box.x + box.width / 2, y: box.y + box.height / 2 } });
 
   // since the flyout is positioned absolute, we need to set the component size accordingly
   // so the screenshot contains the whole component
