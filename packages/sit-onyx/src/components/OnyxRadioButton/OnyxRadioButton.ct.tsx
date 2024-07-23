@@ -113,3 +113,25 @@ test.describe("Screenshot tests", () => {
     ),
   });
 });
+
+[
+  { customError: "Error", expectedTitle: "Error" },
+  {
+    customError: { shortMessage: "Error", longMessage: "Further info" },
+    expectedTitle: "Error: Further info",
+  },
+].forEach(({ customError, expectedTitle }) => {
+  test(`should have the title "${expectedTitle}"`, async ({ mount, makeAxeBuilder, page }) => {
+    // ARRANGE
+    await mount(<OnyxRadioButton label="Label" customError={customError} />);
+
+    // ASSERT
+    await expect(page.getByTitle(expectedTitle), "should have the expected title").toBeVisible();
+
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+});
