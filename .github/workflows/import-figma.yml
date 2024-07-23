@@ -25,25 +25,42 @@ jobs:
         working-directory: packages/figma-utils
 
       # we need to separately import the themes because they are all needed in different formats and selectors
-      - name: Import onyx variables
-        run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m onyx -f CSS JSON -s ":where(:root), .onyx-theme-default"
-        working-directory: packages/figma-utils
+      - uses: ./.github/workflows/template-import-figma-variables.yml
+        name: Import onyx variables
+        with:
+          modes: onyx
+          selector: ":where(:root), .onyx-theme-default"
+          format: CSS JSON
+          output-directory: "../sit-onyx/src/styles/themes"
 
-      - name: Import additional onyx themes
-        run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/themes" -m lidl kaufland twogo -f CSS -s ":where(:root), .onyx-theme-{mode}"
-        working-directory: packages/figma-utils
+      - uses: ./.github/workflows/template-import-figma-variables.yml
+        name: Import additional onyx themes
+        with:
+          modes: lidl kaufland twogo
+          selector: ":where(:root), .onyx-theme-{mode}"
+          output-directory: "../sit-onyx/src/styles/themes"
 
-      - name: Import light variables
-        run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m light -s ":where(:root)"
-        working-directory: packages/figma-utils
+      - uses: ./.github/workflows/template-import-figma-variables.yml
+        name: Import light variables
+        with:
+          modes: light
+          selector: ":where(:root)"
+          output-directory: "../sit-onyx/src/styles"
 
-      - name: Import dark variables
-        run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles" -m dark -s ":where(.dark)"
-        working-directory: packages/figma-utils
+      - uses: ./.github/workflows/template-import-figma-variables.yml
+        name: Import light variables
+        with:
+          modes: dark
+          selector: ":where(.dark)"
+          output-directory: "../sit-onyx/src/styles"
+
+      - uses: ./.github/workflows/template-import-figma-variables.yml
+        name: Import density variables
+        with:
+          modes: compact default cozy
+          selector: ":where(.onyx-density-{mode})"
+          output-directory: "../sit-onyx/src/styles"
+          file-prefix: density-
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
