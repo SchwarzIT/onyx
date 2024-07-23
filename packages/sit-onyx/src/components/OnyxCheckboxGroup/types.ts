@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
+import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 
 export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
@@ -45,4 +46,4 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
     };
 
 export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> =
-  BaseSelectOption<TValue> & RequiredMarkerProp & AutofocusProp;
+  BaseSelectOption<TValue> & RequiredMarkerProp & CustomValidityProp & AutofocusProp;
