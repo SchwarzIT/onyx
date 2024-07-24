@@ -72,7 +72,7 @@ const emit = defineEmits<{
       var(--onyx-density-sm);
     justify-content: center;
     align-items: center;
-    gap: var(--onyx-spacing-4xs);
+    gap: var(--onyx-density-2xs);
     border-radius: var(--onyx-radius-sm);
     cursor: pointer;
     font-family: var(--onyx-font-family);
@@ -178,7 +178,6 @@ const emit = defineEmits<{
     }
 
     &__label {
-      padding: 0 var(--onyx-spacing-4xs);
       font-size: 1rem;
       font-style: normal;
       font-weight: 600;
