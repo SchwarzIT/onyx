@@ -178,6 +178,7 @@ const emit = defineEmits<{
     }
 
     &__label {
+      padding-inline: var(--onyx-density-2xs);
       font-size: 1rem;
       font-style: normal;
       font-weight: 600;
