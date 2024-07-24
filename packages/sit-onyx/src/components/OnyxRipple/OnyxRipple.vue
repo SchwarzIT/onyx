@@ -3,8 +3,6 @@ import { computed, ref } from "vue";
 import { useRipple, type RippleConfig } from "../../composables/useRipple";
 import { type OnyxRippleProps } from "./types";
 
-const rippleTrigger = ref<HTMLElement>();
-
 const props = withDefaults(defineProps<OnyxRippleProps>(), {
   enterDuration: "300ms",
   leaveDuration: "100ms",
@@ -17,6 +15,8 @@ const config = computed<RippleConfig>(() => ({
   container: rippleTrigger,
   terminateOnPointerUp: props.terminateOnPointerUp,
 }));
+
+const rippleTrigger = ref<HTMLElement>();
 
 const { ripples, hideRipple, events } = useRipple(config);
 </script>

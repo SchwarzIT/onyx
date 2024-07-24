@@ -63,6 +63,9 @@ export const useRipple = (config: Ref<RippleConfig>) => {
     });
   };
 
+  /**
+   * events used by the trigger element to start and stop ripples
+   */
   const getEvents = () => {
     // detect if NO pointer device exists, so we use touch events
     if (window.matchMedia("pointer: none").matches) {
