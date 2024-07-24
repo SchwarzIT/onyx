@@ -25,7 +25,7 @@ const inputRef = ref<HTMLInputElement>();
 
 const emit = defineEmits<{
   /** Emitted when the input value changes. */
-  "update:modelValue": [value: number | undefined];
+  "update:modelValue": [value?: number];
   /**
    * Emitted when the input is focussed.
    */
