@@ -12,10 +12,8 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  modelValue: 0,
   step: 1,
   stripStep: false,
-  placeholder: "0",
   disabled: false,
   readonly: false,
   loading: false,
@@ -27,7 +25,7 @@ const inputRef = ref<HTMLInputElement>();
 
 const emit = defineEmits<{
   /** Emitted when the input value changes. */
-  "update:modelValue": [value: number];
+  "update:modelValue": [value: number | undefined];
   /**
    * Emitted when the input is focussed.
    */
