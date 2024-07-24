@@ -1,5 +1,16 @@
-import type { CreateToggletipOptions, CreateTooltipOptions } from "@sit-onyx/headless";
+import type { MaybeRefOrGetter } from "vue";
 import type { OnyxColor } from "../../types";
+
+export type TooltipOptions = {
+  /**
+   * Number of milliseconds to use as debounce when showing/hiding the tooltip.
+   */
+  debounce: MaybeRefOrGetter<number>;
+};
+
+export type ToggletipOptions = {
+  toggleLabel: MaybeRefOrGetter<string>;
+};
 
 export type OnyxTooltipProps = {
   /**
@@ -40,7 +51,7 @@ export type TooltipOpen =
   | boolean
   | ({
       type: "hover";
-    } & Partial<CreateTooltipOptions>)
+    } & Partial<TooltipOptions>)
   | ({
       type: "click";
-    } & Partial<CreateToggletipOptions>);
+    } & Partial<ToggletipOptions>);
