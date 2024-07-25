@@ -166,9 +166,7 @@ const icon = computed(() => {
       justify-content: space-between;
 
       &:has(.onyx-toast-message__close) {
-        max-width: calc(
-          100% - var(--onyx-toast-message-close-button-size) - var(--onyx-density-md)
-        );
+        max-width: calc(100% - var(--onyx-toast-message-close-button-size));
       }
     }
 
