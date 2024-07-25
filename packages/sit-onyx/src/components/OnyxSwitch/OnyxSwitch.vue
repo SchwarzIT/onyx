@@ -105,18 +105,6 @@ const isChecked = computed({
       var(--onyx-1px-in-rem)
   );
   --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
-
-  @include density.compact {
-    --onyx-switch-transform: 0.125rem;
-  }
-
-  @include density.default {
-    --onyx-switch-transform: var(--onyx-1px-in-rem);
-  }
-
-  @include density.cozy {
-    --onyx-switch-transform: 0.01rem;
-  }
 }
 
 $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
@@ -127,6 +115,18 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     align-items: flex-start;
     cursor: pointer;
     max-width: 100%;
+
+    @include density.compact {
+      --onyx-switch-transform: 0.125rem;
+    }
+
+    @include density.default {
+      --onyx-switch-transform: var(--onyx-1px-in-rem);
+    }
+
+    @include density.cozy {
+      --onyx-switch-transform: 0.01rem;
+    }
 
     &__input {
       // position: absolute is needed here in order to hide the native checkbox.

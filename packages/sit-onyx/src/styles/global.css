@@ -1,9 +1,9 @@
 /**
  * Define the layer cascade layer priorities: Will apply from left-to-right.
  * We have to keep the layers in sync with layers.scss. We can't reference it in here,
- * as the projects can import this file separately from the other stylesheets. 
+ * as the projects can import this file separately from the other stylesheets.
  */
-@layer onyx.reset, onyx.utility, onyx.component, onyx.density;
+@layer onyx.reset, onyx.utility, onyx.component;
 
 /*
 * This file can be imported by projects to apply common styles to global elements like <body>.

@@ -1,27 +1,21 @@
 @mixin compact {
-  @layer onyx.density {
-    .onyx-density-compact &,
-    :is(&).onyx-density-compact {
-      @content;
-    }
+  .onyx-density-compact &,
+  :is(&).onyx-density-compact {
+    @content;
   }
 }
 
 @mixin default {
-  @layer onyx.density {
-    &,
-    .onyx-density-default &,
-    :is(&).onyx-density-default {
-      @content;
-    }
+  &,
+  .onyx-density-default &,
+  :is(&).onyx-density-default {
+    @content;
   }
 }
 
 @mixin cozy {
-  @layer onyx.density {
-    .onyx-density-cozy &,
-    :is(&).onyx-density-cozy {
-      @content;
-    }
+  .onyx-density-cozy &,
+  :is(&).onyx-density-cozy {
+    @content;
   }
 }
