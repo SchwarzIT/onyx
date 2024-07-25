@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxSelect, type SelectOption } from "sit-onyx";
+import { normalizedIncludes, OnyxSelect, type SelectOption } from "sit-onyx";
 import { computed, ref } from "vue";
 
 defineProps<{
@@ -31,6 +31,24 @@ const lazyLoadedOptions = computed<SelectOption[]>(() =>
     value,
     label: `Lazy option ${value}`,
   })),
+);
+
+const filteredState = ref(3);
+const filterSearchTerm = ref("");
+const filterBase = [
+  { value: "0", label: "Option Zero" },
+  { value: "1", label: "Option One" },
+  { value: "2", label: "Option Two" },
+  { value: "3", label: "Option Three" },
+  { value: "4", label: "Option Four" },
+  { value: "5", label: "Option Five" },
+];
+const filterValueLabel = computed(() => filterBase[filteredState.value].label);
+const filteredOptions = computed<SelectOption[]>(() =>
+  filterBase.filter(
+    ({ value, label }) =>
+      normalizedIncludes(label, filterSearchTerm.value) || value === filterSearchTerm.value,
+  ),
 );
 </script>
 
@@ -69,12 +87,25 @@ const lazyLoadedOptions = computed<SelectOption[]>(() =>
       :skeleton="useSkeleton"
       @lazy-load="lazyLoadedLength += 5"
     />
+    <OnyxSelect
+      v-model="filteredState"
+      label="Custom filtering, search for text or number"
+      list-label="Filtered list"
+      :value-label="filterValueLabel"
+      :options="filteredOptions"
+      :skeleton="useSkeleton"
+      with-search
+      manual-search
+      @update:search-term="filterSearchTerm = $event"
+    />
   </div>
 
   <div v-if="!useSkeleton" class="onyx-text--small state-info">
     <div>OnyxSelect single state: {{ selectState ?? "–" }}</div>
     <div>OnyxSelect single grouped state: {{ groupedSelectState ?? "–" }}</div>
     <div>OnyxSelect multiselect state: {{ multiselectState ?? "–" }}</div>
+    <div>OnyxSelect lazy load state: {{ lazyLoadedState ?? "–" }}</div>
+    <div>OnyxSelect filter state: {{ filteredState ?? "–" }}</div>
   </div>
 </template>
 
