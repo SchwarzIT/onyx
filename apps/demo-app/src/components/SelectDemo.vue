@@ -53,7 +53,7 @@ const filteredOptions = computed<SelectOption[]>(() =>
 </script>
 
 <template>
-  <div style="display: flex; gap: var(--onyx-spacing-xs)">
+  <div class="select-demo">
     <OnyxSelect
       v-model="selectState"
       label="Example select"
@@ -109,4 +109,10 @@ const filteredOptions = computed<SelectOption[]>(() =>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.select-demo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--onyx-spacing-xs);
+}
+</style>
