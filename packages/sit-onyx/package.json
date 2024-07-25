@@ -8,8 +8,7 @@
   "files": [
     "dist",
     "src/i18n/locales",
-    "src/styles",
-    "src/types"
+    "src/styles"
   ],
   "types": "./dist/index.d.ts",
   "exports": {
