@@ -29,6 +29,16 @@ export const Default = {
 } satisfies Story;
 
 /**
+ * This example shows the stepper with a placeholder.
+ */
+export const Placeholder = {
+  args: {
+    label: "Stepper",
+    placeholder: "0",
+  },
+} satisfies Story;
+
+/**
  * This example shows the stepper in disabled state.
  */
 export const Disabled = {
