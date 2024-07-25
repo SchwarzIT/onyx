@@ -380,6 +380,13 @@ const selectInputProps = computed(() => {
           <slot name="optionsEnd"></slot>
         </div>
       </div>
+      <div
+        v-if="props.listDescription"
+        :aria-description="props.listDescription"
+        class="onyx-select__description onyx-text--small"
+      >
+        {{ props.listDescription }}
+      </div>
     </div>
   </div>
 </template>
@@ -459,6 +466,21 @@ const selectInputProps = computed(() => {
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    &__description {
+      display: flex;
+      // TODO: remove fallback values once the density tokens are updated
+      padding: var(--onyx-density-3xs, 2px) var(--onyx-density-sm, 12px);
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--onyx-spacing-md, 16px);
+      align-self: stretch;
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &:has(&__description) {
+      padding-bottom: 0;
     }
 
     .onyx-empty {

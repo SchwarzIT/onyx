@@ -195,6 +195,29 @@ test.describe("Multiple screenshots", () => {
   });
 });
 
+test.describe("List description screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Select (list-description)",
+    columns: DENSITIES,
+    rows: ["default"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) => (
+      <div>
+        <OnyxSelect
+          label="Label"
+          listLabel="List label"
+          options={MOCK_MANY_OPTIONS}
+          density={column}
+          listDescription="List description"
+        />
+      </div>
+    ),
+    beforeScreenshot: async (component, _page, _column) => {
+      await openFlyout(component);
+    },
+  });
+});
+
 test.describe("Loading screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select (loading)",

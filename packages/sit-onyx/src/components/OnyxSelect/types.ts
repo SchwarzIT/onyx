@@ -77,6 +77,10 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      */
     listLabel: string;
     /**
+     * Text describing the list of options which will be displayed at the bottom of the flyout.
+     */
+    listDescription?: string;
+    /**
      * Available options to choose from.
      */
     options: SelectOption<TValue>[];
