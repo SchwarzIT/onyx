@@ -12,6 +12,7 @@ refactor: implement new density CSS variables
 - OnyxMiniSearch: removed CSS variable `--onyx-mini-search-icon-size`
 - OnyxTable: removed CSS variable `--onyx-table-vertical-padding`
 - OnyxTag: removed CSS variable `--onyx-tag-padding`
+- OnyxSwitch: removed CSS variable `--onyx-switch-label-padding-vertical`
 
 #### Features
 
@@ -38,3 +39,4 @@ The following components now also support density:
 - several visual fixes/improvements related to density/spacing
 - fix(OnyxMiniSearch): translate placeholder
 - fix(OnyxSelectInput): disable autocomplete for native input
+- fix(OnyxSelect): hide required asterisk when `hideLabel` is set
