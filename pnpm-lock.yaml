@@ -283,10 +283,10 @@ importers:
         version: link:../icons
       typescript:
         specifier: '>= 5.2.2'
-        version: 5.5.3
+        version: 5.5.4
       vue:
         specifier: '>= 3'
-        version: 3.4.33(typescript@5.5.3)
+        version: 3.4.34(typescript@5.5.4)
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.9.1
@@ -6781,6 +6781,9 @@ packages:
   vue-component-type-helpers@2.0.28:
     resolution: {integrity: sha512-hoK0UsKXrXDY9zdpdk+drqOqYHpPhbmfQUJ2mFYK57+l73mQxcYyCteQsolllwGaxhWihT077+OA/FR5ZPTceg==}
 
+  vue-component-type-helpers@2.0.29:
+    resolution: {integrity: sha512-58i+ZhUAUpwQ+9h5Hck0D+jr1qbYl4voRt5KffBx8qzELViQ4XdT/Tuo+mzq8u63teAG8K0lLaOiL5ofqW38rg==}
+
   vue-demi@0.14.8:
     resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
     engines: {node: '>=12'}
@@ -9568,7 +9571,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.34(typescript@5.5.4)
-      vue-component-type-helpers: 2.0.28
+      vue-component-type-helpers: 2.0.29
 
   '@storybook/vue3@8.2.6(storybook@8.2.6(@babel/preset-env@7.24.8(@babel/core@7.24.9)))(vue@3.4.34(typescript@5.5.4))':
     dependencies:
@@ -9583,7 +9586,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.34(typescript@5.5.4)
-      vue-component-type-helpers: 2.0.28
+      vue-component-type-helpers: 2.0.29
 
   '@trysound/sax@0.2.0': {}
 
@@ -14684,6 +14687,8 @@ snapshots:
       typescript: 5.5.4
 
   vue-component-type-helpers@2.0.28: {}
+
+  vue-component-type-helpers@2.0.29: {}
 
   vue-demi@0.14.8(vue@3.4.34(typescript@5.5.4)):
     dependencies:
