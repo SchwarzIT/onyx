@@ -131,7 +131,6 @@ $input-width: calc(
     align-items: flex-start;
     cursor: pointer;
     max-width: 100%;
-    padding: var(--onyx-switch-label-padding-vertical);
 
     &__input {
       // position: absolute is needed here in order to hide the native checkbox.
@@ -215,6 +214,7 @@ $input-width: calc(
 
     &__click-area,
     &-skeleton__click-area {
+      padding: var(--onyx-switch-label-padding-vertical);
       display: flex;
       align-items: center;
     }
@@ -256,6 +256,7 @@ $input-width: calc(
 
     &__label,
     &__marker {
+      padding: var(--onyx-switch-label-padding-vertical) 0;
       font-size: 1rem;
       line-height: 1.5rem;
     }
@@ -264,7 +265,6 @@ $input-width: calc(
       font-family: var(--onyx-font-family);
       font-style: normal;
       font-weight: 400;
-      padding-left: var(--onyx-switch-label-padding-vertical);
     }
 
     &:hover {
