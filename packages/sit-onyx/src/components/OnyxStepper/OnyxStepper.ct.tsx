@@ -194,7 +194,7 @@ test.describe("Screenshot tests", () => {
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
-        placeholder="Test placeholder"
+        placeholder="0"
         readonly={column === "readonly"}
         disabled={column === "disabled"}
         loading={column === "loading"}
@@ -287,7 +287,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   // The initial value is 0.
-  await expect(inputElement).toHaveValue("010");
+  await expect(inputElement).toHaveValue("10");
 
   // ACT
   await inputElement.blur();
