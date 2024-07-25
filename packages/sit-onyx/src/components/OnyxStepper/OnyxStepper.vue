@@ -57,7 +57,8 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
 
   inputRef.value[`${direction}`]();
 
-  emit("update:modelValue", inputRef.value.valueAsNumber);
+  const newValue = inputRef.value.valueAsNumber;
+  value.value = isNaN(newValue) ? undefined : newValue;
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
