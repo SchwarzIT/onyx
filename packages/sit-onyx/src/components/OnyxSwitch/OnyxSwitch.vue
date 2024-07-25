@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
@@ -8,6 +9,7 @@ import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSwitchProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
@@ -47,48 +49,55 @@ const isChecked = computed({
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
-    <!-- Linter incorrectly finds an error. For a native `input` the `aria-checked` is not necessary. There is an open issue about it: https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/issues/932  -->
-    <!-- eslint-disable vuejs-accessibility/role-has-required-aria-props -->
-    <!-- TODO: disable can be removed when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
-    <input
-      v-model="isChecked"
-      v-custom-validity
-      type="checkbox"
-      role="switch"
-      :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-      :aria-label="props.hideLabel ? props.label : undefined"
-      :disabled="props.disabled || props.loading"
-      :required="props.required"
-      :autofocus="props.autofocus"
-    />
-    <span class="onyx-switch__click-area">
-      <span class="onyx-switch__container">
-        <span class="onyx-switch__icon">
-          <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" />
+  <OnyxTooltip v-else :icon="circleInformation" open text="Tooltip text">
+    <template #tooltip>
+      This is
+      <strong>custom content</strong>
+    </template>
+
+    <label class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
+      <!-- Linter incorrectly finds an error. For a native `input` the `aria-checked` is not necessary. There is an open issue about it: https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/issues/932  -->
+      <!-- eslint-disable vuejs-accessibility/role-has-required-aria-props -->
+      <!-- TODO: disable can be removed when https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/pull/1071 was released -->
+      <input
+        v-model="isChecked"
+        v-custom-validity
+        type="checkbox"
+        role="switch"
+        :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
+        :aria-label="props.hideLabel ? props.label : undefined"
+        :disabled="props.disabled || props.loading"
+        :required="props.required"
+        :autofocus="props.autofocus"
+      />
+      <span class="onyx-switch__click-area">
+        <span class="onyx-switch__container">
+          <span class="onyx-switch__icon">
+            <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
+            <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" />
+          </span>
+          <div class="onyx-switch__frame"></div>
         </span>
-        <div class="onyx-switch__frame"></div>
       </span>
-    </span>
-    <span
-      v-if="!props.hideLabel"
-      class="onyx-switch__label"
-      :class="[
-        `onyx-truncation-${props.truncation}`,
-        // shows the required marker inline for multiline labels
-        props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-      ]"
-    >
-      {{ props.label }}
-    </span>
-    <!-- shows the required marker fixed on the right for truncated labels -->
-    <div
-      v-if="props.truncation === 'ellipsis'"
-      class="onyx-switch__marker"
-      :class="[requiredMarkerClass]"
-    ></div>
-  </label>
+      <span
+        v-if="!props.hideLabel"
+        class="onyx-switch__label"
+        :class="[
+          `onyx-truncation-${props.truncation}`,
+          // shows the required marker inline for multiline labels
+          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+        ]"
+      >
+        {{ props.label }}
+      </span>
+      <!-- shows the required marker fixed on the right for truncated labels -->
+      <div
+        v-if="props.truncation === 'ellipsis'"
+        class="onyx-switch__marker"
+        :class="[requiredMarkerClass]"
+      ></div>
+    </label>
+  </OnyxTooltip>
 </template>
 
 <style lang="scss">
