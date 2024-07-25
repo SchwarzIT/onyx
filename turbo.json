@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["pnpm-lock.yaml"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["sit-onyx#build"],
+      "outputs": ["dist"]
+    },
+    "sit-onyx#build": {
+      "dependsOn": [],
+      "outputs": ["dist"]
+    },
+    "build:storybook": {
+      "outputs": ["storybook-static"]
+    },
+    "test:coverage": {
+      "outputs": ["coverage"]
+    },
+    "test:components": {
+      "outputs": ["playwright-report", "test-results"]
+    },
+    "vite": {
+      "dependsOn": ["sit-onyx#build"],
+      "persistent": true
+    }
+  }
+}
