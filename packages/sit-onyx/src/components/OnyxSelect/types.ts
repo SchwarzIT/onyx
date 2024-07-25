@@ -39,7 +39,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
        */
       multiple?: false;
       /**
-       * Values of the currently selected option.
+       * Value of the currently selected option.
        */
       modelValue?: TValue;
       withCheckAll?: never;
