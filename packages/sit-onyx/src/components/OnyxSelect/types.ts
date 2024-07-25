@@ -3,7 +3,7 @@ import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../t
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
-export type SelectSearchProps<TValue extends SelectOptionValue> =
+export type SelectSearchProps =
   | {
       /**
        * Allows the user to filter the list entries.
@@ -18,16 +18,18 @@ export type SelectSearchProps<TValue extends SelectOptionValue> =
        */
       searchTerm?: string;
       /**
-       * A filtered subset of the `options`.
        * As default, onyx will handle the search by comparing
        * the option labels with the `searchTerm`.
+       * When `manualSearch` is set, this behavior is disabled.
+       * Handle your own filtering by reducing the `options` as desired.
+       * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
        */
-      filteredOptions?: SelectOption<TValue>[];
+      manualSearch?: boolean;
     }
   | {
       withSearch?: false;
       searchTerm?: never;
-      filteredOptions?: never;
+      manualSearch?: never;
     };
 
 export type SelectModelValueProps<TValue extends SelectOptionValue> =
@@ -69,14 +71,15 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
-  SelectSearchProps<TValue> &
+  SelectSearchProps &
   Omit<OnyxSelectInputProps, "density" | "modelValue"> &
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {
     /**
      * Label that will be shown in the input of OnyxSelect.
      * If unset, will be managed internally by comparing `modelValue` with `options`.
-     * Recommended to be used if not all options can be provided at once.
+     * Recommended to be used if not all options can be provided at once
+     * or a manual search is implemented.
      */
     valueLabel?: string | string[];
     /**

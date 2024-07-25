@@ -24,7 +24,6 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   open: undefined,
   truncation: "ellipsis",
   valueLabel: undefined,
-  filteredOptions: undefined,
 });
 
 const emit = defineEmits<{
@@ -123,10 +122,10 @@ const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
 const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 
 const filteredOptions = computed(() => {
-  // given state
-  if (props.filteredOptions !== undefined) return props.filteredOptions;
+  // when manualSearch is set, we don't filter the options further
+  if (props.manualSearch) return props.options;
 
-  // managed state
+  // managed filtering
   return searchTerm.value
     ? props.options.filter(({ label }: SelectOption) => normalizedIncludes(label, searchTerm.value))
     : props.options;

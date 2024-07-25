@@ -792,17 +792,19 @@ test("should manage filtering internally except when filteredOptions are given",
     },
   });
 
+  // ACT
   await component.click();
   await page.getByRole("option").first().waitFor();
+  // ASSERT
   expect(await page.getByRole("option").count(), "should initially show all options").toBe(
     options.length,
   );
   await expect(page.getByLabel("One")).toBeVisible();
 
+  // ACT
   const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
-
   await miniSearchInput.fill("1");
-
+  // ASSERT
   expect(await page.getByRole("option").count(), "should filter automatically").toBeLessThan(
     options.length,
   );
@@ -811,12 +813,19 @@ test("should manage filtering internally except when filteredOptions are given",
     "should not be able to match a search by the ID",
   ).toBeHidden();
 
-  await component.update({ props: { filteredOptions: [options[0]] } });
+  // ACT
+  await component.update({ props: { manualSearch: true } });
+  // ASSERT
+  expect(await page.getByRole("option").count(), "should not filter with the internal logic").toBe(
+    options.length,
+  );
 
-  expect(await page.getByRole("option").count(), "should show the provided filter result").toBe(1);
+  // ACT
+  await component.update({ props: { options: options.filter(({ value }) => value === 1) } });
+  // ASSERT
   await expect(page.getByLabel("One"), "should now show the manually matched option").toBeVisible();
   await expect(
     page.getByLabel("Test select"),
-    "manual filtering should not affect the selected label of a hidden option",
-  ).toHaveValue("Two");
+    "manual filtering will prevent onyx from showing the label of an option that is no longer available at the time",
+  ).toBeEmpty();
 });
