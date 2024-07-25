@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.15
+
+### Major Changes
+
+- 9cb8667: fix: prevent "Cannot find module '../composables/density' or its corresponding type declarations." error
+
+  We removed the `sit-onyx/types` alias, please import directly from `sit-onyx` instead
+
+### Patch Changes
+
+- 02e4f4d: fix(OnyxStepper): Remove default modelValue and placeholder
+
 ## 1.0.0-beta.14
 
 ### Minor Changes
