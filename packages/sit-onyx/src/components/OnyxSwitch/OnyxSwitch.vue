@@ -104,7 +104,6 @@ const isChecked = computed({
     var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
       var(--onyx-1px-in-rem)
   );
-  --onyx-switch-cozy-width: 0rem;
   --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
 
   @include density.compact {
@@ -120,10 +119,7 @@ const isChecked = computed({
   }
 }
 
-$input-width: calc(
-  2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding) +
-    var(--onyx-switch-cozy-width)
-);
+$input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
 
 .onyx-switch {
   @include layers.component() {
