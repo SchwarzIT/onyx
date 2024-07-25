@@ -1,5 +1,28 @@
 # sit-onyx
 
+## 1.0.0-beta.15
+
+### Major Changes
+
+- 9cb8667: fix: prevent "Cannot find module '../composables/density' or its corresponding type declarations." error
+
+  We removed the `sit-onyx/types` alias, please import directly from `sit-onyx` instead
+
+### Patch Changes
+
+- 02e4f4d: fix(OnyxStepper): Remove default modelValue and placeholder
+
+## 1.0.0-beta.14
+
+### Minor Changes
+
+- 25bfc85: feat(OnyxCheckbox, OnyxSwitch, OnyxRadioButton): show error messages in the title when invalid
+
+  For components that don't support an error message footer, we now set the `title` to show the error message info in the default browser tooltip.
+
+  - Supports custom errors as well as default errors, e.g. `required`.
+  - Combines the error message with a hidden label in the `title`.
+
 ## 1.0.0-beta.13
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { DIRECTIONS } from "../../types";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
@@ -35,7 +36,6 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
   await expect(masterCheckBox).not.toBeChecked();
   await expect(masterCheckBox).toHaveJSProperty("indeterminate", false);
-  await expect(component).toHaveScreenshot("default.png");
 
   // ACT
   await component.getByLabel("Default").check();
@@ -46,7 +46,6 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
   // ASSERT
   await expect(masterCheckBox).not.toBeChecked();
   await expect(masterCheckBox).toHaveJSProperty("indeterminate", true);
-  await expect(component).toHaveScreenshot("indeterminate.png");
 
   // ACT
   await masterCheckBox.check();
@@ -60,8 +59,6 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
   await expect(component.getByLabel("Default")).toBeChecked();
   await expect(component.getByLabel("Required")).toBeChecked();
   await expect(component.getByLabel("Disabled")).not.toBeChecked();
-
-  await expect(component).toHaveScreenshot("checked.png");
 
   // ACT
   await masterCheckBox.uncheck();
@@ -110,9 +107,48 @@ test("should disabled all checkboxes if group is disabled", async ({ mount }) =>
   }
 });
 
-for (const state of ["required", "optional"] as const) {
-  test(`should truncate (${state})`, async ({ mount }) => {
-    const component = await mount(
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "CheckboxGroup",
+    columns: ["default", "checked", "indeterminate"],
+    rows: ["default", "interacted"],
+    component: (column) => {
+      const options = [...mockOptions, { label: "Invalid", value: 4, customError: "Invalid" }];
+      const modelValue: number[] = [];
+      if (column === "checked") {
+        modelValue.push(...[1, 2, 4]);
+      }
+      if (column === "indeterminate") {
+        modelValue.push(1);
+      }
+      return (
+        <OnyxCheckboxGroup
+          options={options}
+          headline="Checkbox group headline"
+          withCheckAll
+          modelValue={modelValue}
+          style={{ maxWidth: "16rem" }}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, _column, row) => {
+      const requiredCheckbox = component.getByLabel("Required");
+      const invalidCheckbox = component.getByLabel("Invalid");
+
+      if (row === "interacted") {
+        await requiredCheckbox.click();
+        await requiredCheckbox.click();
+        await invalidCheckbox.click();
+        await invalidCheckbox.click();
+      }
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "CheckboxGroup (truncation)",
+    columns: ["required", "optional"],
+    rows: ["default"],
+    component: (column) => (
       <OnyxCheckboxGroup
         options={[
           { label: "Very long label that will be truncated", value: 1 },
@@ -130,28 +166,23 @@ for (const state of ["required", "optional"] as const) {
           },
         ]}
         headline="Truncated group headline"
-        class={{ "onyx-use-optional": state === "optional" }}
+        class={{ "onyx-use-optional": column === "optional" }}
         style={{ maxWidth: "16rem" }}
-      />,
-    );
-
-    await expect(component).toHaveScreenshot(`truncation-${state}.png`);
+      />
+    ),
   });
-}
 
-DIRECTIONS.forEach((direction) => {
-  test(`should render ${direction} skeletons`, async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
+  executeMatrixScreenshotTest({
+    name: "CheckboxGroup (skeletons)",
+    columns: ["default"],
+    rows: DIRECTIONS,
+    component: (_column, row) => (
       <OnyxCheckboxGroup
         options={[]}
         headline="Skeleton group headline"
         skeleton={3}
-        direction={direction}
-      />,
-    );
-
-    // ASSERT
-    await expect(component).toHaveScreenshot(`skeleton-${direction}.png`);
+        direction={row}
+      />
+    ),
   });
 });

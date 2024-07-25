@@ -89,3 +89,29 @@ export const Skeleton = {
     skeleton: 3,
   },
 } satisfies Story;
+
+/**
+ * This example shows a required radio group.
+ * Hover over one of the options for a few seconds to show an error info when no option is selected.
+ */
+export const Required = {
+  args: {
+    ...Default.args,
+    modelValue: undefined,
+    required: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an invalid radio group.
+ * Hover over one of the options for a few seconds to show the error.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    customError: {
+      shortMessage: "Example custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
+  },
+} satisfies Story;

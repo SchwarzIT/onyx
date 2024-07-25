@@ -3,8 +3,8 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
-import { OnyxLoadingIndicator } from "../../index";
 import type { SelectOptionValue } from "../../types";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
@@ -35,7 +35,7 @@ const isChecked = computed({
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
-const { vCustomValidity } = useCustomValidity({ props, emit });
+const { vCustomValidity, title } = useCustomValidity({ props, emit });
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-checkbox" :class="[requiredTypeClass, densityClass]">
+  <label v-else class="onyx-checkbox" :class="[requiredTypeClass, densityClass]" :title="title">
     <div class="onyx-checkbox__container">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
       <input
@@ -52,7 +52,6 @@ const { vCustomValidity } = useCustomValidity({ props, emit });
         v-model="isChecked"
         v-custom-validity
         :aria-label="props.hideLabel ? props.label : undefined"
-        :title="props.hideLabel ? props.label : undefined"
         class="onyx-checkbox__input"
         type="checkbox"
         :indeterminate="props.indeterminate"
