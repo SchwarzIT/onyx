@@ -17,10 +17,19 @@ export type SelectSearchProps =
        * Property is managed internally, when undefined.
        */
       searchTerm?: string;
+      /**
+       * As default, onyx will handle the search by comparing
+       * the option labels with the `searchTerm`.
+       * When `manualSearch` is set, this behavior is disabled.
+       * Handle your own filtering by reducing the `options` as desired.
+       * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
+       */
+      manualSearch?: boolean;
     }
   | {
       withSearch?: false;
       searchTerm?: never;
+      manualSearch?: never;
     };
 
 export type SelectModelValueProps<TValue extends SelectOptionValue> =
@@ -30,9 +39,9 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
        */
       multiple?: false;
       /**
-       * Current value.
+       * Value of the currently selected option.
        */
-      modelValue?: SelectOption<TValue>;
+      modelValue?: TValue;
       withCheckAll?: never;
     }
   | {
@@ -41,9 +50,9 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
        */
       multiple: true;
       /**
-       * Current value / selected option(s).
+       * Values of the currently selected options.
        */
-      modelValue?: SelectOption<TValue>[];
+      modelValue?: TValue[];
       /**
        * If true, a checkbox will be displayed to check/uncheck all options.
        * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
@@ -63,9 +72,16 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps<TValue>, "density" | "modelValue"> &
+  Omit<OnyxSelectInputProps, "density" | "modelValue"> &
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {
+    /**
+     * Label that will be shown in the input of OnyxSelect.
+     * If unset, will be managed internally by comparing `modelValue` with `options`.
+     * Recommended to be used if not all options can be provided at once
+     * or a manual search is implemented.
+     */
+    valueLabel?: string | string[];
     /**
      * If true, the select popover is expanded and visible.
      * Property is managed internally, when undefined.
