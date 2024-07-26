@@ -1,12 +1,13 @@
 {
+  "name": "onyx-monorepo",
   "type": "module",
   "packageManager": "pnpm@9.6.0",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
-    "build:all": "pnpm -r --if-present '/^build$|^build:/'",
-    "test:all": "pnpm -r --if-present test:coverage",
-    "test:components:all": "pnpm -r --if-present --sequential  test:components",
+    "build:all": "turbo build build:storybook",
+    "test:all": "turbo test:coverage",
+    "test:components:all": "turbo test:components --concurrency 1",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint . --ext .vue,.ts,.tsx --ignore-path .gitignore",
@@ -50,11 +51,12 @@
     "sass": "^1.77.8",
     "simple-git-hooks": "^2.11.1",
     "storybook": "^8.2.6",
+    "turbo": "^2.0.9",
     "typescript": "~5.5.4",
-    "vite": "^5.3.4",
+    "vite": "^5.3.5",
     "vitest": "^2.0.4",
     "vue": "^3.4.34",
-    "vue-tsc": "^2.0.28"
+    "vue-tsc": "^2.0.29"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
