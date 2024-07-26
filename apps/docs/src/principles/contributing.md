@@ -58,12 +58,6 @@ pnpm dev # run docs in dev mode
 
 :::
 
-::: info Screenshot tests
-Component screenshot tests using Playwright will only be performed in our [GitHub workflows](https://github.com/SchwarzIT/onyx/actions) to ensure consistency of the resulting images which vary on different operating systems.
-
-If you made visual changes to components, you can use [this Workflow](https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml) to update the screenshots on your branch.
-:::
-
 ## Creating a Pull Request
 
 Pull Requests are very welcome!
@@ -74,6 +68,12 @@ Please consider our [technical guidelines](/principles/technical-vision) when co
 3. Then [create a PR](https://github.com/SchwarzIT/onyx/compare) to merge your changes back into our repository.
 
 When your PR gets approved, you can expect a pre-release immediately after it is merged. Production releases are planned to be published every 2 weeks after the release of version 1.0.0.
+
+::: tip Screenshot tests
+Component screenshot tests using Playwright will only be performed in our [GitHub workflows](https://github.com/SchwarzIT/onyx/actions) to ensure consistency of the resulting images which vary on different operating systems.
+
+If you made visual changes to components, you can use [this Workflow](https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml) to update the screenshots on your branch.
+:::
 
 ## Developing Components
 
