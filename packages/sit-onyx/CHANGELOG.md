@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.17
+
+### Major Changes
+
+- 17c0aa5: refactor(OnyxSelect): restrict modelValue to only contain values
+
+  #### Breaking changes
+
+  - OnyxSelects `modelValue` now only needs TValue, not SelectOption<TValue>
+
+  #### Features
+
+  - OnyxSelect determines the displayed labels by comparing `modelValue` with `options`. This can be overridden by setting the new prop `valueLabel`.
+  - OnyxSelect now filters the options internally when `searchTerm` is set. This can be overridden by setting the new prop `manualSearch`.
+
 ## 1.0.0-beta.16
 
 ### Major Changes
