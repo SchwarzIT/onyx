@@ -4,6 +4,7 @@ export * from "./composables/menuButton/createMenuButton";
 export * from "./composables/navigationMenu/createMenu";
 export * from "./composables/tooltip/createToggletip";
 export * from "./composables/tooltip/createTooltip";
+export * from "./utils/builder";
 export { createId } from "./utils/id";
 export { isPrintableCharacter, wasKeyPressed } from "./utils/keyboard";
 export { debounce } from "./utils/timer";

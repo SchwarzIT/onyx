@@ -1,5 +1,5 @@
 import { computed, ref, toValue, type MaybeRefOrGetter } from "vue";
-import { createBuilder } from "../../utils/builder";
+import { createBuilder, createElRef } from "../../utils/builder";
 import { useDismissible } from "../helpers/useDismissible";
 import { useOutsideClick } from "../helpers/useOutsideClick";
 
@@ -8,8 +8,8 @@ export type CreateToggletipOptions = {
 };
 
 export const createToggletip = createBuilder(({ toggleLabel }: CreateToggletipOptions) => {
-  const triggerRef = ref<HTMLElement>();
-  const tooltipRef = ref<HTMLElement>();
+  const triggerRef = createElRef<HTMLButtonElement>();
+  const tooltipRef = createElRef<HTMLElement>();
   const isVisible = ref(false);
 
   // close tooltip on outside click

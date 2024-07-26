@@ -42,16 +42,16 @@ export const createTooltip = createBuilder(({ debounce }: CreateTooltipOptions) 
 
   return {
     elements: {
-      trigger: computed(() => ({
+      trigger: {
         "aria-describedby": tooltipId,
         ...hoverEvents,
-      })),
-      tooltip: computed(() => ({
+      },
+      tooltip: {
         role: "tooltip",
         id: tooltipId,
         tabindex: "-1",
         ...hoverEvents,
-      })),
+      },
     },
     state: {
       isVisible,

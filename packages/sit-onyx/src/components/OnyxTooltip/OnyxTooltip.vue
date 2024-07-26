@@ -4,9 +4,10 @@ import {
   createTooltip,
   type CreateToggletipOptions,
   type CreateTooltipOptions,
+  type TemplateAttributes,
 } from "@sit-onyx/headless";
-import type { HtmlHTMLAttributes, VNode } from "vue";
-import { computed } from "vue";
+import type { VNode } from "vue";
+import { computed, shallowRef, toValue, watch } from "vue";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
@@ -24,7 +25,7 @@ defineSlots<{
    *
    * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(params: { trigger: HtmlHTMLAttributes }): VNode;
+  default(params: { trigger: TemplateAttributes }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
@@ -50,12 +51,16 @@ const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
 }));
 
-const tooltipPattern = createTooltip(tooltipOptions.value);
-const toggletipPattern = createToggletip(toggletipOptions.value);
+const createTip = () =>
+  type.value === "hover"
+    ? createTooltip(tooltipOptions.value)
+    : createToggletip(toggletipOptions.value);
 
-const ariaPattern = computed(() => (type.value === "hover" ? tooltipPattern : toggletipPattern));
-const tooltip = computed(() => ariaPattern.value.elements.tooltip);
-const trigger = computed(() => ariaPattern.value.elements.trigger);
+const ariaPattern = shallowRef(createTip());
+watch(type, () => (ariaPattern.value = createTip()));
+
+const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
+const trigger = computed(() => toValue<TemplateAttributes>(ariaPattern.value?.elements.trigger));
 </script>
 
 <template>
@@ -67,14 +72,14 @@ const trigger = computed(() => ariaPattern.value.elements.trigger);
         'onyx-tooltip--danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
         'onyx-tooltip--fit-parent': props.fitParent,
-        'onyx-tooltip--hidden': !ariaPattern.state.isVisible.value,
+        'onyx-tooltip--hidden': !ariaPattern?.state.isVisible.value,
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <slot name="tooltip">{{ props.text }}</slot>
     </div>
 
-    <slot :trigger="trigger.value"></slot>
+    <slot :trigger="trigger"></slot>
   </div>
 </template>
 
@@ -132,7 +137,8 @@ $wedge-size: 0.5rem;
     &::after {
       content: " ";
       position: absolute;
-      top: 100%; /* At the bottom of the tooltip */
+      /* At the bottom of the tooltip */
+      top: 100%;
       left: 50%;
       margin-left: -$wedge-size;
       border-width: $wedge-size;
