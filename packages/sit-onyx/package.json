@@ -54,6 +54,6 @@
     "@axe-core/playwright": "^4.9.1",
     "@sit-onyx/headless": "workspace:^",
     "eslint-plugin-vue-scoped-css": "^2.8.1",
-    "vue-component-type-helpers": "^2.0.28"
+    "vue-component-type-helpers": "^2.0.29"
   }
 }
