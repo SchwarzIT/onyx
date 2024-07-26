@@ -179,6 +179,10 @@ export default defineConfig({
               link: "/",
             },
             {
+              text: "Technical vision & guidelines",
+              link: "/technical-vision",
+            },
+            {
               text: "Contribution guide",
               link: "/contributing",
             },
@@ -196,6 +200,10 @@ export default defineConfig({
             {
               text: "Definition of Done (DoD)",
               link: "/definition-of-done",
+            },
+            {
+              text: "Ticket naming convention",
+              link: "/ticket-naming",
             },
           ],
         },
