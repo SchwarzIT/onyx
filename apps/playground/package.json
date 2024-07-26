@@ -8,7 +8,7 @@
   "private": true,
   "homepage": "https://playground.onyx.schwarz",
   "scripts": {
-    "dev": "turbo watch vite --filter playground",
+    "dev": "turbo run vite --filter playground",
     "vite": "vite",
     "preview": "vite preview",
     "build": "pnpm run '/type-check|build-only/'",
