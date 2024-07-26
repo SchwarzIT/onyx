@@ -84,7 +84,7 @@ const isChecked = computed({
     </span>
     <!-- shows the required marker fixed on the right for truncated labels -->
     <div
-      v-if="props.truncation === 'ellipsis'"
+      v-if="!props.hideLabel && props.truncation === 'ellipsis'"
       class="onyx-switch__marker"
       :class="[requiredMarkerClass]"
     ></div>
@@ -104,34 +104,24 @@ const isChecked = computed({
     var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
       var(--onyx-1px-in-rem)
   );
-  --onyx-switch-cozy-width: 0rem;
+  --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
+}
 
+$input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
+
+.onyx-switch {
   @include density.compact {
-    --onyx-switch-container-margin: 0.25rem;
     --onyx-switch-transform: 0.125rem;
-    --onyx-switch-click-height: var(--onyx-spacing-xl);
-    --onyx-switch-label-padding-vertical: var(--onyx-spacing-4xs);
   }
 
   @include density.default {
     --onyx-switch-transform: var(--onyx-1px-in-rem);
-    --onyx-switch-click-height: 2.5rem;
-    --onyx-switch-label-padding-vertical: var(--onyx-spacing-2xs);
   }
 
   @include density.cozy {
     --onyx-switch-transform: 0.01rem;
-    --onyx-switch-click-height: var(--onyx-spacing-2xl);
-    --onyx-switch-label-padding-vertical: var(--onyx-spacing-sm);
   }
-}
 
-$input-width: calc(
-  2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding) +
-    var(--onyx-switch-cozy-width)
-);
-
-.onyx-switch {
   @include layers.component() {
     display: inline-flex;
     align-items: flex-start;
@@ -220,8 +210,7 @@ $input-width: calc(
 
     &__click-area,
     &-skeleton__click-area {
-      padding: 0 var(--onyx-spacing-2xs);
-      height: var(--onyx-switch-click-height);
+      padding: var(--onyx-switch-label-padding-vertical);
       display: flex;
       align-items: center;
     }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxColor } from "sit-onyx/types";
+import type { OnyxColor } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
 import DesignToken from "./DesignToken.vue";

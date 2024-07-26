@@ -22,7 +22,7 @@ test.describe("Screenshot tests", () => {
       },
       beforeScreenshot: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");
-        if (row === "hover") await component.hover();
+        if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
         if (state == "autofill") {
           await input.fill("10");
@@ -194,7 +194,7 @@ test.describe("Screenshot tests", () => {
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
-        placeholder="Test placeholder"
+        placeholder="0"
         readonly={column === "readonly"}
         disabled={column === "disabled"}
         loading={column === "loading"}
@@ -222,7 +222,7 @@ test.describe("Screenshot tests", () => {
       await input.fill("10");
       await input.blur();
 
-      if (row === "hover") await component.hover();
+      if (row === "hover") await input.hover();
       if (row === "focus") await input.focus();
       if (column == "autofill") {
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
@@ -287,7 +287,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   // The initial value is 0.
-  await expect(inputElement).toHaveValue("010");
+  await expect(inputElement).toHaveValue("10");
 
   // ACT
   await inputElement.blur();

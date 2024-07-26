@@ -1,4 +1,4 @@
-import type { OnyxColor } from "sit-onyx/types";
+import type { OnyxColor } from "sit-onyx";
 
 export const QUANTITATIVE_COLOR_STEPS = [
   100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200,

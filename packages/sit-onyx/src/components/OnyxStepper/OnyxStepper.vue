@@ -12,10 +12,8 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  modelValue: 0,
   step: 1,
   stripStep: false,
-  placeholder: "0",
   disabled: false,
   readonly: false,
   loading: false,
@@ -27,7 +25,7 @@ const inputRef = ref<HTMLInputElement>();
 
 const emit = defineEmits<{
   /** Emitted when the input value changes. */
-  "update:modelValue": [value: number];
+  "update:modelValue": [value?: number];
   /**
    * Emitted when the input is focussed.
    */
@@ -59,7 +57,8 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
 
   inputRef.value[`${direction}`]();
 
-  emit("update:modelValue", inputRef.value.valueAsNumber);
+  const newValue = inputRef.value.valueAsNumber;
+  value.value = isNaN(newValue) ? undefined : newValue;
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
@@ -124,7 +123,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/input.scss";
 
@@ -151,17 +149,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
 
 .onyx-stepper,
 .onyx-stepper-skeleton {
-  @include density.compact {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-stepper-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-stepper-skeleton {

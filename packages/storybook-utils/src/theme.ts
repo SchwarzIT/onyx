@@ -1,5 +1,5 @@
+import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "sit-onyx";
 import onyxVariables from "sit-onyx/themes/onyx.json";
-import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "sit-onyx/types";
 import { create, type ThemeVars, type ThemeVarsPartial } from "storybook/internal/theming";
 import onyxLogo from "./assets/logo-onyx.svg";
 
