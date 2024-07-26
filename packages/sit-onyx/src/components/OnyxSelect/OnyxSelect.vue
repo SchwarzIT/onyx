@@ -458,8 +458,7 @@ const selectInputProps = computed(() => {
 
     &__description {
       display: flex;
-      // TODO: remove fallback values once the density tokens are updated
-      padding: var(--onyx-density-3xs, 2px) var(--onyx-density-sm, 12px);
+      padding: var(--onyx-density-3xs) var(--onyx-density-sm);
       justify-content: flex-end;
       align-items: center;
       gap: var(--onyx-spacing-md, 16px);
