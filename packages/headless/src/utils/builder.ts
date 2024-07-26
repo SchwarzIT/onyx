@@ -37,9 +37,11 @@ export type HeadlessState = Record<string, Ref>;
 export type HeadlessComposable<
   Elements extends HeadlessElements,
   State extends HeadlessState | undefined = undefined,
+  Internals extends object | undefined = undefined,
 > = {
   elements: Elements;
-} & IfDefined<"state", State>;
+} & IfDefined<"internals", Internals> &
+  IfDefined<"state", State>;
 
 /**
  * We use this identity function to ensure the correct typings of the headless composables
@@ -81,8 +83,9 @@ export const createBuilder = <
   Args extends unknown[] = unknown[],
   Elements extends HeadlessElements = HeadlessElements,
   State extends HeadlessState | undefined = undefined,
+  Internals extends object | undefined = undefined,
 >(
-  builder: (...args: Args) => HeadlessComposable<Elements, State>,
+  builder: (...args: Args) => HeadlessComposable<Elements, State, Internals>,
 ) => builder;
 
 type VueTemplateRefElement<E extends Element> = E | (ComponentPublicInstance & { $el: E }) | null;
