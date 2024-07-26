@@ -69,22 +69,7 @@ const handleChange = (event: Event) => {
   @include layers.component() {
     --onyx-radio-button-selector-size: var(--onyx-spacing-md);
     --onyx-radio-button-dot-size: var(--onyx-spacing-3xs);
-    --onyx-radio-button-height: var(--onyx-density);
-
-    @include density.compact {
-      --onyx-radio-button-label-padding: var(--onyx-spacing-3xs);
-      --onyx-radio-button-selector-margin: var(--onyx-spacing-xs);
-    }
-
-    @include density.default {
-      --onyx-radio-button-label-padding: var(--onyx-spacing-2xs);
-      --onyx-radio-button-selector-margin: var(--onyx-spacing-sm);
-    }
-
-    @include density.cozy {
-      --onyx-radio-button-label-padding: var(--onyx-spacing-sm);
-      --onyx-radio-button-selector-margin: var(--onyx-spacing-md);
-    }
+    --onyx-radio-button-selector-margin: var(--onyx-density-sm);
   }
 }
 
@@ -101,7 +86,6 @@ const handleChange = (event: Event) => {
     align-items: flex-start;
     max-width: 100%;
     cursor: var(--onyx-radio-button-cursor);
-    min-height: var(--onyx-radio-button-height);
 
     &:has(&__selector:hover) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
@@ -155,7 +139,7 @@ const handleChange = (event: Event) => {
       font-family: var(--onyx-font-family);
       color: var(--onyx-radio-button-label-color);
       line-height: var(--onyx-spacing-lg);
-      padding: var(--onyx-radio-button-label-padding);
+      padding: var(--onyx-density-xs);
       padding-left: 0;
     }
 
@@ -211,7 +195,7 @@ const handleChange = (event: Event) => {
     padding: var(--onyx-radio-button-selector-margin);
     display: inline-flex;
     align-items: center;
-    gap: var(--onyx-spacing-sm);
+    gap: var(--onyx-radio-button-selector-margin);
 
     &__input {
       height: var(--onyx-radio-button-selector-size);

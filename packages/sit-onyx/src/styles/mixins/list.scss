@@ -23,24 +23,15 @@
 
     &:not(:last-of-type) {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      margin-bottom: var(--onyx-spacing-2xs);
+      margin-bottom: var(--onyx-density-xs);
     }
   }
 
   &__group-name {
     display: block;
-    padding: 0 var(--onyx-spacing-sm);
+    padding: 0 var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-weight: 600;
-  }
-
-  &__message {
-    color: var(--onyx-color-text-icons-neutral-soft);
-    display: inline-block;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: right;
-    padding: $wrapper-padding var(--onyx-spacing-sm) 0;
   }
 
   &:has(&__wrapper:focus-visible) {

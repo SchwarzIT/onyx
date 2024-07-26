@@ -79,7 +79,7 @@ const { t } = injectI18n();
     }
 
     .onyx-external-link-icon {
-      margin-left: var(--onyx-spacing-5xs);
+      margin-left: var(--onyx-density-3xs);
     }
   }
 }

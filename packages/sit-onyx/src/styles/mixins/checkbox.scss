@@ -1,22 +1,10 @@
 // this style sheet contains styles for the checkbox-box
 // that needs to be shared between OnyxCheckbox and OnyxSelect
 @use "layers";
-@use "density.scss";
 
 @mixin variables() {
   --onyx-checkbox-input-size: 1rem;
-
-  @include density.compact {
-    --onyx-checkbox-input-padding: var(--onyx-spacing-xs);
-  }
-
-  @include density.default {
-    --onyx-checkbox-input-padding: var(--onyx-spacing-sm);
-  }
-
-  @include density.cozy {
-    --onyx-checkbox-input-padding: var(--onyx-spacing-md);
-  }
+  --onyx-checkbox-input-padding: var(--onyx-density-sm);
 }
 
 @mixin define-checked-background($state, $color) {

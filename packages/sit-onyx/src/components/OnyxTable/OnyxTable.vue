@@ -81,7 +81,6 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
 
 $border-radius: var(--onyx-radius-sm);
@@ -188,18 +187,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 }
 
 .onyx-table {
-  @include density.compact {
-    --onyx-table-vertical-padding: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-table-vertical-padding: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-table-vertical-padding: var(--onyx-spacing-sm);
-  }
-
   @include layers.component() {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -225,7 +212,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
     th,
     td {
-      padding: var(--onyx-table-vertical-padding) var(--onyx-spacing-md);
+      padding: var(--onyx-density-xs) var(--onyx-density-md);
       position: relative;
     }
 

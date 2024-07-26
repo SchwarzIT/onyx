@@ -22,7 +22,7 @@
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",
-    "./themes/*": "./src/styles/themes/*"
+    "./themes/*": "./src/styles/variables/themes/*"
   },
   "homepage": "https://onyx.schwarz",
   "repository": {
