@@ -11,6 +11,6 @@
     "eslint": ">= 8"
   },
   "devDependencies": {
-    "@types/eslint": "^8.56.10"
+    "@types/eslint": "^8.56.11"
   }
 }

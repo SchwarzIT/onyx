@@ -4,7 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "pnpm run dev",
     "dev": "VITEPRESS_SKIP_GITHUB_FETCH=true vitepress dev src",
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vitepress build src",
