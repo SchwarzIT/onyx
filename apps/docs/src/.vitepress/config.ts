@@ -184,6 +184,21 @@ export default defineConfig({
             },
           ],
         },
+        {
+          text: "Definitions",
+          base: "/principles",
+          collapsed: false,
+          items: [
+            {
+              text: "Definition of Ready (DoR)",
+              link: "/definition-of-ready",
+            },
+            {
+              text: "Definition of Done (DoD)",
+              link: "/definition-of-done",
+            },
+          ],
+        },
       ],
     },
   },
