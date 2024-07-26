@@ -1,4 +1,5 @@
 import type { MaybeRefOrGetter } from "vue";
+import type { DensityProp } from "../../composables/density";
 import type { OnyxColor } from "../../types";
 
 export type TooltipOptions = {
@@ -12,7 +13,7 @@ export type ToggletipOptions = {
   toggleLabel: MaybeRefOrGetter<string>;
 };
 
-export type OnyxTooltipProps = {
+export type OnyxTooltipProps = DensityProp & {
   /**
    * Text to display inside the tooltip.
    * Must be set unless the custom "tooltip" slot is used.

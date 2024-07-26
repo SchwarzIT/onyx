@@ -97,26 +97,10 @@ const icon = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 
 .onyx-toast-message {
-  @include density.compact {
-    --onyx-toast-message-padding-vertical: var(--onyx-spacing-4xs);
-    --onyx-toast-message-padding-horizontal: var(--onyx-spacing-xs);
-    --onyx-toast-message-gap: var(--onyx-spacing-xs);
-  }
-
-  @include density.default {
-    --onyx-toast-message-padding-vertical: var(--onyx-spacing-xs);
-    --onyx-toast-message-padding-horizontal: var(--onyx-spacing-md);
-    --onyx-toast-message-gap: var(--onyx-spacing-md);
-  }
-
-  @include density.cozy {
-    --onyx-toast-message-padding-vertical: var(--onyx-spacing-sm);
-    --onyx-toast-message-padding-horizontal: var(--onyx-spacing-lg);
-    --onyx-toast-message-gap: var(--onyx-spacing-lg);
-  }
+  --onyx-toast-message-padding-vertical: var(--onyx-density-sm);
+  --onyx-toast-message-padding-horizontal: var(--onyx-density-md);
 
   @include layers.component() {
     --onyx-toast-message-color: var(--onyx-color-text-icons-neutral-inverted);
@@ -164,7 +148,7 @@ const icon = computed(() => {
 
     &__wrapper {
       display: flex;
-      gap: var(--onyx-toast-message-gap);
+      gap: var(--onyx-density-md);
       padding: var(--onyx-toast-message-padding-vertical)
         var(--onyx-toast-message-padding-horizontal);
       border: var(--onyx-1px-in-rem) solid var(--onyx-toast-message-border-color);
@@ -235,7 +219,7 @@ const icon = computed(() => {
     }
 
     &__description {
-      margin-top: var(--onyx-spacing-2xs);
+      margin-top: var(--onyx-density-2xs);
       white-space: pre-line;
       max-height: 3lh;
       overflow-y: auto;

@@ -42,7 +42,7 @@ defineSlots<{
 .onyx-nav-item {
   @include layers.component() {
     .onyx-external-link-icon {
-      margin-left: calc(-1 * var(--onyx-spacing-sm));
+      margin-left: calc(-1 * var(--onyx-menu-item-gap));
     }
   }
 }

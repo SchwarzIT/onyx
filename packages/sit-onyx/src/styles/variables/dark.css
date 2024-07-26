@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "dark" theme.
- * Imported from Figma API on Wed, 03 Jul 2024 13:48:25 GMT
+ * Imported from Figma API on Fri, 26 Jul 2024 09:04:36 GMT
  */
 :where(.dark) {
   --onyx-color-base-background-blank: var(--onyx-color-themed-neutral-1100);
@@ -117,16 +117,4 @@
   --onyx-radius-sm: var(--onyx-number-radius-200);
   --onyx-radius-xl: var(--onyx-number-radius-500);
   --onyx-radius-xs: var(--onyx-number-radius-100);
-  --onyx-spacing-2xl: var(--onyx-number-spacing-700);
-  --onyx-spacing-2xs: var(--onyx-number-spacing-300);
-  --onyx-spacing-3xl: var(--onyx-number-spacing-800);
-  --onyx-spacing-3xs: var(--onyx-number-spacing-250);
-  --onyx-spacing-4xl: var(--onyx-number-spacing-900);
-  --onyx-spacing-4xs: var(--onyx-number-spacing-200);
-  --onyx-spacing-5xs: var(--onyx-number-spacing-100);
-  --onyx-spacing-lg: var(--onyx-number-spacing-500);
-  --onyx-spacing-md: var(--onyx-number-spacing-400);
-  --onyx-spacing-sm: var(--onyx-number-spacing-350);
-  --onyx-spacing-xl: var(--onyx-number-spacing-600);
-  --onyx-spacing-xs: var(--onyx-number-spacing-325);
 }

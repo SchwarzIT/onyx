@@ -106,7 +106,8 @@ export const resolveFigmaVariableValue = (
 ): string => {
   if (typeof value === "number") {
     // numeric value, parse as rem or pixel value
-    if (value === 0) return "0";
+    // note: value 0 should also be parsed as "0rem" instead of just "0" because otherwise
+    // the CSS variable could not be used together with "calc()"
     if (remBase === false || remBase <= 0) return `${value}px`;
     return `${value / remBase}rem`;
   }

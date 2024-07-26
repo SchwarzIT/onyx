@@ -151,6 +151,7 @@ const blockTyping = (event: KeyboardEvent) => {
             :title="props.hideLabel ? props.label : undefined"
             :value="selectionText"
             :autofocus="props.autofocus"
+            autocomplete="off"
             @click="emit('click')"
             @keydown="blockTyping"
           />
@@ -187,23 +188,12 @@ const blockTyping = (event: KeyboardEvent) => {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
 
 .onyx-select-input,
 .onyx-select-input-skeleton {
-  @include density.compact {
-    --onyx-select-input-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-select-input-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-select-input-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-select-input-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-select-input {
@@ -227,7 +217,7 @@ const blockTyping = (event: KeyboardEvent) => {
     /* button styles */
     &__button {
       all: initial;
-      height: var(--onyx-spacing-lg);
+      display: flex;
       color: var(--onyx-color-text-icons-neutral-soft);
 
       &:enabled {
