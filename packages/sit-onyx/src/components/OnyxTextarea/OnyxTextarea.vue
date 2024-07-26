@@ -125,13 +125,13 @@ const handleInput = (event: Event) => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
 .onyx-textarea,
 .onyx-textarea-skeleton {
   --min-autosize-rows: 3;
   --max-autosize-rows: 10;
+  --onyx-textarea-padding-vertical: var(--onyx-density-xs);
 
   --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
   --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
@@ -145,18 +145,6 @@ const handleInput = (event: Event) => {
       // `display: none` or changing "content" causes user resizing to be interrupted
       height: 0;
     }
-  }
-
-  @include density.compact {
-    --onyx-textarea-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-textarea-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-textarea-padding-vertical: var(--onyx-spacing-sm);
   }
 }
 
@@ -173,7 +161,7 @@ const handleInput = (event: Event) => {
   height: 100%;
   min-height: var(--min-height);
   max-height: var(--max-height);
-  padding: var(--onyx-textarea-padding-vertical) var(--onyx-spacing-sm);
+  padding: var(--onyx-textarea-padding-vertical) var(--onyx-density-sm);
 }
 
 .onyx-textarea {

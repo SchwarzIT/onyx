@@ -65,7 +65,8 @@
     "empty": "Keine Daten verfügbar",
     "noMatch": "Kein Element passt zum Suchtext",
     "searchInputLabel": "Liste durchsuchen",
-    "clearSearch": "Suchtext löschen"
+    "clearSearch": "Suchtext löschen",
+    "searchPlaceholder": "Suchen"
   },
   "selections": {
     "selectAll": "Alle auswählen",

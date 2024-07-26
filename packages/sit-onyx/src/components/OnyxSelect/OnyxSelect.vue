@@ -414,7 +414,6 @@ const selectInputProps = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/list";
-@use "../../styles/mixins/density.scss";
 
 .onyx-select-wrapper {
   @include layers.component() {
@@ -425,20 +424,7 @@ const selectInputProps = computed(() => {
 }
 
 .onyx-select {
-  @include density.compact {
-    --option-height: calc(1.5rem + 1 * var(--onyx-spacing-2xs));
-  }
-
-  @include density.default {
-    --option-height: calc(1.5rem + 2 * var(--onyx-spacing-2xs));
-  }
-
-  @include density.cozy {
-    --option-height: calc(1.5rem + 3 * var(--onyx-spacing-2xs));
-  }
-
   @include layers.component() {
-    $wrapper-padding: var(--onyx-spacing-2xs);
     $outline-size: 0.25rem;
 
     position: absolute;
@@ -465,7 +451,6 @@ const selectInputProps = computed(() => {
 
     &__check-all,
     &__search {
-      height: calc(var(--option-height) + var(--onyx-1px-in-rem));
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
@@ -475,11 +460,12 @@ const selectInputProps = computed(() => {
 
     &__wrapper:has(.onyx-mini-search) {
       // Add scroll padding, so items are not hidden beneath the search input
-      scroll-padding-top: var(--option-height);
+      // var(--onyx-density-xs) = vertical padding of select option
+      scroll-padding-top: calc(1lh + 2 * var(--onyx-density-xs));
     }
 
     &__slot {
-      padding: 0 $wrapper-padding;
+      padding: 0 var(--onyx-density-sm);
       display: flex;
       flex-direction: column;
       align-items: center;

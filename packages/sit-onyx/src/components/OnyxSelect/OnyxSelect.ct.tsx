@@ -33,7 +33,7 @@ const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
 
 const MOCK_LONG_LABELED_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
   value: index,
-  label: `Long labeled option ${index + 1} `.repeat(4),
+  label: `Long labeled option ${index + 1} `.repeat(3),
 })) satisfies SelectOption[];
 
 const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((option) => ({
@@ -42,7 +42,8 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
 })) satisfies SelectOption[];
 
 const openFlyout = async (component: MountResultJsx) => {
-  await component.click();
+  const box = (await component.boundingBox())!;
+  await component.click({ position: { x: box.x + box.width / 2, y: box.y + box.height / 2 } });
 
   // since the flyout is positioned absolute, we need to set the component size accordingly
   // so the screenshot contains the whole component
@@ -123,7 +124,7 @@ test.describe("Truncated options screenshots", () => {
     ),
     beforeScreenshot: async (component) => {
       await openFlyout(component);
-      const option = component.getByLabel(`Long labeled option 1 `.repeat(4));
+      const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0].label);
       await option.hover();
     },
   });

@@ -20,7 +20,7 @@ test.describe("Screenshot tests", () => {
         />
       ),
       beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
+        if (row === "hover") await component.getByLabel("Test label").hover();
         if (row === "focus") await page.keyboard.press("Tab");
       },
     });
@@ -61,7 +61,7 @@ test.describe("Screenshot tests", () => {
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
+      if (row === "hover") await component.getByLabel("Test label").hover();
       if (row === "focus") await page.keyboard.press("Tab");
     },
   });

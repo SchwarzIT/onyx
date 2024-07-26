@@ -35,7 +35,7 @@
     }
     content: var(--onyx-use-optional, var(--onyx-global-optional-text, "(optional)"));
     color: var(--onyx-use-optional, var(--onyx-color-text-icons-neutral-soft));
-    padding-left: var(--onyx-use-optional, var(--onyx-spacing-2xs));
+    padding-left: var(--onyx-use-optional, var(--onyx-density-xs));
     hyphens: var(--onyx-use-optional, none);
   }
 }
