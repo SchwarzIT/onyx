@@ -1,15 +1,14 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { computed, h, ref, watchEffect } from "vue";
-import { normalizedIncludes } from "../../utils/strings";
+import { h, ref, watchEffect } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types";
 
 /**
  * The select is a fundamental element utilized across various components such as
- * dropdowns, navigation bars, paginations, tables, etc.
+ * dropdowns, navigation bars, pagination, tables, etc.
  * It provides the users with the ability to open a small modal window,
  * facilitating single or multi-selection based on the context in which it is employed.
  *
@@ -55,27 +54,6 @@ const meta: Meta<typeof OnyxSelect> = {
           template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
         };
       },
-      /**
-       * Decorator to simulate search
-       */
-      (story, ctx) => ({
-        components: { story },
-        setup: () => {
-          const searchTerm = computed(() => (ctx.args.withSearch && ctx.args.searchTerm) || "");
-
-          const filteredOptions = computed(() =>
-            searchTerm.value
-              ? ctx.args.options.filter(({ label }) => normalizedIncludes(label, searchTerm.value))
-              : ctx.args.options,
-          );
-
-          watchEffect(() => {
-            ctx.args.options = filteredOptions.value;
-            ctx.args.options; // this is needed to keep the reactivity, although I am not 100% sure why
-          });
-        },
-        template: `<story />`,
-      }),
     ],
   }),
 };
@@ -152,6 +130,7 @@ export const WithMessage = {
   args: {
     ...Default.args,
     message: "Example message",
+    modelValue: DEMO_OPTIONS[1].value,
   },
 } satisfies Story;
 
@@ -161,7 +140,7 @@ export const WithMessage = {
 export const Multiselect = {
   args: {
     ...Default.args,
-    modelValue: [MULTISELECT_DEMO_OPTIONS[0], MULTISELECT_DEMO_OPTIONS[1]],
+    modelValue: [MULTISELECT_DEMO_OPTIONS[0].value, MULTISELECT_DEMO_OPTIONS[1].value],
     multiple: true,
     withCheckAll: true,
     options: MULTISELECT_DEMO_OPTIONS,
@@ -240,10 +219,6 @@ export const Empty = {
 
 /**
  * This example shows a select with search functionality.
- *
- * **Important**: You need to manually filter the options based on the current `searchTerm`.
- * You can use our `normalizedIncludes()` utility function for this.
- * This example showcases the behavior when using that function.
  */
 export const WithSearch = {
   args: {
@@ -333,7 +308,7 @@ export const Skeleton = {
 export const CustomOptions = {
   args: {
     ...Default.args,
-    option: ({ label }) => ["custom ", h("strong", label), " content"],
+    option: ({ label }: SelectOption) => ["custom ", h("strong", label), " content"],
   },
 } satisfies Story;
 
@@ -369,3 +344,16 @@ export const MultilineOptions = {
     placeholder: "Placeholder...",
   },
 } satisfies Story;
+
+/**
+ * `valueLabel` can be set to control the text that represents the current selection.
+ * This can be used e.g. to show a text for a previous selection even though not all
+ * existing options are provided to OnyxSelect yet so the `modelValue` can't be found in the `options`.
+ */
+export const WithCustomValueLabel = {
+  args: {
+    ...Default.args,
+    modelValue: DEMO_OPTIONS[1].value,
+    valueLabel: "Custom selection label",
+  },
+};

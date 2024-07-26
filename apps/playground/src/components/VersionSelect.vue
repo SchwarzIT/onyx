@@ -33,13 +33,13 @@ const options = computed<SelectOption<string>[]>(() => {
   return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
 });
 
-const modelValue = computed<SelectOption<string>>({
+const modelValue = computed<string>({
   get: () => {
     const isLatest = version.value && !version.value.includes(".");
-    if (isLatest) return options.value?.[0];
-    return options.value.find((o) => o.value === version.value)!;
+    if (isLatest) return options.value?.[0]?.value;
+    return options.value.find((o) => o.value === version.value)!.value;
   },
-  set: ({ value }) => {
+  set: (value: string) => {
     version.value = value;
   },
 });
