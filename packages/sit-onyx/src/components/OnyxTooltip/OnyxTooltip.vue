@@ -4,10 +4,10 @@ import {
   createTooltip,
   type CreateToggletipOptions,
   type CreateTooltipOptions,
-  type TemplateAttributes,
+  type VBindAttributes,
 } from "@sit-onyx/headless";
-import type { VNode } from "vue";
-import { computed, shallowRef, toValue, watch } from "vue";
+import type { Ref, VNode } from "vue";
+import { computed, ref, shallowRef, toValue, watch } from "vue";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
@@ -25,7 +25,7 @@ defineSlots<{
    *
    * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(params: { trigger: TemplateAttributes }): VNode;
+  default(params: { trigger: VBindAttributes }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
@@ -36,31 +36,39 @@ defineSlots<{
 
 const { t } = injectI18n();
 
+const _isVisible = ref(false);
+const isVisible = computed({
+  set: (newVal) => (_isVisible.value = newVal),
+  get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
+}) as Ref<boolean>;
+
+const tooltipOptions = computed<CreateTooltipOptions>(() => ({
+  debounce: 200,
+  ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
+  isVisible,
+}));
+const toggletipOptions = computed<CreateToggletipOptions>(() => ({
+  toggleLabel: t.value("tooltip.info"),
+  ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
+  isVisible,
+}));
+
 const type = computed(() => {
   if (typeof props.open === "object") return props.open.type;
   if (typeof props.open === "string") return props.open;
   return "hover";
 });
 
-const tooltipOptions = computed<CreateTooltipOptions>(() => ({
-  debounce: 200,
-  ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
-}));
-const toggletipOptions = computed<CreateToggletipOptions>(() => ({
-  toggleLabel: t.value("tooltip.info"),
-  ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
-}));
-
-const createTip = () =>
+const createPattern = () =>
   type.value === "hover"
     ? createTooltip(tooltipOptions.value)
     : createToggletip(toggletipOptions.value);
 
-const ariaPattern = shallowRef(createTip());
-watch(type, () => (ariaPattern.value = createTip()));
+const ariaPattern = shallowRef(createPattern());
+watch(type, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const trigger = computed(() => toValue<TemplateAttributes>(ariaPattern.value?.elements.trigger));
+const trigger = computed(() => toValue<VBindAttributes>(ariaPattern.value?.elements.trigger));
 </script>
 
 <template>
@@ -72,7 +80,7 @@ const trigger = computed(() => toValue<TemplateAttributes>(ariaPattern.value?.el
         'onyx-tooltip--danger': props.color === 'danger',
         'onyx-tooltip--bottom': props.position === 'bottom',
         'onyx-tooltip--fit-parent': props.fitParent,
-        'onyx-tooltip--hidden': !ariaPattern?.state.isVisible.value,
+        'onyx-tooltip--hidden': !isVisible,
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />

@@ -1,4 +1,4 @@
-import { computed, ref, toValue, type MaybeRefOrGetter } from "vue";
+import { computed, toRef, toValue, type MaybeRefOrGetter, type Ref } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
 import { useDismissible } from "../helpers/useDismissible";
@@ -8,25 +8,26 @@ export type CreateTooltipOptions = {
    * Number of milliseconds to use as debounce when showing/hiding the tooltip.
    */
   debounce: MaybeRefOrGetter<number>;
+  isVisible?: Ref<boolean>;
 };
 
 export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
 export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
 
-export const createTooltip = createBuilder(({ debounce }: CreateTooltipOptions) => {
+export const createTooltip = createBuilder(({ debounce, isVisible }: CreateTooltipOptions) => {
   const tooltipId = createId("tooltip");
-  const isVisible = ref(false);
+  const _isVisible = toRef(isVisible ?? false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
 
   /**
    * Debounced visible state that will only be toggled after a given timeout.
    */
   const debouncedVisible = computed({
-    get: () => isVisible.value,
+    get: () => _isVisible.value,
     set: (newValue) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        isVisible.value = newValue;
+        _isVisible.value = newValue;
       }, toValue(debounce));
     },
   });
@@ -34,11 +35,11 @@ export const createTooltip = createBuilder(({ debounce }: CreateTooltipOptions) 
   const hoverEvents = {
     onMouseover: () => (debouncedVisible.value = true),
     onMouseout: () => (debouncedVisible.value = false),
-    onFocusin: () => (isVisible.value = true),
-    onFocusout: () => (isVisible.value = false),
+    onFocusin: () => (_isVisible.value = true),
+    onFocusout: () => (_isVisible.value = false),
   };
 
-  useDismissible({ isExpanded: isVisible });
+  useDismissible({ isExpanded: _isVisible });
 
   return {
     elements: {
@@ -54,7 +55,7 @@ export const createTooltip = createBuilder(({ debounce }: CreateTooltipOptions) 
       },
     },
     state: {
-      isVisible,
+      isVisible: _isVisible,
     },
   };
 });
