@@ -30,12 +30,7 @@ defineSlots<{
     ]"
   >
     <template v-if="!props.dot">
-      <OnyxIcon
-        v-if="props.icon"
-        class="onyx-badge__icon"
-        :icon="props.icon"
-        :size="props.density === 'cozy' ? '24px' : '16px'"
-      />
+      <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
       <slot v-else></slot>
     </template>
   </div>
@@ -43,8 +38,24 @@ defineSlots<{
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-badge {
+  @include density.compact {
+    --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
+    --onyx-badge-icon-size: 1rem;
+  }
+
+  @include density.default {
+    --onyx-badge-icon-padding: var(--onyx-spacing-3xs);
+    --onyx-badge-icon-size: 1rem;
+  }
+
+  @include density.cozy {
+    --onyx-badge-icon-padding: var(--onyx-spacing-4xs);
+    --onyx-badge-icon-size: 1.5rem;
+  }
+
   @include layers.component() {
     --onyx-badge-background-color: var(--onyx-color-base-primary-500);
 
@@ -58,7 +69,11 @@ defineSlots<{
     font-style: normal;
 
     &:has(&__icon) {
-      padding: var(--onyx-density-3xs);
+      padding: var(--onyx-badge-icon-padding);
+
+      .onyx-icon {
+        --icon-size: var(--onyx-badge-icon-size);
+      }
     }
 
     &--secondary {

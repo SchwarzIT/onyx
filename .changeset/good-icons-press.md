@@ -41,3 +41,4 @@ The following components now also support density:
 - fix(OnyxSelectInput): disable autocomplete for native input
 - fix(OnyxSelect): hide required asterisk when `hideLabel` is set
 - fix: do not exceed max width for OnyxInput, OnyxTextarea, OnyxSelect and OnyxStepper skeletons when custom max width is set via CSS
+- fix(OnyxBadge): inherit icon size for cozy density from parent components
