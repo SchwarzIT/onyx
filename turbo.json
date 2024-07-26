@@ -21,7 +21,8 @@
       "outputs": ["playwright-report", "test-results"]
     },
     "vite": {
-      "dependsOn": ["sit-onyx#build"],
+      "dependsOn": ["^build"],
+      "cache": false,
       "persistent": true
     }
   }

@@ -31,6 +31,7 @@ storybook-static
 eslint-results.sarif
 .nuxt
 .output
+vite.*.timestamp*
 
 # Development config
 .env*
