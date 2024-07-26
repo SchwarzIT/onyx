@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { createTooltip } from "@sit-onyx/headless";
 import { computed } from "vue";
+import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
 
@@ -33,10 +34,12 @@ const {
 } = createTooltip({
   open: computed(() => props.open),
 });
+
+const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div class="onyx-tooltip-wrapper" v-bind="root">
+  <div :class="['onyx-tooltip-wrapper', densityClass]" v-bind="root">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
@@ -70,14 +73,14 @@ $wedge-size: 0.5rem;
     --color: var(--onyx-color-text-icons-neutral-inverted);
 
     border-radius: var(--onyx-radius-sm);
-    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-density-2xs) var(--onyx-density-sm);
     box-shadow: var(--onyx-shadow-medium-bottom);
     z-index: var(--onyx-z-index-flyout);
 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--onyx-spacing-4xs);
+    gap: var(--onyx-density-2xs);
     height: max-content;
     margin-bottom: $wedge-size;
 

@@ -37,24 +37,14 @@ const { densityClass } = useDensity(props);
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/mixins/density.scss";
 
 .onyx-list-item {
-  @include density.compact {
-    --onyx-list-item-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
-  }
-  @include density.default {
-    --onyx-list-item-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-sm);
-  }
-  @include density.cozy {
-    --onyx-list-item-padding: var(--onyx-spacing-sm) var(--onyx-spacing-sm);
-  }
-
   @include layers.component() {
     --onyx-list-item-color: var(--onyx-color-text-icons-neutral-intense);
     --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-bold);
     --onyx-list-item-background-hover: var(--onyx-color-base-primary-100);
     --onyx-list-item-background-selected: var(--onyx-color-base-primary-200);
+    --onyx-list-item-padding: var(--onyx-density-xs) var(--onyx-density-sm);
 
     font-family: var(--onyx-font-family);
     color: var(--onyx-list-item-color);
@@ -70,7 +60,7 @@ const { densityClass } = useDensity(props);
 
     display: flex;
     align-items: center;
-    gap: var(--onyx-spacing-sm);
+    gap: var(--onyx-density-sm);
 
     &:not(&--disabled) {
       cursor: pointer;

@@ -85,7 +85,6 @@ const { vCustomValidity, title } = useCustomValidity({ props, emit });
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/checkbox.scss";
 
 @mixin define-hover-border($state, $color) {
@@ -104,6 +103,8 @@ const { vCustomValidity, title } = useCustomValidity({ props, emit });
   @include checkbox.variables();
 
   @include layers.component() {
+    --onyx-checkbox-label-padding-vertical: var(--onyx-density-xs);
+
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     display: inline-flex;
@@ -112,18 +113,8 @@ const { vCustomValidity, title } = useCustomValidity({ props, emit });
     width: max-content;
     max-width: 100%;
 
-    @include density.compact {
-      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-3xs);
-    }
-    @include density.default {
-      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-2xs);
-    }
-    @include density.cozy {
-      --onyx-checkbox-label-padding-vertical: var(--onyx-spacing-sm);
-    }
-
     &:has(&__label) {
-      padding-right: var(--onyx-spacing-2xs);
+      padding-right: var(--onyx-checkbox-label-padding-vertical);
     }
 
     &:hover {
@@ -182,7 +173,7 @@ const { vCustomValidity, title } = useCustomValidity({ props, emit });
   @include layers.component() {
     display: flex;
     align-items: flex-start;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-checkbox-input-padding);
     padding: var(--onyx-checkbox-input-padding);
     width: max-content;
 

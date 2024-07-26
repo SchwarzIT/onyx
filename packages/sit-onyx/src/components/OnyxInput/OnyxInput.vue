@@ -107,7 +107,6 @@ const patternSource = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
 /**
@@ -133,17 +132,7 @@ const patternSource = computed(() => {
 
 .onyx-input,
 .onyx-input-skeleton {
-  @include density.compact {
-    --onyx-input-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-input-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-input-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-input-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-input-skeleton {

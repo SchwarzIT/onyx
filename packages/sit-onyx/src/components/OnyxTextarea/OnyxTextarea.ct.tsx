@@ -27,7 +27,7 @@ test.describe("Screenshot tests", () => {
       },
       beforeScreenshot: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");
-        if (row === "hover") await component.hover();
+        if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
       },
     });
@@ -75,8 +75,9 @@ test.describe("Screenshot tests", () => {
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus") await component.getByLabel("Test label").focus();
+      const input = component.getByLabel("Test label");
+      if (row === "hover") await input.hover();
+      if (row === "focus") await input.focus();
     },
   });
 
@@ -94,7 +95,7 @@ test.describe("Screenshot tests", () => {
       await input.fill("Filled value");
       await input.blur();
 
-      if (row === "hover") await component.hover();
+      if (row === "hover") await input.hover();
       if (row === "focus") await input.focus();
     },
   });

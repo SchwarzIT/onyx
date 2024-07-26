@@ -49,24 +49,10 @@ const emit = defineEmits<{
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 
 .onyx-button,
 .onyx-button-skeleton {
-  @include density.compact {
-    --onyx-button-height: 2rem;
-    --onyx-button-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-button-height: 2.5rem;
-    --onyx-button-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-button-height: 3rem;
-    --onyx-button-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-button-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-button {
@@ -76,21 +62,22 @@ const emit = defineEmits<{
     --onyx-button-border-color: transparent;
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-button-outline-color: var(--onyx-color-base-primary-200);
+    --onyx-button-border-width: var(--onyx-1px-in-rem);
 
     position: relative;
     display: inline-flex;
-    height: var(--onyx-button-height);
     max-width: 100%;
     width: max-content;
-    padding: var(--onyx-button-padding-vertical) var(--onyx-spacing-sm);
+    padding: calc(var(--onyx-button-padding-vertical) - var(--onyx-button-border-width))
+      var(--onyx-density-sm);
     justify-content: center;
     align-items: center;
-    gap: var(--onyx-spacing-4xs);
+    gap: var(--onyx-density-2xs);
     border-radius: var(--onyx-radius-sm);
     cursor: pointer;
     font-family: var(--onyx-font-family);
     background-color: var(--onyx-button-background-color);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-button-border-color);
+    border: var(--onyx-button-border-width) solid var(--onyx-button-border-color);
     color: var(--onyx-button-text-color);
 
     &--primary {
@@ -191,7 +178,7 @@ const emit = defineEmits<{
     }
 
     &__label {
-      padding: 0 var(--onyx-spacing-4xs);
+      padding-inline: var(--onyx-density-2xs);
       font-size: 1rem;
       font-style: normal;
       font-weight: 600;
@@ -208,8 +195,8 @@ const emit = defineEmits<{
   }
 
   &-skeleton {
-    width: var(--onyx-spacing-4xl);
-    height: var(--onyx-button-height);
+    width: var(--onyx-density-4xl);
+    height: calc(1.5rem + 2 * var(--onyx-button-padding-vertical));
     display: inline-block;
     vertical-align: middle;
   }
