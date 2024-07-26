@@ -53,10 +53,10 @@
     "storybook": "^8.2.6",
     "turbo": "^2.0.9",
     "typescript": "~5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.3.4",
     "vitest": "^2.0.4",
     "vue": "^3.4.34",
-    "vue-tsc": "^2.0.29"
+    "vue-tsc": "^2.0.28"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
