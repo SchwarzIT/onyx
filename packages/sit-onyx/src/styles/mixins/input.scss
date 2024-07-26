@@ -121,19 +121,26 @@
 }
 
 @mixin define-skeleton-styles($height) {
+  $adjustment: var(--skeleton-label-density-adjustment, 0rem);
+
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-density-3xs);
+  gap: calc(var(--onyx-density-3xs) + $adjustment);
   line-height: 1.5rem;
 
   &__label {
     width: var(--onyx-density-3xl);
-    height: 1.25rem;
+    height: calc(1.25rem - $adjustment);
   }
 
   &__input {
     width: 17rem;
     max-width: 100%;
     height: $height;
+  }
+
+  @include density.compact {
+    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+    --skeleton-label-density-adjustment: var(--onyx-spacing-5xs);
   }
 }
