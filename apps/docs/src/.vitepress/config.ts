@@ -179,12 +179,16 @@ export default defineConfig({
               link: "/",
             },
             {
+              text: "Contribution guide",
+              link: "/contributing",
+            },
+            {
               text: "Technical vision & guidelines",
               link: "/technical-vision",
             },
             {
-              text: "Contribution guide",
-              link: "/contributing",
+              text: "Component quality stages",
+              link: "/component-quality-stages",
             },
           ],
         },
