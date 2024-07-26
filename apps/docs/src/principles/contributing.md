@@ -5,7 +5,7 @@ import nodeVersion from "../../../../.node-version?raw";
 
 # Contribution Guide
 
-When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical vision/guidelines](https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines).
+When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical vision/guidelines](/principles/technical-vision).
 
 ::: info Target audience
 This document is directed at people that are developing **for** onyx.
@@ -67,7 +67,7 @@ If you made visual changes to components, you can use [this Workflow](https://gi
 ## Creating a Pull Request
 
 Pull Requests are very welcome!
-Please consider our [Technical Guidelines](https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines) when contributing to onyx.
+Please consider our [technical guidelines](/principles/technical-vision) when contributing to onyx.
 
 1. [Create a fork](https://github.com/SchwarzIT/onyx/fork) to commit and push your changes to
 2. When your changes affect the user and need to be released, [add a changeset](https://github.com/SchwarzIT/onyx/blob/main/.changeset/README.md).

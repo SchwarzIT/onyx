@@ -4,20 +4,20 @@ This page describes which perspective must be taken into consideration when crea
 
 ## Essentials: Concept handover
 
-| Description                                                                                                         | UX/UI | DEV |
-| :------------------------------------------------------------------------------------------------------------------ | :---: | :-: |
-| Defined responsive behavior for all breakpoints                                                                     |  🧑‍🎨   |  -  |
-| Defined architectural structure of component                                                                        |  🧑‍🎨   |  -  |
-| Neutral color theme is used                                                                                         |  🧑‍🎨   |  -  |
-| Defined density behavior: compact, default, cozy                                                                    |  🧑‍🎨   |  -  |
-| Defined slots and functions                                                                                         |  🧑‍🎨   | 🧑‍💻  |
-| Defined states: hover / disabled / active /...                                                                      |  🧑‍🎨   | 🧑‍💻  |
-| Component design fits our principles                                                                                |  🧑‍🎨   | 🧑‍💻  |
-| Design tokens are used                                                                                              |  🧑‍🎨   | 🧑‍💻  |
-| Considers darkmode / lightmode                                                                                      |   -   | 🧑‍💻  |
-| Defined basic layout in figma design                                                                                |   -   | 🧑‍💻  |
-| Market research / internal experience exchange was performed                                                        |   -   | 🧑‍💻  |
-| Component API fits our [technical guidelines](https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines) |   -   | 🧑‍💻  |
+| Description                                                                 | UX/UI | DEV |
+| :-------------------------------------------------------------------------- | :---: | :-: |
+| Defined responsive behavior for all breakpoints                             |  🧑‍🎨   |  -  |
+| Defined architectural structure of component                                |  🧑‍🎨   |  -  |
+| Neutral color theme is used                                                 |  🧑‍🎨   |  -  |
+| Defined density behavior: compact, default, cozy                            |  🧑‍🎨   |  -  |
+| Defined slots and functions                                                 |  🧑‍🎨   | 🧑‍💻  |
+| Defined states: hover / disabled / active /...                              |  🧑‍🎨   | 🧑‍💻  |
+| Component design fits our principles                                        |  🧑‍🎨   | 🧑‍💻  |
+| Design tokens are used                                                      |  🧑‍🎨   | 🧑‍💻  |
+| Considers darkmode / lightmode                                              |   -   | 🧑‍💻  |
+| Defined basic layout in figma design                                        |   -   | 🧑‍💻  |
+| Market research / internal experience exchange was performed                |   -   | 🧑‍💻  |
+| Component API fits our [technical guidelines](/principles/technical-vision) |   -   | 🧑‍💻  |
 
 ## Essentials: MVP component release
 
