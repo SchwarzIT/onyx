@@ -18,29 +18,16 @@ const { densityClass } = useDensity(props);
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
 
 .onyx-tag {
-  @include density.compact {
-    --onyx-tag-padding: 0 var(--onyx-spacing-3xs);
-  }
-
-  @include density.default {
-    --onyx-tag-padding: var(--onyx-spacing-5xs) var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-tag-padding: var(--onyx-spacing-4xs) var(--onyx-spacing-xs);
-  }
-
   @include layers.component() {
     display: inline-flex;
     align-items: center;
-    gap: var(--onyx-spacing-3xs);
+    gap: var(--onyx-density-2xs);
     width: max-content;
     max-width: 100%;
-    padding: var(--onyx-tag-padding);
+    padding: var(--onyx-density-3xs) var(--onyx-density-xs);
     border-radius: var(--onyx-radius-xs);
     font-family: var(--onyx-font-family);
 

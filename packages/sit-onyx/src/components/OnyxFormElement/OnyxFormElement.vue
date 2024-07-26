@@ -106,7 +106,7 @@ defineSlots<{
     font-family: var(--onyx-font-family);
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-spacing-5xs);
+    gap: var(--onyx-density-3xs);
 
     &__label {
       display: flex;
@@ -128,15 +128,17 @@ defineSlots<{
       font-weight: 400;
       font-style: normal;
       color: var(--onyx-color-text-icons-neutral-soft);
-      padding-left: var(--onyx-spacing-2xs);
+      padding-left: var(--onyx-density-xs);
       hyphens: none;
       margin-left: auto;
     }
 
+    $footer-gap: var(--onyx-spacing-2xs);
+
     &__label-tooltip,
     &__message-tooltip,
     &__error-tooltip {
-      margin-left: var(--onyx-spacing-2xs);
+      margin-left: $footer-gap;
     }
 
     &__footer {
@@ -149,7 +151,7 @@ defineSlots<{
     &__counter {
       text-align: right;
       flex-grow: 1;
-      margin-left: var(--onyx-spacing-2xs);
+      margin-left: $footer-gap;
     }
 
     &__error-message,

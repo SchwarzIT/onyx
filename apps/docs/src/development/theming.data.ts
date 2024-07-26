@@ -15,7 +15,7 @@ export { data };
  * @see https://vitepress.dev/guide/data-loading
  */
 export default defineLoader({
-  watch: ["../../../../packages/sit-onyx/src/styles/themes/*.css"],
+  watch: ["../../../../packages/sit-onyx/src/styles/variables/themes/*.css"],
   load(watchedFiles): Data {
     return {
       themes: watchedFiles
