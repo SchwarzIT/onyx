@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.18
+
+### Patch Changes
+
+- 82fffac: fix: export `OnyxStepper`
+
 ## 1.0.0-beta.17
 
 ### Major Changes
