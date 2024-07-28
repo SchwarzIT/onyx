@@ -1,26 +1,20 @@
 <script lang="ts" setup>
 import DesignTokenCard from "./DesignTokenCard.vue";
 
-const spacings = [
-  "onyx-spacing-5xs",
-  "onyx-spacing-4xs",
-  "onyx-spacing-3xs",
-  "onyx-spacing-2xs",
-  "onyx-spacing-xs",
-  "onyx-spacing-sm",
-  "onyx-spacing-md",
-  "onyx-spacing-lg",
-  "onyx-spacing-xl",
-  "onyx-spacing-2xl",
-  "onyx-spacing-3xl",
-  "onyx-spacing-4xl",
-];
+const props = defineProps<{
+  variables: string[];
+}>();
 </script>
 
 <template>
-  <DesignTokenCard v-for="spacing in spacings" :key="spacing" :name="spacing" class="token">
+  <DesignTokenCard
+    v-for="variable in props.variables"
+    :key="variable"
+    :name="variable"
+    class="token"
+  >
     <figure class="preview">
-      <figure class="preview__area" :style="{ height: `var(--${spacing})` }"></figure>
+      <figure class="preview__area" :style="{ height: `var(--${variable})` }"></figure>
     </figure>
   </DesignTokenCard>
 </template>
