@@ -82,7 +82,7 @@ const trigger = computed(() => toValue<HTMLAttributes>(ariaPattern.value?.elemen
 </script>
 
 <template>
-  <div :class="['onyx-tooltip-wrapper', densityClass]" v-bind="root">
+  <div :class="['onyx-tooltip-wrapper', densityClass]">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"

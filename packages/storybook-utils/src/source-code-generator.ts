@@ -8,7 +8,8 @@ import { SourceType } from "storybook/internal/docs-tools";
 import { isVNode, type VNode } from "vue";
 import { replaceAll } from "./preview";
 
-const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL");
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL") as any; // There is a type issue when trying to use a symbol to index an object
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isProxy = (obj: any) =>
@@ -235,7 +236,7 @@ export const generatePropsSourceCode = (
       case "object": {
         properties.push({
           name: propName,
-          value: formatObject(value),
+          value: formatObject(value ?? {}),
           // to follow Vue best practices, complex values like object and arrays are
           // usually placed inside the <script setup> block instead of inlining them in the <template>
           templateFn: undefined,
@@ -384,7 +385,7 @@ const generateSlotChildrenSourceCode = (
         );
 
         const parameters: Record<string, string> = {};
-        const proxied: Record<string, object> = {};
+        const proxied: Record<string, Record<string, unknown>> = {};
         paramNames.forEach((param) => {
           parameters[param] = `{{ ${param} }}`;
           proxied[param] = new Proxy(
