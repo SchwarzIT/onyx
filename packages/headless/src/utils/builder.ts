@@ -11,7 +11,8 @@ import {
 import type { IfDefined } from "./types";
 
 /**
- *
+ * Properties as they can be used by `v-bind` on an HTML element.
+ * This includes generic html attributes and the vue reserved `ref` property.
  */
 export type VBindAttributes<
   A extends HTMLAttributes = HTMLAttributes,
