@@ -12,7 +12,11 @@ const props = defineProps<{
   hideValue?: boolean;
 }>();
 
-const value = computed(() => (props.hideValue ? undefined : getCssVariableValue(props.name)));
+const wrapperRef = ref<HTMLElement>();
+
+const value = computed(() =>
+  props.hideValue ? undefined : getCssVariableValue(props.name, wrapperRef.value),
+);
 const isCopied = ref(false);
 
 const handleCopy = async () => {
@@ -23,7 +27,7 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div class="card vp-raw" :class="{ 'card--wide': props.wideName }">
+  <div ref="wrapperRef" class="card vp-raw" :class="{ 'card--wide': props.wideName }">
     <div class="card__container">
       <slot name="name">
         <!--

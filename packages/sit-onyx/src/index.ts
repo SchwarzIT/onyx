@@ -84,6 +84,9 @@ export * from "./components/OnyxSelectOption/types";
 
 export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.vue";
 
+export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";
+export * from "./components/OnyxStepper/types";
+
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
