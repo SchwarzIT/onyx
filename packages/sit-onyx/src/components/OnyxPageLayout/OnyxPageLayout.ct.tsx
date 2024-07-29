@@ -4,9 +4,6 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
 const demoSidebar = `<div style="min-width: 10rem;"></div>`;
 const demoDefault = `<div style="height: 100%; width: 100%;"></div>`;
 const demoFooter = `<div style="min-height: 4rem;"></div>`;
-const defaultConfig = {
-  slots: { default: demoDefault },
-};
 
 test.beforeEach(async ({ page }) => {
   await page.addStyleTag({
@@ -24,7 +21,7 @@ test.beforeEach(async ({ page }) => {
 test("should render standard page", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxPageLayout, {
-    ...defaultConfig,
+    slots: { default: demoDefault },
   });
 
   // ASSERT
