@@ -5,11 +5,14 @@
 //
 import type { Args, StoryContext } from "@storybook/vue3";
 import { SourceType } from "storybook/internal/docs-tools";
-import { isProxy } from "util/types";
 import { isVNode, type VNode } from "vue";
 import { replaceAll } from "./preview";
 
 const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL");
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isProxy = (obj: any) =>
+  obj && (obj[DEEP_ACCESS_SYMBOL] === true || obj[DEEP_ACCESS_SYMBOL] === false);
 
 /**
  * Context that is passed down to nested components/slots when generating the source code for a single story.
