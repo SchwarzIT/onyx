@@ -1,6 +1,6 @@
 import { computed, onBeforeMount, onBeforeUnmount, ref, unref, type MaybeRef } from "vue";
 import { createId } from "../..";
-import { createBuilder } from "../../utils/builder";
+import { createBuilder, createElRef } from "../../utils/builder";
 import { useOutsideClick } from "../helpers/useOutsideClick";
 
 export type CreateTooltipOptions = {
@@ -22,7 +22,7 @@ export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
 export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
 
 export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
-  const rootRef = ref<HTMLElement>();
+  const rootRef = createElRef<HTMLElement>();
   const tooltipId = createId("tooltip");
   const _isVisible = ref(false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
