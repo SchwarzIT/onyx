@@ -1,7 +1,7 @@
 ---
-"sit-onyx": minor
+"sit-onyx": patch
 ---
 
-feat(OnyxStepper): add styles for disabled spin buttons
+fix(OnyxStepper): check validity when value is changed with Arrow up/down or buttons
 
-Also fix validation so error messages are correctly shown after interacting with the user
+Also add spin button styles for disabled state
