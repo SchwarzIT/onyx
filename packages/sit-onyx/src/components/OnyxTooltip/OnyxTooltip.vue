@@ -1,17 +1,24 @@
 <script lang="ts" setup>
-import {
-  createToggletip,
-  createTooltip,
-  type CreateToggletipOptions,
-  type CreateTooltipOptions,
-  type VBindAttributes,
-} from "@sit-onyx/headless";
-import type { Ref, VNode } from "vue";
+import { createToggletip, createTooltip } from "@sit-onyx/headless";
+import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
 import { computed, ref, shallowRef, toValue, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
+
+type CreateToggletipOptions = {
+  toggleLabel: MaybeRefOrGetter<string>;
+  isVisible?: Ref<boolean>;
+};
+
+type CreateTooltipOptions = {
+  /**
+   * Number of milliseconds to use as debounce when showing/hiding the tooltip.
+   */
+  debounce: MaybeRefOrGetter<number>;
+  isVisible?: Ref<boolean>;
+};
 
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
@@ -26,7 +33,7 @@ defineSlots<{
    *
    * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(params: { trigger: VBindAttributes }): VNode;
+  default(params: { trigger: HTMLAttributes }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
@@ -71,7 +78,7 @@ const ariaPattern = shallowRef(createPattern());
 watch(type, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const trigger = computed(() => toValue<VBindAttributes>(ariaPattern.value?.elements.trigger));
+const trigger = computed(() => toValue<HTMLAttributes>(ariaPattern.value?.elements.trigger));
 </script>
 
 <template>
