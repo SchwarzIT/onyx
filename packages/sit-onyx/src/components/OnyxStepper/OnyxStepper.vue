@@ -187,6 +187,32 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
       padding: var(--onyx-stepper-padding-vertical);
       border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
       outline: none;
+
+      &:enabled {
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+
+        &:focus-visible {
+          outline: none;
+          background-color: var(--onyx-color-base-primary-100);
+        }
+
+        &:active {
+          background-color: var(--onyx-color-base-primary-100);
+        }
+
+        &:first-child {
+          border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+        }
+      }
+
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
 
     &__native {
@@ -206,28 +232,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
-      }
-    }
-
-    &:has(.onyx-stepper__native:enabled:read-write) {
-      .onyx-stepper__counter {
-        &:hover,
-        &:focus-visible {
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
-
-        &:focus-visible {
-          outline: none;
-          background-color: var(--onyx-color-base-primary-100);
-        }
-
-        &:active {
-          background-color: var(--onyx-color-base-primary-100);
-        }
-
-        &:first-child {
-          border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
-        }
       }
     }
   }
