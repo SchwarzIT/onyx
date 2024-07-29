@@ -4,19 +4,22 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
 const demoSidebar = `<div style="min-width: 10rem;"></div>`;
 const demoDefault = `<div style="height: 100%; width: 100%;"></div>`;
 const demoFooter = `<div style="min-height: 4rem;"></div>`;
-const defaultProps = {
-  style: `
-  --background-color-sidebar: peachpuff;
-  --background-color-main: ivory;
-  --background-color-footer: olivedrab;
-  height: 100vh;
-  width: 100vw;
-  `,
-};
 const defaultConfig = {
-  props: defaultProps,
   slots: { default: demoDefault },
 };
+
+test.beforeEach(async ({ page }) => {
+  await page.addStyleTag({
+    content: `
+    body, #root { height: 100vh; width: 100vw; margin: 0; }
+    .onyx-page {
+      --background-color-sidebar: peachpuff;
+      --background-color-main: ivory;
+      --background-color-footer: olivedrab;
+    }
+    `,
+  });
+});
 
 test("should render standard page", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
@@ -37,7 +40,6 @@ test("should render standard page", async ({ mount, makeAxeBuilder }) => {
 test("should render with sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxPageLayout, {
-    props: defaultProps,
     slots: { default: demoDefault, sidebar: demoSidebar },
   });
 
@@ -54,7 +56,6 @@ test("should render with sidebar", async ({ mount, makeAxeBuilder }) => {
 test("should render with footer", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxPageLayout, {
-    props: defaultProps,
     slots: { default: demoDefault, footer: demoFooter },
   });
 
@@ -71,7 +72,6 @@ test("should render with footer", async ({ mount, makeAxeBuilder }) => {
 test("should render with footer below sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxPageLayout, {
-    props: defaultProps,
     slots: { default: demoDefault, sidebar: demoSidebar, footer: demoFooter },
   });
 
@@ -88,7 +88,7 @@ test("should render with footer below sidebar", async ({ mount, makeAxeBuilder }
 test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(OnyxPageLayout, {
-    props: { ...defaultProps, footerAsideSidebar: true },
+    props: { footerAsideSidebar: true },
     slots: { default: demoDefault, sidebar: demoSidebar, footer: demoFooter },
   });
 
