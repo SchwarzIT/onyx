@@ -40,9 +40,14 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
-const { densityClass } = useDensity(props);
+/**
+ * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
+ * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
+ */
+const wasTouched = ref(false);
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
@@ -91,6 +96,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           v-model.number="value"
           v-custom-validity
           class="onyx-stepper__native"
+          :class="{ 'onyx-stepper__native--force-invalid': errorMessages && wasTouched }"
           type="number"
           :aria-label="props.label"
           :autofocus="props.autofocus"
@@ -103,6 +109,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :required="props.required"
           :step="props.step"
           :title="props.hideLabel ? props.label : undefined"
+          @change="wasTouched = true"
           @focus="emit('focus')"
           @blur="emit('blur')"
         />
