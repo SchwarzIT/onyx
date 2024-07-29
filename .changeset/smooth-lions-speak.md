@@ -6,7 +6,7 @@ refactor(OnyxSelect): restrict modelValue to only contain values
 
 #### Breaking changes
 
-- OnyxSelects `modelValue` now only needs TValue, not SelectOption<TValue>
+- OnyxSelects `modelValue` now only needs TValue, not `SelectOption<TValue>`
 
 #### Features
 

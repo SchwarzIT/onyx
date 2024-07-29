@@ -18,6 +18,7 @@ import {
   OnyxRadioGroup,
   OnyxSelect,
   OnyxSkeleton,
+  OnyxStepper,
   OnyxSwitch,
   OnyxTable,
   OnyxTag,
@@ -49,6 +50,7 @@ const COMPONENTS = [
   "OnyxLoadingIndicator",
   "OnyxRadioGroup",
   "OnyxSkeleton",
+  "OnyxStepper",
   "OnyxSwitch",
   "OnyxTable",
   "OnyxTag",
@@ -86,6 +88,7 @@ const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));
 const switchState = ref(false);
 const checkboxState = ref<string[]>([]);
 const radioState = ref<string>();
+const stepperValue = ref<number>();
 
 const selectOptions = [
   "Apple",
@@ -215,6 +218,14 @@ const tableData = [
         </template>
 
         <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
+
+        <OnyxStepper
+          v-if="show('OnyxStepper')"
+          v-model="stepperValue"
+          label="Stepper"
+          placeholder="0"
+          :skeleton="useSkeleton"
+        />
 
         <OnyxSwitch
           v-if="show('OnyxSwitch')"
