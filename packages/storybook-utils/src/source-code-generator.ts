@@ -5,8 +5,11 @@
 //
 import type { Args, StoryContext } from "@storybook/vue3";
 import { SourceType } from "storybook/internal/docs-tools";
+import { isProxy } from "util/types";
 import { isVNode, type VNode } from "vue";
 import { replaceAll } from "./preview";
+
+const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL");
 
 /**
  * Context that is passed down to nested components/slots when generating the source code for a single story.
@@ -183,6 +186,10 @@ export const generatePropsSourceCode = (
     // ignore slots
     if (slotNames.includes(propName)) return;
     if (value == undefined) return; // do not render undefined/null values
+
+    if (isProxy(value)) {
+      value = value!.toString();
+    }
 
     switch (typeof value) {
       case "string":
@@ -373,21 +380,55 @@ const generateSlotChildrenSourceCode = (
           (param) => !["{", "}"].includes(param),
         );
 
-        const parameters = paramNames.reduce<Record<string, string>>((obj, param) => {
-          obj[param] = `{{ ${param} }}`;
-          return obj;
-        }, {});
+        const parameters: Record<string, string> = {};
+        const proxied: Record<string, object> = {};
+        paramNames.forEach((param) => {
+          parameters[param] = `{{ ${param} }}`;
+          proxied[param] = new Proxy(
+            /**
+             * If the a prop of the parameter is accessed or is destructured, we assume that a v-bind is necessary.
+             */
+            { deepAccess: false },
+            {
+              get: (t, key: symbol) => {
+                if (key === DEEP_ACCESS_SYMBOL) {
+                  return t.deepAccess;
+                }
+                if ([Symbol.toPrimitive, Symbol.toStringTag, "toString"].includes(key)) {
+                  return () => `{{ ${param} }}`;
+                }
+                // TODO track specifc key retrieval
+                t.deepAccess = true;
+                return `{{ ${param} }}`;
+              },
+              ownKeys: (t) => {
+                /** called when destructured */
+                t.deepAccess = true;
+                return [param];
+              },
+              getOwnPropertyDescriptor: () => ({
+                configurable: true,
+                enumerable: true,
+                value: param,
+                writable: true,
+              }),
+              apply: () => {},
+            },
+          );
+        });
 
-        const returnValue = child(parameters);
+        const returnValue = child(proxied);
         let slotSourceCode = generateSlotChildrenSourceCode([returnValue], ctx);
 
         // if slot bindings are used for properties of other components, our {{ paramName }} is incorrect because
         // it would generate e.g. my-prop="{{ paramName }}", therefore, we replace it here to e.g. :my-prop="paramName"
         paramNames.forEach((param) => {
+          const isDeeplyAccessed = proxied[param][DEEP_ACCESS_SYMBOL];
+          const bindingString = isDeeplyAccessed ? ` v-bind="${param}"` : ` :$1="${param}"`;
           slotSourceCode = replaceAll(
             slotSourceCode,
             new RegExp(` (\\S+)="{{ ${param} }}"`, "g"),
-            ` :$1="${param}"`,
+            bindingString,
           );
         });
 
