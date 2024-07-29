@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), { open: "click" 
 const type = computed(() => {
   if (typeof props.open === "object") return props.open.type;
   if (typeof props.open === "string") return props.open;
-  return "hover";
+  return "click";
 });
 </script>
 
