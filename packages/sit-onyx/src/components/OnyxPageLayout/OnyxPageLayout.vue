@@ -86,6 +86,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
       overflow: hidden auto;
       position: relative;
       background-color: var(--background-color-main);
+      width: 100%;
     }
     &__footer {
       grid-area: footer;
