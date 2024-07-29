@@ -131,7 +131,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       watchEffect(() => el.setCustomValidity(getCustomErrorText(options.props.customError) ?? ""));
 
       watch(
-        [() => options.props.customError, () => options.props.modelValue],
+        [() => options.props],
         () => {
           const newValidityState = transformValidityStateToObject(el.validity);
 
@@ -145,7 +145,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
           validityState.value = newValidityState;
         },
-        { immediate: true },
+        { immediate: true, deep: true },
       );
 
       /**
