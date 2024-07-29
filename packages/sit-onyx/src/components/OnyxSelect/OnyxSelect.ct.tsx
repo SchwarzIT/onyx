@@ -24,6 +24,8 @@ const MOCK_VARIED_OPTIONS = [
   { value: 4, label: "Very long label ".repeat(5) },
 ] satisfies SelectOption[];
 
+const MOCK_VARIED_OPTIONS_VALUES = MOCK_VARIED_OPTIONS.map(({ value }) => value);
+
 const MOCK_MANY_OPTIONS = Array.from({ length: 25 }, (_, index) => ({
   value: index,
   label: `Test option ${index + 1}`,
@@ -63,7 +65,7 @@ test.describe("Default screenshots", () => {
           label="Label"
           listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
-          modelValue={MOCK_VARIED_OPTIONS[1]}
+          modelValue={MOCK_VARIED_OPTIONS_VALUES[1]}
           density={column}
           required={row === "required"}
           hideLabel={row === "hideLabel"}
@@ -147,7 +149,7 @@ test.describe("Grouped screenshots", () => {
           label="Label"
           listLabel="List label"
           options={GROUPED_OPTIONS}
-          modelValue={GROUPED_OPTIONS[0]}
+          modelValue={GROUPED_OPTIONS[0].value}
           density={column}
         />
       </div>
@@ -170,9 +172,10 @@ test.describe("Multiple screenshots", () => {
       "nested-interactive",
     ],
     component: (column, row) => {
-      let modelValue = [MOCK_VARIED_OPTIONS[0]];
+      let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]];
       if (column === "compact") modelValue = [];
-      if (column === "cozy" || row === "preview") modelValue = MOCK_VARIED_OPTIONS;
+      if (column === "cozy" || row === "preview")
+        modelValue = MOCK_VARIED_OPTIONS.map(({ value }) => value);
 
       return (
         <div>
@@ -330,7 +333,7 @@ test.describe("Invalidity handling screenshots", () => {
         customError={{ shortMessage: "Test error" }}
         listLabel="List label"
         options={MOCK_VARIED_OPTIONS}
-        modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS[0] : undefined}
+        modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
       />
     ),
     beforeScreenshot: async (component, _page, _column, row) => {
@@ -374,7 +377,7 @@ test.describe("Other screenshots", () => {
 });
 
 test("should interact with single select", async ({ mount }) => {
-  let modelValue: SelectOption | undefined = MOCK_VARIED_OPTIONS[1];
+  let modelValue: number | undefined = MOCK_VARIED_OPTIONS_VALUES[1];
 
   const eventHandlers = {
     "update:modelValue": async (value: typeof modelValue) => {
@@ -400,24 +403,24 @@ test("should interact with single select", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[1]);
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
 
   // ACT
   await component.getByText("Selected").click();
   // ASSERT
-  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[1]);
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
   await expect(comboboxInput).toBeFocused();
 
   // // ACT
   await component.click();
   await component.getByRole("option", { name: "Default" }).click();
   // ASSERT
-  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS[0]);
+  expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[0]);
   await expect(comboboxInput).toBeFocused();
 });
 
 test("should interact with multiselect and search", async ({ mount }) => {
-  let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
   let searchTerm: string = "";
 
   const eventHandlers = {
@@ -454,7 +457,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1]]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
@@ -463,7 +466,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await miniSearchInput.press("Enter");
 
   // ASSERT
-  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1], MOCK_VARIED_OPTIONS[0]]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1], MOCK_VARIED_OPTIONS_VALUES[0]]);
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
@@ -474,7 +477,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: SelectOption[] | undefined = [MOCK_VARIED_OPTIONS[1]];
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
 
   const eventHandlers = {
     "update:modelValue": async (value: typeof modelValue) => {
@@ -500,7 +503,7 @@ test("should interact with multiselect", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
-  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS[1]]);
+  expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
 
   // ACT (should de-select current value)
   await component.getByText("Selected").click();
@@ -511,9 +514,9 @@ test("should interact with multiselect", async ({ mount }) => {
   await component.getByRole("option", { name: "Select all" }).click();
   // ASSERT
   expect(modelValue).toStrictEqual([
-    MOCK_VARIED_OPTIONS[0],
-    MOCK_VARIED_OPTIONS[1],
-    MOCK_VARIED_OPTIONS[3],
+    MOCK_VARIED_OPTIONS_VALUES[0],
+    MOCK_VARIED_OPTIONS_VALUES[1],
+    MOCK_VARIED_OPTIONS_VALUES[3],
   ]);
 });
 
@@ -541,8 +544,8 @@ test("should pass headless accessibility tests", async ({ mount, page }) => {
 // eslint-disable-next-line playwright/expect-expect
 test("should pass headless accessibility tests (select only)", async ({ mount, page }) => {
   const eventHandlers = {
-    "update:modelValue": (modelValue: SelectOption) => {
-      component.update({ props: { modelValue }, on: eventHandlers });
+    "update:modelValue": async (modelValue: number) => {
+      await component.update({ props: { modelValue }, on: eventHandlers });
     },
   };
 
@@ -729,4 +732,124 @@ test("should not submit form when selecting via keyboard", async ({ page, mount 
 
   // ASSERT
   await expect(submitEventCount).toBe(0);
+});
+
+test("should allow custom input text when a pre-selected value is unknown to OnyxSelect", async ({
+  mount,
+  page,
+}) => {
+  const modelValue = MOCK_MANY_OPTIONS.length + 5;
+
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options: MOCK_MANY_OPTIONS,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue,
+    },
+  });
+
+  // ASSERT (initial state)
+  await expect(
+    page.getByLabel("Test select"),
+    "onyx should not be able to show the label to a single select option that is unknown",
+  ).toBeEmpty();
+
+  // ACT
+  await component.update({ props: { valueLabel: "Custom selection label" } });
+
+  // ASSERT
+  await expect(
+    page.getByLabel("Test select"),
+    "the provided custom single selection label should be shown",
+  ).toHaveValue("Custom selection label");
+
+  // ACT
+  await component.update({
+    props: {
+      multiple: true,
+      modelValue: [modelValue],
+      valueLabel: undefined,
+    },
+  });
+
+  // ASSERT
+  await expect(
+    page.getByLabel("Test select"),
+    "onyx should not be able to show the label to a multi select option that is unknown",
+  ).toBeEmpty();
+
+  // ACT
+  await component.update({
+    props: {
+      multiple: true,
+      modelValue: [modelValue],
+      valueLabel: ["Custom selection label", "Other custom label"],
+    },
+  });
+
+  // ASSERT
+  await expect(
+    page.getByLabel("Test select"),
+    "the provided custom multi selection label should be shown",
+  ).toHaveValue("2 selected");
+});
+
+test("should manage filtering internally except when filteredOptions are given", async ({
+  mount,
+  page,
+}) => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+    { value: 3, label: "Three" },
+  ];
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue: 2,
+      withSearch: true,
+    },
+  });
+
+  // ACT
+  await component.click();
+  await page.getByRole("option").first().waitFor();
+  // ASSERT
+  expect(await page.getByRole("option").count(), "should initially show all options").toBe(
+    options.length,
+  );
+  await expect(page.getByLabel("One")).toBeVisible();
+
+  // ACT
+  const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
+  await miniSearchInput.fill("1");
+  // ASSERT
+  expect(await page.getByRole("option").count(), "should filter automatically").toBeLessThan(
+    options.length,
+  );
+  await expect(
+    page.getByLabel("One"),
+    "should not be able to match a search by the ID",
+  ).toBeHidden();
+
+  // ACT
+  await component.update({ props: { manualSearch: true } });
+  // ASSERT
+  expect(await page.getByRole("option").count(), "should not filter with the internal logic").toBe(
+    options.length,
+  );
+
+  // ACT
+  await component.update({ props: { options: options.filter(({ value }) => value === 1) } });
+  // ASSERT
+  await expect(page.getByLabel("One"), "should now show the manually matched option").toBeVisible();
+  await expect(
+    page.getByLabel("Test select"),
+    "manual filtering will prevent onyx from showing the label of an option that is no longer available at the time",
+  ).toBeEmpty();
 });

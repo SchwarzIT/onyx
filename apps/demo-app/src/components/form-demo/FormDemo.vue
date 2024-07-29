@@ -11,7 +11,6 @@ import {
   type CheckboxGroupOption,
   type OnyxRadioGroupProps,
   type RadioButtonOption,
-  type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
 
@@ -25,7 +24,7 @@ export type FormData = Partial<{
   patternInput: string;
   switch: boolean;
   checkboxGroup: number[];
-  requiredSelect: SelectOption[];
+  requiredSelect: string[];
   radioGroup: OnyxRadioGroupProps["modelValue"];
 }>;
 

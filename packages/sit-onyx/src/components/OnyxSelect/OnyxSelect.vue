@@ -9,6 +9,7 @@ import { useManagedState } from "../../composables/useManagedState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
+import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   searchTerm: undefined,
   open: undefined,
   truncation: "ellipsis",
+  valueLabel: undefined,
 });
 
 const emit = defineEmits<{
@@ -92,14 +94,42 @@ const activeValue = ref<TValue>();
  * to work with it in a unified way.
  */
 const arrayValue = computed(() => {
-  if (!props.modelValue) return [];
-  return props.multiple && Array.isArray(props.modelValue)
-    ? props.modelValue
-    : ([props.modelValue] as SelectOption<TValue>[]);
+  if (props.modelValue === undefined) return [];
+  if (props.multiple && Array.isArray(props.modelValue)) return props.modelValue;
+  return [props.modelValue as TValue];
+});
+
+/**
+ * Contains an array of labels that will be shown in the OnyxSelectInput.
+ * - contains props.valueLabel as array if it is set
+ * - else, contains all found labels of the options that match the current modelValue
+ */
+const selectionLabels = computed(() => {
+  // given state
+  if (props.valueLabel !== undefined) {
+    if (Array.isArray(props.valueLabel)) return props.valueLabel;
+    return [props.valueLabel];
+  }
+  // managed state
+  return arrayValue.value.reduce<string[]>((acc, current) => {
+    const foundLabel = props.options.find(({ value }) => value === current)?.label;
+    if (foundLabel) acc.push(foundLabel);
+    return acc;
+  }, []);
 });
 
 const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
 const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
+
+const filteredOptions = computed(() => {
+  // when manualSearch is set, we don't filter the options further
+  if (props.manualSearch) return props.options;
+
+  // managed filtering
+  return searchTerm.value
+    ? props.options.filter(({ label }: SelectOption) => normalizedIncludes(label, searchTerm.value))
+    : props.options;
+});
 
 /**
  * Sync the active option with the selected option on single select.
@@ -108,7 +138,7 @@ watch(
   arrayValue,
   () => {
     if (!props.multiple) {
-      activeValue.value = arrayValue.value.at(0)?.value;
+      activeValue.value = arrayValue.value.at(0);
     }
   },
   { immediate: true },
@@ -160,7 +190,7 @@ const onActivatePrevious = (currentValue: TValue) => {
 };
 
 const onTypeAhead = (label: string) => {
-  const firstMatch = props.options.find((i) => {
+  const firstMatch = filteredOptions.value.find((i) => {
     return i.label.toLowerCase().trim().startsWith(label.toLowerCase());
   });
   if (!firstMatch) return;
@@ -174,23 +204,23 @@ const onSelect = (selectedOption: TValue) => {
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
     return;
   }
-  const newValue = props.options.find(({ value }) => value === selectedOption);
+  const newValue = filteredOptions.value.find(({ value }) => value === selectedOption);
   if (!newValue) {
     return;
   }
   if (!props.multiple) {
-    return emit("update:modelValue", newValue);
+    return emit("update:modelValue", selectedOption);
   }
 
   // add or remove value depending on whether its already selected
-  const alreadyInList = arrayValue.value.some(({ value }) => value === selectedOption);
+  const alreadyInList = arrayValue.value.some((value) => value === selectedOption);
   if (alreadyInList) {
     emit(
       "update:modelValue",
-      arrayValue.value.filter(({ value }) => value !== selectedOption),
+      arrayValue.value.filter((value) => value !== selectedOption),
     );
   } else {
-    emit("update:modelValue", [...arrayValue.value, newValue]);
+    emit("update:modelValue", [...arrayValue.value, selectedOption]);
   }
 };
 
@@ -216,7 +246,7 @@ const {
   onSelect,
 });
 
-const groupedOptions = computed(() => groupByKey(props.options, "group"));
+const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -225,13 +255,13 @@ const { vScrollEnd, isScrollEnd } = useScrollEnd({
 });
 
 const isEmptyMessage = computed(() => {
-  if (props.options.length) return;
+  if (filteredOptions.value.length) return;
   if (props.withSearch && searchTerm.value) return t.value("select.noMatch");
   return t.value("select.empty");
 });
 
 const enabledOptionValues = computed(() =>
-  props.options.filter((i) => !i.disabled).map(({ value }) => value),
+  filteredOptions.value.filter((i) => !i.disabled).map(({ value }) => value),
 );
 
 /**
@@ -240,16 +270,13 @@ const enabledOptionValues = computed(() =>
  */
 const checkAll = computed(() => {
   if (!props.multiple || !props.withCheckAll) return undefined;
-  return useCheckAll(
-    enabledOptionValues,
-    computed(() => arrayValue.value.map(({ value }) => value)),
-    (newValues: TValue[]) => {
-      const selectedOptions = newValues
-        .map((v) => props.options.find(({ value }) => value === v))
-        .filter((option): option is NonNullable<typeof option> => option != undefined);
-      emit("update:modelValue", selectedOptions);
-    },
-  );
+  return useCheckAll(enabledOptionValues, arrayValue, (newValues: TValue[]) => {
+    // with selectedOptions we verify that the options all still exist
+    const selectedOptions: TValue[] = newValues
+      .map((v) => props.options.find(({ value }) => value === v)?.value)
+      .filter((option): option is NonNullable<typeof option> => option != undefined);
+    emit("update:modelValue", selectedOptions);
+  });
 });
 
 const checkAllLabel = computed<string>(() => {
@@ -266,9 +293,9 @@ watchEffect(() => {
 });
 
 const selectInputProps = computed(() => {
-  const baseProps: OnyxSelectInputProps<TValue> = {
+  const baseProps: OnyxSelectInputProps = {
     ...props,
-    modelValue: arrayValue.value,
+    modelValue: selectionLabels.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
   return { ...baseProps, ...input.value };
@@ -314,7 +341,7 @@ const selectInputProps = computed(() => {
 
           <template v-else>
             <ul
-              v-for="(options, group) in groupedOptions"
+              v-for="(groupOptions, group) in groupedOptions"
               :key="group"
               class="onyx-select__group"
               v-bind="headlessGroup({ label: group })"
@@ -348,14 +375,14 @@ const selectInputProps = computed(() => {
               </template>
 
               <OnyxSelectOption
-                v-for="option in options"
+                v-for="option in groupOptions"
                 :key="option.value.toString()"
                 v-bind="
                   headlessOption({
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    selected: arrayValue.some(({ value }) => value === option.value),
+                    selected: arrayValue.some((value) => value === option.value),
                   })
                 "
                 :multiple="props.multiple"
