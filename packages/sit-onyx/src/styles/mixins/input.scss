@@ -64,6 +64,12 @@
         outline-color: var(--onyx-color-base-neutral-200);
       }
     }
+
+    &:has(#{$base-selector}__native:read-write) {
+      &:has(#{get-autofill-selectors("#{$base-selector}__native")}) {
+        background-color: var(--onyx-color-base-warning-100);
+      }
+    }
   }
 
   &__loading {
@@ -105,6 +111,15 @@
     &::selection {
       background: var(--selection-color);
     }
+
+    #{get-autofill-selectors("&")} {
+      background-color: transparent;
+      -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
+
+      // many browsers use "!important" to set the autofill background so we need this
+      // transition workaround to make the background transparent
+      transition: background-color calc(infinity * 1s);
+    }
   }
 
   &:has(&__native:disabled) {
@@ -143,4 +158,25 @@
     // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
     --skeleton-label-density-adjustment: var(--onyx-spacing-5xs);
   }
+}
+
+/**
+* Gets a comma separated CSS selector for the input autofill.
+* Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
+*/
+@function get-autofill-selectors($prefix: "") {
+  $output: "";
+  $selectors: (":autofill", "[data-test-autofill]", "[data-com-onepassword-filled]");
+
+  @each $selector in $selectors {
+    $prefixed-selector: $prefix + $selector;
+
+    @if $output == "" {
+      $output: $prefixed-selector;
+    } @else {
+      $output: $output + ", " + $prefixed-selector;
+    }
+  }
+
+  @return $output;
 }
