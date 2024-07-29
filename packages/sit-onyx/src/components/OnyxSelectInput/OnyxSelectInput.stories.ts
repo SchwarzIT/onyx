@@ -24,9 +24,9 @@ const meta: Meta<typeof OnyxSelectInput> = {
 export default meta;
 type Story = StoryObj<typeof OnyxSelectInput>;
 
-const EXAMPLE_OPTIONS = SelectDefaultStory.args.options;
+const EXAMPLE_LABELS: string[] = SelectDefaultStory.args.options.map(({ label }) => label);
 
-const SINGLE_SELECTION_VALUE = [EXAMPLE_OPTIONS[0]];
+const SINGLE_SELECTION_VALUE = [EXAMPLE_LABELS[0]];
 
 /**
  * This example shows an select. Nothing was selected yet.
@@ -55,7 +55,7 @@ export const FilledSingleSelect = {
 export const FilledMultiSelect = {
   args: {
     ...Default.args,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 2),
+    modelValue: EXAMPLE_LABELS.slice(0, 2),
   },
 } satisfies Story;
 
@@ -66,7 +66,7 @@ export const FilledMultiSelect = {
 export const FilledMultiSelectPreview = {
   args: {
     ...FilledMultiSelect.args,
-    modelValue: EXAMPLE_OPTIONS.slice(0, 5),
+    modelValue: EXAMPLE_LABELS.slice(0, 5),
     textMode: "preview",
   },
 } satisfies Story;
