@@ -26,24 +26,22 @@ const invalidFormData = ref<FormData>({
 </script>
 
 <template>
-  <OnyxPageLayout>
-    <div class="onyx-grid-container">
-      <section class="header">
-        <OnyxHeadline is="h1" element="h1">Form Demos</OnyxHeadline>
+  <OnyxPageLayout class="onyx-grid-container">
+    <section class="header">
+      <OnyxHeadline is="h1" element="h1">Form Demos</OnyxHeadline>
 
-        <LanguageSelection v-model="locale" />
-      </section>
+      <LanguageSelection v-model="locale" />
+    </section>
 
-      <OnyxHeadline is="h2" element="h1">Initially Invalid example</OnyxHeadline>
-      <FormDemo v-model="invalidFormData" />
-      <pre class="state">State: {{ invalidFormData }}</pre>
+    <OnyxHeadline is="h2" element="h1">Initially Invalid example</OnyxHeadline>
+    <FormDemo v-model="invalidFormData" />
+    <pre class="state">State: {{ invalidFormData }}</pre>
 
-      <hr />
+    <hr />
 
-      <OnyxHeadline is="h2" element="h1">Initially Valid example</OnyxHeadline>
-      <FormDemo v-model="validFormData" />
-      <pre class="state">State: {{ validFormData }}</pre>
-    </div>
+    <OnyxHeadline is="h2" element="h1">Initially Valid example</OnyxHeadline>
+    <FormDemo v-model="validFormData" />
+    <pre class="state">State: {{ validFormData }}</pre>
   </OnyxPageLayout>
 </template>
 

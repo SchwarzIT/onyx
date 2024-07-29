@@ -7,6 +7,8 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
  * Layout component that structures your page.
  * Includes slots for a sidebar, page content, footer and notifications.
  * Recommended to use on view/page level of an application.
+ *
+ * Note: If you are binding custom classes directly on `OnyxPageLayout` with `<style scoped>`, make sure use `:deep()` as selector because the classes will be bind to the `<main>` element inside the page layout, not the page layout wrapper element.
  */
 const meta: Meta<typeof OnyxPageLayout> = {
   title: "Layout/PageLayout",
@@ -49,7 +51,7 @@ type Story = StoryObj<typeof OnyxPageLayout>;
 /** A standard page with some content. */
 export const Default = {
   args: {
-    default: () => h("div", "This is the page content."),
+    default: () => "This is the page content.",
   },
 } satisfies Story;
 

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { useRootAttrs } from "../../utils/attrs";
 import type { OnyxPageLayoutProps } from "./types";
 
 const props = defineProps<OnyxPageLayoutProps>();
@@ -23,15 +24,18 @@ const pageModifier = computed(() => {
   }
   return "onyx-page--footer-full";
 });
+
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
 </script>
 
 <template>
-  <div class="onyx-page" :class="pageModifier">
+  <div v-bind="restAttrs" :class="['onyx-page', pageModifier]">
     <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>
 
-    <main class="onyx-page__main">
+    <main v-bind="rootAttrs" class="onyx-page__main">
       <slot></slot>
     </main>
 

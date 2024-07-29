@@ -125,7 +125,7 @@ const tableData = [
 </script>
 
 <template>
-  <OnyxPageLayout>
+  <OnyxPageLayout :class="['page', `onyx-density-${activeDensityOption}`]">
     <template #sidebar>
       <div class="sidebar">
         <OnyxRadioGroup
@@ -151,140 +151,138 @@ const tableData = [
       </div>
     </template>
 
-    <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
-      <section class="page__intro">
-        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
-        <p>Each onyx component should be used at least once in this page.</p>
-      </section>
+    <section class="page__intro">
+      <OnyxHeadline is="h1">Component usages</OnyxHeadline>
+      <p>Each onyx component should be used at least once in this page.</p>
+    </section>
 
-      <div class="page__examples">
-        <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
+    <div class="page__examples">
+      <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
 
-        <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
-        <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
+      <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
+      <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
 
-        <template v-if="show('OnyxCheckboxGroup')">
-          <OnyxCheckboxGroup
-            v-model="checkboxState"
-            headline="Checkbox Group"
-            :options="minimalSelectOptions"
-            :skeleton="skeletonNumber"
-          />
-          <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            OnyxCheckboxGroup state: {{ checkboxState }}
-          </div>
-        </template>
-
-        <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
-
-        <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
-
-        <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
-
-        <OnyxIconButton
-          v-if="show('OnyxIconButton')"
-          label="Happy Emoji"
-          :icon="emojiHappy2"
-          :skeleton="useSkeleton"
+      <template v-if="show('OnyxCheckboxGroup')">
+        <OnyxCheckboxGroup
+          v-model="checkboxState"
+          headline="Checkbox Group"
+          :options="minimalSelectOptions"
+          :skeleton="skeletonNumber"
         />
+        <div v-if="!useSkeleton" class="onyx-text--small state-info">
+          OnyxCheckboxGroup state: {{ checkboxState }}
+        </div>
+      </template>
 
-        <OnyxInput
-          v-if="show('OnyxInput')"
-          label="Input"
-          :skeleton="useSkeleton"
-          label-tooltip="More information tooltip"
+      <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
+
+      <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
+
+      <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
+
+      <OnyxIconButton
+        v-if="show('OnyxIconButton')"
+        label="Happy Emoji"
+        :icon="emojiHappy2"
+        :skeleton="useSkeleton"
+      />
+
+      <OnyxInput
+        v-if="show('OnyxInput')"
+        label="Input"
+        :skeleton="useSkeleton"
+        label-tooltip="More information tooltip"
+      />
+
+      <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
+
+      <SelectDemo
+        v-if="show('OnyxSelect')"
+        :select-options="selectOptions"
+        :use-skeleton="useSkeleton"
+      />
+
+      <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
+
+      <template v-if="show('OnyxRadioGroup')">
+        <OnyxRadioGroup
+          v-model="radioState"
+          headline="Radio group"
+          :options="minimalSelectOptions"
+          :skeleton="skeletonNumber"
         />
+        <div v-if="!useSkeleton" class="onyx-text--small state-info">
+          OnyxRadioGroup state: {{ radioState ?? "–" }}
+        </div>
+      </template>
 
-        <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
+      <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
 
-        <SelectDemo
-          v-if="show('OnyxSelect')"
-          :select-options="selectOptions"
-          :use-skeleton="useSkeleton"
-        />
+      <OnyxStepper
+        v-if="show('OnyxStepper')"
+        v-model="stepperValue"
+        label="Stepper"
+        placeholder="0"
+        :skeleton="useSkeleton"
+      />
 
-        <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
+      <OnyxSwitch
+        v-if="show('OnyxSwitch')"
+        v-model="switchState"
+        :label="'Switch is ' + (switchState ? 'on' : 'off')"
+        :skeleton="useSkeleton"
+      />
 
-        <template v-if="show('OnyxRadioGroup')">
-          <OnyxRadioGroup
-            v-model="radioState"
-            headline="Radio group"
-            :options="minimalSelectOptions"
-            :skeleton="skeletonNumber"
-          />
-          <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            OnyxRadioGroup state: {{ radioState ?? "–" }}
-          </div>
-        </template>
-
-        <OnyxSkeleton v-if="show('OnyxSkeleton')" class="skeleton" />
-
-        <OnyxStepper
-          v-if="show('OnyxStepper')"
-          v-model="stepperValue"
-          label="Stepper"
-          placeholder="0"
-          :skeleton="useSkeleton"
-        />
-
-        <OnyxSwitch
-          v-if="show('OnyxSwitch')"
-          v-model="switchState"
-          :label="'Switch is ' + (switchState ? 'on' : 'off')"
-          :skeleton="useSkeleton"
-        />
-
-        <template v-if="show('OnyxTable')">
-          <OnyxTable with-page-scrolling>
-            <template #head>
-              <tr>
-                <th v-for="col in tableColumns" :key="col">{{ col }}</th>
-              </tr>
-            </template>
-            <tr v-for="{ fruit, price, inventory } in tableData" :key="fruit">
-              <td>{{ fruit }}</td>
-              <td>{{ price }}</td>
-              <td>{{ inventory }}</td>
+      <template v-if="show('OnyxTable')">
+        <OnyxTable with-page-scrolling>
+          <template #head>
+            <tr>
+              <th v-for="col in tableColumns" :key="col">{{ col }}</th>
             </tr>
-          </OnyxTable>
+          </template>
+          <tr v-for="{ fruit, price, inventory } in tableData" :key="fruit">
+            <td>{{ fruit }}</td>
+            <td>{{ price }}</td>
+            <td>{{ inventory }}</td>
+          </tr>
+        </OnyxTable>
 
-          <OnyxTable>
-            <template #head>
-              <tr>
-                <th>Empty</th>
-                <th>Table</th>
-                <th>Example</th>
-              </tr>
-            </template>
+        <OnyxTable>
+          <template #head>
+            <tr>
+              <th>Empty</th>
+              <th>Table</th>
+              <th>Example</th>
+            </tr>
+          </template>
 
-            <!-- this demonstrates that the empty state works even when v-for is used -->
-            <tr v-for="(_row, index) in []" :key="index"></tr>
-          </OnyxTable>
-        </template>
+          <!-- this demonstrates that the empty state works even when v-for is used -->
+          <tr v-for="(_row, index) in []" :key="index"></tr>
+        </OnyxTable>
+      </template>
 
-        <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+      <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 
-        <OnyxTextarea
-          v-if="show('OnyxTextarea')"
-          label="Example textarea"
-          label-tooltip="More information tooltip"
-          :skeleton="useSkeleton"
-        />
+      <OnyxTextarea
+        v-if="show('OnyxTextarea')"
+        label="Example textarea"
+        label-tooltip="More information tooltip"
+        :skeleton="useSkeleton"
+      />
 
-        <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
+      <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
 
-        <OnyxButton
-          v-if="show('OnyxToast')"
-          label="Show toast"
-          @click="toast.show({ headline: 'Example toast', color: 'success' })"
-        />
+      <OnyxButton
+        v-if="show('OnyxToast')"
+        label="Show toast"
+        @click="toast.show({ headline: 'Example toast', color: 'success' })"
+      />
 
-        <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
-          Hover me to show tooltip
-        </OnyxTooltip>
+      <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+        Hover me to show tooltip
+      </OnyxTooltip>
 
-        <!-- Add new components alphabetically. -->
-      </div>
+      <!-- Add new components alphabetically. -->
     </div>
   </OnyxPageLayout>
 </template>
@@ -299,9 +297,12 @@ const tableData = [
   height: calc(100%);
   width: 16rem;
 }
-.page {
-  padding: var(--onyx-spacing-xl);
 
+:deep(.page) {
+  padding: var(--onyx-spacing-xl);
+}
+
+.page {
   &__intro {
     margin-bottom: var(--onyx-spacing-lg);
   }
@@ -312,10 +313,12 @@ const tableData = [
     align-items: flex-start;
   }
 }
+
 .skeleton {
   height: 2rem;
   width: 8rem;
 }
+
 .state-info {
   color: var(--onyx-color-text-icons-neutral-soft);
 }
