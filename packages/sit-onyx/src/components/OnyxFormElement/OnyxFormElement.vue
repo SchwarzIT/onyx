@@ -40,6 +40,7 @@ defineSlots<{
       <OnyxInfoTooltip
         v-if="props.labelTooltip"
         class="onyx-form-element__label-tooltip"
+        :open="'hover'"
         :text="props.labelTooltip"
       />
       <span

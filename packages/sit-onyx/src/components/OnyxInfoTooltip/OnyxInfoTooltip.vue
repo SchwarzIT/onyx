@@ -3,6 +3,7 @@ import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxInfoTooltipProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), { open: "click" });

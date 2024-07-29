@@ -1,9 +1,14 @@
-import type { Locator } from "@playwright/test";
-import type { FormErrorMessages } from "src/composables/useCustomValidity";
+import type { Locator, Page } from "@playwright/test";
 import { DENSITIES } from "../../composables/density";
+import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInput from "./OnyxInput.vue";
+
+const INPUT_TOOLTIP_TRIGGER = (page: Page, type: "label" | "error" | "message") =>
+  page.locator(`.onyx-form-element__${type}-tooltip figure`);
+const INPUT_TOOLTIP = (page: Page, type: "label" | "error" | "message") =>
+  page.locator(`.onyx-form-element__${type}-tooltip`).getByRole("tooltip", { includeHidden: true });
 
 test.describe("Screenshot tests", () => {
   const isTooltipVisible = async (tooltip: Locator) => {
@@ -90,14 +95,17 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
+      const tooltipTrigger = INPUT_TOOLTIP_TRIGGER(
+        page,
+        _row === "labelTooltip" ? "label" : "message",
+      );
+      const tooltip = INPUT_TOOLTIP(page, _row === "labelTooltip" ? "label" : "message");
 
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
+      await tooltipTrigger.hover();
 
       await isTooltipVisible(tooltip);
     },
@@ -149,9 +157,10 @@ test.describe("Screenshot tests", () => {
       if (row !== "error") {
         const tooltipButton =
           row === "errorTooltip"
-            ? page.getByLabel("Error Tooltip")
-            : page.getByLabel("Info Tooltip");
-        const tooltip = page.getByRole("tooltip");
+            ? INPUT_TOOLTIP_TRIGGER(page, "error")
+            : INPUT_TOOLTIP_TRIGGER(page, "message");
+        const tooltip =
+          row === "errorTooltip" ? INPUT_TOOLTIP(page, "error") : INPUT_TOOLTIP(page, "message");
 
         await tooltipButton.hover();
 
@@ -182,8 +191,8 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
+      const tooltipButton = INPUT_TOOLTIP_TRIGGER(page, "label");
+      const tooltip = INPUT_TOOLTIP(page, "label");
 
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
