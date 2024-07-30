@@ -1,18 +1,12 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { useRipple, type RippleConfig } from "../../composables/useRipple";
-import { type OnyxRippleProps } from "./types";
-
-const props = withDefaults(defineProps<OnyxRippleProps>(), {
-  terminateOnPointerUp: false,
-});
 
 const rippleTrigger = ref<HTMLElement>();
 
 const config = computed<RippleConfig>(() => ({
   color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
   container: rippleTrigger,
-  terminateOnPointerUp: props.terminateOnPointerUp,
 }));
 
 const { ripples, hideRipple, events } = useRipple(config);
