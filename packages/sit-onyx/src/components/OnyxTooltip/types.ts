@@ -39,6 +39,7 @@ export type OnyxTooltipProps = DensityProp & {
    * - toggletip: Gives additional information about in the current context
    *
    * The "toggletip" is implemented using an aria-live region.
+   * See also: https://inclusive-components.design/tooltips-toggletips/
    */
   open?: TooltipOpen;
 };

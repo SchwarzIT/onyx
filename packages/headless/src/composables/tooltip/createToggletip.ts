@@ -8,6 +8,13 @@ export type CreateToggletipOptions = {
   isVisible?: Ref<boolean>;
 };
 
+/**
+ * Create a toggletip as described in https://inclusive-components.design/tooltips-toggletips/
+ * Its visibility is toggled on click.
+ * Therefore a toggletip MUST NOT be used to describe the associated trigger element.
+ * Commonly this pattern uses a button with the ⓘ as the trigger element.
+ * To describe the associated element use `createTooltip`.
+ */
 export const createToggletip = createBuilder(
   ({ toggleLabel, isVisible }: CreateToggletipOptions) => {
     const triggerRef = createElRef<HTMLButtonElement>();
@@ -27,11 +34,19 @@ export const createToggletip = createBuilder(
 
     return {
       elements: {
+        /**
+         * The element which controls the toggletip visibility:
+         * Preferably a `button` element.
+         */
         trigger: computed(() => ({
           ref: triggerRef,
           onClick: toggle,
           "aria-label": toValue(toggleLabel),
         })),
+        /**
+         * The element with the relevant toggletip content.
+         * Only simple, textual content is allowed.
+         */
         tooltip: {
           ref: tooltipRef,
           role: "status",

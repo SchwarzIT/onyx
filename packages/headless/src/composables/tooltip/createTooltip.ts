@@ -11,9 +11,12 @@ export type CreateTooltipOptions = {
   isVisible?: Ref<boolean>;
 };
 
-export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
-export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
-
+/**
+ * Create a tooltip as described in https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role
+ * Its visibility is toggled on hover or focus.
+ * A tooltip MUST be used to describe the associated trigger element. E.g. The usage with the ⓘ would be incorrect.
+ * To provide contextual information use the `createToggletip`.
+ */
 export const createTooltip = createBuilder(({ debounce, isVisible }: CreateTooltipOptions) => {
   const tooltipId = createId("tooltip");
   const _isVisible = toRef(isVisible ?? false);
@@ -43,10 +46,17 @@ export const createTooltip = createBuilder(({ debounce, isVisible }: CreateToolt
 
   return {
     elements: {
+      /**
+       * The element which controls the tooltip visibility on hover.
+       */
       trigger: {
         "aria-describedby": tooltipId,
         ...hoverEvents,
       },
+      /**
+       * The element describing the tooltip.
+       * Only simple, textual and non-focusable content is allowed.
+       */
       tooltip: {
         role: "tooltip",
         id: tooltipId,
