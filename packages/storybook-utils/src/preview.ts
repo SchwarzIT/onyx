@@ -1,5 +1,5 @@
 import { getIconImportName } from "@sit-onyx/icons";
-import { type Preview } from "@storybook/vue3";
+import type { Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
