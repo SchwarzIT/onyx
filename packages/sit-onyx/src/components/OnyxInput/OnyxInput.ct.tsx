@@ -1,20 +1,11 @@
-import type { Locator, Page } from "@playwright/test";
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxInput from "./OnyxInput.vue";
 
-const INPUT_TOOLTIP_TRIGGER = (page: Page, type: "label" | "error" | "message") =>
-  page.locator(`.onyx-form-element__${type}-tooltip figure`);
-const INPUT_TOOLTIP = (page: Page, type: "label" | "error" | "message") =>
-  page.locator(`.onyx-form-element__${type}-tooltip`).getByRole("tooltip", { includeHidden: true });
-
 test.describe("Screenshot tests", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   for (const state of ["default", "placeholder", "with value", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
@@ -95,19 +86,13 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipTrigger = INPUT_TOOLTIP_TRIGGER(
-        page,
-        _row === "labelTooltip" ? "label" : "message",
-      );
-      const tooltip = INPUT_TOOLTIP(page, _row === "labelTooltip" ? "label" : "message");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipTrigger.hover();
-
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible(
+        _row === "labelTooltip" ? "label" : "message",
+      );
     },
   });
 
@@ -145,6 +130,7 @@ test.describe("Screenshot tests", () => {
     },
     beforeScreenshot: async (component, page, _column, row) => {
       const input = component.getByLabel("Test label");
+      const formElementUtils = createFormElementUtils(page);
 
       // invalid is only triggered after touched
       await input.fill("Filled value");
@@ -155,16 +141,7 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        const tooltipButton =
-          row === "errorTooltip"
-            ? INPUT_TOOLTIP_TRIGGER(page, "error")
-            : INPUT_TOOLTIP_TRIGGER(page, "message");
-        const tooltip =
-          row === "errorTooltip" ? INPUT_TOOLTIP(page, "error") : INPUT_TOOLTIP(page, "message");
-
-        await tooltipButton.hover();
-
-        await isTooltipVisible(tooltip);
+        await formElementUtils.triggerTooltipVisible(row === "errorTooltip" ? "error" : "message");
       }
     },
   });
@@ -191,15 +168,11 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = INPUT_TOOLTIP_TRIGGER(page, "label");
-      const tooltip = INPUT_TOOLTIP(page, "label");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible("label");
     },
   });
 
