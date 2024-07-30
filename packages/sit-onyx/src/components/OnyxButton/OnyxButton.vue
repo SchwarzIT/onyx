@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   color: "primary",
   mode: "default",
   skeleton: false,
-  rippleAnimation: true,
 });
 
 const { densityClass } = useDensity(props);
@@ -31,10 +30,9 @@ const emit = defineEmits<{
   <button
     v-else
     :class="[
-      'onyx-button',
+      'onyx-button onyx-button--ripple-animation',
       `onyx-button--${props.color}`,
       `onyx-button--${props.mode}`,
-      props.rippleAnimation ? `onyx-button--ripple-animation` : undefined,
       { 'onyx-button--loading': props.loading },
       densityClass,
     ]"
@@ -47,7 +45,7 @@ const emit = defineEmits<{
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
-    <OnyxRipple v-if="rippleAnimation" />
+    <OnyxRipple />
   </button>
 </template>
 
