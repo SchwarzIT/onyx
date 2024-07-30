@@ -70,15 +70,13 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
-const searchTerm = useManagedState(
+const { state: searchTerm, isManaged: managedSearch } = useManagedState(
   toRef(() => props.searchTerm),
   "",
   (v) => emit("update:searchTerm", v),
 );
 
-const managedSearch = computed(() => props.searchTerm === undefined);
-
-const open = useManagedState(
+const { state: open } = useManagedState(
   toRef(() => props.open),
   false,
   (v) => emit("update:open", v),
