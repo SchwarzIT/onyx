@@ -4,14 +4,13 @@ import { useRipple, type RippleConfig } from "../../composables/useRipple";
 import { type OnyxRippleProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRippleProps>(), {
-  color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
   terminateOnPointerUp: false,
 });
 
 const rippleTrigger = ref<HTMLElement>();
 
 const config = computed<RippleConfig>(() => ({
-  color: props.color,
+  color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
   container: rippleTrigger,
   terminateOnPointerUp: props.terminateOnPointerUp,
 }));
