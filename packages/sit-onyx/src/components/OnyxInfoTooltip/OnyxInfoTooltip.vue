@@ -6,7 +6,10 @@ import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxInfoTooltipProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), { open: "click" });
+const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), {
+  open: "click",
+  color: "neutral",
+});
 
 const type = computed(() => {
   if (typeof props.open === "object") return props.open.type;
@@ -18,7 +21,12 @@ const type = computed(() => {
 <template>
   <span class="onyx-info-tooltip">
     <template v-if="type === 'click'">
-      <OnyxTooltip :text="props.text" :open="props.open" :position="props.position">
+      <OnyxTooltip
+        :text="props.text"
+        :open="props.open"
+        :color="props.color"
+        :position="props.position"
+      >
         <template #default="{ trigger }">
           <button type="button" class="onyx-info-tooltip__trigger" v-bind="trigger">
             <OnyxIcon :icon="circleInformation" />
@@ -32,6 +40,7 @@ const type = computed(() => {
         aria-hidden="true"
         :text="props.text"
         :open="props.open"
+        :color="props.color"
         :position="props.position"
       >
         <template #default="{ trigger }">
