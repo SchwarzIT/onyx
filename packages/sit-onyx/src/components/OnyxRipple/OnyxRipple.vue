@@ -4,8 +4,6 @@ import { useRipple, type RippleConfig } from "../../composables/useRipple";
 import { type OnyxRippleProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRippleProps>(), {
-  enterDuration: "300ms",
-  leaveDuration: "100ms",
   color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
   terminateOnPointerUp: false,
 });
@@ -67,14 +65,14 @@ const { ripples, hideRipple, events } = useRipple(config);
 .onyx-ripple-leave-active {
   transition-property: opacity, scale;
   transition-timing-function: ease;
-  transition-duration: v-bind("props.enterDuration");
+  transition-duration: var(--onyx-duration-sm);
   @media (prefers-reduced-motion) {
     transition-duration: 1ms;
   }
 }
 
 .onyx-ripple-leave-active {
-  transition-duration: v-bind("props.leaveDuration");
+  transition-duration: 100ms;
   @media (prefers-reduced-motion) {
     transition-duration: 1ms;
   }
