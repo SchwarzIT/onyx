@@ -27,6 +27,7 @@ export const onyxThemeGlobalType = {
     toolbar: {
       title: "Theme",
       icon: "paintbrush",
+      dynamicTitle: true,
       items: Object.keys(ONYX_THEMES).map((theme, index) => ({
         value: theme,
         title: theme,
