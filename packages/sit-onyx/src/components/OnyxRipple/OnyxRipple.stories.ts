@@ -6,7 +6,7 @@ import OnyxRipple from "./OnyxRipple.vue";
  * OnyxRipple provides visual feedback when a user interacts with the component. Supporting both touch and mouse events.
  */
 const meta: Meta<typeof OnyxRipple> = {
-  title: "Support/OnyxRipple",
+  title: "Support/Ripple",
   ...defineStorybookActionsAndVModels({
     component: OnyxRipple,
     events: [],
