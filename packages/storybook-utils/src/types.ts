@@ -55,5 +55,6 @@ export type StorybookGlobalType<TValue> = {
     icon: string;
     items: { value: TValue; right?: string; title: string }[];
     title?: string;
+    dynamicTitle?: boolean;
   };
 };
