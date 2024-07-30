@@ -10,13 +10,13 @@ const props = withDefaults(defineProps<OnyxRippleProps>(), {
   terminateOnPointerUp: false,
 });
 
+const rippleTrigger = ref<HTMLElement>();
+
 const config = computed<RippleConfig>(() => ({
   color: props.color,
   container: rippleTrigger,
   terminateOnPointerUp: props.terminateOnPointerUp,
 }));
-
-const rippleTrigger = ref<HTMLElement>();
 
 const { ripples, hideRipple, events } = useRipple(config);
 </script>
