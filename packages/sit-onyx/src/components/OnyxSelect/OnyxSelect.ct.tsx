@@ -815,11 +815,12 @@ test("should manage filtering internally except when filteredOptions are given",
   ).toBeHidden();
 
   // ACT
-  await component.update({ props: { manualSearch: true } });
+  await component.update({ props: { searchTerm: "1" } });
   // ASSERT
-  expect(await page.getByRole("option").count(), "should not filter with the internal logic").toBe(
-    options.length,
-  );
+  expect(
+    await page.getByRole("option").count(),
+    "should not filter with the internal logic when searchTerm is not managed by onyx",
+  ).toBe(options.length);
 
   // ACT
   await component.update({ props: { options: options.filter(({ value }) => value === 1) } });

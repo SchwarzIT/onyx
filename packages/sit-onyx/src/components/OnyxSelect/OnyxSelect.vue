@@ -76,6 +76,8 @@ const searchTerm = useManagedState(
   (v) => emit("update:searchTerm", v),
 );
 
+const managedSearch = computed(() => props.searchTerm === undefined);
+
 const open = useManagedState(
   toRef(() => props.open),
   false,
@@ -122,8 +124,8 @@ const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
 const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 
 const filteredOptions = computed(() => {
-  // when manualSearch is set, we don't filter the options further
-  if (props.manualSearch) return props.options;
+  // if onyx does not manage the search, we don't filter the options further
+  if (!managedSearch.value) return props.options;
 
   // managed filtering
   return searchTerm.value
