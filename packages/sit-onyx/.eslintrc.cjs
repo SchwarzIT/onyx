@@ -13,7 +13,7 @@ module.exports = {
     "vue/html-button-has-type": "error",
     "@sit-onyx/import-playwright-a11y": "error",
     // disallow scoped or module CSS for components
-    // see https://github.com/SchwarzIT/onyx/wiki/Technical-Vision-&-Guidelines#css
+    // see https://onyx.schwarz/principles/technical-vision.html#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
     // we want to provide the flexibility to have the autofocus property.
     // whe JSDoc description includes a warning that it should be used carefully.
