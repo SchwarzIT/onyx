@@ -21,4 +21,16 @@ type Story = StoryObj<typeof OnyxRipple>;
  */
 export const Default = {
   args: {},
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+        <div style="position: relative; overflow: hidden; padding: 2rem; max-width: 100px;">
+          <span style="z-index: 1; position: relative; pointer-events: none;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </span>
+          <story />
+        </div>`,
+    }),
+  ],
 } satisfies Story;
