@@ -1,12 +1,11 @@
 import { getIconImportName } from "@sit-onyx/icons";
-import { type Preview, type StoryContext } from "@storybook/vue3";
+import { type Preview } from "@storybook/vue3";
 import { deepmerge } from "deepmerge-ts";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
 import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
 import { requiredGlobalType, withRequired } from "./required";
-import { generateSourceCode } from "./source-code-generator";
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
 
 const themes = {
@@ -123,10 +122,7 @@ export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
  *
  * @see https://storybook.js.org/docs/react/api/doc-block-source
  */
-export const sourceCodeTransformer = (
-  sourceCode: string,
-  ctx: Pick<StoryContext, "title" | "component" | "args">,
-): string => {
+export const sourceCodeTransformer = (sourceCode: string): string => {
   const RAW_ICONS = import.meta.glob("../node_modules/@sit-onyx/icons/src/assets/*.svg", {
     query: "?raw",
     import: "default",
@@ -145,8 +141,7 @@ export const sourceCodeTransformer = (
     {},
   );
 
-  let code = generateSourceCode(ctx);
-
+  let code = sourceCode;
   const additionalImports: string[] = [];
 
   // add icon imports to the source code for all used onyx icons
