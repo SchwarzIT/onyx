@@ -14,7 +14,7 @@ It gives tips and guidelines on what should or must be considered when working w
 
 ## Prerequisites / Technical setup
 
-1. Install [Node.js](https://nodejs.org/en) version **{{ nodeVersion }}**.
+1. Install [Node.js](https://nodejs.org/en) version **{{ nodeVersion }}**. <br />
    We recommend using [fnm](https://github.com/Schniz/fnm) for managing your node versions which will automatically use the correct node version when working in the onyx repo.
 
 2. Install the [pnpm](https://pnpm.io/) package manager with a compatible version to `^{{ packageManager.replace("pnpm@", "") }}`
