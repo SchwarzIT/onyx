@@ -162,9 +162,10 @@ const onToggle = async (preventFocus?: boolean) => {
     open.value = false;
     return;
   }
+  const wasOpen = open.value;
 
-  open.value = !open.value;
-  if (!open.value) {
+  open.value = !wasOpen;
+  if (wasOpen) {
     if (searchTerm.value) searchTerm.value = "";
     if (!preventFocus) selectInput.value?.focus();
   } else {
