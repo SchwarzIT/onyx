@@ -307,10 +307,12 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 test("should show error message after interaction", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<OnyxInput label="Demo" style="width: 12rem;" required />);
+  const formElementUtils = createFormElementUtils(component);
   const input = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
-  const errorTooltip = component.getByLabel("Show error tooltip");
-  const fullError = component.getByText("Please fill in this field.");
+  const fullError = formElementUtils
+    .getTooltipPopover("error")
+    .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
   await expect(errorPreview).toBeHidden();
@@ -324,11 +326,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(errorTooltip).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await errorTooltip.hover();
+  await formElementUtils.triggerTooltipVisible("error");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 
