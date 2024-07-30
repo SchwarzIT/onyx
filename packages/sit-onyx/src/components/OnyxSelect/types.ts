@@ -14,22 +14,19 @@ export type SelectSearchProps =
       withSearch: true;
       /**
        * Value of the search input.
-       * Property is managed internally, when undefined.
-       */
-      searchTerm?: string;
-      /**
-       * As default, onyx will handle the search by comparing
+       * Property is managed internally, when undefined. That means:
+       * As default, onyx will handle filtering the options by comparing
        * the option labels with the `searchTerm`.
-       * When `manualSearch` is set, this behavior is disabled.
-       * Handle your own filtering by reducing the `options` as desired.
+       *
+       * When `searchTerm` is handled by you (not undefined), this behavior is disabled.
+       * Then, you can handle the filtering yourself by reducing the `options` as desired.
        * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
        */
-      manualSearch?: boolean;
+      searchTerm?: string;
     }
   | {
       withSearch?: false;
       searchTerm?: never;
-      manualSearch?: never;
     };
 
 export type SelectModelValueProps<TValue extends SelectOptionValue> =
@@ -72,7 +69,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps, "density" | "modelValue"> &
+  Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus"> &
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {
     /**
