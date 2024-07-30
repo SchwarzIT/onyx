@@ -22,7 +22,7 @@ Our technical vision describes the goals that we as the development team of **on
 
 1. 📜 Every PR that affects the usage of one of our npm libraries must include a [changeset](https://github.com/changesets/changesets)
 2. 🔮 All packages use two release channels:
-   - `alpha`: automatically released on each merge to the `main` branch
+   - `beta`: automatically released on each merge to the `main` branch
    - `default` / `prod`: released after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended. Requires manual approval
 
 ## Documentation
@@ -150,4 +150,3 @@ The following points might be discussed when their use-case gets more concrete.
 - Measure the performance of components which contain a lot of content
 - We provide SSR support / compatibility
 - We use [progressive enhancement](https://developer.mozilla.org/de/docs/Glossary/Progressive_Enhancement) where possible
-- Potentially offer layout components
