@@ -26,7 +26,7 @@ const toastProvider = useToast();
 
 .onyx-toast {
   @include layers.component() {
-    $bottom: var(--onyx-spacing-xl);
+    $margin-bottom: var(--onyx-spacing-xl);
 
     padding: 0;
     border: none;
@@ -34,19 +34,26 @@ const toastProvider = useToast();
     z-index: var(--onyx-z-index-notification);
 
     position: fixed;
-    bottom: $bottom;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     overflow: auto;
 
     width: max-content;
-    max-width: calc(100% - 2 * var(--onyx-grid-margin));
-    max-height: calc(100% - 2 * $bottom);
+    max-width: 100%;
+    max-height: calc(100% - $margin-bottom);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--onyx-spacing-2xs);
+    // we are using margin on the individual toasts instead of gap/margin on the parent
+    // so the box shadows of the toasts are not cut off
+    .onyx-toast-message {
+      $margin-inline: var(--onyx-grid-margin);
+      margin: var(--onyx-spacing-2xs) $margin-inline;
+      max-width: calc(100% - 2 * $margin-inline);
+
+      &:last-child {
+        margin-bottom: $margin-bottom;
+      }
+    }
   }
 }
 </style>

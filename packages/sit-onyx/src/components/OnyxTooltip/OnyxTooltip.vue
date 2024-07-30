@@ -116,7 +116,8 @@ $wedge-size: 0.5rem;
     &::after {
       content: " ";
       position: absolute;
-      top: 100%; /* At the bottom of the tooltip */
+      /* At the bottom of the tooltip */
+      top: 100%;
       left: 50%;
       margin-left: -$wedge-size;
       border-width: $wedge-size;
