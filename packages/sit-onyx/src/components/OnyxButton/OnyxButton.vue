@@ -42,10 +42,10 @@ const emit = defineEmits<{
     :autofocus="props.autofocus"
     @click="emit('click')"
   >
+    <OnyxRipple />
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
-    <OnyxRipple />
   </button>
 </template>
 
@@ -204,12 +204,10 @@ const emit = defineEmits<{
       #{$p}__label,
       #{$p}__icon {
         position: relative;
-        z-index: 1;
         pointer-events: none;
       }
       #{$p}__loading {
         pointer-events: none;
-        z-index: 1;
       }
     }
 
