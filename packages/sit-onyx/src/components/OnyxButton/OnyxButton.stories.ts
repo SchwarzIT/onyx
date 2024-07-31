@@ -73,7 +73,6 @@ export const WithIcon = {
   args: {
     label: "Button",
     icon: checkSmall,
-    rippleAnimation: true,
   },
 } satisfies Story;
 
