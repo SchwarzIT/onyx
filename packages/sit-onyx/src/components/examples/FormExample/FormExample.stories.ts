@@ -7,7 +7,7 @@ import FormExampleSourceCode from "./FormExample.vue?raw";
 /**
  * This example shows a form with several fields and various validations in combination with the [onyx grid](https://onyx.schwarz/development/grid.html) for responsive layout.
  *
- * When trying to submit when the form is invalid, the invalid fields will shown corresponding error messages with [build-in translations](https://onyx.schwarz/development/i18n.html).
+ * When trying to submit when the form is invalid, the invalid fields will show corresponding error messages with [build-in translations](https://onyx.schwarz/development/i18n.html).
  */
 const meta: Meta<typeof FormExample> = {
   title: "Examples/Form",
