@@ -220,6 +220,7 @@ export const Empty = {
 /**
  * This example shows a select with search functionality.
  * The filtering of the options will be handled automatically by onyx.
+ * _Info: the property `searchTerm` is disabled in this example, as it should stay undefined for the example to work._
  */
 export const WithSearch: Story = {
   args: {
