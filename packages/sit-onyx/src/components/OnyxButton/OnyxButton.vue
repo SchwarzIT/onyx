@@ -42,7 +42,7 @@ const emit = defineEmits<{
     :autofocus="props.autofocus"
     @click="emit('click')"
   >
-    <OnyxRipple class="onyx-button__ripple" />
+    <OnyxRipple v-if="!props.disabled && !props.loading" />
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
@@ -183,13 +183,8 @@ const emit = defineEmits<{
       outline: 0.25rem solid var(--onyx-button-outline-color);
     }
 
-    $p: &;
-
     &:disabled {
       cursor: default;
-      #{$p}__ripple {
-        pointer-events: none;
-      }
     }
 
     &__label {
