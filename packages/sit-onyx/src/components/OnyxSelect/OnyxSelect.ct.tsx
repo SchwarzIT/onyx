@@ -438,6 +438,13 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
+  await miniSearchInput.fill(" ");
+  // ASSERT
+  expect(modelValue, 'pressing "space" did not change the current selection').toStrictEqual([
+    MOCK_VARIED_OPTIONS_VALUES[1],
+  ]);
+
+  // ACT
   await miniSearchInput.fill("default");
   await miniSearchInput.press("ArrowDown");
   await miniSearchInput.press("Enter");
@@ -468,6 +475,11 @@ test("should interact with multiselect", async ({ mount }) => {
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
   };
+  const EXPECTED_SELECT_ALL_OPTIONS = [
+    MOCK_VARIED_OPTIONS_VALUES[0],
+    MOCK_VARIED_OPTIONS_VALUES[1],
+    MOCK_VARIED_OPTIONS_VALUES[3],
+  ];
 
   // ARRANGE
   const component = await mount(OnyxSelect, {
@@ -493,14 +505,25 @@ test("should interact with multiselect", async ({ mount }) => {
   // ASSERT
   expect(modelValue).toEqual([]);
 
-  // // ACT (should select all non-disabled values)
+  // ACT (should select all non-disabled values)
   await component.getByRole("option", { name: "Select all" }).click();
+
   // ASSERT
-  expect(modelValue).toStrictEqual([
-    MOCK_VARIED_OPTIONS_VALUES[0],
-    MOCK_VARIED_OPTIONS_VALUES[1],
-    MOCK_VARIED_OPTIONS_VALUES[3],
-  ]);
+  expect(modelValue).toStrictEqual(EXPECTED_SELECT_ALL_OPTIONS);
+
+  // ACT (should select all non-disabled values)
+  const keyboard = component.getByLabel("Test select");
+  await keyboard.press("ArrowDown");
+  await keyboard.press("Enter");
+  // ASSERT
+  expect(modelValue, "can toggle the selection with Enter").toStrictEqual([]);
+
+  // ACT
+  await keyboard.press("Space");
+  // ASSERT
+  expect(modelValue, "can toggle the selection with Space").toStrictEqual(
+    EXPECTED_SELECT_ALL_OPTIONS,
+  );
 });
 
 // eslint-disable-next-line playwright/expect-expect
