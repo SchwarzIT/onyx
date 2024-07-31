@@ -316,7 +316,7 @@ const selectInputProps = computed(() => {
 
     <div :class="['onyx-select', densityClass, open ? 'onyx-select--open' : '']" :inert="!open">
       <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
-        <!-- model-value is set here, as it is written be the onAutocomplete callback -->
+        <!-- model-value is set here, as it is written by the onAutocomplete callback -->
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
@@ -459,6 +459,11 @@ const selectInputProps = computed(() => {
       // Add scroll padding, so items are not hidden beneath the search input
       // var(--onyx-density-xs) = vertical padding of select option
       scroll-padding-top: calc(1lh + 2 * var(--onyx-density-xs));
+
+      // if a search and group names exist, there need to be spacing between them.
+      &:has(.onyx-select__group-name) .onyx-select__search {
+        margin-bottom: var(--onyx-density-xs);
+      }
     }
 
     &__slot {

@@ -106,7 +106,8 @@ export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> =
 > &
   Pick<OnyxSelectOptionProps, "icon"> & {
     /**
-     * Optional group name. If set, all options will be grouped under that group name.
+     * Optional group name. If set, all options with the same group name will be grouped below that name.
+     * If `group` is used for one option, it should be used for all other options as well.
      */
     group?: string;
   };
