@@ -4,6 +4,7 @@ import OnyxRipple from "./OnyxRipple.vue";
 
 /**
  * OnyxRipple provides visual feedback when a user interacts with the component. Supporting both touch and mouse events.
+ * A standalone OnyxRipple does not show any ripples, since the events have to be handled on the parent component. See OnyxButton how to handle that.
  */
 const meta: Meta<typeof OnyxRipple> = {
   title: "Support/Ripple",
