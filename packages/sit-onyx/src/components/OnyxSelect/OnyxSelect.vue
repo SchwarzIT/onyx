@@ -337,6 +337,29 @@ const selectInputProps = computed(() => {
           </ul>
 
           <template v-else>
+            <!-- select-all option for "multiple" -->
+            <ul
+              v-if="props.multiple && props.withCheckAll && !searchTerm"
+              class="onyx-select__group"
+            >
+              <OnyxSelectOption
+                v-bind="
+                  headlessOption({
+                    value: CHECK_ALL_ID as TValue,
+                    label: checkAllLabel,
+                    selected: checkAll?.state.value.modelValue,
+                  })
+                "
+                multiple
+                :active="CHECK_ALL_ID === activeValue"
+                :indeterminate="checkAll?.state.value.indeterminate"
+                :density="props.density"
+                class="onyx-select__check-all"
+              >
+                {{ checkAllLabel }}
+              </OnyxSelectOption>
+            </ul>
+
             <ul
               v-for="(groupOptions, group) in groupedOptions"
               :key="group"
@@ -350,26 +373,6 @@ const selectInputProps = computed(() => {
               >
                 {{ group }}
               </li>
-
-              <!-- select-all option for "multiple" -->
-              <template v-if="props.multiple && props.withCheckAll && !searchTerm">
-                <OnyxSelectOption
-                  v-bind="
-                    headlessOption({
-                      value: CHECK_ALL_ID as TValue,
-                      label: checkAllLabel,
-                      selected: checkAll?.state.value.modelValue,
-                    })
-                  "
-                  multiple
-                  :active="CHECK_ALL_ID === activeValue"
-                  :indeterminate="checkAll?.state.value.indeterminate"
-                  :density="props.density"
-                  class="onyx-select__check-all"
-                >
-                  {{ checkAllLabel }}
-                </OnyxSelectOption>
-              </template>
 
               <OnyxSelectOption
                 v-for="option in groupOptions"
@@ -446,7 +449,6 @@ const selectInputProps = computed(() => {
       top: 0;
     }
 
-    &__check-all,
     &__search {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
@@ -459,10 +461,14 @@ const selectInputProps = computed(() => {
       // Add scroll padding, so items are not hidden beneath the search input
       // var(--onyx-density-xs) = vertical padding of select option
       scroll-padding-top: calc(1lh + 2 * var(--onyx-density-xs));
+    }
 
-      // if a search and group names exist, there need to be spacing between them.
-      &:has(.onyx-select__group-name) .onyx-select__search {
-        margin-bottom: var(--onyx-density-xs);
+    // if a group name is below a search field or a "Select all" option,
+    // there needs to be spacing between them.
+    &__wrapper:has(.onyx-mini-search),
+    &__wrapper:has(.onyx-select__check-all) {
+      .onyx-select__group-name:first-child {
+        margin-top: var(--onyx-density-xs);
       }
     }
 
