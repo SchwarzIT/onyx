@@ -1,3 +1,4 @@
+import { createId } from "@sit-onyx/headless";
 import { computed, reactive, ref, type Ref } from "vue";
 import { distanceToFurthestCorner } from "../utils/math";
 
@@ -43,7 +44,7 @@ export const useRipple = (config: Ref<RippleConfig>) => {
       radius: Math.round(radius * 2) + "px",
       time: Date.now(),
       backgroundColor: config.value.color,
-      rippleId: "d" + Date.now(),
+      rippleId: createId("ripple"),
       fadeIn: false,
     };
 
