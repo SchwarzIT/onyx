@@ -10,6 +10,7 @@ import {
   type ListboxValue,
 } from "../listbox/createListbox";
 
+/** See https://w3c.github.io/aria/#aria-autocomplete */
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
 export const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
