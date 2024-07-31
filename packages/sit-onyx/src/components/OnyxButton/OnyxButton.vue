@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed, ref, type ComponentInstance } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -23,6 +24,13 @@ const emit = defineEmits<{
    */
   click: [];
 }>();
+
+const rippleRef = ref<ComponentInstance<typeof OnyxRipple> | null>(null);
+
+const rippleEvents = computed(() => {
+  if (rippleRef.value) return rippleRef.value.events;
+  return undefined;
+});
 </script>
 
 <template>
@@ -41,8 +49,9 @@ const emit = defineEmits<{
     :aria-label="props.loading ? props.label : undefined"
     :autofocus="props.autofocus"
     @click="emit('click')"
+    v-on="rippleEvents"
   >
-    <OnyxRipple v-if="!props.disabled && !props.loading" />
+    <OnyxRipple v-if="!props.disabled && !props.loading" ref="rippleRef" />
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
@@ -194,12 +203,10 @@ const emit = defineEmits<{
       font-weight: 600;
       line-height: 1.5rem;
       position: relative;
-      pointer-events: none;
     }
 
     &__icon {
       position: relative;
-      pointer-events: none;
     }
 
     &--loading &__label {
@@ -208,7 +215,6 @@ const emit = defineEmits<{
 
     &__loading {
       position: absolute;
-      pointer-events: none;
     }
   }
 

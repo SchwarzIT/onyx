@@ -10,10 +10,14 @@ const config = computed<RippleConfig>(() => ({
 }));
 
 const { ripples, hideRipple, events } = useRipple(config);
+
+defineExpose({
+  events,
+});
 </script>
 
 <template>
-  <span ref="rippleTrigger" class="onyx-ripple" v-on="events">
+  <span ref="rippleTrigger" class="onyx-ripple">
     <transition-group name="onyx-ripple" @after-enter="hideRipple($event as HTMLElement)">
       <span
         v-for="[key, r] in ripples"
