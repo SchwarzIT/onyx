@@ -1,17 +1,23 @@
 <script lang="ts" setup>
-import { computed, inject } from "vue";
+import { computed, inject, toRef } from "vue";
+import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
-const props = defineProps<OnyxUserMenuProps>();
+const props = withDefaults(defineProps<OnyxUserMenuProps>(), { flyoutOpen: MANAGED_SYMBOL });
 
-/**
- * If the flyout is expanded or not. Only has an effect in desktop (non-mobile) mode.
- * If `undefined`, the state will be managed internally.
- */
-const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
+const emit = defineEmits<{
+  "update:flyoutOpen": [boolean];
+}>();
+
+const flyoutOpen = useManagedState(
+  toRef(() => props.flyoutOpen),
+  false,
+  (newVal) => emit("update:flyoutOpen", newVal),
+  true,
+);
 
 const slots = defineSlots<{
   /**

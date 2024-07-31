@@ -1,5 +1,11 @@
 import { type Ref, computed, ref } from "vue";
 
+declare const MANAGED_S: symbol;
+
+export type MANAGED_SYM = typeof MANAGED_S;
+
+export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL") as MANAGED_SYM;
+
 /**
  * Composable for conditionally managing state based on the prop value.
  *
@@ -23,12 +29,13 @@ import { type Ref, computed, ref } from "vue";
  * );
  * ```
  */
-export const useManagedState = <Prop extends Readonly<Ref<T | undefined>>, T>(
+export const useManagedState = <Prop extends Readonly<Ref<T | MANAGED_SYM>>, T>(
   prop: Prop,
   initialState: T,
   emit: (val: T) => void,
+  referable?: boolean,
 ) => {
-  const isManaged = computed(() => prop.value === undefined);
+  const isManaged = computed(() => prop.value === MANAGED_SYMBOL);
   const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
 
   return computed<T>({
@@ -36,6 +43,6 @@ export const useManagedState = <Prop extends Readonly<Ref<T | undefined>>, T>(
       internalState.value = val;
       emit(val);
     },
-    get: () => (isManaged.value ? internalState.value : (prop.value as T)),
+    get: () => (isManaged.value && !referable ? internalState.value : (prop.value as T)),
   });
 };

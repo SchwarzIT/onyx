@@ -3,6 +3,7 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { MANAGED_SYMBOL } from "../../../../composables/useManagedState";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxColorSchemeMenuItem from "../OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
@@ -15,8 +16,17 @@ const meta: Meta<typeof OnyxUserMenu> = {
   title: "Navigation/modules/UserMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxUserMenu,
-    events: ["update:flyoutOpen"],
+    events: [],
     argTypes: {
+      flyoutOpen: {
+        control: {
+          type: "select",
+        },
+        options: ["Managed", true, false],
+        mapping: {
+          Managed: MANAGED_SYMBOL,
+        },
+      },
       avatar: { control: { type: "text" } },
       default: { control: { disable: true } },
       footer: { control: { disable: true } },

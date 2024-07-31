@@ -1,18 +1,38 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 // this layout component is only used internally for the user menu component
 // to easily switch between mobile and desktop layout
+import { toRef } from "vue";
+import {
+  MANAGED_SYMBOL,
+  useManagedState,
+  type MANAGED_SYM,
+} from "../../../../composables/useManagedState";
 import { injectI18n } from "../../../../i18n";
 import type { SelectOptionValue } from "../../../../types";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
-const props = defineProps<{ isMobile: boolean }>();
+const props = withDefaults(
+  defineProps<{ isMobile: boolean; flyoutOpen: boolean | MANAGED_SYM }>(),
+  {
+    flyoutOpen: MANAGED_SYMBOL,
+  },
+);
+
+const emit = defineEmits<{
+  "update:flyoutOpen": [boolean];
+}>();
 
 /**
  * If the flyout is expanded or not.
  * If `undefined`, the state will be managed internally.
  */
-const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
+const flyoutOpen = useManagedState(
+  toRef(() => props.flyoutOpen),
+  false,
+  (newVal) => emit("update:flyoutOpen", newVal),
+  true,
+);
 
 const slots = defineSlots<{
   button?(): unknown;

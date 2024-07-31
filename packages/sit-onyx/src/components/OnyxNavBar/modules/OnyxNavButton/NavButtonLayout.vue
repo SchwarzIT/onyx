@@ -2,13 +2,17 @@
 // this layout component is only used internally for the nav button component
 // to easily switch between mobile and desktop layout
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
+import { toRef } from "vue";
+import { useManagedState } from "../../../../composables/useManagedState";
 import { injectI18n } from "../../../../i18n";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import type { OnyxNavButtonProps } from "./types";
 
-const props = defineProps<OnyxNavButtonProps & { isMobile: boolean }>();
+const props = withDefaults(defineProps<OnyxNavButtonProps & { isMobile: boolean }>(), {
+  mobileChildrenOpen: false,
+});
 
 const slots = defineSlots<{
   button?(): unknown;
@@ -17,7 +21,15 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
-const mobileChildrenOpen = defineModel<boolean>("mobileChildrenOpen");
+const emit = defineEmits<{
+  "update:mobileChildrenOpen": [boolean];
+}>();
+
+const mobileChildrenOpen = useManagedState(
+  toRef(() => props.mobileChildrenOpen),
+  false,
+  (newVal) => emit("update:mobileChildrenOpen", newVal),
+);
 </script>
 
 <template>

@@ -1,6 +1,7 @@
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { MANAGED_SYMBOL } from "../../../../composables/useManagedState";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
@@ -14,7 +15,7 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
   title: "Navigation/modules/FlyoutMenu",
   ...defineStorybookActionsAndVModels({
     component: OnyxFlyoutMenu,
-    events: ["update:open"],
+    events: [],
     decorators: [
       (story) => ({
         components: { story },
@@ -25,6 +26,15 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
       }),
     ],
     argTypes: {
+      open: {
+        control: {
+          type: "select",
+        },
+        options: ["Managed", true, false],
+        mapping: {
+          Managed: MANAGED_SYMBOL,
+        },
+      },
       default: { control: { disable: true } },
       options: { control: { disable: true } },
       header: { control: { disable: true } },
