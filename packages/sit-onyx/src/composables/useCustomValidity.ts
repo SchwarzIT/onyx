@@ -131,7 +131,9 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       watchEffect(() => el.setCustomValidity(getCustomErrorText(options.props.customError) ?? ""));
 
       watch(
-        [() => options.props.customError, () => options.props.modelValue],
+        // we need to watch all props instead of only modelValue so the validity is re-checked
+        // when the validation rules change
+        [() => options.props],
         () => {
           const newValidityState = transformValidityStateToObject(el.validity);
 
@@ -145,7 +147,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
           validityState.value = newValidityState;
         },
-        { immediate: true },
+        { immediate: true, deep: true },
       );
 
       /**
