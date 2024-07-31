@@ -19,11 +19,16 @@ export const CLOSING_KEYS: PressedKey[] = [
   "Enter",
   "Tab",
 ];
-const SELECTING_KEYS_SINGLE: PressedKey[] = ["Enter", " "];
-const SELECTING_KEYS_MULTIPLE: PressedKey[] = ["Enter"];
 
-const isSelectingKey = (event: KeyboardEvent, isMultiselect?: boolean) => {
-  const selectingKeys = isMultiselect ? SELECTING_KEYS_MULTIPLE : SELECTING_KEYS_SINGLE;
+const SELECTING_KEYS: PressedKey[] = ["Enter", " "];
+const SELECTING_KEYS_WITH_INPUT: PressedKey[] = ["Enter"];
+
+/**
+ * if the a search input is included, space should not be used to select
+ * TODO: idea for the future: move this distinction to the listbox?
+ */
+const isSelectingKey = (event: KeyboardEvent, withSearch?: boolean) => {
+  const selectingKeys = withSearch ? SELECTING_KEYS_WITH_INPUT : SELECTING_KEYS;
   return isKeyOfGroup(event, selectingKeys);
 };
 
@@ -183,7 +188,7 @@ export const createComboBox = createBuilder(
         }
         return onActivateFirst?.();
       }
-      if (isSelectingKey(event, multiple.value)) {
+      if (isSelectingKey(event, autocomplete.value === "list")) {
         return handleSelect(activeOption.value!);
       }
       if (isExpanded.value && isKeyOfGroup(event, CLOSING_KEYS)) {

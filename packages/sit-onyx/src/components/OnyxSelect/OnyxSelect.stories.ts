@@ -221,12 +221,28 @@ export const Empty = {
  * This example shows a select with search functionality.
  * The filtering of the options will be handled automatically by onyx.
  */
-export const WithSearch = {
+export const WithSearch: Story = {
   args: {
     ...Default.args,
     withSearch: true,
   },
-} satisfies Story;
+  decorators: [
+    /**
+     * Decorator to prevent Storybook from setting the searchTerm
+     * which would disable the included filtering by managed search state
+     */
+    (story, ctx) => ({
+      components: { story },
+      setup: () => {
+        watchEffect(() => {
+          ctx.args.searchTerm = undefined;
+          ctx.args.searchTerm;
+        });
+      },
+      template: `<story />`,
+    }),
+  ],
+};
 
 const optionsForCustomSearch = [
   { value: "0", label: "Option Zero" },
