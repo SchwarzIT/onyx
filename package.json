@@ -34,7 +34,7 @@
     "@types/node": "^20.14.13",
     "@vitejs/plugin-vue": "^5.1.1",
     "@vitest/coverage-v8": "^2.0.4",
-    "@vue/compiler-dom": "^3.4.34",
+    "@vue/compiler-dom": "^3.4.35",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "~0.5.1",
@@ -55,7 +55,7 @@
     "typescript": "~5.5.4",
     "vite": "^5.3.5",
     "vitest": "^2.0.4",
-    "vue": "^3.4.34",
+    "vue": "^3.4.35",
     "vue-tsc": "^2.0.29"
   },
   "simple-git-hooks": {
