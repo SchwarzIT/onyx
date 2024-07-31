@@ -17,9 +17,9 @@ type LegalTerm = "general-terms" | "optional-terms";
 type FormState = {
   username: string;
   email: string;
-  select?: string[];
-  stepper?: number;
-  textarea?: string;
+  favoriteFruits?: string[];
+  age?: number;
+  description?: string;
   terms?: LegalTerm[];
 };
 
@@ -38,15 +38,25 @@ const handleSubmit = () => {
   });
 };
 
-const selectOptions = ref<SelectOption[]>(
-  // generate some dummy options
-  Array.from({ length: 5 }, (_, index) => {
-    const id = index + 1;
-    return {
-      label: `Option ${id}`,
-      value: id,
-    };
-  }),
+const fruitOptions = ref(
+  [
+    "Apple",
+    "Banana",
+    "Mango",
+    "Kiwi",
+    "Orange",
+    "Papaya",
+    "Apricot",
+    "Lemon",
+    "Cranberry",
+    "Avocado",
+    "Cherry",
+    "Coconut",
+    "Lychee",
+    "Melon",
+    "Raspberry",
+    "Strawberry",
+  ].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option })),
 );
 
 const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
@@ -64,7 +74,7 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 
 <template>
   <div>
-    <form class="onyx-grid form" @submit.prevent="handleSubmit" @reset="state = {}">
+    <form class="onyx-grid" @submit.prevent="handleSubmit" @reset="state = {}">
       <OnyxInput
         v-model="state.username"
         class="onyx-grid-span-4"
@@ -85,22 +95,22 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
       />
 
       <OnyxSelect
-        v-model="state.select"
+        v-model="state.favoriteFruits"
         class="onyx-grid-span-4"
-        label="Select"
-        list-label="List of options"
+        label="Favorite fruits"
+        list-label="List of fruits"
         multiple
         with-search
         required
-        :options="selectOptions"
+        :options="fruitOptions"
       />
 
-      <OnyxStepper v-model="state.stepper" class="onyx-grid-span-4" label="Stepper" />
+      <OnyxStepper v-model="state.age" class="onyx-grid-span-4" label="Age" :min="0" :max="100" />
 
       <OnyxTextarea
-        v-model="state.textarea"
+        v-model="state.description"
         class="onyx-grid-span-16"
-        label="Textarea"
+        label="Description"
         :maxlength="512"
         with-counter
       />
@@ -112,7 +122,7 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
         :options="legalTerms"
       />
 
-      <div class="onyx-grid-span-16 form__actions">
+      <div class="onyx-grid-span-16 actions">
         <OnyxButton label="Reset" type="reset" color="neutral" />
         <OnyxButton label="Submit" type="submit" />
       </div>
@@ -123,11 +133,9 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 </template>
 
 <style lang="scss" scoped>
-.form {
-  &__actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--onyx-grid-gutter);
-  }
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--onyx-grid-gutter);
 }
 </style>
