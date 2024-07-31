@@ -441,16 +441,22 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await miniSearchInput.fill("default");
   await miniSearchInput.press("ArrowDown");
   await miniSearchInput.press("Enter");
-
   // ASSERT
   expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1], MOCK_VARIED_OPTIONS_VALUES[0]]);
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
   await component.click();
-
   // ASSERT
   await expect(mainInput).toBeFocused();
+
+  // ACT
+  await component.click();
+  // ASSERT
+  await expect(
+    miniSearchInput,
+    "focuses the search even if the select is opened more than once",
+  ).toBeFocused();
 });
 
 test("should interact with multiselect", async ({ mount }) => {
