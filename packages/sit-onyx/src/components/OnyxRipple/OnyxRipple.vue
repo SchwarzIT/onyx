@@ -65,7 +65,7 @@ const { ripples, hideRipple, events } = useRipple(config);
 }
 
 .onyx-ripple-leave-active {
-  transition-duration: 100ms;
+  transition-duration: 150ms;
   @media (prefers-reduced-motion) {
     transition-duration: 1ms;
   }
@@ -76,6 +76,7 @@ const { ripples, hideRipple, events } = useRipple(config);
 }
 
 .onyx-ripple-leave-to {
+  scale: 0;
   opacity: 0;
 }
 </style>
