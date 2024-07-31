@@ -25,5 +25,9 @@ module.exports = {
       files: ["src/**/*.spec.ts"],
       rules: { "playwright/no-standalone-expect": "off" },
     },
+    {
+      files: ["src/components/examples/**/*.vue"],
+      rules: { "vue-scoped-css/enforce-style-type": "off" },
+    },
   ],
 };
