@@ -183,8 +183,13 @@ const emit = defineEmits<{
       outline: 0.25rem solid var(--onyx-button-outline-color);
     }
 
+    $p: &;
+
     &:disabled {
       cursor: default;
+      #{$p}__ripple {
+        pointer-events: none;
+      }
     }
 
     &__label {
