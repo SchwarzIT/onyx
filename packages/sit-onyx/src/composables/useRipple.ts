@@ -3,7 +3,6 @@ import { distanceToFurthestCorner } from "../utils/math";
 
 export type RippleConfig = {
   color: string;
-  terminateOnPointerUp: boolean;
   container: Ref<HTMLElement | undefined>;
 };
 
@@ -59,7 +58,7 @@ export const useRipple = (config: Ref<RippleConfig>) => {
   const hideRipples = () => {
     isPointerDown.value = false;
     ripples.forEach((r, key) => {
-      if (r.fadeIn || config.value.terminateOnPointerUp) ripples.delete(key);
+      if (r.fadeIn) ripples.delete(key);
     });
   };
 

@@ -27,7 +27,6 @@ describe("useRipple", () => {
     container: ref({
       getBoundingClientRect: vi.fn(() => rect),
     } as unknown as HTMLElement),
-    terminateOnPointerUp: false,
   }));
 
   const { ripples, startRipple, hideRipples, hideRipple } = useRipple(config);
