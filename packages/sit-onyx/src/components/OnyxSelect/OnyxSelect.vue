@@ -163,15 +163,20 @@ const onToggle = async (preventFocus?: boolean) => {
     return;
   }
   const wasOpen = open.value;
-
   open.value = !wasOpen;
-  if (wasOpen) {
-    if (searchTerm.value) searchTerm.value = "";
-    if (!preventFocus) selectInput.value?.focus();
-  } else {
-    // make sure search is focused when flyout opens
-    await nextTick();
-    miniSearch.value?.focus();
+  await nextTick();
+
+  // if with managed `open` state after one tick the state was not updated,
+  // we don't modify our focus state, because we assume that
+  // the owner did not update `open` on purpose
+  if (wasOpen !== open.value) {
+    if (wasOpen) {
+      if (searchTerm.value) searchTerm.value = "";
+      if (!preventFocus) selectInput.value?.focus();
+    } else {
+      // make sure search is focused after the flyout opened
+      miniSearch.value?.focus();
+    }
   }
 };
 
