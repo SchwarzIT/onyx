@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.20
+
+### Patch Changes
+
+- 4c73713: fix(OnyxSelect): remove incorrect usage of `aria-busy`
+
+## 1.0.0-beta.19
+
+### Patch Changes
+
+- 9570420: fix(OnyxToast): do not cut off box shadow
+
 ## 1.0.0-beta.18
 
 ### Patch Changes

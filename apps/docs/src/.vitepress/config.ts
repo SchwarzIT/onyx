@@ -58,6 +58,7 @@ export default defineConfig({
           { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
           { text: "Tokens", link: "/tokens/colors", activeMatch: "/tokens/" },
           { text: "Development", link: "/development/", activeMatch: "/development/" },
+          { text: "Principles & Contribution", link: "/principles/", activeMatch: "/principles/" },
         ],
       },
       { text: "Components", link: "https://storybook.onyx.schwarz" },
@@ -166,6 +167,49 @@ export default defineConfig({
           text: "Resources",
           base: "/resources",
           items: [{ text: "Icons", link: "/icons" }],
+        },
+      ],
+      "/principles": [
+        {
+          text: "Principles and contribution",
+          base: "/principles",
+          items: [
+            {
+              text: "Introduction",
+              link: "/",
+            },
+            {
+              text: "Contribution guide",
+              link: "/contributing",
+            },
+            {
+              text: "Technical vision & guidelines",
+              link: "/technical-vision",
+            },
+            {
+              text: "Component quality stages",
+              link: "/component-quality-stages",
+            },
+          ],
+        },
+        {
+          text: "Definitions",
+          base: "/principles",
+          collapsed: false,
+          items: [
+            {
+              text: "Definition of Ready (DoR)",
+              link: "/definition-of-ready",
+            },
+            {
+              text: "Definition of Done (DoD)",
+              link: "/definition-of-done",
+            },
+            {
+              text: "Ticket naming convention",
+              link: "/ticket-naming",
+            },
+          ],
         },
       ],
     },
