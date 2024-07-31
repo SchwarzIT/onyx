@@ -346,6 +346,7 @@ const selectInputProps = computed(() => {
             <ul
               v-if="props.multiple && props.withCheckAll && !searchTerm"
               class="onyx-select__group"
+              v-bind="headlessGroup({ label: checkAllLabel })"
             >
               <OnyxSelectOption
                 v-bind="
