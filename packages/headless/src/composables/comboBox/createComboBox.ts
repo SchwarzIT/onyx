@@ -188,7 +188,7 @@ export const createComboBox = createBuilder(
         }
         return onActivateFirst?.();
       }
-      if (isSelectingKey(event, autocomplete.value !== "none")) {
+      if (isSelectingKey(event, autocomplete.value === "none")) {
         return handleSelect(activeOption.value!);
       }
       if (isExpanded.value && isKeyOfGroup(event, CLOSING_KEYS)) {
