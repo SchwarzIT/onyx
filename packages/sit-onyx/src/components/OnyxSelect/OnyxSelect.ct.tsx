@@ -1,11 +1,11 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
-import type { Locator } from "@playwright/test";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
@@ -233,10 +233,6 @@ test.describe("Loading screenshots", () => {
 });
 
 test.describe("Invalidity handling screenshots", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   executeMatrixScreenshotTest({
     name: "Select (message replacement on invalid)",
     columns: ["default", "long-text"],
@@ -285,15 +281,9 @@ test.describe("Invalidity handling screenshots", () => {
       });
 
       if (row !== "error") {
-        const tooltipButton =
-          row === "errorTooltip"
-            ? page.getByLabel("Error Tooltip")
-            : page.getByLabel("Info Tooltip");
-        const tooltip = page.getByRole("tooltip");
-
-        await tooltipButton.hover();
-
-        await isTooltipVisible(tooltip);
+        await createFormElementUtils(page).triggerTooltipVisible(
+          row === "errorTooltip" ? "error" : "message",
+        );
       }
     },
   });
