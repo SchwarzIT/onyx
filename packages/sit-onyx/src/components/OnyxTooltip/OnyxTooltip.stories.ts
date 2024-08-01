@@ -63,13 +63,13 @@ export const Hover = {
   render: (args) => ({
     setup: () => {
       const count = ref(0);
-      const label = computed(() => `Click me ${count.value}`);
+      const label = computed(() => `Clicked ${count.value} times`);
 
       return () =>
         h(OnyxTooltip, args, {
-          default: ({ trigger }) =>
+          default: ({ trigger }: { trigger: object }) =>
             h(OnyxButton, {
-              label,
+              label: label.value,
               ...trigger,
               onClick: () => count.value++,
             }),
