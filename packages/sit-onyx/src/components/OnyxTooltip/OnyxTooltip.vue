@@ -50,7 +50,7 @@ const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
   get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
-}) as Ref<boolean>;
+});
 
 const tooltipOptions = computed<CreateTooltipOptions>(() => ({
   debounce: 200,
