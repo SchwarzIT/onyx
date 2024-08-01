@@ -42,6 +42,7 @@ const options = computed<SelectOption<string>[]>(() => {
     :placeholder="version || 'Select version'"
     :options="options"
     density="compact"
+    with-search
     @update:model-value="version = $event as Exclude<typeof $event, string[]>"
   />
 </template>

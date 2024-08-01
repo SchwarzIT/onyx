@@ -1,5 +1,5 @@
 import { mergeImportMap, useStore as useOriginalStore, useVueImportMap } from "@vue/repl";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
 import { fetchVersions } from "../utils/versions";
@@ -10,15 +10,17 @@ import { fetchVersions } from "../utils/versions";
 export const useStore = () => {
   const { vueVersion, importMap } = useVueImportMap({ vueVersion: "latest" });
 
+  const query = new URLSearchParams(location.search);
+
   /**
    * Currently selected onyx version.
    */
-  const onyxVersion = ref("beta");
+  const onyxVersion = ref(query.get("onyxVersion") || "beta");
 
   /**
    * List of available onyx versions.
    */
-  const availableVersions = ref<string[]>([]);
+  const availableOnyxVersions = ref<string[]>([]);
 
   /**
    * Whether the list of onyx versions is loading.
@@ -26,13 +28,13 @@ export const useStore = () => {
   const isLoadingOnyxVersions = ref(true);
 
   fetchVersions("sit-onyx")
-    .then((versions) => (availableVersions.value = versions))
+    .then((versions) => (availableOnyxVersions.value = versions))
     .finally(() => (isLoadingOnyxVersions.value = false));
 
   const store = useOriginalStore(
     {
       vueVersion,
-      typescriptVersion: ref("latest"),
+      typescriptVersion: ref(query.get("typescriptVersion") || "latest"),
       template: ref({
         newSFC: NewFile,
         welcomeSFC: App,
@@ -50,15 +52,31 @@ export const useStore = () => {
       dependencyVersion: computed(() => {
         // the dependencyVersion must be a real version number and not a range like "alpha"
         const version =
-          onyxVersion.value.includes(".") || !availableVersions.value.length
+          onyxVersion.value.includes(".") || !availableOnyxVersions.value.length
             ? onyxVersion.value
-            : availableVersions.value[0];
+            : availableOnyxVersions.value[0];
         return { "sit-onyx": version };
       }),
     },
     // initialize repl with previously serialized state
     location.hash.slice(1),
   );
+
+  watch(onyxVersion, (newVersion) => {
+    updateQueryParam("onyxVersion", newVersion);
+  });
+  watch(
+    () => store.typescriptVersion,
+    (newVersion) => {
+      updateQueryParam("typescriptVersion", newVersion);
+    },
+  );
+
+  const updateQueryParam = (key: string, value: string) => {
+    const url = new URL(location.href);
+    url.searchParams.set(key, value);
+    history.pushState(null, "", url);
+  };
 
   // persist state in URL
   watchEffect(() => history.replaceState({}, "", store.serialize()));
