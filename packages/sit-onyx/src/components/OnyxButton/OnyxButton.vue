@@ -25,9 +25,8 @@ const emit = defineEmits<{
   click: [];
 }>();
 
-const rippleRef = ref<ComponentInstance<typeof OnyxRipple> | null>(null);
-
-const rippleEvents = computed(() => (rippleRef.value ? rippleRef.value.events : undefined));
+const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
+const rippleEvents = computed(() => rippleRef.value?.events);
 </script>
 
 <template>
