@@ -112,7 +112,6 @@ test.describe("Truncated options screenshots", () => {
     name: "Select (truncated)",
     columns: DENSITIES,
     rows: ["ellipsis", "multiline"],
-    disablePadding: true,
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (
       <OnyxSelect
