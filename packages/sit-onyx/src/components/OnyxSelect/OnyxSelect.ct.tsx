@@ -5,6 +5,7 @@ import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
@@ -111,6 +112,7 @@ test.describe("Truncated options screenshots", () => {
     name: "Select (truncated)",
     columns: DENSITIES,
     rows: ["ellipsis", "multiline"],
+    disablePadding: true,
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (
       <OnyxSelect
@@ -140,20 +142,43 @@ test.describe("Grouped screenshots", () => {
 
   executeMatrixScreenshotTest({
     name: "Select (grouped)",
-    columns: DENSITIES,
-    rows: ["default"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
-    component: (column) => (
-      <div>
-        <OnyxSelect
-          label="Label"
-          listLabel="List label"
-          options={GROUPED_OPTIONS}
-          modelValue={GROUPED_OPTIONS[0].value}
-          density={column}
-        />
-      </div>
-    ),
+    columns: ["default", "with-search", "with-check-all"],
+    rows: DENSITIES,
+    disabledAccessibilityRules: [
+      ...DISABLED_ACCESSIBILITY_RULES,
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
+    component: (column, row) => {
+      const preselected: SelectOptionValue = GROUPED_OPTIONS[0].value;
+      const multiple = column === "with-check-all";
+      return multiple ? (
+        <div>
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={GROUPED_OPTIONS}
+            modelValue={[preselected]}
+            density={row}
+            multiple={true}
+            withCheckAll={true}
+          />
+        </div>
+      ) : (
+        <div>
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={GROUPED_OPTIONS}
+            modelValue={preselected}
+            density={row}
+            multiple={false}
+            withSearch={column === "with-search"}
+          />
+        </div>
+      );
+    },
     beforeScreenshot: async (component) => {
       await openFlyout(component);
     },
