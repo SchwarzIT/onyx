@@ -8,12 +8,18 @@ import { SourceType } from "storybook/internal/docs-tools";
 import { isVNode, type VNode } from "vue";
 import { replaceAll } from "./preview";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL") as any; // There is a type issue when trying to use a symbol to index an object
+const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL");
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isProxy = (obj: any) =>
-  obj && (obj[DEEP_ACCESS_SYMBOL] === true || obj[DEEP_ACCESS_SYMBOL] === false);
+type DeepAccessProxy = {
+  [DEEP_ACCESS_SYMBOL]: {
+    keys: string[];
+    destructed: boolean;
+  };
+  toString: () => string;
+};
+
+const isProxy = (obj: unknown): obj is DeepAccessProxy =>
+  !!(obj && typeof obj === "object" && DEEP_ACCESS_SYMBOL in obj);
 
 /**
  * Context that is passed down to nested components/slots when generating the source code for a single story.
@@ -385,58 +391,58 @@ const generateSlotChildrenSourceCode = (
         );
 
         const parameters: Record<string, string> = {};
-        const proxied: Record<string, Record<string, unknown>> = {};
+        const proxied: Record<string, DeepAccessProxy> = {};
         paramNames.forEach((param) => {
           parameters[param] = `{{ ${param} }}`;
           proxied[param] = new Proxy(
             /**
              * If the a prop of the parameter is accessed or is destructured, we assume that a v-bind is necessary.
              */
-            { deepAccess: false },
             {
-              get: (t, key: symbol) => {
+              [DEEP_ACCESS_SYMBOL]: {
+                keys: [],
+                destructed: false,
+              },
+            } as DeepAccessProxy,
+            {
+              get: (t, key) => {
                 if (key === DEEP_ACCESS_SYMBOL) {
-                  return t.deepAccess;
+                  return t[DEEP_ACCESS_SYMBOL];
                 }
                 if ([Symbol.toPrimitive, Symbol.toStringTag, "toString"].includes(key)) {
                   return () => `{{ ${param} }}`;
                 }
-                // TODO track specifc key retrieval
-                t.deepAccess = true;
-                return `{{ ${param} }}`;
+                if (key === "v-bind") {
+                  return `${param}`;
+                }
+                // TODO: make use of proxy when generating props
+                const tracking = t[DEEP_ACCESS_SYMBOL];
+                tracking.keys.push(`${param}.${key.toString()}`);
+                return `{{ ${param}.${key.toString()} }}`;
               },
+              /** called when destructured */
               ownKeys: (t) => {
-                /** called when destructured */
-                t.deepAccess = true;
-                return [param];
+                const tracking = t[DEEP_ACCESS_SYMBOL];
+                tracking.destructed = true;
+                return [`v-bind`];
               },
+              /** called when destructured */
               getOwnPropertyDescriptor: () => ({
                 configurable: true,
                 enumerable: true,
                 value: param,
                 writable: true,
               }),
-              apply: () => {},
             },
           );
         });
 
         const returnValue = child(proxied);
-        let slotSourceCode = generateSlotChildrenSourceCode([returnValue], ctx);
+        const slotSourceCode = generateSlotChildrenSourceCode([returnValue], ctx);
 
         // if slot bindings are used for properties of other components, our {{ paramName }} is incorrect because
         // it would generate e.g. my-prop="{{ paramName }}", therefore, we replace it here to e.g. :my-prop="paramName"
-        paramNames.forEach((param) => {
-          const isDeeplyAccessed = proxied[param][DEEP_ACCESS_SYMBOL];
-          const bindingString = isDeeplyAccessed ? ` v-bind="${param}"` : ` :$1="${param}"`;
-          slotSourceCode = replaceAll(
-            slotSourceCode,
-            new RegExp(` (\\S+)="{{ ${param} }}"`, "g"),
-            bindingString,
-          );
-        });
-
-        return slotSourceCode;
+        return replaceAll(slotSourceCode, / (\S+)="{{ (\S+) }}"/g, ` :$1="$2"`);
       }
 
       case "bigint":
