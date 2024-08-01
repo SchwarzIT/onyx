@@ -8,18 +8,19 @@ import { SourceType } from "storybook/internal/docs-tools";
 import { isVNode, type VNode } from "vue";
 import { replaceAll } from "./preview";
 
-const DEEP_ACCESS_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL");
+/**
+ * Used to get the tracking data from the proxy.
+ * A symbol is unique, so when using it as a key it can't be accidentally accessed.
+ */
+const TRACKING_SYMBOL = Symbol("DEEP_ACCESS_SYMBOL");
 
-type DeepAccessProxy = {
-  [DEEP_ACCESS_SYMBOL]: {
-    keys: string[];
-    destructed: boolean;
-  };
+type TrackingProxy = {
+  [TRACKING_SYMBOL]: true;
   toString: () => string;
 };
 
-const isProxy = (obj: unknown): obj is DeepAccessProxy =>
-  !!(obj && typeof obj === "object" && DEEP_ACCESS_SYMBOL in obj);
+const isProxy = (obj: unknown): obj is TrackingProxy =>
+  !!(obj && typeof obj === "object" && TRACKING_SYMBOL in obj);
 
 /**
  * Context that is passed down to nested components/slots when generating the source code for a single story.
@@ -390,40 +391,41 @@ const generateSlotChildrenSourceCode = (
           (param) => !["{", "}"].includes(param),
         );
 
+        // We create proxy to track how and which properties of a parameter are accessed
         const parameters: Record<string, string> = {};
-        const proxied: Record<string, DeepAccessProxy> = {};
+        const proxied: Record<string, TrackingProxy> = {};
         paramNames.forEach((param) => {
           parameters[param] = `{{ ${param} }}`;
+          // TODO: we should be able to extend the proxy logic here and maybe get rid of the `generatePropsSourceCode` code
           proxied[param] = new Proxy(
-            /**
-             * If the a prop of the parameter is accessed or is destructured, we assume that a v-bind is necessary.
-             */
             {
-              [DEEP_ACCESS_SYMBOL]: {
-                keys: [],
-                destructed: false,
-              },
-            } as DeepAccessProxy,
+              // we use the symbol to identify the proxy
+              [TRACKING_SYMBOL]: true,
+            } as TrackingProxy,
             {
+              // getter is called when any prop of the parameter is read
               get: (t, key) => {
-                if (key === DEEP_ACCESS_SYMBOL) {
-                  return t[DEEP_ACCESS_SYMBOL];
+                if (key === TRACKING_SYMBOL) {
+                  // allow retrieval of the tracking data
+                  return t[TRACKING_SYMBOL];
                 }
                 if ([Symbol.toPrimitive, Symbol.toStringTag, "toString"].includes(key)) {
+                  // when the parameter is used as a string we return the parameter name
+                  // we use the double brace notation as we don't know if the parameter is used in text or in a binding
                   return () => `{{ ${param} }}`;
                 }
                 if (key === "v-bind") {
+                  // if this key is returned we just return the parameter name
                   return `${param}`;
                 }
-                // TODO: make use of proxy when generating props
-                const tracking = t[DEEP_ACCESS_SYMBOL];
-                tracking.keys.push(`${param}.${key.toString()}`);
+                // otherwise a specific key of the parameter was accessed
+                // we use the double brace notation as we don't know if the parameter is used in text or in a binding
                 return `{{ ${param}.${key.toString()} }}`;
               },
-              /** called when destructured */
-              ownKeys: (t) => {
-                const tracking = t[DEEP_ACCESS_SYMBOL];
-                tracking.destructed = true;
+              // ownKeys is called, among other uses, when an object is destructured
+              // in this case we assume the parameter is supposed to be bound using "v-bind"
+              // Therefore we only return one special key "v-bind" and the getter will be called afterwards with it
+              ownKeys: () => {
                 return [`v-bind`];
               },
               /** called when destructured */
