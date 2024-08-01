@@ -12,10 +12,12 @@ export const useStore = () => {
 
   const query = new URLSearchParams(location.search);
 
+  const INITIAL_ONYX_VERSION = "beta" as const;
+
   /**
    * Currently selected onyx version.
    */
-  const onyxVersion = ref(query.get("onyxVersion") || "beta");
+  const onyxVersion = ref(query.get("onyxVersion") || INITIAL_ONYX_VERSION);
 
   /**
    * List of available onyx versions.
@@ -28,7 +30,15 @@ export const useStore = () => {
   const isLoadingOnyxVersions = ref(true);
 
   fetchVersions("sit-onyx")
-    .then((versions) => (availableOnyxVersions.value = versions))
+    .then((versions) => {
+      availableOnyxVersions.value = versions;
+
+      // we use a specific version here so if users share playground links for bug reproductions
+      // the exact same onyx version is used even if there are newer versions
+      if (onyxVersion.value === INITIAL_ONYX_VERSION && versions.length) {
+        onyxVersion.value = versions[0];
+      }
+    })
     .finally(() => (isLoadingOnyxVersions.value = false));
 
   const store = useOriginalStore(
@@ -62,6 +72,12 @@ export const useStore = () => {
     location.hash.slice(1),
   );
 
+  const updateQueryParam = (key: string, value: string) => {
+    const url = new URL(location.href);
+    url.searchParams.set(key, value);
+    history.pushState(null, "", url);
+  };
+
   watch(onyxVersion, (newVersion) => {
     updateQueryParam("onyxVersion", newVersion);
   });
@@ -71,12 +87,6 @@ export const useStore = () => {
       updateQueryParam("typescriptVersion", newVersion);
     },
   );
-
-  const updateQueryParam = (key: string, value: string) => {
-    const url = new URL(location.href);
-    url.searchParams.set(key, value);
-    history.pushState(null, "", url);
-  };
 
   // persist state in URL
   watchEffect(() => history.replaceState({}, "", store.serialize()));
