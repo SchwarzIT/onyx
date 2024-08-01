@@ -68,7 +68,7 @@ defineExpose({
     }
 
     &-leave-active {
-      transition-duration: 150ms;
+      transition-duration: 100ms;
       @media (prefers-reduced-motion) {
         transition-duration: 1ms;
       }
@@ -79,7 +79,6 @@ defineExpose({
     }
 
     &-leave-to {
-      scale: 0;
       opacity: 0;
     }
   }
