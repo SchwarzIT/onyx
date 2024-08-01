@@ -38,49 +38,50 @@ defineExpose({
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 
 .onyx-ripple {
-  display: block;
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: inherit;
-
-  &__element {
+  @include layers.component() {
     display: block;
     position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    transition:
-      opacity,
-      transform 0ms cubic-bezier(0, 0, 0.2, 1);
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+
+    &__element {
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      transition:
+        opacity,
+        transform 0ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    &-enter-active,
+    &-leave-active {
+      transition-property: opacity, scale;
+      transition-timing-function: ease;
+      transition-duration: var(--onyx-duration-sm);
+      @media (prefers-reduced-motion) {
+        transition-duration: 1ms;
+      }
+    }
+
+    &-leave-active {
+      transition-duration: 150ms;
+      @media (prefers-reduced-motion) {
+        transition-duration: 1ms;
+      }
+    }
+
+    &-enter-from {
+      scale: 0;
+    }
+
+    &-leave-to {
+      scale: 0;
+      opacity: 0;
+    }
   }
-}
-
-.onyx-ripple-enter-active,
-.onyx-ripple-leave-active {
-  transition-property: opacity, scale;
-  transition-timing-function: ease;
-  transition-duration: var(--onyx-duration-sm);
-  @media (prefers-reduced-motion) {
-    transition-duration: 1ms;
-  }
-}
-
-.onyx-ripple-leave-active {
-  transition-duration: 150ms;
-  @media (prefers-reduced-motion) {
-    transition-duration: 1ms;
-  }
-}
-
-.onyx-ripple-enter-from {
-  scale: 0;
-}
-
-.onyx-ripple-leave-to {
-  scale: 0;
-  opacity: 0;
 }
 </style>
