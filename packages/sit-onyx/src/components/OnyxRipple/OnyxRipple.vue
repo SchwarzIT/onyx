@@ -17,7 +17,7 @@ defineExpose({
 </script>
 
 <template>
-  <span ref="rippleTrigger" class="onyx-ripple">
+  <span ref="rippleTrigger" class="onyx-ripple" aria-hidden="true">
     <transition-group name="onyx-ripple" @after-enter="hideRipple($event as HTMLElement)">
       <span
         v-for="[key, r] in ripples"
