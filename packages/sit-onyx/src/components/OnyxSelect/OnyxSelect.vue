@@ -345,7 +345,7 @@ const selectInputProps = computed(() => {
             <!-- select-all option for "multiple" -->
             <ul
               v-if="props.multiple && props.withCheckAll && !searchTerm"
-              class="onyx-select__group onyx-select__group--check-all"
+              class="onyx-select__check-all"
               v-bind="headlessGroup({ label: checkAllLabel })"
             >
               <OnyxSelectOption
@@ -458,10 +458,6 @@ const selectInputProps = computed(() => {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
-    &__group--check-all {
-      margin-bottom: 0;
-    }
-
     &:has(&__wrapper:focus-visible) {
       outline: $outline-size solid var(--onyx-color-base-primary-200);
     }
@@ -475,7 +471,7 @@ const selectInputProps = computed(() => {
     // if a group name is below a search field or a "Select all" option,
     // there needs to be spacing between them.
     &__wrapper:has(.onyx-mini-search),
-    &__wrapper:has(.onyx-select__group--check-all) {
+    &__wrapper:has(.onyx-select__check-all) {
       .onyx-select__group-name:first-child {
         margin-top: var(--onyx-density-xs);
       }
