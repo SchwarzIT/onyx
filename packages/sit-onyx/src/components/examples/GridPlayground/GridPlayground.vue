@@ -145,7 +145,7 @@ const handleAddModifier = () => {
   </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .onyx-grid-playground {
   color: var(--onyx-color-text-icons-neutral-intense);
 

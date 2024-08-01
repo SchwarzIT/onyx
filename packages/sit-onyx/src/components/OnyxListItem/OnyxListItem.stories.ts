@@ -6,7 +6,7 @@ import OnyxListItem from "./OnyxListItem.vue";
  * Generic list item component that is e.g. used in the select, nav item, user menu etc.
  */
 const meta: Meta<typeof OnyxListItem> = {
-  title: "support/ListItem",
+  title: "Support/ListItem",
   ...defineStorybookActionsAndVModels({
     component: OnyxListItem,
     events: [],

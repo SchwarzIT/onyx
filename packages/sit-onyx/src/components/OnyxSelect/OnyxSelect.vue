@@ -313,11 +313,7 @@ const selectInputProps = computed(() => {
       @validity-change="emit('validityChange', $event)"
     />
 
-    <div
-      :class="['onyx-select', densityClass, open ? 'onyx-select--open' : '']"
-      :inert="!open"
-      :aria-busy="props.loading"
-    >
+    <div :class="['onyx-select', densityClass, open ? 'onyx-select--open' : '']" :inert="!open">
       <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
         <!-- model-value is set here, as it is written be the onAutocomplete callback -->
         <OnyxMiniSearch

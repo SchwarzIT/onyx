@@ -109,27 +109,6 @@ const patternSource = computed(() => {
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
 
-/**
-* Gets a comma separated CSS selector for the input autofill.
-* Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
-*/
-@function get-autofill-selectors($prefix: "") {
-  $output: "";
-  $selectors: (":autofill", "[data-test-autofill]", "[data-com-onepassword-filled]");
-
-  @each $selector in $selectors {
-    $prefixed-selector: $prefix + $selector;
-
-    @if $output == "" {
-      $output: $prefixed-selector;
-    } @else {
-      $output: $output + ", " + $prefixed-selector;
-    }
-  }
-
-  @return $output;
-}
-
 .onyx-input,
 .onyx-input-skeleton {
   --onyx-input-padding-vertical: var(--onyx-density-xs);
@@ -147,25 +126,6 @@ const patternSource = computed(() => {
       $base-selector: ".onyx-input",
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
-
-    &__wrapper {
-      &:has(.onyx-input__native:read-write) {
-        &:has(#{get-autofill-selectors(".onyx-input__native")}) {
-          background-color: var(--onyx-color-base-warning-100);
-        }
-      }
-    }
-
-    &__native {
-      #{get-autofill-selectors("&")} {
-        background-color: transparent;
-        -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
-
-        // many browsers use "!important" to set the autofill background so we need this
-        // transition workaround to make the background transparent
-        transition: background-color calc(infinity * 1s);
-      }
-    }
   }
 }
 </style>
