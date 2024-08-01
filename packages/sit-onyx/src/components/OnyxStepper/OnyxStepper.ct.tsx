@@ -122,6 +122,7 @@ test.describe("Screenshot tests", () => {
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
           messageTooltip={messageTooltip}
+          modelValue={10}
         />
       );
     },
@@ -213,7 +214,12 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: () => (
-      <OnyxStepper style="width: 12rem" label="Test label" customError="Test error" />
+      <OnyxStepper
+        style="width: 12rem"
+        label="Test label"
+        customError="Test error"
+        modelValue={10}
+      />
     ),
     beforeScreenshot: async (component, _page, column, row) => {
       const input = component.getByLabel("Test label");

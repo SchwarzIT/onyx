@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.21
+
+### Patch Changes
+
+- d6321d8: fix(OnyxStepper): check validity when value is changed with Arrow up/down or buttons
+
+  Also add spin button styles for disabled state
+
 ## 1.0.0-beta.20
 
 ### Patch Changes
