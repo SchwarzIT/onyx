@@ -20,6 +20,10 @@
     "test:components": {
       "outputs": ["playwright-report", "test-results"]
     },
+    "test:integration": {
+      "dependsOn": ["build", "sit-onyx#build"],
+      "outputs": ["playwright-report", "test-results"]
+    },
     "vite": {
       "dependsOn": ["^build"],
       "cache": false,
