@@ -27,18 +27,17 @@ export const useManagedState = <Prop extends Readonly<Ref<T | undefined>>, T>(
   prop: Prop,
   initialState: T,
   emit: (val: T) => void,
-) =>
-  {
-    const isManaged = computed(() => prop.value === undefined);
-    const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
+) => {
+  const isManaged = computed(() => prop.value === undefined);
+  const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
 
-    const state = computed<T>({
-      set: (val: T) => {
-        internalState.value = val;
-        emit(val);
-      },
-      get: () => (isManaged.value ? internalState.value : (prop.value as T)),
-    });
+  const state = computed<T>({
+    set: (val: T) => {
+      internalState.value = val;
+      emit(val);
+    },
+    get: () => (isManaged.value ? internalState.value : (prop.value as T)),
+  });
 
-    return { state, isManaged };
-  };
+  return { state, isManaged };
+};
