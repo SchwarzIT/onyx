@@ -2,12 +2,27 @@
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
-import packageJson from "./package.json";
-import { vuePluginOptions } from "./playwright.config";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import packageJson from "../components/package.json";
+import { vuePluginOptions } from "../components/playwright.config";
 
 // https://vitejs.dev/config
 export default defineConfig({
-  plugins: [vue(vuePluginOptions)],
+  plugins: [
+    vue(vuePluginOptions),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "./node_modules/@sit-onyx/components/src/i18n/locales/*",
+          dest: "locales",
+        },
+        {
+          src: ["./node_modules/@sit-onyx/components/src/styles/**"],
+          dest: "styles",
+        },
+      ],
+    }),
+  ],
   build: {
     lib: {
       entry: getFilePath("./src/index.ts"),
@@ -17,16 +32,6 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
       external: Object.keys(packageJson.peerDependencies),
-    },
-  },
-  test: {
-    root: getFilePath("./"),
-    environment: "jsdom",
-    passWithNoTests: true,
-    include: ["src/**/*.spec.(ts|tsx)"],
-    coverage: {
-      include: ["src"],
-      exclude: ["src/**/*.stories.ts"],
     },
   },
 });

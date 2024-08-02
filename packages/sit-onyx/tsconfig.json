@@ -1,9 +1,15 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.vitest.json" },
-    { "path": "./tsconfig.playwright.json" }
-  ]
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
+  "include": ["../components/src/index.ts", "../components/src/env.d.ts"],
+  "compilerOptions": {
+    "incremental": true,
+    "verbatimModuleSyntax": null,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "./dist/tsconfig.app.tsbuildinfo",
+    "rootDir": "../components/src/",
+    "outDir": "./dist",
+    "baseUrl": "../components/src/"
+  }
 }
