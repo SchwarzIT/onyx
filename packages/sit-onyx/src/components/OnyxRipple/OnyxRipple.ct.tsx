@@ -1,9 +1,9 @@
 import { expect, test } from "../../playwright/a11y";
-import OnyxRipple from "./OnyxRipple.vue";
+import RippleTestWrapper from "./RippleTestWrapper.vue";
 
 test("should trigger some ripples", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(<OnyxRipple style="width: 500px; height: 500px;" />);
+  const component = await mount(<RippleTestWrapper />);
 
   await component.click({ clickCount: 2, position: { x: 0, y: 50 } });
   await component.click({ clickCount: 1, position: { x: 250, y: 0 } });
