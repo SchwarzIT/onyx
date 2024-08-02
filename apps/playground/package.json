@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
-    "@vue/repl": "~4.2.1",
+    "@vue/repl": "~4.3.1",
     "@vueuse/core": "^10.11.0",
     "sit-onyx": "workspace:^"
   }
