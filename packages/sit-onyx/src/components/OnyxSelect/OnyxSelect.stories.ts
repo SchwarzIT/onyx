@@ -237,6 +237,7 @@ export const WithSearch: Story = {
       setup: () => {
         watchEffect(() => {
           ctx.args.searchTerm = undefined;
+          // the following line is needed to keep the reactivity, although it's not clear why
           ctx.args.searchTerm;
         });
       },
