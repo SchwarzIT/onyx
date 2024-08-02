@@ -21,7 +21,7 @@
       "outputs": ["playwright-report", "test-results"]
     },
     "test:integration": {
-      "dependsOn": ["build", "sit-onyx#build"],
+      "dependsOn": ["sit-onyx#build", "build"],
       "outputs": ["playwright-report", "test-results"]
     },
     "vite": {
