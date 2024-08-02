@@ -28,7 +28,6 @@ export const useManagedState = <Prop extends Readonly<Ref<T | undefined>>, T>(
   initialState: T,
   emit: (val: T) => void,
 ) =>
-  // : { state: WritableComputedRef<T>; isManaged: ComputedRef<boolean> }
   {
     const isManaged = computed(() => prop.value === undefined);
     const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
