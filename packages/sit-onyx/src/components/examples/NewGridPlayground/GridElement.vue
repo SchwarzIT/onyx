@@ -1,24 +1,27 @@
 <script lang="ts" setup>
-import type { GridElementData } from "./EditGridElementDialog.vue";
-import EditGridElementDialog from "./EditGridElementDialog.vue";
+import { computed } from "vue";
+import type { GridElementConfig } from "./EditGridElementDialog.vue";
 
-const props = defineProps<GridElementData>();
+const props = defineProps<GridElementConfig>();
 
 const emit = defineEmits<{
   click: [];
-  edit: [data: GridElementData];
-  delete: [];
 }>();
+
+const gridClasses = computed(() => {
+  return [
+    `onyx-grid-span-${props.columnCount}`,
+    ...Object.entries(props.breakpoints ?? {}).map(([breakpoint, columns]) => {
+      return `onyx-grid-${breakpoint}-span-${columns}`;
+    }),
+  ];
+});
 </script>
 
 <template>
-  <div :class="`onyx-grid-span-${props.columnCount}`">
-    <button class="grid-element" type="button" @click="emit('click')">
-      <slot></slot>
-    </button>
-
-    <EditGridElementDialog label="Edit grid element" />
-  </div>
+  <button class="grid-element" type="button" :class="gridClasses" @click="emit('click')">
+    <slot></slot>
+  </button>
 </template>
 
 <style lang="scss" scoped>
