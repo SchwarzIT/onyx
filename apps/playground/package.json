@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "test:integration": "playwright install && playwright test"
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
