@@ -22,14 +22,14 @@ test.describe("Screenshot tests", () => {
     },
     // set component size to fully include the tooltip
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltip = page.getByRole("tooltip");
+      const tooltip = page.getByRole("status");
 
       // set paddings to fit the full tooltip in the screenshot
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await component.hover();
+      await component.click();
 
       await isTooltipVisible(tooltip);
     },
