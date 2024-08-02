@@ -5,7 +5,6 @@ import { useRipple, type RippleConfig } from "../../composables/useRipple";
 const rippleTrigger = ref<HTMLElement>();
 
 const config = computed<RippleConfig>(() => ({
-  color: "var(--onyx-ripple-color, var(--onyx-color-base-primary-600))",
   container: rippleTrigger,
 }));
 
@@ -28,7 +27,6 @@ defineExpose({
           top: r.top,
           width: r.radius,
           height: r.radius,
-          backgroundColor: r.backgroundColor,
         }"
         :data-rippleid="key"
       ></span>
@@ -52,6 +50,7 @@ defineExpose({
       position: absolute;
       border-radius: 50%;
       pointer-events: none;
+      background-color: var(--onyx-ripple-color, var(--onyx-color-base-primary-600));
       transition:
         opacity,
         transform 0ms cubic-bezier(0, 0, 0.2, 1);

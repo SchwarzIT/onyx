@@ -3,7 +3,6 @@ import { computed, reactive, ref, type Ref } from "vue";
 import { distanceToFurthestCorner } from "../utils/math";
 
 export type RippleConfig = {
-  color: string;
   container: Ref<HTMLElement | undefined>;
 };
 
@@ -12,7 +11,6 @@ export type RippleInstance = {
   top: string;
   radius: string;
   time: number;
-  backgroundColor: string;
   rippleId: string;
   fadeIn: boolean;
 };
@@ -43,7 +41,6 @@ export const useRipple = (config: Ref<RippleConfig>) => {
       top: offsetY - radius + "px",
       radius: Math.round(radius * 2) + "px",
       time: Date.now(),
-      backgroundColor: config.value.color,
       rippleId: createId("ripple"),
       fadeIn: false,
     };
