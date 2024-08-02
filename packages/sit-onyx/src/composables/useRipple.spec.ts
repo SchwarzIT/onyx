@@ -5,9 +5,7 @@ import { useRipple, type RippleConfig } from "./useRipple";
 describe("useRipple", () => {
   vi.stubGlobal(
     "matchMedia",
-    vi.fn(() => ({
-      matches: true,
-    })),
+    vi.fn(() => ({ matches: true })),
   );
 
   const rect = {
@@ -26,7 +24,7 @@ describe("useRipple", () => {
     color: "red",
     container: ref({
       getBoundingClientRect: vi.fn(() => rect),
-    } as unknown as HTMLElement),
+    }),
   }));
 
   const { ripples, startRipple, hideRipples, hideRipple } = useRipple(config);
@@ -44,7 +42,7 @@ describe("useRipple", () => {
       dataset: {
         rippleid: r.rippleId,
       },
-    } as unknown as HTMLElement);
+    });
     hideRipples();
     expect(ripples.size).toBe(0);
   });
