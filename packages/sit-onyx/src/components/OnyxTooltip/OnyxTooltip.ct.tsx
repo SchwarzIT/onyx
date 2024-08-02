@@ -1,6 +1,7 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxTooltip from "./OnyxTooltip.vue";
+import TestWrapper from "./TestWrapper.vue";
 
 test("should trigger with boolean", async ({ mount }) => {
   // ARRANGE
@@ -25,16 +26,14 @@ test("should trigger with boolean", async ({ mount }) => {
 
 test("should trigger with hover", async ({ mount, page }) => {
   // ARRANGE
-  let component = await mount(OnyxTooltip, {
+  const component = await mount(TestWrapper, {
     props: {
       text: "Test tooltip",
-    },
-    slots: {
-      default: "Slot content",
+      open: "hover",
     },
   });
 
-  let tooltip = component.getByRole("tooltip");
+  const tooltip = component.getByRole("tooltip");
 
   // ASSERT
   await expect(tooltip).toBeHidden();
@@ -51,14 +50,6 @@ test("should trigger with hover", async ({ mount, page }) => {
   await expect(tooltip).toBeHidden();
 
   // ACT
-  await component.unmount();
-  component = await mount(
-    <OnyxTooltip text="Test tooltip">
-      <span tabindex="0">Slot content</span>
-    </OnyxTooltip>,
-  );
-  tooltip = component.getByRole("tooltip");
-
   await page.keyboard.press("Tab");
 
   // ASSERT
@@ -73,17 +64,14 @@ test("should trigger with hover", async ({ mount, page }) => {
 
 test("should trigger with click", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(OnyxTooltip, {
+  const component = await mount(TestWrapper, {
     props: {
       text: "Test tooltip",
       open: "click",
     },
-    slots: {
-      default: "Slot content",
-    },
   });
 
-  const tooltip = component.getByRole("tooltip");
+  const tooltip = component.getByRole("status");
 
   // ASSERT
   await expect(tooltip).toBeHidden();

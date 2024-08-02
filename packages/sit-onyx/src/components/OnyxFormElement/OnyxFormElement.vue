@@ -40,6 +40,7 @@ defineSlots<{
       <OnyxInfoTooltip
         v-if="props.labelTooltip"
         class="onyx-form-element__label-tooltip"
+        :open="'hover'"
         :text="props.labelTooltip"
       />
       <span
@@ -60,7 +61,8 @@ defineSlots<{
         class="onyx-form-element__error-tooltip"
         color="danger"
         position="bottom"
-        :label="t('showTooltip.error')"
+        :label="t('tooltip.error')"
+        :open="'hover'"
         :text="errorMessages.longMessage"
       />
 
@@ -71,6 +73,7 @@ defineSlots<{
         v-if="props.messageTooltip"
         class="onyx-form-element__message-tooltip"
         position="bottom"
+        :open="'hover'"
         :text="props.messageTooltip"
       />
       <span v-if="counterText" class="onyx-form-element__counter">

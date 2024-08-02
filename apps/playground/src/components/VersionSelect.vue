@@ -32,26 +32,17 @@ const filteredVersions = computed(() => {
 const options = computed<SelectOption<string>[]>(() => {
   return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
 });
-
-const modelValue = computed<string>({
-  get: () => {
-    const isLatest = version.value && !version.value.includes(".");
-    if (isLatest) return options.value?.[0]?.value;
-    return options.value.find((o) => o.value === version.value)!.value;
-  },
-  set: (value: string) => {
-    version.value = value;
-  },
-});
 </script>
 
 <template>
   <OnyxSelect
-    v-model="modelValue"
+    :model-value="version ?? undefined"
     :label="props.label"
     :list-label="`Select ${props.pkg} version`"
-    placeholder="Select version"
+    :placeholder="version || 'Select version'"
     :options="options"
     density="compact"
+    with-search
+    @update:model-value="version = $event as Exclude<typeof $event, string[]>"
   />
 </template>

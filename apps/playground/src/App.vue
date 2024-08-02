@@ -10,7 +10,10 @@ import { useStore } from "./composables/useStore";
 const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
 
 const replRef = ref<InstanceType<typeof Repl>>();
-const reloadPage = () => replRef.value?.reload();
+const reloadPage = () => {
+  replRef.value?.reload();
+  store.reloadLanguageTools?.();
+};
 
 const isDark = useDark();
 const theme = computed(() => (isDark.value ? "dark" : "light"));
@@ -39,7 +42,6 @@ const previewOptions = computed<InstanceType<typeof Repl>["previewOptions"]>(() 
     the correct style.css for the onyx version is loaded -->
     <Repl
       v-if="!isLoadingOnyxVersions"
-      :key="onyxVersion"
       ref="replRef"
       :editor="Monaco"
       :theme="theme"
