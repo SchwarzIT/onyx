@@ -31,9 +31,6 @@ test("should persist onyx version in URL", async ({ page }) => {
   // ACT (should keep onyx version after reload)
   await page.reload();
 
-  // TODO: remove me
-  expect(true).toBe(false);
-
   // ASSERT
   await expect(onyxVersionSelect).toHaveValue("1.0.0-mock.2");
 });
