@@ -61,20 +61,41 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Radio button (invalid)",
-    columns: ["unchecked", "checked"],
+    columns: ["unchecked", "checked", "longError"],
     rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
-      <OnyxRadioButton
-        value="test-value"
-        label="Test label"
-        name="test-name"
-        customError="Test error"
-        checked={column === "checked"}
-      />
-    ),
+    component: (column) => {
+      const customError =
+        column === "longError"
+          ? { shortMessage: "Error", longMessage: "Further info" }
+          : "Test error";
+      return (
+        <OnyxRadioButton
+          value="test-value"
+          label="Test label"
+          name="test-name"
+          customError={customError}
+          checked={column === "checked"}
+        />
+      );
+    },
     beforeScreenshot: async (component, page, column, row) => {
+      const errorMessage = column === "longError" ? "Error: Further info" : "Test error";
+
       await expect(page.locator("input:invalid")).toBeAttached();
-      if (row === "hover") await component.hover();
+
+      if (row !== "default") {
+        // add space for tooltip
+        await component.evaluate((element) => {
+          element.style.paddingTop = "3rem";
+        });
+      }
+
+      if (row === "hover") {
+        await component.getByText("Test label").hover();
+
+        // eslint-disable-next-line playwright/no-standalone-expect
+        await expect(page.getByRole("tooltip", { name: errorMessage })).toBeVisible();
+      }
       if (row === "focus-visible") await page.keyboard.press("Tab");
     },
   });
@@ -111,27 +132,5 @@ test.describe("Screenshot tests", () => {
         loading={row === "loading"}
       />
     ),
-  });
-});
-
-[
-  { customError: "Error", expectedTitle: "Error" },
-  {
-    customError: { shortMessage: "Error", longMessage: "Further info" },
-    expectedTitle: "Error: Further info",
-  },
-].forEach(({ customError, expectedTitle }) => {
-  test(`should have the title "${expectedTitle}"`, async ({ mount, makeAxeBuilder, page }) => {
-    // ARRANGE
-    await mount(<OnyxRadioButton label="Label" customError={customError} />);
-
-    // ASSERT
-    await expect(page.getByTitle(expectedTitle), "should have the expected title").toBeVisible();
-
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
   });
 });

@@ -89,6 +89,7 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
+      const errorMessage = column === "longError" ? "Error: Further info" : "Test error";
       const checkbox = component.getByLabel("Test label");
 
       if (column !== "disabled") {
@@ -96,9 +97,7 @@ test.describe("Screenshot tests", () => {
         await checkbox.click();
         await checkbox.click();
 
-        if (row !== "hover") {
-          await page.getByRole("document").click(); // reset focus
-        }
+        await page.getByRole("document").click(); // reset focus
         if (column === "indeterminate") {
           await checkbox.evaluate(
             (element) => ((element as HTMLInputElement).indeterminate = true),
@@ -114,7 +113,12 @@ test.describe("Screenshot tests", () => {
       }
 
       if (row === "focus-visible") await page.keyboard.press("Tab");
-      if (row === "hover") await component.hover();
+      if (row === "hover" && column !== "disabled") {
+        await checkbox.hover();
+
+        // eslint-disable-next-line playwright/no-standalone-expect
+        await expect(page.getByRole("tooltip", { name: errorMessage })).toBeVisible();
+      }
     },
   });
 
