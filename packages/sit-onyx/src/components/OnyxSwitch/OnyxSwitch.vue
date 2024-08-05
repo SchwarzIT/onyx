@@ -314,11 +314,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
 
     // hide error tooltip before a user interaction happened
-    .onyx-error-tooltip:has(&__input) .onyx-tooltip {
+    .onyx-error-tooltip:has(&__input):not(:has(&__input:user-invalid)) .onyx-tooltip {
       display: none;
-    }
-    .onyx-error-tooltip:has(&__input:user-invalid) .onyx-tooltip {
-      display: block;
     }
   }
 }
