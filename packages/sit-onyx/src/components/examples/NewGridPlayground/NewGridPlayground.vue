@@ -2,7 +2,8 @@
 import edit from "@sit-onyx/icons/edit.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { ref } from "vue";
+import { computed, ref, shallowRef } from "vue";
+import { useResizeObserver } from "../../../composables/useResizeObserver";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
@@ -15,12 +16,13 @@ import EditGridElementDialog, { type GridElementConfig } from "./EditGridElement
 import GridElement from "./GridElement.vue";
 import GridOverlay from "./GridOverlay.vue";
 
+const viewportSize = useResizeObserver(shallowRef(document.body));
+
 const alignment = ref<"left" | "center">("left");
 const maxWidth = ref<OnyxBreakpoint | "none">("none");
 
-const isAddDialogOpen = ref(false);
 const gridElements = ref<GridElementConfig[]>([]);
-
+const isAddDialogOpen = ref(false);
 const gridElementIndexToEdit = ref<number>();
 
 const deleteElement = (index: number) => {
@@ -43,12 +45,26 @@ const maxWidthOptions: SelectOption[] = [
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
 ];
+
+const currentBreakpoint = computed(() => {
+  const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
+    if (viewportSize.width.value >= width) return name;
+    return prev;
+  }, "" as OnyxBreakpoint);
+
+  return `${breakpoint} (${Math.round(viewportSize.width.value)}px)`;
+});
 </script>
 
 <template>
   <div class="onyx-text playground">
     <div class="onyx-grid-container">
-      <OnyxHeadline is="h2">Grid and breakpoint demo</OnyxHeadline>
+      <OnyxHeadline is="h1">Grid and breakpoint demo</OnyxHeadline>
+      <OnyxHeadline is="h2">
+        Your current breakpoint:
+        <span class="playground__breakpoint">{{ currentBreakpoint }}</span>
+      </OnyxHeadline>
+
       <p>To see the grid in action, just use the window resizer to adjust the width.</p>
 
       <div class="playground__options">
@@ -146,6 +162,10 @@ const maxWidthOptions: SelectOption[] = [
     flex-direction: column;
     gap: var(--onyx-spacing-md);
     margin-top: var(--onyx-spacing-lg);
+  }
+
+  &__breakpoint {
+    color: var(--onyx-color-text-icons-neutral-soft);
   }
 }
 
