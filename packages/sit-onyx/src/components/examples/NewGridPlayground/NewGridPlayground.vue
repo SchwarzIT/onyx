@@ -21,6 +21,7 @@ const viewportSize = useResizeObserver(shallowRef(document.body));
 
 const alignment = ref<"left" | "center">("left");
 const maxWidth = ref<OnyxBreakpoint | "none">("none");
+const maxColumns = ref<16 | 20>(16);
 
 const gridElements = ref<GridElementConfig[]>([]);
 const isAddDialogOpen = ref(false);
@@ -47,11 +48,16 @@ const maxWidthOptions: SelectOption[] = [
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
 ];
 
+const maxColumnsOptions: SelectOption[] = [
+  { label: "16", value: 16 },
+  { label: "20", value: 20 },
+];
+
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
     if (viewportSize.width.value >= width) return name;
     return prev;
-  }, "" as OnyxBreakpoint);
+  }, "2xs");
 
   return `${breakpoint} (${Math.round(viewportSize.width.value)}px)`;
 });
@@ -94,6 +100,14 @@ const currentBreakpoint = computed(() => {
           direction="horizontal"
           :disabled="maxWidth === 'none'"
         />
+
+        <OnyxRadioGroup
+          v-if="viewportSize.width.value >= ONYX_BREAKPOINTS.xl"
+          v-model="maxColumns"
+          headline="Max columns"
+          :options="maxColumnsOptions"
+          direction="horizontal"
+        />
       </div>
     </div>
 
@@ -101,9 +115,11 @@ const currentBreakpoint = computed(() => {
       :class="{
         'onyx-grid-center': alignment === 'center',
         [`onyx-grid-max-${maxWidth}`]: maxWidth !== 'none',
+        'onyx-grid-xl-20': maxColumns === 20,
       }"
     >
-      <GridOverlay />
+      <!-- key is needed to re-render the overlay when the max columns change -->
+      <GridOverlay :key="maxColumns" />
 
       <div>
         <OnyxNavBar app-name="Example navigation">
@@ -135,7 +151,7 @@ const currentBreakpoint = computed(() => {
             <OnyxIcon class="element__icon" :icon="edit" />
           </GridElement>
 
-          <GridElement :column-count="1" mode="outline" @click="isAddDialogOpen = true">
+          <GridElement :column-count="2" mode="outline" @click="isAddDialogOpen = true">
             <OnyxIcon :icon="plus" />
           </GridElement>
         </div>
