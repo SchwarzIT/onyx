@@ -100,6 +100,15 @@ export const Required = {
     modelValue: undefined,
     required: true,
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="padding: 2rem 0 0 2.5rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
 
 /**
