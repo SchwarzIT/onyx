@@ -39,7 +39,6 @@ const handleChange = (event: Event) => {
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <!-- TODO: bugfix needed, if one is checked, the other still shows an error -->
   <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
     <label :class="['onyx-radio-button', densityClass]">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
