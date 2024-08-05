@@ -89,14 +89,13 @@ const filteredOptions = computed<SelectOption[]>(() =>
     />
     <OnyxSelect
       v-model="filteredState"
+      v-model:search-term="filterSearchTerm"
       label="Custom filtering, search for text or number"
       list-label="Filtered list"
       :value-label="filterValueLabel"
       :options="filteredOptions"
       :skeleton="useSkeleton"
       with-search
-      manual-search
-      @update:search-term="filterSearchTerm = $event"
     />
   </div>
 
