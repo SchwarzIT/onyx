@@ -1,57 +1,60 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import type { GridElementSettings } from "./GridPlayground.vue";
+import type { GridElementConfig } from "./EditGridElementDialog.vue";
 
-const props = defineProps<{ settings: GridElementSettings; selected?: boolean }>();
+const props = defineProps<GridElementConfig & { mode?: "default" | "outline" }>();
 
-const gridElementClasses = computed(() =>
-  props.settings
-    .map((props) =>
-      ["onyx", "grid", props.breakpoint, "span", `${props.spans}`].filter(Boolean).join("-"),
-    )
-    .join(" "),
-);
+const emit = defineEmits<{
+  click: [];
+}>();
+
+const gridClasses = computed(() => {
+  return [
+    `onyx-grid-span-${props.columnCount}`,
+    ...Object.entries(props.breakpoints ?? {}).map(([breakpoint, columns]) => {
+      return `onyx-grid-${breakpoint}-span-${columns}`;
+    }),
+  ];
+});
 </script>
 
 <template>
   <button
-    :class="{
-      'onyx-grid-playground-element': true,
-      'onyx-grid-playground-element--selected': props.selected,
-      [gridElementClasses]: true,
-    }"
+    class="grid-element"
+    :class="[...gridClasses, props.mode === 'outline' ? 'grid-element--outline' : '']"
     type="button"
+    @click="emit('click')"
   >
-    <span v-for="(setting, i) in settings" :key="i">
-      {{ setting.breakpoint }}
-      {{ setting.spans }}
-    </span>
+    <slot></slot>
   </button>
 </template>
 
 <style lang="scss" scoped>
-.onyx-grid-playground-element {
-  height: 100px;
-  border: 0.125rem dashed var(--onyx-color-base-primary-500);
-  background-color: var(--onyx-color-base-primary-200);
-  border-radius: var(--onyx-radius-sm);
-  box-sizing: border-box;
+.grid-element {
+  border-radius: var(--onyx-radius-md);
+  background-color: var(--onyx-color-base-neutral-200);
+  height: 8rem;
+  width: 100%;
+  border: var(--onyx-1px-in-rem) solid transparent;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--onyx-color-text-icons-neutral-intense);
+  padding: 0;
 
-  &:hover {
-    background-color: var(--onyx-color-base-primary-500);
-    color: var(--onyx-color-text-icons-neutral-inverted);
+  &:hover,
+  &:focus-visible {
+    border-color: var(--onyx-color-base-primary-300);
+    background-color: var(--onyx-color-base-primary-100);
+    color: var(--onyx-color-text-icons-primary-intense);
   }
 
-  &--selected {
-    border-style: solid;
-    background-color: var(--onyx-color-base-primary-400);
-    border-color: var(--onyx-color-base-primary-500);
-    color: var(--onyx-color-text-icons-neutral-inverted);
+  &:focus-visible {
+    outline: 0.25rem solid var(--onyx-color-base-primary-200);
+  }
+
+  &--outline {
+    background-color: transparent;
+    border-color: var(--onyx-color-base-neutral-300);
   }
 }
 </style>
