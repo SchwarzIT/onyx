@@ -4,6 +4,7 @@ import GridPlayground from "./GridPlayground.vue";
 
 const meta: Meta<typeof GridPlayground> = {
   title: "Examples/GridPlayground",
+  tags: ["!autodocs"],
   ...defineStorybookActionsAndVModels({
     component: GridPlayground,
     events: [],
