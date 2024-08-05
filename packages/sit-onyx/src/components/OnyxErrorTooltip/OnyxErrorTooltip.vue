@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { type FormErrorMessages, getCustomErrorText } from "../../composables/useCustomValidity";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
@@ -8,12 +8,13 @@ import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
 const props = defineProps<{
   /**
-   * If error messages are provided,
-   * they will be presented in a tooltip around the given component
+   * The given component will be shown inside a tooltip when
+   * errorMessages are provided. Without errorMessages, the
+   * component will not be rendered inside a slot.
    */
   errorMessages?: FormErrorMessages;
   // TODO: clarify if this feature is wanted
-  /** don't show an error if the content is not interactive */
+  /** We don't show an error if the content is not interactive */
   disabled?: boolean;
 }>();
 defineSlots<{
@@ -25,11 +26,17 @@ defineSlots<{
 }>();
 
 const tooltipError = computed(() => getCustomErrorText(props.errorMessages));
+
+const defaultRef = ref();
+const errorRef = ref();
+
+const teleportTarget = computed(() =>
+  !tooltipError.value || props.disabled ? defaultRef.value : errorRef.value,
+);
 </script>
 
 <template>
-  <slot v-if="!tooltipError || disabled"></slot>
-
+  <div v-if="!tooltipError || props.disabled" ref="defaultRef"></div>
   <OnyxTooltip
     v-else
     class="onyx-error-tooltip"
@@ -39,11 +46,13 @@ const tooltipError = computed(() => getCustomErrorText(props.errorMessages));
     color="danger"
   >
     <template #default="{ trigger }">
-      <div v-bind="trigger">
-        <slot></slot>
-      </div>
+      <div ref="errorRef" v-bind="trigger"></div>
     </template>
   </OnyxTooltip>
+
+  <Teleport :disabled="!teleportTarget" :to="teleportTarget">
+    <slot></slot>
+  </Teleport>
 </template>
 
 <style lang="scss"></style>
