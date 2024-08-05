@@ -92,9 +92,9 @@
     "toggleContextMenu": "Toggle context menu",
     "navigationHeadline": "Navigation"
   },
-  "showTooltip": {
-    "info": "Show info tooltip",
-    "error": "Show error tooltip"
+  "tooltip": {
+    "info": "Toggle info tooltip",
+    "error": "Toggle error tooltip"
   },
   "colorScheme": {
     "headline": "Change appearance",

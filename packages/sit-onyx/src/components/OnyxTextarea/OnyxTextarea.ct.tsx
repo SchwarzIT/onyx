@@ -1,14 +1,10 @@
-import type { Locator } from "@playwright/test";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 test.describe("Screenshot tests", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   for (const state of ["default", "placeholder", "with value"] as const) {
     executeMatrixScreenshotTest({
       name: `Textarea (${state})`,
@@ -236,16 +232,13 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible(
+        _row === "labelTooltip" ? "label" : "message",
+      );
     },
   });
 
@@ -270,16 +263,11 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible("label");
     },
   });
 });
@@ -439,10 +427,12 @@ test("should autosize", async ({ mount }) => {
 test("should show error message after interaction", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<OnyxTextarea label="Demo" style="width: 12rem;" required />);
+  const formElementUtils = createFormElementUtils(component);
   const textarea = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
-  const errorTooltip = component.getByLabel("Show error tooltip");
-  const fullError = component.getByText("Please fill in this field.");
+  const fullError = formElementUtils
+    .getTooltipPopover("error")
+    .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
   await expect(errorPreview).toBeHidden();
@@ -456,11 +446,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(errorTooltip).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await errorTooltip.hover();
+  await formElementUtils.triggerTooltipVisible("error");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 
