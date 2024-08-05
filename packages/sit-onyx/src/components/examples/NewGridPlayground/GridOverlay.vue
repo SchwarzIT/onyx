@@ -3,7 +3,6 @@ import { computed, ref } from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
 
 const overlayRef = ref<HTMLElement>();
-
 const { width } = useResizeObserver(overlayRef);
 
 const columnCount = computed(() => {
@@ -11,8 +10,6 @@ const columnCount = computed(() => {
   width.value; // call it here so the computed is re-evaluated when the width changes
   return +getComputedStyle(overlayRef.value).getPropertyValue("--onyx-grid-columns");
 });
-
-defineExpose({ columnCount });
 </script>
 
 <template>
