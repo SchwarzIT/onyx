@@ -73,11 +73,18 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
           label="Default column count"
           placeholder="Default column count"
           v-bind="STEPPER_VALIDATIONS"
+          autofocus
           required
         />
       </div>
 
       <div class="dialog__body">
+        <p class="dialog__description onyx-text--small">
+          The breakpoint configs follow a "grater or equal than" logic. Example: For default column
+          4 and breakpoint "md" with 8 columns, the component will span 4 columns for breakpoints
+          smaller than md and 8 columns for md and larger.
+        </p>
+
         <div class="dialog__grid">
           <div
             v-for="(_, breakpoint) in ONYX_BREAKPOINTS"
@@ -132,6 +139,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
 
   &__description {
     color: var(--onyx-color-text-icons-neutral-medium);
+    margin-bottom: var(--onyx-spacing-2xs);
   }
 
   &__body {

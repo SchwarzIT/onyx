@@ -7,6 +7,7 @@ import { useResizeObserver } from "../../../composables/useResizeObserver";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import OnyxLink from "../../OnyxLink/OnyxLink.vue";
 import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
@@ -59,13 +60,24 @@ const currentBreakpoint = computed(() => {
 <template>
   <div class="onyx-text playground">
     <div class="onyx-grid-container">
-      <OnyxHeadline is="h1">Grid and breakpoint demo</OnyxHeadline>
+      <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
       <OnyxHeadline is="h2">
         Your current breakpoint:
         <span class="playground__breakpoint">{{ currentBreakpoint }}</span>
       </OnyxHeadline>
 
-      <p>To see the grid in action, just use the window resizer to adjust the width.</p>
+      <p>
+        Add placeholder components below and link them to the grid properties to get an
+        understanding on how components will behave inside the grid. To see the responsiveness of
+        the onyx grid in action, just use the window resizer to adjust your browser width.
+      </p>
+
+      <p>
+        For further details on the grid, please refer to our
+        <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank"
+          >grid docs</OnyxLink
+        >
+      </p>
 
       <div class="playground__options">
         <OnyxRadioGroup
@@ -156,6 +168,10 @@ const currentBreakpoint = computed(() => {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
+
+  &__headline {
+    margin-bottom: var(--onyx-spacing-2xs);
+  }
 
   &__options {
     display: flex;
