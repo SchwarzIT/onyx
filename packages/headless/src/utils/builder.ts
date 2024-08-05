@@ -11,7 +11,8 @@ import {
 import type { IfDefined } from "./types";
 
 /**
- * `v-bind`able attributes as they are provided by the headless composables.
+ * Properties as they can be used by `v-bind` on an HTML element.
+ * This includes generic html attributes and the vue reserved `ref` property.
  * `ref` is restricted to be a `HeadlessElRef` which only can by created through `createElRef`.
  */
 export type VBindAttributes<

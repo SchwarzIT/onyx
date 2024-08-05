@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "1.0.0-beta.21",
+  "version": "1.0.0-beta.22",
   "description": "Playground for the onyx Vue components",
   "type": "module",
   "author": "Schwarz IT KG",
@@ -13,11 +13,12 @@
     "preview": "vite preview",
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "test:integration": "playwright install && playwright test"
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
-    "@vue/repl": "^4.3.1",
+    "@vue/repl": "~4.2.1",
     "@vueuse/core": "^10.11.0",
     "sit-onyx": "workspace:^"
   }
