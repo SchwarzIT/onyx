@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, toRaw } from "vue";
+import { ref, toRaw, watch } from "vue";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
 import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../../OnyxCheckbox/OnyxCheckbox.vue";
@@ -14,19 +14,35 @@ export type GridElementConfig = {
 
 const props = defineProps<{
   open?: boolean;
+  /**
+   * Initial value. Useful if editing an existing element.
+   */
+  initialValue?: GridElementConfig;
 }>();
 
 const emit = defineEmits<{
   close: [];
   submit: [element: GridElementConfig];
+  delete: [];
 }>();
 
 const state = ref<Partial<GridElementConfig> & Required<Pick<GridElementConfig, "breakpoints">>>({
   breakpoints: {},
 });
 
+const cloneElement = <T extends object>(value: T): T => structuredClone(toRaw(value));
+
+// reset state when dialog is closed
+watch([() => props.open, () => props.initialValue], () => {
+  if (props.initialValue) {
+    state.value = { breakpoints: {}, ...cloneElement(props.initialValue) };
+  } else {
+    state.value = { breakpoints: {} };
+  }
+});
+
 const handleSubmit = () => {
-  emit("submit", structuredClone(toRaw(state.value as GridElementConfig)));
+  emit("submit", cloneElement(state.value as GridElementConfig));
 };
 
 const label = "Column configuration";
@@ -48,8 +64,8 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>
 
         <p class="dialog__description onyx-text--small">
-          Define the responsive behavior of the object by setting the quantity of columns for every
-          breakpoint.
+          Define the responsive behavior of the component by setting the number of columns.
+          Optionally, you can set different configs for each breakpoint.
         </p>
 
         <OnyxStepper
@@ -85,6 +101,12 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
         </div>
 
         <div class="dialog__actions">
+          <OnyxButton
+            v-if="props.initialValue"
+            label="Delete"
+            color="danger"
+            @click="emit('delete')"
+          />
           <OnyxButton label="Cancel" color="neutral" type="reset" />
           <OnyxButton label="Apply" type="submit" />
         </div>

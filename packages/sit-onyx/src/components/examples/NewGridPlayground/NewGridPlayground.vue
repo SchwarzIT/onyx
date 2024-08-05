@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import edit from "@sit-onyx/icons/edit.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ref } from "vue";
@@ -20,6 +21,18 @@ export type GridSettings = {
 const isCentered = ref(false);
 const isAddDialogOpen = ref(false);
 const gridElements = ref<GridElementConfig[]>([]);
+
+const gridElementIndexToEdit = ref<number>();
+
+const deleteElement = (index: number) => {
+  gridElements.value.splice(index, 1);
+  gridElementIndexToEdit.value = undefined;
+};
+
+const updateElement = (index: number, newElement: GridElementConfig) => {
+  gridElements.value[index] = newElement;
+  gridElementIndexToEdit.value = undefined;
+};
 </script>
 
 <template>
@@ -46,7 +59,15 @@ const gridElements = ref<GridElementConfig[]>([]);
 
     <div class="onyx-grid-container">
       <div class="onyx-grid">
-        <GridElement v-for="(element, index) in gridElements" :key="index" v-bind="element" />
+        <GridElement
+          v-for="(element, index) in gridElements"
+          :key="index"
+          class="element"
+          v-bind="element"
+          @click="gridElementIndexToEdit = index"
+        >
+          <OnyxIcon class="element__icon" :icon="edit" />
+        </GridElement>
 
         <GridElement :column-count="3" @click="isAddDialogOpen = true">
           <OnyxIcon :icon="plus" />
@@ -62,6 +83,16 @@ const gridElements = ref<GridElementConfig[]>([]);
         isAddDialogOpen = false;
       "
     />
+
+    <EditGridElementDialog
+      :open="gridElementIndexToEdit != undefined"
+      :initial-value="
+        gridElementIndexToEdit != undefined ? gridElements[gridElementIndexToEdit] : undefined
+      "
+      @close="gridElementIndexToEdit = undefined"
+      @submit="updateElement(gridElementIndexToEdit!, $event)"
+      @delete="deleteElement(gridElementIndexToEdit!)"
+    />
   </div>
 </template>
 
@@ -70,5 +101,17 @@ const gridElements = ref<GridElementConfig[]>([]);
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
+}
+
+.element {
+  &__icon {
+    display: none;
+  }
+
+  &:hover {
+    .element__icon {
+      display: revert-layer;
+    }
+  }
 }
 </style>
