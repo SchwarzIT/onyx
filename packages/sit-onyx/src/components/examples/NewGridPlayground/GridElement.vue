@@ -42,5 +42,9 @@ const gridClasses = computed(() => {
     background-color: var(--onyx-color-base-primary-100);
     color: var(--onyx-color-text-icons-primary-intense);
   }
+
+  &:focus-visible {
+    outline: 0.25rem solid var(--onyx-color-base-primary-200);
+  }
 }
 </style>

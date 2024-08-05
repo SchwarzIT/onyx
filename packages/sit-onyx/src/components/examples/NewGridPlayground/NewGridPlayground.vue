@@ -108,7 +108,8 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
     display: none;
   }
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     .element__icon {
       display: revert-layer;
     }
