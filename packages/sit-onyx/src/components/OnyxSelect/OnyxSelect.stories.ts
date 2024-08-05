@@ -1,7 +1,8 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h, ref, watchEffect } from "vue";
+import { computed, h, ref, watchEffect } from "vue";
+import { normalizedIncludes } from "../../utils/strings";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types";
@@ -26,7 +27,6 @@ const meta: Meta<typeof OnyxSelect> = {
   title: "Form/Select",
   ...defineStorybookActionsAndVModels({
     component: OnyxSelect,
-    // TODO: find out why validityChange does not fire.
     events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad", "validityChange"],
     argTypes: {
       empty: { control: { disable: true } },
@@ -219,13 +219,87 @@ export const Empty = {
 
 /**
  * This example shows a select with search functionality.
+ * The filtering of the options will be handled automatically by onyx.
+ * _Info: the property `searchTerm` is disabled in this example, as it should stay undefined for the example to work._
  */
-export const WithSearch = {
+export const WithSearch: Story = {
   args: {
     ...Default.args,
     withSearch: true,
   },
-} satisfies Story;
+  decorators: [
+    /**
+     * Decorator to prevent Storybook from setting the searchTerm
+     * which would disable the included filtering by managed search state
+     */
+    (story, ctx) => ({
+      components: { story },
+      setup: () => {
+        watchEffect(() => {
+          ctx.args.searchTerm = undefined;
+          // the following line is needed to keep the reactivity, although it's not clear why
+          ctx.args.searchTerm;
+        });
+      },
+      template: `<story />`,
+    }),
+  ],
+};
+
+const optionsForCustomSearch = [
+  { value: "0", label: "Option Zero" },
+  { value: "1", label: "Option One" },
+  { value: "2", label: "Option Two" },
+  { value: "3", label: "Option Three" },
+  { value: "4", label: "Option Four" },
+  { value: "5", label: "Option Five" },
+];
+/**
+ * This example shows a custom search functionality that disables the integrated filtering by onyx by using `v-model:searchTerm`.
+ * The custom search accepts either numbers or option labels as search input to show the matching options.
+ * Note that `valueLabel` needs to be kept up to date as onyx can't find the label if the options are filtered manually.
+ * **Tip**: You can use our `normalizedIncludes()` utility function for this use case.
+ */
+export const WithCustomSearch: Story = {
+  args: {
+    ...Default.args,
+    withSearch: true,
+    options: optionsForCustomSearch,
+    searchTerm: "2",
+    valueLabel: "Option One",
+    modelValue: 1,
+  },
+  decorators: [
+    /**
+     * Decorator to simulate search
+     */
+    (story, ctx) => ({
+      components: { story },
+      setup: () => {
+        const filterValueLabel = computed(
+          () => optionsForCustomSearch[ctx.args.modelValue as number].label,
+        );
+        const filteredOptions = computed<SelectOption[]>(() => {
+          const { searchTerm } = ctx.args;
+          return optionsForCustomSearch.filter(({ value, label }) =>
+            searchTerm
+              ? normalizedIncludes(label, searchTerm) || value === searchTerm
+              : optionsForCustomSearch,
+          );
+        });
+
+        watchEffect(() => {
+          ctx.args.options = filteredOptions.value;
+          ctx.args.valueLabel = filterValueLabel.value;
+          // the following lines are needed to keep the reactivity, although it's not clear why
+          ctx.args.valueLabel;
+          ctx.args.options;
+        });
+      },
+      template: `<story />`,
+    }),
+  ],
+};
 
 /**
  * This example shows a loading select.
