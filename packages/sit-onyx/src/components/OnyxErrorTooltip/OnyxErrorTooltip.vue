@@ -27,16 +27,11 @@ defineSlots<{
 
 const tooltipError = computed(() => getCustomErrorText(props.errorMessages));
 
-const defaultRef = ref();
-const errorRef = ref();
-
-const teleportTarget = computed(() =>
-  !tooltipError.value || props.disabled ? defaultRef.value : errorRef.value,
-);
+const targetRef = ref<HTMLDivElement>();
 </script>
 
 <template>
-  <div v-if="!tooltipError || props.disabled" ref="defaultRef"></div>
+  <div v-if="!tooltipError || props.disabled" ref="targetRef"></div>
   <OnyxTooltip
     v-else
     class="onyx-error-tooltip"
@@ -46,11 +41,11 @@ const teleportTarget = computed(() =>
     color="danger"
   >
     <template #default="{ trigger }">
-      <div ref="errorRef" v-bind="trigger"></div>
+      <div ref="targetRef" v-bind="trigger"></div>
     </template>
   </OnyxTooltip>
 
-  <Teleport :disabled="!teleportTarget" :to="teleportTarget">
+  <Teleport :disabled="!targetRef" :to="targetRef">
     <slot></slot>
   </Teleport>
 </template>
