@@ -31,7 +31,10 @@ const targetRef = ref<HTMLDivElement>();
 </script>
 
 <template>
+  <!-- component will be placed in here if no tooltip should be rendered -->
   <div v-if="!tooltipError || props.disabled" ref="targetRef"></div>
+
+  <!-- component will be placed inside the tooltip if it gets rendered -->
   <OnyxTooltip
     v-else
     class="onyx-error-tooltip"
@@ -45,6 +48,7 @@ const targetRef = ref<HTMLDivElement>();
     </template>
   </OnyxTooltip>
 
+  <!-- sends the given component to the desired target without destroying the component -->
   <Teleport :disabled="!targetRef" :to="targetRef">
     <slot></slot>
   </Teleport>
