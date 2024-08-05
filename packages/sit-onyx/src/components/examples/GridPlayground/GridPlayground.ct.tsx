@@ -96,6 +96,17 @@ test("should add/edit grid elements", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("with-elements.png");
+
+  /**
+   * Should delete grid element
+   */
+  // ACT
+  await page.getByLabel("Edit grid element 2").click();
+  await dialog.getByRole("button", { name: "Delete" }).click();
+
+  // ASSERT
+  await expect(dialog).toBeHidden();
+  await expect(page.getByLabel("Edit grid element 2")).toBeHidden();
 });
 
 test("should should current grid values", async ({ mount, page }) => {
