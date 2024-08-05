@@ -123,7 +123,7 @@ const currentBreakpoint = computed(() => {
             <OnyxIcon class="element__icon" :icon="edit" />
           </GridElement>
 
-          <GridElement :column-count="3" @click="isAddDialogOpen = true">
+          <GridElement :column-count="1" mode="outline" @click="isAddDialogOpen = true">
             <OnyxIcon :icon="plus" />
           </GridElement>
         </div>
