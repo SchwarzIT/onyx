@@ -108,15 +108,15 @@ export const CustomError = {
     ...Default.args,
     hideLabel: true,
     customError: {
-      shortMessage: "Example custom error",
-      longMessage: "This text might inform the users what they can do to fix the error.",
+      shortMessage: "Custom error",
+      longMessage: "Further explanation.",
     },
   },
   decorators: [
     (story) => ({
       components: { story },
       template: `
-      <div style="padding: 3.3rem 0 0 8rem;">
+      <div style="padding: 2rem 0 0 5rem;">
         <story />
       </div>`,
     }),

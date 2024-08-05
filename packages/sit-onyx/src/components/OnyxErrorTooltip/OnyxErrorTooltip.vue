@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { computed, ref } from "vue";
 import { type FormErrorMessages, getCustomErrorText } from "../../composables/useCustomValidity";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
@@ -35,14 +34,7 @@ const targetRef = ref<HTMLDivElement>();
   <div v-if="!tooltipError || props.disabled" ref="targetRef"></div>
 
   <!-- component will be placed inside the tooltip if it gets rendered -->
-  <OnyxTooltip
-    v-else
-    class="onyx-error-tooltip"
-    :icon="circleInformation"
-    open="hover"
-    :text="tooltipError"
-    color="danger"
-  >
+  <OnyxTooltip v-else class="onyx-error-tooltip" open="hover" :text="tooltipError" color="danger">
     <template #default="{ trigger }">
       <div ref="targetRef" v-bind="trigger"></div>
     </template>

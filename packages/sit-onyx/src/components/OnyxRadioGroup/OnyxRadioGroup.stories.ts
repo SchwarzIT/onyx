@@ -104,7 +104,7 @@ export const Required = {
     (story) => ({
       components: { story },
       template: `
-      <div style="padding: 2rem 0 0 2.5rem;">
+      <div style="padding-left: 2rem;">
         <story />
       </div>`,
     }),
@@ -119,8 +119,17 @@ export const CustomError = {
   args: {
     ...Default.args,
     customError: {
-      shortMessage: "Example custom error",
-      longMessage: "This text might inform the users what they can do to fix the error.",
+      shortMessage: "Custom error",
+      longMessage: "Further explanation.",
     },
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="padding-left: 2rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
