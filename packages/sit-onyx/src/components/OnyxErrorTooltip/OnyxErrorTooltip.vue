@@ -53,5 +53,3 @@ const targetRef = ref<HTMLDivElement>();
     <slot></slot>
   </Teleport>
 </template>
-
-<style lang="scss"></style>
