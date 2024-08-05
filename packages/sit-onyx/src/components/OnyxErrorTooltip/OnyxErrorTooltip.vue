@@ -7,7 +7,10 @@ import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 // TODO: should this component be exported for onyx users?
 
 const props = defineProps<{
-  // TODO: explain
+  /**
+   * If error messages are provided,
+   * they will be presented in a tooltip around the given component
+   */
   errorMessages?: FormErrorMessages;
   // TODO: clarify if this feature is wanted
   /** don't show an error if the content is not interactive */
@@ -27,17 +30,18 @@ const tooltipError = computed(() => getCustomErrorText(props.errorMessages));
 <template>
   <slot v-if="!tooltipError || disabled"></slot>
 
-  <!-- TODO: open="trigger" -->
   <OnyxTooltip
     v-else
     class="onyx-error-tooltip"
     :icon="circleInformation"
-    :open="true"
+    open="hover"
     :text="tooltipError"
     color="danger"
   >
     <template #default="{ trigger }">
-      <slot v-bind="trigger"></slot>
+      <div v-bind="trigger">
+        <slot></slot>
+      </div>
     </template>
   </OnyxTooltip>
 </template>
