@@ -16,9 +16,11 @@ defineExpose({ columnCount });
 </script>
 
 <template>
-  <div ref="overlayRef" class="overlay onyx-grid-container">
-    <div class="onyx-grid overlay__grid">
-      <div v-for="i in columnCount" :key="i" class="overlay__column onyx-grid-span-1"></div>
+  <div ref="overlayRef" class="overlay">
+    <div class="overlay__container onyx-grid-container">
+      <div class="onyx-grid overlay__grid">
+        <div v-for="i in columnCount" :key="i" class="overlay__column onyx-grid-span-1"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -26,9 +28,13 @@ defineExpose({ columnCount });
 <style lang="scss" scoped>
 .overlay {
   background-color: var(--onyx-color-text-icons-danger-soft);
-  padding-top: 0;
-  padding-bottom: 0;
   height: 1.5rem;
+
+  &__container {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100%;
+  }
 
   &__grid {
     background-color: var(--onyx-color-text-icons-info-soft);
