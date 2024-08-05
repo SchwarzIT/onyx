@@ -100,7 +100,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
             />
             <OnyxStepper
               v-model="state.breakpoints[breakpoint]"
-              label="Column count"
+              :label="`Column count for breakpoint ${breakpoint}`"
               v-bind="STEPPER_VALIDATIONS"
               hide-label
               :disabled="!state.columnCount"

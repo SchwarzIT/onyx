@@ -10,7 +10,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="grid-badge">
+  <div class="grid-badge" :aria-label="props.label">
     <OnyxBadge :color="props.color">{{ props.value }}</OnyxBadge>
     <span>{{ props.label }}</span>
   </div>
