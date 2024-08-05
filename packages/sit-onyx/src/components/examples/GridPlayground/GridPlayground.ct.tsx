@@ -94,6 +94,9 @@ test("should add/edit grid elements", async ({ mount, page }) => {
   await expect(page.getByLabel("Edit grid element 2")).not.toHaveClass(/onyx-grid-span-2/);
   await expect(page.getByLabel("Edit grid element 2")).toHaveClass(/onyx-grid-span-4/);
 
+  // ACT
+  await page.getByRole("document").hover(); // reset hover (needed for webkit)
+
   // ASSERT
   await expect(page).toHaveScreenshot("with-elements.png");
 
