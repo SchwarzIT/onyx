@@ -2,7 +2,7 @@
 import edit from "@sit-onyx/icons/edit.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { computed, ref, shallowRef } from "vue";
+import { computed, nextTick, ref, shallowRef, watch } from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
@@ -14,6 +14,7 @@ import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
 import type { SelectOption } from "../../OnyxSelect/types";
 import EditGridElementDialog, { type GridElementConfig } from "./EditGridElementDialog.vue";
+import GridBadge from "./GridBadge.vue";
 import GridElement from "./GridElement.vue";
 import GridOverlay from "./GridOverlay.vue";
 
@@ -26,6 +27,31 @@ const maxColumns = ref<16 | 20>(16);
 const gridElements = ref<GridElementConfig[]>([]);
 const isAddDialogOpen = ref(false);
 const gridElementIndexToEdit = ref<number>();
+
+const gridRef = ref<HTMLElement>();
+
+const gridValues = ref<{
+  margin: string;
+  gutter: string;
+  columnCount: number;
+}>();
+
+watch(
+  [viewportSize.width, maxColumns, gridRef],
+  async () => {
+    if (!gridRef.value) return;
+
+    await nextTick();
+    const style = getComputedStyle(gridRef.value);
+
+    gridValues.value = {
+      margin: style.getPropertyValue("--onyx-grid-margin"),
+      gutter: style.getPropertyValue("--onyx-grid-gutter"),
+      columnCount: +style.getPropertyValue("--onyx-grid-columns"),
+    };
+  },
+  { immediate: true },
+);
 
 const deleteElement = (index: number) => {
   gridElements.value.splice(index, 1);
@@ -109,6 +135,12 @@ const currentBreakpoint = computed(() => {
           direction="horizontal"
         />
       </div>
+
+      <div v-if="gridValues" class="playground__badges">
+        <GridBadge :value="gridValues.margin" label="Margin" color="danger" />
+        <GridBadge :value="gridValues.columnCount" label="Columns" color="warning" />
+        <GridBadge :value="gridValues.gutter" label="Gutter" color="info" />
+      </div>
     </div>
 
     <div
@@ -118,8 +150,7 @@ const currentBreakpoint = computed(() => {
         'onyx-grid-xl-20': maxColumns === 20,
       }"
     >
-      <!-- key is needed to re-render the overlay when the max columns change -->
-      <GridOverlay :key="maxColumns" />
+      <GridOverlay :columns="gridValues?.columnCount" />
 
       <div>
         <OnyxNavBar app-name="Example navigation">
@@ -140,7 +171,7 @@ const currentBreakpoint = computed(() => {
       </div>
 
       <div class="onyx-grid-container">
-        <div class="onyx-grid">
+        <div ref="gridRef" class="onyx-grid">
           <GridElement
             v-for="(element, index) in gridElements"
             :key="index"
@@ -198,6 +229,18 @@ const currentBreakpoint = computed(() => {
 
   &__breakpoint {
     color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &__badges {
+    margin-top: var(--onyx-grid-gutter);
+    display: flex;
+    gap: var(--onyx-spacing-xl);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  > .onyx-grid-container {
+    padding-bottom: var(--onyx-spacing-xl);
   }
 }
 

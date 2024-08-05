@@ -1,22 +1,14 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { useResizeObserver } from "../../../composables/useResizeObserver";
-
-const overlayRef = ref<HTMLElement>();
-const { width } = useResizeObserver(overlayRef);
-
-const columnCount = computed(() => {
-  if (!overlayRef.value) return 0;
-  width.value; // call it here so the computed is re-evaluated when the width changes
-  return +getComputedStyle(overlayRef.value).getPropertyValue("--onyx-grid-columns");
+const props = withDefaults(defineProps<{ columns?: number }>(), {
+  columns: 16,
 });
 </script>
 
 <template>
-  <div ref="overlayRef" class="overlay">
+  <div class="overlay">
     <div class="overlay__container onyx-grid-container">
       <div class="onyx-grid overlay__grid">
-        <div v-for="i in columnCount" :key="i" class="overlay__column onyx-grid-span-1"></div>
+        <div v-for="i in props.columns" :key="i" class="overlay__column onyx-grid-span-1"></div>
       </div>
     </div>
   </div>
