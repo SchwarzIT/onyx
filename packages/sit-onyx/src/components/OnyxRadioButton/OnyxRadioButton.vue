@@ -105,6 +105,13 @@ const handleChange = (event: Event) => {
       --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
     }
 
+    // hide the error tooltip if the selector is valid.
+    // this happens when a radio group is required and one of the radio buttons is
+    // checked, the other ones will not update their validityState but will be
+    // recognized as "valid"
+    .onyx-error-tooltip:has(&__selector:valid) .onyx-tooltip {
+      display: none;
+    }
     &:has(&__selector:invalid) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
