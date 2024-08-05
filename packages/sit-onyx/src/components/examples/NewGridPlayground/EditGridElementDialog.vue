@@ -86,6 +86,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
           >
             <OnyxCheckbox
               :label="`${breakpoint.toUpperCase()} breakpoint`"
+              :model-value="!!state.breakpoints[breakpoint]"
               :value="breakpoint"
               :disabled="!state.columnCount"
               @update:model-value="handleCheckboxChange($event, breakpoint)"
