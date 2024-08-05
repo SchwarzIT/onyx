@@ -1,15 +1,11 @@
-import type { Locator } from "@playwright/test";
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxStepper from "./OnyxStepper.vue";
 
 test.describe("Screenshot tests", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   for (const state of ["default", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Stepper (${state})`,
@@ -22,7 +18,7 @@ test.describe("Screenshot tests", () => {
       },
       beforeScreenshot: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");
-        if (row === "hover") await component.hover();
+        if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
         if (state == "autofill") {
           await input.fill("10");
@@ -82,16 +78,13 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible(
+        _row === "labelTooltip" ? "label" : "message",
+      );
     },
   });
 
@@ -122,6 +115,7 @@ test.describe("Screenshot tests", () => {
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
           messageTooltip={messageTooltip}
+          modelValue={10}
         />
       );
     },
@@ -137,15 +131,9 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        const tooltipButton =
-          row === "errorTooltip"
-            ? page.getByLabel("Error Tooltip")
-            : page.getByLabel("Info Tooltip");
-        const tooltip = page.getByRole("tooltip");
-
-        await tooltipButton.hover();
-
-        await isTooltipVisible(tooltip);
+        await createFormElementUtils(page).triggerTooltipVisible(
+          row === "errorTooltip" ? "error" : "message",
+        );
       }
     },
   });
@@ -172,15 +160,11 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible("label");
     },
   });
 
@@ -194,7 +178,7 @@ test.describe("Screenshot tests", () => {
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
-        placeholder="Test placeholder"
+        placeholder="0"
         readonly={column === "readonly"}
         disabled={column === "disabled"}
         loading={column === "loading"}
@@ -213,7 +197,12 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: () => (
-      <OnyxStepper style="width: 12rem" label="Test label" customError="Test error" />
+      <OnyxStepper
+        style="width: 12rem"
+        label="Test label"
+        customError="Test error"
+        modelValue={10}
+      />
     ),
     beforeScreenshot: async (component, _page, column, row) => {
       const input = component.getByLabel("Test label");
@@ -222,7 +211,7 @@ test.describe("Screenshot tests", () => {
       await input.fill("10");
       await input.blur();
 
-      if (row === "hover") await component.hover();
+      if (row === "hover") await input.hover();
       if (row === "focus") await input.focus();
       if (column == "autofill") {
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
@@ -287,7 +276,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   // The initial value is 0.
-  await expect(inputElement).toHaveValue("010");
+  await expect(inputElement).toHaveValue("10");
 
   // ACT
   await inputElement.blur();

@@ -2,7 +2,7 @@ import type { StorybookGlobalType } from "@sit-onyx/storybook-utils";
 import type { Decorator } from "@storybook/vue3";
 import { ref, watch, watchEffect } from "vue";
 
-const themes = import.meta.glob("../src/styles/themes/*.css");
+const themes = import.meta.glob("../src/styles/variables/themes/*.css");
 
 /**
  * Map of all available onyx themes. Default theme will be sorted first.
@@ -27,6 +27,7 @@ export const onyxThemeGlobalType = {
     toolbar: {
       title: "Theme",
       icon: "paintbrush",
+      dynamicTitle: true,
       items: Object.keys(ONYX_THEMES).map((theme, index) => ({
         value: theme,
         title: theme,

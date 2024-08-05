@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import circleX from "@sit-onyx/icons/circle-x.svg?raw";
+import { useDensity, type DensityProp } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+
+const props = defineProps<DensityProp>();
 
 defineSlots<{
   /**
@@ -12,10 +15,12 @@ defineSlots<{
    */
   icon?(): unknown;
 }>();
+
+const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div class="onyx-empty">
+  <div :class="['onyx-empty', densityClass]">
     <slot name="icon">
       <OnyxIcon :icon="circleX" size="48px" />
     </slot>
@@ -31,7 +36,7 @@ defineSlots<{
 
 .onyx-empty {
   @include layers.component() {
-    padding: var(--onyx-spacing-xl);
+    padding: var(--onyx-density-xl);
     max-width: max-content;
     font-family: var(--onyx-font-family);
     text-align: center;
@@ -40,7 +45,7 @@ defineSlots<{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: var(--onyx-spacing-md);
+    gap: var(--onyx-density-md);
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-soft);

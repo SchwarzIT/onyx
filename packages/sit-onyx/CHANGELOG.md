@@ -1,5 +1,115 @@
 # sit-onyx
 
+## 1.0.0-beta.22
+
+### Major Changes
+
+- 349f412: - breaking change: `useOutsideClick` - renamed `element` to `inside`: Can now accept multiple element refs
+  - split `createTooltip` into `createTooltip` and `createToggletip` headless functions, as these implement different accessibility concepts: See https://inclusive-components.design/tooltips-toggletips/
+  - Therefore, the `OnyxTooltip` had to be reworked:
+    - on hover, the tooltip pattern is used
+    - on click the toggletip pattern is used
+    - the default slot now provides a `trigger` property, which needs to be bound by the user
+  - Also, the `OnyxInfoTooltip` component has been updated to be accessible.
+
+## 1.0.0-beta.21
+
+### Patch Changes
+
+- d6321d8: fix(OnyxStepper): check validity when value is changed with Arrow up/down or buttons
+
+  Also add spin button styles for disabled state
+
+## 1.0.0-beta.20
+
+### Patch Changes
+
+- 4c73713: fix(OnyxSelect): remove incorrect usage of `aria-busy`
+
+## 1.0.0-beta.19
+
+### Patch Changes
+
+- 9570420: fix(OnyxToast): do not cut off box shadow
+
+## 1.0.0-beta.18
+
+### Patch Changes
+
+- 82fffac: fix: export `OnyxStepper`
+
+## 1.0.0-beta.17
+
+### Major Changes
+
+- 17c0aa5: refactor(OnyxSelect): restrict modelValue to only contain values
+
+  #### Breaking changes
+
+  - OnyxSelects `modelValue` now only needs TValue, not `SelectOption<TValue>`
+
+  #### Features
+
+  - OnyxSelect determines the displayed labels by comparing `modelValue` with `options`. This can be overridden by setting the new prop `valueLabel`.
+  - OnyxSelect now filters the options internally when `searchTerm` is set. This can be overridden by setting the new prop `manualSearch`.
+
+## 1.0.0-beta.16
+
+### Major Changes
+
+- 258c3ec: refactor: implement new density CSS variables
+
+  #### Breaking changes
+
+  - remove CSS variable `--onyx-density`, can be replaced with 2rem, 2.5rem or 3rem accordingly for compact, default and cozy density
+  - OnyxBadge: removed CSS variables `--onyx-badge-padding`, ` --onyx-badge-icon-padding`, `--onyx-badge-height` and `--onyx-badge-dot-size`
+  - OnyxDialog: removed CSS variable `--onyx-dialog-padding`
+  - OnyxMiniSearch: removed CSS variable `--onyx-mini-search-icon-size`
+  - OnyxTable: removed CSS variable `--onyx-table-vertical-padding`
+  - OnyxTag: removed CSS variable `--onyx-tag-padding`
+  - OnyxSwitch: removed CSS variable `--onyx-switch-label-padding-vertical`
+
+  #### Features
+
+  New density CSS variables were added and used inside all onyx components which automatically adjust their spacing based on the current density:
+
+  - --onyx-density-3xs
+  - --onyx-density-2xs
+  - --onyx-density-xs
+  - --onyx-density-sm
+  - --onyx-density-md
+  - --onyx-density-lg
+  - --onyx-density-2xl
+  - --onyx-density-3xl
+  - --onyx-density-4xl
+
+  The following components now also support density:
+
+  - OnyxCheckboxGroup / OnyxRadioGroup headline and horizontal layout
+  - OnyxEmpty
+  - OnyxTooltip
+
+  #### Other bug fixes
+
+  - several visual fixes/improvements related to density/spacing
+  - fix(OnyxMiniSearch): translate placeholder
+  - fix(OnyxSelectInput): disable autocomplete for native input
+  - fix(OnyxSelect): hide required asterisk when `hideLabel` is set
+  - fix: do not exceed max width for OnyxInput, OnyxTextarea, OnyxSelect and OnyxStepper skeletons when custom max width is set via CSS
+  - fix(OnyxBadge): inherit icon size for cozy density from parent components
+
+## 1.0.0-beta.15
+
+### Major Changes
+
+- 9cb8667: fix: prevent "Cannot find module '../composables/density' or its corresponding type declarations." error
+
+  We removed the `sit-onyx/types` alias, please import directly from `sit-onyx` instead
+
+### Patch Changes
+
+- 02e4f4d: fix(OnyxStepper): Remove default modelValue and placeholder
+
 ## 1.0.0-beta.14
 
 ### Minor Changes

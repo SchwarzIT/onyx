@@ -10,6 +10,7 @@ on:
 jobs:
   playwright:
     strategy:
+      fail-fast: false
       matrix:
         # to optimize the speed of the screenshot generation, we are using Playwright sharding
         # to split up the tests in smaller chunks and run them in parallel
@@ -39,7 +40,7 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:components:all --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
+        run: pnpm run test:components:all -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
@@ -117,6 +118,9 @@ jobs:
       - name: Merge into HTML Report
         run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/../playwright-report'
 
+      # The html report can be manually downloaded and after extraction a static file server can be used to show the results.
+      # A file server is necessary, otherwise not all features are supported.
+      # E.g. use `python3 -m http.server` or `npx serve` to quick and easily start one.
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:

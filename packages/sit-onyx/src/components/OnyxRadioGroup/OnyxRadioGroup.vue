@@ -90,7 +90,7 @@ const handleChange = (selected: boolean, value: TValue) => {
     min-width: unset;
 
     &__label {
-      margin-bottom: var(--onyx-spacing-2xs);
+      margin-bottom: var(--onyx-density-xs);
     }
 
     &__content {
@@ -100,7 +100,7 @@ const handleChange = (selected: boolean, value: TValue) => {
       &--horizontal {
         flex-direction: row;
         flex-wrap: wrap;
-        column-gap: var(--onyx-spacing-xl);
+        column-gap: var(--onyx-density-xl);
       }
     }
   }

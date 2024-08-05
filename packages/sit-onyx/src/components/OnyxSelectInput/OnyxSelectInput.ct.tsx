@@ -16,13 +16,11 @@ test.describe("Screenshot tests", () => {
           label="Test label"
           placeholder={state === "placeholder" ? "Test placeholder" : undefined}
           density={column}
-          modelValue={
-            state === "with value" ? [{ label: "Selected value", value: "test-value" }] : undefined
-          }
+          modelValue={state === "with value" ? ["Selected value"] : undefined}
         />
       ),
       beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
+        if (row === "hover") await component.getByLabel("Test label").hover();
         if (row === "focus") await page.keyboard.press("Tab");
       },
     });
@@ -63,7 +61,7 @@ test.describe("Screenshot tests", () => {
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
+      if (row === "hover") await component.getByLabel("Test label").hover();
       if (row === "focus") await page.keyboard.press("Tab");
     },
   });
@@ -84,7 +82,7 @@ test.describe("Screenshot tests", () => {
         <OnyxSelectInput
           style="width: 16rem"
           label="Test label"
-          modelValue={modelValues[row].map((i) => ({ label: i, value: i }))}
+          modelValue={modelValues[row]}
           textMode={column}
         />
       );

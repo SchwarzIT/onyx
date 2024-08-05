@@ -220,7 +220,7 @@ export const createComboBox = createBuilder(
     });
 
     useOutsideClick({
-      element: templateRef,
+      inside: templateRef,
       onOutsideClick() {
         if (!isExpanded.value) return;
         onToggle?.(true);

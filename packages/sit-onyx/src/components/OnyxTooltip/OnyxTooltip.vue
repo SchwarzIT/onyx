@@ -1,8 +1,24 @@
 <script lang="ts" setup>
-import { createTooltip } from "@sit-onyx/headless";
-import { computed } from "vue";
+import { createToggletip, createTooltip } from "@sit-onyx/headless";
+import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
+import { computed, ref, shallowRef, toValue, watch } from "vue";
+import { useDensity } from "../../composables/density";
+import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
+
+type CreateToggletipOptions = {
+  toggleLabel: MaybeRefOrGetter<string>;
+  isVisible?: Ref<boolean>;
+};
+
+type CreateTooltipOptions = {
+  /**
+   * Number of milliseconds to use as debounce when showing/hiding the tooltip.
+   */
+  debounce: MaybeRefOrGetter<number>;
+  isVisible?: Ref<boolean>;
+};
 
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
@@ -13,30 +29,60 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
 
 defineSlots<{
   /**
-   * Default slot where the parent content is placed that should open/close the tooltip.
+   * Default slot where the parent content is placed that controls the open/close state of the tooltip.
    *
-   * **Accessibility**: Please ensure that your content includes at least one focusable element
-   * (e.g. by using a button or input element).
+   * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(): unknown;
+  default(params: { trigger: HTMLAttributes }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
-   * **Accessibility**: Make sure that the tooltip content is NOT focusable/interactive.
+   * **Accessibility**: You must ensure that the tooltip content is NOT focusable/interactive.
    */
   tooltip?(): unknown;
 }>();
 
-const {
-  elements: { root, trigger, tooltip },
-  state: { isVisible },
-} = createTooltip({
-  open: computed(() => props.open),
+const { densityClass } = useDensity(props);
+
+const { t } = injectI18n();
+
+const _isVisible = ref(false);
+const isVisible = computed({
+  set: (newVal) => (_isVisible.value = newVal),
+  get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
 });
+
+const tooltipOptions = computed<CreateTooltipOptions>(() => ({
+  debounce: 200,
+  ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
+  isVisible,
+}));
+const toggletipOptions = computed<CreateToggletipOptions>(() => ({
+  toggleLabel: t.value("tooltip.info"),
+  ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
+  isVisible,
+}));
+
+const type = computed(() => {
+  if (typeof props.open === "object") return props.open.type;
+  if (typeof props.open === "string") return props.open;
+  return "hover";
+});
+
+const createPattern = () =>
+  type.value === "hover"
+    ? createTooltip(tooltipOptions.value)
+    : createToggletip(toggletipOptions.value);
+
+const ariaPattern = shallowRef(createPattern());
+watch(type, () => (ariaPattern.value = createPattern()));
+
+const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
+const trigger = computed(() => toValue<HTMLAttributes>(ariaPattern.value?.elements.trigger));
 </script>
 
 <template>
-  <div class="onyx-tooltip-wrapper" v-bind="root">
+  <div :class="['onyx-tooltip-wrapper', densityClass]">
     <div
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
@@ -48,14 +94,10 @@ const {
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
-      <slot name="tooltip">
-        <span>{{ props.text }}</span>
-      </slot>
+      <slot name="tooltip">{{ props.text }}</slot>
     </div>
 
-    <div v-bind="trigger">
-      <slot></slot>
-    </div>
+    <slot :trigger="trigger"></slot>
   </div>
 </template>
 
@@ -70,14 +112,14 @@ $wedge-size: 0.5rem;
     --color: var(--onyx-color-text-icons-neutral-inverted);
 
     border-radius: var(--onyx-radius-sm);
-    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-sm);
+    padding: var(--onyx-density-2xs) var(--onyx-density-sm);
     box-shadow: var(--onyx-shadow-medium-bottom);
     z-index: var(--onyx-z-index-flyout);
 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--onyx-spacing-4xs);
+    gap: var(--onyx-density-2xs);
     height: max-content;
     margin-bottom: $wedge-size;
 
@@ -113,7 +155,8 @@ $wedge-size: 0.5rem;
     &::after {
       content: " ";
       position: absolute;
-      top: 100%; /* At the bottom of the tooltip */
+      /* At the bottom of the tooltip */
+      top: 100%;
       left: 50%;
       margin-left: -$wedge-size;
       border-width: $wedge-size;

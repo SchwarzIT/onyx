@@ -1,15 +1,11 @@
-import type { Locator } from "@playwright/test";
-import type { FormErrorMessages } from "src/composables/useCustomValidity";
 import { DENSITIES } from "../../composables/density";
+import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   for (const state of ["default", "placeholder", "with value", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
@@ -28,7 +24,7 @@ test.describe("Screenshot tests", () => {
       },
       beforeScreenshot: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");
-        if (row === "hover") await component.hover();
+        if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
         if (state == "autofill") {
           await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
@@ -90,16 +86,13 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible(
+        _row === "labelTooltip" ? "label" : "message",
+      );
     },
   });
 
@@ -137,6 +130,7 @@ test.describe("Screenshot tests", () => {
     },
     beforeScreenshot: async (component, page, _column, row) => {
       const input = component.getByLabel("Test label");
+      const formElementUtils = createFormElementUtils(page);
 
       // invalid is only triggered after touched
       await input.fill("Filled value");
@@ -147,15 +141,7 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        const tooltipButton =
-          row === "errorTooltip"
-            ? page.getByLabel("Error Tooltip")
-            : page.getByLabel("Info Tooltip");
-        const tooltip = page.getByRole("tooltip");
-
-        await tooltipButton.hover();
-
-        await isTooltipVisible(tooltip);
+        await formElementUtils.triggerTooltipVisible(row === "errorTooltip" ? "error" : "message");
       }
     },
   });
@@ -182,15 +168,11 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible("label");
     },
   });
 
@@ -209,8 +191,9 @@ test.describe("Screenshot tests", () => {
       />
     ),
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus") await component.getByLabel("Test label").focus();
+      const input = component.getByLabel("Test label");
+      if (row === "hover") await input.hover();
+      if (row === "focus") await input.focus();
     },
   });
 
@@ -226,7 +209,7 @@ test.describe("Screenshot tests", () => {
       await input.fill("Filled value");
       await input.blur();
 
-      if (row === "hover") await component.hover();
+      if (row === "hover") await input.hover();
       if (row === "focus") await input.focus();
       if (column == "autofill") {
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
@@ -324,10 +307,12 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 test("should show error message after interaction", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<OnyxInput label="Demo" style="width: 12rem;" required />);
+  const formElementUtils = createFormElementUtils(component);
   const input = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
-  const errorTooltip = component.getByLabel("Show error tooltip");
-  const fullError = component.getByText("Please fill in this field.");
+  const fullError = formElementUtils
+    .getTooltipPopover("error")
+    .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
   await expect(errorPreview).toBeHidden();
@@ -341,11 +326,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(errorTooltip).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await errorTooltip.hover();
+  await formElementUtils.triggerTooltipVisible("error");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 

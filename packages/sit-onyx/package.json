@@ -1,15 +1,14 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.22",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "files": [
     "dist",
     "src/i18n/locales",
-    "src/styles",
-    "src/types"
+    "src/styles"
   ],
   "types": "./dist/index.d.ts",
   "exports": {
@@ -23,8 +22,7 @@
     "./locales/*": "./src/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",
-    "./types": "./src/types/index.ts",
-    "./themes/*": "./src/styles/themes/*"
+    "./themes/*": "./src/styles/variables/themes/*"
   },
   "homepage": "https://onyx.schwarz",
   "repository": {
@@ -36,7 +34,6 @@
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
-    "start": "pnpm run dev",
     "dev": "storybook dev -p 6006 --no-open",
     "build": "vite build && vue-tsc -p tsconfig.app.json --composite false",
     "build:storybook": "storybook build",
@@ -56,6 +53,6 @@
     "@axe-core/playwright": "^4.9.1",
     "@sit-onyx/headless": "workspace:^",
     "eslint-plugin-vue-scoped-css": "^2.8.1",
-    "vue-component-type-helpers": "^2.0.28"
+    "vue-component-type-helpers": "^2.0.29"
   }
 }

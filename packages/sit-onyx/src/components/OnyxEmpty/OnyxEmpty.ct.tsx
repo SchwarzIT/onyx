@@ -1,41 +1,26 @@
-import { expect, test } from "../../playwright/a11y";
-import { mockPlaywrightIcon } from "../../playwright/screenshots";
+import { DENSITIES } from "../../composables/density";
+import { test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxEmpty from "./OnyxEmpty.vue";
 
-test("should render", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(<OnyxEmpty>Example empty text</OnyxEmpty>);
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Empty",
+    columns: DENSITIES,
+    rows: ["default", "custom-icon", "multiline"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, row) => (
+      <OnyxEmpty density={column} style={{ width: row === "multiline" ? "12rem" : undefined }}>
+        {row === "multiline" ? "Very long text that will be wrapped" : "Example empty text"}
 
-  // TODO: add accessibility test once contrast issue is fixed by UX
-
-  // ASSERT
-  await expect(component).toContainText("Example empty text");
-  await expect(component).toHaveScreenshot("default.png");
-});
-
-test("should render with custom icon", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxEmpty>
-      Example empty text
-      <template v-slot:icon>
-        <OnyxIcon icon={mockPlaywrightIcon} color="danger" size="48px" />
-      </template>
-    </OnyxEmpty>,
-  );
-
-  // ASSERT
-  await expect(component).toContainText("Example empty text");
-  await expect(component).toHaveScreenshot("custom-icon.png");
-});
-
-test("should truncate text with multiline", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxEmpty style={{ width: "12rem" }}>Very long text that will be wrapped</OnyxEmpty>,
-  );
-
-  // ASSERT
-  await expect(component).toHaveScreenshot("truncation.png");
+        {row === "custom-icon" && (
+          <template v-slot:icon>
+            <OnyxIcon icon={mockPlaywrightIcon} color="danger" size="48px" />
+          </template>
+        )}
+      </OnyxEmpty>
+    ),
+  });
 });

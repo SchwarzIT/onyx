@@ -1,20 +1,20 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.22",
   "type": "module",
   "scripts": {
-    "start": "pnpm run dev",
-    "dev": "cd ../../packages/sit-onyx && pnpm build && cd ../../apps/demo-app && vite",
+    "dev": "turbo run vite --filter demo-app",
+    "vite": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@vueuse/core": "^10.11.0",
-    "pinia": "^2.1.7",
+    "pinia": "^2.2.0",
     "sit-onyx": "workspace:^",
-    "vue": "^3.4.33",
+    "vue": "^3.4.34",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.4.0"
   }

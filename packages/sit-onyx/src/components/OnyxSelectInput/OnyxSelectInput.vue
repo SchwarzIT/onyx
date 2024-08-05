@@ -18,7 +18,7 @@ import type { OnyxSelectInputProps } from "./types";
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const props = withDefaults(defineProps<OnyxSelectInputProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   hideLabel: false,
   loading: false,
   skeleton: false,
@@ -55,11 +55,11 @@ const selectionCount = computed(() => {
 const selectionText = computed<string>(() => {
   const numberOfSelections = props.modelValue?.length;
   if (!props.modelValue || !numberOfSelections) return "";
-  if (numberOfSelections === 1) return props.modelValue[0].label;
+  if (numberOfSelections === 1) return props.modelValue[0];
 
   switch (props.textMode) {
     case "preview":
-      return props.modelValue.map(({ label }) => label).join(", ");
+      return props.modelValue.join(", ");
     case "summary":
     default:
       return t.value("selections.currentSelection", { n: numberOfSelections });
@@ -151,6 +151,7 @@ const blockTyping = (event: KeyboardEvent) => {
             :title="props.hideLabel ? props.label : undefined"
             :value="selectionText"
             :autofocus="props.autofocus"
+            autocomplete="off"
             @click="emit('click')"
             @keydown="blockTyping"
           />
@@ -163,9 +164,11 @@ const blockTyping = (event: KeyboardEvent) => {
             :text="selectionText"
             position="bottom"
           >
-            <OnyxBadge class="onyx-select-input__badge" color="neutral">
-              {{ selectionCount }}
-            </OnyxBadge>
+            <template #default="{ trigger }">
+              <OnyxBadge class="onyx-select-input__badge" v-bind="trigger" color="neutral">
+                {{ selectionCount }}
+              </OnyxBadge>
+            </template>
           </OnyxTooltip>
 
           <button
@@ -185,23 +188,12 @@ const blockTyping = (event: KeyboardEvent) => {
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
 
 .onyx-select-input,
 .onyx-select-input-skeleton {
-  @include density.compact {
-    --onyx-select-input-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-select-input-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-select-input-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-select-input-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-select-input {
@@ -225,7 +217,7 @@ const blockTyping = (event: KeyboardEvent) => {
     /* button styles */
     &__button {
       all: initial;
-      height: var(--onyx-spacing-lg);
+      display: flex;
       color: var(--onyx-color-text-icons-neutral-soft);
 
       &:enabled {

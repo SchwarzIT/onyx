@@ -12,10 +12,8 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  modelValue: 0,
   step: 1,
   stripStep: false,
-  placeholder: "0",
   disabled: false,
   readonly: false,
   loading: false,
@@ -27,7 +25,7 @@ const inputRef = ref<HTMLInputElement>();
 
 const emit = defineEmits<{
   /** Emitted when the input value changes. */
-  "update:modelValue": [value: number];
+  "update:modelValue": [value?: number];
   /**
    * Emitted when the input is focussed.
    */
@@ -42,9 +40,14 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
-const { densityClass } = useDensity(props);
+/**
+ * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
+ * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
+ */
+const wasTouched = ref(false);
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
@@ -59,7 +62,8 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
 
   inputRef.value[`${direction}`]();
 
-  emit("update:modelValue", inputRef.value.valueAsNumber);
+  const newValue = inputRef.value.valueAsNumber;
+  value.value = isNaN(newValue) ? undefined : newValue;
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
@@ -92,6 +96,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           v-model.number="value"
           v-custom-validity
           class="onyx-stepper__native"
+          :class="{ 'onyx-stepper__native--force-invalid': errorMessages && wasTouched }"
           type="number"
           :aria-label="props.label"
           :autofocus="props.autofocus"
@@ -104,6 +109,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :required="props.required"
           :step="props.step"
           :title="props.hideLabel ? props.label : undefined"
+          @change="wasTouched = true"
           @focus="emit('focus')"
           @blur="emit('blur')"
         />
@@ -124,44 +130,12 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/input.scss";
 
-/**
-* Gets a comma separated CSS selector for the input autofill.
-* Includes default browser selectors as well as some specific selectors e.g. for certain password managers.
-*/
-@function get-autofill-selectors($prefix: "") {
-  $output: "";
-  $selectors: (":autofill", "[data-test-autofill]", "[data-com-onepassword-filled]");
-
-  @each $selector in $selectors {
-    $prefixed-selector: $prefix + $selector;
-
-    @if $output == "" {
-      $output: $prefixed-selector;
-    } @else {
-      $output: $output + ", " + $prefixed-selector;
-    }
-  }
-
-  @return $output;
-}
-
 .onyx-stepper,
 .onyx-stepper-skeleton {
-  @include density.compact {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-4xs);
-  }
-
-  @include density.default {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-2xs);
-  }
-
-  @include density.cozy {
-    --onyx-stepper-padding-vertical: var(--onyx-spacing-sm);
-  }
+  --onyx-stepper-padding-vertical: var(--onyx-density-xs);
 }
 
 .onyx-stepper-skeleton {
@@ -181,12 +155,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
       gap: 0;
       padding: 0;
       justify-content: space-between;
-
-      &:has(.onyx-stepper__native:read-write) {
-        &:has(#{get-autofill-selectors(".onyx-stepper__native")}) {
-          background-color: var(--onyx-color-base-warning-100);
-        }
-      }
     }
 
     &__counter {
@@ -199,30 +167,10 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
       padding: var(--onyx-stepper-padding-vertical);
       border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
       outline: none;
-    }
 
-    &__native {
-      -moz-appearance: textfield;
-      text-align: center;
+      &:enabled {
+        cursor: pointer;
 
-      #{get-autofill-selectors("&")} {
-        background-color: transparent;
-        -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
-
-        // many browsers use "!important" to set the autofill background so we need this
-        // transition workaround to make the background transparent
-        transition: background-color calc(infinity * 1s);
-      }
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    }
-
-    &:has(.onyx-stepper__native:enabled:read-write) {
-      .onyx-stepper__counter {
         &:hover,
         &:focus-visible {
           color: var(--onyx-color-text-icons-primary-intense);
@@ -240,6 +188,21 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         &:first-child {
           border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
         }
+      }
+
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
+    }
+
+    &__native {
+      -moz-appearance: textfield;
+      text-align: center;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     }
   }
