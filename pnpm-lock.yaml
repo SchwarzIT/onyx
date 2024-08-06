@@ -307,6 +307,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
+      '@storybook/csf':
+        specifier: ^0.1.11
+        version: 0.1.11
       '@storybook/vue3':
         specifier: '>= 8.2.0'
         version: 8.2.7(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))(vue@3.4.35(typescript@5.5.4))
