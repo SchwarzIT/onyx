@@ -238,6 +238,7 @@ const {
   autocomplete,
   label: props.label,
   listLabel: props.listLabel,
+  listDescription: props.listDescription,
   activeOption: computed(() => activeValue.value),
   multiple: computed(() => props.multiple),
   isExpanded: open,
@@ -412,11 +413,7 @@ const selectInputProps = computed(() => {
           <slot name="optionsEnd"></slot>
         </div>
       </div>
-      <div
-        v-if="props.listDescription"
-        :aria-description="props.listDescription"
-        class="onyx-select__description onyx-text--small"
-      >
+      <div v-if="props.listDescription" class="onyx-select__description onyx-text--small">
         {{ props.listDescription }}
       </div>
     </div>
