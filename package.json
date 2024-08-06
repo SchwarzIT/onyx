@@ -17,6 +17,9 @@
     "prepare": "simple-git-hooks",
     "preinstall": "npx only-allow pnpm"
   },
+  "dependencies": {
+    "vue": "^3.4.35"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.27.7",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
@@ -55,7 +58,6 @@
     "typescript": "~5.5.4",
     "vite": "^5.3.5",
     "vitest": "^2.0.5",
-    "vue": "^3.4.35",
     "vue-tsc": "^2.0.29"
   },
   "simple-git-hooks": {
