@@ -70,13 +70,13 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
-const searchTerm = useManagedState(
+const { state: searchTerm, isManaged: managedSearch } = useManagedState(
   toRef(() => props.searchTerm),
   "",
   (v) => emit("update:searchTerm", v),
 );
 
-const open = useManagedState(
+const { state: open } = useManagedState(
   toRef(() => props.open),
   false,
   (v) => emit("update:open", v),
@@ -122,8 +122,8 @@ const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
 const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 
 const filteredOptions = computed(() => {
-  // when manualSearch is set, we don't filter the options further
-  if (props.manualSearch) return props.options;
+  // if onyx does not manage the search, we don't filter the options further
+  if (!managedSearch.value) return props.options;
 
   // managed filtering
   return searchTerm.value
@@ -162,15 +162,21 @@ const onToggle = async (preventFocus?: boolean) => {
     open.value = false;
     return;
   }
+  const wasOpen = open.value;
+  open.value = !wasOpen;
+  await nextTick();
 
-  open.value = !open.value;
-  if (!open.value) {
-    if (searchTerm.value) searchTerm.value = "";
-    if (!preventFocus) selectInput.value?.focus();
-  } else {
-    // make sure search is focused when flyout opens
-    await nextTick();
-    miniSearch.value?.focus();
+  // if with managed `open` state after one tick the state was not updated,
+  // we don't modify our focus state, because we assume that
+  // the owner did not update `open` on purpose
+  if (wasOpen !== open.value) {
+    if (wasOpen) {
+      if (searchTerm.value) searchTerm.value = "";
+      if (!preventFocus) selectInput.value?.focus();
+    } else {
+      // make sure search is focused after the flyout opened
+      miniSearch.value?.focus();
+    }
   }
 };
 
@@ -315,7 +321,7 @@ const selectInputProps = computed(() => {
 
     <div :class="['onyx-select', densityClass, open ? 'onyx-select--open' : '']" :inert="!open">
       <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
-        <!-- model-value is set here, as it is written be the onAutocomplete callback -->
+        <!-- model-value is set here, as it is written by the onAutocomplete callback -->
         <OnyxMiniSearch
           v-if="props.withSearch"
           ref="miniSearch"
@@ -336,6 +342,29 @@ const selectInputProps = computed(() => {
           </ul>
 
           <template v-else>
+            <!-- select-all option for "multiple" -->
+            <ul
+              v-if="props.multiple && props.withCheckAll && !searchTerm"
+              class="onyx-select__check-all"
+              v-bind="headlessGroup({ label: checkAllLabel })"
+            >
+              <OnyxSelectOption
+                v-bind="
+                  headlessOption({
+                    value: CHECK_ALL_ID as TValue,
+                    label: checkAllLabel,
+                    selected: checkAll?.state.value.modelValue,
+                  })
+                "
+                multiple
+                :active="CHECK_ALL_ID === activeValue"
+                :indeterminate="checkAll?.state.value.indeterminate"
+                :density="props.density"
+              >
+                {{ checkAllLabel }}
+              </OnyxSelectOption>
+            </ul>
+
             <ul
               v-for="(groupOptions, group) in groupedOptions"
               :key="group"
@@ -349,26 +378,6 @@ const selectInputProps = computed(() => {
               >
                 {{ group }}
               </li>
-
-              <!-- select-all option for "multiple" -->
-              <template v-if="props.multiple && props.withCheckAll && !searchTerm">
-                <OnyxSelectOption
-                  v-bind="
-                    headlessOption({
-                      value: CHECK_ALL_ID as TValue,
-                      label: checkAllLabel,
-                      selected: checkAll?.state.value.modelValue,
-                    })
-                  "
-                  multiple
-                  :active="CHECK_ALL_ID === activeValue"
-                  :indeterminate="checkAll?.state.value.indeterminate"
-                  :density="props.density"
-                  class="onyx-select__check-all"
-                >
-                  {{ checkAllLabel }}
-                </OnyxSelectOption>
-              </template>
 
               <OnyxSelectOption
                 v-for="option in groupOptions"
@@ -445,7 +454,6 @@ const selectInputProps = computed(() => {
       top: 0;
     }
 
-    &__check-all,
     &__search {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
@@ -458,6 +466,15 @@ const selectInputProps = computed(() => {
       // Add scroll padding, so items are not hidden beneath the search input
       // var(--onyx-density-xs) = vertical padding of select option
       scroll-padding-top: calc(1lh + 2 * var(--onyx-density-xs));
+    }
+
+    // if a group name is below a search field or a "Select all" option,
+    // there needs to be spacing between them.
+    &__wrapper:has(.onyx-mini-search),
+    &__wrapper:has(.onyx-select__check-all) {
+      .onyx-select__group-name:first-child {
+        margin-top: var(--onyx-density-xs);
+      }
     }
 
     &__slot {
