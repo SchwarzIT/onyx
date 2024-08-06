@@ -38,6 +38,7 @@ const handleChange = (selected: boolean, value: TValue) => {
     :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
     :disabled="props.disabled"
     role="radiogroup"
+    :aria-label="props.headline"
   >
     <legend v-if="props.headline" class="onyx-radio-button-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
