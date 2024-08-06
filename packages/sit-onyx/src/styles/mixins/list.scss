@@ -18,13 +18,16 @@
     outline: none;
   }
 
-  &__group {
+  &__group,
+  &__check-all {
     padding: 0;
 
     &:not(:last-of-type) {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      margin-bottom: var(--onyx-density-xs);
     }
+  }
+  &__group:not(:last-of-type) {
+    margin-bottom: var(--onyx-density-xs);
   }
 
   &__group-name {
