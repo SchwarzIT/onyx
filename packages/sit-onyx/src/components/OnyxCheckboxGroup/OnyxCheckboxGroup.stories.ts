@@ -97,7 +97,6 @@ export const Disabled = {
 export const WithTruncation = {
   args: {
     ...Default.args,
-    style: "max-width: 16rem",
     options: [
       { label: "Very long label that will be truncated", value: 1 },
       { label: "Very long required label that will be truncated", value: 2, required: true },
@@ -114,6 +113,15 @@ export const WithTruncation = {
       },
     ],
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="max-width: 16rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
 
 /**

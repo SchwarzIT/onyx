@@ -85,8 +85,16 @@ export const WithTruncation = {
   args: {
     ...Default.args,
     label: "Very long label that will be truncated",
-    style: "max-width: 12rem",
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="max-width: 12rem">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
 
 /**

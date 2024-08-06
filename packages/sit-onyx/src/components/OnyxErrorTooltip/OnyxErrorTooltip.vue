@@ -45,3 +45,9 @@ const targetRef = ref<HTMLDivElement>();
     <slot></slot>
   </Teleport>
 </template>
+
+<style lang="scss">
+.onyx-error-tooltip {
+  max-width: 100%;
+}
+</style>
