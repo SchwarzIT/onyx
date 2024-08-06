@@ -79,8 +79,6 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      const errorMessage = column === "longError" ? "Error: Further info" : "Test error";
-
       await expect(page.locator("input:invalid")).toBeAttached();
 
       if (row !== "default") {
@@ -98,7 +96,10 @@ test.describe("Screenshot tests", () => {
       // wait for the tooltip to show up reliably
       if (["focus-visible", "hover"].includes(row)) {
         // eslint-disable-next-line playwright/no-standalone-expect
-        await expect(page.getByRole("tooltip", { name: errorMessage })).toBeVisible();
+        await expect(
+          component.getByRole("tooltip"),
+          `should show error tooltip for ${row} and ${column}`,
+        ).toBeVisible();
       }
     },
   });

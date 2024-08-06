@@ -89,7 +89,6 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      const errorMessage = column === "longError" ? "Error: Further info" : "Test error";
       const checkbox = component.getByLabel("Test label");
 
       if (column !== "disabled") {
@@ -114,11 +113,6 @@ test.describe("Screenshot tests", () => {
 
       if (row === "focus-visible") {
         await page.keyboard.press("Tab");
-        // stabilize screenshot test for firefox which is inconsistent:
-        if (column === "hideLabel") {
-          // eslint-disable-next-line playwright/no-standalone-expect
-          await expect(checkbox).toBeFocused();
-        }
       }
       if (row === "hover" && column !== "disabled") {
         await checkbox.hover();
@@ -126,7 +120,10 @@ test.describe("Screenshot tests", () => {
       // wait for the tooltip to show up reliably
       if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
         // eslint-disable-next-line playwright/no-standalone-expect
-        await expect(page.getByRole("tooltip", { name: errorMessage })).toBeVisible();
+        await expect(
+          component.getByRole("tooltip"),
+          `should show error tooltip for ${row} and ${column}`,
+        ).toBeVisible();
       }
     },
   });

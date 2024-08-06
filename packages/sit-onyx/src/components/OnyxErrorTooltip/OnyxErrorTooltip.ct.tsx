@@ -16,7 +16,7 @@ test("should render without error-tooltip", async ({ mount, makeAxeBuilder }) =>
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render with error-tooltip", async ({ mount, makeAxeBuilder }) => {
+test("should render error-tooltip on hover", async ({ mount, makeAxeBuilder }) => {
   const errorMessages = { shortMessage: "Dummy error", longMessage: "Further information" };
   // ARRANGE
   const component = await mount(
@@ -29,6 +29,36 @@ test("should render with error-tooltip", async ({ mount, makeAxeBuilder }) => {
 
   // ACT
   await component.getByText("Dummy content").hover();
+  // ASSERT
+  await expect(component.getByRole("tooltip")).toHaveCount(1);
+  await expect(
+    component.getByRole("tooltip", {
+      name: `${errorMessages.shortMessage}: ${errorMessages.longMessage}`,
+    }),
+  ).toBeVisible();
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render error-tooltip on focus", async ({ mount, makeAxeBuilder }) => {
+  const errorMessages = { shortMessage: "Dummy error", longMessage: "Further information" };
+  // ARRANGE
+  const component = await mount(
+    <OnyxErrorTooltip errorMessages={errorMessages}>
+      <button>Dummy button</button>
+    </OnyxErrorTooltip>,
+  );
+  // add space for tooltip
+  await component.evaluate((element) => {
+    element.style.paddingTop = "3rem";
+  });
+
+  // ACT
+  await component.press("Tab");
   // ASSERT
   await expect(component.getByRole("tooltip")).toHaveCount(1);
   await expect(
