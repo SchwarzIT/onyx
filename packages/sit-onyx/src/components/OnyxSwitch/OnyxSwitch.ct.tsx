@@ -78,11 +78,14 @@ test.describe("Screenshot tests", () => {
 
       if (row === "hover") {
         await component.getByText("Test label").hover();
+      }
+      if (row === "focus-visible") await page.keyboard.press("Tab");
 
+      // wait for the tooltip to show up reliably
+      if (["focus-visible", "hover"].includes(row)) {
         // eslint-disable-next-line playwright/no-standalone-expect
         await expect(page.getByRole("tooltip", { name: errorMessage })).toBeVisible();
       }
-      if (row === "focus-visible") await page.keyboard.press("Tab");
     },
   });
 
