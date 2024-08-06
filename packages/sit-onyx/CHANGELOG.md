@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.24
+
+### Minor Changes
+
+- 6f7149f: Adding OnyxButton active animation and OnyxRipple component
+
+## 1.0.0-beta.23
+
+### Major Changes
+
+- dae102e: refactor(OnyxSelect):
+
+  - remove redundant `manualSearch` property in favor of inferring the managed state of searchTerm
+  - omit `showfocus` which is only used to control OnyxSelectInput
+
 ## 1.0.0-beta.22
 
 ### Major Changes

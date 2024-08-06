@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { computed, ref, type ComponentInstance } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
@@ -22,6 +24,9 @@ const emit = defineEmits<{
    */
   click: [];
 }>();
+
+const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
+const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 </script>
 
 <template>
@@ -40,8 +45,10 @@ const emit = defineEmits<{
     :aria-label="props.loading ? props.label : undefined"
     :autofocus="props.autofocus"
     @click="emit('click')"
+    v-on="rippleEvents"
   >
-    <OnyxIcon v-if="props.icon && !props.loading" :icon="props.icon" />
+    <OnyxRipple v-if="!props.disabled && !props.loading" ref="rippleRef" />
+    <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
   </button>
@@ -57,9 +64,10 @@ const emit = defineEmits<{
 
 .onyx-button {
   @include layers.component() {
-    --onyx-button-background-color: transparent;
+    --onyx-button-background-color: var(--onyx-color-base-background-tinted);
+    --onyx-ripple-color: var(--onyx-color-base-background-tinted);
     --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
-    --onyx-button-border-color: transparent;
+    --onyx-button-border-color: var(--onyx-color-base-background-tinted);
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-button-outline-color: var(--onyx-color-base-primary-200);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
@@ -87,6 +95,7 @@ const emit = defineEmits<{
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-primary-500);
+        --onyx-ripple-color: var(--onyx-color-base-primary-500);
         --onyx-button-background-hover-color: var(--onyx-color-base-primary-400);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
         --onyx-button-border-color: var(--onyx-color-base-primary-500);
@@ -118,6 +127,7 @@ const emit = defineEmits<{
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-background-blank);
+        --onyx-ripple-color: var(--onyx-color-base-background-blank);
         --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
         --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
@@ -147,6 +157,7 @@ const emit = defineEmits<{
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-danger-200);
+        --onyx-ripple-color: var(--onyx-color-base-danger-200);
         --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
         --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
@@ -165,7 +176,7 @@ const emit = defineEmits<{
       }
     }
 
-    &:hover:enabled:not(:active) {
+    &:hover:enabled {
       --onyx-button-background-color: var(--onyx-button-background-hover-color);
     }
 
@@ -183,6 +194,11 @@ const emit = defineEmits<{
       font-style: normal;
       font-weight: 600;
       line-height: 1.5rem;
+      position: relative;
+    }
+
+    &__icon {
+      position: relative;
     }
 
     &--loading &__label {

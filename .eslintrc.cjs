@@ -36,7 +36,6 @@ module.exports = {
         caughtErrorsIgnorePattern: "^_",
       },
     ],
-
     // see https://eslint.vuejs.org/rules/html-self-closing
     "vue/html-self-closing": [
       "error",
@@ -62,5 +61,8 @@ module.exports = {
         },
       },
     ],
+    // while it is technical supported in Vue 3 to have multiple template roots, we want to prevent this
+    // since it can lead to unexpected issues when e.g. applying "class" or "style" attributes on such components
+    "vue/no-multiple-template-root": "error",
   },
 };
