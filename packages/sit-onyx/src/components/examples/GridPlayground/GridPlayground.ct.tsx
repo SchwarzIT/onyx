@@ -73,6 +73,8 @@ test("should add/edit grid elements", async ({ mount, page }) => {
   await columnCountStepper.fill("4");
   await dialog.getByRole("button", { name: "Apply" }).click();
 
+  await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset mouse (needed for webkit screenshot)
+
   // ASSERT
   await expect(page).toHaveScreenshot("filled.png");
 
