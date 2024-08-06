@@ -115,7 +115,9 @@ test.describe("Screenshot tests", () => {
       if (row === "focus-visible") await page.keyboard.press("Tab");
       if (row === "hover" && column !== "disabled") {
         await checkbox.hover();
-
+      }
+      // wait for the tooltip to show up reliably
+      if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
         // eslint-disable-next-line playwright/no-standalone-expect
         await expect(page.getByRole("tooltip", { name: errorMessage })).toBeVisible();
       }
