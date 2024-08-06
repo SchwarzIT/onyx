@@ -1,3 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 
-<template>Optional: {{ $t("onyx.optional") }}</template>
+<template>
+  <div>Optional: {{ $t("onyx.optional") }}</div>
+</template>

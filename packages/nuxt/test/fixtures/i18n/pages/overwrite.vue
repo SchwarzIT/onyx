@@ -1,3 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 
-<template>Overwrite: {{ $t("onyx.navigation.goBack") }}</template>
+<template>
+  <div>Overwrite: {{ $t("onyx.navigation.goBack") }}</div>
+</template>
