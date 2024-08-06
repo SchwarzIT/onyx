@@ -1,10 +1,9 @@
 import { type Ref, computed, ref } from "vue";
+import { asymComputed } from "./asymmetricComputed";
 
-declare const MANAGED_S: symbol;
-
-export type MANAGED_SYM = typeof MANAGED_S;
-
-export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL") as MANAGED_SYM;
+export type ManagedProp<T> = ManagedSymbolType | T;
+export type ManagedSymbolType = typeof MANAGED_SYMBOL;
+export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL");
 
 /**
  * Composable for conditionally managing state based on the prop value.
@@ -18,8 +17,8 @@ export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL") as MANAGED_SYM;
  * @returns ref of the state and isManaged
  *
  * @example ```ts
- * // IMPORTANT: default value MUST be set to undefined
- * const props = withDefaults(defineProps<{ isExpanded?: boolean }>(), { isExpanded: undefined });
+ * // IMPORTANT: default value MUST be set to MANAGED_SYMBOL
+ * const props = withDefaults(defineProps<{ isExpanded?: ManagedProp<boolean> }>(), { isExpanded: MANAGED_SYMBOL });
  * const emit = defineEmits<{ "update:isExpanded": [isExpanded: boolean] }>();
  *
  * const { state: isExpanded } = useManagedState(
@@ -29,21 +28,25 @@ export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL") as MANAGED_SYM;
  * );
  * ```
  */
-export const useManagedState = <Prop extends Readonly<Ref<T | MANAGED_SYM>>, T>(
+export const useManagedState = <
+  T,
+  Prop extends Readonly<Ref<T | ManagedSymbolType>>,
+  Referable extends boolean = false,
+  V = Referable extends true ? T | ManagedSymbolType : T,
+>(
   prop: Prop,
   initialState: T,
   emit: (val: T) => void,
-  referable?: boolean,
 ) => {
   const isManaged = computed(() => prop.value === MANAGED_SYMBOL);
   const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
 
-  const state = computed<T>({
+  const state = asymComputed({
     set: (val: T) => {
       internalState.value = val;
       emit(val);
     },
-    get: () => (isManaged.value && !referable ? internalState.value : (prop.value as T)),
+    get: () => (isManaged.value ? internalState.value : prop.value) as V,
   });
 
   return { state, isManaged };

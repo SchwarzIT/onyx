@@ -1,11 +1,11 @@
-import type { MANAGED_SYM } from "../../../../composables/useManagedState";
+import type { ManagedProp } from "../../../../composables/useManagedState";
 
 export type OnyxFlyoutMenuProps = {
   /**
    * If the flyout is expanded or not.
    * If `undefined`, the state will be managed internally.
    */
-  open?: boolean | MANAGED_SYM;
+  open?: ManagedProp<boolean>;
   /**
    * Aria label for the flyout.
    */

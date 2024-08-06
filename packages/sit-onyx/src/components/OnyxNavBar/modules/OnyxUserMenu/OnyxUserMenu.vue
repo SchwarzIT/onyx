@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed, inject, toRef } from "vue";
-import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
+import { computed, inject } from "vue";
+import { MANAGED_SYMBOL } from "../../../../composables/useManagedState";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
@@ -11,13 +11,6 @@ const props = withDefaults(defineProps<OnyxUserMenuProps>(), { flyoutOpen: MANAG
 const emit = defineEmits<{
   "update:flyoutOpen": [boolean];
 }>();
-
-const flyoutOpen = useManagedState(
-  toRef(() => props.flyoutOpen),
-  false,
-  (newVal) => emit("update:flyoutOpen", newVal),
-  true,
-);
 
 const slots = defineSlots<{
   /**
@@ -46,6 +39,7 @@ const isMobile = inject(
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
     :flyout-open="flyoutOpen"
+    @update:flyout-open="emit('update:flyoutOpen', $event)"
   >
     <template #button>
       <button class="onyx-user-menu__trigger onyx-text" type="button">

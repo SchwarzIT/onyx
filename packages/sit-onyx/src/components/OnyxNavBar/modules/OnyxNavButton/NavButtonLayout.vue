@@ -25,7 +25,7 @@ const emit = defineEmits<{
   "update:mobileChildrenOpen": [boolean];
 }>();
 
-const mobileChildrenOpen = useManagedState(
+const { state: mobileChildrenOpen } = useManagedState(
   toRef(() => props.mobileChildrenOpen),
   false,
   (newVal) => emit("update:mobileChildrenOpen", newVal),

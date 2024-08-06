@@ -1,4 +1,4 @@
-import type { MANAGED_SYM } from "../../../../composables/useManagedState";
+import type { ManagedProp } from "../../../../composables/useManagedState";
 
 export type OnyxUserMenuProps = {
   /**
@@ -17,5 +17,5 @@ export type OnyxUserMenuProps = {
    * If the flyout is expanded or not. Only has an effect in desktop (non-mobile) mode.
    * If `undefined`, the state will be managed internally.
    */
-  flyoutOpen?: boolean | MANAGED_SYM;
+  flyoutOpen?: ManagedProp<boolean>;
 };

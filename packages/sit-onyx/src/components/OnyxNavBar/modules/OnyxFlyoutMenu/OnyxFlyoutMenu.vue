@@ -11,7 +11,7 @@ const emit = defineEmits<{
   "update:open": [boolean];
 }>();
 
-const isExpanded = useManagedState(
+const { state: isExpanded } = useManagedState(
   toRef(() => props.open),
   false,
   (newVal) => emit("update:open", newVal),
