@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.24
+
+### Minor Changes
+
+- 6f7149f: Adding OnyxButton active animation and OnyxRipple component
+
 ## 1.0.0-beta.23
 
 ### Major Changes
