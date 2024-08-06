@@ -112,7 +112,14 @@ test.describe("Screenshot tests", () => {
         });
       }
 
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "focus-visible") {
+        await page.keyboard.press("Tab");
+        // stabilize screenshot test for firefox which is inconsistent:
+        if (column === "hideLabel") {
+          // eslint-disable-next-line playwright/no-standalone-expect
+          await expect(checkbox).toBeFocused();
+        }
+      }
       if (row === "hover" && column !== "disabled") {
         await checkbox.hover();
       }
