@@ -30,6 +30,7 @@
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@storybook/vue3": ">= 8.2.0",
+    "@storybook/csf": "^0.1.11",
     "sit-onyx": "workspace:^",
     "storybook": ">= 8.2.0",
     "storybook-dark-mode": ">= 4"
