@@ -3,8 +3,6 @@ import { computed, ref } from "vue";
 import { type FormErrorMessages, getCustomErrorText } from "../../composables/useCustomValidity";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
-// TODO: should this component be exported for onyx users?
-
 const props = defineProps<{
   /**
    * The given component will be shown inside a tooltip when
@@ -12,7 +10,6 @@ const props = defineProps<{
    * component will not be rendered inside a slot.
    */
   errorMessages?: FormErrorMessages;
-  // TODO: clarify if this feature is wanted
   /** We don't show an error if the content is not interactive */
   disabled?: boolean;
 }>();
