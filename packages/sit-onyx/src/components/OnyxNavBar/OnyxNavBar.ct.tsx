@@ -28,20 +28,22 @@ test("Behaviour test", async ({ mount }) => {
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
       <OnyxNavButton label="Main One">
         <template v-slot:children>
-          <OnyxNavItem>First</OnyxNavItem>
-          <OnyxNavItem>Second</OnyxNavItem>
+          <OnyxNavItem label="First" />
+          <OnyxNavItem label="Second" />
         </template>
       </OnyxNavButton>
       <OnyxNavButton label="Main Two">
         <template v-slot:children>
-          <OnyxNavItem>Third</OnyxNavItem>
-          <OnyxNavItem>Fourth</OnyxNavItem>
+          <OnyxNavItem label="Third" />
+          <OnyxNavItem label="Fourth" />
         </template>
       </OnyxNavButton>
     </OnyxNavBar>,
   );
   const nav = component.getByRole("navigation");
   const buttons = nav.getByRole("menuitem");
+
+  await expect(nav).toBeVisible();
 
   await navigationTesting({ nav, buttons });
 });
