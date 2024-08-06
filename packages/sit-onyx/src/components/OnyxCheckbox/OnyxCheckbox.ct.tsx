@@ -184,7 +184,7 @@ test("should have the title show the label as title if hideLabel is set", async 
   page,
 }) => {
   // ARRANGE
-  await mount(<OnyxCheckbox label="Demo Label" hideLabel />);
+  await mount(<OnyxCheckbox label="Demo Label" hideLabel value="test-value" />);
 
   // ASSERT
   await expect(page.getByTitle("Demo Label"), "should have the expected title").toBeVisible();
