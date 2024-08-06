@@ -20,9 +20,15 @@ import GridOverlay from "./GridOverlay.vue";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
-const alignment = ref<"left" | "center">("left");
-const maxWidth = ref<OnyxBreakpoint | "none">("none");
-const maxColumns = ref<16 | 20>(16);
+const gridSettings = ref<{
+  alignment: "left" | "center";
+  maxWidth: OnyxBreakpoint | "none";
+  maxColumns: 16 | 20;
+}>({
+  alignment: "left",
+  maxWidth: "none",
+  maxColumns: 16,
+});
 
 const gridElements = ref<GridElementConfig[]>([]);
 const isAddDialogOpen = ref(false);
@@ -37,7 +43,7 @@ const gridValues = ref<{
 }>();
 
 watch(
-  [viewportSize.width, maxColumns, gridRef],
+  [viewportSize.width, gridRef, gridSettings],
   async () => {
     if (!gridRef.value) return;
 
@@ -45,12 +51,14 @@ watch(
     const style = getComputedStyle(gridRef.value);
 
     gridValues.value = {
-      margin: style.getPropertyValue("--onyx-grid-margin"),
+      margin:
+        style.getPropertyValue("--onyx-grid-margin-inline") ||
+        style.getPropertyValue("--onyx-grid-margin"),
       gutter: style.getPropertyValue("--onyx-grid-gutter"),
       columnCount: +style.getPropertyValue("--onyx-grid-columns"),
     };
   },
-  { immediate: true },
+  { immediate: true, deep: true },
 );
 
 const deleteElement = (index: number) => {
@@ -113,23 +121,23 @@ const currentBreakpoint = computed(() => {
 
       <div class="playground__options">
         <OnyxRadioGroup
-          v-model="maxWidth"
+          v-model="gridSettings.maxWidth"
           headline="Max content width"
           :options="maxWidthOptions"
           direction="horizontal"
         />
 
         <OnyxRadioGroup
-          v-model="alignment"
+          v-model="gridSettings.alignment"
           headline="Alignment"
           :options="alignmentOptions"
           direction="horizontal"
-          :disabled="maxWidth === 'none'"
+          :disabled="gridSettings.maxWidth === 'none'"
         />
 
         <OnyxRadioGroup
           v-if="viewportSize.width.value >= ONYX_BREAKPOINTS.xl"
-          v-model="maxColumns"
+          v-model="gridSettings.maxColumns"
           headline="Max columns"
           :options="maxColumnsOptions"
           direction="horizontal"
@@ -145,9 +153,9 @@ const currentBreakpoint = computed(() => {
 
     <div
       :class="{
-        'onyx-grid-center': alignment === 'center',
-        [`onyx-grid-max-${maxWidth}`]: maxWidth !== 'none',
-        'onyx-grid-xl-20': maxColumns === 20,
+        'onyx-grid-center': gridSettings.alignment === 'center',
+        [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
+        'onyx-grid-xl-20': gridSettings.maxColumns === 20,
       }"
     >
       <GridOverlay :columns="gridValues?.columnCount" />
