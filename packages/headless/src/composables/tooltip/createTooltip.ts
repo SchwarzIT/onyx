@@ -1,43 +1,26 @@
-import { computed, onBeforeMount, onBeforeUnmount, ref, unref, type MaybeRef } from "vue";
+import { computed, toRef, toValue, type MaybeRefOrGetter, type Ref } from "vue";
 import { createId } from "../..";
 import { createBuilder } from "../../utils/builder";
-import { useOutsideClick } from "../helpers/useOutsideClick";
+import { useDismissible } from "../helpers/useDismissible";
 
 export type CreateTooltipOptions = {
-  open: MaybeRef<TooltipOpen>;
+  /**
+   * Number of milliseconds to use as debounce when showing/hiding the tooltip.
+   */
+  debounce: MaybeRefOrGetter<number>;
+  isVisible?: Ref<boolean>;
 };
 
-export type TooltipOpen =
-  | TooltipTrigger
-  | boolean
-  | {
-      type: "hover";
-      /**
-       * Number of milliseconds to use as debounce when showing/hiding the tooltip
-       */
-      debounce: number;
-    };
-
-export const TOOLTIP_TRIGGERS = ["hover", "click"] as const;
-export type TooltipTrigger = (typeof TOOLTIP_TRIGGERS)[number];
-
-export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
-  const rootRef = ref<HTMLElement>();
+/**
+ * Create a tooltip as described in https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role
+ * Its visibility is toggled on hover or focus.
+ * A tooltip MUST be used to describe the associated trigger element. E.g. The usage with the ⓘ would be incorrect.
+ * To provide contextual information use the `createToggletip`.
+ */
+export const createTooltip = createBuilder(({ debounce, isVisible }: CreateTooltipOptions) => {
   const tooltipId = createId("tooltip");
-  const _isVisible = ref(false);
+  const _isVisible = toRef(isVisible ?? false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
-
-  const debounce = computed(() => {
-    const open = unref(options.open);
-    if (typeof open !== "object") return 200;
-    return open.debounce;
-  });
-
-  const openType = computed(() => {
-    const open = unref(options.open);
-    if (typeof open !== "object") return open;
-    return open.type;
-  });
 
   /**
    * Debounced visible state that will only be toggled after a given timeout.
@@ -48,82 +31,41 @@ export const createTooltip = createBuilder((options: CreateTooltipOptions) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         _isVisible.value = newValue;
-      }, debounce.value);
+      }, toValue(debounce));
     },
   });
 
-  /**
-   * Whether the tooltip should be currently visible.
-   * If openMode is set as boolean it will prefer it over the hover/click state.
-   */
-  const isVisible = computed(() => {
-    if (typeof openType.value === "boolean") return openType.value;
-    return debouncedVisible.value;
-  });
-
-  /**
-   * Toggles the tooltip if element is clicked.
-   */
-  const handleClick = () => {
-    _isVisible.value = !_isVisible.value;
+  const hoverEvents = {
+    onMouseover: () => (debouncedVisible.value = true),
+    onMouseout: () => (debouncedVisible.value = false),
+    onFocusin: () => (_isVisible.value = true),
+    onFocusout: () => (_isVisible.value = false),
   };
 
-  const hoverEvents = computed(() => {
-    if (openType.value !== "hover") return;
-    return {
-      onMouseover: () => (debouncedVisible.value = true),
-      onMouseout: () => (debouncedVisible.value = false),
-      onFocusin: () => (_isVisible.value = true),
-      onFocusout: () => (_isVisible.value = false),
-    };
-  });
-
-  /**
-   * Closes the tooltip if Escape is pressed.
-   */
-  const handleDocumentKeydown = (event: KeyboardEvent) => {
-    if (event.key !== "Escape") return;
-    _isVisible.value = false;
-  };
-
-  // close tooltip on outside click
-  useOutsideClick({
-    element: rootRef,
-    onOutsideClick: () => (_isVisible.value = false),
-    disabled: computed(() => openType.value !== "click"),
-  });
-
-  // add global document event listeners only on/before mounted to also work in server side rendering
-  onBeforeMount(() => {
-    document.addEventListener("keydown", handleDocumentKeydown);
-  });
-
-  /**
-   * Clean up global event listeners to prevent dangling events.
-   */
-  onBeforeUnmount(() => {
-    document.removeEventListener("keydown", handleDocumentKeydown);
-  });
+  useDismissible({ isExpanded: _isVisible });
 
   return {
     elements: {
-      root: {
-        ref: rootRef,
-      },
-      trigger: computed(() => ({
+      /**
+       * The element which controls the tooltip visibility on hover.
+       */
+      trigger: {
         "aria-describedby": tooltipId,
-        onClick: openType.value === "click" ? handleClick : undefined,
-        ...hoverEvents.value,
-      })),
-      tooltip: computed(() => ({
+        ...hoverEvents,
+      },
+      /**
+       * The element describing the tooltip.
+       * Only simple, textual and non-focusable content is allowed.
+       */
+      tooltip: {
         role: "tooltip",
         id: tooltipId,
         tabindex: "-1",
-        ...hoverEvents.value,
-      })),
+        ...hoverEvents,
+      },
     },
     state: {
-      isVisible,
+      isVisible: _isVisible,
     },
   };
 });

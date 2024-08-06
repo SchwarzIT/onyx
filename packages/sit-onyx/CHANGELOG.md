@@ -1,5 +1,52 @@
 # sit-onyx
 
+## 1.0.0-beta.24
+
+### Minor Changes
+
+- 6f7149f: Adding OnyxButton active animation and OnyxRipple component
+
+## 1.0.0-beta.23
+
+### Major Changes
+
+- dae102e: refactor(OnyxSelect):
+
+  - remove redundant `manualSearch` property in favor of inferring the managed state of searchTerm
+  - omit `showfocus` which is only used to control OnyxSelectInput
+
+## 1.0.0-beta.22
+
+### Major Changes
+
+- 349f412: - breaking change: `useOutsideClick` - renamed `element` to `inside`: Can now accept multiple element refs
+  - split `createTooltip` into `createTooltip` and `createToggletip` headless functions, as these implement different accessibility concepts: See https://inclusive-components.design/tooltips-toggletips/
+  - Therefore, the `OnyxTooltip` had to be reworked:
+    - on hover, the tooltip pattern is used
+    - on click the toggletip pattern is used
+    - the default slot now provides a `trigger` property, which needs to be bound by the user
+  - Also, the `OnyxInfoTooltip` component has been updated to be accessible.
+
+## 1.0.0-beta.21
+
+### Patch Changes
+
+- d6321d8: fix(OnyxStepper): check validity when value is changed with Arrow up/down or buttons
+
+  Also add spin button styles for disabled state
+
+## 1.0.0-beta.20
+
+### Patch Changes
+
+- 4c73713: fix(OnyxSelect): remove incorrect usage of `aria-busy`
+
+## 1.0.0-beta.19
+
+### Patch Changes
+
+- 9570420: fix(OnyxToast): do not cut off box shadow
+
 ## 1.0.0-beta.18
 
 ### Patch Changes

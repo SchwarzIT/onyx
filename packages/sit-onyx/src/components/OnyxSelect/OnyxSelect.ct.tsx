@@ -1,11 +1,12 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
-import type { Locator } from "@playwright/test";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
@@ -140,20 +141,43 @@ test.describe("Grouped screenshots", () => {
 
   executeMatrixScreenshotTest({
     name: "Select (grouped)",
-    columns: DENSITIES,
-    rows: ["default"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
-    component: (column) => (
-      <div>
-        <OnyxSelect
-          label="Label"
-          listLabel="List label"
-          options={GROUPED_OPTIONS}
-          modelValue={GROUPED_OPTIONS[0].value}
-          density={column}
-        />
-      </div>
-    ),
+    columns: ["default", "with-search", "with-check-all"],
+    rows: DENSITIES,
+    disabledAccessibilityRules: [
+      ...DISABLED_ACCESSIBILITY_RULES,
+      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+      // the following disabled rule should be removed.
+      "nested-interactive",
+    ],
+    component: (column, row) => {
+      const preselected: SelectOptionValue = GROUPED_OPTIONS[0].value;
+      const multiple = column === "with-check-all";
+      return multiple ? (
+        <div>
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={GROUPED_OPTIONS}
+            modelValue={[preselected]}
+            density={row}
+            multiple={true}
+            withCheckAll={true}
+          />
+        </div>
+      ) : (
+        <div>
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={GROUPED_OPTIONS}
+            modelValue={preselected}
+            density={row}
+            multiple={false}
+            withSearch={column === "with-search"}
+          />
+        </div>
+      );
+    },
     beforeScreenshot: async (component) => {
       await openFlyout(component);
     },
@@ -256,10 +280,6 @@ test.describe("Loading screenshots", () => {
 });
 
 test.describe("Invalidity handling screenshots", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   executeMatrixScreenshotTest({
     name: "Select (message replacement on invalid)",
     columns: ["default", "long-text"],
@@ -308,15 +328,9 @@ test.describe("Invalidity handling screenshots", () => {
       });
 
       if (row !== "error") {
-        const tooltipButton =
-          row === "errorTooltip"
-            ? page.getByLabel("Error Tooltip")
-            : page.getByLabel("Info Tooltip");
-        const tooltip = page.getByRole("tooltip");
-
-        await tooltipButton.hover();
-
-        await isTooltipVisible(tooltip);
+        await createFormElementUtils(page).triggerTooltipVisible(
+          row === "errorTooltip" ? "error" : "message",
+        );
       }
     },
   });
@@ -461,19 +475,32 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
+  await miniSearchInput.fill(" ");
+  // ASSERT
+  expect(modelValue, 'pressing "space" did not change the current selection').toStrictEqual([
+    MOCK_VARIED_OPTIONS_VALUES[1],
+  ]);
+
+  // ACT
   await miniSearchInput.fill("default");
   await miniSearchInput.press("ArrowDown");
   await miniSearchInput.press("Enter");
-
   // ASSERT
   expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1], MOCK_VARIED_OPTIONS_VALUES[0]]);
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
   await component.click();
-
   // ASSERT
   await expect(mainInput).toBeFocused();
+
+  // ACT
+  await component.click();
+  // ASSERT
+  await expect(
+    miniSearchInput,
+    "focuses the search even if the select is opened more than once",
+  ).toBeFocused();
 });
 
 test("should interact with multiselect", async ({ mount }) => {
@@ -485,6 +512,11 @@ test("should interact with multiselect", async ({ mount }) => {
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
   };
+  const EXPECTED_SELECT_ALL_OPTIONS = [
+    MOCK_VARIED_OPTIONS_VALUES[0],
+    MOCK_VARIED_OPTIONS_VALUES[1],
+    MOCK_VARIED_OPTIONS_VALUES[3],
+  ];
 
   // ARRANGE
   const component = await mount(OnyxSelect, {
@@ -510,14 +542,25 @@ test("should interact with multiselect", async ({ mount }) => {
   // ASSERT
   expect(modelValue).toEqual([]);
 
-  // // ACT (should select all non-disabled values)
+  // ACT (should select all non-disabled values)
   await component.getByRole("option", { name: "Select all" }).click();
+
   // ASSERT
-  expect(modelValue).toStrictEqual([
-    MOCK_VARIED_OPTIONS_VALUES[0],
-    MOCK_VARIED_OPTIONS_VALUES[1],
-    MOCK_VARIED_OPTIONS_VALUES[3],
-  ]);
+  expect(modelValue).toStrictEqual(EXPECTED_SELECT_ALL_OPTIONS);
+
+  // ACT (should select all non-disabled values)
+  const keyboard = component.getByLabel("Test select");
+  await keyboard.press("ArrowDown");
+  await keyboard.press("Enter");
+  // ASSERT
+  expect(modelValue, "can toggle the selection with Enter").toStrictEqual([]);
+
+  // ACT
+  await keyboard.press("Space");
+  // ASSERT
+  expect(modelValue, "can toggle the selection with Space").toStrictEqual(
+    EXPECTED_SELECT_ALL_OPTIONS,
+  );
 });
 
 // eslint-disable-next-line playwright/expect-expect
@@ -838,11 +881,12 @@ test("should manage filtering internally except when filteredOptions are given",
   ).toBeHidden();
 
   // ACT
-  await component.update({ props: { manualSearch: true } });
+  await component.update({ props: { searchTerm: "1" } });
   // ASSERT
-  expect(await page.getByRole("option").count(), "should not filter with the internal logic").toBe(
-    options.length,
-  );
+  expect(
+    await page.getByRole("option").count(),
+    "should not filter with the internal logic when searchTerm is not managed by onyx",
+  ).toBe(options.length);
 
   // ACT
   await component.update({ props: { options: options.filter(({ value }) => value === 1) } });

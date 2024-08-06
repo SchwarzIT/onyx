@@ -1,3 +1,3 @@
 # Contributing
 
-You can find our contributing guide [in the onyx GitHub wiki](https://github.com/SchwarzIT/onyx/wiki/Contribution-Coding-Guidelines).
+You can find our contributing guide [in our docs](https://onyx.schwarz/principles/contributing.html).

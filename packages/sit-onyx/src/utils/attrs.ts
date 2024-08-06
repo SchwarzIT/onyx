@@ -1,4 +1,4 @@
-import { computed, useAttrs, type HtmlHTMLAttributes } from "vue";
+import { computed, useAttrs, type HTMLAttributes } from "vue";
 
 /**
  * Extension of `useAttrs` which splits root attributes from other properties.
@@ -11,13 +11,10 @@ export const useRootAttrs = () => {
 
   const rootAttrs = computed(
     () =>
-      ({ class: attrs["class"], style: attrs["style"] }) as Pick<
-        HtmlHTMLAttributes,
-        "class" | "style"
-      >,
+      ({ class: attrs["class"], style: attrs["style"] }) as Pick<HTMLAttributes, "class" | "style">,
   );
 
-  const restAttrs = computed<Omit<HtmlHTMLAttributes, "class" | "style">>(() => {
+  const restAttrs = computed<Omit<HTMLAttributes, "class" | "style">>(() => {
     const rest = { ...attrs };
     delete rest.class;
     delete rest.style;

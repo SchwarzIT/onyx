@@ -1,5 +1,5 @@
-import { computed, ref, type Ref } from "vue";
-import { createBuilder } from "../../utils/builder";
+import { computed, type Ref } from "vue";
+import { createBuilder, createElRef } from "../../utils/builder";
 import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
@@ -16,7 +16,7 @@ export const createMenuButton = createBuilder(
   ({ isExpanded, onToggle }: CreateMenuButtonOptions) => {
     const rootId = createId("menu-button-root");
     const menuId = createId("menu-button-list");
-    const menuRef = ref<HTMLElement>();
+    const menuRef = createElRef<HTMLElement>();
     const buttonId = createId("menu-button-button");
 
     useGlobalEventListener({

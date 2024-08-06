@@ -1,15 +1,11 @@
-import type { Locator } from "@playwright/test";
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxStepper from "./OnyxStepper.vue";
 
 test.describe("Screenshot tests", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   for (const state of ["default", "autofill"] as const) {
     executeMatrixScreenshotTest({
       name: `Stepper (${state})`,
@@ -82,16 +78,13 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible(
+        _row === "labelTooltip" ? "label" : "message",
+      );
     },
   });
 
@@ -122,6 +115,7 @@ test.describe("Screenshot tests", () => {
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
           messageTooltip={messageTooltip}
+          modelValue={10}
         />
       );
     },
@@ -137,15 +131,9 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        const tooltipButton =
-          row === "errorTooltip"
-            ? page.getByLabel("Error Tooltip")
-            : page.getByLabel("Info Tooltip");
-        const tooltip = page.getByRole("tooltip");
-
-        await tooltipButton.hover();
-
-        await isTooltipVisible(tooltip);
+        await createFormElementUtils(page).triggerTooltipVisible(
+          row === "errorTooltip" ? "error" : "message",
+        );
       }
     },
   });
@@ -172,15 +160,11 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, _column, _row) => {
-      const tooltipButton = page.getByLabel("Info Tooltip");
-      const tooltip = page.getByRole("tooltip");
-
       await component.evaluate((element) => {
         element.style.padding = `3rem 5rem`;
       });
 
-      await tooltipButton.hover();
-      await isTooltipVisible(tooltip);
+      await createFormElementUtils(page).triggerTooltipVisible("label");
     },
   });
 
@@ -213,7 +197,12 @@ test.describe("Screenshot tests", () => {
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: () => (
-      <OnyxStepper style="width: 12rem" label="Test label" customError="Test error" />
+      <OnyxStepper
+        style="width: 12rem"
+        label="Test label"
+        customError="Test error"
+        modelValue={10}
+      />
     ),
     beforeScreenshot: async (component, _page, column, row) => {
       const input = component.getByLabel("Test label");

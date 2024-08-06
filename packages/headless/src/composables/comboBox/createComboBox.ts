@@ -10,6 +10,7 @@ import {
   type ListboxValue,
 } from "../listbox/createListbox";
 
+/** See https://w3c.github.io/aria/#aria-autocomplete */
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
 export const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
@@ -19,11 +20,15 @@ export const CLOSING_KEYS: PressedKey[] = [
   "Enter",
   "Tab",
 ];
-const SELECTING_KEYS_SINGLE: PressedKey[] = ["Enter", " "];
-const SELECTING_KEYS_MULTIPLE: PressedKey[] = ["Enter"];
 
-const isSelectingKey = (event: KeyboardEvent, isMultiselect?: boolean) => {
-  const selectingKeys = isMultiselect ? SELECTING_KEYS_MULTIPLE : SELECTING_KEYS_SINGLE;
+const SELECTING_KEYS: PressedKey[] = ["Enter"];
+
+/**
+ * if the a search input is included, space should not be used to select
+ * TODO: idea for the future: move this distinction to the listbox?
+ */
+const isSelectingKey = (event: KeyboardEvent, withSpace?: boolean) => {
+  const selectingKeys = withSpace ? [...SELECTING_KEYS, " "] : SELECTING_KEYS;
   return isKeyOfGroup(event, selectingKeys);
 };
 
@@ -183,7 +188,7 @@ export const createComboBox = createBuilder(
         }
         return onActivateFirst?.();
       }
-      if (isSelectingKey(event, multiple.value)) {
+      if (isSelectingKey(event, autocomplete.value === "none")) {
         return handleSelect(activeOption.value!);
       }
       if (isExpanded.value && isKeyOfGroup(event, CLOSING_KEYS)) {
@@ -220,7 +225,7 @@ export const createComboBox = createBuilder(
     });
 
     useOutsideClick({
-      element: templateRef,
+      inside: templateRef,
       onOutsideClick() {
         if (!isExpanded.value) return;
         onToggle?.(true);

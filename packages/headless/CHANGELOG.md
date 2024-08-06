@@ -1,5 +1,26 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.5
+
+### Major Changes
+
+- 349f412: - breaking change: `useOutsideClick` - renamed `element` to `inside`: Can now accept multiple element refs
+  - split `createTooltip` into `createTooltip` and `createToggletip` headless functions, as these implement different accessibility concepts: See https://inclusive-components.design/tooltips-toggletips/
+  - Therefore, the `OnyxTooltip` had to be reworked:
+    - on hover, the tooltip pattern is used
+    - on click the toggletip pattern is used
+    - the default slot now provides a `trigger` property, which needs to be bound by the user
+  - Also, the `OnyxInfoTooltip` component has been updated to be accessible.
+
+## 1.0.0-beta.4
+
+### Major Changes
+
+- 7ea9194: - Replaced incorrect `HtmlHTMLAttributes` with the correct supertype `HTMLAttributes`
+  - implemented `createElRef`, which creates a special writeable computed that references a DOM Element and unwraps components.
+    - `createElRef` returns a `HeadlessElRef`, which is a special subtype of `WritableComputedRef`. It uses a type differentiator, so no other `Ref` types can be assigned to it.
+  - updated `createBuilder` `HeadlessElement` typings to only accept `HeadlessElRef` for `ref` keys. So `createElRef` must be used to create these.
+
 ## 1.0.0-beta.3
 
 ### Major Changes

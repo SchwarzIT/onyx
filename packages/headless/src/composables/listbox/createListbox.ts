@@ -1,6 +1,6 @@
 import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
 import { createId } from "../..";
-import { createBuilder, type HeadlessElementAttributes } from "../../utils/builder";
+import { createBuilder, type VBindAttributes } from "../../utils/builder";
 import { useTypeAhead } from "../helpers/useTypeAhead";
 
 export type ListboxValue = string | number | boolean;
@@ -152,7 +152,7 @@ export const createListbox = createBuilder(
       }
     };
 
-    const listbox = computed<HeadlessElementAttributes>(() =>
+    const listbox = computed<VBindAttributes>(() =>
       options.controlled
         ? {
             role: "listbox",

@@ -65,7 +65,6 @@ const configOptions = COMPONENTS.map((component) => ({
   label: component,
   value: component,
 })) satisfies SelectOption[];
-const searchTerm = ref("");
 const componentsToShow = useStorage(
   "components-to-show",
   configOptions.map(({ value }) => value),
@@ -139,7 +138,6 @@ const tableData = [
 
         <OnyxSelect
           v-model="componentsToShow"
-          v-model:search-term="searchTerm"
           :options="configOptions"
           label="Visible examples"
           list-label="Available components"
