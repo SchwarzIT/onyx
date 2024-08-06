@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import type { GridElementConfig } from "./EditGridElementDialog.vue";
+import type { GridElementConfig } from "../EditGridElementDialog/EditGridElementDialog.vue";
 
 const props = defineProps<
   GridElementConfig & {

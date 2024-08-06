@@ -13,10 +13,12 @@ import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
 import type { SelectOption } from "../../OnyxSelect/types";
-import EditGridElementDialog, { type GridElementConfig } from "./EditGridElementDialog.vue";
-import GridBadge from "./GridBadge.vue";
-import GridElement from "./GridElement.vue";
-import GridOverlay from "./GridOverlay.vue";
+import EditGridElementDialog, {
+  type GridElementConfig,
+} from "./EditGridElementDialog/EditGridElementDialog.vue";
+import GridBadge from "./GridBadge/GridBadge.vue";
+import GridElement from "./GridElement/GridElement.vue";
+import GridOverlay from "./GridOverlay/GridOverlay.vue";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 

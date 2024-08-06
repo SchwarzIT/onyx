@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { OnyxColor } from "../../../types";
-import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
+import type { OnyxColor } from "../../../../types";
+import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 
 const props = defineProps<{
   value: string | number;

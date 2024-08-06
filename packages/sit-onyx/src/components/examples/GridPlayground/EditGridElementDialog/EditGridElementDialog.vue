@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ref, toRaw, watch } from "vue";
-import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
-import OnyxButton from "../../OnyxButton/OnyxButton.vue";
-import OnyxCheckbox from "../../OnyxCheckbox/OnyxCheckbox.vue";
-import OnyxDialog from "../../OnyxDialog/OnyxDialog.vue";
-import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
-import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
+import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../../types";
+import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
+import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
+import OnyxDialog from "../../../OnyxDialog/OnyxDialog.vue";
+import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
+import OnyxStepper from "../../../OnyxStepper/OnyxStepper.vue";
 
 export type GridElementConfig = {
   columnCount: number;

@@ -1,6 +1,6 @@
-import { expect, test } from "../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../playwright/screenshots";
-import GridBadge from "./GridBadge.vue";
+import { expect, test } from "../../../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
+import GridBadge from "../GridBadge/GridBadge.vue";
 
 test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({

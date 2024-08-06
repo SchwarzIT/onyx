@@ -1,7 +1,10 @@
-import { expect, test } from "../../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../../playwright/screenshots";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
-import GridElement from "./GridElement.vue";
+import { expect, test } from "../../../../playwright/a11y";
+import {
+  executeMatrixScreenshotTest,
+  mockPlaywrightIcon,
+} from "../../../../playwright/screenshots";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import GridElement from "../GridElement/GridElement.vue";
 
 test.describe("screenshot tests", () => {
   for (const mode of ["default", "outline"] as const) {
