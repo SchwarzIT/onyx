@@ -118,7 +118,7 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
       <OnyxCheckboxGroup
         v-model="state.terms"
         class="onyx-grid-span-16"
-        headline="Legal terms"
+        label="Legal terms"
         :options="legalTerms"
       />
 

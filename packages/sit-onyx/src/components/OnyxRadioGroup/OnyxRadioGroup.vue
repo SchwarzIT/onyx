@@ -10,7 +10,6 @@ import type { OnyxRadioGroupProps } from "./types";
 const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
   name: () => createId("radio-button-group-name"), // the name must be globally unique
   direction: "vertical",
-  headline: "",
   required: false,
   disabled: false,
   truncation: "ellipsis",
@@ -38,11 +37,11 @@ const handleChange = (selected: boolean, value: TValue) => {
     :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
     :disabled="props.disabled"
     role="radiogroup"
-    :aria-label="props.headline"
+    :aria-label="props.label"
   >
-    <legend v-if="props.headline" class="onyx-radio-button-group__headline">
+    <legend v-if="!props.hideLabel" class="onyx-radio-button-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
-        {{ props.headline }}
+        {{ props.label }}
       </OnyxHeadline>
     </legend>
 

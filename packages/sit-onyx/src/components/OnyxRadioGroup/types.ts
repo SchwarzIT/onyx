@@ -2,12 +2,14 @@ import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
+import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     RequiredMarkerProp &
     CustomValidityProp &
-    Pick<BaseSelectOption, "truncation"> & {
+    Pick<BaseSelectOption, "truncation"> &
+    Pick<OnyxFormElementProps, "label" | "hideLabel"> & {
       /**
        * Options for the individual radio buttons of the group.
        */
@@ -22,11 +24,6 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
        * The selected radio button option.
        */
       modelValue?: TValue;
-      /**
-       * Headline shown above the radio group, which is also the fieldset legend.
-       * It will also show the required indicator, if `require` is set to `true`
-       */
-      headline?: string;
       /**
        * Disable the radio group.
        */

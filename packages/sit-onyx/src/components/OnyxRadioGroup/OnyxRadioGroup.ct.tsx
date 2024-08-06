@@ -18,11 +18,12 @@ test.describe("screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `Radio group (${direction})`,
       columns: DENSITIES,
-      rows: ["default", "headline", "skeleton"],
+      rows: ["default", "label", "skeleton"],
       component: (column, row) => (
         <OnyxRadioGroup
           modelValue={EXAMPLE_OPTIONS[0].value}
-          headline={row === "headline" ? "Test headline" : undefined}
+          label="Test headline"
+          hideLabel={row !== "label"}
           options={EXAMPLE_OPTIONS}
           skeleton={row === "skeleton" ? 3 : undefined}
           density={column}
@@ -42,7 +43,7 @@ test.describe("screenshot tests (truncation)", () => {
       <OnyxRadioGroup
         modelValue={EXAMPLE_OPTIONS[0].value}
         style="max-width: 16rem;"
-        headline="Very long headline that should be truncated multiline"
+        label="Very long headline that should be truncated multiline"
         options={[
           { label: "Very long label that will be truncated", value: 1 },
           {
@@ -65,7 +66,7 @@ test("should behave correctly", async ({ mount }) => {
   const component = await mount(
     <OnyxRadioGroup
       options={EXAMPLE_OPTIONS}
-      headline="Test headline"
+      label="Test headline"
       modelValue={EXAMPLE_OPTIONS[0].value}
       onUpdate:modelValue={(value) => modelValueEvents.push(value)}
     />,
