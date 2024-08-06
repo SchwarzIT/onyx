@@ -177,7 +177,7 @@ const currentBreakpoint = computed(() => {
             :key="index"
             class="element"
             v-bind="element"
-            :aria-label="`Edit grid element ${index + 1}`"
+            :label="`Edit grid element ${index + 1}`"
             @click="gridElementIndexToEdit = index"
           >
             <OnyxIcon class="element__icon" :icon="edit" />
@@ -186,7 +186,7 @@ const currentBreakpoint = computed(() => {
           <GridElement
             :column-count="2"
             mode="outline"
-            aria-label="Add grid element"
+            label="Add grid element"
             @click="isAddDialogOpen = true"
           >
             <OnyxIcon :icon="plus" />

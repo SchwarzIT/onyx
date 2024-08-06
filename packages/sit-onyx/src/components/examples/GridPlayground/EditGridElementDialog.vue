@@ -59,7 +59,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
 
 <template>
   <OnyxDialog :label="label" :open="props.open" modal class="dialog" @close="emit('close')">
-    <form @submit.prevent="handleSubmit" @reset="emit('close')">
+    <form @submit.prevent="handleSubmit">
       <div class="dialog__header">
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>
 
@@ -115,7 +115,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
             color="danger"
             @click="emit('delete')"
           />
-          <OnyxButton label="Cancel" color="neutral" type="reset" />
+          <OnyxButton label="Cancel" color="neutral" @click="emit('close')" />
           <OnyxButton label="Apply" type="submit" />
         </div>
       </div>

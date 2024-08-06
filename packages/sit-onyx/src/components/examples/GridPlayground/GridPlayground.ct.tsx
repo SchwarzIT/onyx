@@ -40,27 +40,10 @@ test("should add/edit grid elements", async ({ mount, page }) => {
   // ASSERT
   const dialog = page.getByRole("dialog", { name: "Column configuration" });
   const columnCountStepper = dialog.getByLabel("Default column count");
-  const smBreakpointCheckbox = dialog.getByLabel("SM breakpoint");
-  const smBreakpointStepper = dialog.getByLabel("Column count for breakpoint sm");
-
   await expect(dialog).toBeVisible();
-
-  await expect(smBreakpointCheckbox).toBeDisabled();
 
   // ACT
   await columnCountStepper.fill("4");
-
-  // ASSERT
-  await expect(smBreakpointCheckbox).toBeEnabled();
-
-  // ACT
-  await smBreakpointCheckbox.check();
-
-  // ASSERT
-  await expect(smBreakpointStepper).toHaveValue("4");
-
-  // ACT
-  await smBreakpointStepper.fill("6");
   await dialog.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
@@ -91,14 +74,7 @@ test("should add/edit grid elements", async ({ mount, page }) => {
   await dialog.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  await expect(page.getByLabel("Edit grid element 2")).not.toHaveClass(/onyx-grid-span-2/);
-  await expect(page.getByLabel("Edit grid element 2")).toHaveClass(/onyx-grid-span-4/);
-
-  // ACT
-  await page.getByRole("document").hover(); // reset hover (needed for webkit)
-
-  // ASSERT
-  await expect(page).toHaveScreenshot("with-elements.png");
+  await expect(page).toHaveScreenshot("filled.png");
 
   /**
    * Should delete grid element

@@ -2,7 +2,12 @@
 import { computed } from "vue";
 import type { GridElementConfig } from "./EditGridElementDialog.vue";
 
-const props = defineProps<GridElementConfig & { mode?: "default" | "outline" }>();
+const props = defineProps<
+  GridElementConfig & {
+    label: string;
+    mode?: "default" | "outline";
+  }
+>();
 
 const emit = defineEmits<{
   click: [];
@@ -23,6 +28,7 @@ const gridClasses = computed(() => {
     class="grid-element"
     :class="[...gridClasses, props.mode === 'outline' ? 'grid-element--outline' : '']"
     type="button"
+    :aria-label="props.label"
     @click="emit('click')"
   >
     <slot></slot>
@@ -37,7 +43,7 @@ const gridClasses = computed(() => {
   width: 100%;
   border: var(--onyx-1px-in-rem) solid transparent;
   font: inherit;
-  color: inherit;
+  color: var(--onyx-color-text-icons-neutral-intense);
   cursor: pointer;
   padding: 0;
 
@@ -52,9 +58,17 @@ const gridClasses = computed(() => {
     outline: 0.25rem solid var(--onyx-color-base-primary-200);
   }
 
+  &:active {
+    background-color: var(--onyx-color-base-neutral-200);
+  }
+
   &--outline {
     background-color: transparent;
     border-color: var(--onyx-color-base-neutral-300);
+
+    &:active {
+      background-color: transparent;
+    }
   }
 }
 </style>
