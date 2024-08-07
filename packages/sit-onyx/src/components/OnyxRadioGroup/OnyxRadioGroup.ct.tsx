@@ -59,6 +59,22 @@ test.describe("screenshot tests (truncation)", () => {
   });
 });
 
+test.describe("screenshot tests (invalid)", () => {
+  executeMatrixScreenshotTest({
+    name: "Radio group (invalid)",
+    columns: ["default"],
+    rows: ["default"],
+    component: () => (
+      <OnyxRadioGroup
+        modelValue={EXAMPLE_OPTIONS[0].value}
+        label="Test headline"
+        options={EXAMPLE_OPTIONS}
+        customError="Example error"
+      />
+    ),
+  });
+});
+
 test("should behave correctly", async ({ mount }) => {
   const modelValueEvents: SelectOptionValue[] = [];
 
