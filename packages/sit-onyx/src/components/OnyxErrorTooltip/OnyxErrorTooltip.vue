@@ -52,7 +52,11 @@ const targetRef = ref<HTMLDivElement>();
 </template>
 
 <style lang="scss">
+@use "../../styles/mixins/layers";
+
 .onyx-error-tooltip {
-  max-width: 100%;
+  @include layers.component() {
+    max-width: 100%;
+  }
 }
 </style>
