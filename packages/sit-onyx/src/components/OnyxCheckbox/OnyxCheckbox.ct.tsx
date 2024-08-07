@@ -89,21 +89,6 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      const checkbox = component.getByLabel("Test label");
-
-      if (column !== "disabled") {
-        // invalid only shows if checkbox is touched
-        await checkbox.click();
-        await checkbox.click();
-
-        await page.getByRole("document").click(); // reset focus
-        if (column === "indeterminate") {
-          await checkbox.evaluate(
-            (element) => ((element as HTMLInputElement).indeterminate = true),
-          );
-        }
-      }
-
       if (row !== "default") {
         // add space for tooltip
         await component.evaluate((element) => {
@@ -111,12 +96,29 @@ test.describe("Screenshot tests", () => {
         });
       }
 
-      if (row === "focus-visible") {
-        await page.keyboard.press("Tab");
+      const checkbox = component.getByLabel("Test label");
+
+      if (column !== "disabled") {
+        // invalid only shows if checkbox is touched
+        await checkbox.focus();
+        await page.keyboard.press("Space");
+        await page.keyboard.press("Space");
+
+        if (row !== "focus-visible") {
+          await checkbox.blur(); // reset focus
+        }
+
+        if (column === "indeterminate") {
+          await checkbox.evaluate(
+            (element) => ((element as HTMLInputElement).indeterminate = true),
+          );
+        }
       }
+
       if (row === "hover" && column !== "disabled") {
         await checkbox.hover();
       }
+
       // wait for the tooltip to show up reliably
       if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
         // eslint-disable-next-line playwright/no-standalone-expect
