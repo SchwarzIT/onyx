@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{ isMobile: boolean; flyoutOpen: ManagedP
 });
 
 defineEmits<{
-  "update:flyoutOpen": [boolean];
+  "update:flyoutOpen": [isOpen: boolean];
 }>();
 
 const flyoutOpen = useModel(props, "flyoutOpen");

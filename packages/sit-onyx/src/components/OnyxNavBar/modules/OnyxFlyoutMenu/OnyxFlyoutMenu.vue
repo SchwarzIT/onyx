@@ -8,7 +8,7 @@ import type { OnyxFlyoutMenuProps } from "./types";
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), { open: MANAGED_SYMBOL });
 
 const emit = defineEmits<{
-  "update:open": [boolean];
+  "update:open": [isOpen: boolean];
 }>();
 
 const { state: isExpanded } = useManagedState(

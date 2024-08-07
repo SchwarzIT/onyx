@@ -9,7 +9,7 @@ import UserMenuLayout from "./UserMenuLayout.vue";
 const props = withDefaults(defineProps<OnyxUserMenuProps>(), { flyoutOpen: MANAGED_SYMBOL });
 
 const emit = defineEmits<{
-  "update:flyoutOpen": [boolean];
+  "update:flyoutOpen": [isOpen: boolean];
 }>();
 
 const slots = defineSlots<{
