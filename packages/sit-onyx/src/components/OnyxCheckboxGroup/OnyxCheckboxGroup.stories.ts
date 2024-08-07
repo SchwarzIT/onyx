@@ -43,7 +43,7 @@ const DEMO_OPTIONS = [
  */
 export const Default = {
   args: {
-    headline: "Checkbox group headline",
+    label: "Checkbox group label",
     modelValue: [2, 6],
     options: DEMO_OPTIONS,
   },
