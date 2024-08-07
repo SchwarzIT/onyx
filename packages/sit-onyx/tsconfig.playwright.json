@@ -4,7 +4,6 @@
   "exclude": [],
   "compilerOptions": {
     "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.playwright.tsbuildinfo",
     "types": ["node"]
   }
 }
