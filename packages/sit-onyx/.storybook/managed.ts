@@ -1,10 +1,10 @@
-import {
+import { walkTree } from "@sit-onyx/storybook-utils";
+import type {
   ArgTypesEnhancer,
   InputType,
   SBType,
   StrictInputType,
-  walkTree,
-} from "@sit-onyx/storybook-utils";
+} from "storybook/internal/types";
 
 const SB_TYPE_CONTROL_MAP = new Map<SBType["name"], InputType["control"]>([
   ["boolean", { type: "boolean" }],

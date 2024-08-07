@@ -1,4 +1,4 @@
-import { SBType } from "@storybook/csf";
+import type { SBType } from "storybook/internal/types";
 import { describe, expect, test, vi } from "vitest";
 import { walkTree } from "./sbType";
 

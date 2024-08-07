@@ -1,4 +1,4 @@
-import type { SBType } from "@storybook/csf";
+import type { SBType } from "storybook/internal/types";
 
 /**
  * Call a function `cb` for every type node in the storybook type tree.
