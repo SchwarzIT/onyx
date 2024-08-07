@@ -499,7 +499,7 @@ const selectInputProps = computed(() => {
       justify-content: flex-end;
       text-align: right;
       align-items: center;
-      gap: var(--onyx-spacing-md, 16px);
+      gap: var(--onyx-spacing-md);
       color: var(--onyx-color-text-icons-neutral-soft);
     }
 
