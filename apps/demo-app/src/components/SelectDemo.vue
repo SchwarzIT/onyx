@@ -98,6 +98,14 @@ const filteredOptions = computed<SelectOption[]>(() =>
         :skeleton="useSkeleton"
         with-search
       />
+      <OnyxSelect
+        v-model="selectState"
+        label="Example select with list description"
+        list-label="Example with list description"
+        list-description="List Description"
+        :options="selectOptions"
+        :skeleton="useSkeleton"
+      />
     </div>
 
     <div v-if="!useSkeleton" class="onyx-text--small state-info">
