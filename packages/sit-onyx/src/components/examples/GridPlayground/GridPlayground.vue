@@ -163,7 +163,7 @@ const currentBreakpoint = computed(() => {
       <GridOverlay :columns="gridValues?.columnCount" />
 
       <div>
-        <OnyxNavBar app-name="Example navigation">
+        <OnyxNavBar app-name="Demo App">
           <template #contextArea>
             <OnyxUserMenu username="Jane Doe" description="Example user">
               <OnyxMenuItem>

@@ -92,6 +92,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
             class="dialog__breakpoint"
           >
             <OnyxCheckbox
+              class="dialog__checkbox"
               :label="`${breakpoint.toUpperCase()} breakpoint`"
               :model-value="!!state.breakpoints[breakpoint]"
               :value="breakpoint"
@@ -175,6 +176,10 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
     justify-content: flex-end;
     gap: var(--onyx-density-md);
     margin-top: var(--onyx-density-md);
+  }
+
+  &__checkbox {
+    width: 100%;
   }
 }
 </style>
