@@ -62,11 +62,6 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      // invalid only shows if the switch is touched
-      await component.click();
-      await component.click();
-      await page.getByRole("document").click(); // reset focus
-
       if (row !== "default") {
         // add space for tooltip
         await component.evaluate((element) => {
@@ -74,10 +69,20 @@ test.describe("Screenshot tests", () => {
         });
       }
 
+      const switchRef = component.getByLabel("Test label");
+
+      // invalid only shows if the switch is touched
+      await switchRef.focus();
+      await page.keyboard.press("Space");
+      await page.keyboard.press("Space");
+
+      if (row !== "focus-visible") {
+        await switchRef.blur(); // reset focus
+      }
+
       if (row === "hover") {
         await component.getByText("Test label").hover();
       }
-      if (row === "focus-visible") await page.keyboard.press("Tab");
 
       // wait for the tooltip to show up reliably
       if (["focus-visible", "hover"].includes(row)) {
