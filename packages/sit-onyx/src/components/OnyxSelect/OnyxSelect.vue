@@ -497,14 +497,10 @@ const selectInputProps = computed(() => {
       display: flex;
       padding: var(--onyx-density-3xs) var(--onyx-density-sm);
       justify-content: flex-end;
+      text-align: right;
       align-items: center;
       gap: var(--onyx-spacing-md, 16px);
-      align-self: stretch;
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &:has(&__description) {
-      padding-bottom: 0;
     }
 
     .onyx-empty {
