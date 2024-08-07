@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.26
+
+### Patch Changes
+
+- 93f4386: fix(OnyxTable): disable overscroll behavior
+
 ## 1.0.0-beta.25
 
 ### Minor Changes
