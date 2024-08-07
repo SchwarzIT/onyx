@@ -47,6 +47,10 @@ export type CreateComboboxOptions<
    */
   listLabel: MaybeRef<string>;
   /**
+   * Provides additional description for the listbox which displays the available options.
+   */
+  listDescription?: MaybeRef<string | undefined>;
+  /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
   isExpanded: MaybeRef<boolean>;
@@ -112,6 +116,7 @@ export const createComboBox = createBuilder(
     multiple: multipleRef,
     label,
     listLabel,
+    listDescription,
     isExpanded: isExpandedRef,
     activeOption,
     onToggle,
@@ -218,6 +223,7 @@ export const createComboBox = createBuilder(
       internals: { getOptionId },
     } = createListbox({
       label: listLabel,
+      description: listDescription,
       multiple,
       controlled: true,
       activeOption,
