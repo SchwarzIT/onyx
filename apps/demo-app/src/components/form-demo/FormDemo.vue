@@ -132,12 +132,16 @@ const radioOptions: RadioButtonOption[] = [
 
     <OnyxCheckboxGroup
       v-model="formState.checkboxGroup"
+      label="Checkbox group"
+      hide-label
       class="onyx-grid-span-4"
       :options="checkboxOptions"
     />
 
     <OnyxRadioGroup
       v-model="formState.radioGroup"
+      label="Radio group"
+      hide-label
       class="onyx-grid-span-4"
       :options="radioOptions"
       required

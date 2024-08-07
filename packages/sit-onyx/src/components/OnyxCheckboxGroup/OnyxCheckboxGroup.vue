@@ -52,9 +52,13 @@ const checkAllLabel = computed(() => {
 </script>
 
 <template>
-  <fieldset :class="['onyx-checkbox-group', densityClass]" :disabled="props.disabled">
-    <legend v-if="props.headline" class="onyx-checkbox-group__label">
-      <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+  <fieldset
+    :class="['onyx-checkbox-group', densityClass]"
+    :disabled="props.disabled"
+    :aria-label="props.label"
+  >
+    <legend v-if="!props.hideLabel" class="onyx-checkbox-group__label">
+      <OnyxHeadline is="h3">{{ props.label }}</OnyxHeadline>
     </legend>
 
     <div
