@@ -71,13 +71,14 @@ test.describe("Screenshot tests", () => {
     name: "Checkbox (invalid)",
     columns: ["unchecked", "indeterminate", "checked", "hideLabel", "longError", "disabled"],
     rows: ["default", "hover", "focus-visible"],
-    component: (column) => {
+    component: (column, row) => {
       const customError =
         column === "longError"
           ? { shortMessage: "Error", longMessage: "Further info" }
           : "Test error";
       return (
         <OnyxCheckbox
+          style={row !== "default" ? "padding-top: 3rem;" : ""}
           label="Test label"
           modelValue={column === "checked"}
           indeterminate={column === "indeterminate"}
@@ -89,13 +90,6 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      if (row !== "default") {
-        // add space for tooltip
-        await component.evaluate((element) => {
-          element.style.paddingTop = "3rem";
-        });
-      }
-
       const checkbox = component.getByLabel("Test label");
 
       if (column !== "disabled") {

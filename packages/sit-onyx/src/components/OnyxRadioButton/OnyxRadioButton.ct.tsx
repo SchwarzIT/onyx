@@ -63,13 +63,14 @@ test.describe("Screenshot tests", () => {
     name: "Radio button (invalid)",
     columns: ["unchecked", "checked", "longError"],
     rows: ["default", "hover", "focus-visible"],
-    component: (column) => {
+    component: (column, row) => {
       const customError =
         column === "longError"
           ? { shortMessage: "Error", longMessage: "Further info" }
           : "Test error";
       return (
         <OnyxRadioButton
+          style={row !== "default" ? "padding-top: 3rem;" : ""}
           value="test-value"
           label="Test label"
           name="test-name"
@@ -80,13 +81,6 @@ test.describe("Screenshot tests", () => {
     },
     beforeScreenshot: async (component, page, column, row) => {
       await expect(page.locator("input:invalid")).toBeAttached();
-
-      if (row !== "default") {
-        // add space for tooltip
-        await component.evaluate((element) => {
-          element.style.paddingTop = "3rem";
-        });
-      }
 
       if (row === "hover") {
         await component.getByText("Test label").hover();

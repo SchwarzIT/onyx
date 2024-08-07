@@ -48,13 +48,14 @@ test.describe("Screenshot tests", () => {
     name: `Switch (invalid)`,
     columns: ["unchecked", "checked", "longError"],
     rows: ["default", "hover", "focus-visible"],
-    component: (column) => {
+    component: (column, row) => {
       const customError =
         column === "longError"
           ? { shortMessage: "Error", longMessage: "Further info" }
           : "Test error";
       return (
         <OnyxSwitch
+          style={row !== "default" ? "padding-top: 3rem;" : ""}
           label="Test label"
           modelValue={column === "checked"}
           customError={customError}
@@ -62,13 +63,6 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      if (row !== "default") {
-        // add space for tooltip
-        await component.evaluate((element) => {
-          element.style.paddingTop = "3rem";
-        });
-      }
-
       const switchRef = component.getByLabel("Test label");
 
       // invalid only shows if the switch is touched

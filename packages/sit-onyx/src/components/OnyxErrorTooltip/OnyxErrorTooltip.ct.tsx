@@ -3,12 +3,16 @@ import OnyxErrorTooltip from "./OnyxErrorTooltip.vue";
 
 test("should render without error-tooltip", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxErrorTooltip>Dummy content</OnyxErrorTooltip>);
+  const component = await mount(
+    <OnyxErrorTooltip>
+      <button>Dummy button</button>
+    </OnyxErrorTooltip>,
+  );
 
   // ACT
-  await component.getByText("Dummy content").hover();
+  await component.getByRole("button").hover();
   // ASSERT
-  await expect(component.getByRole("tooltip")).toHaveCount(0);
+  await expect(component.getByRole("tooltip")).toBeHidden();
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -20,15 +24,13 @@ test("should render error-tooltip on hover", async ({ mount, makeAxeBuilder }) =
   const errorMessages = { shortMessage: "Dummy error", longMessage: "Further information" };
   // ARRANGE
   const component = await mount(
-    <OnyxErrorTooltip errorMessages={errorMessages}>Dummy content</OnyxErrorTooltip>,
+    <OnyxErrorTooltip style="padding-top: 3rem;" errorMessages={errorMessages}>
+      <button>Dummy button</button>
+    </OnyxErrorTooltip>,
   );
-  // add space for tooltip
-  await component.evaluate((element) => {
-    element.style.paddingTop = "3rem";
-  });
 
   // ACT
-  await component.getByText("Dummy content").hover();
+  await component.getByRole("button").hover();
   // ASSERT
   await expect(component.getByRole("tooltip")).toHaveCount(1);
   await expect(
@@ -48,17 +50,13 @@ test("should render error-tooltip on focus", async ({ mount, makeAxeBuilder }) =
   const errorMessages = { shortMessage: "Dummy error", longMessage: "Further information" };
   // ARRANGE
   const component = await mount(
-    <OnyxErrorTooltip errorMessages={errorMessages}>
+    <OnyxErrorTooltip style="padding-top: 3rem;" errorMessages={errorMessages}>
       <button>Dummy button</button>
     </OnyxErrorTooltip>,
   );
-  // add space for tooltip
-  await component.evaluate((element) => {
-    element.style.paddingTop = "3rem";
-  });
 
   // ACT
-  await component.press("Tab");
+  await component.getByRole("button").focus();
   // ASSERT
   await expect(component.getByRole("tooltip")).toHaveCount(1);
   await expect(
@@ -81,14 +79,14 @@ test("should render without error-tooltip when disabled", async ({ mount, makeAx
       errorMessages={{ shortMessage: "Dummy error", longMessage: "Further information" }}
       disabled
     >
-      Dummy content
+      <button disabled>Dummy button</button>
     </OnyxErrorTooltip>,
   );
 
   // ACT
-  await component.getByText("Dummy content").hover();
+  await component.getByRole("button").hover();
   // ASSERT
-  await expect(component.getByRole("tooltip")).toHaveCount(0);
+  await expect(component.getByRole("tooltip")).toBeHidden();
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
