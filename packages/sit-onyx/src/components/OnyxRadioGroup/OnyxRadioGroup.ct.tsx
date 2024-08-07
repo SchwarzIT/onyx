@@ -6,11 +6,11 @@ import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 import type { RadioButtonOption } from "./types";
 
 const EXAMPLE_OPTIONS = [
-  { label: "dummy.1", value: 1 },
-  { label: "dummy.2", value: 2 },
-  { label: "dummy.3", value: 3, loading: true },
-  { label: "dummy.4", value: 4, disabled: true },
-  { label: "dummy.5", value: 5, skeleton: true },
+  { label: "Dummy 1", value: 1 },
+  { label: "Dummy 2", value: 2 },
+  { label: "Dummy 3", value: 3, loading: true },
+  { label: "Dummy 4", value: 4, disabled: true },
+  { label: "Dummy 5", value: 5, skeleton: true },
 ] satisfies RadioButtonOption[];
 
 test.describe("screenshot tests", () => {
