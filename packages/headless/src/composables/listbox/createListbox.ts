@@ -11,6 +11,10 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
    */
   label: MaybeRef<string>;
   /**
+   * Aria description for the listbox.
+   */
+  description?: MaybeRef<string | undefined>;
+  /**
    * Value of currently (visually) active option.
    */
   activeOption: Ref<TValue | undefined>;
@@ -158,12 +162,14 @@ export const createListbox = createBuilder(
             role: "listbox",
             "aria-multiselectable": isMultiselect.value,
             "aria-label": unref(options.label),
+            "aria-description": options.description,
             tabindex: "-1",
           }
         : {
             role: "listbox",
             "aria-multiselectable": isMultiselect.value,
             "aria-label": unref(options.label),
+            "aria-description": options.description,
             tabindex: "0",
             "aria-activedescendant":
               options.activeOption.value != undefined
