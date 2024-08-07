@@ -121,6 +121,10 @@ const currentBreakpoint = computed(() => {
         >
       </p>
 
+      <p>
+        <strong>For the best experience, please press "F" to enter full screen mode.</strong>
+      </p>
+
       <div class="playground__options">
         <OnyxRadioGroup
           v-model="gridSettings.maxWidth"
