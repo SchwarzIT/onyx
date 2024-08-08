@@ -112,5 +112,11 @@
       "label": "Dunkel",
       "description": "Dieser Farbmodus ist optimiert für dunklere Umgebungen."
     }
+  },
+  "pagination": {
+    "label": "Paginierung",
+    "ofPages": "von 1 Seite | von {n} Seiten",
+    "previous": "vorherige Seite",
+    "next": "nächste Seite"
   }
 }

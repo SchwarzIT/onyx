@@ -112,5 +112,11 @@
       "label": "Dark",
       "description": "This color mode is optimized for darker environments."
     }
+  },
+  "pagination": {
+    "label": "Pagination",
+    "ofPages": "of 1 page | of {n} pages",
+    "previous": "previous page",
+    "next": "next page"
   }
 }
