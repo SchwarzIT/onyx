@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxNavSeparator from "./OnyxNavSeparator.vue";
 
@@ -7,10 +6,7 @@ import OnyxNavSeparator from "./OnyxNavSeparator.vue";
  */
 const meta: Meta<typeof OnyxNavSeparator> = {
   title: "Navigation/modules/NavSeparator",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxNavSeparator,
-    events: [],
-  }),
+  component: OnyxNavSeparator,
 };
 
 export default meta;

@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 
 const meta: Meta<typeof ComponentRoadmap> = {
   title: "roadmap/ComponentRoadmap",
-  ...defineStorybookActionsAndVModels({
-    component: ComponentRoadmap,
-    events: [],
-  }),
+  component: ComponentRoadmap,
 };
 
 export default meta;

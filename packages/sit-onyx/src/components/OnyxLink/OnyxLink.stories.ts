@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxLink from "./OnyxLink.vue";
 
@@ -7,28 +6,25 @@ import OnyxLink from "./OnyxLink.vue";
  */
 const meta: Meta<typeof OnyxLink> = {
   title: "Navigation/Link",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxLink,
-    events: ["click"],
-    argTypes: {
-      default: {
-        control: { type: "text" },
-      },
-      withExternalIcon: {
-        options: ["auto", true, false],
-        control: { type: "radio" },
-      },
+  component: OnyxLink,
+  argTypes: {
+    default: {
+      control: { type: "text" },
     },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `
+    withExternalIcon: {
+      options: ["auto", true, false],
+      control: { type: "radio" },
+    },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
       <div class="onyx-text" style="font-family: var(--onyx-font-family);">
         <story />
       </div>`,
-      }),
-    ],
-  }),
+    }),
+  ],
 };
 
 export default meta;

@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import DesignToken from "./DesignToken.vue";
 
 const meta: Meta<typeof DesignToken> = {
   title: "tokens/DesignToken",
-  ...defineStorybookActionsAndVModels({
-    component: DesignToken,
-    events: ["copy"],
-  }),
+  component: DesignToken,
 };
 
 export default meta;

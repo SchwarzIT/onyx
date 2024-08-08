@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import TopicOverviewCard from "./TopicOverviewCard.vue";
 
 const meta: Meta<typeof TopicOverviewCard> = {
   title: "TopicOverviewCard",
-  ...defineStorybookActionsAndVModels({
-    component: TopicOverviewCard,
-    events: [],
-  }),
+  component: TopicOverviewCard,
 };
 
 export default meta;

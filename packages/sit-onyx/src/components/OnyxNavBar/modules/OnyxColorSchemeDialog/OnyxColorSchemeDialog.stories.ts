@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
@@ -11,26 +10,23 @@ import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
  */
 const meta: Meta<typeof OnyxColorSchemeDialog> = {
   title: "Navigation/modules/ColorSchemeDialog",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxColorSchemeDialog,
-    events: ["update:modelValue", "close"],
-    decorators: [
-      (story, ctx) => ({
-        components: { story, OnyxButton },
-        setup: () => {
-          const isOpen = ref(false);
-          watchEffect(() => {
-            ctx.args.open = isOpen.value;
-          });
-          return { isOpen };
-        },
-        template: `<div>
+  component: OnyxColorSchemeDialog,
+  decorators: [
+    (story, ctx) => ({
+      components: { story, OnyxButton },
+      setup: () => {
+        const isOpen = ref(false);
+        watchEffect(() => {
+          ctx.args.open = isOpen.value;
+        });
+        return { isOpen };
+      },
+      template: `<div>
           <OnyxButton label="Show dialog" @click="isOpen = true" />
           <story :open="isOpen" @close="isOpen = false;" />
         </div>`,
-      }),
-    ],
-  }),
+    }),
+  ],
 };
 
 export default meta;

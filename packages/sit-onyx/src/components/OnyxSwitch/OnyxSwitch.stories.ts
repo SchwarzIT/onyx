@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
@@ -8,10 +7,7 @@ import OnyxSwitch from "./OnyxSwitch.vue";
  */
 const meta: Meta<typeof OnyxSwitch> = {
   title: "Form/Switch",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxSwitch,
-    events: ["update:modelValue", "validityChange"],
-  }),
+  component: OnyxSwitch,
 };
 
 export default meta;

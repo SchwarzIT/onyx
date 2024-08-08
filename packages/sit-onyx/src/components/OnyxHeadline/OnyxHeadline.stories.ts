@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxHeadline from "./OnyxHeadline.vue";
 
@@ -7,15 +6,12 @@ import OnyxHeadline from "./OnyxHeadline.vue";
  */
 const meta: Meta<typeof OnyxHeadline> = {
   title: "Basic/Headline",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxHeadline,
-    events: [],
-    argTypes: {
-      default: {
-        control: { type: "text" },
-      },
+  component: OnyxHeadline,
+  argTypes: {
+    default: {
+      control: { type: "text" },
     },
-  }),
+  },
 };
 
 export default meta;

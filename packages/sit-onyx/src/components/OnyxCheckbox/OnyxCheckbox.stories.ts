@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
@@ -8,10 +7,7 @@ import OnyxCheckbox from "./OnyxCheckbox.vue";
  */
 const meta: Meta<typeof OnyxCheckbox> = {
   title: "Support/Checkbox",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxCheckbox,
-    events: ["update:modelValue", "validityChange"],
-  }),
+  component: OnyxCheckbox,
 };
 
 export default meta;

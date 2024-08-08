@@ -1,4 +1,4 @@
-import { createPreview } from "@sit-onyx/storybook-utils";
+import { createPreview, enhanceEventArgTypes } from "@sit-onyx/storybook-utils";
 import { setup, type Preview } from "@storybook/vue3";
 import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "../src";
 import docsTemplate from "./docs-template.mdx";
@@ -8,9 +8,10 @@ import "../src/styles/index.scss";
 import "./docs-template.scss";
 import { enhanceManagedSymbol } from "./managed";
 import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
+import { withOnyxVModelDecorator } from "./vModel";
 
 const basePreview = createPreview({
-  argTypesEnhancers: [enhanceManagedSymbol],
+  argTypesEnhancers: [enhanceManagedSymbol, enhanceEventArgTypes],
   parameters: {
     docs: {
       page: docsTemplate,
@@ -24,7 +25,7 @@ const basePreview = createPreview({
   globalTypes: {
     ...onyxThemeGlobalType,
   },
-  decorators: [withOnyxTheme],
+  decorators: [withOnyxTheme, withOnyxVModelDecorator],
 });
 
 const preview: Preview = {

@@ -1,9 +1,6 @@
-import emojiSad from "@sit-onyx/icons/emoji-sad.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { OnyxLink } from "../../index";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxEmpty from "./OnyxEmpty.vue";
 
 /**
@@ -11,16 +8,13 @@ import OnyxEmpty from "./OnyxEmpty.vue";
  */
 const meta: Meta<typeof OnyxEmpty> = {
   title: "Data/Empty",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxEmpty,
-    events: [],
-    argTypes: {
-      icon: {
-        control: { disable: true },
-      },
-      default: { control: { type: "text" } },
+  component: OnyxEmpty,
+  argTypes: {
+    icon: {
+      control: { disable: true },
     },
-  }),
+    default: { control: { type: "text" } },
+  },
 };
 
 export default meta;
@@ -40,7 +34,6 @@ export const Default = {
  */
 export const CustomContent = {
   args: {
-    icon: () => h(OnyxIcon, { icon: emojiSad, size: "32px", color: "warning" }),
     default: () => [
       "No data found. Go to ",
       h(OnyxLink, { href: "#" }, () => "this page"),

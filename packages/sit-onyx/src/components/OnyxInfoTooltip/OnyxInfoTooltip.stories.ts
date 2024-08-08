@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
 
@@ -7,19 +6,16 @@ import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
  */
 const meta: Meta<typeof OnyxInfoTooltip> = {
   title: "Support/InfoTooltip",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxInfoTooltip,
-    events: [],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `
+  component: OnyxInfoTooltip,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
         <div style="padding: 4rem 6rem;">
           <story />
         </div>`,
-      }),
-    ],
-  }),
+    }),
+  ],
 };
 
 export default meta;

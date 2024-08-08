@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
@@ -10,19 +9,16 @@ import OnyxNavButton from "./OnyxNavButton.vue";
  */
 const meta: Meta<typeof OnyxNavButton> = {
   title: "Navigation/modules/NavButton",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxNavButton,
-    events: ["click"],
-    argTypes: {
-      default: {
-        control: { type: "text" },
-      },
-      withExternalIcon: {
-        options: ["auto", true, false],
-        control: { type: "radio" },
-      },
+  component: OnyxNavButton,
+  argTypes: {
+    default: {
+      control: { type: "text" },
     },
-  }),
+    withExternalIcon: {
+      options: ["auto", true, false],
+      control: { type: "radio" },
+    },
+  },
 };
 
 const nestedChildren = [
