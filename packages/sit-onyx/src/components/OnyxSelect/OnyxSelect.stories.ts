@@ -29,6 +29,7 @@ const meta: Meta<typeof OnyxSelect> = {
     component: OnyxSelect,
     events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad", "validityChange"],
     argTypes: {
+      withCheckAll: { control: "boolean" },
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
       option: { control: { disable: true } },
