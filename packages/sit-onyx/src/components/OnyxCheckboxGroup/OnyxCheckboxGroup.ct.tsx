@@ -21,7 +21,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
   const component = await mount(OnyxCheckboxGroup, {
     props: {
       options: mockOptions,
-      headline: "Checkbox group headline",
+      label: "Checkbox group headline",
       withCheckAll: true,
     } satisfies OnyxCheckboxGroupProps,
     on: eventHandlers,
@@ -36,6 +36,7 @@ test("should render", async ({ page, mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
   await expect(masterCheckBox).not.toBeChecked();
   await expect(masterCheckBox).toHaveJSProperty("indeterminate", false);
+  await expect(component).toHaveAccessibleName("Checkbox group headline");
 
   // ACT
   await component.getByLabel("Default").check();
@@ -79,7 +80,7 @@ test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <OnyxCheckboxGroup
       options={mockOptions}
-      headline="Horizontal group headline"
+      label="Horizontal group headline"
       direction="horizontal"
       withCheckAll
     />,
@@ -96,7 +97,7 @@ test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
 test("should disabled all checkboxes if group is disabled", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxCheckboxGroup options={mockOptions} headline="Disabled group headline" disabled />,
+    <OnyxCheckboxGroup options={mockOptions} label="Disabled group headline" disabled />,
   );
 
   // ASSERT
@@ -124,7 +125,7 @@ test.describe("Screenshot tests", () => {
       return (
         <OnyxCheckboxGroup
           options={options}
-          headline="Checkbox group headline"
+          label="Checkbox group headline"
           withCheckAll
           modelValue={modelValue}
           style={{ maxWidth: "16rem" }}
@@ -165,7 +166,7 @@ test.describe("Screenshot tests", () => {
             required: true,
           },
         ]}
-        headline="Truncated group headline"
+        label="Truncated group headline"
         class={{ "onyx-use-optional": column === "optional" }}
         style={{ maxWidth: "16rem" }}
       />
@@ -179,7 +180,7 @@ test.describe("Screenshot tests", () => {
     component: (_column, row) => (
       <OnyxCheckboxGroup
         options={[]}
-        headline="Skeleton group headline"
+        label="Skeleton group headline"
         skeleton={3}
         direction={row}
       />

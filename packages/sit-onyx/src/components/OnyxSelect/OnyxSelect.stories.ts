@@ -29,6 +29,7 @@ const meta: Meta<typeof OnyxSelect> = {
     component: OnyxSelect,
     events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad", "validityChange"],
     argTypes: {
+      withCheckAll: { control: "boolean" },
       empty: { control: { disable: true } },
       optionsEnd: { control: { disable: true } },
       option: { control: { disable: true } },
@@ -300,6 +301,17 @@ export const WithCustomSearch: Story = {
     }),
   ],
 };
+
+/**
+ * This example shows a select with list description.
+ * Shows the provided description at the bottom of the flyout
+ */
+export const WithListDescription = {
+  args: {
+    ...Default.args,
+    listDescription: "List description",
+  },
+} satisfies Story;
 
 /**
  * This example shows a loading select.

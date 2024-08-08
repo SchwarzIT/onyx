@@ -56,6 +56,15 @@ export const Required = {
     ...Default.args,
     required: true,
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="padding: 2rem 0 0 2.5rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
 
 /**
@@ -64,6 +73,7 @@ export const Required = {
 export const HiddenLabel = {
   args: {
     ...Default.args,
+    label: "Hidden label",
     hideLabel: true,
   },
 } satisfies Story;
@@ -98,8 +108,17 @@ export const CustomError = {
     ...Default.args,
     hideLabel: true,
     customError: {
-      shortMessage: "Example custom error",
-      longMessage: "This text might inform the users what they can do to fix the error.",
+      shortMessage: "Custom error",
+      longMessage: "Further explanation.",
     },
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="padding: 2rem 0 0 5rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
