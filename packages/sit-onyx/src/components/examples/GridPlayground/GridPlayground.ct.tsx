@@ -99,9 +99,9 @@ test("should should current grid values", async ({ mount, page }) => {
     page.getByRole("heading", { name: "Your current breakpoint: xl (1920px)" }),
   ).toBeVisible();
 
-  await expect(page.getByLabel("Margin")).toContainText("4rem");
-  await expect(page.getByLabel("Columns")).toContainText("16");
-  await expect(page.getByLabel("Gutter")).toContainText("2rem");
+  await expect(page.getByLabel("Margin", { exact: true })).toContainText("4rem");
+  await expect(page.getByLabel("Columns", { exact: true })).toContainText("16");
+  await expect(page.getByLabel("Gutter", { exact: true })).toContainText("2rem");
 
   // ACT
   await page.setViewportSize({ width: 800, height: 1080 });
@@ -111,9 +111,9 @@ test("should should current grid values", async ({ mount, page }) => {
     page.getByRole("heading", { name: "Your current breakpoint: sm (800px)" }),
   ).toBeVisible();
 
-  await expect(page.getByLabel("Margin")).toContainText("2rem");
-  await expect(page.getByLabel("Columns")).toContainText("8");
-  await expect(page.getByLabel("Gutter")).toContainText("1.5rem");
+  await expect(page.getByLabel("Margin", { exact: true })).toContainText("2rem");
+  await expect(page.getByLabel("Columns", { exact: true })).toContainText("8");
+  await expect(page.getByLabel("Gutter", { exact: true })).toContainText("1.5rem");
 });
 
 test("should support to configure the grid", async ({ mount, page }) => {
