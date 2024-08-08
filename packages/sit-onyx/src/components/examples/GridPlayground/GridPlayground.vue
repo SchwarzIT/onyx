@@ -91,7 +91,7 @@ const maxColumnsOptions: SelectOption[] = [
 
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
-    if (viewportSize.width.value >= width) return name;
+    if (viewportSize.width.value >= width) return name.toUpperCase();
     return prev;
   }, "2xs");
 
@@ -128,14 +128,14 @@ const currentBreakpoint = computed(() => {
       <div class="playground__options">
         <OnyxRadioGroup
           v-model="gridSettings.maxWidth"
-          headline="Max content width"
+          label="Max content width"
           :options="maxWidthOptions"
           direction="horizontal"
         />
 
         <OnyxRadioGroup
           v-model="gridSettings.alignment"
-          headline="Alignment"
+          label="Alignment"
           :options="alignmentOptions"
           direction="horizontal"
           :disabled="gridSettings.maxWidth === 'none'"
@@ -144,7 +144,7 @@ const currentBreakpoint = computed(() => {
         <OnyxRadioGroup
           v-if="viewportSize.width.value >= ONYX_BREAKPOINTS.xl"
           v-model="gridSettings.maxColumns"
-          headline="Max columns"
+          label="Max columns"
           :options="maxColumnsOptions"
           direction="horizontal"
         />

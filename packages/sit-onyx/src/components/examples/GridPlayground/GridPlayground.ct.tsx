@@ -39,7 +39,7 @@ test("should add/edit grid elements", async ({ mount, page }) => {
 
   // ASSERT
   const dialog = page.getByRole("dialog", { name: "Column configuration" });
-  const columnCountStepper = dialog.getByLabel("Default column count");
+  const columnCountStepper = dialog.getByLabel("Default number of columns");
   await expect(dialog).toBeVisible();
 
   // ACT

@@ -29,12 +29,12 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await expect(page).toHaveScreenshot("default.png");
   await expect(dialog).toBeVisible();
 
-  const columnCountStepper = dialog.getByLabel("Default column count");
+  const columnCountStepper = dialog.getByLabel("Default number of columns");
   await expect(columnCountStepper).toBeFocused();
   await expect(columnCountStepper).toHaveAttribute("min", "1");
   await expect(columnCountStepper).toHaveAttribute("max", "20");
 
-  const smBreakpointStepper = dialog.getByLabel("Column count for breakpoint sm");
+  const smBreakpointStepper = dialog.getByLabel("Number of columns for breakpoint sm");
   await expect(smBreakpointStepper).toBeDisabled();
 
   // ACT
@@ -64,7 +64,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await dialog.getByLabel("MD breakpoint").check();
 
   // ASSERT
-  await expect(dialog.getByLabel("Column count for breakpoint md")).toHaveValue("4");
+  await expect(dialog.getByLabel("Number of columns for breakpoint md")).toHaveValue("4");
 
   // ACT
   await dialog.getByRole("button", { name: "Apply" }).click();
