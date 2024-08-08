@@ -62,7 +62,7 @@ test.describe("screenshot tests (truncation)", () => {
 test.describe("screenshot tests (invalid)", () => {
   executeMatrixScreenshotTest({
     name: "Radio group (invalid)",
-    columns: ["default"],
+    columns: ["default", "hover"],
     rows: ["default"],
     component: () => (
       <OnyxRadioGroup
@@ -72,6 +72,18 @@ test.describe("screenshot tests (invalid)", () => {
         customError="Example error"
       />
     ),
+    beforeScreenshot: async (component, page, column) => {
+      if (column === "hover") {
+        const radio = component.getByText(EXAMPLE_OPTIONS[0].label);
+        await radio.hover();
+      }
+
+      // wait for the tooltip to show up reliably
+      if (column === "hover") {
+        // eslint-disable-next-line playwright/no-standalone-expect
+        await expect(component.getByRole("tooltip"), "should show error tooltip").toBeVisible();
+      }
+    },
   });
 });
 
@@ -110,7 +122,9 @@ test("should behave correctly", async ({ mount }) => {
 
 test("should display correctly when disabled", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxRadioGroup options={EXAMPLE_OPTIONS} disabled />);
+  const component = await mount(
+    <OnyxRadioGroup label="Test headline" options={EXAMPLE_OPTIONS} disabled />,
+  );
 
   const radioButtons = await component.getByRole("radio", { disabled: true }).all();
 

@@ -2,6 +2,7 @@
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
+import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxRadioButtonProps } from "./types";
@@ -23,7 +24,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity, title } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
 
 const handleChange = (event: Event) => {
@@ -38,26 +39,28 @@ const handleChange = (event: Event) => {
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <label v-else :class="['onyx-radio-button', densityClass]" :title="title">
-    <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
-    <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
-    <input
-      v-else
-      v-custom-validity
-      class="onyx-radio-button__selector"
-      type="radio"
-      :required="props.required"
-      :name="props.name"
-      :value="props.value"
-      :checked="props.checked"
-      :disabled="props.disabled"
-      :autofocus="props.autofocus"
-      @change="handleChange"
-    />
-    <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
-      {{ props.label }}
-    </span>
-  </label>
+  <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
+    <label :class="['onyx-radio-button', densityClass]">
+      <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
+      <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
+      <input
+        v-else
+        v-custom-validity
+        class="onyx-radio-button__selector"
+        type="radio"
+        :required="props.required"
+        :name="props.name"
+        :value="props.value"
+        :checked="props.checked"
+        :disabled="props.disabled"
+        :autofocus="props.autofocus"
+        @change="handleChange"
+      />
+      <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
+        {{ props.label }}
+      </span>
+    </label>
+  </OnyxErrorTooltip>
 </template>
 
 <style lang="scss">
@@ -101,6 +104,15 @@ const handleChange = (event: Event) => {
       --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
     }
 
+    /**
+     * hide error tooltip if the radio button is valid.
+     * this happens when a radio group is required and one of the radio buttons is
+     * checked, the other ones will not update their validityState but will be
+     * recognized as "valid" by CSS
+     */
+    .onyx-error-tooltip:has(&__selector:valid) .onyx-tooltip {
+      display: none;
+    }
     &:has(&__selector:invalid) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
