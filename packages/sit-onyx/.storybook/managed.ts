@@ -6,11 +6,11 @@ import type {
   StrictInputType,
 } from "storybook/internal/types";
 
-const SB_TYPE_CONTROL_MAP = new Map<SBType["name"], InputType["control"]>([
-  ["boolean", { type: "boolean" }],
-  ["string", { type: "text" }],
-  ["number", { type: "number" }],
-]);
+const SB_TYPE_CONTROL_MAP: Partial<Record<SBType["name"], InputType["control"]>> = {
+  boolean: { type: "boolean" },
+  string: { type: "text" },
+  number: { type: "number" },
+};
 
 const getManagedParent = (inputType?: StrictInputType) => {
   if (!inputType?.type || inputType.table?.defaultValue?.summary !== "MANAGED_SYMBOL") {
@@ -32,8 +32,9 @@ export const enhanceManagedSymbol: ArgTypesEnhancer = (context) => {
     })
     .filter(({ parent }) => parent)
     .forEach(({ argType, parent }) => {
-      const firstAvailableControl = walkTree(parent || argType.type!, (sb) =>
-        SB_TYPE_CONTROL_MAP.get(sb.name),
+      const firstAvailableControl = walkTree(
+        parent || argType.type!,
+        (sb) => SB_TYPE_CONTROL_MAP[sb.name],
       );
 
       if (firstAvailableControl && argType.table?.defaultValue) {
