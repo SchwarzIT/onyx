@@ -16,7 +16,14 @@ import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(
   defineProps<
-    OnyxNavButtonProps & { isMobile: boolean; mobileChildrenOpen: ManagedProp<boolean> }
+    OnyxNavButtonProps & {
+      isMobile: boolean;
+      /**
+       * Controls the open state for the mobile children.
+       * Is managed internally if not provided.
+       */
+      mobileChildrenOpen: ManagedProp<boolean>;
+    }
   >(),
   {
     mobileChildrenOpen: MANAGED_SYMBOL,
