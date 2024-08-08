@@ -1,7 +1,6 @@
 import type { OnyxExternalLinkIcon } from "../../../OnyxExternalLinkIcon/types";
 
 export type OnyxNavButtonProps = OnyxExternalLinkIcon & {
-  mobileChildrenOpen?: boolean;
   /**
    * Label to show inside the Nav item.
    * You can use the `default` slot to display custom content.
