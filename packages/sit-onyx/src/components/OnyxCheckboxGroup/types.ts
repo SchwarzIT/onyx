@@ -2,10 +2,12 @@ import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
+import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
-    Pick<BaseSelectOption, "truncation"> & {
+    Pick<BaseSelectOption, "truncation"> &
+    Pick<OnyxFormElementProps, "label" | "hideLabel"> & {
       /**
        * Checkbox options.
        */
@@ -14,10 +16,6 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
        * Currently checked checkboxes.
        */
       modelValue?: TValue[];
-      /**
-       * Headline to show above all checkboxes which is also the fieldset legend.
-       */
-      headline?: string;
       /**
        * Direction of the checkboxes.
        */

@@ -69,28 +69,38 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Checkbox (invalid)",
-    columns: ["unchecked", "indeterminate", "checked", "disabled", "hideLabel"],
+    columns: ["unchecked", "indeterminate", "checked", "hideLabel", "longError", "disabled"],
     rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
-      <OnyxCheckbox
-        label="Test label"
-        modelValue={column === "checked"}
-        indeterminate={column === "indeterminate"}
-        hideLabel={column === "hideLabel"}
-        disabled={column === "disabled"}
-        customError="Test error"
-        value="test-value"
-      />
-    ),
+    component: (column, row) => {
+      const customError =
+        column === "longError"
+          ? { shortMessage: "Error", longMessage: "Further info" }
+          : "Test error";
+      return (
+        <OnyxCheckbox
+          style={row !== "default" ? "padding-top: 3rem;" : ""}
+          label="Test label"
+          modelValue={column === "checked"}
+          indeterminate={column === "indeterminate"}
+          hideLabel={column === "hideLabel"}
+          disabled={column === "disabled"}
+          customError={customError}
+          value="test-value"
+        />
+      );
+    },
     beforeScreenshot: async (component, page, column, row) => {
       const checkbox = component.getByLabel("Test label");
 
       if (column !== "disabled") {
         // invalid only shows if checkbox is touched
+        await checkbox.focus();
+        await page.keyboard.press("Space");
+        await page.keyboard.press("Space");
 
-        await checkbox.click();
-        await checkbox.click();
-        await page.getByRole("document").click(); // reset focus
+        if (row !== "focus-visible") {
+          await checkbox.blur(); // reset focus
+        }
 
         if (column === "indeterminate") {
           await checkbox.evaluate(
@@ -99,8 +109,18 @@ test.describe("Screenshot tests", () => {
         }
       }
 
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "hover" && column !== "disabled") {
+        await checkbox.hover();
+      }
+
+      // wait for the tooltip to show up reliably
+      if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
+        // eslint-disable-next-line playwright/no-standalone-expect
+        await expect(
+          component.getByRole("tooltip"),
+          `should show error tooltip for ${row} and ${column}`,
+        ).toBeVisible();
+      }
     },
   });
 
@@ -158,27 +178,20 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-[
-  { hideLabel: true, customError: undefined, expectedTitle: "Label" },
-  { hideLabel: true, customError: "Error", expectedTitle: "Label\nError" },
-  { hideLabel: false, customError: "Error", expectedTitle: "Error" },
-  {
-    hideLabel: false,
-    customError: { shortMessage: "Error", longMessage: "Further info" },
-    expectedTitle: "Error: Further info",
-  },
-].forEach(({ hideLabel, customError, expectedTitle }) => {
-  test(`should have the title "${expectedTitle}"`, async ({ mount, makeAxeBuilder, page }) => {
-    // ARRANGE
-    await mount(<OnyxCheckbox label="Label" hideLabel={hideLabel} customError={customError} />);
+test("should have the title show the label as title if hideLabel is set", async ({
+  mount,
+  makeAxeBuilder,
+  page,
+}) => {
+  // ARRANGE
+  await mount(<OnyxCheckbox label="Demo Label" hideLabel value="test-value" />);
 
-    // ASSERT
-    await expect(page.getByTitle(expectedTitle), "should have the expected title").toBeVisible();
+  // ASSERT
+  await expect(page.getByTitle("Demo Label"), "should have the expected title").toBeVisible();
 
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });

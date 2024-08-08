@@ -15,6 +15,15 @@ const meta: Meta<typeof OnyxCheckboxGroup> = {
     argTypes: {
       withCheckAll: { control: { type: "boolean" } },
     },
+    decorators: [
+      (story) => ({
+        components: { story },
+        template: `
+      <div style="padding-left: 1rem;">
+        <story />
+      </div>`,
+      }),
+    ],
   }),
 };
 
@@ -32,8 +41,8 @@ const DEMO_OPTIONS = [
     label: "Invalid",
     value: 7,
     customError: {
-      shortMessage: "Example custom error",
-      longMessage: "This text might inform the users what they can do to fix the error.",
+      shortMessage: "Custom error",
+      longMessage: "Further explanation.",
     },
   },
 ] satisfies CheckboxGroupOption[];
@@ -43,7 +52,7 @@ const DEMO_OPTIONS = [
  */
 export const Default = {
   args: {
-    headline: "Checkbox group headline",
+    label: "Checkbox group label",
     modelValue: [2, 6],
     options: DEMO_OPTIONS,
   },

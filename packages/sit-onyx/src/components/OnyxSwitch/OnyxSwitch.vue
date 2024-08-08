@@ -5,6 +5,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -29,7 +30,11 @@ const emit = defineEmits<{
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
-const { vCustomValidity, title } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+
+const title = computed(() => {
+  return props.hideLabel ? props.label : undefined;
+});
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -47,45 +52,47 @@ const isChecked = computed({
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
-    <input
-      v-model="isChecked"
-      v-custom-validity
-      type="checkbox"
-      role="switch"
-      :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-      :aria-label="props.hideLabel ? props.label : undefined"
-      :disabled="props.disabled || props.loading"
-      :required="props.required"
-      :autofocus="props.autofocus"
-    />
-    <span class="onyx-switch__click-area">
-      <span class="onyx-switch__container">
-        <span class="onyx-switch__icon">
-          <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-          <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" />
+  <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
+    <label class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
+      <input
+        v-model="isChecked"
+        v-custom-validity
+        type="checkbox"
+        role="switch"
+        :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
+        :aria-label="props.hideLabel ? props.label : undefined"
+        :disabled="props.disabled || props.loading"
+        :required="props.required"
+        :autofocus="props.autofocus"
+      />
+      <span class="onyx-switch__click-area">
+        <span class="onyx-switch__container">
+          <span class="onyx-switch__icon">
+            <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
+            <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" />
+          </span>
+          <div class="onyx-switch__frame"></div>
         </span>
-        <div class="onyx-switch__frame"></div>
       </span>
-    </span>
-    <span
-      v-if="!props.hideLabel"
-      class="onyx-switch__label"
-      :class="[
-        `onyx-truncation-${props.truncation}`,
-        // shows the required marker inline for multiline labels
-        props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-      ]"
-    >
-      {{ props.label }}
-    </span>
-    <!-- shows the required marker fixed on the right for truncated labels -->
-    <div
-      v-if="!props.hideLabel && props.truncation === 'ellipsis'"
-      class="onyx-switch__marker"
-      :class="[requiredMarkerClass]"
-    ></div>
-  </label>
+      <span
+        v-if="!props.hideLabel"
+        class="onyx-switch__label"
+        :class="[
+          `onyx-truncation-${props.truncation}`,
+          // shows the required marker inline for multiline labels
+          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+        ]"
+      >
+        {{ props.label }}
+      </span>
+      <!-- shows the required marker fixed on the right for truncated labels -->
+      <div
+        v-if="!props.hideLabel && props.truncation === 'ellipsis'"
+        class="onyx-switch__marker"
+        :class="[requiredMarkerClass]"
+      ></div>
+    </label>
+  </OnyxErrorTooltip>
 </template>
 
 <style lang="scss">
@@ -304,6 +311,11 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       .onyx-switch__label {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
+    }
+
+    // hide error tooltip before a user interaction happened
+    .onyx-error-tooltip:has(&__input):not(:has(&__input:user-invalid)) .onyx-tooltip {
+      display: none;
     }
   }
 }

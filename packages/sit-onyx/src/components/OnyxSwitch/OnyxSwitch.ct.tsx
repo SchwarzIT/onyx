@@ -22,7 +22,7 @@ test.describe("Screenshot tests", () => {
     },
   });
 
-  for (const state of ["disabled", "loading", "invalid"] as const) {
+  for (const state of ["disabled", "loading"] as const) {
     executeMatrixScreenshotTest({
       name: `Switch (${state})`,
       columns: ["unchecked", "checked"],
@@ -33,21 +33,61 @@ test.describe("Screenshot tests", () => {
           modelValue={column === "checked"}
           disabled={state === "disabled"}
           loading={state === "loading"}
-          customError={state === "invalid" ? "Test error" : undefined}
         />
       ),
       beforeScreenshot: async (component, page, column, row) => {
-        if (state === "invalid") {
-          await component.click();
-          await component.click();
-          await page.getByRole("document").click(); // reset focus
+        if (row === "hover") {
+          await component.hover();
         }
-
-        if (row === "hover") await component.hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");
       },
     });
   }
+
+  executeMatrixScreenshotTest({
+    name: `Switch (invalid)`,
+    columns: ["unchecked", "checked", "longError"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column, row) => {
+      const customError =
+        column === "longError"
+          ? { shortMessage: "Error", longMessage: "Further info" }
+          : "Test error";
+      return (
+        <OnyxSwitch
+          style={row !== "default" ? "padding-top: 3rem;" : ""}
+          label="Test label"
+          modelValue={column === "checked"}
+          customError={customError}
+        />
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      const switchRef = component.getByLabel("Test label");
+
+      // invalid only shows if the switch is touched
+      await switchRef.focus();
+      await page.keyboard.press("Space");
+      await page.keyboard.press("Space");
+
+      if (row !== "focus-visible") {
+        await switchRef.blur(); // reset focus
+      }
+
+      if (row === "hover") {
+        await component.getByText("Test label").hover();
+      }
+
+      // wait for the tooltip to show up reliably
+      if (["focus-visible", "hover"].includes(row)) {
+        // eslint-disable-next-line playwright/no-standalone-expect
+        await expect(
+          component.getByRole("tooltip"),
+          `should show error tooltip for ${row} and ${column}`,
+        ).toBeVisible();
+      }
+    },
+  });
 
   executeMatrixScreenshotTest({
     name: "Switch (truncation + required/optional)",
@@ -102,27 +142,20 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-[
-  { hideLabel: true, customError: undefined, expectedTitle: "Label" },
-  { hideLabel: true, customError: "Error", expectedTitle: "Label\nError" },
-  { hideLabel: false, customError: "Error", expectedTitle: "Error" },
-  {
-    hideLabel: false,
-    customError: { shortMessage: "Error", longMessage: "Further info" },
-    expectedTitle: "Error: Further info",
-  },
-].forEach(({ hideLabel, customError, expectedTitle }) => {
-  test(`should have the title "${expectedTitle}"`, async ({ mount, makeAxeBuilder, page }) => {
-    // ARRANGE
-    await mount(<OnyxSwitch label="Label" hideLabel={hideLabel} customError={customError} />);
+test("should have the title show the label as title if hideLabel is set", async ({
+  mount,
+  makeAxeBuilder,
+  page,
+}) => {
+  // ARRANGE
+  await mount(<OnyxSwitch label="Demo Label" hideLabel />);
 
-    // ASSERT
-    await expect(page.getByTitle(expectedTitle), "should have the expected title").toBeVisible();
+  // ASSERT
+  await expect(page.getByTitle("Demo Label"), "should have the expected title").toBeVisible();
 
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
 });

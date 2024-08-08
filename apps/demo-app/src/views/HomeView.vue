@@ -127,11 +127,7 @@ const tableData = [
   <OnyxPageLayout>
     <template #sidebar>
       <div class="sidebar">
-        <OnyxRadioGroup
-          v-model="activeDensityOption"
-          headline="Density"
-          :options="densityOptions"
-        />
+        <OnyxRadioGroup v-model="activeDensityOption" label="Density" :options="densityOptions" />
         <LanguageSelection v-model="locale" />
 
         <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
@@ -164,7 +160,7 @@ const tableData = [
         <template v-if="show('OnyxCheckboxGroup')">
           <OnyxCheckboxGroup
             v-model="checkboxState"
-            headline="Checkbox Group"
+            label="Checkbox Group"
             :options="minimalSelectOptions"
             :skeleton="skeletonNumber"
           />
@@ -206,7 +202,7 @@ const tableData = [
         <template v-if="show('OnyxRadioGroup')">
           <OnyxRadioGroup
             v-model="radioState"
-            headline="Radio group"
+            label="Radio group"
             :options="minimalSelectOptions"
             :skeleton="skeletonNumber"
           />

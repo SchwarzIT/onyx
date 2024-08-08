@@ -4,6 +4,7 @@ import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
+import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
@@ -35,7 +36,11 @@ const isChecked = computed({
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
-const { vCustomValidity, title } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+
+const title = computed(() => {
+  return props.hideLabel ? props.label : undefined;
+});
 </script>
 
 <template>
@@ -44,43 +49,45 @@ const { vCustomValidity, title } = useCustomValidity({ props, emit });
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <label v-else class="onyx-checkbox" :class="[requiredTypeClass, densityClass]" :title="title">
-    <div class="onyx-checkbox__container">
-      <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
-      <input
-        v-else
-        v-model="isChecked"
-        v-custom-validity
-        :aria-label="props.hideLabel ? props.label : undefined"
-        class="onyx-checkbox__input"
-        type="checkbox"
-        :indeterminate="props.indeterminate"
-        :disabled="props.disabled"
-        :required="props.required"
-        :value="props.value"
-        :autofocus="props.autofocus"
-      />
-    </div>
+  <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
+    <label class="onyx-checkbox" :class="[requiredTypeClass, densityClass]" :title="title">
+      <div class="onyx-checkbox__container">
+        <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
+        <input
+          v-else
+          v-model="isChecked"
+          v-custom-validity
+          :aria-label="props.hideLabel ? props.label : undefined"
+          class="onyx-checkbox__input"
+          type="checkbox"
+          :indeterminate="props.indeterminate"
+          :disabled="props.disabled"
+          :required="props.required"
+          :value="props.value"
+          :autofocus="props.autofocus"
+        />
+      </div>
 
-    <template v-if="!props.hideLabel">
-      <p
-        class="onyx-checkbox__label"
-        :class="[
-          `onyx-truncation-${props.truncation}`,
-          // shows the required marker inline for multiline labels
-          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-        ]"
-      >
-        {{ props.label }}
-      </p>
-      <!-- shows the required marker fixed on the right for truncated labels -->
-      <div
-        v-if="props.truncation === 'ellipsis'"
-        class="onyx-checkbox__marker"
-        :class="[requiredMarkerClass]"
-      ></div>
-    </template>
-  </label>
+      <template v-if="!props.hideLabel">
+        <p
+          class="onyx-checkbox__label"
+          :class="[
+            `onyx-truncation-${props.truncation}`,
+            // shows the required marker inline for multiline labels
+            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+          ]"
+        >
+          {{ props.label }}
+        </p>
+        <!-- shows the required marker fixed on the right for truncated labels -->
+        <div
+          v-if="props.truncation === 'ellipsis'"
+          class="onyx-checkbox__marker"
+          :class="[requiredMarkerClass]"
+        ></div>
+      </template>
+    </label>
+  </OnyxErrorTooltip>
 </template>
 
 <style lang="scss">
@@ -163,6 +170,11 @@ const { vCustomValidity, title } = useCustomValidity({ props, emit });
       color: var(--onyx-color-text-icons-primary-intense);
       max-width: var(--onyx-checkbox-input-size);
       height: var(--onyx-checkbox-input-size);
+    }
+
+    // hide error tooltip before a user interaction happened
+    .onyx-error-tooltip:has(&__input):not(:has(&__input:user-invalid)) .onyx-tooltip {
+      display: none;
     }
   }
 }
