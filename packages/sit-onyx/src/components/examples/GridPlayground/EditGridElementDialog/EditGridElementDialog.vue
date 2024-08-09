@@ -179,7 +179,9 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
   }
 
   &__checkbox {
-    width: 100%;
+    :deep(.onyx-checkbox) {
+      width: 100%;
+    }
   }
 }
 </style>

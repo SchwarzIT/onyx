@@ -63,14 +63,18 @@ watch(
   { immediate: true, deep: true },
 );
 
+const closeEdit = () => {
+  gridElementIndexToEdit.value = undefined;
+};
+
 const deleteElement = (index: number) => {
   gridElements.value.splice(index, 1);
-  gridElementIndexToEdit.value = undefined;
+  closeEdit();
 };
 
 const updateElement = (index: number, newElement: GridElementConfig) => {
   gridElements.value[index] = newElement;
-  gridElementIndexToEdit.value = undefined;
+  closeEdit();
 };
 
 const alignmentOptions: SelectOption[] = [
@@ -223,7 +227,7 @@ const currentBreakpoint = computed(() => {
       :initial-value="
         gridElementIndexToEdit != undefined ? gridElements[gridElementIndexToEdit] : undefined
       "
-      @close="gridElementIndexToEdit = undefined"
+      @close="closeEdit"
       @submit="updateElement(gridElementIndexToEdit!, $event)"
       @delete="deleteElement(gridElementIndexToEdit!)"
     />
