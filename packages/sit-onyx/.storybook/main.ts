@@ -13,9 +13,6 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true,
   },
-  docs: {
-    autodocs: true,
-  },
   managerHead: (head) => `
     ${head}
     <meta property="og:type" content="website">
