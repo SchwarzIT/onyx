@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { ManagedProp } from "../../composables/useManagedState";
 import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
@@ -22,7 +23,7 @@ export type SelectSearchProps =
        * Then, you can handle the filtering yourself by reducing the `options` as desired.
        * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
        */
-      searchTerm?: string;
+      searchTerm?: ManagedProp<string>;
     }
   | {
       withSearch?: false;
@@ -83,7 +84,7 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      * If true, the select popover is expanded and visible.
      * Property is managed internally, when undefined.
      */
-    open?: boolean;
+    open?: ManagedProp<boolean>;
     /**
      * Label describing the list of options to support assistive technologies.
      * @example: { label: "Your Animal", listLabel: "List of animals" }

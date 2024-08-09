@@ -1,9 +1,9 @@
 import { describe, expect, test, vi } from "vitest";
 import { reactive, toRef } from "vue";
-import { useManagedState } from "./useManagedState";
+import { MANAGED_SYMBOL, useManagedState, type ManagedProp } from "./useManagedState";
 
 describe("useManagedState", () => {
-  const props = reactive({ custom: "customValue" as string | undefined });
+  const props = reactive({ custom: "customValue" as ManagedProp<string> });
   const emitSpy = vi.fn(() => {});
   const { state, isManaged } = useManagedState(
     toRef(() => props.custom),
@@ -31,7 +31,7 @@ describe("useManagedState", () => {
   });
 
   test("should use state value when prop is undefined", () => {
-    props.custom = undefined;
+    props.custom = MANAGED_SYMBOL;
     expect(state.value).toBe("updatedValue");
     expect(isManaged.value).toBeTruthy();
   });

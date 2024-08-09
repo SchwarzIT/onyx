@@ -1,18 +1,21 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
-import { computed, type VNode } from "vue";
+import { computed, toRef, type VNode } from "vue";
+import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
-const props = defineProps<OnyxFlyoutMenuProps>();
+const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), { open: MANAGED_SYMBOL });
 
-/**
- * If the flyout is expanded or not.
- * If `undefined`, the state will be managed internally.
- */
-const isExpanded = defineModel<boolean>("open", {
-  default: false,
-});
+const emit = defineEmits<{
+  "update:open": [isOpen: boolean];
+}>();
+
+const { state: isExpanded } = useManagedState(
+  toRef(() => props.open),
+  false,
+  (newVal) => emit("update:open", newVal),
+);
 
 const slots = defineSlots<{
   /**
@@ -36,7 +39,7 @@ const slots = defineSlots<{
 const {
   elements: { root, button, menu },
 } = createMenuButton({
-  isExpanded,
+  isExpanded: computed(() => !!isExpanded.value),
   onToggle: () => (isExpanded.value = !isExpanded.value),
 });
 
