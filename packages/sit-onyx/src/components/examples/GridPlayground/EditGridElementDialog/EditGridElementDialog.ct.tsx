@@ -30,7 +30,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await expect(dialog).toBeVisible();
 
   const columnCountStepper = dialog.getByLabel("Default number of columns");
-  await expect(columnCountStepper).toBeFocused();
+  await expect(columnCountStepper, "should focus stepper when opening the dialog").toBeFocused();
   await expect(columnCountStepper).toHaveAttribute("min", "1");
   await expect(columnCountStepper).toHaveAttribute("max", "20");
 
@@ -49,7 +49,10 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await smBreakpointStepper.fill("2");
 
   // ASSERT
-  await expect(dialog.getByLabel("SM breakpoint")).toBeChecked();
+  await expect(
+    dialog.getByLabel("SM breakpoint"),
+    "should check checkbox when stepper is filled",
+  ).toBeChecked();
 
   // ACT
   await dialog.getByRole("button", { name: "Apply" }).click();
@@ -64,7 +67,10 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await dialog.getByLabel("MD breakpoint").check();
 
   // ASSERT
-  await expect(dialog.getByLabel("Number of columns for breakpoint md")).toHaveValue("4");
+  await expect(
+    dialog.getByLabel("Number of columns for breakpoint md"),
+    "should fill breakpoint stepper with default number of columns when checkbox is checked",
+  ).toHaveValue("4");
 
   // ACT
   await dialog.getByRole("button", { name: "Apply" }).click();

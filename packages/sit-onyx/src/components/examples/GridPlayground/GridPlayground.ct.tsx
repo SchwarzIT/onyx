@@ -52,8 +52,7 @@ test("should add/edit grid elements", async ({ mount, page }) => {
   // ACT (add a second grid element)
   await page.getByLabel("Add grid element").click();
 
-  // ASSERT (test that dialog is reset when used before)
-  await expect(columnCountStepper).toHaveValue("");
+  await expect(columnCountStepper, "should reset stepper when being re-opened").toHaveValue("");
 
   // ACT
   await columnCountStepper.fill("2");
@@ -67,7 +66,10 @@ test("should add/edit grid elements", async ({ mount, page }) => {
 
   // ASSERT
   await expect(dialog).toBeVisible();
-  await expect(columnCountStepper).toHaveValue("2");
+  await expect(
+    columnCountStepper,
+    "should fill stepper with current grid element value",
+  ).toHaveValue("2");
 
   // ACT
   await columnCountStepper.fill("4");
@@ -127,7 +129,10 @@ test("should support to configure the grid", async ({ mount, page }) => {
   // ASSERT
   await expect(maxWidthGroup.getByLabel("none")).toBeChecked();
   await expect(alignmentGroup.getByLabel("left")).toBeChecked();
-  await expect(alignmentGroup.getByLabel("left")).toBeDisabled(); // max width is none so alignment should be disabled
+  await expect(
+    alignmentGroup.getByLabel("left"),
+    "should disable alignment when max width is none",
+  ).toBeDisabled();
   await expect(columnCountGroup.getByLabel("16")).toBeChecked();
 
   // ACT
