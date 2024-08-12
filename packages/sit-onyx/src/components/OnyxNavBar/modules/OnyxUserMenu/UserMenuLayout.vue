@@ -1,18 +1,22 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 // this layout component is only used internally for the user menu component
 // to easily switch between mobile and desktop layout
+import { useModel } from "vue";
+import { MANAGED_SYMBOL, type ManagedProp } from "../../../../composables/useManagedState";
 import { injectI18n } from "../../../../i18n";
 import type { SelectOptionValue } from "../../../../types";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
-const props = defineProps<{ isMobile: boolean }>();
+const props = withDefaults(defineProps<{ isMobile: boolean; flyoutOpen: ManagedProp<boolean> }>(), {
+  flyoutOpen: MANAGED_SYMBOL,
+});
 
-/**
- * If the flyout is expanded or not.
- * If `undefined`, the state will be managed internally.
- */
-const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
+defineEmits<{
+  "update:flyoutOpen": [isOpen: boolean];
+}>();
+
+const flyoutOpen = useModel(props, "flyoutOpen");
 
 const slots = defineSlots<{
   button?(): unknown;
@@ -35,7 +39,7 @@ const { t } = injectI18n();
     </template>
 
     <template v-else>
-      <OnyxFlyoutMenu :label="t('navigation.userMenuLabel')" :open="flyoutOpen">
+      <OnyxFlyoutMenu v-model:open="flyoutOpen" :label="t('navigation.userMenuLabel')">
         <slot name="button"></slot>
 
         <template #header>

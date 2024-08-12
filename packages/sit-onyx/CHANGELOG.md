@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.28
+
+### Minor Changes
+
+- 4c49760: fix: props with managed capability not working when used without v-model
+
 ## 1.0.0-beta.27
 
 ### Major Changes

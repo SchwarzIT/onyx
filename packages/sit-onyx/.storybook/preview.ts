@@ -6,9 +6,11 @@ import docsTemplate from "./docs-template.mdx";
 import "@sit-onyx/storybook-utils/style.css";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
+import { enhanceManagedSymbol } from "./managed";
 import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
 const basePreview = createPreview({
+  argTypesEnhancers: [enhanceManagedSymbol],
   parameters: {
     docs: {
       page: docsTemplate,
@@ -27,6 +29,7 @@ const basePreview = createPreview({
 
 const preview: Preview = {
   ...basePreview,
+  tags: ["autodocs"],
   parameters: {
     ...basePreview.parameters,
     options: {
