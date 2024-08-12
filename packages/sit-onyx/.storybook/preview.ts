@@ -29,6 +29,7 @@ const basePreview = createPreview({
 
 const preview: Preview = {
   ...basePreview,
+  tags: ["autodocs"],
   parameters: {
     ...basePreview.parameters,
     options: {
