@@ -13,6 +13,7 @@ import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
 import type { SelectOption } from "../../OnyxSelect/types";
+import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import EditGridElementDialog, {
   type GridElementConfig,
 } from "./EditGridElementDialog/EditGridElementDialog.vue";
@@ -201,7 +202,13 @@ const currentBreakpoint = computed(() => {
             :label="`Edit grid element ${index + 1}`"
             @click="gridElementIndexToEdit = index"
           >
-            <OnyxIcon class="element__icon" :icon="edit" />
+            <template #default="{ gridSpan }">
+              <span class="element__span">{{ gridSpan }}</span>
+              <OnyxVisuallyHidden>
+                This grid element spans {{ gridSpan }} columns
+              </OnyxVisuallyHidden>
+              <OnyxIcon class="element__icon" :icon="edit" />
+            </template>
           </GridElement>
 
           <GridElement
@@ -280,6 +287,10 @@ const currentBreakpoint = computed(() => {
   &:focus-visible {
     .element__icon {
       display: revert-layer;
+    }
+
+    .element__span {
+      display: none;
     }
   }
 }

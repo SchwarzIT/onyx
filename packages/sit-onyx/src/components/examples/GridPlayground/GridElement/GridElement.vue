@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
+import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import type { GridElementConfig } from "../EditGridElementDialog/EditGridElementDialog.vue";
 
 const props = defineProps<
@@ -13,6 +14,15 @@ const emit = defineEmits<{
   click: [];
 }>();
 
+defineSlots<{
+  default?(props: {
+    /**
+     * Number of grid columns the element is currently spanning.
+     */
+    gridSpan: number;
+  }): unknown;
+}>();
+
 const gridClasses = computed(() => {
   return [
     `onyx-grid-span-${props.columnCount}`,
@@ -21,17 +31,30 @@ const gridClasses = computed(() => {
     }),
   ];
 });
+
+const buttonRef = ref<HTMLButtonElement>();
+const gridSpan = ref(1);
+const size = useResizeObserver(buttonRef);
+
+watch(size.width, () => {
+  if (!buttonRef.value) return;
+  gridSpan.value = Number.parseInt(
+    getComputedStyle(buttonRef.value).gridColumnEnd.replace("span", "").trim(),
+  );
+});
 </script>
 
 <template>
   <button
+    ref="buttonRef"
     class="grid-element"
     :class="[...gridClasses, props.mode === 'outline' ? 'grid-element--outline' : '']"
     type="button"
     :aria-label="props.label"
+    :title="props.label"
     @click="emit('click')"
   >
-    <slot></slot>
+    <slot :grid-span="gridSpan"></slot>
   </button>
 </template>
 
