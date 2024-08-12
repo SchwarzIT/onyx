@@ -2,7 +2,7 @@ import type { DensityProp } from "../../composables/density";
 
 export type OnyxPaginationProps = DensityProp & {
   /**
-   *  The currently selected page (zero-based page index).
+   *  The currently selected page (first page is `1`).
    */
   modelValue: number;
   /**

@@ -10,9 +10,9 @@ const props = withDefaults(defineProps<OnyxPaginationProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the selected page changes. Value is the zero-based page index.
+   * Emitted when the selected page changes.
    */
-  "update:modelValue": [pageIndex: number];
+  "update:modelValue": [page: number];
 }>();
 </script>
 

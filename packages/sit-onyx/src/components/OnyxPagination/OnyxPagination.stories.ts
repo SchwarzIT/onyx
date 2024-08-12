@@ -21,7 +21,7 @@ type Story = StoryObj<typeof OnyxPagination>;
 
 export const Default = {
   args: {
-    modelValue: 0,
+    modelValue: 1,
     pages: 42,
   },
 } satisfies Story;

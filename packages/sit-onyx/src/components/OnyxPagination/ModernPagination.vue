@@ -13,9 +13,9 @@ const props = defineProps<OnyxPaginationProps>();
 
 const emit = defineEmits<{
   /**
-   * Emitted when the selected page changes. Value is the zero-based page index.
+   * Emitted when the selected page changes.
    */
-  "update:modelValue": [pageIndex: number];
+  "update:modelValue": [page: number];
 }>();
 
 const { t } = injectI18n();
@@ -23,15 +23,16 @@ const { densityClass } = useDensity(props);
 
 const selectOptions = computed(() => {
   return Array.from({ length: props.pages }, (_, index) => {
+    const pageNumber = index + 1;
     return {
-      label: (index + 1).toString(),
-      value: index,
+      label: pageNumber.toString(),
+      value: pageNumber,
     } satisfies SelectOption;
   });
 });
 
-const hasReachedMin = computed(() => props.modelValue <= 0);
-const hasReachedMax = computed(() => props.modelValue >= props.pages - 1);
+const hasReachedMin = computed(() => props.modelValue <= 1);
+const hasReachedMax = computed(() => props.modelValue >= props.pages);
 </script>
 
 <template>
@@ -39,11 +40,11 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages - 1);
     <!-- value label is used to still show the current page if its grater than the page count -->
     <OnyxSelect
       class="onyx-pagination__select"
-      label="Page selection"
-      list-label="Available pages"
+      :label="t('pagination.select.label')"
+      :list-label="t('pagination.select.listLabel')"
       :options="selectOptions"
       :model-value="props.modelValue"
-      :value-label="(props.modelValue + 1).toString()"
+      :value-label="props.modelValue.toString()"
       hide-label
       :disabled="props.pages <= 1"
       @update:model-value="
@@ -129,6 +130,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages - 1);
 
         &:focus-visible {
           background-color: var(--onyx-color-base-neutral-200);
+          outline: 0.25rem solid var(--onyx-color-base-primary-200);
         }
       }
 
