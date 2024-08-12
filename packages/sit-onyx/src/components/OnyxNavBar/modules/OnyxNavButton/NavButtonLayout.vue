@@ -38,7 +38,7 @@ const slots = defineSlots<{
 const { t } = injectI18n();
 
 const emit = defineEmits<{
-  "update:mobileChildrenOpen": [boolean];
+  "update:mobileChildrenOpen": [isOpen: boolean];
 }>();
 
 const { state: mobileChildrenOpen } = useManagedState(
