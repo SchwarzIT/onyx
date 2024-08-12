@@ -11,10 +11,10 @@ export type OnyxPaginationProps = DensityProp & {
   pages: number;
   /**
    * The different style variants of the pagination:
-   * `classic`: A pagination with many numbered page buttons surrounded by arrow buttons to navigate to pages.
    * `modern`: A less space consuming pagination, which provides a dropdown and arrow keys for the page selection.
+   * `classic`: A pagination with many numbered page buttons surrounded by arrow buttons to navigate to pages.
    */
-  type?: "modern" | "classic";
+  type?: PaginationType;
   /**
    * Whether to show a skeleton pagination.
    */
@@ -24,3 +24,6 @@ export type OnyxPaginationProps = DensityProp & {
    */
   disabled?: boolean;
 };
+
+export const PAGINATION_TYPES = ["modern", "classic"] as const;
+export type PaginationType = (typeof PAGINATION_TYPES)[number];
