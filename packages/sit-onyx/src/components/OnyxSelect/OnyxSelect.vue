@@ -5,7 +5,7 @@ import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
-import { useManagedState } from "../../composables/useManagedState";
+import { MANAGED_SYMBOL, useManagedState } from "../../composables/useManagedState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
@@ -20,8 +20,8 @@ import type { OnyxSelectProps, SelectOption } from "./types";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
-  searchTerm: undefined,
-  open: undefined,
+  searchTerm: MANAGED_SYMBOL,
+  open: MANAGED_SYMBOL,
   truncation: "ellipsis",
   valueLabel: undefined,
 });
