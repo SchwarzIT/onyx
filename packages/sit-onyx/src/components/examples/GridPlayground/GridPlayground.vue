@@ -1,167 +1,297 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
-import GridElement from "./GridElement.vue";
-import GridElementsIndicator, { type GridSettings } from "./GridElementsIndicator.vue";
+import edit from "@sit-onyx/icons/edit.svg?raw";
+import plus from "@sit-onyx/icons/plus.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
+import { computed, nextTick, ref, shallowRef, watch } from "vue";
+import { useResizeObserver } from "../../../composables/useResizeObserver";
+import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
+import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import OnyxLink from "../../OnyxLink/OnyxLink.vue";
+import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
+import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
+import type { SelectOption } from "../../OnyxSelect/types";
+import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import EditGridElementDialog, {
+  type GridElementConfig,
+} from "./EditGridElementDialog/EditGridElementDialog.vue";
+import GridBadge from "./GridBadge/GridBadge.vue";
+import GridElement from "./GridElement/GridElement.vue";
+import GridOverlay from "./GridOverlay/GridOverlay.vue";
 
-// TODO: Create single source of truth for grid definitions and remove from this component
-const BREAKPOINTS = {
-  "2xs": {
-    cols: 4,
-  },
-  xs: {
-    cols: 8,
-  },
-  sm: {
-    cols: 8,
-  },
-  md: {
-    cols: 12,
-  },
-  lg: {
-    cols: 16,
-  },
-  xl: {
-    cols: 16,
-  },
-} as const;
-export type GridBreakpoints = keyof typeof BREAKPOINTS;
-export type GridElementSettings = { breakpoint?: GridBreakpoints; spans: number }[];
+const viewportSize = useResizeObserver(shallowRef(document.body));
 
-const elements = ref<GridElementSettings[]>([]);
-const selectedElement = ref<GridElementSettings>();
-const gridElement = ref<HTMLElement>();
-const gridSettings = ref<GridSettings>();
-const resizeObserver = new ResizeObserver(() => updateGridSettings());
-
-const isMaxMd = ref(false);
-const isMaxLg = ref(false);
-const isCentered = ref(false);
-const is20Xl = ref(false);
-
-const deleteElement = () => {
-  elements.value = elements.value.filter((e) => e !== selectedElement.value);
-  selectedElement.value = undefined;
-};
-
-const updateGridSettings = () => {
-  const computedGrid = getComputedStyle(gridElement.value!);
-  gridSettings.value = {
-    gridTemplateColumns: computedGrid.gridTemplateColumns,
-    gutterSize: computedGrid.getPropertyValue("--onyx-grid-gutter"),
-    marginSize: computedGrid.getPropertyValue("--onyx-grid-margin"),
-    maxWidth: computedGrid.getPropertyValue("--onyx-grid-max-width"),
-    isCentered: isCentered.value,
-  };
-};
-
-watch([isMaxMd, isMaxLg, isCentered, is20Xl], () => updateGridSettings());
-
-onMounted(() => {
-  resizeObserver.observe(document.body);
-  resizeObserver.observe(gridElement.value!);
+const gridSettings = ref<{
+  alignment: "left" | "center";
+  maxWidth: OnyxBreakpoint | "none";
+  maxColumns: 16 | 20;
+}>({
+  alignment: "left",
+  maxWidth: "none",
+  maxColumns: 16,
 });
 
-onBeforeUnmount(() => {
-  resizeObserver.unobserve(document.body);
-  resizeObserver.unobserve(gridElement.value!);
+const gridElements = ref<GridElementConfig[]>([]);
+const isAddDialogOpen = ref(false);
+const gridElementIndexToEdit = ref<number>();
+
+const gridRef = ref<HTMLElement>();
+
+const gridValues = ref<{
+  margin: string;
+  gutter: string;
+  columnCount: number;
+}>();
+
+watch(
+  [viewportSize.width, gridRef, gridSettings],
+  async () => {
+    if (!gridRef.value) return;
+
+    await nextTick();
+    const style = getComputedStyle(gridRef.value);
+
+    gridValues.value = {
+      margin:
+        style.getPropertyValue("--onyx-grid-margin-inline") ||
+        style.getPropertyValue("--onyx-grid-margin"),
+      gutter: style.getPropertyValue("--onyx-grid-gutter"),
+      columnCount: +style.getPropertyValue("--onyx-grid-columns"),
+    };
+  },
+  { immediate: true, deep: true },
+);
+
+const closeEdit = () => {
+  gridElementIndexToEdit.value = undefined;
+};
+
+const deleteElement = (index: number) => {
+  gridElements.value.splice(index, 1);
+  closeEdit();
+};
+
+const updateElement = (index: number, newElement: GridElementConfig) => {
+  gridElements.value[index] = newElement;
+  closeEdit();
+};
+
+const alignmentOptions: SelectOption[] = [
+  { label: "left", value: "left" },
+  { label: "center", value: "center" },
+];
+
+const maxWidthOptions: SelectOption[] = [
+  { label: "none", value: "none" },
+  { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
+  { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
+];
+
+const maxColumnsOptions: SelectOption[] = [
+  { label: "16", value: 16 },
+  { label: "20", value: 20 },
+];
+
+const currentBreakpoint = computed(() => {
+  const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
+    if (viewportSize.width.value >= width) return name.toUpperCase();
+    return prev;
+  }, "2xs");
+
+  return `${breakpoint} (${Math.round(viewportSize.width.value)}px)`;
 });
-
-const handleDeleteModifier = () => {
-  if (!selectedElement.value) return;
-  selectedElement.value.splice(elements.value.indexOf(selectedElement.value), 1);
-};
-
-const handleAddModifier = () => {
-  selectedElement.value?.push({ spans: 2 });
-};
 </script>
 
 <template>
-  <div class="onyx-grid-playground">
-    <form @submit.prevent>
-      <fieldset class="onyx-grid-playground__settings">
-        <legend>Grid options</legend>
-        <label><input v-model="isCentered" type="checkbox" />Centered</label>
-        <label><input v-model="is20Xl" type="checkbox" />XL with 20 columns</label>
-        <label><input v-model="isMaxMd" type="checkbox" />Max md width</label>
-        <label><input v-model="isMaxLg" type="checkbox" />Max lg width</label>
-      </fieldset>
-      <fieldset class="onyx-grid-playground__settings">
-        <legend>Selected Grid Element options</legend>
-        <template v-if="selectedElement">
-          <button type="button" @click="deleteElement()">Delete Grid Element</button>
-          <div v-for="(props, i) in selectedElement" :key="i">
-            <label>
-              Breakpoint:
-              <select v-model="props.breakpoint">
-                <option :value="undefined">None</option>
-                <option v-for="bp in Object.keys(BREAKPOINTS)" :key="bp" :value="bp">
-                  {{ bp }}
-                </option>
-              </select>
-            </label>
-            <label>
-              Columns:
-              <input
-                id="number"
-                v-model="props.spans"
-                type="number"
-                :max="(props.breakpoint && BREAKPOINTS[props.breakpoint]?.cols) ?? 20"
-              />
-            </label>
-            <button type="button" @click="handleDeleteModifier">Delete modifier</button>
-          </div>
-          <button type="button" @click="handleAddModifier">Add Grid Modifier</button>
-        </template>
-        <template v-else>
-          <span>Click an existing grid element to change its properties</span>
-        </template>
-      </fieldset>
-    </form>
-    <GridElementsIndicator v-if="gridSettings" :settings="gridSettings" />
-    <main
-      ref="gridElement"
+  <div class="onyx-text playground">
+    <div class="onyx-grid-container">
+      <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
+      <OnyxHeadline is="h2">
+        Your current breakpoint:
+        <span class="playground__breakpoint">{{ currentBreakpoint }}</span>
+      </OnyxHeadline>
+
+      <p>
+        Add placeholder components below and link them to the grid properties to get an
+        understanding on how components will behave inside the grid. To see the responsiveness of
+        the onyx grid in action, just use the window resizer to adjust your browser width.
+      </p>
+
+      <p>
+        For further details on the grid, please refer to our
+        <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank"
+          >grid docs</OnyxLink
+        >
+      </p>
+
+      <p>
+        <strong
+          >For the best experience, please press the "Go full screen" button in the upper right
+          corner.</strong
+        >
+      </p>
+
+      <div class="playground__options">
+        <OnyxRadioGroup
+          v-model="gridSettings.maxWidth"
+          label="Max content width"
+          :options="maxWidthOptions"
+          direction="horizontal"
+        />
+
+        <OnyxRadioGroup
+          v-model="gridSettings.alignment"
+          label="Alignment"
+          :options="alignmentOptions"
+          direction="horizontal"
+          :disabled="gridSettings.maxWidth === 'none'"
+        />
+
+        <OnyxRadioGroup
+          v-if="viewportSize.width.value >= ONYX_BREAKPOINTS.xl"
+          v-model="gridSettings.maxColumns"
+          label="Max columns"
+          :options="maxColumnsOptions"
+          direction="horizontal"
+        />
+      </div>
+
+      <div v-if="gridValues" class="playground__badges">
+        <GridBadge :value="gridValues.margin" label="Margin" color="danger" />
+        <GridBadge :value="gridValues.columnCount" label="Columns" color="warning" />
+        <GridBadge :value="gridValues.gutter" label="Gutter" color="info" />
+      </div>
+    </div>
+
+    <div
       :class="{
-        'onyx-grid': true,
-        'onyx-grid-container': true,
-        'onyx-grid-center': isCentered,
-        'onyx-grid-xl-20': is20Xl,
-        'onyx-grid-max-md': isMaxMd,
-        'onyx-grid-max-lg': isMaxLg,
+        'onyx-grid-center': gridSettings.alignment === 'center',
+        [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
+        'onyx-grid-xl-20': gridSettings.maxColumns === 20,
       }"
     >
-      <GridElement
-        v-for="(element, i) in elements"
-        :key="i"
-        :settings="element"
-        :selected="element === selectedElement"
-        @click="selectedElement = elements[i]"
-      />
+      <GridOverlay :columns="gridValues?.columnCount" />
 
-      <button
-        type="button"
-        class="onyx-grid-playground__add-new"
-        @click="elements.push([{ spans: 4 }])"
-      >
-        +
-      </button>
-    </main>
+      <div>
+        <OnyxNavBar app-name="Demo App">
+          <template #contextArea>
+            <OnyxUserMenu username="Jane Doe" description="Example user">
+              <OnyxMenuItem>
+                <OnyxIcon :icon="settings" />
+                Settings
+              </OnyxMenuItem>
+
+              <template #footer>
+                App version
+                <span class="onyx-text--monospace">0.0.0</span>
+              </template>
+            </OnyxUserMenu>
+          </template>
+        </OnyxNavBar>
+      </div>
+
+      <div class="onyx-grid-container">
+        <div ref="gridRef" class="onyx-grid">
+          <GridElement
+            v-for="(element, index) in gridElements"
+            :key="index"
+            class="element"
+            v-bind="element"
+            :label="`Edit grid element ${index + 1}`"
+            @click="gridElementIndexToEdit = index"
+          >
+            <template #default="{ gridSpan }">
+              <span class="element__span">{{ gridSpan }}</span>
+              <OnyxVisuallyHidden>
+                This grid element spans {{ gridSpan }} columns
+              </OnyxVisuallyHidden>
+              <OnyxIcon class="element__icon" :icon="edit" />
+            </template>
+          </GridElement>
+
+          <GridElement
+            :column-count="2"
+            mode="outline"
+            label="Add grid element"
+            @click="isAddDialogOpen = true"
+          >
+            <OnyxIcon :icon="plus" />
+          </GridElement>
+        </div>
+      </div>
+    </div>
+
+    <EditGridElementDialog
+      :open="isAddDialogOpen"
+      @close="isAddDialogOpen = false"
+      @submit="
+        gridElements.push($event);
+        isAddDialogOpen = false;
+      "
+    />
+
+    <EditGridElementDialog
+      :open="gridElementIndexToEdit != undefined"
+      :initial-value="
+        gridElementIndexToEdit != undefined ? gridElements[gridElementIndexToEdit] : undefined
+      "
+      @close="closeEdit"
+      @submit="updateElement(gridElementIndexToEdit!, $event)"
+      @delete="deleteElement(gridElementIndexToEdit!)"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.onyx-grid-playground {
+.playground {
+  font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
+  background-color: var(--onyx-color-base-background-tinted);
 
-  &__settings {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  &__headline {
+    margin-bottom: var(--onyx-spacing-2xs);
   }
 
-  &__add-new {
-    cursor: pointer;
-    height: 100px;
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-md);
+    margin-top: var(--onyx-spacing-lg);
+  }
+
+  &__breakpoint {
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+
+  &__badges {
+    margin-top: var(--onyx-grid-gutter);
+    display: flex;
+    gap: var(--onyx-spacing-xl);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  > .onyx-grid-container {
+    padding-bottom: var(--onyx-spacing-xl);
+  }
+}
+
+.element {
+  &__icon {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    .element__icon {
+      display: revert-layer;
+    }
+
+    .element__span {
+      display: none;
+    }
   }
 }
 </style>
