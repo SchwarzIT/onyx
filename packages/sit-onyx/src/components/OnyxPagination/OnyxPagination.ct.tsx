@@ -21,7 +21,7 @@ test.describe("screenshot tests", () => {
 
 test.describe("screenshot tests (buttons)", () => {
   executeMatrixScreenshotTest({
-    name: "Pagination",
+    name: "Pagination (buttons)",
     columns: ["previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
