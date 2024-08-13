@@ -8,6 +8,7 @@ import { useScrollEnd } from "../../composables/scrollEnd";
 import { useManagedState } from "../../composables/useManagedState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
+import { detectOpenDirection } from "../../utils/direction";
 import { groupByKey } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -24,6 +25,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   open: undefined,
   truncation: "ellipsis",
   valueLabel: undefined,
+  alignment: "full",
 });
 
 const emit = defineEmits<{
@@ -83,6 +85,8 @@ const { state: open } = useManagedState(
 );
 
 const selectRef = ref<HTMLElement>();
+const flyoutRef = ref<HTMLElement>();
+const openDirection = ref<"top" | "bottom">();
 
 /**
  * Currently (visually) active value.
@@ -178,6 +182,8 @@ const onToggle = async (preventFocus?: boolean) => {
       miniSearch.value?.focus();
     }
   }
+
+  openDirection.value = detectOpenDirection(selectRef.value, flyoutRef.value);
 };
 
 const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at(0));
@@ -320,7 +326,17 @@ const selectInputProps = computed(() => {
       @validity-change="emit('validityChange', $event)"
     />
 
-    <div :class="['onyx-select', densityClass, open ? 'onyx-select--open' : '']" :inert="!open">
+    <div
+      ref="flyoutRef"
+      :class="[
+        'onyx-select',
+        densityClass,
+        open ? 'onyx-select--open' : '',
+        `onyx-select--${openDirection}`,
+        `onyx-select--${props.alignment}`,
+      ]"
+      :inert="!open"
+    >
       <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
         <!-- model-value is set here, as it is written by the onAutocomplete callback -->
         <OnyxMiniSearch
@@ -437,8 +453,11 @@ const selectInputProps = computed(() => {
     $outline-size: 0.25rem;
 
     position: absolute;
+    width: max-content;
     left: 0;
-    top: calc(100% + $outline-size);
+    // max-width: 100%;
+    // width: 100%;
+    // top: calc(100% + $outline-size);
 
     visibility: hidden;
     opacity: 0;
@@ -451,6 +470,23 @@ const selectInputProps = computed(() => {
     &--open {
       visibility: visible;
       opacity: 1;
+    }
+
+    &--top {
+      bottom: calc(100% + $outline-size);
+    }
+
+    &--bottom {
+      top: calc(100% + $outline-size);
+    }
+
+    &--full {
+      width: 100%;
+      // left: 0;
+    }
+
+    &--right {
+      right: 0;
     }
 
     &__search {

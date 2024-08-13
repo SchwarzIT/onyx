@@ -85,6 +85,12 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      */
     open?: boolean;
     /**
+     * Alignment of the select popover relative to the input.
+     * If set to full, the width of the select popover will be aligned (100%) with the input of OnyxSelect.
+     * Otherwise the width will be set to 'max-content' and aligned accordingly.
+     */
+    alignment?: "right" | "left" | "full";
+    /**
      * Label describing the list of options to support assistive technologies.
      * @example: { label: "Your Animal", listLabel: "List of animals" }
      */
