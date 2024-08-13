@@ -36,7 +36,11 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 </script>
 
 <template>
-  <div :class="['onyx-pagination', densityClass]" role="group" :aria-label="t('pagination.label')">
+  <div
+    :class="['onyx-pagination', 'onyx-text', densityClass]"
+    role="group"
+    :aria-label="t('pagination.label')"
+  >
     <!-- value label is used to still show the current page if its grater than the page count -->
     <OnyxSelect
       class="onyx-pagination__select"
@@ -52,7 +56,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       "
     />
 
-    <div class="onyx-pagination__count onyx-text">
+    <div class="onyx-pagination__count">
       {{ t("pagination.ofPages", { n: props.pages }) }}
     </div>
 
@@ -83,10 +87,15 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
 .onyx-pagination {
   @include layers.component() {
+    --onyx-pagination-padding-vertical: var(--onyx-density-xs);
+    --onyx-pagination-border-size: var(--onyx-1px-in-rem);
+    --onyx-pagination-height: calc(1lh + 2 * var(--onyx-pagination-padding-vertical));
+
     display: flex;
     align-items: center;
     color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
+    height: var(--onyx-pagination-height);
 
     &__select {
       width: 5rem;
@@ -97,15 +106,14 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       }
     }
 
-    $border-size: var(--onyx-1px-in-rem);
-
     &__count {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: calc(var(--onyx-density-xs) - $border-size) var(--onyx-density-sm);
-      border: $border-size solid var(--onyx-color-base-neutral-300);
-      border-left: none;
+      padding: var(--onyx-pagination-padding-vertical);
+      height: var(--onyx-pagination-height);
+      border: 0 solid var(--onyx-color-base-neutral-300);
+      border-width: var(--onyx-pagination-border-size) 0;
       text-align: center;
       color: var(--onyx-color-text-icons-neutral-soft);
       background-color: var(--onyx-color-base-background-tinted);
@@ -115,11 +123,25 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: calc(var(--onyx-density-xs) - $border-size) var(--onyx-density-xs);
+      padding: var(--onyx-pagination-padding-vertical);
+      height: var(--onyx-pagination-height);
       background-color: var(--onyx-color-base-background-blank);
-      border: $border-size solid var(--onyx-color-base-neutral-300);
-      border-left: none;
+      border: var(--onyx-pagination-border-size) solid var(--onyx-color-base-neutral-300);
       color: inherit;
+
+      &:first-of-type {
+        &:not(:focus-visible) {
+          border-right: none;
+        }
+
+        &:focus-visible + .onyx-pagination__button {
+          border-left: none;
+        }
+      }
+
+      &:last-of-type {
+        border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+      }
 
       &:enabled {
         cursor: pointer;
@@ -131,16 +153,17 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         &:focus-visible {
           background-color: var(--onyx-color-base-neutral-200);
           outline: 0.25rem solid var(--onyx-color-base-primary-200);
+          border-color: var(--onyx-color-base-primary-500);
+        }
+
+        &:active {
+          background-color: var(--onyx-color-base-background-blank);
         }
       }
 
       &:disabled {
         background-color: var(--onyx-color-base-background-tinted);
         color: var(--onyx-color-text-icons-neutral-soft);
-      }
-
-      &:last-child {
-        border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
       }
     }
   }
