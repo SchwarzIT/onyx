@@ -118,7 +118,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: var(--onyx-pagination-padding-vertical);
+      padding: var(--onyx-pagination-padding-vertical) var(--onyx-density-sm);
       height: var(--onyx-pagination-height);
       border: 0 solid var(--onyx-color-base-neutral-300);
       border-width: var(--onyx-pagination-border-size) 0;
