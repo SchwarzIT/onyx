@@ -151,9 +151,21 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         }
 
         &:focus-visible {
+          $outline-width: 0.25rem;
           background-color: var(--onyx-color-base-neutral-200);
-          outline: 0.25rem solid var(--onyx-color-base-primary-200);
+          outline: $outline-width solid var(--onyx-color-base-primary-200);
           border-color: var(--onyx-color-base-primary-500);
+
+          // the right outline of the first button would be cut off / not visible
+          // so we use this little trick here to add margin-right and reduce the left padding
+          // of the second button so it does not change in size visually
+          &:first-of-type {
+            margin-right: $outline-width;
+
+            + .onyx-pagination__button {
+              padding-left: calc(var(--onyx-pagination-padding-vertical) - $outline-width);
+            }
+          }
         }
 
         &:active {
