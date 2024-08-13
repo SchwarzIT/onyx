@@ -7,14 +7,21 @@ test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Pagination",
     columns: DENSITIES,
-    rows: ["default", "min", "max"],
+    rows: ["default", "min", "max", "large"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       let currentPage = 2;
+      let pages = 42;
+
       if (row === "min") currentPage = 1;
       else if (row === "max") currentPage = 42;
-      return <OnyxPagination pages={42} modelValue={currentPage} density={column} />;
+      else if (row === "large") {
+        currentPage = 10000;
+        pages = currentPage;
+      }
+
+      return <OnyxPagination pages={pages} modelValue={currentPage} density={column} />;
     },
   });
 });

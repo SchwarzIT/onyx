@@ -40,6 +40,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     :class="['onyx-pagination', 'onyx-text', densityClass]"
     role="group"
     :aria-label="t('pagination.label')"
+    :style="{ '--onyx-pagination-character-count': props.modelValue.toString().length }"
   >
     <!-- value label is used to still show the current page if its grater than the page count -->
     <OnyxSelect
@@ -90,6 +91,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     --onyx-pagination-padding-vertical: var(--onyx-density-xs);
     --onyx-pagination-border-size: var(--onyx-1px-in-rem);
     --onyx-pagination-height: calc(1lh + 2 * var(--onyx-pagination-padding-vertical));
+    --onyx-pagination-character-count: 1;
 
     display: flex;
     align-items: center;
@@ -98,11 +100,17 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     height: var(--onyx-pagination-height);
 
     &__select {
-      width: 5rem;
+      min-width: 5rem;
 
       .onyx-select-input__wrapper {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+        justify-content: space-between;
+      }
+
+      .onyx-select-input__native {
+        // support growing select based on current page character count
+        width: calc(var(--onyx-pagination-character-count) * 1ch);
       }
     }
 
