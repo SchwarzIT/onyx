@@ -1,5 +1,6 @@
 import { expect, test } from "../../../../playwright/a11y";
 import {
+  adjustAbsolutePositionScreenshot,
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
 } from "../../../../playwright/screenshots";
@@ -46,13 +47,8 @@ test.describe("Screenshot tests", () => {
 
       await expect(component.getByLabel("User options")).toBeVisible();
 
-      // since the flyout is positioned absolute, we need to set the component size accordingly
-      // so the screenshot contains the whole component
-      await component.evaluate((element) => {
-        element.style.height = `${element.scrollHeight}px`;
-        element.style.width = `${element.scrollWidth}px`;
-        element.style.paddingLeft = "64px";
-      });
+      await adjustAbsolutePositionScreenshot(component);
+      await component.evaluate((element) => (element.style.paddingLeft = "64px"));
     },
   });
 });
