@@ -117,6 +117,10 @@
     "label": "Paginierung",
     "ofPages": "von 1 Seite | von {n} Seiten",
     "previous": "vorherige Seite",
-    "next": "nächste Seite"
+    "next": "nächste Seite",
+    "select": {
+      "label": "Seiten-Auswahl",
+      "listLabel": "Verfügbare Seiten"
+    }
   }
 }
