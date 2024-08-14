@@ -3,7 +3,10 @@ import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/p
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import {
+  adjustAbsolutePositionScreenshot,
+  executeMatrixScreenshotTest,
+} from "../../playwright/screenshots";
 import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
@@ -46,13 +49,7 @@ const openFlyout = async (component: MountResultJsx) => {
   const toggleButton = component.getByLabel("Toggle selection popover");
 
   if (await toggleButton.isEnabled()) await toggleButton.click();
-
-  // since the flyout is positioned absolute, we need to set the component size accordingly
-  // so the screenshot contains the whole component
-  await component.evaluate((element) => {
-    element.style.height = `${element.scrollHeight}px`;
-    element.style.width = `${element.scrollWidth}px`;
-  });
+  await adjustAbsolutePositionScreenshot(component);
 };
 
 test.describe("Default screenshots", () => {
