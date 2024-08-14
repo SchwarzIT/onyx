@@ -15,6 +15,12 @@ importers:
       '@changesets/cli':
         specifier: ^2.27.7
         version: 2.27.7
+      '@fontsource-variable/source-code-pro':
+        specifier: ^5.0.19
+        version: 5.0.19
+      '@fontsource-variable/source-sans-3':
+        specifier: ^5.0.21
+        version: 5.0.21
       '@microsoft/eslint-formatter-sarif':
         specifier: ^3.1.0
         version: 3.1.0
@@ -273,12 +279,6 @@ importers:
 
   packages/sit-onyx:
     dependencies:
-      '@fontsource-variable/source-code-pro':
-        specifier: '>= 5'
-        version: 5.0.19
-      '@fontsource-variable/source-sans-3':
-        specifier: '>= 5'
-        version: 5.0.21
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
@@ -325,6 +325,12 @@ importers:
 
   packages/vitepress-theme:
     dependencies:
+      '@fontsource-variable/source-code-pro':
+        specifier: '>= 5'
+        version: 5.0.19
+      '@fontsource-variable/source-sans-3':
+        specifier: '>= 5'
+        version: 5.0.21
       sass:
         specifier: '>= 1'
         version: 1.77.8

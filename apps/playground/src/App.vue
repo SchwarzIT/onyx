@@ -21,7 +21,10 @@ const theme = computed(() => (isDark.value ? "dark" : "light"));
 const previewOptions = computed<InstanceType<typeof Repl>["previewOptions"]>(() => {
   return {
     headHTML: `<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/style.css' />
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/src/styles/global.css' />`,
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/src/styles/global.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fontsource-variable/source-sans-3/index.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fontsource-variable/source-code-pro/index.css' />
+    `,
   };
 });
 </script>
