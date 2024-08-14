@@ -1,6 +1,7 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
 import {
+  adjustAbsolutePositionScreenshot,
   executeMatrixScreenshotTest,
   type MatrixScreenshotTestOptions,
 } from "../../../../playwright/screenshots";
@@ -66,17 +67,12 @@ test.describe("Screenshot tests with nested children", () => {
       </OnyxNavButton>
     ),
     beforeScreenshot: async (component, page, _column, row) => {
-      const flyout = page.getByLabel("Subpages of Item");
       await component.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
-      // since the flyout is positioned absolute, we need to set the component size accordingly
-      // so the screenshot contains the whole component
-      await component.evaluate((element) => {
-        element.style.height = "200px";
-        element.style.width = "100px";
-      });
 
+      const flyout = page.getByLabel("Subpages of Item");
       await isFlyoutVisible(flyout);
+      await adjustAbsolutePositionScreenshot(component);
     },
   });
 });
@@ -132,9 +128,6 @@ test.describe("Screenshot tests (mobile children)", () => {
     ),
     beforeScreenshot: async (component) => {
       await component.getByText("Parent item").click();
-      await component.evaluate((element) => {
-        element.style.height = "245px";
-      });
       await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
     },
   });
