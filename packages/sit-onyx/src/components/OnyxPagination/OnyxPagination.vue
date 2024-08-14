@@ -3,9 +3,7 @@ import ModernPagination from "./ModernPagination.vue";
 import type { OnyxPaginationProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxPaginationProps>(), {
-  type: "modern",
   disabled: false,
-  skeleton: false,
 });
 
 const emit = defineEmits<{
