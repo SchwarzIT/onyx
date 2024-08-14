@@ -45,6 +45,7 @@ const handleParentClick = () => {
 
 <template>
   <NavButtonLayout
+    v-bind="props"
     v-model:mobile-children-open="isMobileChildrenOpen"
     class="onyx-nav-button"
     :class="{
@@ -52,7 +53,6 @@ const handleParentClick = () => {
       'onyx-nav-button--active': props.active,
     }"
     :is-mobile="isMobile ?? false"
-    v-bind="props"
   >
     <template #button>
       <button

@@ -63,4 +63,4 @@ const { store: colorScheme } = useColorMode();
 </template>
 ```
 
-Alternatively, you can use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschemedialog--docs) component to build your own custom component.
+Alternatively, you can use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/support-colorschemedialog--docs) component to build your own custom component.
