@@ -11,7 +11,7 @@ import {
   parseFigmaVariables,
 } from "../index.js";
 
-export type ImportCommandOptions = {
+export type ImportVariablesCommandOptions = {
   fileKey: string;
   token: string;
   format: string[];
@@ -21,7 +21,7 @@ export type ImportCommandOptions = {
   selector: string;
 };
 
-export const importCommand = new Command("import-variables")
+export const importVariablesCommand = new Command("import-variables")
   .description("CLI tool to import Figma variables into CSS, SCSS etc. variables.")
   .requiredOption("-k, --file-key <string>", "Figma file key (required)")
   .requiredOption(
@@ -46,12 +46,12 @@ export const importCommand = new Command("import-variables")
     'CSS selector to use for the CSS format. You can use {mode} as placeholder for the mode name, so e.g. for the mode named "dark", passing the selector "html.{mode}" will result in "html.dark"',
     ":root",
   )
-  .action(importCommandAction);
+  .action(importVariablesCommandAction);
 
 /**
  * Action to run when executing the import action. Only intended to be called manually for testing.
  */
-export async function importCommandAction(options: ImportCommandOptions) {
+export async function importVariablesCommandAction(options: ImportVariablesCommandOptions) {
   const generators = {
     CSS: (data: ParsedVariable) => generateAsCSS(data, { selector: options.selector }),
     SCSS: generateAsSCSS,
