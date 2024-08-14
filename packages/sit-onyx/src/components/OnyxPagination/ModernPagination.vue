@@ -51,7 +51,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       :model-value="props.modelValue"
       :value-label="props.modelValue.toString()"
       hide-label
-      :disabled="props.pages <= 1"
+      :disabled="props.disabled || props.pages <= 1"
       @update:model-value="
         emit('update:modelValue', $event as (typeof selectOptions)[number]['value'])
       "
@@ -65,7 +65,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       class="onyx-pagination__button"
       :aria-label="t('pagination.previous')"
       type="button"
-      :disabled="hasReachedMin"
+      :disabled="props.disabled || hasReachedMin"
       @click="emit('update:modelValue', props.modelValue - 1)"
     >
       <OnyxIcon :icon="chevronLeftSmall" />
@@ -75,7 +75,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       class="onyx-pagination__button"
       :aria-label="t('pagination.next')"
       type="button"
-      :disabled="hasReachedMax"
+      :disabled="props.disabled || hasReachedMax"
       @click="emit('update:modelValue', props.modelValue + 1)"
     >
       <OnyxIcon :icon="chevronRightSmall" />

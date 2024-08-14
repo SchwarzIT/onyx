@@ -10,7 +10,7 @@ test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Pagination",
     columns: DENSITIES,
-    rows: ["default", "min", "max", "large", "open"],
+    rows: ["default", "min", "max", "large", "disabled", "open"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
@@ -24,7 +24,14 @@ test.describe("screenshot tests", () => {
         pages = currentPage;
       }
 
-      return <OnyxPagination pages={pages} modelValue={currentPage} density={column} />;
+      return (
+        <OnyxPagination
+          pages={pages}
+          modelValue={currentPage}
+          density={column}
+          disabled={row === "disabled"}
+        />
+      );
     },
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "open") {
@@ -125,4 +132,12 @@ test("should select page", async ({ mount }) => {
   await expect(select).toHaveValue("42");
   await expect(nextButton, "should disable next button if last page is reached").toBeDisabled();
   await expect(previousButton).toBeEnabled();
+});
+
+test("should disable controls", async ({ mount }) => {
+  const component = await mount(<OnyxPagination modelValue={2} pages={42} disabled />);
+
+  await expect(component.getByLabel("Page selection")).toBeDisabled();
+  await expect(component.getByLabel("previous page")).toBeDisabled();
+  await expect(component.getByLabel("next page")).toBeDisabled();
 });
