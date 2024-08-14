@@ -43,8 +43,9 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
 })) satisfies SelectOption[];
 
 const openFlyout = async (component: MountResultJsx) => {
-  const box = (await component.boundingBox())!;
-  await component.click({ position: { x: box.x + box.width / 2, y: box.y + box.height / 2 } });
+  const toggleButton = component.getByLabel("Toggle selection popover");
+
+  if (await toggleButton.isEnabled()) await toggleButton.click();
 
   // since the flyout is positioned absolute, we need to set the component size accordingly
   // so the screenshot contains the whole component
@@ -241,6 +242,28 @@ test.describe("List description screenshots", () => {
       </div>
     ),
     beforeScreenshot: async (component, _page, _column) => {
+      await openFlyout(component);
+    },
+  });
+});
+
+test.describe("Alignment screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Alignment screenshots",
+    columns: ["right", "left", "full"],
+    rows: ["top", "bottom"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column, row) => (
+      <div style={{ paddingTop: row === "top" ? "22rem" : "" }}>
+        <OnyxSelect
+          label="Label"
+          listLabel="List label"
+          options={MOCK_MANY_OPTIONS}
+          alignment={column}
+        />
+      </div>
+    ),
+    beforeScreenshot: async (component, _page, _column, _row) => {
       await openFlyout(component);
     },
   });

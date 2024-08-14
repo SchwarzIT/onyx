@@ -8,7 +8,6 @@ import { useScrollEnd } from "../../composables/scrollEnd";
 import { useManagedState } from "../../composables/useManagedState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
-import { detectOpenDirection } from "../../utils/direction";
 import { groupByKey } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -183,7 +182,43 @@ const onToggle = async (preventFocus?: boolean) => {
     }
   }
 
-  openDirection.value = detectOpenDirection(selectRef.value, flyoutRef.value);
+  detectOpenDirection();
+};
+
+const detectOpenDirection = () => {
+  const viewportHeight = window.visualViewport?.height ?? 0;
+  const parentElementTop = getParentElementTop();
+  const selectTop = selectRef.value?.getBoundingClientRect().top ?? 0;
+  const selectBottom = selectRef.value?.getBoundingClientRect().bottom ?? 0;
+  const selectFlyoutHeight = flyoutRef.value?.scrollHeight ?? 0;
+
+  let freeSpaceBelow = viewportHeight - selectBottom - selectFlyoutHeight;
+  let freeSpaceAbove = parentElementTop
+    ? parentElementTop - selectTop
+    : selectTop - selectFlyoutHeight;
+
+  if (freeSpaceAbove < 0 && freeSpaceBelow < 0) {
+    freeSpaceAbove = Math.abs(freeSpaceAbove);
+    freeSpaceBelow = Math.abs(freeSpaceBelow);
+  }
+
+  openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
+};
+
+const getParentElementTop = () => {
+  if (selectRef.value == undefined) return undefined;
+  let el = selectRef.value;
+
+  while (el.parentElement != undefined) {
+    if (
+      getComputedStyle(el.parentElement).overflow === "hidden" ||
+      el.parentElement === undefined
+    ) {
+      return el.parentElement.getBoundingClientRect().top;
+    } else {
+      el = el.parentElement;
+    }
+  }
 };
 
 const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at(0));
@@ -454,10 +489,6 @@ const selectInputProps = computed(() => {
 
     position: absolute;
     width: max-content;
-    left: 0;
-    // max-width: 100%;
-    // width: 100%;
-    // top: calc(100% + $outline-size);
 
     visibility: hidden;
     opacity: 0;
@@ -482,7 +513,7 @@ const selectInputProps = computed(() => {
 
     &--full {
       width: 100%;
-      // left: 0;
+      left: 0;
     }
 
     &--right {
