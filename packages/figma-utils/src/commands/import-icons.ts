@@ -1,9 +1,8 @@
 import { Command } from "commander";
-import fs from "node:fs";
-import { mkdir } from "node:fs/promises";
-import path from "node:path";
+import { mkdir, writeFile } from "node:fs/promises";
+import path, { dirname } from "node:path";
 import { parseComponentsToIcons } from "../icons/parse.js";
-import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";
+import { fetchFigmaComponents, fetchFigmaSVGs, ParsedIcon } from "../index.js";
 import { isDirectory } from "../utils/fs.js";
 
 export type ImportIconsCommandOptions = {
@@ -11,6 +10,7 @@ export type ImportIconsCommandOptions = {
   token: string;
   pageId: string;
   dir?: string;
+  metaFile?: string;
 };
 
 export const importIconsCommand = new Command("import-icons")
@@ -23,7 +23,11 @@ export const importIconsCommand = new Command("import-icons")
   .requiredOption("-p, --page-id <string>", "Figma page ID that contains the icons (required)")
   .option(
     "-d, --dir <string>",
-    "Working directory to use. Defaults to current working directory of the script.",
+    "Directory to save the icons to. Defaults to current working directory of the script.",
+  )
+  .option(
+    "-m, --meta-file <string>",
+    'JSON filename/path to write icon metadata to (categories, alias names etc.). Must end with ".json". If unset, no metadata will be generated.',
   )
   .action(importIconsCommandAction);
 
@@ -52,10 +56,33 @@ export async function importIconsCommandAction(options: ImportIconsCommandOption
     await mkdir(outputDirectory, { recursive: true });
   }
 
-  parsedIcons.forEach((icon) => {
-    const fullPath = path.join(outputDirectory, `${icon.name}.svg`);
-    fs.writeFileSync(fullPath, svgContents[icon.id]);
-  });
+  await Promise.all(
+    parsedIcons.map((icon) => {
+      const fullPath = path.join(outputDirectory, `${icon.name}.svg`);
+      return writeFile(fullPath, svgContents[icon.id], "utf-8");
+    }),
+  );
+
+  if (options.metaFile) {
+    console.log("Writing icon metadata...");
+
+    const metaDirname = dirname(options.metaFile);
+    if (!(await isDirectory(metaDirname))) {
+      await mkdir(metaDirname, { recursive: true });
+    }
+
+    const iconMetadata = parsedIcons.reduce<
+      Record<string, Pick<ParsedIcon, "category" | "aliases">>
+    >((meta, icon) => {
+      meta[icon.name] = {
+        category: icon.category,
+        aliases: icon.aliases,
+      };
+      return meta;
+    }, {});
+
+    await writeFile(options.metaFile, JSON.stringify(iconMetadata, null, 2), "utf-8");
+  }
 
   console.log("Done.");
 }

@@ -1,0 +1,45 @@
+name: Import Figma icons
+on:
+  workflow_dispatch:
+
+jobs:
+  import:
+    name: Import Figma icons
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🛠️ Build Figma utils
+        run: pnpm run build
+        working-directory: packages/figma-utils
+
+      - name: Import onyx variables
+        run: |
+          pnpm run @sit-onyx/figma-utils import-icons -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -p "6:854" -d "../icons/src/assets" -m "../icons/src/metadata.json"
+        working-directory: packages/figma-utils
+
+      - name: Optimize icons
+        run: pnpm run optimize
+        working-directory: packages/icons
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "feat: update Figma icons"
+          title: "feat: update Figma icons"
+          body: This is an auto-generated pull request. All Figma icons have been updated.
+          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
