@@ -29,6 +29,30 @@ All icons are now synched with [Figma library](https://www.figma.com/design/YfEU
 - tool-crop-1
 - user-setting
 
+#### Deleted icons
+
+- box-check
+- box
+- car-check
+- cart-check
+- circle-both-direction
+- clipboard-circle-check
+- clipboard-shield
+- dynamite
+- edit-disabled
+- emoji-neutral-1
+- engine
+- file-blocked
+- file-circle-check
+- logout
+- mask-1
+- print-dots
+- print-list
+- test-tube
+- tool-crop
+- trolley
+- user-settings
+
 #### Other breaking changes
 
 - removed `ICON_CATEGORIES`, use `groupIconsByCategory(ICON_METADATA)` instead
