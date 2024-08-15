@@ -26,7 +26,7 @@ jobs:
 
       - name: Import icons
         run: |
-          pnpm run @sit-onyx/figma-utils import-icons -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -p "6:854" -d "../icons/src/assets" -m "../icons/src/metadata.json"
+          pnpm run @sit-onyx/figma-utils import-icons -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -p "${{ vars.FIGMA_ICON_PAGE_ID }}" -d "../icons/src/assets" -m "../icons/src/metadata.json"
         working-directory: packages/figma-utils
 
       - name: Optimize icons
