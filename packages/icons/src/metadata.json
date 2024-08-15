@@ -1,1 +1,2608 @@
-{}
+{
+  "24h": {
+    "category": "Help & Support",
+    "aliases": ["24-hour", "around-the-clock", "24-Stunden", "rund-um-die-Uhr"]
+  },
+  "alarm": {
+    "category": "Devices & Electronics",
+    "aliases": ["alert", "Wecker", "Uhr", "clock", "time"]
+  },
+  "alarm-disabled": {
+    "category": "Devices & Electronics",
+    "aliases": ["alarm-off", "clock", "Wecker"]
+  },
+  "android-phone": {
+    "category": "Devices & Electronics",
+    "aliases": ["mobile-device", "Handy", "Telefon", "Engerät"]
+  },
+  "android-tablet": {
+    "category": "Devices & Electronics",
+    "aliases": ["device", "Endgerät", "Hochformat"]
+  },
+  "android-tablet-landscape": {
+    "category": "Devices & Electronics",
+    "aliases": ["device", "Endgerät", "Querformat"]
+  },
+  "applause": {
+    "category": "People & Users",
+    "aliases": ["clapping", "cheer", "Beifall", "Applaus"]
+  },
+  "apple-phone": {
+    "category": "Devices & Electronics",
+    "aliases": ["iOS", "Apple-Telefon", "mobile-device", "Handy", "Telefon", "Endgerät", "iphone"]
+  },
+  "apple-store": {
+    "category": "Software & Services",
+    "aliases": ["iOS-market", "apple-marketplace", "Apple-Geschäft", "iOS-Marktplatz"]
+  },
+  "apple-tablet": {
+    "category": "Devices & Electronics",
+    "aliases": ["iPad", "iOS-screen", "iOS-Bildschirm", "Endgerät", "Hochformat"]
+  },
+  "apple-tablet-landscape": {
+    "category": "Devices & Electronics",
+    "aliases": ["screen-horizontal", "Querformat", "iOS"]
+  },
+  "archive": {
+    "category": "Business & Statistics",
+    "aliases": ["store", "file", "Archiv", "Lagern"]
+  },
+  "archive-undo": {
+    "category": "Business & Statistics",
+    "aliases": ["unstore", "reverse-keep", "Archiv rückgängig", "Entarchivieren"]
+  },
+  "arrow-big": {
+    "category": "Arrows",
+    "aliases": ["large-pointer", "major-direction", "Großer Pfeil", "Haupt-Richtung"]
+  },
+  "arrow-down": {
+    "category": "Arrows",
+    "aliases": ["move-lower", "Pfeil runter", "south"]
+  },
+  "arrow-left": {
+    "category": "Arrows",
+    "aliases": ["move-left", "Pfeil links", "west"]
+  },
+  "arrow-right": {
+    "category": "Arrows",
+    "aliases": ["move-right", "Pfeil rechts", "east"]
+  },
+  "arrow-small-down": {
+    "category": "Arrows",
+    "aliases": [""]
+  },
+  "arrow-small-down-left": {
+    "category": "Arrows",
+    "aliases": ["Kleiner Pfeil", "runter-links"]
+  },
+  "arrow-small-down-right": {
+    "category": "Arrows",
+    "aliases": ["Kleiner Pfeil", "runter-rechts"]
+  },
+  "arrow-small-left": {
+    "category": "Arrows",
+    "aliases": ["Kleiner Pfeil links", "west"]
+  },
+  "arrow-small-right": {
+    "category": "Arrows",
+    "aliases": ["Kleiner Pfeil rechts", "ost"]
+  },
+  "arrow-small-up": {
+    "category": "Arrows",
+    "aliases": [""]
+  },
+  "arrow-small-up-left": {
+    "category": "Arrows",
+    "aliases": ["Kleiner Pfeil hoch-links"]
+  },
+  "arrow-small-up-right": {
+    "category": "Arrows",
+    "aliases": ["Kleiner Pfeil hoch-rechts"]
+  },
+  "arrow-up": {
+    "category": "Arrows",
+    "aliases": ["move", "Pfeil", "hoch", "north"]
+  },
+  "arrows-sort": {
+    "category": "Arrows",
+    "aliases": ["organize-pointers", "Pfeile", "sortieren", "ordnen"]
+  },
+  "attachment": {
+    "category": "Action & Interface",
+    "aliases": ["document, upload, Anhang, Dokument"]
+  },
+  "audio": {
+    "category": "File & Type",
+    "aliases": ["sound", "music", "Audio", "Klang", "Note"]
+  },
+  "bag": {
+    "category": "Commerce & Shopping",
+    "aliases": ["sack", "einkaufen", "Tasche", "Beutel", "Warenkorb", "shopping"]
+  },
+  "bank": {
+    "category": "Finance",
+    "aliases": ["financial-institution", "money-depository", "Bank", "Finanzinstitut"]
+  },
+  "bank-note": {
+    "category": "Finance",
+    "aliases": ["money-bill", "Geldschein", "Währungsschein"]
+  },
+  "bar-graph": {
+    "category": "Business & Statistics",
+    "aliases": ["column-chart", "histogram", "Balkendiagramm", "Säulendiagramm"]
+  },
+  "barcode": {
+    "category": "Commerce & Shopping",
+    "aliases": ["product-code", "scan-strip", "Barcode", "Strichcode"]
+  },
+  "battery": {
+    "category": "Car Parts",
+    "aliases": ["power-cell", "energy-source", "Batterie", "Energiequelle"]
+  },
+  "bell": {
+    "category": "Action & Interface",
+    "aliases": ["chime, alarm, Glocke, Klingel"]
+  },
+  "bell-disabled": {
+    "category": "Action & Interface",
+    "aliases": ["Glocke, notification off"]
+  },
+  "bell-ring": {
+    "category": "Action & Interface",
+    "aliases": ["alert, notification, Benachrichtigung, Klingeln, ring"]
+  },
+  "bill": {
+    "category": "Finance",
+    "aliases": ["invoice", "statement", "Rechnung", "Abrechnung", "Zettel"]
+  },
+  "birthday-cake": {
+    "category": "Kitchen & Food",
+    "aliases": ["Geburtstag", "Kuchen", "Kerze", "candle"]
+  },
+  "bluetooth": {
+    "category": "Connectivity",
+    "aliases": ["wireless-connection", "Bluetooth"]
+  },
+  "bomb": {
+    "category": "Various",
+    "aliases": ["explosive", "detonate", "Bombe", "Explosion"]
+  },
+  "book": {
+    "category": "School & Education",
+    "aliases": ["tome", "manuscript", "Buch", "Manuskript"]
+  },
+  "book-globe": {
+    "category": "Network & Infrastructure",
+    "aliases": [
+      "world-literature",
+      "global-reading",
+      "Weltliteratur",
+      "globales Lesen",
+      "Buch-Erde"
+    ]
+  },
+  "bookmark": {
+    "category": "Action & Interface",
+    "aliases": ["favorite, marker, Lesezeichen, Favorit"]
+  },
+  "bread": {
+    "category": "Kitchen & Food",
+    "aliases": ["loaf", "bakery", "Brot", "Gebäck", "Bernd-das-Brot", "Toast"]
+  },
+  "browser-globe": {
+    "category": "Network & Infrastructure",
+    "aliases": ["internet-explorer", "web-world", "Internet-Browser", "Web-Welt"]
+  },
+  "browser-programming": {
+    "category": "Network & Infrastructure",
+    "aliases": [
+      "coding-browser",
+      "script-navigation",
+      "Browser-Programmierung",
+      "Skript-Navigation"
+    ]
+  },
+  "browser-terminal": {
+    "category": "Network & Infrastructure",
+    "aliases": ["command-browser", "terminal-navigation", "Browser-Terminal", "Terminal-Navigation"]
+  },
+  "brush": {
+    "category": "Objects",
+    "aliases": ["bristle", "sweep", "Bürste", "fegen", "Pinsel"]
+  },
+  "bucket": {
+    "category": "Software & Services",
+    "aliases": ["container", "pail", "Eimer", "Behälter"]
+  },
+  "bus": {
+    "category": "Transport & Travel",
+    "aliases": ["bus-ride", "public-transport", "Busfahrt", "öffentlicher-Verkehr"]
+  },
+  "calculator": {
+    "category": "Devices & Electronics",
+    "aliases": ["Taschenrechner"]
+  },
+  "calendar": {
+    "category": "Action & Interface",
+    "aliases": ["datebook, schedule, Kalender, Terminplaner"]
+  },
+  "calendar-clock": {
+    "category": "Action & Interface",
+    "aliases": ["schedule, appointment, Terminplan, Uhrzeit"]
+  },
+  "calendar-days-one": {
+    "category": "Action & Interface",
+    "aliases": ["single-day, Tageskalender"]
+  },
+  "calendar-days-three": {
+    "category": "Action & Interface",
+    "aliases": ["three-day, Dreitageskalender"]
+  },
+  "calendar-settings": {
+    "category": "Action & Interface",
+    "aliases": ["schedule-setup, date-configuration, Kalendereinstellungen, Terminplanung"]
+  },
+  "calendar-week": {
+    "category": "Action & Interface",
+    "aliases": ["week-view, week-schedule, Wochenansicht, Wochenkalender"]
+  },
+  "camera": {
+    "category": "Devices & Electronics",
+    "aliases": ["photography", "lens", "Kamera", "Fotografie"]
+  },
+  "camera-disabled": {
+    "category": "Devices & Electronics",
+    "aliases": ["lens-off", "Kamera deaktiviert"]
+  },
+  "camera-plus": {
+    "category": "Devices & Electronics",
+    "aliases": ["add-photos", "Kamera plus", "Foto-hinzufügen"]
+  },
+  "camera-x": {
+    "category": "Devices & Electronics",
+    "aliases": ["photo-remove", "Foto entfernen", "Kamera"]
+  },
+  "cancellation-undone": {
+    "category": "Action & Interface",
+    "aliases": ["undone-cancel, Stornierung rückgängig, circle"]
+  },
+  "car-circle-check": {
+    "category": "Transport & Travel",
+    "aliases": ["car-inspection", "vehicle-approval", "Auto-Inspektion", "Fahrzeuggenehmigung"]
+  },
+  "car-door": {
+    "category": "Car Parts",
+    "aliases": ["vehicle-door", "auto-entry", "Autotür", "Fahrzeugtür"]
+  },
+  "car-electric": {
+    "category": "Transport & Travel",
+    "aliases": [""]
+  },
+  "car-front-1": {
+    "category": "Transport & Travel",
+    "aliases": ["car-view", "vehicle-front", "Auto-Ansicht", "Fahrzeugfront"]
+  },
+  "car-front-2": {
+    "category": "Transport & Travel",
+    "aliases": ["car-view", "vehicle-front", "Auto-Ansicht", "Fahrzeugfront"]
+  },
+  "car-search": {
+    "category": "Transport & Travel",
+    "aliases": ["find-car", "vehicle-search", "Auto-finden", "Fahrzeugsuche"]
+  },
+  "car-seat": {
+    "category": "Car Parts",
+    "aliases": ["vehicle-seat", "Autositz", "Fahrzeugsitz"]
+  },
+  "car-setting": {
+    "category": "Transport & Travel",
+    "aliases": [
+      "car-configuration",
+      "vehicle-settings",
+      "Auto-Einstellungen",
+      "Fahrzeugkonfiguration"
+    ]
+  },
+  "car-window": {
+    "category": "Car Parts",
+    "aliases": ["vehicle-view", "Autofenster", "Fahrzeugfenster"]
+  },
+  "cart": {
+    "category": "Commerce & Shopping",
+    "aliases": ["basket", "trolley", "Einkaufswagen", "Wagen", "shopping"]
+  },
+  "cart-checkmark": {
+    "category": "Commerce & Shopping",
+    "aliases": ["trolley-approve", "Einkaufswagen", "Wagen-überprüfen"]
+  },
+  "cash": {
+    "category": "Finance",
+    "aliases": ["currency", "money", "Bargeld", "Geld", "Münzen", "penny"]
+  },
+  "cash-register": {
+    "category": "Commerce & Shopping",
+    "aliases": ["money-machine", "sales-terminal", "Kasse"]
+  },
+  "chart": {
+    "category": "Business & Statistics",
+    "aliases": ["graph", "diagram", "Diagramm", "Graph"]
+  },
+  "chart-down": {
+    "category": "Business & Statistics",
+    "aliases": ["graph-decline", "trend-falling", "Diagramm abwärts", "Trend fallend"]
+  },
+  "chart-pie-1": {
+    "category": "Business & Statistics",
+    "aliases": ["circle-graph", "pie-diagram", "Kuchendiagramm", "Kreisdiagramm"]
+  },
+  "chart-pie-2": {
+    "category": "Business & Statistics",
+    "aliases": ["circle-graph", "pie-diagram", "Kuchendiagramm", "Kreisdiagramm"]
+  },
+  "chart-pie-search": {
+    "category": "Business & Statistics",
+    "aliases": [
+      "pie-analysis",
+      "circle-graph-find",
+      "Kuchendiagramm-Suche",
+      "Kreisdiagramm-Analyse"
+    ]
+  },
+  "chart-up": {
+    "category": "Business & Statistics",
+    "aliases": ["graph-increase", "trend-rising", "Diagramm aufwärts", "Trend steigend"]
+  },
+  "check": {
+    "category": "Essentials",
+    "aliases": ["checkmark", "Hacken", "bestätigen", "confirmation"]
+  },
+  "check-small": {
+    "category": "Essentials",
+    "aliases": ["checkmark", "Hacken", "kleines Häkchen", "bestätigen", "confirmation"]
+  },
+  "chevron-down": {
+    "category": "Arrows",
+    "aliases": ["point-down", "runter", "Abwärts", "Pfeil"]
+  },
+  "chevron-down-small": {
+    "category": "Arrows",
+    "aliases": ["small-point-down", "runter", "abwärts", "Pfeil"]
+  },
+  "chevron-down-up": {
+    "category": "Arrows",
+    "aliases": ["Pfeile, arrows, hoch-runter, oben, unten"]
+  },
+  "chevron-left": {
+    "category": "Arrows",
+    "aliases": ["point-left", "links", "Pfeil"]
+  },
+  "chevron-left-small": {
+    "category": "Arrows",
+    "aliases": ["small-point-left", "links", "Pfeil"]
+  },
+  "chevron-right": {
+    "category": "Arrows",
+    "aliases": ["rechts", "Pfeil"]
+  },
+  "chevron-right-small": {
+    "category": "Arrows",
+    "aliases": ["small-point-right", "rechts", "Pfeil"]
+  },
+  "chevron-up": {
+    "category": "Arrows",
+    "aliases": ["point-up", "hoch", "Aufwärts", "Pfeil"]
+  },
+  "chevron-up-small": {
+    "category": "Arrows",
+    "aliases": ["small-point-up", "hoch", "Aufwärts", "Pfeil"]
+  },
+  "circle-arrow-left": {
+    "category": "Arrows",
+    "aliases": ["loop-left", "Kreispfeil links"]
+  },
+  "circle-arrow-right": {
+    "category": "Arrows",
+    "aliases": ["loop-right", "Kreispfeil rechts"]
+  },
+  "circle-attention": {
+    "category": "Essentials",
+    "aliases": ["warning", "Ausrufezeichen", "Warnsymbol"]
+  },
+  "circle-block": {
+    "category": "Essentials",
+    "aliases": ["Kreis-Blockieren", "Ablehnungssymbol"]
+  },
+  "circle-both-directions": {
+    "category": "Arrows",
+    "aliases": ["loop-both-ways", "rotate-both", "Kreispfeil beide Richtungen", "switch"]
+  },
+  "circle-car": {
+    "category": "Navigation",
+    "aliases": ["vehicle-round", "car-symbol", "Auto-Kreis", "Auto-Symbol"]
+  },
+  "circle-car-disabled": {
+    "category": "Navigation",
+    "aliases": ["no-vehicle-round", "car-off", "Auto-Kreis deaktiviert", "Auto aus"]
+  },
+  "circle-check": {
+    "category": "Essentials",
+    "aliases": ["success, approval", "Bestätigung"]
+  },
+  "circle-contrast": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
+  "circle-crypto-bitcoin": {
+    "category": "Finance",
+    "aliases": ["e-money", "Kreis-Krypto-Bitcoin", "Digitale Währung"]
+  },
+  "circle-help": {
+    "category": "Essentials",
+    "aliases": [""]
+  },
+  "circle-information": {
+    "category": "Essentials",
+    "aliases": ["details", "info-symbol", "Informationen"]
+  },
+  "circle-minus": {
+    "category": "Essentials",
+    "aliases": ["delete", "entfernen", "remove"]
+  },
+  "circle-minus-disabled": {
+    "category": "Essentials",
+    "aliases": ["delete disabled", "remove disabled"]
+  },
+  "circle-plus": {
+    "category": "Essentials",
+    "aliases": ["more-symbol", "hinzufügen", "add"]
+  },
+  "circle-x": {
+    "category": "Essentials",
+    "aliases": ["remove", "cancel", "abbrechen", "entfernen"]
+  },
+  "clipboard": {
+    "category": "File & Type",
+    "aliases": ["task-list", "note", "Zwischenablage", "Notiz"]
+  },
+  "clipboard-check": {
+    "category": "File & Type",
+    "aliases": ["note-approval", "Zwischenablage", "bestätigen", "Notiz genehmigt"]
+  },
+  "clipboard-edit": {
+    "category": "File & Type",
+    "aliases": ["task-modify", "Zwischenablage bearbeiten", "Notiz ändern"]
+  },
+  "clipboard-lock": {
+    "category": "File & Type",
+    "aliases": [
+      "task-secure",
+      "note-restriction",
+      "Zwischenablage sperren",
+      "Notizsicherung",
+      "Schloss",
+      "safe"
+    ]
+  },
+  "clipboard-plus": {
+    "category": "File & Type",
+    "aliases": ["task-add", "note-increase", "Zwischenablage plus", "Notiz hinzufügen"]
+  },
+  "clipboard-search": {
+    "category": "File & Type",
+    "aliases": ["task-find", "note-look", "Zwischenablage suchen", "Notiz finden"]
+  },
+  "clipboard-secure": {
+    "category": "File & Type",
+    "aliases": [""]
+  },
+  "clock": {
+    "category": "Action & Interface",
+    "aliases": ["timepiece", "timer", "Uhr", "Zeitmesser"]
+  },
+  "clock-circle-check": {
+    "category": "Action & Interface",
+    "aliases": ["time-confirm, clock-approval, Uhr Bestätigung, Zeit-Check"]
+  },
+  "clock-edit": {
+    "category": "Action & Interface",
+    "aliases": ["time, clock, Uhr-Bearbeitung"]
+  },
+  "cloud": {
+    "category": "Wheather & Climate",
+    "aliases": ["cloudy", "Wolke"]
+  },
+  "cloud-2": {
+    "category": "Wheather & Climate",
+    "aliases": ["cloudy-weather", "Bewölkt", "Wolken"]
+  },
+  "cloud-arrow-up": {
+    "category": "Network & Infrastructure",
+    "aliases": [
+      "upload-cloud",
+      "cloud-increase",
+      "Cloud-Pfeil-hoch",
+      "Cloud-hochladen",
+      "Wolke-Pfeil"
+    ]
+  },
+  "cloud-co2": {
+    "category": "Wheather & Climate",
+    "aliases": ["Wolke", "Kohlendioxid-Wolke", "Umweltverschmutzung", "arrows-cloud"]
+  },
+  "cloud-connect": {
+    "category": "Network & Infrastructure",
+    "aliases": ["join-cloud", "cloud-link", "Cloud-Verbindung", "Cloud-Link", "Wolke"]
+  },
+  "cloud-foundry": {
+    "category": "Software & Services",
+    "aliases": ["cloud-platform", "cloud-development", "Cloud-Grundlage", "Cloud-Plattform"]
+  },
+  "cloud-key": {
+    "category": "Network & Infrastructure",
+    "aliases": [""]
+  },
+  "cloud-lock": {
+    "category": "Network & Infrastructure",
+    "aliases": ["secure-cloud", "cloud-access", "Cloud-Schlüssel", "Cloud-Zugang", "Wolke"]
+  },
+  "cloud-setting": {
+    "category": "Network & Infrastructure",
+    "aliases": [""]
+  },
+  "coffee-cup": {
+    "category": "Kitchen & Food",
+    "aliases": [
+      "tea",
+      "caffeine-container",
+      "Kaffeetasse",
+      "Koffein-Behälter",
+      "Tee",
+      "trinken",
+      "Getränk"
+    ]
+  },
+  "colors": {
+    "category": "Objects",
+    "aliases": ["hues", "shades", "Farben", "palette"]
+  },
+  "compact-disc": {
+    "category": "Hardware",
+    "aliases": ["cd", "Kompaktscheibe"]
+  },
+  "company": {
+    "category": "Business & Statistics",
+    "aliases": ["business", "corporation", "Unternehmen", "Firma"]
+  },
+  "company-location": {
+    "category": "Business & Statistics",
+    "aliases": ["address", "firm-site", "Standort", "pin"]
+  },
+  "company-lock": {
+    "category": "Business & Statistics",
+    "aliases": [
+      "business-security",
+      "firm-protection",
+      "Firmenschutz",
+      "Geschäftssicherheit",
+      "Schloss"
+    ]
+  },
+  "company-plus": {
+    "category": "Business & Statistics",
+    "aliases": ["business-add", "corporation", "Unternehmen", "Firma-hinzufügen"]
+  },
+  "company-settings": {
+    "category": "Business & Statistics",
+    "aliases": [
+      "business-configuration",
+      "firm-preferences",
+      "Firmeneinstellungen",
+      "Geschäftskonfiguration"
+    ]
+  },
+  "compass": {
+    "category": "Navigation",
+    "aliases": [""]
+  },
+  "computer": {
+    "category": "Devices & Electronics",
+    "aliases": ["iMacPC", "machine"]
+  },
+  "computer-argus": {
+    "category": "Software & Services",
+    "aliases": ["computer-eye", "computer-watchdog", "Computer-Argus", "Computer-Überwachung"]
+  },
+  "computer-audio": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-sound", "machine-volume", "Computer-Audio", "PC-Lautstärke"]
+  },
+  "computer-bell": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-alert", "notification", "Computer-Glocke", "PC-Alarm"]
+  },
+  "computer-block": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-restriction", "machine-stop", "Computer-Block"]
+  },
+  "computer-calendar": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-date", "machine-schedule", "Computer-Kalender", "PC-Datum"]
+  },
+  "computer-camera": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-photography", "machine-lens", "Computer-Kamera"]
+  },
+  "computer-circle-check": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC bestätigen"]
+  },
+  "computer-circle-minus": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC entfernen"]
+  },
+  "computer-clock": {
+    "category": "Devices & Electronics",
+    "aliases": ["machine-timer", "Computer-Uhr"]
+  },
+  "computer-cloud": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-storage", "machine-network", "Computer-Cloud", "PC-Speicher"]
+  },
+  "computer-cube": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-box", "machine-square", "Computer-Würfel", "PC-Box"]
+  },
+  "computer-drop": {
+    "category": "Devices & Electronics",
+    "aliases": ["Computer-Tropfen", "Flüssigkeit"]
+  },
+  "computer-edit": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-modify", "machine-change", "Computer bearbeiten", "PC ändern"]
+  },
+  "computer-globe": {
+    "category": "Devices & Electronics",
+    "aliases": ["world", "machine-earth", "Computer-Globus", "Welt"]
+  },
+  "computer-information": {
+    "category": "Devices & Electronics",
+    "aliases": ["machine-info", "PC-Daten"]
+  },
+  "computer-key": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-security", "pc-password", "Schlüssel", "PC-Sicherheit"]
+  },
+  "computer-location": {
+    "category": "Devices & Electronics",
+    "aliases": ["machine-spot", "Computer-Standort"]
+  },
+  "computer-lock": {
+    "category": "Devices & Electronics",
+    "aliases": ["machine-secure", "PC-gesperrt"]
+  },
+  "computer-message": {
+    "category": "Devices & Electronics",
+    "aliases": ["•  PC-chat", "Computer-Nachricht"]
+  },
+  "computer-plus": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-add", "PC hinzufügen"]
+  },
+  "computer-search": {
+    "category": "Devices & Electronics",
+    "aliases": ["Suche", "PC finden"]
+  },
+  "computer-settings": {
+    "category": "Devices & Electronics",
+    "aliases": ["Computer-Einstellungen", "PC-Optionen"]
+  },
+  "computer-shield": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-protection", "machine-guard", "Computer-Schild", "PC-Schutz"]
+  },
+  "computer-user": {
+    "category": "Devices & Electronics",
+    "aliases": ["Computer-Benutzer", "Profil"]
+  },
+  "computer-volume": {
+    "category": "Devices & Electronics",
+    "aliases": ["Computer-Lautstärke", "PC-Sound"]
+  },
+  "computer-x": {
+    "category": "Devices & Electronics",
+    "aliases": ["PC-remove", "Computer entfernen", "abbrechen"]
+  },
+  "controller": {
+    "category": "Gamification",
+    "aliases": [""]
+  },
+  "copy": {
+    "category": "Action & Interface",
+    "aliases": ["duplicate", "replicate", "Kopie", "Duplikat"]
+  },
+  "couchbase": {
+    "category": "Software & Services",
+    "aliases": ["database-system", "data-storage", "Couchbase-Datenbank", "Daten-Speicherung"]
+  },
+  "cpu": {
+    "category": "Hardware",
+    "aliases": ["processor", "computer-brain", "Prozessor", "Computer-Gehirn"]
+  },
+  "credit-card": {
+    "category": "Finance",
+    "aliases": ["payment-card", "charge-card", "Kreditkarte"]
+  },
+  "crypto-bitcoin": {
+    "category": "Finance",
+    "aliases": ["digital-currency", "blockchain-money", "Kryptowährung", "Blockchain-Geld"]
+  },
+  "cup": {
+    "category": "Gamification",
+    "aliases": ["trophy", "award", "Pokal", "Auszeichnung"]
+  },
+  "dashboard": {
+    "category": "Action & Interface",
+    "aliases": ["control-panel", "Armaturenbrett", "Kontrollpanel", "Übersicht"]
+  },
+  "database": {
+    "category": "Network & Infrastructure",
+    "aliases": ["data-storage", "record-keeping", "Datenbank", "Datenspeicherung"]
+  },
+  "delete": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
+  "detour-1": {
+    "category": "Navigation",
+    "aliases": ["bypass-1", "alternative-route-1", "Umleitung-1", "alternative Strecke-1"]
+  },
+  "detour-2": {
+    "category": "Navigation",
+    "aliases": ["bypass-2", "alternative-route-2", "Umleitung-2", "alternative Strecke-2"]
+  },
+  "dinosaur": {
+    "category": "Various",
+    "aliases": ["animal"]
+  },
+  "disc": {
+    "category": "Hardware",
+    "aliases": ["disk", "storage-media", "Scheibe", "Speichermedium"]
+  },
+  "docker": {
+    "category": "Software & Services",
+    "aliases": ["Wal", "Docker-Plattform"]
+  },
+  "dolphin": {
+    "category": "Software & Services",
+    "aliases": [""]
+  },
+  "download": {
+    "category": "Network & Infrastructure",
+    "aliases": ["fetch", "receive", "herunterladen", "empfangen", "Pfeil", "Arrow"]
+  },
+  "draggable": {
+    "category": "Action & Interface",
+    "aliases": ["movable", "adjustable", "Verschiebbar", "bewegen", "move"]
+  },
+  "draggable-horizontal": {
+    "category": "Action & Interface",
+    "aliases": ["movable", "adjustable", "Verschiebbar", "bewegen", "move"]
+  },
+  "driver": {
+    "category": "Transport & Travel",
+    "aliases": ["car-driver", "vehicle-operator", "Autofahrer", "Fahrzeugführer"]
+  },
+  "duplicate": {
+    "category": "Action & Interface",
+    "aliases": ["clone", "copy", "Duplikat", "Klonen"]
+  },
+  "dynamit": {
+    "category": "Various",
+    "aliases": ["explosion"]
+  },
+  "ear": {
+    "category": "People & Users",
+    "aliases": ["hearing", "auditory", "Ohr", "Gehör"]
+  },
+  "earth": {
+    "category": "Navigation",
+    "aliases": ["globe", "planet", "Erde", "Globus"]
+  },
+  "earth-location-pin": {
+    "category": "Navigation",
+    "aliases": ["world-pin", "global-marker", "Erd-Lokalisierung", "globaler Marker"]
+  },
+  "edit": {
+    "category": "Action & Interface",
+    "aliases": ["modify", "change", "Bearbeiten", "Ändern"]
+  },
+  "edit-diasbled": {
+    "category": "Action & Interface",
+    "aliases": ["modify-off", "no-edit", "Bearbeitung deaktiviert"]
+  },
+  "elasticsearch": {
+    "category": "Software & Services",
+    "aliases": ["search-engine", "data-search", "Datensuche"]
+  },
+  "emoji-happy-1": {
+    "category": "Emojies",
+    "aliases": ["smile-face", "joyful", "glücklich", "Gesicht"]
+  },
+  "emoji-happy-2": {
+    "category": "Emojies",
+    "aliases": ["grin-face", "happy", "Emoji glücklich", "Gesicht"]
+  },
+  "emoji-laughing": {
+    "category": "Emojies",
+    "aliases": ["laughter-face", "chuckle-symbol", "Emoji lachend", "Gesicht"]
+  },
+  "emoji-neutral": {
+    "category": "Emojies",
+    "aliases": ["unemotional-face", "Emoji neutral 1", "Gesicht"]
+  },
+  "emoji-neutral-2": {
+    "category": "Emojies",
+    "aliases": ["emotionless-face", "Emoji neutral", "Gesicht"]
+  },
+  "emoji-sad": {
+    "category": "Emojies",
+    "aliases": ["sad-face", "unzufrieden Emoji", "trauriges Gesicht"]
+  },
+  "emoji-unhappy": {
+    "category": "Emojies",
+    "aliases": ["sad-face", "unzufrieden Emoji", "trauriges Gesicht"]
+  },
+  "error-flag": {
+    "category": "Action & Interface",
+    "aliases": ["warning-sign", "mistake-indicator", "Fehlerflagge", "Warnzeichen"]
+  },
+  "ethernet": {
+    "category": "Software & Services",
+    "aliases": ["network-cable", "wired-network", "Ethernet"]
+  },
+  "expand-window": {
+    "category": "Action & Interface",
+    "aliases": [
+      "enlarge-view",
+      "widen-screen",
+      "Fenster erweitern",
+      "Bildschirm vergrößern",
+      "abspringen",
+      "arrow",
+      "square"
+    ]
+  },
+  "explosion": {
+    "category": "Various",
+    "aliases": ["detonation"]
+  },
+  "eye": {
+    "category": "Action & Interface",
+    "aliases": ["view", "look", "Auge", "Anblick"]
+  },
+  "eye-disabled": {
+    "category": "Action & Interface",
+    "aliases": ["view-off", "hidden-view", "Auge deaktiviert", "Verborgene-Ansicht"]
+  },
+  "eye-shine": {
+    "category": "Action & Interface",
+    "aliases": ["sparkle-view", "open-eye", "visible"]
+  },
+  "face-id": {
+    "category": "Security & Protection",
+    "aliases": ["acial-recognition", "face-authentication", "Gesichts-ID", "Gesichtserkennung"]
+  },
+  "feedback": {
+    "category": "Communication",
+    "aliases": ["response", "message", "Rückmeldung", "Chat", "Communication"]
+  },
+  "figure": {
+    "category": "People & Users",
+    "aliases": ["person", "silhouette", "Figur", "Silhouette"]
+  },
+  "file": {
+    "category": "File & Type",
+    "aliases": [""]
+  },
+  "file-archive": {
+    "category": "File & Type",
+    "aliases": ["compressed-document", "zip-file", "Datei-Archiv", "ZIP-Datei"]
+  },
+  "file-audio": {
+    "category": "File & Type",
+    "aliases": ["sound-document", "music-file", "Audio-Datei", "Musik-Datei"]
+  },
+  "file-blank": {
+    "category": "File & Type",
+    "aliases": ["document", "record", "Datei", "Dokument", "Papier", "Blatt", "empty"]
+  },
+  "file-block": {
+    "category": "File & Type",
+    "aliases": ["restricted-document", "locked-file", "Gesperrte Datei", "Verbotene Datei"]
+  },
+  "file-chart": {
+    "category": "File & Type",
+    "aliases": [
+      "graph-document",
+      "diagram-file",
+      "Diagramm-Datei",
+      "Grafik-Datei",
+      "Pfeil",
+      "Dokument"
+    ]
+  },
+  "file-check": {
+    "category": "File & Type",
+    "aliases": [
+      "document-confirm",
+      "file-approval",
+      "Datei-Kreis bestätigen",
+      "Dokument genehmigt",
+      "Papier"
+    ]
+  },
+  "file-checklist": {
+    "category": "File & Type",
+    "aliases": [
+      "task-document",
+      "to-do-file",
+      "Checkliste-Datei",
+      "Aufgaben-Datei",
+      "Dokument",
+      "Papier"
+    ]
+  },
+  "file-clock": {
+    "category": "File & Type",
+    "aliases": ["time-document", "schedule-file", "Zeit-Datei", "Planungs-Datei"]
+  },
+  "file-copy": {
+    "category": "File & Type",
+    "aliases": ["duplicate-document", "replicate-file", "Datei kopieren", "Dokument duplizieren"]
+  },
+  "file-csv": {
+    "category": "File & Type",
+    "aliases": ["Datei", "Dokument"]
+  },
+  "file-disabled": {
+    "category": "File & Type",
+    "aliases": ["no-document", "file-off", "Deaktivierte Datei", "Ausgeschaltete Datei"]
+  },
+  "file-doc": {
+    "category": "File & Type",
+    "aliases": ["text-document", "writing-file", "Dokument-Datei", "Schreib-Datei", "Papier"]
+  },
+  "file-edit": {
+    "category": "File & Type",
+    "aliases": ["modify-document", "change-file", "Datei bearbeiten", "Dokument ändern"]
+  },
+  "file-globe": {
+    "category": "File & Type",
+    "aliases": ["world-document", "earth-file", "Globus-Datei", "Welt-Datei", "Erde"]
+  },
+  "file-key": {
+    "category": "File & Type",
+    "aliases": ["security-document", "password-file", "Schlüssel-Datei", "Sicherheits-Datei"]
+  },
+  "file-lock": {
+    "category": "File & Type",
+    "aliases": [""]
+  },
+  "file-pdf": {
+    "category": "File & Type",
+    "aliases": ["acrobat-document", "PDF-file", "PDF-Datei", "Acrobat-Datei"]
+  },
+  "file-plus": {
+    "category": "File & Type",
+    "aliases": ["add-document", "increase-file", "Datei plus", "Dokument hinzufügen"]
+  },
+  "file-ppt": {
+    "category": "File & Type",
+    "aliases": ["presentation-document", "slide-file", "PPT-Datei", "Präsentations-Datei"]
+  },
+  "file-rtf": {
+    "category": "File & Type",
+    "aliases": ["Datei", "Dokument"]
+  },
+  "file-search": {
+    "category": "File & Type",
+    "aliases": ["find-document", "look-file", "Datei suchen", "Dokument finden", "Lupe"]
+  },
+  "file-settings": {
+    "category": "File & Type",
+    "aliases": ["document-preferences", "file-options", "Datei-Einstellungen", "Dokument-Optionen"]
+  },
+  "file-shield": {
+    "category": "File & Type",
+    "aliases": [
+      "document-protection",
+      "file-guard",
+      "Datei-Schild",
+      "Dokument-Schutz",
+      "secure",
+      "check"
+    ]
+  },
+  "file-shred": {
+    "category": "File & Type",
+    "aliases": ["destroy-document", "delete-file", "Datei schreddern", "Dokument zerstören"]
+  },
+  "file-sketch": {
+    "category": "File & Type",
+    "aliases": ["draw-document", "design-file", "Skizzen-Datei", "Zeichnungs-Datei"]
+  },
+  "file-text": {
+    "category": "File & Type",
+    "aliases": ["words-document", "content-file", "Text-Datei", "Inhalt-Datei"]
+  },
+  "file-user": {
+    "category": "File & Type",
+    "aliases": [""]
+  },
+  "file-x": {
+    "category": "File & Type",
+    "aliases": [
+      "remove-document",
+      "cancel-file",
+      "Datei entfernen",
+      "Dokument abbrechen",
+      "löschen"
+    ]
+  },
+  "file-xls": {
+    "category": "File & Type",
+    "aliases": ["spreadsheet-document", "Excel-file", "XLS-Datei", "Excel-Datei"]
+  },
+  "file-xlsx": {
+    "category": "File & Type",
+    "aliases": ["Datei", "Dokument"]
+  },
+  "filter": {
+    "category": "Action & Interface",
+    "aliases": ["sort", "sieve", "Filter", "Sieb"]
+  },
+  "fingerprint": {
+    "category": "Security & Protection",
+    "aliases": ["thumbprint", "print", "Fingerabdruck", "Daumenabdruck"]
+  },
+  "fire-extinguisher": {
+    "category": "Security & Protection",
+    "aliases": ["fire-suppressant", "flame-control", "Feuerlöscher", "Brandlöscher"]
+  },
+  "flag-1": {
+    "category": "Navigation",
+    "aliases": ["banner-1", "marker-1", "Fahne-1", "Markierung-1"]
+  },
+  "flag-2": {
+    "category": "Navigation",
+    "aliases": ["banner-2", "marker-2", "Fahne-2", "Markierung-2"]
+  },
+  "flash": {
+    "category": "Wheather & Climate",
+    "aliases": ["lightning", "thunder", "Blitz", "Donner"]
+  },
+  "flash-disabled": {
+    "category": "Wheather & Climate",
+    "aliases": ["Kein-Blitz", "Donner-deaktiviert"]
+  },
+  "folder": {
+    "category": "File & Type",
+    "aliases": ["directory", "container", "Ordner", "Verzeichnis"]
+  },
+  "folder-connect": {
+    "category": "Network & Infrastructure",
+    "aliases": ["directory-link", "file-join", "Ordner-Verbindung", "Datei-Verknüpfung"]
+  },
+  "folder-plus": {
+    "category": "File & Type",
+    "aliases": [""]
+  },
+  "forklift": {
+    "category": "Business & Statistics",
+    "aliases": ["lift-truck", "pallet-mover", "Gabelstapler", "Hubwagen"]
+  },
+  "forward": {
+    "category": "Arrows",
+    "aliases": ["vorwärts", "Fortschreiten", "Pfeil", "abspringen", "arrow"]
+  },
+  "fullscreen": {
+    "category": "Action & Interface",
+    "aliases": ["whole-screen", "all-view", "Vollbild", "Ganzer Bildschirm"]
+  },
+  "fullscreen-exit": {
+    "category": "Action & Interface",
+    "aliases": ["reduce-screen", "minimize-view", "Vollbild beenden", "Bildschirm verkleinern"]
+  },
+  "gallery": {
+    "category": "Action & Interface",
+    "aliases": ["picture-collection", "image-display", "Galerie", "Bildersammlung"]
+  },
+  "glasses": {
+    "category": "School & Education",
+    "aliases": ["spectacles", "eyewear", "Brille", "Sehhilfe"]
+  },
+  "globe": {
+    "category": "Network & Infrastructure",
+    "aliases": ["world", "earth", "Globus", "Erde"]
+  },
+  "globe-connect": {
+    "category": "Network & Infrastructure",
+    "aliases": ["world-link", "earth-join", "Globus-Verbindung", "Erde-Verknüpfung"]
+  },
+  "globe-lock": {
+    "category": "Network & Infrastructure",
+    "aliases": ["world-secure", "earth-protect", "Globus-Sperre", "Erde-gesperrt-gesichert"]
+  },
+  "graduation-hat": {
+    "category": "School & Education",
+    "aliases": ["mortarboard", "cap", "Abschluss-Hut", "Doktorhut"]
+  },
+  "graph-search": {
+    "category": "Business & Statistics",
+    "aliases": ["data-find", "chart-lookup", "Graph-Suche", "Diagramm-Findung"]
+  },
+  "grid": {
+    "category": "Action & Interface",
+    "aliases": ["lattice", "matrix", "Gitter", "Raster"]
+  },
+  "hand-coin": {
+    "category": "Finance",
+    "aliases": ["coin-giving", "currency-hold", "Münze in Hand", "Währung halten"]
+  },
+  "hand-drop": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["hand-release", "drop-gesture", "Hand-Tropfen", "soap", "Seife"]
+  },
+  "handshake": {
+    "category": "People & Users",
+    "aliases": [""]
+  },
+  "headset": {
+    "category": "Help & Support",
+    "aliases": ["headphones", "earphones", "Kopfhörer", "Ohrhörer"]
+  },
+  "health-probe": {
+    "category": "Software & Services",
+    "aliases": ["health-check", "system-monitoring", "Gesundheitsprüfung", "Systemüberwachung"]
+  },
+  "heart": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["love-symbol", "affection", "Herzsymbol", "Zuneigung", "favorite"]
+  },
+  "heptagon-cloud": {
+    "category": "Software & Services",
+    "aliases": ["kubernetes"]
+  },
+  "heptagon-cloud-lock": {
+    "category": "Software & Services",
+    "aliases": ["kubernetes, confidential kubernetes"]
+  },
+  "heptagon-lock": {
+    "category": "Software & Services",
+    "aliases": ["kubernetes, kubernetes engine"]
+  },
+  "hibernate": {
+    "category": "Software & Services",
+    "aliases": ["java-framework", "Java-Struktur"]
+  },
+  "history": {
+    "category": "Action & Interface",
+    "aliases": ["past", "clock", "Geschichte", "Verlauf", "Uhr"]
+  },
+  "home": {
+    "category": "Navigation",
+    "aliases": ["house", "residence", "Haus", "Wohnort"]
+  },
+  "home-location-pin": {
+    "category": "Navigation",
+    "aliases": ["house-pin", "residence-marker", "Haus-Lokalisierung", "Wohnort-Marker", "Standort"]
+  },
+  "home-search": {
+    "category": "Navigation",
+    "aliases": ["house-search", "residence-find", "Haus-Suche", "Wohnort finden"]
+  },
+  "hourglass": {
+    "category": "Objects",
+    "aliases": ["timepiece", "sand-clock", "Sanduhr", "Zeitmesser"]
+  },
+  "inbox": {
+    "category": "Communication",
+    "aliases": ["mail-folder", "message-box", "Posteingang", "Nachrichtenbox"]
+  },
+  "inbox-in": {
+    "category": "Communication",
+    "aliases": ["mail-receive", "message", "Posteingang", "Nachrichten"]
+  },
+  "inbox-out": {
+    "category": "Communication",
+    "aliases": ["mail-send", "message", "Postausgang", "Nachrichten"]
+  },
+  "key": {
+    "category": "Security & Protection",
+    "aliases": ["opener", "unlocker", "Schlüssel", "Öffner"]
+  },
+  "key-arrow-up": {
+    "category": "Security & Protection",
+    "aliases": ["key-increase", "key-ascend", "Schlüssel-Pfeil-hoch", "Schlüssel-Steigung"]
+  },
+  "key-circle-check": {
+    "category": "Security & Protection",
+    "aliases": [
+      "key-approval",
+      "key-verification",
+      "Schlüssel-Kreis-Check",
+      "Schlüssel-Bestätigung"
+    ]
+  },
+  "key-shield": {
+    "category": "Security & Protection",
+    "aliases": ["key-protection", "key-guard", "Schlüssel-Schild", "Schlüssel-Schutz"]
+  },
+  "keyboard": {
+    "category": "Devices & Electronics",
+    "aliases": ["Tastatur", "Eingabegerät"]
+  },
+  "kilometer": {
+    "category": "Navigation",
+    "aliases": ["km", "distance-unit", "Kilometer", "Distanzeinheit"]
+  },
+  "kubernetes": {
+    "category": "Software & Services",
+    "aliases": ["cluster-management", "Kubernetes", "Cluster-Verwaltung"]
+  },
+  "kubernetes-lock": {
+    "category": "Software & Services",
+    "aliases": ["Schutz, gesichert, secure, safety, safe, Schloss"]
+  },
+  "kubernetes-shield": {
+    "category": "Software & Services",
+    "aliases": ["secure, safety, Schutz, Schild"]
+  },
+  "laptop": {
+    "category": "Devices & Electronics",
+    "aliases": ["Notebook, Macbook"]
+  },
+  "layer-down": {
+    "category": "Tools & Shapes",
+    "aliases": ["decrease-layer", "lower-layer", "Ebene-verringern"]
+  },
+  "layer-up": {
+    "category": "Tools & Shapes",
+    "aliases": ["increase-layer", "raise-layer", "Ebene-erhöhen"]
+  },
+  "light-bulb": {
+    "category": "Objects",
+    "aliases": ["lamp", "illumination", "Glühlampe", "Lampe"]
+  },
+  "light-bulb-shine": {
+    "category": "Objects",
+    "aliases": ["illuminated-bulb", "glowing-lamp", "Glühlampe-leuchtend", "Glühlampe-glanzend"]
+  },
+  "link": {
+    "category": "Action & Interface",
+    "aliases": ["connection", "attachment", "Verknüpfung", "Verbindung", "Klammer"]
+  },
+  "link-unlink": {
+    "category": "Action & Interface",
+    "aliases": ["disconnect", "separate", "Verbindung trennen", "Entkoppeln"]
+  },
+  "list": {
+    "category": "Action & Interface",
+    "aliases": ["enumeration", "catalog", "Liste", "Aufzählung"]
+  },
+  "load-balancer": {
+    "category": "Network & Infrastructure",
+    "aliases": ["weight-distribution", "balance-manager", "Lastverteiler", "Balance-Manager"]
+  },
+  "loading-circle": {
+    "category": "Essentials",
+    "aliases": ["processing-round", "working-symbol", "loading", "laden"]
+  },
+  "loading-dots": {
+    "category": "Essentials",
+    "aliases": ["processing", "loading", "laden"]
+  },
+  "loaf-bread": {
+    "category": "Kitchen & Food",
+    "aliases": ["bread", "bakery", "Brot", "Gebäck", "Bernd-das-Brot", "Toast"]
+  },
+  "location-pin": {
+    "category": "Navigation",
+    "aliases": ["marker", "location-marker", "Lokalisierungs-Pin", "Standort-Markierung"]
+  },
+  "location-pin-disabled": {
+    "category": "Navigation",
+    "aliases": ["marker-off", "pin-inactive", "Lokalisierungs-Pin deaktiviert", "Pin inaktiv"]
+  },
+  "location-pin-minus": {
+    "category": "Navigation",
+    "aliases": ["pin-less", "Lokalisierungs-Pin minus", "Standort-entfernen"]
+  },
+  "location-pin-plus": {
+    "category": "Navigation",
+    "aliases": ["tandort-hinzufügen", "pin-add", "Lokalisierungs-Pin plus"]
+  },
+  "location-target": {
+    "category": "Navigation",
+    "aliases": ["destination", "target-marker", "Zielort", "Ziel-Markierung"]
+  },
+  "location-user-minus": {
+    "category": "People & Users",
+    "aliases": ["user-removal", "user-reduce", "Benutzer-Standort-minus", "Benutzer-reduzieren"]
+  },
+  "location-user-plus": {
+    "category": "People & Users",
+    "aliases": ["user-addition", "user-increase", "Benutzer-Standort-plus", "Benutzer-erhöhen"]
+  },
+  "lock": {
+    "category": "Security & Protection",
+    "aliases": ["bolt", "padlock", "Schloss", "Vorhängeschloss"]
+  },
+  "lock-key": {
+    "category": "Security & Protection",
+    "aliases": ["lock-opener", "lock-with-key", "Schloss-Schlüssel", "Schloss-Öffner"]
+  },
+  "login": {
+    "category": "Action & Interface",
+    "aliases": ["sign-in", "Anmelden"]
+  },
+  "logme": {
+    "category": "Software & Services",
+    "aliases": ["remote-access", "connection-tool", "LogMe", "Fernzugriff"]
+  },
+  "logout": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
+  "luggage": {
+    "category": "Transport & Travel",
+    "aliases": ["travel-bag", "suitcase", "Reisetasche", "Koffer"]
+  },
+  "magnet": {
+    "category": "Objects",
+    "aliases": ["attractor", "puller", "Magnet", "Anzieher"]
+  },
+  "mail": {
+    "category": "Communication",
+    "aliases": ["email", "letter", "E-Mail", "Brief"]
+  },
+  "mail-read": {
+    "category": "Communication",
+    "aliases": ["email", "letter", "Gelesene E-Mail", "Brief", "Posteingang"]
+  },
+  "mail-unread": {
+    "category": "Communication",
+    "aliases": ["email", "letter-unopened", "Ungelesene E-Mail", "Ungeöffneter Brief"]
+  },
+  "map": {
+    "category": "Navigation",
+    "aliases": ["geography", "cartography", "Karte", "Geographie"]
+  },
+  "map-information": {
+    "category": "Navigation",
+    "aliases": ["map-details", "geography-info", "Karteninformation", "Geographie-Info"]
+  },
+  "map-search": {
+    "category": "Navigation",
+    "aliases": ["map-find", "geography-search", "Karte suchen", "Geographie-Suche"]
+  },
+  "mariadb": {
+    "category": "Software & Services",
+    "aliases": ["database-server", "SQL-server", "Robbe", "seal"]
+  },
+  "mask": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["face-covering-1", "protection-mask-1", "Gesichtsschutz-1", "Schutzmaske-1"]
+  },
+  "mask-2": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["face-covering-2", "protection-mask-2", "Gesichtsschutz-2", "Schutzmaske-2"]
+  },
+  "media-next": {
+    "category": "Media",
+    "aliases": ["next-track", "nächster Titel"]
+  },
+  "media-pause": {
+    "category": "Media",
+    "aliases": ["break-track", "Medium pausieren", "Titel unterbrechen"]
+  },
+  "media-play": {
+    "category": "Media",
+    "aliases": ["start-media", "play-track", "Medium abspielen", "Titel starten"]
+  },
+  "media-previous": {
+    "category": "Media",
+    "aliases": ["previous-track", "vorheriges Medium", "vorheriger Titel"]
+  },
+  "media-stop": {
+    "category": "Media",
+    "aliases": ["stop-track", "Medium stoppen", "Titel anhalten"]
+  },
+  "meetingpoint-arrow": {
+    "category": "Navigation",
+    "aliases": ["meetup-pointer", "Treffpunkt-Pfeil", "Treffpunkt-Zeiger"]
+  },
+  "meetingpoint-pin": {
+    "category": "Navigation",
+    "aliases": ["meetup-location", "Treffpunkt-Pin", "Treffpunkt-Ort"]
+  },
+  "megaphone-new": {
+    "category": "Objects",
+    "aliases": ["loud-hailer-new", "announcement-new", "Megaphon-neu", "Ansage-neu"]
+  },
+  "megaphone-old": {
+    "category": "Objects",
+    "aliases": ["loud-hailer-old", "announcement-old", "Megaphon-alt", "Ansage-alt"]
+  },
+  "memory": {
+    "category": "Hardware",
+    "aliases": ["storage", "RAM", "Speicher", "Arbeitsspeicher"]
+  },
+  "menu": {
+    "category": "Action & Interface",
+    "aliases": ["options", "choices", "Menü", "Auswahl", "hamburger"]
+  },
+  "mesh": {
+    "category": "Network & Infrastructure",
+    "aliases": ["netting", "grid", "Netz", "Gitter"]
+  },
+  "message": {
+    "category": "Communication",
+    "aliases": ["chat", "text", "Nachricht", "Chat"]
+  },
+  "message-conversation": {
+    "category": "Communication",
+    "aliases": ["chat", "talk", "Nachrichten-Gespräch", "Chat-Dialog"]
+  },
+  "message-dots": {
+    "category": "Communication",
+    "aliases": ["chat-more", "type", "Nachrichten-Punkte", "Sprechblase"]
+  },
+  "message-globe": {
+    "category": "Network & Infrastructure",
+    "aliases": ["world-communication", "global-chat", "Weltkommunikation", "globaler Chat"]
+  },
+  "message-mobile": {
+    "category": "Communication",
+    "aliases": ["chat-phone", "text-device", "Nachrichten Handy", "SMS"]
+  },
+  "mic": {
+    "category": "Communication",
+    "aliases": ["microphone", "sound-input", "Mikrofon", "Ton", "voice"]
+  },
+  "mic-active": {
+    "category": "Communication",
+    "aliases": ["microphone-on", "speak", "Mikrofon", "voice"]
+  },
+  "mic-disabled": {
+    "category": "Communication",
+    "aliases": ["microphone-off", "stumm", "Mikrofon deaktiviert", "mute"]
+  },
+  "minus": {
+    "category": "Essentials",
+    "aliases": ["delete", "löschen", "entfernen"]
+  },
+  "minus-small": {
+    "category": "Essentials",
+    "aliases": ["delete", "löschen", "entfernen"]
+  },
+  "mobile-signal": {
+    "category": "Connectivity",
+    "aliases": ["phone-network", "Mobilfunk-Signal", "Handynetz"]
+  },
+  "mongo-db": {
+    "category": "Software & Services",
+    "aliases": ["NoSQL-database", "document-database", "leaf", "Blatt"]
+  },
+  "moon": {
+    "category": "Wheather & Climate",
+    "aliases": ["night", "Nacht", "Mond"]
+  },
+  "more-horizontal": {
+    "category": "Action & Interface",
+    "aliases": ["dots", "Mehr-horizontal", "Punkte"]
+  },
+  "more-horizontal-big": {
+    "category": "Action & Interface",
+    "aliases": ["mehr", "dots", "Punkte"]
+  },
+  "more-vertical": {
+    "category": "Action & Interface",
+    "aliases": ["dots", "Mehr-vertikal", "Punkte"]
+  },
+  "mouse": {
+    "category": "Devices & Electronics",
+    "aliases": ["click-tool", "Maus"]
+  },
+  "move": {
+    "category": "Arrows",
+    "aliases": ["shift", "transfer", "Bewegen", "Verschieben", "arrows", "Pfeile"]
+  },
+  "navigation-arrow": {
+    "category": "Navigation",
+    "aliases": ["direction-pointer", "route-indicator", "Navigationspfeil", "Routenanzeiger"]
+  },
+  "navigation-direction": {
+    "category": "Navigation",
+    "aliases": ["route-guidance", "way-orientation", "Navigationsrichtung", "Wegorientierung"]
+  },
+  "navigation-route": {
+    "category": "Navigation",
+    "aliases": ["path-plan", "way-map", "Navigationsroute", "Wegkarte"]
+  },
+  "network": {
+    "category": "Network & Infrastructure",
+    "aliases": ["web", "internet", "Netzwerk", "Internet"]
+  },
+  "network-router": {
+    "category": "Network & Infrastructure",
+    "aliases": ["web-hub", "internet-pathway", "Netzwerk-Router", "Internet-Weg", "circle-arrows"]
+  },
+  "new": {
+    "category": "Various",
+    "aliases": [""]
+  },
+  "newspaper": {
+    "category": "Business & Statistics",
+    "aliases": ["paper", "journal", "Zeitung", "Blatt"]
+  },
+  "newspaper-voucher": {
+    "category": "Business & Statistics",
+    "aliases": ["paper-coupon", "news-discount", "Zeitungs-Gutschein", "Zeitungs-Coupon"]
+  },
+  "node-pool": {
+    "category": "Software & Services",
+    "aliases": ["node-cluster", "resource-pool", "Knoten-Pool", "Ressourcen-Pool"]
+  },
+  "notebook-edit": {
+    "category": "File & Type",
+    "aliases": ["journal-modify", "diary-change", "Notizbuch bearbeiten", "Tagebuch ändern"]
+  },
+  "notebook-plus": {
+    "category": "File & Type",
+    "aliases": ["journal-add", "diary-increase", "Notizbuch plus", "Tagebuch hinzufügen"]
+  },
+  "notebooks": {
+    "category": "File & Type",
+    "aliases": ["journals", "diaries", "Notizbücher", "Tagebücher"]
+  },
+  "notification-flag": {
+    "category": "Action & Interface",
+    "aliases": ["alert-sign", "warning-banner", "Ausrufezeichen", "Warn-Banner", "Warnung"]
+  },
+  "opactiy": {
+    "category": "Tools & Shapes",
+    "aliases": ["transparency", "translucence", "Transparenz", "Durchsichtigkeit"]
+  },
+  "opsgenie": {
+    "category": "Software & Services",
+    "aliases": ["incident-management", "alerting-service", "Opsgenie"]
+  },
+  "organigram-chart-1": {
+    "category": "Business & Statistics",
+    "aliases": ["hierarchy-graph", "structure-diagram", "Organigramm", "Hierarchiediagramm"]
+  },
+  "organigram-chart-2": {
+    "category": "Business & Statistics",
+    "aliases": ["hierarchy-graph", "structure-diagram", "Organigramm", "Hierarchiediagramm"]
+  },
+  "os": {
+    "category": "Software & Services",
+    "aliases": ["operating-system", "system-software", "Betriebssystem", "Systemsoftware"]
+  },
+  "oven": {
+    "category": "Kitchen & Food",
+    "aliases": ["stove", "cooker", "Ofen", "Herd"]
+  },
+  "package": {
+    "category": "Business & Statistics",
+    "aliases": ["parcel", "bundle", "Paket", "Bündel"]
+  },
+  "pallet-box": {
+    "category": "Business & Statistics",
+    "aliases": ["Palette, lager, Ware, Paket, package, stock, warehouse"]
+  },
+  "pallet-boxes": {
+    "category": "Business & Statistics",
+    "aliases": ["Palette, lager, Ware, Pakete, package, stock, warehouse"]
+  },
+  "parking": {
+    "category": "Transport & Travel",
+    "aliases": ["car-park", "vehicle-space", "Parkplatz", "Fahrzeug-Stellplatz"]
+  },
+  "parking-disabled": {
+    "category": "Transport & Travel",
+    "aliases": ["no-parking", "restricted-area", "Parkverbot", "Eingeschränkter-Bereich"]
+  },
+  "parking-electric": {
+    "category": "Transport & Travel",
+    "aliases": ["electric-spot", "e-parking", "Elektro-Parkplatz", "E-Parken"]
+  },
+  "parking-search": {
+    "category": "Transport & Travel",
+    "aliases": [""]
+  },
+  "passenger": {
+    "category": "Transport & Travel",
+    "aliases": ["car-occupant", "travel-companion", "Autoinsasse", "Reisebegleiter", "Autogürtel"]
+  },
+  "password-generate": {
+    "category": "Network & Infrastructure",
+    "aliases": ["create-security", "make-password", "Passwort-erzeugen", "Passwort-erstellen"]
+  },
+  "password-lock": {
+    "category": "Network & Infrastructure",
+    "aliases": ["protect-access", "secure-password", "Passwort-Sperre", "Passwort-sichern"]
+  },
+  "password-lock-2": {
+    "category": "Network & Infrastructure",
+    "aliases": ["protect-access", "secure-password", "Passwort-Sperre", "Passwort-sichern"]
+  },
+  "paypal": {
+    "category": "Finance",
+    "aliases": ["online-payment", "digital-wallet", "Online-Zahlung", "digitale Geldbörse"]
+  },
+  "penguin": {
+    "category": "Software & Services",
+    "aliases": ["Pinguin", "Linux"]
+  },
+  "petrol-station": {
+    "category": "Transport & Travel",
+    "aliases": ["fueling-place", "gas-stop", "Tankort", "Tankstopp"]
+  },
+  "petrol-station-electric": {
+    "category": "Transport & Travel",
+    "aliases": ["e-charging-station", "electric-fuel", "E-Ladestation", "Elektro-Tankstelle"]
+  },
+  "petrol-station-fuel": {
+    "category": "Transport & Travel",
+    "aliases": ["gas-station", "fuel-pump", "Tankstelle", "Kraftstoffpumpe"]
+  },
+  "phone": {
+    "category": "Communication",
+    "aliases": ["call", "Handy", "Telefon", "Anruf", "mobile"]
+  },
+  "phone-contact": {
+    "category": "People & Users",
+    "aliases": [
+      "call-person",
+      "dial-contact",
+      "Telefonkontakt",
+      "Anrufkontakt",
+      "Kontaktbuch",
+      "Notizbuch"
+    ]
+  },
+  "phone-disabled": {
+    "category": "Communication",
+    "aliases": ["call-off", "mobilephone", "Telefon", "Handy"]
+  },
+  "phone-incoming": {
+    "category": "Communication",
+    "aliases": ["call-receive", "Telefon", "Handy", "Anruf"]
+  },
+  "phone-outgoing": {
+    "category": "Communication",
+    "aliases": ["call-send", "Telefon", "Handy", "Anruf"]
+  },
+  "phone-ring": {
+    "category": "Communication",
+    "aliases": ["call-alert", "sound", "Telefon klingelt", "Anruf klingelt"]
+  },
+  "phone-vibration": {
+    "category": "Communication",
+    "aliases": ["call-shake", "buzz", "Vibration", "Anruf"]
+  },
+  "picture": {
+    "category": "File & Type",
+    "aliases": ["image", "photo", "Bild", "Foto"]
+  },
+  "picture-settings": {
+    "category": "File & Type",
+    "aliases": ["image-options", "photo", "Bild-Einstellungen", "Foto-bearbeiten"]
+  },
+  "pin": {
+    "category": "School & Education",
+    "aliases": ["tack", "fastener", "Reißzwecke", "Nadel"]
+  },
+  "pin-disabled": {
+    "category": "School & Education",
+    "aliases": ["tack", "fastener", "Reißzwecke", "Nadel"]
+  },
+  "placeholder": {
+    "category": "Various",
+    "aliases": ["spot", "temporary-mark", "Platzhalter"]
+  },
+  "plane": {
+    "category": "Transport & Travel",
+    "aliases": ["airplane", "flight", "Flugzeug", "Flug"]
+  },
+  "plate": {
+    "category": "Car Parts",
+    "aliases": ["license-tag", "registration-mark", "Nummernschild", "Kennzeichen"]
+  },
+  "playstore": {
+    "category": "Software & Services",
+    "aliases": ["android-market", "app-store", "Playstore", "App-Marktplatz"]
+  },
+  "plus": {
+    "category": "Essentials",
+    "aliases": ["add", "hinzufügen"]
+  },
+  "plus-minus": {
+    "category": "Essentials",
+    "aliases": [""]
+  },
+  "plus-small": {
+    "category": "Essentials",
+    "aliases": ["add", "hinzufügen"]
+  },
+  "postgresql": {
+    "category": "Software & Services",
+    "aliases": ["database-system", "SQL-database", "PostgreSQL", "Elefant"]
+  },
+  "power": {
+    "category": "Network & Infrastructure",
+    "aliases": ["energy", "force", "Energie", "Kraft", "On/Off", "Aus-Knopf", "Ein-Knopf"]
+  },
+  "powerbank": {
+    "category": "Devices & Electronics",
+    "aliases": ["energy-storage", "charge-device", "Energie-Speicher"]
+  },
+  "presention-board": {
+    "category": "Business & Statistics",
+    "aliases": ["display-board", "showcase", "Präsentationsbrett", "Schautafel"]
+  },
+  "presention-board-graph": {
+    "category": "Business & Statistics",
+    "aliases": ["display-chart", "graph-showcase", "Präsentationsbrett-Diagramm", "Präsentation"]
+  },
+  "print": {
+    "category": "Devices & Electronics",
+    "aliases": ["printer", "Drucker"]
+  },
+  "print-block": {
+    "category": "Devices & Electronics",
+    "aliases": ["no-printing", "Drucker-Sperre"]
+  },
+  "print-checkmark": {
+    "category": "Devices & Electronics",
+    "aliases": ["printer-approved", "Drucken bestätigen", "Drucker genehmigt"]
+  },
+  "print-clock": {
+    "category": "Devices & Electronics",
+    "aliases": ["printing-time", "printer-schedule", "Druckzeit", "Druckerplan"]
+  },
+  "print-cloud": {
+    "category": "Devices & Electronics",
+    "aliases": ["printing-storage", "printer-network", "Druck-Cloud", "Wolke"]
+  },
+  "print-disabled": {
+    "category": "Devices & Electronics",
+    "aliases": ["printer-off", "Drucken deaktiviert"]
+  },
+  "print-drop": {
+    "category": "Devices & Electronics",
+    "aliases": ["tropfen", "Drucker"]
+  },
+  "print-information": {
+    "category": "Devices & Electronics",
+    "aliases": ["printer-info", "Druckinformation", "Druckerinfo"]
+  },
+  "print-plus": {
+    "category": "Devices & Electronics",
+    "aliases": ["printing-add", "Drucken hinzufügen"]
+  },
+  "print-search": {
+    "category": "Devices & Electronics",
+    "aliases": ["Drucker suchen", "Drucker finden"]
+  },
+  "print-settings": {
+    "category": "Devices & Electronics",
+    "aliases": ["printer-options", "Druckeinstellungen", "Druckeroptionen"]
+  },
+  "print-shield": {
+    "category": "Devices & Electronics",
+    "aliases": ["printing-protection", "Druckschutz", "Druckersicherheit"]
+  },
+  "print-x": {
+    "category": "Devices & Electronics",
+    "aliases": ["printing-remove", "printer-cancel", "Drucken entfernen", "Drucker abbrechen"]
+  },
+  "profile": {
+    "category": "People & Users",
+    "aliases": ["biography", "user-info", "Profil", "Benutzerinfo"]
+  },
+  "puzzle-1": {
+    "category": "Objects",
+    "aliases": ["jigsaw-1", "conundrum-1", "Puzzle-1", "Rätsel-1"]
+  },
+  "puzzle-2": {
+    "category": "Objects",
+    "aliases": ["jigsaw-2", "conundrum-2", "Puzzle-2", "Rätsel-2"]
+  },
+  "qr-code": {
+    "category": "Network & Infrastructure",
+    "aliases": ["scan-code", "QR-Code", "Scan-Code"]
+  },
+  "quality": {
+    "category": "Various",
+    "aliases": ["excellence", "award", "price", "Standard"]
+  },
+  "rabbitmq": {
+    "category": "Software & Services",
+    "aliases": [""]
+  },
+  "radar": {
+    "category": "Navigation",
+    "aliases": ["scanner", "detection-system", "Radar", "Detektionssystem"]
+  },
+  "radar-station": {
+    "category": "Objects",
+    "aliases": ["detection-station", "scanning-station", "Radarstation", "Ortung"]
+  },
+  "reconciliation": {
+    "category": "Software & Services",
+    "aliases": ["matching", "data-validation", "Abgleich", "Datenüberprüfung"]
+  },
+  "recycling": {
+    "category": "Business & Statistics",
+    "aliases": ["reuse", "reclaim", "Recycling", "Wiederverwertung"]
+  },
+  "redis": {
+    "category": "Software & Services",
+    "aliases": ["key-value-store", "in-memory-database", "Redis", "In-Memory-Datenbank"]
+  },
+  "repeat": {
+    "category": "Arrows",
+    "aliases": ["redo", "loop", "Wiederholen", "Schleife"]
+  },
+  "replace": {
+    "category": "Arrows",
+    "aliases": ["substitute", "exchange", "Ersetzen", "Austauschen"]
+  },
+  "robot": {
+    "category": "Objects",
+    "aliases": ["roboter", "machine"]
+  },
+  "robot-manufacture": {
+    "category": "Objects",
+    "aliases": ["industry", "Industrie-Roboter", "machine", "Produzierung"]
+  },
+  "rocket": {
+    "category": "Objects",
+    "aliases": ["spacecraft", "missile", "Rakete", "Flugkörper"]
+  },
+  "rollwagen": {
+    "category": "Business & Statistics",
+    "aliases": ["cart", "wagon", "Wagen", "Einkaufswagen", "trolley"]
+  },
+  "rotate": {
+    "category": "Arrows",
+    "aliases": ["turn", "spin", "Drehen", "Rotieren", "zurück", "back"]
+  },
+  "rotate-picture": {
+    "category": "Tools & Shapes",
+    "aliases": ["image-rotation", "turn-image", "Bild-rotieren", "Bild-drehen"]
+  },
+  "router": {
+    "category": "Network & Infrastructure",
+    "aliases": ["network-hub", "internet-device", "Router", "Netzwerk-Hub"]
+  },
+  "saving-piggy": {
+    "category": "Finance",
+    "aliases": ["money-saving", "wealth-store", "Spar-Schwein", "Vermögensspeicher"]
+  },
+  "saving-piggy-coin": {
+    "category": "Finance",
+    "aliases": ["deposit-coin", "money-store", "Spar-Schwein-Münze", "Geld-Speicher"]
+  },
+  "sawblade": {
+    "category": "Objects",
+    "aliases": ["cutting-blade", "toothed-blade", "Sägeblatt", "Schneidklinge"]
+  },
+  "scissor": {
+    "category": "Objects",
+    "aliases": ["shears", "cutters", "Schere", "Schneider"]
+  },
+  "search": {
+    "category": "Action & Interface",
+    "aliases": ["find", "glass", "Lupe", "Suchen", "Finden"]
+  },
+  "search-x": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
+  "send": {
+    "category": "Communication",
+    "aliases": ["transmit", "dispatch", "Senden", "abschicken"]
+  },
+  "server": {
+    "category": "Network & Infrastructure",
+    "aliases": ["host", "network-host", "Server", "Netzwerk-Host"]
+  },
+  "server-camera": {
+    "category": "Network & Infrastructure",
+    "aliases": ["host-image", "picture-host", "Server-Kamera", "Bild-Host"]
+  },
+  "server-connect": {
+    "category": "Network & Infrastructure",
+    "aliases": ["host-link", "join-server", "Server-Verbindung", "Server-Verknüpfung"]
+  },
+  "server-lock": {
+    "category": "Network & Infrastructure",
+    "aliases": ["confidential, secure, Schloss, geschützt, Schutz, gesichert, Sicherheit, safe"]
+  },
+  "server-settings": {
+    "category": "Network & Infrastructure",
+    "aliases": [
+      "host-preferences",
+      "server-configuration",
+      "Server-Einstellungen",
+      "Server-Konfiguration"
+    ]
+  },
+  "server-shield": {
+    "category": "Network & Infrastructure",
+    "aliases": ["secure, Schutz, Schild"]
+  },
+  "server-upgrade": {
+    "category": "Network & Infrastructure",
+    "aliases": ["host-improve", "server-boost", "Server-Aktualisierung"]
+  },
+  "setting-search": {
+    "category": "Action & Interface",
+    "aliases": ["configuration-find", "preference-lookup", "Einstellungssuche"]
+  },
+  "settings": {
+    "category": "Action & Interface",
+    "aliases": ["configurations", "preferences", "Einstellungen", "Konfigurationen"]
+  },
+  "share-android": {
+    "category": "Action & Interface",
+    "aliases": ["send-android", "Teilen-Android", "Senden-Android"]
+  },
+  "share-ios": {
+    "category": "Action & Interface",
+    "aliases": ["distribute-apple", "send-ios", "Teilen-iOS", "Senden-iOS"]
+  },
+  "share-web": {
+    "category": "Action & Interface",
+    "aliases": ["distribute-online", "send-internet", "Teilen-Web", "abspringen"]
+  },
+  "shield": {
+    "category": "Security & Protection",
+    "aliases": ["protector", "guard", "Schild", "Schutzschild"]
+  },
+  "shield-user": {
+    "category": "People & Users",
+    "aliases": ["user-protection", "user-defense", "Benutzer-Schild", "Benutzer-Schutz"]
+  },
+  "shield-user-key": {
+    "category": "People & Users",
+    "aliases": [
+      "user-protection-key",
+      "user-security-key",
+      "Benutzer-Schild-Schlüssel",
+      "Benutzer-Sicherheit-Schlüssel"
+    ]
+  },
+  "ship": {
+    "category": "Transport & Travel",
+    "aliases": ["boat", "maritime-travel", "Schiff", "Seereise"]
+  },
+  "sick": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["illness", "unwell", "krank", "unwohl"]
+  },
+  "sidebar-arrow-left": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
+  "sidebar-arrow-right": {
+    "category": "Action & Interface",
+    "aliases": ["open", "öffnen", "Seitenleiste"]
+  },
+  "siren": {
+    "category": "Security & Protection",
+    "aliases": ["alarm", "alert", "Sirene", "Alarm"]
+  },
+  "smart-watch-circle": {
+    "category": "Devices & Electronics",
+    "aliases": ["Smartwatch", "Uhr"]
+  },
+  "smart-watch-square": {
+    "category": "Devices & Electronics",
+    "aliases": ["Smartwatch Quadrat", "Uhr"]
+  },
+  "smoking": {
+    "category": "Objects",
+    "aliases": ["tobacco", "cigarette", "Rauchen", "Zigarette"]
+  },
+  "smoking-disabled": {
+    "category": "Objects",
+    "aliases": ["no-smoking", "smoking-ban", "Rauchen-verboten", "Rauchverbot"]
+  },
+  "snowflake": {
+    "category": "Wheather & Climate",
+    "aliases": ["Schnee", "Winter", "cold", "kalt"]
+  },
+  "soap-dispenser": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["hygiene-product", "hand-cleanser", "Seifenspender", "Handreiniger"]
+  },
+  "soccer": {
+    "category": "Objects",
+    "aliases": ["football, sport"]
+  },
+  "sort": {
+    "category": "Action & Interface",
+    "aliases": ["order", "arrange", "Sortieren", "Ordnen", "filtern"]
+  },
+  "spaces": {
+    "category": "Action & Interface",
+    "aliases": ["areas", "Abstand", "Layout"]
+  },
+  "speedometer": {
+    "category": "Car Parts",
+    "aliases": ["Tachometer", "Geschwindigkeitsmesser"]
+  },
+  "split-horizontal": {
+    "category": "Action & Interface",
+    "aliases": ["divide-across", "separate-wide", "Horizontal teilen", "Quer aufteilen"]
+  },
+  "split-vertical": {
+    "category": "Action & Interface",
+    "aliases": ["divide-upright", "separate-tall", "Vertikal teilen", "Hoch aufteilen"]
+  },
+  "star": {
+    "category": "Various",
+    "aliases": ["celebrity", "fame", "Stern", "favorite"]
+  },
+  "stopover": {
+    "category": "Navigation",
+    "aliases": ["layover", "pause-point", "Zwischenstopp", "Pausenpunkt"]
+  },
+  "storage": {
+    "category": "Network & Infrastructure",
+    "aliases": ["hold", "Speicher", "Lagerung"]
+  },
+  "storage-camera": {
+    "category": "Network & Infrastructure",
+    "aliases": ["image-hold", "picture-store", "Bild-Speicherung", "Bild-Lagerung"]
+  },
+  "storage-cloud": {
+    "category": "Network & Infrastructure",
+    "aliases": ["cloud-hold", "cloud-keep", "Cloud-Speicherung", "Cloud-Lagerung"]
+  },
+  "storage-connect": {
+    "category": "Network & Infrastructure",
+    "aliases": ["hold-link", "Speicher-Verbindung"]
+  },
+  "storage-settings": {
+    "category": "Network & Infrastructure",
+    "aliases": ["configuration", "Speicher-Einstellungen", "Lager-Konfiguration"]
+  },
+  "storage-shield": {
+    "category": "Network & Infrastructure",
+    "aliases": ["protect-keep", "secure-hold", "Speicher-Schild", "Lager-sichern"]
+  },
+  "store": {
+    "category": "Commerce & Shopping",
+    "aliases": ["shop", "retail", "Laden", "Geschäft", "Filiale"]
+  },
+  "store-display": {
+    "category": "Commerce & Shopping",
+    "aliases": ["Regal", "shelf", "storage", "rack", "Lager"]
+  },
+  "stroller": {
+    "category": "Objects",
+    "aliases": ["baby-carriage", "pushchair", "Kinderwagen", "Buggy"]
+  },
+  "subnet": {
+    "category": "Network & Infrastructure",
+    "aliases": ["subnetwork", "network-division", "Teilnetz", "Netzwerk-Abschnitt"]
+  },
+  "suitcase": {
+    "category": "Business & Statistics",
+    "aliases": ["briefcase", "luggage", "Koffer", "Gepäck"]
+  },
+  "sunny": {
+    "category": "Wheather & Climate",
+    "aliases": ["sunshine", "light", "Sonne", "hell"]
+  },
+  "support": {
+    "category": "Help & Support",
+    "aliases": ["assistance", "help", "Unterstützung", "Hilfe", "Rettungsring"]
+  },
+  "switch-horizontal": {
+    "category": "Arrows",
+    "aliases": [
+      "flip-across",
+      "reverse-wide",
+      "Horizontal wechseln",
+      "Quer umkehren",
+      "auswechseln"
+    ]
+  },
+  "switch-vertical": {
+    "category": "Arrows",
+    "aliases": ["flip-upright", "reverse-tall", "Vertikal wechseln", "Hoch umkehren", "auswechseln"]
+  },
+  "sync": {
+    "category": "Arrows",
+    "aliases": [
+      "synchronize",
+      "align",
+      "Synchronisieren",
+      "Angleichen",
+      "loading",
+      "laden",
+      "aktualisieren"
+    ]
+  },
+  "tab-1": {
+    "category": "Devices & Electronics",
+    "aliases": ["window-one", "Fenster"]
+  },
+  "tab-2": {
+    "category": "Devices & Electronics",
+    "aliases": ["window", "Fenster"]
+  },
+  "tag": {
+    "category": "Business & Statistics",
+    "aliases": ["label", "price-tag", "Etikett", "Preisschild"]
+  },
+  "tag-disabled": {
+    "category": "Business & Statistics",
+    "aliases": ["label-off", "price-tag-off", "Etikett deaktiviert", "Preisschild aus"]
+  },
+  "test": {
+    "category": "Objects",
+    "aliases": ["laboratory-tube", "sample-tube", "Reagenzglas", "Laborröhrchen"]
+  },
+  "text-selector": {
+    "category": "Tools & Shapes",
+    "aliases": ["text-tool", "text-pick", "Textauswahl", "Textwerkzeug"]
+  },
+  "thumbs-down": {
+    "category": "Cursor & Hands",
+    "aliases": ["disapprove", "dislike", "Daumen runter"]
+  },
+  "thumbs-up": {
+    "category": "Cursor & Hands",
+    "aliases": ["approve", "like", "Daumen hoch", "Zustimmung"]
+  },
+  "tie": {
+    "category": "Various",
+    "aliases": ["Anzug, business, geschäftlich, Arbeit, work"]
+  },
+  "timer": {
+    "category": "Devices & Electronics",
+    "aliases": ["countdown", "chronometer", "Stoppuhr"]
+  },
+  "tire": {
+    "category": "Car Parts",
+    "aliases": ["wheel", "rubber", "Reifen", "Rad"]
+  },
+  "toggle-switch": {
+    "category": "Action & Interface",
+    "aliases": ["flip-control", "umschalten", "on-off"]
+  },
+  "tool-anchor-point-minus": {
+    "category": "Tools & Shapes",
+    "aliases": ["reduce-anchor", "anchor-shrink", "Ankerpunkt-verringern", "Anker-schrumpfen"]
+  },
+  "tool-anchor-point-plus": {
+    "category": "Tools & Shapes",
+    "aliases": ["add-anchor", "anchor-expand", "Ankerpunkt-hinzufügen", "Anker-erweitern"]
+  },
+  "tool-circle": {
+    "category": "Tools & Shapes",
+    "aliases": ["round-tool", "circular-shape", "Kreiswerkzeug", "Runde-Form"]
+  },
+  "tool-color-fill": {
+    "category": "Tools & Shapes",
+    "aliases": ["fill-color", "color-tool", "Farbfüllwerkzeug", "Farbwerkzeug"]
+  },
+  "tool-crop-1": {
+    "category": "Tools & Shapes",
+    "aliases": ["cut-image", "picture-rotate", "Bild-drehen", "Bild-kürzen"]
+  },
+  "tool-crop-2": {
+    "category": "Tools & Shapes",
+    "aliases": ["trim-image", "image-crop", "Bild-beschneiden", "Bild-zuschneiden"]
+  },
+  "tool-curvature": {
+    "category": "Tools & Shapes",
+    "aliases": ["curve-tool", "bend-tool", "Kurvenwerkzeug", "Biegewerkzeug", "Zeichenwerkzeug"]
+  },
+  "tool-elipse": {
+    "category": "Tools & Shapes",
+    "aliases": ["oval-tool", "ellipse-shape", "Ellipsenwerkzeug", "Ovale-Form"]
+  },
+  "tool-expand-horizontally": {
+    "category": "Tools & Shapes",
+    "aliases": ["widen-tool", "horizontal-stretch", "Horizontal-erweitern", "In-die-Breite-ziehen"]
+  },
+  "tool-expand-vertically": {
+    "category": "Tools & Shapes",
+    "aliases": ["heighten-tool", "vertical-stretch", "Vertikal-erweitern", "In-die-Höhe-ziehen"]
+  },
+  "tool-line": {
+    "category": "Tools & Shapes",
+    "aliases": ["line-tool", "straight-shape", "Linienwerkzeug", "Gerade-Form"]
+  },
+  "tool-path-1": {
+    "category": "Tools & Shapes",
+    "aliases": ["path-tool", "Pfadwerkzeug", "Ausschnitt"]
+  },
+  "tool-path-2": {
+    "category": "Tools & Shapes",
+    "aliases": ["path-tool", "Pfadwerkzeug", "Ausschnitt"]
+  },
+  "tool-path-3": {
+    "category": "Tools & Shapes",
+    "aliases": ["path-tool", "Pfadwerkzeug", "Ausschnitt"]
+  },
+  "tool-path-4": {
+    "category": "Tools & Shapes",
+    "aliases": ["path-tool", "Pfadwerkzeug", "Ausschnitt"]
+  },
+  "tool-path-5": {
+    "category": "Tools & Shapes",
+    "aliases": ["path-tool", "Pfadwerkzeug", "Ausschnitt"]
+  },
+  "tool-pencil": {
+    "category": "Tools & Shapes",
+    "aliases": [""]
+  },
+  "tool-polygon": {
+    "category": "Tools & Shapes",
+    "aliases": ["polygon-tool", "multi-side-shape", "Polygonwerkzeug"]
+  },
+  "tool-rectangle": {
+    "category": "Tools & Shapes",
+    "aliases": ["square-tool", "rectangular-shape", "Rechteckwerkzeug", "Quadratische-Form"]
+  },
+  "tool-ruler": {
+    "category": "Tools & Shapes",
+    "aliases": ["measuring-tool", "length-tool", "Linealwerkzeug", "Messwerkzeug"]
+  },
+  "tool-scale": {
+    "category": "Tools & Shapes",
+    "aliases": ["resizing-tool", "scale-tool", "Skalierungswerkzeug", "Größenänderungswerkzeug"]
+  },
+  "tool-table": {
+    "category": "Tools & Shapes",
+    "aliases": ["table-tool", "grid-tool", "Tabellenwerkzeug", "Gitterwerkzeug"]
+  },
+  "tool-text": {
+    "category": "Tools & Shapes",
+    "aliases": ["writing-tool", "lettering-tool", "Textwerkzeug", "Schreibwerkzeug"]
+  },
+  "tool-transform": {
+    "category": "Tools & Shapes",
+    "aliases": ["modify-tool", "change-shape", "Transformationswerkzeug", "Form-ändern"]
+  },
+  "tool-underlined": {
+    "category": "Tools & Shapes",
+    "aliases": [
+      "underline-tool",
+      "text-formatting",
+      "Unterstreichungswerkzeug",
+      "Textformatierung",
+      "unterstrichen"
+    ]
+  },
+  "touch-hold": {
+    "category": "Cursor & Hands",
+    "aliases": ["press-hold", "finger-retain", "Finger behalten", "berühren"]
+  },
+  "touch-password": {
+    "category": "Cursor & Hands",
+    "aliases": ["finger-security", "touch-code", "Berührung-Passwort", "Finger-Sicherheit"]
+  },
+  "touch-press": {
+    "category": "Cursor & Hands",
+    "aliases": ["finger-tap", "screen-push", "drücken", "Finger-Tipp", "berühren"]
+  },
+  "touch-toggle-switch": {
+    "category": "Cursor & Hands",
+    "aliases": ["finger-slide-button", "Berührung-Umschalter"]
+  },
+  "tour": {
+    "category": "Transport & Travel",
+    "aliases": ["journey", "travel-experience", "Reise", "Reiseerfahrung"]
+  },
+  "tour-plus": {
+    "category": "Transport & Travel",
+    "aliases": ["add-trip", "travel-extension", "Reise-hinzufügen", "Reiseerweiterung"]
+  },
+  "tour-x": {
+    "category": "Transport & Travel",
+    "aliases": ["cancel-trip", "travel-stop", "Reise-abbrechen", "Reisestopp"]
+  },
+  "tram": {
+    "category": "Transport & Travel",
+    "aliases": ["streetcar", "city-rail", "Straßenbahn", "Stadtbahn"]
+  },
+  "translate": {
+    "category": "Communication",
+    "aliases": ["übersetzer", "translator"]
+  },
+  "trash": {
+    "category": "Action & Interface",
+    "aliases": [
+      "remove",
+      "erase",
+      "Löschen",
+      "Entfernen",
+      "garbage",
+      "waste-bin",
+      "Müll",
+      "Abfalleimer"
+    ]
+  },
+  "trash-disabled": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
+  "tree": {
+    "category": "Wheather & Climate",
+    "aliases": ["forest", "nature", "Wald"]
+  },
+  "tree-2": {
+    "category": "Wheather & Climate",
+    "aliases": ["forest", "nature", "Wald"]
+  },
+  "triangle-warning": {
+    "category": "Essentials",
+    "aliases": ["alert-sign", "Dreieck-Warnung", "Achtung"]
+  },
+  "truck": {
+    "category": "Business & Statistics",
+    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen"]
+  },
+  "undo": {
+    "category": "Arrows",
+    "aliases": ["reverse", "backtrack", "Rückgängig machen", "Zurückverfolgen"]
+  },
+  "unlocked-1": {
+    "category": "Security & Protection",
+    "aliases": ["opened", "unfastened", "entsperrt-1", "geöffnet-1", "Schloss-offen"]
+  },
+  "unlocked-2": {
+    "category": "Security & Protection",
+    "aliases": ["unsecured", "accessible", "entsperrt-2", "zugänglich-2", "Schloss-offen"]
+  },
+  "upgrade": {
+    "category": "Network & Infrastructure",
+    "aliases": ["upload", "update", "Aufwertung", "Verbesserung"]
+  },
+  "upload": {
+    "category": "Network & Infrastructure",
+    "aliases": ["send", "deliver", "hochladen", "senden"]
+  },
+  "upload-2": {
+    "category": "Network & Infrastructure",
+    "aliases": ["hochladen", "senden"]
+  },
+  "user": {
+    "category": "People & Users",
+    "aliases": ["person", "individual", "Benutzer", "Person"]
+  },
+  "user-arrow-down": {
+    "category": "People & Users",
+    "aliases": ["user-decrease", "user-descend", "Benutzer-Pfeil-runter", "Benutzer-verringern"]
+  },
+  "user-arrow-up": {
+    "category": "People & Users",
+    "aliases": ["user-increase", "user-ascend", "Benutzer-Pfeil-hoch", "Benutzer-erhöhen"]
+  },
+  "user-block": {
+    "category": "People & Users",
+    "aliases": ["user-restrict", "user-stop", "Benutzer-blockieren", "Benutzer-stoppen"]
+  },
+  "user-check": {
+    "category": "People & Users",
+    "aliases": ["user-approve", "user-confirm", "Benutzer-überprüfen", "Benutzer-bestaetigen"]
+  },
+  "user-circle-minus": {
+    "category": "People & Users",
+    "aliases": [
+      "user-remove-circle",
+      "user-decrease-circle",
+      "Benutzer-Kreis-minus",
+      "Benutzer-Kreis-verringern"
+    ]
+  },
+  "user-clock": {
+    "category": "People & Users",
+    "aliases": ["user-time", "user-wait", "Benutzer-Uhr", "Benutzer-Zeit"]
+  },
+  "user-company-id": {
+    "category": "People & Users",
+    "aliases": [
+      "user-business-id",
+      "user-employment-id",
+      "Benutzer-Firmen-ID",
+      "Benutzer-Beschäftigungs-ID",
+      "User-Card"
+    ]
+  },
+  "user-edit": {
+    "category": "People & Users",
+    "aliases": ["user-modify", "user-change", "Benutzer-bearbeiten", "Benutzer-ändern"]
+  },
+  "user-group": {
+    "category": "People & Users",
+    "aliases": ["user-collection", "user-team", "Benutzer-Gruppe", "Benutzer-Team"]
+  },
+  "user-id": {
+    "category": "People & Users",
+    "aliases": ["user-identification", "user-tag", "Benutzer-ID", "Benutzer-Kennung"]
+  },
+  "user-key": {
+    "category": "People & Users",
+    "aliases": ["user-access", "user-entry", "Benutzer-Schlüssel", "Benutzer-Zugang"]
+  },
+  "user-location-pin": {
+    "category": "People & Users",
+    "aliases": ["user-place", "user-position", "Benutzer-Standort-Pin", "Benutzer-Position"]
+  },
+  "user-lock": {
+    "category": "People & Users",
+    "aliases": ["user-restriction", "user-security", "Benutzer-Sperre", "Benutzer-Sicherheit"]
+  },
+  "user-message-minus": {
+    "category": "People & Users",
+    "aliases": [
+      "user-communication-reduce",
+      "user-chat-minus",
+      "Benutzer-Nachricht-minus",
+      "Benutzer-Chat-verringern"
+    ]
+  },
+  "user-message-plus": {
+    "category": "People & Users",
+    "aliases": [
+      "user-communication-increase",
+      "user-chat-plus",
+      "Benutzer-Nachricht-plus",
+      "Benutzer-Chat-erhöhen"
+    ]
+  },
+  "user-minus": {
+    "category": "People & Users",
+    "aliases": ["user-reduction", "user-subtraction", "Benutzer-minus", "Benutzer-Reduzierung"]
+  },
+  "user-nametag": {
+    "category": "People & Users",
+    "aliases": ["user-label", "user-tagname", "Benutzer-Namensschild", "Benutzer-Label"]
+  },
+  "user-plus": {
+    "category": "People & Users",
+    "aliases": ["user-addition", "user-increase", "Benutzer-plus", "Benutzer-hinzufügen"]
+  },
+  "user-setting": {
+    "category": "People & Users",
+    "aliases": [
+      "user-configuration",
+      "user-preferences",
+      "Benutzer-Einstellungen",
+      "Benutzer-Konfiguration"
+    ]
+  },
+  "user-shield": {
+    "category": "People & Users",
+    "aliases": ["user-protection", "user-security", "Benutzer-Schild", "Benutzer-Schutz"]
+  },
+  "user-suit-nametag": {
+    "category": "People & Users",
+    "aliases": [
+      "business-user-label",
+      "professional-user-tagname",
+      "Benutzer-Anzug-Namensschild",
+      "Geschäftsbenu"
+    ]
+  },
+  "user-x": {
+    "category": "People & Users",
+    "aliases": ["user-remove", "user-exit", "Benutzer-X", "Benutzer-entfernen"]
+  },
+  "vibration": {
+    "category": "Communication",
+    "aliases": ["shake", "quiver", "Vibration", "Alarm", "Radar"]
+  },
+  "videocam": {
+    "category": "Devices & Electronics",
+    "aliases": ["video-camera", "film-recording", "Videokamera", "Filmkamera"]
+  },
+  "videocam-disabled": {
+    "category": "Devices & Electronics",
+    "aliases": ["no-video", "camera-off", "Videokamera deaktiviert"]
+  },
+  "virus": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["infection", "pathogen", "Virus", "Krankheitserreger", "Bakterien"]
+  },
+  "virus-shield": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": [
+      "infection-protection",
+      "disease-barrier",
+      "Virus-Schild",
+      "Krankheitsbarriere",
+      "Bakterien"
+    ]
+  },
+  "volume-disabled": {
+    "category": "Action & Interface",
+    "aliases": ["sound-off", "mute", "Ton aus", "Stummschaltung"]
+  },
+  "volume-down": {
+    "category": "Action & Interface",
+    "aliases": ["sound-lower", "decrease-sound", "Lautstärke", "leiser"]
+  },
+  "volume-mute": {
+    "category": "Action & Interface",
+    "aliases": ["sound-off", "silent-audio", "Lautlos", "Stumm"]
+  },
+  "volume-up": {
+    "category": "Action & Interface",
+    "aliases": ["sound-increase", "raise-sound", "Laut", "Ton erhöhen"]
+  },
+  "voucher": {
+    "category": "Commerce & Shopping",
+    "aliases": ["coupon", "ticket", "Gutschein"]
+  },
+  "walking": {
+    "category": "Transport & Travel",
+    "aliases": ["on-foot", "pedestrian", "Zu-Fuß", "Fußgänger"]
+  },
+  "wallet": {
+    "category": "Commerce & Shopping",
+    "aliases": ["billfold", "money-holder", "Geldbeutel", "Portemonnaie"]
+  },
+  "warehouse": {
+    "category": "Commerce & Shopping",
+    "aliases": ["storage", "depot", "Lagerhaus", "Lager"]
+  },
+  "webhook": {
+    "category": "Software & Services",
+    "aliases": ["HTTP-callback", "server-push", "Webhook", "Server-Push"]
+  },
+  "windmill": {
+    "category": "Wheather & Climate",
+    "aliases": ["wind-energy", "renewable", "Windenergie", "Erneuerbare-Energie", "Windmühle"]
+  },
+  "windows": {
+    "category": "Software & Services",
+    "aliases": ["Betriebssystem", "Microsoft", "operatingsystem"]
+  },
+  "wlan": {
+    "category": "Connectivity",
+    "aliases": ["wifi", "wireless-network", "Empfang"]
+  },
+  "wrench": {
+    "category": "Objects",
+    "aliases": ["spanner", "tool", "Schraubenschlüssel", "Werkzeug"]
+  },
+  "x": {
+    "category": "Essentials",
+    "aliases": ["small-cancel", "close", "ablehnen", "schließen", "reject"]
+  },
+  "x-small": {
+    "category": "Essentials",
+    "aliases": ["small-cancel", "close", "ablehnen", "schließen", "reject"]
+  },
+  "zoom-in": {
+    "category": "Action & Interface",
+    "aliases": ["enlarge", "magnify", "Vergrößern", "Heranzoomen", "Lupe", "Plus"]
+  },
+  "zoom-out": {
+    "category": "Action & Interface",
+    "aliases": ["reduce", "diminish", "Verkleinern", "Herauszoomen", "Lupe", "Minus"]
+  }
+}
