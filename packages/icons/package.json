@@ -17,12 +17,9 @@
   ],
   "types": "./src/metadata.ts",
   "exports": {
-    ".": "./src/metadata.ts",
+    ".": "./src/index.ts",
+    "./metadata": "./src/metadata.json",
     "./*": "./src/assets/*"
-  },
-  "scripts": {
-    "optimize:check": "tsx ./src/check.ts",
-    "optimize": "tsx ./src/optimize.ts"
   },
   "devDependencies": {
     "svgo": "^3.3.2",

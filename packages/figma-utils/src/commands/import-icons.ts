@@ -1,8 +1,10 @@
 import { Command } from "commander";
 import { mkdir, writeFile } from "node:fs/promises";
-import path, { dirname } from "node:path";
+import path from "node:path";
+import { writeIconMetadata } from "../icons/generate.js";
+import { optimizeSvg } from "../icons/optimize.js";
 import { parseComponentsToIcons } from "../icons/parse.js";
-import { fetchFigmaComponents, fetchFigmaSVGs, ParsedIcon } from "../index.js";
+import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";
 import { isDirectory } from "../utils/fs.js";
 
 export type ImportIconsCommandOptions = {
@@ -50,7 +52,7 @@ export async function importIconsCommandAction(options: ImportIconsCommandOption
     options.token,
   );
 
-  console.log("Writing icon files...");
+  console.log("Optimizing and writing icon files...");
 
   if (!(await isDirectory(outputDirectory))) {
     await mkdir(outputDirectory, { recursive: true });
@@ -59,29 +61,14 @@ export async function importIconsCommandAction(options: ImportIconsCommandOption
   await Promise.all(
     parsedIcons.map((icon) => {
       const fullPath = path.join(outputDirectory, `${icon.name}.svg`);
-      return writeFile(fullPath, svgContents[icon.id], "utf-8");
+      const content = optimizeSvg(svgContents[icon.id], fullPath);
+      return writeFile(fullPath, content, "utf-8");
     }),
   );
 
   if (options.metaFile) {
     console.log("Writing icon metadata...");
-
-    const metaDirname = dirname(options.metaFile);
-    if (!(await isDirectory(metaDirname))) {
-      await mkdir(metaDirname, { recursive: true });
-    }
-
-    const iconMetadata = parsedIcons.reduce<
-      Record<string, Pick<ParsedIcon, "category" | "aliases">>
-    >((meta, icon) => {
-      meta[icon.name] = {
-        category: icon.category,
-        aliases: icon.aliases,
-      };
-      return meta;
-    }, {});
-
-    await writeFile(options.metaFile, JSON.stringify(iconMetadata, null, 2), "utf-8");
+    await writeIconMetadata(options.metaFile, parsedIcons);
   }
 
   console.log("Done.");

@@ -1,4 +1,4 @@
-import { ICON_CATEGORIES, getIconImportName } from "@sit-onyx/icons";
+import { getIconImportName, groupIconsByCategory, ICON_METADATA } from "@sit-onyx/icons";
 import { capitalize } from "vue";
 
 export type EnrichedIcon = {
@@ -33,8 +33,10 @@ const getIconContextData = (iconName: string, allIconContents: Record<string, st
 // Collects all needed icon context data and provides them as a list.
 export const getEnrichedIconCategoryList = (
   allIconContents: Record<string, string>,
-): EnrichedCategory[] =>
-  Object.entries(ICON_CATEGORIES).map(([category, icons]) => ({
+): EnrichedCategory[] => {
+  const categories = groupIconsByCategory(ICON_METADATA);
+
+  return Object.entries(categories).map(([category, icons]) => ({
     name: category,
     icons: icons.map((icon) => ({
       ...icon,
@@ -46,3 +48,4 @@ export const getEnrichedIconCategoryList = (
       },
     })),
   }));
+};
