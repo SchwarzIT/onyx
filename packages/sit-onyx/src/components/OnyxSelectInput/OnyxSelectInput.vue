@@ -122,7 +122,7 @@ const blockTyping = (event: KeyboardEvent) => {
     ]"
     v-bind="rootAttrs"
   >
-    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
+    <OnyxFormElement v-bind="props" :error-messages="errorMessages" @click="emit('click')">
       <template #default="{ id }">
         <div class="onyx-select-input__wrapper">
           <OnyxLoadingIndicator
@@ -152,7 +152,6 @@ const blockTyping = (event: KeyboardEvent) => {
             :value="selectionText"
             :autofocus="props.autofocus"
             autocomplete="off"
-            @click="emit('click')"
             @keydown="blockTyping"
           />
 
@@ -177,7 +176,6 @@ const blockTyping = (event: KeyboardEvent) => {
             :aria-label="t('select.toggleDropDown')"
             tabindex="-1"
             :disabled="props.readonly || props.disabled || props.loading"
-            @click="emit('click')"
           >
             <OnyxIcon :icon="chevronDownUp" />
           </button>
