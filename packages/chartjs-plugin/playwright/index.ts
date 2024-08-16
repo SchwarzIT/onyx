@@ -2,6 +2,8 @@
 import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "../src";
 
+import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/source-sans-3";
 import "sit-onyx/src/styles/index.scss";
 import "./playwright.scss";
 
