@@ -15,7 +15,7 @@ export default defineNuxtConfig({
       // "tlh" is the bcd 47 code for Klingon -> This is a custom translation that doesn't exist in onyx and therefor the project needs to provide them
       { code: "tlh", file: "tlh.json", name: "tlhIngan" },
       // int is a fictional language code we might want to support in our app, as the language is not supported by onyx we will create it inside the project and use the onyx translations for de-DE. (See ./i18n/int.ts)
-      { code: "int", iso: "de-DE", file: "int.ts", name: "International (DE)" },
+      { code: "int", language: "de-DE", file: "int.ts", name: "International (DE)" },
     ],
   },
   onyx: {
