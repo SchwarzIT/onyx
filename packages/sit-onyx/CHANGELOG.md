@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.29
+
+### Minor Changes
+
+- 40b517d: feat: implement `OnyxPagination` modern type
+
 ## 1.0.0-beta.28
 
 ### Minor Changes

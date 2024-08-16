@@ -1,5 +1,5 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
-import type { Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import { expect, test } from "../playwright/a11y";
 import ScreenshotMatrix from "./ScreenshotMatrix.vue";
@@ -139,6 +139,19 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
     );
 
     await expect(component).toHaveScreenshot(`${options.name}.png`);
+  });
+};
+
+/**
+ * Sets the component size to fit all absolute positioned content so it is included in screenshots.
+ * Useful if component includes flyouts etc.
+ */
+export const adjustAbsolutePositionScreenshot = async (component: Locator) => {
+  await expect(component).toBeVisible();
+
+  await component.evaluate((element) => {
+    element.style.height = `${element.scrollHeight}px`;
+    element.style.width = `${element.scrollWidth}px`;
   });
 };
 
