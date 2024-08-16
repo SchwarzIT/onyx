@@ -237,9 +237,6 @@ importers:
 
   packages/icons:
     devDependencies:
-      svgo:
-        specifier: ^3.3.2
-        version: 3.3.2
       tsx:
         specifier: ^4.17.0
         version: 4.17.0

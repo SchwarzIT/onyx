@@ -22,7 +22,6 @@
     "./*": "./src/assets/*"
   },
   "devDependencies": {
-    "svgo": "^3.3.2",
     "tsx": "^4.17.0"
   }
 }
