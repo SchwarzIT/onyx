@@ -15,7 +15,7 @@
   "files": [
     "src"
   ],
-  "types": "./src/metadata.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./metadata": "./src/metadata.json",
