@@ -12,12 +12,14 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
       return;
     }
 
-    const referenceElement = findParentWithHiddenOverflow(el) ?? el;
-    const rect = referenceElement.getBoundingClientRect();
-    const viewportHeight = window.visualViewport?.height ?? 0;
+    const overflowParentRect = findParentWithHiddenOverflow(el)?.getBoundingClientRect();
+    const elementRect = el.getBoundingClientRect();
 
-    const freeSpaceBelow = viewportHeight - rect.bottom;
-    const freeSpaceAbove = rect.top;
+    const parentTop = overflowParentRect?.top ?? window.visualViewport?.pageTop ?? 0;
+    const parentBottom = overflowParentRect?.bottom ?? window.visualViewport?.height ?? 0;
+
+    const freeSpaceBelow = parentBottom - elementRect.bottom;
+    const freeSpaceAbove = elementRect.top - parentTop;
 
     openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
   };
