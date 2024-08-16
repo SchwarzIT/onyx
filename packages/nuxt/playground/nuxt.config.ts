@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
   modules: ["../src/module", "@nuxtjs/i18n"],
   devtools: { enabled: true },
+  compatibilityDate: "2024-07-08",
+  css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
   i18n: {
     defaultLocale: "en-US",
     lazy: true,
@@ -26,6 +28,4 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  compatibilityDate: "2024-07-08",
 });

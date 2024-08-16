@@ -20,6 +20,8 @@ If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module 
 
 ## Installation
 
+### Step 1: Install dependencies
+
 Install the npm package with your corresponding package manager:
 
 ::: code-group
@@ -37,6 +39,8 @@ yarn install sit-onyx@beta
 ```
 
 :::
+
+### Step 2: Imports
 
 After that, import the global CSS file:
 
@@ -60,6 +64,12 @@ app.use(onyx);
 ```
 
 :::
+
+### Step 3: Install fonts
+
+Finally, install the recommended onyx font families by following our [typography docs](/development/typography#installation).
+
+### Step 4: Use components
 
 Components are now ready to be used, e.g.:
 

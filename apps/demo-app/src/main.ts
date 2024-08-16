@@ -10,6 +10,8 @@ import deDE from "./i18n/locales/de-DE.json";
 import enUS from "./i18n/locales/en-US.json";
 import { routes } from "./router";
 
+import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/source-sans-3";
 import "sit-onyx/global.css";
 import "sit-onyx/style.css";
 

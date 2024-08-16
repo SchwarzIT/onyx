@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.7",
+    "@fontsource-variable/source-code-pro": "^5.0.19",
+    "@fontsource-variable/source-sans-3": "^5.0.21",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "^1.46.0",
     "@playwright/test": "^1.46.0",
