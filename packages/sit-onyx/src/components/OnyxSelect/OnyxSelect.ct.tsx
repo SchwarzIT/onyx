@@ -246,7 +246,7 @@ test.describe("List description screenshots", () => {
 
 test.describe("Alignment screenshots", () => {
   executeMatrixScreenshotTest({
-    name: "Alignment screenshots",
+    name: "Select (alignment)",
     columns: ["right", "left", "full"],
     rows: ["top", "bottom"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
@@ -260,7 +260,7 @@ test.describe("Alignment screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component, _page, _column, _row) => {
+    beforeScreenshot: async (component) => {
       await openFlyout(component);
     },
   });
