@@ -6,6 +6,7 @@ import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { MANAGED_SYMBOL, useManagedState } from "../../composables/useManagedState";
+import { useOpenDirection } from "../../composables/useOpenDirection";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
@@ -84,8 +85,7 @@ const { state: open } = useManagedState(
 );
 
 const selectRef = ref<HTMLElement>();
-const flyoutRef = ref<HTMLElement>();
-const openDirection = ref<"top" | "bottom">();
+const { openDirection, updateOpenDirection } = useOpenDirection(selectRef);
 
 /**
  * Currently (visually) active value.
@@ -161,6 +161,8 @@ const allKeyboardOptionIds = computed(() => {
 });
 
 const onToggle = async (preventFocus?: boolean) => {
+  updateOpenDirection();
+
   if (props.readonly) {
     open.value = false;
     return;
@@ -179,44 +181,6 @@ const onToggle = async (preventFocus?: boolean) => {
     } else {
       // make sure search is focused after the flyout opened
       miniSearch.value?.focus();
-    }
-  }
-
-  detectOpenDirection();
-};
-
-const detectOpenDirection = () => {
-  const viewportHeight = window.visualViewport?.height ?? 0;
-  const parentElementTop = getParentElementTop();
-  const selectTop = selectRef.value?.getBoundingClientRect().top ?? 0;
-  const selectBottom = selectRef.value?.getBoundingClientRect().bottom ?? 0;
-  const selectFlyoutHeight = flyoutRef.value?.scrollHeight ?? 0;
-
-  let freeSpaceBelow = viewportHeight - selectBottom - selectFlyoutHeight;
-  let freeSpaceAbove = parentElementTop
-    ? parentElementTop - selectTop
-    : selectTop - selectFlyoutHeight;
-
-  if (freeSpaceAbove < 0 && freeSpaceBelow < 0) {
-    freeSpaceAbove = Math.abs(freeSpaceAbove);
-    freeSpaceBelow = Math.abs(freeSpaceBelow);
-  }
-
-  openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
-};
-
-const getParentElementTop = () => {
-  if (selectRef.value == undefined) return undefined;
-  let el = selectRef.value;
-
-  while (el.parentElement != undefined) {
-    if (
-      getComputedStyle(el.parentElement).overflow === "hidden" ||
-      el.parentElement === undefined
-    ) {
-      return el.parentElement.getBoundingClientRect().top;
-    } else {
-      el = el.parentElement;
     }
   }
 };
@@ -362,7 +326,6 @@ const selectInputProps = computed(() => {
     />
 
     <div
-      ref="flyoutRef"
       :class="[
         'onyx-select',
         densityClass,
