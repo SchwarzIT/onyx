@@ -161,8 +161,6 @@ const allKeyboardOptionIds = computed(() => {
 });
 
 const onToggle = async (preventFocus?: boolean) => {
-  updateOpenDirection();
-
   if (props.readonly) {
     open.value = false;
     return;
@@ -170,6 +168,8 @@ const onToggle = async (preventFocus?: boolean) => {
   const wasOpen = open.value;
   open.value = !wasOpen;
   await nextTick();
+
+  if (open.value) updateOpenDirection();
 
   // if with managed `open` state after one tick the state was not updated,
   // we don't modify our focus state, because we assume that
