@@ -1,7 +1,5 @@
 // global component styles
 // DO NOT ADD ANY STYLES HERE THAT HAVE SIDE EFFECTS ON THE GLOBAL APPLICATION (e.g. body, <a> etc.)
-@use "@fontsource-variable/source-code-pro";
-@use "@fontsource-variable/source-sans-3";
 @use "layers"; // Must be imported first!
 @use "root.scss";
 @use "grid.scss";

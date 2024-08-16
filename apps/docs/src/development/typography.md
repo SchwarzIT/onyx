@@ -8,21 +8,49 @@ and free to use under the [SIL Open Font License](https://en.wikipedia.org/wiki/
 - Default: [Source Sans 3](https://fontsource.org/fonts/source-sans-3)
 - Monospace: [Source Code Pro](https://fontsource.org/fonts/source-code-pro)
 
-## Using custom font families
+## Installation
 
-::: info Default font families
-The above default font families are already bundled into the component library
-so you don't need to install them manually.
+To install and use the recommended onyx font families, install them by running
+
+::: code-group
+
+```sh [pnpm]
+pnpm add -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+```
+
+```sh [npm]
+npm install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+```
+
+```sh [pnpm]
+yarn install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+```
+
 :::
 
-If you want to use custom font families, you need to install them and override the following CSS variables manually.
+and then import them in your main TypeScript / CSS file, e.g.:
+
+::: code-group
+
+```ts [main.ts]
+import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/source-sans-3";
+```
+
+:::
+
+For further information about the font families or installation, refer to the [Fontsource docs](https://fontsource.org).
+
+## Using custom font families
+
+If you want to use custom font families, you need to install and import them like mentioned [above](#installation).
+Afterwards, you need to override the following CSS variables like shown below so the font families are picked up by all onyx components.
 
 We recommend installing font families as npm package using [Fontsource](https://fontsource.org).
 
 ::: code-group
 
 ```css [custom.css]
-/* import your custom fonts here... */
 :root {
   --onyx-font-family: "My custom font family", sans-serif;
   --onyx-font-family-mono: "My custom mono font family", monospace;
@@ -30,6 +58,7 @@ We recommend installing font families as npm package using [Fontsource](https://
 ```
 
 ```ts [main.ts]
+// import your custom fonts here...
 import "custom.css";
 ```
 
