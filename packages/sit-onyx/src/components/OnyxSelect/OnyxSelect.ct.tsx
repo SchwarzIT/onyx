@@ -11,7 +11,7 @@ import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
-import type { OnyxSelectProps, SelectOption } from "./types";
+import { type OnyxSelectProps, type SelectOption, SELECT_ALIGNMENTS } from "./types";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -247,7 +247,7 @@ test.describe("List description screenshots", () => {
 test.describe("Alignment screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select (alignment)",
-    columns: ["right", "left", "full"],
+    columns: SELECT_ALIGNMENTS,
     rows: ["top", "bottom"],
     disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
     component: (column, row) => (

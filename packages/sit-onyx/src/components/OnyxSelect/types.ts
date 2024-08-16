@@ -86,11 +86,11 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      */
     open?: ManagedProp<boolean>;
     /**
-     * Alignment of the select popover relative to the input.
-     * If set to full, the width of the select popover will be aligned (100%) with the input of OnyxSelect.
-     * Otherwise the width will be set to 'max-content' and aligned accordingly.
+     * Alignment of the select flyout relative to the input.
+     * If set to full, the width of the flyout will be aligned (100%) with the input of the select.
+     * Otherwise the flyout width will fit the options content width and aligned left/right.
      */
-    alignment?: "right" | "left" | "full";
+    alignment?: SelectAlignment;
     /**
      * Label describing the list of options to support assistive technologies.
      * @example: { label: "Your Animal", listLabel: "List of animals" }
@@ -139,3 +139,6 @@ export type SelectLazyLoading = {
    */
   scrollOffset?: number;
 };
+
+export const SELECT_ALIGNMENTS = ["full", "left", "right"] as const;
+export type SelectAlignment = (typeof SELECT_ALIGNMENTS)[number];
