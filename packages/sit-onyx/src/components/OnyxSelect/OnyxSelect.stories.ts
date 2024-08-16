@@ -454,12 +454,6 @@ export const WithTopOpenDirection = {
     options: DEMO_OPTIONS,
     placeholder: "Placeholder...",
   },
-  // decorators: [
-  //   (story) => ({
-  //     components: { story },
-  //     template: `<div style="margin-top: 25rem; margin-bottom: -20rem"> <story /> </div>`,
-  //   }),
-  // ],
 } satisfies Story;
 
 /**

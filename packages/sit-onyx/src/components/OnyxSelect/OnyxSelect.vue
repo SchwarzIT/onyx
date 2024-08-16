@@ -520,6 +520,11 @@ const selectInputProps = computed(() => {
       right: 0;
     }
 
+    &--right,
+    &--left {
+      max-width: 20rem;
+    }
+
     &__search {
       position: sticky;
       top: 0;
