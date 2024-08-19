@@ -1,5 +1,11 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-beta.31
+
+### Patch Changes
+
+- cc61364: fix(vitepress-theme): correctly import fonts
+
 ## 1.0.0-beta.30
 
 ### Patch Changes
