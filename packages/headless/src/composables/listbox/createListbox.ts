@@ -24,6 +24,10 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
    */
   controlled?: boolean;
   /**
+   * Controls the opened/visible state of the listbox. When expanded the activeOption can be controlled via the keyboard.
+   */
+  isExpanded?: MaybeRef<boolean>;
+  /**
    * Whether the listbox is multiselect.
    */
   multiple?: MaybeRef<TMultiple | undefined>;
@@ -81,6 +85,7 @@ export const createListbox = createBuilder(
     options: CreateListboxOptions<TValue, TMultiple>,
   ) => {
     const isMultiselect = computed(() => unref(options.multiple) ?? false);
+    const isExpanded = computed(() => unref(options.isExpanded) ?? false);
 
     /**
      * Map for option IDs. key = option value, key = ID for the HTML element
@@ -101,7 +106,11 @@ export const createListbox = createBuilder(
 
     // scroll currently active option into view if needed
     watchEffect(() => {
-      if (options.activeOption.value == undefined || (!isFocused.value && !options.controlled))
+      if (
+        !isExpanded.value ||
+        options.activeOption.value == undefined ||
+        (!isFocused.value && !options.controlled)
+      )
         return;
       const id = getOptionId(options.activeOption.value);
       document.getElementById(id)?.scrollIntoView({ block: "nearest", inline: "nearest" });
