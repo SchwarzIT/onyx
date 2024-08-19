@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.31
+
+### Patch Changes
+
+- 467d8f8: test: fix "window.matchMedia is not a function" error in unit tests
+
 ## 1.0.0-beta.30
 
 ### Major Changes
