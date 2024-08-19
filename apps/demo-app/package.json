@@ -14,7 +14,7 @@
     "@vueuse/core": "^11.0.0",
     "pinia": "^2.2.2",
     "sit-onyx": "workspace:^",
-    "vue-i18n": "^9.13.1",
+    "vue-i18n": "^9.14.0",
     "vue-router": "^4.4.3"
   }
 }
