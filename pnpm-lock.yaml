@@ -326,11 +326,11 @@ importers:
   packages/vitepress-theme:
     dependencies:
       '@fontsource-variable/source-code-pro':
-        specifier: '>= 5'
-        version: 5.0.19
+        specifier: ^5.0.20
+        version: 5.0.20
       '@fontsource-variable/source-sans-3':
-        specifier: '>= 5'
-        version: 5.0.21
+        specifier: ^5.0.22
+        version: 5.0.22
       sass:
         specifier: '>= 1'
         version: 1.77.8
@@ -1741,14 +1741,8 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@fontsource-variable/source-code-pro@5.0.19':
-    resolution: {integrity: sha512-mmeEykZsLRuFsklfamKVwahnWNpdAzpvGcOPPiFUydSnrd/9aEXy/HzOSYCOOTCP667L4nio9rB7wO3KVO5J/w==}
-
   '@fontsource-variable/source-code-pro@5.0.20':
     resolution: {integrity: sha512-ib79xMlEi9TJbeV7p0PoqCKVgFRuisQgYOluIa27cWChpBjTBQqK2A5Trs9zTmjuS3toz5S3H4f5s9v9fMfE3w==}
-
-  '@fontsource-variable/source-sans-3@5.0.21':
-    resolution: {integrity: sha512-HG2YLa3xs6+wrQrJoiborhX3q5spamGR1xe2QFkEbhD1QEKQ6goXKa+wccybDUrCBrKVOOeNqZQr5DkW0bqb1g==}
 
   '@fontsource-variable/source-sans-3@5.0.22':
     resolution: {integrity: sha512-KF/7gND9nMPy5bdX014TQ8ETt/BdTc/I7KpK2QtiliG+u04/n3TAmWDCiE8kUA7V4X9xp2D3TUvDJntOijRDpA==}
@@ -8438,11 +8432,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@fontsource-variable/source-code-pro@5.0.19': {}
-
   '@fontsource-variable/source-code-pro@5.0.20': {}
-
-  '@fontsource-variable/source-sans-3@5.0.21': {}
 
   '@fontsource-variable/source-sans-3@5.0.22': {}
 

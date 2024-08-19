@@ -27,10 +27,12 @@
     "build": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@fontsource-variable/source-code-pro": ">= 5",
-    "@fontsource-variable/source-sans-3": ">= 5",
     "sass": ">= 1",
     "sit-onyx": "workspace:^",
     "vitepress": ">= 1.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-code-pro": "^5.0.20",
+    "@fontsource-variable/source-sans-3": "^5.0.22"
   }
 }
