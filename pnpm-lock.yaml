@@ -139,8 +139,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/icons
       '@vueuse/core':
-        specifier: ^10.11.1
-        version: 10.11.1(vue@3.4.38(typescript@5.5.4))
+        specifier: ^11.0.0
+        version: 11.0.0(vue@3.4.38(typescript@5.5.4))
       pinia:
         specifier: ^2.2.2
         version: 2.2.2(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
@@ -193,8 +193,8 @@ importers:
         specifier: ~4.2.1
         version: 4.2.1
       '@vueuse/core':
-        specifier: ^10.11.1
-        version: 10.11.1(vue@3.4.38(typescript@5.5.4))
+        specifier: ^11.0.0
+        version: 11.0.0(vue@3.4.38(typescript@5.5.4))
       sit-onyx:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
