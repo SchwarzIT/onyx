@@ -65,6 +65,9 @@ export const defineActions = <T>(events: ExtractVueEventNames<T>[]): ArgTypes =>
   }, {});
 };
 
+/**
+ * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
+ */
 export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
   Object.values(argTypes)
     .filter(({ table }) => table?.category === "events")
