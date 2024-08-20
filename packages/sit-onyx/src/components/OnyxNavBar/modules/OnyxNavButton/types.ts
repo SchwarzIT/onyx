@@ -1,7 +1,8 @@
+import type { ManagedProp } from "../../../../composables/useManagedState";
 import type { OnyxExternalLinkIcon } from "../../../OnyxExternalLinkIcon/types";
 
 export type OnyxNavButtonProps = OnyxExternalLinkIcon & {
-  mobileChildrenOpen?: boolean;
+  mobileChildrenOpen?: ManagedProp<boolean>;
   /**
    * Label to show inside the Nav item.
    * You can use the `default` slot to display custom content.
