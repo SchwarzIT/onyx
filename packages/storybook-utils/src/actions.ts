@@ -10,6 +10,8 @@ import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } fr
  * the given events as well as implementing v-model handlers so that the Storybook controls are updated when you interact with the component.
  * Should be preferred over manually defining argTypes for *.stories.ts files.
  *
+ * @deprecated Can be replaced globally by using the `withGlobalVModelDecorator` decorator and the `enhanceEventArgTypes` argTypesEnhancer.
+ *
  * @example
  * ```ts
  * // Input.stories.ts
@@ -170,7 +172,7 @@ export const withGlobalVModelDecorator = (options?: WithVModelDecoratorOptions):
   return (story, ctx) => {
     const vModelFilter =
       options?.filter ||
-      (({ table, name }) => table?.category === "event" && name.startsWith("update:"));
+      (({ table, name }) => table?.category === "events" && name.startsWith("update:"));
 
     const vModelEvents = Object.values(ctx.argTypes).filter(vModelFilter);
 
@@ -180,8 +182,8 @@ export const withGlobalVModelDecorator = (options?: WithVModelDecoratorOptions):
     // the destructuring is needed to fix the Storybook issue that the code preview is broken
     const proxiedArgs = reactive({ ...args });
 
-    vModelEvents.forEach((eventName) => {
-      const propName = eventName.replace("update:", "");
+    vModelEvents.forEach(({ name }) => {
+      const propName = name.replace("update:", "");
       const argName = `onUpdate:${propName}`;
       const originalEventHandler = proxiedArgs[argName];
 
