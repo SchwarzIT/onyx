@@ -7,6 +7,7 @@ vi.mock("vue", async (importOriginal) => {
     ...(await importOriginal()),
     // this will only affect "foo" outside of the original module
     onBeforeMount: (callback) => callback(),
+    onBeforeUnmount: vi.fn(),
   } satisfies typeof import("vue");
 });
 
