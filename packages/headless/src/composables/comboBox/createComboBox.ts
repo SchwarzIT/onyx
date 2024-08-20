@@ -227,7 +227,7 @@ export const createComboBox = createBuilder(
       multiple,
       controlled: true,
       activeOption,
-      isExpanded: isExpanded.value,
+      isExpanded,
       onSelect: handleSelect,
     });
 
