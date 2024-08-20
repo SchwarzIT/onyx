@@ -1,4 +1,4 @@
-import { createPreview, enhanceEventArgTypes } from "@sit-onyx/storybook-utils";
+import { createPreview } from "@sit-onyx/storybook-utils";
 import { setup, type Preview } from "@storybook/vue3";
 import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "../src";
 import docsTemplate from "./docs-template.mdx";
@@ -13,7 +13,7 @@ import { enhanceManagedSymbol } from "./managed";
 import { withOnyxVModelDecorator } from "./vModel";
 
 const basePreview = createPreview({
-  argTypesEnhancers: [enhanceManagedSymbol, enhanceEventArgTypes],
+  argTypesEnhancers: [enhanceManagedSymbol],
   parameters: {
     docs: {
       page: docsTemplate,

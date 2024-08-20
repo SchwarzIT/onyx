@@ -5,6 +5,7 @@ import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
 import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
+import { enhanceEventArgTypes } from "./actions";
 import { requiredGlobalType, withRequired } from "./required";
 import { generateSourceCode } from "./source-code-generator";
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
@@ -41,6 +42,7 @@ const themes = {
  */
 export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   const defaultPreview = {
+    argTypesEnhancers: [enhanceEventArgTypes],
     globalTypes: {
       ...requiredGlobalType,
     },
