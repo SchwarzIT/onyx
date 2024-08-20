@@ -207,13 +207,6 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     };
   });
 
-  const title = computed(() => {
-    const title = [];
-    if (options.props.hideLabel) title.push(options.props.label);
-    if (errorMessages.value) title.push(getCustomErrorText(errorMessages.value));
-    return title.length ? title.join("\n") : undefined;
-  });
-
   return {
     /**
      * Directive to set the custom error message and emit validityChange event.
@@ -223,10 +216,5 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
      * A custom error or the default translation of the first invalid state if one exists.
      */
     errorMessages,
-    /**
-     * A combination of a label (if it is hidden) and the error message (if an error exists).
-     * Usage e.g. on OnyxRadioButton, OnyxCheckbox, OnyxSwitch where no error message footer exists.
-     */
-    title,
   };
 };

@@ -67,6 +67,9 @@ export * from "./components/OnyxNavBar/types";
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
 
+export { default as OnyxPagination } from "./components/OnyxPagination/OnyxPagination.vue";
+export * from "./components/OnyxPagination/types";
+
 export { default as OnyxRadioButton } from "./components/OnyxRadioButton/OnyxRadioButton.vue";
 export * from "./components/OnyxRadioButton/types";
 

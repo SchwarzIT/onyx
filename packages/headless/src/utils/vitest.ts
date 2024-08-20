@@ -1,6 +1,6 @@
-import { vi, type Awaitable } from "vitest";
+import { vi } from "vitest";
 
-type Callback = () => Awaitable<void>;
+type Callback = () => void | (() => Promise<void>);
 
 /**
  * Mocks the following vue lifecycle functions:

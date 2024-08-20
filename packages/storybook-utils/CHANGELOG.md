@@ -1,5 +1,58 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.32
+
+### Patch Changes
+
+- Updated dependencies [467d8f8]
+  - sit-onyx@1.0.0-beta.31
+
+## 1.0.0-beta.31
+
+### Patch Changes
+
+- Updated dependencies [d7b68e0]
+  - sit-onyx@1.0.0-beta.30
+
+## 1.0.0-beta.30
+
+### Patch Changes
+
+- Updated dependencies [40b517d]
+  - sit-onyx@1.0.0-beta.29
+
+## 1.0.0-beta.29
+
+### Minor Changes
+
+- 4c49760: feat: add `walkTree` function that is able to traverse the storybook type tree
+
+### Patch Changes
+
+- Updated dependencies [4c49760]
+  - sit-onyx@1.0.0-beta.28
+
+## 1.0.0-beta.28
+
+### Patch Changes
+
+- Updated dependencies [3163863]
+  - sit-onyx@1.0.0-beta.27
+
+## 1.0.0-beta.27
+
+### Patch Changes
+
+- Updated dependencies [93f4386]
+  - sit-onyx@1.0.0-beta.26
+
+## 1.0.0-beta.26
+
+### Patch Changes
+
+- Updated dependencies [244219f]
+  - sit-onyx@1.0.0-beta.25
+
 ## 1.0.0-beta.25
 
 ### Patch Changes

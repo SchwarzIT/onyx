@@ -165,6 +165,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       box-sizing: border-box;
       max-height: inherit;
       max-width: inherit;
+      overscroll-behavior: none; // fix bouncy scroll behavior in safari
 
       &:focus-visible {
         outline: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-500);

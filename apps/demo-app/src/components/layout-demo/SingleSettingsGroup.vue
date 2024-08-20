@@ -33,7 +33,7 @@ const selectedOption = computed({
 <template>
   <OnyxRadioGroup
     v-model="selectedOption"
-    :headline="props.headline"
+    :label="props.headline"
     :options="props.options"
     :direction="props.horizontal ? 'horizontal' : 'vertical'"
   />

@@ -22,11 +22,11 @@ const EXAMPLE_OPTIONS: BaseSelectOption[] = [
 ];
 
 /**
- * This example shows a radio group with a headline.
+ * This example shows a radio group with a label.
  */
 export const Default = {
   args: {
-    headline: "Headline",
+    label: "Group label",
     options: EXAMPLE_OPTIONS,
     modelValue: EXAMPLE_OPTIONS[0].value,
   },
@@ -37,7 +37,7 @@ export const Default = {
  */
 export const Disabled = {
   args: {
-    headline: "Headline",
+    label: "Group label",
     options: EXAMPLE_OPTIONS,
     modelValue: EXAMPLE_OPTIONS[0].value,
     disabled: true,
@@ -49,7 +49,7 @@ export const Disabled = {
  */
 export const Horizontal = {
   args: {
-    headline: "Headline",
+    label: "Group label",
     options: EXAMPLE_OPTIONS,
     modelValue: EXAMPLE_OPTIONS[0].value,
     direction: "horizontal",
@@ -96,6 +96,15 @@ export const Required = {
     modelValue: undefined,
     required: true,
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="padding-left: 2rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;
 
 /**
@@ -106,8 +115,17 @@ export const CustomError = {
   args: {
     ...Default.args,
     customError: {
-      shortMessage: "Example custom error",
-      longMessage: "This text might inform the users what they can do to fix the error.",
+      shortMessage: "Custom error",
+      longMessage: "Further explanation.",
     },
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+      <div style="padding-left: 2rem;">
+        <story />
+      </div>`,
+    }),
+  ],
 } satisfies Story;

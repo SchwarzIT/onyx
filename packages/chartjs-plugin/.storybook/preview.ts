@@ -3,6 +3,8 @@ import { setup } from "@storybook/vue3";
 import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "../src";
 
+import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
 import "sit-onyx/src/styles/index.scss";
 

@@ -2,12 +2,14 @@ import { createPreview, enhanceEventArgTypes } from "@sit-onyx/storybook-utils";
 import { setup, type Preview } from "@storybook/vue3";
 import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "../src";
 import docsTemplate from "./docs-template.mdx";
+import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
+import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
 import { enhanceManagedSymbol } from "./managed";
-import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 import { withOnyxVModelDecorator } from "./vModel";
 
 const basePreview = createPreview({
@@ -30,6 +32,7 @@ const basePreview = createPreview({
 
 const preview: Preview = {
   ...basePreview,
+  tags: ["autodocs"],
   parameters: {
     ...basePreview.parameters,
     options: {

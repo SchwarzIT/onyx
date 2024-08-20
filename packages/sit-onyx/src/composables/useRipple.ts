@@ -68,7 +68,8 @@ export const useRipple = (config: Ref<RippleConfig>) => {
   // so we need to make sure to only call it in "onBeforeMount"
   onBeforeMount(() => {
     // detect if NO pointer device exists, so we use touch events
-    if (window.matchMedia("pointer: none").matches) {
+    // we check if "window.matchMedia" exists first (with the ? operator) because it may not be available in e.g. unit tests
+    if (window.matchMedia?.("pointer: none").matches) {
       events.value = {
         touchstart: startRipple,
         touchend: hideRipples,

@@ -1,5 +1,55 @@
 # sit-onyx
 
+## 1.0.0-beta.31
+
+### Patch Changes
+
+- 467d8f8: test: fix "window.matchMedia is not a function" error in unit tests
+
+## 1.0.0-beta.30
+
+### Major Changes
+
+- d7b68e0: feat: remove inline font families from bundle
+
+  onyx now no longer bundles/inlines the recommend font families because they got bundled by Vite into the main `style.css` file as base64 encoded URL.
+  This had negative impact on performance, tree-shaking and bundle size.
+
+  From now on, you need to install and import the font families manually. For more information see our [typography docs](https://onyx.schwarz/development/typography.html#installation).
+
+## 1.0.0-beta.29
+
+### Minor Changes
+
+- 40b517d: feat: implement `OnyxPagination` modern type
+
+## 1.0.0-beta.28
+
+### Minor Changes
+
+- 4c49760: fix: props with managed capability not working when used without v-model
+
+## 1.0.0-beta.27
+
+### Major Changes
+
+- 3163863: fix: require aria label for radio and checkbox group
+
+  Removed property `headline` from `OnyxRadioGroup` and `OnyxCheckbox` in favor of new required `label` property which is also used as aria label for screen readers.
+  If you want to visually hide the label, set the `hideLabel` property.
+
+## 1.0.0-beta.26
+
+### Patch Changes
+
+- 93f4386: fix(OnyxTable): disable overscroll behavior
+
+## 1.0.0-beta.25
+
+### Minor Changes
+
+- 244219f: feat(OnyxSelect): Implement listDescription property
+
 ## 1.0.0-beta.24
 
 ### Minor Changes

@@ -35,7 +35,7 @@ const selectedOptions = computed({
 <template>
   <OnyxCheckboxGroup
     v-model="selectedOptions"
-    :headline="headline"
+    :label="headline"
     :options="options"
     :direction="horizontal ? 'horizontal' : 'vertical'"
   />

@@ -1,5 +1,77 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.32
+
+### Patch Changes
+
+- Updated dependencies [467d8f8]
+  - sit-onyx@1.0.0-beta.31
+
+## 1.0.0-beta.31
+
+### Major Changes
+
+- d7b68e0: feat: remove inline font families from bundle
+
+  onyx now no longer bundles/inlines the recommend font families because they got bundled by Vite into the main `style.css` file as base64 encoded URL.
+  This had negative impact on performance, tree-shaking and bundle size.
+
+  From now on, you need to install and import the font families manually. For more information see our [typography docs](https://onyx.schwarz/development/typography.html#installation).
+
+  For Nuxt, you can run
+
+  ```sh
+  npm install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+  ```
+
+  and then import them in your `nuxt.config.ts`:
+
+  ```ts
+  export default defineNuxtConfig({
+    css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
+  });
+  ```
+
+### Patch Changes
+
+- Updated dependencies [d7b68e0]
+  - sit-onyx@1.0.0-beta.30
+
+## 1.0.0-beta.30
+
+### Patch Changes
+
+- Updated dependencies [40b517d]
+  - sit-onyx@1.0.0-beta.29
+
+## 1.0.0-beta.29
+
+### Patch Changes
+
+- Updated dependencies [4c49760]
+  - sit-onyx@1.0.0-beta.28
+
+## 1.0.0-beta.28
+
+### Patch Changes
+
+- Updated dependencies [3163863]
+  - sit-onyx@1.0.0-beta.27
+
+## 1.0.0-beta.27
+
+### Patch Changes
+
+- Updated dependencies [93f4386]
+  - sit-onyx@1.0.0-beta.26
+
+## 1.0.0-beta.26
+
+### Patch Changes
+
+- Updated dependencies [244219f]
+  - sit-onyx@1.0.0-beta.25
+
 ## 1.0.0-beta.25
 
 ### Patch Changes

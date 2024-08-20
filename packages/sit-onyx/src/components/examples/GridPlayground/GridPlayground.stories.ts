@@ -1,20 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import Grid from "./GridPlayground.vue";
+import GridPlayground from "./GridPlayground.vue";
 
-/**
- * The GridPlayground allows to test and play around with the Onyx grid system
- */
-const meta: Meta<typeof Grid> = {
+const meta: Meta<typeof GridPlayground> = {
   title: "Examples/GridPlayground",
-  component: Grid,
+  tags: ["!autodocs"],
+  component: GridPlayground,
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof Grid>;
+type Story = StoryObj<typeof GridPlayground>;
 
-/**
- * Please open in Fullscreen mode for playground to behave correctly!
- */
-export const Default = {
-  args: {},
-} satisfies Story;
+export const Default = { args: {} } satisfies Story;

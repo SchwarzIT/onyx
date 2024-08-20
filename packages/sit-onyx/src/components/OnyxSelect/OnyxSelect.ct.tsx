@@ -3,7 +3,10 @@ import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/p
 import { DENSITIES } from "../../composables/density";
 import type { FormErrorMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import {
+  adjustAbsolutePositionScreenshot,
+  executeMatrixScreenshotTest,
+} from "../../playwright/screenshots";
 import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
@@ -45,13 +48,7 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
 const openFlyout = async (component: MountResultJsx) => {
   const box = (await component.boundingBox())!;
   await component.click({ position: { x: box.x + box.width / 2, y: box.y + box.height / 2 } });
-
-  // since the flyout is positioned absolute, we need to set the component size accordingly
-  // so the screenshot contains the whole component
-  await component.evaluate((element) => {
-    element.style.height = `${element.scrollHeight}px`;
-    element.style.width = `${element.scrollWidth}px`;
-  });
+  await adjustAbsolutePositionScreenshot(component);
 };
 
 test.describe("Default screenshots", () => {
@@ -219,6 +216,29 @@ test.describe("Multiple screenshots", () => {
     },
     beforeScreenshot: async (component, _page, _column, row) => {
       if (row !== "preview") await openFlyout(component);
+    },
+  });
+});
+
+test.describe("List description screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Select (list-description)",
+    columns: DENSITIES,
+    rows: ["default"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column) => (
+      <div>
+        <OnyxSelect
+          label="Label"
+          listLabel="List label"
+          options={MOCK_MANY_OPTIONS}
+          density={column}
+          listDescription="List description"
+        />
+      </div>
+    ),
+    beforeScreenshot: async (component, _page, _column) => {
+      await openFlyout(component);
     },
   });
 });
