@@ -1,6 +1,6 @@
-import { withGlobalVModelDecorator } from "@sit-onyx/storybook-utils";
+import { withVModelDecorator } from "@sit-onyx/storybook-utils";
 
-export const withOnyxVModelDecorator = withGlobalVModelDecorator({
+export const withOnyxVModelDecorator = withVModelDecorator({
   filter: ({ table, name }) =>
     table?.category === "events" &&
     name.startsWith("update:") &&

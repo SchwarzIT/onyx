@@ -99,7 +99,7 @@ export type WithVModelDecoratorOptions = {
  * Defines a custom decorator that will implement event handlers for all v-models
  * so that the Storybook controls are updated live when the user interacts with the component
  *
- * @deprecated prefer to use `withGlobalVModelDecorator` as a global decorator
+ * @deprecated Use `withVModelDecorator` without providing eventnames
  * @example
  * ```ts
  * import Input from './Input.vue';
@@ -109,9 +109,39 @@ export type WithVModelDecoratorOptions = {
  * }
  * ```
  */
-export const withVModelDecorator = <T>(events: ExtractVueEventNames<T>[]): Decorator => {
+export function withVModelDecorator<T>(events: ExtractVueEventNames<T>[]): Decorator;
+/**
+ * Defines a custom decorator that will implement event handlers for all v-models
+ * so that the Storybook controls are updated live when the user interacts with the component
+ *
+ * @example
+ * ```ts
+ * // .storybook/preview.ts
+ *
+ * {
+ *   decorators: [withVModelDecorator()]
+ * }
+ * ```
+ */
+export function withVModelDecorator(options?: WithVModelDecoratorOptions): Decorator;
+export function withVModelDecorator<T>(
+  eventsOrOptions?: WithVModelDecoratorOptions | ExtractVueEventNames<T>[],
+): Decorator {
   return (story, ctx) => {
-    const vModelEvents = events.filter((event) => event.startsWith("update:"));
+    let vModelEvents: string[];
+
+    if (Array.isArray(eventsOrOptions)) {
+      vModelEvents = eventsOrOptions.filter((event) => event.startsWith("update:"));
+    } else {
+      const vModelFilter =
+        eventsOrOptions?.filter ||
+        (({ table, name }) => table?.category === "events" && name.startsWith("update:"));
+
+      vModelEvents = Object.values(ctx.argTypes)
+        .filter(vModelFilter)
+        .map(({ name }) => name);
+    }
+
     if (!vModelEvents.length) return story();
 
     const [args, updateArgs] = useArgs();
@@ -153,69 +183,7 @@ export const withVModelDecorator = <T>(events: ExtractVueEventNames<T>[]): Decor
     ctx.args = proxiedArgs as typeof ctx.args;
     return story(ctx);
   };
-};
-
-/**
- * Defines a custom decorator that will implement event handlers for all v-models
- * so that the Storybook controls are updated live when the user interacts with the component
- *
- * @example
- * ```ts
- * import Input from './Input.vue';
- *
- * {
- *   decorators: [withVModelDecorator<typeof Input>(["update:modelValue"])]
- * }
- * ```
- */
-export const withGlobalVModelDecorator = (options?: WithVModelDecoratorOptions): Decorator => {
-  return (story, ctx) => {
-    const vModelFilter =
-      options?.filter ||
-      (({ table, name }) => table?.category === "events" && name.startsWith("update:"));
-
-    const vModelEvents = Object.values(ctx.argTypes).filter(vModelFilter);
-
-    const [args, updateArgs] = useArgs();
-
-    // proxy the args so that we can add custom event handlers for all v-models below
-    // the destructuring is needed to fix the Storybook issue that the code preview is broken
-    const proxiedArgs = reactive({ ...args });
-
-    vModelEvents.forEach(({ name }) => {
-      const propName = name.replace("update:", "");
-      const argName = `onUpdate:${propName}`;
-      const originalEventHandler = proxiedArgs[argName];
-
-      // emit event to update the value of the property inside the Storybook controls / table.
-      const updateVModel = (newValue?: unknown) => {
-        updateArgs({ [propName]: newValue });
-        proxiedArgs[propName] = newValue;
-      };
-
-      // proxy the original event handler to additionally call our custom `updateVModel` function
-      proxiedArgs[argName] = (...args: unknown[]) => {
-        const newValue = args.at(0);
-        updateVModel(newValue);
-        if (typeof originalEventHandler === "function") originalEventHandler(...args);
-      };
-    });
-
-    // since we are proxying the args, we need to watch the "original" `args` to
-    // reflect the changes when the user updates the control/input for a property inside Storybooks property table
-    if (isReactive(args)) {
-      watch(args, (newArgs) => {
-        for (const key in newArgs) {
-          if (key.startsWith("onUpdate:")) continue;
-          proxiedArgs[key] = newArgs[key];
-        }
-      });
-    }
-
-    ctx.args = proxiedArgs as typeof ctx.args;
-    return story(ctx);
-  };
-};
+}
 
 /** Capitalizes the first letter of the given string */
 const capitalizeFirstLetter = (value: string) => {
