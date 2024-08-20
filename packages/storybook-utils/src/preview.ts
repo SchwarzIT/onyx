@@ -22,6 +22,7 @@ const themes = {
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file
  * - Custom Storybook theme using onyx colors (light and dark mode)
  * - Configure viewports / breakpoints as defined by onyx
+ * - Logs Vue emits as Storybook events
  *
  * @param overrides Custom preview / overrides, will be deep merged with the default preview.
  *
