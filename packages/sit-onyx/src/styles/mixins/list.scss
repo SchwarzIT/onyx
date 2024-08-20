@@ -6,6 +6,7 @@
   padding: $wrapper-padding 0;
   box-shadow: var(--onyx-shadow-medium-bottom);
   box-sizing: border-box;
+  width: max-content;
   min-width: var(--onyx-spacing-4xl);
   max-width: 20rem;
   font-family: var(--onyx-font-family);

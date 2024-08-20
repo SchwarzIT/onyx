@@ -451,7 +451,6 @@ const selectInputProps = computed(() => {
     $outline-size: 0.25rem;
 
     position: absolute;
-    width: max-content;
 
     visibility: hidden;
     opacity: 0;
