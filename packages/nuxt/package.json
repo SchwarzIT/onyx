@@ -42,7 +42,7 @@
     "@nuxt/module-builder": "~0.8.3",
     "@nuxt/schema": "^3.12.4",
     "@nuxt/test-utils": "^3.14.1",
-    "@nuxtjs/i18n": "^8.4.0",
+    "@nuxtjs/i18n": "^8.5.0",
     "nuxt": "^3.12.4",
     "vue-i18n": "^9.14.0"
   },
