@@ -32,6 +32,7 @@ const {
   label: "Test listbox",
   description: "Test description",
   activeOption,
+  isExpanded: true,
   onSelect: (id) => {
     selectedOption.value = selectedOption.value === id ? undefined : id;
   },

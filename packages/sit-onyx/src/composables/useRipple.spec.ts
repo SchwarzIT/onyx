@@ -2,12 +2,12 @@ import { describe, expect, test, vi } from "vitest";
 import { computed, ref } from "vue";
 import { useRipple, type RippleConfig } from "./useRipple";
 
-describe("useRipple", () => {
-  vi.stubGlobal(
-    "matchMedia",
-    vi.fn(() => ({ matches: true })),
-  );
+vi.mock("vue", async (original) => ({
+  ...((await original()) as typeof import("vue")),
+  onBeforeMount: vi.fn((callback) => callback()),
+}));
 
+describe("useRipple", () => {
   const rect = {
     x: 0,
     y: 0,

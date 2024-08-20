@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
   modules: ["../src/module", "@nuxtjs/i18n"],
   devtools: { enabled: true },
+  compatibilityDate: "2024-07-08",
+  css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
   i18n: {
     defaultLocale: "en-US",
     lazy: true,
@@ -13,7 +15,7 @@ export default defineNuxtConfig({
       // "tlh" is the bcd 47 code for Klingon -> This is a custom translation that doesn't exist in onyx and therefor the project needs to provide them
       { code: "tlh", file: "tlh.json", name: "tlhIngan" },
       // int is a fictional language code we might want to support in our app, as the language is not supported by onyx we will create it inside the project and use the onyx translations for de-DE. (See ./i18n/int.ts)
-      { code: "int", iso: "de-DE", file: "int.ts", name: "International (DE)" },
+      { code: "int", language: "de-DE", file: "int.ts", name: "International (DE)" },
     ],
   },
   onyx: {
@@ -26,6 +28,4 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  compatibilityDate: "2024-07-08",
 });
