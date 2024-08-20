@@ -83,6 +83,19 @@ export default config;
 
 :::
 
+### withGlobalVModelDecorator
+
+Defines a custom decorator that will implement event handlers for all v-models.
+So the Storybook controls are updated live when the user interacts with the component.
+
+```ts [.storybook/preview.ts]
+import { withGlobalVModelDecorator } from "@sit-onyx/storybook-utils";
+
+export default {
+  decorators: [withGlobalVModelDecorator()],
+};
+```
+
 ### createTheme
 
 Creates a custom theme for Storybook that uses onyx colors.
