@@ -476,16 +476,12 @@ const selectInputProps = computed(() => {
 
     &--full {
       width: 100%;
+      max-width: unset;
       left: 0;
     }
 
     &--right {
       right: 0;
-    }
-
-    &--right,
-    &--left {
-      max-width: 20rem;
     }
 
     &__search {
