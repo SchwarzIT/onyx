@@ -61,9 +61,7 @@ yarn install @sit-onyx/figma-utils@beta
 
 :::
 
-### Examples
-
-#### Import Figma variables to CSS variables
+### Import variables as CSS
 
 ::: info CLI command
 Importing variables is also supported via CLI. For more information, run:
@@ -105,7 +103,7 @@ parsedVariables.forEach((mode) => {
 });
 ```
 
-#### Import icons from Figma
+### Import icons
 
 ::: info CLI command
 Importing icons is also supported via CLI. For more information, run:
