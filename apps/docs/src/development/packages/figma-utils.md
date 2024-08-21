@@ -65,6 +65,17 @@ yarn install @sit-onyx/figma-utils@beta
 
 #### Import Figma variables to CSS variables
 
+::: info CLI command
+Importing variables is also supported via CLI. For more information, run:
+
+```sh
+npx @sit-onyx/figma-utils@beta import-variables --help
+```
+
+:::
+
+Alternatively, you can implement it manually for full control and customization:
+
 ```ts
 import fs from "node:fs";
 import path from "node:path";
@@ -92,4 +103,54 @@ parsedVariables.forEach((mode) => {
   const fullPath = path.join(process.cwd(), filename);
   fs.writeFileSync(fullPath, fileContent);
 });
+```
+
+#### Import icons from Figma
+
+::: info CLI command
+Importing icons is also supported via CLI. For more information, run:
+
+```sh
+npx @sit-onyx/figma-utils@beta import-icons --help
+```
+
+:::
+
+Alternatively, you can implement it manually for full control and customization:
+
+```ts
+import fs from "node:fs";
+import path from "node:path";
+import { fetchFigmaComponents, optimizeSvg } from "@sit-onyx/figma-utils";
+
+const FILE_KEY = "your-figma-file-key";
+const FIGMA_TOKEN = "your-figma-access-token";
+const ICON_PAGE_ID = "your-page-id-that-contains-the-icons"; // e.g. "1:345"
+
+// fetch icon components from Figma API
+const data = await fetchFigmaComponents(FILE_KEY, FIGMA_TOKEN);
+
+// parse components into a normalized format
+const parsedIcons = parseComponentsToIcons(data.meta.components, ICON_PAGE_ID);
+
+// fetch actual SVG content of the icons
+const svgContents = await fetchFigmaSVGs(
+  FILE_KEY,
+  parsedIcons.map(({ id }) => id),
+  FIGMA_TOKEN,
+);
+
+const outputDirectory = process.cwd();
+
+// write .svg files for all icons
+await Promise.all(
+  parsedIcons.map((icon) => {
+    const fullPath = path.join(outputDirectory, `${icon.name}.svg`);
+    const content = optimizeSvg(svgContents[icon.id], fullPath);
+    return writeFile(fullPath, content, "utf-8");
+  }),
+);
+
+// optionally write file with metadata (categories, alias names etc.)
+await writeIconMetadata(path.join(outputDirectory, "metadata.json"), parsedIcons);
 ```
