@@ -52,6 +52,8 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       :value-label="props.modelValue.toString()"
       hide-label
       :disabled="props.disabled || props.pages <= 1"
+      alignment="left"
+      with-search
       @update:model-value="
         emit('update:modelValue', $event as (typeof selectOptions)[number]['value'])
       "
