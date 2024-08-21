@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.6
+
+### Patch Changes
+
+- 820e63a: fix(listbox): Fix listbox auto scrolling behavior when it's closed
+
 ## 1.0.0-beta.5
 
 ### Major Changes

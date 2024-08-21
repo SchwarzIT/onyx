@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.32
+
+### Minor Changes
+
+- e8c5341: feat(OnyxSelect): add property alignment and auto detection for opening to top/bottom depending on the available space
+
 ## 1.0.0-beta.31
 
 ### Patch Changes
