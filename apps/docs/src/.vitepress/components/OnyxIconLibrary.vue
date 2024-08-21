@@ -25,7 +25,11 @@ const filteredCategories = computed(() => {
         icons: category.icons.filter(
           (icon) =>
             icon.iconName.toLowerCase().includes(lowerCaseSearch) ||
-            icon.metadata.aliases?.some((alias) => alias.includes(lowerCaseSearch)),
+            icon.metadata.aliases?.some(
+              (alias) =>
+                alias.includes(lowerCaseSearch) ||
+                alias.replace(/-/g, " ").includes(lowerCaseSearch),
+            ),
         ),
       };
     })
