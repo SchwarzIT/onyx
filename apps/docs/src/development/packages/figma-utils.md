@@ -129,7 +129,10 @@ const ICON_PAGE_ID = "your-page-id-that-contains-the-icons"; // e.g. "1:345"
 const data = await fetchFigmaComponents(FILE_KEY, FIGMA_TOKEN);
 
 // parse components into a normalized format
-const parsedIcons = parseComponentsToIcons(data.meta.components, ICON_PAGE_ID);
+const parsedIcons = parseComponentsToIcons({
+  components: data.meta.components,
+  pageId: ICON_PAGE_ID,
+});
 
 // fetch actual SVG content of the icons
 const svgContents = await fetchFigmaSVGs(

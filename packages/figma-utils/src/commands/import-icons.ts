@@ -11,6 +11,7 @@ export type ImportIconsCommandOptions = {
   fileKey: string;
   token: string;
   pageId: string;
+  aliasSeparator: string;
   dir?: string;
   metaFile?: string;
 };
@@ -31,6 +32,11 @@ export const importIconsCommand = new Command("import-icons")
     "-m, --meta-file <string>",
     'JSON filename/path to write icon metadata to (categories, alias names etc.). Must end with ".json". If unset, no metadata will be generated.',
   )
+  .option(
+    "-s, --alias-separator <string>",
+    "Separator for icon alias names (which can be set to the component description in Figma).",
+    "|",
+  )
   .action(importIconsCommandAction);
 
 /**
@@ -41,7 +47,11 @@ export async function importIconsCommandAction(options: ImportIconsCommandOption
   const data = await fetchFigmaComponents(options.fileKey, options.token);
 
   console.log("Parsing Figma icons...");
-  const parsedIcons = parseComponentsToIcons(data.meta.components, options.pageId);
+  const parsedIcons = parseComponentsToIcons({
+    components: data.meta.components,
+    pageId: options.pageId,
+    aliasSeparator: options.aliasSeparator,
+  });
   const outputDirectory = options.dir ?? process.cwd();
 
   console.log(`Fetching SVG content for ${parsedIcons.length} icons...`);
