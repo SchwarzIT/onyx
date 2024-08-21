@@ -60,8 +60,8 @@ export async function importIconsCommandAction(options: ImportIconsCommandOption
 
   await Promise.all(
     parsedIcons.map((icon) => {
+      const content = optimizeSvg(svgContents[icon.id]);
       const fullPath = path.join(outputDirectory, `${icon.name}.svg`);
-      const content = optimizeSvg(svgContents[icon.id], fullPath);
       return writeFile(fullPath, content, "utf-8");
     }),
   );

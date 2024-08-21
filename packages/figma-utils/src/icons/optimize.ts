@@ -7,9 +7,8 @@ import { optimize } from "svgo";
  * - remove dimensions (height/width) so it can be set via CSS
  * - "preset-default" to reduce file size and redundant information
  */
-export const optimizeSvg = (svgContent: string, path: string) => {
+export const optimizeSvg = (svgContent: string) => {
   const { data } = optimize(svgContent, {
-    path,
     multipass: true,
     plugins: [
       { name: "preset-default" },
