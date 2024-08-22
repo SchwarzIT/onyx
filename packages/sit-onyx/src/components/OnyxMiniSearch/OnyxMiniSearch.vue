@@ -84,6 +84,7 @@ defineExpose({
     --onyx-mini-search-padding-inline: var(--onyx-density-sm);
 
     display: flex;
+    gap: var(--onyx-mini-search-padding-inline);
     padding: var(--onyx-density-xs) var(--onyx-mini-search-padding-inline);
     background-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -109,7 +110,6 @@ defineExpose({
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
       display: none;
-      margin-left: var(--onyx-mini-search-padding-inline);
 
       .onyx-icon {
         --icon-size: var(--onyx-mini-search-icon-size);
