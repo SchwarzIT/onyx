@@ -11,7 +11,7 @@ import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
-import type { OnyxSelectProps, SelectOption } from "./types";
+import { type OnyxSelectProps, type SelectOption, SELECT_ALIGNMENTS } from "./types";
 
 const DISABLED_ACCESSIBILITY_RULES = [
   // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
@@ -46,8 +46,9 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
 })) satisfies SelectOption[];
 
 const openFlyout = async (component: MountResultJsx) => {
-  const box = (await component.boundingBox())!;
-  await component.click({ position: { x: box.x + box.width / 2, y: box.y + box.height / 2 } });
+  const toggleButton = component.getByLabel("Toggle selection popover");
+
+  if (await toggleButton.isEnabled()) await toggleButton.click();
   await adjustAbsolutePositionScreenshot(component);
 };
 
@@ -238,6 +239,28 @@ test.describe("List description screenshots", () => {
       </div>
     ),
     beforeScreenshot: async (component, _page, _column) => {
+      await openFlyout(component);
+    },
+  });
+});
+
+test.describe("Alignment screenshots", () => {
+  executeMatrixScreenshotTest({
+    name: "Select (alignment)",
+    columns: SELECT_ALIGNMENTS,
+    rows: ["top", "bottom"],
+    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    component: (column, row) => (
+      <div style={{ paddingTop: row === "top" ? "22rem" : "" }}>
+        <OnyxSelect
+          label="Label"
+          listLabel="List label"
+          options={MOCK_MANY_OPTIONS}
+          alignment={column}
+        />
+      </div>
+    ),
+    beforeScreenshot: async (component) => {
       await openFlyout(component);
     },
   });
