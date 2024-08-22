@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.34
+
+### Patch Changes
+
+- 934a903: fix(OnyxFormElement): fix identical default id for all forms
+
 ## 1.0.0-beta.33
 
 ### Patch Changes
