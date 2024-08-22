@@ -1,71 +1,7 @@
-import type { ArgTypes, Decorator, Meta } from "@storybook/vue3";
-import { deepmerge } from "deepmerge-ts";
+import type { Decorator } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
 import type { ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
 import { isReactive, reactive, watch } from "vue";
-import type { DefineStorybookActionsAndVModelsOptions, ExtractVueEventNames } from ".";
-
-/**
- * Utility to define Storybook meta for a given Vue component which will take care of defining argTypes for
- * the given events as well as implementing v-model handlers so that the Storybook controls are updated when you interact with the component.
- * Should be preferred over manually defining argTypes for *.stories.ts files.
- *
- * @deprecated Can be replaced globally by using the `withGlobalVModelDecorator` decorator and the `enhanceEventArgTypes` argTypesEnhancer.
- *
- * @example
- * ```ts
- * // Input.stories.ts
- * import { defineStorybookActionsAndVModels } from '@sit-onyx/storybook-utils';
- * import type { Meta } from '@storybook/vue3';
- * import Input from './Input.vue';
- *
- * const meta: Meta<typeof Input> = {
- *   title: 'components/Input',
- *   ...defineStorybookActionsAndVModels({
- *     component: Input,
- *     events: ['update:modelValue', 'change'],
- *   }),
- * };
- * ```
- */
-export const defineStorybookActionsAndVModels = <T>(
-  options: DefineStorybookActionsAndVModelsOptions<T>,
-): Meta => {
-  const defaultMeta = {
-    argTypes: {
-      ...defineActions(options.events),
-      ...{}, // this is needed to fix a type issue
-    },
-    decorators: [withVModelDecorator(options.events)],
-  } satisfies Meta;
-
-  return deepmerge(options, defaultMeta);
-};
-
-/**
- * Defines Storybook actions ("argTypes") for the given events.
- * Reason for this wrapper function is that Storybook expects event names to be prefixed
- * with "on", e.g. "onClick".
- *
- * However in Vue, the event names are plain like "click" instead of "onClick" because
- * otherwise we would use it like "@on-click="..."" which is redundant.
- *
- * So this utility will remove the on[eventName] entry from the Storybook panel/table
- * and register the correct eventName as action so it is logged in the "Actions" tab.
- *
- * @example defineActions(["click", "input"])
- */
-export const defineActions = <T>(events: ExtractVueEventNames<T>[]): ArgTypes => {
-  return events.reduce<ArgTypes>((argTypes, eventName) => {
-    argTypes[`on${capitalizeFirstLetter(eventName)}`] = {
-      table: { disable: true },
-      action: eventName,
-    };
-
-    argTypes[eventName] = { control: false };
-    return argTypes;
-  }, {});
-};
 
 /**
  * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
@@ -99,21 +35,6 @@ export type WithVModelDecoratorOptions = {
  * Defines a custom decorator that will implement event handlers for all v-models
  * so that the Storybook controls are updated live when the user interacts with the component
  *
- * @deprecated Use `withVModelDecorator` without providing eventnames
- * @example
- * ```ts
- * import Input from './Input.vue';
- *
- * {
- *   decorators: [withVModelDecorator<typeof Input>(["update:modelValue"])]
- * }
- * ```
- */
-export function withVModelDecorator<T>(events: ExtractVueEventNames<T>[]): Decorator;
-/**
- * Defines a custom decorator that will implement event handlers for all v-models
- * so that the Storybook controls are updated live when the user interacts with the component
- *
  * @example
  * ```ts
  * // .storybook/preview.ts
@@ -123,24 +44,16 @@ export function withVModelDecorator<T>(events: ExtractVueEventNames<T>[]): Decor
  * }
  * ```
  */
-export function withVModelDecorator(options?: WithVModelDecoratorOptions): Decorator;
-export function withVModelDecorator<T>(
-  eventsOrOptions?: WithVModelDecoratorOptions | ExtractVueEventNames<T>[],
-): Decorator {
+
+export const withVModelDecorator = (options?: WithVModelDecoratorOptions): Decorator => {
   return (story, ctx) => {
-    let vModelEvents: string[];
+    const vModelFilter =
+      options?.filter ||
+      (({ table, name }) => table?.category === "events" && name.startsWith("update:"));
 
-    if (Array.isArray(eventsOrOptions)) {
-      vModelEvents = eventsOrOptions.filter((event) => event.startsWith("update:"));
-    } else {
-      const vModelFilter =
-        eventsOrOptions?.filter ||
-        (({ table, name }) => table?.category === "events" && name.startsWith("update:"));
-
-      vModelEvents = Object.values(ctx.argTypes)
-        .filter(vModelFilter)
-        .map(({ name }) => name);
-    }
+    const vModelEvents = Object.values(ctx.argTypes)
+      .filter(vModelFilter)
+      .map(({ name }) => name);
 
     if (!vModelEvents.length) return story();
 
@@ -183,7 +96,7 @@ export function withVModelDecorator<T>(
     ctx.args = proxiedArgs as typeof ctx.args;
     return story(ctx);
   };
-}
+};
 
 /** Capitalizes the first letter of the given string */
 const capitalizeFirstLetter = (value: string) => {
