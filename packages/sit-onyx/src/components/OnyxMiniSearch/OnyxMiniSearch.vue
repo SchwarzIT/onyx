@@ -52,6 +52,7 @@ defineExpose({
       class="onyx-mini-search__input onyx-text"
       :placeholder="t('select.searchPlaceholder')"
       type="text"
+      size="1"
       v-bind="restAttrs"
       :aria-label="props.label"
     />
