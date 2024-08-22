@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-Fix OnyxSelect opening behavior
+fix(OnyxSelect): open flyout when clicking the input gap or padding
