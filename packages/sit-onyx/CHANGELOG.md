@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.34
+
+### Patch Changes
+
+- 934a903: fix(OnyxFormElement): fix identical default id for all forms
+
+## 1.0.0-beta.33
+
+### Patch Changes
+
+- 07084b1: fix(OnyxSelect): open flyout when clicking the input gap or padding
+
 ## 1.0.0-beta.32
 
 ### Minor Changes
