@@ -243,6 +243,12 @@ importers:
 
   packages/icons:
     devDependencies:
+      '@changesets/pre':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@changesets/write':
+        specifier: ~0.3.1
+        version: 0.3.1
       tsx:
         specifier: ^4.17.0
         version: 4.17.0
