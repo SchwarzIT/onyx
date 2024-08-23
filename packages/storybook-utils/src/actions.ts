@@ -32,8 +32,9 @@ export type WithVModelDecoratorOptions = {
 };
 
 /**
- * Defines a custom decorator that will implement event handlers for all v-models
- * so that the Storybook controls are updated live when the user interacts with the component
+ * Defines a custom decorator that will implement event handlers for all v-models,
+ * so that the Storybook controls are updated live when the user interacts with the component.
+ * This ensures that the story and component props stay in sync.
  *
  * @example
  * ```ts
