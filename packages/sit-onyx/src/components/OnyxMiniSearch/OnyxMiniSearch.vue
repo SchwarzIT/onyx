@@ -36,6 +36,8 @@ const value = computed({
   set: (value) => emit("update:modelValue", value ?? ""),
 });
 
+const placeholder = computed(() => t.value("select.searchPlaceholder"));
+
 defineExpose({
   /**
    * Focuses the input.
@@ -48,13 +50,13 @@ defineExpose({
   <div
     :class="['onyx-mini-search', densityClass]"
     v-bind="rootAttrs"
-    :style="{ '--onyx-placeholder-character-count': input?.placeholder.length }"
+    :style="{ '--onyx-placeholder-character-count': placeholder?.length }"
   >
     <input
       ref="input"
       v-model="value"
       class="onyx-mini-search__input onyx-text"
-      :placeholder="t('select.searchPlaceholder')"
+      :placeholder="placeholder"
       type="text"
       size="1"
       v-bind="restAttrs"
@@ -102,8 +104,7 @@ defineExpose({
       font-family: var(--onyx-font-family);
       font-style: normal;
       flex-grow: 1;
-      min-width: 0;
-      width: calc(var(--onyx-placeholder-character-count) * 1ch);
+      min-width: calc(var(--onyx-placeholder-character-count) * 1ch);
       color: var(--onyx-color-text-icons-neutral-intense);
 
       &::placeholder {
