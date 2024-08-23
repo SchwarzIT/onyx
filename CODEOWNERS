@@ -3,3 +3,4 @@
 
 # UX code owners
 /packages/icons/src/assets/ @SchwarzIT/onyx-ux
+/packages/icons/src/metadata.json @SchwarzIT/onyx-ux
