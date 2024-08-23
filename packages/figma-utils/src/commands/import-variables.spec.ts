@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import * as functions from "../index.js";
-import { ImportCommandOptions, importCommandAction } from "./import-variables.js";
+import { ImportVariablesCommandOptions, importVariablesCommandAction } from "./import-variables.js";
 
 vi.mock("node:fs");
 
@@ -14,7 +14,7 @@ describe("import-variables.ts", () => {
     format: ["CSS"],
     token: "test-token",
     selector: ":root",
-  } satisfies ImportCommandOptions;
+  } satisfies ImportVariablesCommandOptions;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -23,7 +23,8 @@ describe("import-variables.ts", () => {
   });
 
   test("should throw error for unknown formats", () => {
-    const promise = () => importCommandAction({ ...mockOptions, format: ["does-not-exist"] });
+    const promise = () =>
+      importVariablesCommandAction({ ...mockOptions, format: ["does-not-exist"] });
     expect(promise).rejects.toThrowError(
       'Unknown format "does-not-exist". Supported: CSS, SCSS, JSON',
     );
@@ -35,7 +36,7 @@ describe("import-variables.ts", () => {
     ]);
 
     const promise = () =>
-      importCommandAction({
+      importVariablesCommandAction({
         ...mockOptions,
         modes: ["test-mode-1", "does-not-exist"],
       });
@@ -53,7 +54,7 @@ describe("import-variables.ts", () => {
 
     vi.spyOn(functions, "generateAsCSS").mockReturnValue("mock-css-file-content");
 
-    await importCommandAction({ ...mockOptions, modes: ["test-mode-1", "test-mode-2"] });
+    await importVariablesCommandAction({ ...mockOptions, modes: ["test-mode-1", "test-mode-2"] });
 
     expect(functions.fetchFigmaVariables).toHaveBeenCalledOnce();
     expect(functions.parseFigmaVariables).toHaveBeenCalledOnce();

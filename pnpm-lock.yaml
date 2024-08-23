@@ -227,6 +227,10 @@ importers:
       commander:
         specifier: ^12.1.0
         version: 12.1.0
+    optionalDependencies:
+      svgo:
+        specifier: ^3.3.2
+        version: 3.3.2
 
   packages/headless:
     dependencies:
@@ -239,9 +243,6 @@ importers:
 
   packages/icons:
     devDependencies:
-      svgo:
-        specifier: ^3.3.2
-        version: 3.3.2
       tsx:
         specifier: ^4.17.0
         version: 4.17.0

@@ -15,17 +15,13 @@
   "files": [
     "src"
   ],
-  "types": "./src/metadata.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": "./src/metadata.ts",
+    ".": "./src/index.ts",
+    "./metadata": "./src/metadata.json",
     "./*": "./src/assets/*"
   },
-  "scripts": {
-    "optimize:check": "tsx ./src/check.ts",
-    "optimize": "tsx ./src/optimize.ts"
-  },
   "devDependencies": {
-    "svgo": "^3.3.2",
     "tsx": "^4.17.0"
   }
 }
