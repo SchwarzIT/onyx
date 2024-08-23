@@ -1,2 +1,5 @@
 # Global code owners (developers)
 * @SchwarzIT/onyx-dev
+
+# UX code owners
+/packages/icons/src/assets/ @SchwarzIT/onyx-ux
