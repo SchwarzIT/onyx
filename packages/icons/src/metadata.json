@@ -11,6 +11,10 @@
     "category": "Devices & Electronics",
     "aliases": ["alarm-off", "clock", "Wecker"]
   },
+  "anchor": {
+    "category": "Objects",
+    "aliases": ["Anker, Schiff, ship"]
+  },
   "android-phone": {
     "category": "Devices & Electronics",
     "aliases": ["mobile-device", "Handy", "Telefon", "Engerät"]
@@ -99,6 +103,10 @@
     "category": "Arrows",
     "aliases": ["Kleiner Pfeil hoch-rechts"]
   },
+  "arrow-small-up-right-top": {
+    "category": "Arrows",
+    "aliases": [""]
+  },
   "arrow-up": {
     "category": "Arrows",
     "aliases": ["move", "Pfeil", "hoch", "north"]
@@ -185,9 +193,21 @@
     "category": "Action & Interface",
     "aliases": ["favorite, marker, Lesezeichen, Favorit"]
   },
+  "box": {
+    "category": "Action & Interface",
+    "aliases": ["checkbox", "select", "auswählen"]
+  },
+  "box-check": {
+    "category": "Action & Interface",
+    "aliases": [""]
+  },
   "bread": {
     "category": "Kitchen & Food",
     "aliases": ["loaf", "bakery", "Brot", "Gebäck", "Bernd-das-Brot", "Toast"]
+  },
+  "broom": {
+    "category": "Objects",
+    "aliases": ["Besen, aufräumen, entleeren, tidyup"]
   },
   "browser-globe": {
     "category": "Network & Infrastructure",
@@ -262,11 +282,15 @@
     "category": "Devices & Electronics",
     "aliases": ["photo-remove", "Foto entfernen", "Kamera"]
   },
+  "can": {
+    "category": "Kitchen & Food",
+    "aliases": ["Dose, tin, food, Konserve. canned food, Essem"]
+  },
   "cancellation-undone": {
     "category": "Action & Interface",
     "aliases": ["undone-cancel, Stornierung rückgängig, circle"]
   },
-  "car-circle-check": {
+  "car-check": {
     "category": "Transport & Travel",
     "aliases": ["car-inspection", "vehicle-approval", "Auto-Inspektion", "Fahrzeuggenehmigung"]
   },
@@ -311,7 +335,7 @@
     "category": "Commerce & Shopping",
     "aliases": ["basket", "trolley", "Einkaufswagen", "Wagen", "shopping"]
   },
-  "cart-checkmark": {
+  "cart-check": {
     "category": "Commerce & Shopping",
     "aliases": ["trolley-approve", "Einkaufswagen", "Wagen-überprüfen"]
   },
@@ -360,6 +384,10 @@
     "category": "Essentials",
     "aliases": ["checkmark", "Hacken", "kleines Häkchen", "bestätigen", "confirmation"]
   },
+  "cheese": {
+    "category": "Kitchen & Food",
+    "aliases": ["Käse, food, Essen"]
+  },
   "chevron-down": {
     "category": "Arrows",
     "aliases": ["point-down", "runter", "Abwärts", "Pfeil"]
@@ -396,6 +424,10 @@
     "category": "Arrows",
     "aliases": ["small-point-up", "hoch", "Aufwärts", "Pfeil"]
   },
+  "chocolate": {
+    "category": "Kitchen & Food",
+    "aliases": ["Schokolade, Essen, Food"]
+  },
   "circle-arrow-left": {
     "category": "Arrows",
     "aliases": ["loop-left", "Kreispfeil links"]
@@ -412,7 +444,7 @@
     "category": "Essentials",
     "aliases": ["Kreis-Blockieren", "Ablehnungssymbol"]
   },
-  "circle-both-directions": {
+  "circle-both-direction": {
     "category": "Arrows",
     "aliases": ["loop-both-ways", "rotate-both", "Kreispfeil beide Richtungen", "switch"]
   },
@@ -464,7 +496,7 @@
     "category": "File & Type",
     "aliases": ["task-list", "note", "Zwischenablage", "Notiz"]
   },
-  "clipboard-check": {
+  "clipboard-circle-check": {
     "category": "File & Type",
     "aliases": ["note-approval", "Zwischenablage", "bestätigen", "Notiz genehmigt"]
   },
@@ -491,7 +523,7 @@
     "category": "File & Type",
     "aliases": ["task-find", "note-look", "Zwischenablage suchen", "Notiz finden"]
   },
-  "clipboard-secure": {
+  "clipboard-shield": {
     "category": "File & Type",
     "aliases": [""]
   },
@@ -508,11 +540,11 @@
     "aliases": ["time, clock, Uhr-Bearbeitung"]
   },
   "cloud": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["cloudy", "Wolke"]
   },
   "cloud-2": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["cloudy-weather", "Bewölkt", "Wolken"]
   },
   "cloud-arrow-up": {
@@ -526,7 +558,7 @@
     ]
   },
   "cloud-co2": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["Wolke", "Kohlendioxid-Wolke", "Umweltverschmutzung", "arrows-cloud"]
   },
   "cloud-connect": {
@@ -608,10 +640,6 @@
     "category": "Devices & Electronics",
     "aliases": ["iMacPC", "machine"]
   },
-  "computer-argus": {
-    "category": "Software & Services",
-    "aliases": ["computer-eye", "computer-watchdog", "Computer-Argus", "Computer-Überwachung"]
-  },
   "computer-audio": {
     "category": "Devices & Electronics",
     "aliases": ["PC-sound", "machine-volume", "Computer-Audio", "PC-Lautstärke"]
@@ -659,6 +687,10 @@
   "computer-edit": {
     "category": "Devices & Electronics",
     "aliases": ["PC-modify", "machine-change", "Computer bearbeiten", "PC ändern"]
+  },
+  "computer-eye": {
+    "category": "Software & Services",
+    "aliases": ["computer-eye", "computer-watchdog", "Computer-Argus", "Computer-Überwachung"]
   },
   "computer-globe": {
     "category": "Devices & Electronics",
@@ -712,9 +744,21 @@
     "category": "Devices & Electronics",
     "aliases": ["PC-remove", "Computer entfernen", "abbrechen"]
   },
+  "container-large": {
+    "category": "Business & Statistics",
+    "aliases": [""]
+  },
+  "container-small": {
+    "category": "Business & Statistics",
+    "aliases": [""]
+  },
+  "containers": {
+    "category": "Business & Statistics",
+    "aliases": [""]
+  },
   "controller": {
     "category": "Gamification",
-    "aliases": [""]
+    "aliases": ["play, joystick, Spiel, game, gamification"]
   },
   "copy": {
     "category": "Action & Interface",
@@ -727,6 +771,10 @@
   "cpu": {
     "category": "Hardware",
     "aliases": ["processor", "computer-brain", "Prozessor", "Computer-Gehirn"]
+  },
+  "crane": {
+    "category": "Business & Statistics",
+    "aliases": ["Kran, Baustelle"]
   },
   "credit-card": {
     "category": "Finance",
@@ -742,7 +790,12 @@
   },
   "dashboard": {
     "category": "Action & Interface",
-    "aliases": ["control-panel", "Armaturenbrett", "Kontrollpanel", "Übersicht"]
+    "aliases": [
+      "control-panel",
+      "Armaturenbrett",
+      "Kontrollpanel",
+      "Übersicht, Kachelansicht, Layout"
+    ]
   },
   "database": {
     "category": "Network & Infrastructure",
@@ -796,7 +849,7 @@
     "category": "Action & Interface",
     "aliases": ["clone", "copy", "Duplikat", "Klonen"]
   },
-  "dynamit": {
+  "dynamite": {
     "category": "Various",
     "aliases": ["explosion"]
   },
@@ -836,13 +889,13 @@
     "category": "Emojies",
     "aliases": ["laughter-face", "chuckle-symbol", "Emoji lachend", "Gesicht"]
   },
-  "emoji-neutral": {
+  "emoji-neutral-1": {
     "category": "Emojies",
-    "aliases": ["unemotional-face", "Emoji neutral 1", "Gesicht"]
+    "aliases": ["emotionless-face", "Emoji neutral", "Gesicht"]
   },
   "emoji-neutral-2": {
     "category": "Emojies",
-    "aliases": ["emotionless-face", "Emoji neutral", "Gesicht"]
+    "aliases": ["unemotional-face", "Emoji neutral 1", "Gesicht"]
   },
   "emoji-sad": {
     "category": "Emojies",
@@ -851,6 +904,10 @@
   "emoji-unhappy": {
     "category": "Emojies",
     "aliases": ["sad-face", "unzufrieden Emoji", "trauriges Gesicht"]
+  },
+  "engine": {
+    "category": "Car Parts",
+    "aliases": [""]
   },
   "error-flag": {
     "category": "Action & Interface",
@@ -902,7 +959,7 @@
   },
   "file": {
     "category": "File & Type",
-    "aliases": [""]
+    "aliases": ["Liste, list, dokument, Papier, Blatt"]
   },
   "file-archive": {
     "category": "File & Type",
@@ -916,7 +973,7 @@
     "category": "File & Type",
     "aliases": ["document", "record", "Datei", "Dokument", "Papier", "Blatt", "empty"]
   },
-  "file-block": {
+  "file-blocked": {
     "category": "File & Type",
     "aliases": ["restricted-document", "locked-file", "Gesperrte Datei", "Verbotene Datei"]
   },
@@ -931,16 +988,6 @@
       "Dokument"
     ]
   },
-  "file-check": {
-    "category": "File & Type",
-    "aliases": [
-      "document-confirm",
-      "file-approval",
-      "Datei-Kreis bestätigen",
-      "Dokument genehmigt",
-      "Papier"
-    ]
-  },
   "file-checklist": {
     "category": "File & Type",
     "aliases": [
@@ -949,6 +996,16 @@
       "Checkliste-Datei",
       "Aufgaben-Datei",
       "Dokument",
+      "Papier"
+    ]
+  },
+  "file-circle-check": {
+    "category": "File & Type",
+    "aliases": [
+      "document-confirm",
+      "file-approval",
+      "Datei-Kreis bestätigen",
+      "Dokument genehmigt",
       "Papier"
     ]
   },
@@ -1078,11 +1135,11 @@
     "aliases": ["banner-2", "marker-2", "Fahne-2", "Markierung-2"]
   },
   "flash": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["lightning", "thunder", "Blitz", "Donner"]
   },
   "flash-disabled": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["Kein-Blitz", "Donner-deaktiviert"]
   },
   "folder": {
@@ -1117,6 +1174,10 @@
     "category": "Action & Interface",
     "aliases": ["picture-collection", "image-display", "Galerie", "Bildersammlung"]
   },
+  "git": {
+    "category": "Network & Infrastructure",
+    "aliases": [""]
+  },
   "glasses": {
     "category": "School & Education",
     "aliases": ["spectacles", "eyewear", "Brille", "Sehhilfe"]
@@ -1132,6 +1193,14 @@
   "globe-lock": {
     "category": "Network & Infrastructure",
     "aliases": ["world-secure", "earth-protect", "Globus-Sperre", "Erde-gesperrt-gesichert"]
+  },
+  "globe-network": {
+    "category": "Network & Infrastructure",
+    "aliases": [""]
+  },
+  "globe-shield": {
+    "category": "Network & Infrastructure",
+    "aliases": [""]
   },
   "graduation-hat": {
     "category": "School & Education",
@@ -1155,7 +1224,7 @@
   },
   "handshake": {
     "category": "People & Users",
-    "aliases": [""]
+    "aliases": ["hands, Einigung, approve, business, Geschäft, Einverstanden"]
   },
   "headset": {
     "category": "Help & Support",
@@ -1204,6 +1273,10 @@
   "hourglass": {
     "category": "Objects",
     "aliases": ["timepiece", "sand-clock", "Sanduhr", "Zeitmesser"]
+  },
+  "icecream": {
+    "category": "Kitchen & Food",
+    "aliases": ["Eis, Ice, Food, Essen, Speiseeis, Süß, Sweets"]
   },
   "inbox": {
     "category": "Communication",
@@ -1352,7 +1425,7 @@
   },
   "logout": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": ["sign-out", "exit", "Abmelden", "Ausloggen"]
   },
   "luggage": {
     "category": "Transport & Travel",
@@ -1390,7 +1463,7 @@
     "category": "Software & Services",
     "aliases": ["database-server", "SQL-server", "Robbe", "seal"]
   },
-  "mask": {
+  "mask-1": {
     "category": "Health, Medicine & Hygiene",
     "aliases": ["face-covering-1", "protection-mask-1", "Gesichtsschutz-1", "Schutzmaske-1"]
   },
@@ -1495,7 +1568,7 @@
     "aliases": ["NoSQL-database", "document-database", "leaf", "Blatt"]
   },
   "moon": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["night", "Nacht", "Mond"]
   },
   "more-horizontal": {
@@ -1749,6 +1822,10 @@
     "category": "Devices & Electronics",
     "aliases": ["energy-storage", "charge-device", "Energie-Speicher"]
   },
+  "prawn": {
+    "category": "Kitchen & Food",
+    "aliases": ["Garnele, Food, Meer, prawn, Krabbe, Esse, shrimp"]
+  },
   "presention-board": {
     "category": "Business & Statistics",
     "aliases": ["display-board", "showcase", "Präsentationsbrett", "Schautafel"]
@@ -1781,6 +1858,10 @@
     "category": "Devices & Electronics",
     "aliases": ["printer-off", "Drucken deaktiviert"]
   },
+  "print-dots": {
+    "category": "Devices & Electronics",
+    "aliases": [""]
+  },
   "print-drop": {
     "category": "Devices & Electronics",
     "aliases": ["tropfen", "Drucker"]
@@ -1788,6 +1869,10 @@
   "print-information": {
     "category": "Devices & Electronics",
     "aliases": ["printer-info", "Druckinformation", "Druckerinfo"]
+  },
+  "print-list": {
+    "category": "Devices & Electronics",
+    "aliases": [""]
   },
   "print-plus": {
     "category": "Devices & Electronics",
@@ -1872,10 +1957,6 @@
   "rocket": {
     "category": "Objects",
     "aliases": ["spacecraft", "missile", "Rakete", "Flugkörper"]
-  },
-  "rollwagen": {
-    "category": "Business & Statistics",
-    "aliases": ["cart", "wagon", "Wagen", "Einkaufswagen", "trolley"]
   },
   "rotate": {
     "category": "Arrows",
@@ -1991,6 +2072,10 @@
     "category": "Transport & Travel",
     "aliases": ["boat", "maritime-travel", "Schiff", "Seereise"]
   },
+  "ship-container": {
+    "category": "Transport & Travel",
+    "aliases": ["Schiff, Container, Containerschiff"]
+  },
   "sick": {
     "category": "Health, Medicine & Hygiene",
     "aliases": ["illness", "unwell", "krank", "unwohl"]
@@ -2024,7 +2109,7 @@
     "aliases": ["no-smoking", "smoking-ban", "Rauchen-verboten", "Rauchverbot"]
   },
   "snowflake": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["Schnee", "Winter", "cold", "kalt"]
   },
   "soap-dispenser": {
@@ -2095,6 +2180,10 @@
     "category": "Commerce & Shopping",
     "aliases": ["Regal", "shelf", "storage", "rack", "Lager"]
   },
+  "store-test": {
+    "category": "Commerce & Shopping",
+    "aliases": [""]
+  },
   "stroller": {
     "category": "Objects",
     "aliases": ["baby-carriage", "pushchair", "Kinderwagen", "Buggy"]
@@ -2108,7 +2197,7 @@
     "aliases": ["briefcase", "luggage", "Koffer", "Gepäck"]
   },
   "sunny": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["sunshine", "light", "Sonne", "hell"]
   },
   "support": {
@@ -2157,9 +2246,9 @@
     "category": "Business & Statistics",
     "aliases": ["label-off", "price-tag-off", "Etikett deaktiviert", "Preisschild aus"]
   },
-  "test": {
+  "test-tube": {
     "category": "Objects",
-    "aliases": ["laboratory-tube", "sample-tube", "Reagenzglas", "Laborröhrchen"]
+    "aliases": ["laboratory-tube", "sample-tube", "Reagenzglas", "Laborröhrchen, Chemie, Versuch"]
   },
   "text-selector": {
     "category": "Tools & Shapes",
@@ -2205,7 +2294,7 @@
     "category": "Tools & Shapes",
     "aliases": ["fill-color", "color-tool", "Farbfüllwerkzeug", "Farbwerkzeug"]
   },
-  "tool-crop-1": {
+  "tool-crop": {
     "category": "Tools & Shapes",
     "aliases": ["cut-image", "picture-rotate", "Bild-drehen", "Bild-kürzen"]
   },
@@ -2349,20 +2438,32 @@
     "aliases": [""]
   },
   "tree": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["forest", "nature", "Wald"]
   },
   "tree-2": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["forest", "nature", "Wald"]
   },
   "triangle-warning": {
     "category": "Essentials",
-    "aliases": ["alert-sign", "Dreieck-Warnung", "Achtung"]
+    "aliases": ["alert-sign", "Dreieck-Warnung", "Achtung, Ausrufezeichen"]
+  },
+  "trolley": {
+    "category": "Business & Statistics",
+    "aliases": ["cart", "wagon", "Wagen", "Einkaufswagen", "trolley"]
   },
   "truck": {
     "category": "Business & Statistics",
-    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen"]
+    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen, Lieferung"]
+  },
+  "truck-attention": {
+    "category": "Business & Statistics",
+    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen, Lieferprobleme, Lieferung, Ausrufezeichen"]
+  },
+  "truck-empty": {
+    "category": "Business & Statistics",
+    "aliases": ["Laster, Mafi, Zugmaschine, Transporter"]
   },
   "undo": {
     "category": "Arrows",
@@ -2485,7 +2586,7 @@
     "category": "People & Users",
     "aliases": ["user-addition", "user-increase", "Benutzer-plus", "Benutzer-hinzufügen"]
   },
-  "user-setting": {
+  "user-settings": {
     "category": "People & Users",
     "aliases": [
       "user-configuration",
@@ -2574,7 +2675,7 @@
     "aliases": ["HTTP-callback", "server-push", "Webhook", "Server-Push"]
   },
   "windmill": {
-    "category": "Wheather & Climate",
+    "category": "Weather & Climate",
     "aliases": ["wind-energy", "renewable", "Windenergie", "Erneuerbare-Energie", "Windmühle"]
   },
   "windows": {
