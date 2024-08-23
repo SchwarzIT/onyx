@@ -55,3 +55,63 @@ export type ParsedVariable = {
    */
   variables: Record<string, string>;
 };
+
+/**
+ * Figma API response when fetching from https://api.figma.com/v1/files/${fileKey}/components
+ */
+export type FigmaComponentsApiResponse = {
+  meta: {
+    components: Component[];
+  };
+};
+
+/**
+ * An arrangement of published UI elements that can be instantiated across Figma files
+ */
+export type Component = {
+  /**
+   * ID of the component node within the Figma file
+   */
+  node_id: string;
+  /**
+   * Name of the component
+   */
+  name: string;
+  /**
+   * Data on component's containing frame, if component resides within a frame
+   */
+  containing_frame: FrameInfo;
+  /**
+   * The description of the component as entered by the publisher
+   */
+  description: string;
+};
+
+/**
+ * Data on the frame a component resides in
+ */
+export type FrameInfo = {
+  /**
+   * ID of the frame node within the file
+   */
+  nodeId: string;
+  /**
+   * Name of the frame
+   */
+  name: string;
+  /**
+   * ID of the frame's residing page
+   */
+  pageId: string;
+  /**
+   * Name of the frame's residing page
+   */
+  pageName: string;
+};
+
+export type ParsedIcon = {
+  id: string;
+  name: string;
+  aliases: string[];
+  category: string;
+};

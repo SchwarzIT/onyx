@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/icons",
   "description": "SVG icons for the onyx design system",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "license": "Apache-2.0",
   "repository": {
@@ -15,17 +15,13 @@
   "files": [
     "src"
   ],
-  "types": "./src/metadata.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": "./src/metadata.ts",
+    ".": "./src/index.ts",
+    "./metadata": "./src/metadata.json",
     "./*": "./src/assets/*"
   },
-  "scripts": {
-    "optimize:check": "tsx ./src/check.ts",
-    "optimize": "tsx ./src/optimize.ts"
-  },
   "devDependencies": {
-    "svgo": "^3.3.2",
     "tsx": "^4.17.0"
   }
 }

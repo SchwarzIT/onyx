@@ -5,6 +5,7 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "types": ["node"],
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true
   }
 }
