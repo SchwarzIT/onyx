@@ -72,7 +72,7 @@ function getChangesetSummary(newIcons: string[], deletedIcons: string[], modifie
     if (!icons.length) return;
     summary += `\n\n#### ${headline}
 
-${deletedIcons.map((icon) => `- ${icon}`).join("\n")}    `;
+${icons.map((icon) => `- ${icon}`).join("\n")}    `;
   };
 
   addIconList("Deleted icons", deletedIcons);
