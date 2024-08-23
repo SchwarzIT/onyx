@@ -869,7 +869,7 @@
     "category": "Action & Interface",
     "aliases": ["modify", "change", "Bearbeiten", "Ändern"]
   },
-  "edit-diasbled": {
+  "edit-disabled": {
     "category": "Action & Interface",
     "aliases": ["modify-off", "no-edit", "Bearbeitung deaktiviert"]
   },

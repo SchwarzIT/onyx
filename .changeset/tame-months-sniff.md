@@ -2,56 +2,41 @@
 "@sit-onyx/icons": major
 ---
 
-feat: sync icons with Figma library
+feat: update latest icons
 
-All icons are now synched with [Figma library](https://www.figma.com/design/YfEUBOHk4J4nYrk04geswG/Onyx-Component-Library?node-id=6-854) to ensure consistency between DEV and UX and to improve the maintenance workflow.
+All icons are updated to use the latest icons from
 
 #### New icons
 
-- car-circle-check
-- cart-checkmark
-- circle-both-directions
-- clipboard-check
-- clipboard-secure
+- anchor
+- arrow-small-up-right-top
+- broom
+- can
+- cheese
+- chocolate
 - company-plus
+- computer-eye
+- container-large
+- container-small
+- containers
 - controller
+- crane
 - dolphin
-- dynamit
-- edit-disabled
-- emoji-neutral
-- file-block
-- file-check
-- mask
+- git
+- globe-network
+- globe-shield
+- icecream
 - parking-search
-- rollwagen
-- test
+- prawn
+- ship-container
+- store-test
 - tie
-- tool-crop-1
-- user-setting
+- truck-attention
+- truck-empty
 
 #### Deleted icons
 
-- box-check
-- box
-- car-check
-- cart-check
-- circle-both-direction
-- clipboard-circle-check
-- clipboard-shield
-- dynamite
-- edit-disabled
-- emoji-neutral-1
-- engine
-- file-blocked
-- file-circle-check
-- logout
-- mask-1
-- print-dots
-- print-list
-- test-tube
-- tool-crop
-- trolley
-- user-settings
+- computer-argus (renamed to computer-eye)
 
 #### Other breaking changes
 
