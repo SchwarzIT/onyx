@@ -45,7 +45,11 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="['onyx-mini-search', densityClass]" v-bind="rootAttrs">
+  <div
+    :class="['onyx-mini-search', densityClass]"
+    v-bind="rootAttrs"
+    :style="{ '--onyx-placeholder-character-count': input?.placeholder.length }"
+  >
     <input
       ref="input"
       v-model="value"
@@ -99,6 +103,7 @@ defineExpose({
       font-style: normal;
       flex-grow: 1;
       min-width: 0;
+      width: calc(var(--onyx-placeholder-character-count) * 1ch);
       color: var(--onyx-color-text-icons-neutral-intense);
 
       &::placeholder {
