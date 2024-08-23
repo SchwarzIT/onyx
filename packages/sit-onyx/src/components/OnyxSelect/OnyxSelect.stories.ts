@@ -48,7 +48,7 @@ const meta: Meta<typeof OnyxSelect> = {
 
           return { handleLoadMore, isLazyLoading, options };
         },
-        template: `<story style="max-width: 24rem; margin-bottom: 20rem;" @lazy-load="handleLoadMore" />`,
+        template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" @lazy-load="handleLoadMore" />`,
       };
     },
   ],
@@ -438,3 +438,28 @@ export const WithCustomValueLabel = {
     valueLabel: "Custom selection label",
   },
 };
+
+/**
+ * This example shows a default single select which opens to the top.
+ */
+export const WithTopOpenDirection = {
+  args: {
+    label: "Example select",
+    listLabel: "List label",
+    options: DEMO_OPTIONS,
+    placeholder: "Placeholder...",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a default single select with right alignment.
+ */
+export const WithRightAlignment = {
+  args: {
+    label: "Example select",
+    listLabel: "List label",
+    options: DEMO_OPTIONS,
+    alignment: "right",
+    placeholder: "Right alignment...",
+  },
+} satisfies Story;

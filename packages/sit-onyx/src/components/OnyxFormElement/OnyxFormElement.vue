@@ -8,7 +8,7 @@ import type { OnyxFormElementProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFormElementProps>(), {
   required: false,
-  id: createId("onyx-form-element"),
+  id: () => createId("onyx-form-element"),
 });
 
 const { t } = injectI18n();
