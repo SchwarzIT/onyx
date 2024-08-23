@@ -1,5 +1,14 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- b525ca5: feat: add `import-icons` CLI command
+
+  Add new command to import SVG icons from Figma.
+  For further information, see [our docs](https://onyx.schwarz/development/packages/figma-utils.html#import-icons)
+
 ## 1.0.0-beta.1
 
 ### Patch Changes
