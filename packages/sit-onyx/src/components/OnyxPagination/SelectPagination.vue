@@ -52,6 +52,8 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       :value-label="props.modelValue.toString()"
       hide-label
       :disabled="props.disabled || props.pages <= 1"
+      alignment="left"
+      with-search
       @update:model-value="
         emit('update:modelValue', $event as (typeof selectOptions)[number]['value'])
       "
@@ -106,6 +108,24 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         justify-content: space-between;
+
+        $hover-selector: "&:has(.onyx-select-input__native:enabled:read-write):hover";
+        $focus-selector: "&:has(.onyx-select-input__native:enabled:focus, .onyx-select-input__native--show-focus)";
+
+        #{$focus-selector},
+        #{$hover-selector} {
+          background-color: var(--onyx-color-base-neutral-200);
+          --border-color: unset;
+        }
+
+        // select input chevron icon color
+        &,
+        #{$hover-selector},
+        #{$focus-selector} {
+          .onyx-select-input__button {
+            color: var(--onyx-color-text-icons-neutral-intense);
+          }
+        }
       }
 
       .onyx-select-input__native {

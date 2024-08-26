@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ModernPagination from "./ModernPagination.vue";
+import SelectPagination from "./SelectPagination.vue";
 import type { OnyxPaginationProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxPaginationProps>(), {
@@ -15,6 +15,6 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <ModernPagination v-bind="props" @update:model-value="emit('update:modelValue', $event)" />
-  <!-- TODO: add classic pagination, see https://github.com/SchwarzIT/onyx/issues/1714 -->
+  <SelectPagination v-bind="props" @update:model-value="emit('update:modelValue', $event)" />
+  <!-- TODO: add "inline" mode, see https://github.com/SchwarzIT/onyx/issues/1714 -->
 </template>
