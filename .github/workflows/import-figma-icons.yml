@@ -37,7 +37,9 @@ jobs:
         working-directory: packages/figma-utils
 
       - name: Generate changeset
-        run: pnpm run generate:changeset
+        run: |
+          git add src/assets
+          pnpm run generate:changeset
         working-directory: packages/icons
 
       - name: Create pull request

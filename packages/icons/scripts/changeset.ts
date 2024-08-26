@@ -16,32 +16,29 @@ const isExecutedDirectly = import.meta.url.endsWith(process.argv[1]);
 if (isExecutedDirectly) await generateChangeset();
 
 export async function generateChangeset() {
-  const newIcons = await gitLsFiles("--others");
-  const deletedIcons = await gitLsFiles("--deleted");
-  const modifiedIcons = (await gitLsFiles("--modified")).filter(
-    (i) => !newIcons.includes(i) && !deletedIcons.includes(i),
-  );
+  const changedIcons = await getChangedIcons();
 
-  if (!newIcons.length && !deletedIcons.length && !modifiedIcons.length) {
+  if (!changedIcons.length) {
     console.log("No icons changed.");
     exit();
   }
 
-  console.log(`Found ${newIcons.length} new icons`);
-  console.log(`Found ${deletedIcons.length} deleted icons`);
-  console.log(`Found ${modifiedIcons.length} modified icons`);
+  console.log(`Found ${changedIcons.length} changed icons`);
 
   const changesetCwd = path.join(process.cwd(), "..", "..");
+  const hasBreakingChanges = changedIcons.some(
+    (icon) => icon.status === "deleted" || icon.status === "renamed",
+  );
 
   const changesetId = await writeChangeset(
     {
       releases: [
         {
           name: packageName,
-          type: deletedIcons.length > 0 ? "major" : "minor",
+          type: hasBreakingChanges ? "major" : "minor",
         },
       ],
-      summary: getChangesetSummary(newIcons, deletedIcons, modifiedIcons),
+      summary: getChangesetSummary(changedIcons),
     },
     changesetCwd,
   );
@@ -62,30 +59,74 @@ export async function generateChangeset() {
 }
 
 /**
- * Gets a list of tracked git filenames.
+ * Gets a list of changed icons based on their git status (added, modifier, deleted or renamed).
+ * Will be sorted alphabetically by file path/name.
  */
-async function gitLsFiles(flags: string) {
-  const { stdout } = await exec(`git ls-files --exclude-standard ${flags} src/assets`);
-  const fileNames = stdout.split("\n");
-  return fileNames.filter((i) => !!i).map((i) => path.parse(i).name);
+async function getChangedIcons() {
+  const { stdout } = await exec("git status --porcelain src/assets");
+  const changes = stdout
+    .split("\n")
+    .filter((i) => !!i)
+    .map((i) => i.trim());
+
+  const gitStatusMap = {
+    A: "added",
+    M: "modified",
+    D: "deleted",
+    R: "renamed",
+  } satisfies Record<string, GitFileStatus>;
+
+  return changes
+    .map<GitStatusFile>((change) => {
+      // format: status filename (if renamed: "-> new-path")
+      const parts = change
+        .split(" ")
+        .map((part) => part.trim())
+        .filter((part) => !!part);
+      const status: GitFileStatus = gitStatusMap[parts[0]] ?? "added";
+      const path = parts[1];
+
+      if (status === "renamed") {
+        return {
+          status: "renamed",
+          path: parts.at(-1)!,
+          oldPath: path,
+        };
+      }
+
+      return { status, path };
+    })
+    .sort((a, b) => a.path.localeCompare(b.path));
 }
 
 /**
  * Gets the changeset summary/description/changelog for the given changed icons.
  */
-function getChangesetSummary(newIcons: string[], deletedIcons: string[], modifiedIcons: string[]) {
+function getChangesetSummary(files: GitStatusFile[]) {
   let summary = "feat: update icons";
 
-  const addIconList = (headline: string, icons: string[]) => {
-    if (!icons.length) return;
+  const addIconList = (headline: string, files: GitStatusFile[], status: GitFileStatus) => {
+    const filteredFiles = files.filter((icon) => icon.status === status);
+    if (!filteredFiles.length) return;
     summary += `\n\n#### ${headline}
 
-${icons.map((icon) => `- ${icon}`).join("\n")}`;
+${filteredFiles
+  .map((file) => {
+    const iconName = path.parse(file.path).name;
+
+    if (file.status === "renamed") {
+      return `- ${path.parse(file.oldPath).name} => ${iconName}`;
+    }
+
+    return `- ${iconName}`;
+  })
+  .join("\n")}`;
   };
 
-  addIconList("Deleted icons", deletedIcons);
-  addIconList("New icons", newIcons);
-  addIconList("Modified icons", modifiedIcons);
+  addIconList("Deleted icons", files, "deleted");
+  addIconList("Renamed icons", files, "renamed");
+  addIconList("New icons", files, "added");
+  addIconList("Modified icons", files, "modified");
 
   return summary;
 }
@@ -98,3 +139,23 @@ function exec(command: string) {
     });
   });
 }
+
+type GitStatusFile = {
+  /**
+   * Path of the (changed) file.
+   */
+  path: string;
+} & (
+  | {
+      status: Exclude<GitFileStatus, "renamed">;
+    }
+  | {
+      status: "renamed";
+      /**
+       * Previous file path before the file was renamed.
+       */
+      oldPath: string;
+    }
+);
+
+type GitFileStatus = "added" | "modified" | "deleted" | "renamed";

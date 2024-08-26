@@ -9,21 +9,14 @@ vi.mock("node:child_process");
 vi.mock("node:fs/promises");
 vi.mock("@changesets/write");
 
-const mockExec = (newIcons: string[], deletedIcons: string[], modifiedIcons: string[]) => {
+const mockExec = (output: string[]) => {
   const spy =
     vi.mocked<
       (command: Parameters<typeof exec>["0"], callback: Parameters<typeof exec>["2"]) => unknown
     >(exec);
 
   spy.mockImplementation((command, callback) => {
-    if (command.includes("--others")) {
-      callback?.(null, newIcons.join("\n"), "");
-    } else if (command.includes("--deleted")) {
-      callback?.(null, deletedIcons.join("\n"), "");
-    } else if (command.includes("--modified")) {
-      callback?.(null, modifiedIcons.join("\n"), "");
-    }
-
+    callback?.(null, output.join("\n"), "");
     return {};
   });
 
@@ -38,11 +31,15 @@ describe("changeset.ts", () => {
   test("should generate changeset based on changed .svg icons", async () => {
     // ARRANGE
     const writeChangesetSpy = vi.mocked(writeChangeset);
-    mockExec(
-      ["newIcon1.svg", "newIcon2.svg"],
-      ["deletedIcon.svg"],
-      ["modifiedIcon1.svg", "modifiedIcon2.svg"],
-    );
+
+    mockExec([
+      "A dir/newIcon1.svg",
+      "A newIcon2.svg",
+      "D deletedIcon.svg",
+      "M modifiedIcon1.svg",
+      "M modifiedIcon2.svg",
+      "R oldPath.svg -> newPath.svg",
+    ]);
 
     // ACT
     await generateChangeset();
@@ -56,6 +53,10 @@ describe("changeset.ts", () => {
 #### Deleted icons
 
 - deletedIcon
+
+#### Renamed icons
+
+- oldPath => newPath
 
 #### New icons
 
@@ -71,10 +72,26 @@ describe("changeset.ts", () => {
     );
   });
 
-  test("should release minor version if icons were added/modified", async () => {
+  test.each([
+    {
+      name: "icons were added/modified",
+      files: ["A newIcon1.svg", "M modifiedIcon1.svg"],
+      releaseType: "minor",
+    },
+    {
+      name: "icons were deleted",
+      files: ["D deletedIcon.svg"],
+      releaseType: "major",
+    },
+    {
+      name: "icons were renamed",
+      files: ["R oldPath.svg -> newPath.svg"],
+      releaseType: "major",
+    },
+  ])("should release $releaseType version if $name", async ({ files, releaseType }) => {
     // ARRANGE
     const writeChangesetSpy = vi.mocked(writeChangeset);
-    mockExec(["newIcon1.svg", "newIcon2.svg"], [], ["modifiedIcon1.svg", "modifiedIcon2.svg"]);
+    mockExec(files);
 
     // ACT
     await generateChangeset();
@@ -82,29 +99,7 @@ describe("changeset.ts", () => {
     // ASSERT
     expect(writeChangesetSpy).toHaveBeenCalledWith(
       {
-        releases: [{ name: "@sit-onyx/icons", type: "minor" }],
-        summary: expect.any(String),
-      },
-      expect.any(String), // file path,
-    );
-  });
-
-  test("should release major version if icons were deleted", async () => {
-    // ARRANGE
-    const writeChangesetSpy = vi.mocked(writeChangeset);
-    mockExec(
-      ["newIcon1.svg", "newIcon2.svg"],
-      ["deletedIcon.svg"],
-      ["modifiedIcon1.svg", "modifiedIcon2.svg"],
-    );
-
-    // ACT
-    await generateChangeset();
-
-    // ASSERT
-    expect(writeChangesetSpy).toHaveBeenCalledWith(
-      {
-        releases: [{ name: "@sit-onyx/icons", type: "major" }],
+        releases: [{ name: "@sit-onyx/icons", type: releaseType }],
         summary: expect.any(String),
       },
       expect.any(String), // file path,
@@ -121,7 +116,7 @@ describe("changeset.ts", () => {
 
     vi.spyOn(process, "cwd").mockReturnValue("/test/cwd/packages/icons");
 
-    mockExec(["newIcon1.svg", "newIcon2.svg"], [], ["modifiedIcon1.svg", "modifiedIcon2.svg"]);
+    mockExec(["A newIcon1.svg", "M modifiedIcon1.svg"]);
 
     // ACT
     await generateChangeset();
@@ -136,6 +131,29 @@ describe("changeset.ts", () => {
         null,
         2,
       ) + "\n",
+    );
+  });
+
+  test("should use fallback status if git status is unknown", async () => {
+    // ARRANGE
+    const writeChangesetSpy = vi.mocked(writeChangeset);
+
+    mockExec(["?? testIcon.svg"]);
+
+    // ACT
+    await generateChangeset();
+
+    // ASSERT
+    expect(writeChangesetSpy).toHaveBeenCalledWith(
+      {
+        releases: [{ name: "@sit-onyx/icons", type: "minor" }],
+        summary: `feat: update icons
+
+#### New icons
+
+- testIcon`,
+      },
+      expect.any(String), // file path,
     );
   });
 });
