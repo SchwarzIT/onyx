@@ -50,7 +50,7 @@ defineExpose({
   <div
     :class="['onyx-mini-search', densityClass]"
     v-bind="rootAttrs"
-    :style="{ '--onyx-placeholder-character-count': placeholder?.length }"
+    :style="{ '--onyx-placeholder-character-count': placeholder.length }"
   >
     <input
       ref="input"
