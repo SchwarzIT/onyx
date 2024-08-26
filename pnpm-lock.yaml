@@ -203,14 +203,14 @@ importers:
     dependencies:
       chart.js:
         specifier: '>= 4.0.0'
-        version: 4.4.3
+        version: 4.4.4
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
       vue-chartjs:
         specifier: ^5.3.1
-        version: 5.3.1(chart.js@4.4.3)(vue@3.4.38(typescript@5.5.4))
+        version: 5.3.1(chart.js@4.4.4)(vue@3.4.38(typescript@5.5.4))
 
   packages/eslint-plugin:
     dependencies:
@@ -273,7 +273,7 @@ importers:
         version: 8.5.1(magicast@0.3.4)(rollup@4.21.0)(vue@3.4.38(typescript@5.5.4))
       nuxt:
         specifier: ^3.13.0
-        version: 3.13.0(@parcel/watcher@2.4.1)(@types/node@22.4.1)(encoding@0.1.13)(eslint@9.9.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4))
+        version: 3.13.0(@parcel/watcher@2.4.1)(@types/node@22.4.1)(encoding@0.1.13)(eslint@9.9.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4))
       vue-i18n:
         specifier: ^9.14.0
         version: 9.14.0(vue@3.4.38(typescript@5.5.4))
@@ -3234,10 +3234,6 @@ packages:
 
   chardet@0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
-
-  chart.js@4.4.3:
-    resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
-    engines: {pnpm: '>=8'}
 
   chart.js@4.4.4:
     resolution: {integrity: sha512-emICKGBABnxhMjUjlYRR12PmOXhJ2eJjEHL2/dZlWjxRAZT1D8xplLFq5M0tMQK8ja+wBS/tuVEJB5C6r7VxJA==}
@@ -8412,6 +8408,12 @@ snapshots:
       eslint: 9.9.0(jiti@1.21.6)
       eslint-visitor-keys: 3.4.3
 
+  '@eslint-community/eslint-utils@4.4.0(eslint@9.9.0)':
+    dependencies:
+      eslint: 9.9.0
+      eslint-visitor-keys: 3.4.3
+    optional: true
+
   '@eslint-community/regexpp@4.11.0': {}
 
   '@eslint/config-array@0.17.1':
@@ -8867,7 +8869,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@nuxt/vite-builder@3.13.0(@types/node@22.4.1)(eslint@9.9.0(jiti@1.21.6))(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vue-tsc@2.0.29(typescript@5.5.4))(vue@3.4.38(typescript@5.5.4))':
+  '@nuxt/vite-builder@3.13.0(@types/node@22.4.1)(eslint@9.9.0)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vue-tsc@2.0.29(typescript@5.5.4))(vue@3.4.38(typescript@5.5.4))':
     dependencies:
       '@nuxt/kit': 3.13.0(magicast@0.3.4)(rollup@4.21.0)
       '@rollup/plugin-replace': 5.0.7(rollup@4.21.0)
@@ -8900,7 +8902,7 @@ snapshots:
       unplugin: 1.12.2
       vite: 5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)
       vite-node: 2.0.5(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)
-      vite-plugin-checker: 0.7.2(eslint@9.9.0(jiti@1.21.6))(optionator@0.9.4)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4))
+      vite-plugin-checker: 0.7.2(eslint@9.9.0)(optionator@0.9.4)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4))
       vue: 3.4.38(typescript@5.5.4)
       vue-bundle-renderer: 2.1.0
     transitivePeerDependencies:
@@ -10457,10 +10459,6 @@ snapshots:
 
   chardet@0.7.0: {}
 
-  chart.js@4.4.3:
-    dependencies:
-      '@kurkle/color': 0.3.2
-
   chart.js@4.4.4:
     dependencies:
       '@kurkle/color': 0.3.2
@@ -11137,6 +11135,46 @@ snapshots:
       text-table: 0.2.0
     transitivePeerDependencies:
       - supports-color
+
+  eslint@9.9.0:
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@9.9.0)
+      '@eslint-community/regexpp': 4.11.0
+      '@eslint/config-array': 0.17.1
+      '@eslint/eslintrc': 3.1.0
+      '@eslint/js': 9.9.0
+      '@humanwhocodes/module-importer': 1.0.1
+      '@humanwhocodes/retry': 0.3.0
+      '@nodelib/fs.walk': 1.2.8
+      ajv: 6.12.6
+      chalk: 4.1.2
+      cross-spawn: 7.0.3
+      debug: 4.3.6
+      escape-string-regexp: 4.0.0
+      eslint-scope: 8.0.2
+      eslint-visitor-keys: 4.0.0
+      espree: 10.1.0
+      esquery: 1.6.0
+      esutils: 2.0.3
+      fast-deep-equal: 3.1.3
+      file-entry-cache: 8.0.0
+      find-up: 5.0.0
+      glob-parent: 6.0.2
+      ignore: 5.3.2
+      imurmurhash: 0.1.4
+      is-glob: 4.0.3
+      is-path-inside: 3.0.3
+      json-stable-stringify-without-jsonify: 1.0.1
+      levn: 0.4.1
+      lodash.merge: 4.6.2
+      minimatch: 3.1.2
+      natural-compare: 1.4.0
+      optionator: 0.9.4
+      strip-ansi: 6.0.1
+      text-table: 0.2.0
+    transitivePeerDependencies:
+      - supports-color
+    optional: true
 
   eslint@9.9.0(jiti@1.21.6):
     dependencies:
@@ -12569,14 +12607,14 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  nuxt@3.13.0(@parcel/watcher@2.4.1)(@types/node@22.4.1)(encoding@0.1.13)(eslint@9.9.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4)):
+  nuxt@3.13.0(@parcel/watcher@2.4.1)(@types/node@22.4.1)(encoding@0.1.13)(eslint@9.9.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4)):
     dependencies:
       '@nuxt/devalue': 2.0.2
       '@nuxt/devtools': 1.3.14(rollup@4.21.0)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))
       '@nuxt/kit': 3.13.0(magicast@0.3.4)(rollup@4.21.0)
       '@nuxt/schema': 3.13.0(rollup@4.21.0)
       '@nuxt/telemetry': 2.5.4(magicast@0.3.4)(rollup@4.21.0)
-      '@nuxt/vite-builder': 3.13.0(@types/node@22.4.1)(eslint@9.9.0(jiti@1.21.6))(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vue-tsc@2.0.29(typescript@5.5.4))(vue@3.4.38(typescript@5.5.4))
+      '@nuxt/vite-builder': 3.13.0(@types/node@22.4.1)(eslint@9.9.0)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.0)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6)(typescript@5.5.4)(vue-tsc@2.0.29(typescript@5.5.4))(vue@3.4.38(typescript@5.5.4))
       '@unhead/dom': 1.10.0
       '@unhead/ssr': 1.10.0
       '@unhead/vue': 1.10.0(vue@3.4.38(typescript@5.5.4))
@@ -14289,7 +14327,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-checker@0.7.2(eslint@9.9.0(jiti@1.21.6))(optionator@0.9.4)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4)):
+  vite-plugin-checker@0.7.2(eslint@9.9.0)(optionator@0.9.4)(typescript@5.5.4)(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8)(stylus@0.57.0)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4)):
     dependencies:
       '@babel/code-frame': 7.24.7
       ansi-escapes: 4.3.2
@@ -14307,7 +14345,7 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
     optionalDependencies:
-      eslint: 9.9.0(jiti@1.21.6)
+      eslint: 9.9.0
       optionator: 0.9.4
       typescript: 5.5.4
       vue-tsc: 2.0.29(typescript@5.5.4)
@@ -14585,11 +14623,6 @@ snapshots:
   vue-bundle-renderer@2.1.0:
     dependencies:
       ufo: 1.5.4
-
-  vue-chartjs@5.3.1(chart.js@4.4.3)(vue@3.4.38(typescript@5.5.4)):
-    dependencies:
-      chart.js: 4.4.3
-      vue: 3.4.38(typescript@5.5.4)
 
   vue-chartjs@5.3.1(chart.js@4.4.4)(vue@3.4.38(typescript@5.5.4)):
     dependencies:
