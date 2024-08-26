@@ -14,9 +14,9 @@ const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the nav item is clicked (via click or keyboard).
+   * Emitted when the nav button is clicked (via click or keyboard).
    */
-  click: [href: string];
+  navButtonClick: [href: string];
 }>();
 
 const slots = defineSlots<{
@@ -38,7 +38,7 @@ const handleParentClick = () => {
   if (isMobile?.value && hasChildren.value && !isMobileChildrenOpen.value) {
     isMobileChildrenOpen.value = true;
   } else if (props.href) {
-    emit("click", props.href);
+    emit("navButtonClick", props.href);
   }
 };
 </script>

@@ -29,7 +29,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the select input is clicked (and is not disabled).
    */
-  click: [];
+  selectInputClick: [];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -125,7 +125,7 @@ const blockTyping = (event: KeyboardEvent) => {
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <template #default="{ id }">
         <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- Disabled rules are needed here, because of the click event. Otherwise clicking on the padding or gap won't open the select -->
-        <div class="onyx-select-input__wrapper" @click="emit('click')">
+        <div class="onyx-select-input__wrapper" @click="emit('selectInputClick')">
           <OnyxLoadingIndicator
             v-if="props.loading"
             class="onyx-select-input__loading"
