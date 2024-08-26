@@ -65,6 +65,9 @@ async function gitLsFiles(flags: string) {
   return fileNames.filter((i) => !!i).map((i) => path.parse(i).name);
 }
 
+/**
+ * Gets the changeset summary/description/changelog for the given changed icons.
+ */
 function getChangesetSummary(newIcons: string[], deletedIcons: string[], modifiedIcons: string[]) {
   let summary = "feat: update icons";
 
