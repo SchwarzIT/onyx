@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.36
+
+### Patch Changes
+
+- 8647795: fix(OnyxMiniSearch): Adjust the size to the search input
+
 ## 1.0.0-beta.35
 
 ### Patch Changes
