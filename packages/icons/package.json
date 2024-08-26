@@ -22,6 +22,6 @@
     "./*": "./src/assets/*"
   },
   "devDependencies": {
-    "tsx": "^4.17.0"
+    "tsx": "^4.18.0"
   }
 }
