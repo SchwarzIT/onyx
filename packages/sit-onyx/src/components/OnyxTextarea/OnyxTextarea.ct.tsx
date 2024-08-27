@@ -275,7 +275,6 @@ test.describe("Screenshot tests", () => {
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const events = {
     updateModelValue: [] as string[],
-    change: [] as string[],
     focusCount: 0,
     blurCount: 0,
   };
@@ -285,7 +284,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     <OnyxTextarea
       label="Label"
       onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-      onChange={(value) => events.change.push(value)}
       onFocus={() => events.focusCount++}
       onBlur={() => events.blurCount++}
     />,
@@ -294,7 +292,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   // should not emit initial events
   expect(events).toMatchObject({
     updateModelValue: [],
-    change: [],
     focusCount: 0,
     blurCount: 0,
   });
@@ -314,7 +311,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   await expect(inputElement).toHaveValue("Test");
   expect(events).toMatchObject({
     updateModelValue: ["T", "Te", "Tes", "Test"],
-    change: [],
     focusCount: 1,
     blurCount: 0,
   });
@@ -323,7 +319,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   await inputElement.blur();
   expect(events).toMatchObject({
     updateModelValue: ["T", "Te", "Tes", "Test"],
-    change: ["Test"],
     focusCount: 1,
     blurCount: 1,
   });

@@ -24,10 +24,6 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value: string];
   /**
-   * Emitted when the current value changes but only when the input is blurred.
-   */
-  change: [value: string];
-  /**
    * Emitted when the input is focussed.
    */
   focus: [];
@@ -52,11 +48,6 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-
-const handleChange = (event: Event) => {
-  const inputValue = (event.target as HTMLInputElement).value;
-  emit("change", inputValue);
-};
 
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
@@ -94,7 +85,6 @@ const patternSource = computed(() => {
             :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
-            @change="handleChange"
             @focus="emit('focus')"
             @blur="emit('blur')"
           />
