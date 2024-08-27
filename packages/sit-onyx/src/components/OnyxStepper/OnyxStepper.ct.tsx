@@ -240,7 +240,6 @@ test.describe("Screenshot tests", () => {
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const events = {
     updateModelValue: [] as string[],
-    change: [] as string[],
     focusCount: 0,
     blurCount: 0,
   };
@@ -250,9 +249,8 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     <OnyxStepper
       label="Label"
       onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-      onChange={(value) => events.change.push(value)}
-      onFocus={() => events.focusCount++}
-      onBlur={() => events.blurCount++}
+      onInputFocus={() => events.focusCount++}
+      onInputBlur={() => events.blurCount++}
     />,
   );
 

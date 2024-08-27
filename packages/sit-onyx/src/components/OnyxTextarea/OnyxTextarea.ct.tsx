@@ -284,8 +284,8 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     <OnyxTextarea
       label="Label"
       onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-      onFocus={() => events.focusCount++}
-      onBlur={() => events.blurCount++}
+      onTextareaFocus={() => events.focusCount++}
+      onTextareaBlur={() => events.blurCount++}
     />,
   );
 

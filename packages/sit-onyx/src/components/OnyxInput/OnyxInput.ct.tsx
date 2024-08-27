@@ -246,8 +246,8 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     <OnyxInput
       label="Label"
       onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-      onFocus={() => events.focusCount++}
-      onBlur={() => events.blurCount++}
+      onInputFocus={() => events.focusCount++}
+      onInputBlur={() => events.blurCount++}
     />,
   );
 
