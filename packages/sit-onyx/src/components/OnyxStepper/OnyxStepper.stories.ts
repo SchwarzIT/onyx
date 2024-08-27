@@ -6,7 +6,7 @@ const meta: Meta<typeof OnyxStepper> = {
   title: "Form/Stepper",
   ...defineStorybookActionsAndVModels({
     component: OnyxStepper,
-    events: ["update:modelValue", "validityChange"],
+    events: ["update:modelValue", "validityChange", "inputBlur", "inputFocus"],
     decorators: [
       (story) => ({
         components: { story },

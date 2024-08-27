@@ -24,11 +24,11 @@ const emit = defineEmits<{
   /**
    * Emitted when the input is focussed.
    */
-  focus: [];
+  textareaFocus: [];
   /**
    * Emitted when the input is blurred.
    */
-  blur: [];
+  textareaBlur: [];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -103,8 +103,8 @@ const handleInput = (event: Event) => {
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
             @input="handleInput"
-            @focus="emit('focus')"
-            @blur="emit('blur')"
+            @focus="emit('textareaFocus')"
+            @blur="emit('textareaBlur')"
           ></textarea>
           <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>

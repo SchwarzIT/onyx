@@ -6,7 +6,7 @@ const meta: Meta<typeof OnyxTextarea> = {
   title: "Form/Textarea",
   ...defineStorybookActionsAndVModels({
     component: OnyxTextarea,
-    events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
+    events: ["update:modelValue", "change", "textareaFocus", "textareaBlur", "validityChange"],
     decorators: [
       (story) => ({
         components: { story },

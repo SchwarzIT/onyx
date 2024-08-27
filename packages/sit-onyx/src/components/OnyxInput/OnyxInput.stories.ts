@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxInput> = {
   title: "Form/Input",
   ...defineStorybookActionsAndVModels({
     component: OnyxInput,
-    events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
+    events: ["update:modelValue", "change", "inputFocus", "inputBlur", "validityChange"],
     decorators: [
       (story) => ({
         components: { story },
