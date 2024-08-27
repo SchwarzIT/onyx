@@ -45,20 +45,22 @@ test.describe("screenshot tests", () => {
 test.describe("screenshot tests (buttons)", () => {
   executeMatrixScreenshotTest({
     name: "Pagination (buttons)",
-    columns: ["previous", "next"],
+    columns: ["select", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: () => <OnyxPagination pages={42} modelValue={2} />,
     beforeScreenshot: async (component, page, column, row) => {
-      const button = page.getByRole("button", {
+      let button = page.getByRole("button", {
         name: column === "previous" ? "previous page" : "next page",
       });
+
+      if (column === "select") button = component.getByLabel("Page selection");
 
       if (row === "hover") await button.hover();
       if (row === "focus-visible") {
         await page.keyboard.press("Tab");
-        await page.keyboard.press("Tab");
+        if (column !== "select") await page.keyboard.press("Tab");
         if (column === "next") await page.keyboard.press("Tab");
       }
       if (row === "active") {

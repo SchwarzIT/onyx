@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.7
+
+### Patch Changes
+
+- 410064e: fix(OnyxSelect, listbox): Fix auto scroll behavior with search input
+
 ## 1.0.0-beta.6
 
 ### Patch Changes
