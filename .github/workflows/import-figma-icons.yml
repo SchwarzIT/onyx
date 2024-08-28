@@ -38,7 +38,7 @@ jobs:
 
       - name: Generate changeset
         run: |
-          git add src/assets
+          git add .
           pnpm run generate:changeset
         working-directory: packages/icons
 
