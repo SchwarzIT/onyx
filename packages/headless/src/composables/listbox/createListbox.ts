@@ -1,4 +1,4 @@
-import { computed, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
+import { computed, nextTick, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
 import { createId } from "../..";
 import { createBuilder, type VBindAttributes } from "../../utils/builder";
 import { useTypeAhead } from "../helpers/useTypeAhead";
@@ -105,7 +105,7 @@ export const createListbox = createBuilder(
     const isFocused = ref(false);
 
     // scroll currently active option into view if needed
-    watchEffect(() => {
+    watchEffect(async () => {
       if (
         !isExpanded.value ||
         options.activeOption.value == undefined ||
@@ -113,7 +113,10 @@ export const createListbox = createBuilder(
       )
         return;
       const id = getOptionId(options.activeOption.value);
-      document.getElementById(id)?.scrollIntoView({ block: "nearest", inline: "nearest" });
+
+      await nextTick(() => {
+        document.getElementById(id)?.scrollIntoView({ block: "end", inline: "nearest" });
+      });
     });
 
     const typeAhead = useTypeAhead((inputString) => options.onTypeAhead?.(inputString));
