@@ -1,14 +1,9 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { useRipple, type RippleConfig } from "../../composables/useRipple";
+import { ref } from "vue";
+import { useRipple } from "../../composables/useRipple";
 
 const rippleTrigger = ref<HTMLElement>();
-
-const config = computed<RippleConfig>(() => ({
-  container: rippleTrigger,
-}));
-
-const { ripples, hideRipple, events } = useRipple(config);
+const { ripples, hideRipple, events } = useRipple(rippleTrigger);
 
 defineExpose({
   events,
@@ -17,68 +12,68 @@ defineExpose({
 
 <template>
   <span ref="rippleTrigger" class="onyx-ripple" aria-hidden="true">
-    <transition-group name="onyx-ripple" @after-enter="hideRipple($event as HTMLElement)">
-      <span
-        v-for="[key, r] in ripples"
-        :key="key"
-        class="onyx-ripple__element"
-        :style="{
-          left: r.left,
-          top: r.top,
-          width: r.radius,
-          height: r.radius,
-        }"
-        :data-rippleid="key"
-      ></span>
-    </transition-group>
+    <span
+      v-for="[key, ripple] in ripples"
+      :key="key"
+      class="onyx-ripple__element"
+      :style="{
+        '--onyx-ripple-left': ripple.left,
+        '--onyx-ripple-top': ripple.top,
+      }"
+      :data-rippleid="key"
+      @animationend="hideRipple($event.target as HTMLElement)"
+    ></span>
   </span>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+@property --onyx-ripple-radius {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+
 .onyx-ripple {
   @include layers.component() {
+    --onyx-ripple-color: var(--onyx-color-base-primary-600);
+
     display: block;
     position: absolute;
     inset: 0;
     overflow: hidden;
     border-radius: inherit;
+    width: 100%;
+    height: 100%;
 
     &__element {
       display: block;
       position: absolute;
-      border-radius: 50%;
       pointer-events: none;
-      background-color: var(--onyx-ripple-color, var(--onyx-color-base-primary-600));
-      transition:
-        opacity,
-        transform 0ms cubic-bezier(0, 0, 0.2, 1);
-    }
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        circle at var(--onyx-ripple-left) var(--onyx-ripple-top),
+        transparent var(--onyx-ripple-radius),
+        var(--onyx-ripple-color) var(--onyx-ripple-radius)
+      );
 
-    &-enter-active,
-    &-leave-active {
-      transition-property: opacity, scale;
-      transition-timing-function: ease;
-      transition-duration: var(--onyx-duration-sm);
+      animation: onyx-ripple var(--onyx-duration-sm) cubic-bezier(0, 0, 0.2, 1) forwards;
+
       @media (prefers-reduced-motion) {
-        transition-duration: 1ms;
+        animation: none;
       }
     }
 
-    &-leave-active {
-      transition-duration: 100ms;
-      @media (prefers-reduced-motion) {
-        transition-duration: 1ms;
+    @keyframes onyx-ripple {
+      0% {
+        --onyx-ripple-radius: 0%;
       }
-    }
 
-    &-enter-from {
-      scale: 0;
-    }
-
-    &-leave-to {
-      opacity: 0;
+      100% {
+        --onyx-ripple-radius: 100%;
+      }
     }
   }
 }
