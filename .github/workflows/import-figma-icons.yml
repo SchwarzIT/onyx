@@ -42,6 +42,10 @@ jobs:
           pnpm run generate:changeset
         working-directory: packages/icons
 
+      - name: Format with prettier
+        run: pnpm prettier --write src/metadata.json
+        working-directory: packages/icons
+
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
         with:

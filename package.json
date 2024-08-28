@@ -63,7 +63,7 @@
     "vue-tsc": "^2.0.29"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged --allow-empty"
+    "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
     "*": "prettier --write -u",
