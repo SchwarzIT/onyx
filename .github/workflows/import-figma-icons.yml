@@ -42,6 +42,7 @@ jobs:
           pnpm run generate:changeset
         working-directory: packages/icons
 
+      # needed to prevent creating empty PR when nothing but the formatting changed
       - name: Format with prettier
         run: pnpm prettier --write src/metadata.json
         working-directory: packages/icons
