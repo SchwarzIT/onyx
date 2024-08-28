@@ -44,7 +44,7 @@ export type ExtractKeysByValueType<T, U> = { [P in keyof T]: T[P] extends U ? P 
  */
 export type DefineStorybookActionsAndVModelsOptions<T> = Meta<T> & {
   component: NonNullable<T>;
-  events: ExtractVueEventNames<T>[];
+  events: (ExtractVueEventNames<T> | "click" | "change")[];
 };
 
 export type StorybookGlobalType<TValue> = {
