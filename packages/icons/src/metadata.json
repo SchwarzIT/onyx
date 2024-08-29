@@ -878,31 +878,31 @@
     "aliases": ["search-engine", "data-search", "Datensuche"]
   },
   "emoji-happy-1": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["smile-face", "joyful", "glücklich", "Gesicht"]
   },
   "emoji-happy-2": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["grin-face", "happy", "Emoji glücklich", "Gesicht"]
   },
   "emoji-laughing": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["laughter-face", "chuckle-symbol", "Emoji lachend", "Gesicht"]
   },
   "emoji-neutral-1": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["emotionless-face", "Emoji neutral", "Gesicht"]
   },
   "emoji-neutral-2": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["unemotional-face", "Emoji neutral 1", "Gesicht"]
   },
   "emoji-sad": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["sad-face", "unzufrieden Emoji", "trauriges Gesicht"]
   },
   "emoji-unhappy": {
-    "category": "Emojies",
+    "category": "Emojis",
     "aliases": ["sad-face", "unzufrieden Emoji", "trauriges Gesicht"]
   },
   "engine": {
