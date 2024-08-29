@@ -64,10 +64,9 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
 .onyx-button {
   @include layers.component() {
-    --onyx-button-background-color: var(--onyx-color-base-background-tinted);
-    --onyx-ripple-color: var(--onyx-color-base-background-tinted);
+    --onyx-button-background-color: transparent;
     --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
-    --onyx-button-border-color: var(--onyx-color-base-background-tinted);
+    --onyx-button-border-color: transparent;
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-button-outline-color: var(--onyx-color-base-primary-200);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
@@ -95,7 +94,6 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-primary-500);
-        --onyx-ripple-color: var(--onyx-color-base-primary-500);
         --onyx-button-background-hover-color: var(--onyx-color-base-primary-400);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
         --onyx-button-border-color: var(--onyx-color-base-primary-500);
@@ -127,7 +125,6 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-background-blank);
-        --onyx-ripple-color: var(--onyx-color-base-background-blank);
         --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
         --onyx-button-border-color: var(--onyx-color-base-neutral-400);
 
@@ -157,7 +154,6 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-danger-200);
-        --onyx-ripple-color: var(--onyx-color-base-danger-200);
         --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
         --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
@@ -176,7 +172,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
       }
     }
 
-    &:hover:enabled {
+    &:hover:enabled:not(:has(.onyx-ripple__element)) {
       --onyx-button-background-color: var(--onyx-button-background-hover-color);
     }
 
@@ -215,6 +211,10 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     height: calc(1.5rem + 2 * var(--onyx-button-padding-vertical));
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .onyx-ripple {
+    --onyx-ripple-color: var(--onyx-button-background-hover-color);
   }
 }
 </style>
