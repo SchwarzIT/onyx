@@ -191,7 +191,6 @@ const currentPage = ref(1);
           label="Input"
           :skeleton="useSkeleton"
           label-tooltip="More information tooltip"
-          required-marker="optional"
         />
 
         <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
