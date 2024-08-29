@@ -120,5 +120,5 @@ export * from "./composables/scrollEnd";
 export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
-export { createOnyx, syncGlobalOptionalText } from "./utils/plugin";
+export { createOnyx } from "./utils/plugin";
 export { normalizedIncludes } from "./utils/strings";
