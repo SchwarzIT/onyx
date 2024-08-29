@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.38
+
+### Patch Changes
+
+- d4fe7d1: fix(button): make background transparent for `mode="plain"`
+
 ## 1.0.0-beta.37
 
 ### Minor Changes
