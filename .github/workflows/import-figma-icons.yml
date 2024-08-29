@@ -50,7 +50,8 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "feat: update Figma icons"
+          # this commit message is required by changeset to trigger a release
+          commit-message: "docs(changeset): update Figma icons"
           title: "feat: update Figma icons"
           body: This is an auto-generated pull request. All Figma icons have been updated.
           branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
