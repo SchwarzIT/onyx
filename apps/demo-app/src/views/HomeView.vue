@@ -272,10 +272,25 @@ const tableData = [
           label="Show toast"
           @click="toast.show({ headline: 'Example toast', color: 'success' })"
         />
+        <OnyxHeadline is="h2">Tooltip</OnyxHeadline>
 
-        <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
-          Hover me to show tooltip
-        </OnyxTooltip>
+        <div :style="{ display: 'flex', gap: '5rem', marginTop: '2rem' }">
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text" float="auto">
+            <template #default="{ trigger }">
+              <OnyxButton label="Left" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text" float="auto">
+            <template #default="{ trigger }">
+              <OnyxButton label="Center" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text" float="auto">
+            <template #default="{ trigger }">
+              <OnyxButton label="Right" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+        </div>
 
         <!-- Add new components alphabetically. -->
       </div>

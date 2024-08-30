@@ -52,6 +52,10 @@ export const Default = {
       h(OnyxButton, { label: "Slot content goes here", ...(trigger as any) }),
     icon: circleInformation,
     open: true,
+    position: "auto",
+    color: "neutral",
+    float: "auto",
+    de,
   },
 } satisfies Story;
 

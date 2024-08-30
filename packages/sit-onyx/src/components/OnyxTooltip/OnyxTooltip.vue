@@ -1,8 +1,19 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip } from "@sit-onyx/headless";
 import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
-import { computed, ref, shallowRef, toValue, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  toValue,
+  watch,
+} from "vue";
 import { useDensity } from "../../composables/density";
+import { useOpenDirection } from "../../composables/useOpenDirection";
+import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
@@ -22,9 +33,10 @@ type CreateTooltipOptions = {
 
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
-  position: "top",
+  position: "auto",
   fitParent: false,
   open: "hover",
+  float: "auto",
 });
 
 defineSlots<{
@@ -79,18 +91,55 @@ watch(type, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const trigger = computed(() => toValue<HTMLAttributes>(ariaPattern.value?.elements.trigger));
+
+const tooltipWrapperRef = ref<HTMLElement>();
+const tooltipRef = ref<HTMLElement>();
+const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef);
+const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
+
+// update open direction on resize and to ensure the tooltip is always visible
+onMounted(() => {
+  const updateOnEvent = () => {
+    updateOpenDirection();
+    updateWedgePosition();
+    // console.log("openDirection", openDirection);
+  };
+
+  window.addEventListener("resize", updateOnEvent);
+
+  // initial update
+  updateOpenDirection();
+  updateWedgePosition();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateOpenDirection);
+  window.removeEventListener("resize", updateWedgePosition);
+});
+// update open direction on visibliity changes ensure the tooltip is always visible
+watch(isVisible, async () => {
+  await nextTick();
+  updateOpenDirection();
+  updateWedgePosition();
+});
 </script>
 
 <template>
-  <div :class="['onyx-tooltip-wrapper', densityClass]">
+  <div ref="tooltipWrapperRef" :class="['onyx-tooltip-wrapper', densityClass]">
     <div
+      ref="tooltipRef"
       v-bind="tooltip"
       class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
       :class="{
         'onyx-tooltip--danger': props.color === 'danger',
+        'onyx-tooltip--top': props.position === 'top',
         'onyx-tooltip--bottom': props.position === 'bottom',
+        ['onyx-tooltip--' + openDirection]: props.position === 'auto',
         'onyx-tooltip--fit-parent': props.fitParent,
         'onyx-tooltip--hidden': !isVisible,
+        'onyx-tooltip--float--left': props.float === 'left',
+        'onyx-tooltip--float--right': props.float === 'right',
+        ['onyx-tooltip--float--' + wedgePosition]: wedgePosition && props.float === 'auto',
       }"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -174,6 +223,25 @@ $wedge-size: 0.5rem;
       &::after {
         top: -2 * $wedge-size;
         border-color: transparent transparent var(--background-color);
+      }
+    }
+
+    &--float {
+      &--left {
+        left: var(--wedge-size);
+        transform: translateX(0);
+
+        &::after {
+          left: 2 * $wedge-size;
+        }
+      }
+      &--right {
+        left: 100%;
+        transform: translateX(-100%);
+
+        &::after {
+          left: calc(100% - 2 * $wedge-size);
+        }
       }
     }
   }

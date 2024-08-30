@@ -17,7 +17,6 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
 
     const parentTop = overflowParentRect?.top ?? window.visualViewport?.pageTop ?? 0;
     const parentBottom = overflowParentRect?.bottom ?? window.visualViewport?.height ?? 0;
-
     const freeSpaceBelow = parentBottom - elementRect.bottom;
     const freeSpaceAbove = elementRect.top - parentTop;
 
