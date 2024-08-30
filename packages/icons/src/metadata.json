@@ -1154,6 +1154,10 @@
     "category": "File & Type",
     "aliases": [""]
   },
+  "folder-settings": {
+    "category": "File & Type",
+    "aliases": [""]
+  },
   "forklift": {
     "category": "Business & Statistics",
     "aliases": ["lift-truck", "pallet-mover", "Gabelstapler", "Hubwagen"]
@@ -1957,6 +1961,10 @@
   "rocket": {
     "category": "Objects",
     "aliases": ["spacecraft", "missile", "Rakete", "Flugkörper"]
+  },
+  "rocket-settings": {
+    "category": "Objects",
+    "aliases": [""]
   },
   "rotate": {
     "category": "Arrows",
