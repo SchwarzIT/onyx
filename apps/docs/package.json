@@ -18,7 +18,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
     "@types/node": "^20.16.1",
-    "chart.js": "^4.4.4",
+    "chart.js": "catalog:",
     "postcss": "^8.4.43",
     "sit-onyx": "workspace:^",
     "vite": "^5.4.2",

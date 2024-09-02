@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    chart.js:
+      specifier: ^4.4.4
+      version: 4.4.4
+
 importers:
 
   .:
@@ -172,7 +178,7 @@ importers:
         specifier: ^20.16.1
         version: 20.16.3
       chart.js:
-        specifier: ^4.4.4
+        specifier: 'catalog:'
         version: 4.4.4
       postcss:
         specifier: ^8.4.43
@@ -207,13 +213,13 @@ importers:
 
   packages/chartjs-plugin:
     dependencies:
-      chart.js:
-        specifier: '>= 4.0.0'
-        version: 4.4.4
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
+      chart.js:
+        specifier: 'catalog:'
+        version: 4.4.4
       vue-chartjs:
         specifier: ^5.3.1
         version: 5.3.1(chart.js@4.4.4)(vue@3.4.38(typescript@5.5.4))
