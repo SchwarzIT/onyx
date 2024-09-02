@@ -125,7 +125,7 @@ test.describe("Screenshot tests", () => {
         <OnyxTooltip
           text={column === "long-text" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
           color={row === "danger" ? "danger" : undefined}
-          position={row === "bottom" ? "bottom" : undefined}
+          position={row === "bottom" ? "bottom" : "top"}
           icon={row === "icon" ? mockPlaywrightIcon : undefined}
           fitParent={column === "fit-parent"}
           open={true}

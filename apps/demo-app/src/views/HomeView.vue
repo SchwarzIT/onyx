@@ -272,20 +272,32 @@ const tableData = [
           label="Show toast"
           @click="toast.show({ headline: 'Example toast', color: 'success' })"
         />
-        <OnyxHeadline is="h2">Tooltip</OnyxHeadline>
+        <OnyxHeadline is="h2">Tooltip (auto alignment)</OnyxHeadline>
 
-        <div :style="{ display: 'flex', gap: '5rem', marginTop: '2rem' }">
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text" float="auto">
+        <div
+          :style="{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '101%',
+            marginTop: '2rem',
+          }"
+        >
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Left" v-bind="trigger" />
             </template>
           </OnyxTooltip>
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text" float="auto">
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Center" v-bind="trigger" />
             </template>
           </OnyxTooltip>
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text" float="auto">
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+            <template #default="{ trigger }">
+              <OnyxButton label="Center" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Right" v-bind="trigger" />
             </template>

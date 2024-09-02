@@ -30,7 +30,7 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
     if (!element) return undefined;
 
     const style = getComputedStyle(element);
-    if (style.overflow === "hidden") {
+    if (style.overflow === "hidden" || style.overflow === "hidden auto") {
       // if the element has hidden overflow, the flyout would be cut off by this element so we need to use
       // this element as parent to calculate the open direction instead of the body.
       return element;

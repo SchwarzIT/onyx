@@ -74,12 +74,26 @@ const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
   isVisible,
 }));
-//test command
 
 const type = computed(() => {
   if (typeof props.open === "object") return props.open.type;
   if (typeof props.open === "string") return props.open;
   return "hover";
+});
+
+// classes for the tooltip | computed to drevent bugs
+const tooltipClasses = computed(() => {
+  return {
+    "onyx-tooltip--danger": props.color === "danger",
+    "onyx-tooltip--top": props.position === "top",
+    "onyx-tooltip--bottom": props.position === "bottom",
+    ["onyx-tooltip--" + openDirection]: props.position === "auto",
+    "onyx-tooltip--fit-parent": props.fitParent,
+    "onyx-tooltip--hidden": !isVisible.value,
+    "onyx-tooltip--float--left": props.float === "left",
+    "onyx-tooltip--float--right": props.float === "right",
+    ["onyx-tooltip--float--" + wedgePosition]: wedgePosition && props.float === "auto",
+  };
 });
 
 const createPattern = () =>
@@ -103,7 +117,6 @@ onMounted(() => {
   const updateOnEvent = () => {
     updateOpenDirection();
     updateWedgePosition();
-    // console.log("openDirection", openDirection);
   };
 
   window.addEventListener("resize", updateOnEvent);
@@ -130,18 +143,7 @@ watch(isVisible, async () => {
     <div
       ref="tooltipRef"
       v-bind="tooltip"
-      class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
-      :class="{
-        'onyx-tooltip--danger': props.color === 'danger',
-        'onyx-tooltip--top': props.position === 'top',
-        'onyx-tooltip--bottom': props.position === 'bottom',
-        ['onyx-tooltip--' + openDirection]: props.position === 'auto',
-        'onyx-tooltip--fit-parent': props.fitParent,
-        'onyx-tooltip--hidden': !isVisible,
-        'onyx-tooltip--float--left': props.float === 'left',
-        'onyx-tooltip--float--right': props.float === 'right',
-        ['onyx-tooltip--float--' + wedgePosition]: wedgePosition && props.float === 'auto',
-      }"
+      :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <slot name="tooltip">{{ props.text }}</slot>
