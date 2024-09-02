@@ -14,8 +14,9 @@ test.describe("Screenshot tests", () => {
       return <OnyxMiniSearch density={column} label="Label" modelValue={modelValue} />;
     },
     beforeScreenshot: async (component) => {
-      await component.evaluate(() => {
+      await component.evaluate((element) => {
         document.body.style.backgroundColor = "var(--onyx-color-base-background-tinted)";
+        element.style.width = "200px";
       });
     },
   });

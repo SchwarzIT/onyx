@@ -19,8 +19,8 @@ button {
   height: 16rem;
   width: 16rem;
 
-  :deep(.onyx-ripple-enter-active) {
-    transition-duration: 5s;
+  :deep(.onyx-ripple__element) {
+    animation-duration: 5s;
   }
 }
 </style>

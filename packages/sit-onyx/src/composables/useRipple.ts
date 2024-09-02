@@ -1,61 +1,57 @@
 import { createId } from "@sit-onyx/headless";
-import { computed, onBeforeMount, reactive, ref, type Ref } from "vue";
-import { distanceToFurthestCorner } from "../utils/math";
-
-export type RippleConfig = {
-  container: Ref<Pick<HTMLElement, "getBoundingClientRect"> | undefined>;
-};
+import { onBeforeMount, reactive, ref, type Ref } from "vue";
 
 export type RippleInstance = {
+  id: string;
   left: string;
   top: string;
-  radius: string;
-  rippleId: string;
-  fadeIn: boolean;
+  animationEnded: boolean;
 };
 
-export const useRipple = (config: Ref<RippleConfig>) => {
+export const useRipple = (
+  container: Ref<Pick<HTMLElement, "getBoundingClientRect"> | undefined>,
+) => {
+  /** Whether the mouse/pointer is currently hold down. */
   const isPointerDown = ref(false);
   const ripples = reactive(new Map<string, RippleInstance>());
 
-  const containerRect = computed(() => {
-    return config.value.container.value?.getBoundingClientRect();
-  });
-
+  /**
+   * Starts a new ripple on click.
+   */
   const startRipple = (event: MouseEvent) => {
+    const rect = container.value?.getBoundingClientRect();
+    if (!rect) return;
+
     isPointerDown.value = true;
 
-    const x = event.x;
-    const y = event.y;
-
-    if (!containerRect.value) return;
-
-    const radius = distanceToFurthestCorner(x, y, containerRect.value);
-    const offsetX = x - containerRect.value.left;
-    const offsetY = y - containerRect.value.top;
-
-    const obj = {
-      left: offsetX - radius + "px",
-      top: offsetY - radius + "px",
-      radius: Math.round(radius * 2) + "px",
-      rippleId: createId("ripple"),
-      fadeIn: false,
+    const ripple: RippleInstance = {
+      id: createId("ripple"),
+      left: `${event.x - rect.left}px`,
+      top: `${event.y - rect.top}px`,
+      animationEnded: false,
     };
 
-    ripples.set(obj.rippleId, obj);
+    ripples.set(ripple.id, ripple);
+    return ripple.id;
   };
 
+  /**
+   * Hides the given ripple. Should be called when the animation for the given ripple ended.
+   */
   const hideRipple = (el: Pick<HTMLElement, "dataset">) => {
     const rippleId = el.dataset.rippleid;
     if (rippleId == undefined) return;
-    if (ripples.has(rippleId)) ripples.get(rippleId)!.fadeIn = true;
+    if (ripples.has(rippleId)) ripples.get(rippleId)!.animationEnded = true;
     if (!isPointerDown.value) ripples.delete(rippleId);
   };
 
+  /**
+   * Deletes all ripples that have already been fully animated.
+   */
   const hideRipples = () => {
     isPointerDown.value = false;
     ripples.forEach((r, key) => {
-      if (r.fadeIn) ripples.delete(key);
+      if (r.animationEnded) ripples.delete(key);
     });
   };
 

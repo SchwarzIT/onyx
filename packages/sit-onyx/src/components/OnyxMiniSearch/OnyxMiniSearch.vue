@@ -36,6 +36,8 @@ const value = computed({
   set: (value) => emit("update:modelValue", value ?? ""),
 });
 
+const placeholder = computed(() => t.value("select.searchPlaceholder"));
+
 defineExpose({
   /**
    * Focuses the input.
@@ -45,13 +47,18 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="['onyx-mini-search', densityClass]" v-bind="rootAttrs">
+  <div
+    :class="['onyx-mini-search', densityClass]"
+    v-bind="rootAttrs"
+    :style="{ '--onyx-placeholder-character-count': placeholder.length }"
+  >
     <input
       ref="input"
       v-model="value"
       class="onyx-mini-search__input onyx-text"
-      :placeholder="t('select.searchPlaceholder')"
+      :placeholder="placeholder"
       type="text"
+      size="1"
       v-bind="restAttrs"
       :aria-label="props.label"
     />
@@ -83,6 +90,7 @@ defineExpose({
     --onyx-mini-search-padding-inline: var(--onyx-density-sm);
 
     display: flex;
+    gap: var(--onyx-mini-search-padding-inline);
     padding: var(--onyx-density-xs) var(--onyx-mini-search-padding-inline);
     background-color: var(--onyx-color-base-background-blank);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -96,7 +104,7 @@ defineExpose({
       font-family: var(--onyx-font-family);
       font-style: normal;
       flex-grow: 1;
-      min-width: 0;
+      min-width: calc(var(--onyx-placeholder-character-count) * 1ch);
       color: var(--onyx-color-text-icons-neutral-intense);
 
       &::placeholder {
@@ -108,7 +116,6 @@ defineExpose({
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
       display: none;
-      margin-left: var(--onyx-mini-search-padding-inline);
 
       .onyx-icon {
         --icon-size: var(--onyx-mini-search-icon-size);

@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.0.0-beta.39
+
+### Major Changes
+
+- dfa58b8: fix: support SSR for `createOnyx()` plugin
+
+  Removed export of `syncGlobalOptionalText`, use the `createOnyx()` Vue plugin instead
+
+## 1.0.0-beta.38
+
+### Patch Changes
+
+- d4fe7d1: fix(button): make background transparent for `mode="plain"`
+
+## 1.0.0-beta.37
+
+### Minor Changes
+
+- 3d612d4: feat(OnyxPagination): enable search and update select focus styles
+
+## 1.0.0-beta.36
+
+### Patch Changes
+
+- 8647795: fix(OnyxMiniSearch): Adjust the size to the search input
+
 ## 1.0.0-beta.35
 
 ### Patch Changes

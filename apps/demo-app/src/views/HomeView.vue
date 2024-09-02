@@ -15,6 +15,7 @@ import {
   OnyxLink,
   OnyxLoadingIndicator,
   OnyxPageLayout,
+  OnyxPagination,
   OnyxRadioGroup,
   OnyxSelect,
   OnyxSkeleton,
@@ -48,6 +49,7 @@ const COMPONENTS = [
   "OnyxLink",
   "OnyxSelect",
   "OnyxLoadingIndicator",
+  "OnyxPagination",
   "OnyxRadioGroup",
   "OnyxSkeleton",
   "OnyxStepper",
@@ -121,6 +123,8 @@ const tableData = [
   { fruit: "Apple", price: "1.99", inventory: 3000 },
   { fruit: "Banana", price: "3.75", inventory: 18000 },
 ];
+
+const currentPage = ref(1);
 </script>
 
 <template>
@@ -199,6 +203,8 @@ const tableData = [
 
         <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
+        <OnyxPagination v-if="show('OnyxPagination')" v-model="currentPage" :pages="42" />
+
         <template v-if="show('OnyxRadioGroup')">
           <OnyxRadioGroup
             v-model="radioState"
@@ -207,7 +213,7 @@ const tableData = [
             :skeleton="skeletonNumber"
           />
           <div v-if="!useSkeleton" class="onyx-text--small state-info">
-            OnyxRadioGroup state: {{ radioState ?? "–" }}
+            OnyxRadioGroup state: {{ radioState ?? "-" }}
           </div>
         </template>
 
