@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
-import { computed, ref } from "vue";
-import { useRipple, type RippleConfig } from "./useRipple";
+import { ref } from "vue";
+import { useRipple } from "./useRipple";
 
 vi.mock("vue", async (original) => ({
   ...((await original()) as typeof import("vue")),
@@ -20,30 +20,34 @@ describe("useRipple", () => {
     toJSON: vi.fn(),
   };
 
-  const config = computed<RippleConfig>(() => ({
-    color: "red",
-    container: ref({
-      getBoundingClientRect: vi.fn(() => rect),
-    }),
-  }));
+  const container = ref({
+    getBoundingClientRect: vi.fn(() => rect),
+  });
 
-  const { ripples, startRipple, hideRipples, hideRipple } = useRipple(config);
+  const { ripples, startRipple, hideRipples, hideRipple } = useRipple(container);
 
   test("should initialize with an empty ripples map", () => {
+    // ASSERT
     expect(ripples.size).toBe(0);
   });
 
   test("should add and remove a ripple", () => {
+    // ACT
     const mockEvent = new MouseEvent("mousedown");
-    startRipple(mockEvent);
+    const rippleId = startRipple(mockEvent);
+
+    // ASSERT
     expect(ripples.size).toBe(1);
-    const r = ripples.values().next().value;
+
+    // ACT
     hideRipple({
       dataset: {
-        rippleid: r.rippleId,
+        rippleid: rippleId,
       },
     });
     hideRipples();
+
+    // ASSERT
     expect(ripples.size).toBe(0);
   });
 });
