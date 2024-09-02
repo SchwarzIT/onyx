@@ -74,6 +74,7 @@ const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
   isVisible,
 }));
+//test command
 
 const type = computed(() => {
   if (typeof props.open === "object") return props.open.type;

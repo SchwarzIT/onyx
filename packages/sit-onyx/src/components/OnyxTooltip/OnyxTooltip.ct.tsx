@@ -16,6 +16,7 @@ test("should trigger with boolean", async ({ mount }) => {
 
   // ASSERT
   await expect(tooltip).toBeHidden();
+  x;
 
   // ACT
   await component.update({ props: { open: true } });
