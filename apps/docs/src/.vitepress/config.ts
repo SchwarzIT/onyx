@@ -1,9 +1,9 @@
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitepress";
-import packageJson from "../../../../packages/sit-onyx/package.json";
+import { defineConfig, type DefaultTheme, type UserConfig } from "vitepress";
+import packageJson from "../../../../packages/sit-onyx/package.json" with { type: "json" };
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export const CONFIG = {
   vite: {
     resolve: {
       alias: {
@@ -214,7 +214,9 @@ export default defineConfig({
       ],
     },
   },
-});
+} as const satisfies UserConfig<DefaultTheme.Config>;
+
+export default defineConfig(CONFIG);
 
 /** Gets the given path while ensuring cross-platform and correct decoding */
 function getFilePath(path: string) {
