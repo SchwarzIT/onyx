@@ -15,7 +15,7 @@ const props = defineProps<RendererProps<TEntry>>();
     </thead>
     <tbody>
       <tr v-for="row in props.rows" :key="row.id">
-        <td v-for="col in row.entries" :key="col.key">
+        <td v-for="col in row.cells" :key="col.key">
           <component :is="col.cell" :metadata="col.metadata" :data="col.data" />
         </td>
       </tr>
