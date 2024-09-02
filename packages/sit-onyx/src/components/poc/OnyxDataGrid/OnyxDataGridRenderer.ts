@@ -46,7 +46,7 @@ export type RenderCell<
   /**
    * table data that is provided to the component via the `metadata` prop
    */
-  data: CellData;
+  value: CellData;
   /**
    * The component that renders the actual cell content.
    */
@@ -62,9 +62,5 @@ export type RenderRow<TEntry extends TableEntry> = {
    * Data that is provided to the row component using via the `metadata` prop
    */
   metadata?: object;
-  entries: Record<string, RenderCell<TEntry>>;
-  /**
-   * can be used to add attributes, including class, style and even event listeners
-   */
-  rowAttrs: HTMLAttributes;
+  cells: Record<string, RenderCell<TEntry>>;
 };

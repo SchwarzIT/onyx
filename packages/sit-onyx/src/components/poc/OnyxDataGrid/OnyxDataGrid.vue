@@ -1,28 +1,15 @@
 <script lang="ts" setup generic="TEntry extends TableEntry">
 import { computed } from "vue";
 import type { OnyxDataGridProps } from "./OnyxDataGrid";
-import type { RenderRow, RenderColumn, TableEntry, RenderCell } from "./OnyxDataGridRenderer";
+import type { RenderRow, RenderColumn, TableEntry } from "./OnyxDataGridRenderer";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
+import { useTableFeatures } from "./OnyxDataGrid.feature";
 
 const props = defineProps<OnyxDataGridProps<TEntry>>();
 
-const rows = computed<RenderRow<TableEntry>[]>(() =>
-  props.data.map(({ id, ...rest }) => ({
-    id,
-    rowAttrs: {},
-    entries: Object.fromEntries([
-      ["id", { key: "id", data: id, cell: () => `${id}` }],
-      ...Object.entries(rest).map(([key, data]) => [
-        key,
-        {
-          key,
-          data,
-          cell: () => `${data}`,
-        } satisfies RenderCell<TableEntry>,
-      ]),
-    ]),
-  })),
-);
+const { enrichTableData } = useTableFeatures([]);
+
+const rows = computed<RenderRow<TableEntry>[]>(() => enrichTableData(props.data));
 
 const columns = computed<RenderColumn<TableEntry>[]>(() => {
   const firstEntry = props.data.at(0);
