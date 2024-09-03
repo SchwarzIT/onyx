@@ -21,7 +21,7 @@ type Story = StoryObj<typeof OnyxDataGrid>;
  */
 export const Default = {
   args: {
-    data: Array.from({ length: 10 }).map((_, index) => ({
+    data: Array.from({ length: 100 }).map((_, index) => ({
       id: index,
       col_a: `a${index}`,
       col_b: `b${index}`,

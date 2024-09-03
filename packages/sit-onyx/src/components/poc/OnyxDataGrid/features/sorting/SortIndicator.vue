@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import OnyxIcon from "../../../../OnyxIcon/OnyxIcon.vue";
 import arrowsSort from "@sit-onyx/icons/arrows-sort.svg?raw";
 import chevronUp from "@sit-onyx/icons/chevron-up.svg?raw";
 import chevronDown from "@sit-onyx/icons/chevron-down.svg?raw";
