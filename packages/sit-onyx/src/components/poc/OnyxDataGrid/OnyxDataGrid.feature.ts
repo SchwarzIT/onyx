@@ -137,8 +137,8 @@ export const useTableFeatures = <TEntry extends TableEntry>(features: TableFeatu
   const states = features.flatMap(({ state }) => state).filter(Boolean);
 
   const enrichTableData = (userData: TEntry[]): RenderRow<TEntry>[] => {
-    const state = userData.map((entry) => ({ entry, context: {} })) as EntryState<TEntry>[];
-    sortedMutations.forEach(({ mapFunc }) => mapFunc(state));
+    const emptyState = userData.map((entry) => ({ entry, context: {} })) as EntryState<TEntry>[];
+    const state = sortedMutations.reduce((newState, { mapFunc }) => mapFunc(newState), emptyState);
 
     return state.map(({ entry, context }) => {
       const invertedContext = Object.entries(context).reduce(

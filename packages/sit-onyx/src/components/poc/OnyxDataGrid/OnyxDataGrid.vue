@@ -3,15 +3,21 @@ import type { OnyxDataGridProps } from "./OnyxDataGrid";
 import type { RenderRow, RenderColumn, TableEntry } from "./OnyxDataGridRenderer";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
 import { useTableFeatures } from "./OnyxDataGrid.feature";
-import { withSortingFeature } from "./features/sorting";
+import { withSortingFeature } from "./features/sorting/sorting";
+
 import { watch } from "vue";
 import { shallowRef } from "vue";
+import { withFilteringFeature } from "./features/filtering/filtering";
 
 const props = defineProps<OnyxDataGridProps<TEntry>>();
 
 const withSorting = withSortingFeature<TEntry>();
+const withFiltering = withFilteringFeature<TEntry>();
 
-const { enrichTableData, enrichHeaders, states } = useTableFeatures<TEntry>([withSorting]);
+const { enrichTableData, enrichHeaders, states } = useTableFeatures<TEntry>([
+  withSorting,
+  withFiltering,
+]);
 
 const rows = shallowRef<RenderRow<TEntry>[]>([]);
 const columns = shallowRef<RenderColumn<TEntry>[]>([]);

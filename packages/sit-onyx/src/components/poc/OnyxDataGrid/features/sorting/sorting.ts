@@ -1,6 +1,6 @@
 import { h, type Ref, ref } from "vue";
-import type { TableFeature } from "../OnyxDataGrid.feature";
-import type { TableEntry } from "../OnyxDataGridRenderer";
+import type { TableFeature } from "../../OnyxDataGrid.feature";
+import type { TableEntry } from "../../OnyxDataGridRenderer";
 import SortIndicator from "./SortIndicator.vue";
 
 export type SortDirection = 1 | -1 | 0;
