@@ -54,8 +54,8 @@ export const Default = {
     open: true,
     position: "auto",
     color: "neutral",
-    float: "auto",
-    de,
+    align: "auto",
+    density: "default",
   },
 } satisfies Story;
 

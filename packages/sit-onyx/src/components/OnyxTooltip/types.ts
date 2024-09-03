@@ -29,9 +29,9 @@ export type OnyxTooltipProps = DensityProp & {
    */
   position?: TooltipPosition;
   /**
-   * How to float the tooltip relative to the parent element.
+   * How to align the tooltip relative to the parent element.
    */
-  float?: TooltipFloat;
+  align?: TooltipAlignment;
   /**
    * If `true`, the tooltip will match the width of the parent/slot element.
    */
@@ -50,8 +50,8 @@ export type OnyxTooltipProps = DensityProp & {
 
 export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;
 export type TooltipPosition = (typeof TOOLTIP_POSITIONS)[number];
-export const TOOLTIP_FLOAT = ["left", "right", "center", "auto"] as const;
-export type TooltipFloat = (typeof TOOLTIP_FLOAT)[number];
+export const TOOLTIP_ALIGNMENT = ["left", "right", "center", "auto"] as const;
+export type TooltipAlignment = (typeof TOOLTIP_ALIGNMENT)[number];
 
 export type TooltipOpen =
   | "hover"

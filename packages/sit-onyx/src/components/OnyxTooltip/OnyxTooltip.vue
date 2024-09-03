@@ -36,7 +36,8 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   position: "auto",
   fitParent: false,
   open: "hover",
-  float: "auto",
+  align: "auto",
+  density: "default",
 });
 
 defineSlots<{
@@ -81,18 +82,16 @@ const type = computed(() => {
   return "hover";
 });
 
-// classes for the tooltip | computed to drevent bugs
+// classes for the tooltip | computed to prevent bugs
 const tooltipClasses = computed(() => {
   return {
     "onyx-tooltip--danger": props.color === "danger",
-    "onyx-tooltip--top": props.position === "top",
-    "onyx-tooltip--bottom": props.position === "bottom",
-    ["onyx-tooltip--" + openDirection.value]: props.position === "auto",
     "onyx-tooltip--fit-parent": props.fitParent,
     "onyx-tooltip--hidden": !isVisible.value,
-    "onyx-tooltip--float--left": props.float === "left",
-    "onyx-tooltip--float--right": props.float === "right",
-    ["onyx-tooltip--float--" + wedgePosition.value]: wedgePosition.value && props.float === "auto",
+    [`onyx-tooltip--${props.position}`]: props.position !== "auto",
+    [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
+    [`onyx-tooltip--align--${wedgePosition.value}`]: props.align === "auto",
+    [`onyx-tooltip--align--${props.align}`]: props.align !== "auto",
   };
 });
 
@@ -112,14 +111,14 @@ const tooltipRef = ref<HTMLElement>();
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef);
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
 
-// update open direction on resize and to ensure the tooltip is always visible
+// update open direction on resize to ensure the tooltip is always visible
 onMounted(() => {
-  const updateOnEvent = () => {
+  const updateOnResize = () => {
     updateOpenDirection();
     updateWedgePosition();
   };
 
-  window.addEventListener("resize", updateOnEvent);
+  window.addEventListener("resize", updateOnResize);
 
   // initial update
   updateOpenDirection();
@@ -130,7 +129,7 @@ onBeforeUnmount(() => {
   window.removeEventListener("resize", updateOpenDirection);
   window.removeEventListener("resize", updateWedgePosition);
 });
-// update open direction on visibliity changes ensure the tooltip is always visible
+// update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async () => {
   await nextTick();
   updateOpenDirection();
@@ -229,7 +228,7 @@ $wedge-size: 0.5rem;
       }
     }
 
-    &--float {
+    &--align {
       &--left {
         left: var(--wedge-size);
         transform: translateX(0);

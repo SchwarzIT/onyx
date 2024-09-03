@@ -280,7 +280,7 @@ const currentPage = ref(1);
         />
         <OnyxHeadline is="h2">Tooltip (auto alignment)</OnyxHeadline>
 
-        <div v-if="show('OnyxTooltip')">
+        <div v-if="show('OnyxTooltip')" class="tooltip-container">
           <OnyxTooltip text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Left" v-bind="trigger" />
@@ -340,9 +340,9 @@ const currentPage = ref(1);
   color: var(--onyx-color-text-icons-neutral-soft);
 }
 .tooltip-container {
-  display: "flex";
+  display: flex;
   justify-content: space-between;
-  width: "101%";
-  margin-top: "2rem";
+  width: 101%;
+  margin-top: 2rem;
 }
 </style>

@@ -175,7 +175,7 @@ test.describe("Alignment screenshot tests", () => {
     rows: ["top", "bottom"],
     component: (column, row) => {
       return (
-        <OnyxTooltip text="Test tooltip" position={row} open={true} float={column}>
+        <OnyxTooltip text="Test tooltip" position={row} open={true} align={column}>
           <span
             style={{
               fontFamily: "var(--onyx-font-family)",
