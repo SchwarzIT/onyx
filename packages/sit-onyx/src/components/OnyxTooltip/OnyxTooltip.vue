@@ -87,12 +87,12 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--danger": props.color === "danger",
     "onyx-tooltip--top": props.position === "top",
     "onyx-tooltip--bottom": props.position === "bottom",
-    ["onyx-tooltip--" + openDirection]: props.position === "auto",
+    ["onyx-tooltip--" + openDirection.value]: props.position === "auto",
     "onyx-tooltip--fit-parent": props.fitParent,
     "onyx-tooltip--hidden": !isVisible.value,
     "onyx-tooltip--float--left": props.float === "left",
     "onyx-tooltip--float--right": props.float === "right",
-    ["onyx-tooltip--float--" + wedgePosition]: wedgePosition && props.float === "auto",
+    ["onyx-tooltip--float--" + wedgePosition.value]: wedgePosition.value && props.float === "auto",
   };
 });
 

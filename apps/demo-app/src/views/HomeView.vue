@@ -280,30 +280,23 @@ const currentPage = ref(1);
         />
         <OnyxHeadline is="h2">Tooltip (auto alignment)</OnyxHeadline>
 
-        <div
-          :style="{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '101%',
-            marginTop: '2rem',
-          }"
-        >
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+        <div v-if="show('OnyxTooltip')">
+          <OnyxTooltip text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Left" v-bind="trigger" />
             </template>
           </OnyxTooltip>
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+          <OnyxTooltip text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Center" v-bind="trigger" />
             </template>
           </OnyxTooltip>
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+          <OnyxTooltip text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Center" v-bind="trigger" />
             </template>
           </OnyxTooltip>
-          <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
+          <OnyxTooltip text="Example tooltip text">
             <template #default="{ trigger }">
               <OnyxButton label="Right" v-bind="trigger" />
             </template>
@@ -345,5 +338,11 @@ const currentPage = ref(1);
 }
 .state-info {
   color: var(--onyx-color-text-icons-neutral-soft);
+}
+.tooltip-container {
+  display: "flex";
+  justify-content: space-between;
+  width: "101%";
+  margin-top: "2rem";
 }
 </style>

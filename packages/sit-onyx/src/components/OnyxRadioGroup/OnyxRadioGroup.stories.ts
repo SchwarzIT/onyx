@@ -100,15 +100,6 @@ export const Required = {
     modelValue: undefined,
     required: true,
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-      <div style="padding-left: 2rem;">
-        <story />
-      </div>`,
-    }),
-  ],
 } satisfies Story;
 
 /**
@@ -123,13 +114,4 @@ export const CustomError = {
       longMessage: "Further explanation.",
     },
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-      <div style="padding-left: 2rem;">
-        <story />
-      </div>`,
-    }),
-  ],
 } satisfies Story;
