@@ -5,35 +5,29 @@ import SortIndicator from "./SortIndicator.vue";
 
 export type SortDirection = 1 | -1 | 0;
 
-type SortingHeaderProps = {
-  sortDirection: SortDirection;
-};
-
 export const withSortingFeature = <TEntry extends TableEntry>(): TableFeature<TEntry> => {
   const sortColumn: Ref<keyof TEntry> = ref("id");
   const sortDirection = ref<SortDirection>(0);
   const intlCompare = new Intl.Collator().compare;
 
-  const withSorting: TableFeature<TEntry, SortingHeaderProps> = {
+  return {
     name: Symbol("Sorting"),
+    state: [sortColumn, sortDirection],
     modifyColumns: {
       func: (cols) => {
         cols.forEach((c) => {
           const org = c.header;
-          c.header = (props, ctx) => h("div", [h(SortIndicator, props), org(props, ctx)]);
-
-          c.headerProps = {
-            ...c.headerProps,
-            sortDirection: sortColumn.value === c.key ? sortDirection.value : 0,
-            onClick: () => {
-              if (sortColumn.value === c.key) {
-                sortDirection.value *= -1;
-              } else {
-                sortColumn.value = c.key;
-                sortDirection.value = 1;
-              }
-            },
-          };
+          c.header = (props, ctx) =>
+            h("div", [
+              h(SortIndicator, {
+                sortDirection: sortColumn.value === c.key ? sortDirection.value : 0,
+                "onUpdate:sortDirection": (newSortDirection) => {
+                  sortColumn.value = c.key;
+                  sortDirection.value = newSortDirection;
+                },
+              }),
+              org(props, ctx),
+            ]);
         });
         return cols;
       },
@@ -51,6 +45,4 @@ export const withSortingFeature = <TEntry extends TableEntry>(): TableFeature<TE
             ),
     },
   };
-
-  return withSorting as TableFeature<TEntry>;
 };
