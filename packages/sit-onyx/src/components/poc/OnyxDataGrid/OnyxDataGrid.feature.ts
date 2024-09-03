@@ -1,3 +1,4 @@
+import type { WatchSource } from "vue";
 import type { RenderColumn, RenderRow, TableEntry } from "./OnyxDataGridRenderer";
 
 /**
@@ -32,7 +33,15 @@ type Order = {
 };
 
 export type TableFeature<TEntry extends TableEntry, THeaderProps extends object = object> = {
+  /**
+   * Unique name and identifier of the table feature
+   */
   name: string | symbol;
+
+  /**
+   * An array of reactive states that should trigger a table re-render
+   */
+  state: WatchSource[];
 
   /**
    * Allows to add context to table rows.
@@ -125,6 +134,8 @@ export const useTableFeatures = <TEntry extends TableEntry>(features: TableFeatu
     ])
     .sort((a, b) => a.order - b.order);
 
+  const states = features.flatMap(({ state }) => state).filter(Boolean);
+
   const enrichTableData = (userData: TEntry[]): RenderRow<TEntry>[] => {
     const state = userData.map((entry) => ({ entry, context: {} })) as EntryState<TEntry>[];
     sortedMutations.forEach(({ mapFunc }) => mapFunc(state));
@@ -169,5 +180,5 @@ export const useTableFeatures = <TEntry extends TableEntry>(features: TableFeatu
       return { cells, id: entry.id, metadata };
     });
   };
-  return { enrichTableData, enrichHeaders };
+  return { enrichTableData, enrichHeaders, states };
 };
