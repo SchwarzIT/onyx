@@ -13,20 +13,24 @@ export type RendererProps<TEntry extends TableEntry> = {
   rows: RenderRow<TEntry>[];
 };
 
-export type RenderColumn<TEntry extends TableEntry, Key extends keyof TEntry = keyof TEntry> = {
+export type RenderColumn<
+  TEntry extends TableEntry,
+  TKey extends keyof TEntry = keyof TEntry,
+  TProps extends object = object,
+> = {
   /**
    * Key of the column - usually a key of the tabledata.
    * But can also be used for custom columns.
    */
-  key: Key;
+  key: TKey;
   /**
    * Attributes and data that is provided to the component using `v-bind`.
    */
-  cellAttrs?: HTMLAttributes;
+  headerProps: HTMLAttributes & TProps;
   /**
    * The component that renders the header content.
    */
-  header: FunctionalComponent;
+  header: FunctionalComponent<TProps>;
 };
 
 export type RenderCell<

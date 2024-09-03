@@ -31,7 +31,7 @@ type Order = {
   order: number;
 };
 
-type TableFeature<TEntry extends TableEntry> = {
+export type TableFeature<TEntry extends TableEntry, THeaderProps extends object = object> = {
   name: string | symbol;
 
   /**
@@ -55,7 +55,9 @@ type TableFeature<TEntry extends TableEntry> = {
    * Allows the modification of the header columns before render.
    */
   modifyColumns?: {
-    func: (cols: RenderColumn<TEntry>[]) => RenderColumn<TEntry>[];
+    func: (
+      cols: RenderColumn<TEntry, keyof TEntry, THeaderProps>[],
+    ) => RenderColumn<TEntry, keyof TEntry, THeaderProps>[];
   } & Order;
 
   /**
@@ -90,6 +92,16 @@ type Metadata = Record<string, unknown>;
 const MAPPING_SYMBOL = Symbol("MAPPING_SYMBOL");
 
 export const useTableFeatures = <TEntry extends TableEntry>(features: TableFeature<TEntry>[]) => {
+  const sortedModifyColumns = features
+    .map((f) => f.modifyColumns!)
+    .filter(Boolean)
+    .sort((a, b) => a.order - b.order);
+
+  const enrichHeaders = (cols: RenderColumn<TEntry>[]): RenderColumn<TEntry>[] => {
+    sortedModifyColumns.forEach(({ func }) => func(cols));
+    return cols;
+  };
+
   const sortedMappings = features
     .filter((e) => e.mapping?.func)
     .map(({ name, mapping }) => ({ name, mapFunc: mapping!.func, order: mapping!.order }))
@@ -157,5 +169,5 @@ export const useTableFeatures = <TEntry extends TableEntry>(features: TableFeatu
       return { cells, id: entry.id, metadata };
     });
   };
-  return { enrichTableData };
+  return { enrichTableData, enrichHeaders };
 };
