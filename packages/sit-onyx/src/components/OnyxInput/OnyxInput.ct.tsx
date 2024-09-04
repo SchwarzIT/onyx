@@ -218,6 +218,29 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
+    name: "Input readonly/default with highlighted text",
+    columns: ["default", "readonly"],
+    rows: ["default"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: (column, _row) => {
+      return (
+        <OnyxInput
+          class="dark"
+          style="width: 12rem"
+          label="Test Label"
+          hideLabel
+          readonly={column === "readonly"}
+          modelValue="Filled Text"
+        />
+      );
+    },
+    beforeScreenshot: async (component, _page, _column, _row) => {
+      await component.selectText();
+    },
+  });
+
+  executeMatrixScreenshotTest({
     name: "Input (skeleton)",
     columns: DENSITIES,
     rows: ["default", "hideLabel"],
