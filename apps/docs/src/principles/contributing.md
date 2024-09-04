@@ -156,3 +156,48 @@ You can use our density mixin in this case:
 }
 </style>
 ```
+
+### Testing
+
+We require every component to be thoroughly tested.
+This project uses [Playwright](https://playwright.dev/) and [Vitest](https://vitest.dev/) for testing.
+
+#### Component (UI) tests
+
+Generally [playwright component tests](https://playwright.dev/docs/test-components) (kept in `.ct.tsx`-files) suffice to test a component.
+
+Component tests must include screenshot tests to ensure that any style changes happen intentionally and can be approved by our UX.
+To easily generate and test screenshots for all main component states the [`executeMatrixScreenshotTest`](/packages/sit-onyx/src/playwright/screenshots.tsx) utility is to be used.
+
+In our monorepo playwright/component tests are run non-interactively using the `pnpm test:components` script.
+
+To use Playwright interactively run `pnpm dlx playwright test --ui` (add the `--headed` flag to open the test browsers) in the package directory.
+
+#### CI
+
+To investigate failing playwright tests from the CI locally:
+
+1. Download the `html-report--attempt-x` artifact **_after_** the pipeline has finished.
+2. Unzip the archive
+3. `cd` into the package you want to see the report for
+4. Run `pnpm dlx playwright show-report`
+
+##### VSCode
+
+We recommend the [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) extension for running component tests in development.
+It allows to build and run specific tests interactively out of the IDE (see annotation `3` in screenshot beneath).
+If you encounter any issues please make sure
+
+- to run the `pnpm build` script at least once for the pacakge
+- to only select the playwright config file for the current package your are testing
+- to run `Run global teardown`, `Close All Browsers` and `Clear Cache`
+
+You find the playwright VSCode extension settings (see annotation `2` in screenshot beneath) in the `Testing` section of VSCode (annotation `1`).
+
+![Playwright for VSCode overview](playwright-test-for-vs-code.png)
+
+#### Unit tests
+
+For self-contained logic, excluding Vue components, unit tests (kept in `.spec.ts`-files) can be written using [Vitest](https://vitest.dev/).
+
+In our monorepo unit tests are run using the `pnpm test` script.
