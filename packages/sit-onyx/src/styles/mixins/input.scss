@@ -49,7 +49,6 @@
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(#{$base-selector}__native:read-only) {
-      --selection-color: var(--onyx-color-base-neutral-200);
       background-color: var(--onyx-color-base-background-tinted);
     }
 
