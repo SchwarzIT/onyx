@@ -12,7 +12,7 @@ export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<
   return {
     name: featureName,
     state: [filterColumn, filterValue],
-    modifyColumns: {
+    modifyHeaders: {
       func: (cols) => {
         cols.forEach((c) => {
           const org = c.header;

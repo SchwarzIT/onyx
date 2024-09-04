@@ -1,9 +1,10 @@
 <script lang="ts" setup generic="TEntry extends TableEntry">
 import type { OnyxDataGridProps } from "./OnyxDataGrid";
-import type { RenderRow, RenderColumn, TableEntry } from "./OnyxDataGridRenderer";
+import type { RenderRow, RenderHeader, TableEntry } from "./OnyxDataGridRenderer";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
 import { useTableFeatures } from "./OnyxDataGrid.feature";
 import { withSortingFeature } from "./features/sorting/sorting";
+import { withDraggingFeature } from "./features/reordering/dragging";
 
 import { watch } from "vue";
 import { shallowRef } from "vue";
@@ -13,35 +14,36 @@ const props = defineProps<OnyxDataGridProps<TEntry>>();
 
 const withSorting = withSortingFeature<TEntry>();
 const withFiltering = withFilteringFeature<TEntry>();
+const withDragging = withDraggingFeature<TEntry>();
 
-const { enrichTableData, enrichHeaders, states } = useTableFeatures<TEntry>([
+const { enrichTableData, enrichHeaders, states } = useTableFeatures<TEntry, keyof any>([
   withSorting,
   withFiltering,
+  withDragging,
 ]);
 
 const rows = shallowRef<RenderRow<TEntry>[]>([]);
-const columns = shallowRef<RenderColumn<TEntry>[]>([]);
+const columns = shallowRef<RenderHeader<TEntry>[]>([]);
 
 const update = () => {
-  rows.value = enrichTableData([...props.data]);
+  rows.value = enrichTableData([...props.data], [...props.columns]);
   columns.value = updateColumns();
 };
 
 const updateColumns = () => {
-  const firstEntry = props.data.at(0);
-  if (!firstEntry) {
-    return [];
-  }
-  const _columns = Object.entries(firstEntry).map(([key]) => ({
+  const _columns = props.columns.map(({ key }) => ({
     key,
     headerProps: {},
-    header: () => `${key}`,
+    header: () => `${key.toString()}`,
   }));
   return enrichHeaders(_columns);
 };
 
 // eslint-disable-next-line no-console
-watch([() => props.data, ...states], () => update(), { immediate: true, onTrigger: console.log });
+watch([() => props.data, () => props.columns, ...states], () => update(), {
+  immediate: true,
+  onTrigger: console.log,
+});
 </script>
 
 <template>

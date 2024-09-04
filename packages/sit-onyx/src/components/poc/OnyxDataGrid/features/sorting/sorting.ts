@@ -1,4 +1,4 @@
-import { h, type Ref, ref } from "vue";
+import { h, ref, type Ref } from "vue";
 import type { TableFeature } from "../../OnyxDataGrid.feature";
 import type { TableEntry } from "../../OnyxDataGridRenderer";
 import SortIndicator from "./SortIndicator.vue";
@@ -13,7 +13,7 @@ export const withSortingFeature = <TEntry extends TableEntry>(): TableFeature<TE
   return {
     name: Symbol("Sorting"),
     state: [sortColumn, sortDirection],
-    modifyColumns: {
+    modifyHeaders: {
       func: (cols) => {
         cols.forEach((c) => {
           const org = c.header;
