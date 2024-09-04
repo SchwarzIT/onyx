@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
@@ -10,24 +9,22 @@ import OnyxAppLayout from "./OnyxAppLayout.vue";
  */
 const meta: Meta<typeof OnyxAppLayout> = {
   title: "Layout/AppLayout",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxAppLayout,
-    events: [],
-    argTypes: {
-      navBar: {
-        control: { disable: true },
-      },
-      default: {
-        control: { disable: true },
-      },
-      pageOverlay: {
-        control: { disable: true },
-      },
-      appOverlay: {
-        control: { disable: true },
-      },
+  component: OnyxAppLayout,
+  argTypes: {
+    navBar: {
+      control: { disable: true },
     },
-  }),
+    default: {
+      control: { disable: true },
+    },
+    pageOverlay: {
+      control: { disable: true },
+    },
+    appOverlay: {
+      control: { disable: true },
+    },
+  },
+
   parameters: {
     layout: "fullscreen",
   },

@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxMiniSearch from "./OnyxMiniSearch.vue";
 
@@ -7,10 +6,7 @@ import OnyxMiniSearch from "./OnyxMiniSearch.vue";
  */
 const meta: Meta<typeof OnyxMiniSearch> = {
   title: "Support/MiniSearch",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxMiniSearch,
-    events: ["update:modelValue", "clear"],
-  }),
+  component: OnyxMiniSearch,
 };
 
 export default meta;
