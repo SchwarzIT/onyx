@@ -41,7 +41,7 @@ const tokens = [
     border-width: var(--onyx-1px-in-rem) var(--onyx-1px-in-rem) var(--onyx-1px-in-rem) 0;
     border-color: var(--onyx-color-base-warning-500);
     border-style: solid;
-    background: var(--onyx-color-base-neutral-100);
+    background: var(--onyx-color-base-background-tinted);
     margin: 0;
     box-sizing: border-box;
 

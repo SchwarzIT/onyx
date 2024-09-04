@@ -1,15 +1,11 @@
-export type IconMetadata = {
-  category: string;
-  deprecated?: boolean;
-  aliases?: string[];
-};
+import type { IconCategories, IconMetadata } from "./types.js";
 
-export type GroupedIconCategory = {
-  iconName: string;
-  metadata: IconMetadata;
-};
-
-export type IconCategories = Record<string, GroupedIconCategory[]>;
+export {
+  /**
+   * Metadata for all available onyx icons.
+   */
+  default as ICON_METADATA,
+} from "./metadata.json";
 
 /**
  * Groups all available icon metadata by category.
@@ -38,4 +34,30 @@ export const groupIconsByCategory = (iconMetadata: Record<string, IconMetadata>)
     });
 
   return sortedCategories;
+};
+
+/**
+ * Transform an icon name to its corresponding JavaScript import name.
+ *
+ * @example
+ * ```ts
+ * "bell-disabled" => "bellDisabled"
+ * // e.g. used as 'import bellDisabled from "@sit-onyx/icons/bell-disabled.svg?raw"'
+ * ```
+ */
+export const getIconImportName = (iconName: string) => {
+  return iconName
+    .split("-")
+    .map((word, index) => {
+      if (index === 0) return word;
+      return capitalize(word);
+    })
+    .join("");
+};
+
+/**
+ * Capitalizes the first character of the given string.
+ */
+export const capitalize = (value: string) => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 };

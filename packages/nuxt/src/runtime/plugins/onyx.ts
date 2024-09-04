@@ -1,7 +1,7 @@
-import { computed, watchEffect, type ComputedRef } from "#imports";
+import { computed, type ComputedRef } from "#imports";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { defineNuxtPlugin, useNuxtApp } from "nuxt/app";
-import { provideI18n, syncGlobalOptionalText, type TranslationFunction } from "sit-onyx";
+import { createOnyx, type TranslationFunction } from "sit-onyx";
 import type { Composer } from "vue-i18n";
 
 type I18n = Composer & { localeProperties: ComputedRef<LocaleObject> };
@@ -20,20 +20,15 @@ export default defineNuxtPlugin({
       };
     });
 
-    provideI18n(app.vueApp, {
-      locale: computed(() => localeProperties.value.iso ?? "en-US"),
-      t,
-    });
-
-    /**
-     * The translation for the key "optional" is used within the css.
-     * Calling syncGlobalOptionalText sets the css variable used for that to the current translation.
-     * This needs to be done within a client side hook as the function will access the document to set the css variable globally.
-     */
-    app.hook("app:beforeMount", () => {
-      watchEffect(() => {
-        syncGlobalOptionalText(translate(`onyx.optional`));
-      });
-    });
+    app.vueApp.use(
+      createOnyx({
+        i18n: {
+          locale: computed(
+            () => localeProperties.value.language ?? localeProperties.value.iso ?? "en-US",
+          ),
+          t,
+        },
+      }),
+    );
   },
 });

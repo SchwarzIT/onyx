@@ -159,7 +159,10 @@ export const sourceCodeTransformer = (
     const escapedIconContent = `"${replaceAll(iconContent, '"', '\\"')}"`;
 
     if (code.includes(iconContent)) {
-      code = code.replace(new RegExp(` (\\S+)=['"]${iconContent}['"]`), ` :$1="${importName}"`);
+      code = code.replace(
+        new RegExp(` (\\S+)=['"]${escapeRegExp(iconContent)}['"]`),
+        ` :$1="${importName}"`,
+      );
       additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     } else if (code.includes(singleQuotedIconContent)) {
       // support icons inside objects
@@ -208,4 +211,12 @@ ${code}`;
  */
 export const replaceAll = (value: string, searchValue: string | RegExp, replaceValue: string) => {
   return value.replace(new RegExp(searchValue, "gi"), replaceValue);
+};
+
+/**
+ * Escapes the given string value to be used in `new RegExp()`.
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions#escaping
+ */
+export const escapeRegExp = (string: string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 };
