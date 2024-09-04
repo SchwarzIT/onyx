@@ -2,18 +2,24 @@ import type { FunctionalComponent, HTMLAttributes } from "vue";
 
 export type TableEntry = {
   id: string | number;
-  [key: string]: unknown;
+  [key: keyof any]: unknown;
 };
+
+export type CellRenderFunc<
+  TEntry extends TableEntry,
+  CellData extends unknown = unknown,
+  Metadata extends object = object,
+> = FunctionalComponent<{ value: CellData; row: TEntry; metadata?: Metadata }>;
 
 /**
  * Props of the TableRenderLayer
  */
 export type RendererProps<TEntry extends TableEntry> = {
-  columns: RenderColumn<TEntry>[];
+  columns: RenderHeader<TEntry>[];
   rows: RenderRow<TEntry>[];
 };
 
-export type RenderColumn<
+export type RenderHeader<
   TEntry extends TableEntry,
   TKey extends keyof TEntry = keyof TEntry,
   TProps extends object = object,
@@ -34,19 +40,19 @@ export type RenderColumn<
 };
 
 export type RenderCell<
-  TableEntry extends object,
-  Key extends keyof TableEntry = keyof TableEntry,
-  CellData extends TableEntry[Key] = TableEntry[Key],
+  TEntry extends TableEntry,
+  Key extends keyof TEntry,
+  CellData = TEntry[Key],
+  Metadata = object,
 > = {
   /**
-   * Key of the column - usually a key of the tabledata.
-   * But can also be used for custom columns.
+   * Complete row data
    */
-  key: Key;
+  row: TEntry;
   /**
    * Data that is provided to the component via the `metadata` prop
    */
-  metadata?: object;
+  metadata?: Metadata;
   /**
    * table data that is provided to the component via the `metadata` prop
    */
@@ -54,7 +60,7 @@ export type RenderCell<
   /**
    * The component that renders the actual cell content.
    */
-  cell: FunctionalComponent;
+  is: CellRenderFunc<TEntry>;
 };
 
 export type RenderRow<TEntry extends TableEntry> = {
@@ -66,5 +72,5 @@ export type RenderRow<TEntry extends TableEntry> = {
    * Data that is provided to the row component using via the `metadata` prop
    */
   metadata?: object;
-  cells: Record<string, RenderCell<TEntry>>;
+  cells: Record<keyof TEntry, RenderCell<TEntry, keyof TEntry>>;
 };

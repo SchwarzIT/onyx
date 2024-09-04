@@ -27,5 +27,9 @@ export const Default = {
       col_b: `b${index}`,
       col_c: `c${index}`,
     })),
+    columns: [
+      { key: "col_a", type: "" },
+      { key: "col_c", type: "" },
+    ],
   },
 } satisfies Story;
