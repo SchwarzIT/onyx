@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { join } from "node:path";
 import { DefaultTheme } from "../node_modules/vitepress/types/default-theme";
 import { CONFIG } from "../src/.vitepress/config";
 
@@ -45,6 +46,8 @@ pathsTotTest.forEach((path) => {
       .replace(/[_/ ]/g, "_");
     await page.goto(path);
     const main = page.getByRole("main");
-    await expect(main).toHaveScreenshot(`${name}.png`, { stylePath: "./hide-non-main.css" });
+    await expect(main).toHaveScreenshot(`${name}.png`, {
+      stylePath: join(import.meta.dirname, "hide-non-main.css"),
+    });
   });
 });
