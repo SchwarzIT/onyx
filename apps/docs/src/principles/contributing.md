@@ -167,7 +167,7 @@ This project uses [Playwright](https://playwright.dev/) and [Vitest](https://vit
 Generally [playwright component tests](https://playwright.dev/docs/test-components) (kept in `.ct.tsx`-files) suffice to test a component.
 
 Component tests must include screenshot tests to ensure that any style changes happen intentionally and can be approved by our UX.
-To easily generate and test screenshots for all main component states the [`executeMatrixScreenshotTest`](/packages/sit-onyx/src/playwright/screenshots.tsx) utility is to be used.
+To easily generate and test screenshots for all main component states the `executeMatrixScreenshotTest` (in file `/packages/sit-onyx/src/playwright/screenshots.tsx`) utility is to be used.
 
 In our monorepo playwright/component tests are run non-interactively using the `pnpm test:components` script.
 
