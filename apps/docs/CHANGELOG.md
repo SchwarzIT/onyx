@@ -1,5 +1,11 @@
 # docs
 
+## 1.0.0-beta.2
+
+### Patch Changes
+
+- da2523f: fix(OnyxBorderRadiusTokens): Fix background color
+
 ## 1.0.0-beta.1
 
 ### Patch Changes

@@ -61,7 +61,7 @@ jobs:
         working-directory: packages/figma-utils
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "feat: update Figma variables"
           title: "feat: update Figma variables"

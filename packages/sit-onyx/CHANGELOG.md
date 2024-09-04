@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-beta.39
+
+### Major Changes
+
+- dfa58b8: fix: support SSR for `createOnyx()` plugin
+
+  Removed export of `syncGlobalOptionalText`, use the `createOnyx()` Vue plugin instead
+
+## 1.0.0-beta.38
+
+### Patch Changes
+
+- d4fe7d1: fix(button): make background transparent for `mode="plain"`
+
 ## 1.0.0-beta.37
 
 ### Minor Changes
