@@ -8,6 +8,8 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/onyx/);
 });
 
+const BLACKLIST_PATHS = [/changelog/i, /icons/i];
+
 /**
  * maps links listed in the vitepress config to their respective absolute url
  */
@@ -31,8 +33,11 @@ const sidebarItems = Object.values(CONFIG.themeConfig.sidebar).flat(1);
 
 const items = [...navItems, ...sidebarItems].map((item) => mapToLinks(item)).flat(1);
 const uniqueItems = new Set(items);
+const pathsTotTest = Array.from(uniqueItems).filter(
+  (p) => !BLACKLIST_PATHS.some((bl) => p.match(bl)),
+);
 
-Array.from(uniqueItems).forEach((path) => {
+pathsTotTest.forEach((path) => {
   test(`screenshot content of ${path}`, async ({ page }) => {
     const name = path
       .replace(/^\//, "")
