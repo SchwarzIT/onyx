@@ -45,6 +45,6 @@ pathsTotTest.forEach((path) => {
       .replace(/[_/ ]/g, "_");
     await page.goto(path);
     const main = page.getByRole("main");
-    await expect(main).toHaveScreenshot(`${name}.png`);
+    await expect(main).toHaveScreenshot(`${name}.png`, { stylePath: "./hide-non-main.css" });
   });
 });
