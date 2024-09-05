@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
@@ -7,10 +6,8 @@ import OnyxDataGrid from "./OnyxDataGrid.vue";
  */
 const meta: Meta<typeof OnyxDataGrid> = {
   title: "DataGrid",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxDataGrid,
-    events: [],
-  }),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: OnyxDataGrid as any,
 };
 
 export default meta;
