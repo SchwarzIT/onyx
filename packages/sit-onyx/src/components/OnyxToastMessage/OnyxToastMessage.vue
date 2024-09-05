@@ -19,10 +19,6 @@ const props = withDefaults(defineProps<OnyxToastMessageProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the toast is clicked. Requires `clickable` property to be enabled.
-   */
-  toastMessageClick: [];
-  /**
    * Emitted when the toast should be closed.
    */
   close: [];
@@ -53,7 +49,6 @@ const icon = computed(() => {
     :class="[`onyx-toast-message--${props.color}`, densityClass]"
     :role="props.color === 'danger' || props.color === 'warning' ? 'alert' : 'status'"
     :aria-label="props.clickable ? props.headline : undefined"
-    @click="props.clickable && emit('toastMessageClick')"
   >
     <div class="onyx-toast-message__wrapper">
       <OnyxIcon v-if="icon" :icon="icon" />
