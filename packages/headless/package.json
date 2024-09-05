@@ -30,5 +30,8 @@
   "peerDependencies": {
     "typescript": ">= 5",
     "vue": ">= 3"
+  },
+  "devDependencies": {
+    "vue": "catalog:"
   }
 }
