@@ -3,4 +3,6 @@ packages:
   - "packages/*"
 
 catalog:
+  "@vue/compiler-dom": ~3.4.0
   chart.js: "^4.4.4"
+  vue: ~3.4.0

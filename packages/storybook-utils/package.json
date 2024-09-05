@@ -36,5 +36,8 @@
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.0"
+  },
+  "devDependencies": {
+    "vue": "catalog:"
   }
 }

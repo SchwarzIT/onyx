@@ -21,5 +21,8 @@
     "@vue/repl": "~4.2.1",
     "@vueuse/core": "^11.0.3",
     "sit-onyx": "workspace:^"
+  },
+  "devDependencies": {
+    "vue": "catalog:"
   }
 }
