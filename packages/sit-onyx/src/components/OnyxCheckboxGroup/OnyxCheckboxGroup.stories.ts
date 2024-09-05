@@ -8,12 +8,10 @@ import type { CheckboxGroupOption } from "./types";
  */
 const meta: Meta<typeof OnyxCheckboxGroup> = {
   title: "Form/CheckboxGroup",
-
   component: OnyxCheckboxGroup,
   argTypes: {
     withCheckAll: { control: { type: "boolean" } },
-  }
-
+  },
 };
 
 export default meta;
