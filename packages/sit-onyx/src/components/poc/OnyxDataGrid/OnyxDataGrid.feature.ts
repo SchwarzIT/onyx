@@ -1,7 +1,16 @@
 import type { WatchSource } from "vue";
-import type { CellRenderFunc, RenderHeader, RenderRow, TableEntry } from "./OnyxDataGridRenderer";
+import type {
+  CellRenderFunc,
+  RenderCell,
+  RenderHeader,
+  RenderRow,
+  TableEntry,
+} from "./OnyxDataGridRenderer";
 
-export type ColumnDefinition<TEntry extends TableEntry, TType extends keyof any> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AnyKey = keyof any;
+
+export type ColumnDefinition<TEntry extends TableEntry, TType extends AnyKey> = {
   key: keyof TEntry;
   type: TType;
 };
@@ -23,8 +32,8 @@ export type ColumnDefinition<TEntry extends TableEntry, TType extends keyof any>
  * }
  *
  */
-type Context<TEntry extends TableEntry> = Record<
-  TableFeature<TEntry>["name"],
+type Context<TEntry extends TableEntry> = Map<
+  TableFeature<TEntry, AnyKey>["name"],
   Metadata | undefined
 >;
 
@@ -37,16 +46,20 @@ type Order = {
   order: number;
 };
 
-export type CellTypeMap<
-  TEntry extends TableEntry,
-  CellTypes extends keyof any = keyof any,
-> = Record<CellTypes, CellRenderFunc<TEntry>>;
+export type CellTypeMap<TEntry extends TableEntry, CellTypes extends AnyKey = AnyKey> = Record<
+  CellTypes,
+  CellRenderFunc<TEntry>
+>;
 
-export type TableFeature<TEntry extends TableEntry, THeaderProps extends object = object> = {
+export type TableFeature<
+  TEntry extends TableEntry,
+  TType extends AnyKey,
+  THeaderProps extends object = object,
+> = {
   /**
    * Unique name and identifier of the table feature
    */
-  name: string;
+  name: symbol;
 
   /**
    * An array of reactive states that should trigger a table re-render
@@ -75,7 +88,7 @@ export type TableFeature<TEntry extends TableEntry, THeaderProps extends object 
   } & Order;
 
   modifyColumns?: {
-    func: (cols: ColumnDefinition<TEntry, any>[]) => ColumnDefinition<TEntry, any>[];
+    func: (cols: ColumnDefinition<TEntry, TType>[]) => ColumnDefinition<TEntry, TType>[];
   } & Order;
 
   /**
@@ -95,7 +108,7 @@ export type TableFeature<TEntry extends TableEntry, THeaderProps extends object 
     keyof Metadata,
     (
       context: {
-        featureName: string;
+        featureName: symbol;
         contextValue: unknown;
       }[],
     ) => unknown
@@ -116,12 +129,12 @@ export type TableFeature<TEntry extends TableEntry, THeaderProps extends object 
  */
 type Metadata = Record<string, unknown>;
 
-const MAPPING_SYMBOL = "MAPPING_SYMBOL";
+const MAPPING_SYMBOL = Symbol("MAPPING_SYMBOL");
 
-export const useTableFeatures = <TEntry extends TableEntry, TTypes extends keyof any>(
-  features: TableFeature<TEntry>[],
+export const useTableFeatures = <TEntry extends TableEntry, TType extends AnyKey>(
+  features: TableFeature<TEntry, TType>[],
 ) => {
-  const enrichColumns = (cols: ColumnDefinition<TEntry, TTypes>[]) =>
+  const enrichColumns = (cols: ColumnDefinition<TEntry, TType>[]) =>
     features
       .map((f) => f.modifyColumns!)
       .filter(Boolean)
@@ -150,7 +163,7 @@ export const useTableFeatures = <TEntry extends TableEntry, TTypes extends keyof
     .sort((a, b) => a.order - b.order);
 
   const mapping = (entry: TEntry, context: Context<TEntry>) =>
-    sortedMappings.forEach(({ name, mapFunc }) => (context[name] = mapFunc({ context, entry })));
+    sortedMappings.forEach(({ name, mapFunc }) => context.set(name, mapFunc({ context, entry })));
 
   const sortedMutations = features
     .filter((e) => e.mutation?.func)
@@ -170,31 +183,37 @@ export const useTableFeatures = <TEntry extends TableEntry, TTypes extends keyof
   const states = features.flatMap(({ state }) => state).filter(Boolean);
 
   const enrichTableData = (
-    _userData: TEntry[],
-    _columns: ColumnDefinition<TEntry, any>[],
+    rawData: TEntry[],
+    _columns: ColumnDefinition<TEntry, TType>[],
   ): RenderRow<TEntry>[] => {
-    const userData = _userData.map((entry) => ({ entry, context: {} })) as EntryState<TEntry>[];
-    const state = sortedMutations.reduce((newState, { mapFunc }) => mapFunc(newState), userData);
+    const initialState = rawData.map<EntryState<TEntry>>((entry) => ({
+      entry,
+      context: new Map(),
+    }));
+
+    const state = sortedMutations.reduce(
+      (newState, { mapFunc }) => mapFunc(newState),
+      initialState,
+    );
+
     const columns = enrichColumns(_columns);
 
     return state.map(({ entry, context }) => {
-      const invertedContext = Object.entries(context).reduce(
-        (agg, [featureName, featureContext]) => {
-          Object.entries(featureContext ?? {}).forEach(
-            ([contextName, contextValue]: [keyof TEntry, unknown]) => {
-              if (!contextValue) {
-                return agg;
-              }
-              let a = agg[contextName];
-              if (!a) {
-                a = agg[contextName] = [];
-              }
-              a.push({ featureName, contextValue });
-            },
-          );
-          return agg;
+      const invertedContext = Array.from(context.entries()).reduce(
+        (map, [featureName, featureContext]) => {
+          Object.entries(featureContext ?? {}).forEach(([contextName, contextValue]) => {
+            if (!contextValue) {
+              return map;
+            }
+            const a = map.get(contextName) ?? [];
+            if (a.length === 0) {
+              map.set(contextName, a);
+            }
+            a.push({ featureName, contextValue });
+          });
+          return map;
         },
-        {} as Record<keyof TEntry, { featureName: string; contextValue: unknown }[] | undefined>,
+        new Map<string, { featureName: symbol; contextValue: unknown }[]>(),
       );
 
       const reducers =
@@ -202,27 +221,27 @@ export const useTableFeatures = <TEntry extends TableEntry, TTypes extends keyof
           .map(({ reducers }) => reducers)
           .reduce((prev, reducers) => ({ ...prev, ...reducers }), {}) ?? {};
 
-      const metadata = Object.fromEntries(
-        Object.entries(invertedContext).map(([contextName, context]) => [
-          contextName,
-          reducers[contextName]?.(context ?? []),
-        ]),
+      const metaDataEntries: [string, unknown][] = [];
+      invertedContext.forEach((context, contextName) =>
+        metaDataEntries.push([contextName, reducers[contextName]?.(context)]),
       );
+      const metadata = Object.fromEntries(metaDataEntries);
 
-      const cells = Object.fromEntries(
-        columns.map(({ key, type }) => [
-          key,
-          {
+      const cells = columns.reduce(
+        (obj, { key, type }) => {
+          obj[key] = {
             row: entry,
             value: entry[key],
             metadata,
             is: cellTypesMap[type] ?? (() => String(entry[key])),
-          },
-        ]),
+          };
+          return obj;
+        },
+        {} as Record<keyof TEntry, RenderCell<TEntry, keyof TEntry, TEntry[keyof TEntry], object>>,
       );
 
       return { cells, id: entry.id, metadata };
-    }) as any;
+    });
   };
   return { enrichTableData, enrichHeaders, states };
 };

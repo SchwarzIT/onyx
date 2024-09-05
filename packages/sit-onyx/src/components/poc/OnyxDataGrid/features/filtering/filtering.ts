@@ -4,13 +4,14 @@ import type { TableFeature } from "../../OnyxDataGrid.feature";
 import type { TableEntry } from "../../OnyxDataGridRenderer";
 import FilterInputButton from "./FilterInputButton.vue";
 
-export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<TEntry> => {
-  const featureName = Symbol("Filtering");
+const FILTERING_FEATURE = Symbol("Filtering");
+
+export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<TEntry, never> => {
   const filterColumn = ref<keyof TEntry>();
   const filterValue = ref("");
 
   return {
-    name: featureName,
+    name: FILTERING_FEATURE,
     state: [filterColumn, filterValue],
     modifyHeaders: {
       func: (cols) => {
@@ -47,7 +48,8 @@ export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<
     },
     mutation: {
       order: 11,
-      func: (state) => state.filter((entryState) => !entryState.context[featureName]?.["hidden"]),
+      func: (state) =>
+        state.filter((entryState) => !entryState.context.get(FILTERING_FEATURE)?.["hidden"]),
     },
   };
 };
