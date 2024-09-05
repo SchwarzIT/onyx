@@ -236,7 +236,7 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, _page, _column, _row) => {
-      await component.selectText();
+      await component.getByRole("textbox").selectText();
     },
   });
 
