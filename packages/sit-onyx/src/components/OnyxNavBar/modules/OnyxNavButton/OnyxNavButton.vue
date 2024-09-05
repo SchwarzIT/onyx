@@ -16,7 +16,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the nav button is clicked (via click or keyboard).
    */
-  navButtonClick: [href: string];
+  navigate: [href: string];
 }>();
 
 const slots = defineSlots<{
@@ -38,7 +38,7 @@ const handleParentClick = () => {
   if (isMobile?.value && hasChildren.value && !isMobileChildrenOpen.value) {
     isMobileChildrenOpen.value = true;
   } else if (props.href) {
-    emit("navButtonClick", props.href);
+    emit("navigate", props.href);
   }
 };
 </script>

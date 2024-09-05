@@ -90,33 +90,33 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavButton href="#1" label="Item 1" onNavButtonClick={(href) => clickEvents.push(href)} />
-      <OnyxNavButton href="#2" label="Item 2" onNavButtonClick={(href) => clickEvents.push(href)}>
+      <OnyxNavButton href="#1" label="Item 1" onNavigate={(href) => clickEvents.push(href)} />
+      <OnyxNavButton href="#2" label="Item 2" onNavigate={(href) => clickEvents.push(href)}>
         Item 2
         <OnyxBadge color="warning" dot />
         <template v-slot:children>
           <OnyxNavItem
             label="Nested item 1"
             href="#2-1"
-            onNavItemClick={(href) => clickEvents.push(href)}
+            onNavigate={(href) => clickEvents.push(href)}
           />
           <OnyxNavItem
             label="Nested item 2"
             href="#2-2"
             active
-            onNavItemClick={(href) => clickEvents.push(href)}
+            onNavigate={(href) => clickEvents.push(href)}
           />
           <OnyxNavItem
             label="Nested item 3"
             href="#2-3"
-            onNavItemClick={(href) => clickEvents.push(href)}
+            onNavigate={(href) => clickEvents.push(href)}
           />
         </template>
       </OnyxNavButton>
       <OnyxNavButton
         href="https://onyx.schwarz"
         label="Item 3"
-        onNavButtonClick={(href) => clickEvents.push(href)}
+        onNavigate={(href) => clickEvents.push(href)}
       />
 
       <template v-slot:mobileActivePage>Nested item 2</template>
