@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxVisuallyHidden from "./OnyxVisuallyHidden.vue";
 
@@ -7,10 +6,7 @@ import OnyxVisuallyHidden from "./OnyxVisuallyHidden.vue";
  */
 const meta: Meta<typeof OnyxVisuallyHidden> = {
   title: "Support/VisuallyHidden",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxVisuallyHidden,
-    events: [],
-  }),
+  component: OnyxVisuallyHidden,
 };
 
 export default meta;

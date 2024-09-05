@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -10,19 +9,16 @@ import OnyxDialog from "./OnyxDialog.vue";
  */
 const meta: Meta<typeof OnyxDialog> = {
   title: "Feedback/Dialog",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxDialog,
-    events: ["close"],
-    argTypes: {
-      default: { control: { type: "text" } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="height: 12rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxDialog,
+  argTypes: {
+    default: { control: { type: "text" } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="height: 12rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

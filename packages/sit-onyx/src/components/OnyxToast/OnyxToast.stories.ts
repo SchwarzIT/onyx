@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import StorybookExample from "./StorybookExample.vue";
 import StorybookExampleSourceCode from "./StorybookExample.vue?raw";
@@ -33,16 +32,14 @@ import StorybookExampleSourceCode from "./StorybookExample.vue?raw";
  */
 const meta: Meta<typeof StorybookExample> = {
   title: "Feedback/Toast",
-  ...defineStorybookActionsAndVModels({
-    component: StorybookExample,
-    events: [],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="height: 24rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: StorybookExample,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="height: 24rem;"> <story /> </div>`,
+    }),
+  ],
+
   parameters: {
     docs: {
       source: {

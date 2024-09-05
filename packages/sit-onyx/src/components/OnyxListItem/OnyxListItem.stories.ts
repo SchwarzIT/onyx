@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxListItem from "./OnyxListItem.vue";
 
@@ -7,19 +6,16 @@ import OnyxListItem from "./OnyxListItem.vue";
  */
 const meta: Meta<typeof OnyxListItem> = {
   title: "Support/ListItem",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxListItem,
-    events: [],
-    argTypes: {
-      default: { control: { type: "text" } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="max-width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxListItem,
+  argTypes: {
+    default: { control: { type: "text" } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="max-width: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

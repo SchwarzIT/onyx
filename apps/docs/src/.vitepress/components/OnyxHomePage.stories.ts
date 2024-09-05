@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { Default as ComponentRoadmapStory } from "./ComponentRoadmap.stories";
 import OnyxHomePage from "./OnyxHomePage.vue";
@@ -10,10 +9,7 @@ import OnyxHomePage from "./OnyxHomePage.vue";
  */
 const meta: Meta<typeof OnyxHomePage> = {
   title: "roadmap/OnyxHomePage",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxHomePage,
-    events: [],
-  }),
+  component: OnyxHomePage,
 };
 
 export default meta;

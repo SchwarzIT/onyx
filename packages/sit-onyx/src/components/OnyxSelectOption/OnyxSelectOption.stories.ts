@@ -1,5 +1,4 @@
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { AriaAttributes } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
@@ -10,20 +9,17 @@ import OnyxSelectOption from "./OnyxSelectOption.vue";
  */
 const meta: Meta<typeof OnyxSelectOption> = {
   title: "Support/SelectOption",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxSelectOption,
-    events: [],
-    argTypes: {
-      default: { control: { type: "text" } },
-      icon: defineIconSelectArgType(),
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="max-width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxSelectOption,
+  argTypes: {
+    default: { control: { type: "text" } },
+    icon: defineIconSelectArgType(),
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="max-width: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

@@ -1,5 +1,4 @@
 import check from "@sit-onyx/icons/check.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxTag from "./OnyxTag.vue";
@@ -9,13 +8,10 @@ import OnyxTag from "./OnyxTag.vue";
  */
 const meta: Meta<typeof OnyxTag> = {
   title: "Basic/Tag",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxTag,
-    events: [],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-    },
-  }),
+  component: OnyxTag,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+  },
 };
 
 export default meta;

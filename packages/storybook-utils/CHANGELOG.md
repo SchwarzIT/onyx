@@ -1,5 +1,19 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.42
+
+### Patch Changes
+
+- Updated dependencies [b7c370d]
+  - sit-onyx@1.0.0-beta.40
+
+## 1.0.0-beta.41
+
+### Major Changes
+
+- b2b3700: - **BREAKING CHANGE**: `defineStorybookActionsAndVModels` and `defineActions` was removed: Replace by using the `withVModelDecorator` as a global decorator and the `enhanceEventArgTypes` global argTypesEnhancer.
+  - **BREAKING CHANGE**: `withVModelDecorator`: the event array parameter was removed: It is not necessary anymore to define the events manually.
+
 ## 1.0.0-beta.40
 
 ### Patch Changes

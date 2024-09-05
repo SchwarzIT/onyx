@@ -5,6 +5,7 @@ import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
 import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
+import { enhanceEventArgTypes } from "./actions";
 import { requiredGlobalType, withRequired } from "./required";
 import { generateSourceCode } from "./source-code-generator";
 import { ONYX_BREAKPOINTS, createTheme } from "./theme";
@@ -21,6 +22,7 @@ const themes = {
  * - Setup for dark mode (including docs page). Requires addon `storybook-dark-mode` to be enabled in .storybook/main.ts file
  * - Custom Storybook theme using onyx colors (light and dark mode)
  * - Configure viewports / breakpoints as defined by onyx
+ * - Logs Vue emits as Storybook events
  *
  * @param overrides Custom preview / overrides, will be deep merged with the default preview.
  *
@@ -41,6 +43,7 @@ const themes = {
  */
 export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
   const defaultPreview = {
+    argTypesEnhancers: [enhanceEventArgTypes],
     globalTypes: {
       ...requiredGlobalType,
     },

@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import ColorPalette from "./ColorPalette.vue";
 
 const meta: Meta<typeof ColorPalette> = {
   title: "colors/ColorPalette",
-  ...defineStorybookActionsAndVModels({
-    component: ColorPalette,
-    events: [],
-  }),
+  component: ColorPalette,
 };
 
 export default meta;

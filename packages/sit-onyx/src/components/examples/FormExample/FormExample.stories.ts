@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxToast from "../../OnyxToast/OnyxToast.vue";
 import FormExample from "./FormExample.vue";
@@ -11,16 +10,14 @@ import FormExampleSourceCode from "./FormExample.vue?raw";
  */
 const meta: Meta<typeof FormExample> = {
   title: "Examples/Form",
-  ...defineStorybookActionsAndVModels({
-    component: FormExample,
-    events: [],
-    decorators: [
-      (story) => ({
-        components: { story, OnyxToast },
-        template: `<OnyxToast /> <story />`,
-      }),
-    ],
-  }),
+  component: FormExample,
+  decorators: [
+    (story) => ({
+      components: { story, OnyxToast },
+      template: `<OnyxToast /> <story />`,
+    }),
+  ],
+
   parameters: {
     docs: {
       source: {

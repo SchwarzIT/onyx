@@ -51,6 +51,7 @@ Creates a default Storybook preview configuration for a project that uses `onyx`
 - Setup for dark mode (including docs page). Requires addon [`storybook-dark-mode`](https://storybook.js.org/addons/storybook-dark-mode) to be enabled in .storybook/main.ts file
 - Custom Storybook theme using onyx colors (light and dark mode)
 - Configure viewports / breakpoints as defined by onyx
+- Logs Vue emits as Storybook actions
 
 ::: code-group
 
@@ -82,35 +83,18 @@ export default config;
 
 :::
 
-### defineStorybookActionsAndVModels
+### withVModelDecorator
 
-Utility to define Storybook meta for a given Vue component which will take care of defining argTypes for the given events as well as implementing v-model handlers so that the Storybook controls are updated when you interact with the component.
+Defines a custom decorator that will implement event handlers for all v-models.
+So the Storybook controls are updated live when the user interacts with the component.
 
-Supports auto-completion for event names. Should be preferred over manually defining argTypes for `*.stories.ts` files.
+```ts [.storybook/preview.ts]
+import { withVModelDecorator } from "@sit-onyx/storybook-utils";
 
-::: code-group
-
-```ts [MyComponent.stories.ts]
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
-import MyComponent from "./MyComponent.vue";
-
-/**
- * The input component can be used to...
- */
-const meta: Meta<typeof MyComponent> = {
-  title: "components/MyComponent",
-  ...defineStorybookActionsAndVModels({
-    component: MyComponent,
-    events: ["update:modelValue", "change"],
-  }),
+export default {
+  decorators: [withVModelDecorator()],
 };
-
-export default meta;
-type Story = StoryObj<typeof MyComponent>;
 ```
-
-:::
 
 ### createTheme
 
