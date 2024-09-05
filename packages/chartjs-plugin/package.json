@@ -34,6 +34,7 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
+    "vue": "catalog:",
     "vue-chartjs": "^5.3.1"
   }
 }

@@ -16,5 +16,8 @@
     "sit-onyx": "workspace:^",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.4.3"
+  },
+  "devDependencies": {
+    "vue": "catalog:"
   }
 }
