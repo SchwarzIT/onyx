@@ -24,14 +24,6 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value: string];
   /**
-   * Emitted when the input is focussed.
-   */
-  inputFocus: [];
-  /**
-   * Emitted when the input is blurred.
-   */
-  inputBlur: [];
-  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
@@ -85,8 +77,6 @@ const patternSource = computed(() => {
             :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
-            @focus="emit('inputFocus')"
-            @blur="emit('inputBlur')"
           />
           <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
