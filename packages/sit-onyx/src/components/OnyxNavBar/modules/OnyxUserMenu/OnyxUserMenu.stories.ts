@@ -1,6 +1,5 @@
 import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -13,21 +12,18 @@ import OnyxUserMenu from "./OnyxUserMenu.vue";
  */
 const meta: Meta<typeof OnyxUserMenu> = {
   title: "Navigation/modules/UserMenu",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxUserMenu,
-    events: [],
-    argTypes: {
-      avatar: { control: { type: "text" } },
-      default: { control: { disable: true } },
-      footer: { control: { disable: true } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="margin-left: 4rem; margin-bottom: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxUserMenu,
+  argTypes: {
+    avatar: { control: { type: "text" } },
+    default: { control: { disable: true } },
+    footer: { control: { disable: true } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="margin-left: 4rem; margin-bottom: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

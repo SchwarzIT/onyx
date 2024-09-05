@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
@@ -10,21 +9,18 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
  */
 const meta: Meta<typeof OnyxPageLayout> = {
   title: "Layout/PageLayout",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxPageLayout,
-    events: [],
-    argTypes: {
-      default: {
-        control: { disable: true },
-      },
-      sidebar: {
-        control: { disable: true },
-      },
-      footer: {
-        control: { disable: true },
-      },
+  component: OnyxPageLayout,
+  argTypes: {
+    default: {
+      control: { disable: true },
     },
-  }),
+    sidebar: {
+      control: { disable: true },
+    },
+    footer: {
+      control: { disable: true },
+    },
+  },
   // storybook adds 1rem padding. The app layout fills the full available space
   // so we need to counteract the padding with a negative margin.
   decorators: [

@@ -1,5 +1,4 @@
 import trash from "@sit-onyx/icons/trash.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
@@ -10,14 +9,11 @@ import OnyxIconButton from "./OnyxIconButton.vue";
  */
 const meta: Meta<typeof OnyxIconButton> = {
   title: "Buttons/IconButton",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxIconButton,
-    events: ["click"],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-      default: { control: { disable: true } },
-    },
-  }),
+  component: OnyxIconButton,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+    default: { control: { disable: true } },
+  },
 };
 
 export default meta;

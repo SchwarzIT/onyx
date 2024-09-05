@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSkeleton from "./OnyxSkeleton.vue";
 
@@ -9,16 +8,13 @@ import OnyxSkeleton from "./OnyxSkeleton.vue";
  */
 const meta: Meta<typeof OnyxSkeleton> = {
   title: "Support/Skeleton",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxSkeleton,
-    events: [],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<story style="width: 8rem; height: 2rem;" />`,
-      }),
-    ],
-  }),
+  component: OnyxSkeleton,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<story style="width: 8rem; height: 2rem;" />`,
+    }),
+  ],
 };
 
 export default meta;

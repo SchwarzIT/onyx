@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import ColorStrip from "./ColorStrip.vue";
 
 const meta: Meta<typeof ColorStrip> = {
   title: "colors/ColorStrip",
-  ...defineStorybookActionsAndVModels({
-    component: ColorStrip,
-    events: [],
-  }),
+  component: ColorStrip,
 };
 
 export default meta;

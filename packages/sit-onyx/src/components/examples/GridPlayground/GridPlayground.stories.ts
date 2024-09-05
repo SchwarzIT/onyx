@@ -1,17 +1,13 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import GridPlayground from "./GridPlayground.vue";
 
 const meta: Meta<typeof GridPlayground> = {
   title: "Examples/GridPlayground",
   tags: ["!autodocs"],
-  ...defineStorybookActionsAndVModels({
-    component: GridPlayground,
-    events: [],
-    parameters: {
-      layout: "fullscreen",
-    },
-  }),
+  component: GridPlayground,
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;

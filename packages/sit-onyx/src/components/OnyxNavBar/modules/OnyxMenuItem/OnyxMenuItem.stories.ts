@@ -1,5 +1,4 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -10,19 +9,16 @@ import OnyxMenuItem from "./OnyxMenuItem.vue";
  */
 const meta: Meta<typeof OnyxMenuItem> = {
   title: "Navigation/modules/MenuItem",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxMenuItem,
-    events: [],
-    argTypes: {
-      default: { control: { type: "text" } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="max-width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxMenuItem,
+  argTypes: {
+    default: { control: { type: "text" } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="max-width: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

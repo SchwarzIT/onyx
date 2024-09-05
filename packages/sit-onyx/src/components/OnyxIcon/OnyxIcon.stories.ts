@@ -1,5 +1,4 @@
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType, textColorDecorator } from "../../utils/storybook";
 import OnyxIcon from "./OnyxIcon.vue";
@@ -15,13 +14,10 @@ import OnyxIcon from "./OnyxIcon.vue";
  */
 const meta: Meta<typeof OnyxIcon> = {
   title: "Basic/Icon",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxIcon,
-    events: [],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-    },
-  }),
+  component: OnyxIcon,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+  },
 
   decorators: [textColorDecorator],
 };

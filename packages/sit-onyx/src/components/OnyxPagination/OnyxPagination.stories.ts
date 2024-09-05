@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxPagination from "./OnyxPagination.vue";
 
@@ -8,16 +7,13 @@ import OnyxPagination from "./OnyxPagination.vue";
  */
 const meta: Meta<typeof OnyxPagination> = {
   title: "Data/Pagination",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxPagination,
-    events: ["update:modelValue"],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxPagination,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxTable from "./OnyxTable.vue";
@@ -8,15 +7,12 @@ import OnyxTable from "./OnyxTable.vue";
  */
 const meta: Meta<typeof OnyxTable> = {
   title: "Data/Table",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxTable,
-    events: [],
-    argTypes: {
-      default: { control: { disable: true } },
-      head: { control: { disable: true } },
-      empty: { control: { disable: true } },
-    },
-  }),
+  component: OnyxTable,
+  argTypes: {
+    default: { control: { disable: true } },
+    head: { control: { disable: true } },
+    empty: { control: { disable: true } },
+  },
 };
 
 export default meta;

@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
 
 const meta: Meta<typeof ComponentStatusBadge> = {
   title: "roadmap/ComponentStatusBadge",
-  ...defineStorybookActionsAndVModels({
-    component: ComponentStatusBadge,
-    events: [],
-  }),
+  component: ComponentStatusBadge,
 };
 
 export default meta;

@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxTimer from "./OnyxTimer.vue";
 
@@ -7,13 +6,10 @@ import OnyxTimer from "./OnyxTimer.vue";
  */
 const meta: Meta<typeof OnyxTimer> = {
   title: "Navigation/modules/Timer",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxTimer,
-    events: ["timerEnded"],
-    argTypes: {
-      endTime: { control: { type: "date" } },
-    },
-  }),
+  component: OnyxTimer,
+  argTypes: {
+    endTime: { control: { type: "date" } },
+  },
 };
 
 export default meta;

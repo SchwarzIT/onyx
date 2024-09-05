@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxAvatar from "./OnyxAvatar.vue";
 
@@ -7,13 +6,10 @@ import OnyxAvatar from "./OnyxAvatar.vue";
  */
 const meta: Meta<typeof OnyxAvatar> = {
   title: "Basic/Avatar",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxAvatar,
-    events: [],
-    argTypes: {
-      default: { control: { type: "text" } },
-    },
-  }),
+  component: OnyxAvatar,
+  argTypes: {
+    default: { control: { type: "text" } },
+  },
 };
 
 export default meta;
