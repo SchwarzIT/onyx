@@ -260,8 +260,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const events = {
     updateModelValue: [] as string[],
     change: [] as string[],
-    focusCount: 0,
-    blurCount: 0,
   };
 
   // ARRANGE
@@ -269,16 +267,12 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     <OnyxInput
       label="Label"
       onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-      onInputFocus={() => events.focusCount++}
-      onInputBlur={() => events.blurCount++}
     />,
   );
 
   // should not emit initial events
   expect(events).toMatchObject({
     updateModelValue: [],
-    focusCount: 0,
-    blurCount: 0,
   });
 
   // ACT
@@ -296,17 +290,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   await expect(inputElement).toHaveValue("Test");
   expect(events).toMatchObject({
     updateModelValue: ["T", "Te", "Tes", "Test"],
-    focusCount: 1,
-    blurCount: 0,
-  });
-
-  // ACT
-  await inputElement.blur();
-  // ASSERT
-  expect(events).toMatchObject({
-    updateModelValue: ["T", "Te", "Tes", "Test"],
-    focusCount: 1,
-    blurCount: 1,
   });
 });
 

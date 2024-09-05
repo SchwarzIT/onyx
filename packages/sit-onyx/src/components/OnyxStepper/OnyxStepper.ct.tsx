@@ -240,8 +240,6 @@ test.describe("Screenshot tests", () => {
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const events = {
     updateModelValue: [] as string[],
-    focusCount: 0,
-    blurCount: 0,
   };
 
   // ARRANGE
@@ -249,16 +247,12 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     <OnyxStepper
       label="Label"
       onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-      onInputFocus={() => events.focusCount++}
-      onInputBlur={() => events.blurCount++}
     />,
   );
 
   // should not emit initial events
   expect(events).toMatchObject({
     updateModelValue: [],
-    focusCount: 0,
-    blurCount: 0,
   });
 
   // ACT
@@ -281,8 +275,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(events).toMatchObject({
     updateModelValue: [1, 10],
-    focusCount: 1,
-    blurCount: 1,
   });
 });
 

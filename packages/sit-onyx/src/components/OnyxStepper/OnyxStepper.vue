@@ -27,14 +27,6 @@ const emit = defineEmits<{
   /** Emitted when the input value changes. */
   "update:modelValue": [value?: number];
   /**
-   * Emitted when the input is focussed.
-   */
-  inputFocus: [];
-  /**
-   * Emitted when the input is blurred.
-   */
-  inputBlur: [];
-  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
@@ -110,8 +102,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :step="props.step"
           :title="props.hideLabel ? props.label : undefined"
           @change="wasTouched = true"
-          @focus="emit('inputFocus')"
-          @blur="emit('inputBlur')"
         />
         <button
           type="button"
