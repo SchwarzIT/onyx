@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip } from "@sit-onyx/headless";
-import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
+import type { MaybeRefOrGetter, Ref, VNode } from "vue";
 import {
   computed,
   nextTick,
@@ -46,7 +46,9 @@ defineSlots<{
    *
    * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(params: { trigger: HTMLAttributes }): VNode;
+
+  //TODO: fix the attribute type
+  default(params: { trigger: object }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
@@ -81,15 +83,14 @@ const type = computed(() => {
   if (typeof props.open === "string") return props.open;
   return "hover";
 });
-
 // classes for the tooltip | computed to prevent bugs
 const tooltipClasses = computed(() => {
   return {
     "onyx-tooltip--danger": props.color === "danger",
     "onyx-tooltip--fit-parent": props.fitParent,
     "onyx-tooltip--hidden": !isVisible.value,
-    [`onyx-tooltip--${props.position}`]: props.position !== "auto",
     [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
+    [`onyx-tooltip--${props.position}`]: props.position !== "auto",
     [`onyx-tooltip--align--${wedgePosition.value}`]: props.align === "auto",
     [`onyx-tooltip--align--${props.align}`]: props.align !== "auto",
   };
@@ -104,7 +105,7 @@ const ariaPattern = shallowRef(createPattern());
 watch(type, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const trigger = computed(() => toValue<HTMLAttributes>(ariaPattern.value?.elements.trigger));
+const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
 
 const tooltipWrapperRef = ref<HTMLElement>();
 const tooltipRef = ref<HTMLElement>();
