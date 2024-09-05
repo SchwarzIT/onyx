@@ -4,3 +4,4 @@ packages:
 
 catalog:
   vue: ~3.4.0
+  "@vue/compiler-dom": ~3.4.0
