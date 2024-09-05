@@ -1,5 +1,4 @@
 import menu from "@sit-onyx/icons/menu.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
@@ -9,20 +8,18 @@ import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
  */
 const meta: Meta<typeof OnyxMobileNavButton> = {
   title: "Support/MobileNavButton",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxMobileNavButton,
-    events: ["update:open"],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-      default: { control: { type: "text" } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="min-height: 10rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxMobileNavButton,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+    default: { control: { type: "text" } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="min-height: 10rem;"> <story /> </div>`,
+    }),
+  ],
+
   parameters: {
     layout: "fullscreen",
   },

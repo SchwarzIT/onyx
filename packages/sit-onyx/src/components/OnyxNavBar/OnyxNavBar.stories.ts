@@ -2,7 +2,6 @@ import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { ONYX_BREAKPOINTS } from "../../types";
@@ -21,39 +20,36 @@ import OnyxNavBar from "./OnyxNavBar.vue";
 
 const meta: Meta<typeof OnyxNavBar> = {
   title: "Navigation/NavBar",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxNavBar,
-    events: ["appAreaClick", "backButtonClick"],
-    argTypes: {
-      default: { control: { disable: true } },
-      contextArea: { control: { disable: true } },
-      appArea: { control: { type: "text" } },
-      mobileActivePage: { control: { type: "text" } },
-      globalContextArea: { control: { disable: true } },
-      mobileBreakpoint: {
-        options: Object.keys(ONYX_BREAKPOINTS),
-        control: {
-          labels: Object.entries(ONYX_BREAKPOINTS).reduce<Record<string, string>>(
-            (labels, [name, width]) => {
-              labels[name] = `${name} (${width}px)`;
-              return labels;
-            },
-            {},
-          ),
-        },
+  component: OnyxNavBar,
+  argTypes: {
+    default: { control: { disable: true } },
+    contextArea: { control: { disable: true } },
+    appArea: { control: { type: "text" } },
+    mobileActivePage: { control: { type: "text" } },
+    globalContextArea: { control: { disable: true } },
+    mobileBreakpoint: {
+      options: Object.keys(ONYX_BREAKPOINTS),
+      control: {
+        labels: Object.entries(ONYX_BREAKPOINTS).reduce<Record<string, string>>(
+          (labels, [name, width]) => {
+            labels[name] = `${name} (${width}px)`;
+            return labels;
+          },
+          {},
+        ),
       },
     },
-    parameters: {
-      layout: "fullscreen",
-    },
-    decorators: [
-      // add padding to the story so the nav button and user menu flyouts are shown
-      (story) => ({
-        components: { story },
-        template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  },
+  parameters: {
+    layout: "fullscreen",
+  },
+  decorators: [
+    // add padding to the story so the nav button and user menu flyouts are shown
+    (story) => ({
+      components: { story },
+      template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

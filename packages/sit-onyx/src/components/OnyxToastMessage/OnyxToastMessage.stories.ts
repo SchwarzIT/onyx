@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxToastMessage from "./OnyxToastMessage.vue";
@@ -8,13 +7,10 @@ import OnyxToastMessage from "./OnyxToastMessage.vue";
  */
 const meta: Meta<typeof OnyxToastMessage> = {
   title: "Support/ToastMessage",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxToastMessage,
-    events: ["click", "close"],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-    },
-  }),
+  component: OnyxToastMessage,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+  },
 };
 
 export default meta;

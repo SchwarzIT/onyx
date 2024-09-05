@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxNavAppArea from "./OnyxNavAppArea.vue";
 
@@ -7,13 +6,10 @@ import OnyxNavAppArea from "./OnyxNavAppArea.vue";
  */
 const meta: Meta<typeof OnyxNavAppArea> = {
   title: "Support/NavAppArea",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxNavAppArea,
-    events: ["click"],
-    argTypes: {
-      default: { control: { type: "text" } },
-    },
-  }),
+  component: OnyxNavAppArea,
+  argTypes: {
+    default: { control: { type: "text" } },
+  },
 };
 
 export default meta;

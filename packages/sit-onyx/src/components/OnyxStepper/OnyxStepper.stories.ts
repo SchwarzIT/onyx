@@ -1,19 +1,15 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxStepper from "./OnyxStepper.vue";
 
 const meta: Meta<typeof OnyxStepper> = {
   title: "Form/Stepper",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxStepper,
-    events: ["update:modelValue", "validityChange", "inputBlur", "inputFocus"],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxStepper,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="width: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

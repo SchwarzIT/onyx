@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.40
+
+### Patch Changes
+
+- b7c370d: fix(OnyxInput, OnyxTextarea): Adjust selection highlighting for better contrast
+
 ## 1.0.0-beta.39
 
 ### Major Changes

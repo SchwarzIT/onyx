@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import DesignTokenHeader from "./DesignTokenHeader.vue";
 
 const meta: Meta<typeof DesignTokenHeader> = {
   title: "tokens/DesignTokenHeader",
-  ...defineStorybookActionsAndVModels({
-    component: DesignTokenHeader,
-    events: ["update:modelValue"],
-  }),
+  component: DesignTokenHeader,
 };
 
 export default meta;

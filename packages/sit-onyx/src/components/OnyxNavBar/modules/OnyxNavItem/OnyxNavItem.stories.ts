@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
@@ -9,19 +8,16 @@ import OnyxNavItem from "./OnyxNavItem.vue";
  */
 const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/modules/NavItem",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxNavItem,
-    events: ["click"],
-    argTypes: {
-      default: { control: { type: "text" } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="max-width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxNavItem,
+  argTypes: {
+    default: { control: { type: "text" } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="max-width: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

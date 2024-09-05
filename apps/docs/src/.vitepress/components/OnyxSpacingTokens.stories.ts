@@ -1,13 +1,9 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSpacingTokens from "./OnyxSpacingTokens.vue";
 
 const meta: Meta<typeof OnyxSpacingTokens> = {
   title: "tokens/OnyxSpacingTokens",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxSpacingTokens,
-    events: [],
-  }),
+  component: OnyxSpacingTokens,
 };
 
 export default meta;

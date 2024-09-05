@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { textColorDecorator } from "../../utils/storybook";
 import OnyxExternalLinkIcon from "./OnyxExternalLinkIcon.vue";
@@ -9,17 +8,14 @@ import OnyxExternalLinkIcon from "./OnyxExternalLinkIcon.vue";
  */
 const meta: Meta<typeof OnyxExternalLinkIcon> = {
   title: "Support/ExternalLinkIcon",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxExternalLinkIcon,
-    events: [],
-    argTypes: {
-      withExternalIcon: {
-        options: ["auto", true, false],
-        control: { type: "radio" },
-      },
+  component: OnyxExternalLinkIcon,
+  argTypes: {
+    withExternalIcon: {
+      options: ["auto", true, false],
+      control: { type: "radio" },
     },
-    decorators: [textColorDecorator],
-  }),
+  },
+  decorators: [textColorDecorator],
 };
 
 export default meta;

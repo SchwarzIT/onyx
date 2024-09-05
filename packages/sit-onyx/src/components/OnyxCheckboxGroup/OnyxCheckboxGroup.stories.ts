@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { CheckboxGroupOption } from "./types";
@@ -9,22 +8,19 @@ import type { CheckboxGroupOption } from "./types";
  */
 const meta: Meta<typeof OnyxCheckboxGroup> = {
   title: "Form/CheckboxGroup",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxCheckboxGroup,
-    events: ["update:modelValue"],
-    argTypes: {
-      withCheckAll: { control: { type: "boolean" } },
-    },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `
+  component: OnyxCheckboxGroup,
+  argTypes: {
+    withCheckAll: { control: { type: "boolean" } },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
       <div style="padding-left: 1rem;">
         <story />
       </div>`,
-      }),
-    ],
-  }),
+    }),
+  ],
 };
 
 export default meta;
