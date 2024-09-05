@@ -1,14 +1,10 @@
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import IconLibraryItem from "./IconLibraryItem.vue";
 
 const meta: Meta<typeof IconLibraryItem> = {
   title: "Icon library/IconLibraryItem",
-  ...defineStorybookActionsAndVModels({
-    component: IconLibraryItem,
-    events: [],
-  }),
+  component: IconLibraryItem,
 };
 
 export default meta;

@@ -1,5 +1,4 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "./OnyxButton.vue";
@@ -15,13 +14,10 @@ import OnyxButton from "./OnyxButton.vue";
  */
 const meta: Meta<typeof OnyxButton> = {
   title: "Buttons/Button",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxButton,
-    events: ["click"],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-    },
-  }),
+  component: OnyxButton,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+  },
 };
 
 export default meta;

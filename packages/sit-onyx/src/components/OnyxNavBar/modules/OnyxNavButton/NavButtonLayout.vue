@@ -3,11 +3,7 @@
 // to easily switch between mobile and desktop layout
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import { toRef } from "vue";
-import {
-  MANAGED_SYMBOL,
-  useManagedState,
-  type ManagedProp,
-} from "../../../../composables/useManagedState";
+import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
 import { injectI18n } from "../../../../i18n";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -18,11 +14,6 @@ const props = withDefaults(
   defineProps<
     OnyxNavButtonProps & {
       isMobile: boolean;
-      /**
-       * Controls the open state for the mobile children.
-       * Is managed internally if not provided.
-       */
-      mobileChildrenOpen: ManagedProp<boolean>;
     }
   >(),
   {

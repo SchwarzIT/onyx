@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { Default as SelectDefaultStory } from "../OnyxSelect/OnyxSelect.stories";
 import OnyxSelectInput from "./OnyxSelectInput.vue";
@@ -9,16 +8,13 @@ import OnyxSelectInput from "./OnyxSelectInput.vue";
  */
 const meta: Meta<typeof OnyxSelectInput> = {
   title: "Support/SelectInput",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxSelectInput,
-    events: ["click", "validityChange"],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxSelectInput,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="width: 16rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

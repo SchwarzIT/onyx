@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { BaseSelectOption } from "../../types";
 import OnyxRadioGroup from "./OnyxRadioGroup.vue";
@@ -9,10 +8,7 @@ import OnyxRadioGroup from "./OnyxRadioGroup.vue";
  */
 const meta: Meta<typeof OnyxRadioGroup> = {
   title: "Form/RadioGroup",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxRadioGroup,
-    events: ["update:modelValue", "validityChange"],
-  }),
+  component: OnyxRadioGroup,
 };
 
 export default meta;

@@ -1,5 +1,4 @@
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, h, ref, watchEffect } from "vue";
 import { normalizedIncludes } from "../../utils/strings";
@@ -25,38 +24,34 @@ import type { SelectOption } from "./types";
  */
 const meta: Meta<typeof OnyxSelect> = {
   title: "Form/Select",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxSelect,
-    events: ["update:modelValue", "update:searchTerm", "update:open", "lazyLoad", "validityChange"],
-    argTypes: {
-      withCheckAll: { control: "boolean" },
-      empty: { control: { disable: true } },
-      optionsEnd: { control: { disable: true } },
-      option: { control: { disable: true } },
+  component: OnyxSelect,
+  argTypes: {
+    empty: { control: { disable: true } },
+    optionsEnd: { control: { disable: true } },
+    option: { control: { disable: true } },
+  },
+
+  decorators: [
+    /**
+     * Decorator that simulates the load more functionality so we can show it in the stories.
+     */
+    (story, ctx) => {
+      return {
+        components: { story },
+        setup: () => {
+          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
+
+          watchEffect(() => {
+            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+            ctx.args.options = options.value;
+          });
+
+          return { handleLoadMore, isLazyLoading, options };
+        },
+        template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" @lazy-load="handleLoadMore" />`,
+      };
     },
-
-    decorators: [
-      /**
-       * Decorator that simulates the load more functionality so we can show it in the stories.
-       */
-      (story, ctx) => {
-        return {
-          components: { story },
-          setup: () => {
-            const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
-
-            watchEffect(() => {
-              ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-              ctx.args.options = options.value;
-            });
-
-            return { handleLoadMore, isLazyLoading, options };
-          },
-          template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" @lazy-load="handleLoadMore" />`,
-        };
-      },
-    ],
-  }),
+  ],
 };
 
 export default meta;

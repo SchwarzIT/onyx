@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxInput from "./OnyxInput.vue";
 
@@ -8,19 +7,16 @@ import OnyxInput from "./OnyxInput.vue";
  */
 const meta: Meta<typeof OnyxInput> = {
   title: "Form/Input",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxInput,
-    events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="width: 16rem;"> <story /> </div>`,
-      }),
-    ],
-    argTypes: {
-      pattern: { control: { type: "text" } },
-    },
-  }),
+  component: OnyxInput,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="width: 16rem;"> <story /> </div>`,
+    }),
+  ],
+  argTypes: {
+    pattern: { control: { type: "text" } },
+  },
 };
 
 export default meta;

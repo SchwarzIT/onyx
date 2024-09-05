@@ -1,19 +1,15 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 const meta: Meta<typeof OnyxTextarea> = {
   title: "Form/Textarea",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxTextarea,
-    events: ["update:modelValue", "change", "focus", "blur", "validityChange"],
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `<div style="max-width: 24rem;"> <story /> </div>`,
-      }),
-    ],
-  }),
+  component: OnyxTextarea,
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="max-width: 24rem;"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;

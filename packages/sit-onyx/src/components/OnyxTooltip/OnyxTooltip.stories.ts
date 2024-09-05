@@ -1,5 +1,4 @@
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, h, ref } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
@@ -11,31 +10,28 @@ import OnyxTooltip from "./OnyxTooltip.vue";
  */
 const meta: Meta<typeof OnyxTooltip> = {
   title: "Feedback/Tooltip",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxTooltip,
-    events: [],
-    argTypes: {
-      icon: defineIconSelectArgType(),
-      default: {
-        control: { disable: true },
-      },
-      tooltip: {
-        control: { disable: true },
-      },
-      open: {
-        options: ["hover", "click", true, false],
-      },
+  component: OnyxTooltip,
+  argTypes: {
+    icon: defineIconSelectArgType(),
+    default: {
+      control: { disable: true },
     },
-    decorators: [
-      (story) => ({
-        components: { story },
-        template: `
+    tooltip: {
+      control: { disable: true },
+    },
+    open: {
+      options: ["hover", "click", true, false],
+    },
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
         <div style="padding: 4rem 6rem; font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-intense)">
           <story />
         </div>`,
-      }),
-    ],
-  }),
+    }),
+  ],
 };
 
 export default meta;

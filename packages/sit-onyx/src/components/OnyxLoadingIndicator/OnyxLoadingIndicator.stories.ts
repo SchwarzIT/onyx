@@ -1,4 +1,3 @@
-import { defineStorybookActionsAndVModels } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { textColorDecorator } from "../../utils/storybook";
 import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";
@@ -11,11 +10,8 @@ import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";
  */
 const meta: Meta<typeof OnyxLoadingIndicator> = {
   title: "Support/LoadingIndicator",
-  ...defineStorybookActionsAndVModels({
-    component: OnyxLoadingIndicator,
-    events: [],
-    decorators: [textColorDecorator],
-  }),
+  component: OnyxLoadingIndicator,
+  decorators: [textColorDecorator],
 };
 
 export default meta;
