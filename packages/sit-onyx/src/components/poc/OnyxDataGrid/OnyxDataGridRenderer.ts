@@ -1,22 +1,24 @@
-import type { FunctionalComponent, HTMLAttributes } from "vue";
+import type { FunctionalComponent, HTMLAttributes, TdHTMLAttributes } from "vue";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyKey = keyof any;
 
 export type TableEntry = {
   id: string | number;
-  [key: keyof any]: unknown;
+  [key: AnyKey]: unknown;
 };
 
 export type CellRenderFunc<
   TEntry extends TableEntry,
-  CellData extends unknown = unknown,
-  Metadata extends object = object,
-> = FunctionalComponent<{ value: CellData; row: TEntry; metadata?: Metadata }>;
+  TMetadata extends object = object,
+> = FunctionalComponent<RenderCellProps<TEntry, TMetadata>>;
 
 /**
  * Props of the TableRenderLayer
  */
-export type RendererProps<TEntry extends TableEntry> = {
+export type RendererProps<TEntry extends TableEntry, TMetadata extends object> = {
   columns: RenderHeader<TEntry>[];
-  rows: RenderRow<TEntry>[];
+  rows: RenderRow<TEntry, TMetadata>[];
 };
 
 export type RenderHeader<
@@ -39,12 +41,25 @@ export type RenderHeader<
   header: FunctionalComponent<TProps>;
 };
 
-export type RenderCell<
-  TEntry extends TableEntry,
-  Key extends keyof TEntry,
-  CellData = TEntry[Key],
-  Metadata = object,
-> = {
+export type RenderRow<TEntry extends TableEntry, TMetadata extends object> = {
+  /**
+   * Unique id of the row.
+   */
+  id: TableEntry["id"];
+  trProps?: HTMLAttributes;
+  cells: Record<keyof TEntry, RenderCell<TEntry, TMetadata>>;
+};
+
+export type RenderCell<TEntry extends TableEntry, TMetadata extends object> = {
+  props: RenderCellProps<TEntry, TMetadata>;
+  tdProps?: TdHTMLAttributes;
+  /**
+   * The component that renders the actual cell content.
+   */
+  is: CellRenderFunc<TEntry, TMetadata>;
+};
+
+export type RenderCellProps<TEntry extends TableEntry, TMetadata extends object> = {
   /**
    * Complete row data
    */
@@ -52,25 +67,9 @@ export type RenderCell<
   /**
    * Data that is provided to the component via the `metadata` prop
    */
-  metadata?: Metadata;
+  metadata?: TMetadata;
   /**
    * table data that is provided to the component via the `metadata` prop
    */
-  value: CellData;
-  /**
-   * The component that renders the actual cell content.
-   */
-  is: CellRenderFunc<TEntry>;
-};
-
-export type RenderRow<TEntry extends TableEntry> = {
-  /**
-   * Unique id of the row.
-   */
-  id: TableEntry["id"];
-  /**
-   * Data that is provided to the row component using via the `metadata` prop
-   */
-  metadata?: object;
-  cells: Record<keyof TEntry, RenderCell<TEntry, keyof TEntry>>;
+  value: TEntry[keyof TEntry];
 };

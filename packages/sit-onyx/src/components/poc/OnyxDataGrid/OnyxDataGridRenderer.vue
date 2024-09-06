@@ -1,7 +1,7 @@
-<script lang="ts" setup generic="TEntry extends TableEntry, TKey extends keyof TEntry">
+<script lang="ts" setup generic="TEntry extends TableEntry, TMetadata extends object">
 import type { RendererProps, TableEntry } from "./OnyxDataGridRenderer";
 
-const props = defineProps<RendererProps<TEntry>>();
+const props = defineProps<RendererProps<TEntry, TMetadata>>();
 </script>
 
 <template>
@@ -14,9 +14,9 @@ const props = defineProps<RendererProps<TEntry>>();
       </tr>
     </thead>
     <tbody>
-      <tr v-for="row in props.rows" :key="row.id">
-        <td v-for="col in props.columns" :key="col.key">
-          <component :is="row.cells[col.key].is" v-bind="row.cells[col.key]" />
+      <tr v-for="row in props.rows" :key="row.id" v-bind="row.trProps">
+        <td v-for="col in props.columns" :key="col.key" v-bind="row.cells[col.key].tdProps">
+          <component :is="row.cells[col.key].is" v-bind="row.cells[col.key].props" />
         </td>
       </tr>
     </tbody>
