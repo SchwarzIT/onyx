@@ -36,6 +36,7 @@
   "devDependencies": {
     "@vue/compiler-dom": "catalog:",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.1"
+    "vue-chartjs": "^5.3.1",
+    "chart.js": "catalog:"
   }
 }

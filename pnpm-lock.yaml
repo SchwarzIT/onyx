@@ -9,6 +9,9 @@ catalogs:
     '@vue/compiler-dom':
       specifier: ~3.4.0
       version: 3.4.38
+    chart.js:
+      specifier: ^4.4.4
+      version: 4.4.4
 
 overrides:
   vue: ~3.4.0
@@ -162,6 +165,9 @@ importers:
 
   apps/docs:
     devDependencies:
+      '@playwright/test':
+        specifier: ^1.46.1
+        version: 1.46.1
       '@sit-onyx/chartjs-plugin':
         specifier: workspace:^
         version: link:../../packages/chartjs-plugin
@@ -214,9 +220,6 @@ importers:
 
   packages/chartjs-plugin:
     dependencies:
-      chart.js:
-        specifier: '>= 4.0.0'
-        version: 4.4.4
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
@@ -224,6 +227,9 @@ importers:
       '@vue/compiler-dom':
         specifier: 'catalog:'
         version: 3.4.38
+      chart.js:
+        specifier: 'catalog:'
+        version: 4.4.4
       vue:
         specifier: ~3.4.0
         version: 3.4.38(typescript@5.5.4)
