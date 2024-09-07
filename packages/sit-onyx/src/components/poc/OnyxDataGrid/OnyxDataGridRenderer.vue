@@ -6,14 +6,14 @@ const props = defineProps<RendererProps<TEntry, TMetadata>>();
 
 <template>
   <table>
-    <thead>
+    <thead v-bind="props.theadProps">
       <tr>
         <th v-for="col in props.columns" :key="col.key">
           <component :is="col.header" v-bind="col.headerProps" />
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-bind="props.tbodyProps">
       <tr v-for="row in props.rows" :key="row.id" v-bind="row.trProps">
         <td v-for="col in props.columns" :key="col.key" v-bind="row.cells[col.key].tdProps">
           <component :is="row.cells[col.key].is" v-bind="row.cells[col.key].props" />

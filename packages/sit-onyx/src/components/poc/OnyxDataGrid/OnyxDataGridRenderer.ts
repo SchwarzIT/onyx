@@ -17,6 +17,8 @@ export type CellRenderFunc<
  * Props of the TableRenderLayer
  */
 export type RendererProps<TEntry extends TableEntry, TMetadata extends object> = {
+  theadProps?: HTMLAttributes;
+  tbodyProps?: HTMLAttributes;
   columns: RenderHeader<TEntry>[];
   rows: RenderRow<TEntry, TMetadata>[];
 };
