@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, toRef, watch, watchEffect } from "vue";
+import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
+import { computed, nextTick, ref, toRef, useId, watch, watchEffect } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
@@ -148,7 +148,7 @@ watch(
 );
 
 /** unique ID to identify the `select all` checkbox */
-const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
+const CHECK_ALL_ID = useId() as TValue;
 
 /**
  * IDs of all options that can be navigated with the keyboard.
@@ -307,6 +307,7 @@ watchEffect(() => {
 const selectInputProps = computed(() => {
   const baseProps: OnyxSelectInputProps = {
     ...props,
+    open: undefined, // needed to prevent hydration mismatch in SSR when open prop is MANAGED_SYMBOL
     modelValue: selectionLabels.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };

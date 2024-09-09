@@ -1,5 +1,4 @@
-import { computed, toRef, toValue, type MaybeRefOrGetter, type Ref } from "vue";
-import { createId } from "../..";
+import { computed, toRef, toValue, useId, type MaybeRefOrGetter, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { useDismissible } from "../helpers/useDismissible";
 
@@ -18,7 +17,7 @@ export type CreateTooltipOptions = {
  * To provide contextual information use the `createToggletip`.
  */
 export const createTooltip = createBuilder(({ debounce, isVisible }: CreateTooltipOptions) => {
-  const tooltipId = createId("tooltip");
+  const tooltipId = useId();
   const _isVisible = toRef(isVisible ?? false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
 

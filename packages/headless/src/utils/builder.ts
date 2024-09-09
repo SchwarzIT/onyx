@@ -50,7 +50,7 @@ export type HeadlessComposable<
  * @example
  * ```ts
  * export const createTooltip = createBuilder(({ initialVisible }: CreateTooltipOptions) => {
- *   const tooltipId = createId("tooltip");
+ *   const tooltipId = useId();
  *   const isVisible = ref(initialVisible);
  *
  *   const hoverEvents = {
