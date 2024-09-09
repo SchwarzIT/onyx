@@ -1,5 +1,4 @@
 ---
-"@sit-onyx/headless": major
 "sit-onyx": major
 ---
 
