@@ -380,8 +380,12 @@ const selectInputProps = computed(() => {
               </OnyxSelectOption>
             </ul>
 
+            <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
             <ul
-              v-for="(groupOptions, group) in groupedOptions"
+              v-for="(groupOptions, group) in groupedOptions as Record<
+                string,
+                SelectOption<TValue>[]
+              >"
               :key="group"
               class="onyx-select__group"
               v-bind="headlessGroup({ label: group })"
@@ -394,6 +398,7 @@ const selectInputProps = computed(() => {
                 {{ group }}
               </li>
 
+              <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <OnyxSelectOption
                 v-for="option in groupOptions"
                 :key="option.value.toString()"
@@ -402,7 +407,8 @@ const selectInputProps = computed(() => {
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    selected: arrayValue.some((value) => value === option.value),
+                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
+                    selected: arrayValue.some((value: TValue) => value === option.value),
                   })
                 "
                 :multiple="props.multiple"
