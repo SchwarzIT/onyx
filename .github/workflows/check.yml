@@ -13,9 +13,11 @@ jobs:
   check:
     name: Check code quality
     runs-on: ubuntu-latest
-    if: false # TODO: remove
     steps:
       - uses: actions/checkout@v4
+        with:
+          # needed when building VitePress docs so timestamps can be calculated correctly
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
 
@@ -74,39 +76,6 @@ jobs:
           name: documentation
           path: apps/docs/src/.vitepress/dist
 
-  debug:
-    name: DEBUG
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          # needed when building VitePress docs so timestamps can be calculated correctly
-          fetch-depth: 0
-
-      - uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
-
-      - name: 🛠️ Build packages
-        run: pnpm run build:all
-        env:
-          # skip fetching statistics for our docs here so we don't exceed GitHub rate limits which may fail in CI
-          VITEPRESS_SKIP_GITHUB_FETCH: true
-
-      - name: Upload documentation artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: apps/docs/src/.vitepress/dist
-
   screenshots:
     name: Component tests
     uses: ./.github/workflows/playwright.yml
-    if: false # TODO: remove
