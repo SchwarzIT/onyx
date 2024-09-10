@@ -8,15 +8,17 @@ export type TableEntry = {
   [key: AnyKey]: unknown;
 };
 
+export type Metadata = Record<string, unknown>;
+
 export type CellRenderFunc<
   TEntry extends TableEntry,
-  TMetadata extends object = object,
+  TMetadata extends Metadata,
 > = FunctionalComponent<RenderCellProps<TEntry, TMetadata>>;
 
 /**
  * Props of the TableRenderLayer
  */
-export type RendererProps<TEntry extends TableEntry, TMetadata extends object> = {
+export type RendererProps<TEntry extends TableEntry, TMetadata extends Metadata> = {
   theadProps?: HTMLAttributes;
   tbodyProps?: HTMLAttributes;
   columns: RenderHeader<TEntry>[];
@@ -43,16 +45,16 @@ export type RenderHeader<
   header: FunctionalComponent<TProps>;
 };
 
-export type RenderRow<TEntry extends TableEntry, TMetadata extends object> = {
+export type RenderRow<TEntry extends TableEntry, TMetadata extends Metadata> = {
   /**
    * Unique id of the row.
    */
   id: TableEntry["id"];
   trProps?: HTMLAttributes;
-  cells: Record<keyof TEntry, RenderCell<TEntry, TMetadata>>;
+  cells: Record<keyof TEntry, RenderCell<TEntry, TMetadata> | undefined>;
 };
 
-export type RenderCell<TEntry extends TableEntry, TMetadata extends object> = {
+export type RenderCell<TEntry extends TableEntry, TMetadata extends Metadata> = {
   props: RenderCellProps<TEntry, TMetadata>;
   tdProps?: TdHTMLAttributes;
   /**
@@ -61,7 +63,7 @@ export type RenderCell<TEntry extends TableEntry, TMetadata extends object> = {
   is: CellRenderFunc<TEntry, TMetadata>;
 };
 
-export type RenderCellProps<TEntry extends TableEntry, TMetadata extends object> = {
+export type RenderCellProps<TEntry extends TableEntry, TMetadata extends Metadata> = {
   /**
    * Complete row data
    */

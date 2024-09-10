@@ -1,11 +1,18 @@
-import type { WatchSource } from "vue";
+import { mergeProps, type FunctionalComponent, type HTMLAttributes, type WatchSource } from "vue";
 import type {
   CellRenderFunc,
+  Metadata,
   RenderCell,
+  RenderCellProps,
   RenderHeader,
   RenderRow,
   TableEntry,
 } from "./OnyxDataGridRenderer";
+
+export type NativeProps<
+  TAttributes extends HTMLAttributes = HTMLAttributes,
+  Props = { [key: string]: unknown },
+> = TAttributes & Props;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyKey = keyof any;
@@ -15,51 +22,33 @@ export type ColumnDefinition<TEntry extends TableEntry, TType extends AnyKey> = 
   type: TType;
 };
 
-/**
- * keeps track of all changes by every feature for a single row
- *
- * @example type {
- *   filtering?: Metadata;
- *   deletion?: Metadata;
- *   creation?: Metadata;
- *   editing?: Metadata;
- * }
- *
- * @example content {
- *   filtering: { hidden: true };
- *   addition: { hidden: false };
- *   editing: { edits: { fruit: "apple" }, hasChanges: { fruit: true } };
- * }
- *
- */
-type Context<TEntry extends TableEntry> = Map<
-  TableFeature<TEntry, AnyKey>["name"],
-  Metadata | undefined
->;
-
-type EntryState<TEntry extends TableEntry> = {
-  entry: TEntry;
-  context: Context<TEntry>;
+type EntryState<TEntry extends TableEntry, TContextData extends Context> = {
+  entry: Readonly<TEntry>;
+  context: TContextData;
 };
 
 type Order = {
   order: number;
 };
 
-export type CellTypeMap<TEntry extends TableEntry, CellTypes extends AnyKey = AnyKey> = Record<
-  CellTypes,
-  CellRenderFunc<TEntry>
->;
+export type CellTypeMap<
+  TEntry extends TableEntry,
+  TCellProps extends Metadata,
+  CellTypes extends AnyKey = AnyKey,
+> = Record<CellTypes, CellRenderFunc<TEntry, TCellProps>>;
 
 export type TableFeature<
   TEntry extends TableEntry,
   TType extends AnyKey,
+  TFeatureName extends symbol,
+  TContextData extends Partial<Context> = Context,
+  TCellProps extends Metadata = Metadata,
   THeaderProps extends object = object,
 > = {
   /**
    * Unique name and identifier of the table feature
    */
-  name: symbol;
+  name: TFeatureName;
 
   /**
    * An array of reactive states that should trigger a table re-render
@@ -71,26 +60,28 @@ export type TableFeature<
    */
   mapping?: {
     /**
-     * The returned metadata is added (if not undefined) to the context object with the table feature name as key.
+     * context must be edited
      */
-    func: (ctx: { entry: Readonly<TEntry>; context: Context<TEntry> }) => Metadata | undefined;
+    func: (ctx: { entry: Readonly<TEntry>; context: TContextData }) => undefined;
   } & Order;
 
   /**
    * Allows modifying the table state as a whole.
    */
   mutation?: {
-    func: (state: EntryState<TEntry>[]) => EntryState<TEntry>[];
+    func: (state: EntryState<TEntry, TContextData>[]) => EntryState<TEntry, TContextData>[];
   } & Order;
 
   modifyTypes?: {
-    func: (types: CellTypeMap<TEntry>) => CellTypeMap<TEntry>;
+    func: (types: CellTypeMap<TEntry, TCellProps>) => CellTypeMap<TEntry, TCellProps>;
   } & Order;
 
   modifyColumns?: {
     func: (cols: ColumnDefinition<TEntry, TType>[]) => ColumnDefinition<TEntry, TType>[];
   } & Order;
 
+  theadProps?: NativeProps<HTMLAttributes>;
+  tbodyProps?: NativeProps<HTMLAttributes>;
   /**
    * Allows the modification of the header columns before render.
    */
@@ -104,19 +95,51 @@ export type TableFeature<
    * Define how a specific metadata entry of a row is mapped.
    * @default Depends on the metadata key. Usually uses the first non-nullable entry.
    */
-  reducers?: Record<
-    keyof Metadata,
-    (
-      context: {
-        featureName: symbol;
-        contextValue: unknown;
-      }[],
-    ) => unknown
+  reducers?: Reducers<TEntry, TContextData, TCellProps>;
+};
+
+type ReducerInput<
+  TEntry extends TableEntry,
+  TContextData extends Context,
+  TMetaKey extends keyof TContextData = keyof TContextData,
+> = {
+  contextName: TMetaKey;
+  contextValue: TContextData[TMetaKey];
+  entry: TEntry;
+  id: string | number;
+};
+
+type Wrapper<TEntry extends TableEntry, TCellProps extends Metadata> = FunctionalComponent<
+  RenderCellProps<TEntry, TCellProps>,
+  Record<string, never>,
+  { default: Wrapper<TEntry, TCellProps> }
+>;
+
+type ReducerResult<TEntry extends TableEntry, TCellProps extends Metadata> = Partial<
+  Omit<RenderRow<TEntry, TCellProps>, "id" | "cells">
+> & { id?: never } & {
+  cells?: Record<
+    keyof TEntry,
+    Pick<RenderCell<TEntry, TCellProps>, "props" | "tdProps"> & {
+      wrap?: Wrapper<TEntry, TCellProps>;
+    }
   >;
 };
 
+type Reducer<
+  TEntry extends TableEntry,
+  TContextData extends Context,
+  TCellProps extends Metadata,
+> = (input: ReducerInput<TEntry, TContextData>) => ReducerResult<TEntry, TCellProps> | undefined;
+
+type Reducers<
+  TEntry extends TableEntry,
+  TContextData extends Context,
+  TCellProps extends Metadata,
+> = Record<keyof TContextData, Reducer<TEntry, TContextData, TCellProps>>;
+
 /**
- * Metadata that is passed to the row as render information.
+ * Context that is reduced to row data
  * @example
  * ```ts
  * {
@@ -127,12 +150,31 @@ export type TableFeature<
  * }
  * ```
  */
-type Metadata = Record<string, unknown>;
+type Context = Record<string, unknown>;
 
 const MAPPING_SYMBOL = Symbol("MAPPING_SYMBOL");
 
-export const useTableFeatures = <TEntry extends TableEntry, TType extends AnyKey>(
-  features: TableFeature<TEntry, TType>[],
+type BUILTIN_SYMBOLS = typeof MAPPING_SYMBOL;
+
+const ensurePropsMerge = <T extends object>(obj: T, key: keyof T, toMerge: Partial<T>) => {
+  if (!toMerge[key] && !obj[key]) {
+    return;
+  }
+  if (toMerge[key] && obj[key]) {
+    obj[key] = mergeProps(obj[key], toMerge[key]) as T[keyof T];
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  obj[key] = (obj[key] ?? toMerge[key]) as any;
+};
+
+export const useTableFeatures = <
+  TEntry extends TableEntry,
+  TType extends AnyKey,
+  TContext extends Context,
+  TFeatureName extends symbol,
+  TCellProps extends Metadata,
+>(
+  features: TableFeature<TEntry, TType, TFeatureName, TContext, TCellProps>[],
 ) => {
   const enrichColumns = (cols: ColumnDefinition<TEntry, TType>[]) =>
     features
@@ -147,7 +189,7 @@ export const useTableFeatures = <TEntry extends TableEntry, TType extends AnyKey
     .sort((a, b) => a.order - b.order)
     .reduce(
       (_cellTypesMap, { func }) => func(_cellTypesMap),
-      {} as CellTypeMap<TEntry, string | number | symbol>,
+      {} as CellTypeMap<TEntry, TCellProps>,
     );
 
   const enrichHeaders = (headers: RenderHeader<TEntry>[]): RenderHeader<TEntry>[] =>
@@ -162,17 +204,21 @@ export const useTableFeatures = <TEntry extends TableEntry, TType extends AnyKey
     .map(({ name, mapping }) => ({ name, mapFunc: mapping!.func, order: mapping!.order }))
     .sort((a, b) => a.order - b.order);
 
-  const mapping = (entry: TEntry, context: Context<TEntry>) =>
-    sortedMappings.forEach(({ name, mapFunc }) => context.set(name, mapFunc({ context, entry })));
+  const mapping = (entry: TEntry, context: TContext) =>
+    sortedMappings.forEach(({ mapFunc }) => mapFunc({ context, entry }));
 
   const sortedMutations = features
     .filter((e) => e.mutation?.func)
-    .map(({ name, mutation }) => ({ name, mapFunc: mutation!.func, order: mutation!.order }))
+    .map(({ name, mutation }) => ({
+      name: name as TFeatureName | BUILTIN_SYMBOLS,
+      mapFunc: mutation!.func,
+      order: mutation!.order,
+    }))
     .concat([
       {
         name: MAPPING_SYMBOL,
         mapFunc: (state) => {
-          state.forEach(({ entry, context }) => mapping(entry, context));
+          state.forEach((entryState) => mapping(entryState.entry, entryState.context));
           return state;
         },
         order: 10,
@@ -185,10 +231,10 @@ export const useTableFeatures = <TEntry extends TableEntry, TType extends AnyKey
   const enrichTableData = (
     rawData: TEntry[],
     _columns: ColumnDefinition<TEntry, TType>[],
-  ): RenderRow<TEntry>[] => {
-    const initialState = rawData.map<EntryState<TEntry>>((entry) => ({
-      entry,
-      context: new Map(),
+  ): RenderRow<TEntry, TCellProps>[] => {
+    const initialState = rawData.map((entry) => ({
+      entry: Object.freeze(entry),
+      context: {} as TContext,
     }));
 
     const state = sortedMutations.reduce(
@@ -198,50 +244,80 @@ export const useTableFeatures = <TEntry extends TableEntry, TType extends AnyKey
 
     const columns = enrichColumns(_columns);
 
+    const reducers = (features
+      .map(({ reducers }) => reducers)
+      .reduce((prev, reducers) => ({ ...prev, ...reducers }), {}) ?? {}) as Record<
+      keyof TContext,
+      Reducer<TEntry, TContext, TCellProps>
+    >;
+
     return state.map(({ entry, context }) => {
-      const invertedContext = Array.from(context.entries()).reduce(
-        (map, [featureName, featureContext]) => {
-          Object.entries(featureContext ?? {}).forEach(([contextName, contextValue]) => {
-            if (!contextValue) {
-              return map;
-            }
-            const a = map.get(contextName) ?? [];
-            if (a.length === 0) {
-              map.set(contextName, a);
-            }
-            a.push({ featureName, contextValue });
-          });
-          return map;
-        },
-        new Map<string, { featureName: symbol; contextValue: unknown }[]>(),
-      );
-
-      const reducers =
-        features
-          .map(({ reducers }) => reducers)
-          .reduce((prev, reducers) => ({ ...prev, ...reducers }), {}) ?? {};
-
-      const metaDataEntries: [string, unknown][] = [];
-      invertedContext.forEach((context, contextName) =>
-        metaDataEntries.push([contextName, reducers[contextName]?.(context)]),
-      );
-      const metadata = Object.fromEntries(metaDataEntries);
-
       const cells = columns.reduce(
         (obj, { key, type }) => {
           obj[key] = {
-            row: entry,
-            value: entry[key],
-            metadata,
+            props: {
+              row: entry,
+              value: entry[key],
+              metadata: {} as TCellProps,
+            },
             is: cellTypesMap[type] ?? (() => String(entry[key])),
           };
           return obj;
         },
-        {} as Record<keyof TEntry, RenderCell<TEntry, keyof TEntry, TEntry[keyof TEntry], object>>,
+        {} as Record<keyof TEntry, RenderCell<TEntry, TCellProps>>,
       );
 
-      return { cells, id: entry.id, metadata };
+      return Object.entries(context)
+        .map((contextEntry) => {
+          const contextName = contextEntry[0] as keyof TContext;
+          const contextValue = contextEntry[0] as TContext[keyof TContext];
+          return reducers[contextName]?.({ contextName, contextValue, entry, id: entry.id });
+        })
+        .reduce(
+          (row, result) => {
+            if (!result) {
+              return row;
+            }
+            if (result.trProps) {
+              row.trProps = mergeProps(row.trProps, result.trProps as Record<string, unknown>);
+            }
+            if (result.cells) {
+              Object.entries(result.cells).forEach(([key, cell]) => {
+                const rowCells = row.cells[key];
+                if (!rowCells) {
+                  return;
+                }
+                if (cell) {
+                  ensurePropsMerge(rowCells, "props", cell);
+                  ensurePropsMerge(rowCells, "tdProps", cell);
+                }
+                if (cell.wrap) {
+                  rowCells.is = ((props, ctx) =>
+                    cell.wrap!(props, {
+                      attrs: {},
+                      emit: () => {},
+                      slots: { default: () => rowCells.is(props, ctx) },
+                    })) satisfies CellRenderFunc<TEntry, TCellProps>;
+                }
+              });
+            }
+            return row;
+          },
+          { id: entry.id, cells, trProps: {} } satisfies RenderRow<TEntry, TCellProps>,
+        );
     });
   };
-  return { enrichTableData, enrichHeaders, states };
+
+  const provideRootProps = () => {
+    return {
+      tbodyProps: mergeProps(
+        ...features.map((f) => f.tbodyProps!).filter((props) => Boolean(props)),
+      ),
+      theadProps: mergeProps(
+        ...features.map((f) => f.theadProps!).filter((props) => Boolean(props)),
+      ),
+    };
+  };
+
+  return { enrichTableData, enrichHeaders, provideRootProps, states };
 };

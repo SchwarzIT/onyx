@@ -5,13 +5,19 @@ import SortIndicator from "./SortIndicator.vue";
 
 export type SortDirection = 1 | -1 | 0;
 
-export const withSortingFeature = <TEntry extends TableEntry>(): TableFeature<TEntry, never> => {
+const SORTING_FEATURE = Symbol("Sorting");
+
+export const withSortingFeature = <TEntry extends TableEntry>(): TableFeature<
+  TEntry,
+  never,
+  typeof SORTING_FEATURE
+> => {
   const sortColumn: Ref<keyof TEntry> = ref("id");
   const sortDirection = ref<SortDirection>(0);
   const intlCompare = new Intl.Collator().compare;
 
   return {
-    name: Symbol("Sorting"),
+    name: SORTING_FEATURE,
     state: [sortColumn, sortDirection],
     modifyHeaders: {
       func: (cols) => {
