@@ -6,7 +6,12 @@ import FilterInputButton from "./FilterInputButton.vue";
 
 const FILTERING_FEATURE = Symbol("Filtering");
 
-export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<TEntry, never> => {
+export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<
+  TEntry,
+  never,
+  typeof FILTERING_FEATURE,
+  { hidden: boolean }
+> => {
   const filterColumn = ref<keyof TEntry>();
   const filterValue = ref("");
 
@@ -39,17 +44,15 @@ export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<
     },
     mapping: {
       order: 2,
-      func: ({ entry }) => {
-        if (!filterColumn.value) {
-          return;
+      func: ({ entry, context }) => {
+        if (filterColumn.value) {
+          context.hidden = !normalizedIncludes(`${entry[filterColumn.value]}`, filterValue.value);
         }
-        return { hidden: !normalizedIncludes(`${entry[filterColumn.value]}`, filterValue.value) };
       },
     },
     mutation: {
       order: 11,
-      func: (state) =>
-        state.filter((entryState) => !entryState.context.get(FILTERING_FEATURE)?.["hidden"]),
+      func: (state) => state.filter((entryState) => !entryState.context.hidden),
     },
   };
 };
