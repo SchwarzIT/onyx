@@ -1,4 +1,12 @@
-import { mergeProps, type FunctionalComponent, type HTMLAttributes, type WatchSource } from "vue";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  mergeProps,
+  type Component,
+  type FunctionalComponent,
+  type HTMLAttributes,
+  type WatchSource,
+} from "vue";
+import type { Merge } from "../../../types/typing";
 import type {
   CellRenderFunc,
   Metadata,
@@ -67,6 +75,7 @@ export type TableFeature<
 
   /**
    * Allows modifying the table state as a whole.
+   * TODO: global context and reducer
    */
   mutation?: {
     func: (state: EntryState<TEntry, TContextData>[]) => EntryState<TEntry, TContextData>[];
@@ -96,6 +105,8 @@ export type TableFeature<
    * @default Depends on the metadata key. Usually uses the first non-nullable entry.
    */
   reducers?: Reducers<TEntry, TContextData, TCellProps>;
+
+  after?: Component;
 };
 
 type ReducerInput<
@@ -167,14 +178,25 @@ const ensurePropsMerge = <T extends object>(obj: T, key: keyof T, toMerge: Parti
   obj[key] = (obj[key] ?? toMerge[key]) as any;
 };
 
+type ExtractTEntry<T> = T extends TableFeature<infer I, any, any, any, any, any>[] ? I : never;
+type ExtractTType<T> = T extends TableFeature<any, infer I, any, any, any, any>[] ? I : never;
+type ExtractTFeatureName<T> = T extends TableFeature<any, any, infer I, any, any, any>[]
+  ? I
+  : never;
+type ExtractTContext<T> = T extends TableFeature<any, any, any, infer I, any, any> ? I : never;
+type ExtractTCellProps<T> = T extends TableFeature<any, any, any, any, infer I, any>[] ? I : never;
+
+type Flatten<Type> = Type extends Array<infer Item> ? Item : Type;
+
 export const useTableFeatures = <
-  TEntry extends TableEntry,
-  TType extends AnyKey,
-  TContext extends Context,
-  TFeatureName extends symbol,
-  TCellProps extends Metadata,
+  T extends TableFeature<any, any, any, any, any, any>[] | [],
+  TContext extends Context = Merge<Flatten<{ [P in keyof T]: ExtractTContext<T[P]> }>>,
+  TCellProps extends Metadata = Merge<Flatten<{ [P in keyof T]: ExtractTCellProps<T[P]> }>>,
+  TEntry extends TableEntry = ExtractTEntry<T>,
+  TType extends AnyKey = ExtractTType<T>,
+  TFeatureName extends symbol = ExtractTFeatureName<T>,
 >(
-  features: TableFeature<TEntry, TType, TFeatureName, TContext, TCellProps>[],
+  features: T,
 ) => {
   const enrichColumns = (cols: ColumnDefinition<TEntry, TType>[]) =>
     features
@@ -211,13 +233,13 @@ export const useTableFeatures = <
     .filter((e) => e.mutation?.func)
     .map(({ name, mutation }) => ({
       name: name as TFeatureName | BUILTIN_SYMBOLS,
-      mapFunc: mutation!.func,
+      func: mutation!.func,
       order: mutation!.order,
     }))
     .concat([
       {
         name: MAPPING_SYMBOL,
-        mapFunc: (state) => {
+        func: (state) => {
           state.forEach((entryState) => mapping(entryState.entry, entryState.context));
           return state;
         },
@@ -228,6 +250,9 @@ export const useTableFeatures = <
 
   const states = features.flatMap(({ state }) => state).filter(Boolean);
 
+  const afters = features.flatMap(({ after }) => after).filter(Boolean);
+  console.log("🚀 ~ afters:", afters);
+
   const enrichTableData = (
     rawData: TEntry[],
     _columns: ColumnDefinition<TEntry, TType>[],
@@ -237,10 +262,7 @@ export const useTableFeatures = <
       context: {} as TContext,
     }));
 
-    const state = sortedMutations.reduce(
-      (newState, { mapFunc }) => mapFunc(newState),
-      initialState,
-    );
+    const state = sortedMutations.reduce((newState, { func }) => func(newState), initialState);
 
     const columns = enrichColumns(_columns);
 
@@ -319,5 +341,11 @@ export const useTableFeatures = <
     };
   };
 
-  return { enrichTableData, enrichHeaders, provideRootProps, states };
+  return {
+    enrichTableData,
+    enrichHeaders,
+    provideRootProps,
+    afters,
+    states,
+  };
 };
