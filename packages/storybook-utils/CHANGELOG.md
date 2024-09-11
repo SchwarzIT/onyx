@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.43
+
+### Patch Changes
+
+- 08a9d76: fix(enhanceEventArgTypes): log actions/events without "on" prefix
+
 ## 1.0.0-beta.42
 
 ### Patch Changes

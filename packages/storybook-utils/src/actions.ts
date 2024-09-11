@@ -16,8 +16,8 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
       }
       argTypes[eventName] = {
         name: eventName,
-        table: { disable: true },
-        action: eventName,
+        table: { disable: true }, // do not add a second table entry for event name prefixed with "on"
+        action: name,
       };
     });
   return argTypes;
