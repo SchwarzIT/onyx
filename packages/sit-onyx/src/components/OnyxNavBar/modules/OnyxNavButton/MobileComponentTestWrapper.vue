@@ -36,7 +36,7 @@ provide(
     :label="props.label"
     :href="props.href"
     :active="props.active"
-    @nav-button-click="emit('click', $event)"
+    @navigate="emit('click', $event)"
   >
     <slot></slot>
 

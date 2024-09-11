@@ -16,7 +16,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the nav button is clicked (via click or keyboard).
    */
-  navigate: [href: string];
+  navigate: [href: string, event: MouseEvent];
 }>();
 
 const slots = defineSlots<{
@@ -34,11 +34,11 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const isMobileChildrenOpen = ref(false);
 const hasChildren = computed(() => !!slots.children);
 
-const handleParentClick = () => {
+const handleParentClick = (event: MouseEvent) => {
   if (isMobile?.value && hasChildren.value && !isMobileChildrenOpen.value) {
     isMobileChildrenOpen.value = true;
   } else if (props.href) {
-    emit("navigate", props.href);
+    emit("navigate", props.href, event);
   }
 };
 </script>
