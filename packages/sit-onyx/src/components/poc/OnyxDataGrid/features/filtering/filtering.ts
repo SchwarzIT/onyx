@@ -1,7 +1,7 @@
 import { h, ref } from "vue";
 import { normalizedIncludes } from "../../../../../utils/strings";
 import type { TableFeature } from "../../OnyxDataGrid.feature";
-import type { TableEntry } from "../../OnyxDataGridRenderer";
+import type { Metadata, TableEntry } from "../../OnyxDataGridRenderer";
 import FilterInputButton from "./FilterInputButton.vue";
 
 const FILTERING_FEATURE = Symbol("Filtering");
@@ -10,7 +10,9 @@ export const withFilteringFeature = <TEntry extends TableEntry>(): TableFeature<
   TEntry,
   never,
   typeof FILTERING_FEATURE,
-  { hidden: boolean }
+  { hidden: boolean },
+  Metadata,
+  object
 > => {
   const filterColumn = ref<keyof TEntry>();
   const filterValue = ref("");

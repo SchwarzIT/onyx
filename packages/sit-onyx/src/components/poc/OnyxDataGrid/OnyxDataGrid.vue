@@ -1,6 +1,7 @@
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup generic="TEntry extends TableEntry">
 import type { OnyxDataGridProps } from "./OnyxDataGrid";
-import type { RenderRow, RenderHeader, TableEntry } from "./OnyxDataGridRenderer";
+import type { RenderRow, RenderHeader, TableEntry, Metadata } from "./OnyxDataGridRenderer";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
 import { useTableFeatures, type AnyKey, type NativeProps } from "./OnyxDataGrid.feature";
 import { withSortingFeature } from "./features/sorting/sorting";
@@ -9,18 +10,22 @@ import { withDraggingFeature } from "./features/reordering/dragging";
 import { watch } from "vue";
 import { shallowRef } from "vue";
 import { withFilteringFeature } from "./features/filtering/filtering";
+import { withPaginationFeature } from "./features/pagination/pagination";
+import { toValue } from "vue";
 
 const props = defineProps<OnyxDataGridProps<TEntry>>();
 
 const withSorting = withSortingFeature<TEntry>();
 const withFiltering = withFilteringFeature<TEntry>();
 const withDragging = withDraggingFeature<TEntry>();
+const withPagination = withPaginationFeature<TEntry>();
 
-const { enrichTableData, enrichHeaders, provideRootProps, states } = useTableFeatures<
-  TEntry,
-  AnyKey,
-  symbol
->([withSorting, withFiltering, withDragging]);
+const { enrichTableData, enrichHeaders, provideRootProps, states, afters } = useTableFeatures([
+  withDragging,
+  withFiltering as any,
+  withSorting as any,
+  withPagination as any,
+]);
 
 const rows = shallowRef<RenderRow<TEntry, object>[]>([]);
 const columns = shallowRef<RenderHeader<TEntry>[]>([]);
@@ -53,12 +58,20 @@ watch([() => props.data, () => props.columns, ...states], () => update(), {
 </script>
 
 <template>
-  <OnyxDataGridRenderer
-    :rows="rows"
-    :columns="columns"
-    :tbody-props="tbodyProps"
-    :thead-props="theadProps"
-  />
+  <div>
+    <OnyxDataGridRenderer
+      :rows="rows"
+      :columns="columns"
+      :tbody-props="tbodyProps"
+      :thead-props="theadProps"
+    />
+    <component
+      v-for="a in afters"
+      :is="a"
+      :key="withPagination.state.map((v) => toValue(v)).join('#')"
+    />
+    {{}}
+  </div>
 </template>
 
 <style lang="scss">

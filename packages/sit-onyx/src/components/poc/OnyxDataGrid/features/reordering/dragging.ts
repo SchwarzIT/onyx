@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Metadata } from "@playwright/test";
 import { h } from "vue";
 import type { TableFeature } from "../../OnyxDataGrid.feature";
 import type { TableEntry } from "../../OnyxDataGridRenderer";
@@ -11,7 +13,9 @@ export const withDraggingFeature = <TEntry extends TableEntry>(): TableFeature<
   TEntry,
   typeof DRAG_TYPE,
   typeof DRAG_FEATURE,
-  { dropzone: boolean }
+  { dropzone: boolean },
+  Metadata,
+  object
 > => {
   return {
     name: DRAG_FEATURE,
