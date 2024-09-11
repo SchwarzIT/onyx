@@ -6,10 +6,6 @@ import ComponentStatusBadge from "./ComponentStatusBadge.vue";
 export type ComponentCardProps = {
   /** Component name. */
   name: string;
-  /** Component status. */
-  status: ComponentStatus;
-  /** Link to the component. */
-  href?: string;
   /**
    * Due date when the component will be implemented.
    * Will only be shown if status is not "implemented".
@@ -18,7 +14,21 @@ export type ComponentCardProps = {
    * @example "Q2 2024"
    */
   dueDate?: string;
-};
+} & (
+  | {
+      /** Component status. */
+      status: Extract<ComponentStatus, "in-progress" | "planned">;
+      /** Link to the components storybook. */
+      href?: string;
+    }
+  | {
+      status: Exclude<ComponentStatus, "in-progress" | "planned">;
+      /**
+       * Require `href`, when status is "implemented".
+       */
+      href: string;
+    }
+);
 
 const props = defineProps<ComponentCardProps>();
 </script>
