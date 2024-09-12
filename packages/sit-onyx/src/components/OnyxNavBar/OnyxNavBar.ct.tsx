@@ -241,8 +241,8 @@ test("should behave correctly", async ({ mount }) => {
       appName="App name"
       logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
       withBackButton
-      onAppAreaClick={() => appAreaClickEvents++}
-      onBackButtonClick={() => backButtonClickEvents++}
+      onNavigateToStart={() => appAreaClickEvents++}
+      onNavigateBack={() => backButtonClickEvents++}
     />,
   );
 
