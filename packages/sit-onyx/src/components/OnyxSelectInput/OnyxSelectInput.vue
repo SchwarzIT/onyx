@@ -125,7 +125,7 @@ const blockTyping = (event: KeyboardEvent) => {
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <template #default="{ id }">
         <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- Disabled rules are needed here, because of the click event. Otherwise clicking on the padding or gap won't open the select -->
-        <div class="onyx-select-input__wrapper" @click="emit('inputClick')">
+        <div class="onyx-select-input__wrapper" @click="!props.disabled && !props.loading && emit('inputClick')">
           <OnyxLoadingIndicator
             v-if="props.loading"
             class="onyx-select-input__loading"
