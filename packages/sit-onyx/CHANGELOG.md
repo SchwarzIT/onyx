@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.41
+
+### Patch Changes
+
+- Updated dependencies [79033ac]
+  - @sit-onyx/icons@1.0.0-beta.2
+
 ## 1.0.0-beta.40
 
 ### Patch Changes
