@@ -1,3 +1,4 @@
+import globe from "@sit-onyx/icons/globe.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
@@ -32,25 +33,19 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
 export default meta;
 type Story = StoryObj<typeof OnyxFlyoutMenu>;
 
-const listAnimals = [
-  { label: "Cat" },
-  { label: "Dog" },
-  { label: "Tiger" },
-  { label: "Reindeer" },
-  { label: "Racoon" },
-  { label: "Dolphin" },
-  { label: "Flounder" },
-  { label: "Eel" },
-  { label: "Falcon" },
-  { label: "Owl" },
-];
-
 /**
  * This example shows a basic OnyxFlyoutMenu
  */
 export const Default = {
   args: {
-    default: () => [h(OnyxButton, { label: "Hover me" })],
-    options: () => listAnimals.map(({ label }) => h(OnyxMenuItem, () => label)),
+    label: "Choose application language",
+    default: () => [
+      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe }),
+    ],
+    options: () => [
+      h(OnyxMenuItem, { active: true }, () => "English"),
+      h(OnyxMenuItem, () => "German"),
+      h(OnyxMenuItem, () => "Spanish"),
+    ],
   },
 } satisfies Story;
