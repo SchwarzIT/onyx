@@ -39,23 +39,13 @@ jobs:
         run: pnpm install
 
       - name: 🛠️ Build packages
-        run: pnpm build:all
-        env:
-          # needed for increase rate limit for the GitHub API that is used when building
-          # the VitePress documentation
-          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm build:all --filter=!docs
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/storybook-static
-
-      - name: Upload documentation artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: apps/docs/src/.vitepress/dist
 
       - name: Upload playground artifact
         uses: actions/upload-artifact@v4
@@ -90,6 +80,21 @@ jobs:
           npx changeset add --empty
           npx changeset version --snapshot
           npx changeset publish --tag snapshot
+
+      # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
+      # documentation build
+      - name: 🛠️ Build docs
+        run: pnpm build:all --filter=docs
+        env:
+          # needed for increase rate limit for the GitHub API that is used when building
+          # the VitePress documentation
+          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: apps/docs/src/.vitepress/dist
 
   deploy_storybook:
     name: Deploy Storybook
