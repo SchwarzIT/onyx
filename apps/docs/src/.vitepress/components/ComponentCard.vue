@@ -17,12 +17,12 @@ export type ComponentCardProps = {
 } & (
   | {
       /** Component status. */
-      status: Extract<ComponentStatus, "in-progress" | "planned">;
+      status: Exclude<ComponentStatus, "implemented">;
       /** Link to the components storybook. */
       href?: string;
     }
   | {
-      status: Exclude<ComponentStatus, "in-progress" | "planned">;
+      status: Extract<ComponentStatus, "implemented">;
       /**
        * Require `href`, when status is "implemented".
        */
