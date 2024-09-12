@@ -1,10 +1,8 @@
 /**
  * Script to generate changeset based on the changed .svg files
  */
-import { readPreState } from "@changesets/pre";
 import writeChangeset from "@changesets/write";
 import { exec as nodeExec } from "node:child_process";
-import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { exit } from "node:process";
 import { name as packageName } from "../package.json";
@@ -30,7 +28,7 @@ export async function generateChangeset() {
     (icon) => icon.status === "deleted" || icon.status === "renamed",
   );
 
-  const changesetId = await writeChangeset(
+  await writeChangeset(
     {
       releases: [
         {
@@ -42,18 +40,6 @@ export async function generateChangeset() {
     },
     changesetCwd,
   );
-
-  // if changeset is in pre-release mode, we need to add the generated changeset to the pre.json file so it is picked up correctly
-  const preState = await readPreState(changesetCwd);
-  if (preState) {
-    preState.changesets.push(changesetId);
-    preState.changesets.sort();
-
-    await writeFile(
-      path.join(changesetCwd, ".changeset", "pre.json"),
-      JSON.stringify(preState, null, 2) + "\n",
-    );
-  }
 
   console.log("Wrote changeset");
 }
