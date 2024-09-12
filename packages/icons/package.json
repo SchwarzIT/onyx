@@ -26,7 +26,6 @@
     "generate:changeset": "tsx ./scripts/changeset.ts"
   },
   "devDependencies": {
-    "@changesets/pre": "^2.0.1",
     "@changesets/write": "~0.3.2",
     "tsx": "^4.19.0"
   }
