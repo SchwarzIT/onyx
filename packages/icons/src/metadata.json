@@ -1242,6 +1242,10 @@
     "category": "Health, Medicine & Hygiene",
     "aliases": ["love-symbol", "affection", "Herzsymbol", "Zuneigung", "favorite"]
   },
+  "heart-filled": {
+    "category": "Health, Medicine & Hygiene",
+    "aliases": ["love", "affection", "Herzsymbol", "Zuneigung", "favorite", "Herz"]
+  },
   "heptagon-cloud": {
     "category": "Software & Services",
     "aliases": ["kubernetes"]
@@ -1962,6 +1966,10 @@
     "category": "Objects",
     "aliases": ["spacecraft", "missile", "Rakete", "Flugkörper"]
   },
+  "rocket-plus": {
+    "category": "Objects",
+    "aliases": [""]
+  },
   "rocket-settings": {
     "category": "Objects",
     "aliases": [""]
@@ -2151,6 +2159,10 @@
   "star": {
     "category": "Various",
     "aliases": ["celebrity", "fame", "Stern", "favorite"]
+  },
+  "star-filled": {
+    "category": "Various",
+    "aliases": ["celebrity", "fame", "Stern", "favorite", "filled"]
   },
   "stopover": {
     "category": "Navigation",
