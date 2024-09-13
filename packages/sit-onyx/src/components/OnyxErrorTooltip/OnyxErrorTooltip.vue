@@ -44,8 +44,11 @@ const targetRef = ref<HTMLDivElement>();
       </template>
     </OnyxTooltip>
 
-    <!-- sends the given component to the desired target without destroying the component -->
-    <Teleport :disabled="!targetRef" :to="targetRef">
+    <!--
+      sends the given component to the desired target without destroying the component
+      the "v-if" is needed to support server side rendering
+    -->
+    <Teleport v-if="targetRef" :to="targetRef" defer>
       <slot></slot>
     </Teleport>
   </div>

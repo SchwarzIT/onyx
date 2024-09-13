@@ -1,6 +1,5 @@
-import { computed, type Ref } from "vue";
+import { computed, useId, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder";
-import { createId } from "../../utils/id";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
 
@@ -14,10 +13,10 @@ type CreateMenuButtonOptions = {
  */
 export const createMenuButton = createBuilder(
   ({ isExpanded, onToggle }: CreateMenuButtonOptions) => {
-    const rootId = createId("menu-button-root");
-    const menuId = createId("menu-button-list");
+    const rootId = useId();
+    const menuId = useId();
     const menuRef = createElRef<HTMLElement>();
-    const buttonId = createId("menu-button-button");
+    const buttonId = useId();
 
     useGlobalEventListener({
       type: "keydown",
@@ -106,7 +105,10 @@ export const createMenuButton = createBuilder(
           onMouseout: () => updateDebouncedExpanded(false),
           onFocusout: (event) => {
             // if focus receiving element is not part of the menu button, then close
-            if (document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)) {
+            if (
+              rootId &&
+              document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)
+            ) {
               return;
             }
             isExpanded.value && onToggle();
