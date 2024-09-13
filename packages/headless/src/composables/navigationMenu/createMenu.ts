@@ -1,5 +1,4 @@
-import { unref, type MaybeRef } from "vue";
-import { createId } from "../..";
+import { unref, useId, type MaybeRef } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { MathUtils } from "../../utils/math";
 
@@ -15,10 +14,10 @@ type CreateNavigationMenu = {
  * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
 export const createNavigationMenu = createBuilder(({ navigationName }: CreateNavigationMenu) => {
-  const navId = createId("nav");
+  const navId = useId();
 
   const getMenuButtons = () => {
-    const nav = document.getElementById(navId);
+    const nav = navId ? document.getElementById(navId) : undefined;
     if (!nav) return [];
     return [...nav.querySelectorAll<HTMLElement>("button[aria-expanded][aria-controls]")];
   };
