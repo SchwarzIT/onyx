@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.42
+
+### Major Changes
+
+- dc00809: feat: support SSR for OnyxSelect, OnyxNavButton, OnyxUserMenu and more components
+
+  The minimum required Vue version was bumped to `>= 3.5.0` because we make use of `useId()` now.
+
+## 1.0.0-beta.41
+
+### Patch Changes
+
+- Updated dependencies [79033ac]
+  - @sit-onyx/icons@1.0.0-beta.2
+
 ## 1.0.0-beta.40
 
 ### Patch Changes

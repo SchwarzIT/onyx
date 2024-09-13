@@ -1,6 +1,5 @@
-import { computed, unref, type MaybeRef, type Ref } from "vue";
+import { computed, unref, useId, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
-import { createId } from "../../utils/id";
 import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
 import { useOutsideClick } from "../helpers/useOutsideClick";
 import { useTypeAhead } from "../helpers/useTypeAhead";
@@ -127,7 +126,7 @@ export const createComboBox = createBuilder(
     onActivatePrevious,
     templateRef,
   }: CreateComboboxOptions<TValue, TAutoComplete, TMultiple>) => {
-    const controlsId = createId("comboBox-control");
+    const controlsId = useId();
 
     const autocomplete = computed(() => unref(autocompleteRef));
     const isExpanded = computed(() => unref(isExpandedRef));

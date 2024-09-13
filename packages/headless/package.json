@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/headless",
   "description": "Headless composables for Vue",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "typescript": ">= 5",
-    "vue": ">= 3"
+    "vue": ">= 3.5.0"
   },
   "devDependencies": {
     "@vue/compiler-dom": "catalog:",

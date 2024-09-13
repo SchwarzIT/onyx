@@ -1,5 +1,17 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 79033ac: feat: update icons
+
+  #### New icons
+
+  - heart-filled
+  - rocket-plus
+  - star-filled
+
 ## 1.0.0-beta.1
 
 ### Major Changes
