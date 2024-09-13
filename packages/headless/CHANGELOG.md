@@ -1,5 +1,13 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.8
+
+### Major Changes
+
+- dc00809: feat: support SSR for OnyxSelect, OnyxNavButton, OnyxUserMenu and more components
+
+  Removed `createId()` utility. Use Vue's new `useId()` utility which is SSR safe and supported since Vue `>= 3.5.0`.
+
 ## 1.0.0-beta.7
 
 ### Patch Changes
