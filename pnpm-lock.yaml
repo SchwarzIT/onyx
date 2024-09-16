@@ -54,8 +54,8 @@ importers:
         specifier: 8.3.0-beta.5
         version: 8.3.0-beta.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0-beta.5)
       '@storybook/vue3':
-        specifier: 8.3.0-beta.5
-        version: 8.3.0-beta.5(storybook@8.3.0-beta.5)(vue@3.5.4(typescript@5.6.2))
+        specifier: 8.3.0
+        version: 8.3.0(storybook@8.3.0-beta.5)(vue@3.5.4(typescript@5.6.2))
       '@storybook/vue3-vite':
         specifier: 8.3.0-beta.5
         version: 8.3.0-beta.5(storybook@8.3.0-beta.5)(vite@5.4.5(@types/node@20.16.5)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))(vue@3.5.4(typescript@5.6.2))(webpack-sources@3.2.3)
@@ -1983,6 +1983,13 @@ packages:
     peerDependencies:
       storybook: ^8.3.0-beta.5
       vite: ^4.0.0 || ^5.0.0
+
+  '@storybook/vue3@8.3.0':
+    resolution: {integrity: sha512-75PmRUoyDPvSFkR+LYLBpFJIACA9Wyfd7Illa/0D7PF0eQKjKIFdyxqa0nfPsB2UGFiP+778A2jAXsTYw3i+9Q==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      storybook: ^8.3.0
+      vue: ^3.5.0
 
   '@storybook/vue3@8.3.0-beta.5':
     resolution: {integrity: sha512-ftWXs1tcrJj7cas+X4oSCTkmSjwFwe4gMkEG/8LHbg5tdM1Z6h9tRDKFuCTdsA4+2/NFSA7yk1guEa6oCSi1rw==}
@@ -8144,6 +8151,20 @@ snapshots:
       - vite-plugin-glimmerx
       - vue
       - webpack-sources
+
+  '@storybook/vue3@8.3.0(storybook@8.3.0-beta.5)(vue@3.5.4(typescript@5.6.2))':
+    dependencies:
+      '@storybook/components': 8.3.0(storybook@8.3.0-beta.5)
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 8.3.0(storybook@8.3.0-beta.5)
+      '@storybook/preview-api': 8.3.0(storybook@8.3.0-beta.5)
+      '@storybook/theming': 8.3.0(storybook@8.3.0-beta.5)
+      '@vue/compiler-core': 3.5.4
+      storybook: 8.3.0-beta.5
+      ts-dedent: 2.2.0
+      type-fest: 2.19.0
+      vue: 3.5.4(typescript@5.6.2)
+      vue-component-type-helpers: 2.1.6
 
   '@storybook/vue3@8.3.0-beta.5(storybook@8.3.0-beta.5)(vue@3.5.4(typescript@5.6.2))':
     dependencies:
