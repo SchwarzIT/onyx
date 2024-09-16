@@ -7,13 +7,15 @@ export type OnyxDataGridRendererProps<
   TEntry extends DataGridEntry = DataGridEntry,
   TMetadata extends DataGridMetadata = DataGridMetadata,
 > = OnyxTableProps & {
+  /**
+   * Will define which columns and their headers are rendered in which order.
+   */
   columns: DataGridRendererColumn<TEntry, object>[];
   rows: DataGridRendererRow<TEntry, TMetadata>[];
 };
 
 /**
  * Describes how a column header is rendered in the data grid.
- * Will also define which row columns are rendered in which order.
  */
 export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps extends object> = {
   /**
@@ -35,6 +37,9 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps extends 
   thAttributes?: ThHTMLAttributes;
 };
 
+/**
+ * Describes how a specific row is rendered in the data grid.
+ */
 export type DataGridRendererRow<
   TEntry extends DataGridEntry,
   TMetadata extends DataGridMetadata = DataGridMetadata,
@@ -43,7 +48,15 @@ export type DataGridRendererRow<
    * Unique id of the row.
    */
   id: PropertyKey;
+  /**
+   * Describes how a cell in a specific row is rendered in the data grid.
+   * Only cells that are defined in the columns will be rendered in the defined order.
+   */
   cells: Partial<Record<keyof TEntry, DataGridRendererCell<TEntry, TMetadata>>>;
+  /**
+   * Attributes that are bound directly to the `<tr>` element of the row.
+   */
+  trAttributes?: HTMLAttributes;
 };
 
 export type DataGridRendererCell<
