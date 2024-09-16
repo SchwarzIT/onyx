@@ -1,5 +1,5 @@
 import type { FunctionalComponent, HTMLAttributes, ThHTMLAttributes } from "vue";
-import type { AnyKey, WithHTMLAttributes } from "../../../types";
+import type { WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 
@@ -42,7 +42,7 @@ export type DataGridRendererRow<
   /**
    * Unique id of the row.
    */
-  id: AnyKey;
+  id: PropertyKey;
   cells: Partial<Record<keyof TEntry, DataGridRendererCell<TEntry, TMetadata>>>;
 };
 
