@@ -86,7 +86,9 @@ export type DataGridRendererCell<
 export type DataGridRendererCellComponent<
   TEntry extends DataGridEntry,
   TMetadata extends DataGridMetadata = DataGridMetadata,
-> = FunctionalComponent<HTMLAttributes & DataGridRendererCellComponentProps<TEntry, TMetadata>>;
+> = FunctionalComponent<
+  WithHTMLAttributes<DataGridRendererCellComponentProps<TEntry, TMetadata>, TdHTMLAttributes>
+>;
 
 export type DataGridRendererCellComponentProps<
   TEntry extends DataGridEntry,
@@ -102,6 +104,7 @@ export type DataGridRendererCellComponentProps<
   metadata?: TMetadata;
   /**
    * Cell data that is provided to the component via the `modelValue` prop.
+   * If the cell renders readonly, this will just be the non-editable value.
    */
   modelValue?: TEntry[keyof TEntry];
 };
