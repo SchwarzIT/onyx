@@ -10,8 +10,8 @@ const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
   <OnyxTable class="onyx-data-grid" v-bind="props">
     <template #head>
       <tr>
-        <th v-for="column in props.columns" :key="column.key">
-          <component :is="column.is" v-bind="column.props" />
+        <th v-for="column in props.columns" :key="column.key" v-bind="column.thAttributes">
+          <component :is="column.component" v-bind="column.props" />
         </th>
       </tr>
     </template>
@@ -19,7 +19,7 @@ const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
     <tr v-for="row in props.rows" :key="row.id">
       <td v-for="column in props.columns" :key="column.key">
         <template v-if="row.cells[column.key]">
-          <component :is="row.cells[column.key]!.is" v-bind="row.cells[column.key]!.props" />
+          <component :is="row.cells[column.key]!.component" v-bind="row.cells[column.key]!.props" />
         </template>
       </td>
     </tr>
