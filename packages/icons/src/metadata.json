@@ -1906,6 +1906,14 @@
     "category": "People & Users",
     "aliases": ["biography", "user-info", "Profil", "Benutzerinfo"]
   },
+  "Property 1=filled": {
+    "category": "Various",
+    "aliases": ["celebrity", "fame", "Stern", "favorite", "filled"]
+  },
+  "Property 1=outlined": {
+    "category": "Various",
+    "aliases": ["celebrity", "fame", "Stern", "favorite"]
+  },
   "puzzle-1": {
     "category": "Objects",
     "aliases": ["jigsaw-1", "conundrum-1", "Puzzle-1", "Rätsel-1"]
@@ -2155,14 +2163,6 @@
   "split-vertical": {
     "category": "Action & Interface",
     "aliases": ["divide-upright", "separate-tall", "Vertikal teilen", "Hoch aufteilen"]
-  },
-  "star": {
-    "category": "Various",
-    "aliases": ["celebrity", "fame", "Stern", "favorite"]
-  },
-  "star-filled": {
-    "category": "Various",
-    "aliases": ["celebrity", "fame", "Stern", "favorite", "filled"]
   },
   "stopover": {
     "category": "Navigation",
