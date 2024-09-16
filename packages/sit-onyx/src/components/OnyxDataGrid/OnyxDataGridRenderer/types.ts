@@ -1,29 +1,38 @@
-import type { FunctionalComponent, HTMLAttributes } from "vue";
+import type { FunctionalComponent, HTMLAttributes, ThHTMLAttributes } from "vue";
+import type { AnyKey, WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
-import type { DataGridEntry, DataGridKey, DataGridMetadata } from "../types";
+import type { DataGridEntry, DataGridMetadata } from "../types";
 
 export type OnyxDataGridRendererProps<
   TEntry extends DataGridEntry = DataGridEntry,
   TMetadata extends DataGridMetadata = DataGridMetadata,
 > = OnyxTableProps & {
-  columns: DataGridRendererHeader<keyof TEntry>[];
+  columns: DataGridRendererColumn<TEntry, object>[];
   rows: DataGridRendererRow<TEntry, TMetadata>[];
 };
 
-export type DataGridRendererHeader<TKey extends DataGridKey, TProps extends object = object> = {
+/**
+ * Describes how a column header is rendered in the data grid.
+ * Will also define which row columns are rendered in which order.
+ */
+export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps extends object> = {
   /**
-   * Key of the column - usually a key of the table data.
+   * (Unique) Key of the column - usually a key of the table data.
    * But can also be used for custom columns.
    */
-  key: TKey;
+  key: keyof TEntry;
   /**
    * The component that renders the header content.
    */
-  is: FunctionalComponent<HTMLAttributes & TProps>;
+  component: FunctionalComponent<WithHTMLAttributes<TProps>>;
   /**
    * Attributes and data that is provided to the component using `v-bind`.
    */
-  props: HTMLAttributes & TProps;
+  props: WithHTMLAttributes<TProps>;
+  /**
+   * Attributes that are bound directly to the `<th>` element of the column.
+   */
+  thAttributes?: ThHTMLAttributes;
 };
 
 export type DataGridRendererRow<
@@ -33,7 +42,7 @@ export type DataGridRendererRow<
   /**
    * Unique id of the row.
    */
-  id: DataGridKey;
+  id: AnyKey;
   cells: Partial<Record<keyof TEntry, DataGridRendererCell<TEntry, TMetadata>>>;
 };
 
@@ -44,7 +53,7 @@ export type DataGridRendererCell<
   /**
    * The component that renders the actual cell content.
    */
-  is: DataGridRendererCellComponent<TEntry, TMetadata>;
+  component: DataGridRendererCellComponent<TEntry, TMetadata>;
   props: DataGridRendererCellComponentProps<TEntry, TMetadata>;
 };
 

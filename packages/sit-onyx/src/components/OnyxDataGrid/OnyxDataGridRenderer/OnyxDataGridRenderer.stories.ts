@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
-import type { DataGridRendererHeader } from "./types";
+import type { DataGridRendererColumn } from "./types";
 
 const meta: Meta<typeof OnyxDataGridRenderer> = {
   title: "Support/DataGridRenderer",
@@ -11,7 +11,7 @@ const meta: Meta<typeof OnyxDataGridRenderer> = {
 export default meta;
 type Story = StoryObj<typeof OnyxDataGridRenderer>;
 
-const ExampleHeader: DataGridRendererHeader<string>["is"] = (props) => h("span", props.title);
+const ExampleHeader: DataGridRendererColumn<string>["is"] = (props) => h("span", props.title);
 
 export const Default = {
   args: {
