@@ -24,7 +24,7 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps extends 
    */
   key: keyof TEntry;
   /**
-   * The component that renders the header content.
+   * The component that renders the header content and is placed into the `<th>` element.
    */
   component: FunctionalComponent<WithHTMLAttributes<TProps>>;
   /**
@@ -59,15 +59,24 @@ export type DataGridRendererRow<
   trAttributes?: HTMLAttributes;
 };
 
+/**
+ * Describes how a single cell in a specific row is rendered in the data grid.
+ */
 export type DataGridRendererCell<
   TEntry extends DataGridEntry,
   TMetadata extends DataGridMetadata = DataGridMetadata,
 > = {
   /**
-   * The component that renders the actual cell content.
+   * The component that renders the actual cell content and is placed into the `<td>` element.
    */
   component: DataGridRendererCellComponent<TEntry, TMetadata>;
+  /**
+   * Attributes and data that is provided to the component using `v-bind`.
+   */
   props: DataGridRendererCellComponentProps<TEntry, TMetadata>;
+  /**
+   * Attributes that are bound directly to the `<td>` element of the cell.
+   */
   tdAttributes?: TdHTMLAttributes;
 };
 
