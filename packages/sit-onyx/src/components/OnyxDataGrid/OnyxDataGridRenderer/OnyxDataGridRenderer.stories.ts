@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
+import { h, type FunctionalComponent, type HTMLAttributes } from "vue";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
-import type { DataGridRendererColumn } from "./types";
 
 const meta: Meta<typeof OnyxDataGridRenderer> = {
   title: "Support/DataGridRenderer",
@@ -11,21 +10,21 @@ const meta: Meta<typeof OnyxDataGridRenderer> = {
 export default meta;
 type Story = StoryObj<typeof OnyxDataGridRenderer>;
 
-const ExampleHeader: DataGridRendererColumn<string>["is"] = (props) => h("span", props.title);
+const ExampleHeader: FunctionalComponent<HTMLAttributes> = (props) => h("span", props.title);
 
 export const Default = {
   args: {
     columns: [
       {
         key: "column-1",
-        is: ExampleHeader,
+        component: ExampleHeader,
         props: {
           title: "Column 1",
         },
       },
       {
         key: "column-2",
-        is: ExampleHeader,
+        component: ExampleHeader,
         props: {
           title: "Column 2",
         },
@@ -38,7 +37,7 @@ export const Default = {
         id: `row-${id}`,
         cells: {
           "column-1": {
-            is: (props) => h("span", props.row.id.toString()),
+            component: (props) => h("span", props.row.id.toString()),
             props: {
               row: {
                 id: `Row ${id}, cell 1`,
@@ -46,7 +45,7 @@ export const Default = {
             },
           },
           "column-2": {
-            is: (props) => h("span", props.row.id.toString()),
+            component: (props) => h("span", props.row.id.toString()),
             props: {
               row: {
                 id: `Row ${id}, cell 2`,
