@@ -48,16 +48,16 @@ importers:
         specifier: workspace:^
         version: link:packages/storybook-utils
       '@storybook/addon-essentials':
-        specifier: 8.3.0
+        specifier: ^8.3.0
         version: 8.3.0(storybook@8.3.0)(webpack-sources@3.2.3)
       '@storybook/blocks':
-        specifier: 8.3.0
+        specifier: ^8.3.0
         version: 8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)
       '@storybook/vue3':
-        specifier: 8.3.0
+        specifier: ^8.3.0
         version: 8.3.0(storybook@8.3.0)(vue@3.5.4(typescript@5.6.2))
       '@storybook/vue3-vite':
-        specifier: 8.3.0
+        specifier: ^8.3.0
         version: 8.3.0(storybook@8.3.0)(vite@5.4.5(@types/node@20.16.5)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))(vue@3.5.4(typescript@5.6.2))(webpack-sources@3.2.3)
       '@tsconfig/node20':
         specifier: ^20.1.4
@@ -120,7 +120,7 @@ importers:
         specifier: ^2.11.1
         version: 2.11.1
       storybook:
-        specifier: 8.3.0
+        specifier: ^8.3.0
         version: 8.3.0
       turbo:
         specifier: ^2.1.2
