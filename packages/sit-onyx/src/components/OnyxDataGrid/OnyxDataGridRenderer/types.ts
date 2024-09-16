@@ -1,4 +1,4 @@
-import type { FunctionalComponent, HTMLAttributes, ThHTMLAttributes } from "vue";
+import type { FunctionalComponent, HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "vue";
 import type { WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
@@ -68,6 +68,7 @@ export type DataGridRendererCell<
    */
   component: DataGridRendererCellComponent<TEntry, TMetadata>;
   props: DataGridRendererCellComponentProps<TEntry, TMetadata>;
+  tdAttributes?: TdHTMLAttributes;
 };
 
 /**
