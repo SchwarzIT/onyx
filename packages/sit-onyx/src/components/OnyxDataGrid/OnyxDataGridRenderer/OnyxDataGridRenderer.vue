@@ -16,7 +16,7 @@ const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
       </tr>
     </template>
 
-    <tr v-for="row in props.rows" :key="row.id">
+    <tr v-for="row in props.rows" :key="row.id" v-bind="row.trAttributes">
       <td v-for="column in props.columns" :key="column.key">
         <template v-if="row.cells[column.key]">
           <component :is="row.cells[column.key]!.component" v-bind="row.cells[column.key]!.props" />
