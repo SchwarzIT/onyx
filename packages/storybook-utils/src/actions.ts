@@ -46,7 +46,7 @@ export const withNativeEventLogging = (relevantEvents: (keyof Events)[]) =>
   relevantEvents.reduce((argTypes, eventName) => {
     const action = eventName.replace(/^on/, "").toLowerCase();
     argTypes[eventName] = {
-      name: eventName,
+      name: action,
       control: false,
       description: `[${action}_event](https://developer.mozilla.org/en-US/search?q=element+${action}+event)`, // unfortunately there is no static path for all events
       table: {
