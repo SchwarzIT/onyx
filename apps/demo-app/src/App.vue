@@ -69,7 +69,7 @@ watch(
           :key="item.href"
           v-bind="item"
           :active="item.href === router.currentRoute.value.path"
-          @click="router.push"
+          @navigate="router.push"
         />
 
         <template #contextArea>
