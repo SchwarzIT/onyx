@@ -15,6 +15,7 @@
     "lint:ci:all": "pnpm run lint:all --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
     "publint:all": "pnpm -r --parallel --aggregate-output exec publint",
     "prepare": "simple-git-hooks",
+    "gh:show-report": "./scripts/show-last-test-report.sh",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
