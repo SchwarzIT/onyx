@@ -73,7 +73,7 @@
   },
   "arrow-small-down": {
     "category": "Arrows",
-    "aliases": [""]
+    "aliases": []
   },
   "arrow-small-down-left": {
     "category": "Arrows",
@@ -93,7 +93,7 @@
   },
   "arrow-small-up": {
     "category": "Arrows",
-    "aliases": [""]
+    "aliases": []
   },
   "arrow-small-up-left": {
     "category": "Arrows",
@@ -105,7 +105,7 @@
   },
   "arrow-small-up-right-top": {
     "category": "Arrows",
-    "aliases": [""]
+    "aliases": []
   },
   "arrow-up": {
     "category": "Arrows",
@@ -199,7 +199,7 @@
   },
   "box-check": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": []
   },
   "bread": {
     "category": "Kitchen & Food",
@@ -300,7 +300,7 @@
   },
   "car-electric": {
     "category": "Transport & Travel",
-    "aliases": [""]
+    "aliases": []
   },
   "car-front-1": {
     "category": "Transport & Travel",
@@ -462,7 +462,7 @@
   },
   "circle-contrast": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": []
   },
   "circle-crypto-bitcoin": {
     "category": "Finance",
@@ -470,7 +470,7 @@
   },
   "circle-help": {
     "category": "Essentials",
-    "aliases": [""]
+    "aliases": []
   },
   "circle-information": {
     "category": "Essentials",
@@ -525,7 +525,7 @@
   },
   "clipboard-shield": {
     "category": "File & Type",
-    "aliases": [""]
+    "aliases": []
   },
   "clock": {
     "category": "Action & Interface",
@@ -571,7 +571,7 @@
   },
   "cloud-key": {
     "category": "Network & Infrastructure",
-    "aliases": [""]
+    "aliases": []
   },
   "cloud-lock": {
     "category": "Network & Infrastructure",
@@ -579,7 +579,7 @@
   },
   "cloud-setting": {
     "category": "Network & Infrastructure",
-    "aliases": [""]
+    "aliases": []
   },
   "coffee-cup": {
     "category": "Kitchen & Food",
@@ -634,7 +634,7 @@
   },
   "compass": {
     "category": "Navigation",
-    "aliases": [""]
+    "aliases": []
   },
   "computer": {
     "category": "Devices & Electronics",
@@ -746,15 +746,15 @@
   },
   "container-large": {
     "category": "Business & Statistics",
-    "aliases": [""]
+    "aliases": []
   },
   "container-small": {
     "category": "Business & Statistics",
-    "aliases": [""]
+    "aliases": []
   },
   "containers": {
     "category": "Business & Statistics",
-    "aliases": [""]
+    "aliases": []
   },
   "controller": {
     "category": "Gamification",
@@ -803,7 +803,7 @@
   },
   "delete": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": []
   },
   "detour-1": {
     "category": "Navigation",
@@ -827,7 +827,7 @@
   },
   "dolphin": {
     "category": "Software & Services",
-    "aliases": [""]
+    "aliases": []
   },
   "download": {
     "category": "Network & Infrastructure",
@@ -907,7 +907,7 @@
   },
   "engine": {
     "category": "Car Parts",
-    "aliases": [""]
+    "aliases": []
   },
   "error-flag": {
     "category": "Action & Interface",
@@ -1043,7 +1043,7 @@
   },
   "file-lock": {
     "category": "File & Type",
-    "aliases": [""]
+    "aliases": []
   },
   "file-pdf": {
     "category": "File & Type",
@@ -1094,7 +1094,7 @@
   },
   "file-user": {
     "category": "File & Type",
-    "aliases": [""]
+    "aliases": []
   },
   "file-x": {
     "category": "File & Type",
@@ -1152,11 +1152,11 @@
   },
   "folder-plus": {
     "category": "File & Type",
-    "aliases": [""]
+    "aliases": []
   },
   "folder-settings": {
     "category": "File & Type",
-    "aliases": [""]
+    "aliases": []
   },
   "forklift": {
     "category": "Business & Statistics",
@@ -1180,7 +1180,7 @@
   },
   "git": {
     "category": "Network & Infrastructure",
-    "aliases": [""]
+    "aliases": []
   },
   "glasses": {
     "category": "School & Education",
@@ -1200,11 +1200,11 @@
   },
   "globe-network": {
     "category": "Network & Infrastructure",
-    "aliases": [""]
+    "aliases": []
   },
   "globe-shield": {
     "category": "Network & Infrastructure",
-    "aliases": [""]
+    "aliases": []
   },
   "graduation-hat": {
     "category": "School & Education",
@@ -1621,7 +1621,7 @@
   },
   "new": {
     "category": "Various",
-    "aliases": [""]
+    "aliases": []
   },
   "newspaper": {
     "category": "Business & Statistics",
@@ -1701,7 +1701,7 @@
   },
   "parking-search": {
     "category": "Transport & Travel",
-    "aliases": [""]
+    "aliases": []
   },
   "passenger": {
     "category": "Transport & Travel",
@@ -1812,7 +1812,7 @@
   },
   "plus-minus": {
     "category": "Essentials",
-    "aliases": [""]
+    "aliases": []
   },
   "plus-small": {
     "category": "Essentials",
@@ -1868,7 +1868,7 @@
   },
   "print-dots": {
     "category": "Devices & Electronics",
-    "aliases": [""]
+    "aliases": []
   },
   "print-drop": {
     "category": "Devices & Electronics",
@@ -1880,7 +1880,7 @@
   },
   "print-list": {
     "category": "Devices & Electronics",
-    "aliases": [""]
+    "aliases": []
   },
   "print-plus": {
     "category": "Devices & Electronics",
@@ -1924,7 +1924,7 @@
   },
   "rabbitmq": {
     "category": "Software & Services",
-    "aliases": [""]
+    "aliases": []
   },
   "radar": {
     "category": "Navigation",
@@ -1968,11 +1968,11 @@
   },
   "rocket-plus": {
     "category": "Objects",
-    "aliases": [""]
+    "aliases": []
   },
   "rocket-settings": {
     "category": "Objects",
-    "aliases": [""]
+    "aliases": []
   },
   "rotate": {
     "category": "Arrows",
@@ -2008,7 +2008,7 @@
   },
   "search-x": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": []
   },
   "send": {
     "category": "Communication",
@@ -2098,7 +2098,7 @@
   },
   "sidebar-arrow-left": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": []
   },
   "sidebar-arrow-right": {
     "category": "Action & Interface",
@@ -2202,7 +2202,7 @@
   },
   "store-test": {
     "category": "Commerce & Shopping",
-    "aliases": [""]
+    "aliases": []
   },
   "stroller": {
     "category": "Objects",
@@ -2364,7 +2364,7 @@
   },
   "tool-pencil": {
     "category": "Tools & Shapes",
-    "aliases": [""]
+    "aliases": []
   },
   "tool-polygon": {
     "category": "Tools & Shapes",
@@ -2455,7 +2455,7 @@
   },
   "trash-disabled": {
     "category": "Action & Interface",
-    "aliases": [""]
+    "aliases": []
   },
   "tree": {
     "category": "Weather & Climate",
