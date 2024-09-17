@@ -23,13 +23,32 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
   return argTypes;
 };
 
+/**
+ * Allows logging and documentation for the passed event listener names in Storybook.
+ * Will be documented in a extra "Relevant HTML events" section in the Storybook documentation.
+ *
+ * @example
+ * ```typescript
+ * const meta: Meta<typeof OnyxButton> = {
+ *   title: "Buttons/Button",
+ *   component: OnyxButton,
+ *   argTypes: {
+ *     somethingElse: { ...someOtherArgType },
+ *     ...withNativeEventLoggingFor(["onClick"]),
+ *  },
+ *};
+ * ```
+ *
+ * @param relevantEvents a list of event names that should be logged
+ * @returns Storybook ArgTypes object
+ */
 export const withNativeEventLoggingFor = (relevantEvents: (keyof Events)[]) =>
   relevantEvents.reduce((argTypes, eventName) => {
     const action = eventName.replace(/^on/, "").toLowerCase();
     argTypes[eventName] = {
       name: eventName,
       control: false,
-      description: `[${action}_event](https://developer.mozilla.org/en-US/docs/Web/API/Element/${action}_event)`,
+      description: `[${action}_event](https://developer.mozilla.org/en-US/search?q=element+${action}+event)`, // unfortunately there is no static path for all events
       table: {
         category: "Relevant HTML events",
       },
