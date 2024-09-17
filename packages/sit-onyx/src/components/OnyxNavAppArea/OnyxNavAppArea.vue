@@ -5,14 +5,6 @@ import type { OnyxNavAppAreaProps } from "./types";
 
 const props = defineProps<OnyxNavAppAreaProps>();
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the app area (where logo and app name are placed) is clicked.
-   * Usually the user is redirected to the home page.
-   */
-  click: [];
-}>();
-
 defineSlots<{
   /**
    * Optional slot to override the content.
@@ -26,7 +18,7 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
 </script>
 
 <template>
-  <button type="button" class="onyx-nav-app-area" :aria-label="buttonLabel" @click="emit('click')">
+  <button type="button" class="onyx-nav-app-area" :aria-label="buttonLabel">
     <slot>
       <!--
         the width/height here is only to prevent layout shifts on initial load.

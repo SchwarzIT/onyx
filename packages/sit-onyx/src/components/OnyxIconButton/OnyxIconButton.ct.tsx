@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "vue";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import {
@@ -9,49 +10,53 @@ import { BUTTON_COLORS } from "../OnyxButton/types";
 import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
-test("should behave correctly", async ({ mount }) => {
-  let clicks = 0;
+test("should behave correctly", async ({ page, mount }) => {
+  const clickSpy: MouseEvent[] = [];
   const setup = {
     props: {
       label: "trigger something",
       icon: mockPlaywrightIcon,
-    } satisfies OnyxIconButtonProps,
-    on: {
-      click: () => clicks++,
-    },
+      onClick: (e) => clickSpy.push(e),
+    } satisfies OnyxIconButtonProps & HTMLAttributes,
   };
 
   // ARRANGE
   const component = await mount(OnyxIconButton, setup);
+  const buttonElement = page.getByRole("button");
 
   await test.step("clickable by default", async () => {
     // ACT
-    await component.click();
+    await buttonElement.click();
     // ASSERT
-    expect(clicks).toBe(1);
+    await expect(buttonElement).toBeEnabled();
+    expect(clickSpy).toHaveLength(1);
   });
 
   await test.step("not interactive when disabled ", async () => {
     // ARRANGE
-    await component.update({ ...setup, props: { disabled: true } });
+    await component.update({ ...setup, props: { disabled: true } }); // ACT
+    // ACT
+    await buttonElement.click({ force: true });
     // ASSERT
-    await expect(component).toBeDisabled();
+    await expect(buttonElement).toBeDisabled();
+    expect(clickSpy).toHaveLength(1);
   });
 
   await test.step("not interactive when loading ", async () => {
     // ARRANGE
     await component.update({ ...setup, props: { disabled: false, loading: true } });
     // ASSERT
-    await expect(component).toBeDisabled();
+    await expect(buttonElement).toBeDisabled();
   });
 
   await test.step("clickable again ", async () => {
     // ARRANGE
     await component.update({ ...setup, props: { disabled: false, loading: false } });
     // ACT
-    await component.click();
+    await buttonElement.click();
     // ASSERT
-    expect(clicks).toBe(2);
+    await expect(buttonElement).toBeEnabled();
+    expect(clickSpy).toHaveLength(2);
   });
 });
 
