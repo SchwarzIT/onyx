@@ -59,7 +59,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
         ></colgroup>
 
         <thead v-if="slots.head" class="onyx-table__header">
-          <tr>
+          <tr v-if="props.columnGroups?.length">
             <th
               v-for="group of props.columnGroups"
               :key="group.key"
@@ -118,9 +118,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
   // border styles
   th,
   td {
-    &:not(.onyx-table__colgroup) {
-      border-bottom: $border;
-    }
+    border-bottom: $border;
 
     &:first-child {
       border-left: $border;
@@ -130,7 +128,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
   }
 
-  th {
+  tr:first-of-type th {
     border-top: $border;
   }
 
