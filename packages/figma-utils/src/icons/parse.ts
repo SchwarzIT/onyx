@@ -29,7 +29,8 @@ export const parseComponentsToIcons = (options: ParseIconComponentsOptions): Par
         name: component.name,
         aliases: component.description
           .split(options.aliasSeparator ?? "|")
-          .map((alias) => alias.trim()),
+          .map((alias) => alias.trim())
+          .filter((i) => i !== ""),
         category: component.containing_frame.name.trim(),
       };
     })
