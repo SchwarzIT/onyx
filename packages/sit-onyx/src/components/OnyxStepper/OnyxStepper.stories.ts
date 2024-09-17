@@ -1,3 +1,4 @@
+import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxStepper from "./OnyxStepper.vue";
 
@@ -10,6 +11,9 @@ const meta: Meta<typeof OnyxStepper> = {
       template: `<div style="width: 16rem;"> <story /> </div>`,
     }),
   ],
+  argTypes: {
+    ...withNativeEventLoggingFor(["onChange"]),
+  },
 };
 
 export default meta;

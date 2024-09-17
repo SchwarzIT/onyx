@@ -1,3 +1,4 @@
+import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
@@ -10,6 +11,9 @@ const meta: Meta<typeof OnyxTextarea> = {
       template: `<div style="max-width: 24rem;"> <story /> </div>`,
     }),
   ],
+  argTypes: {
+    ...withNativeEventLoggingFor(["onChange"]),
+  },
 };
 
 export default meta;

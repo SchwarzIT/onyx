@@ -1,3 +1,4 @@
+import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxToastMessage from "./OnyxToastMessage.vue";
@@ -10,6 +11,7 @@ const meta: Meta<typeof OnyxToastMessage> = {
   component: OnyxToastMessage,
   argTypes: {
     icon: defineIconSelectArgType(),
+    ...withNativeEventLoggingFor(["onClick"]),
   },
 };
 

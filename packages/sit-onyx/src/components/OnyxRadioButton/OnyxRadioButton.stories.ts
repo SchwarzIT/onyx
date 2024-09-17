@@ -1,3 +1,4 @@
+import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxRadioButton from "./OnyxRadioButton.vue";
 
@@ -7,6 +8,9 @@ import OnyxRadioButton from "./OnyxRadioButton.vue";
 const meta: Meta<typeof OnyxRadioButton> = {
   title: "Support/RadioButton",
   component: OnyxRadioButton,
+  argTypes: {
+    ...withNativeEventLoggingFor(["onChange"]),
+  },
 };
 
 export default meta;

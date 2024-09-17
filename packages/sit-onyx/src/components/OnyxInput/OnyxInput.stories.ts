@@ -1,3 +1,4 @@
+import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxInput from "./OnyxInput.vue";
 
@@ -16,6 +17,7 @@ const meta: Meta<typeof OnyxInput> = {
   ],
   argTypes: {
     pattern: { control: { type: "text" } },
+    ...withNativeEventLoggingFor(["onInput", "onChange", "onFocusin", "onFocusout"]),
   },
 };
 

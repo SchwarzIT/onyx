@@ -1,7 +1,7 @@
 import type { Decorator } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
-import type { ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
-import { isReactive, reactive, watch } from "vue";
+import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
+import { isReactive, reactive, watch, type Events } from "vue";
 
 /**
  * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
@@ -22,6 +22,21 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
     });
   return argTypes;
 };
+
+export const withNativeEventLoggingFor = (relevantEvents: (keyof Events)[]) =>
+  relevantEvents.reduce((argTypes, eventName) => {
+    const action = eventName.replace(/^on/, "").toLowerCase();
+    argTypes[eventName] = {
+      name: eventName,
+      control: false,
+      description: `[${action}_event](https://developer.mozilla.org/en-US/docs/Web/API/Element/${action}_event)`,
+      table: {
+        category: "Relevant HTML events",
+      },
+      action,
+    };
+    return argTypes;
+  }, {} as ArgTypes);
 
 export type WithVModelDecoratorOptions = {
   /**
