@@ -22,18 +22,12 @@ const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
     </template>
 
     <tr v-for="row in props.rows" :key="row.id" v-bind="row.trAttributes">
-      <td
-        v-for="column in props.columns"
-        :key="column.key"
-        v-bind="row.cells[column.key]?.tdAttributes"
-      >
+      <template v-for="column in props.columns" :key="column.key">
         <!-- We are safe to use the Non-Null Assertion operator ("!") here, as we check beforehand with "v-if" -->
-        <component
-          :is="row.cells[column.key]!.component"
-          v-if="row.cells[column.key]"
-          v-bind="row.cells[column.key]!.props"
-        />
-      </td>
+        <td v-if="row.cells[column.key]" v-bind="row.cells[column.key]!.tdAttributes">
+          <component :is="row.cells[column.key]!.component" v-bind="row.cells[column.key]!.props" />
+        </td>
+      </template>
     </tr>
   </OnyxTable>
 </template>
