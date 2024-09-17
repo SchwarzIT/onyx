@@ -322,7 +322,7 @@ const selectInputProps = computed(() => {
       v-bind="selectInputProps"
       :show-focus="open"
       :autofocus="props.autofocus"
-      @click="onToggle"
+      @input-click="onToggle"
       @validity-change="emit('validityChange', $event)"
     />
 

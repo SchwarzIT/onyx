@@ -16,8 +16,6 @@ const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
-  /** Emitted when the value changes. */
-  change: [value: boolean];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -26,11 +24,6 @@ const emit = defineEmits<{
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
-
-const handleChange = (event: Event) => {
-  const checked = (event.target as HTMLInputElement).checked;
-  emit("change", checked);
-};
 </script>
 
 <template>
@@ -54,7 +47,6 @@ const handleChange = (event: Event) => {
         :checked="props.checked"
         :disabled="props.disabled"
         :autofocus="props.autofocus"
-        @change="handleChange"
       />
       <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
         {{ props.label }}

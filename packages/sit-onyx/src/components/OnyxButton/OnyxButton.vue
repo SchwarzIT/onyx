@@ -18,13 +18,6 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
 
 const { densityClass } = useDensity(props);
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the button is clicked (and is not disabled).
-   */
-  click: [];
-}>();
-
 const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
 const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 </script>
@@ -44,7 +37,6 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     :type="props.type"
     :aria-label="props.loading ? props.label : undefined"
     :autofocus="props.autofocus"
-    @click="emit('click')"
     v-on="rippleEvents"
   >
     <OnyxRipple v-if="!props.disabled && !props.loading" ref="rippleRef" />

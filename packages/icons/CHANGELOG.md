@@ -1,5 +1,11 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- 188c94d: fix(icons): prevent empty string aliases
+
 ## 1.0.0-beta.2
 
 ### Minor Changes
