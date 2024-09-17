@@ -6,57 +6,6 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types";
 
-/**
- * The select is a fundamental element utilized across various components such as
- * dropdowns, navigation bars, pagination, tables, etc.
- * It provides the users with the ability to open a small modal window,
- * facilitating single or multi-selection based on the context in which it is employed.
- *
- * ### Keyboard shortcuts
- * The following keyboard shortcuts are available:
- * - **Tab**: Focuses / blurs the select
- * - **Arrow down**: Focuses the next option
- * - **Arrow up**: Focuses the previous option
- * - **Home**: Focuses the first option
- * - **End**: Focuses the last option
- * - **Enter/Space**: Selects currently focused option. Select with space is only working when `withSearch` is disabled.
- * - **Other characters**: Focuses first option that starts with the pressed key
- */
-const meta: Meta<typeof OnyxSelect> = {
-  title: "Form/Select",
-  component: OnyxSelect,
-  argTypes: {
-    empty: { control: { disable: true } },
-    optionsEnd: { control: { disable: true } },
-    option: { control: { disable: true } },
-  },
-
-  decorators: [
-    /**
-     * Decorator that simulates the load more functionality so we can show it in the stories.
-     */
-    (story, ctx) => {
-      return {
-        components: { story },
-        setup: () => {
-          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
-
-          watchEffect(() => {
-            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-            ctx.args.options = options.value;
-          });
-
-          return { handleLoadMore, isLazyLoading, options };
-        },
-        template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" @lazy-load="handleLoadMore" />`,
-      };
-    },
-  ],
-};
-
-export default meta;
-type Story = StoryObj<typeof OnyxSelect>;
-
 const DEMO_OPTIONS = [
   "Apple",
   "Banana",
@@ -96,6 +45,61 @@ const LONG_LABELED_DEMO_OPTIONS = Array.from({ length: 10 }, (_, index) => ({
   truncation: "multiline",
   label: `Long labeled option ${index + 1} `.repeat(4),
 })) satisfies SelectOption[];
+
+/**
+ * The select is a fundamental element utilized across various components such as
+ * dropdowns, navigation bars, pagination, tables, etc.
+ * It provides the users with the ability to open a small modal window,
+ * facilitating single or multi-selection based on the context in which it is employed.
+ *
+ * ### Keyboard shortcuts
+ * The following keyboard shortcuts are available:
+ * - **Tab**: Focuses / blurs the select
+ * - **Arrow down**: Focuses the next option
+ * - **Arrow up**: Focuses the previous option
+ * - **Home**: Focuses the first option
+ * - **End**: Focuses the last option
+ * - **Enter/Space**: Selects currently focused option. Select with space is only working when `withSearch` is disabled.
+ * - **Other characters**: Focuses first option that starts with the pressed key
+ */
+const meta: Meta<typeof OnyxSelect> = {
+  title: "Form/Select",
+  component: OnyxSelect,
+  argTypes: {
+    empty: { control: { disable: true } },
+    optionsEnd: { control: { disable: true } },
+    option: { control: { disable: true } },
+    modelValue: {
+      control: { type: "select" },
+      options: DEMO_OPTIONS.map((option) => option.value),
+    },
+  },
+
+  decorators: [
+    /**
+     * Decorator that simulates the load more functionality so we can show it in the stories.
+     */
+    (story, ctx) => {
+      return {
+        components: { story },
+        setup: () => {
+          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
+
+          watchEffect(() => {
+            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
+            ctx.args.options = options.value;
+          });
+
+          return { handleLoadMore, isLazyLoading, options };
+        },
+        template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" @lazy-load="handleLoadMore" />`,
+      };
+    },
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof OnyxSelect>;
 
 /**
  * This example shows a default single select.
@@ -140,6 +144,12 @@ export const Multiselect = {
     multiple: true,
     withCheckAll: true,
     options: MULTISELECT_DEMO_OPTIONS,
+  },
+  argTypes: {
+    modelValue: {
+      control: { type: "multi-select" },
+      options: MULTISELECT_DEMO_OPTIONS.map((option) => option.value),
+    },
   },
 } satisfies Story;
 
