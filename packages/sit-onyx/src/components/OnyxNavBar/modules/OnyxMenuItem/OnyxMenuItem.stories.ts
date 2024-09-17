@@ -1,5 +1,5 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
-import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxMenuItem> = {
   component: OnyxMenuItem,
   argTypes: {
     default: { control: { type: "text" } },
-    ...withNativeEventLoggingFor(["onClick"]),
+    ...withNativeEventLogging(["onClick"]),
   },
   decorators: [
     (story) => ({

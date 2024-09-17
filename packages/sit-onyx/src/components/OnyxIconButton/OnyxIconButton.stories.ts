@@ -1,5 +1,5 @@
 import trash from "@sit-onyx/icons/trash.svg?raw";
-import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
@@ -14,7 +14,7 @@ const meta: Meta<typeof OnyxIconButton> = {
   argTypes: {
     icon: defineIconSelectArgType(),
     default: { control: { disable: true } },
-    ...withNativeEventLoggingFor(["onClick"]),
+    ...withNativeEventLogging(["onClick"]),
   },
 };
 

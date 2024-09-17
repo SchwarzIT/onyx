@@ -34,7 +34,7 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
  *   component: OnyxButton,
  *   argTypes: {
  *     somethingElse: { ...someOtherArgType },
- *     ...withNativeEventLoggingFor(["onClick"]),
+ *     ...withNativeEventLogging(["onClick"]),
  *  },
  *};
  * ```
@@ -42,7 +42,7 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
  * @param relevantEvents a list of event names that should be logged
  * @returns Storybook ArgTypes object
  */
-export const withNativeEventLoggingFor = (relevantEvents: (keyof Events)[]) =>
+export const withNativeEventLogging = (relevantEvents: (keyof Events)[]) =>
   relevantEvents.reduce((argTypes, eventName) => {
     const action = eventName.replace(/^on/, "").toLowerCase();
     argTypes[eventName] = {

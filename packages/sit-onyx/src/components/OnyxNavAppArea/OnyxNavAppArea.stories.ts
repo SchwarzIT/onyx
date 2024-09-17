@@ -1,4 +1,4 @@
-import { withNativeEventLoggingFor } from "@sit-onyx/storybook-utils";
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxNavAppArea from "./OnyxNavAppArea.vue";
 
@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxNavAppArea> = {
   component: OnyxNavAppArea,
   argTypes: {
     default: { control: { type: "text" } },
-    ...withNativeEventLoggingFor(["onClick"]),
+    ...withNativeEventLogging(["onClick"]),
   },
 };
 
