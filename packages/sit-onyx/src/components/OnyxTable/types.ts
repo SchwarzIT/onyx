@@ -18,7 +18,7 @@ export type OnyxTableProps = DensityProp & {
   withPageScrolling?: boolean;
   /**
    * Optional column groups that are rendered above the table head to group columns together.
-   * Slot `head` must be filled for this to work.
+   * Slot `head` must be filled for this to work and `withVerticalBorders` property should be set.
    */
   columnGroups?: TableColumnGroup[];
 };

@@ -65,6 +65,7 @@ export const VerticalBorders = {
 
 /**
  * This example shows a table with column groups that can be used to group related columns together.
+ * Note that the `withVerticalBorders` property should be used with column groups.
  */
 export const ColumnGroups = {
   args: {
