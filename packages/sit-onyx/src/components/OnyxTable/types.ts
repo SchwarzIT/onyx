@@ -16,4 +16,28 @@ export type OnyxTableProps = DensityProp & {
    * - Warning: Don't set a max-height/width on the table when `withPageScrolling` is set.
    */
   withPageScrolling?: boolean;
+  /**
+   * Optional column groups that are rendered above the table head to group columns together.
+   * Slot `head` must be filled for this to work.
+   */
+  columnGroups?: TableColumnGroup[];
+};
+
+/**
+ * Table group that is rendered as `<colgroup>` and corresponding `<th scope="colgroup">` inside the table.
+ */
+export type TableColumnGroup = {
+  /**
+   * Unique key to identify the column group.
+   */
+  key: PropertyKey;
+  /**
+   * Number of columns to span. Must be >= 1.
+   * Sum of all column group spans must add up to the total number of table columns.
+   */
+  span: number;
+  /**
+   * Header text to display.
+   */
+  header?: string;
 };

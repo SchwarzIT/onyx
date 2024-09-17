@@ -14,7 +14,7 @@ type Story = StoryObj<typeof OnyxDataGridRenderer>;
 
 export const Default = {
   args: {
-    columns: Array.from({ length: 3 }, (_, index) => getDummyColumn(index + 1)),
+    columns: Array.from({ length: 4 }, (_, index) => getDummyColumn(index + 1)),
     rows: Array.from({ length: 10 }, (_, index) => getDummyRow(index + 1)),
   },
 } satisfies Story;
@@ -25,7 +25,23 @@ export const Default = {
 export const GroupedData = {
   args: {
     withVerticalBorders: true,
-    columns: Array.from({ length: 3 }, (_, index) => getDummyColumn(index + 1)),
+    columnGroups: [
+      {
+        key: "ungrouped",
+        span: 1,
+      },
+      {
+        key: "group-1",
+        span: 2,
+        header: "Group 1",
+      },
+      {
+        key: "group-2",
+        span: 1,
+        header: "Group 2",
+      },
+    ],
+    columns: Array.from({ length: 4 }, (_, index) => getDummyColumn(index + 1)),
     rows: [
       {
         id: "row-1",
@@ -33,6 +49,7 @@ export const GroupedData = {
           "column-1": getDummyCell(`Row 1 and 2, cell 1`, { rowspan: 2 }),
           "column-2": getDummyCell(`Row 1, cell 2`),
           "column-3": getDummyCell(`Row 1, cell 3`),
+          "column-4": getDummyCell(`Row 1, cell 4`),
         },
       },
       {
@@ -44,6 +61,7 @@ export const GroupedData = {
             },
           }),
           "column-3": getDummyCell(`Row 2, cell 3`),
+          "column-4": getDummyCell(`Row 2, cell 4`),
         },
       },
       {
@@ -52,6 +70,7 @@ export const GroupedData = {
           "column-1": getDummyCell(`Row 3, cell 1`),
           "column-2": getDummyCell(`Row 3, cell 2`),
           "column-3": getDummyCell(`Row 3, cell 3`),
+          "column-4": getDummyCell(`Row 3, cell 4`),
         },
       },
       {
@@ -59,7 +78,7 @@ export const GroupedData = {
         cells: {
           "column-1": getDummyCell(`Row 4, cell 1`),
           "column-2": getDummyCell(`Row 4, cell 2 and 3`, {
-            colspan: 2,
+            colspan: 3,
           }),
         },
       },
@@ -110,6 +129,7 @@ function getDummyRow(
       "column-1": getDummyCell(`Row ${rowNumber}, cell 1`),
       "column-2": getDummyCell(`Row ${rowNumber}, cell 2`),
       "column-3": getDummyCell(`Row ${rowNumber}, cell 3`),
+      "column-4": getDummyCell(`Row ${rowNumber}, cell 4`),
     },
   };
 }
