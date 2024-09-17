@@ -1250,6 +1250,10 @@
     "category": "Software & Services",
     "aliases": ["kubernetes"]
   },
+  "heptagon-cloud-foundry": {
+    "category": "Software & Services",
+    "aliases": [""]
+  },
   "heptagon-cloud-lock": {
     "category": "Software & Services",
     "aliases": ["kubernetes, confidential kubernetes"]
@@ -1433,7 +1437,7 @@
   },
   "logout": {
     "category": "Action & Interface",
-    "aliases": ["sign-out", "exit", "Abmelden", "Ausloggen"]
+    "aliases": [""]
   },
   "luggage": {
     "category": "Transport & Travel",
