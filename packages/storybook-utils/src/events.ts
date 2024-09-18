@@ -69,7 +69,7 @@ export const EVENT_DOC_MAP: EventDocMap = {
       url: "https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent",
     },
     event: {
-      name: "caste",
+      name: "paste",
       url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event",
     },
   },
