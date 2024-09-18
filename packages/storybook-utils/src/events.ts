@@ -24,8 +24,8 @@ type EventName<T extends Event> =
  */
 type TrimStart<
   TString extends string,
-  Prefix extends string,
-> = TString extends `${Prefix}${infer Base}` ? Base : TString;
+  TPrefix extends string,
+> = TString extends `${TPrefix}${infer TBase}` ? TBase : TString;
 
 type EventDocMap = {
   [Key in keyof Events]: {
