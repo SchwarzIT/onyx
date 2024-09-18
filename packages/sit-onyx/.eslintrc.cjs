@@ -12,6 +12,7 @@ module.exports = {
     "no-debugger": "error",
     "vue/html-button-has-type": "error",
     "@sit-onyx/import-playwright-a11y": "error",
+    "@sit-onyx/no-shadow-native": "error",
     // disallow scoped or module CSS for components
     // see https://onyx.schwarz/principles/technical-vision.html#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
