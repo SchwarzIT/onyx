@@ -154,3 +154,21 @@ export default preview;
 ```
 
 :::
+
+### withNativeEventLogging
+
+Allows logging and documentation for the passed native event listeners in Storybook.
+These will be documented in a extra "Relevant HTML events" section in the Storybook documentation.
+
+```ts [.storybook/preview.ts]
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
+
+const meta: Meta<typeof OnyxButton> = {
+  title: "Buttons/Button",
+  component: OnyxButton,
+  argTypes: {
+    somethingElse: { ...someOtherArgType },
+    ...withNativeEventLogging(["onClick"]),
+  },
+};
+```
