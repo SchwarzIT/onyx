@@ -1,7 +1,7 @@
 {
   "24h": {
     "category": "Help & Support",
-    "aliases": ["24-hour", "around-the-clock", "24-Stunden", "rund-um-die-Uhr"]
+    "aliases": ["24-hour", "24-Stunden", "rund-um-die-Uhr", "Zeit", "zurück"]
   },
   "alarm": {
     "category": "Devices & Electronics",
@@ -13,7 +13,7 @@
   },
   "anchor": {
     "category": "Objects",
-    "aliases": ["Anker, Schiff, ship"]
+    "aliases": ["Anker", "Schiff", "ship"]
   },
   "android-phone": {
     "category": "Devices & Electronics",
@@ -37,7 +37,7 @@
   },
   "apple-store": {
     "category": "Software & Services",
-    "aliases": ["iOS-market", "apple-marketplace", "Apple-Geschäft", "iOS-Marktplatz"]
+    "aliases": ["iOS", "apple-marketplace"]
   },
   "apple-tablet": {
     "category": "Devices & Electronics",
@@ -73,7 +73,7 @@
   },
   "arrow-small-down": {
     "category": "Arrows",
-    "aliases": []
+    "aliases": ["kleiner Pfeil", "runter", "unten"]
   },
   "arrow-small-down-left": {
     "category": "Arrows",
@@ -93,7 +93,7 @@
   },
   "arrow-small-up": {
     "category": "Arrows",
-    "aliases": []
+    "aliases": ["kleiner Pfeil", "oben"]
   },
   "arrow-small-up-left": {
     "category": "Arrows",
@@ -105,7 +105,7 @@
   },
   "arrow-small-up-right-top": {
     "category": "Arrows",
-    "aliases": []
+    "aliases": ["Pfeil", "recht oben"]
   },
   "arrow-up": {
     "category": "Arrows",
@@ -117,7 +117,7 @@
   },
   "attachment": {
     "category": "Action & Interface",
-    "aliases": ["document, upload, Anhang, Dokument"]
+    "aliases": ["document", "upload", "Anhang", "Dokument"]
   },
   "audio": {
     "category": "File & Type",
@@ -133,7 +133,7 @@
   },
   "bank-note": {
     "category": "Finance",
-    "aliases": ["money-bill", "Geldschein", "Währungsschein"]
+    "aliases": ["money-bill", "Geld", "Schein"]
   },
   "bar-graph": {
     "category": "Business & Statistics",
@@ -149,19 +149,19 @@
   },
   "bell": {
     "category": "Action & Interface",
-    "aliases": ["chime, alarm, Glocke, Klingel"]
+    "aliases": ["chime", "alarm", "Glocke", "Klingel"]
   },
   "bell-disabled": {
     "category": "Action & Interface",
-    "aliases": ["Glocke, notification off"]
+    "aliases": ["Glocke", "notification off"]
   },
   "bell-ring": {
     "category": "Action & Interface",
-    "aliases": ["alert, notification, Benachrichtigung, Klingeln, ring"]
+    "aliases": ["alert", "notification", "Benachrichtigung", "Klingeln", "ring"]
   },
   "bill": {
     "category": "Finance",
-    "aliases": ["invoice", "statement", "Rechnung", "Abrechnung", "Zettel"]
+    "aliases": ["invoice", "Rechnung", "Abrechnung", "Zettel"]
   },
   "birthday-cake": {
     "category": "Kitchen & Food",
@@ -191,7 +191,7 @@
   },
   "bookmark": {
     "category": "Action & Interface",
-    "aliases": ["favorite, marker, Lesezeichen, Favorit"]
+    "aliases": ["favorite", "marker", "Lesezeichen", "Favorit"]
   },
   "box": {
     "category": "Action & Interface",
@@ -199,7 +199,7 @@
   },
   "box-check": {
     "category": "Action & Interface",
-    "aliases": []
+    "aliases": ["checkbox", "selected", "auswählen"]
   },
   "bread": {
     "category": "Kitchen & Food",
@@ -207,11 +207,11 @@
   },
   "broom": {
     "category": "Objects",
-    "aliases": ["Besen, aufräumen, entleeren, tidyup"]
+    "aliases": ["Besen", "aufräumen", "entleeren", "tidyup"]
   },
   "browser-globe": {
     "category": "Network & Infrastructure",
-    "aliases": ["internet-explorer", "web-world", "Internet-Browser", "Web-Welt"]
+    "aliases": ["internet-explorer", "web-world", "nternet-Browser", "Web-Welt"]
   },
   "browser-programming": {
     "category": "Network & Infrastructure",
@@ -244,27 +244,27 @@
   },
   "calendar": {
     "category": "Action & Interface",
-    "aliases": ["datebook, schedule, Kalender, Terminplaner"]
+    "aliases": ["datebook", "schedule", "Kalender", "Terminplaner"]
   },
   "calendar-clock": {
     "category": "Action & Interface",
-    "aliases": ["schedule, appointment, Terminplan, Uhrzeit"]
+    "aliases": ["schedule", "appointment", "Terminplan", "Uhrzeit"]
   },
   "calendar-days-one": {
     "category": "Action & Interface",
-    "aliases": ["single-day, Tageskalender"]
+    "aliases": ["single-day", "Tageskalender"]
   },
   "calendar-days-three": {
     "category": "Action & Interface",
-    "aliases": ["three-day, Dreitageskalender"]
+    "aliases": ["three-day", "Dreitageskalender"]
   },
   "calendar-settings": {
     "category": "Action & Interface",
-    "aliases": ["schedule-setup, date-configuration, Kalendereinstellungen, Terminplanung"]
+    "aliases": ["schedule-setup", "date-configuration", "Kalendereinstellungen", "Terminplanung"]
   },
   "calendar-week": {
     "category": "Action & Interface",
-    "aliases": ["week-view, week-schedule, Wochenansicht, Wochenkalender"]
+    "aliases": ["week-view", "week-schedule", "Wochenansicht", "Wochenkalender"]
   },
   "camera": {
     "category": "Devices & Electronics",
@@ -284,11 +284,11 @@
   },
   "can": {
     "category": "Kitchen & Food",
-    "aliases": ["Dose, tin, food, Konserve. canned food, Essem"]
+    "aliases": ["Dose", "tin", "food", "Konserve. canned food", "Essem"]
   },
   "cancellation-undone": {
     "category": "Action & Interface",
-    "aliases": ["undone-cancel, Stornierung rückgängig, circle"]
+    "aliases": ["undone-cancel", "Stornierung rückgängig", "circle"]
   },
   "car-check": {
     "category": "Transport & Travel",
@@ -296,11 +296,11 @@
   },
   "car-door": {
     "category": "Car Parts",
-    "aliases": ["vehicle-door", "auto-entry", "Autotür", "Fahrzeugtür"]
+    "aliases": ["vehicle-doo", "auto-entry", "Autotür", "Fahrzeugtür"]
   },
   "car-electric": {
     "category": "Transport & Travel",
-    "aliases": []
+    "aliases": ["E-Auto", "Auto", "Fahrzeug"]
   },
   "car-front-1": {
     "category": "Transport & Travel",
@@ -382,11 +382,11 @@
   },
   "check-small": {
     "category": "Essentials",
-    "aliases": ["checkmark", "Hacken", "kleines Häkchen", "bestätigen", "confirmation"]
+    "aliases": ["checkmark", "Hacken", "bestätigen", "confirmation"]
   },
   "cheese": {
     "category": "Kitchen & Food",
-    "aliases": ["Käse, food, Essen"]
+    "aliases": ["Käse", "food", "Essen"]
   },
   "chevron-down": {
     "category": "Arrows",
@@ -398,7 +398,7 @@
   },
   "chevron-down-up": {
     "category": "Arrows",
-    "aliases": ["Pfeile, arrows, hoch-runter, oben, unten"]
+    "aliases": ["Pfeile", "arrows", "hoch-runter", "oben", "unten"]
   },
   "chevron-left": {
     "category": "Arrows",
@@ -426,7 +426,7 @@
   },
   "chocolate": {
     "category": "Kitchen & Food",
-    "aliases": ["Schokolade, Essen, Food"]
+    "aliases": ["Schokolade", "Essen", "Food"]
   },
   "circle-arrow-left": {
     "category": "Arrows",
@@ -458,11 +458,11 @@
   },
   "circle-check": {
     "category": "Essentials",
-    "aliases": ["success, approval", "Bestätigung"]
+    "aliases": ["success", "approval", "Bestätigung"]
   },
   "circle-contrast": {
     "category": "Action & Interface",
-    "aliases": []
+    "aliases": ["Kontrast", "dark", "light"]
   },
   "circle-crypto-bitcoin": {
     "category": "Finance",
@@ -470,7 +470,7 @@
   },
   "circle-help": {
     "category": "Essentials",
-    "aliases": []
+    "aliases": ["Hilfe", "Fragezeichen", "question mark"]
   },
   "circle-information": {
     "category": "Essentials",
@@ -533,11 +533,11 @@
   },
   "clock-circle-check": {
     "category": "Action & Interface",
-    "aliases": ["time-confirm, clock-approval, Uhr Bestätigung, Zeit-Check"]
+    "aliases": ["time-confirm", "clock-approval", "Uhr Bestätigung", "Zeit-Check"]
   },
   "clock-edit": {
     "category": "Action & Interface",
-    "aliases": ["time, clock, Uhr-Bearbeitung"]
+    "aliases": ["time", "clock", "Uhr-Bearbeitung"]
   },
   "cloud": {
     "category": "Weather & Climate",
@@ -559,7 +559,7 @@
   },
   "cloud-co2": {
     "category": "Weather & Climate",
-    "aliases": ["Wolke", "Kohlendioxid-Wolke", "Umweltverschmutzung", "arrows-cloud"]
+    "aliases": ["Wolke", "arrows-cloud", "Pfeile"]
   },
   "cloud-connect": {
     "category": "Network & Infrastructure",
@@ -567,11 +567,11 @@
   },
   "cloud-foundry": {
     "category": "Software & Services",
-    "aliases": ["cloud-platform", "cloud-development", "Cloud-Grundlage", "Cloud-Plattform"]
+    "aliases": []
   },
   "cloud-key": {
     "category": "Network & Infrastructure",
-    "aliases": []
+    "aliases": ["Wolke", "Schlüssel"]
   },
   "cloud-lock": {
     "category": "Network & Infrastructure",
@@ -579,7 +579,7 @@
   },
   "cloud-setting": {
     "category": "Network & Infrastructure",
-    "aliases": []
+    "aliases": ["Wolke", "Einstellungen", "Zahnrad"]
   },
   "coffee-cup": {
     "category": "Kitchen & Food",
@@ -634,7 +634,7 @@
   },
   "compass": {
     "category": "Navigation",
-    "aliases": []
+    "aliases": ["Kompass"]
   },
   "computer": {
     "category": "Devices & Electronics",
@@ -690,7 +690,7 @@
   },
   "computer-eye": {
     "category": "Software & Services",
-    "aliases": ["computer-eye", "computer-watchdog", "Computer-Argus", "Computer-Überwachung"]
+    "aliases": ["computer-eye", "computer-watchdog", "Computer-Argus | Argus"]
   },
   "computer-globe": {
     "category": "Devices & Electronics",
@@ -714,7 +714,7 @@
   },
   "computer-message": {
     "category": "Devices & Electronics",
-    "aliases": ["•  PC-chat", "Computer-Nachricht"]
+    "aliases": ["PC-chat", "Computer-Nachricht"]
   },
   "computer-plus": {
     "category": "Devices & Electronics",
@@ -758,7 +758,7 @@
   },
   "controller": {
     "category": "Gamification",
-    "aliases": ["play, joystick, Spiel, game, gamification"]
+    "aliases": ["play", "joystick", "Spiel", "game", "gamification"]
   },
   "copy": {
     "category": "Action & Interface",
@@ -770,11 +770,11 @@
   },
   "cpu": {
     "category": "Hardware",
-    "aliases": ["processor", "computer-brain", "Prozessor", "Computer-Gehirn"]
+    "aliases": ["processor", "Prozessor"]
   },
   "crane": {
     "category": "Business & Statistics",
-    "aliases": ["Kran, Baustelle"]
+    "aliases": ["Kran", "Baustelle"]
   },
   "credit-card": {
     "category": "Finance",
@@ -794,7 +794,9 @@
       "control-panel",
       "Armaturenbrett",
       "Kontrollpanel",
-      "Übersicht, Kachelansicht, Layout"
+      "Übersicht",
+      "Kachelansicht",
+      "Layout"
     ]
   },
   "database": {
@@ -803,31 +805,31 @@
   },
   "delete": {
     "category": "Action & Interface",
-    "aliases": []
+    "aliases": ["löschen", "entfernen", "remove"]
   },
   "detour-1": {
     "category": "Navigation",
-    "aliases": ["bypass-1", "alternative-route-1", "Umleitung-1", "alternative Strecke-1"]
+    "aliases": ["bypass", "alternative-route", "Umleitung", "alternative Strecke"]
   },
   "detour-2": {
     "category": "Navigation",
-    "aliases": ["bypass-2", "alternative-route-2", "Umleitung-2", "alternative Strecke-2"]
+    "aliases": ["bypass", "alternative-route", "Umleitung", "alternative Strecke"]
   },
   "dinosaur": {
-    "category": "Various",
-    "aliases": ["animal"]
+    "category": "Software & Services",
+    "aliases": ["Dinosaurier", "animal", "Tier"]
   },
   "disc": {
     "category": "Hardware",
-    "aliases": ["disk", "storage-media", "Scheibe", "Speichermedium"]
+    "aliases": ["disk", "torage-media", "Speichermedium", "speichern"]
   },
   "docker": {
     "category": "Software & Services",
-    "aliases": ["Wal", "Docker-Plattform"]
+    "aliases": ["Wal", "Docker-Plattform", "Tier", "animal"]
   },
   "dolphin": {
     "category": "Software & Services",
-    "aliases": []
+    "aliases": ["Delphin", "Tier", "animal"]
   },
   "download": {
     "category": "Network & Infrastructure",
@@ -879,7 +881,7 @@
   },
   "emoji-happy-1": {
     "category": "Emojis",
-    "aliases": ["smile-face", "joyful", "glücklich", "Gesicht"]
+    "aliases": ["smile-face", "oyful", "glücklich", "Gesicht"]
   },
   "emoji-happy-2": {
     "category": "Emojis",
@@ -931,7 +933,7 @@
   },
   "explosion": {
     "category": "Various",
-    "aliases": ["detonation"]
+    "aliases": ["detonation", "Star"]
   },
   "eye": {
     "category": "Action & Interface",
@@ -959,7 +961,7 @@
   },
   "file": {
     "category": "File & Type",
-    "aliases": ["Liste, list, dokument, Papier, Blatt"]
+    "aliases": ["Liste", "list", "dokument", "Papier", "Blatt"]
   },
   "file-archive": {
     "category": "File & Type",
@@ -982,7 +984,7 @@
     "aliases": [
       "graph-document",
       "diagram-file",
-      "Diagramm-Datei",
+      "Diagramm-Date",
       "Grafik-Datei",
       "Pfeil",
       "Dokument"
@@ -1043,7 +1045,7 @@
   },
   "file-lock": {
     "category": "File & Type",
-    "aliases": []
+    "aliases": ["Dokument", "Schloss"]
   },
   "file-pdf": {
     "category": "File & Type",
@@ -1094,7 +1096,7 @@
   },
   "file-user": {
     "category": "File & Type",
-    "aliases": []
+    "aliases": ["Dokument", "User", "Papier"]
   },
   "file-x": {
     "category": "File & Type",
@@ -1112,7 +1114,7 @@
   },
   "file-xlsx": {
     "category": "File & Type",
-    "aliases": ["Datei", "Dokument"]
+    "aliases": ["Datei", "Dokument", "Excel"]
   },
   "filter": {
     "category": "Action & Interface",
@@ -1128,11 +1130,11 @@
   },
   "flag-1": {
     "category": "Navigation",
-    "aliases": ["banner-1", "marker-1", "Fahne-1", "Markierung-1"]
+    "aliases": ["banner", "marker", "Fahne", "Markierung", "Flagge"]
   },
   "flag-2": {
     "category": "Navigation",
-    "aliases": ["banner-2", "marker-2", "Fahne-2", "Markierung-2"]
+    "aliases": ["banner", "marker", "Fahne", "Markierung", "Flagge"]
   },
   "flash": {
     "category": "Weather & Climate",
@@ -1144,7 +1146,7 @@
   },
   "folder": {
     "category": "File & Type",
-    "aliases": ["directory", "container", "Ordner", "Verzeichnis"]
+    "aliases": ["directory", "Ordner"]
   },
   "folder-connect": {
     "category": "Network & Infrastructure",
@@ -1152,11 +1154,11 @@
   },
   "folder-plus": {
     "category": "File & Type",
-    "aliases": []
+    "aliases": ["Ordner", "hinzufügen", "add"]
   },
   "folder-settings": {
     "category": "File & Type",
-    "aliases": []
+    "aliases": ["Ordner-Einstellungen"]
   },
   "forklift": {
     "category": "Business & Statistics",
@@ -1180,11 +1182,11 @@
   },
   "git": {
     "category": "Network & Infrastructure",
-    "aliases": []
+    "aliases": ["Wolke", "Cloud"]
   },
   "glasses": {
     "category": "School & Education",
-    "aliases": ["spectacles", "eyewear", "Brille", "Sehhilfe"]
+    "aliases": ["eyewear", "Brille", "Sehhilfe"]
   },
   "globe": {
     "category": "Network & Infrastructure",
@@ -1200,15 +1202,15 @@
   },
   "globe-network": {
     "category": "Network & Infrastructure",
-    "aliases": []
+    "aliases": ["Erde", "global", "Netzwerk"]
   },
   "globe-shield": {
     "category": "Network & Infrastructure",
-    "aliases": []
+    "aliases": ["Welt", "Erde", "Erdkugel", "Sicherheit", "Secure"]
   },
   "graduation-hat": {
     "category": "School & Education",
-    "aliases": ["mortarboard", "cap", "Abschluss-Hut", "Doktorhut"]
+    "aliases": ["cap", "Abschluss-Hut", "Doktorhut"]
   },
   "graph-search": {
     "category": "Business & Statistics",
@@ -1224,11 +1226,11 @@
   },
   "hand-drop": {
     "category": "Health, Medicine & Hygiene",
-    "aliases": ["hand-release", "drop-gesture", "Hand-Tropfen", "soap", "Seife"]
+    "aliases": ["hand-release", "Hand-Tropfen", "soap", "Seife"]
   },
   "handshake": {
     "category": "People & Users",
-    "aliases": ["hands, Einigung, approve, business, Geschäft, Einverstanden"]
+    "aliases": ["hands", "Einigung", "approve", "business", "Geschäft", "Einverstanden"]
   },
   "headset": {
     "category": "Help & Support",
@@ -1240,23 +1242,37 @@
   },
   "heart": {
     "category": "Health, Medicine & Hygiene",
-    "aliases": ["love-symbol", "affection", "Herzsymbol", "Zuneigung", "favorite"]
+    "aliases": ["love-symbol", "affection", "Herzsymbol", "Zuneigung", "favorite", "like"]
   },
   "heart-filled": {
     "category": "Health, Medicine & Hygiene",
-    "aliases": ["love", "affection", "Herzsymbol", "Zuneigung", "favorite", "Herz"]
+    "aliases": [
+      "love",
+      "affection",
+      "Herzsymbol",
+      "Zuneigung",
+      "favorite",
+      "Herz",
+      "like",
+      "filled",
+      "gefüllt"
+    ]
   },
   "heptagon-cloud": {
     "category": "Software & Services",
     "aliases": ["kubernetes"]
   },
+  "heptagon-cloud-foundry": {
+    "category": "Software & Services",
+    "aliases": ["kubernetes", "cloudfoundry"]
+  },
   "heptagon-cloud-lock": {
     "category": "Software & Services",
-    "aliases": ["kubernetes, confidential kubernetes"]
+    "aliases": ["kubernetes", "confidential kubernetes"]
   },
   "heptagon-lock": {
     "category": "Software & Services",
-    "aliases": ["kubernetes, kubernetes engine"]
+    "aliases": ["kubernetes", "kubernetes engine"]
   },
   "hibernate": {
     "category": "Software & Services",
@@ -1284,7 +1300,7 @@
   },
   "icecream": {
     "category": "Kitchen & Food",
-    "aliases": ["Eis, Ice, Food, Essen, Speiseeis, Süß, Sweets"]
+    "aliases": ["Eis", "Ice", "Food", "Essen", "Speiseeis", "Süß", "Sweets"]
   },
   "inbox": {
     "category": "Communication",
@@ -1333,15 +1349,15 @@
   },
   "kubernetes-lock": {
     "category": "Software & Services",
-    "aliases": ["Schutz, gesichert, secure, safety, safe, Schloss"]
+    "aliases": ["Schutz", "gesichert", "secure", "safety", "safe", "Schloss"]
   },
   "kubernetes-shield": {
     "category": "Software & Services",
-    "aliases": ["secure, safety, Schutz, Schild"]
+    "aliases": ["secure", "safety", "Schutz", "Schild"]
   },
   "laptop": {
     "category": "Devices & Electronics",
-    "aliases": ["Notebook, Macbook"]
+    "aliases": ["Notebook", "Macbook"]
   },
   "layer-down": {
     "category": "Tools & Shapes",
@@ -1353,11 +1369,18 @@
   },
   "light-bulb": {
     "category": "Objects",
-    "aliases": ["lamp", "illumination", "Glühlampe", "Lampe"]
+    "aliases": ["lamp", "illumination", "Glühlampe", "Lampe", "Glühbirne"]
   },
   "light-bulb-shine": {
     "category": "Objects",
-    "aliases": ["illuminated-bulb", "glowing-lamp", "Glühlampe-leuchtend", "Glühlampe-glanzend"]
+    "aliases": [
+      "glowing-lamp",
+      "Glühlampe-leuchtend",
+      "Glühlampe-glanzend",
+      "Lampe",
+      "Leuchte",
+      "Glühbirne"
+    ]
   },
   "link": {
     "category": "Action & Interface",
@@ -1385,11 +1408,11 @@
   },
   "loaf-bread": {
     "category": "Kitchen & Food",
-    "aliases": ["bread", "bakery", "Brot", "Gebäck", "Bernd-das-Brot", "Toast"]
+    "aliases": ["bread | bakery | Brot | Gebäck | Bernd-das-Brot | Toast"]
   },
   "location-pin": {
     "category": "Navigation",
-    "aliases": ["marker", "location-marker", "Lokalisierungs-Pin", "Standort-Markierung"]
+    "aliases": ["marker", "location", "Lokalisierungs-Pin", "Standort-Markierung"]
   },
   "location-pin-disabled": {
     "category": "Navigation",
@@ -1441,7 +1464,7 @@
   },
   "magnet": {
     "category": "Objects",
-    "aliases": ["attractor", "puller", "Magnet", "Anzieher"]
+    "aliases": ["puller", "Magnet", "Anzieher"]
   },
   "mail": {
     "category": "Communication",
@@ -1469,23 +1492,23 @@
   },
   "mariadb": {
     "category": "Software & Services",
-    "aliases": ["database-server", "SQL-server", "Robbe", "seal"]
+    "aliases": ["database-server", "SQL-server", "Robbe", "seal", "animal"]
   },
   "mask-1": {
     "category": "Health, Medicine & Hygiene",
-    "aliases": ["face-covering-1", "protection-mask-1", "Gesichtsschutz-1", "Schutzmaske-1"]
+    "aliases": ["protection-mask", "Gesichtsschutz", "Schutzmaske"]
   },
   "mask-2": {
     "category": "Health, Medicine & Hygiene",
-    "aliases": ["face-covering-2", "protection-mask-2", "Gesichtsschutz-2", "Schutzmaske-2"]
+    "aliases": ["protection-mask", "Gesichtsschutz", "Schutzmaske"]
   },
   "media-next": {
     "category": "Media",
-    "aliases": ["next-track", "nächster Titel"]
+    "aliases": ["next-track", "nächster Titel", "play"]
   },
   "media-pause": {
     "category": "Media",
-    "aliases": ["break-track", "Medium pausieren", "Titel unterbrechen"]
+    "aliases": ["break-track", "Medium pausieren", "Pause", "break"]
   },
   "media-play": {
     "category": "Media",
@@ -1493,7 +1516,7 @@
   },
   "media-previous": {
     "category": "Media",
-    "aliases": ["previous-track", "vorheriges Medium", "vorheriger Titel"]
+    "aliases": ["previous-track", "vorheriges Medium", "vorheriger Titel", "zurück"]
   },
   "media-stop": {
     "category": "Media",
@@ -1509,11 +1532,11 @@
   },
   "megaphone-new": {
     "category": "Objects",
-    "aliases": ["loud-hailer-new", "announcement-new", "Megaphon-neu", "Ansage-neu"]
+    "aliases": ["announcement-new", "Megaphon-neu", "News", "Neuigkeiten"]
   },
   "megaphone-old": {
     "category": "Objects",
-    "aliases": ["loud-hailer-old", "announcement-old", "Megaphon-alt", "Ansage-alt"]
+    "aliases": ["announcement", "Megaphon"]
   },
   "memory": {
     "category": "Hardware",
@@ -1569,7 +1592,7 @@
   },
   "mobile-signal": {
     "category": "Connectivity",
-    "aliases": ["phone-network", "Mobilfunk-Signal", "Handynetz"]
+    "aliases": ["phone-network", "Mobilfunk-Signal", "Handynetz", "Netz"]
   },
   "mongo-db": {
     "category": "Software & Services",
@@ -1637,11 +1660,11 @@
   },
   "notebook-edit": {
     "category": "File & Type",
-    "aliases": ["journal-modify", "diary-change", "Notizbuch bearbeiten", "Tagebuch ändern"]
+    "aliases": ["Notizbuch bearbeiten", "Tagebuch ändern"]
   },
   "notebook-plus": {
     "category": "File & Type",
-    "aliases": ["journal-add", "diary-increase", "Notizbuch plus", "Tagebuch hinzufügen"]
+    "aliases": ["journal-add", "Notizbuch plus", "Tagebuch hinzufügen"]
   },
   "notebooks": {
     "category": "File & Type",
@@ -1681,11 +1704,11 @@
   },
   "pallet-box": {
     "category": "Business & Statistics",
-    "aliases": ["Palette, lager, Ware, Paket, package, stock, warehouse"]
+    "aliases": ["Palette", "lager", "Ware", "Paket", "package", "stock", "warehouse"]
   },
   "pallet-boxes": {
     "category": "Business & Statistics",
-    "aliases": ["Palette, lager, Ware, Pakete, package, stock, warehouse"]
+    "aliases": ["Palette", "lager", "Ware", "Pakete", "package", "stock", "warehouse"]
   },
   "parking": {
     "category": "Transport & Travel",
@@ -1701,7 +1724,7 @@
   },
   "parking-search": {
     "category": "Transport & Travel",
-    "aliases": []
+    "aliases": ["Parken", "Parkplatzsuche"]
   },
   "passenger": {
     "category": "Transport & Travel",
@@ -1725,7 +1748,7 @@
   },
   "penguin": {
     "category": "Software & Services",
-    "aliases": ["Pinguin", "Linux"]
+    "aliases": ["Pinguin", "Linux", "animal", "Tier"]
   },
   "petrol-station": {
     "category": "Transport & Travel",
@@ -1784,7 +1807,7 @@
   },
   "pin": {
     "category": "School & Education",
-    "aliases": ["tack", "fastener", "Reißzwecke", "Nadel"]
+    "aliases": ["tack", "astener", "Reißzwecke", "Nadel"]
   },
   "pin-disabled": {
     "category": "School & Education",
@@ -1820,7 +1843,7 @@
   },
   "postgresql": {
     "category": "Software & Services",
-    "aliases": ["database-system", "SQL-database", "PostgreSQL", "Elefant"]
+    "aliases": ["database-system", "SQL-database", "PostgreSQL", "Elefant", "elephant"]
   },
   "power": {
     "category": "Network & Infrastructure",
@@ -1832,7 +1855,7 @@
   },
   "prawn": {
     "category": "Kitchen & Food",
-    "aliases": ["Garnele, Food, Meer, prawn, Krabbe, Esse, shrimp"]
+    "aliases": ["Garnele", "Food", "Meer", "prawn", "Krabbe", "Esse", "shrimp"]
   },
   "presention-board": {
     "category": "Business & Statistics",
@@ -1868,7 +1891,7 @@
   },
   "print-dots": {
     "category": "Devices & Electronics",
-    "aliases": []
+    "aliases": ["Drucker"]
   },
   "print-drop": {
     "category": "Devices & Electronics",
@@ -1880,11 +1903,11 @@
   },
   "print-list": {
     "category": "Devices & Electronics",
-    "aliases": []
+    "aliases": ["Drucker"]
   },
   "print-plus": {
     "category": "Devices & Electronics",
-    "aliases": ["printing-add", "Drucken hinzufügen"]
+    "aliases": ["printing-add", "Drucken hinzufügen", "Drucker"]
   },
   "print-search": {
     "category": "Devices & Electronics",
@@ -1908,11 +1931,11 @@
   },
   "puzzle-1": {
     "category": "Objects",
-    "aliases": ["jigsaw-1", "conundrum-1", "Puzzle-1", "Rätsel-1"]
+    "aliases": ["jigsaw", "conundrum", "Puzzle", "Rätsel"]
   },
   "puzzle-2": {
     "category": "Objects",
-    "aliases": ["jigsaw-2", "conundrum-2", "Puzzle-2", "Rätsel-2"]
+    "aliases": ["jigsaw", "conundrum", "Puzzle", "Rätsel"]
   },
   "qr-code": {
     "category": "Network & Infrastructure",
@@ -1944,7 +1967,7 @@
   },
   "redis": {
     "category": "Software & Services",
-    "aliases": ["key-value-store", "in-memory-database", "Redis", "In-Memory-Datenbank"]
+    "aliases": ["key-value-store", "n-memory-database", "Redis", "In-Memory-Datenbank"]
   },
   "repeat": {
     "category": "Arrows",
@@ -1968,11 +1991,11 @@
   },
   "rocket-plus": {
     "category": "Objects",
-    "aliases": []
+    "aliases": ["Rakete", "add", "hinzufügen"]
   },
   "rocket-settings": {
     "category": "Objects",
-    "aliases": []
+    "aliases": ["Rakete", "Einstellungen", "spacecraft"]
   },
   "rotate": {
     "category": "Arrows",
@@ -2008,7 +2031,7 @@
   },
   "search-x": {
     "category": "Action & Interface",
-    "aliases": []
+    "aliases": ["remove"]
   },
   "send": {
     "category": "Communication",
@@ -2028,7 +2051,7 @@
   },
   "server-lock": {
     "category": "Network & Infrastructure",
-    "aliases": ["confidential, secure, Schloss, geschützt, Schutz, gesichert, Sicherheit, safe"]
+    "aliases": ["secure", "Schloss", "geschützt", "Schutz", "gesichert", "Sicherheit", "safe"]
   },
   "server-settings": {
     "category": "Network & Infrastructure",
@@ -2041,7 +2064,7 @@
   },
   "server-shield": {
     "category": "Network & Infrastructure",
-    "aliases": ["secure, Schutz, Schild"]
+    "aliases": ["secure", "Schutz", "Schild"]
   },
   "server-upgrade": {
     "category": "Network & Infrastructure",
@@ -2090,7 +2113,7 @@
   },
   "ship-container": {
     "category": "Transport & Travel",
-    "aliases": ["Schiff, Container, Containerschiff"]
+    "aliases": ["Schiff", "Container", "Containerschiff"]
   },
   "sick": {
     "category": "Health, Medicine & Hygiene",
@@ -2098,7 +2121,7 @@
   },
   "sidebar-arrow-left": {
     "category": "Action & Interface",
-    "aliases": []
+    "aliases": ["close", "schließen"]
   },
   "sidebar-arrow-right": {
     "category": "Action & Interface",
@@ -2122,7 +2145,7 @@
   },
   "smoking-disabled": {
     "category": "Objects",
-    "aliases": ["no-smoking", "smoking-ban", "Rauchen-verboten", "Rauchverbot"]
+    "aliases": ["no-smoking", "moking-ban", "Rauchen-verboten", "Rauchverbot"]
   },
   "snowflake": {
     "category": "Weather & Climate",
@@ -2134,7 +2157,7 @@
   },
   "soccer": {
     "category": "Objects",
-    "aliases": ["football, sport"]
+    "aliases": ["football", "sport"]
   },
   "sort": {
     "category": "Action & Interface",
@@ -2162,7 +2185,7 @@
   },
   "star-filled": {
     "category": "Various",
-    "aliases": ["celebrity", "fame", "Stern", "favorite", "filled"]
+    "aliases": ["celebrity", "fame", "Stern", "favorite", "filled", "gefüllt"]
   },
   "stopover": {
     "category": "Navigation",
@@ -2174,15 +2197,15 @@
   },
   "storage-camera": {
     "category": "Network & Infrastructure",
-    "aliases": ["image-hold", "picture-store", "Bild-Speicherung", "Bild-Lagerung"]
+    "aliases": ["picture-store", "Bild-Speicherung", "Bild-Lagerung"]
   },
   "storage-cloud": {
     "category": "Network & Infrastructure",
-    "aliases": ["cloud-hold", "cloud-keep", "Cloud-Speicherung", "Cloud-Lagerung"]
+    "aliases": ["Cloud-Speicherung", "Cloud-Lagerung", "Speicher"]
   },
   "storage-connect": {
     "category": "Network & Infrastructure",
-    "aliases": ["hold-link", "Speicher-Verbindung"]
+    "aliases": ["Speicher-Verbindung"]
   },
   "storage-settings": {
     "category": "Network & Infrastructure",
@@ -2268,7 +2291,14 @@
   },
   "test-tube": {
     "category": "Objects",
-    "aliases": ["laboratory-tube", "sample-tube", "Reagenzglas", "Laborröhrchen, Chemie, Versuch"]
+    "aliases": [
+      "laboratory-tube",
+      "sample-tube",
+      "Reagenzglas",
+      "Laborröhrchen",
+      "Chemie",
+      "Versuch"
+    ]
   },
   "text-selector": {
     "category": "Tools & Shapes",
@@ -2284,7 +2314,7 @@
   },
   "tie": {
     "category": "Various",
-    "aliases": ["Anzug, business, geschäftlich, Arbeit, work"]
+    "aliases": ["Anzug", "business", "geschäftlich", "Arbeit", "work"]
   },
   "timer": {
     "category": "Devices & Electronics",
@@ -2308,7 +2338,7 @@
   },
   "tool-circle": {
     "category": "Tools & Shapes",
-    "aliases": ["round-tool", "circular-shape", "Kreiswerkzeug", "Runde-Form"]
+    "aliases": ["round-tool", "circular-shape", "Kreiswerkzeug", "Runde-Form", "Kreis"]
   },
   "tool-color-fill": {
     "category": "Tools & Shapes",
@@ -2332,11 +2362,18 @@
   },
   "tool-expand-horizontally": {
     "category": "Tools & Shapes",
-    "aliases": ["widen-tool", "horizontal-stretch", "Horizontal-erweitern", "In-die-Breite-ziehen"]
+    "aliases": ["widen-tool", "horizontal-stretch", "Horizontal-erweitern", "arrows", "Pfeile"]
   },
   "tool-expand-vertically": {
     "category": "Tools & Shapes",
-    "aliases": ["heighten-tool", "vertical-stretch", "Vertikal-erweitern", "In-die-Höhe-ziehen"]
+    "aliases": [
+      "heighten-tool",
+      "vertical-stretch",
+      "Vertikal-erweitern",
+      "In-die-Höhe-ziehen",
+      "arrows",
+      "Pfeile"
+    ]
   },
   "tool-line": {
     "category": "Tools & Shapes",
@@ -2364,7 +2401,7 @@
   },
   "tool-pencil": {
     "category": "Tools & Shapes",
-    "aliases": []
+    "aliases": ["Pfad", "Werkzeug", "Stift"]
   },
   "tool-polygon": {
     "category": "Tools & Shapes",
@@ -2376,7 +2413,7 @@
   },
   "tool-ruler": {
     "category": "Tools & Shapes",
-    "aliases": ["measuring-tool", "length-tool", "Linealwerkzeug", "Messwerkzeug"]
+    "aliases": ["measuring-tool", "ength-tool", "Linealwerkzeug", "Messwerkzeug"]
   },
   "tool-scale": {
     "category": "Tools & Shapes",
@@ -2450,12 +2487,13 @@
       "garbage",
       "waste-bin",
       "Müll",
-      "Abfalleimer"
+      "Abfalleimer",
+      "Mülleimer"
     ]
   },
   "trash-disabled": {
     "category": "Action & Interface",
-    "aliases": []
+    "aliases": ["delete", "löschen", "Mülleimer", "bin"]
   },
   "tree": {
     "category": "Weather & Climate",
@@ -2467,7 +2505,7 @@
   },
   "triangle-warning": {
     "category": "Essentials",
-    "aliases": ["alert-sign", "Dreieck-Warnung", "Achtung, Ausrufezeichen"]
+    "aliases": ["alert-sign", "Dreieck-Warnung", "Achtung", "Ausrufezeichen"]
   },
   "trolley": {
     "category": "Business & Statistics",
@@ -2475,27 +2513,35 @@
   },
   "truck": {
     "category": "Business & Statistics",
-    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen, Lieferung"]
+    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen", "Lieferung"]
   },
   "truck-attention": {
     "category": "Business & Statistics",
-    "aliases": ["lorry", "vehicle", "LKW", "Lastwagen, Lieferprobleme, Lieferung, Ausrufezeichen"]
+    "aliases": [
+      "lorry",
+      "vehicle",
+      "LKW",
+      "Lastwagen",
+      "Lieferprobleme",
+      "Lieferung",
+      "Ausrufezeichen"
+    ]
   },
   "truck-empty": {
     "category": "Business & Statistics",
-    "aliases": ["Laster, Mafi, Zugmaschine, Transporter"]
+    "aliases": ["Laster", "Mafi", "Zugmaschine", "Transporter"]
   },
   "undo": {
     "category": "Arrows",
-    "aliases": ["reverse", "backtrack", "Rückgängig machen", "Zurückverfolgen"]
+    "aliases": ["reverse", "back", "Rückgängig machen", "Zurück", "reset"]
   },
   "unlocked-1": {
     "category": "Security & Protection",
-    "aliases": ["opened", "unfastened", "entsperrt-1", "geöffnet-1", "Schloss-offen"]
+    "aliases": ["opened", "unfastened", "entsperrtt", "geöffnet", "Schloss-offen"]
   },
   "unlocked-2": {
     "category": "Security & Protection",
-    "aliases": ["unsecured", "accessible", "entsperrt-2", "zugänglich-2", "Schloss-offen"]
+    "aliases": ["unsecured", "accessible", "entsperrt", "zugänglich", "Schloss-offen"]
   },
   "upgrade": {
     "category": "Network & Infrastructure",
@@ -2578,21 +2624,11 @@
   },
   "user-message-minus": {
     "category": "People & Users",
-    "aliases": [
-      "user-communication-reduce",
-      "user-chat-minus",
-      "Benutzer-Nachricht-minus",
-      "Benutzer-Chat-verringern"
-    ]
+    "aliases": ["user-chat-minus", "Benutzer-Nachricht-minus", "Benutzer-Chat-verringern"]
   },
   "user-message-plus": {
     "category": "People & Users",
-    "aliases": [
-      "user-communication-increase",
-      "user-chat-plus",
-      "Benutzer-Nachricht-plus",
-      "Benutzer-Chat-erhöhen"
-    ]
+    "aliases": ["user-chat-plus", "Benutzer-Nachricht-plus", "Benutzer-Chat-erhöhen"]
   },
   "user-minus": {
     "category": "People & Users",
@@ -2622,7 +2658,7 @@
   "user-suit-nametag": {
     "category": "People & Users",
     "aliases": [
-      "business-user-label",
+      "business-user-labe",
       "professional-user-tagname",
       "Benutzer-Anzug-Namensschild",
       "Geschäftsbenu"
