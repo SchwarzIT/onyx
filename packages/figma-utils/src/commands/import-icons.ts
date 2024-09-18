@@ -35,7 +35,7 @@ export const importIconsCommand = new Command("import-icons")
   .option(
     "-s, --alias-separator <string>",
     "Separator for icon alias names (which can be set to the component description in Figma).",
-    "|",
+    ",",
   )
   .action(importIconsCommandAction);
 
