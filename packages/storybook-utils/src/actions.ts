@@ -1,7 +1,8 @@
 import type { Decorator } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
-import type { ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
-import { isReactive, reactive, watch } from "vue";
+import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
+import { isReactive, reactive, watch, type Events } from "vue";
+import { EVENT_DOC_MAP } from "./events";
 
 /**
  * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
@@ -22,6 +23,41 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
     });
   return argTypes;
 };
+
+/**
+ * Allows logging and documentation for the passed event listener names in Storybook.
+ * Will be documented in a extra "Relevant HTML events" section in the Storybook documentation.
+ *
+ * @example
+ * ```typescript
+ * const meta: Meta<typeof OnyxButton> = {
+ *   title: "Buttons/Button",
+ *   component: OnyxButton,
+ *   argTypes: {
+ *     somethingElse: { ...someOtherArgType },
+ *     ...withNativeEventLogging(["onClick"]),
+ *  },
+ *};
+ * ```
+ *
+ * @param relevantEvents a list of event names that should be logged
+ * @returns Storybook ArgTypes object
+ */
+export const withNativeEventLogging = (relevantEvents: (keyof Events)[]) =>
+  relevantEvents.reduce((argTypes, eventName) => {
+    const { constructor, event } = EVENT_DOC_MAP[eventName];
+    argTypes[eventName] = {
+      name: event.name,
+      control: false,
+      description: `The native HTML [${event.name}](${event.url}) event which dispatches an [${constructor.name}](${constructor.url}).`,
+      table: {
+        category: "Relevant HTML events",
+        type: { summary: constructor.name },
+      },
+      action: event.name,
+    };
+    return argTypes;
+  }, {} as ArgTypes);
 
 export type WithVModelDecoratorOptions = {
   /**
