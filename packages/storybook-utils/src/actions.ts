@@ -47,7 +47,7 @@ export const withNativeEventLogging = (relevantEvents: (keyof Events)[]) =>
   relevantEvents.reduce((argTypes, eventName) => {
     const { constructor, event } = EVENT_DOC_MAP[eventName];
     argTypes[eventName] = {
-      name: eventName,
+      name: action,
       control: false,
       description: `The native HTML [${event.name}](${event.url}) event which dispatches an [${constructor.name}](${constructor.url}).`,
       table: {
