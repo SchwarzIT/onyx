@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.51
+
+### Minor Changes
+
+- 889383b: feat: added withNativeEventLogging to log and document native events
+
 ## 1.0.0-beta.50
 
 ### Patch Changes
