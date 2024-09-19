@@ -1,5 +1,21 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.4
+
+### Minor Changes
+
+- 33700f9: feat: update icons
+
+  Also fixed icon aliases in the metadata for most icons which are now separated correctly
+
+  #### New icons
+
+  - heptagon-cloud-foundry
+
+  #### Modified icons
+
+  - sidebar-arrow-right
+
 ## 1.0.0-beta.3
 
 ### Patch Changes
