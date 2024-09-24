@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import DesignTokenCard from "./DesignTokenCard.vue";
+import DesignVariableCard from "./DesignVariableCard.vue";
 
-const tokens = [
+const variables = [
   "onyx-radius-xs",
   "onyx-radius-sm",
   "onyx-radius-md",
@@ -12,27 +12,27 @@ const tokens = [
 </script>
 
 <template>
-  <DesignTokenCard
-    v-for="borderRadius in tokens"
+  <DesignVariableCard
+    v-for="borderRadius in variables"
     :key="borderRadius"
     :name="borderRadius"
-    class="token"
+    class="variable"
   >
     <figure
-      class="token__preview"
+      class="variable__preview"
       :class="{
-        'token__preview--large': borderRadius.endsWith('-xl') || borderRadius.endsWith('-full'),
+        'variable__preview--large': borderRadius.endsWith('-xl') || borderRadius.endsWith('-full'),
       }"
       :style="{
         borderTopRightRadius: `var(--${borderRadius})`,
         borderBottomRightRadius: `var(--${borderRadius})`,
       }"
     ></figure>
-  </DesignTokenCard>
+  </DesignVariableCard>
 </template>
 
 <style lang="scss" scoped>
-.token {
+.variable {
   margin-bottom: var(--onyx-spacing-lg);
 
   &__preview {
@@ -50,8 +50,8 @@ const tokens = [
     }
   }
 
-  // override token width so all border radius token names have the same width
-  :deep(.token__name) {
+  // override variable width so all border radius variable names have the same width
+  :deep(.variable__name) {
     min-width: 16rem;
   }
 }

@@ -4,13 +4,13 @@ import { FigmaComponentsApiResponse, FigmaVariablesApiResponse } from "../types/
  * Fetches the Figma Variables for the given file from the Figma API v1.
  *
  * @param fileKey File key. Example: https://www.figma.com/file/your-file-key-here
- * @param accessToken Personal access token with scope/permission `file_variables:read`
+ * @param accessVariable Personal access variable with scope/permission `file_variables:read`
  * @see https://www.figma.com/developers/api#get-local-variables-endpoint
  */
-export const fetchFigmaVariables = async (fileKey: string, accessToken: string) => {
+export const fetchFigmaVariables = async (fileKey: string, accessVariable: string) => {
   return fetchFigma<FigmaVariablesApiResponse>(
     `https://api.figma.com/v1/files/${fileKey}/variables/local`,
-    accessToken,
+    accessVariable,
   );
 };
 
@@ -18,24 +18,24 @@ export const fetchFigmaVariables = async (fileKey: string, accessToken: string) 
  * Fetches the Figma components for the given file from the Figma API v1.
  *
  * @param fileKey File key. Example: https://www.figma.com/file/your-file-key-here
- * @param accessToken Personal access token with scope/permission `file_read` or `files:read`
+ * @param accessVariable Personal access variable with scope/permission `file_read` or `files:read`
  * @see https://www.figma.com/developers/api#get-file-components-endpoint
  */
-export const fetchFigmaComponents = async (fileKey: string, accessToken: string) => {
+export const fetchFigmaComponents = async (fileKey: string, accessVariable: string) => {
   return fetchFigma<FigmaComponentsApiResponse>(
     `https://api.figma.com/v1/files/${fileKey}/components`,
-    accessToken,
+    accessVariable,
   );
 };
 
 export const fetchFigmaSVGs = async (
   fileKey: string,
   componentIds: string[],
-  accessToken: string,
+  accessVariable: string,
 ) => {
   const result = await fetchFigma<{ images: Record<string, string> }>(
     `https://api.figma.com/v1/images/${fileKey}?ids=${componentIds.join()}&format=svg`,
-    accessToken,
+    accessVariable,
   );
 
   await Promise.all(
@@ -55,13 +55,13 @@ export const fetchFigmaSVGs = async (
  * Generic utility to fetch Figma API routes.
  *
  * @param url API route, e.g. "https://api.figma.com/v1/files/${filekey}"
- * @param accessToken Access token for authentication
+ * @param accessVariable Access variable for authentication
  * @throws Error if request was not successful
  */
-export const fetchFigma = async <T = unknown>(url: string, accessToken: string) => {
+export const fetchFigma = async <T = unknown>(url: string, accessVariable: string) => {
   const response = await fetch(url, {
     headers: {
-      "X-FIGMA-TOKEN": accessToken,
+      "X-FIGMA-VARIABLE": accessVariable,
     },
   });
 

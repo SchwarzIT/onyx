@@ -1259,7 +1259,7 @@
 
 - cb3a72b: add CSS variables for box shadows
 
-  See [token documentation](https://onyx.schwarz/tokens/shadows.html) for a full list of available shadows.
+  See [token documentation](https://onyx.schwarz/variables/shadows.html) for a full list of available shadows.
 
 ### Patch Changes
 
