@@ -13,7 +13,7 @@ import {
 
 export type ImportVariablesCommandOptions = {
   fileKey: string;
-  variable: string;
+  token: string;
   format: string[];
   filename?: string;
   dir?: string;
@@ -25,8 +25,8 @@ export const importVariablesCommand = new Command("import-variables")
   .description("CLI tool to import Figma variables into CSS, SCSS etc. variables.")
   .requiredOption("-k, --file-key <string>", "Figma file key (required)")
   .requiredOption(
-    "-t, --variable <string>",
-    "Figma access variable with scope `file_variables:read` (required)",
+    "-t, --token <string>",
+    "Figma access token with scope `file_variables:read` (required)",
   )
   .option("-f, --format <strings...>", "Output formats. Supported are: CSS, SCSS, JSON", ["CSS"])
   .option(
@@ -67,7 +67,7 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
   });
 
   console.log("Fetching variables from Figma API...");
-  const data = await fetchFigmaVariables(options.fileKey, options.variable);
+  const data = await fetchFigmaVariables(options.fileKey, options.token);
 
   console.log("Parsing Figma variables...");
   const parsedVariables = parseFigmaVariables(data);

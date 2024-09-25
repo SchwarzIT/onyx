@@ -12,7 +12,7 @@ describe("import-variables.ts", () => {
     fileKey: "test-file-key",
     filename: "test-file-name-",
     format: ["CSS"],
-    variable: "test-variable",
+    token: "test-token",
     selector: ":root",
   } satisfies ImportVariablesCommandOptions;
 
