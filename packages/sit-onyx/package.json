@@ -52,6 +52,7 @@
     "@sit-onyx/headless": "workspace:^",
     "@vue/compiler-dom": "catalog:",
     "eslint-plugin-vue-scoped-css": "^2.8.1",
+    "sass-embedded": "catalog:",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.1.6"
   }
