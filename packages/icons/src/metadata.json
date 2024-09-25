@@ -1331,6 +1331,10 @@
       "Schlüssel-Bestätigung"
     ]
   },
+  "key-settings": {
+    "category": "Software & Services",
+    "aliases": ["KMS", "configuration", "key-management", "Schlüssel", "Zahnrad"]
+  },
   "key-shield": {
     "category": "Security & Protection",
     "aliases": ["key-protection", "key-guard", "Schlüssel-Schild", "Schlüssel-Schutz"]
