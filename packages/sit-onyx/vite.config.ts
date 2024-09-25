@@ -1,9 +1,12 @@
 /// <reference types="vitest" />
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
+import { Options } from "sass-embedded";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
 import { vuePluginOptions } from "./playwright.config";
+
+type ViteScssOptions = Options<"async"> & { api: "modern-compiler" };
 
 // https://vitejs.dev/config
 export default defineConfig({
@@ -27,6 +30,14 @@ export default defineConfig({
     coverage: {
       include: ["src"],
       exclude: ["src/**/*.stories.ts"],
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+        fatalDeprecations: ["mixed-decls"],
+      } satisfies ViteScssOptions,
     },
   },
 });
