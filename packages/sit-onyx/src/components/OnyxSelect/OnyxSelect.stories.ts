@@ -86,6 +86,9 @@ const meta: Meta<typeof OnyxSelect> = {
       control: { type: "select" },
       options: DEMO_OPTIONS.map((option) => option.value),
     },
+    withCheckAll: {
+      control: { type: "boolean" },
+    },
   },
 
   decorators: [
