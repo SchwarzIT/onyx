@@ -80,10 +80,10 @@ import path from "node:path";
 import { fetchFigmaVariables, generateAsCSS, parseFigmaVariables } from "@sit-onyx/figma-utils";
 
 const FILE_KEY = "your-figma-file-key";
-const FIGMA_VARIABLE = "your-figma-access-variable";
+const FIGMA_TOKEN = "your-figma-access-variable";
 
 // fetch variables from Figma API
-const data = await fetchFigmaVariables(FILE_KEY, FIGMA_VARIABLE);
+const data = await fetchFigmaVariables(FILE_KEY, FIGMA_TOKEN);
 
 // parse variables into a readable and normalized format
 // note: variables and collections that are set to "Hide from publishing" in Figma
@@ -122,11 +122,11 @@ import path from "node:path";
 import { fetchFigmaComponents, optimizeSvg } from "@sit-onyx/figma-utils";
 
 const FILE_KEY = "your-figma-file-key";
-const FIGMA_VARIABLE = "your-figma-access-variable";
+const FIGMA_TOKEN = "your-figma-access-variable";
 const ICON_PAGE_ID = "your-page-id-that-contains-the-icons"; // e.g. "1:345"
 
 // fetch icon components from Figma API
-const data = await fetchFigmaComponents(FILE_KEY, FIGMA_VARIABLE);
+const data = await fetchFigmaComponents(FILE_KEY, FIGMA_TOKEN);
 
 // parse components into a normalized format
 const parsedIcons = parseComponentsToIcons({
@@ -138,7 +138,7 @@ const parsedIcons = parseComponentsToIcons({
 const svgContents = await fetchFigmaSVGs(
   FILE_KEY,
   parsedIcons.map(({ id }) => id),
-  FIGMA_VARIABLE,
+  FIGMA_TOKEN,
 );
 
 const outputDirectory = process.cwd();
