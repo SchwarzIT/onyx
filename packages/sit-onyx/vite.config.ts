@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
-import { Options } from "sass-embedded";
+import { Deprecation, deprecations, Options } from "sass-embedded";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
 import { vuePluginOptions } from "./playwright.config";
@@ -36,7 +36,10 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: "modern-compiler",
-        fatalDeprecations: ["mixed-decls"],
+        // error for all warnings
+        fatalDeprecations: (Object.values(deprecations) as Deprecation[]).filter(
+          ({ status }) => status !== "future",
+        ),
       } satisfies ViteScssOptions,
     },
   },
