@@ -56,7 +56,7 @@ export const CONFIG = {
         text: "Docs",
         items: [
           { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
-          { text: "Tokens", link: "/tokens/colors", activeMatch: "/tokens/" },
+          { text: "Variables", link: "/variables/colors", activeMatch: "/variables/" },
           { text: "Development", link: "/development/", activeMatch: "/development/" },
           { text: "Principles & Contribution", link: "/principles/", activeMatch: "/principles/" },
         ],
@@ -118,10 +118,10 @@ export const CONFIG = {
           ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
-      "/tokens": [
+      "/variables": [
         {
-          text: "Design Tokens",
-          base: "/tokens",
+          text: "Design Variables",
+          base: "/variables",
           items: [
             { text: "Introduction", link: "/introduction" },
             { text: "Colors", link: "/colors" },

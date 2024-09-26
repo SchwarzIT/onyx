@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { DENSITIES, type Density } from "~components/../composables/density";
-import DesignTokenBadge from "./DesignTokenBadge.vue";
+import DesignVariableBadge from "./DesignVariableBadge.vue";
 
 const modelValue = defineModel<Density>({ default: "default" });
 </script>
 
 <template>
   <div class="densities">
-    <DesignTokenBadge
+    <DesignVariableBadge
       v-for="density in DENSITIES"
       :key="density"
       :text="density"

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useData } from "vitepress";
 import ColorPalette from "./ColorPalette.vue";
-import DesignTokenBadge from "./DesignTokenBadge.vue";
+import DesignVariableBadge from "./DesignVariableBadge.vue";
 
 const { isDark } = useData();
 </script>
@@ -9,8 +9,8 @@ const { isDark } = useData();
 <template>
   <div class="palettes">
     <div class="themes">
-      <DesignTokenBadge text="Light mode" :active="!isDark" @click="isDark = false" />
-      <DesignTokenBadge text="Dark mode" :active="isDark" @click="isDark = true" />
+      <DesignVariableBadge text="Light mode" :active="!isDark" @click="isDark = false" />
+      <DesignVariableBadge text="Dark mode" :active="isDark" @click="isDark = true" />
     </div>
 
     <ColorPalette name="primary" />
