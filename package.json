@@ -66,11 +66,6 @@
     "*.{vue,ts,tsx}": "eslint --fix --ignore-path .gitignore"
   },
   "pnpm": {
-    "// We can ignore sass, as we use `sass-embedded` ourselves.": "",
-    "// For users `sass` is more convenient.": "",
-    "ignoredOptionalDependencies": [
-      "sass"
-    ],
     "overrides": {
       "vue": "catalog:"
     }

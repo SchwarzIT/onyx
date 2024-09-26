@@ -26,10 +26,8 @@
   "scripts": {
     "build": "tsc --noEmit"
   },
-  "optionalDependencies": {
-    "sass": ">= 1"
-  },
   "peerDependencies": {
+    "sass": ">= 1",
     "sit-onyx": "workspace:^",
     "vitepress": ">= 1.0.0"
   },

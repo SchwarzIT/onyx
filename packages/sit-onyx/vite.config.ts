@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
-import { Deprecation, deprecations, Options } from "sass-embedded";
+import { Deprecation, deprecations, Options } from "sass";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
 import { vuePluginOptions } from "./playwright.config";
