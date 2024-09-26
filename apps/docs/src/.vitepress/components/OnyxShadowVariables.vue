@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DesignTokenCard from "./DesignTokenCard.vue";
+import DesignVariableCard from "./DesignVariableCard.vue";
 
 const shadows = [
   "onyx-shadow-medium-bottom",
@@ -12,13 +12,19 @@ const shadows = [
 </script>
 
 <template>
-  <DesignTokenCard v-for="shadow in shadows" :key="shadow" :name="shadow" class="token" hide-value>
+  <DesignVariableCard
+    v-for="shadow in shadows"
+    :key="shadow"
+    :name="shadow"
+    class="variable"
+    hide-value
+  >
     <figure class="preview" :style="{ boxShadow: `var(--${shadow})` }"></figure>
-  </DesignTokenCard>
+  </DesignVariableCard>
 </template>
 
 <style lang="scss" scoped>
-.token {
+.variable {
   margin-bottom: var(--onyx-spacing-lg);
 }
 

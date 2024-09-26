@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { getCssVariableValue } from "../utils-browser";
-import DesignToken from "./DesignToken.vue";
+import DesignVariable from "./DesignVariable.vue";
 
 const props = defineProps<{
-  /** Token name. */
+  /** Variable name. */
   name: string;
   /** If true, both columns will take up 50% of the available width. */
   wideName?: boolean;
-  /** Whether hide the token value. */
+  /** Whether hide the variable value. */
   hideValue?: boolean;
 }>();
 
@@ -36,7 +36,7 @@ const handleCopy = async () => {
           inside the browser/client
          -->
         <ClientOnly>
-          <DesignToken
+          <DesignVariable
             :name="props.name"
             :value="value"
             :is-copied="isCopied"

@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.46
+
+### Patch Changes
+
+- Updated dependencies [3e49c73]
+  - @sit-onyx/icons@1.0.0-beta.5
+
 ## 1.0.0-beta.45
 
 ### Patch Changes
@@ -1259,7 +1266,7 @@
 
 - cb3a72b: add CSS variables for box shadows
 
-  See [token documentation](https://onyx.schwarz/tokens/shadows.html) for a full list of available shadows.
+  See [token documentation](https://onyx.schwarz/variables/shadows.html) for a full list of available shadows.
 
 ### Patch Changes
 
