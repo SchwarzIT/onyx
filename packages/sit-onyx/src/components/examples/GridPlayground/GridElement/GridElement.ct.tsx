@@ -32,15 +32,11 @@ test.describe("screenshot tests", () => {
 
 test("should behave correctly", async ({ mount }) => {
   // ARRANGE
-  let clickEventCount = 0;
 
   const component = await mount(GridElement, {
     props: {
       label: "Label",
       columnCount: 2,
-    },
-    on: {
-      click: () => clickEventCount++,
     },
   });
 
@@ -50,7 +46,7 @@ test("should behave correctly", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveClass(/onyx-grid-span-2/);
   await expect(component).toHaveAccessibleName("Label");
-  expect(clickEventCount).toBe(1);
+  await expect(component).toBeEnabled();
 
   // ARRANGE
   await component.update({

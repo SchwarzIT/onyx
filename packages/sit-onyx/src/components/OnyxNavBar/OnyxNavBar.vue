@@ -21,11 +21,11 @@ const emit = defineEmits<{
    * Emitted when the app area (where logo and app name are placed) is clicked.
    * Usually the user should be redirected to the home page then.
    */
-  appAreaClick: [];
+  navigateToStart: [event: MouseEvent];
   /**
    * Emitted when the back button is clicked.
    */
-  backButtonClick: [];
+  navigateBack: [event: MouseEvent];
 }>();
 
 const slots = defineSlots<{
@@ -114,7 +114,7 @@ defineExpose({
         :logo-url="props.logoUrl"
         :label="props.appAreaLabel"
         @click="
-          emit('appAreaClick');
+          emit('navigateToStart', $event);
           isBurgerOpen = false;
         "
       >
@@ -127,7 +127,7 @@ defineExpose({
         :label="t('navigation.goBack')"
         :icon="chevronLeftSmall"
         color="neutral"
-        @click="emit('backButtonClick')"
+        @click="emit('navigateBack', $event)"
       />
 
       <template v-if="slots.default">

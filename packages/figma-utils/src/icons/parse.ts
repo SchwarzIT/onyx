@@ -12,7 +12,7 @@ export type ParseIconComponentsOptions = {
   /**
    * Separator for icon alias names (which can be set to the component description in Figma).
    *
-   * @default "|"
+   * @default ","
    */
   aliasSeparator?: string;
 };
@@ -28,8 +28,9 @@ export const parseComponentsToIcons = (options: ParseIconComponentsOptions): Par
         id: component.node_id,
         name: component.name,
         aliases: component.description
-          .split(options.aliasSeparator ?? "|")
-          .map((alias) => alias.trim()),
+          .split(options.aliasSeparator ?? ",")
+          .map((alias) => alias.trim())
+          .filter((i) => i !== ""),
         category: component.containing_frame.name.trim(),
       };
     })

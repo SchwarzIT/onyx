@@ -1,5 +1,42 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.51
+
+### Minor Changes
+
+- 889383b: feat: added withNativeEventLogging to log and document native events
+
+## 1.0.0-beta.50
+
+### Patch Changes
+
+- Updated dependencies [33700f9]
+  - @sit-onyx/icons@1.0.0-beta.4
+  - sit-onyx@1.0.0-beta.45
+
+## 1.0.0-beta.49
+
+### Patch Changes
+
+- Updated dependencies [188c94d]
+  - @sit-onyx/icons@1.0.0-beta.3
+  - sit-onyx@1.0.0-beta.44
+
+## 1.0.0-beta.48
+
+### Patch Changes
+
+- Updated dependencies [e6af99b]
+  - sit-onyx@1.0.0-beta.43
+
+## 1.0.0-beta.47
+
+### Patch Changes
+
+- b9fd3bc: chore: update to Storybook 8.3
+
+  Fix Storybook peer dependency to version `>= 8.3.0` since the version we specified in `@sit-onyx/storybook-utils@1.0.0-beta.44` did not exist.
+
 ## 1.0.0-beta.46
 
 ### Patch Changes

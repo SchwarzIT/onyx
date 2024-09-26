@@ -10,10 +10,6 @@ const props = defineProps<
   }
 >();
 
-const emit = defineEmits<{
-  click: [];
-}>();
-
 defineSlots<{
   default?(props: {
     /**
@@ -52,7 +48,6 @@ watch(size.width, () => {
     type="button"
     :aria-label="props.label"
     :title="props.label"
-    @click="emit('click')"
   >
     <slot :grid-span="gridSpan"></slot>
   </button>

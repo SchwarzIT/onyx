@@ -226,7 +226,7 @@ const currentBreakpoint = computed(() => {
     <EditGridElementDialog
       :open="isAddDialogOpen"
       @close="isAddDialogOpen = false"
-      @submit="
+      @apply="
         gridElements.push($event);
         isAddDialogOpen = false;
       "
@@ -238,7 +238,7 @@ const currentBreakpoint = computed(() => {
         gridElementIndexToEdit != undefined ? gridElements[gridElementIndexToEdit] : undefined
       "
       @close="closeEdit"
-      @submit="updateElement(gridElementIndexToEdit!, $event)"
+      @apply="updateElement(gridElementIndexToEdit!, $event)"
       @delete="deleteElement(gridElementIndexToEdit!)"
     />
   </div>

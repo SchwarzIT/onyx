@@ -9,13 +9,6 @@ const props = withDefaults(defineProps<OnyxLinkProps>(), {
   withExternalIcon: "auto",
 });
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the link is opened (via click or keyboard).
-   */
-  click: [];
-}>();
-
 defineSlots<{
   /**
    * Link label.
@@ -32,7 +25,6 @@ const { t } = injectI18n();
     :href="props.href"
     :target="props.target"
     :rel="props.target === '_blank' ? 'noreferrer' : undefined"
-    @click="emit('click')"
   >
     <slot></slot>
 

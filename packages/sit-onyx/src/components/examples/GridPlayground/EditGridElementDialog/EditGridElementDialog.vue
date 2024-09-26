@@ -22,7 +22,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   close: [];
-  submit: [element: GridElementConfig];
+  apply: [element: GridElementConfig];
   delete: [];
 }>();
 
@@ -42,7 +42,7 @@ watch([() => props.open, () => props.initialValue], () => {
 });
 
 const handleSubmit = () => {
-  emit("submit", cloneElement(state.value as GridElementConfig));
+  emit("apply", cloneElement(state.value as GridElementConfig));
 };
 
 const label = "Column configuration";

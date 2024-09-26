@@ -22,8 +22,8 @@ export type OnyxToastMessageProps = DensityProp & {
    */
   duration?: number;
   /**
-   * Whether the toast is clickable (will emit the `click` event).
-   * Will also hide the manual close button.
+   * Whether the toast is clickable.
+   * Enabling this will present the whole toast message element as a button element, but also hide the close button.
    */
   clickable?: boolean;
   /**
