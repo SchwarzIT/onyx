@@ -2,8 +2,8 @@
 import type { OnyxColor } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
 import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteValue.vue";
-import DesignToken from "./DesignToken.vue";
-import DesignTokenHeader from "./DesignTokenHeader.vue";
+import DesignVariable from "./DesignVariable.vue";
+import DesignVariableHeader from "./DesignVariableHeader.vue";
 
 const AVAILABLE_TABS = ["Base", "Text & Icons"] as const;
 type AvailableTab = (typeof AVAILABLE_TABS)[number];
@@ -92,7 +92,7 @@ const handleCopy = async (color: string) => {
 
 <template>
   <section class="palette">
-    <DesignTokenHeader
+    <DesignVariableHeader
       v-model="currentTab"
       :headline="capitalize(props.name)"
       :tabs="AVAILABLE_TABS"
@@ -108,7 +108,7 @@ const handleCopy = async (color: string) => {
         />
       </div>
 
-      <DesignToken
+      <DesignVariable
         class="palette__copied"
         v-if="copiedColor"
         :name="copiedColor"

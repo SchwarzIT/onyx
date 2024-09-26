@@ -4,13 +4,13 @@ import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import type { HeadlineType } from "~components/OnyxHeadline/types";
 import OnyxLink from "~components/OnyxLink/OnyxLink.vue";
 import type { TextSize } from "../../../../../packages/sit-onyx/src/types/fonts";
-import DesignToken from "./DesignToken.vue";
-import DesignTokenCard from "./DesignTokenCard.vue";
-import DesignTokenHeader from "./DesignTokenHeader.vue";
+import DesignVariable from "./DesignVariable.vue";
+import DesignVariableCard from "./DesignVariableCard.vue";
+import DesignVariableHeader from "./DesignVariableHeader.vue";
 
-export type TypographyToken = {
+export type TypographyVariable = {
   /**
-   * Human readable token name
+   * Human readable variable name
    * @example "h1"
    */
   name: string;
@@ -24,8 +24,8 @@ const AVAILABLE_FONT_TABS = ["Source Sans 3", "Source Code Pro"] as const;
 type AvailableFontTab = (typeof AVAILABLE_FONT_TABS)[number];
 
 const props = defineProps<{
-  tokens: TypographyToken[];
-  /** If true, more width will be used for the token names. */
+  variables: TypographyVariable[];
+  /** If true, more width will be used for the variable names. */
   wideName?: boolean;
 }>();
 
@@ -42,42 +42,42 @@ const getTextSizeClass = (fontSize?: TextSize) => {
 
 <template>
   <section class="typography vp-raw">
-    <DesignTokenHeader v-model="currentTab" :tabs="AVAILABLE_FONT_TABS" />
+    <DesignVariableHeader v-model="currentTab" :tabs="AVAILABLE_FONT_TABS" />
 
     <div class="typography__content" :class="isMonospace ? 'onyx-text--monospace' : ''">
-      <DesignTokenCard
-        v-for="token in props.tokens"
-        :key="token.name"
-        :name="token.name"
+      <DesignVariableCard
+        v-for="variable in props.variables"
+        :key="variable.name"
+        :name="variable.name"
         :wide-name="props.wideName"
       >
         <template #name>
           <p
-            v-if="token.htmlTag === 'p'"
+            v-if="variable.htmlTag === 'p'"
             class="onyx-text"
-            :class="getTextSizeClass(token.textSize)"
+            :class="getTextSizeClass(variable.textSize)"
           >
             {{ previewText }}
           </p>
 
           <OnyxLink
-            v-else-if="token.htmlTag === 'a'"
+            v-else-if="variable.htmlTag === 'a'"
             href="#"
             class="onyx-text"
-            :class="getTextSizeClass(token.textSize)"
+            :class="getTextSizeClass(variable.textSize)"
           >
             {{ previewText }}
           </OnyxLink>
 
-          <OnyxHeadline v-else :is="token.htmlTag" :monospace="isMonospace">
+          <OnyxHeadline v-else :is="variable.htmlTag" :monospace="isMonospace">
             {{ previewText }}
           </OnyxHeadline>
         </template>
 
         <template #default="{ name }">
-          <DesignToken :name="name" />
+          <DesignVariable :name="name" />
         </template>
-      </DesignTokenCard>
+      </DesignVariableCard>
     </div>
   </section>
 </template>

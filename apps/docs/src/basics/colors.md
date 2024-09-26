@@ -4,7 +4,7 @@ Colors play a crucial role in an user interface for enhancing the visual appeal 
 
 ## Understanding light & dark mode
 
-The onyx color scheme is tightly connect to the [design token systematic](/tokens/introduction), that applies the values to the interface. Therefore, please get familiar with the logic of [token levels](/tokens/introduction) used in onyx. This will be the foundation of understanding how colors will be interpreted for light and dark mode.
+The onyx color scheme is tightly connect to the [design variable systematic](/variables/introduction), that applies the values to the interface. Therefore, please get familiar with the logic of [variable levels](/variables/introduction) used in onyx. This will be the foundation of understanding how colors will be interpreted for light and dark mode.
 
 To learn more about how to configure the light & dark mode in your application, refer to the [technical documentation](/development/theming).
 
@@ -33,7 +33,7 @@ import HorizontalColorStripCard from "../.vitepress/components/HorizontalColorSt
 
 <OnyxColorThemeDefinitions />
 
-To have access to the color token set for your implementation, please visit the [token documentation](/tokens/colors).
+To have access to the color variable set for your implementation, please visit the [variable documentation](/variables/colors).
 
 ## Roles of themed colors
 

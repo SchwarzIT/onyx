@@ -5,7 +5,7 @@ import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
 const props = withDefaults(
   defineProps<{
-    /** Token name. */
+    /** Variable name. */
     name: string;
     /** Value to display */
     value?: string;
@@ -17,7 +17,7 @@ const props = withDefaults(
      * @default "value"
      */
     type?: "color" | "value";
-    /** If true, the user will be able to click the token to copy its value. */
+    /** If true, the user will be able to click the variable to copy its value. */
     allowCopy?: boolean;
     /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
     isCopied?: boolean;
@@ -34,32 +34,32 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="token"
-    :class="{ 'token--color': props.type === 'color', 'token--copyable': props.allowCopy }"
+    class="variable"
+    :class="{ 'variable--color': props.type === 'color', 'variable--copyable': props.allowCopy }"
     :disabled="!props.allowCopy"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
   >
-    <div class="token__name" :class="{ 'token__name--no-value': !props.value }">
+    <div class="variable__name" :class="{ 'variable__name--no-value': !props.value }">
       <span>{{ props.name }}</span>
-      <span v-if="props.value && props.type === 'value'" class="token__value">
+      <span v-if="props.value && props.type === 'value'" class="variable__value">
         {{ props.value }}
       </span>
     </div>
 
-    <span v-if="props.isCopied" class="token__copied">
+    <span v-if="props.isCopied" class="variable__copied">
       <OnyxIcon :icon="checkIcon" />
       copied
     </span>
 
-    <OnyxIcon v-else class="token__copy" :icon="copyIcon" color="primary" />
+    <OnyxIcon v-else class="variable__copy" :icon="copyIcon" color="primary" />
   </button>
 </template>
 
 <style lang="scss" scoped>
 @use "@sit-onyx/vitepress-theme/mixins.scss";
 
-.token {
+.variable {
   display: flex;
   align-items: center;
   gap: var(--onyx-spacing-md);
@@ -112,7 +112,7 @@ const emit = defineEmits<{
 
     &:hover,
     &:focus-within {
-      .token {
+      .variable {
         &__name {
           border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-300);
         }
@@ -125,7 +125,7 @@ const emit = defineEmits<{
   }
 
   &--color {
-    .token {
+    .variable {
       &__name {
         &::after {
           content: "";
