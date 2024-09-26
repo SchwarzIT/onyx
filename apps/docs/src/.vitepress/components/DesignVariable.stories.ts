@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import DesignToken from "./DesignToken.vue";
+import DesignVariable from "./DesignVariable.vue";
 
-const meta: Meta<typeof DesignToken> = {
-  title: "tokens/DesignToken",
-  component: DesignToken,
+const meta: Meta<typeof DesignVariable> = {
+  title: "variables/DesignVariables",
+  component: DesignVariable,
 };
 
 export default meta;
-type Story = StoryObj<typeof DesignToken>;
+type Story = StoryObj<typeof DesignVariable>;
 
 export const Default = {
   args: {
-    name: "test-token",
+    name: "test-variable",
     value: "42rem",
   },
 } satisfies Story;
 
 export const Color = {
   args: {
-    name: "test-token",
+    name: "test-variable",
     value: "var(--onyx-color-base-primary-500)",
     type: "color",
   },

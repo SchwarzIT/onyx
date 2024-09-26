@@ -128,7 +128,7 @@ This will also normalize styles for this class and it's children. The scoped rul
 
 ### Custom density styles
 
-For most cases, the [CSS variables for densities](/tokens/spacings) will already support that the component adjusts based on the current density.
+For most cases, the [CSS variables for densities](/variables/spacings) will already support that the component adjusts based on the current density.
 In exceptional cases it might be required to apply special styles for the densities which can not be covered with this.
 
 You can use our density mixin in this case:

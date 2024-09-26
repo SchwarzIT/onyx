@@ -50,7 +50,7 @@ Note that h5 and h6 headlines are not part of the onyx font system and should no
 Because they can occur on technical side for semantic reasons, they are styled the same as h4.
 :::
 
-<OnyxTypography :tokens="headlineTokens" />
+<OnyxTypography :variables="headlineTokens" />
 
 ## Paragraphs
 
@@ -58,7 +58,7 @@ Paragraph texts are used for all kinds of information, explanations, narratives 
 
 For the technical implementation of the paragraphs, please see the [technical documentation](/development/typography#font-styles).
 
-<OnyxTypography :tokens="paragraphTokens" wide-name />
+<OnyxTypography :variables="paragraphTokens" wide-name />
 
 ## Links
 
@@ -66,7 +66,7 @@ Links are the tool of choice to refer to another page. By default, links have an
 
 For the technical implementation of the links, please see the [technical documentation](https://storybook.onyx.schwarz/?path=/docs/navigation-link--docs).
 
-<OnyxTypography :tokens="linkTokens" wide-name />
+<OnyxTypography :variables="linkTokens" wide-name />
 
 ## Usage
 

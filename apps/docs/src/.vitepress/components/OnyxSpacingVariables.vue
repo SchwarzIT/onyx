@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DesignTokenCard from "./DesignTokenCard.vue";
+import DesignVariableCard from "./DesignVariableCard.vue";
 
 const props = defineProps<{
   variables: string[];
@@ -7,24 +7,24 @@ const props = defineProps<{
 </script>
 
 <template>
-  <DesignTokenCard
+  <DesignVariableCard
     v-for="variable in props.variables"
     :key="variable"
     :name="variable"
-    class="token"
+    class="variable"
   >
     <figure class="preview">
       <figure class="preview__area" :style="{ height: `var(--${variable})` }"></figure>
     </figure>
-  </DesignTokenCard>
+  </DesignVariableCard>
 </template>
 
 <style lang="scss" scoped>
-.token {
+.variable {
   margin-bottom: var(--onyx-spacing-lg);
 
-  // override token width so all spacings token names have the same width
-  :deep(.token__name) {
+  // override variable width so all spacings variable names have the same width
+  :deep(.variable__name) {
     min-width: 16rem;
   }
 }

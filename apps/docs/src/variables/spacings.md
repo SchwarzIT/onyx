@@ -1,9 +1,9 @@
 # Spacings
 
-Below you will find all available spacing tokens that are supported by onyx.
+Below you will find all available spacing variables that are supported by onyx.
 
 <script lang="ts" setup>
-import OnyxSpacingTokens from "../.vitepress/components/OnyxSpacingTokens.vue";
+import OnyxSpacingVariables from "../.vitepress/components/OnyxSpacingVariables.vue";
 import DensitySelection from "../.vitepress/components/DensitySelection.vue";
 import type { Density } from "~components/../composables/density";
 import { ref } from "vue";
@@ -41,17 +41,17 @@ const spacings = [
 
 ## Density aware spacings
 
-The density aware spacing tokens will adjust their value based on the current [density](/basics/density) and should be preferred over fixed spacings in most cases.
+The density aware spacing variables will adjust their value based on the current [density](/basics/density) and should be preferred over fixed spacings in most cases.
 
 <DensitySelection v-model="selectedDensity" style="margin-bottom: var(--onyx-spacing-lg)" />
 
 <!-- the key is needed to update the displayed CSS variable value when the density changes -->
 <div :class="`onyx-density-${selectedDensity}`" :key="selectedDensity">
-  <OnyxSpacingTokens :variables="densities" />
+  <OnyxSpacingVariables :variables="densities" />
 </div>
 
 ## Fixed spacings
 
-The below spacings tokens will apply a fixed spacing, independent on the density.
+The below spacings variables will apply a fixed spacing, independent on the density.
 
-<OnyxSpacingTokens :variables="spacings" />
+<OnyxSpacingVariables :variables="spacings" />
