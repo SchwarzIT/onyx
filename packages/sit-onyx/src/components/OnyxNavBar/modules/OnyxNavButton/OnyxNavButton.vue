@@ -108,7 +108,6 @@ $border-radius: var(--onyx-radius-sm);
       text-decoration: none;
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-medium);
-      cursor: pointer;
       border: none;
 
       &:focus-visible {

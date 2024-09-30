@@ -57,6 +57,7 @@ const {
       width: 100%;
       height: 100%;
       border-radius: inherit;
+      cursor: default;
 
       &:focus {
         outline: none;
@@ -64,7 +65,6 @@ const {
 
       &:is(button) {
         background-color: inherit;
-        cursor: inherit;
         border: none;
       }
     }
