@@ -1,18 +1,20 @@
 <script lang="ts" setup>
 import { useDensity } from "../../composables/density";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxIconButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   type: "button",
   color: "primary",
   skeleton: false,
 });
 
 const { densityClass } = useDensity(props);
+const { disabled } = useFormContext(props);
 
 defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
@@ -34,7 +36,7 @@ defineSlots<{
       { 'onyx-icon-button--loading': props.loading },
       densityClass,
     ]"
-    :disabled="props.disabled || props.loading"
+    :disabled="disabled || props.loading"
     :autofocus="props.autofocus"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
