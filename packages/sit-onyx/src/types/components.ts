@@ -1,4 +1,4 @@
-import type { FormInjected } from "../components/OnyxForm/OnyxForm";
+import type { FormInjected } from "../components/OnyxForm/OnyxForm.core";
 import type { DensityProp } from "../composables/density";
 import type { TruncationType } from "./fonts";
 
@@ -35,7 +35,7 @@ export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValu
   /**
    * Shows a loading indicator.
    */
-  loading?: FormInjected<boolean>;
+  loading?: boolean;
   /**
    * Whether to show a skeleton.
    */
