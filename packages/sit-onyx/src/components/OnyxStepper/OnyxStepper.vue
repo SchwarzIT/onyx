@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
   step: 1,
   stripStep: false,
   disabled: FORM_INJECTED_SYMBOL,
-  readonly: FORM_INJECTED_SYMBOL,
+  readonly: false,
   loading: false,
   skeleton: false,
 });
@@ -33,7 +33,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { readonly, disabled } = useFormContext(props);
+const { disabled } = useFormContext(props);
 const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
@@ -97,7 +97,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :max="props.max"
           :name="props.name"
           :placeholder="props.placeholder"
-          :readonly="readonly"
+          :readonly="props.readonly"
           :required="props.required"
           :step="props.step"
           :title="props.hideLabel ? props.label : undefined"

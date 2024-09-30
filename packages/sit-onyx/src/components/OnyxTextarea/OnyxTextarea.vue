@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   modelValue: "",
   required: false,
   autocapitalize: "sentences",
-  readonly: FORM_INJECTED_SYMBOL,
+  readonly: false,
   disabled: FORM_INJECTED_SYMBOL,
   skeleton: false,
   disableManualResize: false,
@@ -59,7 +59,7 @@ const handleInput = (event: Event) => {
   target.parentElement?.setAttribute("data-autosize-value", target.value);
 };
 
-const { disabled, readonly } = useFormContext(props);
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -91,7 +91,7 @@ const { disabled, readonly } = useFormContext(props);
             :autocapitalize="props.autocapitalize"
             :autofocus="props.autofocus"
             :name="props.name"
-            :readonly="readonly"
+            :readonly="props.readonly"
             :disabled="disabled"
             :minlength="props.minlength"
             :maxlength="props.maxlength"

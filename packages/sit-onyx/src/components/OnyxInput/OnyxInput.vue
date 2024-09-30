@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   type: "text",
   required: false,
   autocapitalize: "sentences",
-  readonly: FORM_INJECTED_SYMBOL,
+  readonly: false,
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   skeleton: false,
@@ -47,7 +47,7 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const { readonly, disabled } = useFormContext(props);
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -74,7 +74,7 @@ const { readonly, disabled } = useFormContext(props);
             :autofocus="props.autofocus"
             :name="props.name"
             :pattern="patternSource"
-            :readonly="readonly"
+            :readonly="props.readonly"
             :disabled="disabled || props.loading"
             :minlength="props.minlength"
             :maxlength="props.maxlength"

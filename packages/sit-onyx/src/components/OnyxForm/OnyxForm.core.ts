@@ -8,7 +8,6 @@ const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createForm
  */
 export type FormInjectedProps = {
   disabled: boolean;
-  readonly: boolean;
 };
 
 /**
@@ -69,14 +68,12 @@ const createFormInjectionContext =
     get disabled() {
       return createCompute(formProps, props, "disabled", false);
     },
-    get readonly() {
-      return createCompute(formProps, props, "readonly", false);
-    },
   });
 
 export const provideFormContext = (formProps: Reactive<FormInjectedProps> | undefined) =>
   provide(FORM_INJECTION_KEY, createFormInjectionContext(formProps));
 
+const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
 /**
  * Provides the injected form properties (if available).
  * Otherwise a defined default is used.
@@ -95,8 +92,10 @@ export const provideFormContext = (formProps: Reactive<FormInjectedProps> | unde
  * const { disabled, readonly } = useFormContext(props);
  * ```
  */
-export const useFormContext = inject(
-  FORM_INJECTION_KEY,
-  /** Default */
-  createFormInjectionContext(),
-);
+export const useFormContext = (props: Reactive<LocalProps>) => {
+  return inject(
+    FORM_INJECTION_KEY,
+    /** Default */
+    DEFAULT_FORM_INJECTION_CONTEXT,
+  )(props);
+};

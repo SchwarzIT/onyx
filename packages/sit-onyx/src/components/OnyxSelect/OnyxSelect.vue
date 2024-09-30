@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   searchTerm: MANAGED_SYMBOL,
   open: MANAGED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
-  readonly: FORM_INJECTED_SYMBOL,
+  readonly: false,
   truncation: "ellipsis",
   valueLabel: undefined,
   alignment: "full",

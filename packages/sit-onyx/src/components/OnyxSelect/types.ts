@@ -81,7 +81,7 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
     /**
      * Whether the select should be readonly.
      */
-    readonly?: FormInjected<boolean>;
+    readonly?: boolean;
     /**
      * Label that will be shown in the input of OnyxSelect.
      * If unset, will be managed internally by comparing `modelValue` with `options`.
