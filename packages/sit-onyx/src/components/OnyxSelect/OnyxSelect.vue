@@ -18,7 +18,7 @@ import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,

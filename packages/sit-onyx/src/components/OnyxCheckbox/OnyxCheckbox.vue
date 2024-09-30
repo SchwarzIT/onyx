@@ -8,7 +8,7 @@ import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   modelValue: false,

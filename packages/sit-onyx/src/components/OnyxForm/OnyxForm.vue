@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDensity } from "../../composables/density";
-import { provideFormContext } from "./OnyxForm";
+import { provideFormContext } from "./OnyxForm.core";
 import type { OnyxFormProps } from "./types";
 
 const props = defineProps<OnyxFormProps>();
