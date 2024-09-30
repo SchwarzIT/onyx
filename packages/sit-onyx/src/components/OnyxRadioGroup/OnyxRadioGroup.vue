@@ -6,17 +6,19 @@ import type { SelectOptionValue } from "../../types";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { OnyxRadioGroupProps } from "./types";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
 
 const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
   name: () => useId() ?? "", // the name must be globally unique
   direction: "vertical",
   required: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
 const { densityClass } = useDensity(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+const { disabled } = useFormContext(props);
 
 const emit = defineEmits<{
   "update:modelValue": [selected: TValue];
@@ -35,7 +37,7 @@ const handleChange = (selected: boolean, value: TValue) => {
 <template>
   <fieldset
     :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
-    :disabled="props.disabled"
+    :disabled="disabled"
     role="radiogroup"
     :aria-label="props.label"
   >

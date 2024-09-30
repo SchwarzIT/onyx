@@ -10,12 +10,13 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
   step: 1,
   stripStep: false,
-  disabled: false,
-  readonly: false,
+  disabled: FORM_INJECTED_SYMBOL,
+  readonly: FORM_INJECTED_SYMBOL,
   loading: false,
   skeleton: false,
 });
@@ -32,6 +33,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const { readonly, disabled } = useFormContext(props);
 const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
@@ -73,9 +75,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <button
           type="button"
           class="onyx-stepper__counter"
-          :disabled="
-            (props.min && props.min === value) || props.disabled || props.readonly || props.loading
-          "
+          :disabled="(props.min && props.min === value) || disabled || readonly || props.loading"
           :aria-label="decrementLabel"
           @click="handleClick('stepDown')"
         >
@@ -92,12 +92,12 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           type="number"
           :aria-label="props.label"
           :autofocus="props.autofocus"
-          :disabled="props.disabled || props.loading"
+          :disabled="disabled || props.loading"
           :min="props.min"
           :max="props.max"
           :name="props.name"
           :placeholder="props.placeholder"
-          :readonly="props.readonly"
+          :readonly="readonly"
           :required="props.required"
           :step="props.step"
           :title="props.hideLabel ? props.label : undefined"
@@ -106,9 +106,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <button
           type="button"
           class="onyx-stepper__counter"
-          :disabled="
-            (props.max && props.max === value) || props.disabled || props.readonly || props.loading
-          "
+          :disabled="(props.max && props.max === value) || disabled || readonly || props.loading"
           :aria-label="incrementLabel"
           @click="handleClick('stepUp')"
         >

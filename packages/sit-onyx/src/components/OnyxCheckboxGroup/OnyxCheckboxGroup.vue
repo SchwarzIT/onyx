@@ -7,12 +7,13 @@ import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],
   direction: "vertical",
   withCheckAll: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
@@ -38,6 +39,8 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled && !i.skeleton).map(({ value }) => value),
 );
 
+const { disabled } = useFormContext(props);
+
 const checkAll = useCheckAll(
   enabledOptionValues,
   computed(() => props.modelValue),
@@ -54,7 +57,7 @@ const checkAllLabel = computed(() => {
 <template>
   <fieldset
     :class="['onyx-checkbox-group', densityClass]"
-    :disabled="props.disabled"
+    :disabled="disabled"
     :aria-label="props.label"
   >
     <legend v-if="!props.hideLabel" class="onyx-checkbox-group__label">

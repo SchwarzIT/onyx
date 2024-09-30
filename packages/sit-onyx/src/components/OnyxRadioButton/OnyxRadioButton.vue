@@ -3,12 +3,13 @@ import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxRadioButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   required: false,
   checked: false,
   loading: false,
@@ -24,6 +25,7 @@ const emit = defineEmits<{
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -32,7 +34,7 @@ const { densityClass } = useDensity(props);
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
+  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
     <label :class="['onyx-radio-button', densityClass]">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
       <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
@@ -45,7 +47,7 @@ const { densityClass } = useDensity(props);
         :name="props.name"
         :value="props.value"
         :checked="props.checked"
-        :disabled="props.disabled"
+        :disabled="disabled"
         :autofocus="props.autofocus"
       />
       <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">

@@ -18,11 +18,14 @@ import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
   searchTerm: MANAGED_SYMBOL,
   open: MANAGED_SYMBOL,
+  disabled: FORM_INJECTED_SYMBOL,
+  readonly: FORM_INJECTED_SYMBOL,
   truncation: "ellipsis",
   valueLabel: undefined,
   alignment: "full",

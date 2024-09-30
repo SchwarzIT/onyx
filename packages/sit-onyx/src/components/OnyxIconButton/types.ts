@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { AutofocusProp } from "../../types";
 import type { ButtonColor, ButtonType } from "../OnyxButton/types";
+import type { FormInjected } from "../OnyxForm/OnyxForm";
 
 export type OnyxIconButtonProps = DensityProp &
   AutofocusProp & {
@@ -11,7 +12,7 @@ export type OnyxIconButtonProps = DensityProp &
     /**
      * If the button should be disabled or not.
      */
-    disabled?: boolean;
+    disabled?: FormInjected<boolean>;
     /**
      * The button type.
      */
