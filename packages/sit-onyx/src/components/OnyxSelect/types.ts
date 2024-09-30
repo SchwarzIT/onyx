@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { ManagedProp } from "../../composables/useManagedState";
 import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 

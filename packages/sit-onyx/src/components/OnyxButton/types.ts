@@ -1,6 +1,6 @@
 import type { DensityProp } from "../../composables/density";
 import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 
 export type OnyxButtonProps = DensityProp &
   AutofocusProp & {

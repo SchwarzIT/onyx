@@ -10,7 +10,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
   step: 1,
@@ -88,7 +88,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           v-model.number="value"
           v-custom-validity
           class="onyx-stepper__native"
-          :class="{ 'onyx-stepper__native--force-invalid': errorMessages && wasTouched }"
+          :class="{ 'onyx-form-element--force-invalid': errorMessages && wasTouched }"
           type="number"
           :aria-label="props.label"
           :autofocus="props.autofocus"
