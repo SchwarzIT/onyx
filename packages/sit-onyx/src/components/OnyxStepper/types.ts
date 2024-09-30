@@ -49,7 +49,7 @@ export type OnyxStepperProps = DensityProp &
     /**
      * Whether the input should be readonly.
      */
-    readonly?: FormInjected<boolean>;
+    readonly?: boolean;
     /**
      * Whether the input is loading. User interaction will be disabled.
      */

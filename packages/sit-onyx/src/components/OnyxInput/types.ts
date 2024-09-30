@@ -51,7 +51,7 @@ export type OnyxInputProps = DensityProp &
     /**
      * Whether the input should be readonly.
      */
-    readonly?: FormInjected<boolean>;
+    readonly?: boolean;
     /**
      * Whether the input should be disabled.
      */
