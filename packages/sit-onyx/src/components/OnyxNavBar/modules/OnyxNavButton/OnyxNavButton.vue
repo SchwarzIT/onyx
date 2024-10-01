@@ -57,6 +57,7 @@ const handleParentClick = (event: MouseEvent) => {
     <template #button>
       <button
         class="onyx-nav-button__trigger onyx-text"
+        :class="{ 'onyx-nav-button__link': props.href != undefined }"
         role="menuitem"
         :aria-label="props.label"
         type="button"
@@ -113,6 +114,10 @@ $border-radius: var(--onyx-radius-sm);
       &:focus-visible {
         outline: 0.25rem solid var(--onyx-color-base-secondary-200);
       }
+    }
+
+    &__link {
+      cursor: pointer;
     }
 
     &--active,
