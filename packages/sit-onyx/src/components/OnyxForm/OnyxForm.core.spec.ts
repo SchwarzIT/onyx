@@ -9,16 +9,14 @@ import {
   type FormInjectedProps,
 } from "./OnyxForm.core";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let injected: any;
+let injected: (args: unknown[]) => void;
 
 vi.mock("vue", async (importOriginal) => {
   const mod = await importOriginal<typeof import("vue")>();
   return {
     ...mod,
     inject: () => injected,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    provide: (_: any, ctx: any) => (injected = ctx),
+    provide: (_: symbol, ctx: (...args: unknown[]) => void) => (injected = ctx),
   };
 });
 
