@@ -3,7 +3,10 @@ import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import type { OnyxDataGridRendererProps } from "./types";
 
-const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
+const props = withDefaults(defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>(), {
+  striped: true,
+  withVerticalBorders: true,
+});
 </script>
 
 <template>
