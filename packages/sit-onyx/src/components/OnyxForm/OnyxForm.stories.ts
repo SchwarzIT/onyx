@@ -8,7 +8,7 @@ import OnyxForm from "./OnyxForm.vue";
 
 /**
  * This component can be used in to wrap form components like OnyxInput/OnyxTextarea/OnyxStepper.
- * Currently it can be used to set all form elements to disabled.
+ * It allows for controlling the disabled state of all child form components.
  */
 const meta: Meta<typeof OnyxForm> = {
   title: "Form/Form",

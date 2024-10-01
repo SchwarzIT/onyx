@@ -53,11 +53,7 @@ const createCompute = <
     if (prop != undefined && prop !== FORM_INJECTED_SYMBOL) {
       return prop;
     }
-    const formProp = formProps?.[key];
-    if (formProp !== undefined) {
-      return formProp;
-    }
-    return defaultValue;
+    return formProps?.[key] ?? defaultValue;
   });
 
 const createFormInjectionContext =
