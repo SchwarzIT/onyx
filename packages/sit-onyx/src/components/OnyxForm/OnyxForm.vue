@@ -16,6 +16,7 @@ provideFormContext(props);
 
 const { densityClass } = useDensity(props);
 </script>
+
 <template>
   <form
     :class="{
