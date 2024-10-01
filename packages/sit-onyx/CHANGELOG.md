@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.47
+
+### Minor Changes
+
+- 8aa66eb: feat: implement basic OnyxDataGridRenderer component
+
+  - also support column grouping for the `OnyxTable` component via the `columnGroups` property
+
 ## 1.0.0-beta.46
 
 ### Patch Changes
