@@ -52,9 +52,28 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
           densityClass,
         ]"
       >
+        <colgroup
+          v-for="group of props.columnGroups"
+          :key="group.key"
+          :span="group.span"
+        ></colgroup>
+
         <thead v-if="slots.head" class="onyx-table__header">
+          <tr v-if="props.columnGroups?.length">
+            <th
+              v-for="group of props.columnGroups"
+              :key="group.key"
+              :colspan="group.span"
+              scope="colgroup"
+              class="onyx-table__colgroup"
+            >
+              {{ group.header }}
+            </th>
+          </tr>
+
           <slot name="head"></slot>
         </thead>
+
         <tbody>
           <slot>
             <!-- fallback content showing an "empty" state
@@ -109,7 +128,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
   }
 
-  th {
+  tr:first-of-type th {
     border-top: $border;
   }
 
@@ -213,19 +232,27 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
     th,
     td {
-      padding: var(--onyx-density-xs) var(--onyx-density-md);
       position: relative;
+      padding: var(--onyx-density-xs) var(--onyx-density-md);
+
+      &.onyx-table__colgroup {
+        padding-top: var(--onyx-density-3xs);
+        padding-bottom: var(--onyx-density-3xs);
+      }
     }
 
     th {
-      background-color: var(--onyx-color-base-neutral-200);
-      color: var(--onyx-color-text-icons-neutral-medium);
       font-size: 0.8125rem;
       line-height: 1.25rem;
       font-weight: 600;
 
-      &:hover {
-        background: var(--onyx-color-base-neutral-300);
+      &:not(.onyx-table__colgroup) {
+        background-color: var(--onyx-color-base-neutral-200);
+        color: var(--onyx-color-text-icons-neutral-medium);
+
+        &:hover {
+          background: var(--onyx-color-base-neutral-300);
+        }
       }
     }
 
@@ -257,7 +284,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     }
 
     // column hover styles
-    th:hover::before {
+    th:not(&__colgroup):hover::before {
       background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
       content: "";
       height: 100vh;
@@ -269,9 +296,15 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
       pointer-events: none;
     }
+
     // hover styles are disabled when the table is empty.
     &:has(&__empty) th {
       pointer-events: none;
+    }
+
+    &__colgroup {
+      background-color: var(--onyx-color-base-primary-100);
+      color: var(--onyx-color-text-icons-primary-intense);
     }
   }
 }
