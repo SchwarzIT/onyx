@@ -1,23 +1,13 @@
 <script lang="ts" setup>
-import { createToggletip, createTooltip } from "@sit-onyx/headless";
+import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
 import type { MaybeRefOrGetter, Ref, VNode } from "vue";
-import {
-  computed,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  shallowRef,
-  toValue,
-  watch,
-} from "vue";
+import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
-
 type CreateToggletipOptions = {
   toggleLabel: MaybeRefOrGetter<string>;
   isVisible?: Ref<boolean>;
@@ -36,7 +26,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   position: "auto",
   fitParent: false,
   open: "hover",
-  align: "auto",
+  alignment: "auto",
   density: "default",
 });
 
@@ -91,8 +81,8 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
     [`onyx-tooltip--${props.position}`]: props.position !== "auto",
-    [`onyx-tooltip--align--${wedgePosition.value}`]: props.align === "auto",
-    [`onyx-tooltip--align--${props.align}`]: props.align !== "auto",
+    [`onyx-tooltip--${wedgePosition.value}`]: props.alignment === "auto",
+    [`onyx-tooltip--${props.alignment}`]: props.alignment !== "auto",
   };
 });
 
@@ -113,23 +103,18 @@ const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRe
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
 
 // update open direction on resize to ensure the tooltip is always visible
-onMounted(() => {
-  const updateOnResize = () => {
-    updateOpenDirection();
-    updateWedgePosition();
-  };
-
-  window.addEventListener("resize", updateOnResize);
-
-  // initial update
+const updateDirections = () => {
   updateOpenDirection();
   updateWedgePosition();
+};
+
+useGlobalEventListener({
+  type: "resize",
+  listener: () => updateDirections(),
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", updateOpenDirection);
-  window.removeEventListener("resize", updateWedgePosition);
-});
+// initial update
+onMounted(() => updateDirections());
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async () => {
   await nextTick();
@@ -229,22 +214,20 @@ $wedge-size: 0.5rem;
       }
     }
 
-    &--align {
-      &--left {
-        left: var(--wedge-size);
-        transform: translateX(0);
+    &--left {
+      left: var(--wedge-size);
+      transform: translateX(0);
 
-        &::after {
-          left: 2 * $wedge-size;
-        }
+      &::after {
+        left: 2 * $wedge-size;
       }
-      &--right {
-        left: 100%;
-        transform: translateX(-100%);
+    }
+    &--right {
+      left: 100%;
+      transform: translateX(-100%);
 
-        &::after {
-          left: calc(100% - 2 * $wedge-size);
-        }
+      &::after {
+        left: calc(100% - 2 * $wedge-size);
       }
     }
   }

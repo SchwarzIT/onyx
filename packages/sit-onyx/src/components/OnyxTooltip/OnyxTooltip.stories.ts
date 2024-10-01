@@ -50,7 +50,7 @@ export const Default = {
     open: true,
     position: "auto",
     color: "neutral",
-    align: "auto",
+    alignment: "auto",
     density: "default",
   },
 } satisfies Story;

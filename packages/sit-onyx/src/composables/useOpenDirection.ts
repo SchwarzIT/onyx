@@ -23,22 +23,6 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
     openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
   };
 
-  /**
-   * Recursively finds the first parent element with hidden overflow.
-   */
-  const findParentWithHiddenOverflow = (element?: Element): Element | undefined => {
-    if (!element) return undefined;
-
-    const style = getComputedStyle(element);
-    if (style.overflow === "hidden" || style.overflow === "hidden auto") {
-      // if the element has hidden overflow, the flyout would be cut off by this element so we need to use
-      // this element as parent to calculate the open direction instead of the body.
-      return element;
-    }
-
-    return element.parentElement ? findParentWithHiddenOverflow(element.parentElement) : undefined;
-  };
-
   return {
     /**
      * Direction in which the flyout etc. should open to.
@@ -50,4 +34,20 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
      */
     updateOpenDirection,
   };
+};
+
+export const findParentWithHiddenOverflow = (element?: Element): Element | undefined => {
+  /**
+   * Recursively finds the first parent element with hidden overflow.
+   */
+  if (!element) return undefined;
+
+  const style = getComputedStyle(element);
+  if (style.overflow.includes("hidden")) {
+    // if the element has hidden overflow, the flyout would be cut off by this element so we need to use
+    // this element as parent to calculate the open direction instead of the body.
+    return element;
+  }
+
+  return element.parentElement ? findParentWithHiddenOverflow(element.parentElement) : undefined;
 };

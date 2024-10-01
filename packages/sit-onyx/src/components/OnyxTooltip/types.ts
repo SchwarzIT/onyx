@@ -31,7 +31,7 @@ export type OnyxTooltipProps = DensityProp & {
   /**
    * How to align the tooltip relative to the parent element.
    */
-  align?: TooltipAlignment;
+  alignment?: TooltipAlignment;
   /**
    * If `true`, the tooltip will match the width of the parent/slot element.
    */
