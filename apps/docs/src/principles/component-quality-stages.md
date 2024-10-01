@@ -13,7 +13,7 @@ This page describes which perspective must be taken into consideration when crea
 | Defined slots and functions                                                 |  🧑‍🎨   | 🧑‍💻  |
 | Defined states: hover / disabled / active /...                              |  🧑‍🎨   | 🧑‍💻  |
 | Component design fits our principles                                        |  🧑‍🎨   | 🧑‍💻  |
-| Design tokens are used                                                      |  🧑‍🎨   | 🧑‍💻  |
+| Design variables are used                                                   |  🧑‍🎨   | 🧑‍💻  |
 | Considers darkmode / lightmode                                              |   -   | 🧑‍💻  |
 | Defined basic layout in figma design                                        |   -   | 🧑‍💻  |
 | Market research / internal experience exchange was performed                |   -   | 🧑‍💻  |

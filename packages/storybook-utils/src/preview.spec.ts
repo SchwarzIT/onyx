@@ -1,25 +1,19 @@
 import bellRing from "@sit-onyx/icons/bell-ring.svg?raw";
 import calendar from "@sit-onyx/icons/calendar.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 import { replaceAll, sourceCodeTransformer } from "./preview";
-import * as sourceCodeGenerator from "./source-code-generator";
 
 describe("preview.ts", () => {
   test("should transform source code and add icon/onyx imports", () => {
-    // ARRANGE
-    const generatorSpy = vi.spyOn(sourceCodeGenerator, "generateSourceCode")
-      .mockReturnValue(`<template>
+    // ACT
+    const sourceCode = sourceCodeTransformer(`<template>
 <OnyxTest icon='${placeholder}' test='${bellRing}' :obj="{foo:'${replaceAll(calendar, '"', "\\'")}'}" />
 <OnyxOtherComponent />
 <OnyxComp>Test</OnyxComp>
 </template>`);
 
-    // ACT
-    const sourceCode = sourceCodeTransformer("", { title: "OnyxTest", args: {} });
-
     // ASSERT
-    expect(generatorSpy).toHaveBeenCalledOnce();
     expect(sourceCode).toBe(`<script lang="ts" setup>
 import { OnyxComp, OnyxOtherComponent, OnyxTest } from "sit-onyx";
 import bellRing from "@sit-onyx/icons/bell-ring.svg?raw";

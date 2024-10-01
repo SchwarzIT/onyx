@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { createId } from "@sit-onyx/headless";
+import { useId } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import type { SelectOptionValue } from "../../types";
@@ -8,7 +8,7 @@ import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { OnyxRadioGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
-  name: () => createId("radio-button-group-name"), // the name must be globally unique
+  name: () => useId() ?? "", // the name must be globally unique
   direction: "vertical",
   required: false,
   disabled: false,

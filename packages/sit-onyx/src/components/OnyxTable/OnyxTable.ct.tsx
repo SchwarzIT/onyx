@@ -44,15 +44,28 @@ test.describe("Screenshot tests", () => {
       </OnyxTable>
     ),
   });
+});
 
+test.describe("SCreenshot tests (densities)", () => {
   executeMatrixScreenshotTest({
     name: "Table (densities)",
     columns: DENSITIES,
-    rows: ["default", "focus-visible"],
+    rows: ["default", "focus-visible", "columnGroups"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
-    component: (column) => (
-      <OnyxTable density={column}>
+    component: (column, row) => (
+      <OnyxTable
+        density={column}
+        withVerticalBorders={row === "columnGroups"}
+        columnGroups={
+          row === "columnGroups"
+            ? [
+                { key: "1", span: 2, header: "Group 1" },
+                { key: "", span: 1 },
+              ]
+            : undefined
+        }
+      >
         {tableHead}
         {tableBody}
       </OnyxTable>
@@ -61,7 +74,9 @@ test.describe("Screenshot tests", () => {
       if (row === "focus-visible") await page.keyboard.press("Tab");
     },
   });
+});
 
+test.describe("Screenshot tests (hover styles)", () => {
   executeMatrixScreenshotTest({
     name: "Table (hover styles)",
     columns: ["default", "striped"],
@@ -79,7 +94,9 @@ test.describe("Screenshot tests", () => {
       if (row === "column-hover") await component.getByText("Fruit").hover();
     },
   });
+});
 
+test.describe("Screenshot tests (scrolling)", () => {
   executeMatrixScreenshotTest({
     name: "Table (scrolling)",
     columns: ["default", "horizontal-scroll"],
@@ -125,7 +142,9 @@ test.describe("Screenshot tests", () => {
       if (row === "vertical-scroll") await component.getByText("Price").hover();
     },
   });
+});
 
+test.describe("Screenshot tests (hover)", () => {
   executeMatrixScreenshotTest({
     name: "Table (empty variations)",
     columns: ["default", "no-header"],

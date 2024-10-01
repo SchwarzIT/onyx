@@ -1,5 +1,49 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.5
+
+### Minor Changes
+
+- 3e49c73: feat: update icons
+
+  #### New icons
+
+  - key-settings
+
+## 1.0.0-beta.4
+
+### Minor Changes
+
+- 33700f9: feat: update icons
+
+  Also fixed icon aliases in the metadata for most icons which are now separated correctly
+
+  #### New icons
+
+  - heptagon-cloud-foundry
+
+  #### Modified icons
+
+  - sidebar-arrow-right
+
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- 188c94d: fix(icons): prevent empty string aliases
+
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 79033ac: feat: update icons
+
+  #### New icons
+
+  - heart-filled
+  - rocket-plus
+  - star-filled
+
 ## 1.0.0-beta.1
 
 ### Major Changes

@@ -64,6 +64,32 @@ export const VerticalBorders = {
 } satisfies Story;
 
 /**
+ * This example shows a table with column groups that can be used to group related columns together.
+ * Note that the `withVerticalBorders` property should be used with column groups.
+ */
+export const ColumnGroups = {
+  args: {
+    ...VerticalBorders.args,
+    columnGroups: [
+      {
+        key: "general",
+        span: 2,
+        header: "General",
+      },
+      {
+        key: "inventory",
+        span: 2,
+        header: "Inventory",
+      },
+      {
+        key: "rest",
+        span: 1,
+      },
+    ],
+  },
+} satisfies Story;
+
+/**
  * This example shows a table without a header.
  */
 export const WithoutHeader = {

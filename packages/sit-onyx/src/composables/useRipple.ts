@@ -1,4 +1,3 @@
-import { createId } from "@sit-onyx/headless";
 import { onBeforeMount, reactive, ref, type Ref } from "vue";
 
 export type RippleInstance = {
@@ -25,7 +24,7 @@ export const useRipple = (
     isPointerDown.value = true;
 
     const ripple: RippleInstance = {
-      id: createId("ripple"),
+      id: Date.now().toString(),
       left: `${event.x - rect.left}px`,
       top: `${event.y - rect.top}px`,
       animationEnded: false,

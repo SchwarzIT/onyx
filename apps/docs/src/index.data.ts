@@ -91,13 +91,18 @@ export default defineLoader({
       },
       {
         name: "Table",
-        dueDate: basicComponentsDueDate,
+        dueDate: "11/2024",
         status: getImplementedStatus("OnyxTable"),
         href: "https://storybook.onyx.schwarz/?path=/docs/data-table--docs",
       },
       {
+        name: "DataGrid",
+        dueDate: "12/2024",
+        status: "in-progress",
+      },
+      {
         name: "Headline",
-        dueDate: basicComponentsDueDate,
+        dueDate: "10/2024",
         status: getImplementedStatus("OnyxHeadline"),
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-headline--docs",
       },
@@ -105,13 +110,13 @@ export default defineLoader({
       {
         name: "Nav bar",
         dueDate: basicComponentsDueDate,
-        status: getImplementedStatus("OnyxNavBar"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-navbar--docs",
       },
       {
         name: "Select",
         dueDate: basicComponentsDueDate,
-        status: getImplementedStatus("OnyxSelect"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-select--docs",
       },
       {
@@ -153,7 +158,7 @@ export default defineLoader({
       {
         name: "Tooltip",
         dueDate: basicComponentsDueDate,
-        status: getImplementedStatus("OnyxTooltip"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-tooltip--docs",
       },
       {
@@ -184,6 +189,7 @@ export default defineLoader({
         name: "Dialog",
         status: getImplementedStatus("OnyxDialog"),
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
+        dueDate: "01/2025",
       },
       {
         name: "Toast",
@@ -193,21 +199,32 @@ export default defineLoader({
       { name: "Footer", status: getImplementedStatus("OnyxFooter") },
       { name: "Data grid", status: getImplementedStatus("OnyxDataGrid") },
       { name: "Filter", status: getImplementedStatus("OnyxFilter") },
-      { name: "Sidebar", status: getImplementedStatus("OnyxSidebar") },
+      { name: "Sidebar", status: "in-progress", dueDate: "12/2024" },
       { name: "Card", status: getImplementedStatus("OnyxCard") },
       { name: "Popover", status: getImplementedStatus("OnyxPopover") },
-      { name: "Pagination", status: getImplementedStatus("OnyxPagination") },
-      { name: "Datepicker", status: getImplementedStatus("OnyxDatepicker") },
-      { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
+      {
+        dueDate: "10/2024",
+        name: "Pagination",
+        status: getImplementedStatus("OnyxPagination"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/data-pagination--docs",
+      },
+      { name: "Datepicker", status: getImplementedStatus("OnyxDatepicker"), dueDate: "01/2025" },
+      { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker"), dueDate: "01/2025" },
       { name: "Calendar", status: getImplementedStatus("OnyxCalendar") },
       { name: "Accordion", status: getImplementedStatus("OnyxAccordion") },
       { name: "Slider", status: getImplementedStatus("OnyxSlider") },
-      { name: "Stepper", status: getImplementedStatus("OnyxStepper") },
+      {
+        name: "Stepper",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-stepper--docs",
+      },
       { name: "Upload", status: getImplementedStatus("OnyxUpload") },
       { name: "Breadcrumb", status: getImplementedStatus("OnyxBreadcrumb") },
       { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
       { name: "Wizard", status: getImplementedStatus("OnyxWizard") },
       { name: "Tabs", status: getImplementedStatus("OnyxTabs") },
+      { name: "Search", status: "in-progress", dueDate: "11/2024" },
+      { name: "Filters", status: "in-progress", dueDate: "11/2024" },
     ];
 
     return {

@@ -1,5 +1,64 @@
 # sit-onyx
 
+## 1.0.0-beta.47
+
+### Minor Changes
+
+- 8aa66eb: feat: implement basic OnyxDataGridRenderer component
+
+  - also support column grouping for the `OnyxTable` component via the `columnGroups` property
+
+## 1.0.0-beta.46
+
+### Patch Changes
+
+- Updated dependencies [3e49c73]
+  - @sit-onyx/icons@1.0.0-beta.5
+
+## 1.0.0-beta.45
+
+### Patch Changes
+
+- Updated dependencies [33700f9]
+  - @sit-onyx/icons@1.0.0-beta.4
+
+## 1.0.0-beta.44
+
+### Patch Changes
+
+- Updated dependencies [188c94d]
+  - @sit-onyx/icons@1.0.0-beta.3
+
+## 1.0.0-beta.43
+
+### Major Changes
+
+- e6af99b: feat: Remove/Rename emits that collide with native event names
+
+  - OnyxInput, OnyxTextarea and OnyxStepper: Remove `focus` and `blur` event - Use `focusin`/`focusout` or `@focus.capture`/`@focus.blur` instead
+  - OnyxInput and OnyxTextarea: Remove Vue `change` emit - You will now receive the native `@change` event, but the value must now retrieved with with `$event.target.value` or use `@update:modelvalue`
+  - OnyxNavBar: Rename `appAreaClick` to `navigateToStart` and `backButtonClick` to `navigateBack`
+  - OnyxNavButton: Rename `click` to `navigate`, also the native MouseEvent is now passed as second parameter
+  - OnyxNavItem: Rename `click` to `navigate`
+  - OnyxRadioButton: Remove Vue `change` emit - You will now receive the native `@change` event, but the value must now retrieved with with `$event.target.value` or use `@update:modelvalue`
+  - OnyxSelectInput: Rename `click` to `inputClick`
+  - OnyxToastMessage: Remove Vue `click` emit - You will now always receive the native `@click` event, even when `clickable` prop is false/not set.
+
+## 1.0.0-beta.42
+
+### Major Changes
+
+- dc00809: feat: support SSR for OnyxSelect, OnyxNavButton, OnyxUserMenu and more components
+
+  The minimum required Vue version was bumped to `>= 3.5.0` because we make use of `useId()` now.
+
+## 1.0.0-beta.41
+
+### Patch Changes
+
+- Updated dependencies [79033ac]
+  - @sit-onyx/icons@1.0.0-beta.2
+
 ## 1.0.0-beta.40
 
 ### Patch Changes
@@ -1215,7 +1274,7 @@
 
 - cb3a72b: add CSS variables for box shadows
 
-  See [token documentation](https://onyx.schwarz/tokens/shadows.html) for a full list of available shadows.
+  See [token documentation](https://onyx.schwarz/variables/shadows.html) for a full list of available shadows.
 
 ### Patch Changes
 

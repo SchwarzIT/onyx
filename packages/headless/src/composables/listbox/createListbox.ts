@@ -1,5 +1,4 @@
-import { computed, nextTick, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
-import { createId } from "../..";
+import { computed, nextTick, ref, unref, useId, watchEffect, type MaybeRef, type Ref } from "vue";
 import { createBuilder, type VBindAttributes } from "../../utils/builder";
 import { useTypeAhead } from "../helpers/useTypeAhead";
 
@@ -94,7 +93,7 @@ export const createListbox = createBuilder(
 
     const getOptionId = (value: TValue) => {
       if (!descendantKeyIdMap.has(value)) {
-        descendantKeyIdMap.set(value, createId("listbox-option"));
+        descendantKeyIdMap.set(value, useId() ?? value.toString());
       }
       return descendantKeyIdMap.get(value)!;
     };

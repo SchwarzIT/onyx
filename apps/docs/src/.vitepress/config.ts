@@ -1,9 +1,9 @@
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitepress";
-import packageJson from "../../../../packages/sit-onyx/package.json";
+import { defineConfig, type DefaultTheme, type UserConfig } from "vitepress";
+import packageJson from "../../../../packages/sit-onyx/package.json" with { type: "json" };
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export const CONFIG = {
   vite: {
     resolve: {
       alias: {
@@ -56,7 +56,7 @@ export default defineConfig({
         text: "Docs",
         items: [
           { text: "Basics", link: "/basics/", activeMatch: "/basics/" },
-          { text: "Tokens", link: "/tokens/colors", activeMatch: "/tokens/" },
+          { text: "Variables", link: "/variables/colors", activeMatch: "/variables/" },
           { text: "Development", link: "/development/", activeMatch: "/development/" },
           { text: "Principles & Contribution", link: "/principles/", activeMatch: "/principles/" },
         ],
@@ -118,10 +118,10 @@ export default defineConfig({
           ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
-      "/tokens": [
+      "/variables": [
         {
-          text: "Design Tokens",
-          base: "/tokens",
+          text: "Design Variables",
+          base: "/variables",
           items: [
             { text: "Introduction", link: "/introduction" },
             { text: "Colors", link: "/colors" },
@@ -214,7 +214,9 @@ export default defineConfig({
       ],
     },
   },
-});
+} as const satisfies UserConfig<DefaultTheme.Config>;
+
+export default defineConfig(CONFIG);
 
 /** Gets the given path while ensuring cross-platform and correct decoding */
 function getFilePath(path: string) {

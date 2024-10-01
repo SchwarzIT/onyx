@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { createComboBox, createId, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, toRef, watch, watchEffect } from "vue";
+import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
+import { computed, nextTick, ref, toRef, useId, watch, watchEffect } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
@@ -148,7 +148,7 @@ watch(
 );
 
 /** unique ID to identify the `select all` checkbox */
-const CHECK_ALL_ID = createId("ONYX_CHECK_ALL") as TValue;
+const CHECK_ALL_ID = useId() as TValue;
 
 /**
  * IDs of all options that can be navigated with the keyboard.
@@ -307,6 +307,7 @@ watchEffect(() => {
 const selectInputProps = computed(() => {
   const baseProps: OnyxSelectInputProps = {
     ...props,
+    open: undefined, // needed to prevent hydration mismatch in SSR when open prop is MANAGED_SYMBOL
     modelValue: selectionLabels.value,
   };
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
@@ -321,7 +322,7 @@ const selectInputProps = computed(() => {
       v-bind="selectInputProps"
       :show-focus="open"
       :autofocus="props.autofocus"
-      @click="onToggle"
+      @input-click="onToggle"
       @validity-change="emit('validityChange', $event)"
     />
 
@@ -380,8 +381,12 @@ const selectInputProps = computed(() => {
               </OnyxSelectOption>
             </ul>
 
+            <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
             <ul
-              v-for="(groupOptions, group) in groupedOptions"
+              v-for="(groupOptions, group) in groupedOptions as Record<
+                string,
+                SelectOption<TValue>[]
+              >"
               :key="group"
               class="onyx-select__group"
               v-bind="headlessGroup({ label: group })"
@@ -394,6 +399,7 @@ const selectInputProps = computed(() => {
                 {{ group }}
               </li>
 
+              <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <OnyxSelectOption
                 v-for="option in groupOptions"
                 :key="option.value.toString()"
@@ -402,7 +408,8 @@ const selectInputProps = computed(() => {
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    selected: arrayValue.some((value) => value === option.value),
+                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
+                    selected: arrayValue.some((value: TValue) => value === option.value),
                   })
                 "
                 :multiple="props.multiple"

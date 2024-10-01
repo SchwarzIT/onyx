@@ -1,7 +1,5 @@
-import * as changesetPre from "@changesets/pre";
 import writeChangeset from "@changesets/write";
 import { exec } from "node:child_process";
-import { writeFile } from "node:fs/promises";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { generateChangeset } from "./changeset";
 
@@ -103,34 +101,6 @@ describe("changeset.ts", () => {
         summary: expect.any(String),
       },
       expect.any(String), // file path,
-    );
-  });
-
-  test("should add changeset to pre.json if repo is in pre-release mode", async () => {
-    // ARRANGE
-    const writeChangesetSpy = vi.mocked(writeChangeset).mockResolvedValue("changeset-id-42");
-    const readPreSpy = vi
-      .spyOn(changesetPre, "readPreState")
-      .mockResolvedValue({ changesets: ["a", "z"], initialVersions: {}, mode: "pre", tag: "" });
-    const writeFileMock = vi.mocked(writeFile);
-
-    vi.spyOn(process, "cwd").mockReturnValue("/test/cwd/packages/icons");
-
-    mockExec(["A newIcon1.svg", "M modifiedIcon1.svg"]);
-
-    // ACT
-    await generateChangeset();
-
-    // ASSERT
-    expect(writeChangesetSpy).toHaveBeenCalled();
-    expect(readPreSpy).toHaveBeenCalled();
-    expect(writeFileMock).toHaveBeenCalledWith(
-      "/test/cwd/.changeset/pre.json",
-      JSON.stringify(
-        { changesets: ["a", "changeset-id-42", "z"], initialVersions: {}, mode: "pre", tag: "" },
-        null,
-        2,
-      ) + "\n",
     );
   });
 

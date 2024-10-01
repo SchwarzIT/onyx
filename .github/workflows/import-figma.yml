@@ -65,7 +65,9 @@ jobs:
         with:
           commit-message: "feat: update Figma variables"
           title: "feat: update Figma variables"
-          body: This is an auto-generated pull request. All Figma variables have been updated.
+          body: |
+            This is an auto-generated pull request.
+            All variables have been updated from the [Figma file](https://www.figma.com/design/${{ vars.FIGMA_FILE_KEY }}).
           branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

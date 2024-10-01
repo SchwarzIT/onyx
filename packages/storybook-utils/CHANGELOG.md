@@ -1,5 +1,88 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.53
+
+### Patch Changes
+
+- Updated dependencies [8aa66eb]
+  - sit-onyx@1.0.0-beta.47
+
+## 1.0.0-beta.52
+
+### Patch Changes
+
+- Updated dependencies [3e49c73]
+  - @sit-onyx/icons@1.0.0-beta.5
+  - sit-onyx@1.0.0-beta.46
+
+## 1.0.0-beta.51
+
+### Minor Changes
+
+- 889383b: feat: added withNativeEventLogging to log and document native events
+
+## 1.0.0-beta.50
+
+### Patch Changes
+
+- Updated dependencies [33700f9]
+  - @sit-onyx/icons@1.0.0-beta.4
+  - sit-onyx@1.0.0-beta.45
+
+## 1.0.0-beta.49
+
+### Patch Changes
+
+- Updated dependencies [188c94d]
+  - @sit-onyx/icons@1.0.0-beta.3
+  - sit-onyx@1.0.0-beta.44
+
+## 1.0.0-beta.48
+
+### Patch Changes
+
+- Updated dependencies [e6af99b]
+  - sit-onyx@1.0.0-beta.43
+
+## 1.0.0-beta.47
+
+### Patch Changes
+
+- b9fd3bc: chore: update to Storybook 8.3
+
+  Fix Storybook peer dependency to version `>= 8.3.0` since the version we specified in `@sit-onyx/storybook-utils@1.0.0-beta.44` did not exist.
+
+## 1.0.0-beta.46
+
+### Patch Changes
+
+- Updated dependencies [dc00809]
+  - sit-onyx@1.0.0-beta.42
+
+## 1.0.0-beta.45
+
+### Patch Changes
+
+- Updated dependencies [79033ac]
+  - @sit-onyx/icons@1.0.0-beta.2
+  - sit-onyx@1.0.0-beta.41
+
+## 1.0.0-beta.44
+
+### Major Changes
+
+- e2648b6: bump minimum Storybook version to `8.3.0-alpha.5`
+
+  Storybook version `8.3.0-alpha.5` now official supports the improved source code generation, see [changelog](https://github.com/storybookjs/storybook/blob/next/CHANGELOG.prerelease.md#830-alpha3) so we removed our temporarily forked source code generator from `@sit-onyx/storybook-utils`.
+
+  Therefore, the minimum Storybook version was bumped to `8.3.0-alpha.5` which also includes a bug fix that significantly reduces the bundle size when building the Storybook.
+
+## 1.0.0-beta.43
+
+### Patch Changes
+
+- 08a9d76: fix(enhanceEventArgTypes): log actions/events without "on" prefix
+
 ## 1.0.0-beta.42
 
 ### Patch Changes

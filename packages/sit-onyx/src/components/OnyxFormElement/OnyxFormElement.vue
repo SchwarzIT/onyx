@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { createId } from "@sit-onyx/headless";
-import { computed } from "vue";
+import { computed, useId } from "vue";
 import { useRequired } from "../../composables/required";
 import { injectI18n } from "../../i18n";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
@@ -8,7 +7,7 @@ import type { OnyxFormElementProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFormElementProps>(), {
   required: false,
-  id: () => createId("onyx-form-element"),
+  id: () => useId() ?? "",
 });
 
 const { t } = injectI18n();
@@ -40,7 +39,7 @@ defineSlots<{
       <OnyxInfoTooltip
         v-if="props.labelTooltip"
         class="onyx-form-element__label-tooltip"
-        :open="'hover'"
+        open="hover"
         :text="props.labelTooltip"
       />
       <span
@@ -62,7 +61,7 @@ defineSlots<{
         color="danger"
         position="bottom"
         :label="t('tooltip.error')"
-        :open="'hover'"
+        open="hover"
         :text="errorMessages.longMessage"
       />
 
@@ -73,7 +72,7 @@ defineSlots<{
         v-if="props.messageTooltip"
         class="onyx-form-element__message-tooltip"
         position="bottom"
-        :open="'hover'"
+        open="hover"
         :text="props.messageTooltip"
       />
       <span v-if="counterText" class="onyx-form-element__counter">

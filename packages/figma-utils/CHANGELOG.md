@@ -1,5 +1,22 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-beta.4
+
+### Major Changes
+
+- 33700f9: refactor(icon-import): change alias separator to comma
+
+  To use the previous behavior, change the alias separator to `|`:
+
+  - if using CLI: add flag `-s "|"`
+  - if using function: `parseComponentsToIcons({ aliasSeparator: "|" })`
+
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- 188c94d: fix(icons): prevent empty string aliases
+
 ## 1.0.0-beta.2
 
 ### Minor Changes

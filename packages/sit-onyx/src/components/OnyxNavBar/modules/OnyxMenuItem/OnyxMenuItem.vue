@@ -5,13 +5,6 @@ import { type OnyxMenuItemProps } from "./types";
 
 const props = defineProps<OnyxMenuItemProps>();
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the menu item is clicked (via click or keyboard).
-   */
-  click: [];
-}>();
-
 const {
   elements: { listItem, menuItem },
 } = createMenuItems();
@@ -37,7 +30,6 @@ const {
           disabled: !props.href && props.disabled,
         })
       "
-      @click="emit('click')"
     >
       <slot></slot>
     </component>

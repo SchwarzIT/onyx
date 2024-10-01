@@ -10,7 +10,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
     <EditGridElementDialog
       open
-      onSubmit={(element) => submitEvents.push(element)}
+      onApply={(element) => submitEvents.push(element)}
       onClose={() => closeEvents++}
     />,
   );

@@ -18,11 +18,6 @@ defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
   default(): unknown;
 }>();
-
-const emit = defineEmits<{
-  /** Emitted when the button is clicked (and is not disabled). */
-  click: [];
-}>();
 </script>
 
 <template>
@@ -41,7 +36,6 @@ const emit = defineEmits<{
     ]"
     :disabled="props.disabled || props.loading"
     :autofocus="props.autofocus"
-    @click="emit('click')"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
     <OnyxIcon v-else-if="props.icon" :icon="props.icon" />

@@ -1,3 +1,4 @@
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxLink from "./OnyxLink.vue";
 
@@ -15,6 +16,7 @@ const meta: Meta<typeof OnyxLink> = {
       options: ["auto", true, false],
       control: { type: "radio" },
     },
+    ...withNativeEventLogging(["onClick"]),
   },
   decorators: [
     (story) => ({
