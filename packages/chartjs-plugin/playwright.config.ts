@@ -15,6 +15,7 @@ export default defineConfig({
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
   ignoreSnapshots: !process.env.CI,
   updateSnapshots: "none",
+  expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01 } },
   fullyParallel: true,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
   retries: process.env.CI ? 2 : 0, // retry on CI only
