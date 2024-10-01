@@ -1,4 +1,9 @@
-import type { SBType } from "storybook/internal/types";
+import type {
+  ArgTypesEnhancer,
+  InputType,
+  SBType,
+  StrictInputType,
+} from "storybook/internal/types";
 
 /**
  * Call a function `cb` for every type node in the storybook type tree.
@@ -32,4 +37,49 @@ export const walkTree = <TValue>(
       undefined,
     );
   }
+};
+
+const SB_TYPE_CONTROL_MAP: Partial<Record<SBType["name"], InputType["control"]>> = {
+  boolean: { type: "boolean" },
+  string: { type: "text" },
+  number: { type: "number" },
+};
+
+const getFormInjectedParent = (symbol: string, inputType?: StrictInputType) => {
+  if (!inputType?.type || inputType.table?.defaultValue?.summary !== symbol) {
+    return undefined;
+  }
+
+  return walkTree(inputType.type, (elem, parent) =>
+    elem.name === "symbol" || (elem.name === "other" && elem.value === "unique symbol")
+      ? parent
+      : undefined,
+  );
+};
+
+export const createSymbolArgTypeEnhancer = (
+  symbol: string,
+  description: string,
+): ArgTypesEnhancer => {
+  return (context) => {
+    Object.values(context.argTypes)
+      .map((argType) => {
+        const parent = getFormInjectedParent(symbol, argType);
+        return { argType, parent };
+      })
+      .filter(({ parent }) => parent)
+      .forEach(({ argType, parent }) => {
+        const firstAvailableControl = walkTree(
+          parent || argType.type!,
+          (sb) => SB_TYPE_CONTROL_MAP[sb.name],
+        );
+
+        if (firstAvailableControl && argType.table?.defaultValue) {
+          argType.control = firstAvailableControl;
+          argType.table.defaultValue.detail = description;
+        }
+      });
+
+    return context.argTypes;
+  };
 };
