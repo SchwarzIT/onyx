@@ -5,9 +5,9 @@ import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   modelValue: () => [],

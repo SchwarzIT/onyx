@@ -12,13 +12,13 @@ import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 
 const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,

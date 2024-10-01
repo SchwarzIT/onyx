@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { computed, ref, type ComponentInstance } from "vue";
 import { useDensity } from "../../composables/density";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
