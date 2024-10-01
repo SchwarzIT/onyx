@@ -61,9 +61,7 @@ const createFormInjectionContext =
   (
     props: Reactive<LocalProps>,
   ): { [TKey in keyof FormInjectedProps]: Ref<FormInjectedProps[TKey]> } => ({
-    get disabled() {
-      return createCompute(formProps, props, "disabled", false);
-    },
+    disabled: createCompute(formProps, props, "disabled", false),
   });
 
 export const provideFormContext = (formProps: Reactive<FormInjectedProps> | undefined) =>
