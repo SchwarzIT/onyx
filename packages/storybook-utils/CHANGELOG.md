@@ -1,5 +1,16 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.54
+
+### Minor Changes
+
+- 5d8349c: New createSymbolArgTypeEnhancer which adds description text to symbols used as default props
+
+### Patch Changes
+
+- Updated dependencies [5d8349c]
+  - sit-onyx@1.0.0-beta.48
+
 ## 1.0.0-beta.53
 
 ### Patch Changes
