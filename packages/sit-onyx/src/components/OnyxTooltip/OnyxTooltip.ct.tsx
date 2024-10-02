@@ -129,6 +129,7 @@ test.describe("Screenshot tests", () => {
           icon={row === "icon" ? mockPlaywrightIcon : undefined}
           fitParent={column === "fit-parent"}
           open={true}
+          alignment="center"
         >
           <span
             style={{
