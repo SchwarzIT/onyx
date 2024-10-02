@@ -2,6 +2,7 @@ import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp } from "../../types";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxInputProps = DensityProp &
@@ -54,7 +55,7 @@ export type OnyxInputProps = DensityProp &
     /**
      * Whether the input should be disabled.
      */
-    disabled?: boolean;
+    disabled?: FormInjected<boolean>;
     /**
      * Whether the input is loading. User interaction will be disabled.
      */
