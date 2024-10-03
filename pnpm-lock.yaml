@@ -318,6 +318,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
+      '@storybook/addon-a11y':
+        specifier: ^8.3.4
+        version: 8.3.4(storybook@8.3.4)
       typescript:
         specifier: '>= 5.2.2'
         version: 5.6.2
@@ -1863,6 +1866,11 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
+
+  '@storybook/addon-a11y@8.3.4':
+    resolution: {integrity: sha512-mbLAJ9vW879Fq66zTUp7Gn7GQ9ZieYDj90ngMsZIjX42SsJEkeIrwbpkwbHlJBlWm2cm7hcF+BrULI0CmTIFpQ==}
+    peerDependencies:
+      storybook: ^8.3.4
 
   '@storybook/addon-actions@8.3.4':
     resolution: {integrity: sha512-1y0yD3upKcyzNwwA6loAGW2cRDqExwl4oAT7GJQA4tmabI+fNwmANSgU/ezLvvSUf4Qo0eJHg2Zcn8y+Apq2eA==}
@@ -8020,6 +8028,12 @@ snapshots:
   '@shikijs/vscode-textmate@9.2.2': {}
 
   '@sindresorhus/merge-streams@2.3.0': {}
+
+  '@storybook/addon-a11y@8.3.4(storybook@8.3.4)':
+    dependencies:
+      '@storybook/addon-highlight': 8.3.4(storybook@8.3.4)
+      axe-core: 4.10.0
+      storybook: 8.3.4
 
   '@storybook/addon-actions@8.3.4(storybook@8.3.4)':
     dependencies:

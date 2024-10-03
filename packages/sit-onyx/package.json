@@ -55,5 +55,8 @@
     "sass": "catalog:",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.1.6"
+  },
+  "dependencies": {
+    "@storybook/addon-a11y": "^8.3.4"
   }
 }
