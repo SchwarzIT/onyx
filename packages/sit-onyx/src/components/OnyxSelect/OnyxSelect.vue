@@ -12,6 +12,7 @@ import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
@@ -23,6 +24,8 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
   loading: false,
   searchTerm: MANAGED_SYMBOL,
   open: MANAGED_SYMBOL,
+  disabled: FORM_INJECTED_SYMBOL,
+  readonly: false,
   truncation: "ellipsis",
   valueLabel: undefined,
   alignment: "full",

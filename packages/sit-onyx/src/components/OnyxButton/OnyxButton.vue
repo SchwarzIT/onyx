@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, type ComponentInstance } from "vue";
 import { useDensity } from "../../composables/density";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
@@ -8,7 +9,7 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   type: "button",
   color: "primary",
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
 });
 
 const { densityClass } = useDensity(props);
+const { disabled } = useFormContext(props);
 
 const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
 const rippleEvents = computed(() => rippleRef.value?.events ?? {});
@@ -33,7 +35,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
       { 'onyx-button--loading': props.loading },
       densityClass,
     ]"
-    :disabled="props.disabled || props.loading"
+    :disabled="disabled || props.loading"
     :type="props.type"
     :aria-label="props.loading ? props.label : undefined"
     :autofocus="props.autofocus"

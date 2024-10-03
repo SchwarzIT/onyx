@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { ManagedProp } from "../../composables/useManagedState";
 import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
@@ -70,9 +71,13 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
   SelectModelValueProps<TValue> &
   SelectSearchProps &
-  Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus"> &
+  Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus" | "disabled"> &
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {
+    /**
+     * Whether the select should be disabled.
+     */
+    disabled?: FormInjected<boolean>;
     /**
      * Label that will be shown in the input of OnyxSelect.
      * If unset, will be managed internally by comparing `modelValue` with `options`.

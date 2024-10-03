@@ -1,3 +1,4 @@
+import type { FormInjected } from "../components/OnyxForm/OnyxForm.core";
 import type { DensityProp } from "../composables/density";
 import type { TruncationType } from "./fonts";
 
@@ -30,7 +31,7 @@ export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValu
   /**
    * Whether to disable the component and prevent user interaction.
    */
-  disabled?: boolean;
+  disabled?: FormInjected<boolean>;
   /**
    * Shows a loading indicator.
    */

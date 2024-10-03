@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -13,7 +14,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   required: false,
   autocapitalize: "sentences",
   readonly: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   skeleton: false,
 });
@@ -45,6 +46,8 @@ const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
   return props.pattern;
 });
+
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -72,7 +75,7 @@ const patternSource = computed(() => {
             :name="props.name"
             :pattern="patternSource"
             :readonly="props.readonly"
-            :disabled="props.disabled || props.loading"
+            :disabled="disabled || props.loading"
             :minlength="props.minlength"
             :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"

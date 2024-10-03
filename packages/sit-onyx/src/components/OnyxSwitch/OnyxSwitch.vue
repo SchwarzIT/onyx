@@ -6,6 +6,7 @@ import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -13,7 +14,7 @@ import type { OnyxSwitchProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   modelValue: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   truncation: "ellipsis",
   skeleton: false,
@@ -36,6 +37,8 @@ const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
 });
 
+const { disabled } = useFormContext(props);
+
 const isChecked = computed({
   get: () => props.modelValue,
   set: (value) => {
@@ -52,7 +55,7 @@ const isChecked = computed({
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
+  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
     <label class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
       <input
         v-model="isChecked"
@@ -61,7 +64,7 @@ const isChecked = computed({
         role="switch"
         :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
         :aria-label="props.hideLabel ? props.label : undefined"
-        :disabled="props.disabled || props.loading"
+        :disabled="disabled || props.loading"
         :required="props.required"
         :autofocus="props.autofocus"
       />

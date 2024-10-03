@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.48
+
+### Minor Changes
+
+- 5d8349c: Implement OnyxForm which allows setting of disabled state for all child form elements
+
 ## 1.0.0-beta.47
 
 ### Minor Changes
