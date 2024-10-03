@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp } from "../../types";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 import type { Autocomplete } from "../OnyxInput/types";
 
@@ -44,7 +45,7 @@ export type OnyxStepperProps = DensityProp &
     /**
      * Whether to disable the input and prevent user interaction.
      */
-    disabled?: boolean;
+    disabled?: FormInjected<boolean>;
     /**
      * Whether the input should be readonly.
      */

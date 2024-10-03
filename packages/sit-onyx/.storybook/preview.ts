@@ -9,11 +9,12 @@ import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
+import { enhanceFormInjectedSymbol } from "./formInjected";
 import { enhanceManagedSymbol } from "./managed";
 import { withOnyxVModelDecorator } from "./vModel";
 
 const basePreview = createPreview({
-  argTypesEnhancers: [enhanceManagedSymbol],
+  argTypesEnhancers: [enhanceManagedSymbol, enhanceFormInjectedSymbol],
   parameters: {
     docs: {
       page: docsTemplate,

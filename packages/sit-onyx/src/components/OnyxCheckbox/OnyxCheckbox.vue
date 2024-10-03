@@ -5,6 +5,7 @@ import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
@@ -12,7 +13,7 @@ import type { OnyxCheckboxProps } from "./types";
 const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   modelValue: false,
   indeterminate: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   required: false,
   skeleton: false,
@@ -37,6 +38,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { disabled } = useFormContext(props);
 
 const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
@@ -49,7 +51,7 @@ const title = computed(() => {
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="props.disabled" :error-messages="errorMessages">
+  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
     <label class="onyx-checkbox" :class="[requiredTypeClass, densityClass]" :title="title">
       <div class="onyx-checkbox__container">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
@@ -61,7 +63,7 @@ const title = computed(() => {
           class="onyx-checkbox__input"
           type="checkbox"
           :indeterminate="props.indeterminate"
-          :disabled="props.disabled"
+          :disabled="disabled"
           :required="props.required"
           :value="props.value"
           :autofocus="props.autofocus"

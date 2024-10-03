@@ -2,6 +2,7 @@ import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, TruncationType } from "../../types";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 
 export type OnyxSwitchProps = DensityProp &
   RequiredMarkerProp &
@@ -18,7 +19,7 @@ export type OnyxSwitchProps = DensityProp &
     /**
      * Whether to disable the switch and prevent user interaction.
      */
-    disabled?: boolean;
+    disabled?: FormInjected<boolean>;
     /**
      * Shows a loading indicator.
      */

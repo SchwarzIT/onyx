@@ -2,6 +2,7 @@ import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
@@ -27,7 +28,7 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
       /**
        * Disable the radio group.
        */
-      disabled?: boolean;
+      disabled?: FormInjected<boolean>;
       /**
        * Direction of the checkboxes. Can be vertical (default) or horizontal.
        */
