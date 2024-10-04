@@ -50,13 +50,11 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
     "@sit-onyx/headless": "workspace:^",
+    "@storybook/addon-a11y": "^8.3.4",
     "@vue/compiler-dom": "catalog:",
     "eslint-plugin-vue-scoped-css": "^2.8.1",
     "sass": "catalog:",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.1.6"
-  },
-  "dependencies": {
-    "@storybook/addon-a11y": "^8.3.4"
   }
 }

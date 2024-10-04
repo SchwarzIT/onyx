@@ -318,9 +318,6 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
-      '@storybook/addon-a11y':
-        specifier: ^8.3.4
-        version: 8.3.4(storybook@8.3.4)
       typescript:
         specifier: '>= 5.2.2'
         version: 5.6.2
@@ -331,6 +328,9 @@ importers:
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
+      '@storybook/addon-a11y':
+        specifier: ^8.3.4
+        version: 8.3.4(storybook@8.3.4)
       '@vue/compiler-dom':
         specifier: 'catalog:'
         version: 3.5.6
