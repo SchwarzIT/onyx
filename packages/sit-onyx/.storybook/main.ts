@@ -3,7 +3,7 @@ import { mergeConfig } from "vite";
 
 const config: StorybookConfig = {
   stories: ["./pages/*.mdx", "../src/**/*.stories.ts"],
-  addons: ["@storybook/addon-essentials", "storybook-dark-mode"],
+  addons: ["@storybook/addon-essentials", "storybook-dark-mode", "@storybook/addon-a11y"],
   staticDirs: ["./public"],
   framework: {
     name: "@storybook/vue3-vite",
