@@ -55,13 +55,18 @@ export const Disabled = {
 } satisfies Story;
 
 export const Example = {
-  render: () => ({
-    components: { FormExample, OnyxToast },
-    template: `
-      <OnyxToast />
-      <FormExample />
-    `,
-  }),
+  render(args: StoryObj<typeof FormExample>["args"]) {
+    return {
+      components: { FormExample, OnyxToast },
+      setup() {
+        return { args };
+      },
+      template: `
+        <OnyxToast />
+        <FormExample v-bind="args"  />
+      `,
+    };
+  },
   parameters: {
     docs: {
       source: {
