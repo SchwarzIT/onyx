@@ -8,6 +8,7 @@ import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -20,9 +21,10 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   hideLabel: false,
+  disabled: FORM_INJECTED_SYMBOL,
+  readonly: false,
   loading: false,
   skeleton: false,
-  readonly: false,
 });
 
 const emit = defineEmits<{
@@ -39,6 +41,7 @@ const emit = defineEmits<{
 const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { disabled } = useFormContext(props);
 
 /**
  * Number of selected options.
@@ -127,7 +130,7 @@ const blockTyping = (event: KeyboardEvent) => {
         <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- Disabled rules are needed here, because of the click event. Otherwise clicking on the padding or gap won't open the select -->
         <div
           class="onyx-select-input__wrapper"
-          @click="!props.disabled && !props.loading && emit('inputClick')"
+          @click="!disabled && !props.loading && emit('inputClick')"
         >
           <OnyxLoadingIndicator
             v-if="props.loading"
@@ -150,7 +153,7 @@ const blockTyping = (event: KeyboardEvent) => {
             :readonly="props.readonly"
             :placeholder="props.placeholder"
             :required="props.required"
-            :disabled="props.disabled || props.loading"
+            :disabled="disabled || props.loading"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
             :value="selectionText"
@@ -179,7 +182,7 @@ const blockTyping = (event: KeyboardEvent) => {
             type="button"
             :aria-label="t('select.toggleDropDown')"
             tabindex="-1"
-            :disabled="props.readonly || props.disabled || props.loading"
+            :disabled="disabled || props.readonly || props.loading"
           >
             <OnyxIcon :icon="chevronDownUp" />
           </button>

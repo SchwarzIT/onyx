@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxTextareaProps } from "./types";
@@ -11,7 +12,7 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   required: false,
   autocapitalize: "sentences",
   readonly: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   skeleton: false,
   disableManualResize: false,
 });
@@ -57,6 +58,8 @@ const handleInput = (event: Event) => {
   const target = event.target as HTMLTextAreaElement;
   target.parentElement?.setAttribute("data-autosize-value", target.value);
 };
+
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -89,7 +92,7 @@ const handleInput = (event: Event) => {
             :autofocus="props.autofocus"
             :name="props.name"
             :readonly="props.readonly"
-            :disabled="props.disabled"
+            :disabled="disabled"
             :minlength="props.minlength"
             :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
