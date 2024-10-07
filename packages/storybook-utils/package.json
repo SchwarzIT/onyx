@@ -35,7 +35,7 @@
     "storybook-dark-mode": ">= 4"
   },
   "dependencies": {
-    "deepmerge-ts": "^7.1.0"
+    "deepmerge-ts": "^7.1.1"
   },
   "devDependencies": {
     "vue": "catalog:"
