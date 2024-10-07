@@ -76,7 +76,7 @@ const GROUPED_DEMO_OPTIONS = [
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxSelect> = {
-  title: "Form/Select",
+  title: "Form Elements/Select",
   component: OnyxSelect,
   argTypes: {
     empty: { control: { disable: true } },

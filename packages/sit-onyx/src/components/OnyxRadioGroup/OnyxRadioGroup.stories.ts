@@ -7,7 +7,7 @@ import OnyxRadioGroup from "./OnyxRadioGroup.vue";
  * Users can choose only one option at the time, making radio buttons ideal for scenarios where a single, distinct choice is required.
  */
 const meta: Meta<typeof OnyxRadioGroup> = {
-  title: "Form/RadioGroup",
+  title: "Form Elements/RadioGroup",
   component: OnyxRadioGroup,
 };
 
