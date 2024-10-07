@@ -1,10 +1,12 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig, type DefaultTheme, type UserConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json" with { type: "json" };
+import { VITE_BASE_CONFIG } from "../../node_modules/@sit-onyx/shared/vite.config.base";
 
 // https://vitepress.dev/reference/site-config
 export const CONFIG = {
   vite: {
+    ...VITE_BASE_CONFIG,
     resolve: {
       alias: {
         "~components": getFilePath("../../../../packages/sit-onyx/src/components"),
