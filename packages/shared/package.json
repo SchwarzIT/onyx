@@ -1,0 +1,11 @@
+{
+  "name": "@sit-onyx/shared",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "sass-embedded": "catalog:",
+    "vue": "catalog:"
+  }
+}

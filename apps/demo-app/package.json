@@ -18,7 +18,8 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
-    "sass": "catalog:",
+    "@sit-onyx/shared": "workspace:^",
+    "sass-embedded": "catalog:",
     "vue": "catalog:"
   }
 }

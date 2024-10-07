@@ -23,6 +23,7 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
+    "@sit-onyx/shared": "workspace:^",
     "vue": "catalog:"
   }
 }

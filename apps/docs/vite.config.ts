@@ -1,10 +1,17 @@
-import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
+import { VITE_BASE_CONFIG } from "./node_modules/@sit-onyx/shared/vite.config.base";
 
 // https://vitejs.dev/config
 export default defineConfig({
-  plugins: [vue()],
+  ...VITE_BASE_CONFIG,
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler", // or "modern"
+      },
+    },
+  },
   resolve: {
     alias: {
       "~components": getFilePath("../../packages/sit-onyx/src/components"),
