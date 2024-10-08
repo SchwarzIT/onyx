@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
+import { computed } from "vue";
 import { injectI18n } from "../../../../i18n";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
@@ -14,6 +15,13 @@ const { t } = injectI18n();
 const {
   elements: { listItem, menuItem },
 } = createMenuItems();
+
+const headlessProps = computed(() =>
+  menuItem({
+    active: props.active,
+    disabled: props.disabled,
+  }),
+);
 </script>
 
 <template>
@@ -31,11 +39,7 @@ const {
       :href="props.href"
       :target="props.target"
       :rel="props.target === '_blank' ? 'noreferrer' : undefined"
-      v-bind="
-        menuItem({
-          active: props.active,
-        })
-      "
+      v-bind="headlessProps"
     >
       <slot></slot>
     </a>
@@ -45,12 +49,7 @@ const {
       class="onyx-menu-item__trigger"
       type="button"
       :disabled="props.disabled"
-      v-bind="
-        menuItem({
-          active: props.active,
-          disabled: props.disabled,
-        })
-      "
+      v-bind="headlessProps"
     >
       <slot></slot>
 
