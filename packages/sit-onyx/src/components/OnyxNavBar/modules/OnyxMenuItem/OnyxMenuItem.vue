@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
+import { injectI18n } from "../../../../i18n";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
+import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import { type OnyxMenuItemProps } from "./types";
 
-const props = defineProps<OnyxMenuItemProps>();
+const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
+  target: "_self",
+});
+
+const { t } = injectI18n();
 
 const {
   elements: { listItem, menuItem },
@@ -19,20 +25,39 @@ const {
     class="onyx-menu-item"
     v-bind="listItem"
   >
-    <component
-      :is="props.href ? 'a' : 'button'"
+    <a
+      v-if="props.href"
       class="onyx-menu-item__trigger"
-      :disabled="!props.href && props.disabled"
       :href="props.href"
+      :target="props.target"
+      :rel="props.target === '_blank' ? 'noreferrer' : undefined"
       v-bind="
         menuItem({
           active: props.active,
-          disabled: !props.href && props.disabled,
         })
       "
     >
       <slot></slot>
-    </component>
+    </a>
+
+    <button
+      v-else
+      class="onyx-menu-item__trigger"
+      type="button"
+      :disabled="props.disabled"
+      v-bind="
+        menuItem({
+          active: props.active,
+          disabled: props.disabled,
+        })
+      "
+    >
+      <slot></slot>
+
+      <OnyxVisuallyHidden v-if="props.target === '_blank'">
+        {{ t("link.opensExternally") }}
+      </OnyxVisuallyHidden>
+    </button>
   </OnyxListItem>
 </template>
 
