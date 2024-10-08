@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "type": "module",
-  "devDependencies": {
+  "peerDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
     "sass-embedded": "catalog:",
     "vue": "catalog:"
   }
