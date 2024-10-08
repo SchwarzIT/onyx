@@ -99,3 +99,20 @@ test("should render button inline aligned with text", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("inline-aligned.png");
 });
+
+test("should trigger some ripples", async ({ mount, page }) => {
+  await page.addStyleTag({
+    content: `.onyx-ripple__element {
+    animation-duration: 5s;
+  }`,
+  });
+
+  // ARRANGE
+  const component = await mount(<OnyxButton label="Button" />);
+
+  await component.click({ clickCount: 2 });
+  await component.click({ clickCount: 1 });
+
+  // ASSERT
+  await expect(component.locator(".onyx-ripple__element")).toHaveCount(3);
+});
