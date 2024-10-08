@@ -18,6 +18,7 @@ catalogs:
 
 overrides:
   vue: 3.5.11
+  sass: 1.79.4
 
 importers:
 
@@ -408,14 +409,14 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       sass:
-        specifier: '>= 1'
-        version: 1.79.3
+        specifier: 1.79.4
+        version: 1.79.4
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
       vitepress:
         specifier: '>= 1.0.0'
-        version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.7.5)(@types/react@18.3.11)(postcss@8.4.47)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass-embedded@1.79.4)(sass@1.79.3)(search-insights@2.13.0)(stylus@0.57.0)(terser@5.32.0)(typescript@5.6.2)
+        version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.7.5)(@types/react@18.3.11)(postcss@8.4.47)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass-embedded@1.79.4)(sass@1.79.4)(search-insights@2.13.0)(stylus@0.57.0)(terser@5.32.0)(typescript@5.6.2)
 
 packages:
 
@@ -730,34 +731,11 @@ packages:
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
     engines: {node: '>=16.13'}
 
-  '@docsearch/css@3.6.1':
-    resolution: {integrity: sha512-VtVb5DS+0hRIprU2CO6ZQjK2Zg4QU5HrDM1+ix6rT0umsYvFvatMAnf97NHZlVWDaaLlx7GRfR/7FikANiM2Fg==}
-
   '@docsearch/css@3.6.2':
     resolution: {integrity: sha512-vKNZepO2j7MrYBTZIGXvlUOIR+v9KRf70FApRgovWrj3GTs1EITz/Xb0AOlm1xsQBp16clVZj1SY/qaOJbQtZw==}
 
-  '@docsearch/js@3.6.1':
-    resolution: {integrity: sha512-erI3RRZurDr1xES5hvYJ3Imp7jtrXj6f1xYIzDzxiS7nNBufYWPbJwrmMqWC5g9y165PmxEmN9pklGCdLi0Iqg==}
-
   '@docsearch/js@3.6.2':
     resolution: {integrity: sha512-pS4YZF+VzUogYrkblCucQ0Oy2m8Wggk8Kk7lECmZM60hTbaydSIhJTTiCrmoxtBqV8wxORnOqcqqOfbmkkQEcA==}
-
-  '@docsearch/react@3.6.1':
-    resolution: {integrity: sha512-qXZkEPvybVhSXj0K7U3bXc233tk5e8PfhoZ6MhPOiik/qUQxYC+Dn9DnoS7CxHQQhHfCvTiN0eY9M12oRghEXw==}
-    peerDependencies:
-      '@types/react': '>= 16.8.0 < 19.0.0'
-      react: '>= 16.8.0 < 19.0.0'
-      react-dom: '>= 16.8.0 < 19.0.0'
-      search-insights: '>= 1 < 3'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      search-insights:
-        optional: true
 
   '@docsearch/react@3.6.2':
     resolution: {integrity: sha512-rtZce46OOkVflCQH71IdbXSFK+S8iJZlUF56XBW5rIgx/eG5qoomC7Ag3anZson1bBac/JFQn7XOBfved/IMRA==}
@@ -1915,38 +1893,20 @@ packages:
   '@rushstack/eslint-patch@1.10.4':
     resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}
 
-  '@shikijs/core@1.17.7':
-    resolution: {integrity: sha512-ZnIDxFu/yvje3Q8owSHaEHd+bu/jdWhHAaJ17ggjXofHx5rc4bhpCSW+OjC6smUBi5s5dd023jWtZ1gzMu/yrw==}
-
   '@shikijs/core@1.22.0':
     resolution: {integrity: sha512-S8sMe4q71TJAW+qG93s5VaiihujRK6rqDFqBnxqvga/3LvqHEnxqBIOPkt//IdXVtHkQWKu4nOQNk0uBGicU7Q==}
-
-  '@shikijs/engine-javascript@1.17.7':
-    resolution: {integrity: sha512-wwSf7lKPsm+hiYQdX+1WfOXujtnUG6fnN4rCmExxa4vo+OTmvZ9B1eKauilvol/LHUPrQgW12G3gzem7pY5ckw==}
 
   '@shikijs/engine-javascript@1.22.0':
     resolution: {integrity: sha512-AeEtF4Gcck2dwBqCFUKYfsCq0s+eEbCEbkUuFou53NZ0sTGnJnJ/05KHQFZxpii5HMXbocV9URYVowOP2wH5kw==}
 
-  '@shikijs/engine-oniguruma@1.17.7':
-    resolution: {integrity: sha512-pvSYGnVeEIconU28NEzBXqSQC/GILbuNbAHwMoSfdTBrobKAsV1vq2K4cAgiaW1TJceLV9QMGGh18hi7cCzbVQ==}
-
   '@shikijs/engine-oniguruma@1.22.0':
     resolution: {integrity: sha512-5iBVjhu/DYs1HB0BKsRRFipRrD7rqjxlWTj4F2Pf+nQSPqc3kcyqFFeZXnBMzDf0HdqaFVvhDRAGiYNvyLP+Mw==}
-
-  '@shikijs/transformers@1.17.7':
-    resolution: {integrity: sha512-Nu7DaUT/qHDqbEsWBBqX6MyPMFbR4hUZcK11TA+zU/nPu9eDFE8v0p+n+eT4A3+3mxX6czMSF81W4QNsQ/NSpQ==}
 
   '@shikijs/transformers@1.22.0':
     resolution: {integrity: sha512-k7iMOYuGQA62KwAuJOQBgH2IQb5vP8uiB3lMvAMGUgAMMurePOx3Z7oNqJdcpxqZP6I9cc7nc4DNqSKduCxmdg==}
 
-  '@shikijs/types@1.17.7':
-    resolution: {integrity: sha512-+qA4UyhWLH2q4EFd+0z4K7GpERDU+c+CN2XYD3sC+zjvAr5iuwD1nToXZMt1YODshjkEGEDV86G7j66bKjqDdg==}
-
   '@shikijs/types@1.22.0':
     resolution: {integrity: sha512-Fw/Nr7FGFhlQqHfxzZY8Cwtwk5E9nKDUgeLjZgt3UuhcM3yJR9xj3ZGNravZZok8XmEZMiYkSMTPlPkULB8nww==}
-
-  '@shikijs/vscode-textmate@9.2.2':
-    resolution: {integrity: sha512-TMp15K+GGYrWlZM8+Lnj9EaHEFmOen0WJBrfa17hF7taDOYthuPPV0GWzfd/9iMij0akS/8Yw2ikquH7uVi/fg==}
 
   '@shikijs/vscode-textmate@9.3.0':
     resolution: {integrity: sha512-jn7/7ky30idSkd/O5yDBfAnVt+JJpepofP/POZ1iMOxK59cOfqIgg/Dj0eFsjOTMw+4ycJN0uhZH/Eb0bs/EUA==}
@@ -2469,9 +2429,6 @@ packages:
 
   '@vue/devtools-api@6.6.4':
     resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
-
-  '@vue/devtools-api@7.4.5':
-    resolution: {integrity: sha512-PX9uXirHOY2P99kb1cP3DxWZojFW3acNMqd+l4i5nKcqY59trXTOfwDZXt2Qifu0OU1izAQb76Ur6NPVldF2KQ==}
 
   '@vue/devtools-api@7.4.6':
     resolution: {integrity: sha512-XipBV5k0/IfTr0sNBDTg7OBUCp51cYMMXyPxLXJZ4K/wmUeMqt8cVdr2ZZGOFq+si/jTyCYnNxeKoyev5DOUUA==}
@@ -4555,7 +4512,7 @@ packages:
     resolution: {integrity: sha512-PdJimzhcgDxaHpk1SUabw56gT3BU15vBHUTHkeeus8Kl7jUkpgG7+z0PiS/y23XXgO8TiU/dKP3L1oG55qrP1g==}
     hasBin: true
     peerDependencies:
-      sass: ^1.78.0
+      sass: 1.79.4
       typescript: '>=5.5.4'
       vue-tsc: ^1.8.27 || ^2.0.21
     peerDependenciesMeta:
@@ -5556,11 +5513,6 @@ packages:
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  sass@1.79.3:
-    resolution: {integrity: sha512-m7dZxh0W9EZ3cw50Me5GOuYm/tVAJAn91SUnohLRo9cXBixGUOdvmryN+dXpwR831bhoY3Zv7rEFt85PUwTmzA==}
-    engines: {node: '>=14.0.0'}
-    hasBin: true
-
   sass@1.79.4:
     resolution: {integrity: sha512-K0QDSNPXgyqO4GZq2HO5Q70TLxTH6cIT59RdoCHMivrC8rqzaTw5ab9prjz9KUN1El4FLXrBXJhik61JR4HcGg==}
     engines: {node: '>=14.0.0'}
@@ -5633,9 +5585,6 @@ packages:
 
   shell-quote@1.8.1:
     resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
-
-  shiki@1.17.7:
-    resolution: {integrity: sha512-Zf6hNtWhFyF4XP5OOsXkBTEx9JFPiN0TQx4wSe+Vqeuczewgk2vT4IZhF4gka55uelm052BD5BaHavNqUNZd+A==}
 
   shiki@1.22.0:
     resolution: {integrity: sha512-/t5LlhNs+UOKQCYBtl5ZsH/Vclz73GIqT2yQsCBygr8L/ppTdmpL4w3kPLoZJbMKVWtoG77Ue1feOjZfDxvMkw==}
@@ -6329,7 +6278,7 @@ packages:
       '@types/node': ^18.0.0 || >=20.0.0
       less: '*'
       lightningcss: ^1.21.0
-      sass: '*'
+      sass: 1.79.4
       sass-embedded: '*'
       stylus: '*'
       sugarss: '*'
@@ -7147,20 +7096,7 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
-  '@docsearch/css@3.6.1': {}
-
   '@docsearch/css@3.6.2': {}
-
-  '@docsearch/js@3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)':
-    dependencies:
-      '@docsearch/react': 3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)
-      preact: 10.24.0
-    transitivePeerDependencies:
-      - '@algolia/client-search'
-      - '@types/react'
-      - react
-      - react-dom
-      - search-insights
 
   '@docsearch/js@3.6.2(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)':
     dependencies:
@@ -7172,20 +7108,6 @@ snapshots:
       - react
       - react-dom
       - search-insights
-
-  '@docsearch/react@3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)':
-    dependencies:
-      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)(search-insights@2.13.0)
-      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
-      '@docsearch/css': 3.6.1
-      algoliasearch: 4.24.0
-    optionalDependencies:
-      '@types/react': 18.3.11
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      search-insights: 2.13.0
-    transitivePeerDependencies:
-      - '@algolia/client-search'
 
   '@docsearch/react@3.6.2(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)':
     dependencies:
@@ -8332,15 +8254,6 @@ snapshots:
 
   '@rushstack/eslint-patch@1.10.4': {}
 
-  '@shikijs/core@1.17.7':
-    dependencies:
-      '@shikijs/engine-javascript': 1.17.7
-      '@shikijs/engine-oniguruma': 1.17.7
-      '@shikijs/types': 1.17.7
-      '@shikijs/vscode-textmate': 9.2.2
-      '@types/hast': 3.0.4
-      hast-util-to-html: 9.0.3
-
   '@shikijs/core@1.22.0':
     dependencies:
       '@shikijs/engine-javascript': 1.22.0
@@ -8350,47 +8263,25 @@ snapshots:
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.3
 
-  '@shikijs/engine-javascript@1.17.7':
-    dependencies:
-      '@shikijs/types': 1.17.7
-      '@shikijs/vscode-textmate': 9.3.0
-      oniguruma-to-js: 0.4.3
-
   '@shikijs/engine-javascript@1.22.0':
     dependencies:
       '@shikijs/types': 1.22.0
       '@shikijs/vscode-textmate': 9.3.0
       oniguruma-to-js: 0.4.3
 
-  '@shikijs/engine-oniguruma@1.17.7':
-    dependencies:
-      '@shikijs/types': 1.17.7
-      '@shikijs/vscode-textmate': 9.3.0
-
   '@shikijs/engine-oniguruma@1.22.0':
     dependencies:
       '@shikijs/types': 1.22.0
       '@shikijs/vscode-textmate': 9.3.0
 
-  '@shikijs/transformers@1.17.7':
-    dependencies:
-      shiki: 1.17.7
-
   '@shikijs/transformers@1.22.0':
     dependencies:
       shiki: 1.22.0
-
-  '@shikijs/types@1.17.7':
-    dependencies:
-      '@shikijs/vscode-textmate': 9.3.0
-      '@types/hast': 3.0.4
 
   '@shikijs/types@1.22.0':
     dependencies:
       '@shikijs/vscode-textmate': 9.3.0
       '@types/hast': 3.0.4
-
-  '@shikijs/vscode-textmate@9.2.2': {}
 
   '@shikijs/vscode-textmate@9.3.0': {}
 
@@ -8943,11 +8834,6 @@ snapshots:
       vite: 5.4.8(@types/node@20.16.11)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0)
       vue: 3.5.11(typescript@5.6.2)
 
-  '@vitejs/plugin-vue@5.1.4(vite@5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.3)(stylus@0.57.0)(terser@5.32.0))(vue@3.5.11(typescript@5.6.2))':
-    dependencies:
-      vite: 5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.3)(stylus@0.57.0)(terser@5.32.0)
-      vue: 3.5.11(typescript@5.6.2)
-
   '@vitejs/plugin-vue@5.1.4(vite@5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0))(vue@3.5.11(typescript@5.6.2))':
     dependencies:
       vite: 5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0)
@@ -9161,10 +9047,6 @@ snapshots:
       he: 1.2.0
 
   '@vue/devtools-api@6.6.4': {}
-
-  '@vue/devtools-api@7.4.5':
-    dependencies:
-      '@vue/devtools-kit': 7.4.5
 
   '@vue/devtools-api@7.4.6':
     dependencies:
@@ -12633,18 +12515,11 @@ snapshots:
       sass-embedded-win32-ia32: 1.79.4
       sass-embedded-win32-x64: 1.79.4
 
-  sass@1.79.3:
-    dependencies:
-      chokidar: 4.0.1
-      immutable: 4.3.7
-      source-map-js: 1.2.1
-
   sass@1.79.4:
     dependencies:
       chokidar: 4.0.1
       immutable: 4.3.7
       source-map-js: 1.2.1
-    optional: true
 
   sax@1.2.4: {}
 
@@ -12725,15 +12600,6 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   shell-quote@1.8.1: {}
-
-  shiki@1.17.7:
-    dependencies:
-      '@shikijs/core': 1.17.7
-      '@shikijs/engine-javascript': 1.17.7
-      '@shikijs/engine-oniguruma': 1.17.7
-      '@shikijs/types': 1.17.7
-      '@shikijs/vscode-textmate': 9.2.2
-      '@types/hast': 3.0.4
 
   shiki@1.22.0:
     dependencies:
@@ -13526,19 +13392,6 @@ snapshots:
       stylus: 0.57.0
       terser: 5.32.0
 
-  vite@5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.3)(stylus@0.57.0)(terser@5.32.0):
-    dependencies:
-      esbuild: 0.21.5
-      postcss: 8.4.47
-      rollup: 4.23.0
-    optionalDependencies:
-      '@types/node': 22.7.5
-      fsevents: 2.3.3
-      sass: 1.79.3
-      sass-embedded: 1.79.4
-      stylus: 0.57.0
-      terser: 5.32.0
-
   vite@5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0):
     dependencies:
       esbuild: 0.21.5
@@ -13552,23 +13405,23 @@ snapshots:
       stylus: 0.57.0
       terser: 5.32.0
 
-  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@22.7.5)(@types/react@18.3.11)(postcss@8.4.47)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass-embedded@1.79.4)(sass@1.79.3)(search-insights@2.13.0)(stylus@0.57.0)(terser@5.32.0)(typescript@5.6.2):
+  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@22.7.5)(@types/react@18.3.11)(postcss@8.4.47)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass-embedded@1.79.4)(sass@1.79.4)(search-insights@2.13.0)(stylus@0.57.0)(terser@5.32.0)(typescript@5.6.2):
     dependencies:
-      '@docsearch/css': 3.6.1
-      '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)
-      '@shikijs/core': 1.17.7
-      '@shikijs/transformers': 1.17.7
+      '@docsearch/css': 3.6.2
+      '@docsearch/js': 3.6.2(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)
+      '@shikijs/core': 1.22.0
+      '@shikijs/transformers': 1.22.0
       '@types/markdown-it': 14.1.2
-      '@vitejs/plugin-vue': 5.1.4(vite@5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.3)(stylus@0.57.0)(terser@5.32.0))(vue@3.5.11(typescript@5.6.2))
-      '@vue/devtools-api': 7.4.5
-      '@vue/shared': 3.5.6
+      '@vitejs/plugin-vue': 5.1.4(vite@5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0))(vue@3.5.11(typescript@5.6.2))
+      '@vue/devtools-api': 7.4.6
+      '@vue/shared': 3.5.11
       '@vueuse/core': 11.1.0(vue@3.5.11(typescript@5.6.2))
       '@vueuse/integrations': 11.1.0(focus-trap@7.6.0)(vue@3.5.11(typescript@5.6.2))
       focus-trap: 7.6.0
       mark.js: 8.11.1
       minisearch: 7.1.0
-      shiki: 1.17.7
-      vite: 5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.3)(stylus@0.57.0)(terser@5.32.0)
+      shiki: 1.22.0
+      vite: 5.4.8(@types/node@22.7.5)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0)
       vue: 3.5.11(typescript@5.6.2)
     optionalDependencies:
       postcss: 8.4.47
