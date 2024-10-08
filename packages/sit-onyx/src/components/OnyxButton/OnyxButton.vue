@@ -41,7 +41,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     :autofocus="props.autofocus"
     v-on="rippleEvents"
   >
-    <OnyxRipple v-if="!props.disabled && !props.loading" ref="rippleRef" />
+    <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
