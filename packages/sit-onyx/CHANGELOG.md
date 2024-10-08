@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.49
+
+### Patch Changes
+
+- 704e624: fix(OnyxNavBar): Replace cursor pointer with default for OnyxNavButton and it's nested items
+
 ## 1.0.0-beta.48
 
 ### Minor Changes
