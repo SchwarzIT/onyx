@@ -1,4 +1,5 @@
-import { computed, inject, provide, type InjectionKey, type Reactive, type Ref } from "vue";
+import { computed, inject, provide, toRefs, type InjectionKey, type Ref } from "vue";
+import type { ShowErrorModes } from "../../composables/useErrorClass";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
 
@@ -8,6 +9,7 @@ const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createForm
  */
 export type FormInjectedProps = {
   disabled: boolean;
+  showError: ShowErrorModes;
 };
 
 /**
@@ -39,32 +41,30 @@ export type FORM_INJECTED = typeof FORM_INJECTED_SYMBOL;
  */
 export type FormInjected<T> = T | FORM_INJECTED;
 
-const createCompute = <
-  TKey extends keyof FormInjectedProps,
-  TValue extends FormInjectedProps[keyof FormInjectedProps],
->(
-  formProps: FormInjectedProps | undefined,
-  props: LocalProps,
+const createCompute = <TKey extends keyof FormInjectedProps>(
+  formProps: Ref<FormInjectedProps> | undefined,
+  props: Ref<LocalProps>,
   key: TKey,
-  defaultValue: TValue,
+  defaultValue: FormInjectedProps[TKey],
 ): Readonly<Ref<FormInjectedProps[TKey]>> =>
   computed(() => {
-    const prop = props[key] as FormInjected<FormInjectedProps[TKey]> | undefined;
+    const prop = props.value[key] as FormInjected<FormInjectedProps[TKey]> | undefined;
     if (prop != undefined && prop !== FORM_INJECTED_SYMBOL) {
       return prop;
     }
-    return formProps?.[key] ?? defaultValue;
+    return formProps?.value[key] ?? defaultValue;
   });
-
+toRefs;
 const createFormInjectionContext =
-  (formProps?: FormInjectedProps) =>
+  (formProps?: Ref<FormInjectedProps>) =>
   (
-    props: Reactive<LocalProps>,
+    props: Ref<LocalProps>,
   ): { [TKey in keyof FormInjectedProps]: Ref<FormInjectedProps[TKey]> } => ({
     disabled: createCompute(formProps, props, "disabled", false),
+    showError: createCompute(formProps, props, "showError", "touched"),
   });
 
-export const provideFormContext = (formProps: Reactive<FormInjectedProps> | undefined) =>
+export const provideFormContext = (formProps: Ref<FormInjectedProps> | undefined) =>
   provide(FORM_INJECTION_KEY, createFormInjectionContext(formProps));
 
 const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
@@ -86,7 +86,7 @@ const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
  * const { disabled, readonly } = useFormContext(props);
  * ```
  */
-export const useFormContext = (props: Reactive<LocalProps>) => {
+export const useFormContext = (props: Ref<LocalProps>) => {
   return inject(
     FORM_INJECTION_KEY,
     /** Default */
