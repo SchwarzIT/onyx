@@ -15,7 +15,7 @@ export type FormProps = {
    *
    * Defaults to `false`.
    */
-  disabled: boolean;
+  disabled?: boolean;
   /**
    * Configures if and when errors are shown.
    * When `true`, errors will be shown initially.
@@ -24,7 +24,14 @@ export type FormProps = {
    * The default is `"touched"`, which only shows an error *after* a user has significantly interacted with the input.
    * See [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo).
    */
-  showError: ShowErrorModes;
+  showError?: ShowErrorModes;
+};
+
+/**
+ * Props that may be used by the form child components.
+ */
+export type FormComputedProps = {
+  [TKey in keyof FormProps]-?: FormProps[TKey];
 };
 
 /**
@@ -60,10 +67,10 @@ const createCompute = <TKey extends keyof FormProps>(
   formProps: Ref<FormProps> | undefined,
   props: Ref<FormInjectedProps>,
   key: TKey,
-  defaultValue: FormProps[TKey],
-): Readonly<Ref<FormProps[TKey]>> =>
+  defaultValue: FormComputedProps[TKey],
+) =>
   computed(() => {
-    const prop = props.value[key] as FormInjected<FormProps[TKey]> | undefined;
+    const prop = props.value[key] as FormInjected<FormComputedProps[TKey]> | undefined;
     if (prop != undefined && prop !== FORM_INJECTED_SYMBOL) {
       return prop;
     }
@@ -72,7 +79,11 @@ const createCompute = <TKey extends keyof FormProps>(
 
 const createFormInjectionContext =
   (formProps?: Ref<FormProps>) =>
-  (props: Ref<FormInjectedProps>): { [TKey in keyof FormProps]: Ref<FormProps[TKey]> } => ({
+  (
+    props: Ref<FormInjectedProps>,
+  ): {
+    [TKey in keyof FormComputedProps]: NonNullable<Readonly<Ref<FormComputedProps[TKey]>>>;
+  } => ({
     disabled: createCompute(formProps, props, "disabled", false),
     showError: createCompute(formProps, props, "showError", "touched"),
   });

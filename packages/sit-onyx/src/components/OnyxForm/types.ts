@@ -1,7 +1,4 @@
 import type { DensityProp } from "../../composables/density";
-import type { ShowErrorModes } from "../../composables/useErrorClass";
+import type { FormProps } from "./OnyxForm.core";
 
-export type OnyxFormProps = {
-  disabled?: boolean;
-  showError?: ShowErrorModes;
-} & DensityProp;
+export type OnyxFormProps = FormProps & DensityProp;
