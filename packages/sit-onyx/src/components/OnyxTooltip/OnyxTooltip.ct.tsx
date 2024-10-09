@@ -1,7 +1,7 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxTooltip from "./OnyxTooltip.vue";
-import TestWrapper from "./TestWrapper.vue";
+import TestWrapper from "./TestWrapper.ct.vue";
 
 test("should trigger with boolean", async ({ mount }) => {
   // ARRANGE

@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright/a11y";
 import { ONYX_BREAKPOINTS } from "../../types";
-import PlaywrightTestWrapper from "./PlaywrightTestWrapper.vue";
+import PlaywrightTestWrapper from "./PlaywrightTestWrapper.ct.vue";
 
 Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
   test(`should render (${breakpoint})`, async ({ mount, makeAxeBuilder, page }) => {

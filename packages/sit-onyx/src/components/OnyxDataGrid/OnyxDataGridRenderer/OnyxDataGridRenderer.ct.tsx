@@ -1,8 +1,8 @@
 import { DENSITIES } from "../../../composables/density";
 import { test } from "../../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../../playwright/screenshots";
-import DefaultTestWrapper from "./playwright/DefaultTestWrapper.vue";
-import GroupedDataTestWrapper from "./playwright/GroupedDataTestWrapper.vue";
+import DefaultTestWrapper from "./playwright/DefaultTestWrapper.ct.vue";
+import GroupedDataTestWrapper from "./playwright/GroupedDataTestWrapper.ct.vue";
 
 // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
 const disabledAccessibilityRules = ["color-contrast"];
