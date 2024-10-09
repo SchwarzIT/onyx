@@ -15,7 +15,7 @@ type Story = StoryObj<typeof OnyxDataGridRenderer>;
 export const Default = {
   args: {
     columns: Array.from({ length: 4 }, (_, index) => getDummyColumn(index + 1)),
-    rows: Array.from({ length: 10 }, (_, index) => getDummyRow(index + 1)),
+    rows: Array.from({ length: 6 }, (_, index) => getDummyRow(index + 1)),
   },
 } satisfies Story;
 
@@ -88,7 +88,9 @@ export const GroupedData = {
 /**
  * Creates a new column for use as Storybook example.
  */
-function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEntry, object> {
+export function getDummyColumn(
+  columnNumber: number,
+): DataGridRendererColumn<DataGridEntry, object> {
   return {
     key: `column-${columnNumber}`,
     component: (props) => h("span", props.title),
@@ -101,7 +103,7 @@ function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEn
 /**
  * Creates a new cell for use as Storybook example.
  */
-function getDummyCell(
+export function getDummyCell(
   id: string,
   tdAttributes?: TdHTMLAttributes,
 ): DataGridRendererCell<DataGridEntry> {
@@ -119,7 +121,7 @@ function getDummyCell(
 /**
  * Creates a new row for use as Storybook example.
  */
-function getDummyRow(
+export function getDummyRow(
   rowNumber: number,
 ): DataGridRendererRow<{ id: PropertyKey; [key: PropertyKey]: unknown }> {
   return {
