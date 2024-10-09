@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { useId } from "vue";
+import { toRef, useId } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import type { SelectOptionValue } from "../../types";
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
 
 const { densityClass } = useDensity(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-const { disabled } = useFormContext(props);
+const { disabled } = useFormContext(toRef(() => props));
 
 const emit = defineEmits<{
   "update:modelValue": [selected: TValue];

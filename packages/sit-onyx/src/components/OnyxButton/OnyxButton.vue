@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, type ComponentInstance } from "vue";
+import { computed, ref, toRef, type ComponentInstance } from "vue";
 import { useDensity } from "../../composables/density";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
 });
 
 const { densityClass } = useDensity(props);
-const { disabled } = useFormContext(props);
+const { disabled } = useFormContext(toRef(props));
 
 const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
 const rippleEvents = computed(() => rippleRef.value?.events ?? {});

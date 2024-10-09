@@ -1,4 +1,4 @@
-import { computed, inject, provide, toRefs, type InjectionKey, type Ref } from "vue";
+import { computed, inject, provide, type InjectionKey, type Ref } from "vue";
 import type { ShowErrorModes } from "../../composables/useErrorClass";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
@@ -7,16 +7,31 @@ const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createForm
  * Props on the `OnyxForm` component.
  * These are injected, so that they can be used in the form child components.
  */
-export type FormInjectedProps = {
+export type FormProps = {
+  /**
+   * Whether the input should be disabled and prevent the user from interacting with it.
+   * Disabled makes the element not mutable, focusable, or even submitted with the form.
+   * It will also not be validated.
+   *
+   * Defaults to `false`.
+   */
   disabled: boolean;
+  /**
+   * Configures if and when errors are shown.
+   * When `true`, errors will be shown initially.
+   * When `false`, errors will never be shown. ⚠️ Only the displaying of the error is effected! An error can still block submission!
+   *
+   * The default is `"touched"`, which only shows an error *after* a user has significantly interacted with the input.
+   * See [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo).
+   */
   showError: ShowErrorModes;
 };
 
 /**
  * Props that may be used by the form child components.
  */
-type LocalProps = {
-  [TKey in keyof FormInjectedProps]?: FormInjected<FormInjectedProps[TKey]>;
+export type FormInjectedProps = {
+  [TKey in keyof FormProps]?: FormInjected<FormProps[TKey]>;
 };
 
 /**
@@ -41,30 +56,28 @@ export type FORM_INJECTED = typeof FORM_INJECTED_SYMBOL;
  */
 export type FormInjected<T> = T | FORM_INJECTED;
 
-const createCompute = <TKey extends keyof FormInjectedProps>(
-  formProps: Ref<FormInjectedProps> | undefined,
-  props: Ref<LocalProps>,
+const createCompute = <TKey extends keyof FormProps>(
+  formProps: Ref<FormProps> | undefined,
+  props: Ref<FormInjectedProps>,
   key: TKey,
-  defaultValue: FormInjectedProps[TKey],
-): Readonly<Ref<FormInjectedProps[TKey]>> =>
+  defaultValue: FormProps[TKey],
+): Readonly<Ref<FormProps[TKey]>> =>
   computed(() => {
-    const prop = props.value[key] as FormInjected<FormInjectedProps[TKey]> | undefined;
+    const prop = props.value[key] as FormInjected<FormProps[TKey]> | undefined;
     if (prop != undefined && prop !== FORM_INJECTED_SYMBOL) {
       return prop;
     }
     return formProps?.value[key] ?? defaultValue;
   });
-toRefs;
+
 const createFormInjectionContext =
-  (formProps?: Ref<FormInjectedProps>) =>
-  (
-    props: Ref<LocalProps>,
-  ): { [TKey in keyof FormInjectedProps]: Ref<FormInjectedProps[TKey]> } => ({
+  (formProps?: Ref<FormProps>) =>
+  (props: Ref<FormInjectedProps>): { [TKey in keyof FormProps]: Ref<FormProps[TKey]> } => ({
     disabled: createCompute(formProps, props, "disabled", false),
     showError: createCompute(formProps, props, "showError", "touched"),
   });
 
-export const provideFormContext = (formProps: Ref<FormInjectedProps> | undefined) =>
+export const provideFormContext = (formProps: Ref<FormProps> | undefined) =>
   provide(FORM_INJECTION_KEY, createFormInjectionContext(formProps));
 
 const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
@@ -86,7 +99,7 @@ const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
  * const { disabled, readonly } = useFormContext(props);
  * ```
  */
-export const useFormContext = (props: Ref<LocalProps>) => {
+export const useFormContext = (props: Ref<FormInjectedProps>) => {
   return inject(
     FORM_INJECTION_KEY,
     /** Default */

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { useErrorClass } from "../../composables/useErrorClass";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -14,9 +15,10 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   required: false,
   autocapitalize: "sentences",
   readonly: false,
-  disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   skeleton: false,
+  disabled: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -47,7 +49,8 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const { disabled } = useFormContext(props);
+const { disabled, showError } = useFormContext(toRef(props));
+const errorClass = useErrorClass(showError);
 </script>
 
 <template>
@@ -56,13 +59,13 @@ const { disabled } = useFormContext(props);
     <OnyxSkeleton class="onyx-input-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-input', densityClass]">
+  <div v-else :class="['onyx-input', densityClass, errorClass]">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <template #default="{ id }">
         <div class="onyx-input__wrapper">
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
-            :id="id"
+            :id
             v-model="value"
             v-custom-validity
             :placeholder="props.placeholder"

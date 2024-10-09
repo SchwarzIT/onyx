@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { computed } from "vue";
+import { computed, toRef } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
@@ -39,7 +39,7 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled && !i.skeleton).map(({ value }) => value),
 );
 
-const { disabled } = useFormContext(props);
+const { disabled } = useFormContext(toRef(props));
 
 const checkAll = useCheckAll(
   enabledOptionValues,
@@ -130,6 +130,7 @@ const checkAllLabel = computed(() => {
           &__option {
             width: 100%;
           }
+
           &__check-all {
             border-bottom: $check-all-border;
           }
@@ -142,6 +143,7 @@ const checkAllLabel = computed(() => {
 
         .onyx-checkbox-group__check-all {
           border-right: $check-all-border;
+
           // the horizontal "Select all" checkbox label needs an additional padding-right
           .onyx-checkbox__label {
             padding-right: var(--onyx-density-md);

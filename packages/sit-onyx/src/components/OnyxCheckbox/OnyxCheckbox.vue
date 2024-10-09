@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { computed } from "vue";
+import { computed, toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -38,7 +38,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
-const { disabled } = useFormContext(props);
+const { disabled } = useFormContext(toRef(() => props));
 
 const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
