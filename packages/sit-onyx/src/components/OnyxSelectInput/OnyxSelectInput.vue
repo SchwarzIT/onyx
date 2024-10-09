@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed, ref, toRef, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -42,7 +42,7 @@ const emit = defineEmits<{
 const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
-const { disabled, showError } = useFormContext(toRef(props));
+const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 
 /**

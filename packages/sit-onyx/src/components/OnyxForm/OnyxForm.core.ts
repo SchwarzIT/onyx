@@ -1,4 +1,4 @@
-import { computed, inject, provide, type InjectionKey, type Ref } from "vue";
+import { computed, inject, provide, toRef, type InjectionKey, type Reactive, type Ref } from "vue";
 import type { ShowErrorModes } from "../../composables/useErrorClass";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
@@ -98,8 +98,8 @@ const createFormInjectionContext =
     showError: createCompute(formProps, props, "showError", "touched"),
   });
 
-export const provideFormContext = (formProps: Ref<FormProps> | undefined) =>
-  provide(FORM_INJECTION_KEY, createFormInjectionContext(formProps));
+export const provideFormContext = (formProps: Reactive<FormProps> | undefined) =>
+  provide(FORM_INJECTION_KEY, createFormInjectionContext(formProps && toRef(formProps)));
 
 const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
 /**
@@ -120,10 +120,10 @@ const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
  * const { disabled, readonly } = useFormContext(props);
  * ```
  */
-export const useFormContext = (props: Ref<FormInjectedProps>) => {
+export const useFormContext = (props: Reactive<FormInjectedProps>) => {
   return inject(
     FORM_INJECTION_KEY,
     /** Default */
     DEFAULT_FORM_INJECTION_CONTEXT,
-  )(props);
+  )(toRef(props));
 };

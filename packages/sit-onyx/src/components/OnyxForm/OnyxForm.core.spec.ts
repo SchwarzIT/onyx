@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { ref, toRef, toValue } from "vue";
+import { reactive, toValue } from "vue";
 import {
   FORM_INJECTED_SYMBOL,
   provideFormContext,
@@ -77,8 +77,8 @@ it.for([
 ] as const)(
   "it should derive expected state when correctly",
   ({ formProps, localProps, expected }) => {
-    provideFormContext(formProps && toRef(formProps));
-    const result = useFormContext(toRef(localProps));
+    provideFormContext(formProps);
+    const result = useFormContext(localProps);
     Object.entries(expected).forEach(([key, value]) => {
       const resultValue = toValue(result[key as keyof FormProps]);
 
@@ -91,16 +91,16 @@ it.for([
 );
 
 it("should update when changed", async () => {
-  const formProps = ref({ disabled: false, showError: true });
+  const formProps = reactive({ disabled: false, showError: true });
   provideFormContext(formProps);
 
-  const localProps = ref({ disabled: FORM_INJECTED_SYMBOL as FormInjected<boolean> });
+  const localProps = reactive({ disabled: FORM_INJECTED_SYMBOL as FormInjected<boolean> });
   const { disabled } = useFormContext(localProps);
   expect(disabled.value).toBe(false);
 
-  formProps.value.disabled = true;
-  localProps.value.disabled = true;
+  formProps.disabled = true;
+  localProps.disabled = true;
   expect(disabled.value).toBe(true);
-  localProps.value.disabled = false;
+  localProps.disabled = false;
   expect(disabled.value).toBe(false);
 });

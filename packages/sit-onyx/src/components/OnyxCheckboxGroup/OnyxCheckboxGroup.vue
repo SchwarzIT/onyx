@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { computed, toRef } from "vue";
+import { computed } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
@@ -39,7 +39,7 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled && !i.skeleton).map(({ value }) => value),
 );
 
-const { disabled } = useFormContext(toRef(props));
+const { disabled } = useFormContext(props);
 
 const checkAll = useCheckAll(
   enabledOptionValues,
