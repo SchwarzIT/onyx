@@ -26,6 +26,7 @@ const navItems = [
   { label: "Form Demo", href: "/form-demo" },
   { label: "Layout Demo", href: "/layout-demo" },
   { label: "Grid Demo", href: "/grid" },
+  { label: "Kitchen Sink", href: "/kitchen-sink" },
 ] satisfies OnyxNavButtonProps[];
 
 const { store: colorScheme } = useColorMode();
@@ -50,8 +51,8 @@ watch(
     <template
       v-if="
         /* the layout demo showcases all possible overlay features that AppLayout offers,
-        including different nav bar behaviors which OnyxNavBar das not support yet
-        so it currently has its own demo nav bar placed. */
+      including different nav bar behaviors which OnyxNavBar das not support yet
+      so it currently has its own demo nav bar placed. */
         route.path !== '/layout-demo'
       "
       #navBar

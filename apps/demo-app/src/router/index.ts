@@ -23,4 +23,9 @@ export const routes: RouteRecordRaw[] = [
     name: "gridDemo",
     component: () => import("../views/GridDemo.vue"),
   },
+  {
+    path: "/kitchen-sink",
+    name: "kitchenSink",
+    component: () => import("../views/KitchenSinkView.vue"),
+  },
 ];
