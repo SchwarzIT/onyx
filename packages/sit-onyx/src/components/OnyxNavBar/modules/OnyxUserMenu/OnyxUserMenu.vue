@@ -109,7 +109,6 @@ const isMobile = inject(
       align-items: center;
       gap: var(--onyx-spacing-2xs);
       color: var(--onyx-color-text-icons-neutral-medium);
-      cursor: pointer;
       margin-left: auto;
       font-weight: 600;
 
