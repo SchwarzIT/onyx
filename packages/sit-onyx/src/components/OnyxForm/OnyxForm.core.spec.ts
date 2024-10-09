@@ -1,10 +1,9 @@
 import { expect, it, vi } from "vitest";
-import { reactive, toValue } from "vue";
+import { ref, toRef, toValue } from "vue";
 import {
   FORM_INJECTED_SYMBOL,
   provideFormContext,
   useFormContext,
-  type FORM_INJECTED,
   type FormInjected,
   type FormInjectedProps,
 } from "./OnyxForm.core";
@@ -22,74 +21,86 @@ vi.mock("vue", async (importOriginal) => {
 
 it.for([
   {
-    formProps: { disabled: true },
-    localProps: { disabled: true },
-    expected: { disabled: true },
+    formProps: { disabled: true, showError: true },
+    localProps: { disabled: true, showError: true },
+    expected: { disabled: true, showError: true },
   },
   {
-    formProps: { disabled: false },
-    localProps: { disabled: true },
-    expected: { disabled: true },
+    formProps: { disabled: false, showError: false },
+    localProps: { disabled: true, showError: true },
+    expected: { disabled: true, showError: true },
   },
   {
-    formProps: { disabled: true },
-    localProps: { disabled: false },
-    expected: { disabled: false },
+    formProps: { disabled: true, showError: true },
+    localProps: { disabled: false, showError: false },
+    expected: { disabled: false, showError: false },
   },
   {
-    formProps: { disabled: false },
-    localProps: { disabled: false },
-    expected: { disabled: false },
+    formProps: { disabled: false, showError: true },
+    localProps: { disabled: false, showError: false },
+    expected: { disabled: false, showError: false },
   },
   {
-    formProps: { disabled: true },
-    localProps: { disabled: FORM_INJECTED_SYMBOL as FORM_INJECTED },
-    expected: { disabled: true },
+    formProps: { disabled: true, showError: true },
+    localProps: {
+      disabled: FORM_INJECTED_SYMBOL,
+      showError: FORM_INJECTED_SYMBOL,
+    },
+    expected: { disabled: true, showError: true },
   },
   {
-    formProps: { disabled: false },
-    localProps: { disabled: FORM_INJECTED_SYMBOL as FORM_INJECTED },
-    expected: { disabled: false },
-  },
-  {
-    formProps: undefined,
-    localProps: { disabled: FORM_INJECTED_SYMBOL as FORM_INJECTED },
-    expected: { disabled: false },
-  },
-  {
-    formProps: undefined,
-    localProps: { disabled: true },
-    expected: { disabled: true },
+    formProps: { disabled: false, showError: false },
+    localProps: {
+      disabled: FORM_INJECTED_SYMBOL,
+      showError: FORM_INJECTED_SYMBOL,
+    },
+    expected: { disabled: false, showError: false },
   },
   {
     formProps: undefined,
-    localProps: { disabled: false },
-    expected: { disabled: false },
+    localProps: {
+      disabled: FORM_INJECTED_SYMBOL,
+      showError: FORM_INJECTED_SYMBOL,
+    },
+    expected: { disabled: false, showError: "touched" },
   },
-])("it should derive expected state when correctly", ({ formProps, localProps, expected }) => {
-  provideFormContext(formProps);
-  const result = useFormContext(localProps);
-  Object.entries(expected).forEach(([key, value]) => {
-    const resultValue = toValue(result[key as keyof FormInjectedProps]);
+  {
+    formProps: undefined,
+    localProps: { disabled: true, showError: "touched" },
+    expected: { disabled: true, showError: "touched" },
+  },
+  {
+    formProps: undefined,
+    localProps: { disabled: false, showError: false },
+    expected: { disabled: false, showError: false },
+  },
+] as const)(
+  "it should derive expected state when correctly",
+  ({ formProps, localProps, expected }) => {
+    provideFormContext(formProps && toRef(formProps));
+    const result = useFormContext(toRef(localProps));
+    Object.entries(expected).forEach(([key, value]) => {
+      const resultValue = toValue(result[key as keyof FormInjectedProps]);
 
-    expect(
-      resultValue,
-      `Expected "${value}", got "${resultValue}" for formProps "${formProps}" and localProps "${localProps}"`,
-    ).toBe(value);
-  });
-});
+      expect(
+        resultValue,
+        `Expected "${value}", got "${resultValue}" for formProps "${formProps}" and localProps "${localProps}"`,
+      ).toBe(value);
+    });
+  },
+);
 
 it("should update when changed", async () => {
-  const formProps = reactive({ disabled: false });
+  const formProps = ref({ disabled: false, showError: true });
   provideFormContext(formProps);
 
-  const localProps = reactive({ disabled: FORM_INJECTED_SYMBOL as FormInjected<boolean> });
+  const localProps = ref({ disabled: FORM_INJECTED_SYMBOL as FormInjected<boolean> });
   const { disabled } = useFormContext(localProps);
   expect(disabled.value).toBe(false);
 
-  formProps.disabled = true;
-  localProps.disabled = true;
+  formProps.value.disabled = true;
+  localProps.value.disabled = true;
   expect(disabled.value).toBe(true);
-  localProps.disabled = false;
+  localProps.value.disabled = false;
   expect(disabled.value).toBe(false);
 });
