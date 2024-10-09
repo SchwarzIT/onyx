@@ -1,4 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
+import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
@@ -25,7 +26,7 @@ const emit = defineEmits<{
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
-const { disabled } = useFormContext(props);
+const { disabled } = useFormContext(toRef(() => props));
 </script>
 
 <template>
@@ -107,6 +108,7 @@ const { disabled } = useFormContext(props);
     .onyx-error-tooltip:has(&__selector:valid) .onyx-tooltip {
       display: none;
     }
+
     &:has(&__selector:invalid) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
@@ -160,6 +162,7 @@ const { disabled } = useFormContext(props);
         color: var(--onyx-radio-button-selector-outline-color);
         offset: 0;
       }
+
       transition: outline var(--onyx-duration-sm);
 
       border: {

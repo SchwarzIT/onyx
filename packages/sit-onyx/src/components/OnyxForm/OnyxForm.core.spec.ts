@@ -5,7 +5,7 @@ import {
   provideFormContext,
   useFormContext,
   type FormInjected,
-  type FormInjectedProps,
+  type FormProps,
 } from "./OnyxForm.core";
 
 let injected: (args: unknown[]) => void;
@@ -80,7 +80,7 @@ it.for([
     provideFormContext(formProps && toRef(formProps));
     const result = useFormContext(toRef(localProps));
     Object.entries(expected).forEach(([key, value]) => {
-      const resultValue = toValue(result[key as keyof FormInjectedProps]);
+      const resultValue = toValue(result[key as keyof FormProps]);
 
       expect(
         resultValue,

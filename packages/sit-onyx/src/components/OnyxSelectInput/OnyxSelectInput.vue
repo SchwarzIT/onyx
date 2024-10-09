@@ -1,9 +1,10 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed, ref, watch } from "vue";
+import { computed, ref, toRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { useErrorClass } from "../../composables/useErrorClass";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
@@ -41,7 +42,8 @@ const emit = defineEmits<{
 const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
-const { disabled } = useFormContext(props);
+const { disabled, showError } = useFormContext(toRef(props));
+const errorClass = useErrorClass(showError);
 
 /**
  * Number of selected options.
@@ -109,7 +111,7 @@ const blockTyping = (event: KeyboardEvent) => {
 <template>
   <div
     v-if="props.skeleton"
-    :class="['onyx-select-input-skeleton', densityClass]"
+    :class="['onyx-select-input-skeleton', densityClass, errorClass]"
     v-bind="rootAttrs"
   >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
@@ -212,8 +214,10 @@ const blockTyping = (event: KeyboardEvent) => {
       // hide the blinking cursor as we suppress typing
       caret-color: transparent;
     }
+
     .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled) {
       cursor: pointer;
+
       .onyx-select-input__native {
         cursor: pointer;
       }
@@ -229,6 +233,7 @@ const blockTyping = (event: KeyboardEvent) => {
         cursor: pointer;
       }
     }
+
     // button on focus (not readonly)
     &:has(
         .onyx-select-input__native:enabled:read-write:focus,
@@ -237,6 +242,7 @@ const blockTyping = (event: KeyboardEvent) => {
       .onyx-select-input__button {
         color: var(--onyx-color-text-icons-primary-intense);
       }
+
       &:has(.onyx-select-input__native:user-invalid),
       &:has(.onyx-form-element--force-invalid) {
         .onyx-select-input__button {
@@ -244,6 +250,7 @@ const blockTyping = (event: KeyboardEvent) => {
         }
       }
     }
+
     // button on hover (not readonly)
     .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled:read-write):hover {
       .onyx-select-input__button {
