@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 const meta: Meta<typeof OnyxTextarea> = {
-  title: "Form/Textarea",
+  title: "Form Elements/Textarea",
   component: OnyxTextarea,
   decorators: [
     (story) => ({

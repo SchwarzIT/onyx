@@ -13,7 +13,8 @@
     "@sit-onyx/eslint-plugin": "0.0.0",
     "demo-app": "0.0.0",
     "playground": "0.0.0",
-    "@sit-onyx/nuxt": "0.0.0"
+    "@sit-onyx/nuxt": "0.0.0",
+    "@sit-onyx/shared": "1.0.0"
   },
   "changesets": [
     "afraid-avocados-hear",
@@ -76,6 +77,7 @@
     "few-cows-punch",
     "few-ligers-pump",
     "few-rivers-know",
+    "fifty-apricots-laugh",
     "fifty-students-turn",
     "five-cooks-dream",
     "five-countries-repeat",

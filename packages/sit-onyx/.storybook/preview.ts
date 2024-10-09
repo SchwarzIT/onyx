@@ -41,7 +41,7 @@ const preview: Preview = {
         order: [
           "Introduction",
           "Buttons",
-          "Form",
+          "Form Elements",
           "Basic",
           "Data",
           "Feedback",

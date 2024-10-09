@@ -7,7 +7,7 @@ import type { CheckboxGroupOption } from "./types";
  * They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
  */
 const meta: Meta<typeof OnyxCheckboxGroup> = {
-  title: "Form/CheckboxGroup",
+  title: "Form Elements/CheckboxGroup",
   component: OnyxCheckboxGroup,
   argTypes: {
     withCheckAll: { control: { type: "boolean" } },
