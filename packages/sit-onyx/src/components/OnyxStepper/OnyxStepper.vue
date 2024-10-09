@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed, ref, toRef } from "vue";
+import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -35,7 +35,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { disabled, showError } = useFormContext(toRef(props));
+const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 
 const { densityClass } = useDensity(props);

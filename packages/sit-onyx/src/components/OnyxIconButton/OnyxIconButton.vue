@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -15,7 +14,7 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
 });
 
 const { densityClass } = useDensity(props);
-const { disabled } = useFormContext(toRef(props));
+const { disabled } = useFormContext(props);
 
 defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, toRef } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -61,7 +61,7 @@ const handleInput = (event: Event) => {
   target.parentElement?.setAttribute("data-autosize-value", target.value);
 };
 
-const { disabled, showError } = useFormContext(toRef(props));
+const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 </script>
 

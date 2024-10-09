@@ -1,4 +1,4 @@
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { h, type Component } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import { expect, test } from "../../playwright/a11y";
@@ -19,6 +19,20 @@ const inferProps = <TComp extends Component, TProps extends ComponentProps<TComp
   props: TProps,
   delegate?: Locator,
 ) => ({ component, props, delegate });
+
+const expectForAll = async (
+  allFormElements: ReturnType<typeof inferProps>[],
+  page: Page,
+  expectation: (locator: Locator, label: string) => Promise<unknown>,
+) => {
+  for (const { props, delegate } of allFormElements) {
+    const getInputByLabel = page.getByLabel(props.label, { exact: true });
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    const element = delegate || getInputByLabel;
+    expect(element).toBeDefined();
+    await expectation(element, props.label);
+  }
+};
 
 test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   const options: SelectOption[] = [
@@ -47,16 +61,6 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
     inferProps(OnyxButton, { label: "OnyxButton" }, page.getByText("OnyxButton", { exact: true })),
   ];
 
-  const expectForAll = async (expectation: (locator: Locator) => Promise<unknown>) => {
-    for (const { props, delegate } of allFormElements) {
-      const getInputByLabel = page.getByLabel(props.label, { exact: true });
-      // eslint-disable-next-line playwright/no-conditional-in-test
-      const element = delegate || getInputByLabel;
-      expect(element).toBeDefined();
-      await expectation(element);
-    }
-  };
-
   // ARRANGE
   await mount(
     <OnyxForm>
@@ -65,7 +69,7 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   );
 
   // ASSERT
-  await expectForAll((element) =>
+  await expectForAll(allFormElements, page, (element) =>
     Promise.all([expect(element).toBeEnabled(), expect(element).toBeEditable()]),
   );
 
@@ -77,5 +81,52 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   );
 
   // ASSERT
-  await expectForAll((element) => expect(element).toBeDisabled());
+  await expectForAll(allFormElements, page, (element) => expect(element).toBeDisabled());
+});
+
+test("OnyxForm should showError mode", async ({ mount, page }) => {
+  const customError = "CUSTOM_ERROR" as const;
+  const options: SelectOption[] = [
+    {
+      label: "option 1",
+      value: "option 1",
+    },
+  ];
+  const allFormElements = [
+    inferProps(OnyxInput, { label: "OnyxInput", customError }),
+    inferProps(OnyxSelect, {
+      label: "OnyxSelect",
+      listLabel: "Select options",
+      options,
+      customError,
+    }),
+    inferProps(OnyxStepper, { label: "OnyxStepper", customError }),
+    inferProps(OnyxTextarea, { label: "OnyxTextarea", customError }),
+    inferProps(
+      OnyxRadioGroup,
+      { label: "OnyxRadioGroup", options, customError },
+      page.getByLabel("OnyxRadioGroup").getByLabel("option 1"),
+    ),
+    inferProps(OnyxCheckbox, { label: "OnyxCheckbox", value: "", customError }),
+    inferProps(OnyxSwitch, { label: "OnyxSwitch", customError }),
+  ];
+
+  // ARRANGE
+  await mount(
+    <OnyxForm>
+      {allFormElements.map(({ component, props }) => h(component as Component, props))}
+    </OnyxForm>,
+  );
+
+  // ASSERT
+  await expectForAll(allFormElements, page, (element, label) =>
+    element
+      .evaluate((elem: HTMLInputElement) => elem.validity?.customError === true)
+      .then((result) => expect(result, `expect native input of ${label} to be invalid`).toBe(true)),
+  );
+
+  await expect(
+    page.getByText(customError),
+    "expect no error message to be shown initially",
+  ).toBeHidden();
 });

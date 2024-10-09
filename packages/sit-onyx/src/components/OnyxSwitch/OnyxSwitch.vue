@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, toRef } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -32,7 +32,7 @@ const emit = defineEmits<{
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
-const { disabled, showError } = useFormContext(toRef(props));
+const { disabled, showError } = useFormContext(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const shownErrorMessages = computed(() =>
   showError.value !== false ? errorMessages.value : undefined,

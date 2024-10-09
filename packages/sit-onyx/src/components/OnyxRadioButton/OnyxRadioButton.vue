@@ -1,5 +1,4 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import type { SelectOptionValue } from "../../types";
@@ -26,7 +25,7 @@ const emit = defineEmits<{
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
-const { disabled } = useFormContext(toRef(() => props));
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
