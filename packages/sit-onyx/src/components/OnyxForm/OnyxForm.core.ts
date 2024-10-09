@@ -35,10 +35,20 @@ export type FormComputedProps = {
 };
 
 /**
+ * ❗️ DO NOT USE THIS TYPE ❗️
+ *
+ * Manual replication of the `keyof FormProps` type.
+ * Unfortunately this is necessary because Vue can only supports simple index types.
+ *
+ * See discussion in https://github.com/vuejs/core/issues/8286
+ */
+export type __DONT_USE_VUE_FIX_KeyOfFormProps = "disabled" | "showError";
+
+/**
  * Props that may be used by the form child components.
  */
 export type FormInjectedProps = {
-  [TKey in keyof FormProps]?: FormInjected<FormProps[TKey]>;
+  [TKey in __DONT_USE_VUE_FIX_KeyOfFormProps]?: FormInjected<FormProps[TKey]>;
 };
 
 /**
