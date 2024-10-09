@@ -88,9 +88,7 @@ export const GroupedData = {
 /**
  * Creates a new column for use as Storybook example.
  */
-export function getDummyColumn(
-  columnNumber: number,
-): DataGridRendererColumn<DataGridEntry, object> {
+function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEntry, object> {
   return {
     key: `column-${columnNumber}`,
     component: (props) => h("span", props.title),
@@ -103,7 +101,7 @@ export function getDummyColumn(
 /**
  * Creates a new cell for use as Storybook example.
  */
-export function getDummyCell(
+function getDummyCell(
   id: string,
   tdAttributes?: TdHTMLAttributes,
 ): DataGridRendererCell<DataGridEntry> {
@@ -121,7 +119,7 @@ export function getDummyCell(
 /**
  * Creates a new row for use as Storybook example.
  */
-export function getDummyRow(
+function getDummyRow(
   rowNumber: number,
 ): DataGridRendererRow<{ id: PropertyKey; [key: PropertyKey]: unknown }> {
   return {
