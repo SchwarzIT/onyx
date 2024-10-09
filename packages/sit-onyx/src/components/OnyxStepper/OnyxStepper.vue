@@ -4,6 +4,7 @@ import plus from "@sit-onyx/icons/plus.svg?raw";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -18,7 +19,7 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   readonly: false,
   loading: false,
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const { t } = injectI18n();
@@ -34,6 +35,7 @@ const emit = defineEmits<{
 }>();
 
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
@@ -65,7 +67,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-stepper-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-stepper-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
     <OnyxSkeleton class="onyx-stepper-skeleton__input" />
   </div>

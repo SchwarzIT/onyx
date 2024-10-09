@@ -1,4 +1,6 @@
-export type OnyxPageLayoutProps = {
+import type { SkeletonInjectedProps } from "../../composables/useSkeletonState";
+
+export type OnyxPageLayoutProps = Partial<SkeletonInjectedProps> & {
   /** When the page includes a sidebar as well as a footer,
    * footerAsideSidebar will restrict the footer to span
    * only the page main area and not the sidebar.

@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp, TruncationType } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 
@@ -36,5 +37,5 @@ export type OnyxSwitchProps = DensityProp &
     /**
      * Whether to show a skeleton switch.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
   };

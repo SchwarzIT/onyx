@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
@@ -70,7 +71,7 @@ export type OnyxInputProps = DensityProp &
     /**
      * Whether to show a skeleton input.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
