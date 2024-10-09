@@ -7,7 +7,7 @@ import {
 } from "../../../../playwright/screenshots";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
-import MobileComponentTestWrapper from "./MobileComponentTestWrapper.vue";
+import MobileComponentTestWrapper from "./MobileComponentTestWrapper.ct.vue";
 import OnyxNavButton from "./OnyxNavButton.vue";
 
 /**
