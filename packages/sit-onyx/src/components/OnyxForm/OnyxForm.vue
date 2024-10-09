@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { provideFormContext } from "./OnyxForm.core";
 import type { OnyxFormProps } from "./types";
@@ -13,7 +12,7 @@ defineSlots<{
   default?(): unknown;
 }>();
 
-provideFormContext(toRef(props));
+provideFormContext(props);
 
 const { densityClass } = useDensity(props);
 </script>
