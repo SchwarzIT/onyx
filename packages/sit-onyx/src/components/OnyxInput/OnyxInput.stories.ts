@@ -7,7 +7,7 @@ import OnyxInput from "./OnyxInput.vue";
  * These components play a fundamental role in facilitating user interactions and data input within applications and websites.
  */
 const meta: Meta<typeof OnyxInput> = {
-  title: "Form/Input",
+  title: "Form Elements/Input",
   component: OnyxInput,
   decorators: [
     (story) => ({

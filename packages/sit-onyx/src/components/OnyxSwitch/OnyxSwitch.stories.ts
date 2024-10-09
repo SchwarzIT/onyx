@@ -6,7 +6,7 @@ import OnyxSwitch from "./OnyxSwitch.vue";
  * They consist of a toggle mechanism that allow users to switch between two distinct states with a simple interaction.
  */
 const meta: Meta<typeof OnyxSwitch> = {
-  title: "Form/Switch",
+  title: "Form Elements/Switch",
   component: OnyxSwitch,
 };
 

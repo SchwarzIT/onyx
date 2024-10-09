@@ -24,3 +24,14 @@
   /* same as Storybook color "textMuted" inside ./theme.ts */
   color: var(--onyx-color-text-icons-neutral-medium);
 }
+
+/* To prevent bg flashing when changing between elements in darkmode */
+.sb-preparing-story,
+.sb-preparing-docs {
+  background-color: transparent;
+}
+/* removed placeholder for the same reason */
+.sb-previewBlock,
+.sb-argstableBlock {
+  display: none;
+}
