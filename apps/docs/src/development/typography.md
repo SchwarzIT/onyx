@@ -15,15 +15,15 @@ To install and use the recommended onyx font families, install them by running
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+pnpm add @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
 ```
 
 ```sh [npm]
-npm install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+npm install @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
 ```
 
-```sh [pnpm]
-yarn install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+```sh [yarn]
+yarn install @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
 ```
 
 :::

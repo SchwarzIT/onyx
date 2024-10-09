@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-beta.50
+
+### Major Changes
+
+- beca92e: refactor(OnyxDataGridRenderer): enable striped and vertical borders by default
+
+  Changed the default value for the `striped` and `withVerticalBorders` property from `false` to `true`.
+
+## 1.0.0-beta.49
+
+### Patch Changes
+
+- 704e624: fix(OnyxNavBar): Replace cursor pointer with default for OnyxNavButton and it's nested items
+
 ## 1.0.0-beta.48
 
 ### Minor Changes
