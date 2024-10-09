@@ -146,7 +146,7 @@ const blockTyping = (event: KeyboardEvent) => {
               'onyx-select-input__native': true,
               'onyx-select-input__native--show-focus': props.showFocus,
               'onyx-truncation-ellipsis': true,
-              'onyx-select-input__native--force-invalid': errorMessages && wasTouched,
+              'onyx-form-element--force-invalid': errorMessages && wasTouched,
             }"
             v-bind="restAttrs"
             type="text"
@@ -238,7 +238,7 @@ const blockTyping = (event: KeyboardEvent) => {
         color: var(--onyx-color-text-icons-primary-intense);
       }
       &:has(.onyx-select-input__native:user-invalid),
-      &:has(.onyx-select-input__native--force-invalid) {
+      &:has(.onyx-form-element--force-invalid) {
         .onyx-select-input__button {
           color: var(--onyx-color-text-icons-neutral-intense);
         }
@@ -251,7 +251,7 @@ const blockTyping = (event: KeyboardEvent) => {
       }
 
       &:has(.onyx-select-input__native:user-invalid),
-      &:has(.onyx-select-input__native--force-invalid) {
+      &:has(.onyx-form-element--force-invalid) {
         .onyx-select-input__button {
           color: var(--onyx-color-text-icons-neutral-medium);
         }
