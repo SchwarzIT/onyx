@@ -24,7 +24,6 @@ export const Default = {
  */
 export const GroupedData = {
   args: {
-    withVerticalBorders: true,
     columnGroups: [
       {
         key: "ungrouped",

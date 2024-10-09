@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxStepper from "./OnyxStepper.vue";
 
 const meta: Meta<typeof OnyxStepper> = {
-  title: "Form/Stepper",
+  title: "Form Elements/Stepper",
   component: OnyxStepper,
   decorators: [
     (story) => ({
