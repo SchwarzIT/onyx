@@ -23,6 +23,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   hideLabel: false,
   disabled: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
   readonly: false,
   loading: false,
   skeleton: false,
@@ -111,7 +112,7 @@ const blockTyping = (event: KeyboardEvent) => {
 <template>
   <div
     v-if="props.skeleton"
-    :class="['onyx-select-input-skeleton', densityClass, errorClass]"
+    :class="['onyx-select-input-skeleton', densityClass]"
     v-bind="rootAttrs"
   >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
@@ -123,6 +124,7 @@ const blockTyping = (event: KeyboardEvent) => {
     :class="[
       'onyx-select-input',
       densityClass,
+      errorClass,
       props.readonly ? 'onyx-select-input--readonly' : 'onyx-select-input--editable',
     ]"
     v-bind="rootAttrs"
@@ -148,7 +150,7 @@ const blockTyping = (event: KeyboardEvent) => {
               'onyx-select-input__native': true,
               'onyx-select-input__native--show-focus': props.showFocus,
               'onyx-truncation-ellipsis': true,
-              'onyx-form-element--force-invalid': errorMessages && wasTouched,
+              'onyx-select-input__native--touched': wasTouched,
             }"
             v-bind="restAttrs"
             type="text"
@@ -244,7 +246,7 @@ const blockTyping = (event: KeyboardEvent) => {
       }
 
       &:has(.onyx-select-input__native:user-invalid),
-      &:has(.onyx-form-element--force-invalid) {
+      &:has(.onyx-select-input__native:invalid.onyx-select-input__native--touched) {
         .onyx-select-input__button {
           color: var(--onyx-color-text-icons-neutral-intense);
         }
@@ -258,7 +260,7 @@ const blockTyping = (event: KeyboardEvent) => {
       }
 
       &:has(.onyx-select-input__native:user-invalid),
-      &:has(.onyx-form-element--force-invalid) {
+      &:has(.onyx-select-input__native:invalid.onyx-select-input__native--touched) {
         .onyx-select-input__button {
           color: var(--onyx-color-text-icons-neutral-medium);
         }
