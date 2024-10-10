@@ -1,4 +1,4 @@
-import type { WedgePosition } from "src/composables/useWedgePosition";
+import type { WedgePosition } from "../../composables/useWedgePosition";
 import type { MaybeRefOrGetter } from "vue";
 import type { DensityProp } from "../../composables/density";
 import type { OnyxColor } from "../../types";
