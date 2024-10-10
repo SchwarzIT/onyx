@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
-import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
+import type { MaybeRefOrGetter, Ref, VNode } from "vue";
 import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -37,7 +37,7 @@ defineSlots<{
    */
 
   //TODO: fix the attribute type
-  default(params: { trigger: HTMLAttributes }): VNode;
+  default(params: { trigger: object }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
