@@ -144,6 +144,6 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--onyx-grid-gutter);
+  gap: 0.5rem;
 }
 </style>
