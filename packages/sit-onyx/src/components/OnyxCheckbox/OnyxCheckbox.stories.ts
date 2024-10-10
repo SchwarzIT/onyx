@@ -52,15 +52,6 @@ export const Required = {
     ...Default.args,
     required: true,
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-      <div style="padding: 2rem 0 0 2.5rem;">
-        <story />
-      </div>`,
-    }),
-  ],
 } satisfies Story;
 
 /**
@@ -108,13 +99,4 @@ export const CustomError = {
       longMessage: "Further explanation.",
     },
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-      <div style="padding: 2rem 0 0 5rem;">
-        <story />
-      </div>`,
-    }),
-  ],
 } satisfies Story;
