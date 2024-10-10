@@ -16,7 +16,6 @@
 }
 
 @mixin define-shared-styles($base-selector, $vertical-padding) {
-  --color: var(--onyx-color-text-icons-neutral-intense);
   --border-color: var(--onyx-color-base-neutral-300);
   --hover-border-color: var(--onyx-color-base-primary-400);
   --selection-color: var(--onyx-color-base-primary-200);
@@ -76,7 +75,7 @@
   }
 
   &__loading {
-    --color: var(--onyx-color-text-icons-primary-intense);
+    color: var(--onyx-color-text-icons-primary-intense);
   }
 
   @include invalid(#{$base-selector}__native) {
