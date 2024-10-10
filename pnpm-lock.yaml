@@ -14,7 +14,7 @@ catalogs:
       version: 4.4.4
     sass:
       specifier: ^1.79.3
-      version: 1.79.3
+      version: 1.79.4
 
 overrides:
   vue: 3.5.11
@@ -44,12 +44,6 @@ importers:
       '@rushstack/eslint-patch':
         specifier: ^1.10.4
         version: 1.10.4
-      '@sit-onyx/eslint-plugin':
-        specifier: workspace:^
-        version: link:packages/eslint-plugin
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:packages/storybook-utils
       '@storybook/addon-essentials':
         specifier: ^8.3.5
         version: 8.3.5(storybook@8.3.5)(webpack-sources@3.2.3)
@@ -161,7 +155,7 @@ importers:
     devDependencies:
       sass:
         specifier: 'catalog:'
-        version: 1.79.3
+        version: 1.79.4
       vue:
         specifier: 3.5.11
         version: 3.5.11(typescript@5.6.2)
@@ -177,6 +171,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../../packages/storybook-utils
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
@@ -227,6 +224,9 @@ importers:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
       '@vue/compiler-dom':
         specifier: 'catalog:'
         version: 3.5.11
@@ -325,9 +325,15 @@ importers:
       '@axe-core/playwright':
         specifier: ^4.10.0
         version: 4.10.0(playwright-core@1.47.2)
+      '@sit-onyx/eslint-plugin':
+        specifier: workspace:^
+        version: link:../eslint-plugin
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
       '@storybook/addon-a11y':
         specifier: ^8.3.5
         version: 8.3.5(storybook@8.3.5)
@@ -339,7 +345,7 @@ importers:
         version: 2.8.1(eslint@9.10.0(jiti@1.21.6))(vue-eslint-parser@9.4.3(eslint@9.10.0(jiti@1.21.6)))
       sass:
         specifier: 'catalog:'
-        version: 1.79.3
+        version: 1.79.4
       vue:
         specifier: 3.5.11
         version: 3.5.11(typescript@5.6.2)
@@ -2086,9 +2092,6 @@ packages:
 
   '@types/eslint@8.56.12':
     resolution: {integrity: sha512-03ruubjWyOHlmljCVoxSuNDdmfZDzsrrz0P2LeJsOXr+ZwFQ+0yQIwNCwt/GYhV7Z31fgtXJTAEs+FYlEL851g==}
-
-  '@types/estree@1.0.5':
-    resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -8376,10 +8379,8 @@ snapshots:
 
   '@types/eslint@8.56.12':
     dependencies:
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       '@types/json-schema': 7.0.15
-
-  '@types/estree@1.0.5': {}
 
   '@types/estree@1.0.6': {}
 
@@ -12186,7 +12187,6 @@ snapshots:
       chokidar: 4.0.1
       immutable: 4.3.7
       source-map-js: 1.2.1
-    optional: true
 
   sax@1.2.4: {}
 

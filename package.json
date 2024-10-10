@@ -16,7 +16,7 @@
     "publint:all": "pnpm -r --parallel --aggregate-output exec publint",
     "prepare": "simple-git-hooks",
     "gh:show-report": "./scripts/show-last-test-report.sh",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm && pnpm list --depth=-1 --long | grep cycle && echo 'Cyclic dependency detected!' && exit 1 || echo 'No cyclic dependencies'"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.9",
@@ -26,8 +26,6 @@
     "@playwright/experimental-ct-vue": "^1.47.2",
     "@playwright/test": "^1.47.2",
     "@rushstack/eslint-patch": "^1.10.4",
-    "@sit-onyx/eslint-plugin": "workspace:^",
-    "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/blocks": "^8.3.5",
     "@storybook/vue3": "^8.3.5",
