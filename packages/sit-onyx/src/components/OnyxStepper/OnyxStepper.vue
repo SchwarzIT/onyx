@@ -92,7 +92,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           v-model.number="value"
           v-custom-validity
           class="onyx-stepper__native"
-          :class="{ 'onyx-stepper__native--force-invalid': errorMessages && wasTouched }"
+          :class="{ 'onyx-stepper__native--touched': wasTouched }"
           type="number"
           :aria-label="props.label"
           :autofocus="props.autofocus"

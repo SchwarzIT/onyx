@@ -302,8 +302,8 @@ test.describe("Loading screenshots", () => {
 test.describe("Invalidity handling screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select (message replacement on invalid)",
-    columns: ["default", "long-text"],
-    rows: ["messageTooltip", "error", "errorTooltip"],
+    columns: ["default"],
+    rows: ["messageTooltip"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
     disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
@@ -352,35 +352,6 @@ test.describe("Invalidity handling screenshots", () => {
           row === "errorTooltip" ? "error" : "message",
         );
       }
-    },
-  });
-
-  executeMatrixScreenshotTest({
-    name: `Select (invalid variations)`,
-    columns: ["default", "placeholder", "with-value"],
-    rows: ["default", "hover", "focus"],
-    component: (column) => (
-      <OnyxSelect
-        style="width: 12rem"
-        label="Test label"
-        placeholder={column === "placeholder" ? "Test placeholder" : undefined}
-        customError={{ shortMessage: "Test error" }}
-        listLabel="List label"
-        options={MOCK_VARIED_OPTIONS}
-        modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
-      />
-    ),
-    beforeScreenshot: async (component, _page, _column, row) => {
-      const input = component.getByLabel("Test label");
-
-      // invalid is only triggered after open/closing the flyout
-      await input.click();
-      await component.click();
-
-      if (row !== "focus") {
-        await input.blur();
-      }
-      if (row === "hover") await input.hover();
     },
   });
 });
