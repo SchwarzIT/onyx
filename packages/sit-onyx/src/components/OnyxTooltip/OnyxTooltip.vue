@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
-import type { MaybeRefOrGetter, Ref, VNode } from "vue";
+import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode, VNodeChild } from "vue";
 import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -27,7 +27,6 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   fitParent: false,
   open: "hover",
   alignment: "auto",
-  density: "default",
 });
 
 defineSlots<{
@@ -38,13 +37,13 @@ defineSlots<{
    */
 
   //TODO: fix the attribute type
-  default(params: { trigger: object }): VNode;
+  default(params: { trigger: HTMLAttributes }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
    * **Accessibility**: You must ensure that the tooltip content is NOT focusable/interactive.
    */
-  tooltip?(): unknown;
+  tooltip?(): VNodeChild;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -99,7 +98,7 @@ const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigg
 
 const tooltipWrapperRef = ref<HTMLElement>();
 const tooltipRef = ref<HTMLElement>();
-const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef);
+const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
 
 // update open direction on resize to ensure the tooltip is always visible
@@ -216,8 +215,8 @@ $wedge-size: 0.5rem;
 
     &--left {
       left: var(--wedge-size);
-      transform: translateX(0);
 
+      transform: none;
       &::after {
         left: 2 * $wedge-size;
       }

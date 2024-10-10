@@ -22,6 +22,10 @@ const meta: Meta<typeof OnyxTooltip> = {
     open: {
       options: ["hover", "click", true, false],
     },
+    alignment: {
+      options: ["auto", "center", "left", "right"],
+      defaultValue: "auto",
+    },
   },
   decorators: [
     (story) => ({
@@ -48,10 +52,6 @@ export const Default = {
       h(OnyxButton, { label: "Slot content goes here", ...(trigger as any) }),
     icon: circleInformation,
     open: true,
-    position: "auto",
-    color: "neutral",
-    alignment: "auto",
-    density: "default",
   },
 } satisfies Story;
 

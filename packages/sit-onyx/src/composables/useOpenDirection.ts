@@ -2,13 +2,16 @@ import { ref, unref, type MaybeRef } from "vue";
 
 export type OpenDirection = "top" | "bottom";
 
-export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
-  const openDirection = ref<OpenDirection>("bottom");
+export const useOpenDirection = (
+  element: MaybeRef<Element | undefined>,
+  defaultDirection = "bottom" as OpenDirection,
+) => {
+  const openDirection = ref<OpenDirection>(defaultDirection);
 
   const updateOpenDirection = () => {
     const el = unref(element);
     if (!el) {
-      openDirection.value = "bottom";
+      openDirection.value = defaultDirection;
       return;
     }
 
