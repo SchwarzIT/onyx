@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
-import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode, VNodeChild } from "vue";
+import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
 import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -43,7 +43,7 @@ defineSlots<{
    *
    * **Accessibility**: You must ensure that the tooltip content is NOT focusable/interactive.
    */
-  tooltip?(): VNodeChild;
+  tooltip?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
