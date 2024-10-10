@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
@@ -31,7 +32,7 @@ export type OnyxSelectInputProps = DensityProp &
     /**
      * Whether to show a skeleton select.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
     /**
      * Whether the select should be readonly.
      */

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import type { OnyxPageLayoutProps } from "./types";
 
 const props = defineProps<OnyxPageLayoutProps>();
@@ -12,6 +13,8 @@ const slots = defineSlots<{
   /** Optional footer of the page*/
   footer?(): unknown;
 }>();
+
+provideSkeletonContext(props);
 
 /**
  * Determines whether the footer should be below or next to the sidebar.

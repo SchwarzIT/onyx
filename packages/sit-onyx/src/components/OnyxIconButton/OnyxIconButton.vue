@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -10,11 +11,12 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   type: "button",
   color: "primary",
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 
 defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
@@ -23,7 +25,7 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxSkeleton v-if="props.skeleton" :class="['onyx-icon-button-skeleton', densityClass]" />
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-icon-button-skeleton', densityClass]" />
 
   <button
     v-else

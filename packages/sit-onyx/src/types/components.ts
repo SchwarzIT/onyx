@@ -1,5 +1,6 @@
 import type { FormInjected } from "../components/OnyxForm/OnyxForm.core";
 import type { DensityProp } from "../composables/density";
+import type { SkeletonInjected } from "../composables/useSkeletonState";
 import type { TruncationType } from "./fonts";
 
 // IMPORTANT: When changing this type, make sure to implement the feature
@@ -39,7 +40,7 @@ export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValu
   /**
    * Whether to show a skeleton.
    */
-  skeleton?: boolean;
+  skeleton?: SkeletonInjected;
   /**
    * How to truncate the label if it exceeds the max width.
    */

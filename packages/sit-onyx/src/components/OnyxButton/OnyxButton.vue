@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, type ComponentInstance } from "vue";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -14,18 +15,19 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   type: "button",
   color: "primary",
   mode: "default",
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 
 const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
 const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 </script>
 
 <template>
-  <OnyxSkeleton v-if="props.skeleton" :class="['onyx-button-skeleton', densityClass]" />
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-button-skeleton', densityClass]" />
   <button
     v-else
     :class="[
