@@ -49,7 +49,7 @@ const createSkeletonInjectionContext =
         return props.skeleton;
       }
 
-      return parentElementProps?.skeleton ?? useSkeletonContext(props).value ?? false;
+      return parentElementProps?.skeleton ?? false;
     });
 
 export const provideSkeletonContext = (
