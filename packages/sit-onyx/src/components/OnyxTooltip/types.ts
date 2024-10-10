@@ -1,6 +1,6 @@
-import type { WedgePosition } from "../../composables/useWedgePosition";
 import type { MaybeRefOrGetter } from "vue";
 import type { DensityProp } from "../../composables/density";
+import type { WedgePosition } from "../../composables/useWedgePosition";
 import type { OnyxColor } from "../../types";
 
 export type TooltipOptions = {
