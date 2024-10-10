@@ -130,6 +130,7 @@ const checkAllLabel = computed(() => {
           &__option {
             width: 100%;
           }
+
           &__check-all {
             border-bottom: $check-all-border;
           }
@@ -142,6 +143,7 @@ const checkAllLabel = computed(() => {
 
         .onyx-checkbox-group__check-all {
           border-right: $check-all-border;
+
           // the horizontal "Select all" checkbox label needs an additional padding-right
           .onyx-checkbox__label {
             padding-right: var(--onyx-density-md);

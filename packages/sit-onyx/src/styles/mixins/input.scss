@@ -3,16 +3,33 @@
 @use "layers";
 @use "density.scss";
 
+@mixin invalid($formElement) {
+  &:not(.onyx-form-element-suppress-invalid) {
+    &.onyx-form-element--touched-invalid:has(
+        #{$formElement}:user-invalid,
+        #{$formElement}--touched:invalid
+      ),
+    &.onyx-form-element--immediate-invalid:has(#{$formElement}:invalid) {
+      @content;
+    }
+  }
+}
+
 @mixin define-shared-styles($base-selector, $vertical-padding) {
   --border-color: var(--onyx-color-base-neutral-300);
+  --hover-border-color: var(--onyx-color-base-primary-400);
   --selection-color: var(--onyx-color-base-primary-200);
+  --background-color: var(--onyx-color-base-background-blank);
   --outline-color: var(--onyx-color-base-primary-200);
+  --outline-style: none;
 
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
-    background-color: var(--onyx-color-base-background-blank);
+    background-color: var(--background-color);
     color: var(--onyx-color-text-icons-neutral-intense);
+
+    outline: var(--onyx-spacing-4xs) var(--outline-style) var(--outline-color);
 
     display: flex;
     align-items: center;
@@ -24,32 +41,18 @@
     height: calc(1lh + 2 * #{$vertical-padding});
 
     &:has(#{$base-selector}__native:read-write:hover) {
-      --border-color: var(--onyx-color-base-primary-400);
+      --border-color: var(--hover-border-color, var(--onyx-color-base-primary-400));
     }
 
     &:has(#{$base-selector}__native:enabled:focus, #{$base-selector}__native--show-focus) {
-      --border-color: var(--onyx-color-base-primary-500);
-      outline: var(--onyx-spacing-4xs) solid var(--outline-color);
-    }
-
-    &:has(#{$base-selector}__native:user-invalid),
-    &:has(#{$base-selector}__native--force-invalid) {
-      --border-color: var(--onyx-color-base-danger-500);
-      --outline-color: var(--onyx-color-base-danger-200);
-      --selection-color: var(--onyx-color-base-danger-200);
-
-      &:has(#{$base-selector}__native:enabled:focus, #{$base-selector}__native--show-focus) {
-        --border-color: var(--onyx-color-base-danger-500);
-      }
-
-      &:has(#{$base-selector}__native:enabled:hover) {
-        --border-color: var(--onyx-color-base-danger-400);
-      }
+      --border-color: var(--focus-border-color, var(--onyx-color-base-primary-500));
+      --outline-style: solid;
     }
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(#{$base-selector}__native:read-only) {
-      background-color: var(--onyx-color-base-background-tinted);
+      --selection-color: var(--onyx-color-base-neutral-200);
+      --background-color: var(--onyx-color-base-background-tinted);
     }
 
     // styles for readonly but NOT disabled
@@ -60,7 +63,7 @@
 
       &:has(#{$base-selector}__native:focus, #{$base-selector}__native--show-focus) {
         --border-color: var(--onyx-color-base-neutral-300);
-        outline-color: var(--onyx-color-base-neutral-200);
+        --outline-color: var(--onyx-color-base-neutral-200);
       }
     }
 
@@ -75,16 +78,14 @@
     color: var(--onyx-color-text-icons-primary-intense);
   }
 
-  .onyx-form-element {
-    --error-message-display: none;
-  }
-  &:has(#{$base-selector}__native:user-invalid),
-  &:has(#{$base-selector}__native--force-invalid) {
-    .onyx-form-element {
-      --error-message-display: block;
-      // hide the default message once an error is shown
-      --message-display: none;
-    }
+  @include invalid(#{$base-selector}__native) {
+    --error-message-display: block;
+    --message-display: none;
+    --border-color: var(--onyx-color-base-danger-500);
+    --outline-color: var(--onyx-color-base-danger-200);
+    --selection-color: var(--onyx-color-base-danger-200);
+    --focus-border-color: var(--onyx-color-base-danger-500);
+    --hover-border-color: var(--onyx-color-base-danger-400);
   }
 
   &__native {

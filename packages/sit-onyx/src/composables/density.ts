@@ -12,5 +12,5 @@ export type DensityProp = {
 };
 
 export const useDensity = (props: DensityProp) => ({
-  densityClass: computed(() => ({ [`onyx-density-${props.density}`]: props.density })),
+  densityClass: computed(() => ({ [`onyx-density-${props.density}`]: !!props.density })),
 });

@@ -30,6 +30,11 @@ export default defineConfig({
       include: ["src"],
       exclude: ["src/**/*.stories.ts"],
     },
+    typecheck: {
+      enabled: true,
+      checker: "vue-tsc",
+      tsconfig: "tsconfig.app.json",
+    },
   },
 });
 

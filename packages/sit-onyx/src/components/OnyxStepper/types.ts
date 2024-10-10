@@ -1,11 +1,12 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
+import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 import type { Autocomplete } from "../OnyxInput/types";
 
-export type OnyxStepperProps = DensityProp &
+export type OnyxStepperProps = FormInjectedProps &
+  DensityProp &
   CustomValidityProp &
   Omit<OnyxFormElementProps, "modelValue" | "errorMessages" | "withCounter" | "maxlength"> &
   AutofocusProp & {
@@ -42,10 +43,6 @@ export type OnyxStepperProps = DensityProp &
      * @see [MDN autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
      */
     autocomplete?: Autocomplete;
-    /**
-     * Whether to disable the input and prevent user interaction.
-     */
-    disabled?: FormInjected<boolean>;
     /**
      * Whether the input should be readonly.
      */
