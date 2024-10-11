@@ -5,10 +5,10 @@ const SKELETON_INJECTION_KEY = Symbol() as InjectionKey<
 >;
 
 /**
- * Props on the parent component.
- * These are injected, so that they can be used in any child components.
+ * Prop on the parent component.
+ * It's value is provided, so that it can be used in child components.
  */
-export type SkeletonInjectedProps = {
+export type SkeletonProvidedProp = {
   skeleton: boolean;
 };
 
@@ -42,7 +42,7 @@ export type SKELETON_INJECTED = typeof SKELETON_INJECTED_SYMBOL;
 export type SkeletonInjected = SKELETON_INJECTED | boolean;
 
 const createSkeletonInjectionContext =
-  (parentElementProps?: SkeletonInjectedProps) =>
+  (parentElementProps?: SkeletonProvidedProp) =>
   (props: Reactive<LocalProps>): ComputedRef<boolean> =>
     computed(() => {
       if (props.skeleton !== SKELETON_INJECTED_SYMBOL) {
@@ -53,7 +53,7 @@ const createSkeletonInjectionContext =
     });
 
 export const provideSkeletonContext = (
-  parentElementProps: Reactive<SkeletonInjectedProps> | undefined,
+  parentElementProps: Reactive<SkeletonProvidedProp> | undefined,
 ) => provide(SKELETON_INJECTION_KEY, createSkeletonInjectionContext(parentElementProps));
 
 const DEFAULT_SKELETON_INJECTION_CONTEXT = createSkeletonInjectionContext();
