@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.51
+
+### Minor Changes
+
+- 6fe0527: feat(OnyxMenuItem): add property `target`
+
 ## 1.0.0-beta.50
 
 ### Major Changes
