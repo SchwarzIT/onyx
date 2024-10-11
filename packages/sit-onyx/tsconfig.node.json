@@ -7,7 +7,7 @@
     "playwright.config.*",
     "package.json",
     ".storybook/*.ts",
-    "src/index.ts"
+    "src/a11yConfig.ts"
   ],
   "compilerOptions": {
     "composite": true,

@@ -364,6 +364,9 @@ importers:
       '@vue/compiler-dom':
         specifier: 'catalog:'
         version: 3.5.11
+      axe-core:
+        specifier: ^4.10.0
+        version: 4.10.0
       eslint-plugin-vue-scoped-css:
         specifier: ^2.8.1
         version: 2.8.1(eslint@9.10.0(jiti@2.3.3))(vue-eslint-parser@9.4.3(eslint@9.10.0(jiti@2.3.3)))
