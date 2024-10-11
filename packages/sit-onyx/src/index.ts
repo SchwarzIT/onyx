@@ -20,6 +20,7 @@ export * from "./components/OnyxCheckbox/types";
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types";
 
+export * from "./components/OnyxDataGrid/composables/useDataGridFeatures";
 export { default as OnyxDataGridRenderer } from "./components/OnyxDataGrid/OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 export * from "./components/OnyxDataGrid/OnyxDataGridRenderer/types";
 
