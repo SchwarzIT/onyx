@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/chartjs-plugin",
   "description": "A Chart.js plugin for the onyx design system created by Schwarz IT",
-  "version": "1.0.0-beta.49",
+  "version": "1.0.0-beta.52",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@sit-onyx/storybook-utils": "workspace:^",
+    "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
     "chart.js": "catalog:",
     "vue": "catalog:",

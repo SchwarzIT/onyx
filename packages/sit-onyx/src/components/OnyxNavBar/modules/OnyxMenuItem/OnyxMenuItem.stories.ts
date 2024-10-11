@@ -36,6 +36,7 @@ export const WithLink = {
   args: {
     ...Default.args,
     href: "https://onyx.schwarz",
+    target: "_blank",
   },
 } satisfies Story;
 

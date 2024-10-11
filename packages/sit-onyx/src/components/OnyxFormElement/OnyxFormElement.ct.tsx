@@ -1,5 +1,5 @@
 import { expect, test } from "../../playwright/a11y";
-import TestWrapper from "./TestWrapper.vue";
+import TestWrapper from "./TestWrapper.ct.vue";
 
 test("should have unique ids", async ({ mount }) => {
   // ARRANGE

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import type { OnyxFormProps } from "src/components/OnyxForm/types";
 import { ref } from "vue";
 import {
   OnyxButton,
   OnyxCheckboxGroup,
+  OnyxForm,
   OnyxInput,
   OnyxSelect,
   OnyxStepper,
@@ -23,6 +25,7 @@ type FormState = {
   terms?: LegalTerm[];
 };
 
+const props = defineProps<OnyxFormProps>();
 const toast = useToast();
 const state = ref<Partial<FormState>>({});
 
@@ -74,7 +77,12 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 
 <template>
   <div>
-    <form class="onyx-grid" @submit.prevent="handleSubmit" @reset="state = {}">
+    <OnyxForm
+      :density="props.density"
+      :disabled="props.disabled"
+      @submit.prevent="handleSubmit"
+      @reset="state = {}"
+    >
       <OnyxInput
         v-model="state.username"
         class="onyx-grid-span-4"
@@ -126,7 +134,7 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
         <OnyxButton label="Reset" type="reset" color="neutral" />
         <OnyxButton label="Submit" type="submit" />
       </div>
-    </form>
+    </OnyxForm>
 
     <pre>Form state: {{ state }}</pre>
   </div>
@@ -136,6 +144,6 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--onyx-grid-gutter);
+  gap: 0.5rem;
 }
 </style>

@@ -13,12 +13,14 @@
     "@sit-onyx/eslint-plugin": "0.0.0",
     "demo-app": "0.0.0",
     "playground": "0.0.0",
-    "@sit-onyx/nuxt": "0.0.0"
+    "@sit-onyx/nuxt": "0.0.0",
+    "@sit-onyx/shared": "1.0.0"
   },
   "changesets": [
     "afraid-avocados-hear",
     "angry-peaches-repair",
     "angry-teachers-tickle",
+    "beige-cherries-explain",
     "beige-swans-add",
     "big-coins-join",
     "big-ears-cheer",
@@ -76,6 +78,7 @@
     "few-cows-punch",
     "few-ligers-pump",
     "few-rivers-know",
+    "fifty-apricots-laugh",
     "fifty-students-turn",
     "five-cooks-dream",
     "five-countries-repeat",
@@ -184,6 +187,7 @@
     "olive-forks-mate",
     "olive-months-turn",
     "pink-days-rest",
+    "pink-weeks-tan",
     "plenty-dragons-hope",
     "plenty-queens-matter",
     "polite-hats-mate",

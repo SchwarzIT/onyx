@@ -1,5 +1,25 @@
 # sit-onyx
 
+## 1.0.0-beta.52
+
+### Patch Changes
+
+- a9d89f6: fix(OnyxButton): ripple animation not working
+
+## 1.0.0-beta.51
+
+### Minor Changes
+
+- 6fe0527: feat(OnyxMenuItem): add property `target`
+
+## 1.0.0-beta.50
+
+### Major Changes
+
+- beca92e: refactor(OnyxDataGridRenderer): enable striped and vertical borders by default
+
+  Changed the default value for the `striped` and `withVerticalBorders` property from `false` to `true`.
+
 ## 1.0.0-beta.49
 
 ### Patch Changes

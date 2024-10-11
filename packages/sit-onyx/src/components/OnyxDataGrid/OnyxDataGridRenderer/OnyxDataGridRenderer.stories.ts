@@ -15,7 +15,7 @@ type Story = StoryObj<typeof OnyxDataGridRenderer>;
 export const Default = {
   args: {
     columns: Array.from({ length: 4 }, (_, index) => getDummyColumn(index + 1)),
-    rows: Array.from({ length: 10 }, (_, index) => getDummyRow(index + 1)),
+    rows: Array.from({ length: 6 }, (_, index) => getDummyRow(index + 1)),
   },
 } satisfies Story;
 
@@ -24,7 +24,6 @@ export const Default = {
  */
 export const GroupedData = {
   args: {
-    withVerticalBorders: true,
     columnGroups: [
       {
         key: "ungrouped",
