@@ -13,21 +13,21 @@ export type SkeletonProvidedProp = {
 };
 
 /**
- * Props that may be used by the child components.
+ * Prop that may be used by the child components.
  */
 type LocalProps = {
   skeleton: SKELETON_INJECTED | boolean;
 };
 
 /**
- * Symbol for the skeleton injected properties.
+ * Symbol for the skeleton injected property.
  */
 export const SKELETON_INJECTED_SYMBOL = Symbol("SKELETON_INJECTED_SYMBOL");
 export type SKELETON_INJECTED = typeof SKELETON_INJECTED_SYMBOL;
 /**
- * Prop type used by the child elements, which indicates that the prop value is taken from the parent by default.
- * The props **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
- * `useSkeletonContext` is used to access the injected parent properties.
+ * Prop type used by child elements, which indicates that the prop value is taken from the parent by default.
+ * The prop **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
+ * `useSkeletonContext` is used to access the injected parent property.
  *
  * @example
  * ```ts
@@ -35,7 +35,7 @@ export type SKELETON_INJECTED = typeof SKELETON_INJECTED_SYMBOL;
  *   skeleton: SKELETON_INJECTED_SYMBOL,
  * });
  *
- * const { skeleton } = useSkeletonContext(props);
+ * const skeleton = useSkeletonContext(props);
  * ```
  */
 
@@ -58,11 +58,11 @@ export const provideSkeletonContext = (
 
 const DEFAULT_SKELETON_INJECTION_CONTEXT = createSkeletonInjectionContext();
 /**
- * Provides the injected parent properties (if available).
+ * Provides the injected parent property (if available).
  * Otherwise a defined default is used.
- * A prop defined on the child component will always take precedence over the injected parent properties.
+ * A prop defined on the child component will always take precedence over the injected parent property.
  *
- * The props **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
+ * The prop **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
  * The type `SkeletonInjected<T>` can be used as PropType wrapper.
  *
  * @example
@@ -71,7 +71,7 @@ const DEFAULT_SKELETON_INJECTION_CONTEXT = createSkeletonInjectionContext();
  *   skeleton: SKELETON_INJECTED_SYMBOL, // By default, the parent injected value is used
  * });
  *
- * const { skeleton } = useSkeletonContext(props);
+ * const skeleton = useSkeletonContext(props);
  * ```
  */
 export const useSkeletonContext = (props: Reactive<LocalProps>) => {

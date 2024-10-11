@@ -110,7 +110,7 @@ test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render form inside page", async ({ mount, page }) => {
+test("should render OnyxForm nested inside OnyxPageLayout", async ({ mount, page }) => {
   const inferProps = <TComp extends Component, TProps extends ComponentProps<TComp>>(
     component: TComp,
     props: TProps,
