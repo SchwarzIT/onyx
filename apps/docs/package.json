@@ -18,6 +18,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
+    "@vueuse/core": "^11.1.0",
     "chart.js": "^4.4.4",
     "postcss": "^8.4.47",
     "sass-embedded": "catalog:",
