@@ -6,6 +6,13 @@ import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import { type OnyxMenuItemProps } from "./types";
 
+defineSlots<{
+  /**
+   * Text content of the menu item.
+   */
+  default: () => unknown;
+}>();
+
 const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
   target: "_self",
 });
