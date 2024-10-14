@@ -7,11 +7,20 @@ import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 import "@fontsource-variable/source-code-pro";
 import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
+import { getRules, Spec } from "axe-core";
+import { a11yTags } from "../src/a11yConfig";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
 import { enhanceFormInjectedSymbol } from "./formInjected";
 import { enhanceManagedSymbol } from "./managed";
 import { withOnyxVModelDecorator } from "./vModel";
+
+const enabledRules = getRules(a11yTags).map((ruleMetadata) => ({
+  id: ruleMetadata.ruleId,
+  enabled: true,
+}));
+
+const axeConfig: Spec = { rules: enabledRules };
 
 const basePreview = createPreview({
   argTypesEnhancers: [enhanceManagedSymbol, enhanceFormInjectedSymbol],
@@ -23,6 +32,9 @@ const basePreview = createPreview({
         // add our custom "Properties, Events and Slots" headline from docs-template.mdx to the table of contents
         headingSelector: ".sb-anchor > h3, #properties-events-and-slots, #examples",
       },
+    },
+    a11y: {
+      config: axeConfig,
     },
   },
   globalTypes: {
