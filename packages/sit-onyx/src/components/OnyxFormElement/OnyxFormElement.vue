@@ -93,18 +93,6 @@ defineSlots<{
 
 .onyx-form-element {
   @include layers.component() {
-    /**
-     * input.scss will overwrite this to only be visible
-     * after the user interacted with the component.
-     * can also be overwritten if a project
-     * needs to enforce to show an error immediately
-     */
-    --error-message-display: block;
-    /** input.scss will overwrite this so that
-     * message and error message are not be shown simultaneously
-     */
-    --message-display: block;
-
     font-family: var(--onyx-font-family);
     display: flex;
     flex-direction: column;
@@ -156,15 +144,24 @@ defineSlots<{
       margin-left: $footer-gap;
     }
 
+    /**
+     * input.scss will overwrite this to only be visible
+     * after the user interacted with the component.
+     * can also be overwritten if a project
+     * needs to enforce to show an error immediately
+     */
     &__error-message,
     &__error-tooltip {
-      display: var(--error-message-display);
+      display: var(--error-message-display, none);
       color: var(--onyx-color-base-danger-500);
     }
 
+    /** input.scss will overwrite this so that
+     * message and error message are not be shown simultaneously
+     */
     &__message,
     &__message-tooltip {
-      display: var(--message-display);
+      display: var(--message-display, block);
     }
   }
 }

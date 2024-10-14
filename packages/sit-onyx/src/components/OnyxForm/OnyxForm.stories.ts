@@ -27,7 +27,7 @@ export const Default = {
   args: {
     style: { maxWidth: "10rem", display: "flex", flexDirection: "column", gap: "1rem" },
     default: () => [
-      h(OnyxInput, { label: "Favorite band", modelValue: "Queen" }),
+      h(OnyxInput, { label: "Favorite band", modelValue: "Que2en", pattern: "[A-Za-z ]+" }),
       h(OnyxInput, { label: "Favorite password", type: "password", modelValue: "incorrect" }),
       h(OnyxStepper, { label: "Number of hairs", min: 0, modelValue: 23 }),
       h(
@@ -47,6 +47,34 @@ export const Default = {
   },
 } satisfies Story;
 
+/**
+ * This example show a form that displays all errors immediately.
+ */
+export const ShowError = {
+  args: {
+    ...Default.args,
+    default: () => [
+      h(OnyxInput, { label: "Favorite band", modelValue: "2. Queen", pattern: "[A-Za-z ]+" }),
+      h(OnyxInput, { label: "Favorite password", type: "password", modelValue: "incorrect" }),
+      h(OnyxStepper, { label: "Number of hairs", min: 0, modelValue: 23 }),
+      h(
+        "div",
+        {
+          style: { display: "flex", gap: "0.5rem" },
+        },
+        [
+          h(OnyxButton, { label: "Reset", type: "reset", mode: "outline" }),
+          h(OnyxButton, { label: "Submit", type: "submit", formmethod: "dialog" }), // we use formmethod `dialog` to avoid a page load on submit
+        ],
+      ),
+    ],
+    showError: true,
+  },
+} satisfies Story;
+
+/**
+ * This example show a form that is disabled as a whole.
+ */
 export const Disabled = {
   args: {
     ...Default.args,
