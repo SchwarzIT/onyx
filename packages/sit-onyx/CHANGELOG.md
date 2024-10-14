@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.52
+
+### Patch Changes
+
+- a9d89f6: fix(OnyxButton): ripple animation not working
+
 ## 1.0.0-beta.51
 
 ### Minor Changes

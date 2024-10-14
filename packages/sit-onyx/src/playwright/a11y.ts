@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { test as base } from "@playwright/experimental-ct-vue";
+import { a11yTags } from "../a11yConfig";
 
 export { expect } from "@playwright/experimental-ct-vue";
 
@@ -17,7 +18,7 @@ type AxeFixture = {
 export const test: ReturnType<typeof base.extend<AxeFixture>> = base.extend<AxeFixture>({
   makeAxeBuilder: async ({ page }, use) => {
     const makeAxeBuilder = () => {
-      return new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]);
+      return new AxeBuilder({ page }).withTags(a11yTags);
     };
 
     await use(makeAxeBuilder);
