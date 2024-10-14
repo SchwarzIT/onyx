@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.54
+
+### Minor Changes
+
+- 01f8664: feat(OnyxForm): implement `showError` mode
+  fix(OnyxForm): update of injected prop not working when initially using default
+
 ## 1.0.0-beta.53
 
 ### Patch Changes
