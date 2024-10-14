@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+import OnyxTable from "~components/OnyxTable/OnyxTable.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
+
+import { data as browsersData } from "../browser-loader.data";
+
+const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
 
 const props = defineProps<{
   data: HomePageData;
@@ -61,7 +66,36 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
             description="Closed issues"
             :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
           />
+          <RoadmapCard
+            :title="browsersData.browsers.length"
+            description="Browser versions supported"
+          />
         </div>
+      </section>
+      <section>
+        <OnyxHeadline is="h2" class="roadmap__headline">Browser Support</OnyxHeadline>
+        <p class="roadmap__meta">
+          Global coverage: {{ browsersData.coverage }}% (based on our Browserslist setting and
+          caniuse)
+        </p>
+        <OnyxTable style="max-width: 500px">
+          <template #head>
+            <tr>
+              <th>Name</th>
+              <th>Version</th>
+              <th>Coverage</th>
+            </tr>
+          </template>
+          <tr v-for="b in browsers">
+            <td>{{ b.name }} ({{ b.coverage }}%)</td>
+            <td>
+              <p v-for="(value, key) in b.versions" :key="key">{{ key }}</p>
+            </td>
+            <td>
+              <p v-for="(value, key) in b.versions" :key="value">{{ value }} %</p>
+            </td>
+          </tr>
+        </OnyxTable>
       </section>
     </div>
   </section>
@@ -103,7 +137,8 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
     line-height: 2.5rem;
   }
 
-  &__timestamp {
+  &__timestamp,
+  &__meta {
     color: var(--vp-c-text-2);
     margin: var(--onyx-spacing-md) 0;
   }
