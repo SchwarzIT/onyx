@@ -2,24 +2,43 @@ import fs from "fs";
 import https from "https";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import { defineLoader } from "vitepress";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const browserslistRcPath = path.resolve(__dirname, "../../../../.browserslistrc");
 
-const load = async () => {
-  const loadJson = () =>
-    new Promise((resolve, reject) => {
-      let browserRules = "";
-      fs.readFile(browserslistRcPath, "utf8", (error, data) => {
-        if (error) {
-          reject("Error reading .browserslistrc file:", error);
-          return;
-        }
+const load = async () => {};
 
+type Browser = {
+  coverage: number;
+  id: string;
+  name: string;
+  versions: Record<string, number | undefined>;
+};
+
+export interface Data {
+  browsers: Browser[];
+  coverage: number;
+  config: string;
+}
+
+declare const data: Data;
+
+export { data };
+
+export default defineLoader({
+  async load(): Promise<Data> {
+    return new Promise((resolve, reject) => {
+      let browserRules = "";
+
+      try {
+        const data = fs.readFileSync(browserslistRcPath, "utf8");
         const [_firstLine, ...lines] = data.split("\n").filter((l) => !!l);
         browserRules = lines.join("").trim();
-      });
+      } catch (e) {
+        console.error("could not read .browserslistrc");
+      }
 
       const url = `https://browsersl.ist/api/browsers?q=${browserRules}`;
 
@@ -44,9 +63,5 @@ const load = async () => {
           reject(error.message);
         });
     });
-
-  const result = await loadJson();
-  return result;
-};
-
-export default { load };
+  },
+});
