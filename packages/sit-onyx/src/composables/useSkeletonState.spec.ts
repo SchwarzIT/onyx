@@ -4,7 +4,6 @@ import {
   SKELETON_INJECTED_SYMBOL,
   provideSkeletonContext,
   useSkeletonContext,
-  type SKELETON_INJECTED,
   type SkeletonInjected,
 } from "./useSkeletonState";
 
@@ -42,17 +41,17 @@ it.for([
   },
   {
     pageLayoutProps: { skeleton: true },
-    localProps: { skeleton: SKELETON_INJECTED_SYMBOL as SKELETON_INJECTED },
+    localProps: { skeleton: SKELETON_INJECTED_SYMBOL },
     expected: true,
   },
   {
     pageLayoutProps: { skeleton: false },
-    localProps: { skeleton: SKELETON_INJECTED_SYMBOL as SKELETON_INJECTED },
+    localProps: { skeleton: SKELETON_INJECTED_SYMBOL },
     expected: false,
   },
   {
     pageLayoutProps: undefined,
-    localProps: { skeleton: SKELETON_INJECTED_SYMBOL as SKELETON_INJECTED },
+    localProps: { skeleton: SKELETON_INJECTED_SYMBOL },
     expected: false,
   },
   {
@@ -65,7 +64,7 @@ it.for([
     localProps: { skeleton: false },
     expected: false,
   },
-])(
+] as const)(
   "it should derive expected state when correctly",
   ({ pageLayoutProps, localProps, expected }) => {
     provideSkeletonContext(pageLayoutProps);
