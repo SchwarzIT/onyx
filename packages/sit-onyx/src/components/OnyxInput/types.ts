@@ -3,10 +3,11 @@ import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
+import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
-export type OnyxInputProps = DensityProp &
+export type OnyxInputProps = FormInjectedProps &
+  DensityProp &
   RequiredMarkerProp &
   CustomValidityProp &
   Omit<OnyxFormElementProps, "modelValue" | "errorMessages"> &
@@ -53,10 +54,6 @@ export type OnyxInputProps = DensityProp &
      * Whether the input should be readonly.
      */
     readonly?: boolean;
-    /**
-     * Whether the input should be disabled.
-     */
-    disabled?: FormInjected<boolean>;
     /**
      * Whether the input is loading. User interaction will be disabled.
      */

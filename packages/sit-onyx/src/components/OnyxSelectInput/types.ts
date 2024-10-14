@@ -3,13 +3,14 @@ import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
+import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
 
-export type OnyxSelectInputProps = DensityProp &
+export type OnyxSelectInputProps = FormInjectedProps &
+  DensityProp &
   RequiredMarkerProp &
   CustomValidityProp &
   AutofocusProp &
@@ -25,10 +26,6 @@ export type OnyxSelectInputProps = DensityProp &
      *            A number-badge appears next to it including a tooltip with all selected names.
      */
     textMode?: MultiselectTextMode;
-    /**
-     * Whether the select should be disabled.
-     */
-    disabled?: FormInjected<boolean>;
     /**
      * Whether to show a skeleton select.
      */

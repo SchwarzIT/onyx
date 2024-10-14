@@ -110,6 +110,7 @@ const skeleton = useSkeletonContext(props);
     .onyx-error-tooltip:has(&__selector:valid) .onyx-tooltip {
       display: none;
     }
+
     &:has(&__selector:invalid) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
@@ -163,6 +164,7 @@ const skeleton = useSkeletonContext(props);
         color: var(--onyx-radio-button-selector-outline-color);
         offset: 0;
       }
+
       transition: outline var(--onyx-duration-sm);
 
       border: {
