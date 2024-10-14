@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useMediaQuery } from "@vueuse/core";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import OnyxTable from "~components/OnyxTable/OnyxTable.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
@@ -9,6 +10,10 @@ import RoadmapCard from "./RoadmapCard.vue";
 import { data as browsersData } from "../browser-loader.data";
 
 const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
+const browsersLeft = browsers.slice(0, Math.round(browsers.length * 0.5) - 1);
+const browsersRight = browsers.slice(Math.round(browsers.length * 0.5) - 1);
+
+const isMediumScreen = useMediaQuery("(min-width: 640px)");
 
 const props = defineProps<{
   data: HomePageData;
@@ -72,30 +77,50 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
           />
         </div>
       </section>
-      <section>
+      <section v-if="browsersData && browsers.length">
         <OnyxHeadline is="h2" class="roadmap__headline">Browser Support</OnyxHeadline>
         <p class="roadmap__meta">
           Global coverage: {{ browsersData.coverage }}% (based on our Browserslist setting and
           caniuse)
         </p>
-        <OnyxTable style="max-width: 500px">
-          <template #head>
-            <tr>
-              <th>Name</th>
-              <th>Version</th>
-              <th>Coverage</th>
+        <div class="roadmap__tables">
+          <OnyxTable>
+            <template #head>
+              <tr>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Coverage</th>
+              </tr>
+            </template>
+            <tr v-for="b in isMediumScreen ? browsersLeft : browsers">
+              <td>{{ b.name }} ({{ b.coverage }}%)</td>
+              <td>
+                <p v-for="(value, key) in b.versions" :key="key">{{ key }}</p>
+              </td>
+              <td>
+                <p v-for="(value, key) in b.versions" :key="value">{{ value }} %</p>
+              </td>
             </tr>
-          </template>
-          <tr v-for="b in browsers">
-            <td>{{ b.name }} ({{ b.coverage }}%)</td>
-            <td>
-              <p v-for="(value, key) in b.versions" :key="key">{{ key }}</p>
-            </td>
-            <td>
-              <p v-for="(value, key) in b.versions" :key="value">{{ value }} %</p>
-            </td>
-          </tr>
-        </OnyxTable>
+          </OnyxTable>
+          <OnyxTable v-if="isMediumScreen">
+            <template #head>
+              <tr>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Coverage</th>
+              </tr>
+            </template>
+            <tr v-for="b in browsersRight">
+              <td>{{ b.name }} ({{ b.coverage }}%)</td>
+              <td>
+                <p v-for="(value, key) in b.versions" :key="key">{{ key }}</p>
+              </td>
+              <td>
+                <p v-for="(value, key) in b.versions" :key="value">{{ value }} %</p>
+              </td>
+            </tr>
+          </OnyxTable>
+        </div>
       </section>
     </div>
   </section>
@@ -150,6 +175,15 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
   &__tabs {
     background-color: var(--vp-c-bg-alt);
     border-radius: var(--onyx-radius-md);
+  }
+
+  &__tables {
+    display: flex;
+    gap: var(--onyx-spacing-xl);
+    > * {
+      flex-grow: 1;
+      height: fit-content;
+    }
   }
 
   &__facts {
