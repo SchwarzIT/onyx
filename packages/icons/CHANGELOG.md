@@ -1,5 +1,16 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.6
+
+### Minor Changes
+
+- be5b415: feat: update icons
+
+  #### Modified icons
+
+  - cancellation-undone
+  - sidebar-arrow-right
+
 ## 1.0.0-beta.5
 
 ### Minor Changes
