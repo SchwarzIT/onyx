@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 import { ref } from "vue";
-import { useErrorClass, type ShowErrorModes } from "./useErrorClass";
+import { useErrorClass, type ShowErrorMode } from "./useErrorClass";
 
 describe("useErrorClass", () => {
-  const showErrorMode = ref<ShowErrorModes>(true);
+  const showErrorMode = ref<ShowErrorMode>(true);
   const errorClass = useErrorClass(showErrorMode);
 
   test.each([
