@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { useErrorClass } from "../../composables/useErrorClass";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -13,6 +14,7 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   autocapitalize: "sentences",
   readonly: false,
   disabled: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
   skeleton: false,
   disableManualResize: false,
 });
@@ -59,7 +61,8 @@ const handleInput = (event: Event) => {
   target.parentElement?.setAttribute("data-autosize-value", target.value);
 };
 
-const { disabled } = useFormContext(props);
+const { disabled, showError } = useFormContext(props);
+const errorClass = useErrorClass(showError);
 </script>
 
 <template>
@@ -72,7 +75,7 @@ const { disabled } = useFormContext(props);
     <OnyxSkeleton class="onyx-textarea-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-textarea', densityClass]" :style="autosizeMinMaxStyles">
+  <div v-else :class="['onyx-textarea', errorClass, densityClass]" :style="autosizeMinMaxStyles">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <template #default="{ id }">
         <div class="onyx-textarea__wrapper" :data-autosize-value="value">
