@@ -8,9 +8,22 @@ import type { SelectOptionValue } from "../../../../types";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
-const props = withDefaults(defineProps<{ isMobile: boolean; flyoutOpen: ManagedProp<boolean> }>(), {
-  flyoutOpen: MANAGED_SYMBOL,
-});
+const props = withDefaults(
+  defineProps<{
+    /**
+     * If the mobile layout should be used instead of the desktop layout.
+     */
+    isMobile: boolean;
+    /**
+     * Controls the open state of the user menu flyout.
+     * Will be managed automatically, if not provided as a prop.
+     */
+    flyoutOpen?: ManagedProp<boolean>;
+  }>(),
+  {
+    flyoutOpen: MANAGED_SYMBOL,
+  },
+);
 
 defineEmits<{
   "update:flyoutOpen": [isOpen: boolean];

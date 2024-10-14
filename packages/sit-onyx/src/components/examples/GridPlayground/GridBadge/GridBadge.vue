@@ -3,8 +3,17 @@ import type { OnyxColor } from "../../../../types";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 
 const props = defineProps<{
+  /**
+   * Value shown on the badge itself.
+   */
   value: string | number;
+  /**
+   * Label shown after the value.
+   */
   label: string;
+  /**
+   * The badge color.
+   */
   color: Extract<OnyxColor, "info" | "warning" | "danger">;
 }>();
 </script>
