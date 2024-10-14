@@ -1,6 +1,7 @@
 import type { OnyxColor } from "../../../../types";
+import type { OnyxLinkProps } from "../../../OnyxLink/types";
 
-export type OnyxMenuItemProps = {
+export type OnyxMenuItemProps = Pick<OnyxLinkProps, "target"> & {
   /**
    * URL that the menu item points to.
    * If the property is set the menuitem will act as an anchor, otherwise it will act as an button.
