@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { ButtonColor, ButtonType } from "../OnyxButton/types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
@@ -33,5 +34,5 @@ export type OnyxIconButtonProps = DensityProp &
     /**
      * Whether to show a skeleton button.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
   };

@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -16,7 +17,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   autocapitalize: "sentences",
   readonly: false,
   loading: false,
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
 });
@@ -50,11 +51,12 @@ const patternSource = computed(() => {
 });
 
 const { disabled, showError } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-input-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-input-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-input-skeleton__label" />
     <OnyxSkeleton class="onyx-input-skeleton__input" />
   </div>
