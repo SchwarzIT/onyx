@@ -1,17 +1,18 @@
 <script lang="ts" setup>
+import { data as browsersData } from "#src/.vitepress/browser-loader.data";
 import { useMediaQuery } from "@vueuse/core";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+import OnyxLink from "~components/OnyxLink/OnyxLink.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
+import BrowsersTable from "./BrowsersTable.vue";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 
-import { data as browsersData } from "../browser-loader.data";
-import BrowsersTable from "./BrowsersTable.vue";
-
 const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
-const browsersLeftColumn = browsers.slice(0, browsers.length * 0.5 - 1);
-const browsersRightColumn = browsers.slice(browsers.length * 0.5 - 1);
+const tableDevider = browsers.length * 0.5;
+const browsersLeftColumn = browsers.slice(0, tableDevider);
+const browsersRightColumn = browsers.slice(tableDevider);
 
 const isMediumScreen = useMediaQuery("(min-width: 640px)");
 
@@ -81,7 +82,8 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
         <OnyxHeadline is="h2" class="roadmap__headline">Browser Support</OnyxHeadline>
         <p class="roadmap__meta">
           Global coverage: {{ browsersData.coverage }}% (based on our Browserslist setting and
-          caniuse)
+          <OnyxLink href="https://caniuse.com">caniuse</OnyxLink>)<br />
+          Find our .browserslistrc <OnyxLink href="https://onyx.schwarz">here</OnyxLink>
         </p>
         <div class="roadmap__tables">
           <BrowsersTable :browsers="isMediumScreen ? browsersLeftColumn : browsers" />
