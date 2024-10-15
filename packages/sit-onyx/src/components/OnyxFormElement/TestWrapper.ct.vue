@@ -4,12 +4,12 @@ import OnyxFormElement from "./OnyxFormElement.vue";
 </script>
 <template>
   <div>
-    <OnyxFormElement :label="'Test'">
+    <OnyxFormElement label="Test">
       <template #default="{ id }">
         <input :id="id" />
       </template>
     </OnyxFormElement>
-    <OnyxFormElement :label="'Test'">
+    <OnyxFormElement label="Test">
       <template #default="{ id }">
         <input :id="id" />
       </template>
