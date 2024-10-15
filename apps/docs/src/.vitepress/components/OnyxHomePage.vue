@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import { useMediaQuery } from "@vueuse/core";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
-import OnyxTable from "~components/OnyxTable/OnyxTable.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 
 import { data as browsersData } from "../browser-loader.data";
+import BrowsersTable from "./BrowsersTable.vue";
 
 const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
-const browsersLeft = browsers.slice(0, Math.round(browsers.length * 0.5) - 1);
-const browsersRight = browsers.slice(Math.round(browsers.length * 0.5) - 1);
+const browsersLeftColumn = browsers.slice(0, browsers.length * 0.5 - 1);
+const browsersRightColumn = browsers.slice(browsers.length * 0.5 - 1);
 
 const isMediumScreen = useMediaQuery("(min-width: 640px)");
 
@@ -84,42 +84,8 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
           caniuse)
         </p>
         <div class="roadmap__tables">
-          <OnyxTable>
-            <template #head>
-              <tr>
-                <th>Name</th>
-                <th>Version</th>
-                <th>Coverage</th>
-              </tr>
-            </template>
-            <tr v-for="b in isMediumScreen ? browsersLeft : browsers">
-              <td>{{ b.name }} ({{ b.coverage }}%)</td>
-              <td>
-                <p v-for="(value, key) in b.versions" :key="key">{{ key }}</p>
-              </td>
-              <td>
-                <p v-for="(value, key) in b.versions" :key="value">{{ value }} %</p>
-              </td>
-            </tr>
-          </OnyxTable>
-          <OnyxTable v-if="isMediumScreen">
-            <template #head>
-              <tr>
-                <th>Name</th>
-                <th>Version</th>
-                <th>Coverage</th>
-              </tr>
-            </template>
-            <tr v-for="b in browsersRight">
-              <td>{{ b.name }} ({{ b.coverage }}%)</td>
-              <td>
-                <p v-for="(value, key) in b.versions" :key="key">{{ key }}</p>
-              </td>
-              <td>
-                <p v-for="(value, key) in b.versions" :key="value">{{ value }} %</p>
-              </td>
-            </tr>
-          </OnyxTable>
+          <BrowsersTable :browsers="isMediumScreen ? browsersLeftColumn : browsers" />
+          <BrowsersTable v-if="isMediumScreen" :browsers="browsersRightColumn" />
         </div>
       </section>
     </div>
