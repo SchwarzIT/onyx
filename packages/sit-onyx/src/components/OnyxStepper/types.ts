@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
@@ -54,5 +55,5 @@ export type OnyxStepperProps = FormInjectedProps &
     /**
      * Whether to show a skeleton input.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
   };

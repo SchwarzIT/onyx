@@ -5,6 +5,7 @@ import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
@@ -26,7 +27,7 @@ const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   showError: FORM_INJECTED_SYMBOL,
   readonly: false,
   loading: false,
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -44,6 +45,7 @@ const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { disabled, showError } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 
 /**
@@ -110,11 +112,7 @@ const blockTyping = (event: KeyboardEvent) => {
 };
 </script>
 <template>
-  <div
-    v-if="props.skeleton"
-    :class="['onyx-select-input-skeleton', densityClass]"
-    v-bind="rootAttrs"
-  >
+  <div v-if="skeleton" :class="['onyx-select-input-skeleton', densityClass]" v-bind="rootAttrs">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
     <OnyxSkeleton class="onyx-select-input-skeleton__input" />
   </div>

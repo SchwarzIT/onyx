@@ -5,6 +5,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -17,7 +18,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   truncation: "ellipsis",
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -39,6 +40,7 @@ const shownErrorMessages = computed(() =>
 );
 
 const title = computed(() => (props.hideLabel && props.label) || undefined);
+const skeleton = useSkeletonContext(props);
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -49,7 +51,7 @@ const isChecked = computed({
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-switch-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-switch-skeleton', densityClass]">
     <span class="onyx-switch-skeleton__click-area">
       <OnyxSkeleton class="onyx-switch-skeleton__input" />
     </span>

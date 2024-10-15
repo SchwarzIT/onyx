@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -15,7 +16,7 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   readonly: false,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   disableManualResize: false,
 });
 
@@ -62,12 +63,13 @@ const handleInput = (event: Event) => {
 };
 
 const { disabled, showError } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 </script>
 
 <template>
   <div
-    v-if="props.skeleton"
+    v-if="skeleton"
     :class="['onyx-textarea-skeleton', densityClass]"
     :style="autosizeMinMaxStyles"
   >
