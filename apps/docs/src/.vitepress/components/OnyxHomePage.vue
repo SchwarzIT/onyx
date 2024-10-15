@@ -83,7 +83,10 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
         <p class="roadmap__meta">
           Global coverage: {{ browsersData.coverage }}% (based on our Browserslist setting and
           <OnyxLink href="https://caniuse.com">caniuse</OnyxLink>)<br />
-          Find our .browserslistrc <OnyxLink href="https://onyx.schwarz">here</OnyxLink>
+          Find our .browserslistrc
+          <OnyxLink href="https://github.com/SchwarzIT/onyx/blob/main/.browserslistrc"
+            >here</OnyxLink
+          >
         </p>
         <div class="roadmap__tables">
           <BrowsersTable :browsers="isMediumScreen ? browsersLeftColumn : browsers" />
