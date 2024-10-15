@@ -79,6 +79,7 @@ const show = computed(() => {
 const densityOptions = DENSITIES.map((value: string) => ({
   value,
   label: capitalize(value),
+  skeleton: false,
 })) satisfies SelectOption[];
 
 const activeDensityOption = ref(densityOptions[1].value);
@@ -128,13 +129,13 @@ const currentPage = ref(1);
 </script>
 
 <template>
-  <OnyxPageLayout>
+  <OnyxPageLayout :skeleton="useSkeleton">
     <template #sidebar>
       <div class="sidebar">
         <OnyxRadioGroup v-model="activeDensityOption" label="Density" :options="densityOptions" />
         <LanguageSelection v-model="locale" />
 
-        <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" />
+        <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
 
         <OnyxSelect
           v-model="componentsToShow"
@@ -159,7 +160,7 @@ const currentPage = ref(1);
         <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
 
         <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
-        <OnyxButton v-if="show('OnyxButton')" label="Button" :skeleton="useSkeleton" />
+        <OnyxButton v-if="show('OnyxButton')" label="Button" />
 
         <template v-if="show('OnyxCheckboxGroup')">
           <OnyxCheckboxGroup
@@ -179,21 +180,15 @@ const currentPage = ref(1);
 
         <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
-        <OnyxIconButton
-          v-if="show('OnyxIconButton')"
-          label="Happy Emoji"
-          :icon="emojiHappy2"
-          :skeleton="useSkeleton"
-        />
+        <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
         <OnyxInput
           v-if="show('OnyxInput')"
           label="Input"
-          :skeleton="useSkeleton"
           label-tooltip="More information tooltip"
         />
 
-        <OnyxLink v-if="show('OnyxLink')" href="#" :skeleton="useSkeleton">Link</OnyxLink>
+        <OnyxLink v-if="show('OnyxLink')" href="#">Link</OnyxLink>
 
         <SelectDemo
           v-if="show('OnyxSelect')"
@@ -224,14 +219,12 @@ const currentPage = ref(1);
           v-model="stepperValue"
           label="Stepper"
           placeholder="0"
-          :skeleton="useSkeleton"
         />
 
         <OnyxSwitch
           v-if="show('OnyxSwitch')"
           v-model="switchState"
           :label="'Switch is ' + (switchState ? 'on' : 'off')"
-          :skeleton="useSkeleton"
         />
 
         <template v-if="show('OnyxTable')">
@@ -268,7 +261,6 @@ const currentPage = ref(1);
           v-if="show('OnyxTextarea')"
           label="Example textarea"
           label-tooltip="More information tooltip"
-          :skeleton="useSkeleton"
         />
 
         <OnyxTimer v-if="show('OnyxTimer')" label="Timer" :end-time="timerEndDate" />
