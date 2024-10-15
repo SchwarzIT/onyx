@@ -3,7 +3,10 @@ import { useDensity } from "../../composables/density";
 import { provideFormContext } from "./OnyxForm.core";
 import type { OnyxFormProps } from "./types";
 
-const props = defineProps<OnyxFormProps>();
+const props = withDefaults(defineProps<OnyxFormProps>(), {
+  disabled: false,
+  showError: "touched",
+});
 
 defineSlots<{
   /**

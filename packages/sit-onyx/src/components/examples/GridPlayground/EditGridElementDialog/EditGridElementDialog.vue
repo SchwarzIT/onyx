@@ -13,6 +13,10 @@ export type GridElementConfig = {
 };
 
 const props = defineProps<{
+  /**
+   * Controls if the dialog is shown or not.
+   * State is reset when the dialog is closed.
+   */
   open?: boolean;
   /**
    * Initial value. Useful if editing an existing element.
