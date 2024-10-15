@@ -4,7 +4,10 @@ import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { provideFormContext } from "./OnyxForm.core";
 import type { OnyxFormProps } from "./types";
 
-const props = defineProps<OnyxFormProps>();
+const props = withDefaults(defineProps<OnyxFormProps>(), {
+  disabled: false,
+  showError: "touched",
+});
 
 defineSlots<{
   /**

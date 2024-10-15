@@ -2,6 +2,7 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { OnyxInput, OnyxToast } from "../..";
+import { ShowErrorModes } from "../../composables/useErrorClass";
 import FormExample from "../examples/FormExample/FormExample.vue";
 import FormExampleSourceCode from "../examples/FormExample/FormExample.vue?raw";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -15,6 +16,12 @@ import OnyxForm from "./OnyxForm.vue";
 const meta: Meta<typeof OnyxForm> = {
   title: "Form Elements/Form",
   component: OnyxForm,
+  argTypes: {
+    showError: {
+      control: "select",
+      options: ShowErrorModes,
+    },
+  },
 };
 
 export default meta;

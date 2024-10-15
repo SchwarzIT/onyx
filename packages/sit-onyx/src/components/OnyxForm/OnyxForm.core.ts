@@ -1,5 +1,5 @@
 import { computed, inject, provide, toRef, type InjectionKey, type Reactive, type Ref } from "vue";
-import type { ShowErrorModes } from "../../composables/useErrorClass";
+import type { ShowErrorMode } from "../../composables/useErrorClass";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
 
@@ -24,7 +24,7 @@ export type FormProps = {
    * The default is `"touched"`, which only shows an error *after* a user has significantly interacted with the input.
    * See [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo).
    */
-  showError?: ShowErrorModes;
+  showError?: ShowErrorMode;
 };
 
 /**
