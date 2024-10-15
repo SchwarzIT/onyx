@@ -35,6 +35,15 @@ export type OnyxStepperProps = DensityProp &
      */
     step?: number;
     /**
+     * Ensures that the value is a multiple of the step size.
+     */
+    stripStep?: boolean;
+    /**
+     * Defines the number of decimal places to display.
+     */
+    precision?: number;
+
+    /**
      * Specify how to provide automated assistance in filling out the input.
      * Some autocomplete values might required specific browser permissions to be allowed by the user.
      * Also browsers might require a `name` property.
