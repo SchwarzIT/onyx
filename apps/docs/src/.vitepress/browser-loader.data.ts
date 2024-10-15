@@ -10,7 +10,7 @@ const browserslistRcPath = path.resolve(__dirname, "../../../../.browserslistrc"
 
 const load = async () => {};
 
-type Browser = {
+export type Browser = {
   coverage: number;
   id: string;
   name: string;
@@ -27,6 +27,11 @@ declare const data: Data;
 
 export { data };
 
+/**
+ * Based on our browserslist config we load information about supported browser version and coverage from the
+ * official browserlist API. This happens only on build time.
+ * More information can be found on https://browsersl.ist
+ */
 export default defineLoader({
   async load(): Promise<Data> {
     return new Promise((resolve, reject) => {
@@ -55,7 +60,7 @@ export default defineLoader({
               resolve(JSON.parse(body));
             } catch (error) {
               if (error instanceof Error) console.error(error.message);
-              reject("unknown error");
+              reject("error loading browserslist API data");
             }
           });
         })
