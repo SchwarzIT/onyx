@@ -4,9 +4,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const browserslistRcPath = path.resolve(__dirname, "../../../../.browserslistrc");
+const browserslistRcPath = fileURLToPath(new URL("../../../../.browserslistrc", import.meta.url));
 
 export type Browser = {
   coverage: number;
