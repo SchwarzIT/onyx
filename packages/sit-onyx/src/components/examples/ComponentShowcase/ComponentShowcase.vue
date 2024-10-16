@@ -10,6 +10,7 @@ import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
 import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
 import OnyxButton from "../../OnyxButton/OnyxButton.vue";
+import OnyxDialog from "../../OnyxDialog/OnyxDialog.vue";
 import OnyxForm from "../../OnyxForm/OnyxForm.vue";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
@@ -32,6 +33,10 @@ import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import OnyxTag from "../../OnyxTag/OnyxTag.vue";
+import OnyxToast from "../../OnyxToast/OnyxToast.vue";
+import { useToast } from "../../OnyxToast/useToast";
+
+const toast = useToast();
 
 const colorScheme = ref<ColorSchemeValue>("light");
 const density = ref<Density>("default");
@@ -40,6 +45,7 @@ const inputValue = ref("");
 const switchValue = ref(false);
 const stepperValue = ref<number>();
 const selectValue = ref<SelectOptionValue[]>([]);
+const isDialogOpen = ref(false);
 
 const teamMembers = [
   {
@@ -145,6 +151,14 @@ const selectOptions: SelectOption[] = [
     disabled: true,
   },
 ];
+
+const handleSubmit = () => {
+  toast.show({
+    headline: "Successfully submitted form",
+    description: "This is just an example. Nothing was actually submitted.",
+    color: "success",
+  });
+};
 </script>
 
 <template>
@@ -207,7 +221,7 @@ const selectOptions: SelectOption[] = [
 
           <OnyxRadioGroup v-model="density" label="Density" :options="densityOptions" />
 
-          <OnyxForm class="form" method="dialog">
+          <OnyxForm class="form" method="dialog" @submit="handleSubmit">
             <OnyxInput
               v-model="inputValue"
               label="Search"
@@ -252,6 +266,8 @@ const selectOptions: SelectOption[] = [
 
         <p>This is a component showcase for the onyx design system. Created by Schwarz IT.</p>
 
+        <OnyxButton label="Open dialog" @click="isDialogOpen = true" />
+
         <OnyxTable class="table" striped>
           <template #head>
             <tr>
@@ -286,6 +302,18 @@ const selectOptions: SelectOption[] = [
 
         <OnyxPagination v-model="currentPage" class="table__pagination" :pages="4" />
       </div>
+
+      <OnyxDialog label="Example dialog" modal :open="isDialogOpen" @close="isDialogOpen = false">
+        <div class="dialog">
+          <OnyxHeadline is="h1">Example dialog</OnyxHeadline>
+
+          <p>Click "Close" or press Escape to close this dialog.</p>
+
+          <OnyxButton label="Close" color="neutral" @click="isDialogOpen = false" />
+        </div>
+      </OnyxDialog>
+
+      <OnyxToast />
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
@@ -335,5 +363,11 @@ const selectOptions: SelectOption[] = [
     justify-content: flex-end;
     gap: var(--onyx-density-xs);
   }
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-spacing-md);
 }
 </style>
