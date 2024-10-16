@@ -8,8 +8,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const browserslistRcPath = path.resolve(__dirname, "../../../../.browserslistrc");
 
-const load = async () => {};
-
 export type Browser = {
   coverage: number;
   id: string;
