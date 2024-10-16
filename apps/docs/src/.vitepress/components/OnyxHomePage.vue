@@ -1,9 +1,20 @@
 <script lang="ts" setup>
+import { data as browsersData } from "#src/.vitepress/browser-loader.data";
+import { useMediaQuery } from "@vueuse/core";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+import OnyxLink from "~components/OnyxLink/OnyxLink.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
+import BrowsersTable from "./BrowsersTable.vue";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
+
+const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
+const tableDevider = browsers.length * 0.5;
+const browsersLeftColumn = browsers.slice(0, tableDevider);
+const browsersRightColumn = browsers.slice(tableDevider);
+
+const isMediumScreen = useMediaQuery("(min-width: 640px)");
 
 const props = defineProps<{
   data: HomePageData;
@@ -61,6 +72,25 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
             description="Closed issues"
             :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
           />
+          <RoadmapCard
+            :title="browsersData.browsers.length"
+            description="Browser versions supported"
+          />
+        </div>
+      </section>
+      <section v-if="browsersData && browsers.length">
+        <OnyxHeadline is="h2" class="roadmap__headline">Browser Support</OnyxHeadline>
+        <p class="roadmap__meta">
+          Global coverage: {{ browsersData.coverage }}% (based on our Browserslist setting and
+          <OnyxLink href="https://caniuse.com">caniuse</OnyxLink>)<br />
+          Find our .browserslistrc
+          <OnyxLink href="https://github.com/SchwarzIT/onyx/blob/main/.browserslistrc"
+            >here</OnyxLink
+          >
+        </p>
+        <div class="roadmap__tables">
+          <BrowsersTable :browsers="isMediumScreen ? browsersLeftColumn : browsers" />
+          <BrowsersTable v-if="isMediumScreen" :browsers="browsersRightColumn" />
         </div>
       </section>
     </div>
@@ -103,7 +133,8 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
     line-height: 2.5rem;
   }
 
-  &__timestamp {
+  &__timestamp,
+  &__meta {
     color: var(--vp-c-text-2);
     margin: var(--onyx-spacing-md) 0;
   }
@@ -115,6 +146,15 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
   &__tabs {
     background-color: var(--vp-c-bg-alt);
     border-radius: var(--onyx-radius-md);
+  }
+
+  &__tables {
+    display: flex;
+    gap: var(--onyx-spacing-xl);
+    > * {
+      flex-grow: 1;
+      height: fit-content;
+    }
   }
 
   &__facts {
