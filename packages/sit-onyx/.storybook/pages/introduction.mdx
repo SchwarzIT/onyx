@@ -1,7 +1,8 @@
-import { Meta } from "@storybook/blocks";
+import { Meta, Story } from "@storybook/blocks";
 import logoDark from "../../../../.github/onyx-logo-dark.svg";
 import logoLight from "../../../../.github/onyx-logo-light.svg";
 import logo from "../../../storybook-utils/src/assets/logo-onyx.svg";
+import { Default as ComponentShowcase } from "../../src/components/examples/ComponentShowcase/ComponentShowcase.stories.ts";
 
 {/* workaround for hiding the table of contents, see docs-template.scss file */}
 
@@ -17,6 +18,11 @@ Welcome! This is the Storybook for the onyx design system where you can see and 
 
 Are you looking for general information about onyx? Then please head over to our <a href="https://onyx.schwarz" target="_blank">onyx documentation</a>.
 
+<br />
+
+<Story of={ComponentShowcase} />
+
+<br />
 <br />
 
 ## Browse components
