@@ -4,13 +4,18 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import { ref } from "vue";
 import { DENSITIES, type Density } from "../../../composables/density";
+import type { SelectOptionValue } from "../../../types";
 import OnyxAppLayout from "../../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
 import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
+import OnyxButton from "../../OnyxButton/OnyxButton.vue";
+import OnyxForm from "../../OnyxForm/OnyxForm.vue";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
+import OnyxInput from "../../OnyxInput/OnyxInput.vue";
+import OnyxLink from "../../OnyxLink/OnyxLink.vue";
 import type { ColorSchemeValue } from "../../OnyxNavBar/modules";
 import OnyxColorSchemeMenuItem from "../../OnyxNavBar/modules/OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -21,13 +26,20 @@ import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxPageLayout from "../../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxPagination from "../../OnyxPagination/OnyxPagination.vue";
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
+import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../../OnyxSelect/types";
+import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
+import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import OnyxTag from "../../OnyxTag/OnyxTag.vue";
 
 const colorScheme = ref<ColorSchemeValue>("light");
 const density = ref<Density>("default");
 const currentPage = ref(1);
+const inputValue = ref("");
+const switchValue = ref(false);
+const stepperValue = ref<number>();
+const selectValue = ref<SelectOptionValue[]>([]);
 
 const teamMembers = [
   {
@@ -99,6 +111,40 @@ const densityOptions: SelectOption[] = DENSITIES.map((density) => ({
   label: density,
   value: density,
 }));
+
+const selectOptions: SelectOption[] = [
+  {
+    label: "dev",
+    value: "dev",
+    group: "Implementation",
+  },
+  {
+    label: "ux",
+    value: "ux",
+    group: "Implementation",
+  },
+  {
+    label: "bug",
+    value: "bug",
+    group: "Implementation",
+  },
+  {
+    label: "documentation",
+    value: "documentation",
+    group: "Documentation",
+  },
+  {
+    label: "storybook",
+    value: "storybook",
+    group: "Documentation",
+  },
+  {
+    label: "breaking-change",
+    value: "breaking-change",
+    group: "Documentation",
+    disabled: true,
+  },
+];
 </script>
 
 <template>
@@ -160,6 +206,44 @@ const densityOptions: SelectOption[] = DENSITIES.map((density) => ({
           </div>
 
           <OnyxRadioGroup v-model="density" label="Density" :options="densityOptions" />
+
+          <OnyxForm class="form" method="dialog">
+            <OnyxInput
+              v-model="inputValue"
+              label="Search"
+              placeholder="Type to search..."
+              label-tooltip="This is an example label tooltip with more information."
+              message="Example message"
+              :maxlength="64"
+              :minlength="3"
+              with-counter
+            />
+
+            <OnyxSelect
+              v-model="selectValue"
+              label="Tags"
+              list-label="List of available tags"
+              placeholder="No tags selected"
+              :options="selectOptions"
+              with-search
+              with-check-all
+              multiple
+            />
+
+            <OnyxStepper
+              v-model="stepperValue"
+              label="Max. count"
+              :min="1"
+              placeholder="Unlimited"
+            />
+
+            <OnyxSwitch v-model="switchValue" label="Include archive" />
+
+            <div class="form__actions">
+              <OnyxButton label="Reset" type="reset" color="neutral" />
+              <OnyxButton label="Submit" type="submit" />
+            </div>
+          </OnyxForm>
         </div>
       </template>
 
@@ -185,7 +269,15 @@ const densityOptions: SelectOption[] = DENSITIES.map((density) => ({
             </td>
             <td>{{ member.name }}</td>
             <td>{{ member.title }}</td>
-            <td>{{ member.name.replace(/ /g, ".").toLowerCase() }}@example.com</td>
+            <td>
+              <OnyxLink
+                :href="`mailto:${member.name.replace(/ /g, '.').toLowerCase()}@example.com`"
+                target="_blank"
+                with-external-icon
+              >
+                {{ member.name.replace(/ /g, ".").toLowerCase() }}@example.com</OnyxLink
+              >
+            </td>
             <td>
               <OnyxTag v-bind="member.status" />
             </td>
@@ -209,6 +301,7 @@ const densityOptions: SelectOption[] = DENSITIES.map((density) => ({
   display: flex;
   flex-direction: column;
   gap: var(--onyx-density-xl);
+  height: 100%;
 
   &__headline {
     margin-bottom: var(--onyx-density-2xs);
@@ -228,6 +321,19 @@ const densityOptions: SelectOption[] = DENSITIES.map((density) => ({
 
   &__pagination {
     margin-left: auto;
+  }
+}
+
+.form {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-grid-gutter);
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--onyx-density-xs);
   }
 }
 </style>
