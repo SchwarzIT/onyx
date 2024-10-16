@@ -22,10 +22,6 @@ const meta: Meta<typeof OnyxTooltip> = {
     open: {
       options: ["hover", "click", true, false],
     },
-    alignment: {
-      options: ["auto", "center", "left", "right"],
-      defaultValue: "auto",
-    },
   },
   decorators: [
     (story) => ({
