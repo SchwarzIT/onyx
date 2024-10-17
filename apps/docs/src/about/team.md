@@ -51,6 +51,14 @@ const members = [
       { icon: 'github', link: 'https://github.com/MajaZarkova' },
     ]
   },
+    {
+    avatar: 'https://www.github.com/ChristianBusshoff.png',
+    name: 'Christian Bußhoff',
+    title: 'Developer',
+    links: [
+      { icon: 'github', link: 'https://github.com/ChristianBusshoff' },
+    ]
+  },
 ]
 </script>
 

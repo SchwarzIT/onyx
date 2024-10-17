@@ -36,20 +36,20 @@ const handleChange = (selected: boolean, value: TValue) => {
 
 <template>
   <fieldset
-    :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
+    :class="['onyx-radio-group', densityClass, requiredTypeClass]"
     :disabled="disabled"
     role="radiogroup"
     :aria-label="props.label"
   >
-    <legend v-if="!props.hideLabel" class="onyx-radio-button-group__headline">
+    <legend v-if="!props.hideLabel" class="onyx-radio-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
         {{ props.label }}
       </OnyxHeadline>
     </legend>
 
     <div
-      class="onyx-radio-button-group__content"
-      :class="{ 'onyx-radio-button-group__content--horizontal': props.direction === 'horizontal' }"
+      class="onyx-radio-group__content"
+      :class="{ 'onyx-radio-group__content--horizontal': props.direction === 'horizontal' }"
     >
       <template v-if="props.skeleton === undefined">
         <OnyxRadioButton
@@ -84,7 +84,7 @@ const handleChange = (selected: boolean, value: TValue) => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-.onyx-radio-button-group {
+.onyx-radio-group {
   @include layers.component() {
     padding: 0;
     border: none;
