@@ -1,373 +1,357 @@
 <script lang="ts" setup>
-import bell from "@sit-onyx/icons/bell.svg?raw";
+import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import logout from "@sit-onyx/icons/logout.svg?raw";
-import search from "@sit-onyx/icons/search.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
+import shareIos from "@sit-onyx/icons/share-ios.svg?raw";
 import { ref } from "vue";
-import { DENSITIES, type Density } from "../../../composables/density";
-import type { SelectOptionValue } from "../../../types";
-import OnyxAppLayout from "../../OnyxAppLayout/OnyxAppLayout.vue";
-import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
-import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
-import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
-import OnyxButton from "../../OnyxButton/OnyxButton.vue";
-import OnyxDialog from "../../OnyxDialog/OnyxDialog.vue";
-import OnyxForm from "../../OnyxForm/OnyxForm.vue";
-import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
-import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
-import OnyxInput from "../../OnyxInput/OnyxInput.vue";
-import OnyxLink from "../../OnyxLink/OnyxLink.vue";
-import type { ColorSchemeValue } from "../../OnyxNavBar/modules";
-import OnyxColorSchemeMenuItem from "../../OnyxNavBar/modules/OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
-import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxNavButton from "../../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
-import OnyxNavItem from "../../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
-import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
-import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
-import OnyxPageLayout from "../../OnyxPageLayout/OnyxPageLayout.vue";
-import OnyxPagination from "../../OnyxPagination/OnyxPagination.vue";
-import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
-import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
-import type { SelectOption } from "../../OnyxSelect/types";
-import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
-import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
-import OnyxTable from "../../OnyxTable/OnyxTable.vue";
-import OnyxTag from "../../OnyxTag/OnyxTag.vue";
-import OnyxToast from "../../OnyxToast/OnyxToast.vue";
-import { useToast } from "../../OnyxToast/useToast";
+import {
+  OnyxAvatar,
+  OnyxAvatarStack,
+  OnyxBadge,
+  OnyxButton,
+  OnyxCheckboxGroup,
+  OnyxColorSchemeMenuItem,
+  OnyxHeadline,
+  OnyxIcon,
+  OnyxIconButton,
+  OnyxInput,
+  OnyxMenuItem,
+  OnyxNavBar,
+  OnyxNavButton,
+  OnyxNavItem,
+  OnyxPagination,
+  OnyxRadioGroup,
+  OnyxSelect,
+  OnyxStepper,
+  OnyxSwitch,
+  OnyxTable,
+  OnyxTag,
+  OnyxTextarea,
+  OnyxToastMessage,
+  OnyxUserMenu,
+  type SelectOption,
+} from "../../..";
 
-const toast = useToast();
+type State = {
+  select?: string[];
+  textarea?: string;
+  pagination: number;
+  checkboxGroup?: number[];
+  radioGroup?: number;
+  stepper?: number;
+};
 
-const colorScheme = ref<ColorSchemeValue>("light");
-const density = ref<Density>("default");
-const currentPage = ref(1);
-const inputValue = ref("");
-const switchValue = ref(false);
-const stepperValue = ref<number>();
-const selectValue = ref<SelectOptionValue[]>([]);
-const isDialogOpen = ref(false);
+const isDark = defineModel<boolean>("dark");
+
+const selectOptions = Array.from({ length: 6 }, (_, index) => {
+  return {
+    label: `Option ${index + 1}`,
+    value: index + 1,
+  } satisfies SelectOption;
+});
+
+const checkboxGroupOptions = Array.from({ length: 3 }, (_, index) => {
+  return {
+    label: "Checkbox",
+    value: index + 1,
+  } satisfies SelectOption;
+});
+
+const radioGroupOptions = Array.from({ length: 4 }, (_, index) => {
+  return {
+    label: "Radio button",
+    value: index + 1,
+  } satisfies SelectOption;
+});
+
+const state = ref<State>({
+  pagination: 1,
+  checkboxGroup: [checkboxGroupOptions.length],
+  radioGroup: 1,
+});
 
 const teamMembers = [
-  {
-    avatar: "https://www.github.com/mj-hof.png",
-    name: "Martin Hofmann",
-    title: "Product Owner",
-    status: {
-      label: "Offline",
-      color: "neutral",
-    },
-  },
-  {
-    avatar: "https://www.github.com/jannick-ux.png",
-    name: "Jannick Keller",
-    title: "Lead Designer",
-    status: {
-      label: "Busy",
-      color: "danger",
-    },
-  },
-  {
-    avatar: "https://www.github.com/JoCa96.png",
-    name: "Jonathan Leo Carle",
-    title: "Lead Developer",
-    status: {
-      label: "Online",
-      color: "success",
-    },
-  },
-  {
-    avatar: "https://www.github.com/BoppLi.png",
-    name: "Linda Bopp",
-    title: "Developer",
-    status: {
-      label: "Away",
-      color: "warning",
-    },
-  },
-  {
-    avatar: "https://www.github.com/larsrickert.png",
-    name: "Lars Rickert",
-    title: "Developer",
-    status: {
-      label: "Do not disturb",
-      color: "danger",
-    },
-  },
-  {
-    avatar: "https://www.github.com/MajaZarkova.png",
-    name: "Maja Zarkova",
-    title: "Developer",
-    status: {
-      label: "Online",
-      color: "success",
-    },
-  },
-  {
-    avatar: "https://www.github.com/ChristianBusshoff.png",
-    name: "Christian Bußhoff",
-    title: "Developer",
-    status: {
-      label: "Out of office",
-      color: "info",
-    },
-  },
-] as const;
-
-const densityOptions: SelectOption[] = DENSITIES.map((density) => ({
-  label: density,
-  value: density,
-}));
-
-const selectOptions: SelectOption[] = [
-  {
-    label: "dev",
-    value: "dev",
-    group: "Implementation",
-  },
-  {
-    label: "ux",
-    value: "ux",
-    group: "Implementation",
-  },
-  {
-    label: "bug",
-    value: "bug",
-    group: "Implementation",
-  },
-  {
-    label: "documentation",
-    value: "documentation",
-    group: "Documentation",
-  },
-  {
-    label: "storybook",
-    value: "storybook",
-    group: "Documentation",
-  },
-  {
-    label: "breaking-change",
-    value: "breaking-change",
-    group: "Documentation",
-    disabled: true,
-  },
+  { avatar: "https://www.github.com/mj-hof.png", name: "Martin Hofmann" },
+  { avatar: "https://www.github.com/jannick-ux.png", name: "Jannick Keller" },
+  { avatar: "https://www.github.com/JoCa96.png", name: "Jonathan Leo Carle" },
+  { avatar: "https://www.github.com/BoppLi.png", name: "Linda Bopp" },
+  { avatar: "https://www.github.com/larsrickert.png", name: "Lars Rickert" },
+  { avatar: "https://www.github.com/MajaZarkova.png", name: "Maja Zarkova" },
+  { avatar: "https://www.github.com/ChristianBusshoff.png", name: "Christian Bußhoff" },
 ];
-
-const handleSubmit = () => {
-  toast.show({
-    headline: "Successfully submitted form",
-    description: "This is just an example. Nothing was actually submitted.",
-    color: "success",
-  });
-};
 </script>
 
 <template>
-  <OnyxAppLayout :class="{ dark: colorScheme === 'dark', [`onyx-density-${density}`]: true }">
-    <template #navBar>
-      <OnyxNavBar app-name="Component Showcase" logo-url="/onyx-logo.svg">
-        <OnyxNavButton label="Page 1" active />
-        <OnyxNavButton label="Page 2">
-          <template #children>
-            <OnyxNavItem label="Subpage 1" />
-            <OnyxNavItem label="Subpage 2" />
-          </template>
-        </OnyxNavButton>
-        <OnyxNavButton label="Page 3" with-external-icon />
-        <OnyxNavButton label="Page 4">
-          Page 4
-          <OnyxBadge color="warning" dot />
-        </OnyxNavButton>
+  <div class="showcase onyx-text" :class="{ dark: isDark }">
+    <div class="showcase__layout">
+      <div class="showcase__left">
+        <div class="showcase__flex">
+          <OnyxSelect
+            v-model="state.select"
+            label="Select"
+            list-label="List of options"
+            placeholder="Select"
+            :options="selectOptions"
+            multiple
+            with-search
+            hide-label
+          />
 
-        <template #globalContextArea>
-          <OnyxIconButton label="Search" :icon="search" color="neutral" />
-          <OnyxIconButton label="Notifications" :icon="bell" color="neutral" />
-        </template>
+          <OnyxSwitch v-model="isDark" label="Dark mode" />
 
-        <template #contextArea>
-          <OnyxUserMenu username="Jane Doe" description="Company name">
-            <OnyxColorSchemeMenuItem v-model="colorScheme" />
-
-            <OnyxMenuItem color="danger">
-              <OnyxIcon :icon="logout" />
-              Logout
-            </OnyxMenuItem>
-
-            <template #footer>
-              App version
-              <span class="onyx-text--monospace">0.0.0</span>
-            </template>
-          </OnyxUserMenu>
-        </template>
-      </OnyxNavBar>
-    </template>
-
-    <OnyxPageLayout>
-      <template #sidebar>
-        <div class="sidebar">
-          <div>
-            <OnyxHeadline is="h3" class="sidebar__headline">Team members</OnyxHeadline>
-
-            <OnyxAvatarStack>
-              <OnyxAvatar
-                v-for="member in teamMembers"
-                :key="member.name"
-                size="32px"
-                :label="member.name"
-                :src="member.avatar"
-              />
-              <OnyxAvatar label="+7" size="32px" />
-            </OnyxAvatarStack>
-          </div>
-
-          <OnyxRadioGroup v-model="density" label="Density" :options="densityOptions" />
-
-          <OnyxForm class="form" method="dialog" @submit="handleSubmit">
-            <OnyxInput
-              v-model="inputValue"
-              label="Search"
-              placeholder="Type to search..."
-              label-tooltip="This is an example label tooltip with more information."
-              message="Example message"
-              :maxlength="64"
-              :minlength="3"
-              with-counter
-            />
-
-            <OnyxSelect
-              v-model="selectValue"
-              label="Tags"
-              list-label="List of available tags"
-              placeholder="No tags selected"
-              :options="selectOptions"
-              with-search
-              with-check-all
-              multiple
-            />
-
-            <OnyxStepper
-              v-model="stepperValue"
-              label="Max. count"
-              :min="1"
-              placeholder="Unlimited"
-            />
-
-            <OnyxSwitch v-model="switchValue" label="Include archive" />
-
-            <div class="form__actions">
-              <OnyxButton label="Reset" type="reset" color="neutral" />
-              <OnyxButton label="Submit" type="submit" />
-            </div>
-          </OnyxForm>
+          <OnyxPagination v-model="state.pagination" class="showcase__pagination" :pages="6" />
         </div>
-      </template>
 
-      <div class="onyx-grid-container page">
-        <OnyxHeadline is="h1">Page headline</OnyxHeadline>
-
-        <p>This is a component showcase for the onyx design system. Created by Schwarz IT.</p>
-
-        <OnyxButton label="Open dialog" @click="isDialogOpen = true" />
-
-        <OnyxTable class="table" striped>
+        <OnyxTable striped>
           <template #head>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Email</th>
+              <th>User</th>
               <th>Status</th>
+              <th>Date</th>
+              <th>Time</th>
             </tr>
           </template>
 
-          <tr v-for="member in teamMembers" :key="member.name">
-            <td class="table__avatar">
-              <OnyxAvatar size="24px" :label="member.name" :src="member.avatar" />
-            </td>
-            <td>{{ member.name }}</td>
-            <td>{{ member.title }}</td>
+          <tr>
             <td>
-              <OnyxLink
-                :href="`mailto:${member.name.replace(/ /g, '.').toLowerCase()}@example.com`"
-                target="_blank"
-                with-external-icon
-              >
-                {{ member.name.replace(/ /g, ".").toLowerCase() }}@example.com</OnyxLink
-              >
+              <strong>Lindsay Borrows</strong>
             </td>
+            <td>active</td>
+            <td>02/12/26</td>
+            <td class="font--soft">-</td>
+          </tr>
+          <tr>
             <td>
-              <OnyxTag v-bind="member.status" />
+              <strong>Pete Ellis Doyle</strong>
             </td>
+            <td>on hold</td>
+            <td>25/07/26</td>
+            <td class="font--soft">06:30</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Barry Louis</strong>
+            </td>
+            <td>active</td>
+            <td>09/09/26</td>
+            <td class="font--soft">06:45</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Timothy Nixon</strong>
+            </td>
+            <td>active</td>
+            <td>30/10/26</td>
+            <td class="font--soft">-</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Will Monroe</strong>
+            </td>
+            <td>finished</td>
+            <td>27/03/26</td>
+            <td class="font--soft">14:56</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Francis Walsh</strong>
+            </td>
+            <td>ready</td>
+            <td>16/12/26</td>
+            <td class="font--soft">12:05</td>
           </tr>
         </OnyxTable>
-
-        <OnyxPagination v-model="currentPage" class="table__pagination" :pages="4" />
       </div>
 
-      <OnyxDialog label="Example dialog" modal :open="isDialogOpen" @close="isDialogOpen = false">
-        <div class="dialog">
-          <OnyxHeadline is="h1">Example dialog</OnyxHeadline>
+      <div class="showcase__right">
+        <OnyxTextarea
+          v-model="state.textarea"
+          label="Textarea"
+          hide-label
+          placeholder="Enter free text here"
+          :autosize="{ min: 7, max: 14 }"
+        />
 
-          <p>Click "Close" or press Escape to close this dialog.</p>
+        <OnyxToastMessage headline="Toast notification" description="Description" :duration="0" />
 
-          <OnyxButton label="Close" color="neutral" @click="isDialogOpen = false" />
+        <div class="showcase__flex">
+          <OnyxBadge class="showcase__badge">Badge</OnyxBadge>
+
+          <OnyxTag label="Tag" />
+          <OnyxTag label="Tag" color="neutral" />
+          <OnyxTag label="Tag" color="danger" />
+          <OnyxTag label="Tag" color="warning" />
+          <OnyxTag label="Tag" color="success" />
         </div>
-      </OnyxDialog>
+      </div>
+    </div>
 
-      <OnyxToast />
-    </OnyxPageLayout>
-  </OnyxAppLayout>
+    <div class="showcase__bottom">
+      <OnyxCheckboxGroup
+        v-model="state.checkboxGroup"
+        label="Checkbox group"
+        hide-label
+        :options="checkboxGroupOptions"
+        with-check-all
+      />
+
+      <div class="showcase__bottom-right">
+        <div class="showcase__bottom-section">
+          <OnyxAvatarStack>
+            <OnyxAvatar
+              v-for="member in teamMembers"
+              :key="member.name"
+              :label="member.name"
+              :src="member.avatar"
+              size="32px"
+            />
+            <OnyxAvatar label="+3" size="32px" />
+          </OnyxAvatarStack>
+
+          <OnyxRadioGroup
+            v-model="state.radioGroup"
+            label="Radio group"
+            hide-label
+            :options="radioGroupOptions"
+            direction="horizontal"
+          />
+        </div>
+
+        <div class="showcase__bottom-section">
+          <OnyxInput label="Input" placeholder="Example input" hide-label />
+
+          <div class="showcase__flex">
+            <OnyxIconButton :icon="shareIos" label="Icon button" />
+            <OnyxButton :icon="arrowSmallRight" label="Button" color="neutral" />
+            <OnyxButton :icon="checkSmall" label="Button" />
+            <OnyxStepper v-model="state.stepper" label="Stepper" hide-label placeholder="0" />
+          </div>
+        </div>
+
+        <div class="showcase__bottom-section">
+          <OnyxHeadline is="h1">Page title headline</OnyxHeadline>
+
+          <div class="showcase__flex">
+            <OnyxCheckboxGroup
+              label="Checkbox group (skeleton)"
+              hide-label
+              direction="horizontal"
+              :skeleton="4"
+              :options="[]"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <OnyxNavBar app-name="Nav bar" logo-url="/onyx-logo.svg">
+      <OnyxNavButton label="Page 1" active />
+      <OnyxNavButton label="Page 2">
+        <template #children>
+          <OnyxNavItem label="Subpage 1" />
+          <OnyxNavItem label="Subpage 2" />
+        </template>
+      </OnyxNavButton>
+      <OnyxNavButton label="Page 3" with-external-icon />
+
+      <template #contextArea>
+        <OnyxUserMenu description="Company Name" username="Jane Doe">
+          <OnyxMenuItem>
+            <OnyxIcon :icon="settings" />
+            Settings
+          </OnyxMenuItem>
+          <OnyxColorSchemeMenuItem
+            :model-value="isDark ? 'dark' : 'light'"
+            @update:model-value="isDark = $event === 'dark'"
+          />
+          <OnyxMenuItem color="danger">
+            <OnyxIcon :icon="logout" />
+            Logout
+          </OnyxMenuItem>
+
+          <template #footer>
+            App version
+            <span class="onyx-text--monospace">0.0.0</span>
+          </template>
+        </OnyxUserMenu>
+      </template>
+    </OnyxNavBar>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-:deep(.onyx-page__sidebar) {
-  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
-}
+@use "../../../styles/breakpoints.scss";
 
-.sidebar {
-  width: 19vw;
-  padding: var(--onyx-spacing-md);
+.showcase {
+  font-family: var(--onyx-font-family);
+  color: var(--onyx-color-text-icons-neutral-intense);
+  background-color: var(--onyx-color-base-background-tinted);
+
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-density-xl);
-  height: 100%;
+  gap: var(--onyx-spacing-xl);
+  max-width: 64rem;
+  container-type: inline-size;
 
-  &__headline {
-    margin-bottom: var(--onyx-density-2xs);
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(26rem, 33%);
+    gap: var(--onyx-spacing-xl);
+
+    @include breakpoints.container(max, sm) {
+      grid-template-columns: 1fr;
+    }
   }
-}
 
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-grid-gutter);
-}
-
-.table {
-  &__avatar {
-    width: calc(1.5rem + var(--onyx-density-md));
+  &__flex {
+    display: flex;
+    gap: var(--onyx-spacing-lg);
+    align-items: center;
   }
 
   &__pagination {
     margin-left: auto;
   }
-}
 
-.form {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-grid-gutter);
-
-  &__actions {
+  &__left,
+  &__right,
+  &__bottom-right {
     display: flex;
-    justify-content: flex-end;
-    gap: var(--onyx-density-xs);
+    flex-direction: column;
+    gap: var(--onyx-spacing-xl);
+    flex-grow: 1;
+  }
+
+  &__bottom-right {
+    gap: var(--onyx-spacing-lg);
+  }
+
+  &__bottom {
+    display: flex;
+    gap: var(--onyx-spacing-2xl);
+  }
+
+  &__bottom-section {
+    display: flex;
+    gap: var(--onyx-spacing-lg);
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__badge {
+    margin-right: auto;
   }
 }
 
-.dialog {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-md);
+.font {
+  &--soft {
+    color: var(--onyx-color-text-icons-neutral-soft);
+  }
+}
+
+:deep(.onyx-radio-group__content--horizontal),
+:deep(.onyx-checkbox-group__content--horizontal) {
+  justify-content: flex-end;
 }
 </style>
