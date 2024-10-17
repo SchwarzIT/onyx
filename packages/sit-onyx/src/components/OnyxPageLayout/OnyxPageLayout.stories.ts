@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
 /**
@@ -41,6 +43,13 @@ const meta: Meta<typeof OnyxPageLayout> = {
 
 export default meta;
 type Story = StoryObj<typeof OnyxPageLayout>;
+
+const EXAMPLE_OPTIONS = [
+  { label: "Green", value: 1 },
+  { label: "Red", value: 2 },
+  { label: "Pink", value: 3 },
+  { label: "Yellow", value: 4 },
+];
 
 /** A standard page with some content. */
 export const Default = {
@@ -91,5 +100,26 @@ export const WithPartialFooter = {
   args: {
     ...WithSidebarAndFooter.args,
     footerAsideSidebar: true,
+  },
+} satisfies Story;
+
+/** A standard page in skeleton mode. */
+export const WithSkeletonComponents = {
+  args: {
+    skeleton: true,
+    default: () => [
+      h(OnyxRadioGroup, {
+        label: "Color choices",
+        options: EXAMPLE_OPTIONS,
+        modelValue: EXAMPLE_OPTIONS[0].value,
+      }),
+      h(
+        "div",
+        {
+          style: { display: "flex", gap: "0.5rem", paddingLeft: "0.5rem" },
+        },
+        [h(OnyxButton, { label: "Reset", mode: "outline" }), h(OnyxButton, { label: "Submit" })],
+      ),
+    ],
   },
 } satisfies Story;
