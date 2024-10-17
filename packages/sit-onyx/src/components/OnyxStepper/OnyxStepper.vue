@@ -50,12 +50,13 @@ const updateValue = (newValue: number) => {
   if (props.precision !== undefined) {
     const formattedValue = newValue.toFixed(props.precision);
     displayValue.value = formattedValue;
-    value.value = newValue;
+    value.value = parseFloat(formattedValue);
   } else {
     displayValue.value = newValue;
     value.value = newValue;
   }
 };
+
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
   if (props.stripStep) {
@@ -78,6 +79,7 @@ const handleChange = () => {
     wasTouched.value = true; // Markiere das Feld als "berührt"
   }
 };
+
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
 </script>
