@@ -82,6 +82,15 @@ const handleChange = () => {
     wasTouched.value = true;
   }
 };
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+    handleClick("stepUp");
+    event.preventDefault();
+  } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+    handleClick("stepDown");
+    event.preventDefault();
+  }
+};
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
@@ -97,8 +106,15 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <button
           type="button"
           class="onyx-stepper__counter"
-          :disabled="(props.min && props.min === value) || disabled || readonly || props.loading"
+          :disabled="
+            (props.min && props.min === value) ||
+            (props.min && value !== undefined && value <= props.min) ||
+            disabled ||
+            readonly ||
+            props.loading
+          "
           :aria-label="decrementLabel"
+          tabindex="-1"
           @click="handleClick('stepDown')"
         >
           <OnyxIcon :icon="minus" />
@@ -124,12 +140,20 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :step="props.stripStep ? props.step : 'any'"
           :title="props.hideLabel ? props.label : undefined"
           @change="handleChange"
+          @keydown="handleKeydown"
         />
         <button
           type="button"
           class="onyx-stepper__counter"
-          :disabled="(props.max && props.max === value) || disabled || readonly || props.loading"
+          :disabled="
+            (props.max && props.max === value) ||
+            (props.max && value !== undefined && value >= props.max) ||
+            disabled ||
+            readonly ||
+            props.loading
+          "
           :aria-label="incrementLabel"
+          tabindex="-1"
           @click="handleClick('stepUp')"
         >
           <OnyxIcon :icon="plus" />
