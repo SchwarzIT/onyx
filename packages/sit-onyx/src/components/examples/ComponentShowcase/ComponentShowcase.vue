@@ -12,7 +12,6 @@ import {
   OnyxButton,
   OnyxCheckboxGroup,
   OnyxColorSchemeMenuItem,
-  OnyxHeadline,
   OnyxIcon,
   OnyxIconButton,
   OnyxInput,
@@ -230,7 +229,8 @@ const teamMembers = [
       </div>
 
       <div class="showcase__flex grid--row4">
-        <OnyxHeadline is="h1">Page title headline</OnyxHeadline>
+        <!-- empty div is needed for spacing purposes -->
+        <div></div>
         <OnyxCheckboxGroup
           label="Checkbox group (skeleton)"
           hide-label
