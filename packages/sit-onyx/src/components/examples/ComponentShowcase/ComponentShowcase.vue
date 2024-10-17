@@ -83,12 +83,13 @@ const teamMembers = [
 </script>
 
 <template>
-  <div class="showcase onyx-text" :class="{ dark: isDark }">
-    <div class="showcase__layout">
-      <div class="showcase__left">
+  <div class="parent">
+    <div class="showcase onyx-text" :class="{ dark: isDark }">
+      <div class="showcase__flex showcase__flex--between grid--row1">
         <div class="showcase__flex">
           <OnyxSelect
             v-model="state.select"
+            class="showcase__select"
             label="Select"
             list-label="List of options"
             placeholder="Select"
@@ -99,248 +100,249 @@ const teamMembers = [
           />
 
           <OnyxSwitch v-model="isDark" label="Dark mode" />
-
-          <OnyxPagination v-model="state.pagination" class="showcase__pagination" :pages="6" />
         </div>
 
-        <OnyxTable striped>
-          <template #head>
-            <tr>
-              <th>User</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </template>
-
-          <tr>
-            <td>
-              <strong>Lindsay Borrows</strong>
-            </td>
-            <td>active</td>
-            <td>02/12/26</td>
-            <td class="font--soft">-</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Pete Ellis Doyle</strong>
-            </td>
-            <td>on hold</td>
-            <td>25/07/26</td>
-            <td class="font--soft">06:30</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Barry Louis</strong>
-            </td>
-            <td>active</td>
-            <td>09/09/26</td>
-            <td class="font--soft">06:45</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Timothy Nixon</strong>
-            </td>
-            <td>active</td>
-            <td>30/10/26</td>
-            <td class="font--soft">-</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Will Monroe</strong>
-            </td>
-            <td>finished</td>
-            <td>27/03/26</td>
-            <td class="font--soft">14:56</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Francis Walsh</strong>
-            </td>
-            <td>ready</td>
-            <td>16/12/26</td>
-            <td class="font--soft">12:05</td>
-          </tr>
-        </OnyxTable>
+        <OnyxPagination v-model="state.pagination" :pages="6" />
       </div>
 
-      <div class="showcase__right">
-        <OnyxTextarea
-          v-model="state.textarea"
-          label="Textarea"
-          hide-label
-          placeholder="Enter free text here"
-          :autosize="{ min: 7, max: 14 }"
-        />
+      <OnyxTable class="grid--table" striped>
+        <template #head>
+          <tr>
+            <th>User</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </template>
 
-        <OnyxToastMessage headline="Toast notification" description="Description" :duration="0" />
+        <tr>
+          <td>
+            <strong>Lindsay Borrows</strong>
+          </td>
+          <td>active</td>
+          <td>02/12/26</td>
+          <td class="font--soft">-</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Pete Ellis Doyle</strong>
+          </td>
+          <td>on hold</td>
+          <td>25/07/26</td>
+          <td class="font--soft">06:30</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Barry Louis</strong>
+          </td>
+          <td>active</td>
+          <td>09/09/26</td>
+          <td class="font--soft">06:45</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Timothy Nixon</strong>
+          </td>
+          <td>active</td>
+          <td>30/10/26</td>
+          <td class="font--soft">-</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Will Monroe</strong>
+          </td>
+          <td>finished</td>
+          <td>27/03/26</td>
+          <td class="font--soft">14:56</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Francis Walsh</strong>
+          </td>
+          <td>ready</td>
+          <td>16/12/26</td>
+          <td class="font--soft">12:05</td>
+        </tr>
+      </OnyxTable>
 
-        <div class="showcase__flex">
-          <OnyxBadge class="showcase__badge">Badge</OnyxBadge>
+      <OnyxTextarea
+        v-model="state.textarea"
+        class="grid--textarea"
+        label="Textarea"
+        hide-label
+        placeholder="Enter free text here"
+        :autosize="{ min: 7, max: 14 }"
+      />
 
-          <OnyxTag label="Tag" />
-          <OnyxTag label="Tag" color="neutral" />
-          <OnyxTag label="Tag" color="danger" />
-          <OnyxTag label="Tag" color="warning" />
-          <OnyxTag label="Tag" color="success" />
-        </div>
+      <OnyxToastMessage
+        class="grid--toast"
+        headline="Toast notification"
+        description="Description"
+        :duration="0"
+      />
+
+      <div class="showcase__flex grid--tags">
+        <OnyxBadge>Badge</OnyxBadge>
+
+        <OnyxTag label="Tag" />
+        <OnyxTag label="Tag" color="neutral" />
+        <OnyxTag label="Tag" color="danger" />
+        <OnyxTag label="Tag" color="warning" />
+        <OnyxTag label="Tag" color="success" />
       </div>
-    </div>
 
-    <div class="showcase__bottom">
       <OnyxCheckboxGroup
         v-model="state.checkboxGroup"
+        class="grid--checkboxes"
         label="Checkbox group"
         hide-label
         :options="checkboxGroupOptions"
         with-check-all
       />
 
-      <div class="showcase__bottom-right">
-        <div class="showcase__bottom-section">
-          <OnyxAvatarStack>
-            <OnyxAvatar
-              v-for="member in teamMembers"
-              :key="member.name"
-              :label="member.name"
-              :src="member.avatar"
-              size="32px"
-            />
-            <OnyxAvatar label="+3" size="32px" />
-          </OnyxAvatarStack>
-
-          <OnyxRadioGroup
-            v-model="state.radioGroup"
-            label="Radio group"
-            hide-label
-            :options="radioGroupOptions"
-            direction="horizontal"
+      <div class="showcase__flex grid--row2">
+        <OnyxAvatarStack>
+          <OnyxAvatar
+            v-for="member in teamMembers"
+            :key="member.name"
+            :label="member.name"
+            :src="member.avatar"
+            size="32px"
           />
-        </div>
+          <OnyxAvatar label="+3" size="32px" />
+        </OnyxAvatarStack>
 
-        <div class="showcase__bottom-section">
-          <OnyxInput label="Input" placeholder="Example input" hide-label />
-
-          <div class="showcase__flex">
-            <OnyxIconButton :icon="shareIos" label="Icon button" />
-            <OnyxButton :icon="arrowSmallRight" label="Button" color="neutral" />
-            <OnyxButton :icon="checkSmall" label="Button" />
-            <OnyxStepper v-model="state.stepper" label="Stepper" hide-label placeholder="0" />
-          </div>
-        </div>
-
-        <div class="showcase__bottom-section">
-          <OnyxHeadline is="h1">Page title headline</OnyxHeadline>
-
-          <div class="showcase__flex">
-            <OnyxCheckboxGroup
-              label="Checkbox group (skeleton)"
-              hide-label
-              direction="horizontal"
-              :skeleton="4"
-              :options="[]"
-            />
-          </div>
-        </div>
+        <OnyxRadioGroup
+          v-model="state.radioGroup"
+          label="Radio group"
+          hide-label
+          :options="radioGroupOptions"
+          direction="horizontal"
+        />
       </div>
-    </div>
 
-    <OnyxNavBar app-name="Nav bar" logo-url="/onyx-logo.svg">
-      <OnyxNavButton label="Page 1" active />
-      <OnyxNavButton label="Page 2">
-        <template #children>
-          <OnyxNavItem label="Subpage 1" />
-          <OnyxNavItem label="Subpage 2" />
-        </template>
-      </OnyxNavButton>
-      <OnyxNavButton label="Page 3" with-external-icon />
+      <div class="showcase__flex grid--row3">
+        <OnyxInput label="Input" placeholder="Example input" hide-label />
+        <OnyxIconButton :icon="shareIos" label="Icon button" />
+        <OnyxButton :icon="arrowSmallRight" label="Button" color="neutral" />
+        <OnyxButton :icon="checkSmall" label="Button" />
+        <OnyxStepper v-model="state.stepper" label="Stepper" hide-label placeholder="0" />
+      </div>
 
-      <template #contextArea>
-        <OnyxUserMenu description="Company Name" username="Jane Doe">
-          <OnyxMenuItem>
-            <OnyxIcon :icon="settings" />
-            Settings
-          </OnyxMenuItem>
-          <OnyxColorSchemeMenuItem
-            :model-value="isDark ? 'dark' : 'light'"
-            @update:model-value="isDark = $event === 'dark'"
-          />
-          <OnyxMenuItem color="danger">
-            <OnyxIcon :icon="logout" />
-            Logout
-          </OnyxMenuItem>
+      <div class="showcase__flex grid--row4">
+        <OnyxHeadline is="h1">Page title headline</OnyxHeadline>
+        <OnyxCheckboxGroup
+          label="Checkbox group (skeleton)"
+          hide-label
+          direction="horizontal"
+          :skeleton="4"
+          :options="[]"
+        />
+      </div>
 
-          <template #footer>
-            App version
-            <span class="onyx-text--monospace">0.0.0</span>
+      <OnyxNavBar class="grid--nav" app-name="Nav bar" logo-url="/onyx-logo.svg">
+        <OnyxNavButton label="Page 1" active />
+        <OnyxNavButton label="Page 2">
+          <template #children>
+            <OnyxNavItem label="Subpage 1" />
+            <OnyxNavItem label="Subpage 2" />
           </template>
-        </OnyxUserMenu>
-      </template>
-    </OnyxNavBar>
+        </OnyxNavButton>
+        <OnyxNavButton label="Page 3" with-external-icon />
+
+        <template #contextArea>
+          <OnyxUserMenu description="Company Name" username="Jane Doe">
+            <OnyxMenuItem>
+              <OnyxIcon :icon="settings" />
+              Settings
+            </OnyxMenuItem>
+            <OnyxColorSchemeMenuItem
+              :model-value="isDark ? 'dark' : 'light'"
+              @update:model-value="isDark = $event === 'dark'"
+            />
+            <OnyxMenuItem color="danger">
+              <OnyxIcon :icon="logout" />
+              Logout
+            </OnyxMenuItem>
+
+            <template #footer>
+              App version
+              <span class="onyx-text--monospace">0.0.0</span>
+            </template>
+          </OnyxUserMenu>
+        </template>
+      </OnyxNavBar>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use "../../../styles/breakpoints.scss";
 
+.parent {
+  container-type: inline-size;
+}
+
 .showcase {
+  --checkbox-group-justify-content: flex-end;
+
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
 
-  display: flex;
-  flex-direction: column;
+  max-width: 70rem;
+  display: grid;
   gap: var(--onyx-spacing-xl);
-  max-width: 64rem;
-  container-type: inline-size;
+  grid-template-columns: max-content repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "row1         row1  row1  textarea  textarea"
+    "table        table table textarea  textarea"
+    "table        table table toast     toast"
+    "table        table table tags      tags"
+    "checkboxes   row2  row2  row2      row2"
+    "checkboxes   row3  row3  row3      row3"
+    "checkboxes   row4  row4  row4      row4"
+    "nav          nav   nav   nav       nav";
 
-  &__layout {
-    display: grid;
-    grid-template-columns: 1fr minmax(26rem, 33%);
-    gap: var(--onyx-spacing-xl);
+  @include breakpoints.container(max, sm) {
+    --checkbox-group-justify-content: revert-layer;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-areas:
+      "row1         row1  row1  row1  row1"
+      "table        table table table  table"
+      "textarea textarea toast toast toast"
+      "checkboxes checkboxes tags tags tags"
+      "row2   row2  row2  row2      row2"
+      "row3   row3  row3  row3      row3"
+      "row4   row4  row4  row4      row4"
+      "nav          nav   nav   nav       nav";
 
-    @include breakpoints.container(max, sm) {
-      grid-template-columns: 1fr;
+    .showcase__flex {
+      justify-content: flex-start;
     }
+  }
+
+  @include breakpoints.container(max, xs) {
+    display: flex;
+    flex-direction: column;
   }
 
   &__flex {
     display: flex;
     gap: var(--onyx-spacing-lg);
     align-items: center;
-  }
-
-  &__pagination {
-    margin-left: auto;
-  }
-
-  &__left,
-  &__right,
-  &__bottom-right {
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-spacing-xl);
-    flex-grow: 1;
-  }
-
-  &__bottom-right {
-    gap: var(--onyx-spacing-lg);
-  }
-
-  &__bottom {
-    display: flex;
-    gap: var(--onyx-spacing-2xl);
-  }
-
-  &__bottom-section {
-    display: flex;
-    gap: var(--onyx-spacing-lg);
-    align-items: flex-start;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    &--between {
+      justify-content: space-between;
+    }
   }
 
-  &__badge {
-    margin-right: auto;
+  &__select {
+    :deep(.onyx-select-input__native) {
+      width: 10ch;
+    }
   }
 }
 
@@ -352,6 +354,20 @@ const teamMembers = [
 
 :deep(.onyx-radio-group__content--horizontal),
 :deep(.onyx-checkbox-group__content--horizontal) {
-  justify-content: flex-end;
+  justify-content: var(--checkbox-group-justify-content);
+}
+
+.onyx-toast-message {
+  height: max-content;
+}
+
+.grid {
+  $gridAreas: row1, row2, row3, row4, table, textarea, toast, tags, checkboxes, nav;
+
+  @each $area in $gridAreas {
+    &--#{$area} {
+      grid-area: $area;
+    }
+  }
 }
 </style>
