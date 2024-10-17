@@ -293,7 +293,7 @@ const teamMembers = [
   max-width: 70rem;
   display: grid;
   gap: var(--onyx-spacing-xl);
-  grid-template-columns: max-content repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   grid-template-areas:
     "row1         row1  row1  textarea  textarea"
     "table        table table textarea  textarea"
@@ -306,7 +306,6 @@ const teamMembers = [
 
   @include breakpoints.container(max, sm) {
     --checkbox-group-justify-content: revert-layer;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-template-areas:
       "row1         row1  row1  row1  row1"
       "table        table table table  table"
@@ -329,7 +328,7 @@ const teamMembers = [
 
   &__flex {
     display: flex;
-    gap: var(--onyx-spacing-lg);
+    gap: var(--onyx-spacing-lg) var(--onyx-spacing-sm);
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -357,7 +356,8 @@ const teamMembers = [
   justify-content: var(--checkbox-group-justify-content);
 }
 
-.onyx-toast-message {
+.onyx-toast-message,
+.onyx-table-wrapper {
   height: max-content;
 }
 
