@@ -293,7 +293,7 @@ const teamMembers = [
   max-width: 70rem;
   display: grid;
   gap: var(--onyx-spacing-xl);
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: max-content repeat(4, minmax(0, 1fr));
   grid-template-areas:
     "row1         row1  row1  textarea  textarea"
     "table        table table textarea  textarea"
