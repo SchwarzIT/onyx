@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
-import { ref } from "vue";
+import { ref, toValue } from "vue";
 import { useResizeObserver } from "./useResizeObserver";
 
 vi.mock("vue", async (importOriginal) => {
@@ -30,7 +30,7 @@ describe("useResizeObserver", () => {
     const { height, width } = useResizeObserver(component);
 
     expect(ResizeObserver).toHaveBeenCalledOnce();
-    expect(spy.observe).toHaveBeenCalledWith(component.value, { box: "content-box" });
+    expect(spy.observe).toHaveBeenCalledWith(toValue(component), { box: "content-box" });
     expect(callback).toBeDefined();
 
     callback!([{ contentBoxSize: [{ blockSize: 42, inlineSize: 100 }] }]);
