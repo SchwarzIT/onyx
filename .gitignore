@@ -40,3 +40,8 @@ vite.*.timestamp*
 *.tsbuildinfo
 
 .turbo
+
+# figma-utils
+packages/figma-utils/variables*.css
+packages/figma-utils/variables*.scss
+packages/figma-utils/variables*.json
