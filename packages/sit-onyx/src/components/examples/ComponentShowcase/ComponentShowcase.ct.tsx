@@ -25,7 +25,7 @@ for (const [name, width] of Object.entries(ONYX_BREAKPOINTS)) {
     const component = await mount(<ComponentShowcase style={{ width: `${width}px` }} />);
 
     // ASSERT
-    await expect(component).toHaveScreenshot("default.png");
+    await expect(component).toHaveScreenshot(`default-${name}.png`);
 
     // ACT
     const accessibilityScanResults = await makeAxeBuilder()
