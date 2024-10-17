@@ -84,24 +84,22 @@ const teamMembers = [
 <template>
   <div class="parent">
     <div class="showcase onyx-text" :class="{ dark: isDark }">
-      <div class="showcase__flex showcase__flex--between grid--row1">
-        <div class="showcase__flex">
-          <OnyxSelect
-            v-model="state.select"
-            class="showcase__select"
-            label="Select"
-            list-label="List of options"
-            placeholder="Select"
-            :options="selectOptions"
-            multiple
-            with-search
-            hide-label
-          />
-
-          <OnyxSwitch v-model="isDark" label="Dark mode" />
-        </div>
-
+      <div class="showcase__flex grid--row1">
         <OnyxPagination v-model="state.pagination" :pages="6" />
+
+        <OnyxSelect
+          v-model="state.select"
+          class="showcase__select"
+          label="Select"
+          list-label="List of options"
+          placeholder="Select"
+          :options="selectOptions"
+          multiple
+          with-search
+          hide-label
+        />
+
+        <OnyxSwitch v-model="isDark" label="Dark mode" />
       </div>
 
       <OnyxTable class="grid--table" striped>
@@ -332,10 +330,6 @@ const teamMembers = [
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-
-    &--between {
-      justify-content: space-between;
-    }
   }
 
   &__select {
