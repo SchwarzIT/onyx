@@ -72,11 +72,14 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
 };
 const handleChange = () => {
   if (inputRef.value) {
-    const numberValue = parseFloat(inputRef.value.value); // Konvertiere in eine Zahl
+    const numberValue = parseFloat(inputRef.value.value);
     if (!isNaN(numberValue)) {
-      updateValue(numberValue); // Aktualisiere den Wert
+      updateValue(numberValue);
+    } else {
+      value.value = undefined;
+      displayValue.value = undefined;
     }
-    wasTouched.value = true; // Markiere das Feld als "berührt"
+    wasTouched.value = true;
   }
 };
 
