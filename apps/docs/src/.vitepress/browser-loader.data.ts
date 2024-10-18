@@ -1,5 +1,4 @@
 import fs from "fs";
-import https from "https";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
 
@@ -15,7 +14,6 @@ export type Browser = {
 export interface Data {
   browsers: Browser[];
   coverage: number;
-  config: string;
   browserRules: string;
 }
 
@@ -43,26 +41,16 @@ export default defineLoader({
 
       const url = `https://browsersl.ist/api/browsers?q=${browserRules}`;
 
-      https
-        .get(url, (res) => {
-          let body = "";
+      const fetchBrowserslistData = async () => {
+        const result = await (await fetch(url)).text();
+        resolve({ browserRules, ...JSON.parse(result) });
+      };
 
-          res.on("data", (chunk) => {
-            body += chunk;
-          });
-
-          res.on("end", () => {
-            try {
-              resolve({ browserRules, ...JSON.parse(body) });
-            } catch (error) {
-              if (error instanceof Error) console.error(error.message);
-              reject("error loading browserslist API data");
-            }
-          });
-        })
-        .on("error", (error) => {
-          reject(error.message);
-        });
+      try {
+        fetchBrowserslistData();
+      } catch {
+        reject("error loading browserslist API data");
+      }
     });
   },
 });

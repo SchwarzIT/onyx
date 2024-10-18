@@ -22,6 +22,6 @@ export const data: Data = {
       },
     },
   ],
-  config: "default",
   coverage: 96.86,
+  browserRules: "default",
 };
