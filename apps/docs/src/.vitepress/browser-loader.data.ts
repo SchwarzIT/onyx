@@ -1,6 +1,5 @@
 import fs from "fs";
 import https from "https";
-import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
 
@@ -17,6 +16,7 @@ export interface Data {
   browsers: Browser[];
   coverage: number;
   config: string;
+  browserRules: string;
 }
 
 declare const data: Data;
@@ -35,7 +35,7 @@ export default defineLoader({
 
       try {
         const data = fs.readFileSync(browserslistRcPath, "utf8");
-        const [_firstLine, ...lines] = data.split("\n").filter((l) => !!l);
+        const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
         browserRules = lines.join("").trim();
       } catch (e) {
         console.error("could not read .browserslistrc");
@@ -53,7 +53,7 @@ export default defineLoader({
 
           res.on("end", () => {
             try {
-              resolve(JSON.parse(body));
+              resolve({ browserRules, ...JSON.parse(body) });
             } catch (error) {
               if (error instanceof Error) console.error(error.message);
               reject("error loading browserslist API data");
