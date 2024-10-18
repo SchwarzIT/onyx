@@ -154,8 +154,22 @@ Be careful when overriding styles globally since it will affect **EVERY** compon
 
 :::
 
+### Browser Support
+
+<script lang="ts" setup>
+import BrowsersList from "../.vitepress/components/BrowsersList.vue"
+</script>
+
+Browser support is based on our Browserslist setting and data from [caniuse](https://caniuse.com)
+
+<BrowsersList />
+
+Find our .browserslistrc [here](https://github.com/SchwarzIT/onyx/blob/main/.browserslistrc)
+
 ### Next steps
 
 - [Theming](/development/theming), e.g. for setting up the dark mode
 - [i18n](/development/i18n) if you are supporting multiple languages in your application
 - [Grid](/development/grid) for easily implementing custom layouts
+
+---
