@@ -479,3 +479,87 @@ test("should not allow entering value lower the min value that has been set", as
 
   await expect(substractButton).toBeDisabled();
 });
+
+test("should not be possible to enter a value that is not a multiple of the step size", async ({
+  mount,
+  makeAxeBuilder,
+}) => {
+  // ARRANGE
+  const on = {
+    "update:modelValue": (newValue) => {
+      component.update({
+        props: {
+          modelValue: newValue,
+        },
+        on,
+      });
+    },
+  };
+
+  const component = await mount(OnyxStepper, {
+    props: {
+      label: "Test label",
+      style: "width: 12rem;",
+      step: 2,
+      stripStep: true,
+      modelValue: 4,
+    },
+    on,
+  });
+
+  const input = component.locator("input");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  await input.fill("3");
+  await input.dispatchEvent("change");
+  await expect(input).toHaveClass(/onyx-stepper__native--force-invalid/);
+
+  await input.fill("6");
+  await input.dispatchEvent("change");
+  await expect(input).not.toHaveClass(/onyx-stepper__native--force-invalid/);
+});
+
+test("should show decimal places if a precision is specified", async ({
+  mount,
+  makeAxeBuilder,
+}) => {
+  // ARRANGE
+  const on = {
+    "update:modelValue": (newValue) => {
+      component.update({
+        props: {
+          modelValue: newValue,
+        },
+        on,
+      });
+    },
+  };
+
+  const component = await mount(OnyxStepper, {
+    props: {
+      label: "Test label",
+      style: "width: 12rem;",
+      precision: 2,
+      stripStep: true,
+      modelValue: 4,
+    },
+    on,
+  });
+
+  const input = component.locator("input");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  await input.fill("1");
+  await input.dispatchEvent("change");
+  await expect(input).toHaveValue("1.00");
+});
