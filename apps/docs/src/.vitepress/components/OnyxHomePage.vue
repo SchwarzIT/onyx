@@ -103,8 +103,7 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
     line-height: 2.5rem;
   }
 
-  &__timestamp,
-  &__meta {
+  &__timestamp {
     color: var(--vp-c-text-2);
     margin: var(--onyx-spacing-md) 0;
   }
@@ -116,15 +115,6 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
   &__tabs {
     background-color: var(--vp-c-bg-alt);
     border-radius: var(--onyx-radius-md);
-  }
-
-  &__tables {
-    display: flex;
-    gap: var(--onyx-spacing-xl);
-    > * {
-      flex-grow: 1;
-      height: fit-content;
-    }
   }
 
   &__facts {
