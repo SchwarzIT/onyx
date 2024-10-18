@@ -160,7 +160,7 @@ Be careful when overriding styles globally since it will affect **EVERY** compon
 import BrowsersList from "../.vitepress/components/BrowsersList.vue"
 </script>
 
-Browser support is based on our Browserslist setting and data from [caniuse](https://caniuse.com)
+Supported browsers are based on our `Browserslist` config and data from [caniuse](https://caniuse.com)
 
 <BrowsersList />
 
