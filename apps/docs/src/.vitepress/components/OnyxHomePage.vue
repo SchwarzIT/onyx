@@ -1,16 +1,9 @@
 <script lang="ts" setup>
-import { useMediaQuery } from "@vueuse/core";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
-
-const tableDevider = browsers.length * 0.5;
-const browsersLeftColumn = browsers.slice(0, tableDevider);
-const browsersRightColumn = browsers.slice(tableDevider);
-
-const isMediumScreen = useMediaQuery("(min-width: 640px)");
 
 const props = defineProps<{
   data: HomePageData;
