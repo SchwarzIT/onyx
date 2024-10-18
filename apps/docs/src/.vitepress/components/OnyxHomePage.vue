@@ -1,15 +1,11 @@
 <script lang="ts" setup>
-import { data as browsersData } from "#src/.vitepress/browser-loader.data";
 import { useMediaQuery } from "@vueuse/core";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
-import OnyxLink from "~components/OnyxLink/OnyxLink.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
-import BrowsersTable from "./BrowsersTable.vue";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
 
-const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
 const tableDevider = browsers.length * 0.5;
 const browsersLeftColumn = browsers.slice(0, tableDevider);
 const browsersRightColumn = browsers.slice(tableDevider);
@@ -72,25 +68,6 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
             description="Closed issues"
             :href="`${packageJson.bugs.url}?q=${encodeURIComponent('is:issue is:closed')}`"
           />
-          <RoadmapCard
-            :title="browsersData.browsers.length"
-            description="Browser versions supported"
-          />
-        </div>
-      </section>
-      <section v-if="browsersData && browsers.length">
-        <OnyxHeadline is="h2" class="roadmap__headline">Browser Support</OnyxHeadline>
-        <p class="roadmap__meta">
-          Global coverage: {{ browsersData.coverage }}% (based on our Browserslist setting and
-          <OnyxLink href="https://caniuse.com">caniuse</OnyxLink>)<br />
-          Find our .browserslistrc
-          <OnyxLink href="https://github.com/SchwarzIT/onyx/blob/main/.browserslistrc"
-            >here</OnyxLink
-          >
-        </p>
-        <div class="roadmap__tables">
-          <BrowsersTable :browsers="isMediumScreen ? browsersLeftColumn : browsers" />
-          <BrowsersTable v-if="isMediumScreen" :browsers="browsersRightColumn" />
         </div>
       </section>
     </div>
