@@ -82,15 +82,6 @@ const handleChange = () => {
     wasTouched.value = true;
   }
 };
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === "ArrowRight" || event.key === "ArrowUp") {
-    handleClick("stepUp");
-    event.preventDefault();
-  } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
-    handleClick("stepDown");
-    event.preventDefault();
-  }
-};
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
@@ -140,7 +131,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :step="props.stripStep ? props.step : 'any'"
           :title="props.hideLabel ? props.label : undefined"
           @change="handleChange"
-          @keydown="handleKeydown"
         />
         <button
           type="button"
