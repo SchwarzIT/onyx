@@ -4,6 +4,8 @@ import plus from "@sit-onyx/icons/plus.svg?raw";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { useErrorClass } from "../../composables/useErrorClass";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -14,10 +16,11 @@ import type { OnyxStepperProps } from "./types";
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
   step: 1,
   stripStep: false,
-  disabled: FORM_INJECTED_SYMBOL,
   readonly: false,
   loading: false,
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
+  disabled: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
 });
 const { t } = injectI18n();
 const inputRef = ref<HTMLInputElement>();
@@ -29,7 +32,11 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
-const { disabled } = useFormContext(props);
+
+const { disabled, showError } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
+const errorClass = useErrorClass(showError);
+
 const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 /**
@@ -87,11 +94,11 @@ const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: p
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
 </script>
 <template>
-  <div v-if="props.skeleton" :class="['onyx-stepper-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-stepper-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
     <OnyxSkeleton class="onyx-stepper-skeleton__input" />
   </div>
-  <div v-else :class="['onyx-stepper', densityClass]">
+  <div v-else :class="['onyx-stepper', densityClass, errorClass]">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
       <div class="onyx-stepper__wrapper">
         <button
@@ -117,7 +124,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           v-model.number="displayValue"
           v-custom-validity
           class="onyx-stepper__native"
-          :class="{ 'onyx-stepper__native--force-invalid': errorMessages && wasTouched }"
+          :class="{ 'onyx-stepper__native--touched': wasTouched }"
           type="number"
           :aria-label="props.label"
           :autofocus="props.autofocus"

@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -13,6 +14,7 @@ const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   required: false,
   checked: false,
   loading: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
@@ -26,10 +28,11 @@ const emit = defineEmits<{
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
@@ -107,6 +110,7 @@ const { disabled } = useFormContext(props);
     .onyx-error-tooltip:has(&__selector:valid) .onyx-tooltip {
       display: none;
     }
+
     &:has(&__selector:invalid) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
@@ -160,6 +164,7 @@ const { disabled } = useFormContext(props);
         color: var(--onyx-radio-button-selector-outline-color);
         offset: 0;
       }
+
       transition: outline var(--onyx-duration-sm);
 
       border: {

@@ -78,6 +78,7 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 <template>
   <div>
     <OnyxForm
+      class="onyx-grid"
       :density="props.density"
       :disabled="props.disabled"
       @submit.prevent="handleSubmit"

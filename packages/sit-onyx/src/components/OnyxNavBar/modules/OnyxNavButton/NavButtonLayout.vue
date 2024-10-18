@@ -13,6 +13,9 @@ import type { OnyxNavButtonProps } from "./types";
 const props = withDefaults(
   defineProps<
     OnyxNavButtonProps & {
+      /**
+       * If the mobile layout should be used.
+       */
       isMobile: boolean;
     }
   >(),

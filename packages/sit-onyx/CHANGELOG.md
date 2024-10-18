@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.0.0-beta.55
+
+### Major Changes
+
+- 772f6a5: refactor(OnyxRadioGroup): rename CSS classes
+
+  Renamed/fixed all radio group CSS class names from `.onyx-radio-button-group` to `.onyx-radio-group` to match the component name
+
+### Patch Changes
+
+- 772f6a5: fix(OnyxPagination): ensure max width for "of n pages" text
+
+## 1.0.0-beta.54
+
+### Minor Changes
+
+- 01f8664: feat(OnyxForm): implement `showError` mode
+  fix(OnyxForm): update of injected prop not working when initially using default
+
+## 1.0.0-beta.53
+
+### Patch Changes
+
+- Updated dependencies [be5b415]
+  - @sit-onyx/icons@1.0.0-beta.6
+
 ## 1.0.0-beta.52
 
 ### Patch Changes

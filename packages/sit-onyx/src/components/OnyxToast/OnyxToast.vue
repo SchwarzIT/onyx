@@ -4,7 +4,7 @@ import { useToast } from "./useToast";
 
 const toastProvider = useToast();
 </script>
-
+<!-- eslint-disable vue/no-root-v-if -->
 <template>
   <dialog
     v-if="toastProvider.toasts.value.length"

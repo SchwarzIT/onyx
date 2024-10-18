@@ -5,6 +5,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -17,7 +18,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   truncation: "ellipsis",
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -31,13 +32,15 @@ const emit = defineEmits<{
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
+
+const { disabled, showError } = useFormContext(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const shownErrorMessages = computed(() =>
+  showError.value !== false ? errorMessages.value : undefined,
+);
 
-const title = computed(() => {
-  return props.hideLabel ? props.label : undefined;
-});
-
-const { disabled } = useFormContext(props);
+const title = computed(() => (props.hideLabel && props.label) || undefined);
+const skeleton = useSkeletonContext(props);
 
 const isChecked = computed({
   get: () => props.modelValue,
@@ -48,14 +51,14 @@ const isChecked = computed({
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-switch-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-switch-skeleton', densityClass]">
     <span class="onyx-switch-skeleton__click-area">
       <OnyxSkeleton class="onyx-switch-skeleton__input" />
     </span>
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
+  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="shownErrorMessages">
     <label class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
       <input
         v-model="isChecked"
@@ -263,6 +266,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       font-size: 1rem;
       line-height: 1.5rem;
     }
+
     &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-family: var(--onyx-font-family);

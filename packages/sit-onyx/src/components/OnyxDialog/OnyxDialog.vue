@@ -55,6 +55,7 @@ watch(
 );
 </script>
 
+<!-- eslint-disable-next-line vue/no-root-v-if -->
 <template>
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->

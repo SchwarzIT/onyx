@@ -39,6 +39,7 @@ export const useManagedState = <
   emit: (val: T) => void,
 ) => {
   const isManaged = computed(() => prop.value === MANAGED_SYMBOL);
+  // eslint-disable-next-line vue/no-ref-object-reactivity-loss
   const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
 
   const state = asymComputed({

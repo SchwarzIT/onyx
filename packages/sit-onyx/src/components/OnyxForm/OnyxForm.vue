@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { useDensity } from "../../composables/density";
+import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { provideFormContext } from "./OnyxForm.core";
 import type { OnyxFormProps } from "./types";
 
-const props = defineProps<OnyxFormProps>();
+const props = withDefaults(defineProps<OnyxFormProps>(), {
+  disabled: false,
+  showError: "touched",
+});
 
 defineSlots<{
   /**
@@ -13,6 +17,7 @@ defineSlots<{
 }>();
 
 provideFormContext(props);
+provideSkeletonContext(props);
 
 const { densityClass } = useDensity(props);
 </script>
