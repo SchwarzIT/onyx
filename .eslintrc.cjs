@@ -10,6 +10,10 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
   },
+  plugins: ["compat"],
+  env: {
+    browser: true,
+  },
   extends: [
     "plugin:vue/vue3-recommended",
     "eslint:recommended",
@@ -18,6 +22,7 @@ module.exports = {
     // see: https://github.com/vuejs/eslint-config-typescript#vueeslint-config-typescriptrecommended
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier/skip-formatting",
+    "plugin:compat/recommended",
   ],
   rules: {
     // Allow usage of @ts-ignore if a description for the reason was provided
