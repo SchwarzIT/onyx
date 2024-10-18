@@ -110,7 +110,7 @@ export const WithSkeletonComponents = {
   args: {
     skeleton: true,
     default: () => [
-      h("form", {}, [
+      h("form", { style: { display: "flex", flexDirection: "column", gap: "1rem" } }, [
         h(OnyxInput, { label: "Favorite band", modelValue: "Que2en", pattern: "[A-Za-z ]+" }),
         h(OnyxInput, { label: "Favorite password", type: "password", modelValue: "incorrect" }),
         h(OnyxStepper, { label: "Number of hairs", min: 0, modelValue: 23 }),
