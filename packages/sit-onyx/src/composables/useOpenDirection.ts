@@ -4,7 +4,7 @@ export type OpenDirection = "top" | "bottom";
 
 export const useOpenDirection = (
   element: MaybeRef<Element | undefined>,
-  defaultDirection = "bottom" as OpenDirection,
+  defaultDirection: OpenDirection = "bottom",
 ) => {
   const openDirection = ref<OpenDirection>(defaultDirection);
 
