@@ -154,19 +154,20 @@ Be careful when overriding styles globally since it will affect **EVERY** compon
 
 :::
 
-### Browser Support
+## Browser Support
 
 <script lang="ts" setup>
 import BrowsersList from "../.vitepress/components/BrowsersList.vue"
 </script>
 
-This list of supported browsers is based on our `Browserslist` config and data from [caniuse](https://caniuse.com)
-
-Onyx might also work in older versions, but we cannot guarantee full compatibility.
+Onyx works best with the following browser versions. Older versions might also work but we can't guarantee full compatibility.
 
 <BrowsersList />
 
-Find our .browserslistrc [here](https://github.com/SchwarzIT/onyx/blob/main/.browserslistrc)
+::: details More information (.browserslistrc file)
+
+<<< @include ../../../../.browserslistrc
+:::
 
 ### Next steps
 
