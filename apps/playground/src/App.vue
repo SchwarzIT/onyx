@@ -3,13 +3,13 @@ import { Repl } from "@vue/repl";
 import Monaco from "@vue/repl/monaco-editor";
 import { useDark } from "@vueuse/core";
 import { OnyxAppLayout } from "sit-onyx";
-import { computed, ref } from "vue";
+import { computed, ref, type ComponentInstance } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import { useStore } from "./composables/useStore";
 
 const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
 
-const replRef = ref<InstanceType<typeof Repl>>();
+const replRef = ref<ComponentInstance<typeof Repl>>();
 const reloadPage = () => {
   replRef.value?.reload();
   store.reloadLanguageTools?.();
@@ -18,7 +18,7 @@ const reloadPage = () => {
 const isDark = useDark();
 const theme = computed(() => (isDark.value ? "dark" : "light"));
 
-const previewOptions = computed<InstanceType<typeof Repl>["previewOptions"]>(() => {
+const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]>(() => {
   return {
     headHTML: `<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/style.css' />
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/src/styles/global.css' />

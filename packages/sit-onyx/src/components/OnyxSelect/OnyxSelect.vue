@@ -1,6 +1,16 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, toRef, toRefs, useId, watch, watchEffect } from "vue";
+import {
+  computed,
+  nextTick,
+  ref,
+  toRef,
+  toRefs,
+  useId,
+  watch,
+  watchEffect,
+  type ComponentInstance,
+} from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
@@ -124,7 +134,7 @@ const selectionLabels = computed(() => {
   }, []);
 });
 
-const miniSearch = ref<InstanceType<typeof OnyxMiniSearch>>();
+const miniSearch = ref<ComponentInstance<typeof OnyxMiniSearch>>();
 const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
 
 const filteredOptions = computed(() => {
