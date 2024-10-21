@@ -24,6 +24,7 @@ const filteredBrowsers = browsers
         width="40px"
         height="40px"
         class="browser__image"
+        loading="lazy"
       />
       <p class="browser__name">{{ name }}</p>
       <p>Version ≥ {{ minVersion }}</p>
@@ -55,6 +56,8 @@ const filteredBrowsers = browsers
   }
   &__image {
     position: relative;
+    width: 40px;
+    height: 40px;
     transform: translateX(-4px);
   }
 }
