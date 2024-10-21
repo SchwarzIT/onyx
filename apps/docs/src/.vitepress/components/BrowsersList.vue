@@ -35,9 +35,9 @@ const filteredBrowsers = popularBrowsers
 
 <style lang="scss" scoped>
 .browsersList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  row-gap: var(--onyx-spacing-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--onyx-spacing-xl);
   margin: 0;
   padding: 0;
   margin-bottom: var(--onyx-spacing-lg);
