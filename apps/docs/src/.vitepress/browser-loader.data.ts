@@ -39,11 +39,16 @@ export default defineLoader({
         console.error("could not read .browserslistrc");
       }
 
-      const url = `https://browsersl.ist/api/browsers?q=${browserRules}`;
-
       const fetchBrowserslistData = async () => {
-        const result = await (await fetch(url)).text();
-        resolve({ browserRules, ...JSON.parse(result) });
+        const url = `https://browsersl.ist/api/browsers?q=${browserRules}`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("failed to fetch browserslist API data");
+        }
+
+        const data = await response.json();
+        resolve({ browserRules, ...data });
       };
 
       try {
