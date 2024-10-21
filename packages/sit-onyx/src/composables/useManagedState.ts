@@ -2,7 +2,7 @@ import { type Ref, computed, ref } from "vue";
 import { asymComputed } from "./asymmetricComputed";
 
 export type ManagedProp<T> = ManagedSymbolType | T;
-export type ManagedSymbolType = typeof MANAGED_SYMBOL;
+export type ManagedSymbolType = symbol; // we can't use `typeof MANAGED_SYMBOL` as vue is unable to infer its type: https://github.com/SchwarzIT/onyx/issues/1980
 export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL");
 
 /**
