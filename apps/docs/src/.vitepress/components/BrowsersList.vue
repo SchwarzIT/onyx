@@ -5,16 +5,14 @@ const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
 
 const popularBrowsers = ["chrome", "edge", "firefox", "safari", "samsung", "ios_saf"];
 
-const filteredBrowsers = popularBrowsers
-  .map((pb) => {
-    const b = browsers.find((b) => b.id === pb);
-    if (b)
-      return {
-        ...b,
-        minVersion: b?.versions ? Object.keys(b.versions).sort()[0] : "",
-      };
-  })
-  .filter((b) => !!b);
+const filteredBrowsers = browsers
+  .filter((browser) => popularBrowsers.includes(browser.id))
+  .map((browser) => {
+    return {
+      ...browser,
+      minVersion: Object.keys(browser.versions).sort()[0],
+    };
+  });
 </script>
 
 <template>
