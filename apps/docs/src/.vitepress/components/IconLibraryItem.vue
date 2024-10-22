@@ -27,7 +27,7 @@ const handleCopy = async () => {
 <template>
   <OnyxTooltip :text="props.icon.tooltipName" position="bottom">
     <template #default="{ trigger }">
-      <button type="button" class="icon" @click="handleCopy" v-bind="trigger">
+      <button type="button" class="icon" v-bind="trigger" @click="handleCopy">
         <OnyxIcon :icon="props.icon.content" />
       </button>
     </template>

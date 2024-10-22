@@ -16,18 +16,13 @@ const gitignorePath = fileURLToPath(import.meta.resolve("./.gitignore"));
 export default tsEslint.config(
   eslint.configs.recommended,
   {
-    name: "onyx-vue",
+    name: "general-vue-ts",
     files: ["**/*.{ts,tsx,vue}"],
     extends: [
       ...vue.configs["flat/recommended"],
       ...vueA11y.configs["flat/recommended"],
-      ...vueTsEslintConfig({ extends: ["recommendedTypeChecked"] }),
+      ...vueTsEslintConfig({ extends: ["recommended"] }),
     ],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-      },
-    },
     rules: {
       "vue/html-self-closing": [
         "error",
@@ -43,6 +38,7 @@ export default tsEslint.config(
       // we want to provide the flexibility to have the autofocus property.
       // whe JSDoc description includes a warning that it should be used carefully.
       "vuejs-accessibility/no-autofocus": "off",
+      // irrelevant rule for vue 3, as it allows multiple root elements
       "vue/no-multiple-template-root": "off",
       "vuejs-accessibility/label-has-for": [
         "error",
@@ -52,7 +48,6 @@ export default tsEslint.config(
           },
         },
       ],
-      "vue/no-multiple-template-root": "error",
       "@typescript-eslint/no-unused-expressions": ["error", { allowShortCircuit: true }],
       "@typescript-eslint/ban-ts-comment": [
         "error",
@@ -76,6 +71,21 @@ export default tsEslint.config(
     name: "onyx-playwright",
     files: ["**/*.ct.{js,jsx,ts,tsx}"],
     extends: [playwrightEslintConfig.configs["flat/recommended"]],
+    rules: {
+      "playwright/expect-expect": [
+        "warn",
+        {
+          assertFunctionNames: [
+            "executeChartScreenshotTest",
+            "menuButtonTesting",
+            "navigationTesting",
+            "listboxTesting",
+            "comboboxTesting",
+            "comboboxSelectOnlyTesting",
+          ],
+        },
+      ],
+    },
   },
   {
     name: "onyx-vitest",
@@ -83,8 +93,8 @@ export default tsEslint.config(
     extends: [pluginVitest.configs.recommended],
   },
   {
-    name: "onyx-packages-figma-utils",
-    files: ["**/packages/figma-utils/**"],
+    name: "onyx-no-console",
+    files: ["**/packages/figma-utils/**", "**/scripts/**"],
     rules: {
       "no-console": "off",
     },
@@ -92,7 +102,15 @@ export default tsEslint.config(
   {
     name: "onyx-sit-onyx",
     files: ["**/packages/sit-onyx/**/*"],
-    extends: [...vueScopedCss.configs["flat/recommended"]],
+    extends: [
+      ...vueTsEslintConfig({ extends: ["recommendedTypeChecked"] }),
+      ...vueScopedCss.configs["flat/recommended"],
+    ],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
     plugins: { sitOnyx },
     rules: {
       "sitOnyx/import-playwright-a11y": "error",

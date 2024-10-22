@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/.vitepress/**/*", "vite.config.ts"],
+  "include": ["env.d.ts", "src/**/*", "tests/**/*", "src/.vitepress/**/*", "vite.config.ts"],
   "compilerOptions": {
     "moduleResolution": "Bundler",
     "baseUrl": ".",
