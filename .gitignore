@@ -1,15 +1,24 @@
+### This file contains all directories and files that are not supposed to be checked-in.
+### The contents are also used as ignores list for eslint.
+### Therefore only this specific .gitignore file should be used in the whole project, otherwise git ignored files might be linted.
+
 # Logs
 logs
 *.log
 npm-debug.log*
 pnpm-debug.log*
 
+# Caches
 node_modules/
 .DS_Store
-dist
-coverage
 *.local
 .npmrc
+**/.cache
+**/.vitepress/cache
+**/.vitepress/config.ts.timestamp-*.mjs
+*.tsbuildinfo
+.turbo
+vite.*.timestamp*
 
 # Editor directories and files
 .vscode/*
@@ -21,27 +30,23 @@ coverage
 *.sln
 *.sw?
 
+# CI reports
 test-results/
 playwright-report/
 blob-report/
-**/.cache
-**/.vitepress/cache
-**/.vitepress/config.ts.timestamp-*.mjs
-storybook-static
 eslint-results.sarif
 .nuxt
 .output
-vite.*.timestamp*
+coverage
+
+# Build outputs
+storybook-static
+dist
 
 # Development config
 .env*
 
-# typescript
-*.tsbuildinfo
-
-.turbo
-
-# figma-utils
+# generated files
 packages/figma-utils/variables*.css
 packages/figma-utils/variables*.scss
 packages/figma-utils/variables*.json
