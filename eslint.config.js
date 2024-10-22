@@ -1,36 +1,23 @@
-// @ts-check
+import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
-import { gitignoreToMinimatch } from "@humanwhocodes/gitignore-to-minimatch";
+import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
 import vueTsEslintConfig from "@vue/eslint-config-typescript";
 import playwrightEslintConfig from "eslint-plugin-playwright";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
-const CUSTOM_IGNORES = ["**/playwright.config.ts", "**/playwright/index.ts", "**/vitest.config.ts"];
-
-const ignores = readFileSync(join(import.meta.dirname, ".gitignore"), "utf-8")
-  .split("\n")
-  .map(gitignoreToMinimatch)
-  .filter(Boolean)
-  .concat(CUSTOM_IGNORES);
-
-const playwrightConfig = tseslint.config({
-  files: ["**/*.ct.{js,jsx,ts,tsx}"],
-  extends: [playwrightEslintConfig.configs["flat/recommended"]],
-});
+const gitignorePath = fileURLToPath(import.meta.resolve("./.gitignore"));
 
 export default tseslint.config(
   eslint.configs.recommended,
-  ...playwrightConfig,
-  ...vueScopedCss.configs["flat/recommended"],
   {
-    files: ["**/*.{js,jsx,ts,tsx,vue}"],
+    name: "onyx-vue",
+    files: ["**/*.{ts,tsx,vue}"],
     extends: [
       ...vue.configs["flat/recommended"],
       ...vueA11y.configs["flat/recommended"],
@@ -39,13 +26,9 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: ".",
       },
     },
-    plugins: { sitOnyx },
     rules: {
-      "sitOnyx/import-playwright-a11y": "error",
-      "sitOnyx/no-shadow-native": "error",
       "vue/html-self-closing": [
         "error",
         {
@@ -57,6 +40,10 @@ export default tseslint.config(
         },
       ],
       "vue/require-default-prop": "off",
+      // we want to provide the flexibility to have the autofocus property.
+      // whe JSDoc description includes a warning that it should be used carefully.
+      "vuejs-accessibility/no-autofocus": "off",
+      "vue/no-multiple-template-root": "off",
       "vuejs-accessibility/label-has-for": [
         "error",
         {
@@ -83,6 +70,33 @@ export default tseslint.config(
       ],
       "no-console": "error",
       "no-debugger": "error",
+    },
+  },
+  {
+    name: "onyx-playwright",
+    files: ["**/*.ct.{js,jsx,ts,tsx}"],
+    extends: [playwrightEslintConfig.configs["flat/recommended"]],
+  },
+  {
+    name: "onyx-vitest",
+    files: ["**/*.spec.{js,jsx,ts,tsx}"],
+    extends: [pluginVitest.configs.recommended],
+  },
+  {
+    name: "onyx-packages-figma-utils",
+    files: ["**/packages/figma-utils/**"],
+    rules: {
+      "no-console": "off",
+    },
+  },
+  {
+    name: "onyx-sit-onyx",
+    files: ["**/packages/sit-onyx/**/*"],
+    extends: [...vueScopedCss.configs["flat/recommended"]],
+    plugins: { sitOnyx },
+    rules: {
+      "sitOnyx/import-playwright-a11y": "error",
+      "sitOnyx/no-shadow-native": "error",
       "vue/html-button-has-type": "error",
       "vue/require-prop-comment": "error",
       "vue/valid-define-options": "error",
@@ -104,23 +118,25 @@ export default tseslint.config(
       "vue/no-boolean-default": "error",
       "vue/block-order": "error",
       "vue/camelcase": "error",
-      // disallow scoped or module CSS for components
-      // see https://onyx.schwarz/principles/technical-vision.html#css
-      "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
-      // we want to provide the flexibility to have the autofocus property.
-      // whe JSDoc description includes a warning that it should be used carefully.
-      "vuejs-accessibility/no-autofocus": "off",
       // unfortunately there is a bug with using nested property declaration: https://github.com/future-architect/eslint-plugin-vue-scoped-css/issues/371
       // but parsing errors should be caught by the compiler anyways
       "vue-scoped-css/no-parsing-error": "off",
+      // disallow scoped or module CSS for components
+      // see https://onyx.schwarz/principles/technical-vision.html#css
+      "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
     },
-  },
-  {
-    files: ["**/examples/**", "./apps/**"],
-    rules: {
-      "vue-scoped-css/enforce-style-type": "off",
-    },
+    ignores: ["**/examples/**"],
   },
   skipFormattingConfig,
-  { ignores },
+  includeIgnoreFile(gitignorePath),
+  {
+    name: "onyx-ignores",
+    ignores: [
+      "**/OnyxSelect/**",
+      "**/playwright.config.ts",
+      "**/playwright/index.ts",
+      "**/vitest.config.ts",
+      "**/.storybook/{main,preview}.ts",
+    ],
+  },
 );
