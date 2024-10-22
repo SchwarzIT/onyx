@@ -2,7 +2,7 @@
 // this layout component is only used internally for the user menu component
 // to easily switch between mobile and desktop layout
 import { useModel } from "vue";
-import { MANAGED_SYMBOL } from "../../../../composables/useManagedState";
+import { MANAGED_SYMBOL, type ManagedProp } from "../../../../composables/useManagedState";
 import { injectI18n } from "../../../../i18n";
 import type { SelectOptionValue } from "../../../../types";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
@@ -18,9 +18,10 @@ const props = withDefaults(
      * Controls the open state of the user menu flyout.
      * Will be managed automatically, if not provided as a prop.
      */
-    flyoutOpen?: boolean | typeof MANAGED_SYMBOL;
+    flyoutOpen?: ManagedProp<boolean>;
   }>(),
   {
+    // eslint-disable-next-line vue/no-boolean-default
     flyoutOpen: MANAGED_SYMBOL,
   },
 );
