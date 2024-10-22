@@ -32,14 +32,6 @@ jobs:
 
       - name: 🔎 Lint
         run: pnpm run lint:ci:all
-        # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
-        continue-on-error: true
-
-      - name: Upload eslint results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
 
       - name: 🔎 Check formatting
         run: pnpm run format:check:all

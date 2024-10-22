@@ -8,12 +8,12 @@ import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
 import { fileURLToPath } from "node:url";
-import tseslint from "typescript-eslint";
+import tsEslint from "typescript-eslint";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
 const gitignorePath = fileURLToPath(import.meta.resolve("./.gitignore"));
 
-export default tseslint.config(
+export default tsEslint.config(
   eslint.configs.recommended,
   {
     name: "onyx-vue",
