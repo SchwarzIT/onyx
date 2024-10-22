@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.56
+
+### Patch Changes
+
+- b6e0b67: fix: Fix uncaught TypeError for components with symbol props
+
 ## 1.0.0-beta.55
 
 ### Major Changes

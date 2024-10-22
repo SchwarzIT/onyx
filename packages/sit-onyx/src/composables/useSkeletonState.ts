@@ -16,14 +16,14 @@ export type SkeletonProvidedProp = {
  * Prop that may be used by the child components.
  */
 type LocalProps = {
-  skeleton: SKELETON_INJECTED | boolean;
+  skeleton: symbol | boolean;
 };
 
 /**
  * Symbol for the skeleton injected property.
  */
 export const SKELETON_INJECTED_SYMBOL = Symbol("SKELETON_INJECTED_SYMBOL");
-export type SKELETON_INJECTED = typeof SKELETON_INJECTED_SYMBOL;
+export type SKELETON_INJECTED = symbol; // we can't use `typeof SKELETON_INJECTED_SYMBOL` as vue is unable to infer its type: https://github.com/SchwarzIT/onyx/issues/1980
 /**
  * Prop type used by child elements, which indicates that the prop value is taken from the parent by default.
  * The prop **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
@@ -39,17 +39,27 @@ export type SKELETON_INJECTED = typeof SKELETON_INJECTED_SYMBOL;
  * ```
  */
 
-export type SkeletonInjected = SKELETON_INJECTED | boolean;
+export type SkeletonInjected = symbol | boolean;
 
 const createSkeletonInjectionContext =
   (parentElementProps?: SkeletonProvidedProp) =>
   (props: Reactive<LocalProps>): ComputedRef<boolean> =>
     computed(() => {
-      if (props.skeleton !== SKELETON_INJECTED_SYMBOL) {
+      if (typeof props.skeleton !== "symbol") {
         return props.skeleton;
       }
-
-      return parentElementProps?.skeleton ?? false;
+      if (props.skeleton === SKELETON_INJECTED_SYMBOL) {
+        return parentElementProps?.skeleton ?? false;
+      }
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error(
+          `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o.`,
+          props.skeleton,
+          SKELETON_INJECTED_SYMBOL,
+        );
+      }
+      return false;
     });
 
 export const provideSkeletonContext = (
