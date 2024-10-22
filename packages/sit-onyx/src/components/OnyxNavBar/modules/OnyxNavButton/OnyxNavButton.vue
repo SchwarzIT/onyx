@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { computed, inject, ref } from "vue";
+import { computed, inject, toRef } from "vue";
+import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
@@ -10,6 +11,7 @@ import type { OnyxNavButtonProps } from "./types";
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
   withExternalIcon: "auto",
+  mobileChildrenOpen: MANAGED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -17,6 +19,10 @@ const emit = defineEmits<{
    * Emitted when the nav button is clicked (via click or keyboard).
    */
   navigate: [href: string, event: MouseEvent];
+  /**
+   * Emitted when the mobile children are open or closed.
+   */
+  "update:mobileChildrenOpen": [isOpen: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -31,12 +37,17 @@ const slots = defineSlots<{
 }>();
 
 const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
-const isMobileChildrenOpen = ref(false);
 const hasChildren = computed(() => !!slots.children);
 
+const { state: mobileChildrenOpen } = useManagedState(
+  toRef(() => props.mobileChildrenOpen),
+  false,
+  (newVal) => emit("update:mobileChildrenOpen", newVal),
+);
+
 const handleParentClick = (event: MouseEvent) => {
-  if (isMobile?.value && hasChildren.value && !isMobileChildrenOpen.value) {
-    isMobileChildrenOpen.value = true;
+  if (isMobile?.value && hasChildren.value && !mobileChildrenOpen.value) {
+    mobileChildrenOpen.value = true;
   } else if (props.href) {
     emit("navigate", props.href, event);
   }
@@ -46,7 +57,7 @@ const handleParentClick = (event: MouseEvent) => {
 <template>
   <NavButtonLayout
     v-bind="props"
-    v-model:mobile-children-open="isMobileChildrenOpen"
+    v-model:mobile-children-open="mobileChildrenOpen"
     class="onyx-nav-button"
     :class="{
       'onyx-nav-button--mobile': isMobile,
@@ -69,7 +80,7 @@ const handleParentClick = (event: MouseEvent) => {
         </slot>
 
         <OnyxIcon
-          v-if="isMobile && hasChildren && !isMobileChildrenOpen"
+          v-if="isMobile && hasChildren && !mobileChildrenOpen"
           class="onyx-nav-button__mobile-chevron"
           :icon="chevronRightSmall"
         />
