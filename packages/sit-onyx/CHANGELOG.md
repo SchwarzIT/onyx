@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.57
+
+### Patch Changes
+
+- 78a1019: fix(OnyxNavButton): prop `mobileChildrenOpen` not working
+
 ## 1.0.0-beta.56
 
 ### Patch Changes
