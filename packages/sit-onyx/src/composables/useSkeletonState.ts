@@ -16,7 +16,7 @@ export type SkeletonProvidedProp = {
  * Prop that may be used by the child components.
  */
 type LocalProps = {
-  skeleton: symbol | boolean;
+  skeleton: symbol | boolean | number;
 };
 
 /**
@@ -39,17 +39,17 @@ export type SKELETON_INJECTED = symbol; // we can't use `typeof SKELETON_INJECTE
  * ```
  */
 
-export type SkeletonInjected = symbol | boolean;
+export type SkeletonInjected = symbol | boolean | number;
 
 const createSkeletonInjectionContext =
   (parentElementProps?: SkeletonProvidedProp) =>
-  (props: Reactive<LocalProps>): ComputedRef<boolean> =>
+  (props: Reactive<LocalProps>): ComputedRef<boolean | number> =>
     computed(() => {
       if (typeof props.skeleton !== "symbol") {
         return props.skeleton;
       }
       if (props.skeleton === SKELETON_INJECTED_SYMBOL) {
-        return parentElementProps?.skeleton ?? false;
+        return parentElementProps?.skeleton === true ? 3 : false;
       }
       if (import.meta.env.DEV) {
         // eslint-disable-next-line no-console

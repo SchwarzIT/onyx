@@ -60,7 +60,7 @@ export type OnyxInputProps = FormInjectedProps &
     loading?: boolean;
     /**
      * Minimum number of characters that have to to be entered.
-     * Warning: when the value is (pre)set programatically,
+     * Warning: when the value is (pre)set programmatically,
      * the input invalidity will not be detected by the browser, it will only turn invalid
      * as soon as a user interacts with the input (types something).
      */
