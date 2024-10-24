@@ -78,7 +78,10 @@ test.describe("Screenshot tests", () => {
           : "Test error";
       return (
         <OnyxCheckbox
-          style={row !== "default" ? "padding-top: 3rem;" : ""}
+          style={{
+            ...(row !== "default" && { paddingBottom: "3rem" }),
+            ...(column === "hideLabel" && { paddingRight: "3rem" }),
+          }}
           label="Test label"
           modelValue={column === "checked"}
           indeterminate={column === "indeterminate"}

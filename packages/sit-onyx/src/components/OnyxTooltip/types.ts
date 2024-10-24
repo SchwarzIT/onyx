@@ -1,5 +1,6 @@
 import type { MaybeRefOrGetter } from "vue";
 import type { DensityProp } from "../../composables/density";
+import type { WedgePosition } from "../../composables/useWedgePosition";
 import type { OnyxColor } from "../../types";
 
 export type TooltipOptions = {
@@ -29,6 +30,10 @@ export type OnyxTooltipProps = DensityProp & {
    */
   position?: TooltipPosition;
   /**
+   * How to align the wedge relative to the parent element.
+   */
+  alignment?: WedgePosition | "auto";
+  /**
    * If `true`, the tooltip will match the width of the parent/slot element.
    */
   fitParent?: boolean;
@@ -44,7 +49,7 @@ export type OnyxTooltipProps = DensityProp & {
   open?: TooltipOpen;
 };
 
-export const TOOLTIP_POSITIONS = ["top", "bottom"] as const;
+export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;
 export type TooltipPosition = (typeof TOOLTIP_POSITIONS)[number];
 
 export type TooltipOpen =

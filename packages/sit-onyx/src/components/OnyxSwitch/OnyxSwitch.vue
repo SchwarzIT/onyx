@@ -319,11 +319,6 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
-
-    // hide error tooltip before a user interaction happened
-    .onyx-error-tooltip:has(&__input):not(:has(&__input:user-invalid)) .onyx-tooltip {
-      display: none;
-    }
   }
 }
 
