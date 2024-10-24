@@ -1,8 +1,8 @@
-import { type Ref, computed, ref } from "vue";
+import { type Ref, computed, ref, toValue } from "vue";
 import { asymComputed } from "./asymmetricComputed";
 
 export type ManagedProp<T> = ManagedSymbolType | T;
-export type ManagedSymbolType = typeof MANAGED_SYMBOL;
+export type ManagedSymbolType = symbol; // we can't use `typeof MANAGED_SYMBOL` as vue is unable to infer its type: https://github.com/SchwarzIT/onyx/issues/1980
 export const MANAGED_SYMBOL = Symbol("MANAGED_SYMBOL");
 
 /**
@@ -39,8 +39,7 @@ export const useManagedState = <
   emit: (val: T) => void,
 ) => {
   const isManaged = computed(() => prop.value === MANAGED_SYMBOL);
-  // eslint-disable-next-line vue/no-ref-object-reactivity-loss
-  const internalState = ref(isManaged.value ? initialState : prop.value) as Ref<T>;
+  const internalState = ref(toValue(isManaged) ? initialState : prop.value) as Ref<T>;
 
   const state = asymComputed({
     set: (val: T) => {

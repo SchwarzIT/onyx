@@ -22,15 +22,15 @@ describe("import-variables.ts", () => {
     vi.spyOn(process, "cwd").mockReturnValue("test-cwd");
   });
 
-  test("should throw error for unknown formats", () => {
+  test("should throw error for unknown formats", async () => {
     const promise = () =>
       importVariablesCommandAction({ ...mockOptions, format: ["does-not-exist"] });
-    expect(promise).rejects.toThrowError(
+    await expect(promise).rejects.toThrowError(
       'Unknown format "does-not-exist". Supported: CSS, SCSS, JSON',
     );
   });
 
-  test("should throw error for unknown modes", () => {
+  test("should throw error for unknown modes", async () => {
     vi.spyOn(functions, "parseFigmaVariables").mockReturnValue([
       { modeName: "test-mode-1", variables: {} },
     ]);
@@ -40,7 +40,8 @@ describe("import-variables.ts", () => {
         ...mockOptions,
         modes: ["test-mode-1", "does-not-exist"],
       });
-    expect(promise).rejects.toThrowError(
+
+    await expect(promise).rejects.toThrowError(
       'Mode "does-not-exist" not found. Available modes: "test-mode-1"',
     );
   });

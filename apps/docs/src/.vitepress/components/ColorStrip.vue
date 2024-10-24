@@ -14,9 +14,9 @@ const props = withDefaults(
 <template>
   <figure class="strip" :class="{ 'strip--horizontal': props.orientation === 'horizontal' }">
     <div
-      class="strip__color"
       v-for="color in props.colors"
       :key="color"
+      class="strip__color"
       :style="{ backgroundColor: color }"
     ></div>
     <figcaption v-if="props.name" class="strip__name">{{ props.name }}</figcaption>

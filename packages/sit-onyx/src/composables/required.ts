@@ -1,7 +1,7 @@
 import { computed } from "vue";
 
-const REQUIRED_MARKER = ["optional", "required"] as const;
-export type RequiredMarkerType = (typeof REQUIRED_MARKER)[number];
+export const RequiredMarkerTypes = ["optional", "required"] as const;
+export type RequiredMarkerType = (typeof RequiredMarkerTypes)[number];
 
 export type RequiredMarkerProp = {
   /**

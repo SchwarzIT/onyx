@@ -69,7 +69,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
             {{ previewText }}
           </OnyxLink>
 
-          <OnyxHeadline v-else :is="variable.htmlTag" :monospace="isMonospace">
+          <OnyxHeadline :is="variable.htmlTag" v-else :monospace="isMonospace">
             {{ previewText }}
           </OnyxHeadline>
         </template>
