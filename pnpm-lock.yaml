@@ -140,6 +140,9 @@ importers:
       typescript:
         specifier: ~5.6.2
         version: 5.6.2
+      typescript-eslint:
+        specifier: ^8.11.0
+        version: 8.11.0(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.2)
       vite:
         specifier: ^5.4.8
         version: 5.4.8(@types/node@20.16.11)(sass-embedded@1.79.4)(sass@1.79.4)(stylus@0.57.0)(terser@5.32.0)

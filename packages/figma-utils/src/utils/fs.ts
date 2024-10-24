@@ -10,7 +10,7 @@ export const isDirectory = async (path: PathLike): Promise<boolean> => {
   try {
     const stats = await stat(path);
     return stats.isDirectory();
-  } catch (_) {
+  } catch {
     return false;
   }
 };
