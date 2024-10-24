@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.64
+
+### Minor Changes
+
+- 0429341: pass all filter parameters to withVModelDecorator filter function
+
 ## 1.0.0-beta.63
 
 ### Patch Changes
