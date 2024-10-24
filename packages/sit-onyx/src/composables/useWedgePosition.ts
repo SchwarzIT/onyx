@@ -34,8 +34,7 @@ export const useWedgePosition = (
     const parentRight =
       overflowParentRect?.right ??
       (window.visualViewport?.width ?? window.innerWidth) +
-        (window.visualViewport?.offsetLeft ?? 0) ??
-      0;
+        (window.visualViewport?.offsetLeft ?? 0);
 
     const freeSpaceLeft = wrapperRect.left - parentLeft;
     const freeSpaceRight = parentRight - wrapperRect.right;
