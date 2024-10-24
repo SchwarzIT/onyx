@@ -13,9 +13,8 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
-
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  step: 1,
+  precision: 1,
   stripStep: false,
   readonly: false,
   loading: false,
@@ -23,10 +22,8 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
 });
-
 const { t } = injectI18n();
 const inputRef = ref<HTMLInputElement>();
-
 const emit = defineEmits<{
   /** Emitted when the input value changes. */
   "update:modelValue": [value?: number];
@@ -41,14 +38,13 @@ const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 
 const { densityClass } = useDensity(props);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
-
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
@@ -57,19 +53,54 @@ const value = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
+function countDecimalPlaces(num: number) {
+  const numStr = num.toString();
+  if (numStr.includes(".")) {
+    return numStr.split(".")[1].length;
+  }
+  return 0;
+}
+
+const displayValue = computed(() => {
+  const precision = countDecimalPlaces(props.precision);
+  return value.value?.toFixed(precision);
+});
+
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
-
-  inputRef.value[`${direction}`]();
-
-  const newValue = inputRef.value.valueAsNumber;
-  value.value = isNaN(newValue) ? undefined : newValue;
+  const currentValue = inputRef.value.valueAsNumber || 0;
+  const step = props.stepSize ? props.stepSize : props.precision;
+  const stepValue = direction === "stepUp" ? step : -step;
+  const newValue = currentValue + stepValue;
+  const roundedValue = Math.round(newValue / props.precision) * props.precision;
+  if (props.min !== undefined && roundedValue < props.min) {
+    value.value = props.min;
+  } else if (props.max !== undefined && roundedValue > props.max) {
+    value.value = props.max;
+  } else {
+    value.value = roundedValue;
+  }
+};
+const handleChange = () => {
+  if (!inputRef.value) return;
+  const newValue = parseFloat(inputRef.value.value);
+  const precision = countDecimalPlaces(props.precision);
+  if (props.stripStep && newValue % props.precision !== 0) {
+    inputRef.value.value = value.value !== undefined ? value.value.toString() : "";
+  } else {
+    value.value = isNaN(newValue) ? undefined : parseFloat(newValue.toFixed(precision));
+    inputRef.value.value = newValue.toFixed(precision);
+    wasTouched.value = true;
+  }
 };
 
-const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
-const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
+const incrementLabel = computed(() =>
+  t.value("stepper.increment", { stepSize: props?.stepSize ? props.stepSize : props.precision }),
+);
+const decrementLabel = computed(() =>
+  t.value("stepper.decrement", { stepSize: props?.stepSize ? props.stepSize : props.precision }),
+);
 </script>
-
 <template>
   <div v-if="skeleton" :class="['onyx-stepper-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
@@ -81,8 +112,15 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <button
           type="button"
           class="onyx-stepper__counter"
-          :disabled="(props.min && props.min === value) || disabled || readonly || props.loading"
+          :disabled="
+            (props.min && props.min === value) ||
+            (props.min && value !== undefined && value <= props.min) ||
+            disabled ||
+            readonly ||
+            props.loading
+          "
           :aria-label="decrementLabel"
+          tabindex="-1"
           @click="handleClick('stepDown')"
         >
           <OnyxIcon :icon="minus" />
@@ -91,7 +129,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <input
           v-else
           ref="inputRef"
-          v-model.number="value"
+          v-model="displayValue"
           v-custom-validity
           class="onyx-stepper__native"
           :class="{ 'onyx-stepper__native--touched': wasTouched }"
@@ -105,15 +143,24 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :placeholder="props.placeholder"
           :readonly="props.readonly"
           :required="props.required"
-          :step="props.step"
+          :step="props.precision"
           :title="props.hideLabel ? props.label : undefined"
-          @change="wasTouched = true"
+          @change="handleChange"
+          @keydown.up.prevent="handleClick('stepUp')"
+          @keydown.down.prevent="handleClick('stepDown')"
         />
         <button
           type="button"
           class="onyx-stepper__counter"
-          :disabled="(props.max && props.max === value) || disabled || readonly || props.loading"
+          :disabled="
+            (props.max && props.max === value) ||
+            (props.max && value !== undefined && value >= props.max) ||
+            disabled ||
+            readonly ||
+            props.loading
+          "
           :aria-label="incrementLabel"
+          tabindex="-1"
           @click="handleClick('stepUp')"
         >
           <OnyxIcon :icon="plus" />
@@ -122,35 +169,29 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
     </OnyxFormElement>
   </div>
 </template>
-
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/input.scss";
-
 .onyx-stepper,
 .onyx-stepper-skeleton {
   --onyx-stepper-padding-vertical: var(--onyx-density-xs);
 }
-
 .onyx-stepper-skeleton {
   @include input.define-skeleton-styles(
     $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
   );
 }
-
 .onyx-stepper {
   @include layers.component() {
     @include input.define-shared-styles(
       $base-selector: ".onyx-stepper",
       $vertical-padding: var(--onyx-stepper-padding-vertical)
     );
-
     &__wrapper {
       gap: 0;
       padding: 0;
       justify-content: space-between;
     }
-
     &__counter {
       border: none;
       height: 100%;
@@ -161,38 +202,30 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
       padding: var(--onyx-stepper-padding-vertical);
       border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
       outline: none;
-
       &:enabled {
         cursor: pointer;
-
         &:hover,
         &:focus-visible {
           color: var(--onyx-color-text-icons-primary-intense);
         }
-
         &:focus-visible {
           outline: none;
           background-color: var(--onyx-color-base-primary-100);
         }
-
         &:active {
           background-color: var(--onyx-color-base-primary-100);
         }
-
         &:first-child {
           border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
         }
       }
-
       &:disabled {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
-
     &__native {
       -moz-appearance: textfield;
       text-align: center;
-
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;

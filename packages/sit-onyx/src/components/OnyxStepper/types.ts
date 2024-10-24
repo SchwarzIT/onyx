@@ -35,7 +35,27 @@ export type OnyxStepperProps = FormInjectedProps &
     /**
      * Incremental step.
      */
-    step?: number;
+    /**
+     * Incremental step.
+     * @deprecated
+     */
+    step?: number; // step-mismatch + step-increment
+
+    /**
+     * The smallest allowed value and rounded precision
+     */
+    precision?: number; // step-mismatch => uses :step="props.precision" for the validation
+    /**
+     * The increment number
+     * @default precision is the default stepSize
+     */
+    stepSize?: number; //  step-increment => number which is used for increment/decrement
+
+    /**
+     * Ensure no wrong number can be inputed
+     */
+    stripStep?: boolean;
+
     /**
      * Specify how to provide automated assistance in filling out the input.
      * Some autocomplete values might required specific browser permissions to be allowed by the user.

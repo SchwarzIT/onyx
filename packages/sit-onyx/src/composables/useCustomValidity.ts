@@ -26,7 +26,7 @@ export type UseCustomValidityOptions = {
     minlength?: number;
     min?: number;
     max?: number;
-    step?: number;
+    precision?: number;
   } & Pick<BaseSelectOption, "hideLabel" | "label">;
   /**
    * Component emit as defined with `const emit = defineEmits()`
@@ -198,7 +198,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       maxLength: options.props.maxlength,
       min: options.props.min,
       max: options.props.max,
-      step: options.props.step,
+      step: options.props.precision,
     };
 
     return {
