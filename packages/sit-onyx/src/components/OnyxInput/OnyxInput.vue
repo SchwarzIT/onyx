@@ -63,11 +63,11 @@ const errorClass = useErrorClass(showError);
 
   <div v-else :class="['onyx-input', densityClass, errorClass]">
     <OnyxFormElement v-bind="props" :error-messages="errorMessages">
-      <template #default="{ id }">
+      <template #default="{ id: inputId }">
         <div class="onyx-input__wrapper">
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
-            :id
+            :id="inputId"
             v-model="value"
             v-custom-validity
             :placeholder="props.placeholder"

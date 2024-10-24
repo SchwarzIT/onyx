@@ -56,11 +56,11 @@ defineExpose({ comboBox });
   <div ref="comboboxRef">
     <input v-bind="input" v-model="searchTerm" @keydown.arrow-down="isExpanded = true" />
 
-    <button v-bind="button">
-      <template v-if="isExpanded">⬆️</template>
-      <template v-else>⬇️</template>
+    <button v-bind="button" type="button">
+      <template v-if="isExpanded"> ⬆️ </template>
+      <template v-else> ⬇️ </template>
     </button>
-    <ul v-bind="listbox" :class="{ hidden: !isExpanded }" style="width: 400px">
+    <ul v-bind="listbox" :class="{ list: true, hidden: !isExpanded }">
       <li
         v-for="e in filteredOptions"
         :key="e"
@@ -74,6 +74,10 @@ defineExpose({ comboBox });
 </template>
 
 <style>
+.list {
+  width: 400px;
+}
+
 .hidden {
   display: none;
 }

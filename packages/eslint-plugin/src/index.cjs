@@ -1,6 +1,9 @@
 // @ts-check
 const packageJson = require("../package.json");
 
+/**
+ * @type {import("eslint").ESLint.Plugin}
+ */
 module.exports = {
   meta: {
     name: packageJson.name,

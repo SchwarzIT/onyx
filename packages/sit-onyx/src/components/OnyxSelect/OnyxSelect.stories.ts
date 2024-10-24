@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, h, ref, watchEffect } from "vue";
