@@ -50,6 +50,6 @@ test("should behave correctly", async ({ page, mount }) => {
   await component.update({ props: { modelValue: "light" } });
 
   // ASSERT
-  await expect(modelValueEvents).toStrictEqual(["light"]);
+  expect(modelValueEvents).toStrictEqual(["light"]);
   await expect(component).toContainText("Appearance: Light");
 });

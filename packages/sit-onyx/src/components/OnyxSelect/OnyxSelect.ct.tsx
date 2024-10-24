@@ -583,7 +583,6 @@ test("should interact with multiselect", async ({ mount }) => {
   );
 });
 
-// eslint-disable-next-line playwright/expect-expect
 test("should pass headless accessibility tests", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(OnyxSelect, {
@@ -604,7 +603,6 @@ test("should pass headless accessibility tests", async ({ mount, page }) => {
   );
 });
 
-// eslint-disable-next-line playwright/expect-expect
 test("should pass headless accessibility tests (select only)", async ({ mount, page }) => {
   const eventHandlers = {
     "update:modelValue": async (modelValue: number) => {
@@ -794,7 +792,7 @@ test("should not submit form when selecting via keyboard", async ({ page, mount 
   await page.keyboard.press("Enter");
 
   // ASSERT
-  await expect(submitEventCount).toBe(0);
+  expect(submitEventCount).toBe(0);
 });
 
 test("should allow custom input text when a pre-selected value is unknown to OnyxSelect", async ({

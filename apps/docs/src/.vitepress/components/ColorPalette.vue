@@ -109,8 +109,8 @@ const handleCopy = async (color: string) => {
       </div>
 
       <DesignVariable
-        class="palette__copied"
         v-if="copiedColor"
+        class="palette__copied"
         :name="copiedColor"
         :value="`var(--${copiedColor})`"
         type="color"

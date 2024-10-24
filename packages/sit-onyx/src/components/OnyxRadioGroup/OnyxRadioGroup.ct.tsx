@@ -80,7 +80,6 @@ test.describe("screenshot tests (invalid)", () => {
 
       // wait for the tooltip to show up reliably
       if (column === "hover") {
-        // eslint-disable-next-line playwright/no-standalone-expect
         await expect(component.getByRole("tooltip"), "should show error tooltip").toBeVisible();
       }
     },

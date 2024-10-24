@@ -114,7 +114,6 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
             style={{
               display: "grid",
               width: "max-content",
-              // eslint-disable-next-line playwright/no-conditional-in-test
               padding: options.disablePadding ? undefined : "1rem",
             }}
           >

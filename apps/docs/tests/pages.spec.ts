@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { join } from "node:path";
-import { DefaultTheme } from "../node_modules/vitepress/types/default-theme";
+import type { DefaultTheme } from "../node_modules/vitepress/types/default-theme";
 import { CONFIG } from "../src/.vitepress/config";
 
 test("has title", async ({ page }) => {
@@ -15,7 +15,7 @@ const BLACKLIST_PATHS = [/changelog/i, /icons/i];
  * maps links listed in the vitepress config to their respective absolute url
  */
 const mapToLinks = (
-  navItem: DefaultTheme.NavItem | DefaultTheme.SidebarItem,
+  navItem: DefaultTheme.NavItem | DefaultTheme.SidebarItem | DefaultTheme.SidebarMulti[string],
   baseParm?: string,
 ): string[] => {
   const base = baseParm ?? (navItem as DefaultTheme.SidebarItem).base ?? "";
@@ -23,8 +23,10 @@ const mapToLinks = (
   if ("link" in navItem && navItem.link && navItem.link.startsWith("/")) {
     links.push(`${base}${navItem.link}`);
   }
-  if ("items" in navItem && navItem.items) {
-    navItem.items.forEach((item) => links.push(...mapToLinks(item, navItem["base"])));
+  if ("items" in navItem && Array.isArray(navItem.items)) {
+    navItem.items.forEach((item) =>
+      links.push(...mapToLinks(item, "base" in navItem ? navItem["base"] : "")),
+    );
   }
   return links;
 };

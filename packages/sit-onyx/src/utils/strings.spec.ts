@@ -17,7 +17,7 @@ test.each([
   { haystack: "ÜBen", needle: "übEn", expected: true },
   { haystack: "ÜBen", needle: "üBen", expected: true },
 ])(
-  "should return $expected when $needle is searched in $haystack ",
+  "should return $expected when $needle is searched in $haystack",
   ({ haystack, needle, expected }) => {
     // ACT
     const result = normalizedIncludes(haystack, needle);
