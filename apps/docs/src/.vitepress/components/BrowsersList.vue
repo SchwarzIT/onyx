@@ -5,14 +5,17 @@ const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
 
 const popularBrowsers = ["chrome", "edge", "firefox", "safari", "samsung", "ios_saf"];
 
-const filteredBrowsers = browsers
-  .filter((browser) => popularBrowsers.includes(browser.id))
-  .map((browser) => {
-    return {
-      ...browser,
-      minVersion: Object.keys(browser.versions).sort()[0],
-    };
-  });
+const filteredBrowsers = popularBrowsers
+  .map((b) => {
+    const browser = browsers.find((browser) => browser.id === b);
+    return browser
+      ? {
+          ...browser,
+          minVersion: Object.keys(browser.versions).sort()[0],
+        }
+      : undefined;
+  })
+  .filter((b) => !!b);
 </script>
 
 <template>
@@ -58,7 +61,6 @@ const filteredBrowsers = browsers
     position: relative;
     width: 40px;
     height: 40px;
-    transform: translateX(-4px);
   }
 }
 </style>
