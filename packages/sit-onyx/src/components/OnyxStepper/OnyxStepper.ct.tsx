@@ -274,7 +274,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   await inputElement.blur();
   // ASSERT
   expect(events).toMatchObject({
-    updateModelValue: [1, 10],
+    updateModelValue: [10],
   });
 });
 
@@ -357,7 +357,7 @@ test("should increment/decrement value by step on counter button click", async (
     props: {
       label: "Test label",
       style: "width: 12rem;",
-      step: 2,
+      stepSize: 2,
     },
     on,
   });
@@ -453,6 +453,7 @@ test("should not allow entering value lower the min value that has been set", as
       label: "Test label",
       style: "width: 12rem;",
       min: 2,
+      modelValue: 4,
     },
     on,
   });
@@ -467,10 +468,6 @@ test("should not allow entering value lower the min value that has been set", as
   expect(accessibilityScanResults.violations).toEqual([]);
   await expect(component.getByLabel("Test label")).toBeAttached();
 
-  await input.click();
-  await input.fill("4");
-  await expect(input).toHaveValue("4");
-
   await substractButton.click();
   await expect(input).toHaveValue("3");
 
@@ -480,7 +477,7 @@ test("should not allow entering value lower the min value that has been set", as
   await expect(substractButton).toBeDisabled();
 });
 
-test("should not be possible to enter a value that is not a multiple of the step size", async ({
+test("Should display the same number of decimal places as the smallest possible step", async ({
   mount,
   makeAxeBuilder,
 }) => {
@@ -500,53 +497,7 @@ test("should not be possible to enter a value that is not a multiple of the step
     props: {
       label: "Test label",
       style: "width: 12rem;",
-      step: 2,
-      stripStep: true,
-      modelValue: 4,
-    },
-    on,
-  });
-
-  const input = component.locator("input");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  await input.fill("3");
-  await input.dispatchEvent("change");
-  await expect(input).toHaveClass(/onyx-stepper__native--force-invalid/);
-
-  await input.fill("6");
-  await input.dispatchEvent("change");
-  await expect(input).not.toHaveClass(/onyx-stepper__native--force-invalid/);
-});
-
-test("should show decimal places if a precision is specified", async ({
-  mount,
-  makeAxeBuilder,
-}) => {
-  // ARRANGE
-  const on = {
-    "update:modelValue": (newValue) => {
-      component.update({
-        props: {
-          modelValue: newValue,
-        },
-        on,
-      });
-    },
-  };
-
-  const component = await mount(OnyxStepper, {
-    props: {
-      label: "Test label",
-      style: "width: 12rem;",
-      precision: 2,
-      stripStep: true,
-      modelValue: 4,
+      precision: 0.01,
     },
     on,
   });
@@ -562,4 +513,89 @@ test("should show decimal places if a precision is specified", async ({
   await input.fill("1");
   await input.dispatchEvent("change");
   await expect(input).toHaveValue("1.00");
+});
+
+test("Should display an error if the value is not a multiple of the precision", async ({
+  page,
+  mount,
+  makeAxeBuilder,
+}) => {
+  // ARRANGE
+  const on = {
+    "update:modelValue": (newValue: number) => {
+      component.update({
+        props: {
+          modelValue: newValue,
+        },
+        on,
+      });
+    },
+  };
+
+  const component = await mount(OnyxStepper, {
+    props: {
+      label: "Test label",
+      style: "width: 12rem;",
+      modelValue: 1,
+      precision: 0.5,
+    },
+    on,
+  });
+
+  const input = component.getByLabel("Test label");
+  const errorMessage = component.locator(".onyx-form-element__error-message");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  await input.fill("1");
+  await page.keyboard.press("Enter");
+
+  await expect(errorMessage).toBeHidden();
+  await page.keyboard.press("Enter");
+
+  await input.fill("3.6");
+  await page.keyboard.press("Enter");
+
+  await expect(errorMessage).toBeVisible();
+});
+
+test("Should revert to the last valid input if the current input is invalid in stripStep mode", async ({
+  page,
+  mount,
+}) => {
+  // ARRANGE
+  const on = {
+    "update:modelValue": (newValue: number) => {
+      component.update({
+        props: {
+          modelValue: newValue,
+        },
+        on,
+      });
+    },
+  };
+
+  const component = await mount(OnyxStepper, {
+    props: {
+      label: "Test label",
+      style: "width: 12rem;",
+      precision: 0.5,
+      stripStep: true,
+    },
+    on,
+  });
+
+  const input = component.locator("input");
+
+  await input.fill("1");
+  await page.keyboard.press("Enter");
+  await expect(input).toHaveValue("1.0");
+  await page.keyboard.press("Enter");
+  await input.fill("1.6");
+  await page.keyboard.press("Enter");
+  await expect(input).toHaveValue("1");
 });

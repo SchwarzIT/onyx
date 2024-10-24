@@ -14,7 +14,7 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  step: 1,
+  precision: 1,
   stripStep: false,
   readonly: false,
   loading: false,
@@ -38,6 +38,7 @@ const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 
 const { densityClass } = useDensity(props);
+
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
@@ -51,47 +52,54 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-const displayValue = ref<number | string | undefined>();
 
-const updateValue = (newValue: number) => {
-  if (props.precision !== undefined) {
-    const formattedValue = newValue.toFixed(props.precision);
-    displayValue.value = formattedValue;
-    value.value = parseFloat(formattedValue);
-  } else {
-    displayValue.value = newValue;
-    value.value = newValue;
+function countDecimalPlaces(num: number) {
+  const numStr = num.toString();
+  if (numStr.includes(".")) {
+    return numStr.split(".")[1].length;
   }
-};
+  return 0;
+}
+
+const displayValue = computed(() => {
+  const precision = countDecimalPlaces(props.precision);
+  return value.value?.toFixed(precision);
+});
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
-  if (props.stripStep) {
-    inputRef.value[direction]();
-    const newValue = inputRef.value.valueAsNumber;
-    updateValue(newValue);
+  const currentValue = inputRef.value.valueAsNumber || 0;
+  const step = props.stepSize ? props.stepSize : props.precision;
+  const stepValue = direction === "stepUp" ? step : -step;
+  const newValue = currentValue + stepValue;
+  const roundedValue = Math.round(newValue / props.precision) * props.precision;
+  if (props.min !== undefined && roundedValue < props.min) {
+    value.value = props.min;
+  } else if (props.max !== undefined && roundedValue > props.max) {
+    value.value = props.max;
   } else {
-    const currentValue = inputRef.value.valueAsNumber || 0;
-    const stepValue = direction === "stepUp" ? props.step : -props.step;
-    const newValue = currentValue + stepValue;
-    updateValue(newValue);
+    value.value = roundedValue;
   }
 };
 const handleChange = () => {
-  if (inputRef.value) {
-    const numberValue = parseFloat(inputRef.value.value);
-    if (!isNaN(numberValue)) {
-      updateValue(numberValue);
-    } else {
-      value.value = undefined;
-      displayValue.value = undefined;
-    }
+  if (!inputRef.value) return;
+  const newValue = parseFloat(inputRef.value.value);
+  const precision = countDecimalPlaces(props.precision);
+  if (props.stripStep && newValue % props.precision !== 0) {
+    inputRef.value.value = value.value !== undefined ? value.value.toString() : "";
+  } else {
+    value.value = isNaN(newValue) ? undefined : parseFloat(newValue.toFixed(precision));
+    inputRef.value.value = newValue.toFixed(precision);
     wasTouched.value = true;
   }
 };
 
-const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.step }));
-const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.step }));
+const incrementLabel = computed(() =>
+  t.value("stepper.increment", { stepSize: props?.stepSize ? props.stepSize : props.precision }),
+);
+const decrementLabel = computed(() =>
+  t.value("stepper.decrement", { stepSize: props?.stepSize ? props.stepSize : props.precision }),
+);
 </script>
 <template>
   <div v-if="skeleton" :class="['onyx-stepper-skeleton', densityClass]">
@@ -121,7 +129,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <input
           v-else
           ref="inputRef"
-          v-model.number="displayValue"
+          v-model="displayValue"
           v-custom-validity
           class="onyx-stepper__native"
           :class="{ 'onyx-stepper__native--touched': wasTouched }"
@@ -135,9 +143,11 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
           :placeholder="props.placeholder"
           :readonly="props.readonly"
           :required="props.required"
-          :step="props.stripStep ? props.step : 'any'"
+          :step="props.precision"
           :title="props.hideLabel ? props.label : undefined"
           @change="handleChange"
+          @keydown.up.prevent="handleClick('stepUp')"
+          @keydown.down.prevent="handleClick('stepDown')"
         />
         <button
           type="button"
