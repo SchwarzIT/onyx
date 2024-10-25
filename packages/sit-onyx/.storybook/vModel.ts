@@ -7,9 +7,9 @@ export const withOnyxVModelDecorator = withVModelDecorator({
   filter: ({ table, name }, _, array) => {
     if (table?.category !== "events" || !name.startsWith("update:")) return false;
     const propName = name.replace(/^update:/, "");
-    return array.every(
+    return !array.some(
       (argType) =>
-        argType.name !== propName && argType.table?.defaultValue?.summary !== "MANAGED_SYMBOL",
+        argType.name === propName && argType.table?.defaultValue?.summary === "MANAGED_SYMBOL",
     );
   },
 });
