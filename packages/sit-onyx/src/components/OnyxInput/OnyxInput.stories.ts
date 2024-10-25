@@ -107,12 +107,6 @@ export const Maxlength: Story = {
     minlength: 5,
     withCounter: true,
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="padding: 0 0 4rem 4rem"> <story /> </div>`,
-    }),
-  ],
 };
 
 /**
@@ -160,12 +154,6 @@ export const CustomError: Story = {
     },
     placeholder: "Interact with me to show error",
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-bottom: 2rem"> <story /> </div>`,
-    }),
-  ],
 };
 
 /**
@@ -176,12 +164,6 @@ export const WithLabelTooltip: Story = {
     label: "Label",
     labelTooltip: "More information",
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-top: 2rem"> <story /> </div>`,
-    }),
-  ],
 };
 
 /**

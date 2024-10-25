@@ -270,10 +270,30 @@ const currentPage = ref(1);
           label="Show toast"
           @click="toast.show({ headline: 'Example toast', color: 'success' })"
         />
+        <OnyxHeadline is="h2">Tooltip (auto alignment)</OnyxHeadline>
 
-        <OnyxTooltip v-if="show('OnyxTooltip')" text="Example tooltip text">
-          Hover me to show tooltip
-        </OnyxTooltip>
+        <div v-if="show('OnyxTooltip')" class="tooltip-container">
+          <OnyxTooltip text="Example tooltip text">
+            <template #default="{ trigger }">
+              <OnyxButton label="Left" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+          <OnyxTooltip text="Example tooltip text">
+            <template #default="{ trigger }">
+              <OnyxButton label="Center" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+          <OnyxTooltip text="Example tooltip text">
+            <template #default="{ trigger }">
+              <OnyxButton label="Center" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+          <OnyxTooltip text="Example tooltip text">
+            <template #default="{ trigger }">
+              <OnyxButton label="Right" v-bind="trigger" />
+            </template>
+          </OnyxTooltip>
+        </div>
 
         <!-- Add new components alphabetically. -->
       </div>
@@ -310,5 +330,11 @@ const currentPage = ref(1);
 }
 .state-info {
   color: var(--onyx-color-text-icons-neutral-soft);
+}
+.tooltip-container {
+  display: flex;
+  justify-content: space-between;
+  width: 101%;
+  margin-top: 2rem;
 }
 </style>
