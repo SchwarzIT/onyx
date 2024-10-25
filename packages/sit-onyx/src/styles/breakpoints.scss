@@ -1,3 +1,5 @@
+@use "sass:map";
+
 /*#region breakpoints*/
 $breakpoints: (
   "2xs": 320px,
@@ -19,7 +21,7 @@ $breakpoints: (
  * @example screen(max, sm)
  */
 @mixin screen($min-max, $name, $offset: 0) {
-  @media screen and (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
+  @media screen and (#{$min-max}-width: #{map.get($breakpoints, $name) + $offset}) {
     @content;
   }
 }
@@ -34,7 +36,7 @@ $breakpoints: (
  * @example container(max, sm)
  */
 @mixin container($min-max, $name, $offset: 0) {
-  @container (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
+  @container (#{$min-max}-width: #{map.get($breakpoints, $name) + $offset}) {
     @content;
   }
 }
