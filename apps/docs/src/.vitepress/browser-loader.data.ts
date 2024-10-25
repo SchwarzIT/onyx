@@ -35,7 +35,7 @@ export default defineLoader({
         const data = fs.readFileSync(browserslistRcPath, "utf8");
         const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
         browserRules = lines.join("").trim();
-      } catch (e) {
+      } catch (_) {
         reject("could not read .browserslistrc")
       }
 
