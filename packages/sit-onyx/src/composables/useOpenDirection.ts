@@ -2,13 +2,16 @@ import { ref, unref, type MaybeRef } from "vue";
 
 export type OpenDirection = "top" | "bottom";
 
-export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
-  const openDirection = ref<OpenDirection>("bottom");
+export const useOpenDirection = (
+  element: MaybeRef<Element | undefined>,
+  defaultDirection: OpenDirection = "bottom",
+) => {
+  const openDirection = ref<OpenDirection>(defaultDirection);
 
   const updateOpenDirection = () => {
     const el = unref(element);
     if (!el) {
-      openDirection.value = "bottom";
+      openDirection.value = defaultDirection;
       return;
     }
 
@@ -17,27 +20,10 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
 
     const parentTop = overflowParentRect?.top ?? window.visualViewport?.pageTop ?? 0;
     const parentBottom = overflowParentRect?.bottom ?? window.visualViewport?.height ?? 0;
-
     const freeSpaceBelow = parentBottom - elementRect.bottom;
     const freeSpaceAbove = elementRect.top - parentTop;
 
     openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
-  };
-
-  /**
-   * Recursively finds the first parent element with hidden overflow.
-   */
-  const findParentWithHiddenOverflow = (element?: Element): Element | undefined => {
-    if (!element) return undefined;
-
-    const style = getComputedStyle(element);
-    if (style.overflow === "hidden") {
-      // if the element has hidden overflow, the flyout would be cut off by this element so we need to use
-      // this element as parent to calculate the open direction instead of the body.
-      return element;
-    }
-
-    return element.parentElement ? findParentWithHiddenOverflow(element.parentElement) : undefined;
   };
 
   return {
@@ -51,4 +37,20 @@ export const useOpenDirection = (element: MaybeRef<Element | undefined>) => {
      */
     updateOpenDirection,
   };
+};
+
+export const findParentWithHiddenOverflow = (element?: Element): Element | undefined => {
+  /**
+   * Recursively finds the first parent element with hidden overflow.
+   */
+  if (!element) return undefined;
+
+  const style = getComputedStyle(element);
+  if (style.overflow.includes("hidden")) {
+    // if the element has hidden overflow, the flyout would be cut off by this element so we need to use
+    // this element as parent to calculate the open direction instead of the body.
+    return element;
+  }
+
+  return element.parentElement ? findParentWithHiddenOverflow(element.parentElement) : undefined;
 };

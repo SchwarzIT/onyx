@@ -12,15 +12,6 @@ const meta: Meta<typeof OnyxCheckboxGroup> = {
   argTypes: {
     withCheckAll: { control: { type: "boolean" } },
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-      <div style="padding-left: 1rem;">
-        <story />
-      </div>`,
-    }),
-  ],
 };
 
 export default meta;
