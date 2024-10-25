@@ -1,4 +1,5 @@
 @use "breakpoints.scss" as *;
+@use "sass:map";
 
 // prettier-ignore
 $gridVariants: (
@@ -88,7 +89,7 @@ $screenOffset: 1;
   */
   @mixin generate-grid-max($name, $maxVariant, $margin) {
     .onyx-grid-max-#{$maxVariant} {
-      --onyx-grid-max-width: #{map-get($breakpoints, $name)};
+      --onyx-grid-max-width: #{map.get($breakpoints, $name)};
     }
   }
 
