@@ -174,5 +174,3 @@ Onyx works best with the following browser versions. Older versions might also w
 - [Theming](/development/theming), e.g. for setting up the dark mode
 - [i18n](/development/i18n) if you are supporting multiple languages in your application
 - [Grid](/development/grid) for easily implementing custom layouts
-
----
