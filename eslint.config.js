@@ -3,6 +3,7 @@ import eslint from "@eslint/js";
 import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
 import vueTsEslintConfig from "@vue/eslint-config-typescript";
+import compat from "eslint-plugin-compat";
 import playwrightEslintConfig from "eslint-plugin-playwright";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
@@ -115,6 +116,7 @@ const sitOnyxConfig = {
   name: "onyx-sit-onyx",
   files: ["**/packages/sit-onyx/**/*"],
   extends: [
+    compat.configs["flat/recommended"],
     ...vueTsEslintConfig({ extends: ["recommendedTypeChecked"] }),
     ...vueScopedCss.configs["flat/recommended"],
   ],
