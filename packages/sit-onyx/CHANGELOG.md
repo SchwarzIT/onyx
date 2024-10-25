@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.58
+
+### Patch Changes
+
+- e42ca5e: Implement autoalignment feature for OnyxTooltip
+
 ## 1.0.0-beta.57
 
 ### Patch Changes
