@@ -69,7 +69,7 @@ const handleChange = (selected: boolean, value: TValue) => {
         />
       </template>
 
-      <template v-else>
+      <template v-else-if="typeof skeleton === 'number'">
         <OnyxRadioButton
           v-for="i in skeleton"
           :id="`skeleton-${i}`"

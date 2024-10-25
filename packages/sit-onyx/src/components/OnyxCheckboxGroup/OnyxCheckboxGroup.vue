@@ -95,7 +95,7 @@ const checkAllLabel = computed(() => {
         />
       </template>
 
-      <template v-else>
+      <template v-else-if="typeof skeleton === 'number'">
         <OnyxCheckbox
           v-for="i in skeleton"
           :key="i"
