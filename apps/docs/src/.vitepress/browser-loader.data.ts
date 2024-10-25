@@ -36,7 +36,7 @@ export default defineLoader({
         const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
         browserRules = lines.join("").trim();
       } catch (_) {
-        reject("could not read .browserslistrc")
+        reject("could not read .browserslistrc");
       }
 
       const fetchBrowserslistData = async () => {
