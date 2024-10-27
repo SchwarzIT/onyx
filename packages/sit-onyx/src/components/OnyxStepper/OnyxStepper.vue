@@ -32,13 +32,10 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
-
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
-
 const { densityClass } = useDensity(props);
-
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
@@ -52,20 +49,15 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-
 function countDecimalPlaces(num: number) {
-  const numStr = num.toString();
-  if (numStr.includes(".")) {
-    return numStr.split(".")[1].length;
-  }
+  if (Math.floor(num) !== num) return num.toString().split(".")[1].length || 0;
   return 0;
 }
-
 const displayValue = computed(() => {
   const precision = countDecimalPlaces(props.precision);
   return value.value?.toFixed(precision);
 });
-
+const determinedStepSize = computed(() => props.stepSize ?? props.precision);
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
   const currentValue = inputRef.value.valueAsNumber || 0;
@@ -93,12 +85,11 @@ const handleChange = () => {
     wasTouched.value = true;
   }
 };
-
 const incrementLabel = computed(() =>
-  t.value("stepper.increment", { stepSize: props?.stepSize ? props.stepSize : props.precision }),
+  t.value("stepper.increment", { stepSize: determinedStepSize.value }),
 );
 const decrementLabel = computed(() =>
-  t.value("stepper.decrement", { stepSize: props?.stepSize ? props.stepSize : props.precision }),
+  t.value("stepper.decrement", { stepSize: determinedStepSize.value }),
 );
 </script>
 <template>
@@ -113,11 +104,10 @@ const decrementLabel = computed(() =>
           type="button"
           class="onyx-stepper__counter"
           :disabled="
-            (props.min && props.min === value) ||
-            (props.min && value !== undefined && value <= props.min) ||
             disabled ||
             readonly ||
-            props.loading
+            props.loading ||
+            (props.min !== undefined && value !== undefined && value <= props.min)
           "
           :aria-label="decrementLabel"
           tabindex="-1"
@@ -129,8 +119,8 @@ const decrementLabel = computed(() =>
         <input
           v-else
           ref="inputRef"
-          v-model="displayValue"
           v-custom-validity
+          :value="displayValue"
           class="onyx-stepper__native"
           :class="{ 'onyx-stepper__native--touched': wasTouched }"
           type="number"
@@ -153,11 +143,10 @@ const decrementLabel = computed(() =>
           type="button"
           class="onyx-stepper__counter"
           :disabled="
-            (props.max && props.max === value) ||
-            (props.max && value !== undefined && value >= props.max) ||
             disabled ||
             readonly ||
-            props.loading
+            props.loading ||
+            (props.min !== undefined && value !== undefined && value <= props.min)
           "
           :aria-label="incrementLabel"
           tabindex="-1"
