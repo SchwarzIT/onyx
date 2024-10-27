@@ -12,8 +12,6 @@ catalogs:
     chart.js:
       specifier: ^4.4.4
       version: 4.4.4
-    sass:
-      specifier: ^1.79.3
     sass-embedded:
       specifier: 1.79.4
       version: 1.79.4
@@ -176,12 +174,12 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../../packages/storybook-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../../packages/shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../../packages/storybook-utils
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
@@ -238,12 +236,12 @@ importers:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../storybook-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
       '@vue/compiler-dom':
         specifier: 'catalog:'
         version: 3.5.11
@@ -360,12 +358,12 @@ importers:
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../storybook-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
       '@storybook/addon-a11y':
         specifier: ^8.3.5
         version: 8.3.5(storybook@8.3.5)

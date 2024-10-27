@@ -1,7 +1,7 @@
+import onyxLogo from "@sit-onyx/storybook-utils/assets/logo-onyx.svg";
 import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "sit-onyx";
 import onyxVariables from "sit-onyx/themes/onyx.json";
 import { create, type ThemeVars, type ThemeVarsPartial } from "storybook/internal/theming";
-import onyxLogo from "./assets/logo-onyx.svg";
 
 /**
  * Creates a custom theme for Storybook that uses onyx colors.

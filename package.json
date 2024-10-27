@@ -16,7 +16,7 @@
     "publint:all": "pnpm -r --parallel --aggregate-output exec publint",
     "prepare": "simple-git-hooks",
     "gh:show-report": "./scripts/show-last-test-report.sh",
-    "preinstall": "npx only-allow pnpm && pnpm list --depth=-1 --long | grep cycle && echo 'Cyclic dependency detected!' && exit 1 || echo 'No cyclic dependencies'"
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.9",

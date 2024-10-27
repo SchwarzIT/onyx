@@ -6,10 +6,10 @@ import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
 import "@fontsource-variable/source-code-pro";
 import "@fontsource-variable/source-sans-3";
-import "@sit-onyx/storybook-utils/style.css";
 import { getRules, Spec } from "axe-core";
 import { a11yTags } from "../src/a11yConfig";
 import "../src/styles/index.scss";
+import "../storybook-utils/style.css";
 import "./docs-template.scss";
 import { enhanceFormInjectedSymbol } from "./formInjected";
 import { enhanceManagedSymbol } from "./managed";
