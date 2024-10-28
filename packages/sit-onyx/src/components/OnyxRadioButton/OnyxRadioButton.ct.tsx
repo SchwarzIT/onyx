@@ -89,11 +89,23 @@ test.describe("Screenshot tests", () => {
 
       // wait for the tooltip to show up reliably
       if (["focus-visible", "hover"].includes(row)) {
-        // eslint-disable-next-line playwright/no-standalone-expect
         await expect(
           component.getByRole("tooltip"),
           `should show error tooltip for ${row} and ${column}`,
         ).toBeVisible();
+
+        const tooltipSize = await component
+          .getByRole("tooltip")
+          .evaluate((element) => [element.clientHeight, element.clientWidth]);
+
+        // set paddings to fit the full tooltip in the screenshot
+        await component.evaluate(
+          (element, { tooltipSize: [height] }) => {
+            const verticalPadding = `${height + 12}px`;
+            element.style.paddingBottom = verticalPadding;
+          },
+          { tooltipSize },
+        );
       }
     },
   });

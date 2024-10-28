@@ -64,7 +64,7 @@ export type WithVModelDecoratorOptions = {
    * The matcher for the v-model events.
    * @default /^update:/
    */
-  filter: (argType: StrictInputType) => boolean;
+  filter: (argType: StrictInputType, index: number, array: StrictInputType[]) => boolean;
 };
 
 /**

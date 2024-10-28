@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.0.0-beta.59
+
+### Patch Changes
+
+- bb826a4: fix(sass): remove usage of globals
+
+  Sass [deprecated the usage of built-in global functions](https://sass-lang.com/documentation/breaking-changes/import/) like `map-get` which might lead to build errors e.g. when using [onyx breakpoint utilities](https://onyx.schwarz/development/breakpoints.html). We removed their usages in favor of importing the corresponding module.
+
+## 1.0.0-beta.58
+
+### Patch Changes
+
+- e42ca5e: Implement autoalignment feature for OnyxTooltip
+
+## 1.0.0-beta.57
+
+### Patch Changes
+
+- 78a1019: fix(OnyxNavButton): prop `mobileChildrenOpen` not working
+
+## 1.0.0-beta.56
+
+### Patch Changes
+
+- b6e0b67: fix: Fix uncaught TypeError for components with symbol props
+
 ## 1.0.0-beta.55
 
 ### Major Changes

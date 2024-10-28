@@ -55,7 +55,7 @@ export type FormInjectedProps = {
  * Symbol for the injected form injected properties.
  */
 export const FORM_INJECTED_SYMBOL = Symbol("FORM_INJECTED_SYMBOL");
-export type FORM_INJECTED = typeof FORM_INJECTED_SYMBOL;
+export type FORM_INJECTED = symbol; // we can't use `typeof FORM_INJECTED_SYMBOL` as vue is unable to infer its type: https://github.com/SchwarzIT/onyx/issues/1980
 /**
  * Prop type used by form child elements, which indicates that the prop value is taken from the parent form by default.
  * The props **MUST** use `FORM_INJECTED_SYMBOL` as default value.
@@ -81,10 +81,22 @@ const createCompute = <TKey extends keyof FormProps>(
 ) =>
   computed(() => {
     const prop = props.value[key] as FormInjected<FormComputedProps[TKey]> | undefined;
-    if (prop != undefined && prop !== FORM_INJECTED_SYMBOL) {
+    if (prop != undefined && typeof prop !== "symbol") {
       return prop;
     }
-    return formProps?.value[key] ?? defaultValue;
+    if (prop === FORM_INJECTED_SYMBOL) {
+      return formProps?.value[key] ?? defaultValue;
+    }
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `%s prop is an recognized symbol: %o which is not identical to the symbol %o.`,
+        key,
+        prop,
+        FORM_INJECTED_SYMBOL,
+      );
+    }
+    return defaultValue;
   });
 
 const createFormInjectionContext =

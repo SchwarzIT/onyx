@@ -175,11 +175,6 @@ const title = computed(() => {
       max-width: var(--onyx-checkbox-input-size);
       height: var(--onyx-checkbox-input-size);
     }
-
-    // hide error tooltip before a user interaction happened
-    .onyx-error-tooltip:has(&__input):not(:has(&__input:user-invalid)) .onyx-tooltip {
-      display: none;
-    }
   }
 }
 

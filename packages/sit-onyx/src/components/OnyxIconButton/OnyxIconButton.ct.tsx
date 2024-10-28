@@ -32,7 +32,7 @@ test("should behave correctly", async ({ page, mount }) => {
     expect(clickSpy).toHaveLength(1);
   });
 
-  await test.step("not interactive when disabled ", async () => {
+  await test.step("not interactive when disabled", async () => {
     // ARRANGE
     await component.update({ ...setup, props: { disabled: true } }); // ACT
     // ACT
@@ -43,14 +43,14 @@ test("should behave correctly", async ({ page, mount }) => {
     expect(clickSpy).toHaveLength(1);
   });
 
-  await test.step("not interactive when loading ", async () => {
+  await test.step("not interactive when loading", async () => {
     // ARRANGE
     await component.update({ ...setup, props: { disabled: false, loading: true } });
     // ASSERT
     await expect(buttonElement).toBeDisabled();
   });
 
-  await test.step("clickable again ", async () => {
+  await test.step("clickable again", async () => {
     // ARRANGE
     await component.update({ ...setup, props: { disabled: false, loading: false } });
     // ACT

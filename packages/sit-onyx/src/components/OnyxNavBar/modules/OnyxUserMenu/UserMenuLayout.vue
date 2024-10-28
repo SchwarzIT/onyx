@@ -21,6 +21,7 @@ const props = withDefaults(
     flyoutOpen?: ManagedProp<boolean>;
   }>(),
   {
+    // eslint-disable-next-line vue/no-boolean-default
     flyoutOpen: MANAGED_SYMBOL,
   },
 );

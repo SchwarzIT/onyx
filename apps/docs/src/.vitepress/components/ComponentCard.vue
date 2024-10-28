@@ -42,7 +42,7 @@ const props = defineProps<ComponentCardProps>();
     :target="props.href?.startsWith('http') ? '_blank' : '_self'"
   >
     <div class="card__header">
-      <p class="card__due-date" v-if="props.status !== 'implemented'">
+      <p v-if="props.status !== 'implemented'" class="card__due-date">
         Due: {{ props.dueDate || "n/a" }}
       </p>
       <ComponentStatusBadge :status="props.status" class="card__status" />
