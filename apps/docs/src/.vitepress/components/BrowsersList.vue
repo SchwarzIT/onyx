@@ -8,29 +8,29 @@ const popularBrowsers = ["chrome", "edge", "firefox", "safari", "samsung", "ios_
 const filteredBrowsers = popularBrowsers
   .map((b) => {
     const browser = browsers.find((browser) => browser.id === b);
-    return browser
-      ? {
-          ...browser,
-          minVersion: Object.keys(browser.versions).sort()[0],
-        }
-      : undefined;
+    if (!browser) return;
+    return {
+      ...browser,
+      minVersion: Object.keys(browser.versions).sort()[0],
+      image: new URL(`../../assets/browsers/${browser.id}.svg`, import.meta.url).href,
+    };
   })
   .filter((b) => !!b);
 </script>
 
 <template>
   <ul class="browsersList">
-    <li v-for="{ name, minVersion, id } in filteredBrowsers" :key="name" class="browser">
+    <li v-for="browser in filteredBrowsers" :key="browser.name" class="browser">
       <img
-        :src="`/assets/browsers/${id}.svg`"
-        :alt="`${name} icon`"
+        :src="browser.image"
+        :alt="`${browser.name} image`"
         width="40px"
         height="40px"
         class="browser__image"
         loading="lazy"
       />
-      <p class="browser__name">{{ name }}</p>
-      <p>Version ≥ {{ minVersion }}</p>
+      <p class="browser__name">{{ browser.name }}</p>
+      <p>Version ≥ {{ browser.minVersion }}</p>
     </li>
   </ul>
 </template>
