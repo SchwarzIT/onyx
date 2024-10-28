@@ -1,12 +1,14 @@
 <script setup lang="ts" generic="TEntry extends DataGridEntry">
-import { ref, type Ref } from "vue";
+import { ref, toRefs, watch, type Ref } from "vue";
 import {
   OnyxDataGridRenderer,
   type DataGridEntry,
+  type DataGridMetadata,
   type DataGridRendererColumn,
   type DataGridRendererRow,
 } from "../..";
-import { useTableFeatures } from "./OnyxDataGrid";
+import { useTableFeatures } from "./features";
+import { useTableSorting } from "./features/sorting/sorting";
 
 const props = defineProps<{
   /**
@@ -19,17 +21,23 @@ const props = defineProps<{
   data: TEntry[];
 }>();
 
-const { watchSources, enrichHeaders, enrichTableData } = useTableFeatures([]);
+const withSorting = useTableSorting<TEntry>();
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderCols: Ref<DataGridRendererColumn<TEntry, any>[]> = ref([]);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderRows: Ref<DataGridRendererRow<TEntry, any>[]> = ref([]);
+const { watchSources, createRendererRows, createRendererColumns } = useTableFeatures([withSorting]);
 
-//watch(watchSources, () => {}, { immediate: true });
-renderCols.value = enrichHeaders(props.columns);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-renderRows.value = enrichTableData(props.data, props.columns) as DataGridRendererRow<TEntry, any>[];
+const renderCols: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
+const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
+
+const { columns, data } = toRefs(props);
+
+watch(
+  [columns, data, ...watchSources],
+  ([newColumns, newData]) => {
+    renderCols.value = createRendererColumns(newColumns);
+    renderRows.value = createRendererRows(newData, newColumns);
+  },
+  { immediate: true },
+);
 </script>
 <template>
   <OnyxDataGridRenderer :columns="renderCols" :rows="renderRows" />

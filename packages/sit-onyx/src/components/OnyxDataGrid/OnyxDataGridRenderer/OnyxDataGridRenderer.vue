@@ -42,6 +42,10 @@ const props = withDefaults(defineProps<OnyxDataGridRendererProps<TEntry, TMetada
 
 .onyx-data-grid {
   @include layers.component() {
+    &-header-cell {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>
