@@ -113,7 +113,7 @@ test.describe("Screenshot tests", () => {
     name: "CheckboxGroup",
     columns: ["default", "checked", "indeterminate"],
     rows: ["default", "interacted"],
-    component: (column) => {
+    component: (column, row) => {
       const options = [...mockOptions, { label: "Invalid", value: 4, customError: "Invalid" }];
       const modelValue: number[] = [];
       if (column === "checked") {
@@ -128,7 +128,10 @@ test.describe("Screenshot tests", () => {
           label="Checkbox group headline"
           withCheckAll
           modelValue={modelValue}
-          style={{ maxWidth: "16rem" }}
+          style={{
+            maxWidth: "16rem",
+            ...(row === "interacted" && { paddingBottom: "3rem" }),
+          }}
         />
       );
     },

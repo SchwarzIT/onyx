@@ -5,7 +5,13 @@ import type { GridElementConfig } from "../EditGridElementDialog/EditGridElement
 
 const props = defineProps<
   GridElementConfig & {
+    /**
+     * Rendered label of the grid element.
+     */
     label: string;
+    /**
+     * If the element should be rendered in the outline or default variant.
+     */
     mode?: "default" | "outline";
   }
 >();

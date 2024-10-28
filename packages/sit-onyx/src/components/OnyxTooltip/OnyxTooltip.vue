@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { createToggletip, createTooltip } from "@sit-onyx/headless";
-import type { HTMLAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
-import { computed, ref, shallowRef, toValue, watch } from "vue";
+import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
+import type { MaybeRefOrGetter, Ref, VNode } from "vue";
+import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { useOpenDirection } from "../../composables/useOpenDirection";
+import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
-
 type CreateToggletipOptions = {
   toggleLabel: MaybeRefOrGetter<string>;
   isVisible?: Ref<boolean>;
@@ -22,9 +23,10 @@ type CreateTooltipOptions = {
 
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
-  position: "top",
+  position: "auto",
   fitParent: false,
   open: "hover",
+  alignment: "auto",
 });
 
 defineSlots<{
@@ -33,7 +35,9 @@ defineSlots<{
    *
    * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
    */
-  default(params: { trigger: HTMLAttributes }): VNode;
+
+  //TODO: fix the attribute type
+  default(params: { trigger: object }): VNode;
   /**
    * Optional slot to place custom content for the tooltip text.
    *
@@ -68,6 +72,18 @@ const type = computed(() => {
   if (typeof props.open === "string") return props.open;
   return "hover";
 });
+// classes for the tooltip | computed to prevent bugs
+const tooltipClasses = computed(() => {
+  return {
+    "onyx-tooltip--danger": props.color === "danger",
+    "onyx-tooltip--fit-parent": props.fitParent,
+    "onyx-tooltip--hidden": !isVisible.value,
+    [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
+    [`onyx-tooltip--${props.position}`]: props.position !== "auto",
+    [`onyx-tooltip--${wedgePosition.value}`]: props.alignment === "auto",
+    [`onyx-tooltip--${props.alignment}`]: props.alignment !== "auto",
+  };
+});
 
 const createPattern = () =>
   type.value === "hover"
@@ -78,20 +94,40 @@ const ariaPattern = shallowRef(createPattern());
 watch(type, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const trigger = computed(() => toValue<HTMLAttributes>(ariaPattern.value?.elements.trigger));
+const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
+
+const tooltipWrapperRef = ref<HTMLElement>();
+const tooltipRef = ref<HTMLElement>();
+const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
+const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
+
+// update open direction on resize to ensure the tooltip is always visible
+const updateDirections = () => {
+  updateOpenDirection();
+  updateWedgePosition();
+};
+
+useGlobalEventListener({
+  type: "resize",
+  listener: () => updateDirections(),
+});
+
+// initial update
+onMounted(() => updateDirections());
+// update open direction when visibility changes to ensure the tooltip is always visible
+watch(isVisible, async () => {
+  await nextTick();
+  updateOpenDirection();
+  updateWedgePosition();
+});
 </script>
 
 <template>
-  <div :class="['onyx-tooltip-wrapper', densityClass]">
+  <div ref="tooltipWrapperRef" :class="['onyx-tooltip-wrapper', densityClass]">
     <div
+      ref="tooltipRef"
       v-bind="tooltip"
-      class="onyx-tooltip onyx-text--small onyx-truncation-multiline"
-      :class="{
-        'onyx-tooltip--danger': props.color === 'danger',
-        'onyx-tooltip--bottom': props.position === 'bottom',
-        'onyx-tooltip--fit-parent': props.fitParent,
-        'onyx-tooltip--hidden': !isVisible,
-      }"
+      :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <slot name="tooltip">{{ props.text }}</slot>
@@ -174,6 +210,23 @@ $wedge-size: 0.5rem;
       &::after {
         top: -2 * $wedge-size;
         border-color: transparent transparent var(--background-color);
+      }
+    }
+
+    &--left {
+      left: var(--wedge-size);
+
+      transform: none;
+      &::after {
+        left: 2 * $wedge-size;
+      }
+    }
+    &--right {
+      left: 100%;
+      transform: translateX(-100%);
+
+      &::after {
+        left: calc(100% - 2 * $wedge-size);
       }
     }
   }

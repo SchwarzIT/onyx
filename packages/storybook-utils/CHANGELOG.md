@@ -1,5 +1,62 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.66
+
+### Patch Changes
+
+- Updated dependencies [bb826a4]
+  - sit-onyx@1.0.0-beta.59
+
+## 1.0.0-beta.65
+
+### Patch Changes
+
+- Updated dependencies [e42ca5e]
+  - sit-onyx@1.0.0-beta.58
+
+## 1.0.0-beta.64
+
+### Minor Changes
+
+- 0429341: pass all filter parameters to withVModelDecorator filter function
+
+## 1.0.0-beta.63
+
+### Patch Changes
+
+- Updated dependencies [78a1019]
+  - sit-onyx@1.0.0-beta.57
+
+## 1.0.0-beta.62
+
+### Patch Changes
+
+- Updated dependencies [b6e0b67]
+  - sit-onyx@1.0.0-beta.56
+
+## 1.0.0-beta.61
+
+### Patch Changes
+
+- Updated dependencies [772f6a5]
+- Updated dependencies [772f6a5]
+  - sit-onyx@1.0.0-beta.55
+
+## 1.0.0-beta.60
+
+### Patch Changes
+
+- Updated dependencies [01f8664]
+  - sit-onyx@1.0.0-beta.54
+
+## 1.0.0-beta.59
+
+### Patch Changes
+
+- Updated dependencies [be5b415]
+  - @sit-onyx/icons@1.0.0-beta.6
+  - sit-onyx@1.0.0-beta.53
+
 ## 1.0.0-beta.58
 
 ### Patch Changes

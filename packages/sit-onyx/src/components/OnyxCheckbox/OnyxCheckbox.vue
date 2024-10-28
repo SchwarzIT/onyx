@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -16,7 +17,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   required: false,
-  skeleton: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
@@ -39,6 +40,7 @@ const { densityClass } = useDensity(props);
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 
 const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
@@ -46,7 +48,7 @@ const title = computed(() => {
 </script>
 
 <template>
-  <div v-if="props.skeleton" :class="['onyx-checkbox-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-checkbox-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-checkbox-skeleton__input" />
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
@@ -172,11 +174,6 @@ const title = computed(() => {
       color: var(--onyx-color-text-icons-primary-intense);
       max-width: var(--onyx-checkbox-input-size);
       height: var(--onyx-checkbox-input-size);
-    }
-
-    // hide error tooltip before a user interaction happened
-    .onyx-error-tooltip:has(&__input):not(:has(&__input:user-invalid)) .onyx-tooltip {
-      display: none;
     }
   }
 }

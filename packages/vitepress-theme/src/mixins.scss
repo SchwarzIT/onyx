@@ -1,3 +1,5 @@
+@use "sass:map";
+
 /**
 * Converts the given color (e.g. CSS variable or HEX color) to a VitePress "soft" color
 * by adding 25% of transparency to it.
@@ -47,7 +49,7 @@
     xxl: 1440px,
   );
 
-  @media (#{$min-max}-width: #{map-get($breakpoints, $name) + $offset}) {
+  @media (#{$min-max}-width: #{map.get($breakpoints, $name) + $offset}) {
     @content;
   }
 }

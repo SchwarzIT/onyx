@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-beta.58",
+  "version": "1.0.0-beta.66",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -34,7 +34,7 @@
     "storybook-dark-mode": ">= 4"
   },
   "dependencies": {
-    "deepmerge-ts": "^7.1.1"
+    "deepmerge-ts": "^7.1.3"
   },
   "devDependencies": {
     "vue": "catalog:"

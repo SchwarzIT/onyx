@@ -1,7 +1,8 @@
-import { Meta } from "@storybook/blocks";
+import { Meta, Story } from "@storybook/blocks";
 import logoDark from "../../../../.github/onyx-logo-dark.svg";
 import logoLight from "../../../../.github/onyx-logo-light.svg";
 import logo from "../../../storybook-utils/src/assets/logo-onyx.svg";
+import { Default as ComponentShowcase } from "../../src/components/examples/ComponentShowcase/ComponentShowcase.stories.ts";
 
 {/* workaround for hiding the table of contents, see docs-template.scss file */}
 
@@ -26,6 +27,18 @@ When clicking on an individual component, you can see the full documentation of 
 
 For further help on how to use Storybook, you can visit the <a href="https://storybook.js.org/docs/get-started/browse-stories" target="_blank">Storybook documentation</a>.
 
+<br />
+
+## Component showcase
+
+Below can see a preview about how onyx components look and feel like:
+
+<br />
+
+<Story of={ComponentShowcase} />
+
+<br />
+<br />
 <br />
 
 ## Questions and issues

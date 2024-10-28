@@ -1,7 +1,15 @@
 <script lang="ts" setup>
-const props = withDefaults(defineProps<{ columns?: number }>(), {
-  columns: 16,
-});
+const props = withDefaults(
+  defineProps<{
+    /**
+     * The number of grid columns.
+     */
+    columns?: number;
+  }>(),
+  {
+    columns: 16,
+  },
+);
 </script>
 
 <template>
