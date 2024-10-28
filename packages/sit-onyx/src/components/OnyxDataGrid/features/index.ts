@@ -1,6 +1,6 @@
 import { h, type Component, type WatchSource } from "vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../../..";
-import type { DataGridEntry } from "../types";
+import type { DataGridEntry, DataGridMetadata } from "../types";
 
 export type TableFeature<TEntry extends DataGridEntry, TFeatureName extends symbol> = {
   /**
@@ -104,7 +104,9 @@ export const useTableFeatures = <
 >(
   features: T,
 ) => {
-  const createRendererColumns = (columns: string[]): DataGridRendererColumn<TEntry, object>[] => {
+  const createRendererColumns = (
+    columns: (keyof TEntry)[],
+  ): DataGridRendererColumn<TEntry, object>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
     const headerActions = headerFeatures
       .map((feature) => feature.actions)
@@ -119,7 +121,7 @@ export const useTableFeatures = <
         key: column,
         component: () =>
           h("div", { class: getBemClass("header-cell") }, [
-            column,
+            String(column),
             ...iconActions.map((a) => h(a)),
           ]),
         props: {},
@@ -130,13 +132,13 @@ export const useTableFeatures = <
   const createRendererRows = (
     entries: TEntry[],
     columns: (keyof TEntry)[],
-  ): DataGridRendererRow<TEntry, Record<string, unknown>>[] => {
+  ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features.map((f) => f.mutation).filter((m) => !!m);
     const shallowCopy = [...entries];
     mutations.forEach(({ func }) => func(shallowCopy));
 
     return shallowCopy.map((entry) => {
-      const cells = columns.reduce<DataGridRendererRow<TEntry, Record<string, unknown>>["cells"]>(
+      const cells = columns.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, column) => {
           cells[column] = {
             component: () => entry[column],

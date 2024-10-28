@@ -14,7 +14,7 @@ const props = defineProps<{
   /**
    * The order of and which columns should be rendered.
    */
-  columns: string[];
+  columns: (keyof TEntry)[];
   /**
    * The data that should be used to fill the table.
    */
