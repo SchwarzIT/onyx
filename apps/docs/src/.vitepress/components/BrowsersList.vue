@@ -12,7 +12,7 @@ const filteredBrowsers = popularBrowsers
     return {
       ...browser,
       minVersion: Object.keys(browser.versions).sort()[0],
-      image: new URL(`../../assets/browsers/${browser.id}.svg`, import.meta.url).href,
+      image: `/images/browsers/${browser.id}.svg`,
     };
   })
   .filter((b) => !!b);
