@@ -27,7 +27,6 @@ const filteredBrowsers = popularBrowsers
         width="40px"
         height="40px"
         class="browser__image"
-        loading="lazy"
       />
       <p class="browser__name">{{ browser.name }}</p>
       <p>Version ≥ {{ browser.minVersion }}</p>
