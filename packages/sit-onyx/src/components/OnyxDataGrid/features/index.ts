@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { h, type Component, type WatchSource } from "vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../../..";
 import type { DataGridEntry } from "../types";
@@ -63,7 +62,7 @@ export const createFeature = <TFeatureName extends symbol, TArgs extends unknown
   ) => TableFeature<TEntry, TFeatureName>,
 ) => featureDefinition;
 
-type ExtractTEntry<T> = T extends TableFeature<infer I, any>[] ? I : never;
+type ExtractTEntry<T> = T extends TableFeature<infer I, symbol>[] ? I : never;
 
 /**
  * Uses the defined table features to provide factory functions.
@@ -100,7 +99,7 @@ type ExtractTEntry<T> = T extends TableFeature<infer I, any>[] ? I : never;
  * ```
  */
 export const useTableFeatures = <
-  T extends TableFeature<any, any>[] | [],
+  T extends TableFeature<TEntry, symbol>[] | [],
   TEntry extends DataGridEntry = ExtractTEntry<T>,
 >(
   features: T,
