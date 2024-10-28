@@ -5,6 +5,7 @@ import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useMana
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
+import { useNavBarButtons } from "../../useNavBarButtons";
 import NavButtonLayout from "./NavButtonLayout.vue";
 import type { OnyxNavButtonProps } from "./types";
 
@@ -38,6 +39,7 @@ const slots = defineSlots<{
 
 const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const hasChildren = computed(() => !!slots.children);
+const { navButtonRef } = useNavBarButtons();
 
 const { state: mobileChildrenOpen } = useManagedState(
   toRef(() => props.mobileChildrenOpen),
@@ -56,6 +58,7 @@ const handleParentClick = (event: MouseEvent) => {
 
 <template>
   <NavButtonLayout
+    ref="navButtonRef"
     v-bind="props"
     v-model:mobile-children-open="mobileChildrenOpen"
     class="onyx-nav-button"

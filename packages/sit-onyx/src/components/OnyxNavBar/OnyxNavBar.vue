@@ -3,14 +3,19 @@ import { createNavigationMenu } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { computed, provide, ref, toRef } from "vue";
+import { computed, provide, reactive, ref, toRef, unref, type Ref } from "vue";
+import { useMore, type HTMLOrInstanceRef } from "../../composables/useMore";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY, type OnyxNavBarProps } from "./types";
+import {
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  NAV_BAR_BUTTONS_INJECTION_KEY,
+  type OnyxNavBarProps,
+} from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   mobileBreakpoint: "sm",
@@ -76,6 +81,16 @@ const isMobile = computed(() => {
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
 
+const menuBarRef = ref<HTMLElement>();
+const navButtonRefs = reactive(new Map<string, Ref<HTMLOrInstanceRef>>());
+provide(NAV_BAR_BUTTONS_INJECTION_KEY, navButtonRefs);
+
+const { visibleElements, hiddenElements, totalElements } = useMore({
+  parentRef: menuBarRef,
+  componentRefs: computed(() => Array.from(navButtonRefs.values()).map((ref) => unref(ref))),
+  disabled: isMobile,
+});
+
 defineExpose({
   /**
    * Closes the mobile burger and context menu.
@@ -98,6 +113,9 @@ defineExpose({
 </script>
 
 <template>
+  <div>{{ visibleElements }} visible</div>
+  <div>{{ hiddenElements }} hidden</div>
+  <div>{{ totalElements }} total</div>
   <header ref="navBarRef" class="onyx-nav-bar" :class="{ 'onyx-nav-bar--mobile': isMobile }">
     <div class="onyx-nav-bar__content">
       <span
@@ -148,7 +166,7 @@ defineExpose({
         </OnyxMobileNavButton>
 
         <nav v-else class="onyx-nav-bar__nav" v-bind="nav">
-          <ul role="menubar">
+          <ul ref="menuBarRef" role="menubar">
             <slot></slot>
           </ul>
         </nav>
@@ -211,7 +229,7 @@ $gap: var(--onyx-spacing-md);
 
     &__content {
       display: grid;
-      grid-template-columns: max-content 1fr auto;
+      grid-template-columns: max-content minmax(0, 1fr) auto;
       grid-template-areas: "app nav context";
       align-items: center;
       gap: $gap;
@@ -223,7 +241,7 @@ $gap: var(--onyx-spacing-md);
       margin-inline: var(--onyx-grid-margin-inline);
 
       &:has(.onyx-nav-bar__back) {
-        grid-template-columns: max-content max-content 1fr auto;
+        grid-template-columns: max-content max-content minmax(0, 1fr) auto;
         grid-template-areas: "app back nav context";
       }
     }
@@ -234,6 +252,7 @@ $gap: var(--onyx-spacing-md);
 
     &__nav {
       grid-area: nav;
+      overflow-x: clip;
 
       > ul {
         display: flex;

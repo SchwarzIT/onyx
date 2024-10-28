@@ -1,21 +1,16 @@
-import {
-  computed,
-  onBeforeUnmount,
-  ref,
-  watchEffect,
-  type ComponentPublicInstance,
-  type Ref,
-} from "vue";
+import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
+
+export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
 
 export type UseMoreOptions = {
   /**
    * Vue template ref for the parent element containing the list of components.
    */
-  parentRef: Ref<HTMLElement | null | undefined>;
+  parentRef: Ref<HTMLOrInstanceRef>;
   /**
    * Refs for the individual components in the list.
    */
-  componentRefs: Ref<(HTMLElement | Pick<ComponentPublicInstance, "$el">)[]>;
+  componentRefs: Ref<HTMLOrInstanceRef[]>;
   /**
    * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
    */
@@ -69,32 +64,42 @@ export const useMore = (options: UseMoreOptions) => {
   const observer = ref<IntersectionObserver>();
   onBeforeUnmount(() => observer.value?.disconnect());
 
-  watchEffect(() => {
-    observer.value?.disconnect(); // reset observer before all changes
-    if (!options.parentRef.value || options.disabled) return;
+  watch(
+    [options.parentRef, options.componentRefs, options.disabled],
+    () => {
+      observer.value?.disconnect(); // reset observer before all changes
 
-    observer.value = new IntersectionObserver(
-      (res) => {
-        // res contains all changed components (not all available components)
-        // if component is shown, intersectionRatio is 1 so remainingItems should be decremented
-        // otherwise remainingItems should be increment because component is no longer shown
-        const shownElements = res.reduce(
-          (prev, curr) => (curr.intersectionRatio === 1 ? prev + 1 : prev),
-          0,
-        );
-        const hiddenChips = res.length - shownElements;
+      const root = refToHTMLElement(options.parentRef.value);
+      if (!root || options.disabled?.value) {
+        visibleElements.value = 0;
+        return;
+      }
 
-        if (visibleElements.value <= 0) visibleElements.value = shownElements;
-        else visibleElements.value += shownElements - hiddenChips;
-      },
-      { root: options.parentRef.value, threshold: 1 },
-    );
+      observer.value = new IntersectionObserver(
+        (res) => {
+          // res contains all changed components (not all available components)
+          // if component is shown, intersectionRatio is 1 so remainingItems should be decremented
+          // otherwise remainingItems should be increment because component is no longer shown
+          const shownElements = res.reduce(
+            (prev, curr) => (curr.intersectionRatio === 1 ? prev + 1 : prev),
+            0,
+          );
+          const hiddenElements = res.length - shownElements;
 
-    options.componentRefs.value.forEach((element) => {
-      const htmlElement = element instanceof HTMLElement ? element : element.$el;
-      observer.value?.observe(htmlElement);
-    });
-  });
+          if (visibleElements.value <= 0) visibleElements.value = shownElements;
+          else visibleElements.value += shownElements - hiddenElements;
+        },
+        { root, threshold: 1 },
+      );
+
+      options.componentRefs.value.forEach((ref) => {
+        const element = refToHTMLElement(ref);
+        if (!element) return;
+        observer.value?.observe(element);
+      });
+    },
+    { immediate: true, deep: true },
+  );
 
   return {
     /**
@@ -110,4 +115,8 @@ export const useMore = (options: UseMoreOptions) => {
      */
     totalElements,
   };
+};
+
+const refToHTMLElement = (ref: HTMLOrInstanceRef) => {
+  return ref instanceof Element ? ref : ref?.$el;
 };
