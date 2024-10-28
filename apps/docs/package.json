@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "type": "module",
   "private": true,
   "scripts": {
@@ -26,5 +26,11 @@
     "vitepress": "^1.4.1",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.1"
+  },
+  "imports": {
+    "#src/.vitepress/browser-loader.data": {
+      "storybook": "./src/.vitepress/browser-loader.data.mock.ts",
+      "default": "./src/.vitepress/browser-loader.data.ts"
+    }
   }
 }
