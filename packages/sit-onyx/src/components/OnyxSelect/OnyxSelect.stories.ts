@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+import bag from "@sit-onyx/icons/bag.svg?raw";
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, h, ref, watchEffect } from "vue";
 import { normalizedIncludes } from "../../utils/strings";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types";
 
@@ -59,6 +63,15 @@ const GROUPED_DEMO_OPTIONS = [
   { value: "falcon", label: "Falcon", group: "Air" },
   { value: "owl", label: "Owl", group: "Air" },
 ];
+
+const OPTIONS_WITH_ADDITIONAL_DATA = [
+  "Selected items",
+  "Price tag",
+  "Shopping bag",
+].map<SelectOption>((option) => ({
+  value: option.toLowerCase(),
+  label: option,
+}));
 
 /**
  * The select is a fundamental element utilized across various components such as
@@ -513,5 +526,27 @@ export const WithRightAlignment = {
     options: DEMO_OPTIONS,
     alignment: "right",
     placeholder: "Right alignment...",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a single select with options containing additional data, passed as slot.
+ */
+export const WithAdditionalData = {
+  args: {
+    ...Default.args,
+    options: OPTIONS_WITH_ADDITIONAL_DATA,
+    option: ({ label }: SelectOption) => {
+      const style = { display: "flex", "align-items": "center", gap: "0.5rem" };
+
+      switch (label) {
+        case "Selected items":
+          return [h("div", { style }, [label, h(OnyxBadge, { color: "danger" }, "Sale!")])];
+        case "Price tag":
+          return h(OnyxTag, { label });
+        case "Shopping bag":
+          return [h("div", { style }, [h(OnyxIcon, { icon: bag }), label])];
+      }
+    },
   },
 } satisfies Story;
