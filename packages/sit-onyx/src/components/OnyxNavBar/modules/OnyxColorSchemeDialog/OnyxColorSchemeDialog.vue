@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, toRef, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { injectI18n } from "../../../../i18n";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxDialog from "../../../OnyxDialog/OnyxDialog.vue";
@@ -25,7 +25,7 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-const currentValue = toRef(props, "modelValue");
+const currentValue = ref<ColorSchemeValue>();
 watchEffect(() => (currentValue.value = props.modelValue));
 
 const { t } = injectI18n();
