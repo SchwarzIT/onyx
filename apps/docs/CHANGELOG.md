@@ -1,5 +1,11 @@
 # docs
 
+## 1.0.0-beta.3
+
+### Minor Changes
+
+- 262459a: Adding a browserslist config file and corresponding Eslint plugin (compat). Code will be linted based on supported browsers. Docs now show a section on the homepage listing all supported browsers and versions.
+
 ## 1.0.0-beta.2
 
 ### Patch Changes

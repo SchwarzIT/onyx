@@ -154,7 +154,22 @@ Be careful when overriding styles globally since it will affect **EVERY** compon
 
 :::
 
-### Next steps
+## Browser Support
+
+<script lang="ts" setup>
+import BrowsersList from "../.vitepress/components/BrowsersList.vue"
+</script>
+
+Onyx works best with the following browser versions. Older versions might also work but we can't guarantee full compatibility.
+
+<BrowsersList />
+
+::: details More information (.browserslistrc file)
+
+<<< @include ../../../../.browserslistrc{txt}
+:::
+
+## Next steps
 
 - [Theming](/development/theming), e.g. for setting up the dark mode
 - [i18n](/development/i18n) if you are supporting multiple languages in your application
