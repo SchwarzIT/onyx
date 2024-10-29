@@ -1,6 +1,7 @@
 import { h, type Component, type WatchSource } from "vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../../..";
 import type { DataGridEntry, DataGridMetadata } from "../types";
+import HeaderCell from "./HeaderCell.vue";
 
 export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends symbol> = {
   /**
@@ -122,11 +123,7 @@ export const useDataGridFeatures = <
 
       return {
         key: column,
-        component: () =>
-          h("div", { class: getBemClass("header-cell") }, [
-            String(column),
-            ...iconActions.map((a) => h(a)),
-          ]),
+        component: () => h(HeaderCell, { label: String(column) }, { actions: iconActions }),
         props: {},
       };
     });
@@ -169,13 +166,3 @@ export const useDataGridFeatures = <
     watchSources,
   };
 };
-
-type BemClasses = [{ block: "header-cell"; element: [] }];
-
-/**
- * Used as a single source of truth for the OnyxDataGrid BEM classes.
- */
-const getBemClass = <T extends BemClasses[number]>(
-  block: T["block"],
-  element?: T["element"][number],
-) => `onyx-data-grid-${block}` + (element ? `__${element}` : "");
