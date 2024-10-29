@@ -4,7 +4,7 @@
   "apply": "Apply",
   "back": "Back",
   "close": "Close",
-  "data-grid": {
+  "dataGrid": {
     "head": {
       "sorting-action-asc": "Sort the table ascending by the {field} column.",
       "sorting-action-desc": "Sort the table descending by the {field} column.",
