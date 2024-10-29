@@ -94,7 +94,13 @@ const handleChange = () => {
     modelValue.value = undefined;
     return;
   }
-  if (props.stripStep && !isDivisible(newValue, props.precision)) {
+
+  if (
+    props.stripStep &&
+    (!isDivisible(newValue, props.precision) ||
+      (props.min !== undefined && props.min > newValue) ||
+      (props.max !== undefined && props.max < newValue))
+  ) {
     inputValue.value = roundToPrecision(modelValue.value, decimalPlaces.value);
     return;
   }
