@@ -1,6 +1,21 @@
-import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  ref,
+  unref,
+  useId,
+  watch,
+  type InjectionKey,
+  type Ref,
+} from "vue";
 
 export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
+
+export type MoreInjectionKey = InjectionKey<{
+  components: Map<string, Ref<HTMLOrInstanceRef>>;
+  visibleComponents: Ref<string[]>;
+}>;
 
 export type UseMoreOptions = {
   /**
@@ -10,7 +25,7 @@ export type UseMoreOptions = {
   /**
    * Refs for the individual components in the list.
    */
-  componentRefs: Ref<HTMLOrInstanceRef[]>;
+  componentRefs: Map<string, Ref<HTMLOrInstanceRef>>;
   /**
    * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
    */
@@ -57,9 +72,13 @@ export type UseMoreOptions = {
  * ```
  */
 export const useMore = (options: UseMoreOptions) => {
-  const visibleElements = ref(0);
-  const totalElements = computed(() => options.componentRefs.value.length);
-  const hiddenElements = computed(() => totalElements.value - visibleElements.value);
+  const visibleElements = ref<string[]>([]);
+
+  const hiddenElements = computed(() => {
+    return Array.from(options.componentRefs.keys()).filter(
+      (key) => !visibleElements.value.includes(key),
+    );
+  });
 
   const observer = ref<IntersectionObserver>();
   onBeforeUnmount(() => observer.value?.disconnect());
@@ -71,52 +90,100 @@ export const useMore = (options: UseMoreOptions) => {
 
       const root = refToHTMLElement(options.parentRef.value);
       if (!root || options.disabled?.value) {
-        visibleElements.value = 0;
+        visibleElements.value = [];
         return;
       }
 
       observer.value = new IntersectionObserver(
-        (res) => {
-          // res contains all changed components (not all available components)
+        (changeEntries) => {
+          // changeEntries contains all changed components (not all available components)
           // if component is shown, intersectionRatio is 1 so remainingItems should be decremented
           // otherwise remainingItems should be increment because component is no longer shown
-          const shownElements = res.reduce(
-            (prev, curr) => (curr.intersectionRatio === 1 ? prev + 1 : prev),
-            0,
-          );
-          const hiddenElements = res.length - shownElements;
+          const shownIds: string[] = [];
+          const hiddenIds: string[] = [];
 
-          if (visibleElements.value <= 0) visibleElements.value = shownElements;
-          else visibleElements.value += shownElements - hiddenElements;
+          changeEntries.forEach((entry) => {
+            const id = Array.from(options.componentRefs).find(([_, element]) =>
+              refToHTMLElement(unref(element))?.isSameNode(entry.target),
+            )?.[0];
+            if (!id) return;
+
+            const isFullyVisible = entry.intersectionRatio === 1;
+
+            if (isFullyVisible) shownIds.push(id);
+            else hiddenIds.push(id);
+          });
+
+          if (visibleElements.value.length === 0) {
+            visibleElements.value = shownIds;
+          } else {
+            visibleElements.value = visibleElements.value
+              // remove now hidden elements
+              .filter((id) => !hiddenIds.includes(id))
+              // add newly visible elements
+              .concat(shownIds);
+          }
         },
         { root, threshold: 1 },
       );
 
-      options.componentRefs.value.forEach((ref) => {
-        const element = refToHTMLElement(ref);
+      options.componentRefs.forEach((ref) => {
+        const element = refToHTMLElement(unref(ref));
         if (!element) return;
         observer.value?.observe(element);
       });
     },
-    { immediate: true, deep: true },
+    { immediate: true },
   );
 
   return {
     /**
-     * Number of currently completely visible components in the list.
+     * IDs of currently completely visible components in the list.
      */
     visibleElements,
     /**
      * Number of currently not or not fully visible components in the list.
      */
     hiddenElements,
-    /**
-     * Total number of elements in the list independent on their visibility.
-     */
-    totalElements,
   };
 };
 
 const refToHTMLElement = (ref: HTMLOrInstanceRef) => {
   return ref instanceof Element ? ref : ref?.$el;
+};
+
+export const useMoreChild = (injectionKey: MoreInjectionKey) => {
+  const id = useId();
+  const componentRef = ref<HTMLOrInstanceRef>();
+  const moreContext = inject(injectionKey);
+
+  moreContext?.components?.set(id, componentRef);
+  onBeforeUnmount(() => moreContext?.components?.delete(id));
+
+  const isVisible = computed(() => moreContext?.visibleComponents.value.includes(id) ?? true);
+
+  return {
+    /**
+     * Component template ref.
+     *
+     * @example
+     *
+     * ```vue
+     * <script lang="ts" setup
+     * const { componentRef } = useMoreChild();
+     * </script>
+     *
+     * <template
+     *  <div ref="componentRef"> Your content... </div>
+     * </template>
+     * ```
+     */
+    componentRef,
+    /**
+     * Whether the component is currently visible.
+     * Should hide itself visually (e.g. using "visibility: hidden").
+     * Do not use v-if, v-show or "display: none" since the more feature does not work then when resizing
+     */
+    isVisible,
+  };
 };
