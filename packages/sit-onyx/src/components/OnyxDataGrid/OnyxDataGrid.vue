@@ -6,20 +6,12 @@ import {
   type DataGridMetadata,
   type DataGridRendererColumn,
   type DataGridRendererRow,
+  type OnyxDataGridProps,
 } from "../..";
 import { useDataGridFeatures } from "./features";
 import { useDataGridSorting } from "./features/sorting/sorting";
 
-const props = defineProps<{
-  /**
-   * The order of and which columns should be rendered.
-   */
-  columns: (keyof TEntry)[];
-  /**
-   * The data that should be used to fill the datagrid.
-   */
-  data: TEntry[];
-}>();
+const props = defineProps<OnyxDataGridProps<TEntry>>();
 
 const withSorting = useDataGridSorting<TEntry>();
 
