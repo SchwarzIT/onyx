@@ -7,6 +7,7 @@ import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
+import { applyLimits, isDivisible, roundToPrecision } from "../../utils/numbers";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -40,9 +41,7 @@ const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
-
 const modelValue = defineModel<number>();
-
 /**
  * Used for syncing the actual input value.
  * We use string to be able to control the number of decimal places.
@@ -51,24 +50,26 @@ const inputValue = ref<string>();
 
 const decimalPlaces = computed(() => {
   const precision = props.precision;
-  if (Math.floor(precision) !== precision) return precision.toString().split(".")[1].length || 0;
-  return 0;
+  const precisionStr = precision.toString();
+  if (precisionStr.includes(".")) {
+    return precisionStr.split(".")[1].length;
+  }
+  return -Math.floor(Math.log10(precision));
 });
 
-watch(modelValue, () => (inputValue.value = modelValue.value?.toFixed(decimalPlaces.value)), {
-  immediate: true,
-});
+watch(
+  modelValue,
+  () => (inputValue.value = roundToPrecision(modelValue.value, decimalPlaces.value)),
+  {
+    immediate: true,
+  },
+);
 
 // * stepSize must be precision or bigger
 // * use precision as fallback
 const determinedStepSize = computed(() =>
   Math.max(props.stepSize ?? props.precision, props.precision),
 );
-
-const applyLimits = (number: number): number => {
-  number = Math.min(number, props.max ?? Infinity);
-  return Math.max(number, props.min ?? -Infinity);
-};
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
@@ -78,26 +79,23 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
   const newValue = currentValue + stepValue;
   const roundedValue = Math.round(newValue / props.precision) * props.precision;
 
-  modelValue.value = applyLimits(roundedValue);
-};
-
-const isDivisible = (number: number): boolean => {
-  const quotient = number / props.precision;
-  return quotient % 1 === 0;
+  modelValue.value = applyLimits(roundedValue, props.min, props.max);
 };
 
 const handleChange = () => {
   if (!inputRef.value) return;
   wasTouched.value = true;
   const newValue = parseFloat(inputValue.value ?? "");
-  const rounded = parseFloat(newValue.toFixed(decimalPlaces.value));
+  const rounded = parseFloat(roundToPrecision(newValue, decimalPlaces.value));
   // reset input
-  inputValue.value = modelValue.value?.toFixed(decimalPlaces.value);
+  inputValue.value = roundToPrecision(newValue, decimalPlaces.value);
+
   if (!newValue || isNaN(newValue)) {
     modelValue.value = undefined;
     return;
   }
-  if (props.stripStep && !isDivisible(newValue)) {
+  if (props.stripStep && !isDivisible(newValue, props.precision)) {
+    inputValue.value = roundToPrecision(modelValue.value, decimalPlaces.value);
     return;
   }
   modelValue.value = rounded;
@@ -164,7 +162,7 @@ const decrementLabel = computed(() =>
             disabled ||
             readonly ||
             props.loading ||
-            (props.min !== undefined && value !== undefined && value <= props.min)
+            (props.max !== undefined && modelValue !== undefined && modelValue >= props.max)
           "
           :aria-label="incrementLabel"
           tabindex="-1"

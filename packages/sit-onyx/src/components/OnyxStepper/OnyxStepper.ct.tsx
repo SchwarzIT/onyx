@@ -597,5 +597,5 @@ test("Should revert to the last valid input if the current input is invalid in s
   await page.keyboard.press("Enter");
   await input.fill("1.6");
   await page.keyboard.press("Enter");
-  await expect(input).toHaveValue("1");
+  await expect(input).toHaveValue("1.0");
 });
