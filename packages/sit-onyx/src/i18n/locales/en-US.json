@@ -6,9 +6,9 @@
   "close": "Close",
   "data-grid": {
     "head": {
-      "sorting-action-asc": "Click to sort the table ascending by the {field} column.",
-      "sorting-action-desc": "Click to sort the table descending by the {field} column.",
-      "sorting-action-none": "Click to reset the sorting order."
+      "sorting-action-asc": "Sort the table ascending by the {field} column.",
+      "sorting-action-desc": "Sort the table descending by the {field} column.",
+      "sorting-action-none": "Reset the sorting order."
     }
   },
   "validations": {
