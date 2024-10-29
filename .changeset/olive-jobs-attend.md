@@ -2,4 +2,7 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxStepper): implemnt `stripStep` and `precision`
+feat(OnyxStepper):
+
+- Implemented `stripStep` and `precision`.
+- Deprecated `step`, replacing it with `stepSize` and `precision`.
