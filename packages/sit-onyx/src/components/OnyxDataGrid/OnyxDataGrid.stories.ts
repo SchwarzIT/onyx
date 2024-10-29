@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 const meta: Meta<typeof OnyxDataGrid> = {
-  title: "DataGrid/DataGrid",
+  title: "Data/DataGrid",
   component: OnyxDataGrid,
 };
 
