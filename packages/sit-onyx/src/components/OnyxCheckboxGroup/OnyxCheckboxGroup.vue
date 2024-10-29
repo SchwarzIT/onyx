@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   direction: "vertical",
   withCheckAll: false,
   disabled: FORM_INJECTED_SYMBOL,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
@@ -40,6 +42,7 @@ const enabledOptionValues = computed(() =>
 );
 
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 
 const checkAll = useCheckAll(
   enabledOptionValues,
@@ -71,7 +74,7 @@ const checkAllLabel = computed(() => {
         'onyx-checkbox-group__content--vertical': props.direction === 'vertical',
       }"
     >
-      <template v-if="props.skeleton === undefined">
+      <template v-if="!skeleton">
         <OnyxCheckbox
           v-if="props.withCheckAll"
           v-bind="checkAll.state.value"
@@ -92,9 +95,9 @@ const checkAllLabel = computed(() => {
         />
       </template>
 
-      <template v-else>
+      <template v-else-if="typeof skeleton === 'number'">
         <OnyxCheckbox
-          v-for="i in props.skeleton"
+          v-for="i in skeleton"
           :key="i"
           :label="`Skeleton ${i}`"
           :value="`skeleton-${i}`"
