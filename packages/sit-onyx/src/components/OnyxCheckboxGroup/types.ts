@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
@@ -41,7 +42,7 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
       /**
        * If set, the specified number of skeleton radio buttons will be shown.
        */
-      skeleton?: number;
+      skeleton?: SkeletonInjected;
     };
 
 export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> =

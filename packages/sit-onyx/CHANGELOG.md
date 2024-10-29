@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.60
+
+### Patch Changes
+
+- 80424f9: fix(OnyxColorSchemeDialog): fix warning "Set operation on key modelValue failed: target is readonly"
+
+  The bug caused the color scheme dialog to not emit the correct select color scheme.
+
 ## 1.0.0-beta.59
 
 ### Patch Changes
