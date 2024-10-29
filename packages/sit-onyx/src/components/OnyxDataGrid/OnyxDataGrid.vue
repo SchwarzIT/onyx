@@ -39,6 +39,7 @@ watch(
   { immediate: true },
 );
 </script>
+
 <template>
   <OnyxDataGridRenderer :columns="renderCols" :rows="renderRows" />
 </template>
