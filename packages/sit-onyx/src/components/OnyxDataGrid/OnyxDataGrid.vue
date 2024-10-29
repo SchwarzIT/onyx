@@ -7,8 +7,8 @@ import {
   type DataGridRendererColumn,
   type DataGridRendererRow,
 } from "../..";
-import { useTableFeatures } from "./features";
-import { useTableSorting } from "./features/sorting/sorting";
+import { useDataGridFeatures } from "./features";
+import { useDataGridSorting } from "./features/sorting/sorting";
 
 const props = defineProps<{
   /**
@@ -16,14 +16,16 @@ const props = defineProps<{
    */
   columns: (keyof TEntry)[];
   /**
-   * The data that should be used to fill the table.
+   * The data that should be used to fill the datagrid.
    */
   data: TEntry[];
 }>();
 
-const withSorting = useTableSorting<TEntry>();
+const withSorting = useDataGridSorting<TEntry>();
 
-const { watchSources, createRendererRows, createRendererColumns } = useTableFeatures([withSorting]);
+const { watchSources, createRendererRows, createRendererColumns } = useDataGridFeatures([
+  withSorting,
+]);
 
 // Using Ref types to avoid `UnwrapRef` issues
 const renderColumns: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);

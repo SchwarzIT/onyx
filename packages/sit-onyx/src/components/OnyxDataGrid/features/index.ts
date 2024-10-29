@@ -2,19 +2,19 @@ import { h, type Component, type WatchSource } from "vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../../..";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 
-export type TableFeature<TEntry extends DataGridEntry, TFeatureName extends symbol> = {
+export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends symbol> = {
   /**
-   * Unique name and identifier of the table feature
+   * Unique name and identifier of the datagrid feature
    */
   name: TFeatureName;
 
   /**
-   * An array of reactive states that should trigger a table re-generation
+   * An array of reactive states that should trigger a datagrid re-generation
    */
   watch: WatchSource[];
 
   /**
-   * Allows modifying the table state as a whole.
+   * Allows modifying the datagrid state as a whole.
    */
   mutation?: {
     func: (state: TEntry[]) => void;
@@ -37,12 +37,12 @@ export type TableFeature<TEntry extends DataGridEntry, TFeatureName extends symb
 };
 
 /**
- * Helper function that infers the generics of the TableFeature type.
+ * Helper function that infers the generics of the DataGridFeature type.
  * @example
  * ```ts
  *
  * const MY_FEATURE = Symbol("TABLE_HEADER_BUTTON");
- * export const useTableHeaderButton = createFeature(<TEntry extends DataGridEntry>() => {
+ * export const useDataGridHeaderButton = createFeature(<TEntry extends DataGridEntry>() => {
  *   return {
  *     name: MY_FEATURE,
  *     header: {
@@ -59,13 +59,13 @@ export type TableFeature<TEntry extends DataGridEntry, TFeatureName extends symb
 export const createFeature = <TFeatureName extends symbol, TArgs extends unknown[]>(
   featureDefinition: <TEntry extends DataGridEntry>(
     ...args: TArgs
-  ) => TableFeature<TEntry, TFeatureName>,
+  ) => DataGridFeature<TEntry, TFeatureName>,
 ) => featureDefinition;
 
-type ExtractTEntry<T> = T extends TableFeature<infer I, symbol>[] ? I : never;
+type ExtractTEntry<T> = T extends DataGridFeature<infer I, symbol>[] ? I : never;
 
 /**
- * Uses the defined table features to provide factory functions.
+ * Uses the defined datagrid features to provide factory functions.
  * These factories are to be used to map data and configuration to `OnyxDataGridRenderer` properties.
  * The properties are then used to render the data grid.
  *
@@ -75,9 +75,9 @@ type ExtractTEntry<T> = T extends TableFeature<infer I, symbol>[] ? I : never;
  * <script setup lang="ts">
  * // ...
  * // imports, props, emits, etc.
- * const withHeaderButton = useTableHeaderButton<TEntry>();
+ * const withHeaderButton = useDataGridHeaderButton<TEntry>();
  *
- * const { watchSources, createRendererRows, createRendererColumns } = useTableFeatures([withSorting]);
+ * const { watchSources, createRendererRows, createRendererColumns } = useDataGridFeatures([withHeaderButton]);
  *
  * const renderCols: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
  * const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
@@ -98,8 +98,8 @@ type ExtractTEntry<T> = T extends TableFeature<infer I, symbol>[] ? I : never;
  * </template>
  * ```
  */
-export const useTableFeatures = <
-  T extends TableFeature<TEntry, symbol>[] | [],
+export const useDataGridFeatures = <
+  T extends DataGridFeature<TEntry, symbol>[] | [],
   TEntry extends DataGridEntry = ExtractTEntry<T>,
 >(
   features: T,

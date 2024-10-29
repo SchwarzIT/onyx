@@ -20,7 +20,7 @@ export const nextSortDirection = (current?: SortDirection): SortDirection => {
 
 const SORTING_FEATURE = Symbol("Sorting");
 
-export const useTableSorting = createFeature(<TEntry extends DataGridEntry>() => {
+export const useDataGridSorting = createFeature(<TEntry extends DataGridEntry>() => {
   const sortColumn = ref<keyof TEntry>();
   const sortDirection = ref<SortDirection>("none");
   const locale = injectI18n().locale;
