@@ -14,7 +14,7 @@ defineSlots<{
 <template>
   <div class="onyx-data-grid-header-cell">
     <span class="onyx-data-grid-header-cell__label">{{ props.label }}</span>
-    <div class="onyx-data-grid-header-cell__actions">
+    <div v-if="slots.actions" class="onyx-data-grid-header-cell__actions">
       <slot name="actions"></slot>
     </div>
   </div>
