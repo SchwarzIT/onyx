@@ -102,8 +102,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(eslint@9.13.0(jiti@2.3.3))
       eslint-plugin-playwright:
-        specifier: ^1.8.3
-        version: 1.8.3(eslint@9.13.0(jiti@2.3.3))
+        specifier: ^2.0.0
+        version: 2.0.0(eslint@9.13.0(jiti@2.3.3))
       eslint-plugin-vue:
         specifier: ^9.29.1
         version: 9.29.1(eslint@9.13.0(jiti@2.3.3))
@@ -171,8 +171,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
       vue-i18n:
-        specifier: ^9.14.1
-        version: 9.14.1(vue@3.5.12(typescript@5.6.3))
+        specifier: ^10.0.4
+        version: 10.0.4(vue@3.5.12(typescript@5.6.3))
       vue-router:
         specifier: ^4.4.5
         version: 4.4.5(vue@3.5.12(typescript@5.6.3))
@@ -280,8 +280,8 @@ importers:
         version: 9.13.0(jiti@2.3.3)
     devDependencies:
       '@types/eslint':
-        specifier: ^8.56.12
-        version: 8.56.12
+        specifier: ^9.6.1
+        version: 9.6.1
 
   packages/figma-utils:
     dependencies:
@@ -343,8 +343,8 @@ importers:
         specifier: ^3.13.2
         version: 3.13.2(@parcel/watcher@2.4.1)(@types/node@22.7.9)(encoding@0.1.13)(eslint@9.13.0(jiti@2.3.3))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.24.0)(sass-embedded@1.80.4)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.7.9)(sass-embedded@1.80.4)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0))(vue-tsc@2.1.6(typescript@5.6.3))(webpack-sources@3.2.3)
       vue-i18n:
-        specifier: ^9.14.1
-        version: 9.14.1(vue@3.5.12(typescript@5.6.3))
+        specifier: ^10.0.4
+        version: 10.0.4(vue@3.5.12(typescript@5.6.3))
 
   packages/shared:
     dependencies:
@@ -1563,6 +1563,10 @@ packages:
       vue-i18n:
         optional: true
 
+  '@intlify/core-base@10.0.4':
+    resolution: {integrity: sha512-GG428DkrrWCMhxRMRQZjuS7zmSUzarYcaHJqG9VB8dXAxw4iQDoKVQ7ChJRB6ZtsCsX3Jse1PEUlHrJiyQrOTg==}
+    engines: {node: '>= 16'}
+
   '@intlify/core-base@9.14.1':
     resolution: {integrity: sha512-rG5/hlNW6Qfve41go37szEf0mVLcfhYuOu83JcY0jZKasnwsrcZYYWDzebCcuO5I/6Sy1JFWo9p+nvkQS1Dy+w==}
     engines: {node: '>= 16'}
@@ -1575,8 +1579,16 @@ packages:
     resolution: {integrity: sha512-cgfrtD3qu3BPJ47gfZ35J2LJpI64Riic0K8NGgid5ilyPXRQTNY7mXlT/B+HZYQg1hmBxKa5G5HJXyAZ4R2H5A==}
     engines: {node: '>= 18'}
 
+  '@intlify/message-compiler@10.0.4':
+    resolution: {integrity: sha512-AFbhEo10DP095/45EauinQJ5hJ3rJUmuuqltGguvc3WsvezZN+g8qNHLGWKu60FHQVizMrQY7VJ+zVlBXlQQkQ==}
+    engines: {node: '>= 16'}
+
   '@intlify/message-compiler@9.14.1':
     resolution: {integrity: sha512-MY8hwukJBnXvGAncVKlHsqKDQ5ZcQx4peqEmI8wBUTXn4pezrtTGYXNoz81cLyEEHB+L/zlKWVBSh5TiX4gYoQ==}
+    engines: {node: '>= 16'}
+
+  '@intlify/shared@10.0.4':
+    resolution: {integrity: sha512-ukFn0I01HsSgr3VYhYcvkTCLS7rGa0gw4A4AMpcy/A9xx/zRJy7PS2BElMXLwUazVFMAr5zuiTk3MQeoeGXaJg==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@9.14.1':
@@ -2239,9 +2251,6 @@ packages:
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
-
-  '@types/eslint@8.56.12':
-    resolution: {integrity: sha512-03ruubjWyOHlmljCVoxSuNDdmfZDzsrrz0P2LeJsOXr+ZwFQ+0yQIwNCwt/GYhV7Z31fgtXJTAEs+FYlEL851g==}
 
   '@types/eslint@9.6.1':
     resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
@@ -3539,15 +3548,11 @@ packages:
     peerDependencies:
       eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
 
-  eslint-plugin-playwright@1.8.3:
-    resolution: {integrity: sha512-h87JPFHkz8a6oPhn8GRGGhSQoAJjx0AkOv1jME6NoMk2FpEsfvfJJNaQDxLSqSALkCr0IJXPGTnp6SIRVu5Nqg==}
+  eslint-plugin-playwright@2.0.0:
+    resolution: {integrity: sha512-nPa44nSp48mp/U+GSneabrhlyIyGvrcv+Z14u6sgno+jX8N0bH+ooSLEC1L6dvMDSHs7tj+kMIbls3l8gCJJSg==}
     engines: {node: '>=16.6.0'}
     peerDependencies:
       eslint: '>=8.40.0'
-      eslint-plugin-jest: '>=25'
-    peerDependenciesMeta:
-      eslint-plugin-jest:
-        optional: true
 
   eslint-plugin-prettier@5.2.1:
     resolution: {integrity: sha512-gH3iR3g4JfF+yYPaJYkN7jEl9QbweL/YfkoRlNnuIEHEz1vHVlCmWOS+eGGiRuzHQXdJFCOTxRgvju9b8VUmrw==}
@@ -6499,6 +6504,9 @@ packages:
   vue-component-type-helpers@2.1.6:
     resolution: {integrity: sha512-ng11B8B/ZADUMMOsRbqv0arc442q7lifSubD0v8oDXIFoMg/mXwAPUunrroIDkY+mcD0dHKccdaznSVp8EoX3w==}
 
+  vue-component-type-helpers@2.1.8:
+    resolution: {integrity: sha512-ii36gDzrYAfOQIkOlo44yceDdT5269gKmNGxf07Qx6seH2U50+tQ2ol02XLhYPmxrh6YabAsOdte8WDrpaO6Tw==}
+
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
     engines: {node: '>=12'}
@@ -6523,6 +6531,12 @@ packages:
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
+
+  vue-i18n@10.0.4:
+    resolution: {integrity: sha512-1xkzVxqBLk2ZFOmeI+B5r1J7aD/WtNJ4j9k2mcFcQo5BnOmHBmD7z4/oZohh96AAaRZ4Q7mNQvxc9h+aT+Md3w==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      vue: 3.5.12
 
   vue-i18n@9.14.1:
     resolution: {integrity: sha512-xjxV0LYc1xQ8TbAVfIyZiOSS8qoU1R0YwV7V5I8I6Fd64+zvsTsdPgtylPsie3Vdt9wekeYhr+smKDeaK6RBuA==}
@@ -7668,6 +7682,11 @@ snapshots:
     optionalDependencies:
       vue-i18n: 9.14.1(vue@3.5.12(typescript@5.6.3))
 
+  '@intlify/core-base@10.0.4':
+    dependencies:
+      '@intlify/message-compiler': 10.0.4
+      '@intlify/shared': 10.0.4
+
   '@intlify/core-base@9.14.1':
     dependencies:
       '@intlify/message-compiler': 9.14.1
@@ -7683,10 +7702,17 @@ snapshots:
       '@intlify/core': 9.14.1
       '@intlify/utils': 0.12.0
 
+  '@intlify/message-compiler@10.0.4':
+    dependencies:
+      '@intlify/shared': 10.0.4
+      source-map-js: 1.2.1
+
   '@intlify/message-compiler@9.14.1':
     dependencies:
       '@intlify/shared': 9.14.1
       source-map-js: 1.2.1
+
+  '@intlify/shared@10.0.4': {}
 
   '@intlify/shared@9.14.1': {}
 
@@ -8665,7 +8691,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.12(typescript@5.6.3)
-      vue-component-type-helpers: 2.1.6
+      vue-component-type-helpers: 2.1.8
 
   '@trysound/sax@0.2.0': {}
 
@@ -8679,11 +8705,6 @@ snapshots:
   '@types/connect@3.4.38':
     dependencies:
       '@types/node': 20.17.0
-
-  '@types/eslint@8.56.12':
-    dependencies:
-      '@types/estree': 1.0.6
-      '@types/json-schema': 7.0.15
 
   '@types/eslint@9.6.1':
     dependencies:
@@ -10192,7 +10213,7 @@ snapshots:
       lodash.memoize: 4.1.2
       semver: 7.6.3
 
-  eslint-plugin-playwright@1.8.3(eslint@9.13.0(jiti@2.3.3)):
+  eslint-plugin-playwright@2.0.0(eslint@9.13.0(jiti@2.3.3)):
     dependencies:
       eslint: 9.13.0(jiti@2.3.3)
       globals: 13.24.0
@@ -13650,6 +13671,8 @@ snapshots:
 
   vue-component-type-helpers@2.1.6: {}
 
+  vue-component-type-helpers@2.1.8: {}
+
   vue-demi@0.14.10(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
@@ -13684,6 +13707,13 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
+
+  vue-i18n@10.0.4(vue@3.5.12(typescript@5.6.3)):
+    dependencies:
+      '@intlify/core-base': 10.0.4
+      '@intlify/shared': 10.0.4
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.12(typescript@5.6.3)
 
   vue-i18n@9.14.1(vue@3.5.12(typescript@5.6.3)):
     dependencies:
