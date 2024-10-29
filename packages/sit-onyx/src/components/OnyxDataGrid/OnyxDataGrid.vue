@@ -25,7 +25,8 @@ const withSorting = useTableSorting<TEntry>();
 
 const { watchSources, createRendererRows, createRendererColumns } = useTableFeatures([withSorting]);
 
-const renderCols: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
+// Using Ref types to avoid `UnwrapRef` issues
+const renderColumns: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
 const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
 
 const { columns, data } = toRefs(props);
@@ -33,7 +34,7 @@ const { columns, data } = toRefs(props);
 watch(
   [columns, data, ...watchSources],
   ([newColumns, newData]) => {
-    renderCols.value = createRendererColumns(newColumns);
+    renderColumns.value = createRendererColumns(newColumns);
     renderRows.value = createRendererRows(newData, newColumns);
   },
   { immediate: true },
@@ -41,5 +42,5 @@ watch(
 </script>
 
 <template>
-  <OnyxDataGridRenderer :columns="renderCols" :rows="renderRows" />
+  <OnyxDataGridRenderer :columns="renderColumns" :rows="renderRows" />
 </template>
