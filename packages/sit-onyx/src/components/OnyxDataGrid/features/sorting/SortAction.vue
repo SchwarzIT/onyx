@@ -36,6 +36,7 @@ const buttonLabel = computed(() => {
   });
 });
 </script>
+
 <template>
   <OnyxIconButton color="neutral" :icon="icon" size="12px" :label="buttonLabel" />
 </template>
