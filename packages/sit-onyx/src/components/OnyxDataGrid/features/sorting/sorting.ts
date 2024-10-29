@@ -38,7 +38,7 @@ export const useDataGridSorting = createFeature(<TEntry extends DataGridEntry>()
     }
   };
 
-  const sortData = (data: TEntry[]) => {
+  const sortData = (data: Readonly<TEntry>[]) => {
     const column = sortColumn.value;
     if (!column || sortDirection.value === "none") {
       return;

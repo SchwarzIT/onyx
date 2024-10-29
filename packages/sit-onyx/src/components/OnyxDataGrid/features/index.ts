@@ -17,7 +17,7 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
    * Allows modifying the datagrid state as a whole.
    */
   mutation?: {
-    func: (state: TEntry[]) => void;
+    func: (state: Readonly<TEntry>[]) => void;
   };
 
   /**
