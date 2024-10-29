@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed, ref } from "vue";
+import { computed, ref, toRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -42,6 +42,7 @@ const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
+
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
@@ -49,42 +50,68 @@ const value = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
-function countDecimalPlaces(num: number) {
-  if (Math.floor(num) !== num) return num.toString().split(".")[1].length || 0;
+
+const inputValue = ref<string>();
+
+const decimalPlaces = computed(() => {
+  const precision = props.precision;
+  if (Math.floor(precision) !== precision) return precision.toString().split(".")[1].length || 0;
   return 0;
-}
-const displayValue = computed(() => {
-  const precision = countDecimalPlaces(props.precision);
-  return value.value?.toFixed(precision);
 });
-const determinedStepSize = computed(() => props.stepSize ?? props.precision);
+
+watch(
+  toRef(props, "modelValue"),
+  () => (inputValue.value = props.modelValue?.toFixed(decimalPlaces.value)),
+  { immediate: true },
+);
+
+// * stepSize must be precision or bigger
+// * use precision as fallback
+const determinedStepSize = computed(() =>
+  Math.max(props.stepSize ?? props.precision, props.precision),
+);
+
+const applyLimits = (number: number): number => {
+  number = Math.min(number, props.max ?? Infinity);
+  return Math.max(number, props.min ?? -Infinity);
+};
+
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
-  const currentValue = inputRef.value.valueAsNumber || 0;
-  const step = props.stepSize ? props.stepSize : props.precision;
-  const stepValue = direction === "stepUp" ? step : -step;
+  wasTouched.value = true;
+  const currentValue = value.value || 0;
+  const stepValue = (direction === "stepUp" ? 1 : -1) * determinedStepSize.value;
   const newValue = currentValue + stepValue;
   const roundedValue = Math.round(newValue / props.precision) * props.precision;
-  if (props.min !== undefined && roundedValue < props.min) {
-    value.value = props.min;
-  } else if (props.max !== undefined && roundedValue > props.max) {
-    value.value = props.max;
-  } else {
-    value.value = roundedValue;
-  }
+
+  value.value = applyLimits(roundedValue);
 };
+
+const isDivisible = (number: number): boolean => {
+  const quotient = number / props.precision;
+  return quotient % 1 === 0;
+};
+
 const handleChange = () => {
   if (!inputRef.value) return;
-  const newValue = parseFloat(inputRef.value.value);
-  const precision = countDecimalPlaces(props.precision);
-  if (props.stripStep && newValue % props.precision !== 0) {
-    inputRef.value.value = value.value !== undefined ? value.value.toString() : "";
-  } else {
-    value.value = isNaN(newValue) ? undefined : parseFloat(newValue.toFixed(precision));
-    inputRef.value.value = newValue.toFixed(precision);
-    wasTouched.value = true;
+  wasTouched.value = true;
+  const newValue = parseFloat(inputValue.value ?? "");
+  if (!newValue || isNaN(newValue)) {
+    value.value = undefined;
+    return;
   }
+  if (props.stripStep && !isDivisible(newValue)) {
+    inputValue.value = value.value?.toFixed(decimalPlaces.value);
+    return;
+  }
+  const rounded = parseFloat(newValue.toFixed(decimalPlaces.value));
+  if (rounded === value.value) {
+    inputValue.value = rounded.toFixed(decimalPlaces.value);
+    return;
+  }
+  value.value = parseFloat(newValue.toFixed(decimalPlaces.value));
 };
+
 const incrementLabel = computed(() =>
   t.value("stepper.increment", { stepSize: determinedStepSize.value }),
 );
@@ -119,8 +146,8 @@ const decrementLabel = computed(() =>
         <input
           v-else
           ref="inputRef"
+          v-model="inputValue"
           v-custom-validity
-          :value="displayValue"
           class="onyx-stepper__native"
           :class="{ 'onyx-stepper__native--touched': wasTouched }"
           type="number"
