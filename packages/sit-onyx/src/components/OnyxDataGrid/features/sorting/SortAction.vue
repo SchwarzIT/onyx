@@ -38,5 +38,5 @@ const buttonLabel = computed(() => {
 </script>
 
 <template>
-  <OnyxIconButton color="neutral" :icon="icon" size="12px" :label="buttonLabel" />
+  <OnyxIconButton color="neutral" :icon="icon" :label="buttonLabel" />
 </template>
