@@ -27,6 +27,6 @@
   },
   "devDependencies": {
     "@changesets/write": "~0.3.2",
-    "tsx": "^4.19.1"
+    "tsx": "^4.19.2"
   }
 }
