@@ -6,7 +6,7 @@ const props = defineProps<{
   label: string;
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   actions?(): unknown;
 }>();
 </script>
