@@ -99,6 +99,9 @@ type ExtractTEntry<T> = T extends DataGridFeature<infer I, symbol>[] ? I : never
  * ```
  */
 export const useDataGridFeatures = <
+  // Intersection with the empty array is necessary for TypeScript to infer the array entries as tuple values instead of an array
+  // e.g. (Feature1 | Feature2)[] vs. [Feature1, Feature2]
+  // The inference of tuple values allows us to create types that are more precise
   T extends DataGridFeature<TEntry, symbol>[] | [],
   TEntry extends DataGridEntry = ExtractTEntry<T>,
 >(
