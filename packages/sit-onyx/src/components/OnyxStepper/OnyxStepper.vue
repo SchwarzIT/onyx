@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed, ref, toRef, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -25,8 +25,6 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
 const { t } = injectI18n();
 const inputRef = ref<HTMLInputElement>();
 const emit = defineEmits<{
-  /** Emitted when the input value changes. */
-  "update:modelValue": [value?: number];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -43,14 +41,12 @@ const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
  */
 const wasTouched = ref(false);
 
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
-});
+const modelValue = defineModel<number>();
 
+/**
+ * Used for syncing the actual input value.
+ * We use string to be able to control the number of decimal places.
+ */
 const inputValue = ref<string>();
 
 const decimalPlaces = computed(() => {
@@ -59,11 +55,9 @@ const decimalPlaces = computed(() => {
   return 0;
 });
 
-watch(
-  toRef(props, "modelValue"),
-  () => (inputValue.value = props.modelValue?.toFixed(decimalPlaces.value)),
-  { immediate: true },
-);
+watch(modelValue, () => (inputValue.value = modelValue.value?.toFixed(decimalPlaces.value)), {
+  immediate: true,
+});
 
 // * stepSize must be precision or bigger
 // * use precision as fallback
@@ -79,12 +73,12 @@ const applyLimits = (number: number): number => {
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
   wasTouched.value = true;
-  const currentValue = value.value || 0;
+  const currentValue = modelValue.value || 0;
   const stepValue = (direction === "stepUp" ? 1 : -1) * determinedStepSize.value;
   const newValue = currentValue + stepValue;
   const roundedValue = Math.round(newValue / props.precision) * props.precision;
 
-  value.value = applyLimits(roundedValue);
+  modelValue.value = applyLimits(roundedValue);
 };
 
 const isDivisible = (number: number): boolean => {
@@ -96,20 +90,17 @@ const handleChange = () => {
   if (!inputRef.value) return;
   wasTouched.value = true;
   const newValue = parseFloat(inputValue.value ?? "");
+  const rounded = parseFloat(newValue.toFixed(decimalPlaces.value));
+  // reset input
+  inputValue.value = modelValue.value?.toFixed(decimalPlaces.value);
   if (!newValue || isNaN(newValue)) {
-    value.value = undefined;
+    modelValue.value = undefined;
     return;
   }
   if (props.stripStep && !isDivisible(newValue)) {
-    inputValue.value = value.value?.toFixed(decimalPlaces.value);
     return;
   }
-  const rounded = parseFloat(newValue.toFixed(decimalPlaces.value));
-  if (rounded === value.value) {
-    inputValue.value = rounded.toFixed(decimalPlaces.value);
-    return;
-  }
-  value.value = parseFloat(newValue.toFixed(decimalPlaces.value));
+  modelValue.value = rounded;
 };
 
 const incrementLabel = computed(() =>
@@ -134,7 +125,7 @@ const decrementLabel = computed(() =>
             disabled ||
             readonly ||
             props.loading ||
-            (props.min !== undefined && value !== undefined && value <= props.min)
+            (props.min !== undefined && modelValue !== undefined && modelValue <= props.min)
           "
           :aria-label="decrementLabel"
           tabindex="-1"

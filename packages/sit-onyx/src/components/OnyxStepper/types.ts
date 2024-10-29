@@ -12,10 +12,6 @@ export type OnyxStepperProps = FormInjectedProps &
   Omit<OnyxFormElementProps, "modelValue" | "errorMessages" | "withCounter" | "maxlength"> &
   AutofocusProp & {
     /**
-     * Current value of the input.
-     */
-    modelValue?: number;
-    /**
      * Same as the native `name` attribute of `<input>`.
      * Used to reference the input in JavaScript or in submitted form data.
      */
