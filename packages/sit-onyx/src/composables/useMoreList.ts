@@ -198,7 +198,7 @@ export const useMoreListChild = (injectionKey: MoreInjectionKey) => {
   onBeforeUnmount(() => moreContext?.components?.delete(id));
 
   const isVisible = computed(() => {
-    return moreContext?.disabled || (moreContext?.visibleElements.value.includes(id) ?? true);
+    return moreContext?.disabled.value || (moreContext?.visibleElements.value.includes(id) ?? true);
   });
 
   return {
