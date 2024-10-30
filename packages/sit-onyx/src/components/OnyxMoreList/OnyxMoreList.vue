@@ -29,7 +29,7 @@ const disabled = toRef(props, "disabled");
 
 const more = useMoreList({ parentRef, componentRefs, disabled });
 
-// eslint-disable-next-line vue/no-setup-props-reactivity-loss
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
 provide(props.injectionKey, {
   components: componentRefs,
   visibleElements: more.visibleElements,
