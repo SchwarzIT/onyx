@@ -7,6 +7,7 @@ import { getOnyxNpmPackages } from "./.vitepress/utils";
  * Build-time data for the home page (components, facts/numbers etc.)
  */
 export type HomePageData = {
+  contributors: GithubContributor[];
   /** Total number of implemented onyx components. */
   componentCount: number;
   /** Total number of component variants/stories across all implemented components as documented with Storybook. */
@@ -54,6 +55,7 @@ export default defineLoader({
     const skipGitHubFetch = process.env.VITEPRESS_SKIP_GITHUB_FETCH === "true";
 
     const downloads = skipGitHubFetch ? 0 : await getNpmDownloadCount(npmPackageNames);
+    const contributors = skipGitHubFetch ? [] : await getContributors();
     const mergedPRCount = skipGitHubFetch ? 0 : await searchGitHub("issues", "type:pr is:merged");
     const closedIssueCount = skipGitHubFetch
       ? 0
@@ -238,6 +240,7 @@ export default defineLoader({
       mergedPRCount,
       closedIssueCount,
       timestamp: timestamp.toUTCString(),
+      contributors,
       downloads,
       packageCount: packageFolders.length,
       components,
@@ -274,6 +277,43 @@ const searchGitHub = async (
   }
 
   return body.total_count;
+};
+
+type GithubContributor = {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: "User" | "Bot";
+  user_view_type: string;
+  site_admin: false;
+  contributions: number;
+};
+
+/**
+ * Lists all github contributors
+ */
+const getContributors = async (): Promise<GithubContributor[]> => {
+  const body = await executeGitHubRequest(`repos/SchwarzIT/onyx/contributors`);
+
+  if (typeof body !== "object" && !Array.isArray(body)) {
+    throw new Error(
+      `GitHub contributor listing is not an array. Response body: ${JSON.stringify(body)}`,
+    );
+  }
+  return body;
 };
 
 /**
