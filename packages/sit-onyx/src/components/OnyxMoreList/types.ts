@@ -1,4 +1,4 @@
-import type { MoreInjectionKey } from "../../composables/useMoreList";
+import type { MoreListInjectionKey } from "../../composables/useMoreList";
 
 export type OnyxMoreListProps = {
   /**
@@ -9,7 +9,7 @@ export type OnyxMoreListProps = {
    * Injection key to use. Must match the one used in the child components.
    * Will not be reactive so it must not be changed.
    */
-  injectionKey: MoreInjectionKey;
+  injectionKey: MoreListInjectionKey;
   /**
    * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
    * Can increase performance.

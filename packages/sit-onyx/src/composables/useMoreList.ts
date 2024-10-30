@@ -18,7 +18,7 @@ export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
 /**
  * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more" indicator.
  */
-export type MoreInjectionKey = InjectionKey<{
+export type MoreListInjectionKey = InjectionKey<{
   /**
    * Map of components in the list. Key = unique ID, value = component template ref
    */
@@ -189,7 +189,7 @@ const getTemplateRefElement = (ref: HTMLOrInstanceRef) => {
  * </style>
  * ```
  */
-export const useMoreListChild = (injectionKey: MoreInjectionKey) => {
+export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<HTMLOrInstanceRef>();
   const moreContext = inject(injectionKey);

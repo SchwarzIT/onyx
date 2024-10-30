@@ -154,6 +154,7 @@ export const WithCustomAppArea = {
 export const WithOverflowingMobileContent = {
   args: {
     ...WithContextArea.args,
+    mobileBreakpoint: "xl",
     default: () => [
       h(OnyxNavButton, { label: "Item 1", href: "/" }),
       h(

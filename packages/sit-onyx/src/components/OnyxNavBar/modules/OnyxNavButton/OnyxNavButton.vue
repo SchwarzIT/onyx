@@ -5,7 +5,7 @@ import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useMana
 import { useMoreListChild } from "../../../../composables/useMoreList";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_BUTTONS_INJECTION_KEY } from "../../types";
+import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_MORE_LIST_INJECTION_KEY } from "../../types";
 import NavButtonLayout from "./NavButtonLayout.vue";
 import type { OnyxNavButtonProps } from "./types";
 
@@ -39,7 +39,7 @@ const slots = defineSlots<{
 
 const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const hasChildren = computed(() => !!slots.children);
-const { componentRef, isVisible } = useMoreListChild(NAV_BAR_BUTTONS_INJECTION_KEY);
+const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
 
 const { state: mobileChildrenOpen } = useManagedState(
   toRef(() => props.mobileChildrenOpen),

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxNavButton from "../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
-import { NAV_BAR_BUTTONS_INJECTION_KEY } from "../OnyxNavBar/types";
+import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxMoreList from "./OnyxMoreList.vue";
 import type { MoreListSlotBindings } from "./types";
 
@@ -23,7 +23,7 @@ const COMPONENT_WIDTH = "8rem";
     is="ul"
     class="list"
     role="menu"
-    :injection-key="NAV_BAR_BUTTONS_INJECTION_KEY"
+    :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY"
     :style="{
       width: props.count ? `calc(${props.count} * ${COMPONENT_WIDTH})` : undefined,
     }"

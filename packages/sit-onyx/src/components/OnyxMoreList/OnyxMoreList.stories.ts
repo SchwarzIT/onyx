@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxNavButton from "../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
-import { NAV_BAR_BUTTONS_INJECTION_KEY } from "../OnyxNavBar/types";
+import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxMoreList from "./OnyxMoreList.vue";
 
 /**
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof OnyxMoreList>;
 export const Default = {
   args: {
     is: "div",
-    injectionKey: NAV_BAR_BUTTONS_INJECTION_KEY,
+    injectionKey: NAV_BAR_MORE_LIST_INJECTION_KEY,
     default: () =>
       Array.from({ length: 24 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
     more: ({ hiddenElements }) => h("div", `+${hiddenElements} more`),

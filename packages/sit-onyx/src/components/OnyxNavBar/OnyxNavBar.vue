@@ -9,13 +9,8 @@ import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
-import OnyxMore from "../OnyxMoreList/OnyxMoreList.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import {
-  MOBILE_NAV_BAR_INJECTION_KEY,
-  NAV_BAR_BUTTONS_INJECTION_KEY,
-  type OnyxNavBarProps,
-} from "./types";
+import { MOBILE_NAV_BAR_INJECTION_KEY, type OnyxNavBarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   mobileBreakpoint: "sm",
@@ -153,14 +148,9 @@ defineExpose({
         </OnyxMobileNavButton>
 
         <nav v-else class="onyx-nav-bar__nav" v-bind="nav">
-          <OnyxMore
-            is="ul"
-            role="menubar"
-            :injection-key="NAV_BAR_BUTTONS_INJECTION_KEY"
-            :disabled="isMobile"
-          >
+          <ul role="menubar">
             <slot></slot>
-          </OnyxMore>
+          </ul>
         </nav>
       </template>
 
@@ -221,7 +211,7 @@ $gap: var(--onyx-spacing-md);
 
     &__content {
       display: grid;
-      grid-template-columns: max-content minmax(0, 1fr) auto;
+      grid-template-columns: max-content 1fr auto;
       grid-template-areas: "app nav context";
       align-items: center;
       gap: $gap;
@@ -233,7 +223,7 @@ $gap: var(--onyx-spacing-md);
       margin-inline: var(--onyx-grid-margin-inline);
 
       &:has(.onyx-nav-bar__back) {
-        grid-template-columns: max-content max-content minmax(0, 1fr) auto;
+        grid-template-columns: max-content max-content 1fr auto;
         grid-template-areas: "app back nav context";
       }
     }
