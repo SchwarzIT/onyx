@@ -27,6 +27,10 @@ export type MoreInjectionKey = InjectionKey<{
    * List of component IDs that are currently fully visible.
    */
   visibleElements: Ref<string[]>;
+  /**
+   * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
+   */
+  disabled: Ref<boolean>;
 }>;
 
 export type UseMoreListOptions = {
@@ -193,7 +197,9 @@ export const useMoreListChild = (injectionKey: MoreInjectionKey) => {
   moreContext?.components?.set(id, componentRef);
   onBeforeUnmount(() => moreContext?.components?.delete(id));
 
-  const isVisible = computed(() => moreContext?.visibleElements.value.includes(id) ?? true);
+  const isVisible = computed(
+    () => moreContext?.disabled || (moreContext?.visibleElements.value.includes(id) ?? true),
+  );
 
   return {
     /**

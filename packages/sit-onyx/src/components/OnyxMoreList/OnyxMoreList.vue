@@ -25,17 +25,15 @@ defineSlots<{
 
 const parentRef = ref<HTMLOrInstanceRef>();
 const componentRefs = reactive(new Map<string, Ref<HTMLOrInstanceRef>>());
+const disabled = toRef(props, "disabled");
 
-const more = useMoreList({
-  parentRef,
-  componentRefs,
-  disabled: toRef(props, "disabled"),
-});
+const more = useMoreList({ parentRef, componentRefs, disabled });
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss
 provide(props.injectionKey, {
   components: componentRefs,
   visibleElements: more.visibleElements,
+  disabled,
 });
 
 watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
