@@ -123,6 +123,7 @@ export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/O
 export * from "./components/OnyxVisuallyHidden/types";
 
 export { default as OnyxForm } from "./components/OnyxForm/OnyxForm.vue";
+
 export * from "./components/OnyxForm/types";
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
