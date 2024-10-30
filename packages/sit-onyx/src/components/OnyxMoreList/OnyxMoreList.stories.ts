@@ -24,9 +24,8 @@ export const Default = {
   args: {
     is: "div",
     injectionKey: NAV_BAR_BUTTONS_INJECTION_KEY,
-    default: Array.from({ length: 24 }, (_, index) =>
-      h(OnyxNavButton, { label: `Element ${index + 1}` }),
-    ),
+    default: () =>
+      Array.from({ length: 24 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
     more: ({ hiddenElements }) => h("div", `+${hiddenElements} more`),
   },
 } satisfies Story;
