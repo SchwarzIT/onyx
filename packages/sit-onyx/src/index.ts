@@ -62,6 +62,9 @@ export * from "./components/OnyxMiniSearch/types";
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types";
 
+export { default as OnyxMore } from "./components/OnyxMore/OnyxMore.vue";
+export * from "./components/OnyxMore/types";
+
 export { default as OnyxNavAppArea } from "./components/OnyxNavAppArea/OnyxNavAppArea.vue";
 export * from "./components/OnyxNavAppArea/types";
 
@@ -124,7 +127,6 @@ export * from "./components/OnyxForm/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
-export * from "./composables/useMore";
 
 export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";

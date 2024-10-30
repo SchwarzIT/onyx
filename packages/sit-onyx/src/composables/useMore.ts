@@ -10,11 +10,23 @@ import {
   type Ref,
 } from "vue";
 
+/**
+ * Template ref of either a native HTML element or a custom Vue component.
+ */
 export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
 
+/**
+ * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more" indicator.
+ */
 export type MoreInjectionKey = InjectionKey<{
+  /**
+   * Map of components in the list. Key = unique ID, value = component template ref
+   */
   components: Map<string, Ref<HTMLOrInstanceRef>>;
-  visibleComponents: Ref<string[]>;
+  /**
+   * List of component IDs that are currently fully visible.
+   */
+  visibleElements: Ref<string[]>;
 }>;
 
 export type UseMoreOptions = {
@@ -40,12 +52,12 @@ export type UseMoreOptions = {
  *
  * ```vue
  * <script lang="ts" setup>
- * import { ref } from "vue";
+ * import { ref, type ComponentInstance } from "vue";
  * import { useMore } from "../../composables/useMore";
  * import OnyxNavButton from "../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
  *
  * const parentRef = ref<HTMLElement>();
- * const componentRefs = ref<InstanceType<typeof OnyxNavButton>[]>([]);
+ * const componentRefs = ref<ComponentInstance<typeof OnyxNavButton>[]>([]);
  *
  * const { visibleElements, hiddenElements } = useMore({ parentRef, componentRefs });
  * </script>
@@ -63,9 +75,7 @@ export type UseMoreOptions = {
  *   @include layers.component() {
  *     display: flex;
  *     align-items: center;
- *     overflow: hidden;
- *     flex-wrap: nowrap;
- *     gap: var(--onyx-spacing-sm);
+ *     overflow-x: clip;
  *   }
  * }
  * </style>
@@ -88,7 +98,7 @@ export const useMore = (options: UseMoreOptions) => {
     () => {
       observer.value?.disconnect(); // reset observer before all changes
 
-      const root = refToHTMLElement(options.parentRef.value);
+      const root = getTemplateRefElement(options.parentRef.value);
       if (!root || options.disabled?.value) {
         visibleElements.value = [];
         return;
@@ -96,22 +106,21 @@ export const useMore = (options: UseMoreOptions) => {
 
       observer.value = new IntersectionObserver(
         (changeEntries) => {
-          // changeEntries contains all changed components (not all available components)
-          // if component is shown, intersectionRatio is 1 so remainingItems should be decremented
-          // otherwise remainingItems should be increment because component is no longer shown
+          // changeEntries contains all changed component visibilities (not all available components)
+          // if component is shown, intersectionRatio is 1, otherwise its completely or partially hidden
           const shownIds: string[] = [];
           const hiddenIds: string[] = [];
 
           changeEntries.forEach((entry) => {
-            const id = Array.from(options.componentRefs).find(([_, element]) =>
-              refToHTMLElement(unref(element))?.isSameNode(entry.target),
-            )?.[0];
-            if (!id) return;
+            const elementId = Array.from(options.componentRefs).find(([_, element]) => {
+              return getTemplateRefElement(unref(element))?.isSameNode(entry.target);
+            })?.[0];
+            if (!elementId) return;
 
             const isFullyVisible = entry.intersectionRatio === 1;
 
-            if (isFullyVisible) shownIds.push(id);
-            else hiddenIds.push(id);
+            if (isFullyVisible) shownIds.push(elementId);
+            else hiddenIds.push(elementId);
           });
 
           if (visibleElements.value.length === 0) {
@@ -128,7 +137,7 @@ export const useMore = (options: UseMoreOptions) => {
       );
 
       options.componentRefs.forEach((ref) => {
-        const element = refToHTMLElement(unref(ref));
+        const element = getTemplateRefElement(unref(ref));
         if (!element) return;
         observer.value?.observe(element);
       });
@@ -142,16 +151,40 @@ export const useMore = (options: UseMoreOptions) => {
      */
     visibleElements,
     /**
-     * Number of currently not or not fully visible components in the list.
+     * IDs of currently fully or partially hidden components in the list.
      */
     hiddenElements,
   };
 };
 
-const refToHTMLElement = (ref: HTMLOrInstanceRef) => {
+/**
+ * Gets the native HTML element of a template ref.
+ */
+const getTemplateRefElement = (ref: HTMLOrInstanceRef) => {
   return ref instanceof Element ? ref : ref?.$el;
 };
 
+/**
+ * Composable that must be implemented in all list children when using `useMore` to correctly observe the visibility of the elements.
+ *
+ * @example
+ *
+ * ```vue
+ * <script lang="ts" setup
+ * const { componentRef, isVisible } = useMoreChild();
+ * </script>
+ *
+ * <template
+ *  <div ref="componentRef" :class="{ hidden: !isVisible }"> Your content... </div>
+ * </template>
+ *
+ * <style>
+ * .hidden {
+ *  visibility: hidden;
+ * }
+ * </style>
+ * ```
+ */
 export const useMoreChild = (injectionKey: MoreInjectionKey) => {
   const id = useId();
   const componentRef = ref<HTMLOrInstanceRef>();
@@ -160,23 +193,11 @@ export const useMoreChild = (injectionKey: MoreInjectionKey) => {
   moreContext?.components?.set(id, componentRef);
   onBeforeUnmount(() => moreContext?.components?.delete(id));
 
-  const isVisible = computed(() => moreContext?.visibleComponents.value.includes(id) ?? true);
+  const isVisible = computed(() => moreContext?.visibleElements.value.includes(id) ?? true);
 
   return {
     /**
      * Component template ref.
-     *
-     * @example
-     *
-     * ```vue
-     * <script lang="ts" setup
-     * const { componentRef } = useMoreChild();
-     * </script>
-     *
-     * <template
-     *  <div ref="componentRef"> Your content... </div>
-     * </template>
-     * ```
      */
     componentRef,
     /**

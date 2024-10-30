@@ -28,7 +28,7 @@ const more = useMore({
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss
 provide(props.injectionKey, {
   components: componentRefs,
-  visibleComponents: more.visibleElements,
+  visibleElements: more.visibleElements,
 });
 </script>
 
