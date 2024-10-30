@@ -445,10 +445,22 @@ export const Skeleton = {
  * This example shows a single select with fully custom option content that can be
  * passed as slot.
  */
-export const CustomOptions = {
+export const WithCustomOptions = {
   args: {
     ...Default.args,
-    option: ({ label }: SelectOption) => ["custom ", h("strong", label), " content"],
+    options: OPTIONS_WITH_ADDITIONAL_DATA,
+    option: ({ label }: SelectOption) => {
+      const style = { display: "flex", "align-items": "center", gap: "0.5rem" };
+
+      switch (label) {
+        case "Selected items":
+          return [h("div", { style }, [label, h(OnyxBadge, { color: "danger" }, "Sale!")])];
+        case "Price tag":
+          return h(OnyxTag, { label });
+        case "Shopping bag":
+          return [h("div", { style }, [h(OnyxIcon, { icon: bag }), label])];
+      }
+    },
   },
 } satisfies Story;
 
@@ -526,27 +538,5 @@ export const WithRightAlignment = {
     options: DEMO_OPTIONS,
     alignment: "right",
     placeholder: "Right alignment...",
-  },
-} satisfies Story;
-
-/**
- * This example shows a single select with options containing additional data, passed as slot.
- */
-export const WithAdditionalData = {
-  args: {
-    ...Default.args,
-    options: OPTIONS_WITH_ADDITIONAL_DATA,
-    option: ({ label }: SelectOption) => {
-      const style = { display: "flex", "align-items": "center", gap: "0.5rem" };
-
-      switch (label) {
-        case "Selected items":
-          return [h("div", { style }, [label, h(OnyxBadge, { color: "danger" }, "Sale!")])];
-        case "Price tag":
-          return h(OnyxTag, { label });
-        case "Shopping bag":
-          return [h("div", { style }, [h(OnyxIcon, { icon: bag }), label])];
-      }
-    },
   },
 } satisfies Story;
