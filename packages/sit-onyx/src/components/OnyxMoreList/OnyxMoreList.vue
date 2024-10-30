@@ -1,9 +1,16 @@
 <script lang="ts" setup>
-import { provide, reactive, ref, toRef, type Ref } from "vue";
+import { provide, reactive, ref, toRef, watch, type Ref } from "vue";
 import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
-import type { OnyxMoreListProps } from "./types";
+import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
 const props = defineProps<OnyxMoreListProps>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the number of visible elements changes.
+   */
+  visibilityChange: [MoreListSlotBindings];
+}>();
 
 defineSlots<{
   /**
@@ -13,7 +20,7 @@ defineSlots<{
   /**
    * Slot to display at the end if not all default slot elements fit in the available width.
    */
-  more(props: { hiddenElements: number; visibleElements: number }): unknown;
+  more(props: MoreListSlotBindings): unknown;
 }>();
 
 const parentRef = ref<HTMLOrInstanceRef>();
@@ -29,6 +36,13 @@ const more = useMoreList({
 provide(props.injectionKey, {
   components: componentRefs,
   visibleElements: more.visibleElements,
+});
+
+watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
+  emit("visibilityChange", {
+    visibleElements: visibleElements.length,
+    hiddenElements: hiddenElements.length,
+  });
 });
 </script>
 
