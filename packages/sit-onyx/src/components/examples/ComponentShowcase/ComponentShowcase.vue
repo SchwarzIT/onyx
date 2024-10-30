@@ -279,6 +279,8 @@ const teamMembers = [
 
 .parent {
   container-type: inline-size;
+  z-index: var(--onyx-z-index-app-overlay);
+  position: relative;
 }
 
 .showcase {

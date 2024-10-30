@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.61
+
+### Minor Changes
+
+- 3bc1d58: feat(OnyxStepper):
+
+  - Implemented `stripStep` and `precision`.
+  - Deprecated `step`, replacing it with `stepSize` and `precision`.
+
 ## 1.0.0-beta.60
 
 ### Patch Changes
