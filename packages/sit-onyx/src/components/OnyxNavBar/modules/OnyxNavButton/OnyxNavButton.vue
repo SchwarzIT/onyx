@@ -2,7 +2,7 @@
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject, toRef } from "vue";
 import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
-import { useMoreChild } from "../../../../composables/useMore";
+import { useMoreListChild } from "../../../../composables/useMoreList";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_BUTTONS_INJECTION_KEY } from "../../types";
@@ -39,7 +39,7 @@ const slots = defineSlots<{
 
 const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const hasChildren = computed(() => !!slots.children);
-const { componentRef, isVisible } = useMoreChild(NAV_BAR_BUTTONS_INJECTION_KEY);
+const { componentRef, isVisible } = useMoreListChild(NAV_BAR_BUTTONS_INJECTION_KEY);
 
 const { state: mobileChildrenOpen } = useManagedState(
   toRef(() => props.mobileChildrenOpen),

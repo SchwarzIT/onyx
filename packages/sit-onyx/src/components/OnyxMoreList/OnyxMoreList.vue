@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { provide, reactive, ref, toRef, type Ref } from "vue";
-import { useMore, type HTMLOrInstanceRef } from "../../composables/useMore";
-import type { OnyxMoreProps } from "./types";
+import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
+import type { OnyxMoreListProps } from "./types";
 
-const props = defineProps<OnyxMoreProps>();
+const props = defineProps<OnyxMoreListProps>();
 
 defineSlots<{
   /**
@@ -13,13 +13,13 @@ defineSlots<{
   /**
    * Slot to display at the end if not all default slot elements fit in the available width.
    */
-  more(props: typeof more): unknown;
+  more(props: { hiddenElements: number; visibleElements: number }): unknown;
 }>();
 
 const parentRef = ref<HTMLOrInstanceRef>();
 const componentRefs = reactive(new Map<string, Ref<HTMLOrInstanceRef>>());
 
-const more = useMore({
+const more = useMoreList({
   parentRef,
   componentRefs,
   disabled: toRef(props, "disabled"),
@@ -35,7 +35,12 @@ provide(props.injectionKey, {
 <template>
   <component :is="props.is" ref="parentRef" class="onyx-more">
     <slot></slot>
-    <slot v-if="more.hiddenElements.value.length > 0" name="more" v-bind="more"></slot>
+    <slot
+      v-if="more.hiddenElements.value.length > 0"
+      name="more"
+      :hidden-elements="more.hiddenElements.value.length"
+      :visible-elements="more.visibleElements.value.length"
+    ></slot>
   </component>
 </template>
 

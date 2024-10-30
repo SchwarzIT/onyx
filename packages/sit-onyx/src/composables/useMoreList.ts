@@ -29,7 +29,7 @@ export type MoreInjectionKey = InjectionKey<{
   visibleElements: Ref<string[]>;
 }>;
 
-export type UseMoreOptions = {
+export type UseMoreListOptions = {
   /**
    * Vue template ref for the parent element containing the list of components.
    */
@@ -81,7 +81,7 @@ export type UseMoreOptions = {
  * </style>
  * ```
  */
-export const useMore = (options: UseMoreOptions) => {
+export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>([]);
 
   const hiddenElements = computed(() => {
@@ -185,7 +185,7 @@ const getTemplateRefElement = (ref: HTMLOrInstanceRef) => {
  * </style>
  * ```
  */
-export const useMoreChild = (injectionKey: MoreInjectionKey) => {
+export const useMoreListChild = (injectionKey: MoreInjectionKey) => {
   const id = useId();
   const componentRef = ref<HTMLOrInstanceRef>();
   const moreContext = inject(injectionKey);

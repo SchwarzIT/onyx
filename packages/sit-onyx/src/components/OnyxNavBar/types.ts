@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey } from "vue";
-import type { MoreInjectionKey } from "../../composables/useMore";
+import type { MoreInjectionKey } from "../../composables/useMoreList";
 import type { OnyxBreakpoint } from "../../types";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 

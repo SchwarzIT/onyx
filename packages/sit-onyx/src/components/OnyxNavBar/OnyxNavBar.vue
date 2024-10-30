@@ -9,7 +9,7 @@ import { injectI18n } from "../../i18n";
 import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
-import OnyxMore from "../OnyxMore/OnyxMore.vue";
+import OnyxMore from "../OnyxMoreList/OnyxMoreList.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
 import {
   MOBILE_NAV_BAR_INJECTION_KEY,

@@ -1,6 +1,6 @@
-import type { MoreInjectionKey } from "../../composables/useMore";
+import type { MoreInjectionKey } from "../../composables/useMoreList";
 
-export type OnyxMoreProps = {
+export type OnyxMoreListProps = {
   /**
    * Component to render (e.g. `<ul>` or `<div>`).
    */
