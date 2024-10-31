@@ -68,7 +68,7 @@ export type FormMessages = {
 export const getCustomMessages = (customMessage?: CustomMessageType): FormMessages | undefined => {
   if (!customMessage) return;
   if (typeof customMessage === "string") {
-    // we can't guarantee a custom error message will be short,
+    // we can't guarantee a custom message will be short,
     // so in case it overflows, by adding it to "longMessage",
     // it will still be visible in a tooltip
     return { shortMessage: customMessage, longMessage: customMessage };
@@ -93,7 +93,7 @@ export const getCustomText = (customError?: CustomMessageType): string | undefin
 };
 
 /**
- * Composable for unified handling of custom error messages for form components.
+ * Composable for unified handling of custom messages for form components.
  * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
  * whenever the input value / error changes.
  *
