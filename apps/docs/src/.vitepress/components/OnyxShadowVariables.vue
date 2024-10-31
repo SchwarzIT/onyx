@@ -12,13 +12,7 @@ const shadows = [
 </script>
 
 <template>
-  <DesignVariableCard
-    v-for="shadow in shadows"
-    :key="shadow"
-    :name="shadow"
-    class="variable"
-    hide-value
-  >
+  <DesignVariableCard v-for="shadow in shadows" :key="shadow" :name="shadow" class="variable">
     <figure class="preview" :style="{ boxShadow: `var(--${shadow})` }"></figure>
   </DesignVariableCard>
 </template>
