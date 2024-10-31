@@ -75,13 +75,13 @@ const handleCopy = async () => {
 
   @include mixins.breakpoint(min, s) {
     &__container {
-      padding: var(--onyx-spacing-md) var(--onyx-spacing-2xl);
       display: flex;
-      align-items: center;
+      flex-direction: column;
 
       &:last-child {
+        padding: var(--onyx-spacing-md) var(--onyx-spacing-2xl);
         border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        justify-content: center;
+        align-items: center;
       }
     }
   }

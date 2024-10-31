@@ -22,11 +22,6 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .variable {
   margin-bottom: var(--onyx-spacing-lg);
-
-  // override variable width so all spacings variable names have the same width
-  :deep(.variable__name) {
-    min-width: 16rem;
-  }
 }
 
 .preview {
@@ -38,6 +33,7 @@ const props = defineProps<{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-sizing: border-box;
   margin: 0;
 
   &__area {
