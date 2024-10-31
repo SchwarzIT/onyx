@@ -48,10 +48,7 @@ defineSlots<{
       ></span>
     </div>
     <slot :id="props.id"></slot>
-    <div
-      v-if="props.message || errorMessages?.shortMessage || counterText"
-      class="onyx-form-element__footer onyx-text--small"
-    >
+    <div class="onyx-form-element__footer onyx-text--small">
       <span v-if="errorMessages" class="onyx-form-element__error-message onyx-truncation-ellipsis">
         {{ errorMessages.shortMessage }}
       </span>
