@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.62
+
+### Minor Changes
+
+- 95673cf: fix(OnyxFormElement): fix layout jump on invalid OnyxInput
+
 ## 1.0.0-beta.61
 
 ### Minor Changes
