@@ -49,10 +49,5 @@ const variables = [
       height: 5rem;
     }
   }
-
-  // override variable width so all border radius variable names have the same width
-  :deep(.variable__name) {
-    min-width: 16rem;
-  }
 }
 </style>
