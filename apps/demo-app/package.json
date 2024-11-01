@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
-    "@vueuse/core": "^11.1.0",
-    "pinia": "^2.2.4",
+    "@vueuse/core": "^11.2.0",
+    "pinia": "^2.2.5",
     "sit-onyx": "workspace:^",
     "vue-i18n": "^9.14.1",
     "vue-router": "^4.4.5"
