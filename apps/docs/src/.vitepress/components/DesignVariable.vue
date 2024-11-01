@@ -35,7 +35,11 @@ const emit = defineEmits<{
 <template>
   <button
     class="variable"
-    :class="{ 'variable--color': props.type === 'color', 'variable--copyable': props.allowCopy }"
+    :class="{
+      'variable--color': props.type === 'color',
+      'variable--copyable': props.allowCopy,
+      'variable__name--no-padding': !props.value,
+    }"
     :disabled="!props.allowCopy"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
@@ -62,6 +66,7 @@ const emit = defineEmits<{
 .variable {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--onyx-spacing-md);
   width: max-content;
   max-width: 100%;
@@ -96,6 +101,9 @@ const emit = defineEmits<{
 
     &--no-value {
       padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
+    }
+    &--no-padding {
+      padding: 0;
     }
   }
 
