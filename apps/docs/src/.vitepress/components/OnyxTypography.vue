@@ -95,7 +95,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
   a {
     margin: 0;
     border: none;
-    padding: 0;
+    padding: 0 var(--onyx-spacing-2xl);
     letter-spacing: normal;
   }
 }
