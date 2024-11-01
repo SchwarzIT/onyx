@@ -77,6 +77,7 @@ const handleCopy = async () => {
     &__container {
       display: flex;
       flex-direction: column;
+      justify-content: center;
 
       &:last-child {
         padding: var(--onyx-spacing-md) var(--onyx-spacing-2xl);
