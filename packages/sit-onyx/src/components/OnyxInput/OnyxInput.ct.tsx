@@ -1,5 +1,5 @@
 import { DENSITIES } from "../../composables/density";
-import type { FormErrorMessages } from "../../composables/useCustomValidity";
+import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
@@ -108,7 +108,7 @@ test.describe("Screenshot tests", () => {
       const message = showLongMessage
         ? "Very long message that should be truncated"
         : "Test message";
-      const errorMessages: FormErrorMessages = {
+      const errorMessages: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
