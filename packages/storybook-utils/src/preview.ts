@@ -5,9 +5,9 @@ import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
 import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
+import { ONYX_BREAKPOINTS, createTheme } from "../../sit-onyx/storybook-utils/theme";
 import { enhanceEventArgTypes } from "./actions";
 import { requiredGlobalType, withRequired } from "./required";
-import { ONYX_BREAKPOINTS, createTheme } from "./theme";
 
 const themes = {
   light: createTheme(),

@@ -10,15 +10,8 @@ catalogs:
       specifier: 3.5.12
       version: 3.5.12
     chart.js:
-<<<<<<< HEAD
-      specifier: ^4.4.4
-      version: 4.4.4
-    sass:
-      specifier: ^1.79.3
-=======
       specifier: ^4.4.5
       version: 4.4.5
->>>>>>> c83c7563dd3a5cea335734154d0f687a79f7b92d
     sass-embedded:
       specifier: 1.80.4
       version: 1.80.4
@@ -52,34 +45,32 @@ importers:
         specifier: ^1.48.2
         version: 1.48.2(@types/node@22.8.6)(sass-embedded@1.80.5)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0)(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.5)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))
       '@playwright/test':
-<<<<<<< HEAD
-        specifier: ^1.47.2
-        version: 1.47.2
+        specifier: ^1.48.2
+        version: 1.48.2
       '@rushstack/eslint-patch':
         specifier: ^1.10.4
         version: 1.10.4
-=======
-        specifier: ^1.48.2
-        version: 1.48.2
       '@sit-onyx/eslint-plugin':
         specifier: workspace:^
         version: link:packages/eslint-plugin
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:packages/storybook-utils
->>>>>>> c83c7563dd3a5cea335734154d0f687a79f7b92d
       '@storybook/addon-essentials':
-        specifier: ^8.4.0
+        specifier: ^8.3.5
         version: 8.4.0(@types/react@18.3.12)(storybook@8.4.0(prettier@3.3.3))(webpack-sources@3.2.3)
       '@storybook/blocks':
-        specifier: ^8.4.0
+        specifier: ^8.3.5
         version: 8.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.0(prettier@3.3.3))
       '@storybook/vue3':
-        specifier: ^8.4.0
+        specifier: ^8.3.5
         version: 8.4.0(storybook@8.4.0(prettier@3.3.3))(vue@3.5.12(typescript@5.6.3))
       '@storybook/vue3-vite':
-        specifier: ^8.4.0
+        specifier: ^8.3.5
         version: 8.4.0(storybook@8.4.0(prettier@3.3.3))(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.5)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))(webpack-sources@3.2.3)
+      '@tsconfig/node20':
+        specifier: ^20.1.4
+        version: 20.1.4
       '@tsconfig/node22':
         specifier: ^22.0.0
         version: 22.0.0
@@ -213,12 +204,12 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../../packages/storybook-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../../packages/shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../../packages/storybook-utils
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
@@ -275,12 +266,12 @@ importers:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../storybook-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
       '@vue/compiler-dom':
         specifier: 'catalog:'
         version: 3.5.12
@@ -390,23 +381,19 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.10.0
-<<<<<<< HEAD
-        version: 4.10.0(playwright-core@1.47.2)
+        version: 4.10.0(playwright-core@1.48.2)
       '@sit-onyx/eslint-plugin':
         specifier: workspace:^
         version: link:../eslint-plugin
-=======
-        version: 4.10.0(playwright-core@1.48.2)
->>>>>>> c83c7563dd3a5cea335734154d0f687a79f7b92d
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../storybook-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
       '@storybook/addon-a11y':
         specifier: ^8.4.0
         version: 8.4.0(storybook@8.4.0(prettier@3.3.3))
@@ -443,9 +430,6 @@ importers:
       deepmerge-ts:
         specifier: ^7.1.3
         version: 7.1.3
-      sit-onyx:
-        specifier: workspace:^
-        version: link:../sit-onyx
       storybook:
         specifier: '>= 8.3.0'
         version: 8.3.6
@@ -717,9 +701,6 @@ packages:
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
-
-  '@bufbuild/protobuf@2.2.0':
-    resolution: {integrity: sha512-+imAQkHf7U/Rwvu0wk1XWgsP3WnpCWmK7B48f0XqSNzgk64+grljTKC7pnO/xBiEMUziF7vKRfbBnOQhg126qQ==}
 
   '@bufbuild/protobuf@2.2.1':
     resolution: {integrity: sha512-gdWzq7eX017a1kZCU/bP/sbk4e0GZ6idjsXOcMrQwODCb/rx985fHJJ8+hCu79KpuG7PfZh7bo3BBjPH37JuZw==}
@@ -2108,6 +2089,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@rushstack/eslint-patch@1.10.4':
+    resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}
+
   '@shikijs/core@1.22.1':
     resolution: {integrity: sha512-bqAhT/Ri5ixV4oYsvJNH8UJjpjbINWlWyXY6tBTsP4OmD6XnFv43nRJ+lTdxd2rmG5pgam/x+zGR6kLRXrpEKA==}
 
@@ -2324,6 +2308,9 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
+  '@tsconfig/node20@20.1.4':
+    resolution: {integrity: sha512-sqgsT69YFeLWf5NtJ4Xq/xAF8p4ZQHlmGW74Nu2tD4+g5fAsposc4ZfaaPixVu4y01BEiDCWLRDCvDM5JOsRxg==}
+
   '@tsconfig/node22@22.0.0':
     resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
 
@@ -2336,12 +2323,9 @@ packages:
   '@types/eslint@8.56.12':
     resolution: {integrity: sha512-03ruubjWyOHlmljCVoxSuNDdmfZDzsrrz0P2LeJsOXr+ZwFQ+0yQIwNCwt/GYhV7Z31fgtXJTAEs+FYlEL851g==}
 
-<<<<<<< HEAD
-=======
   '@types/eslint@9.6.1':
     resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
 
->>>>>>> c83c7563dd3a5cea335734154d0f687a79f7b92d
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -7312,10 +7296,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bufbuild/protobuf@2.2.0': {}
-
-  '@bufbuild/protobuf@2.2.1':
-    optional: true
+  '@bufbuild/protobuf@2.2.1': {}
 
   '@changesets/apply-release-plan@7.0.5':
     dependencies:
@@ -8694,6 +8675,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.24.0':
     optional: true
 
+  '@rushstack/eslint-patch@1.10.4': {}
+
   '@shikijs/core@1.22.1':
     dependencies:
       '@shikijs/engine-javascript': 1.22.1
@@ -9023,6 +9006,8 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
+  '@tsconfig/node20@20.1.4': {}
+
   '@tsconfig/node22@22.0.0': {}
 
   '@types/body-parser@1.19.5':
@@ -9039,14 +9024,11 @@ snapshots:
       '@types/estree': 1.0.6
       '@types/json-schema': 7.0.15
 
-<<<<<<< HEAD
-=======
   '@types/eslint@9.6.1':
     dependencies:
       '@types/estree': 1.0.6
       '@types/json-schema': 7.0.15
 
->>>>>>> c83c7563dd3a5cea335734154d0f687a79f7b92d
   '@types/estree@1.0.6': {}
 
   '@types/express-serve-static-core@4.19.6':
@@ -13004,7 +12986,7 @@ snapshots:
 
   sass-embedded@1.80.4:
     dependencies:
-      '@bufbuild/protobuf': 2.2.0
+      '@bufbuild/protobuf': 2.2.1
       buffer-builder: 0.2.0
       colorjs.io: 0.5.2
       immutable: 4.3.7
@@ -13453,7 +13435,7 @@ snapshots:
   terser@5.36.0:
     dependencies:
       '@jridgewell/source-map': 0.3.6
-      acorn: 8.12.1
+      acorn: 8.14.0
       commander: 2.20.3
       source-map-support: 0.5.21
 
