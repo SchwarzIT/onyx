@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["src", "svg.d.ts", "../sit-onyx/storybook-utils/theme.ts", "src/preview.ts"],
+  "include": ["src", "svg.d.ts", "src/theme.ts", "src/preview.ts"],
   "compilerOptions": {
     "types": ["node", "vite/client"],
     "rootDir": "./src",

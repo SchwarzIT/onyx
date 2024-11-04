@@ -11,7 +11,7 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./assets/logo-onyx.svg": "./src/assets/logo-onyx.svg"
+    "./style.css": "./src/style.css"
   },
   "homepage": "https://onyx.schwarz/development/packages/storybook-utils.html",
   "repository": {
@@ -28,6 +28,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "peerDependencies": {
+    "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@storybook/vue3": ">= 8.3.0",
     "storybook": ">= 8.3.0",
