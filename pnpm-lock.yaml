@@ -4,6 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@vue/compiler-dom':
+      specifier: 3.5.12
+      version: 3.5.12
+    chart.js:
+      specifier: ^4.4.5
+      version: 4.4.5
+    sass-embedded:
+      specifier: 1.80.4
+      version: 1.80.4
+
 overrides:
   vue: 3.5.12
 
@@ -38,9 +50,6 @@ importers:
       '@rushstack/eslint-patch':
         specifier: ^1.10.4
         version: 1.10.4
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:packages/storybook-utils
       '@storybook/addon-essentials':
         specifier: ^8.3.5
         version: 8.4.0(@types/react@18.3.12)(storybook@8.4.0(prettier@3.3.3))(webpack-sources@3.2.3)

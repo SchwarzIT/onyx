@@ -28,7 +28,6 @@
     "@playwright/experimental-ct-vue": "^1.48.2",
     "@playwright/test": "^1.48.2",
     "@rushstack/eslint-patch": "^1.10.4",
-    "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/blocks": "^8.3.5",
     "@storybook/vue3": "^8.3.5",
