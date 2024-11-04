@@ -13,7 +13,7 @@
     "test:integration": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.1",
+    "@playwright/test": "^1.48.2",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
@@ -23,9 +23,9 @@
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "^5.4.10",
-    "vitepress": "^1.4.1",
+    "vitepress": "^1.4.3",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.1"
+    "vue-chartjs": "^5.3.2"
   },
   "imports": {
     "#src/.vitepress/browser-loader.data": {

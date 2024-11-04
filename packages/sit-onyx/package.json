@@ -51,13 +51,13 @@
     "@axe-core/playwright": "^4.10.0",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "@storybook/addon-a11y": "^8.3.6",
+    "@storybook/addon-a11y": "^8.4.0",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",
     "eslint-plugin-vue-scoped-css": "^2.8.1",
     "sass-embedded": "catalog:",
     "storybook-dark-mode": "^4.0.2",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^2.1.6"
+    "vue-component-type-helpers": "^2.1.10"
   }
 }
