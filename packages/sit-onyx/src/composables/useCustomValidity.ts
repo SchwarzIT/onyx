@@ -14,9 +14,9 @@ export type CustomValidityProp = {
    */
   customError?: CustomMessageType;
   /**
-   * Custom success message to show. Will only show up after the user has interacted with the input.
+   * Success message to show. Will only show up after the user has interacted with the input.
    */
-  customMessage?: CustomMessageType;
+  successMessage?: CustomMessageType;
 };
 
 export type UseCustomValidityOptions = {
@@ -213,9 +213,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const successMessages = computed<FormMessages | undefined>(() => {
     if (validityState.value === undefined || !validityState.value.valid) return;
 
-    const customMessage = getFormMessages(options.props.customMessage);
-
-    return customMessage;
+    return getFormMessages(options.props.successMessage);
   });
 
   return {
