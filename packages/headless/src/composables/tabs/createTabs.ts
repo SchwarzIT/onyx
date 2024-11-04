@@ -34,7 +34,17 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
     return idMap.get(value)!;
   };
 
+  const isVisible = computed(() => {
+    return (value: T) => getId(value).tabId === getId(unref(options.selectedTab)).tabId;
+  });
+
   return {
+    state: {
+      /**
+       * Function to check whether a tab with a given value is currently visible.
+       */
+      isVisible,
+    },
     elements: {
       tablist: computed(() => ({
         role: "tablist",
