@@ -1,5 +1,5 @@
 import type { RequiredMarkerProp } from "../../composables/required";
-import type { FormErrorMessages } from "../../composables/useCustomValidity";
+import type { FormMessages } from "../../composables/useCustomValidity";
 
 export type OnyxFormElementProps = RequiredMarkerProp & {
   /**
@@ -40,7 +40,7 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
   /**
    * Error messages that inform about causes for invalidity of form components
    */
-  errorMessages?: FormErrorMessages;
+  errorMessages?: FormMessages;
   /**
    * Maximum number of characters that are allowed to be entered.
    * Warning: when the value is (pre)set programmatically,

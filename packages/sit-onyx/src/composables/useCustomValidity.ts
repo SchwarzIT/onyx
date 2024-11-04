@@ -6,13 +6,17 @@ import type { BaseSelectOption } from "../types";
 import { areObjectsFlatEqual } from "../utils/objects";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
 
-export type CustomErrorType = string | FormErrorMessages;
+export type CustomMessageType = string | FormMessages;
 
 export type CustomValidityProp = {
   /**
    * Custom error message to show. Will only show up after the user has interacted with the input.
    */
-  customError?: CustomErrorType;
+  customError?: CustomMessageType;
+  /**
+   * Success message to show. Will only show up after the user has interacted with the input.
+   */
+  successMessage?: CustomMessageType;
 };
 
 export type UseCustomValidityOptions = {
@@ -45,39 +49,38 @@ export const TRANSLATED_INPUT_TYPES = Object.keys(
 export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 /**
- * Translated error messages that inform about causes for invalidity of form components
+ * Translated messages that inform about the validity state of form components
  */
-export type FormErrorMessages = {
+export type FormMessages = {
   /**
-   * A short error message preview to inform the user about the cause of the error
+   * A short message preview to inform the user about the validity state
    */
   shortMessage: string;
   /**
-   * An extended informative error message to provide more info
-   * how the error cause can be resolved
+   * An extended informative message to provide more info
    */
   longMessage?: string;
 };
 
 /**
- * Transforms a customError into the format needed to display an error preview and extended message
+ * Transforms a customMessage into the format needed to display an error preview and extended message
  */
-export const getCustomErrors = (customError?: CustomErrorType): FormErrorMessages | undefined => {
-  if (!customError) return;
-  if (typeof customError === "string") {
-    // we can't guarantee a custom error message will be short,
+export const getFormMessages = (customMessage?: CustomMessageType): FormMessages | undefined => {
+  if (!customMessage) return;
+  if (typeof customMessage === "string") {
+    // we can't guarantee a custom message will be short,
     // so in case it overflows, by adding it to "longMessage",
     // it will still be visible in a tooltip
-    return { shortMessage: customError, longMessage: customError };
+    return { shortMessage: customMessage, longMessage: customMessage };
   }
-  return customError;
+  return customMessage;
 };
 
 /**
- * Returns a string combining short + long message or just the customError if it was provided as single string.
+ * Returns a string combining short + long message or just the customMessage if it was provided as single string.
  * Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
  */
-export const getCustomErrorText = (customError?: CustomErrorType): string | undefined => {
+export const getFormMessageText = (customError?: CustomMessageType): string | undefined => {
   if (!customError) return;
   if (typeof customError === "string") {
     return customError;
@@ -90,7 +93,7 @@ export const getCustomErrorText = (customError?: CustomErrorType): string | unde
 };
 
 /**
- * Composable for unified handling of custom error messages for form components.
+ * Composable for unified handling of custom messages for form components.
  * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
  * whenever the input value / error changes.
  *
@@ -128,7 +131,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       /**
        * Sync custom error with the native input validity.
        */
-      watchEffect(() => el.setCustomValidity(getCustomErrorText(options.props.customError) ?? ""));
+      watchEffect(() => el.setCustomValidity(getFormMessageText(options.props.customError) ?? ""));
 
       watch(
         // we need to watch all props instead of only modelValue so the validity is re-checked
@@ -166,11 +169,11 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     },
   } satisfies Directive<InputValidationElement, undefined>;
 
-  const errorMessages = computed<FormErrorMessages | undefined>(() => {
+  const errorMessages = computed<FormMessages | undefined>(() => {
     if (!validityState.value || validityState.value.valid) return;
 
     const errorType = getFirstInvalidType(validityState.value);
-    const customErrors = getCustomErrors(options.props.customError);
+    const customErrors = getFormMessages(options.props.customError);
     // a custom error message always is considered first
     if (customErrors || errorType === "customError") {
       if (!customErrors) return;
@@ -207,6 +210,12 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     };
   });
 
+  const successMessages = computed<FormMessages | undefined>(() => {
+    if (validityState.value === undefined || !validityState.value.valid) return;
+
+    return getFormMessages(options.props.successMessage);
+  });
+
   return {
     /**
      * Directive to set the custom error message and emit validityChange event.
@@ -216,5 +225,9 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
      * A custom error or the default translation of the first invalid state if one exists.
      */
     errorMessages,
+    /**
+     * A custom success message if provided by the user.
+     */
+    successMessages,
   };
 };

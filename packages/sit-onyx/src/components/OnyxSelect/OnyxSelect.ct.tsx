@@ -1,7 +1,7 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density";
-import type { FormErrorMessages } from "../../composables/useCustomValidity";
+import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import {
   adjustAbsolutePositionScreenshot,
@@ -315,7 +315,7 @@ test.describe("Invalidity handling screenshots", () => {
       const message = showLongMessage
         ? "Very long message that should be truncated"
         : "Test message";
-      const errorMessages: FormErrorMessages = {
+      const errorMessages: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
