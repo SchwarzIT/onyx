@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { type FormMessages, getCustomText } from "../../composables/useCustomValidity";
+import { type FormMessages, getFormMessageText } from "../../composables/useCustomValidity";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
 const props = defineProps<{
@@ -21,7 +21,7 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const tooltipError = computed(() => getCustomText(props.errorMessages));
+const tooltipError = computed(() => getFormMessageText(props.errorMessages));
 
 const targetRef = ref<HTMLDivElement>();
 </script>
