@@ -3,6 +3,7 @@ export * from "./composables/helpers/useGlobalListener";
 export * from "./composables/listbox/createListbox";
 export * from "./composables/menuButton/createMenuButton";
 export * from "./composables/navigationMenu/createMenu";
+export * from "./composables/tabs/createTabs";
 export * from "./composables/tooltip/createToggletip";
 export * from "./composables/tooltip/createTooltip";
 export * from "./utils/builder";

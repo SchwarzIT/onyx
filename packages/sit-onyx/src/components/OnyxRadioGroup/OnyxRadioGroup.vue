@@ -10,7 +10,7 @@ import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { OnyxRadioGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
-  name: () => useId() ?? "", // the name must be globally unique
+  name: () => useId(), // the name must be globally unique
   direction: "vertical",
   required: false,
   disabled: FORM_INJECTED_SYMBOL,
