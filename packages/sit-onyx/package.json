@@ -44,6 +44,7 @@
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/shared": "workspace:^",
     "typescript": ">= 5.2.2",
     "vue": ">= 3.5.0"
   },
@@ -52,7 +53,6 @@
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/eslint-plugin": "workspace:^",
-    "@sit-onyx/shared": "workspace:^",
     "@storybook/addon-a11y": "^8.4.0",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",

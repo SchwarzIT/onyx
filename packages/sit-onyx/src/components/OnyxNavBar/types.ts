@@ -1,5 +1,5 @@
+import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import type { ComputedRef, InjectionKey } from "vue";
-import type { OnyxBreakpoint } from "../../types";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
 export type OnyxNavBarProps = Omit<OnyxNavAppAreaProps, "label"> & {

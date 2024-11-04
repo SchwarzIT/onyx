@@ -2,9 +2,9 @@
 import edit from "@sit-onyx/icons/edit.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
+import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import { computed, nextTick, ref, shallowRef, watch } from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
-import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../../../types";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxLink from "../../OnyxLink/OnyxLink.vue";
