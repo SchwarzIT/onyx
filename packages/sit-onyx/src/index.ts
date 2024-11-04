@@ -106,8 +106,14 @@ export * from "./components/OnyxStepper/types";
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
+export { default as OnyxTab } from "./components/OnyxTab/OnyxTab.vue";
+export * from "./components/OnyxTab/types";
+
 export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
 export * from "./components/OnyxTable/types";
+
+export { default as OnyxTabs } from "./components/OnyxTabs/OnyxTabs.vue";
+export * from "./components/OnyxTabs/types";
 
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types";
