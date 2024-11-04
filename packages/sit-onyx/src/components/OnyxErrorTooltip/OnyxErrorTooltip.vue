@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { type FormErrorMessages, getCustomErrorText } from "../../composables/useCustomValidity";
+import { type FormMessages, getFormMessageText } from "../../composables/useCustomValidity";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
 const props = defineProps<{
@@ -9,7 +9,7 @@ const props = defineProps<{
    * errorMessages are provided. Without errorMessages, the
    * component will not be rendered inside a slot.
    */
-  errorMessages?: FormErrorMessages;
+  errorMessages?: FormMessages;
   /** We don't show an error if the content is not interactive */
   disabled?: boolean;
 }>();
@@ -21,7 +21,7 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const tooltipError = computed(() => getCustomErrorText(props.errorMessages));
+const tooltipError = computed(() => getFormMessageText(props.errorMessages));
 
 const targetRef = ref<HTMLDivElement>();
 </script>
