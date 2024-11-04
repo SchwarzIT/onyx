@@ -5,14 +5,9 @@ import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
 import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
-import { ONYX_BREAKPOINTS, createTheme } from "../../sit-onyx/storybook-utils/theme";
 import { enhanceEventArgTypes } from "./actions";
 import { requiredGlobalType, withRequired } from "./required";
-
-const themes = {
-  light: createTheme(),
-  dark: createTheme({ base: "dark" }),
-} as const;
+import { ONYX_BREAKPOINTS, createTheme, type BrandDetails } from "./theme";
 
 /**
  * Creates a default Storybook preview configuration for 'onyx' with the following features:
@@ -40,7 +35,15 @@ const themes = {
  * export default preview;
  * ```
  */
-export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
+export const createPreview = <T extends Preview = Preview>(
+  brandDetails: BrandDetails,
+  overrides?: T,
+) => {
+  const themes = {
+    light: createTheme(brandDetails),
+    dark: createTheme(brandDetails, "dark"),
+  } as const;
+
   const defaultPreview = {
     argTypesEnhancers: [enhanceEventArgTypes],
     globalTypes: {
