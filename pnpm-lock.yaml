@@ -4,18 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@vue/compiler-dom':
-      specifier: 3.5.12
-      version: 3.5.12
-    chart.js:
-      specifier: ^4.4.5
-      version: 4.4.5
-    sass-embedded:
-      specifier: 1.80.4
-      version: 1.80.4
-
 overrides:
   vue: 3.5.12
 
@@ -50,9 +38,6 @@ importers:
       '@rushstack/eslint-patch':
         specifier: ^1.10.4
         version: 1.10.4
-      '@sit-onyx/eslint-plugin':
-        specifier: workspace:^
-        version: link:packages/eslint-plugin
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:packages/storybook-utils
