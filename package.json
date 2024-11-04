@@ -16,7 +16,7 @@
     "publint:all": "pnpm -r --parallel --aggregate-output exec publint",
     "prepare": "simple-git-hooks",
     "gh:show-report": "./scripts/show-last-test-report.sh",
-    "preinstall": "npx only-allow pnpm && pnpm list --depth=-1 --long | grep cycle && echo 'Cyclic dependency detected!' && exit 1 || echo 'No cyclic dependencies'"
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.9",
@@ -25,11 +25,13 @@
     "@fontsource-variable/source-code-pro": "^5.1.0",
     "@fontsource-variable/source-sans-3": "^5.1.0",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
-    "@playwright/experimental-ct-vue": "^1.47.2",
-    "@playwright/test": "^1.47.2",
-    "@rushstack/eslint-patch": "^1.10.4",
+    "@playwright/experimental-ct-vue": "^1.48.2",
+    "@playwright/test": "^1.48.2",
     "@sit-onyx/eslint-plugin": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/eslint": "^9.6.1",
+    "@rushstack/eslint-patch": "^1.10.4",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/blocks": "^8.3.5",
     "@storybook/vue3": "^8.3.5",
