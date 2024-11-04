@@ -1,8 +1,7 @@
 {
   "name": "@sit-onyx/shared",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "private": true,
   "type": "module",
   "peerDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
