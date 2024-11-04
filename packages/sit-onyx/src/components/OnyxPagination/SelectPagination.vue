@@ -145,6 +145,8 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       text-align: center;
       color: var(--onyx-color-text-icons-neutral-soft);
       background-color: var(--onyx-color-base-background-tinted);
+      width: max-content;
+      max-width: 100%;
     }
 
     &__button {

@@ -1,5 +1,80 @@
 # sit-onyx
 
+## 1.0.0-beta.62
+
+### Minor Changes
+
+- 95673cf: fix(OnyxFormElement): fix layout jump on invalid OnyxInput
+
+## 1.0.0-beta.61
+
+### Minor Changes
+
+- 3bc1d58: feat(OnyxStepper):
+
+  - Implemented `stripStep` and `precision`.
+  - Deprecated `step`, replacing it with `stepSize` and `precision`.
+
+## 1.0.0-beta.60
+
+### Patch Changes
+
+- 80424f9: fix(OnyxColorSchemeDialog): fix warning "Set operation on key modelValue failed: target is readonly"
+
+  The bug caused the color scheme dialog to not emit the correct select color scheme.
+
+## 1.0.0-beta.59
+
+### Patch Changes
+
+- bb826a4: fix(sass): remove usage of globals
+
+  Sass [deprecated the usage of built-in global functions](https://sass-lang.com/documentation/breaking-changes/import/) like `map-get` which might lead to build errors e.g. when using [onyx breakpoint utilities](https://onyx.schwarz/development/breakpoints.html). We removed their usages in favor of importing the corresponding module.
+
+## 1.0.0-beta.58
+
+### Patch Changes
+
+- e42ca5e: Implement autoalignment feature for OnyxTooltip
+
+## 1.0.0-beta.57
+
+### Patch Changes
+
+- 78a1019: fix(OnyxNavButton): prop `mobileChildrenOpen` not working
+
+## 1.0.0-beta.56
+
+### Patch Changes
+
+- b6e0b67: fix: Fix uncaught TypeError for components with symbol props
+
+## 1.0.0-beta.55
+
+### Major Changes
+
+- 772f6a5: refactor(OnyxRadioGroup): rename CSS classes
+
+  Renamed/fixed all radio group CSS class names from `.onyx-radio-button-group` to `.onyx-radio-group` to match the component name
+
+### Patch Changes
+
+- 772f6a5: fix(OnyxPagination): ensure max width for "of n pages" text
+
+## 1.0.0-beta.54
+
+### Minor Changes
+
+- 01f8664: feat(OnyxForm): implement `showError` mode
+  fix(OnyxForm): update of injected prop not working when initially using default
+
+## 1.0.0-beta.53
+
+### Patch Changes
+
+- Updated dependencies [be5b415]
+  - @sit-onyx/icons@1.0.0-beta.6
+
 ## 1.0.0-beta.52
 
 ### Patch Changes

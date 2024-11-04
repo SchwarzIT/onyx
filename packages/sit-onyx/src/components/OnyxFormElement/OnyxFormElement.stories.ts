@@ -9,6 +9,7 @@ import OnyxFormElement from "./OnyxFormElement.vue";
  */
 const meta: Meta<typeof OnyxFormElement> = {
   title: "Support/FormElement",
+
   component: OnyxFormElement,
   argTypes: {
     default: { control: { disable: true } },
@@ -16,7 +17,7 @@ const meta: Meta<typeof OnyxFormElement> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="max-width: 12rem; padding: 2rem 1rem">
+      template: `<div style="max-width: 12rem">
                     <story />
                    </div>`,
     }),

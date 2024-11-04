@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "type": "module",
   "private": true,
   "scripts": {
@@ -13,19 +13,25 @@
     "test:integration": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.2",
+    "@playwright/test": "^1.48.2",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "chart.js": "^4.4.4",
+    "chart.js": "catalog:",
     "postcss": "^8.4.47",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
-    "vite": "^5.4.8",
-    "vitepress": "^1.4.0",
+    "vite": "^5.4.10",
+    "vitepress": "^1.4.3",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.1"
+    "vue-chartjs": "^5.3.2"
+  },
+  "imports": {
+    "#src/.vitepress/browser-loader.data": {
+      "storybook": "./src/.vitepress/browser-loader.data.mock.ts",
+      "default": "./src/.vitepress/browser-loader.data.ts"
+    }
   }
 }

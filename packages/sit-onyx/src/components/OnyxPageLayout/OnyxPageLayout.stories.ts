@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxInput from "../OnyxInput/OnyxInput.vue";
+import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
+import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
 /**
@@ -41,6 +45,13 @@ const meta: Meta<typeof OnyxPageLayout> = {
 
 export default meta;
 type Story = StoryObj<typeof OnyxPageLayout>;
+
+const EXAMPLE_OPTIONS = [
+  { label: "Green", value: 1 },
+  { label: "Red", value: 2 },
+  { label: "Pink", value: 3 },
+  { label: "Yellow", value: 4 },
+];
 
 /** A standard page with some content. */
 export const Default = {
@@ -92,4 +103,39 @@ export const WithPartialFooter = {
     ...WithSidebarAndFooter.args,
     footerAsideSidebar: true,
   },
+} satisfies Story;
+
+/** A standard page in skeleton mode. */
+export const WithSkeletonComponents = {
+  args: {
+    skeleton: true,
+    default: () => [
+      h("form", { style: { display: "flex", flexDirection: "column", gap: "1rem" } }, [
+        h(OnyxInput, { label: "Favorite band", modelValue: "Que2en", pattern: "[A-Za-z ]+" }),
+        h(OnyxInput, { label: "Favorite password", type: "password", modelValue: "incorrect" }),
+        h(OnyxStepper, { label: "Number of hairs", min: 0, modelValue: 23 }),
+        h(OnyxRadioGroup, {
+          label: "Color choices",
+          options: EXAMPLE_OPTIONS,
+          modelValue: EXAMPLE_OPTIONS[0].value,
+        }),
+        h(
+          "div",
+          {
+            style: { display: "flex", gap: "0.5rem" },
+          },
+          [
+            h(OnyxButton, { label: "Reset", type: "reset", mode: "outline" }),
+            h(OnyxButton, { label: "Submit", type: "submit", formmethod: "dialog" }), // we use formmethod `dialog` to avoid a page load on submit
+          ],
+        ),
+      ]),
+    ],
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="height: 30rem; width: 16rem; padding: 0.3rem"> <story /> </div>`,
+    }),
+  ],
 } satisfies Story;

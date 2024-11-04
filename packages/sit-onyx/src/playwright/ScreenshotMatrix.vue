@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 
+defineSlots<{
+  default: () => unknown;
+}>();
+
 const props = defineProps<{
   /**
    * Test name. Will be displayed above the matrix screenshot and be used as filename.
@@ -68,7 +72,7 @@ const gridTemplateAreas = computed(() => {
       </div>
 
       <!-- blank / placeholder element for the first column/row to align the matrix correctly -->
-      <div style="grid-area: blank"></div>
+      <div class="grid__blank"></div>
 
       <slot></slot>
     </div>
@@ -104,6 +108,9 @@ const gridTemplateAreas = computed(() => {
 
   &__label {
     text-align: center;
+  }
+  &__blank {
+    grid-area: blank;
   }
 }
 </style>

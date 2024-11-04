@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import type { OnyxVisuallyHiddenProps } from "./types";
 
+defineSlots<{
+  /**
+   * Content that should be visually hidden.
+   */
+  default: () => unknown;
+}>();
+
 const props = withDefaults(defineProps<OnyxVisuallyHiddenProps>(), { is: "span" });
 </script>
 

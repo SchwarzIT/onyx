@@ -118,12 +118,6 @@ export const WithMessage: Story = {
     message: "Example message",
     messageTooltip: "Additional info message",
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-bottom: 2rem"> <story /> </div>`,
-    }),
-  ],
 };
 
 /**
@@ -134,12 +128,6 @@ export const WithLabelTooltip: Story = {
     ...Default.args,
     labelTooltip: "More information",
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-top: 2rem"> <story /> </div>`,
-    }),
-  ],
 };
 
 /**

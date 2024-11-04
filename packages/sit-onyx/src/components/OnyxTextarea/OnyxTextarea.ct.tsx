@@ -336,8 +336,8 @@ test("should autosize", async ({ mount }) => {
 
   const expectRows = async (rows: number) => {
     const actualHeight = await getHeight();
-    // 24px line height, 2x8px padding, 2x1px border
-    expect(actualHeight).toBe(rows * 24 + 16 + 2);
+    // 24px line height, 2x8px padding, 2x1px border, 2px formelement-footer
+    expect(actualHeight).toBe(rows * 24 + 16 + 2 + 2);
   };
 
   const generateModelValue = (rows: number) => {

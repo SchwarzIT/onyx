@@ -25,7 +25,7 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-const currentValue = ref(props.modelValue);
+const currentValue = ref<ColorSchemeValue>();
 watchEffect(() => (currentValue.value = props.modelValue));
 
 const { t } = injectI18n();

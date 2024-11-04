@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, toRef, useId, watch, watchEffect } from "vue";
+import { computed, nextTick, ref, toRef, toRefs, useId, watch, watchEffect } from "vue";
 import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
@@ -240,15 +240,17 @@ const onSelect = (selectedOption: TValue) => {
 
 const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
 
+const { label, listLabel, listDescription, multiple } = toRefs(props);
+
 const {
   elements: { input, option: headlessOption, group: headlessGroup, listbox },
 } = createComboBox({
   autocomplete,
-  label: props.label,
-  listLabel: props.listLabel,
-  listDescription: props.listDescription,
+  label,
+  listLabel,
+  listDescription,
+  multiple,
   activeOption: computed(() => activeValue.value),
-  multiple: computed(() => props.multiple),
   isExpanded: open,
   templateRef: selectRef,
   onToggle,

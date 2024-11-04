@@ -1,11 +1,13 @@
 import type { DensityProp } from "../../composables/density";
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
+import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 
-export type OnyxInputProps = DensityProp &
+export type OnyxInputProps = FormInjectedProps &
+  DensityProp &
   RequiredMarkerProp &
   CustomValidityProp &
   Omit<OnyxFormElementProps, "modelValue" | "errorMessages"> &
@@ -53,16 +55,12 @@ export type OnyxInputProps = DensityProp &
      */
     readonly?: boolean;
     /**
-     * Whether the input should be disabled.
-     */
-    disabled?: FormInjected<boolean>;
-    /**
      * Whether the input is loading. User interaction will be disabled.
      */
     loading?: boolean;
     /**
      * Minimum number of characters that have to to be entered.
-     * Warning: when the value is (pre)set programatically,
+     * Warning: when the value is (pre)set programmatically,
      * the input invalidity will not be detected by the browser, it will only turn invalid
      * as soon as a user interacts with the input (types something).
      */
@@ -70,7 +68,7 @@ export type OnyxInputProps = DensityProp &
     /**
      * Whether to show a skeleton input.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

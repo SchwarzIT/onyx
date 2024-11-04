@@ -23,6 +23,7 @@ provide(
 );
 </script>
 
+<!-- eslint-disable vue/no-static-inline-styles -->
 <template>
   <OnyxNavButton
     style="width: 24rem"

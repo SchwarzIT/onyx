@@ -203,12 +203,12 @@ test("should update translation when locale changes", () => {
   // ACT #1
   const message = vue.computed(() => t.value("helloWorld" as TestTranslationKey));
   // ASSERT #1
-  expect(message.value).toBe("Hello World");
+  expect(vue.toValue(message)).toBe("Hello World");
 
   // ACT #2
   locale.value = "de-DE";
   // ASSERT #2
-  expect(message.value).toBe("Hallo Welt");
+  expect(vue.toValue(message)).toBe("Hallo Welt");
 });
 
 test("should use English fallback if translation is missing", () => {

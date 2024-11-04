@@ -1,18 +1,16 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
+import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types";
 import type { Autocomplete } from "../OnyxInput/types";
 
-export type OnyxStepperProps = DensityProp &
+export type OnyxStepperProps = FormInjectedProps &
+  DensityProp &
   CustomValidityProp &
   Omit<OnyxFormElementProps, "modelValue" | "errorMessages" | "withCounter" | "maxlength"> &
   AutofocusProp & {
-    /**
-     * Current value of the input.
-     */
-    modelValue?: number;
     /**
      * Same as the native `name` attribute of `<input>`.
      * Used to reference the input in JavaScript or in submitted form data.
@@ -33,7 +31,27 @@ export type OnyxStepperProps = DensityProp &
     /**
      * Incremental step.
      */
-    step?: number;
+    /**
+     * Incremental step.
+     * @deprecated
+     */
+    step?: number; // step-mismatch + step-increment
+
+    /**
+     * The smallest allowed value and rounded precision
+     */
+    precision?: number; // step-mismatch => uses :step="props.precision" for the validation
+    /**
+     * The increment number
+     * @default precision is the default stepSize
+     */
+    stepSize?: number; //  step-increment => number which is used for increment/decrement
+
+    /**
+     * Ensure no wrong number can be inputed
+     */
+    stripStep?: boolean;
+
     /**
      * Specify how to provide automated assistance in filling out the input.
      * Some autocomplete values might required specific browser permissions to be allowed by the user.
@@ -42,10 +60,6 @@ export type OnyxStepperProps = DensityProp &
      * @see [MDN autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
      */
     autocomplete?: Autocomplete;
-    /**
-     * Whether to disable the input and prevent user interaction.
-     */
-    disabled?: FormInjected<boolean>;
     /**
      * Whether the input should be readonly.
      */
@@ -57,5 +71,5 @@ export type OnyxStepperProps = DensityProp &
     /**
      * Whether to show a skeleton input.
      */
-    skeleton?: boolean;
+    skeleton?: SkeletonInjected;
   };

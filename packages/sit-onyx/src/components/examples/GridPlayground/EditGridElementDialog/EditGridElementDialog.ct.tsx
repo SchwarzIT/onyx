@@ -47,6 +47,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
 
   // ACT
   await smBreakpointStepper.fill("2");
+  await page.keyboard.press("Tab");
 
   // ASSERT
   await expect(
@@ -56,7 +57,6 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
 
   // ACT
   await dialog.getByRole("button", { name: "Apply" }).click();
-
   // ASSERT
   expect(submitEvents).toStrictEqual([
     { columnCount: 4, breakpoints: {} },

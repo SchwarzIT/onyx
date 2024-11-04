@@ -2,6 +2,7 @@
 import { useId } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -13,12 +14,14 @@ const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
   direction: "vertical",
   required: false,
   disabled: FORM_INJECTED_SYMBOL,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
 const { densityClass } = useDensity(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { disabled } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
 
 const emit = defineEmits<{
   "update:modelValue": [selected: TValue];
@@ -36,22 +39,22 @@ const handleChange = (selected: boolean, value: TValue) => {
 
 <template>
   <fieldset
-    :class="['onyx-radio-button-group', densityClass, requiredTypeClass]"
+    :class="['onyx-radio-group', densityClass, requiredTypeClass]"
     :disabled="disabled"
     role="radiogroup"
     :aria-label="props.label"
   >
-    <legend v-if="!props.hideLabel" class="onyx-radio-button-group__headline">
+    <legend v-if="!props.hideLabel" class="onyx-radio-group__headline">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
         {{ props.label }}
       </OnyxHeadline>
     </legend>
 
     <div
-      class="onyx-radio-button-group__content"
-      :class="{ 'onyx-radio-button-group__content--horizontal': props.direction === 'horizontal' }"
+      class="onyx-radio-group__content"
+      :class="{ 'onyx-radio-group__content--horizontal': props.direction === 'horizontal' }"
     >
-      <template v-if="props.skeleton === undefined">
+      <template v-if="!skeleton">
         <OnyxRadioButton
           v-for="(option, index) in props.options"
           :key="option.value.toString()"
@@ -66,9 +69,9 @@ const handleChange = (selected: boolean, value: TValue) => {
         />
       </template>
 
-      <template v-else>
+      <template v-else-if="typeof skeleton === 'number'">
         <OnyxRadioButton
-          v-for="i in props.skeleton"
+          v-for="i in skeleton"
           :id="`skeleton-${i}`"
           :key="i"
           :value="`skeleton-${i}`"
@@ -84,7 +87,7 @@ const handleChange = (selected: boolean, value: TValue) => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-.onyx-radio-button-group {
+.onyx-radio-group {
   @include layers.component() {
     padding: 0;
     border: none;

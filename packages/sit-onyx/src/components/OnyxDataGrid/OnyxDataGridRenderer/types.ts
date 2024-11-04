@@ -97,7 +97,7 @@ export type DataGridRendererCellComponentProps<
   /**
    * Complete row data.
    */
-  row: TEntry;
+  row: Readonly<TEntry>;
   /**
    * Cell data that is provided to the component via the `metadata` prop.
    */

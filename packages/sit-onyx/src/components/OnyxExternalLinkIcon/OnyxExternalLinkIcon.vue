@@ -16,6 +16,7 @@ const isVisible = computed(() => {
 });
 </script>
 
+<!-- eslint-disable-next-line vue/no-root-v-if -->
 <template>
   <OnyxIcon
     v-if="isVisible"
