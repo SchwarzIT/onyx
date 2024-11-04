@@ -4,18 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@vue/compiler-dom':
-      specifier: 3.5.12
-      version: 3.5.12
-    chart.js:
-      specifier: ^4.4.5
-      version: 4.4.5
-    sass-embedded:
-      specifier: 1.80.4
-      version: 1.80.4
-
 overrides:
   vue: 3.5.12
 
@@ -47,9 +35,6 @@ importers:
       '@playwright/test':
         specifier: ^1.48.2
         version: 1.48.2
-      '@rushstack/eslint-patch':
-        specifier: ^1.10.4
-        version: 1.10.4
       '@storybook/addon-essentials':
         specifier: ^8.3.5
         version: 8.4.0(@types/react@18.3.12)(storybook@8.4.0(prettier@3.3.3))(webpack-sources@3.2.3)
@@ -62,9 +47,6 @@ importers:
       '@storybook/vue3-vite':
         specifier: ^8.3.5
         version: 8.4.0(storybook@8.4.0(prettier@3.3.3))(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.5)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))(webpack-sources@3.2.3)
-      '@tsconfig/node20':
-        specifier: ^20.1.4
-        version: 20.1.4
       '@tsconfig/node22':
         specifier: ^22.0.0
         version: 22.0.0
@@ -2083,9 +2065,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rushstack/eslint-patch@1.10.4':
-    resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}
-
   '@shikijs/core@1.22.1':
     resolution: {integrity: sha512-bqAhT/Ri5ixV4oYsvJNH8UJjpjbINWlWyXY6tBTsP4OmD6XnFv43nRJ+lTdxd2rmG5pgam/x+zGR6kLRXrpEKA==}
 
@@ -2301,9 +2280,6 @@ packages:
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
-
-  '@tsconfig/node20@20.1.4':
-    resolution: {integrity: sha512-sqgsT69YFeLWf5NtJ4Xq/xAF8p4ZQHlmGW74Nu2tD4+g5fAsposc4ZfaaPixVu4y01BEiDCWLRDCvDM5JOsRxg==}
 
   '@tsconfig/node22@22.0.0':
     resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
@@ -8669,8 +8645,6 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.24.0':
     optional: true
 
-  '@rushstack/eslint-patch@1.10.4': {}
-
   '@shikijs/core@1.22.1':
     dependencies:
       '@shikijs/engine-javascript': 1.22.1
@@ -8999,8 +8973,6 @@ snapshots:
       vue-component-type-helpers: 2.1.10
 
   '@trysound/sax@0.2.0': {}
-
-  '@tsconfig/node20@20.1.4': {}
 
   '@tsconfig/node22@22.0.0': {}
 
