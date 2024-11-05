@@ -73,7 +73,8 @@
   },
   "pnpm": {
     "overrides": {
-      "vue": "catalog:"
+      "vue": "catalog:",
+      "sass-embedded": "catalog:"
     }
   }
 }

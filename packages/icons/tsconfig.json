@@ -5,6 +5,7 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "types": ["node"],
+    "outDir": "./dist",
     "verbatimModuleSyntax": true,
     "resolveJsonModule": true
   }

@@ -1,11 +1,11 @@
-import vue from "@vitejs/plugin-vue";
+import vue, { type Api } from "@vitejs/plugin-vue";
 import { deprecations, type Deprecation, type Options } from "sass-embedded";
-import type { UserConfig } from "vite";
+import type { Plugin, UserConfig } from "vite";
 
 type ViteScssOptions = Options<"async"> & { api: "modern-compiler" };
 
 export const VITE_BASE_CONFIG = {
-  plugins: [vue()],
+  plugins: [vue() as Plugin<Api>],
   css: {
     preprocessorOptions: {
       scss: {
@@ -17,4 +17,4 @@ export const VITE_BASE_CONFIG = {
       } satisfies ViteScssOptions,
     },
   },
-} satisfies UserConfig;
+} as const satisfies UserConfig;

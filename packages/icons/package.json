@@ -22,6 +22,7 @@
     "./*": "./src/assets/*"
   },
   "scripts": {
+    "build": "tsc",
     "test": "vitest",
     "generate:changeset": "tsx ./scripts/changeset.ts"
   },
