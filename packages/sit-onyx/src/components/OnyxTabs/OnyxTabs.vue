@@ -1,16 +1,16 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { createTabs } from "@sit-onyx/headless";
 import { provide, ref, toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { TABS_INJECTION_KEY, type OnyxTabsProps } from "./types";
 
-const props = defineProps<OnyxTabsProps>();
+const props = defineProps<OnyxTabsProps<TValue>>();
 
 const emit = defineEmits<{
   /**
    * Emitted when the currently active tab changes.
    */
-  "update:modelValue": [value: PropertyKey];
+  "update:modelValue": [value: TValue];
 }>();
 
 const { densityClass } = useDensity(props);
