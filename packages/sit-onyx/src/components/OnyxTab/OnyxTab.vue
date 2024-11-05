@@ -85,13 +85,17 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
       }
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       background-color: var(--onyx-color-base-neutral-200);
     }
 
     &:focus-visible {
-      background-color: var(--onyx-color-base-background-blank);
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
+    }
+
+    &:active {
+      color: var(--onyx-color-text-icons-primary-bold);
     }
 
     &__label {

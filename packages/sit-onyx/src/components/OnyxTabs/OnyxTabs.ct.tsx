@@ -11,7 +11,9 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Tabs",
     columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible"],
+    rows: ["default", "hover", "active", "focus-visible"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => {
       return (
         <OnyxTabs label="Example tabs" modelValue="tab-1" density={column}>
@@ -25,8 +27,14 @@ test.describe("Screenshot tests", () => {
       );
     },
     beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.getByRole("tab", { name: "Tab 1" }).hover();
+      const tab1 = component.getByRole("tab", { name: "Tab 1" });
+      if (row === "hover") await tab1.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "active") {
+        const box = (await tab1.boundingBox())!;
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await page.mouse.down();
+      }
     },
   });
 });
