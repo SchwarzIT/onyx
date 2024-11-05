@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { createTabs } from "@sit-onyx/headless";
 import { provide, ref, toRef } from "vue";
+import { useDensity } from "../../composables/density";
 import { TABS_INJECTION_KEY, type OnyxTabsProps } from "./types";
 
 const props = defineProps<OnyxTabsProps>();
@@ -11,6 +12,8 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value: PropertyKey];
 }>();
+
+const { densityClass } = useDensity(props);
 
 const headless = createTabs({
   label: toRef(props, "label"),
@@ -31,7 +34,7 @@ provide(TABS_INJECTION_KEY, { headless, panelRef });
 </script>
 
 <template>
-  <div ref="panelRef" class="onyx-tabs">
+  <div ref="panelRef" :class="['onyx-tabs', densityClass]">
     <div v-bind="headless.elements.tablist" class="onyx-tabs__tablist">
       <!-- TABS -->
       <slot></slot>
