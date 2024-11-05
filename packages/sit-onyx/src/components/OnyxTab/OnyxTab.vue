@@ -76,6 +76,7 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
           height: 0.125rem;
           background-color: var(--onyx-color-base-primary-500);
           width: calc(100% - 2 * var(--onyx-density-xs));
+          min-width: 1rem;
 
           position: absolute;
           left: 50%;
