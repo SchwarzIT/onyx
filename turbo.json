@@ -16,6 +16,9 @@
     "test:components": {
       "outputs": ["playwright-report", "test-results"]
     },
+    "sit-onyx#test:components": {
+      "dependsOn": ["sit-onyx#build"]
+    },
     "test:integration": {
       "dependsOn": ["sit-onyx#build", "build"],
       "outputs": ["playwright-report", "test-results"]
