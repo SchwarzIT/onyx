@@ -35,7 +35,7 @@ provide(TABS_INJECTION_KEY, { headless, panelRef });
 
 <template>
   <div ref="panelRef" :class="['onyx-tabs', densityClass]">
-    <div v-bind="headless.elements.tablist" class="onyx-tabs__tablist">
+    <div v-bind="headless.elements.tablist.value" class="onyx-tabs__tablist">
       <!-- TABS -->
       <slot></slot>
     </div>
