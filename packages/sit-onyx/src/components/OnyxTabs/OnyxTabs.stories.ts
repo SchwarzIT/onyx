@@ -42,3 +42,10 @@ export const Default = {
     ],
   },
 } satisfies Story;
+
+export const Stretched = {
+  args: {
+    ...Default.args,
+    stretched: true,
+  },
+} satisfies Story;
