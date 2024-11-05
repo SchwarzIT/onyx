@@ -28,7 +28,9 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
     v-bind="tabsContext?.headless.elements.tab.value({ value: props.value })"
     type="button"
   >
-    <slot name="tab">{{ props.label }}</slot>
+    <div class="onyx-tab__label">
+      <slot name="tab">{{ props.label }}</slot>
+    </div>
   </button>
 
   <!-- The <Teleport> is used because we want to offer a nice API for the user
@@ -53,19 +55,12 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
 
 .onyx-tab {
   @include layers.component() {
-    --padding-vertical: var(--onyx-density-xs);
-    --padding-inline: var(--onyx-density-md);
-
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-medium);
     border-radius: var(--onyx-radius-sm);
-    padding: var(--padding-vertical) var(--padding-inline);
+    padding: var(--onyx-density-xs) var(--onyx-density-md);
     cursor: pointer;
     font-weight: 600;
-
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-density-xs);
 
     // reset button styles
     border: none;
@@ -73,18 +68,19 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
 
     &--active {
       color: var(--onyx-color-text-icons-neutral-intense);
-      position: relative;
 
-      &::after {
-        content: "";
-        height: 0.125rem;
-        background-color: var(--onyx-color-base-primary-500);
-        width: calc(100% - 2 * var(--onyx-density-md) - 2 * var(--onyx-density-xs));
+      .onyx-tab__label {
+        &::after {
+          content: "";
+          height: 0.125rem;
+          background-color: var(--onyx-color-base-primary-500);
+          width: calc(100% - 2 * var(--onyx-density-xs));
 
-        position: absolute;
-        left: 50%;
-        bottom: calc(var(--padding-vertical) - var(--onyx-density-3xs));
-        transform: translateX(-50%);
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+        }
       }
     }
 
@@ -95,6 +91,14 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
     &:focus-visible {
       background-color: var(--onyx-color-base-background-blank);
       outline: 0.25rem solid var(--onyx-color-base-primary-200);
+    }
+
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-density-xs);
+      position: relative;
+      padding-bottom: var(--onyx-density-3xs);
     }
 
     &__panel {
