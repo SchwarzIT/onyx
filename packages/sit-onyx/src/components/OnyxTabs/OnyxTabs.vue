@@ -34,7 +34,10 @@ provide(TABS_INJECTION_KEY, { headless, panelRef });
 </script>
 
 <template>
-  <div ref="panelRef" :class="['onyx-tabs', densityClass]">
+  <div
+    ref="panelRef"
+    :class="['onyx-tabs', densityClass, props.stretched ? 'onyx-tabs--stretched' : '']"
+  >
     <div v-bind="headless.elements.tablist.value" class="onyx-tabs__tablist">
       <!-- TABS -->
       <slot></slot>
@@ -52,6 +55,16 @@ provide(TABS_INJECTION_KEY, { headless, panelRef });
       align-items: center;
       gap: var(--onyx-density-2xs);
       margin-bottom: var(--onyx-density-md);
+    }
+
+    &--stretched {
+      .onyx-tabs__tablist {
+        justify-content: space-between;
+      }
+
+      .onyx-tab {
+        width: 100%;
+      }
     }
   }
 }

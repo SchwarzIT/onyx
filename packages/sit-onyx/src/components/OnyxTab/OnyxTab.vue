@@ -102,6 +102,7 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
     &__label {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: var(--onyx-density-xs);
       position: relative;
       padding-bottom: var(--onyx-density-3xs);

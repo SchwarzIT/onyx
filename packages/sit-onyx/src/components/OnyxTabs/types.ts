@@ -11,6 +11,10 @@ export type OnyxTabsProps<TValue extends PropertyKey = PropertyKey> = DensityPro
    * Currently active tab.
    */
   modelValue: TValue;
+  /**
+   * If `true`, the tabs will be stretched to the full available width.
+   */
+  stretched?: boolean;
 };
 
 /**
