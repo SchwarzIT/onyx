@@ -25,9 +25,9 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
    * Map for looking up tab and panel IDs for given tab keys/values defined by the user.
    * Key = custom value from the user, value = random generated tab and panel ID
    */
-  const idMap = new Map<PropertyKey, { tabId: string; panelId: string }>();
+  const idMap = new Map<T, { tabId: string; panelId: string }>();
 
-  const getId = (value: PropertyKey) => {
+  const getId = (value: T) => {
     if (!idMap.has(value)) {
       idMap.set(value, { tabId: useId(), panelId: useId() });
     }
