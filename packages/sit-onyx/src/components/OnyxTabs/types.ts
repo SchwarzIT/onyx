@@ -17,6 +17,13 @@ export type OnyxTabsProps = {
  * individual child tab components.
  */
 export const TABS_INJECTION_KEY = Symbol() as InjectionKey<{
+  /**
+   * Headless composable provided for child tabs for correct accessibility and behavior.
+   */
   headless: ReturnType<typeof createTabs>;
+  /**
+   * Ref to the parent tabs element where the child tabs should be teleported to
+   * to maintain the correct HTML structure.
+   */
   panelRef: Ref<HTMLElement | undefined>;
 }>;
