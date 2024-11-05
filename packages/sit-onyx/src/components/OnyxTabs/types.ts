@@ -1,7 +1,8 @@
 import type { createTabs } from "@sit-onyx/headless";
 import type { InjectionKey, Ref } from "vue";
+import type { DensityProp } from "../../composables/density";
 
-export type OnyxTabsProps = {
+export type OnyxTabsProps = DensityProp & {
   /**
    * Label of the tabs. Needed for accessibility / screen readers.
    */

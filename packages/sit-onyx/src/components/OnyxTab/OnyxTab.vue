@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
+import { useDensity } from "../../composables/density";
 import { TABS_INJECTION_KEY } from "../OnyxTabs/types";
 import type { OnyxTabProps } from "./types";
 
@@ -16,6 +17,7 @@ defineSlots<{
   tab?(): unknown;
 }>();
 
+const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
 
 const isActive = computed(() => tabsContext?.headless.state.isVisible.value(props.value) ?? false);
@@ -23,8 +25,7 @@ const isActive = computed(() => tabsContext?.headless.state.isVisible.value(prop
 
 <template>
   <button
-    class="onyx-tab onyx-text--large"
-    :class="{ 'onyx-tab--active': isActive }"
+    :class="['onyx-tab', 'onyx-text--large', densityClass, isActive ? 'onyx-tab--active' : '']"
     v-bind="tabsContext?.headless.elements.tab.value({ value: props.value })"
     type="button"
   >
