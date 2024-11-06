@@ -63,7 +63,8 @@ const emit = defineEmits<{
   line-height: inherit;
 
   &__name {
-    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
+    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
+      var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     font-family: var(--onyx-font-family-mono);
@@ -105,9 +106,6 @@ const emit = defineEmits<{
   &--color {
     .variable {
       &__name {
-        padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
-          var(--onyx-spacing-md);
-
         &::after {
           content: "";
           display: inline-block;

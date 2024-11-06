@@ -30,7 +30,7 @@ const handleCopy = async () => {
 
 <template>
   <div ref="wrapperRef" class="card vp-raw" :class="{ 'card--wide': props.wideName }">
-    <div class="card__wrapper">
+    <div>
       <div class="card__name">
         <slot name="name">
           <DesignVariable :name="props.name" :is-copied="isCopied" allow-copy @copy="handleCopy" />
@@ -53,9 +53,10 @@ const handleCopy = async () => {
 
 .card {
   --padding-inline: var(--onyx-spacing-2xl);
+  --border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
   border-radius: var(--onyx-radius-md);
-  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  border: var(--border);
   background: var(--onyx-color-base-background-blank);
   display: grid;
   grid-template-columns: 1fr 25%;
@@ -64,51 +65,41 @@ const handleCopy = async () => {
     grid-template-columns: 1fr 1fr;
   }
 
-  @include mixins.breakpoint(max, s, -1) {
-    padding: var(--onyx-spacing-md);
-    grid-template-columns: 1fr;
-    gap: var(--onyx-spacing-md);
-  }
-
-  &__wrapper {
+  &__name {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--onyx-spacing-md);
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    padding: var(--onyx-spacing-md) var(--padding-inline);
   }
 
   &__value {
     font-weight: 600;
     color: var(--onyx-color-text-icons-neutral-soft);
+    border-top: var(--border);
+    padding: var(--onyx-spacing-2xs) var(--padding-inline);
   }
 
-  @include mixins.breakpoint(min, s) {
-    &__wrapper {
-      flex-direction: column;
-      align-items: normal;
-      gap: 0;
-    }
+  &__preview {
+    padding: var(--onyx-spacing-md) var(--padding-inline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: var(--border);
+  }
 
-    &__name {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-grow: 1;
-      padding: var(--onyx-spacing-md) var(--padding-inline);
-    }
+  // small breakpoints
+  @include mixins.breakpoint(max, s) {
+    --padding-inline: var(--onyx-spacing-md);
+    grid-template-columns: 1fr;
 
     &__value {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-      padding: var(--onyx-spacing-2xs) var(--padding-inline);
+      border-bottom: var(--border);
     }
 
     &__preview {
-      padding: var(--onyx-spacing-md) var(--padding-inline);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-left: none;
+      justify-content: flex-end;
     }
   }
 }
