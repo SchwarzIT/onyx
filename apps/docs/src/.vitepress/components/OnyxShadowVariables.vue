@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { useData } from "vitepress";
 import DesignVariableCard from "./DesignVariableCard.vue";
+
+const { isDark } = useData();
 
 const shadows = [
   "onyx-shadow-medium-bottom",
@@ -12,7 +15,12 @@ const shadows = [
 </script>
 
 <template>
-  <DesignVariableCard v-for="shadow in shadows" :key="shadow" :name="shadow" class="variable">
+  <DesignVariableCard
+    v-for="shadow in shadows"
+    :key="`${shadow}-${isDark}`"
+    :name="shadow"
+    class="variable"
+  >
     <figure class="preview" :style="{ boxShadow: `var(--${shadow})` }"></figure>
   </DesignVariableCard>
 </template>

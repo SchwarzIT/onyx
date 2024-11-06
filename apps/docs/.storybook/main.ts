@@ -6,10 +6,7 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/vue3-vite",
     options: {
-      docgen: {
-        plugin: "vue-component-meta",
-        tsconfig: "tsconfig.app.json",
-      },
+      docgen: "vue-component-meta",
     },
   },
   core: {
