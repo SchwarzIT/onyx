@@ -85,7 +85,7 @@ defineExpose({
    *
    * ```ts
    * const route = useRoute();
-   * const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+   * const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
    *
    * watch(() => route.path, () => navBarRef.value?.closeMobileMenus());
    * ```

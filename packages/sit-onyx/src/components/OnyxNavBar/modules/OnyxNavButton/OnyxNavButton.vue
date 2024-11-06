@@ -2,9 +2,10 @@
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject, toRef } from "vue";
 import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
+import { useMoreListChild } from "../../../../composables/useMoreList";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
+import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_MORE_LIST_INJECTION_KEY } from "../../types";
 import NavButtonLayout from "./NavButtonLayout.vue";
 import type { OnyxNavButtonProps } from "./types";
 
@@ -38,6 +39,7 @@ const slots = defineSlots<{
 
 const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 const hasChildren = computed(() => !!slots.children);
+const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
 
 const { state: mobileChildrenOpen } = useManagedState(
   toRef(() => props.mobileChildrenOpen),
@@ -56,12 +58,14 @@ const handleParentClick = (event: MouseEvent) => {
 
 <template>
   <NavButtonLayout
+    ref="componentRef"
     v-bind="props"
     v-model:mobile-children-open="mobileChildrenOpen"
     class="onyx-nav-button"
     :class="{
       'onyx-nav-button--mobile': isMobile,
       'onyx-nav-button--active': props.active,
+      'onyx-nav-button--hidden': !isMobile && !isVisible,
     }"
     :is-mobile="isMobile ?? false"
   >
@@ -104,6 +108,10 @@ $border-radius: var(--onyx-radius-sm);
     position: relative;
     $gap: var(--onyx-spacing-2xs);
     list-style: none;
+
+    &--hidden {
+      visibility: hidden;
+    }
 
     &__trigger {
       display: inline-flex;

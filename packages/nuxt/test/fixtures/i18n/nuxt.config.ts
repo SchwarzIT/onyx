@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     strategy: "prefix",
     defaultLocale: "en-US",
     lazy: true,
-    langDir: "./locales",
     locales: [
       // en-US will inherit the default translations for onyx by default as en-US is a supported language
       { code: "en-US", language: "en-US", file: "en-US.json", name: "English (US)" },
@@ -15,7 +14,7 @@ export default defineNuxtConfig({
       { code: "de-DE", language: "de-DE", file: "de-DE.json", name: "Deutsch" },
       // "tlh" is the bcd 47 code for Klingon -> This is a custom translation that doesn't exist in onyx and therefor the project needs to provide them
       { code: "tlh", language: "tlh", file: "tlh.json", name: "tlhIngan" },
-      // int is a fictional language code we might want to support in our app, as the language is not supported by onyx we will create it inside the project and use the onyx translations for de-DE. (See ./i18n/de-DE-onyx.ts)
+      // int is a fictional language code we might want to support in our app, as the language is not supported by onyx we will create it inside the project and use the onyx translations for de-DE. (See ./i18n/locales/de-DE-onyx.ts)
       {
         code: "int",
         language: "de-DE",

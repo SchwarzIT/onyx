@@ -193,6 +193,10 @@
     "category": "Action & Interface",
     "aliases": ["favorite", "marker", "Lesezeichen", "Favorit"]
   },
+  "bookmark-filled": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "box": {
     "category": "Action & Interface",
     "aliases": ["checkbox", "select", "auswählen"]
@@ -833,7 +837,7 @@
   },
   "download": {
     "category": "Network & Infrastructure",
-    "aliases": ["fetch", "receive", "herunterladen", "empfangen", "Pfeil", "Arrow"]
+    "aliases": ["fetch", "receive", "herunterladen", "empfangen", "Pfeil", "Arrow", "export"]
   },
   "draggable": {
     "category": "Action & Interface",
@@ -2088,11 +2092,26 @@
   },
   "share-ios": {
     "category": "Action & Interface",
-    "aliases": ["distribute-apple", "send-ios", "Teilen-iOS", "Senden-iOS"]
+    "aliases": [
+      "distribute-apple",
+      "send-ios",
+      "Teilen-iOS",
+      "Senden-iOS",
+      "export",
+      "teilen",
+      "exportieren"
+    ]
   },
   "share-web": {
     "category": "Action & Interface",
-    "aliases": ["distribute-online", "send-internet", "Teilen-Web", "abspringen"]
+    "aliases": [
+      "distribute-online",
+      "send-internet",
+      "Teilen-Web",
+      "abspringen",
+      "exportieren",
+      "export"
+    ]
   },
   "shield": {
     "category": "Security & Protection",
