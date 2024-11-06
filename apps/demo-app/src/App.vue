@@ -12,7 +12,7 @@ import {
   OnyxUserMenu,
   type OnyxNavButtonProps,
 } from "sit-onyx";
-import { ref, watch } from "vue";
+import { ref, watch, type ComponentInstance } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -30,7 +30,7 @@ const navItems = [
 
 const { store: colorScheme } = useColorMode();
 
-const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
 
 watch(
   () => route.path,

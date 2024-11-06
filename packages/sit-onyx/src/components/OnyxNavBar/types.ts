@@ -1,4 +1,5 @@
 import type { ComputedRef, InjectionKey } from "vue";
+import type { MoreListInjectionKey } from "../../composables/useMoreList";
 import type { OnyxBreakpoint } from "../../types";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
@@ -29,3 +30,5 @@ export type OnyxNavBarProps = Omit<OnyxNavAppAreaProps, "label"> & {
  * @returns `true` if mobile, `false` otherwise
  */
 export const MOBILE_NAV_BAR_INJECTION_KEY = Symbol() as InjectionKey<ComputedRef<boolean>>;
+
+export const NAV_BAR_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;
