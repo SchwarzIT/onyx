@@ -14,7 +14,7 @@ export type CustomValidityProp = {
    */
   customError?: CustomMessageType;
   /**
-   * Success message to show. Will only show up after the user has interacted with the input.
+   * Success message to show.
    */
   successMessage?: CustomMessageType;
 };
@@ -60,6 +60,10 @@ export type FormMessages = {
    * An extended informative message to provide more info
    */
   longMessage?: string;
+  /**
+   * Will visually hide the message
+   */
+  hidden?: boolean;
 };
 
 /**
@@ -71,7 +75,7 @@ export const getFormMessages = (customMessage?: CustomMessageType): FormMessages
     // we can't guarantee a custom message will be short,
     // so in case it overflows, by adding it to "longMessage",
     // it will still be visible in a tooltip
-    return { shortMessage: customMessage, longMessage: customMessage };
+    return { shortMessage: customMessage, longMessage: customMessage, hidden: false };
   }
   return customMessage;
 };
@@ -211,7 +215,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   });
 
   const successMessages = computed<FormMessages | undefined>(() => {
-    if (validityState.value === undefined || !validityState.value.valid) return;
+    if (validityState.value !== undefined && !validityState.value.valid) return;
 
     return getFormMessages(options.props.successMessage);
   });

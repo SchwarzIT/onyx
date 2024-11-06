@@ -49,11 +49,14 @@ defineSlots<{
     </div>
     <slot :id="props.id"></slot>
     <div class="onyx-form-element__footer onyx-text--small">
-      <span v-if="errorMessages" class="onyx-form-element__error-message onyx-truncation-ellipsis">
+      <span
+        v-if="!errorMessages?.hidden && errorMessages?.shortMessage"
+        class="onyx-form-element__error-message onyx-truncation-ellipsis"
+      >
         {{ errorMessages.shortMessage }}
       </span>
       <OnyxInfoTooltip
-        v-if="errorMessages?.longMessage"
+        v-if="!errorMessages?.hidden && errorMessages?.longMessage"
         class="onyx-form-element__error-tooltip"
         color="danger"
         position="bottom"
@@ -71,6 +74,22 @@ defineSlots<{
         position="bottom"
         open="hover"
         :text="props.messageTooltip"
+      />
+
+      <span
+        v-if="!successMessages?.hidden && successMessages?.shortMessage"
+        class="onyx-form-element__success-message onyx-truncation-ellipsis"
+      >
+        {{ successMessages.shortMessage }}
+      </span>
+      <OnyxInfoTooltip
+        v-if="!successMessages?.hidden && successMessages?.longMessage"
+        class="onyx-form-element__success-tooltip"
+        color="success"
+        position="bottom"
+        :label="t('tooltip.success')"
+        open="hover"
+        :text="successMessages.longMessage"
       />
       <span v-if="counterText" class="onyx-form-element__counter">
         {{ counterText }}
@@ -124,7 +143,8 @@ defineSlots<{
 
     &__label-tooltip,
     &__message-tooltip,
-    &__error-tooltip {
+    &__error-tooltip,
+    &__success-tooltip {
       margin-left: $footer-gap;
     }
 
@@ -159,6 +179,11 @@ defineSlots<{
     &__message,
     &__message-tooltip {
       display: var(--message-display, block);
+    }
+
+    &__success-message,
+    &__success-tooltip {
+      color: var(--onyx-color-base-success-700);
     }
   }
 }

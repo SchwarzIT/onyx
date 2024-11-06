@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
+  showSuccess: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -33,7 +34,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages, successMessages } = useCustomValidity({ props, emit });
 
 const { densityClass } = useDensity(props);
 
@@ -50,7 +51,7 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const { disabled, showError } = useFormContext(props);
+const { disabled, showError, showSuccess } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 </script>
@@ -62,7 +63,11 @@ const errorClass = useErrorClass(showError);
   </div>
 
   <div v-else :class="['onyx-input', densityClass, errorClass]">
-    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
+    <OnyxFormElement
+      v-bind="props"
+      :error-messages="errorMessages"
+      :success-messages="successMessages"
+    >
       <template #default="{ id: inputId }">
         <div class="onyx-input__wrapper">
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
@@ -72,6 +77,7 @@ const errorClass = useErrorClass(showError);
             v-custom-validity
             :placeholder="props.placeholder"
             class="onyx-input__native"
+            :class="{ 'onyx-input__success': showSuccess && successMessages }"
             :type="props.type"
             :required="props.required"
             :autocapitalize="props.autocapitalize"

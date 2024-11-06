@@ -157,6 +157,22 @@ export const CustomError: Story = {
 };
 
 /**
+ * This example shows an input with a success message.
+ * Will only be shown after user interaction.
+ */
+export const SuccessInput: Story = {
+  args: {
+    ...Default.args,
+    showSuccess: true,
+    successMessage: {
+      shortMessage: "Example success message",
+      longMessage: "This text might inform the users that the text is valid.",
+    },
+    modelValue: "Test success value",
+  },
+};
+
+/**
  * This example shows an input with info label tooltip.
  */
 export const WithLabelTooltip: Story = {

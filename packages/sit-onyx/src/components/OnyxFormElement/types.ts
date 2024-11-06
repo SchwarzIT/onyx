@@ -42,6 +42,10 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
    */
   errorMessages?: FormMessages;
   /**
+   * Success messages that inform about the state of form components
+   */
+  successMessages?: FormMessages;
+  /**
    * Maximum number of characters that are allowed to be entered.
    * Warning: when the value is (pre)set programmatically,
    * the input invalidity will not be detected by the browser, it will only turn invalid

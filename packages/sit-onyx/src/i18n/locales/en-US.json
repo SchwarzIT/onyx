@@ -103,7 +103,8 @@
   },
   "tooltip": {
     "info": "Toggle info tooltip",
-    "error": "Toggle error tooltip"
+    "error": "Toggle error tooltip",
+    "success": "Toggle success tooltip"
   },
   "colorScheme": {
     "headline": "Change appearance",

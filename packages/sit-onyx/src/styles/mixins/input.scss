@@ -72,6 +72,10 @@
         background-color: var(--onyx-color-base-warning-100);
       }
     }
+
+    &:has(#{$base-selector}__success) {
+      --border-color: var(--onyx-color-base-success-500);
+    }
   }
 
   &__loading {
