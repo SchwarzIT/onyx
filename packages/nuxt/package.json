@@ -42,9 +42,9 @@
     "@nuxt/module-builder": "~0.8.4",
     "@nuxt/schema": "^3.13.2",
     "@nuxt/test-utils": "^3.14.4",
-    "@nuxtjs/i18n": "^8.5.5",
+    "@nuxtjs/i18n": "^9.0.0",
     "nuxt": "^3.13.2",
-    "vue-i18n": "^9.14.1"
+    "vue-i18n": "^10.0.4"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"

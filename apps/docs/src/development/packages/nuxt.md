@@ -67,7 +67,6 @@ export default defineNuxtConfig({
   modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
   i18n: {
     defaultLocale: "en_US",
-    langDir: "./i18n",
     locales: [
       { code: "en_US", file: "en-US.json", name: "English (US)" },
       { code: "de", file: "de-DE.json", name: "Deutsch" },
