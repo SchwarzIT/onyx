@@ -3,29 +3,16 @@ import checkIcon from "@sit-onyx/icons/check-small.svg?raw";
 import copyIcon from "@sit-onyx/icons/copy.svg?raw";
 import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
 
-const props = withDefaults(
-  defineProps<{
-    /** Variable name. */
-    name: string;
-    /** Value to display */
-    value?: string;
-    /**
-     * Value type.
-     * - color: shows a color preview
-     * - value: shows the plain value
-     *
-     * @default "value"
-     */
-    type?: "color" | "value";
-    /** If true, the user will be able to click the variable to copy its value. */
-    allowCopy?: boolean;
-    /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
-    isCopied?: boolean;
-  }>(),
-  {
-    type: "value",
-  },
-);
+const props = defineProps<{
+  /** Variable name. */
+  name: string;
+  /** Color value to display as preview */
+  color?: string;
+  /** If true, the user will be able to click the variable to copy its value. */
+  allowCopy?: boolean;
+  /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
+  isCopied?: boolean;
+}>();
 
 const emit = defineEmits<{
   copy: [];
@@ -36,14 +23,14 @@ const emit = defineEmits<{
   <button
     :class="{
       variable: true,
-      'variable--color': props.type === 'color',
+      'variable--color': props.color,
       'variable--copyable': props.allowCopy,
     }"
     :disabled="!props.allowCopy"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
   >
-    <div class="variable__name" :class="{ 'variable__name--no-value': !props.value }">
+    <div class="variable__name">
       <span>{{ props.name }}</span>
     </div>
 
@@ -62,7 +49,6 @@ const emit = defineEmits<{
 .variable {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: var(--onyx-spacing-md);
   width: max-content;
   max-width: 100%;
@@ -77,8 +63,7 @@ const emit = defineEmits<{
   line-height: inherit;
 
   &__name {
-    padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
-      var(--onyx-spacing-md);
+    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     font-family: var(--onyx-font-family-mono);
@@ -93,10 +78,6 @@ const emit = defineEmits<{
 
     @include mixins.breakpoint(max, xs) {
       min-width: unset;
-    }
-
-    &--no-value {
-      padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
     }
   }
 
@@ -124,13 +105,16 @@ const emit = defineEmits<{
   &--color {
     .variable {
       &__name {
+        padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
+          var(--onyx-spacing-md);
+
         &::after {
           content: "";
           display: inline-block;
           width: 1.25rem;
           min-width: 1.25rem;
           height: 1.25rem;
-          background-color: v-bind("props.value");
+          background-color: v-bind("props.color");
           border-radius: var(--onyx-radius-sm);
           border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
         }

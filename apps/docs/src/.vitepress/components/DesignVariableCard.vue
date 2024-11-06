@@ -39,7 +39,6 @@ const handleCopy = async () => {
           <ClientOnly>
             <DesignVariable
               :name="props.name"
-              :value="value"
               :is-copied="isCopied"
               allow-copy
               @copy="handleCopy"
