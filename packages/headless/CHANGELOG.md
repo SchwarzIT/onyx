@@ -1,5 +1,13 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.9
+
+### Minor Changes
+
+- 616550f: feat(headless): implement basic tabs composable #2038
+
+  The package now supports a `createTabs` composable and `tabsTesting()` Playwright utility.
+
 ## 1.0.0-beta.8
 
 ### Major Changes

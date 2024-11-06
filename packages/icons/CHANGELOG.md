@@ -1,5 +1,15 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.7
+
+### Minor Changes
+
+- f6f01c6: feat: update icons
+
+  #### New icons
+
+  - bookmark-filled
+
 ## 1.0.0-beta.6
 
 ### Minor Changes

@@ -93,7 +93,7 @@ export const createListbox = createBuilder(
 
     const getOptionId = (value: TValue) => {
       if (!descendantKeyIdMap.has(value)) {
-        descendantKeyIdMap.set(value, useId() ?? value.toString());
+        descendantKeyIdMap.set(value, useId());
       }
       return descendantKeyIdMap.get(value)!;
     };
