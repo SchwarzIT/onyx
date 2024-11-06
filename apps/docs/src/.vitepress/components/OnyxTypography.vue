@@ -50,6 +50,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
         :key="variable.name"
         :name="variable.name"
         :wide-name="props.wideName"
+        hide-value
       >
         <template #name>
           <p
@@ -94,8 +95,8 @@ const getTextSizeClass = (fontSize?: TextSize) => {
   p,
   a {
     margin: 0;
+    padding: 0;
     border: none;
-    padding: 0 var(--onyx-spacing-2xl);
     letter-spacing: normal;
   }
 }
@@ -105,6 +106,10 @@ const getTextSizeClass = (fontSize?: TextSize) => {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-lg);
+
+    .onyx-headline {
+      font-family: inherit;
+    }
   }
 }
 </style>

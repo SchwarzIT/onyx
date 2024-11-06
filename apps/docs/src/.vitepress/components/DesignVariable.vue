@@ -34,11 +34,10 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="variable"
     :class="{
+      variable: true,
       'variable--color': props.type === 'color',
       'variable--copyable': props.allowCopy,
-      'variable__name--no-padding': !props.value,
     }"
     :disabled="!props.allowCopy"
     @click="emit('copy')"
@@ -55,9 +54,6 @@ const emit = defineEmits<{
 
     <OnyxIcon v-else class="variable__copy" :icon="copyIcon" color="primary" />
   </button>
-  <div v-if="props.value && props.type === 'value'" class="variable__value">
-    {{ props.value }}
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -74,8 +70,8 @@ const emit = defineEmits<{
 
   // reset default button styles
   background-color: transparent;
-  padding: 0 var(--onyx-spacing-2xl);
-  margin: auto 0;
+  padding: 0;
+  margin: 0;
   border: none;
   color: inherit;
   line-height: inherit;
@@ -102,17 +98,6 @@ const emit = defineEmits<{
     &--no-value {
       padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xs);
     }
-    &--no-padding {
-      padding: 0;
-    }
-  }
-
-  &__value {
-    color: var(--onyx-color-base-neutral-500);
-    font-weight: 600;
-    font-size: 0.8125rem;
-    border-top: 1px solid var(--onyx-color-base-neutral-300);
-    padding: var(--onyx-spacing-3xs) var(--onyx-spacing-2xl);
   }
 
   &__copy {
