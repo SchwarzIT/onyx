@@ -112,8 +112,7 @@ const handleCopy = async (color: string) => {
         v-if="copiedColor"
         class="palette__copied"
         :name="copiedColor"
-        :value="`var(--${copiedColor})`"
-        type="color"
+        :color="`var(--${copiedColor})`"
         is-copied
       />
     </div>
