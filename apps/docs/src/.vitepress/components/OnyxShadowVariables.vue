@@ -15,6 +15,8 @@ const shadows = [
 </script>
 
 <template>
+  <!-- We need to include isDark in the key because the variable value depends on the light/dark theme.
+       The key ensures that the component is re-rendered whenever the theme is switched.  -->
   <DesignVariableCard
     v-for="shadow in shadows"
     :key="`${shadow}-${isDark}`"
