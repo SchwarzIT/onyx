@@ -117,7 +117,7 @@ export const useMoreList = (options: UseMoreListOptions) => {
 
           changeEntries.forEach((entry) => {
             const elementId = Array.from(options.componentRefs).find(([_, element]) => {
-              return getTemplateRefElement(unref(element))?.isSameNode(entry.target);
+              return getTemplateRefElement(unref(element)) === entry.target;
             })?.[0];
             if (!elementId) return;
 
