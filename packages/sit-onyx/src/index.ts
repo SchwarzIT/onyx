@@ -30,6 +30,9 @@ export * from "./components/OnyxDataGrid/types";
 
 export * as DataGridFeatures from "./components/OnyxDataGrid/features/all";
 
+export { default as OnyxDatepicker } from "./components/OnyxDatepicker/OnyxDatepicker.vue";
+export * from "./components/OnyxDatepicker/types";
+
 export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
 export * from "./components/OnyxDialog/types";
 
