@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { onMounted, ref, watchEffect } from "vue";
-import { getCssVariableValue } from "../utils-browser";
+import { ref, toRef } from "vue";
+import { useCssVariableValue } from "../utils-browser";
 import DesignVariable from "./DesignVariable.vue";
 
 const props = defineProps<{
@@ -15,14 +15,10 @@ const props = defineProps<{
 const wrapperRef = ref<HTMLElement>();
 const isCopied = ref(false);
 
-const value = ref<string>();
-
-// getCssVariableValue() does not work in server side rendering, so we need to make sure that its only
-// called on mounted
-onMounted(() => {
-  watchEffect(() => {
-    value.value = props.hideValue ? undefined : getCssVariableValue(props.name, wrapperRef.value);
-  });
+const { value } = useCssVariableValue({
+  name: toRef(props, "name"),
+  element: wrapperRef,
+  disabled: toRef(props, "hideValue"),
 });
 
 const handleCopy = async () => {
@@ -37,11 +33,6 @@ const handleCopy = async () => {
     <div class="card__wrapper">
       <div class="card__name">
         <slot name="name">
-          <!--
-          client only is needed because we are using "value" here which is
-          using the "getCssVariableValue" function but this is only available
-          inside the browser/client
-         -->
           <DesignVariable :name="props.name" :is-copied="isCopied" allow-copy @copy="handleCopy" />
         </slot>
       </div>
