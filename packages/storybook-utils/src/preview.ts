@@ -40,8 +40,8 @@ export const createPreview = <T extends Preview = Preview>(
   overrides?: T,
 ) => {
   const themes = {
-    light: createTheme(brandDetails),
-    dark: createTheme(brandDetails, "dark"),
+    light: createTheme("light", brandDetails),
+    dark: createTheme("dark", brandDetails),
   } as const;
 
   const defaultPreview = {
