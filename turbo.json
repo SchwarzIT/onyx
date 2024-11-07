@@ -21,12 +21,7 @@
       "dependsOn": ["sit-onyx#build", "build"],
       "outputs": ["playwright-report", "test-results"]
     },
-    "dev": {
-      "dependsOn": ["^build"],
-      "cache": false,
-      "persistent": true
-    },
-    "vite": {
+    "turbo:dev": {
       "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
