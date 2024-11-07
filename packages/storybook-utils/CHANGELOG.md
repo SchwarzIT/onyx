@@ -1,5 +1,13 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.71
+
+### Major Changes
+
+- 7332525: **BREAKING**: Removed brand defaults, `createPreview` now expects a new first parameter which requires brand details to be set.
+  **BREAKING**: Removed brand defaults, `createTheme` now requires brand details to be set, `base: "light" | "dark"` is now the secondary parameter.
+  feat: Added `getCustomProperty` function which is used to load color values for theme.
+
 ## 1.0.0-beta.70
 
 ### Patch Changes
