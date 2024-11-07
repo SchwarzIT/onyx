@@ -35,8 +35,10 @@
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^",
+    "@sit-onyx/storybook-utils": "workspace:^",
     "@vue/compiler-dom": "catalog:",
     "chart.js": "catalog:",
+    "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2"
   }

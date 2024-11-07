@@ -13,15 +13,19 @@
     "url": "https://github.com/schwarzit/onyx/issues"
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
-  "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./dist/index.js"
+    },
     "./metadata": "./src/metadata.json",
     "./*": "./src/assets/*"
   },
   "scripts": {
+    "build": "tsc",
     "test": "vitest",
     "generate:changeset": "tsx ./scripts/changeset.ts"
   },

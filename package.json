@@ -27,8 +27,6 @@
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "^1.48.2",
     "@playwright/test": "^1.48.2",
-    "@sit-onyx/eslint-plugin": "workspace:^",
-    "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-essentials": "^8.4.2",
     "@storybook/blocks": "^8.4.2",
     "@storybook/vue3": "^8.4.2",
@@ -75,7 +73,8 @@
   },
   "pnpm": {
     "overrides": {
-      "vue": "catalog:"
+      "vue": "catalog:",
+      "sass-embedded": "catalog:"
     }
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable playwright/expect-expect */
 import type { Locator, Page } from "@playwright/test";
+import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../playwright/a11y";
-import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "../types";
 
 /**
  * Map of column count per breakpoint.

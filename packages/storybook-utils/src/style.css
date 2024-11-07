@@ -1,0 +1,161 @@
+.onyx-disclaimer {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  line-height: 1.5rem;
+  margin: 1rem 0;
+
+  /* same color as VitePress var(--vp-c-tip-soft) */
+  background-color: color-mix(in srgb, var(--onyx-color-base-info-400) 25%, transparent);
+}
+
+.onyx-disclaimer__title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.onyx-disclaimer p {
+  margin: 0;
+}
+
+/* the Storybook table of content headline is always black so we need to manually set it for the dark mode */
+#storybook-docs .sbdocs-wrapper > div:nth-child(2) {
+  /* same as Storybook color "textMuted" inside ./theme.ts */
+  color: var(--onyx-color-text-icons-neutral-medium);
+}
+
+/* To prevent bg flashing when changing between elements in darkmode */
+.sb-preparing-story,
+.sb-preparing-docs {
+  background-color: transparent;
+}
+/* removed placeholder for the same reason */
+.sb-previewBlock,
+.sb-argstableBlock {
+  display: none;
+}
+
+/* 
+  Copy of ../sit-onyx/src/styles/variables/themes/onyx.css
+  TODO: Find a way to automate this
+ */
+:where(:root),
+.onyx-theme-default {
+  --onyx-color-themed-neutral-100: #fafbfc;
+  --onyx-color-themed-neutral-200: #e3eaf0;
+  --onyx-color-themed-neutral-300: #c9d6e0;
+  --onyx-color-themed-neutral-400: #9db3c4;
+  --onyx-color-themed-neutral-500: #7392aa;
+  --onyx-color-themed-neutral-600: #506e84;
+  --onyx-color-themed-neutral-700: #3e596e;
+  --onyx-color-themed-neutral-800: #31495c;
+  --onyx-color-themed-neutral-900: #22384a;
+  --onyx-color-themed-neutral-1000: #11212d;
+  --onyx-color-themed-neutral-1100: #081723;
+  --onyx-color-themed-neutral-1200: #000e19;
+  --onyx-color-themed-primary-100: #e8fcfc;
+  --onyx-color-themed-primary-200: #bbeaed;
+  --onyx-color-themed-primary-300: #79dde2;
+  --onyx-color-themed-primary-400: #3dd0d8;
+  --onyx-color-themed-primary-500: #00c3cd;
+  --onyx-color-themed-primary-600: #00adb5;
+  --onyx-color-themed-primary-700: #00969d;
+  --onyx-color-themed-primary-800: #008085;
+  --onyx-color-themed-primary-900: #00696e;
+  --onyx-color-themed-primary-1000: #005356;
+  --onyx-color-themed-primary-1100: #003c3e;
+  --onyx-color-themed-primary-1200: #002626;
+  --onyx-color-themed-secondary-100: var(--onyx-color-themed-primary-100);
+  --onyx-color-themed-secondary-200: var(--onyx-color-themed-primary-200);
+  --onyx-color-themed-secondary-300: var(--onyx-color-themed-primary-300);
+  --onyx-color-themed-secondary-400: var(--onyx-color-themed-primary-400);
+  --onyx-color-themed-secondary-500: var(--onyx-color-themed-primary-500);
+  --onyx-color-themed-secondary-600: var(--onyx-color-themed-primary-600);
+  --onyx-color-themed-secondary-700: var(--onyx-color-themed-primary-700);
+  --onyx-color-themed-secondary-800: var(--onyx-color-themed-primary-800);
+  --onyx-color-themed-secondary-900: var(--onyx-color-themed-primary-900);
+  --onyx-color-themed-secondary-1000: var(--onyx-color-themed-primary-1000);
+  --onyx-color-themed-secondary-1100: var(--onyx-color-themed-primary-1100);
+  --onyx-color-themed-secondary-1200: var(--onyx-color-themed-primary-1200);
+  --onyx-color-universal-grayscale-black: #000000;
+  --onyx-color-universal-grayscale-white: #ffffff;
+  --onyx-color-universal-green-100: #ecf8f2;
+  --onyx-color-universal-green-200: #c6e4d5;
+  --onyx-color-universal-green-300: #98d1b3;
+  --onyx-color-universal-green-400: #6ebe94;
+  --onyx-color-universal-green-500: #44aa75;
+  --onyx-color-universal-green-600: #3b9b69;
+  --onyx-color-universal-green-700: #328c5e;
+  --onyx-color-universal-green-800: #297d52;
+  --onyx-color-universal-green-900: #216d46;
+  --onyx-color-universal-green-1000: #185e3a;
+  --onyx-color-universal-green-1100: #064023;
+  --onyx-color-universal-green-1200: #064023;
+  --onyx-color-universal-orange-100: #faf6f2;
+  --onyx-color-universal-orange-200: #f8e7d8;
+  --onyx-color-universal-orange-300: #f6d1b1;
+  --onyx-color-universal-orange-400: #f4b57e;
+  --onyx-color-universal-orange-500: #f2994a;
+  --onyx-color-universal-orange-600: #d98841;
+  --onyx-color-universal-orange-700: #bf7737;
+  --onyx-color-universal-orange-800: #a6662e;
+  --onyx-color-universal-orange-900: #8c5625;
+  --onyx-color-universal-orange-1000: #73451c;
+  --onyx-color-universal-orange-1100: #593412;
+  --onyx-color-universal-orange-1200: #402309;
+  --onyx-color-universal-purple-100: #f4f1f8;
+  --onyx-color-universal-purple-200: #dbcfea;
+  --onyx-color-universal-purple-300: #c2addc;
+  --onyx-color-universal-purple-400: #a98ace;
+  --onyx-color-universal-purple-500: #9068c0;
+  --onyx-color-universal-purple-600: #805aae;
+  --onyx-color-universal-purple-700: #704c9b;
+  --onyx-color-universal-purple-800: #603e89;
+  --onyx-color-universal-purple-900: #513077;
+  --onyx-color-universal-purple-1000: #412265;
+  --onyx-color-universal-purple-1100: #311452;
+  --onyx-color-universal-purple-1200: #210640;
+  --onyx-color-universal-quantitatives-100: #005795;
+  --onyx-color-universal-quantitatives-200: #ff8a25;
+  --onyx-color-universal-quantitatives-300: #e51718;
+  --onyx-color-universal-quantitatives-400: #36b16b;
+  --onyx-color-universal-quantitatives-500: #56d8fc;
+  --onyx-color-universal-quantitatives-600: #ff9990;
+  --onyx-color-universal-quantitatives-700: #ff3fd1;
+  --onyx-color-universal-quantitatives-800: #3c6475;
+  --onyx-color-universal-quantitatives-900: #c4bc81;
+  --onyx-color-universal-quantitatives-1000: #c3143f;
+  --onyx-color-universal-quantitatives-1100: #a09dfa;
+  --onyx-color-universal-quantitatives-1200: #00bcc6;
+  --onyx-color-universal-red-100: #fbefee;
+  --onyx-color-universal-red-200: #f1d2d1;
+  --onyx-color-universal-red-300: #e6a7a5;
+  --onyx-color-universal-red-400: #dc716e;
+  --onyx-color-universal-red-500: #d1332f;
+  --onyx-color-universal-red-600: #bc2d2a;
+  --onyx-color-universal-red-700: #a82824;
+  --onyx-color-universal-red-800: #93221f;
+  --onyx-color-universal-red-900: #7e1d19;
+  --onyx-color-universal-red-1000: #691714;
+  --onyx-color-universal-red-1100: #400c09;
+  --onyx-color-universal-red-1200: #400c09;
+  --onyx-number-radius-100: 0.125rem;
+  --onyx-number-radius-200: 0.25rem;
+  --onyx-number-radius-300: 0.5rem;
+  --onyx-number-radius-400: 1rem;
+  --onyx-number-radius-500: 2rem;
+  --onyx-number-radius-600: 62.5rem;
+  --onyx-number-spacing-0: 0rem;
+  --onyx-number-spacing-100: 0.125rem;
+  --onyx-number-spacing-200: 0.25rem;
+  --onyx-number-spacing-250: 0.375rem;
+  --onyx-number-spacing-300: 0.5rem;
+  --onyx-number-spacing-325: 0.625rem;
+  --onyx-number-spacing-350: 0.75rem;
+  --onyx-number-spacing-400: 1rem;
+  --onyx-number-spacing-500: 1.5rem;
+  --onyx-number-spacing-600: 2rem;
+  --onyx-number-spacing-700: 3rem;
+  --onyx-number-spacing-800: 4rem;
+  --onyx-number-spacing-900: 6rem;
+  --onyx-number-spacing-950: 8rem;
+}

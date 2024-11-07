@@ -17,4 +17,4 @@ export const VITE_BASE_CONFIG = {
       } satisfies ViteScssOptions,
     },
   },
-} satisfies UserConfig;
+} as const satisfies UserConfig;

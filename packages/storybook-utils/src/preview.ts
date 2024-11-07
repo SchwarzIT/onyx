@@ -7,12 +7,7 @@ import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
 import { enhanceEventArgTypes } from "./actions";
 import { requiredGlobalType, withRequired } from "./required";
-import { ONYX_BREAKPOINTS, createTheme } from "./theme";
-
-const themes = {
-  light: createTheme(),
-  dark: createTheme({ base: "dark" }),
-} as const;
+import { ONYX_BREAKPOINTS, createTheme, type BrandDetails } from "./theme";
 
 /**
  * Creates a default Storybook preview configuration for 'onyx' with the following features:
@@ -40,7 +35,15 @@ const themes = {
  * export default preview;
  * ```
  */
-export const createPreview = <T extends Preview = Preview>(overrides?: T) => {
+export const createPreview = <T extends Preview = Preview>(
+  brandDetails: BrandDetails,
+  overrides?: T,
+) => {
+  const themes = {
+    light: createTheme("light", brandDetails),
+    dark: createTheme("dark", brandDetails),
+  } as const;
+
   const defaultPreview = {
     argTypesEnhancers: [enhanceEventArgTypes],
     globalTypes: {

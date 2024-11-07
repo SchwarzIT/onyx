@@ -3,12 +3,8 @@
   "globalDependencies": ["pnpm-lock.yaml"],
   "tasks": {
     "build": {
-      "dependsOn": ["sit-onyx#build"],
-      "outputs": ["dist"]
-    },
-    "sit-onyx#build": {
-      "dependsOn": [],
-      "outputs": ["dist"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "src/.vitepress/dist/**"]
     },
     "build:storybook": {
       "dependsOn": ["build"],
@@ -18,11 +14,17 @@
       "outputs": ["coverage"]
     },
     "test:components": {
+      "dependsOn": ["^build"],
       "outputs": ["playwright-report", "test-results"]
     },
     "test:integration": {
       "dependsOn": ["sit-onyx#build", "build"],
       "outputs": ["playwright-report", "test-results"]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
     },
     "vite": {
       "dependsOn": ["^build"],
