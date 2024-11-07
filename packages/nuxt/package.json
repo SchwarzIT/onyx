@@ -35,12 +35,12 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.13.2"
+    "@nuxt/kit": "^3.14.159"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.6.0",
     "@nuxt/module-builder": "~0.8.4",
-    "@nuxt/schema": "^3.13.2",
+    "@nuxt/schema": "^3.14.159",
     "@nuxt/test-utils": "^3.14.4",
     "@nuxtjs/i18n": "^9.0.0",
     "nuxt": "^3.13.2",
