@@ -1,5 +1,5 @@
 import { h, type Component, type WatchSource } from "vue";
-import type { DataGridRendererColumn, DataGridRendererRow } from "../../..";
+import type { DataGridRendererRow } from "../OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
 
@@ -57,13 +57,13 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
  * });
  * ```
  */
-export const createFeature = <TFeatureName extends symbol, TArgs extends unknown[]>(
+export function createFeature<TFeatureName extends symbol, TArgs extends unknown[]>(
   featureDefinition: <TEntry extends DataGridEntry>(
     ...args: TArgs
   ) => DataGridFeature<TEntry, TFeatureName>,
-) => featureDefinition;
-
-type ExtractTEntry<T> = T extends DataGridFeature<infer I, symbol>[] ? I : never;
+) {
+  return featureDefinition;
+}
 
 /**
  * Uses the defined datagrid features to provide factory functions.
@@ -100,11 +100,11 @@ type ExtractTEntry<T> = T extends DataGridFeature<infer I, symbol>[] ? I : never
  * ```
  */
 export const useDataGridFeatures = <
+  TEntry extends DataGridEntry,
   // Intersection with the empty array is necessary for TypeScript to infer the array entries as tuple values instead of an array
   // e.g. (Feature1 | Feature2)[] vs. [Feature1, Feature2]
   // The inference of tuple values allows us to create types that are more precise
   T extends DataGridFeature<TEntry, symbol>[] | [],
-  TEntry extends DataGridEntry = ExtractTEntry<T>,
 >(
   features: T,
 ) => {

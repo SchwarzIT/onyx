@@ -1,4 +1,8 @@
-<script setup lang="ts" generic="TEntry extends DataGridEntry">
+<script
+  setup
+  lang="ts"
+  generic="TEntry extends DataGridEntry, TFeatures extends DataGridFeature<TEntry, symbol>[] | []"
+>
 import { ref, toRefs, watch, type Ref } from "vue";
 import {
   OnyxDataGridRenderer,
@@ -8,16 +12,17 @@ import {
   type DataGridRendererRow,
   type OnyxDataGridProps,
 } from "../..";
-import { useDataGridFeatures } from "./features";
-import { useDataGridSorting } from "./features/sorting/sorting";
+import { useDataGridFeatures, type DataGridFeature } from "./features";
 
-const props = defineProps<OnyxDataGridProps<TEntry>>();
+const props = withDefaults(defineProps<OnyxDataGridProps<TEntry, TFeatures>>(), {
+  features: () => [] as TFeatures,
+});
 
-const withSorting = useDataGridSorting<TEntry>();
-
-const { watchSources, createRendererRows, createRendererColumns } = useDataGridFeatures([
-  withSorting,
-]);
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss
+const { watchSources, createRendererRows, createRendererColumns } = useDataGridFeatures<
+  TEntry,
+  TFeatures
+>(props.features);
 
 // Using Ref types to avoid `UnwrapRef` issues
 const renderColumns: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
@@ -27,11 +32,11 @@ const { columns, data } = toRefs(props);
 
 watch(
   [columns, data, ...watchSources],
-  ([newColumns, newData]) => {
-    renderColumns.value = createRendererColumns(newColumns);
-    renderRows.value = createRendererRows(newData, newColumns);
+  () => {
+    renderColumns.value = createRendererColumns(columns.value);
+    renderRows.value = createRendererRows(data.value, columns.value);
   },
-  { immediate: true },
+  { immediate: true, deep: true },
 );
 </script>
 
