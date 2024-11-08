@@ -4,6 +4,7 @@
   "exclude": [],
   "compilerOptions": {
     "composite": true,
+    "lib": ["es2021"],
     "types": ["node"]
   }
 }
