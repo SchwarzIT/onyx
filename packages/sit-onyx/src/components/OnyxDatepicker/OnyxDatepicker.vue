@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref, watchEffect, type ComponentInstance } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { isValidDate } from "../../utils/time";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import type { InputType } from "../OnyxInput/types";
-import type { OnyxDatepickerProps } from "./types";
+import type { DateValue, OnyxDatepickerProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxDatepickerProps>(), {
   type: "date",
@@ -28,6 +28,8 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const inputRef = ref<ComponentInstance<typeof OnyxInput>>();
+
 const nativeHTMLType = computed(() => {
   const type = props.type === "datetime" ? "datetime-local" : props.type;
   // casting is intended here since the "InputType" type is restricted by the "OnyxInput"
@@ -37,36 +39,37 @@ const nativeHTMLType = computed(() => {
 });
 
 /**
- * Current model value as `Date` object. Will be checked to be a valid date object.
- */
-const dateModelValue = computed(() => {
-  if (!props.modelValue) return;
-  const date = new Date(props.modelValue);
-  return isValidDate(date) ? date : undefined;
-});
-
-/**
- * Normalized input value based on the input type.
+ * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
+ * Will be checked to be a valid date.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#date_strings
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#local_date_and_time_strings
  */
-const normalizedModelValue = computed(() => {
-  const date = dateModelValue.value;
-  if (!date) return;
+const getNormalizedDate = computed(() => {
+  return (value?: DateValue) => {
+    const date = value != undefined ? new Date(value) : undefined;
+    if (!isValidDate(date)) return;
 
-  const dateString = date.toISOString().split("T")[0];
-  if (props.type === "date") return dateString;
+    const dateString = date.toISOString().split("T")[0];
+    if (props.type === "date") return dateString;
 
-  // for datetime type, the hour must be in the users local timezone so just returning the string returned by `toISOString()` will be invalid
-  // since the timezone offset is missing then
-  return `${dateString}T${padStart(date.getHours())}:${padStart(date.getMinutes())}`;
+    // for datetime type, the hour must be in the users local timezone so just returning the string returned by `toISOString()` will be invalid
+    // since the timezone offset is missing then
+    return `${dateString}T${padStart(date.getHours())}:${padStart(date.getMinutes())}`;
+  };
 });
 
 /**
  * Pad starts the given number with leading zeros if needed to make it 2 digits long.
  */
 const padStart = (value: number) => value.toString().padStart(2, "0");
+
+// sync additional props with native HTML input element
+watchEffect(() => {
+  if (!inputRef.value?.inputRef) return;
+  inputRef.value.inputRef.min = getNormalizedDate.value(props.min) ?? "";
+  inputRef.value.inputRef.max = getNormalizedDate.value(props.max) ?? "";
+});
 
 const handleValueChange = (inputValue: string) => {
   const newDate = new Date(inputValue);
@@ -77,10 +80,11 @@ const handleValueChange = (inputValue: string) => {
 <template>
   <!-- key is needed to keep current value when switching between date and datetime type -->
   <OnyxInput
+    ref="inputRef"
     :key="props.type"
     class="onyx-datepicker"
     v-bind="props"
-    :model-value="normalizedModelValue"
+    :model-value="getNormalizedDate(props.modelValue)"
     :type="nativeHTMLType"
     @update:model-value="handleValueChange"
     @validity-change="emit('validityChange', $event)"
