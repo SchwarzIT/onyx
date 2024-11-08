@@ -4,7 +4,7 @@
   "version": "1.0.0-beta.63",
   "type": "module",
   "scripts": {
-    "dev": "turbo run turbo:dev --filter demo-app",
+    "dev": "turbo run turbo:dev --filter=.",
     "turbo:dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"

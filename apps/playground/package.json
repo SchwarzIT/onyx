@@ -8,7 +8,7 @@
   "private": true,
   "homepage": "https://playground.onyx.schwarz",
   "scripts": {
-    "dev": "turbo run turbo:dev --filter playground",
+    "dev": "turbo run turbo:dev --filter=.",
     "turbo:dev": "vite",
     "preview": "vite preview",
     "build": "pnpm run '/type-check|build-only/'",
