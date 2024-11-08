@@ -1,5 +1,5 @@
 import { h, type Component, type WatchSource } from "vue";
-import type { DataGridRendererRow } from "../OnyxDataGridRenderer/types";
+import type { DataGridRendererColumn, DataGridRendererRow } from "../OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
 
