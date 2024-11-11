@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.64
+
+### Minor Changes
+
+- 744f82e: feat(OnyxDataGrid): Added `features` prop which exposes the `useDataGridFeature` API to allow devs to use custom and pre-defined features
+  feat(OnyxDataGrid): Expose onyx provided features via a re-export called `DataGridFeatures`
+  feat(OnyxDataGrid): Added `DataGridFeatures.useSorting` feature, with support for custom configuration
+
 ## 1.0.0-beta.63
 
 ### Patch Changes
