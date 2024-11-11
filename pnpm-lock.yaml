@@ -351,9 +351,9 @@ importers:
       sass-embedded:
         specifier: 1.80.5
         version: 1.80.5
-      vue:
-        specifier: 3.5.12
-        version: 3.5.12(typescript@5.6.3)
+      vite:
+        specifier: '>= 5'
+        version: 5.4.10(@types/node@22.9.0)(sass-embedded@1.80.5)(sass@1.80.4)(stylus@0.57.0)(terser@5.36.0)
 
   packages/sit-onyx:
     dependencies:
