@@ -1,7 +1,9 @@
+/* eslint-disable vue/no-ref-object-reactivity-loss */
 import { expect, test } from "vitest";
 import { ref } from "vue";
+import type { DataGridEntry } from "../../types";
 import { useDataGridSorting } from "./sorting";
-import type { SortState } from "./types";
+import type { SortColumnOptions, SortState } from "./types";
 
 const getTestArray = () => [
   { id: 1, a: "6", b: "1-End" },
@@ -13,8 +15,10 @@ const getTestArray = () => [
 ];
 
 test("per default should enable show sort symbols and not sort initially", () => {
+  // ARRANGE
   const withSorting = useDataGridSorting();
 
+  //ASSERT
   expect(withSorting.header!.actions!("col1")).toHaveLength(1);
 
   const array = getTestArray();
@@ -22,7 +26,8 @@ test("per default should enable show sort symbols and not sort initially", () =>
   expect(array).toMatchObject(getTestArray());
 });
 
-test("should consider reactive options", () => {
+test("should consider reactive sortState", () => {
+  // ARRANGE
   const sortState = ref<SortState>({
     column: "b",
     direction: "desc",
@@ -43,6 +48,7 @@ test("should consider reactive options", () => {
     }),
   });
 
+  // ASSERT
   expect(withSorting.header!.actions!("non-existent")).toHaveLength(0);
   expect(withSorting.header!.actions!("id")).toHaveLength(0);
   expect(withSorting.header!.actions!("a")).toHaveLength(1);
@@ -60,9 +66,11 @@ test("should consider reactive options", () => {
     { id: 6, a: "1", b: "6-End" },
   ]);
 
+  // ACT
   sortState.value.column = "a";
   sortState.value.direction = "asc";
 
+  // ASSERT
   const array2 = getTestArray();
   withSorting.mutation!.func(array2);
   expect(array2, "should consider updated sorting").toMatchObject([
@@ -73,4 +81,50 @@ test("should consider reactive options", () => {
     { id: 2, a: "5", b: "2-End" },
     { id: 1, a: "6", b: "1-End" },
   ]);
+});
+
+test("should consider reactive columns", () => {
+  // ARRANGE
+  const columns = ref<SortColumnOptions<DataGridEntry>>({
+    id: { enabled: false },
+    a: { enabled: true },
+    b: {
+      enabled: true,
+      sortFunc: (a: unknown, b: unknown) => {
+        const aStart = String(a).endsWith("Start");
+        const bStart = String(b).endsWith("Start");
+        return aStart && bStart ? 0 : aStart ? 1 : -1;
+      },
+    },
+  });
+  const withSorting = useDataGridSorting({
+    sortState: {
+      column: "b",
+      direction: "desc",
+    },
+    columns,
+  });
+
+  // ASSERT
+  expect(withSorting.header!.actions!("id")).toHaveLength(0);
+  expect(withSorting.header!.actions!("a")).toHaveLength(1);
+  expect(withSorting.header!.actions!("b")).toHaveLength(1);
+
+  // ACT
+  columns.value!.id = { enabled: true };
+  columns.value!.a = { enabled: false };
+  delete columns.value!.b;
+
+  // ASSERT
+  expect(withSorting.header!.actions!("id")).toHaveLength(1);
+  expect(withSorting.header!.actions!("a")).toHaveLength(0);
+  expect(withSorting.header!.actions!("b")).toHaveLength(0);
+
+  // ACT
+  columns.value = undefined;
+
+  // ASSERT
+  expect(withSorting.header!.actions!("id")).toHaveLength(1);
+  expect(withSorting.header!.actions!("a")).toHaveLength(1);
+  expect(withSorting.header!.actions!("b")).toHaveLength(1);
 });
