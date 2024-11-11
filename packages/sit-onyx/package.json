@@ -54,6 +54,7 @@
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-a11y": "^8.4.2",
+    "@storybook/addon-actions": "^8.4.2",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",
     "eslint-plugin-vue-scoped-css": "^2.8.1",

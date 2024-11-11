@@ -5,8 +5,8 @@ import arrowsSort from "@sit-onyx/icons/arrows-sort.svg?raw";
 import { computed } from "vue";
 import { OnyxIconButton } from "../../../..";
 import { injectI18n } from "../../../../i18n";
-import type { SortDirection } from "./sorting";
 import { nextSortDirection } from "./sorting";
+import type { SortDirection } from "./types";
 
 const props = defineProps<{
   /**
