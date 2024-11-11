@@ -26,6 +26,7 @@ const navItems = [
   { label: "Form Demo", href: "/form-demo" },
   { label: "Layout Demo", href: "/layout-demo" },
   { label: "Grid Demo", href: "/grid" },
+  { label: "Data-Grid Demo", href: "/data-grid" },
 ] satisfies OnyxNavButtonProps[];
 
 const { store: colorScheme } = useColorMode();

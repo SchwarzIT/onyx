@@ -14,6 +14,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("../views/FormDemoView.vue"),
   },
   {
+    path: "/data-grid",
+    name: "dataGrid",
+    component: () => import("../views/DataGridView.vue"),
+  },
+  {
     path: "/layout-demo",
     name: "layoutDemo",
     component: () => import("../views/LayoutDemoView.vue"),
