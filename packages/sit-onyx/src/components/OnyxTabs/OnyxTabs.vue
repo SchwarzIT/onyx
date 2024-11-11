@@ -2,7 +2,7 @@
 import { createTabs } from "@sit-onyx/headless";
 import { provide, ref, toRef } from "vue";
 import { useDensity } from "../../composables/density";
-import { TABS_INJECTION_KEY, type OnyxTabsProps } from "./types";
+import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
 
 const props = defineProps<OnyxTabsProps<TValue>>();
 
@@ -30,7 +30,7 @@ defineSlots<{
 
 const panelRef = ref<HTMLElement>();
 
-provide(TABS_INJECTION_KEY, { headless, panelRef });
+provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
 </script>
 
 <template>

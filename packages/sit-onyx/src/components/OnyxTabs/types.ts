@@ -17,20 +17,20 @@ export type OnyxTabsProps<TValue extends PropertyKey = PropertyKey> = DensityPro
   stretched?: boolean;
 };
 
-/**
- * Injection key to provide relevant context data from the tabs parent to the
- * individual child tab components.
- */
-export const TABS_INJECTION_KEY = Symbol() as InjectionKey<{
+export type TabsInjectionKey<TValue extends PropertyKey = PropertyKey> = InjectionKey<{
   /**
    * Headless composable provided for child tabs for correct accessibility and behavior.
    */
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed to fix type error when using generics inside the OnyxTabs
-  headless: ReturnType<typeof createTabs<any>>;
+  headless: ReturnType<typeof createTabs<TValue>>;
   /**
    * Ref to the parent tabs element where the child tabs should be teleported to
    * to maintain the correct HTML structure.
    */
   panelRef: Ref<HTMLElement | undefined>;
 }>;
+
+/**
+ * Injection key to provide relevant context data from the tabs parent to the
+ * individual child tab components.
+ */
+export const TABS_INJECTION_KEY = Symbol() as TabsInjectionKey;
