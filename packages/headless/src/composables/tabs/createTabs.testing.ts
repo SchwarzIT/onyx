@@ -26,7 +26,8 @@ export const tabsTesting = async (options: TabsTestingOptions) => {
   await expectPanelAttributes(options.page.locator(`#${panelId}`), tabId);
 
   // ACT (switch tab)
-  const tab2 = options.tablist.locator('[aria-selected="true"]').first();
+  let tab2 = options.tablist.locator('[aria-selected="false"]').first();
+  tab2 = options.tablist.locator(`#${await tab2.getAttribute("id")}`);
   await tab2.click();
 
   const { tabId: tabId2, panelId: panelId2 } = await expectTabAttributes(tab2, true);
