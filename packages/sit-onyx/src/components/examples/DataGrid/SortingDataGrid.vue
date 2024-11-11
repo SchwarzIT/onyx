@@ -18,6 +18,7 @@ watch(sortState, () => emit("sortChange", sortState.value));
 const withSorting = DataGridFeatures.useSorting({ sortState });
 const features = [withSorting];
 </script>
+
 <template>
   <OnyxDataGrid :columns :data :features />
 </template>

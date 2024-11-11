@@ -5,10 +5,10 @@ import SortingDataGrid from "../examples/DataGrid/SortingDataGrid.vue";
 import SortingDataGridExampleCode from "../examples/DataGrid/SortingDataGrid.vue?raw";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
-const meta = {
+const meta: Meta<typeof OnyxDataGrid> = {
   title: "Data/DataGrid",
   component: OnyxDataGrid,
-} satisfies Meta;
+};
 
 export default meta;
 type Story = StoryObj<typeof OnyxDataGrid>;
