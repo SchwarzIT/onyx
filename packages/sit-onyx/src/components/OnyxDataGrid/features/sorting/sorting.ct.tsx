@@ -27,6 +27,9 @@ test("should render correctly", async ({ mount }) => {
   const getFirstColumn = () => component.locator("tbody tr td:first-of-type").all();
 
   // ASSERT
+  const columns = component.locator("th");
+  await expect(columns).toHaveCount(2);
+
   let rows = await getFirstColumn();
   expect(rows).toHaveLength(data.length);
 
@@ -34,6 +37,7 @@ test("should render correctly", async ({ mount }) => {
     rows,
     data.map((item) => item.a),
   );
+  await expect(component).toHaveScreenshot("data-grid-sorting-initial.png");
 
   // ACT
   await component.getByLabel("Sort the table ascending by the a column.").click();
@@ -43,6 +47,7 @@ test("should render correctly", async ({ mount }) => {
   expect(rows).toHaveLength(data.length);
 
   await expectOrderedText(rows, ["1", "2", "3", "4", "5", "6"]);
+  await expect(component).toHaveScreenshot("data-grid-sorting-asc.png");
 
   // ACT
   await component.getByLabel("Sort the table descending by the a column.").click();
@@ -51,6 +56,7 @@ test("should render correctly", async ({ mount }) => {
   rows = await getFirstColumn();
   expect(rows).toHaveLength(data.length);
   await expectOrderedText(rows, ["6", "5", "4", "3", "2", "1"]);
+  await expect(component).toHaveScreenshot("data-grid-sorting-desc.png");
 
   // ACT
   await component.getByLabel("Reset sorting.").click();
