@@ -8,7 +8,7 @@ export type OnyxTabsProps<TValue extends PropertyKey = PropertyKey> = DensityPro
    */
   label: string;
   /**
-   * Currently active tab.
+   * Currently selected tab (`value` property of `OnyxTab` component).
    */
   modelValue: TValue;
   /**

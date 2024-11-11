@@ -129,7 +129,7 @@ const tableData = [
 ];
 
 const currentPage = ref(1);
-const activeTab = ref("tab-1");
+const selectedTab = ref("tab-1");
 </script>
 
 <template>
@@ -259,7 +259,7 @@ const activeTab = ref("tab-1");
           </OnyxTable>
         </template>
 
-        <OnyxTabs v-if="show('OnyxTabs')" v-model="activeTab" label="Example tabs">
+        <OnyxTabs v-if="show('OnyxTabs')" v-model="selectedTab" label="Example tabs">
           <OnyxTab label="Tab 1" value="tab-1">Tab panel content 1...</OnyxTab>
           <OnyxTab value="tab-2">
             Tab panel content 2...
