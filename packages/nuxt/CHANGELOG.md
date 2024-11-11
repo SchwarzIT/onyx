@@ -1,5 +1,12 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.66
+
+### Patch Changes
+
+- Updated dependencies [fda8a30]
+  - sit-onyx@1.0.0-beta.65
+
 ## 1.0.0-beta.65
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.10
+
+### Patch Changes
+
+- fda8a30: fix(tabsTesting): correctly test switching to second tab
+
 ## 1.0.0-beta.9
 
 ### Minor Changes

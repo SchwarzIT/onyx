@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.65
+
+### Minor Changes
+
+- fda8a30: Implement basic OnyxTabs and OnyxTab component.
+
 ## 1.0.0-beta.64
 
 ### Minor Changes
