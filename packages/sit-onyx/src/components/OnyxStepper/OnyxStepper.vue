@@ -114,6 +114,7 @@ const decrementLabel = computed(() =>
   t.value("stepper.decrement", { stepSize: determinedStepSize.value }),
 );
 </script>
+
 <template>
   <div v-if="skeleton" :class="['onyx-stepper-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
@@ -180,6 +181,7 @@ const decrementLabel = computed(() =>
     </OnyxFormElement>
   </div>
 </template>
+
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/input.scss";

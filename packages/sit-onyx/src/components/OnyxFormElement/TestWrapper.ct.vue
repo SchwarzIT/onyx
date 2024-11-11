@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 import OnyxFormElement from "./OnyxFormElement.vue";
 </script>
+
 <template>
   <div>
     <OnyxFormElement label="Test">
