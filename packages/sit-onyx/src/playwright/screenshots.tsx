@@ -66,7 +66,11 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
     /**
      * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing the captured screenshot.
      */
-    const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
+    const getScreenshot = async (
+      element: JSX.Element,
+      column: TColumn,
+      row: TRow,
+    ): Promise<JSX.Element> => {
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
       await page.mouse.up(); // reset mouse
@@ -75,6 +79,14 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       await options.beforeScreenshot?.(component, page, column, row);
 
       const screenshot = await component.screenshot({ animations: "disabled" });
+
+      const imgUrl = await page.evaluate(
+        (data) => {
+          const blob = new Blob([new Int8Array(data)], { type: "image/png" });
+          return URL.createObjectURL(blob);
+        },
+        [...screenshot],
+      );
 
       // some browser (e.g. safari) have different device resolutions which would cause the screenshot
       // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
@@ -97,7 +109,7 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
           width={box?.width}
           height={box?.height}
           style={{ gridArea: id }}
-          src={`data:image/png;base64,${Buffer.from(screenshot).toString("base64")}`}
+          src={imgUrl}
           alt={id}
         />
       );
