@@ -2,6 +2,7 @@
 import { createTabs } from "@sit-onyx/headless";
 import { provide, ref, toRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
 
 const props = defineProps<OnyxTabsProps<TValue>>();
@@ -29,6 +30,7 @@ defineSlots<{
 }>();
 
 const panelRef = ref<HTMLElement>();
+provideSkeletonContext(props);
 
 provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
 </script>
@@ -62,7 +64,8 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
         justify-content: space-between;
       }
 
-      .onyx-tab {
+      .onyx-tab,
+      .onyx-tab-skeleton {
         width: 100%;
       }
     }

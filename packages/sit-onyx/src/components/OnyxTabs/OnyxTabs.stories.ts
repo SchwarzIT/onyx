@@ -57,3 +57,10 @@ export const Stretched = {
     stretched: true,
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

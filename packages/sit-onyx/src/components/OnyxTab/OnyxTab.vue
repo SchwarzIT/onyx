@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { TABS_INJECTION_KEY } from "../OnyxTabs/types";
 import type { OnyxTabProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTabProps>(), {
   disabled: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 defineSlots<{
@@ -21,12 +24,15 @@ defineSlots<{
 
 const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
+const skeleton = useSkeletonContext(props);
 
 const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: props.value }));
 </script>
 
 <template>
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-tab-skeleton', densityClass]" />
   <button
+    v-else
     :class="[
       'onyx-tab',
       'onyx-text--large',
@@ -62,12 +68,19 @@ const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: pro
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+.onyx-tab,
+.onyx-tab-skeleton {
+  --onyx-tab-padding-vertical: var(--onyx-density-xs);
+  --onyx-tab-line-height: 1.75rem;
+  --onyx-tab-highlight-gap: var(--onyx-density-3xs);
+}
+
 .onyx-tab {
   @include layers.component() {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-medium);
     border-radius: var(--onyx-radius-sm);
-    padding: var(--onyx-density-xs) var(--onyx-density-md);
+    padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
     font-weight: 600;
 
     // reset button styles
@@ -120,12 +133,23 @@ const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: pro
       justify-content: center;
       gap: var(--onyx-density-xs);
       position: relative;
-      padding-bottom: var(--onyx-density-3xs);
+      padding-bottom: var(--onyx-tab-highlight-gap);
+      line-height: var(--onyx-tab-line-height);
     }
 
     &__panel {
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
+    }
+
+    &-skeleton {
+      width: var(--onyx-density-4xl);
+      height: calc(
+        var(--onyx-tab-line-height) + 2 * var(--onyx-tab-padding-vertical) +
+          var(--onyx-tab-highlight-gap)
+      );
+      display: inline-block;
+      vertical-align: middle;
     }
   }
 }
