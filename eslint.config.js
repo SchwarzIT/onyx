@@ -148,7 +148,17 @@ const sitOnyxConfig = {
     "vue/no-ref-object-reactivity-loss": "error",
     "vue/no-duplicate-attr-inheritance": "error",
     "vue/no-boolean-default": "error",
+    "vue/block-tag-newline": "error",
     "vue/block-order": "error",
+    "vue/padding-line-between-blocks": "error",
+    "vue/block-lang": [
+      "error",
+      {
+        script: {
+          lang: "ts",
+        },
+      },
+    ],
     "vue/camelcase": "error",
     // unfortunately there is a bug with using nested property declaration: https://github.com/future-architect/eslint-plugin-vue-scoped-css/issues/371
     // but parsing errors should be caught by the compiler anyways
