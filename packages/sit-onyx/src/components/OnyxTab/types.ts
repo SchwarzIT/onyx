@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 
 export type OnyxTabProps = DensityProp & {
   /**
@@ -13,4 +14,8 @@ export type OnyxTabProps = DensityProp & {
    * Whether the input should be disabled and prevent the user from interacting with it.
    */
   disabled?: boolean;
+  /**
+   * Whether to show a skeleton tab.
+   */
+  skeleton?: SkeletonInjected;
 };
