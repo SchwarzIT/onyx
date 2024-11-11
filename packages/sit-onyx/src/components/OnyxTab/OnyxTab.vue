@@ -4,7 +4,9 @@ import { useDensity } from "../../composables/density";
 import { TABS_INJECTION_KEY } from "../OnyxTabs/types";
 import type { OnyxTabProps } from "./types";
 
-const props = defineProps<OnyxTabProps>();
+const props = withDefaults(defineProps<OnyxTabProps>(), {
+  disabled: false,
+});
 
 defineSlots<{
   /**
@@ -33,6 +35,7 @@ const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: pro
     ]"
     v-bind="tab"
     type="button"
+    :disabled="props.disabled"
   >
     <div class="onyx-tab__label">
       <slot name="tab">{{ props.label }}</slot>
@@ -65,7 +68,6 @@ const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: pro
     color: var(--onyx-color-text-icons-neutral-medium);
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-density-xs) var(--onyx-density-md);
-    cursor: pointer;
     font-weight: 600;
 
     // reset button styles
@@ -91,17 +93,25 @@ const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: pro
       }
     }
 
-    &:hover,
-    &:focus-visible {
-      background-color: var(--onyx-color-base-neutral-200);
+    &:enabled {
+      cursor: pointer;
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--onyx-color-base-neutral-200);
+      }
+
+      &:focus-visible {
+        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+      }
+
+      &:active {
+        color: var(--onyx-color-text-icons-primary-bold);
+      }
     }
 
-    &:focus-visible {
-      outline: 0.25rem solid var(--onyx-color-base-primary-200);
-    }
-
-    &:active {
-      color: var(--onyx-color-text-icons-primary-bold);
+    &:disabled {
+      color: var(--onyx-color-text-icons-neutral-soft);
     }
 
     &__label {

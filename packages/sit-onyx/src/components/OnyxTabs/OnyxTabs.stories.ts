@@ -43,10 +43,18 @@ export const Default = {
       ),
       h(
         OnyxTab,
-        { value: "tab-3" },
+        { value: "tab-3", disabled: true },
         {
           default: "Panel content 3...",
-          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 3"],
+          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 3 (disabled)"],
+        },
+      ),
+      h(
+        OnyxTab,
+        { value: "tab-4" },
+        {
+          default: "Panel content 4...",
+          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 4"],
         },
       ),
     ],
