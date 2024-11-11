@@ -19,6 +19,7 @@ node_modules/
 *.tsbuildinfo
 .turbo
 vite.*.timestamp*
+*.vitest-temp.*
 
 # Editor directories and files
 .vscode/*
