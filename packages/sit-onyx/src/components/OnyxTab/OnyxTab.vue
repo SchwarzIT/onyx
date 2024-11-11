@@ -20,13 +20,18 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
 
-const isActive = computed(() => tabsContext?.headless.state.isSelected.value(props.value) ?? false);
+const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: props.value }));
 </script>
 
 <template>
   <button
-    :class="['onyx-tab', 'onyx-text--large', densityClass, isActive ? 'onyx-tab--active' : '']"
-    v-bind="tabsContext?.headless.elements.tab.value({ value: props.value })"
+    :class="[
+      'onyx-tab',
+      'onyx-text--large',
+      densityClass,
+      tab?.['aria-selected'] ? 'onyx-tab--selected' : '',
+    ]"
+    v-bind="tab"
     type="button"
   >
     <div class="onyx-tab__label">
@@ -42,7 +47,7 @@ const isActive = computed(() => tabsContext?.headless.state.isSelected.value(pro
      -->
   <Teleport :to="tabsContext?.panelRef.value" :disabled="!tabsContext?.panelRef.value" defer>
     <div
-      v-if="isActive"
+      v-if="tab?.['aria-selected']"
       v-bind="tabsContext?.headless.elements.tabpanel.value({ value: props.value })"
       class="onyx-tab__panel"
     >
@@ -67,7 +72,7 @@ const isActive = computed(() => tabsContext?.headless.state.isSelected.value(pro
     border: none;
     background-color: transparent;
 
-    &--active {
+    &--selected {
       color: var(--onyx-color-text-icons-neutral-intense);
 
       .onyx-tab__label {
