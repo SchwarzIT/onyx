@@ -20,7 +20,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
 
-const isActive = computed(() => tabsContext?.headless.state.isVisible.value(props.value) ?? false);
+const isActive = computed(() => tabsContext?.headless.state.isSelected.value(props.value) ?? false);
 </script>
 
 <template>
