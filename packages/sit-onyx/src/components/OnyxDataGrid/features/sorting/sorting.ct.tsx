@@ -19,7 +19,7 @@ const expectOrderedText = async (rows: Locator[], expectations: string[]) => {
   }
 };
 
-test("should render correctly", async ({ mount }) => {
+test("should render correctly", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const data = getTestArray();
   const component = await mount(<SortingDataGrid data={data} columns={["a", "b"]} />);
@@ -68,4 +68,6 @@ test("should render correctly", async ({ mount }) => {
     rows,
     data.map((item) => item.a),
   );
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
 });
