@@ -22,3 +22,10 @@ export const Default = {
     default: "Panel content 1...",
   },
 } satisfies Story;
+
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;
