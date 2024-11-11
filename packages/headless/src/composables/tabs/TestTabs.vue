@@ -23,6 +23,6 @@ const {
 
     <div v-if="selectedTab === 'tab-1'" v-bind="tabpanel({ value: 'tab-1' })">Tab content 1</div>
     <div v-if="selectedTab === 'tab-2'" v-bind="tabpanel({ value: 'tab-2' })">Tab content 2</div>
-    <div v-if="selectedTab === 'tab-3'" v-bind="tabpanel({ value: 'tab-2' })">Tab content 3</div>
+    <div v-if="selectedTab === 'tab-3'" v-bind="tabpanel({ value: 'tab-3' })">Tab content 3</div>
   </div>
 </template>
