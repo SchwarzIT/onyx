@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import DesignVariable from "./DesignVariable.vue";
 
 const meta: Meta<typeof DesignVariable> = {
-  title: "variables/DesignVariables",
+  title: "variables/DesignVariable",
   component: DesignVariable,
 };
 
@@ -12,15 +12,13 @@ type Story = StoryObj<typeof DesignVariable>;
 export const Default = {
   args: {
     name: "test-variable",
-    value: "42rem",
   },
 } satisfies Story;
 
 export const Color = {
   args: {
     name: "test-variable",
-    value: "var(--onyx-color-base-primary-500)",
-    type: "color",
+    color: "var(--onyx-color-base-primary-500)",
   },
 } satisfies Story;
 

@@ -1,7 +1,40 @@
+import { onMounted, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
+
+export type UseCssVariableValueOptions = {
+  /**
+   * Name of the CSS variable (without `var(--)`).
+   */
+  name: MaybeRef<string>;
+  /**
+   * Template ref to use as base for getting the variable value.
+   *
+   * @default document.documentElement
+   */
+  element?: Ref<HTMLElement | undefined>;
+  /**
+   * If `true`, the value will not be calculated.
+   */
+  disabled?: Ref<boolean | undefined>;
+};
+
 /**
- * Gets the current value for the given CSS variable.
- * @param name Name of the CSS variable (without `var(--)`).
+ * Composable for getting the value of a CSS variable. Safe to use in server side rendering.
  */
-export const getCssVariableValue = (name: string, element?: HTMLElement) => {
-  return getComputedStyle(element ?? document.documentElement).getPropertyValue(`--${name}`);
+export const useCssVariableValue = (options: UseCssVariableValueOptions) => {
+  const value = ref<string>();
+
+  onMounted(() => {
+    watchEffect(() => {
+      if (unref(options.disabled)) {
+        value.value = undefined;
+        return;
+      }
+
+      const element = unref(options.element) ?? document.documentElement;
+      const variableName = `--${unref(options.name)}`;
+      value.value = getComputedStyle(element).getPropertyValue(variableName);
+    });
+  });
+
+  return { value };
 };
