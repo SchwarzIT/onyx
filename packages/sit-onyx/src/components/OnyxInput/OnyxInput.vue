@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useCustomValidity } from "../../composables/useCustomValidity";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -34,7 +34,9 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity, errorMessages, successMessages } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const successMessages = computed(() => getFormMessages(props.success));
+const messages = computed(() => getFormMessages(props.message));
 
 const { densityClass } = useDensity(props);
 
@@ -67,6 +69,7 @@ const errorClass = useErrorClass(showError);
       v-bind="props"
       :error-messages="errorMessages"
       :success-messages="successMessages"
+      :message="messages"
     >
       <template #default="{ id: inputId }">
         <div class="onyx-input__wrapper">

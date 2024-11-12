@@ -13,10 +13,6 @@ export type CustomValidityProp = {
    * Custom error message to show. Will only show up after the user has interacted with the input.
    */
   customError?: CustomMessageType;
-  /**
-   * Success message to show.
-   */
-  successMessage?: CustomMessageType;
 };
 
 export type UseCustomValidityOptions = {
@@ -49,19 +45,21 @@ export const TRANSLATED_INPUT_TYPES = Object.keys(
 export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 /**
- * Translated messages that inform about the validity state of form components
+ * Translated messages that inform about the state of a form element.
  */
 export type FormMessages = {
   /**
-   * A short message preview to inform the user about the validity state
+   * A short message preview to inform the user about the input state.
+   * It's usually shown directly underneath the input field.
    */
   shortMessage: string;
   /**
-   * An extended informative message to provide more info
+   * An extended informative message to provide more details.
+   * It's usually shown in a tooltip next to the shortMessage.
    */
   longMessage?: string;
   /**
-   * Will visually hide the message
+   * Will visually hide the message.
    */
   hidden?: boolean;
 };
@@ -214,12 +212,6 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     };
   });
 
-  const successMessages = computed<FormMessages | undefined>(() => {
-    if (validityState.value !== undefined && !validityState.value.valid) return;
-
-    return getFormMessages(options.props.successMessage);
-  });
-
   return {
     /**
      * Directive to set the custom error message and emit validityChange event.
@@ -229,9 +221,5 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
      * A custom error or the default translation of the first invalid state if one exists.
      */
     errorMessages,
-    /**
-     * A custom success message if provided by the user.
-     */
-    successMessages,
   };
 };
