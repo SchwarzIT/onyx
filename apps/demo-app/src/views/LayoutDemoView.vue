@@ -67,7 +67,7 @@ watch(
           <LayoutSettings v-model="settings" :show="['content']" />
         </FlyoutDemo>
         |
-        <TooltipDemo :force-tooltip="settings.content.forceTooltip" style="display: inline-block" />
+        <TooltipDemo class="tooltip" :force-tooltip="settings.content.forceTooltip" />
       </NavBarDemo>
     </template>
 
@@ -155,3 +155,9 @@ watch(
     </template>
   </OnyxAppLayout>
 </template>
+
+<style lang="scss" scoped>
+.tooltip {
+  display: inline-block;
+}
+</style>

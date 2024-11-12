@@ -209,13 +209,13 @@ export const createComboBox = createBuilder(
       return handleNavigation(event);
     };
 
-    const autocompleteInput =
-      autocomplete.value !== "none"
-        ? {
-            "aria-autocomplete": autocomplete.value,
-            type: "text",
-          }
-        : null;
+    const autocompleteInput = computed(() => {
+      if (autocomplete.value === "none") return null;
+      return {
+        "aria-autocomplete": autocomplete.value,
+        type: "text",
+      };
+    });
 
     const {
       elements: { option, group, listbox },
@@ -264,7 +264,7 @@ export const createComboBox = createBuilder(
             activeOption.value != undefined ? getOptionId(activeOption.value) : undefined,
           onInput: handleInput,
           onKeydown: handleKeydown,
-          ...autocompleteInput,
+          ...autocompleteInput.value,
         })),
         /**
          * An optional button to control the visibility of the popup.

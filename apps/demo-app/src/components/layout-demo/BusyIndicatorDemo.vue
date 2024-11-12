@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
 import { FooterDemo } from ".";
+
+defineSlots<{
+  /**
+   * Overlay content.
+   */
+  default?(): unknown;
+}>();
 </script>
 
 <template>

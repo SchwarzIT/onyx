@@ -27,6 +27,7 @@ const emit = defineEmits<{
       'variable--copyable': props.allowCopy,
     }"
     :disabled="!props.allowCopy"
+    type="button"
     @click="emit('copy')"
     @keyup.enter="emit('copy')"
   >

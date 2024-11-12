@@ -24,6 +24,7 @@ const props = defineProps<{
     <span>{{ props.label }}</span>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .grid-badge {
   font-family: var(--onyx-font-family-mono);
