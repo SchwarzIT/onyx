@@ -17,20 +17,6 @@ export const nextSortDirection = (current?: SortDirection): SortDirection => {
   }
 };
 
-export const nextSortState = <TEntry extends DataGridEntry>(
-  column: keyof TEntry,
-  current?: SortState<TEntry>,
-): SortState<TEntry> => {
-  if (current?.column === column) {
-    return {
-      column: current.column,
-      direction: nextSortDirection(current.direction),
-    };
-  } else {
-    return { column, direction: nextSortDirection() };
-  }
-};
-
 export const SORTING_FEATURE = Symbol("Sorting");
 
 export const useDataGridSorting = createFeature(

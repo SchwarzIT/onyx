@@ -13,7 +13,7 @@ const sortState = ref<DataGridFeatures.SortState<DataGridEntry>>({
   column: undefined,
   direction: "none",
 });
-watch(sortState, () => emit("sortChange", sortState.value));
+watch(sortState, () => emit("sortChange", sortState.value), { deep: true });
 
 const withSorting = DataGridFeatures.useSorting({ sortState });
 const features = [withSorting];

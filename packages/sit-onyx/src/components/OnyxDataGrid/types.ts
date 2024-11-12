@@ -12,23 +12,8 @@ export type OnyxDataGridProps<
   /**
    * Features that should be applied.
    * They allow the modification of the behavior and rendering.
-   * Usually you want to use the provided features of the exported `DataGridFeature` namespace:
-   *
-   * @example
-   * ```vue
-   * <script setup lang="ts">
-   * import { ref, watch } from "vue";
-   * import type { DataGridEntry, OnyxDataGridProps } from "sit-onyx";
-   * import { DataGridFeatures, OnyxDataGrid } from "sit-onyx";
-   *
-   * const withSorting = DataGridFeatures.useSorting(sortOptions);
-   * </script>
-   *
-   * <template>
-   *   <OnyxDataGrid :columns :data :features=[withSorting] />
-   * </template>
-   *
-   * ```
+   * Usually you want to use the provided features of the exported `DataGridFeature` namespace.
+   * Check the Storybook examples (e.g. [Sorting](/?path=/story/data-datagrid--sorting)) for more details on how the features are used and configured.
    */
   features?: TFeatures;
   /**

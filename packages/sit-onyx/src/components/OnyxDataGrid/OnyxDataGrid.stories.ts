@@ -5,6 +5,10 @@ import SortingDataGrid from "../examples/DataGrid/SortingDataGrid.vue";
 import SortingDataGridExampleCode from "../examples/DataGrid/SortingDataGrid.vue?raw";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
+/**
+ * For straightforward data presentation without the need for extensive interaction, the [OnyxTable](/docs/data-table--docs) is ideal. It offers a basic overview of the information without overwhelming users with complex features and is read only all the time.
+ * On the other hand, if your dataset requires advanced functionalities such as advanced sorting, filtering, and editing, the `OnyxDataGrid` is the way to go. It provides robust tools for managing complex datasets.
+ */
 const meta: Meta<typeof OnyxDataGrid> = {
   title: "Data/DataGrid",
   component: OnyxDataGrid,
