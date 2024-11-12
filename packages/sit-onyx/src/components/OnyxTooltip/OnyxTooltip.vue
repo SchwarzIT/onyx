@@ -123,18 +123,18 @@ watch(isVisible, async () => {
 </script>
 
 <template>
-  <div ref="tooltipWrapperRef" :class="['onyx-tooltip-wrapper', densityClass]">
-    <div
+  <span ref="tooltipWrapperRef" :class="['onyx-tooltip-wrapper', densityClass]">
+    <span
       ref="tooltipRef"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <slot name="tooltip">{{ props.text }}</slot>
-    </div>
+    </span>
 
     <slot :trigger="trigger"></slot>
-  </div>
+  </span>
 </template>
 
 <style lang="scss">
@@ -152,7 +152,8 @@ $wedge-size: 0.5rem;
     box-shadow: var(--onyx-shadow-medium-bottom);
     z-index: var(--onyx-z-index-flyout);
 
-    display: flex;
+    display: inline-flex;
+    align-self: center;
     justify-content: center;
     align-items: center;
     gap: var(--onyx-density-2xs);

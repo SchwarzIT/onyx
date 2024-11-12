@@ -44,9 +44,7 @@ const type = computed(() => {
         :position="props.position"
       >
         <template #default="{ trigger }">
-          <span class="onyx-info-tooltip__trigger" v-bind="trigger">
-            <OnyxIcon :icon="circleInformation" />
-          </span>
+          <OnyxIcon class="onyx-info-tooltip__trigger" v-bind="trigger" :icon="circleInformation" />
         </template>
       </OnyxTooltip>
       <OnyxVisuallyHidden>{{ props.text }}</OnyxVisuallyHidden>
@@ -60,23 +58,20 @@ const type = computed(() => {
 .onyx-info-tooltip {
   @include layers.component() {
     &__trigger {
+      --icon-size: 1em;
+
       border: none;
       background-color: transparent;
       padding: 0;
       color: inherit;
-      display: flex;
-      height: 1lh;
-      align-items: center;
+      display: inline-flex;
+      vertical-align: middle;
 
       &:focus-visible {
         // unset the icon button outline for now until
         // https://github.com/SchwarzIT/onyx/issues/1272
         // is defined
         outline: none;
-      }
-
-      .onyx-icon {
-        --icon-size: 1em;
       }
     }
   }
