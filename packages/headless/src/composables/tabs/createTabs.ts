@@ -109,7 +109,7 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
             "aria-controls": panelId,
             "aria-disabled": data.disabled ? true : undefined,
             onClick: () => options.onSelect?.(data.value),
-            tabindex: isSelected ? 0 : -1,
+            tabindex: isSelected && !data.disabled ? 0 : -1,
           } as const;
         };
       }),
