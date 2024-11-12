@@ -42,7 +42,6 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
     ).filter((tab) => tab.ariaDisabled !== "true");
 
     const currentTabIndex = enabledTabs.indexOf(tab);
-    if (currentTabIndex === -1) return;
 
     const focusElement = (element?: Element | null) => {
       if (element instanceof HTMLElement) element.focus();
@@ -55,6 +54,7 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
      * Focuses the next/previous tab. Will ignore/skip disabled ones.
      */
     const focusTab = (direction: "next" | "previous") => {
+      if (currentTabIndex === -1) return;
       const newIndex = direction === "next" ? currentTabIndex + 1 : currentTabIndex - 1;
 
       if (newIndex < 0) {
