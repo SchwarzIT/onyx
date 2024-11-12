@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
@@ -9,13 +10,15 @@ const props = defineProps<{
   data: HomePageData;
 }>();
 
-const kpiTimestamp = Intl.DateTimeFormat("en-US", {
+const timestampFormatter = Intl.DateTimeFormat("en-US", {
   day: "2-digit",
   month: "short",
   year: "numeric",
   hour: "2-digit",
   minute: "2-digit",
-}).format(new Date(props.data.timestamp));
+});
+
+const kpiTimestamp = computed(() => timestampFormatter.format(new Date(props.data.timestamp)));
 
 const storybookHost = "https://storybook.onyx.schwarz" as const;
 </script>

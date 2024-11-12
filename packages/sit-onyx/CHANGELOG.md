@@ -1,5 +1,37 @@
 # sit-onyx
 
+## 1.0.0-beta.67
+
+### Minor Changes
+
+- 8421235: feat(tabs): support keyboard navigation
+
+  - Arrow left/right: Focus previous/next tab
+  - Home: Focus first tab
+  - End: Focus last tab
+  - Enter/space: Select currently focused tab
+
+## 1.0.0-beta.66
+
+### Patch Changes
+
+- Updated dependencies [b6b4573]
+  - @sit-onyx/shared@0.0.1-beta.0
+
+## 1.0.0-beta.65
+
+### Minor Changes
+
+- fda8a30: Implement basic OnyxTabs and OnyxTab component.
+
+## 1.0.0-beta.64
+
+### Minor Changes
+
+- 744f82e: feat(OnyxDataGrid): Added `features` prop which exposes the `useDataGridFeature` API to allow devs to use custom and pre-defined features
+  feat(OnyxDataGrid): Expose onyx provided features via a re-export called `DataGridFeatures`
+  feat(OnyxDataGrid): Added `DataGridFeatures.useSorting` feature, with support for custom configuration
+
 ## 1.0.0-beta.63
 
 ### Patch Changes

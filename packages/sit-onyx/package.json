@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-beta.63",
+  "version": "1.0.0-beta.67",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -34,7 +34,8 @@
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
-    "dev": "storybook dev -p 6006 --no-open",
+    "dev": "turbo run turbo:dev --filter=.",
+    "turbo:dev": "storybook dev -p 6006 --no-open",
     "build": "vite build && vue-tsc -p tsconfig.app.json --composite false",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
@@ -44,14 +45,16 @@
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/shared": "workspace:^",
     "typescript": ">= 5.2.2",
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.10.0",
+    "@axe-core/playwright": "^4.10.1",
     "@sit-onyx/headless": "workspace:^",
-    "@sit-onyx/shared": "workspace:^",
-    "@storybook/addon-a11y": "^8.4.0",
+    "@sit-onyx/storybook-utils": "workspace:^",
+    "@storybook/addon-a11y": "^8.4.2",
+    "@storybook/addon-actions": "^8.4.2",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",
     "eslint-plugin-vue-scoped-css": "^2.8.1",

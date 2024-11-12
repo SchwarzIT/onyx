@@ -3,10 +3,10 @@ import { createNavigationMenu } from "@sit-onyx/headless";
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, toRef } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
-import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
@@ -85,7 +85,7 @@ defineExpose({
    *
    * ```ts
    * const route = useRoute();
-   * const navBarRef = ref<InstanceType<typeof OnyxNavBar>>();
+   * const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
    *
    * watch(() => route.path, () => navBarRef.value?.closeMobileMenus());
    * ```

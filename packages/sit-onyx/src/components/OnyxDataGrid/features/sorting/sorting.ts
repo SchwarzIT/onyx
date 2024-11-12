@@ -1,10 +1,9 @@
-import { computed, h, ref } from "vue";
+import { computed, h, toRef, toValue, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
 import type { DataGridEntry } from "../../types";
 import SortAction from "./SortAction.vue";
-
-export type SortDirection = "asc" | "desc" | "none";
+import type { SortDirection, SortOptions, SortState } from "./types";
 
 export const nextSortDirection = (current?: SortDirection): SortDirection => {
   switch (current) {
@@ -18,51 +17,90 @@ export const nextSortDirection = (current?: SortDirection): SortDirection => {
   }
 };
 
-const SORTING_FEATURE = Symbol("Sorting");
+export const nextSortState = <TEntry extends DataGridEntry>(
+  column: keyof TEntry,
+  current?: SortState<TEntry>,
+): SortState<TEntry> => {
+  if (current?.column === column) {
+    return {
+      column: current.column,
+      direction: nextSortDirection(current.direction),
+    };
+  } else {
+    return { column, direction: nextSortDirection() };
+  }
+};
 
-export const useDataGridSorting = createFeature(<TEntry extends DataGridEntry>() => {
-  const sortColumn = ref<keyof TEntry>();
-  const sortDirection = ref<SortDirection>("none");
-  const locale = injectI18n().locale;
-  const intlCompare = computed(() => new Intl.Collator(locale.value).compare);
+export const SORTING_FEATURE = Symbol("Sorting");
 
-  const handleClick = (column: keyof TEntry) => {
-    if (sortColumn.value === column) {
-      sortDirection.value = nextSortDirection(sortDirection.value);
-    } else {
-      sortColumn.value = column;
-      sortDirection.value = nextSortDirection();
-    }
-    if (sortDirection.value === "none") {
-      sortColumn.value = undefined;
-    }
-  };
+export const useDataGridSorting = createFeature(
+  <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) => {
+    const sortState: Ref<SortState<TEntry>> = toRef(
+      options?.sortState ??
+        ({
+          column: undefined,
+          direction: "none",
+        } as const),
+    );
 
-  const sortData = (data: Readonly<TEntry>[]) => {
-    const column = sortColumn.value;
-    if (!column || sortDirection.value === "none") {
-      return;
-    }
-    const multiplicand = sortDirection.value === "asc" ? 1 : -1;
-    data.sort((a, b) => intlCompare.value(String(a[column]), String(b[column])) * multiplicand);
-  };
+    const getSortFunc = computed(() => (col: keyof TEntry) => {
+      const config = toValue(options?.columns);
+      return config?.[col]?.sortFunc ?? intlCompare.value;
+    });
 
-  return {
-    name: SORTING_FEATURE,
-    watch: [sortColumn, sortDirection, locale],
-    mutation: {
-      func: sortData,
-    },
-    header: {
-      actions: (column) => [
-        {
-          iconComponent: h(SortAction, {
-            columnLabel: String(column),
-            sortDirection: sortColumn.value === column ? sortDirection.value : undefined,
-            onClick: () => handleClick(column),
-          }),
-        },
-      ],
-    },
-  };
-});
+    const getSortEnabled = computed(() => (col: keyof TEntry) => {
+      const config = toValue(options?.columns);
+      return !config || config?.[col]?.enabled === true;
+    });
+
+    const { locale } = injectI18n();
+    const intlCompare = computed(
+      () => (a: unknown, b: unknown) =>
+        new Intl.Collator(locale.value).compare(String(a), String(b)),
+    );
+
+    const handleClick = (column: keyof TEntry) => {
+      if (sortState.value.column === column) {
+        sortState.value.direction = nextSortDirection(sortState.value.direction);
+      } else {
+        sortState.value = { column, direction: nextSortDirection() };
+      }
+      if (sortState.value.direction === "none") {
+        sortState.value.column = undefined;
+      }
+    };
+
+    const sortData = (data: Readonly<TEntry>[]) => {
+      const { column, direction } = sortState.value;
+      if (!column || direction === "none") {
+        return;
+      }
+      const multiplicand = direction === "asc" ? 1 : -1;
+      const sortFunc = getSortFunc.value(column);
+      data.sort((a, b) => sortFunc(a[column], b[column]) * multiplicand);
+    };
+
+    return {
+      name: SORTING_FEATURE,
+      watch: [sortState, intlCompare],
+      mutation: {
+        func: sortData,
+      },
+      header: {
+        actions: (column) =>
+          getSortEnabled.value(column) === true
+            ? [
+                {
+                  iconComponent: h(SortAction, {
+                    columnLabel: String(column),
+                    sortDirection:
+                      sortState.value.column === column ? sortState.value.direction : undefined,
+                    onClick: () => handleClick(column),
+                  }),
+                },
+              ]
+            : [],
+      },
+    };
+  },
+);

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { getCssVariableValue } from "../utils-browser";
+import { ref, toRef } from "vue";
+import { useCssVariableValue } from "../utils-browser";
 import DesignVariable from "./DesignVariable.vue";
 
 const props = defineProps<{
@@ -12,12 +12,25 @@ const props = defineProps<{
   hideValue?: boolean;
 }>();
 
-const wrapperRef = ref<HTMLElement>();
+defineSlots<{
+  /**
+   * Display preview of the given variable.
+   */
+  default(props: { name: string }): unknown;
+  /**
+   * Optional slot to override variable name content.
+   */
+  name?(): unknown;
+}>();
 
-const value = computed(() =>
-  props.hideValue ? undefined : getCssVariableValue(props.name, wrapperRef.value),
-);
+const wrapperRef = ref<HTMLElement>();
 const isCopied = ref(false);
+
+const { value } = useCssVariableValue({
+  name: toRef(props, "name"),
+  element: wrapperRef,
+  disabled: toRef(props, "hideValue"),
+});
 
 const handleCopy = async () => {
   await navigator.clipboard.writeText(`var(--${props.name})`);
@@ -28,26 +41,19 @@ const handleCopy = async () => {
 
 <template>
   <div ref="wrapperRef" class="card vp-raw" :class="{ 'card--wide': props.wideName }">
-    <div class="card__container">
-      <slot name="name">
-        <!--
-          client only is needed because we are using "value" here which is
-          using the "getCssVariableValue" function but this is only available
-          inside the browser/client
-         -->
-        <ClientOnly>
-          <DesignVariable
-            :name="props.name"
-            :value="value"
-            :is-copied="isCopied"
-            allow-copy
-            @copy="handleCopy"
-          />
-        </ClientOnly>
-      </slot>
+    <div>
+      <div class="card__name">
+        <slot name="name">
+          <DesignVariable :name="props.name" :is-copied="isCopied" allow-copy @copy="handleCopy" />
+        </slot>
+      </div>
+
+      <div v-if="!props.hideValue" class="card__value onyx-text--small">
+        {{ value }}
+      </div>
     </div>
 
-    <div class="card__container">
+    <div class="card__preview">
       <slot v-bind="{ name }"></slot>
     </div>
   </div>
@@ -57,8 +63,11 @@ const handleCopy = async () => {
 @use "@sit-onyx/vitepress-theme/mixins.scss";
 
 .card {
+  --padding-inline: var(--onyx-spacing-2xl);
+  --border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+
   border-radius: var(--onyx-radius-md);
-  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  border: var(--border);
   background: var(--onyx-color-base-background-blank);
   display: grid;
   grid-template-columns: 1fr 25%;
@@ -67,22 +76,41 @@ const handleCopy = async () => {
     grid-template-columns: 1fr 1fr;
   }
 
-  @include mixins.breakpoint(max, s, -1) {
-    padding: var(--onyx-spacing-md);
-    grid-template-columns: 1fr;
-    gap: var(--onyx-spacing-md);
+  &__name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    padding: var(--onyx-spacing-md) var(--padding-inline);
   }
 
-  @include mixins.breakpoint(min, s) {
-    &__container {
-      padding: var(--onyx-spacing-md) var(--onyx-spacing-2xl);
-      display: flex;
-      align-items: center;
+  &__value {
+    font-weight: 600;
+    color: var(--onyx-color-text-icons-neutral-soft);
+    border-top: var(--border);
+    padding: var(--onyx-spacing-2xs) var(--padding-inline);
+  }
 
-      &:last-child {
-        border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        justify-content: center;
-      }
+  &__preview {
+    padding: var(--onyx-spacing-md) var(--padding-inline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: var(--border);
+  }
+
+  // small breakpoints
+  @include mixins.breakpoint(max, s) {
+    --padding-inline: var(--onyx-spacing-md);
+    grid-template-columns: 1fr;
+
+    &__value {
+      border-bottom: var(--border);
+    }
+
+    &__preview {
+      border-left: none;
+      justify-content: flex-end;
     }
   }
 }

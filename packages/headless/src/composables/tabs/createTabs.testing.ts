@@ -4,7 +4,7 @@ import type { Locator, Page } from "@playwright/test";
 export type TabsTestingOptions = {
   page: Page;
   /**
-   * Locator of the tabs component.
+   * Locator of the tabs component. Must have at least 3 tabs where the first one is initially selected.
    */
   tablist: Locator;
 };
@@ -19,20 +19,58 @@ export const tabsTesting = async (options: TabsTestingOptions) => {
     "aria-label",
   );
 
-  const activeTab = options.tablist.locator('[aria-selected="true"]');
-  await expect(activeTab, "must have an initially active tab").toBeVisible();
+  const firstTab = options.tablist.getByRole("tab").first();
+  const secondTab = options.tablist.getByRole("tab").nth(1);
+  const lastTab = options.tablist.getByRole("tab").last();
 
-  const { tabId, panelId } = await expectTabAttributes(activeTab, true);
+  const { tabId, panelId } = await expectTabAttributes(firstTab, true);
   await expectPanelAttributes(options.page.locator(`#${panelId}`), tabId);
 
   // ACT (switch tab)
-  const tab2 = options.tablist.locator('[aria-selected="true"]').first();
-  await tab2.click();
+  await secondTab.click();
 
-  const { tabId: tabId2, panelId: panelId2 } = await expectTabAttributes(tab2, true);
+  const { tabId: tabId2, panelId: panelId2 } = await expectTabAttributes(secondTab, true);
   await expectPanelAttributes(options.page.locator(`#${panelId2}`), tabId2);
+  await expect(secondTab, "second tab should be focused").toBeFocused();
 
   await expect(options.page.getByRole("tabpanel"), "should hide previous panel").toHaveCount(1);
+
+  // keyboard support
+  await options.page.keyboard.press("ArrowLeft");
+  await expect(firstTab, "should focus previous tab when pressing arrow left").toBeFocused();
+
+  await options.page.keyboard.press("End");
+  await expect(lastTab, "should focus last tab when pressing End").toBeFocused();
+
+  await options.page.keyboard.press("ArrowRight");
+  await expect(
+    firstTab,
+    "should focus first tab when last tab is focused and pressing arrow right",
+  ).toBeFocused();
+
+  await options.page.keyboard.press("ArrowRight");
+  await expect(secondTab, "should focus next tab when pressing arrow right").toBeFocused();
+
+  await options.page.keyboard.press("Home");
+  await expect(firstTab, "should focus first tab when pressing Home").toBeFocused();
+
+  await options.page.keyboard.press("ArrowLeft");
+
+  await expect(
+    lastTab,
+    "should focus last tab when first tab is focused and pressing arrow left",
+  ).toBeFocused();
+
+  // should select when pressing Enter
+  await options.page.keyboard.press("Enter");
+  const { tabId: tabIdLast, panelId: panelIdLast } = await expectTabAttributes(lastTab, true);
+  await expectPanelAttributes(options.page.locator(`#${panelIdLast}`), tabIdLast);
+
+  // should select when pressing Space
+  await firstTab.focus();
+  await options.page.keyboard.press("Space");
+  const { tabId: tabIdFirst, panelId: panelIdFirst } = await expectTabAttributes(firstTab, true);
+  await expectPanelAttributes(options.page.locator(`#${panelIdFirst}`), tabIdFirst);
 };
 
 /**

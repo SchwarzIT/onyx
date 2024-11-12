@@ -4,6 +4,13 @@ import { OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const isOpen = defineModel<boolean>();
 defineProps<{ transparent?: boolean }>();
+
+defineSlots<{
+  /**
+   * Overlay content.
+   */
+  default?(): unknown;
+}>();
 </script>
 
 <template>

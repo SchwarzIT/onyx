@@ -23,7 +23,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button class="step" @click="emit('select')">
+  <button type="button" class="step" @click="emit('select')">
     <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
       <span v-if="props.name" class="step__name">{{ props.name }}</span>
       <OnyxIcon class="step__icon" :icon="copyIcon" />

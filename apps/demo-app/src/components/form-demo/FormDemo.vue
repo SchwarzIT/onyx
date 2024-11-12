@@ -33,7 +33,7 @@ export type FormData = Partial<{
   radioGroup: OnyxRadioGroupProps["modelValue"];
 }>;
 
-const formState = defineModel<FormData>();
+const formState = defineModel<FormData>({ required: true });
 
 const selectOptions = [
   { value: "apple", label: "Apple" },
@@ -63,12 +63,7 @@ const radioOptions: RadioButtonOption[] = [
 </script>
 
 <template>
-  <form
-    v-if="formState"
-    class="demo onyx-grid"
-    @submit.prevent="handleSubmit"
-    @reset="formState = {}"
-  >
+  <form class="demo onyx-grid" @submit.prevent="handleSubmit" @reset="formState = {}">
     <OnyxHeadline is="h3" class="onyx-grid-span-20"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >

@@ -3,6 +3,13 @@ import { OnyxButton, OnyxIconButton } from "sit-onyx";
 import { useRouter } from "vue-router";
 import onyxLogo from "../../assets/onyx-logo.svg?raw";
 
+defineSlots<{
+  /**
+   * Nav bar content.
+   */
+  default?(): unknown;
+}>();
+
 const isLeftAligned = defineModel<boolean>();
 
 const router = useRouter();

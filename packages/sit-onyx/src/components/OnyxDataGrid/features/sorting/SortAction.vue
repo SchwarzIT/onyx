@@ -5,8 +5,8 @@ import arrowsSort from "@sit-onyx/icons/arrows-sort.svg?raw";
 import { computed } from "vue";
 import { OnyxIconButton } from "../../../..";
 import { injectI18n } from "../../../../i18n";
-import type { SortDirection } from "./sorting";
 import { nextSortDirection } from "./sorting";
+import type { SortDirection } from "./types";
 
 const props = defineProps<{
   /**
@@ -38,5 +38,6 @@ const buttonLabel = computed(() => {
 </script>
 
 <template>
+  <!-- TODO: Replace with OnyxSupportButton as soon as [#2053](https://github.com/SchwarzIT/onyx/issues/2053) is implemented -->
   <OnyxIconButton color="neutral" :icon="icon" :label="buttonLabel" />
 </template>

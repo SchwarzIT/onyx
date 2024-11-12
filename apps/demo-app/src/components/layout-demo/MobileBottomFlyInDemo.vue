@@ -1,8 +1,16 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
 import { FooterDemo } from ".";
+
 defineProps<{
   showFooter?: boolean;
+}>();
+
+defineSlots<{
+  /**
+   * Fly-in content.
+   */
+  default?(): unknown;
 }>();
 </script>
 

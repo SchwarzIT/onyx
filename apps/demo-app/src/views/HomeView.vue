@@ -21,7 +21,9 @@ import {
   OnyxSkeleton,
   OnyxStepper,
   OnyxSwitch,
+  OnyxTab,
   OnyxTable,
+  OnyxTabs,
   OnyxTag,
   OnyxTextarea,
   OnyxTimer,
@@ -55,6 +57,7 @@ const COMPONENTS = [
   "OnyxStepper",
   "OnyxSwitch",
   "OnyxTable",
+  "OnyxTabs",
   "OnyxTag",
   "OnyxTextarea",
   "OnyxTimer",
@@ -126,6 +129,7 @@ const tableData = [
 ];
 
 const currentPage = ref(1);
+const selectedTab = ref("tab-1");
 </script>
 
 <template>
@@ -254,6 +258,19 @@ const currentPage = ref(1);
             <tr v-for="(_row, index) in []" :key="index"></tr>
           </OnyxTable>
         </template>
+
+        <OnyxTabs v-if="show('OnyxTabs')" v-model="selectedTab" label="Example tabs">
+          <OnyxTab label="Tab 1" value="tab-1">Tab panel content 1...</OnyxTab>
+          <OnyxTab value="tab-2">
+            Tab panel content 2...
+
+            <template #tab>
+              Tab 2
+              <OnyxBadge color="warning" dot />
+            </template>
+          </OnyxTab>
+          <OnyxTab label="Tab 3" value="tab-3">Tab panel content 3...</OnyxTab>
+        </OnyxTabs>
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
 

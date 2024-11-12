@@ -25,13 +25,57 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
    * Map for looking up tab and panel IDs for given tab keys/values defined by the user.
    * Key = custom value from the user, value = random generated tab and panel ID
    */
-  const idMap = new Map<PropertyKey, { tabId: string; panelId: string }>();
+  const idMap = new Map<T, { tabId: string; panelId: string }>();
 
-  const getId = (value: PropertyKey) => {
+  const getId = (value: T) => {
     if (!idMap.has(value)) {
       idMap.set(value, { tabId: useId(), panelId: useId() });
     }
     return idMap.get(value)!;
+  };
+
+  const handleKeydown = (event: KeyboardEvent) => {
+    const tab = event.target as Element;
+
+    const focusFirstTab = () => {
+      const element = tab.parentElement?.querySelector('[role="tab"]');
+      if (element instanceof HTMLElement) element.focus();
+    };
+
+    const focusLastTab = () => {
+      const element = Array.from(tab.parentElement?.querySelectorAll('[role="tab"]') ?? []).at(-1);
+      if (element instanceof HTMLElement) element.focus();
+    };
+
+    switch (event.key) {
+      case "ArrowRight":
+        if (tab.nextElementSibling && tab.nextElementSibling instanceof HTMLElement) {
+          tab.nextElementSibling.focus();
+        } else {
+          focusFirstTab();
+        }
+        break;
+      case "ArrowLeft":
+        if (tab.previousElementSibling && tab.previousElementSibling instanceof HTMLElement) {
+          tab.previousElementSibling.focus();
+        } else {
+          focusLastTab();
+        }
+        break;
+      case "Home":
+        focusFirstTab();
+        break;
+      case "End":
+        focusLastTab();
+        break;
+      case "Enter":
+      case " ":
+        {
+          const tabEntry = Array.from(idMap.entries()).find(([, { tabId }]) => tabId === tab.id);
+          if (tabEntry) options.onSelect?.(tabEntry[0]);
+        }
+        break;
+    }
   };
 
   return {
@@ -39,6 +83,7 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
       tablist: computed(() => ({
         role: "tablist",
         "aria-label": unref(options.label),
+        onKeydown: handleKeydown,
       })),
       tab: computed(() => {
         return (data: { value: T }) => {

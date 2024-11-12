@@ -10,7 +10,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button @click="emit('click')">
+  <button type="button" @click="emit('click')">
     <Badge
       class="badge"
       :class="{ 'badge--active': props.active }"

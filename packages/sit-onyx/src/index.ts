@@ -1,5 +1,7 @@
 import "./styles/index.scss";
 
+export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
+
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types";
 
@@ -23,7 +25,10 @@ export * from "./components/OnyxCheckboxGroup/types";
 export { default as OnyxDataGridRenderer } from "./components/OnyxDataGrid/OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 export * from "./components/OnyxDataGrid/OnyxDataGridRenderer/types";
 
+export { default as OnyxDataGrid } from "./components/OnyxDataGrid/OnyxDataGrid.vue";
 export * from "./components/OnyxDataGrid/types";
+
+export * as DataGridFeatures from "./components/OnyxDataGrid/features/all";
 
 export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
 export * from "./components/OnyxDialog/types";
@@ -62,6 +67,9 @@ export * from "./components/OnyxMiniSearch/types";
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types";
 
+export { default as OnyxMoreList } from "./components/OnyxMoreList/OnyxMoreList.vue";
+export * from "./components/OnyxMoreList/types";
+
 export { default as OnyxNavAppArea } from "./components/OnyxNavAppArea/OnyxNavAppArea.vue";
 export * from "./components/OnyxNavAppArea/types";
 
@@ -98,8 +106,14 @@ export * from "./components/OnyxStepper/types";
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
+export { default as OnyxTab } from "./components/OnyxTab/OnyxTab.vue";
+export * from "./components/OnyxTab/types";
+
 export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
 export * from "./components/OnyxTable/types";
+
+export { default as OnyxTabs } from "./components/OnyxTabs/OnyxTabs.vue";
+export * from "./components/OnyxTabs/types";
 
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types";

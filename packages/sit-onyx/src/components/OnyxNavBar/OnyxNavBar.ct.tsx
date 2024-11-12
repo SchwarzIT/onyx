@@ -1,4 +1,5 @@
 import { navigationTesting } from "@sit-onyx/headless/playwright";
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y";
 import {
   MOCK_PLAYWRIGHT_LOGO_URL,
@@ -6,7 +7,6 @@ import {
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
 } from "../../playwright/screenshots";
-import { ONYX_BREAKPOINTS } from "../../types";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";

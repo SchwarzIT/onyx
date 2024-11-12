@@ -67,6 +67,36 @@ const generalVueTsConfig = {
     ],
     "no-console": "error",
     "no-debugger": "error",
+    "vue/no-console": "error",
+    "vue/html-button-has-type": "error",
+    "vue/valid-define-options": "error",
+    "vue/no-setup-props-reactivity-loss": "error",
+    "vue/no-restricted-syntax": "error",
+    "vue/prefer-true-attribute-shorthand": "error",
+    "vue/no-loss-of-precision": "error",
+    "vue/no-irregular-whitespace": "error",
+    "vue/require-explicit-slots": "error",
+    "vue/no-useless-v-bind": "error",
+    "vue/no-useless-mustaches": "error",
+    "vue/no-root-v-if": "error",
+    "vue/no-static-inline-styles": "error",
+    "vue/no-unused-refs": "error",
+    "vue/no-required-prop-with-default": "error",
+    "vue/no-ref-object-reactivity-loss": "error",
+    "vue/no-duplicate-attr-inheritance": "error",
+    "vue/no-boolean-default": "error",
+    "vue/block-tag-newline": "error",
+    "vue/block-order": "error",
+    "vue/padding-line-between-blocks": "error",
+    "vue/block-lang": [
+      "error",
+      {
+        script: {
+          lang: "ts",
+        },
+      },
+    ],
+    "vue/camelcase": "error",
   },
 };
 
@@ -95,6 +125,9 @@ const vitestConfig = {
   name: "onyx-vitest",
   files: ["**/*.spec.{js,jsx,ts,tsx}"],
   extends: [pluginVitest.configs.recommended],
+  rules: {
+    "vue/no-ref-object-reactivity-loss": "off",
+  },
 };
 
 /**
@@ -129,30 +162,7 @@ const sitOnyxConfig = {
   rules: {
     "sitOnyx/import-playwright-a11y": "error",
     "sitOnyx/no-shadow-native": "error",
-    "vue/html-button-has-type": "error",
     "vue/require-prop-comment": "error",
-    "vue/valid-define-options": "error",
-    "vue/no-setup-props-reactivity-loss": "error",
-    "vue/no-restricted-syntax": "error",
-    "vue/prefer-true-attribute-shorthand": "error",
-    "vue/no-loss-of-precision": "error",
-    "vue/no-irregular-whitespace": "error",
-    "vue/no-console": "error",
-    "vue/require-explicit-slots": "error",
-    "vue/no-useless-v-bind": "error",
-    "vue/no-useless-mustaches": "error",
-    "vue/no-root-v-if": "error",
-    "vue/no-static-inline-styles": "error",
-    "vue/no-unused-refs": "error",
-    "vue/no-required-prop-with-default": "error",
-    "vue/no-ref-object-reactivity-loss": "error",
-    "vue/no-duplicate-attr-inheritance": "error",
-    "vue/no-boolean-default": "error",
-    "vue/block-order": "error",
-    "vue/camelcase": "error",
-    // unfortunately there is a bug with using nested property declaration: https://github.com/future-architect/eslint-plugin-vue-scoped-css/issues/371
-    // but parsing errors should be caught by the compiler anyways
-    "vue-scoped-css/no-parsing-error": "off",
     // disallow scoped or module CSS for components
     // see https://onyx.schwarz/principles/technical-vision.html#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],

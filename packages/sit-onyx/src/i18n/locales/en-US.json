@@ -9,7 +9,7 @@
       "sortingAction": {
         "asc": "Sort the table ascending by the {field} column.",
         "desc": "Sort the table descending by the {field} column.",
-        "none": "Reset the sorting order."
+        "none": "Reset sorting."
       }
     }
   },

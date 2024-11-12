@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-beta.70",
+  "version": "1.0.0-beta.72",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -11,7 +11,7 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./style.css": "./src/index.css"
+    "./style.css": "./src/style.css"
   },
   "homepage": "https://onyx.schwarz/development/packages/storybook-utils.html",
   "repository": {
@@ -29,8 +29,8 @@
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/shared": "workspace:^",
     "@storybook/vue3": ">= 8.3.0",
-    "sit-onyx": "workspace:^",
     "storybook": ">= 8.3.0",
     "storybook-dark-mode": ">= 4"
   },
@@ -38,6 +38,8 @@
     "deepmerge-ts": "^7.1.3"
   },
   "devDependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/shared": "workspace:^",
     "vue": "catalog:"
   }
 }

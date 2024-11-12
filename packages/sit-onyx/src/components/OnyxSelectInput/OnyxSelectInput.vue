@@ -111,6 +111,7 @@ const blockTyping = (event: KeyboardEvent) => {
   event.preventDefault();
 };
 </script>
+
 <template>
   <div v-if="skeleton" :class="['onyx-select-input-skeleton', densityClass]" v-bind="rootAttrs">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />

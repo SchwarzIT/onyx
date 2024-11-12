@@ -57,11 +57,11 @@ defineExpose({ comboBox });
       @keydown.arrow-down="isExpanded = true"
     />
 
-    <button v-bind="button">
+    <button v-bind="button" type="button">
       <template v-if="isExpanded">⬆️</template>
       <template v-else>⬇️</template>
     </button>
-    <ul v-bind="listbox" :class="{ hidden: !isExpanded }" style="width: 400px">
+    <ul class="listbox" v-bind="listbox" :class="{ hidden: !isExpanded }">
       <li
         v-for="e in options"
         :key="e"
@@ -83,5 +83,8 @@ defineExpose({ comboBox });
 }
 [aria-selected="true"] {
   background-color: red;
+}
+.listbox {
+  width: 400px;
 }
 </style>

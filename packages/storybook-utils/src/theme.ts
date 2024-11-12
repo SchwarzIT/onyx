@@ -1,33 +1,40 @@
-import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "sit-onyx";
-import onyxVariables from "sit-onyx/themes/onyx.json";
-import { create, type ThemeVars, type ThemeVarsPartial } from "storybook/internal/theming";
-import onyxLogo from "./assets/logo-onyx.svg";
+import {
+  ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS,
+  type OnyxBreakpoint,
+} from "@sit-onyx/shared/breakpoints";
+import { create, type ThemeVars } from "storybook/internal/theming";
+
+export type BrandDetails = Required<Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">>;
+
+/**
+ * Get the computed value for a CSS custom property.
+ * Per default the property value is taken from the body element.
+ */
+export const getCustomProperty = (property: string, el: Element = document.body) =>
+  getComputedStyle(el).getPropertyValue(property);
 
 /**
  * Creates a custom theme for Storybook that uses onyx colors.
  *
  * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
  */
-export const createTheme = (
-  options?: Pick<ThemeVarsPartial, "base" | "brandTitle" | "brandImage" | "brandUrl">,
-) => {
-  const base = options?.base ?? "light";
-  const primaryColor = onyxVariables["onyx-color-themed-primary-500"];
+export const createTheme = (base: "light" | "dark" = "light", brandDetails?: BrandDetails) => {
+  const primaryColor = getCustomProperty("--onyx-color-themed-primary-500");
 
   return create({
-    brandTitle: options?.brandTitle ?? "onyx Storybook",
-    brandUrl: options?.brandUrl ?? "https://onyx.schwarz",
-    brandImage: options?.brandImage ?? onyxLogo,
+    brandTitle: brandDetails?.brandTitle,
+    brandUrl: brandDetails?.brandUrl,
+    brandImage: brandDetails?.brandImage,
     brandTarget: "_blank",
-    base: base,
+    base,
 
     // default theme values that are independent of the light/dark mode:
     colorPrimary: primaryColor,
-    colorSecondary: onyxVariables["onyx-color-themed-secondary-500"],
+    colorSecondary: getCustomProperty("--onyx-color-themed-secondary-500"),
     barSelectedColor: primaryColor,
     barHoverColor: primaryColor,
-    appBorderRadius: remToNumber(onyxVariables["onyx-number-radius-300"]),
-    inputBorderRadius: remToNumber(onyxVariables["onyx-number-radius-200"]),
+    appBorderRadius: remToNumber(getCustomProperty("--onyx-number-radius-300")),
+    inputBorderRadius: remToNumber(getCustomProperty("--onyx-number-radius-200")),
 
     // custom colors depending on light/dark theme
     ...(base === "light" ? getLightTheme() : getDarkTheme()),
@@ -36,21 +43,21 @@ export const createTheme = (
 
 const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: onyxVariables["onyx-color-universal-grayscale-white"],
-    contentBackground: onyxVariables["onyx-color-themed-neutral-100"],
-    text: onyxVariables["onyx-color-themed-neutral-700"],
-    textMuted: onyxVariables["onyx-color-themed-neutral-600"],
-    border: onyxVariables["onyx-color-themed-neutral-300"],
+    background: getCustomProperty("--onyx-color-universal-grayscale-white"),
+    contentBackground: getCustomProperty("--onyx-color-themed-neutral-100"),
+    text: getCustomProperty("--onyx-color-themed-neutral-700"),
+    textMuted: getCustomProperty("--onyx-color-themed-neutral-600"),
+    border: getCustomProperty("--onyx-color-themed-neutral-300"),
   });
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: onyxVariables["onyx-color-themed-neutral-1100"],
-    contentBackground: onyxVariables["onyx-color-themed-neutral-1200"],
-    text: onyxVariables["onyx-color-themed-neutral-200"],
-    textMuted: onyxVariables["onyx-color-themed-neutral-400"],
-    border: onyxVariables["onyx-color-themed-neutral-900"],
+    background: getCustomProperty("--onyx-color-themed-neutral-1100"),
+    contentBackground: getCustomProperty("--onyx-color-themed-neutral-1200"),
+    text: getCustomProperty("--onyx-color-themed-neutral-200"),
+    textMuted: getCustomProperty("--onyx-color-themed-neutral-400"),
+    border: getCustomProperty("--onyx-color-themed-neutral-900"),
   });
 };
 
