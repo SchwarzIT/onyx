@@ -4,7 +4,7 @@ import { computed } from "vue";
 import type { SettingsSections } from ".";
 import { FloatingButtonDemo, FlyoutDemo, LayoutSettings, StickyDemo, TooltipDemo } from ".";
 
-const settings = defineModel<SettingsSections>();
+const settings = defineModel<SettingsSections>({ required: true });
 const isSidebarOpen = defineModel<boolean>("isSidebarOpen");
 
 const muchContent = Array.from({ length: 100 }, (_, index) => `Lorem ipsum dolor ${index}`);
@@ -22,7 +22,7 @@ const showSidebarOpenButton = computed<boolean>(() => {
 </script>
 
 <template>
-  <div v-if="settings" class="page">
+  <div class="page">
     <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
 
     <LayoutSettings v-model="settings" horizontal />

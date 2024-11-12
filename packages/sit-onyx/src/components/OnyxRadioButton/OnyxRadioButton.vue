@@ -147,24 +147,12 @@ const skeleton = useSkeletonContext(props);
       appearance: none;
       margin: var(--onyx-radio-button-selector-margin);
       cursor: inherit;
-
-      outline: {
-        style: solid;
-        width: var(--onyx-radio-button-selector-outline-width);
-        color: var(--onyx-radio-button-selector-outline-color);
-        offset: 0;
-      }
-
       transition: outline var(--onyx-duration-sm);
-
-      border: {
-        style: solid;
-        width: var(--onyx-1px-in-rem);
-        color: var(--onyx-radio-button-selector-border-color);
-        radius: var(--onyx-radius-full);
-      }
-
+      border: var(--onyx-1px-in-rem) solid var(--onyx-radio-button-selector-border-color);
+      border-radius: var(--onyx-radius-full);
       background-color: var(--onyx-radio-button-selector-background-color);
+      outline: var(--onyx-radio-button-selector-outline-width) solid
+        var(--onyx-radio-button-selector-outline-color);
 
       display: inline-grid;
       place-items: center;

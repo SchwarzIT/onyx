@@ -39,6 +39,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
       <button
         class="theme__button"
         :class="{ 'theme__button--active': !isDark }"
+        type="button"
         @click="isDark = false"
       >
         Light mode
@@ -46,6 +47,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
       <button
         class="theme__button"
         :class="{ 'theme__button--active': isDark }"
+        type="button"
         @click="isDark = true"
       >
         Dark mode

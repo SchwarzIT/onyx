@@ -34,7 +34,6 @@ const props = withDefaults(
     show?: SettingsSection[];
   }>(),
   {
-    horizontal: false,
     show: () => ["content", "sidebar", "footer", "overlay"],
   },
 );

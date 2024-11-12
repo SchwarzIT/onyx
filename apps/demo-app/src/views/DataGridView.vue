@@ -32,6 +32,7 @@ const features = computed(() => {
     </div>
   </OnyxPageLayout>
 </template>
+
 <style lang="scss" scoped>
 .data-grid-settings {
   margin: 1rem 0;

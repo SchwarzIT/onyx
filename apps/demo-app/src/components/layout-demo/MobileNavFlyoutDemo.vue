@@ -1,5 +1,12 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
+
+defineSlots<{
+  /**
+   * Flyout content.
+   */
+  default?(): unknown;
+}>();
 </script>
 
 <template>

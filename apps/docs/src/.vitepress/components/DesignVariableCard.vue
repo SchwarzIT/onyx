@@ -12,6 +12,17 @@ const props = defineProps<{
   hideValue?: boolean;
 }>();
 
+defineSlots<{
+  /**
+   * Display preview of the given variable.
+   */
+  default(props: { name: string }): unknown;
+  /**
+   * Optional slot to override variable name content.
+   */
+  name?(): unknown;
+}>();
+
 const wrapperRef = ref<HTMLElement>();
 const isCopied = ref(false);
 

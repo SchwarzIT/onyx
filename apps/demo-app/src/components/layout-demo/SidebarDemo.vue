@@ -4,6 +4,13 @@ import { OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const isOpen = defineModel<boolean>();
 defineProps<{ isClosable?: boolean }>();
+
+defineSlots<{
+  /**
+   * Sidebar content.
+   */
+  default?(): unknown;
+}>();
 </script>
 
 <template>

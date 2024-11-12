@@ -6,6 +6,13 @@ const showFlyout = defineModel<boolean>();
 
 defineProps<{ small?: boolean }>();
 
+defineSlots<{
+  /**
+   * Flyout content.
+   */
+  default?(): unknown;
+}>();
+
 const selectState = ref();
 </script>
 

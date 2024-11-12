@@ -1,4 +1,3 @@
-/* eslint-disable vue/no-ref-object-reactivity-loss */
 import { expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { ref, toRef } from "vue";
