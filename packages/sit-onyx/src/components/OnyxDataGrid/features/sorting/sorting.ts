@@ -53,7 +53,7 @@ export const useDataGridSorting = createFeature(
       return !config || config?.[col]?.enabled === true;
     });
 
-    const locale = computed(() => injectI18n()?.locale.value ?? "en-us");
+    const { locale } = injectI18n();
     const intlCompare = computed(
       () => (a: unknown, b: unknown) =>
         new Intl.Collator(locale.value).compare(String(a), String(b)),

@@ -1,9 +1,22 @@
 /* eslint-disable vue/no-ref-object-reactivity-loss */
-import { expect, test } from "vitest";
-import { ref } from "vue";
+import { expect, test, vi } from "vitest";
+import * as vue from "vue";
+import { ref, toRef } from "vue";
+import { I18N_INJECTION_KEY } from "../../../../i18n";
 import type { DataGridEntry } from "../../types";
 import { useDataGridSorting } from "./sorting";
 import type { SortColumnOptions, SortState } from "./types";
+
+vi.mock("vue", async (importOriginal) => {
+  const module: typeof vue = await importOriginal();
+
+  return {
+    ...module,
+    inject: vi.fn((key) =>
+      key === I18N_INJECTION_KEY ? { locale: toRef("en-US") } : undefined,
+    ) satisfies (typeof vue)["inject"],
+  };
+});
 
 const getTestData = () => [
   { id: 1, a: "6", b: "1-End" },
