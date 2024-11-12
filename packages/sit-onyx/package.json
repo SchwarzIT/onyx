@@ -50,7 +50,7 @@
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.10.0",
+    "@axe-core/playwright": "^4.10.1",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@storybook/addon-a11y": "^8.4.2",
