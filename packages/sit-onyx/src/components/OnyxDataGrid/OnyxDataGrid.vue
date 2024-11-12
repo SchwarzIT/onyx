@@ -4,15 +4,10 @@
   generic="TEntry extends DataGridEntry, TFeatures extends DataGridFeature<TEntry, symbol>[] | []"
 >
 import { computed, ref, toRefs, watch, type Ref, type WatchHandle } from "vue";
-import {
-  OnyxDataGridRenderer,
-  type DataGridEntry,
-  type DataGridMetadata,
-  type DataGridRendererColumn,
-  type DataGridRendererRow,
-  type OnyxDataGridProps,
-} from "../..";
 import { useDataGridFeatures, type DataGridFeature } from "./features";
+import OnyxDataGridRenderer from "./OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
+import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types";
+import type { DataGridEntry, DataGridMetadata, OnyxDataGridProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxDataGridProps<TEntry, TFeatures>>(), {
   features: () => [] as TFeatures,
