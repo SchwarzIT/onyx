@@ -58,7 +58,7 @@ type TestArgs = Parameters<Parameters<typeof test>[2]>[0];
 export const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
   options: MatrixScreenshotTestOptions<TColumn, TRow>,
 ) => {
-  test(`${options.name}`, async ({ mount, page, browserName, makeAxeBuilder }) => {
+  test(`${options.name}`, async ({ mount, page, browserName, makeAxeBuilder, context }) => {
     // limit the max timeout per permutation
     const timeoutPerScreenshot = 25 * 1000;
     test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
@@ -66,11 +66,7 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
     /**
      * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing the captured screenshot.
      */
-    const getScreenshot = async (
-      element: JSX.Element,
-      column: TColumn,
-      row: TRow,
-    ): Promise<JSX.Element> => {
+    const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
       await page.getByRole("document").focus(); // reset focus
       await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
       await page.mouse.up(); // reset mouse
@@ -79,14 +75,6 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       await options.beforeScreenshot?.(component, page, column, row);
 
       const screenshot = await component.screenshot({ animations: "disabled" });
-
-      const imgUrl = await page.evaluate(
-        (data) => {
-          const blob = new Blob([new Int8Array(data)], { type: "image/png" });
-          return URL.createObjectURL(blob);
-        },
-        [...screenshot],
-      );
 
       // some browser (e.g. safari) have different device resolutions which would cause the screenshot
       // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
@@ -104,18 +92,14 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
 
       const id = `${row}-${column}`;
 
-      return (
-        <img
-          width={box?.width}
-          height={box?.height}
-          style={{ gridArea: id }}
-          src={imgUrl}
-          alt={id}
-        />
-      );
+      return {
+        box,
+        id,
+        screenshot,
+      };
     };
 
-    const screenshots: JSX.Element[] = [];
+    const screenshotMap = new Map<string, Awaited<ReturnType<typeof getScreenshot>>>();
 
     for (const row of options.rows) {
       for (const column of options.columns) {
@@ -133,10 +117,31 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
           </div>
         );
 
-        const screenshot = await getScreenshot(wrappedElement, column, row);
-        screenshots.push(screenshot);
+        const data = await getScreenshot(wrappedElement, column, row);
+        screenshotMap.set(data.id, data);
       }
     }
+
+    await context.route("/_playwright-matrix-screenshot*", (route, request) => {
+      const url = new URL(request.url());
+      const wantedId = url.searchParams.get("id") ?? "";
+
+      return route.fulfill({
+        status: 200,
+        contentType: "image/png",
+        body: screenshotMap.get(wantedId)?.screenshot,
+      });
+    });
+
+    const screenshots = Array.from(screenshotMap.values()).map(({ box, id }) => (
+      <img
+        width={box?.width}
+        height={box?.height}
+        style={{ gridArea: id }}
+        src={`/_playwright-matrix-screenshot?id=${id}`}
+        alt={id}
+      />
+    ));
 
     const component = await mount(
       <ScreenshotMatrix
