@@ -34,11 +34,56 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
     return idMap.get(value)!;
   };
 
+  const handleKeydown = (event: KeyboardEvent) => {
+    const tab = event.target as Element;
+
+    const focusFirstTab = () => {
+      const element = tab.parentElement?.querySelector('[role="tab"]');
+      if (element instanceof HTMLElement) element.focus();
+    };
+
+    const focusLastTab = () => {
+      const element = Array.from(tab.parentElement?.querySelectorAll('[role="tab"]') ?? []).at(-1);
+      if (element instanceof HTMLElement) element.focus();
+    };
+
+    switch (event.key) {
+      case "ArrowRight":
+        if (tab.nextElementSibling && tab.nextElementSibling instanceof HTMLElement) {
+          tab.nextElementSibling.focus();
+        } else {
+          focusFirstTab();
+        }
+        break;
+      case "ArrowLeft":
+        if (tab.previousElementSibling && tab.previousElementSibling instanceof HTMLElement) {
+          tab.previousElementSibling.focus();
+        } else {
+          focusLastTab();
+        }
+        break;
+      case "Home":
+        focusFirstTab();
+        break;
+      case "End":
+        focusLastTab();
+        break;
+      case "Enter":
+      case " ":
+        {
+          const tabEntry = Array.from(idMap.entries()).find(([, { tabId }]) => tabId === tab.id);
+          if (tabEntry) options.onSelect?.(tabEntry[0]);
+        }
+        break;
+    }
+  };
+
   return {
     elements: {
       tablist: computed(() => ({
         role: "tablist",
         "aria-label": unref(options.label),
+        onKeydown: handleKeydown,
       })),
       tab: computed(() => {
         return (data: { value: T }) => {

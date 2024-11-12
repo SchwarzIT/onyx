@@ -6,6 +6,16 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 
+/**
+ * ### Keyboard shortcuts
+ * The following keyboard shortcuts are available:
+ * - **Tab**: Focuses / blurs the currently selected tab
+ * - **Arrow right**: Focuses the next tab (or first tab if last tab is selected)
+ * - **Arrow left**: Focuses the previous tab (or last tab if first tab is selected)
+ * - **Home**: Focuses the first tab
+ * - **End**: Focuses the last tab
+ * - **Enter/Space**: Selects the currently focused tab.
+ */
 const meta: Meta<typeof OnyxTabs> = {
   title: "Navigation/Tabs",
   component: OnyxTabs,
