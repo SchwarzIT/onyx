@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt",
-  "version": "1.0.0-beta.66",
+  "version": "1.0.0-beta.67",
   "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -44,7 +44,7 @@
     "@nuxt/schema": "^3.14.159",
     "@nuxt/test-utils": "^3.14.4",
     "@nuxtjs/i18n": "^9.0.0",
-    "nuxt": "^3.13.2",
+    "nuxt": "^3.14.159",
     "vue-i18n": "^10.0.4",
     "sit-onyx": "workspace:^"
   },

@@ -1,5 +1,11 @@
 # playground
 
+## 1.0.0-beta.66
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.66
+
 ## 1.0.0-beta.65
 
 ### Patch Changes
