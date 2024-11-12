@@ -71,6 +71,24 @@ export const tabsTesting = async (options: TabsTestingOptions) => {
   await options.page.keyboard.press("Space");
   const { tabId: tabIdFirst, panelId: panelIdFirst } = await expectTabAttributes(firstTab, true);
   await expectPanelAttributes(options.page.locator(`#${panelIdFirst}`), tabIdFirst);
+
+  // should skip disabled tabs when using the keyboard
+  await firstTab.click();
+  await secondTab.evaluate((element) => (element.ariaDisabled = "true"));
+  await expect(secondTab, "should disable second tab when setting aria-disabled").toBeDisabled();
+
+  await options.page.keyboard.press("ArrowRight");
+  await expect(secondTab, "should not focus second tab if its aria-disabled").not.toBeFocused();
+  await expect(
+    options.tablist.getByRole("tab").nth(2),
+    "should focus next tab after disabled one when pressing arrow right",
+  ).toBeFocused();
+
+  await options.page.keyboard.press("ArrowLeft");
+  await expect(
+    firstTab,
+    "should focus tab before disabled one when pressing arrow left",
+  ).toBeFocused();
 };
 
 /**

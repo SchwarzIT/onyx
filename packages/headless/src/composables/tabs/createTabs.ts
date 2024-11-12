@@ -37,30 +37,41 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
   const handleKeydown = (event: KeyboardEvent) => {
     const tab = event.target as Element;
 
-    const focusFirstTab = () => {
-      const element = tab.parentElement?.querySelector('[role="tab"]');
+    const enabledTabs = Array.from(
+      tab.parentElement?.querySelectorAll('[role="tab"]') ?? [],
+    ).filter((tab) => tab.ariaDisabled !== "true");
+
+    const currentTabIndex = enabledTabs.indexOf(tab);
+    if (currentTabIndex === -1) return;
+
+    const focusElement = (element?: Element | null) => {
       if (element instanceof HTMLElement) element.focus();
     };
 
-    const focusLastTab = () => {
-      const element = Array.from(tab.parentElement?.querySelectorAll('[role="tab"]') ?? []).at(-1);
-      if (element instanceof HTMLElement) element.focus();
+    const focusFirstTab = () => focusElement(enabledTabs.at(0));
+    const focusLastTab = () => focusElement(enabledTabs.at(-1));
+
+    /**
+     * Focuses the next/previous tab. Will ignore/skip disabled ones.
+     */
+    const focusTab = (direction: "next" | "previous") => {
+      const newIndex = direction === "next" ? currentTabIndex + 1 : currentTabIndex - 1;
+
+      if (newIndex < 0) {
+        return focusLastTab();
+      } else if (newIndex >= enabledTabs.length) {
+        return focusFirstTab();
+      }
+
+      return focusElement(enabledTabs.at(newIndex));
     };
 
     switch (event.key) {
       case "ArrowRight":
-        if (tab.nextElementSibling && tab.nextElementSibling instanceof HTMLElement) {
-          tab.nextElementSibling.focus();
-        } else {
-          focusFirstTab();
-        }
+        focusTab("next");
         break;
       case "ArrowLeft":
-        if (tab.previousElementSibling && tab.previousElementSibling instanceof HTMLElement) {
-          tab.previousElementSibling.focus();
-        } else {
-          focusLastTab();
-        }
+        focusTab("previous");
         break;
       case "Home":
         focusFirstTab();
@@ -86,7 +97,7 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
         onKeydown: handleKeydown,
       })),
       tab: computed(() => {
-        return (data: { value: T }) => {
+        return (data: { value: T; disabled?: boolean }) => {
           const { tabId: selectedTabId } = getId(unref(options.selectedTab));
           const { tabId, panelId } = getId(data.value);
           const isSelected = tabId === selectedTabId;
@@ -96,6 +107,7 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
             role: "tab",
             "aria-selected": isSelected,
             "aria-controls": panelId,
+            "aria-disabled": data.disabled ? true : undefined,
             onClick: () => options.onSelect?.(data.value),
             tabindex: isSelected ? 0 : -1,
           } as const;

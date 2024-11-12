@@ -26,11 +26,16 @@ const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
 const skeleton = useSkeletonContext(props);
 
-const tab = computed(() => tabsContext?.headless.elements.tab.value({ value: props.value }));
+const tab = computed(() =>
+  tabsContext?.headless.elements.tab.value({
+    value: props.value,
+    disabled: props.disabled || !!skeleton.value,
+  }),
+);
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" :class="['onyx-tab-skeleton', densityClass]" />
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-tab-skeleton', densityClass]" v-bind="tab" />
   <button
     v-else
     :class="[

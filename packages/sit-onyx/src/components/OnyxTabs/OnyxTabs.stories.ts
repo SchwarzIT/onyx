@@ -57,6 +57,22 @@ export const Default = {
           tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 4"],
         },
       ),
+      h(
+        OnyxTab,
+        { value: "tab-5", skeleton: true },
+        {
+          default: "Panel content 5...",
+          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 5"],
+        },
+      ),
+      h(
+        OnyxTab,
+        { value: "tab-6" },
+        {
+          default: "Panel content 6...",
+          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 6"],
+        },
+      ),
     ],
   },
 } satisfies Story;
