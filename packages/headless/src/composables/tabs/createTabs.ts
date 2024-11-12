@@ -68,6 +68,13 @@ export const createTabs = createBuilder(<T extends PropertyKey>(options: CreateT
       case "End":
         focusLastTab();
         break;
+      case "Enter":
+      case " ":
+        {
+          const tabEntry = Array.from(idMap.entries()).find(([, { tabId }]) => tabId === tab.id);
+          if (tabEntry) options.onSelect?.(tabEntry[0]);
+        }
+        break;
     }
   };
 
