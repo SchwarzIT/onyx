@@ -24,9 +24,9 @@ const features = computed(() => {
   <OnyxPageLayout>
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
-      <article class="data-grid-settings">
+      <section class="data-grid-settings">
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
-      </article>
+      </section>
       <OnyxDataGrid :features :data :columns="['name', 'age']" />
     </div>
   </OnyxPageLayout>
