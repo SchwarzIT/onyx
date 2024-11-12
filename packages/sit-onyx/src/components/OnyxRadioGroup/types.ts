@@ -4,24 +4,18 @@ import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
-import type { OnyxFormElementProps } from "../OnyxFormElement/types";
+import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     RequiredMarkerProp &
     CustomValidityProp &
     Pick<BaseSelectOption, "truncation"> &
-    Pick<OnyxFormElementProps, "label" | "hideLabel"> & {
+    Pick<SharedFormElementProps, "label" | "hideLabel"> & {
       /**
        * Options for the individual radio buttons of the group.
        */
       options: RadioButtonOption<TValue>[];
-      /**
-       * Unique name for the radio group form element.
-       * Will automatically filled, when it is not given.
-       * Warning: Never use a name for form elements twice!
-       */
-      name?: string;
       /**
        * The selected radio button option.
        */

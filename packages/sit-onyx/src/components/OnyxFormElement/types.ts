@@ -1,7 +1,13 @@
 import type { RequiredMarkerProp } from "../../composables/required";
-import type { FormMessages } from "../../composables/useCustomValidity";
+import type { CustomMessageType, FormMessages } from "../../composables/useCustomValidity";
 
-export type OnyxFormElementProps = RequiredMarkerProp & {
+export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "message" | "success"> & {
+  errorMessages?: FormMessages;
+  message?: FormMessages;
+  successMessages?: FormMessages;
+};
+
+export type SharedFormElementProps = RequiredMarkerProp & {
   /**
    * The id of a labelable form-related element.
    * If not given an id will be generated.
@@ -9,12 +15,18 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
    */
   id?: string;
   /**
+   * Same as the native `name` attribute of `<input>`.
+   * Used to reference the input in JavaScript or in submitted form data.
+   */
+  name?: string;
+  /**
    * Current value of the form element.
    */
   modelValue?: unknown;
   /**
    * Label to show above the form element. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.
+   * TODO: make CustomMessageType
    */
   label: string;
   /**
@@ -29,22 +41,18 @@ export type OnyxFormElementProps = RequiredMarkerProp & {
    */
   hideLabel?: boolean;
   /**
+   * Error messages that gives details about the cause of a form elements invalidity.
+   */
+  error?: CustomMessageType;
+  /**
    * Message / help text to display below the form element.
    * Will be replaced by an error message if the form element is invalid.
    */
-  message?: string;
-  /**
-   * Info message / additional text to display inside a tooltip next to the message.
-   */
-  messageTooltip?: string;
-  /**
-   * Error messages that inform about causes for invalidity of form components
-   */
-  errorMessages?: FormMessages;
+  message?: CustomMessageType;
   /**
    * Success messages that inform about the state of form components
    */
-  successMessages?: FormMessages;
+  success?: CustomMessageType;
   /**
    * Maximum number of characters that are allowed to be entered.
    * Warning: when the value is (pre)set programmatically,
