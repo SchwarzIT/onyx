@@ -18,8 +18,8 @@ export type OnyxDataGridProps<
    * ```vue
    * <script setup lang="ts">
    * import { ref, watch } from "vue";
-   * import type { DataGridEntry, OnyxDataGridProps } from "../../..";
-   * import { DataGridFeatures, OnyxDataGrid } from "../../..";
+   * import type { DataGridEntry, OnyxDataGridProps } from "sit-onyx";
+   * import { DataGridFeatures, OnyxDataGrid } from "sit-onyx";
    *
    * const withSorting = DataGridFeatures.useSorting(sortOptions);
    * </script>
