@@ -2,7 +2,7 @@ import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
 import SortingDataGrid from "../../../examples/DataGrid/SortingDataGrid.vue";
 
-const getTestArray = () => [
+const getTestData = () => [
   { id: 3, a: "4", b: "3-Start" },
   { id: 4, a: "3", b: "4-Start" },
   { id: 1, a: "6", b: "1-End" },
@@ -21,7 +21,7 @@ const expectOrderedText = async (rows: Locator[], expectations: string[]) => {
 
 test("should render correctly", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const data = getTestArray();
+  const data = getTestData();
   const component = await mount(<SortingDataGrid data={data} columns={["a", "b"]} />);
 
   const getFirstColumn = () => component.locator("tbody tr td:first-of-type").all();

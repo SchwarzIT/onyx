@@ -5,7 +5,7 @@ import type { DataGridEntry } from "../../types";
 import { useDataGridSorting } from "./sorting";
 import type { SortColumnOptions, SortState } from "./types";
 
-const getTestArray = () => [
+const getTestData = () => [
   { id: 1, a: "6", b: "1-End" },
   { id: 2, a: "5", b: "2-End" },
   { id: 3, a: "4", b: "3-Start" },
@@ -21,9 +21,9 @@ test("per default should enable show sort symbols and not sort initially", () =>
   //ASSERT
   expect(withSorting.header!.actions!("col1")).toHaveLength(1);
 
-  const array = getTestArray();
+  const array = getTestData();
   withSorting.mutation!.func(array);
-  expect(array).toMatchObject(getTestArray());
+  expect(array).toMatchObject(getTestData());
 });
 
 test("should consider reactive sortState", () => {
@@ -54,7 +54,7 @@ test("should consider reactive sortState", () => {
   expect(withSorting.header!.actions!("a")).toHaveLength(1);
   expect(withSorting.header!.actions!("b")).toHaveLength(1);
 
-  const array = getTestArray();
+  const array = getTestData();
   withSorting.mutation!.func(array);
 
   expect(array, "should sort by initial sortState and use custom sort function").toMatchObject([
@@ -71,7 +71,7 @@ test("should consider reactive sortState", () => {
   sortState.value.direction = "asc";
 
   // ASSERT
-  const array2 = getTestArray();
+  const array2 = getTestData();
   withSorting.mutation!.func(array2);
   expect(array2, "should consider updated sorting").toMatchObject([
     { id: 6, a: "1", b: "6-End" },
