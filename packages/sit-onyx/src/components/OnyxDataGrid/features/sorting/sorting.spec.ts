@@ -85,7 +85,7 @@ test("should consider reactive sortState", () => {
 
 test("should consider reactive columns", () => {
   // ARRANGE
-  const columns = ref<SortColumnOptions<DataGridEntry>>({
+  const columns = ref<SortColumnOptions<DataGridEntry> | undefined>({
     id: { enabled: false },
     a: { enabled: true },
     b: {

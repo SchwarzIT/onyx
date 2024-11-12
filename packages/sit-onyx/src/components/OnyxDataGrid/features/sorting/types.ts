@@ -31,21 +31,19 @@ export type SortState<TEntry extends DataGridEntry = DataGridEntry> = {
  * Per column sorting configuration.
  * If at least one column has configuration, sorting must be explicitly enabled for all columns.
  */
-export type SortColumnOptions<TEntry extends DataGridEntry> =
-  | {
-      [TKey in keyof TEntry]?: {
-        /**
-         * If sorting is enabled for this column.
-         */
-        enabled: boolean;
-        /**
-         * A custom sorting function for this column.
-         * By default the `Intl.Collator` with the current locale is used.
-         */
-        sortFunc?: Compare<TEntry[TKey]>;
-      };
-    }
-  | undefined;
+export type SortColumnOptions<TEntry extends DataGridEntry> = {
+  [TKey in keyof TEntry]?: {
+    /**
+     * If sorting is enabled for this column.
+     */
+    enabled: boolean;
+    /**
+     * A custom sorting function for this column.
+     * By default the `Intl.Collator` with the current locale is used.
+     */
+    sortFunc?: Compare<TEntry[TKey]>;
+  };
+};
 
 /**
  * The options of the sorting feature for the OnyxDataGrid component.
@@ -58,5 +56,5 @@ export type SortOptions<TEntry extends DataGridEntry> = {
   /**
    * The options for each column, including whether sorting is enabled and a custom sorting function. If undefined, sorting is enabled for all columns (default).
    */
-  columns?: MaybeRefOrGetter<SortColumnOptions<TEntry>>;
+  columns?: MaybeRefOrGetter<SortColumnOptions<TEntry> | undefined>;
 };
