@@ -1,5 +1,16 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.11
+
+### Minor Changes
+
+- 8421235: feat(tabs): support keyboard navigation
+
+  - Arrow left/right: Focus previous/next tab
+  - Home: Focus first tab
+  - End: Focus last tab
+  - Enter/space: Select currently focused tab
+
 ## 1.0.0-beta.10
 
 ### Patch Changes
