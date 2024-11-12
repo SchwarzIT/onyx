@@ -163,8 +163,7 @@ export const CustomError: Story = {
 export const SuccessInput: Story = {
   args: {
     ...Default.args,
-    showSuccess: true,
-    successMessage: {
+    success: {
       shortMessage: "Example success message",
       longMessage: "This text might inform the users that the text is valid.",
     },

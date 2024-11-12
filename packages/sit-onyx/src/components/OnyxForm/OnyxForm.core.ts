@@ -25,12 +25,6 @@ export type FormProps = {
    * See [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo).
    */
   showError?: ShowErrorMode;
-  /**
-   * Configures if success state is shown.
-   * When `true`, success state will be shown.
-   * When `false`, success state will never be shown.
-   */
-  showSuccess?: boolean;
 };
 
 /**
@@ -48,7 +42,7 @@ export type FormComputedProps = {
  *
  * See discussion in https://github.com/vuejs/core/issues/8286
  */
-export type __DONT_USE_VUE_FIX_KeyOfFormProps = "disabled" | "showError" | "showSuccess";
+export type __DONT_USE_VUE_FIX_KeyOfFormProps = "disabled" | "showError";
 
 /**
  * Props that may be used by the form child components.
@@ -114,7 +108,6 @@ const createFormInjectionContext =
   } => ({
     disabled: createCompute(formProps, props, "disabled", false),
     showError: createCompute(formProps, props, "showError", "touched"),
-    showSuccess: createCompute(formProps, props, "showSuccess", false),
   });
 
 export const provideFormContext = (formProps: Reactive<FormProps> | undefined) =>

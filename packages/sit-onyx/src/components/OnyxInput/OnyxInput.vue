@@ -51,7 +51,7 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const { disabled, showError, showSuccess } = useFormContext(props);
+const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 </script>
@@ -77,7 +77,7 @@ const errorClass = useErrorClass(showError);
             v-custom-validity
             :placeholder="props.placeholder"
             class="onyx-input__native"
-            :class="{ 'onyx-input__success': showSuccess && successMessages }"
+            :class="{ 'onyx-input__native--success': successMessages }"
             :type="props.type"
             :required="props.required"
             :autocapitalize="props.autocapitalize"
