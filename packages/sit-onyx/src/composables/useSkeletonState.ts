@@ -11,7 +11,7 @@ const SKELETON_INJECTION_KEY = Symbol() as InjectionKey<
 export type SkeletonProvidedProp = {
   /**
    * Whether to show all supported child components as skeleton.
-   * Can be override on each child component if needed.
+   * Can be overridden on each child component if necessary.
    */
   skeleton: boolean;
 };

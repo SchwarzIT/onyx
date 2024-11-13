@@ -11,7 +11,7 @@ export type OnyxTabProps = DensityProp & {
    */
   label?: string;
   /**
-   * Whether the input should be disabled and prevent the user from interacting with it.
+   * Whether the tab should be disabled and prevent the user from interacting with it.
    */
   disabled?: boolean;
   /**
