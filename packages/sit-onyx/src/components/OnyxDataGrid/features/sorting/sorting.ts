@@ -45,15 +45,17 @@ export const useDataGridSorting = createFeature(
         new Intl.Collator(locale.value).compare(String(a), String(b)),
     );
 
-    const handleClick = (column: keyof TEntry) => {
-      if (sortState.value.column === column) {
-        sortState.value.direction = nextSortDirection(sortState.value.direction);
-      } else {
-        sortState.value = { column, direction: nextSortDirection() };
-      }
-      if (sortState.value.direction === "none") {
-        sortState.value.column = undefined;
-      }
+    const handleClick = (clickedColumn: keyof TEntry) => {
+      const direction =
+        sortState.value.column === clickedColumn
+          ? nextSortDirection(sortState.value.direction)
+          : nextSortDirection();
+      const column = direction !== "none" ? clickedColumn : undefined;
+
+      sortState.value = {
+        direction,
+        column,
+      };
     };
 
     const sortData = (data: Readonly<TEntry>[]) => {
