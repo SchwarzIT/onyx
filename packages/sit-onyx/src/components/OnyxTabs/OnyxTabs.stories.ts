@@ -1,8 +1,6 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 
@@ -32,25 +30,21 @@ export const Default = {
     label: "Example tabs",
     modelValue: "tab-1",
     default: () => [
-      h(OnyxTab, { value: "tab-1", label: "Tab 1" }, "Panel content 1..."),
+      h(OnyxTab, { value: "tab-1", label: "Tab 1" }, () => "Panel content 1..."),
+      h(OnyxTab, { value: "tab-2", label: "Tab 2" }, () => "Panel content 2..."),
       h(
         OnyxTab,
-        { value: "tab-2" },
-        {
-          default: "Panel content 2...",
-          tab: () => ["Tab 2", h(OnyxBadge, { dot: true, color: "warning" })],
-        },
+        { value: "tab-3", label: "Disabled tab 3", disabled: true },
+        () => "Panel content 3...",
       ),
       h(
         OnyxTab,
-        { value: "tab-3", disabled: true },
+        { value: "tab-4" },
         {
-          default: "Panel content 3...",
-          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 3 (disabled)"],
+          default: () => "Panel content 3...",
+          tab: () => ["Tab 4", h(OnyxBadge, { dot: true, color: "warning" })],
         },
       ),
-      h(OnyxTab, { value: "tab-4", label: "Tab 4" }, "Panel content 4..."),
-      h(OnyxTab, { value: "tab-5", skeleton: true, label: "Tab 5" }, "Panel content 5..."),
     ],
   },
 } satisfies Story;
@@ -71,14 +65,14 @@ export const Skeleton = {
 
 export const ManyTabs = {
   args: {
-    modelValue: "tab-1",
+    ...Default.args,
     default: () =>
       Array.from({ length: 32 }, (_, index) => {
         const id = index + 1;
         return h(
           OnyxTab,
           { label: `Tab ${id}`, value: `tab-${id}`, skeleton: id === 3 },
-          `Panel content ${id}`,
+          () => `Panel content ${id}`,
         );
       }),
   },
