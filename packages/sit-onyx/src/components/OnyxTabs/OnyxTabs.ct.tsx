@@ -85,6 +85,38 @@ test.describe("Screenshot tests (custom content)", () => {
   });
 });
 
+for (const type of ["default", "skeleton"] as const) {
+  test.describe(`Screenshot tests (sizes, ${type})`, () => {
+    executeMatrixScreenshotTest({
+      name: `Tabs (sizes, ${type})`,
+      columns: DENSITIES,
+      rows: ["h2", "h3", "h4"],
+      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      disabledAccessibilityRules: ["color-contrast"],
+      component: (column, row) => {
+        return (
+          <OnyxTabs
+            label="Example tabs"
+            modelValue="tab-1"
+            density={column}
+            size={row}
+            skeleton={type === "skeleton"}
+          >
+            {Array.from({ length: 3 }, (_, index) => {
+              const id = index + 1;
+              return (
+                <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+                  Panel content {id}...
+                </OnyxTab>
+              );
+            })}
+          </OnyxTabs>
+        );
+      },
+    });
+  });
+}
+
 test.describe("Screenshot tests (overflow)", () => {
   executeMatrixScreenshotTest({
     name: "Tabs (overflow)",

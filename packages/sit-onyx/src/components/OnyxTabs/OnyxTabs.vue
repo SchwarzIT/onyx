@@ -5,7 +5,9 @@ import { useDensity } from "../../composables/density";
 import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
 
-const props = defineProps<OnyxTabsProps<TValue>>();
+const props = withDefaults(defineProps<OnyxTabsProps<TValue>>(), {
+  size: "h2",
+});
 
 const emit = defineEmits<{
   /**
@@ -32,7 +34,11 @@ defineSlots<{
 const panelRef = ref<HTMLElement>();
 provideSkeletonContext(props);
 
-provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
+provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
+  headless,
+  panelRef,
+  size: toRef(props, "size"),
+});
 </script>
 
 <template>

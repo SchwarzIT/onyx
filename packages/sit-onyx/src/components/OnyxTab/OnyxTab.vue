@@ -25,6 +25,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
 const skeleton = useSkeletonContext(props);
+const sizeClass = computed(() => `onyx-tab--${tabsContext?.size.value}`);
 
 const tab = computed(() =>
   tabsContext?.headless.elements.tab.value({
@@ -35,13 +36,17 @@ const tab = computed(() =>
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" :class="['onyx-tab-skeleton', densityClass]" v-bind="tab" />
+  <OnyxSkeleton
+    v-if="skeleton"
+    :class="['onyx-tab-skeleton', densityClass, sizeClass]"
+    v-bind="tab"
+  />
   <button
     v-else
     :class="[
       'onyx-tab',
-      'onyx-text--large',
       densityClass,
+      sizeClass,
       tab?.['aria-selected'] ? 'onyx-tab--selected' : '',
     ]"
     v-bind="tab"
@@ -72,12 +77,16 @@ const tab = computed(() =>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/sizes.scss";
 
 .onyx-tab,
 .onyx-tab-skeleton {
-  --onyx-tab-padding-vertical: var(--onyx-density-xs);
-  --onyx-tab-line-height: 1.75rem;
-  --onyx-tab-highlight-gap: var(--onyx-density-3xs);
+  @include layers.component() {
+    --onyx-tab-padding-vertical: var(--onyx-density-xs);
+    --onyx-tab-highlight-gap: var(--onyx-density-3xs);
+
+    @include sizes.define-headline-sizes();
+  }
 }
 
 .onyx-tab {
@@ -141,7 +150,6 @@ const tab = computed(() =>
       justify-content: center;
       gap: var(--onyx-density-xs);
       position: relative;
-      line-height: var(--onyx-tab-line-height);
     }
 
     &__panel {
@@ -151,10 +159,7 @@ const tab = computed(() =>
 
     &-skeleton {
       width: var(--onyx-density-4xl);
-      height: calc(
-        var(--onyx-tab-line-height) + 2 * var(--onyx-tab-padding-vertical) +
-          var(--onyx-tab-highlight-gap)
-      );
+      height: calc(1lh + 2 * var(--onyx-tab-padding-vertical) + var(--onyx-tab-highlight-gap));
       display: inline-block;
       vertical-align: middle;
     }
