@@ -41,7 +41,7 @@ const handleCopy = async () => {
 
 <template>
   <div ref="wrapperRef" class="card vp-raw" :class="{ 'card--wide': props.wideName }">
-    <div>
+    <div class="card__wrapper">
       <div class="card__name">
         <slot name="name">
           <DesignVariable :name="props.name" :is-copied="isCopied" allow-copy @copy="handleCopy" />
@@ -74,6 +74,11 @@ const handleCopy = async () => {
 
   &--wide {
     grid-template-columns: 1fr 1fr;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
   }
 
   &__name {
