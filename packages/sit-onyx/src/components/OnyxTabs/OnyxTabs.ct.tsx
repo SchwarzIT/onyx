@@ -23,7 +23,7 @@ for (const type of ["default", "stretched"] as const) {
             modelValue="tab-1"
             density={column}
             stretched={type === "stretched"}
-            style={{ width: type === "stretched" ? "40rem" : undefined }}
+            style={{ width: type === "stretched" ? "24rem" : undefined }}
             skeleton={row === "skeleton"}
           >
             <OnyxTab label="Tab 1" value="tab-1">
