@@ -85,32 +85,37 @@ test.describe("Screenshot tests (custom content)", () => {
   });
 });
 
-test("should be horizontally scrollable", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxTabs label="Example tabs" modelValue="tab-1" style={{ width: "32rem" }}>
-      {Array.from({ length: 16 }, (_, index) => {
-        const id = index + 1;
-        return (
-          <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
-            Panel content {id}...
-          </OnyxTab>
-        );
-      })}
-    </OnyxTabs>,
-  );
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder()
+test.describe("Screenshot tests (overflow)", () => {
+  executeMatrixScreenshotTest({
+    name: "Tabs (overflow)",
+    columns: ["default"],
+    rows: ["default", "focus-first", "focus-in-between", "focus-last"],
     // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    .disableRules(["color-contrast"])
-    .analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  await expect(component.getByRole("tab", { name: "Tab 6" })).toBeInViewport({ ratio: 1 });
-  await expect(component.getByRole("tab", { name: "Tab 7" })).not.toBeInViewport({ ratio: 1 });
+    disabledAccessibilityRules: ["color-contrast"],
+    component: () => {
+      return (
+        <OnyxTabs label="Example tabs" modelValue="tab-1" style={{ width: "18rem" }}>
+          {Array.from({ length: 8 }, (_, index) => {
+            const id = index + 1;
+            return (
+              <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+                Panel content {id}...
+              </OnyxTab>
+            );
+          })}
+        </OnyxTabs>
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "focus-first") {
+        await component.getByRole("tab").first().focus();
+      } else if (row === "focus-last") {
+        await component.getByRole("tab").last().focus();
+      } else if (row === "focus-in-between") {
+        await component.getByRole("tab").nth(4).focus();
+      }
+    },
+  });
 });
 
 test("should pass accessibility tests", async ({ mount, makeAxeBuilder, page }) => {
