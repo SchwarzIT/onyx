@@ -108,7 +108,7 @@ const tab = computed(() =>
 
           position: absolute;
           left: 50%;
-          bottom: 0;
+          bottom: calc(-1 * var(--onyx-tab-highlight-gap));
           transform: translateX(-50%);
         }
       }
@@ -123,7 +123,7 @@ const tab = computed(() =>
       }
 
       &:focus-visible {
-        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
       }
 
       &:active {
@@ -141,7 +141,6 @@ const tab = computed(() =>
       justify-content: center;
       gap: var(--onyx-density-xs);
       position: relative;
-      padding-bottom: var(--onyx-tab-highlight-gap);
       line-height: var(--onyx-tab-line-height);
     }
 
