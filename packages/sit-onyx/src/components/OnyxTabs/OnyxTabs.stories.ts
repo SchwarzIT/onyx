@@ -43,12 +43,14 @@ export const Default = {
       ),
       h(
         OnyxTab,
-        { value: "tab-3" },
+        { value: "tab-3", disabled: true },
         {
           default: "Panel content 3...",
-          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 3"],
+          tab: () => [h(OnyxIcon, { icon: placeholder }), "Tab 3 (disabled)"],
         },
       ),
+      h(OnyxTab, { value: "tab-4", label: "Tab 4" }, "Panel content 4..."),
+      h(OnyxTab, { value: "tab-5", skeleton: true, label: "Tab 5" }, "Panel content 5..."),
     ],
   },
 } satisfies Story;
@@ -57,5 +59,12 @@ export const Stretched = {
   args: {
     ...Default.args,
     stretched: true,
+  },
+} satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
