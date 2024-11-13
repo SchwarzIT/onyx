@@ -19,7 +19,7 @@ export const nextSortDirection = (current?: SortDirection): SortDirection => {
 
 export const SORTING_FEATURE = Symbol("Sorting");
 
-export const useDataGridSorting = createFeature(
+export const useSorting = createFeature(
   <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) => {
     const sortState: Ref<SortState<TEntry>> = toRef(
       options?.sortState ??

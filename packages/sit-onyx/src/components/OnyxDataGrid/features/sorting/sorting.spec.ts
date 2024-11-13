@@ -3,7 +3,7 @@ import * as vue from "vue";
 import { ref, toRef } from "vue";
 import { I18N_INJECTION_KEY } from "../../../../i18n";
 import type { DataGridEntry } from "../../types";
-import { useDataGridSorting } from "./sorting";
+import { useSorting } from "./sorting";
 import type { SortColumnOptions, SortState } from "./types";
 
 vi.mock("vue", async (importOriginal) => {
@@ -28,7 +28,7 @@ const getTestData = () => [
 
 test("per default should enable show sort symbols and not sort initially", () => {
   // ARRANGE
-  const withSorting = useDataGridSorting();
+  const withSorting = useSorting();
 
   //ASSERT
   expect(withSorting.header!.actions!("col1")).toHaveLength(1);
@@ -44,7 +44,7 @@ test("should consider reactive sortState", () => {
     column: "b",
     direction: "desc",
   });
-  const withSorting = useDataGridSorting({
+  const withSorting = useSorting({
     sortState,
     columns: ref({
       id: { enabled: false },
@@ -109,7 +109,7 @@ test("should consider reactive columns", () => {
       },
     },
   });
-  const withSorting = useDataGridSorting({
+  const withSorting = useSorting({
     sortState: {
       column: "b",
       direction: "desc",

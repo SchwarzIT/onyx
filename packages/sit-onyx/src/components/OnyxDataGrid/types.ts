@@ -13,7 +13,7 @@ export type OnyxDataGridProps<
    * Features that should be applied.
    * They allow the modification of the behavior and rendering.
    * Usually you want to use the provided features of the exported `DataGridFeature` namespace.
-   * Check the Storybook examples (e.g. [Sorting](/?path=/docs/data-datagrid-sorting--docs)) for more details on how the features are used and configured.
+   * Check the Storybook examples (e.g. [Sorting](/?path=/story/data-datagrid-features--sorting)) for more details on how the features are used and configured.
    */
   features?: TFeatures;
   /**
