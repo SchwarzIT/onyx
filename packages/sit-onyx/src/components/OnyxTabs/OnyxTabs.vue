@@ -57,6 +57,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
       align-items: center;
       gap: var(--onyx-density-2xs);
       margin-bottom: var(--onyx-density-md);
+      overflow-x: auto;
     }
 
     &--stretched {

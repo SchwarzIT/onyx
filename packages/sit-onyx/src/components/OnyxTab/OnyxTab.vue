@@ -87,6 +87,9 @@ const tab = computed(() =>
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
     font-weight: 600;
+    // tabs should have their needed width and be horizontally scrollable instead if they exceed the max parent width
+    // (will be handled by the OnyxTabs component)
+    min-width: max-content;
 
     // reset button styles
     border: none;
