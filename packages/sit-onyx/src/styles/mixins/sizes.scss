@@ -15,3 +15,30 @@
     @content ($name, $size);
   }
 }
+
+/**
+* Mixin to define h1-h6 headline font size and line height.
+*/
+@mixin define-headline-sizes() {
+  &--h1 {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+  }
+
+  &--h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  &--h3 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  &--h4,
+  &--h5,
+  &--h6 {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+}
