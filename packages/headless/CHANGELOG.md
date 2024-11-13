@@ -1,5 +1,18 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.12
+
+### Minor Changes
+
+- a3eb7d0: feat(createTabs): support skipping disabled tabs for keyboard navigation
+
+  Disabled tabs will now be skipped/ignored when navigating via keyboard.
+  You need to provide the disabled state when calling the `tabs()` element, e.g.:
+
+  ```vue
+  <button v-bind="tab({ value: 'tab-1', disabled: true })" />
+  ```
+
 ## 1.0.0-beta.11
 
 ### Minor Changes
