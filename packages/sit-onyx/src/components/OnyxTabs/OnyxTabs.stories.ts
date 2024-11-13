@@ -68,3 +68,18 @@ export const Skeleton = {
     skeleton: true,
   },
 } satisfies Story;
+
+export const ManyTabs = {
+  args: {
+    modelValue: "tab-1",
+    default: () =>
+      Array.from({ length: 32 }, (_, index) => {
+        const id = index + 1;
+        return h(
+          OnyxTab,
+          { label: `Tab ${id}`, value: `tab-${id}`, skeleton: id === 3 },
+          `Panel content ${id}`,
+        );
+      }),
+  },
+} satisfies Story;
