@@ -85,6 +85,34 @@ test.describe("Screenshot tests (custom content)", () => {
   });
 });
 
+test("should be horizontally scrollable", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxTabs label="Example tabs" modelValue="tab-1" style={{ width: "32rem" }}>
+      {Array.from({ length: 16 }, (_, index) => {
+        const id = index + 1;
+        return (
+          <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+            Panel content {id}...
+          </OnyxTab>
+        );
+      })}
+    </OnyxTabs>,
+  );
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder()
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    .disableRules(["color-contrast"])
+    .analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  await expect(component.getByRole("tab", { name: "Tab 6" })).toBeInViewport({ ratio: 1 });
+  await expect(component.getByRole("tab", { name: "Tab 7" })).not.toBeInViewport({ ratio: 1 });
+});
+
 test("should pass accessibility tests", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt />);
