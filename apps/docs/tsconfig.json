@@ -3,9 +3,6 @@
   "include": ["env.d.ts", "src/**/*", "tests/**/*", "src/.vitepress/**/*", "vite.config.ts"],
   "compilerOptions": {
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
-    "paths": {
-      "~components/*": ["../../packages/sit-onyx/src/components/*"]
-    }
+    "baseUrl": "."
   }
 }

@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.68
+
+### Minor Changes
+
+- a3eb7d0: feat(OnyxTab): support `disabled` and `skeleton` property
+
+  Also support `skeleton` prop for `OnyxTabs` component which will put all child tab components into skeleton mode.
+
 ## 1.0.0-beta.67
 
 ### Minor Changes

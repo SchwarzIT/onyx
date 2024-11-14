@@ -1,18 +1,7 @@
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
-import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
-  resolve: {
-    alias: {
-      "~components": getFilePath("../../packages/sit-onyx/src/components"),
-    },
-  },
 });
-
-/** Gets the given path while ensuring cross-platform and correct decoding */
-function getFilePath(path: string) {
-  return fileURLToPath(new URL(path, import.meta.url));
-}

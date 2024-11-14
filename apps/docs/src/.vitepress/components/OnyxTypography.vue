@@ -1,9 +1,6 @@
 <script lang="ts" setup>
+import { OnyxHeadline, OnyxLink, type HeadlineType, type TextSize } from "sit-onyx";
 import { computed, ref } from "vue";
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
-import type { HeadlineType } from "~components/OnyxHeadline/types";
-import OnyxLink from "~components/OnyxLink/OnyxLink.vue";
-import type { TextSize } from "../../../../../packages/sit-onyx/src/types/fonts";
 import DesignVariable from "./DesignVariable.vue";
 import DesignVariableCard from "./DesignVariableCard.vue";
 import DesignVariableHeader from "./DesignVariableHeader.vue";

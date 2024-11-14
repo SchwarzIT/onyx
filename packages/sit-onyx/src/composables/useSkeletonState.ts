@@ -9,6 +9,10 @@ const SKELETON_INJECTION_KEY = Symbol() as InjectionKey<
  * It's value is provided, so that it can be used in child components.
  */
 export type SkeletonProvidedProp = {
+  /**
+   * Whether to show all supported child components as skeleton.
+   * Can be overridden on each child component if necessary.
+   */
   skeleton: boolean;
 };
 

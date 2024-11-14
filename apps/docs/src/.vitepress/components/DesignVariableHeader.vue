@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import OnyxButton from "~components/OnyxButton/OnyxButton.vue";
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const props = defineProps<{
   /** Headline to show on the left side of the header. */

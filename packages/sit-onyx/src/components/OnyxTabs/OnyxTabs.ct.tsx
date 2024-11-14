@@ -13,23 +13,27 @@ for (const type of ["default", "stretched"] as const) {
     executeMatrixScreenshotTest({
       name: `Tabs (${type})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "active", "focus-visible"],
+      rows: ["default", "hover", "active", "focus-visible", "skeleton"],
       // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       disabledAccessibilityRules: ["color-contrast"],
-      component: (column) => {
+      component: (column, row) => {
         return (
           <OnyxTabs
             label="Example tabs"
             modelValue="tab-1"
             density={column}
             stretched={type === "stretched"}
-            style={{ width: type === "stretched" ? "24rem" : undefined }}
+            style={{ width: type === "stretched" ? "40rem" : undefined }}
+            skeleton={row === "skeleton"}
           >
             <OnyxTab label="Tab 1" value="tab-1">
               Panel content 1...
             </OnyxTab>
             <OnyxTab label="Tab 2" value="tab-2">
               Panel content 2...
+            </OnyxTab>
+            <OnyxTab label="Tab 3 (disabled)" value="tab-3" disabled>
+              Panel content 3...
             </OnyxTab>
           </OnyxTabs>
         );

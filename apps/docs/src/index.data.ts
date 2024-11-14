@@ -99,6 +99,7 @@ export default defineLoader({
         name: "DataGrid",
         dueDate: "12/2024",
         status: "in-progress",
+        href: "https://storybook.onyx.schwarz/?path=/docs/data-datagrid--docs",
       },
       {
         name: "Headline",
@@ -222,7 +223,11 @@ export default defineLoader({
       { name: "Breadcrumb", status: getImplementedStatus("OnyxBreadcrumb") },
       { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
       { name: "Wizard", status: getImplementedStatus("OnyxWizard") },
-      { name: "Tabs", status: getImplementedStatus("OnyxTabs") },
+      {
+        name: "Tabs",
+        status: getImplementedStatus("OnyxTabs"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tabs--docs",
+      },
       { name: "Search", status: "in-progress", dueDate: "11/2024" },
       { name: "Filters", status: "in-progress", dueDate: "11/2024" },
     ];

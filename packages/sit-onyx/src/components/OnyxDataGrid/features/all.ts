@@ -1,3 +1,3 @@
 export * from "./sorting/types";
 
-export { useDataGridSorting as useSorting } from "./sorting/sorting";
+export { useSorting } from "./sorting/sorting";

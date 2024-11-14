@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
 import { computed } from "vue";
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { HomePageData } from "../../index.data";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
