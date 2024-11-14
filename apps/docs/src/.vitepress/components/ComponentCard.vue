@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
+import { OnyxHeadline } from "sit-onyx";
 import type { ComponentStatus } from "./ComponentStatusBadge.vue";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
 
