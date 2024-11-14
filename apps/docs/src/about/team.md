@@ -3,7 +3,7 @@ layout: page
 ---
 
 <script lang="ts" setup>
-import { data } from "../index.data";
+import { data } from "./team.data";
 import {
   VPTeamPage,
   VPTeamPageTitle,

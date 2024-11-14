@@ -2,13 +2,12 @@ import fs from "node:fs";
 import { defineLoader } from "vitepress";
 import type { ComponentCardProps } from "./.vitepress/components/ComponentCard.vue";
 import { getOnyxNpmPackages } from "./.vitepress/utils";
+import { executeGitHubRequest } from "./github-api";
 
 /**
  * Build-time data for the home page (components, facts/numbers etc.)
  */
 export type HomePageData = {
-  /** All onyx contributors */
-  contributors: GithubContributor[];
   /** Total number of implemented onyx components. */
   componentCount: number;
   /** Total number of component variants/stories across all implemented components as documented with Storybook. */
@@ -51,16 +50,9 @@ export default defineLoader({
 
     const timestamp = new Date();
 
-    // we only want to fetch the data from GitHub / npmjs API on build, not when running locally
-    // to improve the startup time and prevent rate limits
-    const skipGitHubFetch = process.env.VITEPRESS_SKIP_GITHUB_FETCH === "true";
-
-    const downloads = skipGitHubFetch ? 0 : await getNpmDownloadCount(npmPackageNames);
-    const contributors = skipGitHubFetch ? [] : await getContributors();
-    const mergedPRCount = skipGitHubFetch ? 0 : await searchGitHub("issues", "type:pr is:merged");
-    const closedIssueCount = skipGitHubFetch
-      ? 0
-      : await searchGitHub("issues", "type:issue is:closed");
+    const downloads = (await getNpmDownloadCount(npmPackageNames)) ?? 0;
+    const mergedPRCount = (await searchGitHub("issues", "type:pr is:merged")) ?? 0;
+    const closedIssueCount = (await searchGitHub("issues", "type:issue is:closed")) ?? 0;
 
     /**
      * Checks whether the given component is implemented (meaning a Storybook file exists).
@@ -241,7 +233,6 @@ export default defineLoader({
       mergedPRCount,
       closedIssueCount,
       timestamp: timestamp.toUTCString(),
-      contributors,
       downloads,
       packageCount: packageFolders.length,
       components,
@@ -280,43 +271,6 @@ const searchGitHub = async (
   return body.total_count;
 };
 
-type GithubContributor = {
-  login: string;
-  id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  starred_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  type: "User" | "Bot";
-  user_view_type: string;
-  site_admin: false;
-  contributions: number;
-};
-
-/**
- * Lists all github contributors
- */
-const getContributors = async (): Promise<GithubContributor[]> => {
-  const body = await executeGitHubRequest(`repos/SchwarzIT/onyx/contributors`);
-
-  if (typeof body !== "object" && !Array.isArray(body)) {
-    throw new Error(
-      `GitHub contributor listing is not an array. Response body: ${JSON.stringify(body)}`,
-    );
-  }
-  return body;
-};
-
 /**
  * Gets the total download count of the last month for the given packages.
  *
@@ -345,31 +299,4 @@ const getNpmDownloadCount = async (packages: string[]): Promise<number> => {
 
   const downloads = await Promise.all(promises);
   return downloads.reduce((total, downloads) => total + downloads, 0);
-};
-
-/**
- * Executes a GET request to the given GitHub API route.
- *
- * @param apiRoute API route without "https://api.github.com/". Must not start with a trailing slash.
- * @throws Error if API request was not successful
- * @returns JSON response body.
- */
-const executeGitHubRequest = async (apiRoute: string) => {
-  // GitHub token can be used to have a higher rate limit (useful if used in CI)
-  // see: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#about-primary-rate-limits
-  const accessToken = process.env.VITEPRESS_GITHUB_ACCESS_TOKEN;
-
-  const response = await fetch(`https://api.github.com/${apiRoute}`, {
-    headers: {
-      "X-GitHub-Api-Version": "2022-11-28",
-      Authorization: accessToken ? `Bearer ${accessToken}` : "",
-    },
-  });
-  const body = await response.json();
-
-  if (response.status < 200 || response.status >= 300) {
-    throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
-  }
-
-  return body;
 };

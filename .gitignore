@@ -15,7 +15,7 @@ node_modules/
 .npmrc
 **/.cache
 **/.vitepress/cache
-**/.vitepress/config.ts.timestamp-*.mjs
+**/.vitepress/*.ts.timestamp*.mjs
 *.tsbuildinfo
 .turbo
 vite.*.timestamp*

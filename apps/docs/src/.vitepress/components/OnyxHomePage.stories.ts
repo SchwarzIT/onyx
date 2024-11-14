@@ -18,7 +18,6 @@ type Story = StoryObj<typeof OnyxHomePage>;
 export const Default = {
   args: {
     data: {
-      contributors: [],
       closedIssueCount: 42,
       componentCount: 12,
       components: ComponentRoadmapStory.args.components,
