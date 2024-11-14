@@ -7,6 +7,7 @@ import { getOnyxNpmPackages } from "./.vitepress/utils";
  * Build-time data for the home page (components, facts/numbers etc.)
  */
 export type HomePageData = {
+  /** All onyx contributors */
   contributors: GithubContributor[];
   /** Total number of implemented onyx components. */
   componentCount: number;

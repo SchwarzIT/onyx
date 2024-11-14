@@ -17,6 +17,8 @@ const shuffleArray = (array) =>
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 
+const sortByContributions = (a, b) => a.contributions - b.contributions;
+
     
 // https://vitepress.dev/reference/default-theme-team-page#show-team-members-in-a-page
 // Add your full name here, if you want it to be shown
@@ -94,8 +96,8 @@ const mapped = data.contributors.map((c) => ({
 }));
 
 const coreMembers = mapped.filter(m => m.core);
-const bots = mapped.filter(m => m.type === "Bot");
-const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includes(m));
+const bots = mapped.filter(m => m.type === "Bot").sort(sortByContributions);
+const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includes(m)).sort(sortByContributions);
 </script>
 
 <VPTeamPage>
@@ -116,13 +118,13 @@ const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includ
   <VPTeamPageSection>
     <template #title>Thank you to all contributors 🙏</template>
     <template #members>
-      <VPTeamMembers size="small" :members="shuffleArray(contributors)" />
+      <VPTeamMembers size="small" :members="contributors" />
     </template>
   </VPTeamPageSection>
   <VPTeamPageSection>
     <template #title>Our hardworking bots 🤖</template>
     <template #members>
-      <VPTeamMembers size="small" :members="shuffleArray(bots)" />
+      <VPTeamMembers size="small" :members="bots" />
     </template>
   </VPTeamPageSection>
 </VPTeamPage>
