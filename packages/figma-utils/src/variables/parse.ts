@@ -35,7 +35,12 @@ export const parseFigmaVariables = (
    */
   Object.values(apiResponse.meta.variables).forEach((variable) => {
     const collection = apiResponse.meta.variableCollections[variable.variableCollectionId];
-    if (variable.hiddenFromPublishing || collection.hiddenFromPublishing) return;
+    if (
+      variable.hiddenFromPublishing ||
+      variable.deletedButReferenced ||
+      collection.hiddenFromPublishing
+    )
+      return;
 
     // parse variable value for every mode
     Object.values(collection.modes).forEach((mode) => {
