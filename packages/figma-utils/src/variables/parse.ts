@@ -153,5 +153,9 @@ export const rgbaToHex = (value: RGBAValue): string => {
  * - replace "&" with "-"
  */
 export const normalizeVariableName = (name: string): string => {
+  console.log(
+    "hier",
+    name.replaceAll("/", "-").replaceAll(" ", "-").replaceAll("+", "-").replaceAll("&", "-"),
+  );
   return name.replaceAll("/", "-").replaceAll(" ", "-").replaceAll("+", "-").replaceAll("&", "-");
 };
