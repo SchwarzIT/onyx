@@ -45,26 +45,49 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
 </script>
 
 <template>
-  <component :is="props.is" ref="parentRef" class="onyx-more">
-    <slot></slot>
-    <slot
+  <component :is="props.is" class="onyx-more-list">
+    <component :is="props.is" ref="parentRef" class="onyx-more-list__elements">
+      <slot></slot>
+    </component>
+
+    <component
+      :is="props.is"
       v-if="more.hiddenElements.value.length > 0"
-      name="more"
-      :hidden-elements="more.hiddenElements.value.length"
-      :visible-elements="more.visibleElements.value.length"
-    ></slot>
+      class="onyx-more-list__indicator"
+    >
+      <slot
+        name="more"
+        :hidden-elements="more.hiddenElements.value.length"
+        :visible-elements="more.visibleElements.value.length"
+      ></slot>
+    </component>
   </component>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-more {
+.onyx-more-list {
   @include layers.component() {
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-4xs);
-    overflow-x: clip;
+
+    &__elements {
+      display: inherit;
+      align-items: inherit;
+      gap: inherit;
+      overflow-x: hidden;
+    }
+
+    &__indicator {
+      min-width: max-content;
+      max-width: 100%;
+
+      > * {
+        visibility: visible !important;
+      }
+    }
   }
 }
 </style>

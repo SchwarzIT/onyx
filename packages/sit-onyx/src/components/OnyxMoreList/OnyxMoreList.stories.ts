@@ -25,7 +25,14 @@ export const Default = {
     is: "div",
     injectionKey: NAV_BAR_MORE_LIST_INJECTION_KEY,
     default: () =>
-      Array.from({ length: 24 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
-    more: ({ hiddenElements }) => h("div", `+${hiddenElements} more`),
+      Array.from({ length: 12 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
+    more: ({ hiddenElements }) =>
+      h(
+        "div",
+        {
+          style: `font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-soft)`,
+        },
+        `+${hiddenElements} more`,
+      ),
   },
 } satisfies Story;
