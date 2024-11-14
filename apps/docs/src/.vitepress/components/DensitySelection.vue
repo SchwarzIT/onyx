@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { DENSITIES, type Density } from "~components/../composables/density";
+import { type Density, DENSITIES } from "sit-onyx";
 import DesignVariableBadge from "./DesignVariableBadge.vue";
 
 const modelValue = defineModel<Density>({ default: "default" });

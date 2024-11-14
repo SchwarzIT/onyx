@@ -2,7 +2,7 @@
 import check from "@sit-onyx/icons/check.svg?raw";
 import history from "@sit-onyx/icons/history.svg?raw";
 import loadingDots from "@sit-onyx/icons/loading-dots.svg?raw";
-import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
+import { OnyxIcon } from "sit-onyx";
 
 export type ComponentStatus = "implemented" | "in-progress" | "planned";
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { OnyxToast } from "sit-onyx";
 import DefaultTheme from "vitepress/theme";
-import OnyxToast from "~components/OnyxToast/OnyxToast.vue";
 
 const { Layout } = DefaultTheme;
 </script>

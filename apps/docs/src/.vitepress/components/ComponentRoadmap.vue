@@ -1,7 +1,6 @@
 <script lang="ts" setup>
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
 import { computed, ref } from "vue";
-import OnyxButton from "~components/OnyxButton/OnyxButton.vue";
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
 import type { ComponentCardProps } from "./ComponentCard.vue";
 import ComponentCard from "./ComponentCard.vue";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
