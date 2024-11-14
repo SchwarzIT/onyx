@@ -31,7 +31,7 @@ const overrides = [
     login: "jannick-ux",
     name: 'Jannick Keller',
     core: true,
-    title: 'Lead Designer',
+    title: 'Design Lead',
   },
   {
     login: "flubnau",
