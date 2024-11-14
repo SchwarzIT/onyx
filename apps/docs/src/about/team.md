@@ -9,15 +9,10 @@ import {
   VPTeamPageTitle,
   VPTeamMembers,
   VPTeamPageSection
-} from 'vitepress/theme'
+} from 'vitepress/theme';
 
-const shuffleArray = (array) =>
-  array
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-
-const sortByContributions = (a, b) => a.contributions - b.contributions;
+const sortByContributions = (a, b) =>   b.contributions - a.contributions;
+const sortByOverride = (a, b) => overrides.findIndex(o => o.login === a.login) - overrides.findIndex(o => o.login === b.login);
 
     
 // https://vitepress.dev/reference/default-theme-team-page#show-team-members-in-a-page
@@ -28,48 +23,64 @@ const overrides = [
     name: 'Martin Hofmann',
     core: true,
     title: 'Product Owner',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/"
   },
   {
     login: "jannick-ux",
     name: 'Jannick Keller',
     core: true,
     title: 'Design Lead',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
   {
     login: "flubnau",
     name: 'Florian Lubnau',
     core: true,
     title: 'Designer',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
   {
     login: "JoCa96",
     name: 'Jonathan Leo Carle',
     core: true,
     title: 'Engineering Lead',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
   {
     login: "BoppLi",
     name: 'Linda Bopp',
-    core: true,
-    title: 'Engineer',
+    core: false,
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
+    desc: "Former Core Member 🫡",
   },
   {
     login: "larsrickert",
     name: 'Lars Rickert',
     core: true,
     title: 'Engineer',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
   {
     login: "MajaZarkova",
     name: 'Maja Zarkova',
     core: true,
     title: 'Engineer',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
     {
     login: "ChristianBusshoff",
     name: 'Christian Bußhoff',
     core: true,
     title: 'Engineer',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
   {
     login: "rhoggs-bot-test-account",
@@ -77,11 +88,15 @@ const overrides = [
   },
   {
     login: "oemueller",
-    name: "Oliver Müller"
+    name: "Oliver Müller",
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   },
   {
     login: "markbrockhoff",
-    name: "Mark Brockhoff"
+    name: "Mark Brockhoff",
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
   }
 ];
 
@@ -95,12 +110,12 @@ const mapped = data.contributors.map((c) => ({
   ...overrides.find(n => c.login === n.login)
 }));
 
-const coreMembers = mapped.filter(m => m.core);
+const coreMembers = mapped.filter(m => m.core).sort(sortByOverride);
 const bots = mapped.filter(m => m.type === "Bot").sort(sortByContributions);
 const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includes(m)).sort(sortByContributions);
 </script>
 
-<VPTeamPage>
+<VPTeamPage style="margin-top: 0;">
   <VPTeamPageTitle>
     <template #title>Meet the team 👋</template>
     <template #lead>
@@ -113,8 +128,7 @@ const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includ
     </template>
 
   </VPTeamPageTitle>
-  
-  <VPTeamMembers size="medium" :members="shuffleArray(coreMembers)" />
+  <VPTeamMembers size="medium" :members="coreMembers" />
   <VPTeamPageSection>
     <template #title>Thank you to all contributors 🙏</template>
     <template #members>
