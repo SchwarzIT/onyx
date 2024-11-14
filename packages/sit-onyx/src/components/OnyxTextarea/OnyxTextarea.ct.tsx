@@ -216,10 +216,12 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+        longMessage: "Additional info message",
+      };
       const labelTooltip = "More information";
-      const messageTooltip = "Additional info message";
 
       return (
         <OnyxTextarea
@@ -227,7 +229,6 @@ test.describe("Screenshot tests", () => {
           label={label}
           message={row === "messageTooltip" ? message : undefined}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
-          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },

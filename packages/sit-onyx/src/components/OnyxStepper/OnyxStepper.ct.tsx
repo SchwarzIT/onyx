@@ -62,10 +62,12 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+        longMessage: "Additional info message",
+      };
       const labelTooltip = "More information";
-      const messageTooltip = "Additional info message";
 
       return (
         <OnyxStepper
@@ -73,7 +75,6 @@ test.describe("Screenshot tests", () => {
           label={label}
           message={row === "messageTooltip" ? message : undefined}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
-          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },
@@ -97,16 +98,18 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const showLongMessage = column !== "default";
       const label = column === "long-text" ? "Test label that should be truncated" : "Test label";
-      const message = showLongMessage
-        ? "Very long message that should be truncated"
-        : "Test message";
+      const message = {
+        shortMessage: showLongMessage
+          ? "Very long message that should be truncated"
+          : "Test message",
+        longMessage: "Additional info message",
+      };
       const errorMessages: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
-      const messageTooltip = "Additional info message";
 
       return (
         <OnyxStepper
@@ -114,7 +117,6 @@ test.describe("Screenshot tests", () => {
           label={label}
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
-          messageTooltip={messageTooltip}
           modelValue={10}
         />
       );

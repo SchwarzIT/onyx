@@ -74,14 +74,17 @@ test.describe("Screenshot tests", () => {
         column === "long-text" ? "Very long message that should be truncated" : "Test message";
       const labelTooltip = "More information";
       const messageTooltip = "Additional info message";
+      const messageObj = {
+        shortMessage: message,
+        longMessage: `${row === "messageTooltip" ? messageTooltip : undefined}`,
+      };
 
       return (
         <OnyxInput
           style="width: 12rem"
           label={label}
-          message={row === "messageTooltip" ? message : undefined}
+          message={row === "messageTooltip" ? messageObj : undefined}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
-          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },
@@ -115,14 +118,17 @@ test.describe("Screenshot tests", () => {
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
       const messageTooltip = "Additional info message";
+      const messageObj = {
+        shortMessage: `${row !== "messageTooltip" ? errorMessages : undefined}`,
+        longMessage: messageTooltip,
+      };
 
       return (
         <OnyxInput
           style="width: 12rem"
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? errorMessages : undefined}
-          messageTooltip={messageTooltip}
+          customError={row !== "messageTooltip" ? messageObj : undefined}
           withCounter={column === "with-counter"}
           maxlength={column === "with-counter" ? 15 : undefined}
         />

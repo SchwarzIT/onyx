@@ -115,8 +115,10 @@ export const Loading = {
 export const WithMessage: Story = {
   args: {
     ...Default.args,
-    message: "Example message",
-    messageTooltip: "Additional info message",
+    message: {
+      shortMessage: "Example message",
+      longMessage: "Additional info message",
+    },
   },
 };
 
