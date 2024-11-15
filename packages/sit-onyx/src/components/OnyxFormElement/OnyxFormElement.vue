@@ -54,19 +54,19 @@ defineSlots<{
     <slot :id="props.id"></slot>
     <div class="onyx-form-element__footer onyx-text--small">
       <FormMessage
-        v-if="props.errorMessages"
+        v-if="props.errorMessages && !props.errorMessages.hidden"
         class="onyx-form-element__error-message"
         :messages="props.errorMessages"
         type="error"
       />
       <FormMessage
-        v-if="props.successMessages"
+        v-if="props.successMessages && !props.successMessages.hidden"
         class="onyx-form-element__success-message"
         :messages="props.successMessages"
         type="success"
       />
       <FormMessage
-        v-if="props.message"
+        v-if="props.message && !props.message.hidden"
         class="onyx-form-element__message"
         :messages="props.message"
         type="info"

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { FormMessages } from "../../composables/useCustomValidity";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 
 const props = defineProps<{
   /**
@@ -16,21 +15,18 @@ const props = defineProps<{
 </script>
 
 <template>
-  <component
-    :is="messages.hidden ? OnyxVisuallyHidden : 'span'"
-    :class="['onyx-form-message', `onyx-form-message__${props.type}`]"
+  <span
+    :class="['onyx-form-message', `onyx-form-message__${props.type}`, 'onyx-truncation-ellipsis']"
   >
-    <span :class="['onyx-truncation-ellipsis']">
-      {{ props.messages.shortMessage }}
-    </span>
-    <OnyxInfoTooltip
-      v-if="props.messages.longMessage"
-      class="onyx-form-message__tooltip"
-      position="bottom"
-      open="hover"
-      :text="props.messages.longMessage"
-    />
-  </component>
+    {{ props.messages.shortMessage }}
+  </span>
+  <OnyxInfoTooltip
+    v-if="props.messages.longMessage"
+    class="onyx-form-message__tooltip"
+    position="bottom"
+    open="hover"
+    :text="props.messages.longMessage"
+  />
 </template>
 
 <style lang="scss">
