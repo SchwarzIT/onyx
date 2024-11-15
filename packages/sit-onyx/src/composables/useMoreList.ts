@@ -1,6 +1,8 @@
+import { debounce } from "@sit-onyx/headless";
 import {
   computed,
   inject,
+  nextTick,
   onBeforeUnmount,
   ref,
   unref,
@@ -9,6 +11,7 @@ import {
   type InjectionKey,
   type Ref,
 } from "vue";
+import { useResizeObserver } from "./useResizeObserver";
 
 /**
  * Template ref of either a native HTML element or a custom Vue component.
@@ -25,8 +28,9 @@ export type MoreListInjectionKey = InjectionKey<{
   components: Map<string, Ref<HTMLOrInstanceRef>>;
   /**
    * List of component IDs that are currently fully visible.
+   * If undefined, the visibility has not yet been initialized.
    */
-  visibleElements: Ref<string[]>;
+  visibleElements: Ref<string[] | undefined>;
   /**
    * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
    */
@@ -86,11 +90,11 @@ export type UseMoreListOptions = {
  * ```
  */
 export const useMoreList = (options: UseMoreListOptions) => {
-  const visibleElements = ref<string[]>([]);
+  const visibleElements = ref<string[]>();
 
   const hiddenElements = computed(() => {
     return Array.from(options.componentRefs.keys()).filter(
-      (key) => !visibleElements.value.includes(key),
+      (key) => !visibleElements.value?.includes(key),
     );
   });
 
@@ -104,7 +108,7 @@ export const useMoreList = (options: UseMoreListOptions) => {
 
       const root = getTemplateRefElement(options.parentRef.value);
       if (!root || options.disabled?.value) {
-        visibleElements.value = [];
+        visibleElements.value = undefined;
         return;
       }
 
@@ -127,7 +131,7 @@ export const useMoreList = (options: UseMoreListOptions) => {
             else hiddenIds.push(elementId);
           });
 
-          if (visibleElements.value.length === 0) {
+          if (!visibleElements.value?.length) {
             visibleElements.value = shownIds;
           } else {
             visibleElements.value = visibleElements.value
@@ -152,6 +156,7 @@ export const useMoreList = (options: UseMoreListOptions) => {
   return {
     /**
      * IDs of currently completely visible components in the list.
+     * If undefined, the visibility has not yet been initialized.
      */
     visibleElements,
     /**
@@ -197,8 +202,31 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   moreContext?.components?.set(id, componentRef);
   onBeforeUnmount(() => moreContext?.components?.delete(id));
 
-  const isVisible = computed(() => {
-    return moreContext?.disabled.value || (moreContext?.visibleElements.value.includes(id) ?? true);
+  const { width } = useResizeObserver();
+  const isVisible = ref(true);
+  const isChecking = ref(false);
+
+  const widthDebounce = ref(width.value);
+  const updateDebounceWidth = debounce(() => (widthDebounce.value = width.value), 100);
+  watch(width, () => updateDebounceWidth());
+
+  watch([width, () => moreContext?.visibleElements.value], async ([newWidth], [oldWidth]) => {
+    if (moreContext?.visibleElements.value === undefined) return; // ignore if visibility is not yet initialized
+    if (isChecking.value) return;
+    isChecking.value = true;
+
+    isVisible.value = true; // force render all tabs so visibility can checked again by the intersection observer
+
+    await nextTick();
+
+    if (newWidth > oldWidth) {
+      // TODO: check why this is needed
+      await new Promise((resolve) => setTimeout(resolve));
+    }
+
+    isVisible.value =
+      moreContext?.disabled.value || (moreContext?.visibleElements.value.includes(id) ?? true);
+    isChecking.value = false;
   });
 
   return {

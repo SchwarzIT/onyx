@@ -10,7 +10,10 @@ export type UseResizeObserverOptions = {
 };
 
 export const useResizeObserver = (
-  target: Ref<HTMLElement | undefined>,
+  /**
+   * Target to observe. If undefined, the documentElement will be observed.
+   */
+  target?: Ref<HTMLElement | undefined>,
   options?: UseResizeObserverOptions,
 ) => {
   const box = options?.box ?? "content-box";
@@ -33,14 +36,18 @@ export const useResizeObserver = (
   onBeforeMount(() => {
     const observer = new ResizeObserver(callback);
 
-    watch(
-      target,
-      (newTarget, oldTarget) => {
-        if (oldTarget) observer?.unobserve(oldTarget);
-        if (newTarget) observer?.observe(newTarget, { box });
-      },
-      { immediate: true },
-    );
+    if (target) {
+      watch(
+        target,
+        (newTarget, oldTarget) => {
+          if (oldTarget) observer?.unobserve(oldTarget);
+          if (newTarget) observer?.observe(newTarget, { box });
+        },
+        { immediate: true },
+      );
+    } else {
+      observer.observe(document.documentElement, { box });
+    }
 
     onBeforeUnmount(() => observer.disconnect());
   });

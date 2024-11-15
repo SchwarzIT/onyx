@@ -38,7 +38,7 @@ provide(props.injectionKey, {
 
 watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
   emit("visibilityChange", {
-    visibleElements: visibleElements.length,
+    visibleElements: visibleElements?.length ?? 0,
     hiddenElements: hiddenElements.length,
   });
 });
@@ -58,7 +58,7 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
       <slot
         name="more"
         :hidden-elements="more.hiddenElements.value.length"
-        :visible-elements="more.visibleElements.value.length"
+        :visible-elements="more.visibleElements.value?.length ?? 0"
       ></slot>
     </component>
   </component>

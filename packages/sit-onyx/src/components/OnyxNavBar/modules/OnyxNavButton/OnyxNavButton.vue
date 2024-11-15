@@ -58,6 +58,7 @@ const handleParentClick = (event: MouseEvent) => {
 
 <template>
   <NavButtonLayout
+    v-show="isMobile || isVisible"
     ref="componentRef"
     v-bind="props"
     v-model:mobile-children-open="mobileChildrenOpen"
@@ -65,7 +66,6 @@ const handleParentClick = (event: MouseEvent) => {
     :class="{
       'onyx-nav-button--mobile': isMobile,
       'onyx-nav-button--active': props.active,
-      'onyx-nav-button--hidden': !isMobile && !isVisible,
     }"
     :is-mobile="isMobile ?? false"
   >
@@ -109,10 +109,6 @@ $border-radius: var(--onyx-radius-sm);
     position: relative;
     $gap: var(--onyx-spacing-2xs);
     list-style: none;
-
-    &--hidden {
-      visibility: hidden;
-    }
 
     &__trigger {
       display: inline-flex;
