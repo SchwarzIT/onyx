@@ -53,25 +53,26 @@ defineSlots<{
     </div>
     <slot :id="props.id"></slot>
     <div class="onyx-form-element__footer onyx-text--small">
-      <FormMessage
-        v-if="props.errorMessages && !props.errorMessages.hidden"
-        class="onyx-form-element__error-message"
-        :messages="props.errorMessages"
-        type="error"
-      />
-      <FormMessage
-        v-if="props.successMessages && !props.successMessages.hidden"
-        class="onyx-form-element__success-message"
-        :messages="props.successMessages"
-        type="success"
-      />
-      <FormMessage
-        v-if="props.message && !props.message.hidden"
-        class="onyx-form-element__message"
-        :messages="props.message"
-        type="info"
-      />
-
+      <span class="onyx-form-element__footer-messages">
+        <FormMessage
+          v-if="props.errorMessages"
+          class="onyx-form-element__error-message"
+          :messages="props.errorMessages"
+          type="error"
+        />
+        <FormMessage
+          v-if="props.successMessages"
+          class="onyx-form-element__success-message"
+          :messages="props.successMessages"
+          type="success"
+        />
+        <FormMessage
+          v-if="props.message"
+          class="onyx-form-element__message"
+          :messages="props.message"
+          type="info"
+        />
+      </span>
       <span v-if="counterText" class="onyx-form-element__counter">
         {{ counterText }}
       </span>
@@ -131,9 +132,19 @@ defineSlots<{
 
     &__footer {
       width: 100%;
+      max-width: 100%;
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+
+      gap: $footer-gap;
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &__footer-messages {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
 
       .onyx-form-message:not(:first-of-type) {
         display: none;
@@ -141,9 +152,7 @@ defineSlots<{
     }
 
     &__counter {
-      text-align: right;
-      flex-grow: 1;
-      margin-left: $footer-gap;
+      max-width: fit-content;
     }
 
     &__error-message,
