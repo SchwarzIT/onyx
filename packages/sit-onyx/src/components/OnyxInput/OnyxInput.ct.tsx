@@ -42,8 +42,10 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+      };
 
       return (
         <OnyxInput
@@ -83,7 +85,7 @@ test.describe("Screenshot tests", () => {
         <OnyxInput
           style="width: 12rem"
           label={label}
-          message={row === "messageTooltip" ? messageObj : undefined}
+          message={messageObj}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
         />
       );
@@ -108,9 +110,6 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const showLongMessage = column !== "default";
       const label = column === "long-text" ? "Test label that should be truncated" : "Test label";
-      const message = showLongMessage
-        ? "Very long message that should be truncated"
-        : "Test message";
       const errorMessages: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
@@ -118,8 +117,14 @@ test.describe("Screenshot tests", () => {
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
       const messageTooltip = "Additional info message";
-      const messageObj = {
+      const errorMessage = {
         shortMessage: `${row !== "messageTooltip" ? errorMessages : undefined}`,
+        longMessage: messageTooltip,
+      };
+      const message = {
+        shortMessage: showLongMessage
+          ? "Very long message that should be truncated"
+          : "Test message",
         longMessage: messageTooltip,
       };
 
@@ -128,7 +133,7 @@ test.describe("Screenshot tests", () => {
           style="width: 12rem"
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? messageObj : undefined}
+          customError={row !== "messageTooltip" ? errorMessage : undefined}
           withCounter={column === "with-counter"}
           maxlength={column === "with-counter" ? 15 : undefined}
         />
@@ -147,7 +152,7 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        await formElementUtils.triggerTooltipVisible(row === "errorTooltip" ? "error" : "message");
+        await formElementUtils.triggerTooltipVisible("message");
       }
     },
   });
@@ -319,7 +324,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const input = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
   const fullError = formElementUtils
-    .getTooltipPopover("error")
+    .getTooltipPopover("message")
     .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
@@ -334,11 +339,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("message")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await formElementUtils.triggerTooltipVisible("error");
+  await formElementUtils.triggerTooltipVisible("message");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 
