@@ -411,7 +411,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const textarea = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
   const fullError = formElementUtils
-    .getTooltipPopover("error")
+    .getTooltipPopover("message")
     .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
@@ -426,11 +426,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("message")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await formElementUtils.triggerTooltipVisible("error");
+  await formElementUtils.triggerTooltipVisible("message");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 
