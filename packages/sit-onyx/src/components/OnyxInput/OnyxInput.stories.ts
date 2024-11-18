@@ -115,7 +115,7 @@ export const Maxlength: Story = {
 export const WithMessage = {
   args: {
     ...Default.args,
-    message: "Example message",
+    message: { shortMessage: "Example message" },
   },
 } satisfies Story;
 

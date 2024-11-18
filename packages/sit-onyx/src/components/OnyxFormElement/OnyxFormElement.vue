@@ -123,10 +123,7 @@ defineSlots<{
 
     $footer-gap: var(--onyx-spacing-2xs);
 
-    &__label-tooltip,
-    &__message-tooltip,
-    &__error-tooltip,
-    &__success-tooltip {
+    &__label-tooltip {
       margin-left: $footer-gap;
     }
 
@@ -147,7 +144,7 @@ defineSlots<{
       flex-direction: column;
 
       .onyx-form-message:not(:first-of-type) {
-        display: none;
+        display: var(--message-display, block);
       }
     }
 
@@ -157,7 +154,7 @@ defineSlots<{
 
     &__error-message,
     &__error-tooltip {
-      visibility: var(--visibility, hidden);
+      display: var(--error-message-display, none);
       color: var(--onyx-color-base-danger-500);
     }
 

@@ -43,6 +43,7 @@
 
   &:has(#{$base-selector}__native--success) {
     --border-color: var(--onyx-color-base-success-500);
+    --message-display: none;
   }
 
   &:has(#{$base-selector}__native:read-write:hover) {
@@ -83,7 +84,8 @@
   }
 
   @include invalid(#{$base-selector}__native) {
-    --visibility: visible;
+    --error-message-display: inline-flex;
+    --message-display: none;
     --border-color: var(--onyx-color-base-danger-500);
     --outline-color: var(--onyx-color-base-danger-200);
     --selection-color: var(--onyx-color-base-danger-200);
