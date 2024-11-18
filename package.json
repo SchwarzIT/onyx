@@ -73,6 +73,11 @@
   },
   "pnpm": {
     "overrides": {
+      "@vue/compiler-core": "catalog:",
+      "@vue/compiler-dom": "catalog:",
+      "@vue/compiler-sfc": "catalog:",
+      "@vue/compiler-ssr": "catalog:",
+      "@vue/shared": "catalog:",
       "vue": "catalog:",
       "sass-embedded": "catalog:"
     }
