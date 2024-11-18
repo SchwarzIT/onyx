@@ -4,7 +4,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
-  color: "primary",
+  color: "default",
 });
 
 const { densityClass } = useDensity(props);
@@ -40,8 +40,11 @@ const { densityClass } = useDensity(props);
     @each $color in $colors {
       &--#{$color} {
         --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
-        --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
-
+        @if $color == "primary" {
+          --onyx-tag-border-color: var(--onyx-color-component-border-#{$color});
+        } @else {
+          --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
+        }
         @if $color == "neutral" {
           // neutral does not have a bold color so we need to use medium here
           --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);

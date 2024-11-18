@@ -9,11 +9,11 @@
 
 @mixin define-checked-background($state, $color) {
   &#{$state} {
-    border-color: var(--onyx-color-base-#{$color}-500);
-    background-color: var(--onyx-color-base-#{$color}-500);
+    border-color: var(--onyx-color-component-cta-#{$color});
+    background-color: var(--onyx-color-component-cta-#{$color});
 
     &:hover {
-      background-color: var(--onyx-color-base-#{$color}-300);
+      background-color: var(--onyx-color-component-cta-#{$color}-hover);
     }
   }
 }
@@ -34,7 +34,7 @@
 
   &:checked,
   &:indeterminate {
-    @include define-checked-background(":enabled", primary);
+    @include define-checked-background(":enabled", default);
     @include define-checked-background(":user-invalid", danger);
 
     &:disabled {
@@ -47,7 +47,7 @@
   }
 
   &:user-invalid {
-    border-color: var(--onyx-color-base-danger-500);
+    border-color: var(--onyx-color-component-border-invalid);
   }
 
   &:checked {
