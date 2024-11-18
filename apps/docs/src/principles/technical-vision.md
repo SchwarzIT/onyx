@@ -12,18 +12,24 @@ Our technical vision describes the goals that we as the development team of **on
 ## Global Architecture
 
 1. 📜 **onyx** does not have direct dependencies, only a limited amount of peer- and dev-dependencies.
-   - peer-dependencies: we allow a wide range of versions (e.g. `>= 3`)
-   - We use third-party dependencies sparingly. The need for each dependency must be well justified and documented in this wiki
-2. 📜 We use browser / native features as much as possible. We accept some drawbacks this decision might bring.
-3. 📜 Frequently used code is extracted into utils / composables
-4. 🔮 We provide custom eslint rules for principles and best practices where needed
+   - peer-dependencies: we allow a wide range of versions (e.g. `>= 3`).
+   - We use third-party dependencies sparingly. The need for each dependency must be well justified and documented in this wiki.
+2. 📜 We rely on browser / native features as much as possible. We accept some drawbacks this decision might bring.
+3. 📜 Frequently used code is extracted into utils / composables.
+4. 🔮 We provide custom eslint rules for principles and best practices where needed.
 
 ## Release process
 
-1. 📜 Every PR that affects the usage of one of our npm libraries must include a [changeset](https://github.com/changesets/changesets)
-2. 🔮 All packages use two release channels:
+1. 🔮 All packages use one of two release channels:
    - `beta`: automatically released on each merge to the `main` branch
-   - `default` / `prod`: released after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended. Requires manual approval
+   - `default` / `prod`: released after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended. Requires manual approval.
+
+## Pull Requests
+
+1. 📜 Every PR that affects the public API of any published npm libraries must include a [changeset](https://github.com/changesets/changesets).
+2. 📜 A PR must consist of one (preferable) or multiple self-contained changes.
+3. 📜 An "Implement" ticket can and will usually be split up over multiple PRs, so a single PR doesn't have to include all feature facets.
+   1. ❗️ These PRs should be sliced reasonably, as a set of changes that belong together.
 
 ## Documentation
 
