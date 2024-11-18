@@ -30,6 +30,7 @@ Our technical vision describes the goals that we as the development team of **on
 2. 📜 A PR must consist of one (preferable) or multiple self-contained changes.
 3. 📜 An "Implement" ticket can and will usually be split up over multiple PRs, so a single PR doesn't have to include all feature facets.
    1. ❗️ These PRs should be sliced reasonably, as a set of changes that belong together.
+   2. This enables us to do faster Code Reviews.
 
 ## Documentation
 
