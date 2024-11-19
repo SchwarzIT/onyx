@@ -144,7 +144,7 @@ defineSlots<{
       flex-direction: column;
 
       .onyx-form-message:not(:first-of-type) {
-        display: var(--message-display, block);
+        display: var(--message-display, flex);
       }
     }
 
