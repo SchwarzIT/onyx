@@ -45,6 +45,13 @@
       --message-display: none;
     }
 
+    &:has(#{$base-selector}__native--success:enabled:focus, #{$base-selector}__native--show-focus) {
+      --outline-color: var(--onyx-color-base-success-200);
+      --selection-color: var(--onyx-color-base-success-200);
+      --focus-border-color: var(--onyx-color-base-success-500);
+      --hover-border-color: var(--onyx-color-base-success-400);
+    }
+
     &:has(#{$base-selector}__native:read-write:hover) {
       --border-color: var(--hover-border-color, var(--onyx-color-base-primary-400));
     }

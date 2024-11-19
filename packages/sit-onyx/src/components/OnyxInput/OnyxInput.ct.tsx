@@ -224,6 +224,39 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
+    name: "Input (success)",
+    columns: ["default", "autofill"],
+    rows: ["default", "hover", "focus"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: () => (
+      <OnyxInput
+        style="width: 12rem"
+        label="Test label"
+        success={{ shortMessage: "Test success message", longMessage: "Test long success message" }}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      const input = component.getByLabel("Test label");
+      const formElementUtils = createFormElementUtils(page);
+
+      await component.evaluate((element) => {
+        element.style.padding = `0 5rem 3rem 2rem`;
+      });
+
+      if (row === "hover") {
+        await input.hover();
+        await formElementUtils.triggerTooltipVisible("message");
+      }
+      if (row === "focus") await input.focus();
+      if (column == "autofill") {
+        await input.fill("Filled value");
+        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+      }
+    },
+  });
+
+  executeMatrixScreenshotTest({
     name: "Input readonly/default with highlighted text",
     columns: ["default", "readonly"],
     rows: ["default"],
