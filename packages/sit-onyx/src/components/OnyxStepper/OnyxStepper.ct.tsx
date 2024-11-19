@@ -37,8 +37,10 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+      };
 
       return (
         <OnyxStepper
@@ -133,9 +135,7 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible(
-          row === "errorTooltip" ? "error" : "message",
-        );
+        await createFormElementUtils(page).triggerTooltipVisible("message");
       }
     },
   });
@@ -202,7 +202,7 @@ test.describe("Screenshot tests", () => {
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
-        customError="Test error"
+        customError={{ shortMessage: "Test error" }}
         modelValue={10}
       />
     ),

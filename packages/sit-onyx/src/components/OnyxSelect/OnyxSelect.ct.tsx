@@ -349,9 +349,7 @@ test.describe("Invalidity handling screenshots", () => {
       });
 
       if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible(
-          row === "errorTooltip" ? "error" : "message",
-        );
+        await createFormElementUtils(page).triggerTooltipVisible("message");
       }
     },
   });
