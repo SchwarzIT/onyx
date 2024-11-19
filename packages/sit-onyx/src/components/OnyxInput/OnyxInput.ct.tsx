@@ -85,7 +85,7 @@ test.describe("Screenshot tests", () => {
         <OnyxInput
           style="width: 12rem"
           label={label}
-          message={messageObj}
+          message={row !== "labelTooltip" ? messageObj : undefined}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
         />
       );
