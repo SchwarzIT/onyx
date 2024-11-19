@@ -45,7 +45,7 @@
       --message-display: none;
     }
 
-    &:has(#{$base-selector}__native--success:enabled:focus, #{$base-selector}__native--show-focus) {
+    &:has(#{$base-selector}__native--success:enabled:focus) {
       --outline-color: var(--onyx-color-base-success-200);
       --selection-color: var(--onyx-color-base-success-200);
       --focus-border-color: var(--onyx-color-base-success-500);
