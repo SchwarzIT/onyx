@@ -14,7 +14,7 @@
     "test:integration": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.2",
+    "@playwright/test": "^1.49.0",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
