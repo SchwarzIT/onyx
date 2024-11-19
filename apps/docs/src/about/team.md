@@ -115,30 +115,31 @@ const bots = mapped.filter(m => m.type === "Bot").sort(sortByContributions);
 const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includes(m)).sort(sortByContributions);
 </script>
 
-<VPTeamPage style="margin-top: 0;">
-  <VPTeamPageTitle>
-    <template #title>Meet the team 👋</template>
-    <template #lead>
-      onyx is maintained by a dedicated team at <a href="https://it.schwarz">Schwarz IT</a>. Below you will find the core members of our team.
-      <br><br>
-      Are you looking for a bug report or feature request?
-      <br><br>
-      Then please use our <a href="https://github.com/SchwarzIT/onyx/issues">GitHub issues</a>.
-      For general Q&A, announcements and polls feel free to visit our community space via <a href="https://github.com/SchwarzIT/onyx/discussions/categories/q-a">GitHub discussions</a>.
-    </template>
-
-  </VPTeamPageTitle>
-  <VPTeamMembers size="medium" :members="coreMembers" />
-  <VPTeamPageSection>
-    <template #title>Thank you to all contributors 🙏</template>
-    <template #members>
-      <VPTeamMembers size="small" :members="contributors" />
-    </template>
-  </VPTeamPageSection>
-  <VPTeamPageSection>
-    <template #title>Our hardworking bots 🤖</template>
-    <template #members>
-      <VPTeamMembers size="small" :members="bots" />
-    </template>
-  </VPTeamPageSection>
-</VPTeamPage>
+<main>
+  <VPTeamPage style="margin-top: 0;">
+    <VPTeamPageTitle>
+      <template #title>Meet the team 👋</template>
+      <template #lead>
+        onyx is maintained by a dedicated team at <a href="https://it.schwarz">Schwarz IT</a>. Below you will find the core members of our team.
+        <br><br>
+        Are you looking for a bug report or feature request?
+        <br><br>
+        Then please use our <a href="https://github.com/SchwarzIT/onyx/issues">GitHub issues</a>.
+        For general Q&A, announcements and polls feel free to visit our community space via <a href="https://github.com/SchwarzIT/onyx/discussions/categories/q-a">GitHub discussions</a>.
+      </template>
+    </VPTeamPageTitle>
+    <VPTeamMembers size="medium" :members="coreMembers" />
+    <VPTeamPageSection>
+      <template #title>Thank you to all contributors 🙏</template>
+      <template #members>
+        <VPTeamMembers size="small" :members="contributors" />
+      </template>
+    </VPTeamPageSection>
+    <VPTeamPageSection>
+      <template #title>Our hardworking bots 🤖</template>
+      <template #members>
+        <VPTeamMembers size="small" :members="bots" />
+      </template>
+    </VPTeamPageSection>
+  </VPTeamPage>
+</main>
