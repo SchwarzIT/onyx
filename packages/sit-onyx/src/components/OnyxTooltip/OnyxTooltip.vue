@@ -76,6 +76,7 @@ const type = computed(() => {
 const tooltipClasses = computed(() => {
   return {
     "onyx-tooltip--danger": props.color === "danger",
+    "onyx-tooltip--success": props.color === "success",
     "onyx-tooltip--fit-parent": props.fitParent,
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
@@ -186,6 +187,11 @@ $wedge-size: 0.5rem;
     &--danger {
       --background-color: var(--onyx-color-base-danger-200);
       --color: var(--onyx-color-text-icons-danger-bold);
+    }
+
+    &--success {
+      --background-color: var(--onyx-color-base-success-200);
+      --color: var(--onyx-color-text-icons-success-bold);
     }
 
     &::after {

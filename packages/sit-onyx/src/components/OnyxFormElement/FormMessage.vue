@@ -11,7 +11,7 @@ const props = defineProps<{
   /**
    * How the message should be colored and displayed.
    */
-  type: "error" | "success" | "info";
+  type: "danger" | "success" | "neutral";
 }>();
 </script>
 
@@ -28,6 +28,7 @@ const props = defineProps<{
       class="onyx-form-message__tooltip"
       position="bottom"
       open="hover"
+      :color="props.type"
       :text="props.messages.longMessage"
     />
   </component>

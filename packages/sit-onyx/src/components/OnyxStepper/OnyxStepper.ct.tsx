@@ -202,7 +202,7 @@ test.describe("Screenshot tests", () => {
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
-        customError={{ shortMessage: "Test error" }}
+        customError={{ shortMessage: "Test error", longMessage: "Test long message error" }}
         modelValue={10}
       />
     ),

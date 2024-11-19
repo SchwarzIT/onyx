@@ -58,7 +58,7 @@ defineSlots<{
           v-if="props.errorMessages"
           class="onyx-form-element__error-message"
           :messages="props.errorMessages"
-          type="error"
+          type="danger"
         />
         <FormMessage
           v-if="props.successMessages"
@@ -70,7 +70,7 @@ defineSlots<{
           v-if="props.message"
           class="onyx-form-element__message"
           :messages="props.message"
-          type="info"
+          type="neutral"
         />
       </span>
       <span v-if="counterText" class="onyx-form-element__counter">
