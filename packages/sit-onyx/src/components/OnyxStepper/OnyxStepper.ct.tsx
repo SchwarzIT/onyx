@@ -106,7 +106,7 @@ test.describe("Screenshot tests", () => {
           : "Test message",
         longMessage: "Additional info message",
       };
-      const errorMessages: FormMessages = {
+      const errorMessage: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
@@ -118,7 +118,7 @@ test.describe("Screenshot tests", () => {
           style="width: 12rem"
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? errorMessages : undefined}
+          customError={row !== "messageTooltip" ? errorMessage : undefined}
           modelValue={10}
         />
       );

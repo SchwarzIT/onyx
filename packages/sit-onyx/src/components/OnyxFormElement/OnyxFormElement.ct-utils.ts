@@ -24,8 +24,8 @@ export const createFormElementUtils = function (page: PageOrLocator) {
         )
         .getByRole("tooltip", { includeHidden: true }),
     triggerTooltipVisible: async (type: FormElementTooltip, prev: PageOrLocator = page) => {
-      await context.getTooltipTrigger(type, prev).hover();
-      await expect(context.getTooltipPopover(type, prev)).toBeVisible();
+      await context.getTooltipTrigger(type, prev).first().hover();
+      await expect(context.getTooltipPopover(type, prev).first()).toBeVisible();
     },
   };
   return context;

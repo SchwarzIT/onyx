@@ -110,22 +110,17 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const showLongMessage = column !== "default";
       const label = column === "long-text" ? "Test label that should be truncated" : "Test label";
-      const errorMessages: FormMessages = {
+      const errorMessage: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
-      const messageTooltip = "Additional info message";
-      const errorMessage = {
-        shortMessage: `${row !== "messageTooltip" ? errorMessages : undefined}`,
-        longMessage: messageTooltip,
-      };
       const message = {
         shortMessage: showLongMessage
           ? "Very long message that should be truncated"
           : "Test message",
-        longMessage: messageTooltip,
+        longMessage: "Additional info message",
       };
 
       return (
