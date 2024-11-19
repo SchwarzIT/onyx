@@ -99,7 +99,7 @@ const tab = computed(() =>
         &::after {
           content: "";
           height: 0.125rem;
-          background-color: var(--onyx-color-base-primary-500);
+          background-color: var(--onyx-color-component-cta-default);
           width: calc(100% - 2 * var(--onyx-density-xs));
           min-width: 1rem;
 
@@ -116,11 +116,11 @@ const tab = computed(() =>
 
       &:hover,
       &:focus-visible {
-        background-color: var(--onyx-color-base-neutral-200);
+        background-color: var(--onyx-color-component-focus-primar);
       }
 
       &:focus-visible {
-        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+        outline: 0.25rem solid var(--onyx-color-component-focus-primary);
       }
 
       &:active {

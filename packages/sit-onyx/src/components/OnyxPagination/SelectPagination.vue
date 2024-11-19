@@ -140,7 +140,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       align-items: center;
       padding: var(--onyx-pagination-padding-vertical) var(--onyx-density-sm);
       height: var(--onyx-pagination-height);
-      border: 0 solid var(--onyx-color-base-neutral-300);
+      border: 0 solid var(--onyx-color-component-border-neutral);
       border-width: var(--onyx-pagination-border-size) 0;
       text-align: center;
       color: var(--onyx-color-text-icons-neutral-soft);
@@ -156,7 +156,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       padding: var(--onyx-pagination-padding-vertical);
       height: var(--onyx-pagination-height);
       background-color: var(--onyx-color-base-background-blank);
-      border: var(--onyx-pagination-border-size) solid var(--onyx-color-base-neutral-300);
+      border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-neutral);
       color: inherit;
 
       &:first-of-type {
@@ -183,7 +183,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         &:focus-visible {
           $outline-width: 0.25rem;
           background-color: var(--onyx-color-base-neutral-200);
-          outline: $outline-width solid var(--onyx-color-base-primary-200);
+          outline: $outline-width solid var(--onyx-color-component-focus-primary);
 
           // the right outline of the first button would be cut off / not visible
           // so we use this little trick here to add margin-right and reduce the left padding
