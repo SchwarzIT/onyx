@@ -184,7 +184,6 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
           background-color: var(--onyx-color-base-neutral-200);
           outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
 
-
           // the right outline of the first button would be cut off / not visible
           // so we use this little trick here to add margin-right and reduce the left padding
           // of the second button so it does not change in size visually
