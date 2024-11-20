@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.70
+
+### Major Changes
+
+- 4a4c414: ### BREAKING CHANGE:
+
+  - feat(OnyxNavButton, OnyxUserMenu, OnyxFlyoutMenu): button slot now provides a trigger parameter which must be bound to the interactive element
+  - feat(OnyxFlyoutMenu): Renamed "default" slot to "button"
+
 ## 1.0.0-beta.69
 
 ### Minor Changes
