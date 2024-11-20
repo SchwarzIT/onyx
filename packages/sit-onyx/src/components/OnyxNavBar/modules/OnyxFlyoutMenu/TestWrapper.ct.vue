@@ -13,7 +13,7 @@ defineSlots<{
 
 <template>
   <OnyxFlyoutMenu v-bind="props">
-    <template #default="{ trigger }">
+    <template #button="{ trigger }">
       <button type="button" v-bind="trigger">button label</button>
     </template>
     <template #options>

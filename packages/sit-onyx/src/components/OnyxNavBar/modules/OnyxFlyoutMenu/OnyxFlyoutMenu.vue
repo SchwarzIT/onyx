@@ -21,7 +21,7 @@ const slots = defineSlots<{
   /**
    * The trigger for the flyout menu. Should be an interactive component like a button or link.
    */
-  default?(params: {
+  button?(params: {
     /**
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
@@ -51,7 +51,7 @@ const {
 
 <template>
   <div class="onyx-flyout-menu" v-bind="root">
-    <slot name="default" :trigger="button"></slot>
+    <slot name="button" :trigger="button"></slot>
 
     <div
       v-if="slots.options || slots.header || slots.footer"
