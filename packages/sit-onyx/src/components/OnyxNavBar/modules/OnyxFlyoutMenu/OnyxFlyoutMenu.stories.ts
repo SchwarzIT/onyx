@@ -39,8 +39,8 @@ type Story = StoryObj<typeof OnyxFlyoutMenu>;
 export const Default = {
   args: {
     label: "Choose application language",
-    default: () => [
-      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe }),
+    default: ({ trigger }) => [
+      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe, ...trigger }),
     ],
     options: () => [
       h(OnyxMenuItem, { active: true }, () => "English"),
