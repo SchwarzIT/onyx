@@ -21,7 +21,12 @@ const slots = defineSlots<{
   /**
    * The trigger for the flyout menu. Should be an interactive component like a button or link.
    */
-  default?(params: { trigger: object }): unknown;
+  default?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    trigger: object;
+  }): unknown;
   /**
    * OnyxListItems to show
    */
