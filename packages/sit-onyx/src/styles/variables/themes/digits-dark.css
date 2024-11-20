@@ -1,9 +1,9 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "digits-dark" theme.
- * Imported from Figma API on Thu, 14 Nov 2024 13:08:14 GMT
+ * Imported from Figma API on Wed, 20 Nov 2024 09:45:59 GMT
  */
-:where(:root),
+:where(.dark),
 .onyx-theme-digits-dark {
   --onyx-color-base-background-blank: var(--onyx-color-steel-1100);
   --onyx-color-base-background-tinted: var(--onyx-color-steel-1200);
