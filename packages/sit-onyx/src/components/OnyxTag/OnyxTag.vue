@@ -4,7 +4,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
-  color: "default",
+  color: "primary",
 });
 
 const { densityClass } = useDensity(props);
