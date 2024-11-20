@@ -10,6 +10,7 @@
     "test:playwright:all": "turbo run test:playwright --concurrency 1",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
+    "stylelint": "stylelint \"packages/sit-onyx/dist/*.css\"",
     "lint:all": "eslint .",
     "lint:fix:all": "pnpm run lint:all --fix",
     "lint:ci:all": "pnpm run lint:all --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
@@ -58,6 +59,8 @@
     "turbo": "^2.3.3",
     "typescript": "catalog:",
     "typescript-eslint": "^8.18.1",
+    "stylelint": "^16.10.0",
+    "stylelint-no-unsupported-browser-features": "^8.0.2",
     "vite": "catalog:",
     "vitest": "^2.1.8",
     "vue-tsc": "^2.1.10"
