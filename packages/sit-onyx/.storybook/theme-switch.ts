@@ -2,13 +2,7 @@ import type { StorybookGlobalType } from "@sit-onyx/storybook-utils";
 import type { Decorator } from "@storybook/vue3";
 import { ref, watch, watchEffect } from "vue";
 
-const allThemes = import.meta.glob("../src/styles/variables/themes/*.css");
-/**
- * Removes alles dark-themes from the listing
- */
-const themes = Object.fromEntries(
-  Object.entries(allThemes).filter(([key]) => !key.includes("dark") && !key.includes("Value")),
-);
+const themes = import.meta.glob("../src/styles/variables/themes/*.css");
 
 /**
  * Map of all available onyx themes. Default theme will be sorted first.
@@ -21,7 +15,8 @@ export const ONYX_THEMES = Object.entries(themes)
     return a.localeCompare(b);
   })
   .reduce<typeof themes>((obj, [filePath, importFn]) => {
-    const themeName = filePath.split("/").at(-1)!.replace("-light.css", "");
+    const themeName = filePath.split("/").at(-1)!;
+    // !.replace("-light.css", "");
     obj[themeName] = importFn;
     return obj;
   }, {});
@@ -34,11 +29,13 @@ export const onyxThemeGlobalType = {
       title: "Theme",
       icon: "paintbrush",
       dynamicTitle: true,
-      items: Object.keys(ONYX_THEMES).map((theme, index) => ({
-        value: theme,
-        title: theme,
-        right: index === 0 ? "default" : undefined,
-      })),
+      items: Object.keys(ONYX_THEMES)
+        .filter((key) => !key.includes("dark") && !key.includes("Value"))
+        .map((theme, index) => ({
+          value: theme.replace("-light.css", ""),
+          title: theme.replace("-light.css", ""),
+          right: index === 0 ? "default" : undefined,
+        })),
     },
   } satisfies StorybookGlobalType<string>,
 };
@@ -49,7 +46,8 @@ export const withOnyxTheme: Decorator = (Story, context) => {
   watchEffect(async () => {
     const theme = context.globals.onyxTheme ?? ONYX_THEMES[0];
     currentOnyxTheme.value = theme === ONYX_THEMES[0] ? "default" : theme;
-    await ONYX_THEMES[theme]?.();
+    await ONYX_THEMES[`${theme}-light.css`]?.();
+    await ONYX_THEMES[`${theme}-dark.css`]?.();
   });
 
   return {
