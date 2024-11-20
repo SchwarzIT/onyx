@@ -470,10 +470,7 @@ const selectInputProps = computed(() => {
 
 .onyx-select {
   @include layers.component() {
-    $outline-size: 0.25rem;
-
     position: absolute;
-
     visibility: hidden;
     opacity: 0;
     transition:
@@ -488,11 +485,11 @@ const selectInputProps = computed(() => {
     }
 
     &--top {
-      bottom: calc(100% + $outline-size);
+      bottom: calc(100% + var(--onyx-outline-width));
     }
 
     &--bottom {
-      top: calc(100% + $outline-size);
+      top: calc(100% + var(--onyx-outline-width));
     }
 
     &--full {
@@ -515,7 +512,7 @@ const selectInputProps = computed(() => {
     }
 
     &:has(&__wrapper:focus-visible) {
-      outline: $outline-size solid var(--onyx-color-base-primary-200);
+      outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
     }
 
     &__wrapper:has(.onyx-mini-search) {

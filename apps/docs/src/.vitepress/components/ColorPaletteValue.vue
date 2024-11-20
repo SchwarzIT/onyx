@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import copyIcon from "@sit-onyx/icons/copy.svg?raw";
-import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
+import { OnyxIcon } from "sit-onyx";
 
 export type ColorPaletteValueProps = {
   /** Text to show below the value. */

@@ -174,7 +174,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
       }
 
       &:focus-visible {
-        outline: 0.25rem solid var(--onyx-color-component-focus-invalid);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-invalid);
       }
     }
 

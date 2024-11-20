@@ -57,11 +57,11 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
  * });
  * ```
  */
-export function createFeature<TFeatureName extends symbol, TArgs extends unknown[]>(
-  featureDefinition: <TEntry extends DataGridEntry>(
-    ...args: TArgs
-  ) => DataGridFeature<TEntry, TFeatureName>,
-) {
+export function createFeature<
+  TEntry extends DataGridEntry,
+  TFeatureName extends symbol,
+  TArgs extends unknown[],
+>(featureDefinition: (...args: TArgs) => DataGridFeature<TEntry, TFeatureName>) {
   return featureDefinition;
 }
 

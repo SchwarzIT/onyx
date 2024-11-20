@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import OnyxIcon from "~components/OnyxIcon/OnyxIcon.vue";
-import { useToast } from "~components/OnyxToast/useToast";
-import OnyxTooltip from "~components/OnyxTooltip/OnyxTooltip.vue";
+import { OnyxIcon, OnyxTooltip, useToast } from "sit-onyx";
 import type { EnrichedIcon } from "../utils-icons";
 
 const props = defineProps<{

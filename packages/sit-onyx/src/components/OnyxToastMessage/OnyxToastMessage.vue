@@ -133,12 +133,12 @@ const icon = computed(() => {
       padding: 0;
 
       &:focus-within {
-        outline: 0.25rem solid var(--onyx-toast-message-outline-color);
+        outline: var(--onyx-outline-width) solid var(--onyx-toast-message-outline-color);
       }
     }
 
     &:has(&__description:focus-visible) {
-      outline: 0.25rem solid var(--onyx-toast-message-outline-color);
+      outline: var(--onyx-outline-width) solid var(--onyx-toast-message-outline-color);
     }
 
     &__wrapper {

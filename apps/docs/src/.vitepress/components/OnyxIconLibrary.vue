@@ -1,7 +1,6 @@
 <script lang="ts" setup>
+import { OnyxHeadline, OnyxInput } from "sit-onyx";
 import { computed, ref } from "vue";
-import OnyxHeadline from "~components/OnyxHeadline/OnyxHeadline.vue";
-import OnyxInput from "~components/OnyxInput/OnyxInput.vue";
 import { getEnrichedIconCategoryList } from "../utils-icons";
 import IconLibraryItem from "./IconLibraryItem.vue";
 

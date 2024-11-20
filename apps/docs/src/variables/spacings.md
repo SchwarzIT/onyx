@@ -5,7 +5,7 @@ Below you will find all available spacing variables that are supported by onyx.
 <script lang="ts" setup>
 import OnyxSpacingVariables from "../.vitepress/components/OnyxSpacingVariables.vue";
 import DensitySelection from "../.vitepress/components/DensitySelection.vue";
-import type { Density } from "~components/../composables/density";
+import type { Density } from "sit-onyx";
 import { ref } from "vue";
 
 const selectedDensity = ref<Density>("default");

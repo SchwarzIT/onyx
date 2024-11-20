@@ -131,7 +131,7 @@ $border-radius: var(--onyx-radius-sm);
       border: none;
 
       &:focus-visible {
-        outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-base-secondary-200);
       }
     }
 

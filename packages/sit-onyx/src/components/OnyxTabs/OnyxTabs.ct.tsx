@@ -23,7 +23,7 @@ for (const type of ["default", "stretched"] as const) {
             modelValue="tab-1"
             density={column}
             stretched={type === "stretched"}
-            style={{ width: type === "stretched" ? "40rem" : undefined }}
+            style={{ width: type === "stretched" ? "24rem" : undefined }}
             skeleton={row === "skeleton"}
           >
             <OnyxTab label="Tab 1" value="tab-1">
@@ -81,6 +81,71 @@ test.describe("Screenshot tests (custom content)", () => {
           </OnyxTab>
         </OnyxTabs>
       );
+    },
+  });
+});
+
+for (const type of ["default", "skeleton"] as const) {
+  test.describe(`Screenshot tests (sizes, ${type})`, () => {
+    executeMatrixScreenshotTest({
+      name: `Tabs (sizes, ${type})`,
+      columns: DENSITIES,
+      rows: ["h2", "h3", "h4"],
+      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+      disabledAccessibilityRules: ["color-contrast"],
+      component: (column, row) => {
+        return (
+          <OnyxTabs
+            label="Example tabs"
+            modelValue="tab-1"
+            density={column}
+            size={row}
+            skeleton={type === "skeleton"}
+          >
+            {Array.from({ length: 3 }, (_, index) => {
+              const id = index + 1;
+              return (
+                <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+                  Panel content {id}...
+                </OnyxTab>
+              );
+            })}
+          </OnyxTabs>
+        );
+      },
+    });
+  });
+}
+
+test.describe("Screenshot tests (overflow)", () => {
+  executeMatrixScreenshotTest({
+    name: "Tabs (overflow)",
+    columns: ["default"],
+    rows: ["default", "focus-first", "focus-in-between", "focus-last"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: () => {
+      return (
+        <OnyxTabs label="Example tabs" modelValue="tab-1" style={{ width: "18rem" }}>
+          {Array.from({ length: 8 }, (_, index) => {
+            const id = index + 1;
+            return (
+              <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+                Panel content {id}...
+              </OnyxTab>
+            );
+          })}
+        </OnyxTabs>
+      );
+    },
+    beforeScreenshot: async (component, page, column, row) => {
+      if (row === "focus-first") {
+        await component.getByRole("tab").first().focus();
+      } else if (row === "focus-last") {
+        await component.getByRole("tab").last().focus();
+      } else if (row === "focus-in-between") {
+        await component.getByRole("tab").nth(4).focus();
+      }
     },
   });
 });
