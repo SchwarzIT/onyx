@@ -2,7 +2,13 @@ import type { StorybookGlobalType } from "@sit-onyx/storybook-utils";
 import type { Decorator } from "@storybook/vue3";
 import { ref, watch, watchEffect } from "vue";
 
-const themes = import.meta.glob("../src/styles/variables/themes/*.css");
+const allThemes = import.meta.glob("../src/styles/variables/themes/*.css");
+/**
+ * Removes alles dark-themes from the listing
+ */
+const themes = Object.fromEntries(
+  Object.entries(allThemes).filter(([key]) => !key.includes("dark") && !key.includes("Value")),
+);
 
 /**
  * Map of all available onyx themes. Default theme will be sorted first.
@@ -10,12 +16,12 @@ const themes = import.meta.glob("../src/styles/variables/themes/*.css");
  */
 export const ONYX_THEMES = Object.entries(themes)
   .sort(([a], [b]) => {
-    if (a.endsWith("onyx.css")) return -1;
-    if (b.endsWith("onyx.css")) return 1;
+    if (a.endsWith("onyx-light.css")) return -1;
+    if (b.endsWith("onyx-light.css")) return 1;
     return a.localeCompare(b);
   })
   .reduce<typeof themes>((obj, [filePath, importFn]) => {
-    const themeName = filePath.split("/").at(-1)!.replace(".css", "");
+    const themeName = filePath.split("/").at(-1)!.replace("-light.css", "");
     obj[themeName] = importFn;
     return obj;
   }, {});
