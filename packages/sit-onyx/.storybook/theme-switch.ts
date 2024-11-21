@@ -16,7 +16,6 @@ export const ONYX_THEMES = Object.entries(themes)
   })
   .reduce<typeof themes>((obj, [filePath, importFn]) => {
     const themeName = filePath.split("/").at(-1)!;
-    // !.replace("-light.css", "");
     obj[themeName] = importFn;
     return obj;
   }, {});
