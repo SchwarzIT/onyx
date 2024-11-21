@@ -29,7 +29,7 @@ export const onyxThemeGlobalType = {
       icon: "paintbrush",
       dynamicTitle: true,
       items: Object.keys(ONYX_THEMES)
-        .filter((key) => !key.includes("dark") && !key.includes("Value"))
+        .filter((key) => key.includes("light"))
         .map((theme, index) => ({
           value: theme.replace("-light.css", ""),
           title: theme.replace("-light.css", ""),
