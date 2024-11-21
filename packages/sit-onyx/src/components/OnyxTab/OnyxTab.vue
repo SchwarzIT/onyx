@@ -128,7 +128,7 @@ const tab = computed(() =>
 
       &:hover,
       &:focus-visible {
-        background-color: var(--onyx-color-component-focus-primar);
+        background-color: var(--onyx-color-component-focus-primary);
       }
 
       &:focus-visible {
