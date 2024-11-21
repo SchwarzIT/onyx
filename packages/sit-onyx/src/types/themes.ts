@@ -1,1 +1,1 @@
-export type OnyxTheme = "kaufland" | "lidl" | "onyx" | "twogo";
+export type OnyxTheme = "kaufland" | "lidl" | "onyx" | "digits";

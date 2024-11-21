@@ -10,12 +10,12 @@ const themes = import.meta.glob("../src/styles/variables/themes/*.css");
  */
 export const ONYX_THEMES = Object.entries(themes)
   .sort(([a], [b]) => {
-    if (a.endsWith("onyx.css")) return -1;
-    if (b.endsWith("onyx.css")) return 1;
+    if (a.endsWith("onyx-light.css")) return -1;
+    if (b.endsWith("onyx-light.css")) return 1;
     return a.localeCompare(b);
   })
   .reduce<typeof themes>((obj, [filePath, importFn]) => {
-    const themeName = filePath.split("/").at(-1)!.replace(".css", "");
+    const themeName = filePath.split("/").at(-1)!;
     obj[themeName] = importFn;
     return obj;
   }, {});
@@ -28,11 +28,13 @@ export const onyxThemeGlobalType = {
       title: "Theme",
       icon: "paintbrush",
       dynamicTitle: true,
-      items: Object.keys(ONYX_THEMES).map((theme, index) => ({
-        value: theme,
-        title: theme,
-        right: index === 0 ? "default" : undefined,
-      })),
+      items: Object.keys(ONYX_THEMES)
+        .filter((key) => !key.includes("dark") && !key.includes("Value"))
+        .map((theme, index) => ({
+          value: theme.replace("-light.css", ""),
+          title: theme.replace("-light.css", ""),
+          right: index === 0 ? "default" : undefined,
+        })),
     },
   } satisfies StorybookGlobalType<string>,
 };
@@ -43,7 +45,8 @@ export const withOnyxTheme: Decorator = (Story, context) => {
   watchEffect(async () => {
     const theme = context.globals.onyxTheme ?? ONYX_THEMES[0];
     currentOnyxTheme.value = theme === ONYX_THEMES[0] ? "default" : theme;
-    await ONYX_THEMES[theme]?.();
+    await ONYX_THEMES[`${theme}-light.css`]?.();
+    await ONYX_THEMES[`${theme}-dark.css`]?.();
   });
 
   return {
