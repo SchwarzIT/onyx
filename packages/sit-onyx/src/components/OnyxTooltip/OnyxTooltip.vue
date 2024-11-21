@@ -62,7 +62,7 @@ const tooltipOptions = computed<CreateTooltipOptions>(() => ({
   isVisible,
 }));
 const toggletipOptions = computed<CreateToggletipOptions>(() => ({
-  toggleLabel: t.value("tooltip.info"),
+  toggleLabel: t.value(`tooltip.${props.color}`),
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
   isVisible,
 }));
