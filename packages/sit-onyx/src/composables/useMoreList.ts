@@ -11,7 +11,6 @@ import {
   type InjectionKey,
   type Ref,
 } from "vue";
-import { useResizeObserver } from "./useResizeObserver";
 
 /**
  * Template ref of either a native HTML element or a custom Vue component.
@@ -35,6 +34,10 @@ export type MoreListInjectionKey = InjectionKey<{
    * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
    */
   disabled: Ref<boolean>;
+  /**
+   * Current width of the viewport. Can be used to react on user resizes.
+   */
+  width: Ref<number>;
 }>;
 
 export type UseMoreListOptions = {
@@ -202,31 +205,57 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   moreContext?.components?.set(id, componentRef);
   onBeforeUnmount(() => moreContext?.components?.delete(id));
 
-  const { width } = useResizeObserver();
   const isVisible = ref(true);
-  const isChecking = ref(false);
 
-  const widthDebounce = ref(width.value);
-  const updateDebounceWidth = debounce(() => (widthDebounce.value = width.value), 100);
-  watch(width, () => updateDebounceWidth());
+  // we debounce the width here and watch this instead for better performance and less
+  // visual flickering since we are force rendering and then hiding elements over and over again
+  // while resizing to check visibility
+  const debouncedWidth = ref(0);
+  const updateDebouncedWidth = debounce((width: number) => (debouncedWidth.value = width), 25);
+  watch(
+    () => moreContext?.width.value,
+    (newWidth) => updateDebouncedWidth(newWidth ?? 0),
+    { immediate: true },
+  );
 
-  watch([width, () => moreContext?.visibleElements.value], async ([newWidth], [oldWidth]) => {
-    if (moreContext?.visibleElements.value === undefined) return; // ignore if visibility is not yet initialized
-    if (isChecking.value) return;
-    isChecking.value = true;
+  const updateVisible = () => {
+    isVisible.value =
+      moreContext?.disabled.value || (moreContext?.visibleElements.value?.includes(id) ?? true);
+  };
 
-    isVisible.value = true; // force render all tabs so visibility can checked again by the intersection observer
+  // this watcher updates the visibility whenever the visible elements defined by the intersection observer
+  // change = screen is resized smaller
+  watch(
+    () => moreContext?.visibleElements.value,
+    () => updateVisible(),
+    { deep: true },
+  );
+
+  // force render of the tab when screen is resized bigger so new visibility can checked
+  //  again by the intersection observer
+  watch([debouncedWidth], async ([newWidth], [oldWidth]) => {
+    const wasVisible = isVisible.value;
+    const element = getTemplateRefElement(componentRef.value);
+    if (wasVisible || newWidth < oldWidth || !element) return;
+
+    isVisible.value = true;
 
     await nextTick();
 
-    if (newWidth > oldWidth) {
-      // TODO: check why this is needed
-      await new Promise((resolve) => setTimeout(resolve));
-    }
+    // this intersection observer is used/needed to actually wait until the component has been rendered
+    // so we can check/update the new visibility afterwards
+    await new Promise((resolve) => {
+      const intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          const fullyVisible = entries.at(0)?.intersectionRatio === 1;
+          resolve(fullyVisible);
+        },
+        { root: element.parentElement, threshold: 0 },
+      );
+      intersectionObserver.observe(element);
+    });
 
-    isVisible.value =
-      moreContext?.disabled.value || (moreContext?.visibleElements.value.includes(id) ?? true);
-    isChecking.value = false;
+    updateVisible();
   });
 
   return {

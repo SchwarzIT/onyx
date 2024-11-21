@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { provide, reactive, ref, toRef, watch, type Ref } from "vue";
 import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
+import { useResizeObserver } from "../../composables/useResizeObserver";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
 const props = defineProps<OnyxMoreListProps>();
@@ -28,12 +29,14 @@ const componentRefs = reactive(new Map<string, Ref<HTMLOrInstanceRef>>());
 const disabled = toRef(props, "disabled");
 
 const more = useMoreList({ parentRef, componentRefs, disabled });
+const { width } = useResizeObserver();
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
 provide(props.injectionKey, {
   components: componentRefs,
   visibleElements: more.visibleElements,
   disabled,
+  width,
 });
 
 watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
