@@ -15,6 +15,12 @@
   }
 }
 
+@mixin success($formElement) {
+  &:has(.onyx-form-element__success-message) {
+    @content;
+  }
+}
+
 @mixin define-shared-styles($base-selector, $vertical-padding) {
   --border-color: var(--onyx-color-base-neutral-300);
   --hover-border-color: var(--onyx-color-base-primary-400);
@@ -39,11 +45,6 @@
     line-height: 1.5rem;
     padding: $vertical-padding var(--onyx-density-sm);
     height: calc(1lh + 2 * #{$vertical-padding});
-
-    &:has(#{$base-selector}__native--success) {
-      --border-color: var(--onyx-color-base-success-500);
-      --message-display: none;
-    }
 
     &:has(#{$base-selector}__native--success:enabled:focus) {
       --outline-color: var(--onyx-color-base-success-200);
@@ -90,9 +91,15 @@
     color: var(--onyx-color-text-icons-primary-intense);
   }
 
+  @include success(#{$base-selector}__native) {
+    --border-color: var(--onyx-color-base-success-500);
+    --message-display: none;
+  }
+
   @include invalid(#{$base-selector}__native) {
     --error-message-display: inline-flex;
     --message-display: none;
+    --success-message-display: none;
     --border-color: var(--onyx-color-base-danger-500);
     --outline-color: var(--onyx-color-base-danger-200);
     --selection-color: var(--onyx-color-base-danger-200);

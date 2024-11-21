@@ -142,10 +142,6 @@ defineSlots<{
       min-width: 0;
       display: flex;
       flex-direction: column;
-
-      .onyx-form-message:not(:first-of-type) {
-        display: var(--message-display, flex);
-      }
     }
 
     &__counter {
@@ -160,7 +156,12 @@ defineSlots<{
 
     &__success-message,
     &__success-tooltip {
+      display: var(--success-message-display, flex);
       color: var(--onyx-color-base-success-700);
+    }
+
+    &__message {
+      display: var(--message-display, flex);
     }
   }
 }
