@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
-import { computed, toRef, type VNode } from "vue";
+import { computed, toRef } from "vue";
 import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
@@ -21,7 +21,12 @@ const slots = defineSlots<{
   /**
    * The trigger for the flyout menu. Should be an interactive component like a button or link.
    */
-  default?(): VNode[];
+  button?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    trigger: object;
+  }): unknown;
   /**
    * OnyxListItems to show
    */
@@ -42,21 +47,11 @@ const {
   isExpanded: computed(() => !!isExpanded.value),
   onToggle: () => (isExpanded.value = !isExpanded.value),
 });
-
-const buttonComponent = computed(() => {
-  if (!slots.default) return;
-  const vnode = slots.default().at(0);
-
-  if (vnode?.type.toString() === "Symbol(v-fgt)") {
-    return Array.isArray(vnode?.children) ? vnode?.children?.at(0) : undefined;
-  }
-  return vnode;
-});
 </script>
 
 <template>
   <div class="onyx-flyout-menu" v-bind="root">
-    <component :is="buttonComponent" v-bind="button" />
+    <slot name="button" :trigger="button"></slot>
 
     <div
       v-if="slots.options || slots.header || slots.footer"

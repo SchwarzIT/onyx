@@ -18,7 +18,15 @@ const props = defineProps<
 >();
 
 const slots = defineSlots<{
-  button?(): unknown;
+  /**
+   * The trigger for the flyout menu. Should be an interactive component like a button or link.
+   */
+  button?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    trigger: object;
+  }): unknown;
   options?(): unknown;
 }>();
 
@@ -41,7 +49,11 @@ const emit = defineEmits<{
         @click="emit('update:mobileChildrenOpen', false)"
       />
 
-      <slot v-if="!mobileChildrenOpen || props.href" name="button"></slot>
+      <slot
+        v-if="!mobileChildrenOpen || props.href"
+        name="button"
+        :trigger="{ trigger: {} }"
+      ></slot>
       <OnyxNavSeparator v-if="mobileChildrenOpen && props.href" orientation="horizontal" />
 
       <ul
@@ -56,7 +68,9 @@ const emit = defineEmits<{
 
     <template v-else>
       <OnyxFlyoutMenu :label="t('navItemOptionsLabel', { label: props.label })">
-        <slot name="button"></slot>
+        <template #button="{ trigger }">
+          <slot name="button" :trigger="trigger"></slot>
+        </template>
 
         <template v-if="slots.options" #options>
           <slot name="options"></slot>

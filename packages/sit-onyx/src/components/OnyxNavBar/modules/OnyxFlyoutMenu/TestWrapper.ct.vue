@@ -1,0 +1,25 @@
+<!-- Currently slot props are not supported by Playwright, so we need to provide a custom wrapper. See issue: https://github.com/microsoft/playwright/issues/18758 -->
+<script lang="ts" setup>
+import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
+import type { OnyxFlyoutMenuProps } from "./types";
+
+const props = defineProps<OnyxFlyoutMenuProps>();
+
+defineSlots<{
+  options?(): unknown;
+}>();
+</script>
+
+<template>
+  <OnyxFlyoutMenu v-bind="props">
+    <template #button="{ trigger }">
+      <button type="button" v-bind="trigger">button label</button>
+    </template>
+    <template #options>
+      <OnyxMenuItem active>English</OnyxMenuItem>
+      <OnyxMenuItem>German</OnyxMenuItem>
+      <OnyxMenuItem>Spanish</OnyxMenuItem>
+    </template>
+  </OnyxFlyoutMenu>
+</template>

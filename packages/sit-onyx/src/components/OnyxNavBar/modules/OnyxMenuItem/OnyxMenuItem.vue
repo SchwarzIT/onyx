@@ -88,7 +88,7 @@ const headlessProps = computed(() =>
       width: 100%;
       height: 100%;
       border-radius: inherit;
-      cursor: default;
+      cursor: pointer;
 
       &:focus {
         outline: none;
