@@ -10,12 +10,11 @@ import {
   type InjectionKey,
   type Ref,
 } from "vue";
-import { useResizeObserver } from "./useResizeObserver";
-
-/**
- * Template ref of either a native HTML element or a custom Vue component.
- */
-export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
+import {
+  getTemplateRefElement,
+  useResizeObserver,
+  type HTMLOrInstanceRef,
+} from "./useResizeObserver";
 
 /**
  * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more" indicator.
@@ -41,13 +40,8 @@ export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>([]);
   const hiddenElements = ref<string[]>([]);
 
-  const { width: parentWidth } = useResizeObserver(
-    computed(() => getTemplateRefElement(options.parentRef.value)),
-  );
-
-  const { width: moreIndicatorWidth } = useResizeObserver(
-    computed(() => getTemplateRefElement(options.moreIndicatorRef.value)),
-  );
+  const { width: parentWidth } = useResizeObserver(options.parentRef);
+  const { width: moreIndicatorWidth } = useResizeObserver(options.moreIndicatorRef);
 
   // type casting is needed to prevent TypeScript from unwrapping the type which will lead to "width" being a single number instead of Ref<number>
   const componentMap = ref(new Map()) as Ref<Map<string, { width: Ref<number> }>>;
@@ -126,13 +120,6 @@ export const useMoreList = (options: UseMoreListOptions) => {
 };
 
 /**
- * Gets the native HTML element of a template ref.
- */
-const getTemplateRefElement = (ref: HTMLOrInstanceRef) => {
-  return ref instanceof Element ? ref : ref?.$el;
-};
-
-/**
  * Gets the CSS column-gap property for the given element or 0 if invalid or unset.
  */
 const getColumnGap = (ref: HTMLOrInstanceRef) => {
@@ -146,7 +133,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<HTMLOrInstanceRef>();
   const moreContext = inject(injectionKey);
-  const { width } = useResizeObserver(computed(() => getTemplateRefElement(componentRef.value)));
+  const { width } = useResizeObserver(componentRef);
 
   moreContext?.componentMap.value.set(id, { width });
   onBeforeUnmount(() => moreContext?.componentMap.value.delete(id));

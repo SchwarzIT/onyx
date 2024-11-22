@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { provide, ref, watch } from "vue";
-import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
+import { useMoreList } from "../../composables/useMoreList";
+import type { HTMLOrInstanceRef } from "../../composables/useResizeObserver";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
 const props = defineProps<OnyxMoreListProps>();
