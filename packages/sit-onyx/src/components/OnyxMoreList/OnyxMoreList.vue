@@ -15,7 +15,7 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * List of components to render. Each child must implement the `useMoreChild()` composable.
+   * List of components to render. Each child must implement the `useMoreListChild()` composable.
    */
   default(): unknown;
   /**
