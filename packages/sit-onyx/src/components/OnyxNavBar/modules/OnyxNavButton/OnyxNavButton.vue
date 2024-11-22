@@ -69,13 +69,14 @@ const handleParentClick = (event: MouseEvent) => {
     }"
     :is-mobile="isMobile ?? false"
   >
-    <template #button>
+    <template #button="{ trigger }">
       <button
         class="onyx-nav-button__trigger onyx-text"
         :class="{ 'onyx-nav-button__link': props.href != undefined }"
         role="menuitem"
         :aria-label="props.label"
         type="button"
+        v-bind="trigger"
         @click="handleParentClick"
       >
         <slot>

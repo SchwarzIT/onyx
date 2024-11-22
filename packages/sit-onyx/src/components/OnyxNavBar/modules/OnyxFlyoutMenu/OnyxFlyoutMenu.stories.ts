@@ -23,7 +23,7 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
     }),
   ],
   argTypes: {
-    default: { control: { disable: true } },
+    button: { control: { disable: true } },
     options: { control: { disable: true } },
     header: { control: { disable: true } },
     footer: { control: { disable: true } },
@@ -39,8 +39,8 @@ type Story = StoryObj<typeof OnyxFlyoutMenu>;
 export const Default = {
   args: {
     label: "Choose application language",
-    default: () => [
-      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe }),
+    button: ({ trigger }) => [
+      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe, ...trigger }),
     ],
     options: () => [
       h(OnyxMenuItem, { active: true }, () => "English"),
