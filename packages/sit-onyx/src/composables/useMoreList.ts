@@ -36,6 +36,58 @@ export type UseMoreListOptions = {
   moreIndicatorRef: Ref<HTMLOrInstanceRef>;
 };
 
+/**
+ * Composable for managing a list of components where e.g. a "+3" more indicator should be shown if not all components
+ * fit into the available width.
+ *
+ * @example
+ *
+ * ```vue
+ * <script lang="ts" setup>
+ * import { provide, ref, watch } from "vue";
+ * import { useMoreList, NAV_BAR_MORE_LIST_INJECTION_KEY } from "sit-onyx";
+ *
+ * const parentRef = ref<HTMLElement>();
+ * const listRef = ref<HTMLElement>();
+ * const moreIndicatorRef = ref<HTMLElement>();
+ *
+ * const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
+ * provide(NAV_BAR_MORE_LIST_INJECTION_KEY, more);
+ * </script>
+ *
+ * <template>
+ *   <div ref="parentRef" class="more-list">
+ *     <div ref="listRef" class="more-list__elements">
+ *        <OnyxNavButton v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
+ *     </div>
+ *
+ *     <div ref="moreIndicatorRef" class="more-list__indicator">
+ *        +{{ more.hiddenElements.value.length }} more
+ *     </div>
+ *   </div>
+ * </template>
+ *
+ * <style lang="scss">
+ * .more-list {
+ *   display: flex;
+ *   align-items: center;
+ *   gap: var(--onyx-spacing-4xs);
+ *
+ *   &__elements {
+ *     display: inherit;
+ *     align-items: inherit;
+ *     gap: inherit;
+ *     overflow-x: clip;
+ *    }
+ *
+ *   &__indicator {
+ *     min-width: max-content;
+ *     max-width: 100%;
+ *   }
+ * }
+ * </style>
+ * ```
+ */
 export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>([]);
   const hiddenElements = ref<string[]>([]);
@@ -129,6 +181,21 @@ const getColumnGap = (ref: HTMLOrInstanceRef) => {
   return Number.parseFloat(getComputedStyle(element).columnGap) || 0;
 };
 
+/**
+ * Composable that must be implemented in all list children when using `useMoreList` to correctly observe the visibility of the elements.
+ *
+ * @example
+ *
+ * ```vue
+ * <script lang="ts" setup
+ * const { componentRef, isVisible } = useMoreListChild();
+ * </script>
+ *
+ * <template
+ *  <div v-show="isVisible" ref="componentRef"> Your content... </div>
+ * </template>
+ * ```
+ */
 export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<HTMLOrInstanceRef>();
@@ -147,8 +214,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
     componentRef,
     /**
      * Whether the component is currently visible.
-     * Should hide itself visually (e.g. using "visibility: hidden").
-     * Do not use v-if, v-show or "display: none" since the more feature does not work then when resizing
+     * Should hide itself visually (e.g. using `v-show="isVisible"`).
      */
     isVisible,
   };
