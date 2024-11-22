@@ -205,7 +205,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   moreContext?.componentMap.value.set(id, { width });
   onBeforeUnmount(() => moreContext?.componentMap.value.delete(id));
 
-  const isVisible = computed(() => moreContext?.visibleElements.value.includes(id));
+  const isVisible = computed(() => moreContext?.visibleElements.value.includes(id) ?? true);
 
   return {
     /**
