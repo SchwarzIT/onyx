@@ -35,7 +35,7 @@ provide(props.injectionKey, more);
 
 watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
   emit("visibilityChange", {
-    visibleElements: visibleElements?.length ?? 0,
+    visibleElements: visibleElements.length,
     hiddenElements: hiddenElements.length,
   });
 });
@@ -56,7 +56,7 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
       <slot
         name="more"
         :hidden-elements="more.hiddenElements.value.length"
-        :visible-elements="more.visibleElements.value?.length ?? 0"
+        :visible-elements="more.visibleElements.value.length"
       ></slot>
     </component>
   </component>
@@ -81,10 +81,6 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
     &__indicator {
       min-width: max-content;
       max-width: 100%;
-
-      > * {
-        visibility: visible !important;
-      }
     }
   }
 }
