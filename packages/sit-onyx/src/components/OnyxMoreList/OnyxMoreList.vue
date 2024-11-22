@@ -1,7 +1,10 @@
 <script lang="ts" setup>
-import { provide, reactive, ref, toRef, watch, type Ref } from "vue";
-import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
-import { useResizeObserver } from "../../composables/useResizeObserver";
+import { provide, reactive, ref, watch } from "vue";
+import {
+  useMoreList,
+  type HTMLOrInstanceRef,
+  type UseMoreListOptions,
+} from "../../composables/useMoreList";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
 const props = defineProps<OnyxMoreListProps>();
@@ -25,19 +28,14 @@ defineSlots<{
 }>();
 
 const parentRef = ref<HTMLOrInstanceRef>();
-const componentRefs = reactive(new Map<string, Ref<HTMLOrInstanceRef>>());
-const disabled = toRef(props, "disabled");
+const listRef = ref<HTMLOrInstanceRef>();
+const moreIndicatorRef = ref<HTMLOrInstanceRef>();
+const components = reactive(new Map() satisfies UseMoreListOptions["components"]);
 
-const more = useMoreList({ parentRef, componentRefs, disabled });
-const { width } = useResizeObserver();
+const more = useMoreList({ parentRef, listRef, components, moreIndicatorRef });
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
-provide(props.injectionKey, {
-  components: componentRefs,
-  visibleElements: more.visibleElements,
-  disabled,
-  width,
-});
+provide(props.injectionKey, { components, ...more });
 
 watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
   emit("visibilityChange", {
@@ -48,14 +46,15 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
 </script>
 
 <template>
-  <component :is="props.is" class="onyx-more-list">
-    <component :is="props.is" ref="parentRef" class="onyx-more-list__elements">
+  <component :is="props.is" ref="parentRef" class="onyx-more-list">
+    <component :is="props.is" ref="listRef" class="onyx-more-list__elements">
       <slot></slot>
     </component>
 
     <component
       :is="props.is"
       v-if="more.hiddenElements.value.length > 0"
+      ref="moreIndicatorRef"
       class="onyx-more-list__indicator"
     >
       <slot

@@ -10,11 +10,6 @@ export type OnyxMoreListProps = {
    * Will not be reactive so it must not be changed.
    */
   injectionKey: MoreListInjectionKey;
-  /**
-   * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
-   * Can increase performance.
-   */
-  disabled?: boolean;
 };
 
 export type MoreListSlotBindings = {

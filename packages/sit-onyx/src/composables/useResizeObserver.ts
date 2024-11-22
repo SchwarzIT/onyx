@@ -13,7 +13,7 @@ export const useResizeObserver = (
   /**
    * Target to observe. If undefined, the documentElement will be observed.
    */
-  target?: Ref<HTMLElement | undefined>,
+  target?: Ref<Element | undefined>,
   options?: UseResizeObserverOptions,
 ) => {
   const box = options?.box ?? "content-box";
@@ -42,6 +42,11 @@ export const useResizeObserver = (
         (newTarget, oldTarget) => {
           if (oldTarget) observer?.unobserve(oldTarget);
           if (newTarget) observer?.observe(newTarget, { box });
+          else {
+            // target was removed (e.g. with v-if so we need to reset the size manually)
+            width.value = 0;
+            height.value = 0;
+          }
         },
         { immediate: true },
       );
