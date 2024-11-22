@@ -380,3 +380,31 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+test("should show correct message", async ({ mount }) => {
+  const message = { shortMessage: "Test short message" };
+  const successMessage = { shortMessage: "Test success short message" };
+  const component = await mount(
+    <OnyxInput label="Label" required success={successMessage} message={message} />,
+  );
+
+  const messageElement = component.getByText("Test short message");
+  const successMessageElement = component.getByText("Test success short message");
+  const errorMessageElement = component.getByText("Required");
+  const input = component.getByLabel("Label");
+
+  // ASSERT
+  await expect(messageElement).toBeHidden();
+  await expect(successMessageElement).toBeVisible();
+
+  //ACT
+  await input.click();
+  await input.fill("x");
+  await input.fill("");
+  await input.blur();
+
+  // ASSERT
+  await expect(messageElement).toBeHidden();
+  await expect(successMessageElement).toBeHidden();
+  await expect(errorMessageElement).toBeVisible();
+});
