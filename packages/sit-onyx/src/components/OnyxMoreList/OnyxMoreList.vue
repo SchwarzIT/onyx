@@ -33,12 +33,12 @@ const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
 provide(props.injectionKey, more);
 
-watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
-  emit("visibilityChange", {
-    visibleElements: visibleElements.length,
-    hiddenElements: hiddenElements.length,
-  });
-});
+watch(
+  [() => more.visibleElements.value.length, () => more.hiddenElements.value.length],
+  ([visibleElements, hiddenElements]) => {
+    emit("visibilityChange", { visibleElements, hiddenElements });
+  },
+);
 </script>
 
 <template>
