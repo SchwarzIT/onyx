@@ -1,10 +1,6 @@
 <script lang="ts" setup>
-import { provide, reactive, ref, watch } from "vue";
-import {
-  useMoreList,
-  type HTMLOrInstanceRef,
-  type UseMoreListOptions,
-} from "../../composables/useMoreList";
+import { provide, ref, watch } from "vue";
+import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
 const props = defineProps<OnyxMoreListProps>();
@@ -30,12 +26,11 @@ defineSlots<{
 const parentRef = ref<HTMLOrInstanceRef>();
 const listRef = ref<HTMLOrInstanceRef>();
 const moreIndicatorRef = ref<HTMLOrInstanceRef>();
-const components = reactive(new Map() satisfies UseMoreListOptions["components"]);
 
-const more = useMoreList({ parentRef, listRef, components, moreIndicatorRef });
+const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
-provide(props.injectionKey, { components, ...more });
+provide(props.injectionKey, more);
 
 watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
   emit("visibilityChange", {
@@ -79,7 +74,7 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
       display: inherit;
       align-items: inherit;
       gap: inherit;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     &__indicator {
