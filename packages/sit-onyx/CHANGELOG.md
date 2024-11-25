@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.72
+
+### Minor Changes
+
+- 156ebb0: feat(OnyxTextarea): Implement success state styles
+
 ## 1.0.0-beta.71
 
 ### Minor Changes
