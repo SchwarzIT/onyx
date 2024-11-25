@@ -1,4 +1,4 @@
-import { onBeforeMount, onBeforeUnmount, ref, watch, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
 
 export type UseResizeObserverOptions = {
   /**
@@ -37,8 +37,8 @@ export const useResizeObserver = (
     height.value = boxSize.reduce((acc, { blockSize }) => acc + blockSize, 0);
   };
 
-  // ensure ResizeObserver is only called before/on mount to support server side rendering
-  onBeforeMount(() => {
+  // ensure ResizeObserver is only called on mount to support server side rendering
+  onMounted(() => {
     const observer = new ResizeObserver(callback);
 
     if (!target) {
