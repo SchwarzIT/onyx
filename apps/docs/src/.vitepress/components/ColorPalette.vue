@@ -5,13 +5,13 @@ import ColorPaletteValue, { type ColorPaletteValueProps } from "./ColorPaletteVa
 import DesignVariable from "./DesignVariable.vue";
 import DesignVariableHeader from "./DesignVariableHeader.vue";
 
-const AVAILABLE_TABS = ["Base", "Text & Icons"] as const;
-type AvailableTab = (typeof AVAILABLE_TABS)[number];
-
 const props = defineProps<{
   name: OnyxColor;
 }>();
 
+const AVAILABLE_TABS = ["Base", "Text & Icons", "States"];
+
+type AvailableTab = (typeof AVAILABLE_TABS)[number];
 const currentTab = ref<AvailableTab>(AVAILABLE_TABS[0]);
 
 /** Speaking names for base color steps. */
@@ -37,10 +37,9 @@ const colorSteps = computed<ColorPaletteValueProps[]>(() => {
         textColor: step < 500 ? `var(--onyx-color-text-icons-${props.name}-bold)` : whiteTextColor,
       };
     });
-  } else {
+  } else if (currentTab.value === "Text & Icons") {
     const textColor =
       props.name === "neutral" ? whiteTextColor : `var(--onyx-color-text-icons-${props.name}-bold)`;
-
     return [
       {
         description: "soft",
@@ -70,6 +69,86 @@ const colorSteps = computed<ColorPaletteValueProps[]>(() => {
             textColor: whiteTextColor,
           },
     ];
+  } else {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mappings: any = {
+      cta: {
+        primary: "default",
+        danger: "invalid",
+        neutral: "disabled",
+      },
+      border: {
+        danger: "invalid",
+        default: props.name,
+      },
+      borderHover: {
+        danger: "invalid-hover",
+        neutral: "disabled",
+        default: `${props.name}-hover`,
+      },
+      focus: {
+        danger: "invalid",
+        default: props.name,
+      },
+    };
+    const cta = mappings.cta[props.name] || null;
+    const border = mappings.border[props.name] || props.name;
+    const borderHover = mappings.borderHover[props.name] || mappings.borderHover.default;
+    const focus = mappings.focus[props.name] || mappings.focus.default;
+    const textColor =
+      props.name === "neutral" ? `var(--onyx-color-text-icons-${props.name}-bold)` : whiteTextColor;
+
+    return [
+      //cta
+      props.name === "primary" || props.name === "danger" || props.name === "neutral"
+        ? {
+            description: props.name === "neutral" ? "cta-disabled" : "cta",
+            color: `var(--onyx-color-component-cta-${cta})`,
+            textColor,
+          }
+        : null,
+      //cta-hover
+      props.name === "primary" || props.name === "danger"
+        ? {
+            description: "cta-hover",
+            color: `var(--onyx-color-component-cta-${cta}-hover)`,
+            textColor,
+          }
+        : null,
+      props.name === "primary" ||
+      props.name === "danger" ||
+      props.name === "neutral" ||
+      props.name === "success"
+        ? // border
+          {
+            description: props.name === "neutral" ? "border-neutral" : "border",
+            color: `var(--onyx-color-component-border-${border})`,
+            textColor,
+          }
+        : null,
+      // border-hover
+      props.name === "primary" ||
+      props.name === "danger" ||
+      props.name === "neutral" ||
+      props.name === "success"
+        ? {
+            description: props.name === "neutral" ? "border-disabled" : "border-hover",
+            color: `var(--onyx-color-component-border-${borderHover})`,
+            textColor,
+          }
+        : null,
+      //focus
+      props.name === "primary" ||
+      props.name === "danger" ||
+      props.name === "neutral" ||
+      props.name === "success"
+        ? {
+            description: props.name === "neutral" ? "focus-neutral" : "focus",
+            color: `var(--onyx-color-component-focus-${focus})`,
+            textColor: `var(--onyx-color-text-icons-${props.name}-bold)`,
+          }
+        : null,
+    ].filter((item) => item !== null);
   }
 });
 
@@ -91,11 +170,16 @@ const handleCopy = async (color: string) => {
 </script>
 
 <template>
+  <!-- Warning & Info don't have content for the "States" tab so we'll hide it -->
   <section class="palette">
     <DesignVariableHeader
       v-model="currentTab"
       :headline="capitalize(props.name)"
-      :tabs="AVAILABLE_TABS"
+      :tabs="
+        props.name === 'warning' || props.name === 'info'
+          ? AVAILABLE_TABS.slice(0, -1)
+          : AVAILABLE_TABS
+      "
     />
 
     <div class="palette__content">

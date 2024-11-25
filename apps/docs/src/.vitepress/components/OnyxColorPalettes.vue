@@ -14,7 +14,6 @@ const { isDark } = useData();
     </div>
 
     <ColorPalette name="primary" />
-    <ColorPalette name="secondary" />
     <ColorPalette name="neutral" />
     <ColorPalette name="danger" />
     <ColorPalette name="warning" />

@@ -19,7 +19,8 @@ export default defineLoader({
   load(watchedFiles): Data {
     return {
       themes: watchedFiles
-        .map((filePath) => filePath.split("/").at(-1)!.replace(".css", ""))
+        .filter((theme) => theme.includes("light"))
+        .map((filePath) => filePath.split("/").at(-1)!.replace("-light.css", ""))
         .sort((a, b) => {
           if (a === "onyx") return -1;
           if (b === "onyx") return 1;
