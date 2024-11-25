@@ -28,6 +28,6 @@ export const Date = {
 export const Datetime = {
   args: {
     label: "Date + time",
-    type: "datetime",
+    type: "datetime-local",
   },
 } satisfies Story;

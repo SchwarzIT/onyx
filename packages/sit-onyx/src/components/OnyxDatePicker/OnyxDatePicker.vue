@@ -1,10 +1,14 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
+import { useDensity } from "../../composables/density";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
+import { useErrorClass } from "../../composables/useErrorClass";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { isValidDate } from "../../utils/time";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
-import OnyxInput from "../OnyxInput/OnyxInput.vue";
-import type { InputType } from "../OnyxInput/types";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { DateValue, OnyxDatePickerProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
@@ -28,13 +32,13 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const nativeHTMLType = computed(() => {
-  const type = props.type === "datetime" ? "datetime-local" : props.type;
-  // casting is intended here since the "InputType" type is restricted by the "OnyxInput"
-  // component to only include types that make sense for text, but it is still passed through
-  // to the native <input> element so we can also use date types here
-  return type as InputType;
-});
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const successMessages = computed(() => getFormMessages(props.success));
+const messages = computed(() => getFormMessages(props.message));
+const { densityClass } = useDensity(props);
+const { disabled, showError } = useFormContext(props);
+const skeleton = useSkeletonContext(props);
+const errorClass = useErrorClass(showError);
 
 /**
  * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
@@ -62,32 +66,89 @@ const getNormalizedDate = computed(() => {
  */
 const padStart = (value: number) => value.toString().padStart(2, "0");
 
-const handleValueChange = (inputValue: string) => {
-  const newDate = new Date(inputValue);
-  emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
-};
+/**
+ * Current value (with getter and setter) that can be used as "v-model" for the native input.
+ */
+const value = computed({
+  get: () => getNormalizedDate.value(props.modelValue),
+  set: (value) => {
+    const newDate = new Date(value ?? "");
+    emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
+  },
+});
 </script>
 
 <template>
-  <!-- key is needed to keep current value when switching between date and datetime type -->
-  <OnyxInput
-    :key="props.type"
-    class="onyx-datepicker"
-    v-bind="props"
-    :model-value="getNormalizedDate(props.modelValue)"
-    :type="nativeHTMLType"
-    @update:model-value="handleValueChange"
-    @validity-change="emit('validityChange', $event)"
-  />
+  <div v-if="skeleton" :class="['onyx-datepicker-skeleton', densityClass]">
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-datepicker-skeleton__label" />
+    <OnyxSkeleton class="onyx-datepicker-skeleton__input" />
+  </div>
+
+  <div v-else :class="['onyx-datepicker', densityClass, errorClass]">
+    <OnyxFormElement
+      v-bind="props"
+      :error-messages="errorMessages"
+      :success-messages="successMessages"
+      :message="messages"
+    >
+      <template #default="{ id: inputId }">
+        <div class="onyx-datepicker__wrapper">
+          <OnyxLoadingIndicator
+            v-if="props.loading"
+            class="onyx-datepicker__loading"
+            type="circle"
+          />
+          <!-- key is needed to keep current value when switching between date and datetime type -->
+          <input
+            :id="inputId"
+            :key="props.type"
+            v-model="value"
+            v-custom-validity
+            :placeholder="props.placeholder"
+            class="onyx-datepicker__native"
+            :class="{ 'onyx-datepicker__native--success': successMessages }"
+            :type="props.type"
+            :required="props.required"
+            :autocomplete="props.autocomplete"
+            :autofocus="props.autofocus"
+            :name="props.name"
+            :readonly="props.readonly"
+            :disabled="disabled || props.loading"
+            :aria-label="props.hideLabel ? props.label : undefined"
+            :title="props.hideLabel ? props.label : undefined"
+          />
+        </div>
+      </template>
+    </OnyxFormElement>
+  </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/input.scss";
+
+.onyx-datepicker,
+.onyx-datepicker-skeleton {
+  --onyx-datepicker-padding-vertical: var(--onyx-density-xs);
+}
+
+.onyx-datepicker-skeleton {
+  @include input.define-skeleton-styles(
+    $height: calc(1lh + 2 * var(--onyx-datepicker-padding-vertical))
+  );
+}
 
 .onyx-datepicker {
   @include layers.component() {
-    ::-webkit-calendar-picker-indicator {
-      cursor: pointer;
+    @include input.define-shared-styles(
+      $base-selector: ".onyx-datepicker",
+      $vertical-padding: var(--onyx-datepicker-padding-vertical)
+    );
+
+    &__native {
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+      }
     }
   }
 }

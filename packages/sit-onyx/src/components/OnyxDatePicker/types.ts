@@ -3,7 +3,7 @@ import type { OnyxInputProps } from "../OnyxInput/types";
 // TODO: check autocomplete
 export type OnyxDatePickerProps = Omit<
   OnyxInputProps,
-  "type" | "modelValue" | "autocapitalize" | "maxlength" | "minlength" | "pattern"
+  "type" | "modelValue" | "autocapitalize" | "maxlength" | "minlength" | "pattern" | "withCounter"
 > & {
   /**
    * Current date value. Supports all data types that are parsable by `new Date()`.
@@ -12,7 +12,7 @@ export type OnyxDatePickerProps = Omit<
   /**
    * Whether the user should be able to select only date or date + time.
    */
-  type?: "date" | "datetime";
+  type?: "date" | "datetime-local";
 };
 
 /** Data types that are parsable as date via `new Date()`. */
