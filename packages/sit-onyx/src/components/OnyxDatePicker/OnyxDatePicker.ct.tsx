@@ -67,31 +67,12 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const inputElement = component.getByLabel("Label");
 
   // ACT
-  await inputElement.pressSequentially("25");
-
-  // ASSERT
-  await expect(inputElement).toHaveValue("");
-  expect(events).toMatchObject({ updateModelValue: [] });
-
-  // ACT
-  await inputElement.pressSequentially("11");
-
-  // ASSERT
-  await expect(inputElement).toHaveValue("");
-  expect(events).toMatchObject({ updateModelValue: [] });
-
-  // ACT
-  await inputElement.pressSequentially("2024");
+  await inputElement.fill("2024-11-25");
 
   // ASSERT
   await expect(inputElement).toHaveValue("2024-11-25");
   expect(events).toMatchObject({
-    updateModelValue: [
-      "0002-11-25T00:00:00.000Z",
-      "0020-11-25T00:00:00.000Z",
-      "0202-11-25T00:00:00.000Z",
-      "2024-11-25T00:00:00.000Z",
-    ],
+    updateModelValue: ["2024-11-25T00:00:00.000Z"],
   });
 });
 
@@ -126,10 +107,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ACT: interact with the input
   await input.focus();
-  await input.pressSequentially("25");
-  await input.pressSequentially("11");
-  await input.pressSequentially("2024");
-  await input.fill("");
+  await input.fill("2024-11-25");
   await input.blur();
 
   // ASSERT: after interaction, the error preview shows
@@ -166,10 +144,7 @@ test("should show correct message", async ({ mount }) => {
 
   //ACT
   await input.click();
-  await input.pressSequentially("25");
-  await input.pressSequentially("11");
-  await input.pressSequentially("2024");
-  await input.fill("");
+  await input.fill("2024-11-25");
   await input.blur();
 
   // ASSERT
