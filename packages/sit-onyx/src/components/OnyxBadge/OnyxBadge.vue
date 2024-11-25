@@ -76,10 +76,6 @@ defineSlots<{
       }
     }
 
-    &--secondary {
-      --onyx-badge-background-color: var(--onyx-color-base-secondary-500);
-    }
-
     &--neutral {
       --onyx-badge-background-color: var(--onyx-color-base-neutral-700);
     }

@@ -79,14 +79,14 @@ defineSlots<{
       }
 
       &:focus-visible {
-        background-color: var(--onyx-color-base-secondary-100);
+        background-color: var(--onyx-color-base-primary-100);
         outline: none;
       }
 
       &:active,
       &--active {
-        background-color: var(--onyx-color-base-secondary-100);
-        color: var(--onyx-color-text-icons-secondary-intense);
+        background-color: var(--onyx-color-base-primary-100);
+        color: var(--onyx-color-text-icons-primary-intense);
       }
     }
 

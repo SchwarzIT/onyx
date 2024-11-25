@@ -69,12 +69,12 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
     }
 
     &:focus-visible {
-      background-color: var(--onyx-color-base-secondary-100);
+      background-color: var(--onyx-color-base-primary-100);
       outline: none;
     }
 
     &:active {
-      background-color: var(--onyx-color-base-secondary-200);
+      background-color: var(--onyx-color-base-primary-200);
     }
 
     &__logo {

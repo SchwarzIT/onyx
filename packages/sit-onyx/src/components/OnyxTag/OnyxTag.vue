@@ -35,7 +35,7 @@ const { densityClass } = useDensity(props);
     border: var(--onyx-1px-in-rem) solid var(--onyx-tag-border-color);
     background-color: var(--onyx-tag-background-color);
 
-    $colors: primary, secondary, neutral, danger, warning, success, info;
+    $colors: primary, neutral, danger, warning, success, info;
 
     @each $color in $colors {
       &--#{$color} {

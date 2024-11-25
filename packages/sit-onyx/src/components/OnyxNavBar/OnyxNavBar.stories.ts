@@ -143,7 +143,7 @@ export const WithLogoutTimer = {
 export const WithCustomAppArea = {
   args: {
     ...Default.args,
-    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "secondary" }), "Custom name"],
+    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "primary" }), "Custom name"],
   },
 } satisfies Story;
 
