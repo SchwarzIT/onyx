@@ -99,6 +99,35 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
+    name: "Textarea (success)",
+    columns: ["default"],
+    rows: ["default", "hover", "focus"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: () => (
+      <OnyxTextarea
+        style="width: 12rem"
+        label="Test label"
+        success={{ shortMessage: "Test success message", longMessage: "Test long success message" }}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      const input = component.getByLabel("Test label");
+      const formElementUtils = createFormElementUtils(page);
+
+      await component.evaluate((element) => {
+        element.style.padding = `0 5rem 3rem 2rem`;
+      });
+
+      if (row === "hover") {
+        await input.hover();
+        await formElementUtils.triggerTooltipVisible("message");
+      }
+      if (row === "focus") await input.focus();
+    },
+  });
+
+  executeMatrixScreenshotTest({
     name: "Textarea (skeleton)",
     columns: DENSITIES,
     rows: ["default", "hideLabel", "autosize-min-6-rows"],
@@ -440,4 +469,32 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const accessibilityScanResults = await makeAxeBuilder().analyze();
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should show correct message", async ({ mount }) => {
+  const message = { shortMessage: "Test short message" };
+  const successMessage = { shortMessage: "Test success short message" };
+  const component = await mount(
+    <OnyxTextarea label="Label" required success={successMessage} message={message} />,
+  );
+
+  const messageElement = component.getByText("Test short message");
+  const successMessageElement = component.getByText("Test success short message");
+  const errorMessageElement = component.getByText("Required");
+  const input = component.getByLabel("Label");
+
+  // ASSERT
+  await expect(messageElement).toBeHidden();
+  await expect(successMessageElement).toBeVisible();
+
+  //ACT
+  await input.click();
+  await input.fill("x");
+  await input.fill("");
+  await input.blur();
+
+  // ASSERT
+  await expect(messageElement).toBeHidden();
+  await expect(successMessageElement).toBeHidden();
+  await expect(errorMessageElement).toBeVisible();
 });
