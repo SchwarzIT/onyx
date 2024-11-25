@@ -115,27 +115,23 @@ export const useMoreList = (options: UseMoreListOptions) => {
       }
 
       // calculate which components currently fully fit into the available parent width
-      const { visible, hidden } = Array.from(componentMap.entries()).reduce(
-        (acc, [id, componentWidth], index) => {
-          availableWidth -= componentWidth + (index > 0 ? listGap : 0);
+      // we don't need to worry about changing the refs multiple times here since Vue batches changes
+      visibleElements.value = [];
+      hiddenElements.value = [];
 
-          if (
-            availableWidth >= 0 ||
-            // check if last element fits if more indicator would be hidden
-            (index === componentMap.size - 1 && availableWidth + moreIndicatorWidth.value >= 0)
-          ) {
-            acc.visible.push(id);
-          } else {
-            acc.hidden.push(id);
-          }
+      Array.from(componentMap.entries()).forEach(([id, componentWidth], index) => {
+        availableWidth -= componentWidth + (index > 0 ? listGap : 0);
 
-          return acc;
-        },
-        { visible: [] as string[], hidden: [] as string[] },
-      );
-
-      visibleElements.value = visible;
-      hiddenElements.value = hidden;
+        if (
+          availableWidth >= 0 ||
+          // check if last element fits if more indicator would be hidden
+          (index === componentMap.size - 1 && availableWidth + moreIndicatorWidth.value >= 0)
+        ) {
+          visibleElements.value.push(id);
+        } else {
+          hiddenElements.value.push(id);
+        }
+      });
     });
   });
 
