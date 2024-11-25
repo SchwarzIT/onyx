@@ -4,7 +4,7 @@ import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
-import type { OnyxFormElementProps } from "../OnyxFormElement/types";
+import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
@@ -14,7 +14,7 @@ export type OnyxSelectInputProps = FormInjectedProps &
   RequiredMarkerProp &
   CustomValidityProp &
   AutofocusProp &
-  Omit<OnyxFormElementProps, "modelValue" | "maxlength" | "withCounter"> & {
+  Omit<SharedFormElementProps, "modelValue" | "maxlength" | "withCounter"> & {
     /**
      * Current label(s) of the select.
      */

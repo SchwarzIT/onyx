@@ -38,8 +38,10 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+      };
 
       return (
         <OnyxTextarea
@@ -216,10 +218,12 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+        longMessage: "Additional info message",
+      };
       const labelTooltip = "More information";
-      const messageTooltip = "Additional info message";
 
       return (
         <OnyxTextarea
@@ -227,7 +231,6 @@ test.describe("Screenshot tests", () => {
           label={label}
           message={row === "messageTooltip" ? message : undefined}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
-          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },
@@ -410,7 +413,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const textarea = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
   const fullError = formElementUtils
-    .getTooltipPopover("error")
+    .getTooltipPopover("message")
     .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
@@ -425,11 +428,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("message")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await formElementUtils.triggerTooltipVisible("error");
+  await formElementUtils.triggerTooltipVisible("message");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 

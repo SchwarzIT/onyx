@@ -3,7 +3,7 @@ import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
-import { useCustomValidity } from "../../composables/useCustomValidity";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
@@ -44,6 +44,8 @@ const emit = defineEmits<{
 const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const successMessages = computed(() => getFormMessages(props.success));
+const messages = computed(() => getFormMessages(props.message));
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
@@ -128,7 +130,12 @@ const blockTyping = (event: KeyboardEvent) => {
     ]"
     v-bind="rootAttrs"
   >
-    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
+    <OnyxFormElement
+      v-bind="props"
+      :message="messages"
+      :success-messages="successMessages"
+      :error-messages="errorMessages"
+    >
       <template #default="{ id: inputId }">
         <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- Disabled rules are needed here, because of the click event. Otherwise clicking on the padding or gap won't open the select -->
         <div

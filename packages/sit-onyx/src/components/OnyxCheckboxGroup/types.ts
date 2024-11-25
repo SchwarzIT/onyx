@@ -4,12 +4,12 @@ import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
-import type { OnyxFormElementProps } from "../OnyxFormElement/types";
+import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     Pick<BaseSelectOption, "truncation"> &
-    Pick<OnyxFormElementProps, "label" | "hideLabel"> & {
+    Pick<SharedFormElementProps, "label" | "hideLabel"> & {
       /**
        * Checkbox options.
        */

@@ -115,7 +115,7 @@ export const Maxlength: Story = {
 export const WithMessage = {
   args: {
     ...Default.args,
-    message: "Example message",
+    message: { shortMessage: "Example message" },
   },
 } satisfies Story;
 
@@ -157,6 +157,21 @@ export const CustomError: Story = {
 };
 
 /**
+ * This example shows an input with a success message.
+ * Will only be shown after user interaction.
+ */
+export const SuccessInput: Story = {
+  args: {
+    ...Default.args,
+    success: {
+      shortMessage: "Example success message",
+      longMessage: "This text might inform the users that the text is valid.",
+    },
+    modelValue: "Test success value",
+  },
+};
+
+/**
  * This example shows an input with info label tooltip.
  */
 export const WithLabelTooltip: Story = {
@@ -172,7 +187,9 @@ export const WithLabelTooltip: Story = {
 export const WithMessageTooltip = {
   args: {
     ...Default.args,
-    message: "Example message",
-    messageTooltip: "Additional info message",
+    message: {
+      shortMessage: "Example message",
+      longMessage: "Additional info message",
+    },
   },
 } satisfies Story;

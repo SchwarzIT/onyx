@@ -102,8 +102,9 @@
     "navigationHeadline": "Navigation"
   },
   "tooltip": {
-    "info": "Toggle info tooltip",
-    "error": "Toggle error tooltip"
+    "neutral": "Toggle info tooltip",
+    "danger": "Toggle error tooltip",
+    "success": "Toggle success tooltip"
   },
   "colorScheme": {
     "headline": "Change appearance",

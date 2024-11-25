@@ -3,7 +3,7 @@ import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
-import { useCustomValidity } from "../../composables/useCustomValidity";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
@@ -36,6 +36,8 @@ const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const successMessages = computed(() => getFormMessages(props.success));
+const messages = computed(() => getFormMessages(props.message));
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
@@ -121,7 +123,12 @@ const decrementLabel = computed(() =>
     <OnyxSkeleton class="onyx-stepper-skeleton__input" />
   </div>
   <div v-else :class="['onyx-stepper', densityClass, errorClass]">
-    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
+    <OnyxFormElement
+      v-bind="props"
+      :message="messages"
+      :success-messages="successMessages"
+      :error-messages="errorMessages"
+    >
       <div class="onyx-stepper__wrapper">
         <button
           type="button"

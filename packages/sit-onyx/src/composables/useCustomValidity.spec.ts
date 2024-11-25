@@ -58,7 +58,11 @@ describe("useCustomValidity", () => {
 
     await nextTick(); // wait for watchers to be called
     expect(currentValidity).toBeUndefined(); // should not be emitted initially
-    expect(errorMessages.value).toEqual({ longMessage: "Test error", shortMessage: "Test error" });
+    expect(errorMessages.value).toEqual({
+      longMessage: "Test error",
+      shortMessage: "Test error",
+      hidden: false,
+    });
 
     props.modelValue = "Test";
     await nextTick();

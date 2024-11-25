@@ -158,7 +158,9 @@ export const WithLabelTooltip: Story = {
 export const WithMessageTooltip = {
   args: {
     ...Default.args,
-    message: "Example message",
-    messageTooltip: "Additional info message",
+    message: {
+      shortMessage: "Example message",
+      longMessage: "Additional info message",
+    },
   },
 } satisfies Story;

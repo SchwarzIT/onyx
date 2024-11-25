@@ -42,8 +42,10 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
-      const message =
-        column === "long-text" ? "Very long message that should be truncated" : "Test message";
+      const message = {
+        shortMessage:
+          column === "long-text" ? "Very long message that should be truncated" : "Test message",
+      };
 
       return (
         <OnyxInput
@@ -74,14 +76,17 @@ test.describe("Screenshot tests", () => {
         column === "long-text" ? "Very long message that should be truncated" : "Test message";
       const labelTooltip = "More information";
       const messageTooltip = "Additional info message";
+      const messageObj = {
+        shortMessage: message,
+        longMessage: `${row === "messageTooltip" ? messageTooltip : undefined}`,
+      };
 
       return (
         <OnyxInput
           style="width: 12rem"
           label={label}
-          message={row === "messageTooltip" ? message : undefined}
+          message={row !== "labelTooltip" ? messageObj : undefined}
           labelTooltip={row === "labelTooltip" ? labelTooltip : undefined}
-          messageTooltip={row === "messageTooltip" ? messageTooltip : undefined}
         />
       );
     },
@@ -105,24 +110,25 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => {
       const showLongMessage = column !== "default";
       const label = column === "long-text" ? "Test label that should be truncated" : "Test label";
-      const message = showLongMessage
-        ? "Very long message that should be truncated"
-        : "Test message";
-      const errorMessages: FormMessages = {
+      const errorMessage: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
-      const messageTooltip = "Additional info message";
+      const message = {
+        shortMessage: showLongMessage
+          ? "Very long message that should be truncated"
+          : "Test message",
+        longMessage: "Additional info message",
+      };
 
       return (
         <OnyxInput
           style="width: 12rem"
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? errorMessages : undefined}
-          messageTooltip={messageTooltip}
+          customError={row !== "messageTooltip" ? errorMessage : undefined}
           withCounter={column === "with-counter"}
           maxlength={column === "with-counter" ? 15 : undefined}
         />
@@ -141,7 +147,7 @@ test.describe("Screenshot tests", () => {
       });
 
       if (row !== "error") {
-        await formElementUtils.triggerTooltipVisible(row === "errorTooltip" ? "error" : "message");
+        await formElementUtils.triggerTooltipVisible("message");
       }
     },
   });
@@ -212,6 +218,39 @@ test.describe("Screenshot tests", () => {
       if (row === "hover") await input.hover();
       if (row === "focus") await input.focus();
       if (column == "autofill") {
+        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+      }
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Input (success)",
+    columns: ["default", "autofill"],
+    rows: ["default", "hover", "focus"],
+    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
+    disabledAccessibilityRules: ["color-contrast"],
+    component: () => (
+      <OnyxInput
+        style="width: 12rem"
+        label="Test label"
+        success={{ shortMessage: "Test success message", longMessage: "Test long success message" }}
+      />
+    ),
+    beforeScreenshot: async (component, page, column, row) => {
+      const input = component.getByLabel("Test label");
+      const formElementUtils = createFormElementUtils(page);
+
+      await component.evaluate((element) => {
+        element.style.padding = `0 5rem 3rem 2rem`;
+      });
+
+      if (row === "hover") {
+        await input.hover();
+        await formElementUtils.triggerTooltipVisible("message");
+      }
+      if (row === "focus") await input.focus();
+      if (column == "autofill") {
+        await input.fill("Filled value");
         await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
       }
     },
@@ -313,7 +352,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const input = component.getByLabel("Demo");
   const errorPreview = component.getByText("Required");
   const fullError = formElementUtils
-    .getTooltipPopover("error")
+    .getTooltipPopover("message")
     .getByText("Please fill in this field.");
 
   // ASSERT: initially no error shows
@@ -328,11 +367,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(formElementUtils.getTooltipTrigger("error")).toBeVisible();
+  await expect(formElementUtils.getTooltipTrigger("message")).toBeVisible();
   await expect(fullError).toBeHidden();
 
   // ACT
-  await formElementUtils.triggerTooltipVisible("error");
+  await formElementUtils.triggerTooltipVisible("message");
   // ASSERT: the full error message shows
   await expect(fullError).toBeVisible();
 
@@ -340,4 +379,32 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const accessibilityScanResults = await makeAxeBuilder().analyze();
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should show correct message", async ({ mount }) => {
+  const message = { shortMessage: "Test short message" };
+  const successMessage = { shortMessage: "Test success short message" };
+  const component = await mount(
+    <OnyxInput label="Label" required success={successMessage} message={message} />,
+  );
+
+  const messageElement = component.getByText("Test short message");
+  const successMessageElement = component.getByText("Test success short message");
+  const errorMessageElement = component.getByText("Required");
+  const input = component.getByLabel("Label");
+
+  // ASSERT
+  await expect(messageElement).toBeHidden();
+  await expect(successMessageElement).toBeVisible();
+
+  //ACT
+  await input.click();
+  await input.fill("x");
+  await input.fill("");
+  await input.blur();
+
+  // ASSERT
+  await expect(messageElement).toBeHidden();
+  await expect(successMessageElement).toBeHidden();
+  await expect(errorMessageElement).toBeVisible();
 });
