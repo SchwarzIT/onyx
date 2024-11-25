@@ -106,8 +106,11 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   await expect(fullError).toBeHidden();
 
   // ACT: interact with the input
-  await input.focus();
+  await input.click();
   await input.fill("2024-11-25");
+  await input.blur();
+
+  await input.click();
   await input.press("Delete");
   await input.blur();
 
@@ -146,6 +149,9 @@ test("should show correct message", async ({ mount }) => {
   //ACT
   await input.click();
   await input.fill("2024-11-25");
+  await input.blur();
+
+  await input.click();
   await input.press("Delete");
   await input.blur();
 
