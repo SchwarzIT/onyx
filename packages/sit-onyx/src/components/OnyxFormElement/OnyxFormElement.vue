@@ -1,16 +1,14 @@
 <script lang="ts" setup>
 import { computed, useId } from "vue";
 import { useRequired } from "../../composables/required";
-import { injectI18n } from "../../i18n";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
+import FormMessage from "./FormMessage.vue";
 import type { OnyxFormElementProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFormElementProps>(), {
   required: false,
   id: () => useId(),
 });
-
-const { t } = injectI18n();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
@@ -29,7 +27,13 @@ defineSlots<{
 </script>
 
 <template>
-  <div :class="['onyx-form-element', requiredTypeClass]">
+  <div
+    :class="[
+      'onyx-form-element',
+      requiredTypeClass,
+      successMessages ? 'onyx-form-element--success' : undefined,
+    ]"
+  >
     <div v-if="!props.hideLabel" class="onyx-form-element__label onyx-text--small">
       <label :for="props.id" class="onyx-truncation-ellipsis">{{ props.label }}</label>
       <span
@@ -49,29 +53,26 @@ defineSlots<{
     </div>
     <slot :id="props.id"></slot>
     <div class="onyx-form-element__footer onyx-text--small">
-      <span v-if="errorMessages" class="onyx-form-element__error-message onyx-truncation-ellipsis">
-        {{ errorMessages.shortMessage }}
+      <span class="onyx-form-element__footer-messages">
+        <FormMessage
+          v-if="props.errorMessages"
+          class="onyx-form-element__error-message"
+          :messages="props.errorMessages"
+          type="danger"
+        />
+        <FormMessage
+          v-if="props.successMessages"
+          class="onyx-form-element__success-message"
+          :messages="props.successMessages"
+          type="success"
+        />
+        <FormMessage
+          v-if="props.message"
+          class="onyx-form-element__message"
+          :messages="props.message"
+          type="neutral"
+        />
       </span>
-      <OnyxInfoTooltip
-        v-if="errorMessages?.longMessage"
-        class="onyx-form-element__error-tooltip"
-        color="danger"
-        position="bottom"
-        :label="t('tooltip.error')"
-        open="hover"
-        :text="errorMessages.longMessage"
-      />
-
-      <span v-if="props.message" class="onyx-form-element__message onyx-truncation-ellipsis">
-        {{ props.message }}
-      </span>
-      <OnyxInfoTooltip
-        v-if="props.messageTooltip"
-        class="onyx-form-element__message-tooltip"
-        position="bottom"
-        open="hover"
-        :text="props.messageTooltip"
-      />
       <span v-if="counterText" class="onyx-form-element__counter">
         {{ counterText }}
       </span>
@@ -122,43 +123,45 @@ defineSlots<{
 
     $footer-gap: var(--onyx-spacing-2xs);
 
-    &__label-tooltip,
-    &__message-tooltip,
-    &__error-tooltip {
+    &__label-tooltip {
       margin-left: $footer-gap;
     }
 
     &__footer {
       width: 100%;
+      max-width: 100%;
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+
+      gap: $footer-gap;
       color: var(--onyx-color-text-icons-neutral-soft);
     }
 
-    &__counter {
-      text-align: right;
-      flex-grow: 1;
-      margin-left: $footer-gap;
+    &__footer-messages {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
 
-    /**
-     * input.scss will overwrite this to only be visible
-     * after the user interacted with the component.
-     * can also be overwritten if a project
-     * needs to enforce to show an error immediately
-     */
+    &__counter {
+      max-width: fit-content;
+    }
+
     &__error-message,
     &__error-tooltip {
       display: var(--error-message-display, none);
       color: var(--onyx-color-base-danger-500);
     }
 
-    /** input.scss will overwrite this so that
-     * message and error message are not be shown simultaneously
-     */
-    &__message,
-    &__message-tooltip {
-      display: var(--message-display, block);
+    &__success-message,
+    &__success-tooltip {
+      display: var(--success-message-display, flex);
+      color: var(--onyx-color-base-success-700);
+    }
+
+    &__message {
+      display: var(--message-display, flex);
     }
   }
 }

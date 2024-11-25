@@ -312,16 +312,18 @@ test.describe("Invalidity handling screenshots", () => {
         column === "long-text"
           ? "Very very long test label that should be truncated"
           : "Test label";
-      const message = showLongMessage
-        ? "Very long message that should be truncated"
-        : "Test message";
+      const message = {
+        shortMessage: `${
+          showLongMessage ? "Very long message that should be truncated" : "Test message"
+        }`,
+        longMessage: "Additional info message",
+      };
       const errorMessages: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
-      const messageTooltip = "Additional info message";
 
       return (
         <OnyxSelect
@@ -329,7 +331,6 @@ test.describe("Invalidity handling screenshots", () => {
           label={label}
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
-          messageTooltip={messageTooltip}
           listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
         />
@@ -348,9 +349,7 @@ test.describe("Invalidity handling screenshots", () => {
       });
 
       if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible(
-          row === "errorTooltip" ? "error" : "message",
-        );
+        await createFormElementUtils(page).triggerTooltipVisible("message");
       }
     },
   });

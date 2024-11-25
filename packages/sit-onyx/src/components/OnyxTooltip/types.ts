@@ -24,7 +24,7 @@ export type OnyxTooltipProps = DensityProp & {
    * Optional icon to show on the left of the text.
    */
   icon?: string;
-  color?: Extract<OnyxColor, "neutral" | "danger">;
+  color?: Extract<OnyxColor, "neutral" | "danger" | "success">;
   /**
    * How to position the tooltip relative to the parent element.
    */

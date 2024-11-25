@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useCustomValidity } from "../../composables/useCustomValidity";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -34,7 +34,8 @@ const emit = defineEmits<{
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 
 const { densityClass } = useDensity(props);
-
+const successMessages = computed(() => getFormMessages(props.success));
+const messages = computed(() => getFormMessages(props.message));
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
@@ -78,7 +79,12 @@ const errorClass = useErrorClass(showError);
   </div>
 
   <div v-else :class="['onyx-textarea', errorClass, densityClass]" :style="autosizeMinMaxStyles">
-    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
+    <OnyxFormElement
+      v-bind="props"
+      :message="messages"
+      :success-messages="successMessages"
+      :error-messages="errorMessages"
+    >
       <template #default="{ id }">
         <div class="onyx-textarea__wrapper" :data-autosize-value="value">
           <!-- eslint-disable vuejs-accessibility/no-autofocus -
