@@ -104,7 +104,6 @@ const value = computed({
             :key="props.type"
             v-model="value"
             v-custom-validity
-            :placeholder="props.placeholder"
             class="onyx-datepicker__native"
             :class="{ 'onyx-datepicker__native--success': successMessages }"
             :type="props.type"
