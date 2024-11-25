@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect, type ComponentInstance } from "vue";
+import { computed } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { isValidDate } from "../../utils/time";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
@@ -27,8 +27,6 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
-
-const inputRef = ref<ComponentInstance<typeof OnyxInput>>();
 
 const nativeHTMLType = computed(() => {
   const type = props.type === "datetime" ? "datetime-local" : props.type;
@@ -64,13 +62,6 @@ const getNormalizedDate = computed(() => {
  */
 const padStart = (value: number) => value.toString().padStart(2, "0");
 
-// sync additional props with native HTML input element
-watchEffect(() => {
-  if (!inputRef.value?.inputRef) return;
-  inputRef.value.inputRef.min = getNormalizedDate.value(props.min) ?? "";
-  inputRef.value.inputRef.max = getNormalizedDate.value(props.max) ?? "";
-});
-
 const handleValueChange = (inputValue: string) => {
   const newDate = new Date(inputValue);
   emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
@@ -80,7 +71,6 @@ const handleValueChange = (inputValue: string) => {
 <template>
   <!-- key is needed to keep current value when switching between date and datetime type -->
   <OnyxInput
-    ref="inputRef"
     :key="props.type"
     class="onyx-datepicker"
     v-bind="props"
