@@ -4,7 +4,7 @@ import type { OnyxInputProps } from "../OnyxInput/types";
 export type DateValue = ConstructorParameters<typeof Date>[0];
 
 // TODO: check autocomplete
-export type OnyxDatepickerProps = Omit<
+export type OnyxDatePickerProps = Omit<
   OnyxInputProps,
   "type" | "modelValue" | "autocapitalize" | "maxlength" | "minlength" | "pattern"
 > & {

@@ -1,10 +1,10 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxDatepicker from "./OnyxDatepicker.vue";
+import OnyxDatePicker from "./OnyxDatePicker.vue";
 
-const meta: Meta<typeof OnyxDatepicker> = {
-  title: "Form Elements/Datepicker",
-  component: OnyxDatepicker,
+const meta: Meta<typeof OnyxDatePicker> = {
+  title: "Form Elements/DatePicker",
+  component: OnyxDatePicker,
   decorators: [
     (story) => ({
       components: { story },
@@ -19,7 +19,7 @@ const meta: Meta<typeof OnyxDatepicker> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxDatepicker>;
+type Story = StoryObj<typeof OnyxDatePicker>;
 
 export const Date = {
   args: {
