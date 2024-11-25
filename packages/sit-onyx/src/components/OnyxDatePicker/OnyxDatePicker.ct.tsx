@@ -38,6 +38,9 @@ test("should open flyout", async ({ mount, page }) => {
   // ACT
   await datepicker.evaluate((input) => (input as HTMLInputElement).showPicker());
 
+  // eslint-disable-next-line playwright/no-wait-for-timeout
+  await page.waitForTimeout(500);
+
   // ASSERT
   await expect(page).toHaveScreenshot("open.png");
 });
