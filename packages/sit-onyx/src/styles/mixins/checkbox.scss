@@ -35,7 +35,7 @@
   &:checked,
   &:indeterminate {
     @include define-checked-background(":enabled", default);
-    @include define-checked-background(":user-invalid", danger);
+    @include define-checked-background(":user-invalid", invalid);
 
     &:disabled {
       background-color: var(--onyx-color-base-neutral-300);

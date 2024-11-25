@@ -151,7 +151,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         background-color: var(--onyx-color-component-cta-default);
 
         .onyx-switch__icon {
-          background-color: var(--onyx-color-themed-neutral-100);
+          background-color: var(--onyx-color-base-neutral-100);
           transform: translateX(calc(75% - var(--onyx-switch-transform)));
           color: var(--onyx-color-text-icons-primary-intense);
         }
@@ -240,7 +240,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         display: flex;
         align-self: center;
         justify-content: center;
-        background-color: var(--onyx-color-themed-neutral-100);
+        background-color: var(--onyx-color-base-neutral-100);
         border-radius: var(--onyx-radius-full);
         transition:
           transform var(--onyx-duration-sm) ease,

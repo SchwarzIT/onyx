@@ -155,6 +155,7 @@ const skeleton = useSkeletonContext(props);
       background-color: var(--onyx-radio-button-selector-background-color);
       outline: var(--onyx-radio-button-selector-outline-width) solid
         var(--onyx-radio-button-selector-outline-color);
+      outline-offset: 0;
 
       display: inline-grid;
       place-items: center;
