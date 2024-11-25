@@ -44,20 +44,20 @@ export const createTheme = (base: "light" | "dark" = "light", brandDetails?: Bra
 const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
     background: getCustomProperty("--onyx-color-universal-grayscale-white"),
-    contentBackground: getCustomProperty("--onyx-color-themed-neutral-100"),
-    text: getCustomProperty("--onyx-color-themed-neutral-700"),
-    textMuted: getCustomProperty("--onyx-color-themed-neutral-600"),
-    border: getCustomProperty("--onyx-color-themed-neutral-300"),
+    contentBackground: getCustomProperty("--onyx-color-steel-100"),
+    text: getCustomProperty("--onyx-color-steel-700"),
+    textMuted: getCustomProperty("--onyx-color-steel-600"),
+    border: getCustomProperty("--onyx-color-steel-300"),
   });
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: getCustomProperty("--onyx-color-themed-neutral-1100"),
-    contentBackground: getCustomProperty("--onyx-color-themed-neutral-1200"),
-    text: getCustomProperty("--onyx-color-themed-neutral-200"),
-    textMuted: getCustomProperty("--onyx-color-themed-neutral-400"),
-    border: getCustomProperty("--onyx-color-themed-neutral-900"),
+    background: getCustomProperty("--onyx-color-steel-1100"),
+    contentBackground: getCustomProperty("--onyx-color-steel-1200"),
+    text: getCustomProperty("--onyx-color-steel-200"),
+    textMuted: getCustomProperty("--onyx-color-steel-400"),
+    border: getCustomProperty("--onyx-color-steel-900"),
   });
 };
 
