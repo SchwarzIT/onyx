@@ -108,6 +108,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   // ACT: interact with the input
   await input.focus();
   await input.fill("2024-11-25");
+  await input.press("Delete");
   await input.blur();
 
   // ASSERT: after interaction, the error preview shows
@@ -145,6 +146,7 @@ test("should show correct message", async ({ mount }) => {
   //ACT
   await input.click();
   await input.fill("2024-11-25");
+  await input.press("Delete");
   await input.blur();
 
   // ASSERT
