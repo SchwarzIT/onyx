@@ -13,8 +13,6 @@ const meta: Meta<typeof OnyxDatePicker> = {
   ],
   argTypes: {
     ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
-    min: { control: { type: "text" } },
-    max: { control: { type: "text" } },
   },
 };
 
