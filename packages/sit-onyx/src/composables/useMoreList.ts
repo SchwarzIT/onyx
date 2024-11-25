@@ -13,7 +13,7 @@ import {
 import {
   getTemplateRefElement,
   useResizeObserver,
-  type HTMLOrInstanceRef,
+  type VueTemplateRefElement,
 } from "./useResizeObserver";
 
 /**
@@ -25,15 +25,15 @@ export type UseMoreListOptions = {
   /**
    * Vue template ref for the parent element containing the more indicator as well as the list of components.
    */
-  parentRef: Ref<HTMLOrInstanceRef>;
+  parentRef: Ref<VueTemplateRefElement>;
   /**
    * Vue template ref for the element containing the list of components.
    */
-  listRef: Ref<HTMLOrInstanceRef>;
+  listRef: Ref<VueTemplateRefElement>;
   /**
    * Vue template ref for the more indicator element that might be shown if not all elements are visible.
    */
-  moreIndicatorRef: Ref<HTMLOrInstanceRef>;
+  moreIndicatorRef: Ref<VueTemplateRefElement>;
 };
 
 /**
@@ -174,7 +174,7 @@ export const useMoreList = (options: UseMoreListOptions) => {
 /**
  * Gets the CSS column-gap property for the given element or 0 if invalid or unset.
  */
-const getColumnGap = (ref: HTMLOrInstanceRef) => {
+const getColumnGap = (ref: VueTemplateRefElement) => {
   const element = getTemplateRefElement(ref);
   if (!element) return 0;
   // we use "|| 0" here to fallback to zero for NaN values when no/invalid gap exist
@@ -198,7 +198,7 @@ const getColumnGap = (ref: HTMLOrInstanceRef) => {
  */
 export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
-  const componentRef = ref<HTMLOrInstanceRef>();
+  const componentRef = ref<VueTemplateRefElement>();
   const moreContext = inject(injectionKey);
   const { width } = useResizeObserver(componentRef);
 

@@ -12,13 +12,13 @@ export type UseResizeObserverOptions = {
 /**
  * Template ref of either a native HTML element or a custom Vue component.
  */
-export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
+export type VueTemplateRefElement = Element | { $el: Element } | null | undefined;
 
 export const useResizeObserver = (
   /**
    * Target to observe. If undefined, the documentElement will be observed.
    */
-  target?: Ref<HTMLOrInstanceRef>,
+  target?: Ref<VueTemplateRefElement>,
   options?: UseResizeObserverOptions,
 ) => {
   const box = options?.box ?? "content-box";
@@ -72,6 +72,6 @@ export const useResizeObserver = (
 /**
  * Gets the native HTML element of a template ref.
  */
-export const getTemplateRefElement = (ref: HTMLOrInstanceRef) => {
+export const getTemplateRefElement = (ref: VueTemplateRefElement) => {
   return ref instanceof Element ? ref : ref?.$el;
 };
