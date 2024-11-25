@@ -25,7 +25,7 @@ export const Default = {
     is: "div",
     injectionKey: NAV_BAR_MORE_LIST_INJECTION_KEY,
     default: () =>
-      Array.from({ length: 12 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
+      Array.from({ length: 16 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
     more: ({ hiddenElements }) =>
       h(
         "div",

@@ -3,9 +3,10 @@ import {
   inject,
   onBeforeUnmount,
   onMounted,
+  reactive,
   ref,
-  unref,
   useId,
+  watch,
   watchEffect,
   type InjectionKey,
   type Ref,
@@ -95,24 +96,11 @@ export const useMoreList = (options: UseMoreListOptions) => {
   const { width: parentWidth } = useResizeObserver(options.parentRef);
   const { width: moreIndicatorWidth } = useResizeObserver(options.moreIndicatorRef);
 
-  // type casting is needed to prevent TypeScript from unwrapping the type which will lead to "width" being a single number instead of Ref<number>
-  const componentMap = ref(new Map()) as Ref<Map<string, { width: Ref<number> }>>;
-
   /**
    * Map of all component widths. Key = component ID, value = component width.
    * If component is hidden, this map will still include the previous width.
    */
-  const memorizedComponentWidthMap = ref(new Map<string, number>());
-
-  // sync widthMap to components but keep component width if it changes to zero (e.g. because the element is hidden)
-  // so we can continue calculating if hidden elements would fit into the available width if resized
-  watchEffect(() => {
-    componentMap.value.forEach((value, key) => {
-      const newWidth = unref(value.width);
-      if (memorizedComponentWidthMap.value.has(key) && newWidth === 0) return;
-      memorizedComponentWidthMap.value.set(key, newWidth);
-    });
-  });
+  const componentMap = reactive(new Map<string, number>());
 
   onMounted(() => {
     watchEffect(() => {
@@ -127,15 +115,14 @@ export const useMoreList = (options: UseMoreListOptions) => {
       }
 
       // calculate which components currently fully fit into the available parent width
-      const { visible, hidden } = Array.from(memorizedComponentWidthMap.value.entries()).reduce(
+      const { visible, hidden } = Array.from(componentMap.entries()).reduce(
         (acc, [id, componentWidth], index) => {
           availableWidth -= componentWidth + (index > 0 ? listGap : 0);
 
           if (
             availableWidth >= 0 ||
             // check if last element fits if more indicator would be hidden
-            (index === memorizedComponentWidthMap.value.size - 1 &&
-              availableWidth + moreIndicatorWidth.value >= 0)
+            (index === componentMap.size - 1 && availableWidth + moreIndicatorWidth.value >= 0)
           ) {
             acc.visible.push(id);
           } else {
@@ -202,8 +189,19 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const moreContext = inject(injectionKey);
   const { width } = useResizeObserver(componentRef);
 
-  moreContext?.componentMap.value.set(id, { width });
-  onBeforeUnmount(() => moreContext?.componentMap.value.delete(id));
+  watch(
+    width,
+    (newWidth) => {
+      const map = moreContext?.componentMap;
+      // do not reset width if width is 0 = component is hidden because the more list still
+      // needs the previous to calculate if component can be shown when resizing the screen larger
+      if (!map || (map.has(id) && newWidth === 0)) return;
+      map.set(id, newWidth);
+    },
+    { immediate: true },
+  );
+
+  onBeforeUnmount(() => moreContext?.componentMap.delete(id));
 
   const isVisible = computed(() => moreContext?.visibleElements.value.includes(id) ?? true);
 
