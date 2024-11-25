@@ -1,82 +1,69 @@
 name: Create a development story 📗
-description: Story template for development tasks. Mainly used by the onyx core team for project management,
+description: Story template for development tasks. Exclusively used by the onyx core team for project management.
 title: "Implement|Define|Fix: ..."
 projects:
   - SchwarzIT/5
 labels:
   - dev
-  - 0-refinement
 
 body:
-  - type: textarea
-    id: open-questions
-    attributes:
-      label: Open questions / TODOs
-      description: Add questions if any, use `@` to tag people.
-
-  - type: textarea
-    id: dependencies
-    attributes:
-      label: Depends on
-      description: Issues/tickets that this issue depends on.
-
   - type: textarea
     id: description
     attributes:
       label: Why?
-      description: Add a description and motivation for the issue.
+      description: Add a short description and motivation for the story.
     validations:
       required: true
 
   - type: textarea
-    id: design
+    id: content
     attributes:
-      label: Design
-      description: Add Figma link for the design.
-
-  - type: textarea
-    id: acceptance-criteria
-    attributes:
-      label: Acceptance criteria
-      description: Add ticket specific AC, e.g., the expected behavior of a component.
-    validations:
-      required: true
-
-  - type: textarea
-    id: implementation-details
-    attributes:
-      label: Implementation details
-      description: >-
-        Add technical details / implementation proposals if necessary, e.g.:
-          - API proposal
-          - relevant web APIs
-          - learnings from other implementations
-          - code snippets
-
-  - type: textarea
-    id: reference-implementations
-    attributes:
-      label: Reference implementations
-      description: >-
-        Add links to other frameworks. Possible examples:
-          - [Nuxt UI](https://nuxt.com/docs/getting-started/installation)
-          - [Elements Plus](https://element-plus.org/en-US/component/overview.html)
-          - [shadcn-vue](https://www.shadcn-vue.com/docs/components/accordion.html)
-          - [W3C (for structural inspiration)](https://design-system.w3.org/components)
-
-  - type: textarea
-    id: aria-pattern
-    attributes:
-      label: Applicable ARIA Pattern
-      description: >-
-        Add link to ARIA pattern if applicable, see [W3C ARIA patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
-
-  - type: textarea
-    id: definition-of-done
-    attributes:
-      label: Definition of Done
-      description: For more details, please refer to our [documentation](https://onyx.schwarz/principles/definition-of-done.html).
+      label: Content
+      description: Add, adapt and remove the following sections as necessary
       value: >-
+        ### Open Questions/To-dos
+
+        <!-- Remove before ready -->
+
+        <!-- [ ] Add question if any, use `@` to tag people -->
+
+        ### Depends on
+
+        <!-- Add links to tickets -->
+
+        ### Design
+
+        <!-- Add Figma link and comments here -->
+
+        ### Acceptance criteria
+
+        <!--  Add ticket specific AC, e.g., the expected behavior of a component -->
+
+        ### Implementation details
+
+        <!--
+        add details if necessary, e.g.,
+        - API proposal
+        - relevant web APIs
+        - learnings from other implementations
+        - code snippets
+        -->
+
+        #### Reference implementations
+
+        <!--  add links to other frameworks and WaWi, examples:
+          - https://nuxt.com/docs/getting-started/installation
+          - https://element-plus.org/en-US/component/overview.html
+          - https://www.shadcn-vue.com/docs/components/accordion.html
+          - https://design-system.w3.org/components for structural inspiration
+        -->
+
+        #### Applicable ARIA Pattern
+
+        <!-- add link if applicable, see https://www.w3.org/WAI/ARIA/apg/patterns -->
+
+        ### Definition of Done
+
         - The following component requirements are implemented:
           - [ ] skeleton
           - [ ] density
@@ -90,11 +77,11 @@ body:
         - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
         - [ ] Namings are aligned with Figma
 
-        #### Approval
+        **Approval**
 
-        - [Storybook](<!-- LINK HERE -->)
-        - [Documentation](<!-- LINK HERE -->)
-        - [ ] approved by designer @jannick-ux
-        - [ ] approved by dev <!-- add dev tag -->
+        - Storybook <!-- add link to deployed storybook -->
+        - Deployed Docs <!-- add link to deployed docs -->
+        - [ ] approved by designer <!-- add your @username -->
+        - [ ] approved by dev <!-- add your @username -->
     validations:
       required: true

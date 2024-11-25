@@ -1,81 +1,59 @@
 name: Create a UX story 📗
-description: Story template for design tasks. Mainly used by the onyx core team for project management,
+description: Story template for design tasks. Exclusively used by the onyx core team for project management,
 title: "Concept|Adjust|Research: ..."
 projects:
   - SchwarzIT/5
 labels:
   - ux
-  - 0-refinement
 
 body:
-  - type: textarea
-    id: dependencies
-    attributes:
-      label: Depends on
-      description: Issues/tickets that this issue depends on.
-
-  - type: input
-    id: component-name
-    attributes:
-      label: Component name
-      description: Which component should be designed?
-
   - type: textarea
     id: description
     attributes:
       label: Description
-      description: Add a description and motivation for the issue.
+      description: Add a short description and motivation for the story.
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Content
+      description: Add, adapt and remove the following sections as necessary
       value: >-
+        ### Create "Component Name"
+
         - [ ] _if needed_ variation
         - [ ] density
         - [ ] states
         - [ ] dark mode
         - [ ] keyboard support
-    validations:
-      required: true
 
-  - type: textarea
-    id: features
-    attributes:
-      label: Features
-      description: Add possible features/functions.
-      placeholder: >-
-        - [ ] feature 1
-        - [ ] feature 2
-        - [ ] feature 3
+        ### Functions
 
-  - type: textarea
-    id: figma
-    attributes:
-      label: Figma
-      value: >-
-        - [ ] UX component
+        - [ ] function 1
+        - [ ] function 2
+        - [ ] function 3
 
-  - type: textarea
-    id: documentation
-    attributes:
-      label: Documentation
-      value: >-
+        ### Figma
+
+        - [ ] dev handover
+        - [ ] ux component
+
+        ### documentation
+
         - [ ] keyboard support
         - [ ] property description
         - [ ] textual documentation
         - [ ] component grouping
-    validations:
-      required: true
 
-  - type: textarea
-    id: comparison
-    attributes:
-      label: Comparison
-      description: If needed, links for comparison.
+        ### _if needed_ links for comparison
 
-  - type: textarea
-    id: approval
-    attributes:
-      label: Approval
-      description: "The issue is approved by the following designers and developers:"
-      value: >-
-        - [ ] approved by designer <!-- add UX tag -->
-        - [ ] handover to and approved by dev <!-- add dev tag -->
+        - link 1
+        - link 2
+
+        ### Finalizing
+
+        - [ ] approved
     validations:
       required: true
