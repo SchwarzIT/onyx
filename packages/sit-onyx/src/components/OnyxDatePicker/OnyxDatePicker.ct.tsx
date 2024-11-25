@@ -29,6 +29,8 @@ test.describe("Screenshot tests", () => {
 });
 
 test("should open flyout", async ({ mount, page }) => {
+  await page.setViewportSize({ width: 512, height: 512 });
+
   // ARRANGE
   const component = await mount(<OnyxDatePicker label="Test label" style="width: 12rem;" />);
   const datepicker = component.getByLabel("Test label");
