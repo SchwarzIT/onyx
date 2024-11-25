@@ -125,9 +125,7 @@
     }
 
     &::selection,
-    &::-webkit-datetime-edit-day-field:focus,
-    &::-webkit-datetime-edit-month-field:focus,
-    &::-webkit-datetime-edit-year-field:focus {
+    &::-moz-selection {
       background: var(--selection-color);
     }
 
