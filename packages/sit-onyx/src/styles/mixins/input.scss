@@ -46,13 +46,6 @@
     padding: $vertical-padding var(--onyx-density-sm);
     height: calc(1lh + 2 * #{$vertical-padding});
 
-    &:has(#{$base-selector}__native--success:enabled:focus) {
-      --outline-color: var(--onyx-color-base-success-200);
-      --selection-color: var(--onyx-color-base-success-200);
-      --focus-border-color: var(--onyx-color-base-success-500);
-      --hover-border-color: var(--onyx-color-base-success-400);
-    }
-
     &:has(#{$base-selector}__native:read-write:hover) {
       --border-color: var(--hover-border-color, var(--onyx-color-base-primary-400));
     }
@@ -92,8 +85,12 @@
   }
 
   @include success(#{$base-selector}__native) {
-    --border-color: var(--onyx-color-base-success-500);
     --message-display: none;
+    --border-color: var(--onyx-color-base-success-500);
+    --outline-color: var(--onyx-color-base-success-200);
+    --selection-color: var(--onyx-color-base-success-200);
+    --focus-border-color: var(--onyx-color-base-success-500);
+    --hover-border-color: var(--onyx-color-base-success-400);
   }
 
   @include invalid(#{$base-selector}__native) {

@@ -158,7 +158,6 @@ export const CustomError: Story = {
 
 /**
  * This example shows an input with a success message.
- * Will only be shown after user interaction.
  */
 export const SuccessInput: Story = {
   args: {

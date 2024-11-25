@@ -128,6 +128,20 @@ export const CustomError: Story = {
 };
 
 /**
+ * This example shows a textarea with a success message.
+ */
+export const SuccessMessage: Story = {
+  args: {
+    ...Default.args,
+    success: {
+      shortMessage: "Example success message",
+      longMessage: "This text might inform the users that the text is valid.",
+    },
+    modelValue: "Test success value",
+  },
+};
+
+/**
  * This example shows a textarea with custom autosize settings (min=2 rows, max=12 rows).
  * You can also disable the max rows so the textarea can grow unlimited.
  */
