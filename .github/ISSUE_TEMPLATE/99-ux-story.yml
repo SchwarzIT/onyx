@@ -1,0 +1,81 @@
+name: Create a UX story 📗
+description: Story template for design tasks. Mainly used by the onyx core team for project management,
+title: "Concept|Adjust|Research: ..."
+projects:
+  - SchwarzIT/5
+labels:
+  - ux
+  - 0-refinement
+
+body:
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Depends on
+      description: Issues/tickets that this issue depends on.
+
+  - type: input
+    id: component-name
+    attributes:
+      label: Component name
+      description: Which component should be designed?
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Add a description and motivation for the issue.
+      value: >-
+        - [ ] _if needed_ variation
+        - [ ] density
+        - [ ] states
+        - [ ] dark mode
+        - [ ] keyboard support
+    validations:
+      required: true
+
+  - type: textarea
+    id: features
+    attributes:
+      label: Features
+      description: Add possible features/functions.
+      placeholder: >-
+        - [ ] feature 1
+        - [ ] feature 2
+        - [ ] feature 3
+
+  - type: textarea
+    id: figma
+    attributes:
+      label: Figma
+      value: >-
+        - [ ] UX component
+
+  - type: textarea
+    id: documentation
+    attributes:
+      label: Documentation
+      value: >-
+        - [ ] keyboard support
+        - [ ] property description
+        - [ ] textual documentation
+        - [ ] component grouping
+    validations:
+      required: true
+
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Comparison
+      description: If needed, links for comparison.
+
+  - type: textarea
+    id: approval
+    attributes:
+      label: Approval
+      description: "The issue is approved by the following designers and developers:"
+      value: >-
+        - [ ] approved by designer <!-- add UX tag -->
+        - [ ] handover to and approved by dev <!-- add dev tag -->
+    validations:
+      required: true
