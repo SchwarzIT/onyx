@@ -82,9 +82,8 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       const box = await component.boundingBox();
 
       // accessibility tests
-      // TODO: remove "conlor-contrast" rule to after changing text colors
       const accessibilityScanResults = await makeAxeBuilder()
-        .disableRules([...(options.disabledAccessibilityRules ?? []), "color-contrast"])
+        .disableRules(options.disabledAccessibilityRules ?? [])
         .analyze();
       expect(
         accessibilityScanResults.violations,
