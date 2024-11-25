@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -33,7 +33,6 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const inputRef = ref<HTMLInputElement>();
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
@@ -56,13 +55,6 @@ const patternSource = computed(() => {
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
-
-defineExpose({
-  /**
-   * Template ref to the native HTML `<input />`.
-   */
-  inputRef,
-});
 </script>
 
 <template>
@@ -83,7 +75,6 @@ defineExpose({
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
             :id="inputId"
-            ref="inputRef"
             v-model="value"
             v-custom-validity
             :placeholder="props.placeholder"
