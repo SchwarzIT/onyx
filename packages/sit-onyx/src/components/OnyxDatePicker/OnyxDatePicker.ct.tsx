@@ -32,10 +32,9 @@ test("should open flyout", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(<OnyxDatePicker label="Test label" style="width: 12rem;" />);
   const datepicker = component.getByLabel("Test label");
-  const box = (await datepicker.boundingBox())!;
 
   // ACT
-  await page.mouse.click(box.x + box.width - 8, box.y + box.height - 8);
+  await datepicker.evaluate((input) => (input as HTMLInputElement).showPicker());
 
   // ASSERT
   await expect(page).toHaveScreenshot("open.png");
