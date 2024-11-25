@@ -124,7 +124,10 @@
       opacity: 1;
     }
 
-    &::selection {
+    &::selection,
+    &::-webkit-datetime-edit-day-field:focus,
+    &::-webkit-datetime-edit-month-field:focus,
+    &::-webkit-datetime-edit-year-field:focus {
       background: var(--selection-color);
     }
 
