@@ -1,6 +1,5 @@
 import type { OnyxInputProps } from "../OnyxInput/types";
 
-// TODO: check autocomplete
 export type OnyxDatePickerProps = Omit<
   OnyxInputProps,
   | "type"
@@ -11,6 +10,7 @@ export type OnyxDatePickerProps = Omit<
   | "pattern"
   | "withCounter"
   | "placeholder"
+  | "autocomplete"
 > & {
   /**
    * Current date value. Supports all data types that are parsable by `new Date()`.

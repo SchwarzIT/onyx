@@ -108,7 +108,6 @@ const value = computed({
             :class="{ 'onyx-datepicker__native--success': successMessages }"
             :type="props.type"
             :required="props.required"
-            :autocomplete="props.autocomplete"
             :autofocus="props.autofocus"
             :name="props.name"
             :readonly="props.readonly"
