@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.71
+
+### Minor Changes
+
+- 52efb24: feat(OnyxFormElement): messageTooltip property is removed, instead the type of the message prop is replaced with CustomMessageType which includes shortMessage and longMessage. The longMessage will replace the messageTooltip
+
 ## 1.0.0-beta.70
 
 ### Major Changes
