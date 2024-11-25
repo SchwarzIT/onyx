@@ -5,9 +5,9 @@ import { isValidDate } from "../../utils/time";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import type { InputType } from "../OnyxInput/types";
-import type { DateValue, OnyxDatepickerProps } from "./types";
+import type { DateValue, OnyxDatePickerProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxDatepickerProps>(), {
+const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
   type: "date",
   required: false,
   readonly: false,
