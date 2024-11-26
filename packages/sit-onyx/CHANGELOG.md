@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.73
+
+### Patch Changes
+
+- 554833c: feat: implement new figma varialbe structure
+
+  - own dark and light colors for each theme
+  - removed secondary color (visible in: OnyxBadge, OnyxIcon, OnyxTag)
+
 ## 1.0.0-beta.72
 
 ### Minor Changes
