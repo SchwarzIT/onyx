@@ -10,8 +10,8 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Description
-      description: Add a description and motivation for the issue.
+      label: Create Component
+      description: Add, adapt and remove the following as necessary
       value: >-
         - [ ] _if needed_ variation
         - [ ] density
