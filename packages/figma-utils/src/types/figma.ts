@@ -23,6 +23,7 @@ export type Variable = {
   name: string;
   variableCollectionId: string;
   hiddenFromPublishing: boolean;
+  deletedButReferenced?: boolean;
   valuesByMode: Record<string, VariableValue>;
 };
 

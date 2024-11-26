@@ -202,7 +202,7 @@ $gap: var(--onyx-spacing-md);
     // implement bottom border with ::after so it does not add to the height
     &::after {
       content: " ";
-      background-color: var(--onyx-color-base-neutral-300);
+      background-color: var(--onyx-color-component-border-neutral);
       height: var(--onyx-1px-in-rem);
       width: 100%;
       position: absolute;
@@ -262,7 +262,7 @@ $gap: var(--onyx-spacing-md);
     }
 
     &__app {
-      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       grid-area: app;
     }
 
@@ -285,7 +285,7 @@ $gap: var(--onyx-spacing-md);
     }
 
     &__burger {
-      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       grid-area: burger;
     }
 
@@ -323,7 +323,7 @@ $gap: var(--onyx-spacing-md);
 
     &__mobile-page {
       grid-area: nav;
-      color: var(--onyx-color-text-icons-secondary-intense);
+      color: var(--onyx-color-text-icons-primary-intense);
       padding-inline: $gap;
       font-weight: 600;
     }
