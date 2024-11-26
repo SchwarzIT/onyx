@@ -33,6 +33,6 @@ export default defineConfig({
   projects: [
     // one browser is sufficient for the screenshot tests
     // since its responsibility of Chart.js itself to be cross-browser compatible
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "edge", use: { ...devices["Desktop Edge"], channel: "msedge" } },
   ],
 });
