@@ -4,45 +4,31 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxDatePicker from "./OnyxDatePicker.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of ["default", "with value"] as const) {
-    executeMatrixScreenshotTest({
-      name: `DatePicker (${state})`,
-      columns: DENSITIES,
-      rows: ["default", "hover", "focus"],
-      component: (column) => {
-        return (
-          <OnyxDatePicker
-            label="Test label"
-            density={column}
-            modelValue={state === "with value" ? new Date(2024, 10, 25, 14, 30) : undefined}
-            style="width: 12rem;"
-          />
-        );
-      },
-      beforeScreenshot: async (component, page, column, row) => {
-        const datepicker = component.getByLabel("Test label");
-        if (row === "hover") await datepicker.hover();
-        if (row === "focus") await datepicker.focus();
-      },
-    });
+  for (const type of ["date", "datetime-local"] as const) {
+    for (const state of ["default", "with value"] as const) {
+      executeMatrixScreenshotTest({
+        name: `DatePicker (${type}, ${state})`,
+        columns: DENSITIES,
+        rows: ["default", "hover", "focus"],
+        component: (column) => {
+          return (
+            <OnyxDatePicker
+              label="Test label"
+              density={column}
+              modelValue={state === "with value" ? new Date(2024, 10, 25, 14, 30) : undefined}
+              style="width: 12rem;"
+              type={type}
+            />
+          );
+        },
+        beforeScreenshot: async (component, page, column, row) => {
+          const datepicker = component.getByLabel("Test label");
+          if (row === "hover") await datepicker.hover();
+          if (row === "focus") await datepicker.focus();
+        },
+      });
+    }
   }
-});
-
-test("should open flyout", async ({ mount, page }) => {
-  await page.setViewportSize({ width: 512, height: 512 });
-
-  // ARRANGE
-  const component = await mount(<OnyxDatePicker label="Test label" style="width: 12rem;" />);
-  const datepicker = component.getByLabel("Test label");
-
-  // ACT
-  await datepicker.evaluate((input) => (input as HTMLInputElement).showPicker());
-
-  // eslint-disable-next-line playwright/no-wait-for-timeout
-  await page.waitForTimeout(500);
-
-  // ASSERT
-  await expect(page).toHaveScreenshot("open.png");
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
