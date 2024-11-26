@@ -1,6 +1,6 @@
 name: Create a UX story 🎨
 description: Story template for design tasks. Exclusively used by the onyx core team for project management,
-title: "Concept|Adjust|Research: ..."
+title: "Concept|Adjust|Research: "
 projects:
   - SchwarzIT/5
 labels:
@@ -10,50 +10,59 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Description
-      description: Add a short description and motivation for the story.
-    validations:
-      required: true
-
-  - type: textarea
-    id: content
-    attributes:
-      label: Content
-      description: Add, adapt and remove the following sections as necessary
+      label: Create Component
+      description: Add, adapt and remove the following as necessary
       value: >-
-        ### Create "Component Name"
-
         - [ ] _if needed_ variation
         - [ ] density
         - [ ] states
         - [ ] dark mode
         - [ ] keyboard support
+    validations:
+      required: true
 
-        ### Functions
-
+  - type: textarea
+    id: functions
+    attributes:
+      label: Functions
+      description: Add possible Functions
+      value: >-
         - [ ] function 1
         - [ ] function 2
         - [ ] function 3
 
-        ### Figma
+  - type: textarea
+    id: figma
+    attributes:
+      label: Figma
+      value: >-
+        - [ ] UX component
 
-        - [ ] dev handover
-        - [ ] ux component
-
-        ### documentation
-
+  - type: textarea
+    id: documentation
+    attributes:
+      label: Documentation
+      value: >-
         - [ ] keyboard support
         - [ ] property description
         - [ ] textual documentation
         - [ ] component grouping
+    validations:
+      required: true
 
-        ### _if needed_ links for comparison
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Comparison
+      value: ""
 
-        - link 1
-        - link 2
-
-        ### Finalizing
-
-        - [ ] approved
+  - type: textarea
+    id: finalizing
+    attributes:
+      label: Finalizing
+      description: "The issue is approved by the following designers and developers:"
+      value: >-
+        - [ ] approved by designer <!-- add your @username -->
+        - [ ] handover and approved by dev <!-- add your @username -->
     validations:
       required: true
