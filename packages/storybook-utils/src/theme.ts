@@ -19,7 +19,7 @@ export const getCustomProperty = (property: string, el: Element = document.body)
  * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
  */
 export const createTheme = (base: "light" | "dark" = "light", brandDetails?: BrandDetails) => {
-  const primaryColor = getCustomProperty("--onyx-color-themed-primary-500");
+  const primaryColor = getCustomProperty("--onyx-color-base-primary-500");
 
   return create({
     brandTitle: brandDetails?.brandTitle,

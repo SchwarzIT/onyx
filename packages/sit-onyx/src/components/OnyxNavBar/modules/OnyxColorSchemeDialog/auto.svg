@@ -13,7 +13,7 @@
 </mask>
 <path d="M16 16H166V36H16V16Z" fill="white"/>
 <path d="M166 35H16V37H166V35Z" fill="var(--onyx-color-steel-300)" mask="url(#path-5-inside-1_4499_144781)"/>
-<rect x="28" y="24" width="40" height="4" fill="var(--onyx-color-themed-primary-500)"/>
+<rect x="28" y="24" width="40" height="4" fill="var(--onyx-color-base-primary-500)"/>
 <rect x="77" y="24" width="40" height="4" fill="var(--onyx-color-steel-300)"/>
 <mask id="path-9-inside-2_4499_144781" fill="white">
 <path d="M16 36H44V104H16V36Z"/>
