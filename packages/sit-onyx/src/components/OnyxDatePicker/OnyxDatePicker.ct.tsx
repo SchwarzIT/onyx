@@ -16,7 +16,7 @@ test.describe("Screenshot tests", () => {
               label="Test label"
               density={column}
               modelValue={state === "with value" ? new Date(2024, 10, 25, 14, 30) : undefined}
-              style="width: 12rem;"
+              style="width: 16rem;"
               type={type}
             />
           );
