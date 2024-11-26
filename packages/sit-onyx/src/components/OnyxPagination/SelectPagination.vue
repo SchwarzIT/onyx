@@ -96,7 +96,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     --onyx-pagination-character-count: 1;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
     height: var(--onyx-pagination-height);
