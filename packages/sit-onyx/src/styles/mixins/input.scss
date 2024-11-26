@@ -22,8 +22,8 @@
 }
 
 @mixin define-shared-styles($base-selector, $vertical-padding) {
-  --border-color: var(--onyx-color-base-neutral-300);
-  --hover-border-color: var(--onyx-color-base-primary-400);
+  --border-color: var(--onyx-color-component-border-neutral);
+  --hover-border-color: var(--onyx-color-component-border-primary-hover);
   --selection-color: var(--onyx-color-base-primary-200);
   --background-color: var(--onyx-color-base-background-blank);
   --outline-color: var(--onyx-color-base-primary-200);
@@ -51,7 +51,7 @@
     }
 
     &:has(#{$base-selector}__native:enabled:focus, #{$base-selector}__native--show-focus) {
-      --border-color: var(--focus-border-color, var(--onyx-color-base-primary-500));
+      --border-color: var(--focus-border-color, var(--onyx-color-component-cta-default));
       --outline-style: solid;
     }
 
@@ -100,7 +100,7 @@
     --border-color: var(--onyx-color-base-danger-500);
     --outline-color: var(--onyx-color-base-danger-200);
     --selection-color: var(--onyx-color-base-danger-200);
-    --focus-border-color: var(--onyx-color-base-danger-500);
+    --focus-border-color: var(--onyx-color-component-cta-invalid);
     --hover-border-color: var(--onyx-color-base-danger-400);
   }
 

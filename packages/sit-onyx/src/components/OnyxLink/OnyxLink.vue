@@ -55,7 +55,7 @@ const { t } = injectI18n();
     &:focus-visible {
       color: var(--onyx-color-text-icons-primary-intense);
       border-radius: var(--onyx-radius-sm);
-      outline: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-300);
+      outline: var(--onyx-1px-in-rem) solid var(--onyx-color-component-focus-primary);
     }
 
     &:active {

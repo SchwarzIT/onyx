@@ -47,7 +47,7 @@ const props = defineProps<OnyxIconProps>();
     //
     // icon colors:
     //
-    $colors: primary, secondary, neutral, danger, warning, success, info;
+    $colors: primary, neutral, danger, warning, success, info;
 
     @each $color in $colors {
       &--#{$color} {

@@ -8,9 +8,11 @@
 @use "fonts.scss";
 @use "breakpoints.scss";
 
-@use "variables/themes/onyx.css";
-@use "variables/light.css";
-@use "variables/dark.css";
+@use "variables/themes/value.css";
+
+@use "variables/themes/onyx-light.css";
+@use "variables/themes/onyx-dark.css";
+
 @use "variables/density-compact.css";
 @use "variables/density-default.css";
 @use "variables/density-cozy.css";

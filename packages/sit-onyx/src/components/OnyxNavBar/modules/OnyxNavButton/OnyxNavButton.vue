@@ -132,7 +132,7 @@ $border-radius: var(--onyx-radius-sm);
       border: none;
 
       &:focus-visible {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-secondary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
       }
     }
 
@@ -143,7 +143,7 @@ $border-radius: var(--onyx-radius-sm);
     &--active,
     &:has(.onyx-list-item--active):not(:has(.onyx-nav-button__mobile-children--open)) {
       .onyx-nav-button__trigger {
-        color: var(--onyx-color-text-icons-secondary-intense);
+        color: var(--onyx-color-text-icons-primary-intense);
         font-weight: 600;
 
         &::after {
@@ -153,7 +153,7 @@ $border-radius: var(--onyx-radius-sm);
           height: 0.125rem;
           bottom: calc(-1 * var(--onyx-spacing-2xs));
           border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
-          background: var(--onyx-color-base-secondary-500);
+          background: var(--onyx-color-base-primary-500);
           z-index: 1; // needed to display underline above the nav bar bottom border
         }
       }
@@ -226,7 +226,7 @@ $border-radius: var(--onyx-radius-sm);
       // for an active child
       .onyx-list-item--active {
         --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
-        --onyx-list-item-color-selected: var(--onyx-color-text-icons-secondary-intense);
+        --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
         background-color: var(--onyx-list-item-background-selected);
         border-color: var(--onyx-color-base-primary-200);
         font-weight: 600;

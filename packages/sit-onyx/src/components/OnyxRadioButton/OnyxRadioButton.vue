@@ -88,35 +88,37 @@ const skeleton = useSkeletonContext(props);
     cursor: var(--onyx-radio-button-cursor);
 
     &:has(&__selector:hover) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-300);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-cta-default-hover);
     }
 
     &:has(&__selector:checked) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-500);
-      --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-500);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-cta-default);
+      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-default);
     }
 
     &:has(&__selector:checked:hover) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-400);
       --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
     }
-
+    &:has(&__selector:focus-visible) {
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-primary);
+      --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
+    }
     &:has(&__selector:invalid) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-500);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
     }
 
     &:has(&__selector:invalid:checked) {
-      --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-500);
+      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-invalid);
     }
 
     &:has(&__selector:invalid:checked:hover) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-base-danger-400);
-      --onyx-radio-button-selector-background-color: var(--onyx-color-base-danger-400);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
+      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-invalid-hover);
     }
-
-    &:has(&__selector:focus-visible) {
-      --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
+    &:has(&__selector:invalid:focus-visible) {
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
     }
 
     &:has(&__selector:disabled) {
@@ -153,6 +155,7 @@ const skeleton = useSkeletonContext(props);
       background-color: var(--onyx-radio-button-selector-background-color);
       outline: var(--onyx-radio-button-selector-outline-width) solid
         var(--onyx-radio-button-selector-outline-color);
+      outline-offset: 0;
 
       display: inline-grid;
       place-items: center;

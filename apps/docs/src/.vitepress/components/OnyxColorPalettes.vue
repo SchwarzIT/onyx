@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ONYX_COLORS } from "sit-onyx";
 import { useData } from "vitepress";
 import ColorPalette from "./ColorPalette.vue";
 import DesignVariableBadge from "./DesignVariableBadge.vue";
@@ -12,14 +13,7 @@ const { isDark } = useData();
       <DesignVariableBadge text="Light mode" :active="!isDark" @click="isDark = false" />
       <DesignVariableBadge text="Dark mode" :active="isDark" @click="isDark = true" />
     </div>
-
-    <ColorPalette name="primary" />
-    <ColorPalette name="secondary" />
-    <ColorPalette name="neutral" />
-    <ColorPalette name="danger" />
-    <ColorPalette name="warning" />
-    <ColorPalette name="success" />
-    <ColorPalette name="info" />
+    <ColorPalette v-for="color in ONYX_COLORS" :key="color" :name="color" />
   </div>
 </template>
 
