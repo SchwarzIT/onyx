@@ -124,8 +124,7 @@
       opacity: 1;
     }
 
-    &::selection,
-    &::-moz-selection {
+    &::selection {
       background: var(--selection-color);
     }
 
