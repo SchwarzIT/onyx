@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
- * This file contains the specific variables for the "Value" theme.
- * Imported from Figma API on Wed, 20 Nov 2024 09:57:30 GMT
+ * This file contains the specific variables for the "value" theme.
+ * Imported from Figma API on Tue, 26 Nov 2024 13:52:43 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -43,6 +43,18 @@
   --onyx-color-kl-1000: #212e3a;
   --onyx-color-kl-1100: #101e2a;
   --onyx-color-kl-1200: #000d19;
+  --onyx-color-lemon-100: #fcfff0;
+  --onyx-color-lemon-200: #f5ffcc;
+  --onyx-color-lemon-300: #f1ffad;
+  --onyx-color-lemon-400: #eaff70;
+  --onyx-color-lemon-500: #e5ff29;
+  --onyx-color-lemon-600: #c7de22;
+  --onyx-color-lemon-700: #9db015;
+  --onyx-color-lemon-800: #72800f;
+  --onyx-color-lemon-900: #586309;
+  --onyx-color-lemon-1000: #3f4805;
+  --onyx-color-lemon-1100: #282e02;
+  --onyx-color-lemon-1200: #121601;
   --onyx-color-lidl-100: #e8f3fc;
   --onyx-color-lidl-200: #bedcf2;
   --onyx-color-lidl-300: #77b7e4;
@@ -55,6 +67,18 @@
   --onyx-color-lidl-1000: #003359;
   --onyx-color-lidl-1100: #002946;
   --onyx-color-lidl-1200: #001e33;
+  --onyx-color-lime-100: #effcef;
+  --onyx-color-lime-200: #d5f5d6;
+  --onyx-color-lime-300: #b8f3bc;
+  --onyx-color-lime-400: #85e890;
+  --onyx-color-lime-500: #32dc5a;
+  --onyx-color-lime-600: #2abf4d;
+  --onyx-color-lime-700: #1c9a3a;
+  --onyx-color-lime-800: #146e29;
+  --onyx-color-lime-900: #0d541e;
+  --onyx-color-lime-1000: #073c13;
+  --onyx-color-lime-1100: #032609;
+  --onyx-color-lime-1200: #011103;
   --onyx-color-onyx-100: #e8fcfc;
   --onyx-color-onyx-200: #bbeaed;
   --onyx-color-onyx-300: #79dde2;
@@ -127,6 +151,18 @@
   --onyx-color-red-1000: #691714;
   --onyx-color-red-1100: #55120e;
   --onyx-color-red-1200: #400c09;
+  --onyx-color-schwarz-100: #ebf1fe;
+  --onyx-color-schwarz-200: #c5d4fc;
+  --onyx-color-schwarz-300: #94adf3;
+  --onyx-color-schwarz-400: #6a8bef;
+  --onyx-color-schwarz-500: #4a6be8;
+  --onyx-color-schwarz-600: #3e58ba;
+  --onyx-color-schwarz-700: #2a3f90;
+  --onyx-color-schwarz-800: #203274;
+  --onyx-color-schwarz-900: #172559;
+  --onyx-color-schwarz-1000: #0e1840;
+  --onyx-color-schwarz-1100: #060d29;
+  --onyx-color-schwarz-1200: #020413;
   --onyx-color-steel-100: #fafbfc;
   --onyx-color-steel-200: #e3eaf0;
   --onyx-color-steel-300: #c9d6e0;
