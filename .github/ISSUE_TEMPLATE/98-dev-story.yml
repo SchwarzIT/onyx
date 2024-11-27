@@ -1,6 +1,6 @@
 name: Create a development story 📗
 description: Story template for development tasks. Exclusively used by the onyx core team for project management.
-title: "Implement|Define|Fix: "
+title: "Implement|Fix|Define:"
 projects:
   - SchwarzIT/5
 labels:
@@ -84,16 +84,20 @@ body:
           - [ ] skeleton
           - [ ] density
           - [ ] example usage added to `apps/demo-app/src/views/HomeView.vue`
+
         - covered by tests
           - [ ] functional tests (Playwright or unit test)
           - [ ] visual tests (Playwright screenshots)
+
         - [ ] follow-up tickets were created if necessary
         - [ ] updated version + documentation is deployed
         - [ ] Storybook can show the feature
         - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
         - [ ] Namings are aligned with Figma
 
+
         #### Approval
+
 
         - [Storybook](<!-- LINK HERE -->)
         - [Documentation](<!-- LINK HERE -->)
