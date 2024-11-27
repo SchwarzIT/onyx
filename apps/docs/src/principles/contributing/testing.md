@@ -56,7 +56,7 @@ If you encounter any issues please make sure
 
 You find the playwright VSCode extension settings (see annotation `2` in screenshot beneath) in the `Testing` section of VSCode (annotation `1`).
 
-![Playwright for VSCode overview](playwright-test-for-vs-code.png)
+![Playwright for VSCode overview](./playwright-test-for-vs-code.png)
 
 ## Unit tests
 
