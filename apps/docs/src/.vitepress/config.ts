@@ -177,7 +177,14 @@ export const CONFIG = {
             },
             {
               text: "Contribution guide",
-              link: "/contributing",
+              link: "/",
+              base: "/principles/contributing",
+              collapsed: true,
+              items: [
+                { text: "Stories", link: "/stories" },
+                { text: "Styling", link: "/styling" },
+                { text: "Testing", link: "/testing" },
+              ],
             },
             {
               text: "Technical vision & guidelines",
