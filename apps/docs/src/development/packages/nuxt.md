@@ -55,7 +55,7 @@ For all supported themes see: [Theming](/development/theming#themes)
 
 ## Integration with @nuxtjs/i18n
 
-Onyx features built in translations and the nuxt module extends on that by offering an out of the box integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/).
+onyx features built in translations and the nuxt module extends on that by offering an out of the box integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/).
 If your Nuxt project uses both modules, onyx will automatically detect it and use @nuxtjs/i18n to handle all the translations. This gives you all the bells and whistles of vue-i18n like lazy loading of translations.
 
 ### Setup

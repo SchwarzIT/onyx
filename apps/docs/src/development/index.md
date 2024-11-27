@@ -160,7 +160,7 @@ Be careful when overriding styles globally since it will affect **EVERY** compon
 import BrowsersList from "../.vitepress/components/BrowsersList.vue"
 </script>
 
-Onyx works best with the following browser versions. Older versions might also work but we can't guarantee full compatibility.
+onyx works best with the following browser versions. Older versions might also work but we can't guarantee full compatibility.
 
 <BrowsersList />
 
