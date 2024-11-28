@@ -1,8 +1,8 @@
 <div align="center" style="text-align: center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" type="image/svg+xml" srcset="./.github/onyx-logo-light.svg">
-    <source media="(prefers-color-scheme: light)" type="image/svg+xml" srcset="./.github/onyx-logo-dark.svg">
-    <img alt="onyx logo" src="./.github/onyx-logo-dark.svg" width="160px">
+    <source media="(prefers-color-scheme: dark)" type="image/svg+xml" srcset="./.github/onyx-logo_mint_4c.svg">
+    <source media="(prefers-color-scheme: light)" type="image/svg+xml" srcset="./.github/onyx-logo_white_4c.svg">
+    <img alt="onyx logo" src="./.github/onyx-logo_mint_4c.svg" width="160px">
   </picture>
 </div>
 
