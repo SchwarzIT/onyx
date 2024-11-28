@@ -57,7 +57,7 @@
     "@storybook/addon-actions": "^8.4.5",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",
-    "eslint-plugin-vue-scoped-css": "^2.8.1",
+    "eslint-plugin-vue-scoped-css": "^2.9.0",
     "sass-embedded": "catalog:",
     "storybook-dark-mode": "^4.0.2",
     "vue": "catalog:",
