@@ -54,6 +54,15 @@ export type OnyxInputProps = FormInjectedProps &
      */
     loading?: boolean;
     /**
+     * Indicates whether a check icon is displayed when the input is in a success state
+     */
+    showSuccessIcon?: boolean;
+    /**
+     * Indicates whether a clear icon is displayed while the input is focused
+     */
+    showClearIcon?: boolean;
+
+    /**
      * Minimum number of characters that have to to be entered.
      * Warning: when the value is (pre)set programmatically,
      * the input invalidity will not be detected by the browser, it will only turn invalid
