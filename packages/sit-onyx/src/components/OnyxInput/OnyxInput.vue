@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxInputProps } from "./types";
@@ -17,6 +20,8 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   autocapitalize: "sentences",
   readonly: false,
   loading: false,
+  showSuccessIcon: true,
+  showClearIcon: true,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
@@ -55,6 +60,7 @@ const patternSource = computed(() => {
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+const isFocused = ref(false);
 </script>
 
 <template>
@@ -92,7 +98,25 @@ const errorClass = useErrorClass(showError);
             :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
+            @focus="isFocused = true"
+            @blur="isFocused = false"
           />
+          <OnyxIcon
+            v-if="showClearIcon && isFocused && value !== ''"
+            class="onyx-clear-icon"
+            :icon="xSmall"
+            color="neutral"
+            @mousedown.prevent
+            @click="() => emit('update:modelValue', '')"
+          />
+
+          <OnyxIcon
+            v-if="!isFocused && showSuccessIcon && successMessages"
+            :icon="checkSmall"
+            color="success"
+          />
+
+          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
       </template>
     </OnyxFormElement>
@@ -120,6 +144,12 @@ const errorClass = useErrorClass(showError);
       $base-selector: ".onyx-input",
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
+  }
+}
+.onyx-clear-icon {
+  cursor: pointer;
+  &:hover {
+    fill: var(--onyx-color-text-icons-primary-intense);
   }
 }
 </style>
