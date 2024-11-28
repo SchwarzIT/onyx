@@ -57,14 +57,11 @@ const getNormalizedDate = computed(() => {
 
     // for datetime type, the hour must be in the users local timezone so just returning the string returned by `toISOString()` will be invalid
     // since the timezone offset is missing then
-    return `${dateString}T${padStart(date.getHours())}:${padStart(date.getMinutes())}`;
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${dateString}T${hours}:${minutes}`;
   };
 });
-
-/**
- * Pad starts the given number with leading zeros if needed to make it 2 digits long.
- */
-const padStart = (value: number) => value.toString().padStart(2, "0");
 
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
