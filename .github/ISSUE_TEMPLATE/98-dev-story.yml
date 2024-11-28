@@ -19,7 +19,7 @@ body:
     id: open-questions
     attributes:
       label: Open questions / TODOs
-      value: <-- Add questions if there are any, use `@` to tag people. -->
+      value: <!-- Add questions if there are any, use `@` to tag people. -->
 
   - type: textarea
     id: dependencies
@@ -85,23 +85,23 @@ body:
           - [ ] density
           - [ ] example usage added to `apps/demo-app/src/views/HomeView.vue`
 
-        - covered by tests
+        - Should be covered by tests:
           - [ ] functional tests (Playwright or unit test)
           - [ ] visual tests (Playwright screenshots)
 
-        - [ ] follow-up tickets were created if necessary
-        - [ ] updated version + documentation is deployed
-        - [ ] Storybook can show the feature
-        - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
-        - [ ] Namings are aligned with Figma
+        - Make sure, that
+          - [ ] follow-up tickets were created if necessary
+          - [ ] updated version + documentation is deployed
+          - [ ] Storybook can show the feature
+          - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
+          - [ ] Namings are aligned with Figma
 
 
         #### Approval
 
-
-        - [Storybook](<!-- LINK HERE -->)
-        - [Documentation](<!-- LINK HERE -->)
-        - [ ] approved by designer <!-- add your @username -->
-        - [ ] approved by dev <!-- add your @username -->
+        [Storybook](<!-- LINK HERE -->)
+        [Documentation](<!-- LINK HERE -->)
+        - [ ] Checked and approved by designer <!-- add your @username -->
+        - [ ] Checked and approved by dev <!-- add your @username -->
     validations:
       required: true
