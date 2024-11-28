@@ -4,7 +4,7 @@ import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { isValidDate } from "../../utils/time";
+import { isValidDate } from "../../utils/date";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
