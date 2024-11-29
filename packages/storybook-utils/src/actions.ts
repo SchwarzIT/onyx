@@ -1,8 +1,39 @@
+import { action } from "@storybook/addon-actions";
 import type { Decorator } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
 import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
-import { isReactive, reactive, watch, type Events } from "vue";
+import { h, isReactive, reactive, watch, type Component, type Events } from "vue";
+import type { ComponentProps, ComponentSlots } from "vue-component-type-helpers";
 import { EVENT_DOC_MAP } from "./events";
+
+type ComponentEmits<Props extends ComponentProps<unknown>> = keyof {
+  [Key in keyof Props as Key extends `on${string}` ? Key : never]: true;
+};
+
+/**
+ * Wraps the original component and add action logging for storybook.
+ * This is useful for child components that emit relevant events.
+ *
+ * Returns a wrapped component.
+ */
+export const createActionLoggerWrapper =
+  <C extends Component>(component: C, emitsToLog: ComponentEmits<ComponentProps<C>>[]) =>
+  (props: ComponentProps<C>, ctx: { slots: ComponentSlots<C> }) => {
+    const entries = emitsToLog.map((emitName) => [
+      emitName,
+      // Log action in the format of `<component name> ~ <emit name>`
+      action(`${(component as { __name: string }).__name} ~ ${String(emitName)}`),
+    ]);
+    const eventHandler = Object.fromEntries(entries);
+    return h(
+      component,
+      {
+        ...eventHandler,
+        ...props,
+      },
+      ctx.slots,
+    );
+  };
 
 /**
  * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
