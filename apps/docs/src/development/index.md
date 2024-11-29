@@ -20,6 +20,12 @@ If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module 
 
 ## Installation
 
+::: tip Prerequisites
+We assume that you already have a Vue application set up.
+If thats not the case we recommend you first hop over to the [Vue Quickstart Docs](https://vuejs.org/guide/quick-start.html#creating-a-vue-application).
+Follow the steps there, then you will have a Vue application and are ready to continue here.
+:::
+
 ### Step 1: Install dependencies
 
 Install the npm package with your corresponding package manager:
