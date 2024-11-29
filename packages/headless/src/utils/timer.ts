@@ -1,3 +1,5 @@
+import { toValue, type MaybeRefOrGetter } from "vue";
+
 /**
  * Debounces a given callback which will only be called when not called for the given timeout.
  *
@@ -5,11 +7,16 @@
  */
 export const debounce = <TArgs extends unknown[]>(
   handler: (...args: TArgs) => void,
-  timeout: number,
+  timeout: MaybeRefOrGetter<number>,
 ) => {
   let timer: ReturnType<typeof setTimeout> | undefined;
-  return (...lastArgs: TArgs) => {
+
+  const func = (...lastArgs: TArgs) => {
     clearTimeout(timer);
-    timer = setTimeout(() => handler(...lastArgs), timeout);
+    timer = setTimeout(() => handler(...lastArgs), toValue(timeout));
   };
+  /** Abort the currently debounced action, if any. */
+  func.abort = () => clearTimeout(timer);
+
+  return func;
 };
