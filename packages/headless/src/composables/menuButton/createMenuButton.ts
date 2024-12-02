@@ -27,7 +27,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
    * Debounced expanded state that will only be toggled after a given timeout.
    */
   const updateDebouncedExpanded = debounce(() => options.onToggle(), 200);
-  watch(options.isExpanded, () => updateDebouncedExpanded.abort());
+  watch(options.isExpanded, () => updateDebouncedExpanded.abort()); // manually changing `isExpanded` should abort debounced action
 
   const setExpanded = (expanded: boolean, debounced = false) => {
     if (expanded === options.isExpanded.value) {
