@@ -13,8 +13,6 @@ export type Browser = {
 
 export interface Data {
   browsers: Browser[];
-  coverage: number;
-  browserRules: string;
 }
 
 declare const data: Data;
@@ -28,6 +26,10 @@ export { data };
  */
 export default defineLoader({
   async load(): Promise<Data> {
+    if (process.env.VITEPRESS_SKIP_REMOTE_FETCH) {
+      return { browsers: [] };
+    }
+
     return new Promise((resolve, reject) => {
       let browserRules = "";
 
@@ -35,7 +37,7 @@ export default defineLoader({
         const data = fs.readFileSync(browserslistRcPath, "utf8");
         const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
         browserRules = lines.join("").trim();
-      } catch (_) {
+      } catch {
         reject("could not read .browserslistrc");
       }
 
@@ -53,8 +55,8 @@ export default defineLoader({
 
       try {
         fetchBrowserslistData();
-      } catch {
-        reject("error loading browserslist API data");
+      } catch (e) {
+        reject(e);
       }
     });
   },
