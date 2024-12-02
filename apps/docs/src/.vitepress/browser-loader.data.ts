@@ -1,6 +1,7 @@
-import fs from "fs";
+import fs from "fs/promises";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
+import { cached } from "../cached";
 
 const browserslistRcPath = fileURLToPath(new URL("../../../../.browserslistrc", import.meta.url));
 
@@ -26,38 +27,28 @@ export { data };
  */
 export default defineLoader({
   async load(): Promise<Data> {
-    if (process.env.VITEPRESS_SKIP_REMOTE_FETCH) {
-      return { browsers: [] };
+    let browserRules = "";
+
+    try {
+      const data = await fs.readFile(browserslistRcPath, "utf8");
+      const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
+      browserRules = lines.join("").trim();
+    } catch {
+      throw new Error("could not read .browserslistrc");
     }
 
-    return new Promise((resolve, reject) => {
-      let browserRules = "";
+    const url = new URL(`https://browsersl.ist/api/browsers?q=${browserRules}`);
+    const fetchBrowserslistData = async () => {
+      const response = await fetch(url);
 
-      try {
-        const data = fs.readFileSync(browserslistRcPath, "utf8");
-        const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
-        browserRules = lines.join("").trim();
-      } catch {
-        reject("could not read .browserslistrc");
+      if (!response.ok) {
+        throw new Error("failed to fetch browserslist API data");
       }
 
-      const fetchBrowserslistData = async () => {
-        const url = `https://browsersl.ist/api/browsers?q=${browserRules}`;
-        const response = await fetch(url);
+      const data = await response.json();
+      return { browserRules, ...data };
+    };
 
-        if (!response.ok) {
-          throw new Error("failed to fetch browserslist API data");
-        }
-
-        const data = await response.json();
-        resolve({ browserRules, ...data });
-      };
-
-      try {
-        fetchBrowserslistData();
-      } catch (e) {
-        reject(e);
-      }
-    });
+    return cached(url, fetchBrowserslistData);
   },
 });
