@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.73
+
+### Minor Changes
+
+- b4c466f: feat: Added createActionLoggerWrapper util
+
 ## 1.0.0-beta.72
 
 ### Patch Changes
