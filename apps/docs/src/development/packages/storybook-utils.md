@@ -172,3 +172,32 @@ const meta: Meta<typeof OnyxButton> = {
   },
 };
 ```
+
+### createActionLoggerWrapper
+
+Wraps the original component and add [Storybook action logging](https://storybook.js.org/docs/essentials/actions).
+This is useful for slotted child components that emit relevant events.
+
+Returns a wrapped component, which can be used in place of the original component.
+
+```ts
+import { createActionLoggerWrapper } from "@sit-onyx/storybook-utils";
+import _ChildComponent from "./_ChildComponent.vue";
+
+// Usual story setup...
+
+/**
+ * Wrapped child component
+ */
+const ChildComponent = createActionLoggerWrapper(_ChildComponent, ["onChildEmit"]);
+
+/**
+ * Use in a story like you usually would:
+ */
+export const Default = {
+  args: {
+    propName: 'Value'
+    someSlot: () => h(ChildComponent, { label: "Item 1" }),
+  },
+} satisfies Story;
+```

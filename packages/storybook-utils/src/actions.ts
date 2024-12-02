@@ -11,10 +11,26 @@ type ComponentEmits<Props extends ComponentProps<unknown>> = keyof {
 };
 
 /**
- * Wraps the original component and add action logging for storybook.
- * This is useful for child components that emit relevant events.
+ * Wraps the original component and adds [Storybook action logging](https://storybook.js.org/docs/essentials/actions).
+ * This is useful for slotted child components that emit relevant events.
  *
- * Returns a wrapped component.
+ * Returns a wrapped component, which can be used in place of the original component.
+ *
+ * ```ts
+ * import { createActionLoggerWrapper } from "@sit-onyx/storybook-utils";
+ * import _ChildComponent from "./_ChildComponent.vue";
+ *
+ * // Usual story setup...
+ *
+ * const ChildComponent = createActionLoggerWrapper(_ChildComponent, ["onChildEmit"]);
+ *
+ * export const Default = {
+ *   args: {
+ *   propName: 'Value'
+ *     someSlot: () => h(ChildComponent, { label: "Item 1" }),
+ *   },
+ * } satisfies Story;
+ * ```
  */
 export const createActionLoggerWrapper =
   <C extends Component>(component: C, emitsToLog: ComponentEmits<ComponentProps<C>>[]) =>
