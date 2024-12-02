@@ -175,7 +175,7 @@ const meta: Meta<typeof OnyxButton> = {
 
 ### createActionLoggerWrapper
 
-Wraps the original component and add [Storybook action logging](https://storybook.js.org/docs/essentials/actions).
+Wraps the original component and adds [Storybook action logging](https://storybook.js.org/docs/essentials/actions).
 This is useful for slotted child components that emit relevant events.
 
 Returns a wrapped component, which can be used in place of the original component.
