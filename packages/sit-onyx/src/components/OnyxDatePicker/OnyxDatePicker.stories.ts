@@ -17,6 +17,7 @@ const meta: Meta<typeof OnyxDatePicker> = {
   ],
   argTypes: {
     ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
+    modelValue: { control: { type: "text" } },
     min: { control: { type: "date" } },
     max: { control: { type: "date" } },
   },
