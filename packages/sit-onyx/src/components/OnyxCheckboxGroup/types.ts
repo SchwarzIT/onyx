@@ -9,7 +9,7 @@ import type { SharedFormElementProps } from "../OnyxFormElement/types";
 export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> =
   DensityProp &
     Pick<BaseSelectOption, "truncation"> &
-    Pick<SharedFormElementProps, "label" | "hideLabel"> & {
+    Pick<SharedFormElementProps, "label" | "labelTooltip" | "hideLabel"> & {
       /**
        * Checkbox options.
        */
