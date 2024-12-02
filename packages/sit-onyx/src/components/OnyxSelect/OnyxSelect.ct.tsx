@@ -341,8 +341,7 @@ test.describe("Invalidity handling screenshots", () => {
 
       // invalid is only triggered after open/closing the flyout
       await input.click();
-      await component.click();
-      await input.blur();
+      await page.getByRole("document").click(); // reset mouse
 
       await component.evaluate((element) => {
         element.style.padding = `0 5rem 3rem 2rem`;
@@ -369,7 +368,7 @@ test.describe("Invalidity handling screenshots", () => {
         modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
       />
     ),
-    beforeScreenshot: async (component, _page, _column, row) => {
+    beforeScreenshot: async (component, page, _column, row) => {
       const input = component.getByLabel("Test label");
 
       // invalid is only triggered after open/closing the flyout
@@ -377,7 +376,7 @@ test.describe("Invalidity handling screenshots", () => {
       await component.click();
 
       if (row !== "focus") {
-        await input.blur();
+        await page.getByRole("document").click(); // reset mouse
       }
       if (row === "hover") await input.hover();
     },
