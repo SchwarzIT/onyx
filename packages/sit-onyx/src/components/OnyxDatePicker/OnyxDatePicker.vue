@@ -63,16 +63,11 @@ const getNormalizedDate = computed(() => {
   };
 });
 
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = computed({
-  get: () => getNormalizedDate.value(props.modelValue),
-  set: (value) => {
-    const newDate = new Date(value ?? "");
-    emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
-  },
-});
+const handleInput = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const newValue = input.valueAsDate;
+  emit("update:modelValue", newValue?.toISOString());
+};
 </script>
 
 <template>
@@ -99,8 +94,8 @@ const value = computed({
           <input
             :id="inputId"
             :key="props.type"
-            v-model="value"
             v-custom-validity
+            :value="getNormalizedDate(props.modelValue)"
             class="onyx-datepicker__native"
             :class="{ 'onyx-datepicker__native--success': successMessages }"
             :type="props.type"
@@ -111,6 +106,7 @@ const value = computed({
             :disabled="disabled || props.loading"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
+            @input="handleInput"
           />
         </div>
       </template>
