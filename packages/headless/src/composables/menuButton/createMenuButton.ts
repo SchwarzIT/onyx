@@ -30,8 +30,8 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   watch(options.isExpanded, () => updateDebouncedExpanded.abort());
 
   const setExpanded = (expanded: boolean, debounced = false) => {
-    updateDebouncedExpanded.abort();
     if (expanded === options.isExpanded.value) {
+      updateDebouncedExpanded.abort();
       return;
     }
     if (debounced) {
@@ -138,7 +138,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         ref: menuRef,
         role: "menu",
         "aria-labelledby": buttonId,
-        onClick: () => setExpanded(true),
+        onClick: () => setExpanded(false),
       },
       ...createMenuItems().elements,
     },
