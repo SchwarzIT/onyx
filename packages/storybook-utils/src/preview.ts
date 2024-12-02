@@ -36,8 +36,8 @@ import { ONYX_BREAKPOINTS, createTheme, type BrandDetails } from "./theme";
  * ```
  */
 export const createPreview = <T extends Preview = Preview>(
-  brandDetails: BrandDetails,
   overrides?: T,
+  brandDetails?: BrandDetails,
 ) => {
   const themes = {
     light: createTheme("light", brandDetails),
