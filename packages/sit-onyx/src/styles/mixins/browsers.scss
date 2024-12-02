@@ -1,0 +1,8 @@
+/**
+* Mixin that applies the given styles only to the Firefox browser.
+*/
+@mixin firefox() {
+  @-moz-document url-prefix() {
+    @content;
+  }
+}
