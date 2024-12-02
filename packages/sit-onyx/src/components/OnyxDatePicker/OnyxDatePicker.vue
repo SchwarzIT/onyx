@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import calendar from "@sit-onyx/icons/calendar.svg?raw";
+import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { injectI18n } from "../../i18n";
 import { isValidDate } from "../../utils/date";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { DateValue, OnyxDatePickerProps } from "./types";
@@ -32,6 +35,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const { t } = injectI18n();
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
@@ -39,6 +43,8 @@ const { densityClass } = useDensity(props);
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+
+const inputRef = ref<HTMLInputElement>();
 
 /**
  * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
@@ -93,6 +99,7 @@ const handleInput = (event: Event) => {
           <!-- key is needed to keep current value when switching between date and datetime type -->
           <input
             :id="inputId"
+            ref="inputRef"
             :key="props.type"
             v-custom-validity
             :value="getNormalizedDate(props.modelValue)"
@@ -108,6 +115,17 @@ const handleInput = (event: Event) => {
             :title="props.hideLabel ? props.label : undefined"
             @input="handleInput"
           />
+
+          <button
+            class="onyx-datepicker__button"
+            type="button"
+            :aria-label="t('datePicker.showPicker')"
+            :title="t('datePicker.showPicker')"
+            :disabled="disabled || props.readonly || props.loading"
+            @click="inputRef?.showPicker"
+          >
+            <OnyxIcon :icon="calendar" />
+          </button>
         </div>
       </template>
     </OnyxFormElement>
@@ -117,6 +135,7 @@ const handleInput = (event: Event) => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
+@use "../../styles/mixins/browsers.scss";
 
 .onyx-datepicker,
 .onyx-datepicker-skeleton {
@@ -136,9 +155,35 @@ const handleInput = (event: Event) => {
       $vertical-padding: var(--onyx-datepicker-padding-vertical)
     );
 
+    // hide native browser calendar icon
     &__native {
       &::-webkit-calendar-picker-indicator {
-        cursor: pointer;
+        display: none;
+      }
+    }
+  }
+}
+
+// for Firefox, there is currently no easy CSS property to hide the default
+// calendar icon.
+// As a workaround for now, we will create an ::after element that we are then placing
+// over the native calendar icon to hide it
+@include browsers.firefox() {
+  .onyx-datepicker {
+    &__wrapper {
+      position: relative;
+
+      &::after {
+        $icon-size: 1.5rem;
+
+        content: "";
+        background-color: var(--background-color);
+        display: block;
+        height: 100%;
+        width: $icon-size;
+        position: absolute;
+        top: 0;
+        right: calc($icon-size + var(--gap) + var(--padding-inline));
       }
     }
   }
