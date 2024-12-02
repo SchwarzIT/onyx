@@ -8,6 +8,7 @@ import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
@@ -65,6 +66,7 @@ const checkAllLabel = computed(() => {
   >
     <legend v-if="!props.hideLabel" class="onyx-checkbox-group__label">
       <OnyxHeadline is="h3">{{ props.label }}</OnyxHeadline>
+      <OnyxInfoTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip" />
     </legend>
 
     <div
@@ -120,6 +122,9 @@ const checkAllLabel = computed(() => {
     $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
 
     &__label {
+      display: flex;
+      gap: var(--onyx-spacing-2xs);
+      align-items: center;
       margin-bottom: var(--onyx-density-xs);
     }
 
