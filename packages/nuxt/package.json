@@ -45,8 +45,9 @@
     "@nuxt/test-utils": "^3.14.4",
     "@nuxtjs/i18n": "^9.1.0",
     "nuxt": "^3.14.1592",
-    "vue-i18n": "^10.0.5",
-    "sit-onyx": "workspace:^"
+    "sit-onyx": "workspace:^",
+    "typescript": "catalog:",
+    "vue-i18n": "^10.0.5"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
