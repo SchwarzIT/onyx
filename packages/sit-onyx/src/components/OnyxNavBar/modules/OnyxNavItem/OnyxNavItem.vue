@@ -11,7 +11,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the nav item is clicked.
    */
-  navigate: [href: string];
+  navigate: [href: string, event: MouseEvent];
 }>();
 
 defineSlots<{
@@ -27,7 +27,7 @@ defineSlots<{
     class="onyx-nav-item"
     :active="props.active"
     :href="props.href ?? 'javascript:void(0)'"
-    @click="props.href && emit('navigate', props.href)"
+    @click="props.href && emit('navigate', props.href, $event)"
   >
     <slot>
       <span>{{ props.label }}</span>

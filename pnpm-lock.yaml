@@ -433,9 +433,15 @@ importers:
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      '@storybook/addon-actions':
+        specifier: ^8.4.5
+        version: 8.4.6(storybook@8.4.6(prettier@3.4.1))
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.7.2)
+      vue-component-type-helpers:
+        specifier: ^2.1.10
+        version: 2.1.10
 
   packages/vitepress-theme:
     dependencies:

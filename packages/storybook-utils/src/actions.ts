@@ -1,8 +1,55 @@
+import { action } from "@storybook/addon-actions";
 import type { Decorator } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
 import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
-import { isReactive, reactive, watch, type Events } from "vue";
+import { h, isReactive, reactive, watch, type Component, type Events } from "vue";
+import type { ComponentProps, ComponentSlots } from "vue-component-type-helpers";
 import { EVENT_DOC_MAP } from "./events";
+
+type ComponentEmits<Props extends ComponentProps<unknown>> = keyof {
+  [Key in keyof Props as Key extends `on${string}` ? Key : never]: true;
+};
+
+/**
+ * Wraps the original component and adds [Storybook action logging](https://storybook.js.org/docs/essentials/actions).
+ * This is useful for slotted child components that emit relevant events.
+ *
+ * Returns a wrapped component, which can be used in place of the original component.
+ *
+ * ```ts
+ * import { createActionLoggerWrapper } from "@sit-onyx/storybook-utils";
+ * import _ChildComponent from "./_ChildComponent.vue";
+ *
+ * // Usual story setup...
+ *
+ * const ChildComponent = createActionLoggerWrapper(_ChildComponent, ["onChildEmit"]);
+ *
+ * export const Default = {
+ *   args: {
+ *   propName: 'Value'
+ *     someSlot: () => h(ChildComponent, { label: "Item 1" }),
+ *   },
+ * } satisfies Story;
+ * ```
+ */
+export const createActionLoggerWrapper =
+  <C extends Component>(component: C, emitsToLog: ComponentEmits<ComponentProps<C>>[]) =>
+  (props: ComponentProps<C>, ctx: { slots: ComponentSlots<C> }) => {
+    const entries = emitsToLog.map((emitName) => [
+      emitName,
+      // Log action in the format of `<component name> ~ <emit name>`
+      action(`${(component as { __name: string }).__name} ~ ${String(emitName)}`),
+    ]);
+    const eventHandler = Object.fromEntries(entries);
+    return h(
+      component,
+      {
+        ...eventHandler,
+        ...props,
+      },
+      ctx.slots,
+    );
+  };
 
 /**
  * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
