@@ -2,6 +2,10 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxDatePicker from "./OnyxDatePicker.vue";
 
+/**
+ * The DatePicker component can be used to select a date or date + time.
+ * **Note**: For now, the calendar flyout will use the native browser calendar. This might be replaced with a custom implementation in the future.
+ */
 const meta: Meta<typeof OnyxDatePicker> = {
   title: "Form Elements/DatePicker",
   component: OnyxDatePicker,
@@ -13,13 +17,15 @@ const meta: Meta<typeof OnyxDatePicker> = {
   ],
   argTypes: {
     ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
+    min: { control: { type: "date" } },
+    max: { control: { type: "date" } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxDatePicker>;
 
-export const Date = {
+export const Default = {
   args: {
     label: "Date",
   },
@@ -31,3 +37,18 @@ export const Datetime = {
     type: "datetime-local",
   },
 } satisfies Story;
+
+export const MinAndMaxDate = {
+  args: {
+    label: "With min. and max. date",
+    type: "datetime-local",
+    min: getRelativeDate(-3),
+    max: getRelativeDate(3),
+  },
+} satisfies Story;
+
+function getRelativeDate(offsetDays: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + offsetDays);
+  return date;
+}

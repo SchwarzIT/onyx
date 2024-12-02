@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick, reactive } from "vue";
 import {
   useCustomValidity,
@@ -29,9 +29,11 @@ const getDefaultValidityState = (): ValidityState => ({
 });
 
 describe("useCustomValidity", () => {
-  test("should set custom error", async () => {
+  beforeEach(() => {
     tFunctionMock.mockReset();
+  });
 
+  test("should set custom error", async () => {
     const initialValidity: ValidityState = {
       ...getDefaultValidityState(),
       customError: true,
@@ -46,6 +48,7 @@ describe("useCustomValidity", () => {
     } satisfies InputValidationElement;
 
     const props = reactive<UseCustomValidityOptions["props"]>({
+      label: "Label",
       customError: "Test error",
     });
 
@@ -101,9 +104,8 @@ describe("useCustomValidity", () => {
       [cause]: true,
       valid: false,
     };
-    const props = reactive<UseCustomValidityOptions["props"]>({});
-    const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit: (_, __) => {} });
-    tFunctionMock.mockReset();
+    const props = reactive<UseCustomValidityOptions["props"]>({ label: "Label" });
+    const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit: () => ({}) });
     tFunctionMock.mockReturnValueOnce("Test");
     tFunctionMock.mockReturnValueOnce("This is a test");
     const mockInput = {
@@ -119,5 +121,113 @@ describe("useCustomValidity", () => {
     expect(errorMessages.value).toEqual({ longMessage: "Test", shortMessage: "This is a test" });
     expect(tFunctionMock).toBeCalledWith(`${key}.preview`);
     expect(tFunctionMock).toBeCalledWith(`${key}.fullError`, expect.any(Object));
+  });
+
+  test("should format date min errors", async () => {
+    // ARRANGE
+    const initialValidity: ValidityState = {
+      ...getDefaultValidityState(),
+      rangeUnderflow: true,
+      valid: false,
+    };
+
+    const mockInput = {
+      validity: initialValidity,
+      setCustomValidity: vi.fn(),
+    } satisfies InputValidationElement;
+
+    const props = reactive<UseCustomValidityOptions["props"]>({
+      label: "Label",
+      type: "date",
+      min: new Date(2024, 11, 10, 14, 42),
+    });
+
+    const { vCustomValidity, errorMessages } = useCustomValidity({
+      props,
+      emit: () => ({}),
+    });
+
+    tFunctionMock.mockImplementationOnce(
+      (translationKey, params) => `${translationKey}: ${params.min}`,
+    );
+    tFunctionMock.mockReturnValueOnce("Too low");
+
+    vCustomValidity.mounted(mockInput);
+    await nextTick(); // wait for watchers to be called
+
+    // ASSERT
+    expect(errorMessages.value).toStrictEqual({
+      shortMessage: "Too low",
+      longMessage: "validations.rangeUnderflow.fullError: 12/10/2024",
+    });
+
+    // ACT
+    tFunctionMock.mockImplementationOnce(
+      (translationKey, params) => `${translationKey}: ${params.min}`,
+    );
+    tFunctionMock.mockReturnValueOnce("Too low");
+
+    props.type = "datetime-local";
+    await nextTick();
+
+    // ASSERT
+    expect(errorMessages.value).toStrictEqual({
+      shortMessage: "Too low",
+      longMessage: "validations.rangeUnderflow.fullError: 12/10/2024, 2:42:00 PM",
+    });
+  });
+
+  test("should format date max errors", async () => {
+    // ARRANGE
+    const initialValidity: ValidityState = {
+      ...getDefaultValidityState(),
+      rangeOverflow: true,
+      valid: false,
+    };
+
+    const mockInput = {
+      validity: initialValidity,
+      setCustomValidity: vi.fn(),
+    } satisfies InputValidationElement;
+
+    const props = reactive<UseCustomValidityOptions["props"]>({
+      label: "Label",
+      type: "date",
+      max: new Date(2024, 11, 10, 14, 42),
+    });
+
+    const { vCustomValidity, errorMessages } = useCustomValidity({
+      props,
+      emit: () => ({}),
+    });
+
+    tFunctionMock.mockImplementationOnce(
+      (translationKey, params) => `${translationKey}: ${params.max}`,
+    );
+    tFunctionMock.mockReturnValueOnce("Too high");
+
+    vCustomValidity.mounted(mockInput);
+    await nextTick(); // wait for watchers to be called
+
+    // ASSERT
+    expect(errorMessages.value).toStrictEqual({
+      shortMessage: "Too high",
+      longMessage: "validations.rangeOverflow.fullError: 12/10/2024",
+    });
+
+    // ACT
+    tFunctionMock.mockImplementationOnce(
+      (translationKey, params) => `${translationKey}: ${params.max}`,
+    );
+    tFunctionMock.mockReturnValueOnce("Too high");
+
+    props.type = "datetime-local";
+    await nextTick();
+
+    // ASSERT
+    expect(errorMessages.value).toStrictEqual({
+      shortMessage: "Too high",
+      longMessage: "validations.rangeOverflow.fullError: 12/10/2024, 2:42:00 PM",
+    });
   });
 });
