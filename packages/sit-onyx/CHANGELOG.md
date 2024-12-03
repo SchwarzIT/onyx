@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.75
+
+### Patch Changes
+
+- b4c466f: fix: fix navigation menu opening with delay
+
+## 1.0.0-beta.74
+
+### Minor Changes
+
+- d00c404: feat: implement basic `OnyxDatePicker` component
+
 ## 1.0.0-beta.73
 
 ### Patch Changes

@@ -46,9 +46,6 @@ jobs:
 
       - name: 🛠️ Build packages
         run: pnpm run build:all
-        env:
-          # skip fetching statistics for our docs here so we don't exceed GitHub rate limits which may fail in CI
-          VITEPRESS_SKIP_GITHUB_FETCH: true
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all

@@ -1,4 +1,5 @@
 import { computed, ref, watch, watchEffect, type Directive } from "vue";
+import type { OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
 import type { InputType } from "../components/OnyxInput/types";
 import { injectI18n } from "../i18n";
 import enUS from "../i18n/locales/en-US.json";
@@ -21,7 +22,7 @@ export type UseCustomValidityOptions = {
    */
   props: CustomValidityProp & {
     modelValue?: unknown;
-    type?: InputType;
+    type?: InputType | OnyxDatePickerProps["type"];
     maxlength?: number;
     minlength?: number;
     min?: number;

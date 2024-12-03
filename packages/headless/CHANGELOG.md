@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.13
+
+### Patch Changes
+
+- b4c466f: fix: fix navigation menu opening with delay
+
 ## 1.0.0-beta.12
 
 ### Minor Changes

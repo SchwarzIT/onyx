@@ -113,8 +113,6 @@ const isFocused = ref(false);
             :icon="checkSmall"
             color="success"
           />
-
-          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
       </template>
     </OnyxFormElement>

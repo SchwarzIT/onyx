@@ -1,3 +1,4 @@
+import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxComponent from "./OnyxComponent.vue";
@@ -7,7 +8,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "OnyxComponent (densities)",
     rows: ["default", "hover", "active", "focus-visible", "skeleton"],
-    columns: ["compact", "default", "cozy"],
+    columns: DENSITIES,
     beforeScreenshot: async (component, page, column, row) => {
       /**
        *  TODO: Prepare the component before the screenshot
