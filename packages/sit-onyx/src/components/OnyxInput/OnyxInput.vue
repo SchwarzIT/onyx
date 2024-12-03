@@ -20,8 +20,8 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   autocapitalize: "sentences",
   readonly: false,
   loading: false,
-  showSuccessIcon: true,
-  showClearIcon: true,
+  hideClearIcon: false,
+  hideSuccessIcon: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
@@ -101,17 +101,17 @@ const isFocused = ref(false);
             @focus="isFocused = true"
             @blur="isFocused = false"
           />
-          <OnyxIcon
-            v-if="showClearIcon && isFocused && value !== ''"
-            class="onyx-clear-icon"
-            :icon="xSmall"
-            color="neutral"
+          <button
+            v-if="!hideClearIcon && isFocused && value !== ''"
+            type="button"
+            class="icon"
             @mousedown.prevent
             @click="() => emit('update:modelValue', '')"
-          />
-
+          >
+            <OnyxIcon class="onyx-clear-icon" :icon="xSmall" color="neutral" />
+          </button>
           <OnyxIcon
-            v-if="!isFocused && showSuccessIcon && successMessages"
+            v-if="!isFocused && !hideSuccessIcon && successMessages"
             :icon="checkSmall"
             color="success"
           />
@@ -145,11 +145,24 @@ const isFocused = ref(false);
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
   }
+  ::-webkit-search-cancel-button {
+    display: none;
+  }
 }
 .onyx-clear-icon {
   cursor: pointer;
   &:hover {
     fill: var(--onyx-color-text-icons-primary-intense);
   }
+}
+.icon {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
 }
 </style>
