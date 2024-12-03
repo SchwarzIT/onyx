@@ -17,11 +17,11 @@ defineSlots<{
   /**
    * List of components to render. Each child must implement the `useMoreListChild()` composable.
    */
-  default(): unknown;
+  default(props: { attributes: object }): unknown;
   /**
    * Slot to display at the end if not all default slot elements fit in the available width.
    */
-  more(props: MoreListSlotBindings): unknown;
+  more(props: MoreListSlotBindings & { attributes: object }): unknown;
 }>();
 
 const parentRef = ref<VueTemplateRefElement>();
@@ -42,24 +42,25 @@ watch(
 </script>
 
 <template>
-  <component :is="props.is" ref="parentRef" class="onyx-more-list">
-    <component :is="props.is" ref="listRef" class="onyx-more-list__elements">
-      <slot></slot>
-    </component>
+  <div ref="parentRef" class="onyx-more-list">
+    <slot
+      :attributes="{
+        ref: (el?: VueTemplateRefElement) => (listRef = el),
+        class: 'onyx-more-list__elements',
+      }"
+    ></slot>
 
-    <component
-      :is="props.is"
+    <slot
       v-if="more.hiddenElements.value.length > 0"
-      ref="moreIndicatorRef"
-      class="onyx-more-list__indicator"
-    >
-      <slot
-        name="more"
-        :hidden-elements="more.hiddenElements.value.length"
-        :visible-elements="more.visibleElements.value.length"
-      ></slot>
-    </component>
-  </component>
+      name="more"
+      :attributes="{
+        ref: (el?: VueTemplateRefElement) => (moreIndicatorRef = el),
+        class: 'onyx-more-list__indicator',
+      }"
+      :hidden-elements="more.hiddenElements.value.length"
+      :visible-elements="more.visibleElements.value.length"
+    ></slot>
+  </div>
 </template>
 
 <style lang="scss">

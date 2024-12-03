@@ -22,15 +22,21 @@ type Story = StoryObj<typeof OnyxMoreList>;
 
 export const Default = {
   args: {
-    is: "div",
     injectionKey: NAV_BAR_MORE_LIST_INJECTION_KEY,
-    default: () =>
-      Array.from({ length: 16 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
-    more: ({ hiddenElements }) =>
+    default: ({ attributes }) =>
       h(
-        "div",
+        "ul",
+        { style: "padding: 0", role: "menu", ...attributes },
+        Array.from({ length: 16 }, (_, index) =>
+          h(OnyxNavButton, { label: `Element ${index + 1}` }),
+        ),
+      ),
+    more: ({ hiddenElements, attributes }) =>
+      h(
+        "span",
         {
           style: `font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-soft)`,
+          ...attributes,
         },
         `+${hiddenElements} more`,
       ),

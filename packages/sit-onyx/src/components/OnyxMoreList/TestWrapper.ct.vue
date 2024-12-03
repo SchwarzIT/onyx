@@ -20,28 +20,30 @@ const COMPONENT_WIDTH = "8rem";
 
 <template>
   <OnyxMoreList
-    is="ul"
     class="list"
-    role="menu"
     :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY"
     :style="{
       width: props.count ? `calc(${props.count} * ${COMPONENT_WIDTH})` : undefined,
     }"
     @visibility-change="emit('visibilityChange', $event)"
   >
-    <OnyxNavButton
-      v-for="i in 24"
-      :key="i"
-      :label="`Element ${i}`"
-      :style="{ minWidth: COMPONENT_WIDTH }"
-    />
+    <template #default="{ attributes }">
+      <ul v-bind="attributes" role="menu">
+        <OnyxNavButton
+          v-for="i in 24"
+          :key="i"
+          :label="`Element ${i}`"
+          :style="{ minWidth: COMPONENT_WIDTH }"
+        />
+      </ul>
+    </template>
   </OnyxMoreList>
 </template>
 
 <!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
 <style scoped>
-.list {
+:deep(.onyx-more-list__elements),
+:deep(.onyx-more-list__indicator) {
   padding: 0;
-  gap: 0;
 }
 </style>

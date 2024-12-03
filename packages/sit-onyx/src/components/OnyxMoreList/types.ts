@@ -2,10 +2,6 @@ import type { MoreListInjectionKey } from "../../composables/useMoreList";
 
 export type OnyxMoreListProps = {
   /**
-   * Component to render (e.g. `<ul>` or `<div>`).
-   */
-  is: string;
-  /**
    * Injection key to use. Must match the one used in the child components.
    * Will not be reactive so it must not be changed.
    */
