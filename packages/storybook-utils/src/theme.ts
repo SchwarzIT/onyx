@@ -4,7 +4,7 @@ import {
 } from "@sit-onyx/shared/breakpoints";
 import { create, type ThemeVars } from "storybook/internal/theming";
 
-export type BrandDetails = Required<Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">>;
+export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
 
 /**
  * Get the computed value for a CSS custom property.

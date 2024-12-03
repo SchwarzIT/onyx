@@ -24,11 +24,6 @@ const axeConfig: Spec = { rules: enabledRules };
 
 const basePreview = createPreview(
   {
-    brandImage,
-    brandTitle: "onyx Storybook",
-    brandUrl: "https://onyx.schwarz",
-  },
-  {
     argTypesEnhancers: [enhanceManagedSymbol, enhanceFormInjectedSymbol],
     parameters: {
       docs: {
@@ -47,6 +42,11 @@ const basePreview = createPreview(
       ...onyxThemeGlobalType,
     },
     decorators: [withOnyxTheme, withOnyxVModelDecorator],
+  },
+  {
+    brandImage,
+    brandTitle: "onyx Storybook",
+    brandUrl: "https://onyx.schwarz",
   },
 );
 
