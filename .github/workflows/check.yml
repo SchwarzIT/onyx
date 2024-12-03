@@ -19,16 +19,7 @@ jobs:
           # needed when building VitePress docs so timestamps can be calculated correctly
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
+      - uses: ./.github/templates/node-setup
 
       - name: 🔎 Lint
         run: pnpm run lint:ci:all
