@@ -182,7 +182,7 @@ const getColumnGap = (ref: VueTemplateRefElement) => {
 export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<VueTemplateRefElement>();
-  const moreContext = inject(injectionKey);
+  const moreContext = inject(injectionKey, undefined);
   const { width } = useResizeObserver(componentRef);
 
   watch(

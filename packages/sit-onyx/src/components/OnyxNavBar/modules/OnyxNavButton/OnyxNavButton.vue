@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { computed, inject, ref, toRef } from "vue";
+import { computed, inject, toRef } from "vue";
 import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
 import { useMoreListChild } from "../../../../composables/useMoreList";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
@@ -37,7 +37,10 @@ const slots = defineSlots<{
   children?(): unknown;
 }>();
 
-const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY, () => ref(false), true);
+const isMobile = inject(
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  computed(() => false),
+);
 const hasChildren = computed(() => !!slots.children);
 const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
 
