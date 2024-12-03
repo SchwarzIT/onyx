@@ -13,7 +13,7 @@ runs:
       uses: pnpm/action-setup@v4
 
     - name: 🔐 Setup Node.js
-      if: ${{ inputs.NPM_TOKEN != "" }}
+      if: ${{ inputs.NPM_TOKEN != '' }}
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version
@@ -24,7 +24,7 @@ runs:
         NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
 
     - name: 🏗️ Setup Node.js
-      if: ${{ inputs.NPM_TOKEN == "" }}
+      if: ${{ inputs.NPM_TOKEN == '' }}
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version
