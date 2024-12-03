@@ -11,16 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
+      - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build Figma utils
         run: pnpm run build
