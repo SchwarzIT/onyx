@@ -8,3 +8,4 @@ Also changed the underlying logic to calculate the component visibility which is
 
 - OnyxMoreList: removed `disabled` property
 - useMoreList: removed `disabled` and `componentRefs` option, added required `listRef` and `moreIndicatorRef` option
+- OnyxNavButton: prevent warning for missing injection key
