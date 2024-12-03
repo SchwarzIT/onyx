@@ -1,9 +1,9 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx-dark" theme.
- * Imported from Figma API on Tue, 26 Nov 2024 13:52:50 GMT
+ * Imported from Figma API on Tue, 03 Dec 2024 07:38:51 GMT
  */
-:where(.dark),
+.dark,
 .onyx-theme-default-dark {
   --onyx-color-base-background-blank: var(--onyx-color-steel-1100);
   --onyx-color-base-background-tinted: var(--onyx-color-steel-1200);
@@ -100,10 +100,11 @@
   --onyx-color-text-icons-info-intense: var(--onyx-color-purple-500);
   --onyx-color-text-icons-info-medium: var(--onyx-color-purple-700);
   --onyx-color-text-icons-info-soft: var(--onyx-color-purple-900);
+  --onyx-color-text-icons-neutral-button: var(--onyx-color-grayscale-white);
   --onyx-color-text-icons-neutral-intense: var(--onyx-color-stone-200);
   --onyx-color-text-icons-neutral-inverted: var(--onyx-color-stone-1200);
   --onyx-color-text-icons-neutral-medium: var(--onyx-color-stone-400);
-  --onyx-color-text-icons-neutral-soft: var(--onyx-color-stone-500);
+  --onyx-color-text-icons-neutral-soft: var(--onyx-color-stone-600);
   --onyx-color-text-icons-primary-bold: var(--onyx-color-onyx-400);
   --onyx-color-text-icons-primary-intense: var(--onyx-color-onyx-500);
   --onyx-color-text-icons-primary-medium: var(--onyx-color-onyx-700);
@@ -116,6 +117,7 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-700);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-900);
+  --onyx-opacity-backdrop: var(--onyx-number-opacity-medium);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
