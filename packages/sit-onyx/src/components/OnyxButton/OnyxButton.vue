@@ -97,7 +97,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-background-color: var(--onyx-color-base-primary-200);
           --onyx-button-border-color: var(--onyx-color-base-primary-200);
-          --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
+          --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
         }
       }
 
