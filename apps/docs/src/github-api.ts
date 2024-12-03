@@ -8,9 +8,8 @@
 export const executeGitHubRequest = async (apiRoute: string) => {
   // we only want to fetch the data from GitHub / npmjs API on build, not when running locally
   // to improve the startup time and prevent rate limits
-  const skipGitHubFetch = process.env.VITEPRESS_SKIP_REMOTE_FETCH === "false";
-  if (skipGitHubFetch) {
-    return;
+  if (process.env.VITEPRESS_SKIP_REMOTE_FETCH === "true") {
+    return { skipped: true };
   }
 
   // GitHub token can be used to have a higher rate limit (useful if used in CI)
@@ -29,5 +28,5 @@ export const executeGitHubRequest = async (apiRoute: string) => {
     throw new Error(`GitHub request failed. Response body: ${JSON.stringify(body)}`);
   }
 
-  return body;
+  return { skipped: false, body };
 };

@@ -260,7 +260,10 @@ const searchGitHub = async (
   const queryString = encodeURIComponent(`repo:SchwarzIT/onyx ${filterString}`);
 
   // since we only need the total_count, we can decrease the per_page to 1 to improve request speeds
-  const body = await executeGitHubRequest(`search/${endpoint}?q=${queryString}&per_page=1`);
+  const { body, skipped } = await executeGitHubRequest(
+    `search/${endpoint}?q=${queryString}&per_page=1`,
+  );
+  if (skipped) return 0;
 
   if (typeof body !== "object" || typeof body.total_count !== "number") {
     throw new Error(

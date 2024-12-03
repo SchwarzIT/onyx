@@ -26,7 +26,7 @@ export { data };
  */
 export default defineLoader({
   async load(): Promise<Data> {
-    if (process.env.VITEPRESS_SKIP_REMOTE_FETCH) {
+    if (process.env.VITEPRESS_SKIP_REMOTE_FETCH === "true") {
       return { browsers: [] };
     }
 

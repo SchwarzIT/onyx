@@ -51,7 +51,8 @@ type GithubContributor = {
  * Lists all github contributors
  */
 const getContributors = async (): Promise<GithubContributor[]> => {
-  const body = await executeGitHubRequest(`repos/SchwarzIT/onyx/contributors`);
+  const { body, skipped } = await executeGitHubRequest(`repos/SchwarzIT/onyx/contributors`);
+  if (skipped) return [];
 
   if (typeof body !== "object" && !Array.isArray(body)) {
     throw new Error(
