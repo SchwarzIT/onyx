@@ -56,11 +56,11 @@ export type OnyxInputProps = FormInjectedProps &
     /**
      * Indicates whether a check icon is displayed when the input is in a success state
      */
-    showSuccessIcon?: boolean;
+    hideSuccessIcon?: boolean;
     /**
      * Indicates whether a clear icon is displayed while the input is focused
      */
-    showClearIcon?: boolean;
+    hideClearIcon?: boolean;
 
     /**
      * Minimum number of characters that have to to be entered.
