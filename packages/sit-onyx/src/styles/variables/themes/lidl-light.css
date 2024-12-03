@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "lidl-light" theme.
- * Imported from Figma API on Tue, 26 Nov 2024 13:52:57 GMT
+ * Imported from Figma API on Tue, 03 Dec 2024 10:19:58 GMT
  */
 :where(:root),
 .onyx-theme-lidl-light {
@@ -100,7 +100,8 @@
   --onyx-color-text-icons-info-intense: var(--onyx-color-purple-500);
   --onyx-color-text-icons-info-medium: var(--onyx-color-purple-300);
   --onyx-color-text-icons-info-soft: var(--onyx-color-purple-200);
-  --onyx-color-text-icons-neutral-intense: var(--onyx-color-stone-700);
+  --onyx-color-text-icons-neutral-button: var(--onyx-color-grayscale-white);
+  --onyx-color-text-icons-neutral-intense: var(--onyx-color-stone-900);
   --onyx-color-text-icons-neutral-inverted: var(--onyx-color-grayscale-white);
   --onyx-color-text-icons-neutral-medium: var(--onyx-color-stone-600);
   --onyx-color-text-icons-neutral-soft: var(--onyx-color-stone-500);
@@ -116,6 +117,7 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-300);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-200);
+  --onyx-opacity-backdrop: var(--onyx-number-opacity-soft);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
