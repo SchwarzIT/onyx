@@ -47,10 +47,7 @@ const { densityClass } = useDensity(props);
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
-const value = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
-});
+const value = defineModel<string>();
 
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
@@ -105,6 +102,7 @@ const isFocused = ref(false);
             v-if="!hideClearIcon && isFocused && value !== ''"
             type="button"
             class="icon"
+            aria-label="Icon"
             @mousedown.prevent
             @click="() => emit('update:modelValue', '')"
           >
