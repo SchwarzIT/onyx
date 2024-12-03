@@ -2,7 +2,7 @@ name: Setup node
 description: Custom node setup for onyx
 
 inputs:
-  NPM_TOKEN:
+  NODE_AUTH_TOKEN:
     default: ""
     description: If the npm registry setup should be authenticated.
 
@@ -13,7 +13,7 @@ runs:
       uses: pnpm/action-setup@v4
 
     - name: 🔐 Setup Node.js
-      if: ${{ inputs.NPM_TOKEN != '' }}
+      if: ${{ inputs.NODE_AUTH_TOKEN != '' }}
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version
@@ -21,10 +21,10 @@ runs:
         registry-url: "https://registry.npmjs.org/"
         scope: sit-onyx
       env:
-        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ inputs.NODE_AUTH_TOKEN }}
 
     - name: 🏗️ Setup Node.js
-      if: ${{ inputs.NPM_TOKEN == '' }}
+      if: ${{ inputs.NODE_AUTH_TOKEN == '' }}
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version

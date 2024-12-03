@@ -25,7 +25,7 @@ jobs:
 
       - uses: ./.github/templates/node-setup
         with:
-          authenticated: true
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 🛠️ Build packages
         run: pnpm build:all --filter=!docs
