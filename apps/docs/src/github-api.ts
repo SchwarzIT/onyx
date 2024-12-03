@@ -8,7 +8,7 @@
 export const executeGitHubRequest = async (apiRoute: string) => {
   // we only want to fetch the data from GitHub / npmjs API on build, not when running locally
   // to improve the startup time and prevent rate limits
-  if (process.env.VITEPRESS_SKIP_REMOTE_FETCH === "true") {
+  if (shouldSkipRemoteFetches()) {
     return { skipped: true };
   }
 
@@ -30,3 +30,8 @@ export const executeGitHubRequest = async (apiRoute: string) => {
 
   return { skipped: false, body };
 };
+
+/**
+ * Where all remote fetches, e.g. to GitHub should be skipped to avoid rate limits or failed CI pipelines.
+ */
+export const shouldSkipRemoteFetches = () => process.env.VITEPRESS_SKIP_REMOTE_FETCH === "true";

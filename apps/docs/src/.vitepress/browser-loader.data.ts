@@ -1,6 +1,7 @@
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
+import { shouldSkipRemoteFetches } from "../github-api";
 
 const browserslistRcPath = fileURLToPath(new URL("../../../../.browserslistrc", import.meta.url));
 
@@ -26,7 +27,7 @@ export { data };
  */
 export default defineLoader({
   async load(): Promise<Data> {
-    if (process.env.VITEPRESS_SKIP_REMOTE_FETCH === "true") {
+    if (shouldSkipRemoteFetches()) {
       return { browsers: [] };
     }
 
