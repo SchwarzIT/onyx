@@ -165,27 +165,10 @@ const handleInput = (event: Event) => {
 }
 
 // for Firefox, there is currently no easy CSS property to hide the default
-// calendar icon.
-// As a workaround for now, we will create an ::after element that we are then placing
-// over the native calendar icon to hide it
+// calendar icon. Therefore we will hide our custom icon instead
 @include browsers.firefox() {
-  .onyx-datepicker {
-    &__wrapper {
-      position: relative;
-
-      &::after {
-        $icon-size: 1.5rem;
-
-        content: "";
-        background-color: var(--background-color);
-        display: block;
-        height: 100%;
-        width: $icon-size;
-        position: absolute;
-        top: 0;
-        right: calc($icon-size + var(--gap) + var(--padding-inline));
-      }
-    }
+  .onyx-datepicker__button {
+    display: none;
   }
 }
 </style>

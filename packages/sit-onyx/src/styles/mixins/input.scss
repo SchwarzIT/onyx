@@ -29,8 +29,6 @@
   --outline-color: var(--onyx-color-base-primary-200);
   --outline-style: none;
   --button-color: var(--onyx-color-text-icons-neutral-soft);
-  --gap: var(--onyx-density-xs);
-  --padding-inline: var(--onyx-density-sm);
 
   &__wrapper {
     border-radius: var(--onyx-radius-sm);
@@ -42,11 +40,11 @@
 
     display: flex;
     align-items: center;
-    gap: var(--gap);
+    gap: var(--onyx-density-xs);
 
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: $vertical-padding var(--padding-inline);
+    padding: $vertical-padding var(--onyx-density-sm);
     height: calc(1lh + 2 * #{$vertical-padding});
 
     &:has(#{$base-selector}__native:read-write):hover {
