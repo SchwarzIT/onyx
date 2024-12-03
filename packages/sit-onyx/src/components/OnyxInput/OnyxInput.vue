@@ -99,7 +99,9 @@ const isFocused = ref(false);
             @blur="isFocused = false"
           />
           <button
-            v-if="!hideClearIcon && isFocused && value !== ''"
+            v-if="
+              !hideClearIcon && isFocused && value !== '' && value !== undefined && value !== null
+            "
             type="button"
             class="icon"
             aria-label="Icon"
