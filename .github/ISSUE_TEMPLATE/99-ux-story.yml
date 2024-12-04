@@ -54,7 +54,9 @@ body:
     id: comparison
     attributes:
       label: Comparison
-      value: ""
+      value: >-
+        - link 1
+        - link 2
 
   - type: textarea
     id: finalizing

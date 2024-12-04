@@ -93,7 +93,6 @@ const errorClass = useErrorClass(showError);
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
           />
-          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
       </template>
     </OnyxFormElement>

@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" type="image/svg+xml" srcset="./.github/onyx-logo-light.svg">
     <source media="(prefers-color-scheme: light)" type="image/svg+xml" srcset="./.github/onyx-logo-dark.svg">
-    <img alt="onyx logo" src="./.github/onyx-logo-dark.svg" width="160px">
+    <img alt="onyx logo" src="./.github/onyx-logo-dark.svg" width="320px">
   </picture>
 </div>
 

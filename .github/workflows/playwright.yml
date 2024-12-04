@@ -23,16 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
+      - uses: ./.github/templates/node-setup
 
       # install system dependencies for Playwright
       # see: https://playwright.dev/python/docs/browsers#install-system-dependencies

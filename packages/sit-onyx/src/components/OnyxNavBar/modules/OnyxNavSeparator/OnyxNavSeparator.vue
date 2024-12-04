@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { inject } from "vue";
+import { computed, inject } from "vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../../OnyxNavBar/types";
 import type { OnyxNavSeparatorProps } from "./types";
 
@@ -7,7 +7,10 @@ const props = withDefaults(defineProps<OnyxNavSeparatorProps>(), {
   orientation: "vertical",
 });
 
-const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
+const isMobile = inject(
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  computed(() => false),
+);
 </script>
 
 <template>

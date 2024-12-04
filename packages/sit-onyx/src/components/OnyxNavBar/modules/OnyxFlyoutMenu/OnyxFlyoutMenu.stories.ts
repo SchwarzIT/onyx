@@ -1,4 +1,5 @@
 import globe from "@sit-onyx/icons/globe.svg?raw";
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
@@ -27,6 +28,7 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
     options: { control: { disable: true } },
     header: { control: { disable: true } },
     footer: { control: { disable: true } },
+    ...withNativeEventLogging(["onClick"]),
   },
 };
 
