@@ -64,7 +64,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
     --onyx-button-border-color: transparent;
     --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
-    --onyx-button-outline-color: var(--onyx-color-base-primary-200);
+    --onyx-button-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
 
     position: relative;
@@ -83,6 +83,10 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     border: var(--onyx-button-border-width) solid var(--onyx-button-border-color);
     color: var(--onyx-button-text-color);
 
+    &:focus-visible {
+      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+    }
+
     &--primary {
       &:disabled:not(.onyx-button--loading) {
         --onyx-button-text-color: var(--onyx-color-text-icons-primary-soft);
@@ -92,31 +96,27 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
         --onyx-button-background-color: var(--onyx-color-component-cta-default);
         --onyx-button-background-hover-color: var(--onyx-color-component-cta-default-hover);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
-        --onyx-button-border-color: var(--onyx-color-component-cta-default);
+        --onyx-button-border-color: var(--onyx-button-background-color);
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-background-color: var(--onyx-color-base-primary-200);
-          --onyx-button-border-color: var(--onyx-color-base-primary-200);
           --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
         }
       }
 
       &.onyx-button--outline {
-        --onyx-button-border-color: var(--onyx-color-base-primary-500);
+        --onyx-button-border-color: var(--onyx-color-base-primary-400);
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-border-color: var(--onyx-color-base-primary-200);
         }
       }
-      &:focus-visible {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-      }
     }
 
     &--neutral {
       --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
-      --onyx-button-outline-color: var(--onyx-color-base-neutral-300);
-      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+      --onyx-button-outline-color: var(--onyx-color-component-focus-neutral);
+      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-bold);
 
       &:disabled:not(.onyx-button--loading) {
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
@@ -140,15 +140,12 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
           --onyx-button-border-color: var(--onyx-color-base-neutral-200);
         }
       }
-      &:focus-visible {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
-      }
     }
 
     &--danger {
-      --onyx-button-background-hover-color: var(--onyx-color-base-danger-200);
-      --onyx-button-outline-color: var(--onyx-color-base-danger-300);
-      --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+      --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
+      --onyx-button-outline-color: var(--onyx-color-component-focus-danger);
+      --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
 
       &:disabled:not(.onyx-button--loading) {
         --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
@@ -156,25 +153,33 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-danger-200);
-        --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
         --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-background-color: var(--onyx-color-base-danger-100);
-          --onyx-button-border-color: var(--onyx-color-base-danger-200);
+          --onyx-button-border-color: var(--onyx-button-background-color);
         }
       }
 
       &.onyx-button--outline {
         --onyx-button-border-color: var(--onyx-color-base-danger-500);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-border-color: var(--onyx-color-base-danger-200);
         }
+
+        &:hover {
+          --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
+        }
       }
 
-      &:focus-visible {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+      &.onyx-button--plain {
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+
+        &:hover {
+          --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
+        }
       }
     }
 

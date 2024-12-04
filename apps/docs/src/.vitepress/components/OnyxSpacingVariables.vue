@@ -28,7 +28,7 @@ const props = defineProps<{
   width: 4rem;
   min-height: 4rem;
   border-radius: var(--onyx-radius-sm);
-  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   background: var(--onyx-color-base-neutral-100);
   display: flex;
   flex-direction: column;
@@ -37,8 +37,9 @@ const props = defineProps<{
   margin: 0;
 
   &__area {
-    border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-warning-500);
-    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-warning-500);
+    $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-warning-500);
+    border-top: $border;
+    border-bottom: $border;
     background: var(--onyx-color-base-warning-200);
     width: 100%;
     margin: var(--onyx-spacing-2xs) 0;

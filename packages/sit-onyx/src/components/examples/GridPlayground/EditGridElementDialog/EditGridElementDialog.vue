@@ -159,19 +159,23 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
 
   &__breakpoint {
     border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
     .onyx-stepper {
       padding: var(--onyx-density-sm);
     }
 
     &:has(input:checked) {
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-400);
+      border-color: var(--onyx-color-component-border-primary);
       background-color: var(--onyx-color-base-primary-100);
     }
 
     &:has(input:enabled) {
       background-color: var(--onyx-color-base-neutral-200);
+    }
+
+    &:has(input:disabled) {
+      border-color: var(--onyx-color-component-border-disabled);
     }
   }
 

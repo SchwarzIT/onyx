@@ -96,7 +96,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
   &__content {
     border-radius: var(--onyx-radius-md);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     background: var(--onyx-color-base-background-blank);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -114,7 +114,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
     &:last-child {
       @include mixins.breakpoint(min, s, 1) {
-        border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       }
     }
   }

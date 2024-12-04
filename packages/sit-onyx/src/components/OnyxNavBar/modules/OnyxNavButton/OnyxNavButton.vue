@@ -199,7 +199,7 @@ $border-radius: var(--onyx-radius-sm);
       .onyx-menu-item {
         width: 100%;
         justify-content: flex-start;
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
         height: 3rem;
         border-radius: $border-radius;
 
@@ -213,7 +213,6 @@ $border-radius: var(--onyx-radius-sm);
 
         &:hover {
           background-color: var(--onyx-color-base-background-tinted);
-          border-color: var(--onyx-color-base-primary-500);
         }
       }
 
@@ -231,7 +230,7 @@ $border-radius: var(--onyx-radius-sm);
         font-weight: 600;
 
         &:hover {
-          border-color: var(--onyx-color-base-primary-500);
+          border-color: var(--onyx-color-component-border-primary);
           background-color: var(--onyx-list-item-background-selected);
         }
       }

@@ -324,7 +324,7 @@ const selectedTab = ref("tab-1");
   flex-direction: column;
   gap: var(--onyx-spacing-md);
   padding: var(--onyx-spacing-md);
-  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   height: calc(100%);
   width: 16rem;
 }

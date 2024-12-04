@@ -117,7 +117,7 @@ const checkAllLabel = computed(() => {
     border: none;
     max-width: max-content;
     min-width: unset;
-    $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
     &__label {
       margin-bottom: var(--onyx-density-xs);
