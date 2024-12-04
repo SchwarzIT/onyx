@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "spacing" theme.
- * Imported from Figma API on Tue, 03 Dec 2024 10:20:12 GMT
+ * Imported from Figma API on Wed, 04 Dec 2024 10:25:40 GMT
  */
 :where(:root) {
   --onyx-spacing-2xl: var(--onyx-number-spacing-700);
