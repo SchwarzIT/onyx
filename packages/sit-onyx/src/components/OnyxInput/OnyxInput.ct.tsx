@@ -208,7 +208,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "autofill"],
     rows: ["default", "hover", "focus"],
     component: () => <OnyxInput style="width: 12rem" label="Test label" customError="Test error" />,
-    beforeScreenshot: async (component, page, column, row) => {
+    beforeScreenshot: async (component, _page, column, row) => {
       const input = component.getByLabel("Test label");
 
       // invalid is only triggered after touched

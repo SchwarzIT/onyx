@@ -41,7 +41,7 @@ export type OnyxSelectInputProps = FormInjectedProps &
     /**
      * Indicates whether a check icon is displayed when the input is in a success state
      */
-    showSuccessIcon?: boolean;
+    hideSuccessIcon?: boolean;
     /**
      * Placeholder to show when the value is empty.
      */
