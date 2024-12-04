@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   readonly: false,
   loading: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
-  showSuccessIcon: true,
+  hideSuccessIcon: false,
 });
 
 const emit = defineEmits<{
@@ -203,7 +203,7 @@ const blockTyping = (event: KeyboardEvent) => {
             <OnyxIcon :icon="chevronDownUp" />
           </button>
           <OnyxIcon
-            v-if="showSuccessIcon && successMessages && !props.showFocus && !isFocused"
+            v-if="!hideSuccessIcon && successMessages && !props.showFocus && !isFocused"
             :icon="checkSmall"
             color="success"
           />
