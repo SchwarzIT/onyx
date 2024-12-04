@@ -1,12 +1,12 @@
 /**
  * Do not edit directly.
- * This file contains the specific variables for the "kaufland-dark" theme.
+ * This file contains the specific variables for the "schwarz-dark" theme.
  * Imported from Figma API on Tue, 03 Dec 2024 10:20:05 GMT
  */
 :where(.dark),
-.onyx-theme-kaufland-dark {
-  --onyx-color-base-background-blank: var(--onyx-color-stone-1100);
-  --onyx-color-base-background-tinted: var(--onyx-color-stone-1200);
+.onyx-theme-schwarz-dark {
+  --onyx-color-base-background-blank: var(--onyx-color-steel-1100);
+  --onyx-color-base-background-tinted: var(--onyx-color-steel-1200);
   --onyx-color-base-danger-100: var(--onyx-color-red-1100);
   --onyx-color-base-danger-200: var(--onyx-color-red-1000);
   --onyx-color-base-danger-300: var(--onyx-color-red-900);
@@ -27,24 +27,24 @@
   --onyx-color-base-info-700: var(--onyx-color-purple-500);
   --onyx-color-base-info-800: var(--onyx-color-purple-400);
   --onyx-color-base-info-900: var(--onyx-color-purple-300);
-  --onyx-color-base-neutral-100: var(--onyx-color-stone-1100);
-  --onyx-color-base-neutral-200: var(--onyx-color-stone-1000);
-  --onyx-color-base-neutral-300: var(--onyx-color-stone-900);
-  --onyx-color-base-neutral-400: var(--onyx-color-stone-800);
-  --onyx-color-base-neutral-500: var(--onyx-color-stone-700);
-  --onyx-color-base-neutral-600: var(--onyx-color-stone-600);
-  --onyx-color-base-neutral-700: var(--onyx-color-stone-500);
-  --onyx-color-base-neutral-800: var(--onyx-color-stone-400);
-  --onyx-color-base-neutral-900: var(--onyx-color-stone-300);
-  --onyx-color-base-primary-100: var(--onyx-color-kl-1100);
-  --onyx-color-base-primary-200: var(--onyx-color-kl-1000);
-  --onyx-color-base-primary-300: var(--onyx-color-kl-900);
-  --onyx-color-base-primary-400: var(--onyx-color-kl-800);
-  --onyx-color-base-primary-500: var(--onyx-color-kl-700);
-  --onyx-color-base-primary-600: var(--onyx-color-kl-600);
-  --onyx-color-base-primary-700: var(--onyx-color-kl-500);
-  --onyx-color-base-primary-800: var(--onyx-color-kl-400);
-  --onyx-color-base-primary-900: var(--onyx-color-kl-300);
+  --onyx-color-base-neutral-100: var(--onyx-color-steel-1100);
+  --onyx-color-base-neutral-200: var(--onyx-color-steel-1000);
+  --onyx-color-base-neutral-300: var(--onyx-color-steel-900);
+  --onyx-color-base-neutral-400: var(--onyx-color-steel-800);
+  --onyx-color-base-neutral-500: var(--onyx-color-steel-700);
+  --onyx-color-base-neutral-600: var(--onyx-color-steel-600);
+  --onyx-color-base-neutral-700: var(--onyx-color-steel-500);
+  --onyx-color-base-neutral-800: var(--onyx-color-steel-400);
+  --onyx-color-base-neutral-900: var(--onyx-color-steel-300);
+  --onyx-color-base-primary-100: var(--onyx-color-schwarz-1100);
+  --onyx-color-base-primary-200: var(--onyx-color-schwarz-1000);
+  --onyx-color-base-primary-300: var(--onyx-color-schwarz-900);
+  --onyx-color-base-primary-400: var(--onyx-color-schwarz-800);
+  --onyx-color-base-primary-500: var(--onyx-color-schwarz-700);
+  --onyx-color-base-primary-600: var(--onyx-color-schwarz-600);
+  --onyx-color-base-primary-700: var(--onyx-color-schwarz-500);
+  --onyx-color-base-primary-800: var(--onyx-color-schwarz-400);
+  --onyx-color-base-primary-900: var(--onyx-color-schwarz-300);
   --onyx-color-base-quantitatives-100: var(--onyx-color-quantitatives-150);
   --onyx-color-base-quantitatives-200: var(--onyx-color-quantitatives-250);
   --onyx-color-base-quantitatives-300: var(--onyx-color-quantitatives-350);
@@ -79,18 +79,18 @@
   --onyx-color-component-border-invalid: var(--onyx-color-base-danger-500);
   --onyx-color-component-border-invalid-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-border-neutral: var(--onyx-color-base-neutral-300);
-  --onyx-color-component-border-primary: var(--onyx-color-base-primary-700);
-  --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-600);
+  --onyx-color-component-border-primary: var(--onyx-color-base-primary-500);
+  --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-400);
   --onyx-color-component-border-success: var(--onyx-color-base-success-500);
   --onyx-color-component-border-success-hover: var(--onyx-color-base-success-400);
-  --onyx-color-component-cta-default: var(--onyx-color-base-primary-800);
-  --onyx-color-component-cta-default-hover: var(--onyx-color-base-primary-600);
+  --onyx-color-component-cta-default: var(--onyx-color-base-primary-500);
+  --onyx-color-component-cta-default-hover: var(--onyx-color-base-primary-400);
   --onyx-color-component-cta-disabled: var(--onyx-color-base-neutral-200);
   --onyx-color-component-cta-invalid: var(--onyx-color-base-danger-500);
   --onyx-color-component-cta-invalid-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-focus-invalid: var(--onyx-color-base-danger-300);
   --onyx-color-component-focus-neutral: var(--onyx-color-base-neutral-500);
-  --onyx-color-component-focus-primary: var(--onyx-color-base-primary-500);
+  --onyx-color-component-focus-primary: var(--onyx-color-lime-700);
   --onyx-color-component-focus-success: var(--onyx-color-base-success-200);
   --onyx-color-text-icons-danger-bold: var(--onyx-color-red-400);
   --onyx-color-text-icons-danger-intense: var(--onyx-color-red-500);
@@ -100,15 +100,15 @@
   --onyx-color-text-icons-info-intense: var(--onyx-color-purple-500);
   --onyx-color-text-icons-info-medium: var(--onyx-color-purple-700);
   --onyx-color-text-icons-info-soft: var(--onyx-color-purple-900);
-  --onyx-color-text-icons-neutral-button: var(--onyx-color-stone-1200);
+  --onyx-color-text-icons-neutral-button: var(--onyx-color-grayscale-white);
   --onyx-color-text-icons-neutral-intense: var(--onyx-color-stone-200);
   --onyx-color-text-icons-neutral-inverted: var(--onyx-color-stone-1200);
   --onyx-color-text-icons-neutral-medium: var(--onyx-color-stone-400);
   --onyx-color-text-icons-neutral-soft: var(--onyx-color-stone-600);
-  --onyx-color-text-icons-primary-bold: var(--onyx-color-kl-100);
-  --onyx-color-text-icons-primary-intense: var(--onyx-color-kl-200);
-  --onyx-color-text-icons-primary-medium: var(--onyx-color-kl-400);
-  --onyx-color-text-icons-primary-soft: var(--onyx-color-kl-500);
+  --onyx-color-text-icons-primary-bold: var(--onyx-color-schwarz-400);
+  --onyx-color-text-icons-primary-intense: var(--onyx-color-schwarz-500);
+  --onyx-color-text-icons-primary-medium: var(--onyx-color-schwarz-700);
+  --onyx-color-text-icons-primary-soft: var(--onyx-color-schwarz-900);
   --onyx-color-text-icons-success-bold: var(--onyx-color-green-400);
   --onyx-color-text-icons-success-intense: var(--onyx-color-green-500);
   --onyx-color-text-icons-success-medium: var(--onyx-color-green-700);

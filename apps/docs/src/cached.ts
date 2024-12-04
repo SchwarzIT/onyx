@@ -19,10 +19,8 @@ const buildPathForUrl = (url: URL) => {
 };
 
 const writeCache = async <T>(url: URL, body: T) => {
-  const cacheDir = resolve(import.meta.dirname, ".fetch-cache");
-
   // we use recursive, so that we dont have to handle the `directory already exists` case
-  await mkdir(cacheDir, { recursive: true });
+  await mkdir(CACHE_DIR, { recursive: true });
   const cacheFile = buildPathForUrl(url);
   await writeFile(
     cacheFile,

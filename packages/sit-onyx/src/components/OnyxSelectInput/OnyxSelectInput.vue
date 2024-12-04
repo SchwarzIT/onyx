@@ -196,6 +196,7 @@ const blockTyping = (event: KeyboardEvent) => {
             class="onyx-select-input__button"
             type="button"
             :aria-label="t('select.toggleDropDown')"
+            :title="t('select.toggleDropDown')"
             tabindex="-1"
             :disabled="disabled || props.readonly || props.loading"
           >
@@ -238,48 +239,6 @@ const blockTyping = (event: KeyboardEvent) => {
 
       .onyx-select-input__native {
         cursor: pointer;
-      }
-    }
-
-    /* button styles */
-    &__button {
-      all: initial;
-      display: flex;
-      color: var(--onyx-color-text-icons-neutral-soft);
-
-      &:enabled {
-        cursor: pointer;
-      }
-    }
-
-    // button on focus (not readonly)
-    &:has(
-        .onyx-select-input__native:enabled:read-write:focus,
-        .onyx-select-input__native--show-focus:enabled:read-write
-      ) {
-      .onyx-select-input__button {
-        color: var(--onyx-color-text-icons-primary-intense);
-      }
-
-      &:has(.onyx-select-input__native:user-invalid),
-      &:has(.onyx-select-input__native:invalid.onyx-select-input__native--touched) {
-        .onyx-select-input__button {
-          color: var(--onyx-color-text-icons-neutral-intense);
-        }
-      }
-    }
-
-    // button on hover (not readonly)
-    .onyx-select-input__wrapper:has(.onyx-select-input__native:enabled:read-write):hover {
-      .onyx-select-input__button {
-        color: var(--onyx-color-text-icons-primary-medium);
-      }
-
-      &:has(.onyx-select-input__native:user-invalid),
-      &:has(.onyx-select-input__native:invalid.onyx-select-input__native--touched) {
-        .onyx-select-input__button {
-          color: var(--onyx-color-text-icons-neutral-medium);
-        }
       }
     }
 
