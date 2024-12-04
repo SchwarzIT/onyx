@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.78
+
+### Minor Changes
+
+- 4482d1d: feat(OnyxSelect): update the hover and focus colors of the chevron icon
+
+  Also a the title attribute to the chevron icon to show a native browser tooltip when hovering
+
 ## 1.0.0-beta.77
 
 ### Major Changes
