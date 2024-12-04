@@ -148,7 +148,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
       --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
 
       &:disabled:not(.onyx-button--loading) {
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-soft);
       }
 
       &.onyx-button--default {
@@ -163,22 +163,27 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
       &.onyx-button--outline {
         --onyx-button-border-color: var(--onyx-color-base-danger-500);
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+
+        &:enabled {
+          --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+
+          &:hover {
+            --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
+          }
+        }
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-border-color: var(--onyx-color-base-danger-200);
         }
-
-        &:hover {
-          --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
-        }
       }
 
       &.onyx-button--plain {
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+        &:enabled {
+          --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
-        &:hover {
-          --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
+          &:hover {
+            --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
+          }
         }
       }
     }
