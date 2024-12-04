@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "lidl-dark" theme.
- * Imported from Figma API on Wed, 04 Dec 2024 15:16:19 GMT
+ * Imported from Figma API on Wed, 04 Dec 2024 15:54:01 GMT
  */
 :where(.dark),
 .onyx-theme-lidl-dark {
@@ -75,20 +75,20 @@
   --onyx-color-base-warning-700: var(--onyx-color-orange-500);
   --onyx-color-base-warning-800: var(--onyx-color-orange-400);
   --onyx-color-base-warning-900: var(--onyx-color-orange-300);
+  --onyx-color-component-border-danger: var(--onyx-color-base-danger-500);
+  --onyx-color-component-border-danger-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-border-disabled: var(--onyx-color-base-neutral-200);
-  --onyx-color-component-border-invalid: var(--onyx-color-base-danger-500);
-  --onyx-color-component-border-invalid-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-border-neutral: var(--onyx-color-base-neutral-300);
   --onyx-color-component-border-neutral-hover: var(--onyx-color-base-neutral-400);
   --onyx-color-component-border-primary: var(--onyx-color-base-primary-500);
   --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-400);
   --onyx-color-component-border-success: var(--onyx-color-base-success-500);
   --onyx-color-component-border-success-hover: var(--onyx-color-base-success-400);
+  --onyx-color-component-cta-danger: var(--onyx-color-base-danger-500);
+  --onyx-color-component-cta-danger-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-cta-default: var(--onyx-color-base-primary-500);
   --onyx-color-component-cta-default-hover: var(--onyx-color-base-primary-400);
   --onyx-color-component-cta-disabled: var(--onyx-color-base-neutral-200);
-  --onyx-color-component-cta-invalid: var(--onyx-color-base-danger-500);
-  --onyx-color-component-cta-invalid-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-focus-danger: var(--onyx-color-base-danger-300);
   --onyx-color-component-focus-neutral: var(--onyx-color-base-neutral-500);
   --onyx-color-component-focus-primary: var(--onyx-color-base-primary-200);
