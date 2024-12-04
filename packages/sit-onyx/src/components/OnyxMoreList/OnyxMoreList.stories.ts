@@ -6,7 +6,7 @@ import OnyxMoreList from "./OnyxMoreList.vue";
 
 /**
  * Support component for rendering a horizontal list of components with a "+ more" indicator.
- * If using custom or not natively supported components, make sure to implement the `useMoreChild()` composable in all child components.
+ * If using custom or not natively supported components, make sure to implement the `useMoreListChild()` composable in all child components.
  */
 const meta: Meta<typeof OnyxMoreList> = {
   title: "Support/MoreList",
@@ -22,10 +22,23 @@ type Story = StoryObj<typeof OnyxMoreList>;
 
 export const Default = {
   args: {
-    is: "div",
     injectionKey: NAV_BAR_MORE_LIST_INJECTION_KEY,
-    default: () =>
-      Array.from({ length: 24 }, (_, index) => h(OnyxNavButton, { label: `Element ${index + 1}` })),
-    more: ({ hiddenElements }) => h("div", `+${hiddenElements} more`),
+    default: ({ attributes }) =>
+      h(
+        "ul",
+        { style: "padding: 0", role: "menu", ...attributes },
+        Array.from({ length: 16 }, (_, index) =>
+          h(OnyxNavButton, { label: `Element ${index + 1}` }),
+        ),
+      ),
+    more: ({ hiddenElements, attributes }) =>
+      h(
+        "span",
+        {
+          style: `font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-soft)`,
+          ...attributes,
+        },
+        `+${hiddenElements} more`,
+      ),
   },
 } satisfies Story;
