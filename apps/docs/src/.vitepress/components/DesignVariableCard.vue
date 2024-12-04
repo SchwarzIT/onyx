@@ -64,7 +64,7 @@ const handleCopy = async () => {
 
 .card {
   --padding-inline: var(--onyx-spacing-2xl);
-  --border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  --border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
   border-radius: var(--onyx-radius-md);
   border: var(--border);

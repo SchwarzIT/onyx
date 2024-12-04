@@ -99,12 +99,12 @@ const { t } = injectI18n();
       gap: var(--onyx-spacing-2xs);
     }
     &__footer {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
     }
     &__mobile-footer {
       margin-top: var(--onyx-spacing-xs);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-sm);
       font-size: 0.8125rem;
       line-height: 1.25rem;

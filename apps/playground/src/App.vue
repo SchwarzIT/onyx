@@ -68,7 +68,7 @@ const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]
 
   --bg: var(--onyx-color-base-background-blank);
   --bg-soft: var(--onyx-color-base-background-tinted);
-  --border: var(--onyx-color-base-neutral-300);
+  --border: var(--onyx-color-component-border-neutral);
 
   font-family: var(--onyx-font-family);
   --font-code: var(--onyx-font-family-mono);

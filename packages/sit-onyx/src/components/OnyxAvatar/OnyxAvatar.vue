@@ -61,7 +61,7 @@ watch(
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
     border-radius: var(--onyx-radius-full);
-    border: $border-width solid var(--onyx-color-base-neutral-300);
+    border: $border-width solid var(--onyx-color-component-border-neutral);
 
     &:has(.onyx-avatar__initials) {
       background-color: var(--onyx-color-base-primary-200);

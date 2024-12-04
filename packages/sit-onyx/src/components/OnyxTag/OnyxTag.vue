@@ -41,7 +41,7 @@ const { densityClass } = useDensity(props);
       &--#{$color} {
         --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
         @if $color == "primary" {
-          --onyx-tag-border-color: var(--onyx-color-component-border-#{$color});
+          --onyx-tag-border-color: var(--onyx-color-component-border-primary);
         } @else {
           --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
         }

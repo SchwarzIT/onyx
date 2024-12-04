@@ -41,7 +41,8 @@ export const Default = {
       h(
         "header",
         {
-          style: "border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);",
+          style:
+            "border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);",
         },
         "Nav bar",
       ),
@@ -58,7 +59,7 @@ export const LeftNav = {
         "header",
         {
           style:
-            "border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300); height: 100%;",
+            "border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral); height: 100%;",
         },
         "Nav bar",
       ),

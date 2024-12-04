@@ -508,7 +508,7 @@ const selectInputProps = computed(() => {
     }
 
     &__search {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 
     &:has(&__wrapper:focus-visible) {
