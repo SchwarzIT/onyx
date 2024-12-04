@@ -83,7 +83,7 @@ test("should show min errors", async ({ mount }) => {
   await input.blur();
 
   await expect(component).toContainText("Too low");
-  await expect(component).toContainText("Value must be greater than or equal to 12/10/2024");
+  await expect(component).toContainText("Value must be greater than or equal to 12/10/24");
 });
 
 test("should show max errors", async ({ mount }) => {
@@ -104,5 +104,5 @@ test("should show max errors", async ({ mount }) => {
   await input.blur();
 
   await expect(component).toContainText("Too high");
-  await expect(component).toContainText("Value must be less than or equal to 12/6/2024");
+  await expect(component).toContainText("Value must be less than or equal to 12/6/24");
 });
