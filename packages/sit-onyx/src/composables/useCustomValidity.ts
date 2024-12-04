@@ -237,8 +237,10 @@ const formatMinMax = (
   if (!isValidDate(date)) return value?.toString();
 
   const format: Intl.DateTimeFormatOptions = {
-    dateStyle: "short",
-    timeStyle: type === "datetime-local" ? "short" : undefined,
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    ...(type === "datetime-local" ? { hour: "2-digit", minute: "2-digit" } : undefined),
   };
 
   return date.toLocaleString(locale, format);
