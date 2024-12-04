@@ -100,10 +100,15 @@ const isFocused = ref(false);
           />
           <button
             v-if="
-              !hideClearIcon && isFocused && value !== '' && value !== undefined && value !== null
+              !hideClearIcon &&
+              isFocused &&
+              !readonly &&
+              value !== '' &&
+              value !== undefined &&
+              value !== null
             "
             type="button"
-            class="icon"
+            class="onyx-input__Icon"
             aria-label="Icon"
             @mousedown.prevent
             @click="() => emit('update:modelValue', '')"
@@ -146,21 +151,21 @@ const isFocused = ref(false);
   ::-webkit-search-cancel-button {
     display: none;
   }
+  &__icon {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+  }
 }
 .onyx-clear-icon {
   cursor: pointer;
   &:hover {
     fill: var(--onyx-color-text-icons-primary-intense);
   }
-}
-.icon {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
 }
 </style>

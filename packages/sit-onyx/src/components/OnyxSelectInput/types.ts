@@ -39,7 +39,7 @@ export type OnyxSelectInputProps = FormInjectedProps &
      */
     loading?: boolean;
     /**
-     * Indicates whether a check icon is displayed when the input is in a success state
+     * Whether to hide the check icon when the input is in a success state.
      */
     hideSuccessIcon?: boolean;
     /**

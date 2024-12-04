@@ -54,11 +54,11 @@ export type OnyxInputProps = FormInjectedProps &
      */
     loading?: boolean;
     /**
-     * Indicates whether a check icon is displayed when the input is in a success state
+     * Whether to hide the check icon when the input is in a success state.
      */
     hideSuccessIcon?: boolean;
     /**
-     * Indicates whether a clear icon is displayed while the input is focused
+     * Whether to hide the clear icon when the input is filled and focused.
      */
     hideClearIcon?: boolean;
 
