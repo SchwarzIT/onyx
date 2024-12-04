@@ -84,7 +84,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     color: var(--onyx-button-text-color);
 
     &:focus-visible {
-      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+      outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
     }
 
     &--primary {
@@ -116,7 +116,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
     &--neutral {
       --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
       --onyx-button-outline-color: var(--onyx-color-component-focus-neutral);
-      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-bold);
+      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
 
       &:disabled:not(.onyx-button--loading) {
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
