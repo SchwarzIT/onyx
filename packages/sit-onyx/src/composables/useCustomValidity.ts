@@ -116,7 +116,7 @@ export const getFormMessageText = (customError?: CustomMessageType): string | un
  * ```
  */
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
-  const { t } = injectI18n();
+  const { t, locale } = injectI18n();
 
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
@@ -203,8 +203,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       n: options.props.modelValue?.toString().length ?? 0,
       minLength: options.props.minlength,
       maxLength: options.props.maxlength,
-      min: formatMinMax(options.props.type, options.props.min),
-      max: formatMinMax(options.props.type, options.props.max),
+      min: formatMinMax(locale.value, options.props.type, options.props.min),
+      max: formatMinMax(locale.value, options.props.type, options.props.max),
       step: options.props.precision,
     };
 
@@ -227,6 +227,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 };
 
 const formatMinMax = (
+  locale: string,
   type: UseCustomValidityOptions["props"]["type"],
   value?: DateValue,
 ): string | undefined => {
@@ -235,6 +236,10 @@ const formatMinMax = (
   const date = value != undefined ? new Date(value) : undefined;
   if (!isValidDate(date)) return value?.toString();
 
-  if (type === "date") return date.toLocaleDateString();
-  else if (type === "datetime-local") return date.toLocaleString();
+  const format: Intl.DateTimeFormatOptions = {
+    dateStyle: "short",
+    timeStyle: type === "datetime-local" ? "short" : undefined,
+  };
+
+  return date.toLocaleString(locale, format);
 };
