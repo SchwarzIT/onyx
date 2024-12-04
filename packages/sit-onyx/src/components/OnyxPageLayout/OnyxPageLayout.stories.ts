@@ -69,7 +69,7 @@ export const WithSidebar = {
         "div",
         {
           style:
-            "height: 100%; border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);",
+            "height: 100%; border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);",
         },
         "Side Bar Content",
       ),
@@ -83,7 +83,10 @@ export const WithFooter = {
     footer: () =>
       h(
         "div",
-        { style: "border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);" },
+        {
+          style:
+            "border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);",
+        },
         "Footer Content",
       ),
   },

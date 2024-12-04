@@ -23,10 +23,9 @@ const props = defineProps<{
   padding: var(--onyx-spacing-2xs);
   display: flex;
   border-radius: var(--onyx-radius-md);
-  border: 1px solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   background: var(--onyx-color-base-background-blank);
   cursor: pointer;
-  outline-color: var(--onyx-color-base-primary-300);
   text-decoration: none;
 
   // hide VitePress external link icon
@@ -65,13 +64,20 @@ const props = defineProps<{
 
   &:hover,
   &:focus-visible {
-    border-color: var(--onyx-color-base-primary-300);
-
     .topic {
       &__title {
         color: var(--onyx-color-text-icons-primary-intense);
       }
     }
+  }
+
+  &:hover {
+    border-color: var(--onyx-color-component-border-primary-hover);
+  }
+
+  &:focus-visible {
+    border-color: var(--onyx-color-component-border-primary);
+    outline-color: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
   }
 }
 </style>

@@ -76,7 +76,7 @@ const skeleton = useSkeletonContext(props);
 .onyx-radio-button {
   @include layers.component() {
     --onyx-radio-button-cursor: pointer;
-    --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-400);
+    --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
     --onyx-radio-button-selector-outline-color: var(--onyx-color-base-primary-200);
     --onyx-radio-button-selector-outline-width: 0;
@@ -88,17 +88,17 @@ const skeleton = useSkeletonContext(props);
     cursor: var(--onyx-radio-button-cursor);
 
     &:has(&__selector:hover) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-cta-default-hover);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-primary-hover);
     }
 
     &:has(&__selector:checked) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-cta-default);
       --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-default);
+      --onyx-radio-button-selector-border-color: var(--onyx-radio-button-selector-background-color);
     }
 
     &:has(&__selector:checked:hover) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-base-primary-400);
-      --onyx-radio-button-selector-background-color: var(--onyx-color-base-primary-400);
+      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-default-hover);
+      --onyx-radio-button-selector-border-color: var(--onyx-radio-button-selector-background-color);
     }
     &:has(&__selector:focus-visible) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-primary);
@@ -114,8 +114,8 @@ const skeleton = useSkeletonContext(props);
     }
 
     &:has(&__selector:invalid:checked:hover) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
       --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-invalid-hover);
+      --onyx-radio-button-selector-border-color: var(--onyx-radio-button-selector-background-color);
     }
     &:has(&__selector:invalid:focus-visible) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
@@ -123,7 +123,7 @@ const skeleton = useSkeletonContext(props);
 
     &:has(&__selector:disabled) {
       --onyx-radio-button-selector-outline-width: 0;
-      --onyx-radio-button-selector-border-color: var(--onyx-color-base-neutral-200);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-disabled);
       --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-soft);
       --onyx-radio-button-cursor: default;
     }
@@ -169,7 +169,7 @@ const skeleton = useSkeletonContext(props);
         height: var(--onyx-radio-button-dot-size);
         width: var(--onyx-radio-button-dot-size);
         background-color: var(--onyx-color-base-background-blank);
-        border-radius: 100%;
+        border-radius: var(--onyx-radius-full);
       }
     }
 

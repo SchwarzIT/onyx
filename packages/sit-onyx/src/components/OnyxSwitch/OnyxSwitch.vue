@@ -197,7 +197,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
           // for more info, see https://github.com/SchwarzIT/onyx/issues/503
           .onyx-switch__frame {
             position: absolute;
-            border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
+            // TODO: rename invalid to danger in Figma
+            border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-invalid);
             height: var(--onyx-switch-frame-height);
             border-radius: var(--onyx-radius-full);
             width: $input-width;

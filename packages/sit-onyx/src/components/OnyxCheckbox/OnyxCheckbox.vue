@@ -100,7 +100,7 @@ const title = computed(() => {
 
 @mixin define-hover-border($state, $color) {
   .onyx-checkbox__input#{$state} {
-    border-color: var(--onyx-color-base-#{$color}-300);
+    border-color: var(--onyx-color-component-border-#{$color});
   }
 }
 
@@ -129,13 +129,16 @@ const title = computed(() => {
     }
 
     &:hover {
-      @include define-hover-border($state: ":enabled", $color: primary);
-      @include define-hover-border($state: ":user-invalid", $color: danger);
+      @include define-hover-border($state: ":enabled", $color: primary-hover);
+      @include define-hover-border($state: ":user-invalid", $color: invalid-hover);
     }
 
     &:has(&__input:focus-visible) {
       @include define-focus-ring($state: ":enabled", $color: primary);
+      @include define-hover-border($state: ":enabled", $color: primary);
+
       @include define-focus-ring($state: ":user-invalid", $color: danger);
+      @include define-hover-border($state: ":user-invalid", $color: invalid);
     }
 
     &:has(&__input:disabled) {

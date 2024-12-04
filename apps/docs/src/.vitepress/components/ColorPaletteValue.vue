@@ -102,7 +102,7 @@ const emit = defineEmits<{
     width: calc(100% - 2 * var(--onyx-spacing-md));
 
     &--with-border {
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       min-height: calc(1.5rem - 2px);
       height: calc(1.5rem - 2px);
     }

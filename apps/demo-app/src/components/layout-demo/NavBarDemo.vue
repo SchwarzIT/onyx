@@ -27,7 +27,7 @@ const router = useRouter();
 
 <style lang="scss" scoped>
 .nav-bar {
-  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   height: 3.125rem;
   display: flex;
   flex-wrap: nowrap;
