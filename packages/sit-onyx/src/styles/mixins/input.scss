@@ -26,7 +26,7 @@
   --hover-border-color: var(--onyx-color-component-border-primary-hover);
   --selection-color: var(--onyx-color-base-primary-200);
   --background-color: var(--onyx-color-base-background-blank);
-  --outline-color: var(--onyx-color-base-primary-200);
+  --outline-color: var(--onyx-color-component-focus-primary);
   --outline-style: none;
   --button-color: var(--onyx-color-text-icons-neutral-soft);
 
@@ -75,7 +75,7 @@
 
       &:has(#{$base-selector}__native:focus, #{$base-selector}__native--show-focus) {
         --border-color: var(--onyx-color-base-neutral-300);
-        --outline-color: var(--onyx-color-base-neutral-200);
+        --outline-color: var(--onyx-color-component-focus-neutral);
       }
     }
 
@@ -100,7 +100,7 @@
     }
 
     &:focus-visible {
-      outline: 0.25rem solid var(--outline-color);
+      outline: var(--onyx-outline-width) solid var(--outline-color);
       border-radius: var(--onyx-radius-sm);
       --button-color: var(--button-focus-color, var(--onyx-color-text-icons-primary-intense));
     }
@@ -109,7 +109,7 @@
   @include success(#{$base-selector}__native) {
     --message-display: none;
     --border-color: var(--onyx-color-base-success-500);
-    --outline-color: var(--onyx-color-base-success-200);
+    --outline-color: var(--onyx-color-component-focus-success);
     --selection-color: var(--onyx-color-base-success-200);
     --focus-border-color: var(--onyx-color-base-success-500);
     --hover-border-color: var(--onyx-color-base-success-400);
@@ -122,7 +122,7 @@
     --message-display: none;
     --success-message-display: none;
     --border-color: var(--onyx-color-base-danger-500);
-    --outline-color: var(--onyx-color-base-danger-200);
+    --outline-color: var(--onyx-color-component-focus-danger);
     --selection-color: var(--onyx-color-base-danger-200);
     --focus-border-color: var(--onyx-color-component-cta-invalid);
     --hover-border-color: var(--onyx-color-base-danger-400);
