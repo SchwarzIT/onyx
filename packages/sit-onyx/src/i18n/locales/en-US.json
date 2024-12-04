@@ -132,8 +132,5 @@
       "label": "Page selection",
       "listLabel": "Available pages"
     }
-  },
-  "datePicker": {
-    "showPicker": "Show date picker"
   }
 }

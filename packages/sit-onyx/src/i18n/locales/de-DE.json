@@ -123,8 +123,5 @@
       "label": "Seiten-Auswahl",
       "listLabel": "Verfügbare Seiten"
     }
-  },
-  "datePicker": {
-    "showPicker": "Datumsauswahl anzeigen"
   }
 }
