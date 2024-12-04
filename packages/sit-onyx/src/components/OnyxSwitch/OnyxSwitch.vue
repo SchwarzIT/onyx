@@ -296,7 +296,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       outline: none;
 
       &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
       }
 
       &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
@@ -304,11 +304,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
 
       &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-danger-300);
-      }
-
-      &:has(.onyx-switch__input:user-invalid:checked:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-invalid);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
       }
     }
 

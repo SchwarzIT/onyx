@@ -79,7 +79,7 @@ watch(size.width, () => {
   }
 
   &:focus-visible {
-    outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
+    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
   }
 
   &:active {
