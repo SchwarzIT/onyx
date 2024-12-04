@@ -35,13 +35,16 @@ const { densityClass } = useDensity(props);
     border: var(--onyx-1px-in-rem) solid var(--onyx-tag-border-color);
     background-color: var(--onyx-tag-background-color);
 
-    $colors: primary, secondary, neutral, danger, warning, success, info;
+    $colors: primary, neutral, danger, warning, success, info;
 
     @each $color in $colors {
       &--#{$color} {
         --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
-        --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
-
+        @if $color == "primary" {
+          --onyx-tag-border-color: var(--onyx-color-component-border-#{$color});
+        } @else {
+          --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
+        }
         @if $color == "neutral" {
           // neutral does not have a bold color so we need to use medium here
           --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);

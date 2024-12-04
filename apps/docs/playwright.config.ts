@@ -7,6 +7,7 @@ import { defineConfig, devices } from "@playwright/test";
  */
 export default defineConfig({
   testDir: "./tests",
+  testMatch: `**/*.ct.{ts,tsx}`,
   snapshotDir: "./playwright/snapshots",
   // custom snapshotPathTemplate to remove the testFileName folder that we don't want
   snapshotPathTemplate: "{snapshotDir}/{testFileDir}/{arg}-{projectName}-{platform}{ext}",
@@ -28,7 +29,7 @@ export default defineConfig({
   },
   /* Configure projects for major browsers */
   projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "edge", use: { ...devices["Desktop Edge"], channel: "msedge" } },
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],

@@ -79,6 +79,7 @@ test("should behave correctly", async ({ mount, page }) => {
   await expect(menu).toBeHidden();
 
   // ACT
+  await page.hover("body"); // workaround for mouseenter on webkit not triggering
   await button.hover();
   //ASSERT
   await expect(menu).toBeVisible();

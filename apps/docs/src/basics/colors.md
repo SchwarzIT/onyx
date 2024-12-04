@@ -37,7 +37,7 @@ To have access to the color variable set for your implementation, please visit t
 
 ## Roles of themed colors
 
-Themed colors reflect the brand's identity, adapting their main colors. While primary and secondary colors vary between the themes, the usage of them is constant.
+Themed colors reflect the brand's identity, adapting their main colors. While primary colors vary between the themes, the usage of them is constant.
 
 Primary colors highlight call-to-action elements and direct the focus of the user to the most important interactions. Brand-neutrals are used in the background and secondary actions, providing a subtle backdrop that allows primary colors to shine.
 

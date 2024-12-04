@@ -96,7 +96,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     --onyx-pagination-character-count: 1;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
     height: var(--onyx-pagination-height);
@@ -140,7 +140,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       align-items: center;
       padding: var(--onyx-pagination-padding-vertical) var(--onyx-density-sm);
       height: var(--onyx-pagination-height);
-      border: 0 solid var(--onyx-color-base-neutral-300);
+      border: 0 solid var(--onyx-color-component-border-neutral);
       border-width: var(--onyx-pagination-border-size) 0;
       text-align: center;
       color: var(--onyx-color-text-icons-neutral-soft);
@@ -156,7 +156,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       padding: var(--onyx-pagination-padding-vertical);
       height: var(--onyx-pagination-height);
       background-color: var(--onyx-color-base-background-blank);
-      border: var(--onyx-pagination-border-size) solid var(--onyx-color-base-neutral-300);
+      border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-neutral);
       color: inherit;
 
       &:first-of-type {
@@ -181,18 +181,19 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         }
 
         &:focus-visible {
-          $outline-width: 0.25rem;
           background-color: var(--onyx-color-base-neutral-200);
-          outline: $outline-width solid var(--onyx-color-base-primary-200);
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
 
           // the right outline of the first button would be cut off / not visible
           // so we use this little trick here to add margin-right and reduce the left padding
           // of the second button so it does not change in size visually
           &:first-of-type {
-            margin-right: $outline-width;
+            margin-right: var(--onyx-outline-width);
 
             + .onyx-pagination__button {
-              padding-left: calc(var(--onyx-pagination-padding-vertical) - $outline-width);
+              padding-left: calc(
+                var(--onyx-pagination-padding-vertical) - var(--onyx-outline-width)
+              );
             }
           }
         }

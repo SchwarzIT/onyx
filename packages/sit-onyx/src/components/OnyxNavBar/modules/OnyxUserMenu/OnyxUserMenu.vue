@@ -41,8 +41,8 @@ const isMobile = inject(
     :flyout-open="flyoutOpen"
     @update:flyout-open="emit('update:flyoutOpen', $event)"
   >
-    <template #button>
-      <button class="onyx-user-menu__trigger onyx-text" type="button">
+    <template #button="{ trigger }">
+      <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
       </button>
@@ -94,7 +94,7 @@ const isMobile = inject(
       outline: 0;
 
       .onyx-user-menu__trigger {
-        outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
         background-color: var(--onyx-color-base-neutral-200);
       }
     }

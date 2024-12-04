@@ -54,8 +54,10 @@ export const Required = {
 export const WithMessageAndCounter = {
   args: {
     ...Default.args,
-    message: "A very long example message that will be truncated",
-    messageTooltip: "Additional info message",
+    message: {
+      shortMessage: "A very long example message that will be truncated",
+      longMessage: "Additional info message",
+    },
     maxlength: 60,
     withCounter: true,
   },

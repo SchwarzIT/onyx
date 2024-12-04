@@ -1,11 +1,9 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "src/**/*", "tests/**/*", "src/.vitepress/**/*", "vite.config.ts"],
+  "exclude": ["**/*-example.*"],
   "compilerOptions": {
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
-    "paths": {
-      "~components/*": ["../../packages/sit-onyx/src/components/*"]
-    }
+    "baseUrl": "."
   }
 }

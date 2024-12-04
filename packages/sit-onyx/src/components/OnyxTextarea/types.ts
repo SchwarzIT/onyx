@@ -22,7 +22,7 @@ export type OnyxTextareaProps = DensityProp &
     | "maxlength"
     | "withCounter"
     | "message"
-    | "messageTooltip"
+    | "success"
     | "skeleton"
   > & {
     /**

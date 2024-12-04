@@ -1,5 +1,91 @@
 # sit-onyx
 
+## 1.0.0-beta.78
+
+### Minor Changes
+
+- 4482d1d: feat(OnyxSelect): update the hover and focus colors of the chevron icon
+
+  Also a the title attribute to the chevron icon to show a native browser tooltip when hovering
+
+## 1.0.0-beta.77
+
+### Major Changes
+
+- 6730706: feat(OnyxMoreList): support more indicator
+
+  Also changed the underlying logic to calculate the component visibility which is now based on component widths instead of using IntersectionObservers.
+
+  - OnyxMoreList: removed `disabled` property
+  - OnyxMoreList: removed `is` property. Make sure to use the new `default` and `more` slots and bind the attributes passed to the slots using `v-bind`.
+  - useMoreList: removed `disabled` and `componentRefs` option, added required `listRef` and `moreIndicatorRef` option
+  - OnyxNavButton: prevent warning for missing injection key
+
+## 1.0.0-beta.76
+
+### Minor Changes
+
+- 9f23f13: feat: support `schwarz` theme
+
+  For docs about how to use the theme, see our [theming docs](https://onyx.schwarz/development/theming.html).
+
+  - `sit-onyx` now also exports a `ONYX_THEMES` array that includes a list of all available themes.
+  - OnyxButton: adjust text color contrast
+
+## 1.0.0-beta.75
+
+### Patch Changes
+
+- b4c466f: fix: fix navigation menu opening with delay
+
+## 1.0.0-beta.74
+
+### Minor Changes
+
+- d00c404: feat: implement basic `OnyxDatePicker` component
+
+## 1.0.0-beta.73
+
+### Patch Changes
+
+- 554833c: feat: implement new figma varialbe structure
+
+  - own dark and light colors for each theme
+  - removed secondary color (visible in: OnyxBadge, OnyxIcon, OnyxTag)
+
+## 1.0.0-beta.72
+
+### Minor Changes
+
+- 156ebb0: feat(OnyxTextarea): Implement success state styles
+
+## 1.0.0-beta.71
+
+### Minor Changes
+
+- 52efb24: feat(OnyxFormElement): messageTooltip property is removed, instead the type of the message prop is replaced with CustomMessageType which includes shortMessage and longMessage. The longMessage will replace the messageTooltip
+
+## 1.0.0-beta.70
+
+### Major Changes
+
+- 4a4c414: ### BREAKING CHANGE:
+
+  - feat(OnyxNavButton, OnyxUserMenu, OnyxFlyoutMenu): button slot now provides a trigger parameter which must be bound to the interactive element
+  - feat(OnyxFlyoutMenu): Renamed "default" slot to "button"
+
+## 1.0.0-beta.69
+
+### Minor Changes
+
+- 3f55c48: feat(OnyxTabs): support horizontal scrolling when overflowing
+
+  The following additional features/fixes are also included:
+
+  - OnyxTabs: add property `size` to change the font style
+  - OnyxTabs: fix vertical alignment of tab text if its not selected
+  - add CSS variable `--onyx-outline-width` and use it in all components for consistency
+
 ## 1.0.0-beta.68
 
 ### Minor Changes

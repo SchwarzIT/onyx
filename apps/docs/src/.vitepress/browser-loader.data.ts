@@ -1,6 +1,7 @@
-import fs from "fs";
+import fs from "fs/promises";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
+import { cached } from "../cached";
 
 const browserslistRcPath = fileURLToPath(new URL("../../../../.browserslistrc", import.meta.url));
 
@@ -13,8 +14,6 @@ export type Browser = {
 
 export interface Data {
   browsers: Browser[];
-  coverage: number;
-  browserRules: string;
 }
 
 declare const data: Data;
@@ -28,34 +27,28 @@ export { data };
  */
 export default defineLoader({
   async load(): Promise<Data> {
-    return new Promise((resolve, reject) => {
-      let browserRules = "";
+    let browserRules = "";
 
-      try {
-        const data = fs.readFileSync(browserslistRcPath, "utf8");
-        const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
-        browserRules = lines.join("").trim();
-      } catch (_) {
-        reject("could not read .browserslistrc");
+    try {
+      const data = await fs.readFile(browserslistRcPath, "utf8");
+      const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
+      browserRules = lines.join("").trim();
+    } catch {
+      throw new Error("could not read .browserslistrc");
+    }
+
+    const url = new URL(`https://browsersl.ist/api/browsers?q=${browserRules}`);
+    const fetchBrowserslistData = async () => {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("failed to fetch browserslist API data");
       }
 
-      const fetchBrowserslistData = async () => {
-        const url = `https://browsersl.ist/api/browsers?q=${browserRules}`;
-        const response = await fetch(url);
+      const data = await response.json();
+      return { browserRules, ...data };
+    };
 
-        if (!response.ok) {
-          throw new Error("failed to fetch browserslist API data");
-        }
-
-        const data = await response.json();
-        resolve({ browserRules, ...data });
-      };
-
-      try {
-        fetchBrowserslistData();
-      } catch {
-        reject("error loading browserslist API data");
-      }
-    });
+    return cached(url, fetchBrowserslistData);
   },
 });

@@ -3,6 +3,7 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { createActionLoggerWrapper } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
@@ -10,8 +11,8 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
-import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
+import _OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
+import _OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories";
@@ -54,6 +55,10 @@ const meta: Meta<typeof OnyxNavBar> = {
 
 export default meta;
 type Story = StoryObj<typeof OnyxNavBar>;
+
+// Add logging for the child components
+const OnyxNavButton = createActionLoggerWrapper(_OnyxNavButton, ["onNavigate"]);
+const OnyxNavItem = createActionLoggerWrapper(_OnyxNavItem, ["onNavigate"]);
 
 export const Default = {
   args: {
@@ -143,7 +148,7 @@ export const WithLogoutTimer = {
 export const WithCustomAppArea = {
   args: {
     ...Default.args,
-    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "secondary" }), "Custom name"],
+    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "primary" }), "Custom name"],
   },
 } satisfies Story;
 

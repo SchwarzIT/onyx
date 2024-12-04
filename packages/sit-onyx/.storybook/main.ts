@@ -32,7 +32,11 @@ const config: StorybookConfig = {
   viteFinal: (config) => {
     return mergeConfig(config, {
       optimizeDeps: {
-        exclude: ["node_module/.cache/sb-vite", "node_module/.cache/storybook"],
+        exclude: [
+          "node_module/.cache/sb-vite",
+          "node_module/.cache/storybook",
+          "node_module/.cache",
+        ],
       },
     } satisfies typeof config);
   },

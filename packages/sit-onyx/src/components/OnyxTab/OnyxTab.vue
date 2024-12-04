@@ -25,6 +25,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY);
 const skeleton = useSkeletonContext(props);
+const sizeClass = computed(() => `onyx-tab--${tabsContext?.size.value}`);
 
 const tab = computed(() =>
   tabsContext?.headless.elements.tab.value({
@@ -35,13 +36,17 @@ const tab = computed(() =>
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" :class="['onyx-tab-skeleton', densityClass]" v-bind="tab" />
+  <OnyxSkeleton
+    v-if="skeleton"
+    :class="['onyx-tab-skeleton', densityClass, sizeClass]"
+    v-bind="tab"
+  />
   <button
     v-else
     :class="[
       'onyx-tab',
-      'onyx-text--large',
       densityClass,
+      sizeClass,
       tab?.['aria-selected'] ? 'onyx-tab--selected' : '',
     ]"
     v-bind="tab"
@@ -72,12 +77,16 @@ const tab = computed(() =>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/sizes.scss";
 
 .onyx-tab,
 .onyx-tab-skeleton {
-  --onyx-tab-padding-vertical: var(--onyx-density-xs);
-  --onyx-tab-line-height: 1.75rem;
-  --onyx-tab-highlight-gap: var(--onyx-density-3xs);
+  @include layers.component() {
+    --onyx-tab-padding-vertical: var(--onyx-density-xs);
+    --onyx-tab-highlight-gap: var(--onyx-density-3xs);
+
+    @include sizes.define-headline-sizes();
+  }
 }
 
 .onyx-tab {
@@ -87,6 +96,9 @@ const tab = computed(() =>
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
     font-weight: 600;
+    // tabs should have their needed width and be horizontally scrollable instead if they exceed the max parent width
+    // (will be handled by the OnyxTabs component)
+    min-width: max-content;
 
     // reset button styles
     border: none;
@@ -99,13 +111,13 @@ const tab = computed(() =>
         &::after {
           content: "";
           height: 0.125rem;
-          background-color: var(--onyx-color-base-primary-500);
+          background-color: var(--onyx-color-component-cta-default);
           width: calc(100% - 2 * var(--onyx-density-xs));
           min-width: 1rem;
 
           position: absolute;
           left: 50%;
-          bottom: 0;
+          bottom: calc(-1 * var(--onyx-tab-highlight-gap));
           transform: translateX(-50%);
         }
       }
@@ -116,11 +128,11 @@ const tab = computed(() =>
 
       &:hover,
       &:focus-visible {
-        background-color: var(--onyx-color-base-neutral-200);
+        background-color: var(--onyx-color-component-focus-primary);
       }
 
       &:focus-visible {
-        outline: 0.25rem solid var(--onyx-color-base-primary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
       }
 
       &:active {
@@ -138,8 +150,6 @@ const tab = computed(() =>
       justify-content: center;
       gap: var(--onyx-density-xs);
       position: relative;
-      padding-bottom: var(--onyx-tab-highlight-gap);
-      line-height: var(--onyx-tab-line-height);
     }
 
     &__panel {
@@ -149,10 +159,7 @@ const tab = computed(() =>
 
     &-skeleton {
       width: var(--onyx-density-4xl);
-      height: calc(
-        var(--onyx-tab-line-height) + 2 * var(--onyx-tab-padding-vertical) +
-          var(--onyx-tab-highlight-gap)
-      );
+      height: calc(1lh + 2 * var(--onyx-tab-padding-vertical) + var(--onyx-tab-highlight-gap));
       display: inline-block;
       vertical-align: middle;
     }

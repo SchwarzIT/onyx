@@ -4,7 +4,7 @@
 import { data } from './theming.data';
 </script>
 
-Onyx supports a dark and a light theme as well as multiple built-in color themes. The options how to set up the theme for your application are described on this page.
+onyx supports a dark and a light theme as well as multiple built-in color themes. The options how to set up the theme for your application are described on this page.
 
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
@@ -19,14 +19,18 @@ The following color themes are built-in to onyx:
   </li>
 </ul>
 
-To use a different theme, add the corresponding import to your `main.ts` file (example for the lidl theme):
+To use a different theme, add the corresponding imports to your `main.ts` file (example for the lidl theme):
+:::info
+Make sure to import both the light and dark variants of the theme.
+:::
 
 ::: code-group
 
 ```ts [main.ts]
 // import "sit-onyx/styles.css";
 // make sure to import the theme AFTER the general "sit-onyx/styles.css" file!
-import "sit-onyx/themes/lidl.css";
+import "sit-onyx/themes/lidl-light.css";
+import "sit-onyx/themes/lidl-dark.css";
 ```
 
 :::

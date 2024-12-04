@@ -57,7 +57,7 @@ defineSlots<{
   }
 
   @include layers.component() {
-    --onyx-badge-background-color: var(--onyx-color-base-primary-500);
+    --onyx-badge-background-color: var(--onyx-color-component-cta-default);
 
     display: inline-block;
     max-width: 100%;
@@ -74,10 +74,6 @@ defineSlots<{
       .onyx-icon {
         --icon-size: var(--onyx-badge-icon-size);
       }
-    }
-
-    &--secondary {
-      --onyx-badge-background-color: var(--onyx-color-base-secondary-500);
     }
 
     &--neutral {

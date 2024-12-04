@@ -2,50 +2,39 @@ import {
   computed,
   inject,
   onBeforeUnmount,
+  onMounted,
+  reactive,
   ref,
-  unref,
   useId,
   watch,
+  watchEffect,
   type InjectionKey,
   type Ref,
 } from "vue";
-
-/**
- * Template ref of either a native HTML element or a custom Vue component.
- */
-export type HTMLOrInstanceRef = Element | { $el: Element } | null | undefined;
+import {
+  getTemplateRefElement,
+  useResizeObserver,
+  type VueTemplateRefElement,
+} from "./useResizeObserver";
 
 /**
  * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more" indicator.
  */
-export type MoreListInjectionKey = InjectionKey<{
-  /**
-   * Map of components in the list. Key = unique ID, value = component template ref
-   */
-  components: Map<string, Ref<HTMLOrInstanceRef>>;
-  /**
-   * List of component IDs that are currently fully visible.
-   */
-  visibleElements: Ref<string[]>;
-  /**
-   * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
-   */
-  disabled: Ref<boolean>;
-}>;
+export type MoreListInjectionKey = InjectionKey<ReturnType<typeof useMoreList>>;
 
 export type UseMoreListOptions = {
   /**
-   * Vue template ref for the parent element containing the list of components.
+   * Vue template ref for the parent element containing the more indicator as well as the list of components.
    */
-  parentRef: Ref<HTMLOrInstanceRef>;
+  parentRef: Ref<VueTemplateRefElement>;
   /**
-   * Refs for the individual components in the list.
+   * Vue template ref for the element containing the list of components.
    */
-  componentRefs: Map<string, Ref<HTMLOrInstanceRef>>;
+  listRef: Ref<VueTemplateRefElement>;
   /**
-   * Whether the intersection observer should be disabled (e.g. when more feature is currently not needed due to mobile layout).
+   * Vue template ref for the more indicator element that might be shown if not all elements are visible.
    */
-  disabled?: Ref<boolean>;
+  moreIndicatorRef: Ref<VueTemplateRefElement>;
 };
 
 /**
@@ -56,30 +45,45 @@ export type UseMoreListOptions = {
  *
  * ```vue
  * <script lang="ts" setup>
- * import { ref, type ComponentInstance } from "vue";
- * import { useMore } from "../../composables/useMore";
- * import OnyxNavButton from "../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
+ * import { provide, ref, watch } from "vue";
+ * import { useMoreList, NAV_BAR_MORE_LIST_INJECTION_KEY } from "sit-onyx";
  *
  * const parentRef = ref<HTMLElement>();
- * const componentRefs = ref<ComponentInstance<typeof OnyxNavButton>[]>([]);
+ * const listRef = ref<HTMLElement>();
+ * const moreIndicatorRef = ref<HTMLElement>();
  *
- * const { visibleElements, hiddenElements } = useMore({ parentRef, componentRefs });
+ * const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
+ * provide(NAV_BAR_MORE_LIST_INJECTION_KEY, more);
  * </script>
  *
  * <template>
- *   <div ref="parentRef" class="onyx-more">
- *     <OnyxNavButton v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
+ *   <div ref="parentRef" class="more-list">
+ *     <div ref="listRef" class="more-list__elements">
+ *        <OnyxNavButton v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
+ *     </div>
+ *
+ *     <div ref="moreIndicatorRef" class="more-list__indicator">
+ *        +{{ more.hiddenElements.value.length }} more
+ *     </div>
  *   </div>
  * </template>
  *
  * <style lang="scss">
- * @use "../../styles/mixins/layers.scss";
+ * .more-list {
+ *   display: flex;
+ *   align-items: center;
+ *   gap: var(--onyx-spacing-4xs);
  *
- * .onyx-more {
- *   @include layers.component() {
- *     display: flex;
- *     align-items: center;
+ *   &__elements {
+ *     display: inherit;
+ *     align-items: inherit;
+ *     gap: inherit;
  *     overflow-x: clip;
+ *    }
+ *
+ *   &__indicator {
+ *     min-width: max-content;
+ *     max-width: 100%;
  *   }
  * }
  * </style>
@@ -87,67 +91,49 @@ export type UseMoreListOptions = {
  */
 export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>([]);
+  const hiddenElements = ref<string[]>([]);
 
-  const hiddenElements = computed(() => {
-    return Array.from(options.componentRefs.keys()).filter(
-      (key) => !visibleElements.value.includes(key),
-    );
-  });
+  const { width: parentWidth } = useResizeObserver(options.parentRef);
+  const { width: moreIndicatorWidth } = useResizeObserver(options.moreIndicatorRef);
 
-  const observer = ref<IntersectionObserver>();
-  onBeforeUnmount(() => observer.value?.disconnect());
+  /**
+   * Map of all component widths. Key = component ID, value = component width.
+   * If component is hidden, this map will still include the previous width.
+   */
+  const componentMap = reactive(new Map<string, number>());
 
-  watch(
-    [options.parentRef, options.componentRefs, options.disabled],
-    () => {
-      observer.value?.disconnect(); // reset observer before all changes
+  onMounted(() => {
+    watchEffect(() => {
+      let availableWidth = parentWidth.value;
+      if (availableWidth <= 0) return; // parent width is not initialized yet
 
-      const root = getTemplateRefElement(options.parentRef.value);
-      if (!root || options.disabled?.value) {
-        visibleElements.value = [];
-        return;
+      const parentGap = getColumnGap(options.parentRef.value);
+      const listGap = getColumnGap(options.listRef.value);
+
+      if (moreIndicatorWidth.value > 0) {
+        availableWidth -= moreIndicatorWidth.value + parentGap;
       }
 
-      observer.value = new IntersectionObserver(
-        (changeEntries) => {
-          // changeEntries contains all changed component visibilities (not all available components)
-          // if component is shown, intersectionRatio is 1, otherwise its completely or partially hidden
-          const shownIds: string[] = [];
-          const hiddenIds: string[] = [];
+      // calculate which components currently fully fit into the available parent width
+      // we don't need to worry about changing the refs multiple times here since Vue batches changes
+      visibleElements.value = [];
+      hiddenElements.value = [];
 
-          changeEntries.forEach((entry) => {
-            const elementId = Array.from(options.componentRefs).find(([_, element]) => {
-              return getTemplateRefElement(unref(element)) === entry.target;
-            })?.[0];
-            if (!elementId) return;
+      Array.from(componentMap.entries()).forEach(([id, componentWidth], index) => {
+        availableWidth -= componentWidth + (index > 0 ? listGap : 0);
 
-            const isFullyVisible = entry.intersectionRatio === 1;
-
-            if (isFullyVisible) shownIds.push(elementId);
-            else hiddenIds.push(elementId);
-          });
-
-          if (visibleElements.value.length === 0) {
-            visibleElements.value = shownIds;
-          } else {
-            visibleElements.value = visibleElements.value
-              // remove now hidden elements
-              .filter((id) => !hiddenIds.includes(id))
-              // add newly visible elements
-              .concat(shownIds);
-          }
-        },
-        { root, threshold: 1 },
-      );
-
-      options.componentRefs.forEach((ref) => {
-        const element = getTemplateRefElement(unref(ref));
-        if (!element) return;
-        observer.value?.observe(element);
+        if (
+          availableWidth >= 0 ||
+          // check if last element fits if more indicator would be hidden
+          (index === componentMap.size - 1 && availableWidth + moreIndicatorWidth.value >= 0)
+        ) {
+          visibleElements.value.push(id);
+        } else {
+          hiddenElements.value.push(id);
+        }
       });
-    },
-    { immediate: true },
-  );
+    });
+  });
 
   return {
     /**
@@ -158,48 +144,62 @@ export const useMoreList = (options: UseMoreListOptions) => {
      * IDs of currently fully or partially hidden components in the list.
      */
     hiddenElements,
+    /**
+     * Map of widths for all components in the list. Key = component ID.
+     * Components in the list must inject this map and add a ref for their width to it.
+     *
+     * @see `useMoreListChild()`
+     */
+    componentMap,
   };
 };
 
 /**
- * Gets the native HTML element of a template ref.
+ * Gets the CSS column-gap property for the given element or 0 if invalid or unset.
  */
-const getTemplateRefElement = (ref: HTMLOrInstanceRef) => {
-  return ref instanceof Element ? ref : ref?.$el;
+const getColumnGap = (ref: VueTemplateRefElement) => {
+  const element = getTemplateRefElement(ref);
+  if (!element) return 0;
+  // we use "|| 0" here to fallback to zero for NaN values when no/invalid gap exist
+  return Number.parseFloat(getComputedStyle(element).columnGap) || 0;
 };
 
 /**
- * Composable that must be implemented in all list children when using `useMore` to correctly observe the visibility of the elements.
+ * Composable that must be implemented in all list children when using `useMoreList` to correctly observe the visibility of the elements.
  *
  * @example
  *
  * ```vue
  * <script lang="ts" setup
- * const { componentRef, isVisible } = useMoreChild();
+ * const { componentRef, isVisible } = useMoreListChild();
  * </script>
  *
  * <template
- *  <div ref="componentRef" :class="{ hidden: !isVisible }"> Your content... </div>
+ *  <div v-show="isVisible" ref="componentRef"> Your content... </div>
  * </template>
- *
- * <style>
- * .hidden {
- *  visibility: hidden;
- * }
- * </style>
  * ```
  */
 export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
-  const componentRef = ref<HTMLOrInstanceRef>();
-  const moreContext = inject(injectionKey);
+  const componentRef = ref<VueTemplateRefElement>();
+  const moreContext = inject(injectionKey, undefined);
+  const { width } = useResizeObserver(componentRef);
 
-  moreContext?.components?.set(id, componentRef);
-  onBeforeUnmount(() => moreContext?.components?.delete(id));
+  watch(
+    width,
+    (newWidth) => {
+      const map = moreContext?.componentMap;
+      // do not reset width if width is 0 = component is hidden because the more list still
+      // needs the previous to calculate if component can be shown when resizing the screen larger
+      if (!map || (map.has(id) && newWidth === 0)) return;
+      map.set(id, newWidth);
+    },
+    { immediate: true },
+  );
 
-  const isVisible = computed(() => {
-    return moreContext?.disabled.value || (moreContext?.visibleElements.value.includes(id) ?? true);
-  });
+  onBeforeUnmount(() => moreContext?.componentMap.delete(id));
+
+  const isVisible = computed(() => moreContext?.visibleElements.value.includes(id) ?? true);
 
   return {
     /**
@@ -208,8 +208,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
     componentRef,
     /**
      * Whether the component is currently visible.
-     * Should hide itself visually (e.g. using "visibility: hidden").
-     * Do not use v-if, v-show or "display: none" since the more feature does not work then when resizing
+     * Should hide itself visually (e.g. using `v-show="isVisible"`).
      */
     isVisible,
   };

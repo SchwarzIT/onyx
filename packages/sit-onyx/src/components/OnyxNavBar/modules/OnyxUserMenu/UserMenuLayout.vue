@@ -33,7 +33,15 @@ defineEmits<{
 const flyoutOpen = useModel(props, "flyoutOpen");
 
 const slots = defineSlots<{
-  button?(): unknown;
+  /**
+   * The trigger for the flyout menu. Must be an interactive component like a button or link.
+   */
+  button?(params: {
+    /**
+     * Attributes and event listeners that must be bound to the interactive element, that should act as the flyout trigger.
+     */
+    trigger: object;
+  }): unknown;
   header?(): unknown;
   options?(): unknown;
   footer?(): unknown;
@@ -54,7 +62,9 @@ const { t } = injectI18n();
 
     <template v-else>
       <OnyxFlyoutMenu v-model:open="flyoutOpen" :label="t('navigation.userMenuLabel')">
-        <slot name="button"></slot>
+        <template #button="{ trigger }">
+          <slot name="button" :trigger="trigger"></slot>
+        </template>
 
         <template #header>
           <slot name="header"></slot>

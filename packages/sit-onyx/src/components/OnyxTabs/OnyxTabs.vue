@@ -5,7 +5,9 @@ import { useDensity } from "../../composables/density";
 import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
 
-const props = defineProps<OnyxTabsProps<TValue>>();
+const props = withDefaults(defineProps<OnyxTabsProps<TValue>>(), {
+  size: "h2",
+});
 
 const emit = defineEmits<{
   /**
@@ -32,7 +34,11 @@ defineSlots<{
 const panelRef = ref<HTMLElement>();
 provideSkeletonContext(props);
 
-provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
+provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
+  headless,
+  panelRef,
+  size: toRef(props, "size"),
+});
 </script>
 
 <template>
@@ -50,13 +56,41 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, { headless, panelRef });
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+@mixin define-tablist-overflow-behavior() {
+  $negative-outline-width: calc(-1 * var(--onyx-outline-width));
+  overflow-x: auto;
+
+  // we set the overflow to auto to allow horizontal scrolling but this will cut off the focus outline
+  // therefore, we use this little trick to still show the full outline
+  &:has(.onyx-tab:focus-visible) {
+    padding-top: var(--onyx-outline-width);
+    margin-top: $negative-outline-width;
+
+    padding-bottom: var(--onyx-outline-width);
+    margin-bottom: calc(var(--onyx-tabs-tablist-margin-bottom) - var(--onyx-outline-width));
+  }
+
+  &:has(.onyx-tab:focus-visible:first-of-type) {
+    padding-left: var(--onyx-outline-width);
+    margin-left: $negative-outline-width;
+  }
+
+  &:has(.onyx-tab:focus-visible:last-of-type) {
+    padding-right: var(--onyx-outline-width);
+    margin-right: $negative-outline-width;
+  }
+}
+
 .onyx-tabs {
   @include layers.component() {
+    --onyx-tabs-tablist-margin-bottom: var(--onyx-density-md);
+
     &__tablist {
+      @include define-tablist-overflow-behavior();
       display: flex;
       align-items: center;
       gap: var(--onyx-density-2xs);
-      margin-bottom: var(--onyx-density-md);
+      margin-bottom: var(--onyx-tabs-tablist-margin-bottom);
     }
 
     &--stretched {

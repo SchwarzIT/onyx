@@ -93,8 +93,9 @@
     "navigationHeadline": "Navigation"
   },
   "tooltip": {
-    "info": "Info tooltip Sichtbarkeit umschalten",
-    "error": "Error tooltip Sichtbarkeit umschalten"
+    "neutral": "Info-Tooltip Sichtbarkeit umschalten",
+    "danger": "Error-Tooltip Sichtbarkeit umschalten",
+    "success": "Erfolgs-Tooltip Sichtbarkeit umschalten"
   },
   "colorScheme": {
     "headline": "Erscheinungsbild ändern",

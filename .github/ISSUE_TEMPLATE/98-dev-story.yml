@@ -1,0 +1,107 @@
+name: Create a development story 📗
+description: Story template for development tasks. Exclusively used by the onyx core team for project management.
+title: "Implement|Fix|Define:"
+projects:
+  - SchwarzIT/5
+labels:
+  - dev
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Why?
+      description: Add a short description and motivation for the story.
+    validations:
+      required: true
+
+  - type: textarea
+    id: open-questions
+    attributes:
+      label: Open questions / TODOs
+      value: <!-- Add questions if there are any, use `@` to tag people. -->
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Depends on
+      description: Issues/tickets that this issue depends on.
+      value: "<!-- Add relevant tickets, e.g., #123 -->"
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Design
+      value: <!-- Add Figma link and comments here -->
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: Ticket specific AC, e.g., the expected behavior of a component.
+      value: <!--  Add ticket specific AC, e.g., the expected behavior of a component -->
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-details
+    attributes:
+      label: Implementation details
+      value: >-
+        <-- Add technical details / implementation proposals if necessary, e.g.:
+          - API proposal
+          - relevant web APIs
+          - learnings from other implementations
+          - code snippets
+          -->
+
+  - type: textarea
+    id: reference-implementations
+    attributes:
+      label: Reference implementations
+      value: >-
+        <!-- Add links to other frameworks. Possible examples:
+          - [Nuxt UI](https://nuxt.com/docs/getting-started/installation)
+          - [Elements Plus](https://element-plus.org/en-US/component/overview.html)
+          - [shadcn-vue](https://www.shadcn-vue.com/docs/components/accordion.html)
+          - [W3C (for structural inspiration)](https://design-system.w3.org/components)
+          -->
+
+  - type: textarea
+    id: aria-pattern
+    attributes:
+      label: Applicable ARIA Pattern
+      value: >-
+        <!-- Add link to ARIA pattern if applicable, see [W3C ARIA patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) -->
+
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: Definition of Done
+      description: For more details, please refer to our [documentation](https://onyx.schwarz/principles/definition-of-done.html).
+      value: >-
+        - The following component requirements are implemented:
+          - [ ] skeleton
+          - [ ] density
+          - [ ] example usage added to `apps/demo-app/src/views/HomeView.vue`
+
+        - Should be covered by tests:
+          - [ ] functional tests (Playwright or unit test)
+          - [ ] visual tests (Playwright screenshots)
+
+        - Make sure, that
+          - [ ] follow-up tickets were created if necessary
+          - [ ] updated version + documentation is deployed
+          - [ ] Storybook can show the feature
+          - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
+          - [ ] Namings are aligned with Figma
+
+
+        #### Approval
+
+        [Storybook](<!-- LINK HERE -->)
+        [Documentation](<!-- LINK HERE -->)
+        - [ ] Checked and approved by designer <!-- add your @username -->
+        - [ ] Checked and approved by dev <!-- add your @username -->
+    validations:
+      required: true

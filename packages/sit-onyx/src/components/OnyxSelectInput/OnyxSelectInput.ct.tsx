@@ -39,7 +39,7 @@ test.describe("Screenshot tests", () => {
         hideLabel={column === "hideLabel"}
         required={row === "required"}
         requiredMarker={row === "optional" ? "optional" : undefined}
-        message={row === "message" ? "Test message" : undefined}
+        message={row === "message" ? { shortMessage: "Test message" } : undefined}
       />
     ),
   });

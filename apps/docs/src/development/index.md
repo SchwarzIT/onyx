@@ -20,6 +20,11 @@ If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module 
 
 ## Installation
 
+::: tip Prerequisites
+We assume that you already have a Vue application set up.
+If thats not the case we recommend you first hop over to the [Vue Quickstart Docs](https://vuejs.org/guide/quick-start.html#creating-a-vue-application). Follow the steps there and then continue with the onyx setup here.  
+:::
+
 ### Step 1: Install dependencies
 
 Install the npm package with your corresponding package manager:
@@ -160,7 +165,7 @@ Be careful when overriding styles globally since it will affect **EVERY** compon
 import BrowsersList from "../.vitepress/components/BrowsersList.vue"
 </script>
 
-Onyx works best with the following browser versions. Older versions might also work but we can't guarantee full compatibility.
+onyx works best with the following browser versions. Older versions might also work but we can't guarantee full compatibility.
 
 <BrowsersList />
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import { useCustomValidity } from "../../composables/useCustomValidity";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -34,6 +34,8 @@ const emit = defineEmits<{
 }>();
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const successMessages = computed(() => getFormMessages(props.success));
+const messages = computed(() => getFormMessages(props.message));
 
 const { densityClass } = useDensity(props);
 
@@ -62,7 +64,12 @@ const errorClass = useErrorClass(showError);
   </div>
 
   <div v-else :class="['onyx-input', densityClass, errorClass]">
-    <OnyxFormElement v-bind="props" :error-messages="errorMessages">
+    <OnyxFormElement
+      v-bind="props"
+      :error-messages="errorMessages"
+      :success-messages="successMessages"
+      :message="messages"
+    >
       <template #default="{ id: inputId }">
         <div class="onyx-input__wrapper">
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
@@ -86,7 +93,6 @@ const errorClass = useErrorClass(showError);
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
           />
-          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
       </template>
     </OnyxFormElement>

@@ -312,16 +312,18 @@ test.describe("Invalidity handling screenshots", () => {
         column === "long-text"
           ? "Very very long test label that should be truncated"
           : "Test label";
-      const message = showLongMessage
-        ? "Very long message that should be truncated"
-        : "Test message";
+      const message = {
+        shortMessage: `${
+          showLongMessage ? "Very long message that should be truncated" : "Test message"
+        }`,
+        longMessage: "Additional info message",
+      };
       const errorMessages: FormMessages = {
         shortMessage: showLongMessage
           ? "Very long error preview that should be truncated"
           : "Test error",
         longMessage: row === "errorTooltip" ? "Extended error information" : undefined,
       };
-      const messageTooltip = "Additional info message";
 
       return (
         <OnyxSelect
@@ -329,7 +331,6 @@ test.describe("Invalidity handling screenshots", () => {
           label={label}
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
-          messageTooltip={messageTooltip}
           listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
         />
@@ -340,17 +341,14 @@ test.describe("Invalidity handling screenshots", () => {
 
       // invalid is only triggered after open/closing the flyout
       await input.click();
-      await component.click();
-      await input.blur();
+      await page.getByRole("document").click(); // reset mouse
 
       await component.evaluate((element) => {
         element.style.padding = `0 5rem 3rem 2rem`;
       });
 
       if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible(
-          row === "errorTooltip" ? "error" : "message",
-        );
+        await createFormElementUtils(page).triggerTooltipVisible("message");
       }
     },
   });
@@ -370,7 +368,7 @@ test.describe("Invalidity handling screenshots", () => {
         modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
       />
     ),
-    beforeScreenshot: async (component, _page, _column, row) => {
+    beforeScreenshot: async (component, page, _column, row) => {
       const input = component.getByLabel("Test label");
 
       // invalid is only triggered after open/closing the flyout
@@ -378,7 +376,7 @@ test.describe("Invalidity handling screenshots", () => {
       await component.click();
 
       if (row !== "focus") {
-        await input.blur();
+        await page.getByRole("document").click(); // reset mouse
       }
       if (row === "hover") await input.hover();
     },

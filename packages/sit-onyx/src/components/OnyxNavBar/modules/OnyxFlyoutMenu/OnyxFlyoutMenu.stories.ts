@@ -1,4 +1,5 @@
 import globe from "@sit-onyx/icons/globe.svg?raw";
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
@@ -23,10 +24,11 @@ const meta: Meta<typeof OnyxFlyoutMenu> = {
     }),
   ],
   argTypes: {
-    default: { control: { disable: true } },
+    button: { control: { disable: true } },
     options: { control: { disable: true } },
     header: { control: { disable: true } },
     footer: { control: { disable: true } },
+    ...withNativeEventLogging(["onClick"]),
   },
 };
 
@@ -39,8 +41,8 @@ type Story = StoryObj<typeof OnyxFlyoutMenu>;
 export const Default = {
   args: {
     label: "Choose application language",
-    default: () => [
-      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe }),
+    button: ({ trigger }) => [
+      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe, ...trigger }),
     ],
     options: () => [
       h(OnyxMenuItem, { active: true }, () => "English"),

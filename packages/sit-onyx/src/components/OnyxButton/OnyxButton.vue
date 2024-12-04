@@ -89,10 +89,10 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
       }
 
       &.onyx-button--default {
-        --onyx-button-background-color: var(--onyx-color-base-primary-500);
-        --onyx-button-background-hover-color: var(--onyx-color-base-primary-400);
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
-        --onyx-button-border-color: var(--onyx-color-base-primary-500);
+        --onyx-button-background-color: var(--onyx-color-component-cta-default);
+        --onyx-button-background-hover-color: var(--onyx-color-component-cta-default-hover);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
+        --onyx-button-border-color: var(--onyx-color-component-cta-default);
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-background-color: var(--onyx-color-base-primary-200);
@@ -107,6 +107,9 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-border-color: var(--onyx-color-base-primary-200);
         }
+      }
+      &:focus-visible {
+        outline: 0.25rem solid var(--onyx-color-component-focus-primary);
       }
     }
 
@@ -137,6 +140,9 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
           --onyx-button-border-color: var(--onyx-color-base-neutral-200);
         }
       }
+      &:focus-visible {
+        outline: 0.25rem solid var(--onyx-color-component-focus-neutral);
+      }
     }
 
     &--danger {
@@ -166,14 +172,14 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
           --onyx-button-border-color: var(--onyx-color-base-danger-200);
         }
       }
+
+      &:focus-visible {
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-invalid);
+      }
     }
 
     &:hover:enabled:not(:has(.onyx-ripple__element)) {
       --onyx-button-background-color: var(--onyx-button-background-hover-color);
-    }
-
-    &:focus-visible {
-      outline: 0.25rem solid var(--onyx-button-outline-color);
     }
 
     &:disabled {

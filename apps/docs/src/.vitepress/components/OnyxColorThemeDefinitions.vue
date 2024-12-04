@@ -8,10 +8,6 @@ const primaryColors = Array.from({ length: 9 }, (_, index) => {
   return `var(--onyx-color-base-primary-${(index + 1) * 100})`;
 });
 
-const secondaryColors = Array.from({ length: 9 }, (_, index) => {
-  return `var(--onyx-color-base-secondary-${(index + 1) * 100})`;
-});
-
 const neutralColors = Array.from({ length: 9 }, (_, index) => {
   return `var(--onyx-color-base-neutral-${(index + 1) * 100})`;
 });
@@ -60,7 +56,6 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
 
         <div class="theme__colors theme__colors--themed">
           <ColorStrip name="primary" :colors="primaryColors" />
-          <ColorStrip name="secondary" :colors="secondaryColors" />
           <ColorStrip name="neutral" :colors="neutralColors" />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { onBeforeMount, onBeforeUnmount, ref, watch, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
 
 export type UseResizeObserverOptions = {
   /**
@@ -9,8 +9,16 @@ export type UseResizeObserverOptions = {
   box?: ResizeObserverBoxOptions;
 };
 
+/**
+ * Template ref of either a native HTML element or a custom Vue component.
+ */
+export type VueTemplateRefElement = Element | { $el: Element } | null | undefined;
+
 export const useResizeObserver = (
-  target: Ref<HTMLElement | undefined>,
+  /**
+   * Target to observe. If undefined, the documentElement will be observed.
+   */
+  target?: Ref<VueTemplateRefElement>,
   options?: UseResizeObserverOptions,
 ) => {
   const box = options?.box ?? "content-box";
@@ -29,15 +37,28 @@ export const useResizeObserver = (
     height.value = boxSize.reduce((acc, { blockSize }) => acc + blockSize, 0);
   };
 
-  // ensure ResizeObserver is only called before/on mount to support server side rendering
-  onBeforeMount(() => {
+  // ensure ResizeObserver is only called on mount to support server side rendering
+  onMounted(() => {
     const observer = new ResizeObserver(callback);
+
+    if (!target) {
+      observer.observe(document.documentElement, { box });
+      return;
+    }
 
     watch(
       target,
-      (newTarget, oldTarget) => {
+      (newTargetRef, oldTargetRef) => {
+        const newTarget = getTemplateRefElement(newTargetRef);
+        const oldTarget = getTemplateRefElement(oldTargetRef);
+
         if (oldTarget) observer?.unobserve(oldTarget);
         if (newTarget) observer?.observe(newTarget, { box });
+        else {
+          // target was removed (e.g. with v-if so we need to reset the size manually)
+          width.value = 0;
+          height.value = 0;
+        }
       },
       { immediate: true },
     );
@@ -46,4 +67,11 @@ export const useResizeObserver = (
   });
 
   return { width, height };
+};
+
+/**
+ * Gets the native HTML element of a template ref.
+ */
+export const getTemplateRefElement = (ref: VueTemplateRefElement) => {
+  return ref instanceof Element ? ref : ref?.$el;
 };

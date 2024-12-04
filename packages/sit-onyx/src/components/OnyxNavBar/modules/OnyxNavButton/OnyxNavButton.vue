@@ -37,7 +37,10 @@ const slots = defineSlots<{
   children?(): unknown;
 }>();
 
-const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
+const isMobile = inject(
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  computed(() => false),
+);
 const hasChildren = computed(() => !!slots.children);
 const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
 
@@ -58,6 +61,7 @@ const handleParentClick = (event: MouseEvent) => {
 
 <template>
   <NavButtonLayout
+    v-show="isMobile || isVisible"
     ref="componentRef"
     v-bind="props"
     v-model:mobile-children-open="mobileChildrenOpen"
@@ -65,17 +69,17 @@ const handleParentClick = (event: MouseEvent) => {
     :class="{
       'onyx-nav-button--mobile': isMobile,
       'onyx-nav-button--active': props.active,
-      'onyx-nav-button--hidden': !isMobile && !isVisible,
     }"
     :is-mobile="isMobile ?? false"
   >
-    <template #button>
+    <template #button="{ trigger }">
       <button
         class="onyx-nav-button__trigger onyx-text"
         :class="{ 'onyx-nav-button__link': props.href != undefined }"
         role="menuitem"
         :aria-label="props.label"
         type="button"
+        v-bind="trigger"
         @click="handleParentClick"
       >
         <slot>
@@ -109,10 +113,6 @@ $border-radius: var(--onyx-radius-sm);
     $gap: var(--onyx-spacing-2xs);
     list-style: none;
 
-    &--hidden {
-      visibility: hidden;
-    }
-
     &__trigger {
       display: inline-flex;
       position: relative;
@@ -131,7 +131,7 @@ $border-radius: var(--onyx-radius-sm);
       border: none;
 
       &:focus-visible {
-        outline: 0.25rem solid var(--onyx-color-base-secondary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
       }
     }
 
@@ -142,7 +142,7 @@ $border-radius: var(--onyx-radius-sm);
     &--active,
     &:has(.onyx-list-item--active):not(:has(.onyx-nav-button__mobile-children--open)) {
       .onyx-nav-button__trigger {
-        color: var(--onyx-color-text-icons-secondary-intense);
+        color: var(--onyx-color-text-icons-primary-intense);
         font-weight: 600;
 
         &::after {
@@ -152,7 +152,7 @@ $border-radius: var(--onyx-radius-sm);
           height: 0.125rem;
           bottom: calc(-1 * var(--onyx-spacing-2xs));
           border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
-          background: var(--onyx-color-base-secondary-500);
+          background: var(--onyx-color-base-primary-500);
           z-index: 1; // needed to display underline above the nav bar bottom border
         }
       }
@@ -225,7 +225,7 @@ $border-radius: var(--onyx-radius-sm);
       // for an active child
       .onyx-list-item--active {
         --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
-        --onyx-list-item-color-selected: var(--onyx-color-text-icons-secondary-intense);
+        --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
         background-color: var(--onyx-list-item-background-selected);
         border-color: var(--onyx-color-base-primary-200);
         font-weight: 600;
