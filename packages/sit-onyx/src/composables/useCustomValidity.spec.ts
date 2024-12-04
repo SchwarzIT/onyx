@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { nextTick, reactive } from "vue";
+import { nextTick, reactive, ref } from "vue";
 import {
   useCustomValidity,
   type InputValidationElement,
@@ -11,6 +11,7 @@ const tFunctionMock = vi.fn();
 vi.mock("../i18n", () => ({
   injectI18n: () => ({
     t: { value: tFunctionMock },
+    locale: ref("en-US"),
   }),
 }));
 
@@ -173,7 +174,7 @@ describe("useCustomValidity", () => {
     // ASSERT
     expect(errorMessages.value).toStrictEqual({
       shortMessage: "Too low",
-      longMessage: "validations.rangeUnderflow.fullError: 12/10/2024, 2:42:00 PM",
+      longMessage: "validations.rangeUnderflow.fullError: 12/10/2024, 02:42 PM",
     });
   });
 
@@ -227,7 +228,7 @@ describe("useCustomValidity", () => {
     // ASSERT
     expect(errorMessages.value).toStrictEqual({
       shortMessage: "Too high",
-      longMessage: "validations.rangeOverflow.fullError: 12/10/2024, 2:42:00 PM",
+      longMessage: "validations.rangeOverflow.fullError: 12/10/2024, 02:42 PM",
     });
   });
 });
