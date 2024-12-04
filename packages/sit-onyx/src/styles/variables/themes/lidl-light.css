@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "lidl-light" theme.
- * Imported from Figma API on Wed, 04 Dec 2024 10:25:27 GMT
+ * Imported from Figma API on Wed, 04 Dec 2024 15:16:12 GMT
  */
 :where(:root),
 .onyx-theme-lidl-light {
@@ -79,6 +79,7 @@
   --onyx-color-component-border-invalid: var(--onyx-color-base-danger-500);
   --onyx-color-component-border-invalid-hover: var(--onyx-color-base-danger-400);
   --onyx-color-component-border-neutral: var(--onyx-color-base-neutral-300);
+  --onyx-color-component-border-neutral-hover: var(--onyx-color-base-neutral-400);
   --onyx-color-component-border-primary: var(--onyx-color-base-primary-500);
   --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-400);
   --onyx-color-component-border-success: var(--onyx-color-base-success-500);
