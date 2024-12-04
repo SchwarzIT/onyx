@@ -10,6 +10,7 @@ import {
   OnyxNavButton,
   OnyxToast,
   OnyxUserMenu,
+  useThemeTransition,
   type OnyxNavButtonProps,
 } from "sit-onyx";
 import { ref, watch, type ComponentInstance } from "vue";
@@ -30,6 +31,7 @@ const navItems = [
 ] satisfies OnyxNavButtonProps[];
 
 const { store: colorScheme } = useColorMode();
+useThemeTransition(colorScheme);
 
 const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
 
