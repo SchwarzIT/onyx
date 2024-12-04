@@ -106,7 +106,7 @@ const title = computed(() => {
 
 @mixin define-focus-ring($state, $color) {
   .onyx-checkbox__container:has(.onyx-checkbox__input#{$state}) {
-    background-color: var(--onyx-color-base-#{$color}-200);
+    background-color: var(--onyx-color-component-focus-#{$color});
   }
 }
 

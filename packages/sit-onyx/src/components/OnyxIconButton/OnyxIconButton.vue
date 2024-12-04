@@ -87,7 +87,7 @@ defineSlots<{
 
     &:hover,
     &:focus-visible {
-      --icon-button-bg-color: var(--onyx-color-base-primary-200);
+      --icon-button-bg-color: var(--onyx-color-component-focus-primary);
     }
 
     &:disabled:not(&--loading) {
@@ -103,7 +103,7 @@ defineSlots<{
 
       &:hover,
       &:focus-visible {
-        --icon-button-bg-color: var(--onyx-color-base-neutral-200);
+        --icon-button-bg-color: var(--onyx-color-component-focus-neutral);
       }
 
       &:disabled:not(&--loading) {
@@ -120,7 +120,7 @@ defineSlots<{
 
       &:hover,
       &:focus-visible {
-        --icon-button-bg-color: var(--onyx-color-base-danger-200);
+        --icon-button-bg-color: var(--onyx-color-component-focus-danger);
       }
 
       &:disabled:not(&--loading) {
@@ -134,72 +134,7 @@ defineSlots<{
 
     &:disabled {
       --icon-button-bg-color: transparent;
-      --icon-button-cursor: pointer;
-
-      display: grid;
-      place-items: center;
-      color: var(--icon-button-color);
-      cursor: var(--icon-button-cursor);
-
-      outline: none;
-      appearance: none;
-      border: none;
-      background: none;
-
-      border-radius: var(--onyx-radius-full);
-      background-color: var(--icon-button-bg-color);
-
-      &:hover,
-      &:focus-visible {
-        --icon-button-bg-color: var(--onyx-color-base-primary-200);
-      }
-
-      &:disabled:not(&--loading) {
-        --icon-button-color: var(--onyx-color-text-icons-primary-soft);
-      }
-
-      &:active {
-        --icon-button-bg-color: var(--onyx-color-base-primary-300);
-      }
-
-      &--neutral {
-        --icon-button-color: var(--onyx-color-text-icons-neutral-medium);
-
-        &:hover,
-        &:focus-visible {
-          --icon-button-bg-color: var(--onyx-color-base-neutral-200);
-        }
-
-        &:disabled:not(&--loading) {
-          --icon-button-color: var(--onyx-color-base-neutral-300);
-        }
-
-        &:active {
-          --icon-button-bg-color: var(--onyx-color-base-neutral-300);
-        }
-      }
-
-      &--danger {
-        --icon-button-color: var(--onyx-color-text-icons-danger-intense);
-
-        &:hover,
-        &:focus-visible {
-          --icon-button-bg-color: var(--onyx-color-base-danger-200);
-        }
-
-        &:disabled:not(&--loading) {
-          --icon-button-color: var(--onyx-color-base-danger-300);
-        }
-
-        &:active {
-          --icon-button-bg-color: var(--onyx-color-base-danger-300);
-        }
-      }
-
-      &:disabled {
-        --icon-button-bg-color: transparent;
-        --icon-button-cursor: default;
-      }
+      --icon-button-cursor: default;
     }
   }
 }
