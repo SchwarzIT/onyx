@@ -121,6 +121,7 @@ defineSlots<{
       &:hover,
       &:focus-visible {
         --icon-button-bg-color: var(--onyx-color-component-focus-danger);
+        --icon-button-color: var(--onyx-color-text-icons-danger-bold);
       }
 
       &:disabled:not(&--loading) {
@@ -129,6 +130,7 @@ defineSlots<{
 
       &:active {
         --icon-button-bg-color: var(--onyx-color-base-danger-300);
+        --icon-button-color: var(--onyx-color-text-icons-danger-bold);
       }
     }
 
