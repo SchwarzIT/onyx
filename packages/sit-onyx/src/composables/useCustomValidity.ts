@@ -1,9 +1,10 @@
 import { computed, ref, watch, watchEffect, type Directive } from "vue";
-import type { OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
+import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
 import type { InputType } from "../components/OnyxInput/types";
 import { injectI18n } from "../i18n";
 import enUS from "../i18n/locales/en-US.json";
 import type { BaseSelectOption } from "../types";
+import { isValidDate } from "../utils/date";
 import { areObjectsFlatEqual } from "../utils/objects";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
 
@@ -25,8 +26,8 @@ export type UseCustomValidityOptions = {
     type?: InputType | OnyxDatePickerProps["type"];
     maxlength?: number;
     minlength?: number;
-    min?: number;
-    max?: number;
+    min?: DateValue;
+    max?: DateValue;
     precision?: number;
   } & Pick<BaseSelectOption, "hideLabel" | "label">;
   /**
@@ -115,7 +116,7 @@ export const getFormMessageText = (customError?: CustomMessageType): string | un
  * ```
  */
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
-  const { t } = injectI18n();
+  const { t, locale } = injectI18n();
 
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
@@ -202,8 +203,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       n: options.props.modelValue?.toString().length ?? 0,
       minLength: options.props.minlength,
       maxLength: options.props.maxlength,
-      min: options.props.min,
-      max: options.props.max,
+      min: formatMinMax(locale.value, options.props.type, options.props.min),
+      max: formatMinMax(locale.value, options.props.type, options.props.max),
       step: options.props.precision,
     };
 
@@ -223,4 +224,24 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
      */
     errorMessages,
   };
+};
+
+const formatMinMax = (
+  locale: string,
+  type: UseCustomValidityOptions["props"]["type"],
+  value?: DateValue,
+): string | undefined => {
+  if (!type || !["date", "datetime-local"].includes(type)) return value?.toString();
+
+  const date = value != undefined ? new Date(value) : undefined;
+  if (!isValidDate(date)) return value?.toString();
+
+  const format: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    ...(type === "datetime-local" ? { hour: "2-digit", minute: "2-digit" } : undefined),
+  };
+
+  return date.toLocaleString(locale, format);
 };

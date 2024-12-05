@@ -64,3 +64,45 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
     updateModelValue: ["2024-11-25T00:00:00.000Z"],
   });
 });
+
+test("should show min errors", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxDatePicker
+      label="Label"
+      min={new Date(2024, 11, 10)}
+      modelValue={new Date(2024, 11, 5)}
+    />,
+  );
+
+  await expect(component).toBeVisible();
+
+  // error is only shown after interaction so we need to interact first to see the error
+  const input = component.getByLabel("Label");
+  await input.click();
+  await input.blur();
+
+  await expect(component).toContainText("Too low");
+  await expect(component).toContainText("Value must be greater than or equal to 12/10/2024");
+});
+
+test("should show max errors", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxDatePicker
+      label="Label"
+      max={new Date(2024, 11, 6)}
+      modelValue={new Date(2024, 11, 20)}
+    />,
+  );
+
+  await expect(component).toBeVisible();
+
+  // error is only shown after interaction so we need to interact first to see the error
+  const input = component.getByLabel("Label");
+  await input.click();
+  await input.blur();
+
+  await expect(component).toContainText("Too high");
+  await expect(component).toContainText("Value must be less than or equal to 12/06/2024");
+});
