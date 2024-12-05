@@ -108,7 +108,7 @@ const isFocused = ref(false);
               value !== null
             "
             type="button"
-            class="onyx-input__Icon"
+            class="onyx-input__icon"
             aria-label="Icon"
             @mousedown.prevent
             @click="() => emit('update:modelValue', '')"
