@@ -7,6 +7,7 @@ import {
   OnyxBadge,
   OnyxButton,
   OnyxCheckboxGroup,
+  OnyxDatePicker,
   OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
@@ -29,6 +30,7 @@ import {
   OnyxTimer,
   OnyxTooltip,
   useToast,
+  type DateValue,
   type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
@@ -43,6 +45,7 @@ const COMPONENTS = [
   "OnyxBadge",
   "OnyxButton",
   "OnyxCheckboxGroup",
+  "OnyxDatePicker",
   "OnyxEmpty",
   "OnyxHeadline",
   "OnyxIcon",
@@ -130,6 +133,7 @@ const tableData = [
 
 const currentPage = ref(1);
 const selectedTab = ref("tab-1");
+const selectedDate = ref<DateValue>();
 </script>
 
 <template>
@@ -177,6 +181,8 @@ const selectedTab = ref("tab-1");
             OnyxCheckboxGroup state: {{ checkboxState }}
           </div>
         </template>
+
+        <OnyxDatePicker v-if="show('OnyxDatePicker')" v-model="selectedDate" label="Date picker" />
 
         <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
