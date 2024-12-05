@@ -193,6 +193,9 @@ $border-radius: var(--onyx-radius-sm);
 
       .onyx-nav-button__trigger {
         padding-inline: $mobile-padding;
+      }
+
+      &:not(.onyx-nav-button--active) .onyx-nav-button__trigger {
         color: var(--onyx-color-text-icons-neutral-intense);
       }
 
