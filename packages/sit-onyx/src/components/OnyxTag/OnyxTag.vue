@@ -40,11 +40,15 @@ const { densityClass } = useDensity(props);
     @each $color in $colors {
       &--#{$color} {
         --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
+
         @if $color == "primary" {
           --onyx-tag-border-color: var(--onyx-color-component-border-primary);
+        } @else if $color == "neutral" or $color == "success" {
+          --onyx-tag-border-color: var(--onyx-color-base-#{$color}-500);
         } @else {
           --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
         }
+
         @if $color == "neutral" {
           // neutral does not have a bold color so we need to use medium here
           --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);
