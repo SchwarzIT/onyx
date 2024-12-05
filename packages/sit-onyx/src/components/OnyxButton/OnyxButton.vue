@@ -148,7 +148,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
       --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
 
       &:disabled:not(.onyx-button--loading) {
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-soft);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
       }
 
       &.onyx-button--default {
@@ -157,7 +157,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
 
         &:disabled:not(.onyx-button--loading) {
           --onyx-button-background-color: var(--onyx-color-base-danger-100);
-          --onyx-button-border-color: var(--onyx-button-background-color);
+          --onyx-button-border-color: var(--onyx-color-base-danger-200);
         }
       }
 
