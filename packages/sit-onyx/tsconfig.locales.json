@@ -1,5 +1,6 @@
 {
   "include": ["src/i18n/locales/*.json"],
+  "/** imported json files are treated like .js files by tsc, therefore we need to allow js and enable emitting for them */": "",
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",
