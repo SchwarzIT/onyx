@@ -130,7 +130,7 @@ const title = computed(() => {
 
     &:hover {
       @include define-hover-border($state: ":enabled", $color: primary-hover);
-      @include define-hover-border($state: ":user-invalid", $color: invalid-hover);
+      @include define-hover-border($state: ":user-invalid", $color: danger-hover);
     }
 
     &:has(&__input:focus-visible) {
@@ -138,7 +138,7 @@ const title = computed(() => {
       @include define-hover-border($state: ":enabled", $color: primary);
 
       @include define-focus-ring($state: ":user-invalid", $color: danger);
-      @include define-hover-border($state: ":user-invalid", $color: invalid);
+      @include define-hover-border($state: ":user-invalid", $color: danger);
     }
 
     &:has(&__input:disabled) {

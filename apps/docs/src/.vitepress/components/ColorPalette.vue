@@ -73,10 +73,10 @@ function getStateColorSteps(name: OnyxColor): ColorPaletteValueProps[] {
     borderHover: Partial<Record<ExtendedOnyxColor, string>>;
     focus: Partial<Record<ExtendedOnyxColor, string>>;
   } = {
-    cta: { primary: "default", danger: "invalid", neutral: "disabled" },
-    border: { danger: "invalid", default: name },
-    borderHover: { danger: "invalid-hover", neutral: "disabled", default: `${name}-hover` },
-    focus: { danger: "invalid", default: name },
+    cta: { primary: "default", danger: "danger", neutral: "disabled" },
+    border: { danger: "danger", default: name },
+    borderHover: { danger: "danger-hover", neutral: "disabled", default: `${name}-hover` },
+    focus: { danger: "danger", default: name },
   };
 
   const cta = mappings.cta[name] || null;
