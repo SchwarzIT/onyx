@@ -2,7 +2,7 @@
   "files": [],
   "references": [
     { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.json.json" },
+    { "path": "./tsconfig.locales.json" },
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.vitest.json" },
     { "path": "./tsconfig.playwright.json" }
