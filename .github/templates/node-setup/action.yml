@@ -30,13 +30,22 @@ runs:
         node-version-file: .node-version
         cache: pnpm
 
+    - name: 📆 Get Date
+      id: get-date
+      run: |
+        echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: 🫙 Cache
       uses: actions/cache@v4
       with:
         path: |
           **/.turbo
           **/.cache
-        key: ${{ runner.os }}-caches
+        key: build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('**/.turbo', '**/.cache') }}
+        restore-keys: |
+          build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-
+          build-caches-${{ runner.os }}-
 
     - name: 📦 Install dependencies
       run: pnpm install
