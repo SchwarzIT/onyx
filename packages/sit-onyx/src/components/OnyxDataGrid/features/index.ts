@@ -1,4 +1,6 @@
 import { h, type Component, type WatchSource } from "vue";
+import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
+import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
@@ -32,7 +34,7 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
      */
     actions?: (column: keyof TEntry) => {
       iconComponent: Component;
-      listComponent?: never;
+      listItems?: (typeof OnyxListItem)[];
     }[];
   };
 };
@@ -117,13 +119,32 @@ export const useDataGridFeatures = <
       .filter((actions) => !!actions);
 
     return columns.map((column) => {
-      const iconActions = headerActions
+      const iconComponent = headerActions
         .flatMap((actionFactory) => actionFactory(column))
         .map(({ iconComponent }) => iconComponent);
 
+      const listItems = headerActions
+        .flatMap((actionFactory) => actionFactory(column))
+        .map(({ listItems }) => listItems);
+      let flyoutMenu: Component;
+
+      if (listItems.length > 0) {
+        flyoutMenu = h(
+          OnyxFlyoutMenu,
+          {
+            label: "More actions",
+          },
+          {
+            button: iconComponent,
+            options: listItems,
+          },
+        );
+      }
+
       return {
         key: column,
-        component: () => h(HeaderCell, { label: String(column) }, { actions: iconActions }),
+        component: () =>
+          h(HeaderCell, { label: String(column) }, { actions: flyoutMenu ?? iconComponent }),
         props: {},
       };
     });
