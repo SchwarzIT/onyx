@@ -192,60 +192,73 @@ const decrementLabel = computed(() =>
 <style lang="scss">
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/input.scss";
+
 .onyx-stepper,
 .onyx-stepper-skeleton {
   --onyx-stepper-padding-vertical: var(--onyx-density-xs);
 }
+
 .onyx-stepper-skeleton {
   @include input.define-skeleton-styles(
     $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
   );
 }
+
 .onyx-stepper {
   @include layers.component() {
     @include input.define-shared-styles(
       $base-selector: ".onyx-stepper",
       $vertical-padding: var(--onyx-stepper-padding-vertical)
     );
+
     &__wrapper {
       gap: 0;
       padding: 0;
       justify-content: space-between;
     }
+
     &__counter {
       border: none;
       height: 100%;
       background-color: transparent;
-      color: inherit;
+      color: var(--onyx-color-text-icons-neutral-medium);
       display: inline-flex;
       align-items: center;
       padding: var(--onyx-stepper-padding-vertical);
       border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
       outline: none;
+
       &:enabled {
         cursor: pointer;
+
         &:hover,
         &:focus-visible {
           color: var(--onyx-color-text-icons-primary-intense);
         }
+
         &:focus-visible {
           outline: none;
           background-color: var(--onyx-color-base-primary-100);
         }
+
         &:active {
           background-color: var(--onyx-color-base-primary-100);
         }
+
         &:first-child {
           border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
         }
       }
+
       &:disabled {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
+
     &__native {
       -moz-appearance: textfield;
       text-align: center;
+
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
