@@ -1,6 +1,6 @@
 name: Create a development story 📗
 description: Story template for development tasks. Exclusively used by the onyx core team for project management.
-title: "Implement|Fix|Define:"
+title: "Implement|Fix|Define"
 projects:
   - SchwarzIT/5
 labels:
@@ -47,7 +47,7 @@ body:
     id: implementation-details
     attributes:
       label: Implementation details
-      value: >-
+      value: |
         <-- Add technical details / implementation proposals if necessary, e.g.:
           - API proposal
           - relevant web APIs
@@ -59,27 +59,26 @@ body:
     id: reference-implementations
     attributes:
       label: Reference implementations
-      value: >-
+      value: |
         <!-- Add links to other frameworks. Possible examples:
           - [Nuxt UI](https://nuxt.com/docs/getting-started/installation)
           - [Elements Plus](https://element-plus.org/en-US/component/overview.html)
           - [shadcn-vue](https://www.shadcn-vue.com/docs/components/accordion.html)
           - [W3C (for structural inspiration)](https://design-system.w3.org/components)
-          -->
+        -->
 
   - type: textarea
     id: aria-pattern
     attributes:
       label: Applicable ARIA Pattern
-      value: >-
-        <!-- Add link to ARIA pattern if applicable, see [W3C ARIA patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) -->
+      value: <!-- Add link to ARIA pattern if applicable, see [W3C ARIA patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) -->
 
   - type: textarea
     id: definition-of-done
     attributes:
       label: Definition of Done
       description: For more details, please refer to our [documentation](https://onyx.schwarz/principles/definition-of-done.html).
-      value: >-
+      value: |
         - The following component requirements are implemented:
           - [ ] skeleton
           - [ ] density
@@ -101,7 +100,9 @@ body:
 
         [Storybook](<!-- LINK HERE -->)
         [Documentation](<!-- LINK HERE -->)
-        - [ ] Checked and approved by designer <!-- add your @username -->
-        - [ ] Checked and approved by dev <!-- add your @username -->
+
+        - Checked and approved by
+          - [ ] designer <!-- add your @username -->
+          - [ ] dev <!-- add your @username -->
     validations:
       required: true

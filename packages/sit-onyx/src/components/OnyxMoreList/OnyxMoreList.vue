@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { provide, reactive, ref, toRef, watch, type Ref } from "vue";
-import { useMoreList, type HTMLOrInstanceRef } from "../../composables/useMoreList";
+import { provide, ref, watch } from "vue";
+import { useMoreList } from "../../composables/useMoreList";
+import type { VueTemplateRefElement } from "../../composables/useResizeObserver";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
 const props = defineProps<OnyxMoreListProps>();
@@ -14,57 +15,74 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * List of components to render. Each child must implement the `useMoreChild()` composable.
+   * List of components to render. Each child must implement the `useMoreListChild()` composable.
    */
-  default(): unknown;
+  default(props: { attributes: object }): unknown;
   /**
    * Slot to display at the end if not all default slot elements fit in the available width.
    */
-  more(props: MoreListSlotBindings): unknown;
+  more(props: MoreListSlotBindings & { attributes: object }): unknown;
 }>();
 
-const parentRef = ref<HTMLOrInstanceRef>();
-const componentRefs = reactive(new Map<string, Ref<HTMLOrInstanceRef>>());
-const disabled = toRef(props, "disabled");
+const parentRef = ref<VueTemplateRefElement>();
+const listRef = ref<VueTemplateRefElement>();
+const moreIndicatorRef = ref<VueTemplateRefElement>();
 
-const more = useMoreList({ parentRef, componentRefs, disabled });
+const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
-provide(props.injectionKey, {
-  components: componentRefs,
-  visibleElements: more.visibleElements,
-  disabled,
-});
+provide(props.injectionKey, more);
 
-watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElements]) => {
-  emit("visibilityChange", {
-    visibleElements: visibleElements.length,
-    hiddenElements: hiddenElements.length,
-  });
-});
+watch(
+  [() => more.visibleElements.value.length, () => more.hiddenElements.value.length],
+  ([visibleElements, hiddenElements]) => {
+    emit("visibilityChange", { visibleElements, hiddenElements });
+  },
+);
 </script>
 
 <template>
-  <component :is="props.is" ref="parentRef" class="onyx-more">
-    <slot></slot>
+  <div ref="parentRef" class="onyx-more-list">
+    <slot
+      :attributes="{
+        ref: (el?: VueTemplateRefElement) => (listRef = el),
+        class: 'onyx-more-list__elements',
+      }"
+    ></slot>
+
     <slot
       v-if="more.hiddenElements.value.length > 0"
       name="more"
+      :attributes="{
+        ref: (el?: VueTemplateRefElement) => (moreIndicatorRef = el),
+        class: 'onyx-more-list__indicator',
+      }"
       :hidden-elements="more.hiddenElements.value.length"
       :visible-elements="more.visibleElements.value.length"
     ></slot>
-  </component>
+  </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-more {
+.onyx-more-list {
   @include layers.component() {
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-4xs);
-    overflow-x: clip;
+
+    &__elements {
+      display: inherit;
+      align-items: inherit;
+      gap: inherit;
+      overflow-x: clip;
+    }
+
+    &__indicator {
+      min-width: max-content;
+      max-width: 100%;
+    }
   }
 }
 </style>
