@@ -119,7 +119,10 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         }
 
         // select input chevron icon color
-        &,
+        .onyx-select-input__button {
+          color: var(--onyx-color-text-icons-neutral-medium);
+        }
+
         #{$hover-selector},
         #{$focus-selector} {
           .onyx-select-input__button {
@@ -175,6 +178,12 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
       &:enabled {
         cursor: pointer;
+        color: var(--onyx-color-text-icons-neutral-medium);
+
+        &:hover,
+        &:focus-visible {
+          color: var(--onyx-color-text-icons-neutral-intense);
+        }
 
         &:hover {
           background-color: var(--onyx-color-base-neutral-200);
