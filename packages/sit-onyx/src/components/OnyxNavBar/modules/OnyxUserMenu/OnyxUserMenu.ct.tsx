@@ -1,6 +1,6 @@
+import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
 import {
-  adjustAbsolutePositionScreenshot,
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
 } from "../../../../playwright/screenshots";
@@ -45,7 +45,7 @@ test.describe("Screenshot tests", () => {
 
       await expect(component.getByLabel("User options")).toBeVisible();
 
-      await adjustAbsolutePositionScreenshot(component);
+      await adjustAbsolutePositionScreenshot(expect, component);
       await component.evaluate((element) => (element.style.paddingLeft = "64px"));
     },
   });
