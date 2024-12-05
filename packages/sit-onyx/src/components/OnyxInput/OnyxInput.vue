@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { injectI18n } from "../../i18n";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -14,7 +15,6 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxInputProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
-  modelValue: "",
   type: "text",
   required: false,
   autocapitalize: "sentences",
@@ -38,6 +38,7 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const { t } = injectI18n();
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
@@ -47,7 +48,7 @@ const { densityClass } = useDensity(props);
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
-const value = defineModel<string>();
+const value = defineModel<string>({ default: "" });
 
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
@@ -57,7 +58,6 @@ const patternSource = computed(() => {
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
-const isFocused = ref(false);
 </script>
 
 <template>
@@ -95,28 +95,22 @@ const isFocused = ref(false);
             :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
-            @focus="isFocused = true"
-            @blur="isFocused = false"
           />
+
           <button
-            v-if="
-              !hideClearIcon &&
-              isFocused &&
-              !readonly &&
-              value !== '' &&
-              value !== undefined &&
-              value !== null
-            "
+            v-if="!props.hideClearIcon && value !== ''"
             type="button"
-            class="onyx-input__icon"
-            aria-label="Icon"
-            @mousedown.prevent
-            @click="() => emit('update:modelValue', '')"
+            class="onyx-input__clear"
+            :aria-label="t('input.clear')"
+            :title="t('input.clear')"
+            @click="() => (value = '')"
           >
-            <OnyxIcon class="onyx-clear-icon" :icon="xSmall" color="neutral" />
+            <OnyxIcon :icon="xSmall" />
           </button>
+
           <OnyxIcon
-            v-if="!isFocused && !hideSuccessIcon && successMessages"
+            v-if="!props.hideSuccessIcon && successMessages"
+            class="onyx-input__check-icon"
             :icon="checkSmall"
             color="success"
           />
@@ -150,10 +144,12 @@ const isFocused = ref(false);
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
   }
+
   ::-webkit-search-cancel-button {
     display: none;
   }
-  &__icon {
+
+  &__clear {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -162,12 +158,26 @@ const isFocused = ref(false);
     align-items: center;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    color: var(--onyx-color-text-icons-neutral-intense);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    &:focus-visible {
+      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+      border-radius: var(--onyx-radius-sm);
+    }
   }
-}
-.onyx-clear-icon {
-  cursor: pointer;
-  &:hover {
-    fill: var(--onyx-color-text-icons-primary-intense);
+
+  // hide clear icon when input is not focussed
+  &:not(&:has(&__wrapper:focus-within)),
+  &:has(&__native:read-only) {
+    .onyx-input__clear {
+      display: none;
+    }
   }
 }
 </style>
