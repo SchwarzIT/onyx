@@ -3,7 +3,7 @@
  * This file contains the specific variables for the "kaufland-dark" theme.
  * Imported from Figma API on Tue, 03 Dec 2024 10:20:05 GMT
  */
-:where(.dark),
+.dark,
 .onyx-theme-kaufland-dark {
   --onyx-color-base-background-blank: var(--onyx-color-stone-1100);
   --onyx-color-base-background-tinted: var(--onyx-color-stone-1200);
