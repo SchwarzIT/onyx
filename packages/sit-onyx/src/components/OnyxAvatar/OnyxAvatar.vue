@@ -31,7 +31,7 @@ watch(
 
 <template>
   <figure
-    class="onyx-avatar"
+    class="onyx-component onyx-avatar"
     :class="[`onyx-avatar--${props.size}`, slots.default ? 'onyx-avatar--custom' : '']"
     :title="props.label"
   >

@@ -24,7 +24,7 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="onyx-mobile-nav-button">
+  <div class="onyx-component onyx-mobile-nav-button">
     <button
       type="button"
       class="onyx-mobile-nav-button__trigger"

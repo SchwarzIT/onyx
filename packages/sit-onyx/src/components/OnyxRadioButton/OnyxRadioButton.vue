@@ -38,7 +38,7 @@ const skeleton = useSkeletonContext(props);
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
-    <label :class="['onyx-radio-button', densityClass]">
+    <label :class="['onyx-component', 'onyx-radio-button', densityClass]">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
       <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
       <input

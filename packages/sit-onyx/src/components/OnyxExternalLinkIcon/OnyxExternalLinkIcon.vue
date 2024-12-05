@@ -20,7 +20,7 @@ const isVisible = computed(() => {
 <template>
   <OnyxIcon
     v-if="isVisible"
-    class="onyx-external-link-icon"
+    class="onyx-component onyx-external-link-icon"
     :icon="arrowSmallUpRight"
     size="16px"
   />

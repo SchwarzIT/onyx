@@ -59,7 +59,11 @@ const isChecked = computed({
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="shownErrorMessages">
-    <label class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
+    <label
+      class="onyx-component onyx-switch"
+      :class="[requiredTypeClass, densityClass]"
+      :title="title"
+    >
       <input
         v-model="isChecked"
         v-custom-validity

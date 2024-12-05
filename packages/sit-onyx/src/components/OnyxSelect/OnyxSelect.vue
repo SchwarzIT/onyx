@@ -343,6 +343,7 @@ const selectInputProps = computed(() => {
 
     <div
       :class="[
+        'onyx-component',
         'onyx-select',
         densityClass,
         open ? 'onyx-select--open' : '',

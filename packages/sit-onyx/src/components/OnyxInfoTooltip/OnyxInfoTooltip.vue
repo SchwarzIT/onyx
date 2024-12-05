@@ -19,7 +19,7 @@ const type = computed(() => {
 </script>
 
 <template>
-  <span class="onyx-info-tooltip">
+  <span class="onyx-component onyx-info-tooltip">
     <template v-if="type === 'click'">
       <OnyxTooltip
         :text="props.text"

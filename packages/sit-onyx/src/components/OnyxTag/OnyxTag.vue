@@ -11,7 +11,7 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div :class="['onyx-tag', `onyx-tag--${props.color}`, densityClass]">
+  <div :class="['onyx-component', 'onyx-tag', `onyx-tag--${props.color}`, densityClass]">
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
     <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
   </div>

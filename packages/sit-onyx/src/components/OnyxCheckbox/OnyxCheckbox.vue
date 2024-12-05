@@ -54,7 +54,11 @@ const title = computed(() => {
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
-    <label class="onyx-checkbox" :class="[requiredTypeClass, densityClass]" :title="title">
+    <label
+      class="onyx-component onyx-checkbox"
+      :class="[requiredTypeClass, densityClass]"
+      :title="title"
+    >
       <div class="onyx-checkbox__container">
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
         <input

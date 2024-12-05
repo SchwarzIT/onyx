@@ -1,5 +1,5 @@
 <template>
-  <figure aria-hidden="true" class="onyx-skeleton"></figure>
+  <figure aria-hidden="true" class="onyx-component onyx-skeleton"></figure>
 </template>
 
 <style lang="scss">
