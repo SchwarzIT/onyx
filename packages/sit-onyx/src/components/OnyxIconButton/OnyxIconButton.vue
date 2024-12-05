@@ -29,7 +29,7 @@ defineSlots<{
 
   <button
     v-else
-    class="onyx-icon-button"
+    class="onyx-component onyx-icon-button"
     :aria-label="props.label"
     :title="props.label"
     :type="props.type"

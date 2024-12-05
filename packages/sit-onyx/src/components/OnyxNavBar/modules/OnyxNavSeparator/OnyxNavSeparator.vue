@@ -12,7 +12,7 @@ const isMobile = inject(MOBILE_NAV_BAR_INJECTION_KEY);
 
 <template>
   <div
-    class="onyx-nav-separator"
+    class="onyx-component onyx-nav-separator"
     :class="{ 'onyx-nav-separator--horizontal': props.orientation === 'horizontal' || isMobile }"
     role="separator"
     :aria-orientation="props.orientation"

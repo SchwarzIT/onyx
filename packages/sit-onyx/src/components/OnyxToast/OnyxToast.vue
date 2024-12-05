@@ -9,7 +9,7 @@ const toastProvider = useToast();
 <template>
   <dialog
     v-if="toastProvider.toasts.value.length"
-    class="onyx-toast"
+    class="onyx-component onyx-toast"
     role="presentation"
     aria-live="polite"
     open

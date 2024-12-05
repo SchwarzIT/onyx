@@ -45,7 +45,7 @@ watch([more.visibleElements, more.hiddenElements], ([visibleElements, hiddenElem
 </script>
 
 <template>
-  <component :is="props.is" ref="parentRef" class="onyx-more">
+  <component :is="props.is" ref="parentRef" class="onyx-component onyx-more">
     <slot></slot>
     <slot
       v-if="more.hiddenElements.value.length > 0"

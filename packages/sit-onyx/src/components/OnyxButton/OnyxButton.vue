@@ -31,6 +31,7 @@ const rippleEvents = computed(() => rippleRef.value?.events ?? {});
   <button
     v-else
     :class="[
+      'onyx-component',
       'onyx-button',
       `onyx-button--${props.color}`,
       `onyx-button--${props.mode}`,

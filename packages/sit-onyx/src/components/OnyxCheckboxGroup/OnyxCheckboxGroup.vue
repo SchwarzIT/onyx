@@ -59,7 +59,7 @@ const checkAllLabel = computed(() => {
 
 <template>
   <fieldset
-    :class="['onyx-checkbox-group', densityClass]"
+    :class="['onyx-component', 'onyx-checkbox-group', densityClass]"
     :disabled="disabled"
     :aria-label="props.label"
   >

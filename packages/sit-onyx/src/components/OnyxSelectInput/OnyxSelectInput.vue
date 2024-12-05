@@ -123,6 +123,7 @@ const blockTyping = (event: KeyboardEvent) => {
   <div
     v-else
     :class="[
+      'onyx-component',
       'onyx-select-input',
       densityClass,
       errorClass,

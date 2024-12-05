@@ -19,7 +19,7 @@ defineSlots<{
 
 <template>
   <OnyxListItem
-    class="onyx-select-option"
+    class="onyx-component onyx-select-option"
     v-bind="props"
     :checked="!!$attrs['aria-checked']"
     :selected="!!$attrs['aria-selected']"

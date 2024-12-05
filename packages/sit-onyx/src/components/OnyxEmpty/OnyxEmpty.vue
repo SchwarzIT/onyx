@@ -20,7 +20,7 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div :class="['onyx-empty', densityClass]">
+  <div :class="['onyx-component', 'onyx-empty', densityClass]">
     <slot name="icon">
       <OnyxIcon :icon="circleX" size="48px" />
     </slot>

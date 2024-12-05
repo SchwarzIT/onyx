@@ -128,7 +128,13 @@ watch(isVisible, async () => {
     <div
       ref="tooltipRef"
       v-bind="tooltip"
-      :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
+      :class="[
+        'onyx-component',
+        'onyx-tooltip',
+        'onyx-text--small',
+        'onyx-truncation-multiline',
+        tooltipClasses,
+      ]"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <slot name="tooltip">{{ props.text }}</slot>

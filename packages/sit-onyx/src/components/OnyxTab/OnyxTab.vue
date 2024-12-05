@@ -44,6 +44,7 @@ const tab = computed(() =>
   <button
     v-else
     :class="[
+      'onyx-component',
       'onyx-tab',
       densityClass,
       sizeClass,

@@ -45,7 +45,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
       :tabindex="props.withPageScrolling ? undefined : 0"
     >
       <table
-        class="onyx-table onyx-text"
+        class="onyx-component onyx-table onyx-text"
         :class="[
           props.striped ? 'onyx-table--striped' : '',
           props.withVerticalBorders ? 'onyx-table--vertical-borders' : '',
