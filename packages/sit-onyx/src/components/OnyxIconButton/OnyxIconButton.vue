@@ -67,7 +67,6 @@ defineSlots<{
 .onyx-icon-button {
   @include layers.component {
     --icon-button-color: var(--onyx-color-text-icons-primary-intense);
-    --icon-button-color: var(--onyx-color-text-icons-primary-intense);
     --icon-button-bg-color: transparent;
     --icon-button-cursor: pointer;
 
@@ -87,7 +86,8 @@ defineSlots<{
 
     &:hover,
     &:focus-visible {
-      --icon-button-bg-color: var(--onyx-color-component-focus-primary);
+      --icon-button-bg-color: var(--onyx-color-base-primary-200);
+      --icon-button-color: var(--onyx-color-text-icons-primary-bold);
     }
 
     &:disabled:not(&--loading) {
@@ -96,6 +96,7 @@ defineSlots<{
 
     &:active {
       --icon-button-bg-color: var(--onyx-color-base-primary-300);
+      --icon-button-color: var(--onyx-color-text-icons-primary-bold);
     }
 
     &--neutral {
@@ -103,15 +104,17 @@ defineSlots<{
 
       &:hover,
       &:focus-visible {
-        --icon-button-bg-color: var(--onyx-color-component-focus-neutral);
+        --icon-button-bg-color: var(--onyx-color-base-neutral-200);
+        --icon-button-color: var(--onyx-color-text-icons-neutral-intense);
       }
 
       &:disabled:not(&--loading) {
-        --icon-button-color: var(--onyx-color-base-neutral-300);
+        --icon-button-color: var(--onyx-color-text-icons-neutral-soft);
       }
 
       &:active {
         --icon-button-bg-color: var(--onyx-color-base-neutral-300);
+        --icon-button-color: var(--onyx-color-text-icons-neutral-intense);
       }
     }
 
@@ -120,12 +123,12 @@ defineSlots<{
 
       &:hover,
       &:focus-visible {
-        --icon-button-bg-color: var(--onyx-color-component-focus-danger);
+        --icon-button-bg-color: var(--onyx-color-base-danger-200);
         --icon-button-color: var(--onyx-color-text-icons-danger-bold);
       }
 
       &:disabled:not(&--loading) {
-        --icon-button-color: var(--onyx-color-base-danger-300);
+        --icon-button-color: var(--onyx-color-text-icons-danger-soft);
       }
 
       &:active {
