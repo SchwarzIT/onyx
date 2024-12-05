@@ -353,6 +353,9 @@ importers:
 
   packages/playwright-utils:
     dependencies:
+      '@axe-core/playwright':
+        specifier: '>= 4'
+        version: 4.10.1(playwright-core@1.49.0)
       '@playwright/experimental-ct-vue':
         specifier: '>= 1'
         version: 1.49.0(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0)(vite@5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.13(typescript@5.7.2))
@@ -393,6 +396,9 @@ importers:
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
+      '@sit-onyx/playwright-utils':
+        specifier: workspace:^
+        version: link:../playwright-utils
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils

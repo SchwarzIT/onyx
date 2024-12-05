@@ -22,6 +22,7 @@
     "build": "tsc --noEmit"
   },
   "peerDependencies": {
+    "@axe-core/playwright": ">= 4",
     "@playwright/experimental-ct-vue": ">= 1",
     "@playwright/test": ">= 1",
     "vue": ">= 3"

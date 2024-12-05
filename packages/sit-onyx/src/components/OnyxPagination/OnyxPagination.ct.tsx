@@ -1,9 +1,7 @@
+import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import {
-  adjustAbsolutePositionScreenshot,
-  executeMatrixScreenshotTest,
-} from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxPagination from "./OnyxPagination.vue";
 
 test.describe("screenshot tests", () => {
@@ -34,7 +32,7 @@ test.describe("screenshot tests", () => {
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "open") {
         await component.getByLabel("Page selection").click();
-        await adjustAbsolutePositionScreenshot(component);
+        await adjustAbsolutePositionScreenshot(expect, component);
       }
     },
   });

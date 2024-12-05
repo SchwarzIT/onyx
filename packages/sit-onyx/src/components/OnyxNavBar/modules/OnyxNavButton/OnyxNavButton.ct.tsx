@@ -1,10 +1,7 @@
 import type { Locator } from "@playwright/test";
+import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
-import {
-  adjustAbsolutePositionScreenshot,
-  executeMatrixScreenshotTest,
-  type MatrixScreenshotTestOptions,
-} from "../../../../playwright/screenshots";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import MobileComponentTestWrapper from "./MobileComponentTestWrapper.ct.vue";
@@ -15,9 +12,7 @@ import OnyxNavButton from "./OnyxNavButton.vue";
  * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
  * to have a parent with role="menu".
  */
-const disabledAccessibilityRules: MatrixScreenshotTestOptions["disabledAccessibilityRules"] = [
-  "aria-required-parent",
-];
+const disabledAccessibilityRules: string[] = ["aria-required-parent"];
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -69,7 +64,7 @@ test.describe("Screenshot tests with nested children", () => {
 
       const flyout = page.getByLabel("Subpages of Item");
       await isFlyoutVisible(flyout);
-      await adjustAbsolutePositionScreenshot(component);
+      await adjustAbsolutePositionScreenshot(expect, component);
     },
   });
 });
