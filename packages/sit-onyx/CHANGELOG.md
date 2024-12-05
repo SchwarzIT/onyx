@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.81
+
+### Minor Changes
+
+- 9e3e8c7: - made the import order of light/dark theme files irrelevant
+  - changed figma dark-themes import from where(dark) to dark
+
 ## 1.0.0-beta.80
 
 ### Minor Changes
