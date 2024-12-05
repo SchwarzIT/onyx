@@ -133,7 +133,7 @@ export const useDataGridFeatures = <
           OnyxFlyoutMenu,
           {
             label: "More actions",
-            role: "button",
+            role: "menu",
           },
           {
             button: iconComponent,
