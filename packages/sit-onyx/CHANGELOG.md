@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.80
+
+### Minor Changes
+
+- abf8414: feat(OnyxCheckboxGroup, OnyxRadioGroup): Add label tooltip
+
 ## 1.0.0-beta.79
 
 ### Minor Changes
