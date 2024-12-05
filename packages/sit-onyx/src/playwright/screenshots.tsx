@@ -82,9 +82,11 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       const box = await component.boundingBox();
 
       // accessibility tests
-      const accessibilityScanResults = await makeAxeBuilder()
-        .disableRules(options.disabledAccessibilityRules ?? [])
-        .analyze();
+      const axeBuilder = makeAxeBuilder();
+      if (options.disabledAccessibilityRules?.length) {
+        axeBuilder.disableRules(options.disabledAccessibilityRules);
+      }
+      const accessibilityScanResults = await axeBuilder.analyze();
       expect(
         accessibilityScanResults.violations,
         `should pass accessibility checks for ${column} ${row}`,

@@ -17,7 +17,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   const dialog = page.getByRole("dialog", { name: "Column configuration" });
 
   // ACT
-  const accessibilityScanResults = await makeAxeBuilder().disableRules().analyze();
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
