@@ -24,15 +24,23 @@ const props = defineProps<{
   browserName: string;
 }>();
 
+const escapeGridAreaName = (name: string) => {
+  return name.replace(/ /g, "-");
+};
+
 /**
  * CSS "grid-template-areas" for the current columns and rows.
  * Every grid element must have the "grid-area" set to `{row}-{column}` to place it correctly.
  */
 const gridTemplateAreas = computed(() => {
-  const lines: string[] = [`"blank ${props.columns.map((col) => `column-${col}`).join(" ")}"`];
+  const lines: string[] = [
+    `"blank ${props.columns.map((col) => `column-${escapeGridAreaName(col)}`).join(" ")}"`,
+  ];
 
   props.rows.forEach((row) => {
-    lines.push(`"row-${row} ${props.columns.map((col) => `${row}-${col}`).join(" ")}"`);
+    lines.push(
+      `"row-${escapeGridAreaName(row)} ${props.columns.map((col) => `${escapeGridAreaName(row)}-${escapeGridAreaName(col)}`).join(" ")}"`,
+    );
   });
 
   return lines.join("\n");
@@ -57,7 +65,7 @@ const gridTemplateAreas = computed(() => {
         v-for="column of props.columns"
         :key="column"
         class="grid__label"
-        :style="{ gridArea: `column-${column}` }"
+        :style="{ gridArea: `column-${escapeGridAreaName(column)}` }"
       >
         {{ column }}
       </div>
@@ -66,7 +74,7 @@ const gridTemplateAreas = computed(() => {
         v-for="row of props.rows"
         :key="row"
         class="grid__label"
-        :style="{ gridArea: `row-${row}` }"
+        :style="{ gridArea: `row-${escapeGridAreaName(row)}` }"
       >
         {{ row }}
       </div>
