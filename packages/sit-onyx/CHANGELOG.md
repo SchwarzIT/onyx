@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.79
+
+### Minor Changes
+
+- c8beae4: feat(OnyxDatePicker): implement `min` and `max` property
+
+  Also fix the bug where the value is always `undefined`, when using `type="datetime-local"`
+
 ## 1.0.0-beta.78
 
 ### Minor Changes
