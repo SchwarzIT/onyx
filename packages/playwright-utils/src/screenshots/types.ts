@@ -1,5 +1,15 @@
-import type { MountResultJsx, test } from "@playwright/experimental-ct-vue";
+import type AxeBuilder from "@axe-core/playwright";
+import type { expect, MountResultJsx, test } from "@playwright/experimental-ct-vue";
 import type { JSX } from "vue/jsx-runtime";
+
+export type UseMatrixScreenshotTestOptions = {
+  test: ReturnType<typeof test.extend<AxeFixture>>;
+  expect: typeof expect;
+};
+
+export type AxeFixture = {
+  makeAxeBuilder: () => AxeBuilder;
+};
 
 export type MatrixScreenshotTestOptions<
   TColumn extends string = string,
@@ -33,8 +43,7 @@ export type MatrixScreenshotTestOptions<
   ) => Promise<void>;
   /**
    * Rules to disable when performing the accessibility tests.
-   * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed
-   * and if possible create a GitHub issue with follow up work on it.
+   * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed.
    *
    * @see https://playwright.dev/docs/accessibility-testing#disabling-individual-scan-rules
    */
