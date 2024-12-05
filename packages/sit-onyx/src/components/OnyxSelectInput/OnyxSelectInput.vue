@@ -51,7 +51,6 @@ const messages = computed(() => getFormMessages(props.message));
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
-const isFocused = ref(false);
 
 /**
  * Number of selected options.
@@ -173,8 +172,6 @@ const blockTyping = (event: KeyboardEvent) => {
             :autofocus="props.autofocus"
             autocomplete="off"
             @keydown="blockTyping"
-            @focus="isFocused = true"
-            @blur="isFocused = false"
           />
 
           <!-- TODO: figure out how the tooltip width can be sized to the select-input
@@ -202,8 +199,10 @@ const blockTyping = (event: KeyboardEvent) => {
           >
             <OnyxIcon :icon="chevronDownUp" />
           </button>
+
           <OnyxIcon
-            v-if="!hideSuccessIcon && successMessages && !props.showFocus && !isFocused"
+            v-if="!props.hideSuccessIcon && successMessages"
+            class="onyx-select-input__check-icon"
             :icon="checkSmall"
             color="success"
           />

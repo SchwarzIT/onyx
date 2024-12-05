@@ -84,6 +84,14 @@
         background-color: var(--onyx-color-base-warning-100);
       }
     }
+
+    // hide success check icon when input is focussed
+    &:focus-within,
+    &:has(#{$base-selector}__native--show-focus) {
+      #{$base-selector}__check-icon {
+        display: none;
+      }
+    }
   }
 
   &__loading {
