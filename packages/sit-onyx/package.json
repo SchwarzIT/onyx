@@ -19,7 +19,7 @@
     },
     "./style.css": "./dist/style.css",
     "./global.css": "./src/styles/global.css",
-    "./locales/*": "./src/i18n/locales/*",
+    "./locales/*": "./dist/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",
     "./themes/*": "./src/styles/variables/themes/*"

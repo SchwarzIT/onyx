@@ -1,0 +1,12 @@
+{
+  "include": ["src/i18n/locales/*.json"],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": false,
+    "allowJs": true,
+    "baseUrl": "."
+  }
+}
