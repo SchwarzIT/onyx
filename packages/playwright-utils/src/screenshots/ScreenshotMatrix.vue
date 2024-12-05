@@ -84,8 +84,7 @@ const gridTemplateAreas = computed(() => {
   </div>
 </template>
 
-<!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
-<style lang="scss" scoped>
+<style scoped>
 .wrapper {
   width: max-content;
 }
@@ -93,12 +92,12 @@ const gridTemplateAreas = computed(() => {
 .meta {
   font-family: Arial, sans-serif;
   margin-bottom: 2rem;
+}
 
-  &__name {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    margin: 0;
-  }
+.meta__name {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 0;
 }
 
 .grid {
@@ -110,12 +109,13 @@ const gridTemplateAreas = computed(() => {
 
   align-items: center;
   justify-content: center;
+}
 
-  &__label {
-    text-align: center;
-  }
-  &__blank {
-    grid-area: blank;
-  }
+.grid__label {
+  text-align: center;
+}
+
+.grid__blank {
+  grid-area: blank;
 }
 </style>
