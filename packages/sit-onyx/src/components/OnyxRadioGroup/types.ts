@@ -11,7 +11,7 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
     RequiredMarkerProp &
     CustomValidityProp &
     Pick<BaseSelectOption, "truncation"> &
-    Pick<SharedFormElementProps, "label" | "hideLabel" | "name"> & {
+    Pick<SharedFormElementProps, "label" | "labelTooltip" | "hideLabel" | "name"> & {
       /**
        * Options for the individual radio buttons of the group.
        */
