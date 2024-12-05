@@ -2,6 +2,7 @@ import type { Locator } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import ScreenshotMatrix from "./ScreenshotMatrix.vue";
 import type { MatrixScreenshotTestOptions, UseMatrixScreenshotTestOptions } from "./types";
+import { escapeGridAreaName } from "./utils";
 
 export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTestOptions) => {
   const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
@@ -44,15 +45,18 @@ export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTes
 
         const id = `${row}-${column}`;
 
-        return (
+        const image = (
           <img
             width={box?.width}
             height={box?.height}
-            style={{ gridArea: id }}
+            style={{ gridArea: escapeGridAreaName(id) }}
             src={`data:image/png;base64,${Buffer.from(screenshot).toString("base64")}`}
             alt={id}
           />
         );
+
+        await options.afterScreenshot?.(component, page, column, row);
+        return image;
       };
 
       const screenshots: JSX.Element[] = [];
