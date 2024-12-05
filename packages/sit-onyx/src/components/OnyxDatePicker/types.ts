@@ -20,6 +20,16 @@ export type OnyxDatePickerProps = Omit<
    * Whether the user should be able to select only date or date + time.
    */
   type?: "date" | "datetime-local";
+  /**
+   * Min. / earliest selectable date (inclusive).
+   * When using `type="datetime-local"`, the user can still select a invalid time but the datepicker will show an error.
+   */
+  min?: DateValue;
+  /**
+   * Max. / latest selectable date (inclusive).
+   * When using `type="datetime-local"`, the user can still select a invalid time but the datepicker will show an error.
+   */
+  max?: DateValue;
 };
 
 /** Data types that are parsable as date via `new Date()`. */
