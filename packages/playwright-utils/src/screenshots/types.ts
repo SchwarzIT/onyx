@@ -34,13 +34,15 @@ export type MatrixScreenshotTestOptions<
   /**
    * Optional callback to be executed before capturing the screenshot.
    * Useful for performing `expect()` or e.g. hover, focus-visible state etc.
+   * Focus and mouse will be reset after each screenshot.
    */
-  beforeScreenshot?: (
-    component: MountResultJsx,
-    page: TestArgs["page"],
-    column: TColumn,
-    row: TRow,
-  ) => Promise<void>;
+  beforeScreenshot?: ScreenshotTestHook<TColumn, TRow>;
+  /**
+   * Optional callback to be executed after capturing the screenshot.
+   * Useful for performing clean ups of side effects created by `beforeScreenshot`.
+   * Focus and mouse will be reset after each screenshot.
+   */
+  afterScreenshot?: ScreenshotTestHook<TColumn, TRow>;
   /**
    * Rules to disable when performing the accessibility tests.
    * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed.
@@ -55,4 +57,11 @@ export type MatrixScreenshotTestOptions<
   disablePadding?: boolean;
 };
 
-type TestArgs = Parameters<Parameters<typeof test>[2]>[0];
+export type ScreenshotTestHook<TColumn extends string, TRow extends string> = (
+  component: MountResultJsx,
+  page: TestArgs["page"],
+  column: TColumn,
+  row: TRow,
+) => Promise<void>;
+
+export type TestArgs = Parameters<Parameters<typeof test>[2]>[0];

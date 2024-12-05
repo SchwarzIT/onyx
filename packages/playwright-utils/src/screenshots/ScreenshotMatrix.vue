@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { escapeGridAreaName } from "./utils";
 
 defineSlots<{
   default: () => unknown;
@@ -23,10 +24,6 @@ const props = defineProps<{
    */
   browserName: string;
 }>();
-
-const escapeGridAreaName = (name: string) => {
-  return name.replace(/ /g, "-");
-};
 
 /**
  * CSS "grid-template-areas" for the current columns and rows.
