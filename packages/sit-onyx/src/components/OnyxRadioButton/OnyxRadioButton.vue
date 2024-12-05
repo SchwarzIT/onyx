@@ -105,20 +105,20 @@ const skeleton = useSkeletonContext(props);
       --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
     }
     &:has(&__selector:invalid) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-danger);
       --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
     }
 
     &:has(&__selector:invalid:checked) {
-      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-invalid);
+      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-danger);
     }
 
     &:has(&__selector:invalid:checked:hover) {
-      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-invalid-hover);
+      --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-danger-hover);
       --onyx-radio-button-selector-border-color: var(--onyx-radio-button-selector-background-color);
     }
     &:has(&__selector:invalid:focus-visible) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-invalid);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-danger);
     }
 
     &:has(&__selector:disabled) {

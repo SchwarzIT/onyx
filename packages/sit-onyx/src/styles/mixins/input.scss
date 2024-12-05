@@ -121,11 +121,11 @@
     --error-message-display: inline-flex;
     --message-display: none;
     --success-message-display: none;
-    --border-color: var(--onyx-color-component-border-invalid);
+    --border-color: var(--onyx-color-component-border-danger);
     --outline-color: var(--onyx-color-component-focus-danger);
     --selection-color: var(--onyx-color-base-danger-200);
-    --focus-border-color: var(--onyx-color-component-border-invalid);
-    --hover-border-color: var(--onyx-color-component-border-invalid-hover);
+    --focus-border-color: var(--onyx-color-component-border-danger);
+    --hover-border-color: var(--onyx-color-component-border-danger-hover);
     --button-hover-color: var(--onyx-color-text-icons-danger-medium);
     --button-focus-color: var(--onyx-color-text-icons-danger-intense);
   }
