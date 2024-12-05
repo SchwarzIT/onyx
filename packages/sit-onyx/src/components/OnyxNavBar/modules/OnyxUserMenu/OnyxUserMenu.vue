@@ -35,7 +35,7 @@ const isMobile = inject(
 
 <template>
   <UserMenuLayout
-    class="onyx-user-menu"
+    class="onyx-component onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
     :flyout-open="flyoutOpen"

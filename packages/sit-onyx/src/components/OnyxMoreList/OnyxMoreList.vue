@@ -42,7 +42,7 @@ watch(
 </script>
 
 <template>
-  <div ref="parentRef" class="onyx-more-list">
+  <div ref="parentRef" class="onyx-component onyx-more-list">
     <slot
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),

@@ -122,7 +122,7 @@ const decrementLabel = computed(() =>
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
     <OnyxSkeleton class="onyx-stepper-skeleton__input" />
   </div>
-  <div v-else :class="['onyx-stepper', densityClass, errorClass]">
+  <div v-else :class="['onyx-component', 'onyx-stepper', densityClass, errorClass]">
     <OnyxFormElement
       v-bind="props"
       :message="messages"

@@ -8,7 +8,7 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="onyx-avatar-stack">
+  <div class="onyx-component onyx-avatar-stack">
     <slot></slot>
   </div>
 </template>

@@ -20,7 +20,7 @@ const isOpen = ref(false);
 </script>
 
 <template>
-  <OnyxMenuItem class="onyx-color-scheme-menu-item" @click="isOpen = true">
+  <OnyxMenuItem class="onyx-component onyx-color-scheme-menu-item" @click="isOpen = true">
     <OnyxIcon :icon="circleContrast" />
 
     <div>

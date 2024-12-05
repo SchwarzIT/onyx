@@ -8,7 +8,7 @@ const props = defineProps<OnyxIconProps>();
   <!-- eslint-disable vue/no-v-html -->
   <figure
     :class="{
-      'onyx-icon': true,
+      'onyx-component onyx-icon': true,
       [`onyx-icon--${props.size}`]: props.size,
       [`onyx-icon--${props.color}`]: props.color,
     }"

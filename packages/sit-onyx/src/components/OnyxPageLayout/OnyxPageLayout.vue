@@ -29,7 +29,7 @@ const pageModifier = computed(() => {
 </script>
 
 <template>
-  <div class="onyx-page" :class="pageModifier">
+  <div class="onyx-component onyx-page" :class="pageModifier">
     <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
     </aside>

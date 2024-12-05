@@ -81,7 +81,7 @@ const value = computed({
     <OnyxSkeleton class="onyx-datepicker-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-datepicker', densityClass, errorClass]">
+  <div v-else :class="['onyx-component', 'onyx-datepicker', densityClass, errorClass]">
     <OnyxFormElement
       v-bind="props"
       :error-messages="errorMessages"

@@ -12,7 +12,10 @@ defineSlots<{
 </script>
 
 <template>
-  <component :is="props.is" :class="['onyx-headline', `onyx-headline--${props.is}`]">
+  <component
+    :is="props.is"
+    :class="['onyx-component', 'onyx-headline', `onyx-headline--${props.is}`]"
+  >
     <slot></slot>
   </component>
 </template>

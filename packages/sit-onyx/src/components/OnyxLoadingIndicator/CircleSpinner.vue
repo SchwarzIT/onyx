@@ -1,5 +1,5 @@
 <template>
-  <svg class="onyx-circle-spinner" viewBox="0 0 50 50">
+  <svg class="onyx-component onyx-circle-spinner" viewBox="0 0 50 50">
     <circle class="onyx-circle-spinner__circle" cx="50%" cy="50%" r="45%" />
   </svg>
 </template>
