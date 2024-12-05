@@ -17,12 +17,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   const dialog = page.getByRole("dialog", { name: "Column configuration" });
 
   // ACT
-  const accessibilityScanResults = await makeAxeBuilder()
-    .disableRules(
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      ["color-contrast"],
-    )
-    .analyze();
+  const accessibilityScanResults = await makeAxeBuilder().disableRules().analyze();
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);

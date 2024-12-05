@@ -8,8 +8,6 @@ test.describe("Screenshot tests", () => {
     name: "Color scheme dialog",
     columns: ["default", "active"],
     rows: ["default", "hover", "mobile"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
       <OnyxColorSchemeDialog modelValue={column === "active" ? "auto" : undefined} open />
     ),

@@ -15,13 +15,12 @@ type AxeFixture = {
  *
  * @see https://playwright.dev/docs/accessibility-testing#using-a-test-fixture-for-common-axe-configuration
  */
-
-// TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-
 export const test: ReturnType<typeof base.extend<AxeFixture>> = base.extend<AxeFixture>({
   makeAxeBuilder: async ({ page }, use) => {
     const makeAxeBuilder = () => {
-      return new AxeBuilder({ page }).withTags(a11yTags).disableRules("color-contrast");
+      // TODO: re-enable color-contrast rule when color contrasts issues are fixed in:
+      // https://github.com/SchwarzIT/onyx/issues/2250
+      return new AxeBuilder({ page }).withTags(a11yTags).disableRules(["color-contrast"]);
     };
 
     await use(makeAxeBuilder);

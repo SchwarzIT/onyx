@@ -82,9 +82,8 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       const box = await component.boundingBox();
 
       // accessibility tests
-      // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
       const accessibilityScanResults = await makeAxeBuilder()
-        .disableRules(["color-contrast", ...(options.disabledAccessibilityRules ?? [])])
+        .disableRules(options.disabledAccessibilityRules ?? [])
         .analyze();
       expect(
         accessibilityScanResults.violations,
