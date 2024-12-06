@@ -20,8 +20,6 @@ test.describe("Screenshot tests", () => {
       name: `Toast message (${mode})`,
       columns: DENSITIES,
       rows: TOAST_COLORS,
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => (
         <OnyxToastMessage
           headline="Test toast"
@@ -42,8 +40,6 @@ test.describe("Screenshot tests (description)", () => {
     name: "Toast message (description)",
     columns: DENSITIES,
     rows: TOAST_COLORS,
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxToastMessage
         headline="Test toast"

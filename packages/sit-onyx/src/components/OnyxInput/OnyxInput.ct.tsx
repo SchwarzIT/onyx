@@ -37,8 +37,6 @@ test.describe("Screenshot tests", () => {
     name: "Input (required/optional, message/counter)",
     columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message", "counter"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -67,8 +65,6 @@ test.describe("Screenshot tests", () => {
     name: "Input (labelTooltip/messageTooltip)",
     columns: ["default", "long-text"],
     rows: ["labelTooltip", "messageTooltip"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very very long label that should be truncated" : "Test label";
@@ -105,8 +101,6 @@ test.describe("Screenshot tests", () => {
     name: "Input (message replacement on invalid)",
     columns: ["default", "long-text", "with-counter"],
     rows: ["messageTooltip", "error", "errorTooltip"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const showLongMessage = column !== "default";
       const label = column === "long-text" ? "Test label that should be truncated" : "Test label";
@@ -156,8 +150,6 @@ test.describe("Screenshot tests", () => {
     name: "Input (required/optional) with label tooltip",
     columns: ["default", "long-text"],
     rows: ["required", "optional"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -227,8 +219,6 @@ test.describe("Screenshot tests", () => {
     name: "Input (success)",
     columns: ["default", "autofill"],
     rows: ["default", "hover", "focus"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: () => (
       <OnyxInput
         style="width: 12rem"
@@ -260,8 +250,6 @@ test.describe("Screenshot tests", () => {
     name: "Input readonly/default with highlighted text",
     columns: ["default", "readonly"],
     rows: ["default"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, _row) => {
       return (
         <OnyxInput

@@ -11,10 +11,8 @@ test.describe("Screenshot tests", () => {
      * This component represents only the child (menuitem) of the overall menu.
      * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
      * to have a parent with role="menu".
-     *
-     * TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
      */
-    disabledAccessibilityRules: ["aria-required-parent", "color-contrast"],
+    disabledAccessibilityRules: ["aria-required-parent"],
     component: (column, row) => (
       <ul style={{ listStyle: "none", padding: 0 }} role="menu">
         <OnyxNavItem
