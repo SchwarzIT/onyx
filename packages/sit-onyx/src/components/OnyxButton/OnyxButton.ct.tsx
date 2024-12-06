@@ -1,10 +1,7 @@
+import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import {
-  executeMatrixScreenshotTest,
-  mockPlaywrightIcon,
-  type MatrixScreenshotTestOptions,
-} from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxButton from "./OnyxButton.vue";
 import { BUTTON_COLORS, BUTTON_MODES } from "./types";
 

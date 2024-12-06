@@ -154,6 +154,7 @@ export const CONFIG = {
             { text: "Headless composables", link: "/headless" },
             { text: "Icons", link: "/icons" },
             { text: "Nuxt", link: "/nuxt" },
+            { text: "Playwright utilities", link: "/playwright-utils" },
             { text: "Storybook utilities", link: "/storybook-utils" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ].sort((a, b) => a.text.localeCompare(b.text)),
