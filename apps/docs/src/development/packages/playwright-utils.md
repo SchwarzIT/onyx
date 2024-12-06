@@ -155,13 +155,13 @@ test.describe("Screenshot tests", () => {
 
 :::
 
-### adjustAbsolutePositionScreenshot
+### adjustSizeToAbsolutePosition
 
 Sets the component size to fit all absolute positioned content so it is fully included in screenshots.
 Useful if component includes flyouts etc. that use CSS `position: absolute`.
 
 ```tsx
-import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { test, expect } from "@playwright/experimental-ct-vue";
 import MyComponent from "./MyComponent.vue";
 
@@ -172,7 +172,7 @@ test("my example test", async ({ mount }) => {
   await component.getByRole("tooltip").click();
 
   // adjust component size to include tooltip so its shown/included in the screenshot
-  await adjustAbsolutePositionScreenshot(expect, component);
+  await adjustSizeToAbsolutePosition(expect, component);
 
   await expect(component).toHaveScreenshot("screenshot.png");
 });

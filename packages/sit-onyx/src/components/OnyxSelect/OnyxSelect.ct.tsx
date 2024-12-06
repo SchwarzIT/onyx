@@ -1,6 +1,6 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
-import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
@@ -45,7 +45,7 @@ const openFlyout = async (component: MountResultJsx) => {
   const toggleButton = component.getByLabel("Toggle selection popover");
 
   if (await toggleButton.isEnabled()) await toggleButton.click();
-  await adjustAbsolutePositionScreenshot(expect, component);
+  await adjustSizeToAbsolutePosition(expect, component);
 };
 
 test.describe("Default screenshots", () => {

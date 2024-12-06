@@ -1,5 +1,5 @@
 import type { Locator } from "@playwright/test";
-import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
@@ -64,7 +64,7 @@ test.describe("Screenshot tests with nested children", () => {
 
       const flyout = page.getByLabel("Subpages of Item");
       await isFlyoutVisible(flyout);
-      await adjustAbsolutePositionScreenshot(expect, component);
+      await adjustSizeToAbsolutePosition(expect, component);
     },
   });
 });
