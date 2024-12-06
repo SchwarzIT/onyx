@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.84
+
+### Patch Changes
+
+- 2a7a285: Fix missing "locale" json, which are referenced by some type definitions.
+  Also update default error messages to be more descriptive
+
 ## 1.0.0-beta.83
 
 ### Minor Changes
