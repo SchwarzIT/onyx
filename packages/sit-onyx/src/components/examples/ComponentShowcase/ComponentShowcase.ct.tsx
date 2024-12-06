@@ -35,10 +35,7 @@ for (const [name, width] of Object.entries(ONYX_BREAKPOINTS)) {
     await expect(component).toHaveScreenshot(`default-${name}.png`);
 
     // ACT
-    const accessibilityScanResults = await makeAxeBuilder()
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      .disableRules(["color-contrast"])
-      .analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
 
     // ASSERT
     expect(accessibilityScanResults.violations).toEqual([]);

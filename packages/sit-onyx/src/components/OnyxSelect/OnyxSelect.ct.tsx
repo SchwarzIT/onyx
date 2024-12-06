@@ -14,8 +14,6 @@ import OnyxSelect from "./OnyxSelect.vue";
 import { type OnyxSelectProps, type SelectOption, SELECT_ALIGNMENTS } from "./types";
 
 const DISABLED_ACCESSIBILITY_RULES = [
-  // TODO: color-contrast: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-  "color-contrast",
   // the scrollable region are the options but they should not be focusable because
   // the focus should remain on the parent element
   "scrollable-region-focusable",
@@ -304,8 +302,6 @@ test.describe("Invalidity handling screenshots", () => {
     name: "Select (message replacement on invalid)",
     columns: ["default", "long-text"],
     rows: ["messageTooltip", "error", "errorTooltip"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const showLongMessage = column !== "default";
       const label =

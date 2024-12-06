@@ -14,12 +14,9 @@ import OnyxNavButton from "./OnyxNavButton.vue";
  * This component represents only the child (menuitem) of the overall menu.
  * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
  * to have a parent with role="menu".
- *
- * TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
  */
 const disabledAccessibilityRules: MatrixScreenshotTestOptions["disabledAccessibilityRules"] = [
   "aria-required-parent",
-  "color-contrast",
 ];
 
 test.describe("Screenshot tests", () => {

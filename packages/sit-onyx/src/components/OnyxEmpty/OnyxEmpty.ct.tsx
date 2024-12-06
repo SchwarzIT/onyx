@@ -9,8 +9,6 @@ test.describe("Screenshot tests", () => {
     name: "Empty",
     columns: DENSITIES,
     rows: ["default", "custom-icon", "multiline"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxEmpty density={column} style={{ width: row === "multiline" ? "12rem" : undefined }}>
         {row === "multiline" ? "Very long text that will be wrapped" : "Example empty text"}
