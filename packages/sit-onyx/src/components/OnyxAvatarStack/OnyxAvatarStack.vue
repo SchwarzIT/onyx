@@ -24,9 +24,15 @@ defineSlots<{
     width: max-content;
     max-width: 100%;
 
-    > .onyx-avatar:not(:last-child) {
-      // move by 50% (minus border)
-      margin-right: calc(-0.5 * var(--onyx-avatar-size) - var(--onyx-1px-in-rem));
+    > .onyx-avatar {
+      $border-width: var(--onyx-1px-in-rem);
+
+      border: $border-width solid var(--onyx-color-base-primary-700);
+
+      &:not(:last-child) {
+        // move by 50% (minus border)
+        margin-right: calc(-0.5 * var(--onyx-avatar-size) - $border-width);
+      }
     }
   }
 }

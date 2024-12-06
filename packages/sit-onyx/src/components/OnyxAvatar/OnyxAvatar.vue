@@ -55,13 +55,10 @@ watch(
 
 .onyx-avatar {
   @include layers.component() {
-    $border-width: var(--onyx-1px-in-rem);
-
     width: var(--onyx-avatar-size);
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
     border-radius: var(--onyx-radius-full);
-    border: $border-width solid var(--onyx-color-component-border-neutral);
 
     &:has(.onyx-avatar__initials) {
       background-color: var(--onyx-color-base-primary-200);
@@ -70,7 +67,7 @@ watch(
     &--custom {
       --onyx-avatar-padding: var(--onyx-spacing-sm);
       width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
-      padding: calc(var(--onyx-avatar-padding) - 2 * $border-width);
+      padding: var(--onyx-avatar-padding);
     }
 
     &__svg {
