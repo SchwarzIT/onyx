@@ -15,20 +15,20 @@
   },
   "validations": {
     "tooShort": {
-      "preview": "Too short",
-      "fullError": "Please lengthen this text to {minLength} characters or more (you are currently using 1 character) | Please lengthen this text to {minLength} characters or more (you are currently using {n} characters)"
+      "preview": "Too short, minimum {minLength} characters required",
+      "fullError": "Make the input at least {minLength} characters long. It is currently {n} characters long. Special characters might use more than one character."
     },
     "tooLong": {
-      "preview": "Too long",
-      "fullError": "Please shorten this text to {maxLength} characters or less (you are currently using 1 character) | Please shorten this text to {maxLength} characters or less (you are currently using {n} characters)"
+      "preview": "Too long, maximum {maxLength} characters allowed",
+      "fullError": "Shorten the input to {maxLength} characters or less. It is currently {n} characters long. Special characters might use more than one character."
     },
     "rangeUnderflow": {
       "preview": "Too low",
-      "fullError": "Value must be greater than or equal to {min}"
+      "fullError": "Input value must be greater than or equal to {min}."
     },
     "rangeOverflow": {
       "preview": "Too high",
-      "fullError": "Value must be less than or equal to {max}"
+      "fullError": "Input value must be less than or equal to {max}."
     },
     "patternMismatch": {
       "preview": "Invalid format",
@@ -36,11 +36,11 @@
     },
     "valueMissing": {
       "preview": "Required",
-      "fullError": "Please fill in this field."
+      "fullError": "The field is empty, it is mandatory and must be filled in."
     },
     "stepMismatch": {
       "preview": "Invalid number",
-      "fullError": "Please enter a value that is a multiple of {step}."
+      "fullError": "Please enter a valid number, that is a multiple of {step}."
     },
     "badInput": {
       "preview": "Invalid input",
@@ -53,19 +53,19 @@
       },
       "email": {
         "preview": "Invalid mail",
-        "fullError": "\"{value}\" must be a valid email address."
+        "fullError": "\"{value}\" is not a valid email address. It should be similar to \"johndoe@example.com\" (Must contain one @ symbol and a period)."
       },
       "number": {
         "preview": "Invalid number",
-        "fullError": "\"{value}\" must be a number."
+        "fullError": "\"{value}\" is not a valid number. Make sure it contains only digits, and optionally a single decimal point."
       },
       "tel": {
         "preview": "Invalid phone number",
-        "fullError": "\"{value}\" must be a valid phone number."
+        "fullError": "\"{value}\" is not a valid phone number."
       },
       "url": {
         "preview": "Invalid URL",
-        "fullError": "\"{value}\" must a valid URL."
+        "fullError": "\"{value}\" is not a valid URL. A URL usually points to a website and should be similar to \"https://www.example.com\"."
       }
     }
   },

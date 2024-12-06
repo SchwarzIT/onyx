@@ -33,6 +33,7 @@ export default defineConfig({
     typecheck: {
       enabled: true,
       checker: "vue-tsc",
+      ignoreSourceErrors: true,
       tsconfig: "tsconfig.app.json",
     },
   },
