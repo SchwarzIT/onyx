@@ -158,7 +158,7 @@ const handleApply = () => {
       align-self: stretch;
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       background-color: var(--onyx-color-base-background-blank);
       border-radius: var(--onyx-radius-md);
 
@@ -176,7 +176,7 @@ const handleApply = () => {
         background-color: var(--onyx-color-base-primary-100);
 
         &:hover {
-          border-color: var(--onyx-color-base-primary-500);
+          border-color: var(--onyx-color-component-border-primary);
         }
 
         .onyx-color-scheme-dialog__label {

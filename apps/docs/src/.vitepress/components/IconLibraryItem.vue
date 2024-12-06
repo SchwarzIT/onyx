@@ -40,15 +40,14 @@ const handleCopy = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: var(--onyx-1px-in-rem) solid transparent;
+  border: none;
   color: var(--onyx-color-text-icons-neutral-soft);
 
   &:hover,
   &:focus-visible {
     border-radius: var(--onyx-radius-md);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
     background: var(--onyx-color-base-background-blank);
-    outline-style: unset;
+    outline: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     color: unset;
   }
 }

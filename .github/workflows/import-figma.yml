@@ -11,6 +11,9 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
+      - name: 🛠️ Build Figma utils
+        run: pnpm run build:all --filter @sit-onyx/figma-utils
+
       # we need to separately import the themes because they are all needed in different formats and selectors
       - name: 🎨 Import onyx light variables
         run: |

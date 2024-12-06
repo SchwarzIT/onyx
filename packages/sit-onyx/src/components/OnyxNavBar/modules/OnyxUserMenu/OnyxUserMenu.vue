@@ -94,7 +94,7 @@ const isMobile = inject(
       outline: 0;
 
       .onyx-user-menu__trigger {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
         background-color: var(--onyx-color-base-neutral-200);
       }
     }
@@ -126,7 +126,7 @@ const isMobile = inject(
     }
 
     &__header {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       padding: var(--onyx-spacing-md);
       color: var(--onyx-color-text-icons-neutral-intense);
 
@@ -150,7 +150,7 @@ const isMobile = inject(
       position: static;
 
       .onyx-user-menu__header {
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
         background-color: var(--onyx-color-base-background-blank);
         border-radius: var(--onyx-radius-sm);
         margin-bottom: var(--onyx-spacing-xs); // TODO: use density
@@ -158,7 +158,7 @@ const isMobile = inject(
 
       .onyx-user-menu__options {
         .onyx-list-item {
-          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
           border-bottom: none;
 
           &:first-of-type {
@@ -166,7 +166,7 @@ const isMobile = inject(
           }
 
           &:last-of-type {
-            border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+            border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
             border-radius: 0 0 var(--onyx-radius-sm) var(--onyx-radius-sm);
           }
         }

@@ -75,7 +75,7 @@ const copyLink = async () => {
   box-sizing: border-box;
   padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
   width: 100%;
-  border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
+  border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
   display: flex;
   align-items: center;

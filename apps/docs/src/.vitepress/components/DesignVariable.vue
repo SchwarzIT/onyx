@@ -62,12 +62,13 @@ const emit = defineEmits<{
   border: none;
   color: inherit;
   line-height: inherit;
+  outline: none;
 
   &__name {
     padding: var(--onyx-spacing-4xs) var(--onyx-spacing-2xs) var(--onyx-spacing-4xs)
       var(--onyx-spacing-md);
     border-radius: var(--onyx-radius-sm);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     font-family: var(--onyx-font-family-mono);
     width: max-content;
     display: flex;
@@ -94,7 +95,7 @@ const emit = defineEmits<{
     &:focus-within {
       .variable {
         &__name {
-          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-300);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
         }
 
         &__copy {
@@ -115,7 +116,7 @@ const emit = defineEmits<{
           height: 1.25rem;
           background-color: v-bind("props.color");
           border-radius: var(--onyx-radius-sm);
-          border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
         }
       }
     }
