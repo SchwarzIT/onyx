@@ -1,4 +1,4 @@
-import { adjustAbsolutePositionScreenshot } from "@sit-onyx/playwright-utils";
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
 import {
   executeMatrixScreenshotTest,
@@ -45,7 +45,7 @@ test.describe("Screenshot tests", () => {
 
       await expect(component.getByLabel("User options")).toBeVisible();
 
-      await adjustAbsolutePositionScreenshot(expect, component);
+      await adjustSizeToAbsolutePosition(expect, component);
       await component.evaluate((element) => (element.style.paddingLeft = "64px"));
     },
   });
