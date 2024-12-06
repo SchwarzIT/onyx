@@ -2,13 +2,15 @@ import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../../playwright/a11y";
 import GridPlayground from "./GridPlayground.vue";
 
-test.beforeEach(async ({ page }) => {
-  await page.addStyleTag({
-    content: "body { margin: 0; }",
-  });
-
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 1080 });
+test.use({
+  viewport: { width: ONYX_BREAKPOINTS.xl, height: 1080 },
 });
+
+test.beforeEach(({ page }) =>
+  page.addStyleTag({
+    content: "body { margin: 0; }",
+  }),
+);
 
 test("screenshot and accessibility test", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
