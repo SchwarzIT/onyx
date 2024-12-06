@@ -8,7 +8,11 @@ import { escapeGridAreaName } from "./utils";
  * Creates a screenshot utility that can be used to capture matrix screenshots.
  * Useful for capturing a single screenshot/image that contains multiple variants of a component.
  */
-export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTestOptions) => {
+export const useMatrixScreenshotTest = ({
+  expect,
+  test,
+  defaults,
+}: UseMatrixScreenshotTestOptions) => {
   const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow>,
   ) => {
@@ -37,8 +41,13 @@ export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTes
 
         // accessibility tests
         const axeBuilder = makeAxeBuilder();
-        if (options.disabledAccessibilityRules?.length) {
-          axeBuilder.disableRules(options.disabledAccessibilityRules);
+        const disabledAccessibilityRules = [
+          ...(defaults?.disabledAccessibilityRules ?? []),
+          ...(options.disabledAccessibilityRules ?? []),
+        ];
+
+        if (disabledAccessibilityRules.length) {
+          axeBuilder.disableRules(disabledAccessibilityRules);
         }
 
         const accessibilityScanResults = await axeBuilder.analyze();
@@ -68,13 +77,14 @@ export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTes
       for (const row of options.rows) {
         for (const column of options.columns) {
           const jsxElement = options.component(column, row);
+          const disablePadding = options.disablePadding ?? defaults?.disablePadding;
 
           const wrappedElement = (
             <div
               style={{
                 display: "grid",
                 width: "max-content",
-                padding: options.disablePadding ? undefined : "1rem",
+                padding: disablePadding ? undefined : "1rem",
               }}
             >
               {jsxElement}
