@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.83
+
+### Minor Changes
+
+- 8fe041f: feat(OnyxInput): support clear and success icon
+
 ## 1.0.0-beta.82
 
 ### Patch Changes
