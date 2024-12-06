@@ -4,6 +4,10 @@ import ScreenshotMatrix from "./ScreenshotMatrix.vue";
 import type { MatrixScreenshotTestOptions, UseMatrixScreenshotTestOptions } from "./types";
 import { escapeGridAreaName } from "./utils";
 
+/**
+ * Creates a screenshot utility that can be used to capture matrix screenshots.
+ * Useful for capturing a single screenshot/image that contains multiple variants of a component.
+ */
 export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTestOptions) => {
   const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow>,
@@ -107,8 +111,8 @@ export const useMatrixScreenshotTest = ({ expect, test }: UseMatrixScreenshotTes
 };
 
 /**
- * Sets the component size to fit all absolute positioned content so it is included in screenshots.
- * Useful if component includes flyouts etc.
+ * Sets the component size to fit all absolute positioned content so it is fully included in screenshots.
+ * Useful if component includes flyouts etc. that use CSS `position: absolute`.
  */
 export const adjustAbsolutePositionScreenshot = async (
   expect: UseMatrixScreenshotTestOptions["expect"],
