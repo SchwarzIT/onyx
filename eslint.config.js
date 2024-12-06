@@ -162,6 +162,7 @@ const sitOnyxConfig = {
   rules: {
     "sitOnyx/import-playwright-a11y": "error",
     "sitOnyx/no-shadow-native": "error",
+    "sitOnyx/require-root-class": "error",
     "vue/require-prop-comment": "error",
     // disallow scoped or module CSS for components
     // see https://onyx.schwarz/principles/technical-vision.html#css
