@@ -3,8 +3,25 @@ import type { expect, MountResultJsx, test } from "@playwright/experimental-ct-v
 import type { JSX } from "vue/jsx-runtime";
 
 export type UseMatrixScreenshotTestOptions = {
+  /**
+   * Test function to use. Must support a axe fixture for accessibility testing.
+   *
+   * @see https://playwright.dev/docs/accessibility-testing#using-a-test-fixture-for-common-axe-configuration
+   */
   test: ReturnType<typeof test.extend<AxeFixture>>;
+  /**
+   * Playwright expect function to use.
+   *
+   * @example `import { expect } from "@playwright/experimental-ct-vue";`
+   */
   expect: typeof expect;
+  /**
+   * Global default options for the matrix screenshot tests.
+   * Will be merged with the options passed to a single screenshot test.
+   */
+  defaults?: Partial<
+    Pick<MatrixScreenshotTestOptions, "disabledAccessibilityRules" | "disablePadding">
+  >;
 };
 
 export type AxeFixture = {
