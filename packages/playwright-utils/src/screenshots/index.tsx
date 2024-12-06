@@ -123,6 +123,8 @@ export const useMatrixScreenshotTest = ({
 /**
  * Sets the component size to fit all absolute positioned content so it is fully included in screenshots.
  * Useful if component includes flyouts etc. that use CSS `position: absolute`.
+ *
+ * Will wait for the component to be visible.
  */
 export const adjustSizeToAbsolutePosition = async (
   expect: UseMatrixScreenshotTestOptions["expect"],
