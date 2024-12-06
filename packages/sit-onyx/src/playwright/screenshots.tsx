@@ -1,8 +1,14 @@
 import type { Page } from "@playwright/test";
 import { useMatrixScreenshotTest } from "@sit-onyx/playwright-utils";
-import { expect, test } from "../playwright/a11y";
+import { DEFAULT_DISABLED_AXE_RULES, expect, test } from "../playwright/a11y";
 
-export const { executeMatrixScreenshotTest } = useMatrixScreenshotTest({ expect, test });
+export const { executeMatrixScreenshotTest } = useMatrixScreenshotTest({
+  expect,
+  test,
+  defaults: {
+    disabledAccessibilityRules: DEFAULT_DISABLED_AXE_RULES,
+  },
+});
 
 /**
  * Mock icon to use in Playwright component tests (.tsx files) because Playwright has
