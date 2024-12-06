@@ -26,7 +26,6 @@ defineSlots<{
 
     > .onyx-avatar {
       $border-width: var(--onyx-1px-in-rem);
-
       border: $border-width solid var(--onyx-color-base-primary-700);
 
       &:not(:last-child) {
