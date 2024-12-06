@@ -78,7 +78,7 @@ watch(
 .onyx-dialog {
   @include layers.component() {
     outline: none;
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     border-radius: var(--onyx-radius-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);

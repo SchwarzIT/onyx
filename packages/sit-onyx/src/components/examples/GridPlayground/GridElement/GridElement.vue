@@ -73,13 +73,17 @@ watch(size.width, () => {
 
   &:hover,
   &:focus-visible {
-    border-color: var(--onyx-color-base-primary-300);
     background-color: var(--onyx-color-base-primary-100);
     color: var(--onyx-color-text-icons-primary-intense);
   }
 
+  &:hover {
+    border-color: var(--onyx-color-component-border-primary-hover);
+  }
+
   &:focus-visible {
-    outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
+    border-color: var(--onyx-color-component-primary);
+    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
   }
 
   &:active {
@@ -88,7 +92,7 @@ watch(size.width, () => {
 
   &--outline {
     background-color: transparent;
-    border-color: var(--onyx-color-base-neutral-300);
+    border-color: var(--onyx-color-component-border-neutral);
 
     &:active {
       background-color: transparent;

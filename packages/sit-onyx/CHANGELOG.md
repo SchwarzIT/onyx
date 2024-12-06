@@ -1,5 +1,40 @@
 # sit-onyx
 
+## 1.0.0-beta.83
+
+### Minor Changes
+
+- 8fe041f: feat(OnyxInput): support clear and success icon
+
+## 1.0.0-beta.82
+
+### Patch Changes
+
+- 5fba96d: fix: adjust component colors and align with Figma
+
+  All components were updated to be aligned with the Figma UX design. This change brings several color/contrast improvements/fixes:
+
+  - Button: Update background, text and border colors
+  - Tag: Update text and border colors
+  - IconButton: Update text colors
+  - NavButton (mobile): Update text color
+  - Pagination: Update text color for buttons
+  - Stepper: Update text color for +/- button
+  - update several components to use correct CSS variables for focus and border colors so the correct color is used for specific themes (e.g. `schwarz` theme)
+
+## 1.0.0-beta.81
+
+### Minor Changes
+
+- 9e3e8c7: - made the import order of light/dark theme files irrelevant
+  - changed figma dark-themes import from where(dark) to dark
+
+## 1.0.0-beta.80
+
+### Minor Changes
+
+- abf8414: feat(OnyxCheckboxGroup, OnyxRadioGroup): Add label tooltip
+
 ## 1.0.0-beta.79
 
 ### Minor Changes

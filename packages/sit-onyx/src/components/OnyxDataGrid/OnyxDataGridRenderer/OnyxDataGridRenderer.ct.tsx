@@ -4,15 +4,12 @@ import { executeMatrixScreenshotTest } from "../../../playwright/screenshots";
 import DefaultTestWrapper from "./playwright/DefaultTestWrapper.ct.vue";
 import GroupedDataTestWrapper from "./playwright/GroupedDataTestWrapper.ct.vue";
 
-// TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-const disabledAccessibilityRules = ["color-contrast"];
-
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Data grid renderer",
     columns: DENSITIES,
     rows: ["default"],
-    disabledAccessibilityRules,
+
     component: (column) => <DefaultTestWrapper density={column} />,
   });
 });
@@ -22,7 +19,6 @@ test.describe("Screenshot tests (grouped data)", () => {
     name: "Data grid renderer (grouped data)",
     columns: ["default"],
     rows: ["default", "row-hover", "column-hover"],
-    disabledAccessibilityRules,
     component: (column) => <GroupedDataTestWrapper density={column} />,
     beforeScreenshot: async (component, page, column, row) => {
       if (row === "row-hover") {

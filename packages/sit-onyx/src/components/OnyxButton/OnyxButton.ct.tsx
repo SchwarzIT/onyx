@@ -16,8 +16,6 @@ test.describe("Screenshot tests", () => {
       if (row === "focus-visible") await page.keyboard.press("Tab");
       if (row === "active") await page.mouse.down();
     },
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
   } satisfies Partial<MatrixScreenshotTestOptions>;
 
   for (const mode of BUTTON_MODES) {

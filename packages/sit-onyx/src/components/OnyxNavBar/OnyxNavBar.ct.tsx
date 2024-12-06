@@ -54,8 +54,6 @@ test.describe("Screenshot tests", () => {
       name: `Navigation bar (${breakpoint})`,
       columns: ["default"],
       rows: ["default", "back", "context", "context-back"],
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      disabledAccessibilityRules: ["color-contrast"],
       disablePadding: true,
       component: (column, row) => (
         <OnyxNavBar

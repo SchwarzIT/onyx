@@ -6,6 +6,7 @@ import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/
 import type { SelectOptionValue } from "../../types";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { OnyxRadioGroupProps } from "./types";
 
@@ -44,10 +45,11 @@ const handleChange = (selected: boolean, value: TValue) => {
     role="radiogroup"
     :aria-label="props.label"
   >
-    <legend v-if="!props.hideLabel" class="onyx-radio-group__headline">
+    <legend v-if="!props.hideLabel" class="onyx-radio-group__label">
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
         {{ props.label }}
       </OnyxHeadline>
+      <OnyxInfoTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip" />
     </legend>
 
     <div
@@ -95,6 +97,9 @@ const handleChange = (selected: boolean, value: TValue) => {
     min-width: unset;
 
     &__label {
+      display: flex;
+      gap: var(--onyx-spacing-2xs);
+      align-items: center;
       margin-bottom: var(--onyx-density-xs);
     }
 

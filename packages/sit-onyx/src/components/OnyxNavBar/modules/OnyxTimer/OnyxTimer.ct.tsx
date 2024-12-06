@@ -20,8 +20,6 @@ test.describe("Screenshot tests", () => {
     name: "Timer",
     columns: ["default", "with-label"],
     rows: ["seconds", "minutes", "hours"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const endTimes: Record<typeof row, Date> = {
         seconds: getEndDate(30 * 1000),

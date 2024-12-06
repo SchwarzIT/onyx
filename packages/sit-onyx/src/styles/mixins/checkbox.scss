@@ -26,7 +26,7 @@
   border-radius: var(--onyx-radius-sm);
   outline: none;
   cursor: inherit;
-  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   background: var(--onyx-color-base-background-blank);
   background-position: 50%;
   background-repeat: no-repeat;
@@ -35,7 +35,7 @@
   &:checked,
   &:indeterminate {
     @include define-checked-background(":enabled", default);
-    @include define-checked-background(":user-invalid", invalid);
+    @include define-checked-background(":user-invalid", danger);
 
     &:disabled {
       background-color: var(--onyx-color-base-neutral-300);
@@ -47,7 +47,7 @@
   }
 
   &:user-invalid {
-    border-color: var(--onyx-color-component-border-invalid);
+    border-color: var(--onyx-color-component-border-danger);
   }
 
   &:checked {

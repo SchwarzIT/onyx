@@ -123,5 +123,8 @@
       "label": "Seiten-Auswahl",
       "listLabel": "Verfügbare Seiten"
     }
+  },
+  "input": {
+    "clear": "Eingabe löschen"
   }
 }
