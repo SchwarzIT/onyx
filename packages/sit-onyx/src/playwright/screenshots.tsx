@@ -1,7 +1,7 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
-import { expect, test } from "../playwright/a11y";
+import { DEFAULT_DISABLED_AXE_RULES, expect, test } from "../playwright/a11y";
 import ScreenshotMatrix from "./ScreenshotMatrix.vue";
 
 export type MatrixScreenshotTestOptions<
@@ -84,7 +84,11 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
       // accessibility tests
       const axeBuilder = makeAxeBuilder();
       if (options.disabledAccessibilityRules?.length) {
-        axeBuilder.disableRules(options.disabledAccessibilityRules);
+        // "disabledRules()" will override/replace any previously disabled rules
+        // so we merge them with the default/globally disabled rules
+        axeBuilder.disableRules(
+          options.disabledAccessibilityRules.concat(DEFAULT_DISABLED_AXE_RULES),
+        );
       }
       const accessibilityScanResults = await axeBuilder.analyze();
       expect(

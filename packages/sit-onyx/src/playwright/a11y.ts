@@ -9,6 +9,14 @@ type AxeFixture = {
 };
 
 /**
+ * Playwright axe accessibility rules that should be disabled by default.
+ *
+ * TODO: re-enable color-contrast rule when color contrasts issues are fixed in:
+ * https://github.com/SchwarzIT/onyx/issues/2250
+ */
+export const DEFAULT_DISABLED_AXE_RULES = ["color-contrast"];
+
+/**
  * Extends Playwright's base test by providing `makeAxeBuilder`
  * This new `test` can be used in multiple test files, and each of them will get
  * a consistently configured AxeBuilder instance.
@@ -18,9 +26,7 @@ type AxeFixture = {
 export const test: ReturnType<typeof base.extend<AxeFixture>> = base.extend<AxeFixture>({
   makeAxeBuilder: async ({ page }, use) => {
     const makeAxeBuilder = () => {
-      // TODO: re-enable color-contrast rule when color contrasts issues are fixed in:
-      // https://github.com/SchwarzIT/onyx/issues/2250
-      return new AxeBuilder({ page }).withTags(a11yTags).disableRules(["color-contrast"]);
+      return new AxeBuilder({ page }).withTags(a11yTags).disableRules(DEFAULT_DISABLED_AXE_RULES);
     };
 
     await use(makeAxeBuilder);
