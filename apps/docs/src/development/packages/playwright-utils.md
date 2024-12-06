@@ -85,12 +85,9 @@ See the [Playwright docs](https://playwright.dev/docs/accessibility-testing#crea
 ```ts [axe-test.ts]
 import { test as base } from "@playwright/experimental-ct-vue";
 import AxeBuilder from "@axe-core/playwright";
+import type { AxeFixture } from "@sit-onyx/playwright-utils";
 
 export { expect } from "@playwright/experimental-ct-vue";
-
-type AxeFixture = {
-  makeAxeBuilder: () => AxeBuilder;
-};
 
 /**
  * Extends Playwright's base test by providing `makeAxeBuilder`

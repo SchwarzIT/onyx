@@ -1,12 +1,9 @@
 import AxeBuilder from "@axe-core/playwright";
 import { test as base } from "@playwright/experimental-ct-vue";
+import type { AxeFixture } from "@sit-onyx/playwright-utils";
 import { a11yTags } from "../a11yConfig";
 
 export { expect } from "@playwright/experimental-ct-vue";
-
-type AxeFixture = {
-  makeAxeBuilder: () => AxeBuilder;
-};
 
 /**
  * Playwright axe accessibility rules that should be disabled by default.
