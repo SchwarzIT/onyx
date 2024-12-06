@@ -3,3 +3,5 @@
 ---
 
 feat: implement `useMatrixScreenshotTest` and `adjustAbsolutePositionScreenshot`
+
+See our [docs](https://onyx.schwarz/development/packages/playwright-utils.html) for further information.

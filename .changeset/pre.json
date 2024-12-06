@@ -14,6 +14,7 @@
     "demo-app": "0.0.0",
     "playground": "0.0.0",
     "@sit-onyx/nuxt": "0.0.0",
+    "@sit-onyx/playwright-utils": "0.0.0",
     "@sit-onyx/shared": "1.0.0"
   },
   "changesets": [
