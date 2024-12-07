@@ -68,3 +68,17 @@ const { store: colorScheme } = useColorMode();
 ```
 
 Alternatively, you can use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/support-colorschemedialog--docs) component to build your own custom component.
+
+### Transistion
+
+To enable a smooth transition when switching between color modes, you can use the `useThemeTransition` composable. This ensures a visually appealing effect during theme changes. For `useThemeTransition` to work correctly, you need to pass it the colorScheme. If you're using [useColorMode from @vueuse/core](https://vueuse.org/core/useColorMode), it would look like this:
+
+```vue
+<script>
+import { useColorMode } from "@vueuse/core";
+import { useThemeTransition } from "sit-onyx";
+const { store: colorScheme } = useColorMode();
+useThemeTransition(colorScheme);
+...
+</script>
+```

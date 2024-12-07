@@ -39,3 +39,9 @@
     --onyx-color-backdrop: rgba(0, 0, 0, 0.6);
   }
 }
+
+.transition-active * {
+  transition-duration: 0.2s !important;
+  transition-property: color, background-color, border-color !important;
+  transition-timing-function: ease-in-out;
+}
