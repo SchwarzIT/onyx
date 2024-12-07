@@ -160,6 +160,9 @@ module.exports = {
               });
             }
           }
+        } else if (extraElement?.name === "teleport") {
+          // exclue teleport from this rule
+          return true;
         } else {
           context.report({
             node: extraElement,
