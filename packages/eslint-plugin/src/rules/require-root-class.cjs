@@ -94,13 +94,57 @@ module.exports = {
             if (name === "template" || name === "slot") {
               return;
             }
+            if (element.name.startsWith("onyx")) {
+              return true;
+            }
             // Check for existence of base class
-            const has = element.startTag.attributes.some(
-              ({ key, value }) =>
-                key.type === "VIdentifier" &&
-                key.name === "class" &&
-                value.value.includes("onyx-component"),
-            );
+            /**
+             * @type {VIdentifier, VDirectiveKey}
+             */
+            const has = element.startTag.attributes.some(({ key, value }) => {
+              const isClassAttribute =
+                (key.type === "VIdentifier" && key.name === "class") ||
+                (key.type === "VDirectiveKey" &&
+                  key.argument?.type === "VIdentifier" &&
+                  key.argument.name === "class");
+              if (!isClassAttribute) return false;
+
+              // static class: class="..."
+              if (value?.value) {
+                return value.value.includes("onyx-component");
+              }
+
+              // dynamic class: :class="..."
+              if (value?.expression) {
+                const expression = value.expression;
+
+                if (expression.type === "ArrayExpression") {
+                  // :class="['class1', 'onyx-component']"
+                  return expression.elements.some(
+                    (element) => element.type === "Literal" && element.value === "onyx-component",
+                  );
+                } else if (expression.type === "ObjectExpression") {
+                  // :class="{ 'onyx-component': true, 'class2': false }"
+                  return expression.properties.some((property) => {
+                    if (property.type === "SpreadElement") {
+                      return false;
+                    }
+                    return (
+                      property.key.type === "Literal" &&
+                      property.key.value === "onyx-component" &&
+                      property.value.type === "Literal" &&
+                      Boolean(property.value.value) === true
+                    );
+                  });
+                } else if (expression.type === "Literal") {
+                  // :class="'onyx-component'"
+                  return expression.value === "onyx-component";
+                }
+              }
+
+              return false;
+            });
+
             if (!has) {
               context.report({
                 node: tag,
