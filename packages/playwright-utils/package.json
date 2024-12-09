@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/playwright-utils",
-  "description": "Utilities for Vue component testing with Playwright.",
+  "description": "Utilities for Vue component testing with Playwright",
   "version": "0.0.0",
   "type": "module",
   "license": "Apache-2.0",
