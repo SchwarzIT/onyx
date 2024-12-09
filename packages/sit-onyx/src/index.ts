@@ -109,6 +109,9 @@ export * from "./components/OnyxStepper/types";
 export { default as OnyxSwitch } from "./components/OnyxSwitch/OnyxSwitch.vue";
 export * from "./components/OnyxSwitch/types";
 
+export { default as OnyxSystemButton } from "./components/OnyxSystemButton/OnyxSystemButton.vue";
+export * from "./components/OnyxSystemButton/types";
+
 export { default as OnyxTab } from "./components/OnyxTab/OnyxTab.vue";
 export * from "./components/OnyxTab/types";
 
