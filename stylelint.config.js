@@ -5,7 +5,13 @@ export default {
     "plugin/no-unsupported-browser-features": [
       true,
       {
-        severity: "warning",
+        /** ignore all css features that are safe to expect here */
+        ignore: [
+          "css-has",
+          "css-overscroll-behavior",
+          "css-container-query-units",
+          "css-container-queries",
+        ],
         ignorePartialSupport: true,
       },
     ],
