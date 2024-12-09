@@ -48,7 +48,7 @@ const title = computed(() => {
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-checkbox-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-checkbox-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-checkbox-skeleton__input" />
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>

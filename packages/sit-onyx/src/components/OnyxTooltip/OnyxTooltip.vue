@@ -124,17 +124,11 @@ watch(isVisible, async () => {
 </script>
 
 <template>
-  <div ref="tooltipWrapperRef" :class="['onyx-tooltip-wrapper', densityClass]">
+  <div ref="tooltipWrapperRef" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
     <div
       ref="tooltipRef"
       v-bind="tooltip"
-      :class="[
-        'onyx-component',
-        'onyx-tooltip',
-        'onyx-text--small',
-        'onyx-truncation-multiline',
-        tooltipClasses,
-      ]"
+      :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
     >
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <slot name="tooltip">{{ props.text }}</slot>

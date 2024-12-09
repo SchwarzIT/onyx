@@ -32,7 +32,7 @@ const skeleton = useSkeletonContext(props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-radio-button-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>

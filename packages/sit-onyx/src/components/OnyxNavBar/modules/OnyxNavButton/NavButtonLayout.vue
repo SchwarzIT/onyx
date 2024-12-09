@@ -38,7 +38,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <li role="presentation">
+  <li class="onyx-component" role="presentation">
     <template v-if="props.isMobile">
       <OnyxButton
         v-if="props.isMobile && mobileChildrenOpen"

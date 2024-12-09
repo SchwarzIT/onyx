@@ -331,7 +331,7 @@ const selectInputProps = computed(() => {
 </script>
 
 <template>
-  <div ref="selectRef" class="onyx-select-wrapper">
+  <div ref="selectRef" class="onyx-component onyx-select-wrapper">
     <OnyxSelectInput
       ref="selectInput"
       v-bind="selectInputProps"
@@ -343,7 +343,6 @@ const selectInputProps = computed(() => {
 
     <div
       :class="[
-        'onyx-component',
         'onyx-select',
         densityClass,
         open ? 'onyx-select--open' : '',

@@ -39,13 +39,13 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 </script>
 
 <template>
-  <div class="onyx-table-wrapper">
+  <div class="onyx-table-wrapper onyx-component">
     <div
       :class="{ 'onyx-table-wrapper__scroll-container': !props.withPageScrolling }"
       :tabindex="props.withPageScrolling ? undefined : 0"
     >
       <table
-        class="onyx-component onyx-table onyx-text"
+        class="onyx-table onyx-text"
         :class="[
           props.striped ? 'onyx-table--striped' : '',
           props.withVerticalBorders ? 'onyx-table--vertical-borders' : '',

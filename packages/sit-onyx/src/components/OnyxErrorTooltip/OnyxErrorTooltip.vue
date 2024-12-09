@@ -27,14 +27,14 @@ const targetRef = ref<HTMLDivElement>();
 </script>
 
 <template>
-  <div>
+  <div class="onyx-component">
     <!-- component will be placed in here if no tooltip should be rendered -->
     <div v-if="!tooltipError || props.disabled" ref="targetRef"></div>
 
     <!-- component will be placed inside the tooltip if it gets rendered -->
     <OnyxTooltip
       v-if="tooltipError && !props.disabled"
-      class="onyx-component onyx-error-tooltip"
+      class="onyx-error-tooltip"
       open="hover"
       :text="tooltipError"
       color="danger"

@@ -61,7 +61,7 @@ const errorClass = useErrorClass(showError);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-input-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-input-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-input-skeleton__label" />
     <OnyxSkeleton class="onyx-input-skeleton__input" />
   </div>
