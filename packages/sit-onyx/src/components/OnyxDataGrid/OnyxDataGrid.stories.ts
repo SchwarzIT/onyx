@@ -1,4 +1,8 @@
+import sort from "@sit-onyx/icons/sort.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { h } from "vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 /**
@@ -20,6 +24,54 @@ export const Default = {
       { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
       { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
       { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
+    ],
+  },
+} satisfies Story;
+
+export const MoreActions = {
+  args: {
+    columns: ["name", "age", "birthday"],
+    features: [
+      {
+        name: Symbol("More actions"),
+        watch: [],
+        header: {
+          actions: (column) =>
+            column === "name"
+              ? [
+                  {
+                    iconComponent: h(OnyxIconButton, {
+                      label: "Sort options",
+                      icon: sort,
+                      color: "neutral",
+                    }),
+                    listItems: [
+                      h(OnyxListItem, () => "No sorting"),
+                      h(OnyxListItem, () => "Random sort"),
+                    ],
+                  },
+                  {
+                    iconComponent: h(OnyxIconButton, {
+                      label: "Sort options",
+                      icon: sort,
+                      color: "neutral",
+                    }),
+                    listItems: [
+                      h(OnyxListItem, () => "Sort ascending"),
+                      h(OnyxListItem, () => "Sort descending"),
+                    ],
+                  },
+                ]
+              : [],
+        },
+      },
+    ],
+    data: [
+      { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
+      { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
+      { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
+      { id: 4, name: "John", age: 28, birthday: new Date("2003-04-10") },
+      { id: 5, name: "Charlotte", age: 28, birthday: new Date("2000-11-08") },
     ],
   },
 } satisfies Story;
