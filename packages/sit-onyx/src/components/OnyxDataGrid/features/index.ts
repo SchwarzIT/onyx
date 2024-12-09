@@ -124,9 +124,9 @@ export const useDataGridFeatures = <
 
     return columns.map((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
-      const { t } = injectI18n();
 
       if (actions.length > 1) {
+        const { t } = injectI18n();
         const listItems = headerActions
           .flatMap((actionFactory) => actionFactory(column))
           .map(({ listItems }) => listItems);
