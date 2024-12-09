@@ -154,6 +154,7 @@ export const useDataGridFeatures = <
           props: {},
         };
       }
+
       const iconComponent = headerActions
         .flatMap((actionFactory) => actionFactory(column))
         .map(({ iconComponent }) => iconComponent);
