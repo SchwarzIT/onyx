@@ -27,7 +27,7 @@ test.describe("Screenshot tests", () => {
     name: "Mobile nav button",
     columns: ["default", "open"],
     rows: ["default", "hover", "active", "focus-visible"],
-    disablePadding: true,
+    removePadding: true,
     component: (column) => (
       <OnyxMobileNavButton
         label="Label"

@@ -103,7 +103,7 @@ test.describe("Screenshot tests (mobile children)", () => {
     name: "NavButton (mobile, open children)",
     columns: ["default", "with-parent-link"],
     rows: ["default", "parent-active", "child-active"],
-    disablePadding: true,
+    removePadding: true,
     disabledAccessibilityRules,
     component: (column, row) => (
       <MobileComponentTestWrapper
