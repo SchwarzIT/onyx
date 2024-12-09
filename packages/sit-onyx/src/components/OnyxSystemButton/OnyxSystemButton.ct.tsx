@@ -27,13 +27,14 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `System button (${type})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "active", "focus-visible"],
+      rows: ["default", "hover", "active", "focus-visible", "skeleton"],
       beforeScreenshot,
-      component: (column) => (
+      component: (column, row) => (
         <OnyxSystemButton
           label="Test label"
           density={column}
           icon={type === "icon" ? mockPlaywrightIcon : undefined}
+          skeleton={row === "skeleton"}
         />
       ),
     });
