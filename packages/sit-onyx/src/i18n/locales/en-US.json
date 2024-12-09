@@ -99,7 +99,9 @@
     "userMenuLabel": "User options",
     "toggleBurgerMenu": "Toggle burger menu",
     "toggleContextMenu": "Toggle context menu",
-    "navigationHeadline": "Navigation"
+    "navigationHeadline": "Navigation",
+    "moreActionsFlyout": "More actions flyout",
+    "moreActionsTrigger": "Toggle more actions"
   },
   "tooltip": {
     "neutral": "Toggle info tooltip",

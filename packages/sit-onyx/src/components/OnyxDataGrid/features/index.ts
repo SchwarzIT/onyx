@@ -1,6 +1,7 @@
 import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
 import { h, type Component, type ComponentInstance, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
+import { injectI18n } from "../../../i18n";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -41,6 +42,8 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
     }[];
   };
 };
+
+const { t } = injectI18n();
 
 /**
  * Helper function that infers the generics of the DataGridFeature type.
@@ -132,12 +135,12 @@ export const useDataGridFeatures = <
         const flyoutMenu = h(
           OnyxFlyoutMenu,
           {
-            label: "More Actions Flyout",
+            label: t.value("navigation.moreActionsFlyout"),
           },
           {
             button: ({ trigger }) =>
               h(OnyxIconButton, {
-                label: "More Actions Trigger",
+                label: t.value("navigation.moreActionsTrigger"),
                 color: "neutral",
                 icon: moreHorizontal,
                 ...trigger,
