@@ -21,7 +21,7 @@ const { t } = injectI18n();
 
 <template>
   <a
-    class="onyx-link"
+    class="onyx-component onyx-link"
     :href="props.href"
     :target="props.target"
     :rel="props.target === '_blank' ? 'noreferrer' : undefined"

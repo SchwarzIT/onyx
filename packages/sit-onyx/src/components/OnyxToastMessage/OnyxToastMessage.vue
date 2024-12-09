@@ -45,7 +45,7 @@ const icon = computed(() => {
 <template>
   <component
     :is="props.clickable ? 'button' : 'div'"
-    class="onyx-toast-message"
+    class="onyx-component onyx-toast-message"
     :class="[`onyx-toast-message--${props.color}`, densityClass]"
     :role="props.color === 'danger' || props.color === 'warning' ? 'alert' : 'status'"
     :aria-label="props.clickable ? props.headline : undefined"

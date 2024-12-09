@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import CircleSpinner from "./CircleSpinner.vue";
-import LoadingDots from "./LoadingDots.vue";
+import OnyxCircleSpinner from "./OnyxCircleSpinner.vue";
+import OnyxLoadingDots from "./OnyxLoadingDots.vue";
 import type { OnyxLoadingIndicatorProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLoadingIndicatorProps>(), {
@@ -9,6 +9,6 @@ const props = withDefaults(defineProps<OnyxLoadingIndicatorProps>(), {
 </script>
 
 <template>
-  <CircleSpinner v-if="props.type === 'circle'" />
-  <LoadingDots v-else-if="props.type === 'dots'" />
+  <OnyxCircleSpinner v-if="props.type === 'circle'" />
+  <OnyxLoadingDots v-else-if="props.type === 'dots'" />
 </template>

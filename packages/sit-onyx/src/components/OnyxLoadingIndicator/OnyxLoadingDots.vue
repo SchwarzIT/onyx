@@ -1,5 +1,5 @@
 <template>
-  <div class="onyx-loading-dots">
+  <div class="onyx-component onyx-loading-dots">
     <span class="onyx-loading-dots__center"></span>
   </div>
 </template>

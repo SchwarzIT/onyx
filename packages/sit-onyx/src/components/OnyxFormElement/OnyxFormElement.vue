@@ -29,6 +29,7 @@ defineSlots<{
 <template>
   <div
     :class="[
+      'onyx-component',
       'onyx-form-element',
       requiredTypeClass,
       successMessages ? 'onyx-form-element--success' : undefined,

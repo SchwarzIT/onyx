@@ -48,7 +48,7 @@ defineExpose({
 
 <template>
   <div
-    :class="['onyx-mini-search', densityClass]"
+    :class="['onyx-component', 'onyx-mini-search', densityClass]"
     v-bind="rootAttrs"
     :style="{ '--onyx-placeholder-character-count': placeholder.length }"
   >

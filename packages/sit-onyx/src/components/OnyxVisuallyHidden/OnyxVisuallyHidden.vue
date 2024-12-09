@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxVisuallyHiddenProps>(), { is: "span" 
 </script>
 
 <template>
-  <component :is="props.is" class="onyx-visually-hidden"><slot></slot></component>
+  <component :is="props.is" class="onyx-component onyx-visually-hidden"><slot></slot></component>
 </template>
 
 <style lang="scss">

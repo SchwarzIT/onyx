@@ -44,7 +44,12 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
 <template>
   <div
     ref="panelRef"
-    :class="['onyx-tabs', densityClass, props.stretched ? 'onyx-tabs--stretched' : '']"
+    :class="[
+      'onyx-component',
+      'onyx-tabs',
+      densityClass,
+      props.stretched ? 'onyx-tabs--stretched' : '',
+    ]"
   >
     <div v-bind="headless.elements.tablist.value" class="onyx-tabs__tablist">
       <!-- TABS -->

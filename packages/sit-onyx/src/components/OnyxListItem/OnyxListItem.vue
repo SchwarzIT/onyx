@@ -22,6 +22,7 @@ const { densityClass } = useDensity(props);
 <template>
   <li
     :class="{
+      'onyx-component': true,
       'onyx-list-item': true,
       ...densityClass,
       'onyx-list-item--active': props.active,

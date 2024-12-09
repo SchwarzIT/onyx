@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SelectPagination from "./SelectPagination.vue";
+import OnyxSelectPagination from "./OnyxSelectPagination.vue";
 import type { OnyxPaginationProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxPaginationProps>(), {
@@ -15,6 +15,6 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <SelectPagination v-bind="props" @update:model-value="emit('update:modelValue', $event)" />
+  <OnyxSelectPagination v-bind="props" @update:model-value="emit('update:modelValue', $event)" />
   <!-- TODO: add "inline" mode, see https://github.com/SchwarzIT/onyx/issues/1714 -->
 </template>

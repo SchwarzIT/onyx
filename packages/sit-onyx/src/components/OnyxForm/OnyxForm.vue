@@ -25,6 +25,7 @@ const { densityClass } = useDensity(props);
 <template>
   <form
     :class="{
+      'onyx-component': true,
       'onyx-form': true,
       ...densityClass,
     }"

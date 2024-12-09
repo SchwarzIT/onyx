@@ -18,7 +18,7 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
 </script>
 
 <template>
-  <button type="button" class="onyx-nav-app-area" :aria-label="buttonLabel">
+  <button type="button" class="onyx-component onyx-nav-app-area" :aria-label="buttonLabel">
     <slot>
       <!--
         the width/height here is only to prevent layout shifts on initial load.

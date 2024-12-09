@@ -117,7 +117,11 @@ const blockTyping = (event: KeyboardEvent) => {
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-select-input-skeleton', densityClass]" v-bind="rootAttrs">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-select-input-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-select-input-skeleton__label" />
     <OnyxSkeleton class="onyx-select-input-skeleton__input" />
   </div>
@@ -125,6 +129,7 @@ const blockTyping = (event: KeyboardEvent) => {
   <div
     v-else
     :class="[
+      'onyx-component',
       'onyx-select-input',
       densityClass,
       errorClass,

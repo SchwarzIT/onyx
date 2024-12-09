@@ -51,7 +51,7 @@ const isChecked = computed({
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-switch-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-switch-skeleton', densityClass]">
     <span class="onyx-switch-skeleton__click-area">
       <OnyxSkeleton class="onyx-switch-skeleton__input" />
     </span>
@@ -59,7 +59,11 @@ const isChecked = computed({
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="shownErrorMessages">
-    <label class="onyx-switch" :class="[requiredTypeClass, densityClass]" :title="title">
+    <label
+      class="onyx-component onyx-switch"
+      :class="[requiredTypeClass, densityClass]"
+      :title="title"
+    >
       <input
         v-model="isChecked"
         v-custom-validity

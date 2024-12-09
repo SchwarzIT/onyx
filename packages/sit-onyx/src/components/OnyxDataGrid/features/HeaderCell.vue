@@ -12,7 +12,7 @@ const slots = defineSlots<{
 </script>
 
 <template>
-  <div class="onyx-data-grid-header-cell">
+  <div class="onyx-component onyx-data-grid-header-cell">
     <span class="onyx-data-grid-header-cell__label">{{ props.label }}</span>
     <div v-if="slots.actions" class="onyx-data-grid-header-cell__actions">
       <slot name="actions"></slot>

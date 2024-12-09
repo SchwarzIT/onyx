@@ -15,7 +15,7 @@ describe("auto imports", async () => {
     expect(html).toContain("--onyx-font-family");
 
     // The rendered page should contain a h1 with the onyx classes if the component was auto imported correctly
-    expect(html).toContain('<h1 class="onyx-headline onyx-headline--h1">');
+    expect(html).toContain('<h1 class="onyx-component onyx-headline onyx-headline--h1">');
 
     // global styles should be imported
     expect(html).toContain(

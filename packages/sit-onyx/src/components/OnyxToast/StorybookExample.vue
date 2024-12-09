@@ -16,7 +16,7 @@ const showExampleToasts = () => {
 </script>
 
 <template>
-  <div>
+  <div class="onyx-component">
     <OnyxButton label="Show example toasts" @click="showExampleToasts" />
     <OnyxToast />
   </div>

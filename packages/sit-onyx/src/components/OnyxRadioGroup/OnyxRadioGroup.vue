@@ -40,7 +40,7 @@ const handleChange = (selected: boolean, value: TValue) => {
 
 <template>
   <fieldset
-    :class="['onyx-radio-group', densityClass, requiredTypeClass]"
+    :class="['onyx-component', 'onyx-radio-group', densityClass, requiredTypeClass]"
     :disabled="disabled"
     role="radiogroup"
     :aria-label="props.label"

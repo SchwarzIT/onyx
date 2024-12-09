@@ -1,10 +1,4 @@
-@use "normalize.scss";
-
 @mixin component() {
-  @layer onyx.reset {
-    @include normalize.apply;
-  }
-
   @layer onyx.component {
     @content;
   }
