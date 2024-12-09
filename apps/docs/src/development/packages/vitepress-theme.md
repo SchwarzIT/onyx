@@ -14,7 +14,7 @@ import packageJson from "../../../../../packages/vitepress-theme/package.json";
 
 </div>
 
-Custom [VitePress](https://vitepress.dev) theme that uses the Schwarz Digits brand colors.
+Custom [VitePress](https://vitepress.dev) theme that uses the onyx brand colors.
 
 ::: info
 The theme does not currently use the entire Onyx Framework _(yet)_.
