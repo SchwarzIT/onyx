@@ -19,22 +19,24 @@ test.describe("Screenshot tests", () => {
         value="test-value"
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      const checkbox = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const checkbox = component.getByLabel("Test label");
 
-      if (column === "unchecked") await expect(checkbox).not.toBeChecked();
-      if (column === "checked") await expect(checkbox).toBeChecked();
-      if (column === "indeterminate") {
-        await expect(checkbox).not.toBeChecked();
-        await expect(checkbox).toHaveJSProperty("indeterminate", true);
-      }
-      if (column === "hideLabel") {
-        await expect(component).not.toContainText("Test label");
-        await expect(component.getByLabel("Test label")).toBeAttached(); // should have aria-label if label is hidden
-      }
+        if (column === "unchecked") await expect(checkbox).not.toBeChecked();
+        if (column === "checked") await expect(checkbox).toBeChecked();
+        if (column === "indeterminate") {
+          await expect(checkbox).not.toBeChecked();
+          await expect(checkbox).toHaveJSProperty("indeterminate", true);
+        }
+        if (column === "hideLabel") {
+          await expect(component).not.toContainText("Test label");
+          await expect(component.getByLabel("Test label")).toBeAttached(); // should have aria-label if label is hidden
+        }
 
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -53,17 +55,19 @@ test.describe("Screenshot tests", () => {
         disabled
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      const checkbox = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const checkbox = component.getByLabel("Test label");
 
-      if (column !== "loading") {
-        await expect(checkbox).toBeDisabled();
-      } else {
-        await expect(checkbox).not.toBeAttached();
-      }
+        if (column !== "loading") {
+          await expect(checkbox).toBeDisabled();
+        } else {
+          await expect(checkbox).not.toBeAttached();
+        }
 
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -92,38 +96,40 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      const checkbox = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const checkbox = component.getByLabel("Test label");
 
-      if (column !== "disabled") {
-        // invalid only shows if checkbox is touched
-        await checkbox.focus();
-        await page.keyboard.press("Space");
-        await page.keyboard.press("Space");
+        if (column !== "disabled") {
+          // invalid only shows if checkbox is touched
+          await checkbox.focus();
+          await page.keyboard.press("Space");
+          await page.keyboard.press("Space");
 
-        if (row !== "focus-visible") {
-          await checkbox.blur(); // reset focus
+          if (row !== "focus-visible") {
+            await checkbox.blur(); // reset focus
+          }
+
+          if (column === "indeterminate") {
+            await checkbox.evaluate(
+              (element) => ((element as HTMLInputElement).indeterminate = true),
+            );
+          }
         }
 
-        if (column === "indeterminate") {
-          await checkbox.evaluate(
-            (element) => ((element as HTMLInputElement).indeterminate = true),
-          );
+        if (row === "hover" && column !== "disabled") {
+          await checkbox.hover();
         }
-      }
 
-      if (row === "hover" && column !== "disabled") {
-        await checkbox.hover();
-      }
-
-      // wait for the tooltip to show up reliably
-      if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
-        // eslint-disable-next-line playwright/no-standalone-expect
-        await expect(
-          component.getByRole("tooltip"),
-          `should show error tooltip for ${row} and ${column}`,
-        ).toBeVisible();
-      }
+        // wait for the tooltip to show up reliably
+        if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
+          // eslint-disable-next-line playwright/no-standalone-expect
+          await expect(
+            component.getByRole("tooltip"),
+            `should show error tooltip for ${row} and ${column}`,
+          ).toBeVisible();
+        }
+      },
     },
   });
 
@@ -139,9 +145,11 @@ test.describe("Screenshot tests", () => {
         value="test-value"
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -175,8 +183,10 @@ test.describe("Screenshot tests", () => {
         value="test-value"
       />
     ),
-    beforeScreenshot: async (component) => {
-      await expect(component).toContainText("Very long label that should be truncated");
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component).toContainText("Very long label that should be truncated");
+      },
     },
   });
 });

@@ -31,8 +31,10 @@ test.describe("Single select screenshot tests", () => {
           Test label
         </OnyxSelectOption>
       ),
-      beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          if (row === "hover") await component.hover();
+        },
       },
     });
   }
@@ -57,8 +59,10 @@ test.describe("Multiselect Screenshot tests", () => {
           Test label
         </OnyxSelectOption>
       ),
-      beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          if (row === "hover") await component.hover();
+        },
       },
     });
   }
@@ -75,8 +79,10 @@ test.describe("Density Screenshot tests", () => {
         Test label
       </OnyxSelectOption>
     ),
-    beforeScreenshot: async (component) => {
-      await component.hover();
+    hooks: {
+      beforeEach: async (component) => {
+        await component.hover();
+      },
     },
   });
 });

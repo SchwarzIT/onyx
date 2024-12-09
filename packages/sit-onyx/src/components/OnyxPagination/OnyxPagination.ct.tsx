@@ -29,11 +29,13 @@ test.describe("screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "open") {
-        await component.getByLabel("Page selection").click();
-        await adjustSizeToAbsolutePosition(expect, component);
-      }
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "open") {
+          await component.getByLabel("Page selection").click();
+          await adjustSizeToAbsolutePosition(expect, component);
+        }
+      },
     },
   });
 });
@@ -44,24 +46,26 @@ test.describe("screenshot tests (buttons)", () => {
     columns: ["select", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     component: () => <OnyxPagination pages={42} modelValue={2} />,
-    beforeScreenshot: async (component, page, column, row) => {
-      let button = page.getByRole("button", {
-        name: column === "previous" ? "previous page" : "next page",
-      });
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        let button = page.getByRole("button", {
+          name: column === "previous" ? "previous page" : "next page",
+        });
 
-      if (column === "select") button = component.getByLabel("Page selection");
+        if (column === "select") button = component.getByLabel("Page selection");
 
-      if (row === "hover") await button.hover();
-      if (row === "focus-visible") {
-        await page.keyboard.press("Tab");
-        if (column !== "select") await page.keyboard.press("Tab");
-        if (column === "next") await page.keyboard.press("Tab");
-      }
-      if (row === "active") {
-        const box = (await button.boundingBox())!;
-        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-        await page.mouse.down();
-      }
+        if (row === "hover") await button.hover();
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          if (column !== "select") await page.keyboard.press("Tab");
+          if (column === "next") await page.keyboard.press("Tab");
+        }
+        if (row === "active") {
+          const box = (await button.boundingBox())!;
+          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+          await page.mouse.down();
+        }
+      },
     },
   });
 });

@@ -20,13 +20,15 @@ test.describe("Screenshot tests (grouped data)", () => {
     columns: ["default"],
     rows: ["default", "row-hover", "column-hover"],
     component: (column) => <GroupedDataTestWrapper density={column} />,
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "row-hover") {
-        await component.getByText("Row 1, cell 2").hover();
-      }
-      if (row === "column-hover") {
-        await component.getByRole("columnheader", { name: "Column 3" }).hover();
-      }
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "row-hover") {
+          await component.getByText("Row 1, cell 2").hover();
+        }
+        if (row === "column-hover") {
+          await component.getByRole("columnheader", { name: "Column 3" }).hover();
+        }
+      },
     },
   });
 });

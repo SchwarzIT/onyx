@@ -72,16 +72,18 @@ test.describe("screenshot tests (invalid)", () => {
         customError="Example error"
       />
     ),
-    beforeScreenshot: async (component, page, column) => {
-      if (column === "hover") {
-        const radio = component.getByText(EXAMPLE_OPTIONS[0].label);
-        await radio.hover();
-      }
+    hooks: {
+      beforeEach: async (component, page, column) => {
+        if (column === "hover") {
+          const radio = component.getByText(EXAMPLE_OPTIONS[0].label);
+          await radio.hover();
+        }
 
-      // wait for the tooltip to show up reliably
-      if (column === "hover") {
-        await expect(component.getByRole("tooltip"), "should show error tooltip").toBeVisible();
-      }
+        // wait for the tooltip to show up reliably
+        if (column === "hover") {
+          await expect(component.getByRole("tooltip"), "should show error tooltip").toBeVisible();
+        }
+      },
     },
   });
 });

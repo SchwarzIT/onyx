@@ -20,7 +20,7 @@ export type UseMatrixScreenshotTestOptions = {
    * Will be merged with the options passed to a single screenshot test.
    */
   defaults?: Partial<
-    Pick<MatrixScreenshotTestOptions, "disabledAccessibilityRules" | "removePadding">
+    Pick<MatrixScreenshotTestOptions, "disabledAccessibilityRules" | "removePadding" | "hooks">
   >;
 };
 
@@ -49,17 +49,9 @@ export type MatrixScreenshotTestOptions<
    */
   component: (column: TColumn, row: TRow) => JSX.Element;
   /**
-   * Optional callback to be executed before capturing each individual screenshot (column + row combination).
-   * Useful for performing `expect()` or e.g. hover, focus-visible state etc.
-   * Focus and mouse will be reset after each screenshot.
+   * Custom hooks/callbacks that can be executed at specific points in time during the matrix screenshot.
    */
-  beforeScreenshot?: ScreenshotTestHook<TColumn, TRow>;
-  /**
-   * Optional callback to be executed after capturing each individual screenshot (column + row combination).
-   * Useful for performing clean ups of side effects created by `beforeScreenshot`.
-   * Focus and mouse will be reset after each screenshot.
-   */
-  afterScreenshot?: ScreenshotTestHook<TColumn, TRow>;
+  hooks?: ScreenshotTestHooks<TColumn, TRow>;
   /**
    * Rules to disable when performing the accessibility tests.
    * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed.
@@ -73,6 +65,21 @@ export type MatrixScreenshotTestOptions<
    */
   removePadding?: boolean;
 };
+
+export type ScreenshotTestHooks<TColumn extends string, TRow extends string> = Partial<{
+  /**
+   * Optional callback to be executed before capturing each individual screenshot (column + row combination).
+   * Useful for performing `expect()` or e.g. hover, focus-visible state etc.
+   * Focus and mouse will be reset after each screenshot.
+   */
+  beforeEach: ScreenshotTestHook<TColumn, TRow>;
+  /**
+   * Optional callback to be executed after capturing each individual screenshot (column + row combination).
+   * Useful for performing clean ups of side effects created by the `beforeEach` hook.
+   * Focus and mouse will be reset after each screenshot.
+   */
+  afterEach: ScreenshotTestHook<TColumn, TRow>;
+}>;
 
 export type ScreenshotTestHook<TColumn extends string, TRow extends string> = (
   component: MountResultJsx,

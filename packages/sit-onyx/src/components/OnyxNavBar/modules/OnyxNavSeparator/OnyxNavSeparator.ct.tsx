@@ -8,11 +8,13 @@ test.describe("Screenshot tests", () => {
     columns: ["default"],
     rows: ["default"],
     component: () => <OnyxNavSeparator />,
-    beforeScreenshot: async (component) => {
-      await expect(component.getByRole("separator")).toHaveAttribute(
-        "aria-orientation",
-        "vertical",
-      );
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component.getByRole("separator")).toHaveAttribute(
+          "aria-orientation",
+          "vertical",
+        );
+      },
     },
   });
 });
