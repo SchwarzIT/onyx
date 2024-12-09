@@ -49,13 +49,13 @@ export type MatrixScreenshotTestOptions<
    */
   component: (column: TColumn, row: TRow) => JSX.Element;
   /**
-   * Optional callback to be executed before capturing the screenshot.
+   * Optional callback to be executed before capturing each individual screenshot (column + row combination).
    * Useful for performing `expect()` or e.g. hover, focus-visible state etc.
    * Focus and mouse will be reset after each screenshot.
    */
   beforeScreenshot?: ScreenshotTestHook<TColumn, TRow>;
   /**
-   * Optional callback to be executed after capturing the screenshot.
+   * Optional callback to be executed after capturing each individual screenshot (column + row combination).
    * Useful for performing clean ups of side effects created by `beforeScreenshot`.
    * Focus and mouse will be reset after each screenshot.
    */
