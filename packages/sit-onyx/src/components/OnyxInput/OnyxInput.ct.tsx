@@ -341,7 +341,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const errorPreview = component.getByText("Required");
   const fullError = formElementUtils
     .getTooltipPopover("message")
-    .getByText("Please fill in this field.");
+    .getByText("The field is empty, it is mandatory and must be filled in.");
 
   // ASSERT: initially no error shows
   await expect(errorPreview).toBeHidden();

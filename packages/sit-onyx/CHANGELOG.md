@@ -1,5 +1,27 @@
 # sit-onyx
 
+## 1.0.0-beta.86
+
+### Minor Changes
+
+- c358978: feat: implement basic `OnyxSystemButton`
+
+## 1.0.0-beta.85
+
+### Patch Changes
+
+- 1a11a27: fix: update OnyxAvatar and OnyxAvatarStack border to align with Figma
+
+  - OnyxAvatar: remove border
+  - OnyxAvatarStack: add primary border to all avatars
+
+## 1.0.0-beta.84
+
+### Patch Changes
+
+- 2a7a285: Fix missing "locale" json, which are referenced by some type definitions.
+  Also update default error messages to be more descriptive
+
 ## 1.0.0-beta.83
 
 ### Minor Changes

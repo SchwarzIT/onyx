@@ -87,10 +87,10 @@ const createCompute = <TKey extends keyof FormProps>(
     if (prop === FORM_INJECTED_SYMBOL) {
       return formProps?.value[key] ?? defaultValue;
     }
-    if (import.meta.env.DEV) {
+    if (import.meta.env.DEV && prop != undefined) {
       // eslint-disable-next-line no-console
       console.error(
-        `%s prop is an recognized symbol: %o which is not identical to the symbol %o.`,
+        `The %s prop is an unrecognized symbol: %o which is not identical to the expected symbol %o.`,
         key,
         prop,
         FORM_INJECTED_SYMBOL,
