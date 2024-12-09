@@ -43,8 +43,6 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
   };
 };
 
-const { t } = injectI18n();
-
 /**
  * Helper function that infers the generics of the DataGridFeature type.
  * @example
@@ -126,6 +124,7 @@ export const useDataGridFeatures = <
 
     return columns.map((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
+      const { t } = injectI18n();
 
       if (actions.length > 1) {
         const listItems = headerActions
