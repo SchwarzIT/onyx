@@ -9,14 +9,16 @@ test.describe("Screenshot tests", () => {
     name: "OnyxComponent (densities)",
     rows: ["default", "hover", "active", "focus-visible", "skeleton"],
     columns: DENSITIES,
-    beforeScreenshot: async (component, page, column, row) => {
-      /**
-       *  TODO: Prepare the component before the screenshot
-       *  e.g.:
-       */
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
-      if (row === "active") await page.mouse.down();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        /**
+         *  TODO: Prepare the component before the screenshot
+         *  e.g.:
+         */
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "active") await page.mouse.down();
+      },
     },
     component: (column, row) => (
       // TODO: Set the props based on the given row and column

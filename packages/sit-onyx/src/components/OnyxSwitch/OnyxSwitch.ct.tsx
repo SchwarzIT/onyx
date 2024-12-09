@@ -16,9 +16,11 @@ test.describe("Screenshot tests", () => {
         skeleton={column === "skeleton"}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -35,11 +37,13 @@ test.describe("Screenshot tests", () => {
           loading={state === "loading"}
         />
       ),
-      beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") {
-          await component.hover();
-        }
-        if (row === "focus-visible") await page.keyboard.press("Tab");
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          if (row === "hover") {
+            await component.hover();
+          }
+          if (row === "focus-visible") await page.keyboard.press("Tab");
+        },
       },
     });
   }
@@ -62,29 +66,31 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      const switchRef = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const switchRef = component.getByLabel("Test label");
 
-      // invalid only shows if the switch is touched
-      await switchRef.focus();
-      await page.keyboard.press("Space");
-      await page.keyboard.press("Space");
+        // invalid only shows if the switch is touched
+        await switchRef.focus();
+        await page.keyboard.press("Space");
+        await page.keyboard.press("Space");
 
-      if (row !== "focus-visible") {
-        await switchRef.blur(); // reset focus
-      }
+        if (row !== "focus-visible") {
+          await switchRef.blur(); // reset focus
+        }
 
-      if (row === "hover") {
-        await component.getByText("Test label").hover();
-      }
+        if (row === "hover") {
+          await component.getByText("Test label").hover();
+        }
 
-      // wait for the tooltip to show up reliably
-      if (["focus-visible", "hover"].includes(row)) {
-        await expect(
-          component.getByRole("tooltip"),
-          `should show error tooltip for ${row} and ${column}`,
-        ).toBeVisible();
-      }
+        // wait for the tooltip to show up reliably
+        if (["focus-visible", "hover"].includes(row)) {
+          await expect(
+            component.getByRole("tooltip"),
+            `should show error tooltip for ${row} and ${column}`,
+          ).toBeVisible();
+        }
+      },
     },
   });
 
@@ -131,12 +137,14 @@ test.describe("Screenshot tests", () => {
         hideLabel
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      // should have aria-label if label is hidden
-      if (row !== "skeleton") {
-        await expect(component).not.toContainText("Test label");
-        await expect(component.getByLabel("Test label")).toBeAttached();
-      }
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        // should have aria-label if label is hidden
+        if (row !== "skeleton") {
+          await expect(component).not.toContainText("Test label");
+          await expect(component.getByLabel("Test label")).toBeAttached();
+        }
+      },
     },
   });
 });

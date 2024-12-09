@@ -27,7 +27,7 @@ test.describe("Screenshot tests", () => {
     name: "Mobile nav button",
     columns: ["default", "open"],
     rows: ["default", "hover", "active", "focus-visible"],
-    disablePadding: true,
+    removePadding: true,
     component: (column) => (
       <OnyxMobileNavButton
         label="Label"
@@ -39,20 +39,22 @@ test.describe("Screenshot tests", () => {
         Flyout slot content...
       </OnyxMobileNavButton>
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
-      if (row === "active") {
-        const box = (await component.boundingBox())!;
-        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-        await page.mouse.down();
-      }
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "active") {
+          const box = (await component.boundingBox())!;
+          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+          await page.mouse.down();
+        }
 
-      await page.setViewportSize({ width: 600, height: 850 });
-      await component.evaluate((element) => {
-        element.style.height = "150px";
-        element.style.width = "200px";
-      });
+        await page.setViewportSize({ width: 600, height: 850 });
+        await component.evaluate((element) => {
+          element.style.height = "150px";
+          element.style.width = "200px";
+        });
+      },
     },
   });
 });

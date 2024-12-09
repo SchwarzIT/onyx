@@ -142,29 +142,31 @@ test.describe("Screenshot tests", () => {
         </OnyxTooltip>
       );
     },
-    // set component size to fully include the tooltip
-    beforeScreenshot: async (component, page, column, row) => {
-      const tooltipSize = await component
-        .getByRole("tooltip")
-        .evaluate((element) => [element.clientHeight, element.clientWidth]);
+    hooks: {
+      // set component size to fully include the tooltip
+      beforeEach: async (component, page, column, row) => {
+        const tooltipSize = await component
+          .getByRole("tooltip")
+          .evaluate((element) => [element.clientHeight, element.clientWidth]);
 
-      // set paddings to fit the full tooltip in the screenshot
-      await component.evaluate(
-        (element, { tooltipSize: [height, width], row }) => {
-          const verticalPadding = `${height + 12}px`;
+        // set paddings to fit the full tooltip in the screenshot
+        await component.evaluate(
+          (element, { tooltipSize: [height, width], row }) => {
+            const verticalPadding = `${height + 12}px`;
 
-          if (row === "bottom") element.style.paddingBottom = verticalPadding;
-          else element.style.paddingTop = verticalPadding;
+            if (row === "bottom") element.style.paddingBottom = verticalPadding;
+            else element.style.paddingTop = verticalPadding;
 
-          const widthDiff = width - element.clientWidth;
-          if (widthDiff > 0) {
-            const padding = `${widthDiff / 2 + 20}px`;
-            element.style.paddingLeft = padding;
-            element.style.paddingRight = padding;
-          }
-        },
-        { tooltipSize, row },
-      );
+            const widthDiff = width - element.clientWidth;
+            if (widthDiff > 0) {
+              const padding = `${widthDiff / 2 + 20}px`;
+              element.style.paddingLeft = padding;
+              element.style.paddingRight = padding;
+            }
+          },
+          { tooltipSize, row },
+        );
+      },
     },
   });
 });
@@ -188,31 +190,33 @@ test.describe("Alignment screenshot tests", () => {
         </OnyxTooltip>
       );
     },
-    // set component size to fully include the tooltip
-    beforeScreenshot: async (component, page, column, row) => {
-      const tooltipSize = await component
-        .getByRole("tooltip")
-        .evaluate((element) => [element.clientHeight, element.clientWidth]);
+    hooks: {
+      // set component size to fully include the tooltip
+      beforeEach: async (component, page, column, row) => {
+        const tooltipSize = await component
+          .getByRole("tooltip")
+          .evaluate((element) => [element.clientHeight, element.clientWidth]);
 
-      // set paddings to fit the full tooltip in the screenshot
-      await component.evaluate(
-        (element, { tooltipSize: [height, width], row }) => {
-          const verticalPadding = `${height + 12}px`;
+        // set paddings to fit the full tooltip in the screenshot
+        await component.evaluate(
+          (element, { tooltipSize: [height, width], row }) => {
+            const verticalPadding = `${height + 12}px`;
 
-          if (row === "bottom") {
-            element.style.paddingBottom = verticalPadding;
-            element.style.marginTop = "0px";
-          } else element.style.paddingTop = verticalPadding;
+            if (row === "bottom") {
+              element.style.paddingBottom = verticalPadding;
+              element.style.marginTop = "0px";
+            } else element.style.paddingTop = verticalPadding;
 
-          const widthDiff = width - element.clientWidth;
-          if (widthDiff > 0) {
-            const padding = `${widthDiff / 2 + 20}px`;
-            element.style.paddingLeft = padding;
-            element.style.paddingRight = padding;
-          }
-        },
-        { tooltipSize, row },
-      );
+            const widthDiff = width - element.clientWidth;
+            if (widthDiff > 0) {
+              const padding = `${widthDiff / 2 + 20}px`;
+              element.style.paddingLeft = padding;
+              element.style.paddingRight = padding;
+            }
+          },
+          { tooltipSize, row },
+        );
+      },
     },
   });
 });

@@ -8,8 +8,10 @@ test.describe("screenshot tests", () => {
     columns: ["default"],
     rows: ["info", "warning", "danger"],
     component: (column, row) => <GridBadge label="Label" value="value" color={row} />,
-    beforeScreenshot: async (component) => {
-      await expect(component.getByLabel("Label")).toBeAttached();
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component.getByLabel("Label")).toBeAttached();
+      },
     },
   });
 });

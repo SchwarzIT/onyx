@@ -36,15 +36,17 @@ for (const type of ["default", "stretched"] as const) {
           </OnyxTabs>
         );
       },
-      beforeScreenshot: async (component, page, column, row) => {
-        const tab1 = component.getByRole("tab", { name: "Tab 1" });
-        if (row === "hover") await tab1.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
-        if (row === "active") {
-          const box = (await tab1.boundingBox())!;
-          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-          await page.mouse.down();
-        }
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          const tab1 = component.getByRole("tab", { name: "Tab 1" });
+          if (row === "hover") await tab1.hover();
+          if (row === "focus-visible") await page.keyboard.press("Tab");
+          if (row === "active") {
+            const box = (await tab1.boundingBox())!;
+            await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+            await page.mouse.down();
+          }
+        },
       },
     });
   });
@@ -132,14 +134,16 @@ test.describe("Screenshot tests (overflow)", () => {
         </OnyxTabs>
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "focus-first") {
-        await component.getByRole("tab").first().focus();
-      } else if (row === "focus-last") {
-        await component.getByRole("tab").last().focus();
-      } else if (row === "focus-in-between") {
-        await component.getByRole("tab").nth(4).focus();
-      }
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "focus-first") {
+          await component.getByRole("tab").first().focus();
+        } else if (row === "focus-last") {
+          await component.getByRole("tab").last().focus();
+        } else if (row === "focus-in-between") {
+          await component.getByRole("tab").nth(4).focus();
+        }
+      },
     },
   });
 });

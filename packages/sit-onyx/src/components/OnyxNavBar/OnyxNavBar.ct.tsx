@@ -54,7 +54,7 @@ test.describe("Screenshot tests", () => {
       name: `Navigation bar (${breakpoint})`,
       columns: ["default"],
       rows: ["default", "back", "context", "context-back"],
-      disablePadding: true,
+      removePadding: true,
       component: (column, row) => (
         <OnyxNavBar
           appName="App name"
@@ -74,8 +74,10 @@ test.describe("Screenshot tests", () => {
           )}
         </OnyxNavBar>
       ),
-      beforeScreenshot: async (component, page) => {
-        await page.setViewportSize({ width: breakpointWidth, height: 128 });
+      hooks: {
+        beforeEach: async (component, page) => {
+          await page.setViewportSize({ width: breakpointWidth, height: 128 });
+        },
       },
     });
   }

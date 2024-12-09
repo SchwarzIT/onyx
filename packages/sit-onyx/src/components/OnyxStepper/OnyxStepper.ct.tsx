@@ -14,14 +14,16 @@ test.describe("Screenshot tests", () => {
       component: (column) => {
         return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
       },
-      beforeScreenshot: async (component, page, column, row) => {
-        const input = component.getByLabel("Test label");
-        if (row === "hover") await input.hover();
-        if (row === "focus") await input.focus();
-        if (state == "autofill") {
-          await input.fill("10");
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          const input = component.getByLabel("Test label");
+          if (row === "hover") await input.hover();
+          if (row === "focus") await input.focus();
+          if (state == "autofill") {
+            await input.fill("10");
+            await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+          }
+        },
       },
     });
   }
@@ -74,14 +76,16 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, _row) => {
-      await component.evaluate((element) => {
-        element.style.padding = `3rem 5rem`;
-      });
+    hooks: {
+      beforeEach: async (component, page, _column, _row) => {
+        await component.evaluate((element) => {
+          element.style.padding = `3rem 5rem`;
+        });
 
-      await createFormElementUtils(page).triggerTooltipVisible(
-        _row === "labelTooltip" ? "label" : "message",
-      );
+        await createFormElementUtils(page).triggerTooltipVisible(
+          _row === "labelTooltip" ? "label" : "message",
+        );
+      },
     },
   });
 
@@ -115,20 +119,22 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after touched
-      await input.fill("10");
-      await input.blur();
+        // invalid is only triggered after touched
+        await input.fill("10");
+        await input.blur();
 
-      await component.evaluate((element) => {
-        element.style.padding = `0 5rem 3rem 2rem`;
-      });
+        await component.evaluate((element) => {
+          element.style.padding = `0 5rem 3rem 2rem`;
+        });
 
-      if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible("message");
-      }
+        if (row !== "error") {
+          await createFormElementUtils(page).triggerTooltipVisible("message");
+        }
+      },
     },
   });
 
@@ -151,12 +157,14 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, _row) => {
-      await component.evaluate((element) => {
-        element.style.padding = `3rem 5rem`;
-      });
+    hooks: {
+      beforeEach: async (component, page, _column, _row) => {
+        await component.evaluate((element) => {
+          element.style.padding = `3rem 5rem`;
+        });
 
-      await createFormElementUtils(page).triggerTooltipVisible("label");
+        await createFormElementUtils(page).triggerTooltipVisible("label");
+      },
     },
   });
 
@@ -174,9 +182,12 @@ test.describe("Screenshot tests", () => {
         loading={column === "loading"}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus" && column !== "loading") await component.getByLabel("Test label").focus();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus" && column !== "loading")
+          await component.getByLabel("Test label").focus();
+      },
     },
   });
 
@@ -192,18 +203,20 @@ test.describe("Screenshot tests", () => {
         modelValue={10}
       />
     ),
-    beforeScreenshot: async (component, _page, column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, _page, column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after touched
-      await input.fill("10");
-      await input.blur();
+        // invalid is only triggered after touched
+        await input.fill("10");
+        await input.blur();
 
-      if (row === "hover") await input.hover();
-      if (row === "focus") await input.focus();
-      if (column == "autofill") {
-        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-      }
+        if (row === "hover") await input.hover();
+        if (row === "focus") await input.focus();
+        if (column == "autofill") {
+          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+        }
+      },
     },
   });
 

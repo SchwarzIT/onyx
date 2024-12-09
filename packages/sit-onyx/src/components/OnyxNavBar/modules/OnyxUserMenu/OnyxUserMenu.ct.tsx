@@ -1,6 +1,6 @@
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
 import {
-  adjustAbsolutePositionScreenshot,
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
 } from "../../../../playwright/screenshots";
@@ -33,20 +33,22 @@ test.describe("Screenshot tests", () => {
         {column === "footer" ? <template v-slot:footer>Footer slot content</template> : undefined}
       </OnyxUserMenu>
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "default") return;
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "default") return;
 
-      if (row === "hover") {
-        await component.getByRole("button", { name: "Jane Doe" }).hover();
-      }
-      if (row === "focus-visible") {
-        await page.keyboard.press("Tab");
-      }
+        if (row === "hover") {
+          await component.getByRole("button", { name: "Jane Doe" }).hover();
+        }
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+        }
 
-      await expect(component.getByLabel("User options")).toBeVisible();
+        await expect(component.getByLabel("User options")).toBeVisible();
 
-      await adjustAbsolutePositionScreenshot(component);
-      await component.evaluate((element) => (element.style.paddingLeft = "64px"));
+        await adjustSizeToAbsolutePosition(component);
+        await component.evaluate((element) => (element.style.paddingLeft = "64px"));
+      },
     },
   });
 });
