@@ -1,22 +1,25 @@
+import { expect, test } from "@playwright/experimental-ct-vue";
 import type { Locator } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import ScreenshotMatrix from "./ScreenshotMatrix.vue";
-import type { MatrixScreenshotTestOptions, UseMatrixScreenshotTestOptions } from "./types";
+import type {
+  HookContext,
+  MatrixScreenshotTestOptions,
+  UseMatrixScreenshotTestOptions,
+} from "./types";
 import { escapeGridAreaName } from "./utils";
 
 /**
  * Creates a screenshot utility that can be used to capture matrix screenshots.
  * Useful for capturing a single screenshot/image that contains multiple variants of a component.
  */
-export const useMatrixScreenshotTest = ({
-  expect,
-  test,
+export const useMatrixScreenshotTest = <TContext extends HookContext = HookContext>({
   defaults,
-}: UseMatrixScreenshotTestOptions) => {
+}: UseMatrixScreenshotTestOptions<TContext>) => {
   const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
-    options: MatrixScreenshotTestOptions<TColumn, TRow>,
+    options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
-    test(`${options.name}`, async ({ mount, page, browserName, makeAxeBuilder }) => {
+    test(`${options.name}`, async ({ mount, page, browserName }) => {
       // limit the max timeout per permutation
       const timeoutPerScreenshot = 25 * 1000;
       test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
@@ -32,8 +35,8 @@ export const useMatrixScreenshotTest = ({
         const component = await mount(element);
 
         // BEFORE hook
-        await defaults?.hooks?.beforeEach?.(component, page, column, row);
-        await options.hooks?.beforeEach?.(component, page, column, row);
+        await defaults?.hooks?.beforeEach?.(component, page, column, row, options.context);
+        await options.hooks?.beforeEach?.(component, page, column, row, options.context);
 
         const screenshot = await component.screenshot({ animations: "disabled" });
 
@@ -41,23 +44,6 @@ export const useMatrixScreenshotTest = ({
         // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
         // see (`scale` option of `component.screenshot()` above)
         const box = await component.boundingBox();
-
-        // accessibility tests
-        const axeBuilder = makeAxeBuilder();
-        const disabledAccessibilityRules = [
-          ...(defaults?.disabledAccessibilityRules ?? []),
-          ...(options.disabledAccessibilityRules ?? []),
-        ];
-
-        if (disabledAccessibilityRules.length) {
-          axeBuilder.disableRules(disabledAccessibilityRules);
-        }
-
-        const accessibilityScanResults = await axeBuilder.analyze();
-        expect(
-          accessibilityScanResults.violations,
-          `should pass accessibility checks for ${column} ${row}`,
-        ).toEqual([]);
 
         const id = `${row}-${column}`;
 
@@ -72,8 +58,8 @@ export const useMatrixScreenshotTest = ({
         );
 
         // AFTER hook
-        await defaults?.hooks?.afterEach?.(component, page, column, row);
-        await options.hooks?.afterEach?.(component, page, column, row);
+        await defaults?.hooks?.afterEach?.(component, page, column, row, options.context);
+        await options.hooks?.afterEach?.(component, page, column, row, options.context);
 
         return image;
       };
@@ -120,7 +106,6 @@ export const useMatrixScreenshotTest = ({
   return {
     /**
      * Creates a single matrix screenshot that includes the screenshots for every column-row combination.
-     * Will also perform axe accessibility tests.
      */
     executeMatrixScreenshotTest,
   };
@@ -132,10 +117,7 @@ export const useMatrixScreenshotTest = ({
  *
  * Will wait for the component to be visible.
  */
-export const adjustSizeToAbsolutePosition = async (
-  expect: UseMatrixScreenshotTestOptions["expect"],
-  component: Locator,
-) => {
+export const adjustSizeToAbsolutePosition = async (component: Locator) => {
   await expect(component).toBeVisible();
 
   await component.evaluate((element) => {

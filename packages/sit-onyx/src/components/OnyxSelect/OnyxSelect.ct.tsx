@@ -4,18 +4,31 @@ import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import {
+  executeMatrixScreenshotTest,
+  type OnyxMatrixScreenshotHookContext,
+} from "../../playwright/screenshots";
 import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
-import { type OnyxSelectProps, type SelectOption, SELECT_ALIGNMENTS } from "./types";
+import { SELECT_ALIGNMENTS, type OnyxSelectProps, type SelectOption } from "./types";
 
-const DISABLED_ACCESSIBILITY_RULES = [
-  // the scrollable region are the options but they should not be focusable because
-  // the focus should remain on the parent element
-  "scrollable-region-focusable",
-];
+const context = {
+  disabledAccessibilityRules: [
+    // the scrollable region are the options but they should not be focusable because
+    // the focus should remain on the parent element
+    "scrollable-region-focusable",
+  ],
+} satisfies OnyxMatrixScreenshotHookContext;
+
+const nestedChildrenContext = {
+  disabledAccessibilityRules: [
+    ...context.disabledAccessibilityRules,
+    // "nested-interactive" is false positive, see: https://github.com/SchwarzIT/onyx/issues/1026#issuecomment-2446134327
+    "nested-interactive",
+  ],
+} satisfies OnyxMatrixScreenshotHookContext;
 
 const MOCK_VARIED_OPTIONS = [
   { value: 1, label: "Default" },
@@ -45,7 +58,7 @@ const openFlyout = async (component: MountResultJsx) => {
   const toggleButton = component.getByLabel("Toggle selection popover");
 
   if (await toggleButton.isEnabled()) await toggleButton.click();
-  await adjustSizeToAbsolutePosition(expect, component);
+  await adjustSizeToAbsolutePosition(component);
 };
 
 test.describe("Default screenshots", () => {
@@ -53,7 +66,7 @@ test.describe("Default screenshots", () => {
     name: "Select",
     columns: DENSITIES,
     rows: ["default", "required", "hideLabel", "open"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <div>
         <OnyxSelect
@@ -80,7 +93,7 @@ test.describe("Empty screenshots", () => {
     name: "Select (empty)",
     columns: DENSITIES,
     rows: ["empty", "search-empty"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <div>
         {row === "empty" ? (
@@ -110,7 +123,7 @@ test.describe("Truncated options screenshots", () => {
     name: "Select (truncated)",
     columns: DENSITIES,
     rows: ["ellipsis", "multiline"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <OnyxSelect
         label="Label"
@@ -143,12 +156,7 @@ test.describe("Grouped screenshots", () => {
     name: "Select (grouped)",
     columns: ["default", "with-search", "with-check-all"],
     rows: DENSITIES,
-    disabledAccessibilityRules: [
-      ...DISABLED_ACCESSIBILITY_RULES,
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    context: nestedChildrenContext,
     component: (column, row) => {
       const preselected: SelectOptionValue = GROUPED_OPTIONS[0].value;
       const multiple = column === "with-check-all";
@@ -191,12 +199,7 @@ test.describe("Multiple screenshots", () => {
     name: "Select (multiple)",
     columns: DENSITIES,
     rows: ["default", "check-all", "search", "preview"],
-    disabledAccessibilityRules: [
-      ...DISABLED_ACCESSIBILITY_RULES,
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    context: nestedChildrenContext,
     component: (column, row) => {
       let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]];
       if (column === "compact") modelValue = [];
@@ -232,7 +235,7 @@ test.describe("List description screenshots", () => {
     name: "Select (list-description)",
     columns: DENSITIES,
     rows: ["default"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column) => (
       <div>
         <OnyxSelect
@@ -257,7 +260,7 @@ test.describe("Alignment screenshots", () => {
     name: "Select (alignment)",
     columns: SELECT_ALIGNMENTS,
     rows: ["top", "bottom"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <div style={{ paddingTop: row === "top" ? "22rem" : "" }}>
         <OnyxSelect
@@ -281,7 +284,7 @@ test.describe("Loading screenshots", () => {
     name: "Select (loading)",
     columns: ["loading", "lazy-loading", "custom-button"],
     rows: ["default"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column) => (
       <div>
         <OnyxSelect
@@ -402,7 +405,7 @@ test.describe("Other screenshots", () => {
     name: "Select (readonly, disabled, loading, skeleton)",
     columns: ["readonly", "disabled", "loading", "skeleton"],
     rows: ["default", "hover", "focus-visible"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column) => (
       <OnyxSelect
         label="Label"

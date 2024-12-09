@@ -46,7 +46,7 @@ test.describe("Screenshot tests", () => {
 
         await expect(component.getByLabel("User options")).toBeVisible();
 
-        await adjustSizeToAbsolutePosition(expect, component);
+        await adjustSizeToAbsolutePosition(component);
         await component.evaluate((element) => (element.style.paddingLeft = "64px"));
       },
     },
