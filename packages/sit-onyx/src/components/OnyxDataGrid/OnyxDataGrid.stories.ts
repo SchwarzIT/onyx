@@ -41,7 +41,7 @@ export const MoreActions = {
               ? [
                   {
                     iconComponent: h(OnyxIconButton, {
-                      label: "More actions",
+                      label: "Sort options",
                       icon: sort,
                       color: "neutral",
                     }),
@@ -52,7 +52,7 @@ export const MoreActions = {
                   },
                   {
                     iconComponent: h(OnyxIconButton, {
-                      label: "More actions",
+                      label: "Sort options",
                       icon: sort,
                       color: "neutral",
                     }),

@@ -100,8 +100,8 @@
     "toggleBurgerMenu": "Toggle burger menu",
     "toggleContextMenu": "Toggle context menu",
     "navigationHeadline": "Navigation",
-    "moreActionsFlyout": "More actions flyout",
-    "moreActionsTrigger": "Toggle more actions"
+    "moreActionsFlyout": "Choose an action for the column \"{column}\"",
+    "moreActionsTrigger": "Toggle column actions"
   },
   "tooltip": {
     "neutral": "Toggle info tooltip",

@@ -134,7 +134,7 @@ export const useDataGridFeatures = <
         const flyoutMenu = h(
           OnyxFlyoutMenu,
           {
-            label: t.value("navigation.moreActionsFlyout"),
+            label: t.value("navigation.moreActionsFlyout", { column: column as string }),
           },
           {
             button: ({ trigger }) =>
