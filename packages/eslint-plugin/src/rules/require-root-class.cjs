@@ -149,7 +149,7 @@ module.exports = {
               context.report({
                 node: tag,
                 loc: tag.loc,
-                message: "missing class",
+                message: "missing 'onyx-component' class",
               });
             }
             if (hasDirective(element, "for")) {
