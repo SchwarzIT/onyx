@@ -20,7 +20,7 @@ export type UseMatrixScreenshotTestOptions = {
    * Will be merged with the options passed to a single screenshot test.
    */
   defaults?: Partial<
-    Pick<MatrixScreenshotTestOptions, "disabledAccessibilityRules" | "disablePadding">
+    Pick<MatrixScreenshotTestOptions, "disabledAccessibilityRules" | "removePadding">
   >;
 };
 
@@ -71,7 +71,7 @@ export type MatrixScreenshotTestOptions<
    * If `true`, no padding will be added to the screenshots.
    * By default a `1rem` padding is added around the component/screenshot.
    */
-  disablePadding?: boolean;
+  removePadding?: boolean;
 };
 
 export type ScreenshotTestHook<TColumn extends string, TRow extends string> = (

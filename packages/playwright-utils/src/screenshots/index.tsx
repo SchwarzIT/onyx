@@ -77,14 +77,14 @@ export const useMatrixScreenshotTest = ({
       for (const row of options.rows) {
         for (const column of options.columns) {
           const jsxElement = options.component(column, row);
-          const disablePadding = options.disablePadding ?? defaults?.disablePadding;
+          const removePadding = options.removePadding ?? defaults?.removePadding;
 
           const wrappedElement = (
             <div
               style={{
                 display: "grid",
                 width: "max-content",
-                padding: disablePadding ? undefined : "1rem",
+                padding: removePadding ? undefined : "1rem",
               }}
             >
               {jsxElement}

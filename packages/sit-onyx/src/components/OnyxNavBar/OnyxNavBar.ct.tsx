@@ -54,7 +54,7 @@ test.describe("Screenshot tests", () => {
       name: `Navigation bar (${breakpoint})`,
       columns: ["default"],
       rows: ["default", "back", "context", "context-back"],
-      disablePadding: true,
+      removePadding: true,
       component: (column, row) => (
         <OnyxNavBar
           appName="App name"
