@@ -23,6 +23,14 @@ const beforeScreenshot: MatrixScreenshotTestOptions["beforeScreenshot"] = async 
   }
 };
 
+test.beforeEach(async ({ page }) => {
+  await page.addStyleTag({
+    content: `body {
+    background-color: var(--onyx-color-base-background-tinted);
+  }`,
+  });
+});
+
 for (const color of SYSTEM_BUTTON_COLORS) {
   test.describe(`Screenshot tests (${color})`, () => {
     for (const type of ["text", "icon"] as const) {
