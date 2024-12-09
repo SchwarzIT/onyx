@@ -161,6 +161,8 @@ export const executeMatrixScreenshotTest = async <TColumn extends string, TRow e
     );
 
     await expect(component).toHaveScreenshot(`${options.name}.png`);
+
+    await page.unroute("/_playwright-matrix-screenshot*");
   });
 };
 
