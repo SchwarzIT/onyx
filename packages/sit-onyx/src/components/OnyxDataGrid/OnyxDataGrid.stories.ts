@@ -45,7 +45,10 @@ export const MoreActions = {
                       icon: sort,
                       color: "neutral",
                     }),
-                    listItems: [h(OnyxListItem, "No sorting"), h(OnyxListItem, "Random sort")],
+                    listItems: [
+                      h(OnyxListItem, () => "No sorting"),
+                      h(OnyxListItem, () => "Random sort"),
+                    ],
                   },
                   {
                     iconComponent: h(OnyxIconButton, {
@@ -54,8 +57,8 @@ export const MoreActions = {
                       color: "neutral",
                     }),
                     listItems: [
-                      h(OnyxListItem, "Sort ascending"),
-                      h(OnyxListItem, "Sort descending"),
+                      h(OnyxListItem, () => "Sort ascending"),
+                      h(OnyxListItem, () => "Sort descending"),
                     ],
                   },
                 ]
@@ -68,6 +71,7 @@ export const MoreActions = {
       { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
       { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
       { id: 4, name: "John", age: 28, birthday: new Date("2003-04-10") },
+      { id: 5, name: "Charlotte", age: 28, birthday: new Date("2000-11-08") },
     ],
   },
 } satisfies Story;

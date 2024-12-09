@@ -1,5 +1,5 @@
 import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
-import { h, type Component, type WatchSource } from "vue";
+import { h, type Component, type ComponentInstance, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
@@ -37,7 +37,7 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
      */
     actions?: (column: keyof TEntry) => {
       iconComponent: Component;
-      listItems?: (typeof OnyxListItem)[];
+      listItems?: ComponentInstance<typeof OnyxListItem>[];
     }[];
   };
 };
@@ -132,12 +132,12 @@ export const useDataGridFeatures = <
         const flyoutMenu = h(
           OnyxFlyoutMenu,
           {
-            label: "",
+            label: "More Actions Flyout",
           },
           {
             button: ({ trigger }) =>
               h(OnyxIconButton, {
-                label: "More Actions",
+                label: "More Actions Trigger",
                 color: "neutral",
                 icon: moreHorizontal,
                 ...trigger,
@@ -148,7 +148,7 @@ export const useDataGridFeatures = <
 
         return {
           key: column,
-          component: () => h(HeaderCell, { label: String(column) }, { actions: flyoutMenu }),
+          component: () => h(HeaderCell, { label: String(column) }, { actions: () => flyoutMenu }),
           props: {},
         };
       }
@@ -158,7 +158,7 @@ export const useDataGridFeatures = <
 
       return {
         key: column,
-        component: () => h(HeaderCell, { label: String(column) }, { actions: iconComponent }),
+        component: () => h(HeaderCell, { label: String(column) }, { actions: () => iconComponent }),
         props: {},
       };
     });
