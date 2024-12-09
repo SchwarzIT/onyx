@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<OnyxSystemButtonProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   autofocus: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  color: "intense",
 });
 
 const { densityClass } = useDensity(props);
@@ -28,7 +29,12 @@ const skeleton = useSkeletonContext(props);
   />
   <button
     v-else
-    :class="['onyx-system-button', 'onyx-text--small', densityClass]"
+    :class="[
+      'onyx-system-button',
+      'onyx-text--small',
+      densityClass,
+      `onyx-system-button--${props.color}`,
+    ]"
     :aria-label="props.label"
     type="button"
     :disabled="disabled"
@@ -63,9 +69,6 @@ const skeleton = useSkeletonContext(props);
 
 .onyx-system-button {
   @include layers.component() {
-    --background-color: transparent;
-    --color: var(--onyx-color-text-icons-neutral-medium);
-
     font-family: var(--onyx-font-family);
     color: var(--color);
     background-color: var(--background-color);
@@ -85,17 +88,19 @@ const skeleton = useSkeletonContext(props);
 
       &:hover,
       &:focus-visible {
-        --background-color: var(--onyx-color-base-neutral-300);
-        --color: var(--onyx-color-text-icons-neutral-intense);
+        --background-color: var(--hover-background-color);
+        --color: var(--hover-focus-color);
       }
 
       &:focus-visible {
+        --background-color: var(--focus-active-background-color);
+        --color: var(--hover-focus-color);
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
       }
 
       &:active {
-        --background-color: var(--onyx-color-base-neutral-300);
-        --color: var(--onyx-color-text-icons-primary-bold);
+        --background-color: var(--focus-active-background-color);
+        --color: var(--active-color);
       }
     }
 
@@ -103,17 +108,69 @@ const skeleton = useSkeletonContext(props);
       --icon-size: 1.125rem;
     }
 
-    &:not(:has(.onyx-icon)) {
-      padding: var(--onyx-density-3xs) var(--onyx-density-xs);
-      --background-color: var(--onyx-color-base-neutral-300);
-      --color: var(--onyx-color-text-icons-neutral-intense);
+    $is_text_button: "&:not(:has(.onyx-icon))";
 
-      &:enabled {
-        &:hover,
-        &:focus-visible,
-        &:active {
-          --background-color: var(--onyx-color-base-neutral-200);
-        }
+    #{$is_text_button} {
+      padding: var(--onyx-density-3xs) var(--onyx-density-xs);
+    }
+
+    &--intense {
+      --color: var(--onyx-color-text-icons-neutral-medium);
+      --hover-focus-color: var(--onyx-color-text-icons-neutral-intense);
+      --active-color: var(--onyx-color-text-icons-primary-bold);
+
+      --background-color: transparent;
+      --hover-background-color: var(--onyx-color-base-neutral-300);
+      --focus-active-background-color: var(--onyx-color-base-neutral-300);
+
+      #{$is_text_button} {
+        --color: var(--onyx-color-text-icons-neutral-intense);
+        --hover-focus-color: var(--onyx-color-text-icons-neutral-intense);
+        --active-color: var(--onyx-color-text-icons-primary-bold);
+
+        --background-color: var(--onyx-color-base-neutral-300);
+        --hover-background-color: var(--onyx-color-base-neutral-200);
+        --focus-active-background-color: var(--onyx-color-base-neutral-200);
+      }
+    }
+
+    &--soft {
+      --color: var(--onyx-color-text-icons-neutral-medium);
+      --hover-focus-color: var(--onyx-color-text-icons-neutral-intense);
+      --active-color: var(--onyx-color-text-icons-primary-intense);
+
+      --background-color: transparent;
+      --hover-background-color: var(--onyx-color-base-background-blank);
+      --focus-active-background-color: var(--onyx-color-base-background-blank);
+
+      #{$is_text_button} {
+        --color: var(--onyx-color-text-icons-neutral-intense);
+        --hover-focus-color: var(--onyx-color-text-icons-neutral-intense);
+        --active-color: var(--onyx-color-text-icons-primary-intense);
+
+        --background-color: transparent;
+        --hover-background-color: var(--onyx-color-base-background-blank);
+        --focus-active-background-color: var(--onyx-color-base-background-blank);
+      }
+    }
+
+    &--medium {
+      --color: var(--onyx-color-text-icons-neutral-medium);
+      --hover-focus-color: var(--onyx-color-text-icons-neutral-intense);
+      --active-color: var(--onyx-color-text-icons-primary-intense);
+
+      --background-color: transparent;
+      --hover-background-color: var(--onyx-color-base-neutral-200);
+      --focus-active-background-color: var(--onyx-color-base-neutral-200);
+
+      #{$is_text_button} {
+        --color: var(--onyx-color-text-icons-neutral-intense);
+        --hover-focus-color: var(--onyx-color-text-icons-neutral-intense);
+        --active-color: var(--onyx-color-text-icons-primary-bold);
+
+        --background-color: var(--onyx-color-base-neutral-200);
+        --hover-background-color: var(--onyx-color-base-neutral-300);
+        --focus-active-background-color: var(--onyx-color-base-neutral-200);
       }
     }
 
