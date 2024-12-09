@@ -10,7 +10,7 @@
     "test:playwright:all": "turbo run test:playwright --concurrency 1",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
-    "stylelint": "stylelint \"packages/sit-onyx/dist/*.css\" --output-file stylelint-results.txt",
+    "stylelint": "stylelint \"packages/sit-onyx/dist/*.css\"",
     "lint:all": "eslint .",
     "lint:fix:all": "pnpm run lint:all --fix",
     "lint:ci:all": "pnpm run lint:all --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
