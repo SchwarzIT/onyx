@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.86
+
+### Minor Changes
+
+- c358978: feat: implement basic `OnyxSystemButton`
+
 ## 1.0.0-beta.85
 
 ### Patch Changes
