@@ -1,25 +1,19 @@
+import type { ScreenshotTestHooks } from "@sit-onyx/playwright-utils";
 import { test } from "../../playwright/a11y";
-import {
-  executeMatrixScreenshotTest,
-  mockPlaywrightIcon,
-  type MatrixScreenshotTestOptions,
-} from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxSystemButton from "./OnyxSystemButton.vue";
 import { SYSTEM_BUTTON_COLORS } from "./types";
 
-const beforeScreenshot: MatrixScreenshotTestOptions["beforeScreenshot"] = async (
-  component,
-  page,
-  column,
-  row,
-) => {
-  if (row === "hover") await component.hover();
-  if (row === "focus-visible") await page.keyboard.press("Tab");
-  if (row === "active") {
-    const box = (await component.boundingBox())!;
-    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-    await page.mouse.down();
-  }
+const hooks: ScreenshotTestHooks<string, string> = {
+  beforeEach: async (component, page, column, row) => {
+    if (row === "hover") await component.hover();
+    if (row === "focus-visible") await page.keyboard.press("Tab");
+    if (row === "active") {
+      const box = (await component.boundingBox())!;
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+      await page.mouse.down();
+    }
+  },
 };
 
 test.beforeEach(async ({ page }) => {
@@ -36,7 +30,7 @@ for (const color of SYSTEM_BUTTON_COLORS) {
       name: `System button (${color})`,
       columns: ["text", "icon"],
       rows: ["default", "hover", "active", "focus-visible", "skeleton"],
-      beforeScreenshot,
+      hooks,
       component: (column, row) => (
         <OnyxSystemButton
           label="Test label"
@@ -51,7 +45,7 @@ for (const color of SYSTEM_BUTTON_COLORS) {
       name: `System button (${color}, disabled)`,
       columns: ["text", "icon"],
       rows: ["default", "hover", "active", "focus-visible"],
-      beforeScreenshot,
+      hooks,
       component: (column) => (
         <OnyxSystemButton
           label="Test label"
