@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { ONYX_COLORS } from "sit-onyx";
+import { ONYX_COLORS, useThemeTransition } from "sit-onyx";
 import { useData } from "vitepress";
 import ColorPalette from "./ColorPalette.vue";
 import DesignVariableBadge from "./DesignVariableBadge.vue";
 
 const { isDark } = useData();
+useThemeTransition(isDark);
 </script>
 
 <template>
