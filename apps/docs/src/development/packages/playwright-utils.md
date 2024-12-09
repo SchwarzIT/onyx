@@ -144,10 +144,12 @@ test.describe("Screenshot tests", () => {
     component: (column) => {
       return <OnyxButton label="Button" color={column} />;
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
-      if (row === "active") await page.mouse.down();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "active") await page.mouse.down();
+      },
     },
   });
 });

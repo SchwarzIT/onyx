@@ -22,10 +22,12 @@ test.describe("Screenshot tests", () => {
         />
       </ul>
     ),
-    beforeScreenshot: async (component, page, _column, row) => {
-      await expect(component).toContainText("Item");
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        await expect(component).toContainText("Item");
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });

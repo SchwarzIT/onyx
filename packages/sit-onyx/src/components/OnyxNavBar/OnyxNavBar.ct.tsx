@@ -74,8 +74,10 @@ test.describe("Screenshot tests", () => {
           )}
         </OnyxNavBar>
       ),
-      beforeScreenshot: async (component, page) => {
-        await page.setViewportSize({ width: breakpointWidth, height: 128 });
+      hooks: {
+        beforeEach: async (component, page) => {
+          await page.setViewportSize({ width: breakpointWidth, height: 128 });
+        },
       },
     });
   }

@@ -30,7 +30,10 @@ export const useMatrixScreenshotTest = ({
         await page.mouse.up(); // reset mouse
 
         const component = await mount(element);
-        await options.beforeScreenshot?.(component, page, column, row);
+
+        // BEFORE hook
+        await defaults?.hooks?.beforeEach?.(component, page, column, row);
+        await options.hooks?.beforeEach?.(component, page, column, row);
 
         const screenshot = await component.screenshot({ animations: "disabled" });
 
@@ -68,7 +71,10 @@ export const useMatrixScreenshotTest = ({
           />
         );
 
-        await options.afterScreenshot?.(component, page, column, row);
+        // AFTER hook
+        await defaults?.hooks?.afterEach?.(component, page, column, row);
+        await options.hooks?.afterEach?.(component, page, column, row);
+
         return image;
       };
 

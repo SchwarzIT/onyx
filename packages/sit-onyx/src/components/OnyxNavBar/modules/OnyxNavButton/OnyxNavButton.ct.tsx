@@ -27,10 +27,12 @@ test.describe("Screenshot tests", () => {
         active={column === "active"}
       />
     ),
-    beforeScreenshot: async (component, page, _column, row) => {
-      await expect(component).toContainText("Nav Button");
-      if (row === "hover") await component.getByLabel("Nav Button").hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        await expect(component).toContainText("Nav Button");
+        if (row === "hover") await component.getByLabel("Nav Button").hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });
@@ -58,13 +60,15 @@ test.describe("Screenshot tests with nested children", () => {
         </template>
       </OnyxNavButton>
     ),
-    beforeScreenshot: async (component, page, _column, row) => {
-      await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
 
-      const flyout = page.getByLabel("Subpages of Item");
-      await isFlyoutVisible(flyout);
-      await adjustSizeToAbsolutePosition(expect, component);
+        const flyout = page.getByLabel("Subpages of Item");
+        await isFlyoutVisible(flyout);
+        await adjustSizeToAbsolutePosition(expect, component);
+      },
     },
   });
 });
@@ -90,10 +94,12 @@ test.describe("Screenshot tests (mobile)", () => {
         )}
       </MobileComponentTestWrapper>
     ),
-    beforeScreenshot: async (component, page, _column, row) => {
-      await expect(component).toContainText("Parent item");
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        await expect(component).toContainText("Parent item");
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });
@@ -118,9 +124,11 @@ test.describe("Screenshot tests (mobile children)", () => {
         </template>
       </MobileComponentTestWrapper>
     ),
-    beforeScreenshot: async (component) => {
-      await component.getByText("Parent item").click();
-      await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
+    hooks: {
+      beforeEach: async (component) => {
+        await component.getByText("Parent item").click();
+        await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
+      },
     },
   });
 });

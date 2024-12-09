@@ -67,8 +67,10 @@ test.describe("Default screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component, _page, _column, row) => {
-      if (row === "open") await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, _column, row) => {
+        if (row === "open") await openFlyout(component);
+      },
     },
   });
 });
@@ -95,8 +97,10 @@ test.describe("Empty screenshots", () => {
         )}
       </div>
     ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -117,10 +121,12 @@ test.describe("Truncated options screenshots", () => {
         density={column}
       />
     ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
-      const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0].label);
-      await option.hover();
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+        const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0].label);
+        await option.hover();
+      },
     },
   });
 });
@@ -172,8 +178,10 @@ test.describe("Grouped screenshots", () => {
         </div>
       );
     },
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -211,8 +219,10 @@ test.describe("Multiple screenshots", () => {
         </div>
       );
     },
-    beforeScreenshot: async (component, _page, _column, row) => {
-      if (row !== "preview") await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, _column, row) => {
+        if (row !== "preview") await openFlyout(component);
+      },
     },
   });
 });
@@ -234,8 +244,10 @@ test.describe("List description screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component, _page, _column) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, _column) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -256,8 +268,10 @@ test.describe("Alignment screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -285,12 +299,14 @@ test.describe("Loading screenshots", () => {
         </OnyxSelect>
       </div>
     ),
-    beforeScreenshot: async (component, _page, column) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, column) => {
+        await openFlyout(component);
 
-      if (column !== "loading") {
-        await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
-      }
+        if (column !== "loading") {
+          await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
+        }
+      },
     },
   });
 });
@@ -330,20 +346,22 @@ test.describe("Invalidity handling screenshots", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after open/closing the flyout
-      await input.click();
-      await page.getByRole("document").click(); // reset mouse
+        // invalid is only triggered after open/closing the flyout
+        await input.click();
+        await page.getByRole("document").click(); // reset mouse
 
-      await component.evaluate((element) => {
-        element.style.padding = `0 5rem 3rem 2rem`;
-      });
+        await component.evaluate((element) => {
+          element.style.padding = `0 5rem 3rem 2rem`;
+        });
 
-      if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible("message");
-      }
+        if (row !== "error") {
+          await createFormElementUtils(page).triggerTooltipVisible("message");
+        }
+      },
     },
   });
 
@@ -362,17 +380,19 @@ test.describe("Invalidity handling screenshots", () => {
         modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
       />
     ),
-    beforeScreenshot: async (component, page, _column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after open/closing the flyout
-      await input.click();
-      await component.click();
+        // invalid is only triggered after open/closing the flyout
+        await input.click();
+        await component.click();
 
-      if (row !== "focus") {
-        await page.getByRole("document").click(); // reset mouse
-      }
-      if (row === "hover") await input.hover();
+        if (row !== "focus") {
+          await page.getByRole("document").click(); // reset mouse
+        }
+        if (row === "hover") await input.hover();
+      },
     },
   });
 });
@@ -395,9 +415,11 @@ test.describe("Other screenshots", () => {
         skeleton={column === "skeleton"}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });

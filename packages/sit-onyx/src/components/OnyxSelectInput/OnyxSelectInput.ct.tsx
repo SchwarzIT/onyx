@@ -19,9 +19,11 @@ test.describe("Screenshot tests", () => {
           modelValue={state === "with value" ? ["Selected value"] : undefined}
         />
       ),
-      beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.getByLabel("Test label").hover();
-        if (row === "focus") await page.keyboard.press("Tab");
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          if (row === "hover") await component.getByLabel("Test label").hover();
+          if (row === "focus") await page.keyboard.press("Tab");
+        },
       },
     });
   }
@@ -56,9 +58,11 @@ test.describe("Screenshot tests", () => {
         loading={column === "loading"}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.getByLabel("Test label").hover();
-      if (row === "focus") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.getByLabel("Test label").hover();
+        if (row === "focus") await page.keyboard.press("Tab");
+      },
     },
   });
 

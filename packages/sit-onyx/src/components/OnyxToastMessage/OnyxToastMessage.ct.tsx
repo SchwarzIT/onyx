@@ -66,10 +66,12 @@ test.describe("Screenshot tests (truncation)", () => {
         style={{ margin: "1rem" }}
       />
     ),
-    beforeScreenshot: async (component) => {
-      await component.getByRole("paragraph").evaluate((element) => {
-        element.scrollBy({ top: element.scrollHeight });
-      });
+    hooks: {
+      beforeEach: async (component) => {
+        await component.getByRole("paragraph").evaluate((element) => {
+          element.scrollBy({ top: element.scrollHeight });
+        });
+      },
     },
   });
 });

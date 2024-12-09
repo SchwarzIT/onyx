@@ -21,10 +21,12 @@ test.describe("Screenshot tests", () => {
           />
         );
       },
-      beforeScreenshot: async (component, page, column, row) => {
-        const input = component.getByLabel("Test label");
-        if (row === "hover") await input.hover();
-        if (row === "focus") await input.focus();
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          const input = component.getByLabel("Test label");
+          if (row === "hover") await input.hover();
+          if (row === "focus") await input.focus();
+        },
       },
     });
   }
@@ -70,10 +72,12 @@ test.describe("Screenshot tests", () => {
         disabled={column === "disabled"}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      const input = component.getByLabel("Test label");
-      if (row === "hover") await input.hover();
-      if (row === "focus") await input.focus();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const input = component.getByLabel("Test label");
+        if (row === "hover") await input.hover();
+        if (row === "focus") await input.focus();
+      },
     },
   });
 
@@ -84,15 +88,17 @@ test.describe("Screenshot tests", () => {
     component: () => (
       <OnyxTextarea style="width: 12rem" label="Test label" customError="Test error" />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after touched
-      await input.fill("Filled value");
-      await input.blur();
+        // invalid is only triggered after touched
+        await input.fill("Filled value");
+        await input.blur();
 
-      if (row === "hover") await input.hover();
-      if (row === "focus") await input.focus();
+        if (row === "hover") await input.hover();
+        if (row === "focus") await input.focus();
+      },
     },
   });
 
@@ -107,19 +113,21 @@ test.describe("Screenshot tests", () => {
         success={{ shortMessage: "Test success message", longMessage: "Test long success message" }}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      const input = component.getByLabel("Test label");
-      const formElementUtils = createFormElementUtils(page);
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const input = component.getByLabel("Test label");
+        const formElementUtils = createFormElementUtils(page);
 
-      await component.evaluate((element) => {
-        element.style.padding = `0 5rem 3rem 2rem`;
-      });
+        await component.evaluate((element) => {
+          element.style.padding = `0 5rem 3rem 2rem`;
+        });
 
-      if (row === "hover") {
-        await input.hover();
-        await formElementUtils.triggerTooltipVisible("message");
-      }
-      if (row === "focus") await input.focus();
+        if (row === "hover") {
+          await input.hover();
+          await formElementUtils.triggerTooltipVisible("message");
+        }
+        if (row === "focus") await input.focus();
+      },
     },
   });
 
@@ -154,23 +162,25 @@ test.describe("Screenshot tests", () => {
         }
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      const textarea = component.getByLabel("Test label");
-      if (row === "resized-larger" || row === "resized-smaller") {
-        const box = (await textarea.boundingBox())!;
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const textarea = component.getByLabel("Test label");
+        if (row === "resized-larger" || row === "resized-smaller") {
+          const box = (await textarea.boundingBox())!;
 
-        const x = box.x + box.width - 4;
-        const y = box.y + box.height - 4;
+          const x = box.x + box.width - 4;
+          const y = box.y + box.height - 4;
 
-        await page.mouse.move(x, y);
-        await page.mouse.down();
+          await page.mouse.move(x, y);
+          await page.mouse.down();
 
-        if (row === "resized-larger") {
-          await page.mouse.move(x, y + 72);
-        } else {
-          await page.mouse.move(x, y - 72);
+          if (row === "resized-larger") {
+            await page.mouse.move(x, y + 72);
+          } else {
+            await page.mouse.move(x, y - 72);
+          }
         }
-      }
+      },
     },
   });
 
@@ -212,26 +222,28 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      const textarea = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const textarea = component.getByLabel("Test label");
 
-      if (column === "user-typed") {
-        if (row === "long-value") {
-          await textarea.fill("Test".repeat(64));
-        } else {
-          const modelValue = Array.from(
-            { length: Number.parseInt(row) },
-            (_, index) => `Row ${index + 1}`,
-          );
+        if (column === "user-typed") {
+          if (row === "long-value") {
+            await textarea.fill("Test".repeat(64));
+          } else {
+            const modelValue = Array.from(
+              { length: Number.parseInt(row) },
+              (_, index) => `Row ${index + 1}`,
+            );
 
-          for (let i = 0; i < modelValue.length; i++) {
-            await textarea.pressSequentially(modelValue[i]);
-            if (i < modelValue.length - 1) {
-              await textarea.press("Enter");
+            for (let i = 0; i < modelValue.length; i++) {
+              await textarea.pressSequentially(modelValue[i]);
+              if (i < modelValue.length - 1) {
+                await textarea.press("Enter");
+              }
             }
           }
         }
-      }
+      },
     },
   });
 
@@ -258,14 +270,16 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, _row) => {
-      await component.evaluate((element) => {
-        element.style.padding = `3rem 5rem`;
-      });
+    hooks: {
+      beforeEach: async (component, page, _column, _row) => {
+        await component.evaluate((element) => {
+          element.style.padding = `3rem 5rem`;
+        });
 
-      await createFormElementUtils(page).triggerTooltipVisible(
-        _row === "labelTooltip" ? "label" : "message",
-      );
+        await createFormElementUtils(page).triggerTooltipVisible(
+          _row === "labelTooltip" ? "label" : "message",
+        );
+      },
     },
   });
 
@@ -288,12 +302,14 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, _row) => {
-      await component.evaluate((element) => {
-        element.style.padding = `3rem 5rem`;
-      });
+    hooks: {
+      beforeEach: async (component, page, _column, _row) => {
+        await component.evaluate((element) => {
+          element.style.padding = `3rem 5rem`;
+        });
 
-      await createFormElementUtils(page).triggerTooltipVisible("label");
+        await createFormElementUtils(page).triggerTooltipVisible("label");
+      },
     },
   });
 });
