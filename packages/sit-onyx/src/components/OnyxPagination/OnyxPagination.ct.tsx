@@ -33,7 +33,7 @@ test.describe("screenshot tests", () => {
       beforeEach: async (component, page, column, row) => {
         if (row === "open") {
           await component.getByLabel("Page selection").click();
-          await adjustSizeToAbsolutePosition(expect, component);
+          await adjustSizeToAbsolutePosition(component);
         }
       },
     },

@@ -1,25 +1,30 @@
 import type { Locator } from "@playwright/test";
 import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
+import {
+  executeMatrixScreenshotTest,
+  type OnyxMatrixScreenshotHookContext,
+} from "../../../../playwright/screenshots";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import MobileComponentTestWrapper from "./MobileComponentTestWrapper.ct.vue";
 import OnyxNavButton from "./OnyxNavButton.vue";
 
-/**
- * This component represents only the child (menuitem) of the overall menu.
- * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
- * to have a parent with role="menu".
- */
-const disabledAccessibilityRules: string[] = ["aria-required-parent"];
+const context = {
+  /**
+   * This component represents only the child (menuitem) of the overall menu.
+   * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
+   * to have a parent with role="menu".
+   */
+  disabledAccessibilityRules: ["aria-required-parent"],
+} satisfies OnyxMatrixScreenshotHookContext;
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "NavButton",
     columns: ["default", "active"],
     rows: ["default", "hover", "focus-visible", "external-link"],
-    disabledAccessibilityRules,
+    context,
     component: (column, row) => (
       <OnyxNavButton
         label="Nav Button"
@@ -46,11 +51,12 @@ test.describe("Screenshot tests with nested children", () => {
     name: "NavButton with nested children",
     columns: ["inactive", "active"],
     rows: ["hover", "focus-visible"],
-    disabledAccessibilityRules: [
-      ...disabledAccessibilityRules,
-      // "aria-required-children" test is disabled because it's a slot based component
-      "aria-required-children",
-    ],
+    context: {
+      disabledAccessibilityRules: [
+        ...context.disabledAccessibilityRules, // "aria-required-children" test is disabled because it's a slot based component
+        "aria-required-children",
+      ],
+    },
     component: (column) => (
       <OnyxNavButton label="Item" href="#" active={column === "active"}>
         <template v-slot:children>
@@ -67,7 +73,7 @@ test.describe("Screenshot tests with nested children", () => {
 
         const flyout = page.getByLabel("Subpages of Item");
         await isFlyoutVisible(flyout);
-        await adjustSizeToAbsolutePosition(expect, component);
+        await adjustSizeToAbsolutePosition(component);
       },
     },
   });
@@ -78,7 +84,7 @@ test.describe("Screenshot tests (mobile)", () => {
     name: "NavButton (mobile)",
     columns: ["default", "active"],
     rows: ["default", "hover", "focus-visible", "external-link", "badge", "with-children"],
-    disabledAccessibilityRules,
+    context,
     component: (column, row) => (
       <MobileComponentTestWrapper
         label="Parent item"
@@ -110,7 +116,7 @@ test.describe("Screenshot tests (mobile children)", () => {
     columns: ["default", "with-parent-link"],
     rows: ["default", "parent-active", "child-active"],
     removePadding: true,
-    disabledAccessibilityRules,
+    context,
     component: (column, row) => (
       <MobileComponentTestWrapper
         label="Parent item"

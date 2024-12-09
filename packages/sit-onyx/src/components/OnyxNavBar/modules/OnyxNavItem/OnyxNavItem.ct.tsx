@@ -7,12 +7,6 @@ test.describe("Screenshot tests", () => {
     name: "NavItem",
     columns: ["default", "active"],
     rows: ["default", "hover", "focus-visible", "external-link"],
-    /**
-     * This component represents only the child (menuitem) of the overall menu.
-     * "aria-required-parent" test is disabled because it requires a child with role="menuitem"
-     * to have a parent with role="menu".
-     */
-    disabledAccessibilityRules: ["aria-required-parent"],
     component: (column, row) => (
       <ul style={{ listStyle: "none", padding: 0 }} role="menu">
         <OnyxNavItem

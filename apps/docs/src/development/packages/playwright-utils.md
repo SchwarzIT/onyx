@@ -47,8 +47,6 @@ yarn install -D @sit-onyx/playwright-utils@beta
 Creates a screenshot utility that can be used to capture matrix screenshots.
 Useful for capturing a single screenshot/image that contains multiple variants of a component.
 
-Will also perform axe accessibility tests.
-
 #### Example
 
 ![Example of a screenshot matrix for the OnyxButton](../../principles/contributing/example-matrix.png)
@@ -60,81 +58,44 @@ If not already installed, make sure to install the required dependencies:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @playwright/test @playwright/experimental-ct-vue @axe-core/playwright
+pnpm add -D @playwright/test @playwright/experimental-ct-vue
 ```
 
 ```sh [npm]
-npm install -D @playwright/test @playwright/experimental-ct-vue @axe-core/playwright
+npm install -D @playwright/test @playwright/experimental-ct-vue
 ```
 
 ```sh [yarn]
-yarn install -D @playwright/test @playwright/experimental-ct-vue @axe-core/playwright
+yarn install -D @playwright/test @playwright/experimental-ct-vue
 ```
 
 :::
 
-##### Step 1: Create axe accessibility fixture
+##### Step 1: Create matrix screenshot utility
 
-The matrix screenshot utility will also perform axe accessibility tests for all component variants.
-For this, you need to create and configure the `AxeBuilder` for your project first.
-
-See the [Playwright docs](https://playwright.dev/docs/accessibility-testing#creating-a-fixture) for further information.
-
-::: code-group
-
-```ts [axe-test.ts]
-import { test as base } from "@playwright/experimental-ct-vue";
-import AxeBuilder from "@axe-core/playwright";
-import type { AxeFixture } from "@sit-onyx/playwright-utils";
-
-export { expect } from "@playwright/experimental-ct-vue";
-
-/**
- * Extends Playwright's base test by providing `makeAxeBuilder`
- * This new `test` can be used in multiple test files, and each of them will get
- * a consistently configured AxeBuilder instance.
- *
- * @see https://playwright.dev/docs/accessibility-testing#using-a-test-fixture-for-common-axe-configuration
- */
-export const test = base.extend<AxeFixture>({
-  makeAxeBuilder: async ({ page }, use, testInfo) => {
-    const makeAxeBuilder = () => {
-      return new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]);
-    };
-
-    await use(makeAxeBuilder);
-  },
-});
-```
-
-:::
-
-##### Step 2: Create matrix screenshot utility
-
-Now we can create the matrix screenshot test function like shown below. There you can pass global options that are applied to all matrix screenshot tests.
-
-Make sure to pass the `test` and `expect` functions created in step 1 so the `AxeBuilder` is available.
+First, we need to create the matrix screenshot test utility like shown below. There you can pass global options that are applied to all matrix screenshot tests.
 
 ::: code-group
 
 ```ts [playwright.ts]
 import { useMatrixScreenshotTest } from "@sit-onyx/playwright-utils";
-import { expect, test } from "./axe-test";
 
-export const { executeMatrixScreenshotTest } = useMatrixScreenshotTest({ expect, test });
+export const { executeMatrixScreenshotTest } = useMatrixScreenshotTest({
+  // optionally provide global/default options
+});
 ```
 
 :::
 
-##### Step 3: Create matrix screenshots
+##### Step 2: Capture matrix screenshots
 
-Afterwards, you can execute a single matrix screenshot like this:
+Afterwards, you can capture a single matrix screenshot like this:
 
 ::: code-group
 
 ```tsx [MyComponent.tsx]
 import { executeMatrixScreenshotTest } from "./playwright";
-import { test } from "./axe-test";
+import { test } from "@playwright/experimental-ct-vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -151,6 +112,145 @@ test.describe("Screenshot tests", () => {
         if (row === "active") await page.mouse.down();
       },
     },
+  });
+});
+```
+
+:::
+
+<br>
+
+#### Perform accessibility tests <Badge text="optional" type="warning" />
+
+The matrix screenshot utility integrates nicely with features like [accessibility testing](https://playwright.dev/docs/accessibility-testing).
+
+To perform accessibility tests for all individual screenshots (column/row combinations), set it up like described below.
+
+##### Step 1: Install axe-core
+
+::: code-group
+
+```sh [pnpm]
+pnpm add -D @axe-core/playwright
+```
+
+```sh [npm]
+npm install -D @axe-core/playwright
+```
+
+```sh [yarn]
+yarn install -D @axe-core/playwright
+```
+
+:::
+
+##### Step 2: Setup global hook
+
+We can now set up a global hook when calling `useMatrixScreenshotTest()` (see [Create matrix screenshot utility](#step-1-create-matrix-screenshot-utility)) that will run the accessibility test after every screenshot.
+
+Therefore, update your already existing setup like so:
+
+::: code-group
+
+```ts [playwright.ts]
+import { useMatrixScreenshotTest } from "@sit-onyx/playwright-utils";
+
+/**
+ * Creates an `AxeBuilder` with common configuration that should be used for accessibility tests.
+ *
+ * @see https://playwright.dev/docs/accessibility-testing#creating-a-fixture
+ */
+export const createAxeBuilder = (page: Page) => {
+  return new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]);
+};
+
+export const { executeMatrixScreenshotTest } = useMatrixScreenshotTest<MatrixScreenshotHookContext>(
+  {
+    defaults: {
+      hooks: {
+        afterEach: async (component, page, column, row) => {
+          // ARRANGE (execute accessibility tests)
+          const axeBuilder = createAxeBuilder(page);
+          const accessibilityScanResults = await axeBuilder.analyze();
+
+          // ASSERT
+          expect(
+            accessibilityScanResults.violations,
+            `should pass accessibility checks for ${column} ${row}`,
+          ).toEqual([]);
+        },
+      },
+    },
+  },
+);
+```
+
+:::
+
+That's it. The accessibility tests will now be performed for every single screenshot.
+
+##### Step 3: Disable rules for individual tests <Badge text="optional" type="warning" />
+
+Sometimes, it might be necessary to disable certain accessibility rules for an individual test.
+We can easily support this by making use of the `context` argument that is passed to the `afterEach` hook.
+
+Adjust your global configuration like this to support disabling accessibility rules.
+
+::: code-group
+
+```ts [playwright.ts]
+import { useMatrixScreenshotTest } from "@sit-onyx/playwright-utils";
+
+export type MatrixScreenshotHookContext = {
+  /**
+   * Rules to disable when performing the accessibility tests.
+   * **IMPORTANT**: Should be avoided! If used, please include a comment why it is needed.
+   *
+   * @see https://playwright.dev/docs/accessibility-testing#disabling-individual-scan-rules
+   */
+  disabledAccessibilityRules?: string[];
+};
+
+export const { executeMatrixScreenshotTest } = useMatrixScreenshotTest<MatrixScreenshotHookContext>(
+  {
+    defaults: {
+      hooks: {
+        afterEach: async (component, page, column, row, context) => {
+          // ARRANGE (execute accessibility tests)
+          const axeBuilder = createAxeBuilder(page);
+
+          if (context?.disabledAccessibilityRules?.length) {
+            axeBuilder.disableRules(
+              DEFAULT_DISABLED_AXE_RULES.concat(context.disabledAccessibilityRules),
+            );
+          }
+
+          const accessibilityScanResults = await axeBuilder.analyze();
+          // ...
+        },
+      },
+    },
+  },
+);
+```
+
+:::
+
+For each individual test, you can now optionally disable rules by defining them in the `context`:
+
+::: code-group
+
+```tsx [MyComponent.tsx]
+import { executeMatrixScreenshotTest } from "./playwright";
+import { test } from "@playwright/experimental-ct-vue";
+
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Button (default)",
+    context: {
+      disabledAccessibilityRules: ["color-contrast"],
+    },
+    // ...
   });
 });
 ```
@@ -174,7 +274,7 @@ test("my example test", async ({ mount }) => {
   await component.getByRole("tooltip").click();
 
   // adjust component size to include tooltip so its shown/included in the screenshot
-  await adjustSizeToAbsolutePosition(expect, component);
+  await adjustSizeToAbsolutePosition(component);
 
   await expect(component).toHaveScreenshot("screenshot.png");
 });
