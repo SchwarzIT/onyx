@@ -51,15 +51,11 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <div>
+  <div class="onyx-component">
     <template v-if="props.isMobile">
       <slot name="header"></slot>
       <slot name="options"></slot>
-      <OnyxListItem
-        v-if="!!slots.footer"
-        class="onyx-component onyx-user-menu__mobile-footer"
-        disabled
-      >
+      <OnyxListItem v-if="!!slots.footer" class="onyx-user-menu__mobile-footer" disabled>
         <slot name="footer"> </slot>
       </OnyxListItem>
     </template>
@@ -79,7 +75,7 @@ const { t } = injectI18n();
         </template>
 
         <template v-if="!!slots.footer" #footer>
-          <div class="onyx-component onyx-user-menu__footer onyx-text--small">
+          <div class="onyx-user-menu__footer onyx-text--small">
             <slot name="footer"></slot>
           </div>
         </template>

@@ -51,7 +51,7 @@ const isChecked = computed({
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-switch-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-switch-skeleton', densityClass]">
     <span class="onyx-switch-skeleton__click-area">
       <OnyxSkeleton class="onyx-switch-skeleton__input" />
     </span>

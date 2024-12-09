@@ -118,7 +118,7 @@ const decrementLabel = computed(() =>
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-stepper-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-stepper-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
     <OnyxSkeleton class="onyx-stepper-skeleton__input" />
   </div>
