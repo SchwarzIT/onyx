@@ -17,11 +17,10 @@ import packageJson from "../../../../../packages/vitepress-theme/package.json";
 Custom [VitePress](https://vitepress.dev) theme that uses the onyx brand colors.
 
 ::: info
-The theme does not currently use the entire Onyx Framework _(yet)_.
-It will be updated in the future.
+The theme doesn't currently use the entire onyx framework but will be updated in the future.
 :::
 
-The documentation that you are currently reading is also using this custom Vitepress theme.
+The very documentation you are reading here is also using this exact custom Vitepress theme.
 
 It extends the default VitePress theme so you can use the same [config](https://vitepress.dev/reference/default-theme-config) that you are already familiar with (which includes search, sidebar etc.).
 
