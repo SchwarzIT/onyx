@@ -33,8 +33,6 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (required/optional, message/counter)",
     columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message", "counter"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -102,8 +100,6 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (success)",
     columns: ["default"],
     rows: ["default", "hover", "focus"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: () => (
       <OnyxTextarea
         style="width: 12rem"
@@ -243,7 +239,6 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (labelTooltip/messageTooltip)",
     columns: ["default", "long-text"],
     rows: ["labelTooltip", "messageTooltip"],
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -278,7 +273,6 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (required/optional) with label tooltip",
     columns: ["default", "long-text"],
     rows: ["required", "optional"],
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -443,7 +437,7 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
   const errorPreview = component.getByText("Required");
   const fullError = formElementUtils
     .getTooltipPopover("message")
-    .getByText("Please fill in this field.");
+    .getByText("The field is empty, it is mandatory and must be filled in.");
 
   // ASSERT: initially no error shows
   await expect(errorPreview).toBeHidden();

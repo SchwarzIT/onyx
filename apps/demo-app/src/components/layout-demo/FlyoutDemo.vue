@@ -46,7 +46,7 @@ const selectState = ref();
     position: relative;
   }
   &__flyout {
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     background-color: var(--onyx-color-base-background-blank);
     position: absolute;
     z-index: var(--onyx-z-index-flyout);

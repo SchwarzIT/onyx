@@ -103,7 +103,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 @use "../../styles/mixins/layers";
 
 $border-radius: var(--onyx-radius-sm);
-$border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+$border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
 /**
 * Defines all border styles for the table.
@@ -187,7 +187,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
       overscroll-behavior: none; // fix bouncy scroll behavior in safari
 
       &:focus-visible {
-        outline: var(--onyx-1px-in-rem) solid var(--onyx-color-base-primary-500);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
       }
     }
     // we place a frame on top so the table has visible boundaries

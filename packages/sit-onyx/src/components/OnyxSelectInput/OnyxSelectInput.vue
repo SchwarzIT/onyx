@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
@@ -28,6 +29,7 @@ const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   readonly: false,
   loading: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  hideSuccessIcon: false,
 });
 
 const emit = defineEmits<{
@@ -197,6 +199,13 @@ const blockTyping = (event: KeyboardEvent) => {
           >
             <OnyxIcon :icon="chevronDownUp" />
           </button>
+
+          <OnyxIcon
+            v-if="!props.hideSuccessIcon && successMessages"
+            class="onyx-select-input__check-icon"
+            :icon="checkSmall"
+            color="success"
+          />
         </div>
       </template>
     </OnyxFormElement>

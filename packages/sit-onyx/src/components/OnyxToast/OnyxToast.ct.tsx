@@ -13,10 +13,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await expect(page).toHaveScreenshot(`breakpoint-${breakpoint}.png`);
 
     // ACT
-    const accessibilityScanResults = await makeAxeBuilder()
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      .disableRules(["color-contrast"])
-      .analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
 
     // ASSERT
     expect(accessibilityScanResults.violations).toEqual([]);

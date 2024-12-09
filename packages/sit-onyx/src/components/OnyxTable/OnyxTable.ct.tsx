@@ -32,8 +32,6 @@ test.describe("Screenshot tests", () => {
     name: "Table",
     columns: ["with-header", "without-header"],
     rows: ["default", "striped", "vertical-borders", "striped-vertical-borders"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable
         striped={row.includes("striped")}
@@ -51,8 +49,6 @@ test.describe("SCreenshot tests (densities)", () => {
     name: "Table (densities)",
     columns: DENSITIES,
     rows: ["default", "focus-visible", "columnGroups"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable
         density={column}
@@ -81,8 +77,6 @@ test.describe("Screenshot tests (hover styles)", () => {
     name: "Table (hover styles)",
     columns: ["default", "striped"],
     rows: ["row-hover", "column-hover"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
       <OnyxTable striped={column === "striped"}>
         {tableHead}
@@ -101,8 +95,6 @@ test.describe("Screenshot tests (scrolling)", () => {
     name: "Table (scrolling)",
     columns: ["default", "horizontal-scroll"],
     rows: ["default", "vertical-scroll"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable
         style={{
@@ -149,8 +141,6 @@ test.describe("Screenshot tests (hover)", () => {
     name: "Table (empty variations)",
     columns: ["default", "no-header"],
     rows: ["default", "custom-empty"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxTable style="width: 20rem;">
         {column === "default" ? tableHead : undefined}
@@ -167,8 +157,6 @@ test.describe("Screenshot tests (hover)", () => {
     name: "Table (empty blocks hover)",
     columns: ["row-hover", "column-hover"],
     rows: ["default", "empty-body"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (_column, row) => (
       <OnyxTable>
         {tableHead}

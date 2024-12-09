@@ -7,19 +7,19 @@
   "validations": {
     "tooShort": {
       "preview": "Zu kurz",
-      "fullError": "Verlängere diesen Text auf mindestens {minLength} Zeichen. Derzeit verwendest du {n} Zeichen."
+      "fullError": "Verlängere den eingegebenen Text auf mindestens {minLength} Zeichen. Aktuell sind es {n} Zeichen. Manche Sonderzeichen zählen als mehrere Zeichen."
     },
     "tooLong": {
       "preview": "Zu lang",
-      "fullError": "Kürze diesen Text auf max. {maxLength} Zeichen. Zurzeit verwendest du {n} Zeichen."
+      "fullError": "Kürze den eingegebenen Text auf maximal {maxLength} Zeichen. Aktuell sind es {n} Zeichen. Manche Sonderzeichen zählen als mehrere Zeichen."
     },
     "rangeUnderflow": {
       "preview": "Zu niedrig",
-      "fullError": "Wert muss größer als oder gleich {min} sein."
+      "fullError": "Der Eingabewert muss größer als oder gleich {min} sein."
     },
     "rangeOverflow": {
       "preview": "Zu hoch",
-      "fullError": "Wert muss kleiner als oder gleich {max} sein."
+      "fullError": "Der Eingabewert muss kleiner als oder gleich {max} sein."
     },
     "patternMismatch": {
       "preview": "Ungültiges Format",
@@ -27,36 +27,36 @@
     },
     "valueMissing": {
       "preview": "Pflichtfeld",
-      "fullError": "Fülle dieses Feld aus."
+      "fullError": "Das Feld ist leer, es ist ein Pflichtfeld und muss ausgefüllt werden."
     },
     "stepMismatch": {
       "preview": "Ungültige Zahl",
-      "fullError": "Wert muss ein Vielfaches von {step} sein."
+      "fullError": "Die Eingabe \"{value}\" ist keine gültige Zahl. Sie muss ein Vielfaches von {step} sein."
     },
     "badInput": {
       "preview": "Ungültige Eingabe",
-      "fullError": "\"{value}\" entspricht nicht dem erwarteten Typ."
+      "fullError": "Die Eingabe \"{value}\" entspricht nicht dem erwarteten Typ."
     },
     "typeMismatch": {
       "generic": {
         "preview": "Ungültiges Eingabeformat",
-        "fullError": "\"{value}\" entspricht nicht dem erwarteten Typ."
+        "fullError": "Die Eingabe \"{value}\" entspricht nicht dem erwarteten Typ."
       },
       "email": {
         "preview": "Ungültige E-Mail",
-        "fullError": "\"{value}\" muss eine valide E-Mail-Adresse sein."
+        "fullError": "Die Eingabe \"{value}\" ist keine gültige E-Mail Adresse. Sie sollte ähnlich zu \"maxmustermann@beispiel.de\" sein (muss ein @-Symbol und einen Punkt enthalten)."
       },
       "number": {
         "preview": "Ungültige Zahl",
-        "fullError": "\"{value}\" muss eine Zahl sein."
+        "fullError": "Die Eingabe \"{value}\" ist keine gültige Zahl. Es dürfen nur Ziffern und gegebenenfalls ein Dezimalpunkt angegeben werden."
       },
       "tel": {
         "preview": "Ungültige Telefonnummer",
-        "fullError": "\"{value}\" muss eine gültige Telefonnummer sein."
+        "fullError": "Die Eingabe \"{value}\" ist keine gültige Telefonnummer."
       },
       "url": {
         "preview": "Ungültige URL",
-        "fullError": "\"{value}\" muss eine gültige URL sein."
+        "fullError": "Die Eingabe \"{value}\" ist keine gültige URL. Eine URL zeigt meistens auf eine Webseite und sollte ähnlich zu \"https://www.beispiel.de\" sein."
       }
     }
   },
@@ -125,5 +125,8 @@
       "label": "Seiten-Auswahl",
       "listLabel": "Verfügbare Seiten"
     }
+  },
+  "input": {
+    "clear": "Eingabe löschen"
   }
 }

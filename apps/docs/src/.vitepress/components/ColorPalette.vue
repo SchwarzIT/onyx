@@ -73,10 +73,10 @@ function getStateColorSteps(name: OnyxColor): ColorPaletteValueProps[] {
     borderHover: Partial<Record<ExtendedOnyxColor, string>>;
     focus: Partial<Record<ExtendedOnyxColor, string>>;
   } = {
-    cta: { primary: "default", danger: "invalid", neutral: "disabled" },
-    border: { danger: "invalid", default: name },
-    borderHover: { danger: "invalid-hover", neutral: "disabled", default: `${name}-hover` },
-    focus: { danger: "invalid", default: name },
+    cta: { primary: "default", danger: "danger", neutral: "disabled" },
+    border: { danger: "danger", default: name },
+    borderHover: { danger: "danger-hover", neutral: "disabled", default: `${name}-hover` },
+    focus: { danger: "danger", default: name },
   };
 
   const cta = mappings.cta[name] || null;
@@ -191,7 +191,7 @@ const handleCopy = async (color: string) => {
   &__content {
     padding: var(--onyx-spacing-xl);
     border-radius: var(--onyx-radius-md);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     background: var(--onyx-color-base-background-blank);
 
     @include mixins.breakpoint(max, s) {

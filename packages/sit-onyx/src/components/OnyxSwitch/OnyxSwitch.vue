@@ -197,7 +197,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
           // for more info, see https://github.com/SchwarzIT/onyx/issues/503
           .onyx-switch__frame {
             position: absolute;
-            border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-danger-500);
+            border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-danger);
             height: var(--onyx-switch-frame-height);
             border-radius: var(--onyx-radius-full);
             width: $input-width;
@@ -208,7 +208,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         }
 
         &:checked + .onyx-switch__click-area .onyx-switch__container {
-          background-color: var(--onyx-color-component-cta-invalid);
+          background-color: var(--onyx-color-component-cta-danger);
 
           .onyx-switch__icon {
             background-color: var(--onyx-color-base-background-blank);
@@ -288,7 +288,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
 
       &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
-        background-color: var(--onyx-color-component-cta-invalid-hover);
+        background-color: var(--onyx-color-component-cta-danger-hover);
       }
     }
 
@@ -296,7 +296,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       outline: none;
 
       &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-200);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
       }
 
       &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
@@ -304,11 +304,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
 
       &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-danger-300);
-      }
-
-      &:has(.onyx-switch__input:user-invalid:checked:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-invalid);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
       }
     }
 

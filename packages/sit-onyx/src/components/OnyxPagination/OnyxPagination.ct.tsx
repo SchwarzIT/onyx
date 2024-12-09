@@ -11,8 +11,6 @@ test.describe("screenshot tests", () => {
     name: "Pagination",
     columns: DENSITIES,
     rows: ["default", "min", "max", "large", "disabled", "open"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => {
       let currentPage = 2;
       let pages = 6;
@@ -47,8 +45,6 @@ test.describe("screenshot tests (buttons)", () => {
     name: "Pagination (buttons)",
     columns: ["select", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: () => <OnyxPagination pages={42} modelValue={2} />,
     beforeScreenshot: async (component, page, column, row) => {
       let button = page.getByRole("button", {

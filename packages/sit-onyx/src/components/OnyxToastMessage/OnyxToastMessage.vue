@@ -101,7 +101,7 @@ const icon = computed(() => {
     --onyx-toast-message-color: var(--onyx-color-text-icons-neutral-inverted);
     --onyx-toast-message-background-color: var(--onyx-color-base-neutral-700);
     --onyx-toast-message-border-color: transparent;
-    --onyx-toast-message-outline-color: var(--onyx-color-base-primary-200);
+    --onyx-toast-message-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-toast-message-progress-bar-color: var(--onyx-color-base-primary-300);
     --onyx-toast-message-close-button-size: 1.5rem;
 
@@ -231,7 +231,7 @@ const icon = computed(() => {
         --onyx-toast-message-color: var(--onyx-color-text-icons-#{$color}-bold);
         --onyx-toast-message-background-color: var(--onyx-color-base-#{$color}-100);
         --onyx-toast-message-border-color: var(--onyx-color-base-#{$color}-300);
-        --onyx-toast-message-outline-color: var(--onyx-color-base-#{$color}-200);
+        --onyx-toast-message-outline-color: var(--onyx-color-component-focus-#{$color});
         --onyx-toast-message-progress-bar-color: var(--onyx-color-base-#{$color}-400);
       }
     }

@@ -14,8 +14,6 @@ for (const type of ["default", "stretched"] as const) {
       name: `Tabs (${type})`,
       columns: DENSITIES,
       rows: ["default", "hover", "active", "focus-visible", "skeleton"],
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => {
         return (
           <OnyxTabs
@@ -91,8 +89,6 @@ for (const type of ["default", "skeleton"] as const) {
       name: `Tabs (sizes, ${type})`,
       columns: DENSITIES,
       rows: ["h2", "h3", "h4"],
-      // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-      disabledAccessibilityRules: ["color-contrast"],
       component: (column, row) => {
         return (
           <OnyxTabs
@@ -122,8 +118,6 @@ test.describe("Screenshot tests (overflow)", () => {
     name: "Tabs (overflow)",
     columns: ["default"],
     rows: ["default", "focus-first", "focus-in-between", "focus-last"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: () => {
       return (
         <OnyxTabs label="Example tabs" modelValue="tab-1" style={{ width: "18rem" }}>
@@ -155,10 +149,7 @@ test("should pass accessibility tests", async ({ mount, makeAxeBuilder, page }) 
   const component = await mount(<TestWrapperCt />);
 
   // ACT
-  const accessibilityScanResults = await makeAxeBuilder()
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    .disableRules(["color-contrast"])
-    .analyze();
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);

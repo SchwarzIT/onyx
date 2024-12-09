@@ -23,7 +23,7 @@
     padding: 0;
 
     &:not(:last-of-type) {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
   }
   &__group:not(:last-of-type) {
@@ -38,6 +38,6 @@
   }
 
   &:has(&__wrapper:focus-visible) {
-    outline: var(--onyx-outline-width) solid var(--onyx-color-base-primary-200);
+    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
   }
 }

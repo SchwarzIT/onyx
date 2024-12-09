@@ -1,5 +1,49 @@
 # sit-onyx
 
+## 1.0.0-beta.86
+
+### Minor Changes
+
+- c358978: feat: implement basic `OnyxSystemButton`
+
+## 1.0.0-beta.85
+
+### Patch Changes
+
+- 1a11a27: fix: update OnyxAvatar and OnyxAvatarStack border to align with Figma
+
+  - OnyxAvatar: remove border
+  - OnyxAvatarStack: add primary border to all avatars
+
+## 1.0.0-beta.84
+
+### Patch Changes
+
+- 2a7a285: Fix missing "locale" json, which are referenced by some type definitions.
+  Also update default error messages to be more descriptive
+
+## 1.0.0-beta.83
+
+### Minor Changes
+
+- 8fe041f: feat(OnyxInput): support clear and success icon
+
+## 1.0.0-beta.82
+
+### Patch Changes
+
+- 5fba96d: fix: adjust component colors and align with Figma
+
+  All components were updated to be aligned with the Figma UX design. This change brings several color/contrast improvements/fixes:
+
+  - Button: Update background, text and border colors
+  - Tag: Update text and border colors
+  - IconButton: Update text colors
+  - NavButton (mobile): Update text color
+  - Pagination: Update text color for buttons
+  - Stepper: Update text color for +/- button
+  - update several components to use correct CSS variables for focus and border colors so the correct color is used for specific themes (e.g. `schwarz` theme)
+
 ## 1.0.0-beta.81
 
 ### Minor Changes

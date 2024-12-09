@@ -30,8 +30,6 @@ test.describe("Screenshot tests", () => {
     name: "SelectInput (other)",
     columns: ["default", "hideLabel"],
     rows: ["required", "optional", "message"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column, row) => (
       <OnyxSelectInput
         style="width: 16rem"
@@ -48,8 +46,6 @@ test.describe("Screenshot tests", () => {
     name: "SelectInput (readonly, disabled, loading)",
     columns: ["readonly", "disabled", "loading"],
     rows: ["default", "hover", "focus"],
-    // TODO: remove when contrast issues are fixed in https://github.com/SchwarzIT/onyx/issues/410
-    disabledAccessibilityRules: ["color-contrast"],
     component: (column) => (
       <OnyxSelectInput
         style="width: 16rem"
