@@ -12,4 +12,11 @@ export type OnyxSystemButtonProps = Pick<
    * Icon to show. Will visually hide the label if set.
    */
   icon?: string;
+  /**
+   * Button color.
+   */
+  color?: SystemButtonColor;
 };
+
+export const SYSTEM_BUTTON_COLORS = ["intense", "soft", "medium"] as const;
+export type SystemButtonColor = (typeof SYSTEM_BUTTON_COLORS)[number];
