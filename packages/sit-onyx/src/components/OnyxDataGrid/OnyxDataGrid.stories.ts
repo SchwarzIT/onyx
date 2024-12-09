@@ -1,4 +1,4 @@
-import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
+import sort from "@sit-onyx/icons/sort.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -42,11 +42,18 @@ export const MoreActions = {
                   {
                     iconComponent: h(OnyxIconButton, {
                       label: "More actions",
-                      icon: moreHorizontal,
+                      icon: sort,
+                      color: "neutral",
+                    }),
+                    listItems: [h(OnyxListItem, "No sorting"), h(OnyxListItem, "Random sort")],
+                  },
+                  {
+                    iconComponent: h(OnyxIconButton, {
+                      label: "More actions",
+                      icon: sort,
                       color: "neutral",
                     }),
                     listItems: [
-                      h(OnyxListItem, "No sorting"),
                       h(OnyxListItem, "Sort ascending"),
                       h(OnyxListItem, "Sort descending"),
                     ],

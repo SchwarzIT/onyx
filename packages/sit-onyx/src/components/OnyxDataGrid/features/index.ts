@@ -1,4 +1,7 @@
+import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
 import { h, type Component, type WatchSource } from "vue";
+import type { ComponentSlots } from "vue-component-type-helpers";
+import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../OnyxDataGridRenderer/types";
@@ -119,32 +122,43 @@ export const useDataGridFeatures = <
       .filter((actions) => !!actions);
 
     return columns.map((column) => {
-      const iconComponent = headerActions
-        .flatMap((actionFactory) => actionFactory(column))
-        .map(({ iconComponent }) => iconComponent);
+      const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
 
-      const listItems = headerActions
-        .flatMap((actionFactory) => actionFactory(column))
-        .map(({ listItems }) => listItems);
-      let flyoutMenu: Component;
+      if (actions.length > 1) {
+        const listItems = headerActions
+          .flatMap((actionFactory) => actionFactory(column))
+          .map(({ listItems }) => listItems);
 
-      if (listItems.length > 0) {
-        flyoutMenu = h(
+        const flyoutMenu = h(
           OnyxFlyoutMenu,
           {
             label: "",
           },
           {
-            button: iconComponent,
-            options: listItems,
-          },
+            button: ({ trigger }) =>
+              h(OnyxIconButton, {
+                label: "More Actions",
+                color: "neutral",
+                icon: moreHorizontal,
+                ...trigger,
+              }),
+            options: () => listItems,
+          } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
         );
+
+        return {
+          key: column,
+          component: () => h(HeaderCell, { label: String(column) }, { actions: flyoutMenu }),
+          props: {},
+        };
       }
+      const iconComponent = headerActions
+        .flatMap((actionFactory) => actionFactory(column))
+        .map(({ iconComponent }) => iconComponent);
 
       return {
         key: column,
-        component: () =>
-          h(HeaderCell, { label: String(column) }, { actions: flyoutMenu ?? iconComponent }),
+        component: () => h(HeaderCell, { label: String(column) }, { actions: iconComponent }),
         props: {},
       };
     });
