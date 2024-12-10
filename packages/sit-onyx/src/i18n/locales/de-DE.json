@@ -90,7 +90,9 @@
     "userMenuLabel": "Benutzeroptionen",
     "toggleBurgerMenu": "Burger-Menü umschalten",
     "toggleContextMenu": "Kontext-Menü umschalten",
-    "navigationHeadline": "Navigation"
+    "navigationHeadline": "Navigation",
+    "moreActionsFlyout": "Wähle eine Aktion für die Spalte \"{column}\"",
+    "moreActionsTrigger": "Spaltenaktionen umschalten"
   },
   "tooltip": {
     "neutral": "Info-Tooltip Sichtbarkeit umschalten",

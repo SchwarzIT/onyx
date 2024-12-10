@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.87
+
+### Minor Changes
+
+- 84d29fb: feat(OnyxDataGrid): DataGridFeature type is extended to support listItems which are rendered as a flyout right next to the header
+
 ## 1.0.0-beta.86
 
 ### Minor Changes
