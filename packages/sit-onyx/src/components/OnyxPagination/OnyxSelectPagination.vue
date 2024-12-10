@@ -37,7 +37,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
 <template>
   <div
-    :class="['onyx-pagination', 'onyx-text', densityClass]"
+    :class="['onyx-component', 'onyx-pagination', 'onyx-text', densityClass]"
     role="group"
     :aria-label="t('pagination.label')"
     :style="{ '--onyx-pagination-character-count': props.modelValue.toString().length }"

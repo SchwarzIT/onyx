@@ -1,3 +1,5 @@
+@use "./mixins/normalize.scss";
+
 @layer onyx.utility {
   :root {
     --onyx-font-family: "Source Sans 3 Variable", sans-serif;
@@ -37,5 +39,11 @@
     --onyx-shadow-soft-right: none;
 
     --onyx-color-backdrop: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@layer onyx.reset {
+  .onyx-component {
+    @include normalize.apply;
   }
 }

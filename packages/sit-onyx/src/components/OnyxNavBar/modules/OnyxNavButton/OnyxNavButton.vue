@@ -65,7 +65,7 @@ const handleParentClick = (event: MouseEvent) => {
     ref="componentRef"
     v-bind="props"
     v-model:mobile-children-open="mobileChildrenOpen"
-    class="onyx-nav-button"
+    class="onyx-component onyx-nav-button"
     :class="{
       'onyx-nav-button--mobile': isMobile,
       'onyx-nav-button--active': props.active,

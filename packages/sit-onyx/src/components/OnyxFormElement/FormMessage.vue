@@ -18,7 +18,7 @@ const props = defineProps<{
 <template>
   <component
     :is="messages.hidden ? OnyxVisuallyHidden : 'span'"
-    :class="['onyx-form-message', `onyx-form-message__${props.type}`]"
+    :class="['onyx-component', 'onyx-form-message', `onyx-form-message__${props.type}`]"
   >
     <span :class="['onyx-truncation-ellipsis']">
       {{ props.messages.shortMessage }}

@@ -50,7 +50,7 @@ const {
 </script>
 
 <template>
-  <div class="onyx-flyout-menu" v-bind="root">
+  <div class="onyx-component onyx-flyout-menu" v-bind="root">
     <slot name="button" :trigger="button"></slot>
 
     <div

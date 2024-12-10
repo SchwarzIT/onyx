@@ -37,7 +37,7 @@ const headlessProps = computed(() =>
     :active="props.active"
     :color="props.color"
     :disabled="props.disabled"
-    class="onyx-menu-item"
+    class="onyx-component onyx-menu-item"
     v-bind="listItem"
   >
     <a

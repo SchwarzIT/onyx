@@ -97,7 +97,7 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <div :class="['onyx-component', densityClass]">
+  <div :class="['onyx-component', 'onyx-component-name', densityClass]">
     <!-- component HTML -->
   </div>
 </template>
@@ -105,7 +105,7 @@ const { densityClass } = useDensity(props);
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-component {
+.onyx-component-name {
   @include layers.component() {
     // component styles...
   }

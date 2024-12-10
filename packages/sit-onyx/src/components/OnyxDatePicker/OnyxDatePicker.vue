@@ -76,12 +76,12 @@ const value = computed({
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-datepicker-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-datepicker-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-datepicker-skeleton__label" />
     <OnyxSkeleton class="onyx-datepicker-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-datepicker', densityClass, errorClass]">
+  <div v-else :class="['onyx-component', 'onyx-datepicker', densityClass, errorClass]">
     <OnyxFormElement
       v-bind="props"
       :error-messages="errorMessages"

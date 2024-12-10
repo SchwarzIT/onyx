@@ -71,14 +71,18 @@ const errorClass = useErrorClass(showError);
 <template>
   <div
     v-if="skeleton"
-    :class="['onyx-textarea-skeleton', densityClass]"
+    :class="['onyx-component', 'onyx-textarea-skeleton', densityClass]"
     :style="autosizeMinMaxStyles"
   >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-textarea-skeleton__label" />
     <OnyxSkeleton class="onyx-textarea-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-textarea', errorClass, densityClass]" :style="autosizeMinMaxStyles">
+  <div
+    v-else
+    :class="['onyx-component', 'onyx-textarea', errorClass, densityClass]"
+    :style="autosizeMinMaxStyles"
+  >
     <OnyxFormElement
       v-bind="props"
       :message="messages"
