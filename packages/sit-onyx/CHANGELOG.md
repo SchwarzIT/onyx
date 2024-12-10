@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.88
+
+### Major Changes
+
+- e250589: feat(OnyxSystemButton): implement soft and medium color
+
+  Also removed the `density` property since the system button does not support [density](https://onyx.schwarz/basics/density.html).
+
 ## 1.0.0-beta.87
 
 ### Minor Changes
