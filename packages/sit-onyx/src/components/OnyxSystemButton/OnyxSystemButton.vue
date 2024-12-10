@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -13,7 +12,6 @@ const props = withDefaults(defineProps<OnyxSystemButtonProps>(), {
   color: "intense",
 });
 
-const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 </script>
@@ -21,20 +19,11 @@ const skeleton = useSkeletonContext(props);
 <template>
   <OnyxSkeleton
     v-if="skeleton"
-    :class="[
-      'onyx-system-button-skeleton',
-      densityClass,
-      props.icon ? '' : 'onyx-system-button-skeleton--text',
-    ]"
+    :class="['onyx-system-button-skeleton', props.icon ? '' : 'onyx-system-button-skeleton--text']"
   />
   <button
     v-else
-    :class="[
-      'onyx-system-button',
-      'onyx-text--small',
-      densityClass,
-      `onyx-system-button--${props.color}`,
-    ]"
+    :class="['onyx-system-button', 'onyx-text--small', `onyx-system-button--${props.color}`]"
     :aria-label="props.label"
     type="button"
     :disabled="disabled"
@@ -62,7 +51,7 @@ const skeleton = useSkeletonContext(props);
     max-width: 100%;
 
     &--text {
-      width: var(--onyx-density-4xl);
+      width: var(--onyx-spacing-4xl);
     }
   }
 }
@@ -111,7 +100,7 @@ const skeleton = useSkeletonContext(props);
     $is_text_button: "&:not(:has(.onyx-icon))";
 
     #{$is_text_button} {
-      padding: var(--onyx-density-3xs) var(--onyx-density-xs);
+      padding: var(--onyx-spacing-5xs) var(--onyx-spacing-2xs);
     }
 
     &--intense {
