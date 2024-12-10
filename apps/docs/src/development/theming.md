@@ -45,7 +45,10 @@ Per default, onyx will be displayed in light mode. In order to use the dark mode
 
 ### Let the user decide
 
-In order to let the user switch between light, dark and auto mode, we recommend to use the pre-built [OnyxColorSchemeMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschememenuitem--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library as shown in the example below.
+In order to let the user switch between light, dark and auto mode, we recommend to use the pre-built [OnyxColorSchemeMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschememenuitem--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library.
+
+Additionally, to enable a smooth transition when switching between color modes, you can use the `useThemeTransition` composable. This ensures a visually appealing effect during theme changes.
+Below is an example implementation:
 
 ```vue
 <script setup lang="ts">
@@ -53,7 +56,8 @@ import { useColorMode } from "@vueuse/core";
 import { OnyxNavBar, OnyxUserMenu, OnyxColorSchemeMenuItem } from "sit-onyx";
 import { ref } from "vue";
 
-const { store: colorScheme } = useColorMode();
+const { store: colorScheme } = useColorMode({ disableTransition: false });
+useThemeTransition(colorScheme);
 </script>
 
 <template>
@@ -65,20 +69,4 @@ const { store: colorScheme } = useColorMode();
     </template>
   </OnyxNavBar>
 </template>
-```
-
-Alternatively, you can use the [OnyxColorSchemeDialog](https://storybook.onyx.schwarz/?path=/docs/support-colorschemedialog--docs) component to build your own custom component.
-
-### Transistion
-
-To enable a smooth transition when switching between color modes, you can use the `useThemeTransition` composable. This ensures a visually appealing effect during theme changes. For `useThemeTransition` to work correctly, you need to pass it the colorScheme. If you're using [useColorMode from @vueuse/core](https://vueuse.org/core/useColorMode), it would look like this:
-
-```vue
-<script>
-import { useColorMode } from "@vueuse/core";
-import { useThemeTransition } from "sit-onyx";
-const { store: colorScheme } = useColorMode({ disableTransition: false });
-useThemeTransition(colorScheme);
-...
-</script>
 ```

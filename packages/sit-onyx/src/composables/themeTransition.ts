@@ -7,11 +7,13 @@ export const useThemeTransition = (theme: Ref<ColorSchemeValue>) => {
     watch([theme], () => {
       const root = document.documentElement;
 
+      const className = "onyx-transition-active";
+
       const handleTransitionEnd = () => {
-        root.classList.remove("onyx-transition-active");
+        root.classList.remove(className);
       };
       root.addEventListener("transitionend", handleTransitionEnd, { once: true });
-      root.classList.add("onyx-transition-active");
+      root.classList.add(className);
     });
   });
 };
