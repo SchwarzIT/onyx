@@ -19,7 +19,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
   const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
-    test(`${options.name}`, async ({ mount, page, browserName }) => {
+    test(`${options.name}`, async ({ mount, page, browserName, context }) => {
       // limit the max timeout per permutation
       const timeoutPerScreenshot = 25 * 1000;
       test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
@@ -44,27 +44,16 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
         // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
         // see (`scale` option of `component.screenshot()` above)
         const box = await component.boundingBox();
-
-        const id = `${row}-${column}`;
-
-        const image = (
-          <img
-            width={box?.width}
-            height={box?.height}
-            style={{ gridArea: escapeGridAreaName(id) }}
-            src={`data:image/png;base64,${Buffer.from(screenshot).toString("base64")}`}
-            alt={id}
-          />
-        );
+        const id = `${escapeGridAreaName(row)}-${escapeGridAreaName(column)}`;
 
         // AFTER hook
         await defaults?.hooks?.afterEach?.(component, page, column, row, options.context);
         await options.hooks?.afterEach?.(component, page, column, row, options.context);
 
-        return image;
+        return { box, id, screenshot };
       };
 
-      const screenshots: JSX.Element[] = [];
+      const screenshotMap = new Map<string, Awaited<ReturnType<typeof getScreenshot>>>();
 
       for (const row of options.rows) {
         for (const column of options.columns) {
@@ -83,10 +72,33 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
             </div>
           );
 
-          const screenshot = await getScreenshot(wrappedElement, column, row);
-          screenshots.push(screenshot);
+          const data = await getScreenshot(wrappedElement, column, row);
+          screenshotMap.set(data.id, data);
         }
       }
+
+      const SCREENSHOT_ROUTE = "/_playwright-matrix-screenshot";
+
+      await context.route(`${SCREENSHOT_ROUTE}*`, (route, request) => {
+        const url = new URL(request.url());
+        const wantedId = url.searchParams.get("id") ?? "";
+
+        return route.fulfill({
+          status: 200,
+          contentType: "image/png",
+          body: screenshotMap.get(wantedId)?.screenshot,
+        });
+      });
+
+      const screenshots = Array.from(screenshotMap.values()).map(({ box, id }) => (
+        <img
+          width={box?.width}
+          height={box?.height}
+          style={{ gridArea: id }}
+          src={`${SCREENSHOT_ROUTE}?id=${id}`}
+          alt={id}
+        />
+      ));
 
       const component = await mount(
         <ScreenshotMatrix
@@ -100,6 +112,8 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
       );
 
       await expect(component).toHaveScreenshot(`${options.name}.png`);
+
+      await page.unroute(`${SCREENSHOT_ROUTE}*`);
     });
   };
 
