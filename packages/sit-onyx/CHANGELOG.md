@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.89
+
+### Minor Changes
+
+- d1cc1d3: feat(OnyxSystemButton): show native browser tooltip when hovering for a few seconds
+
 ## 1.0.0-beta.88
 
 ### Major Changes
