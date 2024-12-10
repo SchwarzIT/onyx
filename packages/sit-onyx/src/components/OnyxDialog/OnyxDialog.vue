@@ -62,7 +62,7 @@ watch(
   <dialog
     v-if="props.open"
     ref="dialogRef"
-    :class="['onyx-dialog', densityClass, 'onyx-truncation-multiline']"
+    :class="['onyx-component', 'onyx-dialog', densityClass, 'onyx-truncation-multiline']"
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"

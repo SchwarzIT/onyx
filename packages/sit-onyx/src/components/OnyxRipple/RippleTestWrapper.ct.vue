@@ -6,7 +6,7 @@ const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
 </script>
 
 <template>
-  <button type="button" v-on="rippleRef?.events">
+  <button class="onyx-component" type="button" v-on="rippleRef?.events">
     Test button
     <OnyxRipple ref="rippleRef" />
   </button>

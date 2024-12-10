@@ -12,5 +12,6 @@ module.exports = {
   rules: {
     "import-playwright-a11y": require("./rules/import-playwright-a11y.cjs"),
     "no-shadow-native": require("./rules/no-shadow-native-events.cjs"),
+    "require-root-class": require("./rules/require-root-class.cjs"),
   },
 };

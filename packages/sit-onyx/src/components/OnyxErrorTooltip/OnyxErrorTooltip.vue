@@ -27,7 +27,7 @@ const targetRef = ref<HTMLDivElement>();
 </script>
 
 <template>
-  <div>
+  <div class="onyx-component">
     <!-- component will be placed in here if no tooltip should be rendered -->
     <div v-if="!tooltipError || props.disabled" ref="targetRef"></div>
 

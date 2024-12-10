@@ -32,13 +32,13 @@ const skeleton = useSkeletonContext(props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-radio-button-skeleton', densityClass]">
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-radio-button-skeleton', densityClass]">
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
-    <label :class="['onyx-radio-button', densityClass]">
+    <label :class="['onyx-component', 'onyx-radio-button', densityClass]">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
       <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
       <input

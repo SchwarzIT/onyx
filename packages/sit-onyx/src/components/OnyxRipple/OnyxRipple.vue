@@ -11,7 +11,7 @@ defineExpose({
 </script>
 
 <template>
-  <span ref="rippleTrigger" class="onyx-ripple" aria-hidden="true">
+  <span ref="rippleTrigger" class="onyx-component onyx-ripple" aria-hidden="true">
     <span
       v-for="[key, ripple] in ripples"
       :key="key"

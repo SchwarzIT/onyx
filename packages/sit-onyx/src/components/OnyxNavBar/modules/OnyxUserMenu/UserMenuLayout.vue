@@ -51,7 +51,7 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <div>
+  <div class="onyx-component">
     <template v-if="props.isMobile">
       <slot name="header"></slot>
       <slot name="options"></slot>
