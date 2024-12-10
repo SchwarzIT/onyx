@@ -45,7 +45,7 @@ const gridTemplateAreas = computed(() => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="onyx-component wrapper">
     <div class="meta">
       <h1 class="meta__name">Screenshot test: {{ props.name }}</h1>
       <div>Browser: {{ props.browserName }}</div>

@@ -1,3 +1,5 @@
+@use "./mixins/normalize.scss";
+
 @layer onyx.utility {
   :root {
     --onyx-font-family: "Source Sans 3 Variable", sans-serif;
@@ -39,9 +41,14 @@
     --onyx-color-backdrop: rgba(0, 0, 0, 0.6);
   }
 }
-
 :where(html.onyx-transition-active *) {
   transition-duration: 0.2s;
   transition-property: color, background-color, border-color;
   transition-timing-function: ease-in-out;
+
+@layer onyx.reset {
+  .onyx-component {
+    @include normalize.apply;
+  }
+
 }

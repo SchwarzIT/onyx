@@ -7,5 +7,5 @@ provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
 </script>
 
 <template>
-  <PlaywrightTest />
+  <PlaywrightTest class="onyx-component" />
 </template>

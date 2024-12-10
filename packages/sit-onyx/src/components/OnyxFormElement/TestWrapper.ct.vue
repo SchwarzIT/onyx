@@ -4,7 +4,7 @@ import OnyxFormElement from "./OnyxFormElement.vue";
 </script>
 
 <template>
-  <div>
+  <div class="onyx-component">
     <OnyxFormElement label="Test">
       <template #default="{ id }">
         <input :id="id" />

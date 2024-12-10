@@ -20,7 +20,7 @@ defineSlots<{
 
 <template>
   <div
-    class="onyx-badge"
+    class="onyx-component onyx-badge"
     :class="[
       'onyx-truncation-ellipsis',
       'onyx-text',
