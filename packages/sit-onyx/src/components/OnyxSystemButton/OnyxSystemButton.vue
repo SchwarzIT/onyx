@@ -25,6 +25,7 @@ const skeleton = useSkeletonContext(props);
     v-else
     :class="['onyx-system-button', 'onyx-text--small', `onyx-system-button--${props.color}`]"
     :aria-label="props.label"
+    :title="props.label"
     type="button"
     :disabled="disabled"
     :autofocus="props.autofocus"
