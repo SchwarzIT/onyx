@@ -30,7 +30,7 @@ const navItems = [
   { label: "Data-Grid Demo", href: "/data-grid" },
 ] satisfies OnyxNavButtonProps[];
 
-const { store: colorScheme } = useColorMode();
+const { store: colorScheme } = useColorMode({ disableTransition: false });
 useThemeTransition(colorScheme);
 
 const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();

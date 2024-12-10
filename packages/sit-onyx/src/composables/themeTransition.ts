@@ -1,15 +1,17 @@
 import type { ColorSchemeValue } from "src/components/OnyxNavBar/modules";
-import { watch, type Ref } from "vue";
+import { onMounted, watch, type Ref } from "vue";
 
 export const useThemeTransition = (theme: Ref<ColorSchemeValue>) => {
-  watch([theme], () => {
-    const root = document.documentElement;
-    root.classList.add("transition-active");
+  //onMounted because of Server-Side-Rendering
+  onMounted(() => {
+    watch([theme], () => {
+      const root = document.documentElement;
 
-    const handleTransitionEnd = () => {
-      root.classList.remove("transition-active");
-    };
-
-    root.addEventListener("transitionend", handleTransitionEnd, { once: true });
+      const handleTransitionEnd = () => {
+        root.classList.remove("onyx-transition-active");
+      };
+      root.addEventListener("transitionend", handleTransitionEnd, { once: true });
+      root.classList.add("onyx-transition-active");
+    });
   });
 };

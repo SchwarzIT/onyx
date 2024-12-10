@@ -77,7 +77,7 @@ To enable a smooth transition when switching between color modes, you can use th
 <script>
 import { useColorMode } from "@vueuse/core";
 import { useThemeTransition } from "sit-onyx";
-const { store: colorScheme } = useColorMode();
+const { store: colorScheme } = useColorMode({ disableTransition: false });
 useThemeTransition(colorScheme);
 ...
 </script>
