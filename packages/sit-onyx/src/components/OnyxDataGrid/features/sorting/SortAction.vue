@@ -3,8 +3,8 @@ import arrowSmallDown from "@sit-onyx/icons/arrow-small-down.svg?raw";
 import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
 import arrowsSort from "@sit-onyx/icons/arrows-sort.svg?raw";
 import { computed } from "vue";
-import { OnyxIconButton } from "../../../..";
 import { injectI18n } from "../../../../i18n";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import { nextSortDirection } from "./sorting";
 import type { SortDirection } from "./types";
 
@@ -38,6 +38,5 @@ const buttonLabel = computed(() => {
 </script>
 
 <template>
-  <!-- TODO: Replace with OnyxSupportButton as soon as [#2053](https://github.com/SchwarzIT/onyx/issues/2053) is implemented -->
-  <OnyxIconButton color="neutral" :icon="icon" :label="buttonLabel" />
+  <OnyxSystemButton :label="buttonLabel" :icon="icon" color="medium" />
 </template>

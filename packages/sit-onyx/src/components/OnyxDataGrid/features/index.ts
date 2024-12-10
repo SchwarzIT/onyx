@@ -2,9 +2,9 @@ import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
 import { h, type Component, type ComponentInstance, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { injectI18n } from "../../../i18n";
-import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
@@ -138,9 +138,9 @@ export const useDataGridFeatures = <
           },
           {
             button: ({ trigger }) =>
-              h(OnyxIconButton, {
+              h(OnyxSystemButton, {
                 label: t.value("navigation.moreActionsTrigger"),
-                color: "neutral",
+                color: "medium",
                 icon: moreHorizontal,
                 ...trigger,
               }),
