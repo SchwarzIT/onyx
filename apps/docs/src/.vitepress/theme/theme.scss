@@ -25,3 +25,9 @@
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: 1rem;
 }
+
+html.onyx-transition-active * {
+  transition-duration: 0.2s !important;
+  transition-property: color, background-color, border-color !important;
+  transition-timing-function: ease-in-out;
+}
