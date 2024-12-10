@@ -1,6 +1,15 @@
 "use strict";
 
 /**
+ * @typedef {import('vue-eslint-parser').AST.VDirective} VDirective
+ * @typedef {import('vue-eslint-parser').AST.VElement} VElement
+ * @typedef {import('vue-eslint-parser').AST.VAttribute} VAttribute
+ * @typedef {import('vue-eslint-parser').AST.VIdentifier} VIdentifier
+ * @typedef {import('eslint').Rule.RuleContext} RuleContext
+ * @typedef {import('eslint').Rule.RuleListener} RuleListener
+ */
+
+/**
  * Check whether the given start tag has specific directive.
  * @param {VElement} node The start tag node to check.
  * @param {string} name The directive name to check.
@@ -47,8 +56,8 @@ module.exports = {
     messages: {
       multipleRoot: "The template root requires exactly one element.",
       textRoot: "The template root requires an element rather than texts.",
-      disallowedElement: "The template root disallows '<{{name}}>' elements.",
       disallowedDirective: "The template root disallows 'v-for' directives.",
+      missingClass: "The root element is missing the 'onyx-component' class.",
     },
   },
   /**
@@ -82,6 +91,10 @@ module.exports = {
               extraElement = child;
             }
           } else if (sourceCode.getText(child).trim() !== "") {
+            context.report({
+              node: child,
+              messageId: "textRoot",
+            });
             return;
           }
         }
@@ -149,9 +162,10 @@ module.exports = {
               context.report({
                 node: tag,
                 loc: tag.loc,
-                message: "missing class",
+                messageId: "missingClass",
               });
             }
+
             if (hasDirective(element, "for")) {
               context.report({
                 node: tag,
@@ -161,7 +175,7 @@ module.exports = {
             }
           }
         } else if (extraElement?.name === "teleport") {
-          // exclue teleport from this rule
+          // Exclude teleport from this rule
           return true;
         } else {
           context.report({
