@@ -68,11 +68,9 @@ export const createPreview = <T extends Preview = Preview>(
           if (isDark) {
             document.body.classList.remove("light");
             document.body.classList.add("dark");
-            document.documentElement.style.colorScheme = "dark";
           } else {
             document.body.classList.remove("dark");
             document.body.classList.add("light");
-            document.documentElement.style.colorScheme = "light";
           }
 
           return isDark ? themes.dark : themes.light;
