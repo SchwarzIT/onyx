@@ -1,4 +1,3 @@
-import { DENSITIES } from "../../composables/density";
 import { test } from "../../playwright/a11y";
 import {
   executeMatrixScreenshotTest,
@@ -6,6 +5,7 @@ import {
   type MatrixScreenshotTestOptions,
 } from "../../playwright/screenshots";
 import OnyxSystemButton from "./OnyxSystemButton.vue";
+import { SYSTEM_BUTTON_COLORS } from "./types";
 
 const beforeScreenshot: MatrixScreenshotTestOptions["beforeScreenshot"] = async (
   component,
@@ -22,35 +22,44 @@ const beforeScreenshot: MatrixScreenshotTestOptions["beforeScreenshot"] = async 
   }
 };
 
-test.describe("Screenshot tests", () => {
-  for (const type of ["text", "icon"] as const) {
+test.beforeEach(async ({ page }) => {
+  await page.addStyleTag({
+    content: `body {
+    background-color: var(--onyx-color-base-background-tinted);
+  }`,
+  });
+});
+
+for (const color of SYSTEM_BUTTON_COLORS) {
+  test.describe(`Screenshot tests (${color})`, () => {
     executeMatrixScreenshotTest({
-      name: `System button (${type})`,
-      columns: DENSITIES,
+      name: `System button (${color})`,
+      columns: ["text", "icon"],
       rows: ["default", "hover", "active", "focus-visible", "skeleton"],
       beforeScreenshot,
       component: (column, row) => (
         <OnyxSystemButton
           label="Test label"
-          density={column}
-          icon={type === "icon" ? mockPlaywrightIcon : undefined}
+          icon={column === "icon" ? mockPlaywrightIcon : undefined}
           skeleton={row === "skeleton"}
+          color={color}
         />
       ),
     });
-  }
 
-  executeMatrixScreenshotTest({
-    name: "System button (disabled)",
-    columns: ["text", "icon"],
-    rows: ["default", "hover", "active", "focus-visible"],
-    beforeScreenshot,
-    component: (column) => (
-      <OnyxSystemButton
-        label="Test label"
-        icon={column === "icon" ? mockPlaywrightIcon : undefined}
-        disabled
-      />
-    ),
+    executeMatrixScreenshotTest({
+      name: `System button (${color}, disabled)`,
+      columns: ["text", "icon"],
+      rows: ["default", "hover", "active", "focus-visible"],
+      beforeScreenshot,
+      component: (column) => (
+        <OnyxSystemButton
+          label="Test label"
+          icon={column === "icon" ? mockPlaywrightIcon : undefined}
+          color={color}
+          disabled
+        />
+      ),
+    });
   });
-});
+}
