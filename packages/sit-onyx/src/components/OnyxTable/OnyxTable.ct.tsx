@@ -66,8 +66,10 @@ test.describe("SCreenshot tests (densities)", () => {
         {tableBody}
       </OnyxTable>
     ),
-    beforeScreenshot: async (_component, page, _column, row) => {
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (_component, page, _column, row) => {
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });
@@ -83,9 +85,11 @@ test.describe("Screenshot tests (hover styles)", () => {
         {tableBody}
       </OnyxTable>
     ),
-    beforeScreenshot: async (component, _, __, row) => {
-      if (row === "row-hover") await component.getByText("Apple").hover();
-      if (row === "column-hover") await component.getByText("Fruit").hover();
+    hooks: {
+      beforeEach: async (component, _, __, row) => {
+        if (row === "row-hover") await component.getByText("Apple").hover();
+        if (row === "column-hover") await component.getByText("Fruit").hover();
+      },
     },
   });
 });
@@ -129,9 +133,11 @@ test.describe("Screenshot tests (scrolling)", () => {
       </OnyxTable>
     ),
 
-    beforeScreenshot: async (component, _, column, row) => {
-      if (column === "horizontal-scroll") await component.getByText("Apple").hover();
-      if (row === "vertical-scroll") await component.getByText("Price").hover();
+    hooks: {
+      beforeEach: async (component, _, column, row) => {
+        if (column === "horizontal-scroll") await component.getByText("Apple").hover();
+        if (row === "vertical-scroll") await component.getByText("Price").hover();
+      },
     },
   });
 });
@@ -163,16 +169,18 @@ test.describe("Screenshot tests (hover)", () => {
         {row === "default" ? tableBody : undefined}
       </OnyxTable>
     ),
-    beforeScreenshot: async (_component, page, column, row) => {
-      if (column === "row-hover") {
-        // this is needed to demonstrate that a row hover has no effect when empty.
-        await page.mouse.move(32, 132);
-      }
-      if (column === "column-hover" && ["default", "empty-body"].includes(row)) {
-        // this is needed to demonstrate that a column hover has no effect when empty.
-        // selecting the header label does not work because we prevent pointer-events.
-        await page.mouse.move(32, 32);
-      }
+    hooks: {
+      beforeEach: async (_component, page, column, row) => {
+        if (column === "row-hover") {
+          // this is needed to demonstrate that a row hover has no effect when empty.
+          await page.mouse.move(32, 132);
+        }
+        if (column === "column-hover" && ["default", "empty-body"].includes(row)) {
+          // this is needed to demonstrate that a column hover has no effect when empty.
+          // selecting the header label does not work because we prevent pointer-events.
+          await page.mouse.move(32, 32);
+        }
+      },
     },
   });
 });

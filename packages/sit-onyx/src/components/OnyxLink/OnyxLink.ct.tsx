@@ -15,10 +15,12 @@ test.describe("Screenshot tests", () => {
         Click me
       </OnyxLink>
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      await expect(component).toContainText("Click me");
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await expect(component).toContainText("Click me");
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });

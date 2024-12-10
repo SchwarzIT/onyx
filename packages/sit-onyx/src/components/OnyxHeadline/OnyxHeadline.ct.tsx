@@ -9,8 +9,10 @@ test.describe("Screenshot tests", () => {
     columns: ["default"],
     rows: HEADLINE_TYPES,
     component: (column, row) => <OnyxHeadline is={row}>Hello World</OnyxHeadline>,
-    beforeScreenshot: async (component) => {
-      await expect(component).toContainText("Hello World");
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component).toContainText("Hello World");
+      },
     },
   });
 });

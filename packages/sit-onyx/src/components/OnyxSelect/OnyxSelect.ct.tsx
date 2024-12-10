@@ -1,23 +1,34 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import {
-  adjustAbsolutePositionScreenshot,
   executeMatrixScreenshotTest,
+  type OnyxMatrixScreenshotHookContext,
 } from "../../playwright/screenshots";
 import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
-import { type OnyxSelectProps, type SelectOption, SELECT_ALIGNMENTS } from "./types";
+import { SELECT_ALIGNMENTS, type OnyxSelectProps, type SelectOption } from "./types";
 
-const DISABLED_ACCESSIBILITY_RULES = [
-  // the scrollable region are the options but they should not be focusable because
-  // the focus should remain on the parent element
-  "scrollable-region-focusable",
-];
+const context = {
+  disabledAccessibilityRules: [
+    // the scrollable region are the options but they should not be focusable because
+    // the focus should remain on the parent element
+    "scrollable-region-focusable",
+  ],
+} satisfies OnyxMatrixScreenshotHookContext;
+
+const nestedChildrenContext = {
+  disabledAccessibilityRules: [
+    ...context.disabledAccessibilityRules,
+    // "nested-interactive" is false positive, see: https://github.com/SchwarzIT/onyx/issues/1026#issuecomment-2446134327
+    "nested-interactive",
+  ],
+} satisfies OnyxMatrixScreenshotHookContext;
 
 const MOCK_VARIED_OPTIONS = [
   { value: 1, label: "Default" },
@@ -47,7 +58,7 @@ const openFlyout = async (component: MountResultJsx) => {
   const toggleButton = component.getByLabel("Toggle selection popover");
 
   if (await toggleButton.isEnabled()) await toggleButton.click();
-  await adjustAbsolutePositionScreenshot(component);
+  await adjustSizeToAbsolutePosition(component);
 };
 
 test.describe("Default screenshots", () => {
@@ -55,7 +66,7 @@ test.describe("Default screenshots", () => {
     name: "Select",
     columns: DENSITIES,
     rows: ["default", "required", "hideLabel", "open"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <div>
         <OnyxSelect
@@ -69,8 +80,10 @@ test.describe("Default screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component, _page, _column, row) => {
-      if (row === "open") await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, _column, row) => {
+        if (row === "open") await openFlyout(component);
+      },
     },
   });
 });
@@ -80,7 +93,7 @@ test.describe("Empty screenshots", () => {
     name: "Select (empty)",
     columns: DENSITIES,
     rows: ["empty", "search-empty"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <div>
         {row === "empty" ? (
@@ -97,8 +110,10 @@ test.describe("Empty screenshots", () => {
         )}
       </div>
     ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -108,7 +123,7 @@ test.describe("Truncated options screenshots", () => {
     name: "Select (truncated)",
     columns: DENSITIES,
     rows: ["ellipsis", "multiline"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <OnyxSelect
         label="Label"
@@ -119,10 +134,12 @@ test.describe("Truncated options screenshots", () => {
         density={column}
       />
     ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
-      const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0].label);
-      await option.hover();
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+        const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0].label);
+        await option.hover();
+      },
     },
   });
 });
@@ -139,12 +156,7 @@ test.describe("Grouped screenshots", () => {
     name: "Select (grouped)",
     columns: ["default", "with-search", "with-check-all"],
     rows: DENSITIES,
-    disabledAccessibilityRules: [
-      ...DISABLED_ACCESSIBILITY_RULES,
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    context: nestedChildrenContext,
     component: (column, row) => {
       const preselected: SelectOptionValue = GROUPED_OPTIONS[0].value;
       const multiple = column === "with-check-all";
@@ -174,8 +186,10 @@ test.describe("Grouped screenshots", () => {
         </div>
       );
     },
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -185,12 +199,7 @@ test.describe("Multiple screenshots", () => {
     name: "Select (multiple)",
     columns: DENSITIES,
     rows: ["default", "check-all", "search", "preview"],
-    disabledAccessibilityRules: [
-      ...DISABLED_ACCESSIBILITY_RULES,
-      // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-      // the following disabled rule should be removed.
-      "nested-interactive",
-    ],
+    context: nestedChildrenContext,
     component: (column, row) => {
       let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]];
       if (column === "compact") modelValue = [];
@@ -213,8 +222,10 @@ test.describe("Multiple screenshots", () => {
         </div>
       );
     },
-    beforeScreenshot: async (component, _page, _column, row) => {
-      if (row !== "preview") await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, _column, row) => {
+        if (row !== "preview") await openFlyout(component);
+      },
     },
   });
 });
@@ -224,7 +235,7 @@ test.describe("List description screenshots", () => {
     name: "Select (list-description)",
     columns: DENSITIES,
     rows: ["default"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column) => (
       <div>
         <OnyxSelect
@@ -236,8 +247,10 @@ test.describe("List description screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component, _page, _column) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, _column) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -247,7 +260,7 @@ test.describe("Alignment screenshots", () => {
     name: "Select (alignment)",
     columns: SELECT_ALIGNMENTS,
     rows: ["top", "bottom"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column, row) => (
       <div style={{ paddingTop: row === "top" ? "22rem" : "" }}>
         <OnyxSelect
@@ -258,8 +271,10 @@ test.describe("Alignment screenshots", () => {
         />
       </div>
     ),
-    beforeScreenshot: async (component) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component) => {
+        await openFlyout(component);
+      },
     },
   });
 });
@@ -269,7 +284,7 @@ test.describe("Loading screenshots", () => {
     name: "Select (loading)",
     columns: ["loading", "lazy-loading", "custom-button"],
     rows: ["default"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column) => (
       <div>
         <OnyxSelect
@@ -287,12 +302,14 @@ test.describe("Loading screenshots", () => {
         </OnyxSelect>
       </div>
     ),
-    beforeScreenshot: async (component, _page, column) => {
-      await openFlyout(component);
+    hooks: {
+      beforeEach: async (component, _page, column) => {
+        await openFlyout(component);
 
-      if (column !== "loading") {
-        await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
-      }
+        if (column !== "loading") {
+          await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
+        }
+      },
     },
   });
 });
@@ -332,20 +349,22 @@ test.describe("Invalidity handling screenshots", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after open/closing the flyout
-      await input.click();
-      await page.getByRole("document").click(); // reset mouse
+        // invalid is only triggered after open/closing the flyout
+        await input.click();
+        await page.getByRole("document").click(); // reset mouse
 
-      await component.evaluate((element) => {
-        element.style.padding = `0 5rem 3rem 2rem`;
-      });
+        await component.evaluate((element) => {
+          element.style.padding = `0 5rem 3rem 2rem`;
+        });
 
-      if (row !== "error") {
-        await createFormElementUtils(page).triggerTooltipVisible("message");
-      }
+        if (row !== "error") {
+          await createFormElementUtils(page).triggerTooltipVisible("message");
+        }
+      },
     },
   });
 
@@ -364,17 +383,19 @@ test.describe("Invalidity handling screenshots", () => {
         modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
       />
     ),
-    beforeScreenshot: async (component, page, _column, row) => {
-      const input = component.getByLabel("Test label");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        const input = component.getByLabel("Test label");
 
-      // invalid is only triggered after open/closing the flyout
-      await input.click();
-      await component.click();
+        // invalid is only triggered after open/closing the flyout
+        await input.click();
+        await component.click();
 
-      if (row !== "focus") {
-        await page.getByRole("document").click(); // reset mouse
-      }
-      if (row === "hover") await input.hover();
+        if (row !== "focus") {
+          await page.getByRole("document").click(); // reset mouse
+        }
+        if (row === "hover") await input.hover();
+      },
     },
   });
 });
@@ -384,7 +405,7 @@ test.describe("Other screenshots", () => {
     name: "Select (readonly, disabled, loading, skeleton)",
     columns: ["readonly", "disabled", "loading", "skeleton"],
     rows: ["default", "hover", "focus-visible"],
-    disabledAccessibilityRules: DISABLED_ACCESSIBILITY_RULES,
+    context,
     component: (column) => (
       <OnyxSelect
         label="Label"
@@ -397,9 +418,11 @@ test.describe("Other screenshots", () => {
         skeleton={column === "skeleton"}
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 });

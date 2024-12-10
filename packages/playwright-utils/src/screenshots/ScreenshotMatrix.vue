@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { escapeGridAreaName } from "./utils";
 
 defineSlots<{
   default: () => unknown;
@@ -29,10 +30,14 @@ const props = defineProps<{
  * Every grid element must have the "grid-area" set to `{row}-{column}` to place it correctly.
  */
 const gridTemplateAreas = computed(() => {
-  const lines: string[] = [`"blank ${props.columns.map((col) => `column-${col}`).join(" ")}"`];
+  const lines: string[] = [
+    `"blank ${props.columns.map((col) => `column-${escapeGridAreaName(col)}`).join(" ")}"`,
+  ];
 
   props.rows.forEach((row) => {
-    lines.push(`"row-${row} ${props.columns.map((col) => `${row}-${col}`).join(" ")}"`);
+    lines.push(
+      `"row-${escapeGridAreaName(row)} ${props.columns.map((col) => `${escapeGridAreaName(row)}-${escapeGridAreaName(col)}`).join(" ")}"`,
+    );
   });
 
   return lines.join("\n");
@@ -57,7 +62,7 @@ const gridTemplateAreas = computed(() => {
         v-for="column of props.columns"
         :key="column"
         class="grid__label"
-        :style="{ gridArea: `column-${column}` }"
+        :style="{ gridArea: `column-${escapeGridAreaName(column)}` }"
       >
         {{ column }}
       </div>
@@ -66,7 +71,7 @@ const gridTemplateAreas = computed(() => {
         v-for="row of props.rows"
         :key="row"
         class="grid__label"
-        :style="{ gridArea: `row-${row}` }"
+        :style="{ gridArea: `row-${escapeGridAreaName(row)}` }"
       >
         {{ row }}
       </div>
@@ -79,8 +84,7 @@ const gridTemplateAreas = computed(() => {
   </div>
 </template>
 
-<!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
-<style lang="scss" scoped>
+<style scoped>
 .wrapper {
   width: max-content;
 }
@@ -88,12 +92,12 @@ const gridTemplateAreas = computed(() => {
 .meta {
   font-family: Arial, sans-serif;
   margin-bottom: 2rem;
+}
 
-  &__name {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    margin: 0;
-  }
+.meta__name {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 0;
 }
 
 .grid {
@@ -105,12 +109,13 @@ const gridTemplateAreas = computed(() => {
 
   align-items: center;
   justify-content: center;
+}
 
-  &__label {
-    text-align: center;
-  }
-  &__blank {
-    grid-area: blank;
-  }
+.grid__label {
+  text-align: center;
+}
+
+.grid__blank {
+  grid-area: blank;
 }
 </style>

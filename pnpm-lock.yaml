@@ -351,6 +351,18 @@ importers:
         specifier: ^10.0.5
         version: 10.0.5(vue@3.5.13(typescript@5.6.3))
 
+  packages/playwright-utils:
+    dependencies:
+      '@playwright/experimental-ct-vue':
+        specifier: '>= 1'
+        version: 1.49.0(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0)(vite@5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.13(typescript@5.7.2))
+      '@playwright/test':
+        specifier: '>= 1'
+        version: 1.49.0
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.7.2)
+
   packages/shared:
     dependencies:
       '@vitejs/plugin-vue':
@@ -381,6 +393,9 @@ importers:
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
+      '@sit-onyx/playwright-utils':
+        specifier: workspace:^
+        version: link:../playwright-utils
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
@@ -8052,6 +8067,22 @@ snapshots:
       - vite
       - vue
 
+  '@playwright/experimental-ct-vue@1.49.0(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0)(vite@5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@playwright/experimental-ct-core': 1.49.0(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0)
+      '@vitejs/plugin-vue': 4.6.2(vite@5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.13(typescript@5.7.2))
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - vite
+      - vue
+
   '@playwright/test@1.49.0':
     dependencies:
       playwright: 1.49.0
@@ -8834,6 +8865,11 @@ snapshots:
     dependencies:
       vite: 5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0)
       vue: 3.5.13(typescript@5.6.3)
+
+  '@vitejs/plugin-vue@4.6.2(vite@5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      vite: 5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0)
+      vue: 3.5.13(typescript@5.7.2)
 
   '@vitejs/plugin-vue@5.2.1(vite@5.4.11(@types/node@22.10.1)(sass-embedded@1.81.0)(sass@1.81.0)(stylus@0.57.0)(terser@5.36.0))(vue@3.5.13(typescript@5.6.3))':
     dependencies:

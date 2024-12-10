@@ -13,8 +13,10 @@ test.describe("Screenshot tests", () => {
         <OnyxColorSchemeMenuItem modelValue="auto" />
       </ul>
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.getByText("Appearance: Auto").hover();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.getByText("Appearance: Auto").hover();
+      },
     },
   });
 });

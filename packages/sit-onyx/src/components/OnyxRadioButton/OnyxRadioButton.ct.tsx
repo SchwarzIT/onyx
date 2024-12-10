@@ -12,10 +12,12 @@ test.describe("Screenshot tests", () => {
     component: (column) => (
       <OnyxRadioButton value="test-value" label="Test label" name="test-name" density={column} />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      await expect(component.getByLabel("Test label")).not.toBeChecked();
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await expect(component.getByLabel("Test label")).not.toBeChecked();
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -32,10 +34,12 @@ test.describe("Screenshot tests", () => {
         checked
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      await expect(component.getByLabel("Test label")).toBeChecked();
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await expect(component.getByLabel("Test label")).toBeChecked();
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -52,10 +56,12 @@ test.describe("Screenshot tests", () => {
         disabled
       />
     ),
-    beforeScreenshot: async (component, page, column, row) => {
-      await expect(component.getByLabel("Test label")).toBeDisabled();
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await expect(component.getByLabel("Test label")).toBeDisabled();
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
     },
   });
 
@@ -79,34 +85,36 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, column, row) => {
-      await expect(page.locator("input:invalid")).toBeAttached();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await expect(page.locator("input:invalid")).toBeAttached();
 
-      if (row === "hover") {
-        await component.getByText("Test label").hover();
-      }
-      if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "hover") {
+          await component.getByText("Test label").hover();
+        }
+        if (row === "focus-visible") await page.keyboard.press("Tab");
 
-      // wait for the tooltip to show up reliably
-      if (["focus-visible", "hover"].includes(row)) {
-        await expect(
-          component.getByRole("tooltip"),
-          `should show error tooltip for ${row} and ${column}`,
-        ).toBeVisible();
+        // wait for the tooltip to show up reliably
+        if (["focus-visible", "hover"].includes(row)) {
+          await expect(
+            component.getByRole("tooltip"),
+            `should show error tooltip for ${row} and ${column}`,
+          ).toBeVisible();
 
-        const tooltipSize = await component
-          .getByRole("tooltip")
-          .evaluate((element) => [element.clientHeight, element.clientWidth]);
+          const tooltipSize = await component
+            .getByRole("tooltip")
+            .evaluate((element) => [element.clientHeight, element.clientWidth]);
 
-        // set paddings to fit the full tooltip in the screenshot
-        await component.evaluate(
-          (element, { tooltipSize: [height] }) => {
-            const verticalPadding = `${height + 12}px`;
-            element.style.paddingBottom = verticalPadding;
-          },
-          { tooltipSize },
-        );
-      }
+          // set paddings to fit the full tooltip in the screenshot
+          await component.evaluate(
+            (element, { tooltipSize: [height] }) => {
+              const verticalPadding = `${height + 12}px`;
+              element.style.paddingBottom = verticalPadding;
+            },
+            { tooltipSize },
+          );
+        }
+      },
     },
   });
 
@@ -123,8 +131,10 @@ test.describe("Screenshot tests", () => {
         style={{ width: "12rem" }}
       />
     ),
-    beforeScreenshot: async (component) => {
-      await expect(component).toContainText("Very long label that should be truncated");
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component).toContainText("Very long label that should be truncated");
+      },
     },
   });
 

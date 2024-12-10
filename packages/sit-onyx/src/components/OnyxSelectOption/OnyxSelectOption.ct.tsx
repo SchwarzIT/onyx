@@ -1,16 +1,21 @@
 import { DENSITIES } from "../../composables/density";
 import { test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import {
+  executeMatrixScreenshotTest,
+  type OnyxMatrixScreenshotHookContext,
+} from "../../playwright/screenshots";
 import OnyxSelectOption from "./OnyxSelectOption.vue";
 
-const disabledRules = [
-  // aria-required-parent is ignored here because this component is only a single option which is internally always
-  // used together with a parent so we disable the failing rule here
-  "aria-required-parent",
-  // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
-  // the following disabled rule should be removed.
-  "nested-interactive",
-];
+const context: OnyxMatrixScreenshotHookContext = {
+  disabledAccessibilityRules: [
+    // aria-required-parent is ignored here because this component is only a single option which is internally always
+    // used together with a parent so we disable the failing rule here
+    "aria-required-parent",
+    // TODO: as part of https://github.com/SchwarzIT/onyx/issues/1026,
+    // the following disabled rule should be removed.
+    "nested-interactive",
+  ],
+};
 
 test.describe("Single select screenshot tests", () => {
   for (const state of ["default", "disabled"] as const) {
@@ -18,9 +23,7 @@ test.describe("Single select screenshot tests", () => {
       name: `Select option (${state})`,
       columns: ["default", "selected"],
       rows: ["default", "hover", "focus-visible"],
-      // aria-required-parent is ignored here because this component is only a single option which is internally always
-      // used together with a parent so we disable the failing rule here
-      disabledAccessibilityRules: ["aria-required-parent"],
+      context,
       component: (column, row) => (
         <OnyxSelectOption
           aria-selected={column === "selected"}
@@ -31,8 +34,10 @@ test.describe("Single select screenshot tests", () => {
           Test label
         </OnyxSelectOption>
       ),
-      beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          if (row === "hover") await component.hover();
+        },
       },
     });
   }
@@ -44,7 +49,7 @@ test.describe("Multiselect Screenshot tests", () => {
       name: `Multiselect option (${state})`,
       columns: ["default", "checked", "indeterminate"],
       rows: ["default", "hover", "focus-visible"],
-      disabledAccessibilityRules: disabledRules,
+      context,
       component: (column, row) => (
         <OnyxSelectOption
           aria-checked={column === "checked"}
@@ -57,8 +62,10 @@ test.describe("Multiselect Screenshot tests", () => {
           Test label
         </OnyxSelectOption>
       ),
-      beforeScreenshot: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
+      hooks: {
+        beforeEach: async (component, page, column, row) => {
+          if (row === "hover") await component.hover();
+        },
       },
     });
   }
@@ -69,14 +76,16 @@ test.describe("Density Screenshot tests", () => {
     name: "Select option (densities)",
     columns: DENSITIES,
     rows: ["default", "multiselect"],
-    disabledAccessibilityRules: disabledRules,
+    context,
     component: (column, row) => (
       <OnyxSelectOption multiple={row === "multiselect"} density={column} {...{ role: "option" }}>
         Test label
       </OnyxSelectOption>
     ),
-    beforeScreenshot: async (component) => {
-      await component.hover();
+    hooks: {
+      beforeEach: async (component) => {
+        await component.hover();
+      },
     },
   });
 });

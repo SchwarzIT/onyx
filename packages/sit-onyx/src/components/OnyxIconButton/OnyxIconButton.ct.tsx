@@ -1,11 +1,8 @@
+import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import type { HTMLAttributes } from "vue";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import {
-  executeMatrixScreenshotTest,
-  mockPlaywrightIcon,
-  type MatrixScreenshotTestOptions,
-} from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import { BUTTON_COLORS } from "../OnyxButton/types";
 import OnyxIconButton from "./OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "./types";
@@ -62,15 +59,12 @@ test("should behave correctly", async ({ page, mount }) => {
 });
 
 test.describe("Screenshot tests", () => {
-  const beforeScreenshot: MatrixScreenshotTestOptions["beforeScreenshot"] = async (
-    component,
-    page,
-    column,
-    row,
-  ) => {
-    if (row === "hover") await component.hover();
-    if (row === "focus-visible") await page.keyboard.press("Tab");
-    if (row === "active") await page.mouse.down();
+  const hooks: MatrixScreenshotTestOptions["hooks"] = {
+    beforeEach: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "active") await page.mouse.down();
+    },
   };
 
   for (const state of ["default", "disabled"] as const) {
@@ -78,7 +72,7 @@ test.describe("Screenshot tests", () => {
       name: `Icon button (${state})`,
       columns: BUTTON_COLORS,
       rows: ["default", "hover", "active", "focus-visible"],
-      beforeScreenshot,
+      hooks,
       component: (column) => (
         <OnyxIconButton
           label="Test label"
@@ -95,7 +89,7 @@ test.describe("Screenshot tests", () => {
       name: `Icon button (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "active", "focus-visible"],
-      beforeScreenshot,
+      hooks,
       component: (column) => (
         <OnyxIconButton
           label="Test label"
