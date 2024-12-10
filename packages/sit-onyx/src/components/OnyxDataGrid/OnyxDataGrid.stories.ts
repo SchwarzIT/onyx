@@ -28,7 +28,7 @@ export const Default = {
   },
 } satisfies Story;
 
-export const MoreActions = {
+export const HeaderInteractions = {
   args: {
     columns: ["name", "age", "birthday"],
     features: [
@@ -36,33 +36,27 @@ export const MoreActions = {
         name: Symbol("More actions"),
         watch: [],
         header: {
-          actions: (column) =>
-            column === "name"
-              ? [
-                  {
-                    iconComponent: h(OnyxIconButton, {
-                      label: "Sort options",
-                      icon: sort,
-                      color: "neutral",
-                    }),
-                    listItems: [
-                      h(OnyxListItem, () => "No sorting"),
-                      h(OnyxListItem, () => "Random sort"),
-                    ],
-                  },
-                  {
-                    iconComponent: h(OnyxIconButton, {
-                      label: "Sort options",
-                      icon: sort,
-                      color: "neutral",
-                    }),
-                    listItems: [
-                      h(OnyxListItem, () => "Sort ascending"),
-                      h(OnyxListItem, () => "Sort descending"),
-                    ],
-                  },
-                ]
-              : [],
+          actions: () => [
+            {
+              iconComponent: h(OnyxIconButton, {
+                label: "Column options",
+                icon: sort,
+                color: "neutral",
+              }),
+              listItems: [
+                h(OnyxListItem, () => "Pin column"),
+                h(OnyxListItem, () => "Unpin column"),
+              ],
+            },
+            {
+              iconComponent: h(OnyxIconButton, {
+                label: "Column options",
+                icon: sort,
+                color: "neutral",
+              }),
+              listItems: [h(OnyxListItem, () => "Remove column")],
+            },
+          ],
         },
       },
     ],
