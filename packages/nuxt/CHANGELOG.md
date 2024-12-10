@@ -1,5 +1,19 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.90
+
+### Patch Changes
+
+- Updated dependencies [d1cc1d3]
+  - sit-onyx@1.0.0-beta.89
+
+## 1.0.0-beta.89
+
+### Patch Changes
+
+- Updated dependencies [e250589]
+  - sit-onyx@1.0.0-beta.88
+
 ## 1.0.0-beta.88
 
 ### Patch Changes

@@ -1,20 +1,19 @@
+import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import {
-  executeMatrixScreenshotTest,
-  mockPlaywrightIcon,
-  type MatrixScreenshotTestOptions,
-} from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxButton from "./OnyxButton.vue";
 import { BUTTON_COLORS, BUTTON_MODES } from "./types";
 
 test.describe("Screenshot tests", () => {
   const screenshotOptions = {
     rows: ["default", "hover", "active", "focus-visible"] as const,
-    beforeScreenshot: async (component, page, column, row) => {
-      if (row === "hover") await component.hover();
-      if (row === "focus-visible") await page.keyboard.press("Tab");
-      if (row === "active") await page.mouse.down();
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+        if (row === "active") await page.mouse.down();
+      },
     },
   } satisfies Partial<MatrixScreenshotTestOptions>;
 

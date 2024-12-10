@@ -21,10 +21,12 @@ test.describe("Screenshot tests", () => {
             />
           );
         },
-        beforeScreenshot: async (component, page, column, row) => {
-          const datepicker = component.getByLabel("Test label");
-          if (row === "hover") await datepicker.hover();
-          if (row === "focus") await datepicker.focus();
+        hooks: {
+          beforeEach: async (component, page, column, row) => {
+            const datepicker = component.getByLabel("Test label");
+            if (row === "hover") await datepicker.hover();
+            if (row === "focus") await datepicker.focus();
+          },
         },
       });
     }

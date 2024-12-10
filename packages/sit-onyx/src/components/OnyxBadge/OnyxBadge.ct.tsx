@@ -14,8 +14,10 @@ test.describe("Screenshot tests", () => {
         Badge
       </OnyxBadge>
     ),
-    beforeScreenshot: async (component) => {
-      await expect(component).toContainText("Badge");
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component).toContainText("Badge");
+      },
     },
   });
 
@@ -28,8 +30,10 @@ test.describe("Screenshot tests", () => {
         Badge
       </OnyxBadge>
     ),
-    beforeScreenshot: async (component) => {
-      await expect(component).not.toContainText("Badge");
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component).not.toContainText("Badge");
+      },
     },
   });
 
@@ -43,9 +47,11 @@ test.describe("Screenshot tests", () => {
         Badge
       </OnyxBadge>
     ),
-    beforeScreenshot: async (component) => {
-      await expect(component).not.toContainText("Badge");
-      await expect(component.locator(".onyx-badge__icon")).not.toBeAttached();
+    hooks: {
+      beforeEach: async (component) => {
+        await expect(component).not.toContainText("Badge");
+        await expect(component.locator(".onyx-badge__icon")).not.toBeAttached();
+      },
     },
   });
 });

@@ -135,16 +135,18 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    beforeScreenshot: async (component, page, _column, row) => {
-      const requiredCheckbox = component.getByLabel("Required");
-      const invalidCheckbox = component.getByLabel("Invalid");
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        const requiredCheckbox = component.getByLabel("Required");
+        const invalidCheckbox = component.getByLabel("Invalid");
 
-      if (row === "interacted") {
-        await requiredCheckbox.click();
-        await requiredCheckbox.click();
-        await invalidCheckbox.click();
-        await invalidCheckbox.click();
-      }
+        if (row === "interacted") {
+          await requiredCheckbox.click();
+          await requiredCheckbox.click();
+          await invalidCheckbox.click();
+          await invalidCheckbox.click();
+        }
+      },
     },
   });
 
