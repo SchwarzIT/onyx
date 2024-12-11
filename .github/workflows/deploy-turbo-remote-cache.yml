@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
   pull_request:
 
+env:
+  STAGE: prod
+
 jobs:
   deploy:
     name: Deploy to CloudFoundry
