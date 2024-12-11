@@ -6,6 +6,7 @@ on:
     paths:
       - "apps/turbo-remote-cache/**"
   workflow_dispatch:
+  pull_request:
 
 jobs:
   deploy:
