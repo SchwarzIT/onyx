@@ -1,8 +1,8 @@
 import sort from "@sit-onyx/icons/sort.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 /**
@@ -38,10 +38,10 @@ export const HeaderInteractions = {
         header: {
           actions: () => [
             {
-              iconComponent: h(OnyxIconButton, {
+              iconComponent: h(OnyxSystemButton, {
                 label: "Column options",
                 icon: sort,
-                color: "neutral",
+                color: "medium",
               }),
               listItems: [
                 h(OnyxListItem, () => "Pin column"),
@@ -49,10 +49,10 @@ export const HeaderInteractions = {
               ],
             },
             {
-              iconComponent: h(OnyxIconButton, {
+              iconComponent: h(OnyxSystemButton, {
                 label: "Column options",
                 icon: sort,
-                color: "neutral",
+                color: "medium",
               }),
               listItems: [h(OnyxListItem, () => "Remove column")],
             },
