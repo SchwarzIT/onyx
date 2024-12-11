@@ -36,6 +36,7 @@ const config: StorybookConfig = {
   `,
   // somehow Storybook does not parse the CSS in the correct order so the CSS layers are messed up.
   // to fix this, we add them manually before all other styles here
+  // TODO: remove after [#2311](https://github.com/SchwarzIT/onyx/issues/2311)
   previewHead: (head) => `
     <style>${onyxLayers}</style>
     ${head}
