@@ -1,13 +1,8 @@
 import { defineConfig, type DefaultTheme, type UserConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json" with { type: "json" };
-import viteConfig from "../../vite.config";
 
 // https://vitepress.dev/reference/site-config
 export const CONFIG = {
-  vite: {
-    ...viteConfig,
-    plugins: [], // don't use any of the default (vue) plugins, as it would conflict with vitepress setup
-  },
   title: "onyx",
   description: packageJson.description,
   head: [
