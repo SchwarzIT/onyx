@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.90
+
+### Minor Changes
+
+- f36104b: feat(OnyxDataGrid): use `OnyxSystemButton` for header actions
+
+  - fix(OnyxFlyoutMenu): correctly position flyout when open
+
 ## 1.0.0-beta.89
 
 ### Minor Changes
