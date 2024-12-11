@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { OnyxToast } from "sit-onyx";
+import { OnyxToast, useThemeTransition } from "sit-onyx";
+import { useData } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
 const { Layout } = DefaultTheme;
+const { isDark } = useData();
+useThemeTransition(isDark);
 </script>
 
 <template>

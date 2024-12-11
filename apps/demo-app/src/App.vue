@@ -10,6 +10,7 @@ import {
   OnyxNavButton,
   OnyxToast,
   OnyxUserMenu,
+  useThemeTransition,
   type OnyxNavButtonProps,
 } from "sit-onyx";
 import { ref, watch, type ComponentInstance } from "vue";
@@ -29,7 +30,8 @@ const navItems = [
   { label: "Data-Grid Demo", href: "/data-grid" },
 ] satisfies OnyxNavButtonProps[];
 
-const { store: colorScheme } = useColorMode();
+const { store: colorScheme } = useColorMode({ disableTransition: false });
+useThemeTransition(colorScheme);
 
 const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
 
