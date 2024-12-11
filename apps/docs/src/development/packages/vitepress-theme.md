@@ -14,9 +14,13 @@ import packageJson from "../../../../../packages/vitepress-theme/package.json";
 
 </div>
 
-Custom [VitePress](https://vitepress.dev) theme that uses the onyx design system.
+Custom [VitePress](https://vitepress.dev) theme that uses the onyx brand colors (which are currently the same as the Schwarz Digits brand colors).
 
-The documentation that you are currently reading is created using this custom theme.
+::: info
+The theme doesn't currently use the entire onyx framework but will be updated in the future.
+:::
+
+The very documentation you are reading here is also using this exact custom Vitepress theme.
 
 It extends the default VitePress theme so you can use the same [config](https://vitepress.dev/reference/default-theme-config) that you are already familiar with (which includes search, sidebar etc.).
 
