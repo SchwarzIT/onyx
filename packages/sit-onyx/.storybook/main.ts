@@ -1,5 +1,12 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
+import { readFileSync } from "fs";
+import { fileURLToPath } from "node:url";
 import { mergeConfig } from "vite";
+
+const onyxLayers = readFileSync(
+  fileURLToPath(new URL("../src/styles/layers.scss", import.meta.url)),
+  "utf-8",
+);
 
 const config: StorybookConfig = {
   stories: ["./pages/*.mdx", "../src/**/*.stories.ts"],
@@ -26,6 +33,12 @@ const config: StorybookConfig = {
     <meta property="og:image:width" content="600" />
     <meta property="og:image:height" content="600" />
     <meta property="og:url" content="https://storybook.onyx.schwarz">
+  `,
+  // somehow Storybook does not parse the CSS in the correct order so the CSS layers are messed up.
+  // to fix this, we add them manually before all other styles here
+  previewHead: (head) => `
+    <style>${onyxLayers}</style>
+    ${head}
   `,
   // fix "The file does not exist at "..." which is in the optimize deps directory"
   // see: https://github.com/storybookjs/storybook/issues/28542#issuecomment-2268031095
