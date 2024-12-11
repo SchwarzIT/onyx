@@ -42,7 +42,7 @@ runs:
 
     - name: Deploy (${{ inputs.space }})
       shell: bash
-      run: cf push --manifest "./manifest-${{ inputs.space }}.yml" --strategy rolling ${{ inputs.vars }}
+      run: cf push --manifest "./manifest-${{ inputs.space }}.yml" --strategy rolling ${{ inputs.varArgs }}
       working-directory: ${{ inputs.working-directory }}
 
     - name: Logout from Cloud Foundry
