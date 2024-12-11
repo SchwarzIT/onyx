@@ -24,5 +24,5 @@ jobs:
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
           space: prod
-          varArgs: "--var TURBO_TOKEN=${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN}} --var AWS_ACCESS_KEY_ID=${{ secrets.TURBO_REMOTE_CACHE__AWS_ACCESS_KEY_ID}} --var AWS_SECRET_ACCESS_KEY=${{ secrets.TURBO_REMOTE_CACHE__AWS_SECRET_ACCESS_KEY}}"
+          varArgs: "--var TURBO_TOKEN=${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }} --var AWS_ACCESS_KEY_ID=${{ secrets.TURBO_REMOTE_CACHE__AWS_ACCESS_KEY_ID }} --var AWS_SECRET_ACCESS_KEY=${{ secrets.TURBO_REMOTE_CACHE__AWS_SECRET_ACCESS_KEY }}"
           working-directory: apps/turbo-remote-cache/.cloud-foundry
