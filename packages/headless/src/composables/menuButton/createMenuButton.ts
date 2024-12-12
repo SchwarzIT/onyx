@@ -18,9 +18,7 @@ export const createMenuButton = createBuilder(
     const menuRef = createElRef<HTMLElement>();
     const buttonId = useId();
 
-    if (expandOnClick === undefined) {
-      expandOnClick = toRef(false);
-    }
+    if (expandOnClick === undefined) expandOnClick = toRef(false);
 
     useGlobalEventListener({
       type: "keydown",
@@ -117,7 +115,7 @@ export const createMenuButton = createBuilder(
           onKeydown: handleKeydown,
           onMouseenter: () => (!expandOnClick.value ? setExpanded(true) : undefined),
           onMouseleave: () => (!expandOnClick.value ? setExpanded(false, true) : undefined),
-          onClick: () => (expandOnClick ? setExpanded(true) : undefined),
+          onClick: () => (expandOnClick.value ? setExpanded(true) : undefined),
           onFocusout: (event) => {
             // if focus receiving element is not part of the menu button, then close
             if (
