@@ -2,6 +2,9 @@ name: Update Playwright screenshots
 on:
   workflow_dispatch:
 
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
+
 jobs:
   screenshots:
     uses: ./.github/workflows/playwright.yml

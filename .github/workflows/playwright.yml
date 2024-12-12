@@ -7,6 +7,9 @@ on:
         default: false
         description: Whether to update snapshots / screenshots
 
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
+
 jobs:
   playwright:
     strategy:
