@@ -1,9 +1,9 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "schwarz-dark" theme.
- * Imported from Figma API on Wed, 04 Dec 2024 15:54:01 GMT
+ * Imported from Figma API on Thu, 12 Dec 2024 10:29:41 GMT
  */
-:where(.dark),
+.dark,
 .onyx-theme-schwarz-dark {
   --onyx-color-base-background-blank: var(--onyx-color-steel-1100);
   --onyx-color-base-background-tinted: var(--onyx-color-steel-1200);
