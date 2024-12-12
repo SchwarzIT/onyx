@@ -28,6 +28,10 @@ const slots = defineSlots<{
 
   &__actions {
     display: inline-flex;
+
+    .onyx-flyout-menu__list {
+      min-width: auto;
+    }
   }
 }
 </style>

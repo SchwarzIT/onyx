@@ -1,4 +1,7 @@
+import bus from "@sit-onyx/icons/bus.svg?raw";
+import carCheck from "@sit-onyx/icons/car-check.svg?raw";
 import sort from "@sit-onyx/icons/sort.svg?raw";
+import walking from "@sit-onyx/icons/walking.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
@@ -36,27 +39,52 @@ export const HeaderInteractions = {
         name: Symbol("More actions"),
         watch: [],
         header: {
-          actions: () => [
-            {
-              iconComponent: h(OnyxSystemButton, {
-                label: "Column options",
-                icon: sort,
-                color: "medium",
-              }),
-              listItems: [
-                h(OnyxListItem, () => "Pin column"),
-                h(OnyxListItem, () => "Unpin column"),
-              ],
-            },
-            {
-              iconComponent: h(OnyxSystemButton, {
-                label: "Column options",
-                icon: sort,
-                color: "medium",
-              }),
-              listItems: [h(OnyxListItem, () => "Remove column")],
-            },
-          ],
+          actions: (column) =>
+            column !== "name"
+              ? [
+                  {
+                    iconComponent: h(OnyxSystemButton, {
+                      label: "Column options",
+                      icon: sort,
+                      color: "medium",
+                    }),
+                    listItems: [
+                      h(OnyxListItem, () => "Pin column"),
+                      h(OnyxListItem, () => "Unpin column"),
+                    ],
+                  },
+                  {
+                    iconComponent: h(OnyxSystemButton, {
+                      label: "Column options",
+                      icon: sort,
+                      color: "medium",
+                    }),
+                    listItems: [h(OnyxListItem, () => "Remove column")],
+                  },
+                ]
+              : [
+                  {
+                    iconComponent: h(OnyxSystemButton, {
+                      label: "Column options",
+                      icon: walking,
+                      color: "soft",
+                    }),
+                  },
+                  {
+                    iconComponent: h(OnyxSystemButton, {
+                      label: "Column options",
+                      icon: carCheck,
+                      color: "soft",
+                    }),
+                  },
+                  {
+                    iconComponent: h(OnyxSystemButton, {
+                      label: "Column options",
+                      icon: bus,
+                      color: "soft",
+                    }),
+                  },
+                ],
         },
       },
     ],

@@ -124,12 +124,16 @@ export const useDataGridFeatures = <
 
     return columns.map((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
+      const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
       if (actions.length > 1) {
         const { t } = injectI18n();
-        const listItems = headerActions
-          .flatMap((actionFactory) => actionFactory(column))
-          .map(({ listItems }) => listItems);
+        const listItems = actions.map(({ listItems }) => listItems).filter((item) => !!item);
+
+        const options =
+          listItems.length > 0
+            ? listItems
+            : iconComponent.map((icon) => h(OnyxListItem, () => icon));
 
         const flyoutMenu = h(
           OnyxFlyoutMenu,
@@ -144,7 +148,7 @@ export const useDataGridFeatures = <
                 icon: moreHorizontal,
                 ...trigger,
               }),
-            options: () => listItems,
+            options: () => options,
           } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
         );
 
@@ -154,10 +158,6 @@ export const useDataGridFeatures = <
           props: {},
         };
       }
-
-      const iconComponent = headerActions
-        .flatMap((actionFactory) => actionFactory(column))
-        .map(({ iconComponent }) => iconComponent);
 
       return {
         key: column,
