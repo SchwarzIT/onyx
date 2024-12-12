@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import check from "@sit-onyx/icons/check.svg?raw";
-import history from "@sit-onyx/icons/history.svg?raw";
-import loadingDots from "@sit-onyx/icons/loading-dots.svg?raw";
+import circleArrowRight from "@sit-onyx/icons/circle-arrow-right.svg?raw";
+import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
+import clock from "@sit-onyx/icons/clock.svg?raw";
 import { OnyxIcon } from "sit-onyx";
 
 export type ComponentStatus = "implemented" | "in-progress" | "planned";
@@ -14,25 +14,31 @@ const props = defineProps<{
 
 const icons = {
   implemented: {
-    icon: check,
+    icon: circleCheck,
     label: "Implemented",
+    color: "success",
   },
   "in-progress": {
-    icon: loadingDots,
+    icon: circleArrowRight,
     label: "In progress",
+    color: "neutral",
   },
   planned: {
-    icon: history,
+    icon: clock,
     label: "Planned",
+    color: "warning",
   },
-} satisfies Record<ComponentStatus, { icon: string; label: string }>;
+} satisfies Record<
+  ComponentStatus,
+  { icon: string; label: string; color: "success" | "neutral" | "warning" }
+>;
 </script>
 
 <template>
   <div class="status" :aria-label="props.showLabel ? undefined : icons[props.status].label">
-    <div class="status__icon" :class="[`status__icon--${props.status}`]">
-      <OnyxIcon :icon="icons[props.status].icon" size="16px" />
-    </div>
+    <!-- <div class="status__icon" :class="[`status__icon--${props.status}`]"> -->
+    <OnyxIcon :icon="icons[props.status].icon" size="24px" :color="icons[props.status].color" />
+    <!-- </div> -->
 
     <span v-if="props.showLabel">{{ icons[props.status].label }}</span>
   </div>

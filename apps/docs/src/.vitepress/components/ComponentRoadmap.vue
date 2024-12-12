@@ -39,7 +39,7 @@ const usedStatus = computed(() => {
  * Components that should be displayed (considers the show all button).
  */
 const displayedComponents = computed(() => {
-  return sortedComponents.value.slice(0, showAll.value ? undefined : 24);
+  return sortedComponents.value.slice(0, showAll.value ? undefined : 16);
 });
 
 /**
