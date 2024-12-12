@@ -11,7 +11,7 @@
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "stylelint": "stylelint \"packages/sit-onyx/dist/*.css\"",
-    "lint:all": "eslint . && pnpm run stylelint",
+    "lint:all": "eslint .",
     "lint:fix:all": "pnpm run lint:all --fix",
     "lint:ci:all": "pnpm run lint:all --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
     "publint:all": "pnpm -r --parallel --aggregate-output exec publint",
