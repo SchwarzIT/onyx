@@ -12,13 +12,13 @@ type CreateMenuButtonOptions = {
  * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
 export const createMenuButton = createBuilder(
-  (options: CreateMenuButtonOptions, expandOnClick?: Readonly<Ref<boolean>>) => {
+  (options: CreateMenuButtonOptions, trigger?: Readonly<Ref<string>>) => {
     const rootId = useId();
     const menuId = useId();
     const menuRef = createElRef<HTMLElement>();
     const buttonId = useId();
 
-    if (expandOnClick === undefined) expandOnClick = toRef(false);
+    if (trigger === undefined) trigger = toRef("hover");
 
     useGlobalEventListener({
       type: "keydown",
@@ -113,9 +113,9 @@ export const createMenuButton = createBuilder(
         root: {
           id: rootId,
           onKeydown: handleKeydown,
-          onMouseenter: () => (!expandOnClick.value ? setExpanded(true) : undefined),
-          onMouseleave: () => (!expandOnClick.value ? setExpanded(false, true) : undefined),
-          onClick: () => (expandOnClick.value ? setExpanded(true) : undefined),
+          onMouseenter: () => (trigger?.value === "hover" ? setExpanded(true) : undefined),
+          onMouseleave: () => (trigger?.value === "hover" ? setExpanded(false, true) : undefined),
+          onClick: () => (trigger?.value === "click" ? setExpanded(true) : undefined),
           onFocusout: (event) => {
             // if focus receiving element is not part of the menu button, then close
             if (

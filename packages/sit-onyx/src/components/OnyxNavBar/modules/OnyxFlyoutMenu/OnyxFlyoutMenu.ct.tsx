@@ -42,7 +42,7 @@ test("check custom interactivity", async ({ page, mount }) => {
 test("should open on click", async ({ page, mount }) => {
   // ARRANGE
   const component = await mount(TestWrapperCt, {
-    props: { label: "Choose application language", expandOnClick: true },
+    props: { label: "Choose application language", trigger: "click" },
   });
   const menu = page.locator("ul");
   const menuItems = page.getByRole("menuitem");

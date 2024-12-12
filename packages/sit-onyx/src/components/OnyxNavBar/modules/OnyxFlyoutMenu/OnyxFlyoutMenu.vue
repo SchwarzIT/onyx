@@ -7,7 +7,7 @@ import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   open: MANAGED_SYMBOL,
-  expandOnClick: false,
+  trigger: "hover",
 });
 
 const emit = defineEmits<{
@@ -51,7 +51,7 @@ const {
     isExpanded: computed(() => !!isExpanded.value),
     onToggle: () => (isExpanded.value = !isExpanded.value),
   },
-  toRef(props, "expandOnClick"),
+  toRef(props, "trigger"),
 );
 </script>
 
