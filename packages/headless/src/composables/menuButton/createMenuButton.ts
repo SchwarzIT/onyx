@@ -1,4 +1,4 @@
-import { computed, useId, watch, type Ref } from "vue";
+import { computed, toRef, useId, watch, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
@@ -12,11 +12,15 @@ type CreateMenuButtonOptions = {
  * Based on https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
 export const createMenuButton = createBuilder(
-  (options: CreateMenuButtonOptions, expandOnClick: Readonly<Ref<boolean>>) => {
+  (options: CreateMenuButtonOptions, expandOnClick?: Readonly<Ref<boolean>>) => {
     const rootId = useId();
     const menuId = useId();
     const menuRef = createElRef<HTMLElement>();
     const buttonId = useId();
+
+    if (expandOnClick === undefined) {
+      expandOnClick = toRef(false);
+    }
 
     useGlobalEventListener({
       type: "keydown",
