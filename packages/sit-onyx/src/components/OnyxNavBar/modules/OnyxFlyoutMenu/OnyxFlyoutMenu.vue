@@ -5,7 +5,10 @@ import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useMana
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), { open: MANAGED_SYMBOL });
+const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
+  open: MANAGED_SYMBOL,
+  expandOnClick: false,
+});
 
 const emit = defineEmits<{
   "update:open": [isOpen: boolean];
@@ -43,10 +46,13 @@ const slots = defineSlots<{
 
 const {
   elements: { root, button, menu },
-} = createMenuButton({
-  isExpanded: computed(() => !!isExpanded.value),
-  onToggle: () => (isExpanded.value = !isExpanded.value),
-});
+} = createMenuButton(
+  {
+    isExpanded: computed(() => !!isExpanded.value),
+    onToggle: () => (isExpanded.value = !isExpanded.value),
+  },
+  toRef(props, "expandOnClick"),
+);
 </script>
 
 <template>
