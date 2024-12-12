@@ -42,18 +42,30 @@ const gridTemplateAreas = computed(() => {
 
   return lines.join("\n");
 });
+
+const gridLabelStyles = {
+  textAlign: "center",
+} as const;
 </script>
 
 <template>
-  <div class="onyx-component wrapper">
-    <div class="meta">
-      <h1 class="meta__name">Screenshot test: {{ props.name }}</h1>
+  <!-- eslint-disable vue/no-static-inline-styles -->
+  <div :style="{ width: 'max-content', fontFamily: 'Arial, sans-serif' }">
+    <div :style="{ marginBottom: '2rem' }">
+      <h1 :style="{ fontSize: '1.25rem', lineHeight: '1.75rem', margin: '0' }">
+        Screenshot test: {{ props.name }}
+      </h1>
       <div>Browser: {{ props.browserName }}</div>
     </div>
 
     <div
-      class="grid"
       :style="{
+        display: 'grid',
+        gap: '2rem',
+        gridTemplateRows: 'auto',
+        width: 'max-content',
+        alignItems: 'center',
+        justifyContent: 'center',
         gridTemplateColumns: `auto repeat(${props.columns.length}, 1fr)`,
         gridTemplateAreas,
       }"
@@ -61,8 +73,7 @@ const gridTemplateAreas = computed(() => {
       <div
         v-for="column of props.columns"
         :key="column"
-        class="grid__label"
-        :style="{ gridArea: `column-${escapeGridAreaName(column)}` }"
+        :style="{ ...gridLabelStyles, gridArea: `column-${escapeGridAreaName(column)}` }"
       >
         {{ column }}
       </div>
@@ -70,52 +81,15 @@ const gridTemplateAreas = computed(() => {
       <div
         v-for="row of props.rows"
         :key="row"
-        class="grid__label"
-        :style="{ gridArea: `row-${escapeGridAreaName(row)}` }"
+        :style="{ ...gridLabelStyles, gridArea: `row-${escapeGridAreaName(row)}` }"
       >
         {{ row }}
       </div>
 
       <!-- blank / placeholder element for the first column/row to align the matrix correctly -->
-      <div class="grid__blank"></div>
+      <div :style="{ gridArea: 'blank' }"></div>
 
       <slot></slot>
     </div>
   </div>
 </template>
-
-<style scoped>
-.wrapper {
-  width: max-content;
-}
-
-.meta {
-  font-family: Arial, sans-serif;
-  margin-bottom: 2rem;
-}
-
-.meta__name {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  margin: 0;
-}
-
-.grid {
-  font-family: Arial, sans-serif;
-  display: grid;
-  gap: 2rem;
-  grid-template-rows: auto;
-  width: max-content;
-
-  align-items: center;
-  justify-content: center;
-}
-
-.grid__label {
-  text-align: center;
-}
-
-.grid__blank {
-  grid-area: blank;
-}
-</style>

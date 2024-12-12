@@ -13,20 +13,31 @@
     "url": "https://github.com/schwarzit/onyx/issues"
   },
   "files": [
-    "src"
+    "dist"
   ],
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
   },
   "scripts": {
-    "build": "vue-tsc --noEmit"
+    "build:vite": "vite build && vue-tsc --emitDeclarationOnly",
+    "build:tsc": "rimraf ./dist && vue-tsc",
+    "build:unbuild": "unbuild"
   },
   "peerDependencies": {
     "@playwright/experimental-ct-vue": ">= 1",
     "@playwright/test": ">= 1",
+    "playwright": ">= 1",
     "vue": ">= 3"
   },
   "devDependencies": {
+    "@sit-onyx/shared": "workspace:*",
+    "typescript": "catalog:",
+    "unbuild": "^3.0.0-rc.11",
     "vite": "catalog:"
   }
 }
