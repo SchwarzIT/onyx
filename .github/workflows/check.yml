@@ -70,3 +70,4 @@ jobs:
   screenshots:
     name: Component tests
     uses: ./.github/workflows/playwright.yml
+    secrets: inherit

@@ -8,6 +8,7 @@ env:
 jobs:
   screenshots:
     uses: ./.github/workflows/playwright.yml
+    secrets: inherit
     with:
       update-snapshots: true
 
