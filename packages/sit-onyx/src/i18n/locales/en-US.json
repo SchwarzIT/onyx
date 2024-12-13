@@ -137,5 +137,8 @@
   },
   "input": {
     "clear": "Clear input"
+  },
+  "dialog": {
+    "close": "Close dialog"
   }
 }

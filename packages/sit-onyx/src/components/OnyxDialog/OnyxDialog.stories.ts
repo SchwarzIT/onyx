@@ -8,7 +8,7 @@ import OnyxDialog from "./OnyxDialog.vue";
  * If using the `modal` mode, the primary page content will not be interactive.
  */
 const meta: Meta<typeof OnyxDialog> = {
-  title: "Feedback/Dialog",
+  title: "Support/Dialog",
   component: OnyxDialog,
   argTypes: {
     default: { control: { type: "text" } },
