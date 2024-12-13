@@ -40,9 +40,8 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          **/.turbo
           **/.cache
-        key: build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('**/.turbo', '**/.cache') }}
+        key: build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('**/.cache') }}
         restore-keys: |
           build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-
           build-caches-${{ runner.os }}-

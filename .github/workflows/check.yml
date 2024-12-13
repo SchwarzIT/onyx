@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
+
 jobs:
   check:
     name: Check code quality
@@ -67,3 +70,4 @@ jobs:
   screenshots:
     name: Component tests
     uses: ./.github/workflows/playwright.yml
+    secrets: inherit
