@@ -16,15 +16,18 @@
       "outputs": ["storybook-static"]
     },
     "test:coverage": {
-      "outputs": ["coverage"]
+      "outputs": ["coverage"],
+      "cache": false
     },
     "test:components": {
       "dependsOn": ["^build"],
-      "outputs": ["playwright-report", "test-results"]
+      "outputs": ["playwright-report", "test-results", "blob-reports"],
+      "cache": false
     },
     "test:integration": {
       "dependsOn": ["sit-onyx#build", "build"],
-      "outputs": ["playwright-report", "test-results"]
+      "outputs": ["playwright-report", "test-results", "blob-reports"],
+      "cache": false
     },
     "turbo:dev": {
       "dependsOn": ["^build"],
