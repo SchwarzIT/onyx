@@ -8,10 +8,10 @@ test.describe("Screenshot tests", () => {
       await page.setViewportSize({ width: ONYX_BREAKPOINTS[breakpoint] + 1, height: 256 });
 
       // ARRANGE
-      const component = await mount(<TestWrapperCt />);
+      await mount(<TestWrapperCt />);
 
       // ASSERT
-      await expect(component).toHaveScreenshot(`breakpoint-${breakpoint}.png`);
+      await expect(page).toHaveScreenshot(`breakpoint-${breakpoint}.png`);
 
       // ACT
       const accessibilityScanResults = await makeAxeBuilder().analyze();
