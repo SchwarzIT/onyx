@@ -8,7 +8,7 @@
     "build:all": "turbo build build:storybook",
     "test:all": "turbo test:coverage",
     "test:components:all": "turbo test:components test:integration --concurrency 1",
-    "test:eslint-plugins": " node ./packages/eslint-plugin/src/tests/index.js ",
+    "test:eslint-plugins": " node ./packages/eslint-plugin/src/tests/index.cjs ",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint .",
