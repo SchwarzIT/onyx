@@ -33,7 +33,7 @@ module.exports = {
         context.report({
           node,
           loc: node.loc ?? undefined,
-          message: `Import "${node.imported.name}" from "../../playwright/a11y" instead because onyx uses custom Playwright fixtures for providing a global configuration for accessability testing.`,
+          message: `Import "${node.imported.name}" from "../../playwright/a11y" instead because onyx uses custom Playwright fixtures for providing a global configuration for accessibility testing.`,
         });
       }
     },
