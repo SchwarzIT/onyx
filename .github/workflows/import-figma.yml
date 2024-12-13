@@ -2,6 +2,9 @@ name: Import Figma variables
 on:
   workflow_dispatch:
 
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
+
 jobs:
   import:
     name: Import Figma variables
