@@ -46,13 +46,11 @@ const slots = defineSlots<{
 
 const {
   elements: { root, button, menu },
-} = createMenuButton(
-  {
-    isExpanded: computed(() => !!isExpanded.value),
-    onToggle: () => (isExpanded.value = !isExpanded.value),
-  },
-  toRef(props, "trigger"),
-);
+} = createMenuButton({
+  isExpanded: computed(() => !!isExpanded.value),
+  onToggle: () => (isExpanded.value = !isExpanded.value),
+  trigger: computed(() => props.trigger),
+});
 </script>
 
 <template>
