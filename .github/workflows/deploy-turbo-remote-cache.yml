@@ -1,0 +1,27 @@
+name: Deploy Turbo Remote Cache
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "apps/turbo-remote-cache/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to CloudFoundry
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: prod
+          varArgs: "--var TURBO_TOKEN=${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }} --var AWS_ACCESS_KEY_ID=${{ secrets.TURBO_REMOTE_CACHE__AWS_ACCESS_KEY_ID }} --var AWS_SECRET_ACCESS_KEY=${{ secrets.TURBO_REMOTE_CACHE__AWS_SECRET_ACCESS_KEY }}"
+          working-directory: apps/turbo-remote-cache/.cloud-foundry

@@ -1,5 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "remoteCache": {
+    "apiUrl": "https://turbo-remote-cache.apps.01.cf.eu01.stackit.cloud",
+    "teamSlug": "onyx",
+    "enabled": true
+  },
   "globalDependencies": ["pnpm-lock.yaml"],
   "tasks": {
     "build": {

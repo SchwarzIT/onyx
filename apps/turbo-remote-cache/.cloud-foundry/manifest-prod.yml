@@ -1,0 +1,14 @@
+applications:
+  - name: turbo-remote-cache
+    instances: 2
+    memory: 256MB
+    disk_quota: 1GB
+    docker:
+      image: ducktors/turborepo-remote-cache
+    env:
+      TURBO_TOKEN: ((TURBO_TOKEN))
+      STORAGE_PROVIDER: s3
+      STORAGE_PATH: turbo-remote-cache
+      AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
+      AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+      S3_ENDPOINT: https://object.storage.eu01.onstackit.cloud
