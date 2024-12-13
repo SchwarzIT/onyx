@@ -569,6 +569,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["join-cloud", "cloud-link", "Cloud-Verbindung", "Cloud-Link", "Wolke"]
   },
+  "cloud-files": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "cloud-foundry": {
     "category": "Software & Services",
     "aliases": []
@@ -1155,6 +1159,10 @@
   "folder-connect": {
     "category": "Network & Infrastructure",
     "aliases": ["directory-link", "file-join", "Ordner-Verbindung", "Datei-Verknüpfung"]
+  },
+  "folder-file": {
+    "category": "File & Type",
+    "aliases": []
   },
   "folder-plus": {
     "category": "File & Type",

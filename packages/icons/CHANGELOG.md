@@ -1,5 +1,16 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.8
+
+### Minor Changes
+
+- 6755052: feat: update icons
+
+  #### New icons
+
+  - cloud-files
+  - folder-file
+
 ## 1.0.0-beta.7
 
 ### Minor Changes
