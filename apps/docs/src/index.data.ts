@@ -66,7 +66,7 @@ export default defineLoader({
     const components: HomePageData["components"] = [
       {
         name: "Button",
-        status: "implemented",
+        status: "in-progress",
         href: "https://storybook.onyx.schwarz/?path=/docs/buttons-button--docs",
       },
       {
@@ -85,7 +85,7 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/data-table--docs",
       },
       {
-        name: "DataGrid",
+        name: "Data grid",
         status: "in-progress",
         href: "https://storybook.onyx.schwarz/?path=/docs/data-datagrid--docs",
       },
@@ -97,7 +97,7 @@ export default defineLoader({
 
       {
         name: "Nav bar",
-        status: "implemented",
+        status: "in-progress",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-navbar--docs",
       },
       {
@@ -112,7 +112,7 @@ export default defineLoader({
       },
       {
         name: "Input",
-        status: "implemented",
+        status: getImplementedStatus("OnyxInput"),
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-input--docs",
       },
       {
@@ -167,41 +167,41 @@ export default defineLoader({
       },
       {
         name: "Toast",
-        status: "implemented",
+        status: "in-progress",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs",
       },
-      { name: "Footer", status: getImplementedStatus("OnyxFooter") },
-      { name: "Data grid", status: getImplementedStatus("OnyxDataGrid") },
-      { name: "Filter", status: getImplementedStatus("OnyxFilter") },
       { name: "Sidebar", status: "in-progress" },
-      { name: "Card", status: getImplementedStatus("OnyxCard") },
+      { name: "Card", status: "in-progress" },
       { name: "Popover", status: getImplementedStatus("OnyxPopover") },
       {
         name: "Pagination",
         status: getImplementedStatus("OnyxPagination"),
         href: "https://storybook.onyx.schwarz/?path=/docs/data-pagination--docs",
       },
-      { name: "Datepicker", status: getImplementedStatus("OnyxDatepicker") },
+      { name: "Datepicker", status: "in-progress" },
       { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
       { name: "Calendar", status: getImplementedStatus("OnyxCalendar") },
-      { name: "Accordion", status: getImplementedStatus("OnyxAccordion") },
+      { name: "Accordion", status: "in-progress" },
       { name: "Slider", status: getImplementedStatus("OnyxSlider") },
       {
         name: "Stepper",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs",
       },
-      { name: "Upload", status: getImplementedStatus("OnyxUpload") },
+      { name: "Upload", status: "in-progress" },
       { name: "Breadcrumb", status: getImplementedStatus("OnyxBreadcrumb") },
       { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
       { name: "Wizard", status: getImplementedStatus("OnyxWizard") },
+      { name: "Dual list", status: getImplementedStatus("OnyxDualList") },
       {
         name: "Tabs",
-        status: getImplementedStatus("OnyxTabs"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tabs--docs",
       },
       { name: "Search", status: "in-progress" },
       { name: "Filters", status: "in-progress" },
+      { name: "Bottom bar", status: "in-progress" },
+      { name: "Notification", status: "in-progress" },
     ];
 
     return {
