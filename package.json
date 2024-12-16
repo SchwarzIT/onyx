@@ -5,9 +5,9 @@
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
-    "build:all": "turbo build build:storybook",
-    "test:all": "turbo test:coverage",
-    "test:components:all": "turbo test:components test:integration --concurrency 1",
+    "build:all": "turbo run build build:storybook --summarize",
+    "test:all": "turbo run test:coverage --summarize",
+    "test:components:all": "turbo run test:components test:integration --summarize --concurrency 1",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint .",

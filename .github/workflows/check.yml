@@ -25,6 +25,12 @@ jobs:
       - name: 🛠️ Build packages
         run: pnpm run build:all
 
+      - name: Upload Turbo details
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbo-runs
+          path: "**/.turbo/runs/**"
+
   check:
     name: Check code quality
     runs-on: ubuntu-latest
