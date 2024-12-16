@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 12 Dec 2024 10:29:18 GMT
+ * Imported from Figma API on Mon, 16 Dec 2024 14:19:45 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -187,6 +187,7 @@
   --onyx-color-stone-1000: #21303a;
   --onyx-color-stone-1100: #10202a;
   --onyx-color-stone-1200: #000f19;
+  --onyx-color-TestOpacity: #0000007f;
   --onyx-color-twogo-100: #e8fcfc;
   --onyx-color-twogo-200: #b4e2e3;
   --onyx-color-twogo-300: #7bcace;
