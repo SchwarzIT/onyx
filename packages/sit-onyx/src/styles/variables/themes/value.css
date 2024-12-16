@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 12 Dec 2024 10:29:18 GMT
+ * Imported from Figma API on Mon, 16 Dec 2024 14:38:51 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -91,6 +91,8 @@
   --onyx-color-onyx-1000: #005356;
   --onyx-color-onyx-1100: #003c3e;
   --onyx-color-onyx-1200: #002626;
+  --onyx-color-opacity-medium: #00000099;
+  --onyx-color-opacity-soft: #00000026;
   --onyx-color-orange-100: #faf6f2;
   --onyx-color-orange-200: #f8e7d7;
   --onyx-color-orange-300: #f6d1b1;
@@ -199,8 +201,6 @@
   --onyx-color-twogo-1000: #023e42;
   --onyx-color-twogo-1100: #012c2e;
   --onyx-color-twogo-1200: #00191b;
-  --onyx-number-opacity-medium: 3.75rem;
-  --onyx-number-opacity-soft: 0.9375rem;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;

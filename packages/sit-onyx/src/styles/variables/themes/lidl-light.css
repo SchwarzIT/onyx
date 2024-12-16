@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "lidl-light" theme.
- * Imported from Figma API on Thu, 12 Dec 2024 10:29:33 GMT
+ * Imported from Figma API on Mon, 16 Dec 2024 14:39:07 GMT
  */
 :where(:root),
 .onyx-theme-lidl-light {
@@ -119,7 +119,7 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-300);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-200);
-  --onyx-opacity-backdrop: var(--onyx-number-opacity-soft);
+  --onyx-opacity-backdrop: var(--onyx-color-opacity-soft);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
