@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -38,10 +39,17 @@ defineSlots<{
 }>();
 
 const { t } = injectI18n();
+const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <OnyxDialog class="onyx-alert-dialog" v-bind="props" modal alert @close="emit('close')">
+  <OnyxDialog
+    :class="['onyx-alert-dialog', densityClass]"
+    v-bind="props"
+    modal
+    alert
+    @close="emit('close')"
+  >
     <div class="onyx-alert-dialog__content">
       <OnyxIcon v-if="props.icon" class="onyx-alert-dialog__icon" v-bind="props.icon" size="64px" />
 
