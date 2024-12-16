@@ -1,5 +1,11 @@
 # @sit-onyx/playwright-utils
 
+## 1.0.0-beta.2
+
+### Patch Changes
+
+- db28d04: fix: prevent `Unknown file extension ".ts"` error
+
 ## 1.0.0-beta.1
 
 ### Major Changes
