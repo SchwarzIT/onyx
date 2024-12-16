@@ -106,15 +106,25 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     }
   };
 
+  const triggerEvents = () => {
+    if (options.trigger?.value === "click") {
+      return {
+        onClick: () => setExpanded(true),
+      };
+    } else {
+      return {
+        onMouseenter: () => setExpanded(true),
+        onMouseleave: () => setExpanded(false, true),
+      };
+    }
+  };
+
   return {
     elements: {
       root: {
         id: rootId,
         onKeydown: handleKeydown,
-        onMouseenter: () => (options.trigger?.value === "hover" ? setExpanded(true) : undefined),
-        onMouseleave: () =>
-          options.trigger?.value === "hover" ? setExpanded(false, true) : undefined,
-        onClick: () => (options.trigger?.value === "click" ? setExpanded(true) : undefined),
+        ...triggerEvents,
         onFocusout: (event) => {
           // if focus receiving element is not part of the menu button, then close
           if (
