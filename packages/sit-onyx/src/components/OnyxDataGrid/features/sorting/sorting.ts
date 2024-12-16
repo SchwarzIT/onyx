@@ -85,6 +85,7 @@ export const useSorting = createFeature(
                       sortState.value.column === column ? sortState.value.direction : undefined,
                     onClick: () => handleClick(column),
                   }),
+                  actionLabels: "Sort column",
                 },
               ]
             : [],
