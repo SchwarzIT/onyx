@@ -4,6 +4,8 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
 
+const jsxImportSource = "playwright";
+
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
@@ -16,12 +18,12 @@ export default defineConfig({
     },
     rollupOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
-      external: Object.keys(packageJson.peerDependencies),
+      external: [...Object.keys(packageJson.peerDependencies), `${jsxImportSource}/jsx-runtime`],
     },
   },
   esbuild: {
     jsx: "automatic",
-    jsxImportSource: "playwright",
+    jsxImportSource,
   },
 });
 

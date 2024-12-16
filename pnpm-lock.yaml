@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    chart.js:
-      specifier: ^4.4.5
-      version: 4.4.5
     typescript:
       specifier: 5.6.3
       version: 5.6.3

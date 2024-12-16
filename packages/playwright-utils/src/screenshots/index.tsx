@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/experimental-ct-vue";
 import type { Locator } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
-import ScreenshotMatrix from "./ScreenshotMatrix.vue";
+import { ScreenshotMatrix } from "./ScreenshotMatrix";
 import type {
   HookContext,
   MatrixScreenshotTestOptions,
@@ -28,9 +28,9 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
        * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing the captured screenshot.
        */
       const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
-        await page.getByRole("document").focus(); // reset focus
-        await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
-        await page.mouse.up(); // reset mouse
+        // await page.getByRole("document").focus(); // reset focus
+        // await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
+        // await page.mouse.up(); // reset mouse
 
         const component = await mount(element);
 
@@ -100,17 +100,21 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
         />
       ));
 
-      const component = await mount(
-        <ScreenshotMatrix
-          columns={options.columns}
-          rows={options.rows}
-          name={options.name}
-          browserName={browserName}
-        >
-          {screenshots}
-        </ScreenshotMatrix>,
+      const rowLabels = options.rows.map((row) => GridLabel({ name: row, type: "row" }));
+
+      const columnsLabels = options.columns.map((column) =>
+        GridLabel({ name: column, type: "column" }),
       );
 
+      const html = ScreenshotMatrix({
+        columns: options.columns,
+        rows: options.rows,
+        name: options.name,
+        browserName,
+        children: [...screenshots, ...rowLabels, ...columnsLabels],
+      });
+
+      const component = await mount(html);
       await expect(component).toHaveScreenshot(`${options.name}.png`);
 
       await page.unroute(`${SCREENSHOT_ROUTE}*`);
@@ -138,4 +142,14 @@ export const adjustSizeToAbsolutePosition = async (component: Locator) => {
     element.style.height = `${element.scrollHeight}px`;
     element.style.width = `${element.scrollWidth}px`;
   });
+};
+
+const GridLabel = (props: { type: "column" | "row"; name: string }) => {
+  return (
+    <div
+      style={{ textAlign: "center", gridArea: `${props.type}-${escapeGridAreaName(props.name)}` }}
+    >
+      {props.name}
+    </div>
+  );
 };

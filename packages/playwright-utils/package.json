@@ -24,9 +24,7 @@
     }
   },
   "scripts": {
-    "build:vite": "vite build && vue-tsc --emitDeclarationOnly",
-    "build:tsc": "rimraf ./dist && vue-tsc",
-    "build:unbuild": "unbuild"
+    "build": "vite build && vue-tsc --emitDeclarationOnly"
   },
   "peerDependencies": {
     "@playwright/experimental-ct-vue": ">= 1",
