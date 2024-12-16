@@ -84,7 +84,7 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
 
   // If the user provided a custom `t` function, it is used instead of the default.
   // Then we also skip the loading and applying of messages.
-  if (options.t) {
+  if (userT) {
     return { t: userT, locale };
   }
 
