@@ -1,9 +1,10 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
   "include": ["src/**/*"],
   "compilerOptions": {
-    "types": ["node"],
     "rootDir": "./src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "outDir": "dist",
+    "skipLibCheck": true
   }
 }
