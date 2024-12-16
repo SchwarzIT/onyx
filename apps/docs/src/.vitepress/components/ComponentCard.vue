@@ -49,7 +49,7 @@ const props = defineProps<ComponentCardProps>();
     background-color var(--onyx-duration-sm);
 
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-end;
   gap: var(--onyx-spacing-4xs);
 
