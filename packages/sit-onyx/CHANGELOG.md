@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.94
+
+### Patch Changes
+
+- d8fe4ca: fix(OnyxInput): prevent keyboard focus on clear icon
+
+  The clear icon is no longer focusable via keyboard to not interrupt the users tab order when multiple form elements are used.
+
 ## 1.0.0-beta.93
 
 ### Patch Changes
