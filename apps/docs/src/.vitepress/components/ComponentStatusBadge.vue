@@ -2,7 +2,7 @@
 import circleArrowRight from "@sit-onyx/icons/circle-arrow-right.svg?raw";
 import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
 import clock from "@sit-onyx/icons/clock.svg?raw";
-import { OnyxIcon } from "sit-onyx";
+import { OnyxIcon, type OnyxColor } from "sit-onyx";
 
 export type ComponentStatus = "implemented" | "in-progress" | "planned";
 
@@ -28,10 +28,7 @@ const icons = {
     label: "Planned",
     color: "warning",
   },
-} satisfies Record<
-  ComponentStatus,
-  { icon: string; label: string; color: "success" | "neutral" | "warning" }
->;
+} satisfies Record<ComponentStatus, { icon: string; label: string; color: OnyxColor }>;
 </script>
 
 <template>
