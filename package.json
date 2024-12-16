@@ -7,7 +7,7 @@
   "scripts": {
     "build:all": "turbo run build build:storybook --summarize",
     "test:all": "turbo run test:coverage --summarize",
-    "test:components:all": "turbo run test:components test:integration --summarize --concurrency 1",
+    "test:components:all": "turbo run test:components test:integration --summarize -- --concurrency 1",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint .",

@@ -25,7 +25,7 @@
       "cache": false
     },
     "test:integration": {
-      "dependsOn": ["sit-onyx#build", "build"],
+      "dependsOn": ["^build"],
       "outputs": ["playwright-report", "test-results", "blob-reports"],
       "cache": false
     },
