@@ -30,7 +30,7 @@ jobs:
         with:
           name: turbo-runs
           path: "**/.turbo/runs/**"
-
+          include-hidden-files: true
   check:
     name: Check code quality
     runs-on: ubuntu-latest

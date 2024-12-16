@@ -58,6 +58,7 @@ jobs:
         with:
           name: turbo-runs-pw-${{ matrix.shard }}
           path: "**/.turbo/runs/**"
+          include-hidden-files: true
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
