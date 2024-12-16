@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 
 /** If true, all components should be shown instead of only the first 12. */
-const showAll = ref(false);
+const showAll = ref(true);
 
 /**
  * Sorts components by: (1.) status (2.) due date and (3.) alphabetically.
