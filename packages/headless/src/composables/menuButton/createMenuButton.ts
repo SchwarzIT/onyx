@@ -107,7 +107,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   };
 
   const triggerEvents = () => {
-    if (options.trigger?.value === "click") {
+    if (options.trigger.value === "click") {
       return {
         onClick: () => setExpanded(true),
       };
@@ -124,7 +124,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
       root: {
         id: rootId,
         onKeydown: handleKeydown,
-        ...triggerEvents,
+        ...triggerEvents(),
         onFocusout: (event) => {
           // if focus receiving element is not part of the menu button, then close
           if (
