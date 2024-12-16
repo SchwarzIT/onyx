@@ -302,6 +302,9 @@ importers:
         specifier: '>= 5'
         version: 5.7.2
     devDependencies:
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
       '@vue/compiler-dom':
         specifier: 3.5.13
         version: 3.5.13

@@ -32,6 +32,7 @@
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
+    "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
     "vue": "catalog:"
   }

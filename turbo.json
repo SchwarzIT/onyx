@@ -5,7 +5,7 @@
     "teamSlug": "onyx",
     "enabled": true
   },
-  "globalPassThroughEnv": ["PW_SHARD", "PW_TOTAL_SHARDS"],
+  "globalPassThroughEnv": ["PW_SHARD", "PW_TOTAL_SHARDS", "PW_UPDATE_SNAPSHOTS"],
   "globalDependencies": ["pnpm-lock.yaml"],
   "tasks": {
     "build": {
@@ -21,7 +21,7 @@
       "cache": false
     },
     "test:playwright": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "outputs": ["playwright-report", "test-results", "blob-reports"],
       "cache": false
     },
