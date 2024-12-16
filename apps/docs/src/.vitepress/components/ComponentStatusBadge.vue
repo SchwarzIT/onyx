@@ -36,10 +36,7 @@ const icons = {
 
 <template>
   <div class="status" :aria-label="props.showLabel ? undefined : icons[props.status].label">
-    <!-- <div class="status__icon" :class="[`status__icon--${props.status}`]"> -->
     <OnyxIcon :icon="icons[props.status].icon" size="24px" :color="icons[props.status].color" />
-    <!-- </div> -->
-
     <span v-if="props.showLabel">{{ icons[props.status].label }}</span>
   </div>
 </template>
@@ -51,27 +48,5 @@ const icons = {
   justify-content: center;
   gap: var(--onyx-spacing-2xs);
   line-height: normal;
-
-  &__icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: var(--onyx-radius-full);
-    color: var(--onyx-color-text-icons-neutral-intense);
-    background-color: var(--onyx-color-base-neutral-200);
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    &--implemented {
-      color: var(--onyx-color-text-icons-success-intense);
-      background-color: var(--onyx-color-base-success-200);
-    }
-
-    &--in-progress {
-      color: var(--onyx-color-text-icons-warning-intense);
-      background-color: var(--onyx-color-base-warning-200);
-    }
-  }
 }
 </style>
