@@ -48,7 +48,7 @@ pnpm format:all # format all files
 pnpm dev # run Storybook in dev mode when developing components
 pnpm build # build all onyx components
 pnpm test # run unit tests
-pnpm test:components # run Playwright component tests
+pnpm test:playwright # run Playwright component tests
 ```
 
 ```sh [apps/docs]

@@ -5,6 +5,7 @@
     "teamSlug": "onyx",
     "enabled": true
   },
+  "globalPassThroughEnv": ["PW_SHARD", "PW_TOTAL_SHARDS", "PW_UPDATE_SNAPSHOTS"],
   "globalDependencies": ["pnpm-lock.yaml"],
   "tasks": {
     "build": {
@@ -19,13 +20,8 @@
       "outputs": ["coverage"],
       "cache": false
     },
-    "test:components": {
-      "dependsOn": ["^build"],
-      "outputs": ["playwright-report", "test-results", "blob-reports"],
-      "cache": false
-    },
-    "test:integration": {
-      "dependsOn": ["sit-onyx#build", "build"],
+    "test:playwright": {
+      "dependsOn": ["build"],
       "outputs": ["playwright-report", "test-results", "blob-reports"],
       "cache": false
     },
