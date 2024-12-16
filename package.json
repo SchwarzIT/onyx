@@ -7,7 +7,7 @@
   "scripts": {
     "build:all": "turbo run build build:storybook",
     "test:all": "turbo run test:coverage",
-    "test:playwright:all": "turbo run test:playwright test:playwright --concurrency 1",
+    "test:playwright:all": "turbo run test:playwright --concurrency 1",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "lint:all": "eslint .",
