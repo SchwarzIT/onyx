@@ -19,11 +19,6 @@ const sortedComponents = computed(() => {
   return props.components
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name))
-    .sort((a, b) => {
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-    })
     .sort((a, b) => a.status.localeCompare(b.status));
 });
 
