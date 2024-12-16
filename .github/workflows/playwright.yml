@@ -33,7 +33,10 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:components:all -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
+        run: pnpm run test:components:all -- --shard=$PW_SHARD/$PW_TOTAL_SHARDS ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
+        env:
+          PW_SHARD: ${{ matrix.shard }}
+          PW_TOTAL_SHARDS: ${{ strategy.job-total }}
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
