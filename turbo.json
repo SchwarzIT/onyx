@@ -20,12 +20,7 @@
       "outputs": ["coverage"],
       "cache": false
     },
-    "test:components": {
-      "dependsOn": ["^build"],
-      "outputs": ["playwright-report", "test-results", "blob-reports"],
-      "cache": false
-    },
-    "test:integration": {
+    "test:playwright": {
       "dependsOn": ["^build"],
       "outputs": ["playwright-report", "test-results", "blob-reports"],
       "cache": false

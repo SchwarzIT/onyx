@@ -28,7 +28,7 @@
     "build": "vue-tsc --noEmit",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:components": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test"
   },
   "peerDependencies": {
     "chart.js": ">= 4.0.0",

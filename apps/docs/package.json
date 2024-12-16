@@ -11,7 +11,7 @@
     "type-check": "vue-tsc --noEmit",
     "preview": "vitepress preview src",
     "storybook": "storybook dev -p 6006 --no-open",
-    "test:integration": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
