@@ -28,9 +28,9 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
        * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing the captured screenshot.
        */
       const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
-        // await page.getByRole("document").focus(); // reset focus
-        // await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
-        // await page.mouse.up(); // reset mouse
+        await page.getByRole("document").focus(); // reset focus
+        await page.getByRole("document").hover({ position: { x: 0, y: 0 }, force: true }); // reset mouse
+        await page.mouse.up(); // reset mouse
 
         const component = await mount(element);
 
