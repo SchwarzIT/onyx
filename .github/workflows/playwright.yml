@@ -33,7 +33,7 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all -- --shard=\\$PW_SHARD/\\$PW_TOTAL_SHARDS ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
+        run: pnpm run test:playwright:all -- --shard=\$PW_SHARD/\$PW_TOTAL_SHARDS ${{ inputs.update-snapshots == true && '--update-snapshots' || '' }}
         env:
           PW_SHARD: ${{ matrix.shard }}
           PW_TOTAL_SHARDS: ${{ strategy.job-total }}
