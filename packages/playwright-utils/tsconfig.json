@@ -5,9 +5,6 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "outDir": "dist",
-    "skipLibCheck": true,
-    "noEmit": false,
-    "emitDeclarationOnly": false,
-    "allowImportingTsExtensions": false
+    "skipLibCheck": true
   }
 }
