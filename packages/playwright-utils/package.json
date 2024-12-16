@@ -25,5 +25,8 @@
     "@playwright/experimental-ct-vue": ">= 1",
     "@playwright/test": ">= 1",
     "vue": ">= 3"
+  },
+  "devDependencies": {
+    "vite": "catalog:"
   }
 }
