@@ -91,6 +91,7 @@ const { densityClass } = useDensity(props);
 
     &__subtitle {
       color: var(--onyx-color-text-icons-neutral-soft);
+      white-space: pre-line;
     }
   }
 }
