@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.95
+
+### Minor Changes
+
+- b2a99a9: feat: implement `OnyxAlertDialog` component
+
 ## 1.0.0-beta.94
 
 ### Patch Changes
