@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.96
+
+### Major Changes
+
+- 16f001a: - renamed CSS variable `--onyx-color-backdrop` to `--onyx-color-component-opacity-backdrop`
+  - removed CSS variables `--onyx-number-opacity-medium` and `--onyx-number-opacity-soft`, use `--onyx-color-opacity-medium` and `--onyx-color-opacity-soft` instead
+
 ## 1.0.0-beta.95
 
 ### Minor Changes
