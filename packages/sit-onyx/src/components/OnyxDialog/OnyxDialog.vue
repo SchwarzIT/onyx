@@ -99,7 +99,7 @@ watch(
     transform: translate(-50%, -50%);
 
     &::backdrop {
-      background-color: var(--onyx-color-backdrop);
+      background-color: var(--onyx-color-component-opacity-backdrop);
     }
 
     &:modal {
