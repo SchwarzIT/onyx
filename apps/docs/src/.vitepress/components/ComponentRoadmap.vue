@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 
 /** If true, all components should be shown instead of only the first 12. */
-const showAll = ref(false);
+const showAll = ref(true);
 
 /**
  * Sorts components by: (1.) status (2.) due date and (3.) alphabetically.
@@ -19,11 +19,6 @@ const sortedComponents = computed(() => {
   return props.components
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name))
-    .sort((a, b) => {
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-    })
     .sort((a, b) => a.status.localeCompare(b.status));
 });
 
@@ -39,7 +34,7 @@ const usedStatus = computed(() => {
  * Components that should be displayed (considers the show all button).
  */
 const displayedComponents = computed(() => {
-  return sortedComponents.value.slice(0, showAll.value ? undefined : 24);
+  return sortedComponents.value.slice(0, showAll.value ? undefined : 16);
 });
 
 /**

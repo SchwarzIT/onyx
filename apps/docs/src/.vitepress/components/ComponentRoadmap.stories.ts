@@ -16,7 +16,6 @@ export const Default = {
       return {
         name: `Component ${id}`,
         status: id % 2 === 0 ? "in-progress" : "implemented",
-        dueDate: "Q2 2024",
         href: "#",
       };
     }),

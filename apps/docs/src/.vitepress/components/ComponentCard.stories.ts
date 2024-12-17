@@ -20,7 +20,6 @@ export const Implemented = {
     name: "Component name",
     status: "implemented",
     href: "#",
-    dueDate: `Q2 ${new Date().getFullYear()}`,
   },
 } satisfies Story;
 
@@ -41,6 +40,5 @@ export const Planned = {
 export const WithoutDueDate = {
   args: {
     ...Planned.args,
-    dueDate: undefined,
   },
 } satisfies Story;
