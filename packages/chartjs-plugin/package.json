@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/chartjs-plugin",
   "description": "A Chart.js plugin for the onyx design system created by Schwarz IT",
-  "version": "1.0.0-beta.93",
+  "version": "1.0.0-beta.94",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -28,7 +28,7 @@
     "build": "vue-tsc --noEmit",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:components": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test"
   },
   "peerDependencies": {
     "chart.js": ">= 4.0.0",

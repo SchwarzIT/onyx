@@ -30,7 +30,7 @@ For standalone tests or more complicated setups, [`toHaveScreenshot`](https://pl
 
 ### Development
 
-In our monorepo component tests are run non-interactively using the `pnpm test:components` script.
+In our monorepo component tests are run non-interactively using the `pnpm test:playwright` script.
 
 To use Playwright interactively run `pnpm exec playwright test --ui` (add the `--headed` flag to open the see the- browsers) in the package directory.
 

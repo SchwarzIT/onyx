@@ -103,6 +103,7 @@ const errorClass = useErrorClass(showError);
             class="onyx-input__clear"
             :aria-label="t('input.clear')"
             :title="t('input.clear')"
+            tabindex="-1"
             @click="() => (value = '')"
           >
             <OnyxIcon :icon="xSmall" />
@@ -161,14 +162,8 @@ const errorClass = useErrorClass(showError);
     cursor: pointer;
     color: var(--onyx-color-text-icons-neutral-intense);
 
-    &:hover,
-    &:focus-visible {
+    &:hover {
       color: var(--onyx-color-text-icons-primary-intense);
-    }
-
-    &:focus-visible {
-      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-      border-radius: var(--onyx-radius-sm);
     }
   }
 
