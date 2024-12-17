@@ -2,6 +2,9 @@ import "./styles/index.scss";
 
 export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 
+export { default as OnyxAlertDialog } from "./components/OnyxAlertDialog/OnyxAlertDialog.vue";
+export * from "./components/OnyxAlertDialog/types";
+
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types";
 

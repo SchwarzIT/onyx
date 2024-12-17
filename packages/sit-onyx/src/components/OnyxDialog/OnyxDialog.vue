@@ -82,7 +82,7 @@ watch(
     border-radius: var(--onyx-radius-md);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    padding: var(--onyx-density-lg);
+    padding: var(--onyx-density-md) var(--onyx-density-lg);
     background-color: var(--onyx-color-base-background-blank);
     overflow: auto;
     z-index: var(--onyx-z-index-page-overlay);
@@ -104,6 +104,7 @@ watch(
 
     &:modal {
       z-index: var(--onyx-z-index-app-overlay);
+      box-shadow: var(--onyx-shadow-soft-bottom);
     }
   }
 }
