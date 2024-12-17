@@ -66,7 +66,7 @@ export default defineLoader({
     const components: HomePageData["components"] = [
       {
         name: "Button",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/buttons-button--docs",
       },
       {
@@ -167,7 +167,7 @@ export default defineLoader({
       },
       {
         name: "Toast",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs",
       },
       { name: "Sidebar", status: "in-progress" },
@@ -201,7 +201,7 @@ export default defineLoader({
       { name: "Search", status: "in-progress" },
       { name: "Filters", status: "in-progress" },
       { name: "Bottom bar", status: "in-progress" },
-      { name: "Notification", status: "in-progress" },
+      { name: "Notification center", status: "in-progress" },
     ];
 
     return {
