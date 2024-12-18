@@ -1,11 +1,11 @@
-import bus from "@sit-onyx/icons/bus.svg?raw";
-import carCheck from "@sit-onyx/icons/car-check.svg?raw";
+import pinDisabled from "@sit-onyx/icons/pin-disabled.svg?raw";
 import pin from "@sit-onyx/icons/pin.svg?raw";
 import trash from "@sit-onyx/icons/trash.svg?raw";
-import walking from "@sit-onyx/icons/walking.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 /**
@@ -39,47 +39,27 @@ export const HeaderInteractions = {
         name: Symbol("More actions"),
         watch: [],
         header: {
-          actions: (column) =>
-            column !== "name"
-              ? [
-                  {
-                    iconComponent: h(OnyxIcon, {
-                      label: "Column options",
-                      icon: pin,
-                    }),
-                    actionLabels: ["Pin column", "Unpin column"],
-                  },
-                  {
-                    iconComponent: h(OnyxIcon, {
-                      label: "Column options",
-                      icon: trash,
-                    }),
-                    actionLabels: "Remove column",
-                  },
-                ]
-              : [
-                  {
-                    iconComponent: h(OnyxIcon, {
-                      label: "Column options",
-                      icon: walking,
-                    }),
-                    actionLabels: "Walk",
-                  },
-                  {
-                    iconComponent: h(OnyxIcon, {
-                      label: "Column options",
-                      icon: carCheck,
-                    }),
-                    actionLabels: "Drive",
-                  },
-                  {
-                    iconComponent: h(OnyxIcon, {
-                      label: "Column options",
-                      icon: bus,
-                    }),
-                    actionLabels: "Take the bus",
-                  },
-                ],
+          actions: () => [
+            {
+              iconComponent: h(OnyxSystemButton, {
+                label: "Column options",
+                icon: pin,
+                color: "medium",
+              }),
+              listItems: [
+                h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pin }), "Pin column"]),
+                h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pinDisabled }), "Unpin column"]),
+              ],
+            },
+            {
+              iconComponent: h(OnyxSystemButton, {
+                label: "Column options",
+                icon: trash,
+                color: "medium",
+              }),
+              listItems: [h(OnyxMenuItem, () => [h(OnyxIcon, { icon: trash }), "Remove column"])],
+            },
+          ],
         },
       },
     ],
