@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.97
+
+### Minor Changes
+
+- 0d12793: feat: implement `OnyxModalDialog` component
+
 ## 1.0.0-beta.96
 
 ### Major Changes
