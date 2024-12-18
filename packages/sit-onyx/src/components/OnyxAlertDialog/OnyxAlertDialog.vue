@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { useId } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
@@ -23,9 +24,9 @@ defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional slot to override the headline with custom content.
+   * Optional slot to override the label/headline with custom content.
    */
-  headline?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
+  label?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
   /**
    * Slot to display custom actions at the bottom of the dialog, e.g. buttons for confirm or cancelling the current user workflow.
    * For accessibility purposes it is recommended to set autofocus on one button, preferably the "cancel" button if one exists.
@@ -40,12 +41,15 @@ defineSlots<{
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+
+const describedById = useId();
 </script>
 
 <template>
   <OnyxDialog
     :class="['onyx-alert-dialog', densityClass]"
     v-bind="props"
+    :aria-describedby="describedById"
     modal
     alert
     @close="emit('close')"
@@ -54,8 +58,8 @@ const { densityClass } = useDensity(props);
       <OnyxIcon v-if="props.icon" class="onyx-alert-dialog__icon" v-bind="props.icon" size="64px" />
 
       <div>
-        <div class="onyx-alert-dialog__headline">
-          <slot name="headline" :label="props.label">
+        <div class="onyx-alert-dialog__label">
+          <slot name="label" :label="props.label">
             <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
           </slot>
 
@@ -67,7 +71,7 @@ const { densityClass } = useDensity(props);
           />
         </div>
 
-        <div class="onyx-alert-dialog__body onyx-truncation">
+        <div :id="describedById" class="onyx-alert-dialog__body onyx-truncation">
           <slot></slot>
         </div>
       </div>
@@ -94,7 +98,7 @@ const { densityClass } = useDensity(props);
       gap: var(--onyx-density-sm);
     }
 
-    &__headline {
+    &__label {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
