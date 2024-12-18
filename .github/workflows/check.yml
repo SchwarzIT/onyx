@@ -2,6 +2,7 @@ name: Check code quality
 on:
   pull_request:
   workflow_dispatch:
+  merge_group:
 
 # cancel previous runs if new changes are pushed to the branch/PR
 # see: https://stackoverflow.com/a/72408109
