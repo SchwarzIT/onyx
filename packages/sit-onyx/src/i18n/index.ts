@@ -1,4 +1,4 @@
-import { computed, inject, toRef, type App, type InjectionKey, type MaybeRef } from "vue";
+import { computed, inject, readonly, toRef, type App, type InjectionKey, type MaybeRef } from "vue";
 import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
 import type { DeepPartial } from "../types/utils";
 import enUS from "./locales/en-US.json";
@@ -79,8 +79,8 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
    * Current locale.
    * @default "en-US"
    */
-  const locale = toRef(options?.locale ?? "en-US");
-  const userT = options.t ? toRef(options.t) : undefined;
+  const locale = readonly(toRef(options?.locale ?? "en-US"));
+  const userT = options.t ? readonly(toRef(options.t)) : undefined;
 
   // If the user provided a custom `t` function, it is used instead of the default.
   // Then we also skip the loading and applying of messages.
