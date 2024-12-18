@@ -420,8 +420,8 @@ importers:
         specifier: 8.5.0-alpha.22
         version: 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
       '@storybook/addon-actions':
-        specifier: 8.5.0-alpha.22
-        version: 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))
+        specifier: 8.5.0-beta.1
+        version: 8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))
       '@vue/compiler-dom':
         specifier: 3.5.13
         version: 3.5.13
@@ -463,8 +463,8 @@ importers:
         specifier: workspace:^
         version: link:../shared
       '@storybook/addon-actions':
-        specifier: 8.5.0-alpha.22
-        version: 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))
+        specifier: 8.5.0-beta.1
+        version: 8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))
       storybook:
         specifier: 8.5.0-alpha.22
         version: 8.5.0-alpha.22(prettier@3.4.2)
@@ -2075,6 +2075,11 @@ packages:
     resolution: {integrity: sha512-+082D262Z7I3pNr0Bar1X8+qGaUdbsrb19f2tCxPiCgy1kWgkO+A5T7tmcFNIgweuCrKV7l8pUuXT0NLGpnOhA==}
     peerDependencies:
       storybook: ^8.5.0-alpha.22
+
+  '@storybook/addon-actions@8.5.0-beta.1':
+    resolution: {integrity: sha512-YwYk9Foj/63yMPB8qqtjH86QkUAXPCj3Ptqk+CLqEf6fISxoNueBR9CMoZjAkLjqL3X0dnp0rGvGxT9VdAeMmw==}
+    peerDependencies:
+      storybook: ^8.5.0-beta.1
 
   '@storybook/addon-backgrounds@8.5.0-alpha.22':
     resolution: {integrity: sha512-gfHPlFJhYGnrG+OP2wPcbMXIVtNA6Ia1CiaFXfj6Hme8s7RbbL9oU05qzvHYTRlAK2ZdlepN3ciIBqPORtATgQ==}
@@ -8384,6 +8389,15 @@ snapshots:
       - vitest
 
   '@storybook/addon-actions@8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@types/uuid': 9.0.8
+      dequal: 2.0.3
+      polished: 4.3.1
+      storybook: 8.5.0-alpha.22(prettier@3.4.2)
+      uuid: 9.0.1
+
+  '@storybook/addon-actions@8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
