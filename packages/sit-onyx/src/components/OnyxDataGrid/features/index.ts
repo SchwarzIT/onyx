@@ -1,5 +1,5 @@
 import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
-import { h, type Component, type ComponentInstance, type WatchSource } from "vue";
+import { h, type Component, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { injectI18n } from "../../../i18n";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
@@ -38,7 +38,7 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
      */
     actions?: (column: keyof TEntry) => {
       iconComponent: Component;
-      listItems: ComponentInstance<typeof OnyxListItem>[];
+      listItems: Component<typeof OnyxListItem>[];
     }[];
   };
 };
