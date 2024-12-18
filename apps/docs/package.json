@@ -11,10 +11,10 @@
     "type-check": "vue-tsc --noEmit",
     "preview": "vitepress preview src",
     "storybook": "storybook dev -p 6006 --no-open",
-    "test:integration": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
+    "@playwright/test": "^1.49.1",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
@@ -24,7 +24,7 @@
     "postcss": "^8.4.49",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
-    "vite": "^5.4.11",
+    "vite": "catalog:",
     "vitepress": "^1.5.0",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2"

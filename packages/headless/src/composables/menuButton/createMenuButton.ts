@@ -5,6 +5,7 @@ import { useGlobalEventListener } from "../helpers/useGlobalListener";
 
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
+  trigger: Readonly<Ref<"hover" | "click">>;
   onToggle: () => void;
 };
 
@@ -105,13 +106,25 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     }
   };
 
+  const triggerEvents = () => {
+    if (options.trigger.value === "click") {
+      return {
+        onClick: () => setExpanded(true),
+      };
+    } else {
+      return {
+        onMouseenter: () => setExpanded(true),
+        onMouseleave: () => setExpanded(false, true),
+      };
+    }
+  };
+
   return {
     elements: {
       root: {
         id: rootId,
         onKeydown: handleKeydown,
-        onMouseenter: () => setExpanded(true),
-        onMouseleave: () => setExpanded(false, true),
+        ...triggerEvents(),
         onFocusout: (event) => {
           // if focus receiving element is not part of the menu button, then close
           if (
