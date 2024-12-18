@@ -73,6 +73,9 @@ export * from "./components/OnyxMiniSearch/types";
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types";
 
+export { default as OnyxModalDialog } from "./components/OnyxModalDialog/OnyxModalDialog.vue";
+export * from "./components/OnyxModalDialog/types";
+
 export { default as OnyxMoreList } from "./components/OnyxMoreList/OnyxMoreList.vue";
 export * from "./components/OnyxMoreList/types";
 

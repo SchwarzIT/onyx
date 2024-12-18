@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.98
+
+### Minor Changes
+
+- 2d87351: Custom translation function can now be static
+
+## 1.0.0-beta.97
+
+### Minor Changes
+
+- 0d12793: feat: implement `OnyxModalDialog` component
+
 ## 1.0.0-beta.96
 
 ### Major Changes
