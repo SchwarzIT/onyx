@@ -1,5 +1,5 @@
 import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
-import { h, type Component, type ComponentInstance, type WatchSource } from "vue";
+import { h, type Component, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { injectI18n } from "../../../i18n";
 import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
@@ -38,7 +38,7 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
      */
     actions?: (column: keyof TEntry) => {
       iconComponent: Component;
-      listItems?: ComponentInstance<typeof OnyxListItem>[];
+      listItems: Component<typeof OnyxListItem>[];
     }[];
   };
 };
@@ -124,12 +124,12 @@ export const useDataGridFeatures = <
 
     return columns.map((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
+      const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
       if (actions.length > 1) {
         const { t } = injectI18n();
-        const listItems = headerActions
-          .flatMap((actionFactory) => actionFactory(column))
-          .map(({ listItems }) => listItems);
+
+        const listItems = actions.map(({ listItems }) => listItems).filter((item) => !!item);
 
         const flyoutMenu = h(
           OnyxFlyoutMenu,
@@ -155,10 +155,6 @@ export const useDataGridFeatures = <
           props: {},
         };
       }
-
-      const iconComponent = headerActions
-        .flatMap((actionFactory) => actionFactory(column))
-        .map(({ iconComponent }) => iconComponent);
 
       return {
         key: column,

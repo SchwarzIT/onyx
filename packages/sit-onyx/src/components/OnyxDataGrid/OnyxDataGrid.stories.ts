@@ -1,7 +1,10 @@
-import sort from "@sit-onyx/icons/sort.svg?raw";
+import pinDisabled from "@sit-onyx/icons/pin-disabled.svg?raw";
+import pin from "@sit-onyx/icons/pin.svg?raw";
+import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
@@ -40,21 +43,21 @@ export const HeaderInteractions = {
             {
               iconComponent: h(OnyxSystemButton, {
                 label: "Column options",
-                icon: sort,
+                icon: pin,
                 color: "medium",
               }),
               listItems: [
-                h(OnyxListItem, () => "Pin column"),
-                h(OnyxListItem, () => "Unpin column"),
+                h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pin }), "Pin column"]),
+                h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pinDisabled }), "Unpin column"]),
               ],
             },
             {
               iconComponent: h(OnyxSystemButton, {
                 label: "Column options",
-                icon: sort,
+                icon: trash,
                 color: "medium",
               }),
-              listItems: [h(OnyxListItem, () => "Remove column")],
+              listItems: [h(OnyxMenuItem, () => [h(OnyxIcon, { icon: trash }), "Remove column"])],
             },
           ],
         },
