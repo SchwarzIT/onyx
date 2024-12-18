@@ -417,8 +417,8 @@ importers:
         specifier: workspace:^
         version: link:../storybook-utils
       '@storybook/addon-a11y':
-        specifier: 8.5.0-alpha.22
-        version: 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
+        specifier: 8.5.0-beta.1
+        version: 8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
       '@storybook/addon-actions':
         specifier: 8.5.0-alpha.22
         version: 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))
@@ -2066,10 +2066,10 @@ packages:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
 
-  '@storybook/addon-a11y@8.5.0-alpha.22':
-    resolution: {integrity: sha512-SgB+ObgnKRV+rWMpZ4PQj7NFdGWC2a70g8ODVL9CSfUIs6gV6Y7WYi801YVh+FpFvl2DSboLJ4ndp5ArEBHIew==}
+  '@storybook/addon-a11y@8.5.0-beta.1':
+    resolution: {integrity: sha512-hNt+4PU9VyIUoSsJH10e5pHF76cXJ4zQZeKpQcjrCMoTJ13upEGn9vCfUVgYfkFG786hwXj4Ky9uXoqrLPgBlg==}
     peerDependencies:
-      storybook: ^8.5.0-alpha.22
+      storybook: ^8.5.0-beta.1
 
   '@storybook/addon-actions@8.5.0-alpha.22':
     resolution: {integrity: sha512-+082D262Z7I3pNr0Bar1X8+qGaUdbsrb19f2tCxPiCgy1kWgkO+A5T7tmcFNIgweuCrKV7l8pUuXT0NLGpnOhA==}
@@ -2100,6 +2100,11 @@ packages:
     resolution: {integrity: sha512-T5ItP5Y03sp/N/nxQ1ofaFIxvCjATv4BFsJPMiQ7iOeciAWOx0Titqb82eyDlCtewMqHmYdO6sR/Dle8Ej0puA==}
     peerDependencies:
       storybook: ^8.5.0-alpha.22
+
+  '@storybook/addon-highlight@8.5.0-beta.1':
+    resolution: {integrity: sha512-R4Rx8qnTYdSrPdMcqfYQFW0xgMqMnHdzSP5Kid5F0cP+cUII+G5YcLlmQq5HoDeTgKzezs3d5ANTv3hEJBBr1w==}
+    peerDependencies:
+      storybook: ^8.5.0-beta.1
 
   '@storybook/addon-measure@8.5.0-alpha.22':
     resolution: {integrity: sha512-eYaZbiZsna/Y3mpMb+EhagMNxuzojWStSjFDyTt3aplDgGzBJZUWBz+9dn8qd0id5eXX3jDlvI4fE1PV3UVYIA==}
@@ -2180,10 +2185,10 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
 
-  '@storybook/instrumenter@8.5.0-alpha.22':
-    resolution: {integrity: sha512-re5PZdfZINzYwT4rNvw1JReylNe18gAYxKu+kcWxtreJsJWYbWKVagtt7e1ljlfa77/Ugi/Ssoqsm2RhlVDRYQ==}
+  '@storybook/instrumenter@8.5.0-beta.1':
+    resolution: {integrity: sha512-PlvsQ6lx2b6bGDMdppJ4Nxa5a3+JFGeNh5FcohHO8nK76M2jL3R2FHxTFfJOVK/y8nvSYfOy9Fdy0o+zHnKRww==}
     peerDependencies:
-      storybook: ^8.5.0-alpha.22
+      storybook: ^8.5.0-beta.1
 
   '@storybook/manager-api@8.4.7':
     resolution: {integrity: sha512-ELqemTviCxAsZ5tqUz39sDmQkvhVAvAgiplYy9Uf15kO0SP2+HKsCMzlrm2ue2FfkUNyqbDayCPPCB0Cdn/mpQ==}
@@ -2212,10 +2217,10 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       storybook: ^8.5.0-alpha.22
 
-  '@storybook/test@8.5.0-alpha.22':
-    resolution: {integrity: sha512-XPCkpy8Id8J3oibqA0QWeUDj/HypAHCLEXGEE7zudzshEpW+iJNxOyYN2xrLYMqmUzooWhQz+YJJvr0z0DotmQ==}
+  '@storybook/test@8.5.0-beta.1':
+    resolution: {integrity: sha512-hsXi/+W4s8x1Uo7JucapOSo7DsVjUnfF7ryGtoc5O5CCgDFxBVlAEAGbclhBN2nAQLU8MnbgdeaFZpLyf+ma/Q==}
     peerDependencies:
-      storybook: ^8.5.0-alpha.22
+      storybook: ^8.5.0-beta.1
 
   '@storybook/theming@8.4.7':
     resolution: {integrity: sha512-99rgLEjf7iwfSEmdqlHkSG3AyLcK0sfExcr0jnc6rLiAkBhzuIsvcHjjUwkR210SOCgXqBPW0ZA6uhnuyppHLw==}
@@ -8373,10 +8378,10 @@ snapshots:
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
-  '@storybook/addon-a11y@8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))':
+  '@storybook/addon-a11y@8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))':
     dependencies:
-      '@storybook/addon-highlight': 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))
-      '@storybook/test': 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))
+      '@storybook/addon-highlight': 8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))
+      '@storybook/test': 8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))
       axe-core: 4.10.2
       storybook: 8.5.0-alpha.22(prettier@3.4.2)
       vitest-axe: 0.1.0(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
@@ -8436,6 +8441,11 @@ snapshots:
       - '@types/react'
 
   '@storybook/addon-highlight@8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.5.0-alpha.22(prettier@3.4.2)
+
+  '@storybook/addon-highlight@8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.5.0-alpha.22(prettier@3.4.2)
@@ -8527,7 +8537,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/instrumenter@8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))':
+  '@storybook/instrumenter@8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@vitest/utils': 2.1.8
@@ -8555,11 +8565,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.5.0-alpha.22(prettier@3.4.2)
 
-  '@storybook/test@8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))':
+  '@storybook/test@8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))':
     dependencies:
       '@storybook/csf': 0.1.12
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.5.0-alpha.22(storybook@8.5.0-alpha.22(prettier@3.4.2))
+      '@storybook/instrumenter': 8.5.0-beta.1(storybook@8.5.0-alpha.22(prettier@3.4.2))
       '@testing-library/dom': 10.4.0
       '@testing-library/jest-dom': 6.5.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
