@@ -117,7 +117,7 @@ defineSlots<{
 
     &__backdrop {
       content: "";
-      background-color: var(--onyx-color-backdrop);
+      background-color: var(--onyx-color-component-opacity-backdrop);
       width: 100%;
       height: 100vh;
       display: block;

@@ -6,14 +6,6 @@ import ComponentStatusBadge from "./ComponentStatusBadge.vue";
 export type ComponentCardProps = {
   /** Component name. */
   name: string;
-  /**
-   * Due date when the component will be implemented.
-   * Will only be shown if status is not "implemented".
-   * If unset, "n/a" will be displayed.
-   *
-   * @example "Q2 2024"
-   */
-  dueDate?: string;
 } & (
   | {
       /** Component status. */
@@ -41,14 +33,8 @@ const props = defineProps<ComponentCardProps>();
     :href="props.href"
     :target="props.href?.startsWith('http') ? '_blank' : '_self'"
   >
-    <div class="card__header">
-      <p v-if="props.status !== 'implemented'" class="card__due-date">
-        Due: {{ props.dueDate || "n/a" }}
-      </p>
-      <ComponentStatusBadge :status="props.status" class="card__status" />
-    </div>
-
     <OnyxHeadline is="h2">{{ props.name }}</OnyxHeadline>
+    <ComponentStatusBadge :status="props.status" class="card__status" />
   </component>
 </template>
 
@@ -63,8 +49,7 @@ const props = defineProps<ComponentCardProps>();
     background-color var(--onyx-duration-sm);
 
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-end;
   gap: var(--onyx-spacing-4xs);
 
@@ -81,18 +66,6 @@ const props = defineProps<ComponentCardProps>();
 
   &__status {
     margin-left: auto;
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    gap: var(--onyx-spacing-3xs);
-    width: 100%;
-  }
-
-  &__due-date {
-    margin: 0;
-    color: var(--onyx-color-text-icons-neutral-soft);
   }
 
   &::after {

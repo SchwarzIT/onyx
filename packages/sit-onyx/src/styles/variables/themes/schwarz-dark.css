@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "schwarz-dark" theme.
- * Imported from Figma API on Thu, 12 Dec 2024 10:29:41 GMT
+ * Imported from Figma API on Mon, 16 Dec 2024 14:51:26 GMT
  */
 .dark,
 .onyx-theme-schwarz-dark {
@@ -94,6 +94,7 @@
   --onyx-color-component-focus-primary: var(--onyx-color-lime-700);
   --onyx-color-component-focus-success: var(--onyx-color-base-success-200);
   --onyx-color-component-focus-warning: var(--onyx-color-base-warning-200);
+  --onyx-color-component-opacity-backdrop: var(--onyx-color-opacity-medium);
   --onyx-color-text-icons-danger-bold: var(--onyx-color-red-400);
   --onyx-color-text-icons-danger-intense: var(--onyx-color-red-500);
   --onyx-color-text-icons-danger-medium: var(--onyx-color-red-700);
@@ -119,7 +120,6 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-700);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-900);
-  --onyx-opacity-backdrop: var(--onyx-number-opacity-medium);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
