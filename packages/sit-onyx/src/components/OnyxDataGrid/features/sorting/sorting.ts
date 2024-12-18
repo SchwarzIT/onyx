@@ -1,6 +1,7 @@
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
+import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import type { DataGridEntry } from "../../types";
 import SortAction from "./SortAction.vue";
 import type { SortDirection, SortOptions, SortState } from "./types";
@@ -85,7 +86,7 @@ export const useSorting = createFeature(
                       sortState.value.column === column ? sortState.value.direction : undefined,
                     onClick: () => handleClick(column),
                   }),
-                  actionLabels: "Sort column",
+                  listItems: [h(OnyxListItem, () => "Sort column")],
                 },
               ]
             : [],
