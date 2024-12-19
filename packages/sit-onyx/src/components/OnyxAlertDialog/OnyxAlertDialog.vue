@@ -24,7 +24,7 @@ defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional slot to override the headline/label with custom content.
+   * Optional slot to override the headline with custom content.
    * If unset, the `label` property will be shown.
    */
   headline?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
