@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.99
+
+### Major Changes
+
+- aa6b94e: feat(OnyxModalDialog, OnyxAlertDialog): add `aria-describedby` attribute
+
+  - OnyxModalDialog: renamed slot `subtitle` to `description`
+
 ## 1.0.0-beta.98
 
 ### Minor Changes
