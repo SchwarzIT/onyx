@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.15
+
+### Patch Changes
+
+- b01942c: fix(createListbox): do not scroll whole page when opening with selected value
+
 ## 1.0.0-beta.14
 
 ### Minor Changes

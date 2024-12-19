@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.100
+
+### Patch Changes
+
+- b01942c: fix(OnyxSelect): do not scroll whole page when opening with selected value
+
 ## 1.0.0-beta.99
 
 ### Major Changes
