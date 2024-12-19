@@ -13,8 +13,8 @@ const meta: Meta<typeof OnyxModalDialog> = {
   component: OnyxModalDialog,
   argTypes: {
     default: { control: { disable: true } },
-    headline: { control: { type: "text" } },
-    subtitle: { control: { type: "text" } },
+    headline: { control: { disable: true } },
+    description: { control: { type: "text" } },
   },
 };
 
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof OnyxModalDialog>;
 export const Default = {
   args: {
     label: "Example modal dialog",
-    subtitle: "This is an example subtitle with a short description about the dialog.",
+    description: "This is an example description about the dialog.",
     default: h(
       "div",
       { style: "padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline)" },

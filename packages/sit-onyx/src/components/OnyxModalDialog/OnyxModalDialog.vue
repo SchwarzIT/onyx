@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
@@ -16,29 +17,34 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Dialog content.
    */
   default(): unknown;
   /**
    * Optional slot to override the headline with custom content.
+   * If unset, the `label` property will be shown.
    */
   headline?(bindings: Pick<OnyxModalDialogProps, "label">): unknown;
   /**
-   * Optional slot to add custom content to the dialog header (below the headline).
+   * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
    */
-  subtitle?(): unknown;
+  description?(): unknown;
 }>();
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+
+const descriptionId = useId();
+const hasDescription = computed(() => !!slots.description);
 </script>
 
 <template>
   <OnyxDialog
     v-bind="props"
     :class="['onyx-modal-dialog', densityClass]"
+    :aria-describedby="hasDescription ? descriptionId : undefined"
     modal
     @close="emit('close')"
   >
@@ -56,8 +62,12 @@ const { densityClass } = useDensity(props);
         />
       </div>
 
-      <div class="onyx-modal-dialog__subtitle onyx-text--small">
-        <slot name="subtitle"></slot>
+      <div
+        v-if="hasDescription"
+        :id="descriptionId"
+        class="onyx-modal-dialog__description onyx-text--small"
+      >
+        <slot name="description"></slot>
       </div>
     </div>
 
@@ -89,7 +99,7 @@ const { densityClass } = useDensity(props);
       gap: var(--onyx-density-xs);
     }
 
-    &__subtitle {
+    &__description {
       color: var(--onyx-color-text-icons-neutral-soft);
       white-space: pre-line;
     }

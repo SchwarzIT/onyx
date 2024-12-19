@@ -9,10 +9,7 @@ const emit = defineEmits<{
 <template>
   <OnyxModalDialog label="Example modal dialog" open @close="emit('close')">
     <div class="content">Dialog content...</div>
-
-    <template #subtitle>
-      This is an example subtitle with a short description about the dialog.
-    </template>
+    <template #description> This is an example description about the dialog. </template>
   </OnyxModalDialog>
 </template>
 
