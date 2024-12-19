@@ -54,9 +54,6 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      multipleRoot: "The template root requires exactly one element.",
-      textRoot: "The template root requires an element rather than texts.",
-      disallowedDirective: "The template root disallows 'v-for' directives.",
       missingClass: "The root element is missing the 'onyx-component' class.",
     },
   },
@@ -65,8 +62,6 @@ module.exports = {
    * @returns {RuleListener} AST event handlers.
    */
   create(context) {
-    const sourceCode = context.getSourceCode();
-
     return {
       Program(program) {
         const element = program.templateBody;
@@ -87,15 +82,7 @@ module.exports = {
             } else if (vIf && hasDirective(child, "else")) {
               rootElements.push(child);
               vIf = false;
-            } else {
-              extraElement = child;
             }
-          } else if (sourceCode.getText(child).trim() !== "") {
-            context.report({
-              node: child,
-              messageId: "textRoot",
-            });
-            return;
           }
         }
 
@@ -165,24 +152,7 @@ module.exports = {
                 messageId: "missingClass",
               });
             }
-
-            if (hasDirective(element, "for")) {
-              context.report({
-                node: tag,
-                loc: tag.loc,
-                messageId: "disallowedDirective",
-              });
-            }
           }
-        } else if (extraElement?.name === "teleport") {
-          // Exclude teleport from this rule
-          return true;
-        } else {
-          context.report({
-            node: extraElement,
-            loc: extraElement.loc,
-            messageId: "multipleRoot",
-          });
         }
       },
     };
