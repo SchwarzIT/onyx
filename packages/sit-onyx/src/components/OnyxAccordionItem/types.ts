@@ -1,0 +1,13 @@
+import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
+
+export type OnyxAccordionItemProps = DensityProp & {
+  /**
+   * Whether the accordion is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether to show a skeleton input.
+   */
+  skeleton?: SkeletonInjected;
+};
