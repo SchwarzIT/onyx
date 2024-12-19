@@ -417,8 +417,8 @@ importers:
         specifier: workspace:^
         version: link:../storybook-utils
       '@storybook/addon-a11y':
-        specifier: 8.5.0-beta.1
-        version: 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
+        specifier: 8.5.0-beta.2
+        version: 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
       '@storybook/addon-actions':
         specifier: 8.5.0-beta.1
         version: 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
@@ -1499,16 +1499,16 @@ packages:
     resolution: {integrity: sha512-6GT1BJ852gZ0gItNZN2krX5QAmea+cmdjMvsWohArAZ3GmHdnNANEcF9JjPXAMRtQ6Ux5E269ymamg/+WU6tQA==}
     engines: {node: '>= 16'}
 
-  '@intlify/message-compiler@11.0.0-beta.2':
-    resolution: {integrity: sha512-/cJHP1n45Zlf9tbm/hudLrUwXzJZngR9OMTQk32H1S4lBjM2996wzKTHuLbaJJlJZNTTjnfWZUHPb+F6sE6p1Q==}
+  '@intlify/message-compiler@11.0.0-rc.1':
+    resolution: {integrity: sha512-TGw2uBfuTFTegZf/BHtUQBEKxl7Q/dVGLoqRIdw8lFsp9g/53sYn5iD+0HxIzdYjbWL6BTJMXCPUHp9PxDTRPw==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@10.0.5':
     resolution: {integrity: sha512-bmsP4L2HqBF6i6uaMqJMcFBONVjKt+siGluRq4Ca4C0q7W2eMaVZr8iCgF9dKbcVXutftkC7D6z2SaSMmLiDyA==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@11.0.0-beta.2':
-    resolution: {integrity: sha512-N6ngJfFaVA0l2iLtx/SymgHOBW4wiS5Pyue7YmY/G+mrGjesi+S+U+u/Xlv6pZa/YIBfeM4QB07lI7rz1YqKLg==}
+  '@intlify/shared@11.0.0-rc.1':
+    resolution: {integrity: sha512-8tR1xe7ZEbkabTuE/tNhzpolygUn9OaYp9yuYAF4MgDNZg06C3Qny80bes2/e9/Wm3aVkPUlCw6WgU7mQd0yEg==}
     engines: {node: '>= 16'}
 
   '@intlify/unplugin-vue-i18n@6.0.1':
@@ -2066,10 +2066,10 @@ packages:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
 
-  '@storybook/addon-a11y@8.5.0-beta.1':
-    resolution: {integrity: sha512-hNt+4PU9VyIUoSsJH10e5pHF76cXJ4zQZeKpQcjrCMoTJ13upEGn9vCfUVgYfkFG786hwXj4Ky9uXoqrLPgBlg==}
+  '@storybook/addon-a11y@8.5.0-beta.2':
+    resolution: {integrity: sha512-vE/epBdfNUema2vhSXb1LHj7paXeBg5yI2KlcMGPQrQlHDVU+y3Dpd3oO6TwtUl2zjOQCe7kzL22cuZBlk56FQ==}
     peerDependencies:
-      storybook: ^8.5.0-beta.1
+      storybook: ^8.5.0-beta.2
 
   '@storybook/addon-actions@8.5.0-beta.1':
     resolution: {integrity: sha512-YwYk9Foj/63yMPB8qqtjH86QkUAXPCj3Ptqk+CLqEf6fISxoNueBR9CMoZjAkLjqL3X0dnp0rGvGxT9VdAeMmw==}
@@ -2100,6 +2100,11 @@ packages:
     resolution: {integrity: sha512-R4Rx8qnTYdSrPdMcqfYQFW0xgMqMnHdzSP5Kid5F0cP+cUII+G5YcLlmQq5HoDeTgKzezs3d5ANTv3hEJBBr1w==}
     peerDependencies:
       storybook: ^8.5.0-beta.1
+
+  '@storybook/addon-highlight@8.5.0-beta.2':
+    resolution: {integrity: sha512-TMCQTdsfdb5lmvd5yA/8iPcWtlN5d/8gtVuJdCnss87LOBadUHw73qMHKbRdTHqsnyEfvWaaL2WYVIOwDZXaOw==}
+    peerDependencies:
+      storybook: ^8.5.0-beta.2
 
   '@storybook/addon-measure@8.5.0-beta.1':
     resolution: {integrity: sha512-/Or+ZLJwbfDD1r1KzXI9KBEs2lqy0nJCiVzx8z819URYs3EDGZMDH4X3PxYikH34i12N/Yr9pf52sts+3mUMOg==}
@@ -2180,10 +2185,10 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
 
-  '@storybook/instrumenter@8.5.0-beta.1':
-    resolution: {integrity: sha512-PlvsQ6lx2b6bGDMdppJ4Nxa5a3+JFGeNh5FcohHO8nK76M2jL3R2FHxTFfJOVK/y8nvSYfOy9Fdy0o+zHnKRww==}
+  '@storybook/instrumenter@8.5.0-beta.2':
+    resolution: {integrity: sha512-P4s9AQHEzJw6qNs+4320CnoIUfQ4O0fJYeEJcdrP1xE5xsqTRF4R3xPBXAhVMtpCV0Nz2SmgwJXvkd5m3f7+ug==}
     peerDependencies:
-      storybook: ^8.5.0-beta.1
+      storybook: ^8.5.0-beta.2
 
   '@storybook/manager-api@8.4.7':
     resolution: {integrity: sha512-ELqemTviCxAsZ5tqUz39sDmQkvhVAvAgiplYy9Uf15kO0SP2+HKsCMzlrm2ue2FfkUNyqbDayCPPCB0Cdn/mpQ==}
@@ -2212,10 +2217,10 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       storybook: ^8.5.0-beta.1
 
-  '@storybook/test@8.5.0-beta.1':
-    resolution: {integrity: sha512-hsXi/+W4s8x1Uo7JucapOSo7DsVjUnfF7ryGtoc5O5CCgDFxBVlAEAGbclhBN2nAQLU8MnbgdeaFZpLyf+ma/Q==}
+  '@storybook/test@8.5.0-beta.2':
+    resolution: {integrity: sha512-DDzIex8AngXEBwa0Gxrvb7a77xii9yX5tPXJUVIz6dHUM9k7GXpED8nG8wX3/N8v94RhgsgMx0qLwW4qur4waw==}
     peerDependencies:
-      storybook: ^8.5.0-beta.1
+      storybook: ^8.5.0-beta.2
 
   '@storybook/theming@8.4.7':
     resolution: {integrity: sha512-99rgLEjf7iwfSEmdqlHkSG3AyLcK0sfExcr0jnc6rLiAkBhzuIsvcHjjUwkR210SOCgXqBPW0ZA6uhnuyppHLw==}
@@ -7525,8 +7530,8 @@ snapshots:
 
   '@intlify/bundle-utils@10.0.0(vue-i18n@10.0.5(vue@3.5.13(typescript@5.6.3)))':
     dependencies:
-      '@intlify/message-compiler': 11.0.0-beta.2
-      '@intlify/shared': 11.0.0-beta.2
+      '@intlify/message-compiler': 11.0.0-rc.1
+      '@intlify/shared': 11.0.0-rc.1
       acorn: 8.14.0
       escodegen: 2.1.0
       estree-walker: 2.0.2
@@ -7557,14 +7562,14 @@ snapshots:
       '@intlify/shared': 10.0.5
       source-map-js: 1.2.1
 
-  '@intlify/message-compiler@11.0.0-beta.2':
+  '@intlify/message-compiler@11.0.0-rc.1':
     dependencies:
-      '@intlify/shared': 11.0.0-beta.2
+      '@intlify/shared': 11.0.0-rc.1
       source-map-js: 1.2.1
 
   '@intlify/shared@10.0.5': {}
 
-  '@intlify/shared@11.0.0-beta.2': {}
+  '@intlify/shared@11.0.0-rc.1': {}
 
   '@intlify/unplugin-vue-i18n@6.0.1(@vue/compiler-dom@3.5.13)(eslint@9.17.0(jiti@2.4.1))(rollup@4.28.1)(typescript@5.6.3)(vue-i18n@10.0.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -8373,10 +8378,10 @@ snapshots:
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
-  '@storybook/addon-a11y@8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))':
+  '@storybook/addon-a11y@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))':
     dependencies:
-      '@storybook/addon-highlight': 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
-      '@storybook/test': 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@storybook/addon-highlight': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@storybook/test': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
       axe-core: 4.10.2
       storybook: 8.5.0-beta.1(prettier@3.4.2)
       vitest-axe: 0.1.0(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
@@ -8436,6 +8441,11 @@ snapshots:
       - '@types/react'
 
   '@storybook/addon-highlight@8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.5.0-beta.1(prettier@3.4.2)
+
+  '@storybook/addon-highlight@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.5.0-beta.1(prettier@3.4.2)
@@ -8527,7 +8537,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/instrumenter@8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))':
+  '@storybook/instrumenter@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@vitest/utils': 2.1.8
@@ -8555,11 +8565,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
-  '@storybook/test@8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))':
+  '@storybook/test@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       '@storybook/csf': 0.1.12
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@storybook/instrumenter': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
       '@testing-library/dom': 10.4.0
       '@testing-library/jest-dom': 6.5.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
