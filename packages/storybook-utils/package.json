@@ -25,7 +25,8 @@
   "scripts": {
     "build": "tsc --noEmit",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "stylelint": "stylelint \"src/**/*.css\""
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
