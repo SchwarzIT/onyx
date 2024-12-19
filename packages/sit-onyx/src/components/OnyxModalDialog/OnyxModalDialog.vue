@@ -23,11 +23,12 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional slot to override the label/headline with custom content.
+   * Optional slot to override the headline/label with custom content.
+   * If unset, the `label` property will be shown.
    */
-  label?(bindings: Pick<OnyxModalDialogProps, "label">): unknown;
+  headline?(bindings: Pick<OnyxModalDialogProps, "label">): unknown;
   /**
-   * Optional slot to add custom content, e.g. a description to the dialog header (below the label/headline).
+   * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
    */
   description?(): unknown;
 }>();
@@ -49,7 +50,7 @@ const hasDescription = computed(() => !!slots.description);
   >
     <div class="onyx-modal-dialog__header">
       <div class="onyx-modal-dialog__headline">
-        <slot name="label" :label="props.label">
+        <slot name="headline" :label="props.label">
           <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
         </slot>
 

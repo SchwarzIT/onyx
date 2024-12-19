@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxModalDialog> = {
   component: OnyxModalDialog,
   argTypes: {
     default: { control: { disable: true } },
-    label: { control: { type: "text" } },
+    headline: { control: { disable: true } },
     description: { control: { type: "text" } },
   },
 };

@@ -16,6 +16,7 @@ const meta: Meta<typeof OnyxAlertDialog> = {
   component: OnyxAlertDialog,
   argTypes: {
     default: { control: { type: "text" } },
+    headline: { control: { disable: true } },
   },
 };
 

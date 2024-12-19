@@ -24,9 +24,10 @@ defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional slot to override the label/headline with custom content.
+   * Optional slot to override the headline/label with custom content.
+   * If unset, the `label` property will be shown.
    */
-  label?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
+  headline?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
   /**
    * Slot to display custom actions at the bottom of the dialog, e.g. buttons for confirm or cancelling the current user workflow.
    * For accessibility purposes it is recommended to set autofocus on one button, preferably the "cancel" button if one exists.
@@ -58,8 +59,8 @@ const describedById = useId();
       <OnyxIcon v-if="props.icon" class="onyx-alert-dialog__icon" v-bind="props.icon" size="64px" />
 
       <div>
-        <div class="onyx-alert-dialog__label">
-          <slot name="label" :label="props.label">
+        <div class="onyx-alert-dialog__headline">
+          <slot name="headline" :label="props.label">
             <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
           </slot>
 
@@ -98,7 +99,7 @@ const describedById = useId();
       gap: var(--onyx-density-sm);
     }
 
-    &__label {
+    &__headline {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
