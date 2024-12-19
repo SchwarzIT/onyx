@@ -104,7 +104,7 @@ watch(
 
     &:modal {
       z-index: var(--onyx-z-index-app-overlay);
-      box-shadow: var(--onyx-shadow-soft-bottom);
+      border: none;
     }
   }
 }
