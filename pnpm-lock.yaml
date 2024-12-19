@@ -58,8 +58,8 @@ importers:
         specifier: 8.5.0-beta.1
         version: 8.5.0-beta.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.0-beta.1(prettier@3.4.2))
       '@storybook/vue3':
-        specifier: 8.5.0-beta.1
-        version: 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))(vue@3.5.13(typescript@5.6.3))
+        specifier: 8.5.0-beta.2
+        version: 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))(vue@3.5.13(typescript@5.6.3))
       '@storybook/vue3-vite':
         specifier: 8.5.0-beta.1
         version: 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))(vite@5.4.11(@types/node@22.10.2)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))(vue@3.5.13(typescript@5.6.3))
@@ -1499,16 +1499,16 @@ packages:
     resolution: {integrity: sha512-6GT1BJ852gZ0gItNZN2krX5QAmea+cmdjMvsWohArAZ3GmHdnNANEcF9JjPXAMRtQ6Ux5E269ymamg/+WU6tQA==}
     engines: {node: '>= 16'}
 
-  '@intlify/message-compiler@11.0.0-beta.2':
-    resolution: {integrity: sha512-/cJHP1n45Zlf9tbm/hudLrUwXzJZngR9OMTQk32H1S4lBjM2996wzKTHuLbaJJlJZNTTjnfWZUHPb+F6sE6p1Q==}
+  '@intlify/message-compiler@11.0.0-rc.1':
+    resolution: {integrity: sha512-TGw2uBfuTFTegZf/BHtUQBEKxl7Q/dVGLoqRIdw8lFsp9g/53sYn5iD+0HxIzdYjbWL6BTJMXCPUHp9PxDTRPw==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@10.0.5':
     resolution: {integrity: sha512-bmsP4L2HqBF6i6uaMqJMcFBONVjKt+siGluRq4Ca4C0q7W2eMaVZr8iCgF9dKbcVXutftkC7D6z2SaSMmLiDyA==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@11.0.0-beta.2':
-    resolution: {integrity: sha512-N6ngJfFaVA0l2iLtx/SymgHOBW4wiS5Pyue7YmY/G+mrGjesi+S+U+u/Xlv6pZa/YIBfeM4QB07lI7rz1YqKLg==}
+  '@intlify/shared@11.0.0-rc.1':
+    resolution: {integrity: sha512-8tR1xe7ZEbkabTuE/tNhzpolygUn9OaYp9yuYAF4MgDNZg06C3Qny80bes2/e9/Wm3aVkPUlCw6WgU7mQd0yEg==}
     engines: {node: '>= 16'}
 
   '@intlify/unplugin-vue-i18n@6.0.1':
@@ -2149,6 +2149,11 @@ packages:
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
+  '@storybook/components@8.5.0-beta.2':
+    resolution: {integrity: sha512-E51kd4DnA6L5V4fknshF+gOii32GJsoxggwI36mtpxaHi4t/Xa4a2V2u1x9PwT3kqPsAM7N5aD140m7mPC9x1Q==}
+    peerDependencies:
+      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
+
   '@storybook/core-events@8.4.7':
     resolution: {integrity: sha512-D5WhJBVfywIVBurNZ7mwSjXT18a8Ct5AfZFEukIBPLaezY21TgN/7sE2OU5dkMQsm11oAZzsdLPOzms2e9HsRg==}
     peerDependencies:
@@ -2195,6 +2200,11 @@ packages:
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
+  '@storybook/manager-api@8.5.0-beta.2':
+    resolution: {integrity: sha512-ozeI2x7Z0wcSxwODYYhNLiS55Q8JgIW4+V4w1HeuXMs/hNsWOOQtTqZl6wOOEYFToBeSQxQL4mOil+xSKAyWSQ==}
+    peerDependencies:
+      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
+
   '@storybook/preview-api@8.4.7':
     resolution: {integrity: sha512-0QVQwHw+OyZGHAJEXo6Knx+6/4er7n2rTDE5RYJ9F2E2Lg42E19pfdLlq2Jhoods2Xrclo3wj6GWR//Ahi39Eg==}
     peerDependencies:
@@ -2202,6 +2212,11 @@ packages:
 
   '@storybook/preview-api@8.5.0-beta.1':
     resolution: {integrity: sha512-wo+gV2Np92KOVp1lPiz/KMEfaCagdTg8VYVbT77fIl444qbp3vJmncMPYopj9YwWIDNju1Cvv/ewqe1X6Y9UuA==}
+    peerDependencies:
+      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
+
+  '@storybook/preview-api@8.5.0-beta.2':
+    resolution: {integrity: sha512-Yd0RjF/OyFf+kmt4ifftuvEKU27Bs3C/UrO920hy1nyXz7zZpR0BbLnWC5b1gZiEtNdauVhUxMnZo+NqjW6I8w==}
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
@@ -2227,6 +2242,11 @@ packages:
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
+  '@storybook/theming@8.5.0-beta.2':
+    resolution: {integrity: sha512-HLBqEWQUjF1pYd8Dgk1Lp3Q9KvUO4RuvVJp/2L3A9tYp4LdsvYfb7qhObhmLEjpE9CvWJUYBWNI82SuGI1g5gA==}
+    peerDependencies:
+      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
+
   '@storybook/vue3-vite@8.5.0-beta.1':
     resolution: {integrity: sha512-cxqAiQPgXspuEf/63pE73hTOL42cmYhMphoYOkU6AICPpTj4TzETQbyoP0pwoc2miPUKBvPgfSfF1syHJGblBw==}
     engines: {node: '>=18.0.0'}
@@ -2246,6 +2266,13 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       storybook: ^8.5.0-beta.1
+      vue: 3.5.13
+
+  '@storybook/vue3@8.5.0-beta.2':
+    resolution: {integrity: sha512-Z3dLBeJTpdFXsNs4+4INRaB1UkYMyZydLYcvw6GjHAiHYYIXV824HmBMTihtW0drzNg9iDcJCdAqE53cMgSaZA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      storybook: ^8.5.0-beta.2
       vue: 3.5.13
 
   '@testing-library/dom@10.4.0':
@@ -7525,8 +7552,8 @@ snapshots:
 
   '@intlify/bundle-utils@10.0.0(vue-i18n@10.0.5(vue@3.5.13(typescript@5.6.3)))':
     dependencies:
-      '@intlify/message-compiler': 11.0.0-beta.2
-      '@intlify/shared': 11.0.0-beta.2
+      '@intlify/message-compiler': 11.0.0-rc.1
+      '@intlify/shared': 11.0.0-rc.1
       acorn: 8.14.0
       escodegen: 2.1.0
       estree-walker: 2.0.2
@@ -7557,14 +7584,14 @@ snapshots:
       '@intlify/shared': 10.0.5
       source-map-js: 1.2.1
 
-  '@intlify/message-compiler@11.0.0-beta.2':
+  '@intlify/message-compiler@11.0.0-rc.1':
     dependencies:
-      '@intlify/shared': 11.0.0-beta.2
+      '@intlify/shared': 11.0.0-rc.1
       source-map-js: 1.2.1
 
   '@intlify/shared@10.0.5': {}
 
-  '@intlify/shared@11.0.0-beta.2': {}
+  '@intlify/shared@11.0.0-rc.1': {}
 
   '@intlify/unplugin-vue-i18n@6.0.1(@vue/compiler-dom@3.5.13)(eslint@9.17.0(jiti@2.4.1))(rollup@4.28.1)(typescript@5.6.3)(vue-i18n@10.0.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -8487,6 +8514,10 @@ snapshots:
     dependencies:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
+  '@storybook/components@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
+    dependencies:
+      storybook: 8.5.0-beta.1(prettier@3.4.2)
+
   '@storybook/core-events@8.4.7(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
@@ -8541,11 +8572,19 @@ snapshots:
     dependencies:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
+  '@storybook/manager-api@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
+    dependencies:
+      storybook: 8.5.0-beta.1(prettier@3.4.2)
+
   '@storybook/preview-api@8.4.7(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
   '@storybook/preview-api@8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))':
+    dependencies:
+      storybook: 8.5.0-beta.1(prettier@3.4.2)
+
+  '@storybook/preview-api@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
@@ -8572,6 +8611,10 @@ snapshots:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
   '@storybook/theming@8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))':
+    dependencies:
+      storybook: 8.5.0-beta.1(prettier@3.4.2)
+
+  '@storybook/theming@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))':
     dependencies:
       storybook: 8.5.0-beta.1(prettier@3.4.2)
 
@@ -8610,6 +8653,20 @@ snapshots:
       '@storybook/manager-api': 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
       '@storybook/preview-api': 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
       '@storybook/theming': 8.5.0-beta.1(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@vue/compiler-core': 3.5.13
+      storybook: 8.5.0-beta.1(prettier@3.4.2)
+      ts-dedent: 2.2.0
+      type-fest: 2.19.0
+      vue: 3.5.13(typescript@5.6.3)
+      vue-component-type-helpers: 2.1.10
+
+  '@storybook/vue3@8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))(vue@3.5.13(typescript@5.6.3))':
+    dependencies:
+      '@storybook/components': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@storybook/preview-api': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
+      '@storybook/theming': 8.5.0-beta.2(storybook@8.5.0-beta.1(prettier@3.4.2))
       '@vue/compiler-core': 3.5.13
       storybook: 8.5.0-beta.1(prettier@3.4.2)
       ts-dedent: 2.2.0
