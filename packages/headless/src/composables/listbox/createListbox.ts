@@ -109,13 +109,13 @@ export const createListbox = createBuilder(
         !isExpanded.value ||
         options.activeOption.value == undefined ||
         (!isFocused.value && !options.controlled)
-      )
+      ) {
         return;
-      const id = getOptionId(options.activeOption.value);
+      }
 
-      await nextTick(() => {
-        document.getElementById(id)?.scrollIntoView({ block: "end", inline: "nearest" });
-      });
+      const id = getOptionId(options.activeOption.value);
+      await nextTick();
+      document.getElementById(id)?.scrollIntoView({ block: "nearest", inline: "nearest" });
     });
 
     const typeAhead = useTypeAhead((inputString) => options.onTypeAhead?.(inputString));
