@@ -29,6 +29,9 @@
       "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
+    },
+    "stylelint": {
+      "dependsOn": ["sit-onyx#build"]
     }
   }
 }
