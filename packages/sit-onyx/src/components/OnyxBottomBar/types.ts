@@ -4,5 +4,5 @@ export type OnyxBottomBarProps = DensityProp & {
   /**
    * Whether to remove the top border / separator.
    */
-  hideTopBorder?: boolean;
+  hideBorder?: boolean;
 };

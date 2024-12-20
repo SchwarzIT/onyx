@@ -16,6 +16,9 @@ export { default as OnyxAvatarStack } from "./components/OnyxAvatarStack/OnyxAva
 export { default as OnyxBadge } from "./components/OnyxBadge/OnyxBadge.vue";
 export * from "./components/OnyxBadge/types";
 
+export { default as OnyxBottomBar } from "./components/OnyxBottomBar/OnyxBottomBar.vue";
+export * from "./components/OnyxBottomBar/types";
+
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 

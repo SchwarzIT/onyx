@@ -33,9 +33,12 @@ type Story = StoryObj<typeof OnyxBottomBar>;
 /**
  * This example shows a bottom bar with right aligned buttons.
  */
-export const WithRightSlot = {
+export const Default = {
   args: {
-    right: () => [h(OnyxButton, { label: "OK" }), h(OnyxButton, { label: "Cancel" })],
+    right: () => [
+      h(OnyxButton, { label: "Button", mode: "plain", color: "neutral" }),
+      h(OnyxButton, { label: "Button" }),
+    ],
   },
 } satisfies Story;
 
@@ -44,7 +47,7 @@ export const WithRightSlot = {
  */
 export const WithLeftSlot = {
   args: {
-    left: () => [h(OnyxButton, { label: "Approve" })],
+    left: () => [h(OnyxButton, { label: "Button" })],
   },
 } satisfies Story;
 
@@ -53,7 +56,10 @@ export const WithLeftSlot = {
  */
 export const WithLeftAndRightSlot = {
   args: {
-    right: () => [h(OnyxButton, { label: "Decline" }), h(OnyxButton, { label: "Cancel" })],
+    right: () => [
+      h(OnyxButton, { label: "Button", mode: "plain", color: "neutral" }),
+      h(OnyxButton, { label: "Button" }),
+    ],
     left: () => [h(OnyxButton, { label: "Approve" })],
   },
 } satisfies Story;

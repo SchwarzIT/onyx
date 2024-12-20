@@ -3,7 +3,7 @@ import { useDensity } from "../../composables/density";
 import type { OnyxBottomBarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxBottomBarProps>(), {
-  hideTopBorder: false,
+  hideBorder: false,
 });
 
 defineSlots<{
@@ -26,7 +26,7 @@ const { densityClass } = useDensity(props);
       'onyx-component',
       'onyx-bottom-bar',
       densityClass,
-      { 'onyx-bottom-bar--border': !props.hideTopBorder },
+      props.hideBorder ? '' : 'onyx-bottom-bar--border',
     ]"
   >
     <div class="onyx-bottom-bar__left">
@@ -45,12 +45,13 @@ const { densityClass } = useDensity(props);
   @include layers.component() {
     position: fixed;
     bottom: 0;
-    width: var(--onyx-grid-margin-inline, 100%);
-    max-width: var(--onyx-grid-max-width, 100%);
+    width: 100%;
+    margin-inline: var(--onyx-grid-margin-inline);
+
     background-color: var(--onyx-color-base-background-blank);
     display: flex;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: var(--onyx-density-xs);
     padding: var(--onyx-spacing-2xs) var(--onyx-grid-margin);
     overflow-x: auto;
 
@@ -62,8 +63,8 @@ const { densityClass } = useDensity(props);
     &__right {
       position: relative;
       display: flex;
-      width: max-content;
-      gap: 0.5rem;
+      max-width: var(--onyx-grid-max-width, max-content);
+      gap: var(--onyx-density-xs);
     }
   }
 }
