@@ -24,7 +24,20 @@ type Story = StoryObj<typeof OnyxAccordionItem>;
 /** Standard AccordionItem*/
 export const Default = {
   args: {
-    header: () => h("header", "Title"),
-    panel: () => h("panel", "Hidden Content"),
+    header: () => h("h4", "Title"),
+    panel: () => h("p", "Hidden Content"),
+  },
+} satisfies Story;
+
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;

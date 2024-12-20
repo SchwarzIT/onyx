@@ -1,7 +1,8 @@
 import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { InjectionKey, Ref } from "vue";
+import type { DensityProp } from "../../composables/density";
 
-export type OnyxAccordionProps = {
+export type OnyxAccordionProps = DensityProp & {
   /** Whether only one AccordionItem can be open at the same time  */
   exclusive?: boolean;
   /**

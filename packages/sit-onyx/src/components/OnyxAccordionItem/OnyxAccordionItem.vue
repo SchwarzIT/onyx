@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
+
 const itemId = useId();
 
 defineSlots<{
@@ -90,6 +91,8 @@ const { densityClass } = useDensity(props);
       display: flex;
       align-items: center;
       padding: var(--onyx-density-md);
+      padding-right: calc(3 * var(--onyx-density-md));
+
       cursor: pointer;
       &:hover,
       &:focus-visible {

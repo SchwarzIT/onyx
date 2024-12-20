@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { defineSlots, provide, ref, toRefs } from "vue";
+import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
   ACCORDION_INJECTION_KEY,
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<OnyxAccordionProps>(), {
 });
 const { disabled } = toRefs(props);
 const skeleton = useSkeletonContext(props);
+const { densityClass } = useDensity(props);
 
 const accordionRef = ref<HTMLElement>();
 const openItems = ref<Set<string>>(new Set());
@@ -46,7 +48,7 @@ defineSlots<{
 </script>
 
 <template>
-  <div ref="accordionRef" class="onyx-component onyx-accordion">
+  <div ref="accordionRef" :class="['onyx-component', 'onyx-accordion', densityClass]">
     <slot></slot>
   </div>
 </template>

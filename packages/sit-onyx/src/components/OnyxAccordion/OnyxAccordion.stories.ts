@@ -21,22 +21,40 @@ const meta: Meta<typeof OnyxAccordion> = {
 export default meta;
 type Story = StoryObj<typeof OnyxAccordion>;
 
-/** Standard Accord */
 export const Default = {
   args: {
     default: () => [
       h(OnyxAccordionItem, null, {
-        header: () => h("span", "First Accordion Header"),
+        header: () => h("h4", "First Accordion Header"),
         panel: () => h("p", "This is the content inside the first panel."),
       }),
       h(OnyxAccordionItem, null, {
-        header: () => h("span", "Second Accordion Header"),
+        header: () => h("h4", "Second Accordion Header"),
         panel: () => h("p", "This is the content inside the second panel."),
       }),
       h(OnyxAccordionItem, null, {
-        header: () => h("span", "Third Accordion Header"),
+        header: () => h("h4", "Third Accordion Header"),
         panel: () => h("p", "This is the content inside the third panel."),
       }),
     ],
+  },
+} satisfies Story;
+
+export const Exclusive = {
+  args: {
+    ...Default.args,
+    exclusive: true,
+  },
+} satisfies Story;
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
