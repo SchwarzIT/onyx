@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.101
+
+### Patch Changes
+
+- 0ae24aa: fix(OnyxDialog): remove box shadow and border for modal dialogs
+
 ## 1.0.0-beta.100
 
 ### Patch Changes
