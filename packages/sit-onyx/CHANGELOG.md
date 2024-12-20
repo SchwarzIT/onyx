@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.102
+
+### Minor Changes
+
+- 8fe1ab6: feat(OnyxBottomBar): Implement OnyxBottomBar component
+
 ## 1.0.0-beta.101
 
 ### Patch Changes
