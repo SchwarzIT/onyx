@@ -3,6 +3,8 @@ import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
+  OnyxAccordion,
+  OnyxAccordionItem,
   OnyxAvatar,
   OnyxBadge,
   OnyxButton,
@@ -41,6 +43,8 @@ import SelectDemo from "../components/SelectDemo.vue";
 const { locale } = useI18n();
 
 const COMPONENTS = [
+  "OnyxAccordion",
+  "OnyxAccordionItem",
   "OnyxAvatar",
   "OnyxBadge",
   "OnyxButton",
@@ -165,6 +169,36 @@ const selectedDate = ref<DateValue>();
       </section>
 
       <div class="page__examples">
+        <OnyxAccordion>
+          <OnyxAccordionItem>
+            <template #header>
+              <h3>Header 1</h3>
+            </template>
+
+            <template #panel>
+              <p>Hidden Content 1</p>
+            </template>
+          </OnyxAccordionItem>
+          <OnyxAccordionItem>
+            <template #header>
+              <h3>Header 2</h3>
+            </template>
+
+            <template #panel>
+              <p>Hidden Content 2</p>
+            </template>
+          </OnyxAccordionItem>
+          <OnyxAccordionItem>
+            <template #header>
+              <h3>Header 3</h3>
+            </template>
+
+            <template #panel>
+              <p>Hidden Content 3</p>
+            </template>
+          </OnyxAccordionItem>
+        </OnyxAccordion>
+
         <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
 
         <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
