@@ -41,7 +41,8 @@
     "preview": "vite serve storybook-static",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:playwright": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test",
+    "stylelint": "stylelint \"dist/**/*.css\""
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",

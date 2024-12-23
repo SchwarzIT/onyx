@@ -31,7 +31,7 @@
       "persistent": true
     },
     "stylelint": {
-      "dependsOn": ["sit-onyx#build"]
+      "dependsOn": ["^build"]
     }
   }
 }
