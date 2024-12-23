@@ -5,6 +5,7 @@
     "teamSlug": "onyx",
     "enabled": true
   },
+  "globalPassThroughEnv": ["PW_SHARD", "PW_TOTAL_SHARDS", "PW_UPDATE_SNAPSHOTS"],
   "globalDependencies": ["pnpm-lock.yaml"],
   "tasks": {
     "build": {
@@ -16,15 +17,13 @@
       "outputs": ["storybook-static"]
     },
     "test:coverage": {
-      "outputs": ["coverage"]
+      "outputs": ["coverage"],
+      "cache": false
     },
-    "test:components": {
-      "dependsOn": ["^build"],
-      "outputs": ["playwright-report", "test-results"]
-    },
-    "test:integration": {
-      "dependsOn": ["sit-onyx#build", "build"],
-      "outputs": ["playwright-report", "test-results"]
+    "test:playwright": {
+      "dependsOn": ["build"],
+      "outputs": ["playwright-report", "test-results", "blob-reports"],
+      "cache": false
     },
     "turbo:dev": {
       "dependsOn": ["^build"],

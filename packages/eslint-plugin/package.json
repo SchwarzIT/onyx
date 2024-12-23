@@ -7,6 +7,9 @@
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "main": "./src/index.cjs",
+  "scripts": {
+    "test:eslint-plugins": " node ./src/tests/index.cjs "
+  },
   "peerDependencies": {
     "eslint": ">= 8"
   },

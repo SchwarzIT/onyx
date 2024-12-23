@@ -19,7 +19,6 @@
     --onyx-shadow-soft-left: -0.5rem 0 1.5rem 0 rgba(0, 0, 0, 0.1);
     --onyx-shadow-soft-right: 0.5rem 0 1.5rem 0 rgba(0, 0, 0, 0.1);
 
-    --onyx-color-backdrop: rgba(0, 0, 0, 0.15);
     --onyx-outline-width: 0.25rem;
   }
 
@@ -37,8 +36,6 @@
     --onyx-shadow-soft-bottom: none;
     --onyx-shadow-soft-left: none;
     --onyx-shadow-soft-right: none;
-
-    --onyx-color-backdrop: rgba(0, 0, 0, 0.6);
   }
 }
 :where(html.onyx-transition-active *) {

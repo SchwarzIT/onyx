@@ -5,7 +5,10 @@ import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useMana
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), { open: MANAGED_SYMBOL });
+const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
+  open: MANAGED_SYMBOL,
+  trigger: "hover",
+});
 
 const emit = defineEmits<{
   "update:open": [isOpen: boolean];
@@ -46,6 +49,7 @@ const {
 } = createMenuButton({
   isExpanded: computed(() => !!isExpanded.value),
   onToggle: () => (isExpanded.value = !isExpanded.value),
+  trigger: computed(() => props.trigger),
 });
 </script>
 

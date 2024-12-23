@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/headless",
   "description": "Headless composables for Vue",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.0-beta.15",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -25,13 +25,14 @@
   "scripts": {
     "build": "vue-tsc --build --force",
     "test": "vitest",
-    "test:components": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test"
   },
   "peerDependencies": {
     "typescript": ">= 5",
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
+    "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
     "vue": "catalog:"
   }

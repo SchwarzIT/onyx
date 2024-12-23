@@ -7,6 +7,9 @@ export * from "./components/OnyxAccordion/types";
 export { default as OnyxAccordionItem } from "./components/OnyxAccordionItem/OnyxAccordionItem.vue";
 export * from "./components/OnyxAccordionItem/types";
 
+export { default as OnyxAlertDialog } from "./components/OnyxAlertDialog/OnyxAlertDialog.vue";
+export * from "./components/OnyxAlertDialog/types";
+
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types";
 
@@ -17,6 +20,9 @@ export { default as OnyxAvatarStack } from "./components/OnyxAvatarStack/OnyxAva
 
 export { default as OnyxBadge } from "./components/OnyxBadge/OnyxBadge.vue";
 export * from "./components/OnyxBadge/types";
+
+export { default as OnyxBottomBar } from "./components/OnyxBottomBar/OnyxBottomBar.vue";
+export * from "./components/OnyxBottomBar/types";
 
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
@@ -74,6 +80,9 @@ export * from "./components/OnyxMiniSearch/types";
 
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types";
+
+export { default as OnyxModalDialog } from "./components/OnyxModalDialog/OnyxModalDialog.vue";
+export * from "./components/OnyxModalDialog/types";
 
 export { default as OnyxMoreList } from "./components/OnyxMoreList/OnyxMoreList.vue";
 export * from "./components/OnyxMoreList/types";

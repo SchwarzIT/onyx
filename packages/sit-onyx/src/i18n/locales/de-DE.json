@@ -128,5 +128,8 @@
   },
   "input": {
     "clear": "Eingabe löschen"
+  },
+  "dialog": {
+    "close": "Dialog schließen"
   }
 }

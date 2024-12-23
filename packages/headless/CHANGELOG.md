@@ -1,5 +1,17 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.15
+
+### Patch Changes
+
+- b01942c: fix(createListbox): do not scroll whole page when opening with selected value
+
+## 1.0.0-beta.14
+
+### Minor Changes
+
+- b76647b: feat(createMenuButton): add new trigger property that enables the flyout to be expanded on click, not on hover. The default behavior is on hover
+
 ## 1.0.0-beta.13
 
 ### Patch Changes
