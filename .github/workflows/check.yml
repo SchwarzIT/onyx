@@ -63,6 +63,10 @@ jobs:
       - name: Run publint
         run: pnpm run publint:all
 
+      # scan CSS build for browser compatibility issues
+      - name: Run stylelint 💅
+        run: pnpm run stylelint
+
       - name: Upload code coverage artifact
         uses: actions/upload-artifact@v4
         if: always() # needed to also upload test results when they failed (useful for debugging)
