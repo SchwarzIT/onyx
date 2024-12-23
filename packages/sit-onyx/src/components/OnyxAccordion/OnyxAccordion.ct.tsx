@@ -28,7 +28,7 @@ test.describe("ScreenshotTest", () => {
     ),
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        if (row == "open") await component.locator(".onyx-accordion-item__header").click();
+        if (row == "open") await component.locator(".onyx-accordion-item__header").first().click();
         if (row === "hover") await component.hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");
       },
