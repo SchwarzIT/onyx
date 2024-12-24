@@ -420,8 +420,8 @@ importers:
         specifier: 8.5.0-beta.2
         version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
       '@storybook/addon-actions':
-        specifier: 8.5.0-beta.2
-        version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))
+        specifier: 8.5.0-beta.5
+        version: 8.5.0-beta.5(storybook@8.5.0-beta.2(prettier@3.4.2))
       '@vue/compiler-dom':
         specifier: 3.5.13
         version: 3.5.13
@@ -463,8 +463,8 @@ importers:
         specifier: workspace:^
         version: link:../shared
       '@storybook/addon-actions':
-        specifier: 8.5.0-beta.2
-        version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))
+        specifier: 8.5.0-beta.5
+        version: 8.5.0-beta.5(storybook@8.5.0-beta.2(prettier@3.4.2))
       storybook:
         specifier: 8.5.0-beta.2
         version: 8.5.0-beta.2(prettier@3.4.2)
@@ -2071,15 +2071,15 @@ packages:
     peerDependencies:
       storybook: ^8.5.0-beta.2
 
-  '@storybook/addon-actions@8.5.0-beta.2':
-    resolution: {integrity: sha512-KpbzLRkaZJ94IlolnR1MTG7nx/vmO+sKxbT3aFSu+gK1kLgsUHoWag4BfbATAxdxt3ZC8alqHdAIMYVgWqEstw==}
-    peerDependencies:
-      storybook: ^8.5.0-beta.2
-
   '@storybook/addon-actions@8.5.0-beta.4':
     resolution: {integrity: sha512-IyUoOc/UW1/Lfxwfl5G436oCfZIThhiZ8GB2zymcaamCoREIXGQzmPpNGQYoyi9PZM7nsikY+Rr8uATfMgXRRQ==}
     peerDependencies:
       storybook: ^8.5.0-beta.4
+
+  '@storybook/addon-actions@8.5.0-beta.5':
+    resolution: {integrity: sha512-RpyZ37h9kFD+EuIniBGZgeO01VZxOswP+oIRE4BrfHsN39jSI99HnYID/Wt9loLZc3u6Zw2cDUZICTKiUVMKTA==}
+    peerDependencies:
+      storybook: ^8.5.0-beta.5
 
   '@storybook/addon-backgrounds@8.5.0-beta.4':
     resolution: {integrity: sha512-LAnhsoo/ayMXgYiCd9VgHg/usvwMMe6925V9tL5KN/Dxqh2FOtmdZsm8pVIXB9tgPl+9bnN+zr0+l9eZxy1aoA==}
@@ -6479,6 +6479,9 @@ packages:
   vue-component-type-helpers@2.1.10:
     resolution: {integrity: sha512-lfgdSLQKrUmADiSV6PbBvYgQ33KF3Ztv6gP85MfGaGaSGMTXORVaHT1EHfsqCgzRNBstPKYDmvAV9Do5CmJ07A==}
 
+  vue-component-type-helpers@2.2.0:
+    resolution: {integrity: sha512-cYrAnv2me7bPDcg9kIcGwjJiSB6Qyi08+jLDo9yuvoFQjzHiPTzML7RnkJB1+3P6KMsX/KbCD4QE3Tv/knEllw==}
+
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
     engines: {node: '>=12'}
@@ -8410,7 +8413,7 @@ snapshots:
     transitivePeerDependencies:
       - vitest
 
-  '@storybook/addon-actions@8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))':
+  '@storybook/addon-actions@8.5.0-beta.4(storybook@8.5.0-beta.2(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
@@ -8419,7 +8422,7 @@ snapshots:
       storybook: 8.5.0-beta.2(prettier@3.4.2)
       uuid: 9.0.1
 
-  '@storybook/addon-actions@8.5.0-beta.4(storybook@8.5.0-beta.2(prettier@3.4.2))':
+  '@storybook/addon-actions@8.5.0-beta.5(storybook@8.5.0-beta.2(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
@@ -8657,7 +8660,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.13(typescript@5.7.2)
-      vue-component-type-helpers: 2.1.10
+      vue-component-type-helpers: 2.2.0
 
   '@storybook/vue3@8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -8671,7 +8674,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.13(typescript@5.6.3)
-      vue-component-type-helpers: 2.1.10
+      vue-component-type-helpers: 2.2.0
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -13486,6 +13489,8 @@ snapshots:
       typescript: 5.7.2
 
   vue-component-type-helpers@2.1.10: {}
+
+  vue-component-type-helpers@2.2.0: {}
 
   vue-demi@0.14.10(vue@3.5.13(typescript@5.7.2)):
     dependencies:
