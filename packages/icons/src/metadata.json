@@ -213,6 +213,10 @@
     "category": "Objects",
     "aliases": ["Besen", "aufräumen", "entleeren", "tidyup"]
   },
+  "browser-domain": {
+    "category": "Network & Infrastructure",
+    "aliases": []
+  },
   "browser-globe": {
     "category": "Network & Infrastructure",
     "aliases": ["internet-explorer", "web-world", "nternet-Browser", "Web-Welt"]
@@ -1345,7 +1349,7 @@
   },
   "key-settings": {
     "category": "Software & Services",
-    "aliases": ["KMS", "configuration", "key-management", "Schlüssel", "Zahnrad"]
+    "aliases": []
   },
   "key-shield": {
     "category": "Security & Protection",
