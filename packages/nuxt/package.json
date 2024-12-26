@@ -36,15 +36,15 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.14.1592"
+    "@nuxt/kit": "^3.15.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.6.4",
     "@nuxt/module-builder": "~0.8.4",
-    "@nuxt/schema": "^3.14.1592",
+    "@nuxt/schema": "^3.15.0",
     "@nuxt/test-utils": "^3.15.1",
     "@nuxtjs/i18n": "^9.1.1",
-    "nuxt": "^3.14.1592",
+    "nuxt": "^3.15.0",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "vue-i18n": "^10.0.5"
