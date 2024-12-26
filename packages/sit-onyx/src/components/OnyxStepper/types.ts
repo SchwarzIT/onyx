@@ -33,18 +33,32 @@ export type OnyxStepperProps = FormInjectedProps &
     step?: number; // step-mismatch + step-increment
 
     /**
-     * The smallest allowed value and rounded precision
+     * Number of decimal places to show. Can also be negative. Value will be rounded if needed
+     * to match the specified precision.
+     *
+     * @example For `precision=2` with `modelValue=5`, "5.00" will be displayed.
+     * @example For `precision=-1` with `modelValue=60`, "100" will be displayed.
+     * @default undefined
      */
-    precision?: number; // step-mismatch => uses :step="props.precision" for the validation
-    /**
-     * The increment number
-     * @default precision is the default stepSize
-     */
-    stepSize?: number; //  step-increment => number which is used for increment/decrement
+    precision?: number;
 
     /**
-     * Ensure no wrong number can be inputed
+     * Defines how much the value is adjusted when clicking the +/- button.
+     *
+     * @default 1
      */
+    stepSize?: number;
+    /**
+     * Defines step size f0r valid/allowed values. Can be independent of the `stepSize` property.
+     * Uses the `min` property as base so if defining min=3 with validStepSize=2, only odd numbers will
+     *
+     * @example For `validStepSize` 0.01, only multiples of 0.01 are valid (useful for currencies)
+     * @example For `stepSize=4` `validStepSize=2`, only even numbers are valid and the user can adjust the value by 4 when clicking the +/- button.
+     * @example For `min=3` and `validStepSize=2`, only odd numbers will be valid
+     * @default undefined
+     */
+    validStepSize?: number;
+
     stripStep?: boolean;
 
     /**

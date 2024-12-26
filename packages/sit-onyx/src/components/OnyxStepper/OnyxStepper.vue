@@ -15,7 +15,9 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  precision: 1,
+  precision: undefined,
+  stepSize: 1,
+  validStepSize: undefined,
   stripStep: false,
   readonly: false,
   loading: false,
@@ -50,47 +52,48 @@ const modelValue = defineModel<number>();
  */
 const inputValue = ref<string>();
 
-const decimalPlaces = computed(() => {
-  const precision = props.precision;
-  const precisionStr = precision.toString();
-  if (precisionStr.includes(".")) {
-    return precisionStr.split(".")[1].length;
-  }
-  return -Math.floor(Math.log10(precision));
-});
-
 watch(
   modelValue,
-  () => (inputValue.value = roundToPrecision(modelValue.value, decimalPlaces.value)),
+  () => {
+    if (props.precision) {
+      inputValue.value = roundToPrecision(modelValue.value, props.precision);
+    } else {
+      inputValue.value = modelValue.value?.toString();
+    }
+  },
   {
     immediate: true,
   },
-);
-
-// * stepSize must be precision or bigger
-// * use precision as fallback
-const determinedStepSize = computed(() =>
-  Math.max(props.stepSize ?? props.precision, props.precision),
 );
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
   if (!inputRef.value) return;
   wasTouched.value = true;
   const currentValue = modelValue.value || 0;
-  const stepValue = (direction === "stepUp" ? 1 : -1) * determinedStepSize.value;
+  const stepValue = (direction === "stepUp" ? 1 : -1) * props.stepSize;
   const newValue = currentValue + stepValue;
-  const roundedValue = Math.round(newValue / props.precision) * props.precision;
-
-  modelValue.value = applyLimits(roundedValue, props.min, props.max);
+  // correcting invalid inputs to the next valid number
+  const roundedValue = props.validStepSize
+    ? Math.round((newValue - (props.min || 0)) / props.validStepSize) * props.validStepSize +
+      (props.min || 0)
+    : newValue;
+  const precisionAdjustedValue = props.precision
+    ? parseFloat(roundToPrecision(roundedValue, props.precision))
+    : roundedValue;
+  modelValue.value = applyLimits(precisionAdjustedValue, props.min, props.max);
 };
 
 const handleChange = () => {
   if (!inputRef.value) return;
   wasTouched.value = true;
   const newValue = parseFloat(inputValue.value ?? "");
-  const rounded = parseFloat(roundToPrecision(newValue, decimalPlaces.value));
+  const rounded = props.precision
+    ? parseFloat(roundToPrecision(newValue, props.precision))
+    : newValue;
   // reset input
-  inputValue.value = roundToPrecision(newValue, decimalPlaces.value);
+  inputValue.value = props.precision
+    ? roundToPrecision(newValue, props.precision)
+    : newValue.toString();
 
   if (!newValue || isNaN(newValue)) {
     modelValue.value = undefined;
@@ -99,22 +102,20 @@ const handleChange = () => {
 
   if (
     props.stripStep &&
-    (!isDivisible(newValue, props.precision) ||
+    ((props.validStepSize && !isDivisible(newValue, props.validStepSize)) ||
       (props.min !== undefined && props.min > newValue) ||
       (props.max !== undefined && props.max < newValue))
   ) {
-    inputValue.value = roundToPrecision(modelValue.value, decimalPlaces.value);
+    inputValue.value = props.precision
+      ? roundToPrecision(modelValue.value, props.precision)
+      : modelValue.value?.toString();
     return;
   }
   modelValue.value = rounded;
 };
 
-const incrementLabel = computed(() =>
-  t.value("stepper.increment", { stepSize: determinedStepSize.value }),
-);
-const decrementLabel = computed(() =>
-  t.value("stepper.decrement", { stepSize: determinedStepSize.value }),
-);
+const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
+const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.stepSize }));
 </script>
 
 <template>
@@ -163,7 +164,7 @@ const decrementLabel = computed(() =>
           :placeholder="props.placeholder"
           :readonly="props.readonly"
           :required="props.required"
-          :step="props.precision"
+          :step="props.validStepSize ?? 'any'"
           :title="props.hideLabel ? props.label : undefined"
           @change="handleChange"
           @keydown.up.prevent="handleClick('stepUp')"

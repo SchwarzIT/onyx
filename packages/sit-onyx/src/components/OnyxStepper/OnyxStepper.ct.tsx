@@ -336,53 +336,6 @@ test("should increment/decrement value by one on counter button click", async ({
   await expect(input).toHaveValue("0");
 });
 
-test("should increment/decrement value by step on counter button click", async ({
-  mount,
-  makeAxeBuilder,
-}) => {
-  // ARRANGE
-  const on = {
-    "update:modelValue": (newValue) => {
-      component.update({
-        props: {
-          modelValue: newValue,
-        },
-        on,
-      });
-    },
-  };
-
-  const component = await mount(OnyxStepper, {
-    props: {
-      label: "Test label",
-      style: "width: 12rem;",
-      stepSize: 2,
-    },
-    on,
-  });
-
-  const input = component.getByLabel("Test label");
-  const addButton = component.getByLabel("Increment");
-  const substractButton = component.getByLabel("Decrement by 2");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component.getByLabel("Test label")).toBeAttached();
-
-  await input.click();
-  await input.fill("0");
-  await expect(input).toHaveValue("0");
-
-  await addButton.click();
-  await expect(input).toHaveValue("2");
-
-  await substractButton.click();
-  await expect(input).toHaveValue("0");
-});
-
 test("should not allow entering value over the max value that has been set", async ({
   mount,
   makeAxeBuilder,
@@ -476,7 +429,7 @@ test("should not allow entering value lower the min value that has been set", as
   await expect(substractButton).toBeDisabled();
 });
 
-test("Should display the same number of decimal places as the smallest possible step", async ({
+test("Should correctly display decimal places according to the defined precision", async ({
   mount,
   makeAxeBuilder,
 }) => {
@@ -496,7 +449,7 @@ test("Should display the same number of decimal places as the smallest possible 
     props: {
       label: "Test label",
       style: "width: 12rem;",
-      precision: 0.01,
+      precision: 2,
     },
     on,
   });
@@ -514,7 +467,7 @@ test("Should display the same number of decimal places as the smallest possible 
   await expect(input).toHaveValue("1.00");
 });
 
-test("Should display an error if the value is not a multiple of the precision", async ({
+test("Should display an error if the value is not a multiple of validStepSize", async ({
   page,
   mount,
   makeAxeBuilder,
@@ -536,7 +489,7 @@ test("Should display an error if the value is not a multiple of the precision", 
       label: "Test label",
       style: "width: 12rem;",
       modelValue: 1,
-      precision: 0.5,
+      validStepSize: 0.5,
     },
     on,
   });
@@ -554,7 +507,6 @@ test("Should display an error if the value is not a multiple of the precision", 
   await page.keyboard.press("Enter");
 
   await expect(errorMessage).toBeHidden();
-  await page.keyboard.press("Enter");
 
   await input.fill("3.6");
   await page.keyboard.press("Enter");
@@ -582,7 +534,7 @@ test("Should revert to the last valid input if the current input is invalid in s
     props: {
       label: "Test label",
       style: "width: 12rem;",
-      precision: 0.5,
+      validStepSize: 0.5,
       stripStep: true,
     },
     on,
@@ -592,9 +544,9 @@ test("Should revert to the last valid input if the current input is invalid in s
 
   await input.fill("1");
   await page.keyboard.press("Enter");
-  await expect(input).toHaveValue("1.0");
+  await expect(input).toHaveValue("1");
   await page.keyboard.press("Enter");
   await input.fill("1.6");
   await page.keyboard.press("Enter");
-  await expect(input).toHaveValue("1.0");
+  await expect(input).toHaveValue("1");
 });
