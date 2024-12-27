@@ -1,5 +1,33 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.10
+
+### Minor Changes
+
+- ad447e9: feat: update icons
+
+  #### New icons
+
+  - browser-domain
+
+  #### Modified icons
+
+  - key-settings
+
+## 1.0.0-beta.9
+
+### Minor Changes
+
+- ee0fcd2: feat: update icons
+
+  #### New icons
+
+  - browser-domain
+
+  #### Modified icons
+
+  - key-settings
+
 ## 1.0.0-beta.8
 
 ### Minor Changes
