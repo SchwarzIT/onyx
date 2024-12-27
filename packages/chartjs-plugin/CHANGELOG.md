@@ -1,5 +1,17 @@
 # @sit-onyx/chartjs-plugin
 
+## 1.0.0-beta.104
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.104
+
+## 1.0.0-beta.103
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.103
+
 ## 1.0.0-beta.102
 
 ### Patch Changes
