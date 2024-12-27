@@ -420,8 +420,8 @@ importers:
         specifier: 8.5.0-beta.2
         version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
       '@storybook/addon-actions':
-        specifier: 8.5.0-beta.2
-        version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))
+        specifier: 8.5.0-beta.6
+        version: 8.5.0-beta.6(storybook@8.5.0-beta.2(prettier@3.4.2))
       '@vue/compiler-dom':
         specifier: 3.5.13
         version: 3.5.13
@@ -463,8 +463,8 @@ importers:
         specifier: workspace:^
         version: link:../shared
       '@storybook/addon-actions':
-        specifier: 8.5.0-beta.2
-        version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))
+        specifier: 8.5.0-beta.6
+        version: 8.5.0-beta.6(storybook@8.5.0-beta.2(prettier@3.4.2))
       storybook:
         specifier: 8.5.0-beta.2
         version: 8.5.0-beta.2(prettier@3.4.2)
@@ -2075,15 +2075,15 @@ packages:
     peerDependencies:
       storybook: ^8.5.0-beta.2
 
-  '@storybook/addon-actions@8.5.0-beta.2':
-    resolution: {integrity: sha512-KpbzLRkaZJ94IlolnR1MTG7nx/vmO+sKxbT3aFSu+gK1kLgsUHoWag4BfbATAxdxt3ZC8alqHdAIMYVgWqEstw==}
-    peerDependencies:
-      storybook: ^8.5.0-beta.2
-
   '@storybook/addon-actions@8.5.0-beta.4':
     resolution: {integrity: sha512-IyUoOc/UW1/Lfxwfl5G436oCfZIThhiZ8GB2zymcaamCoREIXGQzmPpNGQYoyi9PZM7nsikY+Rr8uATfMgXRRQ==}
     peerDependencies:
       storybook: ^8.5.0-beta.4
+
+  '@storybook/addon-actions@8.5.0-beta.6':
+    resolution: {integrity: sha512-PitoHHQwNAISVR7O3zGAVY9e1z22wlGIhaI8aSHKgzbueMoRePWmLOPDW8EWwazoXv6j0TX1nT96taDG3dI0vQ==}
+    peerDependencies:
+      storybook: ^8.5.0-beta.6
 
   '@storybook/addon-backgrounds@8.5.0-beta.4':
     resolution: {integrity: sha512-LAnhsoo/ayMXgYiCd9VgHg/usvwMMe6925V9tL5KN/Dxqh2FOtmdZsm8pVIXB9tgPl+9bnN+zr0+l9eZxy1aoA==}
@@ -8419,7 +8419,7 @@ snapshots:
     transitivePeerDependencies:
       - vitest
 
-  '@storybook/addon-actions@8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.2))':
+  '@storybook/addon-actions@8.5.0-beta.4(storybook@8.5.0-beta.2(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
@@ -8428,7 +8428,7 @@ snapshots:
       storybook: 8.5.0-beta.2(prettier@3.4.2)
       uuid: 9.0.1
 
-  '@storybook/addon-actions@8.5.0-beta.4(storybook@8.5.0-beta.2(prettier@3.4.2))':
+  '@storybook/addon-actions@8.5.0-beta.6(storybook@8.5.0-beta.2(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
