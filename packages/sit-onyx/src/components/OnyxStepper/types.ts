@@ -24,9 +24,8 @@ export type OnyxStepperProps = FormInjectedProps &
      */
     max?: number;
     /**
-     * Incremental step.
-     */
-    /**
+     * Ensure no wrong number can be inputed
+     */ /**
      * Incremental step.
      * @deprecated
      */
@@ -37,7 +36,7 @@ export type OnyxStepperProps = FormInjectedProps &
      * to match the specified precision.
      *
      * @example For `precision=2` with `modelValue=5`, "5.00" will be displayed.
-     * @example For `precision=-1` with `modelValue=60`, "100" will be displayed.
+     * @example For `precision=-2` with `modelValue=60`, "100" will be displayed.
      * @default undefined
      */
     precision?: number;
@@ -49,7 +48,7 @@ export type OnyxStepperProps = FormInjectedProps &
      */
     stepSize?: number;
     /**
-     * Defines step size f0r valid/allowed values. Can be independent of the `stepSize` property.
+     * Defines step size for valid/allowed values. Can be independent of the `stepSize` property.
      * Uses the `min` property as base so if defining min=3 with validStepSize=2, only odd numbers will
      *
      * @example For `validStepSize` 0.01, only multiples of 0.01 are valid (useful for currencies)
@@ -58,7 +57,9 @@ export type OnyxStepperProps = FormInjectedProps &
      * @default undefined
      */
     validStepSize?: number;
-
+    /**
+     * Ensure no wrong number can be inputed
+     */
     stripStep?: boolean;
 
     /**
