@@ -24,8 +24,6 @@ export type OnyxStepperProps = FormInjectedProps &
      */
     max?: number;
     /**
-     * Ensure no wrong number can be inputed
-     */ /**
      * Incremental step.
      * @deprecated
      */
