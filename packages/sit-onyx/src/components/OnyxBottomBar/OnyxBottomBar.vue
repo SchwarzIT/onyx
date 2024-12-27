@@ -43,7 +43,7 @@ const { densityClass } = useDensity(props);
 
 .onyx-bottom-bar {
   @include layers.component() {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100%;
     margin-inline: var(--onyx-grid-margin-inline);
