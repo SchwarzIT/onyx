@@ -12,13 +12,13 @@ describe("useToast", () => {
 
     expect(provider.toasts.value).toStrictEqual([
       {
-        id: 2,
-        headline: "Test 2",
+        id: 1,
+        headline: "Test 1",
         onClose: expect.any(Function),
       },
       {
-        id: 1,
-        headline: "Test 1",
+        id: 2,
+        headline: "Test 2",
         onClose: expect.any(Function),
       },
     ]);
