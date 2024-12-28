@@ -7,6 +7,7 @@ import {
   OnyxAccordionItem,
   OnyxAvatar,
   OnyxBadge,
+  OnyxBottomBar,
   OnyxButton,
   OnyxCheckboxGroup,
   OnyxDatePicker,
@@ -355,6 +356,14 @@ const selectedDate = ref<DateValue>();
         <!-- Add new components alphabetically. -->
       </div>
     </div>
+    <template #footer>
+      <OnyxBottomBar>
+        <template #right>
+          <OnyxButton label="Button" mode="plain" color="neutral"></OnyxButton>
+          <OnyxButton label="Button"></OnyxButton>
+        </template>
+      </OnyxBottomBar>
+    </template>
   </OnyxPageLayout>
 </template>
 

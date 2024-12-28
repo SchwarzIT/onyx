@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-beta.75",
+  "version": "1.0.0-beta.77",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "@storybook/addon-actions": "8.5.0-beta.2",
+    "@storybook/addon-actions": "8.5.0-beta.6",
     "storybook": "8.5.0-beta.2",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.1.10"
