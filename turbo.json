@@ -6,7 +6,7 @@
     "enabled": true
   },
   "globalPassThroughEnv": ["PW_SHARD", "PW_TOTAL_SHARDS", "PW_UPDATE_SNAPSHOTS"],
-  "globalDependencies": ["pnpm-lock.yaml"],
+  "globalDependencies": ["pnpm-lock.yaml", "stylelint.config.js"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -29,6 +29,9 @@
       "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
+    },
+    "stylelint": {
+      "dependsOn": ["^build"]
     }
   }
 }

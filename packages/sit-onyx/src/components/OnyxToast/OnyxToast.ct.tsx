@@ -20,7 +20,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await expect(component).toContainText("Example toast 1");
 
     // ACT
-    await component.getByLabel("Close").nth(4).click();
+    await component.getByLabel("Close").first().click();
 
     // ASSERT
     await expect(component).not.toContainText("Example toast 1");
