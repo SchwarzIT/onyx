@@ -1,5 +1,5 @@
 ---
-"sit-onyx": minor
+"sit-onyx": major
 ---
 
 feat(OnyxStepper): update OnyxStepper API
