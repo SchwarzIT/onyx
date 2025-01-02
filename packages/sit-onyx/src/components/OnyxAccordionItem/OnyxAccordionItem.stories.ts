@@ -24,8 +24,8 @@ type Story = StoryObj<typeof OnyxAccordionItem>;
 /** Standard AccordionItem*/
 export const Default = {
   args: {
-    header: () => h("h4", "Title"),
-    panel: () => h("p", "Hidden Content"),
+    header: () => h("p", "Title"),
+    default: () => h("p", "Hidden Content"),
   },
 } satisfies Story;
 

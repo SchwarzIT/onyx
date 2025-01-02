@@ -4,12 +4,11 @@ import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
 
 /**
- * An accordion is a versatile UI element that allows users to expand and collapse sections of content. It is commonly used for organizing large amounts of information in a compact space, enabling users to easily navigate through different categories or options.
-
-
+ * An accordion is a versatile UI element that allows users to expand and collapse sections of content.
+ * It is commonly used for organizing large amounts of information in a compact space, enabling users to easily navigate through different categories or options.
  */
 const meta: Meta<typeof OnyxAccordion> = {
-  title: "Navigation/Accordion",
+  title: "Basic/Accordion",
   component: OnyxAccordion,
   argTypes: {
     default: {
@@ -25,16 +24,16 @@ export const Default = {
   args: {
     default: () => [
       h(OnyxAccordionItem, null, {
-        header: () => h("h4", "First Accordion Header"),
-        panel: () => h("p", "This is the content inside the first panel."),
+        header: () => h("p", "First Accordion Header"),
+        default: () => h("p", "This is the content inside the first panel."),
       }),
       h(OnyxAccordionItem, null, {
-        header: () => h("h4", "Second Accordion Header"),
-        panel: () => h("p", "This is the content inside the second panel."),
+        header: () => h("p", "Second Accordion Header"),
+        default: () => h("p", "This is the content inside the second panel."),
       }),
       h(OnyxAccordionItem, null, {
-        header: () => h("h4", "Third Accordion Header"),
-        panel: () => h("p", "This is the content inside the third panel."),
+        header: () => h("p", "Third Accordion Header"),
+        default: () => h("p", "This is the content inside the third panel."),
       }),
     ],
   },
@@ -46,12 +45,14 @@ export const Exclusive = {
     exclusive: true,
   },
 } satisfies Story;
+
 export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
   },
 } satisfies Story;
+
 export const Skeleton = {
   args: {
     ...Default.args,

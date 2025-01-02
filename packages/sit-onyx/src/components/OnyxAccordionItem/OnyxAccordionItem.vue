@@ -1,31 +1,32 @@
 <script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import { computed, inject, useId } from "vue";
-import { ACCORDION_INJECTION_KEY, OnyxIcon, useDensity } from "../../";
+import { useId } from "vue";
+import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxAccordionItemProps } from "./types";
+import { useAccordionItem } from "./useAccordionItem";
 
 const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
+defineSlots<{
+  /**
+   * Displays the header content.
+   */
+  header(): unknown;
+
+  /**
+   * Displays the panel content.
+   */
+  default?(): unknown;
+}>();
 const itemId = useId();
 
-defineSlots<{
-  header(): unknown;
-  panel(): unknown;
-}>();
-
-const accordionContext = inject(ACCORDION_INJECTION_KEY);
-
-const isOpen = computed({
-  get: () => accordionContext?.openItems.value.has(itemId) || false,
-  set: (value: boolean) => {
-    accordionContext?.updateOpen(itemId, value);
-  },
-});
+const { accordionContext, isOpen } = useAccordionItem(itemId);
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
@@ -37,39 +38,40 @@ const { densityClass } = useDensity(props);
     :class="['onyx-component', 'onyx-accordion-item-skeleton', densityClass]"
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
-    <OnyxSkeleton class="onyx-accordion-item-skeleton__decoration" />
+    <OnyxSystemButton skeleton class="onyx-accordion-item-skeleton__decoration" />
   </div>
 
   <details
-    v-else-if="accordionContext"
+    v-else
     class="onyx-component onyx-accordion-item"
-    :class="[densityClass, props.disabled || accordionContext.disabled.value ? 'disabled' : '']"
+    :class="[
+      densityClass,
+      accordionContext?.disabled.value || props.disabled ? 'onyx-accordion-item--disabled' : '',
+    ]"
     :open="isOpen"
-    @toggle="(e) => (isOpen = (e.target as HTMLDetailsElement).open)"
+    @toggle="isOpen = ($event.target as HTMLDetailsElement).open"
   >
     <summary
       class="onyx-accordion-item__header"
-      :tabindex="props.disabled || accordionContext.disabled.value ? -1 : 0"
+      role="heading"
+      :tabindex="accordionContext?.disabled.value || props.disabled ? -1 : 0"
+      aria-level="2"
+      :aria-expanded="isOpen"
+      :aria-controls="'panel-' + itemId"
+      :aria-disabled="accordionContext?.disabled.value || props.disabled"
     >
-      <slot name="header"></slot>
-      <OnyxIcon :icon="chevronLeftSmall" class="onyx-accordion-item__header__icon" />
+      <div class="onyx-accordion-item__header__content">
+        <slot name="header"></slot>
+      </div>
+
+      <OnyxSystemButton
+        :icon="chevronLeftSmall"
+        class="onyx-accordion-item__header__icon"
+        tabindex="-1"
+      />
     </summary>
-    <div class="onyx-accordion-item__panel">
-      <slot name="panel"></slot>
-    </div>
-  </details>
-  <!-- Fallback if AccordionItem is used without Accordion -->
-  <details
-    v-else
-    class="onyx-component onyx-accordion-item"
-    :class="[densityClass, props.disabled ? 'disabled' : '']"
-  >
-    <summary class="onyx-accordion-item__header" :tabindex="props.disabled ? -1 : 0">
-      <slot name="header"></slot>
-      <OnyxIcon :icon="chevronLeftSmall" class="onyx-accordion-item__header__icon" />
-    </summary>
-    <div class="onyx-accordion-item__panel">
-      <slot name="panel"></slot>
+    <div class="onyx-accordion-item__panel" role="region" :aria-labelledby="'header-' + itemId">
+      <slot></slot>
     </div>
   </details>
 </template>
@@ -78,7 +80,7 @@ const { densityClass } = useDensity(props);
 @use "../../styles/mixins/layers";
 .onyx-accordion-item {
   @include layers.component() {
-    border-bottom: 1px solid var(--onyx-color-component-border-neutral);
+    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     color: var(--onyx-color-text-icons-neutral-intense);
     overflow: hidden;
     font-family: var(--onyx-font-family);
@@ -89,9 +91,10 @@ const { densityClass } = useDensity(props);
       width: 100%;
       position: relative;
       display: flex;
+      justify-content: space-between;
+      gap: var(--onyx-density-md);
       align-items: center;
       padding: var(--onyx-density-md);
-      padding-right: calc(3 * var(--onyx-density-md));
 
       cursor: pointer;
       &:hover,
@@ -99,9 +102,18 @@ const { densityClass } = useDensity(props);
         background-color: var(--onyx-color-base-neutral-200);
         outline: none;
       }
+      &__content {
+        display: flex;
+      }
+
       &__icon {
-        position: absolute;
+        pointer-events: none;
         right: var(--onyx-density-md);
+        color: inherit;
+        figure {
+          height: 100%;
+          width: 100%;
+        }
       }
     }
     &[open] &__header__icon {
@@ -127,7 +139,7 @@ const { densityClass } = useDensity(props);
     &__panel {
       padding: var(--onyx-density-md);
     }
-    &.disabled {
+    &--disabled {
       color: var(--onyx-color-text-icons-neutral-soft);
       pointer-events: none;
       .onyx-accordion-item__header {

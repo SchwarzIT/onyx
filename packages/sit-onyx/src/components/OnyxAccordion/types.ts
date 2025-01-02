@@ -3,13 +3,14 @@ import type { InjectionKey, Ref } from "vue";
 import type { DensityProp } from "../../composables/density";
 
 export type OnyxAccordionProps = DensityProp & {
-  /** Whether only one AccordionItem can be open at the same time  */
+  /**
+   *  Whether only one AccordionItem can be open at the same time
+   */
   exclusive?: boolean;
   /**
    * Disable the accordion.
    */
   disabled?: boolean;
-
   /**
    * If set, the specified number of skeleton accordions will be shown.
    */

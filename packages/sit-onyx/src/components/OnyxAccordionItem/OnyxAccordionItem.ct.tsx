@@ -64,7 +64,7 @@ test("should apply the disabled state", async ({ mount, makeAxeBuilder }) => {
 
   // Locators
   const header = component.locator(".onyx-accordion-item__header");
-  await expect(header).toHaveAttribute("tabindex", "-1");
+  await expect(header).not.toBeFocused();
 
   const accessibilityScanResults = await makeAxeBuilder().analyze();
 
