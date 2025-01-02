@@ -26,6 +26,7 @@ const type = computed(() => {
         :open="props.open"
         :color="props.color"
         :position="props.position"
+        wedge-points-to-center
       >
         <template #default="{ trigger }">
           <button type="button" class="onyx-info-tooltip__trigger" v-bind="trigger">
@@ -42,6 +43,7 @@ const type = computed(() => {
         :open="props.open"
         :color="props.color"
         :position="props.position"
+        wedge-points-to-center
       >
         <template #default="{ trigger }">
           <span class="onyx-info-tooltip__trigger" v-bind="trigger">

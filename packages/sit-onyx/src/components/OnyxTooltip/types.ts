@@ -47,6 +47,10 @@ export type OnyxTooltipProps = DensityProp & {
    * See also: https://inclusive-components.design/tooltips-toggletips/
    */
   open?: TooltipOpen;
+  /**
+   * Whether the wedge (tooltip arrow) points to the center of the parent element.
+   */
+  wedgePointsToCenter?: boolean;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;
