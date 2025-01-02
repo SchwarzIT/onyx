@@ -77,6 +77,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
           label="Default number of columns"
           placeholder="Default number of columns"
           v-bind="STEPPER_VALIDATIONS"
+          :precision="0"
           autofocus
           required
         />
@@ -107,6 +108,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
               v-model="state.breakpoints[breakpoint]"
               :label="`Number of columns for breakpoint ${breakpoint}`"
               v-bind="STEPPER_VALIDATIONS"
+              :precision="0"
               hide-label
               :disabled="!state.columnCount"
             />

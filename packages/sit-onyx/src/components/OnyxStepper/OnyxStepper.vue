@@ -1,38 +1,38 @@
 <script lang="ts" setup>
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed, ref, watch } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
-import { applyLimits, isDivisible, roundToPrecision } from "../../utils/numbers";
+import { applyLimits, roundToPrecision } from "../../utils/numbers";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types";
+
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
-  precision: undefined,
   stepSize: 1,
-  validStepSize: undefined,
-  stripStep: false,
   readonly: false,
   loading: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
 });
-const { t } = injectI18n();
-const inputRef = ref<HTMLInputElement>();
+
 const emit = defineEmits<{
   /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
 }>();
+
+const { t } = injectI18n();
+
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
@@ -40,78 +40,51 @@ const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
+
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
 const modelValue = defineModel<number>();
+
 /**
  * Used for syncing the actual input value.
  * We use string to be able to control the number of decimal places.
  */
 const inputValue = ref<string>();
 
-watch(
-  modelValue,
-  () => {
-    if (props.precision) {
-      inputValue.value = roundToPrecision(modelValue.value, props.precision);
+const getFormattedValue = computed(() => {
+  return (value?: number) => {
+    if (props.precision !== undefined && value !== undefined) {
+      return roundToPrecision(value, props.precision);
     } else {
-      inputValue.value = modelValue.value?.toString();
+      return value?.toString() ?? "";
     }
-  },
-  {
-    immediate: true,
-  },
-);
+  };
+});
+
+watchEffect(() => {
+  inputValue.value = getFormattedValue.value(modelValue.value);
+});
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
-  if (!inputRef.value) return;
   wasTouched.value = true;
   const currentValue = modelValue.value || 0;
   const stepValue = (direction === "stepUp" ? 1 : -1) * props.stepSize;
-  const newValue = currentValue + stepValue;
-  // correcting invalid inputs to the next valid number
-  const roundedValue = props.validStepSize
-    ? Math.round((newValue - (props.min || 0)) / props.validStepSize) * props.validStepSize +
-      (props.min || 0)
-    : newValue;
-  const precisionAdjustedValue = props.precision
-    ? parseFloat(roundToPrecision(roundedValue, props.precision))
-    : roundedValue;
-  modelValue.value = applyLimits(precisionAdjustedValue, props.min, props.max);
+  const newValue = parseFloat(getFormattedValue.value(currentValue + stepValue));
+  modelValue.value = applyLimits(newValue, props.min, props.max);
 };
 
 const handleChange = () => {
-  if (!inputRef.value) return;
   wasTouched.value = true;
-  const newValue = parseFloat(inputValue.value ?? "");
-  const rounded = props.precision
-    ? parseFloat(roundToPrecision(newValue, props.precision))
-    : newValue;
-  // reset input
-  inputValue.value = props.precision
-    ? roundToPrecision(newValue, props.precision)
-    : newValue.toString();
-
-  if (!newValue || isNaN(newValue)) {
+  if (!inputValue.value) {
     modelValue.value = undefined;
     return;
   }
 
-  if (
-    props.stripStep &&
-    ((props.validStepSize && !isDivisible(newValue, props.validStepSize)) ||
-      (props.min !== undefined && props.min > newValue) ||
-      (props.max !== undefined && props.max < newValue))
-  ) {
-    inputValue.value = props.precision
-      ? roundToPrecision(modelValue.value, props.precision)
-      : modelValue.value?.toString();
-    return;
-  }
-  modelValue.value = rounded;
+  inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
+  modelValue.value = parseFloat(inputValue.value);
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
@@ -149,7 +122,6 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
         <input
           v-else
-          ref="inputRef"
           v-model="inputValue"
           v-custom-validity
           class="onyx-stepper__native"

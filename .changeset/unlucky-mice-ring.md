@@ -1,9 +1,10 @@
 ---
-"sit-onyx": minor
+"sit-onyx": major
 ---
 
-feat(OnyxStepper): update StepperAPI
+feat(OnyxStepper): update OnyxStepper API
 
-- stepSize: Defines how much the value is adjusted when clicking the +/- button.
-- precision: Number of decimal places to show.
-- validStepSize: Defines step size fir valid/allowed values.
+- remove property `step`, use `stepSize` instead
+- remove property `stripStep`, use `validStepSize` instead. User inputs will no longer be manipulated, instead an error will be shown
+- changed logic of `precision` property. Now determined numbers of decimal places to show. Is no longer the default value of `stepSize` property.
+- fix bug that decimal value is not displayed correctly when `precision` is not set
