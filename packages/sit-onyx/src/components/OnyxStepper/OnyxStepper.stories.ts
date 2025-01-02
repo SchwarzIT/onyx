@@ -29,6 +29,17 @@ export const Default = {
 } satisfies Story;
 
 /**
+ * This example shows a stepper with precision two always show two decimal places.
+ */
+export const Precision = {
+  args: {
+    label: "Currency",
+    modelValue: 5,
+    precision: 2,
+  },
+} satisfies Story;
+
+/**
  * This example shows the stepper with a placeholder.
  */
 export const Placeholder = {
