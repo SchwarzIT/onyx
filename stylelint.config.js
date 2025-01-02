@@ -5,9 +5,8 @@ export default {
     "plugin/no-unsupported-browser-features": [
       true,
       {
-        /** ignore all css features that are safe to expect here */
+        // ignore CSS features that are not supported by some browser but we in onyx decide to still use
         ignore: [
-          "css-has",
           "css-overscroll-behavior",
           "css-container-query-units",
           "css-container-queries",
