@@ -12,7 +12,7 @@ const meta: Meta<typeof OnyxAccordionItem> = {
     header: {
       control: { disable: true },
     },
-    panel: {
+    default: {
       control: { disable: true },
     },
   },

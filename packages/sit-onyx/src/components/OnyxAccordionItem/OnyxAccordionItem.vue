@@ -38,7 +38,7 @@ const { densityClass } = useDensity(props);
     :class="['onyx-component', 'onyx-accordion-item-skeleton', densityClass]"
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
-    <OnyxSystemButton skeleton class="onyx-accordion-item-skeleton__decoration" />
+    <OnyxSystemButton label="chevron-left" class="onyx-accordion-item-skeleton__decoration" />
   </div>
 
   <details
@@ -65,6 +65,7 @@ const { densityClass } = useDensity(props);
       </div>
 
       <OnyxSystemButton
+        label="chevron-left"
         :icon="chevronLeftSmall"
         class="onyx-accordion-item__header__icon"
         tabindex="-1"
