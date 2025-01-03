@@ -1,15 +1,4 @@
 /**
- * Checks if a given number is divisible by a specified precision.
- *
- * @param number - The number to check for divisibility.
- * @param precision - The precision (step size) to check divisibility against.
- * @returns `true` if `number` is divisible by `precision`, otherwise `false`.
- */
-export const isDivisible = (number: number, precision: number): boolean => {
-  const quotient = number / precision;
-  return quotient % 1 === 0;
-};
-/**
  * Applies minimum and maximum limits to a given number.
  *
  * @param number - The number to limit.
@@ -32,15 +21,12 @@ export const applyLimits = (
  * Supports both decimal and whole-number rounding based on the precision provided.
  *
  * @param value - The number to round, or `undefined` to return an empty string.
- * @param precision - The number of decimal places for rounding (e.g., 0.01 for 2 decimals).
+ * @param precision - The number of decimal places for rounding (e.g., 0.01 for 2 decimals). Can also be negative.
  * @returns The rounded number as a string. Returns an empty string if `value` is `undefined`.
  */
-export const roundToPrecision = (value: number | undefined, precision: number): string => {
-  if (value === undefined) return "";
-  if (precision > 0) {
-    return value.toFixed(precision);
-  }
-  const places = precision;
-  const factor = Math.pow(10, places);
+export const roundToPrecision = (value: number, precision: number): string => {
+  if (!value) return "";
+  if (precision >= 0) return value.toFixed(precision);
+  const factor = Math.pow(10, precision);
   return (Math.round(value * factor) / factor).toString();
 };

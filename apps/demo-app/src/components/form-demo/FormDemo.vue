@@ -127,7 +127,7 @@ const radioOptions: RadioButtonOption[] = [
       :minlength="5"
       required
     />
-    <OnyxStepper v-model="formState.defaultStepper" class="onyx-grid-span-4" label="Delault" />
+    <OnyxStepper v-model="formState.defaultStepper" class="onyx-grid-span-4" label="Default" />
     <OnyxStepper
       v-model="formState.requiredStepper"
       class="onyx-grid-span-4"
@@ -140,13 +140,6 @@ const radioOptions: RadioButtonOption[] = [
       label="Only allows Numbers inside an area"
       :min="5"
       :max="20"
-    />
-
-    <OnyxStepper
-      v-model="formState.stripStepStepper"
-      class="onyx-grid-span-4"
-      label="Strip Step"
-      strip-step
     />
 
     <OnyxSwitch v-model="formState.switch" class="onyx-grid-span-4" label="Switch" required />

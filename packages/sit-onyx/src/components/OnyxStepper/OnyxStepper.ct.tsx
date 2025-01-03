@@ -236,9 +236,9 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test("should emit events", async ({ mount, makeAxeBuilder }) => {
+test("should emit events", async ({ mount }) => {
   const events = {
-    updateModelValue: [] as string[],
+    updateModelValue: [] as number[],
   };
 
   // ARRANGE
@@ -253,12 +253,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   expect(events).toMatchObject({
     updateModelValue: [],
   });
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
 
   const inputElement = component.getByLabel("Label");
 
@@ -290,59 +284,10 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component.getByLabel("Test label")).toBeAttached();
 });
 
-test("should increment/decrement value by one on counter button click", async ({
-  mount,
-  makeAxeBuilder,
-}) => {
+test("should increment/decrement value on counter button click", async ({ mount }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue) => {
-      component.update({
-        props: {
-          modelValue: newValue,
-        },
-        on,
-      });
-    },
-  };
-
-  const component = await mount(OnyxStepper, {
-    props: {
-      label: "Test label",
-      style: "width: 12rem;",
-    },
-    on,
-  });
-
-  const input = component.getByLabel("Test label");
-  const incrementButton = component.getByLabel("Increment by 1");
-  const decrementButton = component.getByLabel("Decrement by 1");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component.getByLabel("Test label")).toBeAttached();
-
-  await input.click();
-  await input.fill("0");
-  await expect(input).toHaveValue("0");
-
-  await incrementButton.click();
-  await expect(input).toHaveValue("1");
-
-  await decrementButton.click();
-  await expect(input).toHaveValue("0");
-});
-
-test("should increment/decrement value by step on counter button click", async ({
-  mount,
-  makeAxeBuilder,
-}) => {
-  // ARRANGE
-  const on = {
-    "update:modelValue": (newValue) => {
+    "update:modelValue": (newValue?: number) => {
       component.update({
         props: {
           modelValue: newValue,
@@ -362,34 +307,23 @@ test("should increment/decrement value by step on counter button click", async (
   });
 
   const input = component.getByLabel("Test label");
-  const addButton = component.getByLabel("Increment");
-  const substractButton = component.getByLabel("Decrement by 2");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  const incrementButton = component.getByLabel("Increment by 2");
+  const decrementButton = component.getByLabel("Decrement by 2");
 
   // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component.getByLabel("Test label")).toBeAttached();
+  await expect(input).toHaveValue("");
 
-  await input.click();
-  await input.fill("0");
-  await expect(input).toHaveValue("0");
-
-  await addButton.click();
+  await incrementButton.click();
   await expect(input).toHaveValue("2");
 
-  await substractButton.click();
+  await decrementButton.click();
   await expect(input).toHaveValue("0");
 });
 
-test("should not allow entering value over the max value that has been set", async ({
-  mount,
-  makeAxeBuilder,
-}) => {
+test("should not allow entering value over the max value that has been set", async ({ mount }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue) => {
+    "update:modelValue": (newValue?: number) => {
       component.update({
         props: {
           modelValue: newValue,
@@ -403,41 +337,28 @@ test("should not allow entering value over the max value that has been set", asy
     props: {
       label: "Test label",
       style: "width: 12rem;",
-      max: 2,
+      max: 3,
+      stepSize: 2,
     },
     on,
   });
 
   const input = component.getByLabel("Test label");
-  const addButton = component.getByLabel("Increment by 1");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  const addButton = component.getByLabel("Increment by 2");
 
   // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component.getByLabel("Test label")).toBeAttached();
-
-  await input.click();
-  await input.fill("0");
-  await expect(input).toHaveValue("0");
-
-  await addButton.click();
-  await expect(input).toHaveValue("1");
-
   await addButton.click();
   await expect(input).toHaveValue("2");
 
+  await addButton.click();
+  await expect(input).toHaveValue("3");
   await expect(addButton).toBeDisabled();
 });
 
-test("should not allow entering value lower the min value that has been set", async ({
-  mount,
-  makeAxeBuilder,
-}) => {
+test("should not allow entering value lower the min value that has been set", async ({ mount }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue) => {
+    "update:modelValue": (newValue?: number) => {
       component.update({
         props: {
           modelValue: newValue,
@@ -452,37 +373,33 @@ test("should not allow entering value lower the min value that has been set", as
       label: "Test label",
       style: "width: 12rem;",
       min: 2,
-      modelValue: 4,
+      stepSize: 2,
+      modelValue: 5,
     },
     on,
   });
 
   const input = component.getByLabel("Test label");
-  const substractButton = component.getByLabel("Decrement by 1");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  const substractButton = component.getByLabel("Decrement by 2");
 
   // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component.getByLabel("Test label")).toBeAttached();
-
   await substractButton.click();
   await expect(input).toHaveValue("3");
 
   await substractButton.click();
   await expect(input).toHaveValue("2");
-
   await expect(substractButton).toBeDisabled();
 });
 
-test("Should display the same number of decimal places as the smallest possible step", async ({
+test("Should correctly display decimal places according to the defined precision", async ({
   mount,
-  makeAxeBuilder,
 }) => {
+  const modelValueUpdates = [] as (number | undefined)[];
+
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue) => {
+    "update:modelValue": (newValue?: number) => {
+      modelValueUpdates.push(newValue);
       component.update({
         props: {
           modelValue: newValue,
@@ -496,32 +413,56 @@ test("Should display the same number of decimal places as the smallest possible 
     props: {
       label: "Test label",
       style: "width: 12rem;",
-      precision: 0.01,
+      precision: 2,
+      modelValue: 1,
     },
     on,
   });
 
-  const input = component.locator("input");
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  const input = component.getByLabel("Test label");
 
   // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
-  await input.fill("1");
-  await input.dispatchEvent("change");
   await expect(input).toHaveValue("1.00");
+
+  // ACT
+  await input.fill("3.1");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("3.10");
+  expect(modelValueUpdates).toStrictEqual([3.1]);
+
+  // ACT
+  await input.fill("3.106");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("3.11");
+  expect(modelValueUpdates).toStrictEqual([3.1, 3.11]);
+
+  // ACT
+  await component.update({ props: { precision: 1 }, on });
+
+  // ASSERT
+  await expect(input).toHaveValue("3.1");
+
+  // ACT
+  await component.update({ props: { precision: -1 }, on });
+  await input.fill("6");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("10");
+  expect(modelValueUpdates).toStrictEqual([3.1, 3.11, 10]);
 });
 
-test("Should display an error if the value is not a multiple of the precision", async ({
+test("Should display an error if the value is not a multiple of validStepSize", async ({
   page,
   mount,
-  makeAxeBuilder,
 }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue: number) => {
+    "update:modelValue": (newValue?: number) => {
       component.update({
         props: {
           modelValue: newValue,
@@ -536,7 +477,7 @@ test("Should display an error if the value is not a multiple of the precision", 
       label: "Test label",
       style: "width: 12rem;",
       modelValue: 1,
-      precision: 0.5,
+      validStepSize: 0.5,
     },
     on,
   });
@@ -545,56 +486,20 @@ test("Should display an error if the value is not a multiple of the precision", 
   const errorMessage = component.locator(".onyx-form-element__error-message");
 
   // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-
   await input.fill("1");
   await page.keyboard.press("Enter");
 
+  // ASSERT
   await expect(errorMessage).toBeHidden();
-  await page.keyboard.press("Enter");
 
+  // ACT
   await input.fill("3.6");
   await page.keyboard.press("Enter");
 
+  // ASSERT
   await expect(errorMessage).toBeVisible();
-});
-
-test("Should revert to the last valid input if the current input is invalid in stripStep mode", async ({
-  page,
-  mount,
-}) => {
-  // ARRANGE
-  const on = {
-    "update:modelValue": (newValue: number) => {
-      component.update({
-        props: {
-          modelValue: newValue,
-        },
-        on,
-      });
-    },
-  };
-
-  const component = await mount(OnyxStepper, {
-    props: {
-      label: "Test label",
-      style: "width: 12rem;",
-      precision: 0.5,
-      stripStep: true,
-    },
-    on,
-  });
-
-  const input = component.locator("input");
-
-  await input.fill("1");
-  await page.keyboard.press("Enter");
-  await expect(input).toHaveValue("1.0");
-  await page.keyboard.press("Enter");
-  await input.fill("1.6");
-  await page.keyboard.press("Enter");
-  await expect(input).toHaveValue("1.0");
+  await expect(errorMessage).toContainText("Invalid number");
+  await expect(errorMessage).toContainText(
+    "Please enter a valid number, that is a multiple of 0.5.",
+  );
 });
