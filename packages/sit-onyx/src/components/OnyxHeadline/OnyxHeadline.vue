@@ -52,6 +52,7 @@ const copyHash = async (hash: string) => {
     position: relative;
     width: max-content;
     border-radius: var(--border-radius);
+    scroll-margin-top: var(--onyx-headline-scroll-margin);
 
     @include sizes.define-headline-sizes();
 
@@ -61,7 +62,6 @@ const copyHash = async (hash: string) => {
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
       outline: none;
       display: inline-block;
-      scroll-margin-top: var(--onyx-headline-scroll-margin);
 
       &:hover,
       &:focus-visible {
