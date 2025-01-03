@@ -47,7 +47,7 @@ const shouldShowAllButton = computed(() => {
 
 <template>
   <section class="components">
-    <OnyxHeadline is="h2" class="components__headline">Components</OnyxHeadline>
+    <OnyxHeadline is="h2" class="components__headline" hash="components">Components</OnyxHeadline>
 
     <p class="components__description">
       onyx is currently in beta version and early / active development. Below you can find a list of
