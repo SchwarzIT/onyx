@@ -10,9 +10,9 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const copyTarget = async (target: string) => {
+const copyHash = async (hash: string) => {
   const { origin, pathname, search } = window.location;
-  const fullUrl = `${origin}${pathname}${search}#${target}`;
+  const fullUrl = `${origin}${pathname}${search}#${hash}`;
   await navigator.clipboard.writeText(fullUrl);
 };
 </script>
@@ -20,15 +20,15 @@ const copyTarget = async (target: string) => {
 <template>
   <component
     :is="props.is"
-    :id="props.target"
+    :id="props.hash"
     :class="['onyx-component', 'onyx-headline', `onyx-headline--${props.is}`]"
   >
     <a
-      v-if="props.target"
-      :href="`#${props.target}`"
+      v-if="props.hash"
+      :href="`#${props.hash}`"
       target="_self"
-      class="onyx-headline__target"
-      @click="copyTarget(props.target)"
+      class="onyx-headline__hash"
+      @click="copyHash(props.hash)"
     >
       <slot />
     </a>
@@ -54,7 +54,7 @@ const copyTarget = async (target: string) => {
 
     @include sizes.define-headline-sizes();
 
-    &__target {
+    &__hash {
       color: inherit;
       text-decoration: none;
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
