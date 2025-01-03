@@ -10,3 +10,13 @@ export const normalizedIncludes = (haystack: string, needle: string): boolean =>
 };
 
 const removeDiacritics = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+/**
+ * Creates a URL-safe hash that can be used with the `OnyxHeadline` component if the headline text/content is
+ * dynamic, e.g. when used inside a v-for.
+ *
+ * @example "Hello World" => "hello-world"
+ */
+export const createHeadlineHash = (text: string) => {
+  return text.trim().toLowerCase().replace(/\W/gi, "-");
+};

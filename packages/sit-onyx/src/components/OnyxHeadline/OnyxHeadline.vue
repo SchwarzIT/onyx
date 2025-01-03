@@ -43,6 +43,7 @@ const copyHash = async (hash: string) => {
 
 .onyx-headline {
   @include layers.component() {
+    --onyx-headline-scroll-margin: var(--onyx-spacing-xl);
     --border-radius: var(--onyx-radius-sm);
 
     font-weight: 600;
@@ -60,6 +61,7 @@ const copyHash = async (hash: string) => {
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
       outline: none;
       display: inline-block;
+      scroll-margin-top: var(--onyx-headline-scroll-margin);
 
       &:hover,
       &:focus-visible {
