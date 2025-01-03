@@ -25,7 +25,7 @@ export const applyLimits = (
  * @returns The rounded number as a string. Returns an empty string if `value` is `undefined`.
  */
 export const roundToPrecision = (value: number, precision: number): string => {
-  if (precision >= 0) return value.toFixed(precision);
+  if (value && precision >= 0) return value.toFixed(precision);
   const factor = Math.pow(10, precision);
   return (Math.round(value * factor) / factor).toString();
 };
