@@ -31,3 +31,15 @@ html.onyx-transition-active * {
   transition-property: color, background-color, border-color !important;
   transition-timing-function: ease-in-out;
 }
+
+.onyx-headline {
+  // adjust headline scroll margin to consider VitePress nav/header
+  scroll-margin-top: calc(var(--onyx-headline-scroll-margin) + var(--vp-nav-height));
+}
+
+// fix conflicting VitePress styles for onyx headline hash
+.vp-doc a.onyx-headline__hash {
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: none;
+}

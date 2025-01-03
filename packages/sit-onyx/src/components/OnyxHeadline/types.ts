@@ -8,6 +8,8 @@ export type OnyxHeadlineProps = {
    * Unique headline hash/ID (without "#") that is used to show a "#" icon on hover. Makes the headline clickable and a URL that points to this headline
    * is copied to the users clipboard. Must be URL-safe, e.g. not containing whitespaces etc.
    *
+   * If your headline content is dynamic, you can use our `createHeadlineHash()` utility to generate it.
+   *
    * @example "about-us"
    */
   hash?: string;
