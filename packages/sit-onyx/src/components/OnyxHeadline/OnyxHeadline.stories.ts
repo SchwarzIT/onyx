@@ -34,12 +34,12 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows a default h1 headline with a target URL that can be copied by clicking the headline.
+ * This example shows a default h1 headline with a hash URL that can be copied by clicking the headline.
  */
-export const Target = {
+export const WithHash = {
   args: {
     is: "h1",
     default: "Click me to copy URL",
-    target: "section-1",
+    hash: "section-1",
   },
 } satisfies Story;
