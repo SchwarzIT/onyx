@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
 
 /**
@@ -16,6 +17,9 @@ const meta: Meta<typeof OnyxInfoTooltip> = {
         </div>`,
     }),
   ],
+  argTypes: {
+    icon: defineIconSelectArgType(),
+  },
 };
 
 export default meta;

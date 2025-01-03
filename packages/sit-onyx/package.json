@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-beta.104",
+  "version": "1.0.0-beta.105",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -41,7 +41,8 @@
     "preview": "vite serve storybook-static",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:playwright": "playwright install && playwright test"
+    "test:playwright": "playwright install && playwright test",
+    "stylelint": "stylelint \"dist/**/*.css\""
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
@@ -54,14 +55,14 @@
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "8.5.0-beta.2",
-    "@storybook/addon-actions": "8.5.0-beta.6",
+    "@storybook/addon-a11y": "8.5.0-beta.7",
+    "@storybook/addon-actions": "8.5.0-beta.7",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",
     "eslint-plugin-vue-scoped-css": "^2.9.0",
     "sass-embedded": "catalog:",
     "storybook-dark-mode": "^4.0.2",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^2.1.10"
+    "vue-component-type-helpers": "^2.2.0"
   }
 }

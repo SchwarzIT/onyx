@@ -55,7 +55,7 @@ export const createToastProvider = (): ToastProvider => {
   const show: ToastProvider["show"] = (toast: ShowToastOptions) => {
     const id = nextId++;
 
-    toasts.value.unshift({
+    toasts.value.push({
       ...toast,
       id,
       onClose: () => remove(id),
