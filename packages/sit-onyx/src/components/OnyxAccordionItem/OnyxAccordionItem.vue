@@ -3,8 +3,8 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import { useId } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxAccordionItemProps } from "./types";
 import { useAccordionItem } from "./useAccordionItem";
 
@@ -38,7 +38,7 @@ const { densityClass } = useDensity(props);
     :class="['onyx-component', 'onyx-accordion-item-skeleton', densityClass]"
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
-    <OnyxSystemButton label="chevron-left" class="onyx-accordion-item-skeleton__decoration" />
+    <OnyxSkeleton class="onyx-accordion-item-skeleton__decoration" />
   </div>
 
   <details
@@ -52,10 +52,10 @@ const { densityClass } = useDensity(props);
     @toggle="isOpen = ($event.target as HTMLDetailsElement).open"
   >
     <summary
+      :id="'header-' + itemId"
       class="onyx-accordion-item__header"
-      role="heading"
+      role="button"
       :tabindex="accordionContext?.disabled.value || props.disabled ? -1 : 0"
-      aria-level="2"
       :aria-expanded="isOpen"
       :aria-controls="'panel-' + itemId"
       :aria-disabled="accordionContext?.disabled.value || props.disabled"
@@ -64,14 +64,18 @@ const { densityClass } = useDensity(props);
         <slot name="header"></slot>
       </div>
 
-      <OnyxSystemButton
-        label="chevron-left"
+      <OnyxIcon
+        label="toggle-accordion-icon"
         :icon="chevronLeftSmall"
         class="onyx-accordion-item__header__icon"
-        tabindex="-1"
       />
     </summary>
-    <div class="onyx-accordion-item__panel" role="region" :aria-labelledby="'header-' + itemId">
+    <div
+      :id="'panel-' + itemId"
+      class="onyx-accordion-item__panel"
+      role="region"
+      :aria-labelledby="'header-' + itemId"
+    >
       <slot></slot>
     </div>
   </details>
@@ -108,13 +112,7 @@ const { densityClass } = useDensity(props);
       }
 
       &__icon {
-        pointer-events: none;
-        right: var(--onyx-density-md);
         color: inherit;
-        figure {
-          height: 100%;
-          width: 100%;
-        }
       }
     }
     &[open] &__header__icon {

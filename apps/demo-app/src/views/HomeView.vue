@@ -175,28 +175,19 @@ const selectedDate = ref<DateValue>();
             <template #header>
               <h3>Header 1</h3>
             </template>
-
-            <template #panel>
-              <p>Hidden Content 1</p>
-            </template>
+            <p>Hidden Content 1</p>
           </OnyxAccordionItem>
           <OnyxAccordionItem>
             <template #header>
               <h3>Header 2</h3>
             </template>
-
-            <template #panel>
-              <p>Hidden Content 2</p>
-            </template>
+            <p>Hidden Content 2</p>
           </OnyxAccordionItem>
           <OnyxAccordionItem>
             <template #header>
               <h3>Header 3</h3>
             </template>
-
-            <template #panel>
-              <p>Hidden Content 3</p>
-            </template>
+            <p>Hidden Content 3</p>
           </OnyxAccordionItem>
         </OnyxAccordion>
 

@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density";
+import { OnyxAccordionItem } from "../../index.ts";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
 
 test.describe("ScreenshotTest", () => {
@@ -18,11 +18,11 @@ test.describe("ScreenshotTest", () => {
       >
         <OnyxAccordionItem>
           <template v-slot:header>Accordion Header 1</template>
-          <template v-slot:panel>Accordion Panel 1</template>
+          <template>Accordion Panel 1</template>
         </OnyxAccordionItem>
         <OnyxAccordionItem>
           <template v-slot:header>Accordion Header 2</template>
-          <template v-slot:panel>Accordion Panel 2</template>
+          <template>Accordion Panel 2</template>
         </OnyxAccordionItem>
       </OnyxAccordion>
     ),
@@ -42,11 +42,11 @@ test("should open only one item at a time in exclusive mode", async ({ mount, ma
     <OnyxAccordion exclusive>
       <OnyxAccordionItem>
         <template v-slot:header>Accordion Header 1</template>
-        <template v-slot:panel>Accordion Panel 1</template>
+        <template>Accordion Panel 1</template>
       </OnyxAccordionItem>
       <OnyxAccordionItem>
         <template v-slot:header>Accordion Header 2</template>
-        <template v-slot:panel>Accordion Panel 2</template>
+        <template>Accordion Panel 2</template>
       </OnyxAccordionItem>
     </OnyxAccordion>,
   );
