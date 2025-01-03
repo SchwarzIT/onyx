@@ -46,7 +46,7 @@ export const HeaderInteractions = {
                 icon: pin,
                 color: "medium",
               }),
-              listItems: [
+              menuItems: [
                 h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pin }), "Pin column"]),
                 h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pinDisabled }), "Unpin column"]),
               ],
@@ -57,7 +57,7 @@ export const HeaderInteractions = {
                 icon: trash,
                 color: "medium",
               }),
-              listItems: [h(OnyxMenuItem, () => [h(OnyxIcon, { icon: trash }), "Remove column"])],
+              menuItems: [h(OnyxMenuItem, () => [h(OnyxIcon, { icon: trash }), "Remove column"])],
             },
           ],
         },

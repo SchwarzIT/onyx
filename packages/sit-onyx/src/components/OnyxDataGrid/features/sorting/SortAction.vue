@@ -31,7 +31,7 @@ const icon = computed(() =>
 
 const buttonLabel = computed(() => {
   const nextDirection = nextSortDirection(props.sortDirection);
-  return t.value(`dataGrid.head.sortingAction.${nextDirection}`, {
+  return t.value(`dataGrid.head.sorting.action.${nextDirection}`, {
     field: props.columnLabel,
   });
 });

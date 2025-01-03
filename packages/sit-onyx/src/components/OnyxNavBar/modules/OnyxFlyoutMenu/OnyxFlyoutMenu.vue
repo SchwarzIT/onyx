@@ -31,7 +31,7 @@ const slots = defineSlots<{
     trigger: object;
   }): unknown;
   /**
-   * OnyxListItems to show
+   * OnyxMenuItem's to show
    */
   options?(): unknown;
   /**
