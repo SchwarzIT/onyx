@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.108
+
+### Minor Changes
+
+- c7c3296: feat: Expose input elements of form elements
+
 ## 1.0.0-beta.107
 
 ### Major Changes
