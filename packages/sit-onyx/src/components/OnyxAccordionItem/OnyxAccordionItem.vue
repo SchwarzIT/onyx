@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import { useId } from "vue";
-import { useDensity } from "../../";
+import { computed, inject, useId } from "vue";
+import { ACCORDION_INJECTION_KEY, useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxAccordionItemProps } from "./types";
-import { useAccordionItem } from "./useAccordionItem";
 
 const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,
@@ -25,11 +24,18 @@ defineSlots<{
   default?(): unknown;
 }>();
 const itemId = useId();
+const accordionContext = inject(ACCORDION_INJECTION_KEY);
 
-const { accordionContext, isOpen } = useAccordionItem(itemId);
+const isOpen = computed({
+  get: () => accordionContext?.openItems.value.has(itemId) || props.open || false,
+  set: (value: boolean) => {
+    accordionContext?.updateOpen(itemId, value);
+  },
+});
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
+const isDiabled = computed(() => accordionContext?.disabled.value || props.disabled);
 </script>
 
 <template>
@@ -38,16 +44,13 @@ const { densityClass } = useDensity(props);
     :class="['onyx-component', 'onyx-accordion-item-skeleton', densityClass]"
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
-    <OnyxSkeleton class="onyx-accordion-item-skeleton__decoration" />
+    <OnyxSkeleton class="onyx-accordion-item-skeleton__icon" />
   </div>
 
   <details
     v-else
     class="onyx-component onyx-accordion-item"
-    :class="[
-      densityClass,
-      accordionContext?.disabled.value || props.disabled ? 'onyx-accordion-item--disabled' : '',
-    ]"
+    :class="[densityClass]"
     :open="isOpen"
     @toggle="isOpen = ($event.target as HTMLDetailsElement).open"
   >
@@ -55,20 +58,16 @@ const { densityClass } = useDensity(props);
       :id="'header-' + itemId"
       class="onyx-accordion-item__header"
       role="button"
-      :tabindex="accordionContext?.disabled.value || props.disabled ? -1 : 0"
+      :tabindex="isDiabled ? -1 : 0"
       :aria-expanded="isOpen"
       :aria-controls="'panel-' + itemId"
-      :aria-disabled="accordionContext?.disabled.value || props.disabled"
+      :aria-disabled="isDiabled"
     >
-      <div class="onyx-accordion-item__header__content">
+      <div class="onyx-accordion-item__header-content">
         <slot name="header"></slot>
       </div>
 
-      <OnyxIcon
-        label="toggle-accordion-icon"
-        :icon="chevronLeftSmall"
-        class="onyx-accordion-item__header__icon"
-      />
+      <OnyxIcon :icon="chevronLeftSmall" class="onyx-accordion-item__header-icon" />
     </summary>
     <div
       :id="'panel-' + itemId"
@@ -87,7 +86,6 @@ const { densityClass } = useDensity(props);
   @include layers.component() {
     border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     color: var(--onyx-color-text-icons-neutral-intense);
-    overflow: hidden;
     font-family: var(--onyx-font-family);
     position: relative;
     width: 100%;
@@ -96,6 +94,7 @@ const { densityClass } = useDensity(props);
       width: 100%;
       position: relative;
       display: flex;
+
       justify-content: space-between;
       gap: var(--onyx-density-md);
       align-items: center;
@@ -107,15 +106,19 @@ const { densityClass } = useDensity(props);
         background-color: var(--onyx-color-base-neutral-200);
         outline: none;
       }
-      &__content {
+      &-content {
         display: flex;
+        * {
+          font-size: 1rem;
+          font-weight: 400;
+        }
       }
 
-      &__icon {
+      &-icon {
         color: inherit;
       }
     }
-    &[open] &__header__icon {
+    &[open] &__header-icon {
       transform: rotate(-90deg);
     }
     &:has(:focus-visible) {
@@ -138,7 +141,7 @@ const { densityClass } = useDensity(props);
     &__panel {
       padding: var(--onyx-density-md);
     }
-    &--disabled {
+    &:has(&__header[aria-disabled="true"]) {
       color: var(--onyx-color-text-icons-neutral-soft);
       pointer-events: none;
       .onyx-accordion-item__header {
@@ -156,7 +159,7 @@ const { densityClass } = useDensity(props);
       width: calc(100% - 3 * var(--onyx-density-md));
       height: var(--onyx-density-md);
     }
-    &__decoration {
+    &__icon {
       height: var(--onyx-density-md);
       width: var(--onyx-density-md);
     }

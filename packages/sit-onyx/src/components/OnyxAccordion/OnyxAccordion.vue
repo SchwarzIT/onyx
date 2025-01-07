@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineSlots, provide, toRefs } from "vue";
+import { defineSlots, provide, ref, toRefs } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
@@ -7,7 +7,6 @@ import {
   type AccordionInjectionKey,
   type OnyxAccordionProps,
 } from "./types";
-import { useAccordion } from "./useAccordion";
 
 const props = withDefaults(defineProps<OnyxAccordionProps>(), {
   exclusive: false,
@@ -18,13 +17,23 @@ defineSlots<{
   /**
    * Displays OnyxAccordionItem components.
    */
-  default?(): unknown;
+  default(): unknown;
 }>();
 
-const { exclusive, disabled } = toRefs(props);
-const { openItems, updateOpen } = useAccordion(exclusive);
+const openItems = ref(new Set<string>());
+
+const { disabled } = toRefs(props);
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
+
+const updateOpen = (id: string, isOpen: boolean) => {
+  if (!isOpen) {
+    openItems.value.delete(id);
+    return;
+  }
+  if (props.exclusive) openItems.value.clear();
+  openItems.value.add(id);
+};
 
 provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
   openItems,

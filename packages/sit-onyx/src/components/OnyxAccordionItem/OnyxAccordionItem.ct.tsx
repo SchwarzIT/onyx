@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density";
+import { OnyxAccordionItem } from "../../index.ts";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import OnyxAccordionItem from "./OnyxAccordionItem.vue";
 
 test.describe("ScreenshotTest", () => {
   executeMatrixScreenshotTest({
@@ -10,19 +10,21 @@ test.describe("ScreenshotTest", () => {
     rows: ["default", "open", "hover", "focus-visible", "disabled", "skeleton"],
     component: (column, row) => (
       <OnyxAccordionItem
-        style="width: 200px;"
+        style="width: 20rem"
         density={column}
         skeleton={row === "skeleton"}
         disabled={row === "disabled"}
       >
         <template v-slot:header>Accordion Header</template>
-        <template v-slot:panel>Accordion Panel</template>
+        Accordion Panel
       </OnyxAccordionItem>
     ),
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        if (row == "open") await component.locator(".onyx-accordion-item__header").click();
-        if (row === "hover") await component.hover();
+        if (row == "open")
+          await component.getByRole("button", { name: "Accordion Header" }).click();
+        if (row === "hover")
+          await component.getByRole("button", { name: "Accordion Header" }).hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");
       },
     },
@@ -34,7 +36,7 @@ test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <OnyxAccordionItem>
       <template v-slot:header>Accordion Header</template>
-      <template v-slot:panel>Accordion Panel</template>
+      Accordion Panel
     </OnyxAccordionItem>,
   );
 
@@ -58,7 +60,7 @@ test("should apply the disabled state", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <OnyxAccordionItem disabled>
       <template v-slot:header>Accordion Header</template>
-      <template v-slot:panel>Accordion Panel</template>
+      Accordion Panel
     </OnyxAccordionItem>,
   );
 

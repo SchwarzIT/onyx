@@ -4,7 +4,7 @@ import type { DensityProp } from "../../composables/density";
 
 export type OnyxAccordionProps = DensityProp & {
   /**
-   *  Whether only one AccordionItem can be open at the same time
+   *  if `true`, only one accordion item can be open at the same time.
    */
   exclusive?: boolean;
   /**
