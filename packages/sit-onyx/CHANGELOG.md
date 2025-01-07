@@ -1,5 +1,24 @@
 # sit-onyx
 
+## 1.0.0-beta.107
+
+### Major Changes
+
+- 357ac46: feat(OnyxDataGrid): implement menu items for sorting feature
+
+  #### Breaking changes
+
+  - OnyxDataGrid: rename header actions property `listItems` to `menuItems`. It now expects `OnyxMenuItem` components instead of `OnyxListItem`
+
+  #### Features
+
+  - OnyxDataGrid: add German translations
+
+  #### Fixes
+
+  - OnyxDataGrid: update translations when locale changes
+  - OnyxUserMenu: use `OnyxMenuItem` for footer instead of `OnyxListItem`
+
 ## 1.0.0-beta.106
 
 ### Major Changes
