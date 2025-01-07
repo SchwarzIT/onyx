@@ -5,8 +5,8 @@ import { useModel } from "vue";
 import { MANAGED_SYMBOL, type ManagedProp } from "../../../../composables/useManagedState";
 import { injectI18n } from "../../../../i18n";
 import type { SelectOptionValue } from "../../../../types";
+import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -55,9 +55,10 @@ const { t } = injectI18n();
     <template v-if="props.isMobile">
       <slot name="header"></slot>
       <slot name="options"></slot>
-      <OnyxMenuItem v-if="!!slots.footer" class="onyx-user-menu__mobile-footer" disabled>
+      <!-- we use list item here instead of menu item since the footer is not interactive -->
+      <OnyxListItem v-if="!!slots.footer" class="onyx-user-menu__mobile-footer" disabled>
         <slot name="footer"> </slot>
-      </OnyxMenuItem>
+      </OnyxListItem>
     </template>
 
     <template v-else>
