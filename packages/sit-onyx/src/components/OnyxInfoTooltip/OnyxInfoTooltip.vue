@@ -21,12 +21,7 @@ const type = computed(() => {
 <template>
   <span class="onyx-component onyx-info-tooltip">
     <template v-if="type === 'click'">
-      <OnyxTooltip
-        :text="props.text"
-        :open="props.open"
-        :color="props.color"
-        :position="props.position"
-      >
+      <OnyxTooltip v-bind="props">
         <template #default="{ trigger }">
           <button type="button" class="onyx-info-tooltip__trigger" v-bind="trigger">
             <OnyxIcon :icon="circleInformation" />
@@ -36,13 +31,7 @@ const type = computed(() => {
     </template>
     <template v-else>
       <!-- The info tooltip is not accessible when it's triggered on hover. Its trigger element ist not focusable, so instead we provide it's text visually hidden -->
-      <OnyxTooltip
-        aria-hidden="true"
-        :text="props.text"
-        :open="props.open"
-        :color="props.color"
-        :position="props.position"
-      >
+      <OnyxTooltip aria-hidden="true" v-bind="props">
         <template #default="{ trigger }">
           <span class="onyx-info-tooltip__trigger" v-bind="trigger">
             <OnyxIcon :icon="circleInformation" />

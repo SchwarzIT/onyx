@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.105
+
+### Patch Changes
+
+- b3f8734: fix(OnyxInfoTooltip): add missing props from OnyxTooltip
+
+  These props are now also supported for the info tooltip: alignment. density, icon
+
 ## 1.0.0-beta.104
 
 ### Patch Changes
