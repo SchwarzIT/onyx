@@ -30,7 +30,7 @@ export type OnyxTooltipProps = DensityProp & {
    */
   position?: TooltipPosition;
   /**
-   * How to align the wedge relative to the parent element.
+   * How to align the tooltip relative to the parent element.
    */
   alignment?: WedgePosition | "auto";
   /**
@@ -47,6 +47,11 @@ export type OnyxTooltipProps = DensityProp & {
    * See also: https://inclusive-components.design/tooltips-toggletips/
    */
   open?: TooltipOpen;
+  /**
+   * Determines whether the tooltip aligns with the edge of the parent element,
+   * depending on the specified alignment.
+   */
+  alignsWithEdge?: boolean;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;
