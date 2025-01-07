@@ -50,7 +50,6 @@ const copyHash = async (hash: string) => {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     position: relative;
-    width: max-content;
     border-radius: var(--border-radius);
     scroll-margin-top: var(--onyx-headline-scroll-margin);
 
