@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -55,6 +55,9 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
+const input = useTemplateRef("input");
+defineExpose({ input });
+
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
@@ -78,6 +81,7 @@ const errorClass = useErrorClass(showError);
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
             :id="inputId"
+            ref="input"
             v-model="value"
             v-custom-validity
             :placeholder="props.placeholder"

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -48,6 +48,9 @@ const isChecked = computed({
     emit("update:modelValue", value);
   },
 });
+
+const input = useTemplateRef("input");
+defineExpose({ input });
 </script>
 
 <template>
@@ -65,6 +68,7 @@ const isChecked = computed({
       :title="title"
     >
       <input
+        ref="input"
         v-model="isChecked"
         v-custom-validity
         type="checkbox"

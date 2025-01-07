@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { useCustomValidity } from "../../composables/useCustomValidity";
@@ -45,6 +45,9 @@ const skeleton = useSkeletonContext(props);
 const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
 });
+
+const input = useTemplateRef("input");
+defineExpose({ input });
 </script>
 
 <template>
@@ -63,6 +66,7 @@ const title = computed(() => {
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
         <input
           v-else
+          ref="input"
           v-model="isChecked"
           v-custom-validity
           :aria-label="props.hideLabel ? props.label : undefined"
