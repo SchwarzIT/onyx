@@ -9,7 +9,7 @@ import type { OnyxInfoTooltipProps } from "./types";
 const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), {
   open: "click",
   color: "neutral",
-  wedge-points-to-center
+  wedgePointsToCenter: true,
 });
 
 const type = computed(() => {
@@ -18,6 +18,7 @@ const type = computed(() => {
   return "click";
 });
 </script>
+
 <template>
   <span class="onyx-component onyx-info-tooltip">
     <template v-if="type === 'click'">
