@@ -17,12 +17,7 @@ updates:
         update-types:
           - major
 
-    # ignore eslint 9 update for now until it is supported by all our used plugins:
-    # see: https://github.com/vuejs/eslint-config-typescript/issues/76
     ignore:
-      - dependency-name: eslint
-        update-types: [version-update:semver-major]
-
       # keep this in sync with .node-version file, if we e.g. use node 20, we do not want to update the types to latest 22
       - dependency-name: "@types/node"
         update-types: [version-update:semver-major]
