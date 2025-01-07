@@ -30,7 +30,7 @@ export type OnyxTooltipProps = DensityProp & {
    */
   position?: TooltipPosition;
   /**
-   * How to align the wedge relative to the parent element.
+   * How to align the tooltip relative to the parent element.
    */
   alignment?: WedgePosition | "auto";
   /**
@@ -48,9 +48,10 @@ export type OnyxTooltipProps = DensityProp & {
    */
   open?: TooltipOpen;
   /**
-   * Whether the wedge (tooltip arrow) points to the center of the parent element.
+   * Determines whether the tooltip aligns with the edge of the parent element,
+   * depending on the specified alignment.
    */
-  wedgePointsToCenter?: boolean;
+  alignsWithEdge?: boolean;
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;

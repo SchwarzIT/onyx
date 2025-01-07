@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   fitParent: false,
   open: "hover",
   alignment: "auto",
-  wedgePointsToCenter: false,
+  alignsWithEdge: false,
 });
 
 defineSlots<{
@@ -79,7 +79,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--danger": props.color === "danger",
     "onyx-tooltip--success": props.color === "success",
     "onyx-tooltip--fit-parent": props.fitParent,
-    "onyx-tooltip--wedge-points-to-center": props.wedgePointsToCenter,
+    "onyx-tooltip--aligns-with-edge": props.alignsWithEdge,
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
     [`onyx-tooltip--${props.position}`]: props.position !== "auto",
@@ -222,11 +222,11 @@ $wedge-size: 0.5rem;
     }
 
     &--left {
-      left: 0%;
-      transform: none;
-      &.onyx-tooltip--wedge-points-to-center {
-        left: 50%;
-        transform: translateX(-2 * $wedge-size);
+      left: 50%;
+      transform: translateX(-2 * $wedge-size);
+      &.onyx-tooltip--aligns-with-edge {
+        left: 0%;
+        transform: none;
       }
       &::after {
         left: 2 * $wedge-size;
@@ -234,11 +234,11 @@ $wedge-size: 0.5rem;
     }
 
     &--right {
-      left: 100%;
-      transform: translateX(-100%);
-      &.onyx-tooltip--wedge-points-to-center {
-        left: 50%;
-        transform: translateX(calc(-100% + 2 * $wedge-size));
+      left: 50%;
+      transform: translateX(calc(-100% + 2 * $wedge-size));
+      &.onyx-tooltip--aligns-with-edge {
+        left: 100%;
+        transform: translateX(-100%);
       }
       &::after {
         left: calc(100% - 2 * $wedge-size);
