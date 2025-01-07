@@ -2,7 +2,7 @@ import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
 import { h, type Component, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { injectI18n } from "../../../i18n";
-import OnyxListItem from "../../OnyxListItem/OnyxListItem.vue";
+import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "../OnyxDataGridRenderer/types";
@@ -38,7 +38,7 @@ export type DataGridFeature<TEntry extends DataGridEntry, TFeatureName extends s
      */
     actions?: (column: keyof TEntry) => {
       iconComponent: Component;
-      listItems: Component<typeof OnyxListItem>[];
+      menuItems: Component<typeof OnyxMenuItem>[];
     }[];
   };
 };
@@ -113,6 +113,7 @@ export const useDataGridFeatures = <
   T extends DataGridFeature<TEntry, symbol>[] | [],
 >(
   features: T,
+  t: ReturnType<typeof injectI18n>["t"],
 ) => {
   const createRendererColumns = (
     columns: (keyof TEntry)[],
@@ -127,14 +128,12 @@ export const useDataGridFeatures = <
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
       if (actions.length > 1) {
-        const { t } = injectI18n();
-
-        const listItems = actions.map(({ listItems }) => listItems).filter((item) => !!item);
+        const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
 
         const flyoutMenu = h(
           OnyxFlyoutMenu,
           {
-            label: t.value("navigation.moreActionsFlyout", { column: column as string }),
+            label: t.value("navigation.moreActionsFlyout", { column: column.toString() }),
             trigger: "click",
           },
           {
@@ -145,7 +144,7 @@ export const useDataGridFeatures = <
                 icon: moreHorizontal,
                 ...trigger,
               }),
-            options: () => listItems,
+            options: () => menuItems,
           } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
         );
 

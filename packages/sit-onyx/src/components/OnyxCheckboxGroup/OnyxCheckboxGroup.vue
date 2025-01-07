@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -56,6 +56,15 @@ const checkAllLabel = computed(() => {
   if (typeof props.withCheckAll === "boolean") return defaultText;
   return props.withCheckAll?.label ?? defaultText;
 });
+
+const checkboxes = useTemplateRef("checkboxes");
+
+defineExpose({
+  inputs: computed<HTMLInputElement[]>(() => {
+    const array = Array.isArray(checkboxes.value) ? checkboxes.value : [checkboxes.value];
+    return array.filter(Boolean).flatMap((checkbox) => checkbox.input);
+  }),
+});
 </script>
 
 <template>
@@ -90,6 +99,7 @@ const checkAllLabel = computed(() => {
           v-for="option in props.options"
           :key="option.value.toString()"
           v-bind="option"
+          ref="checkboxes"
           :truncation="option.truncation ?? props.truncation"
           :model-value="props.modelValue.includes(option.value)"
           class="onyx-checkbox-group__option"

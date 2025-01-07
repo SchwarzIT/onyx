@@ -4,6 +4,7 @@
   generic="TEntry extends DataGridEntry, TFeatures extends DataGridFeature<TEntry, symbol>[] | []"
 >
 import { computed, ref, toRefs, watch, type Ref, type WatchHandle } from "vue";
+import { injectI18n } from "../../i18n";
 import { useDataGridFeatures, type DataGridFeature } from "./features";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types";
@@ -13,6 +14,8 @@ const props = withDefaults(defineProps<OnyxDataGridProps<TEntry, TFeatures>>(), 
   features: () => [] as TFeatures,
 });
 
+const { t } = injectI18n();
+
 // Using Ref types to avoid `UnwrapRef` issues
 const renderColumns: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
 const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
@@ -20,7 +23,7 @@ const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([])
 const { columns, data, features } = toRefs(props);
 
 const featureBuilder = computed<ReturnType<typeof useDataGridFeatures<TEntry, TFeatures>>>(() =>
-  useDataGridFeatures(features.value),
+  useDataGridFeatures(features.value, t),
 );
 
 /**
@@ -30,7 +33,7 @@ let featureBuilderWatchHandle: WatchHandle | undefined;
 const createFeatureBuilderWatcher = () => {
   const { createRendererColumns, createRendererRows, watchSources } = featureBuilder.value;
   return watch(
-    [columns, data, ...watchSources],
+    [columns, data, t, ...watchSources],
     () => {
       renderColumns.value = createRendererColumns(columns.value);
       renderRows.value = createRendererRows(data.value, columns.value);

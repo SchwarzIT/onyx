@@ -2,7 +2,7 @@
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
-import { computed, ref, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -83,9 +83,8 @@ const wasTouched = ref(false);
 
 const { densityClass } = useDensity(props);
 
-const input = ref<HTMLInputElement>();
-
-defineExpose({ focus: () => input.value?.focus() });
+const input = useTemplateRef("input");
+defineExpose({ input });
 
 /**
  * As the native input has to be readonly, the :user-invalid will never appear.
