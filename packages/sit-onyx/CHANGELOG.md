@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.109
+
+### Minor Changes
+
+- 15229dd: fix(OnyxTooltip): fix wedge offset by adding alignsWithEdge prop.
+
 ## 1.0.0-beta.108
 
 ### Minor Changes
