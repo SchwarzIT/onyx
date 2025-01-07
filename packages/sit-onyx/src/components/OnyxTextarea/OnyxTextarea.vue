@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -66,6 +66,9 @@ const handleInput = (event: Event) => {
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+
+const input = useTemplateRef("input");
+defineExpose({ input });
 </script>
 
 <template>
@@ -97,6 +100,7 @@ const errorClass = useErrorClass(showError);
           -->
           <textarea
             :id="id"
+            ref="input"
             v-model="value"
             v-custom-validity
             class="onyx-textarea__native"

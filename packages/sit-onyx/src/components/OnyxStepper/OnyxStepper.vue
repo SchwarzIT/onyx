@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, useTemplateRef, watchEffect } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
@@ -32,6 +32,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
+const input = useTemplateRef("input");
 
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
@@ -89,6 +90,8 @@ const handleChange = () => {
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.stepSize }));
+
+defineExpose({ input });
 </script>
 
 <template>
@@ -122,6 +125,7 @@ const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: p
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
         <input
           v-else
+          ref="input"
           v-model="inputValue"
           v-custom-validity
           class="onyx-stepper__native"

@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { useId } from "vue";
+import { computed, useId, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -36,6 +36,15 @@ const handleChange = (selected: boolean, value: TValue) => {
   if (!selected) return;
   emit("update:modelValue", value);
 };
+
+const radiobuttons = useTemplateRef("radiobuttons");
+
+defineExpose({
+  inputs: computed<HTMLInputElement[]>(() => {
+    const array = Array.isArray(radiobuttons.value) ? radiobuttons.value : [radiobuttons.value];
+    return array.filter(Boolean).flatMap((radiobutton) => radiobutton.input);
+  }),
+});
 </script>
 
 <template>
@@ -61,6 +70,7 @@ const handleChange = (selected: boolean, value: TValue) => {
           v-for="(option, index) in props.options"
           :key="option.value.toString()"
           v-bind="option"
+          ref="radiobuttons"
           :name="props.name"
           :custom-error="props.customError"
           :checked="option.value === props.modelValue"
