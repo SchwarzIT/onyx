@@ -31,15 +31,21 @@ test.describe("Screenshot tests (hash)", () => {
   });
 });
 
-test("should copy hash", async ({ mount, page, context }) => {
+test("should copy hash", async ({ mount, page, context, browserName }) => {
+  // eslint-disable-next-line playwright/no-skipped-test
+  test.skip(
+    browserName !== "chromium",
+    "clipboard permission granting is only supported in chromium",
+  );
+
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+
   // ARRANGE
   const component = await mount(
     <OnyxHeadline is="h1" hash="example-hash" style={{ marginLeft: "1rem" }}>
       Example
     </OnyxHeadline>,
   );
-
-  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
   // ACT
   await component.getByRole("link", { name: "Example" }).click();
