@@ -4,6 +4,22 @@
   "apply": "Anwenden",
   "back": "Zurück",
   "close": "Schließen",
+  "dataGrid": {
+    "head": {
+      "sorting": {
+        "action": {
+          "asc": "Tabelle aufsteigend nach der Spalte {field} sortieren.",
+          "desc": "Tabelle absteigend nach der Spalte {field} sortieren.",
+          "none": "Sortierung zurücksetzen."
+        },
+        "menu": {
+          "asc": "Aufsteigend sortieren",
+          "desc": "Absteigend sortieren",
+          "none": "Keine Sortierung"
+        }
+      }
+    }
+  },
   "validations": {
     "tooShort": {
       "preview": "Zu kurz",

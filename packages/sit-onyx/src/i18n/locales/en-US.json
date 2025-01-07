@@ -6,10 +6,17 @@
   "close": "Close",
   "dataGrid": {
     "head": {
-      "sortingAction": {
-        "asc": "Sort the table ascending by the {field} column.",
-        "desc": "Sort the table descending by the {field} column.",
-        "none": "Reset sorting."
+      "sorting": {
+        "action": {
+          "asc": "Sort the table ascending by the {field} column.",
+          "desc": "Sort the table descending by the {field} column.",
+          "none": "Reset sorting."
+        },
+        "menu": {
+          "asc": "Sort ascending",
+          "desc": "Sort descending",
+          "none": "No sorting"
+        }
       }
     }
   },
