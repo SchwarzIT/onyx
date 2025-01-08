@@ -33,9 +33,10 @@ test.describe("ScreenshotTest", () => {
           await component.evaluate((element) => {
             element.style.padding = `auto 5rem`;
           });
-          component.getByRole("button", { name: "Accordion Header 1" }).click();
+          await component.getByRole("button", { name: "Accordion Header 1" }).click();
         }
-        if (row === "hover") component.getByRole("button", { name: "Accordion Header 1" }).hover();
+        if (row === "hover")
+          await component.getByRole("button", { name: "Accordion Header 1" }).hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");
       },
     },
@@ -58,8 +59,7 @@ test.describe("ScreenshotTest", () => {
     ),
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        if (row === "hover")
-          await component.getByRole("button", { name: "Accordion Header 1" }).hover();
+        if (row === "hover") await component.hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");
       },
     },
