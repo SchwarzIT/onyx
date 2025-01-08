@@ -161,7 +161,7 @@ const selectedDate = ref<DateValue>();
 
     <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
       <section class="page__intro">
-        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
+        <OnyxHeadline is="h1" :skeleton="false">Component usages</OnyxHeadline>
         <p>Each onyx component should be used at least once in this page.</p>
       </section>
 

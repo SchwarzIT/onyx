@@ -1,3 +1,5 @@
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
+
 export type OnyxHeadlineProps = {
   /**
    * Headline type. Please note that only h1-h4 are intended to be used from UX perspective.
@@ -13,6 +15,10 @@ export type OnyxHeadlineProps = {
    * @example "about-us"
    */
   hash?: string;
+  /**
+   * Whether to show a skeleton headline.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 export const HEADLINE_TYPES = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;

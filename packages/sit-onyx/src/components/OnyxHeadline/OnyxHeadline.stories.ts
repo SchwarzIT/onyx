@@ -43,3 +43,10 @@ export const WithHash = {
     hash: "section-1",
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

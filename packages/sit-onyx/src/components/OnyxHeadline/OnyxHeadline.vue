@@ -1,7 +1,11 @@
 <script lang="ts" setup>
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxHeadlineProps } from "./types";
 
-const props = defineProps<OnyxHeadlineProps>();
+const props = withDefaults(defineProps<OnyxHeadlineProps>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
 
 defineSlots<{
   /**
@@ -9,6 +13,8 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+
+const skeleton = useSkeletonContext(props);
 
 const copyHash = async (hash: string) => {
   const { origin, pathname, search } = window.location;
@@ -18,8 +24,14 @@ const copyHash = async (hash: string) => {
 </script>
 
 <template>
+  <OnyxSkeleton
+    v-if="skeleton"
+    :class="['onyx-headline-skeleton', `onyx-headline-skeleton--${props.is}`]"
+  />
+
   <component
     :is="props.is"
+    v-else
     :id="props.hash"
     :class="['onyx-component', 'onyx-headline', `onyx-headline--${props.is}`]"
   >
@@ -41,6 +53,13 @@ const copyHash = async (hash: string) => {
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/sizes";
 
+.onyx-headline,
+.onyx-headline-skeleton {
+  @include layers.component() {
+    @include sizes.define-headline-sizes();
+  }
+}
+
 .onyx-headline {
   @include layers.component() {
     --onyx-headline-scroll-margin: var(--onyx-spacing-xl);
@@ -52,8 +71,6 @@ const copyHash = async (hash: string) => {
     position: relative;
     border-radius: var(--border-radius);
     scroll-margin-top: var(--onyx-headline-scroll-margin);
-
-    @include sizes.define-headline-sizes();
 
     &__hash {
       color: inherit;
@@ -96,6 +113,12 @@ const copyHash = async (hash: string) => {
         }
       }
     }
+  }
+
+  &-skeleton {
+    height: 1lh;
+    width: 10rem;
+    max-width: 100%;
   }
 }
 </style>
