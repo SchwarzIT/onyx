@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { normalizedIncludes } from "./strings";
+import { normalizedIncludes, normalizeUrlHash } from "./strings";
 
 test.each([
   // ARRANGE
@@ -26,3 +26,16 @@ test.each([
     expect(result).toBe(expected);
   },
 );
+
+test.each([
+  // ARRANGE
+  { text: "Hello World", expected: "hello-world" },
+  { text: "   Hello World   ", expected: "hello-world" },
+  { text: "hello-world", expected: "hello-world" },
+])("should transform $text to $expected when normalizing as hash", ({ text, expected }) => {
+  // ACT
+  const result = normalizeUrlHash(text);
+
+  // ASSERT
+  expect(result).toBe(expected);
+});
