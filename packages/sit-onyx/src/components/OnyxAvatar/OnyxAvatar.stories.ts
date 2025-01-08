@@ -7,9 +7,6 @@ import OnyxAvatar from "./OnyxAvatar.vue";
 const meta: Meta<typeof OnyxAvatar> = {
   title: "Basic/Avatar",
   component: OnyxAvatar,
-  argTypes: {
-    default: { control: { type: "text" } },
-  },
 };
 
 export default meta;
@@ -36,11 +33,11 @@ export const WithImage = {
 } satisfies Story;
 
 /**
- * This example shows an avatar with custom content instead of the default initials.
+ * This example shows an avatar with custom initials instead of the automatically detected ones.
  */
 export const WithCustomInitials = {
   args: {
     label: "4 more avatars",
-    default: "+4",
+    initials: "+4",
   },
 } satisfies Story;

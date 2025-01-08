@@ -24,6 +24,7 @@ const slots = defineSlots<{
 const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
 
 const avatar = computed(() => {
+  if (typeof props.avatar === "object") return props.avatar;
   return { src: props.avatar, label: props.username };
 });
 
@@ -49,7 +50,7 @@ const isMobile = inject(
 
     <template #header>
       <div class="onyx-user-menu__header">
-        <OnyxAvatar v-bind="avatar" />
+        <OnyxAvatar v-bind="avatar" size="48px" />
 
         <div class="onyx-truncation-ellipsis">
           <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">

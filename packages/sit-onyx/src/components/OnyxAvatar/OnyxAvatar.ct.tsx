@@ -43,9 +43,11 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "truncation"],
     rows: AVATAR_SIZES,
     component: (column, row) => (
-      <OnyxAvatar label="Custom content" size={row}>
-        {column === "truncation" ? "+999999" : "+42"}
-      </OnyxAvatar>
+      <OnyxAvatar
+        label="Custom content"
+        size={row}
+        initials={column === "truncation" ? "+999999" : "+42"}
+      />
     ),
   });
 });
@@ -59,7 +61,7 @@ test("should contain correct initials", async ({ mount }) => {
   });
 
   // ASSERT
-  await expect(component).toContainText("AB");
+  await expect(component).toContainText("AD");
 
   // ACT
   await component.update({ props: { label: "abcd" } });
@@ -72,6 +74,12 @@ test("should contain correct initials", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toContainText("A");
+
+  // ACT
+  await component.update({ props: { label: "abcd", initials: "HI" } });
+
+  // ASSERT
+  await expect(component).toContainText("HI");
 });
 
 test("should show custom image", async ({ mount, page }) => {
