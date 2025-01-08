@@ -1,4 +1,5 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
+import { useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -29,6 +30,9 @@ const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
+
+const input = useTemplateRef("input");
+defineExpose({ input });
 </script>
 
 <template>
@@ -43,6 +47,7 @@ const skeleton = useSkeletonContext(props);
       <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
       <input
         v-else
+        ref="input"
         v-custom-validity
         class="onyx-radio-button__selector"
         type="radio"

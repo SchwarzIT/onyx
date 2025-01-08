@@ -7,11 +7,10 @@ import {
   toRef,
   toRefs,
   useId,
+  useTemplateRef,
   watch,
   watchEffect,
-  type ComponentInstance,
 } from "vue";
-import type { ComponentExposed } from "vue-component-type-helpers";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -134,8 +133,8 @@ const selectionLabels = computed(() => {
   }, []);
 });
 
-const miniSearch = ref<ComponentInstance<typeof OnyxMiniSearch>>();
-const selectInput = ref<ComponentExposed<typeof OnyxSelectInput>>();
+const miniSearch = useTemplateRef("miniSearch");
+const selectInput = useTemplateRef("selectInput");
 
 const filteredOptions = computed(() => {
   // if onyx does not manage the search, we don't filter the options further
@@ -190,7 +189,7 @@ const onToggle = async (preventFocus?: boolean) => {
   if (wasOpen !== open.value) {
     if (wasOpen) {
       if (searchTerm.value) searchTerm.value = "";
-      if (!preventFocus) selectInput.value?.focus();
+      if (!preventFocus) selectInput.value?.input?.focus();
     } else {
       // make sure search is focused after the flyout opened
       miniSearch.value?.focus();
@@ -328,6 +327,8 @@ const selectInputProps = computed(() => {
   if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
   return { ...baseProps, ...input.value };
 });
+
+defineExpose({ input: computed(() => selectInput.value?.input) });
 </script>
 
 <template>

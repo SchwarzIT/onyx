@@ -6,12 +6,14 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
+import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";
+import FormElementTestWrapper from "./FormElementTestWrapper.vue";
 import OnyxForm from "./OnyxForm.vue";
 
 const inferProps = <TComp extends Component, TProps extends ComponentProps<TComp>>(
@@ -78,4 +80,30 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
 
   // ASSERT
   await expectForAll((element) => expect(element).toBeDisabled());
+});
+
+test("FormElementTestWrapper", async ({ mount, page }) => {
+  const allFormComponents = Object.entries({
+    OnyxInput,
+    OnyxStepper,
+    OnyxTextarea,
+    OnyxCheckbox,
+    OnyxRadioButton,
+    OnyxSwitch,
+    OnyxSelect,
+  });
+
+  // ARRANGE
+  const jsx = allFormComponents.map(([name, c]) => (
+    <FormElementTestWrapper name={name} is={c}></FormElementTestWrapper>
+  ));
+
+  await mount(<div>{jsx}</div>);
+
+  for (const [name] of allFormComponents) {
+    await page
+      .getByRole("button", { name: `form-element-test-wrapper-focus-button-${name}` })
+      .click();
+    await expect(page.getByLabel(`form-element-test-wrapper-label-${name}`)).toBeFocused();
+  }
 });

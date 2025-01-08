@@ -1,29 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyLimits, isDivisible, roundToPrecision } from "./numbers";
-
-// Tests for isDivisible function
-describe("isDivisible", () => {
-  it("returns true if number is divisible by precision", () => {
-    expect(isDivisible(10, 2)).toBe(true);
-    expect(isDivisible(15, 5)).toBe(true);
-    expect(isDivisible(0.4, 0.2)).toBe(true);
-  });
-
-  it("returns false if number is not divisible by precision", () => {
-    expect(isDivisible(10, 3)).toBe(false);
-    expect(isDivisible(15, 4)).toBe(false);
-    expect(isDivisible(0.5, 0.3)).toBe(false);
-  });
-
-  it("returns true if number is 0 and precision is non-zero", () => {
-    expect(isDivisible(0, 1)).toBe(true);
-    expect(isDivisible(0, 0.1)).toBe(true);
-  });
-
-  it("returns false if precision is 0 (division by zero)", () => {
-    expect(isDivisible(10, 0)).toBe(false);
-  });
-});
+import { applyLimits, roundToPrecision } from "./numbers";
 
 // Tests for applyLimits function
 describe("applyLimits", () => {

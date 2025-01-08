@@ -1,7 +1,11 @@
+import arrowSmallDown from "@sit-onyx/icons/arrow-small-down.svg?raw";
+import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
+import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
-import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import type { DataGridEntry } from "../../types";
 import SortAction from "./SortAction.vue";
 import type { SortDirection, SortOptions, SortState } from "./types";
@@ -40,7 +44,7 @@ export const useSorting = createFeature(
       return !config || config?.[col]?.enabled === true;
     });
 
-    const { locale } = injectI18n();
+    const { locale, t } = injectI18n();
     const intlCompare = computed(
       () => (a: unknown, b: unknown) =>
         new Intl.Collator(locale.value).compare(String(a), String(b)),
@@ -69,6 +73,32 @@ export const useSorting = createFeature(
       data.sort((a, b) => sortFunc(a[column], b[column]) * multiplicand);
     };
 
+    const isSortActive = computed(() => {
+      return (column: keyof DataGridEntry, direction: SortDirection) => {
+        return sortState.value.column === column && sortState.value.direction === direction;
+      };
+    });
+
+    const getMenuItem = (column: keyof DataGridEntry, direction: SortDirection) => {
+      const iconMap = {
+        none: circleBlock,
+        asc: arrowSmallUp,
+        desc: arrowSmallDown,
+      } satisfies Record<SortDirection, string>;
+
+      return h(
+        OnyxMenuItem,
+        {
+          active: isSortActive.value(column, direction),
+          onClick: () => (sortState.value = { column, direction }),
+        },
+        () => [
+          h(OnyxIcon, { icon: iconMap[direction] }),
+          t.value(`dataGrid.head.sorting.menu.${direction}`),
+        ],
+      );
+    };
+
     return {
       name: SORTING_FEATURE,
       watch: [sortState, intlCompare],
@@ -76,20 +106,24 @@ export const useSorting = createFeature(
         func: sortData,
       },
       header: {
-        actions: (column) =>
-          getSortEnabled.value(column) === true
-            ? [
-                {
-                  iconComponent: h(SortAction, {
-                    columnLabel: String(column),
-                    sortDirection:
-                      sortState.value.column === column ? sortState.value.direction : undefined,
-                    onClick: () => handleClick(column),
-                  }),
-                  listItems: [h(OnyxListItem, () => "Sort column")],
-                },
-              ]
-            : [],
+        actions: (column) => {
+          if (!getSortEnabled.value(column)) return [];
+          return [
+            {
+              iconComponent: h(SortAction, {
+                columnLabel: String(column),
+                sortDirection:
+                  sortState.value.column === column ? sortState.value.direction : undefined,
+                onClick: () => handleClick(column),
+              }),
+              menuItems: [
+                getMenuItem(column, "none"),
+                getMenuItem(column, "asc"),
+                getMenuItem(column, "desc"),
+              ],
+            },
+          ];
+        },
       },
     };
   },
