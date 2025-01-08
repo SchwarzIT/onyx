@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxHeadline, OnyxInput, createHeadlineHash } from "sit-onyx";
+import { OnyxHeadline, OnyxInput, normalizeUrlHash } from "sit-onyx";
 import { computed, ref } from "vue";
 import { getEnrichedIconCategoryList } from "../utils-icons";
 import IconLibraryItem from "./IconLibraryItem.vue";
@@ -48,7 +48,7 @@ const filteredCategories = computed(() => {
     />
 
     <section v-for="category in filteredCategories" :key="category.name" class="category">
-      <OnyxHeadline is="h3" class="category__headline" :hash="createHeadlineHash(category.name)">
+      <OnyxHeadline is="h3" class="category__headline" :hash="normalizeUrlHash(category.name)">
         {{ category.name }}
       </OnyxHeadline>
 
