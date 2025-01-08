@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.111
+
+### Minor Changes
+
+- 8beb853: feat(OnyxHeadline): support `hash` property
+
 ## 1.0.0-beta.110
 
 ### Patch Changes
