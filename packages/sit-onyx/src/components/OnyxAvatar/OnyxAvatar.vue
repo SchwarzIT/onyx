@@ -6,18 +6,13 @@ const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   size: "48px",
 });
 
-const slots = defineSlots<{
-  /**
-   * Optional slot to override the default initials. Will only be used if `type` is `initials`.
-   */
-  default?(): unknown;
-}>();
-
 const initials = computed(() => {
-  const names = props.label.split(" ");
-  const initials =
-    names.length > 1 ? `${names[0].charAt(0)}${names[1].charAt(0)}` : names[0].substring(0, 2);
-  return initials.toUpperCase();
+  if (props.initials) return props.initials;
+
+  const names = props.label.trim().toUpperCase().split(" ");
+  if (names.length === 1) return names[0].substring(0, 2);
+
+  return `${names[0].charAt(0)}${names.at(-1)?.charAt(0)}`;
 });
 
 const hasImageError = ref(false);
@@ -32,7 +27,7 @@ watch(
 <template>
   <figure
     class="onyx-component onyx-avatar"
-    :class="[`onyx-avatar--${props.size}`, slots.default ? 'onyx-avatar--custom' : '']"
+    :class="[`onyx-avatar--${props.size}`, props.initials ? 'onyx-avatar--custom' : '']"
     :title="props.label"
   >
     <img
@@ -44,7 +39,7 @@ watch(
     />
 
     <div v-else class="onyx-avatar__initials">
-      <slot>{{ initials }}</slot>
+      {{ initials }}
     </div>
   </figure>
 </template>

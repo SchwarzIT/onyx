@@ -1,4 +1,5 @@
 import type { ManagedProp } from "../../../../composables/useManagedState";
+import type { OnyxAvatarProps } from "../../../OnyxAvatar/types";
 
 export type OnyxUserMenuProps = {
   /**
@@ -8,7 +9,7 @@ export type OnyxUserMenuProps = {
   /**
    * User avatar. If unset or an error occurs while loading, a fallback will be displayed with the username initials.
    */
-  avatar?: string;
+  avatar?: string | Omit<OnyxAvatarProps, "size">;
   /**
    * Optional user description that is displayed when the menu is opened.
    */
