@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.110
+
+### Patch Changes
+
+- fc8c38c: fix(UserMenu): align mobile footer app version correctly
+
 ## 1.0.0-beta.109
 
 ### Minor Changes
