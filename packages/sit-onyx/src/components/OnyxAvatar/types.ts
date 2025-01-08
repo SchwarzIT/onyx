@@ -11,4 +11,9 @@ export type OnyxAvatarProps = IconSizeProp<Exclude<IconSize, "12px">> & {
    * with the initials.
    */
   src?: string;
+  /**
+   * Initials to use. If unset, they will be inferred automatically from the `label` property
+   * by using the first character of the first and last word.
+   */
+  initials?: string;
 };
