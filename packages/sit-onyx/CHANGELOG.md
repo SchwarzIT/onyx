@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-beta.112
+
+### Minor Changes
+
+- 6a83be5: feat(OnyxHeadline): implement skeleton
+
+## 1.0.0-beta.111
+
+### Minor Changes
+
+- 8beb853: feat(OnyxHeadline): support `hash` property
+
+## 1.0.0-beta.110
+
+### Patch Changes
+
+- fc8c38c: fix(UserMenu): align mobile footer app version correctly
+
 ## 1.0.0-beta.109
 
 ### Minor Changes

@@ -165,7 +165,7 @@ const selectedDate = ref<DateValue>();
 
     <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
       <section class="page__intro">
-        <OnyxHeadline is="h1">Component usages</OnyxHeadline>
+        <OnyxHeadline is="h1" :skeleton="false">Component usages</OnyxHeadline>
         <p>Each onyx component should be used at least once in this page.</p>
       </section>
 
@@ -206,7 +206,7 @@ const selectedDate = ref<DateValue>();
 
         <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
-        <OnyxHeadline is="h1" v-if="show('OnyxHeadline')">Headline</OnyxHeadline>
+        <OnyxHeadline is="h1" v-if="show('OnyxHeadline')" hash="headline">Headline</OnyxHeadline>
 
         <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 

@@ -164,4 +164,7 @@ export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx } from "./utils/plugin";
-export { normalizedIncludes } from "./utils/strings";
+
+export { normalizeUrlHash, normalizedIncludes } from "./utils/strings";
+
+export * from "./composables/themeTransition";

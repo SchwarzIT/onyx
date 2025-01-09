@@ -29,7 +29,9 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
       <ComponentRoadmap :components="props.data.components" />
 
       <section>
-        <OnyxHeadline is="h2" class="roadmap__headline">Facts and figures</OnyxHeadline>
+        <OnyxHeadline is="h2" class="roadmap__headline" hash="facts">
+          Facts and figures
+        </OnyxHeadline>
         <p class="roadmap__timestamp">Last updated on: {{ kpiTimestamp }}</p>
 
         <div class="roadmap__facts">
