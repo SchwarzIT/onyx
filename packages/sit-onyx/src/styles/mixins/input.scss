@@ -103,7 +103,7 @@
     line-height: inherit;
     // should have full height, but not overlap actual border
     height: calc(1lh + 2 * var(--onyx-input-padding-vertical) - 2px);
-    border-width: 1px;
+    border-width: var(--onyx-1px-in-rem);
     border-color: var(--onyx-color-component-border-neutral);
 
     &--trailing {
