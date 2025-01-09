@@ -214,7 +214,6 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
       &:disabled {
         background-color: var(--onyx-color-base-background-tinted);
-        color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
   }
