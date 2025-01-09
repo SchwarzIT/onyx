@@ -6,9 +6,13 @@ import { HEADLINE_TYPES } from "./types";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Headline",
-    columns: ["default"],
+    columns: ["default", "skeleton"],
     rows: HEADLINE_TYPES,
-    component: (column, row) => <OnyxHeadline is={row}>Hello World</OnyxHeadline>,
+    component: (column, row) => (
+      <OnyxHeadline is={row} skeleton={column === "skeleton"}>
+        Hello World
+      </OnyxHeadline>
+    ),
   });
 });
 
