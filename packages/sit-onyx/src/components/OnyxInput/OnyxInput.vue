@@ -41,12 +41,12 @@ const emit = defineEmits<{
 const slots = defineSlots<{
   /**
    * Inline content rendered before the actual input area.
-   * Avoid using this slot, as it will shrink the space of the input.
+   * Careful when using this slot, as it will shrink the space of the input.
    */
   leading?(): unknown;
   /**
    * Inline content rendered after the actual input area.
-   * Avoid using this slot, as it will shrink the space of the input.
+   * Careful when using this slot, as it will shrink the space of the input.
    */
   trailing?(): unknown;
 }>();
