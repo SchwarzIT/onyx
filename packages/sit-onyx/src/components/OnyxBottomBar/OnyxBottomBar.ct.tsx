@@ -8,7 +8,7 @@ test.describe("Screenshot tests", () => {
     name: "Bottom Bar",
     columns: ["default"],
     rows: ["right", "left", "left-and-right", "hidden-border"],
-    component: (column, row) => {
+    component: (_column, row) => {
       return (
         <OnyxBottomBar hideBorder={row === "hidden-border"} style={{ width: "32rem" }}>
           {(row.includes("left") || row === "hidden-border") && (
@@ -18,12 +18,10 @@ test.describe("Screenshot tests", () => {
             </template>
           )}
 
-          {(row.includes("right") || row === "hidden-border") && (
-            <template v-slot:right>
-              <OnyxButton label="Button" mode="plain" color="neutral"></OnyxButton>
-              <OnyxButton label="Button"></OnyxButton>
-            </template>
-          )}
+          {(row.includes("right") || row === "hidden-border") && [
+            <OnyxButton label="Button" mode="plain" color="neutral"></OnyxButton>,
+            <OnyxButton label="Button"></OnyxButton>,
+          ]}
         </OnyxBottomBar>
       );
     },
