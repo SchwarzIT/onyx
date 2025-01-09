@@ -4,6 +4,7 @@ import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/
 import { injectI18n } from "../../i18n";
 import { normalizeUrlHash } from "../../utils/strings";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxHeadlineProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxHeadlineProps>(), {
@@ -46,10 +47,10 @@ const copyLink = async (hash: string) => {
       :href="`#${normalizedHash}`"
       target="_self"
       class="onyx-headline__hash"
-      :title="t('headline.copyPermalink')"
-      :aria-description="t('headline.copyPermalink')"
+      :title="t('headline.copyLink')"
       @click="copyLink(normalizedHash)"
     >
+      <OnyxVisuallyHidden>{{ t("headline.copyLinkTo") }}</OnyxVisuallyHidden>
       <slot />
     </a>
 
