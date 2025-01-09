@@ -84,8 +84,7 @@ test.describe("Screenshot tests", () => {
 });
 
 test("Screenshot tests (mobile)", async ({ mount, page }) => {
-  await page.addStyleTag({ content: "body { margin: 0 }" });
-  await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS.sm - 1 });
+  await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS.sm });
 
   const clickEvents: string[] = [];
 
@@ -200,7 +199,6 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
 ["", " with context"].forEach((showContext) => {
   test(`Screenshot tests (mobile truncated labels${showContext})`, async ({ mount, page }) => {
-    await page.addStyleTag({ content: "body { margin: 0 }" });
     await page.setViewportSize({ height: 350, width: ONYX_BREAKPOINTS["2xs"] });
     const longLabel = "Item with a very long truncated name";
 
