@@ -324,10 +324,8 @@ const selectedDate = ref<DateValue>();
     </div>
     <template #footer>
       <OnyxBottomBar>
-        <template #right>
-          <OnyxButton label="Button" mode="plain" color="neutral"></OnyxButton>
-          <OnyxButton label="Button"></OnyxButton>
-        </template>
+        <OnyxButton label="Button" mode="plain" color="neutral"></OnyxButton>
+        <OnyxButton label="Button"></OnyxButton>
       </OnyxBottomBar>
     </template>
   </OnyxPageLayout>

@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxBottomBar> = {
   title: "Navigation/BottomBar",
   component: OnyxBottomBar,
   argTypes: {
-    right: { control: { disable: true } },
+    default: { control: { disable: true } },
     left: { control: { disable: true } },
   },
   decorators: [
@@ -42,7 +42,7 @@ type Story = StoryObj<typeof OnyxBottomBar>;
  */
 export const Default = {
   args: {
-    right: () => [
+    default: () => [
       h(OnyxButton, { label: "Button", mode: "plain", color: "neutral" }),
       h(OnyxButton, { label: "Button" }),
     ],
@@ -66,7 +66,7 @@ export const WithLeftSlot = {
  */
 export const WithLeftAndRightSlot = {
   args: {
-    right: Default.args.right,
+    default: Default.args.default,
     left: WithLeftSlot.args.left,
   },
 } satisfies Story;
