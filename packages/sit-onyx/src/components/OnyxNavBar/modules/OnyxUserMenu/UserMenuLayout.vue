@@ -93,18 +93,19 @@ const { t } = injectI18n();
     &__footer,
     &__mobile-footer {
       color: var(--onyx-color-text-icons-neutral-soft);
-
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-spacing-2xs);
     }
+
     &__footer {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
     }
+
     &__mobile-footer {
-      margin-top: var(--onyx-spacing-xs);
+      margin-top: var(--onyx-spacing-2xs);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-sm);
       font-size: 0.8125rem;

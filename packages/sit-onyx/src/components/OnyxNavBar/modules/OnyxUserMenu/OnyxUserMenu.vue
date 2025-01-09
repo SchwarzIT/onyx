@@ -108,7 +108,7 @@ const isMobile = inject(
       display: flex;
       align-items: center;
       gap: var(--onyx-spacing-2xs);
-      color: var(--onyx-color-text-icons-neutral-medium);
+      color: var(--onyx-color-text-icons-neutral-intense);
       margin-left: auto;
       font-weight: 600;
 
@@ -153,7 +153,7 @@ const isMobile = inject(
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
         background-color: var(--onyx-color-base-background-blank);
         border-radius: var(--onyx-radius-sm);
-        margin-bottom: var(--onyx-spacing-xs); // TODO: use density
+        margin-bottom: var(--onyx-spacing-2xs);
       }
 
       .onyx-user-menu__options {
