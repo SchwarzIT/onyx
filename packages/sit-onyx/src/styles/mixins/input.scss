@@ -102,7 +102,7 @@
     all: initial;
     line-height: inherit;
     // should have full height, but not overlap actual border
-    height: calc(1lh + 2 * var(--onyx-input-padding-vertical) - 2px);
+    height: calc(1lh + 2 * var(--onyx-input-padding-vertical) - 2 * var(--onyx-1px-in-rem));
     border-width: var(--onyx-1px-in-rem);
     border-color: var(--onyx-color-component-border-neutral);
 
