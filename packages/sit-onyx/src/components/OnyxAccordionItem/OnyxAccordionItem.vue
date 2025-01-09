@@ -82,7 +82,6 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-$--onyx-skeleton-main-width: calc(100% - (var(--onyx-density-md) + 1.5rem));
 .onyx-accordion-item {
   @include layers.component() {
     border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
@@ -161,7 +160,8 @@ $--onyx-skeleton-main-width: calc(100% - (var(--onyx-density-md) + 1.5rem));
     border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
     &__main {
-      width: $--onyx-skeleton-main-width;
+      // 100% - gap - icon-width
+      width: calc(100% - var(--onyx-density-md) - 1.5rem);
       height: 1.5rem;
     }
     &__icon {
