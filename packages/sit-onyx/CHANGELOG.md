@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.114
+
+### Minor Changes
+
+- bf07bd1: feat(OnyxBottomBar): Replaced right slot with a default slot
+
 ## 1.0.0-beta.113
 
 ### Minor Changes
