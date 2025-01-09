@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline, normalizeUrlHash } from "sit-onyx";
+import { OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const props = defineProps<{
   /** Headline to show on the left side of the header. */
@@ -18,12 +18,7 @@ const emit = defineEmits<{
 
 <template>
   <div class="header vp-raw">
-    <OnyxHeadline
-      is="h3"
-      v-if="props.headline"
-      class="header__headline"
-      :hash="normalizeUrlHash(props.headline)"
-    >
+    <OnyxHeadline is="h3" v-if="props.headline" class="header__headline" :hash="props.headline">
       {{ props.headline }}
     </OnyxHeadline>
 

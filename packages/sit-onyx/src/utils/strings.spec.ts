@@ -32,6 +32,7 @@ test.each([
   { text: "Hello World", expected: "hello-world" },
   { text: "   Hello World   ", expected: "hello-world" },
   { text: "hello-world", expected: "hello-world" },
+  { text: "a & b . c / d = e , f ; g : h", expected: "a---b---c---d---e---f---g---h" },
 ])("should transform $text to $expected when normalizing as hash", ({ text, expected }) => {
   // ACT
   const result = normalizeUrlHash(text);

@@ -147,5 +147,8 @@
   },
   "dialog": {
     "close": "Close dialog"
+  },
+  "headline": {
+    "copyPermalink": "Copy link to this headline"
   }
 }
