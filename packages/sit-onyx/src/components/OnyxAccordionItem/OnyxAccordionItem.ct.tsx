@@ -56,7 +56,7 @@ test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
-test("should apply the disabled state", async ({ mount, makeAxeBuilder }) => {
+test("should apply the disabled state", async ({ mount, makeAxeBuilder, page }) => {
   const component = await mount(
     <OnyxAccordionItem disabled>
       <template v-slot:header>Accordion Header</template>
@@ -66,8 +66,8 @@ test("should apply the disabled state", async ({ mount, makeAxeBuilder }) => {
 
   // Locators
   const header = component.locator(".onyx-accordion-item__header");
+  await page.keyboard.press("Tab");
   await expect(header).not.toBeFocused();
-
   const accessibilityScanResults = await makeAxeBuilder().analyze();
 
   expect(accessibilityScanResults.violations).toEqual([]);

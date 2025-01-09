@@ -25,15 +25,15 @@ export const Default = {
     default: () => [
       h(OnyxAccordionItem, null, {
         header: () => "First Accordion Header",
-        default: () => h("p", "This is the content inside the first panel."),
+        default: () => "This is the content inside the first panel.",
       }),
       h(OnyxAccordionItem, null, {
         header: () => "Second Accordion Header",
-        default: () => h("p", "This is the content inside the second panel."),
+        default: () => "This is the content inside the second panel.",
       }),
       h(OnyxAccordionItem, null, {
         header: () => "Third Accordion Header",
-        default: () => h("p", "This is the content inside the third panel."),
+        default: () => "This is the content inside the third panel.",
       }),
     ],
   },

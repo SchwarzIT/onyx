@@ -35,7 +35,7 @@ const isOpen = computed({
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
-const isDiabled = computed(() => accordionContext?.disabled.value || props.disabled);
+const isDisabled = computed(() => accordionContext?.disabled.value || props.disabled);
 </script>
 
 <template>
@@ -58,10 +58,10 @@ const isDiabled = computed(() => accordionContext?.disabled.value || props.disab
       :id="'header-' + itemId"
       class="onyx-accordion-item__header"
       role="button"
-      :tabindex="isDiabled ? -1 : 0"
+      :tabindex="isDisabled ? -1 : 0"
       :aria-expanded="isOpen"
       :aria-controls="'panel-' + itemId"
-      :aria-disabled="isDiabled"
+      :aria-disabled="isDisabled"
     >
       <div class="onyx-accordion-item__header-content">
         <slot name="header"></slot>
@@ -108,10 +108,6 @@ const isDiabled = computed(() => accordionContext?.disabled.value || props.disab
       }
       &-content {
         display: flex;
-        * {
-          font-size: 1rem;
-          font-weight: 400;
-        }
       }
 
       &-icon {
@@ -121,10 +117,9 @@ const isDiabled = computed(() => accordionContext?.disabled.value || props.disab
     &[open] &__header-icon {
       transform: rotate(-90deg);
     }
-    &:has(:focus-visible) {
+    &:has(&__header:focus-visible) {
       border-radius: var(--onyx-radius-md);
       border-bottom: none;
-      z-index: 1;
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
 
@@ -134,9 +129,18 @@ const isDiabled = computed(() => accordionContext?.disabled.value || props.disab
       &:focus-visible {
         color: var(--onyx-color-text-icons-neutral-intense);
       }
+      &:focus-visible {
+        border-radius: var(--onyx-radius-md);
+      }
     }
-    &[open] &__header::after {
-      transform: rotate(90deg);
+    &[open] &__header {
+      &:focus-visible {
+        border-radius: var(--onyx-radius-md) var(--onyx-radius-md) 0 0;
+      }
+
+      &::after {
+        transform: rotate(90deg);
+      }
     }
     &__panel {
       padding: var(--onyx-density-md);
@@ -153,14 +157,14 @@ const isDiabled = computed(() => accordionContext?.disabled.value || props.disab
     padding: var(--onyx-density-md);
     display: flex;
     gap: var(--onyx-density-md);
-    border-bottom: 1px solid var(--onyx-color-component-border-neutral);
+    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
     &__main {
       width: calc(100% - 3 * var(--onyx-density-md));
-      height: var(--onyx-density-md);
+      height: 1.5rem;
     }
     &__icon {
-      height: var(--onyx-density-md);
+      height: 1.5rem;
       width: var(--onyx-density-md);
     }
   }

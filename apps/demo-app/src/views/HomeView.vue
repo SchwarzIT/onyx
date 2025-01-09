@@ -172,21 +172,15 @@ const selectedDate = ref<DateValue>();
       <div class="page__examples">
         <OnyxAccordion v-if="show('OnyxAccordion')">
           <OnyxAccordionItem>
-            <template #header>
-              <h3>Header 1</h3>
-            </template>
+            <template #header> Header 1 </template>
             <p>Hidden Content 1</p>
           </OnyxAccordionItem>
           <OnyxAccordionItem>
-            <template #header>
-              <h3>Header 2</h3>
-            </template>
+            <template #header> Header 2 </template>
             <p>Hidden Content 2</p>
           </OnyxAccordionItem>
           <OnyxAccordionItem>
-            <template #header>
-              <h3>Header 3</h3>
-            </template>
+            <template #header> Header 3 </template>
             <p>Hidden Content 3</p>
           </OnyxAccordionItem>
         </OnyxAccordion>

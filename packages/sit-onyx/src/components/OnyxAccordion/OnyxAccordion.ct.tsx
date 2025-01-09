@@ -80,10 +80,10 @@ test("should open only one item at a time in exclusive mode", async ({ mount, ma
     </OnyxAccordion>,
   );
 
-  const firstHeader = component.locator(".onyx-accordion-item__header").first();
-  const secondHeader = component.locator(".onyx-accordion-item__header").nth(1);
-  const firstPanel = component.locator(".onyx-accordion-item__panel").first();
-  const secondPanel = component.locator(".onyx-accordion-item__panel").nth(1);
+  const firstHeader = component.getByRole("button", { name: "Accordion Header 1" });
+  const secondHeader = component.getByRole("button", { name: "Accordion Header 2" });
+  const firstPanel = component.getByLabel("Accordion Header 1");
+  const secondPanel = component.getByLabel("Accordion Header 2");
 
   await firstHeader.click();
   await expect(firstPanel).toBeVisible();
