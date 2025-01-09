@@ -426,8 +426,8 @@ importers:
         specifier: 8.5.0-beta.7
         version: 8.5.0-beta.7(storybook@8.5.0-beta.7(prettier@3.4.2))(vitest@2.1.8(@types/node@22.10.4)(jsdom@25.0.1)(sass-embedded@1.81.0)(sass@1.83.0)(stylus@0.57.0)(terser@5.37.0))
       '@storybook/addon-actions':
-        specifier: 8.5.0-beta.7
-        version: 8.5.0-beta.7(storybook@8.5.0-beta.7(prettier@3.4.2))
+        specifier: 8.5.0-beta.8
+        version: 8.5.0-beta.8(storybook@8.5.0-beta.7(prettier@3.4.2))
       '@vue/compiler-dom':
         specifier: 3.5.13
         version: 3.5.13
@@ -469,8 +469,8 @@ importers:
         specifier: workspace:^
         version: link:../shared
       '@storybook/addon-actions':
-        specifier: 8.5.0-beta.7
-        version: 8.5.0-beta.7(storybook@8.5.0-beta.7(prettier@3.4.2))
+        specifier: 8.5.0-beta.8
+        version: 8.5.0-beta.8(storybook@8.5.0-beta.7(prettier@3.4.2))
       storybook:
         specifier: 8.5.0-beta.7
         version: 8.5.0-beta.7(prettier@3.4.2)
@@ -2221,6 +2221,11 @@ packages:
     resolution: {integrity: sha512-IDCbZW2xBZ6yidFz7ibAASttxMEbf/ey116NDUVuLW8VXBgIRgtJt52Zi7Xgzl4oQLjHUIoEW+O/kkgG8bfV2g==}
     peerDependencies:
       storybook: ^8.5.0-beta.7
+
+  '@storybook/addon-actions@8.5.0-beta.8':
+    resolution: {integrity: sha512-TW6ATBIMYMmfpxnIG2+ta9OiLVO2osEw8/HpX2ncPLkRCq6dh6z5zCc0af9hf/qdjUqAEPw82CGHL++vZ08UcA==}
+    peerDependencies:
+      storybook: ^8.5.0-beta.8
 
   '@storybook/addon-backgrounds@8.5.0-beta.7':
     resolution: {integrity: sha512-NfrMPzK3aNVR86VD0Re8BxJu0V2IGjRccZ70p/06gRv0+llHZF6NPNjRwyhr+bk+T2gg2cDJ7wMy85piI+wLVA==}
@@ -8837,6 +8842,15 @@ snapshots:
       - vitest
 
   '@storybook/addon-actions@8.5.0-beta.7(storybook@8.5.0-beta.7(prettier@3.4.2))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@types/uuid': 9.0.8
+      dequal: 2.0.3
+      polished: 4.3.1
+      storybook: 8.5.0-beta.7(prettier@3.4.2)
+      uuid: 9.0.1
+
+  '@storybook/addon-actions@8.5.0-beta.8(storybook@8.5.0-beta.7(prettier@3.4.2))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
