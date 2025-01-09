@@ -108,7 +108,7 @@ const copyLink = async (hash: string) => {
           // the / "" is used to ignore the content for screen readers, see:
           // https://developer.mozilla.org/en-US/docs/Web/CSS/content#alternative_text_string_counter
           // we still set 'content: "#"' in case the browser does not support the alternative syntax
-          // content: "#";
+          content: "#";
           content: "#" / "";
         }
       }
