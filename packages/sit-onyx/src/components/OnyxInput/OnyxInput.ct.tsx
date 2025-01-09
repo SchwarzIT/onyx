@@ -6,20 +6,38 @@ import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-ut
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of ["default", "placeholder", "with value", "autofill"] as const) {
+  for (const state of [
+    "default",
+    "placeholder",
+    "with value",
+    "autofill",
+    "slot content",
+  ] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus"],
       component: (column) => {
+        const modelValue =
+          state === "slot content"
+            ? "test"
+            : ["autofill", "with value"].includes(state)
+              ? "Filled value"
+              : undefined;
+
         return (
           <OnyxInput
             label="Test label"
             placeholder={state === "placeholder" ? "Test placeholder" : undefined}
             density={column}
-            modelValue={state === "with value" || state === "autofill" ? "Filled value" : undefined}
+            modelValue={modelValue}
             style="width: 12rem;"
-          />
+          >
+            {state === "slot content" && [
+              <template v-slot:leading>https://</template>,
+              <template v-slot:trailing>.com</template>,
+            ]}
+          </OnyxInput>
         );
       },
       hooks: {
