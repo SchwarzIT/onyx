@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxBottomBar from "./OnyxBottomBar.vue";
 
 /**
@@ -19,10 +20,12 @@ const meta: Meta<typeof OnyxBottomBar> = {
   },
   decorators: [
     (story) => ({
-      components: { story },
+      components: { story, OnyxPageLayout },
       template: `
         <OnyxPageLayout style="height: 15rem;" >
-          <story v-slot="footer" />
+          <template #footer>
+            <story />
+          </template>
         </OnyxPageLayout>`,
     }),
   ],
@@ -63,13 +66,7 @@ export const WithLeftSlot = {
  */
 export const WithLeftAndRightSlot = {
   args: {
-    right: () => [
-      h(OnyxButton, { label: "Button", mode: "plain", color: "neutral" }),
-      h(OnyxButton, { label: "Button" }),
-    ],
-    left: () => [
-      h(OnyxIconButton, { label: "Prev", icon: chevronLeftSmall, color: "neutral" }),
-      h(OnyxIconButton, { label: "Next", icon: chevronRightSmall, color: "neutral" }),
-    ],
+    right: Default.args.right,
+    left: WithLeftSlot.args.left,
   },
 } satisfies Story;
