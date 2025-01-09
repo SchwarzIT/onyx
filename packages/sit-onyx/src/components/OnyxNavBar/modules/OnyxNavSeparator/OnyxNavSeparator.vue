@@ -38,7 +38,7 @@ const isMobile = inject(
       min-height: unset;
       height: var(--onyx-1px-in-rem);
       width: 100%;
-      margin: var(--onyx-spacing-xs) 0;
+      margin: var(--onyx-spacing-2xs) 0;
     }
   }
 }

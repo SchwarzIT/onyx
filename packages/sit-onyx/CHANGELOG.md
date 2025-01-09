@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.113
+
+### Minor Changes
+
+- 0dc1a0c: feat: update text color for OnyxNavButton and OnyxUserMenu to improve color contrast
+
 ## 1.0.0-beta.112
 
 ### Minor Changes
