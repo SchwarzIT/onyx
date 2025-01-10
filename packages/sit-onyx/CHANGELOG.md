@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.116
+
+### Minor Changes
+
+- c17ccf7: feat(OnyxInput): Added the inline slots `leading` and `trailing`
+
 ## 1.0.0-beta.115
 
 ### Major Changes
