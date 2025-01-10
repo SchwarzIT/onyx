@@ -71,7 +71,6 @@ const { densityClass } = useDensity(props);
 
       &--left,
       &--right {
-        position: relative;
         display: flex;
         max-width: var(--onyx-grid-max-width, max-content);
         gap: var(--onyx-density-xs);
