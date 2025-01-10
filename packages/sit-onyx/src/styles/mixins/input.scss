@@ -34,7 +34,7 @@
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
     background-color: var(--background-color);
-    color: var(--onyx-color-text-icons-neutral-intense);
+    color: var(--onyx-color-text-icons-neutral-medium);
 
     outline: var(--onyx-outline-width) var(--outline-style) var(--outline-color);
 
@@ -46,6 +46,10 @@
     line-height: 1.5rem;
     padding: $vertical-padding var(--onyx-density-sm);
     height: calc(1lh + 2 * #{$vertical-padding});
+
+    #{$base-selector}__native {
+      color: var(--onyx-color-text-icons-neutral-intense);
+    }
 
     &:has(#{$base-selector}__native:read-write):hover {
       --border-color: var(--hover-border-color, var(--onyx-color-component-border-primary-hover));
@@ -91,6 +95,24 @@
       #{$base-selector}__check-icon {
         display: none;
       }
+    }
+  }
+
+  &__separator {
+    all: initial;
+    line-height: inherit;
+    // should have full height, but not overlap actual border
+    height: calc(1lh + 2 * var(--onyx-input-padding-vertical) - 2 * var(--onyx-1px-in-rem));
+    border-width: var(--onyx-1px-in-rem);
+    border-color: var(--onyx-color-component-border-neutral);
+
+    &--trailing {
+      border-inline-start-style: solid;
+      padding-inline-end: calc(var(--onyx-density-sm) - var(--onyx-density-xs));
+    }
+    &--leading {
+      border-inline-end-style: solid;
+      padding-inline-start: calc(var(--onyx-density-sm) - var(--onyx-density-xs));
     }
   }
 
