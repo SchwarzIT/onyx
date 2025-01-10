@@ -1,6 +1,6 @@
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y";
-import { defineLogoMockRoutes, executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
@@ -36,7 +36,6 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     page,
     mount,
   }) => {
-    await defineLogoMockRoutes(page);
     await page.setViewportSize({ width, height: 400 });
 
     await page.addStyleTag({
