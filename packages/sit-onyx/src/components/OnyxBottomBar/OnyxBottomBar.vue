@@ -29,11 +29,13 @@ const { densityClass } = useDensity(props);
       props.hideBorder ? '' : 'onyx-bottom-bar--border',
     ]"
   >
-    <div class="onyx-bottom-bar__left">
-      <slot name="left"></slot>
-    </div>
-    <div class="onyx-bottom-bar__right">
-      <slot></slot>
+    <div class="onyx-bottom-bar__content">
+      <div class="onyx-bottom-bar__content--left">
+        <slot name="left"></slot>
+      </div>
+      <div class="onyx-bottom-bar__content--right">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -46,25 +48,34 @@ const { densityClass } = useDensity(props);
     position: sticky;
     bottom: 0;
     width: 100%;
-    margin-inline: var(--onyx-grid-margin-inline);
 
     background-color: var(--onyx-color-base-background-blank);
-    display: flex;
-    justify-content: space-between;
-    gap: var(--onyx-density-xs);
-    padding: var(--onyx-spacing-2xs) var(--onyx-grid-margin);
-    overflow-x: auto;
 
-    &--border {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    &--border::before {
+      content: " ";
+      background-color: var(--onyx-color-component-border-neutral);
+      height: var(--onyx-1px-in-rem);
+      width: 100%;
+      position: absolute;
     }
 
-    &__left,
-    &__right {
-      position: relative;
+    &__content {
       display: flex;
-      max-width: var(--onyx-grid-max-width, max-content);
+      justify-content: space-between;
       gap: var(--onyx-density-xs);
+      padding: var(--onyx-spacing-2xs) var(--onyx-grid-margin);
+      overflow-x: auto;
+      padding-inline: var(--onyx-grid-margin);
+      max-width: var(--onyx-grid-max-width);
+      margin-inline: var(--onyx-grid-margin-inline);
+
+      &--left,
+      &--right {
+        position: relative;
+        display: flex;
+        max-width: var(--onyx-grid-max-width, max-content);
+        gap: var(--onyx-density-xs);
+      }
     }
   }
 }
