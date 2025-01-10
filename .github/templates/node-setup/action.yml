@@ -33,7 +33,9 @@ runs:
     - name: 📆 Get Date
       id: get-date
       run: |
-        echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+        echo "day=$(/bin/date -u "+%d")" >> $GITHUB_OUTPUT
+        echo "month=$(/bin/date -u "+%m")" >> $GITHUB_OUTPUT
+        echo "year=$(/bin/date -u "+%Y")" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: 🫙 Cache
@@ -41,10 +43,12 @@ runs:
       with:
         path: |
           **/.cache
-        key: build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('**/.cache') }}
+        key: build-caches-${{ steps.get-date.outputs.year }}-${{ steps.get-date.outputs.month }}-${{ steps.get-date.outputs.day }}
         restore-keys: |
-          build-caches-${{ runner.os }}-${{ steps.get-date.outputs.date }}-
-          build-caches-${{ runner.os }}-
+          build-caches-${{ steps.get-date.outputs.year }}-${{ steps.get-date.outputs.month }}-${{ steps.get-date.outputs.day }}
+          build-caches-${{ steps.get-date.outputs.year }}-${{ steps.get-date.outputs.month }}-
+          build-caches-${{ steps.get-date.outputs.year }}-
+          build-caches-
 
     - name: 📦 Install dependencies
       run: pnpm install

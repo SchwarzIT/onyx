@@ -14,7 +14,7 @@ defineSlots<{
   /**
    * Bottom bar content. This slot is right aligned and should be used by buttons and icon buttons.
    */
-  right?(): unknown;
+  default?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -33,7 +33,7 @@ const { densityClass } = useDensity(props);
       <slot name="left"></slot>
     </div>
     <div class="onyx-bottom-bar__right">
-      <slot name="right"></slot>
+      <slot></slot>
     </div>
   </div>
 </template>
