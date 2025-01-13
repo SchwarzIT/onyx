@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.118
+
+### Minor Changes
+
+- 9ddcd26: feat: implement `OnyxCard` component
+
 ## 1.0.0-beta.117
 
 ### Minor Changes
