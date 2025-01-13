@@ -51,12 +51,8 @@ const { densityClass } = useDensity(props);
 
     background-color: var(--onyx-color-base-background-blank);
 
-    &--border::before {
-      content: " ";
-      background-color: var(--onyx-color-component-border-neutral);
-      height: var(--onyx-1px-in-rem);
-      width: 100%;
-      position: absolute;
+    &--border {
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 
     &__content {
@@ -72,7 +68,6 @@ const { densityClass } = useDensity(props);
       &--left,
       &--right {
         display: flex;
-        max-width: var(--onyx-grid-max-width, max-content);
         gap: var(--onyx-density-xs);
       }
     }
