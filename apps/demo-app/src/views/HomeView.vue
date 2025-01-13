@@ -9,6 +9,7 @@ import {
   OnyxBadge,
   OnyxBottomBar,
   OnyxButton,
+  OnyxCard,
   OnyxCheckboxGroup,
   OnyxDatePicker,
   OnyxEmpty,
@@ -48,6 +49,7 @@ const COMPONENTS = [
   "OnyxAvatar",
   "OnyxBadge",
   "OnyxButton",
+  "OnyxCard",
   "OnyxCheckboxGroup",
   "OnyxDatePicker",
   "OnyxEmpty",
@@ -189,6 +191,8 @@ const selectedDate = ref<DateValue>();
 
         <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
         <OnyxButton v-if="show('OnyxButton')" label="Button" />
+
+        <OnyxCard v-if="show('OnyxCard')"> Card content... </OnyxCard>
 
         <template v-if="show('OnyxCheckboxGroup')">
           <OnyxCheckboxGroup

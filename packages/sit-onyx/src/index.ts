@@ -27,6 +27,9 @@ export * from "./components/OnyxBottomBar/types";
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 
+export { default as OnyxCard } from "./components/OnyxCard/OnyxCard.vue";
+export * from "./components/OnyxCard/types";
+
 export { default as OnyxCheckbox } from "./components/OnyxCheckbox/OnyxCheckbox.vue";
 export * from "./components/OnyxCheckbox/types";
 

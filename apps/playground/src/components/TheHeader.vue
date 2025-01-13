@@ -3,6 +3,7 @@ import moon from "@sit-onyx/icons/moon.svg?raw";
 import shareAndroid from "@sit-onyx/icons/share-android.svg?raw";
 import sunny from "@sit-onyx/icons/sunny.svg?raw";
 import sync from "@sit-onyx/icons/sync.svg?raw";
+import logoUrl from "../../../docs/src/public/images/logo.svg";
 import githubLogo from "../assets/github-logo.svg?raw";
 import HeaderIconButton from "./HeaderIconButton.vue";
 import VersionSelect from "./VersionSelect.vue";
@@ -25,7 +26,7 @@ const copyLink = async () => {
 <template>
   <header class="header">
     <a class="header__brand" href="https://onyx.schwarz" target="_blank">
-      <img alt="logo" src="/logo.svg" class="header__logo" />
+      <img alt="logo" :src="logoUrl" class="header__logo" />
       <h1 class="onyx-headline onyx-headline--h2">Playground</h1>
     </a>
 
