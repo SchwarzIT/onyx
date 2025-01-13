@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-beta.116
+
+### Minor Changes
+
+- c17ccf7: feat(OnyxInput): Added the inline slots `leading` and `trailing`
+
+## 1.0.0-beta.115
+
+### Major Changes
+
+- 4464ff3: feat(OnyxHeadline): automatically normalize hash
+
+  Other changes:
+
+  - hide `#` when hash is set for screen readers
+  - add hover title and screen reader text to hash link
+  - remove `normalizeUrlHash()` method since this is now automatically done by the OnyxHeadline
+
 ## 1.0.0-beta.114
 
 ### Minor Changes
