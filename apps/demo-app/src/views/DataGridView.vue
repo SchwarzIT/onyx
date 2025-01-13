@@ -4,7 +4,7 @@ import {
   DataGridFeatures,
   OnyxDataGrid,
   OnyxHeadline,
-  OnyxListItem,
+  OnyxMenuItem,
   OnyxPageLayout,
   OnyxSwitch,
   OnyxSystemButton,
@@ -34,7 +34,7 @@ const dummyFeature = createFeature(() => ({
           icon: sort,
           color: "medium",
         }),
-        menuItems: [h(OnyxListItem, () => "Pin column"), h(OnyxListItem, () => "Unpin column")],
+        menuItems: [h(OnyxMenuItem, () => "Pin column"), h(OnyxMenuItem, () => "Unpin column")],
       },
       {
         iconComponent: h(OnyxSystemButton, {
@@ -42,7 +42,7 @@ const dummyFeature = createFeature(() => ({
           icon: sort,
           color: "medium",
         }),
-        menuItems: [h(OnyxListItem, () => "Remove column")],
+        menuItems: [h(OnyxMenuItem, () => "Remove column")],
       },
     ],
   },
