@@ -33,8 +33,20 @@ export const ImageCard = {
       h("img", {
         src: "https://picsum.photos/256/128",
         alt: "Example image",
-        style: "border-radius: var(--onyx-radius-sm); margin-bottom: var(--onyx-card-gap);",
+        style:
+          "border-radius: var(--onyx-radius-sm); margin-bottom: var(--onyx-card-gap); background-color: var(--onyx-color-base-neutral-200)",
+        height: 128,
       }),
+      h(OnyxHeadline, { is: "h2" }, "Example headline"),
+      "Lorem ipsum dolor sit amet consectetur. Id neque viverra faucibus ullamcorper dui volutpat. Vel nec aliquet lorem turpis eu dui. At pellentesque senectus sed volutpat vitae nulla. Nisl cursus dignissim sed eget neque tristique interdum pretium elit.",
+    ],
+  },
+} satisfies Story;
+
+export const MoreMenu = {
+  args: {
+    style: "width: 20rem;",
+    default: [
       h(OnyxHeadline, { is: "h2" }, "Example headline"),
       "Lorem ipsum dolor sit amet consectetur. Id neque viverra faucibus ullamcorper dui volutpat. Vel nec aliquet lorem turpis eu dui. At pellentesque senectus sed volutpat vitae nulla. Nisl cursus dignissim sed eget neque tristique interdum pretium elit.",
     ],
