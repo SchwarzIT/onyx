@@ -42,13 +42,3 @@ export const ImageCard = {
     ],
   },
 } satisfies Story;
-
-export const MoreMenu = {
-  args: {
-    style: "width: 20rem;",
-    default: [
-      h(OnyxHeadline, { is: "h2" }, "Example headline"),
-      "Lorem ipsum dolor sit amet consectetur. Id neque viverra faucibus ullamcorper dui volutpat. Vel nec aliquet lorem turpis eu dui. At pellentesque senectus sed volutpat vitae nulla. Nisl cursus dignissim sed eget neque tristique interdum pretium elit.",
-    ],
-  },
-} satisfies Story;
