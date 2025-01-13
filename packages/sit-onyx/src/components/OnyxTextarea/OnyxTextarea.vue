@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -69,6 +70,7 @@ const errorClass = useErrorClass(showError);
 
 const input = useTemplateRef("input");
 defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>

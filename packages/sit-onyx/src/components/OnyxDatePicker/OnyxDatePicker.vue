@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -73,6 +74,8 @@ const value = computed({
     emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
   },
 });
+const input = useTemplateRef("input");
+useAutofocus(input, props);
 </script>
 
 <template>
@@ -99,6 +102,7 @@ const value = computed({
           <input
             :id="inputId"
             :key="props.type"
+            ref="input"
             v-model="value"
             v-custom-validity
             class="onyx-datepicker__native"
