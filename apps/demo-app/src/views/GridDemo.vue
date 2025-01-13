@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline, OnyxInput, OnyxPageLayout, OnyxSwitch } from "sit-onyx";
+import {
+  OnyxBottomBar,
+  OnyxButton,
+  OnyxHeadline,
+  OnyxInput,
+  OnyxPageLayout,
+  OnyxSwitch,
+} from "sit-onyx";
 import { useGridStore } from "../stores/grid-store";
 
 const gridStore = useGridStore();
@@ -34,6 +41,13 @@ const gridStore = useGridStore();
         <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
       </form>
     </div>
+
+    <template #footer>
+      <OnyxBottomBar>
+        <OnyxButton label="Cancel" mode="plain" color="neutral"></OnyxButton>
+        <OnyxButton label="Approve"></OnyxButton>
+      </OnyxBottomBar>
+    </template>
   </OnyxPageLayout>
 </template>
 
