@@ -1,11 +1,13 @@
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomMessageType, FormMessages } from "../../composables/useCustomValidity";
+import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation";
 
-export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "message" | "success"> & {
-  errorMessages?: FormMessages;
-  message?: FormMessages;
-  successMessages?: FormMessages;
-};
+export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "message" | "success"> &
+  SharedTextInputProps & {
+    errorMessages?: FormMessages;
+    message?: FormMessages;
+    successMessages?: FormMessages;
+  };
 
 export type SharedFormElementProps<T = unknown> = RequiredMarkerProp & {
   /**

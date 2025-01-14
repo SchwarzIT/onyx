@@ -85,8 +85,14 @@ export const useLenientMaxLengthValidation = (options: UseTextInputOptions) => {
     options.props.maxlength &&
     options.props.modelValue.length > options.props.maxlength
       ? {
-          longMessage: t.value("validations.rangeOverflow.fullError"),
-          shortMessage: t.value("validations.rangeOverflow.preview"),
+          longMessage: t.value("validations.tooLong.fullError", {
+            n: options.props.modelValue.length,
+            maxLength: options.props.maxlength,
+          }),
+          shortMessage: t.value("validations.tooLong.preview", {
+            n: options.props.modelValue.length,
+            maxLength: options.props.maxlength,
+          }),
         }
       : undefined,
   );

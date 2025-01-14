@@ -226,7 +226,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
     return {
       longMessage: t.value(`validations.${errorType}.fullError`, validationData),
-      shortMessage: t.value(`validations.${errorType}.preview`),
+      shortMessage: t.value(`validations.${errorType}.preview`, validationData),
     };
   });
 
