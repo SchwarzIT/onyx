@@ -192,3 +192,12 @@ export const WithMessageTooltip = {
     },
   },
 } satisfies Story;
+
+export const WithSlotContent = {
+  args: {
+    ...Default.args,
+    modelValue: "example",
+    leading: "https://",
+    trailing: ".com",
+  },
+} satisfies Story;

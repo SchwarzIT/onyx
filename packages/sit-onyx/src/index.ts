@@ -22,6 +22,9 @@ export * from "./components/OnyxBottomBar/types";
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 
+export { default as OnyxCard } from "./components/OnyxCard/OnyxCard.vue";
+export * from "./components/OnyxCard/types";
+
 export { default as OnyxCheckbox } from "./components/OnyxCheckbox/OnyxCheckbox.vue";
 export * from "./components/OnyxCheckbox/types";
 
@@ -158,6 +161,6 @@ export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx } from "./utils/plugin";
-export { normalizeUrlHash, normalizedIncludes } from "./utils/strings";
+export { normalizedIncludes } from "./utils/strings";
 
 export * from "./composables/themeTransition";

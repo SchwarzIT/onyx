@@ -39,6 +39,19 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+const slots = defineSlots<{
+  /**
+   * Inline content rendered before the actual input area.
+   * Careful when using this slot, as it will shrink the space of the input.
+   */
+  leading?(): unknown;
+  /**
+   * Inline content rendered after the actual input area.
+   * Careful when using this slot, as it will shrink the space of the input.
+   */
+  trailing?(): unknown;
+}>();
+
 const { t } = injectI18n();
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
@@ -80,6 +93,8 @@ useAutofocus(input, props);
     >
       <template #default="{ id: inputId }">
         <div class="onyx-input__wrapper">
+          <slot name="leading"></slot>
+          <hr v-if="slots.leading" class="onyx-input__separator onyx-input__separator--leading" />
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
             :id="inputId"
@@ -122,7 +137,8 @@ useAutofocus(input, props);
             color="success"
           />
 
-          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
+          <hr v-if="slots.trailing" class="onyx-input__separator onyx-input__separator--trailing" />
+          <slot name="trailing"></slot>
         </div>
       </template>
     </OnyxFormElement>

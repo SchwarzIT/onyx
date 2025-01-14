@@ -1,5 +1,37 @@
 # demo-app
 
+## 1.0.0-beta.118
+
+### Patch Changes
+
+- Updated dependencies [9ddcd26]
+  - sit-onyx@1.0.0-beta.118
+
+## 1.0.0-beta.117
+
+### Minor Changes
+
+- 80bdfb2: fix(OnyxBottomBar): Adjust styles to reflect the grid. Added screenshot tests and a bottom bar in the demo app.
+
+### Patch Changes
+
+- Updated dependencies [80bdfb2]
+  - sit-onyx@1.0.0-beta.117
+
+## 1.0.0-beta.116
+
+### Patch Changes
+
+- Updated dependencies [c17ccf7]
+  - sit-onyx@1.0.0-beta.116
+
+## 1.0.0-beta.115
+
+### Patch Changes
+
+- Updated dependencies [4464ff3]
+  - sit-onyx@1.0.0-beta.115
+
 ## 1.0.0-beta.114
 
 ### Patch Changes

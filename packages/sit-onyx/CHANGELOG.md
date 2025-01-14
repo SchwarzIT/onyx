@@ -1,5 +1,35 @@
 # sit-onyx
 
+## 1.0.0-beta.118
+
+### Minor Changes
+
+- 9ddcd26: feat: implement `OnyxCard` component
+
+## 1.0.0-beta.117
+
+### Minor Changes
+
+- 80bdfb2: fix(OnyxBottomBar): Adjust styles to reflect the grid. Added screenshot tests and a bottom bar in the demo app.
+
+## 1.0.0-beta.116
+
+### Minor Changes
+
+- c17ccf7: feat(OnyxInput): Added the inline slots `leading` and `trailing`
+
+## 1.0.0-beta.115
+
+### Major Changes
+
+- 4464ff3: feat(OnyxHeadline): automatically normalize hash
+
+  Other changes:
+
+  - hide `#` when hash is set for screen readers
+  - add hover title and screen reader text to hash link
+  - remove `normalizeUrlHash()` method since this is now automatically done by the OnyxHeadline
+
 ## 1.0.0-beta.114
 
 ### Minor Changes
