@@ -24,8 +24,12 @@ const type = computed(() => {
     <template v-if="type === 'click'">
       <OnyxTooltip v-bind="props">
         <template #default="{ trigger }">
+          <!--  -->
           <OnyxSystemButton
-            :label="trigger['aria-label'] ?? ''"
+            :label="
+              // if type is `click` aria-label will always be defined
+              trigger['aria-label']!
+            "
             :icon="circleInformation"
             class="onyx-info-tooltip__trigger"
             color="soft"
