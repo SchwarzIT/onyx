@@ -11,7 +11,7 @@ export type OnyxAccordionItemProps = DensityProp & {
    */
   disabled?: boolean;
   /**
-   * Whether to show a skeleton input.
+   * Whether to show a skeleton accordion.
    */
   skeleton?: SkeletonInjected;
 };

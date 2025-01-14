@@ -10,6 +10,7 @@ import type { OnyxAccordionItemProps } from "./types";
 const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  open: false,
 });
 
 defineSlots<{
@@ -27,7 +28,7 @@ const itemId = useId();
 const accordionContext = inject(ACCORDION_INJECTION_KEY);
 
 const isOpen = computed({
-  get: () => accordionContext?.openItems.value.has(itemId) || props.open || false,
+  get: () => accordionContext?.openItems.value.has(itemId) || props.open,
   set: (value: boolean) => {
     accordionContext?.updateOpen(itemId, value);
   },
@@ -82,91 +83,98 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+
+.onyx-accordion-item,
+.onyx-accordion-item-skeleton {
+  @include layers.component() {
+    --onyx-accordion-item-padding: var(--onyx-density-md);
+    --onyx-accordion-item-gap: var(--onyx-density-md);
+    --onyx-accordion-item-border: var(--onyx-1px-in-rem) solid
+      var(--onyx-color-component-border-neutral);
+    --onyx-accordion-border-radius: var(--onyx-radius-md);
+  }
+}
+
 .onyx-accordion-item {
   @include layers.component() {
-    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    border-bottom: var(--onyx-accordion-item-border);
     color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
-    position: relative;
     width: 100%;
 
     &__header {
       width: 100%;
-      position: relative;
       display: flex;
-
       justify-content: space-between;
-      gap: var(--onyx-density-md);
       align-items: center;
-      padding: var(--onyx-density-md);
-
+      gap: var(--onyx-accordion-item-gap);
+      padding: var(--onyx-accordion-item-padding);
       cursor: pointer;
+
+      list-style: none;
+      &::-webkit-details-marker {
+        display: none;
+      }
+
       &:hover,
       &:focus-visible {
         background-color: var(--onyx-color-base-neutral-200);
         outline: none;
       }
-      &-content {
-        display: flex;
-      }
+    }
 
-      &-icon {
-        color: inherit;
-      }
-    }
-    &[open] &__header-icon {
-      transform: rotate(-90deg);
-    }
     &:has(&__header:focus-visible) {
-      border-radius: var(--onyx-radius-md);
+      border-radius: var(--onyx-accordion-border-radius);
       border-bottom: none;
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
 
+    &[open] &__header-icon {
+      transform: rotate(-90deg);
+    }
+
+    &[open] &__header:focus-visible {
+      border-radius: var(--onyx-accordion-border-radius) var(--onyx-accordion-border-radius) 0 0;
+    }
+
     &:not([open]) &__header {
       color: var(--onyx-color-text-icons-neutral-medium);
+
       &:hover,
       &:focus-visible {
         color: var(--onyx-color-text-icons-neutral-intense);
       }
-      &:focus-visible {
-        border-radius: var(--onyx-radius-md);
-      }
     }
-    &[open] &__header {
-      &:focus-visible {
-        border-radius: var(--onyx-radius-md) var(--onyx-radius-md) 0 0;
-      }
 
-      &::after {
-        transform: rotate(90deg);
-      }
-    }
     &__panel {
-      padding: var(--onyx-density-md);
+      padding: var(--onyx-accordion-item-padding);
     }
+
     &:has(&__header[aria-disabled="true"]) {
       color: var(--onyx-color-text-icons-neutral-soft);
       pointer-events: none;
+
       .onyx-accordion-item__header {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
   }
+
   &-skeleton {
-    padding: var(--onyx-density-md);
+    $icon-size: 1.5rem;
+    padding: var(--onyx-accordion-item-padding);
     display: flex;
-    gap: var(--onyx-density-md);
-    border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    gap: var(--onyx-accordion-item-gap);
+    border-bottom: var(--onyx-accordion-item-border);
 
     &__main {
-      // 100% - gap - icon-width
-      width: calc(100% - var(--onyx-density-md) - 1.5rem);
-      height: 1.5rem;
+      width: 100%;
+      height: $icon-size;
     }
+
     &__icon {
-      height: 1.5rem;
-      width: 1.5rem;
+      height: $icon-size;
+      width: $icon-size;
     }
   }
 }

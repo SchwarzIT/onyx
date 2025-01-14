@@ -41,8 +41,8 @@ test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
   );
 
   // Locators
-  const header = component.locator(".onyx-accordion-item__header");
-  const panel = component.locator(".onyx-accordion-item__panel");
+  const header = component.getByRole("button", { name: "Accordion Header" });
+  const panel = component.getByLabel("Accordion Header");
 
   await expect(panel).toBeHidden();
   await header.click();
@@ -64,8 +64,9 @@ test("should apply the disabled state", async ({ mount, makeAxeBuilder, page }) 
     </OnyxAccordionItem>,
   );
 
-  // Locators
-  const header = component.locator(".onyx-accordion-item__header");
+  //Locators
+  const header = component.getByRole("button", { name: "Accordion Header" });
+
   await page.keyboard.press("Tab");
   await expect(header).not.toBeFocused();
   const accessibilityScanResults = await makeAxeBuilder().analyze();
