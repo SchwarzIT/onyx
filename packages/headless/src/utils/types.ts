@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter, Reactive } from "vue";
+import type { ComputedRef, MaybeRefOrGetter } from "vue";
 
 /**
  * Adds the entry with the key `Key` and the value of type `TValue` to a record when it is defined.
@@ -27,4 +27,4 @@ export type IsArray<TValue, TMultiple extends boolean = false> = TMultiple exten
 /**
  * Type for any kind of ref source. Preferably used in combination with vue's `toValue` method
  */
-export type MaybeReactiveSource<T> = MaybeRefOrGetter<T> | Reactive<T>;
+export type MaybeReactiveSource<T> = MaybeRefOrGetter<T> | ComputedRef<T>;

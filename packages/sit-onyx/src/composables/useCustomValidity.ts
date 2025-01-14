@@ -141,7 +141,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
    */
   watch(
-    () => toValue(options.props).modelValue,
+    () => options.props.modelValue,
     () => (isDirty.value = true),
     { once: true },
   );
