@@ -1,9 +1,16 @@
-import { computed, ref, watch, watchEffect, type Directive } from "vue";
+import {
+  computed,
+  ref,
+  toValue,
+  watch,
+  watchEffect,
+  type Directive,
+  type MaybeRefOrGetter,
+} from "vue";
 import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
 import type { InputType } from "../components/OnyxInput/types";
 import { injectI18n } from "../i18n";
 import enUS from "../i18n/locales/en-US.json";
-import type { BaseSelectOption } from "../types";
 import { isValidDate } from "../utils/date";
 import { areObjectsFlatEqual } from "../utils/objects";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
@@ -19,9 +26,16 @@ export type CustomValidityProp = {
 
 export type UseCustomValidityOptions = {
   /**
-   * Component props as defined with `const props = defineProps()`
+   * Explicitly set custom error. Any non-nullish value will set the input to be invalid.
+   * If both, `options.customError` and `options.props.customError` are provided, the message from the props will take precedence.
    */
-  props: CustomValidityProp & {
+  customError?: MaybeRefOrGetter<CustomMessageType | undefined>;
+  /**
+   * Component props as defined with `const props = defineProps()`.
+   * These prop values are used for the error messages of the native validation errors.
+   */
+  props: {
+    customError?: CustomMessageType;
     modelValue?: unknown;
     type?: InputType | OnyxDatePickerProps["type"];
     maxlength?: number;
@@ -29,7 +43,7 @@ export type UseCustomValidityOptions = {
     min?: DateValue;
     max?: DateValue;
     validStepSize?: number;
-  } & Pick<BaseSelectOption, "hideLabel" | "label">;
+  };
   /**
    * Component emit as defined with `const emit = defineEmits()`
    */
@@ -121,11 +135,13 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
 
+  const customError = computed(() => options.props.customError ?? toValue(options.customError));
+
   /**
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
    */
   watch(
-    () => options.props.modelValue,
+    () => toValue(options.props).modelValue,
     () => (isDirty.value = true),
     { once: true },
   );
@@ -135,12 +151,12 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       /**
        * Sync custom error with the native input validity.
        */
-      watchEffect(() => el.setCustomValidity(getFormMessageText(options.props.customError) ?? ""));
+      watchEffect(() => el.setCustomValidity(getFormMessageText(customError.value) ?? ""));
 
       watch(
         // we need to watch all props instead of only modelValue so the validity is re-checked
         // when the validation rules change
-        [() => options.props],
+        [() => options.props, customError],
         () => {
           const newValidityState = transformValidityStateToObject(el.validity);
 
@@ -161,7 +177,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
        * Update validityState ref when the input changes.
        */
       watch(
-        [() => options.props.customError, validityState, isDirty],
+        [customError, validityState, isDirty],
         () => {
           // do not emit validityChange event if the value was never changed
           if (!isDirty.value || !validityState.value) return;
@@ -177,7 +193,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     if (!validityState.value || validityState.value.valid) return;
 
     const errorType = getFirstInvalidType(validityState.value);
-    const customErrors = getFormMessages(options.props.customError);
+    const customErrors = getFormMessages(customError.value);
     // a custom error message always is considered first
     if (customErrors || errorType === "customError") {
       if (!customErrors) return;

@@ -7,7 +7,7 @@ export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "messa
   successMessages?: FormMessages;
 };
 
-export type SharedFormElementProps = RequiredMarkerProp & {
+export type SharedFormElementProps<T = unknown> = RequiredMarkerProp & {
   /**
    * The id of a labelable form-related element.
    * If not given an id will be generated.
@@ -22,7 +22,7 @@ export type SharedFormElementProps = RequiredMarkerProp & {
   /**
    * Current value of the form element.
    */
-  modelValue?: unknown;
+  modelValue?: T;
   /**
    * Label to show above the form element. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.
@@ -53,15 +53,4 @@ export type SharedFormElementProps = RequiredMarkerProp & {
    * Success messages that inform about the state of form components
    */
   success?: CustomMessageType;
-  /**
-   * Maximum number of characters that are allowed to be entered.
-   * Warning: when the value is (pre)set programmatically,
-   * the input invalidity will not be detected by the browser, it will only turn invalid
-   * as soon as a user interacts with the input (types something).
-   */
-  maxlength?: number;
-  /**
-   * If `true`, a character counter will be displayed if `maxLength` is set.
-   */
-  withCounter?: boolean;
 };

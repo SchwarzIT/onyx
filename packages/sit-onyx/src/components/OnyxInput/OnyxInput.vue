@@ -5,6 +5,7 @@ import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -52,7 +53,9 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props });
+const customError = computed(() => props.customError ?? maxLengthError.value);
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 
@@ -110,8 +113,8 @@ const errorClass = useErrorClass(showError);
             :pattern="patternSource"
             :readonly="props.readonly"
             :disabled="disabled || props.loading"
+            :maxlength="maxLength"
             :minlength="props.minlength"
-            :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
           />

@@ -20,6 +20,7 @@ export type OnyxTextareaProps = DensityProp &
     | "disabled"
     | "minlength"
     | "maxlength"
+    | "strictMaxlength"
     | "withCounter"
     | "message"
     | "success"

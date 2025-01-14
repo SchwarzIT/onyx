@@ -3,6 +3,7 @@ import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -31,7 +32,9 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props });
+const customError = computed(() => props.customError ?? maxLengthError.value);
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
 
 const { densityClass } = useDensity(props);
 const successMessages = computed(() => getFormMessages(props.success));
@@ -94,10 +97,6 @@ defineExpose({ input });
     >
       <template #default="{ id }">
         <div class="onyx-textarea__wrapper" :data-autosize-value="value">
-          <!-- eslint-disable vuejs-accessibility/no-autofocus -
-          We want to provide the flexibility to have the autofocus property.
-          The JSDoc description includes a warning that it should be used carefully.
-          -->
           <textarea
             :id="id"
             ref="input"
@@ -113,12 +112,11 @@ defineExpose({ input });
             :readonly="props.readonly"
             :disabled="disabled"
             :minlength="props.minlength"
-            :maxlength="props.maxlength"
+            :maxlength="maxLength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
             @input="handleInput"
           ></textarea>
-          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
       </template>
     </OnyxFormElement>

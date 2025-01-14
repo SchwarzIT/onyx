@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick, reactive, ref } from "vue";
 import {
   useCustomValidity,
+  type CustomMessageType,
   type InputValidationElement,
   type UseCustomValidityOptions,
 } from "./useCustomValidity";
@@ -49,11 +50,13 @@ describe("useCustomValidity", () => {
     } satisfies InputValidationElement;
 
     const props = reactive<UseCustomValidityOptions["props"]>({
-      label: "Label",
       customError: "Test error",
     });
 
+    const customError = ref<CustomMessageType>();
+
     const { vCustomValidity, errorMessages } = useCustomValidity({
+      customError,
       props,
       emit: (_, validity) => (currentValidity = validity),
     });
@@ -79,7 +82,18 @@ describe("useCustomValidity", () => {
     expect(mockInput.setCustomValidity).toBeCalledWith("Changed error");
     expect(currentValidity).toStrictEqual(initialValidity);
 
+    customError.value = "explicit custom error";
+    await nextTick();
+    expect(mockInput.setCustomValidity).toBeCalledWith("Changed error");
+    expect(currentValidity).toStrictEqual(initialValidity);
+
     props.customError = undefined;
+    await nextTick();
+    expect(mockInput.setCustomValidity).toBeCalledWith("explicit custom error");
+    expect(currentValidity).toStrictEqual(initialValidity);
+
+    props.customError = undefined;
+    customError.value = undefined;
     const newValidity = { ...initialValidity, customError: false, valid: true };
     mockInput.validity = newValidity;
     await nextTick();
@@ -105,8 +119,12 @@ describe("useCustomValidity", () => {
       [cause]: true,
       valid: false,
     };
-    const props = reactive<UseCustomValidityOptions["props"]>({ label: "Label" });
-    const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit: () => ({}) });
+    const props = reactive<UseCustomValidityOptions["props"]>({});
+    const { vCustomValidity, errorMessages } = useCustomValidity({
+      customError: undefined,
+      props,
+      emit: () => ({}),
+    });
     tFunctionMock.mockReturnValueOnce("Test");
     tFunctionMock.mockReturnValueOnce("This is a test");
     const mockInput = {
@@ -138,7 +156,6 @@ describe("useCustomValidity", () => {
     } satisfies InputValidationElement;
 
     const props = reactive<UseCustomValidityOptions["props"]>({
-      label: "Label",
       type: "date",
       min: new Date(2024, 11, 10, 14, 42),
     });
@@ -192,7 +209,6 @@ describe("useCustomValidity", () => {
     } satisfies InputValidationElement;
 
     const props = reactive<UseCustomValidityOptions["props"]>({
-      label: "Label",
       type: "date",
       max: new Date(2024, 11, 10, 14, 42),
     });
