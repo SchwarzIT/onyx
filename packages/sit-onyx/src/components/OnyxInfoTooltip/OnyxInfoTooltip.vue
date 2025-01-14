@@ -55,9 +55,10 @@ const type = computed(() => {
   @include layers.component() {
     &__trigger {
       display: inline-flex;
-      height: 1lh;
       align-items: center;
       font-size: inherit;
+      vertical-align: middle;
+
       --height: 1em;
 
       .onyx-icon {
