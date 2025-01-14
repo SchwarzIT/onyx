@@ -1,8 +1,19 @@
 <script setup lang="ts">
-import { DataGridFeatures, OnyxDataGrid, OnyxHeadline, OnyxPageLayout, OnyxSwitch } from "sit-onyx";
-import { computed, ref } from "vue";
+import sort from "@sit-onyx/icons/sort.svg?raw";
+import {
+  DataGridFeatures,
+  OnyxDataGrid,
+  OnyxHeadline,
+  OnyxMenuItem,
+  OnyxPageLayout,
+  OnyxSwitch,
+  OnyxSystemButton,
+  createFeature,
+} from "sit-onyx";
+import { computed, h, ref } from "vue";
 
 const sortingEnabled = ref(false);
+const moreActions = ref(false);
 
 const data = [
   { id: 1, name: "John Doe", age: 30 },
@@ -12,10 +23,39 @@ const data = [
   { id: 5, name: "Asperiks Kafelon", age: 99 },
 ];
 
-const features = computed(() => {
+const dummyFeature = createFeature(() => ({
+  name: Symbol("More actions"),
+  watch: [],
+  header: {
+    actions: () => [
+      {
+        iconComponent: h(OnyxSystemButton, {
+          label: "Column options",
+          icon: sort,
+          color: "medium",
+        }),
+        menuItems: [h(OnyxMenuItem, () => "Pin column"), h(OnyxMenuItem, () => "Unpin column")],
+      },
+      {
+        iconComponent: h(OnyxSystemButton, {
+          label: "Column options",
+          icon: sort,
+          color: "medium",
+        }),
+        menuItems: [h(OnyxMenuItem, () => "Remove column")],
+      },
+    ],
+  },
+}));
+
+const dataFeatures = computed(() => {
   const enabled = [];
   if (sortingEnabled.value) {
     enabled.push(DataGridFeatures.useSorting());
+  }
+
+  if (moreActions.value) {
+    enabled.push(dummyFeature());
   }
   return enabled;
 });
@@ -27,8 +67,9 @@ const features = computed(() => {
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
       <section class="data-grid-settings">
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
+        <OnyxSwitch v-model="moreActions" label="Enable more actions" />
       </section>
-      <OnyxDataGrid :features :data :columns="['name', 'age']" />
+      <OnyxDataGrid :features="dataFeatures" :data :columns="['name', 'age']" />
     </div>
   </OnyxPageLayout>
 </template>
