@@ -42,8 +42,8 @@ describe("useLenientMaxLengthValidation", () => {
     // ASSERT
     expect(maxLength.value).toBeUndefined();
     expect(maxLengthError.value).toMatchObject({
-      longMessage: "validations.rangeOverflow.fullError",
-      shortMessage: "validations.rangeOverflow.preview",
+      longMessage: "validations.tooLong.fullError",
+      shortMessage: "validations.tooLong.preview",
     });
 
     // ACT

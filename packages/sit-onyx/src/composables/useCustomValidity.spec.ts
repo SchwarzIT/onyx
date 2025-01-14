@@ -138,7 +138,7 @@ describe("useCustomValidity", () => {
 
     // ASSERT
     expect(errorMessages.value).toEqual({ longMessage: "Test", shortMessage: "This is a test" });
-    expect(tFunctionMock).toBeCalledWith(`${key}.preview`);
+    expect(tFunctionMock).toBeCalledWith(`${key}.preview`, expect.any(Object));
     expect(tFunctionMock).toBeCalledWith(`${key}.fullError`, expect.any(Object));
   });
 

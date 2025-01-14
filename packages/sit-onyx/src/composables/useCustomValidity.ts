@@ -201,19 +201,6 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     }
     if (!errorType) return;
 
-    // if the error is "typeMismatch", we will use an error message depending on the type property
-    if (errorType === "typeMismatch") {
-      const type = TRANSLATED_INPUT_TYPES.includes(options.props.type as TranslatedInputType)
-        ? (options.props.type as TranslatedInputType)
-        : "generic";
-      return {
-        longMessage: t.value(`validations.typeMismatch.${type}.fullError`, {
-          value: options.props.modelValue?.toString(),
-        }),
-        shortMessage: t.value(`validations.typeMismatch.${type}.preview`),
-      };
-    }
-
     const validationData = {
       value: options.props.modelValue?.toString(),
       n: options.props.modelValue?.toString().length ?? 0,
@@ -223,6 +210,17 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       max: formatMinMax(locale.value, options.props.type, options.props.max),
       step: options.props.validStepSize,
     };
+
+    // if the error is "typeMismatch", we will use an error message depending on the type property
+    if (errorType === "typeMismatch") {
+      const type = TRANSLATED_INPUT_TYPES.includes(options.props.type as TranslatedInputType)
+        ? (options.props.type as TranslatedInputType)
+        : "generic";
+      return {
+        longMessage: t.value(`validations.typeMismatch.${type}.fullError`, validationData),
+        shortMessage: t.value(`validations.typeMismatch.${type}.preview`, validationData),
+      };
+    }
 
     return {
       longMessage: t.value(`validations.${errorType}.fullError`, validationData),
