@@ -21,6 +21,8 @@ export const ImageCard = await createExampleStory("ImageCardExample");
 
 export const IconCard = await createExampleStory("IconCardExample");
 
+export const DetailsCard = await createExampleStory("DetailsCardExample");
+
 export const KPICard = await createExampleStory("KPICardExample");
 
 /**
