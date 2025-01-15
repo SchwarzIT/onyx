@@ -1,5 +1,6 @@
 import { computed } from "vue";
 import { injectI18n } from "../i18n";
+import type { FormMessages } from "./useCustomValidity";
 
 /**
  * @see [MDN autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize)
@@ -25,11 +26,18 @@ export type SharedTextInputProps = {
    * the input invalidity will not be detected by the browser, it will only turn invalid
    * as soon as a user interacts with the input (types something).
    */
-  maxlength?: number;
-  /**
-   * Restricts the user from typing more characters than allowed.
-   */
-  strictMaxlength?: boolean;
+  maxlength?:
+    | number
+    | {
+        /**
+         * Maximum number of characters that are allowed to be entered.
+         */
+        max: number;
+        /**
+         * Restricts the user from typing more characters than allowed.
+         */
+        strict?: boolean;
+      };
   /**
    * If `true`, a character counter will be displayed if `maxLength` is set.
    */
@@ -76,36 +84,42 @@ export type UseTextInputOptions = {
 export const useLenientMaxLengthValidation = (options: UseTextInputOptions) => {
   const { t } = injectI18n();
 
-  /**
-   * Custom maxlength error, if we are unable to use the native maxlength attribute
-   */
-  const maxLengthError = computed(() =>
-    !options.props.strictMaxlength &&
-    options.props.modelValue &&
-    options.props.maxlength &&
-    options.props.modelValue.length > options.props.maxlength
-      ? {
+  const normalized = computed(() => {
+    const maxLength = options.props.maxlength;
+    return {
+      max: maxLength && (typeof maxLength === "number" ? maxLength : maxLength.max),
+      strict: (typeof maxLength === "object" && maxLength.strict) ?? false,
+    };
+  });
+
+  const maxLengthError = computed(() => {
+    const { strict, max } = normalized.value;
+    const modelValue = options.props.modelValue;
+
+    return !strict && modelValue && max && modelValue.length > max
+      ? ({
           longMessage: t.value("validations.tooLong.fullError", {
-            n: options.props.modelValue.length,
-            maxLength: options.props.maxlength,
+            n: modelValue.length,
+            maxLength: max,
           }),
           shortMessage: t.value("validations.tooLong.preview", {
-            n: options.props.modelValue.length,
-            maxLength: options.props.maxlength,
+            n: modelValue.length,
+            maxLength: max,
           }),
-        }
-      : undefined,
-  );
+        } satisfies FormMessages)
+      : undefined;
+  });
 
-  /**
-   * If strict maxlength is wanted, we can make use of the native maxlength attribute
-   */
-  const maxLength = computed(() =>
-    options.props.strictMaxlength ? options.props.maxlength : undefined,
-  );
+  const maxLength = computed(() => (normalized.value.strict ? normalized.value.max : undefined));
 
   return {
+    /**
+     * Custom maxlength error, if we are unable to use the native maxlength attribute.
+     */
     maxLengthError,
+    /**
+     * In strict mode, the native maxlength attribute is used.
+     */
     maxLength,
   };
 };
