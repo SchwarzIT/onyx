@@ -1,11 +1,11 @@
-import calendarClock from "@sit-onyx/icons/calendar-clock.svg?raw";
-import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxCard from "../../OnyxCard/OnyxCard.vue";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
-import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
+import IconCardExample from "./IconCardExample.vue";
+import IconCardExampleCode from "./IconCardExample.vue?raw";
+import ImageCardExample from "./ImageCardExample.vue";
+import ImageCardExampleCode from "./ImageCardExample.vue?raw";
 
 const meta: Meta<typeof OnyxCard> = {
   title: "Basic/Card/Examples",
@@ -31,34 +31,31 @@ export const HeadlineAndText = {
 } satisfies Story;
 
 export const ImageCard = {
-  args: {
-    style: "width: 20rem;",
-    default: [
-      h("img", {
-        src: "https://picsum.photos/256/128",
-        alt: "Example image",
-        style:
-          "border-radius: var(--onyx-radius-sm); margin-bottom: var(--onyx-card-gap); background-color: var(--onyx-color-base-neutral-200)",
-        height: 128,
-      }),
-      h(OnyxHeadline, { is: "h2" }, "Example headline"),
-      "Lorem ipsum dolor sit amet consectetur. Id neque viverra faucibus ullamcorper dui volutpat. Vel nec aliquet lorem turpis eu dui. At pellentesque senectus sed volutpat vitae nulla. Nisl cursus dignissim sed eget neque tristique interdum pretium elit.",
-    ],
+  render: () => ({
+    components: { ImageCardExample },
+    template: `<ImageCardExample />`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        // Removes the comment enclosed block to simplify the source example
+        code: ImageCardExampleCode.replaceAll('from "../../.."', 'from "sit-onyx"'),
+      },
+    },
   },
 } satisfies Story;
 
 export const IconCard = {
-  args: {
-    style: "width: 18rem; flex-direction: row; gap: var(--onyx-density-md); align-items: center",
-    default: [
-      h(OnyxIcon, { icon: calendarClock, size: "64px", color: "primary" }),
-      h("div", [
-        h("div", { style: "display: flex; justify-content: space-between;" }, [
-          h(OnyxHeadline, { is: "h2" }, () => "Headline"),
-          h(OnyxSystemButton, { icon: expandWindow, label: "Open link" }),
-        ]),
-        "Lorem ipsum dolor sit amet consectetur.",
-      ]),
-    ],
+  render: () => ({
+    components: { IconCardExample },
+    template: `<IconCardExample />`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        // Removes the comment enclosed block to simplify the source example
+        code: IconCardExampleCode.replaceAll('from "../../.."', 'from "sit-onyx"'),
+      },
+    },
   },
 } satisfies Story;
