@@ -21,6 +21,8 @@ export const ImageCard = await createExampleStory("ImageCardExample");
 
 export const IconCard = await createExampleStory("IconCardExample");
 
+export const KPICard = await createExampleStory("KPICardExample");
+
 /**
  * Utility to create a story for a given example component. Will render the example and set the source code accordingly.
  *
