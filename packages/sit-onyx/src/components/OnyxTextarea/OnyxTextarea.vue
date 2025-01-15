@@ -11,7 +11,6 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxTextareaProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
-  modelValue: "",
   required: false,
   autocapitalize: "sentences",
   readonly: false,
@@ -23,29 +22,23 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current value changes.
-   */
-  "update:modelValue": [value: string];
-  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
 }>();
 
-const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props });
+/**
+ * Current value of the textarea.
+ */
+const modelValue = defineModel<string>({ default: "" });
+
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 const customError = computed(() => props.customError ?? maxLengthError.value);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
 
 const { densityClass } = useDensity(props);
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
-});
 
 /**
  * Current CSS variables for the autosize min/max height.
@@ -96,11 +89,11 @@ defineExpose({ input });
       :error-messages="errorMessages"
     >
       <template #default="{ id }">
-        <div class="onyx-textarea__wrapper" :data-autosize-value="value">
+        <div class="onyx-textarea__wrapper" :data-autosize-value="modelValue">
           <textarea
             :id="id"
             ref="input"
-            v-model="value"
+            v-model="modelValue"
             v-custom-validity
             class="onyx-textarea__native"
             :class="{ 'onyx-textarea__native--no-resize': props.disableManualResize }"

@@ -11,7 +11,7 @@ export type OnyxInputProps = FormInjectedProps &
   DensityProp &
   RequiredMarkerProp &
   CustomValidityProp &
-  SharedFormElementProps<string> &
+  SharedFormElementProps &
   SharedTextInputProps &
   AutofocusProp & {
     /**

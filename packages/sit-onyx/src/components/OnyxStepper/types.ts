@@ -9,7 +9,7 @@ import type { SharedFormElementProps } from "../OnyxFormElement/types";
 export type OnyxStepperProps = FormInjectedProps &
   DensityProp &
   CustomValidityProp &
-  Omit<SharedFormElementProps, "modelValue" | "errorMessages" | "withCounter" | "maxlength"> &
+  Omit<SharedFormElementProps, "errorMessages" | "withCounter" | "maxlength"> &
   AutofocusProp & {
     /**
      * Placeholder to show when the value is empty.

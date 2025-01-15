@@ -9,7 +9,7 @@ export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "messa
     successMessages?: FormMessages;
   };
 
-export type SharedFormElementProps<T = unknown> = RequiredMarkerProp & {
+export type SharedFormElementProps = RequiredMarkerProp & {
   /**
    * The id of a labelable form-related element.
    * If not given an id will be generated.
@@ -21,10 +21,6 @@ export type SharedFormElementProps<T = unknown> = RequiredMarkerProp & {
    * Used to reference the input in JavaScript or in submitted form data.
    */
   name?: string;
-  /**
-   * Current value of the form element.
-   */
-  modelValue?: T;
   /**
    * Label to show above the form element. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.

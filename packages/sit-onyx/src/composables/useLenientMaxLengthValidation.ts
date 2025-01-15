@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, toValue, type MaybeRefOrGetter } from "vue";
 import { injectI18n } from "../i18n";
 import type { FormMessages } from "./useCustomValidity";
 
@@ -16,6 +16,19 @@ export type Autocapitalize = (typeof AUTOCAPITALIZE)[number];
  */
 export type Autocomplete = Exclude<AutoFill, AutoFillSection | "">;
 
+export type MaxLength =
+  | number
+  | {
+      /**
+       * Maximum number of characters that are allowed to be entered.
+       */
+      max: number;
+      /**
+       * Restricts the user from typing more characters than allowed.
+       */
+      strict?: boolean;
+    };
+
 /**
  * Shared types for all kind of text inputs, namely: `<input type="text">` and `<textarea>`
  */
@@ -26,18 +39,7 @@ export type SharedTextInputProps = {
    * the input invalidity will not be detected by the browser, it will only turn invalid
    * as soon as a user interacts with the input (types something).
    */
-  maxlength?:
-    | number
-    | {
-        /**
-         * Maximum number of characters that are allowed to be entered.
-         */
-        max: number;
-        /**
-         * Restricts the user from typing more characters than allowed.
-         */
-        strict?: boolean;
-      };
+  maxlength?: MaxLength;
   /**
    * If `true`, a character counter will be displayed if `maxLength` is set.
    */
@@ -71,7 +73,8 @@ export type SharedTextInputProps = {
 export type HtmlTextInputElements = HTMLInputElement | HTMLTextAreaElement;
 
 export type UseTextInputOptions = {
-  props: SharedTextInputProps & { modelValue?: string };
+  modelValue: MaybeRefOrGetter<string | undefined>;
+  props: SharedTextInputProps;
 };
 
 /**
@@ -94,7 +97,7 @@ export const useLenientMaxLengthValidation = (options: UseTextInputOptions) => {
 
   const maxLengthError = computed(() => {
     const { strict, max } = normalized.value;
-    const modelValue = options.props.modelValue;
+    const modelValue = toValue(options.modelValue);
 
     return !strict && modelValue && max && modelValue.length > max
       ? ({

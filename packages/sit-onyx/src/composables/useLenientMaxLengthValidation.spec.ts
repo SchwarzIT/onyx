@@ -1,8 +1,11 @@
 import { describe, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { nextTick, reactive } from "vue";
+import { nextTick, reactive, ref } from "vue";
 import { I18N_INJECTION_KEY } from "../i18n";
-import { useLenientMaxLengthValidation } from "./useLenientMaxLengthValidation";
+import {
+  useLenientMaxLengthValidation,
+  type SharedTextInputProps,
+} from "./useLenientMaxLengthValidation";
 
 vi.mock("vue", async (importOriginal) => {
   const module: typeof vue = await importOriginal();
@@ -18,8 +21,9 @@ vi.mock("vue", async (importOriginal) => {
 describe("useLenientMaxLengthValidation", () => {
   test("should only set maxlength when strict", async () => {
     // ARRANGE
-    const props = reactive({ modelValue: "", maxlength: 5, strictMaxlength: true });
-    const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props });
+    const modelValue = ref("");
+    const props = reactive<SharedTextInputProps>({ maxlength: { max: 5, strict: true } });
+    const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 
     // ASSERT
     expect(maxLengthError.value).toBeUndefined();
@@ -28,15 +32,16 @@ describe("useLenientMaxLengthValidation", () => {
 
   test("should set maxlength error manually when not strict and too long", async () => {
     // ARRANGE
-    const props = reactive({ modelValue: "", maxlength: 5, strictMaxlength: false });
-    const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props });
+    const modelValue = ref("");
+    const props = reactive<SharedTextInputProps>({ maxlength: 5 });
+    const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 
     // ASSERT
     expect(maxLengthError.value).toBeUndefined();
     expect(maxLength.value).toBeUndefined();
 
     // ACT
-    props.modelValue = "123456";
+    modelValue.value = "123456";
     await nextTick();
 
     // ASSERT
@@ -47,7 +52,7 @@ describe("useLenientMaxLengthValidation", () => {
     });
 
     // ACT
-    props.modelValue = "12345";
+    modelValue.value = "12345";
     await nextTick();
 
     // ASSERT

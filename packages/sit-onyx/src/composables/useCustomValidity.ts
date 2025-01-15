@@ -14,6 +14,7 @@ import enUS from "../i18n/locales/en-US.json";
 import { isValidDate } from "../utils/date";
 import { areObjectsFlatEqual } from "../utils/objects";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
+import type { MaxLength } from "./useLenientMaxLengthValidation";
 
 export type CustomMessageType = string | FormMessages;
 
@@ -38,7 +39,7 @@ export type UseCustomValidityOptions = {
     customError?: CustomMessageType;
     modelValue?: unknown;
     type?: InputType | OnyxDatePickerProps["type"];
-    maxlength?: number;
+    maxlength?: MaxLength;
     minlength?: number;
     min?: DateValue;
     max?: DateValue;
@@ -201,11 +202,16 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     }
     if (!errorType) return;
 
+    const maxlength =
+      typeof options.props.maxlength === "object"
+        ? options.props.maxlength.max
+        : options.props.maxlength;
+
     const validationData = {
       value: options.props.modelValue?.toString(),
       n: options.props.modelValue?.toString().length ?? 0,
       minLength: options.props.minlength,
-      maxLength: options.props.maxlength,
+      maxLength: maxlength,
       min: formatMinMax(locale.value, options.props.type, options.props.min),
       max: formatMinMax(locale.value, options.props.type, options.props.max),
       step: options.props.validStepSize,

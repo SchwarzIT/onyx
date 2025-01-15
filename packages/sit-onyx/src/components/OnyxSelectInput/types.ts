@@ -14,7 +14,7 @@ export type OnyxSelectInputProps = FormInjectedProps &
   RequiredMarkerProp &
   CustomValidityProp &
   AutofocusProp &
-  Omit<SharedFormElementProps, "modelValue" | "maxlength" | "withCounter"> & {
+  Omit<SharedFormElementProps, "maxlength" | "withCounter"> & {
     /**
      * Current label(s) of the select.
      */
