@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.120
+
+### Patch Changes
+
+- 808e638: fix(OnyxInput, OnyxTextarea): `maxlength` doesn't restrict the user from typing more than the allowed characters.
+  The previous behavior, which restricts the user from typing more than the allowed characters, can be achieved by setting `strictMaxlength`.
+
 ## 1.0.0-beta.119
 
 ### Minor Changes
