@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
+import type { Component } from "vue";
 import OnyxCard from "../../OnyxCard/OnyxCard.vue";
-import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
-import IconCardExample from "./IconCardExample.vue";
-import IconCardExampleCode from "./IconCardExample.vue?raw";
-import ImageCardExample from "./ImageCardExample.vue";
-import ImageCardExampleCode from "./ImageCardExample.vue?raw";
 
 const meta: Meta<typeof OnyxCard> = {
   title: "Basic/Card/Examples",
@@ -20,42 +15,37 @@ const meta: Meta<typeof OnyxCard> = {
 export default meta;
 type Story = StoryObj<typeof OnyxCard>;
 
-export const HeadlineAndText = {
-  args: {
-    style: "width: 20rem;",
-    default: [
-      h(OnyxHeadline, { is: "h2" }, () => "Example headline"),
-      "Lorem ipsum dolor sit amet consectetur. Id neque viverra faucibus ullamcorper dui volutpat. Vel nec aliquet lorem turpis eu dui. At pellentesque senectus sed volutpat vitae nulla. Nisl cursus dignissim sed eget neque tristique interdum pretium elit.",
-    ],
-  },
-} satisfies Story;
+export const HeadlineAndText = await createExampleStory("HeadlineCardExample");
 
-export const ImageCard = {
-  render: () => ({
-    components: { ImageCardExample },
-    template: `<ImageCardExample />`,
-  }),
-  parameters: {
-    docs: {
-      source: {
-        // Removes the comment enclosed block to simplify the source example
-        code: ImageCardExampleCode.replaceAll('from "../../.."', 'from "sit-onyx"'),
+export const ImageCard = await createExampleStory("ImageCardExample");
+
+export const IconCard = await createExampleStory("IconCardExample");
+
+/**
+ * Utility to create a story for a given example component. Will render the example and set the source code accordingly.
+ *
+ * @param exampleName Base name of the example file, e.g. for "MyExample.vue", pass "MyExample"
+ */
+async function createExampleStory(exampleName: string) {
+  const components = import.meta.glob<Component>("./*.vue", { import: "default" });
+  const componentCodes = import.meta.glob<string>("./*.vue", { import: "default", query: "?raw" });
+
+  const exampleFileName = `./${exampleName}.vue`;
+  const ExampleComponent = await components[exampleFileName]();
+  const sourceCode = await componentCodes[exampleFileName]();
+
+  return {
+    render: () => ({
+      components: { ExampleComponent },
+      template: `<ExampleComponent />`,
+    }),
+    parameters: {
+      docs: {
+        source: {
+          // Removes the comment enclosed block to simplify the source example
+          code: sourceCode.replaceAll('from "../../.."', 'from "sit-onyx"'),
+        },
       },
     },
-  },
-} satisfies Story;
-
-export const IconCard = {
-  render: () => ({
-    components: { IconCardExample },
-    template: `<IconCardExample />`,
-  }),
-  parameters: {
-    docs: {
-      source: {
-        // Removes the comment enclosed block to simplify the source example
-        code: IconCardExampleCode.replaceAll('from "../../.."', 'from "sit-onyx"'),
-      },
-    },
-  },
-} satisfies Story;
+  } satisfies Story;
+}

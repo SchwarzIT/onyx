@@ -32,7 +32,7 @@ import {
         </OnyxFlyoutMenu>
       </div>
 
-      Lorem ipsum dolor sit amet consectetur.
+      <p class="card__description">Lorem ipsum dolor sit amet consectetur.</p>
     </div>
   </OnyxCard>
 </template>
@@ -47,6 +47,10 @@ import {
   &__content {
     display: flex;
     justify-content: space-between;
+  }
+
+  &__description {
+    color: var(--onyx-color-text-icons-neutral-medium);
   }
 }
 </style>
