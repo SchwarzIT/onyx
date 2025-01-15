@@ -1,15 +1,15 @@
 import type { DensityProp } from "../../composables/density";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { Autocomplete } from "../../composables/useLenientMaxLengthValidation";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
-import type { Autocomplete } from "../OnyxInput/types";
 
 export type OnyxStepperProps = FormInjectedProps &
   DensityProp &
   CustomValidityProp &
-  Omit<SharedFormElementProps, "modelValue" | "errorMessages" | "withCounter" | "maxlength"> &
+  Omit<SharedFormElementProps, "errorMessages" | "withCounter" | "maxlength"> &
   AutofocusProp & {
     /**
      * Placeholder to show when the value is empty.

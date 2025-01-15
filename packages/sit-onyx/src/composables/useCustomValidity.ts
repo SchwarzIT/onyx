@@ -1,12 +1,20 @@
-import { computed, ref, watch, watchEffect, type Directive } from "vue";
+import {
+  computed,
+  ref,
+  toValue,
+  watch,
+  watchEffect,
+  type Directive,
+  type MaybeRefOrGetter,
+} from "vue";
 import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
 import type { InputType } from "../components/OnyxInput/types";
 import { injectI18n } from "../i18n";
 import enUS from "../i18n/locales/en-US.json";
-import type { BaseSelectOption } from "../types";
 import { isValidDate } from "../utils/date";
 import { areObjectsFlatEqual } from "../utils/objects";
 import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
+import type { MaxLength } from "./useLenientMaxLengthValidation";
 
 export type CustomMessageType = string | FormMessages;
 
@@ -19,17 +27,24 @@ export type CustomValidityProp = {
 
 export type UseCustomValidityOptions = {
   /**
-   * Component props as defined with `const props = defineProps()`
+   * Explicitly set custom error. Any non-nullish value will set the input to be invalid.
+   * If both, `options.customError` and `options.props.customError` are provided, the message from the props will take precedence.
    */
-  props: CustomValidityProp & {
+  customError?: MaybeRefOrGetter<CustomMessageType | undefined>;
+  /**
+   * Component props as defined with `const props = defineProps()`.
+   * These prop values are used for the error messages of the native validation errors.
+   */
+  props: {
+    customError?: CustomMessageType;
     modelValue?: unknown;
     type?: InputType | OnyxDatePickerProps["type"];
-    maxlength?: number;
+    maxlength?: MaxLength;
     minlength?: number;
     min?: DateValue;
     max?: DateValue;
     validStepSize?: number;
-  } & Pick<BaseSelectOption, "hideLabel" | "label">;
+  };
   /**
    * Component emit as defined with `const emit = defineEmits()`
    */
@@ -121,6 +136,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
 
+  const customError = computed(() => options.props.customError ?? toValue(options.customError));
+
   /**
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
    */
@@ -135,12 +152,12 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       /**
        * Sync custom error with the native input validity.
        */
-      watchEffect(() => el.setCustomValidity(getFormMessageText(options.props.customError) ?? ""));
+      watchEffect(() => el.setCustomValidity(getFormMessageText(customError.value) ?? ""));
 
       watch(
         // we need to watch all props instead of only modelValue so the validity is re-checked
         // when the validation rules change
-        [() => options.props],
+        [() => options.props, customError],
         () => {
           const newValidityState = transformValidityStateToObject(el.validity);
 
@@ -161,7 +178,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
        * Update validityState ref when the input changes.
        */
       watch(
-        [() => options.props.customError, validityState, isDirty],
+        [customError, validityState, isDirty],
         () => {
           // do not emit validityChange event if the value was never changed
           if (!isDirty.value || !validityState.value) return;
@@ -177,7 +194,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     if (!validityState.value || validityState.value.valid) return;
 
     const errorType = getFirstInvalidType(validityState.value);
-    const customErrors = getFormMessages(options.props.customError);
+    const customErrors = getFormMessages(customError.value);
     // a custom error message always is considered first
     if (customErrors || errorType === "customError") {
       if (!customErrors) return;
@@ -185,32 +202,35 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     }
     if (!errorType) return;
 
+    const maxlength =
+      typeof options.props.maxlength === "object"
+        ? options.props.maxlength.max
+        : options.props.maxlength;
+
+    const validationData = {
+      value: options.props.modelValue?.toString(),
+      n: options.props.modelValue?.toString().length ?? 0,
+      minLength: options.props.minlength,
+      maxLength: maxlength,
+      min: formatMinMax(locale.value, options.props.type, options.props.min),
+      max: formatMinMax(locale.value, options.props.type, options.props.max),
+      step: options.props.validStepSize,
+    };
+
     // if the error is "typeMismatch", we will use an error message depending on the type property
     if (errorType === "typeMismatch") {
       const type = TRANSLATED_INPUT_TYPES.includes(options.props.type as TranslatedInputType)
         ? (options.props.type as TranslatedInputType)
         : "generic";
       return {
-        longMessage: t.value(`validations.typeMismatch.${type}.fullError`, {
-          value: options.props.modelValue?.toString(),
-        }),
-        shortMessage: t.value(`validations.typeMismatch.${type}.preview`),
+        longMessage: t.value(`validations.typeMismatch.${type}.fullError`, validationData),
+        shortMessage: t.value(`validations.typeMismatch.${type}.preview`, validationData),
       };
     }
 
-    const validationData = {
-      value: options.props.modelValue?.toString(),
-      n: options.props.modelValue?.toString().length ?? 0,
-      minLength: options.props.minlength,
-      maxLength: options.props.maxlength,
-      min: formatMinMax(locale.value, options.props.type, options.props.min),
-      max: formatMinMax(locale.value, options.props.type, options.props.max),
-      step: options.props.validStepSize,
-    };
-
     return {
       longMessage: t.value(`validations.${errorType}.fullError`, validationData),
-      shortMessage: t.value(`validations.${errorType}.preview`),
+      shortMessage: t.value(`validations.${errorType}.preview`, validationData),
     };
   });
 

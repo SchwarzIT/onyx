@@ -1,5 +1,6 @@
 import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
+import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
@@ -430,3 +431,5 @@ test("should show correct message", async ({ mount }) => {
   await expect(successMessageElement).toBeHidden();
   await expect(errorMessageElement).toBeVisible();
 });
+
+testMaxLengthBehavior(OnyxInput);

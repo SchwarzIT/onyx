@@ -5,6 +5,7 @@ import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -29,10 +30,6 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current value changes.
-   */
-  "update:modelValue": [value: string];
-  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
@@ -51,17 +48,19 @@ const slots = defineSlots<{
   trailing?(): unknown;
 }>();
 
+/**
+ * Current value of the input.
+ */
+const modelValue = defineModel<string>({ default: "" });
+
 const { t } = injectI18n();
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
+const customError = computed(() => props.customError ?? maxLengthError.value);
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 
 const { densityClass } = useDensity(props);
-
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = defineModel<string>({ default: "" });
 
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
@@ -97,7 +96,7 @@ const errorClass = useErrorClass(showError);
           <input
             :id="inputId"
             ref="input"
-            v-model="value"
+            v-model="modelValue"
             v-custom-validity
             :placeholder="props.placeholder"
             class="onyx-input__native"
@@ -110,20 +109,20 @@ const errorClass = useErrorClass(showError);
             :pattern="patternSource"
             :readonly="props.readonly"
             :disabled="disabled || props.loading"
+            :maxlength="maxLength"
             :minlength="props.minlength"
-            :maxlength="props.maxlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
           />
 
           <button
-            v-if="!props.hideClearIcon && value !== ''"
+            v-if="!props.hideClearIcon && modelValue !== ''"
             type="button"
             class="onyx-input__clear"
             :aria-label="t('input.clear')"
             :title="t('input.clear')"
             tabindex="-1"
-            @click="() => (value = '')"
+            @click="() => (modelValue = '')"
           >
             <OnyxIcon :icon="xSmall" />
           </button>

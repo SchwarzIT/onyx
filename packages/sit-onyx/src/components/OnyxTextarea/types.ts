@@ -11,7 +11,6 @@ export type OnyxTextareaProps = DensityProp &
     | "label"
     | "labelTooltip"
     | "hideLabel"
-    | "modelValue"
     | "placeholder"
     | "autocapitalize"
     | "autofocus"
