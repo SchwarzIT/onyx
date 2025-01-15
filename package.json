@@ -55,7 +55,7 @@
     "publint": "^0.3.1",
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.11.1",
-    "storybook": "8.5.0-beta.8",
+    "storybook": "8.5.0-beta.11",
     "turbo": "^2.3.3",
     "typescript": "catalog:",
     "typescript-eslint": "^8.19.1",
