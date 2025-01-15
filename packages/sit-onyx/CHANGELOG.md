@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.119
+
+### Minor Changes
+
+- 9bf9a23: feat(OnyxAccordion): added OnyxAccordion
+
 ## 1.0.0-beta.118
 
 ### Minor Changes
