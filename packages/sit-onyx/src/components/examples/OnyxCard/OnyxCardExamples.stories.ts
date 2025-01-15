@@ -15,28 +15,32 @@ const meta: Meta<typeof OnyxCard> = {
 export default meta;
 type Story = StoryObj<typeof OnyxCard>;
 
-export const HeadlineAndText = await createExampleStory("HeadlineCardExample");
+export const HeadlineAndText = createExampleStory("HeadlineCardExample");
 
-export const ImageCard = await createExampleStory("ImageCardExample");
+export const ImageCard = createExampleStory("ImageCardExample");
 
-export const IconCard = await createExampleStory("IconCardExample");
+export const IconCard = createExampleStory("IconCardExample");
 
-export const DetailsCard = await createExampleStory("DetailsCardExample");
+export const DetailsCard = createExampleStory("DetailsCardExample");
 
-export const KPICard = await createExampleStory("KPICardExample");
+export const KPICard = createExampleStory("KPICardExample");
 
 /**
  * Utility to create a story for a given example component. Will render the example and set the source code accordingly.
  *
  * @param exampleName Base name of the example file, e.g. for "MyExample.vue", pass "MyExample"
  */
-async function createExampleStory(exampleName: string) {
-  const components = import.meta.glob<Component>("./*.vue", { import: "default" });
-  const componentCodes = import.meta.glob<string>("./*.vue", { import: "default", query: "?raw" });
+function createExampleStory(exampleName: string) {
+  const components = import.meta.glob<Component>("./*.vue", { import: "default", eager: true });
+  const componentCodes = import.meta.glob<string>("./*.vue", {
+    import: "default",
+    eager: true,
+    query: "?raw",
+  });
 
   const exampleFileName = `./${exampleName}.vue`;
-  const ExampleComponent = await components[exampleFileName]();
-  const sourceCode = await componentCodes[exampleFileName]();
+  const ExampleComponent = components[exampleFileName];
+  const sourceCode = componentCodes[exampleFileName];
 
   return {
     render: () => ({
