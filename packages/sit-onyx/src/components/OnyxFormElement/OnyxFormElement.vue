@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="T">
 import { computed, useId } from "vue";
 import { useRequired } from "../../composables/required";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
@@ -12,9 +12,14 @@ const props = withDefaults(defineProps<OnyxFormElementProps>(), {
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 
+/**
+ * Current value of the input.
+ */
+const modelValue = defineModel<T>();
+
 const counterText = computed(() => {
   if (props.withCounter && props.maxlength) {
-    const text = props.modelValue?.toString() || "";
+    const text = modelValue.value?.toString() ?? "";
     return `${text.length}/${props.maxlength}`;
   }
   return undefined;
