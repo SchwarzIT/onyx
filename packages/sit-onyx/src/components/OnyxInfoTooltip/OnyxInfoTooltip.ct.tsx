@@ -1,38 +1,40 @@
-import type { Locator } from "@playwright/test";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
 
 test.describe("Screenshot tests", () => {
-  const isTooltipVisible = async (tooltip: Locator) => {
-    await expect(tooltip).toBeVisible();
-  };
-
   executeMatrixScreenshotTest({
     name: "Info Tooltip",
-    columns: ["default", "long-text"],
-    rows: ["default", "bottom"],
+    columns: ["default", "long-text", "bottom"],
+    rows: ["default", "focus-visible", "hover"],
     component: (column, row) => {
       return (
         <OnyxInfoTooltip
+          style={{ padding: `3rem 5rem` }} // set paddings to fit the full tooltip in the screenshot
           text={column === "long-text" ? "Lorem ipsum dolor sit amet " : "Test tooltip"}
-          position={row === "bottom" ? "bottom" : "top"}
+          position={column === "bottom" ? "bottom" : "top"}
+          open={row === "hover" ? "hover" : "click"}
         />
       );
     },
     hooks: {
       // set component size to fully include the tooltip
       beforeEach: async (component, page, _column, _row) => {
-        const tooltip = page.getByRole("status");
+        const tooltip =
+          _row === "hover"
+            ? page.getByRole("tooltip", { includeHidden: true })
+            : page.getByRole("status");
 
-        // set paddings to fit the full tooltip in the screenshot
-        await component.evaluate((element) => {
-          element.style.padding = `3rem 5rem`;
-        });
+        if (_row === "default") {
+          await component.click();
+        } else if (_row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          await page.keyboard.press("Space");
+        } else if (_row === "hover") {
+          await component.hover();
+        }
 
-        await component.click();
-
-        await isTooltipVisible(tooltip);
+        await expect(tooltip).toBeVisible();
       },
     },
   });

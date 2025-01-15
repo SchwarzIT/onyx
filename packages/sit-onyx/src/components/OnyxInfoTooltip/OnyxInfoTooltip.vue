@@ -2,6 +2,7 @@
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxInfoTooltipProps } from "./types";
@@ -23,9 +24,17 @@ const type = computed(() => {
     <template v-if="type === 'click'">
       <OnyxTooltip v-bind="props">
         <template #default="{ trigger }">
-          <button type="button" class="onyx-info-tooltip__trigger" v-bind="trigger">
-            <OnyxIcon :icon="circleInformation" />
-          </button>
+          <!--  -->
+          <OnyxSystemButton
+            :label="
+              // if type is `click` aria-label will always be defined
+              trigger['aria-label']!
+            "
+            :icon="circleInformation"
+            class="onyx-info-tooltip__trigger"
+            color="soft"
+            v-bind="trigger"
+          />
         </template>
       </OnyxTooltip>
     </template>
@@ -49,20 +58,12 @@ const type = computed(() => {
 .onyx-info-tooltip {
   @include layers.component() {
     &__trigger {
-      border: none;
-      background-color: transparent;
-      padding: 0;
-      color: inherit;
-      display: flex;
-      height: 1lh;
+      display: inline-flex;
       align-items: center;
+      font-size: inherit;
+      vertical-align: middle;
 
-      &:focus-visible {
-        // unset the icon button outline for now until
-        // https://github.com/SchwarzIT/onyx/issues/1272
-        // is defined
-        outline: none;
-      }
+      --height: 1em;
 
       .onyx-icon {
         --icon-size: 1em;
