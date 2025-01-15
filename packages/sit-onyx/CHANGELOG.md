@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.121
+
+### Patch Changes
+
+- 20199a5: fix(OnyxInfoTooltip): added missing focus indicator
+
 ## 1.0.0-beta.120
 
 ### Patch Changes
