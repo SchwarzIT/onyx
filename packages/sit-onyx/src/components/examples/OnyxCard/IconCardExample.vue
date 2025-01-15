@@ -19,7 +19,7 @@ import {
       <div class="card__content">
         <OnyxHeadline is="h2">Headline</OnyxHeadline>
 
-        <OnyxFlyoutMenu label="Actions">
+        <OnyxFlyoutMenu label="Actions" trigger="click">
           <template #button="{ trigger }">
             <OnyxSystemButton v-bind="trigger" :icon="moreVertical" label="Open link" />
           </template>
