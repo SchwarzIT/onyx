@@ -93,7 +93,7 @@ const {
 
     &__list {
       position: absolute;
-      top: calc(100% + var(--onyx-spacing-sm));
+      top: calc(100% + var(--onyx-spacing-2xs));
       border-radius: var(--onyx-radius-md);
       background-color: var(--onyx-color-base-background-blank);
       padding: var(--onyx-spacing-2xs) 0;

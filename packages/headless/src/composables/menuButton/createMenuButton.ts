@@ -107,11 +107,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   };
 
   const triggerEvents = () => {
-    if (options.trigger.value === "click") {
-      return {
-        onClick: () => setExpanded(true),
-      };
-    } else {
+    if (options.trigger.value === "hover") {
       return {
         onMouseenter: () => setExpanded(true),
         onMouseleave: () => setExpanded(false, true),
@@ -142,7 +138,12 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             "aria-controls": menuId,
             "aria-expanded": options.isExpanded.value,
             "aria-haspopup": true,
-            onFocus: () => setExpanded(true),
+            onFocus: () => setExpanded(true, true),
+            onClick: () => {
+              if (options.trigger.value == "click") {
+                setExpanded(!options.isExpanded.value);
+              }
+            },
             id: buttonId,
           }) as const,
       ),
