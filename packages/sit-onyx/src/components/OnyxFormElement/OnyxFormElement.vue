@@ -17,10 +17,17 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
  */
 const modelValue = defineModel<T>();
 
-const counterText = computed(() => {
+const counter = computed(() => {
   if (props.withCounter && props.maxlength) {
-    const text = modelValue.value?.toString() ?? "";
-    return `${text.length}/${props.maxlength}`;
+    const length = (modelValue.value?.toString() ?? "").length;
+    const maxLength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
+    const violated = length > maxLength;
+
+    return {
+      length,
+      maxLength,
+      violated,
+    };
   }
   return undefined;
 });
@@ -79,8 +86,14 @@ defineSlots<{
           type="neutral"
         />
       </span>
-      <span v-if="counterText" class="onyx-form-element__counter">
-        {{ counterText }}
+      <span
+        v-if="counter"
+        :class="{
+          'onyx-form-element__counter': true,
+          'onyx-form-element__counter--violated': counter.violated,
+        }"
+      >
+        {{ counter.length }}/{{ counter.maxLength }}
       </span>
     </div>
   </div>
@@ -152,6 +165,10 @@ defineSlots<{
 
     &__counter {
       max-width: fit-content;
+    }
+
+    &__counter--violated {
+      color: var(--onyx-color-base-danger-500);
     }
 
     &__error-message,
