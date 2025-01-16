@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "baseUrl": "."
   }
 }
