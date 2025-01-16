@@ -168,7 +168,7 @@ defineSlots<{
     }
 
     &__counter--violated {
-      color: var(--onyx-color-base-danger-500);
+      color: var(--onyx-color-text-icons-danger-intense);
     }
 
     &__error-message,
