@@ -26,7 +26,7 @@ import {
         <OnyxHeadline is="h2">Example headline</OnyxHeadline>
       </div>
 
-      <OnyxFlyoutMenu label="Actions">
+      <OnyxFlyoutMenu label="Actions" trigger="click">
         <template #button="{ trigger }">
           <OnyxSystemButton v-bind="trigger" :icon="moreVertical" label="Open link" />
         </template>
