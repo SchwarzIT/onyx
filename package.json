@@ -29,7 +29,7 @@
     "@playwright/experimental-ct-vue": "^1.49.1",
     "@playwright/test": "^1.49.1",
     "@storybook/addon-essentials": "8.5.0-beta.11",
-    "@storybook/blocks": "8.5.0-beta.11",
+    "@storybook/blocks": "8.5.0",
     "@storybook/vue3": "8.5.0-beta.11",
     "@storybook/vue3-vite": "8.5.0-beta.11",
     "@tsconfig/node22": "^22.0.0",
