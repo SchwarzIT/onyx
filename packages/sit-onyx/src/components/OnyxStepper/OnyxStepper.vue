@@ -3,6 +3,7 @@ import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import { computed, ref, useTemplateRef, watchEffect } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -92,6 +93,7 @@ const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: p
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.stepSize }));
 
 defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>
