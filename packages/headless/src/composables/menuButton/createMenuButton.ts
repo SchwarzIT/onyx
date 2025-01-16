@@ -139,11 +139,8 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             "aria-expanded": options.isExpanded.value,
             "aria-haspopup": true,
             onFocus: () => setExpanded(true, true),
-            onClick: () => {
-              if (options.trigger.value == "click") {
-                setExpanded(!options.isExpanded.value);
-              }
-            },
+            onClick: () =>
+              options.trigger.value == "click" ? setExpanded(!options.isExpanded.value) : undefined,
             id: buttonId,
           }) as const,
       ),
