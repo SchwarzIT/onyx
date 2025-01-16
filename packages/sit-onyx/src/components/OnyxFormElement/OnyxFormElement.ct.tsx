@@ -55,6 +55,28 @@ test("should render error message", async ({ mount }) => {
   await expect(message).toBeVisible();
 });
 
+test("should render counter text correctly", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxFormElement withCounter maxlength={3} label="Test Label">
+      <OnyxInput label="Label" />
+    </OnyxFormElement>,
+  );
+
+  // ASSERT
+  await expect(component.getByText("0/3")).toBeVisible();
+
+  // ARRANGE
+  const component2 = await mount(
+    <OnyxFormElement withCounter modelValue={"12345"} maxlength={3} label="Test Label">
+      <OnyxInput label="Label" />
+    </OnyxFormElement>,
+  );
+
+  // ASSERT
+  await expect(component2.getByText("5/3")).toBeVisible();
+});
+
 test("should render info message", async ({ mount }) => {
   const message = { shortMessage: "Test short message" };
   const component = await mount(
