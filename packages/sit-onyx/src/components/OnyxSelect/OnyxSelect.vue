@@ -2,7 +2,6 @@
   lang="ts"
   setup
   generic="
-    TWithSearch extends boolean | undefined,
     TModelValue extends SelectOptionValue | SelectOptionValue[],
     TMultiple extends TModelValue extends any[] ? true : undefined,
     TValue extends TModelValue extends (infer TInner)[] ? TInner : TModelValue
@@ -37,7 +36,7 @@ import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
-const props = withDefaults(defineProps<OnyxSelectProps<TMultiple, TValue, TWithSearch>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TMultiple, TValue>>(), {
   loading: false,
   noFilter: false,
   disabled: FORM_INJECTED_SYMBOL,

@@ -7,7 +7,6 @@ import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 export type OnyxSelectProps<
   TMultiple extends boolean | undefined,
   TValue extends SelectOptionValue = SelectOptionValue,
-  TWithSearch extends boolean | undefined = undefined,
 > = DensityProp &
   Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus" | "disabled"> &
   AutofocusProp &
@@ -22,7 +21,7 @@ export type OnyxSelectProps<
      * You can use our `normalizedIncludes()` utility function for this.
      * No support for `lazyLoading` yet.
      */
-    withSearch?: TWithSearch;
+    withSearch?: boolean;
     /**
      * Allows the selection of multiple options
      */
