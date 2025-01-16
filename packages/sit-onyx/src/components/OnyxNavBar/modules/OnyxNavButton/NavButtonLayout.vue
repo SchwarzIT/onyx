@@ -79,14 +79,3 @@ const emit = defineEmits<{
     </template>
   </li>
 </template>
-
-<style lang="scss">
-@use "../../../../styles/mixins/layers.scss";
-.onyx-nav-button {
-  @include layers.component() {
-    .onyx-flyout-menu {
-      --onyx-flyout-menu-gap: var(--onyx-spacing-md);
-    }
-  }
-}
-</style>
