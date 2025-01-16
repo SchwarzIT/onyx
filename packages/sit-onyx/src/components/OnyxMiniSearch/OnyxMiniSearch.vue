@@ -14,27 +14,20 @@ const props = defineProps<OnyxMiniSearchProps>();
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current search value changes.
-   */
-  "update:modelValue": [input: string];
-  /**
    * Emitted when the clear button is clicked.
    */
   clear: [];
 }>();
 
+/**
+ * Current input/search value.
+ */
+const modelValue = defineModel<string>();
+
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 const input = ref<HTMLInputElement>();
-
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value ?? ""),
-});
 
 const placeholder = computed(() => t.value("select.searchPlaceholder"));
 
@@ -54,7 +47,7 @@ defineExpose({
   >
     <input
       ref="input"
-      v-model="value"
+      v-model="modelValue"
       class="onyx-mini-search__input onyx-text"
       :placeholder="placeholder"
       type="text"

@@ -1,13 +1,12 @@
-import type { Arrayable } from "vitest";
-import { toValue, type Ref } from "vue";
-import type { MaybeReactiveSource } from "../../utils/types";
+import { toValue, type MaybeRefOrGetter, type Ref } from "vue";
+import type { Arrayable } from "../../utils/types";
 import { useGlobalEventListener } from "./useGlobalListener";
 
 export type UseOutsideClickOptions = {
   /**
    * HTML element of the component where clicks should be ignored
    */
-  inside: MaybeReactiveSource<Arrayable<HTMLElement | undefined>>;
+  inside: MaybeRefOrGetter<Arrayable<HTMLElement | undefined>>;
   /**
    * Callback when an outside click occurred.
    */
