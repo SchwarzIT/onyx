@@ -55,26 +55,32 @@ test("should render error message", async ({ mount }) => {
   await expect(message).toBeVisible();
 });
 
-test("should render counter text correctly", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxFormElement withCounter maxlength={3} label="Test Label">
-      <OnyxInput label="Label" />
-    </OnyxFormElement>,
-  );
+test.describe("withCounter", () => {
+  test("should render counter text", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(
+      <OnyxFormElement withCounter maxlength={3} label="Test Label">
+        content
+      </OnyxFormElement>,
+    );
 
-  // ASSERT
-  await expect(component.getByText("0/3")).toBeVisible();
+    // ASSERT
+    await expect(component.getByText("0/3")).toBeVisible();
+    await expect(component).toHaveScreenshot("onyx-form-element-counter-text.png");
+  });
 
-  // ARRANGE
-  const component2 = await mount(
-    <OnyxFormElement withCounter modelValue={"12345"} maxlength={3} label="Test Label">
-      <OnyxInput label="Label" />
-    </OnyxFormElement>,
-  );
+  test("should render counter text red when too long", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(
+      <OnyxFormElement withCounter modelValue={"12345"} maxlength={3} label="Test Label">
+        content
+      </OnyxFormElement>,
+    );
 
-  // ASSERT
-  await expect(component2.getByText("5/3")).toBeVisible();
+    // ASSERT
+    await expect(component.getByText("5/3")).toBeVisible();
+    await expect(component).toHaveScreenshot("onyx-form-element-counter-error-text.png");
+  });
 });
 
 test("should render info message", async ({ mount }) => {
