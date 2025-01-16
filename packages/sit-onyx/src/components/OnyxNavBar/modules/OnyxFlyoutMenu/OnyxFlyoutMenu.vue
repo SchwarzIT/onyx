@@ -87,13 +87,14 @@ const {
 
 .onyx-flyout-menu {
   @include layers.component() {
+    --onyx-flyout-menu-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     width: min-content;
     position: relative;
 
     &__list {
       position: absolute;
-      top: calc(100% + var(--onyx-spacing-2xs));
+      top: calc(100% + var(--onyx-flyout-menu-gap));
       border-radius: var(--onyx-radius-md);
       background-color: var(--onyx-color-base-background-blank);
       padding: var(--onyx-spacing-2xs) 0;

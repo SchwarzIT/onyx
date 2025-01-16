@@ -90,6 +90,10 @@ const { t } = injectI18n();
 
 .onyx-user-menu {
   @include layers.component() {
+    .onyx-flyout-menu {
+      --onyx-flyout-menu-gap: var(--onyx-spacing-md);
+    }
+
     &__footer,
     &__mobile-footer {
       color: var(--onyx-color-text-icons-neutral-soft);
