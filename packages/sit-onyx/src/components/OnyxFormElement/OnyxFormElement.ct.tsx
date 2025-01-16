@@ -59,7 +59,7 @@ test.describe("withCounter", () => {
   test("should render counter text", async ({ mount }) => {
     // ARRANGE
     const component = await mount(
-      <OnyxFormElement withCounter maxlength={3} label="Test Label">
+      <OnyxFormElement style={{ maxWidth: "200px" }} withCounter maxlength={3} label="Test Label">
         content
       </OnyxFormElement>,
     );
@@ -72,7 +72,13 @@ test.describe("withCounter", () => {
   test("should render counter text red when too long", async ({ mount }) => {
     // ARRANGE
     const component = await mount(
-      <OnyxFormElement withCounter modelValue={"12345"} maxlength={3} label="Test Label">
+      <OnyxFormElement
+        style={{ maxWidth: "200px" }}
+        withCounter
+        modelValue={"12345"}
+        maxlength={3}
+        label="Test Label"
+      >
         content
       </OnyxFormElement>,
     );
