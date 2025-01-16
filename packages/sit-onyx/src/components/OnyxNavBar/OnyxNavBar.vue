@@ -195,6 +195,10 @@ $gap: var(--onyx-spacing-md);
   @include layers.component() {
     --nav-bar-height: 3.5rem;
 
+    .onyx-flyout-menu {
+      --onyx-flyout-menu-gap: var(--onyx-spacing-md);
+    }
+
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
