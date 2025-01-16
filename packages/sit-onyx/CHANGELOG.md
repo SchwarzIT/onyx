@@ -1,5 +1,18 @@
 # sit-onyx
 
+## 1.0.0-beta.124
+
+### Minor Changes
+
+- 5210eb5: fix(OnyxFlyoutMenu): When the flyout menu opens on click, should be closed on the second click of the button. Decreased the gap between "more button" and flyout to 8px (0.5 rem)
+
+## 1.0.0-beta.123
+
+### Patch Changes
+
+- Updated dependencies [cc46754]
+  - @sit-onyx/shared@1.0.0-beta.1
+
 ## 1.0.0-beta.122
 
 ### Patch Changes

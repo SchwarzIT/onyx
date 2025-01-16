@@ -1,5 +1,11 @@
 # @sit-onyx/shared
 
+## 1.0.0-beta.1
+
+### Major Changes
+
+- cc46754: bump minimum required Vite version to `>= 6`
+
 ## 0.0.1-beta.0
 
 ### Patch Changes
