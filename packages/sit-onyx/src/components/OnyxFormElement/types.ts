@@ -1,11 +1,13 @@
 import type { RequiredMarkerProp } from "../../composables/required";
 import type { CustomMessageType, FormMessages } from "../../composables/useCustomValidity";
+import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation";
 
-export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "message" | "success"> & {
-  errorMessages?: FormMessages;
-  message?: FormMessages;
-  successMessages?: FormMessages;
-};
+export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "message" | "success"> &
+  SharedTextInputProps & {
+    errorMessages?: FormMessages;
+    message?: FormMessages;
+    successMessages?: FormMessages;
+  };
 
 export type SharedFormElementProps = RequiredMarkerProp & {
   /**
@@ -19,10 +21,6 @@ export type SharedFormElementProps = RequiredMarkerProp & {
    * Used to reference the input in JavaScript or in submitted form data.
    */
   name?: string;
-  /**
-   * Current value of the form element.
-   */
-  modelValue?: unknown;
   /**
    * Label to show above the form element. Required due to accessibility / screen readers.
    * If you want to visually hide the label, use the `hideLabel` property.
@@ -53,15 +51,4 @@ export type SharedFormElementProps = RequiredMarkerProp & {
    * Success messages that inform about the state of form components
    */
   success?: CustomMessageType;
-  /**
-   * Maximum number of characters that are allowed to be entered.
-   * Warning: when the value is (pre)set programmatically,
-   * the input invalidity will not be detected by the browser, it will only turn invalid
-   * as soon as a user interacts with the input (types something).
-   */
-  maxlength?: number;
-  /**
-   * If `true`, a character counter will be displayed if `maxLength` is set.
-   */
-  withCounter?: boolean;
 };

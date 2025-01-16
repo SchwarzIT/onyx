@@ -3,6 +3,8 @@ import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
+  OnyxAccordion,
+  OnyxAccordionItem,
   OnyxAvatar,
   OnyxBadge,
   OnyxBottomBar,
@@ -43,6 +45,7 @@ import SelectDemo from "../components/SelectDemo.vue";
 const { locale } = useI18n();
 
 const COMPONENTS = [
+  "OnyxAccordion",
   "OnyxAvatar",
   "OnyxBadge",
   "OnyxButton",
@@ -80,9 +83,11 @@ const componentsToShow = useStorage(
   "components-to-show",
   configOptions.map(({ value }) => value),
 );
+
 const show = computed(() => {
-  return (componentName: (typeof COMPONENTS)[number]) =>
-    componentsToShow.value.includes(componentName);
+  return (componentName: (typeof COMPONENTS)[number]) => {
+    return componentsToShow.value.includes(componentName);
+  };
 });
 
 const densityOptions = DENSITIES.map((value: string) => ({
@@ -133,7 +138,6 @@ const tableData = [
   { fruit: "Apple", price: "1.99", inventory: 3000 },
   { fruit: "Banana", price: "3.75", inventory: 18000 },
 ];
-
 const currentPage = ref(1);
 const selectedTab = ref("tab-1");
 const selectedDate = ref<DateValue>();
@@ -168,6 +172,21 @@ const selectedDate = ref<DateValue>();
       </section>
 
       <div class="page__examples">
+        <OnyxAccordion v-if="show('OnyxAccordion')">
+          <OnyxAccordionItem>
+            <template #header> Header 1 </template>
+            <p>Hidden Content 1</p>
+          </OnyxAccordionItem>
+          <OnyxAccordionItem>
+            <template #header> Header 2 </template>
+            <p>Hidden Content 2</p>
+          </OnyxAccordionItem>
+          <OnyxAccordionItem>
+            <template #header> Header 3 </template>
+            <p>Hidden Content 3</p>
+          </OnyxAccordionItem>
+        </OnyxAccordion>
+
         <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
 
         <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>

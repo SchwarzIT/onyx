@@ -1,6 +1,11 @@
 import "./styles/index.scss";
 
 export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
+export { default as OnyxAccordion } from "./components/OnyxAccordion/OnyxAccordion.vue";
+export * from "./components/OnyxAccordion/types";
+
+export { default as OnyxAccordionItem } from "./components/OnyxAccordionItem/OnyxAccordionItem.vue";
+export * from "./components/OnyxAccordionItem/types";
 
 export { default as OnyxAlertDialog } from "./components/OnyxAlertDialog/OnyxAlertDialog.vue";
 export * from "./components/OnyxAlertDialog/types";
@@ -157,11 +162,12 @@ export * from "./components/OnyxForm/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
+export * from "./composables/themeTransition";
 
 export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
 export * from "./types";
 export { createOnyx } from "./utils/plugin";
-export { normalizedIncludes } from "./utils/strings";
 
 export * from "./composables/themeTransition";
+export { normalizedIncludes } from "./utils/strings";
