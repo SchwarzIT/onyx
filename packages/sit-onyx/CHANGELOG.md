@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.123
+
+### Patch Changes
+
+- Updated dependencies [cc46754]
+  - @sit-onyx/shared@1.0.0-beta.1
+
 ## 1.0.0-beta.122
 
 ### Patch Changes
