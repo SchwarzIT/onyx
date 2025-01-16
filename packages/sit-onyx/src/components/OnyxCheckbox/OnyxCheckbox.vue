@@ -2,6 +2,7 @@
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
@@ -48,6 +49,7 @@ const title = computed(() => {
 
 const input = useTemplateRef("input");
 defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>

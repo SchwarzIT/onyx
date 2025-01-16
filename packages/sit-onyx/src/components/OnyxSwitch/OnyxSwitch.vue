@@ -4,6 +4,7 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
@@ -51,6 +52,7 @@ const isChecked = computed({
 
 const input = useTemplateRef("input");
 defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>

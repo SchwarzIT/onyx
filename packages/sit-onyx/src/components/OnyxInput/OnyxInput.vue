@@ -3,6 +3,7 @@ import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
@@ -73,6 +74,7 @@ defineExpose({ input });
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+useAutofocus(input, props);
 </script>
 
 <template>
