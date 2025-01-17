@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineSlots, provide, ref, toRefs } from "vue";
+import { provide, ref, toRefs } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
