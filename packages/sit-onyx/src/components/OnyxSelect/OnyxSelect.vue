@@ -415,8 +415,6 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
               >
                 {{ group }}
               </li>
-
-              <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <OnyxSelectOption
                 v-for="option in groupOptions"
                 :key="option.value.toString()"
@@ -424,8 +422,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
                   headlessOption({
                     value: option.value,
                     label: option.label,
-                    disabled: option.disabled as any,
-                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
+                    disabled: option.disabled,
                     selected: arrayValue.some((value: TValue) => value === option.value),
                   })
                 "

@@ -82,9 +82,13 @@ export type OnyxSelectProps<
 
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption<TValue>,
-  "value" | "label" | "disabled" | "truncation"
+  "value" | "label" | "truncation"
 > &
   Pick<OnyxSelectOptionProps, "icon"> & {
+    /**
+     * Disables the option and prevents it from being selected.
+     */
+    disabled?: boolean;
     /**
      * Optional group name. If set, all options with the same group name will be grouped below that name.
      * If `group` is used for one option, it should be used for all other options as well.
