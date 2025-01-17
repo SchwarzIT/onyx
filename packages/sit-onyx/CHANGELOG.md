@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.125
+
+### Patch Changes
+
+- 1d803fb: OnyxCard: increase border radius
+
 ## 1.0.0-beta.124
 
 ### Minor Changes
