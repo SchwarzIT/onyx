@@ -1,28 +1,22 @@
-import type { DensityProp } from "../../composables/density";
-import type { CustomValidityProp } from "../../composables/useCustomValidity";
-import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
+import type { BaseSelectOption, SelectOptionValue } from "../../types";
 
 export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,
-  "hideLabel"
-> &
-  DensityProp &
-  CustomValidityProp &
-  AutofocusProp & {
-    /**
-     * Identifier for the radio buttons in the group.
-     * All radio buttons that should belong to the same radio group must have the same name.
-     * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
-     */
-    name: string;
-    /**
-     * Whether the radio button is checked.
-     */
-    checked?: boolean;
-    /**
-     * If any radio button of a group is required, a radio button of the group must be checked.
-     * But it doesn't have to be this particular option.
-     * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
-     */
-    required?: boolean;
-  };
+  "hideLabel" | "requiredMarker"
+> & {
+  /**
+   * Identifier for the radio buttons in the group.
+   * All radio buttons that should belong to the same radio group must have the same name.
+   * See also: https://html.spec.whatwg.org/multipage/input.html#radio-button-group
+   */
+  name: string;
+  /**
+   * Whether the radio button is checked.
+   */
+  checked?: boolean;
+  /**
+   * If any radio button of a group is required, a radio button of the group must be checked.
+   * But it doesn't have to be this particular option.
+   * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required
+   */
+};
