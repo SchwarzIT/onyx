@@ -70,7 +70,7 @@ export type SelectModelValueProps<TValue extends SelectOptionValue> =
 export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> =
   SelectModelValueProps<TValue> &
     SelectSearchProps &
-    Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus" | "disabled"> &
+    Omit<OnyxSelectInputProps, "modelValue" | "showFocus" | "disabled"> &
     Pick<BaseSelectOption, "truncation"> & {
       /**
        * Whether the select should be disabled.

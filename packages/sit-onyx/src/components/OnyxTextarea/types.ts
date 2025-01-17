@@ -17,6 +17,9 @@ export type OnyxTextareaProps = Pick<
   | "message"
   | "success"
   | "skeleton"
+  | "required"
+  | "customError"
+  | "density"
 > & {
   /**
    * Override the default autosize behavior (height adjusts based on the current value).
