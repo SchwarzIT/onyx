@@ -41,7 +41,7 @@ const handleSubmit = () => {
   });
 };
 
-const fruitOptions = ref(
+const fruitOptions = ref<SelectOption[]>(
   [
     "Apple",
     "Banana",
@@ -59,7 +59,7 @@ const fruitOptions = ref(
     "Melon",
     "Raspberry",
     "Strawberry",
-  ].map<SelectOption<string>>((option) => ({ value: option.toLowerCase(), label: option })),
+  ].map((option) => ({ value: option.toLowerCase(), label: option })),
 );
 
 const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
