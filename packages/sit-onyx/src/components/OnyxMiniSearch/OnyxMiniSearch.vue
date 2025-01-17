@@ -22,7 +22,7 @@ const emit = defineEmits<{
 /**
  * Current input/search value.
  */
-const modelValue = defineModel<string>();
+const modelValue = defineModel<string>({ default: "" });
 
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);
