@@ -386,6 +386,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
                   headlessOption({
                     value: CHECK_ALL_ID as TValue,
                     label: checkAllLabel,
+                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
                     selected: checkAll?.state.value.modelValue,
                   })
                 "
