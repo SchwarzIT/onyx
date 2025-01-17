@@ -11,7 +11,6 @@ import {
   OnyxTextarea,
   useToast,
   type CheckboxGroupOption,
-  type SelectOption,
 } from "../../..";
 
 type LegalTerm = "general-terms" | "optional-terms";
@@ -41,7 +40,7 @@ const handleSubmit = () => {
   });
 };
 
-const fruitOptions = ref<SelectOption[]>(
+const fruitOptions = ref(
   [
     "Apple",
     "Banana",
