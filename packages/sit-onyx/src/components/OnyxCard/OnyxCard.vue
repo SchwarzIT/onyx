@@ -37,7 +37,7 @@ const { densityClass } = useDensity(props);
     flex-direction: column;
     padding: var(--onyx-card-padding);
     gap: var(--onyx-card-gap);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-radius-md);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);

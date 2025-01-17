@@ -55,6 +55,40 @@ test("should render error message", async ({ mount }) => {
   await expect(message).toBeVisible();
 });
 
+test.describe("withCounter", () => {
+  test("should render counter text", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(
+      <OnyxFormElement style={{ maxWidth: "200px" }} withCounter maxlength={3} label="Test Label">
+        content
+      </OnyxFormElement>,
+    );
+
+    // ASSERT
+    await expect(component.getByText("0/3")).toBeVisible();
+    await expect(component).toHaveScreenshot("onyx-form-element-counter-text.png");
+  });
+
+  test("should render counter text red when too long", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(
+      <OnyxFormElement
+        style={{ maxWidth: "200px" }}
+        withCounter
+        modelValue={"12345"}
+        maxlength={3}
+        label="Test Label"
+      >
+        content
+      </OnyxFormElement>,
+    );
+
+    // ASSERT
+    await expect(component.getByText("5/3")).toBeVisible();
+    await expect(component).toHaveScreenshot("onyx-form-element-counter-error-text.png");
+  });
+});
+
 test("should render info message", async ({ mount }) => {
   const message = { shortMessage: "Test short message" };
   const component = await mount(
