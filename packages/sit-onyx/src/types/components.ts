@@ -1,5 +1,5 @@
-import type { RequiredMarkerProp } from "src/composables/required";
-import type { CustomValidityProp } from "src/composables/useCustomValidity";
+import type { RequiredMarkerProp } from "../composables/required";
+import type { CustomValidityProp } from ../composables/useCustomValidity";
 import type { FormInjected } from "../components/OnyxForm/OnyxForm.core";
 import type { DensityProp } from "../composables/density";
 import type { SkeletonInjected } from "../composables/useSkeletonState";
