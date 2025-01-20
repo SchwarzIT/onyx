@@ -1,6 +1,6 @@
-import type { OnyxDialogProps } from "../../../OnyxDialog/types";
+import type { OnyxModalDialogProps } from "../../../OnyxModalDialog/types";
 
-export type OnyxColorSchemeDialogProps = Pick<OnyxDialogProps, "open" | "density"> & {
+export type OnyxColorSchemeDialogProps = Pick<OnyxModalDialogProps, "open" | "density"> & {
   /**
    * Currently active color scheme.
    */
