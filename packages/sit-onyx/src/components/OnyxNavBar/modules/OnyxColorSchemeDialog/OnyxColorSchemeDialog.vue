@@ -119,7 +119,6 @@ const handleApply = () => {
   @include layers.component() {
     --image-size: 10rem;
     --gap: var(--onyx-density-md);
-
     width: 32rem;
     background-color: var(--onyx-color-base-background-tinted);
 
@@ -139,9 +138,8 @@ const handleApply = () => {
     }
 
     &__option {
+      --onyx-card-gap: var(--gap);
       flex-direction: row;
-      padding: var(--onyx-spacing-md) var(--onyx-spacing-xl);
-      gap: var(--gap);
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
 
@@ -172,7 +170,7 @@ const handleApply = () => {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: var(--onyx-spacing-md);
+      gap: var(--gap);
     }
 
     &__image {
