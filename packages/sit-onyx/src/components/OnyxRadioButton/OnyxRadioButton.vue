@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
@@ -33,6 +34,7 @@ const skeleton = useSkeletonContext(props);
 
 const input = useTemplateRef("input");
 defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>

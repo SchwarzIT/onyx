@@ -179,6 +179,10 @@
     "category": "School & Education",
     "aliases": ["tome", "manuscript", "Buch", "Manuskript"]
   },
+  "book-binocular": {
+    "category": "School & Education",
+    "aliases": []
+  },
   "book-globe": {
     "category": "Network & Infrastructure",
     "aliases": [
@@ -1347,6 +1351,10 @@
       "Schlüssel-Bestätigung"
     ]
   },
+  "key-clock": {
+    "category": "Security & Protection",
+    "aliases": []
+  },
   "key-settings": {
     "category": "Software & Services",
     "aliases": []
@@ -1489,6 +1497,10 @@
   "mail": {
     "category": "Communication",
     "aliases": ["email", "letter", "E-Mail", "Brief"]
+  },
+  "mail-key": {
+    "category": "Communication",
+    "aliases": []
   },
   "mail-read": {
     "category": "Communication",

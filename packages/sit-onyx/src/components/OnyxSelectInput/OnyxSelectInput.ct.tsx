@@ -136,3 +136,14 @@ test("should prevent manual typing in the input", async ({ mount }) => {
   await expect(input).not.toHaveValue("ABC");
   await expect(input).toHaveValue("");
 });
+
+test("should be focused on load in autofocus-mode", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSelectInput placeholder="Test" style="width: 16rem" label="Test label" autofocus />,
+  );
+
+  // // ACT
+  const input = component.getByLabel("Test label");
+  await expect(input).toBeFocused();
+});

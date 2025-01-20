@@ -33,6 +33,7 @@ const basePreview = createPreview(
           // add our custom "Properties, Events and Slots" headline from docs-template.mdx to the table of contents
           headingSelector: ".sb-anchor > h3, #properties-events-and-slots, #examples",
         },
+        codePanel: true,
       },
       a11y: {
         config: axeConfig,

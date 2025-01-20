@@ -15,6 +15,7 @@ export default defineConfig({
       entry: getFilePath("./src/index.ts"),
       formats: ["es", "cjs"],
       fileName: "index",
+      cssFileName: "style",
     },
     rollupOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library

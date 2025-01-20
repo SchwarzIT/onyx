@@ -4,6 +4,7 @@ import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -113,6 +114,7 @@ const blockTyping = (event: KeyboardEvent) => {
 
   event.preventDefault();
 };
+useAutofocus(input, props);
 </script>
 
 <template>

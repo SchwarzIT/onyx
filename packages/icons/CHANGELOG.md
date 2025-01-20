@@ -1,5 +1,17 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.11
+
+### Minor Changes
+
+- f471335: feat: update icons
+
+  #### New icons
+
+  - book-binocular
+  - key-clock
+  - mail-key
+
 ## 1.0.0-beta.10
 
 ### Minor Changes

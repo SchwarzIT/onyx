@@ -1,5 +1,56 @@
 # sit-onyx
 
+## 1.0.0-beta.126
+
+### Patch Changes
+
+- 22c2a64: fix(OnyxFormElement): fix broken counter text when maxlength with counter is used
+
+## 1.0.0-beta.125
+
+### Patch Changes
+
+- 1d803fb: OnyxCard: increase border radius
+
+## 1.0.0-beta.124
+
+### Minor Changes
+
+- 5210eb5: fix(OnyxFlyoutMenu): When the flyout menu opens on click, should be closed on the second click of the button. Decreased the gap between "more button" and flyout to 8px (0.5 rem)
+
+## 1.0.0-beta.123
+
+### Patch Changes
+
+- Updated dependencies [cc46754]
+  - @sit-onyx/shared@1.0.0-beta.1
+
+## 1.0.0-beta.122
+
+### Patch Changes
+
+- Updated dependencies [f471335]
+  - @sit-onyx/icons@1.0.0-beta.11
+
+## 1.0.0-beta.121
+
+### Patch Changes
+
+- 20199a5: fix(OnyxInfoTooltip): added missing focus indicator
+
+## 1.0.0-beta.120
+
+### Patch Changes
+
+- 808e638: fix(OnyxInput, OnyxTextarea): `maxlength` doesn't restrict the user from typing more than the allowed characters.
+  The previous behavior, which restricts the user from typing more than the allowed characters, can be achieved by setting `strictMaxlength`.
+
+## 1.0.0-beta.119
+
+### Minor Changes
+
+- 9bf9a23: feat(OnyxAccordion): added OnyxAccordion
+
 ## 1.0.0-beta.118
 
 ### Minor Changes

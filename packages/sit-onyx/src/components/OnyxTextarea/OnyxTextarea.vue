@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
+import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -10,7 +12,6 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxTextareaProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
-  modelValue: "",
   required: false,
   autocapitalize: "sentences",
   readonly: false,
@@ -22,27 +23,23 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current value changes.
-   */
-  "update:modelValue": [value: string];
-  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
 }>();
 
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+/**
+ * Current value of the textarea.
+ */
+const modelValue = defineModel<string>({ default: "" });
+
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
+const customError = computed(() => props.customError ?? maxLengthError.value);
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
 
 const { densityClass } = useDensity(props);
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
-const value = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
-});
 
 /**
  * Current CSS variables for the autosize min/max height.
@@ -69,6 +66,7 @@ const errorClass = useErrorClass(showError);
 
 const input = useTemplateRef("input");
 defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>
@@ -93,15 +91,11 @@ defineExpose({ input });
       :error-messages="errorMessages"
     >
       <template #default="{ id }">
-        <div class="onyx-textarea__wrapper" :data-autosize-value="value">
-          <!-- eslint-disable vuejs-accessibility/no-autofocus -
-          We want to provide the flexibility to have the autofocus property.
-          The JSDoc description includes a warning that it should be used carefully.
-          -->
+        <div class="onyx-textarea__wrapper" :data-autosize-value="modelValue">
           <textarea
             :id="id"
             ref="input"
-            v-model="value"
+            v-model="modelValue"
             v-custom-validity
             class="onyx-textarea__native"
             :class="{ 'onyx-textarea__native--no-resize': props.disableManualResize }"
@@ -113,12 +107,11 @@ defineExpose({ input });
             :readonly="props.readonly"
             :disabled="disabled"
             :minlength="props.minlength"
-            :maxlength="props.maxlength"
+            :maxlength="maxLength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
             @input="handleInput"
           ></textarea>
-          <!-- eslint-enable vuejs-accessibility/no-autofocus -->
         </div>
       </template>
     </OnyxFormElement>
