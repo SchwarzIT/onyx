@@ -16,6 +16,15 @@ const props = withDefaults(defineProps<OnyxDataGridProps<TEntry, TFeatures>>(), 
 
 const { t } = injectI18n();
 
+defineSlots<{
+  /**
+   * Optional slot to customize the empty state when no data exist.
+   *
+   * If unset, the default empty content of OnyxTable will be displayed.
+   */
+  empty?(): unknown;
+}>();
+
 // Using Ref types to avoid `UnwrapRef` issues
 const renderColumns: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
 const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
@@ -53,5 +62,9 @@ watch(
 </script>
 
 <template>
-  <OnyxDataGridRenderer :columns="renderColumns" :rows="renderRows" />
+  <OnyxDataGridRenderer :columns="renderColumns" :rows="renderRows">
+    <template #empty>
+      <slot name="empty" />
+    </template>
+  </OnyxDataGridRenderer>
 </template>

@@ -3,6 +3,7 @@ import pin from "@sit-onyx/icons/pin.svg?raw";
 import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -70,5 +71,13 @@ export const HeaderInteractions = {
       { id: 4, name: "John", age: 28, birthday: new Date("2003-04-10") },
       { id: 5, name: "Charlotte", age: 28, birthday: new Date("2000-11-08") },
     ],
+  },
+} satisfies Story;
+
+export const CustomEmptyState = {
+  args: {
+    columns: ["name", "age", "birthday"],
+    data: undefined,
+    empty: () => h(OnyxEmpty, null, { default: "DataGrid is empty" }),
   },
 } satisfies Story;

@@ -9,6 +9,15 @@ const props = withDefaults(defineProps<OnyxDataGridRendererProps<TEntry, TMetada
   striped: true,
   withVerticalBorders: true,
 });
+
+defineSlots<{
+  /**
+   * Optional slot to customize the empty state when no data exist.
+   *
+   * If unset, the default empty content of OnyxTable will be displayed.
+   */
+  empty?(): unknown;
+}>();
 </script>
 
 <template>
@@ -34,6 +43,10 @@ const props = withDefaults(defineProps<OnyxDataGridRendererProps<TEntry, TMetada
         </td>
       </template>
     </tr>
+
+    <template #empty>
+      <slot name="empty" />
+    </template>
   </OnyxTable>
 </template>
 
