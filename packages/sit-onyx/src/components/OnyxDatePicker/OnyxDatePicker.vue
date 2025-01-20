@@ -74,7 +74,7 @@ const value = computed({
     emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
   },
 });
-const input = useTemplateRef("input");
+const input = useTemplateRef("inputRef");
 useAutofocus(input, props);
 </script>
 
@@ -102,7 +102,7 @@ useAutofocus(input, props);
           <input
             :id="inputId"
             :key="props.type"
-            ref="input"
+            ref="inputRef"
             v-model="value"
             v-custom-validity
             class="onyx-datepicker__native"

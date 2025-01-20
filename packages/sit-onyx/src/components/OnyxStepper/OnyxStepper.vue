@@ -33,7 +33,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
-const input = useTemplateRef("input");
+const input = useTemplateRef("inputRef");
 
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
@@ -127,7 +127,7 @@ useAutofocus(input, props);
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
         <input
           v-else
-          ref="input"
+          ref="inputRef"
           v-model="inputValue"
           v-custom-validity
           class="onyx-stepper__native"
