@@ -1,5 +1,11 @@
 # @sit-onyx/shared
 
+## 1.0.0-beta.2
+
+### Patch Changes
+
+- 07549b9: fix(shared): change vite dependencies to optionalDependencies
+
 ## 1.0.0-beta.1
 
 ### Major Changes
