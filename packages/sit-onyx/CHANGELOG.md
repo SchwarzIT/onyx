@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.129
+
+### Patch Changes
+
+- 70e1088: Added empty slot to DataGrid to be able to pass custom empty content
+
 ## 1.0.0-beta.128
 
 ### Patch Changes
