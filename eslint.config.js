@@ -190,6 +190,14 @@ const specificIgnoreConfig = {
   ],
 };
 
+const nuxtConfig = {
+  name: "nuxt",
+  files: ["packages/nuxt*/**/*.vue"],
+  rules: {
+    "vue/multi-word-component-names": "off",
+  },
+};
+
 export default tsEslint.config(
   eslint.configs.recommended,
   generalVueTsConfig,
@@ -197,6 +205,7 @@ export default tsEslint.config(
   vitestConfig,
   sitOnyxConfig,
   noConsoleConfig,
+  nuxtConfig,
   skipFormattingConfig,
   gitignoreConfig,
   specificIgnoreConfig,
