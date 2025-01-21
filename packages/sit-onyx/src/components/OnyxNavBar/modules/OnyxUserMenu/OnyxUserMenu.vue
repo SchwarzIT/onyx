@@ -25,7 +25,7 @@ const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
 
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return props.avatar;
-  return { src: props.avatar, label: props.username };
+  return { src: props.avatar, username: props.username };
 });
 
 const isMobile = inject(
