@@ -4,7 +4,8 @@
 
 refactor(OnyxAvatar): update default initials
 
-Previously the initials were taken from the first two words. Now they will be used from the first and last word.
+Previously the initials were taken from the first two words. Now they will be determined as described [here](https://github.com/SchwarzIT/onyx/issues/2454) by considering the locale.
+If the username contains unsupported characters (e.g. for some Korean characters) a fallback icon will be displayed.
 
 Example for "John Middlename Doe":
 
