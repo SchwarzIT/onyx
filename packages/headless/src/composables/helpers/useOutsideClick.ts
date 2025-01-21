@@ -1,5 +1,5 @@
+import type { Arrayable } from "vitest";
 import { toValue, type MaybeRefOrGetter, type Ref } from "vue";
-import type { Arrayable } from "../../utils/types";
 import { useGlobalEventListener } from "./useGlobalListener";
 
 export type UseOutsideClickOptions = {
