@@ -12,4 +12,5 @@ Example for "John Middlename Doe":
 - Previously: "JM"
 - Now: "JD"
 
+Tee `label` property has been removed in favor of `username` which now als supports passing a locale for determining the initials (will use the i18n locale by default).
 The default slot has been removed in favor of the `initials` property to set custom initials.
