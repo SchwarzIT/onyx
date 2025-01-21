@@ -6,6 +6,7 @@ import { getFormMessages, useCustomValidity } from "../../composables/useCustomV
 import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useRootAttrs } from "../../utils/attrs";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -32,6 +33,9 @@ const emit = defineEmits<{
  * Current value of the textarea.
  */
 const modelValue = defineModel<string>({ default: "" });
+
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 const customError = computed(() => props.customError ?? maxLengthError.value);
@@ -74,6 +78,7 @@ useAutofocus(input, props);
     v-if="skeleton"
     :class="['onyx-component', 'onyx-textarea-skeleton', densityClass]"
     :style="autosizeMinMaxStyles"
+    v-bind="rootAttrs"
   >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-textarea-skeleton__label" />
     <OnyxSkeleton class="onyx-textarea-skeleton__input" />
@@ -83,6 +88,7 @@ useAutofocus(input, props);
     v-else
     :class="['onyx-component', 'onyx-textarea', errorClass, densityClass]"
     :style="autosizeMinMaxStyles"
+    v-bind="rootAttrs"
   >
     <OnyxFormElement
       v-bind="props"
@@ -110,6 +116,7 @@ useAutofocus(input, props);
             :maxlength="maxLength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
+            v-bind="restAttrs"
             @input="handleInput"
           ></textarea>
         </div>

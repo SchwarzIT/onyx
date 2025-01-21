@@ -9,6 +9,7 @@ import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
+import { useRootAttrs } from "../../utils/attrs";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -54,6 +55,9 @@ const slots = defineSlots<{
  */
 const modelValue = defineModel<string>({ default: "" });
 
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
+
 const { t } = injectI18n();
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
 const customError = computed(() => props.customError ?? maxLengthError.value);
@@ -78,12 +82,20 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-input-skeleton', densityClass]">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-input-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-input-skeleton__label" />
     <OnyxSkeleton class="onyx-input-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-component', 'onyx-input', densityClass, errorClass]">
+  <div
+    v-else
+    :class="['onyx-component', 'onyx-input', densityClass, errorClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxFormElement
       v-bind="props"
       :error-messages="errorMessages"
@@ -115,6 +127,7 @@ useAutofocus(input, props);
             :minlength="props.minlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
+            v-bind="restAttrs"
           />
 
           <button

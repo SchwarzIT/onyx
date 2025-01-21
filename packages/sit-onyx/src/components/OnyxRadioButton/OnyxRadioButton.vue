@@ -5,6 +5,7 @@ import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
+import { useRootAttrs } from "../../utils/attrs";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -27,6 +28,9 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
+
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
@@ -38,12 +42,16 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-radio-button-skeleton', densityClass]">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-radio-button-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton class="onyx-radio-button-skeleton__input" />
     <OnyxSkeleton class="onyx-radio-button-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
+  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages" v-bind="rootAttrs">
     <label :class="['onyx-component', 'onyx-radio-button', densityClass]">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
       <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
@@ -59,6 +67,7 @@ useAutofocus(input, props);
         :checked="props.checked"
         :disabled="disabled"
         :autofocus="props.autofocus"
+        v-bind="restAttrs"
       />
       <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
         {{ props.label }}
