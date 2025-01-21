@@ -27,10 +27,15 @@ defineSlots<{
 const itemId = useId();
 const accordionContext = inject(ACCORDION_INJECTION_KEY);
 
+const emit = defineEmits<{
+  (event: "update:open", accordionItem: string, value: boolean): void; // Event declaration
+}>();
+
 const isOpen = computed({
   get: () => accordionContext?.openItems.value.has(itemId) || props.open,
   set: (value: boolean) => {
     accordionContext?.updateOpen(itemId, value);
+    emit("update:open", itemId, value);
   },
 });
 

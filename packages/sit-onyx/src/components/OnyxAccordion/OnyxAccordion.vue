@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { provide, ref, toRefs } from "vue";
+import { provide, ref, toRefs, watch } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
@@ -22,7 +23,7 @@ defineSlots<{
 
 const openItems = ref(new Set<string>());
 
-const { disabled } = toRefs(props);
+const { disabled, exclusive } = toRefs(props);
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 
@@ -31,9 +32,15 @@ const updateOpen = (id: string, isOpen: boolean) => {
     openItems.value.delete(id);
     return;
   }
-  if (props.exclusive) openItems.value.clear();
+  if (exclusive.value) openItems.value.clear();
   openItems.value.add(id);
 };
+
+watch(exclusive, (newExclusive) => {
+  if (newExclusive) {
+    openItems.value.clear();
+  }
+});
 
 provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
   openItems,
@@ -45,7 +52,10 @@ provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
 
 <template>
   <div :class="['onyx-component', 'onyx-accordion', densityClass]">
-    <slot></slot>
+    <template v-if="typeof skeleton === 'number'">
+      <OnyxAccordionItem v-for="i in skeleton" :key="i" skeleton />
+    </template>
+    <slot v-else></slot>
   </div>
 </template>
 
