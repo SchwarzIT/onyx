@@ -17,6 +17,11 @@
           "desc": "Sort descending",
           "none": "No sorting"
         }
+      },
+      "filtering": {
+        "menu": {
+          "placeholder": "Search column"
+        }
       }
     }
   },

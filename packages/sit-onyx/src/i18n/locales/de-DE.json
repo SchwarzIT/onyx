@@ -17,6 +17,11 @@
           "desc": "Absteigend sortieren",
           "none": "Keine Sortierung"
         }
+      },
+      "filtering": {
+        "menu": {
+          "placeholder": "Spalte durchsuchen"
+        }
       }
     }
   },

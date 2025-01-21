@@ -293,6 +293,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       left: 0;
       width: 100%;
       bottom: 0;
+      z-index: -1;
       // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
       pointer-events: none;
     }
@@ -300,6 +301,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     // hover styles are disabled when the table is empty.
     &:has(&__empty) th {
       pointer-events: none;
+      button {
+        position: relative;
+        z-index: 1;
+        pointer-events: auto;
+      }
     }
 
     &__colgroup {
