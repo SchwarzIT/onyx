@@ -1,20 +1,27 @@
-<script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
+<script
+  lang="ts"
+  setup
+  generic="
+    TModelValue extends SelectOptionValue | SelectOptionValue[],
+    TMultiple extends TModelValue extends any[] ? true : undefined,
+    TValue extends TModelValue extends (infer TInner)[] ? TInner : TModelValue
+  "
+>
 import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import {
   computed,
   nextTick,
   ref,
-  toRef,
   toRefs,
   useId,
   useTemplateRef,
   watch,
   watchEffect,
+  type Ref,
 } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
-import { MANAGED_SYMBOL, useManagedState } from "../../composables/useManagedState";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
@@ -29,10 +36,9 @@ import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
-const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TMultiple, TValue>>(), {
   loading: false,
-  searchTerm: MANAGED_SYMBOL,
-  open: MANAGED_SYMBOL,
+  noFilter: false,
   disabled: FORM_INJECTED_SYMBOL,
   readonly: false,
   truncation: "ellipsis",
@@ -41,15 +47,6 @@ const props = withDefaults(defineProps<OnyxSelectProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
-  /**
-   * Emitted when the current value changes.
-   */
-  "update:modelValue": [value: typeof props.modelValue];
-  /**
-   * Emitted when the current search input value changes.
-   */
-  "update:searchTerm": [searchTerm: string];
-  "update:open": [open: boolean];
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
    * See property `lazyLoading` for enabling the lazy loading.
@@ -84,17 +81,22 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
-const { state: searchTerm, isManaged: managedSearch } = useManagedState(
-  toRef(() => props.searchTerm),
-  "",
-  (v) => emit("update:searchTerm", v),
-);
+/**
+ * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
+ */
+const modelValue = defineModel<TModelValue>();
 
-const { state: open } = useManagedState(
-  toRef(() => props.open),
-  false,
-  (v) => emit("update:open", v),
-);
+/**
+ * Value of the search input, when `withSearch` is `true`.
+ *
+ * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
+ */
+const searchTerm = defineModel<string>("searchTerm", { default: "" });
+
+/**
+ * If true, the select popover is expanded and visible.
+ */
+const open = defineModel<boolean>("open", { default: false });
 
 const selectRef = ref<HTMLElement>();
 const { openDirection, updateOpenDirection } = useOpenDirection(selectRef);
@@ -109,10 +111,10 @@ const activeValue = ref<TValue>();
  * to work with it in a unified way.
  */
 const arrayValue = computed(() => {
-  if (props.modelValue === undefined) return [];
-  if (props.multiple && Array.isArray(props.modelValue)) return props.modelValue;
-  return [props.modelValue as TValue];
-});
+  if (modelValue.value === undefined) return [];
+  if (props.multiple && Array.isArray(modelValue.value)) return modelValue.value;
+  return [modelValue.value];
+}) as Readonly<Ref<TValue[]>>;
 
 /**
  * Contains an array of labels that will be shown in the OnyxSelectInput.
@@ -137,13 +139,12 @@ const miniSearch = useTemplateRef("miniSearchRef");
 const selectInput = useTemplateRef("selectInputRef");
 
 const filteredOptions = computed(() => {
-  // if onyx does not manage the search, we don't filter the options further
-  if (!managedSearch.value) return props.options;
+  // if onyx does not manage the search or no searchTerm is given, we don't filter the options further
+  if (props.noFilter || !searchTerm.value) return props.options;
 
-  // managed filtering
-  return searchTerm.value
-    ? props.options.filter(({ label }: SelectOption) => normalizedIncludes(label, searchTerm.value))
-    : props.options;
+  return props.options.filter(({ label }: SelectOption) =>
+    normalizedIncludes(label, searchTerm.value as string),
+  );
 });
 
 /**
@@ -232,18 +233,18 @@ const onSelect = (selectedOption: TValue) => {
     return;
   }
   if (!props.multiple) {
-    return emit("update:modelValue", selectedOption);
+    modelValue.value = selectedOption as unknown as TModelValue;
+    return;
   }
 
   // add or remove value depending on whether its already selected
   const alreadyInList = arrayValue.value.some((value) => value === selectedOption);
   if (alreadyInList) {
-    emit(
-      "update:modelValue",
-      arrayValue.value.filter((value) => value !== selectedOption),
-    );
+    modelValue.value = arrayValue.value.filter(
+      (value) => value !== selectedOption,
+    ) as unknown as TModelValue;
   } else {
-    emit("update:modelValue", [...arrayValue.value, selectedOption]);
+    modelValue.value = [...arrayValue.value, selectedOption] as unknown[] as TModelValue;
   }
 };
 
@@ -301,7 +302,7 @@ const checkAll = computed(() => {
     const selectedOptions: TValue[] = newValues
       .map((v) => props.options.find(({ value }) => value === v)?.value)
       .filter((option): option is NonNullable<typeof option> => option != undefined);
-    emit("update:modelValue", selectedOptions);
+    modelValue.value = selectedOptions as unknown[] as TModelValue;
   });
 });
 
@@ -385,6 +386,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
                   headlessOption({
                     value: CHECK_ALL_ID as TValue,
                     label: checkAllLabel,
+                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
                     selected: checkAll?.state.value.modelValue,
                   })
                 "
@@ -414,8 +416,6 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
               >
                 {{ group }}
               </li>
-
-              <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <OnyxSelectOption
                 v-for="option in groupOptions"
                 :key="option.value.toString()"
@@ -424,7 +424,6 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
                     value: option.value,
                     label: option.label,
                     disabled: option.disabled,
-                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
                     selected: arrayValue.some((value: TValue) => value === option.value),
                   })
                 "
