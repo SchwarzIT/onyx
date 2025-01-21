@@ -60,7 +60,7 @@
     "stylelint-no-unsupported-browser-features": "^8.0.2",
     "turbo": "^2.3.3",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.20.0",
+    "typescript-eslint": "^8.21.0",
     "vite": "catalog:",
     "vitest": "^3.0.2",
     "vue-tsc": "^2.2.0"
