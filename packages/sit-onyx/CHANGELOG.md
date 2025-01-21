@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.130
+
+### Patch Changes
+
+- 07549b9: fix 'failed to resolve import source "./components/OnyxDataGrid/features/index.ts"' error
+- Updated dependencies [07549b9]
+  - @sit-onyx/shared@1.0.0-beta.2
+
 ## 1.0.0-beta.129
 
 ### Patch Changes
