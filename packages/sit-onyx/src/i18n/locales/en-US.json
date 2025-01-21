@@ -151,5 +151,8 @@
   "headline": {
     "copyLink": "Copy link to this headline",
     "copyLinkTo": "Copy link to headline:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar of {username}"
   }
 }
