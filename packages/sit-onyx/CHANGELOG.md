@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.128
+
+### Patch Changes
+
+- adec44e: fix console warning for form elements about readonly target
+
+  The following components were affected: OnyxCheckbox, OnyxCheckboxGroup, OnyxDatePicker, OnyxInput, OnyxRadioButton, OnyxRadioGroup, OnyxSelect, OnyxSelectInput, OnyxStepper, OnyxSwitch and OnyxTextarea
+
 ## 1.0.0-beta.127
 
 ### Minor Changes
