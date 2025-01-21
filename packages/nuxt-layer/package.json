@@ -1,0 +1,26 @@
+{
+  "name": "@sit-onyx/nuxt-layer-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "dev": "nuxi dev .playground",
+    "dev:prepare": "nuxt prepare .playground",
+    "build": "nuxt build .playground",
+    "generate": "nuxt generate .playground",
+    "preview": "nuxt preview .playground"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-code-pro": "^5.1.1",
+    "@fontsource-variable/source-sans-3": "^5.1.1",
+    "@nuxt/content": "^3.0.0",
+    "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
+    "sit-onyx": "workspace:^"
+  },
+  "devDependencies": {
+    "nuxt": "^3.15.2",
+    "typescript": "catalog:",
+    "vue": "catalog:"
+  }
+}
