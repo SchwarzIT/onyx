@@ -26,7 +26,9 @@ const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: usernam
 </script>
 
 <template>
+  <!-- key is needed to correctly refresh the displayed image when the src changes -->
   <object
+    :key="props.src"
     :class="[
       'onyx-component',
       'onyx-avatar',

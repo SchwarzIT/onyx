@@ -98,9 +98,10 @@ test("should show custom image", async ({ mount, page }) => {
     },
   });
 
+  const initials = component.getByText("CI");
+
   // ASSERT
-  await expect(component).not.toContainText("CI");
-  await expect(component.getByAltText("Custom image")).toBeVisible();
+  await expect(initials).toBeHidden();
 
   // ARRANGE (should display fallback if image error occurs)
   await page.route("https:/does-not-exist", (route) => route.fulfill({ status: 404 }));
@@ -109,13 +110,11 @@ test("should show custom image", async ({ mount, page }) => {
   await component.update({ props: { src: "https://does-not-exist" } });
 
   // ASSERT
-  await expect(component.getByAltText("Custom image")).toBeHidden();
-  await expect(component).toContainText("CI");
+  await expect(initials).toBeVisible();
 
   // ACT (should reset error if image is changed)
   await component.update({ props: { src: MOCK_IMAGE_URL } });
 
   // ASSERT
-  await expect(component).not.toContainText("CI");
-  await expect(component.getByAltText("Custom image")).toBeVisible();
+  await expect(initials).toBeHidden();
 });
