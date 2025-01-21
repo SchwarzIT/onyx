@@ -11,6 +11,11 @@ const MOCK_CUSTOM_IMAGE =
 
 const MOCK_IMAGE_URL = "/custom-image.svg" as const;
 
+/**
+ * @see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#examples
+ */
+const UNSUPPORTED_USERNAME_EXAMPLE = "吾輩は猫である。名前はたぬき。";
+
 test.beforeEach(async ({ page }) => {
   await page.route(MOCK_IMAGE_URL, (route) => {
     return route.fulfill({ body: MOCK_CUSTOM_IMAGE, contentType: "image/svg+xml" });
@@ -26,14 +31,15 @@ test.describe("Screenshot tests", () => {
     rows: AVATAR_SIZES,
     component: (column, row) => (
       <OnyxAvatar
-        username={column === "unsupported-characters" ? "John \u06FFDoe" : "John Doe"}
+        username={column === "unsupported-characters" ? UNSUPPORTED_USERNAME_EXAMPLE : "John Doe"}
         size={row}
         src={column === "custom" ? MOCK_IMAGE_URL : undefined}
       />
     ),
     hooks: {
       beforeEach: async (component, page, column) => {
-        const username = column === "unsupported-characters" ? "John \u06FFDoe" : "John Doe";
+        const username =
+          column === "unsupported-characters" ? UNSUPPORTED_USERNAME_EXAMPLE : "John Doe";
         await expect(component.getByLabel(`Avatar of ${username}`)).toBeVisible();
       },
     },
