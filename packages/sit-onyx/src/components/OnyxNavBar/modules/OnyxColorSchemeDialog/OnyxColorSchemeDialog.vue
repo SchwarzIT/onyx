@@ -2,8 +2,9 @@
 import { computed, ref, watchEffect } from "vue";
 import { injectI18n } from "../../../../i18n";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
-import OnyxDialog from "../../../OnyxDialog/OnyxDialog.vue";
+import OnyxCard from "../../../OnyxCard/OnyxCard.vue";
 import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
+import OnyxModalDialog from "../../../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import autoImage from "./auto.svg?raw";
 import darkImage from "./dark.svg?raw";
@@ -66,48 +67,40 @@ const handleApply = () => {
 </script>
 
 <template>
-  <OnyxDialog
-    class="onyx-color-scheme-dialog"
+  <OnyxModalDialog
     v-bind="props"
+    class="onyx-color-scheme-dialog"
     :label="t('colorScheme.headline')"
-    modal
     @close="emit('close')"
   >
+    <template #description> {{ t("colorScheme.subtitle") }} </template>
+
     <form class="onyx-color-scheme-dialog__form" @submit.prevent="handleApply">
-      <div>
-        <OnyxHeadline is="h2"> {{ t("colorScheme.headline") }}</OnyxHeadline>
-        <span class="onyx-color-scheme-dialog__subtitle onyx-text">
-          {{ t("colorScheme.subtitle") }}
-        </span>
-      </div>
-
       <fieldset class="onyx-color-scheme-dialog__list" @change="handleChange">
-        <label
-          v-for="option in options"
-          :key="option.value"
-          class="onyx-color-scheme-dialog__option"
-        >
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <figure class="onyx-color-scheme-dialog__image" v-html="option.image"></figure>
+        <label v-for="option in options" :key="option.value">
+          <OnyxCard class="onyx-color-scheme-dialog__option">
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <figure class="onyx-color-scheme-dialog__image" v-html="option.image"></figure>
 
-          <div>
-            <OnyxVisuallyHidden is="div">
-              <input
-                type="radio"
-                name="color-scheme"
-                :autofocus="props.modelValue === option.value"
-                :value="option.value"
-                :checked="props.modelValue === option.value"
-                :aria-label="option.label"
-                required
-              />
-            </OnyxVisuallyHidden>
+            <div>
+              <OnyxVisuallyHidden is="div">
+                <input
+                  type="radio"
+                  name="color-scheme"
+                  :autofocus="props.modelValue === option.value"
+                  :value="option.value"
+                  :checked="props.modelValue === option.value"
+                  :aria-label="option.label"
+                  required
+                />
+              </OnyxVisuallyHidden>
 
-            <OnyxHeadline is="h3" class="onyx-color-scheme-dialog__label">
-              {{ option.label }}
-            </OnyxHeadline>
-            <p class="onyx-text--small">{{ option.description }}</p>
-          </div>
+              <OnyxHeadline is="h3" class="onyx-color-scheme-dialog__label">
+                {{ option.label }}
+              </OnyxHeadline>
+              <p class="onyx-text--small">{{ option.description }}</p>
+            </div>
+          </OnyxCard>
         </label>
       </fieldset>
 
@@ -116,7 +109,7 @@ const handleApply = () => {
         <OnyxButton :label="t('apply')" type="submit" />
       </div>
     </form>
-  </OnyxDialog>
+  </OnyxModalDialog>
 </template>
 
 <style lang="scss">
@@ -125,42 +118,30 @@ const handleApply = () => {
 .onyx-color-scheme-dialog {
   @include layers.component() {
     --image-size: 10rem;
-
+    --gap: var(--onyx-density-md);
     width: 32rem;
     background-color: var(--onyx-color-base-background-tinted);
 
     &__form {
       display: flex;
       flex-direction: column;
-      gap: var(--onyx-spacing-md);
-    }
-
-    &__subtitle {
-      color: var(--onyx-color-text-icons-neutral-medium);
+      gap: var(--gap);
+      padding: var(--gap) var(--onyx-modal-dialog-padding-inline);
+      container-type: inline-size;
     }
 
     &__list {
       list-style: none;
       padding: 0;
-      container-type: inline-size;
 
-      display: flex;
-      flex-direction: column;
-      gap: var(--onyx-spacing-md);
-      border: none;
+      display: contents;
     }
 
     &__option {
-      display: flex;
-      padding: var(--onyx-spacing-md) var(--onyx-spacing-xl);
-      align-items: flex-start;
-      gap: var(--onyx-spacing-md);
-      align-self: stretch;
+      --onyx-card-gap: var(--gap);
+      flex-direction: row;
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-      background-color: var(--onyx-color-base-background-blank);
-      border-radius: var(--onyx-radius-md);
 
       @container (max-width: 24rem) {
         flex-direction: column;
@@ -189,7 +170,7 @@ const handleApply = () => {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: var(--onyx-spacing-md);
+      gap: var(--gap);
     }
 
     &__image {

@@ -50,7 +50,7 @@ const isChecked = computed({
   },
 });
 
-const input = useTemplateRef("input");
+const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
 </script>
@@ -70,7 +70,7 @@ useAutofocus(input, props);
       :title="title"
     >
       <input
-        ref="input"
+        ref="inputRef"
         v-model="isChecked"
         v-custom-validity
         type="checkbox"

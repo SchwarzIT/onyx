@@ -133,8 +133,8 @@ const selectionLabels = computed(() => {
   }, []);
 });
 
-const miniSearch = useTemplateRef("miniSearch");
-const selectInput = useTemplateRef("selectInput");
+const miniSearch = useTemplateRef("miniSearchRef");
+const selectInput = useTemplateRef("selectInputRef");
 
 const filteredOptions = computed(() => {
   // if onyx does not manage the search, we don't filter the options further
@@ -334,7 +334,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 <template>
   <div ref="selectRef" class="onyx-component onyx-select-wrapper">
     <OnyxSelectInput
-      ref="selectInput"
+      ref="selectInputRef"
       v-bind="selectInputProps"
       :show-focus="open"
       :autofocus="props.autofocus"
@@ -356,7 +356,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
         <!-- model-value is set here, as it is written by the onAutocomplete callback -->
         <OnyxMiniSearch
           v-if="props.withSearch"
-          ref="miniSearch"
+          ref="miniSearchRef"
           :model-value="searchTerm"
           v-bind="input"
           :label="t('select.searchInputLabel')"
