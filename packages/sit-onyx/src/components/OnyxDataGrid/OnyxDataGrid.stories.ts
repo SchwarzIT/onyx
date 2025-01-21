@@ -77,7 +77,6 @@ export const HeaderInteractions = {
 export const CustomEmptyState = {
   args: {
     columns: ["name", "age", "birthday"],
-    data: undefined,
     empty: () => h(OnyxEmpty, null, { default: "DataGrid is empty" }),
   },
 } satisfies Story;
