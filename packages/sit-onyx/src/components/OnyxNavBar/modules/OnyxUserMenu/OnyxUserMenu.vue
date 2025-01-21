@@ -1,16 +1,11 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
-import { MANAGED_SYMBOL } from "../../../../composables/useManagedState";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
-const props = withDefaults(defineProps<OnyxUserMenuProps>(), { flyoutOpen: MANAGED_SYMBOL });
-
-const emit = defineEmits<{
-  "update:flyoutOpen": [isOpen: boolean];
-}>();
+const props = defineProps<OnyxUserMenuProps>();
 
 const slots = defineSlots<{
   /**
@@ -22,6 +17,11 @@ const slots = defineSlots<{
    */
   footer?(): unknown;
 }>();
+
+/**
+ * If the flyout is expanded or not. Only has an effect in desktop (non-mobile) mode.
+ */
+const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
 
 const avatar = computed(() => {
   return { src: props.avatar, label: props.username };
@@ -35,11 +35,10 @@ const isMobile = inject(
 
 <template>
   <UserMenuLayout
+    v-model:flyout-open="flyoutOpen"
     class="onyx-component onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
-    :flyout-open="flyoutOpen"
-    @update:flyout-open="emit('update:flyoutOpen', $event)"
   >
     <template #button="{ trigger }">
       <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">

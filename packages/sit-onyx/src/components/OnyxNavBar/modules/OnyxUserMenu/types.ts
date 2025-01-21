@@ -1,5 +1,3 @@
-import type { ManagedProp } from "../../../../composables/useManagedState";
-
 export type OnyxUserMenuProps = {
   /**
    * User name.
@@ -13,9 +11,4 @@ export type OnyxUserMenuProps = {
    * Optional user description that is displayed when the menu is opened.
    */
   description?: string;
-  /**
-   * If the flyout is expanded or not. Only has an effect in desktop (non-mobile) mode.
-   * If `undefined`, the state will be managed internally.
-   */
-  flyoutOpen?: ManagedProp<boolean>;
 };

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { computed, inject, toRef } from "vue";
-import { MANAGED_SYMBOL, useManagedState } from "../../../../composables/useManagedState";
+import { computed, inject } from "vue";
 import { useMoreListChild } from "../../../../composables/useMoreList";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -12,7 +11,6 @@ import type { OnyxNavButtonProps } from "./types";
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
   withExternalIcon: "auto",
-  mobileChildrenOpen: MANAGED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -20,10 +18,6 @@ const emit = defineEmits<{
    * Emitted when the nav button is clicked (via click or keyboard).
    */
   navigate: [href: string, event: MouseEvent];
-  /**
-   * Emitted when the mobile children are open or closed.
-   */
-  "update:mobileChildrenOpen": [isOpen: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -37,18 +31,17 @@ const slots = defineSlots<{
   children?(): unknown;
 }>();
 
+/**
+ * Controls the open state for the mobile children.
+ */
+const mobileChildrenOpen = defineModel<boolean>("mobileChildrenOpen", { default: false });
+
 const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
 );
 const hasChildren = computed(() => !!slots.children);
 const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
-
-const { state: mobileChildrenOpen } = useManagedState(
-  toRef(() => props.mobileChildrenOpen),
-  false,
-  (newVal) => emit("update:mobileChildrenOpen", newVal),
-);
 
 const handleParentClick = (event: MouseEvent) => {
   if (isMobile?.value && hasChildren.value && !mobileChildrenOpen.value) {

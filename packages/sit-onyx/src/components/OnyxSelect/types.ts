@@ -1,79 +1,48 @@
 import type { DensityProp } from "../../composables/density";
-import type { ManagedProp } from "../../composables/useManagedState";
 import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
-export type SelectSearchProps =
-  | {
-      /**
-       * Allows the user to filter the list entries.
-       * If enabled, you need to manually filter the options based on the current `searchTerm`.
-       * You can use our `normalizedIncludes()` utility function for this.
-       * No support for `lazyLoading` yet.
-       */
-      withSearch: true;
-      /**
-       * Value of the search input.
-       * Property is managed internally, when undefined. That means:
-       * As default, onyx will handle filtering the options by comparing
-       * the option labels with the `searchTerm`.
-       *
-       * When `searchTerm` is handled by you (not undefined), this behavior is disabled.
-       * Then, you can handle the filtering yourself by reducing the `options` as desired.
-       * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
-       */
-      searchTerm?: ManagedProp<string>;
-    }
-  | {
-      withSearch?: false;
-      searchTerm?: never;
-    };
-
-export type SelectModelValueProps<TValue extends SelectOptionValue> =
-  | {
-      /**
-       * Allows the selection of multiple options
-       */
-      multiple?: false;
-      /**
-       * Value of the currently selected option.
-       */
-      modelValue?: TValue;
-      withCheckAll?: never;
-    }
-  | {
-      /**
-       * Allows the selection of multiple options
-       */
-      multiple: true;
-      /**
-       * Values of the currently selected options.
-       */
-      modelValue?: TValue[];
-      /**
-       * If true, a checkbox will be displayed to check/uncheck all options.
-       * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
-       * Only available if "multiple" is true and no `searchTerm` is provided.
-       */
-      withCheckAll?:
-        | boolean
-        | {
-            /**
-             * Label for the `select all` checkbox.
-             * If unset, a default label will be shown depending on the current locale/language.
-             */
-            label?: string;
-          };
-    };
-
-export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue> = DensityProp &
-  SelectModelValueProps<TValue> &
-  SelectSearchProps &
+export type OnyxSelectProps<
+  TMultiple extends boolean | undefined,
+  TValue extends SelectOptionValue = SelectOptionValue,
+> = DensityProp &
   Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus" | "disabled"> &
   AutofocusProp &
   Pick<BaseSelectOption, "truncation"> & {
+    /**
+     * Disables the implicit options filtering when the user changes the search term.
+     */
+    noFilter?: boolean;
+    /**
+     * Allows the user to filter the list entries.
+     * If enabled, you need to manually filter the options based on the current `searchTerm`.
+     * You can use our `normalizedIncludes()` utility function for this.
+     * No support for `lazyLoading` yet.
+     */
+    withSearch?: boolean;
+    /**
+     * Allows the selection of multiple options
+     */
+    multiple?: TMultiple;
+    /**
+     * If true, a checkbox will be displayed to check/uncheck all options.
+     * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
+     * Only available if "multiple" is true and no `searchTerm` is provided.
+     */
+    withCheckAll?: TMultiple extends true
+      ?
+          | boolean
+          | {
+              /**
+               * Label for the `select all` checkbox.
+               * If unset, a default label will be shown depending on the current locale/language.
+               */
+              label?: string;
+            }
+      : never;
+
     /**
      * Whether the select should be disabled.
      */
@@ -85,11 +54,6 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
      * or a manual search is implemented.
      */
     valueLabel?: string | string[];
-    /**
-     * If true, the select popover is expanded and visible.
-     * Property is managed internally, when undefined.
-     */
-    open?: ManagedProp<boolean>;
     /**
      * Alignment of the select flyout relative to the input.
      * If set to full, the width of the flyout will be aligned (100%) with the input of the select.
@@ -118,9 +82,13 @@ export type OnyxSelectProps<TValue extends SelectOptionValue = SelectOptionValue
 
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption<TValue>,
-  "value" | "label" | "disabled" | "truncation"
+  "value" | "label" | "truncation"
 > &
   Pick<OnyxSelectOptionProps, "icon"> & {
+    /**
+     * Disables the option and prevents it from being selected.
+     */
+    disabled?: boolean;
     /**
      * Optional group name. If set, all options with the same group name will be grouped below that name.
      * If `group` is used for one option, it should be used for all other options as well.

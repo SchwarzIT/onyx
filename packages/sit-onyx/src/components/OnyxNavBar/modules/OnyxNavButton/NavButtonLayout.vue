@@ -32,9 +32,7 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 
-const emit = defineEmits<{
-  "update:mobileChildrenOpen": [isOpen: boolean];
-}>();
+const mobileChildrenOpen = defineModel<boolean>("mobileChildrenOpen", { default: false });
 </script>
 
 <template>
@@ -46,7 +44,7 @@ const emit = defineEmits<{
         mode="plain"
         color="neutral"
         :icon="arrowSmallLeft"
-        @click="emit('update:mobileChildrenOpen', false)"
+        @click="mobileChildrenOpen = false"
       />
 
       <slot

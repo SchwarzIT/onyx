@@ -123,7 +123,7 @@ const selectOptions = [
   "Melon",
   "Raspberry",
   "Strawberry",
-].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option }));
+].map((option) => ({ value: option.toLowerCase(), label: option }));
 
 const minimalSelectOptions = selectOptions.slice(0, 3);
 

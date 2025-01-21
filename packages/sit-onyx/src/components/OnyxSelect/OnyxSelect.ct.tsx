@@ -916,7 +916,7 @@ test("should manage filtering internally except when filteredOptions are given",
   ).toBeHidden();
 
   // ACT
-  await component.update({ props: { searchTerm: "1" } });
+  await component.update({ props: { searchTerm: "1", noFilter: true } });
   // ASSERT
   expect(
     await page.getByRole("option").count(),

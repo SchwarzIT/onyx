@@ -276,23 +276,6 @@ export const WithSearch: Story = {
     ...Default.args,
     withSearch: true,
   },
-  decorators: [
-    /**
-     * Decorator to prevent Storybook from setting the searchTerm
-     * which would disable the included filtering by managed search state
-     */
-    (story, ctx) => ({
-      components: { story },
-      setup: () => {
-        watchEffect(() => {
-          ctx.args.searchTerm = undefined;
-          // the following line is needed to keep the reactivity, although it's not clear why
-          ctx.args.searchTerm;
-        });
-      },
-      template: `<story />`,
-    }),
-  ],
 };
 
 const optionsForCustomSearch = [

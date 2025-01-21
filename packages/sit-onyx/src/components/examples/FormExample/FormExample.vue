@@ -11,7 +11,6 @@ import {
   OnyxTextarea,
   useToast,
   type CheckboxGroupOption,
-  type SelectOption,
 } from "../../..";
 
 type LegalTerm = "general-terms" | "optional-terms";
@@ -59,7 +58,7 @@ const fruitOptions = ref(
     "Melon",
     "Raspberry",
     "Strawberry",
-  ].map<SelectOption>((option) => ({ value: option.toLowerCase(), label: option })),
+  ].map((option) => ({ value: option.toLowerCase(), label: option })),
 );
 
 const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
