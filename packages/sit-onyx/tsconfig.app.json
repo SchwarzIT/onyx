@@ -6,6 +6,7 @@
     "composite": true,
     "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": ["ES2022", "DOM"]
   }
 }
