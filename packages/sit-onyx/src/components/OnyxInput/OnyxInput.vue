@@ -68,7 +68,7 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const input = useTemplateRef("input");
+const input = useTemplateRef("inputRef");
 defineExpose({ input });
 
 const { disabled, showError } = useFormContext(props);
@@ -97,7 +97,7 @@ useAutofocus(input, props);
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
             :id="inputId"
-            ref="input"
+            ref="inputRef"
             v-model="modelValue"
             v-custom-validity
             :placeholder="props.placeholder"

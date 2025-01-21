@@ -64,7 +64,7 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 
-const input = useTemplateRef("input");
+const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
 </script>
@@ -94,7 +94,7 @@ useAutofocus(input, props);
         <div class="onyx-textarea__wrapper" :data-autosize-value="modelValue">
           <textarea
             :id="id"
-            ref="input"
+            ref="inputRef"
             v-model="modelValue"
             v-custom-validity
             class="onyx-textarea__native"

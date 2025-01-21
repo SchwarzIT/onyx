@@ -57,7 +57,7 @@ const checkAllLabel = computed(() => {
   return props.withCheckAll?.label ?? defaultText;
 });
 
-const checkboxes = useTemplateRef("checkboxes");
+const checkboxes = useTemplateRef("checkboxesRef");
 
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
@@ -99,7 +99,7 @@ defineExpose({
           v-for="option in props.options"
           :key="option.value.toString()"
           v-bind="option"
-          ref="checkboxes"
+          ref="checkboxesRef"
           :truncation="option.truncation ?? props.truncation"
           :model-value="props.modelValue.includes(option.value)"
           class="onyx-checkbox-group__option"
