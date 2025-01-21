@@ -19,3 +19,35 @@ const removeDiacritics = (str: string) => str.normalize("NFD").replace(/[\u0300-
 export const normalizeUrlHash = (text: string) => {
   return text.trim().toLowerCase().replace(/\W/gi, "-");
 };
+
+/**
+ * Gets the initials for the given username by considering the given locale.
+ *
+ * @returns Initials or undefined if the username contains unsupported characters (e.g. because its a language that does not support initials).
+ */
+export const getInitials = (username: string, locale: string) => {
+  if (UNSUPPORTED_INITIALS_TEXT_REGEX.test(username)) {
+    return;
+  }
+
+  const segmenter = new Intl.Segmenter(locale, { granularity: "word" });
+
+  const name = username.trim().toUpperCase();
+  const segments = Array.from(segmenter.segment(name));
+
+  if (segments.length === 1) return segments[0].segment.substring(0, 2);
+  return `${segments[0].segment.charAt(0)}${segments.at(-1)?.segment.charAt(0)}`;
+};
+
+/**
+ * Regular expression matching languages for which we currently don't support initials.
+ * Arabic:   Arabic, Arabic Supplement, Arabic Extended-A.
+ * Korean:   Hangul Jamo, Hangul Compatibility Jamo, Hangul Jamo Extended-A, Hangul Syllables, Hangul Jamo Extended-B.
+ * Japanese: Hiragana, Katakana.
+ * CJK:      CJK Unified Ideographs Extension A, CJK Unified Ideographs, CJK Compatibility Ideographs,
+ *             CJK Unified Ideographs Extension B
+ *
+ * @see https://github.com/microsoft/fluentui/blob/b4a12e8c011441b0d0af21a78091b36074f81ef6/packages/react-components/react-avatar/library/src/utils/getInitials.ts#L34
+ */
+const UNSUPPORTED_INITIALS_TEXT_REGEX: RegExp =
+  /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uAC00-\uD7AF\uD7B0-\uD7FF\u3040-\u309F\u30A0-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD869][\uDC00-\uDED6]/;

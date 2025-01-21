@@ -22,18 +22,19 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Avatar",
-    columns: ["default", "custom"],
+    columns: ["default", "custom", "unsupported-characters"],
     rows: AVATAR_SIZES,
     component: (column, row) => (
       <OnyxAvatar
-        username="John Doe"
+        username={column === "unsupported-characters" ? "John \u06FFDoe" : "John Doe"}
         size={row}
         src={column === "custom" ? MOCK_IMAGE_URL : undefined}
       />
     ),
     hooks: {
-      beforeEach: async (component) => {
-        await expect(component.getByTitle("John Doe")).toBeVisible();
+      beforeEach: async (component, page, column) => {
+        const username = column === "unsupported-characters" ? "John \u06FFDoe" : "John Doe";
+        await expect(component.getByLabel(`Avatar of ${username}`)).toBeVisible();
       },
     },
   });

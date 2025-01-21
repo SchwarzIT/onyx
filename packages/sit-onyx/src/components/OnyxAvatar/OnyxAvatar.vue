@@ -1,6 +1,9 @@
 <script lang="ts" setup>
+import user from "@sit-onyx/icons/user.svg?raw";
 import { computed } from "vue";
 import { injectI18n } from "../../i18n";
+import { getInitials } from "../../utils/strings";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAvatarProps>(), {
@@ -14,21 +17,9 @@ const username = computed(() => {
   return { name: props.username, locale: locale.value };
 });
 
-const segmenter = computed(
-  () => new Intl.Segmenter(username.value.locale, { granularity: "word" }),
-);
-
 const initials = computed(() => {
   if (props.initials) return props.initials;
-
-  const name = username.value.name.trim().toUpperCase();
-  const segments = Array.from(segmenter.value.segment(name));
-
-  if (segments.length === 1) {
-    return segments[0].segment.substring(0, 2);
-  }
-
-  return `${segments[0].segment.charAt(0)}${segments.at(-1)?.segment.charAt(0)}`;
+  return getInitials(username.value.name, username.value.locale);
 });
 
 const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: username.value.name }));
@@ -46,9 +37,8 @@ const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: usernam
     :title="ariaLabel"
     :aria-label="ariaLabel"
   >
-    <div class="onyx-avatar__initials">
-      {{ initials }}
-    </div>
+    <div v-if="initials">{{ initials }}</div>
+    <OnyxIcon v-else :icon="user" class="onyx-avatar__icon" />
   </object>
 </template>
 
@@ -66,24 +56,23 @@ const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: usernam
     object-fit: cover;
     display: block;
 
+    color: var(--onyx-color-text-icons-primary-bold);
+    font-family: var(--onyx-font-family);
+    line-height: normal;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     &--custom {
       --onyx-avatar-padding: var(--onyx-spacing-sm);
       width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
       padding: var(--onyx-avatar-padding);
     }
 
-    &__initials {
-      color: var(--onyx-color-text-icons-primary-bold);
-      font-family: var(--onyx-font-family);
-      line-height: normal;
-      font-weight: 600;
-      height: 100%;
-      width: 100%;
-      border-radius: inherit;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    &__icon {
+      --icon-size: 1em;
     }
 
     @include sizes.define-rem-sizes using ($name, $size) {
