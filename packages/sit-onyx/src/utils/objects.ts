@@ -28,3 +28,13 @@ export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey exten
     {} as Record<string, TValue[]>,
   );
 };
+
+/**
+ * Works like `Object.entries`, but considers all own keys of an object.
+ * @example
+ * ```ts
+ * allObjectEntries({ [Symbol()]: "a", "someKey": "b" }) // => [[Symbol(), "a"], ["someKey", "b"]]
+ * ```
+ */
+export const allObjectEntries = <TValue extends Record<PropertyKey, unknown>>(target: TValue) =>
+  Reflect.ownKeys(target).map((key) => [key, target[key]] as [keyof TValue, TValue[keyof TValue]]);
