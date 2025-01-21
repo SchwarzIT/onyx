@@ -187,7 +187,7 @@ const selectedDate = ref<DateValue>();
           </OnyxAccordionItem>
         </OnyxAccordion>
 
-        <OnyxAvatar v-if="show('OnyxAvatar')" label="John Doe" />
+        <OnyxAvatar v-if="show('OnyxAvatar')" username="John Doe" />
 
         <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
         <OnyxButton v-if="show('OnyxButton')" label="Button" />
