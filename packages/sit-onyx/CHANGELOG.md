@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.127
+
+### Minor Changes
+
+- 276eda9: feat(OnyxColorSchemeDialog): use OnyxModalDialog and OnyxCard internally
+
 ## 1.0.0-beta.126
 
 ### Patch Changes
