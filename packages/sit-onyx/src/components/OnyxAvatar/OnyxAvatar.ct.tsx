@@ -26,7 +26,7 @@ test.describe("Screenshot tests", () => {
     rows: AVATAR_SIZES,
     component: (column, row) => (
       <OnyxAvatar
-        label="John Doe"
+        username="John Doe"
         size={row}
         src={column === "custom" ? MOCK_IMAGE_URL : undefined}
       />
@@ -44,7 +44,7 @@ test.describe("Screenshot tests", () => {
     rows: AVATAR_SIZES,
     component: (column, row) => (
       <OnyxAvatar
-        label="Custom content"
+        username="Custom content"
         size={row}
         initials={column === "truncation" ? "+999999" : "+42"}
       />
@@ -56,7 +56,7 @@ test("should contain correct initials", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxAvatar, {
     props: {
-      label: "A B C D",
+      username: "A B C D",
     },
   });
 
@@ -64,19 +64,19 @@ test("should contain correct initials", async ({ mount }) => {
   await expect(component).toContainText("AD");
 
   // ACT
-  await component.update({ props: { label: "abcd" } });
+  await component.update({ props: { username: "abcd" } });
 
   // ASSERT
   await expect(component).toContainText("AB");
 
   // ACT
-  await component.update({ props: { label: "a" } });
+  await component.update({ props: { username: "a" } });
 
   // ASSERT
   await expect(component).toContainText("A");
 
   // ACT
-  await component.update({ props: { label: "abcd", initials: "HI" } });
+  await component.update({ props: { username: "abcd", initials: "HI" } });
 
   // ASSERT
   await expect(component).toContainText("HI");
@@ -86,7 +86,7 @@ test("should show custom image", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(OnyxAvatar, {
     props: {
-      label: "Custom image",
+      username: "Custom image",
       src: MOCK_IMAGE_URL,
     },
   });

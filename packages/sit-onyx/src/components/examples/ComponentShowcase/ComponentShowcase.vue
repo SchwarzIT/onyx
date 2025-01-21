@@ -202,11 +202,11 @@ const teamMembers = [
           <OnyxAvatar
             v-for="member in teamMembers"
             :key="member.name"
-            :label="member.name"
+            :username="member.name"
             :src="member.avatar"
             size="32px"
           />
-          <OnyxAvatar label="+3" size="32px" />
+          <OnyxAvatar username="+3" size="32px" />
         </OnyxAvatarStack>
 
         <OnyxRadioGroup

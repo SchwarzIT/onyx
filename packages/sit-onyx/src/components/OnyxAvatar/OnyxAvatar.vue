@@ -1,47 +1,55 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
+import { injectI18n } from "../../i18n";
 import type { OnyxAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   size: "48px",
 });
 
+const { locale, t } = injectI18n();
+
+const username = computed(() => {
+  if (typeof props.username === "object") return props.username;
+  return { name: props.username, locale: locale.value };
+});
+
+const segmenter = computed(
+  () => new Intl.Segmenter(username.value.locale, { granularity: "word" }),
+);
+
 const initials = computed(() => {
   if (props.initials) return props.initials;
 
-  const names = props.label.trim().toUpperCase().split(" ");
-  if (names.length === 1) return names[0].substring(0, 2);
+  const name = username.value.name.trim().toUpperCase();
+  const segments = Array.from(segmenter.value.segment(name));
 
-  return `${names[0].charAt(0)}${names.at(-1)?.charAt(0)}`;
+  if (segments.length === 1) {
+    return segments[0].segment.substring(0, 2);
+  }
+
+  return `${segments[0].segment.charAt(0)}${segments.at(-1)?.segment.charAt(0)}`;
 });
 
-const hasImageError = ref(false);
-
-// reset image error if image changes
-watch(
-  () => props.src,
-  () => (hasImageError.value = false),
-);
+const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: username.value.name }));
 </script>
 
 <template>
-  <figure
-    class="onyx-component onyx-avatar"
-    :class="[`onyx-avatar--${props.size}`, props.initials ? 'onyx-avatar--custom' : '']"
-    :title="props.label"
+  <object
+    :class="[
+      'onyx-component',
+      'onyx-avatar',
+      `onyx-avatar--${props.size}`,
+      props.initials ? 'onyx-avatar--custom' : '',
+    ]"
+    :data="props.src"
+    :title="ariaLabel"
+    :aria-label="ariaLabel"
   >
-    <img
-      v-if="props.src && !hasImageError"
-      class="onyx-avatar__svg"
-      :src="props.src"
-      :alt="props.label"
-      @error="hasImageError = true"
-    />
-
-    <div v-else class="onyx-avatar__initials">
+    <div class="onyx-avatar__initials">
       {{ initials }}
     </div>
-  </figure>
+  </object>
 </template>
 
 <style lang="scss">
@@ -54,23 +62,14 @@ watch(
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
     border-radius: var(--onyx-radius-full);
-
-    &:has(.onyx-avatar__initials) {
-      background-color: var(--onyx-color-base-primary-200);
-    }
+    background-color: var(--onyx-color-base-primary-200);
+    object-fit: cover;
+    display: block;
 
     &--custom {
       --onyx-avatar-padding: var(--onyx-spacing-sm);
       width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
       padding: var(--onyx-avatar-padding);
-    }
-
-    &__svg {
-      border-radius: inherit;
-      height: 100%;
-      width: 100%;
-      background-color: var(--onyx-color-base-neutral-100);
-      object-fit: cover;
     }
 
     &__initials {
