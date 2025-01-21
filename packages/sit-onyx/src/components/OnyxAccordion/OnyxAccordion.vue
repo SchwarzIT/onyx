@@ -2,7 +2,6 @@
 import { provide, ref, toRefs, watch } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
@@ -37,8 +36,12 @@ const updateOpen = (id: string, isOpen: boolean) => {
 };
 
 watch(exclusive, (newExclusive) => {
-  if (newExclusive) {
+  if (newExclusive && openItems.value.size > 1) {
+    const lastOpenedItem = [...openItems.value].pop();
     openItems.value.clear();
+    if (lastOpenedItem) {
+      openItems.value.add(lastOpenedItem);
+    }
   }
 });
 
@@ -52,10 +55,7 @@ provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
 
 <template>
   <div :class="['onyx-component', 'onyx-accordion', densityClass]">
-    <template v-if="typeof skeleton === 'number'">
-      <OnyxAccordionItem v-for="i in skeleton" :key="i" skeleton />
-    </template>
-    <slot v-else></slot>
+    <slot></slot>
   </div>
 </template>
 

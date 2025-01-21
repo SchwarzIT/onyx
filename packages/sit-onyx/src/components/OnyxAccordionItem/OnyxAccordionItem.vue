@@ -28,14 +28,17 @@ const itemId = useId();
 const accordionContext = inject(ACCORDION_INJECTION_KEY);
 
 const emit = defineEmits<{
-  (event: "update:open", accordionItem: string, value: boolean): void; // Event declaration
+  /**
+   * Emitted when the open state is changed.
+   */
+  "update:open": [isOpen: boolean];
 }>();
 
 const isOpen = computed({
   get: () => accordionContext?.openItems.value.has(itemId) || props.open,
   set: (value: boolean) => {
     accordionContext?.updateOpen(itemId, value);
-    emit("update:open", itemId, value);
+    emit("update:open", value);
   },
 });
 
