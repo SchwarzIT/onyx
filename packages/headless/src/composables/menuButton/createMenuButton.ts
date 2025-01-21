@@ -50,7 +50,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     const currentMenu = currentMenuItem?.closest('[role="menu"]') || menuRef.value;
     if (!currentMenu) return;
 
-    const menuItems = [...currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+    const menuItems = Array.from(currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
     let nextIndex = 0;
 
     if (currentMenuItem) {
