@@ -1,86 +1,109 @@
-// import OnyxInput from "src/components/OnyxInput/OnyxInput.vue";
-// import { computed, h, toRef, toValue, type Ref } from "vue";
-// import { createFeature } from "..";
-// import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-// import type { DataGridEntry } from "../../types";
-// import FilterAction from "./FilterAction.vue";
-// import type { FilterOptions, FilterState } from "./types";
+import searchX from "@sit-onyx/icons/search-x.svg?raw";
+import { computed, h, ref, toValue } from "vue";
+import { createFeature } from "..";
+import { injectI18n } from "../../../../i18n";
+import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
+import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
+import type { DataGridEntry } from "../../types";
+import type { FilterOptions } from "./types";
 
-// export const FILTERING_FEATURE = Symbol("Filtering");
+//TODO: handleUpdate on closing Flyout
+export const FILTERING_FEATURE = Symbol("Filtering");
 
-// export const useFiltering = createFeature(
-//   <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) => {
-//     const filter: Ref<FilterState<TEntry>> = toRef(
-//       options?.filter ?? {
-//         column: undefined,
-//         filter: "",
-//       },
-//     );
+export const useFiltering = createFeature(
+  <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) => {
+    const filters = ref<Record<keyof TEntry, string>>({} as Record<keyof TEntry, string>);
+    const { t } = injectI18n();
+    const getFilterEnabled = computed(() => (col: keyof TEntry) => {
+      const config = toValue(options?.columns);
+      return !config || config?.[col]?.enabled === true;
+    });
 
-//     const getFilterFunc = computed(() => (col: keyof TEntry) => {
-//       const config = toValue(options?.columns);
-//       return config?.[col]?.filterFunc ?? (() => true); // Standard: keine Filterung
-//     });
+    const filterData = (data: Readonly<TEntry>[]) => {
+      const filteredData = data.filter((entry) =>
+        Object.entries(filters.value).every(([col, value]) =>
+          entry[col as keyof TEntry]
+            ?.toString()
+            .toLowerCase()
+            .includes((value as string).toLowerCase()),
+        ),
+      );
+      return filteredData;
+    };
+    const handleClick = (column: keyof DataGridEntry) => {
+      filters.value[column] = "";
+    };
 
-//     const getFilterEnabled = computed(() => (col: keyof TEntry) => {
-//       const config = toValue(options?.columns);
-//       return !config || config?.[col]?.enabled === true;
-//     });
+    const updateMode = ref(options?.updateMode || "onEnter");
 
-//     const filterData = (data: Readonly<TEntry>[]) => {
-//       const { column, filter: value } = filter.value;
-//       if (!column || !value) return data; // Kein Filter aktiv
-//       const filterFunc = getFilterFunc.value(column);
-//       return data.filter((entry) => filterFunc(entry[column as keyof any], value));
-//     };
+    const getMenuItem = (column: keyof DataGridEntry) => {
+      let inputValue = filters.value[column] || "";
 
-//     const isFilterActive = computed(() => (column: keyof DataGridEntry) => {
-//       return filter.value.column === column;
-//     });
+      const handleUpdate = (value: string) => {
+        if (updateMode.value === "onInput") {
+          // Direkt bei jedem Input aktualisieren
+          filters.value[column] = value;
+        } else if (updateMode.value === "onEnter") {
+          // Nur speichern, wenn Enter gedrückt wird
+          inputValue = value; // Zwischenwert speichern
+        }
+      };
 
-//     const handleInput = (column: keyof TEntry, value: string) => {
-//       filter.value = {
-//         column,
-//         filter: value,
-//       };
-//     };
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (updateMode.value === "onEnter" && e.key === "Enter") {
+          // Wert bei Enter-Taste aktualisieren
+          filters.value[column] = inputValue;
+        }
+      };
 
-//     const getMenuItem = (column: keyof DataGridEntry) => {
-//       return h(
-//         OnyxMenuItem,
-//         {
-//           active: isFilterActive.value(column),
-//         },
-//         () => [
-//           h(OnyxInput, {
-//             placeholder: "Filter eingeben",
-//             modelValue: filter.value.filter,
-//             "onUpdate:modelValue": (val: string) => handleInput(column, val),
-//           }),
-//         ],
-//       );
-//     };
+      return h(OnyxMiniSearch, {
+        label: column as string,
+        style: {
+          borderBottom: "var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)",
+        },
+        hideLabel: true,
+        placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
+        modelValue: inputValue,
+        autofocus: true,
+        "onUpdate:modelValue": handleUpdate,
+        onKeydown: handleKeyDown,
+        onClick: (e: MouseEvent) => {
+          e.preventDefault();
+          e.stopPropagation();
+        },
+      } as OnyxMiniSearchProps);
+    };
 
-//     return {
-//       name: FILTERING_FEATURE,
-//       watch: [filter],
-//       mutation: {
-//         func: filterData,
-//       },
-//       header: {
-//         actions: (column) => {
-//           if (!getFilterEnabled.value(column)) return [];
-//           return [
-//             {
-//               iconComponent: h(FilterAction, {
-//                 buttonLabel: String(column),
-//                 filter: "hi",
-//               }),
-//               menuItems: [getMenuItem(column)],
-//             },
-//           ];
-//         },
-//       },
-//     };
-//   },
-// );
+    return {
+      name: FILTERING_FEATURE,
+      watch: [filters],
+      mutation: {
+        func: filterData,
+      },
+      header: {
+        actions: (column) => {
+          if (!getFilterEnabled.value(column)) return [];
+          return [
+            {
+              menuItems: [getMenuItem(column)],
+            },
+          ];
+        },
+        removeActions: (column) => {
+          if (!getFilterEnabled.value(column) || !filters.value[column]) return [];
+          return [
+            {
+              iconComponent: h(OnyxSystemButton, {
+                label: String(column),
+                icon: searchX,
+                color: "medium",
+                onClick: () => handleClick(column),
+              }),
+            },
+          ];
+        },
+      },
+    };
+  },
+);

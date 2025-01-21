@@ -8,6 +8,10 @@ const props = defineProps<{
 
 const slots = defineSlots<{
   actions?(): unknown;
+  /**
+   * Elements to remove aktive Actions like Filters etc.
+   */
+  removeActions?(): unknown;
 }>();
 </script>
 
@@ -16,6 +20,9 @@ const slots = defineSlots<{
     <span class="onyx-data-grid-header-cell__label">{{ props.label }}</span>
     <div v-if="slots.actions" class="onyx-data-grid-header-cell__actions">
       <slot name="actions"></slot>
+    </div>
+    <div v-if="slots.removeActions" class="onyx-data-grid-header-cell__remove-actions">
+      <slot name="removeActions"></slot>
     </div>
   </div>
 </template>
@@ -26,7 +33,8 @@ const slots = defineSlots<{
   align-items: center;
   gap: var(--onyx-spacing-2xs);
 
-  &__actions {
+  &__actions,
+  &__remove-actions {
     display: inline-flex;
   }
 }

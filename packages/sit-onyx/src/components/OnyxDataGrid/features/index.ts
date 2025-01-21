@@ -86,7 +86,7 @@ export type DataGridFeature<
    * Allows modifying the datagrid state as a whole.
    */
   mutation?: {
-    func: (state: Readonly<TEntry>[]) => void;
+    func: (state: Readonly<TEntry>[]) => unknown;
   };
 
   /**
@@ -118,8 +118,15 @@ export type DataGridFeature<
      * The components must be ARIA-conform buttons.
      */
     actions?: (column: NormalizedColumnConfig<TEntry, keyof TTypeRenderer>) => {
-      iconComponent: Component;
+      iconComponent?: Component;
       menuItems: Component<typeof OnyxMenuItem>[];
+    }[];
+    /**
+     * Adds header icon button(s)
+     * `iconComponent` of an removeAction is shown after the header label and before the actions. There are always visible in the header
+     */
+    removeActions?: (column: keyof TEntry) => {
+      iconComponent: Component;
     }[];
   };
 };
@@ -246,37 +253,45 @@ export const useDataGridFeatures = <
     const headerActions = headerFeatures
       .map((feature) => feature.actions)
       .filter((actions) => !!actions);
-
+    const headerRemoveActions = headerFeatures
+      .map((feature) => feature.removeActions)
+      .filter((removeActions) => !!removeActions);
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const header = getRendererFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
+      const removeActions = headerRemoveActions.flatMap((actionFactory) => actionFactory(column));
+      const removeActionIconComponet = removeActions.map(({ iconComponent }) => iconComponent);
 
+      const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
+
+      const flyoutMenu = h(
+        OnyxFlyoutMenu,
+        {
+          label: t.value("navigation.moreActionsFlyout", { column: label }),
+          trigger: "click",
+        },
+        {
+          button: ({ trigger }) =>
+            h(OnyxSystemButton, {
+              label: t.value("navigation.moreActionsTrigger"),
+              color: "medium",
+              icon: moreHorizontal,
+              ...trigger,
+            }),
+          options: () => menuItems,
+        } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
+      );
       if (actions.length > 1) {
-        const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
-
-        const flyoutMenu = h(
-          OnyxFlyoutMenu,
-          {
-            label: t.value("navigation.moreActionsFlyout", { column: label }),
-            trigger: "click",
-          },
-          {
-            button: ({ trigger }) =>
-              h(OnyxSystemButton, {
-                label: t.value("navigation.moreActionsTrigger"),
-                color: "medium",
-                icon: moreHorizontal,
-                ...trigger,
-              }),
-            options: () => menuItems,
-          } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
-        );
-
         return {
           ...header,
           key: column.key,
-          component: () => h(header.component, { label }, { actions: () => flyoutMenu }),
+          component: () =>
+            h(
+              header.component,
+              { label },
+              { removeActions: () => removeActionIconComponet, actions: () => flyoutMenu },
+            ),
         };
       }
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
@@ -284,7 +299,16 @@ export const useDataGridFeatures = <
       return {
         ...header,
         key: column.key,
-        component: () => h(header.component, { label }, { actions: () => iconComponent }),
+        component: () =>
+          h(
+            header.component,
+            { label },
+            {
+              removeActions: () => removeActionIconComponet,
+              actions: () =>
+                !iconComponent[0] && menuItems.length > 0 ? flyoutMenu : iconComponent,
+            },
+          ),
       };
     });
   };
