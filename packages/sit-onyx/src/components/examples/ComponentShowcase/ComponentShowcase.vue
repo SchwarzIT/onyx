@@ -33,7 +33,7 @@ import {
 } from "../../..";
 
 type State = {
-  select?: string[];
+  select?: number[];
   textarea?: string;
   pagination: number;
   checkboxGroup?: number[];
