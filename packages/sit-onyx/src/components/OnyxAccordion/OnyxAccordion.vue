@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { provide, ref, toRefs } from "vue";
+import { provide, ref, toRefs, watch } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
@@ -22,7 +22,7 @@ defineSlots<{
 
 const openItems = ref(new Set<string>());
 
-const { disabled } = toRefs(props);
+const { disabled, exclusive } = toRefs(props);
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 
@@ -31,9 +31,19 @@ const updateOpen = (id: string, isOpen: boolean) => {
     openItems.value.delete(id);
     return;
   }
-  if (props.exclusive) openItems.value.clear();
+  if (exclusive.value) openItems.value.clear();
   openItems.value.add(id);
 };
+
+watch(exclusive, (newExclusive) => {
+  if (newExclusive && openItems.value.size > 1) {
+    const lastOpenedItem = [...openItems.value].pop();
+    openItems.value.clear();
+    if (lastOpenedItem) {
+      openItems.value.add(lastOpenedItem);
+    }
+  }
+});
 
 provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
   openItems,
