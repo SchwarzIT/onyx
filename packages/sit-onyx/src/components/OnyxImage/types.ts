@@ -32,5 +32,5 @@ export type OnyxImageProps = {
 
 export type ImageLoading = "eager" | "lazy";
 
-export const IMAGE_SHAPES = ["rounded", "circle", "clipped-corners"] as const;
+export const IMAGE_SHAPES = ["rounded", "circle", "clip", "clip-inverted"] as const;
 export type ImageShape = (typeof IMAGE_SHAPES)[number];

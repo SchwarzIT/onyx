@@ -7,11 +7,9 @@ const props = withDefaults(defineProps<OnyxImageProps>(), {
 </script>
 
 <template>
-  <img
-    :class="['onyx-component', 'onyx-image', `onyx-image--${props.shape}`]"
-    v-bind="props"
-    :alt="props.alt"
-  />
+  <figure :class="['onyx-component', 'onyx-image', `onyx-image--${props.shape}`]">
+    <img class="onyx-image__content" v-bind="props" :alt="props.alt" />
+  </figure>
 </template>
 
 <style lang="scss">
@@ -19,9 +17,9 @@ const props = withDefaults(defineProps<OnyxImageProps>(), {
 
 .onyx-image {
   @include layers.component() {
-    display: inline-block;
+    --onyx-image-clip-size: min(var(--onyx-spacing-3xl), 25%);
+    display: inline-flex;
     background-color: var(--onyx-color-base-neutral-200);
-    object-fit: cover;
 
     &--rounded {
       border-radius: var(--onyx-radius-sm);
@@ -31,8 +29,36 @@ const props = withDefaults(defineProps<OnyxImageProps>(), {
       border-radius: var(--onyx-radius-full);
     }
 
-    &--clipped-corners {
-      //  TODO: implement
+    &--clip {
+      // see: https://bennettfeely.com/clippy/
+      clip-path: polygon(
+        var(--onyx-image-clip-size) 0,
+        100% 0,
+        100% calc(100% - var(--onyx-image-clip-size)),
+        calc(100% - var(--onyx-image-clip-size)) 100%,
+        0 100%,
+        0 var(--onyx-image-clip-size)
+      );
+    }
+
+    &--clip-inverted {
+      // see: https://bennettfeely.com/clippy/
+      clip-path: polygon(
+        0 0,
+        calc(100% - var(--onyx-image-clip-size)) 0,
+        100% var(--onyx-image-clip-size),
+        100% 100%,
+        var(--onyx-image-clip-size) 100%,
+        0 calc(100% - var(--onyx-image-clip-size))
+      );
+    }
+
+    &__content {
+      display: inline-block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
     }
   }
 }

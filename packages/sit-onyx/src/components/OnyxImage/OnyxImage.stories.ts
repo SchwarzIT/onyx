@@ -16,6 +16,7 @@ type Story = StoryObj<typeof OnyxImage>;
 export const Default = {
   args: {
     src: "https://picsum.photos/256",
+    alt: "Example image",
     height: 256,
     width: 256,
   },
