@@ -3,11 +3,11 @@ import { normalizedIncludes, OnyxSelect, type SelectOption } from "sit-onyx";
 import { computed, ref } from "vue";
 
 defineProps<{
-  selectOptions: SelectOption[];
+  selectOptions: SelectOption<string>[];
   useSkeleton: boolean;
 }>();
 
-const groupedSelectOptions: SelectOption[] = [
+const groupedSelectOptions = [
   { value: "cat", label: "Cat", group: "Land" },
   { value: "dog", label: "Dog", group: "Land" },
   { value: "tiger", label: "Tiger", group: "Land" },
@@ -18,7 +18,7 @@ const groupedSelectOptions: SelectOption[] = [
   { value: "eel", label: "Eel", group: "Water" },
   { value: "falcon", label: "Falcon", group: "Air" },
   { value: "owl", label: "Owl", group: "Air" },
-];
+] satisfies SelectOption[];
 
 const selectState = ref<string>();
 const groupedSelectState = ref<string>();
@@ -26,14 +26,14 @@ const multiselectState = ref<string[]>();
 
 const lazyLoadedState = ref(15);
 const lazyLoadedLength = ref(10);
-const lazyLoadedOptions = computed<SelectOption[]>(() =>
+const lazyLoadedOptions = computed<SelectOption<number>[]>(() =>
   Array.from({ length: lazyLoadedLength.value }, (_, value) => ({
     value,
     label: `Lazy option ${value}`,
   })),
 );
 
-const filteredState = ref(3);
+const filteredState = ref("3");
 const filterSearchTerm = ref("");
 const filterBase = [
   { value: "0", label: "Option Zero" },
@@ -43,8 +43,10 @@ const filterBase = [
   { value: "4", label: "Option Four" },
   { value: "5", label: "Option Five" },
 ];
-const filterValueLabel = computed(() => filterBase[filteredState.value].label);
-const filteredOptions = computed<SelectOption[]>(() =>
+const filterValueLabel = computed(
+  () => filterBase.find(({ value }) => value === filteredState.value)?.label,
+);
+const filteredOptions = computed(() =>
   filterBase.filter(
     ({ value, label }) =>
       normalizedIncludes(label, filterSearchTerm.value) || value === filterSearchTerm.value,
