@@ -2,7 +2,7 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState";
 
 export type OnyxHeadlineProps = {
   /**
-   * Semantical headline type. Should match the page hierarchy and should not skip hierarchies (e.g. h2 should be follow by h3 etc.).
+   * Semantical headline type. Should match the page hierarchy and should not skip hierarchies (e.g. h2 should be followed by h3 etc.).
    */
   is: HeadlineType;
   /**
