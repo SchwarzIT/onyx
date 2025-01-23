@@ -1,7 +1,17 @@
-import { type InjectionKey } from "vue";
+import { inject, type InjectionKey } from "vue";
+import type { LinkTarget } from "../components/OnyxLink/types";
+import { isExternalLink } from "../utils";
 
 export const useLink = () => {
-  return {};
+  const router = inject(ROUTER_INJECTION_KEY, undefined);
+
+  const navigate = (href: string, target: LinkTarget) => {
+    const isExternal = isExternalLink(href);
+    if (isExternal || !router) window.open(href, target);
+    else router.push(href);
+  };
+
+  return { navigate };
 };
 
 export type ProvideRouterOptions = {
