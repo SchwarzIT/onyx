@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import user from "@sit-onyx/icons/user.svg?raw";
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { injectI18n } from "../../i18n";
 import { getInitials } from "../../utils/strings";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -23,25 +23,39 @@ const initials = computed(() => {
 });
 
 const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: username.value.name }));
+
+const hasImageError = ref(false);
+watch(
+  // reset image error if image changes
+  () => props.src,
+  () => (hasImageError.value = false),
+);
 </script>
 
 <template>
-  <!-- key is needed to correctly refresh the displayed image when the src changes -->
-  <object
-    :key="props.src"
+  <figure
     :class="[
       'onyx-component',
       'onyx-avatar',
       `onyx-avatar--${props.size}`,
       props.initials ? 'onyx-avatar--custom' : '',
     ]"
-    :data="props.src"
     :title="ariaLabel"
     :aria-label="ariaLabel"
   >
-    <div v-if="initials">{{ initials }}</div>
-    <OnyxIcon v-else :icon="user" class="onyx-avatar__icon" />
-  </object>
+    <img
+      v-if="props.src && !hasImageError"
+      class="onyx-avatar__image"
+      :src="props.src"
+      :alt="ariaLabel"
+      @error="hasImageError = true"
+    />
+
+    <template v-else>
+      <div v-if="initials" class="onyx-avatar__initials">{{ initials }}</div>
+      <OnyxIcon v-else :icon="user" class="onyx-avatar__icon" />
+    </template>
+  </figure>
 </template>
 
 <style lang="scss">
@@ -55,7 +69,6 @@ const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: usernam
     min-width: var(--onyx-avatar-size);
     border-radius: var(--onyx-radius-full);
     background-color: var(--onyx-color-base-primary-200);
-    object-fit: cover;
     display: block;
 
     color: var(--onyx-color-text-icons-primary-bold);
@@ -71,6 +84,13 @@ const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: usernam
       --onyx-avatar-padding: var(--onyx-spacing-sm);
       width: max-content; // allow avatar to get pill-shaped if longer custom text is passed
       padding: var(--onyx-avatar-padding);
+    }
+
+    &__image {
+      border-radius: inherit;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
     }
 
     &__icon {
