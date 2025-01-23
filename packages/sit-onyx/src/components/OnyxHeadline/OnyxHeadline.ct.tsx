@@ -19,7 +19,7 @@ test.describe("Screenshot tests", () => {
 test.describe("Screenshot tests (visual size)", () => {
   executeMatrixScreenshotTest({
     name: "Headline (visual sizes)",
-    columns: HEADLINE_TYPES,
+    columns: ["h1", "h2", "h3", "h4"],
     rows: HEADLINE_TYPES,
     component: (column, row) => (
       <OnyxHeadline is={row} visualSize={column}>
