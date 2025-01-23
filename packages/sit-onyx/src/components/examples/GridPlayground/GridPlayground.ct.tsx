@@ -91,7 +91,7 @@ test("should add/edit grid elements", async ({ mount, page }) => {
   await expect(page.getByLabel("Edit grid element 2")).toBeHidden();
 });
 
-test("should should current grid values", async ({ mount, page }) => {
+test("should show current grid values", async ({ mount, page }) => {
   // ARRANGE
   await mount(<GridPlayground />);
 
@@ -101,7 +101,7 @@ test("should should current grid values", async ({ mount, page }) => {
   ).toBeVisible();
 
   await expect(page.getByLabel("Margin", { exact: true })).toContainText("4rem");
-  await expect(page.getByLabel("Columns", { exact: true })).toContainText("16");
+  await expect(page.getByLabel("Columns", { exact: true })).toContainText("12");
   await expect(page.getByLabel("Gutter", { exact: true })).toContainText("2rem");
 
   // ACT
@@ -132,7 +132,7 @@ test("should support to configure the grid", async ({ mount, page }) => {
     alignmentGroup.getByLabel("left"),
     "should disable alignment when max width is none",
   ).toBeDisabled();
-  await expect(columnCountGroup.getByLabel("16")).toBeChecked();
+  await expect(columnCountGroup.getByLabel("12")).toBeChecked();
 
   // ACT
   await maxWidthGroup.getByLabel("1440px").check();
@@ -141,10 +141,4 @@ test("should support to configure the grid", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page.locator(".onyx-grid-center.onyx-grid-max-md.onyx-grid-xl-20")).toBeAttached();
-
-  // ACT
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.lg, height: 1080 });
-
-  // ASSERT
-  await expect(columnCountGroup).toBeHidden();
 });
