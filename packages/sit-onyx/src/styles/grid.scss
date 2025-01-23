@@ -8,8 +8,8 @@ $gridVariants: (
     "xs"    none         8        1rem    1rem,
     "sm"    none         8        1.5rem  2rem,
     "md"    none         12       1.5rem  4rem,
-    "lg"    "md"         16       2rem    4rem,
-    "xl"    "lg"         16       2rem    4rem,
+    "lg"    "md"         12       2rem    4rem,
+    "xl"    "lg"         12       2rem    4rem,
 );
 
 // offset 1 is used so the styles only apply to "greater than breakpoint"
@@ -48,8 +48,14 @@ $screenOffset: 1;
   }
 
   /**
-  * Grid container class for "xl" breakpoint variant with 20 columns
+  * Grid container classes for "xl" breakpoint variants with 16 or 20 columns
   */
+  @include screen(min, lg, $screenOffset) {
+    .onyx-grid-xl-20,
+    .onyx-grid-lg-16 {
+      --onyx-grid-columns: 16;
+    }
+  }
   @include screen(min, xl, $screenOffset) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
@@ -63,6 +69,13 @@ $screenOffset: 1;
     .onyx-grid-span-#{$i} {
       grid-column-end: span min($i, var(--onyx-grid-columns));
     }
+  }
+
+  /**
+  * Grid element class for spanning the full width.
+  */
+  .onyx-grid-span-full {
+    grid-column: 1 / span var(--onyx-grid-columns);
   }
 
   @mixin generate-grid-properties($columns, $gutter, $margin) {
