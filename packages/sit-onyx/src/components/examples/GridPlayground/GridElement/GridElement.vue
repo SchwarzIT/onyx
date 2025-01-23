@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import type { GridElementConfig } from "../EditGridElementDialog/EditGridElementDialog.vue";
 
@@ -21,29 +21,29 @@ defineSlots<{
     /**
      * Number of grid columns the element is currently spanning.
      */
-    gridSpan: number;
+    gridSpan: string;
   }): unknown;
 }>();
 
 const gridClasses = computed(() => {
-  return [
-    `onyx-grid-span-${props.columnCount}`,
-    ...Object.entries(props.breakpoints ?? {}).map(([breakpoint, columns]) => {
-      return `onyx-grid-${breakpoint}-span-${columns}`;
-    }),
-  ];
+  return props.isFullWidth
+    ? ["onyx-grid-span-full"]
+    : [
+        `onyx-grid-span-${props.columnCount}`,
+        ...Object.entries(props.breakpoints ?? {}).map(([breakpoint, columns]) => {
+          return `onyx-grid-${breakpoint}-span-${columns}`;
+        }),
+      ];
+});
+const gridSpan = computed(() => {
+  if (!button.value || !size.width.value) return "";
+  return props.isFullWidth
+    ? "full-width"
+    : getComputedStyle(button.value).gridColumnEnd.replace("span", "").trim();
 });
 
-const buttonRef = ref<HTMLButtonElement>();
-const gridSpan = ref(1);
-const size = useResizeObserver(buttonRef);
-
-watch(size.width, () => {
-  if (!buttonRef.value) return;
-  gridSpan.value = Number.parseInt(
-    getComputedStyle(buttonRef.value).gridColumnEnd.replace("span", "").trim(),
-  );
-});
+const button = useTemplateRef("buttonRef");
+const size = useResizeObserver(button);
 </script>
 
 <template>
