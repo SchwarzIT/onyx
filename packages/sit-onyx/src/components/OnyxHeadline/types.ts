@@ -9,7 +9,7 @@ export type OnyxHeadlineProps = {
    * Visual size of the headline (h1-h6). Will default to but can be different from the semantical `is` property.
    * Please note that only h1-h4 are intended to be used from UX perspective, h5 and h6 will have the same styles as h4.
    */
-  visualSize?: Exclude<HeadlineType, "h5" | "h6">;
+  visualSize?: HeadlineType;
   /**
    * Unique headline hash/ID (without "#") that is used to show a "#" icon on hover. Makes the headline clickable and a URL that points to this headline
    * is copied to the users clipboard. Will be automatically normalized when containing non URL-safe characters.

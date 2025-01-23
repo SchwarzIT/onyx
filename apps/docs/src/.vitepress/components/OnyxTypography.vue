@@ -67,7 +67,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
             {{ previewText }}
           </OnyxLink>
 
-          <OnyxHeadline :is="variable.htmlTag" v-else :monospace="isMonospace">
+          <OnyxHeadline is="h3" v-else :visual-size="variable.htmlTag" :monospace="isMonospace">
             {{ previewText }}
           </OnyxHeadline>
         </template>
@@ -95,6 +95,9 @@ const getTextSizeClass = (fontSize?: TextSize) => {
     padding: 0;
     border: none;
     letter-spacing: normal;
+    font-size: revert-layer;
+    line-height: revert-layer;
+    font-weight: revert-layer;
   }
 }
 
