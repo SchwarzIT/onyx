@@ -1,6 +1,6 @@
 # Patterns
 
-This page explains which common patterns we in developing onyx and how to use them.
+This page explains which common patterns we follow when developing onyx and how to use them.
 These patterns are implemented through [**composables**](https://vuejs.org/guide/reusability/composables.html) and enforced through [**linting rules**](https://eslint.org/docs/latest/extend/custom-rules), where possible.
 
 ## Root Attribute Forwarding
