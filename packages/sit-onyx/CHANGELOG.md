@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.132
+
+### Minor Changes
+
+- 8664d21: feat(OnyxHeadline): support `showAs` property
+
 ## 1.0.0-beta.131
 
 ### Major Changes
