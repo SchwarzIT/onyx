@@ -22,6 +22,7 @@ const { t } = injectI18n();
 const skeleton = useSkeletonContext(props);
 
 const normalizedHash = computed(() => (props.hash ? normalizeUrlHash(props.hash) : undefined));
+const showAs = computed(() => props.showAs ?? props.is);
 
 const copyLink = async (hash: string) => {
   const { origin, pathname, search } = window.location;
@@ -33,14 +34,14 @@ const copyLink = async (hash: string) => {
 <template>
   <OnyxSkeleton
     v-if="skeleton"
-    :class="['onyx-headline-skeleton', `onyx-headline-skeleton--${props.is}`]"
+    :class="['onyx-headline-skeleton', `onyx-headline-skeleton--${showAs}`]"
   />
 
   <component
     :is="props.is"
     v-else
     :id="normalizedHash"
-    :class="['onyx-component', 'onyx-headline', `onyx-headline--${props.is}`]"
+    :class="['onyx-component', 'onyx-headline', `onyx-headline--${showAs}`]"
   >
     <a
       v-if="normalizedHash"

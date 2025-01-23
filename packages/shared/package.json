@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/shared",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "",
   "type": "module",
   "scripts": {
@@ -16,8 +16,8 @@
       "import": "./dist/*.js"
     }
   },
-  "peerDependencies": {
-    "@vitejs/plugin-vue": "^5.1.4",
+  "optionalDependencies": {
+    "@vitejs/plugin-vue": ">= 5",
     "sass-embedded": ">= 1.74.0",
     "vite": ">= 6"
   }

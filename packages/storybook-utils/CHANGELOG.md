@@ -1,5 +1,12 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.80
+
+### Patch Changes
+
+- Updated dependencies [07549b9]
+  - @sit-onyx/shared@1.0.0-beta.2
+
 ## 1.0.0-beta.79
 
 ### Patch Changes

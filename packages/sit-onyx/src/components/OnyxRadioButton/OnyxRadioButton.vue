@@ -32,7 +32,7 @@ const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 
-const input = useTemplateRef("input");
+const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
 </script>
@@ -49,7 +49,7 @@ useAutofocus(input, props);
       <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
       <input
         v-else
-        ref="input"
+        ref="inputRef"
         v-custom-validity
         class="onyx-radio-button__selector"
         type="radio"

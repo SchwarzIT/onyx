@@ -1,5 +1,50 @@
 # sit-onyx
 
+## 1.0.0-beta.132
+
+### Minor Changes
+
+- 8664d21: feat(OnyxHeadline): support `showAs` property
+
+## 1.0.0-beta.131
+
+### Major Changes
+
+- ece5641: chore: replace redundant useManagedState with defineModel
+
+  The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
+
+  - The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
+  - `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
+
+## 1.0.0-beta.130
+
+### Patch Changes
+
+- 07549b9: fix 'failed to resolve import source "./components/OnyxDataGrid/features/index.ts"' error
+- Updated dependencies [07549b9]
+  - @sit-onyx/shared@1.0.0-beta.2
+
+## 1.0.0-beta.129
+
+### Patch Changes
+
+- 70e1088: Added empty slot to DataGrid to be able to pass custom empty content
+
+## 1.0.0-beta.128
+
+### Patch Changes
+
+- adec44e: fix console warning for form elements about readonly target
+
+  The following components were affected: OnyxCheckbox, OnyxCheckboxGroup, OnyxDatePicker, OnyxInput, OnyxRadioButton, OnyxRadioGroup, OnyxSelect, OnyxSelectInput, OnyxStepper, OnyxSwitch and OnyxTextarea
+
+## 1.0.0-beta.127
+
+### Minor Changes
+
+- 276eda9: feat(OnyxColorSchemeDialog): use OnyxModalDialog and OnyxCard internally
+
 ## 1.0.0-beta.126
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.126",
+  "version": "1.0.0-beta.132",
   "type": "module",
   "scripts": {
     "dev": "turbo run turbo:dev --filter=.",
@@ -12,7 +12,7 @@
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@vueuse/core": "^12.4.0",
-    "pinia": "^2.3.0",
+    "pinia": "^2.3.1",
     "sit-onyx": "workspace:^",
     "vue-i18n": "^11.0.1",
     "vue-router": "^4.5.0"
