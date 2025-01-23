@@ -1,66 +1,111 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
-import { computed, h, ref, toValue } from "vue";
+import { computed, h, ref, toValue, watch } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
-import type { FilterOptions } from "./types";
+import type { FilterColumnOptions, FilterOptions } from "./types";
 
-//TODO: handleUpdate on closing Flyout
 export const FILTERING_FEATURE = Symbol("Filtering");
 
 export const useFiltering = createFeature(
   <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) => {
     const filters = ref<Record<keyof TEntry, string>>({} as Record<keyof TEntry, string>);
     const { t } = injectI18n();
+    const config = toValue(options?.columns);
+
     const getFilterEnabled = computed(() => (col: keyof TEntry) => {
-      const config = toValue(options?.columns);
       return !config || config?.[col]?.enabled === true;
     });
 
     const filterData = (data: Readonly<TEntry>[]) => {
       const filteredData = data.filter((entry) =>
-        Object.entries(filters.value).every(([col, value]) =>
-          entry[col as keyof TEntry]
-            ?.toString()
-            .toLowerCase()
-            .includes((value as string).toLowerCase()),
-        ),
+        Object.entries(filters.value).every(([col, value]) => {
+          const columnOptions = config?.[col as keyof TEntry];
+          const filterOpts = {
+            ...options?.filterConfig,
+            ...columnOptions?.filterConfig,
+          };
+
+          if (columnOptions?.filterFunc) {
+            return columnOptions.filterFunc(
+              entry[col as keyof TEntry],
+              value as TEntry[keyof TEntry],
+            );
+          }
+          let filterValue = value as string;
+          let entryValue = entry[col as keyof TEntry]?.toString() || "";
+
+          if (filterOpts?.trimWhitespace) {
+            entryValue = entryValue.replace(/\s+/g, "");
+          }
+
+          if (!filterOpts?.caseSensitive) {
+            entryValue = entryValue.toLowerCase();
+            filterValue = filterValue.toLowerCase();
+          }
+
+          if (filterOpts?.exactMatch) {
+            return entryValue === filterValue;
+          }
+
+          return filterOpts?.searchFromStart
+            ? entryValue.startsWith(filterValue)
+            : entryValue.includes(filterValue);
+        }),
       );
       return filteredData;
     };
+
     const handleClick = (column: keyof DataGridEntry) => {
       filters.value[column] = "";
     };
 
-    const updateMode = ref(options?.updateMode || "onEnter");
+    const updateFilter = (config: FilterColumnOptions<TEntry> | undefined) => {
+      if (config) {
+        Object.entries(config).forEach(([col, columnOptions]) => {
+          if (columnOptions?.filter) {
+            filters.value[col as keyof TEntry] = columnOptions.filter;
+          }
+        });
+      }
+    };
+    updateFilter(config);
+    watch(
+      () => toValue(options?.columns),
+      (newConfig) => {
+        updateFilter(toValue(newConfig));
+      },
+    );
 
     const getMenuItem = (column: keyof DataGridEntry) => {
+      //TODO: Bug can't enter spacings
+      //TODO: Set Filter on Flyout closing
+      const updateMode = ref(options?.updateMode || "onEnter");
+
       let inputValue = filters.value[column] || "";
 
       const handleUpdate = (value: string) => {
         if (updateMode.value === "onInput") {
-          // Direkt bei jedem Input aktualisieren
           filters.value[column] = value;
         } else if (updateMode.value === "onEnter") {
-          // Nur speichern, wenn Enter gedrückt wird
-          inputValue = value; // Zwischenwert speichern
+          inputValue = value;
         }
       };
 
       const handleKeyDown = (e: KeyboardEvent) => {
         if (updateMode.value === "onEnter" && e.key === "Enter") {
-          // Wert bei Enter-Taste aktualisieren
           filters.value[column] = inputValue;
         }
       };
 
       return h(OnyxMiniSearch, {
         label: column as string,
+        class: "onyx-filter-search",
         style: {
-          borderBottom: "var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)",
+          minWidth: `${t.value(`dataGrid.head.filtering.menu.placeholder`).length * 12 + 20}px`,
         },
         hideLabel: true,
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),

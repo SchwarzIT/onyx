@@ -149,6 +149,7 @@ export const useDataGridFeatures = <
         {
           button: ({ trigger }) =>
             h(OnyxSystemButton, {
+              class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
               label: t.value("navigation.moreActionsTrigger"),
               color: "medium",
               icon: moreHorizontal,
