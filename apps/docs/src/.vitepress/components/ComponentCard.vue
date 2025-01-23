@@ -33,7 +33,7 @@ const props = defineProps<ComponentCardProps>();
     :href="props.href"
     :target="props.href?.startsWith('http') ? '_blank' : '_self'"
   >
-    <OnyxHeadline is="h2">{{ props.name }}</OnyxHeadline>
+    <OnyxHeadline is="h3" visual-size="h2">{{ props.name }}</OnyxHeadline>
     <ComponentStatusBadge :status="props.status" class="card__status" />
   </component>
 </template>

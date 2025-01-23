@@ -16,6 +16,19 @@ test.describe("Screenshot tests", () => {
   });
 });
 
+test.describe("Screenshot tests (visual size)", () => {
+  executeMatrixScreenshotTest({
+    name: "Headline (visual sizes)",
+    columns: ["h1", "h2", "h3", "h4"],
+    rows: HEADLINE_TYPES,
+    component: (column, row) => (
+      <OnyxHeadline is={row} showAs={column}>
+        Hello World
+      </OnyxHeadline>
+    ),
+  });
+});
+
 test.describe("Screenshot tests (hash)", () => {
   executeMatrixScreenshotTest({
     name: "Headline (hash)",

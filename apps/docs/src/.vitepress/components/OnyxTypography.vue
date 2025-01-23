@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import { OnyxHeadline, OnyxLink, type HeadlineType, type TextSize } from "sit-onyx";
+import {
+  OnyxHeadline,
+  OnyxLink,
+  type HeadlineType,
+  type OnyxHeadlineProps,
+  type TextSize,
+} from "sit-onyx";
 import { computed, ref } from "vue";
 import DesignVariable from "./DesignVariable.vue";
 import DesignVariableCard from "./DesignVariableCard.vue";
@@ -67,7 +73,12 @@ const getTextSizeClass = (fontSize?: TextSize) => {
             {{ previewText }}
           </OnyxLink>
 
-          <OnyxHeadline :is="variable.htmlTag" v-else :monospace="isMonospace">
+          <OnyxHeadline
+            is="h3"
+            v-else
+            :show-as="variable.htmlTag as OnyxHeadlineProps['showAs']"
+            :monospace="isMonospace"
+          >
             {{ previewText }}
           </OnyxHeadline>
         </template>
@@ -95,6 +106,9 @@ const getTextSizeClass = (fontSize?: TextSize) => {
     padding: 0;
     border: none;
     letter-spacing: normal;
+    font-size: revert-layer;
+    line-height: revert-layer;
+    font-weight: revert-layer;
   }
 }
 
