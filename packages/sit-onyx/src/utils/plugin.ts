@@ -1,12 +1,20 @@
-import { type Plugin, watchEffect } from "vue";
+import { watchEffect, type Plugin } from "vue";
 import {
   createToastProvider,
   TOAST_PROVIDER_INJECTION_KEY,
 } from "../components/OnyxToast/useToast";
+import { ROUTER_INJECTION_KEY, type ProvideRouterOptions } from "../composables/useLink";
 import { injectI18n, provideI18n, type ProvideI18nOptions } from "../i18n";
 
 export type OnyxPluginOptions = {
+  /**
+   * Integration for [Vue I18n](https://vue-i18n.intlify.dev/)
+   */
   i18n?: ProvideI18nOptions;
+  /**
+   * Integration for [Vue Router](https://router.vuejs.org/)
+   */
+  router?: ProvideRouterOptions;
 };
 
 /**
@@ -18,6 +26,8 @@ export const createOnyx = (options: OnyxPluginOptions = {}): Plugin => ({
     provideI18n(app, options.i18n);
     const i18n = app.runWithContext(() => injectI18n());
     app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+
+    if (options.router) app.provide(ROUTER_INJECTION_KEY, options.router);
 
     app.mixin({
       beforeMount: () => {
