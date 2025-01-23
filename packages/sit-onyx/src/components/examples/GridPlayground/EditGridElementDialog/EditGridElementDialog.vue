@@ -8,7 +8,8 @@ import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxStepper from "../../../OnyxStepper/OnyxStepper.vue";
 
 export type GridElementConfig = {
-  columnCount: number;
+  isFullWidth?: boolean;
+  columnCount?: number;
   breakpoints?: Partial<Record<OnyxBreakpoint, number>>;
 };
 
@@ -67,53 +68,62 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
       <div class="dialog__header">
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>
 
-        <p class="dialog__description onyx-text--small">
-          Define the responsive behavior of the component by setting the number of columns.
-          Optionally, you can set different configs for each breakpoint.
-        </p>
+        <OnyxCheckbox v-model="state.isFullWidth" label="Full Width" value="is-full-width" />
 
-        <OnyxStepper
-          v-model="state.columnCount"
-          label="Default number of columns"
-          placeholder="Default number of columns"
-          v-bind="STEPPER_VALIDATIONS"
-          :precision="0"
-          autofocus
-          required
-        />
+        <template v-if="!state.isFullWidth">
+          <p class="dialog__description onyx-text--small">
+            Define the responsive behavior of the component by setting the number of columns.
+            Optionally, you can set different configs for each breakpoint.
+          </p>
+
+          <OnyxStepper
+            v-model="state.columnCount"
+            label="Default number of columns"
+            placeholder="Default number of columns"
+            v-bind="STEPPER_VALIDATIONS"
+            :precision="0"
+            autofocus
+            required
+          />
+        </template>
       </div>
 
       <div class="dialog__body">
-        <p class="dialog__description onyx-text--small">
-          The breakpoint configs follow a "greater or equal than" logic. Example: For default column
-          4 and breakpoint "md" with 8 columns, the component will span 4 columns for breakpoints
-          smaller than md and 8 columns for md and larger.
-        </p>
+        <template v-if="!state.isFullWidth">
+          <p class="dialog__description onyx-text--small">
+            The breakpoint configs follow a "greater or equal than" logic. Example: For default
+            column 4 and breakpoint "md" with 8 columns, the component will span 4 columns for
+            breakpoints smaller than md and 8 columns for md and larger.
+          </p>
 
-        <div class="dialog__grid">
-          <div
-            v-for="(_, breakpoint) in ONYX_BREAKPOINTS"
-            :key="breakpoint"
-            class="dialog__breakpoint"
-          >
-            <OnyxCheckbox
-              class="dialog__checkbox"
-              :label="`${breakpoint.toUpperCase()} breakpoint`"
-              :model-value="!!state.breakpoints[breakpoint]"
-              :value="breakpoint"
-              :disabled="!state.columnCount"
-              @update:model-value="handleCheckboxChange($event, breakpoint)"
-            />
-            <OnyxStepper
-              v-model="state.breakpoints[breakpoint]"
-              :label="`Number of columns for breakpoint ${breakpoint}`"
-              v-bind="STEPPER_VALIDATIONS"
-              :precision="0"
-              hide-label
-              :disabled="!state.columnCount"
-            />
+          <div class="dialog__grid">
+            <div
+              v-for="(_, breakpoint) in ONYX_BREAKPOINTS"
+              :key="breakpoint"
+              class="dialog__breakpoint"
+            >
+              <OnyxCheckbox
+                class="dialog__checkbox"
+                :label="`${breakpoint.toUpperCase()} breakpoint`"
+                :model-value="!!state.breakpoints[breakpoint]"
+                :value="breakpoint"
+                :disabled="!state.columnCount"
+                @update:model-value="handleCheckboxChange($event, breakpoint)"
+              />
+              <OnyxStepper
+                v-model="state.breakpoints[breakpoint]"
+                :label="`Number of columns for breakpoint ${breakpoint}`"
+                v-bind="STEPPER_VALIDATIONS"
+                :precision="0"
+                hide-label
+                :disabled="!state.columnCount"
+              />
+            </div>
           </div>
-        </div>
+        </template>
+        <p v-else class="dialog__description onyx-text--small">
+          The grid element will always span a full row and not share any space with other elements.
+        </p>
 
         <div class="dialog__actions">
           <OnyxButton
