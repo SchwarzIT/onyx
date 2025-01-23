@@ -96,12 +96,12 @@ This breakpoint starts at 993px and ends at 1440px screen size. It is mostly use
 ::: details lg breakpoint
 This breakpoint starts at 1441 and ends at 1920px screen size. It is mostly used with larger desktop screens.
 
-| Unit            | Value |
-| --------------- | ----: |
-| Margin          |  64px |
-| Column quantity |    16 |
-| Column width    |  flex |
-| Gutter          |  32px |
+| Unit            |    Value |
+| --------------- | -------: |
+| Margin          |     64px |
+| Column quantity | 12 or 16 |
+| Column width    |     flex |
+| Gutter          |     32px |
 
 Maximum content width can manually be set to the **md** breakpoint width.
 
@@ -112,12 +112,12 @@ Details can be found [here](#columns).
 ::: details xl breakpoint
 This breakpoint starts at 1921px and has no maximum limit. It is mostly used with very large desktop screens.
 
-| Unit            |    Value |
-| --------------- | -------: |
-| Margin          |     64px |
-| Column quantity | 16 or 20 |
-| Column width    |     flex |
-| Gutter          |     32px |
+| Unit            |        Value |
+| --------------- | -----------: |
+| Margin          |         64px |
+| Column quantity | 12, 16 or 20 |
+| Column width    |         flex |
+| Gutter          |         32px |
 
 Maximum content width can manually be set to the **md** and **lg** breakpoint width.
 
