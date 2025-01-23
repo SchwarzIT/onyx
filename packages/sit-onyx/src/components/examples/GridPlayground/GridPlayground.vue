@@ -154,7 +154,7 @@ const currentBreakpoint = computed(() => {
         <OnyxRadioGroup
           v-model="gridSettings.maxColumns"
           label="Max columns"
-          label-tooltip="Defines the maximum number of columns the grid can have. This only applies to the XL breakpoint."
+          label-tooltip="Defines the maximum number of columns the grid can have on the 'LG' and 'XL' breakpoints. Per default the grid is restricted to 12 columns. "
           :options="maxColumnsOptions"
           direction="horizontal"
         />
