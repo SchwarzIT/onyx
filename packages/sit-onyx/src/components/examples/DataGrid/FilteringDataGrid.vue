@@ -6,14 +6,11 @@ import { createFeature } from "../../OnyxDataGrid/features";
 
 // STORY SETUP START
 // This section will be removed from the Storybook code example, because it's to complex
-import { computed, h, toValue } from "vue";
+import { h } from "vue";
 import type { FilterOptions } from "../../OnyxDataGrid/features/filtering/types";
 type TEntry = (typeof data)[number];
 
 const props = defineProps<FilterOptions<TEntry>>();
-
-const columns = computed(() => toValue(props.columns));
-const updateMode = computed(() => toValue(props.updateMode));
 
 const data = [
   { id: 1, name: "Alice", rank: 30, birthday: new Date("1990-01-01") },
@@ -23,10 +20,7 @@ const data = [
   { id: 5, name: "John", rank: 42, birthday: new Date("1997-04-18") },
 ] satisfies DataGridEntry[];
 
-const withFiltering = DataGridFeatures.useFiltering<TEntry>({
-  columns,
-  updateMode,
-});
+const withFiltering = DataGridFeatures.useFiltering<TEntry>(props);
 
 // this is just an example feature to demonstrate the menu items of the filtering feature if multiple features with menu items exist
 const someOtherFeature = createFeature(() => ({

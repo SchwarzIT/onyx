@@ -37,5 +37,10 @@ const slots = defineSlots<{
   &__remove-actions {
     display: inline-flex;
   }
+  .onyx-system-button--multiple-actions + .onyx-flyout-menu__list {
+    .onyx-filter-search {
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    }
+  }
 }
 </style>

@@ -1,24 +1,29 @@
-<!-- <script setup lang="ts">
-import { ref, watch } from "vue";
+<script setup lang="ts">
+import { computed, toRefs } from "vue";
 import type { DataGridEntry, OnyxDataGridProps } from "../../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../../..";
+import type { FilterOptions } from "./types";
 
-const { columns, data } = defineProps<Pick<OnyxDataGridProps, "columns" | "data">>();
-
-const emit = defineEmits<{
-  filterChange: [filterState: DataGridFeatures.FilterState<DataGridEntry>];
+const props = defineProps<{
+  /**
+   * columns
+   */
+  columns: OnyxDataGridProps["columns"];
+  /**
+   *
+   */
+  data: OnyxDataGridProps["data"];
+  /**
+   * config
+   */
+  filterOptions?: FilterOptions<DataGridEntry>; // Eigenständiges config-Prop, passe den Typ entsprechend an
 }>();
+const { columns, data, filterOptions } = toRefs(props);
 
-const filterState = ref<DataGridFeatures.SortState<DataGridEntry>>({
-  column: undefined,
-  direction: "none",
-});
-watch(sortState, () => emit("sortChange", sortState.value), { deep: true });
-
-const withSorting = DataGridFeatures.useSorting({ sortState });
-const features = [withSorting];
+const withFiltering = computed(() => DataGridFeatures.useFiltering(filterOptions.value));
+const features = computed(() => [withFiltering.value]);
 </script>
 
 <template>
   <OnyxDataGrid :columns :data :features />
-</template> -->
+</template>

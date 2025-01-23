@@ -14,11 +14,26 @@ type Story = StoryObj<typeof FilteringDataGrid>;
 export const Filtering = {
   args: {
     columns: {
-      name: { enabled: true },
+      name: {
+        enabled: true,
+        filter: "",
+        filterConfig: {
+          caseSensitive: true,
+        },
+      },
       rank: { enabled: false },
-      birthday: { enabled: true },
+      birthday: {
+        enabled: true,
+        filterConfig: {},
+      },
     },
-    updateMode: "onInput",
+    filterConfig: {
+      caseSensitive: false,
+      exactMatch: false,
+      searchFromStart: false,
+      trimWhitespace: true,
+    },
+    updateMode: "onEnter",
   },
   parameters: {
     docs: {
