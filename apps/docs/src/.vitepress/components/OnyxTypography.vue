@@ -76,7 +76,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
           <OnyxHeadline
             is="h3"
             v-else
-            :visual-size="variable.htmlTag as OnyxHeadlineProps['visualSize']"
+            :visual-size="variable.htmlTag as OnyxHeadlineProps['showAs']"
             :monospace="isMonospace"
           >
             {{ previewText }}

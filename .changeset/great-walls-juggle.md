@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxHeadline): support `visualSize` property
+feat(OnyxHeadline): support `showAs` property

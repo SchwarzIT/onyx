@@ -22,7 +22,7 @@ test.describe("Screenshot tests (visual size)", () => {
     columns: ["h1", "h2", "h3", "h4"],
     rows: HEADLINE_TYPES,
     component: (column, row) => (
-      <OnyxHeadline is={row} visualSize={column}>
+      <OnyxHeadline is={row} showAs={column}>
         Hello World
       </OnyxHeadline>
     ),
