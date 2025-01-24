@@ -1,5 +1,31 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.12
+
+### Major Changes
+
+- 00ca133: feat: update icons
+
+  #### Deleted icons
+
+  - mail-key
+
+  #### New icons
+
+  - bullet-list
+  - key-mail
+  - list-arrow-down
+  - list-arrow-up
+  - more-horizontal-small
+  - more-vertical-small
+  - settings-arrows
+
+  #### Modified icons
+
+  - key-clock
+  - notification-flag
+  - sidebar-arrow-left
+
 ## 1.0.0-beta.11
 
 ### Minor Changes
