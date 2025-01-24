@@ -6,6 +6,7 @@ import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import type { SelectOptionValue } from "../../types";
+import { useRootAttrs } from "../../utils/attrs";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -31,6 +32,9 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
+
 const isChecked = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
@@ -53,12 +57,16 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-checkbox-skeleton', densityClass]">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-checkbox-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton class="onyx-checkbox-skeleton__input" />
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages">
+  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages" v-bind="rootAttrs">
     <label
       class="onyx-component onyx-checkbox"
       :class="[requiredTypeClass, densityClass]"
@@ -79,6 +87,7 @@ useAutofocus(input, props);
           :required="props.required"
           :value="props.value"
           :autofocus="props.autofocus"
+          v-bind="restAttrs"
         />
       </div>
 
