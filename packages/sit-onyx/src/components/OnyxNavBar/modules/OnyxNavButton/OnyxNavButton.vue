@@ -6,6 +6,7 @@ import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLink
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_MORE_LIST_INJECTION_KEY } from "../../types";
 import NavButtonLayout from "./NavButtonLayout.vue";
+import NavButtonTrigger from "./NavButtonTrigger.vue";
 import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
@@ -66,12 +67,9 @@ const handleParentClick = (event: MouseEvent) => {
     :is-mobile="isMobile ?? false"
   >
     <template #button="{ trigger }">
-      <button
-        class="onyx-nav-button__trigger onyx-text"
-        :class="{ 'onyx-nav-button__link': props.href != undefined }"
-        role="menuitem"
+      <NavButtonTrigger
+        :href="props.href"
         :aria-label="props.label"
-        type="button"
         v-bind="trigger"
         @click="handleParentClick"
       >
@@ -85,7 +83,7 @@ const handleParentClick = (event: MouseEvent) => {
           class="onyx-nav-button__mobile-chevron"
           :icon="chevronRightSmall"
         />
-      </button>
+      </NavButtonTrigger>
     </template>
 
     <template v-if="slots.children" #options>
