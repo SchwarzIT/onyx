@@ -8,6 +8,7 @@ import { getFormMessages, useCustomValidity } from "../../composables/useCustomV
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
+import { useRootAttrs } from "../../utils/attrs";
 import { applyLimits, roundToPrecision } from "../../utils/numbers";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -43,8 +44,12 @@ const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
+
 /**
- * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
+ * Used to detect user interaction to simulate the behimport { useRootAttrs } from "../../utils/attrs";
+avior of :user-invalid for the native input
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
@@ -97,11 +102,19 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-stepper-skeleton', densityClass]">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-stepper-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
     <OnyxSkeleton class="onyx-stepper-skeleton__input" />
   </div>
-  <div v-else :class="['onyx-component', 'onyx-stepper', densityClass, errorClass]">
+  <div
+    v-else
+    :class="['onyx-component', 'onyx-stepper', densityClass, errorClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxFormElement
       v-bind="props"
       :message="messages"
@@ -144,6 +157,7 @@ useAutofocus(input, props);
           :required="props.required"
           :step="props.validStepSize ?? 'any'"
           :title="props.hideLabel ? props.label : undefined"
+          v-bind="restAttrs"
           @change="handleChange"
           @keydown.up.prevent="handleClick('stepUp')"
           @keydown.down.prevent="handleClick('stepDown')"

@@ -182,6 +182,7 @@ export const CONFIG = {
                 { text: "Stories", link: "/stories" },
                 { text: "Styling", link: "/styling" },
                 { text: "Testing", link: "/testing" },
+                { text: "Patterns", link: "/patterns" },
               ],
             },
             {

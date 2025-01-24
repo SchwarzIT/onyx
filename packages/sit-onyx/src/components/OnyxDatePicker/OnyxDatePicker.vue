@@ -5,6 +5,7 @@ import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useRootAttrs } from "../../utils/attrs";
 import { isValidDate } from "../../utils/date";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -33,6 +34,8 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
@@ -79,12 +82,20 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-datepicker-skeleton', densityClass]">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-datepicker-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-datepicker-skeleton__label" />
     <OnyxSkeleton class="onyx-datepicker-skeleton__input" />
   </div>
 
-  <div v-else :class="['onyx-component', 'onyx-datepicker', densityClass, errorClass]">
+  <div
+    v-else
+    :class="['onyx-component', 'onyx-datepicker', densityClass, errorClass]"
+    v-bind="rootAttrs"
+  >
     <OnyxFormElement
       v-bind="props"
       :error-messages="errorMessages"
@@ -117,6 +128,7 @@ useAutofocus(input, props);
             :title="props.hideLabel ? props.label : undefined"
             :min="getNormalizedDate(props.min)"
             :max="getNormalizedDate(props.max)"
+            v-bind="restAttrs"
           />
         </div>
       </template>

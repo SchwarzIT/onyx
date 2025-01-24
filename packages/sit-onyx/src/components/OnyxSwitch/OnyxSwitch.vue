@@ -7,6 +7,7 @@ import { useRequired } from "../../composables/required";
 import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useRootAttrs } from "../../utils/attrs";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -30,6 +31,9 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
+
+defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
@@ -56,14 +60,23 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-switch-skeleton', densityClass]">
+  <div
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-switch-skeleton', densityClass]"
+    v-bind="rootAttrs"
+  >
     <span class="onyx-switch-skeleton__click-area">
       <OnyxSkeleton class="onyx-switch-skeleton__input" />
     </span>
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="shownErrorMessages">
+  <OnyxErrorTooltip
+    v-else
+    :disabled="disabled"
+    :error-messages="shownErrorMessages"
+    v-bind="rootAttrs"
+  >
     <label
       class="onyx-component onyx-switch"
       :class="[requiredTypeClass, densityClass]"
@@ -80,6 +93,7 @@ useAutofocus(input, props);
         :disabled="disabled || props.loading"
         :required="props.required"
         :autofocus="props.autofocus"
+        v-bind="restAttrs"
       />
       <span class="onyx-switch__click-area">
         <span class="onyx-switch__container">
