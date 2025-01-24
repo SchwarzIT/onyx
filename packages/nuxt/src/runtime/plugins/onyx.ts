@@ -1,6 +1,6 @@
 import { computed, type ComputedRef } from "#imports";
 import type { LocaleObject } from "@nuxtjs/i18n";
-import { defineNuxtPlugin, useNuxtApp } from "nuxt/app";
+import { defineNuxtPlugin, useNuxtApp, useRouter } from "nuxt/app";
 import { createOnyx, type TranslationFunction } from "sit-onyx";
 import type { Composer } from "vue-i18n";
 
@@ -13,6 +13,7 @@ export default defineNuxtPlugin({
   setup: (app) => {
     // This plugin is only added if the i18n module was added as well so it's safe to assume $i18n was provided
     const { t: translate, localeProperties } = useNuxtApp().$i18n as I18n;
+    const router = useRouter();
 
     const t = computed((): TranslationFunction => {
       return (key, placeholders) => {
@@ -28,6 +29,7 @@ export default defineNuxtPlugin({
           ),
           t,
         },
+        router,
       }),
     );
   },
