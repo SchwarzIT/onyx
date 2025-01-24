@@ -18,11 +18,11 @@ const slots = defineSlots<{
 <template>
   <div class="onyx-component onyx-data-grid-header-cell">
     <span class="onyx-data-grid-header-cell__label">{{ props.label }}</span>
-    <div v-if="slots.actions" class="onyx-data-grid-header-cell__actions">
-      <slot name="actions"></slot>
-    </div>
     <div v-if="slots.removeActions" class="onyx-data-grid-header-cell__remove-actions">
       <slot name="removeActions"></slot>
+    </div>
+    <div v-if="slots.actions" class="onyx-data-grid-header-cell__actions">
+      <slot name="actions"></slot>
     </div>
   </div>
 </template>

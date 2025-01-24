@@ -10,13 +10,13 @@ const props = defineProps<{
    */
   columns: OnyxDataGridProps["columns"];
   /**
-   *
+   * data
    */
   data: OnyxDataGridProps["data"];
   /**
    * config
    */
-  filterOptions?: FilterOptions<DataGridEntry>; // Eigenständiges config-Prop, passe den Typ entsprechend an
+  filterOptions?: FilterOptions<DataGridEntry>;
 }>();
 const { columns, data, filterOptions } = toRefs(props);
 
