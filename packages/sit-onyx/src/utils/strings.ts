@@ -30,13 +30,26 @@ export const getInitials = (username: string, locale: string) => {
     return;
   }
 
-  const segmenter = new Intl.Segmenter(locale, { granularity: "word" });
+  const wordSegmenter = new Intl.Segmenter(locale, { granularity: "word" });
 
   const name = username.trim().toUpperCase();
-  const segments = Array.from(segmenter.segment(name));
+  const wordSegments = Array.from(wordSegmenter.segment(name));
+  const firstWord = wordSegments[0].segment;
+  const lastWord = wordSegments.length === 1 ? undefined : wordSegments.at(-1)?.segment;
 
-  if (segments.length === 1) return segments[0].segment.substring(0, 2);
-  return `${segments[0].segment.charAt(0)}${segments.at(-1)?.segment.charAt(0)}`;
+  if (!lastWord) {
+    return `${getGrapheme(firstWord, locale, 0)}${getGrapheme(firstWord, locale, 1)}`;
+  }
+  return `${getGrapheme(firstWord, locale, 0)}${getGrapheme(lastWord, locale, 0)}`;
+};
+
+/**
+ * Gets the character at tht given index using the `Intl.Segmenter` API.
+ */
+const getGrapheme = (value: string, locale: string, index: number) => {
+  const segmenter = new Intl.Segmenter(locale, { granularity: "grapheme" });
+  const segments = Array.from(segmenter.segment(value)).map((segment) => segment.segment);
+  return segments.at(index) ?? "";
 };
 
 /**
