@@ -30,8 +30,13 @@ const { navigate } = useLink();
 
 .onyx-router-link {
   @include layers.component() {
-    all: inherit;
     cursor: pointer;
+
+    // reset styles
+    outline-offset: initial;
+    text-decoration: initial;
+    color: initial;
+    font: initial;
   }
 }
 </style>
