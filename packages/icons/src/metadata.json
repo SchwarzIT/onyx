@@ -246,6 +246,10 @@
     "category": "Software & Services",
     "aliases": ["container", "pail", "Eimer", "Behälter"]
   },
+  "bullet-list": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "bus": {
     "category": "Transport & Travel",
     "aliases": ["bus-ride", "public-transport", "Busfahrt", "öffentlicher-Verkehr"]
@@ -1355,6 +1359,10 @@
     "category": "Security & Protection",
     "aliases": []
   },
+  "key-mail": {
+    "category": "Communication",
+    "aliases": []
+  },
   "key-settings": {
     "category": "Software & Services",
     "aliases": []
@@ -1421,6 +1429,14 @@
   "list": {
     "category": "Action & Interface",
     "aliases": ["enumeration", "catalog", "Liste", "Aufzählung"]
+  },
+  "list-arrow-down": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
+  "list-arrow-up": {
+    "category": "Action & Interface",
+    "aliases": []
   },
   "load-balancer": {
     "category": "Network & Infrastructure",
@@ -1497,10 +1513,6 @@
   "mail": {
     "category": "Communication",
     "aliases": ["email", "letter", "E-Mail", "Brief"]
-  },
-  "mail-key": {
-    "category": "Communication",
-    "aliases": []
   },
   "mail-read": {
     "category": "Communication",
@@ -1642,9 +1654,17 @@
     "category": "Action & Interface",
     "aliases": ["mehr", "dots", "Punkte"]
   },
+  "more-horizontal-small": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "more-vertical": {
     "category": "Action & Interface",
     "aliases": ["dots", "Mehr-vertikal", "Punkte"]
+  },
+  "more-vertical-small": {
+    "category": "Action & Interface",
+    "aliases": []
   },
   "mouse": {
     "category": "Devices & Electronics",
@@ -2109,6 +2129,10 @@
   "settings": {
     "category": "Action & Interface",
     "aliases": ["configurations", "preferences", "Einstellungen", "Konfigurationen"]
+  },
+  "settings-arrows": {
+    "category": "Network & Infrastructure",
+    "aliases": []
   },
   "share-android": {
     "category": "Action & Interface",
