@@ -1,8 +1,6 @@
-export type OnyxExternalLinkIcon = {
-  /**
-   * The URL/link to point to.
-   */
-  href: string;
+import type { SharedLinkProps } from "../OnyxRouterLink/types";
+
+export type OnyxExternalLinkIconProps = Partial<Pick<SharedLinkProps, "href">> & {
   /**
    * Whether to show the external link icon.
    * If set to `auto`, it will be shown when the `href` leads to another website

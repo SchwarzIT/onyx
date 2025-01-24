@@ -3,9 +3,9 @@ import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
 import { isExternalLink } from "../../utils";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxExternalLinkIcon } from "./types";
+import type { OnyxExternalLinkIconProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxExternalLinkIcon>(), {
+const props = withDefaults(defineProps<OnyxExternalLinkIconProps>(), {
   withExternalIcon: "auto",
 });
 
