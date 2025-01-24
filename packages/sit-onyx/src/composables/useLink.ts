@@ -64,7 +64,10 @@ const shouldHandleNavigation = (e: MouseEvent) => {
 };
 
 export type ProvideRouterOptions = {
-  // https://router.vuejs.org/api/interfaces/Router.html#push-
+  /**
+   * Programmatically navigate to a new URL.
+   * @see https://router.vuejs.org/api/interfaces/Router.html#push-
+   */
   push: (to: string) => void;
 };
 
