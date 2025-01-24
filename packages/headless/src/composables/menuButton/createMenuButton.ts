@@ -96,6 +96,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         focusRelativeItem("last");
         break;
       case " ":
+        if (event.target instanceof HTMLInputElement) break;
         event.preventDefault();
         (event.target as HTMLElement).click();
         break;

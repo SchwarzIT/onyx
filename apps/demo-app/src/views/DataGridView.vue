@@ -23,12 +23,6 @@ const data = [
   { id: 4, name: "Emily Davis", age: 25 },
   { id: 5, name: "Asperiks Kafelon", age: 99 },
 ];
-const columns = {
-  columns: {
-    name: { enabled: true },
-    age: { enabled: true },
-  },
-};
 
 const dummyFeature = createFeature(() => ({
   name: Symbol("More actions"),
@@ -57,13 +51,12 @@ const dummyFeature = createFeature(() => ({
 
 const dataFeatures = computed(() => {
   const enabled = [];
-  if (sortingEnabled.value) {
-    enabled.push(DataGridFeatures.useSorting(columns));
-  }
   if (filteringEnabled.value) {
-    enabled.push(DataGridFeatures.useFiltering({ updateMode: "onEnter" }, columns));
+    enabled.push(DataGridFeatures.useFiltering());
   }
-
+  if (sortingEnabled.value) {
+    enabled.push(DataGridFeatures.useSorting());
+  }
   if (moreActions.value) {
     enabled.push(dummyFeature());
   }
@@ -76,8 +69,8 @@ const dataFeatures = computed(() => {
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
       <section class="data-grid-settings">
-        <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
+        <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
         <OnyxSwitch v-model="moreActions" label="Enable more actions" />
       </section>
       <OnyxDataGrid :features="dataFeatures" :data :columns="['name', 'age']" />
