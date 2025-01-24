@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.133
+
+### Minor Changes
+
+- 08c0057: feat: implement fallthrough attribute forwarding
+
 ## 1.0.0-beta.132
 
 ### Minor Changes
