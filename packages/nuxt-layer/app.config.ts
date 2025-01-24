@@ -1,17 +1,18 @@
+import type { OnyxNavButtonProps } from "sit-onyx";
+
 export default defineAppConfig({
-  onyxDocs: {
-    app: {
-      name: "onyx docs template for Nuxt",
-    },
-  },
+  onyxDocs: {},
 });
 
 declare module "@nuxt/schema" {
   interface AppConfigInput {
     onyxDocs?: {
       app?: {
-        name?: string;
+        name: string;
         logo?: string;
+      };
+      nav?: {
+        items?: OnyxNavButtonProps[];
       };
     };
   }
