@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useLink } from "../../composables/useLink";
+import { injectI18n } from "../../i18n";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxRouterLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxRouterLinkProps>(), {
@@ -10,6 +12,7 @@ defineSlots<{
   default(): unknown;
 }>();
 
+const { t } = injectI18n();
 const { navigate } = useLink();
 </script>
 
@@ -22,6 +25,10 @@ const { navigate } = useLink();
     @click="navigate($event, props.href, props.target)"
   >
     <slot></slot>
+
+    <OnyxVisuallyHidden v-if="props.target === '_blank'">
+      {{ t("link.opensExternally") }}
+    </OnyxVisuallyHidden>
   </a>
 </template>
 
