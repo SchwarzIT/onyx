@@ -9,6 +9,20 @@ import OnyxRouterLink from "./OnyxRouterLink.vue";
  * to `createOnyx()`, see our [getting started guide](https://onyx.schwarz/development/).
  *
  * You can also use this behavior without the router link component by using the `useLink()` composable.
+ *
+ * #### Example
+ *
+ * ```ts
+ * import { createRouter } from "vue-router";
+ * import { createOnyx } from "sit-onyx";
+ *
+ * const router = createRouter({
+ *    // configure your Vue Router...
+ *  });
+ * const onyx = createOnyx({ router });
+ *
+ * app.use(router).use(onyx);
+ * ```
  */
 const meta: Meta<typeof OnyxRouterLink> = {
   title: "Support/RouterLink",
