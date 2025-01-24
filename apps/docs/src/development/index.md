@@ -64,7 +64,7 @@ import "sit-onyx/style.css";
 
 const onyx = createOnyx({
   // if you are using the Vue Router, make sure to pass it here be enable the router integration for onyx
-  // router: yourVueRouter,
+  // router: createRouter(),
 });
 const app = createApp(App);
 
