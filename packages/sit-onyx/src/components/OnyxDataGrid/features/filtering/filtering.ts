@@ -81,8 +81,6 @@ export const useFiltering = createFeature(
     );
 
     const getMenuItem = (column: keyof DataGridEntry) => {
-      //TODO: Bug can't enter spacings
-      //TODO: Set Filter on Flyout closing
       const updateMode = ref(options?.updateMode || "onEnter");
 
       let inputValue = filters.value[column] || "";
@@ -105,7 +103,7 @@ export const useFiltering = createFeature(
         label: column as string,
         class: "onyx-filter-search",
         style: {
-          minWidth: `${t.value(`dataGrid.head.filtering.menu.placeholder`).length * 12 + 20}px`,
+          minWidth: "11rem",
         },
         hideLabel: true,
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),

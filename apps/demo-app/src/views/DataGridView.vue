@@ -67,9 +67,11 @@ const dataFeatures = computed(() => {
     enabled.push(DataGridFeatures.useSelection<Entry>(columns));
   }
   if (filteringEnabled.value) {
-    enabled.push(DataGridFeatures.useFiltering({ updateMode: "onEnter" }, columns));
+    enabled.push(DataGridFeatures.useFiltering());
   }
-
+  if (sortingEnabled.value) {
+    enabled.push(DataGridFeatures.useSorting());
+  }
   if (moreActions.value) {
     enabled.push(dummyFeature());
   }
@@ -82,6 +84,7 @@ const dataFeatures = computed(() => {
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
       <section class="data-grid-settings">
+        <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
         <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
         <OnyxSwitch v-model="selectionEnabled" label="Enable selection" />
