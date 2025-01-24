@@ -1,6 +1,6 @@
-import type { OnyxExternalLinkIcon } from "../../../OnyxExternalLinkIcon/types";
+import type { OnyxExternalLinkIconProps } from "../../../OnyxExternalLinkIcon/types";
 
-export type OnyxNavButtonProps = OnyxExternalLinkIcon & {
+export type OnyxNavButtonProps = OnyxExternalLinkIconProps & {
   /**
    * Label to show inside the Nav item.
    * You can use the `default` slot to display custom content.

@@ -28,7 +28,6 @@ export const Default = {
   args: {
     default: "External link",
     href: "https://example.com",
-    target: "_blank",
   },
 } satisfies Story;
 
