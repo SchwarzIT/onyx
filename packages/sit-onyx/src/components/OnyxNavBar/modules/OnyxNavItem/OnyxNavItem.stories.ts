@@ -59,5 +59,6 @@ export const WithExternalLink = {
   args: {
     label: "onyx",
     href: "https://onyx.schwarz/",
+    target: "_blank",
   },
 } satisfies Story;

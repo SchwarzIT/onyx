@@ -2,7 +2,7 @@
 import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxNavButtonProps } from "./types";
 
-const props = defineProps<Pick<OnyxNavButtonProps, "href">>();
+const props = defineProps<OnyxNavButtonProps>();
 
 defineSlots<{
   /**
@@ -24,6 +24,7 @@ defineSlots<{
 
   <OnyxRouterLink
     v-else
+    v-bind="props"
     :href="props.href"
     class="onyx-nav-button__trigger onyx-nav-button__link onyx-text"
     role="menuitem"

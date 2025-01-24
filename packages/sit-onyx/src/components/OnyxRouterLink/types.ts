@@ -3,6 +3,7 @@ export type OnyxRouterLinkProps = SharedLinkProps;
 export type SharedLinkProps = {
   /**
    * The URL/link to point to.
+   * Will use the projects router for internal links if provided, see [OnyxRouterLink](https://storybook.onyx.schwarz/?path=/docs/support-routerlink--docs) for further details.
    */
   href: string;
   /**

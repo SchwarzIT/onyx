@@ -68,9 +68,8 @@ const handleParentClick = (event: MouseEvent) => {
   >
     <template #button="{ trigger }">
       <NavButtonTrigger
-        :href="props.href"
         :aria-label="props.label"
-        v-bind="trigger"
+        v-bind="{ ...props, ...trigger }"
         @click="handleParentClick"
       >
         <slot>

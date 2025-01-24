@@ -27,6 +27,7 @@ defineSlots<{
     class="onyx-component onyx-nav-item"
     :active="props.active"
     :href="props.href ?? 'javascript:void(0)'"
+    :target="props.target"
     @click="props.href && emit('navigate', props.href, $event)"
   >
     <slot>
