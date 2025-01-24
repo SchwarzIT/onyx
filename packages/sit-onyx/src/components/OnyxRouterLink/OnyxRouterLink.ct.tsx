@@ -110,7 +110,7 @@ test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
   await expect(component).toHaveRole("link");
-  await expect(component).toHaveAccessibleName("Test link");
+  await expect(component).toHaveAccessibleName("Test link (opens in a new tab)");
 });
 
 test("should add rel attribute if target is _blank", async ({ mount }) => {
