@@ -1,15 +1,14 @@
-/* eslint-disable playwright/no-conditional-expect */
-/* eslint-disable playwright/no-conditional-in-test */
+import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
 import TestCase from "./TestCase.vue";
 
 const getTestData = () => [
-  { id: 1, a: "1", b: "b A" },
-  { id: 2, a: "1", b: "B" },
+  { id: 1, a: "1", b: "a" },
+  { id: 2, a: "1", b: "A" },
   { id: 3, a: "2", b: "A" },
-  { id: 4, a: "2", b: "B" },
-  { id: 5, a: "3", b: "a" },
-  { id: 6, a: "4", b: "ab" },
+  { id: 4, a: "2", b: "ab" },
+  { id: 5, a: "3", b: "ca B" },
+  { id: 6, a: "4", b: "Ab" },
 ];
 
 test("set a filter", async ({ mount, page }) => {
@@ -67,7 +66,7 @@ test("combine two filter", async ({ mount, page }) => {
   await page.keyboard.press("Enter");
 
   rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(1);
+  expect(rows).toHaveLength(2);
 });
 
 test("remove filter", async ({ mount, page }) => {
@@ -128,50 +127,43 @@ const filterConfigs = [
   { caseSensitive: true },
   { exactMatch: true },
   { searchFromStart: true },
-  { trimWhitespace: true, searchFromStart: true },
+  { trimWhitespace: true },
 ];
+const assertRowCount = (rows: Locator[], configName: string) => {
+  const rowCountByConfig: { [key: string]: number } = {
+    caseSensitive: 1,
+    exactMatch: 2,
+    searchFromStart: 2,
+    trimWhitespace: 3,
+  };
+  const expectedCount = rowCountByConfig[configName];
+  expect(rows).toHaveLength(expectedCount);
+};
+
 for (const filterConfig of filterConfigs) {
   const configName = Object.keys(filterConfig)[0];
 
   test(`should apply filterConfig: ${configName}`, async ({ mount, page }) => {
-    // ARRANGE
     const data = getTestData();
     const component = await mount(
       <TestCase data={data} columns={["a", "b"]} filterOptions={{ filterConfig }} />,
     );
-
     const getFirstColumn = () => component.locator("tbody tr td:first-of-type");
 
-    // ASSERT
+    // Initial assertion
     let rows = await getFirstColumn().all();
     expect(rows).toHaveLength(data.length);
 
-    // ACT
+    // Apply filter
     await component
       .getByRole("columnheader", { name: "b Toggle column actions" })
       .getByLabel("Toggle column actions")
       .click();
-    await component.getByLabel("b", { exact: true }).fill("a");
+    await component.getByLabel("b", { exact: true }).fill("ab");
     await page.keyboard.press("Enter");
 
-    // ASSERT
+    // Assert filtered rows
     rows = await getFirstColumn().all();
-    if (configName === "caseSensitive") {
-      expect(rows).toHaveLength(2);
-    } else if (configName === "exactMatch") {
-      expect(rows).toHaveLength(2);
-    } else if (configName === "searchFromStart") {
-      expect(rows).toHaveLength(3);
-    } else {
-      await component.getByRole("button", { name: "b", exact: true }).click();
-      await component
-        .getByRole("columnheader", { name: "b Toggle column actions" })
-        .getByLabel("Toggle column actions")
-        .click();
-      await component.getByLabel("b", { exact: true }).fill("bA");
-      await page.keyboard.press("Enter");
-      rows = await getFirstColumn().all();
-      expect(rows).toHaveLength(1);
-    }
+    assertRowCount(rows, configName);
   });
 }
