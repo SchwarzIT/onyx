@@ -1,11 +1,7 @@
-<script setup lang="ts">
-const { onyxDocs } = useAppConfig();
-</script>
-
 <template>
-  <OnyxAppLayout>
+  <OnyxAppLayout class="onyx-grid-max-md onyx-grid-center">
     <template #navBar>
-      <OnyxNavBar :app-name="onyxDocs.app.name" :logo-url="onyxDocs.app.logo" />
+      <NavBar />
     </template>
 
     <NuxtRouteAnnouncer />
