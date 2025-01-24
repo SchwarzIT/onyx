@@ -33,10 +33,10 @@ const { navigate } = useLink();
     cursor: pointer;
 
     // reset styles
-    outline-offset: initial;
-    text-decoration: initial;
-    color: initial;
-    font: initial;
+    outline-offset: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    font: inherit;
   }
 }
 </style>
