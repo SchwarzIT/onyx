@@ -51,10 +51,11 @@ const shouldHandleNavigation = (e: MouseEvent) => {
   if (e.defaultPrevented) return;
   // don't redirect on right click
   if (e.button !== undefined && e.button !== 0) return;
-  // don't redirect if `target="_blank"`
+  // don't redirect if `target="_blank"` or a hash is used to e.g. navigate to a section of a page
   if (e.currentTarget && e.currentTarget instanceof Element) {
     const target = e.currentTarget.getAttribute("target");
-    if (target === "_blank") return;
+    const href = e.currentTarget.getAttribute("href");
+    if (target === "_blank" || href?.startsWith("#")) return;
   }
 
   // prevent actual navigation so we can handle this with the user provided router
