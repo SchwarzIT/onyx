@@ -83,7 +83,14 @@ for (const modifier of ["Alt", "ControlOrMeta", "Shift"] as const) {
   test(`should not open internal link if clicked with modifier "${modifier}""`, async ({
     page,
     mount,
+    browserName,
   }) => {
+    // eslint-disable-next-line playwright/no-conditional-in-test -- Alt does not work in safari
+    if (browserName === "webkit" && modifier === "Alt") {
+      // eslint-disable-next-line playwright/no-skipped-test -- Alt does not work in safari
+      return test.skip();
+    }
+
     // ARRANGE
     const component = await mount(<TestWrapper href="/test-page">Test link</TestWrapper>);
 
