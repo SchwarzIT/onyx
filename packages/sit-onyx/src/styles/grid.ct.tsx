@@ -115,7 +115,7 @@ XL_VARIANTS.forEach(({ className, expectedColumns, breakpoint }) => {
 
     await expectComputedColumnCount(page, expectedColumns);
     await expectComputedGridSpan(page.locator(".onyx-grid-span-full"), expectedColumns);
-    await fullPageScreenshot(page, `grid-xl-varian-${className}.png`);
+    await fullPageScreenshot(page, `grid-xl-variant-${className}.png`);
   });
 });
 
