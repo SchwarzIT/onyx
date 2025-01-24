@@ -22,7 +22,7 @@ If you are using [Nuxt](https://nuxt.com), please head over to our [Nuxt module 
 
 ::: tip Prerequisites
 We assume that you already have a Vue application set up.
-If thats not the case we recommend you first hop over to the [Vue Quickstart Docs](https://vuejs.org/guide/quick-start.html#creating-a-vue-application). Follow the steps there and then continue with the onyx setup here.  
+If thats not the case we recommend you first hop over to the [Vue Quickstart Docs](https://vuejs.org/guide/quick-start.html#creating-a-vue-application). Follow the steps there and then continue with the onyx setup here.
 :::
 
 ### Step 1: Install dependencies
@@ -62,7 +62,10 @@ import "sit-onyx/style.css";
 // which will apply the correct application background color, font styles etc.:
 // import "sit-onyx/global.css";
 
-const onyx = createOnyx();
+const onyx = createOnyx({
+  // if you are using the Vue Router, make sure to pass it here be enable the router integration for onyx
+  // router: yourVueRouter,
+});
 const app = createApp(App);
 
 app.use(onyx);
