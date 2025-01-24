@@ -3,6 +3,7 @@ import { createMenuItems } from "@sit-onyx/headless";
 import { computed } from "vue";
 import { injectI18n } from "../../../../i18n";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
+import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import { type OnyxMenuItemProps } from "./types";
 
@@ -40,16 +41,15 @@ const headlessProps = computed(() =>
     class="onyx-component onyx-menu-item"
     v-bind="listItem"
   >
-    <a
+    <OnyxRouterLink
       v-if="props.href"
       class="onyx-menu-item__trigger"
       :href="props.href"
       :target="props.target"
-      :rel="props.target === '_blank' ? 'noreferrer' : undefined"
       v-bind="headlessProps"
     >
       <slot></slot>
-    </a>
+    </OnyxRouterLink>
 
     <button
       v-else

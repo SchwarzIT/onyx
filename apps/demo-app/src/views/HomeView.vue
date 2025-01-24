@@ -222,7 +222,10 @@ const selectedDate = ref<DateValue>();
           label-tooltip="More information tooltip"
         />
 
-        <OnyxLink v-if="show('OnyxLink')" href="#">Link</OnyxLink>
+        <template v-if="show('OnyxLink')">
+          <OnyxLink href="https://onyx.schwarz">External link</OnyxLink>
+          <OnyxLink href="/form-demo">Internal link (should be navigated with Vue Router)</OnyxLink>
+        </template>
 
         <SelectDemo
           v-if="show('OnyxSelect')"
