@@ -1,21 +1,24 @@
 <script lang="ts" setup>
 import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
+import type { OnyxNavButtonProps } from "sit-onyx";
+
+const localePath = useLocalePath();
+
+const navButtons = computed<OnyxNavButtonProps[]>(() => [
+  { label: "Page 1", href: localePath("/") },
+  { label: "Page 2", href: localePath("/test") },
+]);
 </script>
 
 <template>
   <OnyxNavBar app-name="Nuxt module Playground">
-    <OnyxNavButton href="/" label="Item 1" active />
-    <OnyxNavButton href="/test" label="Item 2">
-      Item 2
-      <OnyxBadge color="warning" dot />
-
-      <template #children>
-        <OnyxNavItem href="#" label="Nested item 2.1" />
-        <OnyxNavItem href="#" label="Nested item 2.2" />
-        <OnyxNavItem href="https://onyx.schwarz" label="Nested item 2.3" />
-      </template>
-    </OnyxNavButton>
+    <OnyxNavButton
+      v-for="navButton in navButtons"
+      :key="navButton.href"
+      v-bind="navButton"
+      :active="$route.path === navButton.href"
+    />
 
     <template #contextArea>
       <OnyxUserMenu description="Company Name" full-name="Jane Doe">
