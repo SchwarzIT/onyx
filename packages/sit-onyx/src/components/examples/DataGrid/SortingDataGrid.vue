@@ -2,6 +2,7 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import type { DataGridEntry, NormalizedColumnConfig } from "../../..";
 import { DataGridFeatures, OnyxDataGrid, OnyxIcon, OnyxMenuItem, OnyxSystemButton } from "../../..";
+import { createFeature } from "../../OnyxDataGrid/features";
 import type { SortOptions, SortState } from "../../OnyxDataGrid/features/sorting/types";
 
 // STORY SETUP START
@@ -37,12 +38,12 @@ const data = [
 const withSorting = DataGridFeatures.useSorting<TEntry>({ sortState, columns });
 
 // this is just an example feature to demonstrate the menu items of the sorting feature if multiple features with menu items exist
-const someOtherFeature = {
+const someOtherFeature = createFeature(() => ({
   name: Symbol("Example feature"),
   watch: [],
   header: {
-    actions: ({ key }: NormalizedColumnConfig<TEntry>) => {
-      if (key !== "name") return [];
+    actions: (column: NormalizedColumnConfig<TEntry>) => {
+      if (column.key !== "name") return [];
       return [
         {
           iconComponent: h(OnyxSystemButton, {
@@ -57,13 +58,13 @@ const someOtherFeature = {
       ];
     },
   },
-};
+}));
 </script>
 
 <template>
   <OnyxDataGrid
     :columns="['name', 'rank', 'birthday']"
     :data="data"
-    :features="[withSorting, someOtherFeature]"
+    :features="[withSorting, someOtherFeature()]"
   />
 </template>
