@@ -30,7 +30,7 @@ export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey exten
 };
 
 /**
- * Works like `Object.entries`, but considers all own keys of an object.
+ * Works like `Object.entries`, but considers all own keys of an object (including symbols).
  * @example
  * ```ts
  * allObjectEntries({ [Symbol()]: "a", "someKey": "b" }) // => [[Symbol(), "a"], ["someKey", "b"]]
