@@ -1,3 +1,7 @@
 export * from "./sorting/types";
 
-export { useSorting } from "./sorting/sorting";
+import { useSorting } from "./sorting/sorting";
+
+export const DataGridFeatures = {
+  useSorting,
+};
