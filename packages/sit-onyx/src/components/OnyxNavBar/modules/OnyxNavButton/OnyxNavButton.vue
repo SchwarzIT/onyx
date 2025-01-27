@@ -2,6 +2,7 @@
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject } from "vue";
 import { useMoreListChild } from "../../../../composables/useMoreList";
+import { extractLinkProps } from "../../../../utils/router";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_MORE_LIST_INJECTION_KEY } from "../../types";
@@ -11,7 +12,6 @@ import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
-  withExternalIcon: "auto",
 });
 
 const emit = defineEmits<{
@@ -47,8 +47,9 @@ const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION
 const handleParentClick = (event: MouseEvent) => {
   if (isMobile?.value && hasChildren.value && !mobileChildrenOpen.value) {
     mobileChildrenOpen.value = true;
-  } else if (props.href) {
-    emit("navigate", props.href, event);
+  } else if (props.link) {
+    const href = extractLinkProps(props.link).href;
+    emit("navigate", href, event);
   }
 };
 </script>
@@ -74,7 +75,7 @@ const handleParentClick = (event: MouseEvent) => {
       >
         <slot>
           <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-          <OnyxExternalLinkIcon v-bind="props" />
+          <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
         </slot>
 
         <OnyxIcon

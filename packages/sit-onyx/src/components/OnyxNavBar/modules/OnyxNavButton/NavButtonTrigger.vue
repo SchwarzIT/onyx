@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { extractLinkProps } from "../../../../utils/router";
 import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxNavButtonProps } from "./types";
 
@@ -13,22 +14,21 @@ defineSlots<{
 </script>
 
 <template>
+  <OnyxRouterLink
+    v-if="props.link"
+    v-bind="extractLinkProps(props.link)"
+    class="onyx-nav-button__trigger onyx-nav-button__link onyx-text"
+    role="menuitem"
+  >
+    <slot></slot>
+  </OnyxRouterLink>
+
   <button
-    v-if="props.href == undefined"
+    v-else
     class="onyx-component onyx-nav-button__trigger onyx-text"
     role="menuitem"
     type="button"
   >
     <slot></slot>
   </button>
-
-  <OnyxRouterLink
-    v-else
-    v-bind="props"
-    :href="props.href"
-    class="onyx-nav-button__trigger onyx-nav-button__link onyx-text"
-    role="menuitem"
-  >
-    <slot></slot>
-  </OnyxRouterLink>
 </template>

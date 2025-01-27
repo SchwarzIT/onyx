@@ -1,3 +1,5 @@
+import type { OnyxExternalLinkIconProps } from "../OnyxExternalLinkIcon/types";
+
 export type OnyxRouterLinkProps = SharedLinkProps;
 
 export type SharedLinkProps = {
@@ -15,3 +17,12 @@ export type SharedLinkProps = {
 
 export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;
 export type LinkTarget = (typeof LINK_TARGETS)[number];
+
+export type WithLinkProp<TExternalLink extends boolean = false> = {
+  /**
+   * If set, the component will be rendered as link instead of a button.
+   */
+  link?:
+    | string
+    | (TExternalLink extends true ? SharedLinkProps & OnyxExternalLinkIconProps : SharedLinkProps);
+};

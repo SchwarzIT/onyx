@@ -25,12 +25,7 @@ provide(
 
 <!-- eslint-disable vue/no-static-inline-styles -->
 <template>
-  <OnyxNavButton
-    style="width: 24rem"
-    :label="props.label"
-    :href="props.href"
-    :active="props.active"
-  >
+  <OnyxNavButton style="width: 24rem" v-bind="props">
     <slot></slot>
 
     <template v-if="slots.children" #children>

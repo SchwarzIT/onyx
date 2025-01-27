@@ -11,7 +11,7 @@ test.describe("Screenshot tests", () => {
       <ul style={{ listStyle: "none", padding: 0 }} role="menu">
         <OnyxNavItem
           label="Item"
-          href={row === "external-link" ? "https://onyx.schwarz" : "#"}
+          link={row === "external-link" ? "https://onyx.schwarz" : "#"}
           active={column === "active"}
         />
       </ul>

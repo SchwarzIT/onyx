@@ -1,7 +1,7 @@
 import type { OnyxColor } from "../../../../types";
-import type { OnyxLinkProps } from "../../../OnyxLink/types";
+import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
-export type OnyxMenuItemProps = Partial<Pick<OnyxLinkProps, "href" | "target">> & {
+export type OnyxMenuItemProps = WithLinkProp & {
   /**
    * Whether the menu item is currently active.
    * This is the case if the given link is currently opened.

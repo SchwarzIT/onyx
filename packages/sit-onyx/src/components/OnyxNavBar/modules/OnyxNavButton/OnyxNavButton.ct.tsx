@@ -28,7 +28,7 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxNavButton
         label="Nav Button"
-        href={row === "external-link" ? "https://onyx.schwarz/" : "#"}
+        link={row === "external-link" ? "https://onyx.schwarz/" : "#"}
         active={column === "active"}
       />
     ),
@@ -58,7 +58,7 @@ test.describe("Screenshot tests with nested children", () => {
       ],
     },
     component: (column) => (
-      <OnyxNavButton label="Item" href="#" active={column === "active"}>
+      <OnyxNavButton label="Item" link="#" active={column === "active"}>
         <template v-slot:children>
           <OnyxNavItem label="Nested Item 1" />
           <OnyxNavItem label="Nested Item 2" />
@@ -88,14 +88,14 @@ test.describe("Screenshot tests (mobile)", () => {
     component: (column, row) => (
       <MobileComponentTestWrapper
         label="Parent item"
-        href={row === "external-link" ? "https://onyx.schwarz" : "#"}
+        link={row === "external-link" ? "https://onyx.schwarz" : "#"}
         active={column === "active"}
       >
         {row === "badge" && ["Parent item", <OnyxBadge dot color="warning" />]}
 
         {row === "with-children" && (
           <template v-slot:children>
-            <OnyxNavItem label="Child 1" href="#" />
+            <OnyxNavItem label="Child 1" link="#" />
           </template>
         )}
       </MobileComponentTestWrapper>
@@ -120,13 +120,13 @@ test.describe("Screenshot tests (mobile children)", () => {
     component: (column, row) => (
       <MobileComponentTestWrapper
         label="Parent item"
-        href={column === "with-parent-link" ? "#" : undefined}
+        link={column === "with-parent-link" ? "#" : undefined}
         active={row === "parent-active"}
       >
         Parent item <OnyxBadge dot color="warning" />
         <template v-slot:children>
-          <OnyxNavItem label="Default" href="/default" active={row === "child-active"} />
-          <OnyxNavItem label="External link" href="https://onyx.schwarz" />
+          <OnyxNavItem label="Default" link="/default" active={row === "child-active"} />
+          <OnyxNavItem label="External link" link="https://onyx.schwarz" />
         </template>
       </MobileComponentTestWrapper>
     ),
