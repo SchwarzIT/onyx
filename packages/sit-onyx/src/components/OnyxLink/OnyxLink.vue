@@ -17,7 +17,7 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxRouterLink class="onyx-component onyx-link" :href="props.href" :target="props.target">
+  <OnyxRouterLink class="onyx-component onyx-link" v-bind="props">
     <slot></slot>
     <OnyxExternalLinkIcon v-bind="props" />
   </OnyxRouterLink>
