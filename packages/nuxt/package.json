@@ -43,7 +43,7 @@
     "@nuxt/module-builder": "~0.8.4",
     "@nuxt/schema": "^3.15.2",
     "@nuxt/test-utils": "^3.15.4",
-    "@nuxtjs/i18n": "^9.1.1",
+    "@nuxtjs/i18n": "^9.1.2",
     "nuxt": "^3.15.2",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
