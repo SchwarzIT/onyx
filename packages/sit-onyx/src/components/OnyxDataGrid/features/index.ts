@@ -176,6 +176,9 @@ export const useDataGridFeatures = <
       .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
   });
 
+  /**
+   * Maps type names to their respective component.
+   */
   const typeRenderer = new Map(
     features
       .flatMap(({ typeRenderer }) => typeRenderer! && allObjectEntries(typeRenderer))
