@@ -174,4 +174,5 @@ export * from "./types";
 export { createOnyx } from "./utils/plugin";
 
 export * from "./composables/themeTransition";
+export * from "./utils/router";
 export { normalizedIncludes } from "./utils/strings";
