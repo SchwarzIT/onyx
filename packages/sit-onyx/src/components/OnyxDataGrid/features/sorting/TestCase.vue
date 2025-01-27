@@ -3,7 +3,9 @@ import { ref, watch } from "vue";
 import type { DataGridEntry, OnyxDataGridProps } from "../../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../../..";
 
-const { columns, data } = defineProps<Pick<OnyxDataGridProps, "columns" | "data">>();
+const { columns, data } =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defineProps<Pick<OnyxDataGridProps<any, any, any, any>, "columns" | "data">>();
 
 const emit = defineEmits<{
   sortChange: [sortState: DataGridFeatures.SortState<DataGridEntry>];
