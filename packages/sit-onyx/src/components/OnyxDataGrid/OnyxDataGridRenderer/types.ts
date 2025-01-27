@@ -1,4 +1,10 @@
-import type { FunctionalComponent, HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "vue";
+import type {
+  Component,
+  FunctionalComponent,
+  HTMLAttributes,
+  TdHTMLAttributes,
+  ThHTMLAttributes,
+} from "vue";
 import type { WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
@@ -10,14 +16,14 @@ export type OnyxDataGridRendererProps<
   /**
    * Will define which columns and their headers are rendered in which order.
    */
-  columns: DataGridRendererColumn<TEntry, object>[];
+  columns: DataGridRendererColumn<TEntry>[];
   rows: DataGridRendererRow<TEntry, TMetadata>[];
 };
 
 /**
  * Describes how a column header is rendered in the data grid.
  */
-export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps extends object> = {
+export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
   /**
    * (Unique) Key of the column - usually a key of the table data.
    * But can also be used for custom columns.
@@ -26,11 +32,7 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps extends 
   /**
    * The component that renders the header content and is placed into the `<th>` element.
    */
-  component: FunctionalComponent<WithHTMLAttributes<TProps>>;
-  /**
-   * Attributes and data that is provided to the component using `v-bind`.
-   */
-  props: WithHTMLAttributes<TProps>;
+  component: Component;
   /**
    * Attributes that are bound directly to the `<th>` element of the column.
    */

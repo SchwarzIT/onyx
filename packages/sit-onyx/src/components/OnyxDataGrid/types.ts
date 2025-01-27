@@ -1,4 +1,4 @@
-import type { DataGridFeature } from "./features";
+import type { DataGridFeature, TypeRender } from "./features";
 
 export type DataGridMetadata = Record<string, unknown>;
 
@@ -6,8 +6,14 @@ export type DataGridMetadata = Record<string, unknown>;
  * @experimental The DataGrid is still working in progress and the props will change in the future.
  */
 export type OnyxDataGridProps<
-  TEntry extends DataGridEntry = DataGridEntry,
-  TFeatures extends DataGridFeature<TEntry, symbol>[] = DataGridFeature<TEntry, symbol>[],
+  TEntry extends DataGridEntry,
+  TTypeRenderer extends TypeRender<TEntry>,
+  TFeatureName extends symbol,
+  TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = DataGridFeature<
+    TEntry,
+    TTypeRenderer,
+    TFeatureName
+  >[],
 > = {
   /**
    * Features that should be applied.
