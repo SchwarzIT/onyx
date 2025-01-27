@@ -2,7 +2,7 @@ import arrowSmallDown from "@sit-onyx/icons/arrow-small-down.svg?raw";
 import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
 import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature } from "..";
+import { createFeature, type NormalizedColumnConfig } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -106,7 +106,7 @@ export const useSorting = createFeature(
         func: sortData,
       },
       header: {
-        actions: (column) => {
+        actions: ({ key: column }: NormalizedColumnConfig<TEntry>) => {
           if (!getSortEnabled.value(column)) return [];
           return [
             {
