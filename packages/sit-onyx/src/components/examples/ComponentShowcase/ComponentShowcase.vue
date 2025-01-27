@@ -246,7 +246,7 @@ const teamMembers = [
             <OnyxNavItem label="Subpage 2" />
           </template>
         </OnyxNavButton>
-        <OnyxNavButton label="Page 3" href="https://onyx.schwarz" />
+        <OnyxNavButton label="Page 3" :link="{ href: 'https://onyx.schwarz', target: '_blank' }" />
 
         <template #contextArea>
           <OnyxUserMenu description="Company Name" full-name="Jane Doe">

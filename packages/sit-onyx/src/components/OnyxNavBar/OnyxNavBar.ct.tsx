@@ -91,31 +91,31 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavButton href="#1" label="Item 1" onNavigate={(href) => clickEvents.push(href)} />
-      <OnyxNavButton href="#2" label="Item 2" onNavigate={(href) => clickEvents.push(href)}>
+      <OnyxNavButton link="#1" label="Item 1" onNavigate={(href) => clickEvents.push(href)} />
+      <OnyxNavButton link="#2" label="Item 2" onNavigate={(href) => clickEvents.push(href)}>
         Item 2
         <OnyxBadge color="warning" dot />
         <template v-slot:children>
           <OnyxNavItem
             label="Nested item 1"
-            href="#2-1"
+            link="#2-1"
             onNavigate={(href) => clickEvents.push(href)}
           />
           <OnyxNavItem
             label="Nested item 2"
-            href="#2-2"
+            link="#2-2"
             active
             onNavigate={(href) => clickEvents.push(href)}
           />
           <OnyxNavItem
             label="Nested item 3"
-            href="#2-3"
+            link="#2-3"
             onNavigate={(href) => clickEvents.push(href)}
           />
         </template>
       </OnyxNavButton>
       <OnyxNavButton
-        href="https://onyx.schwarz"
+        link="https://onyx.schwarz"
         label="Item 3"
         onNavigate={(href) => clickEvents.push(href)}
       />
@@ -206,8 +206,8 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
     const component = await mount(
       <OnyxNavBar appName="App with a very long truncated name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-        <OnyxNavButton href="#1" label={longLabel} active />
-        <OnyxNavButton href="#2" label="Other item" />
+        <OnyxNavButton link="#1" label={longLabel} active />
+        <OnyxNavButton link="#2" label="Other item" />
         <template v-slot:mobileActivePage>{longLabel}</template>
 
         {showContext && (
