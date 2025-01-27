@@ -15,7 +15,6 @@
     "stylelint": "stylelint \"src/.vitepress/dist/**/*.css\""
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
@@ -26,7 +25,7 @@
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
-    "vitepress": "^1.6.1",
+    "vitepress": "^1.6.3",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2"
   },
