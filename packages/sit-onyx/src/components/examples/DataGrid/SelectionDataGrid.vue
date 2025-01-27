@@ -33,5 +33,5 @@ const withSelection = DataGridFeatures.useSelection<TEntry>({ selectionState });
 </script>
 
 <template>
-  <OnyxDataGrid :columns="['id', 'rank', 'birthday']" :data="data" :features="[withSelection]" />
+  <OnyxDataGrid :columns="['name', 'rank', 'birthday']" :data="data" :features="[withSelection]" />
 </template>
