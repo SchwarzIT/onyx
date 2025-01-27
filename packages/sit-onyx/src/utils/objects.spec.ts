@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { allEntries, areObjectsFlatEqual, groupByKey } from "./objects";
+import { allObjectEntries, areObjectsFlatEqual, groupByKey } from "./objects";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 
@@ -56,7 +56,7 @@ describe("groupByKey", () => {
   });
 });
 
-describe("allEntries", () => {
+describe("allObjectEntries", () => {
   const TEST_SYMBOL = Symbol();
 
   test.each([
@@ -100,7 +100,7 @@ describe("allEntries", () => {
     },
   ])("should return correct entries for $label", ({ target, expected }) => {
     // ACT
-    const result = allEntries(target);
+    const result = allObjectEntries(target);
 
     // ASSERT
     expect(result).toMatchObject(expected);
@@ -108,7 +108,7 @@ describe("allEntries", () => {
 
   test("should not copy and keep references", () => {
     // ACT
-    const [result] = allEntries({ a: referenceObj });
+    const [result] = allObjectEntries({ a: referenceObj });
 
     // ASSERT
     expect(result).toMatchObject(["a", referenceObj]);
