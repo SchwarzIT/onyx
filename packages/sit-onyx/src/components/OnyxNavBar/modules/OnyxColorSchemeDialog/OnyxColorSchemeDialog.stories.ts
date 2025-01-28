@@ -24,15 +24,11 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
 
           watch(
             () => args.open,
-            (newOpen) => {
-              isOpen.value = !!newOpen;
-            },
+            (newOpen) => (isOpen.value = !!newOpen),
             { immediate: true },
           );
 
-          watchEffect(() => {
-            updateArgs({ open: isOpen.value });
-          });
+          watchEffect(() => updateArgs({ open: isOpen.value }));
           return { isOpen };
         },
         template: `<div>

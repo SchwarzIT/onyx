@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h, ref, watchEffect } from "vue";
+import { useArgs } from "storybook/internal/preview-api";
+import { h, ref, watch, watchEffect } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxModalDialog from "./OnyxModalDialog.vue";
+import type { OnyxModalDialogProps } from "./types";
 
 /**
  * The modal dialog is used to provide information to the user while interaction with the rest of the page is prevented and a backdrop is displayed.
@@ -38,19 +40,28 @@ export const Default = {
     ),
   },
   decorators: [
-    (story, ctx) => ({
-      components: { story, OnyxButton },
-      setup: () => {
-        const isOpen = ref(false);
-        watchEffect(() => {
-          ctx.args.open = isOpen.value;
-        });
-        return { isOpen };
-      },
-      template: `<div>
-        <OnyxButton label="Show modal" @click="isOpen = true" />
-        <story :open="isOpen" @close="isOpen = false;" />
-      </div>`,
-    }),
+    (story) => {
+      const [args, updateArgs] = useArgs<OnyxModalDialogProps>();
+
+      return {
+        components: { story, OnyxButton },
+        setup: () => {
+          const isOpen = ref(false);
+
+          watch(
+            () => args.open,
+            (newOpen) => (isOpen.value = !!newOpen),
+            { immediate: true },
+          );
+
+          watchEffect(() => updateArgs({ open: isOpen.value }));
+          return { isOpen };
+        },
+        template: `<div>
+          <OnyxButton label="Show modal" @click="isOpen = true" />
+          <story :open="isOpen" @close="isOpen = false;" />
+        </div>`,
+      };
+    },
   ],
 } satisfies Story;
