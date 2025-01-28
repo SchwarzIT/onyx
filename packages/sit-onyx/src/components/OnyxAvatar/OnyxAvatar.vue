@@ -1,29 +1,32 @@
 <script lang="ts" setup>
+import user from "@sit-onyx/icons/user.svg?raw";
 import { computed, ref, watch } from "vue";
+import { injectI18n } from "../../i18n";
+import { getInitials } from "../../utils/strings";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxAvatarProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   size: "48px",
 });
 
-const slots = defineSlots<{
-  /**
-   * Optional slot to override the default initials. Will only be used if `type` is `initials`.
-   */
-  default?(): unknown;
-}>();
+const { locale, t } = injectI18n();
 
-const initials = computed(() => {
-  const names = props.label.split(" ");
-  const initials =
-    names.length > 1 ? `${names[0].charAt(0)}${names[1].charAt(0)}` : names[0].substring(0, 2);
-  return initials.toUpperCase();
+const username = computed(() => {
+  if (typeof props.fullName === "object") return props.fullName;
+  return { name: props.fullName, locale: locale.value };
 });
 
-const hasImageError = ref(false);
+const initials = computed(() => {
+  if (props.initials) return props.initials;
+  return getInitials(username.value.name, username.value.locale);
+});
 
-// reset image error if image changes
+const ariaLabel = computed(() => t.value("avatar.ariaLabel", { fullName: username.value.name }));
+
+const hasImageError = ref(false);
 watch(
+  // reset image error if image changes
   () => props.src,
   () => (hasImageError.value = false),
 );
@@ -31,21 +34,27 @@ watch(
 
 <template>
   <figure
-    class="onyx-component onyx-avatar"
-    :class="[`onyx-avatar--${props.size}`, slots.default ? 'onyx-avatar--custom' : '']"
-    :title="props.label"
+    :class="[
+      'onyx-component',
+      'onyx-avatar',
+      `onyx-avatar--${props.size}`,
+      props.initials ? 'onyx-avatar--custom' : '',
+    ]"
+    :title="ariaLabel"
+    :aria-label="ariaLabel"
   >
     <img
       v-if="props.src && !hasImageError"
-      class="onyx-avatar__svg"
+      class="onyx-avatar__image"
       :src="props.src"
-      :alt="props.label"
+      :alt="ariaLabel"
       @error="hasImageError = true"
     />
 
-    <div v-else class="onyx-avatar__initials">
-      <slot>{{ initials }}</slot>
-    </div>
+    <template v-else>
+      <div v-if="initials" class="onyx-avatar__initials">{{ initials }}</div>
+      <OnyxIcon v-else :icon="user" class="onyx-avatar__icon" />
+    </template>
   </figure>
 </template>
 
@@ -59,10 +68,17 @@ watch(
     height: var(--onyx-avatar-size);
     min-width: var(--onyx-avatar-size);
     border-radius: var(--onyx-radius-full);
+    background-color: var(--onyx-color-base-primary-200);
+    display: block;
 
-    &:has(.onyx-avatar__initials) {
-      background-color: var(--onyx-color-base-primary-200);
-    }
+    color: var(--onyx-color-text-icons-primary-bold);
+    font-family: var(--onyx-font-family);
+    line-height: normal;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &--custom {
       --onyx-avatar-padding: var(--onyx-spacing-sm);
@@ -70,26 +86,15 @@ watch(
       padding: var(--onyx-avatar-padding);
     }
 
-    &__svg {
+    &__image {
       border-radius: inherit;
       height: 100%;
       width: 100%;
-      background-color: var(--onyx-color-base-neutral-100);
       object-fit: cover;
     }
 
-    &__initials {
-      color: var(--onyx-color-text-icons-primary-bold);
-      font-family: var(--onyx-font-family);
-      line-height: normal;
-      font-weight: 600;
-      height: 100%;
-      width: 100%;
-      border-radius: inherit;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    &__icon {
+      --icon-size: 1em;
     }
 
     @include sizes.define-rem-sizes using ($name, $size) {

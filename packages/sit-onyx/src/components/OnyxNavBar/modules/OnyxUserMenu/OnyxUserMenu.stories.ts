@@ -34,7 +34,7 @@ type Story = StoryObj<typeof OnyxUserMenu>;
  */
 export const Default = {
   args: {
-    username: "Jane Doe",
+    fullName: "Jane Doe",
     description: "Company Name",
     default: () => [
       h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
@@ -50,7 +50,7 @@ export const Default = {
  */
 export const WithMinimalData = {
   args: {
-    username: "Jane Doe",
+    fullName: "Jane Doe",
     default: Default.args.default,
   },
 } satisfies Story;

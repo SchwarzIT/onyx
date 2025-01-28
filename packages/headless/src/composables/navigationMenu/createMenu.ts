@@ -19,7 +19,7 @@ export const createNavigationMenu = createBuilder(({ navigationName }: CreateNav
   const getMenuButtons = () => {
     const nav = navId ? document.getElementById(navId) : undefined;
     if (!nav) return [];
-    return [...nav.querySelectorAll<HTMLElement>("button[aria-expanded][aria-controls]")];
+    return Array.from(nav.querySelectorAll<HTMLElement>("button[aria-expanded][aria-controls]"));
   };
 
   const focusRelative = (trigger: HTMLElement, next: "next" | "previous") => {

@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { normalizedIncludes, normalizeUrlHash } from "./strings";
+import { getInitials, normalizedIncludes, normalizeUrlHash } from "./strings";
 
 test.each([
   // ARRANGE
@@ -39,4 +39,23 @@ test.each([
 
   // ASSERT
   expect(result).toBe(expected);
+});
+
+test.each([
+  // ARRANGE
+  { username: "john", expected: "JO" },
+  { username: "john doe", expected: "JD" },
+  { username: "john middlename doe", expected: "JD" },
+  { username: "john middlename doe", expected: "JD" },
+  { username: "j", expected: "J" },
+  { username: "john 吾 doe", expected: undefined },
+  { username: "", expected: undefined },
+  { username: "    ", expected: undefined },
+  { username: "  john doe  ", expected: "JD" },
+])("should get initials $expected from user name $username", ({ username, expected }) => {
+  // ACT
+  const initials = getInitials(username, "en-US");
+
+  // ASSERT
+  expect(initials).toBe(expected);
 });

@@ -69,7 +69,7 @@ test.describe("Screenshot tests", () => {
 
           {row.includes("context") && (
             <template v-slot:contextArea>
-              <OnyxUserMenu username="John Doe" />
+              <OnyxUserMenu fullName="John Doe" />
             </template>
           )}
         </OnyxNavBar>
@@ -130,7 +130,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
         <OnyxIconButton label="Notification center" icon={mockPlaywrightIcon} color="neutral" />
         <OnyxTag icon={mockPlaywrightIcon} color="warning" label="QA stage" />
 
-        <OnyxUserMenu username="John Doe" description="Company name">
+        <OnyxUserMenu fullName="John Doe" description="Company name">
           <OnyxMenuItem>
             <OnyxIcon icon={mockPlaywrightIcon} />
             Settings
@@ -289,7 +289,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
           <template v-slot:mobileActivePage>Item</template>
 
           <template v-slot:contextArea>
-            <OnyxUserMenu username="John Doe" />
+            <OnyxUserMenu fullName="John Doe" />
           </template>
         </OnyxNavBar>
 

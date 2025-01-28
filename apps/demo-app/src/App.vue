@@ -76,7 +76,7 @@ watch(
         />
 
         <template #contextArea>
-          <OnyxUserMenu username="John Doe">
+          <OnyxUserMenu full-name="John Doe">
             <OnyxColorSchemeMenuItem v-model="colorScheme" />
 
             <OnyxMenuItem color="danger">

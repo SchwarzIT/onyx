@@ -18,7 +18,7 @@ import settings from "@sit-onyx/icons/settings.svg?raw";
     </OnyxNavButton>
 
     <template #contextArea>
-      <OnyxUserMenu description="Company Name" username="Jane Doe">
+      <OnyxUserMenu description="Company Name" full-name="Jane Doe">
         <OnyxMenuItem>
           <OnyxIcon :icon="settings" />
           Settings

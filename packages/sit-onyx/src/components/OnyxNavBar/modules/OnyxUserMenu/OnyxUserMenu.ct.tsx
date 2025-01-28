@@ -26,7 +26,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxUserMenu
-        username="Jane Doe"
+        fullName="Jane Doe"
         description={column === "description" ? "Company name" : undefined}
       >
         {options}
@@ -55,7 +55,7 @@ test.describe("Screenshot tests", () => {
 
 test("should behave correctly", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(<OnyxUserMenu username="Jane Doe">{options}</OnyxUserMenu>);
+  const component = await mount(<OnyxUserMenu fullName="Jane Doe">{options}</OnyxUserMenu>);
   const menu = component.getByLabel("User options");
   const button = component.getByRole("button", { name: "Jane Doe" });
   // ASSERT

@@ -177,7 +177,7 @@ const currentBreakpoint = computed(() => {
       <div>
         <OnyxNavBar app-name="Demo App">
           <template #contextArea>
-            <OnyxUserMenu username="Jane Doe" description="Example user">
+            <OnyxUserMenu full-name="Jane Doe" description="Example user">
               <OnyxMenuItem>
                 <OnyxIcon :icon="settings" />
                 Settings
