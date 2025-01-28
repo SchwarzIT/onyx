@@ -65,7 +65,7 @@ const tab = computed(() =>
        we need a separated HTML structure where the tab and the panel must not be nested.
        The <Teleport> will allow us to achieve this by moving the panel content to the `OnyxTabs` component.
      -->
-  <Teleport :to="tabsContext?.panelRef.value" :disabled="!tabsContext?.panelRef.value" defer>
+  <Teleport :to="tabsContext?.panel.value" :disabled="!tabsContext?.panel.value" defer>
     <div
       v-if="tab?.['aria-selected']"
       v-bind="tabsContext?.headless.elements.tabpanel.value({ value: props.value })"
