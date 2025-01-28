@@ -25,7 +25,7 @@ const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
 
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return props.avatar;
-  return { src: props.avatar, username: props.username };
+  return { src: props.avatar, fullName: props.fullName };
 });
 
 const isMobile = inject(
@@ -44,7 +44,7 @@ const isMobile = inject(
     <template #button="{ trigger }">
       <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
         <OnyxAvatar v-bind="avatar" size="24px" />
-        <span class="onyx-truncation-ellipsis"> {{ props.username }}</span>
+        <span class="onyx-truncation-ellipsis"> {{ props.fullName }}</span>
       </button>
     </template>
 
@@ -54,7 +54,7 @@ const isMobile = inject(
 
         <div class="onyx-truncation-ellipsis">
           <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
-            {{ props.username }}
+            {{ props.fullName }}
           </div>
           <div
             v-if="props.description"

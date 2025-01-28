@@ -2,16 +2,18 @@ import type { IconSize, IconSizeProp } from "../OnyxIcon/types";
 
 export type OnyxAvatarProps = IconSizeProp<Exclude<IconSize, "12px">> & {
   /**
-   * Username. Will determine the displayed initials.
+   * Full user name. Will determine the displayed initials.
+   *
+   * @example "John Doe"
    */
-  username: DisplayName;
+  fullName: DisplayName;
   /**
    * Image URL to show. If unset or an error occurs while loading, a fallback will be displayed
    * with the initials.
    */
   src?: string;
   /**
-   * Initials to use. If unset, they will be inferred automatically from the `username` property.
+   * Initials to use. If unset, they will be inferred automatically from the `fullName` property.
    */
   initials?: string;
 };

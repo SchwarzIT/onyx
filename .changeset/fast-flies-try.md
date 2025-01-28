@@ -12,5 +12,8 @@ Example for "John Middlename Doe":
 - Previously: "JM"
 - Now: "JD"
 
-The `label` property has been removed in favor of `username` which now als supports passing a locale for determining the initials (will use the i18n locale by default).
-The default slot has been removed in favor of the `initials` property to set custom initials.
+#### Breaking changes
+
+- OnyxAvatar: The `label` property has been removed in favor of `fullName` which now als supports passing a locale for determining the initials (will use the i18n locale by default).
+- OnyxAvatar: The default slot has been removed in favor of the `initials` property to set custom initials.
+- OnyxUsername: The `username` property has been renamed to `fullName` to align with the OnyxAvatar

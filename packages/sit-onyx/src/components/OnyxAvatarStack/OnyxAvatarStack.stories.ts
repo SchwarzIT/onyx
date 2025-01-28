@@ -24,7 +24,7 @@ export const Default = {
   args: {
     default: () =>
       Array.from({ length: 6 }, (_, index) => {
-        return h(OnyxAvatar, { username: `John Doe ${index + 1}` });
+        return h(OnyxAvatar, { fullName: `John Doe ${index + 1}` });
       }),
   },
 } satisfies Story;
@@ -36,9 +36,9 @@ export const LimitedCount = {
   args: {
     default: () => [
       ...Array.from({ length: 15 }, (_, index) => {
-        return h(OnyxAvatar, { username: `John Doe ${index + 1}` });
+        return h(OnyxAvatar, { fullName: `John Doe ${index + 1}` });
       }),
-      h(OnyxAvatar, { username: "42 more avatars" }, () => "+42"),
+      h(OnyxAvatar, { fullName: "42 more avatars" }, () => "+42"),
     ],
   },
 } satisfies Story;

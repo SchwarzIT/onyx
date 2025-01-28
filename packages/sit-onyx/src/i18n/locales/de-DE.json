@@ -153,6 +153,6 @@
     "copyLinkTo": "Link kopieren zu Überschrift:"
   },
   "avatar": {
-    "ariaLabel": "Avatar von {username}"
+    "ariaLabel": "Avatar von {fullName}"
   }
 }

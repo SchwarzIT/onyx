@@ -17,7 +17,7 @@ type Story = StoryObj<typeof OnyxAvatar>;
  */
 export const Default = {
   args: {
-    username: "John Middlename Doe",
+    fullName: "John Middlename Doe",
   },
 } satisfies Story;
 
@@ -27,7 +27,7 @@ export const Default = {
  */
 export const WithImage = {
   args: {
-    username: "onyx logo",
+    fullName: "onyx logo",
     src: "https://onyx.schwarz/favicon.svg",
   },
 } satisfies Story;
@@ -37,7 +37,7 @@ export const WithImage = {
  */
 export const WithCustomInitials = {
   args: {
-    username: "4 more avatars",
+    fullName: "4 more avatars",
     initials: "+4",
   },
 } satisfies Story;

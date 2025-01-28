@@ -63,7 +63,7 @@ useThemeTransition(colorScheme);
 <template>
   <OnyxNavBar app-name="Example app">
     <template #contextArea>
-      <OnyxUserMenu username="John Doe">
+      <OnyxUserMenu full-name="John Doe">
         <OnyxColorSchemeMenuItem v-model="colorScheme" />
       </OnyxUserMenu>
     </template>

@@ -13,8 +13,8 @@ const props = withDefaults(defineProps<OnyxAvatarProps>(), {
 const { locale, t } = injectI18n();
 
 const username = computed(() => {
-  if (typeof props.username === "object") return props.username;
-  return { name: props.username, locale: locale.value };
+  if (typeof props.fullName === "object") return props.fullName;
+  return { name: props.fullName, locale: locale.value };
 });
 
 const initials = computed(() => {
@@ -22,7 +22,7 @@ const initials = computed(() => {
   return getInitials(username.value.name, username.value.locale);
 });
 
-const ariaLabel = computed(() => t.value("avatar.ariaLabel", { username: username.value.name }));
+const ariaLabel = computed(() => t.value("avatar.ariaLabel", { fullName: username.value.name }));
 
 const hasImageError = ref(false);
 watch(
