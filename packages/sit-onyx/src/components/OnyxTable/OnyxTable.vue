@@ -27,6 +27,23 @@ const slots = defineSlots<{
    * If unset, a default translated message will be displayed for the current locale.
    */
   empty?(props: { defaultMessage: string }): unknown;
+  /**
+   * Optional slot for showing a headline above the table (top left). See OnyxHeadline component.
+   */
+  headline?(): unknown;
+  /**
+   * Optional slot for showing table actions above the table (top right). See OnyxIconButton and OnyxButton component.
+   */
+  actions?(): unknown;
+  /**
+   * Optional slot for displaying a pagination below the table (bottom right). See OnyxPagination component.
+   */
+  pagination?(): unknown;
+  /**
+   * Optional slot for displaying additional information below the table (bottom left).
+   * Useful for showing a legend, page size selection etc.
+   */
+  bottomRight?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -38,6 +55,16 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 
 <template>
   <div class="onyx-table-wrapper onyx-component">
+    <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
+      <div>
+        <slot name="headline"></slot>
+      </div>
+
+      <div class="onyx-table-wrapper__actions">
+        <slot name="actions"></slot>
+      </div>
+    </div>
+
     <div
       :class="{ 'onyx-table-wrapper__scroll-container': !props.withPageScrolling }"
       :tabindex="props.withPageScrolling ? undefined : 0"
@@ -88,6 +115,16 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
           </slot>
         </tbody>
       </table>
+    </div>
+
+    <div v-if="!!slots.bottomRight || !!slots.pagination" class="onyx-table-wrapper__bottom">
+      <div>
+        <slot name="bottomRight"></slot>
+      </div>
+
+      <div>
+        <slot name="pagination"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -169,7 +206,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
 .onyx-table-wrapper {
   @include layers.component() {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-xs);
+    font-family: var(--onyx-font-family);
+    color: var(--onyx-color-text-icons-neutral-intense);
 
     &__scroll-container {
       border-radius: $border-radius;
@@ -178,31 +219,47 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       max-height: inherit;
       max-width: inherit;
       overscroll-behavior: none; // fix bouncy scroll behavior in safari
+      position: relative;
 
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
       }
+
+      // we place a frame on top so the table has visible boundaries
+      // when it is overflowing in the scroll container
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: $border;
+        border-radius: $border-radius;
+        pointer-events: none;
+      }
     }
-    // we place a frame on top so the table has visible boundaries
-    // when it is overflowing in the scroll container
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border: $border;
-      border-radius: $border-radius;
-      pointer-events: none;
+
+    &__top,
+    &__bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-density-xl);
+    }
+
+    &__actions {
+      gap: var(--onyx-density-xs);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
     }
   }
 }
 
 .onyx-table {
   @include layers.component() {
-    font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-intense);
     text-align: left;
     contain: paint;
     width: 100%;
