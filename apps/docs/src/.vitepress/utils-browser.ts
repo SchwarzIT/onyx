@@ -1,4 +1,4 @@
-import { onMounted, ref, unref, watchEffect, type MaybeRef, type Ref } from "vue";
+import { onMounted, ref, unref, watchEffect, type MaybeRef, type Ref, type ShallowRef } from "vue";
 
 export type UseCssVariableValueOptions = {
   /**
@@ -10,7 +10,7 @@ export type UseCssVariableValueOptions = {
    *
    * @default document.documentElement
    */
-  element?: Ref<HTMLElement | undefined>;
+  element?: Readonly<ShallowRef<HTMLDivElement | null>>;
   /**
    * If `true`, the value will not be calculated.
    */

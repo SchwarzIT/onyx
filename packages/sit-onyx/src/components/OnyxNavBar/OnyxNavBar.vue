@@ -4,7 +4,7 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, provide, ref, toRef } from "vue";
+import { computed, provide, ref, toRef, useTemplateRef } from "vue";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -55,8 +55,8 @@ const slots = defineSlots<{
   mobileActivePage?: () => unknown;
 }>();
 
-const navBarRef = ref<HTMLElement>();
-const { width } = useResizeObserver(navBarRef);
+const navBar = useTemplateRef("navBarRef");
+const { width } = useResizeObserver(navBar);
 const { t } = injectI18n();
 
 const {
@@ -85,9 +85,9 @@ defineExpose({
    *
    * ```ts
    * const route = useRoute();
-   * const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
+   * const navBar = ref<ComponentInstance<typeof OnyxNavBar>>();
    *
-   * watch(() => route.path, () => navBarRef.value?.closeMobileMenus());
+   * watch(() => route.path, () => navBar.value?.closeMobileMenus());
    * ```
    */
   closeMobileMenus: () => {

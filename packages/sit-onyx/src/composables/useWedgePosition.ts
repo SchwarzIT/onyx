@@ -1,11 +1,11 @@
-import { ref, unref, type MaybeRef } from "vue";
+import { ref, unref, type ShallowRef } from "vue";
 import { findParentWithHiddenOverflow } from "./useOpenDirection";
 
 export type WedgePosition = "center" | "left" | "right";
 
 export const useWedgePosition = (
-  element: MaybeRef<Element | undefined>,
-  tooltipElement: MaybeRef<Element | undefined>,
+  element: Readonly<ShallowRef<HTMLDivElement | null>>,
+  tooltipElement: Readonly<ShallowRef<HTMLDivElement | null>>,
 ) => {
   const minMargin = 16;
   const wedgePosition = ref<WedgePosition>("center");

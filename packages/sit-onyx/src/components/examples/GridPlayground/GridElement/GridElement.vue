@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import type { GridElementConfig } from "../EditGridElementDialog/EditGridElementDialog.vue";
 
@@ -34,14 +34,14 @@ const gridClasses = computed(() => {
   ];
 });
 
-const buttonRef = ref<HTMLButtonElement>();
+const button = useTemplateRef("buttonRef");
 const gridSpan = ref(1);
-const size = useResizeObserver(buttonRef);
+const size = useResizeObserver(button);
 
 watch(size.width, () => {
-  if (!buttonRef.value) return;
+  if (!button.value) return;
   gridSpan.value = Number.parseInt(
-    getComputedStyle(buttonRef.value).gridColumnEnd.replace("span", "").trim(),
+    getComputedStyle(button.value).gridColumnEnd.replace("span", "").trim(),
   );
 });
 </script>

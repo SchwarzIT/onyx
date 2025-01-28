@@ -1,7 +1,19 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
-import type { AriaAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
-import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  ref,
+  shallowRef,
+  toValue,
+  useTemplateRef,
+  watch,
+  type AriaAttributes,
+  type MaybeRefOrGetter,
+  type Ref,
+  type VNode,
+} from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useWedgePosition } from "../../composables/useWedgePosition";
@@ -62,6 +74,7 @@ const tooltipOptions = computed<CreateTooltipOptions>(() => ({
   ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
   isVisible,
 }));
+
 const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   toggleLabel: t.value(`tooltip.${props.color}`),
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
@@ -99,10 +112,10 @@ watch(type, () => (ariaPattern.value = createPattern()));
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
 
-const tooltipWrapperRef = ref<HTMLElement>();
-const tooltipRef = ref<HTMLElement>();
-const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
-const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
+const tooltipWrapper = useTemplateRef("tooltipWrapperRef");
+const tooltipRef = useTemplateRef("tooltipRef");
+const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapper, "top");
+const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapper, tooltipRef);
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {

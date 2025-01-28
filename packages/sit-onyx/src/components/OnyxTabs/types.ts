@@ -1,5 +1,5 @@
 import type { createTabs } from "@sit-onyx/headless";
-import type { InjectionKey, Ref } from "vue";
+import type { InjectionKey, Ref, ShallowRef } from "vue";
 import type { DensityProp } from "../../composables/density";
 import type { SkeletonProvidedProp } from "../../composables/useSkeletonState";
 import type { HeadlineType } from "../OnyxHeadline/types";
@@ -34,7 +34,7 @@ export type TabsInjectionKey<TValue extends PropertyKey = PropertyKey> = Injecti
    * Ref to the parent tabs element where the child tabs should be teleported to
    * to maintain the correct HTML structure.
    */
-  panelRef: Ref<HTMLElement | undefined>;
+  panel: Readonly<ShallowRef<HTMLDivElement | null>>;
   /**
    * Tab size passed down from the parent so it can be set once for all tabs.
    */

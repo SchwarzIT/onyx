@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, toRef } from "vue";
+import { ref, toRef, useTemplateRef } from "vue";
 import { useCssVariableValue } from "../utils-browser";
 import DesignVariable from "./DesignVariable.vue";
 
@@ -23,12 +23,12 @@ defineSlots<{
   name?(): unknown;
 }>();
 
-const wrapperRef = ref<HTMLElement>();
+const wrapper = useTemplateRef("wrapperRef");
 const isCopied = ref(false);
 
 const { value } = useCssVariableValue({
   name: toRef(props, "name"),
-  element: wrapperRef,
+  element: wrapper,
   disabled: toRef(props, "hideValue"),
 });
 

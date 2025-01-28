@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { type FormMessages, getFormMessageText } from "../../composables/useCustomValidity";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
@@ -23,7 +23,7 @@ defineSlots<{
 
 const tooltipError = computed(() => getFormMessageText(props.errorMessages));
 
-const targetRef = ref<HTMLDivElement>();
+const target = useTemplateRef("targetRef");
 </script>
 
 <template>
@@ -48,7 +48,7 @@ const targetRef = ref<HTMLDivElement>();
       sends the given component to the desired target without destroying the component
       the "v-if" is needed to support server side rendering
     -->
-    <Teleport v-if="targetRef" :to="targetRef" defer>
+    <Teleport v-if="target" :to="target" defer>
       <slot></slot>
     </Teleport>
   </div>

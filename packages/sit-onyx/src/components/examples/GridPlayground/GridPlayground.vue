@@ -3,7 +3,7 @@ import edit from "@sit-onyx/icons/edit.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
-import { computed, nextTick, ref, shallowRef, watch } from "vue";
+import { computed, nextTick, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
@@ -37,7 +37,7 @@ const gridElements = ref<GridElementConfig[]>([]);
 const isAddDialogOpen = ref(false);
 const gridElementIndexToEdit = ref<number>();
 
-const gridRef = ref<HTMLElement>();
+const grid = useTemplateRef("gridRef");
 
 const gridValues = ref<{
   margin: string;
@@ -46,12 +46,12 @@ const gridValues = ref<{
 }>();
 
 watch(
-  [viewportSize.width, gridRef, gridSettings],
+  [viewportSize.width, grid, gridSettings],
   async () => {
-    if (!gridRef.value) return;
+    if (!grid.value) return;
 
     await nextTick();
-    const style = getComputedStyle(gridRef.value);
+    const style = getComputedStyle(grid.value);
 
     gridValues.value = {
       margin:
