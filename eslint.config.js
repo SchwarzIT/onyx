@@ -38,7 +38,7 @@ const generalVueTsConfig = {
     ],
     "vue/require-default-prop": "off",
     // we want to provide the flexibility to have the autofocus property.
-    // whe JSDoc description includes a warning that it should be used carefully.
+    // the JSDoc description includes a warning that it should be used carefully.
     "vuejs-accessibility/no-autofocus": "off",
     // irrelevant rule for vue 3, as it allows multiple root elements
     "vue/no-multiple-template-root": "off",
@@ -97,6 +97,7 @@ const generalVueTsConfig = {
       },
     ],
     "vue/camelcase": "error",
+    "vue/prefer-use-template-ref": "error",
   },
 };
 
