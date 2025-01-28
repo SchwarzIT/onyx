@@ -1,5 +1,9 @@
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxPagination from "../OnyxPagination/OnyxPagination.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 /**
@@ -12,6 +16,10 @@ const meta: Meta<typeof OnyxTable> = {
     default: { control: { disable: true } },
     head: { control: { disable: true } },
     empty: { control: { disable: true } },
+    headline: { control: { disable: true } },
+    actions: { control: { disable: true } },
+    pagination: { control: { disable: true } },
+    bottomRight: { control: { disable: true } },
   },
 };
 
@@ -60,6 +68,30 @@ export const VerticalBorders = {
   args: {
     ...Default.args,
     withVerticalBorders: true,
+  },
+} satisfies Story;
+
+export const WithSlots = {
+  args: {
+    ...Default.args,
+    headline: h(OnyxHeadline, { is: "h3" }, [
+      "All items ",
+      h(
+        "span",
+        { style: "color: var(--onyx-color-text-icons-neutral-soft)" },
+        `(${Default.args.default().length})`,
+      ),
+    ]),
+    actions: [
+      h(OnyxIconButton, { icon: placeholder, label: "Example action" }),
+      h(OnyxIconButton, { icon: placeholder, label: "Example action" }),
+    ],
+    pagination: h(OnyxPagination, { modelValue: 1, pages: 42 }),
+    bottomRight: h(
+      "span",
+      { style: "color: var(--onyx-color-text-icons-neutral-soft)" },
+      "Custom content...",
+    ),
   },
 } satisfies Story;
 
