@@ -11,6 +11,11 @@ const MOCK_CUSTOM_IMAGE =
 
 const MOCK_IMAGE_URL = "/custom-image.svg" as const;
 
+/**
+ * @see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#examples
+ */
+const UNSUPPORTED_USERNAME_EXAMPLE = "吾輩は猫である。名前はたぬき。";
+
 test.beforeEach(async ({ page }) => {
   await page.route(MOCK_IMAGE_URL, (route) => {
     return route.fulfill({ body: MOCK_CUSTOM_IMAGE, contentType: "image/svg+xml" });
@@ -22,18 +27,20 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Avatar",
-    columns: ["default", "custom"],
+    columns: ["default", "custom", "unsupported-characters"],
     rows: AVATAR_SIZES,
     component: (column, row) => (
       <OnyxAvatar
-        label="John Doe"
+        fullName={column === "unsupported-characters" ? UNSUPPORTED_USERNAME_EXAMPLE : "John Doe"}
         size={row}
         src={column === "custom" ? MOCK_IMAGE_URL : undefined}
       />
     ),
     hooks: {
-      beforeEach: async (component) => {
-        await expect(component.getByTitle("John Doe")).toBeVisible();
+      beforeEach: async (component, page, column) => {
+        const username =
+          column === "unsupported-characters" ? UNSUPPORTED_USERNAME_EXAMPLE : "John Doe";
+        await expect(component.getByLabel(`Avatar of ${username}`)).toBeVisible();
       },
     },
   });
@@ -43,9 +50,11 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "truncation"],
     rows: AVATAR_SIZES,
     component: (column, row) => (
-      <OnyxAvatar label="Custom content" size={row}>
-        {column === "truncation" ? "+999999" : "+42"}
-      </OnyxAvatar>
+      <OnyxAvatar
+        fullName="Custom content"
+        size={row}
+        initials={column === "truncation" ? "+999999" : "+42"}
+      />
     ),
   });
 });
@@ -54,53 +63,58 @@ test("should contain correct initials", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxAvatar, {
     props: {
-      label: "A B C D",
+      fullName: "A B C D",
     },
   });
 
   // ASSERT
-  await expect(component).toContainText("AB");
+  await expect(component).toContainText("AD");
 
   // ACT
-  await component.update({ props: { label: "abcd" } });
+  await component.update({ props: { fullName: "abcd" } });
 
   // ASSERT
   await expect(component).toContainText("AB");
 
   // ACT
-  await component.update({ props: { label: "a" } });
+  await component.update({ props: { fullName: "a" } });
 
   // ASSERT
   await expect(component).toContainText("A");
+
+  // ACT
+  await component.update({ props: { fullName: "abcd", initials: "HI" } });
+
+  // ASSERT
+  await expect(component).toContainText("HI");
 });
 
 test("should show custom image", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(OnyxAvatar, {
     props: {
-      label: "Custom image",
+      fullName: "Custom image",
       src: MOCK_IMAGE_URL,
     },
   });
 
+  const initials = component.getByText("CI");
+
   // ASSERT
-  await expect(component).not.toContainText("CI");
-  await expect(component.getByAltText("Custom image")).toBeVisible();
+  await expect(initials).toBeHidden();
 
   // ARRANGE (should display fallback if image error occurs)
-  await page.route("https:/does-not-exist", (route) => route.fulfill({ status: 404 }));
+  await page.route("https://does-not-exist", (route) => route.fulfill({ status: 404 }));
 
   // ACT
   await component.update({ props: { src: "https://does-not-exist" } });
 
   // ASSERT
-  await expect(component.getByAltText("Custom image")).toBeHidden();
-  await expect(component).toContainText("CI");
+  await expect(initials).toBeVisible();
 
   // ACT (should reset error if image is changed)
   await component.update({ props: { src: MOCK_IMAGE_URL } });
 
   // ASSERT
-  await expect(component).not.toContainText("CI");
-  await expect(component.getByAltText("Custom image")).toBeVisible();
+  await expect(initials).toBeHidden();
 });

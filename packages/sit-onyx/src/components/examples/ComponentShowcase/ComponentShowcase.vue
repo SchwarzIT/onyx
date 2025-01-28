@@ -202,11 +202,11 @@ const teamMembers = [
           <OnyxAvatar
             v-for="member in teamMembers"
             :key="member.name"
-            :label="member.name"
+            :full-name="member.name"
             :src="member.avatar"
             size="32px"
           />
-          <OnyxAvatar label="+3" size="32px" />
+          <OnyxAvatar full-name="+3" size="32px" />
         </OnyxAvatarStack>
 
         <OnyxRadioGroup
@@ -249,7 +249,7 @@ const teamMembers = [
         <OnyxNavButton label="Page 3" href="https://onyx.schwarz" />
 
         <template #contextArea>
-          <OnyxUserMenu description="Company Name" username="Jane Doe">
+          <OnyxUserMenu description="Company Name" full-name="Jane Doe">
             <OnyxMenuItem>
               <OnyxIcon :icon="settings" />
               Settings
