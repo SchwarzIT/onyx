@@ -1,7 +1,6 @@
 ---
 date: 2024-01-29
 image: https://picsum.photos/256/128?random=1
-category: Example category
 ---
 
 # Example post
