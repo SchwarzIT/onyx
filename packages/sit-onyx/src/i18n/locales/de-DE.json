@@ -6,12 +6,6 @@
   "close": "Schließen",
   "dataGrid": {
     "head": {
-      "selection": {
-        "selectAll": "Alle Zeilen auswählen",
-        "deselectAll": "Alle Zeilen abwählen",
-        "select": "Hinzufügen der Zeile mit ID '{id}' zu der Auswahl.",
-        "deselect": "Entfernen der Zeile mit ID '{id}' von der Auswahl."
-      },
       "sorting": {
         "action": {
           "asc": "Tabelle aufsteigend nach der Spalte {field} sortieren.",
