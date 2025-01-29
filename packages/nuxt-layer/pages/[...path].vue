@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const route = useRoute();
+definePageMeta({
+  layout: "docs",
+});
 
+const route = useRoute();
 const { data } = await useAsyncData(() => queryCollection("content").path(route.path).first());
 
 useSeoMeta({
