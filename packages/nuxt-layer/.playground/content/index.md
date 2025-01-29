@@ -31,3 +31,10 @@ Here is some content.
 1. Test item
 2. Test item
 3. Test item
+
+::custom-markdown-component{message="Hello World"}
+Slot content that **supports** markdown ~formatting~
+
+#otherSlot
+Other slot content
+::

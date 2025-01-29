@@ -4,8 +4,7 @@ const route = useRoute();
 const { data } = await useAsyncData(() => queryCollection("content").path(route.path).first());
 
 useSeoMeta({
-  title: data.value?.title,
-  description: data.value?.description,
+  ...data.value?.seo,
 });
 </script>
 
