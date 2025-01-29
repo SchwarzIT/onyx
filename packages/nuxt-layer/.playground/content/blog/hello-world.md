@@ -1,7 +1,6 @@
 ---
 date: 2025-01-29
 image: https://picsum.photos/256/128?random=2
-category: Example category
 ---
 
 # Hello World
