@@ -17,6 +17,7 @@
     "@nuxtjs/color-mode": "^3.5.2",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
+    "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
