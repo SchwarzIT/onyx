@@ -2,7 +2,7 @@ import arrowSmallDown from "@sit-onyx/icons/arrow-small-down.svg?raw";
 import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
 import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature, type NormalizedColumnConfig } from "..";
+import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -23,7 +23,6 @@ export const nextSortDirection = (current?: SortDirection): SortDirection => {
 };
 
 export const SORTING_FEATURE = Symbol("Sorting");
-
 export const useSorting = createFeature(
   <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) => {
     const sortState: Ref<SortState<TEntry>> = toRef(
@@ -106,7 +105,7 @@ export const useSorting = createFeature(
         func: sortData,
       },
       header: {
-        actions: ({ key: column }: NormalizedColumnConfig<TEntry, PropertyKey>) => {
+        actions: ({ key: column }) => {
           if (!getSortEnabled.value(column)) return [];
           return [
             {
