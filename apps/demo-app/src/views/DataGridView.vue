@@ -23,6 +23,8 @@ const data = [
   { id: 5, name: "Asperiks Kafelon", age: 99 },
 ];
 
+type Entry = (typeof data)[number];
+
 const dummyFeature = createFeature(() => ({
   name: Symbol("More actions"),
   watch: [],
@@ -51,7 +53,7 @@ const dummyFeature = createFeature(() => ({
 const dataFeatures = computed(() => {
   const enabled = [];
   if (sortingEnabled.value) {
-    enabled.push(DataGridFeatures.useSorting());
+    enabled.push(DataGridFeatures.useSorting<Entry>());
   }
 
   if (moreActions.value) {
