@@ -42,7 +42,7 @@ const { columns, data, features } = toRefs(props);
 /**
  * Function to be able to reset the watcher in case of the features being updated.
  */
-let featureBuilderWatchHandle: WatchHandle | undefined;
+let disposeWatcher: WatchHandle | undefined;
 const createFeatureBuilderWatcher = ({
   createRendererColumns,
   createRendererRows,
@@ -62,8 +62,8 @@ watch(
   features,
   () => {
     const featureBuilder = useDataGridFeatures(features.value, { t, columnConfig: columns });
-    featureBuilderWatchHandle?.();
-    featureBuilderWatchHandle = createFeatureBuilderWatcher(featureBuilder);
+    disposeWatcher?.();
+    disposeWatcher = createFeatureBuilderWatcher(featureBuilder);
   },
   { immediate: true },
 );

@@ -14,17 +14,26 @@ import type {
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
 
+/**
+ * Function type for modifying the normalized column configuration
+ */
 export type ModifyColumns<TEntry extends DataGridEntry> = {
   func: (
     columns: Readonly<NormalizedColumnConfig<TEntry, PropertyKey>[]>,
   ) => NormalizedColumnConfig<TEntry, PropertyKey>[];
 };
 
+/**
+ * Defines how a specific column type should be rendered.
+ */
 export type TypeRenderer<TEntry extends DataGridEntry> = {
   header?: Component;
   cell: DataGridRendererCellComponent<TEntry>;
 };
 
+/**
+ * Maps a "type" key to a column renderer.
+ */
 export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, TypeRenderer<TEntry>>;
 
 /**
@@ -36,12 +45,15 @@ export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes> = {
 };
 
 /**
- * ColumnConfig for the enduser
+ * ColumnConfig as it can be defined by the user.
  */
 export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
   | keyof TEntry
   | NormalizedColumnConfig<TEntry, TTypes>;
 
+/**
+ * Complete Type for a single data grid feature.
+ */
 export type DataGridFeature<
   TEntry extends DataGridEntry,
   TTypeRenderer extends TypeRenderMap<TEntry>,
@@ -70,7 +82,16 @@ export type DataGridFeature<
   typeRenderer?: TTypeRenderer;
 
   /**
-   * Allows modifying of the column configuration.
+   * Allows modification of the normalized column configuration.
+   * While the entries are passed as readonly, but the array itself can be modified.
+   * To change entries, you need to clone them first:
+   *
+   * @example
+   * ```ts
+   * {
+   *   modifyColumns: (config) => configs.map(column => ({ ...column, type: "newType" }));
+   * }
+   * ```
    */
   modifyColumns?: ModifyColumns<TEntry>;
 
