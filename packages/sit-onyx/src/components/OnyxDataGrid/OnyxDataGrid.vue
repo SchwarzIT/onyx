@@ -3,14 +3,14 @@
   lang="ts"
   generic="
     TEntry extends DataGridEntry,
-    TTypeRenderer extends TypeRender<TEntry>,
+    TTypeRenderer extends TypeRenderMap<TEntry>,
     TFeatureName extends symbol,
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | []
   "
 >
 import { ref, toRefs, watch, type Ref, type WatchHandle } from "vue";
 import { injectI18n } from "../../i18n";
-import { useDataGridFeatures, type DataGridFeature, type TypeRender } from "./features";
+import { useDataGridFeatures, type DataGridFeature, type TypeRenderMap } from "./features";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata, OnyxDataGridProps } from "./types";
