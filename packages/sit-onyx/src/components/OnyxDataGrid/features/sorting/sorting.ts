@@ -106,7 +106,7 @@ export const useSorting = createFeature(
         func: sortData,
       },
       header: {
-        actions: ({ key: column }: NormalizedColumnConfig<TEntry>) => {
+        actions: ({ key: column }: NormalizedColumnConfig<TEntry, PropertyKey>) => {
           if (!getSortEnabled.value(column)) return [];
           return [
             {

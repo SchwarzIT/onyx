@@ -39,7 +39,7 @@ export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, Ty
 /**
  * Normalized config for internal usage
  */
-export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes> = {
+export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
   key: keyof TEntry;
   type?: TTypes;
 };
