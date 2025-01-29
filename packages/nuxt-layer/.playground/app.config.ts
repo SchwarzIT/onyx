@@ -1,14 +1,14 @@
 export default defineAppConfig({
   onyxDocs: {
     app: {
-      name: "App name",
-      logo: "https://storybook.onyx.schwarz/onyx-logo.svg",
+      name: "Nuxt template",
+      logo: "/onyx-logo.svg",
     },
     nav: {
       items: [
         { label: "Home", href: "/" },
+        { label: "Docs", href: "/docs" },
         { label: "Code", href: "/code" },
-        { label: "Blog", href: "/blog" },
       ],
     },
   },
