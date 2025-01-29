@@ -67,7 +67,7 @@ export type DataGridFeature<
   /**
    * An array of reactive states that should trigger a datagrid re-generation
    */
-  watch: WatchSource[];
+  watch?: WatchSource[];
 
   /**
    * Allows modifying the datagrid state as a whole.
@@ -132,13 +132,19 @@ export type DataGridFeature<
  * ```
  */
 export function createFeature<
-  TEntry extends DataGridEntry,
-  TFeatureName extends symbol,
-  TArgs extends unknown[],
-  TTypeRenderer extends TypeRenderMap<TEntry>,
->(featureDefinition: (...args: TArgs) => DataGridFeature<TEntry, TTypeRenderer, TFeatureName>) {
-  return featureDefinition;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TArgs extends any[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TFeature extends DataGridFeature<any, any, any>,
+  T extends (...args: TArgs) => CheckT<TFeature>,
+>(featureDefinition: T) {
+  return featureDefinition as T;
 }
+
+type CheckT<T> =
+  T extends DataGridFeature<infer A, TypeRenderMap<infer A>, infer C>
+    ? DataGridFeature<A, TypeRenderMap<A>, C>
+    : never;
 
 export type UseDataGridFeaturesOptions<TEntry extends DataGridEntry> = {
   columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, PropertyKey>[]>;
@@ -298,7 +304,7 @@ export const useDataGridFeatures = <
     });
   };
 
-  const watchSources: WatchSource[] = features.flatMap((f) => f.watch);
+  const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
