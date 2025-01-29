@@ -7,8 +7,8 @@ export default defineAppConfig({
     nav: {
       items: [
         { label: "Home", href: "/" },
-        { label: "Page 1", href: "/page-1" },
-        { label: "Page 2", href: "/page-2" },
+        { label: "Code", href: "/code" },
+        { label: "Blog", href: "/blog" },
       ],
     },
   },
