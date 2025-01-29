@@ -15,35 +15,36 @@ import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
 
 export type ModifyColumns<TEntry extends DataGridEntry> = {
-  func: (columns: Readonly<NormalizedColumnConfig<TEntry>[]>) => NormalizedColumnConfig<TEntry>[];
+  func: (
+    columns: Readonly<NormalizedColumnConfig<TEntry, PropertyKey>[]>,
+  ) => NormalizedColumnConfig<TEntry, PropertyKey>[];
 };
 
-export type TypeRender<TEntry extends DataGridEntry> = Record<
-  PropertyKey,
-  {
-    header?: Component;
-    cell: DataGridRendererCellComponent<TEntry>;
-  }
->;
+export type TypeRenderer<TEntry extends DataGridEntry> = {
+  header?: Component;
+  cell: DataGridRendererCellComponent<TEntry>;
+};
+
+export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, TypeRenderer<TEntry>>;
 
 /**
  * Normalized config for internal usage
  */
-export type NormalizedColumnConfig<TEntry extends DataGridEntry> = {
+export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes> = {
   key: keyof TEntry;
-  type?: PropertyKey;
+  type?: TTypes;
 };
 
 /**
  * ColumnConfig for the enduser
  */
-export type ColumnConfig<TEntry extends DataGridEntry> =
+export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
   | keyof TEntry
-  | NormalizedColumnConfig<TEntry>;
+  | NormalizedColumnConfig<TEntry, TTypes>;
 
 export type DataGridFeature<
   TEntry extends DataGridEntry,
-  TTypeRenderer extends TypeRender<TEntry>,
+  TTypeRenderer extends TypeRenderMap<TEntry>,
   TFeatureName extends symbol,
 > = {
   /**
@@ -82,7 +83,7 @@ export type DataGridFeature<
      * `iconComponent` of an action is shown after the header label.
      * The components must be ARIA-conform buttons.
      */
-    actions?: (column: NormalizedColumnConfig<TEntry>) => {
+    actions?: (column: NormalizedColumnConfig<TEntry, keyof TTypeRenderer>) => {
       iconComponent: Component;
       menuItems: Component<typeof OnyxMenuItem>[];
     }[];
@@ -113,13 +114,13 @@ export function createFeature<
   TEntry extends DataGridEntry,
   TFeatureName extends symbol,
   TArgs extends unknown[],
-  TTypeRenderer extends TypeRender<TEntry>,
+  TTypeRenderer extends TypeRenderMap<TEntry>,
 >(featureDefinition: (...args: TArgs) => DataGridFeature<TEntry, TTypeRenderer, TFeatureName>) {
   return featureDefinition;
 }
 
 export type UseDataGridFeaturesOptions<TEntry extends DataGridEntry> = {
-  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry>[]>;
+  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, PropertyKey>[]>;
   t: ReturnType<typeof injectI18n>["t"];
 };
 
@@ -160,7 +161,7 @@ export type UseDataGridFeaturesOptions<TEntry extends DataGridEntry> = {
 export const useDataGridFeatures = <
   TEntry extends DataGridEntry,
   TFeatureName extends symbol,
-  TTypeRenderer extends TypeRender<TEntry>,
+  TTypeRenderer extends TypeRenderMap<TEntry>,
   // Intersection with the empty array is necessary for TypeScript to infer the array entries as tuple values instead of an array
   // e.g. (Feature1 | Feature2)[] vs. [Feature1, Feature2]
   // The inference of tuple values allows us to create types that are more precise
