@@ -10,14 +10,14 @@ const handleNavigation = (href: string) => navigateTo(href);
 
 <template>
   <OnyxNavBar
-    :app-name="onyxDocs.app.name"
-    :logo-url="onyxDocs.app.logo"
+    :app-name="onyxDocs.app?.name"
+    :logo-url="onyxDocs.app?.logo"
     with-back-button
     @navigate-to-start="router.push('/')"
     @navigate-back="router.back"
   >
     <OnyxNavButton
-      v-for="item in onyxDocs.nav.items"
+      v-for="item in onyxDocs.nav?.items"
       :key="item.href"
       v-bind="item"
       :active="item.href === route.path"
