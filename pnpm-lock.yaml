@@ -380,6 +380,9 @@ importers:
       '@sit-onyx/nuxt':
         specifier: workspace:^
         version: link:../nuxt
+      sass-embedded:
+        specifier: 1.86.0
+        version: 1.86.0
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
