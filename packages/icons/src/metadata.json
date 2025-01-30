@@ -1244,6 +1244,10 @@
     "category": "Action & Interface",
     "aliases": ["lattice", "matrix", "Gitter", "Raster"]
   },
+  "hacker": {
+    "category": "Security & Protection",
+    "aliases": []
+  },
   "hand-coin": {
     "category": "Finance",
     "aliases": ["coin-giving", "currency-hold", "Münze in Hand", "Währung halten"]
@@ -1761,6 +1765,10 @@
   "pallet-boxes": {
     "category": "Business & Statistics",
     "aliases": ["Palette", "lager", "Ware", "Pakete", "package", "stock", "warehouse"]
+  },
+  "paragraph": {
+    "category": "School & Education",
+    "aliases": []
   },
   "parking": {
     "category": "Transport & Travel",
