@@ -1,13 +1,43 @@
-import type { DataGridFeature } from "./features";
+import type { KeysOfUnion, MaybePick, UnionByKey } from "../../types";
+import type { ColumnConfig, DataGridFeature, TypeRenderMap } from "./features";
 
 export type DataGridMetadata = Record<string, unknown>;
+
+/**
+ * Unwraps the defined typeRenderers
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> =
+  // Only expose named types, symbols are intended for internal types
+  Exclude<
+    // Get all keys of the merged type
+    KeysOfUnion<
+      // Take the merged `typeRenderer` type
+      MaybePick<
+        // Merge the values together
+        UnionByKey<
+          // For each feature
+          TFeatures[number]
+        >,
+        "typeRenderer"
+      >
+    >,
+    symbol
+  >;
 
 /**
  * @experimental The DataGrid is still working in progress and the props will change in the future.
  */
 export type OnyxDataGridProps<
-  TEntry extends DataGridEntry = DataGridEntry,
-  TFeatures extends DataGridFeature<TEntry, symbol>[] = DataGridFeature<TEntry, symbol>[],
+  TEntry extends DataGridEntry,
+  TTypeRenderer extends TypeRenderMap<TEntry>,
+  TFeatureName extends symbol,
+  TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = DataGridFeature<
+    TEntry,
+    TTypeRenderer,
+    TFeatureName
+  >[],
+  TTypes = RenderTypesFromFeature<TFeatures>,
 > = {
   /**
    * Features that should be applied.
@@ -19,7 +49,7 @@ export type OnyxDataGridProps<
   /**
    * The order of and which columns should be rendered.
    */
-  columns: (keyof TEntry)[];
+  columns: ColumnConfig<TEntry, TTypes>[];
   /**
    * The data that should be used to fill the datagrid.
    */
