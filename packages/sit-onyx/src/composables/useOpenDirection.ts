@@ -3,7 +3,7 @@ import { ref, unref, type ShallowRef } from "vue";
 export type OpenDirection = "top" | "bottom";
 
 export const useOpenDirection = (
-  element: Readonly<ShallowRef<Element | null | undefined | HTMLElement>>,
+  element: Readonly<ShallowRef<Element | null | undefined>>,
   defaultDirection: OpenDirection = "bottom",
 ) => {
   const openDirection = ref<OpenDirection>(defaultDirection);

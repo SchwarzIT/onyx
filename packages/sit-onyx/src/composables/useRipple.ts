@@ -7,7 +7,9 @@ export type RippleInstance = {
   animationEnded: boolean;
 };
 
-export const useRipple = (container: Readonly<ShallowRef<HTMLElement | null>>) => {
+export const useRipple = (
+  container: Readonly<ShallowRef<Pick<HTMLElement, "getBoundingClientRect"> | null>>,
+) => {
   /** Whether the mouse/pointer is currently hold down. */
   const isPointerDown = ref(false);
   const ripples = reactive(new Map<string, RippleInstance>());
