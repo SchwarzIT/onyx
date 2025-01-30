@@ -33,6 +33,7 @@ export type TypeRenderer<TEntry extends DataGridEntry> = {
 
 /**
  * Maps a "type" key to a column renderer.
+ * `symbol` keys are intended for internal/helper columns.
  */
 export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, TypeRenderer<TEntry>>;
 
