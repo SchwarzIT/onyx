@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { ref, watchEffect } from "vue";
+import { useArgs } from "storybook/internal/preview-api";
+import { ref, watch, watchEffect } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
+import type { OnyxColorSchemeDialogProps } from "./types";
 
 /**
  * Pre-built dialog where the user can select which color scheme (light/dark mode or auto) to use for the application.
@@ -12,20 +14,29 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
   title: "Navigation/modules/ColorSchemeDialog",
   component: OnyxColorSchemeDialog,
   decorators: [
-    (story, ctx) => ({
-      components: { story, OnyxButton },
-      setup: () => {
-        const isOpen = ref(false);
-        watchEffect(() => {
-          ctx.args.open = isOpen.value;
-        });
-        return { isOpen };
-      },
-      template: `<div>
-          <OnyxButton label="Show dialog" @click="isOpen = true" />
-          <story :open="isOpen" @close="isOpen = false;" />
-        </div>`,
-    }),
+    (story) => {
+      const [args, updateArgs] = useArgs<OnyxColorSchemeDialogProps>();
+
+      return {
+        components: { story, OnyxButton },
+        setup: () => {
+          const isOpen = ref(false);
+
+          watch(
+            () => args.open,
+            (newOpen) => (isOpen.value = !!newOpen),
+            { immediate: true },
+          );
+
+          watchEffect(() => updateArgs({ open: isOpen.value }));
+          return { isOpen };
+        },
+        template: `<div>
+            <OnyxButton label="Show dialog" @click="isOpen = true" />
+            <story :open="isOpen" @close="isOpen = false;" />
+          </div>`,
+      };
+    },
   ],
 };
 
