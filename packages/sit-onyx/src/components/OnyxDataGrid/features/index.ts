@@ -15,7 +15,7 @@ import type { DataGridEntry, DataGridMetadata } from "../types";
 import HeaderCell from "./HeaderCell.vue";
 
 /**
- * Function type for modifying the normalized column configuration
+ * Function type for modifying the normalized column configuration.
  */
 export type ModifyColumns<TEntry extends DataGridEntry> = {
   func: (
@@ -38,19 +38,19 @@ export type TypeRenderer<TEntry extends DataGridEntry> = {
 export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, TypeRenderer<TEntry>>;
 
 /**
- * Normalized config for internal usage
- */
-export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
-  key: keyof TEntry;
-  type?: TTypes;
-};
-
-/**
  * ColumnConfig as it can be defined by the user.
  */
 export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
   | keyof TEntry
   | NormalizedColumnConfig<TEntry, TTypes>;
+
+/**
+ * Normalized column config for internal usage.
+ */
+export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
+  key: keyof TEntry;
+  type?: TTypes;
+};
 
 /**
  * Complete Type for a single data grid feature.
@@ -113,7 +113,7 @@ export type DataGridFeature<
 };
 
 /**
- * Helper function that infers the generics of the DataGridFeature type.
+ * Helper function that checks the generics of the DataGridFeature type, without breaking type inference.
  * @example
  * ```ts
  *
@@ -133,16 +133,17 @@ export type DataGridFeature<
  * ```
  */
 export function createFeature<
+  // any must be used here, otherwise the type inference breaks
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TArgs extends any[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TFeature extends DataGridFeature<any, any, any>,
-  T extends (...args: TArgs) => CheckT<TFeature>,
+  T extends (...args: TArgs) => CheckDataGridFeature<TFeature>,
 >(featureDefinition: T) {
-  return featureDefinition as T;
+  return featureDefinition;
 }
 
-type CheckT<T> =
+type CheckDataGridFeature<T> =
   T extends DataGridFeature<infer A, TypeRenderMap<infer A>, infer C>
     ? DataGridFeature<A, TypeRenderMap<A>, C>
     : never;
