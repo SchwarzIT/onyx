@@ -8,7 +8,7 @@ test("should render", async ({ mount }) => {
     <OnyxAvatarStack>
       {Array.from({ length: 10 }, (_, index) => {
         const label = `John Doe ${index + 1}`;
-        return <OnyxAvatar label={label} key={index} />;
+        return <OnyxAvatar fullName={label} key={index} />;
       })}
     </OnyxAvatarStack>,
   );
@@ -23,7 +23,7 @@ test("should wrap when exceeding the width", async ({ mount }) => {
     <OnyxAvatarStack style={{ width: "24rem" }}>
       {Array.from({ length: 24 }, (_, index) => {
         const label = `John Doe ${index + 1}`;
-        return <OnyxAvatar label={label} key={index} />;
+        return <OnyxAvatar fullName={label} key={index} />;
       })}
     </OnyxAvatarStack>,
   );

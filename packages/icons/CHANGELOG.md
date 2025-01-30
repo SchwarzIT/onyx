@@ -1,5 +1,16 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.13
+
+### Minor Changes
+
+- 9319044: feat: update icons
+
+  #### New icons
+
+  - hacker
+  - paragraph
+
 ## 1.0.0-beta.12
 
 ### Major Changes
