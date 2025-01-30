@@ -88,13 +88,10 @@ export const GroupedData = {
 /**
  * Creates a new column for use as Storybook example.
  */
-function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEntry, object> {
+function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEntry> {
   return {
     key: `column-${columnNumber}`,
-    component: (props) => h("span", props.title),
-    props: {
-      title: `Column ${columnNumber}`,
-    },
+    component: () => h("span", `Column ${columnNumber}`),
   };
 }
 
