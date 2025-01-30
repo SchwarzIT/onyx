@@ -7,7 +7,7 @@ import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type {
-  DataGridRendererCellComponent,
+  DataGridRendererCell,
   DataGridRendererColumn,
   DataGridRendererRow,
 } from "../OnyxDataGridRenderer/types";
@@ -27,8 +27,8 @@ export type ModifyColumns<TEntry extends DataGridEntry> = {
  * Defines how a specific column type should be rendered.
  */
 export type TypeRenderer<TEntry extends DataGridEntry> = {
-  header?: Component;
-  cell: DataGridRendererCellComponent<TEntry>;
+  header?: Omit<DataGridRendererColumn<TEntry>, "key">;
+  cell: Omit<DataGridRendererCell<TEntry>, "props">;
 };
 
 /**
@@ -204,6 +204,19 @@ export const useDataGridFeatures = <
       .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
   });
 
+  const defaultRender: TypeRenderer<TEntry> = {
+    header: { component: HeaderCell },
+    cell: { component: (props) => String(props.modelValue) },
+  };
+  const getCellComponent = (type?: PropertyKey) => {
+    const res = typeRenderer.get(type!)?.cell;
+    return res || defaultRender.cell!;
+  };
+  const getHeaderComponent = (type?: PropertyKey) => {
+    const res = typeRenderer.get(type!)?.header;
+    return res || defaultRender.header!;
+  };
+
   /**
    * Maps type names to their respective component.
    */
@@ -219,14 +232,10 @@ export const useDataGridFeatures = <
       .map((feature) => feature.actions)
       .filter((actions) => !!actions);
 
-    const getHeaderComponent = (type?: PropertyKey): Component => {
-      const res = typeRenderer.get(type!)?.header;
-      return res ?? HeaderCell;
-    };
-
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
       const key = column.key;
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
+      const header = getHeaderComponent(column.type);
 
       if (actions.length > 1) {
         const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
@@ -250,33 +259,21 @@ export const useDataGridFeatures = <
         );
 
         return {
+          ...header,
           key,
           component: () =>
-            h(
-              getHeaderComponent(column.type),
-              { label: String(key) },
-              { actions: () => flyoutMenu },
-            ),
+            h(header.component, { label: String(key) }, { actions: () => flyoutMenu }),
         };
       }
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
       return {
+        ...header,
         key,
         component: () =>
-          h(
-            getHeaderComponent(column.type),
-            { label: String(key) },
-            { actions: () => iconComponent },
-          ),
+          h(header.component, { label: String(key) }, { actions: () => iconComponent }),
       };
     });
-  };
-
-  const defaultRender: DataGridRendererCellComponent<TEntry> = (props) => String(props.modelValue);
-  const getColComponent = (type?: PropertyKey) => {
-    const res = typeRenderer.get(type!)?.cell;
-    return res || defaultRender;
   };
 
   const createRendererRows = (
@@ -290,7 +287,7 @@ export const useDataGridFeatures = <
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type }) => {
           cells[key] = {
-            component: getColComponent(type),
+            ...getCellComponent(type),
             props: { row: entry, modelValue: entry[key] },
           };
           return cells;
