@@ -1,5 +1,16 @@
 # demo-app
 
+## 1.0.0-beta.137
+
+### Minor Changes
+
+- 3bc89e8: chore: Implement consistent usage of useTemplateRef
+
+### Patch Changes
+
+- Updated dependencies [3bc89e8]
+  - sit-onyx@1.0.0-beta.137
+
 ## 1.0.0-beta.136
 
 ### Patch Changes
