@@ -1,5 +1,4 @@
 import { inject, type InjectionKey } from "vue";
-import type { LinkTarget } from "../components/OnyxRouterLink/types";
 import { isExternalLink } from "../utils";
 
 /**
@@ -9,7 +8,8 @@ export const useLink = () => {
   const router = inject(ROUTER_INJECTION_KEY, undefined);
 
   /**
-   * Navigates to the given URL by considering the user provided router if the link is internal.
+   * Handles the navigation with the user provided router if available and the link is internal.
+   * Otherwise the default browser behavior of the `<a>` tag will handle the navigation.
    *
    * @param e Mouse event of a `<a>` element, e.g. from a click listener.
    * @example
@@ -22,18 +22,19 @@ export const useLink = () => {
    *   <a
    *     :href="props.href"
    *     :target="props.target"
-   *     @click="navigate($event, props.href, props.target)"
+   *     @click="navigate($event, props.href)"
    *   >
    *     <slot></slot>
    *   </a>
    * </template>
    * ```
    */
-  const navigate = (e: MouseEvent, href: string, target: LinkTarget) => {
-    if (!shouldHandleNavigation(e)) return;
-    const isExternal = isExternalLink(href);
-    if (isExternal || !router) window.open(href, target);
-    else router.push(href);
+  const navigate = (e: MouseEvent, href: string) => {
+    if (router && !isExternalLink(href) && shouldHandleNavigation(e)) {
+      // prevent actual navigation so we can handle this with the user provided router
+      e.preventDefault();
+      router.push(href);
+    }
   };
 
   return { navigate };
@@ -58,8 +59,6 @@ const shouldHandleNavigation = (e: MouseEvent) => {
     if (target === "_blank" || href?.startsWith("#")) return;
   }
 
-  // prevent actual navigation so we can handle this with the user provided router
-  e.preventDefault();
   return true;
 };
 

@@ -22,7 +22,7 @@ const { navigate } = useLink();
     :href="props.href"
     :target="props.target"
     :rel="props.target === '_blank' ? 'noreferrer' : undefined"
-    @click="navigate($event, props.href, props.target)"
+    @click="navigate($event, props.href)"
   >
     <slot></slot>
 
