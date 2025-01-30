@@ -76,3 +76,9 @@ watch(
     </template>
   </OnyxDataGridRenderer>
 </template>
+
+<style lang="scss">
+.onyx-data-grid .onyx-table {
+  table-layout: fixed;
+}
+</style>
