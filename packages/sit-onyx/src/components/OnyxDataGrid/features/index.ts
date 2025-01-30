@@ -206,27 +206,28 @@ export const useDataGridFeatures = <
       .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
   });
 
-  const defaultRender: TypeRenderer<TEntry> = {
-    header: { component: HeaderCell },
-    cell: { component: (props) => String(props.modelValue) },
-  };
-  const getCellComponent = (type?: PropertyKey) => {
-    const res = typeRenderer.get(type!)?.cell;
-    return res || defaultRender.cell!;
-  };
-  const getHeaderComponent = (type?: PropertyKey) => {
-    const res = typeRenderer.get(type!)?.header;
-    return res || defaultRender.header!;
-  };
-
   /**
    * Maps type names to their respective component.
    */
-  const typeRenderer = new Map(
+  const typeRendererMap = new Map(
     features
       .flatMap(({ typeRenderer }) => typeRenderer! && allObjectEntries(typeRenderer))
       .filter(Boolean),
   );
+
+  const fallbackRenderer: Required<TypeRenderer<TEntry>> = {
+    header: { component: HeaderCell },
+    cell: { component: (props) => String(props.modelValue) },
+  };
+  /**
+   * Returns a renderer for any given component and type.
+   * Uses the fallbackRenderer if necessary.
+   */
+  const getRendererFor = <TComponent extends "cell" | "header">(
+    component: TComponent,
+    type?: PropertyKey,
+  ): NonNullable<TypeRenderer<TEntry>[TComponent]> =>
+    typeRendererMap.get(type!)?.[component] ?? fallbackRenderer[component]; // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
 
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
@@ -237,7 +238,7 @@ export const useDataGridFeatures = <
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
       const key = column.key;
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
-      const header = getHeaderComponent(column.type);
+      const header = getRendererFor("header", column.type);
 
       if (actions.length > 1) {
         const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
@@ -289,7 +290,7 @@ export const useDataGridFeatures = <
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type }) => {
           cells[key] = {
-            ...getCellComponent(type),
+            ...getRendererFor("cell", type),
             props: { row: entry, modelValue: entry[key] },
           };
           return cells;
