@@ -110,6 +110,9 @@ export * from "./components/OnyxRadioButton/types";
 export { default as OnyxRadioGroup } from "./components/OnyxRadioGroup/OnyxRadioGroup.vue";
 export * from "./components/OnyxRadioGroup/types";
 
+export { default as OnyxRouterLink } from "./components/OnyxRouterLink/OnyxRouterLink.vue";
+export * from "./components/OnyxRouterLink/types";
+
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types";
 
@@ -163,6 +166,7 @@ export * from "./components/OnyxForm/types";
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
 export * from "./composables/themeTransition";
+export * from "./composables/useLink";
 
 export { provideI18n, type TranslationFunction } from "./i18n";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n";
@@ -170,4 +174,5 @@ export * from "./types";
 export { createOnyx } from "./utils/plugin";
 
 export * from "./composables/themeTransition";
+export * from "./utils/router";
 export { normalizedIncludes } from "./utils/strings";

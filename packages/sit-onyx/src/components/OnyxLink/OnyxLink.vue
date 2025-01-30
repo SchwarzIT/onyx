@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { injectI18n } from "../../i18n";
 import OnyxExternalLinkIcon from "../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxLinkProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
@@ -15,25 +14,13 @@ defineSlots<{
    */
   default(): unknown;
 }>();
-
-const { t } = injectI18n();
 </script>
 
 <template>
-  <a
-    class="onyx-component onyx-link"
-    :href="props.href"
-    :target="props.target"
-    :rel="props.target === '_blank' ? 'noreferrer' : undefined"
-  >
+  <OnyxRouterLink class="onyx-component onyx-link" v-bind="props">
     <slot></slot>
-
-    <OnyxVisuallyHidden v-if="props.target === '_blank'">
-      {{ t("link.opensExternally") }}
-    </OnyxVisuallyHidden>
-
     <OnyxExternalLinkIcon v-bind="props" />
-  </a>
+  </OnyxRouterLink>
 </template>
 
 <style lang="scss">

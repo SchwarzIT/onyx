@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
 import { computed } from "vue";
-import { injectI18n } from "../../../../i18n";
+import { extractLinkProps } from "../../../../utils/router";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
 import { type OnyxMenuItemProps } from "./types";
 
 defineSlots<{
@@ -13,11 +13,7 @@ defineSlots<{
   default: () => unknown;
 }>();
 
-const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
-  target: "_self",
-});
-
-const { t } = injectI18n();
+const props = defineProps<OnyxMenuItemProps>();
 
 const {
   elements: { listItem, menuItem },
@@ -40,16 +36,13 @@ const headlessProps = computed(() =>
     class="onyx-component onyx-menu-item"
     v-bind="listItem"
   >
-    <a
-      v-if="props.href"
+    <OnyxRouterLink
+      v-if="props.link"
       class="onyx-menu-item__trigger"
-      :href="props.href"
-      :target="props.target"
-      :rel="props.target === '_blank' ? 'noreferrer' : undefined"
-      v-bind="headlessProps"
+      v-bind="{ ...headlessProps, ...extractLinkProps(props.link) }"
     >
       <slot></slot>
-    </a>
+    </OnyxRouterLink>
 
     <button
       v-else
@@ -59,10 +52,6 @@ const headlessProps = computed(() =>
       v-bind="headlessProps"
     >
       <slot></slot>
-
-      <OnyxVisuallyHidden v-if="props.target === '_blank'">
-        {{ t("link.opensExternally") }}
-      </OnyxVisuallyHidden>
     </button>
   </OnyxListItem>
 </template>

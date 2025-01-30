@@ -1,12 +1,7 @@
 import type { OnyxColor } from "../../../../types";
-import type { OnyxLinkProps } from "../../../OnyxLink/types";
+import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
-export type OnyxMenuItemProps = Pick<OnyxLinkProps, "target"> & {
-  /**
-   * URL that the menu item points to.
-   * If the property is set the menuitem will act as an anchor, otherwise it will act as an button.
-   */
-  href?: string;
+export type OnyxMenuItemProps = WithLinkProp & {
   /**
    * Whether the menu item is currently active.
    * This is the case if the given link is currently opened.

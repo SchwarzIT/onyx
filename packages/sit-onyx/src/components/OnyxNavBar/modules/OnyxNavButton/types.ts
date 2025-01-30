@@ -1,6 +1,6 @@
-import type { OnyxExternalLinkIcon } from "../../../OnyxExternalLinkIcon/types";
+import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
-export type OnyxNavButtonProps = OnyxExternalLinkIcon & {
+export type OnyxNavButtonProps = WithLinkProp<true> & {
   /**
    * Label to show inside the Nav item.
    * You can use the `default` slot to display custom content.

@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { extractLinkProps } from "../../../../utils/router";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxNavItemProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxNavItemProps>(), {
-  withExternalIcon: "auto",
-});
+const props = defineProps<OnyxNavItemProps>();
 
 const emit = defineEmits<{
   /**
@@ -20,18 +20,22 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
+
+const extractedLinkProps = computed(() => {
+  return props.link ? extractLinkProps(props.link) : undefined;
+});
 </script>
 
 <template>
   <OnyxMenuItem
     class="onyx-component onyx-nav-item"
     :active="props.active"
-    :href="props.href ?? 'javascript:void(0)'"
-    @click="props.href && emit('navigate', props.href, $event)"
+    :link="props.link"
+    @click="extractedLinkProps && emit('navigate', extractedLinkProps.href, $event)"
   >
     <slot>
       <span>{{ props.label }}</span>
-      <OnyxExternalLinkIcon v-bind="props" />
+      <OnyxExternalLinkIcon v-bind="extractedLinkProps" />
     </slot>
   </OnyxMenuItem>
 </template>

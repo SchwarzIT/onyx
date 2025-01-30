@@ -22,16 +22,20 @@ async function setupApp() {
     messages: { "en-US": enUS, "de-DE": deDE },
   });
 
-  const onyx = createOnyx({
-    i18n: { locale: i18n.global.locale, messages: { "de-DE": onyxDeDE, "ko-KR": onyxKoKR } },
-  });
-
   const router = createRouter({
     history: createWebHistory("/"),
     scrollBehavior: (_, __, savedPosition) => {
       return savedPosition ?? { top: 0 };
     },
     routes,
+  });
+
+  const onyx = createOnyx({
+    i18n: {
+      locale: i18n.global.locale,
+      messages: { "de-DE": onyxDeDE, "ko-KR": onyxKoKR },
+    },
+    router,
   });
 
   const app = createApp(App).use(i18n).use(router).use(onyx).use(createPinia());

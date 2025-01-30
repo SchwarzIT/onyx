@@ -65,16 +65,16 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavButton, { label: "Item 1", href: "/" }),
+      h(OnyxNavButton, { label: "Item 1", link: "/" }),
       h(
         OnyxNavButton,
-        { label: "Item 2", href: "/test" },
+        { label: "Item 2", link: "/test" },
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 2.1", href: "#" }),
-            h(OnyxNavItem, { label: "Nested item 2.2", href: "#", active: true }),
-            h(OnyxNavItem, { label: "Nested item 2.3", href: "https://onyx.schwarz" }),
+            h(OnyxNavItem, { label: "Nested item 2.1", link: "#" }),
+            h(OnyxNavItem, { label: "Nested item 2.2", link: "#", active: true }),
+            h(OnyxNavItem, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
           ],
         },
       ),
@@ -83,12 +83,12 @@ export const Default = {
         { label: "Item 3" },
         {
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 3.1", href: "#" }),
-            h(OnyxNavItem, { label: "Nested item 3.2", href: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#" }),
           ],
         },
       ),
-      h(OnyxNavButton, { label: "Item 4", href: "https://onyx.schwarz" }),
+      h(OnyxNavButton, { label: "Item 4", link: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2.2",
   },
@@ -161,20 +161,20 @@ export const WithOverflowingMobileContent = {
     ...WithContextArea.args,
     mobileBreakpoint: "xl",
     default: () => [
-      h(OnyxNavButton, { label: "Item 1", href: "/" }),
+      h(OnyxNavButton, { label: "Item 1", link: "/" }),
       h(
         OnyxNavButton,
-        { label: "Item 2", href: "/test" },
+        { label: "Item 2", link: "/test" },
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
           children: () =>
             Array.from({ length: 20 }, (_, index) =>
-              h(OnyxNavItem, { label: `Nested item 2.${index + 1}`, href: "#" }),
+              h(OnyxNavItem, { label: `Nested item 2.${index + 1}`, link: "#" }),
             ),
         },
       ),
       Array.from({ length: 20 }, (_, index) =>
-        h(OnyxNavButton, { label: `Item ${index + 3}`, href: "/" }),
+        h(OnyxNavButton, { label: `Item ${index + 3}`, link: "/" }),
       ),
     ],
     contextArea: () => [

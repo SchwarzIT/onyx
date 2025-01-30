@@ -96,7 +96,7 @@
     "empty": "This table is empty."
   },
   "link": {
-    "opensExternally": "Opens in a new tab."
+    "opensExternally": "(opens in a new tab)"
   },
   "navItemOptionsLabel": "Subpages of {label}",
   "navigation": {

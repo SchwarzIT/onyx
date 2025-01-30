@@ -14,10 +14,6 @@ const meta: Meta<typeof OnyxNavButton> = {
     default: {
       control: { type: "text" },
     },
-    withExternalIcon: {
-      options: ["auto", true, false],
-      control: { type: "radio" },
-    },
   },
 };
 
@@ -42,6 +38,19 @@ export const Default = {
 } satisfies Story;
 
 /**
+ * This example shows the nav item with external link.
+ */
+export const WithLink = {
+  args: {
+    label: "Documentation",
+    link: {
+      href: "https://onyx.schwarz",
+      target: "_blank",
+    },
+  },
+} satisfies Story;
+
+/**
  * This example shows an active nav button.
  */
 export const Active = {
@@ -59,7 +68,7 @@ export const WithChildren: Story = {
     ...Default.args,
     active: true,
     children: () =>
-      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { href: "#", active, label })),
+      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { link: "#", active, label })),
   },
   decorators: [
     (story) => ({
@@ -76,15 +85,5 @@ export const WithCustomContent = {
   args: {
     ...Default.args,
     default: ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
-  },
-} satisfies Story;
-
-/**
- * This example shows the nav item with external link.
- */
-export const WithExternalLink = {
-  args: {
-    label: "onyx",
-    href: "https://onyx.schwarz/",
   },
 } satisfies Story;

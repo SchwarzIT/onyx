@@ -33,6 +33,19 @@ export const Default = {
 } satisfies Story;
 
 /**
+ * This example shows the nav item with an external link.
+ */
+export const WithLink = {
+  args: {
+    label: "Documentation",
+    link: {
+      href: "https://onyx.schwarz",
+      target: "_blank",
+    },
+  },
+} satisfies Story;
+
+/**
  * This example shows an active nav item.
  */
 export const Active = {
@@ -49,15 +62,5 @@ export const WithCustomContent = {
   args: {
     ...Default.args,
     default: () => ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
-  },
-} satisfies Story;
-
-/**
- * This example shows the nav item with external link.
- */
-export const WithExternalLink = {
-  args: {
-    label: "onyx",
-    href: "https://onyx.schwarz/",
   },
 } satisfies Story;

@@ -23,11 +23,11 @@ const route = useRoute();
 const gridStore = useGridStore();
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Form Demo", href: "/form-demo" },
-  { label: "Layout Demo", href: "/layout-demo" },
-  { label: "Grid Demo", href: "/grid" },
-  { label: "Data-Grid Demo", href: "/data-grid" },
+  { label: "Home", link: "/" },
+  { label: "Form Demo", link: "/form-demo" },
+  { label: "Layout Demo", link: "/layout-demo" },
+  { label: "Grid Demo", link: "/grid" },
+  { label: "Data-Grid Demo", link: "/data-grid" },
 ] satisfies OnyxNavButtonProps[];
 
 const { store: colorScheme } = useColorMode({ disableTransition: false });
@@ -69,9 +69,9 @@ watch(
       >
         <OnyxNavButton
           v-for="item in navItems"
-          :key="item.href"
+          :key="item.link"
           v-bind="item"
-          :active="item.href === router.currentRoute.value.path"
+          :active="item.link === router.currentRoute.value.path"
           @navigate="router.push"
         />
 

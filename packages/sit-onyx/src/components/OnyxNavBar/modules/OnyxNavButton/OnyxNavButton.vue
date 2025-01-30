@@ -2,15 +2,16 @@
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject } from "vue";
 import { useMoreListChild } from "../../../../composables/useMoreList";
+import { extractLinkProps } from "../../../../utils/router";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_MORE_LIST_INJECTION_KEY } from "../../types";
 import NavButtonLayout from "./NavButtonLayout.vue";
+import NavButtonTrigger from "./NavButtonTrigger.vue";
 import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
-  withExternalIcon: "auto",
 });
 
 const emit = defineEmits<{
@@ -46,8 +47,9 @@ const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION
 const handleParentClick = (event: MouseEvent) => {
   if (isMobile?.value && hasChildren.value && !mobileChildrenOpen.value) {
     mobileChildrenOpen.value = true;
-  } else if (props.href) {
-    emit("navigate", props.href, event);
+  } else if (props.link) {
+    const href = extractLinkProps(props.link).href;
+    emit("navigate", href, event);
   }
 };
 </script>
@@ -66,18 +68,14 @@ const handleParentClick = (event: MouseEvent) => {
     :is-mobile="isMobile ?? false"
   >
     <template #button="{ trigger }">
-      <button
-        class="onyx-nav-button__trigger onyx-text"
-        :class="{ 'onyx-nav-button__link': props.href != undefined }"
-        role="menuitem"
+      <NavButtonTrigger
         :aria-label="props.label"
-        type="button"
-        v-bind="trigger"
+        v-bind="{ ...props, ...trigger }"
         @click="handleParentClick"
       >
         <slot>
           <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
-          <OnyxExternalLinkIcon v-bind="props" />
+          <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
         </slot>
 
         <OnyxIcon
@@ -85,7 +83,7 @@ const handleParentClick = (event: MouseEvent) => {
           class="onyx-nav-button__mobile-chevron"
           :icon="chevronRightSmall"
         />
-      </button>
+      </NavButtonTrigger>
     </template>
 
     <template v-if="slots.children" #options>

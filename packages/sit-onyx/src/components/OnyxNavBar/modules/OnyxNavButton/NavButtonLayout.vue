@@ -48,11 +48,11 @@ const mobileChildrenOpen = defineModel<boolean>("mobileChildrenOpen", { default:
       />
 
       <slot
-        v-if="!mobileChildrenOpen || props.href"
+        v-if="!mobileChildrenOpen || props.link"
         name="button"
         :trigger="{ trigger: {} }"
       ></slot>
-      <OnyxNavSeparator v-if="mobileChildrenOpen && props.href" orientation="horizontal" />
+      <OnyxNavSeparator v-if="mobileChildrenOpen && props.link" orientation="horizontal" />
 
       <ul
         v-show="mobileChildrenOpen"

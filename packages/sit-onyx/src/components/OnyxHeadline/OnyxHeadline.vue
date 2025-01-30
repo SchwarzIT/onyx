@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { normalizeUrlHash } from "../../utils/strings";
+import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxHeadlineProps } from "./types";
@@ -43,7 +44,7 @@ const copyLink = async (hash: string) => {
     :id="normalizedHash"
     :class="['onyx-component', 'onyx-headline', `onyx-headline--${showAs}`]"
   >
-    <a
+    <OnyxRouterLink
       v-if="normalizedHash"
       :href="`#${normalizedHash}`"
       target="_self"
@@ -53,7 +54,7 @@ const copyLink = async (hash: string) => {
     >
       <OnyxVisuallyHidden>{{ t("headline.copyLinkTo") }}</OnyxVisuallyHidden>
       <slot />
-    </a>
+    </OnyxRouterLink>
 
     <slot v-else />
   </component>

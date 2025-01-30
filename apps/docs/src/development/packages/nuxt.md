@@ -25,6 +25,7 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt).
 - Auto import of all onyx components
 - Automatic setup of global styles
 - Automatic integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/)
+- Automatic integration with [Nuxt routing](https://nuxt.com/docs/getting-started/routing)
 
 ## Quick Setup
 
