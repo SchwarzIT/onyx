@@ -112,10 +112,10 @@ watch(type, () => (ariaPattern.value = createPattern()));
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
 
-const tooltipWrapper = useTemplateRef("tooltipWrapperRef");
-const tooltipRef = useTemplateRef("tooltipRef");
-const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapper, "top");
-const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapper, tooltipRef);
+const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
+const tooltipRef = useTemplateRef("tooltipRefEl");
+const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
+const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
@@ -139,9 +139,9 @@ watch(isVisible, async () => {
 </script>
 
 <template>
-  <div ref="tooltipWrapperRef" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
+  <div ref="tooltipWrapperRefEl" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
     <div
-      ref="tooltipRef"
+      ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
     >

@@ -10,7 +10,7 @@ export type UseCssVariableValueOptions = {
    *
    * @default document.documentElement
    */
-  element?: Readonly<ShallowRef<HTMLDivElement | null>>;
+  element?: Readonly<ShallowRef<HTMLElement | null>>;
   /**
    * If `true`, the value will not be calculated.
    */

@@ -34,7 +34,7 @@ export type TabsInjectionKey<TValue extends PropertyKey = PropertyKey> = Injecti
    * Ref to the parent tabs element where the child tabs should be teleported to
    * to maintain the correct HTML structure.
    */
-  panel: Readonly<ShallowRef<HTMLDivElement | null>>;
+  panel: Readonly<ShallowRef<HTMLElement | null>>;
   /**
    * Tab size passed down from the parent so it can be set once for all tabs.
    */
